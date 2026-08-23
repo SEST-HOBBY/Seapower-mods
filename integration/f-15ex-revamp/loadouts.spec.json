@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "target_mod": "F-15 EX Eagle II (dingtools)",
+    "patch_position": "above the F-15EX mod, below Dingtools Weapon Pack",
+    "schema_note": "weapon_id values are TBD until mods-source/ export lands; resolve against the exported INIs, then emit patch INIs copying the F-15EX mod's own loadout syntax. 'stations' are role groupings, not final hardpoint numbers — map to the mod's real station layout during emission.",
+    "sources": {
+      "dingtools-weapon-pack": "AIM-9X, AIM-120C-7, AIM-120D-3, AIM-260A, GBU-31/32 (AG list truncated — confirm SDBs)",
+      "murder-hornet": "AGM-84D, AIM-174B",
+      "unresolved": "AGM-158B JASSM-ER, AGM-158C LRASM — check Dingtools AG list and U.S. Navy 2027; else clone from an existing ASM/ALCM definition"
+    }
+  },
+  "loadouts": [
+    {
+      "key": "air_superiority_plus",
+      "name": "Air Superiority+ (12x AIM-120D-3, 2x AIM-9X)",
+      "role": "air-to-air, maximum magazine",
+      "stores": [
+        {"weapon": "AIM-120D-3", "count": 12, "source": "dingtools-weapon-pack", "weapon_id": "TBD"},
+        {"weapon": "AIM-9X", "count": 2, "source": "dingtools-weapon-pack", "weapon_id": "TBD"}
+      ]
+    },
+    {
+      "key": "jatm_sniper",
+      "name": "JATM Sniper (6x AIM-260A, 4x AIM-120D-3, 2x AIM-9X)",
+      "role": "long-range air-to-air / AWACS-tanker hunting",
+      "stores": [
+        {"weapon": "AIM-260A", "count": 6, "source": "dingtools-weapon-pack", "weapon_id": "TBD"},
+        {"weapon": "AIM-120D-3", "count": 4, "source": "dingtools-weapon-pack", "weapon_id": "TBD"},
+        {"weapon": "AIM-9X", "count": 2, "source": "dingtools-weapon-pack", "weapon_id": "TBD"}
+      ]
+    },
+    {
+      "key": "maritime_strike",
+      "name": "Maritime Strike (4x AGM-158C LRASM, 4x AIM-120D-3, 2x AIM-9X)",
+      "role": "standoff anti-ship",
+      "stores": [
+        {"weapon": "AGM-158C LRASM", "count": 4, "source": "unresolved", "weapon_id": "TBD", "fallback": "clone new weapon def from existing ASM"},
+        {"weapon": "AIM-120D-3", "count": 4, "source": "dingtools-weapon-pack", "weapon_id": "TBD"},
+        {"weapon": "AIM-9X", "count": 2, "source": "dingtools-weapon-pack", "weapon_id": "TBD"}
+      ]
+    },
+    {
+      "key": "standoff_land_attack",
+      "name": "Standoff Land Attack (5x AGM-158B JASSM-ER, 4x AIM-120D-3)",
+      "role": "standoff land strike",
+      "stores": [
+        {"weapon": "AGM-158B JASSM-ER", "count": 5, "source": "unresolved", "weapon_id": "TBD", "fallback": "clone new weapon def from existing ALCM"},
+        {"weapon": "AIM-120D-3", "count": 4, "source": "dingtools-weapon-pack", "weapon_id": "TBD"}
+      ]
+    },
+    {
+      "key": "quicksink",
+      "name": "Quicksink (4x GBU-31 anti-ship JDAM, 6x AIM-120D-3, 2x AIM-9X)",
+      "role": "close-in anti-ship / finisher",
+      "stores": [
+        {"weapon": "GBU-31", "count": 4, "source": "dingtools-weapon-pack", "weapon_id": "TBD"},
+        {"weapon": "AIM-120D-3", "count": 6, "source": "dingtools-weapon-pack", "weapon_id": "TBD"},
+        {"weapon": "AIM-9X", "count": 2, "source": "dingtools-weapon-pack", "weapon_id": "TBD"}
+      ]
+    },
+    {
+      "key": "sdb_truck",
+      "name": "SDB Truck (16x SDB, 4x AIM-120D-3, 2x AIM-9X)",
+      "role": "high-density precision strike",
+      "stores": [
+        {"weapon": "GBU-39/53-class SDB", "count": 16, "source": "dingtools-weapon-pack (confirm)", "weapon_id": "TBD"},
+        {"weapon": "AIM-120D-3", "count": 4, "source": "dingtools-weapon-pack", "weapon_id": "TBD"},
+        {"weapon": "AIM-9X", "count": 2, "source": "dingtools-weapon-pack", "weapon_id": "TBD"}
+      ]
+    },
+    {
+      "key": "harpoon_classic",
+      "name": "Harpoon Classic (4x AGM-84D, 6x AIM-120D-3, 2x AIM-9X)",
+      "role": "anti-ship, guaranteed-available weapons",
+      "stores": [
+        {"weapon": "AGM-84D", "count": 4, "source": "murder-hornet", "weapon_id": "TBD"},
+        {"weapon": "AIM-120D-3", "count": 6, "source": "dingtools-weapon-pack", "weapon_id": "TBD"},
+        {"weapon": "AIM-9X", "count": 2, "source": "dingtools-weapon-pack", "weapon_id": "TBD"}
+      ]
+    },
+    {
+      "key": "big_stick_whatif",
+      "name": "WHAT-IF: Big Stick (4x AIM-174B, 6x AIM-120D-3)",
+      "role": "very-long-range intercept (fictional integration)",
+      "whatif": true,
+      "stores": [
+        {"weapon": "AIM-174B", "count": 4, "source": "murder-hornet", "weapon_id": "TBD"},
+        {"weapon": "AIM-120D-3", "count": 6, "source": "dingtools-weapon-pack", "weapon_id": "TBD"}
+      ]
+    }
+  ]
+}
