@@ -10,8 +10,8 @@ Analysis of the 109-mod subscription list in `data/mod-catalog.json`. Everything
 
 | Mod | Why | Caveat before removing |
 |---|---|---|
-| [DEPRECATED] E-7A Wedgetail (Pog Frog) | Marked deprecated by its author | None — safe to drop |
-| [DEPRECATED] S-70B-2 Seahawk (Pog Frog) | Marked deprecated by its author | Description body still says "currently WIP" — text and title disagree, so confirm current state on the Workshop page first |
+| [DEPRECATED] E-7A Wedgetail (Pog Frog) | Marked deprecated by its author | **KEEP (revised 2026-08-23): SEST_RAAF_Bases depends on it** (Williamtown AEW&C wing) |
+| [DEPRECATED] S-70B-2 Seahawk (Pog Frog) | Marked deprecated by its author | **KEEP (revised 2026-08-23): SEST_RAN_Fleet and SEST_RAAF_Bases depend on it** (LHD air groups, Townsville) |
 | [DEPRECATED] F-35C (MyGo) | Integrated into **Modern US Navy** | **F-35C Alt. Loadouts (Prof_CH4OS) explicitly targets this mod** — retarget it first. **Modern US Airbase** also lists an F-35C among its aircraft; if that references this standalone (rather than bundling its own), it breaks too. Verify both |
 | [DEPRECATED] F/A-18E/F Super Hornet (MyGo) | Integrated into **Modern US Navy** | **Murder Hornet's target F/A-18E/F mod is unconfirmed** (its author names no target) — identify it before removing this. **Modern US Airbase** lists an F/A-18F with the same caveat as above |
 
