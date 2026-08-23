@@ -28,13 +28,20 @@
 [CmdletBinding()]
 param(
     [string]$WorkshopContentDir,
-    [string]$DestDir = (Join-Path $PSScriptRoot "..\mods-source"),
+    [string]$DestDir,
     [switch]$IncludeVanilla,
     [string[]]$TextExtensions = @(".ini", ".txt", ".json", ".cfg", ".xml", ".md", ".yaml", ".yml", ".csv"),
     [long]$MaxFileBytes = 2MB
 )
 
 $ErrorActionPreference = "Stop"
+
+# $PSScriptRoot can be empty inside param() defaults on Windows PowerShell,
+# so the default destination is resolved here in the body instead.
+if (-not $DestDir) {
+    $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
+    $DestDir = Join-Path $scriptDir "..\mods-source"
+}
 
 function Get-SteamLibraries {
     $steamRoots = @()
