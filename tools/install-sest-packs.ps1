@@ -32,7 +32,8 @@ $Packs = @(
     "integration\f-35c-jatm\SEST_F-35C_JATM",
     "integration\raaf-f-35a-jatm\SEST_RAAF_F-35A_JATM",
     "integration\raaf-bases\SEST_RAAF_Bases",
-    "integration\ran-fleet\SEST_RAN_Fleet"
+    "integration\ran-fleet\SEST_RAN_Fleet",
+    "integration\jmsdf-mogami\SEST_JMSDF_Mogami"
 )
 
 function Get-SteamLibraries {
@@ -98,6 +99,17 @@ foreach ($rel in $Packs) {
     $files = (Get-ChildItem -LiteralPath $dest -Recurse -File).Count
     Write-Host ("  {0}  {1,-24} {2,3} files" -f $action, $name, $files)
     $installed++
+}
+
+# --- Missions ----------------------------------------------------------------
+$missionSrc = Join-Path $repoRoot "integration\missions"
+if (Test-Path $missionSrc) {
+    $missionDest = Join-Path $StreamingAssetsDir "user\missions\user_missions"
+    New-Item -ItemType Directory -Force -Path $missionDest | Out-Null
+    foreach ($m in Get-ChildItem -LiteralPath $missionSrc -Filter "*.ini") {
+        Copy-Item -LiteralPath $m.FullName -Destination $missionDest -Force
+        Write-Host ("  mission    {0}" -f $m.Name)
+    }
 }
 
 Write-Host "`n$installed of $($Packs.Count) packs in place."
