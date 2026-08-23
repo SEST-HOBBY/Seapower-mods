@@ -1,0 +1,276 @@
+Change log
+----------
+[u8.19]
+-Added Cyrano I and Cyrano II to MultiModeRadar functionality
+-Added English fallback values for all other languages
+-Removed INI-Patcher
+-Updated existing INI patches to use the base game patcher instead
+-Fixed Nullrefs
+
+[u8.18]
+-Added Pave Tack to F-4E (USAF)
+-Fixed aircrafts that are in preparation or awaiting not saving their loadouts when saving the game
+-Fixed aircrafts that are in preparation or awaiting not loading their loadout saves, not that they had any to load, see fix above
+-Fixed salvo settings not being applied when loading saves.
+-Corrected F-18A loadouts, added AGM-122 SideARM, reduced AN/AAS-38A unlock date from 1993 to 1989, removed D-704
+
+[u8.17]
+-Updated unclear weapon system reference to use the first weapon system instead of throwing an error
+-Fixed AGR-20F not appearing on F/A-18A
+-Fixed Nation limited munitions not appearing correctly if the flight deck is of a different nation
+-Fixed updated method calls for TowedSupplySystem
+-Fixed AWW-9 guidance pod being used for Sparrow guidance
+-Fixed MultiModeRadar not respecting ViewArcs when in STT mode
+
+[u8.16]
+-Added BRU-55 Vertical Ejector Rack definitions
+-Removed a fuel tank
+
+[u8.15]
+-Added Loadouts for F/A-18A
+-Added Loadouts for V-19A
+-Added ability to modify vehicle optical views from container weapons
+-Added JASDF Dual Ejector Rack definitions
+-Added AGR-20A and AGR-20F APKWS II rockets
+-Added AN/AAS-38 and AN/AAS-38A NITE Hawk targeting pods
+-Added AGM-65E and AGM-65F Maverick
+-Added optical views to AN/AVQ-23 Pave Spike
+-Added LAU-115 launcher
+-Added AWW-9 to A-7E
+-Updated AIM-120 to now uses Datalink midcourse
+-Updated LAU-7 3D model (again)
+-Fixed NullRefs
+-Fixed podded laser guided munitions not showing 'laser designator required' warning
+-Removed TOW overrides, added I-TOW and TOW-2 to AH-1T loadouts
+-Removed debug text on startup
+
+[u8.14]
+-Adjusted AV-8C stall speed back up to 105 knots
+-Fixed patch failing in certain beta branches
+-Fixed issues with loading saves when aircraft with sonobuoys are launched
+-Fixed issues with INI patcher target method being renamed, causing the patch to fail
+
+[u8.13]
+-Fixed a bug where modded aircraft, or modified vanilla aircraft, would not have their loadouts shown in the flightdeck UI
+
+[u8.12]
+-Fixed bugs with check if the mod is supposed to be activated
+-Disabled MultiModeRadars using Single Target Tracking for radio command missiles without terminal guidance to fix incompatibility between game branches
+
+[u8.11]
+-Added AIM-4D Falcon and appropriate LAU-42/A launcher
+-Added LAU-92 / LAU-93 launchers for F-14 glove stations
+-Updated LAU-7 3D model
+-Updated ADU-299 3D model
+-Fixed F-4D centerline fuel tank not being available
+-Corrected F-4EJ loadouts, removed AIM-7M
+-Corrected F-4E Kurnass loadouts, prevented combined carriage of sparrow well AIM-9s with AIM-7 behind them
+
+[u8.10]
+-Added Loadouts for F-14A IRIAF
+-Added Loadouts for Su-15
+-Added Loadouts for MiG-28
+-Added Loadouts for SH-2F
+-Added Loadouts for SH-3H / HSS-2 / ASH-3D IRINA
+-Added Loadouts for Ka-25PL
+-Added Loadouts for Ka-27PL
+-Added AGM-23 Yasser
+-Added AIM-23B Sedjil
+-Added Bolt-117 from the game files (available on F-4D/E USAF)
+-Added GBU-11 from the game files (available on F-4D/E USAF)
+-Added 100gal fuel tank (available on AH-1T)
+-Added APU-60-1 Launcher
+-Removed bombs from F-14A USN
+-Adjusted F-4D maximum asymmetrical moment from 6790 N*m to 9460 N*m
+-Corrected F-4E Kurnass Gabriel 2 -> Gabriel 3A/S
+-Corrected AH-1J/T base AntiArmor loaadout: BGM-71A -> BGM-71B
+-Corrected MultiModeRadars not using Single Target Tracking for radio command missiles without terminal guidance
+-Corrected station mirror not mirroring rotation Z axis
+
+[u8.9]
+-Fixed MiG-27 right APU-60-2 being the wrong orientation
+-Fixed MiG-27 additional pylons not being hidden when not in used
+-Fixed MiG-27 fueltank incorrectly blocking OFAB-100s
+-Adjusted MiG-27 bomb positions
+-Fixed NullRef with INI patcher when alias is leading to non-existent files
+-Corrected AN/APG-63 datalink channels: 8 -> 4
+-Cleaned up some mesh files
+
+[u8.8]
+-Added APU-73 and UA launchers
+-Added Kaira-23L laser designator to MiG-27
+-Added Loadouts for MiG-23MS/MLD/A
+-Added Loadouts for MiG-27
+-Adjusted AIM-120A propulsion (Boost/Sustain Thrust 18.9G/10.5G -> 15.75G/8.75G, Drag Coefficient 2.60 -> 3.41) and guidance
+-Adjusted AA-8 Icon level 2 -> 3
+-Corrected P-3C AAM loadouts, now US exclusive
+-Corrected AA-2-2 (R-13M1) name
+-Reduced Delta-NG size
+-Fixed {launcher}MirrorAllowed parameter working for non dummy launchers
+-Fixed reverse weapon blockers not applying correctly when a launcher has multiple positions blocked
+
+[u8.7]
+-Fixed ArgumentOutOfRangeException
+
+[u8.6]
+-Fixed Custom Loadout option not appearing when on the Beta Branch
+
+[u8.5]
+-Fixed currently active aircraft not loading correctly when loading a save. 
+
+[u8.4]
+-Adjusted AGM-65B minimum range 2nmi -> 1nmi
+
+[u8.3]
+-Added Loadouts for AV-8C
+-Added Loadouts for AH-1T
+-Added Loadouts for AH-1J
+-Added Loadouts for Tu-142M
+-Added Loadouts for Il-38
+-Added date and nation limiters to sonobuoys
+-Added functionality to set default weapons
+-Added Stations 11 & 16 to P-3C
+-Corrected AV-8C fuel tank 230 US-Gal (871 l.) -> 120 US-Gal (454 l.)
+-Corrected AV-8C empty and fuel masses
+-Corrected AV-8C 30mm ammunition amount
+-Corrected Tarawa takeoff and landing patterns
+-Corrected AH-1J/T turret angles
+-Corrected P-2H loadouts, now same weapon options as base game
+-Corrected P-3C sonobuoy loads
+-Corrected P-3C weapon loads, Mk-44 torpedo and AGM-12B added
+-Corrected P-3C nation restrictions
+-Corrected AN/SSQ-101 sensor
+-Corrected S-3A and P-3C AN/SSQ-101 introduction year (now 2001)
+-Corrected P-42 UGMT introduction year (now 1981)
+-Corrected P-42 weapon loads, added FAB-500M-54
+-Corrected YaK-38 weapon loads, added FAB-500M-54
+-Fixed accountable ammunitions name in info tab
+-Fixed helicopter loadouts not working
+-Fixed launchers with one possible amount not displaying correctly if the amount is larger than 1
+-Fixed sonobuoys not being positioned correctly when multiple types are selected
+-Fixed adjusting salvo sizes for depth charges
+-Removed the additional airbase from Encyclopedia
+
+[u8.2]
+-Mitigated a bug where the MultiMode radar would lock up when attempting to fire SARH missiles
+-Added Introduction date to A-7E AGM-88 Harm (1985)
+-Corrected base game GBU-15 warhead power 90 -> 62, disabled it being flared (IIR seeker) and renamed into GBU-15v2
+-Added GBU-15v1 and GBU-15v2 to F-4E (USAF) (Introduction dates of 1983 and 1985)
+
+[u8.1]
+-Following Radar sets are now MultiModeRadars:
+- AN/APQ-109 (F-4D)
+- AN/APQ-120 (F-4E, F-4EJ)
+- AN/AWG-10A (F-4J)
+- Cyrano IV-2 (Mirage F1C)
+- Cyrano IV-M (Mirage F1E)
+- RP-15M (SU-15)
+- RP-22M (MiG-21, MiG-23MS)
+- Saphir-23MLA-2 (MiG-23MLD, MiG-23A, MiG-28)
+- Smerch-A3 (MiG-25P)
+- Saphir-25 (MiG-25PD)
+These radars do not have datalink/TWS channels, but they will loose their radar picture when guiding SARH missiles
+
+[u8.0]
+-Added MultiModeRadar system. This modified radar switches modes between search/TWS and STT depending on the ammunitions its guiding. Currently used for AN/APG-63 (F-15A/C) and AN/AWG-9 (F-14A USN&IRIAF)
+-Added INI patching. When INI files are loaded, the game will now check for _patch.ini files, which are then applied ontop of the base file
+-Added AIM-120 AMRAAM (Thanks Nuclearstronk!)
+-Added Loadouts for F-15A and F-15C
+-Added A-G weaponry and AIM-120 for F-14A
+-Corrected single Rockeye position on F-4J
+-Phoenix accountable ammunition renamed into Advanced AAM. It is now also used by the AIM-120
+
+[u7.2]
+-Added M118 for F-4D (USAF) and F-4E (USAF)
+-Fixed NullRef on F-4E (IRIAF)
+-Corrected Sparrow, ALQ-119 and PaveSpike positions on F-4D (all), F-4E (USAF & IRIAF), F-4EJ (ALQ-119 only)
+
+[u7.1]
+-Added MBD2-U2-67 multiple bomb rack
+-YaK-38 now uses MBD2-U2-67 instead of USN TER
+-Removed the temporary fix from u6.3
+
+[u7.0]
+-Added YaK-38 loadouts
+-Added ability for removing and readding sensors depending on loadout
+-Added VTOL functionality
+-Added functionality to set stores requiring other stores (e.g. Delta-NG guidance pod for AS-7)
+-Added Mk-82 Snakeeye to most US aircraft
+-Removed AIM-7E from F-14A
+-Split Phoenix Launch rail on F-14A
+-Added icons for small retarded bombs
+-MaxAsymmetricMoment gets deactivated by -1 instead of 0, default value now also -1
+-smaller fixes
+
+[u6.3]
+-Fixed UI not appearing in 0.7.0 Beta
+
+[u6.2]
+-Added debug logging for aircrafts with custom loadouts being detected
+
+[u6.1]
+-Added P-42 loadouts
+-Added PS-1 loadouts
+-Added S-3A loadouts
+-Added P-2H loadouts
+-Added P-3C loadouts
+-Added SH-5 loadouts
+-Added sonobuoy loadout system
+-Added functionality for animated resupply systems (Beta)
+-F-5E: Added AIM-9P (beta)
+-F-4 (all): removed AIM-7M, added new beta missiles (AIM-9G, P, M) (AIM-7E2, F)
+-F-14A: Added AIM-9H, AIM-9M, AIM-7E4, AIM-7F
+-A-6E: Added AIM-9H, AIM-9M, D-704
+-A-7E: Added AIM-9H, AIM-9M, D-704
+-Removed unique AIM-9G file, now using the vanilla AIM-9G added in the current beta
+-various fixes
+
+[u5.3] / [u5-8]
+-Fixed A-6E fueltanks being hidden
+-Replaced AIM-9B with AIM-9G on A-7E
+-Added MiG-25P and MiG-25PD to Encyclopedia airfield
+
+[u5.2] / [u5-7]
+-F-14A: added AIM-9G
+-A-6E: replaced AIM-9B with AIM-9G
+-A-6E: reenabled AGM-78
+-A-6E, A-7E: added additional AGM-45 variants
+-corrected A-6E Mk.4 gunpod icon
+
+[u5.1] / [u5-6]
+-Added MiG-25P loadouts
+-Added MiG-25PD loadouts
+-Added setup for APU-60-2 launcher (left and right variants) (still WIP)
+-Added AGM-45B-4, AGM-45B-7, AGM-45B-8, AGM-45B-9
+-F-4D (all), F-4E (all): added above AGM-45 variants to Stations 1,2,8,9
+-F-4D (all): added SUU-23 Gunpod to Stations 2 and 8
+
+[u5.0] / [u5-5]
+-Added Debug Menu for modifying already flying aircraft, accessible through the F10 Debug Menu, Weapons tab
+-Added F-4D (USAF & IRIAF) loadouts
+-Added F-4E (USAF & IRIAF) loadouts
+-Added F-4E Kurnass loadouts
+-Added F-4J loadouts
+-Added Mk-4 gunpod to A-6E
+-Added SymmetryPartner for weapon systems
+-Added LauncherIconOverride
+
+[u4.0] / [u4-4]
+-Added Context Menu for pylons to adjust salvo sizes and arrangement of munitions on the pylon
+-Added fuel adjustment
+-Added an airbase in Encylopedia that contains all aircraft with custom loadouts
+-Fixed F-5A fueltank position
+
+[u3.0] / [u3-3]
+-Added F-5A loadouts
+-Added F-5E loadouts
+-Added SubModelsToShow for stations
+-Fixed IntroductionYear mechanic
+-Fixed SubModelsToShow for weapon systems
+-Fixed A-7E cluster icon
+
+[u2.0] / [u2-2]
+Main Release
+
+[u1.0] / [u1-1]
+Pre-Release
