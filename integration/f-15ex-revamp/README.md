@@ -16,7 +16,7 @@ this patch adds only what's genuinely missing, all cross-mod:
 | `AntiShipHeavy` | AntiShipLRASM6 | **6× AGM-158C-3 LRASM** (surge fit, mirrors the JSOW 6-station pattern) + 2× AIM-120D-3 + 2× AIM-9X + tank + pods | none beyond upstream |
 | `AntiShipHarpoon` | AntiShipHarpoon | **4× AGM-84D Harpoon** (vanilla weapon) + 2× AIM-120D-3 + 2× AIM-9X + tank + pods | none — vanilla Harpoon |
 | `Quicksink` | StrikeQuicksink | **4× GBU-31 anti-ship JDAM** + 2× AIM-120D-3 + 2× AIM-9X + tank + pods | Dingtools Weapon Pack (`dts_gbu-31`) |
-| `BigStick174` | Intercept174 | **4× AIM-174B** + 4× AIM-120D-3 + 2× AIM-9X + tank — flagged what-if | **Murder Hornet** (`usn_aim-174b`) |
+| `BigStick174` | Intercept174 | **6× AIM-174B** (CFT corners, aft fuselage, wing) + 2× AIM-120D-3 + 2× AIM-9X + tank — flagged what-if | **Murder Hornet** (`usn_aim-174b`) |
 
 ## Install
 

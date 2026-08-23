@@ -59,10 +59,10 @@ Station6=dts_aim-260
 [WeaponSystem2Intercept260Beast]
 Station1=usn_aim-9x
 Station2=usn_aim-9x
-Station3=dts_aim-260_w
-Station4=dts_aim-260_w
-Station5=dts_aim-260_w
-Station6=dts_aim-260_w
+Station3=dts_aim-260_w|AAM260
+Station4=dts_aim-260_w|AAM260
+Station5=dts_aim-260_w|AAM260
+Station6=dts_aim-260_w|AAM260
 
 """
 
@@ -117,6 +117,13 @@ def main():
         print("note: upstream duplicate AntiShip block not found (may be fixed upstream) — continuing")
     elif n > 1:
         sys.exit(f"duplicate-AntiShip pattern matched {n} times — refusing to guess")
+
+    # 2b. Position offset so the external AIM-260 sits flush on the wing pylons
+    #     (units: ~7cm per 0.001; +y = up, +z = forward). Tune here.
+    text, k = re.subn(r"(\[WeaponSystem2\][^\[]*?NumberOfStations=\d+\n)",
+                      r"\1AAM260Positions=0,0.005,0.008\n", text, count=1, flags=re.S)
+    if k != 1:
+        sys.exit("could not inject AAM260Positions into [WeaponSystem2]")
 
     # 3. Inject new sections before the WeaponMagazines banner
     marker = "[---------- WeaponMagazines ----------]"
