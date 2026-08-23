@@ -23,11 +23,11 @@ new models are needed.
 | **RAAF Base Townsville** | 8× AH-64E Apache · 4× MH-60R · 4× S-70B-2 Seahawk · 2× KC-130T |
 | **RAAF Base Learmonth** *(bare base)* | 4× P-8A · 2× U-2 · 2× KC-135 |
 | **RAAF Base Curtin** *(bare base)* | 8× F-35A · 2× KC-46A (drogue) |
-| **RAAF Base Scherger** *(bare base)* | 8× F-35A · 4× MQ-9 ER |
+| **RAAF Base Scherger** *(bare base)* | 8× F-35A · 6× F-15EX · 4× MQ-9 ER |
 | **RAAF Woomera Airfield** | 2× U-2 · 4× MQ-9 ER · 2× B-2 (test det) |
 | **RAAF Base Butterworth** *(Malaysia)* | 6× F-35A · 3× P-8A · 2× KC-135 |
 
-205 aircraft across 15 bases. All units are `Nation=Australia`, `LandUnitSubType=Airbase`.
+211 aircraft across 15 bases. All units are `Nation=Australia`, `LandUnitSubType=Airbase`.
 (RAAF Base Wagga is non-flying and has no unit; the bare bases are modeled in their activated
 crisis posture, since an empty airfield already exists as vanilla scenery.)
 

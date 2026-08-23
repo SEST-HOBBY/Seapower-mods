@@ -130,9 +130,10 @@ BASES = {
     },
     "airbase_raaf_scherger": {
         "name": "RAAF Base Scherger (Bare Base)",
-        "desc": "Activated bare base, Cape York: F-35A det, MQ-9 ER",
+        "desc": "Activated bare base, Cape York: F-35A det, F-15EX det, MQ-9 ER",
         "airgroup": [
             ("raaf_f-35a", "Squadron4,8"),
+            ("usaf_f-15ex_SEII", "Squadron2,6"),
             ("usaf_mq-9_er", "Squadron1,4"),
         ],
     },
