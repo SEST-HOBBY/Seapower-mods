@@ -1,0 +1,65 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        FLASH
+        <LineBreak/>
+        Z 190300Z SEP 85
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="От кого:"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="CTF 77"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Кому:"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="{TaskForceFlagshipName} {TaskForceName} Сандакан Малайзия"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Копия:"/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        КОМ. ТИХООКЕАНСКОГО ФЛ. ПЕРЛ-ХАРБОР<LineBreak/>
+        81 КРЫЛО (ВРЕМЕННОЕ) КАВВС САНДАКАН МАЛАЙЗИЯ
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Тема:"/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="ВНИМАНИЕ-ВРАЖЕСКОЕ НАПАДЕНИЕ НА САНДАКАН НЕИМЕНУЕМО"/>
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        СОВЕРШЕННО СЕКРЕТНО
+        <LineBreak/>
+        <LineBreak/>
+        1. (S) Положение: После удачных операций в Индонезии, усилия союзников смещаются на север, имея в виду возвращение Палавана, на котором силы противника укрепились с июля. База союзников в Сандакане, Малайзия играет роль передового пункта снабжения для дальнейших операций. Средствами технической разведки установлено, что противник намеревается провести упреждающую атаку на Сандакан, чтобы отсрочить начало наступательных операций.
+        <LineBreak/>
+        <LineBreak/>
+        2. (S) ЗАДАЧА: Американские и союзные силы, находящиеся в непосредственной близости от Сандакана должны отразить воздушную атаку противника и нападение с моря.
+        <LineBreak/>
+        <LineBreak/>
+        3. (S) Выполнение: {TaskForceName} получает в оперативное подчинение все местные силы обороны и будет координировать отражение вражеского нападения. Задача защиты вспомогательных судов снабжения, находящихся в гавани Сандакана является приоритетом номер один. Вражеские бомбовые или ракетные удары по этим судам должны быть исключены. Уничтожьте все вражеские силы, атакующие Сандакан.
+        <LineBreak/>
+        <LineBreak/>
+        4. (TS) Угроза: Законсприрированный источник STAR LIGHT в Пуэрто-Принсеса сообщает о том, что вражеские надводные корабли выходят в море для нападения на Сандакан. Ракетные катера ВМС НОАК были замечены в прибрежных водах идущими в сопровождении фрегатов типа ДЖИАНГХУ. Также при последнем пролёте спутника в море Сулу были обнаружены эсминцы типа ЛЮЙДА, идущие на юго-восток. Докладывается о наличии подлодок противника, воздушные налёты из Пуэрто-Принсеса и Камрани весьма вероятны.
+        <LineBreak/>
+        <LineBreak/>
+        5. (S) Приданные силы: фрегат филлипинского флота ДИЕГО СИЛАНГ присоединится к {TaskForceName}. Для этой операции корабль получит ракеты "Гарпун". Союзная авиация действует с авиабазы у Сандакана. Батарея ЗРК Хок вблизи гавани Сандакана обеспечит местное ПВО.
+        <LineBreak/>
+        <LineBreak/>
+        6. (S) ПРИМЕЧАНИЕ: Постарайтесь, чтобы база союзников в Сандакане осталась нетронутой. Удачи и хорошей охоты. КГ 77 передача.
+        <LineBreak/>
+        <LineBreak/>
+        СЕКРЕТНО
+        <LineBreak/>
+        DECL OADR BT
+    </TextBlock>
+</Grid>

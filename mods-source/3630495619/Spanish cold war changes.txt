@@ -1,0 +1,187 @@
+SPANISH MOD (#coldwar)  CHANGELOG
+
+v3.36 - 20260822
+
+	AA missile values ​​updated to incorporate the latest game modifications.
+	F-104: Sound effects adjusted.
+
+v3.35 20260818
+
+	UPDATED: The armor value of magazines on all ships has been updated.
+
+v3.34 20260816
+
+	BP11 Teide: 
+	- Fixed error shown in logs regarding the loading of ship textures.
+	- Updated AI, FlowNoise values.
+	- Fixed issue with cannon ammunition and loadouts and adjusted FiringArcs.
+
+	R11 Principe de Asturias:
+	- Updated BaseNoise value.
+
+	F70 Baleares class:
+	- Prairie option activated.
+
+	L20 Castilla class:
+	- Updated FlowNoise value.
+
+	L31 Galicia:
+	- Updated FlowNoise value.
+
+	S50 Tiburon:
+	- Adjusted sound values, due to the latest game changes.
+	- Adjusted wave and particle values.
+
+	S70 Galerna early:
+	- Adjusted sound values, due to the latest game changes.
+	- Updated AI values.
+	- Added sound when opening the torpedo tube hatches.
+	- Use of the same effects as the SS Galerna vanilla.
+	- Adjusted propeller collider.
+
+	S70 Galerna late:
+	- All the changes included in the S70 Galerna early.
+	- Slight reduction in noise output, an improvement over the initial equipment.
+	- Upgrade to more modern versions of the active and passive sonar.
+
+v3.33 20260816
+
+	NEW:
+	BP11 Teide class fleet oiler
+	L31: added Legionarios loadout
+	
+	FIXED:
+	Added cavitation values in many ships
+	Improved folder structure
+	
+
+v3.32 20260815
+
+	NEW: 
+	Spanish vehicles for use with cargo holds in ships (see cargo.ini file)
+	L31: spanish vehicles custom cargo
+	
+	FIXED:
+	R01: Added fire control systems for AAA guns
+	L31: corrected colliders and loadouts
+
+v3.31 20260813
+
+	L31: Several minor bug fixes, flight operations optimization, and an updated list of the ship's sensors.
+
+v3.30 20260813
+
+	NEW: 
+	L31 GALICIA class LSD (US Navy Casa Grande class LSD)
+
+v3.28 20260813
+
+	R01 Dedalo: More realistic landings, approaching from the ship's port side.
+	R01 Dedalo: Added takeoff and landing capability for western helicopters and VTOL aircraft, to allow their use in campaigns.
+	R11 Principe de Asturias: More realistic landings, approaching from the ship's port side.
+
+v3.27 20260809
+
+	NEW:
+	- New S60 Delfin class defined from the version of the submarine included in the game, adding the new MCC-23 mine.
+	
+	FIXED:
+	- The renaming of chaffs on airplanes has been undone due to issues with the current stable version of the game.
+	- F30 Descubierta (Late): Aspide missile corrected due to other change in Euromod.
+
+v3.26 260805
+
+	NEW:	
+	MCC-23: influence mine
+	Included missions "ASW-EX-1973" and "Spanish Guinea-1991" 
+	FIXED:
+
+	RCS values ​​adjusted to their new values ​​for airplanes and helicopters.
+	Chaff values ​​changed to the new value all_air_chaff_standard for airplanes and helicopters.
+	In-flight refueling capability added for aircraft with this feature in Spain.
+
+	AB212: fixed reported log errors with textures.
+	AB212: added collision model.
+	AV8A: fixed reported log errors with textures.
+	F104G: fixed reported log errors with textures.
+	Mirage F1E: fixed reported log errors with textures.
+	MD500: New grey scheme.
+
+	Takeoff and landing points for all aircraft adjusted again following the latest game changes
+	Flight operations modified on R01 Dédalo and R11 Principe de Asturias due to changes introduced by the developers.
+	
+	R01 Dédalo: The 3D model of the ship has been updated.
+	F30 Descubierta (Late): Aspide missile corrected due to changes in EuroMod.
+	 
+V3.25 - 20260721
+
+	Tightened firing arcs of some aircraft and ship weapons in the mod.
+
+V3.24 - 20260718
+
+	Churruca I: Minor hotfix
+
+V3.23 - 20260718
+
+	All ships with flight decks: Modification applied to prevent helicopters from spinning in circles inside the hangar.
+	Dedalo: Flight operations rewritten to optimize takeoffs and landings.
+	Dedalo: Reduced maximum speed.
+	Dedalo: Sonar removed.
+	S70 Galerna: Adjusted crush depth to the same value as the vanilla S70.
+
+	AB212: Adjusted helicopter position on deck.
+	AB212: Corrected helicopter maximum speed, weight and tail rotor RPM.
+	AB212: Replaced LM-66 radar with APS-705.
+	MD500: Adjusted helicopter position on deck.
+
+V3.22 - 20260714
+
+	AB212: Fixed turning issue when leaving the hangar.
+	F104: Added MaxPitchRate and modified MaxG.
+	Mirage IIIEE: Added Spanish language support.
+	F30: Removed early loadout chaff definition.
+	F30: Fixed early version error with the F35 and F36.
+	F80: Synchronized latest modifications.
+	Tiburon: Corrected propeller effect.
+
+CHANGELOG v3.20 260712
+
+	All vessels: removed service date in class names
+	All vessels & aircraft: added interactive optics
+	Sensors - ESM: Added Beta Mk1000 ESM, Deneb ESM, Guffo Mk2000 ESM, Nettunel ESM
+	Sensors - ECM: Added Beta Mk1000 ECM, Canopus ECM, Guffo Mk2000 ECM, Nettunel ECM
+	AB212: added ESM/ECM antennas for EW version
+	AB212: improved Guffo Mk.2000 ESM/ECM system for EW version
+	AB212: corrected missing lod
+	AB212: corrected tail rotor position
+	D61 Churruca FRAM I: added WLR-1C ESM suite
+	D61 Churruca FRAM I: changed torpedo to Mk-44
+	D61 Churruca FRAM I: added 11 esc emblem
+	D65 Churruca FRAM I mod: added WLR-1C ESM suite
+	D65 Churruca FRAM I mod: changed torpedo to Mk-44
+	D65 Churruca FRAM I mod: added 11 esc emblem
+	L21 Castilla: added WLR-1C ESM suite
+	R01 Dedalo (Early): replaced SLQ-32 ESM/ECM system by WLR-1C
+	R01 Dedalo (Early): added bow 40mm quad mount
+	R01 Dedalo (Early): removed AV-8A capability
+	R01 Dedalo (Late): changed WLR-1C by Beta Mk 1000
+	R01 Dedalo (Late): added AV-8A capability
+	F30 Descubierta (early): changed ESM/ECM suite to Beta Mk1000
+	F30 Descubierta (Late): changed ESM to DENEB and ECM to CANOPUS
+	F30 Descubierta (Late): changed SAM to Aspide
+	F70 Baleares (Early): changed ESM/ECM suite to Beta Mk1000
+	F70 Baleares (Early): added 31 esc emblem
+	F70 Baleares (Late): changed ESM to DENEB and ECM to CANOPUS
+	F70 Baleares (Late): added 31 esc emblem
+	F80 Santa María (Early & Late): changed model to OHP longhull
+	F80 Santa María (Early) - changed ESM/ECM suite to NETTUNEL
+	F80 Santa María (Early) - changed default airgroup to SH-60B
+	F80 Santa Maria (Late) - removed TACTASS towed sonar system
+	F80 Santa María (Late) - changed ESM/ECM suite to RIGEL
+	F80 Santa María (Late) - added SATCOM spheres
+	F80 Santa María (Late) - added IRST SVO
+	F80 Santa María (Late) - changed default airgroup to SH-60B Block 1
+	R11 Príncipe de Asturias: changed ESM/ECM suite to NETTUNEL
+	R11 Príncipe de Asturias: changed elevator 1 position, better flight ops
+	L5 Mod4 torpedo: corrected parameters basedd on new vanilla L5 Mod 3
+	F17 Mod2 torpedo: now based on vanilla F17 mod2, range is function of speed and wire guidance

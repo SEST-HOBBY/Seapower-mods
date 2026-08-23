@@ -1,0 +1,35 @@
+{
+  "name": "@seapower/spruntime",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack --disable-interpret -c ./webpack.config.ts",
+    "pack": "npm-pack-zip --destination=\"../../../modules\" --add-version=true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/ws": "^8.18.1",
+    "lodash": "^4.17.21",
+    "npm-dts-webpack-plugin": "^1.3.13",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.9.2",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@seapower/sp-polyfill": "workspace:*",
+    "cbor-x": "workspace:*",
+    "tslib": "workspace:@seapower/tslib@*",
+    "json-rpc-2.0": "workspace:*",
+    "runtypes": "^7.0.4",
+    "ws": "^8.18.3"
+  }
+}

@@ -1,0 +1,23 @@
+Mod featuring:
+AGM-86C CALCM (vanilla)
+AGM-86B ALCM (nuclear warhead)
+AGM-86E CALASM (fictional,anti ship,searches target like TASM)
+AGM-86E(W80) ALASM (fictional,anti ship,nuclear warhead)
+
+Adds 8 new loadouts for vanilla B-52G:
+Standoff,20 AGM-86C
+Standoff (Nuclear),20 AGM-86B
+Standoff Long Range,8 AGM-86C
+Standoff Long Range (Nuclear),8 AGM-86B
+Anti Ship Heavy,20 AGM-86E
+Anti Ship (Nuclear),20 AGM-86E(W80)
+Anti Ship Heavy Long Range,8 AGM-86E
+Anti Ship Long Range (Nuclear),8 AGM-86E(W80)
+
+Chnages to Munitions with VeryLarge impact size
+(Suicide Bomb, Rockeye, 65-76, AS-2, AS-4, AS-4B, AS-6, SS-N-3, SS-N-7, SS-N-9, SS-N-12, SS-N-19):
+Power+67%
+impact size:VeryLarge --> Large
+
+Changes to damage.ini
+VeryLarge impact size now have much larger impact radius and damage decal size

@@ -1,0 +1,4 @@
+[h1]Sky sentry for digital age![/h1]
+
+[h3]History[/h3] 
+[quote]USAF Block 40/45 modification. Includes hardware and software upgrades to improve communications, computer processing power, threat tracking, and others, and automates some previously manual functions. Initial operating capability (IOC) declared in July 2014. It also removed the 1970 vintage mission computing. E-3G(II) Block 40/45 modification that included a glass cockpit modification that reduced the crew size by one, and added a new avionics suite.[/quote] 

@@ -1,0 +1,35 @@
+{
+  "date": "20260806",
+  "tool": "wire_spoilers_20260806.py",
+  "note": "Spoilers_Port/Starboard pre-rotated so their swept hinge lies on local X; NumberOfSpoilerons=2 added to [FlightControls] with the geometrically-derived deploy sign. Re-run after every re-export.",
+  "obj_sha256_before": "ef7c4e99bc7f1e0435440e3656fa5b207678dff6cb47fae2abb52b9881dfc524",
+  "obj_sha256_after": "3e926b3d0893906e3b1e4d30066b7ba974cfedefc27d7ee8600852b6e5307a55",
+  "deploy_sign": 1.0,
+  "deploy_max_angle": 30.0,
+  "rotations_deg": {
+    "Spoilers_Port": 21.355678595466195,
+    "Spoilers_Starboard": -21.355678595466195
+  },
+  "measured": {
+    "Spoilers_Port": {
+      "sweep_deg": 21.355678595466195,
+      "rms_m": 6.969354484208566e-06,
+      "span_m": 11.990022535393273,
+      "n_stations": 7,
+      "hinge_edge": "trailing",
+      "free_edge": "leading",
+      "free_edge_z_at_center": -1.253907059703876,
+      "positive_x_rotation_lifts_free_edge": true
+    },
+    "Spoilers_Starboard": {
+      "sweep_deg": -21.355678595466195,
+      "rms_m": 6.969354484208566e-06,
+      "span_m": 11.990022535393273,
+      "n_stations": 7,
+      "hinge_edge": "trailing",
+      "free_edge": "leading",
+      "free_edge_z_at_center": -1.253907059703876,
+      "positive_x_rotation_lifts_free_edge": true
+    }
+  }
+}

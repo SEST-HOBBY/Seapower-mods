@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "outDir": "build",
+    "declaration": true,
+    "declarationDir": "dist",
+    "module": "es6",
+    "target": "es5",
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "paths": {
+      "tslib": ["../tslib/tslib.d.ts"]
+    },
+    "lib": [
+      "ES5",
+      "DOM",
+    ]
+  },
+  "include": ["./src/**/*.ts"]
+}

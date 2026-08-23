@@ -1,0 +1,134 @@
+v1.40 - 20260822
+
+	AA missile values ​​updated to incorporate the latest game modifications.
+	Sound effects adjusted for all aircrafts.
+
+	SH-60B: 
+	- Added RWR sensor for both Sea Hawk variants.
+	- APS-124 radar configuration review.
+	
+	AV/8B and AV/8B+: Cannon effect changed.
+	EF2000: Cannon effect changed.
+
+v1.39	20260819
+
+	Changes applied in the previous version to the Euromod ammunition files have been restored, after removing the requirement for Custom Audio Mod.
+
+v1.38	20260818
+
+	IMPORTANT: 
+	- The necessary modifications have been made to the mod to avoid the impact of Euromod's new Anchor Chain dependency. 
+	- This mod does not require Anchor Chain to be enabled to function correctly.
+
+	UPDATED: 
+	- The armor value of magazines on all ships has been updated.
+	- For AEGIS frigates, four colliders are created, one for each antenna. The value ResilenceModifier=1.5 is added to the AEGIS sensor.
+
+v1.37	20260817
+
+	F110 Bonifaz class:
+	 - Removing unnecessary lines from her ini file.
+	L51 Galicia class:
+	- Removing unnecessary lines from her ini file.
+
+v1.36	20260816
+
+	F110 Bonifaz class:
+	- Added speed at which the frigate cavitates.
+	- Added RAST capability.
+	
+	S80 Isaac Peral class:
+	- Adjusted sound values, due to the latest game changes.
+	- Sonar sensor values ​​adjusted due to recent game changes.
+	- Bow sonar reorganization.
+	- Missing colliders created.
+	
+v1.35	20260813
+	L61 Juan Carlos I - Updated flight operations:
+		* More realistic landings, approaching from the starboard or port side of the ship depending on the landing point's location.
+		* Takeoff of two Harriers consecutively, one after the other.
+		* Adjusted takeoff position of the Spanish Sea Kings.
+
+v1.34 	20260810
+	FIXED:
+	- LHD Juan Carlos I: removed error when leaving misión editor
+	- LHD Juan Carlos I: full .ini rewriting and cleaning
+
+v1.33   20260809
+	FIXED:
+	- The renaming of chaffs on airplanes and helicopters has been undone due to issues with the current stable version of the game.
+	- The order of the landing points for the Harriers at the Juan Carlos I has been changed.
+	- HP values ​​for the motors of both S80 classes have been corrected.
+
+v1.32	NEW:
+	- S-80 Plus: AIP variant equipped with JSM-SL missiles
+	- JSM-SL: submarine-launched naval/land-attack missile
+
+	FIXED:
+	- RCS values for aircraft and helicopters have been adjusted to their new values
+	- Changed chaff settings to the new `all_air_chaff_standard` value for aircraft and helicopters
+	- Added in-flight refueling capability for aircraft that have this feature in Spain.
+	- Changed the Mk41 animation for the F100 and F110
+	- Expanded the F110’s list of NSM FCRs to allow guidance of all missiles.
+	- Fixed bugs in the behavior of the SAES MINEA mine
+
+v1.31	- F110: changed ESSM versión from RIM-162A to RIM-162H (ESSM Block 2)
+	- S80: changed propeller rotation direction to left
+
+v1.30	NEW UNIT: F110 class frigate
+	NEW WEAPON: Sentinel 30mm RCWS
+	FIXED:
+	- L51 Galicia class: fixed reported errors with textures
+	- F100 Alvaro de Bazan class: fixed reported errors with textures
+
+v1.27	- Fine tuned some weapons firing arcs in  ships and aircraft
+
+v1.26	- F100 early & F105: The hangar was extended to prevent problems caused by sudden turns by aircraft
+
+v1.25	- Added Mesh_Dummy to vessels elevators, to fix the turning around helicopter´s bug
+
+v1.24	- Changed all SpawnPosition coords to fix the helicopters turning around in hangars
+
+v1.23	- All vessels: Added value to CavitationParameters.
+	- BAM Meteoro Class: General review of the ship, adjusting various parameters and textures (numeral, simbad platform, hull textures corrected).
+	- F101-F104 Class: Added RAST capability and added value for MaxLandingSeaState.
+	- F105 Class: Added RAST capability and added value for MaxLandingSeaState.
+	- S80 Class: Adjusted noise and cavitation values, added values ​​for MachineryRaftingGeneration, PropellerType, and TonalRPMModifier.
+	- S80 Class: Added new DistressFlareEffect.
+
+v1.22	FIXED - Minor corrections to the Spanish language in the mod.
+	- F101-F104: MK46_5 torpedoes replaced by the vanilla variants of the MK46_mod5_ship.
+	- F105: MK46_5 torpedoes replaced by the vanilla variants of the MK46_mod5_ship.
+
+v1.21	NEW UNIT: BAM P41 Meteoro class: you can find it under the new category called "Offshore Patrol Vessel", this is a ship designed for offshore patrol, capable of carrying a medium-sized support helicopter; it can also be equipped with special-mission containers and carry out a wide variety of missions. In our mod, we've equipped it with a container loadout (aesthetic only), another anti-ship loadout with a pair of quad NSM launchers, and another anti-air loadout with a dual Mistral mount.
+	FIXED:
+	- L51: Changed the default air wing to 4 AB212 (Grey)
+	- L51: Changed the default air wing to 3 SH-3D (Grey)
+	- L61: Changed the default air wing to 8 AV-8B Plus + 6 SH-3D (Grey) + 4 AB212 (Grey) + 1 SH-60B Block 1 
+	- L61: Added compatibility with French Helicopter Package Mod AS-532C Cougar and EC-665 Tigre
+	- AV8B Plus: Changed radar to vanilla AN/APG-65
+	- F/A-18A: Changed radar to vanilla AN/APG-65
+
+v1.20	- NEW UNIT: LHD Juan Carlos I
+
+v1.07	- AGM-119B Penguin, terrain follow mode enabled.
+	- New SSQ-53 and SSQ-62 sonobuoys with realistic values ​​of 4 hours of life and 100 miles of datalink (created as aliases).
+	- Changed the number of sonobuoys on the SH-60B: 18 SSQ-53 and 7 SSQ-62.
+	- Changed the launch order of the Hellfire missiles on the SH-60B Block 1; now the order is from bottom to top and from outside to inside.
+
+v1.06 	- F100 batch 1: added second FLIR surveillance sensor on top of the hangar.
+	- S80: Modified wave and foam effects.
+
+v1.04	- S80: enhanced buoyance performance
+	- S80: decreased diesel engines sound level
+	- F100 (all): sensors adjustments for Mk41 VLS 
+	- F100 (early): new AEGIS Block 5 DataLink system
+	- F100 (late): new AEGIS Block 9 DataLink system
+
+v1.03 	- S80: Modified buoyancy
+	- AV-8B: Added static model
+	- L51 Galicia: Added statics models in hangar
+
+v1.02 	- Minor Hotfixes
+
+v1.01 	- Initial versión with credits

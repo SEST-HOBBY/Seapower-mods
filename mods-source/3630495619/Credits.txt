@@ -1,0 +1,25 @@
+COLD WAR SPANISH NAVY MOD FOR SEA POWER
+
+CREDITS:
+
+- Authors:
+* Jabeitor: 3D models, textures, documentation
+* Zzocalu: 3D models, textures
+* Jasoriab: Code, animations, effects, translation
+* Duncan, Sauronator: betatesters, mission creators
+
+- 3D models:
+* SA-51 Tiburon: 3D model donated by our colleague SKYNET, who has also been a huge help in fixing bugs in this mod.
+* MCC-23 Mine: 3d Model by Jabeitor
+* S70 Galerna class submarine: 3D model by Jabeitor, textures by Zzocalu
+* R11 Príncipe de Asturias: 3D model by Jabeitor, textures by Zzocalu
+* P01 Lazaga class: 3D model by Jabeitor, textures by Zzocalu
+* F30 Descubierta class: 3d model by Zzocalu/Jabeitor, textures by Zzocalu
+* R01 Dedalo: modified by Jabeitor from a purchased Independence class model, textures by Zzocalu
+* L31 Galicia: 3d model/textures by jabeitor
+
+- Code and extras:
+Euromod team: Thank you to all the members of the Euromod Team for answering our questions and providing constant support
+Gorka M.Mezo: We would like to thank you for your help in providing us with information on all the systems involved in the mod. Gorka is a longtime contributor to the wargame Harpoon, and his expertise is invaluable in accurately recreating a mod of this nature.
+
+We would like to thank all the staff, not only from our Armed Forces, but also from the associated defence companies who have selflessly collaborated with us by providing valuable information on all the systems featured in our mod; we dedicate this product, the result of months of work, to all of them. We would also like to thank the Sea Power community for providing us with constructive criticism that allows us to constantly improve, and, of course, we would like to thank our families for their patience with us.

@@ -1,0 +1,6 @@
+{
+    "presets": [],
+    "plugins": [
+        ["module:@seapower/sp-closure-transform", {"context": "tslib"}]
+    ]
+}

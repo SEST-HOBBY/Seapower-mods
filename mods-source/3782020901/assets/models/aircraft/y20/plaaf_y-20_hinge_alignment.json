@@ -1,0 +1,90 @@
+{
+  "date": "20260806",
+  "tool": "align_control_hinges_20260806.py",
+  "note": "Static single-axis Rotation= values live in the aircraft INIs; the OBJ groups are pre-rotated by the inverse so the rest pose is unchanged. Re-run this tool after EVERY Blender re-export.",
+  "obj_sha256_before": "eca8709ac7f89d8a0f8bfb1b6466960db0d50b89566f63877e97bfb4a96c9b61",
+  "obj_sha256_after": "ef7c4e99bc7f1e0435440e3656fa5b207678dff6cb47fae2abb52b9881dfc524",
+  "applied": {
+    "Aileron_Port": {
+      "axis": "Y",
+      "rotation_deg": 21.969966102911393,
+      "measured": {
+        "sweep_deg": 21.969966102911393,
+        "tilt_deg": -5.505126333869015,
+        "rms": 1.4707054765097193e-05
+      }
+    },
+    "Aileron_Starboard": {
+      "axis": "Y",
+      "rotation_deg": -21.969966102911393,
+      "measured": {
+        "sweep_deg": -21.969966102911393,
+        "tilt_deg": 5.505126333869015,
+        "rms": 1.4707054765097193e-05
+      }
+    },
+    "Elevator_Port": {
+      "axis": "Y",
+      "rotation_deg": 25.48950678005543,
+      "measured": {
+        "sweep_deg": 25.48950678005543,
+        "tilt_deg": 0.2980424860053428,
+        "rms": 0.00032827342262205765
+      }
+    },
+    "Elevator_Starboard": {
+      "axis": "Y",
+      "rotation_deg": -25.48950678005543,
+      "measured": {
+        "sweep_deg": -25.48950678005543,
+        "tilt_deg": -0.2980424860053428,
+        "rms": 0.00032827342262205765
+      }
+    },
+    "Flap_Inboard_Port": {
+      "axis": "Y",
+      "rotation_deg": 18.842405,
+      "measured": {
+        "sweep_deg": 18.842405,
+        "tilt_deg": -4.708831356122753,
+        "rms": 0.0018806575954575025
+      }
+    },
+    "Flap_Inboard_Starboard": {
+      "axis": "Y",
+      "rotation_deg": -18.842405,
+      "measured": {
+        "sweep_deg": -18.842405,
+        "tilt_deg": 4.7087650546517015,
+        "rms": 0.0018806575954575025
+      }
+    },
+    "Flap_Outboard_Port": {
+      "axis": "Y",
+      "rotation_deg": 21.952775,
+      "measured": {
+        "sweep_deg": 21.952775,
+        "tilt_deg": -4.999296363513919,
+        "rms": 0.011046653471190855
+      }
+    },
+    "Flap_Outboard_Starboard": {
+      "axis": "Y",
+      "rotation_deg": -21.952775,
+      "measured": {
+        "sweep_deg": -21.952775,
+        "tilt_deg": 4.999296363513919,
+        "rms": 0.011046653471190855
+      }
+    },
+    "Rudder": {
+      "axis": "X",
+      "rotation_deg": -38.81024089505123,
+      "measured": {
+        "sweep_deg": -38.81024089505123,
+        "tilt_deg": 0.09792272894965162,
+        "rms": 1.993929742675377e-06
+      }
+    }
+  }
+}

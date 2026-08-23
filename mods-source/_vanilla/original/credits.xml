@@ -1,0 +1,220 @@
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsgamedesign], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Triassic Games</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsprogramming], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Martin Leidel</Run>
+<LineBreak/>
+<Run FontSize="24">Ivan Baranov</Run>
+<LineBreak/>
+<Run FontSize="24">Daniil Smirnov</Run>
+<LineBreak/>
+<Run FontSize="24">Benjamin Chung</Run>
+<LineBreak/>
+<Run FontSize="24">Matt Burleigh</Run>
+<LineBreak/>
+<Run FontSize="24">Yiyang He</Run>
+<LineBreak/>
+<Run FontSize="24">Victor Chevallier</Run>
+<LineBreak/>
+<Run FontSize="24">Nick Miller</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[credits3dandvisual], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Nils Dücker</Run>
+<LineBreak/>
+<Run FontSize="24">Przemek Starkiewicz</Run>
+<LineBreak/>
+<Run FontSize="24">Yiyang He</Run>
+<LineBreak/>
+<Run FontSize="24">Olof Kjölstad</Run>
+<LineBreak/>
+<Run FontSize="24">Chris Kowald</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsart], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Przemek Starkiewicz</Run>
+<LineBreak/>
+<Run FontSize="24">Yiyang He</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsuidesign], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Nils Dücker</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsprojectmgmt], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Noah Landry</Run>
+<LineBreak/>
+<Run FontSize="24">Ian Roberts</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsscenariodesign], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Ivan Baranov</Run>
+<LineBreak/>
+<Run FontSize="24">Ian Roberts</Run>
+<LineBreak/>
+<Run FontSize="24">David Slavens</Run>
+<LineBreak/>
+<Run FontSize="24">Cyber Cat</Run>
+<LineBreak/>
+<Run FontSize="24">Przemek Starkiewicz</Run>
+<LineBreak/>
+<Run FontSize="24">iblank345</Run>
+<LineBreak/>
+<Run FontSize="24">Alex Gitro</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditssounddesign], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Mike Rinehart</Run>
+<LineBreak/>
+<Run FontSize="24">Nils Dücker</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditssoundtrack], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Aleksi Aubry-Carlson</Run>
+<LineBreak/>
+<Run FontSize="24">Jonathan Figoli</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsvoices], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Brenton Schraff (USA)</Run>
+<LineBreak/>
+<Run FontSize="24">Dimitry Rozental (USSR)</Run>
+<LineBreak/>
+<Run FontSize="24">Heather Setzler</Run>
+<LineBreak/>
+<Run FontSize="24">Lili</Run>
+<LineBreak/>
+<Run FontSize="24">Chris Noble (UK)</Run>
+<LineBreak/>
+<Run FontSize="24">Christopher "Rex" Emerson (Australia)</Run>
+<LineBreak/>
+<Run FontSize="24">Wei壹 (China)</Run>
+<LineBreak/>
+<Run FontSize="24">Moriyuki Hisida (Japan)</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditstesting], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Noah Landry (Lead)</Run>
+<LineBreak/>
+<Run FontSize="24">Taras Halloran</Run>
+<LineBreak/>
+<Run FontSize="24">Ezra Betts</Run>
+<LineBreak/>
+<Run FontSize="24">Charlie 'FPSchazly' Murphy</Run>
+<LineBreak/>
+<Run FontSize="24">James Cormack</Run>
+<LineBreak/>
+<Run FontSize="24">Alex Gitro</Run>
+<LineBreak/>
+<Run FontSize="24">Hao '银翼花吹山' Zhou</Run>
+<LineBreak/>
+<Run FontSize="24">Oliver 'Firesilver' Tadman</Run>
+<LineBreak/>
+<Run FontSize="24">Snake Man</Run>
+<LineBreak/>
+<Run FontSize="24">得梅因级重巡</Run>
+<LineBreak/>
+<Run FontSize="24">青柠檬QUQ</Run>
+<LineBreak/>
+<Run FontSize="24">Scott McCullough</Run>
+<LineBreak/>
+<Run FontSize="24">Brian Wiens</Run>
+<LineBreak/>
+<Run FontSize="24">Shaftoe</Run>
+<LineBreak/>
+<Run FontSize="24">Cassiopeia Knox</Run>
+<LineBreak/>
+<Run FontSize="24">James Parker</Run>
+<LineBreak/>
+<Run FontSize="24">Bernardo Scheliga</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditslocalisation], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Ivan Baranov (RU)</Run>
+<LineBreak/>
+<Run FontSize="24">Daniil Smirnov (RU)</Run>
+<LineBreak/>
+<Run FontSize="24">Christian Thomé (DE)</Run>
+<LineBreak/>
+<Run FontSize="24">Lin Zhongrui (CN)</Run>
+<LineBreak/>
+<Run FontSize="24">Fernando Gómez Pardo (ES)</Run>
+<LineBreak/>
+<Run FontSize="24">Javier Algüera (ES)</Run>
+<LineBreak/>
+<Run FontSize="24">Noé Favre (FR)</Run>
+<LineBreak/>
+<Run FontSize="24">Philippe Laurent (FR)</Run>
+<LineBreak/>
+<Run FontSize="24">al-sandos (KO)</Run>
+<LineBreak/>
+<Run FontSize="24">보글보글 (KO)</Run>
+<LineBreak/>
+<Run FontSize="24">heidemarie8520 (KO)</Run>
+<LineBreak/>
+<Run FontSize="24">8키드8 (KO)</Run>
+<LineBreak/>
+<Run FontSize="24">beataHi (KO)</Run>
+<LineBreak/>
+<Run FontSize="24">hgkkjh (KO)</Run>
+<LineBreak/>
+<Run FontSize="24">leeyn1215 (KO)</Run>
+<LineBreak/>
+<Run FontSize="24">shiny1300 (KO)</Run>
+<LineBreak/>
+<Run FontSize="24">APSHELL1 (JA)</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsresearch], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Olof Kjölstad</Run>
+<LineBreak/>
+<Run FontSize="24">Nikita Nichagin</Run>
+<LineBreak/>
+<Run FontSize="24">Cassiopeia Knox</Run>
+<LineBreak/>
+<Run FontSize="24">SqnLdrMartin (银翼花吹山)</Run>
+<LineBreak/>
+<Run FontSize="24">Alejandro Aszenmil</Run>
+<LineBreak/>
+<Run FontSize="24">Armada Argentina</Run>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36" Text="{Binding Path=LanguageResourceHandler.LanguageDictionary[creditsmicroprose], Converter={StaticResource UppercaseConverter}}"/>
+<LineBreak/>
+<Run FontSize="24">Chief Executive Officer: David Lagettie</Run>
+<LineBreak/>
+<Run FontSize="24">CTO: Ángel Eduardo García Hernández</Run>
+<LineBreak/>
+<Run FontSize="24">Senior Producer: Shane Gavin</Run>
+<LineBreak/>
+<Run FontSize="24">Chief Marketing Officer: Chris Ansell</Run>
+<LineBreak/>
+<Run FontSize="24">Marketing Producer: Larcey Palac</Run>
+<LineBreak/>
+<Run FontSize="24">Marketing and PR Manager: Davide Pessach</Run>
+<LineBreak/>
+<Run FontSize="24">Creative Content Manager: Frazer Nash</Run>
+<LineBreak/>
+<Run FontSize="24">Marketing Artist: Tomas Kuklik</Run>
+<LineBreak/>
+<Run FontSize="24">Community Manager: Olexander Korda</Run>
+<LineBreak/>
+<Run FontSize="24">Social Media Manager: Sarah Jade Lagettie</Run>
+<LineBreak/>
+<LineBreak/>
+<LineBreak/>
+<Run FontSize="36">© 2024-2026 Triassic Games</Run>

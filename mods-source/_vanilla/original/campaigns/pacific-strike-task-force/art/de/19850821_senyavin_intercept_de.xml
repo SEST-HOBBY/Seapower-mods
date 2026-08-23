@@ -1,0 +1,115 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  d:DesignWidth="1920"
+  d:DesignHeight="1080">
+  <Viewbox>
+    <Border Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="864" Height="1120" Padding="45"
+            TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16">
+      <Border.Effect>
+        <DropShadowEffect />
+      </Border.Effect>
+
+      <Border BorderThickness="0,10,10,10" BorderBrush="#FF000000">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <TextBlock Text="C05084521" Background="#FFFFFFFF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,-15,0,0" Padding="5,0,5,0" />
+          <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="10"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="15"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="15"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="TOP SECRET" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" TextAlignment="Center" FontFamily="Times New Roman">
+              The Director of Central Intelligence
+              <LineBreak/>
+              <LineBreak/>
+              <Run FontSize="12">Washington D.C., 20505</Run>
+            </TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="3" Text="21 August 1985"/>
+            <TextBlock Grid.Row="6" Grid.Column="3" Text="222X1"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="MEMORANDUM FOR:   "/>
+            <TextBlock Grid.Row="7" Grid.Column="1" TextWrapping="Wrap">
+              JCS WASHINGTON DC//J3//
+              <LineBreak/>
+              USCINCPAC HONOLULU HI
+              <LineBreak/>
+              CINCPACFLT PEARL HARBOR HI
+              <LineBreak/>
+              COMSUBPAC PEARL HARBOR HI
+            </TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="3" TextWrapping="Wrap">
+              EO 13526 3.3(b)(1)&gt;25Yrs
+              <LineBreak/>
+              EO 13526 3.5(c)
+            </TextBlock>
+            <TextBlock Grid.Row="9" Grid.Column="0" Text="BETREFF:   "/>
+            <TextBlock Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3" Text="Sowjetischer Druck auf Indonesien und ADMIRAL-SENYAVIN-SAG"/>
+          </Grid>
+          <StackPanel Grid.Row="2">
+            <TextBlock TextWrapping="Wrap">
+            1. Trotz alliierter Erfolge bei der Eindämmung sowjetischer Angriffe im Indischen Ozean bleibt die indonesische Regierung in Auflösung. Abgefangene Meldungen zeigen, dass Moskau den Druck auf indonesische Militär- und Kabinettsvertreter erhöht, Neutralität zu akzeptieren. Zu den sowjetischen Forderungen gehören die Verweigerung alliierter Stützpunktnutzung und der Durchfahrt durch indonesisch kontrollierte Meerengen.
+            <LineBreak/>
+            <LineBreak/>
+            2. Ausgewertete Einsatzbefehle weisen den sowjetischen Artilleriekreuzer ADMIRAL SENYAVIN an, nördlich von Jakarta zu verbleiben. Die SAG soll die Reichweite ihres Schiffsgeschützfeuers gegen Tanjung Priok, Ziele an der Uferfront Jakartas und Küsteninfrastruktur demonstrieren. Außerdem soll sie Schiffsverkehr unterbinden, der nach Einschätzung alliierte Bewegungen unterstützt. Die Befehlssprache betont, dass ein entscheidendes Gefecht zu vermeiden ist, bis die politischen Ziele erreicht sind.
+            <LineBreak/>
+            <LineBreak/>
+            3. Es wird vermutet, dass der SENYAVIN-Verband über weitreichende Bomberdeckung aus Cam Ranh verfügt. Sowjetische Luftfahrzeuge können die Javasee mit verringertem Abfangrisiko erreichen, nachdem die Luftstreitkräfte Singapurs und Malaysias wirksam zerschlagen wurden. RMAF Butterworth gilt nach wiederholten konventionellen Angriffen gegen Start- und Landebahnen, Treibstofflager und Wartungsbereiche als außer Gefecht.
+            <LineBreak/>
+            <LineBreak/>
+            4. Sowjetische diplomatische und nachrichtendienstliche Kanäle bieten Neutralitätsgarantien an, während zugleich mit anhaltendem Schiffsbeschuss, einer Treibstoffblockade und Unterstützung lokaler Fraktionen gedroht wird, falls Jakarta die Zusammenarbeit mit den Alliierten wiederaufnimmt. Die Drohung mit Schiffsgeschützfeuer gegen Hafen- und Regierungsziele wird als zentrales Element des Zwangsversuchs eingeschätzt. Die Kernforderung ist die Verweigerung indonesischer Flugplätze und Meerengen für alliierte Kräfte.
+            <LineBreak/>
+            <LineBreak/>
+            5. Wir beurteilen den SENYAVIN-Verband als sichtbaren Arm dieser Zwangskampagne. Die Zerstörung oder der Rückzug der SAG würde die Aussichten auf einen Wiedereintritt Indonesiens auf alliierter Seite verbessern. Dieser Funkspruch sollte als relevant betrachtet werden.
+            </TextBlock>
+            <TextBlock Text="William J. Casey, Direktor" HorizontalAlignment="Right" TextAlignment="Right" Margin="15"/>
+          </StackPanel>
+          <TextBlock Grid.Row="2" Grid.RowSpan="3" VerticalAlignment="Bottom">
+            <Run TextDecorations="Underline">Verteilung durch ER/21. August 1985 m. Anl.</Run>
+            <LineBreak/>
+            <LineBreak/>
+            Orig - Jeder Adressat
+            <LineBreak/>
+               1 - DCI
+            <LineBreak/>
+               1 - DDCI
+            <LineBreak/>
+               1 - EXDIR
+            <LineBreak/>
+               1 - C/NIC
+            <LineBreak/>
+               1 - VC/NIC
+            <LineBreak/>
+               1 - NIO/Warning
+            <LineBreak/>
+               1 - ER File
+          </TextBlock>
+          <TextBlock Grid.Row="4" Text="TOP SECRET" TextAlignment="Center"/>
+        </Grid>
+      </Border>
+    </Border>
+  </Viewbox>
+</Page>

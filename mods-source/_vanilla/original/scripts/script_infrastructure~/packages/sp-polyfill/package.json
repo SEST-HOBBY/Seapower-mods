@@ -1,0 +1,28 @@
+{
+  "name": "@seapower/sp-polyfill",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "npm run build:babel",
+    "build:babel": "npx babel src --out-dir build",
+    "pack": "npm-pack-zip --destination=\"../../../modules\" --add-version=true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-modules-systemjs": "^7.27.1",
+    "@seapower/sp-closure-transform": "workspace:*"
+  },
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+  },
+  "seapower": {
+    "staticOnly": true
+  }
+}

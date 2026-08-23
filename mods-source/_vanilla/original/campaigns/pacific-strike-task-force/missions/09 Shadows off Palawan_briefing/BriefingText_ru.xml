@@ -1,0 +1,68 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        FLASH
+        <LineBreak/>
+        Z 100300Z OCT 85
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="От кого:"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="CTF 77"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Кому:"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="{TaskForceFlagshipName} {TaskForceName} Сандакан Малайзия"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Копия:"/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        КОМ. ТИХООКЕАНСКОГО ФЛ. ПЕРЛ-ХАРБОР<LineBreak/>
+        81 КРЫЛО (ВРЕМЕННОЕ) КАВВС САНДАКАН МАЛАЙЗИЯ
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="Тема:"/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="О.ПЛАН-ОПЕРАЦИЯ ЧЕЛЛЕНДЖЕР"/>
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        СОВЕРШЕННО СЕКРЕТНО
+        <LineBreak/>
+        <LineBreak/>
+        1. (S) Настоящий приказ является ПРЯМЫМ ПРИКАЗОМ министра обороны.
+        <LineBreak/>
+        <LineBreak/>
+        2. (S) Положение: Противник удерживает Палаван, укрепившись в Пуэрто-Принсеса и Кесоне. Силы союзников скованы в Корее, Японии и в Тайваньском проливе, в то время как союзники в Юго-Восточной Азии могут предоставить лишь ограниченные наземные силы, но не воздушные или морские. Наступление ОВД в Европе и на Тихом океане оказалось более успешным, чем ожидалось по предвоенным оценкам, а захват Китаем Палавана при советской поддержке серьезно снизил оперативную гибкость союзников. Отбитие Палавана является главным приоритетом.
+        <LineBreak/>
+        <LineBreak/>
+        2. (S) ЗАДАЧА: Провести операцию ЧЕЛЛЕНДЖЕР, высадив совместные американо-филиппинские силы на Палаван, чтобы отбить остров.
+        <LineBreak/>
+        <LineBreak/>
+        3. (S) ВЫПОЛНЕНИЕ: ОГ 77 приказывается расчистить подходы к югу от Пуэрто-Принсеса, атакуя вражеские надводные и подводные силы в этом райне. ОГ 77 и приданные силы авиации должны обнаружить и уничтожить береговые противокорабельные ракетные батареи и ЗРК противника, а затем сопроводить 17-й экспедиционный отряд морской пехоты к пунктам высадки десанта.
+        <LineBreak/>
+        <LineBreak/>
+        4. (TS) Угроза: Китайские войска усилили оборону Палавана противокорабельными ракетами берегового базирования, береговыми батареями и надводными боевыми кораблями береговой обороны, которые, вероятно, будут скрыты среди рыболовного судоходства и в бухтах. Советская батарея ЗРК С-300 к северу от аэропорта с эффективной дальностью 50 морских миль является наиболее приоритетной угрозой и должна быть уничтожена.
+        <LineBreak/>
+        <LineBreak/>
+        5. (S) Приданные силы: Силы ВВС, базирующиеся на Сандакан. Союзные транспорты, обозначенные как TG 77.6, их выживание имеет первостепенное значение.
+        <LineBreak/>
+        <LineBreak/>
+        6. (S) ПРИМЕЧАНИЕ: Пополнения запасов перед последующими операциями не ожидается. Берегите боеприпасы. Удачи и хорошей охоты. КГ 77 передает.
+        <LineBreak/>
+        <LineBreak/>
+        СЕКРЕТНО
+        <LineBreak/>
+        DECL OADR BT
+    </TextBlock>
+</Grid>

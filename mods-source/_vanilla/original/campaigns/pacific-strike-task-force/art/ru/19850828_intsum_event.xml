@@ -1,0 +1,78 @@
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="820" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="54">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid Margin="0,0,0,22">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Text="СЕКРЕТНО" FontWeight="Bold"/>
+        <TextBlock Grid.Column="1" Text="S/S 8528428" FontWeight="Bold"/>
+      </Grid>
+
+      <TextBlock TextAlignment="Center" FontFamily="Times New Roman" FontSize="23" FontWeight="Bold" Text="Государственный Департамент США"/>
+      <TextBlock TextAlignment="Center" FontFamily="Times New Roman" FontSize="18" Text="Вашингтон, О.К. 20520"/>
+      <TextBlock TextAlignment="Right" Margin="0,15,0,0" Text="28 августа, 1985"/>
+
+      <Grid Margin="0,15,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="200"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="МЕМОРАНДУМ ДЛЯ:"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="МР. РОБЕРТ К. МакФАРЛЕЙН"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="БЕЛЫЙ ДОМ"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,18,0,0" Text="ОТ:"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,18,0,0" Text="Джордж П. Шульц"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,18,0,0" Text="ТЕМА:"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,18,0,0" Text="Повторное вступление Индонезии в войну"/>
+      </Grid>
+      <TextBlock TextWrapping="Wrap" FontSize="16">
+		<LineBreak/>
+		Индонезия вновь вступает в войну как активный член союзной коалиции. Это решение последовало вслед за устранением угрозы от крупной советской военно-морской группировки, оперировавшей к северу от Джакарты, что произошло в результате сражения с союзной корабельной ударной группой в Яванском море 26 августа. Президент Сухарто вновь объявился в Джакарте и восстановил контроль над правительством Индонезии.
+		<LineBreak/>
+		<LineBreak/>
+		Палаван захвачен противником в результате дерзкой операции, предпринятой им в условиях рассредоточения союзнических сил по всей западной части Тихого океана. Силы НОАК теперь контролируют этот передовой аванпост, который угрожает коммуникациям в западной части Филлипин и блокирует нам доступ в Южно-Китайское море.
+		<LineBreak/>
+		<LineBreak/>
+		Необходимость восстановить контроль над Юго-Восточной Азией связала руки союзникам с начала июля. Агрессивный стиль действий ОВД заставил нас разбросать и так недостаточный транспортный тоннаж, запасы топлива и вооружения по всему театру, что не было предусмотрено ни в одном из имевшихся планов.
+		<LineBreak/>
+		<LineBreak/>
+		Теперь, когда Индонезия вновь участвует в войне, силы США могут снова переместиться к северу. Следующая наступательная фаза кампании будет направлена против китайского бастиона на острове Палаван. Малайзия предоставляет в наше распоряжение Сандакан на северном Борнео в качестве одной из операционных баз, задействованных в палаванской операции.
+		<LineBreak/>
+		<LineBreak/>
+		Высшее командование союзников ставит задачу вернуть Палаван не позднее 1 ноября 1985 года. Что касается Индонезии, госдепартамент рекомендует президенту одобрить решение этой страны в частном порядке. В публичном же пространстве следует делать упор на суверенитете стран региона и избегать намеков на то, что Вашингтон инициировал возвращение Джакарты к участию в войне.
+		<LineBreak/>
+		<LineBreak/>
+		По каналам ООН сообщается о случаях нарушения прав человека в Индонезии после возвращения центральной власти, в особенности в отношении местного китайского населения страны. Учитывая стратегическое значение Индонезии, госдепартамент рекомендует отложить данную проблему до послевоенного времени.
+      </TextBlock>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" LineHeight="26" Margin="0,34,0,0">
+        Джордж P.Шульц
+		<LineBreak/>
+		<LineBreak/>
+		копия: Вице-президент; Министр обороны; Председатель ОКНШ
+		<LineBreak/>
+		<LineBreak/>
+		DECL: OADR
+	  </TextBlock>
+      <TextBlock TextAlignment="Center" Margin="0,22,0,0" FontWeight="Bold" Text="SECRET"/>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

@@ -1,0 +1,78 @@
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="820" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="54">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid Margin="0,0,0,22">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Text="GEHEIM" FontWeight="Bold"/>
+        <TextBlock Grid.Column="1" Text="S/S 8528428" FontWeight="Bold"/>
+      </Grid>
+
+      <TextBlock TextAlignment="Center" FontFamily="Times New Roman" FontSize="23" FontWeight="Bold" Text="United States Department of State"/>
+      <TextBlock TextAlignment="Center" FontFamily="Times New Roman" FontSize="18" Text="Washington, D.C. 20520"/>
+      <TextBlock TextAlignment="Right" Margin="0,15,0,0" Text="August 28, 1985"/>
+
+      <Grid Margin="0,15,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="200"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="MEMORANDUM FÜR:"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="MR. ROBERT C. McFARLANE"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="THE WHITE HOUSE"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,18,0,0" Text="VON:"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,18,0,0" Text="George P. Shultz"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,18,0,0" Text="BETREFF:"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,18,0,0" Text="Indonesien tritt wieder in den Krieg ein"/>
+      </Grid>
+      <TextBlock TextWrapping="Wrap" FontSize="16">
+		<LineBreak/>
+		Indonesien ist als aktiver alliierter Partner wieder in den Krieg eingetreten. Die Entscheidung folgt auf die Beseitigung einer sowjetischen Bedrohung nördlich von Jakarta durch einen alliierten Verband während des Gefechts in der Javasee am 26AUG. Präsident Suharto ist in Jakarta wieder aufgetaucht und stellt die Kontrolle über die indonesische Regierung wieder her.
+		<LineBreak/>
+		<LineBreak/>
+		Die feindliche Einnahme Palawans war eine kühne Operation, die durchgeführt wurde, während alliierte Kräfte im gesamten Westpazifik auseinandergezogen waren. Kräfte der PLA halten nun einen vorgeschobenen Stützpunkt, der den Verkehr durch die westlichen Philippinen bedroht und uns den Zugang zum Südchinesischen Meer verwehrt.
+		<LineBreak/>
+		<LineBreak/>
+		Die Notwendigkeit, Südostasien neu zu konsolidieren, hat die alliierte Handlungsfreiheit seit Anfang Juli eingeschränkt. Das aggressive Vorgehen des Pakts zwang uns, knappe Schiffskapazitäten, Treibstoffvorräte und Munition in einem Einsatzraum aufzuwenden, der in keiner ursprünglichen Planung vorgesehen war.
+		<LineBreak/>
+		<LineBreak/>
+		Mit Indonesien zurück im Krieg können US-Kräfte beginnen, nach Norden zu verlegen. Die nächste Offensivphase wird sich gegen den chinesischen Stützpunkt auf der Insel Palawan richten. Malaysia hat Sandakan in Nordborneo als einen von mehreren alliierten Bereitstellungsräumen für die Palawan-Operation angeboten.
+		<LineBreak/>
+		<LineBreak/>
+		Das Alliierte Oberkommando hat die Einsatzkräfte angewiesen, Palawan spätestens bis zum 1. November 1985 zurückzuerobern. In Bezug auf Indonesien empfiehlt das Außenministerium, dass der Präsident Indonesiens Entscheidung im privaten Rahmen begrüßt. Öffentliche Erklärungen sollten die regionale Souveränität betonen und nicht den Eindruck erwecken, Washington habe Jakartas Rückkehr in den Krieg angeordnet.
+		<LineBreak/>
+		<LineBreak/>
+		UN-Kanäle berichten von Fällen von Menschenrechtsverletzungen in Indonesien, während die Zentralgewalt wiederhergestellt wird, insbesondere gegen die chinesischstämmige Bevölkerung. Angesichts der strategischen Lage empfiehlt das Außenministerium, dieses Thema bis zur Nachkriegsregelung zurückzustellen.
+      </TextBlock>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" LineHeight="26" Margin="0,34,0,0">
+        George P. Shultz
+		<LineBreak/>
+		<LineBreak/>
+		cc: The Vice President; Secretary of Defense; Chairman, JCS
+		<LineBreak/>
+		<LineBreak/>
+		DECL: OADR
+	  </TextBlock>
+      <TextBlock TextAlignment="Center" Margin="0,22,0,0" FontWeight="Bold" Text="GEHEIM"/>
+    </StackPanel>
+  </Border>
+</ScrollViewer>
