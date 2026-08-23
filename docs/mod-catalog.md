@@ -51,7 +51,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Modern Russian Airbase (Large) | flankymanga | airbase | Airbase populated from other authors' Russian aircraft mods; mission makers advised to trim aircraft counts. Recommendation (not author instruction): keep below the aircraft mods it references. **Requires:** (inferred) the Russian aircraft mods it references — author credit line says the planes 'belong to their respective authors' |
 | <<Tu-16N>> | SKIBIDI_RIZZLER123 | fixed-wing | Probe-and-drogue tanker for Tu-22/Tu-22M, in service 1963. |
 | IL-78 TANKER | SKIBIDI_RIZZLER123 | fixed-wing | Il-78 aerial refueling tanker. |
-| MIG-29 Family | unknown (added 2026-08-24) | fixed-wing | MiG-29 variant family pack; actively updated. **Overlaps:** apex-predators-mig-29-f-16; mig-35 (MiG-29 lineage — now THREE sources); R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors) |
+| MIG-29 Family | unknown (added 2026-08-24) | fixed-wing | MiG-29 variant family pack; actively updated. VERIFIED: MiG-29 variants PLUS a carrier — wp_cv_orel_1991 (Soviet CV Orel) — bonus flattop for the red side. **Overlaps:** apex-predators-mig-29-f-16; mig-35 (MiG-29 lineage — now THREE sources); R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors) |
 | MiG-35 Fulcrum-F (米格-35 支点-F) | 2154545636 | fixed-wing | Multirole 4th-gen fighter, final MiG-29 evolution. **Overlaps:** apex-predators-mig-29-f-16 (different MiG-29 generation, complementary); R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors) |
 | MORE SU-24M VARIANTS | SKIBIDI_RIZZLER123 | fixed-wing | Su-24M2 and other modernized Fencer variants. |
 | Soviet AEW&C + Transport Aircraft (A-50 / Il-76) | Zero Two | fixed-wing | A-50 Mainstay (3 liveries), modernized A-50U, Il-76 transport. |
@@ -64,15 +64,15 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke) | aaaaaaaaaaaaaaaabcd | fixed-wing | Tu-95MS with FAB-500 or up to 14 AS-15; nuclear and fictional anti-ship derivatives. WARNING: 'Changes to Munitions with VeryLarge impact size' — a global data edit that can conflict with other weapon mods. **Overlaps:** tu-95ms-x-101 (both add Tu-95MS variants); tu-95k-22 |
 | Tu-95K-22 Bear G MOD | plasm@n | fixed-wing | Bear G rebuild with Kh-22 (AS-4 Kitchen) missiles. Workshop ID 3411341227. (User re-subscribed 2026-08-24 — same Workshop item, no change.) **Overlaps:** tu-95-as-15; tu-95ms-x-101 |
 | Tu-95MS (X-101) | SKIBIDI_RIZZLER123 | fixed-wing | Tu-95MS with Kh-101 (AS-23 Kodiak) stealth cruise missiles. **Overlaps:** tu-95-as-15 (both add Tu-95MS variants); tu-95k-22 |
-| Iskander TBM | unknown (added 2026-08-24) | land | 9K720 Iskander tactical ballistic missile launcher. |
-| SA-21/S-400 SAM | unknown (added 2026-08-24) | land | Russian strategic SAM system; joins the land air-defense watchlist. **Overlaps:** sam-pack and ground-upgrade-spaa (land air-defense overlap watch) |
-| SCUD-B | unknown (added 2026-08-24) | land | R-17 Elbrus TBM launcher (Cold War era). |
+| Iskander TBM | unknown (added 2026-08-24) | land | 9K720 Iskander tactical ballistic missile launcher. VERIFIED: adds wp_ss-26_tel. |
+| SA-21/S-400 SAM | unknown (added 2026-08-24) | land | Russian strategic SAM system; joins the land air-defense watchlist. VERIFIED: adds wp_sa-21_* TELs (9M96E/E2 and more). **Overlaps:** sam-pack and ground-upgrade-spaa (land air-defense overlap watch) |
+| SCUD-B | unknown (added 2026-08-24) | land | R-17 Elbrus TBM launcher (Cold War era). VERIFIED: adds wp_scud_9k72. |
 | Ka-27RLD | Filip7370 | rotary | Soviet-liveried Ka-31 AEW helicopter (standalone); model credit to the Modern PLAN mod's Ka-31. |
 | Mi-8 T/TV | misaka | rotary | Transport/armed transport Hip. Author: 'Need SeaLifter'. **Requires:** sealifter **Overlaps:** mi-8ew (different variant, complementary) |
 | Mi-8EW | boli | rotary | EW variant proxied from the Mi-14 in game; Azaliya OECM jammer and detection sensor. **Overlaps:** mi-8-t-tv (different variant, complementary) |
 | Mil Mi-24 Hind | MyGo!!!!!鼓手椎名立希 | rotary | Helicopter gunship / assault transport. |
 | 1143.5 Kuznetsov | MyGo!!!!!鼓手椎名立希 | ship | Admiral Kuznetsov carrier; ski jump still in testing per author. Sister design of the Liaoning (Project 1143.5/6 family) — different navy, different author, no conflict expected. |
-| Kirov-class (Pyotr Velikiy Upgrade) | unknown (added 2026-08-24) | ship | Modernized Pyotr Velikiy battlecruiser refit. **Overlaps:** vanilla Kirov-class variants (check for shared unit ids/files) |
+| Kirov-class (Pyotr Velikiy Upgrade) | unknown (added 2026-08-24) | ship | Modernized Pyotr Velikiy battlecruiser refit. VERIFIED 2026-08-24: adds new unit wp_rkr_kirov_improved — additive, no vanilla collision. **Overlaps:** vanilla Kirov-class variants (check for shared unit ids/files) |
 | Russian Navy 21 | Pointinthevoid | ship | Projects 20380/20385/21631 corvettes, 11356/22350 frigates, 21956 destroyer, 11780 LHA. |
 | Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes) | ManeuverWarfare | submarine | Yasen, Akula, Borei, Oscar II, Belgorod, Sierra I/II, Typhoon, Delta IV kitbashes. |
 | 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala) | SKIBIDI_RIZZLER123 | weapons | Soviet experimental long-range strategic cruise missile (Meteorit program, authorized 1976). |
@@ -110,13 +110,13 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Eurofighter Typhoon | misaka | fixed-wing | European multinational multirole fighter. |
 | SAAB AEW&C PACK | dingtools | fixed-wing | Saab AEW&C aircraft (GlobalEye/Erieye family); author notes future updates postponed. **Load order:** Keep Dingtools Weapon Pack ABOVE all dingtools mods |
 | Euromod - Main Pack | Mitchell600 | framework | Shared database of European weapons and sensors. The Euromod dependency is explicitly stated by 5 of the 8 addons in this list (Nordic, Dutch, German, British, Cold War Spanish) and inferred for the other 3 (Italian, JMSDF, Modern Spanish). No author placement instruction; recommendation: keep above all Euromod addons. |
-| Royal Navy Westland Lynx HAS.3 Kitbash [OLD] ⚠️ **DEPRECATED** | unknown (added 2026-08-24) | rotary | Tagged [OLD] by its author — likely superseded by the Sea Lynx pack. Unsubscribe candidate after file check. **Overlaps:** sea-lynx; french-helicopter-package; euromod-german (Lynx family — now FOUR sources) |
+| Royal Navy Westland Lynx HAS.3 Kitbash [OLD] ⚠️ **DEPRECATED** | unknown (added 2026-08-24) | rotary | Tagged [OLD] by its author. VERIFIED: adds rn_lynx AND rn_wildcat — the Wildcat is not in the Sea Lynx pack, which is a reason to keep this despite the tag. **Overlaps:** sea-lynx; french-helicopter-package; euromod-german (Lynx family — now FOUR sources) |
 | Sea Lynx | petrouvis01 | rotary | Five Lynx variants: UK, Netherlands, West Germany, France, and more. **Overlaps:** french-helicopter-package (French Navy operated the Lynx — likely a second Lynx source); euromod-german (F123 frigates embark the Super Sea Lynx Mk88A) |
 | Euromod - Modern British Navy | 5_12 | ship | Modern Royal Navy addon; author: 'requires Euromod to work as intended'. **Requires:** euromod-main |
 | Euromod - Modern Dutch navy | Mitchell600 | ship | De Zeven Provinciën-class LCF AAW frigates (incl. midlife upgrade). **Requires:** euromod-main |
 | Euromod - Modern German Navy | Chevron 9 | ship | Type 212A sub, F123, F124, F125 frigates. **Requires:** euromod-main **Overlaps:** sea-lynx (Super Sea Lynx Mk88A on F123) |
 | Euromod - Modern Nordic Navy | Mitchell600 | ship | Iver Huitfeldt frigate, Visby corvette (V5/V6), Skjold corvette. **Requires:** euromod-main |
-| Royal Navy Type 23 'Duke Class' Frigate [OLD] ⚠️ **DEPRECATED** | unknown (added 2026-08-24) | ship | Tagged [OLD] by its author — the Euromod British pack carries maintained Type 23s. Unsubscribe candidate after file check; PRIORITY check because SEST_RAN_Fleet's Anzac clone references the Euromod Type 23 MLU's assets. **Overlaps:** euromod-british (Type 23 family — if unit ids/assets collide, this can affect the SEST RAN Anzac clone's donor assets) |
+| Royal Navy Type 23 'Duke Class' Frigate [OLD] ⚠️ **DEPRECATED** | unknown (added 2026-08-24) | ship | Tagged [OLD] by its author. VERIFIED 2026-08-24: uses its OWN unit ids (rn_type23, rn_type23_refit) and shares no asset paths with the Euromod British pack — it is additive, NOT a conflict, and no threat to the SEST RAN Anzac clone. Keep or drop purely for menu tidiness. **Overlaps:** euromod-british (redundant Type 23 hulls under different unit ids — clutter, not conflict) |
 
 ## France (4)
 
@@ -147,21 +147,22 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 |---|---|---|---|
 | Type 12 SSM-ER Anti-Ship Missile System | FallschimJager705 | land | JGSDF mobile shore-based anti-ship missile system; base and ER (900 km) variants. |
 | Euromod - Modern Japanese Maritime Self Defence Force | Mitchell600 | ship | Modern JMSDF addon for Euromod. **Requires:** euromod-main (inferred from Euromod addon naming; not stated in the truncated description) |
-| Mogami-class Frigate | unknown (added 2026-08-24) | ship | JMSDF stealth multirole frigate; natural companion to Euromod JMSDF. **Overlaps:** euromod-jmsdf (complementary — check for shared JMSDF weapon/sensor definitions) |
+| Mogami-class Frigate | unknown (added 2026-08-24) | ship | JMSDF stealth multirole frigate; natural companion to Euromod JMSDF. VERIFIED: adds js_ffg_mogami. **Overlaps:** euromod-jmsdf (complementary — check for shared JMSDF weapon/sensor definitions) |
 
-## Australia (3)
+## Australia (4)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
 | [DEPRECATED] E-7A Wedgetail ⚠️ **DEPRECATED** | Pog Frog | fixed-wing | RAAF AEW&C, Boeing 737 NG with MESA radar. Marked deprecated by author — unsubscribe candidate. |
 | RAAF F-35A Lighting II | Greene | fixed-wing | RAAF fifth-generation multirole stealth fighter. **Overlaps:** modern-us-navy (F-35C — different variant, complementary; possible shared weapon data only) |
 | [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles ⚠️ **DEPRECATED** | Pog Frog | rotary | RAN ASW/ASST Seahawk. Marked deprecated by author — unsubscribe candidate. Description body still says 'currently WIP' — the text may predate the [DEPRECATED] title; confirm current state before unsubscribing. |
+| Auxilliary Merchant Pack | unknown (added 2026-08-24) | ship | VERIFIED: AUSTRALIAN auxiliary shipping — ran_ms_bulk, ran_msa_act_1, anl_ms_bulk (ANL = Australian National Line). Direct fit for RAN convoy/escort scenarios alongside SEST_RAN_Fleet. **Overlaps:** merchants-expanded (two merchant packs — check for duplicate hulls) |
 
 ## Iran (3)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
-| SEJJIL (Iran Ballistic Missiles) | unknown (added 2026-08-24) | land | Iranian MRBM systems. |
+| SEJJIL (Iran Ballistic Missiles) | unknown (added 2026-08-24) | land | Iranian MRBM systems. VERIFIED: adds wp_sejjil_tel. |
 | Shahed-136 Drone | Obiwonkanblomi | uav | Second Shahed-136 mod; speed fixed at 120 mph; borrows the launcher truck from Zero Two's mod. Redundant with the Zero Two version — pick one. UNSUBSCRIBED by user 2026-08-24 (runbook Phase 2). **Overlaps:** shahed-136-zero-two |
 | Shahed-136 Kamikaze Drone (Geran-2) | Zero Two | uav | Land-launched one-way attack drone; black and white variants, two launcher land units. Richer of the two Shahed mods. **Overlaps:** shahed-136-obiwonkanblomi |
 
@@ -171,30 +172,29 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 |---|---|---|---|
 | Apex Predators MIG-29A & F-16A | misaka | fixed-wing | Cold War MiG-29A and F-16A pair. **Overlaps:** f-16c-modern (different F-16 generation, complementary); mig-35 (different MiG-29 generation, complementary) |
 | Boeing P-8 Poseidon | Kirameki | fixed-wing | Custom-model P-8 with full weapon suite incl. modeled HAAWC; USN, Indian Navy, RAAF liveries. |
-| Armed Oil Rig with Helo MOD | unknown (added 2026-08-24) | land | Offshore platform installation with helipad — scenario objective piece. |
-| Pickup truck extension | unknown (added 2026-08-24) | land | Technicals / light vehicle extension. |
+| Armed Oil Rig with Helo MOD | unknown (added 2026-08-24) | land | Offshore platform installation with helipad — scenario objective piece. VERIFIED: adds civ_spar_rig_helo installation. |
+| Pickup truck extension | unknown (added 2026-08-24) | land | Technicals / light vehicle extension. VERIFIED: adds civ_car_pickup_1983 variants (incl. armed/medic). |
 | SAM Pack | misaka | land | Surface-to-air missile systems pack (incl. MIM-104 Patriot). **Load order:** Author: 'Need on the top of TOE' — place at the top of the mod order **Overlaps:** ground-upgrade-spaa; thaad; pla-land-unit-pack (air defense overlap) |
 | Ground Upgrade: SPAA | misaka | patch | Refines ground-unit models and MODIFIES values of some weapons and units — load-order sensitive; watch for overlap with SAM Pack and land unit packs. |
 | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) 🚧 WIP | FallschimJager705 | uav | Recon quadcopter (China), Forpost-R, Mugin5, Orlan-10 (Russia), RQ-7 (USA); ongoing updates. |
 
-## Civilian (4)
+## Civilian (3)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
 | Civil Aircraft Mod (Airbus Family) | Zero Two | civilian | Commercial Airbus air traffic for scenario building. |
-| Humpback Whale | unknown (added 2026-08-24) | civilian | Ambience / biologic sonar contact. |
-| Auxilliary Merchant Pack | unknown (added 2026-08-24) | ship | Civilian/auxiliary shipping. **Overlaps:** merchants-expanded (two merchant packs — check for duplicate hulls) |
-| Merchants Expanded | unknown (added 2026-08-24) | ship | Expanded civilian merchant traffic. **Overlaps:** auxilliary-merchant-pack (two merchant packs — check for duplicate hulls) |
+| Humpback Whale | unknown (added 2026-08-24) | civilian | Ambience / biologic sonar contact. VERIFIED: adds civ_humpback. |
+| Merchants Expanded | unknown (added 2026-08-24) | ship | Expanded civilian merchant traffic. VERIFIED: civilian merchant hulls (civ_ms_*). **Overlaps:** auxilliary-merchant-pack (two merchant packs — check for duplicate hulls) |
 
 ## Utility / frameworks (5)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
-| AI Doctrine Overhaul | unknown (added 2026-08-24) | framework | Global AI behavior overhaul — affects every engagement; actively updated. Treat as a framework near the top of the mod order pending file check. **Requires:** anchor-chain (presumed — code-level behavior mod; verify) |
+| AI Doctrine Overhaul | unknown (added 2026-08-24) | framework | VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement. **Requires:** anchor-chain (presumed — code-level behavior mod; verify) |
 | Anchor Chain | PrimerGuided | framework | Community chainloader. 'Will not function on its own' — requires the documented manual install. Required by B-2 Spirit and Type 003/004 CVN, and by any code-modifying mod. Recommendation: keep at the very top of the mod order. |
-| Better TacMap | unknown (added 2026-08-24) | framework | Tactical map UI overhaul. **Requires:** anchor-chain (presumed — UI code mod; verify) |
-| Custom Loadout Editor | unknown (added 2026-08-24) | framework | In-game loadout editing tool. Complementary to the SEST loadout patches (it edits at runtime; SEST adds pre-configured options) — verify they coexist on the F-15EX/F-35C. **Requires:** anchor-chain (presumed — code-level tool; verify) |
-| Buildings and Targets for Missions | unknown (added 2026-08-24) | land | Scenery and target structures for mission building. |
+| Better TacMap | unknown (added 2026-08-24) | framework | VERIFIED: pure code mod (settings.cfg only in export) — Anchor Chain family UI overhaul. **Requires:** anchor-chain (presumed — UI code mod; verify) |
+| Custom Loadout Editor | unknown (added 2026-08-24) | framework | VERIFIED: Anchor Chain code mod plus *_patch_clm companion units for vanilla-era aircraft/ships (F-14, AV-8A, Tarawa, MiG-27...). All patch files use NEW ids — zero overlap with the SEST loadout patches. **Requires:** anchor-chain (presumed — code-level tool; verify) |
+| Buildings and Targets for Missions | unknown (added 2026-08-24) | land | Scenery and target structures for mission building. VERIFIED: land-target structures (oil pump, power plants, bunkers...). |
 
 ## ⚠️ Known missing / manual dependencies
 
