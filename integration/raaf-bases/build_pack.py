@@ -69,6 +69,91 @@ BASES = {
             ("usn_mh-60r", "Squadron1,4"),
         ],
     },
+    "airbase_raaf_east_sale": {
+        "name": "RAAF Base East Sale",
+        "desc": "Training base: lead-in F-35A det, MQ-9 training flight",
+        "airgroup": [
+            ("raaf_f-35a", "Squadron1,4"),
+            ("usaf_mq-9a", "Squadron3,4"),
+        ],
+    },
+    "airbase_raaf_pearce": {
+        "name": "RAAF Base Pearce",
+        "desc": "Western Australia training hub: F-35A conversion unit, KC-46A",
+        "airgroup": [
+            ("raaf_f-35a", "Squadron2,8"),
+            ("usaf_kc-46a_boom", "Squadron2,2"),
+        ],
+    },
+    "airbase_raaf_gingin": {
+        "name": "RAAF Base Gingin",
+        "desc": "Pearce satellite field: F-35A det, SAR helicopters",
+        "airgroup": [
+            ("raaf_f-35a", "Squadron1,4"),
+            ("usn_mh-60r", "Squadron1,2"),
+        ],
+    },
+    "airbase_raaf_richmond": {
+        "name": "RAAF Base Richmond",
+        "desc": "Air mobility home: Hercules fleet (KC-130T stand-in), SAR helicopters",
+        "airgroup": [
+            ("usmc_kc-130t", "Squadron1,6"),
+            ("usn_mh-60r", "Squadron2,2"),
+        ],
+    },
+    "airbase_raaf_townsville": {
+        "name": "RAAF Base Townsville",
+        "desc": "Joint army aviation base: AH-64E Apache, MH-60R, S-70B-2, Hercules det",
+        "airgroup": [
+            ("usa_ah-64e", "Squadron1,8"),
+            ("usn_mh-60r", "Squadron1,4"),
+            ("S-70B-2_Seahawk", "Squadron1,4"),
+            ("usmc_kc-130t", "Squadron2,2"),
+        ],
+    },
+    "airbase_raaf_learmonth": {
+        "name": "RAAF Base Learmonth (Bare Base)",
+        "desc": "Activated bare base, ISR posture: P-8A det, U-2, KC-135",
+        "airgroup": [
+            ("usn_p8", "Squadron3,4"),
+            ("usaf_u-2", "Squadron1,2"),
+            ("usaf_kc-135a", "Squadron2,2"),
+        ],
+    },
+    "airbase_raaf_curtin": {
+        "name": "RAAF Base Curtin (Bare Base)",
+        "desc": "Activated bare base, fighter posture: F-35A det, drogue tanker",
+        "airgroup": [
+            ("raaf_f-35a", "Squadron3,8"),
+            ("usaf_kc-46a_warp", "Squadron2,2"),
+        ],
+    },
+    "airbase_raaf_scherger": {
+        "name": "RAAF Base Scherger (Bare Base)",
+        "desc": "Activated bare base, Cape York: F-35A det, MQ-9 ER",
+        "airgroup": [
+            ("raaf_f-35a", "Squadron4,8"),
+            ("usaf_mq-9_er", "Squadron1,4"),
+        ],
+    },
+    "airbase_raaf_woomera": {
+        "name": "RAAF Woomera Airfield",
+        "desc": "Test and evaluation range: U-2, MQ-9 ER, B-2 test det",
+        "airgroup": [
+            ("usaf_u-2", "Squadron1,2"),
+            ("usaf_mq-9_er", "Squadron2,4"),
+            ("usaf_b-2_spirit", "Squadron2,2"),
+        ],
+    },
+    "airbase_raaf_butterworth": {
+        "name": "RAAF Base Butterworth",
+        "desc": "Forward presence, Malaysia: F-35A det, P-8A rotation, KC-135",
+        "airgroup": [
+            ("raaf_f-35a", "Squadron1,6"),
+            ("usn_p8", "Squadron3,3"),
+            ("usaf_kc-135a", "Squadron3,2"),
+        ],
+    },
 }
 
 INFO_INI = """[Language_en]
