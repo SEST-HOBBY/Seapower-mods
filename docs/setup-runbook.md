@@ -37,20 +37,53 @@ Everything else stays. The three Fujians / four MH-60 sources / duplicate missil
 are a mod-order question, not an unsubscribe question — the file-level scan (roadmap item 1)
 settles those properly later.
 
-## Phase 3 — install the five SEST packs
+## Phase 3 — install the five SEST packs (scripted)
 
-Copy these folders from the repo's `integration\` directories into
-`Sea Power_Data\StreamingAssets\` (next to `original` and `user`):
+In PowerShell, from your repo clone (e.g. `C:\Users\<you>\Seapower-mods`):
 
-1. `SEST_F-15EX_Revamp` — 4 new F-15EX loadouts (LRASM×6, Harpoon, Quicksink, AIM-174B)
-2. `SEST_F-35C_JATM` — AIM-260 fits for the Ford's F-35Cs (+ fixes USNA's duplicated AntiShip section)
-3. `SEST_RAAF_F-35A_JATM` — 3 AIM-260 fits for the RAAF F-35A
-4. `SEST_RAAF_Bases` — 15 Australian airbases, 211 aircraft
-5. `SEST_RAN_Fleet` — 7 RAN classes, 26 named hulls
+```powershell
+git pull
+powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
+```
 
-Then enable all five in the Mod Manager.
+The script auto-finds Sea Power the same way the export script did, locates `StreamingAssets`,
+and copies all five packs in. It prints one line per pack (`installed` or `updated`) — expect
+5 of 5. Re-run it any time after a `git pull` to take updates; it overwrites in place.
 
-## Phase 4 — mod order (top = highest priority; the higher-listed mod wins file conflicts)
+What it installs: `SEST_F-15EX_Revamp` (4 new F-15EX loadouts) · `SEST_F-35C_JATM` (AIM-260
+for the Ford's F-35Cs) · `SEST_RAAF_F-35A_JATM` · `SEST_RAAF_Bases` (15 bases, 211 aircraft)
+· `SEST_RAN_Fleet` (7 classes, 26 hulls).
+
+Then launch the game → Mod Manager → the five SEST entries should appear alongside your
+Workshop mods. **Enable all five.** If they don't appear in the list at all, stop and report
+it (the fallback is merging into `StreamingAssets\user\`, but don't do that unprompted).
+
+## Phase 4 — mod order
+
+Your current order is whatever the game accumulated as you subscribed — it has never been
+set deliberately, so treat this phase as required, not optional. Reordering is done in the
+in-game Mod Manager (move entries up/down; top of the list wins when two mods ship the same
+file; apply/restart after changing).
+
+### The moves that actually matter (do these even if you do nothing else)
+
+1. **Anchor Chain to the very top.**
+2. **Dingtools Weapon Pack above all four dingtools mods** (F-15SE/F-15EX, B-52H, B-1B,
+   SAAB AEW&C) — author-mandated.
+3. **PLA Land Unit Pack above every PLA-related mod**; **SAM Pack near the top** — both
+   author-mandated.
+4. **SEST F-15EX Revamp above the F-15EX mod** (listed as "F-15SE") — below the Weapon Pack.
+5. **SEST F-35C JATM above ALL FOUR other F-35C sources.** Because you kept the MyGo F-35C
+   and F-35C Alt. Loadouts for now, there are four mods carrying `usn_f-35c`: those two,
+   US Naval Aviation, and Modern US Navy. If any of them sits above the SEST patch, the
+   Ford's jets silently lose the AIM-260 fits (and you'll be flying whichever F-35C file
+   happens to win).
+6. **SEST RAAF F-35A JATM above the RAAF F-35A mod.**
+
+The two Australian content packs (`SEST_RAAF_Bases`, `SEST_RAN_Fleet`) only ADD new files —
+they conflict with nothing, so their position is forgiving; bottom of the list is fine.
+
+### The full target order
 
 ```
 ── Tier 1: loaders ──────────────────────────────────────────
