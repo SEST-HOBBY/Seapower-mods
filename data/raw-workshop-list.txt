@@ -1,0 +1,439 @@
+Steam Workshop subscription list — Sea Power: Naval Combat in the Missile Age
+Pasted by user 2026-08-23. 109 items. Descriptions truncated as pasted; image URLs stripped.
+================================================================================
+
+[DEPRECATED] E-7A Wedgetail
+Created by Pog Frog
+The E-7A Wedgetail is an airborne early warning and control (AEW&C) aircraft operated by the Royal Australian Air Force (RAAF). It is based on the Boeing 737 Next Generation design and features a distinctive Multi-Role Electronically Scanned Array (MESA) r...
+
+RAAF F-35A Lighting II
+Created by Greene
+Overview The F-35A Lightning II is the Australian Defence Force's first fifth-generation air combat capability. It is a highly advanced multi-role, supersonic, stealth fighter which will meet Australia's requirements to defeat current and emerging threats....
+
+B-52H Stratofortress
+Created by dingtools
+The B-52H is a long-range subsonic strategic bomber developed by Boeing for the U.S. Air Force. It is the only remaining active model of the famous "Stratofortress" family. Powered by eight Pratt & Whitney TF33-P-3 turbofan engines, it has a maximum payloa...
+
+Shahed-136 Kamikaze Drone (Geran-2)
+Created by Zero Two
+This mod adds the Shahed-136 drone. The drones are launched exclusively from land-based launcher units and come in custom black and white variants. There are two land unit variants: one launches the Black Shahed-136, and the other launches the White Shahed...
+
+Euromod - Modern Italian Navy
+Created by Mitchell600
+History While a number of navies downscaled their fighting forces following the end of the Cold War the Italian Navy would carry on with its role as one of the three essential guardians of the Mediterranean, keeping most of their older surface combattants ...
+
+<<E-3G>>
+Created by SKIBIDI_RIZZLER123
+Sky sentry for digital age! History USAF Block 40/45 modification. Includes hardware and software upgrades to improve communications, computer processing power, threat tracking, and others, and automates some previously manual functions. Initial operating ...
+
+F-117 Nighthawk
+Created by misaka
+Model: F-117: "Lockheed F-117 Nighthawk" (Sketchfab) by Rhine_Lab_Muelsyse licensed under CC BY 4.0. GBU-31: "Missile & Bomb Collection - Fighter Jets - Free" (Sketchfab)...
+
+VH-3D Marine One MOD
+Created by plasm@n
+VH-3D Marine One MOD. Workshop ID: 3478767194. POTUS onboard! This mod adds the Sikorsky VH-3D 'Marine One' to Sea Power. 'Marine One' is the call sign of any United States Marine Corps aircraft carrying the President of the United States. It usually denotes...
+
+[DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
+Created by Pog Frog
+The S-70B-2 Seahawk is a derivative of the SH-60F, but was designed by Sikorsky to meet RAN specifications for anti-submarine warfare (ASW) and anti-surface surveilance and targeting (ASST) operations. This asset is currently WIP while I tweak some minor t...
+
+B-52G with AGM-86 (realistic nuke)
+Created by aaaaaaaaaaaaaaaabcd
+Mod featuring: AGM-86C CALCM (vanilla), AGM-86B ALCM (nuclear warhead), AGM-86E CALASM (fictional, anti ship, searches target like TASM), AGM-86E(W80) ALASM (fictional, anti ship, nuclear warhead). Adds 8 new loadouts for vanilla B-52G: Standoff, 20 AGM-86C Standof...
+
+Modern US Airbase
+Created by King_Achilles_Berlin
+Airbase with different modern US Jets. Integrated Aircrafts: AC 130J, A10, AV 8A, F15 C, F/A 18F, F22 S6, F35 C, B52 G, B-1, F117 Nighthawk, B2 Spirit, E3A AWACS, MQ9 Drone, Air Force One. Helicopter: AH 1T, VH 3D (US "Marine One"), AH 64...
+
+A-10C
+Created by misaka
+Based on A-10A mod. Add to: Airplane: A-10C (USA). Ammunition: GBU-31, GBU-38, GBU-39, AIM-9M (Both have reduced the range of A-10). Add hanging: GBU-10, GBU-12, Leitning pod, ALQ-184 ECM pod...
+
+A-10A Thunderbolt II
+Created by misaka
+Need SeaLifter, if unable to open, please ensure that SeaLifter is installed correctly. Model: "A-10 Thunderbolt II - Free" (Sketchfab) by bohmerang licensed under CC BY 4.0. This ...
+
+日本陆上自卫队12式岸舰导弹系统 "Type 12 SSM-ER Anti-Ship Missile System"
+Created by FallschimJager705
+日本陆上自卫队现役的机动式岸基反舰导弹系统，由三菱重工研制，2015年列装。该系统以陆基部署为核心，用于封锁近海航道并对抗敌方水面舰艇。12式反舰导弹，基于88式导弹改进，初始弹长5米，弹重700千克，亚音速（0.9马赫），最大射程200千米，改进型射程达900千米（2024年试射验证）。采用隐身气动设计（折叠弹翼、X型尾翼）和表面吸波涂料，雷达反射截面积显著降低。The Japanese Ground Self-Defense Force operates this mobile shore-based ...
+
+Euromod - Modern Japanese Maritime Self Defence Force
+Created by Mitchell600
+"Welcome to the Modern Japanese Navy, made by the Euromod Team" History ...
+
+Italian Navy Mod
+Created by zzocalu
+History Italy entered the Cold War with what remained of the former Regia Marina after WW2, having to give away many vessels as war reparations and receiving some ships from the US as part of the MDAP program. During the 1960s italian shipyards were put to...
+
+图-214R家族
+Created by 鸣山
+图-214R 家族 (Tu-214R Family Pack). 基于俄罗斯图波列夫图-214平台打造的全能空中特种任务机群。本模组为您带来了图-214R侦察机的多种衍生型号，将这一强大、可靠的空中平台扩展至电子战、预警指挥与反潜巡逻等多个关键领域。图-214系列以其优秀的载荷能力和远航程著称，是执行各类复杂特种任务的理想改装平台。 模组包含以下机型：图-214R 电子战机 (Tu-214R) 在侦察平台基础上强化了主动电子攻击能力。利用其庞大的机身和供电能力，搭载大功率干扰...
+
+Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
+Created by aaaaaaaaaaaaaaaabcd
+Mod featuring: Tu-95MS, can carry 30 FAB-500 or up to 14 AS-15 cruise missiles. AS-15, land attack nuclear capable cruise missile along with hypothetical anti ship derivatives which can fly in formation. Changes to Munitions with VeryLarge impact size (Suicide...
+
+MORE SU-24M VARIANTS
+Created by SKIBIDI_RIZZLER123
+More variants of irreplaceable Su-24M arrive in Sea Power! History: Su-24M2 ('Fencer-D') Next modernization of Su-24M introduced in 2000 with the "Sukhoi" program and in 1999 with the "Gefest" program. The modernized planes are equipped with new equipment a...
+
+米格-35 支点-F
+Created by 2154545636
+Mig-35 Fulcrum-F. 米格-35是由俄罗斯米格航空器集团所开发生产的多用途战机，属于第四代战斗机。本机衍生自苏联时期开发的Mig-29战机，是集成米格航空器集团所有技术的Mig-29最终升级型，自2019年起陆续进入俄军服役。 模组内容：空中单位：米格-35 战斗机。 著作权声明 3D模型来源："MiG-35 - Fighter Jet - Free" (Sketchfab)...
+
+Su-25 Frogfoot
+Created by misaka
+Need SeaLifter. Model: Su-25: "Sukhoi Su-25" (Sketchfab) by Immersive3D licensed under CC BY 4.0. This mod is produced by misaka. Module addition: Airborne...
+
+Apex Predators MIG-29A & F-16A
+Created by misaka
+...
+
+3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
+Created by SKIBIDI_RIZZLER123
+TEST SOVIET WONDER WEAPON IN SEA POWER! WANT TO STRIKE ENEMIES FROM FAR AND UNDETECTEC? THIS WEAPON IS FOR YOU! QUICK HISTORY LESSON: Development of three variants of this cruise missile was authorized on 9 December 1976. The Meteorit-M strategic version woul...
+
+Modern Russian Airbase (Large)
+Created by flankymanga
+Airbase containing modern Russian warplanes and helicopters. I am not author of the planes. They belong to their respective authors. For mission makers: I expect you to trim down the airplane numbers to a more reasonable counts. If any of the Chinese / Rus...
+
+Tu-95K-22 Bear G MOD
+Created by plasm@n
+Tu-95K-22 Bear G MOD. Mod Number: 3411341227. The Bear is no longer clawless! This mod implements the Tu-95K-22 (NATO reporting name: Bear G). This version is a rebuild of the 1960s Bear B/C, armed with Kh-22 Storm (NATO reporting name AS-4 Kitchen) cruise m...
+
+Tu-95MS (X-101)
+Created by SKIBIDI_RIZZLER123
+The Bear got new toys! Now you can sling stealth cruise missiles in style! History: The Kh-101 (Russian: Х-101; NATO reporting name: AS-23 "Kodiak") is a Russian air-launched cruise missile which operates at a maximum of Mach 0.8. Designed in the 1990s, it u...
+
+Russian Navy 21
+Created by Pointinthevoid
+This mod adds project 20380, 20385, 21631 corvettes, 11356, 22350 frigates, 21956 destroyer of the Russian Navy, 11780 LHA of Soviet Navy. More content will be added later. The main goal is to represent the modern Russian Navy and some projects that were n...
+
+Ka-27RLD
+Created by Filip7370
+Soviet livery of Ka-31 that is available in Modern PLAN mod. This is a standalone mod, that You can incorporate to any Soviet carrier or capital ship. Surely will enhance every Soviet task force. The base model and base skin can be accounted by SqnLdr-chui...
+
+Mi-8 T/TV
+Created by misaka
+Need SeaLifter. Model: Mi-8: "helicopter mi-8" (Sketchfab) by mamont nikita licensed under CC BY 4.0. This mod is produced by misaka. Module addition: Heli...
+
+Mi-8EW
+Created by boli
+Proxy in game from the Mi-14, the Mi-8EW is a Mi-8 variant design for Electronic Warface. Equip with a Azaliya OECM jammer and detection sensor. The Mi-8EW is a must for Offensive and Defensive Electronic warfare duty. I might try to park some on the kiev to...
+
+<<Tu-16N>>
+Created by SKIBIDI_RIZZLER123
+Tu-16N arrives in Sea Power! History: A dedicated tanker version for Tu-22/Tu-22M bombers, with probe and drogue system. Entered service in 1963. Similar aircraft Tu-16NN converted from Tu-16Z. In Sea Power: Its give you extended reach to punish enemies of M...
+
+ChengDu J-10C Vigorous Dragon
+Created by 东武藏境
+歼-10猛龙战斗机（英语：J-10，绰号：猛龙，英文绰号：Vigorous Dragon）是中国自主研制的高性能、多用途、全天候的第三代战斗机，中国空军赋予其编号为歼-10，对外称J-10或称F-10。歼-10战斗机是中国自行研制的、具有自主知识产权的高性能、多用途第三代战斗机... 2022年3月11日，巴基斯坦空军在卡姆拉举行首批6架歼-10CE接装仪式...
+
+PLA Sukhoi Su-27UBK
+Created by Not Allaaaan
+The Su-27UBK is an export variant of the Su-27UB twin-seat fighter developed by Russia's Sukhoi Design Bureau. Classified as a heavy twin-seat combat trainer with the NATO reporting name Flanker-C, it was the primary companion trainer aircraft imported alo...
+
+Type 003 Fujian / Type 004 CVN Aircraft Carriers
+Created by ManeuverWarfare
+This mod adds the PLAN Type 003 (Fujian) and future Type 004 ("Zhejiang" class) aircraft carriers. This is a kitbash, not a custom model, so there are some imperfections, particularly with textures, the island, and hull. Sealifter and Anchor Chain are requ...
+
+Shenyang J-8
+Created by misaka
+Soaring to New Heights with Unyielding Determination. The J-8 is China's first independently developed high-altitude, high-speed interceptor aircraft, designed by the Shenyang Aircraft Corp...
+
+歼轰-7A 飞豹 XIAN JH7A
+Created by 东武藏境
+歼轰—7A歼击轰炸机是歼轰-7 的改进型歼击轰炸机，是我国第一种双发、双座、超音速、全天候歼击轰炸机。2005 年开始装备空军部队。The J-7A fighter-bomber is an improved fighter-bomber of the J-7, which is our country's first twin-engine, two-seat, supersonic and all-weather fighter-bomber. In 2005, the equipping of th...
+
+U-2 "Dragon Lady"
+Created by ManeuverWarfare
+This mod adds the U-2 spy plane. There are 2 models, a modern one and 1960s model. As an added bonus, there's also a Chinese weather / spy balloon. These are kitbashes and do not require Sealifter or 3rd party software. Update: 2026-07-04: Added new black ...
+
+沈阳航空工业 歼-16A 潜龙
+Created by kisa希罗
+"中国的空中力量一定要强大！"——歼16设计总师 王永庆. 歼-16战机是中国在歼-11B战机基础上，充分参考苏-30MKK/MK2两种战斗机的技术特点而研发的新型第四代多用途双座双发多用途战斗机。歼-16战机于2011年10月17日在沈阳首飞... 由于歼16高度保密的特性，性能只能靠作者猜，mod...
+
+Chinese Navy (PLAN)
+Created by ltjgbeam
+This Mod adds a few People's Liberation Army Navy (PLAN) Vessels to the game. Included vessels: Fujian-class (China's first indigenously designed Carrier), Hangzhou-class (Chinese built Sovremenny-class Destroyers), Luda Type 051 (The first DDG class designed and...
+
+Modern Chinese Airbase (Large)
+Created by flankymanga
+Airbase containing modern Chinese warplanes and helicopters. I am not author of the planes. They belong to their respective authors. For mission makers: I expect you to trim down the airplane numbers to a more reasonable counts. If any of the Chinese / Rus...
+
+Y-8/Y-9 Special Mission Aircraft Family
+Created by misaka
+Vigilant eyes o'er leagues of air. Command post stands where clouds upbear. Dominate the electromagnetic domain. No stealthy sub can e'er remain. Note: This mod adopts multiple loadouts to meet the needs of d...
+
+Eurofighter Typhoon
+Created by misaka
+The Eurofighter Typhoon is a European multinational twin-engine, supersonic, canard delta wing, multirole fighter. The aircraft's development began in 1983 with the Future European Fighter Aircraft programme, a multinational collaboration among the UK, Ger...
+
+Ground Upgrade: SPAA
+Created by misaka
+Model from SP and myself. This is a series that mainly refines and resets the model of ground units, and modifies the values of some weapons and units to achieve better visual and gameplay experience. Modification...
+
+Euromod - Modern Nordic Navy
+Created by Mitchell600
+EUROMOD – Addon Modern Nordic Navy. This mod requires EUROMOD to work correctly! Features: Iver Huitfeldt-class Danish Frigate, Visby-class Swedish Stealth Corvette — V5 and V6, Skjold-class Nor...
+
+Euromod - Modern Dutch navy
+Created by Mitchell600
+EUROMOD - Addon Modern Dutch Navy. This mod requires Euromod to work sufficiently! Content: LCF (Zeven Provincien Class Midlife Upgrade) AAW frigate; LCF (Zeven Provincie...
+
+Sea Lynx
+Created by petrouvis01
+The Lynx was a popular British made Utility helicopter used by various militaries around the world for SAR, ASW, Anti Surface and other roles. Currently in the mod are five variants. Current countries included: United Kingdom, Netherlands, West Germany, France, U...
+
+Euromod - Modern German Navy
+Created by Chevron 9
+EUROMOD - Addon Modern German Navy. This mod requires Euromod to work sufficiently! Modern German Navy: This mod adds the Type 212A (Batch 1) submarine, F123 Brandenburg-class ASW frigate, F124 Sachsen-class AAW frigate, F125 Baden-Württemberg-class stabiliza...
+
+French Army Vehicles
+Created by LLinqs
+Vehicles present: Leclerc XLR, VBCI, Jaguar, AMX 10 (2 versions), Griffon, Serval, VBL (3 versions), VAB (7 versions), M270 LRU, CAESAR, SAMP-T NG, VLFS. Vehicles to come: Griffon MPAC TBA, Griffon anti armor TBA, Serval anti armor T...
+
+French Helicopter Package
+Created by misaka
+A pack containing various helicopters from the French Air Force, Navy, and Army Light Aviation (ALAT). The helicopters included are used for a wide range of military roles, including combat assault, fire support, anti-submarine warfare, anti-surface warfar...
+
+Dassault Rafale
+Created by misaka
+In the late 1970s, the French Air Force and French Navy sought to replace and consolidate their existing fleets of aircraft. In order to reduce development costs and boost prospective sales, France entered into an arrangement with the UK, Germany, Italy an...
+
+Charles De Gaulle & Modern French Navy Pack (WIP)
+Created by LLinqs
+History: Cardinal Richelieu created the Royal Navy in October 1626, during the reign of Louis XIII. During the French Revolution, the navy became national, and the ordinance of the Constituent Assembly of October 24, 1790, created a...
+
+IL-78 TANKER
+Created by SKIBIDI_RIZZLER123
+Your Flanker lacking reach to strike enemy? We have something for you! Meet IL-78 Tanker! History: The Soviet Union's first dedicated tanker aircraft were variants of preexisting bombers, like the Tupolev Tu-16 and Myasishchev M-4. Their performance was deem...
+
+Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+Created by Zero Two
+Bring the Cold War sky alive with Soviet and Russian airborne assets! Included Aircraft: A-50 "Mainstay" – Soviet/Russian early warning aircraft based on the Il-76. A-50 Liveries: White, Black, Green. A-50U – Modernized version with improved radar (Sh...
+
+Su-30SM2
+Created by SKIBIDI_RIZZLER123
+Menace of F-16 arrives in Sea Power! Meet Su-30SM2. History: The Su-30SM2 is a significant modernization of the Su-30SM multirole fighter, developed by the Sukhoi Corporation for the Russian Aerospace Forces. The aircraft combines the twin-seat Su-30 platform...
+
+PLAN Type 001 Aircraft Carrier Liaoning
+Created by Meltemi
+In order to oppose imperialist aggression, we must build a powerful navy. Unit Overview: The Liaoning (CV-16) is the first aircraft carrier to enter service with the People's Liberation Army Navy, designated Type 001. It adopts a short take-off but arrested...
+
+Euromod - Cold War Spanish Navy
+Created by zzocalu
+Important: For the units included in this mod to function correctly, you must have Euromod downloaded and activated in the game's mod list. Eurom...
+
+Euromod - Modern Spanish Navy
+Created by jabeitor
+Contents: This Spanish mod for Sea Power features units in service in the S...
+
+Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
+Created by ManeuverWarfare
+Check out @Cent's amazing custom Ford model in the Red Storm Rising mod. UPDATE (2026/08/11): This mod now requires Modern US Navy mod for the F-35, F/A-18, and MH-60 in place of the prior 3...
+
+U.S. Navy 2027 Capabilities mod
+Created by Prof_CH4OS
+This mod is a compilation of my personal edits to bunch of mods available in Sea Power's Workshop. The purpose of this mod is to make the in-game U.S. Navy; ships, submarines, aircrafts, and weapons have the capabilities as close to their real life ability...
+
+[DEPRECATED]Lockheed Martin F-35C Lighting II
+Created by MyGo!!!!!鼓手椎名立希
+This mod is now integrated into the Modern US Navy mod....
+
+F-35C Lightning II Alt. Loadouts
+Created by Prof_CH4OS
+-Adds new loadout variants to mod: 洛克希德-马丁 F-35C 闪电II mod by: MyGo!!!!!鼓手椎名立希. -Adds GPS Datalink & AN/APG-81 offensive ECM. -Munitions used are based on the current/future weapons of US Navy. (No JSM) -Replaces some of the weapon's performance & capabilit...
+
+MH-60R Seahawk
+Created by 2154545636
+MH-60R特种直升机，是美国海军使用的机型之一，这种双引擎直升机具有全天候及恶劣天候下作战的性能，可以进行反潜作战，载运武装人员穿越敌人防线，搜索搜救等任务。MH-60R是一种多任务机种，用于取代SH-60B和SH-60F。最开始被命名为战斗鹰（Strikehawk），最终被改为海鹰。 模型来源: free3d.com sikorsky-sh-60-seahawk...
+
+Nimitz Expanded
+Created by Username
+Nimitz expanded adds the last eight Nimitz-class supercarriers to the game, with custom hull numbers and liveries! Added: USS Carl Vinson, Theodore Roosevelt, Abraham Lincoln, George Washington, John C. Stennis, Harry S. Truman, Ronald Reagan, and George H...
+
+Air Deck Operations Upgrade - Nimitz (2000s)
+Created by sgtobliterator
+This adds the Air Deck Operations Upgrade to the F/A-18, carrying the Nimitz (2000s). Adds new deck models that correlate to the carrier's aircraft on board, and adds the MH-60R helicopter. Please note that this carrier has a long load time, which can caus...
+
+Flight Deck Ops
+Created by ossesek
+Formerly, the FDO was known as the Air deck operations upgrade. Generally, the mod activates all elevators and allows simultaneous launch/recovery. Besides that, the mod changes many other things like taxi and landing paths, crew that appears by the catapu...
+
+[DEPRECATED] Boeing F/A-18E/F Super Hornet
+Created by MyGo!!!!!鼓手椎名立希
+This mod is now integrated into the Modern US Navy mod....
+
+F/A-18 Murder Hornet with AIM-174B
+Created by Cropgun
+What exactly does this mod do? -Adds custom "Murder Hornet" loadouts -Adds AIM-174B -Adds AIM-9X -Adds AIM-120D -Adds AGM-84D -Adds JDAMs and GBU-24 to F model -Fixed Green Canopy on E Model -Fixed Afterburner -Fixed the can...
+
+Boeing P-8 Poseidon
+Created by Kirameki
+Adds Boeing P-8 Poseidon with new model, armaments and animations. Comes with full weapon suite, including fully modeled HAAWC. Current livery includes: P-8A Poseidon VP-5, US Navy; P-8I INAS 316, Indian Navy; P-8A No.12 Squadron, Royal Australian Air Force ...
+
+Y-20 / KJ-3000
+Created by ManeuverWarfare
+This mod adds a custom model of the Xi'an Y-20 "Kunpeng" family of aircraft of the PLAAF. Variants include: Y-20A: the transport version with WS-18 turbojets. YY-20A: the tanker version with WS-18 turbojets. Y-20B: upgraded version with WS-20 turbofa...
+
+1143.5 Kuznetsov
+Created by MyGo!!!!!鼓手椎名立希
+Note: The ski jump is being tested, I will update it once it is finished. The Type 1143.5 aircraft carrier was built by the Nikolayev Shipyard, which absorbed experts from about 800 disciplines in the Soviet Union, and more than 7,000 factories provided mat...
+
+Euromod - Modern British Navy
+Created by 5_12
+This mod requires Euromod to work as intended! History: Following the end of the Cold War the Royal Navy experienced a steady downscaling and cancellation of upcoming projects due to shifting operational requirements in the new strategic environment of the ...
+
+Mil Mi-24 Hind
+Created by MyGo!!!!!鼓手椎名立希
+The Mil Mi-24 (Russian: Миль Ми-24; NATO reporting name: Hind) is a large helicopter gunship, attack helicopter and low-capacity troop transport with room for eight passengers. It is produced by Mil Moscow Helicopter Plant and was introduced by the Soviet ...
+
+SAM Pack
+Created by misaka
+Attention: Need on the top of TOE. Model from: "MIM-104 Patriot Air Defense System" (Sketchfab) by Muhamad Mirza Arrafi licensed under CC BY 4.0...
+
+F-15 EX Eagle II
+Created by dingtools
+As the pinnacle 4.5th-generation variant of the F-15 family, the F-15EX "Eagle II" showcases its advanced capabilities in four core dimensions: First, its open mission system architecture, paired with the Advanced Display Core Processor II, delivers a comp...
+
+AH-64 Apache
+Created by misaka
+Model from: Heli: "AH-64 Apache" (Sketchfab) by Araon licensed under CC BY 4.0. Missile: "Missile & Bomb Collection - Fighter Jets - Free" (Sketchfab)...
+
+Lockheed AC-130 Pack
+Created by MyGo!!!!!鼓手椎名立希
+The AC-130 attack aircraft is modified based on the US Air Force C-130 transport aircraft. It is equipped with a powerful airborne weapon system. The side-launched weapon system is highly integrated with the precision sensor system, navigation and fire con...
+
+苏霍伊侧卫家族
+Created by MyGo!!!!!鼓手椎名立希
+现代战机是力与美的结合，也是速度与机动性的结合... 一种结合了高机动，高航程的战斗机被制造了出来，这就是"苏-27" (Sukhoi Flanker family pack)...
+
+中小型无人机系列Small and Medium-Sized UAV Series [WIP]
+Created by FallschimJager705
+考虑到你游对于地面的侦查能力不够快速和精确，增加了几款现代中小型无人机。它们的优势在于体积小，可以试图绕过防空系统盲区，用先进的传感器侦查你想要摧毁的单位。（以后会不断更新内容）【1】小型侦查四旋翼无人机 Small reconnaissance quadcopter UAV China【2】前哨R无人机 Forpost-R UAV Russia【3】Mugin5无人机 Mugin5 UAV Russia【4】海鹰10无人机 Orlan-10 UAV Russia【5】RQ-7 无人机 RQ-7 ...
+
+General Atomics MQ-9 Reaper
+Created by MyGo!!!!!鼓手椎名立希
+The General Atomics MQ-9 Reaper (sometimes called Predator B) is an unmanned aerial vehicle (UAV, one component of an unmanned aircraft system (UAS)) capable of remotely controlled or autonomous flight operations, developed by General Atomics Aeronautical ...
+
+United States Naval Aviation
+Created by misaka
+United States Naval Aviation. Notice: Home of US Naval Aviation. Presented jointly by Sea Power China Test Group & Euromod. Helicopters: SH-60B ASW Helicopter, SH-60F ASW Helicopter, HH-60H CSAR Helicopter, MH-60R ...
+
+Euromod - Main Pack
+Created by Mitchell600
+EUROMOD - Main pack. This mod has been created for easier usage and better load times of all mods using european systems. Our goal is to have a database of all weapons and sensors in service with european countries. This way ...
+
+Modern US Navy
+Created by Mitchell600
+Credits: Arleigh Burke and Wasp model in ownership from WTigerTw (DO NOT USE THE MODEL ELSEWHERE WITHOUT HIS PERMISSION!!!). For the Freedom LCS, many other things, and a whole lot of help, many thanks to TheHappyYachter! Zumwalt-class by Chevron_9. MOD S...
+
+PLAN Submarines
+Created by ManeuverWarfare
+This mod adds the following kitbashes: Type 039G Song SSK, Type 039A Yuan SSK, Type 039B Yuan SSK (Modified Yuan with angled sail), Type 039C Yuan SSK (Modified Yuan with stealthy sail), Type 093 Shang I SSN, Type 093A Shang II SSN (Modified Shang wit...
+
+Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
+Created by ManeuverWarfare
+This mod adds the Yasen-class SSGN, Akula-class SSN, Borei-class SSBN, Oscar-II SSGN, Belgorod-class SSGN, Sierra-I SSN, Sierra-II SSN, Typhoon-class SSBN of the Russian Navy. The Yasen is a kitbash using a Alfa hull, with an enlarged Victor 1 sail, anima...
+
+Virginia-, Seawolf-, and Ohio-class Submarines
+Created by ManeuverWarfare
+This mod adds the Ohio-class SSBN/SSGN, Seawolf-class and Jimmy Carter-subclass SSNs, and Virginia-class SSN (including a version with the special forces dry deck shelter pod) of the US Navy. Virginia is a kitbash using a Los Angeles SSN hull, with enlarge...
+
+B-2 Spirit
+Created by Stroh Vogel
+Requires AnchorChain and SeaLifter to be correctly installed. Subscribing isn't enough. You need the preloader. Read their instructions. The Northrop B-2 Spirit, also known as the Stealth Bomb...
+
+TU-160 Blackjack
+Created by 2154545636
+TU-160 Blackjack. 图-160轰炸机，北约代号：Blackjack，译文：海盗旗，又称：图波列夫图-160，是苏联/俄罗斯一型超音速变后掠翼远程战略轰炸机。图-160轰炸机作战方式以高空亚音速巡航、低空亚音速或高空超音速突袭为主，在高空时可发射长程巡航导弹在敌人防空网外进行攻击...
+
+Dingtools Weapon Pack
+Created by dingtools
+Put this mod ABOVE any of my mod. This is a standalone weapon pack I use personally, mainly for the convenience of updating my weapon data. Currently included weapons are: AA: AIM-9X, AIM-120B, AIM-120C, AIM-120C-7, AIM-120D-3, AIM-260A. AG: GBU-32/31, G...
+
+B-1B Lancer
+Created by dingtools
+The B-1B Lancer is a supersonic variable-sweep wing heavy strategic bomber of the United States Air Force, developed by the former Rockwell International (now Boeing). It was commissioned in 1985, with a total production of 100 aircraft and approximately 4...
+
+Shahed-136 Drone
+Created by Obiwonkanblomi
+Fixed. Iran's Shahed-136 Kamikaze Drone. Changed to go back to 120 mph as 750 nm was too fast. Problems wanting to fix: Would like to get the propeller moving. Trying to figure that out. Used the Truck from Zero Two's Shahed-136 Mod, check theirs out. ...
+
+SU-57 重刑犯
+Created by 2154545636
+SU-57 Felon. 苏-57战斗机是俄罗斯空军单座双发隐形多功能重型战斗机，是俄罗斯第五代战斗机。是俄罗斯空天军装备的第一款隐身战机。最大起飞重量35000千克，超音速巡航速度可达每小时1450千米，最高时速2140-2600千米，作战半径1200千米，战斗载荷可达6吨，内置4个武器舱... 模组内容：空中单位：SU-57 隐身战斗机；陆地单位：SU-57航空基地...
+
+歼-20 威龙
+Created by 2154545636
+歼-20 威龙. 歼-20，是中国自主研制的隐形第五代制空战斗机，也是最新一代双发重型隐形战斗机，用于接替歼10、歼11等第三代歼击机的未来重型歼击机型号，担负中国空军未来对空、对海的主权维护任务。该战斗机具备高隐身性、高态势感知、高机动性等能力...
+
+SAAB AEW&C PACK
+Created by dingtools
+Been quite busy recently, future updates will be postponed. :( Saab AB is a renowned Swedish global defense and aerospace company founded in 1937 and headquartered in Linköping, Sweden. It originally developed and manufactured combat aircraft for the Swedi...
+
+Type 003 Aircraft Carrier - PLANS Fujian CV-18
+Created by 八一of军魂
+The strategic force safeguarding peace, the iron backbone protecting tranquility. Note: This mod adopts multiple loadouts to meet the needs of different mission, and the selection of loadout is available thro...
+
+沈阳航空工业 歼-50
+Created by 2154545636
+歼-50. 歼-50 是中国正在研发的第六代隐身舰载机，预计2030年代服役。作为歼-35的继任者，它采用全向隐身设计、变循环发动机和人工智能辅助决策系统，支持超音速巡航与无人机协同作战。其作战能力涵盖空天一体、电子战压制，旨在对抗美国NGAD等未来空中威胁... 模组内容：空中单位：歼-50 隐身舰载机；武器装备：霹雳-10 近距格斗弹, 霹雳-15 中程空空导弹, 霹雳-16 中远程空空导弹, 霹雳-17 超远程空空导弹, 雷电-8a 反辐射导弹, 雷石-6 滑翔制导炸弹, 天龙-20...
+
+Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
+Created by Obiwonkanblomi
+"Terminal High Altitude Area Defense, formerly Theater High Altitude Area Defense, is an American anti-ballistic missile defense system, deployed since 2008, designed to intercept and destroy short-, medium-, and intermediate-range ballistic missiles in th...
+
+Civil Aircraft Mod (Airbus Family)
+Created by Zero Two
+Welcome to one of the largest civilian aviation expansions for Sea Power. The Civil Aircraft Mod (Airbus Family) injects realistic commercial air traffic into your custom missions and naval theater operations. Perfect for scenario creators who want to buil...
+
+Shenyang J-11
+Created by misaka
+The Path to the Third Generation. The J-11 is a heavy twin-engine multirole fighter aircraft developed by China based on the Russian Su-27SK fighter. Produced by the Shenyang Aircraft Corp...
+
+PLA Shenyang J-11BS
+Created by Not Allaaaan
+The J-11BS is an independently developed and improved domestic twin-seat heavy multirole fighter built upon the aerodynamic layout of the Su-27UB. As an extensively localized Flanker variant with the NATO reporting name Flanker-B+, it is a key domesticall...
+
+KC-135 STRATOTANKER
+Created by SKIBIDI_RIZZLER123
+Meet backbone of USAF air refueling! From Vietnam era to modern days! History: The Boeing KC-135 Stratotanker is an American military aerial refueling tanker aircraft that was developed from the Boeing 367-80 prototype, alongside the Boeing 707 airliner. It ...
+
+KC-46A Pegasus - Strategic Tanker
+Created by Zero Two
+This mod introduces the advanced Boeing KC-46A Pegasus to Sea Power, delivered in a comprehensive dual-configuration package. It features highly detailed, historically matched configurations and liveries representing active United States Air Force. The pac...
+
+PLAN Type 071 Amphibious Transport Dock
+Created by Meltemi
+Clench Fists and Press Forward Bravely. Unit Overview: The Type 071 integrated landing ship (NATO name: Yuzhao class) is a large landing platform dock in service with the People's Liberation Army Navy. It can serve as a mothership for air-cushioned landing c...
+
+Anchor Chain
+Created by PrimerGuided
+The Sea Power community chainloader. This mod will not function on its own. To fully install Anchor Chain, please see our documentation here. Anchor Chain does not change your game alone. Instead, it allows other mods that require changing the game's code ...
+
+PLA Land Unit Pack
+Created by misaka
+Load Order: Place this mod above any other PLA-related mods in Mod Manager. Suggested unsubscribe: HQ-9&HQ-7, HQ-6A, DF-15 Mod. Unit: 【Air Defense Weapons】Tor-M1, HQ-17, HQ-17A, PGZ-09, HQ-6 Launcher, HQ-6 Search Radar, LD-2000, HQ-6 Fixed Site, HQ-7 Launcher, HQ-7 ...
+
+AVIC HARBIN Z-21
+Created by Meltemi
+Unit Overview: The Z-21 is a next-generation Chinese heavy attack helicopter developed from the Z-20 platform, intended for reconnaissance, anti-armor, close-support, and anti-ship missions. This mod recreates its possible operational configuration using pu...
+
+F-16C Fighting Falcon (modern)
+Created by Zero Two
+Experience the ultimate F-16C package in Sea Power. This mod introduces a meticulously crafted collection of the F-16 Fighting Falcon to your Sea Power fleet. Designed with realism and versatility in mind, this package offers various blocks tailored for mu...
+
+Modern PLAN Systems
+Created by 八一of军魂
+The Great Wall at Sea, Safeguard of the Great Rejuvenation. Notice: The sensors and armaments included in this mod are designed to demonstrate the formidable combat capabilities of surface combatants in the 2020s. Combin...
+
+McDonnell Douglas KC-10A Extender - Strategic Tanker
+Created by Zero Two
+This mod introduces the iconic McDonnell Douglas KC-10A Extender to Sea Power, featuring highly accurate, historically matched liveries and configurations for the United States Air Force (USAF) during the Cold War and modern eras. The package includes dist...
+
+F-22 Raptor
+Created by misaka
+Model: "F-22 Raptor - Fighter Jet - Free" (Sketchfab) by bohmerang licensed under CC BY 4.0. This mod is produced by misaka. Module addition:...
