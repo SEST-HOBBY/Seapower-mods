@@ -2,10 +2,12 @@
 """Build the SEST F-35C JATM patch: AIM-260 loadout options for the F-35C the
 Gerald R. Ford's air wing flies.
 
-Base file: US Naval Aviation's aircraft/usn_f-35c.ini (the maintained F-35C —
-the Ford's JSF variant spawns `usn_f-35c`, resolved by mod order). Adds two
-AIM-260 loadouts using the Dingtools Weapon Pack's dts_aim-260, and removes an
-upstream bug (an exact duplicate [WeaponSystem1AntiShip] section).
+Base file: F-35C Lightning II Alt. Loadouts' aircraft/usn_f-35c.ini. That mod
+ships the richest F-35C in the collection (20 loadouts incl. AirToAirJATM,
+SEADJATM, the AGM-158C/D heavy fits and the JSOW family). Unit inis are
+whole-file overrides and this pack sits ABOVE it, so rebasing here keeps all
+of those fits instead of silently replacing them with the leaner US Naval
+Aviation file. Adds the AIM-260 and AIM-424 MALICE loadouts on top.
 
 Usage (repo root):  python3 integration/f-35c-jatm/build_patch.py
 """
@@ -14,7 +16,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-UPSTREAM = ROOT / "mods-source" / "3737267013"          # US Naval Aviation (misaka)
+UPSTREAM = ROOT / "mods-source" / "3607989779"          # F-35C Alt. Loadouts (richest F-35C)
+USNA = ROOT / "mods-source" / "3737267013"              # US Naval Aviation (ammo + AGM-88G model)
 WEAPON_PACK = ROOT / "mods-source" / "3760871384"       # Dingtools Weapon Pack
 VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
 OUT = Path(__file__).resolve().parent / "SEST_F-35C_JATM"
@@ -104,7 +107,7 @@ LOADOUT_NAMES = {
 
 INFO_INI = """[Language_en]
 Name=SEST F-35C JATM
-Description=AIM-260 JATM and AIM-424 MALICE loadout options for the US Naval Aviation F-35C (the aircraft the Gerald R. Ford JSF air wing flies): a 6-missile internal stealth intercept fit, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (AARGM-ER airframe, AIM-174-class reach). Requires US Naval Aviation (also provides the AGM-88G model the MALICE uses) and the Dingtools Weapon Pack. Place ABOVE US Naval Aviation, F-35C Alt. Loadouts, the deprecated MyGo F-35C, and Modern US Navy. Also removes a duplicated AntiShip section from the base file.
+Description=AIM-260 JATM and AIM-424 MALICE loadout options for the F-35C the Gerald R. Ford JSF air wing flies: a 6-missile internal stealth intercept fit, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (AARGM-ER airframe, AIM-174-class reach). Built on the F-35C Alt. Loadouts file so all 20 of its loadouts are kept. Requires F-35C Lightning II Alt. Loadouts, US Naval Aviation (supplies the AGM-88G model the MALICE uses) and the Dingtools Weapon Pack. Place ABOVE F-35C Alt. Loadouts, US Naval Aviation, the deprecated MyGo F-35C, and Modern US Navy.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -161,7 +164,7 @@ def main():
 
     # 4. Validate ammo references against the ecosystem
     known = {AIM424_ID}  # provided by this pack itself (written below)
-    for d in (UPSTREAM, WEAPON_PACK, VANILLA):
+    for d in (UPSTREAM, USNA, WEAPON_PACK, VANILLA):
         known |= {p.stem for p in d.rglob("*.ini") if p.parent.name == "ammunition"}
     refs = set(re.findall(r"^Station\d+=([^|\s/]+)", NEW_SECTIONS, re.M))
     missing = sorted(r for r in refs if r not in known)
