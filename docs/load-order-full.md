@@ -32,131 +32,132 @@ Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 ar
 15. **SEST RAAF F-35A JATM** — LOCAL — above the RAAF F-35A mod
 16. **SEST JMSDF Mogami** — LOCAL — above the Mogami-class Frigate mod
 17. **SEST RAAF Wedgetail** — LOCAL — above the E-7A Wedgetail mod
-18. **SEST TacMap Colors** — LOCAL — overrides the vanilla tactical-map UI colours
-19. **F/A-18 Murder Hornet with AIM-174B** — above other F/A-18E/F sources
-20. **B-52G with AGM-86 (realistic nuke)** — patches the vanilla B-52G
-21. **Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)** — global munition edits — treat as a patch, not an aircraft
-22. **Flight Deck Ops** — above carriers
-23. **Air Deck Operations Upgrade - Nimitz (2000s)** — if kept after the FDO test
-24. **Ground Upgrade: SPAA** — edits ground-unit values
+18. **SEST Raptor Squadrons** — LOCAL — above the F-22 mod (which promises 7 squadrons, defines 1)
+19. **SEST TacMap Colors** — LOCAL — overrides the vanilla tactical-map UI colours
+20. **F/A-18 Murder Hornet with AIM-174B** — above other F/A-18E/F sources
+21. **B-52G with AGM-86 (realistic nuke)** — patches the vanilla B-52G
+22. **Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)** — global munition edits — treat as a patch, not an aircraft
+23. **Flight Deck Ops** — above carriers
+24. **Air Deck Operations Upgrade - Nimitz (2000s)** — if kept after the FDO test
+25. **Ground Upgrade: SPAA** — edits ground-unit values
 
 ## Tier 4 — fleets, ships, submarines
 
-25. 1143.5 Kuznetsov
-26. Auxilliary Merchant Pack
-27. Charles De Gaulle & Modern French Navy Pack (WIP)
-28. Chinese Navy (PLAN)
-29. Euromod - Cold War Spanish Navy
-30. Euromod - Modern British Navy
-31. Euromod - Modern Dutch navy
-32. Euromod - Modern German Navy
-33. Euromod - Modern Italian Navy
-34. Euromod - Modern Japanese Maritime Self Defence Force
-35. Euromod - Modern Nordic Navy
-36. Euromod - Modern Spanish Navy
-37. Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
-38. Italian Navy Mod
-39. Kirov-class (Pyotr Velikiy Upgrade)
-40. Merchants Expanded
-41. Modern US Navy
-42. Mogami-class Frigate
-43. Nimitz Expanded
-44. PLAN Submarines
-45. PLAN Type 001 Aircraft Carrier Liaoning
-46. PLAN Type 071 Amphibious Transport Dock
-47. Royal Navy Type 23 'Duke Class' Frigate [OLD] — *verified additive — position free*
-48. Russian Navy 21
-49. Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
-50. Type 003 Aircraft Carrier - PLANS Fujian CV-18
-51. Type 003 Fujian / Type 004 CVN Aircraft Carriers
-52. United States Naval Aviation
-53. Virginia-, Seawolf-, and Ohio-class Submarines
-54. **SEST RAN Fleet** — LOCAL — below the Euromod packs it clones from
+26. 1143.5 Kuznetsov
+27. Auxilliary Merchant Pack
+28. Charles De Gaulle & Modern French Navy Pack (WIP)
+29. Chinese Navy (PLAN)
+30. Euromod - Cold War Spanish Navy
+31. Euromod - Modern British Navy
+32. Euromod - Modern Dutch navy
+33. Euromod - Modern German Navy
+34. Euromod - Modern Italian Navy
+35. Euromod - Modern Japanese Maritime Self Defence Force
+36. Euromod - Modern Nordic Navy
+37. Euromod - Modern Spanish Navy
+38. Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
+39. Italian Navy Mod
+40. Kirov-class (Pyotr Velikiy Upgrade)
+41. Merchants Expanded
+42. Modern US Navy
+43. Mogami-class Frigate
+44. Nimitz Expanded
+45. PLAN Submarines
+46. PLAN Type 001 Aircraft Carrier Liaoning
+47. PLAN Type 071 Amphibious Transport Dock
+48. Royal Navy Type 23 'Duke Class' Frigate [OLD] — *verified additive — position free*
+49. Russian Navy 21
+50. Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
+51. Type 003 Aircraft Carrier - PLANS Fujian CV-18
+52. Type 003 Fujian / Type 004 CVN Aircraft Carriers
+53. United States Naval Aviation
+54. Virginia-, Seawolf-, and Ohio-class Submarines
+55. **SEST RAN Fleet** — LOCAL — below the Euromod packs it clones from
 
 ## Tier 5 — aircraft, helicopters, UAVs, land units, weapons, civilian
 
-55. 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
-56. <<E-3G>>
-57. <<Tu-16N>>
-58. [DEPRECATED] Boeing F/A-18E/F Super Hornet — *kept for now — below Murder Hornet*
-59. [DEPRECATED] E-7A Wedgetail — *KEEP — SEST RAAF Bases dependency*
-60. [DEPRECATED] Lockheed Martin F-35C Lighting II — *kept for now — must stay below SEST F-35C JATM (any tier below 3 satisfies this)*
-61. [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles — *KEEP — SEST RAN Fleet / RAAF Bases dependency*
-62. A-10A Thunderbolt II
-63. A-10C
-64. AH-64 Apache
-65. Apex Predators MIG-29A & F-16A
-66. Armed Oil Rig with Helo MOD
-67. AVIC HARBIN Z-21
-68. B-1B Lancer
-69. B-2 Spirit
-70. B-52H Stratofortress
-71. Boeing P-8 Poseidon
-72. Buildings and Targets for Missions
-73. ChengDu J-10C Vigorous Dragon
-74. Civil Aircraft Mod (Airbus Family)
-75. Dassault Rafale
-76. Eurofighter Typhoon
-77. F-117 Nighthawk
-78. F-15 EX Eagle II
-79. F-16C Fighting Falcon (modern)
-80. F-22 Raptor
-81. French Army Vehicles
-82. French Helicopter Package
-83. General Atomics MQ-9 Reaper
-84. Humpback Whale
-85. IL-78 TANKER
-86. Iskander TBM
-87. J-20 (歼-20 威龙)
-88. Ka-27RLD
-89. KC-135 STRATOTANKER
-90. KC-46A Pegasus - Strategic Tanker
-91. Lockheed AC-130 Pack
-92. McDonnell Douglas KC-10A Extender - Strategic Tanker
-93. MH-60R Seahawk — *watchlist: order vs other MH-60 sources decides which wins*
-94. Mi-8 T/TV
-95. Mi-8EW
-96. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
-97. MiG-35 Fulcrum-F (米格-35 支点-F)
-98. Mil Mi-24 Hind
-99. MORE SU-24M VARIANTS
-100. Pickup truck extension
-101. PLA Shenyang J-11BS
-102. PLA Sukhoi Su-27UBK
-103. RAAF F-35A Lighting II
-104. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
-105. SA-21/S-400 SAM — *watchlist: land air-defense overlap*
-106. SAAB AEW&C PACK
-107. SCUD-B
-108. Sea Lynx
-109. SEJJIL (Iran Ballistic Missiles)
-110. Shahed-136 Kamikaze Drone (Geran-2)
-111. Shenyang J-11
-112. Shenyang J-16A (歼-16A 潜龙)
-113. Shenyang J-50 (沈阳航空工业 歼-50)
-114. Shenyang J-8
-115. Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
-116. Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
-117. Su-25 Frogfoot
-118. Su-30SM2
-119. SU-57 Felon (重刑犯)
-120. Sukhoi Flanker Family (苏霍伊侧卫家族)
-121. Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
-122. TU-160 Blackjack
-123. Tu-214R Family (图-214R家族)
-124. Tu-95K-22 Bear G MOD — *watchlist: see Tu-95 row*
-125. Tu-95MS (X-101) — *watchlist: order vs the other Tu-95 mods decides shared files*
-126. Type 12 SSM-ER Anti-Ship Missile System
-127. U-2 "Dragon Lady"
-128. VH-3D Marine One MOD
-129. XIAN JH-7A (歼轰-7A 飞豹)
-130. Y-20 / KJ-3000
-131. Y-8/Y-9 Special Mission Aircraft Family
+56. 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
+57. <<E-3G>>
+58. <<Tu-16N>>
+59. [DEPRECATED] Boeing F/A-18E/F Super Hornet — *kept for now — below Murder Hornet*
+60. [DEPRECATED] E-7A Wedgetail — *KEEP — SEST RAAF Bases dependency*
+61. [DEPRECATED] Lockheed Martin F-35C Lighting II — *kept for now — must stay below SEST F-35C JATM (any tier below 3 satisfies this)*
+62. [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles — *KEEP — SEST RAN Fleet / RAAF Bases dependency*
+63. A-10A Thunderbolt II
+64. A-10C
+65. AH-64 Apache
+66. Apex Predators MIG-29A & F-16A
+67. Armed Oil Rig with Helo MOD
+68. AVIC HARBIN Z-21
+69. B-1B Lancer
+70. B-2 Spirit
+71. B-52H Stratofortress
+72. Boeing P-8 Poseidon
+73. Buildings and Targets for Missions
+74. ChengDu J-10C Vigorous Dragon
+75. Civil Aircraft Mod (Airbus Family)
+76. Dassault Rafale
+77. Eurofighter Typhoon
+78. F-117 Nighthawk
+79. F-15 EX Eagle II
+80. F-16C Fighting Falcon (modern)
+81. F-22 Raptor
+82. French Army Vehicles
+83. French Helicopter Package
+84. General Atomics MQ-9 Reaper
+85. Humpback Whale
+86. IL-78 TANKER
+87. Iskander TBM
+88. J-20 (歼-20 威龙)
+89. Ka-27RLD
+90. KC-135 STRATOTANKER
+91. KC-46A Pegasus - Strategic Tanker
+92. Lockheed AC-130 Pack
+93. McDonnell Douglas KC-10A Extender - Strategic Tanker
+94. MH-60R Seahawk — *watchlist: order vs other MH-60 sources decides which wins*
+95. Mi-8 T/TV
+96. Mi-8EW
+97. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
+98. MiG-35 Fulcrum-F (米格-35 支点-F)
+99. Mil Mi-24 Hind
+100. MORE SU-24M VARIANTS
+101. Pickup truck extension
+102. PLA Shenyang J-11BS
+103. PLA Sukhoi Su-27UBK
+104. RAAF F-35A Lighting II
+105. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
+106. SA-21/S-400 SAM — *watchlist: land air-defense overlap*
+107. SAAB AEW&C PACK
+108. SCUD-B
+109. Sea Lynx
+110. SEJJIL (Iran Ballistic Missiles)
+111. Shahed-136 Kamikaze Drone (Geran-2)
+112. Shenyang J-11
+113. Shenyang J-16A (歼-16A 潜龙)
+114. Shenyang J-50 (沈阳航空工业 歼-50)
+115. Shenyang J-8
+116. Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
+117. Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+118. Su-25 Frogfoot
+119. Su-30SM2
+120. SU-57 Felon (重刑犯)
+121. Sukhoi Flanker Family (苏霍伊侧卫家族)
+122. Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
+123. TU-160 Blackjack
+124. Tu-214R Family (图-214R家族)
+125. Tu-95K-22 Bear G MOD — *watchlist: see Tu-95 row*
+126. Tu-95MS (X-101) — *watchlist: order vs the other Tu-95 mods decides shared files*
+127. Type 12 SSM-ER Anti-Ship Missile System
+128. U-2 "Dragon Lady"
+129. VH-3D Marine One MOD
+130. XIAN JH-7A (歼轰-7A 飞豹)
+131. Y-20 / KJ-3000
+132. Y-8/Y-9 Special Mission Aircraft Family
 
 ## Tier 6 — airbases last
 
-132. Modern Chinese Airbase (Large)
-133. Modern Russian Airbase (Large)
-134. Modern US Airbase
-135. **SEST RAAF Bases** — LOCAL — additive; bottom by convention
+133. Modern Chinese Airbase (Large)
+134. Modern Russian Airbase (Large)
+135. Modern US Airbase
+136. **SEST RAAF Bases** — LOCAL — additive; bottom by convention
 
