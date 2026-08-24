@@ -68,3 +68,34 @@ Explicit author instructions always win over this scaffold. The tier-2 and tier-
 - "Overlap" ≠ confirmed conflict — confirmation requires the mod files.
 - The top-priority-first reading of the Mod Manager comes from the authors' consistent phrasing, not from engine documentation; the file scan and in-game testing settle it definitively.
 - Workshop mods update; deprecation/integration status is as of 2026-08-23.
+
+
+## U.S. Navy 2027 above Euromod
+
+Euromod and U.S. Navy 2027 both ship seven of the same files, and Euromod used to sit above it, so
+Euromod's copies won:
+
+```
+usn_rim-116c   usn_rim-162a   usn_rim-174a   usn_rim-66m-2   usn_rim-66m-5
+usn_ssq-53h    usn_ssq-62g
+```
+
+Those are the fleet's RAM, ESSM, SM-6 and both SM-2 variants — the core of every US ship's air
+defence. Three of them (**RAM, SM-2MR, SM-2ER**) ship from Euromod **without `ApplyKinematics`**,
+so they were flying the legacy model, while Navy 2027 sets it `True` with a full modern key set
+(drag coefficient, boost and sustainer, CEP, attack-altitude band).
+
+Navy 2027's are also internally consistent with each other in a way Euromod's are not: Navy 2027's
+shipboard `usn_rim-174a` and air-launched `usn_aim-174b` are both 2650 kts, the same missile in two
+mountings. Euromod's `usn_rim-174a` is 3600 kts, so the SM-6 was faster from a ship than from a jet.
+
+**Navy 2027 now sits above Euromod.** Euromod remains above all six of its own addons (German,
+Dutch, Scandinavian, British, Italian, JMSDF — all at #30 or below), so its documented requirement
+is unaffected, and the LMVLS and IRCPS the Zumwalt fix needs are Euromod-only ids that no ordering
+can take away.
+
+**The trade-off, stated plainly:** this is a *consistency* win, not a straight upgrade. Navy 2027's
+SM-6 is slower and shorter-legged than Euromod's (2650 kts / 230 nm against 3600 / 260), and its
+ESSM is slower but slightly longer-ranged. What you gain is the modern flight model on RAM and both
+SM-2s, and a fleet whose missiles agree with each other. To reverse it, move `3606774881` back below
+`3629144864` in `data/load-order.tokens.txt` and re-run `set-mod-order.ps1`.

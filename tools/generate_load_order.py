@@ -26,12 +26,12 @@ TIER2 = [
     ("sam-pack", 'author: "top of TOE"'),
     ("pla-land-unit-pack", 'author: "above any other PLA-related mods"'),
     ("dingtools-weapon-pack", 'author: "above any of my mods"'),
+    ("us-navy-2027", "above Euromod - it ships better RIM-116/RIM-66/RIM-174 than Euromod's"),
     ("euromod-main", "above all Euromod addons"),
     ("modern-plan-systems", "above PLAN ships"),
 ]
 TIER3 = [
     ("SEST Growler NGJ + MALICE", "LOCAL — above U.S. Navy 2027, F/A-18E/F and US Naval Aviation"),
-    ("us-navy-2027", "above the US mods it edits"),
     ("SEST F-15EX Revamp", "LOCAL — above the F-15EX mod (\"F-15SE\")"),
     ("SEST F-35C JATM", "LOCAL — above every other usn_f-35c source (the four below it here)"),
     ("f-35c-alt-loadouts", "kept for now — MUST stay below SEST F-35C JATM"),

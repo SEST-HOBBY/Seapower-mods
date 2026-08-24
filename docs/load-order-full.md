@@ -19,13 +19,13 @@ Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 ar
 5. **SAM Pack** — author: "top of TOE"
 6. **PLA Land Unit Pack** — author: "above any other PLA-related mods"
 7. **Dingtools Weapon Pack** — author: "above any of my mods"
-8. **Euromod - Main Pack** — above all Euromod addons
-9. **Modern PLAN Systems** — above PLAN ships
+8. **U.S. Navy 2027 Capabilities mod** — above Euromod - it ships better RIM-116/RIM-66/RIM-174 than Euromod's
+9. **Euromod - Main Pack** — above all Euromod addons
+10. **Modern PLAN Systems** — above PLAN ships
 
 ## Tier 3 — patches, each above what it modifies (this exact order)
 
-10. **SEST Growler NGJ + MALICE** — LOCAL — above U.S. Navy 2027, F/A-18E/F and US Naval Aviation
-11. **U.S. Navy 2027 Capabilities mod** — above the US mods it edits
+11. **SEST Growler NGJ + MALICE** — LOCAL — above U.S. Navy 2027, F/A-18E/F and US Naval Aviation
 12. **SEST F-15EX Revamp** — LOCAL — above the F-15EX mod ("F-15SE")
 13. **SEST F-35C JATM** — LOCAL — above every other usn_f-35c source (the four below it here)
 14. **F-35C Lightning II Alt. Loadouts** — kept for now — MUST stay below SEST F-35C JATM
