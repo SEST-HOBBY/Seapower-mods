@@ -159,7 +159,7 @@ BASES = {
 
 INFO_INI = """[Language_en]
 Name=SEST RAAF Bases
-Description=Five Australian airbases populated from the mod collection: Williamtown (F-35A, E-7A), Tindal (F-35A, B-52H, B-2, KC-135, MQ-9), Amberley (F-15EX, B-1B, KC-46A, KC-10A, E-3G), Edinburgh (P-8A, MQ-9), Darwin (F-35A, F-15EX, KC-46A, P-8A, MH-60R). Aircraft come from their own mods - see the repo README for the dependency list. Place BELOW the aircraft mods in the Mod Manager.
+Description=Fifteen Australian airbases populated from the mod collection: Amberley, Butterworth, Curtin, Darwin, East Sale, Edinburgh, Gingin, Learmonth, Pearce, Richmond, Scherger, Tindal, Townsville, Williamtown and Woomera - 211 aircraft in total, covering F-35A, F-15EX, B-52H, B-1B, B-2, E-7A, E-3G, P-8A, MQ-9, KC-135, KC-46A, KC-10A and MH-60R. Aircraft come from their own mods - see the repo README for the dependency list. Place BELOW the aircraft mods in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.8.2
