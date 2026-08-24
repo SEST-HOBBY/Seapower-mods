@@ -50,20 +50,20 @@ MERCHANTS = [
      [(-10.10, 131.00), (-10.60, 133.00)], 2),
     ("civ_ms_encounter", "MV Darwin Runner", (-12.20, 130.95),
      [(-11.60, 131.80), (-11.00, 133.40)], 2),
-    ("civ_ms_andizhan", "MV Tiwi Coaster", (-11.70, 130.40),
-     [(-11.95, 130.70), (-12.25, 130.85)], 1),
+    ("civ_ms_andizhan", "MV Tiwi Coaster", (-11.95, 130.25),
+     [(-12.05, 130.60), (-12.25, 130.85)], 1),
 ]
 
 # --- extra fishing activity -------------------------------------------------
 FISHING = [
     ("civ_fv_sterntrawler_c", "FV Arafura Dawn", (-9.20, 135.40),
      [(-9.05, 135.05), (-9.30, 134.75)], 1),
-    ("civ_fv_okean", "FV Aru Banks", (-6.60, 134.20),
-     [(-6.85, 133.95), (-6.55, 133.70)], 1),
+    ("civ_fv_okean", "FV Aru Banks", (-6.60, 133.85),
+     [(-6.85, 133.60), (-6.55, 133.40)], 1),
     ("civ_fv_fishingboat_b", "FV Shoal Bay", (-10.95, 130.20),
      [(-10.75, 129.95), (-11.05, 129.70)], 1),
-    ("civ_fv_sterntrawler_a", "FV Carpentaria Belle", (-11.55, 136.80),
-     [(-11.30, 136.50), (-11.60, 136.25)], 1),
+    ("civ_fv_sterntrawler_a", "FV Carpentaria Belle", (-11.85, 136.90),
+     [(-11.70, 136.60), (-12.00, 136.40)], 1),
 ]
 
 # --- extra civil air traffic -------------------------------------------------
@@ -85,7 +85,7 @@ AIRCRAFT = [
 # (type, lat/lon, random spawn range in nm)
 BIOLOGICS = [
     ("bio_humpback_whale", (-11.30, 129.80), 22),   # Timor shelf calving water
-    ("bio_humpback_whale", (-12.10, 132.40), 18),   # Van Diemen Gulf approaches
+    ("bio_humpback_whale", (-10.60, 132.80), 22),   # open Arafura north of Cobourg
     ("bio_blue_whale", (-7.20, 128.90), 30),        # Banda Sea deep water
     ("bio_fin_whale", (-11.80, 137.60), 25),        # Gulf of Carpentaria
     ("bio_humpback_whale", (-9.60, 134.80), 20),    # central Arafura
