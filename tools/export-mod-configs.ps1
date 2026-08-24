@@ -149,6 +149,9 @@ if ($IncludeVanilla) {
                 Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes }
             foreach ($f in $files) {
                 $rel = $f.FullName.Substring($sa.FullName.Length).TrimStart('\', '/')
+                # Skip the installed SEST packs - they are generated from this
+                # repo, so exporting them back just duplicates them in git.
+                if ($rel -match '^SEST_') { continue }
                 $target = Join-Path $vanillaDest $rel
                 New-Item -ItemType Directory -Force -Path (Split-Path $target) | Out-Null
                 Copy-Item -LiteralPath $f.FullName -Destination $target -Force

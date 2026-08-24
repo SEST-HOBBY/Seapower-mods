@@ -107,6 +107,20 @@ if (Test-Path $missionSrc) {
     $missionDest = Join-Path $StreamingAssetsDir "user\missions\user_missions"
     New-Item -ItemType Directory -Force -Path $missionDest | Out-Null
     foreach ($m in Get-ChildItem -LiteralPath $missionSrc -Filter "*.ini") {
+        $destFile = Join-Path $missionDest $m.Name
+        if (Test-Path $destFile) {
+            $srcRaw = Get-Content -LiteralPath $m.FullName -Raw
+            $dstRaw = Get-Content -LiteralPath $destFile -Raw
+            if ($srcRaw -eq $dstRaw) {
+                Write-Host ("  mission    {0} (unchanged)" -f $m.Name)
+                continue
+            }
+            # The in-game copy differs (e.g. edited in the mission editor):
+            # keep a timestamped backup next to it before overwriting.
+            $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
+            Copy-Item -LiteralPath $destFile -Destination "$destFile.backup-$stamp" -Force
+            Write-Host ("  backup     {0} -> {0}.backup-{1}" -f $m.Name, $stamp)
+        }
         Copy-Item -LiteralPath $m.FullName -Destination $missionDest -Force
         Write-Host ("  mission    {0}" -f $m.Name)
     }

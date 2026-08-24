@@ -19,7 +19,10 @@ WEAPON_PACK = ROOT / "mods-source" / "3760871384"       # Dingtools Weapon Pack
 VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
 OUT = Path(__file__).resolve().parent / "SEST_F-35C_JATM"
 
-NEW_KEYS = ["Intercept260", "Intercept260Beast"]
+sys.path.insert(0, str(ROOT / "integration"))
+from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+
+NEW_KEYS = ["Intercept260", "Intercept260Beast", "Malice424"]
 
 NEW_SECTIONS = """\
 #--------------- SEST JATM (AIM-260) --------------
@@ -64,22 +67,37 @@ Station4=dts_aim-260_w|AAM260
 Station5=dts_aim-260_w|AAM260
 Station6=dts_aim-260_w|AAM260
 
+[WeaponSystem1Malice424]
+ReadyUpTime=20               // in minutes. Time that plane will spend refueling and rearming before takeoff.
+CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
+
+SubmodelsToHide=pyl_l,pyl_r,wing_pyl_inner,wing_pyl_outer,wing_rail_inner,wing_rail_outer,bru-61a_left,bru-61a_right
+
+# Full-stealth counter-air/SEAD fit: two AIM-424 MALICE on the big bay
+# stations (7/8, where JSM/JDAM go) plus two AIM-260 on the bay door rails.
+Station3=dts_aim-260
+Station4=dts_aim-260
+Station7=sest_aim-424
+Station8=sest_aim-424
+
 """
 
 LOADOUT_NAMES = {
     "en": {
         "Intercept260": "Intercept (AIM-260, stealth)",
         "Intercept260Beast": "Intercept Beast (10x AIM-260)",
+        "Malice424": "Intercept MALICE (2x AIM-424 int)",
     },
     "cn": {
         "Intercept260": "隐身截击 (AIM-260)",
         "Intercept260Beast": "重挂截击 (10x AIM-260)",
+        "Malice424": "马利斯截击 (2x AIM-424 内置)",
     },
 }
 
 INFO_INI = """[Language_en]
 Name=SEST F-35C JATM
-Description=AIM-260 JATM loadout options for the US Naval Aviation F-35C (the aircraft the Gerald R. Ford JSF air wing flies): a 6-missile internal stealth intercept fit and a 10-missile beast fit. Requires US Naval Aviation and the Dingtools Weapon Pack. Place ABOVE US Naval Aviation, F-35C Alt. Loadouts, the deprecated MyGo F-35C, and Modern US Navy. Also removes a duplicated AntiShip section from the base file.
+Description=AIM-260 JATM and AIM-424 MALICE loadout options for the US Naval Aviation F-35C (the aircraft the Gerald R. Ford JSF air wing flies): a 6-missile internal stealth intercept fit, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (AARGM-ER airframe, AIM-174-class reach). Requires US Naval Aviation (also provides the AGM-88G model the MALICE uses) and the Dingtools Weapon Pack. Place ABOVE US Naval Aviation, F-35C Alt. Loadouts, the deprecated MyGo F-35C, and Modern US Navy. Also removes a duplicated AntiShip section from the base file.
 
 [Compatibility]
 ApproximateVersion=0.6.8
@@ -121,7 +139,7 @@ def main():
     # 2b. Position offset so the external AIM-260 sits flush on the wing pylons
     #     (units: ~7cm per 0.001; +y = up, +z = forward). Tune here.
     text, k = re.subn(r"(\[WeaponSystem2\][^\[]*?NumberOfStations=\d+\n)",
-                      r"\1AAM260Positions=0,0.0025,0.005\n", text, count=1, flags=re.S)
+                      r"\1AAM260Positions=0,0.0025,0.002\n", text, count=1, flags=re.S)
     if k != 1:
         sys.exit("could not inject AAM260Positions into [WeaponSystem2]")
 
@@ -132,7 +150,7 @@ def main():
     text = text.replace(marker, NEW_SECTIONS + marker, 1)
 
     # 4. Validate ammo references against the ecosystem
-    known = set()
+    known = {AIM424_ID}  # provided by this pack itself (written below)
     for d in (UPSTREAM, WEAPON_PACK, VANILLA):
         known |= {p.stem for p in d.rglob("*.ini") if p.parent.name == "ammunition"}
     refs = set(re.findall(r"^Station\d+=([^|\s/]+)", NEW_SECTIONS, re.M))
@@ -148,6 +166,7 @@ def main():
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
     (OUT / "aircraft" / "usn_f-35c.ini").write_text(text, encoding="utf-8")
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
+    write_aim424(OUT)
     for lang, names in LOADOUT_NAMES.items():
         src_names = UPSTREAM / f"language_{lang}" / "loadout_names.ini"
         body = src_names.read_text(encoding="utf-8").rstrip("\n")

@@ -14,7 +14,10 @@ WEAPON_PACK = ROOT / "mods-source" / "3760871384"       # Dingtools Weapon Pack
 VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
 OUT = Path(__file__).resolve().parent / "SEST_RAAF_F-35A_JATM"
 
-NEW_KEYS = ["Intercept260Stealth", "Intercept260", "Intercept260Beast"]
+sys.path.insert(0, str(ROOT / "integration"))
+from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+
+NEW_KEYS = ["Intercept260Stealth", "Intercept260", "Intercept260Beast", "Malice424"]
 
 NEW_SECTIONS = """\
 #--------------- SEST JATM (AIM-260) --------------
@@ -63,6 +66,16 @@ Station4=dts_aim-260_w|AAM260
 Station5=dts_aim-260_w|AAM260
 Station6=dts_aim-260_w|AAM260
 
+[WeaponSystem1Malice424]
+SubmodelsToHide=pyl_l,pyl_r,wing_pyl_inner,wing_pyl_outer,wing_rail_inner,wing_rail_outer,bru-61a_left,bru-61a_right
+
+# Full-stealth counter-air/SEAD fit: two AIM-424 MALICE on the big bay
+# stations (7/8, where JSM/JDAM go) plus two AIM-260 on the bay door rails.
+Station3=dts_aim-260
+Station4=dts_aim-260
+Station7=sest_aim-424
+Station8=sest_aim-424
+
 """
 
 LOADOUT_NAMES = {
@@ -70,12 +83,13 @@ LOADOUT_NAMES = {
         "Intercept260Stealth": "Intercept Stealth (AIM-260)",
         "Intercept260": "Intercept (AIM-260)",
         "Intercept260Beast": "Intercept Beast (10x AIM-260)",
+        "Malice424": "Intercept MALICE (2x AIM-424 int)",
     },
 }
 
 INFO_INI = """[Language_en]
 Name=SEST RAAF F-35A JATM
-Description=AIM-260 JATM loadout options for the RAAF F-35A: a 6-missile internal stealth fit, the same with wingtip AIM-9X, and a 10-missile beast fit. Requires the RAAF F-35A mod and the Dingtools Weapon Pack. Place ABOVE the RAAF F-35A mod in the Mod Manager.
+Description=AIM-260 JATM and AIM-424 MALICE loadout options for the RAAF F-35A: a 6-missile internal stealth fit, the same with wingtip AIM-9X, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (AARGM-ER airframe, AIM-174-class reach). Requires the RAAF F-35A mod and the Dingtools Weapon Pack; US Naval Aviation provides the AGM-88G model the MALICE uses. Place ABOVE the RAAF F-35A mod in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.6.8
@@ -102,7 +116,7 @@ def main():
     # 1b. Position offset so the external AIM-260 sits flush on this airframe's
     #     wing pylons (units: ~7cm per 0.001; +y = up, +z = forward). Tune here.
     text, k = re.subn(r"(\[WeaponSystem2\][^\[]*?NumberOfStations=\d+\n)",
-                      r"\1AAM260Positions=0,0.0025,0.005\n", text, count=1, flags=re.S)
+                      r"\1AAM260Positions=0,0.0025,0.002\n", text, count=1, flags=re.S)
     if k != 1:
         sys.exit("could not inject AAM260Positions into [WeaponSystem2]")
 
@@ -113,7 +127,7 @@ def main():
     text = text.replace(marker, NEW_SECTIONS + marker, 1)
 
     # 3. Validate ammo references against the ecosystem
-    known = set()
+    known = {AIM424_ID}  # provided by this pack itself (written below)
     for d in (UPSTREAM, WEAPON_PACK, VANILLA):
         known |= {p.stem for p in d.rglob("*.ini") if p.parent.name == "ammunition"}
     refs = set(re.findall(r"^Station\d+=([^|\s/]+)", NEW_SECTIONS, re.M))
@@ -125,6 +139,7 @@ def main():
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
     (OUT / "aircraft" / "raaf_f-35a.ini").write_text(text, encoding="utf-8")
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
+    write_aim424(OUT)
     for lang, names in LOADOUT_NAMES.items():
         src_names = UPSTREAM / f"language_{lang}" / "loadout_names.ini"
         body = src_names.read_text(encoding="utf-8").rstrip("\n")

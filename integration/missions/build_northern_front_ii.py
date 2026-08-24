@@ -23,6 +23,11 @@ from pathlib import Path
 SRC = Path("mods-source/_vanilla/user/missions/NORTHERN FRONT.ini")
 OUT = Path("integration/missions/NORTHERN FRONT II.ini")
 Y = "220.4727"  # vanilla vessel-waypoint sea-level constant
+MLAT, MLON = 54.27, -26.28  # mission map datum: x = (lon-MLON)*60, z = (lat-MLAT)*60
+
+def ll(lat, lon):
+    """Real-world coordinates -> mission x,z (verified against Darwin/Scherger)."""
+    return round((lon - MLON) * 60.0, 1), round((lat - MLAT) * 60.0, 1)
 
 t = SRC.read_text(encoding="utf-8", errors="replace")
 
@@ -127,78 +132,101 @@ b.append(land("Taskforce2LandUnit37", "wp_ss-26_tel", 9628.1, -3667.0, 230))
 b.append(land("Taskforce2LandUnit38", "wp_ss-26_tel", 9630.2, -3667.6, 230))
 b.append(land("Taskforce2LandUnit39", "wp_scud_9k72", 9628.6, -3669.4, 230))
 b.append(land("Taskforce2LandUnit40", "wp_scud_9k72", 9630.0, -3669.9, 230))
-# seized gas rigs — red emplacements on the shelf, spread ~100nm apart
-b.append(land("Taskforce2LandUnit41", "civ_spar_rig_helo", 9528.0, -3838.0))
-b.append(land("Taskforce2LandUnit42", "civ_spar_rig_helo", 9612.0, -3762.0))
-b.append(land("Taskforce2LandUnit43", "civ_spar_rig_helo", 9498.0, -3742.0))
+# seized gas rigs — red emplacements on real Arafura/Timor-shelf field positions
+for i, (lat, lon) in enumerate([(-9.6, 131.7), (-8.9, 133.2), (-10.15, 130.4)], start=41):
+    x, z = ll(lat, lon)
+    b.append(land(f"Taskforce2LandUnit{i}", "civ_spar_rig_helo", x, z))
 
-# --- neutral shipping: two long lanes + coastal + two fishing grounds ---
-lane1 = [  # Darwin <-> NE shelf, ~380nm, alternating directions
-    (1, "civ_ms_bulk",          9455.0, -3975.0, 40, 2, f"9610,{Y},-3830|9760,{Y},-3640/SetTelegraph,3"),
-    (2, "civ_ms_act_1",         9530.0, -3905.0, 40, 3, f"9680,{Y},-3720|9790,{Y},-3610/SetTelegraph,3"),
-    (3, "civ_ms_mairangi_bay",  9615.0, -3825.0, 40, 2, f"9740,{Y},-3665|9800,{Y},-3595/SetTelegraph,3"),
-    (4, "civ_ms_amra",          9690.0, -3710.0, 220, 2, f"9540,{Y},-3895|9450,{Y},-3985/SetTelegraph,1"),
-    (5, "civ_ms_andizhan",      9755.0, -3645.0, 220, 2, f"9600,{Y},-3845|9455,{Y},-3980/SetTelegraph,1"),
-    (6, "civ_ms_super_p",       9575.0, -3860.0, 220, 2, f"9470,{Y},-3960|9445,{Y},-3992/SetTelegraph,1"),
+# --- neutral shipping on REAL sea lanes (all waypoints verified water) ---
+def route(points):
+    """lat/lon chain -> spawn at first point, waypoints through the rest."""
+    xz = [ll(la, lo) for la, lo in points]
+    wpts = "|".join(f"{x},{Y},{z}" for x, z in xz[1:]) + "/SetTelegraph,3"
+    return xz[0], wpts
+
+# Darwin <-> Torres Strait coastal lane (south of the Arafura, around Cape Wessel)
+L1 = [(-12.05, 130.75), (-11.30, 132.00), (-10.90, 133.80), (-10.80, 136.00),
+      (-10.60, 138.50), (-10.50, 140.50)]
+# Banda Sea <-> Torres Strait international lane (south of Tanimbar, across the Arafura)
+L2 = [(-5.80, 128.30), (-8.30, 131.30), (-9.00, 133.50), (-9.60, 136.00),
+      (-10.00, 138.60), (-10.45, 141.00)]
+
+lanes = [
+    (1, "civ_ms_bulk",          L1[0:3], 55, 2),   # eastbound along L1
+    (2, "civ_ms_act_1",         L1[1:4], 70, 3),
+    (3, "civ_ms_mairangi_bay",  L1[2:5], 80, 2),
+    (4, "civ_ms_amra",          L1[3:0:-1], 250, 2),  # westbound
+    (5, "civ_ms_andizhan",      L1[4:1:-1], 255, 2),
+    (6, "civ_ms_super_p",       L1[5:2:-1], 260, 2),
+    (7, "civ_ms_car_carrier_a", L2[0:3], 130, 3),   # southeast-bound along L2
+    (8, "civ_ms_freighter_a",   L2[1:4], 110, 2),
+    (9, "civ_ms_c8",            L2[2:5], 105, 2),
+    (10, "civ_ms_roro_b",       L2[3:0:-1], 300, 3),  # northwest-bound
+    (11, "civ_ms_encounter",    L2[4:1:-1], 295, 2),
+    (12, "civ_ms_freighter_d",  L2[5:2:-1], 290, 2),
 ]
-lane2 = [  # east-west between the fleets, ~500nm
-    (7, "civ_ms_car_carrier_a", 9830.0, -3440.0, 250, 3, f"9560,{Y},-3540|9340,{Y},-3610/SetTelegraph,3"),
-    (8, "civ_ms_freighter_a",   9720.0, -3480.0, 250, 2, f"9500,{Y},-3560|9330,{Y},-3615/SetTelegraph,3"),
-    (9, "civ_ms_c8",            9600.0, -3525.0, 250, 2, f"9420,{Y},-3585|9330,{Y},-3618/SetTelegraph,3"),
-    (10, "civ_ms_roro_b",       9370.0, -3600.0, 70, 3, f"9620,{Y},-3515|9840,{Y},-3438/SetTelegraph,3"),
-    (11, "civ_ms_encounter",    9480.0, -3565.0, 70, 2, f"9700,{Y},-3492|9845,{Y},-3440/SetTelegraph,3"),
-    (12, "civ_ms_freighter_d",  9660.0, -3505.0, 70, 2, f"9780,{Y},-3465|9850,{Y},-3435/SetTelegraph,3"),
-]
+for i, ty, pts, hdg, tel in lanes:
+    (x, z), wpts = route(pts)
+    b.append(nvessel(i, ty, x, z, hdg, tel, wpts))
+
+# Darwin coastal traders
 coastal = [
-    (13, "ran_ms_austral",      9444.0, -3968.0, 40, 2, f"9520,{Y},-3945|9600,{Y},-3850/SetTelegraph,3"),
-    (14, "ran_ms_antares",      9436.0, -3982.0, 40, 2, f"9505,{Y},-3958|9585,{Y},-3862/SetTelegraph,3"),
-    (15, "ran_ms_jeparit",      9452.0, -3958.0, 220, 1, f"9440,{Y},-3990|9438,{Y},-3998/SetTelegraph,1"),
+    (13, "ran_ms_austral", [(-12.15, 130.65), (-11.60, 131.60), (-11.00, 133.00)], 50, 2),
+    (14, "ran_ms_antares", [(-11.80, 131.40), (-12.10, 130.80), (-12.25, 130.60)], 230, 2),
+    (15, "ran_ms_jeparit", [(-12.20, 130.70), (-12.28, 130.58)], 230, 1),
 ]
-fishA = [  # Timor shelf, spread ~40nm
-    (16, "civ_fv_fishingboat_a", 9540.0, -3852.0, 300, 1, f"9528,{Y},-3846|9545,{Y},-3860/SetTelegraph,1"),
-    (17, "civ_fv_sidetrawler",   9565.0, -3838.0, 120, 2, f"9578,{Y},-3848|9560,{Y},-3830/SetTelegraph,1"),
-    (18, "civ_fv_crabboat",      9552.0, -3872.0, 210, 1, f"9542,{Y},-3880|9556,{Y},-3866/SetTelegraph,1"),
-    (19, "civ_fv_sterntrawler_b",9585.0, -3812.0, 30, 2, f"9595,{Y},-3800|9575,{Y},-3820/SetTelegraph,1"),
-]
-fishB = [  # northern contested water, spread ~50nm
-    (20, "civ_fv_dhow",          9668.0, -3520.0, 300, 1, f"9660,{Y},-3512|9672,{Y},-3528/SetTelegraph,1"),
-    (21, "civ_fv_dhow",          9705.0, -3495.0, 120, 1, f"9714,{Y},-3504|9698,{Y},-3488/SetTelegraph,1"),
-    (22, "civ_fv_sampan",        9685.0, -3470.0, 200, 1, f"9678,{Y},-3478|9690,{Y},-3464/SetTelegraph,1"),
-    (23, "civ_fv_fishingboat_c", 9730.0, -3515.0, 30, 1, f"9738,{Y},-3505|9722,{Y},-3522/SetTelegraph,1"),
-    (24, "civ_fv_fishingboat_d", 9648.0, -3488.0, 160, 1, f"9642,{Y},-3496|9654,{Y},-3480/SetTelegraph,1"),
-]
-for i, ty, x, z, h, tel, w in lane1 + lane2 + coastal + fishA + fishB:
-    small = ty.startswith("civ_fv") and ty not in ("civ_fv_sterntrawler_b", "civ_fv_sidetrawler")
-    b.append(nvessel(i, ty, x, z, h, tel, w, radar=not small))
+for i, ty, pts, hdg, tel in coastal:
+    (x, z), wpts = route(pts)
+    b.append(nvessel(i, ty, x, z, hdg, tel, wpts))
 
-# --- neutral biologics: native whales, random spawn each load ---
+# Timor-shelf fishing ground (west of Darwin, open water)
+fishA = [(16, "civ_fv_fishingboat_a", -10.20, 130.90), (17, "civ_fv_sidetrawler", -10.45, 131.30),
+         (18, "civ_fv_crabboat", -10.05, 131.55), (19, "civ_fv_sterntrawler_b", -10.60, 130.60)]
+# Indonesian fishing ground (Arafura Sea, south of the Aru Islands)
+fishB = [(20, "civ_fv_dhow", -8.60, 133.60), (21, "civ_fv_dhow", -8.85, 134.10),
+         (22, "civ_fv_sampan", -8.40, 134.40), (23, "civ_fv_fishingboat_c", -9.05, 133.30),
+         (24, "civ_fv_fishingboat_d", -8.25, 133.90)]
+for i, ty, lat, lon in fishA + fishB:
+    x, z = ll(lat, lon)
+    small = ty in ("civ_fv_dhow", "civ_fv_sampan", "civ_fv_crabboat",
+                   "civ_fv_fishingboat_a", "civ_fv_fishingboat_c", "civ_fv_fishingboat_d")
+    wx, wz = ll(lat + 0.12, lon - 0.10)
+    b.append(nvessel(i, ty, x, z, 200, 1, f"{wx},{Y},{wz}/SetTelegraph,1", radar=not small))
+
+# --- neutral biologics: real whale water, random spawn each load ---
 bios = [
-    (1, "bio_humpback_whale", 9460.0, -3870.0, 25),   # inside the RAN screen's water
-    (2, "bio_humpback_whale", 9560.0, -3800.0, 30),
-    (3, "bio_humpback_whale", 9650.0, -3690.0, 30),
-    (4, "bio_humpback_whale", 9380.0, -3800.0, 30),
-    (5, "bio_humpback_whale", 9700.0, -3450.0, 30),
-    (6, "bio_blue_whale",     9750.0, -3550.0, 40),
-    (7, "bio_blue_whale",     9350.0, -3650.0, 40),
-    (8, "bio_fin_whale",      9520.0, -3700.0, 40),
-    (9, "bio_fin_whale",      9600.0, -3900.0, 25),
+    (1, "bio_humpback_whale", -9.90, 131.40, 20),   # the RAN screen's water
+    (2, "bio_humpback_whale", -10.40, 133.00, 30),
+    (3, "bio_humpback_whale", -9.00, 134.80, 30),
+    (4, "bio_humpback_whale", -11.20, 135.50, 30),
+    (5, "bio_humpback_whale", -8.00, 132.30, 30),
+    (6, "bio_blue_whale",     -6.50, 130.00, 40),   # Banda Sea deep water
+    (7, "bio_blue_whale",     -5.20, 127.60, 40),
+    (8, "bio_fin_whale",      -7.60, 133.00, 40),
+    (9, "bio_fin_whale",      -10.90, 138.80, 30),  # Gulf of Carpentaria
 ]
-for i, ty, x, z, r in bios:
+for i, ty, lat, lon, r in bios:
+    x, z = ll(lat, lon)
     b.append(nbio(i, ty, x, z, r))
 
-# --- neutral air traffic: eight liners on crossing airways ---
+# --- neutral air traffic: city-pair airways (overland is fine for aircraft) ---
+def airway(points, alt):
+    xz = [ll(la, lo) for la, lo in points]
+    return xz[0], "|".join(f"{x},{alt},{z}" for x, z in xz[1:])
+
 airs = [
-    (1, "civ_a330", 9750.0, 35000, -3550.0, 225, f"9350,35000,-3980|9250,35000,-4090"),
-    (2, "civ_a320", 9380.0, 33000, -3700.0, 60, f"9800,33000,-3450|9900,33000,-3360"),
-    (3, "civ_a380", 9300.0, 43000, -4050.0, 40, f"9700,43000,-3500|9850,43000,-3350"),
-    (4, "civ_a330", 9600.0, 37000, -3400.0, 190, f"9500,37000,-3800|9450,37000,-3990"),
-    (5, "civ_a320", 9550.0, 29000, -3990.0, 20, f"9620,29000,-3760|9680,29000,-3560"),
-    (6, "civ_a330", 9850.0, 39000, -3700.0, 265, f"9500,39000,-3750|9330,39000,-3780"),
-    (7, "civ_dc-10", 9330.0, 36000, -3500.0, 110, f"9650,36000,-3620|9880,36000,-3700"),
-    (8, "civ_a320", 9480.0, 31000, -3880.0, 350, f"9460,31000,-3600|9440,31000,-3420"),
+    (1, "civ_a330", 35000, [(-12.20, 130.95), (-8.00, 130.50), (-4.00, 130.00)], 355),  # Darwin-Manila
+    (2, "civ_a320", 31000, [(-12.30, 131.10), (-10.50, 134.00), (-9.00, 137.00)], 65),  # Darwin-Cairns
+    (3, "civ_a380", 41000, [(-7.50, 128.20), (-10.50, 133.00), (-12.80, 137.00)], 130), # Singapore-Sydney
+    (4, "civ_a330", 39000, [(-12.50, 139.00), (-10.00, 134.00), (-8.80, 129.20)], 290), # Brisbane-Denpasar
+    (5, "civ_a320", 29000, [(-12.10, 130.80), (-10.00, 131.50), (-7.80, 132.20)], 15),  # Darwin-Ambon
+    (6, "civ_a330", 37000, [(-4.50, 137.00), (-8.00, 134.00), (-11.50, 131.20)], 220),  # Manila-Perth
+    (7, "civ_dc-10", 36000, [(-6.00, 128.80), (-8.50, 133.50), (-10.20, 137.50)], 120), # freighter, Banda-Torres
+    (8, "civ_a320", 33000, [(-10.30, 141.00), (-11.20, 136.50), (-12.15, 131.20)], 255),# Cairns-Darwin
 ]
-for i, ty, x, alt, z, h, w in airs:
-    b.append(nair(i, ty, x, alt, z, h, w))
+for i, ty, alt, pts, hdg in airs:
+    (x, z), wpts = airway(pts, alt)
+    b.append(nair(i, ty, x, alt, z, hdg, wpts))
 
 t = t.rstrip("\n") + "\n" + "".join(b)
 
