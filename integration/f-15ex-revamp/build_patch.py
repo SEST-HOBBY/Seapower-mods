@@ -21,14 +21,14 @@ OUT = Path(__file__).resolve().parent / "SEST_F-15EX_Revamp"
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
-NEW_KEYS = ["AntiShipHeavy", "AntiShipHarpoon", "Quicksink", "BigStick174", "BigStick174ER",
+NEW_KEYS = ["AntiShipHeavy", "Quicksink", "BigStick174", "BigStick174ER",
             "Truck174", "Malice6", "MaliceER", "MaliceTruck"]
 
 NEW_SECTIONS = """\
 [--------------------------- SEST Revamp loadouts ---------------------------]
 # Added by the SEST F-15EX Revamp patch. Requires the Dingtools Weapon Pack
 # (dts_ weapons); the BigStick174 loadout additionally requires Murder Hornet
-# (usn_aim-174b). AGM-84D and the 610 gal tank are vanilla.
+# (usn_aim-174b). The 610 gal tank is vanilla.
 
 [WeaponSystem1AntiShipHeavy]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -48,22 +48,6 @@ Station3=dts_agm-158c-3|JDAM32
 Station4=dts_agm-158c-3|JDAM32
 Station13=dts_agm-158c-3|WW
 Station14=dts_agm-158c-3|WW
-
-[WeaponSystem1AntiShipHarpoon]
-ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
-CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT
-Station7=dts_aim-120d-3_w|120
-Station8=dts_aim-120d-3_w|120
-Station9=dts_aim-9x
-Station10=dts_aim-9x
-Station11=usn_agm-84d|AGM
-Station12=usn_agm-84d|AGM
-Station15=usaf_tank_610_f-15|WT
-Station16=usn_agm-84d|WW
-Station17=usn_agm-84d|WW
-Station26=dts_anaaq-33
-Station27=dts_anaaq-13
 
 [WeaponSystem1Quicksink]
 ReadyUpTime=25               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -186,7 +170,6 @@ Station15=usaf_tank_610_f-15|WT
 LOADOUT_NAMES = {
     "en": {
         "AntiShipHeavy": "AntiShipLRASM6",
-        "AntiShipHarpoon": "AntiShipHarpoon",
         "Quicksink": "StrikeQuicksink",
         "BigStick174": "Intercept174",
         "BigStick174ER": "Intercept174 LongRange",
@@ -197,7 +180,6 @@ LOADOUT_NAMES = {
     },
     "cn": {
         "AntiShipHeavy": "重型反舰LRASM×6",
-        "AntiShipHarpoon": "鱼叉反舰",
         "Quicksink": "快沉反舰JDAM",
         "BigStick174": "超远程截击174",
         "BigStick174ER": "超远程截击174 (远程)",
@@ -210,7 +192,7 @@ LOADOUT_NAMES = {
 
 INFO_INI = """[Language_en]
 Name=SEST F-15EX Revamp
-Description=Nine extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x AGM-84D Harpoon, 4x GBU-31 Quicksink, and a what-if very-long-range family - 6x/4x+fuel/8x-truck AIM-174B fits plus matching 6x/4x+fuel/8x-truck AIM-424 MALICE fits. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; AIM-174B fits also need Murder Hornet, and the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
+Description=Eight extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x GBU-31 Quicksink, and a what-if very-long-range family - 6x/4x+fuel/8x-truck AIM-174B fits plus matching 6x/4x+fuel/8x-truck AIM-424 MALICE fits. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; AIM-174B fits also need Murder Hornet, and the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.8.2
