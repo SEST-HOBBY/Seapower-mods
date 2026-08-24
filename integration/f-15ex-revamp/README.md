@@ -16,7 +16,7 @@ dropped - LRASM and Quicksink cover anti-ship far better and the AGM-84 added no
 |---|---|---|---|
 | `AntiShipHeavy` | AntiShipLRASM6 | **6× AGM-158C-3 LRASM** (surge fit, mirrors the JSOW 6-station pattern) + 2× AIM-120D-3 + 2× AIM-9X + tank + pods | none beyond upstream |
 | `Quicksink` | StrikeQuicksink | **4× GBU-31 anti-ship JDAM** + 2× AIM-120D-3 + 2× AIM-9X + tank + pods | Dingtools Weapon Pack (`dts_gbu-31`) |
-| `BigStick174` | Intercept174 | **6× AIM-174B** (CFT corners, aft fuselage, wing) + 2× AIM-120D-3 + 2× AIM-9X + tank — flagged what-if | **Murder Hornet** (`usn_aim-174b`) |
+| `BigStick174` | Intercept174 | **6× AIM-174B** + **4× AIM-260** on the inner wing pylon rails + 2× AIM-120D-3 + 2× AIM-9X + tank | **Murder Hornet** (`usn_aim-174b`) |
 | `BigStick174ER` | Intercept174 LongRange | **4× AIM-174B** (fuselage) + 3× 610 gal tanks (centreline + both wing stations) + 2× AIM-120D-3 and 2× AIM-9X on the inner-pylon shoulder rails — outer wing pylons removed entirely | **Murder Hornet** (`usn_aim-174b`) |
 | `Truck174` | Intercept174 Truck (8×) | **8× AIM-174B** (4 fuselage + 4 on the inner-pylon shoulder rails) + centreline tank only | **Murder Hornet** (`usn_aim-174b`) |
 | `Malice6` | InterceptMALICE (6× AIM-424) | **6× AIM-424 MALICE** in the BigStick174 layout + 2× AIM-120D-3 + 2× AIM-9X + tank | **US Naval Aviation** (AGM-88G model) |
@@ -54,3 +54,13 @@ python3 integration/f-15ex-revamp/build_patch.py
 
 It fails loudly (rather than building something broken) if upstream renamed a loadout key,
 moved the injection point, or changed weapon ids.
+
+Two more long-range missile-truck fits trade the wing twin-racks for fuel:
+
+| Loadout | In-game name | Stores | Extra dependency |
+|---|---|---|---|
+| `AAMT120Tanks` | AAMT120 LongRange (3 tanks) | **16× AIM-120D-3** (8 rails + 8 on the fuselage twin racks) + three 610 gal tanks | Dingtools Weapon Pack |
+| `AAMT260Tanks` | AAMT260 LongRange (3 tanks) | **16× AIM-260** in the same layout + three 610 gal tanks | Dingtools Weapon Pack |
+
+`BigStick174`, `BigStick174ER` and both MALICE mirrors also carry 4× AIM-260 on the
+inner wing pylon rails, which those fits previously left empty.

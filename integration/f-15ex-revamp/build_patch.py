@@ -22,7 +22,8 @@ sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 NEW_KEYS = ["AntiShipHeavy", "Quicksink", "BigStick174", "BigStick174ER",
-            "Truck174", "Malice6", "MaliceER", "MaliceTruck"]
+            "Truck174", "Malice6", "MaliceER", "MaliceTruck",
+            "AAMT120Tanks", "AAMT260Tanks"]
 
 NEW_SECTIONS = """\
 [--------------------------- SEST Revamp loadouts ---------------------------]
@@ -69,6 +70,11 @@ Station27=dts_anaaq-13
 ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
+# AIM-260 on the inner wing pylon rails, which this fit used to leave empty.
+Station1=dts_aim-260_w|120
+Station2=dts_aim-260_w|120
+Station5=dts_aim-260_w|120
+Station6=dts_aim-260_w|120
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -88,6 +94,11 @@ SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33
 # The outer wing pylons are baked into the airframe model and render whether
 # or not they carry anything, so use them: AMRAAM on the pylon2 inner
 # stations, AIM-9X outboard of them on the outermost pair.
+# AIM-260 on the inner wing pylon rails alongside the tanks.
+Station1=dts_aim-260_w|120
+Station2=dts_aim-260_w|120
+Station5=dts_aim-260_w|120
+Station6=dts_aim-260_w|120
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -125,7 +136,11 @@ Station15=usaf_tank_610_f-15|WT
 ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# MALICE mirror of BigStick174: 6x AIM-424 (fuselage + wing stations).
+# MALICE mirror of BigStick174: 6x AIM-424 plus AIM-260 on the inner rails.
+Station1=dts_aim-260_w|120
+Station2=dts_aim-260_w|120
+Station5=dts_aim-260_w|120
+Station6=dts_aim-260_w|120
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -144,6 +159,11 @@ CoolDownTime=60              // in minutes. Time that plane will spend in mainte
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # MALICE mirror of BigStick174ER: 4x AIM-424 under, 3 tanks, AAMs on the
 # outer wing pylons.
+# AIM-260 on the inner wing pylon rails alongside the tanks.
+Station1=dts_aim-260_w|120
+Station2=dts_aim-260_w|120
+Station5=dts_aim-260_w|120
+Station6=dts_aim-260_w|120
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -152,6 +172,50 @@ Station11=sest_aim-424|AGM
 Station12=sest_aim-424|AGM
 Station13=sest_aim-424|AGM
 Station14=sest_aim-424|AGM
+Station15=usaf_tank_610_f-15|WT
+Station16=usaf_tank_610_f-15|WT
+Station17=usaf_tank_610_f-15|WT
+
+[WeaponSystem1AAMT120Tanks]
+ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
+CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
+SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,Py13,Py33,33Glass
+# Upstream's AAMT120 missile truck with the wing stations carrying FUEL
+# instead of the twin AMRAAM racks: 16 missiles and three 610 gal tanks
+# rather than 20 missiles and one. The AAMT rack mesh stays visible.
+Station1=dts_aim-120d-3_w|120
+Station2=dts_aim-120d-3_w|120
+Station5=dts_aim-120d-3_w|120
+Station6=dts_aim-120d-3_w|120
+Station7=dts_aim-120d-3_w|120
+Station8=dts_aim-120d-3_w|120
+Station9=dts_aim-120d-3_w|120
+Station10=dts_aim-120d-3_w|120
+Station11=dts_aim-120d-3|MTH
+Station12=dts_aim-120d-3|MTH
+Station13=dts_aim-120d-3|MTH
+Station14=dts_aim-120d-3|MTH
+Station15=usaf_tank_610_f-15|WT
+Station16=usaf_tank_610_f-15|WT
+Station17=usaf_tank_610_f-15|WT
+
+[WeaponSystem1AAMT260Tanks]
+ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
+CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
+SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,Py13,Py33,33Glass
+# The same trade on the AIM-260 truck.
+Station1=dts_aim-260_w|120
+Station2=dts_aim-260_w|120
+Station5=dts_aim-260_w|120
+Station6=dts_aim-260_w|120
+Station7=dts_aim-260_w|120
+Station8=dts_aim-260_w|120
+Station9=dts_aim-260_w|120
+Station10=dts_aim-260_w|120
+Station11=dts_aim-260|MTH
+Station12=dts_aim-260|MTH
+Station13=dts_aim-260|MTH
+Station14=dts_aim-260|MTH
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
@@ -188,6 +252,8 @@ LOADOUT_NAMES = {
         "Malice6": "InterceptMALICE (6x AIM-424)",
         "MaliceER": "InterceptMALICE LongRange",
         "MaliceTruck": "InterceptMALICE Truck (8x)",
+        "AAMT120Tanks": "AAMT120 LongRange (3 tanks)",
+        "AAMT260Tanks": "AAMT260 LongRange (3 tanks)",
     },
     "cn": {
         "AntiShipHeavy": "重型反舰LRASM×6",
@@ -198,12 +264,14 @@ LOADOUT_NAMES = {
         "Malice6": "马利斯截击 (6x AIM-424)",
         "MaliceER": "马利斯截击 (远程)",
         "MaliceTruck": "马利斯截击 (8联卡车)",
+        "AAMT120Tanks": "AMRAAM卡车 (远程 3副油箱)",
+        "AAMT260Tanks": "AIM-260卡车 (远程 3副油箱)",
     },
 }
 
 INFO_INI = """[Language_en]
 Name=SEST F-15EX Revamp
-Description=Eight extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x GBU-31 Quicksink, and a what-if very-long-range family - 6x/4x+fuel/8x-truck AIM-174B fits plus matching 6x/4x+fuel/8x-truck AIM-424 MALICE fits. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; AIM-174B fits also need Murder Hornet, and the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
+Description=Ten extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x GBU-31 Quicksink, and a what-if very-long-range family - 6x/4x+fuel/8x-truck AIM-174B fits plus matching 6x/4x+fuel/8x-truck AIM-424 MALICE fits, plus long-range versions of the AMRAAM and AIM-260 missile trucks that trade the wing twin-racks for fuel. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; AIM-174B fits also need Murder Hornet, and the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.8.2
