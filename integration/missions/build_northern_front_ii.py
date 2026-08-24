@@ -14,11 +14,29 @@ One authoritative generator (replaces the earlier incremental edits):
   and whales are native NeutralBiologics with RandomSpawnRange so the pods
   land somewhere new every load.
 
-Usage (repo root):  python3 "integration/missions/build_northern_front_ii.py"
+DESTRUCTIVE, AND A ONE-SHOT. This regenerates NORTHERN FRONT II from the
+ORIGINAL editor save, discarding everything applied since - every civilian
+refinement, depth pass, formation name, land fix and hand edit made in the
+mission editor. It is kept for provenance, not for routine use.
+
+Unlike every other tool in this folder it is straight-line code with no
+argparse, so ANY invocation used to rebuild the mission - including
+`--help`, which is how it once silently reverted a mission mid-session.
+It now refuses to run without --force.
+
+Usage (repo root):
+    python3 "integration/missions/build_northern_front_ii.py" --force
 """
 import glob
 import re
+import sys
 from pathlib import Path
+
+if "--force" not in sys.argv:
+    sys.exit(
+        "build_northern_front_ii.py rebuilds NORTHERN FRONT II from the original\n"
+        "editor save and DISCARDS every refinement applied since. It does not run\n"
+        "by accident. Pass --force if that is genuinely what you want.")
 
 SRC = Path("mods-source/_vanilla/user/missions/NORTHERN FRONT.ini")
 OUT = Path("integration/missions/NORTHERN FRONT II.ini")

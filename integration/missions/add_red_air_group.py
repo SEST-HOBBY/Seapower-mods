@@ -37,6 +37,11 @@ from pathlib import Path
 
 MISSIONS = Path(__file__).resolve().parent
 
+# active_mission() is needed at argparse time, so it is imported here
+# rather than inside a function like the heavier helpers below.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from refine_civ_traffic import active_mission  # noqa: E402
+
 # (type, count, altitude ft, start lat/lon, route lat/lon points, formation name)
 PACKAGE = [
     ("plaaf_j-20a", 4, 38000, (-10.50, 147.50),
@@ -90,7 +95,9 @@ def squadron_for(type_id):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--mission", required=True)
+    ap.add_argument("--mission", default=active_mission(),
+                    help="mission name without .ini "
+                         "(default: whatever data/active-mission.txt names)")
     ap.add_argument("--group", action="append", default=None,
                     help="restore only this formation (repeatable). Without it every "
                          "missing formation is restored - which is wrong if you replaced "

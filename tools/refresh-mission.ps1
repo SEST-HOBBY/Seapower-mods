@@ -27,8 +27,13 @@
     Needs Python 3 on PATH. Step 5 also needs the land mask package; pass
     -InstallDeps once to fetch it, or the step is skipped with a warning.
 
+    -Mission defaults to whatever data\active-mission.txt names, which is the
+    same file the Python tools read - so running this with no arguments always
+    works on the scenario you are actually developing, rather than a default
+    baked in when some other mission was current.
+
 .EXAMPLE
-    # After editing NORTHERN FRONT III in the mission editor (game closed):
+    # After editing the active mission in the editor (game closed):
     powershell -ExecutionPolicy Bypass -File .\tools\refresh-mission.ps1 -Install
 
 .EXAMPLE
@@ -41,7 +46,7 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$Mission = "NORTHERN FRONT III",
+    [string]$Mission,
     [switch]$SkipImport,
     [switch]$Install,
     [switch]$InstallDeps,
@@ -54,6 +59,10 @@ $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyI
 $repoRoot = Split-Path -Parent $scriptDir
 $missionsDir = Join-Path $repoRoot "integration\missions"
 . (Join-Path $scriptDir "lib\common.ps1")
+
+# Not a param default: those are bound before $repoRoot exists.
+if (-not $Mission) { $Mission = Get-ActiveMission $repoRoot }
+Write-Host "Mission: $Mission"
 
 # --- Find Python -------------------------------------------------------------
 $py = Get-Python

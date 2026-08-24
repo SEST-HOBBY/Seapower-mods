@@ -29,6 +29,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MISSIONS = Path(__file__).resolve().parent
 
+# active_mission() is needed at argparse time, so it is imported here
+# rather than inside a function like the heavier helpers below.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from refine_civ_traffic import active_mission  # noqa: E402
+
 Y = "220.4727"          # vanilla sea-level constant for vessel waypoints
 
 # --- extra merchant traffic -------------------------------------------------
@@ -180,7 +185,9 @@ def set_count(text, key, value):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--mission", required=True, help="mission name without .ini")
+    ap.add_argument("--mission", default=active_mission(),
+                    help="mission name without .ini "
+                         "(default: whatever data/active-mission.txt names)")
     ap.add_argument("--write", action="store_true", help="apply (default: report only)")
     args = ap.parse_args()
 

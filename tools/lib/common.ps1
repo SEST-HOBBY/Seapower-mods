@@ -95,3 +95,18 @@ function Get-Python {
     }
     return $null
 }
+
+function Get-ActiveMission {
+    <# The mission the tooling works on when none is named, from
+       data\active-mission.txt. Declared in one place so the PowerShell and
+       Python tools cannot drift onto different scenarios. #>
+    param([string]$RepoRoot)
+    $f = Join-Path $RepoRoot "data\active-mission.txt"
+    if (Test-Path -LiteralPath $f) {
+        $line = Get-Content -LiteralPath $f |
+            Where-Object { $_.Trim() -and -not $_.TrimStart().StartsWith("#") } |
+            Select-Object -First 1
+        if ($line) { return $line.Trim() }
+    }
+    return "NORTHERN FRONT III FINAL"
+}

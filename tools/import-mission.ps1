@@ -15,8 +15,8 @@
 
 .EXAMPLE
     # From the repo root, with the game closed:
-    powershell -ExecutionPolicy Bypass -File .\tools\import-mission.ps1 -Mission "NORTHERN FRONT III"
-    git add integration\missions ; git commit -m "Import edited NORTHERN FRONT III" ; git push
+    powershell -ExecutionPolicy Bypass -File .\tools\import-mission.ps1
+    git add integration\missions ; git commit -m "Import edited mission" ; git push
 
 .EXAMPLE
     # Bring in everything you have edited:
@@ -31,9 +31,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-if (-not $Mission -and -not $All) {
-    throw "Give -Mission '<name>' (without .ini) or -All"
-}
+# -Mission is resolved after $repoRoot is known, below.
 if ($Mission -and $Mission.StartsWith("-")) {
     throw "Mission name looks like a switch ('$Mission'). If you are calling this from another script, splat a HASHTABLE (@{Mission=...}) - array splatting binds positionally."
 }
@@ -43,47 +41,17 @@ if ($StreamingAssetsDir -and -not (Test-Path -LiteralPath $StreamingAssetsDir)) 
 
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 $repoRoot = Split-Path -Parent $scriptDir
-$destDir = Join-Path $repoRoot "integration\missions"
+. (Join-Path $scriptDir "lib\common.ps1")
 
-function Get-SteamLibraries {
-    $steamRoots = @()
-    foreach ($regPath in "HKCU:\Software\Valve\Steam", "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam") {
-        try {
-            $p = (Get-ItemProperty -Path $regPath -ErrorAction Stop).SteamPath
-            if (-not $p) { $p = (Get-ItemProperty -Path $regPath -ErrorAction Stop).InstallPath }
-            if ($p) { $steamRoots += $p }
-        } catch { }
-    }
-    $steamRoots += "${env:ProgramFiles(x86)}\Steam", "$env:ProgramFiles\Steam"
-    $libs = @()
-    foreach ($root in $steamRoots | Where-Object { $_ -and (Test-Path $_) } | Select-Object -Unique) {
-        $libs += Join-Path $root "steamapps"
-        $vdf = Join-Path $root "steamapps\libraryfolders.vdf"
-        if (Test-Path $vdf) {
-            foreach ($m in [regex]::Matches((Get-Content -LiteralPath $vdf -Raw), '"path"\s+"([^"]+)"')) {
-                $libs += Join-Path ($m.Groups[1].Value -replace '\\\\', '\') "steamapps"
-            }
-        }
-    }
-    return $libs | Where-Object { Test-Path $_ } | Select-Object -Unique
+if (-not $Mission -and -not $All) {
+    $Mission = Get-ActiveMission $repoRoot
+    Write-Host "No -Mission given; using the active mission: $Mission"
 }
+$destDir = Join-Path $repoRoot "integration\missions"
 
 # --- Locate StreamingAssets --------------------------------------------------
 if (-not $StreamingAssetsDir) {
-    foreach ($lib in Get-SteamLibraries) {
-        foreach ($acf in Get-ChildItem -LiteralPath $lib -Filter "appmanifest_*.acf" -ErrorAction SilentlyContinue) {
-            $raw = Get-Content -LiteralPath $acf.FullName -Raw
-            if ($raw -match '"name"\s+"([^"]*Sea Power[^"]*)"') {
-                $installDir = [regex]::Match($raw, '"installdir"\s+"([^"]+)"').Groups[1].Value
-                $gameDir = Join-Path $lib "common\$installDir"
-                $sa = Get-ChildItem -LiteralPath $gameDir -Directory -Recurse -Depth 2 -ErrorAction SilentlyContinue |
-                    Where-Object { $_.Name -eq "StreamingAssets" } | Select-Object -First 1
-                if ($sa) { $StreamingAssetsDir = $sa.FullName }
-                break
-            }
-        }
-        if ($StreamingAssetsDir) { break }
-    }
+    $StreamingAssetsDir = Find-StreamingAssets
     if (-not $StreamingAssetsDir) {
         throw "Could not auto-detect Sea Power's StreamingAssets. Re-run with -StreamingAssetsDir '<...>\Sea Power_Data\StreamingAssets'"
     }

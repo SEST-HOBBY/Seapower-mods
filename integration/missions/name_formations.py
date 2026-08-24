@@ -23,6 +23,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from refine_civ_traffic import active_mission  # noqa: E402
+
 MISSIONS = Path(__file__).resolve().parent
 
 PLACEHOLDER = re.compile(r"^(group name\s*\d*|new group\s*\d*|unnamed\s*\d*|)$", re.I)
@@ -98,7 +101,9 @@ def name_for(types, kind):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--mission", required=True, help="mission name without .ini")
+    ap.add_argument("--mission", default=active_mission(),
+                    help="mission name without .ini "
+                         "(default: whatever data/active-mission.txt names)")
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--include-legacy", action="store_true", default=True,
                     help="also upgrade our own old scratch labels (BADDIES n)")

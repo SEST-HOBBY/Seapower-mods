@@ -37,7 +37,27 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MISSIONS = Path(__file__).resolve().parent
 MODS = ROOT / "mods-source"
-DEFAULT_MISSION = "NORTHERN FRONT II"
+ACTIVE_MISSION_FILE = ROOT / "data" / "active-mission.txt"
+
+
+def active_mission():
+    """The mission the tooling works on when none is named.
+
+    Read from data/active-mission.txt so the working mission is declared once
+    instead of being duplicated as a default in every tool, where the copies
+    drift and a tool silently edits the wrong scenario.
+    """
+    try:
+        for line in ACTIVE_MISSION_FILE.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                return line
+    except OSError:
+        pass
+    return "NORTHERN FRONT III FINAL"
+
+
+DEFAULT_MISSION = active_mission()
 
 # Lane-merchant mix, cycled over the open-water merchants in section order.
 # Darwin's real trades: LNG/condensate out of Ichthys and Bayu-Undan (VLCC and

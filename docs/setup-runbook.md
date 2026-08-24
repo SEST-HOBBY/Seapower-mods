@@ -90,6 +90,26 @@ powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing -
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing           # apply
 ```
 
+**And re-run it every time you change which mods are ticked.** Sea Power owns `usersettings.ini`
+while it runs and rewrites the whole `[LoadOrder]` section on exit, so ticking a mod in the Mod
+Manager always leaves you with the game's ordering, not yours. `tools\fix-load-order.ps1` handles
+this: start it, go play, and it applies the moment you quit — no remembering required.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\fix-load-order.ps1            # waits for the game to exit
+powershell -ExecutionPolicy Bypass -File .\tools\fix-load-order.ps1 -NoWait    # game already closed
+powershell -ExecutionPolicy Bypass -File .\tools\fix-load-order.ps1 -NoWait -DryRun
+```
+
+It first reports what the Mod Manager did — how many entries moved, anything it discovered that
+isn't in the canonical list, and any SEST pack you left disabled — then applies the canonical order.
+
+`set-mod-order.ps1` is the same fix without the waiting:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing
+```
+
 It rewrites `[LoadOrder]` from `data\load-order.tokens.txt`, keeps every mod's enabled flag,
 appends anything it doesn't recognise rather than dropping it, backs the file up first, and
 warns loudly if a SEST pack is present but disabled (the usual reason "the patch did nothing").
@@ -208,3 +228,19 @@ Afterwards, commit so the repo keeps your edits:
 ```powershell
 git add integration\missions ; git commit -m "Refresh mission" ; git push
 ```
+
+
+## The active mission
+
+`data\active-mission.txt` names the scenario the tooling works on when you don't pass one:
+
+```
+NORTHERN FRONT III FINAL
+```
+
+Both `tools\refresh-mission.ps1` / `tools\import-mission.ps1` and every script in
+`integration\missions\` read that one file, so switching development to another scenario is a
+one-line edit here. Before this existed the name was duplicated as a default in five places, and
+they had already drifted — `refresh-mission.ps1` defaulted to NORTHERN FRONT III while
+`refine_civ_traffic.py` defaulted to NORTHERN FRONT II, so running either with no arguments
+quietly edited a mission you weren't developing.

@@ -1,0 +1,8 @@
+# The mission the tooling works on when you do not name one.
+# One mission name per file, without the .ini extension.
+#
+# This is the single source of truth: tools\refresh-mission.ps1,
+# tools\import-mission.ps1 and every script in integration\missions\ read it,
+# so changing the working mission is a one-line edit here rather than five
+# scattered defaults that drift apart.
+NORTHERN FRONT III FINAL
