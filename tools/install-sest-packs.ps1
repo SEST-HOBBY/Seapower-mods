@@ -26,6 +26,7 @@ $ErrorActionPreference = "Stop"
 
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 $repoRoot = Split-Path -Parent $scriptDir
+. (Join-Path $scriptDir "lib\common.ps1")
 
 $Packs = @(
     "integration\f-15ex-revamp\SEST_F-15EX_Revamp",
@@ -40,45 +41,9 @@ $Packs = @(
     "integration\tacmap-colors\SEST_TacMap_Colors"
 )
 
-function Get-SteamLibraries {
-    $steamRoots = @()
-    foreach ($regPath in "HKCU:\Software\Valve\Steam", "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam") {
-        try {
-            $p = (Get-ItemProperty -Path $regPath -ErrorAction Stop).SteamPath
-            if (-not $p) { $p = (Get-ItemProperty -Path $regPath -ErrorAction Stop).InstallPath }
-            if ($p) { $steamRoots += $p }
-        } catch { }
-    }
-    $steamRoots += "${env:ProgramFiles(x86)}\Steam", "$env:ProgramFiles\Steam"
-    $libs = @()
-    foreach ($root in $steamRoots | Where-Object { $_ -and (Test-Path $_) } | Select-Object -Unique) {
-        $libs += Join-Path $root "steamapps"
-        $vdf = Join-Path $root "steamapps\libraryfolders.vdf"
-        if (Test-Path $vdf) {
-            foreach ($m in [regex]::Matches((Get-Content -LiteralPath $vdf -Raw), '"path"\s+"([^"]+)"')) {
-                $libs += Join-Path ($m.Groups[1].Value -replace '\\\\', '\') "steamapps"
-            }
-        }
-    }
-    return $libs | Where-Object { Test-Path $_ } | Select-Object -Unique
-}
-
 # --- Locate StreamingAssets --------------------------------------------------
 if (-not $StreamingAssetsDir) {
-    foreach ($lib in Get-SteamLibraries) {
-        foreach ($acf in Get-ChildItem -LiteralPath $lib -Filter "appmanifest_*.acf" -ErrorAction SilentlyContinue) {
-            $raw = Get-Content -LiteralPath $acf.FullName -Raw
-            if ($raw -match '"name"\s+"([^"]*Sea Power[^"]*)"') {
-                $installDir = [regex]::Match($raw, '"installdir"\s+"([^"]+)"').Groups[1].Value
-                $gameDir = Join-Path $lib "common\$installDir"
-                $sa = Get-ChildItem -LiteralPath $gameDir -Directory -Recurse -Depth 2 -ErrorAction SilentlyContinue |
-                    Where-Object { $_.Name -eq "StreamingAssets" } | Select-Object -First 1
-                if ($sa) { $StreamingAssetsDir = $sa.FullName }
-                break
-            }
-        }
-        if ($StreamingAssetsDir) { break }
-    }
+    $StreamingAssetsDir = Find-StreamingAssets
     if (-not $StreamingAssetsDir) {
         throw "Could not auto-detect Sea Power's StreamingAssets. Re-run with -StreamingAssetsDir '<...>\Sea Power_Data\StreamingAssets'"
     }
