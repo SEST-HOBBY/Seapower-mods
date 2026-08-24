@@ -43,6 +43,16 @@ $repoRoot = Split-Path -Parent $scriptDir
 
 if (-not (Test-Path -LiteralPath $SettingsPath)) { throw "settings file not found: $SettingsPath" }
 
+function Read-Utf8([string]$Path) {
+    # Mod names are UTF-8 and several are Chinese. Windows PowerShell 5.1
+    # decodes Get-Content with the system ANSI codepage, which turns them into
+    # mojibake, so decode explicitly.
+    return [System.IO.File]::ReadAllText($Path, [System.Text.Encoding]::UTF8)
+}
+
+# Console output needs to be UTF-8 too, or the names are mangled on the way out.
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
+
 # --- workshop id -> mod name, from the exported configs ----------------------
 $names = @{}
 $modsSource = Join-Path $repoRoot "mods-source"
@@ -50,8 +60,19 @@ if (Test-Path -LiteralPath $modsSource) {
     foreach ($d in Get-ChildItem -LiteralPath $modsSource -Directory -ErrorAction SilentlyContinue) {
         $info = Join-Path $d.FullName "_info.ini"
         if (Test-Path -LiteralPath $info) {
-            $m = [regex]::Match((Get-Content -LiteralPath $info -Raw), '(?m)^Name=(.+)$')
+            $m = [regex]::Match((Read-Utf8 $info), '(?m)^Name=(.+)$')
             if ($m.Success) { $names[$d.Name] = $m.Groups[1].Value.Trim() }
+        }
+        if (-not $names.ContainsKey($d.Name)) {
+            # Some mods ship no _info.ini at all (the P-8 Poseidon, for one).
+            # They ARE exported, so say what they contain rather than claiming
+            # they are missing - the unit ids identify them well enough.
+            $unit = Get-ChildItem -LiteralPath $d.FullName -File -Recurse -Filter "*.ini" `
+                        -ErrorAction SilentlyContinue |
+                    Where-Object { $_.Directory.Name -in @("aircraft","vessels","submarines","land_units") -and
+                                   $_.Name -notlike "*_squadrons.ini" -and $_.Name -notlike "*_variants.ini" } |
+                    Select-Object -First 1
+            if ($unit) { $names[$d.Name] = "(no _info.ini - ships $($unit.Directory.Name)/$($unit.BaseName))" }
         }
     }
 }
@@ -60,7 +81,7 @@ foreach ($p in Get-ChildItem -LiteralPath (Join-Path $repoRoot "integration") -D
     foreach ($pack in Get-ChildItem -LiteralPath $p.FullName -Directory -Filter "SEST_*" -ErrorAction SilentlyContinue) {
         $info = Join-Path $pack.FullName "_info.ini"
         if (Test-Path -LiteralPath $info) {
-            $m = [regex]::Match((Get-Content -LiteralPath $info -Raw), '(?m)^Name=(.+)$')
+            $m = [regex]::Match((Read-Utf8 $info), '(?m)^Name=(.+)$')
             if ($m.Success) { $names[$pack.Name] = $m.Groups[1].Value.Trim() }
         }
     }
@@ -111,7 +132,8 @@ for ($i = 0; $i -lt $live.Count; $i++) {
     if ($null -eq $want) { $note = "  [not in canonical list]" }
     elseif ($want -ne $pos) { $note = "  [canonical position $want]"; $moved++ }
     $flag = if ($e.Enabled) { " " } else { "x" }
-    $name = if ($names.ContainsKey($e.Token)) { $names[$e.Token] } else { "(not exported to mods-source)" }
+    $name = if ($names.ContainsKey($e.Token)) { $names[$e.Token] }
+            else { "(NOT in mods-source - run tools\export-mod-configs.ps1)" }
     $line = "{0,4}. [{1}] {2,-24} {3}{4}" -f $pos, $flag, $e.Token, $name, $note
     if (-not $DiffOnly -or $note -or -not $e.Enabled -or $e.Token -like "SEST_*") { Emit $line }
 }
@@ -124,6 +146,19 @@ if ($unknown) { Emit ("not in data\load-order.tokens.txt   : {0}" -f (($unknown 
 
 $notSeen = @($canonical | Where-Object { -not $seen.ContainsKey($_) })
 if ($notSeen) { Emit ("canonical but the game has not seen : {0}" -f ($notSeen -join ", ")) }
+
+$unexported = @($live | Where-Object { -not $names.ContainsKey($_.Token) })
+if ($unexported) {
+    Emit ("not in mods-source, so unvalidated  : {0}" -f
+          (($unexported | ForEach-Object { $_.Token }) -join ", "))
+    Emit "  (re-run tools\export-mod-configs.ps1 so the build scripts can see them)"
+}
+$noInfo = @($live | Where-Object { $names.ContainsKey($_.Token) -and $names[$_.Token] -like "(no _info.ini*" })
+if ($noInfo) {
+    Emit ("exported but ship no _info.ini      : {0}" -f
+          (($noInfo | ForEach-Object { $_.Token }) -join ", "))
+    Emit "  (harmless - they load fine, they just have no name to show)"
+}
 
 $off = @($live | Where-Object { -not $_.Enabled })
 if ($off) { Emit ("DISABLED                            : {0}" -f (($off | ForEach-Object { $_.Token }) -join ", ")) }
@@ -141,7 +176,7 @@ if ($moved -eq 0 -and -not $unknown -and -not $sestOff) {
 
 if ($OutFile) {
     $path = if ([System.IO.Path]::IsPathRooted($OutFile)) { $OutFile } else { Join-Path (Get-Location) $OutFile }
-    [System.IO.File]::WriteAllLines($path, $out)
+    [System.IO.File]::WriteAllLines($path, $out, [System.Text.Encoding]::UTF8)
     Write-Host ""
     Write-Host "Written to: $path"
 }
