@@ -137,3 +137,28 @@ Modern Chinese Airbase
 
 Anything that fails: note which step and paste what you see — every SEST pack regenerates from
 a script, so fixes are fast and versioned.
+
+## Refreshing a mission you edited in game
+
+The mission editor saves into the game's own `user_missions` folder, so an
+edited mission lives outside the repo. One command does the whole round trip
+(game closed):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\refresh-mission.ps1 -Install
+```
+
+It imports the mission, dresses the civilian traffic, adds the depth units if
+they are missing, moves anything sitting on land into the water, and installs
+the result back. Every step is idempotent and preserves your placements,
+waypoints and formations, so it is safe after each editing session.
+
+First run on a machine, add `-InstallDeps` to fetch the land-mask package.
+Other missions: `-Mission "NORTHERN FRONT II"`. Without Python installed the
+script explains the git round trip instead.
+
+Afterwards, commit so the repo keeps your edits:
+
+```powershell
+git add integration\missions ; git commit -m "Refresh mission" ; git push
+```
