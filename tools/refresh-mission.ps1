@@ -12,9 +12,11 @@
                     civilian traffic (refine_civ_traffic.py)
       3. depth    - add the extra merchants, airliners and whale pods if they
                     are not already present (add_civ_depth.py)
-      4. water    - move any vessel or sea life that sits on land into the
+      4. names    - replace editor placeholder group labels ("Group Name 7")
+                    with names describing the group (name_formations.py)
+      5. water    - move any vessel or sea life that sits on land into the
                     water (fix_land_positions.py)
-      5. install  - copy the result back into the game (only with -Install)
+      6. install  - copy the result back into the game (only with -Install)
 
     Every step is idempotent and preserves your placements, waypoints and
     formations, so it is safe to run after each editing session.
@@ -118,7 +120,7 @@ function Invoke-Py {
 
 # --- 1. Import ---------------------------------------------------------------
 if (-not $SkipImport) {
-    Write-Host "`n[1/5] importing '$Mission' from the game..." -ForegroundColor Cyan
+    Write-Host "`n[1/6] importing '$Mission' from the game..." -ForegroundColor Cyan
     # NOTE: splat a HASHTABLE, not an array. Array splatting binds
     # positionally, so @("-Mission", $Mission) would put the literal string
     # "-Mission" in $Mission and the mission name in the next positional
@@ -127,7 +129,7 @@ if (-not $SkipImport) {
     if ($StreamingAssetsDir) { $importArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
     & (Join-Path $scriptDir "import-mission.ps1") @importArgs
 } else {
-    Write-Host "`n[1/5] import skipped (-SkipImport)" -ForegroundColor DarkGray
+    Write-Host "`n[1/6] import skipped (-SkipImport)" -ForegroundColor DarkGray
 }
 
 $missionFile = Join-Path $missionsDir "$Mission.ini"
@@ -136,15 +138,19 @@ if (-not (Test-Path -LiteralPath $missionFile)) {
 }
 
 # --- 2. Dress the civilian traffic -------------------------------------------
-Write-Host "`n[2/5] dressing civilian traffic..." -ForegroundColor Cyan
+Write-Host "`n[2/6] dressing civilian traffic..." -ForegroundColor Cyan
 Invoke-Py "refine_civ_traffic.py" @("--mission", $Mission, "--repo-only", "--rename-to", $Mission)
 
 # --- 3. Depth pass -----------------------------------------------------------
-Write-Host "`n[3/5] adding civilian and natural depth..." -ForegroundColor Cyan
+Write-Host "`n[3/6] adding civilian and natural depth..." -ForegroundColor Cyan
 Invoke-Py "add_civ_depth.py" @("--mission", $Mission, "--write")
 
-# --- 4. Keep everything in the water -----------------------------------------
-Write-Host "`n[4/5] checking nothing sits on land..." -ForegroundColor Cyan
+# --- 4. Name any placeholder formations --------------------------------------
+Write-Host "`n[4/6] naming placeholder formations..." -ForegroundColor Cyan
+Invoke-Py "name_formations.py" @("--mission", $Mission, "--write")
+
+# --- 5. Keep everything in the water -----------------------------------------
+Write-Host "`n[5/6] checking nothing sits on land..." -ForegroundColor Cyan
 if ($InstallDeps) {
     Write-Host "  fetching the land-mask package..."
     $pipArgs = @($py.Pre) + @("-m", "pip", "install", "--quiet", "global-land-mask", "numpy")
@@ -162,12 +168,12 @@ if ($LASTEXITCODE -eq 0) {
 
 # --- 5. Put it back in the game ----------------------------------------------
 if ($Install) {
-    Write-Host "`n[5/5] installing back into the game..." -ForegroundColor Cyan
+    Write-Host "`n[6/6] installing back into the game..." -ForegroundColor Cyan
     $installArgs = @{}
     if ($StreamingAssetsDir) { $installArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
     & (Join-Path $scriptDir "install-sest-packs.ps1") @installArgs
 } else {
-    Write-Host "`n[5/5] not installed (pass -Install to deploy it back)" -ForegroundColor DarkGray
+    Write-Host "`n[6/6] not installed (pass -Install to deploy it back)" -ForegroundColor DarkGray
 }
 
 Write-Host "`nDone. '$Mission' has been refreshed." -ForegroundColor Green
