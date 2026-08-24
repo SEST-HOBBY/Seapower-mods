@@ -194,8 +194,18 @@ def main():
         text = raw.decode("cp1252")
     text = text.replace("\r\n", "\n")
 
+    # "Has the depth pass already run?" Two independent signals, because the
+    # mission editor STRIPS NameOverride from neutral units when it saves:
+    #   1. our own fleet names survive, or
+    #   2. the distinctive hull types only this pass adds are present.
+    # Without the second, an editor round-trip would look untouched and every
+    # unit here would be appended a second time.
     names = [m[1] for m in MERCHANTS + FISHING]
-    if any(f"NameOverride={n}" in text for n in names):
+    marker_types = {t for t, *_ in FISHING}
+    present = {m.group(1) for m in re.finditer(r"^Type=(\S+)", text, re.M)}
+    seen_markers = len(marker_types & present)
+    if (any(f"NameOverride={n}" in text for n in names)
+            or seen_markers >= max(2, len(marker_types) - 1)):
         print(f"{args.mission}: depth pass already applied — nothing to do")
         return
 
