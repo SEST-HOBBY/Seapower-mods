@@ -1,40 +1,49 @@
 """Shared definition of the SEST AIM-424 MALICE.
 
 A what-if very-long-range air-to-air missile on the AGM-88G AARGM-ER
-airframe, sized for F-35 internal-bay carriage. Flight/seeker behaviour
-follows Murder Hornet's AIM-174B (usn_aim-174b); the 3D model rides on the
-AGM-88G assets that US Naval Aviation (3737267013) ships, so that mod must
-stay enabled for the proper mesh (otherwise the game falls back to the
-RIM-7 asset-bundle stand-in, same as the modded AARGM-ERs themselves do).
+airframe, sized for F-35 internal-bay carriage. It is deliberately built as
+a peer of the AIM-174B rather than a lesser cousin: the flight model is
+aligned key-for-key with U.S. Navy 2027's usn_aim-174b so the two
+encyclopedia cards compare directly. The 3D model rides on the AGM-88G
+assets that US Naval Aviation (3737267013) ships, so that mod must stay
+enabled for the proper mesh (otherwise the game falls back to the RIM-7
+asset-bundle stand-in, same as the modded AARGM-ERs themselves do).
 
-Both F-35 patch packs write identical copies of ammunition/sest_aim-424.ini
-and a partial language_en/ammunition_names.ini — identical same-path files
-are a safe overlap whichever pack sits higher in the Mod Manager.
+All four SEST packs that carry MALICE fits write identical copies of
+ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini -
+identical same-path files are a safe overlap whichever pack sits higher in
+the Mod Manager.
 """
 
 AIM424_ID = "sest_aim-424"
 
-# Seeker/guidance concept from usn_aim-174b (Murder Hornet); airframe, mass,
-# kinematics and visuals from usn_agm-88g (US Naval Aviation). Deliberate
-# deltas vs the AIM-174B:
-#   Mass 860->467 and full ApplyKinematics, so it obeys the same drag and
-#     energy model as every other AAM instead of the AIM-174B's legacy block
-#   MaxLaunchRange 130->185 with a real sustainer, so REACH is its identity:
-#     total impulse ~287 G.s vs the AIM-260's ~151 and the AMRAAM's ~109
-#   MaxTurnRate 30->28 with MaxTurnG=25 capping it - deliberately less agile
-#     in the endgame than the 40 deg/s AIM-260, the heavy-airframe trade
-#   KillProbability 1.02->0.92 and CEP 5m->45m, so it can miss
-#   SeekerActiveRange 65->40 nm and FOV 180->110 deg, so it can be beamed
-#   SecondaryPassiveRadarGuidanceType HomeOnJam->Full (AARGM heritage:
-#     passive homing on radar emitters, not just jammers)
+# Aligned to usn_aim-174b as shipped by U.S. Navy 2027 Capabilities
+# (3606774881) - the version that actually wins the load order in this
+# collection, and the card the MALICE gets compared against in game. Same
+# explicit-drag flight model, same 150,000 ft loft ceiling, same fragmentation
+# warhead class, same datalink midcourse, same chart basis (36,000 ft / 260 kt),
+# same modern ECCM keys.
+#
+# What stays different, on purpose:
+#   MaxLaunchRange 290 vs 316 nm - it has to fit inside an F-35 weapons bay
+#   DragCoefficient 3.6 vs 3.41 - shorter, fatter AARGM-ER airframe.
+#     THIS KEY MUST STAY EXPLICIT: at -1 the engine back-solves 8.14 from the
+#     airframe and the missile loses roughly a third of its reach.
+#   a real dual-pulse motor, ~170 G.s against the 174B's ~144, paying for that
+#   Power 48 vs 52 and CEP 10 m vs 6 - slightly less lethal endgame
+#   SeekerActiveRange 40 nm vs 15, passive 80 nm vs 15, and a Full passive
+#     anti-emitter mode against HomeOnJam - the 2030s seeker is what you buy
+#   MaxTurnRate 28 vs 30 deg/s, MaxTurnG 25 - still not an AIM-260 (40 deg/s)
 AIM424_INI = """\
 [General]
 # AIM-424 MALICE (SEST what-if)
-# Users: usn_f-35c (SEST F-35C JATM), raaf_f-35a (SEST RAAF F-35A JATM)
+# Users: usn_f-35c, raaf_f-35a, usaf_f-15ex_SEII, usn_f-18e/f/g (SEST packs)
 Type=Missile                           // can be Projectile, Missile, Torpedo
 TargetType=AAW                         // can be AAW, ASuW, ASW
+SecondaryTargetType=ASuW               // AARGM-ER heritage: it is a strike airframe
 Mass=467                               // in kg. Used for aircraft
-AmmoPoints=3000
+AmmoPoints=2600
+AirLaunched=True                       // encyclopedia: show the launch-altitude band
 
 DefaultCameraDistance=0.6
 MinCameraDistanceForeAft=0.29
@@ -52,64 +61,79 @@ TransientVisualIdentificationRange=5  // Transient can be visually detected at t
 TransientBaseNoise=200                // In db
 
 [WarheadData]
-WarheadType=0
-Power=42
-ImpactSize=SemiSmall                    // Impact size, can be small, medium, large, verylarge
+WarheadType=6                           // fragmentation, as the AIM-174B
+Power=48                                // cf. AIM-174B 52 - smaller airframe
+ImpactSize=Medium                       // Impact size, can be small, medium, large, verylarge
 Penetration=Always                      // can be minor, moderate, heavy, always
-FuzeProximityDistance=20.0              // for proximity fuze: distance to target in meters
-KillProbability=0.92                   // vanilla AAW tops out at 0.85; 0.88 for a 2030s seeker
+FuzeProximityDistance=18.0              // for proximity fuze: distance to target in meters
+KillProbability=0.98                    // cf. AIM-174B 1.02
+InterceptOutOfAltitudePenalty=0.15
+InterceptSpeedPenaltyMultiplier=0.4
 
 [Guidance]
 GuidanceType=3
-MidCourseCorrection=1                  // 0 = None, 1 = Radio Command, 2 = Wire Guided
+MidCourseCorrection=3                  // 3 = Datalink, as the AIM-174B
+Retargetable=True
 DropDuration=1.0                       // bay ejection: unpropelled fall time in seconds
 InitialFlightPhaseDuration=2.2         // seconds of unguided straight flight
-MaxLoftAngle=25.0                      // Climb angle for initial loft
-MaxLoftAlt=99000                       // Maximum altitude for lofting, in feet
-MaxLoftVelocity=2400.0                 // Maximum speed in knots for lofting
-TerminalApproachDist=36               // in N. miles - just under seeker range
+MaxLoftAngle=30.0                      // Climb angle for initial loft
+MaxLoftAlt=150000                      // Maximum altitude for lofting, in feet
+TerminalLoft=True
+TerminalApproachDist=36                // in N. miles - just under seeker range
 LocalTerminalOnly=False
 IgnoreHeightDifferenceForTargetDist=True
-# Full kinematics, so it obeys the same drag and energy model as every other
-# AAM. The motor is the missile's whole point: a 5 s boost plus a 22 s
-# sustainer at 8.5 G gives roughly 287 G.s of total impulse against the
-# AIM-260's ~151 and the AIM-120D-3's ~109. That impulse, the 99,000 ft loft
-# and a 0.35 velocity floor are what buy 185 nm; the price is 28 deg/s of
-# turn rate against the JATM's 40, so it out-reaches but does not out-turn.
+# Aligned to the U.S. Navy 2027 AIM-174B (usn_aim-174b): same explicit drag
+# model, same loft ceiling, same chart basis, so the two encyclopedia cards
+# are read on the same assumptions. The deliberate deltas that remain are
+# the MALICE identity, not accidents:
+#   MaxLaunchRange 290 vs 316 - it has to fit an F-35 weapons bay
+#   DragCoefficient 3.6 vs 3.41 - shorter, fatter AARGM-ER airframe
+#   a real dual-pulse motor (~170 G.s vs the 174B's ~144) offsetting that drag
+#   SeekerActiveRange 40 nm vs 15, passive 80 nm vs 15, and a Full passive
+#     anti-emitter mode vs HomeOnJam - the 2030s seeker is what you buy
+#   MaxTurnRate 28 vs 30 and CEP 10 m vs 6 - marginally less precise endgame
 ApplyKinematics=True
-MaxVelocity=3400                       // Maximum speed in knots
-VelocityBleed=0.35                     // cf. AIM-120D 0.5, AIM-260 0.12
-AccelerationTime=5                     // initial booster burn, seconds
+MaxVelocity=3000                       // Maximum speed in knots (AIM-174B 2650)
+VelocityBleed=1                        // let the kinematics model decide, as the 174B
+AccelerationTime=4                     // initial booster burn, seconds
 Acceleration=20                        // booster acceleration, Gs
-SustainerAccelerationTime=22          // sustainer burn, seconds
-SustainerAcceleration=8.5
-DragCoefficient=-1                     // back-solved from MaxLaunchRange + the Typical* set
-TypicalLaunchVelocity=550
-TypicalFiringAlt=35000
-TypicalTargetAlt=35000
-TypicalTargetVelocity=500
-LiftFactor=0.002                       // vanilla AIM-54A uses 0.001
-MaxFlightTime=420                     // hard cutoff, seconds
+SustainerAccelerationTime=20           // sustainer burn, seconds
+SustainerAcceleration=4.5
+DragCoefficient=3.6                    // explicit - a -1 here back-solves to 8.14 and kills the reach
+TypicalLaunchVelocity=260              // chart basis matched to usn_aim-174b
+TypicalFiringAlt=36000
+TypicalTargetAlt=36000
+TypicalTargetSpeed=0
+LiftFactor=0.001                       // matches the AIM-174B
+MaxFlightTime=400                      // hard cutoff, seconds
+TimeLimited=True
 MaxTurnRate=28.0                       // Maximum turnrate in degrees per second
 MaxTurnG=25                            // matches AIM-54A / AIM-120D-3 / AIM-260
 MinLaunchRange=2                       // Minimum launch range in nautical miles
-MaxLaunchRange=185.0                   // Maximum launch range in nautical miles
-MinAttackAltitude=10                   // Minimum altitude of a target, in feet
-MaxAttackAltitude=100000               // Maximum altitude of target, in feet
+MaxLaunchRange=290.0                   // Maximum launch range in nautical miles
+MinAttackAltitude=20                   // Minimum altitude of a target, in feet
+MaxAttackAltitude=150000               // Maximum altitude of target, in feet
+MaxAttackVelocity=7000
+MinLaunchAltitude=200                  // Minimum launch altitude in feet
+MaxLaunchAltitude=60000                // Maximum launch altitude in feet
 LaunchReliability=99
-CircularErrorRadius=45                // cf. dts_aim-120d-3 at 106
-CircularErrorRadiusLarge=8
-SeekerGain=55.0                        // Seeker gain in dB
-SeekerFOV=110.0                        // Seeker field-of-view in degrees
-SecondaryPassiveRadarGuidanceType=Full // AARGM heritage: passive homing on radar and ECM emitters
+CircularErrorRadius=10.0               // cf. AIM-174B 6.0
+CircularErrorRadiusLarge=14.0
+MinAltMalusFactor=0.7
+SeekerGain=62.0                        // Seeker gain in dB
+SeekerFOV=120.0                        // Seeker field-of-view in degrees
+SecondaryPassiveRadarGuidanceType=Full // AARGM heritage: radar AND ECM emitters, not just jammers
 PassiveRadarGuidanceFrequencies=All
 SeekerPassiveRange=80                  // Seeker passive range in nautical miles
 SeekerActiveRange=40.0                 // Seeker active range in nautical miles
 Frequency=X-Band
-PeakPower=45.0
+PeakPower=40.0
 TargetMemory=True
-AntiCountermeasuresBonus=.90
-AntiJammerBonus=0.85
+CounterMeasuresRejection=96
+NoiseRejection=96
+AntiCountermeasuresBonus=0.95
+AntiJammerBonus=0.95
+SelfDestructAfterTargetGone=False
 SelfDestructDelay=5.0
 
 [---------- Mesh definitions----------]
@@ -154,7 +178,7 @@ Scale=0.005,0.005,0.04291637
 AIM424_NAMES_INI = """\
 [AmmunitionNames]
 # ---------- SEST AIM-424 MALICE ----------
-sest_aim-424=AIM-424,MALICE,AAM,The AIM-424 MALICE is a what-if very-long-range air-to-air missile developed from the AGM-88G AARGM-ER airframe and sized for internal carriage on the F-35. Active-radar terminal homing with datalink midcourse guidance and a passive anti-emitter mode let it engage fighters AEW platforms and jammers at extreme range.
+sest_aim-424=AIM-424,MALICE,AAM,The AIM-424 MALICE is a what-if very-long-range air-to-air missile developed from the AGM-88G AARGM-ER airframe and sized for internal carriage on the F-35. It trades a little of the AIM-174B's reach for a far better seeker: active-radar terminal homing at 40 nm with datalink midcourse guidance and a full passive anti-emitter mode that homes on radars and jammers alike. A secondary anti-surface capability comes with the AARGM-ER heritage.
 """
 
 
