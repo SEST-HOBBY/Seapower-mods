@@ -38,6 +38,7 @@ TIER3 = [
     ("SEST RAAF F-35A JATM", "LOCAL — above the RAAF F-35A mod"),
     ("SEST JMSDF Mogami", "LOCAL — above the Mogami-class Frigate mod"),
     ("SEST RAAF Wedgetail", "LOCAL — above the E-7A Wedgetail mod"),
+    ("SEST TacMap Colors", "LOCAL — overrides the vanilla tactical-map UI colours"),
     ("murder-hornet", "above other F/A-18E/F sources"),
     ("b-52g-agm-86", "patches the vanilla B-52G"),
     ("tu-95-as-15", "global munition edits — treat as a patch, not an aircraft"),

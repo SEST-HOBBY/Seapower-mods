@@ -1,11 +1,11 @@
 <#
 .SYNOPSIS
-    Install (or update) the eight SEST packs into Sea Power's StreamingAssets folder.
+    Install (or update) the nine SEST packs into Sea Power's StreamingAssets folder.
 
 .DESCRIPTION
     Auto-detects the Sea Power install the same way export-mod-configs.ps1 does
     (Steam library manifests — no hardcoded paths), finds StreamingAssets, and
-    copies the eight SEST pack folders from this repo's integration\ directories
+    copies the nine SEST pack folders from this repo's integration\ directories
     into it. Safe to re-run any time: existing copies are overwritten in place,
     which is also how you take updates after a git pull.
 
@@ -35,7 +35,8 @@ $Packs = @(
     "integration\raaf-wedgetail\SEST_RAAF_Wedgetail",
     "integration\raaf-bases\SEST_RAAF_Bases",
     "integration\ran-fleet\SEST_RAN_Fleet",
-    "integration\jmsdf-mogami\SEST_JMSDF_Mogami"
+    "integration\jmsdf-mogami\SEST_JMSDF_Mogami",
+    "integration\tacmap-colors\SEST_TacMap_Colors"
 )
 
 function Get-SteamLibraries {
@@ -129,5 +130,5 @@ if (Test-Path $missionSrc) {
 }
 
 Write-Host "`n$installed of $($Packs.Count) packs in place."
-Write-Host "Next: launch Sea Power -> Mod Manager -> enable the eight SEST entries and set the order"
+Write-Host "Next: launch Sea Power -> Mod Manager -> enable the nine SEST entries and set the order"
 Write-Host "(see docs\setup-runbook.md Phase 4 - the five SEST loadout patches must sit ABOVE their targets)."
