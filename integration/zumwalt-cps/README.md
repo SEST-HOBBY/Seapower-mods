@@ -79,6 +79,26 @@ contiguous); the `Container1_Hatch=` idiom (576 uses across the collection); any
 3. **Euromod must stay enabled.** The LMVLS launcher (`eu_lmvls_apm`, `eu_lmvls`) and the IRCPS
    ammunition both live in Euromod (3629144864), not in Modern US Navy.
 
+## Testing it without the game
+
+```bash
+python3 integration/zumwalt-cps/test_patch.py
+```
+
+12 checks, no game required. The interesting one is the loader simulation: nobody outside Triassic
+can observe which block Sea Power's parser keeps on a duplicate section, so the test simulates BOTH
+rules a keyed loader can use and asserts the fix holds under either.
+
+| | upstream | patched |
+|---|---|---|
+| first-wins | 22/23 systems — **MK57 1 lost**, LMVLS survives | 23/23 |
+| last-wins | 22/23 systems — **LMVLS lost**, IRCPS unfireable | 23/23 |
+
+That table also identifies the parser. The reported symptom is "IRCPS doesn't work", which only
+happens under last-wins — the LMVLS losing to the later block. That is also the ordinary behaviour
+of assigning into a dict by key. The fix removes the ambiguity either way, so it does not depend on
+the inference being right.
+
 ## Verifying it worked
 
 Put a Zumwalt CPS in a mission and open its weapons panel. Before the fix, either the LMVLS or the
