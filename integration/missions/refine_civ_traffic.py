@@ -84,6 +84,12 @@ SQUADRON_POOLS = {
 # The third A320 becomes an Il-76TD freighter for type variety (cargo run).
 A320_TO_FREIGHTER_ORDINAL = 3
 
+# Marker appended to refined output. When the source already carries it (e.g.
+# the player re-exported the deployed refined mission), vessels whose Type is
+# already one of our output hulls are left alone instead of being reshuffled
+# through the mix again — only newly added units get dressed.
+MARKER = "# SEST-CIV-REFINED"
+
 
 def find_unit_file(kind, type_id):
     """Locate <type_id>.ini under any mod's <kind>/ dir; vanilla first."""
@@ -136,8 +142,16 @@ def main():
     if src is None:
         sys.exit("no NORTHERN FRONT II.ini found")
     # The game-exported copy has CRLF endings; normalize so the regex edits
-    # and the git history stay clean (the game reads LF fine).
-    text = src.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")
+    # and the git history stay clean (the game reads LF fine). Try UTF-8
+    # strictly first; a player-edited export may be cp1252 — fall back rather
+    # than silently mangling bytes.
+    raw = src.read_bytes()
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        text = raw.decode("cp1252")
+    text = text.replace("\r\n", "\n")
+    already_refined = MARKER in text
 
     # Split into (header, body) chunks, preserving everything verbatim.
     parts = re.split(r"(^\[[^\]]+\]\s*$)", text, flags=re.M)
@@ -162,6 +176,8 @@ def main():
         if m_v:
             if old_type.startswith("bio_"):
                 continue
+            if already_refined and old_type in set(LANE_MIX) | set(COASTAL_MIX):
+                continue                                  # dressed on a prior run
             if old_type.startswith("civ_fv_"):
                 new_type = old_type                       # fishing: keep hull
             elif old_type.startswith(("ran_ms_", "ran_fv_")):
@@ -201,7 +217,10 @@ def main():
 
         parts[i + 1] = body
 
-    OUT.write_text("".join(parts), encoding="utf-8")
+    out_text = "".join(parts)
+    if MARKER not in out_text:
+        out_text = out_text.rstrip("\n") + f"\n\n{MARKER}\n"
+    OUT.write_text(out_text, encoding="utf-8", newline="\n")
     for c in changes:
         print("  " + c)
     print(f"refined {src.relative_to(ROOT)} -> {OUT.relative_to(ROOT)}: "
