@@ -1,5 +1,21 @@
 # Canonical Sea Power Mod Manager order — one token per line (workshop id or local folder).
 # Consumed by tools/set-mod-order.ps1. Regenerate via the session that built it.
+#
+# INVARIANT: every SEST_* pack sits above every workshop mod. A SEST pack is a
+# whole-file replacement of a workshop mod's unit file; if anything outranks it
+# the patch silently does nothing. Keep them blocked at the top and reordering
+# the workshop mods below can never break them. tools/check_load_order.py enforces this.
+SEST_Growler_NGJ_MALICE
+SEST_F-15EX_Revamp
+SEST_F-35C_JATM
+SEST_RAAF_F-35A_JATM
+SEST_JMSDF_Mogami
+SEST_RAAF_Wedgetail
+SEST_Raptor_Squadrons
+SEST_Zumwalt_CPS
+SEST_TacMap_Colors
+SEST_RAN_Fleet
+SEST_RAAF_Bases
 3380210757
 3606134711
 3654230227
@@ -10,16 +26,7 @@
 3606774881
 3629144864
 3775128499
-SEST_Growler_NGJ_MALICE
-SEST_F-15EX_Revamp
-SEST_F-35C_JATM
 3607989779
-SEST_RAAF_F-35A_JATM
-SEST_JMSDF_Mogami
-SEST_RAAF_Wedgetail
-SEST_Raptor_Squadrons
-SEST_Zumwalt_CPS
-SEST_TacMap_Colors
 3430135740
 3394781441
 3395022688
@@ -52,7 +59,6 @@ SEST_TacMap_Colors
 3597650470
 3468260539
 3403661005
-SEST_RAN_Fleet
 3630495619
 3731208477
 3486502935
@@ -138,4 +144,3 @@ SEST_RAN_Fleet
 3631042692
 3629269283
 3592460366
-SEST_RAAF_Bases

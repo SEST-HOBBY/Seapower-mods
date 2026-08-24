@@ -15,6 +15,31 @@ ROOT = Path(__file__).resolve().parent.parent
 catalog = json.loads((ROOT / "data" / "mod-catalog.json").read_text(encoding="utf-8"))
 mods = {m["id"]: m for m in catalog["mods"] if m.get("status") != "unsubscribed"}
 
+# Tier 0 - every SEST local pack, as one unbroken block at the very top.
+#
+# A SEST pack is a whole-file replacement of some mod's unit file. If ANYTHING
+# outranks it the patch silently does nothing - no error, nothing in the log,
+# the edits just never load. That is exactly how SEST Growler NGJ + MALICE went
+# inert: U.S. Navy 2027 was moved up one tier and happened to jump over it.
+#
+# Interleaving packs with the mods they patch made every future reshuffle a
+# chance to repeat that. Blocked at the top, reordering anything below is safe
+# by construction. Packs that contest nothing (RAN Fleet, RAAF Bases, TacMap
+# Colors) lose nothing by being here. tools/check_load_order.py enforces it.
+TIER0 = [
+    ("SEST Growler NGJ + MALICE", "above U.S. Navy 2027, F/A-18E/F, Murder Hornet, US Naval Aviation"),
+    ("SEST F-15EX Revamp", "above the F-15EX mod (\"F-15SE\")"),
+    ("SEST F-35C JATM", "above every other usn_f-35c source"),
+    ("SEST RAAF F-35A JATM", "above the RAAF F-35A mod"),
+    ("SEST JMSDF Mogami", "above the Mogami-class Frigate mod"),
+    ("SEST RAAF Wedgetail", "above the E-7A Wedgetail mod"),
+    ("SEST Raptor Squadrons", "above the F-22 mod (which promises 7 squadrons, defines 1)"),
+    ("SEST Zumwalt CPS Fix", "above Modern US Navy (repairs the DDG-1000 CPS hull)"),
+    ("SEST TacMap Colors", "overrides the vanilla tactical-map UI colours"),
+    ("SEST RAN Fleet", "contests nothing - additive RAN hulls"),
+    ("SEST RAAF Bases", "contests nothing - additive RAAF airfields"),
+]
+
 # Explicit sequences (order within these lists is the recommendation)
 TIER1 = [("anchor-chain", "loader — SeaLifter loads via its preloader alongside")]
 TIER1B = [
@@ -31,16 +56,7 @@ TIER2 = [
     ("modern-plan-systems", "above PLAN ships"),
 ]
 TIER3 = [
-    ("SEST Growler NGJ + MALICE", "LOCAL — above U.S. Navy 2027, F/A-18E/F and US Naval Aviation"),
-    ("SEST F-15EX Revamp", "LOCAL — above the F-15EX mod (\"F-15SE\")"),
-    ("SEST F-35C JATM", "LOCAL — above every other usn_f-35c source (the four below it here)"),
     ("f-35c-alt-loadouts", "kept for now — MUST stay below SEST F-35C JATM"),
-    ("SEST RAAF F-35A JATM", "LOCAL — above the RAAF F-35A mod"),
-    ("SEST JMSDF Mogami", "LOCAL — above the Mogami-class Frigate mod"),
-    ("SEST RAAF Wedgetail", "LOCAL — above the E-7A Wedgetail mod"),
-    ("SEST Raptor Squadrons", "LOCAL — above the F-22 mod (which promises 7 squadrons, defines 1)"),
-    ("SEST Zumwalt CPS Fix", "LOCAL — above Modern US Navy (repairs the DDG-1000 CPS hull)"),
-    ("SEST TacMap Colors", "LOCAL — overrides the vanilla tactical-map UI colours"),
     ("murder-hornet", "above other F/A-18E/F sources"),
     ("b-52g-agm-86", "patches the vanilla B-52G"),
     ("tu-95-as-15", "global munition edits — treat as a patch, not an aircraft"),
@@ -48,10 +64,10 @@ TIER3 = [
     ("ado-nimitz-2000s", "if kept after the FDO test"),
     ("ground-upgrade-spaa", "edits ground-unit values"),
 ]
-TIER4_EXTRA = [("SEST RAN Fleet", "LOCAL — below the Euromod packs it clones from")]
-TIER6_EXTRA = [("SEST RAAF Bases", "LOCAL — additive; bottom by convention")]
+TIER4_EXTRA = []   # SEST RAN Fleet moved to TIER0
+TIER6_EXTRA = []   # SEST RAAF Bases moved to TIER0
 
-explicit = {mid for mid, _ in TIER1 + TIER1B + TIER2 + TIER3}
+explicit = {mid for mid, _ in TIER0 + TIER1 + TIER1B + TIER2 + TIER3}
 TIER4_TYPES = {"ship", "submarine"}
 TIER4_FORCE = {"us-naval-aviation"}
 TIER6_TYPES = {"airbase"}
@@ -96,10 +112,11 @@ lines = [
     "# Full Load Order — every active mod, top to bottom",
     "",
     f"Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — "
-    f"{len(mods)} active subscriptions plus 6 SEST local packs. "
+    f"{len(mods)} active subscriptions plus {len(TIER0)} SEST local packs. "
     "Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.",
     "",
-    "Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are "
+    "Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are "
+    "ordered deliberately (position changes behavior). Tiers 4–6 are "
     "alphabetical — within them, order only matters between mods flagged in the "
     "conflict watchlist (`docs/conflicts-and-load-order.md`).",
     "",
@@ -124,6 +141,7 @@ def emit(header, entries, annotated=True):
     lines.append("")
 
 
+emit("Tier 0 — SEST local packs (must stay above everything)", TIER0)
 emit("Tier 1 — loader", TIER1)
 emit("Tier 1b — code mods (Anchor Chain family; position among themselves is free)", TIER1B)
 emit("Tier 2 — weapon/system databases (this exact order)", TIER2)

@@ -30,6 +30,7 @@ Usage (repo root):
         --mission "NORTHERN FRONT III" --repo-only --rename-to "NORTHERN FRONT III"
 """
 import argparse
+import functools
 import re
 import sys
 from pathlib import Path
@@ -151,6 +152,31 @@ def load_order():
 _ORDER = None
 
 
+@functools.lru_cache(maxsize=None)
+def _ci_index(base):
+    """Lowercased relative path -> real path, for one mod directory."""
+    b = Path(base)
+    if not b.is_dir():
+        return {}
+    return {q.relative_to(b).as_posix().lower(): q
+            for q in b.rglob("*") if q.is_file()}
+
+
+def _resolve(base, relpath):
+    """<base>/<relpath> as the GAME sees it.
+
+    Sea Power runs on Windows, where NTFS is case-insensitive: a mod shipping
+    ammunition/Shahed_136_white.ini and another shipping shahed_136_white.ini
+    are fighting over ONE file, and only the higher one loads. Checking with a
+    plain exists() on Linux misses that entirely and reports two mods as
+    conflict-free when in game one is overwriting the other.
+    """
+    f = base / relpath
+    if f.exists():
+        return f
+    return _ci_index(str(base)).get(relpath.lower())
+
+
 def winning_file(relpath):
     """The copy of <relpath> the game actually loads, or None."""
     global _ORDER
@@ -161,20 +187,19 @@ def winning_file(relpath):
         # real positions in the Mod Manager order and win files there.
         if token.startswith("SEST_"):
             for pack in (ROOT / "integration").glob(f"*/{token}"):
-                f = pack / relpath
-                if f.exists():
+                f = _resolve(pack, relpath)
+                if f:
                     return f
             continue
-        f = MODS / token / relpath
-        if f.exists():
+        f = _resolve(MODS / token, relpath)
+        if f:
             return f
     # Mods not listed in the canonical order still outrank vanilla.
     for d in sorted(p for p in MODS.iterdir() if p.is_dir() and p.name[0].isdigit()):
-        f = d / relpath
-        if f.exists():
+        f = _resolve(d, relpath)
+        if f:
             return f
-    f = MODS / "_vanilla" / "original" / relpath
-    return f if f.exists() else None
+    return _resolve(MODS / "_vanilla" / "original", relpath)
 
 
 def find_unit_file(kind, type_id):
