@@ -19,9 +19,12 @@ AIM424_ID = "sest_aim-424"
 # deltas vs the AIM-174B:
 #   Mass 860->467 and full ApplyKinematics, so it obeys the same drag and
 #     energy model as every other AAM instead of the AIM-174B's legacy block
-#   MaxLaunchRange 130->120, MaxTurnRate 30->22 with MaxTurnG=25 capping it
-#   KillProbability 1.02->0.88 and CEP 5m->60m, so it can miss
-#   SeekerActiveRange 65->25 nm and FOV 180->110 deg, so it can be beamed
+#   MaxLaunchRange 130->185 with a real sustainer, so REACH is its identity:
+#     total impulse ~287 G.s vs the AIM-260's ~151 and the AMRAAM's ~109
+#   MaxTurnRate 30->28 with MaxTurnG=25 capping it - deliberately less agile
+#     in the endgame than the 40 deg/s AIM-260, the heavy-airframe trade
+#   KillProbability 1.02->0.92 and CEP 5m->45m, so it can miss
+#   SeekerActiveRange 65->40 nm and FOV 180->110 deg, so it can be beamed
 #   SecondaryPassiveRadarGuidanceType HomeOnJam->Full (AARGM heritage:
 #     passive homing on radar emitters, not just jammers)
 AIM424_INI = """\
@@ -54,7 +57,7 @@ Power=42
 ImpactSize=SemiSmall                    // Impact size, can be small, medium, large, verylarge
 Penetration=Always                      // can be minor, moderate, heavy, always
 FuzeProximityDistance=20.0              // for proximity fuze: distance to target in meters
-KillProbability=0.88                    // vanilla AAW tops out at 0.85; 0.88 for a 2030s seeker
+KillProbability=0.92                   // vanilla AAW tops out at 0.85; 0.88 for a 2030s seeker
 
 [Guidance]
 GuidanceType=3
@@ -64,44 +67,46 @@ InitialFlightPhaseDuration=2.2         // seconds of unguided straight flight
 MaxLoftAngle=25.0                      // Climb angle for initial loft
 MaxLoftAlt=99000                       // Maximum altitude for lofting, in feet
 MaxLoftVelocity=2400.0                 // Maximum speed in knots for lofting
-TerminalApproachDist=22                // in N. miles - just under seeker range
+TerminalApproachDist=36               // in N. miles - just under seeker range
 LocalTerminalOnly=False
 IgnoreHeightDifferenceForTargetDist=True
-# Full kinematics, ported from the AGM-88G donor that supplies this airframe
-# (same 467 kg body, same motor budget: total dv ~1284 m/s ~ Mach 3.75). The
-# legacy no-drag block the AIM-174B uses would let this missile arrive at
-# 120 nm still at Mach 3+, which no other AAM in the game can do.
+# Full kinematics, so it obeys the same drag and energy model as every other
+# AAM. The motor is the missile's whole point: a 5 s boost plus a 22 s
+# sustainer at 8.5 G gives roughly 287 G.s of total impulse against the
+# AIM-260's ~151 and the AIM-120D-3's ~109. That impulse, the 99,000 ft loft
+# and a 0.35 velocity floor are what buy 185 nm; the price is 28 deg/s of
+# turn rate against the JATM's 40, so it out-reaches but does not out-turn.
 ApplyKinematics=True
-MaxVelocity=2900                       // Maximum speed in knots
+MaxVelocity=3400                       // Maximum speed in knots
 VelocityBleed=0.35                     // cf. AIM-120D 0.5, AIM-260 0.12
-AccelerationTime=4                     // initial booster burn, seconds
-Acceleration=22                        // booster acceleration, Gs
-SustainerAccelerationTime=25           // sustainer burn, seconds
-SustainerAcceleration=1.8
+AccelerationTime=5                     // initial booster burn, seconds
+Acceleration=20                        // booster acceleration, Gs
+SustainerAccelerationTime=22          // sustainer burn, seconds
+SustainerAcceleration=8.5
 DragCoefficient=-1                     // back-solved from MaxLaunchRange + the Typical* set
 TypicalLaunchVelocity=550
 TypicalFiringAlt=35000
 TypicalTargetAlt=35000
 TypicalTargetVelocity=500
 LiftFactor=0.002                       // vanilla AIM-54A uses 0.001
-MaxFlightTime=240                      // hard cutoff, seconds
-MaxTurnRate=22.0                       // Maximum turnrate in degrees per second
+MaxFlightTime=420                     // hard cutoff, seconds
+MaxTurnRate=28.0                       // Maximum turnrate in degrees per second
 MaxTurnG=25                            // matches AIM-54A / AIM-120D-3 / AIM-260
 MinLaunchRange=2                       // Minimum launch range in nautical miles
-MaxLaunchRange=120.0                   // Maximum launch range in nautical miles
+MaxLaunchRange=185.0                   // Maximum launch range in nautical miles
 MinAttackAltitude=10                   // Minimum altitude of a target, in feet
 MaxAttackAltitude=100000               // Maximum altitude of target, in feet
 LaunchReliability=99
-CircularErrorRadius=60                 // cf. dts_aim-120d-3 at 106
-CircularErrorRadiusLarge=12
-SeekerGain=48.0                        // Seeker gain in dB
+CircularErrorRadius=45                // cf. dts_aim-120d-3 at 106
+CircularErrorRadiusLarge=8
+SeekerGain=55.0                        // Seeker gain in dB
 SeekerFOV=110.0                        // Seeker field-of-view in degrees
 SecondaryPassiveRadarGuidanceType=Full // AARGM heritage: passive homing on radar and ECM emitters
 PassiveRadarGuidanceFrequencies=All
 SeekerPassiveRange=80                  // Seeker passive range in nautical miles
-SeekerActiveRange=25.0                 // Seeker active range in nautical miles
+SeekerActiveRange=40.0                 // Seeker active range in nautical miles
 Frequency=X-Band
-PeakPower=35.0
+PeakPower=45.0
 TargetMemory=True
 AntiCountermeasuresBonus=.90
 AntiJammerBonus=0.85
