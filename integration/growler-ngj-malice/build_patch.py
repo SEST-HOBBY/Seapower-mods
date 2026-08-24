@@ -32,7 +32,45 @@ sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 
+# The tank every Hornet-family fit should hang. usn_tank_1200_f-18 is Murder
+# Hornet's, and it is the vanilla F-15C tank wearing a Hornet's name: its mesh
+# is ResourcesMesh=usaf_f-15c_tank_610 out of aircraft/usaf_f-15c/, with Fuel
+# raised from 1800 to 4500. usaf_tank_610_f-15 is that same F-15 tank
+# unmodified. usn_tank_610_f-18 is the genuine article - the f-18_fuletank mesh
+# from the F/A-18E/F mod, at 1800.
+#
+# Swapping them costs range: the NGJ MALICE fit drops from ~1433 nm to roughly
+# what the SEAD fits get, because the 1433 was never the missile, it was 2.5x
+# the fuel. What it buys is a Hornet that looks like a Hornet and a like-for-
+# like comparison between fits.
+HORNET_TANK = "usn_tank_610_f-18"
+TANK_REPLACEMENTS = {
+    "usn_tank_1200_f-18": HORNET_TANK,
+    "usaf_tank_610_f-15": HORNET_TANK,
+}
+
+# Stores confirmed in game to intersect the wing tanks. Each entry clears
+# specific stations from one loadout; the geometry is in the comment so a
+# future rebase can re-derive it rather than trust the number.
+TANK_CLASH_FIXES = [
+    ("MurderHornetSEADHeavyTanks", (13, 14),
+     "AGM-88G sits 0.0181 from the wing tank on the same wing, and an AARGM-ER "
+     "is long while a 610-gal tank is fat, so they intersect. The pair left on "
+     "stations 3/4 is 0.0323 away and clear. Result: 2x AGM-88G + 2 tanks + "
+     "2 AMRAAM, which is also the real Growler SEAD-with-fuel fit."),
+]
+
+# The AGM-88G/tank clash confirmed in game sets the bar for flagging others:
+# same separation or closer, AND a store at least as big. Both halves matter -
+# Murder Hornet's external-fuel fits routinely park small stores beside the
+# tanks (SDBs at 0.0142, AMRAAM at 0.0133) and those are fine, because a
+# 93 kg SDB is not a 468 kg AARGM-ER. Distance alone flags 20 per airframe and
+# is useless; distance plus size flags the three that actually look wrong.
+CLASH_SEPARATION = 0.0181
+CLASH_MASS = 468              # usn_agm-88g, the confirmed case
+
 GROWLER_KEYS = ["SEST_MaliceNGJ"]
+LONG_RANGE_KEY = "SEST_NGJLongRange"
 BLOCK_III_KEYS = ["SEST_MaliceBlockIII"]
 
 GROWLER_LOADOUTS = """\
@@ -46,13 +84,41 @@ CoolDownTime=60              // minutes of maintenance after landing
 # fule_tank_point is the WING tank attachment. Every upstream fit that puts
 # tanks on stations 27/28 (the "EF" external-fuel ones) leaves it VISIBLE and
 # only centreline-tank fits hide it - hiding it here left the tanks floating.
-# usn_tank_1200_f-18 is the tank the Hornet family actually mounts there.
+# The tank is usn_tank_610_f-18 - the real Hornet one; see HORNET_TANK.
 Station3=sest_aim-424
 Station4=sest_aim-424
 Station11=usn_aim-120d3
 Station12=usn_aim-120d3
-Station27=usn_tank_1200_f-18
-Station28=usn_tank_1200_f-18
+Station27=usn_tank_610_f-18
+Station28=usn_tank_610_f-18
+
+"""
+
+# Only the airframes that actually have a centreline station get this. The
+# 2020 and 2020s Growlers define no Station29, so a third tank there would
+# reference a station that does not exist.
+LONG_RANGE_LOADOUT = """\
+[--------------------------- SEST NGJ Long Range ---------------------------]
+# Maximum-persistence jamming fit: no anti-radiation missiles at all, three
+# tanks, and a pair of AMRAAM for self-defence. The NGJ pods do the work.
+#
+# Three tanks is the ceiling on this airframe, not a choice: the model carries
+# exactly ONE pair of wing tank pylons (the fule_tank_point mesh, at stations
+# 27/28) plus the centreline. Stations 13/14 look like outboard pylons but
+# carry sead_point/aam_point racks, so a tank there would hang in mid-air.
+#
+# fule_tank_point must stay VISIBLE for the wing tanks. The centreline tank on
+# station 29 does not depend on it - the F/A-18E fits hide it while carrying
+# one - so there is no hide line here at all.
+
+[WeaponSystem1SEST_NGJLongRange]
+ReadyUpTime=25               // minutes to refuel and rearm before takeoff
+CoolDownTime=60              // minutes of maintenance after landing
+Station11=usn_aim-120d3
+Station12=usn_aim-120d3
+Station27=usn_tank_610_f-18
+Station28=usn_tank_610_f-18
+Station29=usn_tank_610_f-18
 
 """
 
@@ -71,7 +137,7 @@ Station3=usn_aim-120d3
 Station4=usn_aim-120d3
 Station11=usn_aim-120d3
 Station12=usn_aim-120d3
-Station29=usn_tank_1200_f-18
+Station29=usn_tank_610_f-18
 Station30=sest_aim-424
 Station31=sest_aim-424
 Station32=sest_aim-424
@@ -96,10 +162,12 @@ JamChance=0.3
 LOADOUT_NAMES = {
     "en": {
         "SEST_MaliceNGJ": "NGJ MALICE (2x AIM-424)",
+        "SEST_NGJLongRange": "NGJ Long Range (3 tanks)",
         "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
     },
     "cn": {
         "SEST_MaliceNGJ": "NGJ MALICE (2x AIM-424)",
+        "SEST_NGJLongRange": "NGJ Long Range (3 tanks)",
         "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
     },
 }
@@ -285,6 +353,93 @@ def fix_floating_tanks(text: str, source_name: str) -> str:
     return text
 
 
+def retank(text: str, source_name: str) -> str:
+    """Hang the real Hornet tank instead of an F-15's.
+
+    Applies to upstream's loadouts as well as ours: the point is that this
+    airframe should not be carrying an Eagle's tank in any fit, and the pack
+    already ships the whole file.
+    """
+    swapped = {}
+    for old, new in TANK_REPLACEMENTS.items():
+        n = len(re.findall(rf"^Station\d+={re.escape(old)}\s*$", text, re.M))
+        if n:
+            text = re.sub(rf"(^Station\d+=){re.escape(old)}(\s*)$",
+                          lambda m: f"{m.group(1)}{new}{m.group(2)}", text, flags=re.M)
+            swapped[old] = n
+    if swapped:
+        detail = ", ".join(f"{k} x{v}" for k, v in sorted(swapped.items()))
+        print(f"    {source_name}: retanked to {HORNET_TANK} ({detail})")
+    return text
+
+
+def fix_tank_clashes(text: str, source_name: str) -> str:
+    """Clear stores that intersect the wing tanks they fly alongside."""
+    for loadout, stations, why in TANK_CLASH_FIXES:
+        m = re.search(rf"^\[WeaponSystem1{re.escape(loadout)}\]\n(.*?)(?=^\[)",
+                      text, re.M | re.S)
+        if not m:
+            continue                      # that loadout is not on this airframe
+        body = m.group(1)
+        present = [s for s in stations if re.search(rf"^Station{s}=", body, re.M)]
+        if not present:
+            continue                      # already clear, or upstream fixed it
+        new_body = body
+        for s in present:
+            new_body = re.sub(rf"^Station{s}=.*\n", "", new_body, count=1, flags=re.M)
+        text = text[:m.start(1)] + new_body + text[m.end(1):]
+        print(f"    {source_name}: {loadout} - cleared station(s) "
+              f"{present} that clip the wing tanks")
+    return text
+
+
+def ammunition_mass(ammo_id: str, _cache: dict = {}) -> int:
+    """Mass of a store in kg, or 0 if it cannot be resolved."""
+    if ammo_id not in _cache:
+        _cache[ammo_id] = 0
+        for path in (ROOT / "mods-source").rglob(f"{ammo_id}.ini"):
+            if path.parent.name != "ammunition":
+                continue
+            m = re.search(r"^Mass=(\d+)", path.read_text(encoding="utf-8", errors="replace"), re.M)
+            if m:
+                _cache[ammo_id] = int(m.group(1))
+                break
+    return _cache[ammo_id]
+
+
+def report_tank_clearance(text: str, source_name: str) -> None:
+    """List other stores sitting as close to a tank as the confirmed clash.
+
+    Informational only, never a build failure. Murder Hornet's external-fuel
+    loadouts routinely place stores near the tanks and most are fine - a
+    Sidewinder beside a tank is normal. This flags only those at or inside the
+    separation of the one clash confirmed in game, so they can be eyeballed
+    rather than guessed at.
+    """
+    pos = {int(a): (float(b), float(c), float(d)) for a, b, c, d in
+           re.findall(r"^Station(\d+)=([-\d.]+),([-\d.]+),([-\d.]+)", text, re.M)}
+    suspects = []
+    for m in re.finditer(r"^\[WeaponSystem1([A-Za-z0-9_\-]+)\]\n(.*?)(?=^\[)",
+                         text, re.M | re.S):
+        st = {int(a): b.split("|")[0] for a, b in
+              re.findall(r"^Station(\d+)=([A-Za-z]\S*)", m.group(2), re.M)}
+        tanks = [s for s, v in st.items() if "tank" in v]
+        for s, store in sorted(st.items()):
+            if s in tanks or s not in pos:
+                continue
+            for k in tanks:
+                if k not in pos:
+                    continue
+                d = sum((pos[s][i] - pos[k][i]) ** 2 for i in range(3)) ** 0.5
+                if d <= CLASH_SEPARATION and ammunition_mass(store) >= CLASH_MASS:
+                    suspects.append((m.group(1), s, store, d, ammunition_mass(store)))
+    if suspects:
+        print(f"    {source_name}: {len(suspects)} large store(s) as close to a tank as "
+              f"the confirmed clash - worth a look in game:")
+        for name, s, store, d, mass in sorted(suspects, key=lambda x: x[3]):
+            print(f"       {name} S{s} {store} ({mass} kg) at {d:.5f}")
+
+
 def verify_ammunition() -> None:
     expected = {
         AIM424_ID,
@@ -311,11 +466,23 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
             sys.exit(f"{source.name}: upstream NGJ layout changed; missing {missing}")
 
     text = fix_floating_tanks(text, source.name)
+    text = fix_tank_clashes(text, source.name)
+    text = retank(text, source.name)
     verify_station_geometry(text, GROWLER_LOADOUTS, source.name)
     verify_tank_points(GROWLER_LOADOUTS, source.name)
-    text = extend_loadouts(text, GROWLER_KEYS, source.name)
-    text = inject_loadouts(text, GROWLER_LOADOUTS, source.name)
-    for key in GROWLER_KEYS:
+    keys = list(GROWLER_KEYS)
+    sections = GROWLER_LOADOUTS
+    # Three tanks needs a centreline station, which only some Growlers have.
+    if re.search(r"^Station29=", text, re.M):
+        keys.append(LONG_RANGE_KEY)
+        sections += LONG_RANGE_LOADOUT
+        verify_station_geometry(text, LONG_RANGE_LOADOUT, source.name)
+    else:
+        print(f"    {source.name}: no centreline station - skipping {LONG_RANGE_KEY}")
+    text = extend_loadouts(text, keys, source.name)
+    text = inject_loadouts(text, sections, source.name)
+    report_tank_clearance(text, source.name)
+    for key in keys:
         if text.count(f"[WeaponSystem1{key}]") != 1:
             sys.exit(f"{source.name}: invalid generated {key} section count")
 
@@ -351,10 +518,13 @@ def build_super_hornet(file_name: str) -> None:
     text = source.read_text(encoding="utf-8-sig")
     text = replace_harpoons(text, source.name)
     text = fix_floating_tanks(text, source.name)
+    text = fix_tank_clashes(text, source.name)
+    text = retank(text, source.name)
     verify_station_geometry(text, BLOCK_III_LOADOUT, source.name)
     verify_tank_points(BLOCK_III_LOADOUT, source.name)
     text = extend_loadouts(text, BLOCK_III_KEYS, source.name)
     text = inject_loadouts(text, BLOCK_III_LOADOUT, source.name)
+    report_tank_clearance(text, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
         sys.exit(f"{source.name}: invalid generated MALICE section count")
 
@@ -399,7 +569,9 @@ def main() -> None:
     outputs = sorted(path for path in OUT.rglob("*") if path.is_file())
     print(
         f"built {OUT.relative_to(ROOT)}: 3 NGJ Growlers, 3 APG-79 Super Hornets, "
-        f"{len(GROWLER_KEYS) + len(BLOCK_III_KEYS)} new loadouts, {len(outputs)} files"
+        f"{len(GROWLER_KEYS) + len(BLOCK_III_KEYS) + 1} new loadouts "
+        f"(NGJ Long Range only where a centreline station exists), "
+        f"{len(outputs)} files"
     )
 
 
