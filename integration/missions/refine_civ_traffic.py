@@ -85,22 +85,26 @@ SQUADRON_POOLS = {
                  "Squadron10"], # Thai
     "civ_dc-10": ["Squadron9",  # All Asian Airways (vanilla fictional)
                   "Squadron8"], # Siam Airways
-    "civ_il-76td": ["Squadron1"],  # Volga Wings Freight
 }
-# The third A320 becomes an Il-76TD freighter for type variety (cargo run).
-A320_TO_FREIGHTER_ORDINAL = 3
+# NOTE: no civil freighter type is usable here. civ_il-76t/td (Beriev mod)
+# declare Nation=Soviet on every squadron and civ_il-18's cargo livery is
+# Nation=Mali - either would spawn as foreign-flagged traffic that the player
+# would have to identify in an Australian scenario, so airliner LIVERY variety
+# carries the visual variety instead of a type swap.
 
 # A player can group neutral vessels with a labelled formation, e.g.
 #   Neutral_Formation1=NeutralVessel1,NeutralVessel2|Bulk Carrier|Loose|1.5
 # Retyping a member out of the type its label names would contradict the
 # player's own intent, so a labelled member is dressed to MATCH the label;
 # a label we cannot map leaves the member's hull exactly as the player set it.
+# Ordered MOST specific first - the first match wins, so a broad token like
+# "tanker" must never be tested before "medium tanker".
 FORMATION_HULLS = [
-    (("bulk", "ore", "bauxite", "alumina"), "civ_ms_bulk"),
-    (("lng", "gas", "crude", "vlcc", "tanker", "oil"), "civ_ms_ritina"),
-    (("product", "coastal tanker"), "civ_ms_sealift_pacific"),
-    (("container", "box", "feeder"), "civ_ms_mairangi_bay"),
-    (("car ", "roro", "ro-ro", "vehicle"), "civ_ms_car_carrier_a"),
+    (("medium tanker", "product tanker", "coastal tanker"), "civ_ms_sealift_pacific"),
+    (("bulk", "ore carrier", "bauxite", "alumina"), "civ_ms_bulk"),
+    (("container", "boxship", "feeder"), "civ_ms_mairangi_bay"),
+    (("car carrier", "roro", "ro-ro", "vehicle carrier"), "civ_ms_car_carrier_a"),
+    (("lng", "vlcc", "crude", "supertanker", "tanker"), "civ_ms_ritina"),
 ]
 
 # Our own signature, written into an allowed key (NameOverride). Its presence
@@ -110,14 +114,44 @@ FORMATION_HULLS = [
 # inside whichever section happens to be last.
 
 
-def find_unit_file(kind, type_id):
-    """Locate <type_id>.ini under any mod's <kind>/ dir; vanilla first."""
-    for base in [MODS / "_vanilla" / "original"] + sorted(
-            p for p in MODS.iterdir() if p.is_dir() and p.name[0].isdigit()):
-        f = base / kind / f"{type_id}.ini"
+def load_order():
+    """Mod tokens highest-priority first, from the canonical Mod Manager order.
+
+    Sea Power resolves a duplicated file path in favour of the mod listed
+    HIGHER in the Mod Manager, so a variant pool must be read from the
+    winning provider - not from vanilla, which every mod outranks.
+    """
+    f = ROOT / "data" / "load-order.tokens.txt"
+    if not f.exists():
+        return []
+    return [l.strip() for l in f.read_text(encoding="utf-8").splitlines()
+            if l.strip() and not l.startswith("#")]
+
+
+_ORDER = None
+
+
+def winning_file(relpath):
+    """The copy of <relpath> the game actually loads, or None."""
+    global _ORDER
+    if _ORDER is None:
+        _ORDER = load_order()
+    for token in _ORDER:
+        f = MODS / token / relpath
         if f.exists():
             return f
-    return None
+    # Mods not listed in the canonical order still outrank vanilla.
+    for d in sorted(p for p in MODS.iterdir() if p.is_dir() and p.name[0].isdigit()):
+        f = d / relpath
+        if f.exists():
+            return f
+    f = MODS / "_vanilla" / "original" / relpath
+    return f if f.exists() else None
+
+
+def find_unit_file(kind, type_id):
+    """Locate the winning <type_id>.ini for its <kind>/ dir."""
+    return winning_file(f"{kind}/{type_id}.ini")
 
 
 def variant_pool(type_id):
@@ -125,16 +159,24 @@ def variant_pool(type_id):
     f = find_unit_file("vessels", type_id)
     if f is None:
         sys.exit(f"vessel type not found in mods-source: {type_id}")
-    vf = f.with_name(f"{type_id}_variants.ini")
-    if not vf.exists():
+    vf = winning_file(f"vessels/{type_id}_variants.ini")
+    if vf is None:
         return ["Default"]
-    names = re.findall(r"^\[(Variant\d+)\]", vf.read_text(encoding="utf-8", errors="replace"), re.M)
+    body = vf.read_text(encoding="utf-8", errors="replace")
+    names = re.findall(r"^\[(Variant\d+)\]", body, re.M)
     # dedupe, keep order (some vanilla files carry duplicate sections)
     seen, out = set(), []
     for n in names:
         if n not in seen:
             seen.add(n)
             out.append(n)
+    # Files disagree with themselves: vanilla civ_ms_sealift_pacific declares
+    # NumberOfVariants=27 but ships 37 sections, while Merchants Expanded
+    # declares 37 and ships 36. Stay inside BOTH bounds so a pick is valid
+    # however the engine builds its pool.
+    declared = re.search(r"^NumberOfVariants=(\d+)", body, re.M)
+    if declared:
+        out = out[:min(len(out), int(declared.group(1)))]
     return out or ["Default"]
 
 
@@ -142,8 +184,8 @@ def squadron_exists(type_id, squadron):
     f = find_unit_file("aircraft", type_id)
     if f is None:
         sys.exit(f"aircraft type not found in mods-source: {type_id}")
-    sf = f.with_name(f"{type_id}_squadrons.ini")
-    if not sf.exists():
+    sf = winning_file(f"aircraft/{type_id}_squadrons.ini")
+    if sf is None:
         return squadron == "Default"
     return re.search(rf"^\[{squadron}\]", sf.read_text(encoding="utf-8", errors="replace"), re.M) is not None
 
@@ -177,8 +219,9 @@ def set_key(body, key, value):
     """Set key=value inside a section body: replace if present, else insert
     after the Type= line."""
     if re.search(rf"^{key}=", body, re.M):
-        return re.sub(rf"^{key}=.*$", f"{key}={value}", body, count=1, flags=re.M)
-    return re.sub(r"^(Type=.*)$", rf"\1\n{key}={value}", body, count=1, flags=re.M)
+        return re.sub(rf"^{key}=.*$", lambda _: f"{key}={value}", body, count=1, flags=re.M)
+    return re.sub(r"^(Type=.*)$", lambda m: f"{m.group(1)}\n{key}={value}",
+                  body, count=1, flags=re.M)
 
 
 def parse_args():
@@ -241,10 +284,16 @@ def main():
             if already_refined and old_type in set(LANE_MIX) | set(COASTAL_MIX):
                 continue                                  # dressed on a prior run
             label = labels.get(header.strip("[]"))
-            if label is not None:
+            civilian_merchant = old_type.startswith(("civ_ms_", "anl_ms_", "ran_ms_"))
+            if label is not None and civilian_merchant:
                 # Player grouped this hull in a labelled formation: match the
                 # label, or leave their choice alone when it names no hull.
                 new_type = hull_for_label(label) or old_type
+            elif label is not None:
+                # Labelled but NOT a civilian merchant (warship, rig, fishing
+                # boat the player grouped deliberately): leave it entirely
+                # alone - it is not ours to dress.
+                continue
             elif old_type.startswith("civ_fv_"):
                 new_type = old_type                       # fishing: keep hull
             elif old_type.startswith(("ran_ms_", "ran_fv_")):
@@ -266,13 +315,9 @@ def main():
                 body = set_key(body, "NameOverride", tanker_names.pop(0))
             changes.append(f"{header.strip()} {old_type} -> {new_type} ({variant})")
         else:
-            pool_type = old_type
+            pool_type = new_type = old_type
             k = air_seen.get(old_type, 0)
             air_seen[old_type] = k + 1
-            new_type = old_type
-            if old_type == "civ_a320" and k + 1 == A320_TO_FREIGHTER_ORDINAL:
-                new_type = pool_type = "civ_il-76td"
-                body = set_key(body, "Type", new_type)
             pool = SQUADRON_POOLS.get(pool_type)
             if not pool:
                 continue
@@ -286,13 +331,20 @@ def main():
 
     out_text = "".join(parts)
 
-    # Retitle every [Language_*] Name= entry (the in-game mission title). Only
-    # Name= at the start of a line is touched; NameOverride= lines are a
-    # different key and stay untouched.
+    # Retitle the mission, scoped STRICTLY to [Language_*] sections. A bare
+    # Name= key also appears in [TriggerN] and [TaskforceN_Objectives]
+    # sections, where it names a trigger or objective - rewriting those with
+    # the mission title would silently destroy mission logic.
     renamed = 0
     if args.rename_to:
-        out_text, renamed = re.subn(r"^Name=.*$", f"Name={args.rename_to}",
-                                    out_text, flags=re.M)
+        chunks = re.split(r"(?=^\[)", out_text, flags=re.M)
+        for j, chunk in enumerate(chunks):
+            if not re.match(r"^\[Language_[^\]]*\]", chunk):
+                continue
+            chunks[j], n = re.subn(r"^Name=.*$", lambda _: f"Name={args.rename_to}",
+                                   chunk, flags=re.M)
+            renamed += n
+        out_text = "".join(chunks)
 
     out.write_text(out_text, encoding="utf-8", newline="\n")
     for c in changes:
