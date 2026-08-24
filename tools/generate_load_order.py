@@ -30,6 +30,7 @@ TIER2 = [
     ("modern-plan-systems", "above PLAN ships"),
 ]
 TIER3 = [
+    ("SEST Growler NGJ + MALICE", "LOCAL — above U.S. Navy 2027, F/A-18E/F and US Naval Aviation"),
     ("us-navy-2027", "above the US mods it edits"),
     ("SEST F-15EX Revamp", "LOCAL — above the F-15EX mod (\"F-15SE\")"),
     ("SEST F-35C JATM", "LOCAL — above every other usn_f-35c source (the four below it here)"),
