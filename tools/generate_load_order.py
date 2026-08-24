@@ -39,6 +39,7 @@ TIER3 = [
     ("SEST JMSDF Mogami", "LOCAL — above the Mogami-class Frigate mod"),
     ("SEST RAAF Wedgetail", "LOCAL — above the E-7A Wedgetail mod"),
     ("SEST Raptor Squadrons", "LOCAL — above the F-22 mod (which promises 7 squadrons, defines 1)"),
+    ("SEST Zumwalt CPS Fix", "LOCAL — above Modern US Navy (repairs the DDG-1000 CPS hull)"),
     ("SEST TacMap Colors", "LOCAL — overrides the vanilla tactical-map UI colours"),
     ("murder-hornet", "above other F/A-18E/F sources"),
     ("b-52g-agm-86", "patches the vanilla B-52G"),

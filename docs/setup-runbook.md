@@ -1,7 +1,7 @@
 # Setup Runbook — cleaning the 109 and installing the SEST packs
 
 Follow top to bottom on the gaming PC. Everything here reflects the file-level findings from
-`mods-source/` and the ten SEST packs on this branch.
+`mods-source/` and the eleven SEST packs on this branch.
 
 ## Phase 0 — before touching anything
 
@@ -37,7 +37,7 @@ Everything else stays. The three Fujians / four MH-60 sources / duplicate missil
 are a mod-order question, not an unsubscribe question — the file-level scan (roadmap item 1)
 settles those properly later.
 
-## Phase 3 — install the ten SEST packs (scripted)
+## Phase 3 — install the eleven SEST packs (scripted)
 
 **Close Sea Power first.** It rewrites `usersettings.ini` when it exits, so anything the
 tooling writes while the game is open is silently thrown away. Every script that touches
@@ -65,17 +65,18 @@ powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
 ```
 
 The script auto-finds Sea Power the same way the export script did, locates `StreamingAssets`,
-and copies all ten packs in. It prints one line per pack (`installed` or `updated`) — expect
-10 of 10. Re-run it any time after a `git pull` to take updates; it overwrites in place.
+and copies all eleven packs in. It prints one line per pack (`installed` or `updated`) — expect
+11 of 11. Re-run it any time after a `git pull` to take updates; it overwrites in place.
 
 What it installs: `SEST_F-15EX_Revamp` (loadouts **and** eight F-15EX squadrons) ·
 `SEST_F-35C_JATM` · `SEST_Growler_NGJ_MALICE` (NGJ plus MALICE for modern Growlers and Block III
 Super Hornets) · `SEST_RAAF_F-35A_JATM` · `SEST_RAAF_Wedgetail` (E-7A squadrons) ·
 `SEST_Raptor_Squadrons` (seven real F-22 squadrons) · `SEST_RAAF_Bases` · `SEST_RAN_Fleet` ·
-`SEST_JMSDF_Mogami` · `SEST_TacMap_Colors`.
+`SEST_JMSDF_Mogami` · `SEST_TacMap_Colors` · `SEST_Zumwalt_CPS` (repairs the Zumwalt's
+hypersonic launcher).
 
-Then launch the game → Mod Manager → the ten SEST entries should appear alongside your
-Workshop mods. **Enable all ten.** If they don't appear in the list at all, stop and report
+Then launch the game → Mod Manager → the eleven SEST entries should appear alongside your
+Workshop mods. **Enable all eleven.** If they don't appear in the list at all, stop and report
 it (the fallback is merging into `StreamingAssets\user\`, but don't do that unprompted).
 
 ## Phase 4 — mod order
@@ -135,8 +136,8 @@ by hand in the Mod Manager (top of the list wins when two mods ship the same fil
    Ford's jets silently lose the AIM-260 fits (and you'll be flying whichever F-35C file
    happens to win).
 7. **SEST RAAF F-35A JATM above the RAAF F-35A mod.**
-8. **SEST RAAF Wedgetail above the E-7A Wedgetail mod**, and **SEST Raptor Squadrons above the
-   F-22 mod.** Both carry full replacement `*_squadrons.ini` files. Below their target they do
+8. **SEST RAAF Wedgetail above the E-7A Wedgetail mod**, **SEST Raptor Squadrons above the
+   F-22 mod**, and **SEST Zumwalt CPS Fix above Modern US Navy.** Both carry full replacement `*_squadrons.ini` files. Below their target they do
    nothing, and the aircraft go back to having no resolvable squadrons — which is not an obvious
    failure in game, it just quietly shows every jet as the same anonymous unit.
 
@@ -167,6 +168,7 @@ SEST F-35C JATM                  ← above US Naval Aviation & Modern US Navy
 SEST RAAF F-35A JATM             ← above the RAAF F-35A mod
 SEST RAAF Wedgetail              ← above the E-7A Wedgetail mod
 SEST Raptor Squadrons            ← above the F-22 mod
+SEST Zumwalt CPS Fix             ← above Modern US Navy
 SEST TacMap Colors               ← overrides the vanilla tactical-map UI
 F/A-18 Murder Hornet
 B-52G with AGM-86

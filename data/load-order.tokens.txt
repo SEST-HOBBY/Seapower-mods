@@ -18,6 +18,7 @@ SEST_RAAF_F-35A_JATM
 SEST_JMSDF_Mogami
 SEST_RAAF_Wedgetail
 SEST_Raptor_Squadrons
+SEST_Zumwalt_CPS
 SEST_TacMap_Colors
 3430135740
 3394781441
