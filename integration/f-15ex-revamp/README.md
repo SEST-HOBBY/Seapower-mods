@@ -23,9 +23,13 @@ dropped - LRASM and Quicksink cover anti-ship far better and the AGM-84 added no
 | `MaliceER` | InterceptMALICE LongRange | **4× AIM-424** (fuselage) + 3 tanks + inboard AAMs — mirrors BigStick174ER | **US Naval Aviation** (AGM-88G model) |
 | `MaliceTruck` | InterceptMALICE Truck (8×) | **8× AIM-424** + centreline tank — mirrors Truck174 | **US Naval Aviation** (AGM-88G model) |
 
-The AIM-424 MALICE itself ships inside this pack (`ammunition/sest_aim-424.ini`, identical
-copies in the two F-35 JATM packs): AARGM-ER airframe, AIM-174B-class reach, passive
-anti-emitter mode.
+The AIM-424 MALICE itself ships inside this pack (`ammunition/sest_aim-424.ini`, byte-identical
+copies in the two F-35 JATM packs and the Growler pack): AARGM-ER airframe, aligned key-for-key
+against U.S. Navy 2027's AIM-174B so the two encyclopedia cards compare directly — same
+explicit-drag flight model, same 150,000 ft loft, same fragmentation warhead class, same datalink
+midcourse, same chart basis. It reaches 290 nm against the 174B's 316 (it has to fit an F-35 bay)
+and buys that back with a far better seeker: 40 nm active and 80 nm passive against 15/15, plus a
+full passive anti-emitter mode that homes on radars as well as jammers.
 
 ## Install
 
@@ -64,3 +68,33 @@ Two more long-range missile-truck fits trade the wing twin-racks for fuel:
 
 `BigStick174`, `BigStick174ER` and both MALICE mirrors also carry 4× AIM-260 on the
 inner wing pylon rails, which those fits previously left empty.
+
+
+## Squadrons
+
+Upstream defines two — the 44th and 67th FS at Kadena, each with its own livery. A mission that
+wanted more than two distinct F-15EX units had nothing to reference, so this pack ships a complete
+replacement `aircraft/usaf_f-15ex_SEII_squadrons.ini` with eight:
+
+| # | Squadron | Wing / base |
+|---|---|---|
+| 1 | 44th FS 'Vampires' | 18th Wing, Kadena AB, Japan |
+| 2 | 67th FS 'Fighting Cocks' | 18th Wing, Kadena AB, Japan |
+| 3 | 85th TES | 53rd Wing, Eglin AFB — first F-15EX operator |
+| 4 | 40th FLTS | 96th Test Wing, Eglin AFB |
+| 5 | 123rd FS 'Redhawks' | 142nd Wing OR ANG, Portland — first ANG F-15EX unit |
+| 6 | 194th FS 'Griffins' | 144th FW CA ANG, Fresno |
+| 7 | 131st FS | 104th FW MA ANG, Barnes |
+| 8 | 114th FS 'Eagles' | 173rd FW OR ANG, Kingsley Field |
+
+Squadrons 1 and 2 stay byte-identical to upstream's — the build fails if upstream's liveries change
+underneath them — so nothing that already references Squadron1/2 shifts paint. The mod carries only
+those two skins, so the six added units reuse them in rotation and differ by identity and callsign
+rather than by appearance. Upstream's English and Chinese names and callsigns for the two Kadena
+squadrons are kept verbatim; only the new units are appended.
+
+Callsigns for the added units (Bench, Probe, Redhawk, Griffin, Minuteman, Talon) are flavour, not
+documented radio callsigns. The squadron designations and basings are real.
+
+SEST RAAF Bases uses all eight: a full two-squadron wing at Amberley plus single-squadron dets at
+Tindal, Darwin, Scherger, Townsville, Curtin and Williamtown.

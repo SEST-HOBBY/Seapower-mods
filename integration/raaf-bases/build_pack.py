@@ -22,17 +22,19 @@ OUT = Path(__file__).resolve().parent / "SEST_RAAF_Bases"
 BASES = {
     "airbase_raaf_williamtown": {
         "name": "RAAF Base Williamtown",
-        "desc": "Fighter and AEW&C home base: 3 SQN / 77 SQN F-35A, 2 SQN E-7A Wedgetail",
+        "desc": "Fighter and AEW&C home base: 3 SQN / 77 SQN F-35A, 114th FS F-15EX det, 2 SQN E-7A Wedgetail",
         "airgroup": [
             ("raaf_f-35a", "Squadron1,12|Squadron2,12"),
+            ("usaf_f-15ex_SEII", "Squadron8,6"),
             ("E7A_Wedgetail", "Squadron1,3"),
         ],
     },
     "airbase_raaf_tindal": {
         "name": "RAAF Base Tindal",
-        "desc": "Northern deterrence base with USAF bomber rotation: 75 SQN F-35A, B-52H, B-2, tankers, MQ-9",
+        "desc": "Northern deterrence base with USAF bomber rotation: 75 SQN F-35A, 123rd FS F-15EX, B-52H, B-2, tankers, MQ-9",
         "airgroup": [
             ("raaf_f-35a", "Squadron3,12"),
+            ("usaf_f-15ex_SEII", "Squadron5,8"),
             ("dts_b-52h", "Squadron1,4"),
             ("usaf_b-2_spirit", "Squadron1,2"),
             ("usaf_kc-135a", "Squadron1,2"),
@@ -41,9 +43,9 @@ BASES = {
     },
     "airbase_raaf_amberley": {
         "name": "RAAF Base Amberley",
-        "desc": "Heavy and tanker hub: F-15EX Eagle II wing, B-1B rotation, KC-46A/KC-10A, E-3G",
+        "desc": "Heavy and tanker hub: full two-squadron F-15EX wing (44th/67th FS), B-1B rotation, KC-46A/KC-10A, E-3G",
         "airgroup": [
-            ("usaf_f-15ex_SEII", "Squadron1,12"),
+            ("usaf_f-15ex_SEII", "Squadron1,12|Squadron2,12"),
             ("usaf_b-1b_dts", "Squadron1,2"),
             ("usaf_kc-46a_boom", "Squadron1,3"),
             ("usaf_kc-10a_extender", "Squadron1,2"),
@@ -60,10 +62,10 @@ BASES = {
     },
     "airbase_raaf_darwin": {
         "name": "RAAF Base Darwin",
-        "desc": "Forward operating base: F-35A and F-15EX dets, probe-drogue tanker, P-8A, MH-60R",
+        "desc": "Forward operating base: F-35A and 85th TES F-15EX dets, probe-drogue tanker, P-8A, MH-60R",
         "airgroup": [
             ("raaf_f-35a", "Squadron4,8"),
-            ("usaf_f-15ex_SEII", "Squadron2,6"),
+            ("usaf_f-15ex_SEII", "Squadron3,8"),
             ("usaf_kc-46a_warp", "Squadron1,2"),
             ("usn_p8", "Squadron3,2"),
             ("usn_mh-60r", "Squadron1,4"),
@@ -103,9 +105,10 @@ BASES = {
     },
     "airbase_raaf_townsville": {
         "name": "RAAF Base Townsville",
-        "desc": "Joint army aviation base: AH-64E Apache, MH-60R, S-70B-2, Hercules det",
+        "desc": "Joint army aviation base: AH-64E Apache, 194th FS F-15EX det, MH-60R, S-70B-2, Hercules det",
         "airgroup": [
             ("usa_ah-64e", "Squadron1,8"),
+            ("usaf_f-15ex_SEII", "Squadron6,6"),
             ("usn_mh-60r", "Squadron1,4"),
             ("S-70B-2_Seahawk", "Squadron1,4"),
             ("usmc_kc-130t", "Squadron2,2"),
@@ -122,18 +125,19 @@ BASES = {
     },
     "airbase_raaf_curtin": {
         "name": "RAAF Base Curtin (Bare Base)",
-        "desc": "Activated bare base, fighter posture: F-35A det, drogue tanker",
+        "desc": "Activated bare base, fighter posture: F-35A det, 131st FS F-15EX det, drogue tanker",
         "airgroup": [
             ("raaf_f-35a", "Squadron3,8"),
+            ("usaf_f-15ex_SEII", "Squadron7,6"),
             ("usaf_kc-46a_warp", "Squadron2,2"),
         ],
     },
     "airbase_raaf_scherger": {
         "name": "RAAF Base Scherger (Bare Base)",
-        "desc": "Activated bare base, Cape York: F-35A det, F-15EX det, MQ-9 ER",
+        "desc": "Activated bare base, Cape York: F-35A det, 40th FLTS F-15EX det, MQ-9 ER",
         "airgroup": [
             ("raaf_f-35a", "Squadron4,8"),
-            ("usaf_f-15ex_SEII", "Squadron2,6"),
+            ("usaf_f-15ex_SEII", "Squadron4,8"),
             ("usaf_mq-9_er", "Squadron1,4"),
         ],
     },
@@ -159,7 +163,7 @@ BASES = {
 
 INFO_INI = """[Language_en]
 Name=SEST RAAF Bases
-Description=Fifteen Australian airbases populated from the mod collection: Amberley, Butterworth, Curtin, Darwin, East Sale, Edinburgh, Gingin, Learmonth, Pearce, Richmond, Scherger, Tindal, Townsville, Williamtown and Woomera - 211 aircraft in total, covering F-35A, F-15EX, B-52H, B-1B, B-2, E-7A, E-3G, P-8A, MQ-9, KC-135, KC-46A, KC-10A and MH-60R. Aircraft come from their own mods - see the repo README for the dependency list. Place BELOW the aircraft mods in the Mod Manager.
+Description={n_bases} Australian airbases populated from the mod collection: {base_list} - {n_aircraft} aircraft in total, covering F-35A, F-15EX, B-52H, B-1B, B-2, E-7A, E-3G, P-8A, MQ-9, KC-135, KC-46A, KC-10A and MH-60R. The F-15EX presence is a full two-squadron wing at Amberley plus single-squadron dets at Tindal, Darwin, Scherger, Townsville, Curtin and Williamtown - eight distinct squadrons, which needs SEST F-15EX Revamp above the F-15EX mod to define them. Other aircraft come from their own mods - see the repo README for the dependency list. Place BELOW the aircraft mods in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -178,17 +182,35 @@ Nation=Australia
 
 
 def squadron_limit(aircraft_id):
-    """Max squadron index defined for an aircraft, searching modded dirs then vanilla."""
-    hits = sorted(MODS.glob(f"*/aircraft/{aircraft_id}_squadrons.ini")) + \
+    """How many squadrons an aircraft really has, and where they come from.
+
+    Searches the SEST packs as well as the workshop mods and vanilla: several
+    aircraft (F-15EX, F-22, E-7A) only get their full squadron list from a
+    SEST pack sitting above the upstream mod, and a base that references those
+    squadrons is valid precisely because that pack ships.
+
+    Returns (defined, declared, sources) where `defined` counts real
+    [SquadronN] sections - the number that actually resolves in game - and
+    `declared` is the highest NumberOfSquadrons anyone claims. A mod that
+    declares more than it defines (the F-22 mod claims 7, defines 1) is the
+    trap this exists to catch.
+    """
+    hits = sorted((ROOT / "integration").glob(f"*/SEST_*/aircraft/{aircraft_id}_squadrons.ini")) + \
+        sorted(MODS.glob(f"*/aircraft/{aircraft_id}_squadrons.ini")) + \
         sorted(MODS.glob(f"_vanilla/original/aircraft/{aircraft_id}_squadrons.ini"))
-    best = 0
+    defined = declared = 0
+    sources = []
     for h in hits:
         text = h.read_text(encoding="utf-8", errors="replace")
         m = re.search(r"NumberOfSquadrons\s*=\s*(\d+)", text)
-        n = int(m.group(1)) if m else 0
         real = len(re.findall(r"^\s*\[Squadron\d+\]", text, re.M))
-        best = max(best, n, real)
-    return best, len(hits)
+        if real > defined:
+            sources = [h]
+        elif real == defined and real:
+            sources.append(h)
+        defined = max(defined, real)
+        declared = max(declared, int(m.group(1)) if m else 0)
+    return defined, declared, sources
 
 
 def main():
@@ -206,20 +228,25 @@ def main():
             if not exists:
                 problems.append(f"{base_id}: aircraft ini not found for {aircraft_id}")
                 continue
-            limit, sq_files = squadron_limit(aircraft_id)
+            defined, declared, sources = squadron_limit(aircraft_id)
             for part in assignment.split("|"):
                 sq, _, cnt = part.partition(",")
                 if not cnt.isdigit():
                     problems.append(f"{base_id}: malformed assignment {part!r} for {aircraft_id}")
                 idx = int(re.sub(r"\D", "", sq) or 0)
-                if sq_files and idx > limit:
-                    if limit == 0:
+                if idx > defined:
+                    if defined == 0:
                         warnings.append(f"{base_id}: {aircraft_id} squadrons file defines no "
                                         f"[SquadronN] sections (Default only) — verify {sq} "
                                         "falls back to the default livery in-game")
                     else:
-                        problems.append(f"{base_id}: {aircraft_id} {sq} exceeds defined "
-                                        f"squadrons ({limit})")
+                        # Never trust NumberOfSquadrons on its own: the F-22 mod
+                        # declares 7 and defines 1, which is how missions ended
+                        # up referencing squadrons that silently did not exist.
+                        where = ", ".join(s.parts[-3] for s in sources) or "nowhere"
+                        problems.append(
+                            f"{base_id}: {aircraft_id} {sq} exceeds the {defined} squadrons "
+                            f"actually defined (by {where}; NumberOfSquadrons claims {declared})")
     if problems:
         sys.exit("validation failed:\n  " + "\n  ".join(problems))
     for w in warnings:
@@ -243,10 +270,15 @@ def main():
 
     (OUT / "language_en").mkdir(exist_ok=True)
     (OUT / "language_en" / "land_units_names.ini").write_text("\n".join(names), encoding="utf-8")
-    (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
-
     n_aircraft = sum(int(p.split(",")[1]) for b in BASES.values()
                      for _, s in b["airgroup"] for p in s.split("|"))
+    base_list = ", ".join(sorted(
+        b["name"].replace("RAAF Base ", "").replace("RAAF ", "")
+         .replace(" (Bare Base)", "").replace(" Airfield", "")
+        for b in BASES.values()))
+    (OUT / "_info.ini").write_text(
+        INFO_INI.format(n_bases=len(BASES), n_aircraft=n_aircraft,
+                        base_list=base_list), encoding="utf-8")
     print(f"built {OUT.relative_to(ROOT)}: {len(BASES)} bases, {n_aircraft} aircraft total, "
           "all references validated")
 

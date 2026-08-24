@@ -11,23 +11,29 @@ new models are needed.
 
 | Base | Air group |
 |---|---|
-| **RAAF Base Williamtown** | 24× F-35A (3 SQN / 77 SQN liveries) · 3× E-7A Wedgetail |
-| **RAAF Base Tindal** | 12× F-35A (75 SQN) · 4× B-52H · 2× B-2 Spirit · 2× KC-135 · 4× MQ-9 |
-| **RAAF Base Amberley** | 12× F-15EX Eagle II · 2× B-1B · 3× KC-46A (boom) · 2× KC-10A · 2× E-3G |
+| **RAAF Base Williamtown** | 24× F-35A (3 SQN / 77 SQN liveries) · 6× F-15EX (114th FS) · 3× E-7A Wedgetail |
+| **RAAF Base Tindal** | 12× F-35A (75 SQN) · 8× F-15EX (123rd FS) · 4× B-52H · 2× B-2 Spirit · 2× KC-135 · 4× MQ-9 |
+| **RAAF Base Amberley** | **24× F-15EX Eagle II** — full two-squadron wing (44th / 67th FS) · 2× B-1B · 3× KC-46A (boom) · 2× KC-10A · 2× E-3G |
 | **RAAF Base Edinburgh** | 8× P-8A (**No.12 SQN RAAF livery**) · 4× MQ-9 |
-| **RAAF Base Darwin** | 8× F-35A · 6× F-15EX · 2× KC-46A (drogue) · 2× P-8A · 4× MH-60R |
+| **RAAF Base Darwin** | 8× F-35A · 8× F-15EX (85th TES) · 2× KC-46A (drogue) · 2× P-8A · 4× MH-60R |
 | **RAAF Base East Sale** | 4× F-35A (lead-in det) · 4× MQ-9 (training) |
 | **RAAF Base Pearce** | 8× F-35A (conversion unit) · 2× KC-46A |
 | **RAAF Base Gingin** | 4× F-35A · 2× MH-60R (SAR) |
 | **RAAF Base Richmond** | 6× KC-130T Hercules (C-130 stand-in) · 2× MH-60R |
-| **RAAF Base Townsville** | 8× AH-64E Apache · 4× MH-60R · 4× S-70B-2 Seahawk · 2× KC-130T |
+| **RAAF Base Townsville** | 8× AH-64E Apache · 6× F-15EX (194th FS) · 4× MH-60R · 4× S-70B-2 Seahawk · 2× KC-130T |
 | **RAAF Base Learmonth** *(bare base)* | 4× P-8A · 2× U-2 · 2× KC-135 |
-| **RAAF Base Curtin** *(bare base)* | 8× F-35A · 2× KC-46A (drogue) |
-| **RAAF Base Scherger** *(bare base)* | 8× F-35A · 6× F-15EX · 4× MQ-9 ER |
+| **RAAF Base Curtin** *(bare base)* | 8× F-35A · 6× F-15EX (131st FS) · 2× KC-46A (drogue) |
+| **RAAF Base Scherger** *(bare base)* | 8× F-35A · 8× F-15EX (40th FLTS) · 4× MQ-9 ER |
 | **RAAF Woomera Airfield** | 2× U-2 · 4× MQ-9 ER · 2× B-2 (test det) |
 | **RAAF Base Butterworth** *(Malaysia)* | 6× F-35A · 3× P-8A · 2× KC-135 |
 
-211 aircraft across 15 bases. All units are `Nation=Australia`, `LandUnitSubType=Airbase`.
+253 aircraft across 15 bases. All units are `Nation=Australia`, `LandUnitSubType=Airbase`.
+
+The F-15EX presence is 66 airframes across **eight distinct squadrons** — a full two-squadron wing
+at Amberley plus single-squadron dets at Tindal, Darwin, Scherger, Townsville, Curtin and
+Williamtown. Those squadrons only exist because **SEST F-15EX Revamp** defines them (the F-15EX mod
+itself ships two); without that pack above the F-15EX mod, six of the seven dets have nothing to
+resolve against.
 (RAAF Base Wagga is non-flying and has no unit; the bare bases are modeled in their activated
 crisis posture, since an empty airfield already exists as vanilla scenery.)
 
@@ -45,12 +51,14 @@ A squadron whose source mod is missing simply won't spawn — the base itself st
 
 1. Copy `SEST_RAAF_Bases/` into `Sea Power_Data\StreamingAssets\`.
 2. Place it **below** the aircraft mods in the Mod Manager (bases last, per the repo's load-order doc).
-3. The five bases appear in the mission editor as Australian airbase land units.
+3. The fifteen bases appear in the mission editor as Australian airbase land units.
 
 ## First-flight checks
 
-- The E-7A's squadrons file defines only a Default livery (its `[Squadron1]` block is commented
-  out upstream) — confirm the Wedgetails spawn at Williamtown with the default livery.
+- The E-7A's squadrons come from **SEST RAAF Wedgetail** (upstream ships a Default only) — confirm
+  the Wedgetails spawn at Williamtown as No. 2 Squadron RAAF.
+- The F-15EX squadrons come from **SEST F-15EX Revamp** — confirm Amberley shows two squadrons and
+  that the Tindal/Darwin/Scherger/Townsville/Curtin/Williamtown dets each show their own.
 - The SEST patches (F-15EX Revamp, RAAF F-35A JATM) apply to these bases' aircraft automatically,
   since they extend the same unit definitions.
 
@@ -60,5 +68,8 @@ A squadron whose source mod is missing simply won't spawn — the base itself st
 python3 integration/raaf-bases/build_pack.py
 ```
 
-Regenerates all five bases from the template and re-validates every aircraft id and squadron
-index against `mods-source/` (it fails loudly on a missing aircraft or out-of-range squadron).
+Regenerates all fifteen bases from the template and re-validates every aircraft id and squadron
+index — searching the SEST packs as well as `mods-source/` and vanilla, since several types only get
+their full squadron list from a SEST pack. It counts real `[SquadronN]` sections rather than trusting
+`NumberOfSquadrons`, because mods do lie about that (the F-22 mod declares 7 and defines 1). It fails
+loudly on a missing aircraft or an out-of-range squadron.
