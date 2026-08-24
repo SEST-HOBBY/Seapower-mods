@@ -262,7 +262,19 @@ def main():
     except UnicodeDecodeError:
         text = raw.decode("cp1252")
     text = text.replace("\r\n", "\n")
-    already_refined = any(n in text for n in TANKER_NAMES)
+    # "Has this file been dressed before?" Two independent signals, because
+    # the mission editor strips NameOverride from neutral units when it saves:
+    #   1. our own tanker names survive
+    #   2. every neutral merchant hull is already one WE would have chosen
+    #      (a raw mission always carries hulls outside the mix - ran_ms_*
+    #      armed auxiliaries, civ_ms_super_p, civ_ms_c8, civ_ms_roro_b ...)
+    # Either is enough. Without the second, an editor round-trip would look
+    # raw and the whole LANE_MIX cycle would reshuffle the player's hulls.
+    ours = set(LANE_MIX) | set(COASTAL_MIX)
+    merchants = [m.group(1) for m in re.finditer(r"^Type=(\S+)", text, re.M)
+                 if m.group(1).startswith(("civ_ms_", "anl_ms_", "ran_ms_"))]
+    already_refined = (any(n in text for n in TANKER_NAMES)
+                       or (len(merchants) >= 4 and all(t in ours for t in merchants)))
 
     # Split into (header, body) chunks, preserving everything verbatim.
     parts = re.split(r"(^\[[^\]]+\]\s*$)", text, flags=re.M)
