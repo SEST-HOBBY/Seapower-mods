@@ -16,12 +16,15 @@
                     with names describing the group (name_formations.py)
       5. water    - move any vessel or sea life that sits on land into the
                     water (fix_land_positions.py)
-      6. install  - copy the result back into the game (only with -Install)
+      6. squadrons- repair squadron references the editor left unresolved, and
+                    re-split groups that an earlier repair collapsed
+                    (fix_squadron_refs.py --spread)
+      7. install  - copy the result back into the game (only with -Install)
 
     Every step is idempotent and preserves your placements, waypoints and
     formations, so it is safe to run after each editing session.
 
-    Needs Python 3 on PATH. Step 4 also needs the land mask package; pass
+    Needs Python 3 on PATH. Step 5 also needs the land mask package; pass
     -InstallDeps once to fetch it, or the step is skipped with a warning.
 
 .EXAMPLE
@@ -50,51 +53,9 @@ $ErrorActionPreference = "Stop"
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 $repoRoot = Split-Path -Parent $scriptDir
 $missionsDir = Join-Path $repoRoot "integration\missions"
+. (Join-Path $scriptDir "lib\common.ps1")
 
 # --- Find Python -------------------------------------------------------------
-function Test-Python {
-    # A candidate only counts if it actually runs and reports Python 3.
-    # (The Windows Store ships a stub 'python.exe' that just opens the Store,
-    # so presence on PATH proves nothing.)
-    param([string]$Exe, [string[]]$Pre)
-    try {
-        $probe = @($Pre) + @("-c", "import sys; print(sys.version_info[0])")
-        $out = & $Exe @probe 2>$null
-        if ($LASTEXITCODE -eq 0 -and ("$out".Trim() -eq "3")) {
-            return @{ Exe = $Exe; Pre = $Pre }
-        }
-    } catch { }
-    return $null
-}
-
-function Get-Python {
-    # Returns @{ Exe = <path or 'py'>; Pre = <array of leading args> }
-    foreach ($cmd in "python", "python3") {
-        $c = Get-Command $cmd -ErrorAction SilentlyContinue
-        if (-not ($c -and $c.Source)) { continue }
-        $found = Test-Python $c.Source @()
-        if ($found) { return $found }
-    }
-    # The py launcher ships with the python.org installer.
-    if (Get-Command "py" -ErrorAction SilentlyContinue) {
-        $found = Test-Python "py" @("-3")
-        if ($found) { return $found }
-    }
-    # Common install locations, in case PATH was never set up.
-    $candidates = @()
-    foreach ($root in @("$env:LOCALAPPDATA\Programs\Python", "$env:ProgramFiles\Python",
-                        "${env:ProgramFiles(x86)}\Python", "C:\Python312", "C:\Python311")) {
-        if (Test-Path -LiteralPath $root) {
-            $candidates += Get-ChildItem -LiteralPath $root -Filter "python.exe" -Recurse -Depth 1 -ErrorAction SilentlyContinue
-        }
-    }
-    foreach ($c in $candidates) {
-        $found = Test-Python $c.FullName @()
-        if ($found) { return $found }
-    }
-    return $null
-}
-
 $py = Get-Python
 if (-not $py) {
     Write-Host ""
@@ -120,7 +81,7 @@ function Invoke-Py {
 
 # --- 1. Import ---------------------------------------------------------------
 if (-not $SkipImport) {
-    Write-Host "`n[1/6] importing '$Mission' from the game..." -ForegroundColor Cyan
+    Write-Host "`n[1/7] importing '$Mission' from the game..." -ForegroundColor Cyan
     # NOTE: splat a HASHTABLE, not an array. Array splatting binds
     # positionally, so @("-Mission", $Mission) would put the literal string
     # "-Mission" in $Mission and the mission name in the next positional
@@ -129,7 +90,7 @@ if (-not $SkipImport) {
     if ($StreamingAssetsDir) { $importArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
     & (Join-Path $scriptDir "import-mission.ps1") @importArgs
 } else {
-    Write-Host "`n[1/6] import skipped (-SkipImport)" -ForegroundColor DarkGray
+    Write-Host "`n[1/7] import skipped (-SkipImport)" -ForegroundColor DarkGray
 }
 
 $missionFile = Join-Path $missionsDir "$Mission.ini"
@@ -138,19 +99,19 @@ if (-not (Test-Path -LiteralPath $missionFile)) {
 }
 
 # --- 2. Dress the civilian traffic -------------------------------------------
-Write-Host "`n[2/6] dressing civilian traffic..." -ForegroundColor Cyan
+Write-Host "`n[2/7] dressing civilian traffic..." -ForegroundColor Cyan
 Invoke-Py "refine_civ_traffic.py" @("--mission", $Mission, "--repo-only", "--rename-to", $Mission)
 
 # --- 3. Depth pass -----------------------------------------------------------
-Write-Host "`n[3/6] adding civilian and natural depth..." -ForegroundColor Cyan
+Write-Host "`n[3/7] adding civilian and natural depth..." -ForegroundColor Cyan
 Invoke-Py "add_civ_depth.py" @("--mission", $Mission, "--write")
 
 # --- 4. Name any placeholder formations --------------------------------------
-Write-Host "`n[4/6] naming placeholder formations..." -ForegroundColor Cyan
+Write-Host "`n[4/7] naming placeholder formations..." -ForegroundColor Cyan
 Invoke-Py "name_formations.py" @("--mission", $Mission, "--write")
 
 # --- 5. Keep everything in the water -----------------------------------------
-Write-Host "`n[5/6] checking nothing sits on land..." -ForegroundColor Cyan
+Write-Host "`n[5/7] checking nothing sits on land..." -ForegroundColor Cyan
 if ($InstallDeps) {
     Write-Host "  fetching the land-mask package..."
     $pipArgs = @($py.Pre) + @("-m", "pip", "install", "--quiet", "global-land-mask", "numpy")
@@ -166,14 +127,22 @@ if ($LASTEXITCODE -eq 0) {
     Write-Warning "Re-run once with -InstallDeps to enable it."
 }
 
-# --- 5. Put it back in the game ----------------------------------------------
+# --- 6. Squadron references ---------------------------------------------------
+# The editor happily writes SquadronReference values the providing mod does not
+# define; those aircraft then spawn with nothing resolved. --spread also undoes
+# the earlier repair for it, now that the SEST packs define the missing
+# squadrons - see the tool's docstring for why it is deliberately narrow.
+Write-Host "`n[6/7] checking squadron references..." -ForegroundColor Cyan
+Invoke-Py "fix_squadron_refs.py" @("--mission", $Mission, "--spread", "--write")
+
+# --- 7. Put it back in the game ----------------------------------------------
 if ($Install) {
-    Write-Host "`n[6/6] installing back into the game..." -ForegroundColor Cyan
+    Write-Host "`n[7/7] installing back into the game..." -ForegroundColor Cyan
     $installArgs = @{}
     if ($StreamingAssetsDir) { $installArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
     & (Join-Path $scriptDir "install-sest-packs.ps1") @installArgs
 } else {
-    Write-Host "`n[6/6] not installed (pass -Install to deploy it back)" -ForegroundColor DarkGray
+    Write-Host "`n[7/7] not installed (pass -Install to deploy it back)" -ForegroundColor DarkGray
 }
 
 Write-Host "`nDone. '$Mission' has been refreshed." -ForegroundColor Green

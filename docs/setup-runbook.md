@@ -39,7 +39,25 @@ settles those properly later.
 
 ## Phase 3 — install the ten SEST packs (scripted)
 
-In PowerShell, from your repo clone (e.g. `C:\Users\<you>\Seapower-mods`):
+**Close Sea Power first.** It rewrites `usersettings.ini` when it exits, so anything the
+tooling writes while the game is open is silently thrown away. Every script that touches
+that file now checks and refuses.
+
+Once the packs are installed and ordered the first time, the whole update loop is one command:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
+```
+
+That pulls, installs every pack, and rewrites the mod order — **inserting any newly installed
+pack as enabled at its canonical position**, so a new pack no longer needs the launch-game →
+tick-it → quit → re-run dance. It also resolves the one merge conflict this workflow keeps
+producing (you imported a mission while the tooling changed the same file): your imported copy
+always wins, and `-RefreshMissions` re-runs the tooling to put its changes back on top. A
+conflict in any other file stops the script for you to handle.
+
+The rest of this phase is the manual equivalent, useful the first time or when something
+looks wrong:
 
 ```powershell
 git pull
@@ -63,9 +81,23 @@ it (the fallback is merging into `StreamingAssets\user\`, but don't do that unpr
 ## Phase 4 — mod order
 
 Your current order is whatever the game accumulated as you subscribed — it has never been
-set deliberately, so treat this phase as required, not optional. Reordering is done in the
-in-game Mod Manager (move entries up/down; top of the list wins when two mods ship the same
-file; apply/restart after changing).
+set deliberately, so treat this phase as required, not optional.
+
+You do not have to do it by hand. With the game closed:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing -DryRun   # preview
+powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing           # apply
+```
+
+It rewrites `[LoadOrder]` from `data\load-order.tokens.txt`, keeps every mod's enabled flag,
+appends anything it doesn't recognise rather than dropping it, backs the file up first, and
+warns loudly if a SEST pack is present but disabled (the usual reason "the patch did nothing").
+`-AddMissing` adds installed SEST packs the game hasn't seen yet, enabled. Workshop ids are
+never invented — Steam owns those.
+
+The rules below are what that canonical order encodes; read them if you ever need to reorder
+by hand in the Mod Manager (top of the list wins when two mods ship the same file).
 
 ### The moves that actually matter (do these even if you do nothing else)
 

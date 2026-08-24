@@ -17,6 +17,14 @@ the Mod Manager.
 
 AIM424_ID = "sest_aim-424"
 
+# The MALICE borrows the AGM-88G mesh, which is a full-size AARGM-ER - longer
+# than an air-to-air round sized to fit inside an F-35 bay. ResourcesMeshScale
+# shrinks the model for THIS ammunition only; the real usn_agm-88g keeps its
+# own dimensions because that key lives in our ini, not in the shared model.
+# The collider is scaled by the same factor so the hit box tracks the visual.
+# Change it with:  python3 integration/common/set_malice_scale.py --scale 0.85
+MESH_SCALE = 0.9
+
 # Aligned to usn_aim-174b as shipped by U.S. Navy 2027 Capabilities
 # (3606774881) - the version that actually wins the load order in this
 # collection, and the card the MALICE gets compared against in game. Same
@@ -149,6 +157,8 @@ ResourcesFolder=assets/models/ammunition/agm-88/
 ResourcesRoot=agm-88g.obj
 ResourcesMesh=agm-88g
 ResourcesMaterial=usn_agm-88g_mat.ini
+# Scaled down from the full-size AARGM-ER mesh - see MESH_SCALE in aim424.py.
+ResourcesMeshScale=__SCALE__,__SCALE__,__SCALE__
 NumberOfSubModels=0
 
 [Particles]
@@ -170,7 +180,7 @@ Collider=col_main
 Collider=Box
 Position=0,0,0
 Rotation=0,0,0
-Scale=0.005,0.005,0.04291637
+Scale=__COLX__,__COLX__,__COLZ__
 """
 
 # language_en/ammunition_names.ini format: stem=DisplayName,Nickname,Category,Description
@@ -182,11 +192,26 @@ sest_aim-424=AIM-424,MALICE,AAM,The AIM-424 MALICE is a what-if very-long-range 
 """
 
 
-def write_aim424(out_dir):
+# Collider box at MESH_SCALE=1, i.e. the raw AGM-88G hull dimensions.
+_COLLIDER = (0.005, 0.04291637)
+
+
+def aim424_ini(scale=None):
+    """The ammunition ini with the mesh and its collider scaled together."""
+    s = MESH_SCALE if scale is None else scale
+    if not 0 < s <= 2:
+        raise ValueError(f"implausible mesh scale {s} - expected roughly 0.1 to 1.5")
+    return (AIM424_INI
+            .replace("__SCALE__", f"{s:g}")
+            .replace("__COLX__", f"{_COLLIDER[0] * s:.6g}")
+            .replace("__COLZ__", f"{_COLLIDER[1] * s:.6g}"))
+
+
+def write_aim424(out_dir, scale=None):
     """Write the ammunition ini + name entries into a pack folder (Path)."""
     ammo = out_dir / "ammunition"
     ammo.mkdir(parents=True, exist_ok=True)
-    (ammo / f"{AIM424_ID}.ini").write_text(AIM424_INI, encoding="utf-8")
+    (ammo / f"{AIM424_ID}.ini").write_text(aim424_ini(scale), encoding="utf-8")
     lang = out_dir / "language_en"
     lang.mkdir(exist_ok=True)
     (lang / "ammunition_names.ini").write_text(AIM424_NAMES_INI, encoding="utf-8")
