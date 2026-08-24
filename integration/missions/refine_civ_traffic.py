@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Refine NORTHERN FRONT II's civilian traffic in place.
+"""Refine a mission's civilian traffic in place.
 
-Piggy-backs on the player's own edited mission: reads (first found)
-  1. mods-source/_vanilla/user/missions/user_missions/NORTHERN FRONT II.ini
+Piggy-backs on the player's own edited mission. For mission <M> it reads
+(first found)
+  1. mods-source/_vanilla/user/missions/user_missions/<M>.ini
      (the copy exported from the game, carrying the player's hand edits)
-  2. integration/missions/NORTHERN FRONT II.ini  (repo fallback)
-and writes integration/missions/NORTHERN FRONT II.ini.
+  2. integration/missions/<M>.ini  (repo copy)
+and writes integration/missions/<M>.ini. Pass --repo-only when the repo
+copy IS the authoritative hand-edited file and must not be replaced by a
+stale game export.
 
 It ONLY touches, inside [NeutralVesselN] / [NeutralAircraftN] sections:
   - Type=            (re-types generic freighters into a realistic large-
@@ -21,19 +24,20 @@ placed stay byte-for-byte untouched.
 Variant pools and squadron lists are parsed from the actual mod files under
 mods-source/ — nothing is hardcoded that can drift.
 
-Usage (repo root):  python3 integration/missions/refine_civ_traffic.py
+Usage (repo root):
+    python3 integration/missions/refine_civ_traffic.py
+    python3 integration/missions/refine_civ_traffic.py \
+        --mission "NORTHERN FRONT III" --repo-only --rename-to "NORTHERN FRONT III"
 """
+import argparse
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SRC_CANDIDATES = [
-    ROOT / "mods-source" / "_vanilla" / "user" / "missions" / "user_missions" / "NORTHERN FRONT II.ini",
-    Path(__file__).resolve().parent / "NORTHERN FRONT II.ini",
-]
-OUT = Path(__file__).resolve().parent / "NORTHERN FRONT II.ini"
+MISSIONS = Path(__file__).resolve().parent
 MODS = ROOT / "mods-source"
+DEFAULT_MISSION = "NORTHERN FRONT II"
 
 # Lane-merchant mix, cycled over the open-water merchants in section order.
 # Darwin's real trades: LNG/condensate out of Ichthys and Bayu-Undan (VLCC and
@@ -137,10 +141,26 @@ def set_key(body, key, value):
     return re.sub(r"^(Type=.*)$", rf"\1\n{key}={value}", body, count=1, flags=re.M)
 
 
+def parse_args():
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--mission", default=DEFAULT_MISSION,
+                    help="mission name without .ini (default: %(default)s)")
+    ap.add_argument("--repo-only", action="store_true",
+                    help="treat integration/missions/<mission>.ini as authoritative "
+                         "and ignore any game export of it")
+    ap.add_argument("--rename-to", default=None,
+                    help="rewrite every [Language_*] Name= entry to this title")
+    return ap.parse_args()
+
+
 def main():
-    src = next((p for p in SRC_CANDIDATES if p.exists()), None)
+    args = parse_args()
+    out = MISSIONS / f"{args.mission}.ini"
+    export = MODS / "_vanilla" / "user" / "missions" / "user_missions" / f"{args.mission}.ini"
+    candidates = [out] if args.repo_only else [export, out]
+    src = next((p for p in candidates if p.exists()), None)
     if src is None:
-        sys.exit("no NORTHERN FRONT II.ini found")
+        sys.exit(f"no {args.mission}.ini found in {[str(c) for c in candidates]}")
     # The game-exported copy has CRLF endings; normalize so the regex edits
     # and the git history stay clean (the game reads LF fine). Try UTF-8
     # strictly first; a player-edited export may be cp1252 — fall back rather
@@ -158,6 +178,7 @@ def main():
     # parts = [pre, header1, body1, header2, body2, ...]
 
     lane_i = coast_i = 0
+    lng_names = list(LNG_NAMES)
     air_seen = {}
     changes = []
     pool_cache = {}
@@ -195,8 +216,8 @@ def main():
             variant = pool[(7 * n + 3) % len(pool)]
             body = set_key(body, "Type", new_type)
             body = set_key(body, "VariantReference", variant)
-            if new_type == "civ_ms_ritina" and LNG_NAMES:
-                body = set_key(body, "NameOverride", LNG_NAMES.pop(0))
+            if new_type == "civ_ms_ritina" and lng_names:
+                body = set_key(body, "NameOverride", lng_names.pop(0))
             changes.append(f"{header.strip()} {old_type} -> {new_type} ({variant})")
         else:
             pool_type = old_type
@@ -218,14 +239,24 @@ def main():
         parts[i + 1] = body
 
     out_text = "".join(parts)
+
+    # Retitle every [Language_*] Name= entry (the in-game mission title). Only
+    # Name= at the start of a line is touched; NameOverride= lines are a
+    # different key and stay untouched.
+    renamed = 0
+    if args.rename_to:
+        out_text, renamed = re.subn(r"^Name=.*$", f"Name={args.rename_to}",
+                                    out_text, flags=re.M)
+
     if MARKER not in out_text:
         out_text = out_text.rstrip("\n") + f"\n\n{MARKER}\n"
-    OUT.write_text(out_text, encoding="utf-8", newline="\n")
+    out.write_text(out_text, encoding="utf-8", newline="\n")
     for c in changes:
         print("  " + c)
-    print(f"refined {src.relative_to(ROOT)} -> {OUT.relative_to(ROOT)}: "
+    print(f"refined {src.relative_to(ROOT)} -> {out.relative_to(ROOT)}: "
           f"{len(changes)} neutral units re-dressed "
-          f"({lane_i} lane merchants, {coast_i} coasters)")
+          f"({lane_i} lane merchants, {coast_i} coasters)"
+          + (f", {renamed} language titles set to '{args.rename_to}'" if renamed else ""))
 
 
 if __name__ == "__main__":
