@@ -145,28 +145,29 @@ WeaponSystem1 and "right bottom aft" in WeaponSystem2.
 ## Side-rail height
 
 Stations 1/2/5/6 are the side-attach rails on the inner wing pylon — the ones carrying AIM-260
-above the fuel tank. Upstream puts them at `y=-0.001`, and the `|120` position key adds `+0.0005`,
-so they end up at **net -0.00050: the highest stores anywhere on the aircraft, and 0.0058 _above_
-the pylon they hang from.** They float up inside the wing rather than sitting on the pylon's side.
+above the fuel tank. **All four are identical in every loadout**: same y, same `|120` key, net
+`-0.00050`. They cannot sit at different heights from each other.
 
-For scale, everything else on that wing:
+The only measurable height difference among wing-mounted AAMs is between the two groups:
 
-| | net y |
-|---|---|
-| **side rails (1/2/5/6)** | **−0.00050** ← were here |
-| pylon2 (7–10) | −0.00120 |
-| wing pylon attach point (16/17) | −0.00630 |
-| fuel tank centre | −0.01080 |
+| Group | Stations | net y |
+|---|---|---|
+| side rails | 1/2/5/6 | −0.00050 |
+| outer pylon | 7/8/9/10 | −0.00120 |
 
-`SIDE_RAIL_DROP` in `build_patch.py` lowers them by **0.005**, to net **−0.00550** — just above the
-pylon attach point, so they sit on the pylon, below the wing, well clear of the tank.
+`SIDE_RAIL_DROP` lowers the side rails by **0.0007** so both groups sit level. That is the whole
+change — it removes the one real discrepancy and nothing more.
 
-**That constant is the knob.** Too low now? Reduce it. Still too high? Raise it. The build asserts
-both wings move together, that the four end at the same height, and that they never drop to or
-below the wing station — verified by setting it to 0.02 and watching the build reject with
-`side rails dropped to -0.021 which is at or below the wing station at -0.0063`.
+**An earlier attempt dropped them 0.005** on the reasoning that they sat above the wing station
+(−0.0063) where the tank pylon attaches. That was an inference about the model rather than a
+measurement, and it was wrong in kind: the report was that *one missile sat higher than the others*
+— a relative difference — not that the whole group was too high. Dropping further is guesswork
+until someone who can see the model says otherwise.
+
+The build asserts both wings move together, that all four finish at the same height, and that they
+never reach the wing station.
 
 The rotations were checked and left alone. `0,0,±90` on paired flanking rails is the dominant
 convention across the collection (F/A-18E/F, A-10C, Mi-8, F-104, Tornado IDS), and `plan_j-15a`
 uses byte-identical values — `S1+S5 = 0,0,90`, `S2+S6 = 0,0,-90`. Only the Tornado ADV rolls such
-pairs oppositely. The rails were never mis-rolled, just too high.
+pairs oppositely.

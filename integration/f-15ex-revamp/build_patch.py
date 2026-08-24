@@ -304,26 +304,24 @@ F15EX_SQUADRONS = [
 # ---------------------------------------------------------------------------
 # Side-rail height
 # ---------------------------------------------------------------------------
-# Stations 1/2/5/6 are the side-attach rails on the inner wing pylon - the ones
-# that carry AIM-260 above the fuel tank. Upstream puts them at y=-0.001, and
-# with the |120 position key's +0.0005 they end up at net y=-0.00050: the
-# HIGHEST stores anywhere on the aircraft, and 0.0058 ABOVE the pylon they hang
-# from (the wing station attaches at -0.0063). So they float up inside the wing
-# instead of sitting on the pylon's side, which is what "sitting too high"
-# looks like in the external view.
+# CORRECTED. The first attempt dropped these 0.005 on the reasoning that they
+# sat above the wing station (-0.0063) where the tank pylon attaches. That was
+# an inference about the model, not a measurement, and it was too aggressive:
+# the report was that ONE missile sat higher than the OTHERS, a relative
+# difference, not that all of them were too high in absolute terms.
 #
-# For scale, the other things on that wing:
-#     side rails   net -0.00050   <- these
-#     pylon2       net -0.00120
-#     pylon attach     -0.00630
-#     tank centre      -0.01080
+# What is actually measurable: all four side rails (1/2/5/6) are IDENTICAL in
+# every loadout - same y, same |120 key, net -0.00050. They cannot differ from
+# each other. The only real height difference among wing-mounted AAMs is
+# between the two groups:
 #
-# Dropping them by 0.005 puts them at net -0.00550, just above the pylon attach
-# point - on the pylon, below the wing, still well clear of the tank. Both wings
-# move together; the build asserts they stay mirrored and stay above the tank.
+#     side rails  1/2/5/6   net y -0.00050
+#     pylon2      7/8/9/10  net y -0.00120     0.0007 lower
 #
-# THIS IS THE KNOB. If they now sit too low, reduce it; too high, raise it.
-SIDE_RAIL_DROP = 0.005
+# So the side rails sit 0.0007 above the outer-pylon missiles they fly beside.
+# This levels them, and nothing more. Dropping further is guesswork until
+# somebody who can see the model says the whole group is too high.
+SIDE_RAIL_DROP = 0.0007
 SIDE_RAIL_STATIONS = (1, 2, 5, 6)
 
 LIVERY_FOLDER = "assets/textures/F-15EX/"
