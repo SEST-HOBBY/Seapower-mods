@@ -102,7 +102,7 @@ def main():
     # 1b. Position offset so the external AIM-260 sits flush on this airframe's
     #     wing pylons (units: ~7cm per 0.001; +y = up, +z = forward). Tune here.
     text, k = re.subn(r"(\[WeaponSystem2\][^\[]*?NumberOfStations=\d+\n)",
-                      r"\1AAM260Positions=0,0.0025,0.005\n", text, count=1, flags=re.S)
+                      r"\1AAM260Positions=0,0.0025,0.002\n", text, count=1, flags=re.S)
     if k != 1:
         sys.exit("could not inject AAM260Positions into [WeaponSystem2]")
 
