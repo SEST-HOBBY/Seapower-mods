@@ -5,8 +5,9 @@
 .DESCRIPTION
     The whole update loop, in the order that actually works:
 
-      1. pull     - git pull, resolving the one conflict this workflow keeps
-                    producing (see below). Skip with -SkipPull.
+      1. pull     - conclude any merge left half-done, then git pull,
+                    resolving the one conflict this workflow keeps producing
+                    (see below). Skip with -SkipPull.
       2. install  - copy every SEST pack into StreamingAssets
                     (tools\install-sest-packs.ps1)
       3. order    - rewrite usersettings.ini [LoadOrder] from the canonical
@@ -56,12 +57,57 @@ if ((Test-SeaPowerRunning) -and -not $Force) {
            "undo the mod order this sets. Quit the game and re-run (-Force to override).")
 }
 
+function Resolve-MissionConflicts {
+    <# Stage every unmerged file, keeping YOUR copy for missions. Returns the
+       mission paths kept, or throws if something else is conflicted.
+
+       --ours during a merge means the local commit - the mission you imported
+       from the game, with your hand edits. The tooling that touched the same
+       file is idempotent, so re-running it puts its changes back on top. Any
+       other conflicted file is a real decision and stops the script. #>
+    $conflicts = @((& git diff --name-only --diff-filter=U) | Where-Object { $_ })
+    if (-not $conflicts) { return @() }
+
+    $missions = @($conflicts | Where-Object { $_ -like "integration/missions/*.ini" })
+    $others   = @($conflicts | Where-Object { $_ -notlike "integration/missions/*.ini" })
+    if ($others) {
+        Write-Host ""
+        Write-Warning "conflicts outside integration\missions - stopping, these need you:"
+        $others | ForEach-Object { Write-Host "    $_" }
+        throw "resolve them, run 'git commit', then re-run this script."
+    }
+    foreach ($f in $missions) {
+        Write-Host "  keeping YOUR imported copy of $f" -ForegroundColor Yellow
+        & git checkout --ours -- $f
+        & git add -- $f
+    }
+    return $missions
+}
+
 Push-Location $repoRoot
+# Never let git open an editor from a script - a stale editor swap file on
+# MERGE_MSG is exactly what strands a merge half-done.
+$env:GIT_EDITOR = "true"
 try {
 
 # --- 1. pull -----------------------------------------------------------------
 if (-not $SkipPull) {
     Write-Host "`n[1/3] pulling..." -ForegroundColor Cyan
+
+    # A merge left unconcluded (MERGE_HEAD present) blocks every future pull
+    # with "You have not concluded your merge". Usually the commit editor was
+    # closed without saving. Finish it before doing anything else.
+    $gitDir = (& git rev-parse --git-dir).Trim()
+    if (Test-Path -LiteralPath (Join-Path $gitDir "MERGE_HEAD")) {
+        Write-Host "  a previous merge was never concluded - finishing it" -ForegroundColor Yellow
+        $kept = Resolve-MissionConflicts
+        # --no-edit keeps git from opening an editor; a stale .swp on MERGE_MSG
+        # is what usually stranded the merge in the first place.
+        & git commit --no-edit
+        if ($LASTEXITCODE -ne 0) { throw "could not conclude the pending merge - run 'git status' and finish it by hand." }
+        if ($kept) { $script:MissionsMerged = $kept }
+        Write-Host "  pending merge concluded" -ForegroundColor Green
+    }
 
     $dirty = (& git status --porcelain) | Where-Object { $_ }
     if ($dirty) {
@@ -72,29 +118,15 @@ if (-not $SkipPull) {
 
     & git pull --no-rebase --no-edit
     if ($LASTEXITCODE -ne 0) {
-        $conflicts = @((& git diff --name-only --diff-filter=U) | Where-Object { $_ })
-        if (-not $conflicts) { throw "git pull failed (exit $LASTEXITCODE) - see the output above." }
-
-        $missions  = @($conflicts | Where-Object { $_ -like "integration/missions/*.ini" })
-        $others    = @($conflicts | Where-Object { $_ -notlike "integration/missions/*.ini" })
-
-        if ($others) {
-            Write-Host ""
-            Write-Warning "conflicts outside integration\missions - stopping, these need you:"
-            $others | ForEach-Object { Write-Host "    $_" }
-            throw "resolve them, 'git commit', then re-run this script."
-        }
-
-        foreach ($f in $missions) {
-            Write-Host "  keeping YOUR imported copy of $f" -ForegroundColor Yellow
-            & git checkout --ours -- $f          # --ours during a merge = your local commit
-            & git add -- $f
-        }
+        $kept = Resolve-MissionConflicts
+        if (-not $kept) { throw "git pull failed (exit $LASTEXITCODE) - see the output above." }
         & git commit --no-edit
         if ($LASTEXITCODE -ne 0) { throw "could not complete the merge commit - resolve by hand." }
+        $script:MissionsMerged = @($script:MissionsMerged) + $kept | Where-Object { $_ } | Select-Object -Unique
+    }
+    if ($script:MissionsMerged) {
         Write-Host "  merged. Re-run the mission tooling to put its changes back on top" -ForegroundColor Yellow
         Write-Host "  (this script does it for you with -RefreshMissions)." -ForegroundColor Yellow
-        $script:MissionsMerged = $missions
     }
 } else {
     Write-Host "`n[1/3] pull skipped (-SkipPull)" -ForegroundColor DarkGray
