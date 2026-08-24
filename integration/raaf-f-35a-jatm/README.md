@@ -4,16 +4,20 @@ AIM-260 loadout options for Greene's **RAAF F-35A**, which ships with today's AI
 already has JSM anti-ship fits — this patch adds the future air-to-air arsenal, following the
 mod's own Stealth / non-Stealth loadout convention.
 
-## The three new loadouts
+## The four new loadouts
 
 | Loadout | Stores |
 |---|---|
 | Intercept Stealth (AIM-260) | 6× AIM-260 internal, all pylons off — clean-signature fit |
 | Intercept (AIM-260) | 6× internal + 2× AIM-9X wingtip |
 | Intercept Beast (10× AIM-260) | 6× internal + 4× AIM-260 on wing pylons + 2× AIM-9X |
+| Intercept MALICE (2× AIM-424 int) | 2× **AIM-424 MALICE** on the big bay stations + 2× AIM-260 on the bay door rails — full stealth |
 
 The AIM-260 comes from the **Dingtools Weapon Pack** (`dts_aim-260` internal, `dts_aim-260_w`
-external); the AIM-9X is bundled with the RAAF mod itself.
+external); the AIM-9X is bundled with the RAAF mod itself. The AIM-424 MALICE is this pack's
+own what-if weapon (`ammunition/sest_aim-424.ini`, identical copy in the F-35C pack): the
+AGM-88G AARGM-ER airframe with AIM-174B-class reach and a passive anti-emitter mode — keep
+**US Naval Aviation** enabled, it provides the AGM-88G 3D model the MALICE renders with.
 
 ## Install
 
