@@ -23,7 +23,7 @@ Name=SEST JMSDF Mogami
 Description=Gives the Mogami-class frigate its real JMSDF air group: embarks an SH-60K and supports both JMSDF Seahawks from the Euromod JMSDF pack (SH-2F kept for compatibility). Requires the Mogami-class Frigate mod and Euromod JMSDF. Place ABOVE the Mogami mod in the Mod Manager.
 
 [Compatibility]
-ApproximateVersion=0.6.8
+ApproximateVersion=0.8.2
 """
 
 

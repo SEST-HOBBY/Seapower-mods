@@ -49,7 +49,10 @@ Station1=usn_aim-9x
 Station2=usn_aim-9x
 
 [WeaponSystem1Intercept260Beast]
-SubmodelsToHide=pyl_l,pyl_r,wing_rail_inner,wing_rail_outer,bru-61a_left,bru-61a_right
+# pyl_l/pyl_r are the WINGTIP launch rails and [WeaponSystem2Intercept260Beast]
+# puts AIM-9X on the wingtip stations, so they must stay visible or the
+# missiles float unattached.
+SubmodelsToHide=wing_rail_inner,wing_rail_outer,bru-61a_left,bru-61a_right
 
 Station1=dts_aim-260
 Station2=dts_aim-260
@@ -94,7 +97,7 @@ Name=SEST RAAF F-35A JATM
 Description=AIM-260 JATM and AIM-424 MALICE loadout options for the RAAF F-35A: a 6-missile internal stealth fit, the same with wingtip AIM-9X, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (AARGM-ER airframe, AIM-174-class reach). Requires the RAAF F-35A mod and the Dingtools Weapon Pack; US Naval Aviation provides the AGM-88G model the MALICE uses. Place ABOVE the RAAF F-35A mod in the Mod Manager.
 
 [Compatibility]
-ApproximateVersion=0.6.8
+ApproximateVersion=0.8.2
 """
 
 

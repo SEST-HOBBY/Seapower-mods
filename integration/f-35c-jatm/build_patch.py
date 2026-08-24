@@ -50,7 +50,10 @@ Station2=usn_aim-9x
 ReadyUpTime=25               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 
-SubmodelsToHide=pyl_l,pyl_r,wing_rail_inner,wing_rail_outer,bru-61a_left,bru-61a_right
+# pyl_l/pyl_r are the WINGTIP launch rails and [WeaponSystem2Intercept260Beast]
+# puts AIM-9X on the wingtip stations, so they must stay visible or the
+# missiles float unattached.
+SubmodelsToHide=wing_rail_inner,wing_rail_outer,bru-61a_left,bru-61a_right
 
 Station1=dts_aim-260
 Station2=dts_aim-260
@@ -104,7 +107,7 @@ Name=SEST F-35C JATM
 Description=AIM-260 JATM and AIM-424 MALICE loadout options for the US Naval Aviation F-35C (the aircraft the Gerald R. Ford JSF air wing flies): a 6-missile internal stealth intercept fit, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (AARGM-ER airframe, AIM-174-class reach). Requires US Naval Aviation (also provides the AGM-88G model the MALICE uses) and the Dingtools Weapon Pack. Place ABOVE US Naval Aviation, F-35C Alt. Loadouts, the deprecated MyGo F-35C, and Modern US Navy. Also removes a duplicated AntiShip section from the base file.
 
 [Compatibility]
-ApproximateVersion=0.6.8
+ApproximateVersion=0.8.2
 """
 
 DUP_ANTISHIP = """[WeaponSystem1AntiShip]

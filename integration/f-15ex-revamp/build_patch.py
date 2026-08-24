@@ -122,10 +122,10 @@ CoolDownTime=60              // in minutes. Time that plane will spend in mainte
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # 8-round AIM-174B missile truck: 4 under the fuselage (Bottom1 wells) and
 # 4 on the inner wing pylons' shoulder rails, centreline fuel only.
-Station1=usn_aim-174b
-Station2=usn_aim-174b
-Station5=usn_aim-174b
-Station6=usn_aim-174b
+Station1=usn_aim-174b|120
+Station2=usn_aim-174b|120
+Station5=usn_aim-174b|120
+Station6=usn_aim-174b|120
 Station11=usn_aim-174b|AGM
 Station12=usn_aim-174b|AGM
 Station13=usn_aim-174b|AGM
@@ -171,10 +171,10 @@ ReadyUpTime=35               // in minutes. Time that plane will spend refueling
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # MALICE mirror of Truck174: 8x AIM-424, centreline fuel only.
-Station1=sest_aim-424
-Station2=sest_aim-424
-Station5=sest_aim-424
-Station6=sest_aim-424
+Station1=sest_aim-424|120
+Station2=sest_aim-424|120
+Station5=sest_aim-424|120
+Station6=sest_aim-424|120
 Station11=sest_aim-424|AGM
 Station12=sest_aim-424|AGM
 Station13=sest_aim-424|AGM
@@ -213,7 +213,7 @@ Name=SEST F-15EX Revamp
 Description=Nine extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x AGM-84D Harpoon, 4x GBU-31 Quicksink, and a what-if very-long-range family - 6x/4x+fuel/8x-truck AIM-174B fits plus matching 6x/4x+fuel/8x-truck AIM-424 MALICE fits. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; AIM-174B fits also need Murder Hornet, and the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
 
 [Compatibility]
-ApproximateVersion=0.6.8
+ApproximateVersion=0.8.2
 """
 
 
