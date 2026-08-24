@@ -326,6 +326,13 @@ def main():
             pool_type = new_type = old_type
             k = air_seen.get(old_type, 0)
             air_seen[old_type] = k + 1
+            # Same idempotence rule the vessels get: once a file has been
+            # dressed, an aircraft that already names a real squadron keeps
+            # it. Without this, adding one airliner reshuffles every livery
+            # in the mission (and overwrites deliberately chosen ones).
+            existing_sq = re.search(r"^SquadronReference=(\S+)", body, re.M)
+            if already_refined and existing_sq and existing_sq.group(1) != "Default":
+                continue
             pool = SQUADRON_POOLS.get(pool_type)
             if not pool:
                 continue
