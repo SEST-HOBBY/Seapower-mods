@@ -74,31 +74,46 @@ override of `ammunition/usn_tank_1200_f-18.ini` — byte-identical mesh block, `
 real Hornet tank both use. That closes the range gap without moving anything: NGJ MALICE showed
 ~1433 nm against the SEAD fits' ~860 purely because 4500 is 2.5× 1800.
 
-## Stores that clip the tanks## Stores that clip the tanks
+## The pylon convention
 
-`MurderHornetSEADHeavyTanks` carried four AGM-88G, and the pair on stations 13/14 **intersects the
-wing tanks** — confirmed in game. The geometry says why: those stations sit 0.0181 from the tank on
-the same wing, and an AARGM-ER is long while a 610-gal tank is fat. The pair on stations 3/4 is
-0.0323 away and clear.
+One rule for where things hang on the Growler, matching both the real EA-18G and this model:
 
-Stations 13/14 are now cleared from that fit, leaving 2× AGM-88G + 2 tanks + 2 AMRAAM — which is
-also the real Growler SEAD-with-fuel configuration.
+| Pylon | \|x\| | Carries |
+|---|---|---|
+| centreline | 0 | fuel |
+| fuselage | < 0.025 | AIM-120D3 |
+| **inboard wing** | ~0.033 | **fuel** |
+| **mid wing** | ~0.048–0.055 | **NGJ pods — kept clear of stores** |
+| **outboard wing** | 0.0629 | **AGM-88G / AIM-424 / AIM-260 / fuel** |
+| wingtip | 0.0947 | (unused) |
 
-The build reports other candidates rather than guessing at them. The filter is **distance AND
-size**: at or inside the confirmed 0.0181 separation, and at least the confirmed 468 kg. Distance
-alone flags about 20 stores per airframe and is useless — Murder Hornet routinely parks SDBs
-(93 kg) and AMRAAM (162 kg) beside the tanks and those are fine. With both halves it flags five
-loadouts per Super Hornet worth eyeballing:
+The mid-wing rule is the one that matters. `ALQ-249` and `NGL-LB` are baked into the airframe at
+that pylon and **cannot be moved from the ini** — they are submodels with no `Position` key. So
+anything hung there intersects them. That is what the AGM-88G pair on stations 13/14 was doing; it
+was never the fuel tanks, which sit a whole pylon further inboard.
 
-| Loadout | Store | Mass | Separation |
-|---|---|---|---|
-| `MH_AntiShipEF` | LRASM | 1450 kg | 0.01802 |
-| `MurderHornetPenetrator` | AIM-174B | 860 kg | 0.01802 |
-| `MH_QCSK31EF` / `MH_GBU-31EF` | GBU-31 | 946 kg | 0.01749 |
-| `MH_AGM-154EF` | JSOW | 600 kg | 0.01794 |
+**Consequence: the outboard pylon is a single pair, stations 3 and 4.** Under this convention a
+Growler carries **two** heavy weapons, not four or six. The four- and six-AGM fits cannot exist as
+such, so they are re-cut to differ by fuel instead of by weapon count:
 
-These are upstream's loadouts and are **not** changed — they are flagged for you to look at, since
-only you can see whether they actually intersect.
+| Fit | Outboard | Fuselage | Inboard | Centreline |
+|---|---|---|---|---|
+| `MurderHornetSEADHeavy` | 2× AGM-88G | 2× AMRAAM | — | — |
+| `MurderHornetSEADHeavyTanks` | 2× AGM-88G | 2× AMRAAM | 2× tank | — |
+| `MurderHornetLightsOut` | 2× AGM-88G | 2× AMRAAM | 2× tank | tank |
+| `SEST_MaliceNGJ` | 2× AIM-424 | 2× AMRAAM | 2× tank | — |
+| `SEST_NGJLongRange` | — | 2× AMRAAM | 2× tank | tank |
+
+The build **fails** if any Growler loadout puts a store on the mid-wing pylon. The 2020 and 2020s
+Growlers already complied and were not touched.
+
+## Other stores near the tanks
+
+The build also reports stores that sit as close to a fuel tank as the confirmed AGM-88G case
+**and** are at least as heavy (0.0181 separation, 468 kg). Both halves matter — distance alone
+flags about 20 per airframe, because SDBs (93 kg) and AMRAAM (162 kg) sit beside tanks routinely
+and are fine. On the Super Hornets it names LRASM, AIM-174B, GBU-31 and JSOW fits. Those are
+upstream's and are **not** changed — they are flagged for a human to look at.
 
 ## NGJ Long Range (3 tanks)
 

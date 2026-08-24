@@ -91,34 +91,12 @@ ResourcesMaterialFolder=aircraft/usaf_f-15c/
 ResourcesMaterial=usaf_f-15c_tank_mat
 """
 
-# Stations cleared from specific loadouts, each with its own reason - which is
-# printed, so the build log says what it actually did rather than assuming
-# every removal is a tank clash.
-STATION_REMOVALS = [
-    # Six AGM-88G crowds the wing. Dropping the INBOARD pair rather than the
-    # mid-wing one takes it to four while keeping it distinct from
-    # MurderHornetSEADHeavy, which already carries four on 3/4 + 30/31 - clear
-    # 13/14 instead and the two fits become byte-identical, which is worse than
-    # either. No tanks are fitted here, so the mid-wing pair has nothing to
-    # clash with.
-    ("MurderHornetLightsOut", (30, 31),
-     "six AGM-88G crowds the wing; dropped the inboard pair for four, keeping "
-     "it distinct from SEADHeavy which uses the inboard pair"),
-    ("MurderHornetSEADHeavyTanks", (13, 14),
-     "AGM-88G sits 0.0181 from the wing tank on the same wing, and an AARGM-ER "
-     "is long while a 610-gal tank is fat, so they intersect. The pair left on "
-     "stations 3/4 is 0.0323 away and clear. Result: 2x AGM-88G + 2 tanks + "
-     "2 AMRAAM, which is also the real Growler SEAD-with-fuel fit."),
-]
-
-# The AGM-88G/tank clash confirmed in game sets the bar for flagging others:
-# same separation or closer, AND a store at least as big. Both halves matter -
-# Murder Hornet's external-fuel fits routinely park small stores beside the
-# tanks (SDBs at 0.0142, AMRAAM at 0.0133) and those are fine, because a
-# 93 kg SDB is not a 468 kg AARGM-ER. Distance alone flags 20 per airframe and
-# is useless; distance plus size flags the three that actually look wrong.
+# Bar for flagging stores that sit close to a fuel tank: same separation or
+# closer than the AGM-88G case, AND at least as heavy. Both halves matter -
+# distance alone flags 20 per airframe, because Murder Hornet routinely parks
+# SDBs (93 kg) beside the tanks and those are fine.
 CLASH_SEPARATION = 0.0181
-CLASH_MASS = 468              # usn_agm-88g, the confirmed case
+CLASH_MASS = 468              # usn_agm-88g
 
 GROWLER_KEYS = ["SEST_MaliceNGJ"]
 LONG_RANGE_KEY = "SEST_NGJLongRange"
@@ -405,6 +383,118 @@ def fix_floating_tanks(text: str, source_name: str) -> str:
     return text
 
 
+# ---------------------------------------------------------------------------
+# Growler pylon convention
+# ---------------------------------------------------------------------------
+# One rule for where things hang, matching the real EA-18G and the model:
+#
+#   fuselage       (|x| < 0.025)  AIM-120D3
+#   INBOARD wing   (~0.033)       fuel
+#   MID wing       (~0.048-0.055) NGJ pods - KEEP CLEAR OF STORES
+#   OUTBOARD wing  (0.0629)       AGM-88G / AIM-424 / AIM-260 / fuel
+#   centreline     (0)            fuel
+#
+# The mid-wing rule is the important one. The ALQ-249 and NGL-LB pod meshes are
+# baked into the airframe at that pylon and cannot be moved from the ini - they
+# are submodels with no Position key. So anything hung there intersects them,
+# which is what the AGM-88G pair on stations 13/14 was doing. It was never the
+# fuel tanks: those are on the inboard pylon, a whole pylon further in.
+#
+# CONSEQUENCE: the outboard pylon is a SINGLE PAIR, stations 3 and 4. Under this
+# convention a Growler carries TWO heavy weapons, not four or six. The four- and
+# six-AGM fits cannot exist as such, and are re-cut below to differ by fuel
+# instead of by weapon count.
+PYLON_BANDS = [
+    (0.025, "fuselage"),
+    (0.042, "inboard"),
+    (0.058, "mid"),          # NGJ pods
+    (0.075, "outboard"),
+    (9.999, "wingtip"),
+]
+MID_WING = "mid"
+
+# Station numbers by role on the Growler airframes.
+FUSELAGE_AAM = (11, 12)
+INBOARD_TANK = (27, 28)
+OUTBOARD_WEAPON = (3, 4)
+CENTRELINE_TANK = 29
+
+# The Growler fits, re-cut to the convention. Each is (loadout, description of
+# what changed) plus the station lines that replace whatever was there.
+GROWLER_FIT_PLAN = {
+    "MurderHornetSEADHeavy": (
+        "clean SEAD: 2x AGM-88G outboard, no fuel",
+        [(3, "usn_agm-88g"), (4, "usn_agm-88g"),
+         (11, "usn_aim-120d-3"), (12, "usn_aim-120d-3")]),
+    "MurderHornetSEADHeavyTanks": (
+        "SEAD with fuel: 2x AGM-88G outboard, 2 wing tanks inboard",
+        [(3, "usn_agm-88g"), (4, "usn_agm-88g"),
+         (11, "usn_aim-120d-3"), (12, "usn_aim-120d-3"),
+         (27, "__WING_TANK__"), (28, "__WING_TANK__")]),
+    "MurderHornetLightsOut": (
+        "max-endurance SEAD: 2x AGM-88G outboard, 3 tanks - was six AGM, "
+        "which the convention cannot carry",
+        [(3, "usn_agm-88g"), (4, "usn_agm-88g"),
+         (11, "usn_aim-120d-3"), (12, "usn_aim-120d-3"),
+         (27, "__WING_TANK__"), (28, "__WING_TANK__"), (29, "__WING_TANK__")]),
+}
+
+
+def pylon_of(x: float) -> str:
+    for limit, name in PYLON_BANDS:
+        if abs(x) < limit:
+            return name
+    return "wingtip"
+
+
+def station_positions(text: str) -> dict:
+    return {int(a): float(b) for a, b, _c, _d in
+            re.findall(r"^Station(\d+)=([-\d.]+),([-\d.]+),([-\d.]+)", text, re.M)}
+
+
+def apply_pylon_convention(text: str, source_name: str, wing_tank: str) -> str:
+    """Re-cut the Growler fits so every store hangs on the right pylon."""
+    pos = station_positions(text)
+    for loadout, (why, plan) in GROWLER_FIT_PLAN.items():
+        m = re.search(rf"^(\[WeaponSystem1{re.escape(loadout)}\]\n)(.*?)(?=^\[)",
+                      text, re.M | re.S)
+        if not m:
+            continue                      # not on this airframe
+        body = m.group(2)
+        wanted = [(s, a) for s, a in plan if s in pos]
+        dropped = [s for s in plan if s[0] not in pos]
+        if dropped:
+            print(f"    {source_name}: {loadout} - skipping station(s) "
+                  f"{[s for s, _ in dropped]}, not on this airframe")
+        before = re.findall(r"^Station\d+=\S+", body, re.M)
+        kept = [l for l in body.splitlines() if not re.match(r"^Station\d+=", l)]
+        lines = [f"Station{s}={a.replace('__WING_TANK__', wing_tank)}" for s, a in wanted]
+        # keep the non-station keys, then the new station block
+        while kept and not kept[-1].strip():
+            kept.pop()
+        new_body = "\n".join(kept + lines) + "\n\n"
+        if len(before) != len(lines):
+            print(f"    {source_name}: {loadout} - {len(before)} -> {len(lines)} stores: {why}")
+        text = text[:m.start(2)] + new_body + text[m.end(2):]
+    return text
+
+
+def verify_pylon_convention(text: str, source_name: str) -> None:
+    """Nothing may hang on the mid-wing pylon - the NGJ pods are there."""
+    pos = station_positions(text)
+    problems = []
+    for m in re.finditer(r"^\[WeaponSystem1([A-Za-z0-9_\-]+)\]\n(.*?)(?=^\[)",
+                         text, re.M | re.S):
+        for s, ammo in re.findall(r"^Station(\d+)=([A-Za-z]\S*)", m.group(2), re.M):
+            s = int(s)
+            if s in pos and pylon_of(pos[s]) == MID_WING:
+                problems.append(f"{m.group(1)} S{s}={ammo.split('|')[0]} "
+                                f"(|x|={abs(pos[s]):.5f}) is on the NGJ pylon")
+    if problems:
+        sys.exit(f"{source_name}: stores on the mid-wing pylon:\n  "
+                 + "\n  ".join(sorted(set(problems))))
+
+
 def detect_wing_tank(text: str, source_name: str) -> str:
     """The tank THIS airframe's own loadouts hang on the wing stations.
 
@@ -421,25 +511,6 @@ def detect_wing_tank(text: str, source_name: str) -> str:
     tank = max(set(used), key=used.count).split("|")[0]
     print(f"    {source_name}: wing tank is {tank} (copied from this airframe's own fits)")
     return tank
-
-
-def apply_station_removals(text: str, source_name: str) -> str:
-    """Clear specific stations from specific loadouts, each for its own reason."""
-    for loadout, stations, why in STATION_REMOVALS:
-        m = re.search(rf"^\[WeaponSystem1{re.escape(loadout)}\]\n(.*?)(?=^\[)",
-                      text, re.M | re.S)
-        if not m:
-            continue                      # that loadout is not on this airframe
-        body = m.group(1)
-        present = [s for s in stations if re.search(rf"^Station{s}=", body, re.M)]
-        if not present:
-            continue                      # already clear, or upstream fixed it
-        new_body = body
-        for s in present:
-            new_body = re.sub(rf"^Station{s}=.*\n", "", new_body, count=1, flags=re.M)
-        text = text[:m.start(1)] + new_body + text[m.end(1):]
-        print(f"    {source_name}: {loadout} - cleared station(s) {present}: {why}")
-    return text
 
 
 def ammunition_mass(ammo_id: str, _cache: dict = {}) -> int:
@@ -515,8 +586,8 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
             sys.exit(f"{source.name}: upstream NGJ layout changed; missing {missing}")
 
     text = fix_floating_tanks(text, source.name)
-    text = apply_station_removals(text, source.name)
     wing_tank = detect_wing_tank(text, source.name)
+    text = apply_pylon_convention(text, source.name, wing_tank)
     verify_station_geometry(text, GROWLER_LOADOUTS, source.name)
     verify_tank_points(GROWLER_LOADOUTS, source.name)
     keys = list(GROWLER_KEYS)
@@ -530,6 +601,7 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
         print(f"    {source.name}: no centreline station - skipping {LONG_RANGE_KEY}")
     text = extend_loadouts(text, keys, source.name)
     text = inject_loadouts(text, sections, source.name)
+    verify_pylon_convention(text, source.name)
     report_tank_clearance(text, source.name)
     for key in keys:
         if text.count(f"[WeaponSystem1{key}]") != 1:
@@ -567,8 +639,8 @@ def build_super_hornet(file_name: str) -> None:
     text = source.read_text(encoding="utf-8-sig")
     text = replace_harpoons(text, source.name)
     text = fix_floating_tanks(text, source.name)
-    text = apply_station_removals(text, source.name)
     wing_tank = detect_wing_tank(text, source.name)
+    text = apply_pylon_convention(text, source.name, wing_tank)
     verify_station_geometry(text, BLOCK_III_LOADOUT, source.name)
     verify_tank_points(BLOCK_III_LOADOUT, source.name)
     text = extend_loadouts(text, BLOCK_III_KEYS, source.name)
