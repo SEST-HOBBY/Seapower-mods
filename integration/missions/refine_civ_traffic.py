@@ -57,7 +57,9 @@ LANE_MIX = [
     "civ_ms_bulk",              # capesize bulker
     "civ_ms_act_1",             # container
 ]
-LNG_NAMES = ["LNG Ichthys Venture", "LNG Bayu Frontier"]
+# civ_ms_ritina is a 253,000t crude VLCC (no LNG carrier exists in the mod
+# set), so these are motor-tanker names rather than "LNG ..." ones.
+TANKER_NAMES = ["MT Ichthys Venture", "MT Bayu Frontier"]
 
 # The Auxilliary Merchant Pack's ran_ms_* hulls are ARMED auxiliary merchant
 # cruisers - wrong for neutral civilian traffic. Swap to unarmed coasters.
@@ -88,11 +90,24 @@ SQUADRON_POOLS = {
 # The third A320 becomes an Il-76TD freighter for type variety (cargo run).
 A320_TO_FREIGHTER_ORDINAL = 3
 
-# Marker appended to refined output. When the source already carries it (e.g.
-# the player re-exported the deployed refined mission), vessels whose Type is
-# already one of our output hulls are left alone instead of being reshuffled
-# through the mix again — only newly added units get dressed.
-MARKER = "# SEST-CIV-REFINED"
+# A player can group neutral vessels with a labelled formation, e.g.
+#   Neutral_Formation1=NeutralVessel1,NeutralVessel2|Bulk Carrier|Loose|1.5
+# Retyping a member out of the type its label names would contradict the
+# player's own intent, so a labelled member is dressed to MATCH the label;
+# a label we cannot map leaves the member's hull exactly as the player set it.
+FORMATION_HULLS = [
+    (("bulk", "ore", "bauxite", "alumina"), "civ_ms_bulk"),
+    (("lng", "gas", "crude", "vlcc", "tanker", "oil"), "civ_ms_ritina"),
+    (("product", "coastal tanker"), "civ_ms_sealift_pacific"),
+    (("container", "box", "feeder"), "civ_ms_mairangi_bay"),
+    (("car ", "roro", "ro-ro", "vehicle"), "civ_ms_car_carrier_a"),
+]
+
+# Our own signature, written into an allowed key (NameOverride). Its presence
+# means the file was dressed before: hulls already drawn from our output mix
+# are then left alone rather than reshuffled, so re-runs are idempotent.
+# Nothing is appended to the file itself - a stray marker line would land
+# inside whichever section happens to be last.
 
 
 def find_unit_file(kind, type_id):
@@ -133,6 +148,31 @@ def squadron_exists(type_id, squadron):
     return re.search(rf"^\[{squadron}\]", sf.read_text(encoding="utf-8", errors="replace"), re.M) is not None
 
 
+def formation_labels(text):
+    """Map 'NeutralVesselN' -> the label of the player formation it belongs to.
+
+    Line form: Neutral_Formation1=NeutralVessel1,NeutralVessel2|Label|Shape|1.5
+    """
+    out = {}
+    for line in re.findall(r"^Neutral_Formation\d+=(.+)$", text, re.M):
+        fields = line.split("|")
+        label = fields[1].strip() if len(fields) > 1 else ""
+        for member in fields[0].split(","):
+            member = member.strip()
+            if member:
+                out[member] = label
+    return out
+
+
+def hull_for_label(label):
+    """Hull id a formation label names, or None when it names nothing we map."""
+    low = label.lower()
+    for keys, hull in FORMATION_HULLS:
+        if any(k in low for k in keys):
+            return hull
+    return None
+
+
 def set_key(body, key, value):
     """Set key=value inside a section body: replace if present, else insert
     after the Type= line."""
@@ -171,14 +211,15 @@ def main():
     except UnicodeDecodeError:
         text = raw.decode("cp1252")
     text = text.replace("\r\n", "\n")
-    already_refined = MARKER in text
+    already_refined = any(n in text for n in TANKER_NAMES)
 
     # Split into (header, body) chunks, preserving everything verbatim.
     parts = re.split(r"(^\[[^\]]+\]\s*$)", text, flags=re.M)
     # parts = [pre, header1, body1, header2, body2, ...]
 
     lane_i = coast_i = 0
-    lng_names = list(LNG_NAMES)
+    tanker_names = list(TANKER_NAMES)
+    labels = formation_labels(text)
     air_seen = {}
     changes = []
     pool_cache = {}
@@ -199,7 +240,12 @@ def main():
                 continue
             if already_refined and old_type in set(LANE_MIX) | set(COASTAL_MIX):
                 continue                                  # dressed on a prior run
-            if old_type.startswith("civ_fv_"):
+            label = labels.get(header.strip("[]"))
+            if label is not None:
+                # Player grouped this hull in a labelled formation: match the
+                # label, or leave their choice alone when it names no hull.
+                new_type = hull_for_label(label) or old_type
+            elif old_type.startswith("civ_fv_"):
                 new_type = old_type                       # fishing: keep hull
             elif old_type.startswith(("ran_ms_", "ran_fv_")):
                 new_type = COASTAL_MIX[coast_i % len(COASTAL_MIX)]
@@ -216,8 +262,8 @@ def main():
             variant = pool[(7 * n + 3) % len(pool)]
             body = set_key(body, "Type", new_type)
             body = set_key(body, "VariantReference", variant)
-            if new_type == "civ_ms_ritina" and lng_names:
-                body = set_key(body, "NameOverride", lng_names.pop(0))
+            if new_type == "civ_ms_ritina" and tanker_names and label is None:
+                body = set_key(body, "NameOverride", tanker_names.pop(0))
             changes.append(f"{header.strip()} {old_type} -> {new_type} ({variant})")
         else:
             pool_type = old_type
@@ -248,8 +294,6 @@ def main():
         out_text, renamed = re.subn(r"^Name=.*$", f"Name={args.rename_to}",
                                     out_text, flags=re.M)
 
-    if MARKER not in out_text:
-        out_text = out_text.rstrip("\n") + f"\n\n{MARKER}\n"
     out.write_text(out_text, encoding="utf-8", newline="\n")
     for c in changes:
         print("  " + c)
