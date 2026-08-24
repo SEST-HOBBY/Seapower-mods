@@ -140,3 +140,33 @@ Note the check is done **per weapon system**. Each `[WeaponSystemN] #Hardpoint` 
 station table, and a loadout named `[WeaponSystemN<Name>]` indexes into *that* table — conflating
 them produces a page of false positives, because Station3 means "right wing pylon bottom" in
 WeaponSystem1 and "right bottom aft" in WeaponSystem2.
+
+
+## Side-rail height
+
+Stations 1/2/5/6 are the side-attach rails on the inner wing pylon — the ones carrying AIM-260
+above the fuel tank. Upstream puts them at `y=-0.001`, and the `|120` position key adds `+0.0005`,
+so they end up at **net -0.00050: the highest stores anywhere on the aircraft, and 0.0058 _above_
+the pylon they hang from.** They float up inside the wing rather than sitting on the pylon's side.
+
+For scale, everything else on that wing:
+
+| | net y |
+|---|---|
+| **side rails (1/2/5/6)** | **−0.00050** ← were here |
+| pylon2 (7–10) | −0.00120 |
+| wing pylon attach point (16/17) | −0.00630 |
+| fuel tank centre | −0.01080 |
+
+`SIDE_RAIL_DROP` in `build_patch.py` lowers them by **0.005**, to net **−0.00550** — just above the
+pylon attach point, so they sit on the pylon, below the wing, well clear of the tank.
+
+**That constant is the knob.** Too low now? Reduce it. Still too high? Raise it. The build asserts
+both wings move together, that the four end at the same height, and that they never drop to or
+below the wing station — verified by setting it to 0.02 and watching the build reject with
+`side rails dropped to -0.021 which is at or below the wing station at -0.0063`.
+
+The rotations were checked and left alone. `0,0,±90` on paired flanking rails is the dominant
+convention across the collection (F/A-18E/F, A-10C, Mi-8, F-104, Tornado IDS), and `plan_j-15a`
+uses byte-identical values — `S1+S5 = 0,0,90`, `S2+S6 = 0,0,-90`. Only the Tornado ADV rolls such
+pairs oppositely. The rails were never mis-rolled, just too high.

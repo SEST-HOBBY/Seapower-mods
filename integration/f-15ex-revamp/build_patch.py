@@ -301,6 +301,31 @@ F15EX_SQUADRONS = [
      "67_fs.jpg", ["Talon"]),
 ]
 
+# ---------------------------------------------------------------------------
+# Side-rail height
+# ---------------------------------------------------------------------------
+# Stations 1/2/5/6 are the side-attach rails on the inner wing pylon - the ones
+# that carry AIM-260 above the fuel tank. Upstream puts them at y=-0.001, and
+# with the |120 position key's +0.0005 they end up at net y=-0.00050: the
+# HIGHEST stores anywhere on the aircraft, and 0.0058 ABOVE the pylon they hang
+# from (the wing station attaches at -0.0063). So they float up inside the wing
+# instead of sitting on the pylon's side, which is what "sitting too high"
+# looks like in the external view.
+#
+# For scale, the other things on that wing:
+#     side rails   net -0.00050   <- these
+#     pylon2       net -0.00120
+#     pylon attach     -0.00630
+#     tank centre      -0.01080
+#
+# Dropping them by 0.005 puts them at net -0.00550, just above the pylon attach
+# point - on the pylon, below the wing, still well clear of the tank. Both wings
+# move together; the build asserts they stay mirrored and stay above the tank.
+#
+# THIS IS THE KNOB. If they now sit too low, reduce it; too high, raise it.
+SIDE_RAIL_DROP = 0.005
+SIDE_RAIL_STATIONS = (1, 2, 5, 6)
+
 LIVERY_FOLDER = "assets/textures/F-15EX/"
 
 SQUADRONS_HEADER = """\
@@ -319,6 +344,52 @@ NumberOfSquadrons={count}
 Nation=US
 
 """
+
+
+def lower_side_rails(text):
+    """Drop the inner-pylon side rails onto the pylon instead of into the wing."""
+    moved = {}
+
+    def drop(m):
+        s, x, y, z, comment = int(m.group(1)), *[float(m.group(i)) for i in (2, 3, 4)], m.group(5) or ""
+        if s not in SIDE_RAIL_STATIONS:
+            return m.group(0)
+        new_y = round(y - SIDE_RAIL_DROP, 6)
+        moved[s] = (y, new_y, x)
+        return f"Station{s}={m.group(2)},{new_y:g},{m.group(4)}{comment}"
+
+    # ONLY the [WeaponSystem1] hardpoint block. WeaponSystem2 has its own
+    # station table where 1/2/5/6 are fuselage wells, and rewriting those would
+    # move the wrong stores - the same conflation that produced a page of false
+    # positives in the symmetry audit.
+    m = re.search(r"^\[WeaponSystem1\][^\n]*\n(.*?)(?=^\[WeaponSystem)", text, re.S | re.M)
+    if not m:
+        sys.exit("[WeaponSystem1] hardpoint block not found — upstream layout changed")
+    text = text[:m.start(1)] + re.sub(
+        r"^Station(\d+)=([-\d.]+),([-\d.]+),([-\d.]+)(\s*//.*)?$",
+        drop, m.group(1), flags=re.M) + text[m.end(1):]
+    missing = [s for s in SIDE_RAIL_STATIONS if s not in moved]
+    if missing:
+        sys.exit(f"side rail station(s) {missing} not found — upstream layout changed")
+
+    # Both wings must move together, and nothing may end up at or below the tank.
+    ys = {new for _old, new, _x in moved.values()}
+    if len(ys) != 1:
+        sys.exit(f"side rails ended at different heights: {sorted(ys)}")
+    hp = re.search(r"^\[WeaponSystem1\][^\n]*\n(.*?)(?=^\[WeaponSystem)", text, re.S | re.M).group(1)
+    tank_y = float(re.search(r"^Station17=[-\d.]+,([-\d.]+),", hp, re.M).group(1))
+    new_y = ys.pop()
+    if new_y <= tank_y:
+        sys.exit(f"side rails dropped to {new_y} which is at or below the wing "
+                 f"station at {tank_y} — reduce SIDE_RAIL_DROP")
+    pairs = [(1, 2), (5, 6)]
+    for a, b in pairs:
+        if abs(moved[a][2] + moved[b][2]) > 1e-9:
+            sys.exit(f"side rails S{a}/S{b} are no longer mirrored")
+    old = next(iter(moved.values()))[0]
+    print(f"  side rails S{list(SIDE_RAIL_STATIONS)} lowered {old:g} -> {new_y:g} "
+          f"(net {new_y + 0.0005:g} with the 120 offset; pylon attaches at {tank_y:g})")
+    return text
 
 
 def build_squadrons():
@@ -542,6 +613,7 @@ def main():
 
     # 5. Repair mirror symmetry, then refuse to ship anything still lopsided
     text, sym_fixed = fix_symmetry(text)
+    text = lower_side_rails(text)
     check_symmetry(text)
 
     # 6. Write the mod folder
