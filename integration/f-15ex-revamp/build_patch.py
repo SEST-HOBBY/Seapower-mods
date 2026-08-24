@@ -18,7 +18,7 @@ MURDER_HORNET = ROOT / "mods-source" / "3430135740"     # Murder Hornet (AIM-174
 VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
 OUT = Path(__file__).resolve().parent / "SEST_F-15EX_Revamp"
 
-NEW_KEYS = ["AntiShipHeavy", "AntiShipHarpoon", "Quicksink", "BigStick174"]
+NEW_KEYS = ["AntiShipHeavy", "AntiShipHarpoon", "Quicksink", "BigStick174", "BigStick174ER"]
 
 NEW_SECTIONS = """\
 [--------------------------- SEST Revamp loadouts ---------------------------]
@@ -93,6 +93,22 @@ Station15=usaf_tank_610_f-15|WT
 Station16=usn_aim-174b|WW
 Station17=usn_aim-174b|WW
 
+[WeaponSystem1BigStick174ER]
+ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
+CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
+SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
+Station7=dts_aim-120d-3_w|120
+Station8=dts_aim-120d-3_w|120
+Station9=dts_aim-9x
+Station10=dts_aim-9x
+Station11=usn_aim-174b|AGM
+Station12=usn_aim-174b|AGM
+Station13=usn_aim-174b|AGM
+Station14=usn_aim-174b|AGM
+Station15=usaf_tank_610_f-15|WT
+Station16=usaf_tank_610_f-15|WT
+Station17=usaf_tank_610_f-15|WT
+
 """
 
 LOADOUT_NAMES = {
@@ -101,12 +117,14 @@ LOADOUT_NAMES = {
         "AntiShipHarpoon": "AntiShipHarpoon",
         "Quicksink": "StrikeQuicksink",
         "BigStick174": "Intercept174",
+        "BigStick174ER": "Intercept174 LongRange",
     },
     "cn": {
         "AntiShipHeavy": "重型反舰LRASM×6",
         "AntiShipHarpoon": "鱼叉反舰",
         "Quicksink": "快沉反舰JDAM",
         "BigStick174": "超远程截击174",
+        "BigStick174ER": "超远程截击174 (远程)",
     },
 }
 
