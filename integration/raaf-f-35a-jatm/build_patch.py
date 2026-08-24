@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 UPSTREAM = ROOT / "mods-source" / "3514484654"          # RAAF F-35A (Greene)
+USNA = ROOT / "mods-source" / "3737267013"              # US Naval Aviation (F-35C EW suite)
 WEAPON_PACK = ROOT / "mods-source" / "3760871384"       # Dingtools Weapon Pack
 VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
 OUT = Path(__file__).resolve().parent / "SEST_RAAF_F-35A_JATM"
@@ -94,11 +95,53 @@ LOADOUT_NAMES = {
 
 INFO_INI = """[Language_en]
 Name=SEST RAAF F-35A JATM
-Description=AIM-260 JATM and AIM-424 MALICE loadout options for the RAAF F-35A: a 6-missile internal stealth fit, the same with wingtip AIM-9X, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (AARGM-ER airframe, AIM-174-class reach). Requires the RAAF F-35A mod and the Dingtools Weapon Pack; US Naval Aviation provides the AGM-88G model the MALICE uses. Place ABOVE the RAAF F-35A mod in the Mod Manager.
+Description=Brings the RAAF F-35A's electronic-warfare suite up to F-35C standard (AN/APG-81 OECM, AN/ASQ-239A RWR and ESM, AN/ALQ-239A DECM, AAQ-40 EOTS, AAQ-37 EODAS, Link-16 and GPS receivers, replacing the F-22 legacy ALR-94/ALQ-94 pair) and adds AIM-260 JATM and AIM-424 MALICE loadout options: a 6-missile internal stealth fit, the same with wingtip AIM-9X, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (AARGM-ER airframe, AIM-174-class reach). Requires the RAAF F-35A mod, the Dingtools Weapon Pack, and US Naval Aviation (which defines the EW sensor types and the AGM-88G model the MALICE uses). Place ABOVE the RAAF F-35A mod in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.8.2
 """
+
+
+SENSOR_BANNER = "[---------- Weapon Systems ----------]"
+
+
+def transplant_ew_suite(text):
+    """Give the RAAF F-35A the F-35C's electronic-warfare suite.
+
+    Upstream ships a 6-sensor fit whose EW half is F-22 legacy kit
+    (AN/ALR-94 + ALQ-94). The maintained F-35C carries the real F-35 suite:
+    AN/APG-81 OECM, AN/ASQ-239A RWR and ESM, AN/ALQ-239A DECM, the AAQ-40
+    EOTS pair, AAQ-37 EODAS, Link-16 and GPS receivers.
+
+    SensorSystem1 (Eyes) and SensorSystem2 (AN/APG-81) are left in place
+    because AssociatedSensors= lines point at SensorSystem2 by index; only
+    systems 3+ are replaced, and the F-35C numbers them 3-12 exactly as they
+    land here, so no reference has to be renumbered.
+    """
+    donor = (USNA / "aircraft" / "usn_f-35c.ini").read_text(encoding="utf-8")
+    m = re.search(r"(?ms)^\[SensorSystem3\].*?(?=^\[-+ Weapon Systems -+\])", donor)
+    if not m:
+        sys.exit("could not extract the F-35C sensor block — upstream layout changed")
+    block = m.group(0).rstrip() + "\n\n"
+
+    count = len(re.findall(r"^\[SensorSystem\d+\]", block, re.M)) + 2  # + Eyes and radar
+    text, n = re.subn(r"(?ms)^\[SensorSystem3\].*?(?=^\[-+ Weapon Systems -+\])", block, text)
+    if n != 1:
+        sys.exit(f"sensor block replacement matched {n} times — refusing to guess")
+    text, k = re.subn(r"^NumberOfSensorSystems=\d+$",
+                      f"NumberOfSensorSystems={count}", text, count=1, flags=re.M)
+    if k != 1:
+        sys.exit("could not update NumberOfSensorSystems")
+
+    # Every sensor type named must be defined by a mod that will be loaded.
+    defined = set()
+    for f in (ROOT / "mods-source").rglob("systems/sensors.ini"):
+        defined |= set(re.findall(r"^\[([^\]]+)\]", f.read_text(encoding="utf-8", errors="replace"), re.M))
+    used = set(re.findall(r"^SystemName=(.+?)\s*$", block, re.M))
+    unknown = sorted(u for u in used if u not in defined)
+    if unknown:
+        sys.exit(f"sensor types not defined by any installed mod: {unknown}")
+    return text, count, sorted(used)
 
 
 def main():
@@ -127,6 +170,9 @@ def main():
                       text, count=1, flags=re.S)
     if k != 1:
         sys.exit("could not inject AAM260 position keys into [WeaponSystem2]")
+
+    # 1c. Bring the EW suite up to F-35C standard
+    text, sensor_count, sensor_names = transplant_ew_suite(text)
 
     # 2. Inject new sections before the WeaponMagazines banner
     marker = "[---------- WeaponMagazines ----------]"
@@ -158,7 +204,8 @@ def main():
         (d / "loadout_names.ini").write_text(body, encoding="utf-8")
 
     print(f"built {OUT.relative_to(ROOT)}: {len(existing) + len(NEW_KEYS)} loadouts "
-          f"({len(NEW_KEYS)} new), {len(refs)} ammo refs validated")
+          f"({len(NEW_KEYS)} new), {len(refs)} ammo refs validated, "
+          f"EW suite {sensor_count} sensors: {', '.join(sensor_names)}")
 
 
 if __name__ == "__main__":
