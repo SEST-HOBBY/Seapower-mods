@@ -17,7 +17,6 @@ Analysis of the 109-mod subscription list in `data/mod-catalog.json`. Everything
 
 ### Redundant duplicates (pick one)
 
-- **Shahed-136** — Zero Two's *Geran-2* version (two color variants + two launcher units) vs. Obiwonkanblomi's version (borrows Zero Two's launcher truck). Zero Two's is the more complete; keeping both risks duplicate unit entries.
 - **Deck-ops mods** — **Flight Deck Ops** is the *renamed continuation* of the Air Deck Operations upgrade ("Formerly, the FDO was known as the Air deck operations upgrade"). **ADO – Nimitz (2000s)** by a different author reads like an *application* of that upgrade to the Nimitz — it may depend on FDO rather than compete with it; verify before treating the pair as pick-one. Whichever is kept, test against **Nimitz Expanded**'s eight hulls, not just the vanilla Nimitz (they almost certainly clone the same Nimitz data both deck mods override).
 
 ### Missing / manual dependencies — verify installed
