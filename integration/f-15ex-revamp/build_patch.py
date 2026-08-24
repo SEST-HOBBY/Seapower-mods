@@ -381,6 +381,119 @@ def build_aircraft_names(lang):
     return "\n".join(lines) + "\n"
 
 
+# ---------------------------------------------------------------------------
+# Symmetry repairs
+# ---------------------------------------------------------------------------
+# An aircraft hangs stores in mirrored pairs. Two upstream defects break that:
+#
+#  1. AirToAirIntercept puts dts_aim-260_w on Station9 (right outer wing pylon)
+#     and dts_aim-9x on Station10 (left outer wing pylon) - visibly different
+#     missiles on the same pair of pylons. Every other fit in the mod pairs
+#     those two stations correctly (Default and AirToAir 9x/9x, LongRange and
+#     AAMT120 120d-3/120d-3, AAMT260 260/260), and this is the only fit that
+#     carries an ODD number of Sidewinders: exactly one, on the left wing.
+#
+#     Station10 is the stale half, not Station9: it reads plain `dts_aim-9x`
+#     with no position key, which is the Default/AirToAir pattern, while every
+#     other wing-rail missile in this loadout carries the `|120` rail offset.
+#     So the fix matches Station10 to Station9 rather than the other way, which
+#     also makes the fit a clean 12x AIM-260.
+#
+#  2. Stations 2, 3 and 4 sit at the IDENTICAL point x=+0.0486 - "Right Wing
+#     pylon outer" plus TWO "Right Wing pylon bottom". There is no left-hand
+#     pylon-bottom station at all, so anything mounted on 3 and 4 stacks on the
+#     right wing with nothing opposite. Nothing in WeaponSystem1 uses them
+#     today, so this is a latent trap rather than a live bug; Station4 is
+#     mirrored to the left so the pair is usable and cannot spring it later.
+# (section to edit, line to replace, replacement). Both edits are scoped to a
+# named section: `Station10=dts_aim-9x` is CORRECT in 18 other loadouts, so a
+# blind file-wide replace would have rewritten every one of them.
+SYMMETRY_FIXES = [
+    ("WeaponSystem1AirToAirIntercept",
+     "Station10=dts_aim-9x",
+     "Station10=dts_aim-260_w|120",
+     "AirToAirIntercept left outer pylon: AIM-9X -> AIM-260 to match Station9"),
+    ("WeaponSystem1",
+     "Station4=0.0486,-0.001,-0.0079      //Right Wing pylon bottom",
+     "Station4=-0.0486,-0.001,-0.0079     //Left Wing pylon bottom",
+     "Station4 mirrored to the left wing (was a duplicate of the right)"),
+]
+
+# Pairs that are asymmetric on purpose and must NOT trip the guard below.
+SYMMETRY_EXEMPT = {
+    # Two different pods (AAQ-33 targeting, AAQ-13 navigation) on mounts at
+    # slightly different heights - not a mirrored pair to begin with.
+    (26, 27),
+    # A single B61 on one wing station. Upstream's choice, and a real single
+    # weapon carry is a thing; flagging it every build would be noise.
+    (16, 17),
+}
+
+
+def fix_symmetry(text):
+    """Repair the mirror-symmetry defects, failing loudly if upstream moved."""
+    fixed = []
+    for section, old, new, what in SYMMETRY_FIXES:
+        m = re.search(rf"^\[{re.escape(section)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.S | re.M)
+        if not m:
+            sys.exit(f"section [{section}] not found — rebase this patch")
+        body = m.group(1)
+        if old not in body:
+            sys.exit(f"[{section}] no longer contains {old!r} — it may already be fixed "
+                     "upstream; rebase this patch")
+        if body.count(old) != 1:
+            sys.exit(f"{old!r} appears {body.count(old)} times in [{section}], expected 1 — rebase")
+        text = text[:m.start(1)] + body.replace(old, new, 1) + text[m.end(1):]
+        fixed.append(what)
+    return text, fixed
+
+
+def check_symmetry(text):
+    """Fail the build if any loadout hangs mismatched stores on a mirror pair.
+
+    Each [WeaponSystemN] #Hardpoint block owns its own station table, and a
+    loadout named [WeaponSystemN<Name>] indexes into THAT table - conflating
+    them produces a page of false positives, so the check is done per system.
+    """
+    problems = []
+    for m in re.finditer(r"^\[WeaponSystem(\d+)\]([^\n]*)\n(.*?)(?=^\[WeaponSystem|\Z)",
+                         text, re.S | re.M):
+        if "Hardpoint" not in m.group(2):
+            continue
+        ws = m.group(1)
+        pos, lab = {}, {}
+        for sm in re.finditer(
+                r"^Station(\d+)=([-\d.]+),([-\d.]+),([-\d.]+)\s*(?://\s*(.*))?$",
+                m.group(3), re.M):
+            pos[int(sm.group(1))] = tuple(round(float(sm.group(i)), 6) for i in (2, 3, 4))
+            lab[int(sm.group(1))] = (sm.group(5) or "").strip()
+
+        # Mirror partner: exactly negated x, same y and z, nearest index.
+        mirror = {}
+        for a, (x, y, z) in pos.items():
+            if abs(x) < 1e-9:
+                continue
+            cands = [b for b, (x2, y2, z2) in pos.items()
+                     if b != a and abs(x2 + x) < 1e-9 and abs(y2 - y) < 1e-9 and abs(z2 - z) < 1e-9]
+            if cands:
+                mirror[a] = min(cands, key=lambda b: abs(b - a))
+
+        for lm in re.finditer(rf"^\[WeaponSystem{ws}([A-Za-z0-9_]+)\]\n(.*?)(?=^\[|\Z)",
+                              text, re.S | re.M):
+            st = {int(a): b for a, b in re.findall(r"^Station(\d+)=(\S+)", lm.group(2), re.M)}
+            for s, store in sorted(st.items()):
+                p = mirror.get(s)
+                if p is None or s > p or tuple(sorted((s, p))) in SYMMETRY_EXEMPT:
+                    continue
+                other = st.get(p)
+                if other is None:
+                    problems.append(f"[{lm.group(1)}] S{s} ({lab[s]}) loaded, mirror S{p} empty")
+                elif other.split("|")[0] != store.split("|")[0]:
+                    problems.append(f"[{lm.group(1)}] S{s}={store} but mirror S{p}={other}")
+    if problems:
+        sys.exit("asymmetric loadouts:\n  " + "\n  ".join(sorted(set(problems))))
+
+
 INFO_INI = """[Language_en]
 Name=SEST F-15EX Revamp
 Description=Ten extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x GBU-31 Quicksink, and a what-if very-long-range family - 6x/4x+fuel/8x-truck AIM-174B fits plus matching 6x/4x+fuel/8x-truck AIM-424 MALICE fits, plus long-range versions of the AMRAAM and AIM-260 missile trucks that trade the wing twin-racks for fuel. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; AIM-174B fits also need Murder Hornet, and the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
@@ -427,7 +540,11 @@ def main():
     if bad:
         sys.exit(f"unknown position keys: {bad}")
 
-    # 5. Write the mod folder
+    # 5. Repair mirror symmetry, then refuse to ship anything still lopsided
+    text, sym_fixed = fix_symmetry(text)
+    check_symmetry(text)
+
+    # 6. Write the mod folder
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
     (OUT / "aircraft" / "usaf_f-15ex_SEII.ini").write_text(text, encoding="utf-8")
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
@@ -451,7 +568,8 @@ def main():
     n_loadouts = len(existing) + len(NEW_KEYS)
     print(f"built {OUT.relative_to(ROOT)}: {n_loadouts} loadouts ({len(NEW_KEYS)} new), "
           f"{len(F15EX_SQUADRONS)} squadrons ({len(F15EX_SQUADRONS) - 2} new), "
-          f"{len(refs)} ammo refs validated, {len(used)} position keys validated")
+          f"{len(refs)} ammo refs validated, {len(used)} position keys validated, "
+          f"symmetry repaired ({len(sym_fixed)}) and verified")
 
 
 if __name__ == "__main__":

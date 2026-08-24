@@ -98,3 +98,45 @@ documented radio callsigns. The squadron designations and basings are real.
 
 SEST RAAF Bases uses all eight: a full two-squadron wing at Amberley plus single-squadron dets at
 Tindal, Darwin, Scherger, Townsville, Curtin and Williamtown.
+
+
+## Symmetry fixes
+
+An aircraft hangs stores in mirrored pairs, and two upstream defects broke that.
+
+**`AirToAirIntercept` carried one Sidewinder.** Station9 (right outer wing pylon) had
+`dts_aim-260_w|120` while Station10 (left outer wing pylon) had `dts_aim-9x` — visibly different
+missiles on the same pair of pylons. Every other fit in the mod pairs those stations correctly:
+
+| Loadout | S9 (right) | S10 (left) |
+|---|---|---|
+| Default, AirToAir | AIM-9X | AIM-9X |
+| AirToAirLongRange, AAMT120 | AIM-120D-3 | AIM-120D-3 |
+| AAMT260 | AIM-260 | AIM-260 |
+| **AirToAirIntercept** | **AIM-260** | **AIM-9X** ← the only mismatch |
+
+It was also the only fit carrying an odd number of Sidewinders: exactly one, on the left wing.
+
+Station10 is the stale half rather than Station9 — it reads plain `dts_aim-9x` with no position
+key, which is the Default/AirToAir pattern, while every other wing-rail missile in that loadout
+carries the `|120` rail offset. So Station10 is matched to Station9, which also makes the fit a
+clean **12× AIM-260** (was 11× + 1× AIM-9X). If you would rather keep a short-range pair, flipping
+it the other way is a one-line change in `SYMMETRY_FIXES`.
+
+**Stations 2, 3 and 4 all sat at the identical point** `x=+0.0486` — "Right Wing pylon outer" plus
+*two* "Right Wing pylon bottom", with no left-hand pylon-bottom station at all. Anything mounted on
+3 and 4 would stack on the right wing with nothing opposite. Nothing in WeaponSystem1 uses them, so
+this was a latent trap rather than a live bug; Station4 is now mirrored to the left so the pair is
+usable. The remaining oddity — that "pylon bottom" still shares a point with "pylon outer" on each
+side — is upstream's geometry, and correcting it would mean inventing a vertical offset that can't
+be verified from the model, so it is deliberately left alone.
+
+The build now **fails** if any loadout hangs mismatched stores on a mirror pair. Two pairs are
+exempt, with reasons: stations 26/27 are two different pods (AAQ-33 targeting, AAQ-13 navigation) on
+mounts at slightly different heights, and `StrikeNuke`'s single B61 on one wing station is
+upstream's deliberate choice.
+
+Note the check is done **per weapon system**. Each `[WeaponSystemN] #Hardpoint` block owns its own
+station table, and a loadout named `[WeaponSystemN<Name>]` indexes into *that* table — conflating
+them produces a page of false positives, because Station3 means "right wing pylon bottom" in
+WeaponSystem1 and "right bottom aft" in WeaponSystem2.
