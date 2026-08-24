@@ -1,7 +1,7 @@
 # Setup Runbook — cleaning the 109 and installing the SEST packs
 
 Follow top to bottom on the gaming PC. Everything here reflects the file-level findings from
-`mods-source/` and the five SEST packs on this branch.
+`mods-source/` and the seven SEST packs on this branch.
 
 ## Phase 0 — before touching anything
 
@@ -37,7 +37,7 @@ Everything else stays. The three Fujians / four MH-60 sources / duplicate missil
 are a mod-order question, not an unsubscribe question — the file-level scan (roadmap item 1)
 settles those properly later.
 
-## Phase 3 — install the five SEST packs (scripted)
+## Phase 3 — install the seven SEST packs (scripted)
 
 In PowerShell, from your repo clone (e.g. `C:\Users\<you>\Seapower-mods`):
 
@@ -47,15 +47,15 @@ powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
 ```
 
 The script auto-finds Sea Power the same way the export script did, locates `StreamingAssets`,
-and copies all five packs in. It prints one line per pack (`installed` or `updated`) — expect
-5 of 5. Re-run it any time after a `git pull` to take updates; it overwrites in place.
+and copies all seven packs in. It prints one line per pack (`installed` or `updated`) — expect
+7 of 7. Re-run it any time after a `git pull` to take updates; it overwrites in place.
 
-What it installs: `SEST_F-15EX_Revamp` (4 new F-15EX loadouts) · `SEST_F-35C_JATM` (AIM-260
-for the Ford's F-35Cs) · `SEST_RAAF_F-35A_JATM` · `SEST_RAAF_Bases` (15 bases, 211 aircraft)
-· `SEST_RAN_Fleet` (7 classes, 26 hulls).
+What it installs: `SEST_F-15EX_Revamp` · `SEST_F-35C_JATM` · `SEST_Growler_NGJ_MALICE`
+(NGJ plus MALICE for modern Growlers and Block III Super Hornets) · `SEST_RAAF_F-35A_JATM` ·
+`SEST_RAAF_Bases` · `SEST_RAN_Fleet` · `SEST_JMSDF_Mogami`.
 
-Then launch the game → Mod Manager → the five SEST entries should appear alongside your
-Workshop mods. **Enable all five.** If they don't appear in the list at all, stop and report
+Then launch the game → Mod Manager → the seven SEST entries should appear alongside your
+Workshop mods. **Enable all seven.** If they don't appear in the list at all, stop and report
 it (the fallback is merging into `StreamingAssets\user\`, but don't do that unprompted).
 
 ## Phase 4 — mod order
@@ -72,13 +72,15 @@ file; apply/restart after changing).
    SAAB AEW&C) — author-mandated.
 3. **PLA Land Unit Pack above every PLA-related mod**; **SAM Pack near the top** — both
    author-mandated.
-4. **SEST F-15EX Revamp above the F-15EX mod** (listed as "F-15SE") — below the Weapon Pack.
-5. **SEST F-35C JATM above ALL FOUR other F-35C sources.** Because you kept the MyGo F-35C
+4. **SEST Growler NGJ + MALICE above U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation.**
+   It owns the four patched aircraft files and must win all three conflicts.
+5. **SEST F-15EX Revamp above the F-15EX mod** (listed as "F-15SE") — below the Weapon Pack.
+6. **SEST F-35C JATM above ALL FOUR other F-35C sources.** Because you kept the MyGo F-35C
    and F-35C Alt. Loadouts for now, there are four mods carrying `usn_f-35c`: those two,
    US Naval Aviation, and Modern US Navy. If any of them sits above the SEST patch, the
    Ford's jets silently lose the AIM-260 fits (and you'll be flying whichever F-35C file
    happens to win).
-6. **SEST RAAF F-35A JATM above the RAAF F-35A mod.**
+7. **SEST RAAF F-35A JATM above the RAAF F-35A mod.**
 
 The two Australian content packs (`SEST_RAAF_Bases`, `SEST_RAN_Fleet`) only ADD new files —
 they conflict with nothing, so their position is forgiving; bottom of the list is fine.
@@ -95,6 +97,7 @@ Dingtools Weapon Pack            (author: above any dingtools mod)
 Euromod - Main Pack
 Modern PLAN Systems
 ── Tier 3: patches (each above what it modifies) ────────────
+SEST Growler NGJ + MALICE          ← above all three naval aviation sources
 U.S. Navy 2027 Capabilities
 SEST F-15EX Revamp               ← above the F-15EX mod
 SEST F-35C JATM                  ← above US Naval Aviation & Modern US Navy
@@ -121,14 +124,16 @@ Modern Chinese Airbase
 
 ## Phase 5 — ten-minute smoke test
 
-1. **F-15EX** → loadout picker shows 18 entries including AntiShipLRASM6, AntiShipHarpoon, StrikeQuicksink, Intercept174.
-2. **Ford (JSF variant)** → F-35C flights offer *Intercept (AIM-260, stealth)* and *Intercept Beast*.
-3. **RAAF F-35A** → three Intercept fits present.
-4. **Place RAAF Base Williamtown** → F-35As and E-7As spawn (E-7A livery is the default one — expected).
-5. **Place RAAF Base Tindal** → B-52H/B-2 present (B-2 also re-proves the loaders).
-6. **Spawn HMAS Hobart** → Australian ensign shows (if the flag is blank, report it — one-line fix), MH-60R on deck.
-7. **Spawn HMAS Canberra** → helicopter-only air group operates.
-8. **Murder Hornet check** from Phase 2 if you dropped the MyGo F/A-18E/F.
+1. **Modern Growlers** → AN/ALQ-249 is listed; NGJ MALICE and NGJ MALICE Heavy are selectable.
+2. **F/A-18F Block III** → Block III MALICE is selectable with four AIM-424s.
+3. **F-15EX** → loadout picker includes AntiShipLRASM6, AntiShipHarpoon, StrikeQuicksink, and Intercept174.
+4. **Ford (JSF variant)** → F-35C flights offer *Intercept (AIM-260, stealth)* and *Intercept Beast*.
+5. **RAAF F-35A** → three Intercept fits present.
+6. **Place RAAF Base Williamtown** → F-35As and E-7As spawn (E-7A livery is the default one — expected).
+7. **Place RAAF Base Tindal** → B-52H/B-2 present (B-2 also re-proves the loaders).
+8. **Spawn HMAS Hobart** → Australian ensign shows (if the flag is blank, report it — one-line fix), MH-60R on deck.
+9. **Spawn HMAS Canberra** → helicopter-only air group operates.
+10. **Murder Hornet check** from Phase 2 if you dropped the MyGo F/A-18E/F.
 
 Anything that fails: note which step and paste what you see — every SEST pack regenerates from
 a script, so fixes are fast and versioned.
