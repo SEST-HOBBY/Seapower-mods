@@ -269,6 +269,118 @@ LOADOUT_NAMES = {
     },
 }
 
+# ---------------------------------------------------------------------------
+# Squadrons
+# ---------------------------------------------------------------------------
+# Upstream defines two squadrons - the 44th and 67th FS at Kadena, each with
+# its own livery texture. A mission that wants more than two distinct F-15EX
+# units has nothing to reference, so this adds the type's other announced
+# operators. The mod ships only those two skins, so the added squadrons reuse
+# them in rotation and differ by identity and callsign rather than by paint.
+#
+# The first two entries MUST stay byte-identical to upstream's (checked at
+# build time) so nothing that already references Squadron1/2 changes.
+#
+# (display name, basing note, livery texture, callsigns)
+F15EX_SQUADRONS = [
+    ("44th FS 'Vampires'", "18th Wing, Kadena AB, Japan",
+     "44_fs.jpg", ["Dusk", "Lazarus"]),
+    ("67th FS 'Fighting Cocks'", "18th Wing, Kadena AB, Japan",
+     "67_fs.jpg", ["Gobbler", "Rooster"]),
+    ("85th TES", "53rd Wing, Eglin AFB - first F-15EX operator",
+     "44_fs.jpg", ["Bench"]),
+    ("40th FLTS", "96th Test Wing, Eglin AFB",
+     "67_fs.jpg", ["Probe"]),
+    ("123rd FS 'Redhawks'", "142nd Wing OR ANG, Portland - first ANG F-15EX unit",
+     "44_fs.jpg", ["Redhawk"]),
+    ("194th FS 'Griffins'", "144th FW CA ANG, Fresno",
+     "67_fs.jpg", ["Griffin"]),
+    ("131st FS", "104th FW MA ANG, Barnes",
+     "44_fs.jpg", ["Minuteman"]),
+    ("114th FS 'Eagles'", "173rd FW OR ANG, Kingsley Field",
+     "67_fs.jpg", ["Talon"]),
+]
+
+LIVERY_FOLDER = "assets/textures/F-15EX/"
+
+SQUADRONS_HEADER = """\
+# SEST F-15EX Revamp - squadron definitions for the F-15EX.
+# Upstream ships the two Kadena squadrons and their liveries; these add the
+# type's other announced operators so a mission can field more than two
+# distinct F-15EX units. The mod carries only those two skins, so the added
+# squadrons reuse them in rotation and differ by identity and callsign.
+[General]
+SerialnumberReferences=AF_Serial
+EmblemReference=Emblem
+NationFlagReference=Flag1
+NumberOfSquadrons={count}
+
+[Default]
+Nation=US
+
+"""
+
+
+def build_squadrons():
+    """Complete replacement usaf_f-15ex_SEII_squadrons.ini (whole-file override)."""
+    src = UPSTREAM / "aircraft" / "usaf_f-15ex_SEII_squadrons.ini"
+    upstream = src.read_text(encoding="utf-8", errors="replace")
+
+    # Guard: upstream's own two squadrons must still be what we think they are,
+    # or we would silently change which jet wears which paint.
+    for i, (_, _, livery, _) in enumerate(F15EX_SQUADRONS[:2], start=1):
+        m = re.search(rf"^\[Squadron{i}\].*?^LiveryTexture=(\S+)", upstream, re.S | re.M)
+        if not m or m.group(1) != livery:
+            sys.exit(f"upstream Squadron{i} livery changed "
+                     f"({m.group(1) if m else 'missing'} != {livery}) — rebase this patch")
+    if len(re.findall(r"^\[Squadron\d+\]", upstream, re.M)) != 2:
+        sys.exit("upstream no longer defines exactly 2 squadrons — rebase this patch")
+
+    blocks = "".join(
+        f"[Squadron{i}]  #{name} - {basing}\n"
+        f"ResourcesLiveryFolder={LIVERY_FOLDER}\n"
+        f"LiveryTexture={livery}\n"
+        f"Nation=US\n\n"
+        for i, (name, basing, livery, _) in enumerate(F15EX_SQUADRONS, start=1))
+    body = SQUADRONS_HEADER.format(count=len(F15EX_SQUADRONS)) + blocks
+    return body.rstrip("\n") + "\n"
+
+
+def build_aircraft_names(lang):
+    """Upstream's aircraft_names.ini with the new squadrons appended.
+
+    Upstream's existing Squadron1/2 lines and its Callsigns value are kept
+    verbatim - including the Chinese ones - so nothing already translated is
+    replaced by English text; only the new units are added.
+    """
+    src = UPSTREAM / f"language_{lang}" / "aircraft_names.ini"
+    text = src.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")
+
+    m = re.search(r"^Default=([^,\n]+),([^,\n]*)$", text, re.M)
+    if not m:
+        sys.exit(f"language_{lang}/aircraft_names.ini has no parsable Default= line")
+    short = m.group(2).strip()
+
+    kept = [l for l in text.rstrip("\n").splitlines()
+            if not re.match(r"^(Squadron\d+|Callsigns)=", l)]
+    existing_sq = re.findall(r"^Squadron\d+=.*$", text, re.M)
+    if len(existing_sq) != 2:
+        sys.exit(f"language_{lang}: expected 2 upstream squadron names, "
+                 f"found {len(existing_sq)} — rebase this patch")
+    calls = re.search(r"^Callsigns=(.*)$", text, re.M)
+    if not calls:
+        sys.exit(f"language_{lang}: no Callsigns line — rebase this patch")
+
+    new_sq = [f"Squadron{i}=F-15EX {name},{short}"
+              for i, (name, _, _, _) in enumerate(F15EX_SQUADRONS[2:], start=3)]
+    new_calls = "|".join(f"Squadron{i}," + ",".join(c)
+                         for i, (_, _, _, c) in enumerate(F15EX_SQUADRONS[2:], start=3))
+    lines = kept + existing_sq + new_sq + [f"{calls.group(1)}|{new_calls}"
+                                           if calls.group(1).startswith("Callsigns=")
+                                           else f"Callsigns={calls.group(1)}|{new_calls}"]
+    return "\n".join(lines) + "\n"
+
+
 INFO_INI = """[Language_en]
 Name=SEST F-15EX Revamp
 Description=Ten extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x GBU-31 Quicksink, and a what-if very-long-range family - 6x/4x+fuel/8x-truck AIM-174B fits plus matching 6x/4x+fuel/8x-truck AIM-424 MALICE fits, plus long-range versions of the AMRAAM and AIM-260 missile trucks that trade the wing twin-racks for fuel. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; AIM-174B fits also need Murder Hornet, and the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
@@ -320,6 +432,13 @@ def main():
     (OUT / "aircraft" / "usaf_f-15ex_SEII.ini").write_text(text, encoding="utf-8")
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     write_aim424(OUT)
+    (OUT / "aircraft" / "usaf_f-15ex_SEII_squadrons.ini").write_text(
+        build_squadrons(), encoding="utf-8")
+    for lang in ("en", "cn"):
+        d = OUT / f"language_{lang}"
+        d.mkdir(exist_ok=True)
+        (d / "aircraft_names.ini").write_text(build_aircraft_names(lang),
+                                              encoding="utf-8")
     for lang, names in LOADOUT_NAMES.items():
         src_names = UPSTREAM / f"language_{lang}" / "loadout_names.ini"
         body = src_names.read_text(encoding="utf-8").rstrip("\n")
@@ -331,6 +450,7 @@ def main():
 
     n_loadouts = len(existing) + len(NEW_KEYS)
     print(f"built {OUT.relative_to(ROOT)}: {n_loadouts} loadouts ({len(NEW_KEYS)} new), "
+          f"{len(F15EX_SQUADRONS)} squadrons ({len(F15EX_SQUADRONS) - 2} new), "
           f"{len(refs)} ammo refs validated, {len(used)} position keys validated")
 
 

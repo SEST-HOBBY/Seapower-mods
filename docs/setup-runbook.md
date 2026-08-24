@@ -1,7 +1,7 @@
 # Setup Runbook — cleaning the 109 and installing the SEST packs
 
 Follow top to bottom on the gaming PC. Everything here reflects the file-level findings from
-`mods-source/` and the seven SEST packs on this branch.
+`mods-source/` and the ten SEST packs on this branch.
 
 ## Phase 0 — before touching anything
 
@@ -37,7 +37,7 @@ Everything else stays. The three Fujians / four MH-60 sources / duplicate missil
 are a mod-order question, not an unsubscribe question — the file-level scan (roadmap item 1)
 settles those properly later.
 
-## Phase 3 — install the seven SEST packs (scripted)
+## Phase 3 — install the ten SEST packs (scripted)
 
 In PowerShell, from your repo clone (e.g. `C:\Users\<you>\Seapower-mods`):
 
@@ -47,15 +47,17 @@ powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
 ```
 
 The script auto-finds Sea Power the same way the export script did, locates `StreamingAssets`,
-and copies all seven packs in. It prints one line per pack (`installed` or `updated`) — expect
-7 of 7. Re-run it any time after a `git pull` to take updates; it overwrites in place.
+and copies all ten packs in. It prints one line per pack (`installed` or `updated`) — expect
+10 of 10. Re-run it any time after a `git pull` to take updates; it overwrites in place.
 
-What it installs: `SEST_F-15EX_Revamp` · `SEST_F-35C_JATM` · `SEST_Growler_NGJ_MALICE`
-(NGJ plus MALICE for modern Growlers and Block III Super Hornets) · `SEST_RAAF_F-35A_JATM` ·
-`SEST_RAAF_Bases` · `SEST_RAN_Fleet` · `SEST_JMSDF_Mogami`.
+What it installs: `SEST_F-15EX_Revamp` (loadouts **and** eight F-15EX squadrons) ·
+`SEST_F-35C_JATM` · `SEST_Growler_NGJ_MALICE` (NGJ plus MALICE for modern Growlers and Block III
+Super Hornets) · `SEST_RAAF_F-35A_JATM` · `SEST_RAAF_Wedgetail` (E-7A squadrons) ·
+`SEST_Raptor_Squadrons` (seven real F-22 squadrons) · `SEST_RAAF_Bases` · `SEST_RAN_Fleet` ·
+`SEST_JMSDF_Mogami` · `SEST_TacMap_Colors`.
 
-Then launch the game → Mod Manager → the seven SEST entries should appear alongside your
-Workshop mods. **Enable all seven.** If they don't appear in the list at all, stop and report
+Then launch the game → Mod Manager → the ten SEST entries should appear alongside your
+Workshop mods. **Enable all ten.** If they don't appear in the list at all, stop and report
 it (the fallback is merging into `StreamingAssets\user\`, but don't do that unprompted).
 
 ## Phase 4 — mod order
@@ -81,9 +83,18 @@ file; apply/restart after changing).
    Ford's jets silently lose the AIM-260 fits (and you'll be flying whichever F-35C file
    happens to win).
 7. **SEST RAAF F-35A JATM above the RAAF F-35A mod.**
+8. **SEST RAAF Wedgetail above the E-7A Wedgetail mod**, and **SEST Raptor Squadrons above the
+   F-22 mod.** Both carry full replacement `*_squadrons.ini` files. Below their target they do
+   nothing, and the aircraft go back to having no resolvable squadrons — which is not an obvious
+   failure in game, it just quietly shows every jet as the same anonymous unit.
 
 The two Australian content packs (`SEST_RAAF_Bases`, `SEST_RAN_Fleet`) only ADD new files —
 they conflict with nothing, so their position is forgiving; bottom of the list is fine.
+`SEST_TacMap_Colors` only overrides a vanilla UI file, so it is equally forgiving.
+
+Note that `SEST_RAAF_Bases` now *depends* on two of the patch packs rather than merely
+coexisting with them: its F-15EX dets reference squadrons 3–8 (from SEST F-15EX Revamp) and its
+Williamtown Wedgetails reference No. 2 Squadron RAAF (from SEST RAAF Wedgetail).
 
 ### The full target order
 
@@ -102,6 +113,9 @@ U.S. Navy 2027 Capabilities
 SEST F-15EX Revamp               ← above the F-15EX mod
 SEST F-35C JATM                  ← above US Naval Aviation & Modern US Navy
 SEST RAAF F-35A JATM             ← above the RAAF F-35A mod
+SEST RAAF Wedgetail              ← above the E-7A Wedgetail mod
+SEST Raptor Squadrons            ← above the F-22 mod
+SEST TacMap Colors               ← overrides the vanilla tactical-map UI
 F/A-18 Murder Hornet
 B-52G with AGM-86
 Tu-95 With AS-15                 (its global munition edits make it a patch)
