@@ -11,6 +11,8 @@ Targets:
   * usn_ea-18g_2020s - F/A-18E/F (already carries the NGJ meshes)
   * usn_ea-18g_2020  - US Naval Aviation (already carries the NGJ meshes)
   * usn_fa-18f_blk3  - U.S. Navy 2027 Capabilities Block III Super Hornet
+  * usn_fa-18f       - U.S. Navy 2027 two-seat Super Hornet (AN/APG-79)
+  * usn_fa-18e       - U.S. Navy 2027 single-seat Super Hornet (AN/APG-79(V))
 
 Usage (repo root):  python3 integration/growler-ngj-malice/build_patch.py
 """
@@ -116,7 +118,7 @@ LOADOUT_NAMES = {
 
 INFO_INI = """[Language_en]
 Name=SEST Growler NGJ + MALICE
-Description=Adds functional AN/ALQ-249 Next Generation Jammer equipment and two AIM-424 MALICE fits to the modern EA-18G Growlers, plus a four-MALICE counter-air fit for the F/A-18F Block III Super Hornet. Requires U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation. US Naval Aviation supplies the AGM-88G model used by MALICE. Place this patch ABOVE all three required mods.
+Description=Adds functional AN/ALQ-249 Next Generation Jammer equipment and two AIM-424 MALICE fits to the modern EA-18G Growlers, plus a four-MALICE counter-air fit for every AN/APG-79 Super Hornet (F/A-18F Block III, F/A-18F and F/A-18E). Requires U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation. US Naval Aviation supplies the AGM-88G model used by MALICE. Place this patch ABOVE all three required mods.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -267,18 +269,25 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
     (aircraft / destination_name).write_text(normalize_generated_text(text), encoding="utf-8")
 
 
-def build_block_iii() -> None:
-    source = NAVY_2027 / "aircraft" / "usn_fa-18f_blk3.ini"
+def build_super_hornet(file_name: str) -> None:
+    """Add the MALICE fit to an APG-79 Super Hornet.
+
+    Every Navy 2027 Super Hornet that already flies MurderHornetInterceptor
+    carries the AIM-174B on stations 30-33, so the same fit transplants
+    without geometry changes: usn_fa-18f_blk3 (Block III), plus usn_fa-18f
+    and usn_fa-18e, which have the same radar class and station layout.
+    """
+    source = NAVY_2027 / "aircraft" / file_name
     text = source.read_text(encoding="utf-8-sig")
     verify_station_geometry(text, BLOCK_III_LOADOUT, source.name)
     text = extend_loadouts(text, BLOCK_III_KEYS, source.name)
     text = inject_loadouts(text, BLOCK_III_LOADOUT, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
-        sys.exit("Block III: invalid generated MALICE section count")
+        sys.exit(f"{source.name}: invalid generated MALICE section count")
 
     aircraft = OUT / "aircraft"
     aircraft.mkdir(parents=True, exist_ok=True)
-    (aircraft / "usn_fa-18f_blk3.ini").write_text(normalize_generated_text(text), encoding="utf-8")
+    (aircraft / file_name).write_text(normalize_generated_text(text), encoding="utf-8")
 
 
 def write_language_files() -> None:
@@ -303,7 +312,8 @@ def main() -> None:
         "usn_ea-18g_2020.ini",
         upgrade_ngj=False,
     )
-    build_block_iii()
+    for hornet in ("usn_fa-18f_blk3.ini", "usn_fa-18f.ini", "usn_fa-18e.ini"):
+        build_super_hornet(hornet)
 
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
@@ -315,7 +325,7 @@ def main() -> None:
 
     outputs = sorted(path for path in OUT.rglob("*") if path.is_file())
     print(
-        f"built {OUT.relative_to(ROOT)}: 3 NGJ Growlers, 1 Block III Super Hornet, "
+        f"built {OUT.relative_to(ROOT)}: 3 NGJ Growlers, 3 APG-79 Super Hornets, "
         f"3 new loadouts, {len(outputs)} files"
     )
 
