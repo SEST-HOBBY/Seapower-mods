@@ -1,6 +1,6 @@
 # Full Load Order — every active mod, top to bottom
 
-Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 126 active subscriptions plus 6 SEST local packs. Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
+Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 128 active subscriptions plus 6 SEST local packs. Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
 
 Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are alphabetical — within them, order only matters between mods flagged in the conflict watchlist (`docs/conflicts-and-load-order.md`).
 
@@ -89,76 +89,78 @@ Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 ar
 66. AH-64 Apache
 67. Apex Predators MIG-29A & F-16A
 68. Armed Oil Rig with Helo MOD
-69. AVIC HARBIN Z-21
-70. B-1B Lancer
-71. B-2 Spirit
-72. B-52H Stratofortress
-73. Boeing P-8 Poseidon
-74. Buildings and Targets for Missions
-75. ChengDu J-10C Vigorous Dragon
-76. Civil Aircraft Mod (Airbus Family)
-77. Dassault Rafale
-78. Eurofighter Typhoon
-79. F-117 Nighthawk
-80. F-15 EX Eagle II
-81. F-16C Fighting Falcon (modern)
-82. F-22 Raptor
-83. French Army Vehicles
-84. French Helicopter Package
-85. General Atomics MQ-9 Reaper
-86. Humpback Whale
-87. IL-78 TANKER
-88. Iskander TBM
-89. J-20 (歼-20 威龙)
-90. Ka-27RLD
-91. KC-135 STRATOTANKER
-92. KC-46A Pegasus - Strategic Tanker
-93. Lockheed AC-130 Pack
-94. McDonnell Douglas KC-10A Extender - Strategic Tanker
-95. MH-60R Seahawk — *watchlist: order vs other MH-60 sources decides which wins*
-96. Mi-8 T/TV
-97. Mi-8EW
-98. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
-99. MiG-35 Fulcrum-F (米格-35 支点-F)
-100. Mil Mi-24 Hind
-101. MORE SU-24M VARIANTS
-102. Pickup truck extension
-103. PLA Shenyang J-11BS
-104. PLA Sukhoi Su-27UBK
-105. RAAF F-35A Lighting II
-106. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
-107. SA-21/S-400 SAM — *watchlist: land air-defense overlap*
-108. SAAB AEW&C PACK
-109. SCUD-B
-110. Sea Lynx
-111. SEJJIL (Iran Ballistic Missiles)
-112. Shahed-136 Kamikaze Drone (Geran-2)
-113. Shenyang J-11
-114. Shenyang J-16A (歼-16A 潜龙)
-115. Shenyang J-50 (沈阳航空工业 歼-50)
-116. Shenyang J-8
-117. Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
-118. Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
-119. Su-25 Frogfoot
-120. Su-30SM2
-121. SU-57 Felon (重刑犯)
-122. Sukhoi Flanker Family (苏霍伊侧卫家族)
-123. Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
-124. TU-160 Blackjack
-125. Tu-214R Family (图-214R家族)
-126. Tu-95K-22 Bear G MOD — *watchlist: see Tu-95 row*
-127. Tu-95MS (X-101) — *watchlist: order vs the other Tu-95 mods decides shared files*
-128. Type 12 SSM-ER Anti-Ship Missile System
-129. U-2 "Dragon Lady"
-130. VH-3D Marine One MOD
-131. XIAN JH-7A (歼轰-7A 飞豹)
-132. Y-20 / KJ-3000
-133. Y-8/Y-9 Special Mission Aircraft Family
+69. ARRW (AGM-183)
+70. AVIC HARBIN Z-21
+71. B-1B Lancer
+72. B-2 Spirit
+73. B-52H Stratofortress
+74. Boeing P-8 Poseidon
+75. Buildings and Targets for Missions
+76. ChengDu J-10C Vigorous Dragon
+77. Civil Aircraft Mod (Airbus Family)
+78. Dassault Rafale
+79. David's Sling
+80. Eurofighter Typhoon
+81. F-117 Nighthawk
+82. F-15 EX Eagle II
+83. F-16C Fighting Falcon (modern)
+84. F-22 Raptor
+85. French Army Vehicles
+86. French Helicopter Package
+87. General Atomics MQ-9 Reaper
+88. Humpback Whale
+89. IL-78 TANKER
+90. Iskander TBM
+91. J-20 (歼-20 威龙)
+92. Ka-27RLD
+93. KC-135 STRATOTANKER
+94. KC-46A Pegasus - Strategic Tanker
+95. Lockheed AC-130 Pack
+96. McDonnell Douglas KC-10A Extender - Strategic Tanker
+97. MH-60R Seahawk — *watchlist: order vs other MH-60 sources decides which wins*
+98. Mi-8 T/TV
+99. Mi-8EW
+100. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
+101. MiG-35 Fulcrum-F (米格-35 支点-F)
+102. Mil Mi-24 Hind
+103. MORE SU-24M VARIANTS
+104. Pickup truck extension
+105. PLA Shenyang J-11BS
+106. PLA Sukhoi Su-27UBK
+107. RAAF F-35A Lighting II
+108. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
+109. SA-21/S-400 SAM — *watchlist: land air-defense overlap*
+110. SAAB AEW&C PACK
+111. SCUD-B
+112. Sea Lynx
+113. SEJJIL (Iran Ballistic Missiles)
+114. Shahed-136 Kamikaze Drone (Geran-2)
+115. Shenyang J-11
+116. Shenyang J-16A (歼-16A 潜龙)
+117. Shenyang J-50 (沈阳航空工业 歼-50)
+118. Shenyang J-8
+119. Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
+120. Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+121. Su-25 Frogfoot
+122. Su-30SM2
+123. SU-57 Felon (重刑犯)
+124. Sukhoi Flanker Family (苏霍伊侧卫家族)
+125. Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
+126. TU-160 Blackjack
+127. Tu-214R Family (图-214R家族)
+128. Tu-95K-22 Bear G MOD — *watchlist: see Tu-95 row*
+129. Tu-95MS (X-101) — *watchlist: order vs the other Tu-95 mods decides shared files*
+130. Type 12 SSM-ER Anti-Ship Missile System
+131. U-2 "Dragon Lady"
+132. VH-3D Marine One MOD
+133. XIAN JH-7A (歼轰-7A 飞豹)
+134. Y-20 / KJ-3000
+135. Y-8/Y-9 Special Mission Aircraft Family
 
 ## Tier 6 — airbases last
 
-134. Modern Chinese Airbase (Large)
-135. Modern Russian Airbase (Large)
-136. Modern US Airbase
-137. **SEST RAAF Bases** — LOCAL — additive; bottom by convention
+136. Modern Chinese Airbase (Large)
+137. Modern Russian Airbase (Large)
+138. Modern US Airbase
+139. **SEST RAAF Bases** — LOCAL — additive; bottom by convention
 

@@ -34,6 +34,23 @@ from refine_civ_traffic import winning_file, load_order  # noqa: E402
 UNIT_DIRS = {"aircraft", "vessels", "submarines", "land_units", "ammunition",
              "biologic", "systems", "weapons"}
 
+# Language AND systems files MERGE key-by-key rather than replacing the file.
+# Two mods shipping language_en/ammunition_names.ini or systems/sensors.ini is
+# normal and costs nothing; only keys they both define are contested.
+#
+# The proof for systems/ is that 89 mods ship systems/sensors.ini ranging from
+# 8 lines to 8141. If the winner replaced the file, an 8-line one would delete
+# every sensor in the game. It does not, and SEST_Growler_NGJ_MALICE's own
+# 11-line sensors.ini adds the AN/ALQ-249 without removing anything.
+#
+# UNIT files are the opposite - aircraft/, vessels/, land_units/, ammunition/
+# are whole-file overrides where the loser is simply gone. That asymmetry is
+# the whole point of this script, and conflating the two overstates conflicts
+# badly: a small SAM mod looks like it is fighting the Custom Loadout Editor
+# when all it does is add its own sensor entry.
+def merges(rel):
+    return rel.startswith(("language_", "language\\", "systems/", "systems\\"))
+
 
 def mod_name(token):
     if token.startswith("SEST_"):
@@ -81,8 +98,8 @@ def main():
     listed = args.mod in order
     print(f"in data/load-order.tokens.txt : {'yes, position ' + str(order.index(args.mod)+1) if listed else 'NO - it has no assigned position yet'}\n")
 
-    sest_hits, mission_hits, other = [], [], collections.Counter()
-    solo = []
+    sest_hits, mission_hits, other = [], [], collections.defaultdict(list)
+    merging, solo = [], []
     used = units_in_play()
     for rel in sorted(ships):
         w = winning_file(rel)
@@ -91,12 +108,15 @@ def main():
             continue
         owner = w.parts[-3]
         stem = Path(rel).stem
+        if merges(rel):
+            merging.append((rel, owner))
+            continue
         if owner.startswith("SEST_"):
             sest_hits.append((rel, owner))
         elif stem in used:
             mission_hits.append((rel, owner))
         else:
-            other[owner] += 1
+            other[owner].append(rel)
 
     print("=" * 70)
     print(f"1. COLLIDES WITH A SEST PACK ({len(sest_hits)}) - the dangerous ones")
@@ -123,11 +143,28 @@ def main():
         print("   none")
 
     print("\n" + "=" * 70)
-    print(f"3. OTHER COLLISIONS, by the mod it would fight")
+    n_other = sum(len(v) for v in other.values())
+    print(f"3. OTHER WHOLE-FILE COLLISIONS ({n_other})")
     print("=" * 70)
     if other:
-        for owner, n in other.most_common():
-            print(f"   {n:>4} files  vs  {mod_name(owner)}")
+        for owner, files in sorted(other.items(), key=lambda x: -len(x[1])):
+            print(f"   vs {mod_name(owner)}:")
+            for rel in sorted(files)[:10]:
+                print(f"        {rel}")
+            if len(files) > 10:
+                print(f"        ... and {len(files)-10} more")
+    else:
+        print("   none")
+
+    print("\n" + "=" * 70)
+    print(f"   MERGING files shared ({len(merging)}) - NOT a conflict")
+    print("=" * 70)
+    if merging:
+        for rel, owner in sorted(merging)[:8]:
+            print(f"   {rel:<40} also in {mod_name(owner)[:26]}")
+        if len(merging) > 8:
+            print(f"   ... and {len(merging)-8} more")
+        print("\n   Language and systems files merge key-by-key, so both mods coexist.")
     else:
         print("   none")
 
@@ -145,8 +182,10 @@ def main():
         print(f"   {len(sest_hits)} SEST-pack file(s) at risk. Place it BELOW every SEST pack.")
     if mission_hits:
         print(f"   {len(mission_hits)} unit(s) you field would change hands. Review before enabling.")
-    if not sest_hits and not mission_hits:
-        print("   No collision with anything you use. Position is forgiving.")
+    if n_other and not sest_hits and not mission_hits:
+        print(f"   {n_other} whole-file collision(s), none with anything you field.")
+    if not sest_hits and not mission_hits and not n_other:
+        print("   No whole-file collision with anything. Position is forgiving.")
     print(f"\n   Add '{args.mod}' to data/load-order.tokens.txt at the position you choose,")
     print("   then run tools\\set-mod-order.ps1 -AddMissing.")
 
