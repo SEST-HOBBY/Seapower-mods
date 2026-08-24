@@ -62,10 +62,10 @@ Station6=dts_aim-260
 [WeaponSystem2Intercept260Beast]
 Station1=usn_aim-9x
 Station2=usn_aim-9x
-Station3=dts_aim-260_w|AAM260
-Station4=dts_aim-260_w|AAM260
-Station5=dts_aim-260_w|AAM260
-Station6=dts_aim-260_w|AAM260
+Station3=dts_aim-260_w|AAM260I
+Station4=dts_aim-260_w|AAM260I
+Station5=dts_aim-260_w|AAM260O
+Station6=dts_aim-260_w|AAM260O
 
 [WeaponSystem1Malice424]
 ReadyUpTime=20               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -83,13 +83,17 @@ Station8=sest_aim-424
 """
 
 LOADOUT_NAMES = {
+    # NOTE: [LoadoutNames] keys are global across mods; the RAAF pack defines
+    # Intercept260/Intercept260Beast/Malice424 too, so the strings here are
+    # kept identical to that pack's (whichever pack wins load order, both
+    # aircraft read correctly). Keep display strings comma-free.
     "en": {
-        "Intercept260": "Intercept (AIM-260, stealth)",
+        "Intercept260": "Intercept (6x AIM-260 int)",
         "Intercept260Beast": "Intercept Beast (10x AIM-260)",
         "Malice424": "Intercept MALICE (2x AIM-424 int)",
     },
     "cn": {
-        "Intercept260": "隐身截击 (AIM-260)",
+        "Intercept260": "截击 (6x AIM-260 内置)",
         "Intercept260Beast": "重挂截击 (10x AIM-260)",
         "Malice424": "马利斯截击 (2x AIM-424 内置)",
     },
@@ -136,12 +140,15 @@ def main():
     elif n > 1:
         sys.exit(f"duplicate-AntiShip pattern matched {n} times — refusing to guess")
 
-    # 2b. Position offset so the external AIM-260 sits flush on the wing pylons
-    #     (units: ~7cm per 0.001; +y = up, +z = forward). Tune here.
+    # 2b. Position offsets so the external AIM-260s sit flush on the wing
+    #     pylons (units: ~7cm per 0.001; +y = up, +z = forward). Split per
+    #     pylon pair: inner (WS2 stations 3/4) slightly forward of the outer
+    #     (5/6), which keeps the proven aft position. Tune here.
     text, k = re.subn(r"(\[WeaponSystem2\][^\[]*?NumberOfStations=\d+\n)",
-                      r"\1AAM260Positions=0,0.0025,0.002\n", text, count=1, flags=re.S)
+                      r"\1AAM260IPositions=0,0.0025,0.0035\nAAM260OPositions=0,0.0025,0.002\n",
+                      text, count=1, flags=re.S)
     if k != 1:
-        sys.exit("could not inject AAM260Positions into [WeaponSystem2]")
+        sys.exit("could not inject AAM260 position keys into [WeaponSystem2]")
 
     # 3. Inject new sections before the WeaponMagazines banner
     marker = "[---------- WeaponMagazines ----------]"

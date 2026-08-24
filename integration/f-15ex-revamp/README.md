@@ -18,6 +18,14 @@ this patch adds only what's genuinely missing, all cross-mod:
 | `Quicksink` | StrikeQuicksink | **4× GBU-31 anti-ship JDAM** + 2× AIM-120D-3 + 2× AIM-9X + tank + pods | Dingtools Weapon Pack (`dts_gbu-31`) |
 | `BigStick174` | Intercept174 | **6× AIM-174B** (CFT corners, aft fuselage, wing) + 2× AIM-120D-3 + 2× AIM-9X + tank — flagged what-if | **Murder Hornet** (`usn_aim-174b`) |
 | `BigStick174ER` | Intercept174 LongRange | **4× AIM-174B** (fuselage) + 3× 610 gal tanks (centreline + both wing stations) + 2× AIM-120D-3 and 2× AIM-9X on the inner-pylon shoulder rails — outer wing pylons removed entirely | **Murder Hornet** (`usn_aim-174b`) |
+| `Truck174` | Intercept174 Truck (8×) | **8× AIM-174B** (4 fuselage + 4 on the inner-pylon shoulder rails) + centreline tank only | **Murder Hornet** (`usn_aim-174b`) |
+| `Malice6` | InterceptMALICE (6× AIM-424) | **6× AIM-424 MALICE** in the BigStick174 layout + 2× AIM-120D-3 + 2× AIM-9X + tank | **US Naval Aviation** (AGM-88G model) |
+| `MaliceER` | InterceptMALICE LongRange | **4× AIM-424** (fuselage) + 3 tanks + inboard AAMs — mirrors BigStick174ER | **US Naval Aviation** (AGM-88G model) |
+| `MaliceTruck` | InterceptMALICE Truck (8×) | **8× AIM-424** + centreline tank — mirrors Truck174 | **US Naval Aviation** (AGM-88G model) |
+
+The AIM-424 MALICE itself ships inside this pack (`ammunition/sest_aim-424.ini`, identical
+copies in the two F-35 JATM packs): AARGM-ER airframe, AIM-174B-class reach, passive
+anti-emitter mode.
 
 ## Install
 
