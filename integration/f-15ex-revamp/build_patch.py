@@ -85,13 +85,13 @@ Station17=usn_aim-174b|WW
 ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# AAMs ride the inner wing pylons' shoulder rails (same pylons as the wing
-# tanks); the outer wing pylon stations 7-10 stay empty so the pylons that
-# come in with the _w weapon models never render.
-Station1=dts_aim-120d-3_w|120
-Station2=dts_aim-120d-3_w|120
-Station5=dts_aim-9x
-Station6=dts_aim-9x
+# The outer wing pylons are baked into the airframe model and render whether
+# or not they carry anything, so use them: AMRAAM on the pylon2 inner
+# stations, AIM-9X outboard of them on the outermost pair.
+Station7=dts_aim-120d-3_w|120
+Station8=dts_aim-120d-3_w|120
+Station9=dts_aim-9x
+Station10=dts_aim-9x
 Station11=usn_aim-174b|AGM
 Station12=usn_aim-174b|AGM
 Station13=usn_aim-174b|AGM
@@ -105,11 +105,16 @@ ReadyUpTime=35               // in minutes. Time that plane will spend refueling
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # 8-round AIM-174B missile truck: 4 under the fuselage (Bottom1 wells) and
-# 4 on the inner wing pylons' shoulder rails, centreline fuel only.
+# 4 on the inner wing pylons' shoulder rails, with the outer wing pylons
+# carrying self-escort AAMs and centreline fuel only.
 Station1=usn_aim-174b|120
 Station2=usn_aim-174b|120
 Station5=usn_aim-174b|120
 Station6=usn_aim-174b|120
+Station7=dts_aim-120d-3_w|120
+Station8=dts_aim-120d-3_w|120
+Station9=dts_aim-9x
+Station10=dts_aim-9x
 Station11=usn_aim-174b|AGM
 Station12=usn_aim-174b|AGM
 Station13=usn_aim-174b|AGM
@@ -137,11 +142,12 @@ Station17=sest_aim-424|WW
 ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# MALICE mirror of BigStick174ER: 4x AIM-424 under, 3 tanks, AAMs inboard.
-Station1=dts_aim-120d-3_w|120
-Station2=dts_aim-120d-3_w|120
-Station5=dts_aim-9x
-Station6=dts_aim-9x
+# MALICE mirror of BigStick174ER: 4x AIM-424 under, 3 tanks, AAMs on the
+# outer wing pylons.
+Station7=dts_aim-120d-3_w|120
+Station8=dts_aim-120d-3_w|120
+Station9=dts_aim-9x
+Station10=dts_aim-9x
 Station11=sest_aim-424|AGM
 Station12=sest_aim-424|AGM
 Station13=sest_aim-424|AGM
@@ -154,11 +160,16 @@ Station17=usaf_tank_610_f-15|WT
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# MALICE mirror of Truck174: 8x AIM-424, centreline fuel only.
+# MALICE mirror of Truck174: 8x AIM-424 plus self-escort AAMs on the outer
+# wing pylons, centreline fuel only.
 Station1=sest_aim-424|120
 Station2=sest_aim-424|120
 Station5=sest_aim-424|120
 Station6=sest_aim-424|120
+Station7=dts_aim-120d-3_w|120
+Station8=dts_aim-120d-3_w|120
+Station9=dts_aim-9x
+Station10=dts_aim-9x
 Station11=sest_aim-424|AGM
 Station12=sest_aim-424|AGM
 Station13=sest_aim-424|AGM

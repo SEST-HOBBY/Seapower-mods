@@ -32,7 +32,7 @@ sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 
-GROWLER_KEYS = ["SEST_MaliceNGJ", "SEST_MaliceNGJHeavy"]
+GROWLER_KEYS = ["SEST_MaliceNGJ"]
 BLOCK_III_KEYS = ["SEST_MaliceBlockIII"]
 
 GROWLER_LOADOUTS = """\
@@ -48,19 +48,6 @@ Station3=sest_aim-424
 Station4=sest_aim-424
 Station11=usn_aim-120d3
 Station12=usn_aim-120d3
-Station27=usn_tank_610_f-18
-Station28=usn_tank_610_f-18
-
-[WeaponSystem1SEST_MaliceNGJHeavy]
-ReadyUpTime=30               // minutes to refuel and rearm before takeoff
-CoolDownTime=60              // minutes of maintenance after landing
-SubModelsToHide=fule_tank_point
-Station3=sest_aim-424
-Station4=sest_aim-424
-Station11=usn_aim-120d3
-Station12=usn_aim-120d3
-Station13=sest_aim-424
-Station14=sest_aim-424
 Station27=usn_tank_610_f-18
 Station28=usn_tank_610_f-18
 
@@ -106,19 +93,17 @@ JamChance=0.3
 LOADOUT_NAMES = {
     "en": {
         "SEST_MaliceNGJ": "NGJ MALICE (2x AIM-424)",
-        "SEST_MaliceNGJHeavy": "NGJ MALICE Heavy (4x AIM-424)",
         "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
     },
     "cn": {
         "SEST_MaliceNGJ": "NGJ MALICE (2x AIM-424)",
-        "SEST_MaliceNGJHeavy": "NGJ MALICE 重载 (4x AIM-424)",
         "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
     },
 }
 
 INFO_INI = """[Language_en]
 Name=SEST Growler NGJ + MALICE
-Description=Adds functional AN/ALQ-249 Next Generation Jammer equipment and two AIM-424 MALICE fits to the modern EA-18G Growlers, plus a four-MALICE counter-air fit for every AN/APG-79 Super Hornet (F/A-18F Block III, F/A-18F and F/A-18E). Requires U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation. US Naval Aviation supplies the AGM-88G model used by MALICE. Place this patch ABOVE all three required mods.
+Description=Adds functional AN/ALQ-249 Next Generation Jammer equipment and an AIM-424 MALICE fit to the modern EA-18G Growlers, plus a four-MALICE counter-air fit for every AN/APG-79 Super Hornet (F/A-18F Block III, F/A-18F and F/A-18E), whose anti-ship fits now carry LRASM in place of the AGM-84N Harpoon. Requires U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation. US Naval Aviation supplies the AGM-88G model used by MALICE. Place this patch ABOVE all three required mods.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -269,6 +254,21 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
     (aircraft / destination_name).write_text(normalize_generated_text(text), encoding="utf-8")
 
 
+def replace_harpoons(text: str, source_name: str) -> str:
+    """Swap the AGM-84N Harpoons out of the anti-ship fits for LRASM.
+
+    MurderHornetAntiShip and MH_AntiShipEF are the only fits on these
+    airframes still carrying Harpoon. b-2_lrasm already flies from this
+    airframe in MH_LRASM, so the substitution needs no geometry change - the
+    stations involved (30-33) are the same ones that carry the AIM-174B.
+    """
+    text, n = re.subn(r"^(Station\d+=)usn_agm-84n\b", r"\1b-2_lrasm", text, flags=re.M)
+    if n == 0:
+        sys.exit(f"{source_name}: no AGM-84N found - upstream anti-ship fits changed")
+    print(f"    {source_name}: {n} Harpoon rounds replaced with LRASM")
+    return text
+
+
 def build_super_hornet(file_name: str) -> None:
     """Add the MALICE fit to an APG-79 Super Hornet.
 
@@ -279,6 +279,7 @@ def build_super_hornet(file_name: str) -> None:
     """
     source = NAVY_2027 / "aircraft" / file_name
     text = source.read_text(encoding="utf-8-sig")
+    text = replace_harpoons(text, source.name)
     verify_station_geometry(text, BLOCK_III_LOADOUT, source.name)
     text = extend_loadouts(text, BLOCK_III_KEYS, source.name)
     text = inject_loadouts(text, BLOCK_III_LOADOUT, source.name)
@@ -326,7 +327,7 @@ def main() -> None:
     outputs = sorted(path for path in OUT.rglob("*") if path.is_file())
     print(
         f"built {OUT.relative_to(ROOT)}: 3 NGJ Growlers, 3 APG-79 Super Hornets, "
-        f"3 new loadouts, {len(outputs)} files"
+        f"{len(GROWLER_KEYS) + len(BLOCK_III_KEYS)} new loadouts, {len(outputs)} files"
     )
 
 

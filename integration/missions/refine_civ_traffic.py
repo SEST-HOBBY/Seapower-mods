@@ -137,6 +137,14 @@ def winning_file(relpath):
     if _ORDER is None:
         _ORDER = load_order()
     for token in _ORDER:
+        # SEST packs live in the repo, not in mods-source, but they occupy
+        # real positions in the Mod Manager order and win files there.
+        if token.startswith("SEST_"):
+            for pack in (ROOT / "integration").glob(f"*/{token}"):
+                f = pack / relpath
+                if f.exists():
+                    return f
+            continue
         f = MODS / token / relpath
         if f.exists():
             return f
