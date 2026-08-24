@@ -134,17 +134,49 @@ def main():
     clash = [k for k in NEW_KEYS if k in existing]
     if clash:
         sys.exit(f"loadout keys already exist upstream: {clash}")
-    text = text[: m.start(2)] + m.group(2).rstrip() + "," + ",".join(NEW_KEYS) + text[m.end(2):]
+    # (the AvailableLoadouts line is extended in step 2 once the carried
+    #  keys are known, then again with the SEST keys)
 
-    # 2. Remove the upstream duplicate [WeaponSystem1AntiShip] block (the copy
-    #    without ReadyUpTime). Tolerate line-ending/spacing drift; require
-    #    exactly one removal.
-    pattern = re.escape(DUP_ANTISHIP).replace(r"\n", r"\s*\n")
-    text, n = re.subn(pattern, "", text, count=0)
-    if n == 0:
-        print("note: upstream duplicate AntiShip block not found (may be fixed upstream) — continuing")
-    elif n > 1:
-        sys.exit(f"duplicate-AntiShip pattern matched {n} times — refusing to guess")
+    # 2. Carry over the loadouts only US Naval Aviation defines. The two F-35C
+    #    files share just one loadout key, so neither is a superset: Alt.
+    #    Loadouts brings the JATM/SEAD/JSOW/QCSK families, USNA brings the
+    #    basics (AirToAir, AntiShip, Ferry, CAS, Strike...). Whole-file
+    #    override means whichever we ship is ALL the player gets, so merge.
+    usna_text = (USNA / "aircraft" / "usn_f-35c.ini").read_text(encoding="utf-8")
+    usna_keys = [k.strip() for k in
+                 re.search(r"^AvailableLoadouts=([^#\n]*)", usna_text, re.M).group(1).split(",")
+                 if k.strip()]
+    carried, carried_sections = [], []
+    for key in usna_keys:
+        if key in existing or key in NEW_KEYS:
+            continue
+        blocks = []
+        for ws in (1, 2):
+            # USNA ships an exact duplicate [WeaponSystem1AntiShip] (the second
+            # copy lacks ReadyUpTime) - take the FIRST, more complete section
+            # only, or the merge would define the loadout twice.
+            m2 = re.search(rf"^\[WeaponSystem{ws}{re.escape(key)}\]\n(.*?)(?=^\[)",
+                           usna_text, re.M | re.S)
+            if m2:
+                blocks.append(f"[WeaponSystem{ws}{key}]\n{m2.group(1).rstrip()}\n")
+        if not blocks:
+            sys.exit(f"USNA lists loadout {key} but defines no section for it")
+        carried.append(key)
+        carried_sections.append("\n".join(blocks))
+    if not carried:
+        sys.exit("no USNA-only loadouts found — did the upstream files change?")
+
+    # Validate the carried sections against THIS airframe's hardpoints: every
+    # position key they use must exist in the Alt. Loadouts file.
+    pos_keys = set(re.findall(r"^([\w\-]+)Positions=", text, re.M))
+    used = set(re.findall(r"\|([\w\-]+)$", "\n".join(carried_sections), re.M))
+    unknown = sorted(u for u in used if u not in pos_keys)
+    if unknown:
+        sys.exit(f"carried loadouts need position keys this airframe lacks: {unknown}")
+
+    m = re.search(r"^(AvailableLoadouts=)(.+)$", text, re.M)
+    text = (text[: m.start(2)] + m.group(2).rstrip() + ","
+            + ",".join(carried + NEW_KEYS) + text[m.end(2):])
 
     # 2b. Position offsets so the external AIM-260s sit flush on the wing
     #     pylons (units: ~7cm per 0.001; +y = up, +z = forward). Split per
@@ -160,20 +192,30 @@ def main():
     marker = "[---------- WeaponMagazines ----------]"
     if marker not in text:
         sys.exit("WeaponMagazines marker not found — upstream layout changed")
-    text = text.replace(marker, NEW_SECTIONS + marker, 1)
+    carried_block = ("#--------------- Carried over from US Naval Aviation --------------\n"
+                     "# Loadouts the Alt. Loadouts base does not define, kept so this\n"
+                     "# whole-file override loses nothing the player had before.\n\n"
+                     + "\n".join(carried_sections) + "\n")
+    text = text.replace(marker, carried_block + NEW_SECTIONS + marker, 1)
 
     # 4. Validate ammo references against the ecosystem
     known = {AIM424_ID}  # provided by this pack itself (written below)
     for d in (UPSTREAM, USNA, WEAPON_PACK, VANILLA):
         known |= {p.stem for p in d.rglob("*.ini") if p.parent.name == "ammunition"}
-    refs = set(re.findall(r"^Station\d+=([^|\s/]+)", NEW_SECTIONS, re.M))
+    refs = set(re.findall(r"^Station\d+=([^|\s/]+)",
+                          NEW_SECTIONS + "\n".join(carried_sections), re.M))
     missing = sorted(r for r in refs if r not in known)
     if missing:
         sys.exit(f"unresolved ammunition ids: {missing}")
 
-    # 5. Sanity: exactly one [WeaponSystem1AntiShip] remains
-    if text.count("[WeaponSystem1AntiShip]") != 1:
-        sys.exit("unexpected AntiShip section count after dedupe")
+    # 5. Sanity: no loadout section got defined twice by the merge
+    heads = re.findall(r"^\[WeaponSystem[12][A-Za-z0-9_.\-]+\]$", text, re.M)
+    dupes = sorted({h for h in heads if heads.count(h) > 1})
+    if dupes:
+        sys.exit(f"merge produced duplicate loadout sections: {dupes}")
+    keys_final = re.search(r"^AvailableLoadouts=([^#\n]*)", text, re.M).group(1).split(",")
+    if len(keys_final) != len(set(k.strip() for k in keys_final)):
+        sys.exit("merge produced a duplicate key in AvailableLoadouts")
 
     # 6. Write the mod folder
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
@@ -181,7 +223,13 @@ def main():
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     write_aim424(OUT)
     for lang, names in LOADOUT_NAMES.items():
+        # Alt. Loadouts ships English only; fall back to US Naval Aviation for
+        # any other language so its names are not lost by the override.
         src_names = UPSTREAM / f"language_{lang}" / "loadout_names.ini"
+        if not src_names.exists():
+            src_names = USNA / f"language_{lang}" / "loadout_names.ini"
+        if not src_names.exists():
+            continue
         body = src_names.read_text(encoding="utf-8").rstrip("\n")
         body += "\n\n#--------------- SEST F-35C JATM ----------------\n"
         body += "".join(f"{k}={v}\n" for k, v in names.items())
@@ -189,9 +237,10 @@ def main():
         d.mkdir(exist_ok=True)
         (d / "loadout_names.ini").write_text(body, encoding="utf-8")
 
-    print(f"built {OUT.relative_to(ROOT)}: {len(existing) + len(NEW_KEYS)} loadouts "
-          f"({len(NEW_KEYS)} new), duplicate AntiShip removed: {bool(n)}, "
-          f"{len(refs)} ammo refs validated")
+    print(f"built {OUT.relative_to(ROOT)}: "
+          f"{len(existing) + len(carried) + len(NEW_KEYS)} loadouts "
+          f"({len(existing)} from Alt. Loadouts + {len(carried)} carried from "
+          f"US Naval Aviation + {len(NEW_KEYS)} SEST), {len(refs)} ammo refs validated")
 
 
 if __name__ == "__main__":
