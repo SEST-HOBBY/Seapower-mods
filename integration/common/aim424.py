@@ -14,12 +14,16 @@ are a safe overlap whichever pack sits higher in the Mod Manager.
 
 AIM424_ID = "sest_aim-424"
 
-# Behaviour cloned from usn_aim-174b (Murder Hornet), visuals from
-# usn_agm-88g (US Naval Aviation). Deliberate deltas vs the AIM-174B:
-# Mass 860->467 (AARGM-ER airframe), MaxLaunchRange 130->120,
-# AccelerationTime 90->80, MaxTurnRate 30->32 (smaller, more agile),
-# SecondaryPassiveRadarGuidanceType HomeOnJam->Full (AARGM heritage:
-# passive homing on radar emitters, not just jammers).
+# Seeker/guidance concept from usn_aim-174b (Murder Hornet); airframe, mass,
+# kinematics and visuals from usn_agm-88g (US Naval Aviation). Deliberate
+# deltas vs the AIM-174B:
+#   Mass 860->467 and full ApplyKinematics, so it obeys the same drag and
+#     energy model as every other AAM instead of the AIM-174B's legacy block
+#   MaxLaunchRange 130->120, MaxTurnRate 30->22 with MaxTurnG=25 capping it
+#   KillProbability 1.02->0.88 and CEP 5m->60m, so it can miss
+#   SeekerActiveRange 65->25 nm and FOV 180->110 deg, so it can be beamed
+#   SecondaryPassiveRadarGuidanceType HomeOnJam->Full (AARGM heritage:
+#     passive homing on radar emitters, not just jammers)
 AIM424_INI = """\
 [General]
 # AIM-424 MALICE (SEST what-if)
@@ -49,8 +53,8 @@ WarheadType=0
 Power=42
 ImpactSize=SemiSmall                    // Impact size, can be small, medium, large, verylarge
 Penetration=Always                      // can be minor, moderate, heavy, always
-FuzeProximityDistance=15.0              // for proximity fuze: distance to target in meters
-KillProbability=1.02                    // Chance to intercept missile
+FuzeProximityDistance=20.0              // for proximity fuze: distance to target in meters
+KillProbability=0.88                    // vanilla AAW tops out at 0.85; 0.88 for a 2030s seeker
 
 [Guidance]
 GuidanceType=3
@@ -60,29 +64,44 @@ InitialFlightPhaseDuration=2.2         // seconds of unguided straight flight
 MaxLoftAngle=25.0                      // Climb angle for initial loft
 MaxLoftAlt=99000                       // Maximum altitude for lofting, in feet
 MaxLoftVelocity=2400.0                 // Maximum speed in knots for lofting
-TerminalApproachDist=20                // in N. miles
+TerminalApproachDist=22                // in N. miles - just under seeker range
 LocalTerminalOnly=False
 IgnoreHeightDifferenceForTargetDist=True
-MaxVelocity=2333                       // Maximum speed in knots
-VelocityBleed=0.8
-AccelerationTime=80                    // Time until start of the velocity bleed, in seconds
-Acceleration=18.0                      // Acceleration factor
-MaxTurnRate=32.0                       // Maximum turnrate in degrees per second
+# Full kinematics, ported from the AGM-88G donor that supplies this airframe
+# (same 467 kg body, same motor budget: total dv ~1284 m/s ~ Mach 3.75). The
+# legacy no-drag block the AIM-174B uses would let this missile arrive at
+# 120 nm still at Mach 3+, which no other AAM in the game can do.
+ApplyKinematics=True
+MaxVelocity=2900                       // Maximum speed in knots
+VelocityBleed=0.35                     // cf. AIM-120D 0.5, AIM-260 0.12
+AccelerationTime=4                     // initial booster burn, seconds
+Acceleration=22                        // booster acceleration, Gs
+SustainerAccelerationTime=25           // sustainer burn, seconds
+SustainerAcceleration=1.8
+DragCoefficient=-1                     // back-solved from MaxLaunchRange + the Typical* set
+TypicalLaunchVelocity=550
+TypicalFiringAlt=35000
+TypicalTargetAlt=35000
+TypicalTargetVelocity=500
+LiftFactor=0.002                       // vanilla AIM-54A uses 0.001
+MaxFlightTime=240                      // hard cutoff, seconds
+MaxTurnRate=22.0                       // Maximum turnrate in degrees per second
+MaxTurnG=25                            // matches AIM-54A / AIM-120D-3 / AIM-260
 MinLaunchRange=2                       // Minimum launch range in nautical miles
 MaxLaunchRange=120.0                   // Maximum launch range in nautical miles
 MinAttackAltitude=10                   // Minimum altitude of a target, in feet
 MaxAttackAltitude=100000               // Maximum altitude of target, in feet
 LaunchReliability=99
-CircularErrorRadius=5.00
-CircularErrorRadiusLarge=2.5
+CircularErrorRadius=60                 // cf. dts_aim-120d-3 at 106
+CircularErrorRadiusLarge=12
 SeekerGain=48.0                        // Seeker gain in dB
-SeekerFOV=180.0                        // Seeker field-of-view in degrees
+SeekerFOV=110.0                        // Seeker field-of-view in degrees
 SecondaryPassiveRadarGuidanceType=Full // AARGM heritage: passive homing on radar and ECM emitters
 PassiveRadarGuidanceFrequencies=All
 SeekerPassiveRange=80                  // Seeker passive range in nautical miles
-SeekerActiveRange=65.0                 // Seeker active range in nautical miles
+SeekerActiveRange=25.0                 // Seeker active range in nautical miles
 Frequency=X-Band
-PeakPower=100.0
+PeakPower=35.0
 TargetMemory=True
 AntiCountermeasuresBonus=.90
 AntiJammerBonus=0.85
