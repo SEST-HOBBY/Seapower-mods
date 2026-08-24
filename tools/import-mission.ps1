@@ -34,6 +34,12 @@ $ErrorActionPreference = "Stop"
 if (-not $Mission -and -not $All) {
     throw "Give -Mission '<name>' (without .ini) or -All"
 }
+if ($Mission -and $Mission.StartsWith("-")) {
+    throw "Mission name looks like a switch ('$Mission'). If you are calling this from another script, splat a HASHTABLE (@{Mission=...}) - array splatting binds positionally."
+}
+if ($StreamingAssetsDir -and -not (Test-Path -LiteralPath $StreamingAssetsDir)) {
+    throw "StreamingAssetsDir does not exist: '$StreamingAssetsDir'"
+}
 
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 $repoRoot = Split-Path -Parent $scriptDir

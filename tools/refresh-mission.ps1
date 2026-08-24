@@ -119,8 +119,12 @@ function Invoke-Py {
 # --- 1. Import ---------------------------------------------------------------
 if (-not $SkipImport) {
     Write-Host "`n[1/5] importing '$Mission' from the game..." -ForegroundColor Cyan
-    $importArgs = @("-Mission", $Mission)
-    if ($StreamingAssetsDir) { $importArgs += @("-StreamingAssetsDir", $StreamingAssetsDir) }
+    # NOTE: splat a HASHTABLE, not an array. Array splatting binds
+    # positionally, so @("-Mission", $Mission) would put the literal string
+    # "-Mission" in $Mission and the mission name in the next positional
+    # parameter ($StreamingAssetsDir).
+    $importArgs = @{ Mission = $Mission }
+    if ($StreamingAssetsDir) { $importArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
     & (Join-Path $scriptDir "import-mission.ps1") @importArgs
 } else {
     Write-Host "`n[1/5] import skipped (-SkipImport)" -ForegroundColor DarkGray
@@ -159,8 +163,8 @@ if ($LASTEXITCODE -eq 0) {
 # --- 5. Put it back in the game ----------------------------------------------
 if ($Install) {
     Write-Host "`n[5/5] installing back into the game..." -ForegroundColor Cyan
-    $installArgs = @()
-    if ($StreamingAssetsDir) { $installArgs += @("-StreamingAssetsDir", $StreamingAssetsDir) }
+    $installArgs = @{}
+    if ($StreamingAssetsDir) { $installArgs["StreamingAssetsDir"] = $StreamingAssetsDir }
     & (Join-Path $scriptDir "install-sest-packs.ps1") @installArgs
 } else {
     Write-Host "`n[5/5] not installed (pass -Install to deploy it back)" -ForegroundColor DarkGray
