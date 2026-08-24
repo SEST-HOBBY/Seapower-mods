@@ -43,13 +43,16 @@ GROWLER_LOADOUTS = """\
 [WeaponSystem1SEST_MaliceNGJ]
 ReadyUpTime=25               // minutes to refuel and rearm before takeoff
 CoolDownTime=60              // minutes of maintenance after landing
-SubModelsToHide=fule_tank_point
+# fule_tank_point is the WING tank attachment. Every upstream fit that puts
+# tanks on stations 27/28 (the "EF" external-fuel ones) leaves it VISIBLE and
+# only centreline-tank fits hide it - hiding it here left the tanks floating.
+# usn_tank_1200_f-18 is the tank the Hornet family actually mounts there.
 Station3=sest_aim-424
 Station4=sest_aim-424
 Station11=usn_aim-120d3
 Station12=usn_aim-120d3
-Station27=usn_tank_610_f-18
-Station28=usn_tank_610_f-18
+Station27=usn_tank_1200_f-18
+Station28=usn_tank_1200_f-18
 
 """
 
@@ -217,6 +220,71 @@ def verify_station_geometry(text: str, sections: str, source_name: str) -> None:
         sys.exit(f"{source_name}: loadout uses undefined stations {missing}")
 
 
+# Stations 27/28 are the WING tank pylons; their attachment mesh is
+# fule_tank_point. Station 29 is the centreline, which does not use it.
+WING_TANK_STATIONS = {27, 28}
+WING_TANK_POINT = "fule_tank_point"
+
+
+def verify_tank_points(text: str, source_name: str) -> None:
+    """A loadout may not hide the wing tank point while using a wing tank.
+
+    Doing so renders the tanks detached in mid-air. Only SEST sections are
+    checked - upstream's own loadouts are not ours to police.
+    """
+    for m in re.finditer(r"^\[WeaponSystem1(SEST_[A-Za-z0-9_]+)\]\n(.*?)(?=^\[)",
+                         text, re.M | re.S):
+        name, body = m.group(1), m.group(2)
+        hidden = re.search(r"^SubModelsToHide=(.*)$", body, re.M)
+        if not (hidden and WING_TANK_POINT in hidden.group(1)):
+            continue
+        used = {int(s) for s, ammo in re.findall(r"^Station(\d+)=(\S+)", body, re.M)
+                if "tank" in ammo}
+        clash = sorted(used & WING_TANK_STATIONS)
+        if clash:
+            sys.exit(f"{source_name}: {name} hides {WING_TANK_POINT} but mounts a "
+                     f"tank on wing station(s) {clash} - the tanks would float")
+
+
+def fix_floating_tanks(text: str, source_name: str) -> str:
+    """Stop wing tanks rendering detached in upstream's own loadouts.
+
+    Several upstream fits hide fule_tank_point - the WING tank attachment -
+    while mounting tanks on stations 27/28, so the tanks float unattached.
+    Upstream's own external-fuel ("EF") loadouts show the correct pattern:
+    tanks on 27/28 with the point left visible. This drops fule_tank_point
+    from the hide list of any loadout that mounts a wing tank, and touches
+    nothing else.
+    """
+    fixed = []
+
+    def repair(match):
+        header, body = match.group(1), match.group(2)
+        hidden = re.search(r"^SubModelsToHide=(.*)$", body, re.M)
+        if not (hidden and WING_TANK_POINT in hidden.group(1)):
+            return match.group(0)
+        used = {int(st) for st, ammo in re.findall(r"^Station(\d+)=(\S+)", body, re.M)
+                if "tank" in ammo}
+        if not (used & WING_TANK_STATIONS):
+            return match.group(0)
+        kept = [p for p in hidden.group(1).split(",")
+                if p.strip() and p.strip() != WING_TANK_POINT]
+        new_line = ("SubModelsToHide=" + ",".join(kept)) if kept else ""
+        new_body = re.sub(r"^SubModelsToHide=.*$", lambda _: new_line, body,
+                          count=1, flags=re.M)
+        if not kept:
+            new_body = new_body.replace("\n\n", "\n", 1)
+        fixed.append(re.match(r"\[WeaponSystem1([A-Za-z0-9_\-]+)\]", header).group(1))
+        return header + new_body
+
+    text = re.sub(r"(^\[WeaponSystem1[A-Za-z0-9_\-]+\]\n)(.*?)(?=^\[)",
+                  repair, text, flags=re.M | re.S)
+    if fixed:
+        print(f"    {source_name}: wing tanks re-attached in {len(fixed)} loadout(s): "
+              f"{', '.join(fixed)}")
+    return text
+
+
 def verify_ammunition() -> None:
     expected = {
         AIM424_ID,
@@ -242,7 +310,9 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
         if missing:
             sys.exit(f"{source.name}: upstream NGJ layout changed; missing {missing}")
 
+    text = fix_floating_tanks(text, source.name)
     verify_station_geometry(text, GROWLER_LOADOUTS, source.name)
+    verify_tank_points(GROWLER_LOADOUTS, source.name)
     text = extend_loadouts(text, GROWLER_KEYS, source.name)
     text = inject_loadouts(text, GROWLER_LOADOUTS, source.name)
     for key in GROWLER_KEYS:
@@ -280,7 +350,9 @@ def build_super_hornet(file_name: str) -> None:
     source = NAVY_2027 / "aircraft" / file_name
     text = source.read_text(encoding="utf-8-sig")
     text = replace_harpoons(text, source.name)
+    text = fix_floating_tanks(text, source.name)
     verify_station_geometry(text, BLOCK_III_LOADOUT, source.name)
+    verify_tank_points(BLOCK_III_LOADOUT, source.name)
     text = extend_loadouts(text, BLOCK_III_KEYS, source.name)
     text = inject_loadouts(text, BLOCK_III_LOADOUT, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
