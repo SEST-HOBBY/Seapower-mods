@@ -32,27 +32,78 @@ sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 
-# The tank every Hornet-family fit should hang. usn_tank_1200_f-18 is Murder
-# Hornet's, and it is the vanilla F-15C tank wearing a Hornet's name: its mesh
-# is ResourcesMesh=usaf_f-15c_tank_610 out of aircraft/usaf_f-15c/, with Fuel
-# raised from 1800 to 4500. usaf_tank_610_f-15 is that same F-15 tank
-# unmodified. usn_tank_610_f-18 is the genuine article - the f-18_fuletank mesh
-# from the F/A-18E/F mod, at 1800.
+# THE TANK MESH IS COUPLED TO THE STATION GEOMETRY - DO NOT SWAP IT.
 #
-# Swapping them costs range: the NGJ MALICE fit drops from ~1433 nm to roughly
-# what the SEAD fits get, because the 1433 was never the missile, it was 2.5x
-# the fuel. What it buys is a Hornet that looks like a Hornet and a like-for-
-# like comparison between fits.
-HORNET_TANK = "usn_tank_610_f-18"
-TANK_REPLACEMENTS = {
-    "usn_tank_1200_f-18": HORNET_TANK,
-    "usaf_tank_610_f-15": HORNET_TANK,
-}
+# usn_tank_1200_f-18 is Murder Hornet's, and its mesh really is the vanilla
+# F-15C tank (ResourcesMesh=usaf_f-15c_tank_610 out of aircraft/usaf_f-15c/)
+# with Fuel raised from 1800 to 4500. usn_tank_610_f-18 is the genuine Hornet
+# article - f-18_fuletank out of the F/A-18E/F mod.
+#
+# Swapping to the genuine one was tried and REVERTED: the tanks hung visibly
+# low and detached under the wing. The reason is that f-18_fuletank is a mesh
+# pulled out of fa-18e.obj, a whole-aircraft root, so its origin is wherever
+# the tank sits on THAT model - and Murder Hornet tuned stations 27/28 around
+# the F-15C tank's origin instead. The station positions and the tank mesh are
+# one unit; changing either alone breaks the fit.
+#
+# So the mesh stays. What was actually wrong - the fuel - is fixed by shipping
+# an override of usn_tank_1200_f-18 with Fuel back at 1800, the figure both the
+# real Hornet tank and the vanilla F-15 tank use. The pack sits above Murder
+# Hornet, so our copy wins, and no station geometry moves.
+# NO ID SWAPPING. Which tank is correct is a property of the AIRFRAME, not a
+# global preference: usn_ea-18g's stations are tuned around the F-15C tank mesh
+# (its own fits use usaf_tank_610_f-15), while the 2020 and 2020s Growlers are
+# tuned around the Hornet mesh (theirs use usn_tank_610_f-18). Forcing one on
+# all of them is what made the tanks hang low. The SEST fits below therefore
+# ask the airframe what it already uses.
+#
+# usaf_tank_610_f-15 and usn_tank_1200_f-18 are the SAME mesh anyway - the only
+# real difference was Fuel, 1800 against 4500, and the override below settles
+# that without touching any geometry.
+DEFAULT_WING_TANK = "usn_tank_1200_f-18"
 
-# Stores confirmed in game to intersect the wing tanks. Each entry clears
-# specific stations from one loadout; the geometry is in the comment so a
-# future rebase can re-derive it rather than trust the number.
-TANK_CLASH_FIXES = [
+# Same file as Murder Hornet's, one number changed.
+TANK_OVERRIDE = """\
+[General]
+# usn_tank_1200_f-18 - SEST override of Murder Hornet's tank.
+# Geometry is untouched: the mesh below is what stations 27/28 and 29 are
+# positioned around, and substituting the real f-18_fuletank makes the tanks
+# hang low and detached. Only Fuel changes, 4500 -> 1800, which is what both
+# the genuine Hornet tank (usn_tank_610_f-18) and the vanilla F-15 610 gal
+# tank carry. 4500 was giving the fits that used it 2.5x the external fuel of
+# the ones that did not, which is why NGJ MALICE showed ~1433 nm against the
+# SEAD fits' ~860.
+Type=Fueltank
+Fuel=1800
+
+[---------- Mesh definitions----------]
+[Models]
+AssetBundleMeshes=/AssetBundles/StandaloneWindows/aircraft
+AssetBundleMaterials=/AssetBundles/StandaloneWindows/aircraft
+AssetBundleMesh=usn_rim-7
+AssetBundleDamagedMesh=
+AssetBundleMaterial=usn_rim-7_mat
+AssetBundleMeshHullCollider=usn_rim-7_coll
+ResourcesFolder=aircraft/usaf_f-15c/
+ResourcesRoot=usaf_f-15c
+ResourcesMesh=usaf_f-15c_tank_610
+ResourcesMaterialFolder=aircraft/usaf_f-15c/
+ResourcesMaterial=usaf_f-15c_tank_mat
+"""
+
+# Stations cleared from specific loadouts, each with its own reason - which is
+# printed, so the build log says what it actually did rather than assuming
+# every removal is a tank clash.
+STATION_REMOVALS = [
+    # Six AGM-88G crowds the wing. Dropping the INBOARD pair rather than the
+    # mid-wing one takes it to four while keeping it distinct from
+    # MurderHornetSEADHeavy, which already carries four on 3/4 + 30/31 - clear
+    # 13/14 instead and the two fits become byte-identical, which is worse than
+    # either. No tanks are fitted here, so the mid-wing pair has nothing to
+    # clash with.
+    ("MurderHornetLightsOut", (30, 31),
+     "six AGM-88G crowds the wing; dropped the inboard pair for four, keeping "
+     "it distinct from SEADHeavy which uses the inboard pair"),
     ("MurderHornetSEADHeavyTanks", (13, 14),
      "AGM-88G sits 0.0181 from the wing tank on the same wing, and an AARGM-ER "
      "is long while a 610-gal tank is fat, so they intersect. The pair left on "
@@ -84,13 +135,14 @@ CoolDownTime=60              // minutes of maintenance after landing
 # fule_tank_point is the WING tank attachment. Every upstream fit that puts
 # tanks on stations 27/28 (the "EF" external-fuel ones) leaves it VISIBLE and
 # only centreline-tank fits hide it - hiding it here left the tanks floating.
-# The tank is usn_tank_610_f-18 - the real Hornet one; see HORNET_TANK.
+# The tank id is filled in from whatever this airframe already flies -
+# see detect_wing_tank() for why substituting a different mesh breaks it.
 Station3=sest_aim-424
 Station4=sest_aim-424
 Station11=usn_aim-120d3
 Station12=usn_aim-120d3
-Station27=usn_tank_610_f-18
-Station28=usn_tank_610_f-18
+Station27=__WING_TANK__
+Station28=__WING_TANK__
 
 """
 
@@ -116,9 +168,9 @@ ReadyUpTime=25               // minutes to refuel and rearm before takeoff
 CoolDownTime=60              // minutes of maintenance after landing
 Station11=usn_aim-120d3
 Station12=usn_aim-120d3
-Station27=usn_tank_610_f-18
-Station28=usn_tank_610_f-18
-Station29=usn_tank_610_f-18
+Station27=__WING_TANK__
+Station28=__WING_TANK__
+Station29=__WING_TANK__
 
 """
 
@@ -137,7 +189,7 @@ Station3=usn_aim-120d3
 Station4=usn_aim-120d3
 Station11=usn_aim-120d3
 Station12=usn_aim-120d3
-Station29=usn_tank_610_f-18
+Station29=__WING_TANK__
 Station30=sest_aim-424
 Station31=sest_aim-424
 Station32=sest_aim-424
@@ -353,29 +405,27 @@ def fix_floating_tanks(text: str, source_name: str) -> str:
     return text
 
 
-def retank(text: str, source_name: str) -> str:
-    """Hang the real Hornet tank instead of an F-15's.
+def detect_wing_tank(text: str, source_name: str) -> str:
+    """The tank THIS airframe's own loadouts hang on the wing stations.
 
-    Applies to upstream's loadouts as well as ours: the point is that this
-    airframe should not be carrying an Eagle's tank in any fit, and the pack
-    already ships the whole file.
+    The tank mesh and the station positions are one unit - substituting a mesh
+    from a different aircraft's model leaves the tanks visibly low and
+    detached, because the mesh origin is wherever the tank sits on that other
+    model. So the SEST fits copy whatever the airframe already flies.
     """
-    swapped = {}
-    for old, new in TANK_REPLACEMENTS.items():
-        n = len(re.findall(rf"^Station\d+={re.escape(old)}\s*$", text, re.M))
-        if n:
-            text = re.sub(rf"(^Station\d+=){re.escape(old)}(\s*)$",
-                          lambda m: f"{m.group(1)}{new}{m.group(2)}", text, flags=re.M)
-            swapped[old] = n
-    if swapped:
-        detail = ", ".join(f"{k} x{v}" for k, v in sorted(swapped.items()))
-        print(f"    {source_name}: retanked to {HORNET_TANK} ({detail})")
-    return text
+    used = re.findall(r"^Station2[78]=(\S*tank\S*)\s*$", text, re.M)
+    if not used:
+        print(f"    {source_name}: no existing wing tank to copy - "
+              f"defaulting to {DEFAULT_WING_TANK}")
+        return DEFAULT_WING_TANK
+    tank = max(set(used), key=used.count).split("|")[0]
+    print(f"    {source_name}: wing tank is {tank} (copied from this airframe's own fits)")
+    return tank
 
 
-def fix_tank_clashes(text: str, source_name: str) -> str:
-    """Clear stores that intersect the wing tanks they fly alongside."""
-    for loadout, stations, why in TANK_CLASH_FIXES:
+def apply_station_removals(text: str, source_name: str) -> str:
+    """Clear specific stations from specific loadouts, each for its own reason."""
+    for loadout, stations, why in STATION_REMOVALS:
         m = re.search(rf"^\[WeaponSystem1{re.escape(loadout)}\]\n(.*?)(?=^\[)",
                       text, re.M | re.S)
         if not m:
@@ -388,8 +438,7 @@ def fix_tank_clashes(text: str, source_name: str) -> str:
         for s in present:
             new_body = re.sub(rf"^Station{s}=.*\n", "", new_body, count=1, flags=re.M)
         text = text[:m.start(1)] + new_body + text[m.end(1):]
-        print(f"    {source_name}: {loadout} - cleared station(s) "
-              f"{present} that clip the wing tanks")
+        print(f"    {source_name}: {loadout} - cleared station(s) {present}: {why}")
     return text
 
 
@@ -466,16 +515,16 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
             sys.exit(f"{source.name}: upstream NGJ layout changed; missing {missing}")
 
     text = fix_floating_tanks(text, source.name)
-    text = fix_tank_clashes(text, source.name)
-    text = retank(text, source.name)
+    text = apply_station_removals(text, source.name)
+    wing_tank = detect_wing_tank(text, source.name)
     verify_station_geometry(text, GROWLER_LOADOUTS, source.name)
     verify_tank_points(GROWLER_LOADOUTS, source.name)
     keys = list(GROWLER_KEYS)
-    sections = GROWLER_LOADOUTS
+    sections = GROWLER_LOADOUTS.replace('__WING_TANK__', wing_tank)
     # Three tanks needs a centreline station, which only some Growlers have.
     if re.search(r"^Station29=", text, re.M):
         keys.append(LONG_RANGE_KEY)
-        sections += LONG_RANGE_LOADOUT
+        sections += LONG_RANGE_LOADOUT.replace('__WING_TANK__', wing_tank)
         verify_station_geometry(text, LONG_RANGE_LOADOUT, source.name)
     else:
         print(f"    {source.name}: no centreline station - skipping {LONG_RANGE_KEY}")
@@ -518,12 +567,13 @@ def build_super_hornet(file_name: str) -> None:
     text = source.read_text(encoding="utf-8-sig")
     text = replace_harpoons(text, source.name)
     text = fix_floating_tanks(text, source.name)
-    text = fix_tank_clashes(text, source.name)
-    text = retank(text, source.name)
+    text = apply_station_removals(text, source.name)
+    wing_tank = detect_wing_tank(text, source.name)
     verify_station_geometry(text, BLOCK_III_LOADOUT, source.name)
     verify_tank_points(BLOCK_III_LOADOUT, source.name)
     text = extend_loadouts(text, BLOCK_III_KEYS, source.name)
-    text = inject_loadouts(text, BLOCK_III_LOADOUT, source.name)
+    text = inject_loadouts(text, BLOCK_III_LOADOUT.replace("__WING_TANK__", wing_tank),
+                           source.name)
     report_tank_clearance(text, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
         sys.exit(f"{source.name}: invalid generated MALICE section count")
@@ -564,6 +614,8 @@ def main() -> None:
     systems.mkdir(exist_ok=True)
     (systems / "sensors.ini").write_text(NGJ_SENSOR, encoding="utf-8")
     write_aim424(OUT)
+    (OUT / "ammunition" / "usn_tank_1200_f-18.ini").write_text(
+        TANK_OVERRIDE, encoding="utf-8")
     write_language_files()
 
     outputs = sorted(path for path in OUT.rglob("*") if path.is_file())

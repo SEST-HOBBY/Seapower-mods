@@ -47,27 +47,34 @@ place it **above** all three dependencies in Sea Power's Mod Manager:
 Top of the Mod Manager list wins file conflicts.
 
 
-## Fuel tanks: the Hornets were wearing Eagle tanks
+## Fuel tanks: the mesh is coupled to the station geometry
 
-`usn_tank_1200_f-18` is Murder Hornet's tank and it is the **vanilla F-15C tank** under a Hornet
-name — `ResourcesMesh=usaf_f-15c_tank_610` out of `aircraft/usaf_f-15c/`, with `Fuel` raised from
-1800 to 4500. `usaf_tank_610_f-15` is that same F-15 tank unmodified. The genuine article is
-`usn_tank_610_f-18`: the `f-18_fuletank` mesh from the F/A-18E/F mod, at 1800.
+`usn_tank_1200_f-18` is Murder Hornet's tank and its mesh really is the vanilla **F-15C** tank
+(`ResourcesMesh=usaf_f-15c_tank_610` from `aircraft/usaf_f-15c/`) with `Fuel` raised 1800 → 4500.
+The genuine Hornet article is `usn_tank_610_f-18`, the `f-18_fuletank` mesh from the F/A-18E/F mod.
 
-Every fit in this pack now hangs `usn_tank_610_f-18` — 44 to 50 swaps per Super Hornet.
+Swapping every fit to the genuine one **was tried and reverted.** The tanks hung visibly low and
+detached under the wing, because `f-18_fuletank` is a mesh pulled out of `fa-18e.obj` — a
+whole-aircraft root — so its origin is wherever the tank sits on *that* model, while Murder Hornet
+tuned stations 27/28 around the F-15C tank's origin instead. **The station positions and the tank
+mesh are one unit; changing either alone breaks the fit.**
 
-That closes the range gap that made the MALICE fit look magic:
+Which tank is correct is therefore a property of the airframe, not a global preference, and the
+SEST fits now copy whatever the airframe already flies:
 
-| Fit | Tanks | External fuel |
+| Airframe | Wing tank | Why |
 |---|---|---|
-| MH SEAD+Extra Fuel | 2× 610 (was an F-15 tank) | 3,600 |
-| NGJ MALICE — before | 2× "1200" (F-15 mesh, 4500 fuel) | 9,000 |
-| **NGJ MALICE — now** | 2× 610 | **3,600** |
-| **NGJ Long Range — new** | 3× 610 | **5,400** |
+| `usn_ea-18g` | `usaf_tank_610_f-15` | its own fits use it |
+| `usn_ea-18g_2020` / `_2020s` | `usn_tank_610_f-18` | theirs use it |
+| `usn_fa-18e/f/f_blk3` | `usn_tank_1200_f-18` | theirs use it |
 
-The ~1433 nm combat radius on the MALICE fit was never the missile. It was 2.5× the fuel.
+What *was* genuinely wrong is the fuel, and that needs no geometry change. The pack ships an
+override of `ammunition/usn_tank_1200_f-18.ini` — byte-identical mesh block, `Fuel` back to **1800**
+— so every tank across all six airframes now carries the same 1800 the vanilla F-15 tank and the
+real Hornet tank both use. That closes the range gap without moving anything: NGJ MALICE showed
+~1433 nm against the SEAD fits' ~860 purely because 4500 is 2.5× 1800.
 
-## Stores that clip the tanks
+## Stores that clip the tanks## Stores that clip the tanks
 
 `MurderHornetSEADHeavyTanks` carried four AGM-88G, and the pair on stations 13/14 **intersects the
 wing tanks** — confirmed in game. The geometry says why: those stations sit 0.0181 from the tank on
