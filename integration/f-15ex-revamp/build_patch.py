@@ -199,10 +199,10 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-120d-3_w|120
 Station10=dts_aim-120d-3_w|120
-Station11=dts_aim-120d-3|120-B
-Station12=dts_aim-120d-3|120-B
-Station13=dts_aim-120d-3|120-B
-Station14=dts_aim-120d-3|120-B
+Station11=dts_aim-120d-3|SESTB
+Station12=dts_aim-120d-3|SESTB
+Station13=dts_aim-120d-3|SESTB
+Station14=dts_aim-120d-3|SESTB
 Station18=dts_aim-120d-3|SESTD-FL
 Station19=dts_aim-120d-3|SESTD-FR
 Station22=dts_aim-120d-3|SESTD-AR
@@ -224,10 +224,10 @@ Station7=dts_aim-260_w|120
 Station8=dts_aim-260_w|120
 Station9=dts_aim-260_w|120
 Station10=dts_aim-260_w|120
-Station11=dts_aim-260|120-B
-Station12=dts_aim-260|120-B
-Station13=dts_aim-260|120-B
-Station14=dts_aim-260|120-B
+Station11=dts_aim-260|SESTB
+Station12=dts_aim-260|SESTB
+Station13=dts_aim-260|SESTB
+Station14=dts_aim-260|SESTB
 Station18=dts_aim-260|SESTD-FL
 Station19=dts_aim-260|SESTD-FR
 Station22=dts_aim-260|SESTD-AR
@@ -253,16 +253,16 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-120d-3_w|120
 Station10=dts_aim-120d-3_w|120
-Station11=dts_aim-120d-3|120-B
-Station12=dts_aim-120d-3|120-B
-Station13=dts_aim-120d-3|120-B
-Station14=dts_aim-120d-3|120-B
+Station11=dts_aim-120d-3|SESTB
+Station12=dts_aim-120d-3|SESTB
+Station13=dts_aim-120d-3|SESTB
+Station14=dts_aim-120d-3|SESTB
 Station18=dts_aim-120d-3|SESTD-FL
 Station19=dts_aim-120d-3|SESTD-FR
 Station22=dts_aim-120d-3|SESTD-AR
 Station23=dts_aim-120d-3|SESTD-AL
-Station24=dts_aim-120d-3|120-B
-Station25=dts_aim-120d-3|120-B
+Station24=dts_aim-120d-3|SESTB
+Station25=dts_aim-120d-3|SESTB
 Station20=dts_aim-120d-3|SESTD-MR
 Station21=dts_aim-120d-3|SESTD-ML
 Station15=usaf_tank_610_f-15|WT
@@ -280,16 +280,16 @@ Station7=dts_aim-260_w|120
 Station8=dts_aim-260_w|120
 Station9=dts_aim-260_w|120
 Station10=dts_aim-260_w|120
-Station11=dts_aim-260|120-B
-Station12=dts_aim-260|120-B
-Station13=dts_aim-260|120-B
-Station14=dts_aim-260|120-B
+Station11=dts_aim-260|SESTB
+Station12=dts_aim-260|SESTB
+Station13=dts_aim-260|SESTB
+Station14=dts_aim-260|SESTB
 Station18=dts_aim-260|SESTD-FL
 Station19=dts_aim-260|SESTD-FR
 Station22=dts_aim-260|SESTD-AR
 Station23=dts_aim-260|SESTD-AL
-Station24=dts_aim-260|120-B
-Station25=dts_aim-260|120-B
+Station24=dts_aim-260|SESTB
+Station25=dts_aim-260|SESTB
 Station20=dts_aim-260|SESTD-MR
 Station21=dts_aim-260|SESTD-ML
 Station15=usaf_tank_610_f-15|WT
@@ -776,22 +776,36 @@ def main():
         sys.exit("AGMPositions not found - upstream layout changed")
     if "M424Positions" in text:
         sys.exit("M424Positions already defined upstream - re-check")
-    # 1c. Belly DOUBLE seats for the tank trucks. With the AAMT rack mesh
-    #     hidden (it clips the wing tanks) the belly lost its dual-rack look,
-    #     so the pairs are rebuilt from stations instead: the four unused
-    #     fuselage stations 18/19/22/23 are offset to sit 0.0044 outboard of
-    #     the |120-B rounds on 11-14 - four side-by-side pairs, eight rounds.
-    #     Offsets = (partner position minus station origin), the same
-    #     seat-key technique as the B-52O ARRW pylons.
+    # 1c. Belly DOUBLE seats for the trucks. With the AAMT rack mesh hidden
+    #     (it clips the wing tanks) the belly lost its dual-rack look, so the
+    #     pairs are rebuilt from stations instead: free fuselage stations are
+    #     offset to sit 0.0044 outboard of the belly rounds - side-by-side
+    #     pairs. Offsets = (partner position minus station origin), the
+    #     B-52O ARRW pylon technique. SESTB is the belly round seat for the
+    #     SEST fits: |120-B raised 0.001 ("slightly up more", in-game call).
+    #     SESTD y values carry the same +0.001.
+    #     Rotations: WS1 stations carry per-station pitch (S13/14 +3, S20/21
+    #     -3, S22/23 +5, rest 0), which left partner rounds visibly askew
+    #     beside their row-mates ("wonky"). The SESTD-*Rotations values below
+    #     assume seat rotations ADD to the station's (as seat positions add
+    #     to station coordinates): AR/AL -2 nets +3 to match S13/14, MR/ML +3
+    #     nets 0 to match S24/25. If in game they come out askew the OTHER
+    #     way, the engine replaces instead of adding - then AR/AL want 3,0,0
+    #     and MR/ML want 0,0,0.
     text = (text[:agm.end()]
             + "M424Positions=0,-0.0005,0\n"
             + "M424WPositions=0,-0.0005,0\n"   # WW raised 0.001 - the 424 hung low underslung
-            + "SESTD-FLPositions=0.0016,-0.0028,0.0515\n"
-            + "SESTD-FRPositions=-0.0016,-0.0028,0.0515\n"
-            + "SESTD-ARPositions=-0.0016,-0.0023,0.0180\n"
-            + "SESTD-ALPositions=0.0016,-0.0023,0.0180\n"
-            + "SESTD-MRPositions=-0.0016,-0.003,-0.020\n"   # 20/21 seated beside 24/25
-            + "SESTD-MLPositions=0.0016,-0.003,-0.020\n"
+            + "SESTBPositions=0,0.0012,0.008\n"
+            + "SESTD-FLPositions=0.0016,-0.0018,0.0515\n"
+            + "SESTD-FRPositions=-0.0016,-0.0018,0.0515\n"
+            + "SESTD-ARPositions=-0.0016,-0.0013,0.0180\n"
+            + "SESTD-ALPositions=0.0016,-0.0013,0.0180\n"
+            + "SESTD-ARRotations=-2,0,0\n"
+            + "SESTD-ALRotations=-2,0,0\n"
+            + "SESTD-MRPositions=-0.0016,-0.002,-0.020\n"   # 20/21 seated beside 24/25
+            + "SESTD-MLPositions=0.0016,-0.002,-0.020\n"
+            + "SESTD-MRRotations=3,0,0\n"
+            + "SESTD-MLRotations=3,0,0\n"
             + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner

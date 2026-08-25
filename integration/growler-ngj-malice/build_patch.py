@@ -33,34 +33,31 @@ sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 
-# THE TANK MESH IS COUPLED TO THE STATION GEOMETRY - DO NOT SWAP IT.
+# TANK MESH HISTORY - the coupling theory below was superseded, keep both.
 #
 # usn_tank_1200_f-18 is Murder Hornet's, and its mesh really is the vanilla
 # F-15C tank (ResourcesMesh=usaf_f-15c_tank_610 out of aircraft/usaf_f-15c/)
-# with Fuel raised from 1800 to 4500. usn_tank_610_f-18 is the genuine Hornet
+# with Fuel raised from 1800 to 4500. usn_tank_610_f-18 was the genuine Hornet
 # article - f-18_fuletank out of the F/A-18E/F mod.
 #
-# Swapping to the genuine one was tried and REVERTED: the tanks hung visibly
-# low and detached under the wing. The reason is that f-18_fuletank is a mesh
-# pulled out of fa-18e.obj, a whole-aircraft root, so its origin is wherever
-# the tank sits on THAT model - and Murder Hornet tuned stations 27/28 around
-# the F-15C tank's origin instead. The station positions and the tank mesh are
-# one unit; changing either alone breaks the fit.
+# Round 1 (earlier session): swapping fits TO f-18_fuletank made the tanks
+# hang visibly low and detached, and was reverted under the theory that each
+# airframe's stations were "tuned around" its own tank mesh - no id swapping,
+# detect_wing_tank() asks the airframe what it flies.
 #
-# So the mesh stays. What was actually wrong - the fuel - is fixed by shipping
-# an override of usn_tank_1200_f-18 with Fuel back at 1800, the figure both the
-# real Hornet tank and the vanilla F-15 tank use. The pack sits above Murder
-# Hornet, so our copy wins, and no station geometry moves.
-# NO ID SWAPPING. Which tank is correct is a property of the AIRFRAME, not a
-# global preference: usn_ea-18g's stations are tuned around the F-15C tank mesh
-# (its own fits use usaf_tank_610_f-15), while the 2020 and 2020s Growlers are
-# tuned around the Hornet mesh (theirs use usn_tank_610_f-18). Forcing one on
-# all of them is what made the tanks hang low. The SEST fits below therefore
-# ask the airframe what it already uses.
+# Round 2 (in-game reports on the 2020/2020s Growlers and the E tanker):
+# f-18_fuletank hung low ON ITS OWN airframes too, and seat offsets of
+# 0.0015 then 0.003 produced no visible change. Stations 27/28 carry
+# IDENTICAL coordinates on all four airframes, so the coupling theory cannot
+# hold - the truth is simpler: f-18_fuletank is a submesh pulled out of
+# fa-18e.obj, a whole-aircraft root, so its origin rides low at ANY station,
+# while the F-15C tank mesh sits flush at these coordinates everywhere
+# (proven by usn_tank_1200_f-18 and usaf_tank_610_f-15 in game).
 #
-# usaf_tank_610_f-15 and usn_tank_1200_f-18 are the SAME mesh anyway - the only
-# real difference was Fuel, 1800 against 4500, and the override below settles
-# that without touching any geometry.
+# Resolution: ids still never swap (detect_wing_tank stays), but the
+# usn_tank_610_f-18 AMMUNITION file is overridden to render the F-15C tank
+# mesh - see build_tank_610_override(). Fuel stays 1800 everywhere: the
+# usn_tank_1200_f-18 override below keeps its 4500 -> 1800 correction.
 DEFAULT_WING_TANK = "usn_tank_1200_f-18"
 
 # Same file as Murder Hornet's, one number changed.
@@ -606,7 +603,6 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
             sys.exit(f"{source.name}: invalid generated {key} section count")
 
     text = derive_sead260(text, source.name)
-    text = raise_610_wing_tanks(text, source.name)
     aircraft = OUT / "aircraft"
     aircraft.mkdir(parents=True, exist_ok=True)
     (aircraft / destination_name).write_text(normalize_generated_text(text), encoding="utf-8")
@@ -659,28 +655,39 @@ def derive_sead260(text: str, source_name: str) -> str:
     return text[:m.end()] + "[WeaponSystem1SEST_SEAD260]\n" + body + text[m.end():]
 
 
-def raise_610_wing_tanks(text: str, source_name: str) -> str:
-    """Seat the 610 gal tanks flush on the wing pylons.
+def build_tank_610_override() -> None:
+    """Re-mesh usn_tank_610_f-18: the fix for the low-riding wing tanks.
 
-    In game both 610 meshes (usaf_tank_610_f-15 on the legacy Growler,
-    usn_tank_610_f-18 on the 2020s and the E-model tanker) hang below the
-    pylon by the same margin; the 1200 gal tank on the same stations sits
-    right, so it is the 610 meshes' origin, not the stations. One raised
-    seat key, applied wherever a 610 mounts bare on stations 27/28."""
-    n = len(re.findall(r"^Station2[78]=(?:usaf_tank_610_f-15|usn_tank_610_f-18)$",
-                       text, re.M))
-    if n == 0:
-        return text
-    text = re.sub(r"^(Station2[78]=(?:usaf_tank_610_f-15|usn_tank_610_f-18))$",
-                  r"\1|SESTWT", text, flags=re.M)
-    anchor = re.search(r"^Station28=[-\d.]+,[-\d.]+,[-\d.]+[^\n]*\n", text, re.M)
-    if not anchor:
-        sys.exit(f"{source_name}: no Station28 coordinate line to anchor SESTWT")
-    # 0.0015 closed only part of the gap in game - the tanks still rode low
-    # on the Growler pylons, so the seat is doubled to 0.003.
-    text = text[:anchor.end()] + "SESTWTPositions=0,0.003,0\n" + text[anchor.end():]
-    print(f"    {source_name}: {n} bare 610 tank(s) raised to the SESTWT seat")
-    return text
+    The upstream ammunition file renders f-18_fuletank, a submesh carved out
+    of the fa-18e aircraft model, so its origin is the aircraft's - the tank
+    rides a fixed height below every pylon and neither seat offsets (0.0015
+    and 0.003 both showed no visible change in game) nor station edits fix a
+    mesh-origin error cleanly. usn_tank_1200_f-18 proved the VANILLA F-15C
+    610 gal tank mesh sits flush on these exact stations (27/28, identical
+    coordinates on all four airframes), so this override renders that mesh
+    instead. Whole-file ammunition override: our pack outranks all three
+    workshop mods that ship this file (F/A-18E/F, US Naval Aviation, RSA)."""
+    src = SUPER_HORNET / "ammunition" / "usn_tank_610_f-18.ini"
+    text = src.read_text(encoding="utf-8-sig")
+    old = ("ResourcesFolder=assets/models/vechicle/aircraft/f-18e/\n"
+           "ResourcesRoot=fa-18e.obj\n"
+           "ResourcesMesh=f-18_fuletank\n"
+           "ResourcesMaterial=f-18e_mat.ini")
+    if old not in text:
+        sys.exit("usn_tank_610_f-18: upstream Models block changed - re-check the re-mesh")
+    new = ("# SEST re-mesh: f-18_fuletank is a submesh of the fa-18e aircraft model\n"
+           "# and carries its origin, riding low under every pylon. The vanilla\n"
+           "# F-15C 610 gal tank mesh (what usn_tank_1200_f-18 renders) sits flush\n"
+           "# on the same stations, so it is used here. Fuel data untouched.\n"
+           "ResourcesFolder=aircraft/usaf_f-15c/\n"
+           "ResourcesRoot=usaf_f-15c\n"
+           "ResourcesMesh=usaf_f-15c_tank_610\n"
+           "ResourcesMaterialFolder=aircraft/usaf_f-15c/\n"
+           "ResourcesMaterial=usaf_f-15c_tank_mat")
+    ammo = OUT / "ammunition"
+    ammo.mkdir(parents=True, exist_ok=True)
+    (ammo / "usn_tank_610_f-18.ini").write_text(text.replace(old, new, 1), encoding="utf-8")
+    print("    usn_tank_610_f-18.ini: re-meshed to the vanilla F-15C 610 tank")
 
 
 def port_tanker_fit(text: str, source_name: str) -> str:
@@ -806,7 +813,6 @@ def build_super_hornet(file_name: str) -> None:
     if text.count("[WeaponSystem1SEST_Intercept260]") != 1:
         sys.exit(f"{source.name}: invalid generated Intercept260 section count")
 
-    text = raise_610_wing_tanks(text, source.name)
     aircraft = OUT / "aircraft"
     aircraft.mkdir(parents=True, exist_ok=True)
     (aircraft / file_name).write_text(normalize_generated_text(text), encoding="utf-8")
@@ -901,6 +907,7 @@ def main() -> None:
     systems.mkdir(exist_ok=True)
     (systems / "sensors.ini").write_text(NGJ_SENSOR, encoding="utf-8")
     write_aim424(OUT)
+    build_tank_610_override()
     (OUT / "ammunition" / "usn_tank_1200_f-18.ini").write_text(
         TANK_OVERRIDE, encoding="utf-8")
     write_language_files()
