@@ -101,7 +101,7 @@ CLASH_MASS = 468              # usn_agm-88g
 
 GROWLER_KEYS = ["SEST_MaliceNGJ"]
 LONG_RANGE_KEY = "SEST_NGJLongRange"
-BLOCK_III_KEYS = ["SEST_MaliceBlockIII"]
+BLOCK_III_KEYS = ["SEST_MaliceBlockIII", "SEST_Intercept260"]
 
 GROWLER_LOADOUTS = """\
 [--------------------------- SEST NGJ + MALICE ---------------------------]
@@ -195,11 +195,13 @@ LOADOUT_NAMES = {
         "SEST_MaliceNGJ": "NGJ MALICE (2x AIM-424)",
         "SEST_NGJLongRange": "NGJ Long Range (3 tanks)",
         "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
+        "SEST_Intercept260": "Intercept (8x AIM-260)",
     },
     "cn": {
         "SEST_MaliceNGJ": "NGJ MALICE (2x AIM-424)",
         "SEST_NGJLongRange": "NGJ Long Range (3 tanks)",
         "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
+        "SEST_Intercept260": "Intercept (8x AIM-260)",
     },
 }
 
@@ -628,6 +630,29 @@ def replace_harpoons(text: str, source_name: str) -> str:
     return text
 
 
+def derive_intercept260(text: str, source_name: str) -> str:
+    """A pure AIM-260 CAP fit, cloned from the in-game-verified MALICE block.
+
+    Same stations, same tank, same SubModelsToHide - only the rounds change:
+    the four AIM-424 and four AIM-120D-3 all become dts_aim-260, giving eight
+    JATMs plus the wingtip Sidewinders. Selectable under any squadron, which
+    on the F/A-18F includes 1 SQN RAAF - that is the RAAF kitout.
+    """
+    m = re.search(r"^\[WeaponSystem1SEST_MaliceBlockIII\][^\n]*\n(.*?)(?=^\[)",
+                  text, re.M | re.S)
+    if not m:
+        sys.exit(f"{source_name}: MALICE donor block missing for Intercept260")
+    body = m.group(1)
+    for old in ("sest_aim-424", "usn_aim-120d3"):
+        n = len(re.findall(rf"^Station\d+={re.escape(old)}\s*$", body, re.M))
+        if n == 0:
+            sys.exit(f"{source_name}: donor no longer carries {old}")
+        body = re.sub(rf"^(Station\d+={re.escape(old)})(\s*)$",
+                      lambda mm: mm.group(1).replace(old, "dts_aim-260") + mm.group(2),
+                      body, flags=re.M)
+    return text[:m.end()] + "[WeaponSystem1SEST_Intercept260]\n" + body + text[m.end():]
+
+
 def build_super_hornet(file_name: str) -> None:
     """Add the MALICE fit to an APG-79 Super Hornet.
 
@@ -647,9 +672,12 @@ def build_super_hornet(file_name: str) -> None:
     text = extend_loadouts(text, BLOCK_III_KEYS, source.name)
     text = inject_loadouts(text, BLOCK_III_LOADOUT.replace("__WING_TANK__", wing_tank),
                            source.name)
+    text = derive_intercept260(text, source.name)
     report_tank_clearance(text, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
         sys.exit(f"{source.name}: invalid generated MALICE section count")
+    if text.count("[WeaponSystem1SEST_Intercept260]") != 1:
+        sys.exit(f"{source.name}: invalid generated Intercept260 section count")
 
     aircraft = OUT / "aircraft"
     aircraft.mkdir(parents=True, exist_ok=True)
