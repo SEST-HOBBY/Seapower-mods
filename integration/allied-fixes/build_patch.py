@@ -170,13 +170,79 @@ def main():
             "Extended-range development of the AGR-20 APKWS II laser-guided "
             "70mm rocket. An uprated motor stretches the launch envelope from "
             "3.5 to 8 nautical miles - a medium-range precision strike round "
-            "at rocket cost. Same guidance kit and warhead as the M282.\n",
+            "at rocket cost. Same guidance kit and warhead as the M282.\n"
+            "sest_agr-30=AGR-30,Redback,GFFAR,"
+            "What-if evolution of the 70mm guided rocket family: the AGR-30 "
+            "Redback replaces the APKWS laser kit with an active "
+            "millimetre-wave seeker and a datalink - fire and forget out to "
+            "15 nautical miles. A boosted motor lofts it to 20000 ft for a "
+            "steep terminal dive onto the target. Same airframe and M282 "
+            "warhead; missile performance at rocket cost.\n",
             encoding="utf-8")
         (lang / "loadout_names.ini").write_text(
             "[LoadoutNames]\n"
-            "SEST_APKWS_ER=SEST APKWS-ER Strike (28x guided rockets)\n",
+            "SEST_APKWS_ER=SEST APKWS-ER Strike (28x guided rockets)\n"
+            "SEST_REDBACK=SEST Redback Strike (28x AGR-30 active)\n",
             encoding="utf-8")
         print("  APKWS-ER: ammunition x2, uk_ah_mk_1 fit SEST_APKWS_ER (4 pods + Starstreak)")
+
+        # AGR-30 Redback: the new-ish rocket entirely, same model (user ask).
+        # Active homing, higher flight profile and range - the M282 airframe
+        # re-armed with a proven guidance recipe: GuidanceType 3 with
+        # MidCourseCorrection 1 is the dts_aim-260's fire-and-forget config,
+        # the loft keys follow the AIM-174B/ARRW pattern. Values chosen for a
+        # rocket-class weapon: 15 nm, 950 kts, 20000 ft loft, 4 nm seeker.
+        rb = rocket_src.read_text(encoding="utf-8", errors="replace")
+        swaps = [
+            (r"^GuidanceType=5\b", "GuidanceType=3"),
+            (r"^MidCourseCorrection=0\b", "MidCourseCorrection=1"),
+            (r"^MaxLaunchRange=3\.5\b", "MaxLaunchRange=15"),
+            (r"^MaxVelocity=768\.6\b", "MaxVelocity=950"),
+            (r"^SeekerGain=0\.0\b", "SeekerGain=60.0"),
+            (r"^SeekerActiveRange=0\.0\b", "SeekerActiveRange=4"),
+            (r"^SeekerPassiveRange=2\.7\b", "SeekerPassiveRange=4"),
+        ]
+        for pat, rep in swaps:
+            rb, k = re.subn(pat, rep, rb, flags=re.M)
+            if k != 1:
+                sys.exit(f"usa_apkws_2_m282: {pat} matched {k} times - upstream changed")
+        rb, k = re.subn(r"^(TerminalDiveDistance=[^\n]*\n)",
+                        "\\g<1>MaxLoftAngle=25.0                      // Climb angle for initial loft\n"
+                        "MaxLoftAlt=20000                       // loft ceiling in feet\n",
+                        rb, flags=re.M)
+        if k != 1:
+            sys.exit("usa_apkws_2_m282: TerminalDiveDistance anchor missing for loft keys")
+        (OUT / "ammunition" / "sest_agr-30.ini").write_text(
+            "# SEST AGR-30 Redback - what-if active-homing 70mm rocket on the\n"
+            "# M282 airframe: seeker/datalink per dts_aim-260, loft per AIM-174B,\n"
+            "# 15 nm / 950 kts / 20000 ft. Model and warhead are upstream's.\n"
+            + rb, encoding="utf-8")
+
+        rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$",
+                           "Ammunition=sest_agr-30",
+                           pod_src.read_text(encoding="utf-8", errors="replace"), flags=re.M)
+        if k != 1:
+            sys.exit("usn_agr-20b_apache: Ammunition line changed upstream (Redback pod)")
+        (OUT / "ammunition" / "sest_agr-30_pod.ini").write_text(
+            "# SEST LAU-68 pod loaded with the AGR-30 Redback.\n" + rbpod, encoding="utf-8")
+
+        heli = (OUT / "aircraft" / "uk_ah_mk_1.ini").read_text(encoding="utf-8")
+        if "SEST_REDBACK" in heli:
+            sys.exit("uk_ah_mk_1: SEST_REDBACK already present - re-check")
+        heli, k = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_REDBACK",
+                          heli, count=1, flags=re.M)
+        if k != 1:
+            sys.exit("uk_ah_mk_1: AvailableLoadouts not found (Redback)")
+        m = re.search(r"^\[WeaponSystem1SEST_APKWS_ER\][^\n]*\n(.*?)(?=^\[)", heli, re.M | re.S)
+        if not m:
+            sys.exit("uk_ah_mk_1: SEST_APKWS_ER donor block not found")
+        body = m.group(1).replace("sest_agr-20er|LAU-68", "sest_agr-30_pod|LAU-68")
+        if body.count("sest_agr-30_pod") != 4:
+            sys.exit("uk_ah_mk_1: expected 4 pods in the Redback donor")
+        heli = heli[:m.end()] + "[WeaponSystem1SEST_REDBACK]\n" + body + heli[m.end():]
+        (OUT / "aircraft" / "uk_ah_mk_1.ini").write_text(heli, encoding="utf-8")
+        print("  Redback: ammunition x2, uk_ah_mk_1 fit SEST_REDBACK (28x AGR-30 active)")
+
 
         built += 1
 
