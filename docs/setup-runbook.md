@@ -1,7 +1,7 @@
 # Setup Runbook — cleaning the 109 and installing the SEST packs
 
 Follow top to bottom on the gaming PC. Everything here reflects the file-level findings from
-`mods-source/` and the twelve SEST packs on this branch.
+`mods-source/` and the thirteen SEST packs on this branch.
 
 ## Phase 0 — before touching anything
 
@@ -73,11 +73,17 @@ What it installs: `SEST_F-15EX_Revamp` (loadouts **and** eight F-15EX squadrons)
 Super Hornets) · `SEST_RAAF_F-35A_JATM` · `SEST_RAAF_Wedgetail` (E-7A squadrons) ·
 `SEST_Raptor_Squadrons` (seven real F-22 squadrons) · `SEST_RAAF_Bases` · `SEST_RAN_Fleet` ·
 `SEST_JMSDF_Mogami` · `SEST_TacMap_Colors` · `SEST_Zumwalt_CPS` (repairs the Zumwalt's
-hypersonic launcher).
+hypersonic launcher) · `SEST_B52_ARRW` (AGM-183A across every in-service B-52) ·
+`SEST_Allied_Fixes` (points the P-8's anti-ship fit at a Harpoon that exists).
 
-Then launch the game → Mod Manager → the twelve SEST entries should appear alongside your
-Workshop mods. **Enable all twelve.** If they don't appear in the list at all, stop and report
-it (the fallback is merging into `StreamingAssets\user\`, but don't do that unprompted).
+Then, with the game **closed**, run `set-mod-order.ps1 -AddMissing` — it inserts every
+freshly installed pack into `usersettings.ini` at its canonical position, already
+enabled. No Mod Manager visit is needed; that step predates the `-AddMissing` flag.
+
+Expect no warnings. `canonical pack not installed in StreamingAssets` means the install
+step did not take; `in canonical order but not in your settings (skipped)` on a `SEST_*`
+entry means you left off `-AddMissing`. If a pack still does not appear in game, stop and
+report it rather than reordering by hand.
 
 ## Phase 4 — mod order
 

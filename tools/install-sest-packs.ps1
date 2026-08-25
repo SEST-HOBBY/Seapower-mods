@@ -134,5 +134,10 @@ if (Test-Path $missionSrc) {
 }
 
 Write-Host "`n$installed of $($Packs.Count) packs in place."
-Write-Host ("Next: launch Sea Power -> Mod Manager -> enable all {0} SEST entries and set the order" -f $Packs.Count)
-Write-Host "(see docs\setup-runbook.md Phase 4 - the SEST patch packs must sit ABOVE their targets)."
+# -AddMissing inserts a freshly installed pack into usersettings.ini at its
+# canonical position, already enabled, which is exactly what this script has
+# just made possible. Telling people to go tick boxes in the Mod Manager was
+# leftover from before that flag existed.
+Write-Host "Next, with the game CLOSED:"
+Write-Host "  powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing"
+Write-Host "(enables and positions every pack for you - no Mod Manager visit needed.)"
