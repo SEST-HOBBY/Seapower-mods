@@ -34,18 +34,30 @@ sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 AIRFRAMES = ["fr_rafale_b_l", "fr_rafale_c_l", "fr_rafale_m_l"]
-NEW_KEYS = ["SEST_Intercept260", "SEST_MALICE", "SEST_AntiShipLRASM"]
+NEW_KEYS = ["SEST_Intercept260", "SEST_MALICE", "SEST_AntiShipLRASM",
+            "SEST_Intercept260Heavy", "SEST_LRASM_ER"]
 
 # (new name, donor loadout, [(old store spec, new store spec), ...])
 DERIVATIONS = [
     ("SEST_Intercept260", "AirToAirLongRange",
      [("fr_mica-em", "dts_aim-260")]),
+    # The 424 mounts BARE, like the AIM-260 does - the SCALP seat's
+    # -0.006 z offset floated it visibly clear of the pylon (screenshot).
     ("SEST_MALICE", "StrikeLongRange",
-     [("fr_scalp-eg|SCALP", AIM424_ID + "|SCALP"),
+     [("fr_scalp-eg|SCALP", AIM424_ID),
       ("fr_mica-em", "dts_aim-260")]),
     ("SEST_AntiShipLRASM", "AntiShip",
-     [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),
+     [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),   # LRASM keeps the heavy seat
       ("fr_mica-em", "dts_aim-260")]),
+    # Heavy AAM: every EM MICA and Meteor becomes AIM-260 - six JATMs plus
+    # the IR tips, tanks still on 7/8/11 (the donor carries them).
+    ("SEST_Intercept260Heavy", "AirToAirIntercept",
+     [("fr_mica-em", "dts_aim-260"), ("fr_meteor", "dts_aim-260")]),
+    # LRASM with the centreline tank the AntiShip donor never fits.
+    ("SEST_LRASM_ER", "AntiShip",
+     [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),
+      ("fr_mica-em", "dts_aim-260")],
+     ["Station11=fr_tank_1200"]),
 ]
 
 LOADOUT_NAMES = {
@@ -53,7 +65,9 @@ LOADOUT_NAMES = {
     # fuselage stations their donors gave them, so composition varies.
     "en": {"SEST_Intercept260": "Intercept (AIM-260)",
            "SEST_MALICE": "InterceptMALICE (AIM-424/AIM-260)",
-           "SEST_AntiShipLRASM": "AntiShip LRASM"},
+           "SEST_AntiShipLRASM": "AntiShip LRASM",
+           "SEST_Intercept260Heavy": "Intercept Heavy (6x AIM-260)",
+           "SEST_LRASM_ER": "AntiShip LRASM LongRange (3 tanks)"},
 }
 
 INFO_INI = """[Language_en]
@@ -66,7 +80,7 @@ ApproximateVersion=0.8.1
 """
 
 
-def derive(text, name, donor, swaps, airframe):
+def derive(text, name, donor, swaps, airframe, extra=()):
     m = re.search(rf"^\[WeaponSystem1{donor}\][^\n]*\n(.*?)(?=^\[)", text, re.M | re.S)
     if not m:
         sys.exit(f"{airframe}: donor loadout {donor} not found")
@@ -77,6 +91,11 @@ def derive(text, name, donor, swaps, airframe):
             sys.exit(f"{airframe}/{donor}: no stations carry {old} - upstream changed")
         body = re.sub(rf"^(Station\d+=){re.escape(old)}(\s*)$", rf"\g<1>{new}\g<2>",
                       body, flags=re.M)
+    for line in extra:
+        st = line.split("=")[0]
+        if re.search(rf"^{st}=", body, re.M):
+            sys.exit(f"{airframe}/{name}: {st} already occupied in donor")
+        body = body.rstrip("\n") + "\n" + line + "\n"
     return f"[WeaponSystem1{name}]\n" + body.rstrip("\n") + "\n\n"
 
 
@@ -97,7 +116,8 @@ def main():
             sys.exit(f"{airframe}: SEST keys already declared upstream")
         text = (text[:la.end(2)] + "," + ",".join(NEW_KEYS) + text[la.end(2):])
 
-        blocks = "".join(derive(text, n, d, s, airframe) for n, d, s in DERIVATIONS)
+        blocks = "".join(derive(text, *d[:3], airframe, d[3] if len(d) > 3 else ())
+                 for d in DERIVATIONS)
         marker = "[---------- WeaponMagazines ----------]"
         if marker not in text:
             sys.exit(f"{airframe}: WeaponMagazines marker missing")

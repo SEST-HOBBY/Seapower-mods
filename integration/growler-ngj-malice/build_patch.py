@@ -101,7 +101,8 @@ CLASH_MASS = 468              # usn_agm-88g
 
 GROWLER_KEYS = ["SEST_MaliceNGJ"]
 LONG_RANGE_KEY = "SEST_NGJLongRange"
-BLOCK_III_KEYS = ["SEST_MaliceBlockIII", "SEST_Intercept260"]
+BLOCK_III_KEYS = ["SEST_MaliceBlockIII", "SEST_Intercept260",
+                  "SEST_Intercept260ER", "SEST_Escort260"]
 
 GROWLER_LOADOUTS = """\
 [--------------------------- SEST NGJ + MALICE ---------------------------]
@@ -125,22 +126,18 @@ Station28=__WING_TANK__
 
 """
 
-# Only the airframes that actually have a centreline station get this. The
-# 2020 and 2020s Growlers define no Station29, so a third tank there would
-# reference a station that does not exist.
+# The centreline is the EW station, not a wet one - in game the third tank
+# sat inside the Growler's centre jamming equipment (user screenshot). And
+# "either side of the NGJ" cannot be four tanks: the model carries exactly ONE
+# pair of wing tank pylons (fule_tank_point, stations 27/28), the airframes
+# end at NumberOfStations=28, and 13/14 carry sead/aam racks a tank would
+# float beside. So maximum persistence is TWO wing tanks - which also means
+# every Growler gets this fit now, not just the ones with a Station29.
 LONG_RANGE_LOADOUT = """\
 [--------------------------- SEST NGJ Long Range ---------------------------]
-# Maximum-persistence jamming fit: no anti-radiation missiles at all, three
-# tanks, and a pair of AMRAAM for self-defence. The NGJ pods do the work.
-#
-# Three tanks is the ceiling on this airframe, not a choice: the model carries
-# exactly ONE pair of wing tank pylons (the fule_tank_point mesh, at stations
-# 27/28) plus the centreline. Stations 13/14 look like outboard pylons but
-# carry sead_point/aam_point racks, so a tank there would hang in mid-air.
-#
-# fule_tank_point must stay VISIBLE for the wing tanks. The centreline tank on
-# station 29 does not depend on it - the F/A-18E fits hide it while carrying
-# one - so there is no hide line here at all.
+# Maximum-persistence jamming fit: no anti-radiation missiles, both wing
+# tanks, a pair of AMRAAM for self-defence, centreline left to the EW fit.
+# fule_tank_point must stay VISIBLE for the wing tanks - no hide line here.
 
 [WeaponSystem1SEST_NGJLongRange]
 ReadyUpTime=25               // minutes to refuel and rearm before takeoff
@@ -149,8 +146,6 @@ Station11=usn_aim-120d3
 Station12=usn_aim-120d3
 Station27=__WING_TANK__
 Station28=__WING_TANK__
-Station29=__WING_TANK__
-
 """
 
 BLOCK_III_LOADOUT = """\
@@ -196,12 +191,16 @@ LOADOUT_NAMES = {
         "SEST_NGJLongRange": "NGJ Long Range (3 tanks)",
         "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
         "SEST_Intercept260": "Intercept (8x AIM-260)",
+        "SEST_Intercept260ER": "Intercept260 LongRange (3 tanks)",
+        "SEST_Escort260": "Escort260 (4x AIM-260, 3 tanks)",
     },
     "cn": {
         "SEST_MaliceNGJ": "NGJ MALICE (2x AIM-424)",
         "SEST_NGJLongRange": "NGJ Long Range (3 tanks)",
         "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
         "SEST_Intercept260": "Intercept (8x AIM-260)",
+        "SEST_Intercept260ER": "Intercept260 LongRange (3 tanks)",
+        "SEST_Escort260": "Escort260 (4x AIM-260, 3 tanks)",
     },
 }
 
@@ -593,15 +592,9 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
     text = apply_pylon_convention(text, source.name, wing_tank)
     verify_station_geometry(text, GROWLER_LOADOUTS, source.name)
     verify_tank_points(GROWLER_LOADOUTS, source.name)
-    keys = list(GROWLER_KEYS)
-    sections = GROWLER_LOADOUTS.replace('__WING_TANK__', wing_tank)
-    # Three tanks needs a centreline station, which only some Growlers have.
-    if re.search(r"^Station29=", text, re.M):
-        keys.append(LONG_RANGE_KEY)
-        sections += LONG_RANGE_LOADOUT.replace('__WING_TANK__', wing_tank)
-        verify_station_geometry(text, LONG_RANGE_LOADOUT, source.name)
-    else:
-        print(f"    {source.name}: no centreline station - skipping {LONG_RANGE_KEY}")
+    keys = list(GROWLER_KEYS) + [LONG_RANGE_KEY]
+    sections = (GROWLER_LOADOUTS + LONG_RANGE_LOADOUT).replace('__WING_TANK__', wing_tank)
+    verify_station_geometry(text, LONG_RANGE_LOADOUT, source.name)
     text = extend_loadouts(text, keys, source.name)
     text = inject_loadouts(text, sections, source.name)
     verify_pylon_convention(text, source.name)
@@ -653,6 +646,40 @@ def derive_intercept260(text: str, source_name: str) -> str:
     return text[:m.end()] + "[WeaponSystem1SEST_Intercept260]\n" + body + text[m.end():]
 
 
+def derive_hornet_escorts(text: str, wing_tank: str, source_name: str) -> str:
+    """Two fuel-heavy AIM-260 fits, cloned from the Intercept260 block.
+
+    Three external tanks is this airframe's ceiling, not a choice - one pair
+    of wing tank pylons (fule_tank_point, stations 27/28) plus the
+    centreline. The requested five-tank fit has nowhere to hang the other
+    two, so both fits carry the maximum three.
+
+      SEST_Intercept260ER  the full eight-JATM fit plus all three tanks -
+                           Intercept260 with the wing pylons wet.
+      SEST_Escort260       the long-legged CAP: AIM-260 on the fuselage
+                           (S11/12) and outer wing (S30/31) only, Sidewinders
+                           on the tips, three tanks.
+
+    fule_tank_point must be VISIBLE for wing tanks, so it leaves the hide
+    list in both.
+    """
+    m = re.search(r"^\[WeaponSystem1SEST_Intercept260\][^\n]*\n(.*?)(?=^\[)",
+                  text, re.M | re.S)
+    if not m:
+        sys.exit(f"{source_name}: Intercept260 donor missing for escort fits")
+    body = m.group(1)
+    er = body.replace(",fule_tank_point", "")
+    er = re.sub(r"^(Station29=[^\n]*\n)",
+                rf"Station27={wing_tank}\nStation28={wing_tank}\n\g<1>", er, flags=re.M)
+    if er.count(wing_tank) < 3:
+        sys.exit(f"{source_name}: escort fit failed to gain its wing tanks")
+    esc = re.sub(r"^Station(3|4|32|33)=[^\n]*\n", "", er, flags=re.M)
+    return (text[:m.end()]
+            + "[WeaponSystem1SEST_Intercept260ER]\n" + er
+            + "[WeaponSystem1SEST_Escort260]\n" + esc
+            + text[m.end():])
+
+
 def build_super_hornet(file_name: str) -> None:
     """Add the MALICE fit to an APG-79 Super Hornet.
 
@@ -673,6 +700,7 @@ def build_super_hornet(file_name: str) -> None:
     text = inject_loadouts(text, BLOCK_III_LOADOUT.replace("__WING_TANK__", wing_tank),
                            source.name)
     text = derive_intercept260(text, source.name)
+    text = derive_hornet_escorts(text, wing_tank, source.name)
     report_tank_clearance(text, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
         sys.exit(f"{source.name}: invalid generated MALICE section count")
@@ -782,7 +810,7 @@ def main() -> None:
     print(
         f"built {OUT.relative_to(ROOT)}: 3 NGJ Growlers, 3 APG-79 Super Hornets, "
         f"{len(GROWLER_KEYS) + len(BLOCK_III_KEYS) + 1} new loadouts "
-        f"(NGJ Long Range only where a centreline station exists), "
+        f"(NGJ Long Range on every Growler, two wing tanks), "
         f"{len(outputs)} files"
     )
 

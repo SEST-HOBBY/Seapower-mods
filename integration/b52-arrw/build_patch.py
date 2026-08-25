@@ -97,6 +97,14 @@ def build_aircraft():
     if "dts_agm-183a" not in ws2_body:
         sys.exit("Strike183 no longer carries dts_agm-183a - re-check by hand")
 
+    # The rounds hung visibly below the pylon adapter in game (user
+    # screenshot, confirmed as the H specifically). Upstream seats both
+    # ARRW keys at y=-0.003; raise to -0.002.
+    text, n = re.subn(r"^(AGM183[FB]Positions=0,)-0\.003(,0\.01)$",
+                      r"\g<1>-0.002\g<2>", text, flags=re.M)
+    if n != 2:
+        sys.exit(f"dts_b-52h.ini: expected 2 ARRW position keys to raise, got {n}")
+
     # The bay was EMPTY on both ARRW fits - the block existed with nothing in
     # it. Fill it from the aircraft's own donors: Strike158 proves the CSRL
     # carries dts_agm-158b-2 (8x JASSM-ER, 800 nm) with this exact
@@ -162,7 +170,8 @@ def build_b52o():
     -0.003 offset, flush, and carries TWO per side nose-to-tail at 0.0457 of
     z-separation. So the pack now injects its own AGM183_Pylon key into the
     B-52O's WeaponSystem2, reproducing the H's proven silhouette exactly:
-    aft round at z-0.02, forward round at z+0.062, both at y=-0.003. The
+    aft round at z-0.02, forward round at z+0.062, both at y=-0.003
+    (the user confirmed this height correct; the hang-low report was the H). The
     height checked out in game; the separation has been widened twice on
     screenshots - the H's 0.0457 was too tight, 0.0677 still lapped the
     forward round's fins - and now sits at 0.082 nose-to-tail. Two per pylon, four per loadout.
@@ -267,6 +276,25 @@ def build_419_flts():
     drop_stale("aircraft/usaf_b-52h_419_flts.ini")
 
 
+def write_language():
+    """Name the ARRW mod's own B-52H distinctly.
+
+    The mission editor's type list showed two entries both reading "B-52H":
+    the Dingtools dts_b-52h this pack extends, and usaf_b-52h_419_flts - the
+    ARRW mod's separate test aircraft with its own single-loadout assortment.
+    It looked like a broken duplicate. Language files merge key-by-key, so
+    one entry renames it without touching anything else.
+    """
+    d = OUT / "language_en"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "aircraft_names.ini").write_text(
+        "# SEST B-52 ARRW - disambiguate the ARRW mod's own test aircraft.\n"
+        "[usaf_b-52h_419_flts]\n"
+        "Default=B-52H 419th FLTS (ARRW Testbed),B-52H FLTS\n",
+        encoding="utf-8")
+    print("  language_en/aircraft_names.ini  (419th FLTS named distinctly)")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "_info.ini").write_text(
@@ -282,6 +310,7 @@ def main():
     build_aircraft()
     build_b52o()
     build_419_flts()
+    write_language()
 
 
 if __name__ == "__main__":
