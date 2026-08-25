@@ -203,25 +203,31 @@ def build_b52o():
         sys.exit("usaf_b-52o.ini: Standoff CSRL donor gone - upstream changed")
     bay = sd.group(1).replace("SubModelsToHide=Pylons,", "SubModelsToHide=")
 
+    # AntiShipLRASM rides the O's own AGM84_Pylon key - six Harpoon-length
+    # rounds per pylon, and LRASM (4.27 m) is shorter than Harpoon (4.6 m) -
+    # plus a CSRL of eight more. Same round the B-52H's AntiShip already
+    # flies, so the pack adds no new dependency.
     blocks = ""
-    for name, round_, alcm in (("Strike183", "dts_agm-183a", "usaf_agm-86c"),
-                               ("Strike183Nuke", "dts_agm-183a(w62)", "usaf_agm-86b")):
+    for name, ws2, alcm in (
+            ("Strike183", "dts_agm-183a|AGM183_Pylon", "usaf_agm-86c"),
+            ("Strike183Nuke", "dts_agm-183a(w62)|AGM183_Pylon", "usaf_agm-86b"),
+            ("AntiShipLRASM", "dts_agm-158c-3|AGM84_Pylon", "dts_agm-158c-3")):
         blocks += (f"[WeaponSystem1{name}]\n"
                    + bay.replace("usaf_agm-86c", alcm).rstrip("\n") + "\n"
                    + f"[WeaponSystem2{name}]\n"
-                   + body.replace("usn_agm_110l|RGM110_Rack",
-                                  round_ + "|AGM183_Pylon").rstrip("\n") + "\n\n")
+                   + body.replace("usn_agm_110l|RGM110_Rack", ws2).rstrip("\n") + "\n\n")
     text = text[:m.end()] + "\n" + blocks + text[m.end():]
 
     la = re.search(r"^AvailableLoadouts=([^\n]+)$", text, re.M)
     if "Strike183" in la.group(1):
         sys.exit("usaf_b-52o.ini: Strike183 already declared upstream")
-    text = text[:la.start(1)] + la.group(1) + ",Strike183,Strike183Nuke" + text[la.end(1):]
+    text = (text[:la.start(1)] + la.group(1)
+            + ",Strike183,Strike183Nuke,AntiShipLRASM" + text[la.end(1):])
 
     dst = OUT / "aircraft" / "usaf_b-52o.ini"
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(text, encoding="utf-8")
-    print("  aircraft/usaf_b-52o.ini  (+Strike183/+Nuke: 4x ARRW out, 8x AGM-86C/B in the bay)")
+    print("  aircraft/usaf_b-52o.ini  (+Strike183/+Nuke 4x ARRW; +AntiShipLRASM 12+8x LRASM)")
 
 
 def build_419_flts():
