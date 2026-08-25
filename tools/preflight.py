@@ -61,7 +61,10 @@ def main():
     for n, line in enumerate(mission.read_text(encoding="utf-8",
                                                errors="replace").splitlines(), 1):
         line = line.strip()
-        if m := re.match(r"^Type=(\S+)$", line):
+        # \S+ would miss ids with spaces ("plaf_j16a block3" is a real file)
+        # and leave cur_unit stale - six J-16 variant errors were blamed on
+        # the B-52O above them before this handled spaces.
+        if m := re.match(r"^Type=(.+?)\s*$", line):
             cur_unit = m.group(1)
             cur_file = find_unit(cur_unit)
             checked += 1
