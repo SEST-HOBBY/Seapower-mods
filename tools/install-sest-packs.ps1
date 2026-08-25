@@ -16,10 +16,24 @@
 
     # If auto-detection fails, point it at StreamingAssets directly:
     powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -StreamingAssetsDir "D:\...\Sea Power_Data\StreamingAssets"
+
+    # Show what WOULD change without touching anything:
+    powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -WhatIfOnly
+
+    # Remove every installed pack again, leaving the workshop mods alone:
+    powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -Uninstall
+
+.NOTES
+    The packs are patches, not standalone mods - 99 files and every one a .ini,
+    with no model, texture or asset bundle among them. Each needs the workshop
+    mod that supplies the geometry its .ini refers to. Run
+    tools\check_dependencies.py to see what each one requires.
 #>
 [CmdletBinding()]
 param(
-    [string]$StreamingAssetsDir
+    [string]$StreamingAssetsDir,
+    [switch]$Uninstall,
+    [switch]$WhatIfOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -50,6 +64,28 @@ if (-not (Test-Path $StreamingAssetsDir)) {
 }
 Write-Host "Installing SEST packs into: $StreamingAssetsDir`n"
 
+# --- Uninstall ---------------------------------------------------------------
+# Each pack lives in its OWN folder under StreamingAssets and never writes into
+# the game's own files, so removing one is just deleting its folder - the
+# workshop mods and the base game are untouched. Order entries for a removed
+# pack are skipped with a warning by set-mod-order.ps1, not an error.
+if ($Uninstall) {
+    $removed = 0
+    foreach ($rel in $Packs) {
+        $name = Split-Path (Join-Path $repoRoot $rel) -Leaf
+        $dest = Join-Path $StreamingAssetsDir $name
+        if (Test-Path -LiteralPath $dest) {
+            if ($WhatIfOnly) { Write-Host "  would remove  $name" }
+            else { Remove-Item -LiteralPath $dest -Recurse -Force; Write-Host "  removed    $name" }
+            $removed++
+        }
+    }
+    Write-Host ("`n{0} pack(s) {1}. Workshop mods and game files untouched." -f
+        $removed, $(if ($WhatIfOnly) { "would be removed" } else { "removed" }))
+    Write-Host "Re-run without -Uninstall to put them back."
+    return
+}
+
 # --- Copy each pack ----------------------------------------------------------
 $installed = 0
 foreach ($rel in $Packs) {
@@ -61,6 +97,11 @@ foreach ($rel in $Packs) {
     $name = Split-Path $src -Leaf
     $dest = Join-Path $StreamingAssetsDir $name
     $action = if (Test-Path $dest) { "updated " } else { "installed" }
+    if ($WhatIfOnly) {
+        Write-Host ("  would {0}  {1}" -f $action.Trim(), $name)
+        $installed++
+        continue
+    }
     Copy-Item -LiteralPath $src -Destination $StreamingAssetsDir -Recurse -Force
     $files = (Get-ChildItem -LiteralPath $dest -Recurse -File).Count
     Write-Host ("  {0}  {1,-24} {2,3} files" -f $action, $name, $files)

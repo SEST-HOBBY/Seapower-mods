@@ -197,9 +197,16 @@ reorder — together they cover the three ways this collection breaks silently.
 
 ```powershell
 python tools\check_load_order.py          # no mod outranks a SEST pack
+python tools\check_dependencies.py        # every pack's upstream mod is present
 python tools\preflight.py                 # every reference the mission makes resolves
 python tools\check_mod_conflicts.py <id>  # what a NEW mod would take over
 ```
+
+`check_dependencies` catches the third way this breaks: the packs ship 99 files
+and every one is a `.ini`, so each depends on the workshop mod that supplies the
+geometry. Unsubscribe that mod and the pack is left describing a unit whose model
+is gone. See [packaging-and-recovery.md](packaging-and-recovery.md) for the full
+dependency, install/uninstall and backup story.
 
 `check_load_order` catches a pack gone inert — the failure that hid for several
 sessions when U.S. Navy 2027 moved up a tier and jumped over the Growler pack.
