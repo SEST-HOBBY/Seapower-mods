@@ -122,8 +122,16 @@ if (Test-Path $missionSrc) {
     foreach ($old in $legacy) {
         if ($old.Name -notmatch '^(.*?)(?:\.ini)?\.backup-([0-9-]+)(?:\.bak)?$') { continue }
         $fixed = "{0} backup-{1}.ini" -f $Matches[1], $Matches[2]
-        Rename-Item -LiteralPath $old.FullName -NewName $fixed
-        Write-Host ("  renamed    {0} -> {1} (backups are loadable missions now)" -f $old.Name, $fixed)
+        # Steam Cloud can resurrect an old-scheme file after a rename made
+        # while the game was running - then both names exist and Rename-Item
+        # refuses. The migrated copy is the same content, so drop the old one.
+        if (Test-Path -LiteralPath (Join-Path $missionDest $fixed)) {
+            Remove-Item -LiteralPath $old.FullName -Force
+            Write-Host ("  removed    {0} (already migrated to {1})" -f $old.Name, $fixed)
+        } else {
+            Rename-Item -LiteralPath $old.FullName -NewName $fixed
+            Write-Host ("  renamed    {0} -> {1} (backups are loadable missions now)" -f $old.Name, $fixed)
+        }
     }
     # Restamp internal titles on any backup still carrying the original's -
     # the browser displays the INTERNAL name, so without this a mission with
