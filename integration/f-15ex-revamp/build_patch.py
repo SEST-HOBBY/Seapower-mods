@@ -178,10 +178,11 @@ Station17=usaf_tank_610_f-15|WT
 [WeaponSystem1AAMT120Tanks]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,Py13,Py33,33Glass
+SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # Upstream's AAMT120 missile truck with the wing stations carrying FUEL
-# instead of the twin AMRAAM racks: 16 missiles and three 610 gal tanks
-# rather than 20 missiles and one. The AAMT rack mesh stays visible.
+# instead of the twin AMRAAM racks. The AAMT twin-rack mesh is HIDDEN here:
+# it belongs to the MTW racks these stations no longer carry, and left
+# visible it renders straight through the tank (seen in game).
 Station1=dts_aim-120d-3_w|120
 Station2=dts_aim-120d-3_w|120
 Station5=dts_aim-120d-3_w|120
@@ -201,7 +202,7 @@ Station17=usaf_tank_610_f-15|WT
 [WeaponSystem1AAMT260Tanks]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,Py13,Py33,33Glass
+SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # The same trade on the AIM-260 truck.
 Station1=dts_aim-260_w|120
 Station2=dts_aim-260_w|120
