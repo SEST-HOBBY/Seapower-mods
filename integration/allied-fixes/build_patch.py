@@ -198,6 +198,7 @@ def main():
             (r"^MidCourseCorrection=0\b", "MidCourseCorrection=1"),
             (r"^MaxLaunchRange=3\.5\b", "MaxLaunchRange=15"),
             (r"^MaxVelocity=768\.6\b", "MaxVelocity=950"),
+            (r"^TerminalDiveDistance=1000\b", "TerminalDiveDistance=1.5"),
             (r"^SeekerGain=0\.0\b", "SeekerGain=60.0"),
             (r"^SeekerActiveRange=0\.0\b", "SeekerActiveRange=4"),
             (r"^SeekerPassiveRange=2\.7\b", "SeekerPassiveRange=4"),
@@ -207,8 +208,8 @@ def main():
             if k != 1:
                 sys.exit(f"usa_apkws_2_m282: {pat} matched {k} times - upstream changed")
         rb, k = re.subn(r"^(TerminalDiveDistance=[^\n]*\n)",
-                        "\\g<1>MaxLoftAngle=25.0                      // Climb angle for initial loft\n"
-                        "MaxLoftAlt=20000                       // loft ceiling in feet\n",
+                        "\\g<1>MaxLoftAngle=20.0                      // Climb angle for initial loft\n"
+                        "MaxLoftAlt=8000                       // loft ceiling in feet - Brimstone-style profile, scaled up\n",
                         rb, flags=re.M)
         if k != 1:
             sys.exit("usa_apkws_2_m282: TerminalDiveDistance anchor missing for loft keys")

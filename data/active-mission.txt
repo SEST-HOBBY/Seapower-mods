@@ -5,4 +5,4 @@
 # tools\import-mission.ps1 and every script in integration\missions\ read it,
 # so changing the working mission is a one-line edit here rather than five
 # scattered defaults that drift apart.
-NORTHERN FRONT III FINAL
+NORTHERN FRONT III FINAL NEWEST
