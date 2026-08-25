@@ -22,10 +22,54 @@ MODS = ROOT / "mods-source"
 OUT = Path(__file__).resolve().parent / "SEST_RAN_Fleet"
 
 SPA_MODERN = "3731208477"   # Spanish Navy Mod (Modern)
+RSA = "3413868677"          # Red Storm Arsenal - sole source of usn_rgm_184a (NSM)
+EUROMOD = "3629144864"      # Euromod pack - usn_rgm-109e5a (Tomahawk Block Va)
 SPA_COLDWAR = "3630495619"  # Spanish Navy Mod (Cold War)
 RN_MODERN = "3599752717"    # Modern British Navy - Euromod
 
 HELOS = "usn_mh-60r,S-70B-2_Seahawk"
+
+# --- 2027 armament refresh ---------------------------------------------------
+# The clones inherited their donors' placeholder fits. Two real RAN programs
+# supersede them, both with every round already in the collection:
+#
+#   NSM   - replaced Harpoon on Anzac and Hobart from 2024. The round is RSA's
+#           usn_rgm_184a (the US ship-launched NSM designation, which the RAN
+#           buy shares). Chosen over Euromod's knm_nsm_1a and the Type 23's
+#           rn_nsm by comparison: same airframe numbers as the knm round but
+#           MidCourseCorrection=3 (Datalink) vs 1 and a 10 ft skim vs 12;
+#           rn_nsm is far weaker (110 nm, Power 30, no datalink). The MK141
+#           racks stay - SystemName refers to a systems/ launcher definition,
+#           and the NSM deck launchers replace Harpoon's 1:1 anyway.
+#
+#   TLAM  - Hobart's 48 Mk41 cells: module 1 = 32 ESSM (quad), modules 2-6 =
+#           40 SM-2. Module 6 converts to 8x usn_rgm-109e5a, the exact
+#           magazine pattern Modern US Navy's 2025 Burkes and Ticos use for
+#           the same round. 32 ESSM + 32 SM-2 stay - she is an air warfare
+#           destroyer first.
+#
+# Each entry: (regex, replacement, exact expected substitutions) - a count
+# mismatch fails the build rather than shipping a half-applied refresh.
+NSM_SWAP = (r"^Ammunition=usn_rgm-84d[^\n]*$",
+            "Ammunition=usn_rgm_184a               // NSM (RGM-184A) - replaced Harpoon from 2024")
+ARMAMENT_REFRESH = {
+    "ran_ddg_hobart": [
+        NSM_SWAP + (2,),
+        (r"(\[WeaponMagazineVLS_6\][^\[]*?)Ammunition1=usn_rim-66m-5",
+         r"\1Ammunition1=usn_rgm-109e5a", 1),
+    ],
+    "ran_ffh_anzac": [NSM_SWAP + (2,)],
+}
+REFRESH_ROUNDS = {RSA: "usn_rgm_184a", EUROMOD: "usn_rgm-109e5a"}
+
+
+def refresh_armament(ship_id, text):
+    for pat, repl, want in ARMAMENT_REFRESH.get(ship_id, []):
+        text, n = re.subn(pat, repl, text, flags=re.M)
+        if n != want:
+            sys.exit(f"{ship_id}: armament refresh made {n} substitution(s), "
+                     f"expected {want} - donor layout changed, re-check")
+    return text
 
 FLEET = {
     "ran_ddg_hobart": {
@@ -157,6 +201,9 @@ def main():
     for helo in HELOS.split(","):
         if not list(MODS.glob(f"*/aircraft/{helo}.ini")):
             problems.append(f"helo not found in any mod: {helo}")
+    for mod, round_ in REFRESH_ROUNDS.items():
+        if not (MODS / mod / "ammunition" / f"{round_}.ini").exists():
+            problems.append(f"armament refresh round missing: {mod}/ammunition/{round_}.ini")
     if problems:
         sys.exit("validation failed:\n  " + "\n  ".join(problems))
 
@@ -172,6 +219,8 @@ def main():
                           text, count=1, flags=re.M)
         if n == 0:
             print(f"note: {donor} has no DisplayClassName line; relying on language names")
+
+        text = refresh_armament(ship_id, text)
 
         if ship["airgroup"]:
             new_ag = "[AirGroup]\n" + "\n".join(ship["airgroup"]) + "\n\n"
