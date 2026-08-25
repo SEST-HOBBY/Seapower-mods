@@ -118,6 +118,10 @@ SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33
 # 8-round AIM-174B missile truck: 4 under the fuselage (Bottom1 wells) and
 # 4 on the inner wing pylons' shoulder rails, with the outer wing pylons
 # carrying self-escort AAMs and centreline fuel only.
+Station1=dts_aim-260_w|120
+Station2=dts_aim-260_w|120
+Station5=dts_aim-260_w|120
+Station6=dts_aim-260_w|120
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -224,6 +228,10 @@ CoolDownTime=60              // in minutes. Time that plane will spend in mainte
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # MALICE mirror of Truck174: 8x AIM-424 plus self-escort AAMs on the outer
 # wing pylons, centreline fuel only.
+Station1=dts_aim-260_w|120
+Station2=dts_aim-260_w|120
+Station5=dts_aim-260_w|120
+Station6=dts_aim-260_w|120
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -419,7 +427,9 @@ WING_PYLON_RAILS = (1, 2, 5, 6)
 # store (GBU-10, B-61, AIM-174B, AIM-424) hung ON the wing station itself:
 # that occupies the space between the faces, and upstream never arms the
 # rails around one.
-RAIL_EXEMPT = set()   # kept for one-off overrides; empty since revision three
+# The trucks fly their side rails armed ABOVE the underslung round - user
+# call, same in-game-verified coexistence as MaliceER's rails-beside-tank.
+RAIL_EXEMPT = {(t, r) for t in ("MaliceTruck", "Truck174") for r in (1, 2, 5, 6)}
 
 
 def _rail_allowance(station_store):

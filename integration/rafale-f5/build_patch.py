@@ -35,7 +35,7 @@ from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 AIRFRAMES = ["fr_rafale_b_l", "fr_rafale_c_l", "fr_rafale_m_l"]
 NEW_KEYS = ["SEST_Intercept260", "SEST_MALICE", "SEST_AntiShipLRASM",
-            "SEST_Intercept260Heavy", "SEST_LRASM_ER"]
+            "SEST_Intercept260Heavy", "SEST_LRASM_ER", "SEST_MALICE_ER"]
 
 # (new name, donor loadout, [(old store spec, new store spec), ...])
 DERIVATIONS = [
@@ -54,6 +54,11 @@ DERIVATIONS = [
     ("SEST_Intercept260Heavy", "AirToAirIntercept",
      [("fr_mica-em", "dts_aim-260"), ("fr_meteor", "dts_aim-260")]),
     # LRASM with the centreline tank the AntiShip donor never fits.
+    # MALICE with the centreline tank its StrikeLongRange donor never fits.
+    ("SEST_MALICE_ER", "StrikeLongRange",
+     [("fr_scalp-eg|SCALP", AIM424_ID),
+      ("fr_mica-em", "dts_aim-260")],
+     ["Station11=fr_tank_1200"]),
     ("SEST_LRASM_ER", "AntiShip",
      [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),
       ("fr_mica-em", "dts_aim-260")],
@@ -67,7 +72,8 @@ LOADOUT_NAMES = {
            "SEST_MALICE": "InterceptMALICE (AIM-424/AIM-260)",
            "SEST_AntiShipLRASM": "AntiShip LRASM",
            "SEST_Intercept260Heavy": "Intercept Heavy (6x AIM-260)",
-           "SEST_LRASM_ER": "AntiShip LRASM LongRange (3 tanks)"},
+           "SEST_LRASM_ER": "AntiShip LRASM LongRange (3 tanks)",
+           "SEST_MALICE_ER": "InterceptMALICE LongRange (3 tanks)"},
 }
 
 INFO_INI = """[Language_en]
