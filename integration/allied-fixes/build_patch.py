@@ -173,8 +173,8 @@ def main():
             "at rocket cost. Same guidance kit and warhead as the M282.\n"
             "sest_agr-30=AGR-30,Redback,GFFAR,"
             "What-if evolution of the 70mm guided rocket family: the AGR-30 "
-            "Redback replaces the APKWS laser kit with an active "
-            "millimetre-wave seeker and a datalink - fire and forget out to "
+            "Redback replaces the APKWS laser kit with an imaging-infrared "
+            "seeker and a datalink - fire and forget out to "
             "15 nautical miles. A boosted motor lofts it to 20000 ft for a "
             "steep terminal dive onto the target. Same airframe and M282 "
             "warhead; missile performance at rocket cost.\n",
@@ -182,7 +182,7 @@ def main():
         (lang / "loadout_names.ini").write_text(
             "[LoadoutNames]\n"
             "SEST_APKWS_ER=SEST APKWS-ER Strike (28x guided rockets)\n"
-            "SEST_REDBACK=SEST Redback Strike (28x AGR-30 active)\n",
+            "SEST_REDBACK=SEST Redback Strike (28x AGR-30 F&F)\n",
             encoding="utf-8")
         print("  APKWS-ER: ammunition x2, uk_ah_mk_1 fit SEST_APKWS_ER (4 pods + Starstreak)")
 
@@ -193,15 +193,21 @@ def main():
         # the loft keys follow the AIM-174B/ARRW pattern. Values chosen for a
         # rocket-class weapon: 15 nm, 950 kts, 20000 ft loft, 4 nm seeker.
         rb = rocket_src.read_text(encoding="utf-8", errors="replace")
+        # Guidance recipe changed after a freeze in game: NO container in the
+        # collection holds a GuidanceType=3 round (surveyed all 130 mods), so
+        # active radar inside a pod is unprecedented and implicated in the
+        # hang. The proven in-container fire-and-forget pattern is the
+        # dts_gbu-53 quad: GuidanceType=1 (IR) + MidCourseCorrection=1,
+        # flying off this collection's own F-15EX. The Redback follows it -
+        # imaging-infrared seeker, datalink midcourse, same reach.
         swaps = [
-            (r"^GuidanceType=5\b", "GuidanceType=3"),
+            (r"^GuidanceType=5\b", "GuidanceType=1"),
             (r"^MidCourseCorrection=0\b", "MidCourseCorrection=1"),
             (r"^MaxLaunchRange=3\.5\b", "MaxLaunchRange=15"),
             (r"^MaxVelocity=768\.6\b", "MaxVelocity=950"),
             (r"^TerminalDiveDistance=1000\b", "TerminalDiveDistance=1.5"),
-            (r"^SeekerGain=0\.0\b", "SeekerGain=60.0"),
-            (r"^SeekerActiveRange=0\.0\b", "SeekerActiveRange=4"),
-            (r"^SeekerPassiveRange=2\.7\b", "SeekerPassiveRange=4"),
+            (r"^SeekerGain=0\.0\b", "SeekerGain=20.0"),
+            (r"^SeekerPassiveRange=2\.7\b", "SeekerPassiveRange=8"),
         ]
         for pat, rep in swaps:
             rb, k = re.subn(pat, rep, rb, flags=re.M)
