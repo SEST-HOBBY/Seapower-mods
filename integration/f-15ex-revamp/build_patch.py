@@ -23,7 +23,7 @@ from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 NEW_KEYS = ["AntiShipHeavy", "Quicksink", "BigStick174", "BigStick174ER",
             "Truck174", "Malice6", "MaliceER", "MaliceTruck",
-            "AAMT120Tanks", "AAMT260Tanks"]
+            "AAMT120Tanks", "AAMT260Tanks", "AAMT120Max", "AAMT260Max"]
 
 NEW_SECTIONS = """\
 [--------------------------- SEST Revamp loadouts ---------------------------]
@@ -187,8 +187,10 @@ SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33
 # proves it is ONE combined wing+belly rack set (only the two rack trucks
 # show it), so the belly rides upstream's single-round |120-B seats rather
 # than rackless floating |MTH twins (also seen in game). Stations 18/19/22/23
-# (free fuselage stations) are seated beside 11-14 by the SESTD keys to
-# rebuild the dual-rack look as four side-by-side pairs - eight belly rounds.
+# (free fuselage stations) are seated beside the |120-B rounds on 11-14 by
+# the SESTD keys to rebuild the dual-rack look - four side-by-side pairs,
+# eight belly rounds. Sixteen missiles: the two wing tanks cost four rounds
+# against the single-tank AAMT120Max, the user's chosen trade.
 Station1=dts_aim-120d-3_w|120
 Station2=dts_aim-120d-3_w|120
 Station5=dts_aim-120d-3_w|120
@@ -234,6 +236,64 @@ Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
 
+[WeaponSystem1AAMT120Max]
+ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
+CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
+SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
+# Full twenty-round truck, centreline (bottom) tank always fitted, wing
+# stations left clean. Three belly rows of SESTD side-by-side doubles:
+# 18/19/22/23 pair with the |120-B rounds on 11-14, 20/21 with a third row
+# on 24/25 - twelve belly rounds plus the four side rails and four outer
+# pylon faces.
+Station1=dts_aim-120d-3_w|120
+Station2=dts_aim-120d-3_w|120
+Station5=dts_aim-120d-3_w|120
+Station6=dts_aim-120d-3_w|120
+Station7=dts_aim-120d-3_w|120
+Station8=dts_aim-120d-3_w|120
+Station9=dts_aim-120d-3_w|120
+Station10=dts_aim-120d-3_w|120
+Station11=dts_aim-120d-3|120-B
+Station12=dts_aim-120d-3|120-B
+Station13=dts_aim-120d-3|120-B
+Station14=dts_aim-120d-3|120-B
+Station18=dts_aim-120d-3|SESTD-FL
+Station19=dts_aim-120d-3|SESTD-FR
+Station22=dts_aim-120d-3|SESTD-AR
+Station23=dts_aim-120d-3|SESTD-AL
+Station24=dts_aim-120d-3|120-B
+Station25=dts_aim-120d-3|120-B
+Station20=dts_aim-120d-3|SESTD-MR
+Station21=dts_aim-120d-3|SESTD-ML
+Station15=usaf_tank_610_f-15|WT
+
+[WeaponSystem1AAMT260Max]
+ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
+CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
+SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
+# The twenty-round AIM-260 truck, same layout.
+Station1=dts_aim-260_w|120
+Station2=dts_aim-260_w|120
+Station5=dts_aim-260_w|120
+Station6=dts_aim-260_w|120
+Station7=dts_aim-260_w|120
+Station8=dts_aim-260_w|120
+Station9=dts_aim-260_w|120
+Station10=dts_aim-260_w|120
+Station11=dts_aim-260|120-B
+Station12=dts_aim-260|120-B
+Station13=dts_aim-260|120-B
+Station14=dts_aim-260|120-B
+Station18=dts_aim-260|SESTD-FL
+Station19=dts_aim-260|SESTD-FR
+Station22=dts_aim-260|SESTD-AR
+Station23=dts_aim-260|SESTD-AL
+Station24=dts_aim-260|120-B
+Station25=dts_aim-260|120-B
+Station20=dts_aim-260|SESTD-MR
+Station21=dts_aim-260|SESTD-ML
+Station15=usaf_tank_610_f-15|WT
+
 [WeaponSystem1MaliceTruck]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
@@ -268,8 +328,10 @@ LOADOUT_NAMES = {
         "Malice6": "SEST InterceptMALICE (6x AIM-424)",
         "MaliceER": "SEST InterceptMALICE LongRange",
         "MaliceTruck": "SEST InterceptMALICE Truck (8x)",
-        "AAMT120Tanks": "SEST AAMT120 LongRange (3 tanks)",
-        "AAMT260Tanks": "SEST AAMT260 LongRange (3 tanks)",
+        "AAMT120Tanks": "SEST AAMT120 LongRange (16x, 3 tanks)",
+        "AAMT260Tanks": "SEST AAMT260 LongRange (16x, 3 tanks)",
+        "AAMT120Max": "SEST AAMT120 Truck (20x, 1 tank)",
+        "AAMT260Max": "SEST AAMT260 Truck (20x, 1 tank)",
     },
     "cn": {
         "AntiShipHeavy": "SEST 重型反舰LRASM×6",
@@ -280,8 +342,10 @@ LOADOUT_NAMES = {
         "Malice6": "SEST 马利斯截击 (6x AIM-424)",
         "MaliceER": "SEST 马利斯截击 (远程)",
         "MaliceTruck": "SEST 马利斯截击 (8联卡车)",
-        "AAMT120Tanks": "SEST AMRAAM卡车 (远程 3副油箱)",
-        "AAMT260Tanks": "SEST AIM-260卡车 (远程 3副油箱)",
+        "AAMT120Tanks": "SEST AMRAAM卡车 (16弹 3副油箱)",
+        "AAMT260Tanks": "SEST AIM-260卡车 (16弹 3副油箱)",
+        "AAMT120Max": "SEST AMRAAM卡车 (20弹 1副油箱)",
+        "AAMT260Max": "SEST AIM-260卡车 (20弹 1副油箱)",
     },
 }
 
@@ -726,6 +790,8 @@ def main():
             + "SESTD-FRPositions=-0.0016,-0.0028,0.0515\n"
             + "SESTD-ARPositions=-0.0016,-0.0023,0.0180\n"
             + "SESTD-ALPositions=0.0016,-0.0023,0.0180\n"
+            + "SESTD-MRPositions=-0.0016,-0.003,-0.020\n"   # 20/21 seated beside 24/25
+            + "SESTD-MLPositions=0.0016,-0.003,-0.020\n"
             + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner
