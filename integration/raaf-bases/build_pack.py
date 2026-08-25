@@ -31,7 +31,7 @@ BASES = {
     },
     "airbase_raaf_tindal": {
         "name": "RAAF Base Tindal",
-        "desc": "Northern deterrence base with USAF bomber rotation: 75 SQN F-35A, 123rd FS F-15EX, B-52H, B-2, tankers, MQ-9",
+        "desc": "Northern deterrence base with USAF bomber rotation: 75 SQN F-35A, 123rd FS F-15EX, B-52H, B-2, tankers, MQ-9, MQ-4C det",
         "airgroup": [
             ("raaf_f-35a", "Squadron3,12"),
             ("usaf_f-15ex_SEII", "Squadron5,8"),
@@ -39,6 +39,7 @@ BASES = {
             ("usaf_b-2_spirit", "Squadron1,2"),
             ("usaf_kc-135a", "Squadron1,2"),
             ("usaf_mq-9a", "Squadron1,4"),
+            ("raaf_mq-4c_triton", "Squadron2,2"),
         ],
     },
     "airbase_raaf_amberley": {
@@ -54,10 +55,11 @@ BASES = {
     },
     "airbase_raaf_edinburgh": {
         "name": "RAAF Base Edinburgh",
-        "desc": "ISR and maritime patrol: No.12 SQN P-8A Poseidon, MQ-9",
+        "desc": "ISR and maritime patrol: No.12 SQN P-8A Poseidon, No.9 SQN MQ-4C Triton, MQ-9",
         "airgroup": [
             ("usn_p8", "Squadron3,8"),
             ("usaf_mq-9a", "Squadron2,4"),
+            ("raaf_mq-4c_triton", "Squadron1,3"),
         ],
     },
     "airbase_raaf_darwin": {
@@ -116,11 +118,12 @@ BASES = {
     },
     "airbase_raaf_learmonth": {
         "name": "RAAF Base Learmonth (Bare Base)",
-        "desc": "Activated bare base, ISR posture: P-8A det, U-2, KC-135",
+        "desc": "Activated bare base, ISR posture: P-8A det, U-2, KC-135, 1 RSU Zephyr orbit",
         "airgroup": [
             ("usn_p8", "Squadron3,4"),
             ("usaf_u-2", "Squadron1,2"),
             ("usaf_kc-135a", "Squadron2,2"),
+            ("raaf_zephyr_s", "Squadron1,3"),
         ],
     },
     "airbase_raaf_curtin": {
@@ -143,11 +146,12 @@ BASES = {
     },
     "airbase_raaf_woomera": {
         "name": "RAAF Woomera Airfield",
-        "desc": "Test and evaluation range: U-2, MQ-9 ER, B-2 test det",
+        "desc": "Test and evaluation range: U-2, MQ-9 ER, B-2 test det, Zephyr trials flight",
         "airgroup": [
             ("usaf_u-2", "Squadron1,2"),
             ("usaf_mq-9_er", "Squadron2,4"),
             ("usaf_b-2_spirit", "Squadron2,2"),
+            ("raaf_zephyr_s", "Squadron2,2"),
         ],
     },
     "airbase_raaf_butterworth": {
@@ -223,7 +227,8 @@ def main():
     problems, warnings = [], []
     for base_id, base in BASES.items():
         for aircraft_id, assignment in base["airgroup"]:
-            exists = list(MODS.glob(f"*/aircraft/{aircraft_id}.ini")) + \
+            exists = list((ROOT / "integration").glob(f"*/SEST_*/aircraft/{aircraft_id}.ini")) + \
+                list(MODS.glob(f"*/aircraft/{aircraft_id}.ini")) + \
                 list(MODS.glob(f"_vanilla/original/aircraft/{aircraft_id}.ini"))
             if not exists:
                 problems.append(f"{base_id}: aircraft ini not found for {aircraft_id}")

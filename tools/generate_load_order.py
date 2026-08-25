@@ -39,6 +39,7 @@ TIER0 = [
     ("SEST Zumwalt CPS Fix", "above Modern US Navy (repairs the DDG-1000 CPS hull)"),
     ("SEST TacMap Colors", "overrides the vanilla tactical-map UI colours"),
     ("SEST RAN Fleet", "contests nothing - additive RAN hulls"),
+    ("SEST ADF Persistent ISR", "contests nothing - MQ-4C Triton + Zephyr S, mesh from the MQ-9 mod"),
     ("SEST RAAF Bases", "contests nothing - additive RAAF airfields"),
 ]
 

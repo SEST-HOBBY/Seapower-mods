@@ -17,6 +17,7 @@ SEST_Raptor_Squadrons
 SEST_Zumwalt_CPS
 SEST_TacMap_Colors
 SEST_RAN_Fleet
+SEST_ADF_Persistent_ISR
 SEST_RAAF_Bases
 3380210757
 3606134711

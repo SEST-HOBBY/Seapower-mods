@@ -1,7 +1,7 @@
 # Setup Runbook — cleaning the 109 and installing the SEST packs
 
 Follow top to bottom on the gaming PC. Everything here reflects the file-level findings from
-`mods-source/` and the thirteen SEST packs on this branch.
+`mods-source/` and the fourteen SEST packs on this branch.
 
 ## Phase 0 — before touching anything
 
