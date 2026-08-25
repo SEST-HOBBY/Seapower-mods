@@ -206,8 +206,8 @@ Station19=dts_aim-120d-3|SESTR-FR
 Station22=dts_aim-120d-3|SESTR-AR
 Station23=dts_aim-120d-3|SESTR-AL
 Station15=usaf_tank_610_f-15|WT
-Station16=usaf_tank_610_f-15|WT
-Station17=usaf_tank_610_f-15|WT
+Station16=usaf_tank_610_f-15|SESTWTF
+Station17=usaf_tank_610_f-15|SESTWTF
 
 [WeaponSystem1AAMT260Tanks]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -231,8 +231,8 @@ Station19=dts_aim-260|SESTR-FR
 Station22=dts_aim-260|SESTR-AR
 Station23=dts_aim-260|SESTR-AL
 Station15=usaf_tank_610_f-15|WT
-Station16=usaf_tank_610_f-15|WT
-Station17=usaf_tank_610_f-15|WT
+Station16=usaf_tank_610_f-15|SESTWTF
+Station17=usaf_tank_610_f-15|SESTWTF
 
 [WeaponSystem1MaliceTruck]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -739,6 +739,7 @@ def main():
             + "SESTR-ALPositions=0.0082,-0.005,0\n"
             + "SESTR-ARRotations=-2,0,0\n"
             + "SESTR-ALRotations=-2,0,0\n"
+            + "SESTWTFPositions=0,-0.002,0\n"   # DualRack wing tanks slung under the visible AAMT wing rack
             + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner
