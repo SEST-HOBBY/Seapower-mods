@@ -57,6 +57,13 @@ ARMAMENT_REFRESH = {
         NSM_SWAP + (2,),
         (r"(\[WeaponMagazineVLS_6\][^\[]*?)Ammunition1=usn_rim-66m-5",
          r"\1Ammunition1=usn_rgm-109e5a", 1),
+        # SM-6 in module 5 - the RAN's approved Aegis refresh, and the same
+        # SM-2/SM-6/ESSM/TLAM/NSM pattern Red Storm Arsenal's own 2026
+        # Hobart (ran_ddg_hobart_alt_late) carries. U.S. Navy 2027's
+        # usn_rim-174a wins the id. Final cells: 32 ESSM, 24 SM-2, 8 SM-6,
+        # 8 Tomahawk.
+        (r"(\[WeaponMagazineVLS_5\][^\[]*?)Ammunition1=usn_rim-66m-5",
+         r"\1Ammunition1=usn_rim-174a", 1),
     ],
     "ran_ffh_anzac": [NSM_SWAP + (2,)],
 }
