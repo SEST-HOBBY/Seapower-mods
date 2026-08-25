@@ -1,11 +1,11 @@
 <#
 .SYNOPSIS
-    Install (or update) the eleven SEST packs into Sea Power's StreamingAssets folder.
+    Install (or update) every SEST pack into Sea Power's StreamingAssets folder.
 
 .DESCRIPTION
     Auto-detects the Sea Power install the same way export-mod-configs.ps1 does
     (Steam library manifests — no hardcoded paths), finds StreamingAssets, and
-    copies the eleven SEST pack folders from this repo's integration\ directories
+    copies every SEST pack folder found under this repo's integration\ directories
     into it. Safe to re-run any time: existing copies are overwritten in place,
     which is also how you take updates after a git pull.
 
@@ -28,19 +28,15 @@ $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyI
 $repoRoot = Split-Path -Parent $scriptDir
 . (Join-Path $scriptDir "lib\common.ps1")
 
-$Packs = @(
-    "integration\f-15ex-revamp\SEST_F-15EX_Revamp",
-    "integration\f-35c-jatm\SEST_F-35C_JATM",
-    "integration\growler-ngj-malice\SEST_Growler_NGJ_MALICE",
-    "integration\raaf-f-35a-jatm\SEST_RAAF_F-35A_JATM",
-    "integration\raaf-wedgetail\SEST_RAAF_Wedgetail",
-    "integration\raptor-squadrons\SEST_Raptor_Squadrons",
-    "integration\raaf-bases\SEST_RAAF_Bases",
-    "integration\ran-fleet\SEST_RAN_Fleet",
-    "integration\jmsdf-mogami\SEST_JMSDF_Mogami",
-    "integration\tacmap-colors\SEST_TacMap_Colors",
-    "integration\zumwalt-cps\SEST_Zumwalt_CPS"
-)
+# Discovered, not listed. A hardcoded roster is one more place to forget a new
+# pack - and a pack that is never installed fails exactly like one that is
+# installed but outranked: silently, with the game showing the unmodded unit.
+$Packs = @(Get-ChildItem -LiteralPath (Join-Path $repoRoot "integration") -Directory |
+    ForEach-Object { Get-ChildItem -LiteralPath $_.FullName -Directory -Filter "SEST_*" } |
+    ForEach-Object { $_.FullName.Substring($repoRoot.Length).TrimStart('\') } |
+    Sort-Object)
+if (-not $Packs.Count) { throw "no SEST_* packs found under $repoRoot\integration" }
+Write-Host ("Found {0} SEST pack(s) to install." -f $Packs.Count)
 
 # --- Locate StreamingAssets --------------------------------------------------
 if (-not $StreamingAssetsDir) {
@@ -97,5 +93,5 @@ if (Test-Path $missionSrc) {
 }
 
 Write-Host "`n$installed of $($Packs.Count) packs in place."
-Write-Host "Next: launch Sea Power -> Mod Manager -> enable the eleven SEST entries and set the order"
+Write-Host ("Next: launch Sea Power -> Mod Manager -> enable all {0} SEST entries and set the order" -f $Packs.Count)
 Write-Host "(see docs\setup-runbook.md Phase 4 - the SEST patch packs must sit ABOVE their targets)."

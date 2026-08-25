@@ -29,6 +29,7 @@ mods = {m["id"]: m for m in catalog["mods"] if m.get("status") != "unsubscribed"
 TIER0 = [
     ("SEST Growler NGJ + MALICE", "above U.S. Navy 2027, F/A-18E/F, Murder Hornet, US Naval Aviation"),
     ("SEST F-15EX Revamp", "above the F-15EX mod (\"F-15SE\")"),
+    ("SEST B-52H ARRW", "above Dingtools and the B-52H mod - AGM-183A loft + W62"),
     ("SEST F-35C JATM", "above every other usn_f-35c source"),
     ("SEST RAAF F-35A JATM", "above the RAAF F-35A mod"),
     ("SEST JMSDF Mogami", "above the Mogami-class Frigate mod"),

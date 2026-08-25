@@ -1,7 +1,7 @@
 # Setup Runbook — cleaning the 109 and installing the SEST packs
 
 Follow top to bottom on the gaming PC. Everything here reflects the file-level findings from
-`mods-source/` and the eleven SEST packs on this branch.
+`mods-source/` and the twelve SEST packs on this branch.
 
 ## Phase 0 — before touching anything
 
@@ -37,7 +37,7 @@ Everything else stays. The three Fujians / four MH-60 sources / duplicate missil
 are a mod-order question, not an unsubscribe question — the file-level scan (roadmap item 1)
 settles those properly later.
 
-## Phase 3 — install the eleven SEST packs (scripted)
+## Phase 3 — install the SEST packs (scripted)
 
 **Close Sea Power first.** It rewrites `usersettings.ini` when it exits, so anything the
 tooling writes while the game is open is silently thrown away. Every script that touches
@@ -65,7 +65,7 @@ powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
 ```
 
 The script auto-finds Sea Power the same way the export script did, locates `StreamingAssets`,
-and copies all eleven packs in. It prints one line per pack (`installed` or `updated`) — expect
+and copies every pack it finds under `integration/` in. It prints one line per pack (`installed` or `updated`) — expect
 11 of 11. Re-run it any time after a `git pull` to take updates; it overwrites in place.
 
 What it installs: `SEST_F-15EX_Revamp` (loadouts **and** eight F-15EX squadrons) ·
@@ -75,8 +75,8 @@ Super Hornets) · `SEST_RAAF_F-35A_JATM` · `SEST_RAAF_Wedgetail` (E-7A squadron
 `SEST_JMSDF_Mogami` · `SEST_TacMap_Colors` · `SEST_Zumwalt_CPS` (repairs the Zumwalt's
 hypersonic launcher).
 
-Then launch the game → Mod Manager → the eleven SEST entries should appear alongside your
-Workshop mods. **Enable all eleven.** If they don't appear in the list at all, stop and report
+Then launch the game → Mod Manager → the twelve SEST entries should appear alongside your
+Workshop mods. **Enable all twelve.** If they don't appear in the list at all, stop and report
 it (the fallback is merging into `StreamingAssets\user\`, but don't do that unprompted).
 
 ## Phase 4 — mod order
