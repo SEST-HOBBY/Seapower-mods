@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Build the SEST B-52H ARRW patch: make the AGM-183A actually loft, and give
-the B-52H the nuclear variant it is the only aircraft entitled to carry.
+"""Build the SEST B-52 ARRW patch: put the AGM-183A on every in-service B-52,
+and make it actually loft.
 
 TWO DEFECTS, both found by comparing against the collection rather than by
 taste.
@@ -39,6 +39,8 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent / "SEST_B52_ARRW"
 
 B52_MOD = ROOT / "mods-source" / "3741944366"      # B-52H, ships dts_b-52h
+RSA = ROOT / "mods-source" / "3413868677"          # Red Storm Arsenal, ships usaf_b-52o
+ARRW_MOD = ROOT / "mods-source" / "3502273861"     # ARRW, ships the 419th FLTS bird
 DINGTOOLS = ROOT / "mods-source" / "3760871384"    # Dingtools, WINS both AGM-183A files
 
 # usn_cps, the Navy boost-glide round already in the collection, is the anchor.
@@ -115,17 +117,120 @@ def build_aircraft():
     print(f"  aircraft/dts_b-52h.ini  (+Strike183Nuke, {n}x W62)")
 
 
+def drop_stale(*rels):
+    """Remove pack output whose upstream mod is no longer exported.
+
+    Skipping the build of a file does not unship the copy from last time. A
+    stale unit .ini left behind after its mod is unsubscribed describes a unit
+    whose model is gone - the same trap as mods-source keeping directories for
+    mods you removed.
+    """
+    for rel in rels:
+        f = OUT / rel
+        if f.exists():
+            f.unlink()
+            print(f"    removed stale {rel} (upstream no longer exported)")
+
+
+def build_b52o():
+    """Give Red Storm Arsenal's B-52O the ARRW, on the pylon it already uses.
+
+    The B-52O has no AGM183 position key. It does not need one: RSA already
+    hangs a large hypersonic (usn_agm_110l) one-per-pylon on WeaponSystem2 via
+    RGM110_Rack, which is exactly the ARRW fit. Copying that block and swapping
+    the round keeps the geometry the author tuned.
+
+    Its WeaponSystem1 wing pylons (Station7/8) are deliberately NOT used - the
+    matching #RGM110_RackPositions there is commented out in RSA's own file, so
+    the author disabled that carriage and second-guessing it would put missiles
+    at an offset nobody has ever looked at.
+    """
+    src = RSA / "aircraft" / "usaf_b-52o.ini"
+    if not src.exists():
+        print("  usaf_b-52o.ini  SKIPPED - Red Storm Arsenal not exported")
+        drop_stale("aircraft/usaf_b-52o.ini")
+        return
+    text = src.read_text(encoding="utf-8")
+    m = re.search(r"^\[WeaponSystem2AntiShipHeavy\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+    if not m:
+        sys.exit("usaf_b-52o.ini: AntiShipHeavy not found - upstream changed")
+    body = m.group(1)
+    if "usn_agm_110l|RGM110_Rack" not in body:
+        sys.exit("usaf_b-52o.ini: AntiShipHeavy no longer uses the RGM110 rack")
+
+    blocks = ""
+    for name, round_ in (("Strike183", "dts_agm-183a"),
+                         ("Strike183Nuke", "dts_agm-183a(w62)")):
+        blocks += (f"[WeaponSystem2{name}]\n"
+                   + body.replace("usn_agm_110l", round_).rstrip("\n") + "\n\n")
+    text = text[:m.end()] + "\n" + blocks + text[m.end():]
+
+    la = re.search(r"^AvailableLoadouts=([^\n]+)$", text, re.M)
+    if "Strike183" in la.group(1):
+        sys.exit("usaf_b-52o.ini: Strike183 already declared upstream")
+    text = text[:la.start(1)] + la.group(1) + ",Strike183,Strike183Nuke" + text[la.end(1):]
+
+    dst = OUT / "aircraft" / "usaf_b-52o.ini"
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    dst.write_text(text, encoding="utf-8")
+    print("  aircraft/usaf_b-52o.ini  (+Strike183, +Strike183Nuke, 2x each on the pylons)")
+
+
+def build_419_flts():
+    """Declare the loadouts the ARRW mod wrote but never listed, and fix usn_arrw.
+
+    usaf_b-52h_419_flts defines [WeaponSystem1Empty], [WeaponSystem2Empty] and
+    [WeaponSystem2Default] but AvailableLoadouts names only AntiShipPrecision,
+    so the ARRW testbed can be flown exactly one way and the author's own clean
+    and pylons-only fits are unreachable. Same defect as the B-52H's W62.
+
+    usn_arrw declares MaxVelocity=10,648 - the only numeric value carrying a
+    thousands separator anywhere in the ammunition of all 129 exported mods.
+    Nothing else in the collection writes a number that way, so it is a typo,
+    and a parser reading it as 10 knots would leave the round crawling.
+    """
+    src = ARRW_MOD / "aircraft" / "usaf_b-52h_419_flts.ini"
+    if not src.exists():
+        print("  usaf_b-52h_419_flts.ini  SKIPPED - ARRW mod not exported")
+        drop_stale("aircraft/usaf_b-52h_419_flts.ini", "ammunition/usn_arrw.ini")
+        return
+    text = src.read_text(encoding="utf-8")
+    have = set(re.findall(r"^\[WeaponSystem\d+([A-Za-z][A-Za-z0-9_]*)\]", text, re.M))
+    la = re.search(r"^AvailableLoadouts=([^\n]+)$", text, re.M)
+    declared = [x.strip() for x in la.group(1).split(",")]
+    add = [n for n in ("Empty", "Default") if n in have and n not in declared]
+    if not add:
+        sys.exit("usaf_b-52h_419_flts.ini: nothing left to declare - upstream changed")
+    text = text[:la.start(1)] + ",".join(declared + add) + text[la.end(1):]
+    dst = OUT / "aircraft" / "usaf_b-52h_419_flts.ini"
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    dst.write_text(text, encoding="utf-8")
+    print(f"  aircraft/usaf_b-52h_419_flts.ini  (declared {', '.join(add)})")
+
+    a = ARRW_MOD / "ammunition" / "usn_arrw.ini"
+    at = a.read_text(encoding="utf-8")
+    fixed = re.sub(r"^(MaxVelocity=)([0-9]{1,3}),([0-9]{3})\b", r"\1\2\3", at, flags=re.M)
+    if fixed == at:
+        sys.exit("usn_arrw.ini: the MaxVelocity thousands separator is gone - re-check")
+    (OUT / "ammunition" / "usn_arrw.ini").write_text(fixed, encoding="utf-8")
+    print("  ammunition/usn_arrw.ini  (MaxVelocity 10,648 -> 10648)")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "_info.ini").write_text(
         "[Language_en]\n"
-        "Name=SEST B-52H ARRW\n"
-        "Description=Gives the AGM-183A the lofted boost-glide profile every "
-        "other hypersonic weapon here has, and lets the B-52H carry the W62.\n",
+        "Name=SEST B-52 ARRW\n"
+        "Description=AGM-183A across every in-service B-52: the lofted "
+        "boost-glide profile it was missing, the W62 on the B-52H, ARRW on "
+        "Red Storm Arsenal's B-52O, and the 419th FLTS testbed's unreachable "
+        "loadouts declared.\n",
         encoding="utf-8")
     print("SEST_B52_ARRW")
     build_ammunition()
     build_aircraft()
+    build_b52o()
+    build_419_flts()
 
 
 if __name__ == "__main__":
