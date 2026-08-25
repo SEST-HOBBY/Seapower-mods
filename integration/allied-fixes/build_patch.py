@@ -243,6 +243,70 @@ def main():
         (OUT / "aircraft" / "uk_ah_mk_1.ini").write_text(heli, encoding="utf-8")
         print("  Redback: ammunition x2, uk_ah_mk_1 fit SEST_REDBACK (28x AGR-30 active)")
 
+        # Redback rollout (user ask): the other Apaches, the A-10C, and the
+        # MQ-9s. Only the Redback travels - the laser APKWS-ER stays on the
+        # Ocean Apache. Each carrier clones its own densest rocket (or
+        # strike) fit with the pods swapped in, seats preserved.
+        ROLLOUT = [
+            ("3425450153", "usa_ah-64a.ini", "Strike",
+             [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 4)]),
+            ("3425450153", "usa_ah-64d.ini", "Strike",
+             [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 4)]),
+            ("3425450153", "usa_ah-64e.ini", "Strike",
+             [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 4)]),
+            ("3425450153", "usn_ah-64na.ini", None,
+             [(r"^(Station\d+=)usn_agr-20b\|", r"\1sest_agr-30_pod|", 3)]),
+            ("3459682829", "usa_a-10c.ini", "CAS1",
+             [(r"^(Station\d+=)usn_agr-20b\|", r"\1sest_agr-30_pod|", 5)]),
+            ("3503670861", "usaf_mq-9a.ini", "Strike",
+             [(r"^(Station\d+=)uav_agm-114k\|AGM-114$", r"\1sest_agr-30_pod|AGM-114", 2),
+              (r"^(Station\d+=)uav_gbu-49$", r"\1sest_agr-30_pod", 2)]),
+            ("3503670861", "usaf_mq-9_er.ini", "Strike",
+             [(r"^(Station\d+=)uav_agm-114k\|AGM-114$", r"\1sest_agr-30_pod|AGM-114", 2),
+              (r"^(Station\d+=)uav_gbu-49$", r"\1sest_agr-30_pod", 2)]),
+        ]
+        for mod, fname, donor, swaps in ROLLOUT:
+            csrc = ROOT / "mods-source" / mod / "aircraft" / fname
+            cdst = OUT / "aircraft" / fname
+            if not csrc.exists():
+                if cdst.exists():
+                    cdst.unlink()
+                print(f"  {fname}  SKIPPED - {mod} not exported")
+                continue
+            ct = csrc.read_text(encoding="utf-8", errors="replace")
+            if "SEST_REDBACK" in ct:
+                sys.exit(f"{fname}: upstream already defines SEST_REDBACK - re-check")
+            ct, k = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_REDBACK",
+                            ct, count=1, flags=re.M)
+            if k != 1:
+                sys.exit(f"{fname}: AvailableLoadouts not found")
+            if donor is None:
+                # densest fit by the first swap pattern
+                best = None
+                for bm in re.finditer(r"^\[WeaponSystem1(\w+)\][^\n]*\n(.*?)(?=^\[)",
+                                      ct, re.M | re.S):
+                    c = len(re.findall(swaps[0][0], bm.group(2), re.M))
+                    if c and (best is None or c > best[1]):
+                        best = (bm.group(1), c)
+                if not best:
+                    sys.exit(f"{fname}: no donor fit carries the base rockets")
+                donor = best[0]
+            bm = re.search(r"^\[WeaponSystem1" + donor + r"\][^\n]*\n(.*?)(?=^\[)",
+                           ct, re.M | re.S)
+            if not bm:
+                sys.exit(f"{fname}: donor fit {donor} not found")
+            body = bm.group(1)
+            for pat, rep, need in swaps:
+                body, k = re.subn(pat, rep, body, flags=re.M)
+                if k < need:
+                    sys.exit(f"{fname}: {donor} swapped {k} lines for {pat}, expected {need}")
+            ct = ct[:bm.end()] + "[WeaponSystem1SEST_REDBACK]\n" + body + ct[bm.end():]
+            cdst.parent.mkdir(parents=True, exist_ok=True)
+            cdst.write_text(ct, encoding="utf-8")
+            pods = body.count("sest_agr-30_pod")
+            print(f"  aircraft/{fname}  SEST_REDBACK ({pods} pods, donor {donor})")
+
+
 
         built += 1
 

@@ -733,7 +733,7 @@ def main():
             + "SEST174Positions=0,-0.001,0\n"
             + "SESTR-ORPositions=0.0022,-0.0025,-0.01\n"
             + "SESTR-OLPositions=-0.0022,-0.0025,-0.01\n"
-            + "SESTR-FRPositions=-0.0082,-0.0055,-0.003\n"
+            + "SESTR-FRPositions=-0.0082,-0.0055,0.0335\n"   # S19 z is -0.0335 like S18 (S20 owns 0.003 - the first cut used the wrong row and pushed this round aft)
             + "SESTR-FLPositions=0.0082,-0.0055,0.0335\n"
             + "SESTR-ARPositions=-0.0082,-0.005,0\n"
             + "SESTR-ALPositions=0.0082,-0.005,0\n"
