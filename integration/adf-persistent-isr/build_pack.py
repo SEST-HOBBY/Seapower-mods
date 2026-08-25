@@ -3,7 +3,6 @@
 UAVs cloned from the MQ-9 Reaper mod's MQ-9 ER airframe (the collection's only
 long-wing UAV mesh).
 
-  raaf_zephyr_s     Airbus Zephyr S HAPS — solar-electric stratospheric
                     pseudo-satellite. Near-nil RCS/IR signature and a purely
                     passive sensor fit (OPAZ optics + ELINT): it emits nothing.
   raaf_mq-4c_triton MQ-4C Triton — the RAAF's maritime Global Hawk. Unarmed
@@ -36,141 +35,6 @@ HIDE_WEAPON_FURNITURE = ("pyl_inner,rain_inner,rail_inner_low,pyl_mid,rail_mid,"
 # Vanilla sensor systems the units reference (Triton's MTS-B comes from the MQ-9 mod)
 VANILLA_SYSTEMS = ["AdvancedOptics", "AircraftELINT", "AircraftRWR"]
 MQ9_SYSTEMS = ["AN/AAS-52_Visual"]
-
-ZEPHYR_HEAD = """[---------- General Data ----------]
-[General]
-UnitType=Aircraft
-CarrierCapable=False
-
-DefaultCameraDistance=1
-MinCameraDistanceForeAft=0.39
-MinCameraDistanceBroadside=0.39
-CameraPivotHeight=0.0
-
-#Taxi values
-GroundedPitchAngle=0
-GroundPivot=0,-0.029,-0.015
-LandingPivot=0,-0.029,-0.135
-OnDeckPositionOffset=0,0,-0.023
-
-[AI]
-UnitScoreValue=2
-Role=Recon,ESM
-
-[SensorData]
-#Visual
-VisualIdentificationRange=1.5  // 25 m of thin carbon spar and solar film - very hard to spot
-IRSignature=VeryTiny           // solar-electric: no combustion heat at all
-# Radar related (RCS => radar cross section)
-RCS=VeryTiny                   // radar-transparent composite sailplane, stealth-class return
-
-[Animations]
-NumberOfAnimationReferences=1
-AnimationFile_1=animations_usaf_uav_mq-9
-
-[---------- Flight Model ----------]
-[Engine]
-EngineIntakeArea=1.2
-
-[FlightModel]
-PitchGain=0.4
-VelocityGain=0.02
-HeadingGain=1.0
-YawRateLimit=10
-BankGain=0.4
-MaxRollForHeading=12.0
-MaxRollRate=10.0
-
-ThrustGain=0.2
-SpeedBrakeFractionGain=0.2
-
-SpeedDeltaPerAltitudeChange=0.0885
-
-[Performance]
-#Dimensions
-WingSpan=25                          //meters
-#Parameters
-MaxG=1.5
-
-MaxClimbRate=1.5                     //Meters per second
-MaxClimbPitch=6
-MaxCombatClimbPitch=8
-MaxDescentPitch=-6
-MaxCombatDescentPitch=-8
-
-EmptyMass=75.0                       // in kg - the whole aircraft weighs less than its ground crew
-MaxFuel=25.0                         // battery bank stand-in; endurance lives in the cruise range
-
-PerEngineMaxPower=1500               // watts-scale solar-electric motors (turboprop engine type)
-EngineCount=2
-
-Ceiling=76000                        // 76,100 ft world altitude record
-CruiseAltitude=63000                 //in feet - above weather, above traffic, above most SAM floors
-AltitudeEfficiency=0.25,0.5,1.0      // solar endurance rewards staying high
-
-#Governing of max speed
-MaxSpeedAtSeaLevel=55                //in knots
-StallSpeed=18.0                      //in knots
-MachLimit=0.22                       //for 37000ft
-
-#SpeedAndRange   MachNumbers or knots, Specified units or multiplier (except Cruise range)
-RangeUnits=Miles
-
-SpeedAndRange_Landing=22,0.4
-SpeedAndRange_Loiter=35,0.6
-SpeedAndRange_Cruise=40,30000        // a month on station at 40 kt - the point of the aircraft
-SpeedAndRange_Max=70,0.8
-
-Altitudes=200,1000,5000,15000,30000,45000,60000,70000,76000  // in feet
-"""
-
-ZEPHYR_SENSORS_WEAPONS = """[---------- Sensor Systems ----------]
-############################################################
-# Sensor Systems - fully passive: the Zephyr emits nothing
-############################################################
-[SensorSystems]
-NumberOfSensorSystems=3
-
-[SensorSystem1] #Airframe cameras
-Type=Visual
-SystemName=AdvancedOptics
-Mount=Dummy
-ViewArcs=-180,180|-90,30
-ModuleType=Sensor
-
-[SensorSystem2] #OPAZ stabilised EO/IR survey payload
-Type=Visual
-SystemName=SEST_OPAZ
-Mount=Dummy
-ViewArcs=-180,180|-90,10
-ModuleType=Sensor
-
-#---------- ESM ----------
-
-[SensorSystem3] #SIGINT fit
-Type=ESM
-SystemName=AircraftELINT
-Mount=Dummy
-ModuleType=Sensor
-
-[---------- Weapon Systems ----------]
-############################################################
-# Weapon Systems - none: 5 kg of payload margin carries sensors
-############################################################
-[WeaponSystems]
-NumberOfWeaponSystems=1
-
-[WeaponSystem1] #Hardpoint
-Type=Hardpoint
-SystemName=Hardpoint
-NumberOfStations=0
-
-[---------- Weapon Loadouts ----------]
-[WeaponSystem1Default]
-ReadyUpTime=45               // in minutes. Delicate ground handling and battery conditioning
-CoolDownTime=120             // in minutes
-SubModelsToHide={hide}
-"""
 
 TRITON_HEAD = """[---------- General Data ----------]
 [General]
@@ -339,40 +203,9 @@ Frequency=X-Band
 PeakPower=900.0        // output peak power in kW
 IdentificationTime=25
 
-[SEST_OPAZ]
-# Optical Advanced Zephyr payload: stabilised high-resolution EO/IR survey
-# imager. Values follow the vanilla Recon_Camera with the reach of a
-# stratospheric perch; passive, so carrying it radiates nothing.
-Kind=Visual
-VIDRangeMultiplier=2.6
-MaxRangeMultiplier=3.0
-LookDownMultiplier=0.8
-NightVisionLevel=0.25
-Recon=True
 """
 
 SQUADRONS = {
-    "raaf_zephyr_s": """[General]
-SerialnumberReferences=Modex,Right_Outer_Wing_Modex,Left_Rudder_Modex,Right_Rudder_Modex
-EmblemReference=CarrierName
-NationFlagReference=Flag1
-NumberOfSquadrons=2
-
-[Default]
-ResourcesLiveryFolder=assets/textures/mq-9/
-LiveryTexture=42_ATKS.png
-Nation=Australia
-
-[Squadron1]
-ResourcesLiveryFolder=assets/textures/mq-9/
-LiveryTexture=42_ATKS.png
-Nation=Australia
-
-[Squadron2]
-ResourcesLiveryFolder=assets/textures/mq-9/
-LiveryTexture=42_ATKS.png
-Nation=Australia
-""",
     "raaf_mq-4c_triton": """[General]
 SerialnumberReferences=Modex,Right_Outer_Wing_Modex,Left_Rudder_Modex,Right_Rudder_Modex
 EmblemReference=CarrierName
@@ -398,13 +231,6 @@ Nation=Australia
 
 NAMES_INI = """[General]
 
-[raaf_zephyr_s]
-Type=UAV
-Default=Zephyr S HAPS,Zephyr
-DefaultDescription=Airbus Zephyr S, a solar-electric stratospheric pseudo-satellite flight-proven from Wyndham, Western Australia. 25 m of carbon spar and solar film massing 75 kg, it climbs above 60,000 ft and stays there for weeks, holding a surveillance orbit no aircraft can intercept economically. The fit is entirely passive - OPAZ high-resolution optics and an ELINT receiver - so it radiates nothing, and a stealth-class radar return plus no combustion heat make it close to undetectable. Persistent maritime domain awareness by quasi-satellite.
-Squadron1=Zephyr No. 1 RSU,Zephyr
-Squadron2=Zephyr Trials Flight,Zephyr
-
 [raaf_mq-4c_triton]
 Type=UAV
 Default=MQ-4C Triton,Triton
@@ -415,7 +241,7 @@ Squadron2=MQ-4C Det Tindal,Triton
 
 INFO_INI = """[Language_en]
 Name=SEST ADF Persistent ISR
-Description=Two Australian high-altitude ISR drones as new units: Airbus Zephyr S HAPS (solar-electric pseudo-satellite - near-nil RCS/IR, fully passive OPAZ optics + ELINT fit, weeks of endurance above 60,000 ft) and MQ-4C Triton (the RAAF's maritime Global Hawk - AN/ZPY-3 MFAS 360-degree radar, MTS-B optics, ELINT/RWR, unarmed). Both fly the MQ-9 Reaper mod's ER mesh as stand-ins, so the MQ-9 mod must stay installed and enabled. Additive - place below the MQ-9 Reaper mod.
+Description=MQ-4C Triton, the RAAF's maritime Global Hawk, as a new unit: AN/ZPY-3 MFAS 360-degree radar, MTS-B optics, ELINT/RWR, unarmed. Flies the MQ-9 Reaper mod's ER mesh as a stand-in, so the MQ-9 mod must stay installed and enabled. Additive - place below the MQ-9 Reaper mod.
 
 [Compatibility]
 ApproximateVersion=0.6.8
@@ -471,17 +297,6 @@ def main():
     if problems:
         sys.exit("validation failed:\n  " + "\n  ".join(problems))
 
-    # --- Zephyr S: keep the spinning props; electric, so no exhaust smoke and
-    # a near-silent audio envelope
-    zephyr_tail = re.sub(r"^ExhaustSmoke=.*\n", "", tail, flags=re.M)
-    zephyr_tail = zephyr_tail.replace("EngineAudioVolumeRange=0.1,0.5",
-                                      "EngineAudioVolumeRange=0.02,0.1")
-    zephyr_tail = zephyr_tail.replace("ExhaustAudioVolumeRange=0.2,1.0",
-                                      "ExhaustAudioVolumeRange=0.05,0.25")
-    zephyr = (ZEPHYR_HEAD + "\n" + controls
-              + ZEPHYR_SENSORS_WEAPONS.format(hide=HIDE_WEAPON_FURNITURE)
-              + "\n" + zephyr_tail)
-
     # --- Triton: a jet — drop the prop declarations (undeclared submodels are
     # never instantiated), strip the prop-idle keys and swap in vanilla jet audio
     triton_controls = re.sub(r"^Props(Idle|InFlight)=.*\n", "", controls, flags=re.M)
@@ -503,7 +318,6 @@ def main():
     (OUT / "systems").mkdir(exist_ok=True)
     (OUT / "language_en").mkdir(exist_ok=True)
 
-    (OUT / "aircraft" / "raaf_zephyr_s.ini").write_text(zephyr, encoding="utf-8")
     (OUT / "aircraft" / "raaf_mq-4c_triton.ini").write_text(triton, encoding="utf-8")
     for unit, text in SQUADRONS.items():
         (OUT / "aircraft" / f"{unit}_squadrons.ini").write_text(text, encoding="utf-8")
@@ -511,7 +325,7 @@ def main():
     (OUT / "language_en" / "aircraft_names.ini").write_text(NAMES_INI, encoding="utf-8")
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
 
-    print(f"built {OUT.relative_to(ROOT)}: raaf_zephyr_s + raaf_mq-4c_triton, "
+    print(f"built {OUT.relative_to(ROOT)}: raaf_mq-4c_triton, "
           "donor mesh/controls verified, all sensor references validated")
 
 

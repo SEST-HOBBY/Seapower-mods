@@ -7,7 +7,6 @@ coexist).
 
 ## The aircraft
 
-| | **Zephyr S HAPS** (`raaf_zephyr_s`) | **MQ-4C Triton** (`raaf_mq-4c_triton`) |
 |---|---|---|
 | What it is | Airbus solar-electric stratospheric pseudo-satellite, flight-proven from Wyndham WA (76,100 ft world record) | The RAAF's maritime Global Hawk — No. 9 SQN, Edinburgh, forward det at Tindal |
 | Signature | **RCS `VeryTiny` (0.001 m², stealth class)** — 75 kg of radar-transparent carbon and solar film. **IR `VeryTiny`** — no combustion at all | RCS `Small`, IR `Small` — composite HALE jet, quieter on radar than a fighter but no stealth aircraft |
@@ -16,7 +15,6 @@ coexist).
 | Weapons | None (5 kg payload margin) | None — it finds, others finish |
 | AI role | `Recon,ESM` | `MaritimePatrol,Recon,ESM` |
 
-The Zephyr is the interesting one tactically: a surveillance orbit that neither
 radar nor IRST will realistically ever see, parked above weather and above most
 SAM engagement floors, feeding passive contacts to the force by datalink. The
 Triton is the opposite trade — an emitting, findable, but far-seeing 2M-mi²/day
@@ -42,17 +40,14 @@ the pack ships its own `AN/ZPY-3` and `SEST_OPAZ` sensor definitions.
 
 ## First-flight checks
 
-- **Zephyr flight envelope**: no other aircraft in the collection flies at
   18–70 kt. Confirm the AI holds a stable orbit and the landing pattern works
   at Woomera; if the flight model refuses the low speed band, raise
   `StallSpeed`/`SpeedAndRange_*` toward 40–90 kt and shorten
   `SpeedAndRange_Cruise` accordingly — the signature/passive-sensor character
   is the point, the exact knots are negotiable.
-- **Visual stand-ins**: the Zephyr renders as a gray MQ-9 (25 m real vs 20 m
   mesh — close) and keeps its spinning pusher prop; the Triton hides the prop
   and flies as a clean jet but is visually undersized (20 m mesh vs 39.9 m).
   Both use the donor's 42nd ATKS gray livery with the Australian flag.
-- **Passive check**: select the Zephyr and confirm its EMCON page shows no
   emitters at all — if `SEST_OPAZ` or the ELINT fit ever shows as an emitter,
   that's a bug in this pack, not the game.
 

@@ -18,7 +18,7 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 10. **SEST Zumwalt CPS Fix** — above Modern US Navy (repairs the DDG-1000 CPS hull)
 11. **SEST TacMap Colors** — overrides the vanilla tactical-map UI colours
 12. **SEST RAN Fleet** — contests nothing - additive RAN hulls
-13. **SEST ADF Persistent ISR** — contests nothing - MQ-4C Triton + Zephyr S, mesh from the MQ-9 mod
+13. **SEST ADF Persistent ISR** — contests nothing - MQ-4C Triton, mesh from the MQ-9 mod
 14. **SEST RAAF Bases** — contests nothing - additive RAAF airfields
 
 ## Tier 1 — loader

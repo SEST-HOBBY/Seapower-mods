@@ -118,12 +118,11 @@ BASES = {
     },
     "airbase_raaf_learmonth": {
         "name": "RAAF Base Learmonth (Bare Base)",
-        "desc": "Activated bare base, ISR posture: P-8A det, U-2, KC-135, 1 RSU Zephyr orbit",
+        "desc": "Activated bare base, ISR posture: P-8A det, U-2, KC-135",
         "airgroup": [
             ("usn_p8", "Squadron3,4"),
             ("usaf_u-2", "Squadron1,2"),
             ("usaf_kc-135a", "Squadron2,2"),
-            ("raaf_zephyr_s", "Squadron1,3"),
         ],
     },
     "airbase_raaf_curtin": {
@@ -146,12 +145,11 @@ BASES = {
     },
     "airbase_raaf_woomera": {
         "name": "RAAF Woomera Airfield",
-        "desc": "Test and evaluation range: U-2, MQ-9 ER, B-2 test det, Zephyr trials flight",
+        "desc": "Test and evaluation range: U-2, MQ-9 ER, B-2 test det",
         "airgroup": [
             ("usaf_u-2", "Squadron1,2"),
             ("usaf_mq-9_er", "Squadron2,4"),
             ("usaf_b-2_spirit", "Squadron2,2"),
-            ("raaf_zephyr_s", "Squadron2,2"),
         ],
     },
     "airbase_raaf_butterworth": {
