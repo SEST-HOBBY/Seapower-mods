@@ -77,6 +77,13 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   already proved (same stations, hide lists, keys) and swap rounds. Choices
   between candidate rounds are settled by comparison tables (AIM-424 vs 174B,
   the three NSMs, RSA's AIM-120D), not preference.
+- **New WEAPONS rebase on the closest proven weapon, minimum deltas.** The
+  AGR-30 built from the Apache M282 froze the game through three guidance
+  recipes; a key-by-key diff against working pod rockets showed dozens of
+  template differences, unbisectable by iteration. Rebasing on dts_apkws-ii
+  (a proven in-pod, lofting rocket) with five changed lines fixed it on the
+  first try. Survey precedent before combining features: no container in the
+  collection holds a GuidanceType=3 round, and the engine apparently agrees.
 - **Everything is generated.** Packs rebuild from `build_*.py` with loud
   guards (`exit` on count mismatches, donors changing, keys already present).
   Mission edits that must survive editor round-trips are idempotent passes in
