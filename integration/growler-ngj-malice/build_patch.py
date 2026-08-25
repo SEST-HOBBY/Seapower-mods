@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[2]
 NAVY_2027 = ROOT / "mods-source" / "3606774881"
 SUPER_HORNET = ROOT / "mods-source" / "3426791311"
 US_NAVAL_AVIATION = ROOT / "mods-source" / "3737267013"
+MURDER_HORNET = ROOT / "mods-source" / "3430135740"
 OUT = Path(__file__).resolve().parent / "SEST_Growler_NGJ_MALICE"
 
 sys.path.insert(0, str(ROOT / "integration"))
@@ -664,6 +665,64 @@ def write_language_files() -> None:
         (folder / "loadout_names.ini").write_text(body, encoding="utf-8")
 
 
+def build_raaf_squadrons() -> None:
+    """RAAF Amberley strike wing - claim the liveries Murder Hornet painted.
+
+    Murder Hornet ships raaf_f18f.png and raaf_f18g.png, but the identity
+    wiring is broken three ways:
+
+      1. The EA-18G file declares NumberOfSquadrons=5 and defines Squadron6 -
+         the RAAF one sits past the declared count and is unselectable, the
+         same defect the F-22 mod had (declares 7, defines 1).
+      2. That squadron flies Nation=US - an Australian-liveried Growler under
+         a US flag.
+      3. The language file pins "(Australia)" and callsign CRIKEY on
+         Squadron2, which is VAQ-138's US Yellowjackets livery. The label and
+         the paint are five squadrons apart.
+
+    Two whole-file overrides fix the wiring (this pack already outranks
+    Murder Hornet), and the merge-semantics language file renames the real
+    squadrons: 1 SQN RAAF at Amberley flies the F/A-18F, 6 SQN the Growler.
+    Nation becomes "Australia" - the string the RAAF F-35A mod and the RAN
+    fleet already use.
+    """
+    aircraft = OUT / "aircraft"
+    aircraft.mkdir(parents=True, exist_ok=True)
+
+    src = MURDER_HORNET / "aircraft" / "usn_ea-18g_squadrons.ini"
+    text = src.read_text(encoding="utf-8", errors="replace")
+    text = replace_once(text, "NumberOfSquadrons=5", "NumberOfSquadrons=6",
+                        "usn_ea-18g_squadrons: declare Squadron6")
+    text = replace_once(
+        text,
+        "LiveryTexture=raaf_f18g.png\nNation=US",
+        "LiveryTexture=raaf_f18g.png\nNation=Australia   # 6 SQN RAAF, Amberley",
+        "usn_ea-18g_squadrons: RAAF nation")
+    (aircraft / "usn_ea-18g_squadrons.ini").write_text(text, encoding="utf-8")
+
+    src = MURDER_HORNET / "aircraft" / "usn_fa-18f_squadrons.ini"
+    text = src.read_text(encoding="utf-8", errors="replace")
+    text = replace_once(
+        text,
+        "LiveryTexture=raaf_f18f.png\nNation=AUS",
+        "LiveryTexture=raaf_f18f.png\nNation=Australia   # 1 SQN RAAF, Amberley",
+        "usn_fa-18f_squadrons: RAAF nation")
+    (aircraft / "usn_fa-18f_squadrons.ini").write_text(text, encoding="utf-8")
+
+    folder = OUT / "language_en"
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / "aircraft_names.ini").write_text(
+        "# SEST Growler NGJ + MALICE - RAAF Amberley strike wing identities.\n"
+        "# language files merge key-by-key, so only these keys change.\n"
+        "[usn_fa-18f]\n"
+        "Squadron10=F/A-18F (1 SQN RAAF),F/A-18F\n"
+        "[usn_ea-18g]\n"
+        "Squadron2=E/A-18G (VAQ-138),E/A-18G\n"
+        "Squadron6=E/A-18G (6 SQN RAAF),E/A-18G\n"
+        "Callsigns=Squadron1,ZAPPER|Squadron2,YELLOWJACKET|Squadron6,CRIKEY\n",
+        encoding="utf-8")
+
+
 def main() -> None:
     verify_ammunition()
     build_growler(NAVY_2027 / "aircraft" / "usn_ea-18g.ini", "usn_ea-18g.ini", upgrade_ngj=True)
@@ -689,6 +748,7 @@ def main() -> None:
     (OUT / "ammunition" / "usn_tank_1200_f-18.ini").write_text(
         TANK_OVERRIDE, encoding="utf-8")
     write_language_files()
+    build_raaf_squadrons()
 
     outputs = sorted(path for path in OUT.rglob("*") if path.is_file())
     print(
