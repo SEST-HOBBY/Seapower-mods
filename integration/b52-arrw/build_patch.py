@@ -177,43 +177,34 @@ def build_b52o():
 
 
 def build_419_flts():
-    """Declare the loadouts the ARRW mod wrote but never listed, and fix usn_arrw.
+    """Fix usn_arrw's MaxVelocity typo.
 
-    usaf_b-52h_419_flts defines [WeaponSystem1Empty], [WeaponSystem2Empty] and
-    [WeaponSystem2Default] but AvailableLoadouts names only AntiShipPrecision,
-    so the ARRW testbed can be flown exactly one way and the author's own clean
-    and pylons-only fits are unreachable. Same defect as the B-52H's W62.
-
-    usn_arrw declares MaxVelocity=10,648 - the only numeric value carrying a
+    It declares MaxVelocity=10,648 - the ONLY numeric value carrying a
     thousands separator anywhere in the ammunition of all 129 exported mods.
     Nothing else in the collection writes a number that way, so it is a typo,
-    and a parser reading it as 10 knots would leave the round crawling.
-    """
-    src = ARRW_MOD / "aircraft" / "usaf_b-52h_419_flts.ini"
-    if not src.exists():
-        print("  usaf_b-52h_419_flts.ini  SKIPPED - ARRW mod not exported")
-        drop_stale("aircraft/usaf_b-52h_419_flts.ini", "ammunition/usn_arrw.ini")
-        return
-    text = src.read_text(encoding="utf-8")
-    have = set(re.findall(r"^\[WeaponSystem\d+([A-Za-z][A-Za-z0-9_]*)\]", text, re.M))
-    la = re.search(r"^AvailableLoadouts=([^\n]+)$", text, re.M)
-    declared = [x.strip() for x in la.group(1).split(",")]
-    add = [n for n in ("Empty", "Default") if n in have and n not in declared]
-    if not add:
-        sys.exit("usaf_b-52h_419_flts.ini: nothing left to declare - upstream changed")
-    text = text[:la.start(1)] + ",".join(declared + add) + text[la.end(1):]
-    dst = OUT / "aircraft" / "usaf_b-52h_419_flts.ini"
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    dst.write_text(text, encoding="utf-8")
-    print(f"  aircraft/usaf_b-52h_419_flts.ini  (declared {', '.join(add)})")
+    and a parser reading it as 10 knots leaves the round crawling.
 
+    NOT touched: this aircraft's AvailableLoadouts. An earlier version of this
+    script declared Empty and Default here, on the reasoning that the blocks
+    existed but were unreachable. That was wrong. Vanilla's own usn_f-14a and
+    usaf_b-52g do not declare them either and plainly have them in game, and
+    95 of 135 allied airframes across the collection are the same - the game
+    supplies Default/Empty/Ferry implicitly. Declaring them adds nothing and
+    risks a doubled entry in the picker.
+    """
     a = ARRW_MOD / "ammunition" / "usn_arrw.ini"
+    if not a.exists():
+        print("  usn_arrw.ini  SKIPPED - ARRW mod not exported")
+        drop_stale("ammunition/usn_arrw.ini", "aircraft/usaf_b-52h_419_flts.ini")
+        return
     at = a.read_text(encoding="utf-8")
     fixed = re.sub(r"^(MaxVelocity=)([0-9]{1,3}),([0-9]{3})\b", r"\1\2\3", at, flags=re.M)
     if fixed == at:
         sys.exit("usn_arrw.ini: the MaxVelocity thousands separator is gone - re-check")
+    (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
     (OUT / "ammunition" / "usn_arrw.ini").write_text(fixed, encoding="utf-8")
     print("  ammunition/usn_arrw.ini  (MaxVelocity 10,648 -> 10648)")
+    drop_stale("aircraft/usaf_b-52h_419_flts.ini")
 
 
 def main():
