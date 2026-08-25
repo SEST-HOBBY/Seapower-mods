@@ -108,6 +108,76 @@ def main():
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(text, encoding="utf-8")
         print("  vessels/rn_lph_ocean.ini  (+uk_ah_mk_1 Apache AH1 supported)")
+
+    # APKWS II-ER: the medium-range strike guided rocket (user ask). The
+    # Apache mod's M282 APKWS with its launch envelope extended 3.5 -> 8 nm -
+    # in this engine range is the MaxLaunchRange key, there is no separate
+    # flight-time knob. No new art: rocket, pod, meshes and effects are the
+    # Apache mod's own, byte-identical but for the range line and the pod's
+    # payload reference. Carried by the Ocean-capable Apache AH1 as a new
+    # fit cloned from its all-rockets Strike loadout.
+    apache = ROOT / "mods-source" / "3425450153"
+    rocket_src = apache / "ammunition" / "usa_apkws_2_m282.ini"
+    pod_src = apache / "ammunition" / "usn_agr-20b_apache.ini"
+    heli_src = apache / "aircraft" / "uk_ah_mk_1.ini"
+    if not (rocket_src.exists() and pod_src.exists() and heli_src.exists()):
+        print("  APKWS-ER  SKIPPED - Apache mod 3425450153 not exported")
+    else:
+        rocket = rocket_src.read_text(encoding="utf-8", errors="replace")
+        rocket, n = re.subn(r"^MaxLaunchRange=3\.5\b", "MaxLaunchRange=8", rocket, flags=re.M)
+        if n != 1:
+            sys.exit(f"usa_apkws_2_m282: MaxLaunchRange line changed upstream ({n} matches)")
+        (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
+        (OUT / "ammunition" / "sest_apkws_er.ini").write_text(
+            "# SEST APKWS II-ER - the Apache mod's M282 APKWS with the launch\n"
+            "# envelope extended 3.5 -> 8 nm. Everything else is upstream's.\n"
+            + rocket, encoding="utf-8")
+
+        pod = pod_src.read_text(encoding="utf-8", errors="replace")
+        pod, n = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$",
+                         "Ammunition=sest_apkws_er", pod, flags=re.M)
+        if n != 1:
+            sys.exit(f"usn_agr-20b_apache: Ammunition line changed upstream ({n} matches)")
+        (OUT / "ammunition" / "sest_agr-20er.ini").write_text(
+            "# SEST LAU-68 pod loaded with the extended-range APKWS II-ER.\n" + pod,
+            encoding="utf-8")
+
+        heli = heli_src.read_text(encoding="utf-8", errors="replace")
+        if "SEST_APKWS_ER" in heli:
+            sys.exit("uk_ah_mk_1: upstream already defines SEST_APKWS_ER - re-check")
+        heli, n = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_APKWS_ER",
+                          heli, count=1, flags=re.M)
+        if n != 1:
+            sys.exit("uk_ah_mk_1: AvailableLoadouts line not found")
+        # search AFTER the AvailableLoadouts edit - held offsets go stale
+        # (the SEAD260 lesson).
+        m = re.search(r"^\[WeaponSystem1Strike\][^\n]*\n(.*?)(?=^\[)", heli, re.M | re.S)
+        if not m:
+            sys.exit("uk_ah_mk_1: Strike donor block not found")
+        body = m.group(1)
+        body2 = body.replace("usn_agr-20b_apache|LAU-68", "sest_agr-20er|LAU-68")
+        if body2.count("sest_agr-20er") != 4:
+            sys.exit("uk_ah_mk_1: expected 4 rocket pods in the Strike donor")
+        heli = (heli[:m.end()] + "[WeaponSystem1SEST_APKWS_ER]\n" + body2 + heli[m.end():])
+        (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
+        (OUT / "aircraft" / "uk_ah_mk_1.ini").write_text(heli, encoding="utf-8")
+
+        lang = OUT / "language_en"
+        lang.mkdir(parents=True, exist_ok=True)
+        (lang / "ammunition_names.ini").write_text(
+            "[AmmunitionNames]\n"
+            "sest_apkws_er=M282ER,APKWS II-ER,GFFAR,"
+            "Extended-range development of the AGR-20 APKWS II laser-guided "
+            "70mm rocket. An uprated motor stretches the launch envelope from "
+            "3.5 to 8 nautical miles - a medium-range precision strike round "
+            "at rocket cost. Same guidance kit and warhead as the M282.\n",
+            encoding="utf-8")
+        (lang / "loadout_names.ini").write_text(
+            "[LoadoutNames]\n"
+            "SEST_APKWS_ER=SEST APKWS-ER Strike (28x guided rockets)\n",
+            encoding="utf-8")
+        print("  APKWS-ER: ammunition x2, uk_ah_mk_1 fit SEST_APKWS_ER (4 pods + Starstreak)")
+
         built += 1
 
     if not built:
