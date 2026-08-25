@@ -676,7 +676,9 @@ def raise_610_wing_tanks(text: str, source_name: str) -> str:
     anchor = re.search(r"^Station28=[-\d.]+,[-\d.]+,[-\d.]+[^\n]*\n", text, re.M)
     if not anchor:
         sys.exit(f"{source_name}: no Station28 coordinate line to anchor SESTWT")
-    text = text[:anchor.end()] + "SESTWTPositions=0,0.0015,0\n" + text[anchor.end():]
+    # 0.0015 closed only part of the gap in game - the tanks still rode low
+    # on the Growler pylons, so the seat is doubled to 0.003.
+    text = text[:anchor.end()] + "SESTWTPositions=0,0.003,0\n" + text[anchor.end():]
     print(f"    {source_name}: {n} bare 610 tank(s) raised to the SESTWT seat")
     return text
 

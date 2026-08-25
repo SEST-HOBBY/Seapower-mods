@@ -186,7 +186,9 @@ SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33
 # left visible it renders through the tanks (seen in game) - and upstream
 # proves it is ONE combined wing+belly rack set (only the two rack trucks
 # show it), so the belly rides upstream's single-round |120-B seats rather
-# than rackless floating |MTH twins (also seen in game).
+# than rackless floating |MTH twins (also seen in game). Stations 18/19/22/23
+# (free fuselage stations) are seated beside 11-14 by the SESTD keys to
+# rebuild the dual-rack look as four side-by-side pairs - eight belly rounds.
 Station1=dts_aim-120d-3_w|120
 Station2=dts_aim-120d-3_w|120
 Station5=dts_aim-120d-3_w|120
@@ -199,6 +201,10 @@ Station11=dts_aim-120d-3|120-B
 Station12=dts_aim-120d-3|120-B
 Station13=dts_aim-120d-3|120-B
 Station14=dts_aim-120d-3|120-B
+Station18=dts_aim-120d-3|SESTD-FL
+Station19=dts_aim-120d-3|SESTD-FR
+Station22=dts_aim-120d-3|SESTD-AR
+Station23=dts_aim-120d-3|SESTD-AL
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
@@ -207,7 +213,7 @@ Station17=usaf_tank_610_f-15|WT
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# The same trade on the AIM-260 truck.
+# The same trade on the AIM-260 truck, with the same SESTD belly doubles.
 Station1=dts_aim-260_w|120
 Station2=dts_aim-260_w|120
 Station5=dts_aim-260_w|120
@@ -220,6 +226,10 @@ Station11=dts_aim-260|120-B
 Station12=dts_aim-260|120-B
 Station13=dts_aim-260|120-B
 Station14=dts_aim-260|120-B
+Station18=dts_aim-260|SESTD-FL
+Station19=dts_aim-260|SESTD-FR
+Station22=dts_aim-260|SESTD-AR
+Station23=dts_aim-260|SESTD-AL
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
@@ -702,9 +712,20 @@ def main():
         sys.exit("AGMPositions not found - upstream layout changed")
     if "M424Positions" in text:
         sys.exit("M424Positions already defined upstream - re-check")
+    # 1c. Belly DOUBLE seats for the tank trucks. With the AAMT rack mesh
+    #     hidden (it clips the wing tanks) the belly lost its dual-rack look,
+    #     so the pairs are rebuilt from stations instead: the four unused
+    #     fuselage stations 18/19/22/23 are offset to sit 0.0044 outboard of
+    #     the |120-B rounds on 11-14 - four side-by-side pairs, eight rounds.
+    #     Offsets = (partner position minus station origin), the same
+    #     seat-key technique as the B-52O ARRW pylons.
     text = (text[:agm.end()]
             + "M424Positions=0,-0.0005,0\n"
             + "M424WPositions=0,-0.0005,0\n"   # WW raised 0.001 - the 424 hung low underslung
+            + "SESTD-FLPositions=0.0016,-0.0028,0.0515\n"
+            + "SESTD-FRPositions=-0.0016,-0.0028,0.0515\n"
+            + "SESTD-ARPositions=-0.0016,-0.0023,0.0180\n"
+            + "SESTD-ALPositions=0.0016,-0.0023,0.0180\n"
             + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner
