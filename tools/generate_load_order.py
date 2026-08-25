@@ -67,7 +67,17 @@ TIER3 = [
 TIER4_EXTRA = []   # SEST RAN Fleet moved to TIER0
 TIER6_EXTRA = []   # SEST RAAF Bases moved to TIER0
 
-explicit = {mid for mid, _ in TIER0 + TIER1 + TIER1B + TIER2 + TIER3}
+# Tier 7 - bulk arsenals that duplicate better definitions. Red Storm Arsenal
+# is 1062 files, 638 of them unique, but the other 13 are copies of files that
+# specialist mods do better: its usn_aim_120d runs 1600 kt / 80 nm against
+# Murder Hornet's 2667 / 97, with the DragCoefficient=-1 back-solve that cost
+# the AIM-424 a third of its range. Dead last, it keeps its unique content and
+# loses every duplicate.
+TIER7 = [
+    ("red-storm-arsenal", "LAST - 638 unique files kept, 13 duplicated ones all lose"),
+]
+
+explicit = {mid for mid, _ in TIER0 + TIER1 + TIER1B + TIER2 + TIER3 + TIER7}
 TIER4_TYPES = {"ship", "submarine"}
 TIER4_FORCE = {"us-naval-aviation"}
 TIER6_TYPES = {"airbase"}
@@ -153,6 +163,7 @@ for mid, note in TIER4_EXTRA:
     lines.insert(len(lines) - 1, f"{n}. **{mid}** — {note}")
 emit("Tier 5 — aircraft, helicopters, UAVs, land units, weapons, civilian", t5, annotated=False)
 emit("Tier 6 — airbases last", t6, annotated=False)
+emit("Tier 7 — bulk arsenals, below everything they duplicate", TIER7)
 for mid, note in TIER6_EXTRA:
     n += 1
     lines.insert(len(lines) - 1, f"{n}. **{mid}** — {note}")

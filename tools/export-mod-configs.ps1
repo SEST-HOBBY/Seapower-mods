@@ -23,13 +23,15 @@
     # Also export the vanilla game definitions (very useful as reference data):
     .\tools\export-mod-configs.ps1 -IncludeVanilla
 
-    Then commit and push:  git add mods-source && git commit -m "Export mod configs" && git push
+    Then commit and push (PowerShell has no && - use semicolons):
+      git add -A mods-source; git commit -m "Export mod configs"; git push
 #>
 [CmdletBinding()]
 param(
     [string]$WorkshopContentDir,
     [string]$DestDir,
     [switch]$IncludeVanilla,
+    [switch]$NoPrune,
     [string[]]$TextExtensions = @(".ini", ".txt", ".json", ".cfg", ".xml", ".md", ".yaml", ".yml", ".csv"),
     [long]$MaxFileBytes = 2MB
 )
@@ -161,7 +163,28 @@ if ($IncludeVanilla) {
     }
 }
 
+# --- Prune mods that are no longer subscribed --------------------------------
+# This export only ever ADDED directories. Unsubscribing a mod in Steam left its
+# files sitting here forever, and every conflict check kept treating it as
+# installed - reporting fights with mods that are not in the game any more. The
+# manifest lists exactly what exists right now, so anything numeric that is not
+# in it has been unsubscribed. Skip with -NoPrune.
+if (-not $NoPrune) {
+    $exported = @{}
+    foreach ($row in $manifest) { $exported[[string]$row.WorkshopId] = $true }
+    $stale = @(Get-ChildItem -LiteralPath $DestDir -Directory -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -match '^\d+$' -and -not $exported.ContainsKey($_.Name) })
+    if ($stale.Count) {
+        Write-Host ("`nPruning {0} mod(s) no longer subscribed:" -f $stale.Count)
+        foreach ($d in $stale) {
+            Write-Host ("  - {0}" -f $d.Name)
+            Remove-Item -LiteralPath $d.FullName -Recurse -Force
+        }
+        Write-Host "  (git will show these as deletions - commit them)"
+    }
+}
+
 $manifestPath = Join-Path $DestDir "_export-manifest.csv"
 $manifest | Sort-Object WorkshopId | Export-Csv -Path $manifestPath -NoTypeInformation -Encoding UTF8
 Write-Host "`nDone. Manifest: $manifestPath"
-Write-Host "Next: git add mods-source && git commit -m `"Export mod configs`" && git push"
+Write-Host "Next: git add -A mods-source; git commit -m `"Export mod configs`"; git push"

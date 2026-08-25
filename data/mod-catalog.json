@@ -1459,6 +1459,15 @@
       "type": "land",
       "status": "active",
       "notes": "Workshop 3558173926. Israeli SAM battery: 4 land units plus its own ammunition. Zero whole-file collisions."
+    },
+    {
+      "id": "red-storm-arsenal",
+      "title": "Red Storm Arsenal",
+      "author": "",
+      "faction": "multi",
+      "type": "weapons",
+      "status": "active",
+      "notes": "Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed last so it loses all 13 and keeps only its unique content."
     }
   ]
 }
