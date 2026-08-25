@@ -125,6 +125,21 @@ if (Test-Path $missionSrc) {
         Rename-Item -LiteralPath $old.FullName -NewName $fixed
         Write-Host ("  renamed    {0} -> {1} (backups are loadable missions now)" -f $old.Name, $fixed)
     }
+    # Restamp internal titles on any backup still carrying the original's -
+    # the browser displays the INTERNAL name, so without this a mission with
+    # several backups shows as that many identical entries. Idempotent: once
+    # the titles carry the stamp, the replace finds nothing to change.
+    foreach ($bak in Get-ChildItem -LiteralPath $missionDest -Filter "* backup-*.ini") {
+        if ($bak.BaseName -notmatch '^(.*) backup-([0-9-]+)$') { continue }
+        $base = $Matches[1]; $bstamp = $Matches[2]
+        $raw = Get-Content -LiteralPath $bak.FullName -Raw
+        $esc = [regex]::Escape($base)
+        $new = $raw -replace "(?m)^Name=$esc\s*$", ("Name={0} backup-{1}" -f $base, $bstamp)
+        if ($new -ne $raw) {
+            Set-Content -LiteralPath $bak.FullName -Value $new -Encoding UTF8 -NoNewline
+            Write-Host ("  restamped  {0} (internal titles now carry the backup stamp)" -f $bak.Name)
+        }
+    }
     foreach ($m in Get-ChildItem -LiteralPath $missionSrc -Filter "*.ini") {
         $destFile = Join-Path $missionDest $m.Name
         if (Test-Path $destFile) {
