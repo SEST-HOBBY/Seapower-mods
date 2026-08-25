@@ -24,13 +24,22 @@ OUT = Path(__file__).resolve().parent / "SEST_RAAF_Wedgetail"
 
 # The real Wedgetail/AEW&C operators. Squadron1 is No. 2 Squadron RAAF, the
 # type's launch and primary operator, so existing missions that already ask
-# for Squadron1 get the correct Australian aircraft.
+# for Squadron1 get the correct Australian aircraft. The display name pair
+# feeds language_en/aircraft_names.ini - without a [E7A_Wedgetail] SquadronN
+# name key the picker shows "MISSING: E7A_Wedgetail name or squadron
+# reference" for every squadron (seen in game). Names stay comma-free:
+# the comma separates the long and short forms.
 SQUADRONS = [
-    ("No. 2 Squadron RAAF - Williamtown", "Australia"),
-    ("No. 42 Wing RAAF - Williamtown", "Australia"),
-    ("No. 8 Squadron RAF - Lossiemouth", "UK"),
-    ("Turkish Air Force 131 Filo - Konya", "Turkey"),
-    ("ROKAF 51st Air Control Group - Gimhae", "South_Korea"),
+    ("No. 2 Squadron RAAF - Williamtown", "Australia",
+     "E-7A Wedgetail (2 SQN RAAF)", "E-7A"),
+    ("No. 42 Wing RAAF - Williamtown", "Australia",
+     "E-7A Wedgetail (42 WG RAAF)", "E-7A"),
+    ("No. 8 Squadron RAF - Lossiemouth", "UK",
+     "Wedgetail AEW.1 (8 SQN RAF)", "Wedgetail"),
+    ("Turkish Air Force 131 Filo - Konya", "Turkey",
+     "E-7T Wedgetail (131 Filo)", "E-7T"),
+    ("ROKAF 51st Air Control Group - Gimhae", "South_Korea",
+     "E-7 Wedgetail (ROKAF 51 ACG)", "E-7"),
 ]
 
 SQUADRONS_INI = """\
@@ -63,7 +72,7 @@ def main():
 
     blocks = "".join(
         f"[Squadron{i}]  {label}\nNation={nation}\n\n"
-        for i, (label, nation) in enumerate(SQUADRONS, start=1)
+        for i, (label, nation, _, _) in enumerate(SQUADRONS, start=1)
     )
     body = SQUADRONS_INI.format(count=len(SQUADRONS), blocks=blocks).rstrip("\n") + "\n"
 
@@ -72,13 +81,21 @@ def main():
                            (ROOT / "mods-source" / "_vanilla" / "original" /
                             "language_en" / "nations.ini").read_text(
                                encoding="utf-8", errors="replace"), re.M))
-    used = {n for _, n in SQUADRONS}
+    used = {n for _, n, _, _ in SQUADRONS}
     unknown = sorted(u for u in used if u not in known)
     if unknown:
         sys.exit(f"nations not recognised by the game: {unknown}")
 
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
     (OUT / "aircraft" / "E7A_Wedgetail_squadrons.ini").write_text(body, encoding="utf-8")
+
+    names = ("# SEST RAAF Wedgetail - squadron display names. Language files merge\n"
+             "# key-by-key, so upstream's Default/Type/Description stay untouched.\n"
+             "[E7A_Wedgetail]\n" + "".join(
+                 f"Squadron{i}={display},{short}\n"
+                 for i, (_, _, display, short) in enumerate(SQUADRONS, start=1)))
+    (OUT / "language_en").mkdir(parents=True, exist_ok=True)
+    (OUT / "language_en" / "aircraft_names.ini").write_text(names, encoding="utf-8")
     (OUT / "_info.ini").write_text(
         "[Language_en]\n"
         "Name=SEST RAAF Wedgetail\n"

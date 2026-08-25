@@ -185,7 +185,7 @@ JamChance=0.3
 LOADOUT_NAMES = {
     "en": {
         "SEST_MaliceNGJ": "SEST NGJ MALICE (2x AIM-424)",
-        "SEST_NGJLongRange": "SEST NGJ Long Range (3 tanks)",
+        "SEST_NGJLongRange": "SEST NGJ Long Range (2 tanks)",
         "SEST_MaliceBlockIII": "SEST Block III MALICE (4x AIM-424)",
         "SEST_Intercept260": "SEST Intercept (8x AIM-260)",
         "SEST_Intercept260ER": "SEST Intercept260 LongRange (3 tanks)",
@@ -194,7 +194,7 @@ LOADOUT_NAMES = {
     },
     "cn": {
         "SEST_MaliceNGJ": "SEST NGJ MALICE (2x AIM-424)",
-        "SEST_NGJLongRange": "SEST NGJ Long Range (3 tanks)",
+        "SEST_NGJLongRange": "SEST NGJ Long Range (2 tanks)",
         "SEST_MaliceBlockIII": "SEST Block III MALICE (4x AIM-424)",
         "SEST_Intercept260": "SEST Intercept (8x AIM-260)",
         "SEST_Intercept260ER": "SEST Intercept260 LongRange (3 tanks)",
@@ -868,22 +868,44 @@ def build_raaf_squadrons() -> None:
         "usn_ea-18g_squadrons: RAAF nation")
     (aircraft / "usn_ea-18g_squadrons.ini").write_text(text, encoding="utf-8")
 
+    # 1 SQN RAAF flies the BLOCK III, not the plain F (user call: if the RAAF
+    # operates US Super Hornets, they operate the improved jet). The plain
+    # F's RAAF squadron - Murder Hornet's Squadron10, its last - is deleted
+    # outright so the un-upgraded F stops appearing under Australia, and the
+    # Block III squadrons file gains Squadron8 with the same livery.
     src = MURDER_HORNET / "aircraft" / "usn_fa-18f_squadrons.ini"
     text = src.read_text(encoding="utf-8", errors="replace")
-    text = replace_once(
-        text,
-        "LiveryTexture=raaf_f18f.png\nNation=AUS",
-        "LiveryTexture=raaf_f18f.png\nNation=Australia   # 1 SQN RAAF, fwd Townsville",
-        "usn_fa-18f_squadrons: RAAF nation")
+    text = replace_once(text, "NumberOfSquadrons=10", "NumberOfSquadrons=9",
+                        "usn_fa-18f_squadrons: retire Squadron10")
+    m = re.search(r"\n\[Squadron10\][^\n]*\n(?:.*?)(?=\n\[|\Z)", text, re.S)
+    if not m or "raaf_f18f.png" not in m.group(0):
+        sys.exit("usn_fa-18f_squadrons: Squadron10 is not the RAAF entry any more - re-check")
+    text = text[:m.start()] + text[m.end():]
     (aircraft / "usn_fa-18f_squadrons.ini").write_text(text, encoding="utf-8")
+
+    src = MURDER_HORNET / "aircraft" / "usn_fa-18f_blk3_squadrons.ini"
+    text = src.read_text(encoding="utf-8", errors="replace")
+    text = replace_once(text, "NumberOfSquadrons=7", "NumberOfSquadrons=8",
+                        "usn_fa-18f_blk3_squadrons: declare Squadron8")
+    if "raaf" in text.lower():
+        sys.exit("usn_fa-18f_blk3_squadrons: upstream added its own RAAF squadron - re-check")
+    # raaf_f18f.png lives in the plain F's texture folder; the Block III is
+    # the same airframe so the skin should map - verify in game, the
+    # fallback on a mismatch is default paint under the Australian flag.
+    text = text.rstrip("\n") + (
+        "\n\n[Squadron8]\n"
+        "ResourcesLiveryFolder=assets/textures/fa-18f/\n"
+        "LiveryTexture=raaf_f18f.png\n"
+        "Nation=Australia   # 1 SQN RAAF, fwd Townsville\n")
+    (aircraft / "usn_fa-18f_blk3_squadrons.ini").write_text(text, encoding="utf-8")
 
     folder = OUT / "language_en"
     folder.mkdir(parents=True, exist_ok=True)
     (folder / "aircraft_names.ini").write_text(
         "# SEST Growler NGJ + MALICE - RAAF strike wing identities (fwd Townsville).\n"
         "# language files merge key-by-key, so only these keys change.\n"
-        "[usn_fa-18f]\n"
-        "Squadron10=F/A-18F (1 SQN RAAF),F/A-18F\n"
+        "[usn_fa-18f_blk3]\n"
+        "Squadron8=F/A-18F Block III (1 SQN RAAF),F/A-18F\n"
         "[usn_ea-18g]\n"
         "Squadron2=E/A-18G (VAQ-138),E/A-18G\n"
         "Squadron6=E/A-18G (6 SQN RAAF),E/A-18G\n"
