@@ -135,10 +135,16 @@ def drop_stale(*rels):
 def build_b52o():
     """Give Red Storm Arsenal's B-52O the ARRW, on the pylon it already uses.
 
-    The B-52O has no AGM183 position key. It does not need one: RSA already
-    hangs a large hypersonic (usn_agm_110l) one-per-pylon on WeaponSystem2 via
-    RGM110_Rack, which is exactly the ARRW fit. Copying that block and swapping
-    the round keeps the geometry the author tuned.
+    First cut reused RSA's RGM110_Rack position key, on the theory that its
+    large-hypersonic fit was the ARRW fit. In game the missile hung visibly
+    below the pylon: that key's -0.0090 y-offset is tuned for the much fatter
+    AGM-110L. The B-52H settles it - it flies the SAME round under the SAME
+    pylon geometry (stations at y=-0.0071, x=+/-0.077 in both files) with a
+    -0.003 offset, flush, and carries TWO per side nose-to-tail at 0.0457 of
+    z-separation. So the pack now injects its own AGM183_Pylon key into the
+    B-52O's WeaponSystem2, reproducing the H's proven silhouette exactly:
+    aft round at z+0.01, forward round at z+0.0557, both at y=-0.003. Two per
+    pylon, four per loadout - the same warload as the B-52H.
 
     Its WeaponSystem1 wing pylons (Station7/8) are deliberately NOT used - the
     matching #RGM110_RackPositions there is commented out in RSA's own file, so
@@ -158,11 +164,25 @@ def build_b52o():
     if "usn_agm_110l|RGM110_Rack" not in body:
         sys.exit("usaf_b-52o.ini: AntiShipHeavy no longer uses the RGM110 rack")
 
+    # Our own position key, injected into the WS2 table next to the author's.
+    # Geometry is the B-52H's proven two-per-side ARRW carriage, verbatim.
+    if "AGM183_Pylon" in text:
+        sys.exit("usaf_b-52o.ini: AGM183_Pylon already defined upstream - re-check")
+    rk = re.search(r"^RGM110_RackPositions=[^\n]*\n", text, re.M)
+    if not rk:
+        sys.exit("usaf_b-52o.ini: RGM110_RackPositions gone - upstream changed")
+    text = (text[:rk.end()]
+            + "AGM183_PylonPositions=0,-0.003,0.01|0,-0.003,0.0557\n"
+            + text[rk.end():])
+    m = re.search(r"^\[WeaponSystem2AntiShipHeavy\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+    body = m.group(1)
+
     blocks = ""
     for name, round_ in (("Strike183", "dts_agm-183a"),
                          ("Strike183Nuke", "dts_agm-183a(w62)")):
         blocks += (f"[WeaponSystem2{name}]\n"
-                   + body.replace("usn_agm_110l", round_).rstrip("\n") + "\n\n")
+                   + body.replace("usn_agm_110l|RGM110_Rack",
+                                  round_ + "|AGM183_Pylon").rstrip("\n") + "\n\n")
     text = text[:m.end()] + "\n" + blocks + text[m.end():]
 
     la = re.search(r"^AvailableLoadouts=([^\n]+)$", text, re.M)
@@ -173,7 +193,7 @@ def build_b52o():
     dst = OUT / "aircraft" / "usaf_b-52o.ini"
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(text, encoding="utf-8")
-    print("  aircraft/usaf_b-52o.ini  (+Strike183, +Strike183Nuke, 2x each on the pylons)")
+    print("  aircraft/usaf_b-52o.ini  (+Strike183, +Strike183Nuke, 2 per pylon = 4 per loadout)")
 
 
 def build_419_flts():

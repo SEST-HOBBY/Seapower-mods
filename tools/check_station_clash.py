@@ -28,6 +28,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 HDR = re.compile(r"^\[WeaponSystem(\d+)(\w*)\][^\n]*$", re.M)
 
+# Expendables fired from an internal dispenser legitimately share one launch
+# point - the P-8 stacks four sonobuoy types on the same chute coordinate in
+# upstream's own geometry. Flagging those 24 pairs forever would bury the next
+# real stack in noise, so a pair is skipped only when BOTH stores are
+# dispenser rounds; a missile co-located with a buoy would still be reported.
+DISPENSER = re.compile(r"(ssq|sonobuoy|buoy|chaff|flare)", re.I)
+
 
 def main():
     sep = float(sys.argv[1]) if len(sys.argv) > 1 else 0.0181
@@ -52,6 +59,8 @@ def main():
                 if s1 not in pos or s2 not in pos:
                     continue
                 d = sum((pos[s1][i] - pos[s2][i]) ** 2 for i in range(3)) ** 0.5
+                if DISPENSER.search(v1) and DISPENSER.search(v2):
+                    continue
                 if d <= sep:
                     hits += 1
                     print(f"{f.name:<22} WS{num} {name:<24} "

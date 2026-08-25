@@ -145,10 +145,10 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
 Station10=dts_aim-9x
-Station11=sest_aim-424|AGM
-Station12=sest_aim-424|AGM
-Station13=sest_aim-424|AGM
-Station14=sest_aim-424|AGM
+Station11=sest_aim-424|M424
+Station12=sest_aim-424|M424
+Station13=sest_aim-424|M424
+Station14=sest_aim-424|M424
 Station15=usaf_tank_610_f-15|WT
 Station16=sest_aim-424|WW
 Station17=sest_aim-424|WW
@@ -157,9 +157,8 @@ Station17=sest_aim-424|WW
 ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# MALICE mirror of BigStick174ER: 4x AIM-424 under, 3 tanks, AAMs on the
-# outer wing pylons.
-# AIM-260 on the inner wing pylon rails alongside the tanks.
+# MALICE mirror of BigStick174ER: 4x AIM-424 under, 3 tanks, AIM-260 on the
+# inner side rails (RAIL_EXEMPT keeps them; the outer pair is stripped).
 Station1=dts_aim-260_w|120
 Station2=dts_aim-260_w|120
 Station5=dts_aim-260_w|120
@@ -168,10 +167,10 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
 Station10=dts_aim-9x
-Station11=sest_aim-424|AGM
-Station12=sest_aim-424|AGM
-Station13=sest_aim-424|AGM
-Station14=sest_aim-424|AGM
+Station11=sest_aim-424|M424
+Station12=sest_aim-424|M424
+Station13=sest_aim-424|M424
+Station14=sest_aim-424|M424
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
@@ -234,10 +233,10 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
 Station10=dts_aim-9x
-Station11=sest_aim-424|AGM
-Station12=sest_aim-424|AGM
-Station13=sest_aim-424|AGM
-Station14=sest_aim-424|AGM
+Station11=sest_aim-424|M424
+Station12=sest_aim-424|M424
+Station13=sest_aim-424|M424
+Station14=sest_aim-424|M424
 Station15=usaf_tank_610_f-15|WT
 
 """
@@ -412,6 +411,13 @@ def lower_side_rails(text):
 WING_STATIONS = (16, 17)
 WING_PYLON_RAILS = (1, 2, 5, 6)
 
+# User-directed exception: MaliceER flies its inner side rails armed with
+# AIM-260 alongside the three tanks. The side-attach rails hold stores beside
+# the pylon, not under it, and upstream's own AirToAirLongRange proves
+# rail-plus-tank carriage works there (with AIM-9X). The outer pair stays
+# clear. If the 260 clips the tank flank in game, this is the knob to revisit.
+RAIL_EXEMPT = {("MaliceER", 5), ("MaliceER", 6)}
+
 
 def _rail_allowance(station_store):
     """What the rails may carry given what is on the wing station."""
@@ -443,7 +449,7 @@ def clear_rails_under_wing_station(text):
         out = body
         for k in WING_PYLON_RAILS:
             v = st.get(str(k))
-            if not v:
+            if not v or (name, k) in RAIL_EXEMPT:
                 continue
             if allow == "aim-9" and "aim-9" in v.lower():
                 continue
@@ -470,6 +476,8 @@ def verify_rails_under_wing_station(text):
             continue
         for k in WING_PYLON_RAILS:
             v = st.get(str(k))
+            if (m.group(1), k) in RAIL_EXEMPT:
+                continue
             if v and not (allow == "aim-9" and "aim-9" in v.lower()):
                 sys.exit(f"{m.group(1)}: Station{k}={v} shares the wing pylon "
                          f"with Station16/17 (allowance: {allow})")
@@ -671,6 +679,18 @@ def main():
         sys.exit(f"loadout keys already exist upstream: {clash}")
     text = text[: m.start(2)] + m.group(2).rstrip() + "," + ",".join(NEW_KEYS) + text[m.end(2):]
 
+    # 1b. A dedicated belly seat for the AIM-424. It shares stations 11-14
+    #     with the AIM-174B, whose AGM key (0,-0.002,0) seats IT flush - but
+    #     the 424 renders with the AGM-88G mesh, whose origin rides lower, and
+    #     in game it hung visibly below the CFT pylon. Raising the shared key
+    #     would unseat the 174, so the 424 gets its own, 0.0015 higher.
+    agm = re.search(r"^AGMPositions=[^\n]*\n", text, re.M)
+    if not agm:
+        sys.exit("AGMPositions not found - upstream layout changed")
+    if "M424Positions" in text:
+        sys.exit("M424Positions already defined upstream - re-check")
+    text = text[:agm.end()] + "M424Positions=0,-0.0005,0\n" + text[agm.end():]
+
     # 2. Inject new sections just before the WeaponMagazines banner
     marker = "[---------- WeaponMagazines ----------]"
     if marker not in text:
@@ -688,7 +708,8 @@ def main():
         sys.exit(f"unresolved ammunition ids: {missing}")
 
     # 4. Validate: every position key used exists in the hardpoint sections
-    pos_keys = set(re.findall(r"^([\w\-]+)Positions=", src.read_text(encoding='utf-8'), re.M))
+    # scanned from the PATCHED text, so the M424 key injected above counts
+    pos_keys = set(re.findall(r"^([\w\-]+)Positions=", text, re.M))
     used = set(re.findall(r"\|([\w\-]+)$", NEW_SECTIONS, re.M))
     bad = sorted(k for k in used if k not in pos_keys)
     if bad:
