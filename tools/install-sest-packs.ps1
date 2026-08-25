@@ -102,6 +102,9 @@ foreach ($rel in $Packs) {
         $installed++
         continue
     }
+    # Mirror, don't overlay: a file the pack stops shipping must leave the
+    # game too, or a rolled-back unit (the Zephyr) lives on as an orphan.
+    if (Test-Path -LiteralPath $dest) { Remove-Item -LiteralPath $dest -Recurse -Force }
     Copy-Item -LiteralPath $src -Destination $StreamingAssetsDir -Recurse -Force
     $files = (Get-ChildItem -LiteralPath $dest -Recurse -File).Count
     Write-Host ("  {0}  {1,-24} {2,3} files" -f $action, $name, $files)
