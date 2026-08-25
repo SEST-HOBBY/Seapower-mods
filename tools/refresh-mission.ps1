@@ -115,6 +115,12 @@ Invoke-Py "refine_civ_traffic.py" @("--mission", $Mission, "--repo-only", "--ren
 Write-Host "`n[3/7] adding civilian and natural depth..." -ForegroundColor Cyan
 Invoke-Py "add_civ_depth.py" @("--mission", $Mission, "--write")
 
+# --- 3b. Sanctioned shipping ---------------------------------------------------
+# Idempotent: no-op when the fleet is already in the mission, and skips
+# gracefully in a mission with no seized rigs to lift from.
+Write-Host "`n[3b/7] sanctioned tanker fleet..." -ForegroundColor Cyan
+Invoke-Py "add_sanctioned_shipping.py" @("--mission", $Mission, "--write")
+
 # --- 4. Name any placeholder formations --------------------------------------
 Write-Host "`n[4/7] naming placeholder formations..." -ForegroundColor Cyan
 Invoke-Py "name_formations.py" @("--mission", $Mission, "--write")
