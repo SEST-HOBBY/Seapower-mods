@@ -411,25 +411,26 @@ def lower_side_rails(text):
 WING_STATIONS = (16, 17)
 WING_PYLON_RAILS = (1, 2, 5, 6)
 
-# User-directed exception: MaliceER flies the inner wing pylon's side rails
-# armed with AIM-260 alongside the three tanks. In-game testing decoded the
-# geometry: S1/S2 and S5/S6 are not two pylons but the OUTBOARD and INBOARD
-# faces of the same inner wing pylon (left wing: rails at -0.0486 and
-# -0.03743, tank centred between them at -0.04308) - so exempting only S5/S6
-# left each pylon with a 260 on one face and an empty rail on the other,
-# which is exactly what the user reported. Both faces are exempt now: four
-# AIM-260 on the rails, tank underneath, confirmed coexisting in game.
-RAIL_EXEMPT = {("MaliceER", 1), ("MaliceER", 2), ("MaliceER", 5), ("MaliceER", 6)}
+# The rule, third revision, each step forced by in-game evidence. S1/S2 and
+# S5/S6 are the OUTBOARD and INBOARD side rails of the same inner wing pylon
+# (left wing: rails at -0.0486 and -0.03743, tank centred between them at
+# -0.04308). The first revision stripped every rail whenever the wing station
+# carried anything but an MTW rack. Then MaliceER flew all four rails armed
+# with AIM-260 beside three tanks and the user confirmed it looks right - the
+# rails hold stores at the pylon's flanks, above the tank's shoulder - so a
+# TANK no longer restricts the rails at all. What still does is a wide |WW
+# store (GBU-10, B-61, AIM-174B, AIM-424) hung ON the wing station itself:
+# that occupies the space between the faces, and upstream never arms the
+# rails around one.
+RAIL_EXEMPT = set()   # kept for one-off overrides; empty since revision three
 
 
 def _rail_allowance(station_store):
     """What the rails may carry given what is on the wing station."""
     if station_store is None:
         return "any"
-    if "|MTW" in station_store:
-        return "any"
-    if "tank" in station_store:
-        return "aim-9"
+    if "|MTW" in station_store or "tank" in station_store:
+        return "any"                   # racks share the pylon; tanks proven in game
     return "none"                      # |WW and anything else big
 
 

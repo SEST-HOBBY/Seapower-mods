@@ -188,13 +188,15 @@ def build_b52o():
 
     # Our own position key, injected into the WS2 table next to the author's.
     # Geometry is the B-52H's proven two-per-side ARRW carriage, verbatim.
-    if "AGM183_Pylon" in text:
+    if "AGM183_Pylon" in text or "LRASM_Pylon" in text:
         sys.exit("usaf_b-52o.ini: AGM183_Pylon already defined upstream - re-check")
     rk = re.search(r"^RGM110_RackPositions=[^\n]*\n", text, re.M)
     if not rk:
         sys.exit("usaf_b-52o.ini: RGM110_RackPositions gone - upstream changed")
     text = (text[:rk.end()]
             + "AGM183_PylonPositions=0,-0.003,-0.012|0,-0.003,0.0557\n"
+            + "LRASM_PylonPositions=-0.0084,-0.0042,-0.035|0.0084,-0.0042,-0.035"
+              "|-0.0084,-0.0042,0.035|0.0084,-0.0042,0.035\n"
             + text[rk.end():])
     m = re.search(r"^\[WeaponSystem2AntiShipHeavy\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
     body = m.group(1)
@@ -206,15 +208,17 @@ def build_b52o():
         sys.exit("usaf_b-52o.ini: Standoff CSRL donor gone - upstream changed")
     bay = sd.group(1).replace("SubModelsToHide=Pylons,", "SubModelsToHide=")
 
-    # AntiShipLRASM rides the O's own AGM84_Pylon key - six Harpoon-length
-    # rounds per pylon, and LRASM (4.27 m) is shorter than Harpoon (4.6 m) -
-    # plus a CSRL of eight more. Same round the B-52H's AntiShip already
-    # flies, so the pack adds no new dependency.
+    # AntiShipLRASM gets its OWN carriage. The first cut reused AGM84_Pylon -
+    # the Harpoon six-pack - and in game the fat LRASM airframes read as a
+    # Harpoon cluster. LRASM_Pylon keeps the Harpoon rack's proven x/z frame
+    # but drops its centre column: the four corner positions only, uncanted,
+    # at the centre row's hang height. Four per pylon, eight external, plus a
+    # CSRL of eight - the round the B-52H's AntiShip already flies.
     blocks = ""
     for name, ws2, alcm in (
             ("Strike183", "dts_agm-183a|AGM183_Pylon", "usaf_agm-86c"),
             ("Strike183Nuke", "dts_agm-183a(w62)|AGM183_Pylon", "usaf_agm-86b"),
-            ("AntiShipLRASM", "dts_agm-158c-3|AGM84_Pylon", "dts_agm-158c-3")):
+            ("AntiShipLRASM", "dts_agm-158c-3|LRASM_Pylon", "dts_agm-158c-3")):
         blocks += (f"[WeaponSystem1{name}]\n"
                    + bay.replace("usaf_agm-86c", alcm).rstrip("\n") + "\n"
                    + f"[WeaponSystem2{name}]\n"
@@ -230,7 +234,7 @@ def build_b52o():
     dst = OUT / "aircraft" / "usaf_b-52o.ini"
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(text, encoding="utf-8")
-    print("  aircraft/usaf_b-52o.ini  (+Strike183/+Nuke 4x ARRW; +AntiShipLRASM 12+8x LRASM)")
+    print("  aircraft/usaf_b-52o.ini  (+Strike183/+Nuke 4x ARRW; +AntiShipLRASM 8+8x LRASM)")
 
 
 def build_419_flts():

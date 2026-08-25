@@ -33,6 +33,7 @@ TIER0 = [
     ("SEST Allied Fixes", "above U.S. Navy 2027 - repairs the P-8 anti-ship fit"),
     ("SEST F-35C JATM", "above every other usn_f-35c source"),
     ("SEST RAAF F-35A JATM", "above the RAAF F-35A mod"),
+    ("SEST Rafale F5", "above the Dassault Rafale mod - JATM/MALICE/LRASM fits"),
     ("SEST JMSDF Mogami", "above the Mogami-class Frigate mod"),
     ("SEST RAAF Wedgetail", "above the E-7A Wedgetail mod"),
     ("SEST Raptor Squadrons", "above the F-22 mod (which promises 7 squadrons, defines 1)"),
