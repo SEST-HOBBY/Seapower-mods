@@ -758,8 +758,9 @@ def derive_hornet_escorts(text: str, wing_tank: str, source_name: str) -> str:
     centreline. The requested five-tank fit has nowhere to hang the other
     two, so both fits carry the maximum three.
 
-      SEST_Intercept260ER  the full eight-JATM fit plus all three tanks -
-                           Intercept260 with the wing pylons wet.
+      SEST_Intercept260ER  six JATM plus all three tanks - Intercept260
+                           with the wing pylons wet (S32/33 removed: those
+                           stations ARE the fuel pylons, seen overlapped).
       SEST_Escort260       the long-legged CAP: AIM-260 on the fuselage
                            (S11/12) and outer wing (S30/31) only, Sidewinders
                            on the tips, three tanks.
@@ -777,7 +778,12 @@ def derive_hornet_escorts(text: str, wing_tank: str, source_name: str) -> str:
                 rf"Station27={wing_tank}\nStation28={wing_tank}\n\g<1>", er, flags=re.M)
     if er.count(wing_tank) < 3:
         sys.exit(f"{source_name}: escort fit failed to gain its wing tanks")
-    esc = re.sub(r"^Station(3|4|32|33)=[^\n]*\n", "", er, flags=re.M)
+    # S32/33 (x +/-0.0328) sit 0.0003 from the wing tank stations 27/28
+    # (x +/-0.0331) - in game those AIM-260 rode ON the fuel pylon, inside
+    # the tank. With the wing pylons wet they must go: the ER fit is
+    # 6x AIM-260 + 2x AIM-9X + 3 tanks.
+    er = re.sub(r"^Station(32|33)=[^\n]*\n", "", er, flags=re.M)
+    esc = re.sub(r"^Station(3|4)=[^\n]*\n", "", er, flags=re.M)
     return (text[:m.end()]
             + "[WeaponSystem1SEST_Intercept260ER]\n" + er
             + "[WeaponSystem1SEST_Escort260]\n" + esc

@@ -23,7 +23,7 @@ from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 NEW_KEYS = ["AntiShipHeavy", "Quicksink", "BigStick174", "BigStick174ER",
             "Truck174", "Malice6", "MaliceER", "MaliceTruck",
-            "AAMT120Tanks", "AAMT260Tanks", "AAMT120Max", "AAMT260Max"]
+            "AAMT120Tanks", "AAMT260Tanks"]
 
 NEW_SECTIONS = """\
 [--------------------------- SEST Revamp loadouts ---------------------------]
@@ -79,10 +79,10 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
 Station10=dts_aim-9x
-Station11=usn_aim-174b|AGM
-Station12=usn_aim-174b|AGM
-Station13=usn_aim-174b|AGM
-Station14=usn_aim-174b|AGM
+Station11=usn_aim-174b|SEST174
+Station12=usn_aim-174b|SEST174
+Station13=usn_aim-174b|SEST174
+Station14=usn_aim-174b|SEST174
 Station15=usaf_tank_610_f-15|WT
 Station16=usn_aim-174b|WW
 Station17=usn_aim-174b|WW
@@ -103,10 +103,10 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
 Station10=dts_aim-9x
-Station11=usn_aim-174b|AGM
-Station12=usn_aim-174b|AGM
-Station13=usn_aim-174b|AGM
-Station14=usn_aim-174b|AGM
+Station11=usn_aim-174b|SEST174
+Station12=usn_aim-174b|SEST174
+Station13=usn_aim-174b|SEST174
+Station14=usn_aim-174b|SEST174
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
@@ -126,10 +126,10 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
 Station10=dts_aim-9x
-Station11=usn_aim-174b|AGM
-Station12=usn_aim-174b|AGM
-Station13=usn_aim-174b|AGM
-Station14=usn_aim-174b|AGM
+Station11=usn_aim-174b|SEST174
+Station12=usn_aim-174b|SEST174
+Station13=usn_aim-174b|SEST174
+Station14=usn_aim-174b|SEST174
 Station16=usn_aim-174b|WW
 Station17=usn_aim-174b|WW
 Station15=usaf_tank_610_f-15|WT
@@ -180,17 +180,15 @@ Station17=usaf_tank_610_f-15|WT
 [WeaponSystem1AAMT120Tanks]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# Upstream's AAMT120 missile truck with the wing stations carrying FUEL
-# instead of the twin AMRAAM racks. The AAMT twin-rack mesh is HIDDEN here -
-# left visible it renders through the tanks (seen in game) - and upstream
-# proves it is ONE combined wing+belly rack set (only the two rack trucks
-# show it), so the belly rides upstream's single-round |120-B seats rather
-# than rackless floating |MTH twins (also seen in game). Stations 18/19/22/23
-# (free fuselage stations) are seated beside the |120-B rounds on 11-14 by
-# the SESTD keys to rebuild the dual-rack look - four side-by-side pairs,
-# eight belly rounds. Sixteen missiles: the two wing tanks cost four rounds
-# against the single-tank AAMT120Max, the user's chosen trade.
+SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R
+# Upstream's AAMT120 missile truck with three tanks and the fuselage dual
+# racks FILLED. The AAMT rack mesh stays visible (its hide list matches the
+# upstream truck's) and all eight belly rounds sit in real rack slots via
+# the SESTR seats - see the seat-key comment for the geometry. Sixteen
+# missiles, three tanks. Known trade, user-approved layout: the AAMT is one
+# combined wing+belly mesh, so its (empty) wing twin racks render at the
+# wing stations where the tanks hang - if the overlap reads badly in game,
+# the alternative is hiding AAMT and losing the fuselage racks with it.
 Station1=dts_aim-120d-3_w|120
 Station2=dts_aim-120d-3_w|120
 Station5=dts_aim-120d-3_w|120
@@ -199,14 +197,14 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-120d-3_w|120
 Station10=dts_aim-120d-3_w|120
-Station11=dts_aim-120d-3|SESTB
-Station12=dts_aim-120d-3|SESTB
-Station13=dts_aim-120d-3|SESTB
-Station14=dts_aim-120d-3|SESTB
-Station18=dts_aim-120d-3|SESTD-FL
-Station19=dts_aim-120d-3|SESTD-FR
-Station22=dts_aim-120d-3|SESTD-AR
-Station23=dts_aim-120d-3|SESTD-AL
+Station11=dts_aim-120d-3|SESTR-OR
+Station12=dts_aim-120d-3|SESTR-OL
+Station13=dts_aim-120d-3|SESTR-OR
+Station14=dts_aim-120d-3|SESTR-OL
+Station18=dts_aim-120d-3|SESTR-FL
+Station19=dts_aim-120d-3|SESTR-FR
+Station22=dts_aim-120d-3|SESTR-AR
+Station23=dts_aim-120d-3|SESTR-AL
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
@@ -214,8 +212,8 @@ Station17=usaf_tank_610_f-15|WT
 [WeaponSystem1AAMT260Tanks]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# The same trade on the AIM-260 truck, with the same SESTD belly doubles.
+SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R
+# The AIM-260 twin of the dual-rack three-tank truck above.
 Station1=dts_aim-260_w|120
 Station2=dts_aim-260_w|120
 Station5=dts_aim-260_w|120
@@ -224,75 +222,17 @@ Station7=dts_aim-260_w|120
 Station8=dts_aim-260_w|120
 Station9=dts_aim-260_w|120
 Station10=dts_aim-260_w|120
-Station11=dts_aim-260|SESTB
-Station12=dts_aim-260|SESTB
-Station13=dts_aim-260|SESTB
-Station14=dts_aim-260|SESTB
-Station18=dts_aim-260|SESTD-FL
-Station19=dts_aim-260|SESTD-FR
-Station22=dts_aim-260|SESTD-AR
-Station23=dts_aim-260|SESTD-AL
+Station11=dts_aim-260|SESTR-OR
+Station12=dts_aim-260|SESTR-OL
+Station13=dts_aim-260|SESTR-OR
+Station14=dts_aim-260|SESTR-OL
+Station18=dts_aim-260|SESTR-FL
+Station19=dts_aim-260|SESTR-FR
+Station22=dts_aim-260|SESTR-AR
+Station23=dts_aim-260|SESTR-AL
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
-
-[WeaponSystem1AAMT120Max]
-ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
-CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# Full twenty-round truck, centreline (bottom) tank always fitted, wing
-# stations left clean. Three belly rows of SESTD side-by-side doubles:
-# 18/19/22/23 pair with the |120-B rounds on 11-14, 20/21 with a third row
-# on 24/25 - twelve belly rounds plus the four side rails and four outer
-# pylon faces.
-Station1=dts_aim-120d-3_w|120
-Station2=dts_aim-120d-3_w|120
-Station5=dts_aim-120d-3_w|120
-Station6=dts_aim-120d-3_w|120
-Station7=dts_aim-120d-3_w|120
-Station8=dts_aim-120d-3_w|120
-Station9=dts_aim-120d-3_w|120
-Station10=dts_aim-120d-3_w|120
-Station11=dts_aim-120d-3|SESTB
-Station12=dts_aim-120d-3|SESTB
-Station13=dts_aim-120d-3|SESTB
-Station14=dts_aim-120d-3|SESTB
-Station18=dts_aim-120d-3|SESTD-FL
-Station19=dts_aim-120d-3|SESTD-FR
-Station22=dts_aim-120d-3|SESTD-AR
-Station23=dts_aim-120d-3|SESTD-AL
-Station24=dts_aim-120d-3|SESTB
-Station25=dts_aim-120d-3|SESTB
-Station20=dts_aim-120d-3|SESTD-MR
-Station21=dts_aim-120d-3|SESTD-ML
-Station15=usaf_tank_610_f-15|WT
-
-[WeaponSystem1AAMT260Max]
-ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
-CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# The twenty-round AIM-260 truck, same layout.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
-Station7=dts_aim-260_w|120
-Station8=dts_aim-260_w|120
-Station9=dts_aim-260_w|120
-Station10=dts_aim-260_w|120
-Station11=dts_aim-260|SESTB
-Station12=dts_aim-260|SESTB
-Station13=dts_aim-260|SESTB
-Station14=dts_aim-260|SESTB
-Station18=dts_aim-260|SESTD-FL
-Station19=dts_aim-260|SESTD-FR
-Station22=dts_aim-260|SESTD-AR
-Station23=dts_aim-260|SESTD-AL
-Station24=dts_aim-260|SESTB
-Station25=dts_aim-260|SESTB
-Station20=dts_aim-260|SESTD-MR
-Station21=dts_aim-260|SESTD-ML
-Station15=usaf_tank_610_f-15|WT
 
 [WeaponSystem1MaliceTruck]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -328,10 +268,8 @@ LOADOUT_NAMES = {
         "Malice6": "SEST InterceptMALICE (6x AIM-424)",
         "MaliceER": "SEST InterceptMALICE LongRange",
         "MaliceTruck": "SEST InterceptMALICE Truck (8x)",
-        "AAMT120Tanks": "SEST AAMT120 LongRange (16x, 3 tanks)",
-        "AAMT260Tanks": "SEST AAMT260 LongRange (16x, 3 tanks)",
-        "AAMT120Max": "SEST AAMT120 Truck (20x, 1 tank)",
-        "AAMT260Max": "SEST AAMT260 Truck (20x, 1 tank)",
+        "AAMT120Tanks": "SEST AAMT120 DualRack (16x, 3 tanks)",
+        "AAMT260Tanks": "SEST AAMT260 DualRack (16x, 3 tanks)",
     },
     "cn": {
         "AntiShipHeavy": "SEST 重型反舰LRASM×6",
@@ -342,10 +280,8 @@ LOADOUT_NAMES = {
         "Malice6": "SEST 马利斯截击 (6x AIM-424)",
         "MaliceER": "SEST 马利斯截击 (远程)",
         "MaliceTruck": "SEST 马利斯截击 (8联卡车)",
-        "AAMT120Tanks": "SEST AMRAAM卡车 (16弹 3副油箱)",
-        "AAMT260Tanks": "SEST AIM-260卡车 (16弹 3副油箱)",
-        "AAMT120Max": "SEST AMRAAM卡车 (20弹 1副油箱)",
-        "AAMT260Max": "SEST AIM-260卡车 (20弹 1副油箱)",
+        "AAMT120Tanks": "SEST AMRAAM双联卡车 (16弹 3副油箱)",
+        "AAMT260Tanks": "SEST AIM-260双联卡车 (16弹 3副油箱)",
     },
 }
 
@@ -776,36 +712,33 @@ def main():
         sys.exit("AGMPositions not found - upstream layout changed")
     if "M424Positions" in text:
         sys.exit("M424Positions already defined upstream - re-check")
-    # 1c. Belly DOUBLE seats for the trucks. With the AAMT rack mesh hidden
-    #     (it clips the wing tanks) the belly lost its dual-rack look, so the
-    #     pairs are rebuilt from stations instead: free fuselage stations are
-    #     offset to sit 0.0044 outboard of the belly rounds - side-by-side
-    #     pairs. Offsets = (partner position minus station origin), the
-    #     B-52O ARRW pylon technique. SESTB is the belly round seat for the
-    #     SEST fits: |120-B raised 0.001 ("slightly up more", in-game call).
-    #     SESTD y values carry the same +0.001.
-    #     Rotations: WS1 stations carry per-station pitch (S13/14 +3, S20/21
-    #     -3, S22/23 +5, rest 0), which left partner rounds visibly askew
-    #     beside their row-mates ("wonky"). The SESTD-*Rotations values below
-    #     assume seat rotations ADD to the station's (as seat positions add
-    #     to station coordinates): AR/AL -2 nets +3 to match S13/14, MR/ML +3
-    #     nets 0 to match S24/25. If in game they come out askew the OTHER
-    #     way, the engine replaces instead of adding - then AR/AL want 3,0,0
-    #     and MR/ML want 0,0,0.
+    # 1c. Dual-rack slot seats for the 3-tank trucks. The AAMT rack mesh
+    #     stays VISIBLE (user call: the fuselage racks are the look) and each
+    #     of the four belly racks is FILLED with two real rounds. |MTH's two
+    #     pipe segments (x +/-0.0022, y -0.0025, z -0.01) are the rack's two
+    #     slots; segment assignment per station is engine-internal, so every
+    #     round gets an explicit single-segment seat instead: SESTR-OR/OL put
+    #     the S11-14 rounds in the outboard slots, and the four free fuselage
+    #     stations 18/19/22/23 are offset into the inboard slots (offset =
+    #     slot position minus station origin, the B-52O pylon technique).
+    #     Rotations: S13/14 carry the station's +3 pitch natively; their
+    #     partners S22/23 sit on +5 stations, so -2 nets +3 (assuming seat
+    #     rotations ADD to the station's; if in game they lean the other way
+    #     the engine replaces, and AR/AL want 3,0,0 instead).
+    #     SEST174 seats the belly AIM-174B: |AGM raised 0.001 to sit flush
+    #     with the fuselage (in-game call).
     text = (text[:agm.end()]
             + "M424Positions=0,-0.0005,0\n"
             + "M424WPositions=0,-0.0005,0\n"   # WW raised 0.001 - the 424 hung low underslung
-            + "SESTBPositions=0,0.0012,0.008\n"
-            + "SESTD-FLPositions=0.0016,-0.0018,0.0515\n"
-            + "SESTD-FRPositions=-0.0016,-0.0018,0.0515\n"
-            + "SESTD-ARPositions=-0.0016,-0.0013,0.0180\n"
-            + "SESTD-ALPositions=0.0016,-0.0013,0.0180\n"
-            + "SESTD-ARRotations=-2,0,0\n"
-            + "SESTD-ALRotations=-2,0,0\n"
-            + "SESTD-MRPositions=-0.0016,-0.002,-0.020\n"   # 20/21 seated beside 24/25
-            + "SESTD-MLPositions=0.0016,-0.002,-0.020\n"
-            + "SESTD-MRRotations=3,0,0\n"
-            + "SESTD-MLRotations=3,0,0\n"
+            + "SEST174Positions=0,-0.001,0\n"
+            + "SESTR-ORPositions=0.0022,-0.0025,-0.01\n"
+            + "SESTR-OLPositions=-0.0022,-0.0025,-0.01\n"
+            + "SESTR-FRPositions=-0.0082,-0.0055,-0.003\n"
+            + "SESTR-FLPositions=0.0082,-0.0055,0.0335\n"
+            + "SESTR-ARPositions=-0.0082,-0.005,0\n"
+            + "SESTR-ALPositions=0.0082,-0.005,0\n"
+            + "SESTR-ARRotations=-2,0,0\n"
+            + "SESTR-ALRotations=-2,0,0\n"
             + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner
