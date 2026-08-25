@@ -113,6 +113,15 @@ $missionSrc = Join-Path $repoRoot "integration\missions"
 if (Test-Path $missionSrc) {
     $missionDest = Join-Path $StreamingAssetsDir "user\missions\user_missions"
     New-Item -ItemType Directory -Force -Path $missionDest | Out-Null
+    # Migrate backups from the old "<name>.ini.backup-<stamp>" scheme, which
+    # the game listed as phantom missions. One-time per file; harmless when
+    # there is nothing to rename.
+    foreach ($old in Get-ChildItem -LiteralPath $missionDest -Filter "*.ini.backup-*") {
+        $fixed = $old.Name -replace '\.ini\.backup-', '.backup-'
+        if (-not $fixed.EndsWith(".bak")) { $fixed += ".bak" }
+        Rename-Item -LiteralPath $old.FullName -NewName $fixed
+        Write-Host ("  renamed    {0} -> {1} (was listed as a phantom mission)" -f $old.Name, $fixed)
+    }
     foreach ($m in Get-ChildItem -LiteralPath $missionSrc -Filter "*.ini") {
         $destFile = Join-Path $missionDest $m.Name
         if (Test-Path $destFile) {
@@ -123,10 +132,15 @@ if (Test-Path $missionSrc) {
                 continue
             }
             # The in-game copy differs (e.g. edited in the mission editor):
-            # keep a timestamped backup next to it before overwriting.
+            # keep a timestamped backup next to it before overwriting. The
+            # backup name must not contain ".ini" ANYWHERE - the game's
+            # mission browser matched "<name>.ini.backup-<stamp>" and listed
+            # every backup as a phantom mission - so the extension is swapped
+            # out entirely, not appended to.
             $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
-            Copy-Item -LiteralPath $destFile -Destination "$destFile.backup-$stamp" -Force
-            Write-Host ("  backup     {0} -> {0}.backup-{1}" -f $m.Name, $stamp)
+            $bakName = ($m.BaseName + ".backup-" + $stamp + ".bak")
+            Copy-Item -LiteralPath $destFile -Destination (Join-Path $missionDest $bakName) -Force
+            Write-Host ("  backup     {0} -> {1}" -f $m.Name, $bakName)
         }
         Copy-Item -LiteralPath $m.FullName -Destination $missionDest -Force
         Write-Host ("  mission    {0}" -f $m.Name)
