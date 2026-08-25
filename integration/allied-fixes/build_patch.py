@@ -173,11 +173,10 @@ def main():
             "at rocket cost. Same guidance kit and warhead as the M282.\n"
             "sest_agr-30=AGR-30,Redback,GFFAR,"
             "What-if evolution of the 70mm guided rocket family: the AGR-30 "
-            "Redback replaces the APKWS laser kit with an imaging-infrared "
-            "seeker and a datalink - fire and forget out to "
-            "15 nautical miles. A boosted motor lofts it to 20000 ft for a "
-            "steep terminal dive onto the target. Same airframe and M282 "
-            "warhead; missile performance at rocket cost.\n",
+            "Redback replaces the APKWS II laser kit with an imaging-infrared "
+            "seeker - true fire and forget out to 15 nautical miles with a "
+            "lofted profile and terminal dive. Same airframe and warhead as "
+            "the APKWS II; missile performance at rocket cost.\n",
             encoding="utf-8")
         (lang / "loadout_names.ini").write_text(
             "[LoadoutNames]\n"
@@ -186,43 +185,34 @@ def main():
             encoding="utf-8")
         print("  APKWS-ER: ammunition x2, uk_ah_mk_1 fit SEST_APKWS_ER (4 pods + Starstreak)")
 
-        # AGR-30 Redback: the new-ish rocket entirely, same model (user ask).
-        # Active homing, higher flight profile and range - the M282 airframe
-        # re-armed with a proven guidance recipe: GuidanceType 3 with
-        # MidCourseCorrection 1 is the dts_aim-260's fire-and-forget config,
-        # the loft keys follow the AIM-174B/ARRW pattern. Values chosen for a
-        # rocket-class weapon: 15 nm, 950 kts, 20000 ft loft, 4 nm seeker.
-        rb = rocket_src.read_text(encoding="utf-8", errors="replace")
-        # Guidance recipe changed after a freeze in game: NO container in the
-        # collection holds a GuidanceType=3 round (surveyed all 130 mods), so
-        # active radar inside a pod is unprecedented and implicated in the
-        # hang. The proven in-container fire-and-forget pattern is the
-        # dts_gbu-53 quad: GuidanceType=1 (IR) + MidCourseCorrection=1,
-        # flying off this collection's own F-15EX. The Redback follows it -
-        # imaging-infrared seeker, datalink midcourse, same reach.
+        # AGR-30 Redback: rebased onto dts_apkws-ii after two freezes. The
+        # M282-based build differed from every working pod round in dozens
+        # of keys; dts_apkws-ii is a PROVEN in-pod rocket WITH loft keys from
+        # the collection's own weapon pack, so the Redback is now that file
+        # with the minimum deltas: IR seeker instead of laser (GuidanceType
+        # 1, MidCourseCorrection stays 0 - pure fire and forget, five
+        # in-container precedents), range 6 -> 15 nm, loft raised 5/1500 ->
+        # 12/4000 for the higher profile. Motor, fuze, effects, terminal
+        # logic all stay the working weapon's.
+        rb_src = ROOT / "mods-source" / "3760871384" / "ammunition" / "dts_apkws-ii.ini"
+        if not rb_src.exists():
+            sys.exit("dts_apkws-ii.ini missing - Dingtools Weapon Pack must be exported")
+        rb = rb_src.read_text(encoding="utf-8", errors="replace")
         swaps = [
             (r"^GuidanceType=5\b", "GuidanceType=1"),
-            (r"^MidCourseCorrection=0\b", "MidCourseCorrection=1"),
-            (r"^MaxLaunchRange=3\.5\b", "MaxLaunchRange=15"),
-            (r"^MaxVelocity=768\.6\b", "MaxVelocity=950"),
-            (r"^TerminalDiveDistance=1000\b", "TerminalDiveDistance=1.5"),
-            (r"^SeekerGain=0\.0\b", "SeekerGain=20.0"),
-            (r"^SeekerPassiveRange=2\.7\b", "SeekerPassiveRange=8"),
+            (r"^SeekerPassiveRange=6\.0\b", "SeekerPassiveRange=8"),
+            (r"^MaxLaunchRange=6\b", "MaxLaunchRange=15"),
+            (r"^MaxLoftAngle=5\.0\b", "MaxLoftAngle=12.0"),
+            (r"^MaxLoftAlt=1500\b", "MaxLoftAlt=4000"),
         ]
         for pat, rep in swaps:
             rb, k = re.subn(pat, rep, rb, flags=re.M)
             if k != 1:
-                sys.exit(f"usa_apkws_2_m282: {pat} matched {k} times - upstream changed")
-        rb, k = re.subn(r"^(TerminalDiveDistance=[^\n]*\n)",
-                        "\\g<1>MaxLoftAngle=20.0                      // Climb angle for initial loft\n"
-                        "MaxLoftAlt=8000                       // loft ceiling in feet - Brimstone-style profile, scaled up\n",
-                        rb, flags=re.M)
-        if k != 1:
-            sys.exit("usa_apkws_2_m282: TerminalDiveDistance anchor missing for loft keys")
+                sys.exit(f"dts_apkws-ii: {pat} matched {k} times - upstream changed")
         (OUT / "ammunition" / "sest_agr-30.ini").write_text(
-            "# SEST AGR-30 Redback - what-if active-homing 70mm rocket on the\n"
-            "# M282 airframe: seeker/datalink per dts_aim-260, loft per AIM-174B,\n"
-            "# 15 nm / 950 kts / 20000 ft. Model and warhead are upstream's.\n"
+            "# SEST AGR-30 Redback - dts_apkws-ii (proven in-pod, lofting) with an\n"
+            "# IR seeker, 15 nm reach and a raised loft. Minimum-delta rebase after\n"
+            "# the M282-based build froze the game twice.\n"
             + rb, encoding="utf-8")
 
         rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$",
