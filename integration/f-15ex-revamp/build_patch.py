@@ -390,6 +390,91 @@ def lower_side_rails(text):
     return text
 
 
+# --- The wing station owns its pylon ----------------------------------------
+# Station16/17 ("Wing Station", |x| 0.04308) sits 0.0129 from BOTH wing pylon
+# rails - Station5/6 inner (0.03743) and Station1/2 outer (0.0486). They are
+# one physical pylon, so what hangs on the station decides what the rails can
+# take. Upstream is consistent about it across every loadout it ships:
+#
+#   S16/17 = tank            -> rails EMPTY (Ferry, Strike183N) or AIM-9X
+#                               (AirToAirLongRange). Nothing larger, ever.
+#   S16/17 = |WW big store   -> rails EMPTY (StrikePrecision GBU-10,
+#                               StrikeNuke B-61). No exceptions.
+#   S16/17 = |MTW rack       -> rails loaded (AAMT120, AAMT260). The multi-rail
+#                               rack is built to share the pylon; a tank and a
+#                               2000 lb bomb are not.
+#
+# Five loadouts here broke it, on a comment reading "AIM-260 on the inner wing
+# pylon rails alongside the tanks". There is no alongside - the missile renders
+# through whatever is on the station. Reported in game on AAMT260Tanks (16x
+# AIM-260, three tanks) and on the MALICE fits, both as a missile sitting on a
+# rail that already had fuel on it.
+WING_STATIONS = (16, 17)
+WING_PYLON_RAILS = (1, 2, 5, 6)
+
+
+def _rail_allowance(station_store):
+    """What the rails may carry given what is on the wing station."""
+    if station_store is None:
+        return "any"
+    if "|MTW" in station_store:
+        return "any"
+    if "tank" in station_store:
+        return "aim-9"
+    return "none"                      # |WW and anything else big
+
+
+def _walk_loadouts(text, fn):
+    return re.sub(r"^\[WeaponSystem1([A-Za-z0-9_\-]+)\]\n(.*?)(?=^\[|\Z)",
+                  fn, text, flags=re.M | re.S)
+
+
+def clear_rails_under_wing_station(text):
+    """Strip rail stores the wing station has no room for."""
+    dropped = []
+
+    def fix(m):
+        name, body = m.group(1), m.group(2)
+        st = dict(re.findall(r"^Station(\d+)=([A-Za-z]\S*)$", body, re.M))
+        allow = _rail_allowance(next((st[str(k)] for k in WING_STATIONS
+                                      if str(k) in st), None))
+        if allow == "any":
+            return m.group(0)
+        out = body
+        for k in WING_PYLON_RAILS:
+            v = st.get(str(k))
+            if not v:
+                continue
+            if allow == "aim-9" and "aim-9" in v.lower():
+                continue
+            out = re.sub(rf"^Station{k}={re.escape(v)}\n", "", out, flags=re.M)
+            dropped.append((name, k, v))
+        return f"[WeaponSystem1{name}]\n" + out
+
+    text = _walk_loadouts(text, fix)
+    for name in sorted({d[0] for d in dropped}):
+        ks = [f"S{k}" for n, k, v in dropped if n == name]
+        store = next(v for n, k, v in dropped if n == name)
+        print(f"    {name}: cleared {len(ks)} rail(s) - {', '.join(ks)} = {store}")
+    return text
+
+
+def verify_rails_under_wing_station(text):
+    """Refuse to ship a rail store sharing a pylon that cannot take it."""
+    for m in re.finditer(r"^\[WeaponSystem1([A-Za-z0-9_\-]+)\]\n(.*?)(?=^\[|\Z)",
+                         text, re.M | re.S):
+        st = dict(re.findall(r"^Station(\d+)=([A-Za-z]\S*)$", m.group(2), re.M))
+        allow = _rail_allowance(next((st[str(k)] for k in WING_STATIONS
+                                      if str(k) in st), None))
+        if allow == "any":
+            continue
+        for k in WING_PYLON_RAILS:
+            v = st.get(str(k))
+            if v and not (allow == "aim-9" and "aim-9" in v.lower()):
+                sys.exit(f"{m.group(1)}: Station{k}={v} shares the wing pylon "
+                         f"with Station16/17 (allowance: {allow})")
+
+
 def build_squadrons():
     """Complete replacement usaf_f-15ex_SEII_squadrons.ini (whole-file override)."""
     src = UPSTREAM / "aircraft" / "usaf_f-15ex_SEII_squadrons.ini"
@@ -613,6 +698,11 @@ def main():
     text, sym_fixed = fix_symmetry(text)
     text = lower_side_rails(text)
     check_symmetry(text)
+
+    # 5b. The wing station owns its pylon - clear any rail store it has no
+    #     room for, then refuse to ship if one survives.
+    text = clear_rails_under_wing_station(text)
+    verify_rails_under_wing_station(text)
 
     # 6. Write the mod folder
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
