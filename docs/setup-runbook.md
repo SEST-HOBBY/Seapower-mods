@@ -190,6 +190,28 @@ SEST RAAF Bases · Modern US Airbase · Modern Russian Airbase ·
 Modern Chinese Airbase
 ```
 
+## Phase 4b — pre-flight (30 seconds, before you launch)
+
+Three checks, all offline. Run them after any subscribe, unsubscribe or
+reorder — together they cover the three ways this collection breaks silently.
+
+```powershell
+python tools\check_load_order.py          # no mod outranks a SEST pack
+python tools\preflight.py                 # every reference the mission makes resolves
+python tools\check_mod_conflicts.py <id>  # what a NEW mod would take over
+```
+
+`check_load_order` catches a pack gone inert — the failure that hid for several
+sessions when U.S. Navy 2027 moved up a tier and jumped over the Growler pack.
+`preflight` catches the other half: the load order decides which *file* loads,
+never whether the thing you asked for is inside it. A mission can name a unit no
+enabled mod defines, or a `LoadoutVariant` the winning file does not list, and
+the game will not complain — the unit just spawns with a default fit. Adding one
+mod can cause that without any file going missing, because the file is still
+there, it is simply a different file now.
+
+All three exit non-zero on failure, and each names the mod responsible.
+
 ## Phase 5 — ten-minute smoke test
 
 1. **Modern Growlers** → AN/ALQ-249 is listed; NGJ MALICE and NGJ MALICE Heavy are selectable.
