@@ -162,8 +162,11 @@ def build_b52o():
     -0.003 offset, flush, and carries TWO per side nose-to-tail at 0.0457 of
     z-separation. So the pack now injects its own AGM183_Pylon key into the
     B-52O's WeaponSystem2, reproducing the H's proven silhouette exactly:
-    aft round at z+0.01, forward round at z+0.0557, both at y=-0.003. Two per
-    pylon, four per loadout - the same warload as the B-52H.
+    aft round at z-0.012, forward round at z+0.0557, both at y=-0.003. The
+    height checked out in game but the H's 0.0457 nose-to-tail separation
+    read as too tight on the O's model, so the aft round moved back: the
+    pair now sits 0.0677 apart, still inside the span the AGM84 rows use
+    (station z 0.0343..0.1043). Two per pylon, four per loadout.
 
     Its WeaponSystem1 wing pylons (Station7/8) are deliberately NOT used - the
     matching #RGM110_RackPositions there is commented out in RSA's own file, so
@@ -191,7 +194,7 @@ def build_b52o():
     if not rk:
         sys.exit("usaf_b-52o.ini: RGM110_RackPositions gone - upstream changed")
     text = (text[:rk.end()]
-            + "AGM183_PylonPositions=0,-0.003,0.01|0,-0.003,0.0557\n"
+            + "AGM183_PylonPositions=0,-0.003,-0.012|0,-0.003,0.0557\n"
             + text[rk.end():])
     m = re.search(r"^\[WeaponSystem2AntiShipHeavy\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
     body = m.group(1)
