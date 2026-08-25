@@ -48,9 +48,9 @@ TARGETS = [
 INFO_INI = """\
 [Language_en]
 Name=SEST Allied Fixes
-Description=Points the P-8 Poseidon's anti-ship loadout at a Harpoon that \
-exists. Its four usn_agm-84g rounds are defined by no mod in the collection, \
-so the fit loaded empty.
+Description=Small allied corrections: the P-8's anti-ship fit pointed at a \
+Harpoon no mod defines (loaded empty), and HMS Ocean could not operate the \
+Apache AH1 her sister hulls already support.
 """
 
 
@@ -83,6 +83,31 @@ def main():
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(out, encoding="utf-8")
         print(f"  aircraft/{name}  ({n}x {MISSING} -> {REPLACE})")
+        built += 1
+
+    # HMS Ocean vs the Apache: her own sister hulls in the same mod
+    # (rn_lph_ocean_asw_00 and _asw_13) already list uk_ah_mk_1 - the British
+    # Army Apache AH1 that really flew from Ocean off Libya in 2011 - but the
+    # base rn_lph_ocean only ever got the Lynx. One appended id fixes it.
+    src = ROOT / "mods-source" / "3599752717" / "vessels" / "rn_lph_ocean.ini"
+    dst = OUT / "vessels" / "rn_lph_ocean.ini"
+    if not src.exists():
+        if dst.exists():
+            dst.unlink()
+            print("    removed stale vessels/rn_lph_ocean.ini (upstream gone)")
+        print("  rn_lph_ocean.ini  SKIPPED - Modern British Navy not exported")
+    else:
+        text = src.read_text(encoding="utf-8")
+        if "uk_ah_mk_1" in text:
+            sys.exit("rn_lph_ocean.ini: upstream now supports the Apache - drop this fix")
+        text, n = re.subn(r"^AircraftSupported=raac_lynx_ah7\s*$",
+                          "AircraftSupported=raac_lynx_ah7,uk_ah_mk_1",
+                          text, flags=re.M)
+        if n != 1:
+            sys.exit(f"rn_lph_ocean.ini: AircraftSupported line changed upstream ({n} matches)")
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        dst.write_text(text, encoding="utf-8")
+        print("  vessels/rn_lph_ocean.ini  (+uk_ah_mk_1 Apache AH1 supported)")
         built += 1
 
     if not built:

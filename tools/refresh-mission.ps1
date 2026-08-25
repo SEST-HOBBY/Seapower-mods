@@ -121,6 +121,11 @@ Invoke-Py "add_civ_depth.py" @("--mission", $Mission, "--write")
 Write-Host "`n[3b/7] sanctioned tanker fleet..." -ForegroundColor Cyan
 Invoke-Py "add_sanctioned_shipping.py" @("--mission", $Mission, "--write")
 
+# --- 3c. RSA reinforcements + Townsville --------------------------------------
+# Idempotent: skips when already present, and skips missions with no Type 004.
+Write-Host "`n[3c/7] RSA reinforcements + RAAF Townsville..." -ForegroundColor Cyan
+Invoke-Py "add_nfiii_reinforcements.py" @("--mission", $Mission, "--write")
+
 # --- 4. Name any placeholder formations --------------------------------------
 Write-Host "`n[4/7] naming placeholder formations..." -ForegroundColor Cyan
 Invoke-Py "name_formations.py" @("--mission", $Mission, "--write")

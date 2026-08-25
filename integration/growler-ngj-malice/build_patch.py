@@ -666,7 +666,7 @@ def write_language_files() -> None:
 
 
 def build_raaf_squadrons() -> None:
-    """RAAF Amberley strike wing - claim the liveries Murder Hornet painted.
+    """RAAF strike wing (fwd Townsville) - claim the liveries Murder Hornet painted.
 
     Murder Hornet ships raaf_f18f.png and raaf_f18g.png, but the identity
     wiring is broken three ways:
@@ -682,7 +682,7 @@ def build_raaf_squadrons() -> None:
 
     Two whole-file overrides fix the wiring (this pack already outranks
     Murder Hornet), and the merge-semantics language file renames the real
-    squadrons: 1 SQN RAAF at Amberley flies the F/A-18F, 6 SQN the Growler.
+    squadrons: 1 SQN RAAF flies the F/A-18F, 6 SQN the Growler - forward-based Townsville by user call.
     Nation becomes "Australia" - the string the RAAF F-35A mod and the RAN
     fleet already use.
     """
@@ -696,7 +696,7 @@ def build_raaf_squadrons() -> None:
     text = replace_once(
         text,
         "LiveryTexture=raaf_f18g.png\nNation=US",
-        "LiveryTexture=raaf_f18g.png\nNation=Australia   # 6 SQN RAAF, Amberley",
+        "LiveryTexture=raaf_f18g.png\nNation=Australia   # 6 SQN RAAF, fwd Townsville",
         "usn_ea-18g_squadrons: RAAF nation")
     (aircraft / "usn_ea-18g_squadrons.ini").write_text(text, encoding="utf-8")
 
@@ -705,14 +705,14 @@ def build_raaf_squadrons() -> None:
     text = replace_once(
         text,
         "LiveryTexture=raaf_f18f.png\nNation=AUS",
-        "LiveryTexture=raaf_f18f.png\nNation=Australia   # 1 SQN RAAF, Amberley",
+        "LiveryTexture=raaf_f18f.png\nNation=Australia   # 1 SQN RAAF, fwd Townsville",
         "usn_fa-18f_squadrons: RAAF nation")
     (aircraft / "usn_fa-18f_squadrons.ini").write_text(text, encoding="utf-8")
 
     folder = OUT / "language_en"
     folder.mkdir(parents=True, exist_ok=True)
     (folder / "aircraft_names.ini").write_text(
-        "# SEST Growler NGJ + MALICE - RAAF Amberley strike wing identities.\n"
+        "# SEST Growler NGJ + MALICE - RAAF strike wing identities (fwd Townsville).\n"
         "# language files merge key-by-key, so only these keys change.\n"
         "[usn_fa-18f]\n"
         "Squadron10=F/A-18F (1 SQN RAAF),F/A-18F\n"
