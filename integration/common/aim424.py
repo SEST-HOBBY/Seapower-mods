@@ -177,6 +177,12 @@ Collider=col_main
 Collider=Box
 Position=0,0,0
 Rotation=0,0,0
+# This Scale is the HIT COLLIDER box, not the visual - every ammunition ini
+# in the collection carries it under [col_main] and none has a model-size
+# key. The visual renders at the shared usn_rim-7 mesh's native size, same
+# as usn_agm-88g, and cannot be resized from the ini (ResourcesMeshScale,
+# the one candidate key, breaks the model - see the note above [Models]).
+# Keep the collider matched to usn_agm-88g's, whose visual this shares.
 Scale=0.005,0.005,0.04291637
 """
 

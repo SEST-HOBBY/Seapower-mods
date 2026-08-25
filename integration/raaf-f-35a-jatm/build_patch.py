@@ -86,10 +86,10 @@ LOADOUT_NAMES = {
     # Intercept260/Intercept260Beast/Malice424 are also defined by the F-35C
     # pack — keep the shared keys' strings identical across both packs.
     "en": {
-        "Intercept260Stealth": "Intercept Stealth (AIM-260)",
-        "Intercept260": "Intercept (6x AIM-260 int)",
-        "Intercept260Beast": "Intercept Beast (10x AIM-260)",
-        "Malice424": "Intercept MALICE (2x AIM-424 int)",
+        "Intercept260Stealth": "SEST Intercept Stealth (AIM-260)",
+        "Intercept260": "SEST Intercept (6x AIM-260 int)",
+        "Intercept260Beast": "SEST Intercept Beast (10x AIM-260)",
+        "Malice424": "SEST Intercept MALICE (2x AIM-424 int)",
     },
 }
 

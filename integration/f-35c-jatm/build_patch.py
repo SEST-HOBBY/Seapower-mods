@@ -94,14 +94,14 @@ LOADOUT_NAMES = {
     # kept identical to that pack's (whichever pack wins load order, both
     # aircraft read correctly). Keep display strings comma-free.
     "en": {
-        "Intercept260": "Intercept (6x AIM-260 int)",
-        "Intercept260Beast": "Intercept Beast (10x AIM-260)",
-        "Malice424": "Intercept MALICE (2x AIM-424 int)",
+        "Intercept260": "SEST Intercept (6x AIM-260 int)",
+        "Intercept260Beast": "SEST Intercept Beast (10x AIM-260)",
+        "Malice424": "SEST Intercept MALICE (2x AIM-424 int)",
     },
     "cn": {
-        "Intercept260": "截击 (6x AIM-260 内置)",
-        "Intercept260Beast": "重挂截击 (10x AIM-260)",
-        "Malice424": "马利斯截击 (2x AIM-424 内置)",
+        "Intercept260": "SEST 截击 (6x AIM-260 内置)",
+        "Intercept260Beast": "SEST 重挂截击 (10x AIM-260)",
+        "Malice424": "SEST 马利斯截击 (2x AIM-424 内置)",
     },
 }
 
