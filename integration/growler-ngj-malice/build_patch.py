@@ -889,13 +889,12 @@ def build_raaf_squadrons() -> None:
                         "usn_fa-18f_blk3_squadrons: declare Squadron8")
     if "raaf" in text.lower():
         sys.exit("usn_fa-18f_blk3_squadrons: upstream added its own RAAF squadron - re-check")
-    # raaf_f18f.png lives in the plain F's texture folder; the Block III is
-    # the same airframe so the skin should map - verify in game, the
-    # fallback on a mismatch is default paint under the Australian flag.
+    # No livery lines: raaf_f18f.png was painted for the plain F's texture
+    # set and the user called the fallback - default Block III paint under
+    # the Australian flag. The squadron identity comes from Nation plus the
+    # language name key.
     text = text.rstrip("\n") + (
         "\n\n[Squadron8]\n"
-        "ResourcesLiveryFolder=assets/textures/fa-18f/\n"
-        "LiveryTexture=raaf_f18f.png\n"
         "Nation=Australia   # 1 SQN RAAF, fwd Townsville\n")
     (aircraft / "usn_fa-18f_blk3_squadrons.ini").write_text(text, encoding="utf-8")
 
