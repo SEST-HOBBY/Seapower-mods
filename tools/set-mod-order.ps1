@@ -116,9 +116,19 @@ foreach ($tok in $canonical) {
 }
 foreach ($tok in $current.Keys) {
     if ($final -notcontains $tok) {
-        Write-Warning "in your settings but not in canonical order (appended at end): $tok"
-        $final.Add($tok)
-        $flags[$tok] = $current[$tok]
+        # A numeric token is a workshop id. If it is not in the canonical
+        # order it is either freshly subscribed (the game re-adds it on the
+        # next launch by itself) or an unsubscribed leftover - and keeping a
+        # leftover ENABLED kept the phantom KJ-500 mod alive as entry 144,
+        # implicated in the duplicate-key crash on quit. Drop numeric
+        # unknowns; keep non-numeric ones (local packs we do not manage).
+        if ($tok -match '^\d+$') {
+            Write-Warning "dropped stale workshop entry (game re-adds it if still subscribed): $tok"
+        } else {
+            Write-Warning "in your settings but not in canonical order (appended at end): $tok"
+            $final.Add($tok)
+            $flags[$tok] = $current[$tok]
+        }
     }
 }
 

@@ -185,10 +185,11 @@ SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R
 # racks FILLED. The AAMT rack mesh stays visible (its hide list matches the
 # upstream truck's) and all eight belly rounds sit in real rack slots via
 # the SESTR seats - see the seat-key comment for the geometry. Sixteen
-# missiles, three tanks. Known trade, user-approved layout: the AAMT is one
-# combined wing+belly mesh, so its (empty) wing twin racks render at the
-# wing stations where the tanks hang - if the overlap reads badly in game,
-# the alternative is hiding AAMT and losing the fuselage racks with it.
+# missiles, three tanks. The AAMT is CONFIRMED one single object - the
+# F-15EX_dts.obj part listing (read on the user's machine) has exactly one
+# "o AAMT" and no wing/belly split - so its empty wing twin racks cannot be
+# hidden separately from the fuselage racks. The wing tanks therefore take
+# the SESTWTF seat, slung 0.002 under the rack instead of through it.
 Station1=dts_aim-120d-3_w|120
 Station2=dts_aim-120d-3_w|120
 Station5=dts_aim-120d-3_w|120
