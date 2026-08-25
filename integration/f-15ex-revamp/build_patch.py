@@ -152,8 +152,8 @@ Station12=sest_aim-424|M424
 Station13=sest_aim-424|M424
 Station14=sest_aim-424|M424
 Station15=usaf_tank_610_f-15|WT
-Station16=sest_aim-424|WW
-Station17=sest_aim-424|WW
+Station16=sest_aim-424|M424W
+Station17=sest_aim-424|M424W
 
 [WeaponSystem1MaliceER]
 ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -182,9 +182,11 @@ ReadyUpTime=35               // in minutes. Time that plane will spend refueling
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # Upstream's AAMT120 missile truck with the wing stations carrying FUEL
-# instead of the twin AMRAAM racks. The AAMT twin-rack mesh is HIDDEN here:
-# it belongs to the MTW racks these stations no longer carry, and left
-# visible it renders straight through the tank (seen in game).
+# instead of the twin AMRAAM racks. The AAMT twin-rack mesh is HIDDEN here -
+# left visible it renders through the tanks (seen in game) - and upstream
+# proves it is ONE combined wing+belly rack set (only the two rack trucks
+# show it), so the belly rides upstream's single-round |120-B seats rather
+# than rackless floating |MTH twins (also seen in game).
 Station1=dts_aim-120d-3_w|120
 Station2=dts_aim-120d-3_w|120
 Station5=dts_aim-120d-3_w|120
@@ -193,10 +195,10 @@ Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-120d-3_w|120
 Station10=dts_aim-120d-3_w|120
-Station11=dts_aim-120d-3|MTH
-Station12=dts_aim-120d-3|MTH
-Station13=dts_aim-120d-3|MTH
-Station14=dts_aim-120d-3|MTH
+Station11=dts_aim-120d-3|120-B
+Station12=dts_aim-120d-3|120-B
+Station13=dts_aim-120d-3|120-B
+Station14=dts_aim-120d-3|120-B
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
@@ -214,10 +216,10 @@ Station7=dts_aim-260_w|120
 Station8=dts_aim-260_w|120
 Station9=dts_aim-260_w|120
 Station10=dts_aim-260_w|120
-Station11=dts_aim-260|MTH
-Station12=dts_aim-260|MTH
-Station13=dts_aim-260|MTH
-Station14=dts_aim-260|MTH
+Station11=dts_aim-260|120-B
+Station12=dts_aim-260|120-B
+Station13=dts_aim-260|120-B
+Station14=dts_aim-260|120-B
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
@@ -240,36 +242,36 @@ Station11=sest_aim-424|M424
 Station12=sest_aim-424|M424
 Station13=sest_aim-424|M424
 Station14=sest_aim-424|M424
-Station16=sest_aim-424|WW
-Station17=sest_aim-424|WW
+Station16=sest_aim-424|M424W
+Station17=sest_aim-424|M424W
 Station15=usaf_tank_610_f-15|WT
 
 """
 
 LOADOUT_NAMES = {
     "en": {
-        "AntiShipHeavy": "AntiShipLRASM6",
-        "Quicksink": "StrikeQuicksink",
-        "BigStick174": "Intercept174",
-        "BigStick174ER": "Intercept174 LongRange",
-        "Truck174": "Intercept174 Truck (8x)",
-        "Malice6": "InterceptMALICE (6x AIM-424)",
-        "MaliceER": "InterceptMALICE LongRange",
-        "MaliceTruck": "InterceptMALICE Truck (8x)",
-        "AAMT120Tanks": "AAMT120 LongRange (3 tanks)",
-        "AAMT260Tanks": "AAMT260 LongRange (3 tanks)",
+        "AntiShipHeavy": "SEST AntiShipLRASM6",
+        "Quicksink": "SEST StrikeQuicksink",
+        "BigStick174": "SEST Intercept174",
+        "BigStick174ER": "SEST Intercept174 LongRange",
+        "Truck174": "SEST Intercept174 Truck (8x)",
+        "Malice6": "SEST InterceptMALICE (6x AIM-424)",
+        "MaliceER": "SEST InterceptMALICE LongRange",
+        "MaliceTruck": "SEST InterceptMALICE Truck (8x)",
+        "AAMT120Tanks": "SEST AAMT120 LongRange (3 tanks)",
+        "AAMT260Tanks": "SEST AAMT260 LongRange (3 tanks)",
     },
     "cn": {
-        "AntiShipHeavy": "重型反舰LRASM×6",
-        "Quicksink": "快沉反舰JDAM",
-        "BigStick174": "超远程截击174",
-        "BigStick174ER": "超远程截击174 (远程)",
-        "Truck174": "超远程截击174 (8联卡车)",
-        "Malice6": "马利斯截击 (6x AIM-424)",
-        "MaliceER": "马利斯截击 (远程)",
-        "MaliceTruck": "马利斯截击 (8联卡车)",
-        "AAMT120Tanks": "AMRAAM卡车 (远程 3副油箱)",
-        "AAMT260Tanks": "AIM-260卡车 (远程 3副油箱)",
+        "AntiShipHeavy": "SEST 重型反舰LRASM×6",
+        "Quicksink": "SEST 快沉反舰JDAM",
+        "BigStick174": "SEST 超远程截击174",
+        "BigStick174ER": "SEST 超远程截击174 (远程)",
+        "Truck174": "SEST 超远程截击174 (8联卡车)",
+        "Malice6": "SEST 马利斯截击 (6x AIM-424)",
+        "MaliceER": "SEST 马利斯截击 (远程)",
+        "MaliceTruck": "SEST 马利斯截击 (8联卡车)",
+        "AAMT120Tanks": "SEST AMRAAM卡车 (远程 3副油箱)",
+        "AAMT260Tanks": "SEST AIM-260卡车 (远程 3副油箱)",
     },
 }
 
@@ -700,7 +702,10 @@ def main():
         sys.exit("AGMPositions not found - upstream layout changed")
     if "M424Positions" in text:
         sys.exit("M424Positions already defined upstream - re-check")
-    text = text[:agm.end()] + "M424Positions=0,-0.0005,0\n" + text[agm.end():]
+    text = (text[:agm.end()]
+            + "M424Positions=0,-0.0005,0\n"
+            + "M424WPositions=0,-0.0005,0\n"   # WW raised 0.001 - the 424 hung low underslung
+            + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner
     marker = "[---------- WeaponMagazines ----------]"

@@ -287,6 +287,14 @@ def write_language():
     """
     d = OUT / "language_en"
     d.mkdir(parents=True, exist_ok=True)
+    (d / "loadout_names.ini").write_text(
+        "[LoadoutNames]\n"
+        "# SEST B-52 ARRW - only keys this pack introduces; Strike183 keeps its\n"
+        "# upstream name because the F-15EX also declares that key and loadout\n"
+        "# names are a GLOBAL key->name table.\n"
+        "Strike183Nuke=SEST Strike183 Nuclear (W62 + AGM-86B)\n"
+        "AntiShipLRASM=SEST AntiShip LRASM (8+8)\n",
+        encoding="utf-8")
     (d / "aircraft_names.ini").write_text(
         "# SEST B-52 ARRW - disambiguate the ARRW mod's own test aircraft.\n"
         "[usaf_b-52h_419_flts]\n"

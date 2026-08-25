@@ -40,40 +40,39 @@ NEW_KEYS = ["SEST_Intercept260", "SEST_MALICE", "SEST_AntiShipLRASM",
 # (new name, donor loadout, [(old store spec, new store spec), ...])
 DERIVATIONS = [
     ("SEST_Intercept260", "AirToAirLongRange",
-     [("fr_mica-em", "dts_aim-260")]),
+     [("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
     # The 424 mounts BARE, like the AIM-260 does - the SCALP seat's
     # -0.006 z offset floated it visibly clear of the pylon (screenshot).
     ("SEST_MALICE", "StrikeLongRange",
      [("fr_scalp-eg|SCALP", AIM424_ID),
-      ("fr_mica-em", "dts_aim-260")]),
+      ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
     ("SEST_AntiShipLRASM", "AntiShip",
      [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),   # LRASM keeps the heavy seat
-      ("fr_mica-em", "dts_aim-260")]),
-    # Heavy AAM: every EM MICA and Meteor becomes AIM-260 - six JATMs plus
-    # the IR tips, tanks still on 7/8/11 (the donor carries them).
+      ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
+    # Heavy AAM: max JATM, no tanks beyond the donor's.
     ("SEST_Intercept260Heavy", "AirToAirIntercept",
-     [("fr_mica-em", "dts_aim-260"), ("fr_meteor", "dts_aim-260")]),
+     [("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
     # LRASM with the centreline tank the AntiShip donor never fits.
     # MALICE with the centreline tank its StrikeLongRange donor never fits.
     ("SEST_MALICE_ER", "StrikeLongRange",
      [("fr_scalp-eg|SCALP", AIM424_ID),
-      ("fr_mica-em", "dts_aim-260")],
+      ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
      ["Station11=fr_tank_1200"]),
     ("SEST_LRASM_ER", "AntiShip",
      [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),
-      ("fr_mica-em", "dts_aim-260")],
+      ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
      ["Station11=fr_tank_1200"]),
 ]
 
 LOADOUT_NAMES = {
     # No store counts in the labels: the late airframes keep Meteor on the
     # fuselage stations their donors gave them, so composition varies.
-    "en": {"SEST_Intercept260": "Intercept (AIM-260)",
-           "SEST_MALICE": "InterceptMALICE (AIM-424/AIM-260)",
-           "SEST_AntiShipLRASM": "AntiShip LRASM",
-           "SEST_Intercept260Heavy": "Intercept Heavy (6x AIM-260)",
-           "SEST_LRASM_ER": "AntiShip LRASM LongRange (3 tanks)",
-           "SEST_MALICE_ER": "InterceptMALICE LongRange (3 tanks)"},
+    "en": {"SEST_Intercept260": "SEST Intercept (AIM-260)",
+           "SEST_MALICE": "SEST InterceptMALICE (AIM-424/AIM-260)",
+           "SEST_AntiShipLRASM": "SEST AntiShip LRASM",
+           "SEST_Intercept260Heavy": "SEST Intercept Heavy (6x AIM-260)",
+           "SEST_LRASM_ER": "SEST AntiShip LRASM LongRange (3 tanks)",
+           "SEST_MALICE_ER": "SEST InterceptMALICE LongRange (3 tanks)"},
 }
 
 INFO_INI = """[Language_en]
@@ -92,8 +91,10 @@ def derive(text, name, donor, swaps, airframe, extra=()):
         sys.exit(f"{airframe}: donor loadout {donor} not found")
     body = m.group(1)
     for old, new in swaps:
+        optional = old.startswith("?")
+        old = old.lstrip("?")
         n = len(re.findall(rf"^Station\d+={re.escape(old)}\s*$", body, re.M))
-        if n == 0:
+        if n == 0 and not optional:
             sys.exit(f"{airframe}/{donor}: no stations carry {old} - upstream changed")
         body = re.sub(rf"^(Station\d+=){re.escape(old)}(\s*)$", rf"\g<1>{new}\g<2>",
                       body, flags=re.M)

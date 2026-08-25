@@ -119,8 +119,8 @@ CoolDownTime=60              // minutes of maintenance after landing
 # see detect_wing_tank() for why substituting a different mesh breaks it.
 Station3=sest_aim-424
 Station4=sest_aim-424
-Station11=usn_aim-120d3
-Station12=usn_aim-120d3
+Station11=dts_aim-260
+Station12=dts_aim-260
 Station27=__WING_TANK__
 Station28=__WING_TANK__
 
@@ -142,8 +142,8 @@ LONG_RANGE_LOADOUT = """\
 [WeaponSystem1SEST_NGJLongRange]
 ReadyUpTime=25               // minutes to refuel and rearm before takeoff
 CoolDownTime=60              // minutes of maintenance after landing
-Station11=usn_aim-120d3
-Station12=usn_aim-120d3
+Station11=dts_aim-260
+Station12=dts_aim-260
 Station27=__WING_TANK__
 Station28=__WING_TANK__
 """
@@ -161,8 +161,8 @@ Station1=usn_aim-9x
 Station2=usn_aim-9x
 Station3=usn_aim-120d3
 Station4=usn_aim-120d3
-Station11=usn_aim-120d3
-Station12=usn_aim-120d3
+Station11=dts_aim-260
+Station12=dts_aim-260
 Station29=__WING_TANK__
 Station30=sest_aim-424
 Station31=sest_aim-424
@@ -187,20 +187,22 @@ JamChance=0.3
 
 LOADOUT_NAMES = {
     "en": {
-        "SEST_MaliceNGJ": "NGJ MALICE (2x AIM-424)",
-        "SEST_NGJLongRange": "NGJ Long Range (3 tanks)",
-        "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
-        "SEST_Intercept260": "Intercept (8x AIM-260)",
-        "SEST_Intercept260ER": "Intercept260 LongRange (3 tanks)",
-        "SEST_Escort260": "Escort260 (4x AIM-260, 3 tanks)",
+        "SEST_MaliceNGJ": "SEST NGJ MALICE (2x AIM-424)",
+        "SEST_NGJLongRange": "SEST NGJ Long Range (3 tanks)",
+        "SEST_MaliceBlockIII": "SEST Block III MALICE (4x AIM-424)",
+        "SEST_Intercept260": "SEST Intercept (8x AIM-260)",
+        "SEST_Intercept260ER": "SEST Intercept260 LongRange (3 tanks)",
+        "SEST_Escort260": "SEST Escort260 (4x AIM-260, 3 tanks)",
+        "SEST_SEAD260": "SEST SEAD260 (AGM-88G + AIM-260)",
     },
     "cn": {
-        "SEST_MaliceNGJ": "NGJ MALICE (2x AIM-424)",
-        "SEST_NGJLongRange": "NGJ Long Range (3 tanks)",
-        "SEST_MaliceBlockIII": "Block III MALICE (4x AIM-424)",
-        "SEST_Intercept260": "Intercept (8x AIM-260)",
-        "SEST_Intercept260ER": "Intercept260 LongRange (3 tanks)",
-        "SEST_Escort260": "Escort260 (4x AIM-260, 3 tanks)",
+        "SEST_MaliceNGJ": "SEST NGJ MALICE (2x AIM-424)",
+        "SEST_NGJLongRange": "SEST NGJ Long Range (3 tanks)",
+        "SEST_MaliceBlockIII": "SEST Block III MALICE (4x AIM-424)",
+        "SEST_Intercept260": "SEST Intercept (8x AIM-260)",
+        "SEST_Intercept260ER": "SEST Intercept260 LongRange (3 tanks)",
+        "SEST_Escort260": "SEST Escort260 (4x AIM-260, 3 tanks)",
+        "SEST_SEAD260": "SEST SEAD260 (AGM-88G + AIM-260)",
     },
 }
 
@@ -427,18 +429,18 @@ GROWLER_FIT_PLAN = {
     "MurderHornetSEADHeavy": (
         "clean SEAD: 2x AGM-88G outboard, no fuel",
         [(3, "usn_agm-88g"), (4, "usn_agm-88g"),
-         (11, "usn_aim-120d-3"), (12, "usn_aim-120d-3")]),
+         (11, "dts_aim-260"), (12, "dts_aim-260")]),
     "MurderHornetSEADHeavyTanks": (
         "SEAD with fuel: 2x AGM-88G outboard, 2 wing tanks inboard",
         [(3, "usn_agm-88g"), (4, "usn_agm-88g"),
-         (11, "usn_aim-120d-3"), (12, "usn_aim-120d-3"),
+         (11, "dts_aim-260"), (12, "dts_aim-260"),
          (27, "__WING_TANK__"), (28, "__WING_TANK__")]),
     "MurderHornetLightsOut": (
-        "max-endurance SEAD: 2x AGM-88G outboard, 3 tanks - was six AGM, "
-        "which the convention cannot carry",
+        "max-endurance SEAD: 2x AGM-88G outboard, 2 wing tanks - the centre "
+        "is the EW station, not a wet one (was the last 3-tank Growler fit)",
         [(3, "usn_agm-88g"), (4, "usn_agm-88g"),
-         (11, "usn_aim-120d-3"), (12, "usn_aim-120d-3"),
-         (27, "__WING_TANK__"), (28, "__WING_TANK__"), (29, "__WING_TANK__")]),
+         (11, "dts_aim-260"), (12, "dts_aim-260"),
+         (27, "__WING_TANK__"), (28, "__WING_TANK__")]),
 }
 
 
@@ -603,6 +605,8 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
         if text.count(f"[WeaponSystem1{key}]") != 1:
             sys.exit(f"{source.name}: invalid generated {key} section count")
 
+    text = derive_sead260(text, source.name)
+    text = raise_610_wing_tanks(text, source.name)
     aircraft = OUT / "aircraft"
     aircraft.mkdir(parents=True, exist_ok=True)
     (aircraft / destination_name).write_text(normalize_generated_text(text), encoding="utf-8")
@@ -620,6 +624,60 @@ def replace_harpoons(text: str, source_name: str) -> str:
     if n == 0:
         sys.exit(f"{source_name}: no AGM-84N found - upstream anti-ship fits changed")
     print(f"    {source_name}: {n} Harpoon rounds replaced with LRASM")
+    return text
+
+
+def derive_sead260(text: str, source_name: str) -> str:
+    """Best-of SEAD for the 2020-family Growlers: AGM-88G AARGM-ER plus
+    AIM-260, cloned from the airframe's own [SEAD] fit (the legacy Growler's
+    reshaped MurderHornetSEADHeavyTanks already IS this fit, so it is skipped
+    rather than duplicated under a second name)."""
+    m = re.search(r"^\[WeaponSystem1SEAD\][^\n]*\n(.*?)(?=^\[)", text, re.M | re.S)
+    if not m:
+        return text
+    body = m.group(1)
+    # Adaptive: each airframe's SEAD carries its own era of rounds. Upgrade
+    # whatever ARM and AMRAAM variants are present; require that at least one
+    # swap actually landed so a silently-empty derivation cannot ship.
+    swapped = 0
+    for old, new in (("usn_agm-88e", "usn_agm-88g"), ("usn_agm-88c", "usn_agm-88g"),
+                     ("usaf_aim-120c", "dts_aim-260"), ("usn_aim-120d-3", "dts_aim-260"),
+                     ("usn_aim-120d3", "dts_aim-260"), ("usn_aim-120b", "dts_aim-260")):
+        if old in body:
+            body = body.replace(old, new)
+            swapped += 1
+    if swapped == 0 and "usn_agm-88g" not in body:
+        sys.exit(f"{source_name}: SEAD donor carries nothing recognisable - re-check SEAD260")
+    # extend_loadouts edits the AvailableLoadouts line ABOVE the loadout
+    # blocks, so every offset held from before it - including m.end() - is
+    # stale afterwards. Re-find the SEAD block on the mutated text before
+    # splicing, or the clone lands mid-line 13 characters short.
+    text = extend_loadouts(text, ["SEST_SEAD260"], source_name)
+    m = re.search(r"^\[WeaponSystem1SEAD\][^\n]*\n(?:.*?)(?=^\[)", text, re.M | re.S)
+    if not m:
+        sys.exit(f"{source_name}: SEAD block vanished after AvailableLoadouts edit")
+    return text[:m.end()] + "[WeaponSystem1SEST_SEAD260]\n" + body + text[m.end():]
+
+
+def raise_610_wing_tanks(text: str, source_name: str) -> str:
+    """Seat the 610 gal tanks flush on the wing pylons.
+
+    In game both 610 meshes (usaf_tank_610_f-15 on the legacy Growler,
+    usn_tank_610_f-18 on the 2020s and the E-model tanker) hang below the
+    pylon by the same margin; the 1200 gal tank on the same stations sits
+    right, so it is the 610 meshes' origin, not the stations. One raised
+    seat key, applied wherever a 610 mounts bare on stations 27/28."""
+    n = len(re.findall(r"^Station2[78]=(?:usaf_tank_610_f-15|usn_tank_610_f-18)$",
+                       text, re.M))
+    if n == 0:
+        return text
+    text = re.sub(r"^(Station2[78]=(?:usaf_tank_610_f-15|usn_tank_610_f-18))$",
+                  r"\1|SESTWT", text, flags=re.M)
+    anchor = re.search(r"^Station28=[-\d.]+,[-\d.]+,[-\d.]+[^\n]*\n", text, re.M)
+    if not anchor:
+        sys.exit(f"{source_name}: no Station28 coordinate line to anchor SESTWT")
+    text = text[:anchor.end()] + "SESTWTPositions=0,0.0015,0\n" + text[anchor.end():]
+    print(f"    {source_name}: {n} bare 610 tank(s) raised to the SESTWT seat")
     return text
 
 
@@ -649,8 +707,14 @@ def port_tanker_fit(text: str, source_name: str) -> str:
     if not anchor:
         sys.exit(f"{source_name}: no Station29 to anchor FT_Center keys")
     text = text[:anchor.end()] + keys.group(0) + text[anchor.end():]
+    block = m.group(0).replace("Station2=usn_aim-9x\n",
+                               "Station2=usn_aim-9x\n"
+                               "Station11=dts_aim-260\n"
+                               "Station12=dts_aim-260\n", 1)
+    if block.count("dts_aim-260") != 2:
+        sys.exit(f"{source_name}: tanker AIM-260 injection failed")
     marker = "[---------- WeaponMagazines ----------]"
-    text = text.replace(marker, m.group(0) + "\n" + marker, 1)
+    text = text.replace(marker, block + "\n" + marker, 1)
     return text + ("" if text.endswith("\n") else "\n") + "\n" + aar.group(0)
 
 
@@ -740,6 +804,7 @@ def build_super_hornet(file_name: str) -> None:
     if text.count("[WeaponSystem1SEST_Intercept260]") != 1:
         sys.exit(f"{source.name}: invalid generated Intercept260 section count")
 
+    text = raise_610_wing_tanks(text, source.name)
     aircraft = OUT / "aircraft"
     aircraft.mkdir(parents=True, exist_ok=True)
     (aircraft / file_name).write_text(normalize_generated_text(text), encoding="utf-8")
