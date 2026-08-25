@@ -97,11 +97,30 @@ def build_aircraft():
     if "dts_agm-183a" not in ws2_body:
         sys.exit("Strike183 no longer carries dts_agm-183a - re-check by hand")
 
-    nuke = ("[WeaponSystem1Strike183Nuke]\n" + ws1_body
+    # The bay was EMPTY on both ARRW fits - the block existed with nothing in
+    # it. Fill it from the aircraft's own donors: Strike158 proves the CSRL
+    # carries dts_agm-158b-2 (8x JASSM-ER, 800 nm) with this exact
+    # SubModelsToHide list, and the nuclear fit takes usaf_agm-86b, the real
+    # nuclear ALCM (Power 1000, from the B-52G AGM-86 mod's own family).
+    if "Station6=dts_agm-158b-2|CSRL" not in text:
+        sys.exit("dts_b-52h.ini: Strike158 no longer carries the 158B-2 CSRL - re-check")
+    if re.search(r"^Station\d+=", ws1_body, re.M):
+        sys.exit("dts_b-52h.ini: Strike183 bay is no longer empty upstream - re-check")
+    conv_bay = ws1_body + "Station6=dts_agm-158b-2|CSRL\n"
+    nuke_bay = ws1_body + "Station6=usaf_agm-86b|CSRL\n"
+
+    nuke = ("[WeaponSystem1Strike183Nuke]\n" + nuke_bay
             + "[WeaponSystem2Strike183Nuke]\n"
             + ws2_body.replace("dts_agm-183a|", "dts_agm-183a(w62)|"))
     if "(w62)" not in nuke:
         sys.exit("W62 substitution did not take - station syntax changed")
+    # and load the conventional fit's own bay in place
+    text = (text[:m.start()]
+            + "[WeaponSystem1Strike183]\n" + conv_bay
+            + "[WeaponSystem2Strike183]\n" + ws2_body
+            + text[m.end():])
+    m = re.search(r"^\[WeaponSystem1Strike183\]\n(.*?)(?=^\[WeaponSystem2Strike183\])"
+                  r"(?:\[WeaponSystem2Strike183\]\n)(.*?)(?=^\[|\Z)", text, re.M | re.S)
 
     # Append after the Strike183 pair, and register it in the picker.
     text = text[:m.end()] + "\n" + nuke + text[m.end():]
@@ -114,7 +133,7 @@ def build_aircraft():
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(text, encoding="utf-8")
     n = nuke.count("dts_agm-183a(w62)")
-    print(f"  aircraft/dts_b-52h.ini  (+Strike183Nuke, {n}x W62)")
+    print(f"  aircraft/dts_b-52h.ini  (+Strike183Nuke {n}x W62; bays: 8x JASSM-ER / 8x AGM-86B)")
 
 
 def drop_stale(*rels):
@@ -177,10 +196,19 @@ def build_b52o():
     m = re.search(r"^\[WeaponSystem2AntiShipHeavy\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
     body = m.group(1)
 
+    # Bay: the O's own Standoff donor - a CSRL of AGM-86 - minus "Pylons" from
+    # its SubModelsToHide, because unlike Standoff our fits hang ARRW out there.
+    sd = re.search(r"^\[WeaponSystem1Standoff\]\n(.*?)(?=^\[)", text, re.M | re.S)
+    if not sd or "Station6=usaf_agm-86c|CSRL" not in sd.group(1):
+        sys.exit("usaf_b-52o.ini: Standoff CSRL donor gone - upstream changed")
+    bay = sd.group(1).replace("SubModelsToHide=Pylons,", "SubModelsToHide=")
+
     blocks = ""
-    for name, round_ in (("Strike183", "dts_agm-183a"),
-                         ("Strike183Nuke", "dts_agm-183a(w62)")):
-        blocks += (f"[WeaponSystem2{name}]\n"
+    for name, round_, alcm in (("Strike183", "dts_agm-183a", "usaf_agm-86c"),
+                               ("Strike183Nuke", "dts_agm-183a(w62)", "usaf_agm-86b")):
+        blocks += (f"[WeaponSystem1{name}]\n"
+                   + bay.replace("usaf_agm-86c", alcm).rstrip("\n") + "\n"
+                   + f"[WeaponSystem2{name}]\n"
                    + body.replace("usn_agm_110l|RGM110_Rack",
                                   round_ + "|AGM183_Pylon").rstrip("\n") + "\n\n")
     text = text[:m.end()] + "\n" + blocks + text[m.end():]
@@ -193,7 +221,7 @@ def build_b52o():
     dst = OUT / "aircraft" / "usaf_b-52o.ini"
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(text, encoding="utf-8")
-    print("  aircraft/usaf_b-52o.ini  (+Strike183, +Strike183Nuke, 2 per pylon = 4 per loadout)")
+    print("  aircraft/usaf_b-52o.ini  (+Strike183/+Nuke: 4x ARRW out, 8x AGM-86C/B in the bay)")
 
 
 def build_419_flts():
