@@ -5,7 +5,7 @@ and what you actually need to be able to recover if the game install goes bad.
 
 ## A SEST pack is a patch, not a mod
 
-The packs ship **99 files and every one is a `.ini`** — not a single model,
+The packs ship **121 files and every one is a `.ini`** — not a single model,
 texture or asset bundle among them. Check it yourself:
 
 ```powershell

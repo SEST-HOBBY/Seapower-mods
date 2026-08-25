@@ -480,8 +480,8 @@
       "author": "misaka",
       "faction": "china",
       "type": "fixed-wing",
-      "status": "active",
-      "notes": "Special-mission (AEW/EW/ASW/C2) turboprop family; multiple loadouts per airframe."
+      "status": "unsubscribed",
+      "notes": "Workshop 3637954857 - catalogued under its family title, which is why the 2026-08-25 removal initially missed it and appended a duplicate 'kj-500' stub (now merged here). UNSUBSCRIBED 2026-08-25: all 45 of its files (KJ-500, KQ-200, the Y-8/Y-9 special-mission family) also ship in PLAN Pack (3775128499), which wins every contested one - zero unique content. The double definition of plaaf_kj-500 crashed the UI plan converter (ArgumentException: same key already added) once NFIII fielded that unit."
     },
     {
       "id": "eurofighter-typhoon",
@@ -1468,15 +1468,6 @@
       "type": "weapons",
       "status": "active",
       "notes": "Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed last so it loses all 13 and keeps only its unique content."
-    },
-    {
-      "id": "kj-500",
-      "title": "KJ-500",
-      "author": "",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "unsubscribed",
-      "notes": "Workshop 3637954857. UNSUBSCRIBED 2026-08-25: all 45 of its files also ship in PLAN Pack (3775128499), which wins every contested one - zero unique content. The double definition of plaaf_kj-500 crashed the UI plan converter (ArgumentException: same key already added) once NFIII fielded that unit."
     }
   ]
 }

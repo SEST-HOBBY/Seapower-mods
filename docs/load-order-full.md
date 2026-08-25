@@ -1,6 +1,6 @@
 # Full Load Order — every active mod, top to bottom
 
-Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 129 active subscriptions plus 15 SEST local packs. Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
+Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 128 active subscriptions plus 15 SEST local packs. Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
 
 Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are alphabetical — within them, order only matters between mods flagged in the conflict watchlist (`docs/conflicts-and-load-order.md`).
 
@@ -163,15 +163,14 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 137. VH-3D Marine One MOD
 138. XIAN JH-7A (歼轰-7A 飞豹)
 139. Y-20 / KJ-3000
-140. Y-8/Y-9 Special Mission Aircraft Family
 
 ## Tier 6 — airbases last
 
-141. Modern Chinese Airbase (Large)
-142. Modern Russian Airbase (Large)
-143. Modern US Airbase
+140. Modern Chinese Airbase (Large)
+141. Modern Russian Airbase (Large)
+142. Modern US Airbase
 
 ## Tier 7 — bulk arsenals, below everything they duplicate
 
-144. **Red Storm Arsenal** — LAST - 638 unique files kept, 13 duplicated ones all lose
+143. **Red Storm Arsenal** — LAST - 638 unique files kept, 13 duplicated ones all lose
 

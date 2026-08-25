@@ -66,15 +66,21 @@ powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
 
 The script auto-finds Sea Power the same way the export script did, locates `StreamingAssets`,
 and copies every pack it finds under `integration/` in. It prints one line per pack (`installed` or `updated`) — expect
-11 of 11. Re-run it any time after a `git pull` to take updates; it overwrites in place.
+15 of 15. Re-run it any time after a `git pull` to take updates; it overwrites in place.
 
-What it installs: `SEST_F-15EX_Revamp` (loadouts **and** eight F-15EX squadrons) ·
-`SEST_F-35C_JATM` · `SEST_Growler_NGJ_MALICE` (NGJ plus MALICE for modern Growlers and Block III
-Super Hornets) · `SEST_RAAF_F-35A_JATM` · `SEST_RAAF_Wedgetail` (E-7A squadrons) ·
-`SEST_Raptor_Squadrons` (seven real F-22 squadrons) · `SEST_RAAF_Bases` · `SEST_RAN_Fleet` ·
-`SEST_JMSDF_Mogami` · `SEST_TacMap_Colors` · `SEST_Zumwalt_CPS` (repairs the Zumwalt's
-hypersonic launcher) · `SEST_B52_ARRW` (AGM-183A across every in-service B-52) ·
-`SEST_Allied_Fixes` (points the P-8's anti-ship fit at a Harpoon that exists).
+What it installs (15 packs):
+`SEST_Growler_NGJ_MALICE` (NGJ + MALICE Growlers; Super Hornet AIM-260 fits incl. the
+Intercept260/ER/Escort trucks; the F/A-18E buddy tanker; RAAF 1 SQN / 6 SQN squadron
+identities) · `SEST_F-15EX_Revamp` (24+ loadouts, eight squadrons, the six-round MALICE and
+174B trucks) · `SEST_B52_ARRW` (AGM-183A with its loft profile restored, across the B-52H and
+B-52O, W62 variants, LRASM and bay ALCMs; names the ARRW mod's 419th FLTS testbed distinctly) ·
+`SEST_Allied_Fixes` (P-8 anti-ship fit repaired; HMS Ocean operates the Apache AH1) ·
+`SEST_F-35C_JATM` · `SEST_RAAF_F-35A_JATM` · `SEST_Rafale_F5` (six JATM/MALICE/LRASM fits on
+the late Rafales) · `SEST_JMSDF_Mogami` · `SEST_RAAF_Wedgetail` (E-7A squadrons) ·
+`SEST_Raptor_Squadrons` (seven real F-22 squadrons) · `SEST_Zumwalt_CPS` (repairs the
+Zumwalt's hypersonic launcher) · `SEST_TacMap_Colors` · `SEST_RAN_Fleet` (2027 armament:
+NSM, Tomahawk, SM-6) · `SEST_ADF_Persistent_ISR` (RAAF MQ-4C Triton) · `SEST_RAAF_Bases`
+(15 placeable RAAF airfields with rosters).
 
 Then, with the game **closed**, run `set-mod-order.ps1 -AddMissing` — it inserts every
 freshly installed pack into `usersettings.ini` at its canonical position, already
