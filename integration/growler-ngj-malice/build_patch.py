@@ -623,6 +623,37 @@ def replace_harpoons(text: str, source_name: str) -> str:
     return text
 
 
+def port_tanker_fit(text: str, source_name: str) -> str:
+    """Port US Naval Aviation's new buddy-tanker fit onto our F/A-18E.
+
+    USNA's 2026-08-25 update added a Tanker loadout to usn_fa-18e - a D-704
+    buddy refuelling store on the centreline (probe-and-drogue, transferable
+    external fuel) with two wing tanks. This pack shadows that file wholesale,
+    so without porting it the update would silently vanish. The blocks are
+    lifted verbatim from USNA's copy; usn_d-704 resolves via the Custom
+    Loadout Editor. E-model only, matching the author.
+    """
+    src = US_NAVAL_AVIATION / "aircraft" / "usn_fa-18e.ini"
+    donor = src.read_text(encoding="utf-8-sig", errors="replace")
+    m = re.search(r"^\[WeaponSystem1Tanker\]\n.*?(?=^\[)", donor, re.M | re.S)
+    keys = re.search(r"^FT_CenterPositions=[^\n]*\nFT_CenterRotations=[^\n]*\n",
+                     donor, re.M)
+    aar = re.search(r"^\[AerialRefuelingTanker\]\n(?:[^\n\[][^\n]*\n)*", donor, re.M)
+    if not (m and keys and aar):
+        sys.exit(f"{source_name}: USNA tanker blocks not found - upstream changed again")
+    if "Tanker" in re.search(r"^AvailableLoadouts=(.+)$", text, re.M).group(1):
+        sys.exit(f"{source_name}: Tanker already declared - drop this port")
+    text = extend_loadouts(text, ["Tanker"], source_name)
+    # position keys go into the WS1 table, next to the other centre keys
+    anchor = re.search(r"^Station29=[^\n]*\n", text, re.M)
+    if not anchor:
+        sys.exit(f"{source_name}: no Station29 to anchor FT_Center keys")
+    text = text[:anchor.end()] + keys.group(0) + text[anchor.end():]
+    marker = "[---------- WeaponMagazines ----------]"
+    text = text.replace(marker, m.group(0) + "\n" + marker, 1)
+    return text + ("" if text.endswith("\n") else "\n") + "\n" + aar.group(0)
+
+
 def derive_intercept260(text: str, source_name: str) -> str:
     """A pure AIM-260 CAP fit, cloned from the in-game-verified MALICE block.
 
@@ -701,6 +732,8 @@ def build_super_hornet(file_name: str) -> None:
                            source.name)
     text = derive_intercept260(text, source.name)
     text = derive_hornet_escorts(text, wing_tank, source.name)
+    if file_name == "usn_fa-18e.ini":
+        text = port_tanker_fit(text, source.name)
     report_tank_clearance(text, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
         sys.exit(f"{source.name}: invalid generated MALICE section count")
