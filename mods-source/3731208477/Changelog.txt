@@ -1,3 +1,8 @@
+v1.41 - 20260825
+
+	Graphical review of ship damage models.
+	S80+: Corrected the maximum number of torpedoes that can be stored in the magazine.
+
 v1.40 - 20260822
 
 	AA missile values ​​updated to incorporate the latest game modifications.
