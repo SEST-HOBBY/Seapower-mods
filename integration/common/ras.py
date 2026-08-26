@@ -642,7 +642,13 @@ CLONES = {
             # loads is stamped "REQUIRES STATS REVISION" and has no AmmoPoints,
             # the plan_ one is priced at 320. Same missile, one of them free.
             "@usn_rim-7m": ["plan_hq-10", "plan_hq-10a", "usn_rim-7m"],
-            "@usn_cal_20mm": ["plan_cal_30mm", "usn_cal_20mm"],
+            # wp_cal_30mm, not plan_cal_30mm: BOTH Chinese 30 mm rounds in the
+            # collection are unpriced, and a CIWS magazine holds 20000 of them,
+            # so picking one on nationality alone would have made the whole
+            # magazine free to refill. wp_cal_30mm is vanilla's AK-630 round at
+            # 1.06 a shell - the lineage the Type 730 descends from, and
+            # already what plan_cg_type1164e fires in this very collection.
+            "@usn_cal_20mm": ["wp_cal_30mm", "rfn_cal_30mm", "usn_cal_20mm"],
         },
         "desc": ("People's Liberation Army Navy fast combat support ship, built to keep "
                  "station with the Type 003 carriers and the Type 055 cruisers."
@@ -857,6 +863,28 @@ STORE_FIXES = {
 #                       them would be authoring that mod's landing mechanic.
 # All four hulls are still patched; the reference stays broken exactly as
 # upstream wrote it, which is the honest outcome, and the build says so.
+
+# A supplier's own magazine may not hold a round that is FREE to replenish.
+#
+# A round with no AmmoPoints costs the giving ship's pool nothing, so it
+# refills without bound - and the refit reaches straight into these magazines,
+# which is how it nearly happened twice. usn_rim-162 would have won the ESSM
+# list on name and is unpriced; both Chinese 30 mm rounds are unpriced, on a
+# magazine holding twenty thousand of them. Measured before deciding: of the 30
+# units in the whole collection with a live supply block, NOT ONE carries an
+# unpriced round in its own magazine. This pack should not be the first.
+#
+# validate() enforces that. An entry here is a deliberate, argued exception -
+# not a way to quiet the check.
+FREE_ROUND_ACCEPTED = {
+    ("rn_aor_tide", "mbda_camm"):
+        "no priced Sea Ceptor exists: mbda_camm, mbda_camm-er and rn_seaceptor "
+        "all lack AmmoPoints. The alternatives were to give an RFA tanker an "
+        "American ESSM, or to override Euromod's round and set a price this "
+        "pack has no business setting - the README's standing rule is that "
+        "prices are the upstream mods' to set. 24 rounds on one hull is a "
+        "bounded exposure; a free 20000-round CIWS magazine was not.",
+}
 
 _STORE_LINE = re.compile(r"^(Ammunition\d*|Station\d+)=([^\n]*)$", re.M)
 

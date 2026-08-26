@@ -271,6 +271,48 @@ The Tide is the one accepted exception: no priced Sea Ceptor exists. `mbda_camm`
 Pricing another mod's round is not this pack's job — 63 ship-launched rounds in the collection
 are already in that state, and the metering exists for heavy strike rounds, not point defence.
 
+#### Can armed suppliers replenish each other in a loop?
+
+A fair question once the clones carry weapons, since a supplier is a receiver too. The answer
+is **no perpetual-motion loop, but one hole that had to be closed.**
+
+*Pools are finite and they deplete.* `AmmoCapacity` is a stock, not a rate. RE-power's own
+reference doc sizes it from tonnage — *"based on the Ural Truck (7.9t weight, 6800 AP -> ~861
+AP/t) … I used 600 AP/t"* — and records that **`Unlimited` does not actually work**, which is
+why every supplier here carries a real number, 15 000 to 700 000. Two ships passing rounds
+back and forth move points between pools and magazines; they do not create them.
+
+*Every supplier can refill every other supplier, and that is intended.* All 19 carry
+`TargetTypes=Vessel,Submarine`; every round any of them holds is uncategorised, so gate 4
+never applies; and the dearest is ESSM at 500 against a lowest ceiling of 2 000, so gate 3
+never bites either. A sister ship topping up your CIWS is the mechanic working.
+
+*The hole was the unpriced round.* A round with no `AmmoPoints` costs the giving ship's pool
+**nothing** — it is the one shape in this mechanic that is genuinely unlimited rather than
+merely generous. Of the 30 units in the whole collection with a live supply block, **not one
+carries an unpriced round in its own magazine**. The refit nearly made this pack the first,
+twice: `usn_rim-162` would have won the ESSM list on name and is unpriced, and *both* Chinese
+30 mm rounds are unpriced — on a magazine holding twenty thousand shells. Neither would have
+tripped any other gate; the file is valid, the round exists, the fidelity check passes. Only
+the price is missing.
+
+So `free_round_check()` now runs after every build and fails it: **a supplier's magazine may
+not hold a round that replenishes for free.** The Type 730's magazine takes vanilla's AK-630
+round `wp_cal_30mm` at 1.06 a shell — the lineage the Type 730 descends from, and already
+what `plan_cg_type1164e` fires in this collection — rather than the free `plan_cal_30mm`.
+
+One argued exception, registered in `FREE_ROUND_ACCEPTED`: the Tide's Sea Ceptor. No priced
+CAMM exists — `mbda_camm`, `mbda_camm-er` and `rn_seaceptor` all lack `AmmoPoints` — so the
+alternatives were an American ESSM on an RFA tanker, or overriding Euromod's round to set a
+price this pack has no business setting. 24 rounds on one hull is a bounded exposure; a free
+20 000-round CIWS magazine was not.
+
+*And for scale, the largest unlimited source in the collection is not ours.* RE-power's shore
+facilities — `nv_pt_boats_docks`, `nv_pt_boats_docks_small`, `nv_headquarters` — carry
+`AmmoCapacity=9999999999` with `MaxAmmoPoints` commented out and a 3 nmi reach. Any vessel
+alongside one draws any round, at any cost, effectively forever. That is a deliberate choice
+about shore bases, and it dwarfs anything a ship-to-ship pool can do.
+
 **No `Ammunition=` line is added to a refitted launcher, and none is needed.** Red Storm
 Arsenal's own HQ-10 blocks carry one beside their `AssociatedMagazine=`, which raises the
 question. Counted rather than guessed: across vanilla and every mod there are **2 529

@@ -77,8 +77,8 @@ sys.path.insert(0, str(ROOT / "integration"))
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from common.ras import (                                          # noqa: E402
     CLONES, METER_CATEGORIES, METER_EXEMPT, METER_THRESHOLD,
-    RESTORE_ROUNDS, STORE_FIXES, SUPPLIERS, apply_refit, apply_store_fix,
-    insert_supply_block, make_reloadable)
+    FREE_ROUND_ACCEPTED, RESTORE_ROUNDS, STORE_FIXES, SUPPLIERS, apply_refit,
+    apply_store_fix, insert_supply_block, make_reloadable)
 from refine_civ_traffic import winning_file                       # noqa: E402
 
 # Hulls whose supply block is emitted by ANOTHER pack's builder, from the same
@@ -520,6 +520,57 @@ def aircraft_carried():
     return carried
 
 
+def free_round_check():
+    """No supplier may carry a round that is free to replenish.
+
+    A round with no AmmoPoints costs the giving ship's pool NOTHING, so it
+    refills without bound - the one shape in this mechanic that is genuinely
+    unlimited rather than merely generous. That matters most on a supplier,
+    because a supplier is a receiver too, so a pair of them keep each other
+    topped up at zero cost forever.
+
+    This exists because the refit reaches into exactly these magazines and
+    nearly opened the hole twice: usn_rim-162 would have won the ESSM list on
+    name and carries no AmmoPoints, and BOTH Chinese 30 mm rounds are unpriced
+    on a magazine holding twenty thousand shells. Neither would have shown up
+    in any other gate - the file is valid, the round exists, the fidelity check
+    passes. Only the price is missing.
+
+    Measured before this was written: of the 30 units in the whole collection
+    with a live supply block, not one carries an unpriced round in its own
+    magazine. FREE_ROUND_ACCEPTED is where a deliberate exception is argued.
+
+    Runs AFTER the stages, not in validate(): validate() runs first, so it
+    would have been reading the PREVIOUS build's files and passing or failing
+    on output that no longer exists. It caught its own first version doing
+    exactly that.
+    """
+    problems = []
+    for unit in list(SUPPLIERS) + list(CLONES):
+        if unit in FOREIGN_SUPPLIERS:
+            continue
+        path = OUT / "vessels" / f"{unit}.ini"
+        if not path.exists():          # first build, nothing emitted yet
+            continue
+        text = read(path)
+        for m in re.finditer(r"^\[WeaponMagazine[^\]\n]*\][^\n]*\n((?:(?!^\[).*(?:\n|$))*)",
+                             text, re.M):
+            r = re.search(r"^Ammunition1=(\S+)", m.group(1), re.M)
+            if not r:
+                continue
+            facts = ammo_facts(r.group(1))
+            if facts and facts[0]:
+                continue
+            if (unit, r.group(1)) in FREE_ROUND_ACCEPTED:
+                continue
+            problems.append(
+                f"{unit}: its magazine holds {r.group(1)}, which has no AmmoPoints "
+                "anywhere in its alias chain - it would replenish for free and never "
+                "touch a supplier's pool. Pick a priced round in the refit table, or "
+                "argue the exception in FREE_ROUND_ACCEPTED")
+    return problems
+
+
 def validate():
     problems = []
 
@@ -918,6 +969,10 @@ def main():
               {f"vessels/{u}.ini" for u, *_ in clones} | \
               {f"vessels/{u}_variants.ini" for u, *_ in clones}
     hulls, launchers, by_mod, store_fixed, unfixable, foreign = stage_launchers(owned, written)
+
+    free = free_round_check()
+    if free:
+        sys.exit("free-round check failed:\n  " + "\n  ".join(free))
 
     # No systemgroups entry is needed: the emitted SystemName is
     # TruckSupplySystem, which vanilla already localises as "Ammunition
