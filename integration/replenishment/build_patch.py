@@ -145,26 +145,34 @@ def load_order_rank():
 RANK = load_order_rank()
 
 
-def winning_vessel(unit, floor_source):
-    """The copy of a supplier hull the game actually loads.
+def supplier_source(unit, source):
+    """The copy of a supplier hull this pack forks: VANILLA, deliberately.
 
-    RE-power (3605013271) ships eight of the nine supplier hulls and wins them
-    all against vanilla, so forking vanilla would discard the copy the player
-    actually sees. Its only change is the supply block this pack replaces
-    anyway, but the rule is the same one winning_ammo() enforces: fork the
-    winner, never the copy you happen to know about. floor_source is the copy
-    validate() proved exists (vanilla or the Teide's mod), the guaranteed
-    fallback when no mod ships the hull.
+    This is the one place the pack does NOT fork the load-order winner, and it
+    is a reversal. RE-power wins nine of the ten supplier hulls, and the first
+    version of this function forked its copy on the same principle
+    winning_ammo() follows - fork what the player actually sees. That rested on
+    a claim written into the old docstring, that RE-power's "only change is the
+    supply block this pack replaces anyway".
+
+    Measured, that claim is false. Diffing RE-power against vanilla, outside the
+    supply block: 26 changed lines on the Sacramento, 21 on the Kilauea, 16 on
+    the Boris Chilikin. It DELETES the whole [OpticalView] section (no
+    binoculars), drops ArmorType from Minor to None, raises
+    MaxAccelerationFactor from 0.21 to 2.4, retunes LinearDrag and the noise
+    figures, and removes CavitationSpeed and Prairie.
+
+    Forking that copy meant re-publishing every one of those edits at tier 0,
+    under this pack's name, on hulls whose only reason to be here is a supply
+    block. So: fork vanilla (or, for the Teide, the mod that is its only
+    source), add the supply block, and inherit nothing else. RE-power still
+    loads underneath for the fourteen merchant hulls this pack does not touch,
+    which is where its own work is untouched.
+
+    `source` is the copy validate() proved exists.
     """
-    found = []
-    for path in MODS.glob(f"*/vessels/{unit}.ini"):
-        mod = path.parent.parent.name
-        if mod == "_vanilla":
-            continue
-        found.append((RANK.get(mod, 10 ** 6), path))
-    if found:
-        return sorted(found)[0][1]
-    return (VANILLA if floor_source == "vanilla" else MODS / floor_source) / "vessels" / f"{unit}.ini"
+    base = VANILLA if source == "vanilla" else MODS / source
+    return base / "vessels" / f"{unit}.ini"
 
 
 _AMMO_INDEX = None
@@ -490,7 +498,7 @@ def foreign_paths():
 # Stages.
 
 def stage_suppliers(owned):
-    """Nine upstream hulls get a tuned [SupplySystem1]."""
+    """Ten upstream hulls get a tuned [SupplySystem1]."""
     built = []
     for unit, spec in SUPPLIERS.items():
         if unit in FOREIGN_SUPPLIERS:
@@ -499,7 +507,7 @@ def stage_suppliers(owned):
         if rel.lower() in owned:
             sys.exit(f"{rel} is already shipped by another SEST pack - move this hull's "
                      "supply block into that pack's builder instead")
-        text = read(winning_vessel(unit, spec["source"]))
+        text = read(supplier_source(unit, spec["source"]))
         text, _ = insert_supply_block(text, spec, unit)
         # A supplier is a receiver too: an oiler that has taken damage should
         # be able to take its own point-defence rounds back from a sister.

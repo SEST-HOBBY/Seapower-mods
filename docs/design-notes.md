@@ -77,16 +77,21 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   the WRONG system.** Vanilla's only `[SupplySystem1]` on a hull is commented
   out on `usn_aoe_sacramento.ini` and says `VesselSupplySystem` — a name that
   appears in no working file anywhere and has no localisation. RE-power
-  (3605013271), field-tested on 24 ship suppliers, uses
+  (3605013271), field-tested on 23 ship suppliers, uses
   `SystemName=TruckSupplySystem` with `TargetTypes=Vessel` or `=Submarine` on
   every one, and its bundled reference doc gives the TargetTypes vocabulary as
   "LandUnit", "Vessel" or "Submarine". Derive from what runs, not from what a
   comment promises.
-- **No surfaced-state gate exists in the data.** No supply key mentions depth,
-  RE-power's submarine suppliers carry none, and ui.ini has only the generic
-  "Replenishment unavailable." string. Whether the engine refuses a submerged
-  receiver is untestable from files — it is an in-game question, and if the
-  answer is no, there is no data-side fix.
+- **No surfaced-state gate exists in the data, and none exists in the engine
+  either.** No supply key mentions depth, RE-power's submarine suppliers carry
+  none, and ui.ini has only the generic "Replenishment unavailable." string.
+  That left it an in-game question, and the 2026 test answered it the unwelcome
+  way: a SUBMERGED submarine replenishes. `EnabledSurfaced` (90 occurrences)
+  looked like the lever and is not — it appears only in `[Sail_Submerged]` /
+  `[Sail_Surfaced]` mesh sections, swapping the conning-tower model. So there
+  is no data-side fix: the choice is `TargetTypes=...,Submarine` or no
+  submarine resupply at all. This pack keeps it and makes surfacing a house
+  rule.
 - **A round has to clear five gates.** `TargetTypes` vs the receiver's
   `UnitType`; then `SupplyRange`/`MaxOwnVelocity`/`MaxTargetVelocity`/
   `MaxTargets`; then the round's `AmmoPoints` against the supplier's
@@ -108,6 +113,19 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   RSA's 115 hulls could ever be replenished. Scale surprises are the norm here
   — the fix was 2003 launchers across 280 hulls, not the handful the Long Beach
   example suggests.
+- **"It only changes the block we replace anyway" is a measurement, not an
+  assumption.** This pack forked RE-power's copy of the nine shared auxiliary
+  hulls on the ordinary rule — fork the load-order winner, the copy the player
+  actually sees — resting on the belief that RE-power's only edit to them was
+  the supply block. Diffed, it was 142 lines outside that block: the whole
+  `[OpticalView]` section deleted, `ArmorType` dropped `Minor` → `None`,
+  `MaxAccelerationFactor` 0.21 → 2.4, `LinearDrag` and the acoustic figures
+  retuned, `CavitationSpeed` and `Prairie` removed. At tier 0 that republishes
+  every one of them under SEST's name. Forking the winner is right when the
+  file is one you are *extending*; when you only need one block, fork VANILLA
+  and inherit nothing. `tools/check_pack_fidelity.py` proves the result but
+  cannot make this choice for you — it only checks the file equals whatever
+  upstream you named.
 - **Ships carry loadouts too, and their launchers hide in the suffix.** A
   header regex matching only `[WeaponSystemN]` silently skips
   `[WeaponSystem6AntiShip]`, `[WeaponSystem4Strike]`, `[WeaponSystem12Late]`

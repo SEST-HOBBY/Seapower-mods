@@ -31,6 +31,24 @@ def cell(text):
     return str(text).replace("|", "\\|").replace("\n", " ")
 
 
+def headline(mods):
+    """The count line, split by status rather than lumped.
+
+    This said "{len(mods)} subscribed" and quietly went wrong the moment an
+    entry was marked unsubscribed: the catalog keeps such mods on purpose, as
+    reference for a mod that was tried and dropped, so the total and the
+    subscribed count are two different numbers. The README quotes the
+    subscribed one. Printing len(mods) under the word "subscribed" made this
+    page disagree with the README by exactly the entries the catalog is
+    deliberately holding on to.
+    """
+    unsubscribed = sum(1 for m in mods if m.get("status") == "unsubscribed")
+    if not unsubscribed:
+        return f"{len(mods)} subscribed Workshop mods"
+    return (f"{len(mods)} Workshop mods catalogued — {len(mods) - unsubscribed} "
+            f"subscribed, {unsubscribed} unsubscribed and kept for reference")
+
+
 def main():
     data = json.loads((ROOT / "data" / "mod-catalog.json").read_text(encoding="utf-8"))
     mods = data["mods"]
@@ -52,7 +70,7 @@ def main():
     lines = [
         "# Sea Power Mod Catalog",
         "",
-        f"{len(mods)} subscribed Workshop mods, grouped by faction. "
+        f"{headline(mods)}, grouped by faction. "
         "Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.",
         "",
         "See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency audit, and recommended mod order.",

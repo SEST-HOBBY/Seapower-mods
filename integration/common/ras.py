@@ -13,7 +13,7 @@ the 131 exported Workshop mods is commented out, on the Sacramento:
 The three suppliers that DO work in vanilla are land units - `wp_car_ural`,
 `usa_car_m923`, `tgt_ammo_depot_small` - using `SystemName=TruckSupplySystem`.
 RE-power (3605013271, now exported under mods-source/) settles which name a
-VESSEL must use: every one of its 24 field-tested ship suppliers runs
+VESSEL must use: every one of its 23 field-tested ship suppliers runs
 `SystemName=TruckSupplySystem` with `TargetTypes=Vessel` or `=Submarine`, and
 its bundled "reference for resupply mechanics .txt" documents the TargetTypes
 vocabulary as "LandUnit", "Vessel" or "Submarine". `VesselSupplySystem` - the
@@ -112,16 +112,43 @@ DIVIDER = "[---------- Supply Systems ----------]"
 # and Kilauea "[---------- Mesh definitions----------]" - so match loosely.
 MESH_ANCHOR = re.compile(r"^\[-+\s*Mesh definitions", re.M)
 
+# Last-resort anchor, for a hull that carries neither an existing supply block
+# nor a mesh-definitions divider. Exactly one supplier is in that position: the
+# Algol's vanilla file runs [---------- AI related ----------],
+# [---------- Cargoholds ----------] and no other divider at all, and the mesh
+# sections open on a bare [Models] under a ### banner. RE-power's copy of the
+# hull has a divider because RE-power PUT one there, so this only became load-
+# bearing when the pack switched to forking vanilla.
+#
+# The optional leading run is what makes the result readable rather than merely
+# correct: it walks the match START back over the "### Main Model with collider
+# ###" banner, so the supply block lands after the compartment data and the
+# banner stays where it belongs - heading [Models], not the block just
+# inserted. Vanilla's own Sacramento orders it the same way: Cargoholds, then
+# Supply Systems, then the mesh.
+#
+# The run must OPEN on a comment line, never on a blank one, or leftmost-match
+# starts it on the blank line above the banner and swallows the separator - the
+# divider then butts straight up against the last compartment key. Opening it on
+# the `#` leaves that blank line in place as the separator, and the block's own
+# trailing blank separates it from the banner. The whole run is optional so a
+# hull whose [Models] carries no banner still anchors.
+MODELS_ANCHOR = re.compile(
+    r"^(?:#[^\n]*\n(?:#[^\n]*\n|[ \t]*\n)*)?\[Models\]", re.M)
+
 # An existing supply block, active or commented, including its divider.
 # Stripping first means all suppliers take one code path and the emitted block
-# is identical everywhere. Two shapes exist upstream and both must go: the
-# vanilla Sacramento's fully COMMENTED block (divider + # lines), and
-# RE-power's ACTIVE blocks (divider + a real [SupplySystemN] section) - since
-# RE-power now wins eight of the nine supplier hulls, its copy is what the
-# builder forks, and leaving its block in place would give a hull two
-# [SupplySystem1] sections, the exact duplicate-section defect the Zumwalt
-# pack exists to fix. Matches every occurrence: RE-power keeps vanilla's
-# commented block AND adds its own, so a file can carry two.
+# is identical everywhere - whatever the fork source happened to carry.
+#
+# Only one hull still exercises it: the vanilla Sacramento's fully COMMENTED
+# block (divider + # lines). The ACTIVE shape (divider + a real
+# [SupplySystemN] section) is RE-power's, and it stopped reaching this regex
+# when supplier_source() switched to forking vanilla. It is kept matched, and
+# the multiplicity below with it, because the cost of doing so is one
+# alternation and the cost of not doing so is a hull carrying two
+# [SupplySystem1] sections - the exact duplicate-section defect the Zumwalt
+# pack exists to fix - the day a supplier's fork source is a mod again (the
+# Teide's already is).
 EXISTING_BLOCK = re.compile(
     r"^\[-+ Supply Systems -+\][^\n]*\n"
     r"(?:#[^\n]*\n|\n|\[SupplySystem\d+\][^\n]*\n(?:(?!^\[).*\n)*)*",
@@ -201,7 +228,7 @@ def supply_spec(load, pool, rng, targets, own, target_vel, cats,
                 cap=None, target_types="Vessel,Submarine", note=""):
     """Map the readable tuning names onto the game's ini keys.
 
-    Every supply block in this repo - the nine upstream hulls, the six clones
+    Every supply block in this repo - the ten upstream hulls, the six clones
     and the RAN Supply-class that integration/ran-fleet owns - is built
     through this one function, so a hull can never end up with a block that
     silently omits half its keys.
@@ -535,28 +562,37 @@ def insert_supply_block(text, spec, unit_id):
     RE-power's active ones, or both on the same hull - so every supplier goes
     through one code path and the emitted syntax is identical everywhere.
 
-    The block then goes back where the hull already kept one, and only failing
-    that before the mesh-definitions divider. Order matters: the Algol has NO
-    mesh divider at all (it runs [---------- AI related ----------],
-    [---------- Supply Systems ----------], [---------- Cargoholds ----------]
-    and nothing else), so anchoring on the divider alone would hard-fail on it.
-    Reusing the stripped block's own offset is also the most faithful thing to
-    do - upstream chose that spot.
+    The block then goes back where the hull already kept one; failing that
+    before the mesh-definitions divider; failing that before the [Models]
+    section. Order matters, and all three rungs are load-bearing:
+
+      - Reusing the stripped block's own offset is the most faithful thing to
+        do - upstream chose that spot. Only the Sacramento qualifies now
+        (vanilla's commented block).
+      - Eight of the ten suppliers have no block but do have a mesh divider.
+      - The Algol has neither. Its vanilla file carries just two dividers, AI
+        related and Cargoholds, and opens the mesh sections on a bare [Models].
+        RE-power's copy has a Supply Systems divider only because RE-power put
+        one there, so this rung only became load-bearing when the pack switched
+        to forking vanilla instead of RE-power.
     """
-    # ALL existing blocks go, not just the first: RE-power's Sacramento keeps
-    # vanilla's commented VesselSupplySystem block AND adds its own active one,
-    # so that hull carries two. Removing back-to-front keeps the earlier
-    # offsets valid; the replacement goes back at the first block's position.
+    # ALL existing blocks go, not just the first. No hull forked today carries
+    # two, but RE-power's Sacramento does - it keeps vanilla's commented
+    # VesselSupplySystem block AND adds its own active one - so the shape is
+    # real upstream and one fork-source change away from mattering. Removing
+    # back-to-front keeps the earlier offsets valid; the replacement goes back
+    # at the first block's position.
     blocks = list(EXISTING_BLOCK.finditer(text))
     if blocks:
         at = blocks[0].start()
         for m in reversed(blocks):
             text = text[:m.start()] + text[m.end():]
         return text[:at] + render_supply_block(spec) + text[at:], len(blocks)
-    anchor = MESH_ANCHOR.search(text)
+    anchor = MESH_ANCHOR.search(text) or MODELS_ANCHOR.search(text)
     if not anchor:
-        raise SystemExit(f"{unit_id}: no existing supply block and no mesh-definitions "
-                         "divider to anchor one to - donor layout changed, re-check")
+        raise SystemExit(f"{unit_id}: no existing supply block, no mesh-definitions "
+                         "divider and no [Models] section to anchor one to - donor "
+                         "layout changed, re-check")
     at = anchor.start()
     return text[:at] + render_supply_block(spec) + text[at:], 0
 

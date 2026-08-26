@@ -7,13 +7,24 @@ whatever is tied up alongside.
 
 Built alongside **[RE-power: naval resupply in the missile age](https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271)** (3605013271), which is now subscribed and exported
 under `mods-source/`. RE-power settles the one question the data alone could not: the vessel
-supply system that actually WORKS in game is `SystemName=TruckSupplySystem` — all 24 of its
+supply system that actually WORKS in game is `SystemName=TruckSupplySystem` — all 23 of its
 field-tested ship suppliers use it, and its bundled reference doc gives the `TargetTypes`
 vocabulary as `"LandUnit", "Vessel" or "Submarine"`. The dormant `VesselSupplySystem` name from
 vanilla's commented block appears in no working file anywhere, so this pack uses the proven
-name (and inherits vanilla's "Ammunition supply" panel label for free). SEST is tier 0: for the
-eight hulls both packs touch, this pack forks **RE-power's copy** and replaces only its supply
-block; RE-power's merchant-freighter suppliers keep working below.
+name (and inherits vanilla's "Ammunition supply" panel label for free).
+
+SEST is tier 0, so for the nine hulls both packs touch, whatever this pack ships is what the
+player gets. It therefore forks **vanilla**, not RE-power. That is a reversal: it forked
+RE-power first, on the ordinary rule of forking the copy the player actually sees, and on the
+belief that RE-power's only change to those hulls was the supply block. Measured, that is not
+true — outside the supply block RE-power changes **142 lines** across the nine, and not
+cosmetically. It deletes the whole `[OpticalView]` section, drops the Sacramento's `ArmorType`
+from `Minor` to `None`, raises `MaxAccelerationFactor` from 0.21 to 2.4, retunes `LinearDrag`
+and the acoustic figures, and removes `CavitationSpeed` and `Prairie`. Forking that copy meant
+re-publishing every one of those edits at tier 0 under this pack's name, on hulls whose only
+reason to be here is a supply block. So: vanilla hull, SEST supply block, nothing else
+inherited. RE-power keeps its own hulls — its fourteen merchant-freighter suppliers are
+untouched by this pack and keep working below.
 
 ## Why RE-power's ships still can't pass an anti-ship missile
 
@@ -182,7 +193,7 @@ not underway RAS.
 
 ## Submarines, and the surfacing question
 
-Every supplier — the nine patched hulls, the six clones and HMAS Supply — carries
+Every supplier — the ten patched hulls, the six clones and HMAS Supply — carries
 `TargetTypes=Vessel,Submarine`, so a boat can rearm from whatever it reaches, with each
 supplier's own ceiling, pool, categories, range and speed gates deciding what actually moves:
 an oiler passes a surfaced boat its torpedo-class rounds while Kalibr-class weapons need an
@@ -212,14 +223,13 @@ What this pack will NOT do is fake the restriction by rewriting every submarine.
 
 ## Dependencies
 
-None hard. The pack patches whatever it finds: the nine supplier hulls come from vanilla plus
+None hard. The pack patches whatever it finds: the ten supplier hulls come from vanilla plus
 Euromod Cold War Spanish, and the launcher fix covers 22 mods it detects at build time. The
 six new hulls ride vanilla Sacramento/Kilauea and Spanish Teide meshes, so those must stay
 enabled. RE-power (3605013271) is optional and complementary.
 
-`data/mod-catalog.json` has no `mods[]` entry for RE-power because it is not in
-`data/raw-workshop-list.txt` — if you subscribe to it, add it there and re-export so the
-conflict tooling can see it.
+RE-power now has a `mods[]` entry in `data/mod-catalog.json` (`re-power-resupply`) and is
+exported under `mods-source/3605013271/`, so the conflict tooling sees it.
 
 ## Install
 
@@ -235,7 +245,7 @@ powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
 These are the things that cannot be settled from the files, in the order worth testing.
 
 1. **The system-name question is settled** — the pack emits `SystemName=TruckSupplySystem`,
-   the name all 24 of RE-power's field-tested ship suppliers use. Baseline check: put a
+   the name all 23 of RE-power's field-tested ship suppliers use. Baseline check: put a
    Sacramento and a depleted escort in a mission, use the per-unit `Stores=` key
    (`Depleted | Few | Medium | Full`) to create a real deficit, and confirm the supply panel
    appears and transfers run.

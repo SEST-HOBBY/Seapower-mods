@@ -1,6 +1,6 @@
 # Sea Power Mod Catalog
 
-133 subscribed Workshop mods, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
+133 Workshop mods catalogued — 132 subscribed, 1 unsubscribed and kept for reference, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
 
 See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency audit, and recommended mod order.
 
@@ -180,7 +180,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Pickup truck extension | unknown (added 2026-08-24) | land | Technicals / light vehicle extension. VERIFIED: adds civ_car_pickup_1983 variants (incl. armed/medic). |
 | SAM Pack | misaka | land | Surface-to-air missile systems pack (incl. MIM-104 Patriot). **Load order:** Author: 'Need on the top of TOE' — place at the top of the mod order **Overlaps:** ground-upgrade-spaa; thaad; pla-land-unit-pack (air defense overlap) |
 | Ground Upgrade: SPAA | misaka | patch | Refines ground-unit models and MODIFIES values of some weapons and units — load-order sensitive; watch for overlap with SAM Pack and land unit packs. |
-| RE-power: the resupply mod | unknown | ship | Naval resupply mechanics: 23 vessels and 4 land units, every one of them content nothing else in the collection ships. Zero file collisions, so its position is forgiving. |
+| RE-power: the resupply mod | unknown | ship | Naval resupply mechanics: 23 vessels and 4 land units, every one of them content nothing else in the collection ships. Zero collisions with any other Workshop mod, so its position among them is forgiving. It does share nine auxiliary hulls with SEST_Replenishment, which forks vanilla rather than this mod and wins them at tier 0; RE-power's own fourteen merchant suppliers are untouched and keep working below. |
 | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) 🚧 WIP | FallschimJager705 | uav | Recon quadcopter (China), Forpost-R, Mugin5, Orlan-10 (Russia), RQ-7 (USA); ongoing updates. |
 | Red Storm Arsenal |  | weapons | Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed last so it loses all 13 and keeps only its unique content. |
 

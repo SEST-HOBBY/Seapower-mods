@@ -39,11 +39,20 @@ sys.path.insert(0, str(ROOT / "integration"))
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
 sys.path.insert(0, str(ROOT / "integration" / "replenishment"))
 import build_patch as builder  # noqa: E402
-from common.ras import CLONES, RESTORE_ROUNDS, SUPPLIERS  # noqa: E402
+from common.ras import (CLONES, RESTORE_ROUNDS, SUPPLIERS,  # noqa: E402
+                        render_supply_block)
 
-# The emitted supply block: divider + [SupplySystem1] section.
-EMITTED_BLOCK = re.compile(
-    rb"^\[-+ Supply Systems -+\]\n\[SupplySystem1\]\n(?:(?!^\[).*\n)*", re.M)
+# The emitted supply block is not matched by pattern, it is RE-RENDERED from
+# the tuning table and removed literally. A regex that ran "to the next line
+# starting with [" was correct on nine hulls and wrong on the Algol, whose
+# block is followed by a ### banner rather than the mesh divider: the strip ate
+# the banner, the file then differed from vanilla by three missing lines, and
+# the gate reported a fidelity failure that did not exist. Removing the exact
+# rendered string cannot over-reach, and it proves something stronger on the
+# way past - that what shipped is byte-for-byte what ras.py's table says.
+def emitted_block(stem):
+    return render_supply_block(SUPPLIERS[stem]).encode("utf-8", "surrogateescape")
+
 # Upstream supply blocks the builder strips (active or commented, either name).
 UPSTREAM_BLOCK = re.compile(
     rb"^\[-+ Supply Systems -+\][^\n]*\n"
@@ -58,7 +67,7 @@ def upstream_for(rel):
         _, path = builder.winning_ammo(stem)
         return path
     if stem in SUPPLIERS:
-        return builder.winning_vessel(stem, SUPPLIERS[stem]["source"])
+        return builder.supplier_source(stem, SUPPLIERS[stem]["source"])
     for hull_rel, mod, _ in builder.modern_hulls():
         if hull_rel == rel:
             return builder.MODS / mod / rel
@@ -69,7 +78,10 @@ def strip_insertions(rel, blob):
     stem = Path(rel).stem
     if rel.startswith("vessels/"):
         if stem in SUPPLIERS:
-            blob = EMITTED_BLOCK.sub(b"", blob)
+            block = emitted_block(stem)
+            if block not in blob:
+                return b"<the pack's supply block is not the one ras.py renders>"
+            blob = blob.replace(block, b"", 1)
         lines = [l for l in blob.split(b"\n") if RELOAD_LINE not in l]
         return b"\n".join(lines)
     if rel.startswith("ammunition/"):
