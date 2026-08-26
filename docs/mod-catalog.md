@@ -1,10 +1,10 @@
 # Sea Power Mod Catalog
 
-127 subscribed Workshop mods, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
+130 subscribed Workshop mods, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
 
 See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency audit, and recommended mod order.
 
-## United States (35)
+## United States (36)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
@@ -42,6 +42,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Nimitz Expanded | Username | ship | Adds the last eight Nimitz-class carriers with custom hull numbers and liveries. **Overlaps:** ado-nimitz-2000s; flight-deck-ops (both override Nimitz-class deck/data its eight hulls likely clone) |
 | Virginia-, Seawolf-, and Ohio-class Submarines | ManeuverWarfare | submarine | Ohio SSBN/SSGN, Seawolf and Jimmy Carter, Virginia (incl. dry deck shelter version) kitbashes. |
 | General Atomics MQ-9 Reaper | MyGo!!!!!鼓手椎名立希 | uav | Armed reconnaissance UAV. |
+| ARRW (AGM-183) |  | weapons | Workshop 3502273861. Adds its OWN AGM-183 ammunition - it does NOT collide with the Dingtools Weapon Pack's dts_agm-183a that the F-15EX Strike183 fits use. Verified with tools/check_mod_conflicts.py: zero whole-file collisions. |
 | Dingtools Weapon Pack | dingtools | weapons | Standalone weapon data pack: AIM-9X, AIM-120B/C/C-7/D-3, AIM-260A, GBU series and more. **Load order:** Author: 'Put this mod ABOVE any of my mod' (B-52H, F-15EX, B-1B, SAAB AEW&C) **Overlaps:** us-navy-2027; murder-hornet (all define modern US missiles like AIM-9X / AIM-120D — duplicate weapon-ID watch) |
 
 ## Russia / USSR (28)
@@ -92,7 +93,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Shenyang J-8 | misaka | fixed-wing | High-altitude, high-speed interceptor. |
 | XIAN JH-7A (歼轰-7A 飞豹) | 东武藏境 | fixed-wing | Twin-engine two-seat supersonic fighter-bomber, in PLAAF service 2005. **Overlaps:** PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors) |
 | Y-20 / KJ-3000 | ManeuverWarfare | fixed-wing | Y-20A transport, YY-20A tanker, Y-20B, KJ-3000 AEW&C. |
-| Y-8/Y-9 Special Mission Aircraft Family | misaka | fixed-wing | Special-mission (AEW/EW/ASW/C2) turboprop family; multiple loadouts per airframe. |
+| Y-8/Y-9 Special Mission Aircraft Family | misaka | fixed-wing | Workshop 3637954857 - catalogued under its family title, which is why the 2026-08-25 removal initially missed it and appended a duplicate 'kj-500' stub (now merged here). UNSUBSCRIBED 2026-08-25: all 45 of its files (KJ-500, KQ-200, the Y-8/Y-9 special-mission family) also ship in PLAN Pack (3775128499), which wins every contested one - zero unique content. The double definition of plaaf_kj-500 crashed the UI plan converter (ArgumentException: same key already added) once NFIII fielded that unit. |
 | Modern PLAN Systems | 八一of军魂 | framework | 2020s-era PLAN sensors and armaments database; same author as Fujian CV-18. Analogue of Euromod Main for the Chinese fleet. No author placement instruction; recommendation: keep above PLAN ship mods if it acts as a shared systems database (this framework role is itself inferred). |
 | PLA Land Unit Pack | misaka | land | PLA air defense (Tor-M1, HQ-17/17A, PGZ-09, HQ-6, LD-2000, HQ-7...) and other land units. Author suggests unsubscribing separate HQ-9&HQ-7 / HQ-6A / DF-15 mods — none of those are in this list, so no action needed. **Load order:** Author: 'Place this mod above any other PLA-related mods in Mod Manager' **Overlaps:** sam-pack (air defense overlap) |
 | AVIC HARBIN Z-21 | Meltemi | rotary | Speculative Chinese heavy attack helicopter based on the Z-20 platform. |
@@ -166,17 +167,19 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Shahed-136 Drone | Obiwonkanblomi | uav | Second Shahed-136 mod; speed fixed at 120 mph; borrows the launcher truck from Zero Two's mod. Redundant with the Zero Two version — pick one. UNSUBSCRIBED by user 2026-08-24 (runbook Phase 2). **Overlaps:** shahed-136-zero-two |
 | Shahed-136 Kamikaze Drone (Geran-2) | Zero Two | uav | Land-launched one-way attack drone; black and white variants, two launcher land units. Richer of the two Shahed mods. **Overlaps:** shahed-136-obiwonkanblomi |
 
-## Multi-nation packs (7)
+## Multi-nation packs (9)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
 | Apex Predators MIG-29A & F-16A | misaka | fixed-wing | Cold War MiG-29A and F-16A pair. **Overlaps:** f-16c-modern (different F-16 generation, complementary); mig-35 (different MiG-29 generation, complementary) |
 | Boeing P-8 Poseidon | Kirameki | fixed-wing | Custom-model P-8 with full weapon suite incl. modeled HAAWC; USN, Indian Navy, RAAF liveries. |
 | Armed Oil Rig with Helo MOD | unknown (added 2026-08-24) | land | Offshore platform installation with helipad — scenario objective piece. VERIFIED: adds civ_spar_rig_helo installation. |
+| David's Sling |  | land | Workshop 3558173926. Israeli SAM battery: 4 land units plus its own ammunition. Zero whole-file collisions. |
 | Pickup truck extension | unknown (added 2026-08-24) | land | Technicals / light vehicle extension. VERIFIED: adds civ_car_pickup_1983 variants (incl. armed/medic). |
 | SAM Pack | misaka | land | Surface-to-air missile systems pack (incl. MIM-104 Patriot). **Load order:** Author: 'Need on the top of TOE' — place at the top of the mod order **Overlaps:** ground-upgrade-spaa; thaad; pla-land-unit-pack (air defense overlap) |
 | Ground Upgrade: SPAA | misaka | patch | Refines ground-unit models and MODIFIES values of some weapons and units — load-order sensitive; watch for overlap with SAM Pack and land unit packs. |
 | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) 🚧 WIP | FallschimJager705 | uav | Recon quadcopter (China), Forpost-R, Mugin5, Orlan-10 (Russia), RQ-7 (USA); ongoing updates. |
+| Red Storm Arsenal |  | weapons | Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed last so it loses all 13 and keeps only its unique content. |
 
 ## Civilian (3)
 

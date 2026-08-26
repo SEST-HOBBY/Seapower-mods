@@ -1,0 +1,40 @@
+# Line-ending and encoding contract.
+#
+# Why this matters here: the .ini files under integration/*/SEST_*/ are both
+# version-controlled source AND the exact bytes tools\install-sest-packs.ps1
+# copies into the game's StreamingAssets folder. The Python builders write LF.
+# Without a pin, a Windows checkout (core.autocrlf=true by default in Git for
+# Windows) turns them into CRLF, every rebuild then reports the whole pack as
+# modified, and the installed copy stops matching the builder's output.
+#
+# Rules are last-match-wins: the vendored-export block at the bottom must stay
+# last so it overrides the per-extension rules above it.
+
+* text=auto eol=lf
+
+# --- Files we author ----------------------------------------------------------
+*.py     text eol=lf diff=python
+*.md     text eol=lf
+*.json   text eol=lf
+*.txt    text eol=lf
+*.ini    text eol=lf
+*.csv    text eol=lf
+
+# PowerShell is checked out CRLF (native Windows convention) but stored LF,
+# so a Windows editor saving CRLF produces no diff.
+*.ps1    text eol=crlf
+
+# --- Build output -------------------------------------------------------------
+# Reproduced byte-for-byte by the builders; collapsed by default in reviews.
+integration/*/SEST_*/**     linguist-generated=true
+docs/mod-catalog.md         linguist-generated=true
+docs/load-order-full.md     linguist-generated=true
+data/load-order.preview.txt linguist-generated=true
+
+# --- Vendored upstream export (must stay last) --------------------------------
+# mods-source/ is a byte-faithful mirror of the exported game and Workshop
+# files: some genuinely use CRLF and 74 carry a UTF-8 BOM. Never normalize it —
+# a re-export must produce a content diff, not a whitespace storm — and keep it
+# out of GitHub's language statistics.
+mods-source/** -text
+mods-source/** linguist-vendored=true

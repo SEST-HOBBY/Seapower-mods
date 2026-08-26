@@ -21,7 +21,7 @@ OUT = Path(__file__).resolve().parent / "SEST_F-15EX_Revamp"
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
-NEW_KEYS = ["AntiShipHeavy", "Quicksink", "BigStick174", "BigStick174ER",
+NEW_KEYS = ["SEST_AntiShipLRASM6", "Quicksink", "BigStick174", "BigStick174ER",
             "Truck174", "Malice6", "MaliceER", "MaliceTruck",
             "AAMT120Tanks", "AAMT260Tanks"]
 
@@ -31,7 +31,7 @@ NEW_SECTIONS = """\
 # (dts_ weapons); the BigStick174 loadout additionally requires Murder Hornet
 # (usn_aim-174b). The 610 gal tank is vanilla.
 
-[WeaponSystem1AntiShipHeavy]
+[WeaponSystem1SEST_AntiShipLRASM6]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT
@@ -42,7 +42,7 @@ Station10=dts_aim-9x
 Station15=usaf_tank_610_f-15|WT
 Station26=dts_anaaq-33
 Station27=dts_anaaq-13
-[WeaponSystem2AntiShipHeavy]
+[WeaponSystem2SEST_AntiShipLRASM6]
 Station1=dts_agm-158c-3|JDAM32
 Station2=dts_agm-158c-3|JDAM32
 Station3=dts_agm-158c-3|JDAM32
@@ -185,11 +185,12 @@ SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R
 # racks FILLED. The AAMT rack mesh stays visible (its hide list matches the
 # upstream truck's) and all eight belly rounds sit in real rack slots via
 # the SESTR seats - see the seat-key comment for the geometry. Sixteen
-# missiles, three tanks. The AAMT is CONFIRMED one single object - the
-# F-15EX_dts.obj part listing (read on the user's machine) has exactly one
-# "o AAMT" and no wing/belly split - so its empty wing twin racks cannot be
-# hidden separately from the fuselage racks. The wing tanks therefore take
-# the SESTWTF seat, slung 0.002 under the rack instead of through it.
+# missiles, three tanks: per wing, two rails flanking the tank pylon
+# (S1/S5 left, S2/S6 right) with the tank FLUSH on the normal WT seat
+# between them - the classic F-15 tank-between-rails picture - plus two on
+# the outer pylon (S7-S10), which sits 0.013+ outboard of the tank and
+# never contested it. The earlier clip came entirely from slinging the
+# tank low under the rack; flush, everything clears.
 Station1=dts_aim-120d-3_w|120
 Station2=dts_aim-120d-3_w|120
 Station5=dts_aim-120d-3_w|120
@@ -207,14 +208,14 @@ Station19=dts_aim-120d-3|SESTR-FR
 Station22=dts_aim-120d-3|SESTR-AR
 Station23=dts_aim-120d-3|SESTR-AL
 Station15=usaf_tank_610_f-15|WT
-Station16=usaf_tank_610_f-15|SESTWTF
-Station17=usaf_tank_610_f-15|SESTWTF
+Station16=usaf_tank_610_f-15|WT
+Station17=usaf_tank_610_f-15|WT
 
 [WeaponSystem1AAMT260Tanks]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R
-# The AIM-260 twin of the dual-rack three-tank truck above.
+# The AIM-260 twin of the three-tank truck above - same 16x layout.
 Station1=dts_aim-260_w|120
 Station2=dts_aim-260_w|120
 Station5=dts_aim-260_w|120
@@ -232,8 +233,8 @@ Station19=dts_aim-260|SESTR-FR
 Station22=dts_aim-260|SESTR-AR
 Station23=dts_aim-260|SESTR-AL
 Station15=usaf_tank_610_f-15|WT
-Station16=usaf_tank_610_f-15|SESTWTF
-Station17=usaf_tank_610_f-15|SESTWTF
+Station16=usaf_tank_610_f-15|WT
+Station17=usaf_tank_610_f-15|WT
 
 [WeaponSystem1MaliceTruck]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -261,7 +262,7 @@ Station15=usaf_tank_610_f-15|WT
 
 LOADOUT_NAMES = {
     "en": {
-        "AntiShipHeavy": "SEST AntiShipLRASM6",
+        "SEST_AntiShipLRASM6": "SEST AntiShipLRASM6",
         "Quicksink": "SEST StrikeQuicksink",
         "BigStick174": "SEST Intercept174",
         "BigStick174ER": "SEST Intercept174 LongRange",
@@ -273,7 +274,7 @@ LOADOUT_NAMES = {
         "AAMT260Tanks": "SEST AAMT260 DualRack (16x, 3 tanks)",
     },
     "cn": {
-        "AntiShipHeavy": "SEST 重型反舰LRASM×6",
+        "SEST_AntiShipLRASM6": "SEST 重型反舰LRASM×6",
         "Quicksink": "SEST 快沉反舰JDAM",
         "BigStick174": "SEST 超远程截击174",
         "BigStick174ER": "SEST 超远程截击174 (远程)",
@@ -510,7 +511,7 @@ def verify_rails_under_wing_station(text):
 def build_squadrons():
     """Complete replacement usaf_f-15ex_SEII_squadrons.ini (whole-file override)."""
     src = UPSTREAM / "aircraft" / "usaf_f-15ex_SEII_squadrons.ini"
-    upstream = src.read_text(encoding="utf-8", errors="replace")
+    upstream = src.read_text(encoding="utf-8-sig", errors="replace")
 
     # Guard: upstream's own two squadrons must still be what we think they are,
     # or we would silently change which jet wears which paint.
@@ -540,7 +541,7 @@ def build_aircraft_names(lang):
     replaced by English text; only the new units are added.
     """
     src = UPSTREAM / f"language_{lang}" / "aircraft_names.ini"
-    text = src.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")
+    text = src.read_text(encoding="utf-8-sig", errors="replace").replace("\r\n", "\n")
 
     m = re.search(r"^Default=([^,\n]+),([^,\n]*)$", text, re.M)
     if not m:
@@ -603,13 +604,24 @@ SYMMETRY_FIXES = [
      "Station4=0.0486,-0.001,-0.0079      //Right Wing pylon bottom",
      "Station4=-0.0486,-0.001,-0.0079     //Left Wing pylon bottom",
      "Station4 mirrored to the left wing (was a duplicate of the right)"),
+    # The pod stations were exempted as "slightly different heights", but the
+    # delta is 0.0035 (~24 cm) - an order of magnitude more than the pods'
+    # ~5 cm diameter difference justifies. The AAQ-33 hung visibly lower than
+    # the AAQ-13 on every strike fit. Both now sit at the pair's mean height
+    # and the same z; the targeting pod keeps 0.0004 (~3 cm) extra drop for
+    # its larger diameter.
+    ("WeaponSystem1",
+     "Station26=-0.0175,-0.019,0.0180",
+     "Station26=-0.0175,-0.0174,0.0180",
+     "Station26 AAQ-33 pod raised to the pair mean (was 24 cm below its twin)"),
+    ("WeaponSystem1",
+     "Station27=0.0175,-0.0155,0.017",
+     "Station27=0.0175,-0.0170,0.0180",
+     "Station27 AAQ-13 pod lowered to the pair mean, z matched to Station26"),
 ]
 
 # Pairs that are asymmetric on purpose and must NOT trip the guard below.
 SYMMETRY_EXEMPT = {
-    # Two different pods (AAQ-33 targeting, AAQ-13 navigation) on mounts at
-    # slightly different heights - not a mirrored pair to begin with.
-    (26, 27),
     # A single B61 on one wing station. Upstream's choice, and a real single
     # weapon carry is a thing; flagging it every build would be noise.
     (16, 17),
@@ -691,7 +703,7 @@ ApproximateVersion=0.8.2
 
 def main():
     src = UPSTREAM / "aircraft" / "usaf_f-15ex_SEII.ini"
-    text = src.read_text(encoding="utf-8")
+    text = src.read_text(encoding="utf-8-sig")
 
     # 1. Extend AvailableLoadouts
     m = re.search(r"^(AvailableLoadouts=)(.+)$", text, re.M)
@@ -740,7 +752,6 @@ def main():
             + "SESTR-ALPositions=0.0082,-0.005,0\n"
             + "SESTR-ARRotations=-2,0,0\n"
             + "SESTR-ALRotations=-2,0,0\n"
-            + "SESTWTFPositions=0,-0.002,0\n"   # DualRack wing tanks slung under the visible AAMT wing rack
             + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner
@@ -749,11 +760,14 @@ def main():
         sys.exit("WeaponMagazines marker not found — upstream layout changed")
     text = text.replace(marker, NEW_SECTIONS + marker, 1)
 
-    # 3. Validate: every referenced ammo id must exist in the ecosystem
-    search_dirs = [UPSTREAM, WEAPON_PACK, MURDER_HORNET, VANILLA]
+    # 3. Validate: every referenced ammo id must exist in the ecosystem.
+    #    Search ALL of mods-source (incl. _vanilla), not a hand-picked donor
+    #    list: usn_aim-174b ships in four mods and dts_gbu-31 in three, so a
+    #    narrow list turns "any provider present" into a hard dependency on
+    #    one specific mod (unsubscribing Murder Hornet failed this build).
     known = {AIM424_ID}  # provided by this pack itself (written below)
-    for d in search_dirs:
-        known |= {p.stem for p in d.rglob("*.ini") if p.parent.name == "ammunition"}
+    known |= {p.stem for p in (ROOT / "mods-source").rglob("*.ini")
+              if p.parent.name == "ammunition"}
     refs = set(re.findall(r"^Station\d+=([^|\s/]+)", NEW_SECTIONS, re.M))
     missing = sorted(r for r in refs if r not in known)
     if missing:
@@ -791,7 +805,7 @@ def main():
                                               encoding="utf-8")
     for lang, names in LOADOUT_NAMES.items():
         src_names = UPSTREAM / f"language_{lang}" / "loadout_names.ini"
-        body = src_names.read_text(encoding="utf-8").rstrip("\n")
+        body = src_names.read_text(encoding="utf-8-sig").rstrip("\n")
         body += "\n# ---------- SEST Revamp ----------\n"
         body += "".join(f"{k}={v}\n" for k, v in names.items())
         d = OUT / f"language_{lang}"

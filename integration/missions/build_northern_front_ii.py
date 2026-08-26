@@ -47,7 +47,7 @@ def ll(lat, lon):
     """Real-world coordinates -> mission x,z (verified against Darwin/Scherger)."""
     return round((lon - MLON) * 60.0, 1), round((lat - MLAT) * 60.0, 1)
 
-t = SRC.read_text(encoding="utf-8", errors="replace")
+t = SRC.read_text(encoding="utf-8-sig", errors="replace")
 
 # ---------- identity ----------------------------------------------------------
 t = t.replace("Name=_TempMission", "Name=NORTHERN FRONT II")

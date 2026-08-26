@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-"""Build the SEST ADF Persistent ISR pack: two Australian high-altitude ISR
-UAVs cloned from the MQ-9 Reaper mod's MQ-9 ER airframe (the collection's only
-long-wing UAV mesh).
+"""Build the SEST ADF Persistent ISR pack: the RAAF's high-altitude maritime
+ISR jet, cloned from the MQ-9 Reaper mod's MQ-9 ER airframe (the collection's
+only long-wing UAV mesh).
 
-                    pseudo-satellite. Near-nil RCS/IR signature and a purely
-                    passive sensor fit (OPAZ optics + ELINT): it emits nothing.
   raaf_mq-4c_triton MQ-4C Triton — the RAAF's maritime Global Hawk. Unarmed
                     broad-area surveillance jet with the AN/ZPY-3 MFAS 360-deg
                     radar, MTS-B optics and an ELINT/RWR fit.
 
-Both are NEW unit ids: the MQ-9 mod is untouched and must stay installed —
-meshes, materials, the gear animation file and (for the Triton) the MTS-B
-sensor definition resolve from it cross-mod. Everything else resolves from
-vanilla; the pack ships its own AN/ZPY-3 and OPAZ sensor definitions.
+It is a NEW unit id: the MQ-9 mod is untouched and must stay installed —
+meshes, materials, the gear animation file and the MTS-B sensor definition
+resolve from it cross-mod. Everything else resolves from vanilla; the pack
+ships its own AN/ZPY-3 sensor definition.
 
 Usage (repo root):  python3 integration/adf-persistent-isr/build_pack.py
 """
@@ -263,7 +261,7 @@ def extract(donor_text, start_marker, end_marker=None):
 
 def check_systems():
     problems = []
-    vanilla = VANILLA_SENSORS.read_text(encoding="utf-8", errors="replace")
+    vanilla = VANILLA_SENSORS.read_text(encoding="utf-8-sig", errors="replace")
     for name in VANILLA_SYSTEMS:
         if f"[{name}]" not in vanilla:
             problems.append(f"vanilla sensor definition missing: [{name}]")
@@ -280,7 +278,7 @@ def check_systems():
 def main():
     if not DONOR.exists():
         sys.exit(f"MQ-9 ER donor not found: {DONOR} — is mods-source exported?")
-    donor = DONOR.read_text(encoding="utf-8", errors="replace")
+    donor = DONOR.read_text(encoding="utf-8-sig", errors="replace")
 
     problems = check_systems()
 

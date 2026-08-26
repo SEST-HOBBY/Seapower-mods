@@ -89,6 +89,8 @@ def main():
 
     # --- 4: every store the SEST loadouts hang on a pylon --------------------
     for pack in sorted((ROOT / "integration").glob("*/SEST_*")):
+        if pack.parent.name == "dist":   # dist = the consolidated deployable; its content is checked via the source packs
+            continue
         for f in sorted(pack.rglob("*.ini")):
             if f.parent.name not in UNIT_DIRS:
                 continue

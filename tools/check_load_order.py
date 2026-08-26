@@ -51,22 +51,34 @@ def main():
                 ships[d.name].add(p.relative_to(d).as_posix().lower())
 
     problems, checked = [], 0
+    # Source packs deploy consolidated as SEST_Integration, so a pack whose own
+    # folder name is not a token takes the consolidated token's position. The
+    # dist folder itself is skipped: it is the union of the sources, and
+    # checking the sources keeps the per-pack messages.
+    DIST_TOKEN = "SEST_Integration"
     for pack_dir in sorted((ROOT / "integration").glob("*/SEST_*")):
+        if pack_dir.parent.name == "dist":
+            continue
         pack = pack_dir.name
         # Case-folded: the game runs on case-insensitive NTFS, so
         # Shahed_136_white.ini and shahed_136_white.ini are one file.
         mine = {p.relative_to(pack_dir).as_posix().lower() for p in pack_dir.rglob("*.ini")
                 if p.parent.name in OVERRIDE_DIRS}
-        if not mine or pack not in rank:
+        if not mine:
+            continue
+        pos = rank.get(pack, rank.get(DIST_TOKEN))
+        if pos is None:
+            problems.append(f"{pack} ships override files but is in the load order "
+                            f"neither directly nor via {DIST_TOKEN}")
             continue
         for mod, theirs in ships.items():
             shared = mine & theirs
             if not shared or mod not in rank:
                 continue
             checked += 1
-            if rank[pack] > rank[mod]:
+            if pos > rank[mod]:
                 problems.append(
-                    f"{pack} (#{rank[pack]+1}) is BELOW {mod_name(mod)} (#{rank[mod]+1})\n"
+                    f"{pack} (#{pos+1}) is BELOW {mod_name(mod)} (#{rank[mod]+1})\n"
                     f"        contested: {', '.join(sorted(shared)[:3])}"
                     + (f" +{len(shared)-3} more" if len(shared) > 3 else ""))
 

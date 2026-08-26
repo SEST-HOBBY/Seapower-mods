@@ -119,7 +119,7 @@ def system_names(kind):
     names = set()
     for f in list(ROOT.glob(f"mods-source/*/systems/{kind}.ini")) + \
              list(ROOT.glob(f"mods-source/_vanilla/original/systems/{kind}.ini")):
-        names |= set(re.findall(r"^\[([^\]]+)\]", f.read_text(encoding="utf-8", errors="replace"), re.M))
+        names |= set(re.findall(r"^\[([^\]]+)\]", f.read_text(encoding="utf-8-sig", errors="replace"), re.M))
     return names
 
 
@@ -212,11 +212,11 @@ def main():
     # usn_ircps declares Launcher1=eu_lmvls_apm, i.e. the LMVLS is the ONLY
     # thing that can fire it. That is why losing that block to the duplicate
     # section number takes the weapon off the ship entirely.
-    ircps = (EUROMOD / "ammunition" / "usn_ircps.ini").read_text(encoding="utf-8", errors="replace")
+    ircps = (EUROMOD / "ammunition" / "usn_ircps.ini").read_text(encoding="utf-8-sig", errors="replace")
     if "Launcher1=eu_lmvls_apm" not in ircps:
         sys.exit("usn_ircps no longer binds to eu_lmvls_apm — rebase this patch")
 
-    text = src.read_text(encoding="utf-8", errors="replace")
+    text = src.read_text(encoding="utf-8-sig", errors="replace")
     original_lines = len(text.splitlines())
 
     check_upstream(text)

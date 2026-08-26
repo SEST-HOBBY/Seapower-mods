@@ -35,7 +35,7 @@ def main():
         if not (JMSDF / "aircraft" / f"{helo}.ini").exists():
             sys.exit(f"JMSDF helo not found: {helo}")
 
-    text = src.read_text(encoding="utf-8", errors="replace")
+    text = src.read_text(encoding="utf-8-sig", errors="replace")
 
     text, n = re.subn(r"\[AirGroup\].*?(?=\n\[)", "[AirGroup]\njp_sh-60k=Default,1\n",
                       text, count=1, flags=re.S)
