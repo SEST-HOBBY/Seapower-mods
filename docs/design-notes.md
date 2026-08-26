@@ -106,7 +106,7 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
 - **Red Storm Arsenal models every Mk41 cell as its own bare launcher.** So the
   flag is not a deck-canister detail: without it, not one VLS round on any of
   RSA's 115 hulls could ever be replenished. Scale surprises are the norm here
-  — the fix was 2003 launchers across 279 hulls, not the handful the Long Beach
+  — the fix was 2003 launchers across 280 hulls, not the handful the Long Beach
   example suggests.
 - **Ships carry loadouts too, and their launchers hide in the suffix.** A
   header regex matching only `[WeaponSystemN]` silently skips

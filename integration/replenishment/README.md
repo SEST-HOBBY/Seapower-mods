@@ -2,7 +2,7 @@
 
 Sea Power ships a complete ship-to-ship replenishment mechanic and leaves it switched off.
 This pack turns it on, and — the part that actually matters — makes it *reach* a modern
-fleet: 279 modern hulls currently have launchers that **can never be reloaded by anything**,
+fleet: 280 modern hulls currently have launchers that **can never be reloaded by anything**,
 whatever is tied up alongside.
 
 Built alongside **[RE-power: naval resupply in the missile age](https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271)** (3605013271), which is now subscribed and exported
@@ -49,7 +49,7 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 | **Suppliers** | 10 upstream auxiliaries get a tuned `[SupplySystem1]` |
 | **New hulls** | 6 modern replenishment ships, 20 named ships, as **new unit ids** |
 | **Metering** | 85 heavy rounds get a counted `SEST_` supply category; 4 rounds repaired |
-| **Launchers** | **2003 launchers across 279 modern hulls** made reloadable |
+| **Launchers** | **2003 launchers across 280 modern hulls** made reloadable |
 
 ### The suppliers
 
