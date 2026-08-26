@@ -148,6 +148,17 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   labelled `usn_cg_ticonderoga_sps_55`, a mesh name, and the Ivan Rogov's three
   Palm Fronds mount meshes labelled `Nav_Radar`. The link the engine uses is
   `Mount=`, pointing at the section by name.
+- **A `_variants` file in a hull list is a load-order trap waiting to spring.**
+  `modern_hulls()` globbed every `*.ini` in a mod's `vessels/`, variants
+  included. A variants file holds hull numbers, flags and service dates - no
+  `[WeaponSystem]` can appear in one - so it never needed to be there. What it
+  did instead was put a load-order LOSER in the list: Nimitz Expanded ships
+  exactly three files, of which the only vessel entry is
+  `usn_cvn_nimitz_variants.ini`, and Flight Deck Ops ships that same file and
+  outranks it 17 to 38. Nothing shipped wrong, because the transform finds
+  nothing to change in a variants file - the pack was one behaviour change away
+  from forking the loser, the defect that cost `plan_cv_fujian`. Filter the
+  list to what the transform can actually act on, and the trap cannot arm.
 - **A "dangling reference" is three different problems, and two of them are
   not references.** Thirteen modern hulls were being skipped for hanging an
   ammunition id nothing defines, at a cost of 77 launchers. Two were not broken

@@ -117,6 +117,10 @@ MODERN_SOURCES = {
     "3594891803": "PLAN Submarines",
     "3433957933": "Virginia-, Seawolf-, and Ohio-class Submarines",
     "3461044389": "Gerald R. Ford-class CVN",
+    # Ships three files and no hull: _info, a language file and
+    # usn_cvn_nimitz_variants.ini. It adds named ships to the base Nimitz,
+    # which comes from Flight Deck Ops. Kept listed so it is covered the day
+    # it does ship a hull; contributes nothing until then.
     "3432592449": "Nimitz Expanded",
     "3486502935": "Type 003 Fujian / Type 004 CVN",
     "3663564190": "Type 003 Fujian CV-18",
@@ -998,6 +1002,18 @@ def modern_hulls():
     best = {}
     for mod, title in MODERN_SOURCES.items():
         for path in (MODS / mod / "vessels").glob("*.ini"):
+            # A _variants file holds hull numbers, flags and service dates - no
+            # [WeaponSystem] section can appear in one, so it can never need the
+            # launcher fix. Skipping it is not just tidiness: including them put
+            # a load-order LOSER in this list. Nimitz Expanded ships exactly
+            # three files, of which the only vessel entry is
+            # usn_cvn_nimitz_variants.ini, and Flight Deck Ops (rank 17) ships
+            # that same file and outranks it (rank 38). Nothing shipped wrong
+            # today because make_reloadable finds nothing to change in a
+            # variants file - but the pack was one behaviour change away from
+            # forking the loser, which is the defect that cost plan_cv_fujian.
+            if path.stem.endswith("_variants"):
+                continue
             rel = f"vessels/{path.name}"
             rank = RANK.get(mod, 10 ** 6)
             if rel not in best or rank < best[rel][0]:
