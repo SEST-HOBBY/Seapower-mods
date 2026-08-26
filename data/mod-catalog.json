@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry.",
-    "count": 131,
+    "count": 132,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
@@ -627,8 +627,8 @@
       "author": "misaka",
       "faction": "china",
       "type": "fixed-wing",
-      "status": "unsubscribed",
-      "notes": "Workshop 3637954857 - catalogued under its family title, which is why the 2026-08-25 removal initially missed it and appended a duplicate 'kj-500' stub (now merged here). UNSUBSCRIBED 2026-08-25: all 45 of its files (KJ-500, KQ-200, the Y-8/Y-9 special-mission family) also ship in PLAN Pack (3775128499), which wins every contested one - zero unique content. The double definition of plaaf_kj-500 crashed the UI plan converter (ArgumentException: same key already added) once NFIII fielded that unit."
+      "status": "active",
+      "notes": "Re-subscribed 2026-08-26. FULLY REDUNDANT with PLAN Pack (3775128499): all 12 of its aircraft files and every one of its ammunition files are shipped there too, so seated directly BELOW PLAN Pack every file it ships is outranked and it loads nothing. Kept because the user re-subscribed it deliberately; harmless in this position. Its only content difference is the KJ-500's Morden_RWR sensor, which PLAN Pack's version does not carry. Historical note: unsubscribed once as the suspected cause of the duplicate-key crash on quit - that crash was later traced to a mission aircraft with no resolvable default loadout, not to this mod."
     },
     {
       "id": "eurofighter-typhoon",
