@@ -9,7 +9,9 @@
       "status": "active | deprecated | wip | unsubscribed",
       "requires": "Dependencies from the mod description; entries marked (inferred) are this repo's inference, not an author statement",
       "load_order": "Author's explicit placement instruction only (quoted); repo recommendations live in notes",
-      "overlaps": "Other mods in this list covering the same platform or files (conflict watch)"
+      "overlaps": "Other mods in this list covering the same platform or files (conflict watch)",
+      "workshop_id": "Steam Workshop item id — the join key. It is the folder name under mods-source/ and the token used in data/load-order.tokens.txt, so this field is what links a catalog entry to its exported files, its load-order position and the checkers. Before it existed the id lived in prose in notes (\"Workshop 3502273861\").",
+      "local_packs": "SEST packs built in this repo. folder is the pack directory name (its load-order token and its name under StreamingAssets); source is the integration/ directory whose builder produces it."
     }
   },
   "known_missing_dependencies": [
@@ -17,1457 +19,153 @@
     "Anchor Chain preloader — the Anchor Chain workshop item IS subscribed, but per its description it 'will not function on its own' and needs its documented install steps completed.",
     "F-15C — Modern US Airbase lists an F-15C among its aircraft, and no subscribed mod provides one. Either the airbase bundles its aircraft ('Integrated Aircrafts' may mean self-contained) or this reference is unsatisfied. Verify at file level."
   ],
+  "local_packs": [
+    {"folder": "SEST_ADF_Persistent_ISR", "source": "integration/adf-persistent-isr", "builder": "build_pack.py", "title": "SEST ADF Persistent ISR"},
+    {"folder": "SEST_Allied_Fixes", "source": "integration/allied-fixes", "builder": "build_patch.py", "title": "SEST Allied Fixes"},
+    {"folder": "SEST_B52_ARRW", "source": "integration/b52-arrw", "builder": "build_patch.py", "title": "SEST B-52 ARRW"},
+    {"folder": "SEST_F-15EX_Revamp", "source": "integration/f-15ex-revamp", "builder": "build_patch.py", "title": "SEST F-15EX Revamp"},
+    {"folder": "SEST_F-35C_JATM", "source": "integration/f-35c-jatm", "builder": "build_patch.py", "title": "SEST F-35C JATM"},
+    {"folder": "SEST_Growler_NGJ_MALICE", "source": "integration/growler-ngj-malice", "builder": "build_patch.py", "title": "SEST Growler NGJ + MALICE"},
+    {"folder": "SEST_JMSDF_Mogami", "source": "integration/jmsdf-mogami", "builder": "build_patch.py", "title": "SEST JMSDF Mogami"},
+    {"folder": "SEST_RAAF_Bases", "source": "integration/raaf-bases", "builder": "build_pack.py", "title": "SEST RAAF Bases"},
+    {"folder": "SEST_RAAF_F-35A_JATM", "source": "integration/raaf-f-35a-jatm", "builder": "build_patch.py", "title": "SEST RAAF F-35A JATM"},
+    {"folder": "SEST_RAAF_Wedgetail", "source": "integration/raaf-wedgetail", "builder": "build_patch.py", "title": "SEST RAAF Wedgetail"},
+    {"folder": "SEST_RAN_Fleet", "source": "integration/ran-fleet", "builder": "build_fleet.py", "title": "SEST RAN Fleet"},
+    {"folder": "SEST_Rafale_F5", "source": "integration/rafale-f5", "builder": "build_patch.py", "title": "SEST Rafale F5"},
+    {"folder": "SEST_Raptor_Squadrons", "source": "integration/raptor-squadrons", "builder": "build_patch.py", "title": "SEST Raptor Squadrons"},
+    {"folder": "SEST_TacMap_Colors", "source": "integration/tacmap-colors", "builder": "build_pack.py", "title": "SEST TacMap Colors"},
+    {"folder": "SEST_Zumwalt_CPS", "source": "integration/zumwalt-cps", "builder": "build_patch.py", "title": "SEST Zumwalt CPS Fix"}
+  ],
   "mods": [
-    {
-      "id": "e-7a-wedgetail",
-      "title": "[DEPRECATED] E-7A Wedgetail",
-      "author": "Pog Frog",
-      "faction": "australia",
-      "type": "fixed-wing",
-      "status": "deprecated",
-      "notes": "RAAF AEW&C, Boeing 737 NG with MESA radar. Marked deprecated by author — unsubscribe candidate."
-    },
-    {
-      "id": "raaf-f-35a",
-      "title": "RAAF F-35A Lighting II",
-      "author": "Greene",
-      "faction": "australia",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "modern-us-navy (F-35C — different variant, complementary; possible shared weapon data only)"
-      ],
-      "notes": "RAAF fifth-generation multirole stealth fighter."
-    },
-    {
-      "id": "b-52h",
-      "title": "B-52H Stratofortress",
-      "author": "dingtools",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "load_order": "Keep Dingtools Weapon Pack ABOVE all dingtools mods",
-      "notes": "Long-range strategic bomber, TF33 engines.",
-      "overlaps": [
-        "b-52g-agm-86 (both carry AGM-86-family ALCM data)"
-      ]
-    },
-    {
-      "id": "shahed-136-zero-two",
-      "title": "Shahed-136 Kamikaze Drone (Geran-2)",
-      "author": "Zero Two",
-      "faction": "iran",
-      "type": "uav",
-      "status": "active",
-      "overlaps": [
-        "shahed-136-obiwonkanblomi"
-      ],
-      "notes": "Land-launched one-way attack drone; black and white variants, two launcher land units. Richer of the two Shahed mods."
-    },
-    {
-      "id": "euromod-italian-modern",
-      "title": "Euromod - Modern Italian Navy",
-      "author": "Mitchell600",
-      "faction": "italy",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "euromod-main (inferred from Euromod addon naming; not stated in the truncated description)"
-      ],
-      "notes": "Modern Italian Navy addon for Euromod."
-    },
-    {
-      "id": "e-3g",
-      "title": "<<E-3G>>",
-      "author": "SKIBIDI_RIZZLER123",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "USAF E-3 Block 40/45 AWACS upgrade."
-    },
-    {
-      "id": "f-117",
-      "title": "F-117 Nighthawk",
-      "author": "misaka",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Stealth attack aircraft with GBU-31."
-    },
-    {
-      "id": "vh-3d-marine-one",
-      "title": "VH-3D Marine One MOD",
-      "author": "plasm@n",
-      "faction": "usa",
-      "type": "rotary",
-      "status": "active",
-      "notes": "Presidential transport helicopter. Workshop ID 3478767194."
-    },
-    {
-      "id": "s-70b-2-seahawk",
-      "title": "[DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles",
-      "author": "Pog Frog",
-      "faction": "australia",
-      "type": "rotary",
-      "status": "deprecated",
-      "notes": "RAN ASW/ASST Seahawk. Marked deprecated by author — unsubscribe candidate. Description body still says 'currently WIP' — the text may predate the [DEPRECATED] title; confirm current state before unsubscribing."
-    },
-    {
-      "id": "b-52g-agm-86",
-      "title": "B-52G with AGM-86 (realistic nuke)",
-      "author": "aaaaaaaaaaaaaaaabcd",
-      "faction": "usa",
-      "type": "patch",
-      "status": "active",
-      "notes": "Adds 8 loadouts to the VANILLA B-52G; adds AGM-86B/C plus fictional anti-ship AGM-86E variants. Modifies vanilla unit — load-order sensitive.",
-      "overlaps": [
-        "b-52h (both carry AGM-86-family ALCM data)"
-      ]
-    },
-    {
-      "id": "modern-us-airbase",
-      "title": "Modern US Airbase",
-      "author": "King_Achilles_Berlin",
-      "faction": "usa",
-      "type": "airbase",
-      "status": "active",
-      "notes": "Airbase with modern US jets and helicopters. Author lists 'Integrated Aircrafts' (AC-130J, A-10, AV-8A, F-15C, F/A-18F, F-22, F-35C, B-52G, B-1, F-117, B-2, E-3, MQ-9, VH-3D, AH-64...) — unclear whether these are bundled into the mod or referenced from other mods (the F-15C matches no subscribed mod). If referenced, its F-35C / F/A-18F could point at the deprecated MyGo standalones — verify before unsubscribing those. Recommendation: keep below the aircraft mods."
-    },
-    {
-      "id": "a-10c",
-      "title": "A-10C",
-      "author": "misaka",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "requires": [
-        "a-10a (inferred from 'Based on A-10A mod')",
-        "sealifter (presumed via A-10A)"
-      ],
-      "notes": "Based on the A-10A mod; adds GBU-31/38/39, AIM-9M, GBU-10/12, Litening and ALQ-184 pods."
-    },
-    {
-      "id": "a-10a",
-      "title": "A-10A Thunderbolt II",
-      "author": "misaka",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "requires": [
-        "sealifter"
-      ],
-      "notes": "Author: 'Need SeaLifter, if unable to open, please ensure that SeaLifter is installed correctly.'"
-    },
-    {
-      "id": "type-12-ssm",
-      "title": "Type 12 SSM-ER Anti-Ship Missile System",
-      "author": "FallschimJager705",
-      "faction": "japan",
-      "type": "land",
-      "status": "active",
-      "notes": "JGSDF mobile shore-based anti-ship missile system; base and ER (900 km) variants."
-    },
-    {
-      "id": "euromod-jmsdf",
-      "title": "Euromod - Modern Japanese Maritime Self Defence Force",
-      "author": "Mitchell600",
-      "faction": "japan",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "euromod-main (inferred from Euromod addon naming; not stated in the truncated description)"
-      ],
-      "notes": "Modern JMSDF addon for Euromod."
-    },
-    {
-      "id": "italian-navy-cold-war",
-      "title": "Italian Navy Mod",
-      "author": "zzocalu",
-      "faction": "italy",
-      "type": "ship",
-      "status": "active",
-      "overlaps": [
-        "euromod-italian-modern (different era, complementary)"
-      ],
-      "notes": "Cold War Italian Navy (post-WW2 through 1960s buildup)."
-    },
-    {
-      "id": "tu-214r-family",
-      "title": "Tu-214R Family (图-214R家族)",
-      "author": "鸣山",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Tu-214 special-mission family: reconnaissance, EW, AEW&C, ASW patrol variants."
-    },
-    {
-      "id": "tu-95-as-15",
-      "title": "Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)",
-      "author": "aaaaaaaaaaaaaaaabcd",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "tu-95ms-x-101 (both add Tu-95MS variants)",
-        "tu-95k-22"
-      ],
-      "notes": "Tu-95MS with FAB-500 or up to 14 AS-15; nuclear and fictional anti-ship derivatives. WARNING: 'Changes to Munitions with VeryLarge impact size' — a global data edit that can conflict with other weapon mods."
-    },
-    {
-      "id": "more-su-24m-variants",
-      "title": "MORE SU-24M VARIANTS",
-      "author": "SKIBIDI_RIZZLER123",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Su-24M2 and other modernized Fencer variants."
-    },
-    {
-      "id": "mig-35",
-      "title": "MiG-35 Fulcrum-F (米格-35 支点-F)",
-      "author": "2154545636",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Multirole 4th-gen fighter, final MiG-29 evolution.",
-      "overlaps": [
-        "apex-predators-mig-29-f-16 (different MiG-29 generation, complementary)",
-        "R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"
-      ]
-    },
-    {
-      "id": "su-25",
-      "title": "Su-25 Frogfoot",
-      "author": "misaka",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "requires": [
-        "sealifter"
-      ],
-      "notes": "Close air support aircraft. Author: 'Need SeaLifter'."
-    },
-    {
-      "id": "apex-predators-mig-29-f-16",
-      "title": "Apex Predators MIG-29A & F-16A",
-      "author": "misaka",
-      "faction": "multi",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "f-16c-modern (different F-16 generation, complementary)",
-        "mig-35 (different MiG-29 generation, complementary)"
-      ],
-      "notes": "Cold War MiG-29A and F-16A pair."
-    },
-    {
-      "id": "3m25-meteorit",
-      "title": "3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)",
-      "author": "SKIBIDI_RIZZLER123",
-      "faction": "russia",
-      "type": "weapons",
-      "status": "active",
-      "notes": "Soviet experimental long-range strategic cruise missile (Meteorit program, authorized 1976)."
-    },
-    {
-      "id": "modern-russian-airbase",
-      "title": "Modern Russian Airbase (Large)",
-      "author": "flankymanga",
-      "faction": "russia",
-      "type": "airbase",
-      "status": "active",
-      "requires": [
-        "(inferred) the Russian aircraft mods it references — author credit line says the planes 'belong to their respective authors'"
-      ],
-      "notes": "Airbase populated from other authors' Russian aircraft mods; mission makers advised to trim aircraft counts. Recommendation (not author instruction): keep below the aircraft mods it references."
-    },
-    {
-      "id": "tu-95k-22",
-      "title": "Tu-95K-22 Bear G MOD",
-      "author": "plasm@n",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "tu-95-as-15",
-        "tu-95ms-x-101"
-      ],
-      "notes": "Bear G rebuild with Kh-22 (AS-4 Kitchen) missiles. Workshop ID 3411341227. (User re-subscribed 2026-08-24 — same Workshop item, no change.)"
-    },
-    {
-      "id": "tu-95ms-x-101",
-      "title": "Tu-95MS (X-101)",
-      "author": "SKIBIDI_RIZZLER123",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "tu-95-as-15 (both add Tu-95MS variants)",
-        "tu-95k-22"
-      ],
-      "notes": "Tu-95MS with Kh-101 (AS-23 Kodiak) stealth cruise missiles."
-    },
-    {
-      "id": "russian-navy-21",
-      "title": "Russian Navy 21",
-      "author": "Pointinthevoid",
-      "faction": "russia",
-      "type": "ship",
-      "status": "active",
-      "notes": "Projects 20380/20385/21631 corvettes, 11356/22350 frigates, 21956 destroyer, 11780 LHA."
-    },
-    {
-      "id": "ka-27rld",
-      "title": "Ka-27RLD",
-      "author": "Filip7370",
-      "faction": "russia",
-      "type": "rotary",
-      "status": "active",
-      "notes": "Soviet-liveried Ka-31 AEW helicopter (standalone); model credit to the Modern PLAN mod's Ka-31."
-    },
-    {
-      "id": "mi-8-t-tv",
-      "title": "Mi-8 T/TV",
-      "author": "misaka",
-      "faction": "russia",
-      "type": "rotary",
-      "status": "active",
-      "requires": [
-        "sealifter"
-      ],
-      "overlaps": [
-        "mi-8ew (different variant, complementary)"
-      ],
-      "notes": "Transport/armed transport Hip. Author: 'Need SeaLifter'."
-    },
-    {
-      "id": "mi-8ew",
-      "title": "Mi-8EW",
-      "author": "boli",
-      "faction": "russia",
-      "type": "rotary",
-      "status": "active",
-      "overlaps": [
-        "mi-8-t-tv (different variant, complementary)"
-      ],
-      "notes": "EW variant proxied from the Mi-14 in game; Azaliya OECM jammer and detection sensor."
-    },
-    {
-      "id": "tu-16n",
-      "title": "<<Tu-16N>>",
-      "author": "SKIBIDI_RIZZLER123",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Probe-and-drogue tanker for Tu-22/Tu-22M, in service 1963."
-    },
-    {
-      "id": "j-10c",
-      "title": "ChengDu J-10C Vigorous Dragon",
-      "author": "东武藏境",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "PLAAF multirole fighter; also exported (J-10CE).",
-      "overlaps": [
-        "PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"
-      ]
-    },
-    {
-      "id": "su-27ubk",
-      "title": "PLA Sukhoi Su-27UBK",
-      "author": "Not Allaaaan",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "flanker-family",
-        "j-11",
-        "j-11bs (related Flanker airframes)"
-      ],
-      "notes": "PLA twin-seat Flanker-C trainer/fighter."
-    },
-    {
-      "id": "type-003-004-maneuverwarfare",
-      "title": "Type 003 Fujian / Type 004 CVN Aircraft Carriers",
-      "author": "ManeuverWarfare",
-      "faction": "china",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "sealifter",
-        "anchor-chain"
-      ],
-      "overlaps": [
-        "chinese-navy-plan (Fujian)",
-        "fujian-cv-18 (Fujian)"
-      ],
-      "notes": "Kitbash Fujian plus speculative Type 004. One of THREE Fujian carriers in this list — pick a primary."
-    },
-    {
-      "id": "j-8",
-      "title": "Shenyang J-8",
-      "author": "misaka",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "High-altitude, high-speed interceptor."
-    },
-    {
-      "id": "jh-7a",
-      "title": "XIAN JH-7A (歼轰-7A 飞豹)",
-      "author": "东武藏境",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Twin-engine two-seat supersonic fighter-bomber, in PLAAF service 2005.",
-      "overlaps": [
-        "PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"
-      ]
-    },
-    {
-      "id": "u-2",
-      "title": "U-2 \"Dragon Lady\"",
-      "author": "ManeuverWarfare",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Modern and 1960s U-2 models plus a Chinese weather/spy balloon. Kitbashes; explicitly do NOT require SeaLifter or third-party software."
-    },
-    {
-      "id": "j-16a",
-      "title": "Shenyang J-16A (歼-16A 潜龙)",
-      "author": "kisa希罗",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "flanker-family",
-        "j-11",
-        "j-11bs (related Flanker airframes)",
-        "PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"
-      ],
-      "notes": "Multirole twin-seat strike Flanker derived from J-11B; performance largely estimated by author."
-    },
-    {
-      "id": "chinese-navy-plan",
-      "title": "Chinese Navy (PLAN)",
-      "author": "ltjgbeam",
-      "faction": "china",
-      "type": "ship",
-      "status": "active",
-      "overlaps": [
-        "type-003-004-maneuverwarfare (Fujian)",
-        "fujian-cv-18 (Fujian)"
-      ],
-      "notes": "Fujian-class carrier, Hangzhou-class (Sovremenny), Luda Type 051. One of THREE Fujian carriers in this list."
-    },
-    {
-      "id": "modern-chinese-airbase",
-      "title": "Modern Chinese Airbase (Large)",
-      "author": "flankymanga",
-      "faction": "china",
-      "type": "airbase",
-      "status": "active",
-      "requires": [
-        "(inferred) the Chinese aircraft mods it references — author credit line says the planes 'belong to their respective authors'"
-      ],
-      "notes": "Airbase populated from other authors' Chinese aircraft mods. Recommendation (not author instruction): keep below the aircraft mods it references."
-    },
-    {
-      "id": "y-8-y-9-family",
-      "title": "Y-8/Y-9 Special Mission Aircraft Family",
-      "author": "misaka",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "unsubscribed",
-      "notes": "Workshop 3637954857 - catalogued under its family title, which is why the 2026-08-25 removal initially missed it and appended a duplicate 'kj-500' stub (now merged here). UNSUBSCRIBED 2026-08-25: all 45 of its files (KJ-500, KQ-200, the Y-8/Y-9 special-mission family) also ship in PLAN Pack (3775128499), which wins every contested one - zero unique content. The double definition of plaaf_kj-500 crashed the UI plan converter (ArgumentException: same key already added) once NFIII fielded that unit."
-    },
-    {
-      "id": "eurofighter-typhoon",
-      "title": "Eurofighter Typhoon",
-      "author": "misaka",
-      "faction": "europe",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "European multinational multirole fighter."
-    },
-    {
-      "id": "ground-upgrade-spaa",
-      "title": "Ground Upgrade: SPAA",
-      "author": "misaka",
-      "faction": "multi",
-      "type": "patch",
-      "status": "active",
-      "notes": "Refines ground-unit models and MODIFIES values of some weapons and units — load-order sensitive; watch for overlap with SAM Pack and land unit packs."
-    },
-    {
-      "id": "euromod-nordic",
-      "title": "Euromod - Modern Nordic Navy",
-      "author": "Mitchell600",
-      "faction": "europe",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "euromod-main"
-      ],
-      "notes": "Iver Huitfeldt frigate, Visby corvette (V5/V6), Skjold corvette."
-    },
-    {
-      "id": "euromod-dutch",
-      "title": "Euromod - Modern Dutch navy",
-      "author": "Mitchell600",
-      "faction": "europe",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "euromod-main"
-      ],
-      "notes": "De Zeven Provinciën-class LCF AAW frigates (incl. midlife upgrade)."
-    },
-    {
-      "id": "sea-lynx",
-      "title": "Sea Lynx",
-      "author": "petrouvis01",
-      "faction": "europe",
-      "type": "rotary",
-      "status": "active",
-      "notes": "Five Lynx variants: UK, Netherlands, West Germany, France, and more.",
-      "overlaps": [
-        "french-helicopter-package (French Navy operated the Lynx — likely a second Lynx source)",
-        "euromod-german (F123 frigates embark the Super Sea Lynx Mk88A)"
-      ]
-    },
-    {
-      "id": "euromod-german",
-      "title": "Euromod - Modern German Navy",
-      "author": "Chevron 9",
-      "faction": "europe",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "euromod-main"
-      ],
-      "notes": "Type 212A sub, F123, F124, F125 frigates.",
-      "overlaps": [
-        "sea-lynx (Super Sea Lynx Mk88A on F123)"
-      ]
-    },
-    {
-      "id": "french-army-vehicles",
-      "title": "French Army Vehicles",
-      "author": "LLinqs",
-      "faction": "france",
-      "type": "land",
-      "status": "active",
-      "notes": "Leclerc XLR, VBCI, Jaguar, AMX-10, Griffon, Serval, VBL, VAB, M270 LRU, CAESAR, SAMP/T NG, VLFS.",
-      "overlaps": [
-        "sam-pack and ground-upgrade-spaa (SAMP/T NG is a land SAM inside the air-defense overlap watch)"
-      ]
-    },
-    {
-      "id": "french-helicopter-package",
-      "title": "French Helicopter Package",
-      "author": "misaka",
-      "faction": "france",
-      "type": "rotary",
-      "status": "active",
-      "notes": "French Air Force / Navy / ALAT helicopters for assault, fire support, ASW, anti-surface roles.",
-      "overlaps": [
-        "sea-lynx (Lynx variants)"
-      ]
-    },
-    {
-      "id": "rafale",
-      "title": "Dassault Rafale",
-      "author": "misaka",
-      "faction": "france",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "French multirole carrier and land-based fighter."
-    },
-    {
-      "id": "cdg-modern-french-navy",
-      "title": "Charles De Gaulle & Modern French Navy Pack (WIP)",
-      "author": "LLinqs",
-      "faction": "france",
-      "type": "ship",
-      "status": "wip",
-      "notes": "CVN Charles de Gaulle and modern French Navy vessels; marked WIP."
-    },
-    {
-      "id": "il-78",
-      "title": "IL-78 TANKER",
-      "author": "SKIBIDI_RIZZLER123",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Il-78 aerial refueling tanker."
-    },
-    {
-      "id": "a-50-il-76",
-      "title": "Soviet AEW&C + Transport Aircraft (A-50 / Il-76)",
-      "author": "Zero Two",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "A-50 Mainstay (3 liveries), modernized A-50U, Il-76 transport."
-    },
-    {
-      "id": "su-30sm2",
-      "title": "Su-30SM2",
-      "author": "SKIBIDI_RIZZLER123",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "flanker-family (related Flanker airframes)",
-        "R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"
-      ],
-      "notes": "Modernized twin-seat Su-30 multirole fighter."
-    },
-    {
-      "id": "liaoning-type-001",
-      "title": "PLAN Type 001 Aircraft Carrier Liaoning",
-      "author": "Meltemi",
-      "faction": "china",
-      "type": "ship",
-      "status": "active",
-      "notes": "STOBAR carrier CV-16. Sister design of the Kuznetsov (Project 1143.5/6 family) — different navy, different author, no conflict expected."
-    },
-    {
-      "id": "euromod-spanish-cold-war",
-      "title": "Euromod - Cold War Spanish Navy",
-      "author": "zzocalu",
-      "faction": "spain",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "euromod-main"
-      ],
-      "notes": "Cold War Spanish Navy addon; author: 'you must have Euromod downloaded and activated'."
-    },
-    {
-      "id": "euromod-spanish-modern",
-      "title": "Euromod - Modern Spanish Navy",
-      "author": "jabeitor",
-      "faction": "spain",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "euromod-main (inferred from Euromod addon naming; not stated in the truncated description)"
-      ],
-      "notes": "Modern Spanish Navy addon for Euromod."
-    },
-    {
-      "id": "ford-cvn",
-      "title": "Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)",
-      "author": "ManeuverWarfare",
-      "faction": "usa",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "modern-us-navy"
-      ],
-      "notes": "UPDATE 2026-08-11: now requires Modern US Navy for its F-35, F/A-18 and MH-60 air wing (replacing previous third-party aircraft dependencies)."
-    },
-    {
-      "id": "us-navy-2027",
-      "title": "U.S. Navy 2027 Capabilities mod",
-      "author": "Prof_CH4OS",
-      "faction": "usa",
-      "type": "patch",
-      "status": "active",
-      "requires": [
-        "the US Navy mods it edits (compilation of edits to multiple Workshop mods)"
-      ],
-      "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test."
-    },
-    {
-      "id": "f-35c-mygo",
-      "title": "[DEPRECATED] Lockheed Martin F-35C Lighting II",
-      "author": "MyGo!!!!!鼓手椎名立希",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "deprecated",
-      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing."
-    },
-    {
-      "id": "f-35c-alt-loadouts",
-      "title": "F-35C Lightning II Alt. Loadouts",
-      "author": "Prof_CH4OS",
-      "faction": "usa",
-      "type": "patch",
-      "status": "active",
-      "requires": [
-        "f-35c-mygo (deprecated — now integrated into Modern US Navy; compatibility unverified)"
-      ],
-      "notes": "Adds loadout variants, GPS datalink, AN/APG-81 offensive ECM to the MyGo F-35C. Its target is deprecated — needs retargeting/verification against Modern US Navy's F-35C. Top integration-fix candidate. Recommendation (not author instruction): keep above its target F-35C mod."
-    },
-    {
-      "id": "mh-60r-2154545636",
-      "title": "MH-60R Seahawk",
-      "author": "2154545636",
-      "faction": "usa",
-      "type": "rotary",
-      "status": "active",
-      "overlaps": [
-        "us-naval-aviation (MH-60R)",
-        "modern-us-navy (MH-60)",
-        "ado-nimitz-2000s (adds MH-60R)"
-      ],
-      "notes": "Standalone MH-60R. FOUR sources of MH-60-family helicopters in this list — duplicate/ID-conflict watch."
-    },
-    {
-      "id": "nimitz-expanded",
-      "title": "Nimitz Expanded",
-      "author": "Username",
-      "faction": "usa",
-      "type": "ship",
-      "status": "active",
-      "notes": "Adds the last eight Nimitz-class carriers with custom hull numbers and liveries.",
-      "overlaps": [
-        "ado-nimitz-2000s",
-        "flight-deck-ops (both override Nimitz-class deck/data its eight hulls likely clone)"
-      ]
-    },
-    {
-      "id": "ado-nimitz-2000s",
-      "title": "Air Deck Operations Upgrade - Nimitz (2000s)",
-      "author": "sgtobliterator",
-      "faction": "usa",
-      "type": "patch",
-      "status": "active",
-      "overlaps": [
-        "flight-deck-ops",
-        "nimitz-expanded"
-      ],
-      "notes": "Deck-ops upgrade applied to F/A-18 and the Nimitz (2000s); adds deck models and MH-60R. Long carrier load time. Verify it does not fight Flight Deck Ops over the same carrier files. Wording ('adds the Air Deck Operations Upgrade to... the Nimitz (2000s)') suggests it may be an APPLICATION of the ADO/FDO mod rather than a competitor — verify whether it depends on Flight Deck Ops before treating the pair as pick-one."
-    },
-    {
-      "id": "flight-deck-ops",
-      "title": "Flight Deck Ops",
-      "author": "ossesek",
-      "faction": "usa",
-      "type": "patch",
-      "status": "active",
-      "overlaps": [
-        "ado-nimitz-2000s",
-        "nimitz-expanded (its eight hulls likely clone the Nimitz data both deck mods override)"
-      ],
-      "notes": "Renamed continuation of the Air Deck Operations upgrade ('Formerly, the FDO was known as the Air deck operations upgrade'): activates all elevators, simultaneous launch/recovery, reworked taxi/landing paths and deck crew."
-    },
-    {
-      "id": "f-a-18ef-mygo",
-      "title": "[DEPRECATED] Boeing F/A-18E/F Super Hornet",
-      "author": "MyGo!!!!!鼓手椎名立希",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "deprecated",
-      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing."
-    },
-    {
-      "id": "murder-hornet",
-      "title": "F/A-18 Murder Hornet with AIM-174B",
-      "author": "Cropgun",
-      "faction": "usa",
-      "type": "patch",
-      "status": "active",
-      "requires": [
-        "an F/A-18E/F source (inferred — the author names no target mod; E/F models implied by 'Fixed Green Canopy on E Model' / 'GBU-24 to F model')"
-      ],
-      "notes": "Adds Murder Hornet loadouts, AIM-174B, AIM-9X, AIM-120D, AGM-84D, JDAMs/GBU-24 (F model); canopy and afterburner fixes. Its target F/A-18E/F mod is unconfirmed (candidates: the deprecated MyGo standalone, or Modern US Navy's integrated Super Hornet) — identify it before unsubscribing the MyGo pair. Recommendation: keep above whichever F/A-18 mod it targets."
-    },
-    {
-      "id": "p-8-poseidon",
-      "title": "Boeing P-8 Poseidon",
-      "author": "Kirameki",
-      "faction": "multi",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Custom-model P-8 with full weapon suite incl. modeled HAAWC; USN, Indian Navy, RAAF liveries."
-    },
-    {
-      "id": "y-20-kj-3000",
-      "title": "Y-20 / KJ-3000",
-      "author": "ManeuverWarfare",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Y-20A transport, YY-20A tanker, Y-20B, KJ-3000 AEW&C."
-    },
-    {
-      "id": "kuznetsov-1143-5",
-      "title": "1143.5 Kuznetsov",
-      "author": "MyGo!!!!!鼓手椎名立希",
-      "faction": "russia",
-      "type": "ship",
-      "status": "active",
-      "notes": "Admiral Kuznetsov carrier; ski jump still in testing per author. Sister design of the Liaoning (Project 1143.5/6 family) — different navy, different author, no conflict expected."
-    },
-    {
-      "id": "euromod-british",
-      "title": "Euromod - Modern British Navy",
-      "author": "5_12",
-      "faction": "europe",
-      "type": "ship",
-      "status": "active",
-      "requires": [
-        "euromod-main"
-      ],
-      "notes": "Modern Royal Navy addon; author: 'requires Euromod to work as intended'."
-    },
-    {
-      "id": "mi-24",
-      "title": "Mil Mi-24 Hind",
-      "author": "MyGo!!!!!鼓手椎名立希",
-      "faction": "russia",
-      "type": "rotary",
-      "status": "active",
-      "notes": "Helicopter gunship / assault transport."
-    },
-    {
-      "id": "sam-pack",
-      "title": "SAM Pack",
-      "author": "misaka",
-      "faction": "multi",
-      "type": "land",
-      "status": "active",
-      "load_order": "Author: 'Need on the top of TOE' — place at the top of the mod order",
-      "overlaps": [
-        "ground-upgrade-spaa",
-        "thaad",
-        "pla-land-unit-pack (air defense overlap)"
-      ],
-      "notes": "Surface-to-air missile systems pack (incl. MIM-104 Patriot)."
-    },
-    {
-      "id": "f-15ex",
-      "title": "F-15 EX Eagle II",
-      "author": "dingtools",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "load_order": "Keep Dingtools Weapon Pack ABOVE all dingtools mods",
-      "notes": "4.5-gen F-15 variant."
-    },
-    {
-      "id": "ah-64",
-      "title": "AH-64 Apache",
-      "author": "misaka",
-      "faction": "usa",
-      "type": "rotary",
-      "status": "active",
-      "notes": "Attack helicopter."
-    },
-    {
-      "id": "ac-130-pack",
-      "title": "Lockheed AC-130 Pack",
-      "author": "MyGo!!!!!鼓手椎名立希",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "AC-130 gunship family."
-    },
-    {
-      "id": "flanker-family",
-      "title": "Sukhoi Flanker Family (苏霍伊侧卫家族)",
-      "author": "MyGo!!!!!鼓手椎名立希",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "su-30sm2",
-        "su-27ubk",
-        "j-11",
-        "j-11bs",
-        "j-16a (Flanker airframes across mods)",
-        "R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"
-      ],
-      "notes": "Su-27 Flanker family pack."
-    },
-    {
-      "id": "small-medium-uav-series",
-      "title": "Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)",
-      "author": "FallschimJager705",
-      "faction": "multi",
-      "type": "uav",
-      "status": "wip",
-      "notes": "Recon quadcopter (China), Forpost-R, Mugin5, Orlan-10 (Russia), RQ-7 (USA); ongoing updates."
-    },
-    {
-      "id": "mq-9-reaper",
-      "title": "General Atomics MQ-9 Reaper",
-      "author": "MyGo!!!!!鼓手椎名立希",
-      "faction": "usa",
-      "type": "uav",
-      "status": "active",
-      "notes": "Armed reconnaissance UAV."
-    },
-    {
-      "id": "us-naval-aviation",
-      "title": "United States Naval Aviation",
-      "author": "misaka",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "modern-us-navy (helicopters/aircraft)",
-        "mh-60r-2154545636"
-      ],
-      "notes": "US Naval Aviation pack (SH-60B/F, HH-60H, MH-60R and more); presented jointly by Sea Power China Test Group & Euromod."
-    },
-    {
-      "id": "euromod-main",
-      "title": "Euromod - Main Pack",
-      "author": "Mitchell600",
-      "faction": "europe",
-      "type": "framework",
-      "status": "active",
-      "notes": "Shared database of European weapons and sensors. The Euromod dependency is explicitly stated by 5 of the 8 addons in this list (Nordic, Dutch, German, British, Cold War Spanish) and inferred for the other 3 (Italian, JMSDF, Modern Spanish). No author placement instruction; recommendation: keep above all Euromod addons."
-    },
-    {
-      "id": "modern-us-navy",
-      "title": "Modern US Navy",
-      "author": "Mitchell600",
-      "faction": "usa",
-      "type": "ship",
-      "status": "active",
-      "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN.",
-      "overlaps": [
-        "us-naval-aviation (SH-60/MH-60 family)",
-        "mh-60r-2154545636",
-        "ado-nimitz-2000s (MH-60R)",
-        "f-35c-alt-loadouts and murder-hornet (patch targets after the MyGo integration)"
-      ]
-    },
-    {
-      "id": "plan-submarines",
-      "title": "PLAN Submarines",
-      "author": "ManeuverWarfare",
-      "faction": "china",
-      "type": "submarine",
-      "status": "active",
-      "notes": "Type 039G Song, 039A/B/C Yuan, Type 093/093A Shang kitbashes."
-    },
-    {
-      "id": "russian-submarines",
-      "title": "Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)",
-      "author": "ManeuverWarfare",
-      "faction": "russia",
-      "type": "submarine",
-      "status": "active",
-      "notes": "Yasen, Akula, Borei, Oscar II, Belgorod, Sierra I/II, Typhoon, Delta IV kitbashes."
-    },
-    {
-      "id": "us-submarines",
-      "title": "Virginia-, Seawolf-, and Ohio-class Submarines",
-      "author": "ManeuverWarfare",
-      "faction": "usa",
-      "type": "submarine",
-      "status": "active",
-      "notes": "Ohio SSBN/SSGN, Seawolf and Jimmy Carter, Virginia (incl. dry deck shelter version) kitbashes."
-    },
-    {
-      "id": "b-2-spirit",
-      "title": "B-2 Spirit",
-      "author": "Stroh Vogel",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "requires": [
-        "anchor-chain",
-        "sealifter"
-      ],
-      "notes": "Author: 'Requires AnchorChain and SeaLifter to be correctly installed. Subscribing isn't enough. You need the preloader.'"
-    },
-    {
-      "id": "tu-160",
-      "title": "TU-160 Blackjack",
-      "author": "2154545636",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Supersonic variable-sweep strategic bomber."
-    },
-    {
-      "id": "dingtools-weapon-pack",
-      "title": "Dingtools Weapon Pack",
-      "author": "dingtools",
-      "faction": "usa",
-      "type": "weapons",
-      "status": "active",
-      "load_order": "Author: 'Put this mod ABOVE any of my mod' (B-52H, F-15EX, B-1B, SAAB AEW&C)",
-      "overlaps": [
-        "us-navy-2027",
-        "murder-hornet (all define modern US missiles like AIM-9X / AIM-120D — duplicate weapon-ID watch)"
-      ],
-      "notes": "Standalone weapon data pack: AIM-9X, AIM-120B/C/C-7/D-3, AIM-260A, GBU series and more."
-    },
-    {
-      "id": "b-1b",
-      "title": "B-1B Lancer",
-      "author": "dingtools",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "load_order": "Keep Dingtools Weapon Pack ABOVE all dingtools mods",
-      "notes": "Supersonic variable-sweep heavy bomber."
-    },
-    {
-      "id": "shahed-136-obiwonkanblomi",
-      "title": "Shahed-136 Drone",
-      "author": "Obiwonkanblomi",
-      "faction": "iran",
-      "type": "uav",
-      "status": "unsubscribed",
-      "overlaps": [
-        "shahed-136-zero-two"
-      ],
-      "notes": "Second Shahed-136 mod; speed fixed at 120 mph; borrows the launcher truck from Zero Two's mod. Redundant with the Zero Two version — pick one. UNSUBSCRIBED by user 2026-08-24 (runbook Phase 2)."
-    },
-    {
-      "id": "su-57",
-      "title": "SU-57 Felon (重刑犯)",
-      "author": "2154545636",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Fifth-generation stealth fighter; includes an Su-57 airbase land unit.",
-      "overlaps": [
-        "R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"
-      ]
-    },
-    {
-      "id": "j-20",
-      "title": "J-20 (歼-20 威龙)",
-      "author": "2154545636",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Fifth-generation stealth air-superiority fighter.",
-      "overlaps": [
-        "PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"
-      ]
-    },
-    {
-      "id": "saab-aewc-pack",
-      "title": "SAAB AEW&C PACK",
-      "author": "dingtools",
-      "faction": "europe",
-      "type": "fixed-wing",
-      "status": "active",
-      "load_order": "Keep Dingtools Weapon Pack ABOVE all dingtools mods",
-      "notes": "Saab AEW&C aircraft (GlobalEye/Erieye family); author notes future updates postponed."
-    },
-    {
-      "id": "fujian-cv-18",
-      "title": "Type 003 Aircraft Carrier - PLANS Fujian CV-18",
-      "author": "八一of军魂",
-      "faction": "china",
-      "type": "ship",
-      "status": "active",
-      "overlaps": [
-        "type-003-004-maneuverwarfare (Fujian)",
-        "chinese-navy-plan (Fujian)"
-      ],
-      "notes": "Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it."
-    },
-    {
-      "id": "j-50",
-      "title": "Shenyang J-50 (沈阳航空工业 歼-50)",
-      "author": "2154545636",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Speculative sixth-generation stealth carrier fighter (2030s); comes with PL-10/15/16/17, LD-8a ARM, LS-6 glide bomb, TL-20 weapons.",
-      "overlaps": [
-        "PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"
-      ]
-    },
-    {
-      "id": "thaad",
-      "title": "Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)",
-      "author": "Obiwonkanblomi",
-      "faction": "usa",
-      "type": "land",
-      "status": "active",
-      "overlaps": [
-        "sam-pack (US air defense overlap)"
-      ],
-      "notes": "Anti-ballistic-missile system with AN/TPY-2 radar."
-    },
-    {
-      "id": "civil-aircraft-airbus",
-      "title": "Civil Aircraft Mod (Airbus Family)",
-      "author": "Zero Two",
-      "faction": "civilian",
-      "type": "civilian",
-      "status": "active",
-      "notes": "Commercial Airbus air traffic for scenario building."
-    },
-    {
-      "id": "j-11",
-      "title": "Shenyang J-11",
-      "author": "misaka",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "j-11bs",
-        "flanker-family",
-        "su-27ubk (Flanker airframes)"
-      ],
-      "notes": "PLA heavy twin-engine fighter based on Su-27SK."
-    },
-    {
-      "id": "j-11bs",
-      "title": "PLA Shenyang J-11BS",
-      "author": "Not Allaaaan",
-      "faction": "china",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "j-11",
-        "flanker-family",
-        "su-27ubk (Flanker airframes)"
-      ],
-      "notes": "Twin-seat localized Flanker-B+ development."
-    },
-    {
-      "id": "kc-135",
-      "title": "KC-135 STRATOTANKER",
-      "author": "SKIBIDI_RIZZLER123",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "kc-46a",
-        "kc-10a (US tanker overlap — complementary types)"
-      ],
-      "notes": "USAF aerial refueling tanker, Vietnam era to modern."
-    },
-    {
-      "id": "kc-46a",
-      "title": "KC-46A Pegasus - Strategic Tanker",
-      "author": "Zero Two",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "kc-135",
-        "kc-10a (US tanker overlap — complementary types)"
-      ],
-      "notes": "Modern USAF tanker, dual-configuration package."
-    },
-    {
-      "id": "type-071-lpd",
-      "title": "PLAN Type 071 Amphibious Transport Dock",
-      "author": "Meltemi",
-      "faction": "china",
-      "type": "ship",
-      "status": "active",
-      "notes": "Yuzhao-class LPD; mothership for air-cushion landing craft."
-    },
-    {
-      "id": "anchor-chain",
-      "title": "Anchor Chain",
-      "author": "PrimerGuided",
-      "faction": "utility",
-      "type": "framework",
-      "status": "active",
-      "notes": "Community chainloader. 'Will not function on its own' — requires the documented manual install. Required by B-2 Spirit and Type 003/004 CVN, and by any code-modifying mod. Recommendation: keep at the very top of the mod order."
-    },
-    {
-      "id": "pla-land-unit-pack",
-      "title": "PLA Land Unit Pack",
-      "author": "misaka",
-      "faction": "china",
-      "type": "land",
-      "status": "active",
-      "load_order": "Author: 'Place this mod above any other PLA-related mods in Mod Manager'",
-      "overlaps": [
-        "sam-pack (air defense overlap)"
-      ],
-      "notes": "PLA air defense (Tor-M1, HQ-17/17A, PGZ-09, HQ-6, LD-2000, HQ-7...) and other land units. Author suggests unsubscribing separate HQ-9&HQ-7 / HQ-6A / DF-15 mods — none of those are in this list, so no action needed."
-    },
-    {
-      "id": "z-21",
-      "title": "AVIC HARBIN Z-21",
-      "author": "Meltemi",
-      "faction": "china",
-      "type": "rotary",
-      "status": "active",
-      "notes": "Speculative Chinese heavy attack helicopter based on the Z-20 platform."
-    },
-    {
-      "id": "f-16c-modern",
-      "title": "F-16C Fighting Falcon (modern)",
-      "author": "Zero Two",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "apex-predators-mig-29-f-16 (different F-16 generation, complementary)"
-      ],
-      "notes": "Multiple modern F-16C blocks."
-    },
-    {
-      "id": "modern-plan-systems",
-      "title": "Modern PLAN Systems",
-      "author": "八一of军魂",
-      "faction": "china",
-      "type": "framework",
-      "status": "active",
-      "notes": "2020s-era PLAN sensors and armaments database; same author as Fujian CV-18. Analogue of Euromod Main for the Chinese fleet. No author placement instruction; recommendation: keep above PLAN ship mods if it acts as a shared systems database (this framework role is itself inferred)."
-    },
-    {
-      "id": "kc-10a",
-      "title": "McDonnell Douglas KC-10A Extender - Strategic Tanker",
-      "author": "Zero Two",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "kc-135",
-        "kc-46a (US tanker overlap — complementary types)"
-      ],
-      "notes": "Cold War and modern USAF tanker configurations."
-    },
-    {
-      "id": "f-22",
-      "title": "F-22 Raptor",
-      "author": "misaka",
-      "faction": "usa",
-      "type": "fixed-wing",
-      "status": "active",
-      "notes": "Fifth-generation air-superiority fighter."
-    },
-    {
-      "id": "kirov-pyotr-velikiy",
-      "title": "Kirov-class (Pyotr Velikiy Upgrade)",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "russia",
-      "type": "ship",
-      "status": "active",
-      "overlaps": [
-        "vanilla Kirov-class variants (check for shared unit ids/files)"
-      ],
-      "notes": "Modernized Pyotr Velikiy battlecruiser refit. VERIFIED 2026-08-24: adds new unit wp_rkr_kirov_improved — additive, no vanilla collision."
-    },
-    {
-      "id": "buildings-targets-missions",
-      "title": "Buildings and Targets for Missions",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "utility",
-      "type": "land",
-      "status": "active",
-      "notes": "Scenery and target structures for mission building. VERIFIED: land-target structures (oil pump, power plants, bunkers...)."
-    },
-    {
-      "id": "iskander-tbm",
-      "title": "Iskander TBM",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "russia",
-      "type": "land",
-      "status": "active",
-      "notes": "9K720 Iskander tactical ballistic missile launcher. VERIFIED: adds wp_ss-26_tel."
-    },
-    {
-      "id": "mogami-frigate",
-      "title": "Mogami-class Frigate",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "japan",
-      "type": "ship",
-      "status": "active",
-      "overlaps": [
-        "euromod-jmsdf (complementary — check for shared JMSDF weapon/sensor definitions)"
-      ],
-      "notes": "JMSDF stealth multirole frigate; natural companion to Euromod JMSDF. VERIFIED: adds js_ffg_mogami."
-    },
-    {
-      "id": "scud-b",
-      "title": "SCUD-B",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "russia",
-      "type": "land",
-      "status": "active",
-      "notes": "R-17 Elbrus TBM launcher (Cold War era). VERIFIED: adds wp_scud_9k72."
-    },
-    {
-      "id": "humpback-whale",
-      "title": "Humpback Whale",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "civilian",
-      "type": "civilian",
-      "status": "active",
-      "notes": "Ambience / biologic sonar contact. VERIFIED: adds civ_humpback."
-    },
-    {
-      "id": "sa-21-s400",
-      "title": "SA-21/S-400 SAM",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "russia",
-      "type": "land",
-      "status": "active",
-      "overlaps": [
-        "sam-pack and ground-upgrade-spaa (land air-defense overlap watch)"
-      ],
-      "notes": "Russian strategic SAM system; joins the land air-defense watchlist. VERIFIED: adds wp_sa-21_* TELs (9M96E/E2 and more)."
-    },
-    {
-      "id": "pickup-truck-extension",
-      "title": "Pickup truck extension",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "multi",
-      "type": "land",
-      "status": "active",
-      "notes": "Technicals / light vehicle extension. VERIFIED: adds civ_car_pickup_1983 variants (incl. armed/medic)."
-    },
-    {
-      "id": "custom-loadout-editor",
-      "title": "Custom Loadout Editor",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "utility",
-      "type": "framework",
-      "status": "active",
-      "requires": [
-        "anchor-chain (presumed — code-level tool; verify)"
-      ],
-      "notes": "VERIFIED: Anchor Chain code mod plus *_patch_clm companion units for vanilla-era aircraft/ships (F-14, AV-8A, Tarawa, MiG-27...). All patch files use NEW ids — zero overlap with the SEST loadout patches."
-    },
-    {
-      "id": "sejjil-iran-bm",
-      "title": "SEJJIL (Iran Ballistic Missiles)",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "iran",
-      "type": "land",
-      "status": "active",
-      "notes": "Iranian MRBM systems. VERIFIED: adds wp_sejjil_tel."
-    },
-    {
-      "id": "rn-lynx-has3-old",
-      "title": "Royal Navy Westland Lynx HAS.3 Kitbash [OLD]",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "europe",
-      "type": "rotary",
-      "status": "deprecated",
-      "overlaps": [
-        "sea-lynx",
-        "french-helicopter-package",
-        "euromod-german (Lynx family — now FOUR sources)"
-      ],
-      "notes": "Tagged [OLD] by its author. VERIFIED: adds rn_lynx AND rn_wildcat — the Wildcat is not in the Sea Lynx pack, which is a reason to keep this despite the tag."
-    },
-    {
-      "id": "rn-type23-old",
-      "title": "Royal Navy Type 23 'Duke Class' Frigate [OLD]",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "europe",
-      "type": "ship",
-      "status": "deprecated",
-      "overlaps": [
-        "euromod-british (redundant Type 23 hulls under different unit ids — clutter, not conflict)"
-      ],
-      "notes": "Tagged [OLD] by its author. VERIFIED 2026-08-24: uses its OWN unit ids (rn_type23, rn_type23_refit) and shares no asset paths with the Euromod British pack — it is additive, NOT a conflict, and no threat to the SEST RAN Anzac clone. Keep or drop purely for menu tidiness."
-    },
-    {
-      "id": "auxilliary-merchant-pack",
-      "title": "Auxilliary Merchant Pack",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "australia",
-      "type": "ship",
-      "status": "active",
-      "overlaps": [
-        "merchants-expanded (two merchant packs — check for duplicate hulls)"
-      ],
-      "notes": "VERIFIED: AUSTRALIAN auxiliary shipping — ran_ms_bulk, ran_msa_act_1, anl_ms_bulk (ANL = Australian National Line). Direct fit for RAN convoy/escort scenarios alongside SEST_RAN_Fleet."
-    },
-    {
-      "id": "mig-29-family",
-      "title": "MIG-29 Family",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "russia",
-      "type": "fixed-wing",
-      "status": "active",
-      "overlaps": [
-        "apex-predators-mig-29-f-16",
-        "mig-35 (MiG-29 lineage — now THREE sources)",
-        "R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"
-      ],
-      "notes": "MiG-29 variant family pack; actively updated. VERIFIED: MiG-29 variants PLUS a carrier — wp_cv_orel_1991 (Soviet CV Orel) — bonus flattop for the red side."
-    },
-    {
-      "id": "armed-oil-rig",
-      "title": "Armed Oil Rig with Helo MOD",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "multi",
-      "type": "land",
-      "status": "active",
-      "notes": "Offshore platform installation with helipad — scenario objective piece. VERIFIED: adds civ_spar_rig_helo installation."
-    },
-    {
-      "id": "merchants-expanded",
-      "title": "Merchants Expanded",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "civilian",
-      "type": "ship",
-      "status": "active",
-      "overlaps": [
-        "auxilliary-merchant-pack (two merchant packs — check for duplicate hulls)"
-      ],
-      "notes": "Expanded civilian merchant traffic. VERIFIED: civilian merchant hulls (civ_ms_*)."
-    },
-    {
-      "id": "ai-doctrine-overhaul",
-      "title": "AI Doctrine Overhaul",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "utility",
-      "type": "framework",
-      "status": "active",
-      "requires": [
-        "anchor-chain (presumed — code-level behavior mod; verify)"
-      ],
-      "notes": "VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement."
-    },
-    {
-      "id": "better-tacmap",
-      "title": "Better TacMap",
-      "author": "unknown (added 2026-08-24)",
-      "faction": "utility",
-      "type": "framework",
-      "status": "active",
-      "requires": [
-        "anchor-chain (presumed — UI code mod; verify)"
-      ],
-      "notes": "VERIFIED: pure code mod (settings.cfg only in export) — Anchor Chain family UI overhaul."
-    },
-    {
-      "id": "arrw",
-      "title": "ARRW (AGM-183)",
-      "author": "",
-      "faction": "usa",
-      "type": "weapons",
-      "status": "active",
-      "notes": "Workshop 3502273861. Adds its OWN AGM-183 ammunition - it does NOT collide with the Dingtools Weapon Pack's dts_agm-183a that the F-15EX Strike183 fits use. Verified with tools/check_mod_conflicts.py: zero whole-file collisions."
-    },
-    {
-      "id": "davids-sling",
-      "title": "David's Sling",
-      "author": "",
-      "faction": "multi",
-      "type": "land",
-      "status": "active",
-      "notes": "Workshop 3558173926. Israeli SAM battery: 4 land units plus its own ammunition. Zero whole-file collisions."
-    },
-    {
-      "id": "red-storm-arsenal",
-      "title": "Red Storm Arsenal",
-      "author": "",
-      "faction": "multi",
-      "type": "weapons",
-      "status": "active",
-      "notes": "Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed last so it loses all 13 and keeps only its unique content."
-    }
+    {"id": "e-7a-wedgetail", "workshop_id": "3499239964", "title": "[DEPRECATED] E-7A Wedgetail", "author": "Pog Frog", "faction": "australia", "type": "fixed-wing", "status": "deprecated", "notes": "RAAF AEW&C, Boeing 737 NG with MESA radar. Marked deprecated by author — unsubscribe candidate."},
+    {"id": "raaf-f-35a", "workshop_id": "3514484654", "title": "RAAF F-35A Lighting II", "author": "Greene", "faction": "australia", "type": "fixed-wing", "status": "active", "overlaps": ["modern-us-navy (F-35C — different variant, complementary; possible shared weapon data only)"], "notes": "RAAF fifth-generation multirole stealth fighter."},
+    {"id": "b-52h", "workshop_id": "3741944366", "title": "B-52H Stratofortress", "author": "dingtools", "faction": "usa", "type": "fixed-wing", "status": "active", "load_order": "Keep Dingtools Weapon Pack ABOVE all dingtools mods", "notes": "Long-range strategic bomber, TF33 engines.", "overlaps": ["b-52g-agm-86 (both carry AGM-86-family ALCM data)"]},
+    {"id": "shahed-136-zero-two", "workshop_id": "3497601759", "title": "Shahed-136 Kamikaze Drone (Geran-2)", "author": "Zero Two", "faction": "iran", "type": "uav", "status": "active", "overlaps": ["shahed-136-obiwonkanblomi"], "notes": "Land-launched one-way attack drone; black and white variants, two launcher land units. Richer of the two Shahed mods."},
+    {"id": "euromod-italian-modern", "workshop_id": "3488139470", "title": "Euromod - Modern Italian Navy", "author": "Mitchell600", "faction": "italy", "type": "ship", "status": "active", "requires": ["euromod-main (inferred from Euromod addon naming; not stated in the truncated description)"], "notes": "Modern Italian Navy addon for Euromod."},
+    {"id": "e-3g", "workshop_id": "3781062859", "title": "<<E-3G>>", "author": "SKIBIDI_RIZZLER123", "faction": "usa", "type": "fixed-wing", "status": "active", "notes": "USAF E-3 Block 40/45 AWACS upgrade."},
+    {"id": "f-117", "workshop_id": "3448845252", "title": "F-117 Nighthawk", "author": "misaka", "faction": "usa", "type": "fixed-wing", "status": "active", "notes": "Stealth attack aircraft with GBU-31."},
+    {"id": "vh-3d-marine-one", "workshop_id": "3478767194", "title": "VH-3D Marine One MOD", "author": "plasm@n", "faction": "usa", "type": "rotary", "status": "active", "notes": "Presidential transport helicopter. Workshop ID 3478767194."},
+    {"id": "s-70b-2-seahawk", "workshop_id": "3403661005", "title": "[DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles", "author": "Pog Frog", "faction": "australia", "type": "rotary", "status": "deprecated", "notes": "RAN ASW/ASST Seahawk. Marked deprecated by author — unsubscribe candidate. Description body still says 'currently WIP' — the text may predate the [DEPRECATED] title; confirm current state before unsubscribing."},
+    {"id": "b-52g-agm-86", "workshop_id": "3394781441", "title": "B-52G with AGM-86 (realistic nuke)", "author": "aaaaaaaaaaaaaaaabcd", "faction": "usa", "type": "patch", "status": "active", "notes": "Adds 8 loadouts to the VANILLA B-52G; adds AGM-86B/C plus fictional anti-ship AGM-86E variants. Modifies vanilla unit — load-order sensitive.", "overlaps": ["b-52h (both carry AGM-86-family ALCM data)"]},
+    {"id": "modern-us-airbase", "workshop_id": "3592460366", "title": "Modern US Airbase", "author": "King_Achilles_Berlin", "faction": "usa", "type": "airbase", "status": "active", "notes": "Airbase with modern US jets and helicopters. Author lists 'Integrated Aircrafts' (AC-130J, A-10, AV-8A, F-15C, F/A-18F, F-22, F-35C, B-52G, B-1, F-117, B-2, E-3, MQ-9, VH-3D, AH-64...) — unclear whether these are bundled into the mod or referenced from other mods (the F-15C matches no subscribed mod). If referenced, its F-35C / F/A-18F could point at the deprecated MyGo standalones — verify before unsubscribing those. Recommendation: keep below the aircraft mods."},
+    {"id": "a-10c", "workshop_id": "3459682829", "title": "A-10C", "author": "misaka", "faction": "usa", "type": "fixed-wing", "status": "active", "requires": ["a-10a (inferred from 'Based on A-10A mod')", "sealifter (presumed via A-10A)"], "notes": "Based on the A-10A mod; adds GBU-31/38/39, AIM-9M, GBU-10/12, Litening and ALQ-184 pods."},
+    {"id": "a-10a", "workshop_id": "3414146266", "title": "A-10A Thunderbolt II", "author": "misaka", "faction": "usa", "type": "fixed-wing", "status": "active", "requires": ["sealifter"], "notes": "Author: 'Need SeaLifter, if unable to open, please ensure that SeaLifter is installed correctly.'"},
+    {"id": "type-12-ssm", "workshop_id": "3470643173", "title": "Type 12 SSM-ER Anti-Ship Missile System", "author": "FallschimJager705", "faction": "japan", "type": "land", "status": "active", "notes": "JGSDF mobile shore-based anti-ship missile system; base and ER (900 km) variants."},
+    {"id": "euromod-jmsdf", "workshop_id": "3695809489", "title": "Euromod - Modern Japanese Maritime Self Defence Force", "author": "Mitchell600", "faction": "japan", "type": "ship", "status": "active", "requires": ["euromod-main (inferred from Euromod addon naming; not stated in the truncated description)"], "notes": "Modern JMSDF addon for Euromod."},
+    {"id": "italian-navy-cold-war", "workshop_id": "3505420313", "title": "Italian Navy Mod", "author": "zzocalu", "faction": "italy", "type": "ship", "status": "active", "overlaps": ["euromod-italian-modern (different era, complementary)"], "notes": "Cold War Italian Navy (post-WW2 through 1960s buildup)."},
+    {"id": "tu-214r-family", "workshop_id": "3780118683", "title": "Tu-214R Family (图-214R家族)", "author": "鸣山", "faction": "russia", "type": "fixed-wing", "status": "active", "notes": "Tu-214 special-mission family: reconnaissance, EW, AEW&C, ASW patrol variants."},
+    {"id": "tu-95-as-15", "workshop_id": "3395022688", "title": "Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)", "author": "aaaaaaaaaaaaaaaabcd", "faction": "russia", "type": "fixed-wing", "status": "active", "overlaps": ["tu-95ms-x-101 (both add Tu-95MS variants)", "tu-95k-22"], "notes": "Tu-95MS with FAB-500 or up to 14 AS-15; nuclear and fictional anti-ship derivatives. WARNING: 'Changes to Munitions with VeryLarge impact size' — a global data edit that can conflict with other weapon mods."},
+    {"id": "more-su-24m-variants", "workshop_id": "3716049886", "title": "MORE SU-24M VARIANTS", "author": "SKIBIDI_RIZZLER123", "faction": "russia", "type": "fixed-wing", "status": "active", "notes": "Su-24M2 and other modernized Fencer variants."},
+    {"id": "mig-35", "workshop_id": "3659742367", "title": "MiG-35 Fulcrum-F (米格-35 支点-F)", "author": "2154545636", "faction": "russia", "type": "fixed-wing", "status": "active", "notes": "Multirole 4th-gen fighter, final MiG-29 evolution.", "overlaps": ["apex-predators-mig-29-f-16 (different MiG-29 generation, complementary)", "R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"]},
+    {"id": "su-25", "workshop_id": "3451166840", "title": "Su-25 Frogfoot", "author": "misaka", "faction": "russia", "type": "fixed-wing", "status": "active", "requires": ["sealifter"], "notes": "Close air support aircraft. Author: 'Need SeaLifter'."},
+    {"id": "apex-predators-mig-29-f-16", "workshop_id": "3416372890", "title": "Apex Predators MIG-29A & F-16A", "author": "misaka", "faction": "multi", "type": "fixed-wing", "status": "active", "overlaps": ["f-16c-modern (different F-16 generation, complementary)", "mig-35 (different MiG-29 generation, complementary)"], "notes": "Cold War MiG-29A and F-16A pair."},
+    {"id": "3m25-meteorit", "workshop_id": "3587091564", "title": "3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)", "author": "SKIBIDI_RIZZLER123", "faction": "russia", "type": "weapons", "status": "active", "notes": "Soviet experimental long-range strategic cruise missile (Meteorit program, authorized 1976)."},
+    {"id": "modern-russian-airbase", "workshop_id": "3629269283", "title": "Modern Russian Airbase (Large)", "author": "flankymanga", "faction": "russia", "type": "airbase", "status": "active", "requires": ["(inferred) the Russian aircraft mods it references — author credit line says the planes 'belong to their respective authors'"], "notes": "Airbase populated from other authors' Russian aircraft mods; mission makers advised to trim aircraft counts. Recommendation (not author instruction): keep below the aircraft mods it references."},
+    {"id": "tu-95k-22", "workshop_id": "3411341227", "title": "Tu-95K-22 Bear G MOD", "author": "plasm@n", "faction": "russia", "type": "fixed-wing", "status": "active", "overlaps": ["tu-95-as-15", "tu-95ms-x-101"], "notes": "Bear G rebuild with Kh-22 (AS-4 Kitchen) missiles. Workshop ID 3411341227. (User re-subscribed 2026-08-24 — same Workshop item, no change.)"},
+    {"id": "tu-95ms-x-101", "workshop_id": "3715323261", "title": "Tu-95MS (X-101)", "author": "SKIBIDI_RIZZLER123", "faction": "russia", "type": "fixed-wing", "status": "active", "overlaps": ["tu-95-as-15 (both add Tu-95MS variants)", "tu-95k-22"], "notes": "Tu-95MS with Kh-101 (AS-23 Kodiak) stealth cruise missiles."},
+    {"id": "russian-navy-21", "workshop_id": "3597650470", "title": "Russian Navy 21", "author": "Pointinthevoid", "faction": "russia", "type": "ship", "status": "active", "notes": "Projects 20380/20385/21631 corvettes, 11356/22350 frigates, 21956 destroyer, 11780 LHA."},
+    {"id": "ka-27rld", "workshop_id": "3776340577", "title": "Ka-27RLD", "author": "Filip7370", "faction": "russia", "type": "rotary", "status": "active", "notes": "Soviet-liveried Ka-31 AEW helicopter (standalone); model credit to the Modern PLAN mod's Ka-31."},
+    {"id": "mi-8-t-tv", "workshop_id": "3465256032", "title": "Mi-8 T/TV", "author": "misaka", "faction": "russia", "type": "rotary", "status": "active", "requires": ["sealifter"], "overlaps": ["mi-8ew (different variant, complementary)"], "notes": "Transport/armed transport Hip. Author: 'Need SeaLifter'."},
+    {"id": "mi-8ew", "workshop_id": "3458148344", "title": "Mi-8EW", "author": "boli", "faction": "russia", "type": "rotary", "status": "active", "overlaps": ["mi-8-t-tv (different variant, complementary)"], "notes": "EW variant proxied from the Mi-14 in game; Azaliya OECM jammer and detection sensor."},
+    {"id": "tu-16n", "workshop_id": "3673908868", "title": "<<Tu-16N>>", "author": "SKIBIDI_RIZZLER123", "faction": "russia", "type": "fixed-wing", "status": "active", "notes": "Probe-and-drogue tanker for Tu-22/Tu-22M, in service 1963."},
+    {"id": "j-10c", "workshop_id": "3481228992", "title": "ChengDu J-10C Vigorous Dragon", "author": "东武藏境", "faction": "china", "type": "fixed-wing", "status": "active", "notes": "PLAAF multirole fighter; also exported (J-10CE).", "overlaps": ["PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"]},
+    {"id": "su-27ubk", "workshop_id": "3729579342", "title": "PLA Sukhoi Su-27UBK", "author": "Not Allaaaan", "faction": "china", "type": "fixed-wing", "status": "active", "overlaps": ["flanker-family", "j-11", "j-11bs (related Flanker airframes)"], "notes": "PLA twin-seat Flanker-C trainer/fighter."},
+    {"id": "type-003-004-maneuverwarfare", "workshop_id": "3486502935", "title": "Type 003 Fujian / Type 004 CVN Aircraft Carriers", "author": "ManeuverWarfare", "faction": "china", "type": "ship", "status": "active", "requires": ["sealifter", "anchor-chain"], "overlaps": ["chinese-navy-plan (Fujian)", "fujian-cv-18 (Fujian)"], "notes": "Kitbash Fujian plus speculative Type 004. One of THREE Fujian carriers in this list — pick a primary."},
+    {"id": "j-8", "workshop_id": "3433577445", "title": "Shenyang J-8", "author": "misaka", "faction": "china", "type": "fixed-wing", "status": "active", "notes": "High-altitude, high-speed interceptor."},
+    {"id": "jh-7a", "workshop_id": "3526982088", "title": "XIAN JH-7A (歼轰-7A 飞豹)", "author": "东武藏境", "faction": "china", "type": "fixed-wing", "status": "active", "notes": "Twin-engine two-seat supersonic fighter-bomber, in PLAAF service 2005.", "overlaps": ["PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"]},
+    {"id": "u-2", "workshop_id": "3468959181", "title": "U-2 \"Dragon Lady\"", "author": "ManeuverWarfare", "faction": "usa", "type": "fixed-wing", "status": "active", "notes": "Modern and 1960s U-2 models plus a Chinese weather/spy balloon. Kitbashes; explicitly do NOT require SeaLifter or third-party software."},
+    {"id": "j-16a", "workshop_id": "3506979898", "title": "Shenyang J-16A (歼-16A 潜龙)", "author": "kisa希罗", "faction": "china", "type": "fixed-wing", "status": "active", "overlaps": ["flanker-family", "j-11", "j-11bs (related Flanker airframes)", "PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"], "notes": "Multirole twin-seat strike Flanker derived from J-11B; performance largely estimated by author."},
+    {"id": "chinese-navy-plan", "workshop_id": "3417801942", "title": "Chinese Navy (PLAN)", "author": "ltjgbeam", "faction": "china", "type": "ship", "status": "active", "overlaps": ["type-003-004-maneuverwarfare (Fujian)", "fujian-cv-18 (Fujian)"], "notes": "Fujian-class carrier, Hangzhou-class (Sovremenny), Luda Type 051. One of THREE Fujian carriers in this list."},
+    {"id": "modern-chinese-airbase", "workshop_id": "3631042692", "title": "Modern Chinese Airbase (Large)", "author": "flankymanga", "faction": "china", "type": "airbase", "status": "active", "requires": ["(inferred) the Chinese aircraft mods it references — author credit line says the planes 'belong to their respective authors'"], "notes": "Airbase populated from other authors' Chinese aircraft mods. Recommendation (not author instruction): keep below the aircraft mods it references."},
+    {"id": "y-8-y-9-family", "workshop_id": "3637954857", "title": "Y-8/Y-9 Special Mission Aircraft Family", "author": "misaka", "faction": "china", "type": "fixed-wing", "status": "unsubscribed", "notes": "Workshop 3637954857 - catalogued under its family title, which is why the 2026-08-25 removal initially missed it and appended a duplicate 'kj-500' stub (now merged here). UNSUBSCRIBED 2026-08-25: all 45 of its files (KJ-500, KQ-200, the Y-8/Y-9 special-mission family) also ship in PLAN Pack (3775128499), which wins every contested one - zero unique content. The double definition of plaaf_kj-500 crashed the UI plan converter (ArgumentException: same key already added) once NFIII fielded that unit."},
+    {"id": "eurofighter-typhoon", "workshop_id": "3587877691", "title": "Eurofighter Typhoon", "author": "misaka", "faction": "europe", "type": "fixed-wing", "status": "active", "notes": "European multinational multirole fighter."},
+    {"id": "ground-upgrade-spaa", "workshop_id": "3508275114", "title": "Ground Upgrade: SPAA", "author": "misaka", "faction": "multi", "type": "patch", "status": "active", "notes": "Refines ground-unit models and MODIFIES values of some weapons and units — load-order sensitive; watch for overlap with SAM Pack and land unit packs."},
+    {"id": "euromod-nordic", "workshop_id": "3642656500", "title": "Euromod - Modern Nordic Navy", "author": "Mitchell600", "faction": "europe", "type": "ship", "status": "active", "requires": ["euromod-main"], "notes": "Iver Huitfeldt frigate, Visby corvette (V5/V6), Skjold corvette."},
+    {"id": "euromod-dutch", "workshop_id": "3444379330", "title": "Euromod - Modern Dutch navy", "author": "Mitchell600", "faction": "europe", "type": "ship", "status": "active", "requires": ["euromod-main"], "notes": "De Zeven Provinciën-class LCF AAW frigates (incl. midlife upgrade)."},
+    {"id": "sea-lynx", "workshop_id": "3455931957", "title": "Sea Lynx", "author": "petrouvis01", "faction": "europe", "type": "rotary", "status": "active", "notes": "Five Lynx variants: UK, Netherlands, West Germany, France, and more.", "overlaps": ["french-helicopter-package (French Navy operated the Lynx — likely a second Lynx source)", "euromod-german (F123 frigates embark the Super Sea Lynx Mk88A)"]},
+    {"id": "euromod-german", "workshop_id": "3575847216", "title": "Euromod - Modern German Navy", "author": "Chevron 9", "faction": "europe", "type": "ship", "status": "active", "requires": ["euromod-main"], "notes": "Type 212A sub, F123, F124, F125 frigates.", "overlaps": ["sea-lynx (Super Sea Lynx Mk88A on F123)"]},
+    {"id": "french-army-vehicles", "workshop_id": "3736147136", "title": "French Army Vehicles", "author": "LLinqs", "faction": "france", "type": "land", "status": "active", "notes": "Leclerc XLR, VBCI, Jaguar, AMX-10, Griffon, Serval, VBL, VAB, M270 LRU, CAESAR, SAMP/T NG, VLFS.", "overlaps": ["sam-pack and ground-upgrade-spaa (SAMP/T NG is a land SAM inside the air-defense overlap watch)"]},
+    {"id": "french-helicopter-package", "workshop_id": "3567228449", "title": "French Helicopter Package", "author": "misaka", "faction": "france", "type": "rotary", "status": "active", "notes": "French Air Force / Navy / ALAT helicopters for assault, fire support, ASW, anti-surface roles.", "overlaps": ["sea-lynx (Lynx variants)"]},
+    {"id": "rafale", "workshop_id": "3504168760", "title": "Dassault Rafale", "author": "misaka", "faction": "france", "type": "fixed-wing", "status": "active", "notes": "French multirole carrier and land-based fighter."},
+    {"id": "cdg-modern-french-navy", "workshop_id": "3567256221", "title": "Charles De Gaulle & Modern French Navy Pack (WIP)", "author": "LLinqs", "faction": "france", "type": "ship", "status": "wip", "notes": "CVN Charles de Gaulle and modern French Navy vessels; marked WIP."},
+    {"id": "il-78", "workshop_id": "3717610332", "title": "IL-78 TANKER", "author": "SKIBIDI_RIZZLER123", "faction": "russia", "type": "fixed-wing", "status": "active", "notes": "Il-78 aerial refueling tanker."},
+    {"id": "a-50-il-76", "workshop_id": "3524112296", "title": "Soviet AEW&C + Transport Aircraft (A-50 / Il-76)", "author": "Zero Two", "faction": "russia", "type": "fixed-wing", "status": "active", "notes": "A-50 Mainstay (3 liveries), modernized A-50U, Il-76 transport."},
+    {"id": "su-30sm2", "workshop_id": "3762023575", "title": "Su-30SM2", "author": "SKIBIDI_RIZZLER123", "faction": "russia", "type": "fixed-wing", "status": "active", "overlaps": ["flanker-family (related Flanker airframes)", "R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"], "notes": "Modernized twin-seat Su-30 multirole fighter."},
+    {"id": "liaoning-type-001", "workshop_id": "3774859959", "title": "PLAN Type 001 Aircraft Carrier Liaoning", "author": "Meltemi", "faction": "china", "type": "ship", "status": "active", "notes": "STOBAR carrier CV-16. Sister design of the Kuznetsov (Project 1143.5/6 family) — different navy, different author, no conflict expected."},
+    {"id": "euromod-spanish-cold-war", "workshop_id": "3630495619", "title": "Euromod - Cold War Spanish Navy", "author": "zzocalu", "faction": "spain", "type": "ship", "status": "active", "requires": ["euromod-main"], "notes": "Cold War Spanish Navy addon; author: 'you must have Euromod downloaded and activated'."},
+    {"id": "euromod-spanish-modern", "workshop_id": "3731208477", "title": "Euromod - Modern Spanish Navy", "author": "jabeitor", "faction": "spain", "type": "ship", "status": "active", "requires": ["euromod-main (inferred from Euromod addon naming; not stated in the truncated description)"], "notes": "Modern Spanish Navy addon for Euromod."},
+    {"id": "ford-cvn", "workshop_id": "3461044389", "title": "Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)", "author": "ManeuverWarfare", "faction": "usa", "type": "ship", "status": "active", "requires": ["modern-us-navy"], "notes": "UPDATE 2026-08-11: now requires Modern US Navy for its F-35, F/A-18 and MH-60 air wing (replacing previous third-party aircraft dependencies)."},
+    {"id": "us-navy-2027", "workshop_id": "3606774881", "title": "U.S. Navy 2027 Capabilities mod", "author": "Prof_CH4OS", "faction": "usa", "type": "patch", "status": "active", "requires": ["the US Navy mods it edits (compilation of edits to multiple Workshop mods)"], "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test."},
+    {"id": "f-35c-mygo", "workshop_id": "3508978375", "title": "[DEPRECATED] Lockheed Martin F-35C Lighting II", "author": "MyGo!!!!!鼓手椎名立希", "faction": "usa", "type": "fixed-wing", "status": "deprecated", "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing."},
+    {"id": "f-35c-alt-loadouts", "workshop_id": "3607989779", "title": "F-35C Lightning II Alt. Loadouts", "author": "Prof_CH4OS", "faction": "usa", "type": "patch", "status": "active", "requires": ["f-35c-mygo (deprecated — now integrated into Modern US Navy; compatibility unverified)"], "notes": "Adds loadout variants, GPS datalink, AN/APG-81 offensive ECM to the MyGo F-35C. Its target is deprecated — needs retargeting/verification against Modern US Navy's F-35C. Top integration-fix candidate. Recommendation (not author instruction): keep above its target F-35C mod."},
+    {"id": "mh-60r-2154545636", "workshop_id": "3590477166", "title": "MH-60R Seahawk", "author": "2154545636", "faction": "usa", "type": "rotary", "status": "active", "overlaps": ["us-naval-aviation (MH-60R)", "modern-us-navy (MH-60)", "ado-nimitz-2000s (adds MH-60R)"], "notes": "Standalone MH-60R. FOUR sources of MH-60-family helicopters in this list — duplicate/ID-conflict watch."},
+    {"id": "nimitz-expanded", "workshop_id": "3432592449", "title": "Nimitz Expanded", "author": "Username", "faction": "usa", "type": "ship", "status": "active", "notes": "Adds the last eight Nimitz-class carriers with custom hull numbers and liveries.", "overlaps": ["ado-nimitz-2000s", "flight-deck-ops (both override Nimitz-class deck/data its eight hulls likely clone)"]},
+    {"id": "ado-nimitz-2000s", "workshop_id": "3461091581", "title": "Air Deck Operations Upgrade - Nimitz (2000s)", "author": "sgtobliterator", "faction": "usa", "type": "patch", "status": "active", "overlaps": ["flight-deck-ops", "nimitz-expanded"], "notes": "Deck-ops upgrade applied to F/A-18 and the Nimitz (2000s); adds deck models and MH-60R. Long carrier load time. Verify it does not fight Flight Deck Ops over the same carrier files. Wording ('adds the Air Deck Operations Upgrade to... the Nimitz (2000s)') suggests it may be an APPLICATION of the ADO/FDO mod rather than a competitor — verify whether it depends on Flight Deck Ops before treating the pair as pick-one."},
+    {"id": "flight-deck-ops", "workshop_id": "3373960386", "title": "Flight Deck Ops", "author": "ossesek", "faction": "usa", "type": "patch", "status": "active", "overlaps": ["ado-nimitz-2000s", "nimitz-expanded (its eight hulls likely clone the Nimitz data both deck mods override)"], "notes": "Renamed continuation of the Air Deck Operations upgrade ('Formerly, the FDO was known as the Air deck operations upgrade'): activates all elevators, simultaneous launch/recovery, reworked taxi/landing paths and deck crew."},
+    {"id": "f-a-18ef-mygo", "workshop_id": "3426791311", "title": "[DEPRECATED] Boeing F/A-18E/F Super Hornet", "author": "MyGo!!!!!鼓手椎名立希", "faction": "usa", "type": "fixed-wing", "status": "deprecated", "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing."},
+    {"id": "murder-hornet", "workshop_id": "3430135740", "title": "F/A-18 Murder Hornet with AIM-174B", "author": "Cropgun", "faction": "usa", "type": "patch", "status": "active", "requires": ["an F/A-18E/F source (inferred — the author names no target mod; E/F models implied by 'Fixed Green Canopy on E Model' / 'GBU-24 to F model')"], "notes": "Adds Murder Hornet loadouts, AIM-174B, AIM-9X, AIM-120D, AGM-84D, JDAMs/GBU-24 (F model); canopy and afterburner fixes. Its target F/A-18E/F mod is unconfirmed (candidates: the deprecated MyGo standalone, or Modern US Navy's integrated Super Hornet) — identify it before unsubscribing the MyGo pair. Recommendation: keep above whichever F/A-18 mod it targets."},
+    {"id": "p-8-poseidon", "workshop_id": "3602046770", "title": "Boeing P-8 Poseidon", "author": "Kirameki", "faction": "multi", "type": "fixed-wing", "status": "active", "notes": "Custom-model P-8 with full weapon suite incl. modeled HAAWC; USN, Indian Navy, RAAF liveries."},
+    {"id": "y-20-kj-3000", "workshop_id": "3782020901", "title": "Y-20 / KJ-3000", "author": "ManeuverWarfare", "faction": "china", "type": "fixed-wing", "status": "active", "notes": "Y-20A transport, YY-20A tanker, Y-20B, KJ-3000 AEW&C."},
+    {"id": "kuznetsov-1143-5", "workshop_id": "3438479626", "title": "1143.5 Kuznetsov", "author": "MyGo!!!!!鼓手椎名立希", "faction": "russia", "type": "ship", "status": "active", "notes": "Admiral Kuznetsov carrier; ski jump still in testing per author. Sister design of the Liaoning (Project 1143.5/6 family) — different navy, different author, no conflict expected."},
+    {"id": "euromod-british", "workshop_id": "3599752717", "title": "Euromod - Modern British Navy", "author": "5_12", "faction": "europe", "type": "ship", "status": "active", "requires": ["euromod-main"], "notes": "Modern Royal Navy addon; author: 'requires Euromod to work as intended'."},
+    {"id": "mi-24", "workshop_id": "3513571010", "title": "Mil Mi-24 Hind", "author": "MyGo!!!!!鼓手椎名立希", "faction": "russia", "type": "rotary", "status": "active", "notes": "Helicopter gunship / assault transport."},
+    {"id": "sam-pack", "workshop_id": "3437105712", "title": "SAM Pack", "author": "misaka", "faction": "multi", "type": "land", "status": "active", "load_order": "Author: 'Need on the top of TOE' — place at the top of the mod order", "overlaps": ["ground-upgrade-spaa", "thaad", "pla-land-unit-pack (air defense overlap)"], "notes": "Surface-to-air missile systems pack (incl. MIM-104 Patriot)."},
+    {"id": "f-15ex", "workshop_id": "3636386513", "title": "F-15 EX Eagle II", "author": "dingtools", "faction": "usa", "type": "fixed-wing", "status": "active", "load_order": "Keep Dingtools Weapon Pack ABOVE all dingtools mods", "notes": "4.5-gen F-15 variant."},
+    {"id": "ah-64", "workshop_id": "3425450153", "title": "AH-64 Apache", "author": "misaka", "faction": "usa", "type": "rotary", "status": "active", "notes": "Attack helicopter."},
+    {"id": "ac-130-pack", "workshop_id": "3559495372", "title": "Lockheed AC-130 Pack", "author": "MyGo!!!!!鼓手椎名立希", "faction": "usa", "type": "fixed-wing", "status": "active", "notes": "AC-130 gunship family."},
+    {"id": "flanker-family", "workshop_id": "3434072450", "title": "Sukhoi Flanker Family (苏霍伊侧卫家族)", "author": "MyGo!!!!!鼓手椎名立希", "faction": "russia", "type": "fixed-wing", "status": "active", "overlaps": ["su-30sm2", "su-27ubk", "j-11", "j-11bs", "j-16a (Flanker airframes across mods)", "R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"], "notes": "Su-27 Flanker family pack."},
+    {"id": "small-medium-uav-series", "workshop_id": "3601891050", "title": "Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)", "author": "FallschimJager705", "faction": "multi", "type": "uav", "status": "wip", "notes": "Recon quadcopter (China), Forpost-R, Mugin5, Orlan-10 (Russia), RQ-7 (USA); ongoing updates."},
+    {"id": "mq-9-reaper", "workshop_id": "3503670861", "title": "General Atomics MQ-9 Reaper", "author": "MyGo!!!!!鼓手椎名立希", "faction": "usa", "type": "uav", "status": "active", "notes": "Armed reconnaissance UAV."},
+    {"id": "us-naval-aviation", "workshop_id": "3737267013", "title": "United States Naval Aviation", "author": "misaka", "faction": "usa", "type": "fixed-wing", "status": "active", "overlaps": ["modern-us-navy (helicopters/aircraft)", "mh-60r-2154545636"], "notes": "US Naval Aviation pack (SH-60B/F, HH-60H, MH-60R and more); presented jointly by Sea Power China Test Group & Euromod."},
+    {"id": "euromod-main", "workshop_id": "3629144864", "title": "Euromod - Main Pack", "author": "Mitchell600", "faction": "europe", "type": "framework", "status": "active", "notes": "Shared database of European weapons and sensors. The Euromod dependency is explicitly stated by 5 of the 8 addons in this list (Nordic, Dutch, German, British, Cold War Spanish) and inferred for the other 3 (Italian, JMSDF, Modern Spanish). No author placement instruction; recommendation: keep above all Euromod addons."},
+    {"id": "modern-us-navy", "workshop_id": "3390330875", "title": "Modern US Navy", "author": "Mitchell600", "faction": "usa", "type": "ship", "status": "active", "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN.", "overlaps": ["us-naval-aviation (SH-60/MH-60 family)", "mh-60r-2154545636", "ado-nimitz-2000s (MH-60R)", "f-35c-alt-loadouts and murder-hornet (patch targets after the MyGo integration)"]},
+    {"id": "plan-submarines", "workshop_id": "3594891803", "title": "PLAN Submarines", "author": "ManeuverWarfare", "faction": "china", "type": "submarine", "status": "active", "notes": "Type 039G Song, 039A/B/C Yuan, Type 093/093A Shang kitbashes."},
+    {"id": "russian-submarines", "workshop_id": "3468260539", "title": "Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)", "author": "ManeuverWarfare", "faction": "russia", "type": "submarine", "status": "active", "notes": "Yasen, Akula, Borei, Oscar II, Belgorod, Sierra I/II, Typhoon, Delta IV kitbashes."},
+    {"id": "us-submarines", "workshop_id": "3433957933", "title": "Virginia-, Seawolf-, and Ohio-class Submarines", "author": "ManeuverWarfare", "faction": "usa", "type": "submarine", "status": "active", "notes": "Ohio SSBN/SSGN, Seawolf and Jimmy Carter, Virginia (incl. dry deck shelter version) kitbashes."},
+    {"id": "b-2-spirit", "workshop_id": "3480965706", "title": "B-2 Spirit", "author": "Stroh Vogel", "faction": "usa", "type": "fixed-wing", "status": "active", "requires": ["anchor-chain", "sealifter"], "notes": "Author: 'Requires AnchorChain and SeaLifter to be correctly installed. Subscribing isn't enough. You need the preloader.'"},
+    {"id": "tu-160", "workshop_id": "3509329205", "title": "TU-160 Blackjack", "author": "2154545636", "faction": "russia", "type": "fixed-wing", "status": "active", "notes": "Supersonic variable-sweep strategic bomber."},
+    {"id": "dingtools-weapon-pack", "workshop_id": "3760871384", "title": "Dingtools Weapon Pack", "author": "dingtools", "faction": "usa", "type": "weapons", "status": "active", "load_order": "Author: 'Put this mod ABOVE any of my mod' (B-52H, F-15EX, B-1B, SAAB AEW&C)", "overlaps": ["us-navy-2027", "murder-hornet (all define modern US missiles like AIM-9X / AIM-120D — duplicate weapon-ID watch)"], "notes": "Standalone weapon data pack: AIM-9X, AIM-120B/C/C-7/D-3, AIM-260A, GBU series and more."},
+    {"id": "b-1b", "workshop_id": "3652097318", "title": "B-1B Lancer", "author": "dingtools", "faction": "usa", "type": "fixed-wing", "status": "active", "load_order": "Keep Dingtools Weapon Pack ABOVE all dingtools mods", "notes": "Supersonic variable-sweep heavy bomber."},
+    {"id": "shahed-136-obiwonkanblomi", "workshop_id": "3674240446", "title": "Shahed-136 Drone", "author": "Obiwonkanblomi", "faction": "iran", "type": "uav", "status": "unsubscribed", "overlaps": ["shahed-136-zero-two"], "notes": "Second Shahed-136 mod; speed fixed at 120 mph; borrows the launcher truck from Zero Two's mod. Redundant with the Zero Two version — pick one. UNSUBSCRIBED by user 2026-08-24 (runbook Phase 2)."},
+    {"id": "su-57", "workshop_id": "3503594612", "title": "SU-57 Felon (重刑犯)", "author": "2154545636", "faction": "russia", "type": "fixed-wing", "status": "active", "notes": "Fifth-generation stealth fighter; includes an Su-57 airbase land unit.", "overlaps": ["R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"]},
+    {"id": "j-20", "workshop_id": "3591563716", "title": "J-20 (歼-20 威龙)", "author": "2154545636", "faction": "china", "type": "fixed-wing", "status": "active", "notes": "Fifth-generation stealth air-superiority fighter.", "overlaps": ["PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"]},
+    {"id": "saab-aewc-pack", "workshop_id": "3673250557", "title": "SAAB AEW&C PACK", "author": "dingtools", "faction": "europe", "type": "fixed-wing", "status": "active", "load_order": "Keep Dingtools Weapon Pack ABOVE all dingtools mods", "notes": "Saab AEW&C aircraft (GlobalEye/Erieye family); author notes future updates postponed."},
+    {"id": "fujian-cv-18", "workshop_id": "3663564190", "title": "Type 003 Aircraft Carrier - PLANS Fujian CV-18", "author": "八一of军魂", "faction": "china", "type": "ship", "status": "active", "overlaps": ["type-003-004-maneuverwarfare (Fujian)", "chinese-navy-plan (Fujian)"], "notes": "Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it."},
+    {"id": "j-50", "workshop_id": "3670643788", "title": "Shenyang J-50 (沈阳航空工业 歼-50)", "author": "2154545636", "faction": "china", "type": "fixed-wing", "status": "active", "notes": "Speculative sixth-generation stealth carrier fighter (2030s); comes with PL-10/15/16/17, LD-8a ARM, LS-6 glide bomb, TL-20 weapons.", "overlaps": ["PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors)"]},
+    {"id": "thaad", "workshop_id": "3683253079", "title": "Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)", "author": "Obiwonkanblomi", "faction": "usa", "type": "land", "status": "active", "overlaps": ["sam-pack (US air defense overlap)"], "notes": "Anti-ballistic-missile system with AN/TPY-2 radar."},
+    {"id": "civil-aircraft-airbus", "workshop_id": "3746453639", "title": "Civil Aircraft Mod (Airbus Family)", "author": "Zero Two", "faction": "civilian", "type": "civilian", "status": "active", "notes": "Commercial Airbus air traffic for scenario building."},
+    {"id": "j-11", "workshop_id": "3436170138", "title": "Shenyang J-11", "author": "misaka", "faction": "china", "type": "fixed-wing", "status": "active", "overlaps": ["j-11bs", "flanker-family", "su-27ubk (Flanker airframes)"], "notes": "PLA heavy twin-engine fighter based on Su-27SK."},
+    {"id": "j-11bs", "workshop_id": "3729578404", "title": "PLA Shenyang J-11BS", "author": "Not Allaaaan", "faction": "china", "type": "fixed-wing", "status": "active", "overlaps": ["j-11", "flanker-family", "su-27ubk (Flanker airframes)"], "notes": "Twin-seat localized Flanker-B+ development."},
+    {"id": "kc-135", "workshop_id": "3722749887", "title": "KC-135 STRATOTANKER", "author": "SKIBIDI_RIZZLER123", "faction": "usa", "type": "fixed-wing", "status": "active", "overlaps": ["kc-46a", "kc-10a (US tanker overlap — complementary types)"], "notes": "USAF aerial refueling tanker, Vietnam era to modern."},
+    {"id": "kc-46a", "workshop_id": "3744475027", "title": "KC-46A Pegasus - Strategic Tanker", "author": "Zero Two", "faction": "usa", "type": "fixed-wing", "status": "active", "overlaps": ["kc-135", "kc-10a (US tanker overlap — complementary types)"], "notes": "Modern USAF tanker, dual-configuration package."},
+    {"id": "type-071-lpd", "workshop_id": "3774572038", "title": "PLAN Type 071 Amphibious Transport Dock", "author": "Meltemi", "faction": "china", "type": "ship", "status": "active", "notes": "Yuzhao-class LPD; mothership for air-cushion landing craft."},
+    {"id": "anchor-chain", "workshop_id": "3380210757", "title": "Anchor Chain", "author": "PrimerGuided", "faction": "utility", "type": "framework", "status": "active", "notes": "Community chainloader. 'Will not function on its own' — requires the documented manual install. Required by B-2 Spirit and Type 003/004 CVN, and by any code-modifying mod. Recommendation: keep at the very top of the mod order."},
+    {"id": "pla-land-unit-pack", "workshop_id": "3733719765", "title": "PLA Land Unit Pack", "author": "misaka", "faction": "china", "type": "land", "status": "active", "load_order": "Author: 'Place this mod above any other PLA-related mods in Mod Manager'", "overlaps": ["sam-pack (air defense overlap)"], "notes": "PLA air defense (Tor-M1, HQ-17/17A, PGZ-09, HQ-6, LD-2000, HQ-7...) and other land units. Author suggests unsubscribing separate HQ-9&HQ-7 / HQ-6A / DF-15 mods — none of those are in this list, so no action needed."},
+    {"id": "z-21", "workshop_id": "3774746803", "title": "AVIC HARBIN Z-21", "author": "Meltemi", "faction": "china", "type": "rotary", "status": "active", "notes": "Speculative Chinese heavy attack helicopter based on the Z-20 platform."},
+    {"id": "f-16c-modern", "workshop_id": "3758320372", "title": "F-16C Fighting Falcon (modern)", "author": "Zero Two", "faction": "usa", "type": "fixed-wing", "status": "active", "overlaps": ["apex-predators-mig-29-f-16 (different F-16 generation, complementary)"], "notes": "Multiple modern F-16C blocks."},
+    {"id": "modern-plan-systems", "workshop_id": "3775128499", "title": "Modern PLAN Systems", "author": "八一of军魂", "faction": "china", "type": "framework", "status": "active", "notes": "2020s-era PLAN sensors and armaments database; same author as Fujian CV-18. Analogue of Euromod Main for the Chinese fleet. No author placement instruction; recommendation: keep above PLAN ship mods if it acts as a shared systems database (this framework role is itself inferred)."},
+    {"id": "kc-10a", "workshop_id": "3740293822", "title": "McDonnell Douglas KC-10A Extender - Strategic Tanker", "author": "Zero Two", "faction": "usa", "type": "fixed-wing", "status": "active", "overlaps": ["kc-135", "kc-46a (US tanker overlap — complementary types)"], "notes": "Cold War and modern USAF tanker configurations."},
+    {"id": "f-22", "workshop_id": "3418252667", "title": "F-22 Raptor", "author": "misaka", "faction": "usa", "type": "fixed-wing", "status": "active", "notes": "Fifth-generation air-superiority fighter."},
+    {"id": "kirov-pyotr-velikiy", "workshop_id": "3406985435", "title": "Kirov-class (Pyotr Velikiy Upgrade)", "author": "unknown (added 2026-08-24)", "faction": "russia", "type": "ship", "status": "active", "overlaps": ["vanilla Kirov-class variants (check for shared unit ids/files)"], "notes": "Modernized Pyotr Velikiy battlecruiser refit. VERIFIED 2026-08-24: adds new unit wp_rkr_kirov_improved — additive, no vanilla collision."},
+    {"id": "buildings-targets-missions", "workshop_id": "3600788156", "title": "Buildings and Targets for Missions", "author": "unknown (added 2026-08-24)", "faction": "utility", "type": "land", "status": "active", "notes": "Scenery and target structures for mission building. VERIFIED: land-target structures (oil pump, power plants, bunkers...)."},
+    {"id": "iskander-tbm", "workshop_id": "3408662804", "title": "Iskander TBM", "author": "unknown (added 2026-08-24)", "faction": "russia", "type": "land", "status": "active", "notes": "9K720 Iskander tactical ballistic missile launcher. VERIFIED: adds wp_ss-26_tel."},
+    {"id": "mogami-frigate", "workshop_id": "3456859157", "title": "Mogami-class Frigate", "author": "unknown (added 2026-08-24)", "faction": "japan", "type": "ship", "status": "active", "overlaps": ["euromod-jmsdf (complementary — check for shared JMSDF weapon/sensor definitions)"], "notes": "JMSDF stealth multirole frigate; natural companion to Euromod JMSDF. VERIFIED: adds js_ffg_mogami."},
+    {"id": "scud-b", "workshop_id": "3461519690", "title": "SCUD-B", "author": "unknown (added 2026-08-24)", "faction": "russia", "type": "land", "status": "active", "notes": "R-17 Elbrus TBM launcher (Cold War era). VERIFIED: adds wp_scud_9k72."},
+    {"id": "humpback-whale", "workshop_id": "3384079999", "title": "Humpback Whale", "author": "unknown (added 2026-08-24)", "faction": "civilian", "type": "civilian", "status": "active", "notes": "Ambience / biologic sonar contact. VERIFIED: adds civ_humpback."},
+    {"id": "sa-21-s400", "workshop_id": "3392434750", "title": "SA-21/S-400 SAM", "author": "unknown (added 2026-08-24)", "faction": "russia", "type": "land", "status": "active", "overlaps": ["sam-pack and ground-upgrade-spaa (land air-defense overlap watch)"], "notes": "Russian strategic SAM system; joins the land air-defense watchlist. VERIFIED: adds wp_sa-21_* TELs (9M96E/E2 and more)."},
+    {"id": "pickup-truck-extension", "workshop_id": "3681873198", "title": "Pickup truck extension", "author": "unknown (added 2026-08-24)", "faction": "multi", "type": "land", "status": "active", "notes": "Technicals / light vehicle extension. VERIFIED: adds civ_car_pickup_1983 variants (incl. armed/medic)."},
+    {"id": "custom-loadout-editor", "workshop_id": "3606134711", "title": "Custom Loadout Editor", "author": "unknown (added 2026-08-24)", "faction": "utility", "type": "framework", "status": "active", "requires": ["anchor-chain (presumed — code-level tool; verify)"], "notes": "VERIFIED: Anchor Chain code mod plus *_patch_clm companion units for vanilla-era aircraft/ships (F-14, AV-8A, Tarawa, MiG-27...). All patch files use NEW ids — zero overlap with the SEST loadout patches."},
+    {"id": "sejjil-iran-bm", "workshop_id": "3551676319", "title": "SEJJIL (Iran Ballistic Missiles)", "author": "unknown (added 2026-08-24)", "faction": "iran", "type": "land", "status": "active", "notes": "Iranian MRBM systems. VERIFIED: adds wp_sejjil_tel."},
+    {"id": "rn-lynx-has3-old", "workshop_id": "3373356293", "title": "Royal Navy Westland Lynx HAS.3 Kitbash [OLD]", "author": "unknown (added 2026-08-24)", "faction": "europe", "type": "rotary", "status": "deprecated", "overlaps": ["sea-lynx", "french-helicopter-package", "euromod-german (Lynx family — now FOUR sources)"], "notes": "Tagged [OLD] by its author. VERIFIED: adds rn_lynx AND rn_wildcat — the Wildcat is not in the Sea Lynx pack, which is a reason to keep this despite the tag."},
+    {"id": "rn-type23-old", "workshop_id": "3378409795", "title": "Royal Navy Type 23 'Duke Class' Frigate [OLD]", "author": "unknown (added 2026-08-24)", "faction": "europe", "type": "ship", "status": "deprecated", "overlaps": ["euromod-british (redundant Type 23 hulls under different unit ids — clutter, not conflict)"], "notes": "Tagged [OLD] by its author. VERIFIED 2026-08-24: uses its OWN unit ids (rn_type23, rn_type23_refit) and shares no asset paths with the Euromod British pack — it is additive, NOT a conflict, and no threat to the SEST RAN Anzac clone. Keep or drop purely for menu tidiness."},
+    {"id": "auxilliary-merchant-pack", "workshop_id": "3432668460", "title": "Auxilliary Merchant Pack", "author": "unknown (added 2026-08-24)", "faction": "australia", "type": "ship", "status": "active", "overlaps": ["merchants-expanded (two merchant packs — check for duplicate hulls)"], "notes": "VERIFIED: AUSTRALIAN auxiliary shipping — ran_ms_bulk, ran_msa_act_1, anl_ms_bulk (ANL = Australian National Line). Direct fit for RAN convoy/escort scenarios alongside SEST_RAN_Fleet."},
+    {"id": "mig-29-family", "workshop_id": "3417446309", "title": "MIG-29 Family", "author": "unknown (added 2026-08-24)", "faction": "russia", "type": "fixed-wing", "status": "active", "overlaps": ["apex-predators-mig-29-f-16", "mig-35 (MiG-29 lineage — now THREE sources)", "R-series AAM definitions likely duplicated across Russian fighter mods (multiple authors)"], "notes": "MiG-29 variant family pack; actively updated. VERIFIED: MiG-29 variants PLUS a carrier — wp_cv_orel_1991 (Soviet CV Orel) — bonus flattop for the red side."},
+    {"id": "armed-oil-rig", "workshop_id": "3403993583", "title": "Armed Oil Rig with Helo MOD", "author": "unknown (added 2026-08-24)", "faction": "multi", "type": "land", "status": "active", "notes": "Offshore platform installation with helipad — scenario objective piece. VERIFIED: adds civ_spar_rig_helo installation."},
+    {"id": "merchants-expanded", "workshop_id": "3430106996", "title": "Merchants Expanded", "author": "unknown (added 2026-08-24)", "faction": "civilian", "type": "ship", "status": "active", "overlaps": ["auxilliary-merchant-pack (two merchant packs — check for duplicate hulls)"], "notes": "Expanded civilian merchant traffic. VERIFIED: civilian merchant hulls (civ_ms_*)."},
+    {"id": "ai-doctrine-overhaul", "workshop_id": "3654230227", "title": "AI Doctrine Overhaul", "author": "unknown (added 2026-08-24)", "faction": "utility", "type": "framework", "status": "active", "requires": ["anchor-chain (presumed — code-level behavior mod; verify)"], "notes": "VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement."},
+    {"id": "better-tacmap", "workshop_id": "3768036424", "title": "Better TacMap", "author": "unknown (added 2026-08-24)", "faction": "utility", "type": "framework", "status": "active", "requires": ["anchor-chain (presumed — UI code mod; verify)"], "notes": "VERIFIED: pure code mod (settings.cfg only in export) — Anchor Chain family UI overhaul."},
+    {"id": "arrw", "workshop_id": "3502273861", "title": "ARRW (AGM-183)", "author": "", "faction": "usa", "type": "weapons", "status": "active", "notes": "Workshop 3502273861. Adds its OWN AGM-183 ammunition - it does NOT collide with the Dingtools Weapon Pack's dts_agm-183a that the F-15EX Strike183 fits use. Verified with tools/check_mod_conflicts.py: zero whole-file collisions."},
+    {"id": "davids-sling", "workshop_id": "3558173926", "title": "David's Sling", "author": "", "faction": "multi", "type": "land", "status": "active", "notes": "Workshop 3558173926. Israeli SAM battery: 4 land units plus its own ammunition. Zero whole-file collisions."},
+    {"id": "red-storm-arsenal", "workshop_id": "3413868677", "title": "Red Storm Arsenal", "author": "", "faction": "multi", "type": "weapons", "status": "active", "notes": "Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed last so it loses all 13 and keeps only its unique content."}
   ]
 }
