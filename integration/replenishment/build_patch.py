@@ -45,7 +45,7 @@ clones its European donors. The donors are untouched and both ships coexist.
 What this builder emits, in four stages:
 
   1. Suppliers   - ten upstream hulls get a tuned [SupplySystem1].
-  2. Clones      - six new modern auxiliaries, with variants and names.
+  2. Clones      - eight new modern auxiliaries, five BLUE and three RED, with variants and names.
   3. Ammunition  - every heavy ship/sub-launched missile gets one of two new
                    SEST_ categories so it is counted rather than free. Which
                    rounds those are is DERIVED from mods-source on each build,
@@ -77,7 +77,7 @@ sys.path.insert(0, str(ROOT / "integration"))
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from common.ras import (                                          # noqa: E402
     CLONES, METER_CATEGORIES, METER_EXEMPT, METER_THRESHOLD,
-    RESTORE_ROUNDS, SUPPLIERS, insert_supply_block, make_reloadable)
+    RESTORE_ROUNDS, SUPPLIERS, apply_refit, insert_supply_block, make_reloadable)
 from refine_civ_traffic import winning_file                       # noqa: E402
 
 # Hulls whose supply block is emitted by ANOTHER pack's builder, from the same
@@ -173,6 +173,98 @@ def supplier_source(unit, source):
     """
     base = VANILLA if source == "vanilla" else MODS / source
     return base / "vessels" / f"{unit}.ini"
+
+
+_FLAG_TOKENS = None
+
+
+def resolve_flag(flag):
+    """A flag texture name, resolved the same way a system name is.
+
+    Textures are not .ini sections, so they cannot be looked up in an index -
+    but a texture that no file anywhere NAMES is a texture no mod ships, and
+    that is a usable proxy. Exactly one clone needs it: the Akademik Pashin
+    wants RFN_Flag, the modern Russian ensign, which lives in Russian Navy 21
+    (3597650470) and not in vanilla. Without the fallback a player without that
+    mod gets a 2021 ship flying nothing; with it they get the Soviet ensign,
+    which is wrong but visible.
+
+    A plain string is passed straight through - seven of the eight clones fly
+    a flag vanilla ships.
+    """
+    global _FLAG_TOKENS
+    if isinstance(flag, str):
+        return flag
+    if _FLAG_TOKENS is None:
+        _FLAG_TOKENS = set()
+        for path in list(MODS.glob("*/vessels/*_variants.ini")) + \
+                    list(VANILLA.glob("vessels/*_variants.ini")):
+            _FLAG_TOKENS.update(re.findall(r"^FlagTexture=(\S+)", read(path), re.M))
+    for name in flag:
+        if name in _FLAG_TOKENS:
+            return name
+    sys.exit(f"none of the flag textures {flag} is referenced anywhere in the "
+             "collection - the last entry must be one vanilla ships")
+
+
+_SYSTEM_INDEX = None
+
+
+def system_index():
+    """Every system name vanilla or an exported mod defines, and who defines it.
+
+    Sensors, weapons, modules and cargo all live in systems/*.ini as plain
+    section headers, and - unlike a unit file - these MERGE key by key rather
+    than one mod winning the whole file. So a name is available if ANY exported
+    mod defines it; there is no load-order winner to resolve, which is why this
+    returns every owner rather than the top one.
+
+    Built once and cached: it is 1979 names across 130-odd files.
+    """
+    global _SYSTEM_INDEX
+    if _SYSTEM_INDEX is None:
+        idx = collections.defaultdict(set)
+        for path in list(MODS.glob("*/systems/*.ini")) + list(VANILLA.glob("systems/*.ini")):
+            mod = "vanilla" if VANILLA in path.parents else path.parts[-3]
+            for m in re.finditer(r"^\[([^\]\n]+)\]", read(path), re.M):
+                idx[m.group(1)].add(mod)
+        _SYSTEM_INDEX = idx
+    return _SYSTEM_INDEX
+
+
+def resolve_system(prefs, unit_id, slot):
+    """First name in `prefs` the collection actually defines.
+
+    The refit table names the radar it WANTS first and falls back through to
+    something vanilla defines, so a player who does not run Red Storm Arsenal
+    or Euromod gets a working ship rather than a hull whose SystemName points
+    at nothing. Nothing else in the pack degrades this way because nothing else
+    references a systems/ definition - the launcher fix edits a key in place
+    and the metering edits a category the pack itself defines.
+
+    Two namespaces, and they are NOT the same lookup. A system name is a
+    section header in systems/*.ini; a magazine round is a FILE in
+    ammunition/. Checking a round against the systems index was the first
+    version of this and it rejected every round in the table - correctly, and
+    for entirely the wrong reason. The "@" prefix on a magazine slot is what
+    picks the lookup.
+
+    Falling off the end is a table bug, not a user's missing mod: every list
+    is required to end in a name vanilla itself carries.
+    """
+    if slot.startswith("@"):
+        available = lambda n: winning_file(f"ammunition/{n}.ini") is not None
+        what = "ammunition file"
+    else:
+        idx = system_index()
+        available = lambda n: n in idx
+        what = "systems/ definition"
+    for name in prefs:
+        if available(name):
+            return name
+    sys.exit(f"{unit_id}: refit slot {slot} lists {prefs} and the collection has no "
+             f"{what} for any of them - every preference list must end in a name "
+             "vanilla itself carries")
 
 
 _AMMO_INDEX = None
@@ -530,7 +622,7 @@ def clone_variants(donor_text, clone, unit):
     body = (f"ResourcesHullnumberFolder=textures/Misc/\n"
             f"HullnumberTexture=transparent\n"
             f"ResourcesFlagFolder=ships/materials/textures/\n"
-            f"FlagTexture={clone['flag']}\n"
+            f"FlagTexture={resolve_flag(clone['flag'])}\n"
             f"Nation={clone['nation']}\n"
             f"ServiceDate={clone['service']}")
     parts = [head, "", "[Default]", body]
@@ -557,19 +649,27 @@ def stage_clones(owned):
         text = read(base / "vessels" / f"{donor}.ini")
         spec = clone["supply"]
         text, _ = insert_supply_block(text, spec, unit)
+        text, refitted = apply_refit(text, clone["refit"], resolve_system, unit)
         text, reloadable = make_reloadable(text)
         write(rel, text)
 
         write(f"vessels/{unit}_variants.ini",
               clone_variants(read(base / "vessels" / f"{donor}_variants.ini"), clone, unit))
 
-        names += [f"[{unit}]", f"Type={clone['type_line']}",
+        # The bloc rides in the category field of the Type= line, which is what
+        # the mission editor groups the list by. It is one string, so "modern
+        # supply, RED" and "modern supply, BLUE" become two adjacent blocks
+        # instead of eight ships scattered through Fleet Auxiliary. Composed
+        # here from hull_code + bloc rather than written out per ship: a
+        # hand-written "AOE,Replenishment (BLUE)" on a RED hull is exactly the
+        # kind of typo nothing else would catch.
+        names += [f"[{unit}]", f"Type={clone['hull_code']},Replenishment ({clone['bloc']})",
                   f"Default={clone['class_name']},{clone['short']}",
                   f"DefaultDescription={clone['desc']}"]
         names += [f"Variant{i}={full},{short}"
                   for i, (full, short) in enumerate(clone["hulls"], start=1)]
         names.append("")
-        built.append((unit, clone, reloadable))
+        built.append((unit, clone, reloadable, refitted))
 
     write("language_en/vessel_names.ini", "\n".join(names))
     return built
@@ -763,8 +863,8 @@ def main():
     clones = stage_clones(owned)
     tagged, restored, meter_skips, orphans, unpriced = stage_ammunition(owned)
     written = {f"vessels/{u}.ini" for u, _, _ in suppliers} | \
-              {f"vessels/{u}.ini" for u, _, _ in clones} | \
-              {f"vessels/{u}_variants.ini" for u, _, _ in clones}
+              {f"vessels/{u}.ini" for u, *_ in clones} | \
+              {f"vessels/{u}_variants.ini" for u, *_ in clones}
     hulls, launchers, by_mod, skipped, foreign = stage_launchers(owned, written)
 
     # No systemgroups entry is needed: the emitted SystemName is
@@ -772,11 +872,25 @@ def main():
     # supply" (language_en/systemgroups.ini:1140).
     write("_info.ini", INFO_INI)
 
-    supplier_launchers = sum(n for _, _, n in suppliers) + sum(n for _, _, n in clones)
+    supplier_launchers = sum(n for _, _, n in suppliers) + sum(n for _, _, n, _ in clones)
     print(f"built {OUT.relative_to(ROOT)}:")
     print(f"  {len(suppliers)} upstream auxiliaries given a working supply system")
+    blocs = collections.Counter(c["bloc"] for _, c, _, _ in clones)
     print(f"  {len(clones)} new modern replenishment hulls cloned "
-          f"({sum(len(c['hulls']) for _, c, _ in clones)} named ships)")
+          f"({sum(len(c['hulls']) for _, c, _, _ in clones)} named ships) - "
+          + ", ".join(f"{n} {b}" for b, n in sorted(blocs.items())))
+    # The refit is printed per ship rather than counted, because a preference
+    # list that fell through to its vanilla tail looks identical to one that
+    # got what it asked for - and the difference is whether the player has the
+    # mod. Reading the arrows is the only way to see which happened.
+    for unit, clone, _, refitted in clones:
+        swaps = [f"{old}->{new}" for hits in refitted.values()
+                 for _, old, new in hits if old != new]
+        if swaps:
+            print(f"      {clone['bloc']:4} {unit:<22} {', '.join(sorted(set(swaps)))}")
+        else:
+            print(f"      {clone['bloc']:4} {unit:<22} donor fit kept - nothing "
+                  "the collection defines improves on it")
     by_category = collections.Counter(c for _, c, _ in tagged)
     print(f"  {len(tagged)} heavy rounds metered ("
           + ", ".join(f"{n} {c}" for c, n in sorted(by_category.items())) + ")")

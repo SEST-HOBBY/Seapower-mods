@@ -34,6 +34,14 @@ from refine_civ_traffic import winning_file, load_order  # noqa: E402
 
 UNIT_DIRS = ("aircraft", "vessels", "submarines", "land_units", "ammunition", "biologic")
 MODS = ROOT / "mods-source"
+VANILLA = MODS / "_vanilla" / "original"
+
+# A system entry, and the SystemName it names. Sensors, weapons and modules all
+# resolve against systems/*.ini, which MERGE section by section rather than one
+# mod winning the file - so a name is available if any exported mod defines it.
+SYSTEM_SECTION = re.compile(
+    r"^\[(?:Sensor|Weapon)System\d+[A-Za-z]*\][^\n]*\n(?:(?!^\[).*(?:\n|$))*", re.M)
+SYSTEM_NAME = re.compile(r"^SystemName[ \t]*=[ \t]*([^\n]*)$", re.M)
 
 
 def mod_name(t):
@@ -43,6 +51,74 @@ def mod_name(t):
         if m:
             return m.group(1).strip()
     return t
+
+
+def system_index():
+    """Every system name vanilla or an exported mod defines, and who defines it.
+
+    A hull's radars and guns are references exactly as its ammunition is - a
+    SystemName that nothing defines is a sensor that does not exist - but until
+    the replenishment pack started REFITTING its clones, nothing here chose a
+    system name, so nothing checked them. It does now: the Tide asks for
+    Artisan, the Type 901 for a Type 730, and both live in somebody else's mod.
+    """
+    idx = collections.defaultdict(set)
+    # The SEST packs' own systems/ files count. Two packs define sensors that
+    # exist nowhere else - the Triton's AN/ZPY-3 and the Growler's NGJ pods -
+    # and leaving them out made this check report a pack for naming a system it
+    # ships itself, one directory away. systems/*.ini merge section by section,
+    # so a pack's definitions are as available as vanilla's.
+    sest = sorted((ROOT / "integration").glob("*/SEST_*/systems/*.ini"))
+    for path in list(MODS.glob("*/systems/*.ini")) + list(VANILLA.glob("systems/*.ini")) + sest:
+        if VANILLA in path.parents:
+            mod = "vanilla"
+        elif path.parts[-3].startswith("SEST_"):
+            mod = path.parts[-3]
+        else:
+            mod = path.parts[-3]
+        for m in re.finditer(r"^\[([^\]\n]+)\]",
+                             path.read_text(encoding="utf-8", errors="replace"), re.M):
+            idx[m.group(1)].add(mod)
+    return idx
+
+
+def systems_named(text):
+    """SystemName values inside system sections only.
+
+    Scoped, because the same key appears in MESH sections - vanilla's [SPS_40]
+    block carries SystemName=SPS-40 beside its Mesh= line - and those are
+    decorative labels rather than references: 757 of the mesh sections a vanilla
+    sensor mounts carry no SystemName at all and eleven carry one that names a
+    mesh instead of a system. Counting them would manufacture dependencies that
+    do not exist.
+    """
+    for block in SYSTEM_SECTION.finditer(text):
+        m = SYSTEM_NAME.search(block.group(0))
+        if m:
+            name = m.group(1).split("//")[0].strip()
+            if name:
+                yield name
+
+
+def upstream_system_names():
+    """Every SystemName any vanilla or workshop unit file references.
+
+    Not what systems/ DEFINES - what unit files USE. The two differ by more
+    than typos: Hardpoint, WingHardpoint and BombBay are named by two dozen
+    upstream aircraft and defined nowhere, because the engine handles them
+    itself. Membership here is what separates "upstream does this" from "we
+    made this up".
+    """
+    names = set()
+    for d in list(MODS.iterdir()) + [VANILLA]:
+        if not d.is_dir():
+            continue
+        for sub in UNIT_DIRS:
+            if not (d / sub).is_dir():
+                continue
+            for f in (d / sub).glob("*.ini"):
+                names.update(systems_named(f.read_text(encoding="utf-8", errors="replace")))
+    return names
 
 
 def owners_index():
@@ -56,7 +132,9 @@ def owners_index():
 
 def main():
     idx, order = owners_index(), load_order()
-    problems, rows = [], []
+    systems = system_index()
+    upstream_systems = upstream_system_names()
+    problems, rows, inherited = [], [], collections.defaultdict(set)
 
     for pack_dir in sorted((ROOT / "integration").glob("*/SEST_*")):
         if pack_dir.parent.name == "dist":   # dist = the consolidated deployable; its content is checked via the source packs
@@ -90,6 +168,28 @@ def main():
                 # whatever mod defines the E-7A just as much as a loadout needs
                 # its missile. Missing this reported SEST_RAAF_Bases, which
                 # rosters an entire wing, as standalone.
+                # Systems the file names. An unresolved one is only THIS
+                # repo's if no upstream unit file names it either: a name the
+                # collection uses widely and systems/ never defines is an
+                # engine keyword or an upstream convention, not a typo here.
+                # That distinction is the whole check. "Is the file one we
+                # invented?" was the first rule and it was wrong twice over -
+                # it blamed this repo for Hardpoint, WingHardpoint and BombBay,
+                # which 24 upstream aircraft use and nothing defines, and for
+                # the Choules' Aldebaran, which came in with the Galicia the
+                # hull is cloned from.
+                for name in set(systems_named(text)):
+                    owners = systems.get(name)
+                    if not owners:
+                        if name in upstream_systems:
+                            inherited[name].add(rel)
+                        else:
+                            problems.append(f"{pack}: {rel} names system {name}, which "
+                                            "nothing defines and no upstream unit file "
+                                            "uses - this one is ours")
+                    elif not any(o == "vanilla" or o.startswith("SEST_") for o in owners):
+                        reference[sorted(owners)[0]] += 1
+
                 for uid in set(re.findall(r"^([A-Za-z0-9_.\-]+)=Squadron\d+,\d+",
                                           text, re.M)):
                     for kind in UNIT_DIRS:
@@ -127,6 +227,20 @@ def main():
             print("   standalone - needs nothing but the base game")
         for t, kind, n in detail:
             print(f"   {kind:<10} {n:>3} file(s)  {mod_name(t)}  ({t})")
+
+    if inherited:
+        hulls = len({r for rels in inherited.values() for r in rels})
+        print(f"\n{len(inherited)} system name(s) on {hulls} FORKED hull(s) resolve to "
+              "nothing anywhere in the collection.")
+        print("   Upstream's, not this repo's - the packs ship those files unchanged "
+              "apart from the")
+        print("   documented insertions. Listed because each one is a sensor or mount "
+              "that will not")
+        print("   work in game for anyone running that mod, with or without SEST.")
+        for name in sorted(inherited):
+            rels = sorted(inherited[name])
+            more = f" (+{len(rels) - 2} more)" if len(rels) > 2 else ""
+            print(f"      {name:<28} {', '.join(Path(r).stem for r in rels[:2])}{more}")
 
     print()
     if problems:

@@ -2,7 +2,7 @@
 
 Sea Power ships a complete ship-to-ship replenishment mechanic and leaves it switched off.
 This pack turns it on, and — the part that actually matters — makes it *reach* a modern
-fleet: 280 modern hulls currently have launchers that **can never be reloaded by anything**,
+fleet: 282 modern hulls currently have launchers that **can never be reloaded by anything**,
 whatever is tied up alongside.
 
 Built alongside **[RE-power: naval resupply in the missile age](https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271)** (3605013271), which is now subscribed and exported
@@ -58,9 +58,10 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 | Stage | Result |
 |---|---|
 | **Suppliers** | 10 upstream auxiliaries get a tuned `[SupplySystem1]` |
-| **New hulls** | 6 modern replenishment ships, 20 named ships, as **new unit ids** |
+| **New hulls** | 8 modern replenishment ships — 5 BLUE, 3 RED — 25 named ships, as **new unit ids** |
 | **Metering** | 85 heavy rounds get a counted `SEST_` supply category; 4 rounds repaired |
-| **Launchers** | **2003 launchers across 280 modern hulls** made reloadable |
+| **Refit** | every clone's donor-era radars, EW and guns retuned to its own navy and decade |
+| **Launchers** | **2003 launchers across 282 modern hulls** made reloadable |
 
 ### The suppliers
 
@@ -105,18 +106,78 @@ New unit ids cloned from vanilla donors — the donors are untouched and both sh
 exactly as `integration/ran-fleet` does it. Donors are picked on hull length, because the
 mesh is what the player sees.
 
-| Class | Donor | Ships | Pool | Ceiling |
-|---|---|---|---|---|
-| **Supply-class T-AOE** | Sacramento (242 m ← 229 m) | Supply · Rainier · Arctic · Bridge | 700 000 | **none** |
-| **Lewis and Clark T-AKE** | Kilauea (172 m ← 210 m) | Lewis and Clark · Sacagawea · Amelia Earhart · Washington Chambers | 550 000 | **none** |
-| **Henry J. Kaiser T-AO** | Teide (118 m ← 206 m) | Henry J. Kaiser · John Lenthall · Walter S. Diehl · Rappahannock | 80 000 | 2 000 |
-| **Mashuu-class AOE** | Sacramento (242 m ← 221 m) | Mashuu · Omi | 250 000 | 5 000 |
-| **Tide-class AOR** | Sacramento (242 m ← 201 m) | Tidespring · Tiderace · Tidesurge · Tideforce | 180 000 | 5 000 |
-| **Type 901 Fuyu AOE** | Sacramento (242 m ← 241 m) | Hulunhu · Chaganhu | 400 000 | 9 000 |
+| Bloc | Class | Donor | Ships | Pool | Ceiling |
+|---|---|---|---|---|---|
+| BLUE | **Supply-class T-AOE** | Sacramento (242 m ← 229 m) | Supply · Rainier · Arctic · Bridge | 700 000 | **none** |
+| BLUE | **Lewis and Clark T-AKE** | Kilauea (172 m ← 210 m) | Lewis and Clark · Sacagawea · Amelia Earhart · Washington Chambers | 550 000 | **none** |
+| BLUE | **Henry J. Kaiser T-AO** | Teide (118 m ← 206 m) | Henry J. Kaiser · John Lenthall · Walter S. Diehl · Rappahannock | 80 000 | 2 000 |
+| BLUE | **Mashuu-class AOE** | Sacramento (242 m ← 221 m) | Mashuu · Omi | 250 000 | 5 000 |
+| BLUE | **Tide-class AOR** | Sacramento (242 m ← 201 m) | Tidespring · Tiderace · Tidesurge · Tideforce | 180 000 | 5 000 |
+| RED | **Type 901 Fuyu AOE** | Sacramento (242 m ← 241 m) | Hulunhu · Chaganhu | 400 000 | 9 000 |
+| RED | **Type 903A Fuchi AOR** | Boris Chilikin (162 m ← 178 m) | Taihu · Chaohu · Honghu · Luomahu | 220 000 | 5 000 |
+| RED | **Project 23130 Akademik Pashin** | Kazbek (145 m ← 130 m) | Akademik Pashin | 90 000 | 2 000 |
 
 The Kaiser is the weakest match by a distance — the Teide is the only proper fleet-oiler
 silhouette in the collection and it is 88 m short. If a better donor ever appears, it is a
 one-line change in `CLONES`.
+
+**The bloc split is why the last two exist.** Before them the modern half of this table was
+five BLUE hulls and one Chinese one, and RED's only other choices were the Boris Chilikin, the
+Kazbek and the Don — all Cold War. A RED task force in 2025 had a supply ship; it did not have
+a modern one. The bloc also rides in the mission editor: the `Type=` line reads
+`Replenishment (BLUE)` or `Replenishment (RED)`, so the eight group into two adjacent blocks
+in the unit list instead of scattering through *Fleet Auxiliary*.
+
+The Fuchi and the Pashin are **unarmed**, and that is not an oversight. Their donors carry no
+weapon mounts, the refit rule below forbids adding geometry that is not in the donor mesh, and
+both real ships are unarmed too — the Pashin has provision for two AK-630 that were never
+fitted. Give them an escort.
+
+### The refit
+
+A clone is its donor plus a supply block, and for five of the eight that donor is a 1960s
+Sacramento. Left alone, a 2017 Chinese replenishment ship sails with an SPS-40, a NATO Sea
+Sparrow launcher and an AN/SLQ-32 — a US Navy fit twenty years older than the ship, on the
+wrong navy. So each clone's systems are retuned to its own flag and decade:
+
+| Bloc | Ship | Search | EW | Point defence |
+|---|---|---|---|---|
+| BLUE | Supply T-AOE | AN/SPS-49(V)5 · AN/SPQ-9B | SLQ-32A · SLQ-32(V)6 | Phalanx 1B · **ESSM** in the Mk29 |
+| BLUE | Lewis and Clark T-AKE | AN/SPQ-9B | SLQ-32A | Phalanx 1B · **Mk110 57 mm** replacing the 3″/50s |
+| BLUE | Henry J. Kaiser T-AO | AN/SPQ-9B | — | Bofors 40 mm **L/70** replacing the L/60 |
+| BLUE | Mashuu AOE | OPS-48 · OPS-20 | **NOLQ-2** | Phalanx 1B · ESSM |
+| BLUE | Tide AOR | **Artisan Type 997** · SharpEye | **Thales UAT** · Type 1048 | Phalanx 1B · **Sea Ceptor** in the Mk29 |
+| RED | Type 901 Fuyu | **Type 382 · Type 364 · Type 347G** | **RJZ-726** | **Type 730 ×2** (30 mm magazine) · **HQ-10** in the Mk29 |
+| RED | Type 903A Fuchi | Type 364 | — | unarmed |
+| RED | Project 23130 | MR-760 | — | unarmed |
+
+**The rule is retune, never restructure.** Exactly three keys are ever rewritten: `SystemName`
+inside a `[SensorSystemN]` or `[WeaponSystemN]` section, and `Ammunition1` inside a
+`[WeaponMagazine*]` section. `Mount`, `Collider`, `Container`, `Gun`, `FiringArcs` and every
+mesh section stay the donor's, because those name geometry that exists in the donor model and
+nowhere else. A refit therefore changes what a system *does*, never what it looks like — the
+Type 901 still shows Phalanx barrels while shooting like a Type 730. That is the same trade the
+donor choice already makes.
+
+Half-swaps are the trap, and the table is what closes it: giving the Type 901 a Type 730
+without moving its magazine from `usn_cal_20mm` to `plan_cal_30mm` would have left it with a
+CIWS and nothing to fire. Both live on one row.
+
+**Missile launchers keep their `SystemName` and are refitted through the magazine instead.**
+That is the one exception to "a SystemName is behaviour", and it is not obvious: `[MK29]`
+declares eight `AttachmentPosition` entries and `[HQ-10_24]` declares twenty-four, and those
+are mesh-relative coordinates for where each round is *drawn* on the mount. Swapping the Type
+901's Mk29 to an HQ-10 launcher — the obvious move — would have rendered twenty-four missiles
+at another launcher's geometry on a box with eight rails. So the Type 901 fires HQ-10 *from a
+Mk29*, and the Tide fires Sea Ceptor from one. Guns and sensors carry no such geometry —
+`[MK15]` and `[Type_730]` are rates, arcs and effects — and swap freely.
+
+**Every slot is a preference list, not a name**, and the builder picks the first entry your
+collection actually defines. The good radars live in Red Storm Arsenal, Euromod, the PLAN packs
+and Russian Navy 21; hard-coding one would silently break the ship for anyone not running that
+mod. Every list ends in a name **vanilla itself** carries, so the floor is always reachable —
+and the build log prints the arrow it took for each ship, which is the only way to see whether
+a slot got what it asked for or fell through to the tail.
 
 ### The metering
 
@@ -193,7 +254,7 @@ not underway RAS.
 
 ## Submarines, and the surfacing question
 
-Every supplier — the ten patched hulls, the six clones and HMAS Supply — carries
+Every supplier — the ten patched hulls, the eight clones and HMAS Supply — carries
 `TargetTypes=Vessel,Submarine`, so a boat can rearm from whatever it reaches, with each
 supplier's own ceiling, pool, categories, range and speed gates deciding what actually moves:
 an oiler passes a surfaced boat its torpedo-class rounds while Kalibr-class weapons need an
@@ -225,8 +286,16 @@ What this pack will NOT do is fake the restriction by rewriting every submarine.
 
 None hard. The pack patches whatever it finds: the ten supplier hulls come from vanilla plus
 Euromod Cold War Spanish, and the launcher fix covers 22 mods it detects at build time. The
-six new hulls ride vanilla Sacramento/Kilauea and Spanish Teide meshes, so those must stay
-enabled. RE-power (3605013271) is optional and complementary.
+eight new hulls ride vanilla Sacramento / Kilauea / Boris Chilikin / Kazbek and Spanish Teide
+meshes, so those must stay enabled. RE-power (3605013271) is optional and complementary.
+
+The refit is the one part that is **built against your collection rather than shipped fixed**.
+Its preference lists resolved to Red Storm Arsenal, Euromod, Modern US Navy, the PLAN packs and
+Russian Navy 21 on this build; disable one of those and *rebuild* and the affected slots fall
+back to a vanilla system instead. Disable one *without* rebuilding and that slot names a system
+the game cannot find — so re-run the builder after changing your subscriptions, which is what
+`tools/check_dependencies.py` now checks for: it resolves every `SystemName` the packs ship and
+fails on any this repo introduced that nothing defines.
 
 RE-power now has a `mods[]` entry in `data/mod-catalog.json` (`re-power-resupply`) and is
 exported under `mods-source/3605013271/`, so the conflict tooling sees it.
@@ -256,7 +325,7 @@ These are the things that cannot be settled from the files, in the order worth t
 3. **`TargetTypes=Vessel,Submarine` as a two-value list — PROVEN in game.** Every supplier
    carries it and it parses: submarines and surface ships both receive. RE-power only ever
    uses one value per hull, so this was the riskiest line in the pack — if the comma had not
-   parsed, all 17 suppliers would have failed at once, not just the submarine half. The
+   parsed, all 19 suppliers would have failed at once, not just the submarine half. The
    fallback is no longer needed, but for the record it was two `[SupplySystemN]` blocks per
    hull, one per target type.
 4. **Whether a category-tagged round also charges the points pool** is unknown — the

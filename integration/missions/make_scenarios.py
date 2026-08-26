@@ -101,8 +101,13 @@ SCENARIOS = [
         "neutrals": True,
         # An ASW hunt is the one fight that burns torpedoes, and the T-AKE is
         # the deepest AirTorpedo magazine in the pack (72) with no size ceiling.
+        # The Type 903A is its RED counterpart: same job, half the pool, and it
+        # makes the fight symmetric - both sides now have an auxiliary worth
+        # sinking, which is the whole point of putting one in an ASW scenario.
         "extras": [{"side": "Taskforce1", "type": "usn_take_lewis_clark",
-                    "formation": "NATO Fleet A"}],
+                    "formation": "NATO Fleet A"},
+                   {"side": "Taskforce2", "type": "plan_aor_type903a",
+                    "formation": "PLAN SSBN Group"}],
     },
     # --- second wave: the formations the first five left on the table ---------
     # The source has 38 formations and the original carve used 21 of them. These
@@ -147,6 +152,11 @@ SCENARIOS = [
         "tf1": ["Carrier Group A"],
         "tf2": ["CN Carrier group", "Eastern Strike AS"],
         "neutrals": False,
+        # The most on-the-nose injection in the set: the Type 901 Fuyu exists
+        # to keep station with exactly this carrier, and a Ford group that
+        # cannot reach it wins the sortie war by attrition instead.
+        "extras": [{"side": "Taskforce2", "type": "plan_aor_type901",
+                    "formation": "CN Carrier group"}],
     },
     {
         "file": "SEST NF3 - Coastal Ambush",

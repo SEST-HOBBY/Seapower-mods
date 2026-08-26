@@ -111,7 +111,7 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
 - **Red Storm Arsenal models every Mk41 cell as its own bare launcher.** So the
   flag is not a deck-canister detail: without it, not one VLS round on any of
   RSA's 115 hulls could ever be replenished. Scale surprises are the norm here
-  — the fix was 2003 launchers across 280 hulls, not the handful the Long Beach
+  — the fix was 2003 launchers across 282 hulls, not the handful the Long Beach
   example suggests.
 - **"It only changes the block we replace anyway" is a measurement, not an
   assumption.** This pack forked RE-power's copy of the nine shared auxiliary
@@ -126,6 +126,37 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   and inherit nothing. `tools/check_pack_fidelity.py` proves the result but
   cannot make this choice for you — it only checks the file equals whatever
   upstream you named.
+- **A cloned hull inherits its donor's whole combat system, not just its
+  shape.** The replenishment clones were donor plus a supply block and nothing
+  else, so a 2017 Chinese and a 2017 British replenishment ship each sailed
+  with a Mk29 NATO Sea Sparrow launcher, two Phalanx, an SPS-40 and an
+  AN/SLQ-32 — a US Navy 1970s fit, on the wrong navy — and a 2006 MSC ship
+  carried twin 3″/50 mounts. Picking a donor on hull length answers "what does
+  it look like"; it says nothing about what it *is*. The fix is a refit table
+  that rewrites `SystemName` inside system sections and `Ammunition1` inside
+  magazine sections and touches nothing else, because `Mount`, `Collider`,
+  `Gun` and `Container` all name geometry that exists only in the donor mesh.
+- **A mesh section's `SystemName` is decorative — measure before assuming a
+  link.** Vanilla's `[SPS_40]` mesh block carries `SystemName=SPS-40` beside
+  its `Mesh=` line, which looks like the pairing a refit must keep consistent.
+  It is not: across every vanilla vessel, of the mesh sections a sensor
+  actually mounts, **757 carry no `SystemName` at all**, 129 carry a matching
+  one, and 11 carry one that disagrees — the Ticonderoga's SPS-55 mounts a mesh
+  labelled `usn_cg_ticonderoga_sps_55`, a mesh name, and the Ivan Rogov's three
+  Palm Fronds mount meshes labelled `Nav_Radar`. The link the engine uses is
+  `Mount=`, pointing at the section by name.
+- **A missile launcher's `SystemName` carries GEOMETRY; a gun's and a sensor's
+  do not.** `[MK29]` declares eight `AttachmentPosition` entries and
+  `[HQ-10_24]` twenty-four — mesh-relative coordinates for where each round is
+  drawn on the mount. Swapping one launcher name for another therefore renders
+  the rounds at a different launcher's coordinates on a mount that has the old
+  number of rails. Refit a launcher through its MAGAZINE instead: the Type 901
+  fires HQ-10 from a Mk29. `[MK15]` and `[Type_730]` are rates, arcs and
+  effects with no geometry at all, so guns swap freely.
+- **Half a swap is worse than none.** Give a hull a Type 730 and leave its
+  magazine on `usn_cal_20mm` and it has a CIWS with nothing to fire. Anything
+  that changes a weapon has to change its round in the same table row, which is
+  why the refit keys the two together rather than listing them apart.
 - **Ships carry loadouts too, and their launchers hide in the suffix.** A
   header regex matching only `[WeaponSystemN]` silently skips
   `[WeaponSystem6AntiShip]`, `[WeaponSystem4Strike]`, `[WeaponSystem12Late]`
@@ -176,7 +207,7 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
 - **`TargetTypes` takes a comma list.** `Vessel,Submarine` parses, proven in
   game. Nothing in vanilla or the 131 exported mods uses a multi-value supply
   target list — RE-power picks one per hull — so this was the pack's riskiest
-  single line: had the comma not parsed, all 17 suppliers would have failed
+  single line: had the comma not parsed, all 19 suppliers would have failed
   at once, not just the submarine half.
 - **Adding a `SupplyCategory` can only ever restrict.** A round that had none
   was unrestricted commodity ordnance; tagging it makes it unreplenishable by

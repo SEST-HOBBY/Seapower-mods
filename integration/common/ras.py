@@ -90,7 +90,7 @@ need an ammunition ship, exactly as for surface receivers.
 
 Both halves are now TESTED IN GAME. The comma list parses (nothing else in the
 corpus uses one - RE-power picks one value per hull - so this was the riskiest
-line here; had it not parsed, all 17 suppliers would have failed at once). And
+line here; had it not parsed, all 19 suppliers would have failed at once). And
 a SUBMERGED boat replenishes: the engine applies no surfaced-state check, and
 none can be added from the ini layer. No supply key mentions depth, and
 `EnabledSurfaced` - the one candidate, 90 occurrences - is cosmetic, appearing
@@ -228,7 +228,7 @@ def supply_spec(load, pool, rng, targets, own, target_vel, cats,
                 cap=None, target_types="Vessel,Submarine", note=""):
     """Map the readable tuning names onto the game's ini keys.
 
-    Every supply block in this repo - the ten upstream hulls, the six clones
+    Every supply block in this repo - the ten upstream hulls, the eight clones
     and the RAN Supply-class that integration/ran-fleet owns - is built
     through this one function, so a hull can never end up with a block that
     silently omits half its keys.
@@ -369,14 +369,86 @@ SUPPLIERS = {
 #   Mashuu-class AOE      221 m  <- Sacramento 242 m
 #   Tide-class AOR        201 m  <- Sacramento 242 m
 #   Type 901 Fuyu AOE     241 m  <- Sacramento 242 m  (near exact)
+# ---------------------------------------------------------------------------
+# The refit.
+#
+# A clone is its donor plus a supply block, and for five of the eight that
+# donor is a 1960s Sacramento. Left alone, a 2017 Chinese replenishment ship
+# sails with an SPS-40, a NATO Sea Sparrow launcher and an AN/SLQ-32 - a US
+# Navy fit twenty years older than the ship, on the wrong navy. The refit
+# retunes the systems to something the ship's own era and flag would carry.
+#
+# THE RULE IS RETUNE, NEVER RESTRUCTURE. Only three keys are ever rewritten:
+# SystemName inside a [SensorSystemN] or [WeaponSystemN] section, and
+# Ammunition1 inside a [WeaponMagazine*] section. Mount, Collider, Container,
+# Gun, FiringArcs, MountPosition and every mesh section are the donor's and
+# stay the donor's, because those name geometry that exists in the donor model
+# and nowhere else. A refit therefore changes what a system DOES, never what
+# it looks like - the Type 901 still shows Phalanx barrels while shooting like
+# a Type 730. That is the same trade the donor choice already makes.
+#
+# ONE EXCEPTION, and it is the sharp edge here: a MISSILE LAUNCHER's SystemName
+# is not purely behavioural. [MK29] declares eight AttachmentPositions and
+# [HQ-10_24] twenty-four, and those are mesh-relative coordinates saying where
+# each missile is drawn on the mount. Swap one for the other and the rounds
+# render at another launcher's geometry on a mount that has eight rails. So
+# launchers keep their SystemName and are refitted through the MAGAZINE
+# instead - the Type 901 fires HQ-10 from a Mk29, the Tide fires Sea Ceptor
+# from one. Guns and sensors carry no such geometry ([MK15] and [Type_730] are
+# rates, arcs and effects) and swap freely.
+#
+# The mesh sections are left alone even where they carry a SystemName of their
+# own - vanilla's [SPS_40] block says SystemName=SPS-40 next to its Mesh= line,
+# and after a refit that no longer names any system the ship has. Measured
+# before deciding: across every vanilla vessel, of the mesh sections a sensor
+# actually mounts, 757 carry NO SystemName at all, 129 carry a matching one,
+# and 11 carry one that disagrees - the Ticonderoga's SPS-55 mounts a mesh
+# whose SystemName is "usn_cg_ticonderoga_sps_55", a mesh name, and the Ivan
+# Rogov's three Palm Fronds mount meshes labelled Nav_Radar. The link the
+# engine uses is Mount=, pointing at the section; the key is decorative and
+# vanilla is not consistent about it. So it stays as the donor wrote it.
+#
+# Each slot is a PREFERENCE LIST, not a name, and the builder picks the first
+# entry defined by vanilla or an exported mod (see resolve_system in
+# build_patch.py). Two reasons. The good radars live in Red Storm Arsenal,
+# Euromod and the PLAN packs, and hard-coding one would silently break the
+# ship for anyone who does not run that mod - the pack's dependency story is
+# "patches whatever it finds", and this keeps it true. And every list ends in
+# a name vanilla itself defines, so the floor is always reachable.
+#
+# A key is either a bare SystemName, which matches every section carrying it,
+# or "SensorSystem2:Nav_Radar", which matches only that section. The scoped
+# form exists for the Boris Chilikin, which carries three identical Nav_Radar
+# entries where the real Type 903A has one search set and two navigation sets.
+BLUE = "BLUE"
+RED = "RED"
+
+# Fallback tails, spelled once. Every one of these names is defined by vanilla.
+_US_ESM = ["AN/SLQ-32A_ESM", "AN/SLQ-32_ESM"]
+_US_ECM = ["AN/SLQ-32(V)6", "AN/SLQ-32"]
+_US_CIWS = ["MK15B", "eu_MK15B", "MK15"]
+_ESSM = ["usn_rim-162", "usn_rim-162a", "usn_rim-7m"]
+
 CLONES = {
     "usn_taoe_supply": {
         "donor": ("vanilla", "usn_aoe_sacramento"),
         "class_name": "Supply-class T-AOE (stand-in)",
-        "type_line": "T-AOE,Replenishment",
+        "hull_code": "T-AOE", "bloc": BLUE,
         "short": "Supply",
         "nation": "US", "flag": "flag_us",
         "service": "1994|2060",
+        "refit": {
+            # AOE-6 really did carry SPS-49 and SLQ-32, so this is the ship's
+            # own fit rather than a modernisation: the Sacramento donor is
+            # simply a generation behind it. ESSM in the Mk29 is the one
+            # liberty - the launcher is real, the round is the current one.
+            "SPS-40": ["AN/SPS-49(V)5", "SPS-49V5"],
+            "SPS-67": ["AN/SPQ-9B", "SPQ-9"],
+            "AN/SLQ-32_ESM": _US_ESM,
+            "AN/SLQ-32": _US_ECM,
+            "MK15": _US_CIWS,
+            "@usn_rim-7m": _ESSM,
+        },
         "desc": ("Military Sealift Command fast combat support ship - fuel, ammunition, "
                  "provisions and spares in one hull, built to keep pace with a carrier "
                  "strike group.\\n\\nStand-in hull: the Sacramento-class stands in for the "
@@ -395,10 +467,20 @@ CLONES = {
     "usn_take_lewis_clark": {
         "donor": ("vanilla", "usn_ae_kilauea"),
         "class_name": "Lewis and Clark-class T-AKE (stand-in)",
-        "type_line": "T-AKE,Replenishment",
+        "hull_code": "T-AKE", "bloc": BLUE,
         "short": "Lewis and Clark",
         "nation": "US", "flag": "flag_us",
         "service": "2006|2060",
+        "refit": {
+            # The Kilauea donor's two Mk33 3"/50 are a 1950s weapon; a T-AKE
+            # that carries a gun at all would carry the Mk110 the LCS and the
+            # Constellations carry. Same mounts, same arcs, modern round.
+            "SPS-67": ["AN/SPQ-9B", "SPQ-9"],
+            "AN/SLQ-32_RWR": ["AN/SLQ-32A_ESM", "AN/SLQ-32_RWR"],
+            "MK33": ["eu_Bofors_57mm_L/70_Mk3", "MK33"],
+            "MK15": _US_CIWS,
+            "@usn_cal_3in50": ["bofors_cal_57mm_3P", "usn_cal_3in50"],
+        },
         "desc": ("Military Sealift Command dry cargo and ammunition ship, the replacement "
                  "for the Kilauea-class AE and the Mars-class AFS.\\n\\nStand-in hull: the "
                  "Kilauea-class stands in for the T-AKE. Deepest ordnance magazine in the "
@@ -416,10 +498,19 @@ CLONES = {
     "usn_tao_kaiser": {
         "donor": ("3630495619", "ae_ao_teide"),
         "class_name": "Henry J. Kaiser-class T-AO (stand-in)",
-        "type_line": "T-AO,Replenishment",
+        "hull_code": "T-AO", "bloc": BLUE,
         "short": "Kaiser",
         "nation": "US", "flag": "flag_us",
         "service": "1986|2055",
+        "refit": {
+            # The smallest refit in the pack, because the Teide donor is the
+            # smallest fit: optics, one radar and a single 40 mm mount. The
+            # Bofors goes L/60 to L/70 - same calibre, so the donor's 40 mm
+            # magazine still feeds it and no round swap is needed.
+            "Optics": ["AdvancedOptics", "Optics"],
+            "Nav_Radar": ["AN/SPQ-9B", "SPQ-9", "Nav_Radar"],
+            "Bofors_L/60_MkIX": ["eu_Bofors_40mm_L70", "Bofors_L/60_MkIX"],
+        },
         "desc": ("Military Sealift Command fleet replenishment oiler - the workhorse that "
                  "keeps a battle group fuelled, with limited ordnance transfer."
                  "\\n\\nStand-in hull: the Spanish Teide-class oiler stands in for the "
@@ -437,10 +528,21 @@ CLONES = {
     "jmsdf_aoe_mashuu": {
         "donor": ("vanilla", "usn_aoe_sacramento"),
         "class_name": "Mashuu-class AOE (stand-in)",
-        "type_line": "AOE,Replenishment",
+        "hull_code": "AOE", "bloc": BLUE,
         "short": "Mashuu",
         "nation": "Japan", "flag": "flag_civ_japan",
         "service": "2004|2060",
+        "refit": {
+            # Japanese kit throughout: OPS air and surface search, NOLQ-2 for
+            # the EW suite. Phalanx and ESSM stay American because the JMSDF
+            # buys them American.
+            "SPS-40": ["eu_OPS-48", "OPS-50", "SPS-49V5"],
+            "SPS-67": ["eu_OPS-20", "OPS-17", "SPS-67"],
+            "AN/SLQ-32_ESM": ["eu_NOLQ-2_ESM", "AN/SLQ-32_ESM"],
+            "AN/SLQ-32": ["eu_NOLQ-2_ECM", "AN/SLQ-32"],
+            "MK15": _US_CIWS,
+            "@usn_rim-7m": _ESSM,
+        },
         "desc": ("Japan Maritime Self-Defense Force fast combat support ship, the largest "
                  "auxiliary the JMSDF operates.\\n\\nStand-in hull: the Sacramento-class "
                  "stands in for the Mashuu (221 m against 242 m, same AOE role)."),
@@ -455,10 +557,22 @@ CLONES = {
     "rn_aor_tide": {
         "donor": ("vanilla", "usn_aoe_sacramento"),
         "class_name": "Tide-class AOR (stand-in)",
-        "type_line": "AOR,Replenishment",
+        "hull_code": "AOR", "bloc": BLUE,
         "short": "Tide",
         "nation": "UK", "flag": "flag_rn",
         "service": "2017|2060",
+        "refit": {
+            # Artisan on the air-search mount, SharpEye on the surface set and
+            # UAT for the EW suite - the RFA's own equipment. Sea Ceptor in the
+            # Mk29 is the deliberate liberty: a real Tide carries Phalanx and
+            # nothing else, and an unarmed hull is a free kill in a scenario.
+            "SPS-40": ["eu_Type_997", "eu_SMART-S_Mk2", "SPS-49V5"],
+            "SPS-67": ["eu_SharpEye_X", "Type1007", "SPS-67"],
+            "AN/SLQ-32_ESM": ["eu_Thales_UAT", "AN/SLQ-32_ESM"],
+            "AN/SLQ-32": ["eu_type_1048", "AN/SLQ-32"],
+            "MK15": ["eu_MK15B", "MK15B", "MK15"],
+            "@usn_rim-7m": ["mbda_camm", "rn_seaceptor"] + _ESSM,
+        },
         "desc": ("Royal Fleet Auxiliary fast fleet tanker supporting the Queen Elizabeth "
                  "carrier strike group.\\n\\nStand-in hull: the Sacramento-class stands in "
                  "for the Tide-class (201 m against 242 m)."),
@@ -475,10 +589,35 @@ CLONES = {
     "plan_aor_type901": {
         "donor": ("vanilla", "usn_aoe_sacramento"),
         "class_name": "Type 901 Fuyu-class AOE (stand-in)",
-        "type_line": "AOE,Replenishment",
+        "hull_code": "AOE", "bloc": RED,
         "short": "Fuyu",
         "nation": "China", "flag": "flag_plan",
         "service": "2017|2060",
+        "refit": {
+            # The whole US fit goes: Type 382 and Type 364 for search, Type
+            # 347G on the illuminator mounts, RJZ-726 for EW, and Type 730 on
+            # both CIWS mounts. The 20 mm magazine has to go to 30 mm with
+            # them or the Type 730s have nothing to fire - exactly the kind of
+            # half-swap this table exists to make impossible to forget.
+            #
+            # The Mk29 KEEPS its SystemName and takes HQ-10 rounds instead.
+            # Swapping it to HQ-10_24 was the obvious move and is the one
+            # thing a launcher SystemName must not do: [MK29] declares eight
+            # AttachmentPositions and [HQ-10_24] twenty-four, and those are
+            # mesh-relative coordinates for where the missiles are DRAWN. On a
+            # Mk29 box that is twenty-four missiles floating at another
+            # launcher's coordinates. Guns are safe to swap - [MK15] and
+            # [Type_730] are rates, arcs and effects with no geometry at all -
+            # and launchers are not.
+            "SPS-40": ["Type_382", "Type_364", "SPS-49V5"],
+            "SPS-67": ["Type_364", "Nav_Radar"],
+            "MK-95": ["Type_347G", "Type_344", "MK-95"],
+            "AN/SLQ-32_ESM": ["H/RJZ-726_ESM", "AN/SLQ-32_ESM"],
+            "AN/SLQ-32": ["RJZ-726_ECM", "AN/SLQ-32"],
+            "MK15": ["Type_730", "Type_730_H", "MK15"],
+            "@usn_rim-7m": ["pla_hq-10", "plan_hq-10", "usn_rim-7m"],
+            "@usn_cal_20mm": ["plan_cal_30mm", "usn_cal_20mm"],
+        },
         "desc": ("People's Liberation Army Navy fast combat support ship, built to keep "
                  "station with the Type 003 carriers and the Type 055 cruisers."
                  "\\n\\nStand-in hull: the Sacramento-class stands in for the Type 901 - at "
@@ -494,7 +633,159 @@ CLONES = {
                             "(11050) - 13000 would have passed the Zircon the "
                             "note claimed it stopped"),
     },
+    # --- RED -----------------------------------------------------------------
+    # The two below exist because the bloc split was one-sided without them.
+    # Before they were added the modern half of this table read six BLUE hulls
+    # and a single Chinese one, and RED's only other options were the Boris
+    # Chilikin, the Kazbek and the Don - all Cold War. A RED task force in 2025
+    # had a supply ship; it did not have a modern one.
+    #
+    # Both are unarmed, and that is not an omission. Their donors carry no
+    # weapon mounts at all, the refit rule forbids adding geometry that is not
+    # in the donor mesh, and in both cases the real ship is unarmed too - the
+    # Pashin has provision for two AK-630 that are not fitted, and a Type 903A
+    # keeps its guns for a wartime fit. So they are what they look like:
+    # replenishment hulls that need an escort.
+    "plan_aor_type903a": {
+        "donor": ("vanilla", "wp_vt_boris_chilikin"),
+        "class_name": "Type 903A Fuchi-class AOR (stand-in)",
+        "hull_code": "AOR", "bloc": RED,
+        "short": "Fuchi",
+        "nation": "China", "flag": "flag_plan",
+        "service": "2004|2060",
+        "refit": {
+            # Only SensorSystem2 becomes a Type 364. The donor carries three
+            # identical Nav_Radar entries and the real Type 903A carries one
+            # search set and two navigation sets, so a bare "Nav_Radar" key -
+            # which matches every section - would have given it three search
+            # radars. This is the scoped form's whole reason for existing.
+            "Optics": ["AdvancedOptics", "Optics"],
+            "SensorSystem2:Nav_Radar": ["Type_364", "Nav_Radar"],
+        },
+        "desc": ("People's Liberation Army Navy fleet replenishment oiler - the class "
+                 "that made PLAN deployments beyond the first island chain routine, and "
+                 "the most numerous modern auxiliary in this table."
+                 "\\n\\nStand-in hull: the Boris Chilikin-class stands in for the Type "
+                 "903A (162 m against 178 m). Unarmed, like the ship it stands in for - "
+                 "give it an escort."),
+        "hulls": [("889 CNS Taihu", "Taihu"),
+                  ("890 CNS Chaohu", "Chaohu"),
+                  ("963 CNS Honghu", "Honghu"),
+                  ("964 CNS Luomahu", "Luomahu")],
+        "supply": supply_spec(load=80, pool=220000, rng=0.6, targets=2, own=13,
+                       target_vel=16, cap=5000,
+                       cats=[("AirTorpedo", 32), ("SovietAdvancedASM", 8),
+                             (LAND_ATTACK, 16), (LONG_RANGE_SAM, 24)],
+                       note="a tanker first, so a smaller pool and a lower ceiling "
+                            "than the Type 901: it passes YJ-18 and HHQ-16 and "
+                            "stops at YJ-12A"),
+    },
+    "rfn_aor_pashin": {
+        "donor": ("vanilla", "wp_vt_kazbek"),
+        "class_name": "Project 23130 Akademik Pashin (stand-in)",
+        "hull_code": "VT", "bloc": RED,
+        "short": "Pashin",
+        "nation": "Soviet", "flag": ["RFN_Flag.png", "flag_soviet"],
+        "service": "2021|2060",
+        "refit": {
+            # The thinnest refit here, because the Kazbek donor is optics and
+            # one radar. MR-760 is a real Russian search set and a genuine
+            # upgrade on a bare navigation radar; there is nothing else on the
+            # hull to retune.
+            "Optics": ["AdvancedOptics", "Optics"],
+            "Nav_Radar": ["rfn_mr760", "Nav_Radar"],
+        },
+        "desc": ("Russian Navy medium sea tanker, the first purpose-built replenishment "
+                 "ship Russia has commissioned since the Soviet era and the only modern "
+                 "one it has.\\n\\nStand-in hull: the Kazbek-class stands in for Project "
+                 "23130 (145 m against 130 m). Unarmed, like the ship it stands in for - "
+                 "give it an escort."),
+        "hulls": [("Akademik Pashin", "Pashin")],
+        "supply": supply_spec(load=55, pool=90000, rng=0.5, targets=1, own=12,
+                       target_vel=14, cap=2000,
+                       cats=[("AirTorpedo", 16), ("SovietAdvancedASM", 4)],
+                       note="a fuel-first tanker with one rig: the 2000 ceiling stops "
+                            "every Soviet heavy ASM, which is what the Boris Chilikin "
+                            "is for"),
+    },
 }
+
+
+# A system entry: [SensorSystem2], [WeaponSystem1], [WeaponSystem1Gun]. The
+# trailing [A-Za-z]* is the same loadout-suffix lesson _WEAPON_BLOCK learned -
+# the Teide's only gun lives in [WeaponSystem1Gun], and a header-only match
+# would have refitted nothing on the Kaiser while reporting success.
+_SYSTEM_SECTION = re.compile(
+    r"^\[((?:Sensor|Weapon)System\d+[A-Za-z]*)\][^\n]*\n(?:(?!^\[).*(?:\n|$))*", re.M)
+_MAGAZINE_SECTION = re.compile(
+    r"^\[(WeaponMagazine[^\]\n]*)\][^\n]*\n(?:(?!^\[).*(?:\n|$))*", re.M)
+# Captures the whole remainder of the line, comment and all, because a system
+# name can CONTAIN a slash - AN/SLQ-32_ESM, Bofors_L/60_MkIX, H/RJZ-726_ESM.
+# The first version excluded "/" from the value to keep "//" comments out and
+# so matched none of those three, which is how the Sacramento reported its ESM
+# slot as missing from a file that plainly had it. The comment is split off in
+# code instead, where "//" can be told apart from a name.
+_VALUE = r"^{}[ \t]*=[ \t]*([^\n]*)$"
+
+
+def apply_refit(text, refit, resolve, unit_id):
+    """Retune a clone's systems and magazine rounds. Returns (text, chosen).
+
+    Only SystemName inside a system section and Ammunition1 inside a magazine
+    section are ever rewritten - see the REFIT commentary above CLONES for why
+    the geometry keys are untouchable.
+
+    `refit` maps a slot to a preference list. A key is one of:
+
+        "SPS-40"                   every system section whose SystemName is that
+        "SensorSystem2:Nav_Radar"  only that section
+        "@usn_rim-7m"              every magazine whose Ammunition1 is that round
+
+    `resolve` takes a preference list and returns the first name the exported
+    collection actually defines; the builder supplies it, because ras.py is a
+    tuning table and does not read the filesystem.
+
+    Every key MUST match something. A donor that quietly stopped carrying an
+    SPS-40 would otherwise leave the clone on its old fit while the build log
+    still said "refitted" - the same silent-success failure the launcher regex
+    had, and the reason that one went unnoticed across 245 launchers.
+    """
+    chosen, hit = {}, set()
+
+    def pass_over(src, section_re, key, scoped):
+        def one(m):
+            section, body = m.group(1), m.group(0)
+            cur = re.search(_VALUE.format(key), body, re.M)
+            if not cur:
+                return body
+            raw = cur.group(1)
+            value = raw.split("//", 1)[0]
+            old = value.strip()
+            # the section-scoped key wins over the bare one, so a hull can
+            # refit one of three identical radars and leave the others alone
+            slot = next((s for s in (f"{section}:{old}", f"{scoped}{old}") if s in refit),
+                        None)
+            if slot is None:
+                return body
+            hit.add(slot)
+            new = resolve(refit[slot], unit_id, slot)
+            chosen.setdefault(slot, []).append((section, old, new))
+            if new == old:
+                return body
+            # keep whatever followed the value - the padding and the comment
+            replacement = new + raw[len(value.rstrip()):]
+            return body[:cur.start(1)] + replacement + body[cur.end(1):]
+        return section_re.sub(one, src)
+
+    text = pass_over(text, _SYSTEM_SECTION, "SystemName", "")
+    text = pass_over(text, _MAGAZINE_SECTION, "Ammunition1", "@")
+
+    missing = sorted(set(refit) - hit)
+    if missing:
+        raise SystemExit(f"{unit_id}: refit slot(s) {missing} matched nothing in the "
+                         "donor - the donor's systems changed, so re-check the fit "
+                         "before shipping a ship that was not actually refitted")
+    return text, chosen
 
 
 def render_supply_block(spec):
