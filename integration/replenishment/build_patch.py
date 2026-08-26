@@ -936,8 +936,24 @@ def main():
     # got what it asked for - and the difference is whether the player has the
     # mod. Reading the arrows is the only way to see which happened.
     for unit, clone, _, refitted in clones:
-        swaps = [f"{old}->{new}" for hits in refitted.values()
-                 for _, old, new in hits if old != new]
+        swaps = []
+        for slot, hits in refitted.items():
+            for _, old, new in hits:
+                if old == new:
+                    continue
+                if not slot.startswith("@"):
+                    swaps.append(f"{old}->{new}")
+                    continue
+                # A magazine swap changes what the ship costs to replenish, so
+                # print the price with it. The Mk29 rounds are where this bites:
+                # usn_rim-162 would have won the ESSM list on name and carries
+                # no AmmoPoints at all, turning a 462-point magazine into a free
+                # one. Showing the numbers is what makes a list ordered wrong
+                # look wrong.
+                was, now = ammo_facts(old), ammo_facts(new)
+                wp = was[0] if was and was[0] else "free"
+                np_ = now[0] if now and now[0] else "free"
+                swaps.append(f"{old}({wp})->{new}({np_})")
         if swaps:
             print(f"      {clone['bloc']:4} {unit:<22} {', '.join(sorted(set(swaps)))}")
         else:

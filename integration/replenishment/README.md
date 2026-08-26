@@ -226,12 +226,12 @@ wrong navy. So each clone's systems are retuned to its own flag and decade:
 
 | Bloc | Ship | Search | EW | Point defence |
 |---|---|---|---|---|
-| BLUE | Supply T-AOE | AN/SPS-49(V)5 · AN/SPQ-9B | SLQ-32A · SLQ-32(V)6 | Phalanx 1B · **ESSM** in the Mk29 |
+| BLUE | Supply T-AOE | AN/SPS-49(V)5 · AN/SPQ-9B | SLQ-32A · SLQ-32(V)6 | Phalanx 1B · **ESSM** in the Mk29 (500 pts) |
 | BLUE | Lewis and Clark T-AKE | AN/SPQ-9B | SLQ-32A | Phalanx 1B · **Mk110 57 mm** replacing the 3″/50s |
 | BLUE | Henry J. Kaiser T-AO | AN/SPQ-9B | — | Bofors 40 mm **L/70** replacing the L/60 |
-| BLUE | Mashuu AOE | OPS-48 · OPS-20 | **NOLQ-2** | Phalanx 1B · ESSM |
-| BLUE | Tide AOR | **Artisan Type 997** · SharpEye | **Thales UAT** · Type 1048 | Phalanx 1B · **Sea Ceptor** in the Mk29 |
-| RED | Type 901 Fuyu | **Type 382 · Type 364 · Type 347G** | **RJZ-726** | **Type 730 ×2** (30 mm magazine) · **HQ-10** in the Mk29 |
+| BLUE | Mashuu AOE | OPS-48 · OPS-20 | **NOLQ-2** | Phalanx 1B · ESSM (500 pts) |
+| BLUE | Tide AOR | **Artisan Type 997** · SharpEye | **Thales UAT** · Type 1048 | Phalanx 1B · **Sea Ceptor** in the Mk29 (free — see below) |
+| RED | Type 901 Fuyu | **Type 382 · Type 364 · Type 347G** | **RJZ-726** | **Type 730 ×2** (30 mm magazine) · **HQ-10** in the Mk29 (320 pts) |
 | RED | Type 903A Fuchi | Type 364 | — | unarmed |
 | RED | Project 23130 | MR-760 | — | unarmed |
 
@@ -255,6 +255,28 @@ are mesh-relative coordinates for where each round is *drawn* on the mount. Swap
 at another launcher's geometry on a box with eight rails. So the Type 901 fires HQ-10 *from a
 Mk29*, and the Tide fires Sea Ceptor from one. Guns and sensors carry no such geometry —
 `[MK15]` and `[Type_730]` are rates, arcs and effects — and swap freely.
+
+**A magazine swap changes what the ship costs to replenish, so the lists are ordered by price,
+not by name.** `usn_rim-162` exists and would have won the ESSM list on name alone — and it
+carries no `AmmoPoints` at all, so it would have turned the Supply-class and Mashuu's
+462-point Mk29 magazine into a free one and quietly undone the metering on two ships. Both
+`-162a` variants are priced at 500. Same trap on the Chinese side: the `pla_hq-10` copy the
+collection loads is stamped *REQUIRES STATS REVISION* and is unpriced, while `plan_hq-10` is
+320. Every fallback tail is the **donor's own round**, because falling back must never cost
+less than changing nothing. The build log prints the price either side of each arrow —
+`usn_rim-7m(462)->usn_rim-162a(500)` — which is what makes a list ordered wrong look wrong.
+
+The Tide is the one accepted exception: no priced Sea Ceptor exists. `mbda_camm`,
+`mbda_camm-er` and `rn_seaceptor` all lack `AmmoPoints`, so its magazine refills free.
+Pricing another mod's round is not this pack's job — 63 ship-launched rounds in the collection
+are already in that state, and the metering exists for heavy strike rounds, not point defence.
+
+**No `Ammunition=` line is added to a refitted launcher, and none is needed.** Red Storm
+Arsenal's own HQ-10 blocks carry one beside their `AssociatedMagazine=`, which raises the
+question. Counted rather than guessed: across vanilla and every mod there are **2 529
+magazine-fed missile launchers with no `Ammunition=` line against 44 that have one**, and the
+vanilla Sacramento's own Mk29 is one of the 2 529. What a magazine-fed launcher requires is
+`PreloadAmmunition=True` — the comment on that very block says so — and the donor already has it.
 
 **Every slot is a preference list, not a name**, and the builder picks the first entry your
 collection actually defines. The good radars live in Red Storm Arsenal, Euromod, the PLAN packs

@@ -397,6 +397,16 @@ SUPPLIERS = {
 # from one. Guns and sensors carry no such geometry ([MK15] and [Type_730] are
 # rates, arcs and effects) and swap freely.
 #
+# That leaves one worry worth answering with a count rather than a guess: RSA's
+# own HQ-10 blocks carry an `Ammunition=` line beside their AssociatedMagazine,
+# and the Mk29 pattern this pack keeps does not. Is it required? No. Across
+# vanilla and every mod there are 2529 magazine-fed missile launchers with NO
+# Ammunition= line against 44 that have one; the vanilla Sacramento's own Mk29
+# is one of the 2529 and fires Sea Sparrow perfectly well. What a magazine-fed
+# launcher actually requires is PreloadAmmunition=True, which the comment on
+# that very block spells out ("REQUIRED!!! for non-unloading launchers with
+# magazine, like MK29") and which the donor already carries. Nothing to add.
+#
 # The mesh sections are left alone even where they carry a SystemName of their
 # own - vanilla's [SPS_40] block says SystemName=SPS-40 next to its Mesh= line,
 # and after a refit that no longer names any system the ship has. Measured
@@ -427,7 +437,14 @@ RED = "RED"
 _US_ESM = ["AN/SLQ-32A_ESM", "AN/SLQ-32_ESM"]
 _US_ECM = ["AN/SLQ-32(V)6", "AN/SLQ-32"]
 _US_CIWS = ["MK15B", "eu_MK15B", "MK15"]
-_ESSM = ["usn_rim-162", "usn_rim-162a", "usn_rim-7m"]
+# Ordered by PRICE, not by preference. usn_rim-162 exists and would have won
+# this list on name alone, and it carries no AmmoPoints at all - so swapping
+# the donor's RIM-7M (462) for it would have made the Mk29 magazine refill for
+# free and quietly undone the metering on two ships. Both -162a variants are
+# priced at 500. The tail is the DONOR's own round rather than a cheaper
+# modern one for the same reason: falling back must never cost less than
+# changing nothing.
+_ESSM = ["usn_rim-162a", "usn_rim_162a", "usn_rim-7m"]
 
 CLONES = {
     "usn_taoe_supply": {
@@ -571,6 +588,12 @@ CLONES = {
             "AN/SLQ-32_ESM": ["eu_Thales_UAT", "AN/SLQ-32_ESM"],
             "AN/SLQ-32": ["eu_type_1048", "AN/SLQ-32"],
             "MK15": ["eu_MK15B", "MK15B", "MK15"],
+            # No priced Sea Ceptor exists - mbda_camm, mbda_camm-er and
+            # rn_seaceptor all lack AmmoPoints, so the Tide's magazine
+            # refills free. Accepted rather than papered over: pricing another
+            # mod's round is not this pack's job, and 63 ship-launched rounds
+            # in the collection are already in that state. The build log says
+            # which ships it applies to.
             "@usn_rim-7m": ["mbda_camm", "rn_seaceptor"] + _ESSM,
         },
         "desc": ("Royal Fleet Auxiliary fast fleet tanker supporting the Queen Elizabeth "
@@ -615,7 +638,10 @@ CLONES = {
             "AN/SLQ-32_ESM": ["H/RJZ-726_ESM", "AN/SLQ-32_ESM"],
             "AN/SLQ-32": ["RJZ-726_ECM", "AN/SLQ-32"],
             "MK15": ["Type_730", "Type_730_H", "MK15"],
-            "@usn_rim-7m": ["pla_hq-10", "plan_hq-10", "usn_rim-7m"],
+            # plan_hq-10 first, not pla_hq-10: the pla_ copy the collection
+            # loads is stamped "REQUIRES STATS REVISION" and has no AmmoPoints,
+            # the plan_ one is priced at 320. Same missile, one of them free.
+            "@usn_rim-7m": ["plan_hq-10", "plan_hq-10a", "usn_rim-7m"],
             "@usn_cal_20mm": ["plan_cal_30mm", "usn_cal_20mm"],
         },
         "desc": ("People's Liberation Army Navy fast combat support ship, built to keep "
