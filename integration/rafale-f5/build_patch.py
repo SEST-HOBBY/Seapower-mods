@@ -49,9 +49,12 @@ DERIVATIONS = [
     ("SEST_AntiShipLRASM", "AntiShip",
      [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),   # LRASM keeps the heavy seat
       ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
-    # Heavy AAM: max JATM, no tanks beyond the donor's.
+    # Heavy AAM: max JATM. The donor's WING tanks (7/8) go - the AIM-260s the
+    # swap puts on the adjacent rails are Meteor-class fat and clip them
+    # (reported in-game); the centreline tank stays, nothing sits beside it.
     ("SEST_Intercept260Heavy", "AirToAirIntercept",
-     [("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
+     [("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
+     (), (), ("Station7", "Station8")),
     # LRASM with the centreline tank the AntiShip donor never fits.
     # MALICE with the centreline tank its StrikeLongRange donor never fits.
     # Both _ER fits add the centreline tank, so both must UN-hide Center_Pylon:
@@ -88,7 +91,7 @@ ApproximateVersion=0.8.1
 """
 
 
-def derive(text, name, donor, swaps, airframe, extra=(), unhide=()):
+def derive(text, name, donor, swaps, airframe, extra=(), unhide=(), drop=()):
     m = re.search(rf"^\[WeaponSystem1{donor}\][^\n]*\n(.*?)(?=^\[)", text, re.M | re.S)
     if not m:
         sys.exit(f"{airframe}: donor loadout {donor} not found")
@@ -101,6 +104,14 @@ def derive(text, name, donor, swaps, airframe, extra=(), unhide=()):
             sys.exit(f"{airframe}/{donor}: no stations carry {old} - upstream changed")
         body = re.sub(rf"^(Station\d+=){re.escape(old)}(\s*)$", rf"\g<1>{new}\g<2>",
                       body, flags=re.M)
+    for st in drop:
+        # Deleting a donor station outright - used to shed the wing tanks the
+        # intercept donors carry, which the fatter AIM-260s on the adjacent
+        # rails visibly clip. Fails loudly if the donor stops fitting it.
+        body, n = re.subn(rf"^{st}=\S+\s*\n", "", body, count=1, flags=re.M)
+        if n != 1:
+            sys.exit(f"{airframe}/{name}: expected donor {donor} to fit {st} - "
+                     "upstream changed, re-check the drop list")
     for line in extra:
         st = line.split("=")[0]
         if re.search(rf"^{st}=", body, re.M):
@@ -139,7 +150,8 @@ def main():
 
         blocks = "".join(derive(text, *d[:3], airframe,
                                 d[3] if len(d) > 3 else (),
-                                d[4] if len(d) > 4 else ())
+                                d[4] if len(d) > 4 else (),
+                                d[5] if len(d) > 5 else ())
                  for d in DERIVATIONS)
         marker = "[---------- WeaponMagazines ----------]"
         if marker not in text:
