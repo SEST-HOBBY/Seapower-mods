@@ -184,20 +184,18 @@ SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R
 # Upstream's AAMT120 missile truck with three tanks and the fuselage dual
 # racks FILLED. The AAMT rack mesh stays visible (its hide list matches the
 # upstream truck's) and all eight belly rounds sit in real rack slots via
-# the SESTR seats - see the seat-key comment for the geometry. Sixteen
-# missiles, three tanks. The AAMT is CONFIRMED one single object - the
-# F-15EX_dts.obj part listing (read on the user's machine) has exactly one
-# "o AAMT" and no wing/belly split - so its empty wing twin racks cannot be
-# hidden separately from the fuselage racks. The wing tanks therefore take
-# the SESTWTF seat, slung 0.002 under the rack instead of through it.
+# the SESTR seats - see the seat-key comment for the geometry. Twelve
+# missiles, three tanks. Per wing, only the tank pylon's two flanking rails
+# carry rounds (S1/S5 left, S2/S6 right) with the tank FLUSH on the normal
+# WT seat between them - the classic F-15 tank-between-rails picture. The
+# second wing pylon's rounds (S7-S10) are gone: every slung-tank height that
+# cleared them either clipped the pylon or clipped the rounds, because a
+# 610 gal tank and a loaded twin rack cannot share that station. (The AAMT
+# is one object, so its now-empty second-pylon rack arms stay visible.)
 Station1=dts_aim-120d-3_w|120
 Station2=dts_aim-120d-3_w|120
 Station5=dts_aim-120d-3_w|120
 Station6=dts_aim-120d-3_w|120
-Station7=dts_aim-120d-3_w|120
-Station8=dts_aim-120d-3_w|120
-Station9=dts_aim-120d-3_w|120
-Station10=dts_aim-120d-3_w|120
 Station11=dts_aim-120d-3|SESTR-OR
 Station12=dts_aim-120d-3|SESTR-OL
 Station13=dts_aim-120d-3|SESTR-OR
@@ -207,22 +205,18 @@ Station19=dts_aim-120d-3|SESTR-FR
 Station22=dts_aim-120d-3|SESTR-AR
 Station23=dts_aim-120d-3|SESTR-AL
 Station15=usaf_tank_610_f-15|WT
-Station16=usaf_tank_610_f-15|SESTWTF
-Station17=usaf_tank_610_f-15|SESTWTF
+Station16=usaf_tank_610_f-15|WT
+Station17=usaf_tank_610_f-15|WT
 
 [WeaponSystem1AAMT260Tanks]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R
-# The AIM-260 twin of the dual-rack three-tank truck above.
+# The AIM-260 twin of the three-tank truck above - same 12x layout.
 Station1=dts_aim-260_w|120
 Station2=dts_aim-260_w|120
 Station5=dts_aim-260_w|120
 Station6=dts_aim-260_w|120
-Station7=dts_aim-260_w|120
-Station8=dts_aim-260_w|120
-Station9=dts_aim-260_w|120
-Station10=dts_aim-260_w|120
 Station11=dts_aim-260|SESTR-OR
 Station12=dts_aim-260|SESTR-OL
 Station13=dts_aim-260|SESTR-OR
@@ -232,8 +226,8 @@ Station19=dts_aim-260|SESTR-FR
 Station22=dts_aim-260|SESTR-AR
 Station23=dts_aim-260|SESTR-AL
 Station15=usaf_tank_610_f-15|WT
-Station16=usaf_tank_610_f-15|SESTWTF
-Station17=usaf_tank_610_f-15|SESTWTF
+Station16=usaf_tank_610_f-15|WT
+Station17=usaf_tank_610_f-15|WT
 
 [WeaponSystem1MaliceTruck]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -269,8 +263,8 @@ LOADOUT_NAMES = {
         "Malice6": "SEST InterceptMALICE (6x AIM-424)",
         "MaliceER": "SEST InterceptMALICE LongRange",
         "MaliceTruck": "SEST InterceptMALICE Truck (8x)",
-        "AAMT120Tanks": "SEST AAMT120 DualRack (16x, 3 tanks)",
-        "AAMT260Tanks": "SEST AAMT260 DualRack (16x, 3 tanks)",
+        "AAMT120Tanks": "SEST AAMT120 DualRack (12x, 3 tanks)",
+        "AAMT260Tanks": "SEST AAMT260 DualRack (12x, 3 tanks)",
     },
     "cn": {
         "SEST_AntiShipLRASM6": "SEST 重型反舰LRASM×6",
@@ -281,8 +275,8 @@ LOADOUT_NAMES = {
         "Malice6": "SEST 马利斯截击 (6x AIM-424)",
         "MaliceER": "SEST 马利斯截击 (远程)",
         "MaliceTruck": "SEST 马利斯截击 (8联卡车)",
-        "AAMT120Tanks": "SEST AMRAAM双联卡车 (16弹 3副油箱)",
-        "AAMT260Tanks": "SEST AIM-260双联卡车 (16弹 3副油箱)",
+        "AAMT120Tanks": "SEST AMRAAM双联卡车 (12弹 3副油箱)",
+        "AAMT260Tanks": "SEST AIM-260双联卡车 (12弹 3副油箱)",
     },
 }
 
@@ -751,7 +745,6 @@ def main():
             + "SESTR-ALPositions=0.0082,-0.005,0\n"
             + "SESTR-ARRotations=-2,0,0\n"
             + "SESTR-ALRotations=-2,0,0\n"
-            + "SESTWTFPositions=0,-0.008,-0.001\n"   # DualRack wing tank: below the _w twin-rack's LOWER round tier (bottoms ~-0.0073), not just below the pylon. -0.0065 sat the tank top exactly in the round tier and the quad clipped through it.
             + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner
