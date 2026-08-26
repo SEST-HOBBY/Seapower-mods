@@ -19,6 +19,9 @@
       6. squadrons- repair squadron references the editor left unresolved, and
                     re-split groups that an earlier repair collapsed
                     (fix_squadron_refs.py --spread)
+      6b. loadouts- give aircraft an explicit LoadoutVariant when their type has
+                    no usable default, which crashes the map panel's converter
+                    (fix_loadout_variants.py)
       7. install  - copy the result back into the game (only with -Install)
 
     Every step is idempotent and preserves your placements, waypoints and
@@ -154,6 +157,15 @@ if ($LASTEXITCODE -eq 0) {
 # squadrons - see the tool's docstring for why it is deliberately narrow.
 Write-Host "`n[6/7] checking squadron references..." -ForegroundColor Cyan
 Invoke-Py "fix_squadron_refs.py" @("--mission", $Mission, "--spread", "--write")
+
+# --- 6b. Loadout variants -----------------------------------------------------
+# An aircraft with no LoadoutVariant makes the UI resolve a default loadout; if
+# the type's AvailableLoadouts has no "Default", the map panel's converter dies
+# with "An item with the same key has already been added. Key: <aircraft id>".
+# The editor omits the variant whenever it was never picked by hand, so this
+# runs after every import.
+Write-Host "`n[6b/7] checking loadout variants..." -ForegroundColor Cyan
+Invoke-Py "fix_loadout_variants.py" @("--mission", $Mission, "--write")
 
 # --- 7. Put it back in the game ----------------------------------------------
 if ($Install) {
