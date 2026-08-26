@@ -19,7 +19,9 @@ Anything vanilla already provides is not a dependency and is not listed.
 
     python3 tools/check_dependencies.py
 
-Exits non-zero if a pack needs something that is not exported and ordered.
+Exits non-zero if a pack hangs a store or rosters a unit that nothing
+defines (a pruned or never-exported provider), or depends on a mod missing
+from the load order.
 """
 import collections
 import re
@@ -72,8 +74,15 @@ def main():
                 stores |= set(re.findall(r"^Ammunition\d*=(\S+)", text, re.M))
                 for s in stores:
                     w = winning_file(f"ammunition/{s}.ini")
+                    if w is None:
+                        # nothing anywhere ships this store: the reference is
+                        # dangling. Before this check a pruned provider made
+                        # the dependency vanish from the report instead of
+                        # failing it.
+                        problems.append(f"{pack}: {rel} hangs {s} but no mod, "
+                                        "pack or vanilla file defines it")
                     # vanilla and the pack itself are not dependencies
-                    if w and w.parts[-3].isdigit() and w.parts[-3] != pack:
+                    elif w.parts[-3].isdigit() and w.parts[-3] != pack:
                         reference[w.parts[-3]] += 1
                 # Units the pack rosters - an airbase that spawns E-7As needs
                 # whatever mod defines the E-7A just as much as a loadout needs
@@ -89,6 +98,9 @@ def main():
                             elif w.parts[-3].startswith("SEST_") and w.parts[-3] != pack:
                                 sest_dep[w.parts[-3]] += 1
                             break
+                    else:
+                        problems.append(f"{pack}: {rel} rosters {uid} but no "
+                                        "mod, pack or vanilla file defines it")
 
         needed = set(override) | set(reference)
         detail = [(t, "SEST pack", n) for t, n in sest_dep.most_common()]
@@ -99,9 +111,11 @@ def main():
             kind = ("overrides" if override[t] else "references")
             n = override[t] or reference[t]
             detail.append((t, kind, n))
-            if not (MODS / t).is_dir():
-                problems.append(f"{pack} needs {mod_name(t)} ({t}) - NOT EXPORTED")
-            elif t not in order:
+            # t always names an existing export: owners come from
+            # owners_index(), which only iterates directories on disk. A
+            # pruned provider therefore surfaces as a dangling-reference
+            # problem above, never as a missing directory here.
+            if t not in order:
                 problems.append(f"{pack} needs {mod_name(t)} ({t}) - not in the load order")
         rows.append((pack, detail))
 

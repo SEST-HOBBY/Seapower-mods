@@ -216,11 +216,11 @@ def main():
 
     (OUT / "vessels").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en").mkdir(exist_ok=True)
-    names = ["﻿[****************************** Australia — SEST RAN Fleet ******************************]", ""]
+    names = ["[****************************** Australia — SEST RAN Fleet ******************************]", ""]
 
     for ship_id, ship in FLEET.items():
         mod, donor = ship["donor"]
-        text = (MODS / mod / "vessels" / f"{donor}.ini").read_text(encoding="utf-8", errors="replace")
+        text = (MODS / mod / "vessels" / f"{donor}.ini").read_text(encoding="utf-8-sig", errors="replace")
 
         text, n = re.subn(r"^DisplayClassName=.*$", f"DisplayClassName={ship['class_name']}",
                           text, count=1, flags=re.M)

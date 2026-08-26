@@ -66,7 +66,7 @@ def main():
     src = VANILLA / REL
     if not src.exists():
         sys.exit(f"vanilla file missing (re-export mods-source?): {src}")
-    text = src.read_text(encoding="utf-8", errors="replace")
+    text = src.read_text(encoding="utf-8-sig", errors="replace")
 
     if args.waypoints == "black":
         day = night = BLACK
@@ -101,7 +101,7 @@ def main():
 
     # Sanity: we shipped the whole file, not a fragment (unit inis are
     # whole-file overrides and the UI file behaves the same way).
-    out_lines = len((OUT / REL).read_text(encoding="utf-8").splitlines())
+    out_lines = len((OUT / REL).read_text(encoding="utf-8-sig").splitlines())
     src_lines = len(text.splitlines())
     if out_lines != src_lines or out_lines < 150:
         sys.exit(f"output looks truncated: {out_lines} lines vs {src_lines}")

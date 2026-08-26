@@ -203,7 +203,7 @@ def squadron_limit(aircraft_id):
     defined = declared = 0
     sources = []
     for h in hits:
-        text = h.read_text(encoding="utf-8", errors="replace")
+        text = h.read_text(encoding="utf-8-sig", errors="replace")
         m = re.search(r"NumberOfSquadrons\s*=\s*(\d+)", text)
         real = len(re.findall(r"^\s*\[Squadron\d+\]", text, re.M))
         if real > defined:
@@ -216,7 +216,7 @@ def squadron_limit(aircraft_id):
 
 
 def main():
-    template = TEMPLATE.read_text(encoding="utf-8")
+    template = TEMPLATE.read_text(encoding="utf-8-sig")
     m = re.search(r"\[AirGroup\].*?(?=\[FlightDeck\])", template, re.S)
     if not m:
         sys.exit("AirGroup block not found in template — upstream layout changed")
@@ -257,7 +257,7 @@ def main():
 
     # Emit the five base units
     (OUT / "land_units").mkdir(parents=True, exist_ok=True)
-    names = ["﻿[****************************** Australia ******************************]",
+    names = ["[****************************** Australia ******************************]",
              "[ -------------------- Airbases, airfields ----------------]", ""]
     for base_id, base in BASES.items():
         airgroup = "[AirGroup]\n# " + base["desc"] + "\n"

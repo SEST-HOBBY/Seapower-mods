@@ -64,7 +64,7 @@ def main():
     src = UPSTREAM / "aircraft" / "E7A_Wedgetail_squadrons.ini"
     if not src.exists():
         sys.exit(f"upstream squadrons file missing: {src}")
-    upstream = src.read_text(encoding="utf-8", errors="replace")
+    upstream = src.read_text(encoding="utf-8-sig", errors="replace")
 
     live = re.findall(r"^\[(Squadron\d+)\]", upstream, re.M)
     if live:

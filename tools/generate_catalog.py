@@ -35,6 +35,14 @@ def main():
     data = json.loads((ROOT / "data" / "mod-catalog.json").read_text(encoding="utf-8"))
     mods = data["mods"]
 
+    # meta.count is hand-written and had drifted to 127 against 130 entries.
+    # Nothing owned it, so nothing noticed. This does.
+    declared = data.get("meta", {}).get("count")
+    if declared is not None and declared != len(mods):
+        raise SystemExit(
+            f"data/mod-catalog.json meta.count is {declared} but there are {len(mods)} "
+            "mods — update meta.count (it is the figure quoted in the README and docs)")
+
     by_faction = OrderedDict((key, []) for key, _ in FACTION_ORDER)
     for mod in mods:
         if mod["faction"] not in by_faction:
