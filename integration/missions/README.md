@@ -13,3 +13,9 @@ Missions deployed by `tools/install-sest-packs.ps1` into
   mission air groups are preserved), the date moves to 2026-08-24, and a five-ship civilian
   shipping lane plus a three-whale humpback pod (biologic sonar contacts) run along the
   Darwin–fleet axis. The original NORTHERN FRONT save is untouched.
+
+- **SEST NF3 - \*** (11 scenarios) — small standalone fights carved out of NORTHERN FRONT III
+  by `make_scenarios.py`, from 10 units (Northern Fleet Sortie) to 83 (Sanctioned Convoy).
+  Every unit keeps the type, loadout, position and waypoints it has in the parent mission, and
+  the parent is never modified — re-import a newer save, re-run, and the scenarios match it.
+  See `scenarios/README.md`, which is generated alongside them.

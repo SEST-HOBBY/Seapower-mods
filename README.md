@@ -35,6 +35,7 @@ python3 tools/build_all.py --from-scratch   # rebuild all 16 packs + the consoli
 python3 tools/preflight.py                  # resolve every reference the active mission makes
 python3 tools/check_load_order.py           # every SEST override still outranks its target
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered
+python3 tools/check_scenarios.py           # carved scenarios: counts, formations, sections
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
 python3 tools/generate_catalog.py           # docs/mod-catalog.md      <- data/mod-catalog.json
 python3 tools/generate_load_order.py        # docs/load-order-full.md  <- catalog + tiers

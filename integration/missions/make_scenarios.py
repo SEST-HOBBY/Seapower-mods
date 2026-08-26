@@ -91,6 +91,79 @@ SCENARIOS = [
         "tf2": ["PLAN SSBN Group"],
         "neutrals": True,
     },
+    # --- second wave: the formations the first five left on the table ---------
+    # The source has 38 formations and the original carve used 21 of them. These
+    # six take the rest, and deliberately cover mission TYPES the first five do
+    # not: ballistic-missile defence, a Euro-NATO surface fight, carrier air (as
+    # opposed to Carrier Duel's surface gunline), close air support against a
+    # coastal battery, fifth-generation air superiority, and a deep-strike
+    # corridor through a different IADS than SEAD over the Shelf opens.
+    {
+        "file": "SEST NF3 - Ballistic Shield",
+        "title": "Ballistic Shield",
+        "desc": ("Four DF-26B launchers and a mixed Iskander/Scud/Shahed battery range on the "
+                 "northern bases. Darwin and Scherger have THAAD and PAC-3 and no depth to "
+                 "trade - every leaker lands on an airfield. Carved from NORTHERN FRONT III."),
+        "tf1": ["Darwin International Airport", "RAAF Base Scherger"],
+        "tf2": ["Eastern AS Ballistic", "Ballistic Missile Battery"],
+        "neutrals": False,
+    },
+    {
+        "file": "SEST NF3 - Northern Fleet Sortie",
+        "title": "Northern Fleet Sortie",
+        "desc": ("Varyag, an improved Kirov and three modern escorts against a Euro-NATO group "
+                 "of a Lafayette OPV, a K130, an Iver Huitfeldt and an F127. Five against five, "
+                 "except NATO is also shepherding the Algol - a 288 m sealift hull with no "
+                 "weapons that the whole group exists to keep alive. Carved from NORTHERN "
+                 "FRONT III."),
+        "tf1": ["NATO Fleet B"],
+        "tf2": ["Russian Carrier Group"],
+        "neutrals": False,
+    },
+    {
+        "file": "SEST NF3 - Fujian Strike",
+        "title": "Fujian Strike",
+        "desc": ("Type 003 Fujian with a Type 055, a Type 09X boat, Red October and eight "
+                 "J-15D against a Ford group. Where Carrier Duel is two gunlines in the same "
+                 "water, this one is decided in the air. Carved from NORTHERN FRONT III."),
+        "tf1": ["Carrier Group A"],
+        "tf2": ["CN Carrier group", "Eastern Strike AS"],
+        "neutrals": False,
+    },
+    {
+        "file": "SEST NF3 - Coastal Ambush",
+        "title": "Coastal Ambush",
+        "desc": ("An HY-4 coastal battery with a ZSU-23-4, a Shahed launcher and fuel bunkers "
+                 "sits on the headland. Two A-10Cs and the RAN inshore screen have to dig it "
+                 "out. The smallest scenario in the set - thirteen units, one hill, no room to "
+                 "be clever. Carved from NORTHERN FRONT III."),
+        "tf1": ["A-10-1", "RAN Inshore Screen"],
+        "tf2": ["Coastal Missile Site"],
+        "neutrals": False,
+    },
+    {
+        "file": "SEST NF3 - Fifth Generation Sweep",
+        "title": "Fifth Generation Sweep",
+        "desc": ("Three J-50 under six Su-35S and six J-16A, against eight Raptors and their "
+                 "tankers. Stealth on both sides, nothing on the surface, and the tankers are "
+                 "the only thing making the Raptors' fuel arithmetic work. Carved from "
+                 "NORTHERN FRONT III."),
+        "tf1": ["F-22 Group 1", "F-22 Group 2", "KC Group 1"],
+        "tf2": ["Eastern Stealth Cover", "Eastern Strike Cover", "J-16 Flight"],
+        "neutrals": False,
+    },
+    {
+        "file": "SEST NF3 - Deep Strike Corridor",
+        "title": "Deep Strike Corridor",
+        "desc": ("A layered eastern IADS - HQ-16A, HQ-22A, HQ-19, a DF-21C and three Sejjil "
+                 "launchers around a modern airbase. A strike package, its F-15 escort and two "
+                 "A-10Cs have to open a corridor through it. A harder, deeper problem than SEAD "
+                 "over the Shelf, against a different air-defence mix. Carved from NORTHERN "
+                 "FRONT III."),
+        "tf1": ["Strike Group 2", "F-15 Escort", "A-10-1"],
+        "tf2": ["Eastern AA AS"],
+        "neutrals": False,
+    },
 ]
 
 
@@ -218,6 +291,54 @@ def build(source_text, scenario):
     return "".join(out), counters
 
 
+def write_readme(source_name, built):
+    """Regenerate scenarios/README.md from what was just built.
+
+    The file has always CLAIMED to be generated. It was not - it was
+    hand-maintained, and it drifted: it called Carrier Duel "the smallest of
+    the set" long after that stopped being true. Unit counts come from the
+    build itself now, so the table cannot describe scenarios that do not
+    exist or miss ones that do.
+    """
+    smallest = min(built, key=lambda b: b[1])
+    rows = []
+    for scenario, total in built:
+        blurb = scenario["desc"].replace("Carved from NORTHERN FRONT III.", "").strip()
+        if scenario is smallest[0]:
+            blurb += " **The smallest of the set.**"
+        if scenario["neutrals"]:
+            blurb += " Includes the full civilian layer."
+        rows.append(f"| **{scenario['title']}** | {total} | {blurb} |")
+
+    body = f"""# NF3 Scenarios
+
+Small standalone missions carved out of **{source_name}** by
+`../make_scenarios.py`. Every unit keeps the type, loadout, position and waypoints it
+has in the parent mission — these are the same forces, fought in isolation.
+
+**Generated, including this file. Do not edit by hand.** Change the scenario list in
+`make_scenarios.py` and re-run; the parent mission is never modified, so re-importing a
+newer save and regenerating gives you scenarios that match it.
+
+| Scenario | Units | The fight |
+|---|---|---|
+""" + "\n".join(rows) + f"""
+
+{len(built)} scenarios. `tools/install-sest-packs.ps1` copies them with `-Recurse` into
+`user\\missions\\user_missions\\`, where the game lists them flat alongside the full
+missions — the subfolder is a repo-side grouping only.
+
+## Regenerating
+
+```bash
+python3 integration/missions/make_scenarios.py            # build all + this README
+python3 integration/missions/make_scenarios.py --list     # show the source's formations
+python3 tools/check_scenarios.py                          # validate every scenario
+```
+"""
+    (SCENARIO_DIR / "README.md").write_text(body, encoding="utf-8")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -243,6 +364,7 @@ def main():
 
     SCENARIO_DIR.mkdir(parents=True, exist_ok=True)
     print(f"source: {name}  (not modified)\n")
+    built = []
     for scenario in SCENARIOS:
         out_text, counters = build(text, scenario)
         target = SCENARIO_DIR / f"{scenario['file']}.ini"
@@ -252,7 +374,9 @@ def main():
         detail = ", ".join(f"{n} {c.replace('Taskforce1', 'blue ').replace('Taskforce2', 'red ').replace('Neutral', 'neutral ')}"
                            for c, n in sorted(counters.items()) if n)
         print(f"  {scenario['file']:<34} {total:>3} units  ({detail})")
-    print(f"\n{len(SCENARIOS)} scenarios in {SCENARIO_DIR.relative_to(ROOT)}")
+        built.append((scenario, total))
+    write_readme(name, built)
+    print(f"\n{len(SCENARIOS)} scenarios in {SCENARIO_DIR.relative_to(ROOT)} (README regenerated)")
 
 
 if __name__ == "__main__":
