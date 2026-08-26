@@ -19,10 +19,13 @@ and the rule gets a new revision — that has happened three times already.
 - **Asset paths resolve across mods** — a pack can reference another mod's mesh
   folder (the Triton flies the MQ-9 mod's model). This is also a hidden
   dependency the unit-reference checker cannot see.
-- **The same unit id defined by two mods can crash the UI** even though file
-  overrides collapse cleanly — the plan converter dict-adds unit ids and threw
-  on `plaaf_kj-500` (standalone KJ-500 mod vs PLAN Pack, which had absorbed it
-  wholesale). Redundant subscriptions are a liability, not a convenience.
+- **Two mods defining the same unit id is NOT known to crash anything.** This
+  entry used to claim it did, on the `plaaf_kj-500` evidence. That was wrong, and
+  the correction cost a mod its subscription: the crash survived unsubscribing the
+  second KJ-500 provider and was eventually traced to a mission aircraft with no
+  resolvable default loadout (see Working practices). Same-filename overrides
+  collapse cleanly — 263 of them do so in this collection every session. Redundant
+  subscriptions are still worth pruning for clarity, but not out of fear of this.
 
 ## The Tier 0 invariant
 
