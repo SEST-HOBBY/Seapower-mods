@@ -23,6 +23,7 @@ it was designed around.
     python3 integration/missions/make_scenarios.py --source "OTHER MISSION"
 """
 import argparse
+import math
 import re
 import sys
 from pathlib import Path
@@ -47,6 +48,9 @@ SCENARIOS = [
                  "sort neutral traffic from sanctioned traffic and stop the latter. Carved "
                  "from NORTHERN FRONT III."),
         "tf1": ["RAN Inshore Screen", "Strike Group 1"],
+        # HMAS Supply with the RAN screen she actually serves.
+        "extras": [{"side": "Taskforce1", "type": "ran_aor_supply",
+                    "formation": "RAN Inshore Screen"}],
         "tf2": ["Sanctioned Lift Bayu-Undan", "Sanctioned Lift Ichthys",
                 "Sanctioned Lift Montara", "Sanctioned Transit Group"],
         "neutrals": True,
@@ -70,6 +74,11 @@ SCENARIOS = [
         "tf1": ["Carrier Group A"],
         "tf2": ["PLAN Carrier Group"],
         "neutrals": False,
+        # Blue already sails with the Kilauea AND the Sacramento; red had no
+        # supplier at all. The Type 901 is the PLAN's actual carrier-group AOE,
+        # so this evens a lopsided fight rather than inventing one.
+        "extras": [{"side": "Taskforce2", "type": "plan_aor_type901",
+                    "formation": "PLAN Carrier Group"}],
     },
     {
         "file": "SEST NF3 - SEAD over the Shelf",
@@ -90,6 +99,10 @@ SCENARIOS = [
         "tf1": ["NATO Fleet A", "ASW-1"],
         "tf2": ["PLAN SSBN Group"],
         "neutrals": True,
+        # An ASW hunt is the one fight that burns torpedoes, and the T-AKE is
+        # the deepest AirTorpedo magazine in the pack (72) with no size ceiling.
+        "extras": [{"side": "Taskforce1", "type": "usn_take_lewis_clark",
+                    "formation": "NATO Fleet A"}],
     },
     # --- second wave: the formations the first five left on the table ---------
     # The source has 38 formations and the original carve used 21 of them. These
@@ -119,6 +132,11 @@ SCENARIOS = [
         "tf1": ["NATO Fleet B"],
         "tf2": ["Russian Carrier Group"],
         "neutrals": False,
+        # NATO brings the Algol already. Boris Chilikin is the Soviet fleet's
+        # own purpose-built AOR and the only hull stocking SovietAdvancedASM,
+        # which is what the Kirov's heavy rounds need.
+        "extras": [{"side": "Taskforce2", "type": "wp_vt_boris_chilikin",
+                    "formation": "Russian Carrier Group"}],
     },
     {
         "file": "SEST NF3 - Fujian Strike",
@@ -165,6 +183,69 @@ SCENARIOS = [
         "neutrals": False,
     },
 ]
+
+
+# ---------------------------------------------------------------------------
+# Injecting units the parent mission does not contain.
+#
+# Carving can only ever subtract. Exercising SEST Replenishment At Sea needs
+# the opposite: a supplier standing with a group that has none. Four of the
+# source's twelve surface formations already carry one (Carrier Group A has
+# both the Kilauea and the Sacramento, NATO Fleet B the Algol, CN Carrier group
+# the Boris Chilikin) - so injection is aimed only at the groups that do not,
+# which is also where it changes the fight rather than padding it.
+#
+# A vessel section is self-contained, so writing one is mechanical. The only
+# judgement is WHERE, and the honest answer is: with the group. The ship is
+# placed at the centroid of the formation it joins, nudged clear of the nearest
+# hull, on the formation's own heading, and appended to that formation's unit
+# list so the AI keeps it in station rather than sailing it independently.
+
+VESSEL_TEMPLATE = """[{section}]
+Type={type}
+VariantReference={variant}
+UnlimitedFuel=False
+CrewSkill=Trained
+Morale=3
+RelativePositionInNM={x:.2f},0,{z:.2f}
+Telegraph=3
+Heading={heading}
+"""
+
+
+def unit_position(body):
+    m = re.search(r"^RelativePositionInNM=([-\d.]+),([-\d.]+),([-\d.]+)", body, re.M)
+    return (float(m.group(1)), float(m.group(3))) if m else None
+
+
+def unit_heading(body):
+    m = re.search(r"^Heading=(-?\d+)", body, re.M)
+    return m.group(1) if m else "0"
+
+
+def place_with_group(by_header, units):
+    """(x, z, heading) for a ship joining `units`: their centre, clear of hulls.
+
+    Spacing matters. These groups sit inside a few nautical miles of each
+    other, so the offset is 0.6 nm - far enough that the new hull is not
+    stacked on an escort, close enough that it is unambiguously part of the
+    formation. If 0.6 nm still lands on someone, it walks around the circle
+    until it does not.
+    """
+    spots = [p for p in (unit_position(by_header.get(f"[{u}]", "")) for u in units) if p]
+    if not spots:
+        raise SystemExit(f"cannot place a unit with {units}: no positions found")
+    cx = sum(s[0] for s in spots) / len(spots)
+    cz = sum(s[1] for s in spots) / len(spots)
+    headings = [unit_heading(by_header.get(f"[{u}]", "")) for u in units]
+    heading = max(set(headings), key=headings.count)
+
+    for step in range(12):
+        angle = math.radians(step * 30)
+        x, z = cx + 0.6 * math.cos(angle), cz + 0.6 * math.sin(angle)
+        if all(math.dist((x, z), s) > 0.3 for s in spots):
+            return x, z, heading
+    return cx + 0.6, cz, heading
 
 
 def split_sections(text):
@@ -235,6 +316,29 @@ def build(source_text, scenario):
         counters[cls] = counters.get(cls, 0) + 1
         renamed[unit] = f"{cls}{counters[cls]}"
 
+    # --- inject units the source does not have -------------------------------
+    # Numbered after the carried units so the carve's numbering is untouched,
+    # and pushed onto the target formation's list so the group sails as one.
+    extra_sections = []
+    for extra in scenario.get("extras", ()):
+        side = extra["side"]
+        target = [(u, tail) for u, tail in kept_formations[side]
+                  if formation_name(tail) == extra["formation"]]
+        if not target:
+            raise SystemExit(f"{scenario['file']}: extra {extra['type']} names formation "
+                             f"{extra['formation']!r}, which this scenario does not carry")
+        units, _ = target[0]
+        x, z, heading = place_with_group(by_header, units)
+        cls = f"{side}Vessel"
+        counters[cls] = counters.get(cls, 0) + 1
+        section = f"{cls}{counters[cls]}"
+        placeholder = f"__extra__{section}"
+        renamed[placeholder] = section
+        units.append(placeholder)
+        extra_sections.append(VESSEL_TEMPLATE.format(
+            section=section, type=extra["type"],
+            variant=extra.get("variant", "Variant1"), x=x, z=z, heading=heading))
+
     # --- rebuild [Mission] ---------------------------------------------------
     out_mission = []
     for line in mission_body.splitlines():
@@ -257,6 +361,9 @@ def build(source_text, scenario):
             body += f"{side}_Formation{i}=" + ",".join(renamed[u] for u in units) + tail + "\n"
 
     # --- assemble ------------------------------------------------------------
+    # Injected sections go last. Unit sections are looked up by name, not by
+    # position in the file, so appending is safe and keeps the carved body
+    # byte-identical to what a pure carve would have produced.
     out = []
     for header, sec_body in sections:
         if header is None:
@@ -288,7 +395,10 @@ def build(source_text, scenario):
                 out.append(f"[{renamed[name]}]\n" + sec_body)
         else:
             out.append(header + "\n" + sec_body)
-    return "".join(out), counters
+    body_text = "".join(out)
+    if extra_sections:
+        body_text = body_text.rstrip("\n") + "\n" + "".join(extra_sections)
+    return body_text, counters
 
 
 def write_readme(source_name, built):
@@ -308,6 +418,9 @@ def write_readme(source_name, built):
             blurb += " **The smallest of the set.**"
         if scenario["neutrals"]:
             blurb += " Includes the full civilian layer."
+        for extra in scenario.get("extras", ()):
+            blurb += (f" **+{extra['type']}** injected into {extra['formation']}"
+                      " (not in the parent mission).")
         rows.append(f"| **{scenario['title']}** | {total} | {blurb} |")
 
     body = f"""# NF3 Scenarios
@@ -323,6 +436,14 @@ newer save and regenerating gives you scenarios that match it.
 | Scenario | Units | The fight |
 |---|---|---|
 """ + "\n".join(rows) + f"""
+
+Entries marked **+<type> injected** carry a unit the parent mission does not have. Carving can
+only subtract, and four of the source's twelve surface formations already sail with a supplier
+(Carrier Group A has both the Kilauea and the Sacramento, NATO Fleet B the Algol, CN Carrier
+group the Boris Chilikin) — so injection is aimed only at the groups that had none, to exercise
+SEST Replenishment At Sea where it actually changes the fight. Each injected ship is placed at
+the centroid of the formation it joins, nudged clear of the nearest hull, on the formation's
+own heading, and appended to that formation so the AI keeps it in station.
 
 {len(built)} scenarios. `tools/install-sest-packs.ps1` copies them with `-Recurse` into
 `user\\missions\\user_missions\\`, where the game lists them flat alongside the full
