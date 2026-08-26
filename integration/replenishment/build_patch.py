@@ -77,8 +77,9 @@ sys.path.insert(0, str(ROOT / "integration"))
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from common.ras import (                                          # noqa: E402
     CLONES, METER_CATEGORIES, METER_EXEMPT, METER_THRESHOLD,
-    FREE_ROUND_ACCEPTED, RESTORE_ROUNDS, STORE_FIXES, SUPPLIERS, apply_refit,
-    apply_store_fix, insert_supply_block, make_reloadable)
+    FREE_ROUND_ACCEPTED, RELOAD_LINE, RESTORE_ROUNDS, STORE_FIXES, SUPPLIERS,
+    _WEAPON_BLOCK, apply_refit, apply_store_fix, insert_supply_block,
+    make_reloadable)
 from refine_civ_traffic import winning_file                       # noqa: E402
 
 # Hulls whose supply block is emitted by ANOTHER pack's builder, from the same
@@ -520,6 +521,48 @@ def aircraft_carried():
     return carried
 
 
+def free_to_replenish():
+    """Launchers this pack opened whose round costs the supplier nothing.
+
+    Gate 5 is this pack's doing: before it, these launchers could not be
+    reloaded at all. Now they can - and for a round carrying neither
+    AmmoPoints nor a SupplyCategory, NO gate can ration the transfer. Gate 3
+    compares against a price that is not there and gate 4 against a category
+    that is not there.
+
+    The metering cannot reach them either, by construction: METER_THRESHOLD is
+    a price, so a round with no price can never be tagged. And there is no
+    other signal to size them by - the rounds below carry no Mass key either,
+    so a rule would have to be a hand-written list, which is precisely what
+    this pack learned not to do.
+
+    So it is reported rather than fixed: upstream never priced these rounds,
+    and setting another mod's prices is not this pack's job. Printed every
+    build so the number cannot drift unnoticed.
+    """
+    seen, launchers, rounds = {}, 0, set()
+    for f in sorted(list(OUT.glob("vessels/*.ini")) + list(OUT.glob("submarines/*.ini"))):
+        text = read(f)
+        for m in _WEAPON_BLOCK.finditer(text):
+            block = m.group(0)
+            if RELOAD_LINE.strip() not in block:
+                continue
+            for a in re.finditer(r"^Ammunition\d*=(\S+)", block, re.M):
+                rid = a.group(1)
+                if rid not in seen:
+                    own = OUT / "ammunition" / f"{rid}.ini"
+                    if own.exists() and re.search(r"^(AmmoPoints|SupplyCategory)\s*=",
+                                                  read(own), re.M):
+                        seen[rid] = True          # this pack priced or metered it
+                    else:
+                        facts = ammo_facts(rid)
+                        seen[rid] = facts is None or bool(facts[0]) or bool(facts[3])
+                if not seen[rid]:
+                    launchers += 1
+                    rounds.add(rid)
+    return launchers, sorted(rounds)
+
+
 def free_round_check():
     """No supplier may carry a round that is free to replenish.
 
@@ -552,19 +595,27 @@ def free_round_check():
         path = OUT / "vessels" / f"{unit}.ini"
         if not path.exists():          # first build, nothing emitted yet
             continue
-        text = read(path)
-        for m in re.finditer(r"^\[WeaponMagazine[^\]\n]*\][^\n]*\n((?:(?!^\[).*(?:\n|$))*)",
-                             text, re.M):
-            r = re.search(r"^Ammunition1=(\S+)", m.group(1), re.M)
-            if not r:
+        # live_ammunition() rather than a [WeaponMagazine*] scan: the first
+        # version of this check looked only at magazine sections and only at
+        # slot Ammunition1, and would have missed three real holdings on the
+        # Don alone - its two chaff launchers carry a bare Ammunition= inside
+        # [WeaponSystem10]/[WeaponSystem11], and its noisemakers live in
+        # [NoisemakerMagazine], which does not match the name. All three
+        # happen to be priced, so nothing escaped; a free one would have.
+        # live_ammunition already walks every section and honours
+        # NumberOfAmmunitionTypes, so it costs nothing to be exhaustive.
+        for rid in sorted(live_ammunition(read(path))):
+            facts = ammo_facts(rid)
+            if facts is None:
+                # resolves to no file at all - a dangling store, which
+                # check_dependencies owns. Not a pricing question.
                 continue
-            facts = ammo_facts(r.group(1))
-            if facts and facts[0]:
+            if facts[0]:
                 continue
-            if (unit, r.group(1)) in FREE_ROUND_ACCEPTED:
+            if (unit, rid) in FREE_ROUND_ACCEPTED:
                 continue
             problems.append(
-                f"{unit}: its magazine holds {r.group(1)}, which has no AmmoPoints "
+                f"{unit}: it carries {rid}, which resolves but has no AmmoPoints "
                 "anywhere in its alias chain - it would replenish for free and never "
                 "touch a supplier's pool. Pick a priced round in the refit table, or "
                 "argue the exception in FREE_ROUND_ACCEPTED")
@@ -1041,6 +1092,13 @@ def main():
     if orphans:
         print(f"  {len(orphans)} metered round(s) no vessel in the collection carries "
               f"- tagging them is forward-looking, not active: {', '.join(orphans)}")
+    n_free, free_rounds = free_to_replenish()
+    if n_free:
+        print(f"  {n_free} of those launchers hold a round with NEITHER AmmoPoints NOR a "
+              f"SupplyCategory ({len(free_rounds)} distinct), so nothing can ration the "
+              "transfer - upstream never priced them and the metering rule is price-gated:")
+        for i in range(0, len(free_rounds), 6):
+            print("      " + ", ".join(free_rounds[i:i + 6]))
     if foreign:
         print(f"  {len(foreign)} modern hull(s) owned by a sibling SEST pack, which must "
               f"apply the launcher fix itself: {', '.join(foreign)}")

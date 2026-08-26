@@ -307,6 +307,20 @@ alternatives were an American ESSM on an RFA tanker, or overriding Euromod's rou
 price this pack has no business setting. 24 rounds on one hull is a bounded exposure; a free
 20 000-round CIWS magazine was not.
 
+*What the pack cannot ration at all.* Gate 5 is this pack's doing — before it, 2 080 launchers
+could not be reloaded by anything. **235 of them hold a round carrying neither `AmmoPoints`
+nor a `SupplyCategory`**, and for those no gate can ration the transfer: gate 3 compares
+against a price that is not there, gate 4 against a category that is not there. 33 rounds are
+behind that number, and the heavy end of it is real — `wp_ss_n_27` (Klub, 32 launchers),
+`wp_ss_n_26a` (Oniks, 30), `plan_yj12_ship` (11), and the Typhoon's and Red October's two
+`wp_r-39` SLBM tubes, which the flag makes reloadable at sea.
+
+The metering cannot reach them by construction: `METER_THRESHOLD` is a *price*, so a round
+with no price can never be tagged — and these rounds carry no `Mass` key either, so there is
+no other signal to size them by. A rule would have to be a hand-written list, which is exactly
+what this pack learned not to do. So the build prints the number and the rounds behind it
+every run, and it is upstream's to fix: setting another mod's prices is not this pack's job.
+
 *And for scale, the largest unlimited source in the collection is not ours.* RE-power's shore
 facilities — `nv_pt_boats_docks`, `nv_pt_boats_docks_small`, `nv_headquarters` — carry
 `AmmoCapacity=9999999999` with `MaxAmmoPoints` commented out and a 3 nmi reach. Any vessel
