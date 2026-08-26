@@ -71,6 +71,8 @@ def units_in_play():
         used |= set(re.findall(r"^Type=(\S+)", t, re.M))
         used |= set(re.findall(r"^([A-Za-z0-9_.\-]+)=Squadron\d+,\d+", t, re.M))
     for f in (ROOT / "integration").glob("*/SEST_*/**/*.ini"):
+        if "dist" in f.parts:   # dist = the consolidated deployable; its content is checked via the source packs
+            continue
         if f.parent.name not in UNIT_DIRS:
             continue
         t = f.read_text(encoding="utf-8", errors="replace")
@@ -95,6 +97,8 @@ def other_owners(rel, me):
                 for f in d.rglob("*.ini"):
                     _OWNERS[f.relative_to(d).as_posix().lower()].append(d.name)
         for pack in (ROOT / "integration").glob("*/SEST_*"):
+            if pack.parent.name == "dist":
+                continue
             for f in pack.rglob("*.ini"):
                 _OWNERS[f.relative_to(pack).as_posix().lower()].append(pack.name)
     rank = {t: i for i, t in enumerate(load_order())}

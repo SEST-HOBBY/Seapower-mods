@@ -5,9 +5,14 @@
 .DESCRIPTION
     Auto-detects the Sea Power install the same way export-mod-configs.ps1 does
     (Steam library manifests — no hardcoded paths), finds StreamingAssets, and
-    copies every SEST pack folder found under this repo's integration\ directories
-    into it. Safe to re-run any time: existing copies are overwritten in place,
-    which is also how you take updates after a git pull.
+    installs the CONSOLIDATED pack, integration\dist\SEST_Integration — all
+    SEST content as one Mod Manager entry, built by tools\consolidate_packs.py
+    from the per-pack sources. Safe to re-run any time: the copy is mirrored in
+    place, which is also how you take updates after a git pull.
+
+    Any other SEST_* folder found in StreamingAssets (the fifteen per-pack
+    folders earlier versions installed) is removed: they would double-define
+    every unit alongside the consolidated pack.
 
 .EXAMPLE
     # From the repo root, in PowerShell:
@@ -42,15 +47,14 @@ $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyI
 $repoRoot = Split-Path -Parent $scriptDir
 . (Join-Path $scriptDir "lib\common.ps1")
 
-# Discovered, not listed. A hardcoded roster is one more place to forget a new
-# pack - and a pack that is never installed fails exactly like one that is
-# installed but outranked: silently, with the game showing the unmodded unit.
-$Packs = @(Get-ChildItem -LiteralPath (Join-Path $repoRoot "integration") -Directory |
-    ForEach-Object { Get-ChildItem -LiteralPath $_.FullName -Directory -Filter "SEST_*" } |
+# Only the consolidated pack deploys. The per-pack folders under integration\
+# are build sources; installing them alongside the consolidated pack would
+# define everything twice.
+$Packs = @(Get-ChildItem -LiteralPath (Join-Path $repoRoot "integration\dist") -Directory -Filter "SEST_*" -ErrorAction SilentlyContinue |
     ForEach-Object { $_.FullName.Substring($repoRoot.Length).TrimStart('\') } |
     Sort-Object)
-if (-not $Packs.Count) { throw "no SEST_* packs found under $repoRoot\integration" }
-Write-Host ("Found {0} SEST pack(s) to install." -f $Packs.Count)
+if (-not $Packs.Count) { throw "integration\dist has no SEST_* pack - run python3 tools\build_all.py (or git pull)" }
+Write-Host ("Found {0} consolidated pack(s) to install." -f $Packs.Count)
 
 # --- Locate StreamingAssets --------------------------------------------------
 if (-not $StreamingAssetsDir) {
@@ -71,14 +75,10 @@ Write-Host "Installing SEST packs into: $StreamingAssetsDir`n"
 # pack are skipped with a warning by set-mod-order.ps1, not an error.
 if ($Uninstall) {
     $removed = 0
-    foreach ($rel in $Packs) {
-        $name = Split-Path (Join-Path $repoRoot $rel) -Leaf
-        $dest = Join-Path $StreamingAssetsDir $name
-        if (Test-Path -LiteralPath $dest) {
-            if ($WhatIfOnly) { Write-Host "  would remove  $name" }
-            else { Remove-Item -LiteralPath $dest -Recurse -Force; Write-Host "  removed    $name" }
-            $removed++
-        }
+    foreach ($d in Get-ChildItem -LiteralPath $StreamingAssetsDir -Directory -Filter "SEST_*") {
+        if ($WhatIfOnly) { Write-Host "  would remove  $($d.Name)" }
+        else { Remove-Item -LiteralPath $d.FullName -Recurse -Force; Write-Host "  removed    $($d.Name)" }
+        $removed++
     }
     Write-Host ("`n{0} pack(s) {1}. Workshop mods and game files untouched." -f
         $removed, $(if ($WhatIfOnly) { "would be removed" } else { "removed" }))
@@ -110,6 +110,20 @@ foreach ($rel in $Packs) {
     $files = (Get-ChildItem -LiteralPath $dest -Recurse -File).Count
     Write-Host ("  {0}  {1,-24} {2,3} files" -f $action, $name, $files)
     $installed++
+}
+
+# --- Purge superseded per-pack folders ---------------------------------------
+# Earlier versions installed fifteen SEST_* folders; alongside the consolidated
+# pack they would define every unit twice. SEST_ is this repo's namespace, so
+# anything in it that we did not just deploy is ours to remove.
+$deployed = $Packs | ForEach-Object { Split-Path $_ -Leaf }
+foreach ($d in Get-ChildItem -LiteralPath $StreamingAssetsDir -Directory -Filter "SEST_*") {
+    if ($deployed -contains $d.Name) { continue }
+    if ($WhatIfOnly) { Write-Host ("  would purge  {0} (superseded per-pack folder)" -f $d.Name) }
+    else {
+        Remove-Item -LiteralPath $d.FullName -Recurse -Force
+        Write-Host ("  purged     {0} (superseded per-pack folder)" -f $d.Name)
+    }
 }
 
 # --- Missions ----------------------------------------------------------------

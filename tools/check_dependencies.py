@@ -59,6 +59,8 @@ def main():
     problems, rows = [], []
 
     for pack_dir in sorted((ROOT / "integration").glob("*/SEST_*")):
+        if pack_dir.parent.name == "dist":   # dist = the consolidated deployable; its content is checked via the source packs
+            continue
         pack = pack_dir.name
         override, reference = collections.Counter(), collections.Counter()
         sest_dep = collections.Counter()
