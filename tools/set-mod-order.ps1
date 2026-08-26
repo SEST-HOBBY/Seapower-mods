@@ -124,6 +124,14 @@ foreach ($tok in $current.Keys) {
         # unknowns; keep non-numeric ones (local packs we do not manage).
         if ($tok -match '^\d+$') {
             Write-Warning "dropped stale workshop entry (game re-adds it if still subscribed): $tok"
+        } elseif ($tok -like "SEST_*") {
+            # Our own packs: the canonical list is authoritative for them, so a
+            # SEST_* name that is not in it has been retired - the per-pack
+            # folders superseded by SEST_Integration, for instance. The
+            # installer deletes those folders; leaving their order entries
+            # behind is exactly the phantom-entry state that kept the
+            # unsubscribed KJ-500 mod alive.
+            Write-Warning "dropped retired SEST pack entry (folder is removed by the installer): $tok"
         } else {
             Write-Warning "in your settings but not in canonical order (appended at end): $tok"
             $final.Add($tok)
