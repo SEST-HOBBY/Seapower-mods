@@ -521,7 +521,7 @@ def ammunition_mass(ammo_id: str, _cache: dict = {}) -> int:
         for path in (ROOT / "mods-source").rglob(f"{ammo_id}.ini"):
             if path.parent.name != "ammunition":
                 continue
-            m = re.search(r"^Mass=(\d+)", path.read_text(encoding="utf-8", errors="replace"), re.M)
+            m = re.search(r"^Mass=(\d+)", path.read_text(encoding="utf-8-sig", errors="replace"), re.M)
             if m:
                 _cache[ammo_id] = int(m.group(1))
                 break
@@ -858,7 +858,7 @@ def build_raaf_squadrons() -> None:
     aircraft.mkdir(parents=True, exist_ok=True)
 
     src = MURDER_HORNET / "aircraft" / "usn_ea-18g_squadrons.ini"
-    text = src.read_text(encoding="utf-8", errors="replace")
+    text = src.read_text(encoding="utf-8-sig", errors="replace")
     text = replace_once(text, "NumberOfSquadrons=5", "NumberOfSquadrons=6",
                         "usn_ea-18g_squadrons: declare Squadron6")
     text = replace_once(
@@ -874,7 +874,7 @@ def build_raaf_squadrons() -> None:
     # outright so the un-upgraded F stops appearing under Australia, and the
     # Block III squadrons file gains Squadron8 with the same livery.
     src = MURDER_HORNET / "aircraft" / "usn_fa-18f_squadrons.ini"
-    text = src.read_text(encoding="utf-8", errors="replace")
+    text = src.read_text(encoding="utf-8-sig", errors="replace")
     text = replace_once(text, "NumberOfSquadrons=10", "NumberOfSquadrons=9",
                         "usn_fa-18f_squadrons: retire Squadron10")
     m = re.search(r"\n\[Squadron10\][^\n]*\n(?:.*?)(?=\n\[|\Z)", text, re.S)
@@ -884,7 +884,7 @@ def build_raaf_squadrons() -> None:
     (aircraft / "usn_fa-18f_squadrons.ini").write_text(text, encoding="utf-8")
 
     src = MURDER_HORNET / "aircraft" / "usn_fa-18f_blk3_squadrons.ini"
-    text = src.read_text(encoding="utf-8", errors="replace")
+    text = src.read_text(encoding="utf-8-sig", errors="replace")
     text = replace_once(text, "NumberOfSquadrons=7", "NumberOfSquadrons=8",
                         "usn_fa-18f_blk3_squadrons: declare Squadron8")
     if "raaf" in text.lower():

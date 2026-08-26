@@ -134,7 +134,7 @@ def main():
         src = UPSTREAM / "aircraft" / f"{aircraft_id}_squadrons.ini"
         if not src.exists():
             sys.exit(f"upstream squadrons file missing: {src}")
-        check_upstream(src.read_text(encoding="utf-8", errors="replace"), src)
+        check_upstream(src.read_text(encoding="utf-8-sig", errors="replace"), src)
         body = SQUADRONS_HEADER.format(aircraft_id=aircraft_id,
                                        count=len(SQUADRONS)) + blocks
         (OUT / "aircraft" / f"{aircraft_id}_squadrons.ini").write_text(
@@ -144,7 +144,7 @@ def main():
         src = UPSTREAM / f"language_{lang}" / "aircraft_names.ini"
         if not src.exists():
             sys.exit(f"upstream language file missing: {src}")
-        text = src.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")
+        text = src.read_text(encoding="utf-8-sig", errors="replace").replace("\r\n", "\n")
         out = rename_squadrons(text, lang)
         d = OUT / f"language_{lang}"
         d.mkdir(exist_ok=True)

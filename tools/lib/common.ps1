@@ -31,6 +31,38 @@ function Get-SteamLibraries {
     return $libs | Where-Object { Test-Path $_ } | Select-Object -Unique
 }
 
+function Get-ModDisplayName {
+    <# A mod's in-game display name: the Name= line of its _info.ini.
+
+       Read as UTF-8 explicitly. Windows PowerShell 5.1 defaults Get-Content to
+       the ANSI codepage for files without a BOM, which double-encoded every
+       non-ASCII name written into mods-source\_export-manifest.csv - the
+       Iskander mod's name landed as "ä¼Šæ–¯åŽå¾·å°”" instead of 伊斯坎德尔.
+
+       Prefers _info.ini, which is the file the Mod Manager itself reads, and
+       only falls back to other root-level text files for mods that ship none. #>
+    param([Parameter(Mandatory)][string]$ModDir)
+
+    # A typed list rather than `$array +=`: a pipeline that matches nothing is
+    # common (plenty of mods ship only _info.ini) and can append a $null, and a
+    # $null -LiteralPath is a binding error that -ErrorAction cannot suppress.
+    $probes = [System.Collections.Generic.List[string]]::new()
+    $info = Join-Path $ModDir "_info.ini"
+    if (Test-Path -LiteralPath $info) { $probes.Add($info) }
+    Get-ChildItem -LiteralPath $ModDir -File -Depth 1 -ErrorAction SilentlyContinue |
+        Where-Object { $_.Extension -in ".ini", ".txt" -and $_.FullName -ne $info } |
+        Select-Object -First 5 |
+        ForEach-Object { $probes.Add($_.FullName) }
+
+    foreach ($probe in $probes) {
+        $raw = Get-Content -LiteralPath $probe -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
+        if (-not $raw) { continue }
+        $m = [regex]::Match($raw, '(?im)^\s*(?:Name|Title|ModName)\s*=\s*(.+)$')
+        if ($m.Success) { return $m.Groups[1].Value.Trim() }
+    }
+    return ""
+}
+
 function Find-StreamingAssets {
     <# Sea Power's StreamingAssets folder, or $null. #>
     foreach ($lib in Get-SteamLibraries) {

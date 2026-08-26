@@ -263,7 +263,7 @@ def extract(donor_text, start_marker, end_marker=None):
 
 def check_systems():
     problems = []
-    vanilla = VANILLA_SENSORS.read_text(encoding="utf-8", errors="replace")
+    vanilla = VANILLA_SENSORS.read_text(encoding="utf-8-sig", errors="replace")
     for name in VANILLA_SYSTEMS:
         if f"[{name}]" not in vanilla:
             problems.append(f"vanilla sensor definition missing: [{name}]")
@@ -280,7 +280,7 @@ def check_systems():
 def main():
     if not DONOR.exists():
         sys.exit(f"MQ-9 ER donor not found: {DONOR} — is mods-source exported?")
-    donor = DONOR.read_text(encoding="utf-8", errors="replace")
+    donor = DONOR.read_text(encoding="utf-8-sig", errors="replace")
 
     problems = check_systems()
 

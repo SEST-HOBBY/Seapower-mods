@@ -124,7 +124,7 @@ Station8=usn_jsm
 
 def main():
     src = UPSTREAM / "aircraft" / "usn_f-35c.ini"
-    text = src.read_text(encoding="utf-8")
+    text = src.read_text(encoding="utf-8-sig")
 
     # 1. Extend AvailableLoadouts
     m = re.search(r"^(AvailableLoadouts=)(.+)$", text, re.M)
@@ -142,7 +142,7 @@ def main():
     #    Loadouts brings the JATM/SEAD/JSOW/QCSK families, USNA brings the
     #    basics (AirToAir, AntiShip, Ferry, CAS, Strike...). Whole-file
     #    override means whichever we ship is ALL the player gets, so merge.
-    usna_text = (USNA / "aircraft" / "usn_f-35c.ini").read_text(encoding="utf-8")
+    usna_text = (USNA / "aircraft" / "usn_f-35c.ini").read_text(encoding="utf-8-sig")
     usna_keys = [k.strip() for k in
                  re.search(r"^AvailableLoadouts=([^#\n]*)", usna_text, re.M).group(1).split(",")
                  if k.strip()]
@@ -230,7 +230,7 @@ def main():
             src_names = USNA / f"language_{lang}" / "loadout_names.ini"
         if not src_names.exists():
             continue
-        body = src_names.read_text(encoding="utf-8").rstrip("\n")
+        body = src_names.read_text(encoding="utf-8-sig").rstrip("\n")
         body += "\n\n#--------------- SEST F-35C JATM ----------------\n"
         body += "".join(f"{k}={v}\n" for k, v in names.items())
         d = OUT / f"language_{lang}"

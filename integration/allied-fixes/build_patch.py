@@ -71,7 +71,7 @@ def main():
                 print(f"    removed stale aircraft/{name} (upstream no longer exported)")
             print(f"  {name}  SKIPPED - {mod} not exported")
             continue
-        text = src.read_text(encoding="utf-8")
+        text = src.read_text(encoding="utf-8-sig")
         n = len(re.findall(rf"^Station\d+={re.escape(MISSING)}\s*$", text, re.M))
         if not n:
             sys.exit(f"{name}: no {MISSING} station lines left - upstream fixed it, "
@@ -97,7 +97,7 @@ def main():
             print("    removed stale vessels/rn_lph_ocean.ini (upstream gone)")
         print("  rn_lph_ocean.ini  SKIPPED - Modern British Navy not exported")
     else:
-        text = src.read_text(encoding="utf-8")
+        text = src.read_text(encoding="utf-8-sig")
         if "uk_ah_mk_1" in text:
             sys.exit("rn_lph_ocean.ini: upstream now supports the Apache - drop this fix")
         text, n = re.subn(r"^AircraftSupported=raac_lynx_ah7\s*$",
@@ -123,7 +123,7 @@ def main():
     if not (rocket_src.exists() and pod_src.exists() and heli_src.exists()):
         print("  APKWS-ER  SKIPPED - Apache mod 3425450153 not exported")
     else:
-        rocket = rocket_src.read_text(encoding="utf-8", errors="replace")
+        rocket = rocket_src.read_text(encoding="utf-8-sig", errors="replace")
         rocket, n = re.subn(r"^MaxLaunchRange=3\.5\b", "MaxLaunchRange=8", rocket, flags=re.M)
         if n != 1:
             sys.exit(f"usa_apkws_2_m282: MaxLaunchRange line changed upstream ({n} matches)")
@@ -133,7 +133,7 @@ def main():
             "# envelope extended 3.5 -> 8 nm. Everything else is upstream's.\n"
             + rocket, encoding="utf-8")
 
-        pod = pod_src.read_text(encoding="utf-8", errors="replace")
+        pod = pod_src.read_text(encoding="utf-8-sig", errors="replace")
         pod, n = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$",
                          "Ammunition=sest_apkws_er", pod, flags=re.M)
         if n != 1:
@@ -142,7 +142,7 @@ def main():
             "# SEST LAU-68 pod loaded with the extended-range APKWS II-ER.\n" + pod,
             encoding="utf-8")
 
-        heli = heli_src.read_text(encoding="utf-8", errors="replace")
+        heli = heli_src.read_text(encoding="utf-8-sig", errors="replace")
         if "SEST_APKWS_ER" in heli:
             sys.exit("uk_ah_mk_1: upstream already defines SEST_APKWS_ER - re-check")
         heli, n = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_APKWS_ER",
@@ -197,7 +197,7 @@ def main():
         rb_src = ROOT / "mods-source" / "3760871384" / "ammunition" / "dts_apkws-ii.ini"
         if not rb_src.exists():
             sys.exit("dts_apkws-ii.ini missing - Dingtools Weapon Pack must be exported")
-        rb = rb_src.read_text(encoding="utf-8", errors="replace")
+        rb = rb_src.read_text(encoding="utf-8-sig", errors="replace")
         swaps = [
             (r"^GuidanceType=5\b", "GuidanceType=1"),
             (r"^SeekerPassiveRange=6\.0\b", "SeekerPassiveRange=8"),
@@ -217,13 +217,13 @@ def main():
 
         rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$",
                            "Ammunition=sest_agr-30",
-                           pod_src.read_text(encoding="utf-8", errors="replace"), flags=re.M)
+                           pod_src.read_text(encoding="utf-8-sig", errors="replace"), flags=re.M)
         if k != 1:
             sys.exit("usn_agr-20b_apache: Ammunition line changed upstream (Redback pod)")
         (OUT / "ammunition" / "sest_agr-30_pod.ini").write_text(
             "# SEST LAU-68 pod loaded with the AGR-30 Redback.\n" + rbpod, encoding="utf-8")
 
-        heli = (OUT / "aircraft" / "uk_ah_mk_1.ini").read_text(encoding="utf-8")
+        heli = (OUT / "aircraft" / "uk_ah_mk_1.ini").read_text(encoding="utf-8-sig")
         if "SEST_REDBACK" in heli:
             sys.exit("uk_ah_mk_1: SEST_REDBACK already present - re-check")
         heli, k = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_REDBACK",
@@ -270,7 +270,7 @@ def main():
                     cdst.unlink()
                 print(f"  {fname}  SKIPPED - {mod} not exported")
                 continue
-            ct = csrc.read_text(encoding="utf-8", errors="replace")
+            ct = csrc.read_text(encoding="utf-8-sig", errors="replace")
             if "SEST_REDBACK" in ct:
                 sys.exit(f"{fname}: upstream already defines SEST_REDBACK - re-check")
             ct, k = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_REDBACK",

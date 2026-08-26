@@ -510,7 +510,7 @@ def verify_rails_under_wing_station(text):
 def build_squadrons():
     """Complete replacement usaf_f-15ex_SEII_squadrons.ini (whole-file override)."""
     src = UPSTREAM / "aircraft" / "usaf_f-15ex_SEII_squadrons.ini"
-    upstream = src.read_text(encoding="utf-8", errors="replace")
+    upstream = src.read_text(encoding="utf-8-sig", errors="replace")
 
     # Guard: upstream's own two squadrons must still be what we think they are,
     # or we would silently change which jet wears which paint.
@@ -540,7 +540,7 @@ def build_aircraft_names(lang):
     replaced by English text; only the new units are added.
     """
     src = UPSTREAM / f"language_{lang}" / "aircraft_names.ini"
-    text = src.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")
+    text = src.read_text(encoding="utf-8-sig", errors="replace").replace("\r\n", "\n")
 
     m = re.search(r"^Default=([^,\n]+),([^,\n]*)$", text, re.M)
     if not m:
@@ -691,7 +691,7 @@ ApproximateVersion=0.8.2
 
 def main():
     src = UPSTREAM / "aircraft" / "usaf_f-15ex_SEII.ini"
-    text = src.read_text(encoding="utf-8")
+    text = src.read_text(encoding="utf-8-sig")
 
     # 1. Extend AvailableLoadouts
     m = re.search(r"^(AvailableLoadouts=)(.+)$", text, re.M)
@@ -791,7 +791,7 @@ def main():
                                               encoding="utf-8")
     for lang, names in LOADOUT_NAMES.items():
         src_names = UPSTREAM / f"language_{lang}" / "loadout_names.ini"
-        body = src_names.read_text(encoding="utf-8").rstrip("\n")
+        body = src_names.read_text(encoding="utf-8-sig").rstrip("\n")
         body += "\n# ---------- SEST Revamp ----------\n"
         body += "".join(f"{k}={v}\n" for k, v in names.items())
         d = OUT / f"language_{lang}"

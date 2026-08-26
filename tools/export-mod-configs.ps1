@@ -39,35 +39,11 @@ param(
 $ErrorActionPreference = "Stop"
 
 # $PSScriptRoot can be empty inside param() defaults on Windows PowerShell,
-# so the default destination is resolved here in the body instead.
-if (-not $DestDir) {
-    $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
-    $DestDir = Join-Path $scriptDir "..\mods-source"
-}
+# so paths are resolved here in the body instead.
+$scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
+if (-not $DestDir) { $DestDir = Join-Path $scriptDir "..\mods-source" }
 
-function Get-SteamLibraries {
-    $steamRoots = @()
-    foreach ($regPath in "HKCU:\Software\Valve\Steam", "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam") {
-        try {
-            $p = (Get-ItemProperty -Path $regPath -ErrorAction Stop).SteamPath
-            if (-not $p) { $p = (Get-ItemProperty -Path $regPath -ErrorAction Stop).InstallPath }
-            if ($p) { $steamRoots += $p }
-        } catch { }
-    }
-    $steamRoots += "${env:ProgramFiles(x86)}\Steam", "$env:ProgramFiles\Steam"
-    $libs = @()
-    foreach ($root in $steamRoots | Where-Object { $_ -and (Test-Path $_) } | Select-Object -Unique) {
-        $libs += Join-Path $root "steamapps"
-        $vdf = Join-Path $root "steamapps\libraryfolders.vdf"
-        if (Test-Path $vdf) {
-            # Extract every "path" entry from libraryfolders.vdf
-            foreach ($m in [regex]::Matches((Get-Content -LiteralPath $vdf -Raw), '"path"\s+"([^"]+)"')) {
-                $libs += Join-Path ($m.Groups[1].Value -replace '\\\\', '\') "steamapps"
-            }
-        }
-    }
-    return $libs | Where-Object { Test-Path $_ } | Select-Object -Unique
-}
+. (Join-Path $scriptDir "lib\common.ps1")
 
 function Find-SeaPower {
     foreach ($lib in Get-SteamLibraries) {
@@ -121,17 +97,11 @@ foreach ($mod in $modDirs) {
         Copy-Item -LiteralPath $f.FullName -Destination $target -Force
         $copied++; $bytes += $f.Length
     }
-    # Guess a display name: common Sea Power mod layouts carry it in an ini/txt near the root
-    $name = ""
-    $probe = Get-ChildItem -LiteralPath $mod.FullName -File -Depth 1 -ErrorAction SilentlyContinue |
-        Where-Object { $_.Extension -in ".txt", ".ini" } | Select-Object -First 5
-    foreach ($p in $probe) {
-        $m = [regex]::Match((Get-Content -LiteralPath $p.FullName -Raw -ErrorAction SilentlyContinue), '(?im)^\s*(?:Name|Title|ModName)\s*=\s*(.+)$')
-        if ($m.Success) { $name = $m.Groups[1].Value.Trim(); break }
-    }
+    # Display name straight from the mod's own _info.ini, read as UTF-8.
+    $name = Get-ModDisplayName -ModDir $mod.FullName
     $manifest += [pscustomobject]@{
         WorkshopId = $mod.Name
-        GuessedName = $name
+        DisplayName = $name
         FilesCopied = $copied
         Bytes = $bytes
     }

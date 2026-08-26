@@ -75,7 +75,7 @@ def build_ammunition():
         src = DINGTOOLS / "ammunition" / f"{a}.ini"
         if not src.exists():
             sys.exit(f"missing upstream: {src}")
-        out = add_loft(src.read_text(encoding="utf-8"), a)
+        out = add_loft(src.read_text(encoding="utf-8-sig"), a)
         dst = OUT / "ammunition" / f"{a}.ini"
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(out, encoding="utf-8")
@@ -84,7 +84,7 @@ def build_ammunition():
 
 def build_aircraft():
     src = B52_MOD / "aircraft" / "dts_b-52h.ini"
-    text = src.read_text(encoding="utf-8")
+    text = src.read_text(encoding="utf-8-sig")
 
     # Mirror Strike183 exactly, swapping only the round. Copying the real block
     # rather than writing one keeps the station numbers and position keys
@@ -186,7 +186,7 @@ def build_b52o():
         print("  usaf_b-52o.ini  SKIPPED - Red Storm Arsenal not exported")
         drop_stale("aircraft/usaf_b-52o.ini")
         return
-    text = src.read_text(encoding="utf-8")
+    text = src.read_text(encoding="utf-8-sig")
     m = re.search(r"^\[WeaponSystem2AntiShipHeavy\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
     if not m:
         sys.exit("usaf_b-52o.ini: AntiShipHeavy not found - upstream changed")
@@ -266,7 +266,7 @@ def build_419_flts():
         print("  usn_arrw.ini  SKIPPED - ARRW mod not exported")
         drop_stale("ammunition/usn_arrw.ini", "aircraft/usaf_b-52h_419_flts.ini")
         return
-    at = a.read_text(encoding="utf-8")
+    at = a.read_text(encoding="utf-8-sig")
     fixed = re.sub(r"^(MaxVelocity=)([0-9]{1,3}),([0-9]{3})\b", r"\1\2\3", at, flags=re.M)
     if fixed == at:
         sys.exit("usn_arrw.ini: the MaxVelocity thousands separator is gone - re-check")

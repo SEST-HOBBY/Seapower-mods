@@ -118,7 +118,7 @@ def transplant_ew_suite(text):
     systems 3+ are replaced, and the F-35C numbers them 3-12 exactly as they
     land here, so no reference has to be renumbered.
     """
-    donor = (USNA / "aircraft" / "usn_f-35c.ini").read_text(encoding="utf-8")
+    donor = (USNA / "aircraft" / "usn_f-35c.ini").read_text(encoding="utf-8-sig")
     m = re.search(r"(?ms)^\[SensorSystem3\].*?(?=^\[-+ Weapon Systems -+\])", donor)
     if not m:
         sys.exit("could not extract the F-35C sensor block — upstream layout changed")
@@ -136,7 +136,7 @@ def transplant_ew_suite(text):
     # Every sensor type named must be defined by a mod that will be loaded.
     defined = set()
     for f in (ROOT / "mods-source").rglob("systems/sensors.ini"):
-        defined |= set(re.findall(r"^\[([^\]]+)\]", f.read_text(encoding="utf-8", errors="replace"), re.M))
+        defined |= set(re.findall(r"^\[([^\]]+)\]", f.read_text(encoding="utf-8-sig", errors="replace"), re.M))
     used = set(re.findall(r"^SystemName=(.+?)\s*$", block, re.M))
     unknown = sorted(u for u in used if u not in defined)
     if unknown:
@@ -146,7 +146,7 @@ def transplant_ew_suite(text):
 
 def main():
     src = UPSTREAM / "aircraft" / "raaf_f-35a.ini"
-    text = src.read_text(encoding="utf-8")
+    text = src.read_text(encoding="utf-8-sig")
 
     # 1. Extend AvailableLoadouts — the upstream line carries a trailing
     #    '#'-comment, so insert before it rather than appending to the line.
@@ -196,7 +196,7 @@ def main():
     write_aim424(OUT)
     for lang, names in LOADOUT_NAMES.items():
         src_names = UPSTREAM / f"language_{lang}" / "loadout_names.ini"
-        body = src_names.read_text(encoding="utf-8").rstrip("\n")
+        body = src_names.read_text(encoding="utf-8-sig").rstrip("\n")
         body += "\n\n#--------------- SEST RAAF F-35A JATM ----------------\n"
         body += "".join(f"{k}={v}\n" for k, v in names.items())
         d = OUT / f"language_{lang}"
