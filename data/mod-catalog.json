@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry.",
-    "count": 127,
+    "count": 130,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
