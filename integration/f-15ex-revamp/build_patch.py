@@ -740,7 +740,7 @@ def main():
             + "SESTR-ALPositions=0.0082,-0.005,0\n"
             + "SESTR-ARRotations=-2,0,0\n"
             + "SESTR-ALRotations=-2,0,0\n"
-            + "SESTWTFPositions=0,-0.002,0\n"   # DualRack wing tanks slung under the visible AAMT wing rack
+            + "SESTWTFPositions=0,-0.0065,-0.001\n"   # DualRack wing tanks: WT's proven seat (0,-0.0045,-0.001) plus 0.002 rack drop. A pipe key REPLACES the seat, so the old 0,-0.002,0 lost WT's 0.0045 drop and sat the tanks 0.0025 (~17cm) INTO the pylon
             + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner
