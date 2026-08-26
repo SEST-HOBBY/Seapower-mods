@@ -20,6 +20,9 @@
       - Archives by default rather than deleting. -Delete removes instead.
       - Refuses to run while Sea Power is running, because the game rewrites
         this folder on exit and would undo the change.
+      - Never touches _info.ini. That is the folder's own metadata, shipped by
+        the game, and it is what the mission browser labels the folder with -
+        not a mission at all.
       - Reports every file as REPO (this repo can regenerate it), BACKUP (an
         installer-made backup) or UNKNOWN. UNKNOWN means it exists only in
         your game folder - a mission you saved in the editor that the repo has
@@ -94,8 +97,20 @@ foreach ($m in Get-ChildItem -LiteralPath (Join-Path $repoRoot "integration\miss
 }
 
 # --- classify ----------------------------------------------------------------
+# _info.ini is NOT a mission. It is the folder's own metadata, shipped by the
+# game - "[Language_en] Name=User Missions" and the same in de/ru/cn - and it
+# is what the mission browser labels the folder with. Vanilla ships one in
+# user\missions\user_missions\ and in every NEW MISSIONS CLEAN subfolder.
+# The first version of this script swept it up as an editor save; it survived
+# only because the UNKNOWN guard refused to delete it. Never touch it.
+$neverTouch = @("_info.ini")
+
 $kept = @(); $going = @()
 foreach ($f in Get-ChildItem -LiteralPath $missionDir -Filter "*.ini" | Sort-Object Name) {
+    if ($neverTouch -contains $f.Name) {
+        Write-Host ("  protect    {0} (game folder metadata, not a mission)" -f $f.Name)
+        continue
+    }
     if ($keep.Contains($f.BaseName)) { $kept += $f; continue }
     $origin = if ($inRepo.Contains($f.BaseName)) { "REPO" }
               elseif ($f.BaseName -match ' backup-\d{8}-\d{6}$') { "BACKUP" }
