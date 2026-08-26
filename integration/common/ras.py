@@ -280,6 +280,23 @@ SUPPLIERS = {
         cats=[("AirTorpedo", 8)],
         note="MSC charter tanker - fuel first, ordnance incidental"),
 
+    "usn_takr_algol": _supplier(
+        "vanilla", "Algol-class fast sealift ship (T-AKR)", "US", "T-AKR",
+        load=45, pool=300000, rng=0.5, targets=2, own=8, target_vel=12, cap=5000,
+        cats=[("Harpoon", 24), ("AirTorpedo", 32), ("ALWT", 16),
+              (LAND_ATTACK, 20), (LONG_RANGE_SAM, 20)],
+        note="the one supplier here that is NOT Role=RAS - it is Role=Transport, "
+             "an MSC fast sealift Ro-Ro with 31 cargo slots and no replenishment "
+             "rig at all. Included because RE-power already makes it a supplier "
+             "and leaving it out would mean one hull in the fleet running "
+             "untuned parameters with no accountable categories. Everything "
+             "follows from having cranes instead of rigs: 45 points/sec against "
+             "an AOE's 120, 8 kn against 13 on a hull that makes 33, and a 5000 "
+             "ceiling that passes crated rounds up to Tomahawk (4350), SM-2ER "
+             "(4525) and Mk48 ADCAP (4695) while the big sealed canisters - NSM "
+             "and SM-6 Blk IB at 8000, SM-3 at 9000 - still need a real "
+             "ammunition ship"),
+
     # ---- Workshop mod hull ---------------------------------------------------
     "ae_ao_teide": _supplier(
         "3630495619", "Teide-class fleet oiler (BP-11)", "Spain", "AO",
@@ -509,17 +526,34 @@ def _wrap(text, width):
 def insert_supply_block(text, spec, unit_id):
     """Return `text` with this hull's supply system in place.
 
-    Any existing block - the Sacramento's commented one is the only case - is
-    removed first, so every supplier goes through one code path and the
-    emitted syntax is identical across all sixteen hulls.
+    Any existing block is removed first - vanilla's commented Sacramento one,
+    RE-power's active ones, or both on the same hull - so every supplier goes
+    through one code path and the emitted syntax is identical everywhere.
+
+    The block then goes back where the hull already kept one, and only failing
+    that before the mesh-definitions divider. Order matters: the Algol has NO
+    mesh divider at all (it runs [---------- AI related ----------],
+    [---------- Supply Systems ----------], [---------- Cargoholds ----------]
+    and nothing else), so anchoring on the divider alone would hard-fail on it.
+    Reusing the stripped block's own offset is also the most faithful thing to
+    do - upstream chose that spot.
     """
-    text, removed = EXISTING_BLOCK.subn("", text)
+    # ALL existing blocks go, not just the first: RE-power's Sacramento keeps
+    # vanilla's commented VesselSupplySystem block AND adds its own active one,
+    # so that hull carries two. Removing back-to-front keeps the earlier
+    # offsets valid; the replacement goes back at the first block's position.
+    blocks = list(EXISTING_BLOCK.finditer(text))
+    if blocks:
+        at = blocks[0].start()
+        for m in reversed(blocks):
+            text = text[:m.start()] + text[m.end():]
+        return text[:at] + render_supply_block(spec) + text[at:], len(blocks)
     anchor = MESH_ANCHOR.search(text)
     if not anchor:
-        raise SystemExit(f"{unit_id}: no mesh-definitions divider to anchor the "
-                         "supply block to - donor layout changed, re-check")
+        raise SystemExit(f"{unit_id}: no existing supply block and no mesh-definitions "
+                         "divider to anchor one to - donor layout changed, re-check")
     at = anchor.start()
-    return text[:at] + render_supply_block(spec) + text[at:], removed
+    return text[:at] + render_supply_block(spec) + text[at:], 0
 
 
 # ---------------------------------------------------------------------------

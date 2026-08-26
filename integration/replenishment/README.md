@@ -46,7 +46,7 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 
 | Stage | Result |
 |---|---|
-| **Suppliers** | 9 upstream auxiliaries get a tuned `[SupplySystem1]` |
+| **Suppliers** | 10 upstream auxiliaries get a tuned `[SupplySystem1]` |
 | **New hulls** | 6 modern replenishment ships, 20 named ships, as **new unit ids** |
 | **Metering** | 85 heavy rounds get a counted `SEST_` supply category; 4 rounds repaired |
 | **Launchers** | **2003 launchers across 279 modern hulls** made reloadable |
@@ -66,12 +66,19 @@ SM-3 / Onyx 9000 · Zircon 10000 · SS-N-22 12300 · SS-N-19 Granit 21000.
 | Kilauea AE | US | 500 000 | **none** | 1.0 nmi | 13/16 kn | Harpoon 60 · AirTorpedo 90 · ALWT 40 · **Nuclear_ASW 4** · LandAttack 40 · LongRangeSAM 60 |
 | T2 oiler | US | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | Harpoon 8 · AirTorpedo 16 |
 | Sealift Pacific T-AOT | US (MSC) | 40 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 8 |
+| Algol T-AKR *(sealift, not RAS)* | US (MSC) | 300 000 | 5 000 | 0.5 nmi | 8/12 kn | Harpoon 24 · AirTorpedo 32 · ALWT 16 · LandAttack 20 · LongRangeSAM 20 |
 | Boris Chilikin AOR | Soviet | 200 000 | 13 000 | 0.5 nmi | 13/16 kn | **SovietAdvancedASM 24** · AirTorpedo 40 · LandAttack 16 |
 | Kazbek tanker | Soviet | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 16 |
 | Don tender | Soviet | 150 000 | 8 000 | 0.3 nmi | 5/8 kn | SovietAdvancedASM 12 · AirTorpedo 30 · **LandAttack 12** |
 | Delvar | Iran | 15 000 | 2 000 | 0.3 nmi | 8/12 kn | AirTorpedo 4 · Harpoon 2 |
 | Teide oiler | Spain | 120 000 | 2 000 | 0.5 nmi | 12/16 kn | Harpoon 16 · AirTorpedo 24 · ALWT 8 |
 | **HMAS Supply AOR** *(SEST RAN Fleet)* | Australia | 160 000 | 8 000 | 0.5 nmi | 12/16 kn | Harpoon 16 · AirTorpedo 24 · LandAttack 8 · LongRangeSAM 16 |
+
+The Algol is the one entry that is **not** `Role=RAS` — it is `Role=Transport`, an MSC fast
+sealift Ro-Ro with 31 cargo slots and no replenishment rig. It is here because RE-power already
+makes it a supplier, and leaving it out would strand one hull on untuned parameters with no
+accountable categories at all. Having cranes instead of rigs is what sets its numbers: 45
+points/sec against an AOE's 120, and 8 kn on a hull that makes 33.
 
 Boris Chilikin's 13 000 ceiling is threaded deliberately between SS-N-22 Moskit (12 300) and
 SS-N-19 Granit (21 000) — Granit's angled below-deck silos genuinely are not reloadable at
