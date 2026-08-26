@@ -217,7 +217,7 @@ def _supplier(source, unit, nation, role, **tuning):
 #   gun/CIWS 0.27-75, RAM 126-150, Mk46/Mk54/MU90/Stingray 460-728,
 #   ESSM 500-700, VL-ASROC 1217, SM-2MR 1400-1768, Harpoon 1725,
 #   C-802 1675, Tomahawk 4350, SM-2ER 4525, Mk48 ADCAP 4695,
-#   SS-N-12 7740, NSM 8000, SM-6 Blk IB 8000, SM-3 9000, Onyx 9000,
+#   SS-N-12 7740, NSM 8000, SM-6 Blk IB 8000, SM-3 9000, Onyx 5000,
 #   Zircon 10000, SS-N-22 Moskit 12300, SS-N-19 Granit 21000.
 SUPPLIERS = {
     # ---- vanilla hulls, engine-tagged Role=RAS ------------------------------

@@ -58,7 +58,7 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 `tgt_ammo_depot_small` reload an SA-5 that a truck capped at 200 cannot touch. Reference
 costs: RAM 126–150 · ESSM 500–700 · Mk46/Mk54/MU90 460–728 · VL-ASROC 1217 · Harpoon 1725 ·
 SM-2MR 1400–1768 · Tomahawk 4350 · Mk48 ADCAP 4695 · SS-N-12 7740 · NSM / SM-6 IB 8000 ·
-SM-3 / Onyx 9000 · Zircon 10000 · SS-N-22 12300 · SS-N-19 Granit 21000.
+Onyx 5000 · SM-3 9000 · Zircon 10000 · SS-N-22 12300 · SS-N-19 Granit 21000.
 
 | Hull | Nation | Pool | Ceiling | Range | Speed | Stocks |
 |---|---|---|---|---|---|---|
