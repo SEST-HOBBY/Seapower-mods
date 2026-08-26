@@ -5,21 +5,7 @@
 # whole-file replacement of a workshop mod's unit file; if anything outranks it
 # the patch silently does nothing. Keep them blocked at the top and reordering
 # the workshop mods below can never break them. tools/check_load_order.py enforces this.
-SEST_Growler_NGJ_MALICE
-SEST_F-15EX_Revamp
-SEST_B52_ARRW
-SEST_Allied_Fixes
-SEST_F-35C_JATM
-SEST_RAAF_F-35A_JATM
-SEST_Rafale_F5
-SEST_JMSDF_Mogami
-SEST_RAAF_Wedgetail
-SEST_Raptor_Squadrons
-SEST_Zumwalt_CPS
-SEST_TacMap_Colors
-SEST_RAN_Fleet
-SEST_ADF_Persistent_ISR
-SEST_RAAF_Bases
+SEST_Integration
 3380210757
 3606134711
 3654230227

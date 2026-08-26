@@ -63,7 +63,10 @@ def main():
             target = ROOT / pack["source"] / pack["folder"]
             if target.exists():
                 shutil.rmtree(target)
-        print(f"deleted {len(packs)} pack folders")
+        dist = ROOT / "integration" / "dist" / "SEST_Integration"
+        if dist.exists():
+            shutil.rmtree(dist)
+        print(f"deleted {len(packs)} pack folders + dist")
 
     failed = []
     for pack in packs:
@@ -78,8 +81,16 @@ def main():
 
     if failed:
         sys.exit(f"{len(failed)} builder(s) failed: {', '.join(failed)}")
-    print(f"\nall {len(packs)} packs built. If output is committed, `git status` "
-          "should now be clean — a diff means mods-source or a builder changed.")
+
+    # Final stage: merge the per-pack outputs into the one deployable pack.
+    run = subprocess.run([sys.executable, str(ROOT / "tools" / "consolidate_packs.py")],
+                         cwd=ROOT, capture_output=True, text=True)
+    print(("  ok      " if run.returncode == 0 else "  FAILED  ") + "SEST_Integration (dist)")
+    if run.returncode != 0:
+        sys.exit("    " + (run.stdout + run.stderr).strip().replace("\n", "\n    "))
+
+    print(f"\nall {len(packs)} packs built and consolidated. If output is committed, "
+          "`git status` should now be clean — a diff means mods-source or a builder changed.")
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@ NORTHERN FRONT mission). Each is derived from one of the mod's own fits by
 swapping rounds on the stations the donor already proves, so the geometry is
 the author's:
 
-  SEST_Intercept260  from AirToAirLongRange: every MICA-EM becomes AIM-260.
+  SEST_Intercept260F5  from AirToAirLongRange: every MICA-EM becomes AIM-260.
                      Wingtip MICA-IR, the donors' Meteors and the tanks stay.
   SEST_MALICE        from StrikeLongRange: the two SCALP-EG (S5/6, the heavy
                      wet stations) become AIM-424 on the same SCALP seat; the
@@ -34,12 +34,12 @@ sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
 AIRFRAMES = ["fr_rafale_b_l", "fr_rafale_c_l", "fr_rafale_m_l"]
-NEW_KEYS = ["SEST_Intercept260", "SEST_MALICE", "SEST_AntiShipLRASM",
+NEW_KEYS = ["SEST_Intercept260F5", "SEST_MALICE", "SEST_AntiShipLRASM",
             "SEST_Intercept260Heavy", "SEST_LRASM_ER", "SEST_MALICE_ER"]
 
 # (new name, donor loadout, [(old store spec, new store spec), ...])
 DERIVATIONS = [
-    ("SEST_Intercept260", "AirToAirLongRange",
+    ("SEST_Intercept260F5", "AirToAirLongRange",
      [("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
     # The 424 mounts BARE, like the AIM-260 does - the SCALP seat's
     # -0.006 z offset floated it visibly clear of the pylon (screenshot).
@@ -49,25 +49,31 @@ DERIVATIONS = [
     ("SEST_AntiShipLRASM", "AntiShip",
      [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),   # LRASM keeps the heavy seat
       ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
-    # Heavy AAM: max JATM, no tanks beyond the donor's.
+    # Heavy AAM: max JATM. The donor's WING tanks (7/8) go - the AIM-260s the
+    # swap puts on the adjacent rails are Meteor-class fat and clip them
+    # (reported in-game); the centreline tank stays, nothing sits beside it.
     ("SEST_Intercept260Heavy", "AirToAirIntercept",
-     [("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
+     [("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
+     (), (), ("Station7", "Station8")),
     # LRASM with the centreline tank the AntiShip donor never fits.
     # MALICE with the centreline tank its StrikeLongRange donor never fits.
+    # Both _ER fits add the centreline tank, so both must UN-hide Center_Pylon:
+    # their donors never fit a centre store and hide the empty pylon, which
+    # left the tank hanging under an invisible pylon.
     ("SEST_MALICE_ER", "StrikeLongRange",
      [("fr_scalp-eg|SCALP", AIM424_ID),
       ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
-     ["Station11=fr_tank_1200"]),
+     ["Station11=fr_tank_1200"], ("Center_Pylon",)),
     ("SEST_LRASM_ER", "AntiShip",
      [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),
       ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
-     ["Station11=fr_tank_1200"]),
+     ["Station11=fr_tank_1200"], ("Center_Pylon",)),
 ]
 
 LOADOUT_NAMES = {
     # No store counts in the labels: the late airframes keep Meteor on the
     # fuselage stations their donors gave them, so composition varies.
-    "en": {"SEST_Intercept260": "SEST Intercept (AIM-260)",
+    "en": {"SEST_Intercept260F5": "SEST Intercept (AIM-260)",
            "SEST_MALICE": "SEST InterceptMALICE (AIM-424/AIM-260)",
            "SEST_AntiShipLRASM": "SEST AntiShip LRASM",
            "SEST_Intercept260Heavy": "SEST Intercept Heavy (6x AIM-260)",
@@ -85,7 +91,7 @@ ApproximateVersion=0.8.1
 """
 
 
-def derive(text, name, donor, swaps, airframe, extra=()):
+def derive(text, name, donor, swaps, airframe, extra=(), unhide=(), drop=()):
     m = re.search(rf"^\[WeaponSystem1{donor}\][^\n]*\n(.*?)(?=^\[)", text, re.M | re.S)
     if not m:
         sys.exit(f"{airframe}: donor loadout {donor} not found")
@@ -98,11 +104,30 @@ def derive(text, name, donor, swaps, airframe, extra=()):
             sys.exit(f"{airframe}/{donor}: no stations carry {old} - upstream changed")
         body = re.sub(rf"^(Station\d+=){re.escape(old)}(\s*)$", rf"\g<1>{new}\g<2>",
                       body, flags=re.M)
+    for st in drop:
+        # Deleting a donor station outright - used to shed the wing tanks the
+        # intercept donors carry, which the fatter AIM-260s on the adjacent
+        # rails visibly clip. Fails loudly if the donor stops fitting it.
+        body, n = re.subn(rf"^{st}=\S+\s*\n", "", body, count=1, flags=re.M)
+        if n != 1:
+            sys.exit(f"{airframe}/{name}: expected donor {donor} to fit {st} - "
+                     "upstream changed, re-check the drop list")
     for line in extra:
         st = line.split("=")[0]
         if re.search(rf"^{st}=", body, re.M):
             sys.exit(f"{airframe}/{name}: {st} already occupied in donor")
         body = body.rstrip("\n") + "\n" + line + "\n"
+    for sub in unhide:
+        # A donor that never fits a store hides its empty pylon; a derivation
+        # that adds the store must reveal it again, or the store hangs on a
+        # hidden pylon (the *_ER centreline tanks did exactly that).
+        before = body
+        body = re.sub(rf"^(SubModelsToHide=.*?){re.escape(sub)},?", r"\1", body,
+                      count=1, flags=re.M)
+        body = re.sub(r"^(SubModelsToHide=.*?),\s*$", r"\1", body, flags=re.M)
+        if body == before:
+            sys.exit(f"{airframe}/{name}: expected {sub} in donor {donor}'s "
+                     "SubModelsToHide - upstream changed, re-check the unhide list")
     return f"[WeaponSystem1{name}]\n" + body.rstrip("\n") + "\n\n"
 
 
@@ -123,7 +148,10 @@ def main():
             sys.exit(f"{airframe}: SEST keys already declared upstream")
         text = (text[:la.end(2)] + "," + ",".join(NEW_KEYS) + text[la.end(2):])
 
-        blocks = "".join(derive(text, *d[:3], airframe, d[3] if len(d) > 3 else ())
+        blocks = "".join(derive(text, *d[:3], airframe,
+                                d[3] if len(d) > 3 else (),
+                                d[4] if len(d) > 4 else (),
+                                d[5] if len(d) > 5 else ())
                  for d in DERIVATIONS)
         marker = "[---------- WeaponMagazines ----------]"
         if marker not in text:

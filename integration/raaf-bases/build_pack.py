@@ -197,7 +197,8 @@ def squadron_limit(aircraft_id):
     declares more than it defines (the F-22 mod claims 7, defines 1) is the
     trap this exists to catch.
     """
-    hits = sorted((ROOT / "integration").glob(f"*/SEST_*/aircraft/{aircraft_id}_squadrons.ini")) + \
+    hits = sorted(h for h in (ROOT / "integration").glob(
+        f"*/SEST_*/aircraft/{aircraft_id}_squadrons.ini") if "dist" not in h.parts) + \
         sorted(MODS.glob(f"*/aircraft/{aircraft_id}_squadrons.ini")) + \
         sorted(MODS.glob(f"_vanilla/original/aircraft/{aircraft_id}_squadrons.ini"))
     defined = declared = 0
@@ -225,7 +226,8 @@ def main():
     problems, warnings = [], []
     for base_id, base in BASES.items():
         for aircraft_id, assignment in base["airgroup"]:
-            exists = list((ROOT / "integration").glob(f"*/SEST_*/aircraft/{aircraft_id}.ini")) + \
+            exists = [e for e in (ROOT / "integration").glob(
+                f"*/SEST_*/aircraft/{aircraft_id}.ini") if "dist" not in e.parts] + \
                 list(MODS.glob(f"*/aircraft/{aircraft_id}.ini")) + \
                 list(MODS.glob(f"_vanilla/original/aircraft/{aircraft_id}.ini"))
             if not exists:

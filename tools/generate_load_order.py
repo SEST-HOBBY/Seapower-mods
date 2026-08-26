@@ -15,33 +15,21 @@ ROOT = Path(__file__).resolve().parent.parent
 catalog = json.loads((ROOT / "data" / "mod-catalog.json").read_text(encoding="utf-8"))
 mods = {m["id"]: m for m in catalog["mods"] if m.get("status") != "unsubscribed"}
 
-# Tier 0 - every SEST local pack, as one unbroken block at the very top.
+# Tier 0 - the consolidated SEST pack, alone at the very top.
 #
-# A SEST pack is a whole-file replacement of some mod's unit file. If ANYTHING
+# A SEST patch is a whole-file replacement of some mod's unit file. If ANYTHING
 # outranks it the patch silently does nothing - no error, nothing in the log,
 # the edits just never load. That is exactly how SEST Growler NGJ + MALICE went
 # inert: U.S. Navy 2027 was moved up one tier and happened to jump over it.
 #
-# Interleaving packs with the mods they patch made every future reshuffle a
-# chance to repeat that. Blocked at the top, reordering anything below is safe
-# by construction. Packs that contest nothing (RAN Fleet, RAAF Bases, TacMap
-# Colors) lose nothing by being here. tools/check_load_order.py enforces it.
+# Fifteen separate packs meant fifteen chances to repeat that on every
+# reshuffle. They now deploy as ONE pack (integration/dist/SEST_Integration,
+# built by tools/consolidate_packs.py), so tier 0 is a single entry and the
+# failure class is gone by construction. tools/check_load_order.py enforces it.
 TIER0 = [
-    ("SEST Growler NGJ + MALICE", "above U.S. Navy 2027, F/A-18E/F, Murder Hornet, US Naval Aviation"),
-    ("SEST F-15EX Revamp", "above the F-15EX mod (\"F-15SE\")"),
-    ("SEST B-52H ARRW", "above Dingtools and the B-52H mod - AGM-183A loft + W62"),
-    ("SEST Allied Fixes", "above U.S. Navy 2027 - repairs the P-8 anti-ship fit"),
-    ("SEST F-35C JATM", "above every other usn_f-35c source"),
-    ("SEST RAAF F-35A JATM", "above the RAAF F-35A mod"),
-    ("SEST Rafale F5", "above the Dassault Rafale mod - JATM/MALICE/LRASM fits"),
-    ("SEST JMSDF Mogami", "above the Mogami-class Frigate mod"),
-    ("SEST RAAF Wedgetail", "above the E-7A Wedgetail mod"),
-    ("SEST Raptor Squadrons", "above the F-22 mod (which promises 7 squadrons, defines 1)"),
-    ("SEST Zumwalt CPS Fix", "above Modern US Navy (repairs the DDG-1000 CPS hull)"),
-    ("SEST TacMap Colors", "overrides the vanilla tactical-map UI colours"),
-    ("SEST RAN Fleet", "contests nothing - additive RAN hulls"),
-    ("SEST ADF Persistent ISR", "contests nothing - MQ-4C Triton, mesh from the MQ-9 mod"),
-    ("SEST RAAF Bases", "contests nothing - additive RAAF airfields"),
+    ("SEST Integration Pack", "ALL SEST content consolidated into one entry by "
+     "tools/consolidate_packs.py - one Mod Manager slot at the very top carries "
+     "every patch, so nothing can jump over an individual pack again"),
 ]
 
 # Explicit sequences (order within these lists is the recommendation)
@@ -126,7 +114,7 @@ lines = [
     "# Full Load Order — every active mod, top to bottom",
     "",
     f"Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — "
-    f"{len(mods)} active subscriptions plus {len(TIER0)} SEST local packs. "
+    f"{len(mods)} active subscriptions plus the SEST Integration Pack (15 packs consolidated). "
     "Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.",
     "",
     "Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are "
@@ -155,7 +143,7 @@ def emit(header, entries, annotated=True):
     lines.append("")
 
 
-emit("Tier 0 — SEST local packs (must stay above everything)", TIER0)
+emit("Tier 0 — the consolidated SEST pack (must stay above everything)", TIER0)
 emit("Tier 1 — loader", TIER1)
 emit("Tier 1b — code mods (Anchor Chain family; position among themselves is free)", TIER1B)
 emit("Tier 2 — weapon/system databases (this exact order)", TIER2)
