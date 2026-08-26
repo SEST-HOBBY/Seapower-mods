@@ -3,7 +3,8 @@
 
 The load order decides which copy of a file loads; it says nothing about
 whether the thing you asked for is in that copy. A mission can name a unit no
-enabled mod defines, or a LoadoutVariant the winning unit file does not list,
+enabled mod defines, a LoadoutVariant the winning unit file does not list,
+an aircraft with no variant and no 'Default' to fall back on,
 and Sea Power will not complain - the unit spawns with a default fit, or not at
 all. Adding or reordering a mod can introduce that silently, because the file
 still exists, it is just a different file now.
@@ -58,9 +59,37 @@ def main():
 
     # --- 1 + 2 + 3: everything the mission names -----------------------------
     cur_unit = cur_file = None
+    # An aircraft entry with NO LoadoutVariant makes the game resolve a default
+    # loadout at display time. If the winning unit file's AvailableLoadouts does
+    # not list "Default" there is nothing to resolve to, and the map panel's
+    # IniToPlanConverter dies with "An item with the same key has already been
+    # added. Key: <aircraft id>" - confirmed in game on plaaf_kj-500, and
+    # confirmed fixed once the variants were made explicit. Track each aircraft
+    # block and judge it when the next section starts.
+    pending = None          # (line, unit, file) awaiting a verdict
+    saw_variant = False
+    in_aircraft = False
+
+    def close_block():
+        nonlocal pending, saw_variant
+        if pending and not saw_variant:
+            ln, uid, f = pending
+            avail = available_loadouts(f)
+            if avail is not None and "Default" not in avail:
+                problems.append(
+                    f"line {ln}: {uid} names no LoadoutVariant and its winning file "
+                    f"offers no 'Default' to fall back on\n"
+                    f"        has: {', '.join(avail)}\n"
+                    f"        fix: integration/missions/fix_loadout_variants.py --write")
+        pending = None
+        saw_variant = False
+
     for n, line in enumerate(mission.read_text(encoding="utf-8",
                                                errors="replace").splitlines(), 1):
         line = line.strip()
+        if line.startswith("["):
+            close_block()
+            in_aircraft = bool(re.match(r"^\[Taskforce\d+Aircraft\d+\]", line))
         # \S+ would miss ids with spaces ("plaf_j16a block3" is a real file)
         # and leave cur_unit stale - six J-16 variant errors were blamed on
         # the B-52O above them before this handled spaces.
@@ -70,8 +99,12 @@ def main():
             checked += 1
             if cur_file is None:
                 problems.append(f"line {n}: Type={cur_unit} - no enabled mod defines it")
+            elif in_aircraft:
+                pending = (n, cur_unit, cur_file)
+                checked += 1
         elif m := re.match(r"^LoadoutVariant=(.+)$", line):
             want = m.group(1).strip()
+            saw_variant = True
             if cur_file is None:
                 continue
             checked += 1
@@ -86,6 +119,8 @@ def main():
             checked += 1
             if find_unit(uid) is None:
                 problems.append(f"line {n}: air group {uid} - no enabled mod defines it")
+
+    close_block()   # the mission's last aircraft block has no following section
 
     # --- 4: every store the SEST loadouts hang on a pylon --------------------
     for pack in sorted((ROOT / "integration").glob("*/SEST_*")):

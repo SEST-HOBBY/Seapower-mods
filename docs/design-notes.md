@@ -93,6 +93,24 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   override hides — USNA's buddy-tanker fit landed in a file the Growler pack
   owns and was ported the same day. After any export, diff what changed and
   check it against pack donors.
+- **An aircraft needs a loadout it can actually resolve.** A mission entry with no
+  `LoadoutVariant` makes the UI resolve a default at display time; if the winning
+  unit file's `AvailableLoadouts` does not list `Default`, there is nothing to
+  resolve to and the map panel's converter throws *"An item with the same key has
+  already been added. Key: &lt;aircraft id&gt;"* from inside
+  `MapPanel.MeasureOverride`. Confirmed on `plaaf_kj-500`, which declares
+  `AvailableLoadouts=AEW` yet still carries a `[WeaponSystem1Default]` block, and
+  confirmed fixed in game once the variant was made explicit. The editor omits the
+  key whenever a loadout was never picked by hand, so
+  `integration/missions/fix_loadout_variants.py` re-applies it as step 6b of the
+  refresh chain and `preflight` fails on it (negative-tested).
+
+  The lesson beyond the bug: the message named a *unit id*, which sent the hunt
+  after duplicate mods for days - one mod was even unsubscribed over it. The id in
+  a duplicate-key message is the dictionary KEY, not necessarily a duplicated
+  thing. Read the stack: `IniToPlanConverter` inside a measure pass is the UI
+  building a plan, not the loader registering units.
+
 - **Gates before every push:** `check_load_order`, `check_dependencies`,
   `preflight` (every reference the missions make), `check_station_clash`,
   full pack rebuilds. All exit non-zero; all have been negative-tested.
