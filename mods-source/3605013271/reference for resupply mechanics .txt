@@ -1,0 +1,16 @@
+[---------- Supply Systems ----------]
+[SupplySystem1]
+SystemName=TruckSupplySystem
+#MaxAmmoPoints=200             // Ammunition with ammo points cost over this values will not be replenished (remember to remove hashtag for it to work)
+AmmoLoadSpeed=40              // Ammo points per second
+AmmoCapacity=9999999999             // Ammo points. Can be numerical value or "Unlimited" (unlimited doesnt actually work, put in a high number instead)
+SupplyRange=1.5               // In miles
+MaxTargets=2                  // Number of targets that can be simultaniously replenished (same speed per target)#
+MaxOwnVelocity=10              // In knots. Above this velocity replenishment is impossible
+MaxTargetVelocity=10          // In knots. Above this velocity replenishment is impossible
+TargetTypes=LandUnit          // What unit types can be replenished by this system ("LandUnit", "Vessel" or "Submarine")
+
+
+#copy everything above and paste after the sensor systems of any given units .ini-file. Then adjust values 
+
+#My AmmoCapacity calculation is based on the Ural Truck (7.9t weight, 6800 AP -> ~861 AP/t) and M932 Truck (10t weight, 4500 AP -> 450 AP/t). So AP/t should be between these. I used 600 AP/t
