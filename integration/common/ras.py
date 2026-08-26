@@ -933,7 +933,8 @@ def make_reloadable(text):
 
     That matters far beyond deck canisters: Red Storm Arsenal models every
     Mk41 cell as its own launcher with a bare `Ammunition=` line, so without
-    this transform not one VLS round on any of its 115 hulls could ever be
+    this transform not one VLS round on any of the 103 hulls it ships with
+    one could ever be
     replenished, however many oilers were alongside.
 
     Adding the key explicitly is safe whichever way the engine's default falls:

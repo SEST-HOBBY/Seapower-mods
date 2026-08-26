@@ -2,7 +2,7 @@
 
 Sea Power ships a complete ship-to-ship replenishment mechanic and leaves it switched off.
 This pack turns it on, and — the part that actually matters — makes it *reach* a modern
-fleet: 282 modern hulls currently have launchers that **can never be reloaded by anything**,
+fleet: **276 modern hulls** carry launchers that **can never be reloaded by anything**,
 whatever is tied up alongside.
 
 Built alongside **[RE-power: naval resupply in the missile age](https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271)** (3605013271), which is now subscribed and exported
@@ -48,7 +48,47 @@ anywhere sets it.
 
 Gate 2 is far more expensive than it looks. **Red Storm Arsenal models every Mk41 cell as its
 own launcher with a bare `Ammunition=` line**, so without this pack not one VLS round on any
-of its 115 hulls could ever be replenished.
+of the 103 hulls (of its 115) that carry one could ever be replenished.
+
+#### The scale of gate 2
+
+Across the 736 vessel files in the 27 modern mods the builder reads, there are **7 251**
+launcher sections. Sorting them by how they are fed:
+
+| | Launchers | |
+|---|---:|---|
+| No `Ammunition=` at all | 5 075 | guns fed from a magazine, decoy dispensers, empty loadout stubs — not affected |
+| `Ammunition=` **and** an `AssociatedMagazine=` | 93 | reloads today, exactly as vanilla intends |
+| **Bare `Ammunition=`, no magazine, no flag** | **2 083** | **one-shot forever** |
+
+So of the launchers that actually hold a missile, **2 083 of 2 176 — 96% — cannot be
+replenished by anything**. They sit on 276 hulls:
+
+| Mod | Hulls | Launchers |
+|---|---:|---:|
+| Red Storm Arsenal | 103 | 1 185 |
+| PLAN Pack | 25 | 275 |
+| Modern US Navy | 48 | 200 |
+| Russian Navy 21 | 12 | 117 |
+| Euromod — Modern German Navy | 17 | 52 |
+| Euromod — Modern British Navy | 11 | 37 |
+| Euromod — Modern Dutch Navy | 7 | 35 |
+| Euromod — Modern Italian Navy | 6 | 34 |
+| *18 further mods* | 47 | 148 |
+
+The distribution is long-tailed and the tail is where the damage is. 17 hulls carry a single
+affected launcher; RSA's arsenal ships `usn_aem_nathan_hale` and `usn_aem_james_madison` carry
+**68 and 50** — each one an eight-cell Mk41 module holding `Ammunition=usn_rgm_109b3` and no
+magazine, so the Nathan Hale's 544 Tomahawk cells are, without this pack, a single magazine
+that empties once and never fills. The Type 052D and Type 055 variants carry 26–30 apiece.
+
+This pack flags **2 001 launchers on 264 of those hulls**. The remaining 82, on 12 hulls, are
+left alone deliberately and reported at every build: 10 hulls name a store nothing in the
+collection defines (their own mod's dangling reference, not something to paper over) and 2 are
+owned by sibling SEST packs — `js_ffg_mogami` and `usn_ddg-1000_cps` — which apply the same
+fix in their own builders. The headline "2 003 launchers across 282 hulls" adds the 10 upstream
+suppliers and 8 clones this pack also writes, which between them contribute 2 more launchers;
+a supplier's own point defence is nearly always magazine-fed already.
 
 And a third problem no mod can fix by tuning: the collection has twelve replenishment-capable
 hulls and all but two are Cold War. A 2025 task force had nothing to replenish *from*.
@@ -61,7 +101,7 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 | **New hulls** | 8 modern replenishment ships — 5 BLUE, 3 RED — 25 named ships, as **new unit ids** |
 | **Metering** | 85 heavy rounds get a counted `SEST_` supply category; 4 rounds repaired |
 | **Refit** | every clone's donor-era radars, EW and guns retuned to its own navy and decade |
-| **Launchers** | **2003 launchers across 282 modern hulls** made reloadable |
+| **Launchers** | **2003 launchers made reloadable** — 2001 on 264 modern hulls, the rest on this pack's own |
 
 ### The suppliers
 

@@ -110,9 +110,12 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   author reports that anti-ship missiles and torpedoes will not replenish.
 - **Red Storm Arsenal models every Mk41 cell as its own bare launcher.** So the
   flag is not a deck-canister detail: without it, not one VLS round on any of
-  RSA's 115 hulls could ever be replenished. Scale surprises are the norm here
-  — the fix was 2003 launchers across 282 hulls, not the handful the Long Beach
-  example suggests.
+  RSA's 103 affected hulls could ever be replenished. Scale surprises are the norm
+  — 2083 launchers on 276 hulls are affected, which is 96% of every launcher in
+  the modern collection that actually holds a missile (2176; the other 93 have
+  a magazine and were always fine). The fix reaches 2001 of them on 264 hulls;
+  the rest sit on hulls left alone for a dangling store or owned by a sibling
+  pack. Not the handful the Long Beach example suggests.
 - **"It only changes the block we replace anyway" is a measurement, not an
   assumption.** This pack forked RE-power's copy of the nine shared auxiliary
   hulls on the ordinary rule — fork the load-order winner, the copy the player
