@@ -145,6 +145,21 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   removes the only supply path the game ships working. Red Storm Arsenal's
   `usa_tomahawk_launcher` fires `usn_rgm-109b`; eight rounds are excluded from
   metering for exactly this reason.
+- **A submerged submarine replenishes. Tested in game, 2026.** The engine
+  applies no surfaced-state check, and none can be added: no supply key
+  mentions depth, and the one candidate that looked like a lever —
+  `EnabledSurfaced`, 90 occurrences — is cosmetic, appearing only in
+  `[Sail_Submerged]`/`[Sail_Surfaced]` mesh sections (45 pairs) to swap the
+  conning-tower model. Kept enabled as a house rule rather than lost along
+  with surfaced rearm; the off switch is dropping `Submarine` from
+  `SUPPLIERS`, since the only other submarine-capable supplier in the
+  collection is a dock. **The screenshot won again**: the pack shipped saying
+  this was unverifiable from files, and the answer was one mission away.
+- **`TargetTypes` takes a comma list.** `Vessel,Submarine` parses, proven in
+  game. Nothing in vanilla or the 131 exported mods uses a multi-value supply
+  target list — RE-power picks one per hull — so this was the pack's riskiest
+  single line: had the comma not parsed, all 17 suppliers would have failed
+  at once, not just the submarine half.
 - **Adding a `SupplyCategory` can only ever restrict.** A round that had none
   was unrestricted commodity ordnance; tagging it makes it unreplenishable by
   every supplier that does not stock the category — flight decks included. So

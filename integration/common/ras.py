@@ -83,18 +83,23 @@ transfer on a momentary overspeed.
 Where a hull's own top speed is below 13 the ceiling is clamped to it and the
 entry says so - a gate above hull speed is a gate that never fires.
 
-Every supplier targets "Vessel,Submarine": a surfaced boat rearms from
-whatever it can reach, with the same per-hull ceilings deciding what moves -
-an oiler passes a boat its point-defence and torpedo-class rounds while
-Kalibr-class weapons need an ammunition ship, exactly as for surface
-receivers. The comma list rides on the only multi-value precedent in the
-corpus (USNA's KC-130 "Aircraft,Helicopter"); RE-power itself always picks ONE
-of Vessel or Submarine per hull, so the two-value form is on the in-game
-checklist. NO SURFACED-STATE GATE EXISTS IN THE DATA: no supply key mentions
-depth, and language_en/ui.ini carries only the generic "Replenishment
-unavailable." string. Whether the engine refuses a submerged receiver on its
-own is unverifiable from files and is a mandatory in-game test - if it does
-not, there is no data-side fix, only per-mission discipline.
+Every supplier targets "Vessel,Submarine": a boat rearms from whatever it can
+reach, with the same per-hull ceilings deciding what moves - an oiler passes a
+boat its point-defence and torpedo-class rounds while Kalibr-class weapons
+need an ammunition ship, exactly as for surface receivers.
+
+Both halves are now TESTED IN GAME. The comma list parses (nothing else in the
+corpus uses one - RE-power picks one value per hull - so this was the riskiest
+line here; had it not parsed, all 17 suppliers would have failed at once). And
+a SUBMERGED boat replenishes: the engine applies no surfaced-state check, and
+none can be added from the ini layer. No supply key mentions depth, and
+`EnabledSurfaced` - the one candidate, 90 occurrences - is cosmetic, appearing
+only in [Sail_Submerged]/[Sail_Surfaced] mesh sections to swap the
+conning-tower model. Underwater resupply is therefore left ENABLED as a
+deliberate house rule ("surface your boats") rather than lose surfaced rearm
+along with it. To close it, drop "Submarine" from the target_types below: the
+only other submarine-capable supplier in the collection is RE-power's
+nv_pt_boats_docks_small, a dock, which is where a boat should rearm anyway.
 """
 
 import re

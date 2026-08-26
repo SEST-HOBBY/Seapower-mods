@@ -62,18 +62,17 @@ Onyx 5000 · SM-3 9000 · Zircon 10000 · SS-N-22 12300 · SS-N-19 Granit 21000.
 
 | Hull | Nation | Pool | Ceiling | Range | Speed | Stocks |
 |---|---|---|---|---|---|---|
-| **Algol T-AKR** *(sealift, not RAS)* | US (MSC) | 500 000 | **none** | 0.5 nmi | **8/12 kn** | Harpoon 40 · AirTorpedo 48 · ALWT 24 · LandAttack 32 · LongRangeSAM 32 |
 | Sacramento AOE | US | 600 000 | **none** | 1.0 nmi | 13/16 kn | Harpoon 40 · AirTorpedo 60 · ALWT 24 · LandAttack 24 · LongRangeSAM 32 |
+| **Algol T-AKR** *(sealift, not RAS)* | US (MSC) | 500 000 | **none** | 0.5 nmi | **8/12 kn** | Harpoon 40 · AirTorpedo 48 · ALWT 24 · LandAttack 32 · LongRangeSAM 32 |
 | Kilauea AE | US | 500 000 | **none** | 1.0 nmi | 13/16 kn | Harpoon 60 · AirTorpedo 90 · ALWT 40 · **Nuclear_ASW 4** · LandAttack 40 · LongRangeSAM 60 |
-| T2 oiler | US | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | Harpoon 8 · AirTorpedo 16 |
-| Sealift Pacific T-AOT | US (MSC) | 40 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 8 |
-
 | Boris Chilikin AOR | Soviet | 200 000 | 13 000 | 0.5 nmi | 13/16 kn | **SovietAdvancedASM 24** · AirTorpedo 40 · LandAttack 16 |
-| Kazbek tanker | Soviet | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 16 |
-| Don tender | Soviet | 150 000 | 8 000 | 0.3 nmi | 5/8 kn | SovietAdvancedASM 12 · AirTorpedo 30 · **LandAttack 12** |
-| Delvar | Iran | 15 000 | 2 000 | 0.3 nmi | 8/12 kn | AirTorpedo 4 · Harpoon 2 |
-| Teide oiler | Spain | 120 000 | 2 000 | 0.5 nmi | 12/16 kn | Harpoon 16 · AirTorpedo 24 · ALWT 8 |
+| Don tender | Soviet | 150 000 | 8 000 | 0.3 nmi | 5/8 kn | SovietAdvancedASM 12 · AirTorpedo 30 · LandAttack 12 |
 | **HMAS Supply AOR** *(SEST RAN Fleet)* | Australia | 160 000 | 8 000 | 0.5 nmi | 12/16 kn | Harpoon 16 · AirTorpedo 24 · LandAttack 8 · LongRangeSAM 16 |
+| Teide oiler | Spain | 120 000 | 2 000 | 0.5 nmi | 12/16 kn | Harpoon 16 · AirTorpedo 24 · ALWT 8 |
+| T2 oiler | US | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | Harpoon 8 · AirTorpedo 16 |
+| Kazbek tanker | Soviet | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 16 |
+| Sealift Pacific T-AOT | US (MSC) | 40 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 8 |
+| Delvar | Iran | 15 000 | 2 000 | 0.3 nmi | 8/12 kn | AirTorpedo 4 · Harpoon 2 |
 
 The Algol is the one entry that is **not** `Role=RAS` — it is `Role=Transport`, an MSC fast
 sealift Ro-Ro. It sits in the uncapped top tier on its own merits: at **288 m it is the longest
@@ -192,14 +191,24 @@ ammunition ship, exactly as for surface receivers. No combatant gains a supply s
 but always alone; the two-value `Vessel,Submarine` list rides on the only multi-value
 precedent in the corpus (`Aircraft,Helicopter` on the KC-130s) and is test 1 on the checklist.
 
-**BLOCKER, reported rather than papered over: no surfaced-state gate exists in the data.**
-The requirement that a submarine be fully surfaced to receive cannot be expressed in the ini
-layer — no supply key anywhere mentions depth or surface state, RE-power's submarine suppliers
-carry no such key, and `language_en/ui.ini` has only the generic `Replenishment unavailable.`
-string. Either the engine refuses submerged receivers on its own (the `SupplyUnavailable`
-panel state suggests it has *some* internal eligibility logic), or it does not — only the
-in-game tests below can tell, and if it does not there is no data-side fix short of per-mission
-discipline. What this pack will NOT do is fake the restriction by rewriting every submarine.
+**TESTED IN GAME, 2026: a submerged submarine DOES replenish.** The engine applies no
+surfaced-state check of its own. This was the pack's one open blocker and it resolved the
+unwelcome way: there is no data-side fix, because no supply key anywhere mentions depth or
+surface state, RE-power's own submarine suppliers carry no such key, and `language_en/ui.ini`
+offers only the generic `Replenishment unavailable.` string. The one candidate that looked
+like a lever — `EnabledSurfaced`, 90 occurrences — turned out to be cosmetic: it appears
+*only* in `[Sail_Submerged]` / `[Sail_Surfaced]` mesh sections, 45 pairs, swapping the
+conning-tower model. It gates nothing.
+
+**Decision: underwater resupply is left enabled, as a house rule rather than a mechanic.**
+Surface your boats. This is a deliberate choice to keep the capability rather than lose
+surfaced rearm along with it, and it is revisitable — dropping `Submarine` from
+`SUPPLIERS` in `integration/common/ras.py` closes it completely, because RE-power's only
+other submarine-capable unit is `nv_pt_boats_docks_small`, a dock, where a boat *should*
+rearm. All 14 of its merchant suppliers are `TargetTypes=Vessel` and cannot touch a
+submarine. So the at-sea case is entirely ours to give or withhold.
+
+What this pack will NOT do is fake the restriction by rewriting every submarine.
 
 ## Dependencies
 
@@ -234,13 +243,12 @@ These are the things that cannot be settled from the files, in the order worth t
    Mogami (Harpoon, 1725) or a Hobart (NSM, 8000) inside 0.5 nmi of HMAS Supply at 12 kn
    should take its anti-ship rounds back. HMAS Supply's ceiling is 8000 precisely so it
    clears the NSM its own fleet carries.
-3. **`TargetTypes=Vessel,Submarine` as a two-value list is unproven** — every supplier
-   carries it; RE-power only ever uses one value per hull. — `Submarine` appears in
-   no `TargetTypes` value in vanilla or in the 131 exported mods. It is written as a two-value list so the
-   `Vessel` half still works if the engine ignores it, but a stricter parser could reject the
-   If it misbehaves, the fallback is two `[SupplySystemN]` blocks per hull (one per target
-   type) or RE-power's one-value-per-hull split, both one-line changes in
-   `integration/common/ras.py`.
+3. **`TargetTypes=Vessel,Submarine` as a two-value list — PROVEN in game.** Every supplier
+   carries it and it parses: submarines and surface ships both receive. RE-power only ever
+   uses one value per hull, so this was the riskiest line in the pack — if the comma had not
+   parsed, all 17 suppliers would have failed at once, not just the submarine half. The
+   fallback is no longer needed, but for the record it was two `[SupplySystemN]` blocks per
+   hull, one per target type.
 4. **Whether a category-tagged round also charges the points pool** is unknown — the
    flight-deck side runs the two ledgers independently, but there is no working supplier-side
    example. The numbers are safe under either reading; the *feel* will differ.
@@ -258,8 +266,8 @@ submarine half and the metering economy as provisional.
 3. The same round transfers from an AOR / ammunition ship whose ceiling admits it.
 4. Don-class tender replenishes a surfaced boat.
 5. At least one modern clone (T-AOE / T-AKE / Mashuu / Tide / Type 901) supplies.
-6. Periscope, shallow, deep and very-deep depth all refuse replenishment.
-7. A boat diving mid-transfer stops the transfer by the next `UpdateDelay` tick.
+6. ~~Periscope, shallow, deep and very-deep depth all refuse replenishment.~~ **FAILED — tested, a submerged boat replenishes. No engine-side depth check exists. Accepted as a house rule; see above.**
+7. A boat diving mid-transfer stops the transfer by the next `UpdateDelay` tick. *(Expected to fail for the same reason — untested.)*
 8. No ordnance-point or category deduction after a rejection or interruption.
 9. Out-of-range and over-speed both refuse replenishment.
 10. A bare (canister/tube) launcher and a magazine-fed launcher both refill.
