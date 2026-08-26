@@ -25,6 +25,7 @@
     {"folder": "SEST_B52_ARRW", "source": "integration/b52-arrw", "builder": "build_patch.py", "title": "SEST B-52 ARRW"},
     {"folder": "SEST_F-15EX_Revamp", "source": "integration/f-15ex-revamp", "builder": "build_patch.py", "title": "SEST F-15EX Revamp"},
     {"folder": "SEST_F-35C_JATM", "source": "integration/f-35c-jatm", "builder": "build_patch.py", "title": "SEST F-35C JATM"},
+    {"folder": "SEST_F16CM_JATM", "source": "integration/f-16cm-jatm", "builder": "build_patch.py", "title": "SEST F-16CM JATM"},
     {"folder": "SEST_Growler_NGJ_MALICE", "source": "integration/growler-ngj-malice", "builder": "build_patch.py", "title": "SEST Growler NGJ + MALICE"},
     {"folder": "SEST_JMSDF_Mogami", "source": "integration/jmsdf-mogami", "builder": "build_patch.py", "title": "SEST JMSDF Mogami"},
     {"folder": "SEST_RAAF_Bases", "source": "integration/raaf-bases", "builder": "build_pack.py", "title": "SEST RAAF Bases", "build_after": ["SEST_ADF_Persistent_ISR", "SEST_F-15EX_Revamp", "SEST_RAAF_Wedgetail", "SEST_Raptor_Squadrons"]},
