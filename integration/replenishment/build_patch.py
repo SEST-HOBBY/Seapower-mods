@@ -3,7 +3,7 @@
 ship-to-ship supply system and make it reach the modern fleet.
 
 Sea Power ships the whole mechanic and leaves it switched off. The only
-`[SupplySystem1]` block on any hull in vanilla or in the 128 exported Workshop
+`[SupplySystem1]` block on any hull in vanilla or in the 131 exported Workshop
 mods is the commented one on the Sacramento
 (mods-source/_vanilla/original/vessels/usn_aoe_sacramento.ini:298-316); the
 three suppliers that actually work are land units running TruckSupplySystem.
@@ -28,8 +28,8 @@ separate reasons for it and neither is fixed by enabling the block:
      sealed canister, a deck rail, a fixed tube - is one-shot forever unless
      it carries `ReloadableWithoutMagazine=True`. Vanilla states the rule on
      the Long Beach's Mk141 Harpoon canisters, which set it False. Across
-     vanilla and all 128 mods the flag appears on exactly 11 units and every
-     one is a land SAM TEL. No vessel anywhere sets it.
+     vanilla and all 131 exported mods the flag appears on exactly
+     11 units and every one is a land SAM TEL. No vessel anywhere sets it.
 
 Gate 2 is far more expensive than it looks. Red Storm Arsenal - the largest
 mod in the collection - models every Mk41 cell as its own launcher with a bare
@@ -44,7 +44,7 @@ clones its European donors. The donors are untouched and both ships coexist.
 
 What this builder emits, in four stages:
 
-  1. Suppliers   - nine upstream hulls get a tuned [SupplySystem1].
+  1. Suppliers   - ten upstream hulls get a tuned [SupplySystem1].
   2. Clones      - six new modern auxiliaries, with variants and names.
   3. Ammunition  - every heavy ship/sub-launched missile gets one of two new
                    SEST_ categories so it is counted rather than free. Which

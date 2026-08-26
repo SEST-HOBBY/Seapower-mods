@@ -4,7 +4,7 @@
 usn_p8_2027 declares AvailableLoadouts=ASW,AntiShip - two options - and the
 AntiShip one hangs four rounds of usn_agm-84g on WeaponSystem2. Nothing in the
 collection defines usn_agm-84g. Not U.S. Navy 2027, which ships the aircraft;
-not any of the other 128 mods; not vanilla. There is no real AGM-84G either.
+not any of the other 131 exported mods; not vanilla. There is no real AGM-84G either.
 So the Poseidon's only anti-ship fit puts nothing on the wings, and half of
 what a maritime patrol aircraft is for quietly does not work.
 

@@ -249,7 +249,7 @@ def build_419_flts():
     """Fix usn_arrw's MaxVelocity typo.
 
     It declares MaxVelocity=10,648 - the ONLY numeric value carrying a
-    thousands separator anywhere in the ammunition of all 129 exported mods.
+    thousands separator anywhere in the ammunition of all 131 exported mods.
     Nothing else in the collection writes a number that way, so it is a typo,
     and a parser reading it as 10 knots leaves the round crawling.
 

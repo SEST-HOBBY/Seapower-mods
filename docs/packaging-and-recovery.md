@@ -1,6 +1,6 @@
 # Packaging, dependencies and recovery
 
-Two questions this answers: how the SEST packs coexist with 129 workshop mods,
+Two questions this answers: how the SEST packs coexist with 132 workshop mods,
 and what you actually need to be able to recover if the game install goes bad.
 
 ## A SEST pack is a patch, not a mod

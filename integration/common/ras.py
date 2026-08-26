@@ -2,7 +2,7 @@
 
 Sea Power ships a complete ship-to-ship replenishment mechanic and leaves it
 switched off. The ONLY `[SupplySystem1]` block on any hull in vanilla or in
-the 128 exported Workshop mods is commented out, on the Sacramento:
+the 131 exported Workshop mods is commented out, on the Sacramento:
 
     mods-source/_vanilla/original/vessels/usn_aoe_sacramento.ini:298-316
         #[SupplySystem1]
@@ -282,20 +282,20 @@ SUPPLIERS = {
 
     "usn_takr_algol": _supplier(
         "vanilla", "Algol-class fast sealift ship (T-AKR)", "US", "T-AKR",
-        load=45, pool=300000, rng=0.5, targets=2, own=8, target_vel=12, cap=5000,
-        cats=[("Harpoon", 24), ("AirTorpedo", 32), ("ALWT", 16),
-              (LAND_ATTACK, 20), (LONG_RANGE_SAM, 20)],
+        load=45, pool=500000, rng=0.5, targets=2, own=8, target_vel=12,
+        cap=None,   # top tier: no per-round size gate
+        cats=[("Harpoon", 40), ("AirTorpedo", 48), ("ALWT", 24),
+              (LAND_ATTACK, 32), (LONG_RANGE_SAM, 32)],
         note="the one supplier here that is NOT Role=RAS - it is Role=Transport, "
-             "an MSC fast sealift Ro-Ro with 31 cargo slots and no replenishment "
-             "rig at all. Included because RE-power already makes it a supplier "
-             "and leaving it out would mean one hull in the fleet running "
-             "untuned parameters with no accountable categories. Everything "
-             "follows from having cranes instead of rigs: 45 points/sec against "
-             "an AOE's 120, 8 kn against 13 on a hull that makes 33, and a 5000 "
-             "ceiling that passes crated rounds up to Tomahawk (4350), SM-2ER "
-             "(4525) and Mk48 ADCAP (4695) while the big sealed canisters - NSM "
-             "and SM-6 Blk IB at 8000, SM-3 at 9000 - still need a real "
-             "ammunition ship"),
+             "an MSC fast sealift Ro-Ro. Top tier all the same, and on its own "
+             "merits: at 288 m it is the LONGEST hull in this table, longer than "
+             "the Sacramento, with 31 cargo slots of military materiel. "
+             "Strategic sealift is precisely the thing that moves the heaviest "
+             "items - so no size ceiling, and it will pass a Granit at 21000 "
+             "like the ammunition ships. What it does not have is a "
+             "replenishment rig, and that is where the cost sits instead of in "
+             "a ceiling: 45 points/sec against an AOE's 120, and 8 kn on a hull "
+             "that makes 33. It carries anything, slowly, very nearly stopped"),
 
     # ---- Workshop mod hull ---------------------------------------------------
     "ae_ao_teide": _supplier(

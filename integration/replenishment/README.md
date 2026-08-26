@@ -26,13 +26,13 @@ by a supplier that lists `AccountableAmmunitionCategory_N=X,<count>`. Guns and p
 SAMs declare no category, so they flow freely — which is exactly the half that works today.
 Every Harpoon, every ship torpedo and every SS-N-12/19/22 declares one. Vanilla stocks those
 categories on *flight decks* only, so `SovietAdvancedASM` is a total orphan: stocked by zero
-suppliers anywhere in vanilla or in 128 mods.
+suppliers anywhere in vanilla or in the 131 exported mods.
 
 **2. The launcher gate.** A launcher fed by an `AssociatedMagazine=` refills when its magazine
 does. A launcher holding a bare `Ammunition=` — a sealed canister, a deck rail, a fixed tube —
 is one-shot forever unless it carries `ReloadableWithoutMagazine=True`. Vanilla spells this
 out on the Long Beach's Mk141 Harpoon canisters, which set it `False`. Across vanilla and all
-128 mods that flag appears on exactly **11 units and every one is a land SAM TEL**. No vessel
+131 exported mods that flag appears on exactly **11 units and every one is a land SAM TEL**. No vessel
 anywhere sets it.
 
 Gate 2 is far more expensive than it looks. **Red Storm Arsenal models every Mk41 cell as its
@@ -62,11 +62,12 @@ SM-3 / Onyx 9000 · Zircon 10000 · SS-N-22 12300 · SS-N-19 Granit 21000.
 
 | Hull | Nation | Pool | Ceiling | Range | Speed | Stocks |
 |---|---|---|---|---|---|---|
+| **Algol T-AKR** *(sealift, not RAS)* | US (MSC) | 500 000 | **none** | 0.5 nmi | **8/12 kn** | Harpoon 40 · AirTorpedo 48 · ALWT 24 · LandAttack 32 · LongRangeSAM 32 |
 | Sacramento AOE | US | 600 000 | **none** | 1.0 nmi | 13/16 kn | Harpoon 40 · AirTorpedo 60 · ALWT 24 · LandAttack 24 · LongRangeSAM 32 |
 | Kilauea AE | US | 500 000 | **none** | 1.0 nmi | 13/16 kn | Harpoon 60 · AirTorpedo 90 · ALWT 40 · **Nuclear_ASW 4** · LandAttack 40 · LongRangeSAM 60 |
 | T2 oiler | US | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | Harpoon 8 · AirTorpedo 16 |
 | Sealift Pacific T-AOT | US (MSC) | 40 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 8 |
-| Algol T-AKR *(sealift, not RAS)* | US (MSC) | 300 000 | 5 000 | 0.5 nmi | 8/12 kn | Harpoon 24 · AirTorpedo 32 · ALWT 16 · LandAttack 20 · LongRangeSAM 20 |
+
 | Boris Chilikin AOR | Soviet | 200 000 | 13 000 | 0.5 nmi | 13/16 kn | **SovietAdvancedASM 24** · AirTorpedo 40 · LandAttack 16 |
 | Kazbek tanker | Soviet | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 16 |
 | Don tender | Soviet | 150 000 | 8 000 | 0.3 nmi | 5/8 kn | SovietAdvancedASM 12 · AirTorpedo 30 · **LandAttack 12** |
@@ -75,10 +76,12 @@ SM-3 / Onyx 9000 · Zircon 10000 · SS-N-22 12300 · SS-N-19 Granit 21000.
 | **HMAS Supply AOR** *(SEST RAN Fleet)* | Australia | 160 000 | 8 000 | 0.5 nmi | 12/16 kn | Harpoon 16 · AirTorpedo 24 · LandAttack 8 · LongRangeSAM 16 |
 
 The Algol is the one entry that is **not** `Role=RAS` — it is `Role=Transport`, an MSC fast
-sealift Ro-Ro with 31 cargo slots and no replenishment rig. It is here because RE-power already
-makes it a supplier, and leaving it out would strand one hull on untuned parameters with no
-accountable categories at all. Having cranes instead of rigs is what sets its numbers: 45
-points/sec against an AOE's 120, and 8 kn on a hull that makes 33.
+sealift Ro-Ro. It sits in the uncapped top tier on its own merits: at **288 m it is the longest
+hull in this table**, longer than the Sacramento, with 31 cargo slots of military materiel, and
+strategic sealift is exactly the thing that moves the heaviest items. It will pass a Granit at
+21 000 like the ammunition ships. What it lacks is a replenishment rig, and that is where the
+cost sits instead of in a ceiling: **45 points/sec against an AOE's 120, and 8 kn on a hull that
+makes 33.** It carries anything, slowly, very nearly stopped.
 
 Boris Chilikin's 13 000 ceiling is threaded deliberately between SS-N-22 Moskit (12 300) and
 SS-N-19 Granit (21 000) — Granit's angled below-deck silos genuinely are not reloadable at
@@ -233,7 +236,7 @@ These are the things that cannot be settled from the files, in the order worth t
    clears the NSM its own fleet carries.
 3. **`TargetTypes=Vessel,Submarine` as a two-value list is unproven** — every supplier
    carries it; RE-power only ever uses one value per hull. — `Submarine` appears in
-   no `TargetTypes` value in vanilla or in 128 mods. It is written as a two-value list so the
+   no `TargetTypes` value in vanilla or in the 131 exported mods. It is written as a two-value list so the
    `Vessel` half still works if the engine ignores it, but a stricter parser could reject the
    If it misbehaves, the fallback is two `[SupplySystemN]` blocks per hull (one per target
    type) or RE-power's one-value-per-hull split, both one-line changes in

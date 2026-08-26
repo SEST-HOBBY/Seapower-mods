@@ -4,7 +4,7 @@ Every rule here was earned by something breaking, being measured, or being
 verified in game. When a rule and a screenshot disagree, the screenshot wins
 and the rule gets a new revision — that has happened three times already.
 
-## How the game composes 144 mods
+## How the game composes 132 mods
 
 - **Unit files are whole-file overrides.** For `aircraft/`, `vessels/`,
   `submarines/`, `land_units/`, `ammunition/`, `biologic/`, `ui/`, the highest
