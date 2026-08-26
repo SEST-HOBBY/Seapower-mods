@@ -788,6 +788,74 @@ def apply_refit(text, refit, resolve, unit_id):
     return text, chosen
 
 
+# ---------------------------------------------------------------------------
+# Broken upstream store references, and what they were meant to say.
+#
+# Eleven modern hulls hang an ammunition id that NOTHING in the collection
+# defines, so the weapon holding it has no round at all - a Type 23 whose
+# Harpoon canisters name `usn_rgm-84`, a Kansas-class whose ESSM cells name
+# `usn_rim_162essm`. Every one is a typo away from a round the SAME mod already
+# ships, and the pack has to fork these hulls anyway for the launcher fix, so
+# the correction rides along in the file it was already going to write. That is
+# the shape integration/allied-fixes established for the P-8's `usn_agm-84g`:
+# fix the REFERENCE, never invent the id, because claiming a name upstream may
+# yet ship would put SEST tier 0 in front of the real thing.
+#
+# Preference lists, resolved like the refit's: first entry that exists wins.
+STORE_FIXES = {
+    # Red Storm Arsenal, referring to its own rounds by names it does not use.
+    "usn_rim_162essm": ["usn_rim_162a", "usn_rim-162"],
+    "wp_ss-n-27": ["wp_ss_n_27", "wp_ss-n-27a"],
+    "plan_hhq-7a": ["plan_hq_7", "plan_hhq-7"],
+    "pla_hq-7": ["plan_hq_7", "plan_hhq-7"],
+    # Modern Royal Navy (Type 23) and Chinese Navy (PLAN) both write the
+    # Harpoon without its variant letter. Vanilla's Block 1C is the baseline
+    # and is always present, so this one cannot depend on a mod staying subscribed.
+    "usn_rgm-84": ["usn_rgm-84d"],
+    # Euromod Modern Dutch, naming Leonardo's Vulcano round with an ita_ prefix.
+    "ita_cal_127mm_vulcano": ["leo_cal_127mm_vulcano", "ita_cal_127mm"],
+}
+
+# Deliberately NOT fixed, each checked:
+#   wp_deploy_mine      (Dutch Van Galen) - the only mines in the collection are
+#                       Spanish, spa_saes_mine and spa_mcc23_mine. Putting one
+#                       in a Dutch frigate is inventing a loadout, not fixing a
+#                       typo.
+#   plan_f3200a         (Type 003 Fujian) - declared with Ammunition1_Count=0.
+#                       A placeholder for a weapon the mod has not shipped;
+#                       there is nothing it was meant to say.
+#   _spawner_usa_*      (RSA's Tripoli and Ivan Rogov) - these follow the
+#   _spawner_wp_*       ship_spawner_usv pattern, an ammunition file of
+#                       Type=Fueltank carrying OnHitGroundSpawn=<land unit>.
+#                       RSA references nine of them and ships none. Writing
+#                       them would be authoring that mod's landing mechanic.
+# All four hulls are still patched; the reference stays broken exactly as
+# upstream wrote it, which is the honest outcome, and the build says so.
+
+_STORE_LINE = re.compile(r"^(Ammunition\d*|Station\d+)=([^\n]*)$", re.M)
+
+
+def apply_store_fix(text, resolve, unit_id):
+    """Repoint this hull's broken store references. Returns (text, applied).
+
+    Only the id is rewritten. A Station line can carry `id|count|...` and the
+    tail is left exactly as written.
+    """
+    applied = {}
+
+    def one(m):
+        key, raw = m.group(1), m.group(2)
+        head, sep, tail = raw.partition("|")
+        store = head.strip()
+        if store not in STORE_FIXES:
+            return m.group(0)
+        new = resolve(STORE_FIXES[store], unit_id, "@" + store)
+        applied[store] = new
+        return f"{key}={new}{sep}{tail}"
+
+    return _STORE_LINE.sub(one, text), applied
+
+
 def render_supply_block(spec):
     """The [SupplySystem1] block for one supplier, as text.
 

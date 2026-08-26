@@ -100,6 +100,32 @@ def systems_named(text):
                 yield name
 
 
+def upstream_store_names():
+    """Every ammunition id any vanilla or workshop unit file hangs.
+
+    Same purpose as upstream_system_names, for the other namespace: a store
+    that resolves to nothing but that upstream ALSO names is upstream's broken
+    reference, carried into a forked file unchanged. One this repo introduced
+    is a bug here. Without the distinction the replenishment pack could not
+    ship RSA's Tripoli at all - it hangs four _spawner_ ids RSA never wrote -
+    and the hull lost the launcher fix over a reference that is equally broken
+    with or without SEST.
+    """
+    names = set()
+    for d in list(MODS.iterdir()) + [VANILLA]:
+        if not d.is_dir():
+            continue
+        for sub in UNIT_DIRS:
+            if not (d / sub).is_dir():
+                continue
+            for f in (d / sub).glob("*.ini"):
+                text = f.read_text(encoding="utf-8", errors="replace")
+                names |= {s.split("|")[0] for s in
+                          re.findall(r"^Station\d+=([A-Za-z]\S*)", text, re.M)}
+                names |= set(re.findall(r"^Ammunition\d*=(\S+)", text, re.M))
+    return names
+
+
 def upstream_system_names():
     """Every SystemName any vanilla or workshop unit file references.
 
@@ -134,7 +160,10 @@ def main():
     idx, order = owners_index(), load_order()
     systems = system_index()
     upstream_systems = upstream_system_names()
-    problems, rows, inherited = [], [], collections.defaultdict(set)
+    upstream_stores = upstream_store_names()
+    problems, rows = [], []
+    inherited = collections.defaultdict(set)
+    inherited_stores = collections.defaultdict(set)
 
     for pack_dir in sorted((ROOT / "integration").glob("*/SEST_*")):
         if pack_dir.parent.name == "dist":   # dist = the consolidated deployable; its content is checked via the source packs
@@ -155,12 +184,18 @@ def main():
                 for s in stores:
                     w = winning_file(f"ammunition/{s}.ini")
                     if w is None:
-                        # nothing anywhere ships this store: the reference is
-                        # dangling. Before this check a pruned provider made
-                        # the dependency vanish from the report instead of
-                        # failing it.
-                        problems.append(f"{pack}: {rel} hangs {s} but no mod, "
-                                        "pack or vanilla file defines it")
+                        # nothing anywhere ships this store. Whose fault that
+                        # is decides whether it fails the run, by the same rule
+                        # the system check uses: if an upstream unit file hangs
+                        # the id too, the pack inherited it with the file it
+                        # forked and can only report it. A pruned provider
+                        # still fails, which is what this check was added for.
+                        if s in upstream_stores:
+                            inherited_stores[s].add(f"{pack}:{rel}")
+                        else:
+                            problems.append(f"{pack}: {rel} hangs {s}, which nothing "
+                                            "defines and no upstream unit file hangs "
+                                            "- this one is ours")
                     # vanilla and the pack itself are not dependencies
                     elif w.parts[-3].isdigit() and w.parts[-3] != pack:
                         reference[w.parts[-3]] += 1
@@ -227,6 +262,21 @@ def main():
             print("   standalone - needs nothing but the base game")
         for t, kind, n in detail:
             print(f"   {kind:<10} {n:>3} file(s)  {mod_name(t)}  ({t})")
+
+    if inherited_stores:
+        where = len({r for rels in inherited_stores.values() for r in rels})
+        print(f"\n{len(inherited_stores)} ammunition id(s) hung by {where} forked file(s) "
+              "resolve to nothing anywhere.")
+        print("   Upstream's reference, carried in with the file - the weapon holding it "
+              "has no round,")
+        print("   with or without SEST. integration/common/ras.py repairs the ones that "
+              "are a typo away")
+        print("   from a real id; these are the ones that are not.")
+        for name in sorted(inherited_stores):
+            rels = sorted(inherited_stores[name])
+            more = f" (+{len(rels) - 2} more)" if len(rels) > 2 else ""
+            print(f"      {name:<28} "
+                  f"{', '.join(Path(r).stem for r in rels[:2])}{more}")
 
     if inherited:
         hulls = len({r for rels in inherited.values() for r in rels})

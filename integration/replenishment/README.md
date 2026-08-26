@@ -82,13 +82,56 @@ affected launcher; RSA's arsenal ships `usn_aem_nathan_hale` and `usn_aem_james_
 magazine, so the Nathan Hale's 544 Tomahawk cells are, without this pack, a single magazine
 that empties once and never fills. The Type 052D and Type 055 variants carry 26–30 apiece.
 
-This pack flags **2 001 launchers on 264 of those hulls**. The remaining 82, on 12 hulls, are
-left alone deliberately and reported at every build: 10 hulls name a store nothing in the
-collection defines (their own mod's dangling reference, not something to paper over) and 2 are
-owned by sibling SEST packs — `js_ffg_mogami` and `usn_ddg-1000_cps` — which apply the same
-fix in their own builders. The headline "2 003 launchers across 282 hulls" adds the 10 upstream
-suppliers and 8 clones this pack also writes, which between them contribute 2 more launchers;
-a supplier's own point defence is nearly always magazine-fed already.
+This pack flags **2 078 launchers on 274 of those hulls — every one it is entitled to touch**.
+The remaining 5 sit on three hulls owned by sibling SEST packs (`js_ffg_mogami`,
+`rn_lph_ocean`, `usn_ddg-1000_cps`), which apply the same fix in their own builders.
+2 078 + 5 = 2 083. The headline "2 080 launchers across 292 hulls" adds the 10 upstream
+suppliers and 8 clones this pack also writes, which between them contribute 2 more; a
+supplier's own point defence is nearly always magazine-fed already.
+
+### The broken store references
+
+Getting to full coverage meant dealing with 13 hulls the builder used to skip because they hang
+an ammunition id nothing in the collection defines. Skipping them cost 77 launchers — including
+the Kansas-class's 20 ESSM cells — over a reference that is broken with or without this pack.
+Three things were wrong, and they were three different things:
+
+**Two were not broken at all.** `DateBased_HWT` is a stock mechanic, not a store: a file
+declares `DateBased_HWT=0,ger_dm2a4|2035,ger_dm2a5` and then writes `Ammunition1=DateBased_HWT`,
+so the name resolves to whichever round the scenario date selects. Nineteen declarations across
+the collection use it, vanilla submarines included — `integration/allied-fixes` had already
+recorded this and the replenishment builder did not know. And the Han's torpedo room declares
+`NumberOfAmmunitionTypes=3` while listing four, so its `Ammunition4=wp_ss-n-15` is text the
+engine never reads. Both hulls were being skipped over a reference that does not exist.
+
+**Six were a typo away from a round the same mod already ships**, and are now repaired in the
+copy this pack was forking anyway — the shape `integration/allied-fixes` established for the
+P-8's `usn_agm-84g`. Fix the *reference*; never invent the id, because claiming a name upstream
+may yet ship would put SEST tier 0 in front of the real thing:
+
+| Hull | Mod | Wrote | Meant |
+|---|---|---|---|
+| `usn_cg_kansas_late` | Red Storm Arsenal | `usn_rim_162essm` | `usn_rim_162a` |
+| `wp_skr_admiral_gorshkov_m_rsa` | Red Storm Arsenal | `wp_ss-n-27` | `wp_ss_n_27` |
+| `plan_ddg_type051m` | Red Storm Arsenal | `plan_hhq-7a` | `plan_hq_7` |
+| `plan_ffg_type_054_rsa` | Red Storm Arsenal | `pla_hq-7` | `plan_hq_7` |
+| `rn_type23`, `plan_ddg_luda_typ_051` | Modern RN, PLAN | `usn_rgm-84` | `usn_rgm-84d` |
+| `rnn_ddg_zeven` | Euromod Dutch | `ita_cal_127mm_vulcano` | `leo_cal_127mm_vulcano` |
+
+Each of those launchers previously had **no round at all** in game. The Harpoon target is
+vanilla's Block 1C deliberately, so that repair cannot depend on a mod staying subscribed.
+
+**Four are genuinely missing content and are left alone** — but the hulls are now patched
+anyway, because a broken reference is no reason to withhold the launcher fix from the rest of
+the ship. `wp_deploy_mine` (Dutch Van Galen) has no counterpart: the only mines in the
+collection are Spanish. `plan_f3200a` (Fujian) is declared with `Ammunition1_Count=0`, a
+placeholder for a weapon the mod has not shipped. And RSA's nine `_spawner_usa_*` /
+`_spawner_wp_*` ids follow the `ship_spawner_usv` pattern — an ammunition file of
+`Type=Fueltank` carrying `OnHitGroundSpawn=<land unit>` — which RSA references and never
+ships; writing them would be authoring that mod's landing mechanic. `check_dependencies` now
+reports all ten at every run without failing, on the same rule it uses for system names: a
+reference an upstream unit file also carries is upstream's, one this repo introduced is ours
+and still fails the build.
 
 And a third problem no mod can fix by tuning: the collection has twelve replenishment-capable
 hulls and all but two are Cold War. A 2025 task force had nothing to replenish *from*.
@@ -101,7 +144,8 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 | **New hulls** | 8 modern replenishment ships — 5 BLUE, 3 RED — 25 named ships, as **new unit ids** |
 | **Metering** | 85 heavy rounds get a counted `SEST_` supply category; 4 rounds repaired |
 | **Refit** | every clone's donor-era radars, EW and guns retuned to its own navy and decade |
-| **Launchers** | **2003 launchers made reloadable** — 2001 on 264 modern hulls, the rest on this pack's own |
+| **Repairs** | 6 broken upstream ammunition references fixed — launchers that had no round |
+| **Launchers** | **2080 launchers made reloadable** — 2078 on 274 modern hulls, every one it can reach |
 
 ### The suppliers
 

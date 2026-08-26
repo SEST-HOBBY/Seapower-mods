@@ -77,7 +77,8 @@ sys.path.insert(0, str(ROOT / "integration"))
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from common.ras import (                                          # noqa: E402
     CLONES, METER_CATEGORIES, METER_EXEMPT, METER_THRESHOLD,
-    RESTORE_ROUNDS, SUPPLIERS, apply_refit, insert_supply_block, make_reloadable)
+    RESTORE_ROUNDS, STORE_FIXES, SUPPLIERS, apply_refit, apply_store_fix,
+    insert_supply_block, make_reloadable)
 from refine_civ_traffic import winning_file                       # noqa: E402
 
 # Hulls whose supply block is emitted by ANOTHER pack's builder, from the same
@@ -780,15 +781,57 @@ def dangling_stores(text):
     skip set can never drift out of step with what the gate flags.
     """
     stores = {s.split("|")[0] for s in re.findall(r"^Station\d+=([A-Za-z]\S*)", text, re.M)}
-    stores |= set(re.findall(r"^Ammunition\d*=(\S+)", text, re.M))
+    stores |= live_ammunition(text)
+
+    # DateBased_<slot> is a stock mechanic, not a store: the file declares
+    # `DateBased_HWT=0,ger_dm2a4|2035,ger_dm2a5` and then writes
+    # `Ammunition1=DateBased_HWT`, so the NAME resolves to whichever round the
+    # scenario date selects. Nineteen declarations across the collection use
+    # it, vanilla submarines included. integration/allied-fixes already
+    # recorded this - "DateBased_ is a vanilla mechanic, used by stock
+    # submarines like usn_ssn_permit" - and this function did not know, so it
+    # reported the S-80's torpedo room as a dangling reference and skipped the
+    # hull. Substitute the real rounds and check those instead.
+    for name in [s for s in stores if s.startswith("DateBased_")]:
+        stores.discard(name)
+        decl = re.search(rf"^{re.escape(name)}=([^\n]*)$", text, re.M)
+        if decl:
+            for step in decl.group(1).split("|"):
+                parts = step.split(",")
+                if len(parts) > 1 and parts[1].strip():
+                    stores.add(parts[1].strip())
     return sorted(s for s in stores if winning_file(f"ammunition/{s}.ini") is None)
+
+
+_SECTION = re.compile(r"^\[[^\]\n]*\][^\n]*\n((?:(?!^\[).*(?:\n|$))*)", re.M)
+
+
+def live_ammunition(text):
+    """Ammunition ids the engine will actually read.
+
+    A magazine declares `NumberOfAmmunitionTypes=N` and the engine reads
+    Ammunition1..N. Entries past N are dead text - the Han's torpedo room
+    declares 3 and lists 4, and that fourth is `wp_ss-n-15`, which nothing
+    defines. Counting it made a dead line skip a live hull. Only two files in
+    the collection do this, which is exactly why it was worth finding rather
+    than guessing at.
+    """
+    live = set()
+    for m in _SECTION.finditer(text):
+        body = m.group(1)
+        cap = re.search(r"^NumberOfAmmunitionTypes=(\d+)", body, re.M)
+        for a in re.finditer(r"^Ammunition(\d*)=(\S+)", body, re.M):
+            if cap and a.group(1) and int(a.group(1)) > int(cap.group(1)):
+                continue
+            live.add(a.group(2))
+    return live
 
 
 def stage_launchers(owned, already_written):
     """`ReloadableWithoutMagazine=True` on every bare launcher of every modern
     hull. This is the stage that makes the other three matter.
     """
-    hulls, launchers, by_mod, skipped, foreign = 0, 0, {}, [], []
+    hulls, launchers, by_mod, fixed, unfixable, foreign = 0, 0, {}, [], [], []
     for rel, mod, title in modern_hulls():
         if rel in already_written:
             continue
@@ -800,10 +843,19 @@ def stage_launchers(owned, already_written):
             foreign.append(rel)
             continue
         text = read(MODS / mod / rel)
+        # Repair what upstream mistyped, then report whatever is still broken.
+        # These hulls used to be SKIPPED outright, which cost them the launcher
+        # fix over a reference that was broken with or without this pack: 77
+        # launchers on 10 hulls, including the Kansas-class's 20 ESSM cells,
+        # sat unreloadable to avoid owning somebody else's typo. Shipping the
+        # hull does not make the typo worse, and six of the eleven were a
+        # variant letter away from a round the same mod ships.
+        text, repaired = apply_store_fix(text, resolve_system, Path(rel).stem)
+        if repaired:
+            fixed.append((rel, title, repaired))
         broken = dangling_stores(text)
         if broken:
-            skipped.append((rel, title, broken))
-            continue
+            unfixable.append((rel, title, broken))
         patched, n = make_reloadable(text)
         if not n:
             continue
@@ -814,7 +866,7 @@ def stage_launchers(owned, already_written):
         hulls += 1
         launchers += n
         by_mod[title] = by_mod.get(title, 0) + n
-    return hulls, launchers, by_mod, skipped, foreign
+    return hulls, launchers, by_mod, fixed, unfixable, foreign
 
 
 def unused_rounds(ammo_ids):
@@ -865,7 +917,7 @@ def main():
     written = {f"vessels/{u}.ini" for u, _, _ in suppliers} | \
               {f"vessels/{u}.ini" for u, *_ in clones} | \
               {f"vessels/{u}_variants.ini" for u, *_ in clones}
-    hulls, launchers, by_mod, skipped, foreign = stage_launchers(owned, written)
+    hulls, launchers, by_mod, store_fixed, unfixable, foreign = stage_launchers(owned, written)
 
     # No systemgroups entry is needed: the emitted SystemName is
     # TruckSupplySystem, which vanilla already localises as "Ammunition
@@ -921,13 +973,20 @@ def main():
     if foreign:
         print(f"  {len(foreign)} modern hull(s) owned by a sibling SEST pack, which must "
               f"apply the launcher fix itself: {', '.join(foreign)}")
-    if skipped:
-        # Never silent: a hull left without the launcher fix is a hull that
-        # still cannot be replenished, and the reason is somebody else's
-        # dangling reference, not a decision about that ship.
-        print(f"  {len(skipped)} modern hull(s) left alone - they name a store "
-              "nothing in the collection defines:")
-        for rel, title, broken in skipped:
+    if store_fixed:
+        n = sum(len(r) for _, _, r in store_fixed)
+        print(f"  {n} broken upstream store reference(s) repaired on "
+              f"{len(store_fixed)} hull(s) - the weapon had no round at all:")
+        for rel, title, repaired in store_fixed:
+            arrows = ", ".join(f"{a}->{b}" for a, b in sorted(repaired.items()))
+            print(f"      {rel:<44} {arrows}  ({title})")
+    if unfixable:
+        # Never silent. These hulls ARE patched - the launcher fix is worth
+        # having either way - but the named store still resolves to nothing, so
+        # that weapon carries no round in game. Upstream's to fix, ours to say.
+        print(f"  {len(unfixable)} hull(s) still name a store nothing defines. Patched "
+              "anyway; the weapon holding it has no round, with or without this pack:")
+        for rel, title, broken in unfixable:
             print(f"      {rel:<44} {', '.join(broken)}  ({title})")
 
 

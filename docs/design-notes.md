@@ -113,9 +113,9 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   RSA's 103 affected hulls could ever be replenished. Scale surprises are the norm
   — 2083 launchers on 276 hulls are affected, which is 96% of every launcher in
   the modern collection that actually holds a missile (2176; the other 93 have
-  a magazine and were always fine). The fix reaches 2001 of them on 264 hulls;
-  the rest sit on hulls left alone for a dangling store or owned by a sibling
-  pack. Not the handful the Long Beach example suggests.
+  a magazine and were always fine). The fix reaches 2078 of them on 274 hulls -
+  every one it is entitled to touch; the other 5 sit on hulls owned by sibling
+  SEST packs. Not the handful the Long Beach example suggests.
 - **"It only changes the block we replace anyway" is a measurement, not an
   assumption.** This pack forked RE-power's copy of the nine shared auxiliary
   hulls on the ordinary rule — fork the load-order winner, the copy the player
@@ -148,6 +148,29 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   labelled `usn_cg_ticonderoga_sps_55`, a mesh name, and the Ivan Rogov's three
   Palm Fronds mount meshes labelled `Nav_Radar`. The link the engine uses is
   `Mount=`, pointing at the section by name.
+- **A "dangling reference" is three different problems, and two of them are
+  not references.** Thirteen modern hulls were being skipped for hanging an
+  ammunition id nothing defines, at a cost of 77 launchers. Two were not broken
+  at all: `DateBased_HWT=0,ger_dm2a4|2035,ger_dm2a5` declares a date-selected
+  round and `Ammunition1=DateBased_HWT` reads it — a stock mechanic, nineteen
+  declarations across the collection — and the Han's `Ammunition4=` sits past
+  its own `NumberOfAmmunitionTypes=3`, so the engine never reads it. Six were a
+  typo away from a round the same mod already ships (`usn_rim_162essm` for
+  `usn_rim_162a`, `wp_ss-n-27` for `wp_ss_n_27`). Only the last four were
+  genuinely missing content. Detect precisely before deciding policy: a
+  detector that cannot tell a mechanic from a mistake makes the skip list, and
+  the loss, look justified.
+- **Fix the reference, never invent the id.** Defining the missing
+  `usn_rgm-84.ini` would work and would put SEST tier 0 in front of the real
+  file if the mod ever ships it. Repairing the reference inside the copy the
+  pack was already forking claims no name at all.
+- **Whose broken reference is it?** The same rule settles systems and stores:
+  if an upstream unit file also names the unresolvable id, the pack inherited
+  it with the file it forked and can only report it; if nothing upstream names
+  it, this repo introduced it and the build fails. Without that distinction a
+  pack cannot ship a forked hull that carries an upstream bug — which is how
+  ten hulls lost the launcher fix over references that were equally broken with
+  or without SEST.
 - **A missile launcher's `SystemName` carries GEOMETRY; a gun's and a sensor's
   do not.** `[MK29]` declares eight `AttachmentPosition` entries and
   `[HQ-10_24]` twenty-four — mesh-relative coordinates for where each round is
