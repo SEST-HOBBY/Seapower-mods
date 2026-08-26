@@ -603,13 +603,24 @@ SYMMETRY_FIXES = [
      "Station4=0.0486,-0.001,-0.0079      //Right Wing pylon bottom",
      "Station4=-0.0486,-0.001,-0.0079     //Left Wing pylon bottom",
      "Station4 mirrored to the left wing (was a duplicate of the right)"),
+    # The pod stations were exempted as "slightly different heights", but the
+    # delta is 0.0035 (~24 cm) - an order of magnitude more than the pods'
+    # ~5 cm diameter difference justifies. The AAQ-33 hung visibly lower than
+    # the AAQ-13 on every strike fit. Both now sit at the pair's mean height
+    # and the same z; the targeting pod keeps 0.0004 (~3 cm) extra drop for
+    # its larger diameter.
+    ("WeaponSystem1",
+     "Station26=-0.0175,-0.019,0.0180",
+     "Station26=-0.0175,-0.0174,0.0180",
+     "Station26 AAQ-33 pod raised to the pair mean (was 24 cm below its twin)"),
+    ("WeaponSystem1",
+     "Station27=0.0175,-0.0155,0.017",
+     "Station27=0.0175,-0.0170,0.0180",
+     "Station27 AAQ-13 pod lowered to the pair mean, z matched to Station26"),
 ]
 
 # Pairs that are asymmetric on purpose and must NOT trip the guard below.
 SYMMETRY_EXEMPT = {
-    # Two different pods (AAQ-33 targeting, AAQ-13 navigation) on mounts at
-    # slightly different heights - not a mirrored pair to begin with.
-    (26, 27),
     # A single B61 on one wing station. Upstream's choice, and a real single
     # weapon carry is a thing; flagging it every build would be noise.
     (16, 17),
@@ -740,7 +751,7 @@ def main():
             + "SESTR-ALPositions=0.0082,-0.005,0\n"
             + "SESTR-ARRotations=-2,0,0\n"
             + "SESTR-ALRotations=-2,0,0\n"
-            + "SESTWTFPositions=0,-0.0065,-0.001\n"   # DualRack wing tanks: WT's proven seat (0,-0.0045,-0.001) plus 0.002 rack drop. A pipe key REPLACES the seat, so the old 0,-0.002,0 lost WT's 0.0045 drop and sat the tanks 0.0025 (~17cm) INTO the pylon
+            + "SESTWTFPositions=0,-0.008,-0.001\n"   # DualRack wing tank: below the _w twin-rack's LOWER round tier (bottoms ~-0.0073), not just below the pylon. -0.0065 sat the tank top exactly in the round tier and the quad clipped through it.
             + text[agm.end():])
 
     # 2. Inject new sections just before the WeaponMagazines banner
