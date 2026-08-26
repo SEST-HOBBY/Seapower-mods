@@ -65,10 +65,14 @@ powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
 ```
 
 The script auto-finds Sea Power the same way the export script did, locates `StreamingAssets`,
-and copies every pack it finds under `integration/` in. It prints one line per pack (`installed` or `updated`) — expect
-15 of 15. Re-run it any time after a `git pull` to take updates; it overwrites in place.
+and installs the **consolidated pack** — `SEST_Integration`, built by `tools/consolidate_packs.py`
+from every per-pack source under `integration/` — expect 1 of 1, plus a `purged` line for each
+of the old per-pack folders it removes (those would double-define every unit alongside the
+consolidated pack). One Mod Manager entry at the very top now carries every patch, so nothing
+can jump over an individual pack and silently disable it. Re-run any time after a `git pull`;
+it mirrors in place.
 
-What it installs (15 packs):
+What the consolidated pack contains (16 source packs):
 `SEST_Growler_NGJ_MALICE` (NGJ + MALICE Growlers; Super Hornet AIM-260 fits incl. the
 Intercept260/ER/Escort trucks; the F/A-18E buddy tanker; RAAF 1 SQN / 6 SQN squadron
 identities) · `SEST_F-15EX_Revamp` (24+ loadouts, eight squadrons, the six-round MALICE and
@@ -80,11 +84,12 @@ the late Rafales) · `SEST_JMSDF_Mogami` · `SEST_RAAF_Wedgetail` (E-7A squadron
 `SEST_Raptor_Squadrons` (seven real F-22 squadrons) · `SEST_Zumwalt_CPS` (repairs the
 Zumwalt's hypersonic launcher) · `SEST_TacMap_Colors` · `SEST_RAN_Fleet` (2027 armament:
 NSM, Tomahawk, SM-6) · `SEST_ADF_Persistent_ISR` (RAAF MQ-4C Triton) · `SEST_RAAF_Bases`
-(15 placeable RAAF airfields with rosters).
+(15 placeable RAAF airfields with rosters) · `SEST_F16CM_JATM` (AIM-260 intercept and
+AIM-424 MALICE-on-the-HARM-stations fits for the USAF F-16CM Block 52).
 
-Then, with the game **closed**, run `set-mod-order.ps1 -AddMissing` — it inserts every
-freshly installed pack into `usersettings.ini` at its canonical position, already
-enabled. No Mod Manager visit is needed; that step predates the `-AddMissing` flag.
+Then, with the game **closed**, run `set-mod-order.ps1 -AddMissing` — it inserts the
+freshly installed pack into `usersettings.ini` at its canonical position (the very top),
+already enabled. No Mod Manager visit is needed; that step predates the `-AddMissing` flag.
 
 Expect no warnings. `canonical pack not installed in StreamingAssets` means the install
 step did not take; `in canonical order but not in your settings (skipped)` on a `SEST_*`

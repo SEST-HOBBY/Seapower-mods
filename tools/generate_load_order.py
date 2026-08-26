@@ -114,7 +114,8 @@ lines = [
     "# Full Load Order — every active mod, top to bottom",
     "",
     f"Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — "
-    f"{len(mods)} active subscriptions plus the SEST Integration Pack (15 packs consolidated). "
+    f"{len(mods)} active subscriptions plus the SEST Integration Pack "
+    f"({len(catalog['local_packs'])} packs consolidated). "
     "Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.",
     "",
     "Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are "
