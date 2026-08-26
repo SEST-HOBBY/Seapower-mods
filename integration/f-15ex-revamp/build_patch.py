@@ -21,7 +21,7 @@ OUT = Path(__file__).resolve().parent / "SEST_F-15EX_Revamp"
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
-NEW_KEYS = ["AntiShipHeavy", "Quicksink", "BigStick174", "BigStick174ER",
+NEW_KEYS = ["SEST_AntiShipLRASM6", "Quicksink", "BigStick174", "BigStick174ER",
             "Truck174", "Malice6", "MaliceER", "MaliceTruck",
             "AAMT120Tanks", "AAMT260Tanks"]
 
@@ -31,7 +31,7 @@ NEW_SECTIONS = """\
 # (dts_ weapons); the BigStick174 loadout additionally requires Murder Hornet
 # (usn_aim-174b). The 610 gal tank is vanilla.
 
-[WeaponSystem1AntiShipHeavy]
+[WeaponSystem1SEST_AntiShipLRASM6]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT
@@ -42,7 +42,7 @@ Station10=dts_aim-9x
 Station15=usaf_tank_610_f-15|WT
 Station26=dts_anaaq-33
 Station27=dts_anaaq-13
-[WeaponSystem2AntiShipHeavy]
+[WeaponSystem2SEST_AntiShipLRASM6]
 Station1=dts_agm-158c-3|JDAM32
 Station2=dts_agm-158c-3|JDAM32
 Station3=dts_agm-158c-3|JDAM32
@@ -261,7 +261,7 @@ Station15=usaf_tank_610_f-15|WT
 
 LOADOUT_NAMES = {
     "en": {
-        "AntiShipHeavy": "SEST AntiShipLRASM6",
+        "SEST_AntiShipLRASM6": "SEST AntiShipLRASM6",
         "Quicksink": "SEST StrikeQuicksink",
         "BigStick174": "SEST Intercept174",
         "BigStick174ER": "SEST Intercept174 LongRange",
@@ -273,7 +273,7 @@ LOADOUT_NAMES = {
         "AAMT260Tanks": "SEST AAMT260 DualRack (16x, 3 tanks)",
     },
     "cn": {
-        "AntiShipHeavy": "SEST 重型反舰LRASM×6",
+        "SEST_AntiShipLRASM6": "SEST 重型反舰LRASM×6",
         "Quicksink": "SEST 快沉反舰JDAM",
         "BigStick174": "SEST 超远程截击174",
         "BigStick174ER": "SEST 超远程截击174 (远程)",
