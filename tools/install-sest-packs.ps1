@@ -166,7 +166,10 @@ if (Test-Path $missionSrc) {
             Write-Host ("  restamped  {0} (internal titles now carry the backup stamp)" -f $bak.Name)
         }
     }
-    foreach ($m in Get-ChildItem -LiteralPath $missionSrc -Filter "*.ini") {
+    # -Recurse so integration\missions\scenarios\ ships too. The game lists
+    # user_missions flat, so the subfolder is a repo-side grouping only - the
+    # scenario files land alongside the full missions, named "SEST NF3 - ...".
+    foreach ($m in Get-ChildItem -LiteralPath $missionSrc -Filter "*.ini" -Recurse) {
         $destFile = Join-Path $missionDest $m.Name
         if (Test-Path $destFile) {
             $srcRaw = Get-Content -LiteralPath $m.FullName -Raw
