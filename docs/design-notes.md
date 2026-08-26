@@ -71,6 +71,90 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
 - Stations 13/14 look like pylons but carry sead/aam rack meshes; a tank there
   floats in mid-air.
 
+## Replenishment at sea — five gates, and only one of them is obvious
+
+- **The supply system was shipped switched off, and the commented block names
+  the WRONG system.** Vanilla's only `[SupplySystem1]` on a hull is commented
+  out on `usn_aoe_sacramento.ini` and says `VesselSupplySystem` — a name that
+  appears in no working file anywhere and has no localisation. RE-power
+  (3605013271), field-tested on 24 ship suppliers, uses
+  `SystemName=TruckSupplySystem` with `TargetTypes=Vessel` or `=Submarine` on
+  every one, and its bundled reference doc gives the TargetTypes vocabulary as
+  "LandUnit", "Vessel" or "Submarine". Derive from what runs, not from what a
+  comment promises.
+- **No surfaced-state gate exists in the data.** No supply key mentions depth,
+  RE-power's submarine suppliers carry none, and ui.ini has only the generic
+  "Replenishment unavailable." string. Whether the engine refuses a submerged
+  receiver is untestable from files — it is an in-game question, and if the
+  answer is no, there is no data-side fix.
+- **A round has to clear five gates.** `TargetTypes` vs the receiver's
+  `UnitType`; then `SupplyRange`/`MaxOwnVelocity`/`MaxTargetVelocity`/
+  `MaxTargets`; then the round's `AmmoPoints` against the supplier's
+  `MaxAmmoPoints`; then `SupplyCategory` against the supplier's
+  `AccountableAmmunitionCategory_N`; then the receiving launcher.
+- **Omitting `MaxAmmoPoints` removes the size cap entirely.** That is not an
+  oversight — `tgt_ammo_depot_small` comments it out deliberately, which is the
+  only reason the depot can reload an SA-5 (21000 points) that a truck capped
+  at 200 cannot. It is the cleanest lever for "ammunition ship vs fleet oiler".
+- **A launcher with no magazine can never be reloaded.** `Ammunition=` with no
+  `AssociatedMagazine=` needs `ReloadableWithoutMagazine=True` or it is
+  one-shot forever. Vanilla states it on the Long Beach's Mk141 canisters,
+  which set it `False`; across the whole corpus the flag appears on 11 units
+  and every one is a land SAM TEL. **No vessel anywhere sets it.** This is the
+  gate that decides whether the other four matter, and it is why RE-power's
+  author reports that anti-ship missiles and torpedoes will not replenish.
+- **Red Storm Arsenal models every Mk41 cell as its own bare launcher.** So the
+  flag is not a deck-canister detail: without it, not one VLS round on any of
+  RSA's 115 hulls could ever be replenished. Scale surprises are the norm here
+  — the fix was 2003 launchers across 279 hulls, not the handful the Long Beach
+  example suggests.
+- **Ships carry loadouts too, and their launchers hide in the suffix.** A
+  header regex matching only `[WeaponSystemN]` silently skips
+  `[WeaponSystem6AntiShip]`, `[WeaponSystem4Strike]`, `[WeaponSystem12Late]`
+  and friends — 245 bare launchers on 24 modern hulls, including the
+  Meteoro/Arafura's NSM quad launcher and the FREMM and Type 052D anti-ship
+  fits. Same trap as the aircraft `[WeaponSystem1Tanker]` blocks. Anything
+  sweeping weapon systems must allow the suffix.
+- **`SupplyRange` is nautical miles.** The ini comment says "In miles";
+  `language_en/ui.ini:2685` renders it `${SupplyRangeInMiles} nmi.` The UI
+  string wins, same as a screenshot wins.
+- **Fork the load-order winner, never the first file you find.** Six vessel
+  files are shipped by two modern mods at once; taking whichever the iteration
+  reaches last forked the LOSING copy of `plan_cv_fujian`, which at tier 0
+  would have replaced the hull the player actually sees with a different mod's
+  version. The same trap the ammunition side already resolves by rank.
+- **`errors="replace"` corrupts a whole-file override.** Three upstream files
+  are not valid UTF-8 — a stray `0xFF` in Euromod's `usn_rgm-109e5a.ini`
+  beside two real NUL bytes, and `0xA0` in both `ger_ffg_f124` sensor labels.
+  Reading with `replace` rewrites each as U+FFFD, a silent edit to somebody
+  else's file. `errors="surrogateescape"` round-trips them. Pass `newline`
+  explicitly too, or a Windows rebuild emits CRLF and diffs the whole pack.
+- **Put back the key, not the file.** Restoring two stripped keys by shipping
+  the vanilla copy would have reverted 118 lines of `wp_ss-n-19` — Power,
+  impact size, the sea-skimming profile — undoing the mod's whole point. Fork
+  the winner and insert the two lines.
+- **A hand-written id list is a coverage bug waiting to happen.** The metering
+  table started as 38 explicit ids. It caught the dash-named vanilla and
+  Euromod rounds and missed Red Storm Arsenal's entire underscore-named
+  parallel family — `usn_rgm_109c3` alone sits in 90 launchers. Derived from
+  `AmmoPoints`/`Type`/`TargetType` on every build it comes to 80. Same
+  principle as `check_load_order.py` computing its rules instead of listing
+  them: nothing to keep in sync, nothing to forget when a mod is added.
+- **Check the LAND units before tagging a round.** The three land suppliers
+  stock no accountable categories at all, so tagging a round they service
+  removes the only supply path the game ships working. Red Storm Arsenal's
+  `usa_tomahawk_launcher` fires `usn_rgm-109b`; eight rounds are excluded from
+  metering for exactly this reason.
+- **Adding a `SupplyCategory` can only ever restrict.** A round that had none
+  was unrestricted commodity ordnance; tagging it makes it unreplenishable by
+  every supplier that does not stock the category — flight decks included. So
+  tag only rounds no aircraft carries, and re-check that on every build: a
+  future mod hanging one on a pylon turns a balance choice into a regression.
+- **A stocked category the size gate blocks is a dead line.** Kazbek gets no
+  `SovietAdvancedASM` because the cheapest round in it costs 7740 against a
+  2000 ceiling. Keep the two gates consistent per hull or the supply panel
+  advertises ordnance that can never move.
+
 ## Working practices
 
 - **Derive, don't invent.** New loadouts clone a donor block the mod's author

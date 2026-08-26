@@ -1,10 +1,10 @@
 # Sea Power Mod Catalog
 
-130 subscribed Workshop mods, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
+133 subscribed Workshop mods, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
 
 See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency audit, and recommended mod order.
 
-## United States (36)
+## United States (37)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
@@ -19,6 +19,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | B-52H Stratofortress | dingtools | fixed-wing | Long-range strategic bomber, TF33 engines. **Load order:** Keep Dingtools Weapon Pack ABOVE all dingtools mods **Overlaps:** b-52g-agm-86 (both carry AGM-86-family ALCM data) |
 | F-117 Nighthawk | misaka | fixed-wing | Stealth attack aircraft with GBU-31. |
 | F-15 EX Eagle II | dingtools | fixed-wing | 4.5-gen F-15 variant. **Load order:** Keep Dingtools Weapon Pack ABOVE all dingtools mods |
+| F-15E StrikeEagle | dingtools | fixed-wing | Adds the F-15E: 2 aircraft plus 3 new ammunition files. Its other 8 shipped files are deliberately outranked by the Dingtools Weapon Pack and F-15SE, which is the author-mandated arrangement - placed below both so the shared dts_ ammunition (including the anaaq-13 pod the SEST F-15EX uses) keeps coming from the weapon pack. **Overlaps:** dingtools-weapon-pack (7 dts_ ammunition files); f-15-ex-eagle-ii (dts_anaaq-13 targeting pod) |
 | F-16C Fighting Falcon (modern) | Zero Two | fixed-wing | Multiple modern F-16C blocks. **Overlaps:** apex-predators-mig-29-f-16 (different F-16 generation, complementary) |
 | F-22 Raptor | misaka | fixed-wing | Fifth-generation air-superiority fighter. |
 | KC-135 STRATOTANKER | SKIBIDI_RIZZLER123 | fixed-wing | USAF aerial refueling tanker, Vietnam era to modern. **Overlaps:** kc-46a; kc-10a (US tanker overlap — complementary types) |
@@ -93,7 +94,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Shenyang J-8 | misaka | fixed-wing | High-altitude, high-speed interceptor. |
 | XIAN JH-7A (歼轰-7A 飞豹) | 东武藏境 | fixed-wing | Twin-engine two-seat supersonic fighter-bomber, in PLAAF service 2005. **Overlaps:** PL-series AAM definitions likely duplicated across Chinese fighter mods (multiple authors) |
 | Y-20 / KJ-3000 | ManeuverWarfare | fixed-wing | Y-20A transport, YY-20A tanker, Y-20B, KJ-3000 AEW&C. |
-| Y-8/Y-9 Special Mission Aircraft Family | misaka | fixed-wing | Workshop 3637954857 - catalogued under its family title, which is why the 2026-08-25 removal initially missed it and appended a duplicate 'kj-500' stub (now merged here). UNSUBSCRIBED 2026-08-25: all 45 of its files (KJ-500, KQ-200, the Y-8/Y-9 special-mission family) also ship in PLAN Pack (3775128499), which wins every contested one - zero unique content. The double definition of plaaf_kj-500 crashed the UI plan converter (ArgumentException: same key already added) once NFIII fielded that unit. |
+| Y-8/Y-9 Special Mission Aircraft Family | misaka | fixed-wing | Re-subscribed 2026-08-26. FULLY REDUNDANT with PLAN Pack (3775128499): all 12 of its aircraft files and every one of its ammunition files are shipped there too, so seated directly BELOW PLAN Pack every file it ships is outranked and it loads nothing. Kept because the user re-subscribed it deliberately; harmless in this position. Its only content difference is the KJ-500's Morden_RWR sensor, which PLAN Pack's version does not carry. Historical note: unsubscribed once as the suspected cause of the duplicate-key crash on quit - that crash was later traced to a mission aircraft with no resolvable default loadout, not to this mod. |
 | Modern PLAN Systems | 八一of军魂 | framework | 2020s-era PLAN sensors and armaments database; same author as Fujian CV-18. Analogue of Euromod Main for the Chinese fleet. No author placement instruction; recommendation: keep above PLAN ship mods if it acts as a shared systems database (this framework role is itself inferred). |
 | PLA Land Unit Pack | misaka | land | PLA air defense (Tor-M1, HQ-17/17A, PGZ-09, HQ-6, LD-2000, HQ-7...) and other land units. Author suggests unsubscribing separate HQ-9&HQ-7 / HQ-6A / DF-15 mods — none of those are in this list, so no action needed. **Load order:** Author: 'Place this mod above any other PLA-related mods in Mod Manager' **Overlaps:** sam-pack (air defense overlap) |
 | AVIC HARBIN Z-21 | Meltemi | rotary | Speculative Chinese heavy attack helicopter based on the Z-20 platform. |
@@ -104,12 +105,13 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Type 003 Fujian / Type 004 CVN Aircraft Carriers | ManeuverWarfare | ship | Kitbash Fujian plus speculative Type 004. One of THREE Fujian carriers in this list — pick a primary. **Requires:** sealifter; anchor-chain **Overlaps:** chinese-navy-plan (Fujian); fujian-cv-18 (Fujian) |
 | PLAN Submarines | ManeuverWarfare | submarine | Type 039G Song, 039A/B/C Yuan, Type 093/093A Shang kitbashes. |
 
-## Europe (multinational / Euromod) (10)
+## Europe (multinational / Euromod) (11)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
 | Eurofighter Typhoon | misaka | fixed-wing | European multinational multirole fighter. |
 | SAAB AEW&C PACK | dingtools | fixed-wing | Saab AEW&C aircraft (GlobalEye/Erieye family); author notes future updates postponed. **Load order:** Keep Dingtools Weapon Pack ABOVE all dingtools mods |
+| Euromod - Anchorchain Expansion Pack | Euromod team | framework | Extends the Anchor Chain framework: three systems files plus ammunition_overwrite/language_overwrite folders (Anchor Chain's own patching mechanic) and a welldeck config. No whole-file collision with anything; placed directly under Anchor Chain so the framework and its expansion stay together. **Requires:** anchor-chain |
 | Euromod - Main Pack | Mitchell600 | framework | Shared database of European weapons and sensors. The Euromod dependency is explicitly stated by 5 of the 8 addons in this list (Nordic, Dutch, German, British, Cold War Spanish) and inferred for the other 3 (Italian, JMSDF, Modern Spanish). No author placement instruction; recommendation: keep above all Euromod addons. |
 | Royal Navy Westland Lynx HAS.3 Kitbash [OLD] ⚠️ **DEPRECATED** | unknown (added 2026-08-24) | rotary | Tagged [OLD] by its author. VERIFIED: adds rn_lynx AND rn_wildcat — the Wildcat is not in the Sea Lynx pack, which is a reason to keep this despite the tag. **Overlaps:** sea-lynx; french-helicopter-package; euromod-german (Lynx family — now FOUR sources) |
 | Sea Lynx | petrouvis01 | rotary | Five Lynx variants: UK, Netherlands, West Germany, France, and more. **Overlaps:** french-helicopter-package (French Navy operated the Lynx — likely a second Lynx source); euromod-german (F123 frigates embark the Super Sea Lynx Mk88A) |
@@ -167,7 +169,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Shahed-136 Drone | Obiwonkanblomi | uav | Second Shahed-136 mod; speed fixed at 120 mph; borrows the launcher truck from Zero Two's mod. Redundant with the Zero Two version — pick one. UNSUBSCRIBED by user 2026-08-24 (runbook Phase 2). **Overlaps:** shahed-136-zero-two |
 | Shahed-136 Kamikaze Drone (Geran-2) | Zero Two | uav | Land-launched one-way attack drone; black and white variants, two launcher land units. Richer of the two Shahed mods. **Overlaps:** shahed-136-obiwonkanblomi |
 
-## Multi-nation packs (9)
+## Multi-nation packs (10)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
@@ -178,6 +180,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Pickup truck extension | unknown (added 2026-08-24) | land | Technicals / light vehicle extension. VERIFIED: adds civ_car_pickup_1983 variants (incl. armed/medic). |
 | SAM Pack | misaka | land | Surface-to-air missile systems pack (incl. MIM-104 Patriot). **Load order:** Author: 'Need on the top of TOE' — place at the top of the mod order **Overlaps:** ground-upgrade-spaa; thaad; pla-land-unit-pack (air defense overlap) |
 | Ground Upgrade: SPAA | misaka | patch | Refines ground-unit models and MODIFIES values of some weapons and units — load-order sensitive; watch for overlap with SAM Pack and land unit packs. |
+| RE-power: the resupply mod | unknown | ship | Naval resupply mechanics: 23 vessels and 4 land units, every one of them content nothing else in the collection ships. Zero file collisions, so its position is forgiving. |
 | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) 🚧 WIP | FallschimJager705 | uav | Recon quadcopter (China), Forpost-R, Mugin5, Orlan-10 (Russia), RQ-7 (USA); ongoing updates. |
 | Red Storm Arsenal |  | weapons | Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed last so it loses all 13 and keeps only its unique content. |
 

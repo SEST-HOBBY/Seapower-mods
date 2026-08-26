@@ -11,6 +11,17 @@ pennants), and MH-60R / S-70B-2 air groups.
 
 Clones are NEW unit ids — nothing overrides the donors, so both fleets coexist.
 
+Replenishment At Sea is applied here rather than by the SEST Replenishment
+pack, because these seven hulls belong to THIS pack and two packs shipping
+different bytes at one unit path is an unconditional consolidation failure.
+The tuning and the transforms both come from integration/common/ras.py, so
+HMAS Supply's supply system is identical in syntax to the nine hulls that pack
+owns, and the six combatants get the same launcher fix as every other modern
+hull in the collection. Supply and Stalwart are the only genuinely modern
+(2021+) replenishment ships in the whole collection, which is why that entry
+carries a 5000-point ceiling: Tomahawk and Mk48 ADCAP pass, SM-6 Block IB does
+not.
+
 Usage (repo root):  python3 integration/ran-fleet/build_fleet.py
 """
 import re
@@ -20,6 +31,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MODS = ROOT / "mods-source"
 OUT = Path(__file__).resolve().parent / "SEST_RAN_Fleet"
+
+sys.path.insert(0, str(ROOT / "integration"))
+from common.ras import SUPPLIERS, insert_supply_block, make_reloadable  # noqa: E402
 
 SPA_MODERN = "3731208477"   # Spanish Navy Mod (Modern)
 RSA = "3413868677"          # Red Storm Arsenal - sole source of usn_rgm_184a (NSM)
@@ -184,7 +198,7 @@ FLEET = {
 
 INFO_INI = """[Language_en]
 Name=SEST RAN Fleet
-Description=Royal Australian Navy fleet cloned from its real European design donors: Hobart-class DDG (F-100), Canberra-class LHD (Juan Carlos I), Anzac stand-in (Type 23 MLU), Collins stand-in (S-80), HMAS Choules (Galicia), Supply-class (Teide), Arafura OPV (Meteoro). New unit ids - donors are untouched. Requires Euromod Main, the Modern + Cold War Spanish Navy packs, Modern British Navy, and an MH-60R / S-70B-2 source. Place below the Euromod packs.
+Description=Royal Australian Navy fleet cloned from its real European design donors: Hobart-class DDG (F-100), Canberra-class LHD (Juan Carlos I), Anzac stand-in (Type 23 MLU), Collins stand-in (S-80), HMAS Choules (Galicia), Supply-class (Teide), Arafura OPV (Meteoro). New unit ids - donors are untouched. HMAS Supply and Stalwart carry a working Replenishment At Sea system and every hull's magazine-less launchers are flagged reloadable, in step with SEST Replenishment At Sea. Requires Euromod Main, the Modern + Cold War Spanish Navy packs, Modern British Navy, and an MH-60R / S-70B-2 source. Place below the Euromod packs.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -216,6 +230,7 @@ def main():
 
     (OUT / "vessels").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en").mkdir(exist_ok=True)
+    suppliers, reloadable = [], 0
     names = ["[****************************** Australia — SEST RAN Fleet ******************************]", ""]
 
     for ship_id, ship in FLEET.items():
@@ -239,6 +254,15 @@ def main():
                               count=1, flags=re.M)
             if n == 0:
                 sys.exit(f"{ship_id}: donor {donor} has no AircraftSupported line")
+
+        # Replenishment At Sea. HMAS Supply becomes a supplier; every hull,
+        # the oiler included, gets its magazine-less launchers flagged so a
+        # supplier can actually refill them.
+        if ship_id in SUPPLIERS:
+            text, _ = insert_supply_block(text, SUPPLIERS[ship_id], ship_id)
+            suppliers.append(ship_id)
+        text, n = make_reloadable(text)
+        reloadable += n
 
         (OUT / "vessels" / f"{ship_id}.ini").write_text(text, encoding="utf-8")
 
@@ -270,7 +294,8 @@ def main():
 
     n_hulls = sum(len(s["hulls"]) for s in FLEET.values())
     print(f"built {OUT.relative_to(ROOT)}: {len(FLEET)} classes, {n_hulls} named hulls, "
-          "all donors and helos validated")
+          f"all donors and helos validated; RAS: {len(suppliers)} supplier "
+          f"({', '.join(suppliers)}), {reloadable} launchers made reloadable")
 
 
 if __name__ == "__main__":
