@@ -1,0 +1,41 @@
+# Which missions tools\install-sest-packs.ps1 deploys into the game.
+#
+# Without this file the installer shipped EVERY .ini under integration\missions\
+# recursively - 58 top-level files plus the scenarios, 69 in all. That is how
+# the mission browser filled up with eleven NORTHERN FRONT III backups, six
+# NORTHERN FRONT II backups, five SULU SEA drafts, and nine separate files whose
+# internal name is "_TempMission" (which is why one "TempMission" entry appears
+# to exist while nine files fight over it).
+#
+# The repo still KEEPS all of those - they are your saves and git is where they
+# live safely. This only decides what reaches the game.
+#
+# Rules:
+#   - one filename per line, without the .ini extension
+#   - "scenarios/*" ships every carved scenario, however many there are
+#   - lines starting with # are comments; blank lines ignored
+#   - delete this file and the installer goes back to shipping everything
+#
+# Anything deployed but no longer listed here is NOT removed automatically -
+# run tools\prune-missions.ps1 for that, which shows you the list before it
+# touches anything.
+
+# --- the working mission -----------------------------------------------------
+# Matches data\active-mission.txt. This is the one the tooling operates on.
+NORTHERN FRONT III FINAL NEWEST
+
+# --- one backup of it --------------------------------------------------------
+# The most recent of the eleven. The other ten stay in the repo.
+NORTHERN FRONT III FINAL backup-20260825-220630
+
+# --- SEST-authored missions --------------------------------------------------
+# Built by this repo rather than saved from the editor, so they are ours to
+# ship: the Coral Sea convoy, and the upgraded NORTHERN FRONT II with the real
+# RAAF bases. Comment either out if you would rather not see it.
+SEST ANL Convoy - Coral Sea
+NORTHERN FRONT II
+
+# --- the carved scenarios ----------------------------------------------------
+# All of them, current and future - make_scenarios.py decides how many there
+# are, so this never needs updating when the list changes.
+scenarios/*

@@ -19,3 +19,18 @@ Missions deployed by `tools/install-sest-packs.ps1` into
   Every unit keeps the type, loadout, position and waypoints it has in the parent mission, and
   the parent is never modified — re-import a newer save, re-run, and the scenarios match it.
   See `scenarios/README.md`, which is generated alongside them.
+
+## What actually reaches the game
+
+`data/deploy-missions.txt` is the keep list. Without it the installer shipped every `.ini` here
+recursively — 69 files, including 21 timestamped backups and nine whose internal name is
+`_TempMission`, which is why the mission browser filled up. The manifest cuts that to 15: the
+active NORTHERN FRONT III, one backup of it, the two SEST-authored missions and every carved
+scenario.
+
+The repo still keeps all 69 — they are your saves, and git is where they live safely. Only the
+game-side list changed.
+
+`tools/prune-missions.ps1` removes what earlier installs already deployed. It is a dry run by
+default, archives rather than deletes unless told otherwise, and refuses to delete a mission the
+repo has never seen without an explicit flag.

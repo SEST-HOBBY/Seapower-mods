@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# tools\prune-missions.ps1 parks removed missions here - your saves, not repo content.
+_mission-archive/

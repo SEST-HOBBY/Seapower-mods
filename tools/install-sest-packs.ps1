@@ -166,10 +166,34 @@ if (Test-Path $missionSrc) {
             Write-Host ("  restamped  {0} (internal titles now carry the backup stamp)" -f $bak.Name)
         }
     }
+    # Which missions actually ship is decided by data\deploy-missions.txt.
+    # Without it the installer shipped every .ini under integration\missions\
+    # recursively - 69 files, including eleven NFIII backups and nine separate
+    # files all internally named "_TempMission". The repo keeps them all; this
+    # only decides what reaches the game. No manifest = ship everything, so an
+    # older checkout behaves exactly as before.
+    $manifest = Join-Path $repoRoot "data\deploy-missions.txt"
+    $allowNames = $null; $allowScenarios = $false
+    if (Test-Path $manifest) {
+        $allowNames = New-Object System.Collections.Generic.HashSet[string] ([StringComparer]::OrdinalIgnoreCase)
+        foreach ($line in Get-Content -LiteralPath $manifest) {
+            $entry = $line.Trim()
+            if (-not $entry -or $entry.StartsWith("#")) { continue }
+            if ($entry -eq "scenarios/*") { $allowScenarios = $true; continue }
+            [void]$allowNames.Add($entry)
+        }
+        Write-Host ("  manifest   data\deploy-missions.txt ({0} named + {1})" -f `
+            $allowNames.Count, $(if ($allowScenarios) { "all scenarios" } else { "no scenarios" }))
+    }
     # -Recurse so integration\missions\scenarios\ ships too. The game lists
     # user_missions flat, so the subfolder is a repo-side grouping only - the
     # scenario files land alongside the full missions, named "SEST NF3 - ...".
     foreach ($m in Get-ChildItem -LiteralPath $missionSrc -Filter "*.ini" -Recurse) {
+        if ($null -ne $allowNames) {
+            $isScenario = $m.DirectoryName -like "*\scenarios"
+            $permitted = $allowNames.Contains($m.BaseName) -or ($isScenario -and $allowScenarios)
+            if (-not $permitted) { continue }
+        }
         $destFile = Join-Path $missionDest $m.Name
         if (Test-Path $destFile) {
             $srcRaw = Get-Content -LiteralPath $m.FullName -Raw

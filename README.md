@@ -17,6 +17,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `data/mod-catalog.json` | **The registry.** Per mod: slug, `workshop_id`, faction, type, status, dependencies, overlap facts. Plus `local_packs`, the SEST pack roster with build order |
 | `data/load-order.tokens.txt` | **The load order.** One token per line; what `set-mod-order.ps1` writes into `usersettings.ini`. The consolidated pack is the single tier-0 entry |
 | `data/active-mission.txt` | The mission the tooling works on when you do not name one |
+| `data/deploy-missions.txt` | **The keep list.** Which missions the installer ships into the game; everything else stays in the repo only |
 | `data/raw-workshop-list.txt` | The raw subscription list (source of record) |
 | `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
@@ -48,6 +49,8 @@ Windows install refuses unsigned local scripts):
 powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1        # deploy SEST_Integration
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing # game CLOSED: apply order
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla  # refresh mods-source/
+powershell -ExecutionPolicy Bypass -File .\tools\prune-missions.ps1              # dry run: what the
+                                                                                  # mission browser would lose
 ```
 
 `docs/setup-runbook.md` is the full walkthrough.
