@@ -182,8 +182,10 @@ def main():
 
     # 3. Validate ammo references against the ecosystem
     known = {AIM424_ID}  # provided by this pack itself (written below)
-    for d in (UPSTREAM, WEAPON_PACK, VANILLA):
-        known |= {p.stem for p in d.rglob("*.ini") if p.parent.name == "ammunition"}
+    # all of mods-source (incl. _vanilla): most stores have several providers,
+    # and a narrow donor list would hard-bind the build to one of them
+    known |= {p.stem for p in (ROOT / "mods-source").rglob("*.ini")
+              if p.parent.name == "ammunition"}
     refs = set(re.findall(r"^Station\d+=([^|\s/]+)", NEW_SECTIONS, re.M))
     missing = sorted(r for r in refs if r not in known)
     if missing:

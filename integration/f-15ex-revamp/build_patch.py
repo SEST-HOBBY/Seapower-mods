@@ -749,11 +749,14 @@ def main():
         sys.exit("WeaponMagazines marker not found — upstream layout changed")
     text = text.replace(marker, NEW_SECTIONS + marker, 1)
 
-    # 3. Validate: every referenced ammo id must exist in the ecosystem
-    search_dirs = [UPSTREAM, WEAPON_PACK, MURDER_HORNET, VANILLA]
+    # 3. Validate: every referenced ammo id must exist in the ecosystem.
+    #    Search ALL of mods-source (incl. _vanilla), not a hand-picked donor
+    #    list: usn_aim-174b ships in four mods and dts_gbu-31 in three, so a
+    #    narrow list turns "any provider present" into a hard dependency on
+    #    one specific mod (unsubscribing Murder Hornet failed this build).
     known = {AIM424_ID}  # provided by this pack itself (written below)
-    for d in search_dirs:
-        known |= {p.stem for p in d.rglob("*.ini") if p.parent.name == "ammunition"}
+    known |= {p.stem for p in (ROOT / "mods-source").rglob("*.ini")
+              if p.parent.name == "ammunition"}
     refs = set(re.findall(r"^Station\d+=([^|\s/]+)", NEW_SECTIONS, re.M))
     missing = sorted(r for r in refs if r not in known)
     if missing:

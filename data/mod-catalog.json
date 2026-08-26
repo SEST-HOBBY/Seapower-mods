@@ -27,7 +27,7 @@
     {"folder": "SEST_F-35C_JATM", "source": "integration/f-35c-jatm", "builder": "build_patch.py", "title": "SEST F-35C JATM"},
     {"folder": "SEST_Growler_NGJ_MALICE", "source": "integration/growler-ngj-malice", "builder": "build_patch.py", "title": "SEST Growler NGJ + MALICE"},
     {"folder": "SEST_JMSDF_Mogami", "source": "integration/jmsdf-mogami", "builder": "build_patch.py", "title": "SEST JMSDF Mogami"},
-    {"folder": "SEST_RAAF_Bases", "source": "integration/raaf-bases", "builder": "build_pack.py", "title": "SEST RAAF Bases"},
+    {"folder": "SEST_RAAF_Bases", "source": "integration/raaf-bases", "builder": "build_pack.py", "title": "SEST RAAF Bases", "build_after": ["SEST_ADF_Persistent_ISR", "SEST_F-15EX_Revamp", "SEST_RAAF_Wedgetail", "SEST_Raptor_Squadrons"]},
     {"folder": "SEST_RAAF_F-35A_JATM", "source": "integration/raaf-f-35a-jatm", "builder": "build_patch.py", "title": "SEST RAAF F-35A JATM"},
     {"folder": "SEST_RAAF_Wedgetail", "source": "integration/raaf-wedgetail", "builder": "build_patch.py", "title": "SEST RAAF Wedgetail"},
     {"folder": "SEST_RAN_Fleet", "source": "integration/ran-fleet", "builder": "build_fleet.py", "title": "SEST RAN Fleet"},
