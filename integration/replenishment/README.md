@@ -89,9 +89,9 @@ that empties once and never fills. The Type 052D and Type 055 variants carry 26�
 This pack flags **2 078 launchers on 274 of those hulls — every one it is entitled to touch**.
 The remaining 5 sit on three hulls owned by sibling SEST packs (`js_ffg_mogami`,
 `rn_lph_ocean`, `usn_ddg-1000_cps`), which apply the same fix in their own builders.
-2 078 + 5 = 2 083. The headline "2 080 launchers across 292 hulls" adds the 10 upstream
-suppliers and 8 clones this pack also writes, which between them contribute 2 more; a
-supplier's own point defence is nearly always magazine-fed already.
+2 078 + 5 = 2 083. The headline "2 080 launchers across 275 hulls" adds the Don tender's two
+chaff launchers — the only flag any of the 18 auxiliaries needed, because a supplier's own
+point defence is nearly always magazine-fed already.
 
 ### The broken store references
 
@@ -149,7 +149,7 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 | **Metering** | 85 heavy rounds get a counted `SEST_` supply category; 4 rounds repaired |
 | **Refit** | every clone's donor-era radars, EW and guns retuned to its own navy and decade |
 | **Repairs** | 6 broken upstream ammunition references fixed — launchers that had no round |
-| **Launchers** | **2080 launchers made reloadable** — 2078 on 274 modern hulls, every one it can reach |
+| **Launchers** | **2080 launchers made reloadable** on 275 hulls — 2078 of them on 274 modern hulls, every one it can reach |
 
 ### The suppliers
 

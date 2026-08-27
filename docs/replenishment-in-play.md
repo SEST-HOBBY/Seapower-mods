@@ -12,7 +12,7 @@ For how it works under the hood, see `integration/replenishment/README.md`.
 Before this pack, they did not. Guns and short-range point defence topped up fine, but
 anti-ship missiles, torpedoes and every VLS strike round were one-shot for the whole mission:
 when a Burke emptied its cells, that was the end of that Burke's war. **2,080 launchers across
-292 ships** now reload where nothing could reload them before.
+275 ships** now reload where nothing could reload them before.
 
 ---
 

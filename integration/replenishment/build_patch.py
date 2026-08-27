@@ -38,7 +38,7 @@ hulls could ever be replenished, however many oilers were alongside.
 
 And there is a third problem the mod cannot solve either: the collection has
 twelve replenishment-capable hulls and all but two are Cold War. A 2025 task
-force had nothing to replenish FROM, so this pack adds six modern auxiliaries
+force had nothing to replenish FROM, so this pack adds eight modern auxiliaries
 as new unit ids cloned from vanilla donors, the way integration/ran-fleet
 clones its European donors. The donors are untouched and both ships coexist.
 
@@ -131,7 +131,7 @@ MODERN_SOURCES = {
 
 INFO_INI = """[Language_en]
 Name=SEST Replenishment At Sea
-Description=Working Replenishment At Sea for the modern fleet, alongside RE-power (3605013271). Ten auxiliaries (Sacramento, Kilauea, T2, Boris Chilikin, Kazbek, Don tender, Delvar, Sealift Pacific, Algol, Teide) get a tuned supply system - forked from RE-power's copies where it ships the hull, using its field-proven SystemName=TruckSupplySystem - and six modern replenishment ships arrive as new unit ids cloned from vanilla donors: Supply-class T-AOE, Lewis and Clark T-AKE, Henry J. Kaiser T-AO, JMSDF Mashuu, RFA Tide and PLAN Type 901 Fuyu. Every supplier targets Vessel,Submarine so a surfaced boat can rearm; heavy strike and area-SAM rounds are metered by two counted SEST_ categories, derived from the data on each build rather than hand-listed, with per-hull MaxAmmoPoints ceilings deciding what each class of auxiliary can pass. Four rounds whose vanilla AmmoPoints and SupplyCategory a stats stub strips get exactly those two keys back. Most importantly, ReloadableWithoutMagazine=True lands on every bare launcher of every modern hull - deck canisters, fixed tubes and Red Storm Arsenal's per-cell Mk41 VLS - because a launcher with no magazine and no such flag can never be reloaded, which is why anti-ship missiles and torpedoes do not replenish today. Must sit ABOVE every ship mod, RE-power included; this pack wins the hulls both touch and leaves RE-power's merchant suppliers to work below it.
+Description=Working Replenishment At Sea for the modern fleet, alongside RE-power (3605013271). Ten upstream auxiliaries (Sacramento, Kilauea, T2, Boris Chilikin, Kazbek, Don tender, Delvar, Sealift Pacific, Algol, Teide) get a tuned supply system using RE-power's field-proven SystemName=TruckSupplySystem. Each is forked from VANILLA and given nothing but that block, so none of RE-power's other edits to those hulls - deleted optics, altered armour and acceleration - ride along under this pack's name. Eight modern replenishment ships arrive as new unit ids cloned from vanilla donors, five BLUE and three RED: Supply-class T-AOE, Lewis and Clark T-AKE, Henry J. Kaiser T-AO, JMSDF Mashuu, RFA Tide, PLAN Type 901 Fuyu, PLAN Type 903A Fuchi and Project 23130 Akademik Pashin. Each clone is refitted to its own navy and decade rather than wearing its 1960s donor's fit - Artisan and Sea Ceptor on the Tide, OPS-48 and NOLQ-2 on the Mashuu, Type 382/364 radar and twin Type 730 on the Fuyu - and they group in the editor under Replenishment (BLUE) and Replenishment (RED). Every supplier targets Vessel,Submarine so a boat can rearm; heavy strike and area-SAM rounds are metered by two counted SEST_ categories, derived from the data on each build rather than hand-listed, with per-hull MaxAmmoPoints ceilings deciding what each class of auxiliary can pass. Four rounds whose vanilla AmmoPoints and SupplyCategory a stats stub strips get exactly those two keys back, and six ammunition references upstream mistyped are repaired in place - launchers that had no round at all. Most importantly, ReloadableWithoutMagazine=True lands on every bare launcher of every modern hull - deck canisters, fixed tubes and Red Storm Arsenal's per-cell Mk41 VLS - because a launcher with no magazine and no such flag can never be reloaded, which is why anti-ship missiles and torpedoes do not replenish today. Must sit ABOVE every ship mod, RE-power included; this pack wins the hulls both touch and leaves RE-power's merchant suppliers to work below it.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -1100,8 +1100,16 @@ def main():
     for ammo_id, stripper, mod, keys in restored:
         print(f"      restored {'+'.join(keys)} on {ammo_id} in the {mod} copy "
               f"(stripped by {stripper})")
+    # Count hulls that ACTUALLY received a flag, not every hull this pack wrote.
+    # "hulls + len(suppliers) + len(clones)" added all 18 auxiliaries whether or
+    # not make_reloadable found anything on them - and it finds something on
+    # exactly one, the Don's two chaff launchers. That overstated the headline by
+    # 17 and the docs inherited it. Same conflation as the old "280 modern hulls".
+    flagged = sum(1 for f in OUT.rglob("*.ini")
+                  if f.parent.name in ("vessels", "submarines")
+                  and RELOAD_LINE.strip() in read(f))
     print(f"  {launchers + supplier_launchers} launchers made reloadable across "
-          f"{hulls + len(suppliers) + len(clones)} hulls, from {len(by_mod)} mods")
+          f"{flagged} hulls, from {len(by_mod)} mods")
     for title, n in sorted(by_mod.items(), key=lambda kv: -kv[1])[:5]:
         print(f"      {n:>5} {title}")
     orphans = unused_rounds([r for r, _, _ in tagged])
