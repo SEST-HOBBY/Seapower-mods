@@ -26,6 +26,10 @@ reason to be here is a supply block. So: vanilla hull, SEST supply block, nothin
 inherited. RE-power keeps its own hulls — its fourteen merchant-freighter suppliers are
 untouched by this pack and keep working below.
 
+**Playing with it rather than building it?** `docs/replenishment-in-play.md` says the same
+thing in gameplay terms: how close, how slow, how long a Tomahawk takes to come across, and
+what each auxiliary is actually for.
+
 ## Why RE-power's ships still can't pass an anti-ship missile
 
 RE-power's own description says it: *"Most guns and AA missiles can be replenished without
