@@ -121,9 +121,9 @@ Every auxiliary has a finite hold. It **runs out**, and it does not refill at se
 | Tide AOR | 41 | 360 | 104 |
 | HMAS Supply | 36 | 320 | 92 |
 | Don tender | 34 | 300 | 86 |
-| Henry J. Kaiser T-AO | — | 160 | 46 |
-| Teide oiler | — | 240 | 69 |
-| Akademik Pashin | — | 180 | 52 |
+| Henry J. Kaiser T-AO | **refused** | 160 | 46 |
+| Teide oiler | **refused** | 240 | 69 |
+| Akademik Pashin | **refused** | 180 | 52 |
 
 Those are the extremes, not a shopping list — a hold spent on Tomahawks is not there for
 torpedoes.
