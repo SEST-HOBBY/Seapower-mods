@@ -122,6 +122,45 @@ Station8=usn_jsm
 """
 
 
+def build_squadrons_override():
+    """Ship a usn_f-35c_squadrons.ini that matches the airframe this pack wins.
+
+    US Naval Aviation's squadrons file (the previous winner) was written for
+    its OWN F-35C mesh: its [General] declares SerialnumberReferences=
+    modex,left_flap_modex,right_flap_modex and EmblemReference=
+    carrier_name_modex - but the unit file this pack ships (the Alt. Loadouts
+    / MyGo lineage) defines only SubModel17=modex, so two of three serial
+    references and the emblem reference dangle (collection audit, usn_f-35c
+    cohorts). Keep USNA's 13 real squadrons and trim the references to the
+    one node the loading model actually has. Squadron1/Squadron11 - the two
+    the NFIII mission fields 34 airframes from - also open from
+    ServiceDate=2012|2018 to 2012| so the data is coherent with a 2026 date.
+    """
+    src = USNA / "aircraft" / "usn_f-35c_squadrons.ini"
+    if not src.exists():
+        sys.exit(f"squadrons donor missing: {src}")
+    t = src.read_text(encoding="utf-8-sig")
+
+    t, n = re.subn(r"^SerialnumberReferences=modex,left_flap_modex,right_flap_modex$",
+                   "SerialnumberReferences=modex", t, flags=re.M)
+    if n != 1:
+        sys.exit(f"usn_f-35c_squadrons: SerialnumberReferences changed upstream ({n})")
+    t, n = re.subn(r"^EmblemReference=carrier_name_modex\r?\n", "", t, flags=re.M)
+    if n != 1:
+        sys.exit(f"usn_f-35c_squadrons: EmblemReference line changed upstream ({n})")
+    t, n = re.subn(r"^ServiceDate=2012\|2018$", "ServiceDate=2012|", t, flags=re.M)
+    if n != 2:
+        sys.exit(f"usn_f-35c_squadrons: expected 2 ServiceDate=2012|2018 lines, got {n}")
+
+    header = ("# SEST F-35C JATM - base: 3737267013's 13-squadron table. Trimmed to\n"
+              "# the submodels the winning (MyGo-lineage) airframe defines: serials\n"
+              "# bind to 'modex' only, the dangling flap-modex and carrier-emblem\n"
+              "# references are dropped, and the two VFA-101 squadrons the NFIII\n"
+              "# mission fields are opened past their 2018 stand-down for 2026 play.\n")
+    (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
+    (OUT / "aircraft" / "usn_f-35c_squadrons.ini").write_text(header + t, encoding="utf-8")
+
+
 def main():
     src = UPSTREAM / "aircraft" / "usn_f-35c.ini"
     text = src.read_text(encoding="utf-8-sig")
@@ -222,6 +261,7 @@ def main():
     # 6. Write the mod folder
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
     (OUT / "aircraft" / "usn_f-35c.ini").write_text(text, encoding="utf-8")
+    build_squadrons_override()
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     write_aim424(OUT)
     for lang, names in LOADOUT_NAMES.items():

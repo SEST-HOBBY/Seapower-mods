@@ -1,6 +1,6 @@
 # Full Load Order — every active mod, top to bottom
 
-Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 132 active subscriptions plus the SEST Integration Pack (16 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
+Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 132 active subscriptions plus the SEST Integration Pack (17 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
 
 Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are alphabetical — within them, order only matters between mods flagged in the conflict watchlist (`docs/conflicts-and-load-order.md`).
 
@@ -114,7 +114,7 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 88. KC-46A Pegasus - Strategic Tanker
 89. Lockheed AC-130 Pack
 90. McDonnell Douglas KC-10A Extender - Strategic Tanker
-91. MH-60R Seahawk — *watchlist: order vs other MH-60 sources decides which wins*
+91. MH-60R Seahawk — *resolved (collection audit): sits directly above US Naval Aviation so its squadrons file matches the loading model; unit file stays with U.S. Navy 2027*
 92. Mi-8 T/TV
 93. Mi-8EW
 94. MIG-29 Family — *watchlist: MiG-29/R-series overlap*

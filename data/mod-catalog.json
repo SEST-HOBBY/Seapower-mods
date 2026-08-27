@@ -39,6 +39,12 @@
       "title": "SEST B-52 ARRW"
     },
     {
+      "folder": "SEST_Collection_Fixes",
+      "source": "integration/collection-fixes",
+      "builder": "build_patch.py",
+      "title": "SEST Collection Fixes"
+    },
+    {
       "folder": "SEST_F-15EX_Revamp",
       "source": "integration/f-15ex-revamp",
       "builder": "build_patch.py",
@@ -542,7 +548,8 @@
         "chinese-navy-plan (Fujian)",
         "fujian-cv-18 (Fujian)"
       ],
-      "notes": "Kitbash Fujian plus speculative Type 004. One of THREE Fujian carriers in this list — pick a primary."
+      "notes": "Kitbash Fujian plus speculative Type 004. One of THREE Fujian carriers in this list — pick a primary.",
+      "load_order": "Moved above Chinese Navy (PLAN) (collection audit): its purpose-built CATOBAR Fujian (85 aircraft, Type 346B, HQ-10) was being overridden by PLAN's Orel-hull reskin. Zero other files change hands - the two mods contest only the Fujian pair."
     },
     {
       "id": "j-8",
@@ -884,7 +891,8 @@
         "modern-us-navy (MH-60)",
         "ado-nimitz-2000s (adds MH-60R)"
       ],
-      "notes": "Standalone MH-60R. FOUR sources of MH-60-family helicopters in this list — duplicate/ID-conflict watch."
+      "notes": "Standalone MH-60R. FOUR sources of MH-60-family helicopters in this list — duplicate/ID-conflict watch.",
+      "load_order": "Moved directly above US Naval Aviation (collection audit): its usn_mh-60r_squadrons.ini is the only squadron table whose serial reference (number) matches the MH-60R model that actually loads (U.S. Navy 2027's unit file, SubModel26=number). Only that one file changes hands. Load-bearing for the model/Hellfire/EOFLIR - keep subscribed."
     },
     {
       "id": "nimitz-expanded",
@@ -1271,7 +1279,8 @@
         "type-003-004-maneuverwarfare (Fujian)",
         "chinese-navy-plan (Fujian)"
       ],
-      "notes": "Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it."
+      "notes": "Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it.",
+      "load_order": "Moved above Type 003/004 CVN (collection audit): its PL-10 (AntiCountermeasuresBonus 0.95 vs 0.05, 12 nm seeker), PL-15, YJ-91 and KD-88 are the modern-schema versions; the mission's 28 fielded PL-10s were flying the flare-bait copy."
     },
     {
       "id": "j-50",
@@ -1322,7 +1331,8 @@
         "flanker-family",
         "su-27ubk (Flanker airframes)"
       ],
-      "notes": "PLA heavy twin-engine fighter based on Su-27SK."
+      "notes": "PLA heavy twin-engine fighter based on Su-27SK.",
+      "load_order": "Moved above Type 003/004 CVN, below CV-18 Fujian (collection audit): its PL-12/PL-8B/R-27 family are the live-schema (ApplyKinematics/AntiCountermeasuresBonus) versions its own mission-fielded J-11s were authored against; also repairs the corrupted ApplyKinematics line in Apex Predators' wp_aa-10a and the broken 250-III material path."
     },
     {
       "id": "j-11bs",
