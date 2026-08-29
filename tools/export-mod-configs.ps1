@@ -23,6 +23,10 @@
     # Also export the vanilla game definitions (very useful as reference data):
     .\tools\export-mod-configs.ps1 -IncludeVanilla
 
+    # Read-only: which mods have their authors updated since our last export,
+    # and what have I subscribed to that is not exported yet?
+    .\tools\export-mod-configs.ps1 -CheckUpdates
+
     Then commit and push (PowerShell has no && - use semicolons):
       git add -A mods-source; git commit -m "Export mod configs"; git push
 #>
@@ -32,6 +36,7 @@ param(
     [string]$DestDir,
     [switch]$IncludeVanilla,
     [switch]$NoPrune,
+    [switch]$CheckUpdates,
     [string[]]$TextExtensions = @(".ini", ".txt", ".json", ".cfg", ".xml", ".md", ".yaml", ".yml", ".csv"),
     [long]$MaxFileBytes = 2MB
 )
@@ -82,6 +87,73 @@ if (-not (Test-Path $WorkshopContentDir)) {
 
 New-Item -ItemType Directory -Force -Path $DestDir | Out-Null
 $manifest = @()
+
+# --- Which mods have the authors updated? ------------------------------------
+# Steam gives no version we can see from the repo, so the check is content
+# based: hash each live mod's text files exactly the way tools/fingerprint_mods.py
+# hashed the exported copies, and compare. A mod whose hash moved has been
+# updated on the Workshop since our export; a mod with no baseline is a fresh
+# subscription. Nothing is copied or written in this mode.
+if ($CheckUpdates) {
+    $baselinePath = Join-Path $scriptDir "..\data\mod-fingerprints.json"
+    if (-not (Test-Path -LiteralPath $baselinePath)) {
+        throw "No fingerprint baseline. git pull, or run: python3 tools/fingerprint_mods.py"
+    }
+    $baseline = (Get-Content -LiteralPath $baselinePath -Raw | ConvertFrom-Json).mods
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+
+    function Get-ModFingerprint([string]$dir) {
+        $parts = New-Object System.Collections.Generic.List[string]
+        foreach ($f in Get-ChildItem -LiteralPath $dir -Recurse -File -ErrorAction SilentlyContinue) {
+            if ($TextExtensions -notcontains $f.Extension.ToLower()) { continue }
+            if ($f.Length -gt $MaxFileBytes) { continue }
+            $rel = $f.FullName.Substring($dir.Length).TrimStart('\', '/').Replace('\', '/').ToLower()
+            $hash = [BitConverter]::ToString($sha.ComputeHash([IO.File]::ReadAllBytes($f.FullName))).Replace('-', '').ToLower()
+            $parts.Add("${rel}:${hash}")
+        }
+        if ($parts.Count -eq 0) { return $null }
+        # ORDINAL sort, to match Python's sorted(). Sort-Object is culture-aware
+        # even with -CaseSensitive, and would order '-', '_' and '/' differently,
+        # which silently changes the hash and reports every mod as updated.
+        $arr = $parts.ToArray()
+        [Array]::Sort($arr, [StringComparer]::Ordinal)
+        $joined = ($arr -join "`n")
+        return [BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($joined))).Replace('-', '').ToLower()
+    }
+
+    $updated = @(); $fresh = @(); $same = 0
+    foreach ($mod in (Get-ChildItem -LiteralPath $WorkshopContentDir -Directory | Sort-Object Name)) {
+        $fp = Get-ModFingerprint $mod.FullName
+        if (-not $fp) { continue }
+        $name = Get-ModDisplayName -ModDir $mod.FullName
+        $known = $baseline.($mod.Name)
+        if (-not $known) {
+            $fresh += [pscustomobject]@{ Id = $mod.Name; Name = $name }
+        } elseif ($known.fingerprint -ne $fp) {
+            $updated += [pscustomobject]@{ Id = $mod.Name; Name = $name }
+        } else { $same++ }
+    }
+    $live = (Get-ChildItem -LiteralPath $WorkshopContentDir -Directory).Name
+    $gone = @($baseline.PSObject.Properties.Name | Where-Object { $live -notcontains $_ })
+
+    Write-Host ""
+    Write-Host ("unchanged since the last export : {0}" -f $same)
+    if ($updated) {
+        Write-Host "`nUPDATED by their authors (re-export to pick the changes up):" -ForegroundColor Yellow
+        $updated | ForEach-Object { Write-Host ("  {0}  {1}" -f $_.Id, $_.Name) }
+    }
+    if ($fresh) {
+        Write-Host "`nNEW subscriptions (not exported yet):" -ForegroundColor Green
+        $fresh | ForEach-Object { Write-Host ("  {0}  {1}" -f $_.Id, $_.Name) }
+    }
+    if ($gone) {
+        Write-Host "`nEXPORTED but no longer subscribed:" -ForegroundColor DarkGray
+        $gone | ForEach-Object { Write-Host ("  {0}" -f $_) }
+    }
+    if (-not ($updated -or $fresh -or $gone)) { Write-Host "`nNothing has changed upstream." }
+    else { Write-Host "`nTo capture: re-run this script without -CheckUpdates, then commit and push." }
+    exit 0
+}
 
 # --- Export each subscribed mod ---------------------------------------------
 $modDirs = Get-ChildItem -LiteralPath $WorkshopContentDir -Directory

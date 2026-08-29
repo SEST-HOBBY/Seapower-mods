@@ -1,0 +1,542 @@
+{
+ "_comment": "Content hash per exported mod. Regenerate with tools/fingerprint_mods.py after every export; compare against the live install with export-mod-configs.ps1 -CheckUpdates to see which mods the authors have updated.",
+ "algorithm": "sha256 over sorted '<relpath lowercased>:<sha256 of bytes>' lines",
+ "extensions": [
+  ".cfg",
+  ".csv",
+  ".ini",
+  ".json",
+  ".md",
+  ".txt",
+  ".xml",
+  ".yaml",
+  ".yml"
+ ],
+ "max_file_bytes": 2097152,
+ "mods": {
+  "3373356293": {
+   "fingerprint": "f487be7c7877ac9da93063aa6e7966be1381d7461f0d054bc5f4ee51c87ae9e9",
+   "files": 17
+  },
+  "3373960386": {
+   "fingerprint": "e8b9b082e18378d196351281ccde2af7653cb235b508b6c09db116f451234b3e",
+   "files": 45
+  },
+  "3378409795": {
+   "fingerprint": "540e179253d41b1aa40970e6b5aed9ac574af3cf9a29cf49f9128d373767ade5",
+   "files": 14
+  },
+  "3380210757": {
+   "fingerprint": "52dafe5a8869f8ab5f341f50ebdf8c60d8a4d246950e6e757bd2e6025180f2e9",
+   "files": 1
+  },
+  "3384079999": {
+   "fingerprint": "2bcfd6ba0546a9d4d1697fc6d78bb052690f064a59e75c5a077027ddfc16afc0",
+   "files": 4
+  },
+  "3390330875": {
+   "fingerprint": "5d7176649eb2c4c2779791ff69e6b2b14911ae6489103351747bec4602767106",
+   "files": 225
+  },
+  "3392434750": {
+   "fingerprint": "454f2789b37c2b28b1c7f80bfa5165979d49a88a74490f4e73a5d8dd14315681",
+   "files": 24
+  },
+  "3394781441": {
+   "fingerprint": "c00363924b754c5a8ef06d536ccbc81078eca8f0338fcc4349c262175672d30c",
+   "files": 17
+  },
+  "3395022688": {
+   "fingerprint": "86e2bca63ca9757586932bb1c9a9c8f5b12047643f18ba2d6c1392dd0a2df8e7",
+   "files": 24
+  },
+  "3403661005": {
+   "fingerprint": "04af8a21b68e71ea3b6bbe28cf695a407c6345d6b4a4d25aebdaa06308f9207d",
+   "files": 17
+  },
+  "3403993583": {
+   "fingerprint": "ea93a2fb477e29d325a89cc90005323f4c7a40a7035aa018bd1d3199563e0ab0",
+   "files": 4
+  },
+  "3406985435": {
+   "fingerprint": "1587cd18de3daa1ca639436c9e51caf3f7fd0a6bb17a6e615e3a4454d291e82c",
+   "files": 28
+  },
+  "3408662804": {
+   "fingerprint": "84c266debb02ddbe85a36dab73ed8d057965fd0bf6e29f7a019b238a5a1b9ae8",
+   "files": 11
+  },
+  "3411341227": {
+   "fingerprint": "71a8649d556082126879f3e66de1b55582dab03d3860e7f14b18dbc64b8ed5d8",
+   "files": 7
+  },
+  "3413868677": {
+   "fingerprint": "e11cdbba9e0c09c4314154c971ed1d3e9f766b56b447888026ff3f5a116f259e",
+   "files": 1062
+  },
+  "3414146266": {
+   "fingerprint": "70c28f734f6278beb995f37c7c545ead81e24cca4578d0cfd51a0b95a06a7ea3",
+   "files": 21
+  },
+  "3416372890": {
+   "fingerprint": "a5406d25cf7ed3b5e3974b83c825438f79eebbcbc39e7e3349cfe1f47c819ad3",
+   "files": 49
+  },
+  "3417446309": {
+   "fingerprint": "4c6437d341d65b15a60c6d7827b3a8ec95f7feef09f8669ff32875bcfddea665",
+   "files": 52
+  },
+  "3417801942": {
+   "fingerprint": "32c05c04d205347ded142f3f370232a9d2917f0d6be079e070b6576ebc3fa46e",
+   "files": 48
+  },
+  "3418252667": {
+   "fingerprint": "e1fe8d88e0404c991aee0919a58a7004b96c6648d2ee7ee3d56ab02c275f1e3f",
+   "files": 41
+  },
+  "3425450153": {
+   "fingerprint": "8d7b8d89e638b52f45e20121c5f86f03fb72d909ce9e0ecfbb1974cf7e1ed71f",
+   "files": 46
+  },
+  "3426791311": {
+   "fingerprint": "5d38ca17c401a1338fa2da75090359d58fc3baaa5135697f8142345858b3ea38",
+   "files": 91
+  },
+  "3430106996": {
+   "fingerprint": "c66fde3a2fa901489b8370229669b7e7b8d8d3cce8cf2e7946077afd4eecdc36",
+   "files": 5
+  },
+  "3430135740": {
+   "fingerprint": "da1255340230b2dcd166261314f88fff9fedefdc359248880c119a9220d4a3a6",
+   "files": 39
+  },
+  "3432592449": {
+   "fingerprint": "6918ba67f45e6959dc42c794094f2d13cb650a082f4f143c6073b7c6d8984745",
+   "files": 3
+  },
+  "3432668460": {
+   "fingerprint": "19f923cc8f8e66310fce7128104e1302f9a9ee68d19409a1b3b3a6947768349b",
+   "files": 22
+  },
+  "3433577445": {
+   "fingerprint": "c28a62979053da5cf3a04fee8dafef1cee059189abc3b00865a5a7188ee04c70",
+   "files": 44
+  },
+  "3433957933": {
+   "fingerprint": "05636e86bca5d03c79d457ce31485908ff364444025fe0802b8cc279caec9d02",
+   "files": 28
+  },
+  "3434072450": {
+   "fingerprint": "aa50977a1daf47f4c3df97d7234d586e9c495db62a79b917a6798417244bf9bb",
+   "files": 72
+  },
+  "3436170138": {
+   "fingerprint": "fd6de22499eca8c8cdc14badc790f808dceb8d6a36d844a129ea938c59c4ab8b",
+   "files": 68
+  },
+  "3437105712": {
+   "fingerprint": "646161180895dc59c2e1311918558259c63a0217b6334f4fdfd47d4f7835b2e8",
+   "files": 38
+  },
+  "3438479626": {
+   "fingerprint": "50db269ca5ae95723c69854566d8a9fa94d891bf70cea2589688fe1144a8c0fe",
+   "files": 82
+  },
+  "3444379330": {
+   "fingerprint": "1a168fb2e6d29cc67a4fc5f0dce40a44a8fe9edad3f6aea07df27e6744b4599e",
+   "files": 58
+  },
+  "3448845252": {
+   "fingerprint": "ae6186f12dfd90f444deb19622ae36d1447f35b9f00d085089de153feefb2f72",
+   "files": 16
+  },
+  "3451166840": {
+   "fingerprint": "172d75352529ca9ae1b8b205a75764e0aa6e3e29280514075d6bca5662ce0b15",
+   "files": 29
+  },
+  "3455931957": {
+   "fingerprint": "5c2d02d9e9405b47f604d9ec95fdad56274d1e92fd4e36385058f32737084df0",
+   "files": 77
+  },
+  "3456859157": {
+   "fingerprint": "ed4a3f1c6d736dc0ac43166ade8e63653291a8cb82ceea1bab7f7bca5e180b12",
+   "files": 17
+  },
+  "3458148344": {
+   "fingerprint": "04c284b09a759441f2d83c32d8c7d48aa3af486925c231a9a5dc324acea14ee7",
+   "files": 4
+  },
+  "3459682829": {
+   "fingerprint": "1680690099a19c6dfcfd370ffd5d5a4e5433a742c289caac8284bb80a0616370",
+   "files": 32
+  },
+  "3461044389": {
+   "fingerprint": "dbd6f5316fc05a41db29f55333c3a33f8599065a566e75999924c2a1fbc09d21",
+   "files": 31
+  },
+  "3461091581": {
+   "fingerprint": "166993aa2f5058e101bc5ed6617a752f122a570f2d8861f4490eb49ffc78a418",
+   "files": 7
+  },
+  "3461519690": {
+   "fingerprint": "a2c0c6b48d91a6b3468c41d363124d4854c494baab6f32dc6dbfa9bc44c2ec1d",
+   "files": 10
+  },
+  "3465256032": {
+   "fingerprint": "4c779a23806c7f87b40e9751ed4904ac6b1ce7c2f9698d532a5bd061628893bd",
+   "files": 20
+  },
+  "3468260539": {
+   "fingerprint": "468d6959bc0dadb9a69f21973f3865dba622ab3985bb753e8bbc4dabc1f156e1",
+   "files": 66
+  },
+  "3468959181": {
+   "fingerprint": "ed12952b7b2959db3796e1092bb04f1ce7135fa58efadd289b213d8042734af1",
+   "files": 11
+  },
+  "3470643173": {
+   "fingerprint": "826544b67bfc17484403fe490cde8a8deb171eccf4c7bf0699d13fba0028c815",
+   "files": 12
+  },
+  "3478767194": {
+   "fingerprint": "f1e2af52bdf338e6bbdd90683053b83edf432216611c9c7a63f6dadf40023c00",
+   "files": 8
+  },
+  "3480965706": {
+   "fingerprint": "8568f5d51095a931bb748a44b410d68431ec575c346d7c747ba3c7f9be9391bc",
+   "files": 38
+  },
+  "3481228992": {
+   "fingerprint": "5f79fbc9a37027b84cc2015ccfa4516e2fbac27f27c040b320c9e228e721d2e5",
+   "files": 65
+  },
+  "3486502935": {
+   "fingerprint": "c24e70aa8068f65830dd3f35f4d8a6f1d2607adad383d717af4440b676b84733",
+   "files": 78
+  },
+  "3488139470": {
+   "fingerprint": "c92a09e3164bf2cab08d0593c83d6914aae4d284df0e682a159a2bf8173abbb6",
+   "files": 65
+  },
+  "3497601759": {
+   "fingerprint": "ace4797bdbcfabcae1ff8775aeef4c13914242179a38b582f57246e1d59c39b8",
+   "files": 15
+  },
+  "3499239964": {
+   "fingerprint": "e6b50887064080e21a9c72929ab6d4082341fe3c8c4036fa05135607666e5fff",
+   "files": 27
+  },
+  "3502273861": {
+   "fingerprint": "03c35d93997fa3ccfdeec88cec32e46754899ac23ce2d82ab92c58ef80cf01b4",
+   "files": 19
+  },
+  "3503594612": {
+   "fingerprint": "2a1398ea95f03299d781eb97ffdd873de32e3a1c79d4b0637accba730c805d35",
+   "files": 38
+  },
+  "3503670861": {
+   "fingerprint": "5e16e93f4130759a7fedc6e009c638c9ab3f851bb5be833ccd3cb12420e99b9d",
+   "files": 32
+  },
+  "3504168760": {
+   "fingerprint": "20319aa8689ceb61a5a73bfde12795bddaf8b937b83146086cc185607db829af",
+   "files": 49
+  },
+  "3505420313": {
+   "fingerprint": "f81a471c47e3f03f2ba7323ef43efc526a1057220ef3af6f1e74ba74ae339ab4",
+   "files": 324
+  },
+  "3506979898": {
+   "fingerprint": "6a9c3b248677e0044f3aad96cfe1eb7a45c19416793ba749c574f6c495030f77",
+   "files": 36
+  },
+  "3508275114": {
+   "fingerprint": "b6ba007d8da6ef55c23a2f2e875836f6e840e9b6e69ddddab31ba7723355dc28",
+   "files": 93
+  },
+  "3508978375": {
+   "fingerprint": "fe1d1dd57711d98145e2e673ce27aa95b19f8848596859f437cca030f1b4fbe1",
+   "files": 45
+  },
+  "3509329205": {
+   "fingerprint": "cb59747fc25476d5fd27ad30fa71c19bbf323ad50a50b05731b0cdab6d612be2",
+   "files": 34
+  },
+  "3513571010": {
+   "fingerprint": "30f83fd3e3102bfa87005b2c6901991b31fe9c370aa2795e1bdc26cb69aa9d00",
+   "files": 21
+  },
+  "3514484654": {
+   "fingerprint": "ca23f33480002b724d6e03861a603043953a2e88344ba5bae115f0295111f344",
+   "files": 40
+  },
+  "3524112296": {
+   "fingerprint": "4257da1ed2b6825641b30d2589f07b9cb9535f81bc49621781d625599478a99d",
+   "files": 65
+  },
+  "3526982088": {
+   "fingerprint": "9c47e8d8742deace1bff1e14d491f52f3cd044fb7889e587d57acbdcafa7668b",
+   "files": 70
+  },
+  "3551676319": {
+   "fingerprint": "9b40d41d55537155e3876ca4c66c112e081c3612a574f5d4a2d548f43b438aad",
+   "files": 10
+  },
+  "3553116604": {
+   "fingerprint": "c7683fbd89b337a52456a0e61a9c9f6926e6be33780442b0502010a7e14b0096",
+   "files": 34
+  },
+  "3558173926": {
+   "fingerprint": "2e08f1fe47696a0df92369afd669147c1da89a7a5a2d1b15b20e6552b4b5f269",
+   "files": 14
+  },
+  "3559495372": {
+   "fingerprint": "c139cd9f1430d6f74d03ca96ab2a54adfa5e8e0fad2714d5f8af331e55446581",
+   "files": 46
+  },
+  "3567228449": {
+   "fingerprint": "f68763c5fa9bc7732f7c6a8c5aca7bf772a6a9b041ef29319e7c556dd856f945",
+   "files": 191
+  },
+  "3567256221": {
+   "fingerprint": "c153272c4d11621be09e25335dad17b6f4fdc6edb75154ff66f35ed9854a7d0b",
+   "files": 288
+  },
+  "3575847216": {
+   "fingerprint": "9ce6f41bd93c07d8eb260c6ae3618f690b9cb4f4d6ee2a855ed450b0a0021873",
+   "files": 138
+  },
+  "3587091564": {
+   "fingerprint": "a86471adc3837eda12ef230fa8fd1f7e0c8b115c9469feee8759082a4d93f148",
+   "files": 7
+  },
+  "3587877691": {
+   "fingerprint": "b7f25c38b10bfc1e0c38cb1327edefec7aaaee858722013030f74adb75428d58",
+   "files": 46
+  },
+  "3590477166": {
+   "fingerprint": "9c8d14a3ffec72eda64b0d1740f7ad8c9d39f14bd1f12f9dd4fb3c3b2d92fc17",
+   "files": 18
+  },
+  "3591563716": {
+   "fingerprint": "94f551d77dcf48f081e66cb14b8421c2bc9220303cd23e05519f1d597f63d61d",
+   "files": 32
+  },
+  "3592460366": {
+   "fingerprint": "e14eb7fbe368c69bdf58e2f12182c45f495520bb8c6417f7a11f8fe531862d8e",
+   "files": 4
+  },
+  "3594891803": {
+   "fingerprint": "e0a2b970fc9b50af8f3f339020c7455cac0da74613d67b43ed13ac3d2ac09c56",
+   "files": 154
+  },
+  "3597650470": {
+   "fingerprint": "380f28f073258d36ac846606cbc974ff1e8a1802560eb173c355af5f22cecee9",
+   "files": 118
+  },
+  "3599752717": {
+   "fingerprint": "3436b7d2cfb12f4acc663691042d2b46599baccc83e39fd0cade2bd37aadb9cb",
+   "files": 107
+  },
+  "3600788156": {
+   "fingerprint": "ee34cac920394e21018ae0bee1bf4717801c43458931f3bc8055ec99b7725d72",
+   "files": 40
+  },
+  "3601891050": {
+   "fingerprint": "a06bd746944cb1f3ba592500cb4d3e07d05edfa48bd7bdbf1a941d38d0248cf3",
+   "files": 29
+  },
+  "3602046770": {
+   "fingerprint": "b7005d6a8e6475b051319262a1fd4fed67a6413862b8397c50fd70f7cb84ba4c",
+   "files": 15
+  },
+  "3605013271": {
+   "fingerprint": "77e9589cf6c5efc62691e90540a7290a972701c3d8792c51b5f8f3992a934dc6",
+   "files": 29
+  },
+  "3606134711": {
+   "fingerprint": "948e4d4ac11ff64c65431329e95e70c23d422af3173e572ed85f915de96fae38",
+   "files": 157
+  },
+  "3606774881": {
+   "fingerprint": "f017a7909ac2078cfb50fa879d19ecec8a87107914a4cb6db9708e30ed251ea2",
+   "files": 91
+  },
+  "3607989779": {
+   "fingerprint": "47885e984a71c9e50e504f7f47fa735f4dc367fc04c4baace5b3ff99e146074e",
+   "files": 24
+  },
+  "3629144864": {
+   "fingerprint": "d1095b67b335d934215b43ef5e8adedf1ad53a0b1f119eccc3fb17816a158620",
+   "files": 531
+  },
+  "3629269283": {
+   "fingerprint": "c2e4ccd89ba39dd74f30330e644a75e63a6d35a7a71159b567d1e38dbfbe9200",
+   "files": 4
+  },
+  "3630495619": {
+   "fingerprint": "2245ca9547f259a90a623af699f027906d7a1c6407a1d0a7f68ba348002b103e",
+   "files": 158
+  },
+  "3631042692": {
+   "fingerprint": "922e571de55e493281b8ef78ea9104a9f27bf56bfcb387bdc421fc2c15c1b366",
+   "files": 4
+  },
+  "3636386513": {
+   "fingerprint": "c39ad5701b62cc4f524697c62d75eb9d6440c1e4f9e7e696026ff48f976e49e4",
+   "files": 46
+  },
+  "3642656500": {
+   "fingerprint": "b5d7be14fd392f2f0107773f2c03d6268dcd439712d5f0a94f77a2e39d4f6239",
+   "files": 44
+  },
+  "3652097318": {
+   "fingerprint": "a38df24385d69c2a01308fbe181f202d3a963fa3b54487166428fa4ab5c1914e",
+   "files": 35
+  },
+  "3654230227": {
+   "fingerprint": "4edae82bf1000136e931089bce02742ef5b9c6040b5d1c600792346f450c40d4",
+   "files": 2
+  },
+  "3659742367": {
+   "fingerprint": "006673e38e6f2348cd3cef76efbb036fbdc31520f7a7dfe6fde495273d65bbea",
+   "files": 34
+  },
+  "3663564190": {
+   "fingerprint": "fd285a960f20db24f66a94ea7ae5a3b115df9758ffe34e3b0ce2b4d6a43209a7",
+   "files": 117
+  },
+  "3670643788": {
+   "fingerprint": "60a77df20dbcd3990721e72110e45593e2ccaaecbed42ea020fcf30fa6fc3fe5",
+   "files": 35
+  },
+  "3673250557": {
+   "fingerprint": "3d7db8f8c8043e87a35b3692bd1a7780ab9b78eb47303fbfc1ef6b2596bd259b",
+   "files": 14
+  },
+  "3673908868": {
+   "fingerprint": "224406458f2a47f886f310d1ac46e07abc85249825800475b2411b40cf4ad3f7",
+   "files": 15
+  },
+  "3681873198": {
+   "fingerprint": "208b04c04ac7e39e20dfc97778a42612857804132f1cd198090338b09762784b",
+   "files": 49
+  },
+  "3683253079": {
+   "fingerprint": "9219480c7d824608f225db10ab6b496ae6e4c8d9ae513cb7f44c948716973ffd",
+   "files": 15
+  },
+  "3695809489": {
+   "fingerprint": "db53d9af053b3adb0e97c0c059a7186df3ec909fb651ea12fedb9af3360fe578",
+   "files": 35
+  },
+  "3715323261": {
+   "fingerprint": "d84964e64ec468575ec7696409c00e97131e515487dd244bb25db14dc794dc40",
+   "files": 17
+  },
+  "3716049886": {
+   "fingerprint": "d82a7724c6df39bb62838c3c4cc625329cf42dd745adedc66ddc0f4403aad226",
+   "files": 22
+  },
+  "3717610332": {
+   "fingerprint": "780db33017c92e61c02e83581679f3fbf1fee9f1a869bf620357b155e4ba13c2",
+   "files": 15
+  },
+  "3722749887": {
+   "fingerprint": "4fe84b32a26c6aa06f8cdcc75fd33a2fa03162bce5d4f3b6b22c9b636606d32e",
+   "files": 19
+  },
+  "3729578404": {
+   "fingerprint": "d148dd7e30d564f16afa909424f3199b9581df62f0b00945e6ffca7f42401ae7",
+   "files": 12
+  },
+  "3729579342": {
+   "fingerprint": "7e00478bb4b09d67471e8cb908b3e87baae51e8c68bd175989eaf1f816df0048",
+   "files": 12
+  },
+  "3731208477": {
+   "fingerprint": "6e2661b427c38b807549e206ba61ed2326cc858d3f434a1608326b5ba381487b",
+   "files": 124
+  },
+  "3733719765": {
+   "fingerprint": "b728d2c011d9abffb2fded0c3256c7b52e54d0aa0005661059c5a5074e4a1167",
+   "files": 236
+  },
+  "3736147136": {
+   "fingerprint": "e0a96b701c066d3893c1bebc7c985fa691d926ee73fb0834d873103cbc509a9c",
+   "files": 118
+  },
+  "3737267013": {
+   "fingerprint": "86e850e8fc2ec08696ecfe9a2166d90054a2f4d188175aa16044b49cdf98531f",
+   "files": 231
+  },
+  "3740293822": {
+   "fingerprint": "be53fdc4ca5116bce007ba0a908b2ce6ae81b5f2e4c1cc29691b7561d57a1fd4",
+   "files": 8
+  },
+  "3741944366": {
+   "fingerprint": "f83e6571e654ec861db515af444cf22ba2ebe258458d1a3c42cc92318a4470c5",
+   "files": 26
+  },
+  "3744475027": {
+   "fingerprint": "cfb3fd2fb5fb992305a61d86aed40fb65a65afc6213ac409f1a74fa8d131728e",
+   "files": 12
+  },
+  "3746453639": {
+   "fingerprint": "73d56c0543edad1531c5b0eebe45eb6637e7f48c0f9672a0a12e5f351bbd969f",
+   "files": 17
+  },
+  "3758320372": {
+   "fingerprint": "65fb8bfdd934bf7b4196a29b26369ea989995d62685f14c39d6283a3211f59a8",
+   "files": 113
+  },
+  "3760871384": {
+   "fingerprint": "39644ef7a42d90e959dc88b4ba3ed6ff33e86f482c5689ae660af2359b490453",
+   "files": 53
+  },
+  "3762023575": {
+   "fingerprint": "6477146ec91f62f8fc136da4d1b46700fe637f974f4e48b32b9d602d1b40a69c",
+   "files": 10
+  },
+  "3768036424": {
+   "fingerprint": "ccbe0787f4a63f901bb4de7a8f7195939d656378256f96b84d4708f7f1797e94",
+   "files": 2
+  },
+  "3774572038": {
+   "fingerprint": "52c5ec480790ee4d03034588883a7c26ba8b9e4b1d6f6d56d89bbb2212c605bb",
+   "files": 41
+  },
+  "3774746803": {
+   "fingerprint": "816ad298e0f3ad5d37018157cfa33e0b791162cd09c431e01ca9b57cbfc53568",
+   "files": 33
+  },
+  "3774859959": {
+   "fingerprint": "7ef418828265fa780ab344bfd64ca2a56bd19ecf5fbd1ed177e27b0f25767acc",
+   "files": 30
+  },
+  "3775128499": {
+   "fingerprint": "1aa5423f1fbfcc77cfc1ddf89932b6166c624133a481840df063fdb60f018154",
+   "files": 291
+  },
+  "3776340577": {
+   "fingerprint": "d990f6ad09a60e732ac625d14781eee1221fd5e1ba33695e6992126ecdac6c2b",
+   "files": 8
+  },
+  "3780118683": {
+   "fingerprint": "e94318a6ae0491579d3795b1d861a0f0bffadb239400ac08075b6b0e9d20b886",
+   "files": 26
+  },
+  "3781062859": {
+   "fingerprint": "97e2940e8d2a7754c0e2a1048990833bdd34a9d99ff98d54d0b8b735ab5aa540",
+   "files": 18
+  },
+  "3782020901": {
+   "fingerprint": "5bec515a7b78d0ec41f4833f2918f48934dbacc8160b48a79a03b8c5fc91d2d7",
+   "files": 29
+  },
+  "3784474738": {
+   "fingerprint": "ecaee2f62d5f292ae889b99008a5c30b668cc3854ec51dec61d0e417ae70d6ff",
+   "files": 57
+  }
+ }
+}

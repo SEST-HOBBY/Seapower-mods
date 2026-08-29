@@ -209,15 +209,22 @@ Modern Chinese Airbase
 
 ## Phase 4b — pre-flight (30 seconds, before you launch)
 
-Three checks, all offline. Run them after any subscribe, unsubscribe or
-reorder — together they cover the three ways this collection breaks silently.
+Offline checks. Run them after any subscribe, unsubscribe or reorder —
+together they cover the ways this collection breaks silently.
 
 ```powershell
-python tools\check_load_order.py          # no mod outranks a SEST pack
-python tools\check_dependencies.py        # every pack's upstream mod is present
-python tools\preflight.py                 # every reference the mission makes resolves
-python tools\check_mod_conflicts.py <id>  # what a NEW mod would take over
+python tools\check_load_order.py             # no mod outranks a SEST pack
+python tools\check_dependencies.py           # every pack's upstream mod is present
+python tools\preflight.py                    # every reference the mission makes resolves
+python tools\check_weapon_employment.py      # every weapon can actually be fired
+python tools\check_mod_conflicts.py <id>     # what a NEW mod would take over
 ```
+
+`check_weapon_employment` is the newest and asks a different question from
+`preflight`: not "does this id resolve" but "can the mount actually shoot
+this round". That is the gap the RAN Anzacs' NSMs fell through — every
+reference resolved and the launchers still never fired, because a datalink
+round needs a guidance channel the mount was never given.
 
 `check_dependencies` catches the third way this breaks: the packs ship 99 files
 and every one is a `.ini`, so each depends on the workshop mod that supplies the
@@ -235,6 +242,43 @@ mod can cause that without any file going missing, because the file is still
 there, it is simply a different file now.
 
 All three exit non-zero on failure, and each names the mod responsible.
+
+## Adding a mod, and catching mods that updated under you
+
+Steam gives us no version number the repo can see, so both questions are
+answered by content hashing. `data/mod-fingerprints.json` holds one hash per
+exported mod; this recomputes them against the live install and reports the
+difference. It only reads:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates
+```
+
+It prints three lists: mods whose author has **updated** them since our export,
+**new** subscriptions not exported yet (with their workshop id), and anything
+exported that you have since unsubscribed. Run it whenever you have let Steam
+update things, and before asking for work on a mod's files — a stale export is
+how a patch quietly stops matching its donor.
+
+To take a new mod all the way in:
+
+```powershell
+# 1. subscribe in Steam, launch the game once so Steam downloads it, quit
+# 2. see it appear, with its id:
+powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates
+# 3. export its files and refresh the fingerprints
+powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1
+python tools\fingerprint_mods.py
+# 4. see exactly what it would take over from whom, BEFORE trusting its position
+python tools\check_mod_conflicts.py <id>
+# 5. commit and push, then the order can be decided from measured overlap
+git add -A; git commit -m "Export <mod name>"; git push
+```
+
+Step 4 is the one that matters. A mod that ships only new unit files is free to
+sit anywhere below the SEST block; a mod that ships a file some other mod also
+ships is a whole-file override fight, and its position decides who wins. The
+placement is a measurement, not a guess.
 
 ## Phase 5 — ten-minute smoke test
 

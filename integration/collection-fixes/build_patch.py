@@ -339,8 +339,107 @@ def main():
           "file; the round now uses Station9's own Penguin hardpoint coordinates.")
     built.append("usn_mh-60r")
 
+    added = build_missing_sensors()
+    named = build_missing_loadout_names()
+
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     print(f"built {OUT.relative_to(ROOT)}: {len(built)} overrides - {', '.join(built)}")
+    print(f"  + {len(added)} sensor definitions no mod supplied: {', '.join(added)}")
+    print(f"  + {len(named)} loadout display names: {', '.join(named)}")
+
+
+# Sensor types that units mount but NO mod defines, so the sensor is inert.
+# systems/ merges section-by-section, so supplying the missing definition adds
+# capability without overriding anybody. Each is CLONED from the closest
+# same-class, same-era definition rather than invented - donor named per entry.
+#
+#   new type          donor                       who mounts it (mission units)
+MISSING_SENSORS = {
+    "Side_Globe": ("_vanilla/original", "Start_ECM",
+                   "Soviet shipboard defensive jammer. Donor is vanilla's own "
+                   "Soviet ship ECM (Sovremenny, Udaloy, Krivak). Mounted by "
+                   "ru_cv_varyag and wp_rkr_kirov_improved, both fielded."),
+    "Rum_Tub": ("_vanilla/original", "Start_ESM",
+                "Soviet shipboard ESM array, the receive half of the same suite "
+                "as Side Globe. Mounted by wp_rkr_kirov_improved."),
+    "J/OPS-20": ("3629144864", "eu_nav_radar",
+                 "JMSDF navigation radar. Donor is Euromod's modern naval "
+                 "navigation radar. Mounted by jmsdf_ddg_maya, fielded."),
+    "pla_pod_kg-800": ("_vanilla/original", "Azaliya_OECM",
+                       "PLAN escort jamming pod on the J-15D, the type's whole "
+                       "reason to exist. Donor is vanilla's Soviet EW-aircraft "
+                       "jammer at 5 kW - deliberately a fraction of the NGJ's "
+                       "75 kW in SEST_Growler_NGJ_MALICE, so red gets a working "
+                       "jammer rather than a Growler. 8 airframes fielded."),
+    "4th_Gen_FLIR": ("_vanilla/original", "AdvancedOptics",
+                     "EO/IR turret on the Z-9D. Donor is vanilla's advanced "
+                     "optical sight."),
+}
+
+
+def build_missing_sensors():
+    """Supply definitions for sensor types every mod references and none defines."""
+    out, blocks = [], []
+    for name, (donor_mod, donor_sec, why) in MISSING_SENSORS.items():
+        # If anyone starts defining it, ours would shadow theirs - stop instead.
+        for f in (ROOT / "mods-source").rglob("systems/sensors.ini"):
+            if re.search(rf"^\[{re.escape(name)}\]", read_file(f), re.M):
+                sys.exit(f"{name} is now defined by {f.parts[-3]} - drop it from "
+                         "MISSING_SENSORS rather than shadowing upstream")
+        src = read_file(MODS / donor_mod / "systems" / "sensors.ini")
+        m = re.search(rf"^\[{re.escape(donor_sec)}\]\n(.*?)(?=^\[|\Z)", src, re.S | re.M)
+        if not m:
+            sys.exit(f"donor sensor [{donor_sec}] missing from {donor_mod} - rebase")
+        body = "\n".join(l for l in m.group(1).strip().splitlines()
+                         if not l.strip().startswith("#Users:"))
+        blocks.append(f"# {name}: {why}\n"
+                      f"# Cloned from [{donor_sec}] in {donor_mod}.\n"
+                      f"[{name}]\n{body}\n")
+        out.append(name)
+    if blocks:
+        (OUT / "systems").mkdir(parents=True, exist_ok=True)
+        (OUT / "systems" / "sensors.ini").write_text(
+            "# SEST Collection Fixes - sensor types that units mount but no mod\n"
+            "# defines, so the sensor does nothing at all. systems/ files merge\n"
+            "# section-by-section, so these ADD the missing definitions without\n"
+            "# overriding anything. Every one is cloned from the closest\n"
+            "# same-class, same-era definition; none is invented.\n\n"
+            + "\n".join(blocks), encoding="utf-8")
+    return out
+
+
+# Loadout keys offered in a picker with no display name anywhere, so the UI
+# shows the raw key. language_*/ merges key-by-key, so these are additive.
+MISSING_LOADOUT_NAMES = {
+    "Strike158": "Strike (AGM-158 JASSM)",
+    "Strike86": "Strike (AGM-86 ALCM)",
+    "StrikeNuke": "Strike (nuclear)",
+    "CAS1": "Close Air Support (alt)",
+    "StrikePrecision1": "Strike Precision (alt)",
+    "StrikeLowAltitude": "Strike Low Altitude",
+    # upstream typo: vanilla's key is AirToAirLongRange with a capital R, so the
+    # Su-35's lowercase spelling matches nothing and shows raw in the picker
+    "AirToAirLongrange": "Air To Air Long Range",
+}
+
+
+def build_missing_loadout_names():
+    src = read_file(MODS / "_vanilla/original" / "language_en" / "loadout_names.ini")
+    clash = [k for k in MISSING_LOADOUT_NAMES if re.search(rf"^{re.escape(k)}=", src, re.M)]
+    if clash:
+        sys.exit(f"vanilla now names these loadouts: {clash} - drop them here")
+    body = ("# SEST Collection Fixes - display names for loadout keys that no mod\n"
+            "# names, which the picker would otherwise show as the raw key.\n"
+            "# language_*/ merges key-by-key, so nothing upstream is replaced.\n"
+            "[LoadoutNames]\n"
+            + "".join(f"{k}={v}\n" for k, v in MISSING_LOADOUT_NAMES.items()))
+    (OUT / "language_en").mkdir(parents=True, exist_ok=True)
+    (OUT / "language_en" / "loadout_names.ini").write_text(body, encoding="utf-8")
+    return list(MISSING_LOADOUT_NAMES)
+
+
+def read_file(p):
+    return Path(p).read_text(encoding="utf-8-sig", errors="replace")
 
 
 COMPOSED_CAL_30MM = """\
