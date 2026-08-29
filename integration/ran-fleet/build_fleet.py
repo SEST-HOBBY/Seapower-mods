@@ -55,11 +55,55 @@ HELOS = "usn_mh-60r,S-70B-2_Seahawk"
 #
 # Each entry: (regex, replacement, exact expected substitutions) - a count
 # mismatch fails the build rather than shipping a half-applied refresh.
-NSM_SWAP = (r"^Ammunition=usn_rgm-84d[^\n]*$",
-            "Ammunition=usn_rgm_184a               // NSM (RGM-184A) - replaced Harpoon from 2024")
+# The NSM round, and a live experiment about which NSM actually launches.
+#
+# Warramunga would not fire usn_rgm_184a (Red Storm Arsenal's RGM-184A). Two
+# fixes have been aimed at it, and the first real test of either is still
+# pending, so rather than guess a third time the Anzac now carries ONE OF EACH:
+# port fires Euromod's knm_nsm_1a, starboard fires RSA's usn_rgm_184a. One
+# mission then answers it outright - port fires and starboard does not means
+# the round was the problem; neither fires means the mount or the hull is.
+#
+# knm_nsm_1a is the better default anyway, and is what the Hobarts get on both
+# mounts so at least one RAN ship has NSMs that should simply work. It is the
+# same missile by the numbers - Mass 1450, Power 34, 620 kt, 165.6 nm,
+# 20 nm seeker - but its guidance chain is coherent where RSA's is not:
+# MidCourseCorrection=1 (radio command) rather than 3 (datalink), and a 12 nm
+# terminal approach that sits INSIDE the 20 nm seeker instead of 25 nm outside
+# it. It is also the actual Kongsberg NSM the RAN buys, rather than the US
+# ship-launched designation. Ten hulls fire it, four of them fielded in NFIII
+# (Zeven Provincien, Iver Huitfeldt, F127 batch 2, Type 45), so unlike RSA's
+# round it has in-collection precedent that it works.
+#
+# To normalise once the test has spoken: give both entries the same round.
+NSM_KNM = "knm_nsm_1a"           # Euromod, mission-proven on four fielded hulls
+NSM_RSA = "usn_rgm_184a"         # Red Storm Arsenal, the one that would not fire
+NSM_IDS = (NSM_KNM, NSM_RSA)
+
+def nsm_swap(rounds):
+    """Replace the donor's Harpoon lines positionally, one round per launcher."""
+    def apply(text, ship_id):
+        out, n = text, 0
+        for rnd in rounds:
+            out, k = re.subn(r"^Ammunition=usn_rgm-84d[^\n]*$",
+                             f"Ammunition={rnd}               // NSM - replaced Harpoon from 2024",
+                             out, count=1, flags=re.M)
+            n += k
+        if n != len(rounds):
+            sys.exit(f"{ship_id}: NSM swap replaced {n} line(s), expected {len(rounds)} - "
+                     "donor layout changed, re-check")
+        return out
+    return apply
+
+# Anzac: one of each, so the next mission is a controlled experiment.
+# Hobart: both Kongsberg, so a working ship exists either way.
+NSM_LOADS = {
+    "ran_ffh_anzac": (NSM_KNM, NSM_RSA),
+    "ran_ddg_hobart": (NSM_KNM, NSM_KNM),
+}
+
 ARMAMENT_REFRESH = {
     "ran_ddg_hobart": [
-        NSM_SWAP + (2,),
         (r"(\[WeaponMagazineVLS_6\][^\[]*?)Ammunition1=usn_rim-66m-5",
          r"\1Ammunition1=usn_rgm-109e5a", 1),
         # SM-6 in module 5 - the RAN's approved Aegis refresh, and the same
@@ -70,7 +114,7 @@ ARMAMENT_REFRESH = {
         (r"(\[WeaponMagazineVLS_5\][^\[]*?)Ammunition1=usn_rim-66m-5",
          r"\1Ammunition1=usn_rim-174a", 1),
     ],
-    "ran_ffh_anzac": [NSM_SWAP + (2,)],
+    "ran_ffh_anzac": [],
 }
 REFRESH_ROUNDS = {RSA: "usn_rgm_184a", EUROMOD: "usn_rgm-109e5a"}
 
@@ -153,8 +197,9 @@ def wire_nsm_datalink(ship_id, text):
                       "               // MCC=3 datalink provider\n",
                       body, count=1, flags=re.M)
 
+    ids = "|".join(re.escape(i) for i in NSM_IDS)
     text, n = re.subn(r"(?ms)^\[WeaponSystem\d+\][^\n]*\n(?:(?!^\[).)*?"
-                      r"^Ammunition=usn_rgm_184a[^\n]*\n(?:(?!^\[).)*",
+                      rf"^Ammunition=(?:{ids})[^\n]*\n(?:(?!^\[).)*",
                       add_assoc, text)
     if n != 2:
         sys.exit(f"{ship_id}: wired {n} NSM launcher(s), expected 2 - "
@@ -163,6 +208,8 @@ def wire_nsm_datalink(ship_id, text):
 
 
 def refresh_armament(ship_id, text):
+    if ship_id in NSM_LOADS:
+        text = nsm_swap(NSM_LOADS[ship_id])(text, ship_id)
     for pat, repl, want in ARMAMENT_REFRESH.get(ship_id, []):
         text, n = re.subn(pat, repl, text, flags=re.M)
         if n != want:
