@@ -276,6 +276,32 @@ def main():
           "emitting targets.")
     built.append("plaaf_akf-98a")
 
+    # usn_rgm_184a [NSM investigation, secondary finding]. The RAN's NSM carries
+    # MinAttackAltitude=55 - "minimum altitude of a TARGET, in feet. Outside
+    # Min/Max altitude missile deviation is greatly increaced". Its targets are
+    # ships, at ~0 ft, so every shot this round ever takes is outside its own
+    # band. This is NOT why the Anzacs held fire (that was the missing
+    # datalink provider, fixed in integration/ran-fleet/build_fleet.py) - the
+    # key degrades accuracy, it does not veto launch, confirmed against the 74
+    # vanilla files that carry it. But no ship-launched anti-ship round should
+    # have it at all: all 74 vanilla carriers are AAW missiles, and none of the
+    # three comparison NSMs (Euromod's knm_nsm_1a, the Type 23's rn_nsm,
+    # vanilla's usn_rgm-84d Harpoon) declares an attack-altitude floor.
+    # Deliberately NOT touched: TerminalApproachDist=25 against a 20 nm seeker.
+    # It looks wrong, but it is Red Storm Arsenal's house style across its whole
+    # arsenal (plan_yj18 19.5 vs 14, wp_ss_n_19a 30 vs 14) and vanilla ships the
+    # same shape on the Charlie-I's SS-N-7, so it is proven not to break launch
+    # or flight - and TargetMemory=True carries the round through the gap.
+    t = read("3413868677", "ammunition/usn_rgm_184a.ini")
+    t = edit(t, r"^MinAttackAltitude=55[^\n]*\n", "", 1, "usn_rgm_184a")
+    write("ammunition/usn_rgm_184a.ini", t,
+          "SEST Collection Fixes - base: 3413868677's NSM (RGM-184A), the round the\n"
+          "RAN Anzacs and Hobarts fire. One delta: MinAttackAltitude=55 removed. It\n"
+          "put every sea-level target outside the round's own engagement band, where\n"
+          "the engine 'greatly increases' missile deviation; no vanilla anti-ship\n"
+          "round declares the key and no other NSM in the collection does either.")
+    built.append("usn_rgm_184a")
+
     # -------------------------------------------------------------- vessels
     # usn_cvn_nimitz_variants [audit: usn_cvn_nimitz_variants cohort]. Flight
     # Deck Ops' 2-variant file was discarding Nimitz Expanded's other eight

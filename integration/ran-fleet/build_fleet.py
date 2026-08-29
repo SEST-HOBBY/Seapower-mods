@@ -41,6 +41,11 @@ HELOS = "usn_mh-60r,S-70B-2_Seahawk"
 #           rn_nsm is far weaker (110 nm, Power 30, no datalink). The MK141
 #           racks stay - SystemName refers to a systems/ launcher definition,
 #           and the NSM deck launchers replace Harpoon's 1:1 anyway.
+#           THE DATALINK HAS A PRICE, learned in game when HMAS Warramunga sat
+#           on her NSMs all mission: a MidCourseCorrection=3 round needs a
+#           guidance channel from an associated Type=Targeting /
+#           Mode=RadioCommand sensor, and the donor blocks were built for the
+#           vanilla Harpoon (MCC=0), which needs none. See NSM_DATALINK below.
 #
 #   TLAM  - Hobart's 48 Mk41 cells: module 1 = 32 ESSM (quad), modules 2-6 =
 #           40 SM-2. Module 6 converts to 8x usn_rgm-109e5a, the exact
@@ -69,6 +74,93 @@ ARMAMENT_REFRESH = {
 }
 REFRESH_ROUNDS = {RSA: "usn_rgm_184a", EUROMOD: "usn_rgm-109e5a"}
 
+# --- the NSM's midcourse datalink needs a provider ---------------------------
+# Swapping the Ammunition line was not the whole job. usn_rgm_184a is
+# MidCourseCorrection=3 (datalink midcourse); the launcher must draw a guidance
+# channel from an associated Type=Targeting / Mode=RadioCommand sensor or fire
+# control never forms a solution, and the mount simply never fires - no error,
+# no log line, the ship just holds its missiles. That is what HMAS Warramunga
+# did in game.
+#
+# The rule was measured, not guessed: across vanilla and all 132 mods, 373 of
+# 373 launcher blocks firing an MCC=3 round associate a sensor. The only four
+# that did not were these two hulls' MK141 pairs. Red Storm Arsenal, the round's
+# own author, wires every hull that fires it (Constellation, Richard Morris,
+# both Hobart alts) to a Type=Targeting / Mode=RadioCommand sensor and nothing
+# else. The donor blocks looked fine because the Type 23 fires vanilla's
+# usn_rgm-84d, which is MidCourseCorrection=0 and needs no channel at all.
+#
+# Hobart already carries eu_GPS_Receiver (SensorSystem12, Type=Targeting,
+# Mode=RadioCommand, 5000 weapon channels) - she only needed the association.
+# The Anzac donor carries no RadioCommand sensor at all (Type996 and the nav
+# radars are Search with WeaponChannels=0; the Type911s are 40 km Sea Wolf
+# illuminators), so she gets the same Euromod receiver appended as a new
+# system. Appending keeps every existing SensorSystem index valid, so no
+# AssociatedSensors= line anywhere else has to be renumbered.
+GPS_SENSOR = """\
+[SensorSystem{index}]  # GPS Receiver - NSM midcourse datalink
+Type=Radar
+SystemName=eu_GPS_Receiver
+Mount=Dummy
+MountPosition={position}
+
+"""
+# ship id -> (sensor index to associate, position for a sensor to be added, add?)
+NSM_DATALINK = {
+    # already mounted as SensorSystem12; associate only
+    "ran_ddg_hobart": {"sensor": 12, "add": False, "position": None},
+    # 12 systems, none of them RadioCommand: append one at the masthead
+    # position the donor already uses for its Type 675 jammer
+    "ran_ffh_anzac": {"sensor": 13, "add": True, "position": "0,0.3221,0.1801"},
+}
+
+
+def wire_nsm_datalink(ship_id, text):
+    """Give the NSM launchers the guidance channel MCC=3 requires."""
+    spec = NSM_DATALINK.get(ship_id)
+    if not spec:
+        return text
+    sensor = spec["sensor"]
+
+    if spec["add"]:
+        count = re.search(r"^NumberOfSensorSystems=(\d+)$", text, re.M)
+        if not count:
+            sys.exit(f"{ship_id}: NumberOfSensorSystems not found")
+        have = int(count.group(1))
+        if have != sensor - 1:
+            sys.exit(f"{ship_id}: donor now has {have} sensor systems, expected "
+                     f"{sensor - 1} - the NSM datalink sensor index is stale")
+        if "eu_GPS_Receiver" in text:
+            sys.exit(f"{ship_id}: donor now carries eu_GPS_Receiver itself - "
+                     "associate that one instead of appending another")
+        text = text[:count.start()] + f"NumberOfSensorSystems={sensor}" + text[count.end():]
+        # insert after the last sensor block, i.e. before the section that
+        # follows it - the weapon-systems banner
+        anchor = re.search(rf"^\[SensorSystem{sensor - 1}\].*?\n(?=^\[(?!SensorSystem))",
+                           text, re.S | re.M)
+        if not anchor:
+            sys.exit(f"{ship_id}: could not locate the end of the sensor list")
+        block = GPS_SENSOR.format(index=sensor, position=spec["position"])
+        text = text[:anchor.end()] + block + text[anchor.end():]
+
+    # associate the sensor with every MK141 block that now fires the NSM
+    def add_assoc(m):
+        body = m.group(0)
+        if "AssociatedSensors" in body:
+            sys.exit(f"{ship_id}: an NSM block already associates a sensor - re-check")
+        return re.sub(r"^(SystemName=MK141[^\n]*\n)",
+                      rf"\1AssociatedSensors=SensorSystem{sensor}"
+                      "               // MCC=3 datalink provider\n",
+                      body, count=1, flags=re.M)
+
+    text, n = re.subn(r"(?ms)^\[WeaponSystem\d+\][^\n]*\n(?:(?!^\[).)*?"
+                      r"^Ammunition=usn_rgm_184a[^\n]*\n(?:(?!^\[).)*",
+                      add_assoc, text)
+    if n != 2:
+        sys.exit(f"{ship_id}: wired {n} NSM launcher(s), expected 2 - "
+                 "block layout changed, re-check")
+    return text
+
 
 def refresh_armament(ship_id, text):
     for pat, repl, want in ARMAMENT_REFRESH.get(ship_id, []):
@@ -76,7 +168,7 @@ def refresh_armament(ship_id, text):
         if n != want:
             sys.exit(f"{ship_id}: armament refresh made {n} substitution(s), "
                      f"expected {want} - donor layout changed, re-check")
-    return text
+    return wire_nsm_datalink(ship_id, text)
 
 FLEET = {
     "ran_ddg_hobart": {

@@ -114,6 +114,25 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   thing. Read the stack: `IniToPlanConverter` inside a measure pass is the UI
   building a plan, not the loader registering units.
 
+- **A missile's guidance profile is a contract with the launcher.** Swapping a
+  round into a proven launcher block is not always free: a
+  `MidCourseCorrection` of 1 or higher needs a guidance channel from an
+  associated `Type=Targeting` / `Mode=RadioCommand` sensor, and without one the
+  mount never fires — no error, no log line, the ship just holds its missiles.
+  HMAS Warramunga sat on her NSMs for exactly this reason: the RAN Anzac and
+  Hobart inherited Type 23 / F-100 blocks built for vanilla's Harpoon
+  (`MidCourseCorrection=0`, no channel needed) and only the `Ammunition=` line
+  was swapped to Red Storm Arsenal's datalink NSM. The rule was measured before
+  it was believed — across vanilla and all 132 mods, 373 of 373 launcher blocks
+  firing an MCC=3 round associate a sensor, and the only four that did not were
+  ours. The round's own author wires every hull that fires it the same way.
+  Three louder-looking suspects were adversarially refuted first and left
+  alone: `MinAttackAltitude` degrades accuracy rather than vetoing launch, a
+  terminal-approach distance beyond seeker range is that author's house style
+  and flies fine, and the launcher geometry is byte-identical to a working
+  donor. Check what a round demands of its mount, not just whether the ids
+  resolve — `preflight` sees a resolvable reference either way.
+
 - **Gates before every push:** `check_load_order`, `check_dependencies`,
   `preflight` (every reference the missions make), `check_station_clash`,
   full pack rebuilds. All exit non-zero; all have been negative-tested.
