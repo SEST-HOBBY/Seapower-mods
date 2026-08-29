@@ -57,10 +57,23 @@ Head "Install"
 Info "StreamingAssets: $StreamingAssetsDir"
 
 if (-not $WorkshopContentDir) {
+    # Get-SteamLibraries already returns <root>\steamapps, so the workshop path is
+    # relative to that - joining another "steamapps" was why this used to miss.
+    # The app id is not hardcoded: pick the content folder that actually holds the
+    # workshop ids this repo tracks.
+    $wanted = @(Get-Content -LiteralPath (Join-Path $scriptDir "..\data\load-order.tokens.txt") |
+                Where-Object { $_ -match '^\s*\d+\s*$' } | ForEach-Object { $_.Trim() })
+    $best = 0
     foreach ($lib in Get-SteamLibraries) {
-        $c = Join-Path $lib "steamapps\workshop\content\1286220"
-        if (Test-Path -LiteralPath $c) { $WorkshopContentDir = $c; break }
+        $content = Join-Path $lib "workshop\content"
+        if (-not (Test-Path -LiteralPath $content)) { continue }
+        foreach ($app in Get-ChildItem -LiteralPath $content -Directory -ErrorAction SilentlyContinue) {
+            $have = @(Get-ChildItem -LiteralPath $app.FullName -Directory -ErrorAction SilentlyContinue |
+                      Where-Object { $wanted -contains $_.Name }).Count
+            if ($have -gt $best) { $best = $have; $WorkshopContentDir = $app.FullName }
+        }
     }
+    if ($WorkshopContentDir) { Write-Verbose "matched $best known mods under $WorkshopContentDir" }
 }
 if ($WorkshopContentDir) { Info "Workshop content: $WorkshopContentDir" }
 else { Bad "Workshop content folder not found - subscribed mods cannot be inspected" }
@@ -138,6 +151,16 @@ if (-not $providers) {
 } else {
     Good "$($providers.Count) provider(s):"
     $providers | ForEach-Object { Info ("{0}  {1}" -f $_.Source, $_.Name) }
+    # SEST sits at position 1, so its copy is the one the game reads when present.
+    $winner = ($providers | Where-Object { $_.Source -eq 'SEST_Integration' } | Select-Object -First 1)
+    if (-not $winner) { $winner = $providers[0] }
+    Info ("winning copy: {0}" -f $winner.Path)
+    $at = Get-Content -LiteralPath $winner.Path -Raw
+    foreach ($k in 'GuidanceType', 'MidCourseCorrection', 'MinLaunchRange', 'MaxLaunchRange',
+                   'MinAttackAltitude', 'LaunchReliability', 'SupplyCategory') {
+        $m = [regex]::Match($at, "(?m)^$k=([^/\r\n]+)")
+        if ($m.Success) { Info ("  {0,-20} {1}" -f $k, $m.Groups[1].Value.Trim()) }
+    }
 }
 
 # --- 4. the mod order actually in force --------------------------------------
