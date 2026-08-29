@@ -243,42 +243,47 @@ there, it is simply a different file now.
 
 All three exit non-zero on failure, and each names the mod responsible.
 
-## Adding a mod, and catching mods that updated under you
+## Adding a mod
 
-Steam gives us no version number the repo can see, so both questions are
-answered by content hashing. `data/mod-fingerprints.json` holds one hash per
-exported mod; this recomputes them against the live install and reports the
-difference. It only reads:
+The collection is deliberately run as a SNAPSHOT: whatever the mods were at the
+last export is what we build against, and chasing Workshop updates is not part
+of the routine. The normal loop stays three lines (pull, install, and the order
+step only when the order changed).
+
+Adding a mod is usually just: subscribe in Steam, launch once so the game sees
+it, quit, then
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing
+```
+
+which drops it into its canonical position. That is enough for a code mod that
+ships no game data of its own.
+
+Exporting it as well — `export-mod-configs.ps1`, then commit — is only worth
+doing when the mod ships files that might FIGHT other mods, because that is
+what makes the overlap measurable:
+
+```powershell
+python tools\check_mod_conflicts.py <id>   # what it would take over, from whom
+```
+
+A mod that ships only new unit files can sit anywhere below the SEST block; a
+mod that ships a file some other mod also ships is a whole-file override fight
+and its position decides who wins. That case wants a measurement, not a guess.
+
+### If Steam updates something under you anyway
+
+Steam updates subscriptions whether or not we ask it to, and a stale export is
+how a SEST patch quietly stops matching the donor it was built from. One
+read-only command names what moved, if you ever want to know:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates
 ```
 
-It prints three lists: mods whose author has **updated** them since our export,
-**new** subscriptions not exported yet (with their workshop id), and anything
-exported that you have since unsubscribed. Run it whenever you have let Steam
-update things, and before asking for work on a mod's files — a stale export is
-how a patch quietly stops matching its donor.
-
-To take a new mod all the way in:
-
-```powershell
-# 1. subscribe in Steam, launch the game once so Steam downloads it, quit
-# 2. see it appear, with its id:
-powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates
-# 3. export its files and refresh the fingerprints
-powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1
-python tools\fingerprint_mods.py
-# 4. see exactly what it would take over from whom, BEFORE trusting its position
-python tools\check_mod_conflicts.py <id>
-# 5. commit and push, then the order can be decided from measured overlap
-git add -A; git commit -m "Export <mod name>"; git push
-```
-
-Step 4 is the one that matters. A mod that ships only new unit files is free to
-sit anywhere below the SEST block; a mod that ships a file some other mod also
-ships is a whole-file override fight, and its position decides who wins. The
-placement is a measurement, not a guess.
+Not part of the routine — worth running only if something starts behaving
+oddly after a Steam sync, or before asking for work on a specific mod's files.
 
 ## Phase 5 — ten-minute smoke test
 
