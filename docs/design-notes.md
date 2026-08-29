@@ -80,6 +80,20 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   already proved (same stations, hide lists, keys) and swap rounds. Choices
   between candidate rounds are settled by comparison tables (AIM-424 vs 174B,
   the three NSMs, RSA's AIM-120D), not preference.
+
+- **When two rounds are close, precedent and coherence beat the spec sheet.**
+  The RAN NSM was first picked on a headline: RSA's `usn_rgm_184a` had
+  datalink midcourse where Euromod's `knm_nsm_1a` had radio command, and the
+  two are otherwise the same missile (1450 kg, 620 kt, 165.6 nm, 20 nm
+  seeker). That one stat cost days. The datalink needed a guidance channel the
+  donor mounts never had; the file's terminal approach sat 25 nm outside its
+  own 20 nm seeker; its author's header said *"REQUIRES STATS REVISION"* and
+  that it has no RC flight stage; and nothing else in the collection fired it.
+  The Euromod round is internally coherent and is fired by ten hulls, four of
+  them fielded in NFIII. So when two candidates are within noise of each
+  other, rank them by: does anything we field already fire it, is its own stat
+  block self-consistent, and does the real operator actually buy it — before
+  comparing the numbers that look impressive.
 - **New WEAPONS rebase on the closest proven weapon, minimum deltas.** The
   AGR-30 built from the Apache M282 froze the game through three guidance
   recipes; a key-by-key diff against working pod rockets showed dozens of

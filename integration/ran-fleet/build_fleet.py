@@ -33,19 +33,11 @@ HELOS = "usn_mh-60r,S-70B-2_Seahawk"
 # The clones inherited their donors' placeholder fits. Two real RAN programs
 # supersede them, both with every round already in the collection:
 #
-#   NSM   - replaced Harpoon on Anzac and Hobart from 2024. The round is RSA's
-#           usn_rgm_184a (the US ship-launched NSM designation, which the RAN
-#           buy shares). Chosen over Euromod's knm_nsm_1a and the Type 23's
-#           rn_nsm by comparison: same airframe numbers as the knm round but
-#           MidCourseCorrection=3 (Datalink) vs 1 and a 10 ft skim vs 12;
-#           rn_nsm is far weaker (110 nm, Power 30, no datalink). The MK141
-#           racks stay - SystemName refers to a systems/ launcher definition,
-#           and the NSM deck launchers replace Harpoon's 1:1 anyway.
-#           THE DATALINK HAS A PRICE, learned in game when HMAS Warramunga sat
-#           on her NSMs all mission: a MidCourseCorrection=3 round needs a
-#           guidance channel from an associated Type=Targeting /
-#           Mode=RadioCommand sensor, and the donor blocks were built for the
-#           vanilla Harpoon (MCC=0), which needs none. See NSM_DATALINK below.
+#   NSM   - replaced Harpoon on Anzac and Hobart from 2024. The round is
+#           Euromod's knm_nsm_1a; see the block above NSM_KNM for why it beat
+#           RSA's usn_rgm_184a and the Type 23's rn_nsm. The MK141 racks stay -
+#           SystemName refers to a systems/ launcher definition, and the NSM
+#           deck launchers replace Harpoon's 1:1 anyway.
 #
 #   TLAM  - Hobart's 48 Mk41 cells: module 1 = 32 ESSM (quad), modules 2-6 =
 #           40 SM-2. Module 6 converts to 8x usn_rgm-109e5a, the exact
@@ -55,27 +47,34 @@ HELOS = "usn_mh-60r,S-70B-2_Seahawk"
 #
 # Each entry: (regex, replacement, exact expected substitutions) - a count
 # mismatch fails the build rather than shipping a half-applied refresh.
-# The NSM round, and a live experiment about which NSM actually launches.
+# The NSM round: Euromod's knm_nsm_1a, on both mounts, on both classes.
 #
-# Warramunga would not fire usn_rgm_184a (Red Storm Arsenal's RGM-184A). Two
-# fixes have been aimed at it, and the first real test of either is still
-# pending, so rather than guess a third time the Anzac now carries ONE OF EACH:
-# port fires Euromod's knm_nsm_1a, starboard fires RSA's usn_rgm_184a. One
-# mission then answers it outright - port fires and starboard does not means
-# the round was the problem; neither fires means the mount or the hull is.
+# This started as a hunt for why Warramunga would not fire usn_rgm_184a (Red
+# Storm Arsenal's RGM-184A), and briefly ran as an experiment with one round on
+# each mount. The encyclopedia settled the part the files could not: the round
+# DOES fire there, which exercises the definition, the mount, the launch mesh
+# and the launch path. So the round was never structurally broken, the split
+# test had nothing left to separate, and the choice reverts to what it always
+# should have been - which missile is the better one to ship.
 #
-# knm_nsm_1a is the better default anyway, and is what the Hobarts get on both
-# mounts so at least one RAN ship has NSMs that should simply work. It is the
-# same missile by the numbers - Mass 1450, Power 34, 620 kt, 165.6 nm,
-# 20 nm seeker - but its guidance chain is coherent where RSA's is not:
-# MidCourseCorrection=1 (radio command) rather than 3 (datalink), and a 12 nm
-# terminal approach that sits INSIDE the 20 nm seeker instead of 25 nm outside
-# it. It is also the actual Kongsberg NSM the RAN buys, rather than the US
-# ship-launched designation. Ten hulls fire it, four of them fielded in NFIII
-# (Zeven Provincien, Iver Huitfeldt, F127 batch 2, Type 45), so unlike RSA's
-# round it has in-collection precedent that it works.
+# That is knm_nsm_1a, for three reasons that outrank the headline stats the
+# original choice was made on:
 #
-# To normalise once the test has spoken: give both entries the same round.
+#   REALISM   - it is the Kongsberg NSM, which is the missile the RAN actually
+#               bought. usn_rgm_184a is the US ship-launched designation.
+#   COHERENCE - MidCourseCorrection=1 (radio command) rather than 3 (datalink,
+#               which needs a guidance channel the donor mounts never had), and
+#               a 12 nm terminal approach INSIDE its own 20 nm seeker rather
+#               than 25 nm outside it. RSA's own header admits the round
+#               "REQUIRES STATS REVISION" and has no RC flight stage.
+#   PRECEDENT - ten hulls fire it and four are fielded in NFIII (Zeven
+#               Provincien, Iver Huitfeldt, F127 batch 2, Type 45). RSA's round
+#               is fired by nothing else we field.
+#
+# Performance is not the trade it looks like: the two are the same missile by
+# the numbers - Mass 1450, Power 34, 620 kt, 165.6 nm, 20 nm seeker.
+#
+# To go back to the RSA round: set both entries below to NSM_RSA.
 NSM_KNM = "knm_nsm_1a"           # Euromod, mission-proven on four fielded hulls
 NSM_RSA = "usn_rgm_184a"         # Red Storm Arsenal, the one that would not fire
 NSM_IDS = (NSM_KNM, NSM_RSA)
@@ -95,10 +94,8 @@ def nsm_swap(rounds):
         return out
     return apply
 
-# Anzac: one of each, so the next mission is a controlled experiment.
-# Hobart: both Kongsberg, so a working ship exists either way.
 NSM_LOADS = {
-    "ran_ffh_anzac": (NSM_KNM, NSM_RSA),
+    "ran_ffh_anzac": (NSM_KNM, NSM_KNM),
     "ran_ddg_hobart": (NSM_KNM, NSM_KNM),
 }
 
