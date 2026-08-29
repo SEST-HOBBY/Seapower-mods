@@ -136,7 +136,7 @@ PowerShell 5.1 has no `&&`. Chain with `;` or use separate lines.
 
 ## Pre-flight
 
-Four checks, all offline, all exit non-zero on failure. Run them after any
+Five checks, all offline, all exit non-zero on failure. Run them after any
 subscribe, unsubscribe or reorder:
 
 ```powershell
@@ -144,4 +144,10 @@ python tools\check_load_order.py       # no mod outranks a SEST pack
 python tools\check_dependencies.py     # every pack's upstream is present
 python tools\preflight.py              # every reference the mission makes resolves
 python tools\check_station_clash.py 0.001   # nothing mounted on top of anything
+python tools\check_weapon_employment.py     # every weapon can actually be fired
 ```
+
+The last one asks a different question from `preflight`. Preflight checks that
+a reference resolves; this checks that the mount can satisfy what the round
+needs — the gap the RAN NSMs fell through, where every id resolved and the
+launcher still never fired.

@@ -115,10 +115,17 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   building a plan, not the loader registering units.
 
 - **A missile's guidance profile is a contract with the launcher.** Swapping a
-  round into a proven launcher block is not always free: a
-  `MidCourseCorrection` of 1 or higher needs a guidance channel from an
-  associated `Type=Targeting` / `Mode=RadioCommand` sensor, and without one the
-  mount never fires — no error, no log line, the ship just holds its missiles.
+  round into a proven launcher block is not always free: a `MidCourseCorrection`
+  of 1 (radio command) or 3 (datalink) needs a guidance channel from an
+  associated sensor with `WeaponChannels` above zero, and without one the mount
+  never fires — no error, no log line, the ship just holds its missiles.
+  `MidCourseCorrection=2` is the exception and is exempt: the wire *is* the
+  guidance, and only 12 of 88 wire-guided mounts in the collection associate a
+  sensor at all — vanilla's own submarines fire them from sensor-less tubes.
+  (An earlier revision of this note said "1 or higher", which the corpus
+  disproved.) The provider does not have to be `Type=Targeting`: the PLAN's
+  `LJG-346A` is a `DirectedSearch` radar with 64 weapon channels and serves
+  perfectly well.
   HMAS Warramunga sat on her NSMs for exactly this reason: the RAN Anzac and
   Hobart inherited Type 23 / F-100 blocks built for vanilla's Harpoon
   (`MidCourseCorrection=0`, no channel needed) and only the `Ammunition=` line
@@ -135,4 +142,7 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
 
 - **Gates before every push:** `check_load_order`, `check_dependencies`,
   `preflight` (every reference the missions make), `check_station_clash`,
-  full pack rebuilds. All exit non-zero; all have been negative-tested.
+  `check_weapon_employment` (every weapon can actually be fired by the mount
+  carrying it), full pack rebuilds. All exit non-zero; all have been
+  negative-tested — the employment gate against both bugs it was built from,
+  the stripped NSM datalink association and the GBU-53's 200 ft release band.
