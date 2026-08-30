@@ -144,11 +144,22 @@ if (-not $SkipPull) {
         Write-Host "  pending merge concluded" -ForegroundColor Green
     }
 
-    $dirty = (& git status --porcelain) | Where-Object { $_ }
+    # Only TRACKED changes are dangerous here: a merge on top of edits to files
+    # git is following can lose them. Untracked files ('??') cannot be lost -
+    # if an incoming file would land on one, git refuses the merge outright
+    # rather than overwriting. Blocking on those just stopped the loop dead over
+    # a local scratch folder, so they are reported and stepped over.
+    $status = (& git status --porcelain) | Where-Object { $_ }
+    $dirty = $status | Where-Object { $_ -notmatch '^\?\?' }
+    $untracked = $status | Where-Object { $_ -match '^\?\?' }
     if ($dirty) {
-        Write-Warning "you have uncommitted changes:"
+        Write-Warning "you have uncommitted changes to tracked files:"
         $dirty | ForEach-Object { Write-Host "    $_" }
         throw "commit or stash them first - a merge on top of uncommitted work is how edits get lost."
+    }
+    if ($untracked) {
+        Write-Host "  untracked (left alone, cannot be lost by a merge):" -ForegroundColor DarkGray
+        $untracked | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
     }
 
     & git pull --no-rebase --no-edit
