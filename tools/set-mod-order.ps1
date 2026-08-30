@@ -20,8 +20,15 @@
     skipped, and you have to launch the game, tick it in the Mod Manager, quit,
     and run this again. With -AddMissing, any canonical SEST_* pack that exists
     in StreamingAssets is inserted at its canonical position, enabled, and the
-    game picks it up already in the right place. Workshop ids are never
-    invented this way: Steam owns those, and a made-up id would be a dead entry.
+    game picks it up already in the right place.
+
+    A workshop id is still never INVENTED - Steam owns those, and a made-up id
+    would be a dead entry. But if Steam has actually downloaded the mod, the id
+    is a fact rather than a guess, so -AddMissing now places any canonical
+    workshop id it can see in the workshop content folder. That removes the
+    launch-the-game-first step for a freshly subscribed mod. It also recovers a
+    canonical mod the game has discovered but parked beyond NumberOfModFiles,
+    where it was previously invisible.
 
 .EXAMPLE
     # game CLOSED, from the repo root:
@@ -63,12 +70,27 @@ $numMatch = [regex]::Match($section, "NumberOfModFiles=(\d+)")
 if (-not $numMatch.Success) { throw "NumberOfModFiles not found in [LoadOrder]" }
 $activeCount = [int]$numMatch.Groups[1].Value
 
-# current entries in listed order; only the first $activeCount are live
+# current entries in listed order; only the first $activeCount are live.
+# BEYOND that count the game leaves two different things: a stale duplicate
+# tail (junk, cleaned away below) and, sometimes, a mod it has just discovered
+# but parked as inactive. The second kind is real - a newly subscribed mod can
+# land there - so a token the canonical order names is picked up wherever it
+# sits, while unknown tokens outside the live range stay ignored as before.
 $current = [ordered]@{}
+$parked = [ordered]@{}
 foreach ($em in [regex]::Matches($section, "Mod(\d+)Directory=([^,\r\n]+),(True|False)")) {
     $idx = [int]$em.Groups[1].Value
-    if ($idx -le $activeCount -and -not $current.Contains($em.Groups[2].Value)) {
-        $current[$em.Groups[2].Value] = $em.Groups[3].Value
+    $dir = $em.Groups[2].Value
+    if ($idx -le $activeCount) {
+        if (-not $current.Contains($dir)) { $current[$dir] = $em.Groups[3].Value }
+    } elseif (($canonical -contains $dir) -and -not $parked.Contains($dir)) {
+        $parked[$dir] = $em.Groups[3].Value
+    }
+}
+foreach ($k in $parked.Keys) {
+    if (-not $current.Contains($k)) {
+        Write-Host ("found parked beyond NumberOfModFiles, bringing it in: {0}" -f $k) -ForegroundColor Green
+        $current[$k] = "True"
     }
 }
 Write-Host ("current active entries : {0} (NumberOfModFiles={1})" -f $current.Count, $activeCount)
@@ -87,6 +109,30 @@ if ($AddMissing) {
         $installed[$d.Name] = $true
     }
     Write-Host ("StreamingAssets        : {0}" -f $StreamingAssetsDir)
+}
+
+# Which workshop mods has Steam actually downloaded? Used to place a freshly
+# subscribed mod without waiting for the game to scan it. The app id is not
+# hardcoded: pick the content folder holding the ids this repo tracks.
+$workshopIds = @{}
+if ($AddMissing) {
+    $numericTokens = @($canonical | Where-Object { $_ -match '^\d+$' })
+    $bestCount = 0; $bestDir = $null
+    foreach ($lib in Get-SteamLibraries) {
+        $content = Join-Path $lib "workshop\content"
+        if (-not (Test-Path -LiteralPath $content)) { continue }
+        foreach ($app in Get-ChildItem -LiteralPath $content -Directory -ErrorAction SilentlyContinue) {
+            $hits = @(Get-ChildItem -LiteralPath $app.FullName -Directory -ErrorAction SilentlyContinue |
+                      Where-Object { $numericTokens -contains $_.Name }).Count
+            if ($hits -gt $bestCount) { $bestCount = $hits; $bestDir = $app.FullName }
+        }
+    }
+    if ($bestDir) {
+        foreach ($d in Get-ChildItem -LiteralPath $bestDir -Directory -ErrorAction SilentlyContinue) {
+            $workshopIds[$d.Name] = $true
+        }
+        Write-Host ("Workshop content       : {0} ({1} mods downloaded)" -f $bestDir, $workshopIds.Count)
+    }
 }
 
 # --- build the final order ---------------------------------------------------
@@ -108,8 +154,25 @@ foreach ($tok in $canonical) {
         $added += $tok
         continue
     }
+    # A workshop id is Steam's to own, so it is never INVENTED - but if the mod
+    # is sitting downloaded in the workshop content folder, the id is a fact
+    # rather than a guess, and waiting for the game to notice it is a manual
+    # step for nothing. Only ids we can see on disk are added.
+    if ($AddMissing -and $tok -match '^\d+$' -and $workshopIds.ContainsKey($tok)) {
+        $final.Add($tok)
+        $flags[$tok] = "True"
+        $added += $tok
+        continue
+    }
     if ($tok -like "SEST_*" -and $AddMissing) {
         Write-Warning "canonical pack not installed in StreamingAssets (run install-sest-packs.ps1): $tok"
+    } elseif ($tok -match '^\d+$' -and $AddMissing) {
+        # Interpolation, not -f: PowerShell binds + tighter than the format
+        # operator, so "{0}..." -f $tok + "more" appends into the placeholder.
+        Write-Warning ("workshop mod $tok is in the canonical order, but Steam has not " +
+                       "downloaded it and the game has never listed it - so there is " +
+                       "nothing to place. Subscribe in Steam, let it finish downloading, " +
+                       "then re-run.")
     } else {
         Write-Warning "in canonical order but not in your settings (skipped): $tok"
     }
