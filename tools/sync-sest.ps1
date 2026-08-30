@@ -5,6 +5,10 @@
 .DESCRIPTION
     The whole update loop, in the order that actually works:
 
+      0. branch   - refuse to run from a branch that is not the deploy branch
+                    named in data\deploy-branch.txt. A pull on the wrong branch
+                    prints "Already up to date", changes nothing, and installs
+                    the wrong build - silently. Override with -AnyBranch.
       1. pull     - conclude any merge left half-done, then git pull,
                     resolving the one conflict this workflow keeps producing
                     (see below). Skip with -SkipPull.
@@ -13,6 +17,9 @@
       3. order    - rewrite usersettings.ini [LoadOrder] from the canonical
                     list, INSERTING any newly installed pack as enabled
                     (tools\set-mod-order.ps1 -AddMissing)
+      4. verify   - hash every deployed file against the built pack and say
+                    IN LINE, or name what differs. The loop reports a fact
+                    rather than assuming the copy worked.
 
     That third step is the point. Until now a new pack meant: install, launch
     the game, find it in the Mod Manager, tick it, quit so the game writes
@@ -44,6 +51,7 @@ param(
     [switch]$SkipInstall,
     [switch]$SkipOrder,
     [switch]$RefreshMissions,
+    [switch]$AnyBranch,
     [switch]$Force
 )
 
@@ -89,6 +97,33 @@ Push-Location $repoRoot
 # MERGE_MSG is exactly what strands a merge half-done.
 $env:GIT_EDITOR = "true"
 try {
+
+# --- 0. the right branch -----------------------------------------------------
+# The failure this guards against is silent and cost a whole evening: standing
+# on another branch, "git pull" fetches, updates the remote-tracking ref, prints
+# "Already up to date" for the branch you are actually on, and changes nothing.
+# Everything looks like it worked. The install then deploys whatever that other
+# branch built, and a fix that is provably correct in git is simply absent from
+# the game. Nothing downstream can detect it, so it is checked here first.
+$branchFile = Join-Path $repoRoot "data\deploy-branch.txt"
+$want = if (Test-Path -LiteralPath $branchFile) {
+    (Get-Content -LiteralPath $branchFile | Where-Object { $_ -and $_ -notmatch '^#' } |
+     Select-Object -First 1).Trim()
+} else { "" }
+$have = (& git rev-parse --abbrev-ref HEAD).Trim()
+if ($want -and $have -ne $want) {
+    Write-Host ""
+    Write-Host "  You are on branch : $have" -ForegroundColor Red
+    Write-Host "  Deploys come from : $want" -ForegroundColor Red
+    Write-Host ""
+    Write-Host "  A pull here would say 'Already up to date' and install the WRONG build." -ForegroundColor Yellow
+    Write-Host "  Switch with:  git checkout $want" -ForegroundColor Yellow
+    Write-Host "  Or, if you meant to deploy $have, re-run with -AnyBranch." -ForegroundColor Yellow
+    if (-not $AnyBranch) { throw "refusing to sync from '$have' (expected '$want')." }
+    Write-Warning "-AnyBranch given: syncing from '$have' anyway."
+} elseif ($want) {
+    Write-Host "branch: $have" -ForegroundColor DarkGray
+}
 
 # --- 1. pull -----------------------------------------------------------------
 if (-not $SkipPull) {
@@ -167,6 +202,34 @@ if ($RefreshMissions) {
         & $py.Exe @argList
         Write-Host "`nFor the full civilian-traffic and water passes on one mission, use:"
         Write-Host "  .\tools\refresh-mission.ps1 -Mission `"NORTHERN FRONT III FINAL`" -SkipImport"
+    }
+}
+
+# --- verify: is the game actually in line with the repo? ---------------------
+# The whole point of the loop, stated as a fact rather than a hope. Compares the
+# deployed pack against the built one file by file.
+if (-not $SkipInstall) {
+    $sa = $StreamingAssetsDir
+    if (-not $sa) { $sa = Find-StreamingAssets }
+    $src = Join-Path $repoRoot "integration\dist\SEST_Integration"
+    $dst = Join-Path $sa "SEST_Integration"
+    if ((Test-Path -LiteralPath $src) -and (Test-Path -LiteralPath $dst)) {
+        $diff = @()
+        foreach ($f in Get-ChildItem -LiteralPath $src -Recurse -File) {
+            $rel = $f.FullName.Substring($src.Length).TrimStart('\')
+            $t = Join-Path $dst $rel
+            if (-not (Test-Path -LiteralPath $t)) { $diff += "missing: $rel"; continue }
+            if ((Get-FileHash -LiteralPath $f.FullName -Algorithm SHA256).Hash -ne
+                (Get-FileHash -LiteralPath $t -Algorithm SHA256).Hash) { $diff += "differs: $rel" }
+        }
+        $n = (Get-ChildItem -LiteralPath $src -Recurse -File).Count
+        if ($diff) {
+            Write-Host "`nINSTALL IS NOT IN LINE - $($diff.Count) of $n file(s):" -ForegroundColor Red
+            $diff | Select-Object -First 10 | ForEach-Object { Write-Host "    $_" }
+            if ($diff.Count -gt 10) { Write-Host "    ... and $($diff.Count - 10) more" }
+        } else {
+            Write-Host "`nIN LINE: all $n installed files match this commit ($((& git rev-parse --short HEAD).Trim()))." -ForegroundColor Green
+        }
     }
 }
 

@@ -243,6 +243,28 @@ there, it is simply a different file now.
 
 All three exit non-zero on failure, and each names the mod responsible.
 
+## The whole update loop, in one command
+
+```powershell
+cd C:\Users\rolyl\Seapower-mods
+powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
+```
+
+Game closed. It checks you are on the deploy branch, pulls, installs the pack,
+rewrites the mod order, and then hashes every deployed file against the built
+one and tells you **IN LINE** or names what differs. That last step is the
+answer to "is my install current" — stated as a fact, not assumed.
+
+The branch check exists because its absence cost an evening: standing on
+another branch, `git pull` prints "Already up to date", changes nothing, and
+the install then deploys that other branch's build. A fix provably correct in
+git was simply absent from the game, and nothing downstream could see it. The
+deploy branch is named in `data/deploy-branch.txt`.
+
+Two things it deliberately does not do: it will not subscribe you to a workshop
+mod (Steam owns that), and a mod the game has never seen cannot be placed in the
+order — subscribe, launch once, quit, then re-run.
+
 ## Adding a mod
 
 The collection is deliberately run as a SNAPSHOT: whatever the mods were at the
