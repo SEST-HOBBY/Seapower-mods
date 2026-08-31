@@ -38,8 +38,6 @@ TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
     ("ai-doctrine-overhaul", "code mod — changes AI globally"),
     ("better-tacmap", "code mod — UI"),
-    ("identify-expanded", "code mod — 13 identification/challenge orders via Anchor "
-     "Chain's preloader, so Anchor Chain must stay above it"),
 ]
 TIER2 = [
     ("sam-pack", 'author: "top of TOE"'),

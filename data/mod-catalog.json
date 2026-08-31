@@ -1759,8 +1759,8 @@
       "author": "Yoshi",
       "faction": "none",
       "type": "framework",
-      "status": "active",
-      "load_order": "Tier 1b code mod, placed last among them: Custom Loadout Editor, AI Doctrine Overhaul, Better TacMap, then this. It runs through Anchor Chain's preloader, so the only hard rule is that Anchor Chain (rank 2) stays above it - it does. Position among the code mods is otherwise free: it reads its own ini from its own folder rather than overriding game data, so it contests no unit files. Confirm with tools/check_mod_conflicts.py 3790594162 after the first export.",
+      "status": "unsubscribed",
+      "load_order": "Removed at the user's request after trying it. If it comes back: tier 1b code mod, immediately below Better TacMap and above SAM Pack - it runs through Anchor Chain's preloader, so the only hard rule is that Anchor Chain stays above it, and it reads its own ini from its own folder rather than overriding game data, so it contests no unit files.",
       "notes": "Adds 13 identification and challenge orders (hail, warning, travel/cargo manifest, redirect, stop, slow, final warning, stand down, clear contact, and three hostile challenges: bail out, abandon ship, surrender) in three tones - polite, neutral, aggressive - with AI compliance rolls (base 50% redirect chance, morale and tone modifiers, partial-then-forced compliance) and TTS. The author warns to EXPECT BUGS. Its ini is hot-editable and worth tuning: [Vars] TtsEnabled=true switches the voice lines off, OrgName defaults to 'Katsuragi Security Service' and is only a fallback for senders with no nation, and [Intents]/[Responses] take pipe-separated alternatives - useful for the merchant traffic in NFIII. CAUTION: that ini lives in the Workshop folder, so a Steam update overwrites your edits, and because export-mod-configs.ps1 -CheckUpdates hashes content it reports your own edits as a change too - which is the point, it means edits are visible rather than lost silently.",
       "requires": [
         "anchor-chain"
