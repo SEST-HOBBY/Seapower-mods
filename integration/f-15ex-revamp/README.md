@@ -24,12 +24,22 @@ dropped - LRASM and Quicksink cover anti-ship far better and the AGM-84 added no
 | `MaliceTruck` | InterceptMALICE Truck (8×) | **8× AIM-424** + centreline tank — mirrors Truck174 | **US Naval Aviation** (AGM-88G model) |
 
 The AIM-424 MALICE itself ships inside this pack (`ammunition/sest_aim-424.ini`, byte-identical
-copies in the two F-35 JATM packs and the Growler pack): AARGM-ER airframe, aligned key-for-key
-against U.S. Navy 2027's AIM-174B so the two encyclopedia cards compare directly — same
-explicit-drag flight model, same 150,000 ft loft, same fragmentation warhead class, same datalink
-midcourse, same chart basis. It reaches 290 nm against the 174B's 316 (it has to fit an F-35 bay)
-and buys that back with a far better seeker: 40 nm active and 80 nm passive against 15/15, plus a
-full passive anti-emitter mode that homes on radars as well as jammers.
+copies in the two F-35 JATM packs, the F-16CM pack, the Rafale pack and the Growler pack). It is
+the Raytheon AIM-424 LRAAM the US Navy revealed at Tailhook on **22 August 2026**, already in
+flight test: two-stage solid-propellant, 4.11 m on the **same 34.3 cm body as the SM-6**,
+blast-fragmentation warhead, range **"in excess of 250 nm"** per the Navy fact file.
+
+It is aligned key-for-key against U.S. Navy 2027's AIM-174B so the two encyclopedia cards compare
+directly — same explicit-drag flight model, same 150,000 ft loft, same fragmentation warhead class,
+same datalink midcourse, same chart basis. That alignment is now more than convenience: the two
+share a body diameter, a mission and a service. It reaches **290 nm** against the 174B's 316 — over
+the Navy's stated floor, just under its stablemate — and buys a far better seeker: 40 nm active and
+80 nm passive against 15/15, plus a full passive anti-emitter mode that homes on radars as well as
+jammers, which is what makes it an AEW- and tanker-killer.
+
+Mass and seeker figures are estimates; the Navy disclosed neither. The 3D model is a stand-in on US
+Naval Aviation's AGM-88G assets — no AIM-424 mesh exists. `integration/common/aim424.py` shows the
+reasoning behind every estimated key.
 
 ## Install
 
