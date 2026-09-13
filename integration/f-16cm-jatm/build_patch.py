@@ -8,8 +8,8 @@ Two derived loadouts, both on the mod's own proven fits:
                          AIM-260. The JATM is built to the AMRAAM footprint,
                          so each round keeps the donor's aim-120d seat key.
   SEST_F16_MALICE        from SEAD: the two AGM-88 HARMs become AIM-424
-                         MALICE - the 424 rides the AGM-88G AARGM-ER airframe,
-                         so these are literally its stations - and the two
+                         MALICE - at 4.11 m the 424 matches the HARM for length,
+                         so the HARM stations are its natural seat - and the two
                          AMRAAMs become AIM-260. Sniper pod, HTS pod and all
                          three tanks stay.
 
@@ -55,7 +55,7 @@ LOADOUT_NAMES = {
 
 INFO_INI = """[Language_en]
 Name=SEST F-16CM JATM
-Description=AIM-260 JATM and AIM-424 MALICE fits for the USAF F-16CM Block 52: a very-long-range intercept with four AIM-260 on the AMRAAM stations, and a MALICE fit with two AIM-424 on the HARM stations (the 424 rides the AGM-88G AARGM-ER airframe - these are its real pylons) plus AIM-260 self-escort, keeping the Sniper and HTS pods. Requires the F-16C Fighting Falcon mod and the Dingtools Weapon Pack; US Naval Aviation provides the AGM-88G model the MALICE uses. Deploys inside the SEST Integration Pack.
+Description=AIM-260 JATM and AIM-424 MALICE fits for the USAF F-16CM Block 52: a very-long-range intercept with four AIM-260 on the AMRAAM stations, and a MALICE fit with two AIM-424 on the HARM stations (at 4.11 m the 424 matches the HARM for length, so the HARM stations are its natural seat) plus AIM-260 self-escort, keeping the Sniper and HTS pods. Requires the F-16C Fighting Falcon mod and the Dingtools Weapon Pack; US Naval Aviation provides the model the MALICE borrows as a rendering stand-in. Deploys inside the SEST Integration Pack.
 
 [Compatibility]
 ApproximateVersion=0.8.2
