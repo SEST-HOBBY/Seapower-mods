@@ -208,7 +208,8 @@ def main():
         # the collection's own weapon pack, so the Redback is now that file
         # with the minimum deltas: IR seeker instead of laser (GuidanceType
         # 1, MidCourseCorrection stays 0 - pure fire and forget, five
-        # in-container precedents), range 6 -> 15 nm, loft raised 5/1500 ->
+        # in-container precedents), range 6 -> 25 nm with the seeker matched to
+        # it, loft raised 5/1500 ->
         # 12/4000 for the higher profile. Motor, fuze, effects, terminal
         # logic all stay the working weapon's.
         rb_src = ROOT / "mods-source" / "3760871384" / "ammunition" / "dts_apkws-ii.ini"
@@ -217,8 +218,13 @@ def main():
         rb = rb_src.read_text(encoding="utf-8-sig", errors="replace")
         swaps = [
             (r"^GuidanceType=5\b", "GuidanceType=1"),
-            (r"^SeekerPassiveRange=6\.0\b", "SeekerPassiveRange=8"),
-            (r"^MaxLaunchRange=6\b", "MaxLaunchRange=15"),
+            # The seeker must reach as far as the weapon may be shot. This is
+            # GuidanceType=1 with MidCourseCorrection=0 - pure fire and forget,
+            # nothing corrects it after release - so a shot taken beyond the
+            # seeker's reach has nothing to home on. It was an 8 nm seeker on a
+            # 15 nm weapon, leaving every shot past 8 nm unguided. Both are 25.
+            (r"^SeekerPassiveRange=6\.0\b", "SeekerPassiveRange=25"),
+            (r"^MaxLaunchRange=6\b", "MaxLaunchRange=25"),
             (r"^MaxLoftAngle=5\.0\b", "MaxLoftAngle=12.0"),
             (r"^MaxLoftAlt=1500\b", "MaxLoftAlt=4000"),
         ]
@@ -228,7 +234,8 @@ def main():
                 sys.exit(f"dts_apkws-ii: {pat} matched {k} times - upstream changed")
         (OUT / "ammunition" / "sest_agr-30.ini").write_text(
             "# SEST AGR-30 Redback - dts_apkws-ii (proven in-pod, lofting) with an\n"
-            "# IR seeker, 15 nm reach and a raised loft. Minimum-delta rebase after\n"
+            "# IR seeker, 25 nm reach matched by a 25 nm seeker, and a raised loft.\n"
+            "# Minimum-delta rebase after\n"
             "# the M282-based build froze the game twice.\n"
             + rb, encoding="utf-8")
 
