@@ -43,30 +43,90 @@ RSA = ROOT / "mods-source" / "3413868677"          # Red Storm Arsenal, ships us
 ARRW_MOD = ROOT / "mods-source" / "3502273861"     # ARRW, ships the 419th FLTS bird
 DINGTOOLS = ROOT / "mods-source" / "3760871384"    # Dingtools, WINS both AGM-183A files
 
-# usn_cps, the Navy boost-glide round already in the collection, is the anchor.
-# MaxLoftAngle is the one value not copied straight across: CPS is surface-
-# launched and needs a shallow 35 deg to reach its 1889 nm; ARRW is released
-# above 40,000 ft and boosts steeply from there, so 45 sits between CPS and the
-# ARRW mod's 75 without inventing range the weapon does not claim.
-LOFT = {
-    "MaxLoftAngle": "45.0",
-    "MaxLoftAlt": "90000.0",
+# THE ROUND FLEW FLAT, and adding loft keys alone could never fix it.
+#
+# Dingtools' dts_agm-183a - which wins the load order over the ARRW mod's own
+# usn_arrw - models the weapon with SeaSkimming=True and SeaSkimmingAlt=90000.
+# That is the sea-skimming flight model with the skim altitude moved to 90,000
+# feet: climb, then hold ONE ALTITUDE all the way in. A boost-glide weapon
+# reduced to a high-altitude cruise missile. Worse, the loft keys this pack
+# used to add were inert underneath it - the profile that owns the trajectory
+# was never loft, so MaxLoftAngle changed nothing anyone could see.
+#
+# The ARRW mod's own usn_arrw is the reference implementation of this exact
+# weapon and it does it properly: no sea-skimming, a steep 75 deg loft to
+# 99,000 ft, a long powered boost (AccelerationTime=75.7) and VelocityBleed to
+# hold hypersonic speed through the glide. Those are the author's figures for
+# this airframe, so they are taken rather than invented - except the boost
+# duration, which is cut to match booster separation (see SET below).
+#
+# usn_cps, the Navy boost-glide round, corroborates the shape: loft to 90,000
+# ft, no sea-skimming, IgnoreHeightDifferenceForTargetDist=True, a long
+# terminal dive.
+ADD = {
+    # Dingtools' copy declares NO loft keys at all - it had no loft phase to
+    # tune, which is the other half of why the round flew flat.
+    # 75 deg and 99,000 ft are the ARRW mod author's own figures for this
+    # airframe; they only take effect now that SeaSkimming is off.
+    "MaxLoftAngle": "75.0",
+    "MaxLoftAlt": "99000.0",
+    # No AccelerationTime at all upstream, so the boost had no defined
+    # duration. 35 s of powered climb, then the vehicle is on its own.
+    "AccelerationTime": "35.0",
+    # 0.6 = keep most of the speed through the glide instead of bleeding to
+    # subsonic. The ARRW mod's value; nothing in Dingtools' copy retained speed.
+    "VelocityBleed": "0.6",
     "IgnoreHeightDifferenceForTargetDist": "True",
     "TerminalVelocity": "3800",
 }
+
+# Keys that EXIST upstream and carry the wrong value. Each is (old, new) so a
+# silent upstream change to the value cannot be overwritten unnoticed.
+SET = {
+    # The whole defect. False hands the trajectory back to the loft keys.
+    "SeaSkimming": ("True", "False"),
+    # 6.0 leaves it wallowing off the wing; both CPS and the ARRW mod use 16.
+    "Acceleration": ("6.0", "16.0"),
+}
+
+# The mesh swap is ALREADY in Dingtools' file: ResourcesMeshForLaunch=launch
+# becomes ResourcesMesh=AGM at ResourcesMeshSwitchTime. It fired at 15 s, which
+# matched no physical event because no boost duration existed. Aligned to
+# AccelerationTime it becomes what it looks like - booster burnout, the boosted
+# stack dropping away and the glide vehicle flying on.
+MESH_SWITCH = ("15", "35.0")
 
 AGM183 = ["dts_agm-183a", "dts_agm-183a(w62)"]
 
 
 def add_loft(text: str, name: str) -> str:
-    """Insert the loft block right after SeaSkimmingAlt, where its peers put it."""
-    for key in LOFT:
+    """Turn the high-altitude cruise back into a boost-glide profile."""
+    for key in ADD:
         if re.search(rf"^{re.escape(key)}=", text, re.M):
             sys.exit(f"{name}: {key} already present - upstream changed, re-check by hand")
+
+    for key, (want, new) in SET.items():
+        m = re.search(rf"^{re.escape(key)}=([^\s/]*)([^\n]*)$", text, re.M)
+        if not m:
+            sys.exit(f"{name}: {key} not found upstream - re-check this override by hand")
+        if want and m.group(1) != want:
+            sys.exit(f"{name}: {key} is {m.group(1)!r} upstream, expected {want!r} - "
+                     "the author changed it, re-check whether this override is still right")
+        text = text[:m.start()] + f"{key}={new}{m.group(2)}" + text[m.end():]
+
+    m = re.search(r"^ResourcesMeshSwitchTime=([^\s/]*)([^\n]*)$", text, re.M)
+    if not m:
+        sys.exit(f"{name}: no ResourcesMeshSwitchTime - the launch-mesh swap is gone")
+    want, new = MESH_SWITCH
+    if m.group(1) != want:
+        sys.exit(f"{name}: ResourcesMeshSwitchTime is {m.group(1)!r}, expected {want!r} - "
+                 "re-check it still marks booster separation")
+    text = text[:m.start()] + f"ResourcesMeshSwitchTime={new}{m.group(2)}" + text[m.end():]
+
     m = re.search(r"^SeaSkimmingAlt=[^\n]*\n", text, re.M)
     if not m:
-        sys.exit(f"{name}: no SeaSkimmingAlt to anchor the loft block to")
-    block = ("".join(f"{k}={v}\n" for k, v in LOFT.items()))
+        sys.exit(f"{name}: no SeaSkimmingAlt to anchor the added keys to")
+    block = "".join(f"{k}={v}\n" for k, v in ADD.items())
     return text[:m.end()] + block + text[m.end():]
 
 
@@ -79,7 +139,7 @@ def build_ammunition():
         dst = OUT / "ammunition" / f"{a}.ini"
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(out, encoding="utf-8")
-        print(f"  ammunition/{a}.ini  (+{len(LOFT)} loft keys)")
+        print(f"  ammunition/{a}.ini  (+{len(ADD)} added, {len(SET)} corrected, mesh swap -> {MESH_SWITCH[1]}s)")
 
 
 def build_aircraft():
@@ -308,10 +368,17 @@ def main():
     (OUT / "_info.ini").write_text(
         "[Language_en]\n"
         "Name=SEST B-52 ARRW\n"
-        "Description=AGM-183A across every in-service B-52: the lofted "
-        "boost-glide profile it was missing, the W62 on the B-52H, ARRW on "
-        "Red Storm Arsenal's B-52O, and the 419th FLTS testbed's unreachable "
-        "loadouts declared.\n",
+        "Description=AGM-183A across every in-service B-52, flying a real "
+        "boost-glide profile. The Dingtools round that wins the load order "
+        "models the ARRW as a sea-skimmer with the skim altitude set to 90000 "
+        "feet - a hypersonic weapon reduced to a level high-altitude cruise, "
+        "with no boost duration and nothing holding its speed through the "
+        "glide. This restores the profile the ARRW mod's own author gave the "
+        "same airframe: a steep 75 degree boost to 99000 feet over 35 seconds, "
+        "booster separation on the mesh swap already in the file, then a "
+        "descending hypersonic glide onto the target that keeps most of its "
+        "speed. Also the W62 on the B-52H, ARRW on Red Storm Arsenal's B-52O, "
+        "and the 419th FLTS testbed's unreachable loadouts declared.\n",
         encoding="utf-8")
     print("SEST_B52_ARRW")
     build_ammunition()
