@@ -1,17 +1,17 @@
 # Sea Power Mod Catalog
 
-133 Workshop mods catalogued — 132 subscribed, 1 unsubscribed and kept for reference, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
+134 Workshop mods catalogued — 129 subscribed, 5 unsubscribed and kept for reference, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
 
 See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency audit, and recommended mod order.
 
-## United States (37)
+## United States (38)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
 | Modern US Airbase | King_Achilles_Berlin | airbase | Airbase with modern US jets and helicopters. Author lists 'Integrated Aircrafts' (AC-130J, A-10, AV-8A, F-15C, F/A-18F, F-22, F-35C, B-52G, B-1, F-117, B-2, E-3, MQ-9, VH-3D, AH-64...) — unclear whether these are bundled into the mod or referenced from other mods (the F-15C matches no subscribed mod). If referenced, its F-35C / F/A-18F could point at the deprecated MyGo standalones — verify before unsubscribing those. Recommendation: keep below the aircraft mods. |
 | <<E-3G>> | SKIBIDI_RIZZLER123 | fixed-wing | USAF E-3 Block 40/45 AWACS upgrade. |
-| [DEPRECATED] Boeing F/A-18E/F Super Hornet ⚠️ **DEPRECATED** | MyGo!!!!!鼓手椎名立希 | fixed-wing | Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing. |
-| [DEPRECATED] Lockheed Martin F-35C Lighting II ⚠️ **DEPRECATED** | MyGo!!!!!鼓手椎名立希 | fixed-wing | Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing. |
+| [DEPRECATED] Boeing F/A-18E/F Super Hornet | MyGo!!!!!鼓手椎名立希 | fixed-wing | Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing. UNSUBSCRIBED by user 2026-09-13 (export 3fd2d7dd pruned it). |
+| [DEPRECATED] Lockheed Martin F-35C Lighting II | MyGo!!!!!鼓手椎名立希 | fixed-wing | Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing. UNSUBSCRIBED by user 2026-09-13 (export 3fd2d7dd pruned it). |
 | A-10A Thunderbolt II | misaka | fixed-wing | Author: 'Need SeaLifter, if unable to open, please ensure that SeaLifter is installed correctly.' **Requires:** sealifter |
 | A-10C | misaka | fixed-wing | Based on the A-10A mod; adds GBU-31/38/39, AIM-9M, GBU-10/12, Litening and ALQ-184 pods. **Requires:** a-10a (inferred from 'Based on A-10A mod'); sealifter (presumed via A-10A) |
 | B-1B Lancer | dingtools | fixed-wing | Supersonic variable-sweep heavy bomber. **Load order:** Keep Dingtools Weapon Pack ABOVE all dingtools mods |
@@ -28,6 +28,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | McDonnell Douglas KC-10A Extender - Strategic Tanker | Zero Two | fixed-wing | Cold War and modern USAF tanker configurations. **Overlaps:** kc-135; kc-46a (US tanker overlap — complementary types) |
 | U-2 "Dragon Lady" | ManeuverWarfare | fixed-wing | Modern and 1960s U-2 models plus a Chinese weather/spy balloon. Kitbashes; explicitly do NOT require SeaLifter or third-party software. |
 | United States Naval Aviation | misaka | fixed-wing | US Naval Aviation pack (SH-60B/F, HH-60H, MH-60R and more); presented jointly by Sea Power China Test Group & Euromod. **Overlaps:** modern-us-navy (helicopters/aircraft); mh-60r-2154545636 |
+| YF-23 Black Widow II | Alpine | fixed-wing | Fictional naval YF-23 and F-23A: six airframes from a 1998 Block 10 to a 2025 Block 40 and a Block 40 strike variant, internal bay with the author's own missile models (yf23_*_internal), carrier capable, four-mission campaign. Only the Block 40 carries the AIM-260A; SEST YF-23 MALICE adds a two-AIM-424 fit on top of it. Subscribed 2026-09-08; exported 2026-09-13. |
 | Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included) | Obiwonkanblomi | land | Anti-ballistic-missile system with AN/TPY-2 radar. **Overlaps:** sam-pack (US air defense overlap) |
 | Air Deck Operations Upgrade - Nimitz (2000s) | sgtobliterator | patch | Deck-ops upgrade applied to F/A-18 and the Nimitz (2000s); adds deck models and MH-60R. Long carrier load time. Verify it does not fight Flight Deck Ops over the same carrier files. Wording ('adds the Air Deck Operations Upgrade to... the Nimitz (2000s)') suggests it may be an APPLICATION of the ADO/FDO mod rather than a competitor — verify whether it depends on Flight Deck Ops before treating the pair as pick-one. **Overlaps:** flight-deck-ops; nimitz-expanded |
 | B-52G with AGM-86 (realistic nuke) | aaaaaaaaaaaaaaaabcd | patch | Adds 8 loadouts to the VANILLA B-52G; adds AGM-86B/C plus fictional anti-ship AGM-86E variants. Modifies vanilla unit — load-order sensitive. **Overlaps:** b-52h (both carry AGM-86-family ALCM data) |
@@ -101,7 +102,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Chinese Navy (PLAN) | ltjgbeam | ship | Fujian-class carrier, Hangzhou-class (Sovremenny), Luda Type 051. One of THREE Fujian carriers in this list. **Overlaps:** type-003-004-maneuverwarfare (Fujian); fujian-cv-18 (Fujian) |
 | PLAN Type 001 Aircraft Carrier Liaoning | Meltemi | ship | STOBAR carrier CV-16. Sister design of the Kuznetsov (Project 1143.5/6 family) — different navy, different author, no conflict expected. |
 | PLAN Type 071 Amphibious Transport Dock | Meltemi | ship | Yuzhao-class LPD; mothership for air-cushion landing craft. |
-| Type 003 Aircraft Carrier - PLANS Fujian CV-18 | 八一of军魂 | ship | Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it. **Overlaps:** type-003-004-maneuverwarfare (Fujian); chinese-navy-plan (Fujian) |
+| Type 003 Aircraft Carrier - PLANS Fujian CV-18 | 八一of军魂 | ship | Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it. UNSUBSCRIBED by user 2026-09-13 (export 3fd2d7dd pruned it). **Overlaps:** type-003-004-maneuverwarfare (Fujian); chinese-navy-plan (Fujian) |
 | Type 003 Fujian / Type 004 CVN Aircraft Carriers | ManeuverWarfare | ship | Kitbash Fujian plus speculative Type 004. One of THREE Fujian carriers in this list — pick a primary. **Requires:** sealifter; anchor-chain **Overlaps:** chinese-navy-plan (Fujian); fujian-cv-18 (Fujian) |
 | PLAN Submarines | ManeuverWarfare | submarine | Type 039G Song, 039A/B/C Yuan, Type 093/093A Shang kitbashes. |
 
@@ -110,7 +111,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Mod | Author | Type | Notes |
 |---|---|---|---|
 | Eurofighter Typhoon | misaka | fixed-wing | European multinational multirole fighter. |
-| SAAB AEW&C PACK | dingtools | fixed-wing | Saab AEW&C aircraft (GlobalEye/Erieye family); author notes future updates postponed. **Load order:** Keep Dingtools Weapon Pack ABOVE all dingtools mods |
+| SAAB AEW&C PACK | dingtools | fixed-wing | Saab AEW&C aircraft (GlobalEye/Erieye family); author notes future updates postponed. UNSUBSCRIBED by user 2026-09-13 (export 3fd2d7dd pruned it). **Load order:** Keep Dingtools Weapon Pack ABOVE all dingtools mods |
 | Euromod - Anchorchain Expansion Pack | Euromod team | framework | Extends the Anchor Chain framework: three systems files plus ammunition_overwrite/language_overwrite folders (Anchor Chain's own patching mechanic) and a welldeck config. No whole-file collision with anything; placed directly under Anchor Chain so the framework and its expansion stay together. **Requires:** anchor-chain |
 | Euromod - Main Pack | Mitchell600 | framework | Shared database of European weapons and sensors. The Euromod dependency is explicitly stated by 5 of the 8 addons in this list (Nordic, Dutch, German, British, Cold War Spanish) and inferred for the other 3 (Italian, JMSDF, Modern Spanish). No author placement instruction; recommendation: keep above all Euromod addons. |
 | Royal Navy Westland Lynx HAS.3 Kitbash [OLD] ⚠️ **DEPRECATED** | unknown (added 2026-08-24) | rotary | Tagged [OLD] by its author. VERIFIED: adds rn_lynx AND rn_wildcat — the Wildcat is not in the Sea Lynx pack, which is a reason to keep this despite the tag. **Overlaps:** sea-lynx; french-helicopter-package; euromod-german (Lynx family — now FOUR sources) |
