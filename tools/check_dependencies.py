@@ -147,6 +147,32 @@ def upstream_system_names():
     return names
 
 
+def upstream_roster_names():
+    """Every unit id any vanilla or workshop unit file rosters (uid=SquadronN,N).
+
+    Keyed by the unit file's relative path, because the rule is narrower than
+    the systems one: a roster is inherited only when the upstream copy of THE
+    SAME FILE carries it. "Any upstream file rosters it" was the first draft
+    and it excused SEST_RAAF_Bases' Amberley for rostering a B-1B that was
+    not installed - an authored file with no upstream copy, whose every
+    roster is this repo's by construction. The Karel Doorman's rnn_sh-14c is
+    the case the rule exists for: the Dutch Navy mod removed the hangar and
+    kept the roster line, and the fork inherited both with the file.
+    """
+    names = collections.defaultdict(set)
+    for d in list(MODS.iterdir()) + [VANILLA]:
+        if not d.is_dir():
+            continue
+        for sub in UNIT_DIRS:
+            if not (d / sub).is_dir():
+                continue
+            for f in (d / sub).glob("*.ini"):
+                names[f"{sub}/{f.name}"].update(
+                    re.findall(r"^([A-Za-z0-9_.\-]+)=Squadron\d+,\d+",
+                               f.read_text(encoding="utf-8", errors="replace"), re.M))
+    return names
+
+
 def owners_index():
     idx = collections.defaultdict(set)
     for d in MODS.iterdir():
@@ -161,9 +187,11 @@ def main():
     systems = system_index()
     upstream_systems = upstream_system_names()
     upstream_stores = upstream_store_names()
+    upstream_rosters = upstream_roster_names()
     problems, rows = [], []
     inherited = collections.defaultdict(set)
     inherited_stores = collections.defaultdict(set)
+    inherited_rosters = collections.defaultdict(set)
 
     for pack_dir in sorted((ROOT / "integration").glob("*/SEST_*")):
         if pack_dir.parent.name == "dist":   # dist = the consolidated deployable; its content is checked via the source packs
@@ -236,8 +264,11 @@ def main():
                                 sest_dep[w.parts[-3]] += 1
                             break
                     else:
-                        problems.append(f"{pack}: {rel} rosters {uid} but no "
-                                        "mod, pack or vanilla file defines it")
+                        if uid in upstream_rosters.get(rel, ()):
+                            inherited_rosters[uid].add(f"{pack}:{rel}")
+                        else:
+                            problems.append(f"{pack}: {rel} rosters {uid} but no "
+                                            "mod, pack or vanilla file defines it")
 
         needed = set(override) | set(reference)
         detail = [(t, "SEST pack", n) for t, n in sest_dep.most_common()]
