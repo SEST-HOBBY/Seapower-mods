@@ -21,6 +21,12 @@
   ],
   "local_packs": [
     {
+      "folder": "SEST_A10C_Plus",
+      "source": "integration/a10c-plus",
+      "builder": "build_patch.py",
+      "title": "SEST A-10C+"
+    },
+    {
       "folder": "SEST_ADF_Persistent_ISR",
       "source": "integration/adf-persistent-isr",
       "builder": "build_pack.py",
