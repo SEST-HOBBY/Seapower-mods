@@ -15,6 +15,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+
+sys.path.insert(0, str(ROOT / "integration"))
+from common.snapshot import explain, stale_mods  # noqa: E402
 MODS = ROOT / "mods-source"
 TEMPLATE = MODS / "3592460366" / "land_units" / "airbase_us.ini"
 OUT = Path(__file__).resolve().parent / "SEST_RAAF_Bases"
@@ -183,6 +186,39 @@ Nation=Australia
 """
 
 
+def aircraft_files(aircraft_id):
+    """Every file that defines this aircraft: a SEST pack's, a mod's, vanilla's."""
+    return [e for e in (ROOT / "integration").glob(
+        f"*/SEST_*/aircraft/{aircraft_id}.ini") if "dist" not in e.parts] + \
+        list(MODS.glob(f"*/aircraft/{aircraft_id}.ini")) + \
+        list(MODS.glob(f"_vanilla/original/aircraft/{aircraft_id}.ini"))
+
+
+def prune_unavailable():
+    """Drop rostered aircraft that no longer exist, when - and only when - the
+    mods-source snapshot is known to be behind the catalog.
+
+    An airbase cannot roster an aircraft nothing defines: the reference would
+    ship dangling and check_dependencies would reject it. But a stale snapshot
+    is not a reason to fail the build, because the mod is subscribed and works
+    in game. So the roster shrinks, loudly, and grows back by itself on the
+    next export. With the snapshot complete this prunes nothing and an
+    unresolvable id still fails validation below, where it belongs.
+    """
+    if not stale_mods():
+        return []
+    dropped = []
+    for base_id, base in BASES.items():
+        kept = []
+        for entry in base["airgroup"]:
+            if aircraft_files(entry[0]):
+                kept.append(entry)
+            else:
+                dropped.append((base_id, entry[0]))
+        base["airgroup"] = kept
+    return dropped
+
+
 def squadron_limit(aircraft_id):
     """How many squadrons an aircraft really has, and where they come from.
 
@@ -217,6 +253,12 @@ def squadron_limit(aircraft_id):
 
 
 def main():
+    dropped = prune_unavailable()
+    for base_id, aircraft_id in dropped:
+        print(f"  {base_id}: DROPPED {aircraft_id} from the roster")
+    if dropped:
+        print(f"  ^ {explain()}")
+
     template = TEMPLATE.read_text(encoding="utf-8-sig")
     m = re.search(r"\[AirGroup\].*?(?=\[FlightDeck\])", template, re.S)
     if not m:
@@ -226,11 +268,7 @@ def main():
     problems, warnings = [], []
     for base_id, base in BASES.items():
         for aircraft_id, assignment in base["airgroup"]:
-            exists = [e for e in (ROOT / "integration").glob(
-                f"*/SEST_*/aircraft/{aircraft_id}.ini") if "dist" not in e.parts] + \
-                list(MODS.glob(f"*/aircraft/{aircraft_id}.ini")) + \
-                list(MODS.glob(f"_vanilla/original/aircraft/{aircraft_id}.ini"))
-            if not exists:
+            if not aircraft_files(aircraft_id):
                 problems.append(f"{base_id}: aircraft ini not found for {aircraft_id}")
                 continue
             defined, declared, sources = squadron_limit(aircraft_id)

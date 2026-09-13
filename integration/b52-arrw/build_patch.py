@@ -38,6 +38,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent / "SEST_B52_ARRW"
 
+sys.path.insert(0, str(ROOT / "integration"))
+from common.snapshot import explain, missing_is_stale  # noqa: E402
+
 B52_MOD = ROOT / "mods-source" / "3741944366"      # B-52H, ships dts_b-52h
 RSA = ROOT / "mods-source" / "3413868677"          # Red Storm Arsenal, ships usaf_b-52o
 ARRW_MOD = ROOT / "mods-source" / "3502273861"     # ARRW, ships the 419th FLTS bird
@@ -144,6 +147,18 @@ def build_ammunition():
 
 def build_aircraft():
     src = B52_MOD / "aircraft" / "dts_b-52h.ini"
+    if not src.exists():
+        # A stale snapshot is not a build error. The mod is subscribed and
+        # works in game; mods-source simply has not caught up. Ship the rest
+        # of the pack and say plainly what is missing. A missing file whose
+        # mod IS exported is a real fault and still fails below.
+        dst = OUT / "aircraft" / "dts_b-52h.ini"
+        if missing_is_stale(B52_MOD.name):
+            if dst.exists():
+                dst.unlink()
+            print(f"  aircraft/dts_b-52h.ini  SKIPPED - {explain([B52_MOD.name])}")
+            return
+        sys.exit(f"missing upstream: {src.relative_to(ROOT)}")
     text = src.read_text(encoding="utf-8-sig")
 
     # Mirror Strike183 exactly, swapping only the round. Copying the real block
