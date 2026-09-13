@@ -60,15 +60,28 @@ from common.a10c import fix_squadron_count, register_ir_head  # noqa: E402
 UNIT = "usaf_a-10c_plus"
 BASE = "usa_a-10c"
 
-# The two sensors the mod defines in its own systems/sensors.ini and no
-# aircraft uses. Slot 5 is the designator because the hardpoint's untouched
-# AssociatedSensors line already names SensorSystem5.
-NEW_SENSORS = """\
+# THE SENSOR NAMES MUST BE OURS, NOT THE DONOR'S. systems/ files merge key by
+# key across the whole load order and the highest mod wins each key, so a bare
+# SystemName=Litening does NOT get the A-10C mod's Litening - six mods define
+# that name and the A-10C's copy sits sixth. Referencing it by name silently
+# bound this aircraft to Euromod JMSDF's pod instead: 3.0/3.4 multipliers
+# against the intended 2.2/4.0, and night vision 0.5 against 1.0 - WORSE at
+# night than the Maverick head it was meant to beat. AN/AAQ-28 is defined by
+# the same six, and the substitute is a 15 nm designator rather than 20.
+#
+# So the pack defines its own uniquely named copies, lifted verbatim from the
+# A-10C mod, and the aircraft references those. Nothing can outrank a name
+# nothing else uses. Credit where due: this class of defect was raised by the
+# other agent working this repo, and it was right.
+FLIR = "SEST_A10C_FLIR"
+LASER = "SEST_A10C_LASER"
+
+NEW_SENSORS = f"""\
 [SensorSystem4] #Litening targeting pod - SEST A-10C+
-# Kind=Visual in the A-10C mod's own systems/sensors.ini, declared Type=Infrared
-# here exactly as that mod declares its other electro-optical head (A-10_IR).
+# Kind=Visual in the donor, declared Type=Infrared here exactly as the A-10C
+# mod declares its other electro-optical head (A-10_IR).
 Type=Infrared
-SystemName=Litening
+SystemName={FLIR}
 Mount=Dummy
 ViewArcs=-140,140|-90,20
 ModuleType=Sensor
@@ -77,11 +90,49 @@ ModuleType=Sensor
 # The slot [WeaponSystem1] has named since the mod shipped. Block shape is the
 # vanilla laser-designator convention (usn_a-6e, raaf_f-111c, wp_su-24m).
 Type=LaserDesignator
-SystemName=AN/AAQ-28
+SystemName={LASER}
 Mount=Dummy
 ModuleType=Sensor
 
 """
+
+# Added to the FLIR copy only. Not a performance key - the engine's own comment
+# says it affects the encyclopedia's type display - but the donor pod is
+# Kind=Visual and reads as an optical sight without it, and 108 sensors across
+# the collection set it for exactly this reason.
+IR_DISPLAY = ("UseIRValues=True                 "
+              "// Affects only Encyclopedia. For correct type display")
+
+
+def write_sensors():
+    """Copy the donor's two sensors under names nothing else defines."""
+    src = (UPSTREAM / "systems" / "sensors.ini").read_text(encoding="utf-8-sig")
+    defined_elsewhere = set()
+    for other in (ROOT / "mods-source").glob("*/systems/*.ini"):
+        defined_elsewhere |= set(re.findall(
+            r"^\[([^\]\n]+)\]", other.read_text(encoding="utf-8", errors="replace"), re.M))
+    out = ["# SEST A-10C+ sensors. Lifted verbatim from the A-10C mod (3459682829),\n"
+           "# under names nothing else defines: six mods declare [Litening] and\n"
+           "# [AN/AAQ-28], the highest wins the key, so referencing them by name\n"
+           "# binds to whichever mod outranks - not to the values tuned for here."]
+    for donor, name, extra in (("Litening", FLIR, IR_DISPLAY),
+                               ("AN/AAQ-28", LASER, "")):
+        if name in defined_elsewhere:
+            sys.exit(f"{UNIT}: {name} is already defined upstream - it would collide too, "
+                     "pick another name")
+        m = re.search(rf"^\[{re.escape(donor)}\][^\n]*\n((?:(?!^\[).*\n)*)", src, re.M)
+        if not m:
+            sys.exit(f"{UNIT}: the A-10C mod no longer defines [{donor}] - rebase")
+        body = m.group(1).rstrip("\n")
+        if extra:
+            body, k = re.subn(r"^(Kind=\S+[^\n]*)$", r"\1\n" + extra, body,
+                              count=1, flags=re.M)
+            if k != 1:
+                sys.exit(f"{UNIT}: no Kind= line in [{donor}] to mark for IR display")
+        out.append(f"[{name}]\n{body}\n")
+    d = OUT / "systems"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "sensors.ini").write_text("\n".join(out) + "\n", encoding="utf-8")
 
 
 def main():
@@ -132,6 +183,7 @@ def main():
     if sorted(have) != list(range(1, declared + 1)):
         sys.exit(f"{UNIT}: sensors are {sorted(have)}, expected 1..{declared}")
 
+    write_sensors()
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
     (OUT / "aircraft" / f"{UNIT}.ini").write_text(text, encoding="utf-8")
 
@@ -180,8 +232,8 @@ def main():
         "mod. Deploys inside the SEST Integration Pack.\n"
         "\n[Compatibility]\nApproximateVersion=0.8.2\n", encoding="utf-8")
 
-    print(f"built {OUT.relative_to(ROOT)}: {UNIT} - IR head registered, Litening + AN/AAQ-28 "
-          f"at slots 4/5 (hardpoint ref now resolves), AIM-9X x{n}, squadrons {was}->{defined}")
+    print(f"built {OUT.relative_to(ROOT)}: {UNIT} - IR head registered, "
+          f"{FLIR} + {LASER} at slots 4/5 (hardpoint ref now resolves), AIM-9X x{n}, squadrons {was}->{defined}")
 
 
 if __name__ == "__main__":

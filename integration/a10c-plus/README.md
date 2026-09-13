@@ -35,6 +35,33 @@ Sensors are declared per aircraft file. A loadout changes what hangs on the pylo
 nothing else, so an upgraded variant carrying a targeting pod has to be its own unit id —
 the same reason the replenishment pack clones hulls rather than adding fits.
 
+## The sensors are defined under our own names
+
+`systems/` files merge **key by key** across the whole load order, and the highest mod wins
+each key. Six mods define `[Litening]` and `[AN/AAQ-28]`, and the A-10C mod's copies sit
+sixth. Referencing them by name would not give this aircraft the A-10C mod's pod at all — it
+would silently bind to Euromod JMSDF's, which is worse where it matters:
+
+| | intended (A-10C mod) | what a bare name gets (JMSDF) |
+|---|---:|---:|
+| identification multiplier | 2.2 | 3.0 |
+| detection multiplier | 4.0 | 3.4 |
+| looking down at clutter | 0.95 | 0.75 |
+| **night vision** | **1.0** | **0.5** |
+| designator range | 20 nm | 15 nm |
+
+Worse at night than the Maverick head it is meant to beat. So the pack ships its own
+`systems/sensors.ini` defining `SEST_A10C_FLIR` and `SEST_A10C_LASER`, lifted verbatim from
+the A-10C mod, and the aircraft references those. Nothing can outrank a name nothing else
+uses, and the builder refuses to run if either name ever appears upstream.
+
+The FLIR copy also carries `UseIRValues=True`. That is not a performance key — the engine's
+own comment says it affects the encyclopedia's type display — but the donor pod is
+`Kind=Visual` and reads as a plain optical sight without it. 108 sensors across the
+collection set it for the same reason.
+
+This defect was raised by the other agent working this repo, and it was right.
+
 ## Why no ground-search radar
 
 The real A-10C has none, and inventing one would be the only figure in this pack with
