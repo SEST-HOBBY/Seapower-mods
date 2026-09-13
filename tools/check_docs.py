@@ -17,6 +17,10 @@ value recomputed from the built pack. A claim fails two ways, and both matter:
              (so re-point the claim) or the fact was dropped (so decide whether
              it should have been). Silence is not proof of correctness, which
              is the whole reason this fails rather than skipping.
+  STALE    - a phrase that must appear NOWHERE in shipped text was found. The
+             AIM-424 respec corrected the F-15EX blurb and left three sibling
+             packs still calling the missile an AARGM-ER derivative, because
+             nothing held the pack descriptions to the facts. Now something does.
 
 Numbers are compared as integers after stripping separators, so prose may write
 2080, 2,080 or 2 080 as it prefers.
@@ -108,6 +112,24 @@ CLAIMS = [
 
 WORDS = {19: "Nineteen"}
 
+# (glob under ROOT, phrase, why). Held at the SOURCE (the builders) and at the
+# OUTPUT (every emitted _info.ini, the consolidated one included), so a stale
+# sentence cannot survive in either place.
+FORBIDDEN = [
+    ("integration/*/build_patch.py", "AARGM-ER airframe",
+     "the AIM-424 is a two-stage Raytheon LRAAM, not an AARGM-ER derivative"),
+    ("integration/*/SEST_*/_info.ini", "AARGM-ER airframe",
+     "the AIM-424 is a two-stage Raytheon LRAAM, not an AARGM-ER derivative"),
+    ("integration/dist/SEST_Integration/_info.ini", "AARGM-ER airframe",
+     "the AIM-424 is a two-stage Raytheon LRAAM, not an AARGM-ER derivative"),
+    ("integration/*/build_patch.py", "AIM-174-class reach",
+     "the AIM-424's own figure is 'in excess of 250 nm'"),
+    ("integration/*/SEST_*/_info.ini", "AIM-174-class reach",
+     "the AIM-424's own figure is 'in excess of 250 nm'"),
+    ("integration/dist/SEST_Integration/_info.ini", "AIM-174-class reach",
+     "the AIM-424's own figure is 'in excess of 250 nm'"),
+]
+
 
 def check():
     facts = measure()
@@ -132,6 +154,15 @@ def check():
             problems.append(f"DRIFTED       {rel}: '{name}' says {m.group(1).strip()}, "
                             f"the build produces {want}")
 
+    # phrases that must be absent everywhere they could be shipped
+    stale = 0
+    for pattern, phrase, why in FORBIDDEN:
+        for path in sorted(ROOT.glob(pattern)):
+            if phrase in path.read_text(**CODEC):
+                stale += 1
+                problems.append(f"STALE         {path.relative_to(ROOT)}: says "
+                                f"'{phrase}' - {why}")
+
     # the word-form claims, checked against the same measurement
     play = (ROOT / "docs" / "replenishment-in-play.md")
     if play.exists() and WORDS.get(facts["supply_hulls"]):
@@ -146,7 +177,8 @@ def check():
           f"{facts['named_ships']} named ships,\n"
           f"{facts['supply_hulls']} supply-capable hulls, {facts['metered']} metered rounds, "
           f"{facts['store_fixes']} store repairs, {facts['exported_mods']} exported mods")
-    print(f"checked {checked}/{len(CLAIMS)} documented claim(s)")
+    print(f"checked {checked}/{len(CLAIMS)} documented claim(s), "
+          f"{len(FORBIDDEN)} forbidden phrase(s) across their globs")
     if problems:
         print(f"\n{len(problems)} claim(s) out of step with the build:\n")
         for p in problems:
