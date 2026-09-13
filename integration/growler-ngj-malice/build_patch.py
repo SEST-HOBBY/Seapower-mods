@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """Build the SEST Growler NGJ + MALICE compatibility patch.
 
-The three Growler identifiers in the installed collection come from three
+The two Growler identifiers in the installed collection come from two
 different Workshop mods.  This builder deliberately rebases each identifier
 on the file that currently wins the user's canonical load order, then adds
 SEST loadouts without changing the original choices.
 
 Targets:
   * usn_ea-18g       - U.S. Navy 2027 Capabilities (upgraded from ALQ-99)
-  * usn_ea-18g_2020s - F/A-18E/F (already carries the NGJ meshes)
   * usn_ea-18g_2020  - US Naval Aviation (already carries the NGJ meshes)
   * usn_fa-18f_blk3  - U.S. Navy 2027 Capabilities Block III Super Hornet
   * usn_fa-18f       - U.S. Navy 2027 two-seat Super Hornet (AN/APG-79)
@@ -24,7 +23,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 NAVY_2027 = ROOT / "mods-source" / "3606774881"
-SUPER_HORNET = ROOT / "mods-source" / "3426791311"
 US_NAVAL_AVIATION = ROOT / "mods-source" / "3737267013"
 MURDER_HORNET = ROOT / "mods-source" / "3430135740"
 OUT = Path(__file__).resolve().parent / "SEST_Growler_NGJ_MALICE"
@@ -667,14 +665,23 @@ def build_tank_610_override() -> None:
     coordinates on all four airframes), so this override renders that mesh
     instead. Whole-file ammunition override: our pack outranks all three
     workshop mods that ship this file (F/A-18E/F, US Naval Aviation, RSA)."""
-    src = SUPER_HORNET / "ammunition" / "usn_tank_610_f-18.ini"
+    # Read from US Naval Aviation: of the mods that still ship this file it
+    # outranks Red Storm Arsenal, and the deprecated F/A-18E/F that used to
+    # be read here was unsubscribed on 2026-09-13.
+    src = US_NAVAL_AVIATION / "ammunition" / "usn_tank_610_f-18.ini"
     text = src.read_text(encoding="utf-8-sig")
-    old = ("ResourcesFolder=assets/models/vechicle/aircraft/f-18e/\n"
-           "ResourcesRoot=fa-18e.obj\n"
-           "ResourcesMesh=f-18_fuletank\n"
-           "ResourcesMaterial=f-18e_mat.ini")
-    if old not in text:
-        sys.exit("usn_tank_610_f-18: upstream Models block changed - re-check the re-mesh")
+    # Anchor on the BUG, not the path: every copy of this file in the
+    # collection (US Naval Aviation, Red Storm Arsenal, the deprecated
+    # F/A-18E/F) renders the same fa-18e f-18_fuletank submesh, and only
+    # ResourcesFolder differs between them (USNA moved it to
+    # assets/models/aircraft/usn_fa-18e/ in its 2026-09-13 export). The guard
+    # still fires the day an author ships a real tank mesh, which is when
+    # the re-mesh should be re-examined rather than re-applied.
+    sig = re.compile(r"^ResourcesFolder=[^\n]*\nResourcesRoot=fa-18e\.obj\n"
+                     r"ResourcesMesh=f-18_fuletank\nResourcesMaterial=[^\n]*$", re.M)
+    if not sig.search(text):
+        sys.exit("usn_tank_610_f-18: upstream no longer renders the fa-18e f-18_fuletank "
+                 "submesh - re-check whether the re-mesh is still needed")
     new = ("# SEST re-mesh: f-18_fuletank is a submesh of the fa-18e aircraft model\n"
            "# and carries its origin, riding low under every pylon. The vanilla\n"
            "# F-15C 610 gal tank mesh (what usn_tank_1200_f-18 renders) sits flush\n"
@@ -686,45 +693,8 @@ def build_tank_610_override() -> None:
            "ResourcesMaterial=usaf_f-15c_tank_mat")
     ammo = OUT / "ammunition"
     ammo.mkdir(parents=True, exist_ok=True)
-    (ammo / "usn_tank_610_f-18.ini").write_text(text.replace(old, new, 1), encoding="utf-8")
+    (ammo / "usn_tank_610_f-18.ini").write_text(sig.sub(new, text, count=1), encoding="utf-8")
     print("    usn_tank_610_f-18.ini: re-meshed to the vanilla F-15C 610 tank")
-
-
-def port_tanker_fit(text: str, source_name: str) -> str:
-    """Port US Naval Aviation's new buddy-tanker fit onto our F/A-18E.
-
-    USNA's 2026-08-25 update added a Tanker loadout to usn_fa-18e - a D-704
-    buddy refuelling store on the centreline (probe-and-drogue, transferable
-    external fuel) with two wing tanks. This pack shadows that file wholesale,
-    so without porting it the update would silently vanish. The blocks are
-    lifted verbatim from USNA's copy; usn_d-704 resolves via the Custom
-    Loadout Editor. E-model only, matching the author.
-    """
-    src = US_NAVAL_AVIATION / "aircraft" / "usn_fa-18e.ini"
-    donor = src.read_text(encoding="utf-8-sig", errors="replace")
-    m = re.search(r"^\[WeaponSystem1Tanker\]\n.*?(?=^\[)", donor, re.M | re.S)
-    keys = re.search(r"^FT_CenterPositions=[^\n]*\nFT_CenterRotations=[^\n]*\n",
-                     donor, re.M)
-    aar = re.search(r"^\[AerialRefuelingTanker\]\n(?:[^\n\[][^\n]*\n)*", donor, re.M)
-    if not (m and keys and aar):
-        sys.exit(f"{source_name}: USNA tanker blocks not found - upstream changed again")
-    if "Tanker" in re.search(r"^AvailableLoadouts=(.+)$", text, re.M).group(1):
-        sys.exit(f"{source_name}: Tanker already declared - drop this port")
-    text = extend_loadouts(text, ["Tanker"], source_name)
-    # position keys go into the WS1 table, next to the other centre keys
-    anchor = re.search(r"^Station29=[^\n]*\n", text, re.M)
-    if not anchor:
-        sys.exit(f"{source_name}: no Station29 to anchor FT_Center keys")
-    text = text[:anchor.end()] + keys.group(0) + text[anchor.end():]
-    block = m.group(0).replace("Station2=usn_aim-9x\n",
-                               "Station2=usn_aim-9x\n"
-                               "Station11=dts_aim-260\n"
-                               "Station12=dts_aim-260\n", 1)
-    if block.count("dts_aim-260") != 2:
-        sys.exit(f"{source_name}: tanker AIM-260 injection failed")
-    marker = "[---------- WeaponMagazines ----------]"
-    text = text.replace(marker, block + "\n" + marker, 1)
-    return text + ("" if text.endswith("\n") else "\n") + "\n" + aar.group(0)
 
 
 def derive_intercept260(text: str, source_name: str) -> str:
@@ -811,8 +781,10 @@ def build_super_hornet(file_name: str) -> None:
                            source.name)
     text = derive_intercept260(text, source.name)
     text = derive_hornet_escorts(text, wing_tank, source.name)
-    if file_name == "usn_fa-18e.ini":
-        text = port_tanker_fit(text, source.name)
+    # The USNA buddy-tanker fit was ported onto usn_fa-18e here until U.S. Navy
+    # 2027's 2026-09-13 export declared a Tanker loadout on that file itself;
+    # this pack is built on that file, so the fit now arrives with the base
+    # and the port (port_tanker_fit) is retired.
     report_tank_clearance(text, source.name)
     if text.count("[WeaponSystem1SEST_MaliceBlockIII]") != 1:
         sys.exit(f"{source.name}: invalid generated MALICE section count")
@@ -915,11 +887,10 @@ def build_raaf_squadrons() -> None:
 def main() -> None:
     verify_ammunition()
     build_growler(NAVY_2027 / "aircraft" / "usn_ea-18g.ini", "usn_ea-18g.ini", upgrade_ngj=True)
-    build_growler(
-        SUPER_HORNET / "aircraft" / "usn_ea-18g_2020s.ini",
-        "usn_ea-18g_2020s.ini",
-        upgrade_ngj=False,
-    )
+    # usn_ea-18g_2020s was built here from the deprecated F/A-18E/F mod
+    # (3426791311) until the user unsubscribed on 2026-09-13. Nothing else
+    # defines that stem, so shipping an override of it would create a unit
+    # with no base; the target is dropped and its output removed.
     build_growler(
         US_NAVAL_AVIATION / "aircraft" / "usn_ea-18g_2020.ini",
         "usn_ea-18g_2020.ini",
