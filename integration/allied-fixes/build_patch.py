@@ -41,8 +41,11 @@ REPLACE = "usn_agm-84n"      # U.S. Navy 2027's own Harpoon Block II+ ER
 
 # (workshop id, aircraft file)
 TARGETS = [
-    ("3606774881", "usn_p8_2027.ini"),   # U.S. Navy 2027 - fielded in NFIII FINAL
-    ("3602046770", "usn_p8.ini"),        # same typo, same fix
+    # ("3606774881", "usn_p8_2027.ini") was the first target - U.S. Navy 2027's
+    # P-8, fielded in NFIII FINAL. Its 2026-09-13 export ships the fix itself
+    # (no usn_agm-84g station lines remain), so the builder refused it as
+    # obsolete and it is dropped rather than re-patching a file already right.
+    ("3602046770", "usn_p8.ini"),        # same typo, still present upstream
 ]
 
 INFO_INI = """\
@@ -103,8 +106,13 @@ def main():
         text = src.read_text(encoding="utf-8-sig")
         if "uk_ah_mk_1" in text:
             sys.exit("rn_lph_ocean.ini: upstream now supports the Apache - drop this fix")
-        text, n = re.subn(r"^AircraftSupported=raac_lynx_ah7\s*$",
-                          "AircraftSupported=raac_lynx_ah7,uk_ah_mk_1",
+        # Append to whatever the upstream list is rather than matching it
+        # verbatim: the 2026-09-13 export added rn_sea_king_hc4 beside the
+        # Lynx, and a fix pinned to the old list refused a file it could
+        # still patch. The uk_ah_mk_1 guard above still catches the day the
+        # author adds the Apache himself.
+        text, n = re.subn(r"^(AircraftSupported=[^\s#]+)[ \t]*$",
+                          r"\1,uk_ah_mk_1",
                           text, flags=re.M)
         if n != 1:
             sys.exit(f"rn_lph_ocean.ini: AircraftSupported line changed upstream ({n} matches)")

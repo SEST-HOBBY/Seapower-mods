@@ -6,7 +6,8 @@ hypersonic launcher wired to nothing. Two defects, both introduced the same
 way - the CPS hull was derived from the base usn_ddg-1000.ini by inserting the
 LMVLS and consolidating the nav radars, and the renumbering was left half done:
 
-  1. [WeaponSystem1] IS DECLARED TWICE - once as "# LMVLS" (the Advanced
+  1. [FIXED UPSTREAM 2026-09-13 - retired here, guarded against regression]
+     [WeaponSystem1] WAS DECLARED TWICE - once as "# LMVLS" (the Advanced
      Payload Module carrying 12 rounds of usn_ircps) and again as "# MK57 1".
      [WeaponSystem2] does not exist. Every other MK57 was correctly bumped by
      one (MK57 2 is WeaponSystem3, ... MK57 20 is WeaponSystem21), so the first
@@ -19,8 +20,10 @@ LMVLS and consolidating the nav radars, and the renumbering was left half done:
      that work, so the missing [WeaponSystem2] is harmless on its own - it is
      the duplicate that costs a launcher.
 
-  2. The LMVLS's only AssociatedSensors entry is SensorSystem12, which does
-     not exist - the CPS hull declares 11. The base hull has 13 sensors with
+  2. [STILL OPEN, in a new shape] The LMVLS's only AssociatedSensors entry
+     WAS SensorSystem12, which does not exist - the CPS hull declares 11. The
+     2026-09-13 export deleted that line instead of correcting it, so the
+     launcher now has no sensor entry at all; the fix fills the empty slot. The base hull has 13 sensors with
      the SM Datalink at 13 and wires its VLS to "SensorSystem3,SensorSystem13"
      (SPY-3 + datalink); the CPS hull dropped two nav radars, moving the SM
      Datalink to 11, and 12 became the old towed-array slot. So the LMVLS is
@@ -31,9 +34,9 @@ LMVLS and consolidating the nav radars, and the renumbering was left half done:
      at least one VALID sensor alongside it. The LMVLS has exactly one entry
      and it dangles.
 
-The MK57s carry the same stale SensorSystem12 as a third entry, which the game
-ignores because SensorSystem3 and SensorSystem11 are both valid. That is
-tidied here too, but it was never the bug.
+The MK57s carried the same stale SensorSystem12 as a third entry, which the
+game ignored because SensorSystem3 and SensorSystem11 are both valid. The
+2026-09-13 export removed it from them too; the tidy-up stays as a no-op guard.
 
 Everything else checks out and is deliberately left alone: eu_lmvls_apm and
 eu_lmvls are defined in Euromod's systems/weapons.ini, the magazine holds
@@ -59,7 +62,7 @@ STALE = "SensorSystem12"             # does not exist on this hull
 
 INFO_INI = """[Language_en]
 Name=SEST Zumwalt CPS Fix
-Description=Makes the Zumwalt's hypersonic launcher work. The DDG-1000 CPS variant in Modern US Navy declares [WeaponSystem1] twice - once as the LMVLS Advanced Payload Module holding 12 IRCPS rounds and again as the first MK57 - with no [WeaponSystem2], so one of the two launchers is discarded by the ini parser. It is the only unit out of 734 in this collection with a duplicate weapon-system number. The LMVLS is also wired to SensorSystem12 for fire control on a hull that only has 11 sensors, leaving it with no valid sensor at all. This renumbers the first MK57 to WeaponSystem2 (matching the scheme every other MK57 already follows) and points the LMVLS at the SPY-3 and SM Datalink, as the base hull wires its own VLS. Requires Modern US Navy and Euromod, and must sit ABOVE Modern US Navy.
+Description=Makes the Zumwalt's hypersonic launcher work. The DDG-1000 CPS variant in Modern US Navy ships its LMVLS Advanced Payload Module (12 IRCPS rounds) with no fire-control sensor: the launcher's one AssociatedSensors entry pointed at a SensorSystem12 the hull does not declare, and the mod's September 2026 update deleted that line rather than correcting it, leaving an empty sensor slot. This patch fills it with SPY-3 and the SM datalink, the pair the base DDG-1000 wires its VLS to, as an in-place edit of the mod's own file. The duplicate [WeaponSystem1] the earlier version of this patch renumbered was fixed upstream in the same update and is no longer touched. Requires Modern US Navy and Euromod (LMVLS and IRCPS). Place ABOVE Modern US Navy.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -72,45 +75,57 @@ def sections(text, family):
 
 def check_upstream(text):
     """Refuse to ship if Modern US Navy has fixed this itself."""
+    # Modern US Navy's 2026-09-13 export renumbered the launchers itself: the
+    # duplicate [WeaponSystem1] is gone and [WeaponSystem2] exists. That half
+    # of this patch is retired; these checks only refuse to ship if it
+    # regresses, or if the LMVLS stops being launcher 1.
     nums = sections(text, "WeaponSystem")
     dupes = sorted({n for n in nums if nums.count(n) > 1})
-    if dupes != [1]:
-        sys.exit(f"upstream weapon-system duplicates are now {dupes} (expected [1]) — "
-                 "rebase this patch, it may already be fixed")
+    if dupes:
+        sys.exit(f"upstream weapon-system duplicates are back: {dupes} — rebase this patch")
     labels = re.findall(r"^\[WeaponSystem1\]([^\n]*)", text, re.M)
-    if len(labels) != 2 or "LMVLS" not in labels[0] or "MK57 1" not in labels[1]:
-        sys.exit(f"the two [WeaponSystem1] blocks are not LMVLS then MK57 1: {labels} — rebase")
-    if re.search(r"^\[WeaponSystem2\]", text, re.M):
-        sys.exit("upstream now has a [WeaponSystem2] — rebase this patch")
-
-
-def fix_numbering(text):
-    """Second [WeaponSystem1] (the first MK57) becomes [WeaponSystem2]."""
-    first = text.index("[WeaponSystem1]")
-    second = text.index("[WeaponSystem1]", first + 1)
-    return text[:second] + "[WeaponSystem2]" + text[second + len("[WeaponSystem1]"):]
+    if len(labels) != 1 or "LMVLS" not in labels[0]:
+        sys.exit(f"[WeaponSystem1] is not the single LMVLS block: {labels} — rebase")
+    if not re.search(r"^\[WeaponSystem2\]", text, re.M):
+        sys.exit("upstream lost [WeaponSystem2] again — rebase this patch")
 
 
 def fix_sensors(text):
-    """Give the LMVLS real fire control, and drop the stale ref from the MK57s."""
-    lmvls, mk57 = 0, 0
+    """Give the LMVLS real fire control, in the slot the author left empty.
 
-    def repl(m):
-        nonlocal lmvls, mk57
+    The 2026-09-13 export removed the dangling SensorSystem12 line rather than
+    correcting it, so the LMVLS now has a bare "#Sensors" header followed by
+    an empty line and no AssociatedSensors at all - still no fire control, by
+    absence instead of by a bad reference. The empty line is replaced with the
+    SPY-3 + datalink pair the base hull wires its VLS to, which keeps the line
+    count identical (edits in place, never insertions). The MK57s no longer
+    carry the stale reference anywhere, so stripping it is a no-op kept only
+    so a future regression is tidied rather than shipped.
+    """
+    first = re.search(r"^\[WeaponSystem1\][^\n]*\n(.*?)(?=^\[)", text, re.M | re.S)
+    if not first:
+        sys.exit("[WeaponSystem1] not found — rebase")
+    body = first.group(1)
+    if re.search(r"^AssociatedSensors=", body, re.M):
+        sys.exit("the LMVLS now carries an AssociatedSensors line upstream — check whether "
+                 "it resolves and retire this fix if it does")
+    slot = "#Sensors\n\n"
+    if body.count(slot) != 1:
+        sys.exit(f"expected exactly one empty #Sensors slot in the LMVLS block, found "
+                 f"{body.count(slot)} — rebase")
+    fixed = body.replace(slot, f"#Sensors\nAssociatedSensors={SPY3},{DATALINK}\n", 1)
+    text = text[:first.start(1)] + fixed + text[first.end(1):]
+    lmvls = 1
+
+    mk57 = 0
+    def strip(m):
+        nonlocal mk57
         refs = m.group(1).split(",")
-        if refs == [STALE]:                       # the LMVLS
-            lmvls += 1
-            return f"AssociatedSensors={SPY3},{DATALINK}"
-        if STALE in refs:                         # the MK57s
+        if STALE in refs:
             mk57 += 1
             return "AssociatedSensors=" + ",".join(r for r in refs if r != STALE)
         return m.group(0)
-
-    text = re.sub(r"^AssociatedSensors=(\S+)", repl, text, flags=re.M)
-    if lmvls != 1:
-        sys.exit(f"expected exactly 1 LMVLS sensor line to fix, found {lmvls} — rebase")
-    if not mk57:
-        sys.exit("no MK57 blocks carried the stale sensor reference — rebase")
+    text = re.sub(r"^AssociatedSensors=(\S+)", strip, text, flags=re.M)
     return text, lmvls, mk57
 
 
@@ -220,7 +235,6 @@ def main():
     original_lines = len(text.splitlines())
 
     check_upstream(text)
-    text = fix_numbering(text)
     text, lmvls, mk57 = fix_sensors(text)
     # Both Mk46 gun mounts are labelled "GWS 1"; they are different mounts
     # (eu_mk46_turret_1 vs _2). Comment only, but this file is confusing enough.
@@ -235,7 +249,7 @@ def main():
     (OUT / REL).write_text(text, encoding="utf-8")
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
 
-    print(f"built {OUT.relative_to(ROOT)}: MK57 1 renumbered to WeaponSystem2, "
+    print(f"built {OUT.relative_to(ROOT)}: "
           f"LMVLS fire control -> {SPY3}+{DATALINK}, "
           f"stale {STALE} dropped from {mk57} MK57 blocks, "
           f"{original_lines} lines (complete file), all references validated")
