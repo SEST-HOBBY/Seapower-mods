@@ -1,13 +1,33 @@
 """Shared definition of the SEST AIM-424 MALICE.
 
-A what-if very-long-range air-to-air missile on the AGM-88G AARGM-ER
-airframe, sized for F-35 internal-bay carriage. It is deliberately built as
-a peer of the AIM-174B rather than a lesser cousin: the flight model is
-aligned key-for-key with U.S. Navy 2027's usn_aim-174b so the two
-encyclopedia cards compare directly. The 3D model rides on the AGM-88G
-assets that US Naval Aviation (3737267013) ships, so that mod must stay
-enabled for the proper mesh (otherwise the game falls back to the RIM-7
-asset-bundle stand-in, same as the modded AARGM-ERs themselves do).
+NO LONGER A WHAT-IF. This file was written when the AIM-424 was a rumour and
+modelled it as an invention on the AGM-88G AARGM-ER airframe. The U.S. Navy
+revealed the real weapon at the Tailhook symposium on 22 August 2026, already
+in flight test, and published enough to retire the guesswork:
+
+    Raytheon AIM-424 LRAAM "Malice"
+    length     13.5 ft   (4.11 m)
+    diameter   13.5 in   (34.3 cm)   - the same body as the SM-6 / AIM-174B
+    wingspan   26.2 in   (66.5 cm)
+    range      "in excess of 250 nautical miles" (463 km), per the Navy fact file
+    design     two-stage, solid-propellant rocket motor
+    warhead    blast-fragmentation
+    platforms  F/A-18E/F, F-35C, F/A-XX, and reportedly the USAF F-47
+    fit        confirmed to fit the F-35 internal weapons bay
+
+Mass, seeker and guidance were NOT disclosed and remain this file's estimates;
+each one is justified at its key below. Everything that was disclosed is now
+used instead of the old AARGM-ER reasoning.
+
+The flight model stays aligned key-for-key with U.S. Navy 2027's usn_aim-174b,
+which is now a stronger choice than it was: the two missiles share a diameter,
+a mission and a Navy, so the encyclopedia cards genuinely do compare.
+
+THE 3D MODEL IS STILL AN AGM-88G. No AIM-424 mesh exists in the collection, so
+the missile renders on the AARGM-ER assets US Naval Aviation (3737267013)
+ships. That mod must stay enabled or the game falls back to a RIM-7 stand-in.
+This is a rendering substitution only - it no longer implies anything about
+the airframe.
 
 All four SEST packs that carry MALICE fits write identical copies of
 ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini -
@@ -32,23 +52,45 @@ AIM424_ID = "sest_aim-424"
 # same modern ECCM keys.
 #
 # What stays different, on purpose:
-#   MaxLaunchRange 290 vs 316 nm - it has to fit inside an F-35 weapons bay
-#   DragCoefficient 3.6 vs 3.41 - shorter, fatter AARGM-ER airframe.
+#   MaxLaunchRange 290 vs 316 nm - the Navy states "in excess of 250"; 290
+#     clears that floor and sits just under the 174B, which is the peer
+#     relationship the reveal describes rather than a penalty for bay fit.
+#     The old note here read "it has to fit inside an F-35 weapons bay" as if
+#     that cost it reach. It does fit the bay, and it makes 250+ anyway.
+#   DragCoefficient 3.6 vs 3.41 - same 34.3 cm body, 5% shorter, so slightly
+#     blunter for its length.
 #     THIS KEY MUST STAY EXPLICIT: at -1 the engine back-solves 8.14 from the
 #     airframe and the missile loses roughly a third of its reach.
-#   a real dual-pulse motor, ~170 G.s against the 174B's ~144, paying for that
+#   a two-stage motor, ~170 G.s against the 174B's ~144, paying for that drag.
+#     Two-stage is now confirmed rather than assumed.
 #   Power 48 vs 52 and CEP 10 m vs 6 - slightly less lethal endgame
 #   SeekerActiveRange 40 nm vs 15, passive 80 nm vs 15, and a Full passive
-#     anti-emitter mode against HomeOnJam - the 2030s seeker is what you buy
+#     anti-emitter mode against HomeOnJam - ESTIMATED, not disclosed. Justified
+#     by the mission the Navy describes: a 250 nm shot at high-value emitters
+#     (AEW, tankers, jammers) needs terminal reach and a passive mode, or the
+#     target simply turns away inside the 174B's 15 nm seeker window.
 #   MaxTurnRate 28 vs 30 deg/s, MaxTurnG 25 - still not an AIM-260 (40 deg/s)
 AIM424_INI = """\
 [General]
-# AIM-424 MALICE (SEST what-if)
-# Users: usn_f-35c, raaf_f-35a, usaf_f-15ex_SEII, usn_f-18e/f/g (SEST packs)
+# Raytheon AIM-424 LRAAM "Malice" - revealed 22 Aug 2026, in flight test.
+# 4.11 m long, 34.3 cm diameter (SM-6 body), 66.5 cm span, two-stage solid,
+# blast-fragmentation warhead, range "in excess of 250 nm" per the Navy.
+# Real platforms: F/A-18E/F, F-35C, F/A-XX, USAF F-47.
+# Carried here by: usn_f-35c, raaf_f-35a, usaf_f-15ex_SEII, usn_f-18e/f/g,
+# usaf_f-16cm, fr_rafale_m (SEST packs).
 Type=Missile                           // can be Projectile, Missile, Torpedo
 TargetType=AAW                         // can be AAW, ASuW, ASW
-SecondaryTargetType=ASuW               // AARGM-ER heritage: it is a strike airframe
-Mass=467                               // in kg. Used for aircraft
+SecondaryTargetType=ASuW               // parity with the AIM-174B, which declares
+                                       // the same - an SM-6-bodied round keeps the
+                                       // family's secondary anti-surface mode
+Mass=650                               // in kg. NOT disclosed - scaled from the
+                                       // AIM-174B: same 34.3 cm body, 5% shorter
+                                       // (4.11 m vs 4.33), so 705 x 4.11/4.33 =
+                                       // 669, rounded down because this is a
+                                       // purpose-built AAM and carries none of
+                                       // the SM-6's shipboard marinisation.
+                                       // Was 467, an AARGM-ER figure that the
+                                       // real dimensions have now retired.
 AmmoPoints=2600
 AirLaunched=True                       // encyclopedia: show the launch-altitude band
 
@@ -69,7 +111,9 @@ TransientBaseNoise=200                // In db
 
 [WarheadData]
 WarheadType=6                           // fragmentation, as the AIM-174B
-Power=48                                // cf. AIM-174B 52 - smaller airframe
+Power=48                                // cf. AIM-174B 52. Same 34.3 cm body but
+                                        // shorter and two-stage so less of it is
+                                        // warhead. Blast-fragmentation either way.
 ImpactSize=Medium                       // Impact size, can be small, medium, large, verylarge
 Penetration=Always                      // can be minor, moderate, heavy, always
 FuzeProximityDistance=18.0              // for proximity fuze: distance to target in meters
@@ -129,7 +173,9 @@ CircularErrorRadiusLarge=14.0
 MinAltMalusFactor=0.7
 SeekerGain=62.0                        // Seeker gain in dB
 SeekerFOV=120.0                        // Seeker field-of-view in degrees
-SecondaryPassiveRadarGuidanceType=Full // AARGM heritage: radar AND ECM emitters, not just jammers
+SecondaryPassiveRadarGuidanceType=Full // ESTIMATED. Homes on radars AND jammers,
+                                       // not jammers alone - the counter-AEW and
+                                       // counter-tanker mission the reveal describes
 PassiveRadarGuidanceFrequencies=All
 SeekerPassiveRange=80                  // Seeker passive range in nautical miles
 SeekerActiveRange=40.0                 // Seeker active range in nautical miles
@@ -151,7 +197,9 @@ AssetBundleMesh=usn_rim-7
 AssetBundleDamagedMesh=
 AssetBundleMaterial=usn_rim-7_mat
 AssetBundleMeshHullCollider=usn_rim-7_coll
-# Real mesh: the AGM-88G model shipped by US Naval Aviation (3737267013).
+# RENDERING STAND-IN, not a design claim: no AIM-424 mesh exists in the
+# collection, so this borrows the AGM-88G model US Naval Aviation (3737267013)
+# ships. The real missile is a 34.3 cm two-stage round, not an AARGM-ER.
 ResourcesFolder=assets/models/ammunition/agm-88/
 ResourcesRoot=agm-88g.obj
 ResourcesMesh=agm-88g
@@ -191,7 +239,7 @@ Scale=0.005,0.005,0.04291637
 AIM424_NAMES_INI = """\
 [AmmunitionNames]
 # ---------- SEST AIM-424 MALICE ----------
-sest_aim-424=AIM-424,MALICE,AAM,The AIM-424 MALICE is a what-if very-long-range air-to-air missile developed from the AGM-88G AARGM-ER airframe and sized for internal carriage on the F-35. It trades a little of the AIM-174B's reach for a far better seeker: active-radar terminal homing at 40 nm with datalink midcourse guidance and a full passive anti-emitter mode that homes on radars and jammers alike. A secondary anti-surface capability comes with the AARGM-ER heritage.
+sest_aim-424=AIM-424,MALICE,AAM,The Raytheon AIM-424 LRAAM is a very-long-range air-to-air missile revealed by the US Navy in August 2026 and already in flight test. It is a two-stage solid-propellant round on the same 34.3 cm body as the SM-6 but shorter at 4.11 m - short enough to fit the F-35 internal weapons bay - and the Navy states a range in excess of 250 nautical miles. It is built to kill the high-value aircraft that make a carrier group's life difficult: AEW radars tankers and standoff jammers. Active-radar terminal homing with two-way datalink midcourse guidance is backed by a passive anti-emitter mode that homes on radars and jammers alike so a target that shuts down its radar does not break the engagement. A secondary anti-surface capability comes with the SM-6 lineage.
 """
 
 
