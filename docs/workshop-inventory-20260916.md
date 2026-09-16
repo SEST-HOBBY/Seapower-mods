@@ -50,7 +50,7 @@ and B-52H as active, so catalog additions and folder additions had different cou
 | 3799742828 | MiG-31 Foxhound | Added |
 | 3801363152 | CH-53E Standalone | Added |
 | 3801549552 | J-36 | Added |
-| 3654230227 | AI Doctrine Overhaul | Absent from both PC lists; catalog status `not_installed`, not an inferred unsubscription |
+| 3654230227 | AI Doctrine Overhaul | Absent from both PC lists; the user confirmed it is unsubscribed on 2026-09-16, so catalog status `unsubscribed` |
 
 The catalog now retains 141 records: 137 in the local inventory and four historical
 entries. Deprecated/WIP labels describe mod quality and do not remove an observed
