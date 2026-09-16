@@ -41,7 +41,7 @@ by a supplier that lists `AccountableAmmunitionCategory_N=X,<count>`. Guns and p
 SAMs declare no category, so they flow freely — which is exactly the half that works today.
 Every Harpoon, every ship torpedo and every SS-N-12/19/22 declares one. Vanilla stocks those
 categories on *flight decks* only, so `SovietAdvancedASM` is a total orphan: stocked by zero
-suppliers anywhere in vanilla or in the 127 exported mods.
+suppliers anywhere in vanilla or in the 137 exported mods.
 
 **2. The launcher gate.** A launcher fed by an `AssociatedMagazine=` refills when its magazine
 does. A launcher holding a bare `Ammunition=` — a sealed canister, a deck rail, a fixed tube —
@@ -149,7 +149,7 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 | **Metering** | 88 heavy rounds get a counted `SEST_` supply category; 4 rounds repaired |
 | **Refit** | every clone's donor-era radars, EW and guns retuned to its own navy and decade |
 | **Repairs** | 6 broken upstream ammunition references fixed — launchers that had no round |
-| **Launchers** | **2091 launchers made reloadable** on 275 hulls — 2078 of them on 274 modern hulls, every one it can reach |
+| **Launchers** | **2075 launchers made reloadable** on 277 hulls in the provisional 2026-09-16 snapshot |
 
 ### The suppliers
 

@@ -3,3 +3,7 @@ __pycache__/
 
 # tools\prune-missions.ps1 parks removed missions here - your saves, not repo content.
 _mission-archive/
+
+# Export transactions keep recoverable snapshots outside mods-source.
+/_export-backups/
+/_export-staging-*/

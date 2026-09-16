@@ -32,7 +32,7 @@ def stale_mods():
     """-> {workshop_id: title} for catalog mods that are active but unexported."""
     catalog = json.loads((ROOT / "data" / "mod-catalog.json").read_text(encoding="utf-8"))
     return {m["workshop_id"]: m["title"] for m in catalog["mods"]
-            if m.get("status") == "active" and m.get("workshop_id")
+            if m.get("status") in {"active", "deprecated", "wip"} and m.get("workshop_id")
             and not (MODS / m["workshop_id"]).is_dir()}
 
 
@@ -45,7 +45,7 @@ def explain(ids=None):
         return ""
     names = ", ".join(f"{t} ({i})" for i, t in sorted(stale.items(), key=lambda kv: kv[1]))
     return (f"{names} " + ("is" if len(stale) == 1 else "are")
-            + " subscribed and active in the catalog but not in mods-source - "
+            + " recorded in the local inventory but not in mods-source - "
               "re-run tools/export-mod-configs.ps1 to restore")
 
 
