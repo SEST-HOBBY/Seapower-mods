@@ -1,12 +1,12 @@
 {
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
-    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-13 from a mods-source re-export (3fd2d7dd): +1 YF-23 Black Widow II; 4 unsubscribed. The same export pruned the B-52H and B-1B, which the user re-subscribed to the same day.",
-    "count": 134,
+    "source": "Reconciled 2026-09-16 from the user-supplied PC Mod Manager output and Seapower-mod-export-20260916-170443.zip: 137 matching local Workshop IDs plus SEST_Integration. Steam account total 139 is user-reported and has not been reconciled to an account ID list. Historical subscription evidence remains in data/raw-workshop-list.txt. See docs/workshop-inventory-20260916.md for the archive/manifest mismatch.",
+    "count": 141,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
-      "status": "active | deprecated | wip | unsubscribed",
+      "status": "active | deprecated | wip (included in local inventory) | not_installed (absent locally; account subscription unknown) | unsubscribed (historical account status)",
       "requires": "Dependencies from the mod description; entries marked (inferred) are this repo's inference, not an author statement",
       "load_order": "Author's explicit placement instruction only (quoted); repo recommendations live in notes",
       "overlaps": "Other mods in this list covering the same platform or files (conflict watch)",
@@ -1279,9 +1279,9 @@
       "author": "dingtools",
       "faction": "europe",
       "type": "fixed-wing",
-      "status": "unsubscribed",
+      "status": "active",
       "load_order": "Keep Dingtools Weapon Pack ABOVE all dingtools mods",
-      "notes": "Saab AEW&C aircraft (GlobalEye/Erieye family); author notes future updates postponed. UNSUBSCRIBED by user 2026-09-13 (export 3fd2d7dd pruned it)."
+      "notes": "Saab AEW&C aircraft (GlobalEye/Erieye family); author notes future updates postponed. Restored in the 2026-09-16 local export and enabled PC order."
     },
     {
       "id": "fujian-cv-18",
@@ -1290,12 +1290,12 @@
       "author": "八一of军魂",
       "faction": "china",
       "type": "ship",
-      "status": "unsubscribed",
+      "status": "active",
       "overlaps": [
         "type-003-004-maneuverwarfare (Fujian)",
         "chinese-navy-plan (Fujian)"
       ],
-      "notes": "Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it. UNSUBSCRIBED by user 2026-09-13 (export 3fd2d7dd pruned it)."
+      "notes": "Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it. Restored in the 2026-09-16 local export and enabled PC order."
     },
     {
       "id": "j-50",
@@ -1680,11 +1680,11 @@
       "author": "unknown (added 2026-08-24)",
       "faction": "utility",
       "type": "framework",
-      "status": "active",
+      "status": "not_installed",
       "requires": [
         "anchor-chain (presumed — code-level behavior mod; verify)"
       ],
-      "notes": "VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement."
+      "notes": "VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement. Absent from both the 2026-09-16 local export and saved PC load order; Steam account subscription status is unverified."
     },
     {
       "id": "better-tacmap",
@@ -1775,6 +1775,91 @@
       "type": "fixed-wing",
       "status": "active",
       "notes": "Fictional naval YF-23 and F-23A: six airframes from a 1998 Block 10 to a 2025 Block 40 and a Block 40 strike variant, internal bay with the author's own missile models (yf23_*_internal), carrier capable, four-mission campaign. Only the Block 40 carries the AIM-260A; SEST YF-23 MALICE adds a two-AIM-424 fit on top of it. Subscribed 2026-09-08; exported 2026-09-13."
+    },
+    {
+      "id": "f-2a-viper-zero",
+      "workshop_id": "3755769170",
+      "title": "F-2A 'Viper Zero'",
+      "author": "Not recorded in export",
+      "faction": "japan",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "Mitsubishi F-2A, export version 0.8.0."
+    },
+    {
+      "id": "j-16-qianlong",
+      "workshop_id": "3769142422",
+      "title": "J-16 Multirole Fighter (Qianlong)",
+      "author": "Not recorded in export",
+      "faction": "china",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "Second J-16 implementation; distinct Workshop ID from 3506979898. Workshop description requires Anchor Chain and Fujian CV-18 for weapon resources.",
+      "requires": [
+        "anchor-chain",
+        "fujian-cv-18"
+      ]
+    },
+    {
+      "id": "pla-anchorchain-expansion",
+      "workshop_id": "3789188689",
+      "title": "PLA & PLAN & PLAAF Anchorchain Expansion",
+      "author": "Not recorded in export",
+      "faction": "china",
+      "type": "framework",
+      "status": "active",
+      "notes": "Export version 0.8.2; extends Chinese-platform systems using Anchor Chain. Framework requirement inferred from supplied package description.",
+      "requires": [
+        "anchor-chain (inferred from package description)"
+      ]
+    },
+    {
+      "id": "rq-180-white-bat",
+      "workshop_id": "3796113927",
+      "title": "RQ-180 White Bat Airframe",
+      "author": "Not recorded in export",
+      "faction": "usa",
+      "type": "uav",
+      "status": "active",
+      "notes": "Fictional armed/carrier-capable adaptation. Supplied description identifies Dingtools Weapon Pack ammunition dependencies and locally packaged Mk50 torpedoes.",
+      "requires": [
+        "dingtools-weapon-pack"
+      ]
+    },
+    {
+      "id": "mig-31-foxhound",
+      "workshop_id": "3799742828",
+      "title": "MiG-31 Foxhound",
+      "author": "Not recorded in export",
+      "faction": "russia",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "MiG-31BM interceptor and MiG-31K variant, including R-33/R-37M ammunition."
+    },
+    {
+      "id": "ch-53e-standalone",
+      "workshop_id": "3801363152",
+      "title": "CH-53E Standalone v0.1.0",
+      "author": "Not recorded in export",
+      "faction": "multi",
+      "type": "rotary",
+      "status": "active",
+      "notes": "Fictional JMSDF/USMC naval variants. The supplied installation README requires Euromod and US Naval Aviation; Aegis Yamato is not required.",
+      "requires": [
+        "euromod-main",
+        "us-naval-aviation"
+      ],
+      "load_order": "Above Euromod and US Naval Aviation, as instructed in the supplied installation README."
+    },
+    {
+      "id": "j-36-tailless",
+      "workshop_id": "3801549552",
+      "title": "J-36 Tailless Fighter",
+      "author": "Not recorded in export",
+      "faction": "china",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "Three-engine tailless prototype representation; imported from the 2026-09-16 PC export."
     }
   ]
 }

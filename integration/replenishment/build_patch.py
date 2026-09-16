@@ -123,8 +123,7 @@ MODERN_SOURCES = {
     # it does ship a hull; contributes nothing until then.
     "3432592449": "Nimitz Expanded",
     "3486502935": "Type 003 Fujian / Type 004 CVN",
-    # 3663564190 "Type 003 Fujian CV-18" was here until the user unsubscribed on
-    # 2026-09-13; the Type 003/004 mod above is the remaining Fujian source.
+    "3663564190": "Type 003 Fujian CV-18",  # restored in the 2026-09-16 PC export
     "3774572038": "PLAN Type 071 LPD",
     "3774859959": "PLAN Type 001 Liaoning",
     "3438479626": "1143.5 Kuznetsov",

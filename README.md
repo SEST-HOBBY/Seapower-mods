@@ -1,14 +1,19 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **132 subscribed Workshop
-mods** — all shipped as one deployable mod, the **SEST Integration Pack**.
+**Sea Power: Naval Combat in the Missile Age** install with **137 locally observed
+Workshop mods** plus one **SEST Integration Pack** (138 Mod Manager entries).
+SEST contains the repository's upgrades; Workshop mods remain separate installations.
+
+**Snapshot review pending:** the supplied 2026-09-16 ZIP contains 170 more files than
+its export manifest records. Builds against it are provisional. Obtain a fresh export
+before deployment; see [the inventory audit](docs/workshop-inventory-20260916.md).
 
 Everything here is built around interoperability: a mod is known by three names — a
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
 `mods-source/` export and its load-order token), and the display name the Mod Manager
 shows — and `data/mod-catalog.json` is the table that joins them, including the
-`local_packs` registry of the 16 SEST source packs.
+`local_packs` registry of the 19 SEST source packs.
 
 ## Layout
 
@@ -18,12 +23,12 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `data/load-order.tokens.txt` | **The load order.** One token per line; what `set-mod-order.ps1` writes into `usersettings.ini`. The consolidated pack is the single tier-0 entry |
 | `data/active-mission.txt` | The mission the tooling works on when you do not name one |
 | `data/deploy-missions.txt` | **The keep list.** Which missions the installer ships into the game; everything else stays in the repo only |
-| `data/raw-workshop-list.txt` | The raw subscription list (source of record) |
+| `data/raw-workshop-list.txt` | Historical subscription list from August 2026 |
 | `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
-| `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
+| `mods-source/` | Supplied local Workshop text configs and their export manifest, plus `_vanilla/`; see the snapshot audit |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
 ## Commands
@@ -31,7 +36,8 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 Linux / repo side:
 
 ```bash
-python3 tools/build_all.py --from-scratch   # rebuild all 16 packs + the consolidated dist;
+python3 tools/check_inventory.py           # folder IDs, catalog, order and manifest integrity
+python3 tools/build_all.py --from-scratch   # rebuild all 19 packs + the consolidated dist;
                                             # a clean `git status` after = the regression gate
 python3 tools/preflight.py                  # resolve every reference the active mission makes
 python3 tools/check_load_order.py           # every SEST override still outranks its target
@@ -39,7 +45,7 @@ python3 tools/check_dependencies.py         # every pack's upstreams exported an
 python3 tools/check_scenarios.py           # carved scenarios: counts, formations, sections
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
 python3 tools/generate_catalog.py           # docs/mod-catalog.md      <- data/mod-catalog.json
-python3 tools/generate_load_order.py        # docs/load-order-full.md  <- catalog + tiers
+python3 tools/generate_load_order.py        # load-order docs + preview <- canonical tokens + catalog
 ```
 
 Gaming PC (PowerShell, from the repo root, `-ExecutionPolicy Bypass` because a default
@@ -74,4 +80,5 @@ systems files merge key-by-key the way the game itself merges them across mods).
 3. Loadout-name keys are global across mods: prefix yours (`SEST_...`) or the
    consolidator will fail the build on the first clash — that check exists because two
    unprefixed keys were silently fighting over display strings in-game.
-4. `python3 tools/build_all.py --from-scratch` then the four checkers must be green.
+4. `python3 tools/build_all.py --from-scratch`, then the inventory and compatibility
+   checks must pass before deployment.

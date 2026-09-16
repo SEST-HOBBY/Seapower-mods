@@ -1,7 +1,5 @@
-# Canonical Sea Power order: highest priority first; consumed by set-mod-order.ps1.
-# Reconciled from the 2026-09-16 PC inventory; see docs/workshop-inventory-20260916.md.
-# Regenerate both human-readable views with tools/generate_load_order.py.
-# SEST_Integration must stay first.
+# Observed PC order from supplied PowerShell output, 2026-09-16. All entries enabled.
+# Evidence only; the installer uses load-order.tokens.txt.
 SEST_Integration
 3380210757
 3784474738
@@ -11,7 +9,6 @@ SEST_Integration
 3733719765
 3760871384
 3606774881
-3801363152
 3629144864
 3775128499
 3637954857
@@ -132,11 +129,12 @@ SEST_Integration
 3631042692
 3629269283
 3592460366
+3413868677
 3605013271
 3796113927
 3769142422
 3755769170
+3801363152
 3799742828
 3789188689
 3801549552
-3413868677

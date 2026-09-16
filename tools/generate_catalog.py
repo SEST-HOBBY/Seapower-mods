@@ -24,7 +24,9 @@ FACTION_ORDER = [
     ("civilian", "Civilian"),
     ("utility", "Utility / frameworks"),
 ]
-STATUS_BADGE = {"active": "", "deprecated": " ⚠️ **DEPRECATED**", "wip": " 🚧 WIP"}
+STATUS_BADGE = {"active": "", "deprecated": " ⚠️ **DEPRECATED**", "wip": " 🚧 WIP",
+                "unsubscribed": " — historical / unsubscribed",
+                "not_installed": " — absent from local inventory"}
 
 
 def cell(text):
@@ -32,21 +34,10 @@ def cell(text):
 
 
 def headline(mods):
-    """The count line, split by status rather than lumped.
-
-    This said "{len(mods)} subscribed" and quietly went wrong the moment an
-    entry was marked unsubscribed: the catalog keeps such mods on purpose, as
-    reference for a mod that was tried and dropped, so the total and the
-    subscribed count are two different numbers. The README quotes the
-    subscribed one. Printing len(mods) under the word "subscribed" made this
-    page disagree with the README by exactly the entries the catalog is
-    deliberately holding on to.
-    """
-    unsubscribed = sum(1 for m in mods if m.get("status") == "unsubscribed")
-    if not unsubscribed:
-        return f"{len(mods)} subscribed Workshop mods"
-    return (f"{len(mods)} Workshop mods catalogued — {len(mods) - unsubscribed} "
-            f"subscribed, {unsubscribed} unsubscribed and kept for reference")
+    """Separate the observed local inventory from retained historical entries."""
+    installed = sum(m.get("status") in {"active", "deprecated", "wip"} for m in mods)
+    return (f"{len(mods)} Workshop mods catalogued — {installed} in the local inventory, "
+            f"{len(mods) - installed} historical entries kept for reference")
 
 
 def main():

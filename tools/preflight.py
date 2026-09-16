@@ -84,10 +84,9 @@ def stale_note():
         "   the catalog but are not exported, so anything they define dangles above\n"
         "   whether or not it is really missing from the game:\n\n"
         f"{names}\n\n"
-        "   Still subscribed? Re-run tools/export-mod-configs.ps1 and the references\n"
-        "   they explain resolve themselves. Genuinely gone? Set its status to\n"
-        "   unsubscribed and re-point or remove the references, as the Fujian and the\n"
-        "   SAAB air groups were.\n")
+        "   Still installed? Re-run tools/export-mod-configs.ps1. If deliberately\n"
+        "   removed, set status to not_installed and review affected references.\n"
+        "   An absent local folder does not prove Steam account unsubscription.\n")
 
 
 def main():

@@ -1,294 +1,97 @@
-# Setup Runbook — cleaning the 109 and installing the SEST packs
+# Setup runbook — local inventory and SEST Integration
 
-Follow top to bottom on the gaming PC. Everything here reflects the file-level findings from
-`mods-source/` and the fifteen SEST packs on this branch.
+The 16 September 2026 PC evidence contains **137 Workshop mods plus one local SEST
+Integration Pack**, giving 138 Mod Manager entries. The registry contains 19 SEST
+source packs, all consolidated into that one installed pack. Workshop mods supply
+the original assets and remain separate installations.
 
-## Phase 0 — before touching anything
+**This review snapshot is provisional.** Its archive contains 170 more files than
+its manifest records. Complete the [inventory audit's replacement-export steps](workshop-inventory-20260916.md)
+and the checks below before installing it. The PowerShell exporter also needs its
+Windows fixture run. Do not unsubscribe mods to force an older expected count.
 
-- Screenshot your current in-game Mod Manager order (rollback reference).
-- Unsubscribing is reversible; nothing below deletes local files you can't get back.
-- On the PC: `git pull` in your `Seapower-mods` clone so you have the latest `integration/` folders.
+## Preserve the PC state
 
-## Phase 1 — verify the loaders (do this FIRST)
+Close Sea Power before changing its settings or installing. Check `git status` and
+preserve any local mission or export changes before switching branches or pulling.
+Keep the current Mod Manager order as a rollback reference. Review changes in a
+separate checkout when the playing checkout has uncommitted work.
 
-The collection's code-level mods stand on two loaders; confirm them before any cleanup so you
-don't misdiagnose breakage later.
+`data/observed-load-order-20260916.tokens.txt` preserves the supplied PC order.
+`data/load-order.tokens.txt` is the reconciled order the installer uses. These serve
+different purposes; the observed list is evidence, not an alternate installation list.
 
-1. **Anchor Chain** — subscribed ✔ but "will not function on its own": its documented manual
-   preloader install must be done. Quick test: if the **B-2 Spirit** shows up and flies in-game,
-   both loaders are fine.
-2. **SeaLifter** — not in your subscription list, but required by A-10A/A-10C, Su-25, Mi-8 T/TV,
-   B-2, and the Type 003/004 carriers. If any of those is missing from the unit list, install
-   SeaLifter (subscribe + its preloader) before proceeding.
+## Refresh the export and validate
 
-## Phase 2 — unsubscribe list (revised — read the KEEPs)
+The corrected exporter inventories numeric local Workshop folders. It stages fresh
+copies and retains the previous snapshot under `_export-backups` beside the export
+directory. `_export-files.csv` adds exact paths, sizes and SHA-256 hashes. It cannot
+query the live Steam account subscription list. `-NoPrune` retains absent folders
+for investigation; such extras will fail the inventory check.
 
-| Mod | Action | Why |
-|---|---|---|
-| Shahed-136 Drone (Obiwonkanblomi) | **Unsubscribe** | Duplicate; Zero Two's Geran-2 version is the more complete and stays |
-| [DEPRECATED] F-35C (MyGo) | **Unsubscribe** | Superseded: US Naval Aviation carries the maintained F-35C, and SEST_F-35C_JATM builds on that |
-| F-35C Lightning II Alt. Loadouts (Prof_CH4OS) | **Unsubscribe** | It patches the MyGo standalone you're removing; SEST_F-35C_JATM replaces the role on the maintained airframe |
-| [DEPRECATED] F/A-18E/F (MyGo) | **Unsubscribe, then smoke-test** | Modern US Navy / USNA cover the Super Hornet. After removing, spawn a Murder Hornet loadout — if the jet's model is missing, resubscribe and report it (Murder Hornet's target mod is unconfirmed; I'll rebase it like the F-35C) |
-| ADO – Nimitz (2000s) | **Keep for now, decide after test** | Flight Deck Ops is the renamed continuation; ADO-Nimitz may *depend* on it rather than compete. Test a Nimitz with both enabled, then with ADO disabled — keep whichever deck behaves |
-| [DEPRECATED] E-7A Wedgetail (Pog Frog) | ⚠️ **KEEP** (changed advice) | **SEST_RAAF_Bases uses it** — Williamtown's AEW&C wing. Deprecated but functional |
-| [DEPRECATED] S-70B-2 Seahawk (Pog Frog) | ⚠️ **KEEP** (changed advice) | **SEST_RAN_Fleet and Townsville use it** — LHD air groups and RAN dets |
-
-Everything else stays. The three Fujians / four MH-60 sources / duplicate missile definitions
-are a mod-order question, not an unsubscribe question — the file-level scan (roadmap item 1)
-settles those properly later.
-
-## Phase 3 — install the SEST packs (scripted)
-
-**Close Sea Power first.** It rewrites `usersettings.ini` when it exits, so anything the
-tooling writes while the game is open is silently thrown away. Every script that touches
-that file now checks and refuses.
-
-Once the packs are installed and ordered the first time, the whole update loop is one command:
+After the replacement export has been reconciled into the review checkout, run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
+powershell -ExecutionPolicy Bypass -File .\tools\tests\test-export-mod-configs.ps1
+if ($LASTEXITCODE -ne 0) { throw 'Exporter fixture failed.' }
+python tools\check_inventory.py
+if ($LASTEXITCODE -ne 0) { throw 'Resolve the export mismatch before building.' }
+python tools\build_all.py --from-scratch
+if ($LASTEXITCODE -ne 0) { throw 'SEST build failed.' }
+foreach ($check in @('check_load_order', 'check_dependencies', 'preflight', 'check_scenarios', 'check_pack_fidelity', 'check_docs')) {
+    python (Join-Path 'tools' ($check + '.py'))
+    if ($LASTEXITCODE -ne 0) { throw ($check + ' failed.') }
+}
 ```
 
-That pulls, installs every pack, and rewrites the mod order — **inserting any newly installed
-pack as enabled at its canonical position**, so a new pack no longer needs the launch-game →
-tick-it → quit → re-run dance. It also resolves the one merge conflict this workflow keeps
-producing (you imported a mission while the tooling changed the same file): your imported copy
-always wins, and `-RefreshMissions` re-runs the tooling to put its changes back on top. A
-conflict in any other file stops the script for you to handle.
+The checks resolve configuration references and deliberate SEST overrides. They
+cannot verify model/texture bundles, preloader installation or runtime behavior.
+Follow the current Anchor Chain and SeaLifter installation instructions for the
+mods that require them; seeing one aircraft in the editor is not a complete loader test.
 
-The rest of this phase is the manual equivalent, useful the first time or when something
-looks wrong:
+## Install an approved, validated build
+
+With the game closed, preview the installation and order:
 
 ```powershell
-git pull
+powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -WhatIfOnly
+powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing -DryRun
+```
+
+After reviewing the preview:
+
+```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
-```
-
-The script auto-finds Sea Power the same way the export script did, locates `StreamingAssets`,
-and installs the **consolidated pack** — `SEST_Integration`, built by `tools/consolidate_packs.py`
-from every per-pack source under `integration/` — expect 1 of 1, plus a `purged` line for each
-of the old per-pack folders it removes (those would double-define every unit alongside the
-consolidated pack). One Mod Manager entry at the very top now carries every patch, so nothing
-can jump over an individual pack and silently disable it. Re-run any time after a `git pull`;
-it mirrors in place.
-
-What the consolidated pack contains (16 source packs):
-`SEST_Growler_NGJ_MALICE` (NGJ + MALICE Growlers; Super Hornet AIM-260 fits incl. the
-Intercept260/ER/Escort trucks; the F/A-18E buddy tanker; RAAF 1 SQN / 6 SQN squadron
-identities) · `SEST_F-15EX_Revamp` (24+ loadouts, eight squadrons, the six-round MALICE and
-174B trucks) · `SEST_B52_ARRW` (AGM-183A with its loft profile restored, across the B-52H and
-B-52O, W62 variants, LRASM and bay ALCMs; names the ARRW mod's 419th FLTS testbed distinctly) ·
-`SEST_Allied_Fixes` (P-8 anti-ship fit repaired; HMS Ocean operates the Apache AH1) ·
-`SEST_F-35C_JATM` · `SEST_RAAF_F-35A_JATM` · `SEST_Rafale_F5` (six JATM/MALICE/LRASM fits on
-the late Rafales) · `SEST_JMSDF_Mogami` · `SEST_RAAF_Wedgetail` (E-7A squadrons) ·
-`SEST_Raptor_Squadrons` (seven real F-22 squadrons) · `SEST_Zumwalt_CPS` (repairs the
-Zumwalt's hypersonic launcher) · `SEST_TacMap_Colors` · `SEST_RAN_Fleet` (2027 armament:
-NSM, Tomahawk, SM-6) · `SEST_ADF_Persistent_ISR` (RAAF MQ-4C Triton) · `SEST_RAAF_Bases`
-(15 placeable RAAF airfields with rosters) · `SEST_F16CM_JATM` (AIM-260 intercept and
-AIM-424 MALICE-on-the-HARM-stations fits for the USAF F-16CM Block 52).
-
-Then, with the game **closed**, run `set-mod-order.ps1 -AddMissing` — it inserts the
-freshly installed pack into `usersettings.ini` at its canonical position (the very top),
-already enabled. No Mod Manager visit is needed; that step predates the `-AddMissing` flag.
-
-Expect no warnings. `canonical pack not installed in StreamingAssets` means the install
-step did not take; `in canonical order but not in your settings (skipped)` on a `SEST_*`
-entry means you left off `-AddMissing`. If a pack still does not appear in game, stop and
-report it rather than reordering by hand.
-
-## Phase 4 — mod order
-
-Your current order is whatever the game accumulated as you subscribed — it has never been
-set deliberately, so treat this phase as required, not optional.
-
-You do not have to do it by hand. With the game closed:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing -DryRun   # preview
-powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing           # apply
-```
-
-**And re-run it every time you change which mods are ticked.** Sea Power owns `usersettings.ini`
-while it runs and rewrites the whole `[LoadOrder]` section on exit, so ticking a mod in the Mod
-Manager always leaves you with the game's ordering, not yours. `tools\fix-load-order.ps1` handles
-this: start it, go play, and it applies the moment you quit — no remembering required.
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\fix-load-order.ps1            # waits for the game to exit
-powershell -ExecutionPolicy Bypass -File .\tools\fix-load-order.ps1 -NoWait    # game already closed
-powershell -ExecutionPolicy Bypass -File .\tools\fix-load-order.ps1 -NoWait -DryRun
-```
-
-It first reports what the Mod Manager did — how many entries moved, anything it discovered that
-isn't in the canonical list, and any SEST pack you left disabled — then applies the canonical order.
-
-`set-mod-order.ps1` is the same fix without the waiting:
-
-```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing
+powershell -ExecutionPolicy Bypass -File .\tools\show-load-order.ps1
 ```
 
-It rewrites `[LoadOrder]` from `data\load-order.tokens.txt`, keeps every mod's enabled flag,
-appends anything it doesn't recognise rather than dropping it, backs the file up first, and
-warns loudly if a SEST pack is present but disabled (the usual reason "the patch did nothing").
-`-AddMissing` adds installed SEST packs the game hasn't seen yet, enabled. Workshop ids are
-never invented — Steam owns those.
+Expect **one SEST entry at the very top**. The installer mirrors
+`integration/dist/SEST_Integration` and removes superseded individual `SEST_*`
+installation folders. The per-pack repository folders are build inputs, not
+additional mods to install. The order script backs up the settings, preserves
+existing enabled flags and retains unknown items for review; it does not subscribe
+to missing Workshop items. Consult [the generated complete order](load-order-full.md)
+rather than an independent tier list.
 
-The rules below are what that canonical order encodes; read them if you ever need to reorder
-by hand in the Mod Manager (top of the list wins when two mods ship the same file).
+CH-53E must be above Euromod and US Naval Aviation, following its supplied README.
+SEST outranks all Workshop content; Red Storm Arsenal stays last. Changing PLA AEP's
+position affects 17 shared ammunition files and needs a deliberate compatibility test.
 
-### The moves that actually matter (do these even if you do nothing else)
+## Check in game
 
-1. **Anchor Chain to the very top.**
-2. **Dingtools Weapon Pack above all four dingtools mods** (F-15SE/F-15EX, B-52H, B-1B,
-   SAAB AEW&C) — author-mandated.
-3. **PLA Land Unit Pack above every PLA-related mod**; **SAM Pack near the top** — both
-   author-mandated.
-4. **SEST Growler NGJ + MALICE above U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation.**
-   It owns the four patched aircraft files and must win all three conflicts.
-5. **SEST F-15EX Revamp above the F-15EX mod** (listed as "F-15SE") — below the Weapon Pack.
-6. **SEST F-35C JATM above ALL FOUR other F-35C sources.** Because you kept the MyGo F-35C
-   and F-35C Alt. Loadouts for now, there are four mods carrying `usn_f-35c`: those two,
-   US Naval Aviation, and Modern US Navy. If any of them sits above the SEST patch, the
-   Ford's jets silently lose the AIM-260 fits (and you'll be flying whichever F-35C file
-   happens to win).
-7. **SEST RAAF F-35A JATM above the RAAF F-35A mod.**
-8. **SEST RAAF Wedgetail above the E-7A Wedgetail mod**, **SEST Raptor Squadrons above the
-   F-22 mod**, and **SEST Zumwalt CPS Fix above Modern US Navy.** Both carry full replacement `*_squadrons.ini` files. Below their target they do
-   nothing, and the aircraft go back to having no resolvable squadrons — which is not an obvious
-   failure in game, it just quietly shows every jet as the same anonymous unit.
+Open the active mission, **NORTHERN FRONT III FINAL NEWEST**, and a small generated
+scenario. Check the Burke loadouts, B-1/B-52 availability, F-35/F-15/Growler upgrade
+fits, carrier aircraft operations, and a replenishment transfer. Check the new
+CH-53E, RQ-180, F-2A, J-16, MiG-31 and J-36 for their models and intended loadouts.
+Report the unit ID, loadout, enabled order and observed failure if something differs.
 
-The two Australian content packs (`SEST_RAAF_Bases`, `SEST_RAN_Fleet`) only ADD new files —
-they conflict with nothing, so their position is forgiving; bottom of the list is fine.
-`SEST_TacMap_Colors` only overrides a vanilla UI file, so it is equally forgiving.
+`data/active-mission.txt` selects the default mission. `data/deploy-missions.txt`
+selects what the installer copies, including a historical backup for recovery.
+Backup missions retain their historical references and are not covered by the
+current playable-mission validation results.
 
-Note that `SEST_RAAF_Bases` now *depends* on two of the patch packs rather than merely
-coexisting with them: its F-15EX dets reference squadrons 3–8 (from SEST F-15EX Revamp) and its
-Williamtown Wedgetails reference No. 2 Squadron RAAF (from SEST RAAF Wedgetail).
-
-### The full target order
-
-```
-── Tier 1: loaders ──────────────────────────────────────────
-Anchor Chain                     (SeaLifter loads via its preloader)
-── Tier 2: weapon/system databases ──────────────────────────
-SAM Pack                         (author: "top of TOE")
-PLA Land Unit Pack               (author: above any PLA-related mod)
-Dingtools Weapon Pack            (author: above any dingtools mod)
-Euromod - Main Pack
-Modern PLAN Systems
-── Tier 3: patches (each above what it modifies) ────────────
-SEST Growler NGJ + MALICE          ← above all three naval aviation sources
-U.S. Navy 2027 Capabilities
-SEST F-15EX Revamp               ← above the F-15EX mod
-SEST F-35C JATM                  ← above US Naval Aviation & Modern US Navy
-SEST RAAF F-35A JATM             ← above the RAAF F-35A mod
-SEST RAAF Wedgetail              ← above the E-7A Wedgetail mod
-SEST Raptor Squadrons            ← above the F-22 mod
-SEST Zumwalt CPS Fix             ← above Modern US Navy
-SEST TacMap Colors               ← overrides the vanilla tactical-map UI
-F/A-18 Murder Hornet
-B-52G with AGM-86
-Tu-95 With AS-15                 (its global munition edits make it a patch)
-Flight Deck Ops
-ADO - Nimitz (2000s)             (if kept after the Phase 2 test)
-Ground Upgrade: SPAA
-── Tier 4: core faction packs ───────────────────────────────
-Modern US Navy · United States Naval Aviation · all Euromod
-addons (both Spanish, British, German, Dutch, Nordic, Italian,
-JMSDF) · SEST RAN Fleet · Chinese Navy · Russian Navy 21 ·
-submarine packs · carriers & amphibs
-── Tier 5: individual units ─────────────────────────────────
-All standalone aircraft/helis/UAVs/land systems (E-7A, S-70B-2,
-P-8, U-2, tankers, MQ-9, AH-64, fighters, bombers...) · Civil
-Aircraft Mod
-── Tier 6: airbases last ────────────────────────────────────
-SEST RAAF Bases · Modern US Airbase · Modern Russian Airbase ·
-Modern Chinese Airbase
-```
-
-## Phase 4b — pre-flight (30 seconds, before you launch)
-
-Three checks, all offline. Run them after any subscribe, unsubscribe or
-reorder — together they cover the three ways this collection breaks silently.
-
-```powershell
-python tools\check_load_order.py          # no mod outranks a SEST pack
-python tools\check_dependencies.py        # every pack's upstream mod is present
-python tools\preflight.py                 # every reference the mission makes resolves
-python tools\check_mod_conflicts.py <id>  # what a NEW mod would take over
-```
-
-`check_dependencies` catches the third way this breaks: the packs ship 99 files
-and every one is a `.ini`, so each depends on the workshop mod that supplies the
-geometry. Unsubscribe that mod and the pack is left describing a unit whose model
-is gone. See [packaging-and-recovery.md](packaging-and-recovery.md) for the full
-dependency, install/uninstall and backup story.
-
-`check_load_order` catches a pack gone inert — the failure that hid for several
-sessions when U.S. Navy 2027 moved up a tier and jumped over the Growler pack.
-`preflight` catches the other half: the load order decides which *file* loads,
-never whether the thing you asked for is inside it. A mission can name a unit no
-enabled mod defines, or a `LoadoutVariant` the winning file does not list, and
-the game will not complain — the unit just spawns with a default fit. Adding one
-mod can cause that without any file going missing, because the file is still
-there, it is simply a different file now.
-
-All three exit non-zero on failure, and each names the mod responsible.
-
-## Phase 5 — ten-minute smoke test
-
-1. **Modern Growlers** → AN/ALQ-249 is listed; NGJ MALICE and NGJ MALICE Heavy are selectable.
-2. **F/A-18F Block III** → Block III MALICE is selectable with four AIM-424s.
-3. **F-15EX** → loadout picker includes AntiShipLRASM6, AntiShipHarpoon, StrikeQuicksink, and Intercept174.
-4. **Ford (JSF variant)** → F-35C flights offer *Intercept (AIM-260, stealth)* and *Intercept Beast*.
-5. **RAAF F-35A** → three Intercept fits present.
-6. **Place RAAF Base Williamtown** → F-35As and E-7As spawn (E-7A livery is the default one — expected).
-7. **Place RAAF Base Tindal** → B-52H/B-2 present (B-2 also re-proves the loaders).
-8. **Spawn HMAS Hobart** → Australian ensign shows (if the flag is blank, report it — one-line fix), MH-60R on deck.
-9. **Spawn HMAS Canberra** → helicopter-only air group operates.
-10. **Murder Hornet check** from Phase 2 if you dropped the MyGo F/A-18E/F.
-
-Anything that fails: note which step and paste what you see — every SEST pack regenerates from
-a script, so fixes are fast and versioned.
-
-## Refreshing a mission you edited in game
-
-The mission editor saves into the game's own `user_missions` folder, so an
-edited mission lives outside the repo. One command does the whole round trip
-(game closed):
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\refresh-mission.ps1 -Install
-```
-
-It imports the mission, dresses the civilian traffic, adds the depth units if
-they are missing, moves anything sitting on land into the water, and installs
-the result back. Every step is idempotent and preserves your placements,
-waypoints and formations, so it is safe after each editing session.
-
-First run on a machine, add `-InstallDeps` to fetch the land-mask package.
-Other missions: `-Mission "NORTHERN FRONT II"`. Without Python installed the
-script explains the git round trip instead.
-
-Afterwards, commit so the repo keeps your edits:
-
-```powershell
-git add integration\missions ; git commit -m "Refresh mission" ; git push
-```
-
-
-## The active mission
-
-`data\active-mission.txt` names the scenario the tooling works on when you don't pass one:
-
-```
-NORTHERN FRONT III FINAL
-```
-
-Both `tools\refresh-mission.ps1` / `tools\import-mission.ps1` and every script in
-`integration\missions\` read that one file, so switching development to another scenario is a
-one-line edit here. Before this existed the name was duplicated as a default in five places, and
-they had already drifted — `refresh-mission.ps1` defaulted to NORTHERN FRONT III while
-`refine_civ_traffic.py` defaulted to NORTHERN FRONT II, so running either with no arguments
-quietly edited a mission you weren't developing.
+After editing in game, close it and use `tools/import-mission.ps1` to capture the
+save. `tools/refresh-mission.ps1` additionally runs the mission transformation
+scripts; review their diff before installation or committing. Keep mission changes
+on the intended feature branch and avoid pushing directly to the default branch.
