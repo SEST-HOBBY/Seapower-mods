@@ -204,7 +204,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
-| AI Doctrine Overhaul — absent from local inventory | unknown (added 2026-08-24) | framework | VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement. Absent from both the 2026-09-16 local export and saved PC load order; Steam account subscription status is unverified. **Requires:** anchor-chain (presumed — code-level behavior mod; verify) |
+| AI Doctrine Overhaul — historical / unsubscribed | unknown (added 2026-08-24) | framework | VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement. Absent from both the 2026-09-16 local export and saved PC load order; Steam account subscription status is unverified. **Requires:** anchor-chain (presumed — code-level behavior mod; verify) |
 | Anchor Chain | PrimerGuided | framework | Community chainloader. 'Will not function on its own' — requires the documented manual install. Required by B-2 Spirit and Type 003/004 CVN, and by any code-modifying mod. Recommendation: keep at the very top of the mod order. |
 | Better TacMap | unknown (added 2026-08-24) | framework | VERIFIED: pure code mod (settings.cfg only in export) — Anchor Chain family UI overhaul. **Requires:** anchor-chain (presumed — UI code mod; verify) |
 | Custom Loadout Editor | unknown (added 2026-08-24) | framework | VERIFIED: Anchor Chain code mod plus *_patch_clm companion units for vanilla-era aircraft/ships (F-14, AV-8A, Tarawa, MiG-27...). All patch files use NEW ids — zero overlap with the SEST loadout patches. **Requires:** anchor-chain (presumed — code-level tool; verify) |

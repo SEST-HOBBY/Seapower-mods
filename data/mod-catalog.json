@@ -1680,7 +1680,7 @@
       "author": "unknown (added 2026-08-24)",
       "faction": "utility",
       "type": "framework",
-      "status": "not_installed",
+      "status": "unsubscribed",
       "requires": [
         "anchor-chain (presumed — code-level behavior mod; verify)"
       ],
