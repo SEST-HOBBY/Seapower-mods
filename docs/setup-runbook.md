@@ -12,8 +12,11 @@ Windows fixture run. Do not unsubscribe mods to force an older expected count.
 
 ## Preserve the PC state
 
-Close Sea Power before changing its settings or installing. Check `git status` and
-preserve any local mission or export changes before switching branches or pulling.
+Close Sea Power before changing its settings or installing: it rewrites
+`usersettings.ini` on exit, so anything the tooling writes while the game is open is
+silently thrown away, and every script that touches that file checks and refuses.
+Check `git status` and preserve any local mission or export changes before switching
+branches or pulling.
 Keep the current Mod Manager order as a rollback reference. Review changes in a
 separate checkout when the playing checkout has uncommitted work.
 
@@ -78,16 +81,70 @@ CH-53E must be above Euromod and US Naval Aviation, following its supplied READM
 SEST outranks all Workshop content; Red Storm Arsenal stays last. Changing PLA AEP's
 position affects 17 shared ammunition files and needs a deliberate compatibility test.
 
+The other author-mandated placements the canonical order encodes, if you ever
+reorder by hand (top of the list wins when two mods ship the same file):
+
+- **Anchor Chain** at the very top of the Workshop mods (SeaLifter loads via its preloader).
+- **Dingtools Weapon Pack** above every dingtools mod: F-15EX, B-52H, B-1B, SAAB AEW&C.
+- **PLA Land Unit Pack** above every PLA-related mod; **SAM Pack** near the top.
+- **Airbases last** - SEST RAAF Bases, Modern US / Russian / Chinese Airbase.
+
+## Keeping the install in step
+
+Once installed and ordered the first time, the whole update loop is one command,
+game closed:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
+```
+
+It pulls, installs the consolidated pack, and rewrites the mod order, inserting any
+newly installed pack as enabled at its canonical position. It resolves the one merge
+conflict this workflow keeps producing (a mission you imported while the tooling
+changed the same file): your imported copy wins, and `-RefreshMissions` re-runs the
+tooling on top. A conflict in any other file stops the script for you to handle.
+
+Re-run the order fix **every time you change which mods are ticked.** Sea Power owns
+`usersettings.ini` while it runs and rewrites the whole `[LoadOrder]` section on exit,
+so ticking a mod in the Mod Manager always leaves you with the game's ordering, not
+yours. `fix-load-order.ps1` waits for the game to quit and applies the canonical
+order the moment it does:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\fix-load-order.ps1            # waits for the game to exit
+powershell -ExecutionPolicy Bypass -File .\tools\fix-load-order.ps1 -NoWait    # game already closed
+powershell -ExecutionPolicy Bypass -File .\tools\fix-load-order.ps1 -NoWait -DryRun
+```
+
+It first reports what the Mod Manager did - entries moved, anything not in the
+canonical list, any SEST pack left disabled - then applies the order.
+`set-mod-order.ps1 -AddMissing` is the same fix without the waiting.
+
 ## Check in game
 
 Open the active mission, **NORTHERN FRONT III FINAL NEWEST**, and a small generated
-scenario. Check the Burke loadouts, B-1/B-52 availability, F-35/F-15/Growler upgrade
-fits, carrier aircraft operations, and a replenishment transfer. Check the new
-CH-53E, RQ-180, F-2A, J-16, MiG-31 and J-36 for their models and intended loadouts.
-Report the unit ID, loadout, enabled order and observed failure if something differs.
+scenario. Ten minutes covers the packs that are easiest to break silently:
 
-`data/active-mission.txt` selects the default mission. `data/deploy-missions.txt`
-selects what the installer copies, including a historical backup for recovery.
+1. **Modern Growlers** - AN/ALQ-249 is listed; NGJ MALICE and NGJ MALICE Heavy are selectable.
+2. **F/A-18F Block III** - Block III MALICE is selectable with four AIM-424s.
+3. **F-15EX** - the picker includes AntiShipLRASM6, AntiShipHarpoon, StrikeQuicksink and Intercept174.
+4. **Ford (JSF variant)** - F-35C flights offer *Intercept (AIM-260, stealth)* and *Intercept Beast*.
+5. **RAAF F-35A** - three Intercept fits present.
+6. **Place RAAF Base Williamtown** - F-35As and E-7As spawn (default E-7A livery is expected).
+7. **Place RAAF Base Tindal** - B-52H present; **Amberley** - B-1B present. The B-2 also re-proves the loaders.
+8. **Spawn HMAS Hobart** - Australian ensign shows, MH-60R on deck. **HMAS Canberra** - helicopter-only air group operates.
+9. **A Burke** - the `≥125_` loadout names resolve; **a replenishment transfer** completes.
+10. **The new mods** - CH-53E, RQ-180, F-2A, J-16 Qianlong, MiG-31, J-36 show their models and intended loadouts.
+
+Anything that fails: note which step and paste what you see - every SEST pack
+regenerates from a script, so fixes are fast and versioned. Report the unit ID,
+loadout, enabled order and observed failure.
+
+`data/active-mission.txt` selects the default mission - every mission script and
+`refresh-mission.ps1` / `import-mission.ps1` read that one file, so switching
+development to another scenario is a one-line edit there rather than five drifting
+defaults. `data/deploy-missions.txt` selects what the installer copies, including a
+historical backup for recovery.
 Backup missions retain their historical references and are not covered by the
 current playable-mission validation results.
 
