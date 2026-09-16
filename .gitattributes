@@ -33,8 +33,15 @@ data/load-order.preview.txt linguist-generated=true
 
 # --- Vendored upstream export (must stay last) --------------------------------
 # mods-source/ is a byte-faithful mirror of the exported game and Workshop
-# files: some genuinely use CRLF and 74 carry a UTF-8 BOM. Never normalize it —
-# a re-export must produce a content diff, not a whitespace storm — and keep it
-# out of GitHub's language statistics.
+# files. Most are CRLF, some LF, and 74 carry a UTF-8 BOM - whatever the mod
+# author uploaded. Never normalize it: a re-export must produce a content diff,
+# not a whitespace storm, and tools/check_inventory.py compares byte totals
+# against the export manifest, which only a faithful copy can satisfy.
+#
+# It was not always faithful. Every import up to 2026-09-13 had stripped CR
+# from most files, so the manifest disagreed with disk for 118 of 127 mods and
+# nobody could tell a real upstream change from a line-ending artefact. The
+# 2026-09-16 import restored the true bytes; that one-time 6,345-file diff is
+# the correction, not a regression. Also keep it out of GitHub's language stats.
 mods-source/** -text
 mods-source/** linguist-vendored=true

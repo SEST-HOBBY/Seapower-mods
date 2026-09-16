@@ -278,6 +278,8 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   override hides — USNA's buddy-tanker fit landed in a file the Growler pack
   owns and was ported the same day. After any export, diff what changed and
   check it against pack donors.
-- **Gates before every push:** `check_load_order`, `check_dependencies`,
-  `preflight` (every reference the missions make), `check_station_clash`,
-  full pack rebuilds. All exit non-zero; all have been negative-tested.
+- **Gates before every push:** `check_inventory` (the export agrees with its
+  own manifest), `preflight` (every reference the missions make),
+  `check_load_order`, `check_dependencies`, `check_pack_fidelity`,
+  `check_scenarios`, `check_docs`, plus `check_station_clash` and full pack
+  rebuilds. All exit non-zero; all have been negative-tested.

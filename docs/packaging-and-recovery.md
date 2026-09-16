@@ -136,12 +136,16 @@ PowerShell 5.1 has no `&&`. Chain with `;` or use separate lines.
 
 ## Pre-flight
 
-Four checks, all offline, all exit non-zero on failure. Run them after any
-subscribe, unsubscribe or reorder:
+Eight checks, all offline, all exit non-zero on failure. Run them after any
+export, subscribe, unsubscribe or reorder:
 
 ```powershell
+python tools\check_inventory.py        # the export agrees with its own manifest
+python tools\preflight.py              # every reference the mission makes resolves
 python tools\check_load_order.py       # no mod outranks a SEST pack
 python tools\check_dependencies.py     # every pack's upstream is present
-python tools\preflight.py              # every reference the mission makes resolves
+python tools\check_pack_fidelity.py    # every shipped byte difference is intended
+python tools\check_scenarios.py        # carved scenarios agree with their parent
+python tools\check_docs.py             # documented figures match the build
 python tools\check_station_clash.py 0.001   # nothing mounted on top of anything
 ```
