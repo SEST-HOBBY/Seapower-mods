@@ -352,7 +352,9 @@ def main():
 
     (OUT / "vessels").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en").mkdir(exist_ok=True)
-    names = ["[****************************** Australia — SEST RAN Fleet ******************************]", ""]
+    # Section headers stay ASCII: no vanilla or workshop language file puts a
+    # non-ASCII character inside a [...] line, and this one carried an em dash.
+    names = ["[****************************** Australia - SEST RAN Fleet ******************************]", ""]
 
     for ship_id, ship in FLEET.items():
         mod, donor = ship["donor"]

@@ -128,6 +128,28 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   thing. Read the stack: `IniToPlanConverter` inside a measure pass is the UI
   building a plan, not the loader registering units.
 
+  And the lesson after that: the fix has to land in every file the game can
+  open, not just the one the tooling refreshes. `install-sest-packs.ps1` deploys
+  *every* `.ini` under `integration/missions/` — drafts, timestamped backups,
+  scenarios — and each is a mission the editor will load. The KJ-500 crash was
+  fixed in the active mission and came straight back from the FINAL, DRAFT and
+  backup copies beside it (136 aircraft across 30 files, one of them a scenario).
+  `fix_loadout_variants.py --all --write` is the sweep; `preflight --all` is the
+  gate that proves it stayed swept.
+- **A hull variant has to be declared, not just present.** The engine pools only
+  the first `NumberOfVariants` sections of a `_variants.ini`; a `[VariantN]` block
+  past that count is in the file yet unselectable, and a mission naming it gets
+  the picker's *"MISSING: &lt;unit&gt; name or squadron reference"*. Murder Hornet's
+  winning `usn_cvn_nimitz_2000s_variants.ini` declares 2 and ships 3 (CVN-70
+  *"#Not included atm"*) while AUS DEF asks for `Variant3`. SEST Collection Fixes
+  restores the count with the CVN-70 art wired to Nimitz Expanded's textures, and
+  `preflight` now checks every `VariantReference` against the winning declaration.
+  Same pack, same carrier: its Type/class/hull names came solely from the
+  deprecated MyGo Super Hornet's language file (line 1, behind a BOM) — the mod
+  the runbook says to unsubscribe. A unit whose only name provider is on the way
+  out gets its section carried verbatim in Collection Fixes (`CARRIED_VESSEL_NAMES`);
+  key-level merge makes that a no-op while the provider is still there.
+
 - **A missile's guidance profile is a contract with the launcher.** Swapping a
   round into a proven launcher block is not always free: a `MidCourseCorrection`
   of 1 (radio command) or 3 (datalink) needs a guidance channel from an
