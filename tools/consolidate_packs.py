@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Merge the 15 per-pack SEST outputs into one deployable pack.
+"""Merge the per-pack SEST outputs into one deployable pack.
 
 Fifteen Mod Manager entries meant fifteen chances for something to jump over a
 SEST pack and silently disable it — the exact way SEST_Growler_NGJ_MALICE once
@@ -18,7 +18,7 @@ Merge rules, in the order they are tried per colliding path:
   language_*/ *.ini          -> key-level merge under each [Section]. The game
                                 itself merges language files across mods, so
                                 this reproduces in one file what the game
-                                already computed from fifteen.
+                                already computed across the separate packs.
   systems/*.ini              -> section-level merge (sensor definitions).
   _info.ini                  -> regenerated for the consolidated pack.
   anything else              -> ERROR. Two packs shipping different bytes at

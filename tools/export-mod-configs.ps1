@@ -1,30 +1,22 @@
 <#
 .SYNOPSIS
-    Harvest the text/config portion of your Sea Power Workshop mods into this repo.
-
+    Export locally downloaded Sea Power Workshop text/config files.
 .DESCRIPTION
-    Finds your Sea Power install by scanning Steam library manifests (no hardcoded
-    app ID), then copies only small text-based files (.ini, .txt, .json, .cfg, .xml,
-    .md, .yaml) from each subscribed Workshop mod into mods-source/<workshop-id>/,
-    preserving folder structure. Heavy binaries (models, textures, asset bundles)
-    are skipped so the repo stays light — the configs are what loadout/integration
-    work needs.
+    Builds a fresh snapshot before replacing existing mod folders, so upstream
+    file removals do not survive in mods-source. Replaced folders and manifests
+    are retained in a sibling _export-backups directory. A failed publication
+    rolls back the replacements. Nothing writes to Steam's content folders.
 
-    Also writes mods-source/_export-manifest.csv mapping each workshop ID to a
-    guessed mod name, file count, and copied bytes.
+    _export-manifest.csv records mod IDs, names, counts and bytes.
+    _export-files.csv records each Workshop file's path, size and SHA-256.
+    This inventories local content, not the Steam account subscription list.
 
+    -NoPrune retains absent mod folders, but still fully refreshes present mods.
+    Retained absent folders will be reported by tools/check_inventory.py.
 .EXAMPLE
-    # From the repo root, in PowerShell:
-    .\tools\export-mod-configs.ps1
-
-    # If auto-detection fails, point it at the workshop content folder directly:
-    .\tools\export-mod-configs.ps1 -WorkshopContentDir "D:\SteamLibrary\steamapps\workshop\content\<seapower-appid>"
-
-    # Also export the vanilla game definitions (very useful as reference data):
     .\tools\export-mod-configs.ps1 -IncludeVanilla
-
-    Then commit and push (PowerShell has no && - use semicolons):
-      git add -A mods-source; git commit -m "Export mod configs"; git push
+.EXAMPLE
+    .\tools\export-mod-configs.ps1 -WorkshopContentDir 'D:\SteamLibrary\steamapps\workshop\content\1286220' -DestDir '.\mods-source'
 #>
 [CmdletBinding()]
 param(
@@ -32,129 +24,175 @@ param(
     [string]$DestDir,
     [switch]$IncludeVanilla,
     [switch]$NoPrune,
-    [string[]]$TextExtensions = @(".ini", ".txt", ".json", ".cfg", ".xml", ".md", ".yaml", ".yml", ".csv"),
+    [string[]]$TextExtensions = @('.ini', '.txt', '.json', '.cfg', '.xml', '.md', '.yaml', '.yml', '.csv'),
     [long]$MaxFileBytes = 2MB
 )
 
-$ErrorActionPreference = "Stop"
-
-# $PSScriptRoot can be empty inside param() defaults on Windows PowerShell,
-# so paths are resolved here in the body instead.
+$ErrorActionPreference = 'Stop'
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
-if (-not $DestDir) { $DestDir = Join-Path $scriptDir "..\mods-source" }
-
-. (Join-Path $scriptDir "lib\common.ps1")
+if (-not $DestDir) { $DestDir = Join-Path $scriptDir '..\mods-source' }
+. (Join-Path $scriptDir 'lib\common.ps1')
 
 function Find-SeaPower {
     foreach ($lib in Get-SteamLibraries) {
-        foreach ($acf in Get-ChildItem -LiteralPath $lib -Filter "appmanifest_*.acf" -ErrorAction SilentlyContinue) {
+        foreach ($acf in Get-ChildItem -LiteralPath $lib -Filter 'appmanifest_*.acf' -ErrorAction SilentlyContinue) {
             $raw = Get-Content -LiteralPath $acf.FullName -Raw
             if ($raw -match '"name"\s+"([^"]*Sea Power[^"]*)"') {
                 $appId = [regex]::Match($acf.Name, '\d+').Value
                 $installDir = [regex]::Match($raw, '"installdir"\s+"([^"]+)"').Groups[1].Value
-                [pscustomobject]@{
-                    AppId      = $appId
-                    Library    = $lib
-                    GameDir    = Join-Path $lib "common\$installDir"
-                    Workshop   = Join-Path $lib "workshop\content\$appId"
+                return [pscustomobject]@{
+                    AppId = $appId
+                    GameDir = Join-Path $lib "common\$installDir"
+                    Workshop = Join-Path $lib "workshop\content\$appId"
                 }
-                return
             }
         }
     }
 }
 
-# --- Locate the game ---------------------------------------------------------
 $game = $null
 if (-not $WorkshopContentDir) {
     $game = Find-SeaPower
-    if (-not $game) {
-        throw "Could not auto-detect Sea Power. Re-run with -WorkshopContentDir '<...>\steamapps\workshop\content\<seapower-appid>'"
-    }
+    if (-not $game) { throw 'Sea Power not found. Supply -WorkshopContentDir explicitly.' }
     $WorkshopContentDir = $game.Workshop
-    Write-Host "Found Sea Power (app $($game.AppId))"
-    Write-Host "  game dir : $($game.GameDir)"
-    Write-Host "  workshop : $WorkshopContentDir"
 }
-if (-not (Test-Path $WorkshopContentDir)) {
-    throw "Workshop content dir not found: $WorkshopContentDir"
-}
+$source = Get-Item -LiteralPath $WorkshopContentDir
+if (-not $source.PSIsContainer) { throw 'WorkshopContentDir must be a directory.' }
+if ($MaxFileBytes -lt 0) { throw 'MaxFileBytes must not be negative.' }
+$WorkshopContentDir = $source.FullName.TrimEnd('\', '/')
+$DestDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($DestDir).TrimEnd('\', '/')
 
-New-Item -ItemType Directory -Force -Path $DestDir | Out-Null
-$manifest = @()
-
-# --- Export each subscribed mod ---------------------------------------------
-$modDirs = Get-ChildItem -LiteralPath $WorkshopContentDir -Directory
-Write-Host "Exporting text configs from $($modDirs.Count) workshop items..."
-foreach ($mod in $modDirs) {
-    $files = Get-ChildItem -LiteralPath $mod.FullName -Recurse -File |
-        Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes }
-    $copied = 0; $bytes = 0
-    foreach ($f in $files) {
-        $rel = $f.FullName.Substring($mod.FullName.Length).TrimStart('\', '/')
-        $target = Join-Path (Join-Path $DestDir $mod.Name) $rel
-        New-Item -ItemType Directory -Force -Path (Split-Path $target) | Out-Null
-        Copy-Item -LiteralPath $f.FullName -Destination $target -Force
-        $copied++; $bytes += $f.Length
+# Reject overlapping trees, including paths reached through a junction/symlink.
+function Assert-NoLinks {
+    param([string]$Path)
+    $probe = $Path
+    while ($probe) {
+        if (Test-Path -LiteralPath $probe) {
+            $item = Get-Item -LiteralPath $probe -Force
+            if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {
+                throw "Reparse point is not supported in an export path: $probe"
+            }
+        }
+        $parent = Split-Path -Parent $probe
+        if ($parent -eq $probe) { break }
+        $probe = $parent
     }
-    # Display name straight from the mod's own _info.ini, read as UTF-8.
-    $name = Get-ModDisplayName -ModDir $mod.FullName
-    $manifest += [pscustomobject]@{
-        WorkshopId = $mod.Name
-        DisplayName = $name
-        FilesCopied = $copied
-        Bytes = $bytes
-    }
-    Write-Host ("  {0}  {1,4} files  {2,10:N0} B  {3}" -f $mod.Name, $copied, $bytes, $name)
 }
+function Assert-SeparateTrees {
+    param([string]$First, [string]$Second)
+    $a = $First.Replace('\', '/').TrimEnd('/') + '/'
+    $b = $Second.Replace('\', '/').TrimEnd('/') + '/'
+    if ($a.StartsWith($b, [StringComparison]::OrdinalIgnoreCase) -or
+        $b.StartsWith($a, [StringComparison]::OrdinalIgnoreCase)) {
+        throw "Source and destination must be separate trees: $First / $Second"
+    }
+}
+Assert-NoLinks $WorkshopContentDir
+Assert-NoLinks $DestDir
+Assert-SeparateTrees $WorkshopContentDir $DestDir
 
-# --- Optionally export vanilla definitions -----------------------------------
+$modDirs = @(Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |
+    Where-Object { $_.Name -match '^[0-9]+$' } | Sort-Object Name)
+if (-not $modDirs.Count) { throw 'No numeric Workshop folders found; existing exports were not changed.' }
+$sources = @($modDirs | ForEach-Object { [pscustomobject]@{ Id = $_.Name; Root = $_.FullName } })
 if ($IncludeVanilla) {
     if (-not $game) { $game = Find-SeaPower }
-    if (-not $game) { Write-Warning "Could not locate the Sea Power game dir; vanilla export skipped." }
-    else {
-        $sa = Get-ChildItem -LiteralPath $game.GameDir -Directory -Recurse -Depth 2 -ErrorAction SilentlyContinue |
-            Where-Object { $_.Name -eq "StreamingAssets" } | Select-Object -First 1
-        if ($sa) {
-            $vanillaDest = Join-Path $DestDir "_vanilla"
-            $files = Get-ChildItem -LiteralPath $sa.FullName -Recurse -File |
-                Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes }
-            foreach ($f in $files) {
-                $rel = $f.FullName.Substring($sa.FullName.Length).TrimStart('\', '/')
-                # Skip the installed SEST packs - they are generated from this
-                # repo, so exporting them back just duplicates them in git.
-                if ($rel -match '^SEST_') { continue }
-                $target = Join-Path $vanillaDest $rel
-                New-Item -ItemType Directory -Force -Path (Split-Path $target) | Out-Null
-                Copy-Item -LiteralPath $f.FullName -Destination $target -Force
-            }
-            Write-Host "Vanilla definitions exported to $vanillaDest ($($files.Count) files)"
-        } else { Write-Warning "StreamingAssets not found under $($game.GameDir); vanilla export skipped." }
-    }
+    if (-not $game) { throw 'Cannot export vanilla: Sea Power game directory was not found.' }
+    $sa = Get-ChildItem -LiteralPath $game.GameDir -Directory -Recurse -Depth 2 |
+        Where-Object { $_.Name -eq 'StreamingAssets' } | Select-Object -First 1
+    if (-not $sa) { throw 'Cannot export vanilla: StreamingAssets was not found.' }
+    Assert-NoLinks $sa.FullName
+    Assert-SeparateTrees $sa.FullName $DestDir
+    $sources += [pscustomobject]@{ Id = '_vanilla'; Root = $sa.FullName }
 }
 
-# --- Prune mods that are no longer subscribed --------------------------------
-# This export only ever ADDED directories. Unsubscribing a mod in Steam left its
-# files sitting here forever, and every conflict check kept treating it as
-# installed - reporting fights with mods that are not in the game any more. The
-# manifest lists exactly what exists right now, so anything numeric that is not
-# in it has been unsubscribed. Skip with -NoPrune.
-if (-not $NoPrune) {
-    $exported = @{}
-    foreach ($row in $manifest) { $exported[[string]$row.WorkshopId] = $true }
-    $stale = @(Get-ChildItem -LiteralPath $DestDir -Directory -ErrorAction SilentlyContinue |
-        Where-Object { $_.Name -match '^\d+$' -and -not $exported.ContainsKey($_.Name) })
-    if ($stale.Count) {
-        Write-Host ("`nPruning {0} mod(s) no longer subscribed:" -f $stale.Count)
-        foreach ($d in $stale) {
-            Write-Host ("  - {0}" -f $d.Name)
-            Remove-Item -LiteralPath $d.FullName -Recurse -Force
+$parentDir = Split-Path -Parent $DestDir
+$stamp = (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N')
+$stage = Join-Path $parentDir ("_export-staging-" + $stamp)
+$backup = Join-Path (Join-Path $parentDir '_export-backups') $stamp
+$manifest = [System.Collections.Generic.List[object]]::new()
+$fileManifest = [System.Collections.Generic.List[object]]::new()
+$saved = [System.Collections.Generic.List[string]]::new()
+$published = [System.Collections.Generic.List[string]]::new()
+
+try {
+    New-Item -ItemType Directory -Path $stage | Out-Null
+    Write-Host "Staging $($modDirs.Count) local Workshop items..."
+    foreach ($entry in $sources) {
+        Assert-NoLinks $entry.Root
+        $targetRoot = Join-Path $stage $entry.Id
+        New-Item -ItemType Directory -Path $targetRoot | Out-Null
+        $copied = 0; [long]$bytes = 0
+        # Fail on links rather than following them outside the declared source.
+        $items = @(Get-ChildItem -LiteralPath $entry.Root -Recurse -Force)
+        if (@($items | Where-Object { $_.Attributes -band [IO.FileAttributes]::ReparsePoint }).Count) {
+            throw "Source contains a reparse point: $($entry.Root)"
         }
-        Write-Host "  (git will show these as deletions - commit them)"
+        foreach ($f in $items | Where-Object { -not $_.PSIsContainer -and
+                $TextExtensions -contains $_.Extension.ToLowerInvariant() -and $_.Length -le $MaxFileBytes }) {
+            $rel = $f.FullName.Substring($entry.Root.Length).TrimStart('\', '/')
+            if ($entry.Id -eq '_vanilla' -and $rel -match '^SEST_') { continue }
+            $target = Join-Path $targetRoot $rel
+            New-Item -ItemType Directory -Force -Path (Split-Path -Parent $target) | Out-Null
+            Copy-Item -LiteralPath $f.FullName -Destination $target
+            $length = (Get-Item -LiteralPath $target).Length
+            $copied++; $bytes += $length
+            if ($entry.Id -ne '_vanilla') {
+                $fileManifest.Add([pscustomobject]@{
+                    WorkshopId = $entry.Id
+                    RelativePath = $rel.Replace('\', '/')
+                    Bytes = $length
+                    SHA256 = (Get-FileHash -LiteralPath $target -Algorithm SHA256).Hash.ToLowerInvariant()
+                })
+            }
+        }
+        if ($entry.Id -ne '_vanilla') {
+            $name = Get-ModDisplayName -ModDir $targetRoot
+            $manifest.Add([pscustomobject]@{
+                WorkshopId = $entry.Id; DisplayName = $name; FilesCopied = $copied; Bytes = $bytes
+            })
+            Write-Host ("  {0}  {1,4} files  {2,10:N0} B  {3}" -f $entry.Id, $copied, $bytes, $name)
+        }
     }
-}
+    $manifest | Sort-Object WorkshopId | Export-Csv -LiteralPath (Join-Path $stage '_export-manifest.csv') -NoTypeInformation -Encoding UTF8
+    if ($fileManifest.Count) {
+        $fileManifest | Sort-Object WorkshopId, RelativePath | Export-Csv -LiteralPath (Join-Path $stage '_export-files.csv') -NoTypeInformation -Encoding UTF8
+    } else {
+        '"WorkshopId","RelativePath","Bytes","SHA256"' | Set-Content -LiteralPath (Join-Path $stage '_export-files.csv') -Encoding UTF8
+    }
 
-$manifestPath = Join-Path $DestDir "_export-manifest.csv"
-$manifest | Sort-Object WorkshopId | Export-Csv -Path $manifestPath -NoTypeInformation -Encoding UTF8
-Write-Host "`nDone. Manifest: $manifestPath"
-Write-Host "Next: git add -A mods-source; git commit -m `"Export mod configs`"; git push"
+    # Publish only after all copies/hashes succeeded. Keep original data outside
+    # mods-source and restore it if any rename fails. A crash may require manual
+    # restoration from the printed backup directory; no backup is auto-deleted.
+    New-Item -ItemType Directory -Force -Path $DestDir | Out-Null
+    New-Item -ItemType Directory -Force -Path $backup | Out-Null
+    Write-Host "Previous snapshot backup: $backup"
+    $names = @($sources | ForEach-Object { $_.Id }) + @('_export-manifest.csv', '_export-files.csv')
+    if (-not $NoPrune) {
+        $names += @(Get-ChildItem -LiteralPath $DestDir -Directory |
+            Where-Object { $_.Name -match '^[0-9]+$' -and $_.Name -notin $modDirs.Name } |
+            ForEach-Object { $_.Name })
+    }
+    foreach ($name in $names) {
+        $dest = Join-Path $DestDir $name
+        if (Test-Path -LiteralPath $dest) {
+            Assert-NoLinks $dest
+            Move-Item -LiteralPath $dest -Destination (Join-Path $backup $name)
+            $saved.Add($name)
+        }
+        $next = Join-Path $stage $name
+        if (Test-Path -LiteralPath $next) {
+            Move-Item -LiteralPath $next -Destination $dest
+            $published.Add($name)
+        }
+    }
+} catch {
+    $failure = $_
+    foreach ($name in $published) { Remove-Item -LiteralPath (Join-Path $DestDir $name) -Recurse -Force }
+    foreach ($name in $saved) { Move-Item -LiteralPath (Join-Path $backup $name) -Destination (Join-Path $DestDir $name) }
+    throw $failure
+} finally {
+    if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
+}
+Write-Host "Done: $($modDirs.Count) local Workshop IDs. Manifest: $(Join-Path $DestDir '_export-manifest.csv')"
+Write-Host 'Next: python tools/check_inventory.py; review the diff before committing or installing.'

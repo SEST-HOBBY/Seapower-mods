@@ -54,20 +54,21 @@ def stale_note():
     attribute the id to, and the lines above will say "no enabled mod defines
     it" about a unit sitting in the user's game working perfectly.
 
-    Both causes were live on 2026-09-13. One export, taken while four mods were
-    unsubscribed, pruned all four. The B-52H (3741944366) and the B-1B
-    (3652097318) were re-subscribed the same day and wait only on the next
-    export. The SAAB AEW&C pack (3673250557) and the Type 003 Fujian
-    (3663564190) were gone for good, and their references were repaired by hand
-    instead - nine dangling references became six.
+    The 2026-09-13 export pruned four mods whose folders it did not find. Two, the
+    B-52H (3741944366) and the B-1B (3652097318), were known to be back the
+    same day. The other two, the SAAB AEW&C pack (3673250557) and the Type 003
+    Fujian (3663564190), were judged gone for good and their references were
+    repaired by hand - nine dangling references became six. The 2026-09-16
+    export then returned all four. The judgement was wrong, and the hand repair
+    had removed content that was about to resolve again.
 
-    Nothing here can separate those two cases while the window is open. The
-    catalog's status field is edited after an export, not during it, so a mod
-    that is never coming back still reads active until someone says otherwise.
-    So this deliberately does NOT guess which reference belongs to which mod,
-    does NOT soften the exit code, and does NOT promise that re-exporting will
-    fix anything. It names what is missing and both ways out, and leaves the
-    reading to a person.
+    That is the case for not guessing. Nothing here can separate a mod that is
+    coming back from one that is not while the window is open: the catalog's
+    status field is edited after an export, not during it, and an absent
+    folder proves nothing about the Steam account. So this deliberately does
+    NOT say which reference belongs to which mod, does NOT soften the exit
+    code, and does NOT promise that re-exporting will fix anything. It names
+    what is missing and both ways out, and leaves the reading to a person.
     """
     # Reading the catalog is new work on a path that used to need none, so it
     # fails soft: a malformed catalog costs the note, never the report above it.
@@ -84,10 +85,9 @@ def stale_note():
         "   the catalog but are not exported, so anything they define dangles above\n"
         "   whether or not it is really missing from the game:\n\n"
         f"{names}\n\n"
-        "   Still subscribed? Re-run tools/export-mod-configs.ps1 and the references\n"
-        "   they explain resolve themselves. Genuinely gone? Set its status to\n"
-        "   unsubscribed and re-point or remove the references, as the Fujian and the\n"
-        "   SAAB air groups were.\n")
+        "   Still installed? Re-run tools/export-mod-configs.ps1. If deliberately\n"
+        "   removed, set status to not_installed and review affected references.\n"
+        "   An absent local folder does not prove Steam account unsubscription.\n")
 
 
 def main():

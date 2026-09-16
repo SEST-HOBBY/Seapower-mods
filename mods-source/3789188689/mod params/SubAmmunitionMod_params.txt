@@ -1,0 +1,154 @@
+====================================================================
+SubAmmunitionMod 可编辑参数说明（中文）
+====================================================================
+所有参数写在【宿主弹药 ini】的 [SubAmmunition] 段（如 plan_ac/ammunition/plaaf_akf-98.ini）。
+子弹药参数带 SubAmmunition 前缀；主弹药(宿主)相关带 MainAmmunition 前缀。
+
+
+警告！！！！！
+
+不要子母弹药套娃太多次，我为了能有更多样的mod，只检测了子弹药是否为自身，循环生成子母弹药大概率无限递归并且卡死！！！！！！
+
+
+--------------------------------------------------------------------
+[SubAmmunition] 段参数
+--------------------------------------------------------------------
+
+1. SubAmmunitionType            // 投放脚本类型（字符串）
+   // 注：填写不同的type会套用不同的投放逻辑，为保险开关，若检测到Type与子弹药ini不同，会不执行子弹药脚本
+   // 允许：missile / bomb / moss / sonobuoy / torpedo / parachutebomb
+   // 已禁用：noisemaker / asroc / rbu / aerialrocket / unguidedrocket / chaff / mlrs / projectile / fueltank
+   // 注：moss 按鱼雷处理（Torpedo 类创建 + ASROC_Launch 投放）
+   // parachutebomb = 伞降炸弹（弹药物理类型须为 bomb；注入 ParachuteSpeed 初速 + 伞降落点）
+   示例：SubAmmunitionType=Torpedo
+
+2. SubAmmunitionName            // 子弹药弹药名（须存在于游戏弹药库）
+   示例：SubAmmunitionName=plan_yu-12_air
+
+3. SubAmmunitionPosition        // 每个子弹药相对宿主的位置（x,y,z）
+   // '|' 分隔的段数 = 子弹药数量
+   // 单位：Unity 单位（1 单位≈67.2m）；目前仅用于投放前挂架视觉排布（投放时丢弃）
+   示例：SubAmmunitionPosition=0,0,0|0,0,0|0,0,0
+
+4. SubAmmunitionRotation        // 每个子弹药的旋转（欧拉角 x,y,z；'|' 分段可选）
+   // 例：0,90,0 = 朝左旋转，-90 = 朝右（配合 EjectVelocity 可左右弹出）
+   示例：SubAmmunitionRotation=0,90,0|0,-90,0
+
+5. SubAmmunitionDelayBetweenLaunches  // 错峰投放间隔（秒）
+   示例：SubAmmunitionDelayBetweenLaunches=0.1
+
+6. SubAmmunitionTriggerDist     // 距离触发（nm）：主弹药距目标点≤该值即投放
+   // **互斥触发（优先级 Time>Dist>Height，靠前的写了就忽略后面的）**：
+   // 仅当 SubAmmunitionTriggerTime 未写 且 SubAmmunitionTriggerHeight 未启用（0/未写）时生效
+   示例：SubAmmunitionTriggerDist=3
+
+7. SubAmmunitionTriggerTime     // 时间触发（秒，从主弹药发射后计时）
+   // **互斥触发（优先级最高）**：key 写了 → 独占生效，忽略 Dist/Height（发射后 flightTime ≥ 该值）
+   // 0 / 负数 / 未写 → 统一换算 0.01（写了 time = 发射后立即投放；未写 = 回到 TriggerDist 触发）
+   示例：SubAmmunitionTriggerTime=10     // 发射后 10 秒投放
+   //      SubAmmunitionTriggerTime=0      // 发射后立即投放（0.01）
+   //      （删除该行）= 距离触发（TriggerDist）
+
+8. SubAmmunitionTriggerHeight   // 高度触发（**英尺**，**相对地形高度 AGL**）：主弹药对地高度（弹药高度-地形高度）≤该值即投放（CBU 引信式开仓）
+   // **互斥触发（优先级最低）**：仅当 TriggerTime 未写 且 TriggerDist 未设（0/未写）时才生效；
+   // 若 time/dist 任一启用 → 本项被忽略（防 bug：拥有靠前参数即忽略靠后参数）
+   // 0 / 未写 → 禁用本项
+   // 注：对地高度 AGL = 弹药高度(海平面) - 地形高度（地形低于海面按 0=海面）；弹体若已低于阈值会立即投放；
+   // 内部用游戏同款 ObjectBase.AltitudeOverSurface（对地高度）与 Utils.heightInFeetToUnity(英尺) 换算比较（游戏高度单位是压缩单位，非米！）
+   示例：SubAmmunitionTriggerHeight=2000   // 对地高度降至 2000 英尺开仓
+
+9. SubAmmunitionSpread          // 圆形散布半径（米）；0=不散布
+   // 适用：missile / torpedo 类
+   示例：SubAmmunitionSpread=1000        // 1km 半径
+
+10. SubAmmunitionSpreadAngle    // 散布弧角度（度）
+    // 0    = 全部子弹药重合到瞄准点
+    // 0~360 = ±Angle/2 弧内等间隔铺开（夹角几乎一样）
+    // 360  = 全圆（>360 按 360 算）
+    // 半角受导引头 FOV 限制（鱼雷只能锁定 ±FOV/2）
+    示例：SubAmmunitionSpreadAngle=360
+
+11. SubAmmunitionCEP            // 子弹药精度偏差（米；0=关闭）
+    // 给定落点基础上每个子弹药各自随机圆周偏移，叠加在 Spread 后
+    示例：SubAmmunitionCEP=50
+
+12. SubAmmunitionDropDistance   // 落海点水平距离（nm；>0 固定距离，0=用 DropRatio）[sonobuoy 备用]
+    示例：SubAmmunitionDropDistance=0
+
+13. SubAmmunitionDropRatio      // 落海点距离 = 投放高度 × DropRatio（<1 更近；sonobuoy 降落伞减速）
+    示例：SubAmmunitionDropRatio=0.5
+
+14. SubAmmunitionEjectVelocity  // 弹出速度（knots）："min,max" → 每枚在区间内随机，覆盖原版 _ap._ejectVelocity（原版沿 bomb.forward 切向弹出）
+    // 缺省 = 子弹药自带 EjectVelocity（沿子弹药前方切向弹出）
+    示例：SubAmmunitionEjectVelocity=8,30
+
+15. SubAmmunitionEjectVelocityVector // 弹出方向（相对宿主飞行方向的欧拉角 pitch,yaw,roll，度；'|' 分段每枚独立）
+    // 非零（如 0,90,0 / 0,-90,0）→ 投放时把弹药旋转到弹出方向，原版切向弹出即沿该方向（左右交替弹开）
+    // 缺省 / 0,0,0 = 沿宿主飞行方向
+    示例：SubAmmunitionEjectVelocityVector=0,90,0|0,-90,0
+
+16. SubAmmunitionParachuteSpeed // ParachuteBomb 注入初速 + 落点计算基准速度（knots，默认 150；缺省/<=0 兜底 150）
+    示例：SubAmmunitionParachuteSpeed=120
+
+17. SubAmmunitionInheritTarget  // 子弹药是否继承主弹药目标（Torpedo 固定继承；Bomb/Missile 由本项决定）
+    示例：SubAmmunitionInheritTarget=True
+
+18. MainAmmunitionMesh          // 主弹药(宿主)相关：投放时切换宿主模型
+    // 在主 obj（[Models] ResourcesRoot）内 Find 该名字子 mesh；空=不切
+    示例：MainAmmunitionMesh=akf98_open
+
+19. SubAmmunitionDisplayOnParent // 子弹药是否显示在父级(宿主)下
+    示例：SubAmmunitionDisplayOnParent=True
+
+20. SubAmmunitionIgnoreHeightDifferenceForTargetDist  // 触发距离忽略高度差
+    // True=纯水平（与 debug 面板 dist to waypoint 一致）；False=含高度差 3D（弹道导弹高空用）
+    示例：SubAmmunitionIgnoreHeightDifferenceForTargetDist=True
+
+21. MainAmmunitionForceLevelFlight // 主弹药(宿主)：投放期间强制宿主平飞（阻止俯冲，保持高度）
+    // True=平飞；False=正常末段俯冲
+    示例：MainAmmunitionForceLevelFlight=True
+
+22. MainAmmunitionDisappear     // 主弹药(宿主)：投放完成后是否自毁消失
+    // True=投放完毕+20s 自毁（触海提前）；False=不消失继续飞
+    示例：MainAmmunitionDisappear=True
+
+23. SubAmmunitionTriggerMinTime // 全局最小触发时间（秒）：所有触发方式（时间/距离/高度/立即）的【前置门】
+    // —— 发射后飞行时间 ≥ 该值 才允许投放；没到最小时间一律不触发（此时即使触发条件已满足也只是等待），
+    //    一过最小时间即按原触发条件立即投放（若触发条件早已满足）。
+    // 缺席 / 负数 → 默认 0.01（防止发射瞬间立即投放）；显式写 0 = 禁用（完全不受最小时间限制）
+    示例：SubAmmunitionTriggerMinTime=5    // 发射后至少 5 秒才允许触发投放（即使距离/高度已满足）
+
+====================================================================
+水下投放限制（宿主为鱼雷 / 深水炸弹）
+====================================================================
+宿主为 鱼雷（Torpedo）或 深水炸弹（AirDepthCharge）且在水面下（position.y<0）时：
+- 只放行 torpedo 子弹药，套用原版【潜艇发射鱼雷】逻辑（Torpedo.Container_Launch 自动进入
+  UnderwaterLaunch 状态），子鱼雷从宿主水下位置出投，继承母体速度/目标，正常入水搜索攻击。
+- 其他子弹药种类（含深水炸弹、missile/bomb/rocket/sonobuoy/parachutebomb）一律禁用，
+  放弃本次投放（日志 BLOCK_UNDERWATER）。
+- 水面以上（y≥0）不受限制：torpedo 仍走空中投放（ASROC_Launch 伞降入水），其余类型正常。
+
+====================================================================
+Reload list / 配置热更新
+====================================================================
+- debug 面板 "Reload list" / "Respawn" 会触发游戏清空 ini 缓存；mod 已同步该事件——触发后
+  【新创建 / 重新生成的武器】会重新解析弹药 ini（含重新合并 #!extend / #!alias / #!prepend），
+  无需重启游戏。
+- 已存在的武器不更新，需 Respawn / 新创建才用新配置（与游戏 reload 语义一致）。
+- 子弹药可用 #!extend 覆盖版（如 plan_yu-7_air.ini 只写改动的段）：mod 与游戏同逻辑读取基准文件，
+  无需在覆盖版重复 [General] 等未改动段。
+
+====================================================================
+投放时机 / 子弹药生成时机
+====================================================================
+- 子弹药在【投放条件满足（触发）的当帧】才生成并投放，不再提前挂架预览
+  （避免远距离/50nm 就创建大量挂架造成卡顿）。
+- 母弹【未发射】（挂架/装载中）不创建、不投放（isLaunched 发射门控）——防止嵌套子弹药
+  在宿主挂架上提前投放（如 rdcw_main 在 AKF-98 上提前投放 rdcw_sub）。
+- 行为变化：SubAmmunitionDisplayOnParent 的【挂架预览视觉消失】——子药不再提前
+  挂在母弹上显示，而是投放瞬间才出现。
+- 高速母弹无丢失风险：创建与投放同帧同步完成。
+
+====================================================================
+调试日志：plan_ac/SubAmmunition_debug.log（plan_ac/debug.ini 设 Enabled=1）
+====================================================================
