@@ -45,6 +45,11 @@ Analysis of the 109-mod subscription list in `data/mod-catalog.json`. Everything
 
 ## 3. Recommended mod order (top = highest priority; entries listed in intended top-to-bottom order)
 
+Since 2026-09-16 nothing enforces these tiers. `data/load-order.tokens.txt` is the
+canonical order, edited by hand and consumed directly by `set-mod-order.ps1`;
+`tools/generate_load_order.py` only renders it. This section is the reasoning to
+apply when you edit that file, not a second list that can drift from it.
+
 1. **Loaders** — Anchor Chain (+ SeaLifter via its preloader). These change no unit data, so they can't lose a file conflict; top placement is convention (repo recommendation, not an author instruction).
 2. **Weapon/system databases and land-unit frameworks** — SAM Pack (author: "top of TOE") · PLA Land Unit Pack (author: "above any other PLA-related mods" — so it precedes Modern PLAN Systems, which is PLA-related) · Dingtools Weapon Pack (author: "above any of my mods") · Euromod Main Pack (recommendation) · Modern PLAN Systems (recommendation).
 3. **Patch/override mods** — U.S. Navy 2027 Capabilities · F-35C Alt. Loadouts · Murder Hornet · B-52G AGM-86 loadouts · **Tu-95 AS-15** (here, not with the aircraft: its global munition edits make it a value patch) · Flight Deck Ops · ADO-Nimitz (if kept) · Ground Upgrade: SPAA — each above the mods it modifies. **Caveat:** a patch that edits weapons a tier-2 database also defines must be promoted *above* that database to take effect — U.S. Navy 2027 vs. Dingtools Weapon Pack is the concrete case to test.

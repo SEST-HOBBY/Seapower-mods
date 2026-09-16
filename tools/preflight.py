@@ -54,7 +54,7 @@ def stale_note():
     attribute the id to, and the lines above will say "no enabled mod defines
     it" about a unit sitting in the user's game working perfectly.
 
-    The 2026-09-13 export pruned four mods it found unsubscribed. Two, the
+    The 2026-09-13 export pruned four mods whose folders it did not find. Two, the
     B-52H (3741944366) and the B-1B (3652097318), were known to be back the
     same day. The other two, the SAAB AEW&C pack (3673250557) and the Type 003
     Fujian (3663564190), were judged gone for good and their references were
