@@ -1,0 +1,43 @@
+SubAmmunitionMod — Beta build
+=============================
+
+Deployed: 2026-08-29
+DLL: SubAmmunitionMod.dll (57,856 bytes)
+Source project: E:\deepspeek\SubAmmunitionMod\
+
+Reason for this change
+---------------------
+After switching the game from release 0.8.2 to the beta branch, the
+WeaponBase.FlightStage enum was renumbered: the beta build inserts a new member
+`SurfaceWaterEntry = 3` right after `Launch = 2`, pushing every following value up by 1:
+
+  TerminalApproach  13 -> 14
+  Deployed          14 -> 15
+  Debris            15 -> 16
+  Terminated        16 -> 17
+  SelfDestruct      17 -> 18
+
+The mod previously baked the release-build values of FlightStage.TerminalApproach /
+Deployed into the binary at compile time. Under the beta build those constants are
+all off by one, so flight-stage checks evaluated incorrectly.
+
+Fix
+---
+A new static class `FlightStageRef` resolves the three stage values at runtime by
+name (Enum.Parse), replacing the 3 compile-time constant comparisons:
+  - SubAmmunitionController.cs: release-finish check `_flightStage != TerminalApproach`
+  - SubAmmunitionCreation.cs: sonobuoy-deployed diagnostic `_flightStage == Deployed`
+
+Result: this single codebase / single DLL resolves the enum against whichever game
+version is running, so one build works on both the release and the beta branch.
+
+Other verification
+------------------
+All other symbols the mod references (methods / fields / properties / enums) were
+cross-checked against the beta DLL and match the release build unchanged. The
+FlightStage enum is the only real difference.
+
+Notes
+-----
+This folder was previously empty; nothing pre-existing was overwritten. If beta mod
+loading requires an _info.ini in this folder, one must be added separately.

@@ -1,0 +1,120 @@
+{
+  "method": "Unity Euler Y-X-Z; animate Z, align static local Z with red leading-edge hinge",
+  "angle_tests_degrees": [
+    -20,
+    -10,
+    0,
+    10,
+    20
+  ],
+  "surfaces": {
+    "elevator_l": {
+      "rotation": [
+        0.873169936,
+        64.425905868,
+        0.0
+      ],
+      "axis": "Z",
+      "hinge_start": [
+        0.0320138,
+        -0.0016327,
+        -0.0298971
+      ],
+      "hinge_end": [
+        0.0579397,
+        -0.00207075,
+        -0.0174899
+      ],
+      "direction": [
+        0.9019230535110419,
+        -0.015239100420448744,
+        0.43162782042367676
+      ],
+      "vertices": 24,
+      "normals": 24,
+      "neutral_position_max_error_model_units": 7.309040626962516e-11,
+      "hinge_max_motion_model_units": 5.559758324576686e-14
+    },
+    "elevator_r": {
+      "rotation": [
+        -0.873169936,
+        115.574094132,
+        0.0
+      ],
+      "axis": "Z",
+      "hinge_start": [
+        -0.0320138,
+        -0.0016327,
+        -0.0298971
+      ],
+      "hinge_end": [
+        -0.0579397,
+        -0.00207075,
+        -0.0174899
+      ],
+      "direction": [
+        0.9019230535110419,
+        0.015239100420448744,
+        -0.43162782042367676
+      ],
+      "vertices": 18,
+      "normals": 18,
+      "neutral_position_max_error_model_units": 7.309040552833951e-11,
+      "hinge_max_motion_model_units": 5.559926044473703e-14
+    },
+    "aileron_l": {
+      "rotation": [
+        -1.463381717,
+        124.54216685,
+        0.0
+      ],
+      "axis": "Z",
+      "hinge_start": [
+        0.0930865,
+        -0.0029075,
+        -0.0021372
+      ],
+      "hinge_end": [
+        0.17962544,
+        -0.000223595,
+        -0.061707585
+      ],
+      "direction": [
+        0.823440466491386,
+        0.025538052409915853,
+        -0.5668276687173597
+      ],
+      "vertices": 24,
+      "normals": 24,
+      "neutral_position_max_error_model_units": 6.720642963878394e-11,
+      "hinge_max_motion_model_units": 1.4668095366738038e-13
+    },
+    "aileron_r": {
+      "rotation": [
+        1.463417846,
+        55.457853919,
+        0.0
+      ],
+      "axis": "Z",
+      "hinge_start": [
+        -0.0930865,
+        -0.0029075,
+        -0.0021371
+      ],
+      "hinge_end": [
+        -0.17962542,
+        -0.00022353,
+        -0.061707425
+      ],
+      "direction": [
+        0.823440658691174,
+        -0.02553868276501891,
+        0.5668273611046603
+      ],
+      "vertices": 18,
+      "normals": 18,
+      "neutral_position_max_error_model_units": 6.088034315665645e-11,
+      "hinge_max_motion_model_units": 2.675479404077426e-13
+    }
+  }
+}
