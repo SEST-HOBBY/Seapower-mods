@@ -35,12 +35,17 @@ try {
     # snapshot (including the previous manifests) must be restored completely.
     $before = (Get-FileHash -LiteralPath (Join-Path $dest '100/current.ini')).Hash
     Set-Content -LiteralPath (Join-Path $source '100/current.ini') -Value 'updated' -Encoding UTF8
-    $script:FailPublishOnce = $true
-    function Move-Item {
+    # The shadow runs inside the exporter's script scope, where $script: means the
+    # exporter's variables, not this file's - the flag read as $null there and the
+    # injected failure never fired (2026-09-16, first Windows run). Only a global
+    # is the same variable from both scripts, and a global function is visible
+    # from both scopes without depending on how & nests them.
+    $global:SestFixtureFailPublishOnce = $true
+    function global:Move-Item {
         param([string]$LiteralPath, [string]$Destination)
-        if ($script:FailPublishOnce -and $LiteralPath -match '_export-staging-' -and
+        if ($global:SestFixtureFailPublishOnce -and $LiteralPath -match '_export-staging-' -and
             (Split-Path -Leaf $LiteralPath) -eq '_export-manifest.csv') {
-            $script:FailPublishOnce = $false
+            $global:SestFixtureFailPublishOnce = $false
             throw 'Injected publication failure'
         }
         Microsoft.PowerShell.Management\Move-Item -LiteralPath $LiteralPath -Destination $Destination
@@ -49,7 +54,10 @@ try {
     try { & $exporter -WorkshopContentDir $source -DestDir $dest } catch {
         Assert-True ($_.Exception.Message -match 'Injected publication failure') 'Unexpected failure in rollback fixture'
         $failed = $true
-    } finally { Remove-Item Function:\Move-Item }
+    } finally {
+        Remove-Item Function:\global:Move-Item
+        Remove-Variable -Name SestFixtureFailPublishOnce -Scope Global -ErrorAction SilentlyContinue
+    }
     Assert-True $failed 'Publication failure was not exercised'
     Assert-True ((Get-FileHash -LiteralPath (Join-Path $dest '100/current.ini')).Hash -eq $before) 'Rollback lost previous content'
     Assert-True (Test-Path -LiteralPath (Join-Path $dest '200/absent.ini')) 'Rollback lost absent mod'
