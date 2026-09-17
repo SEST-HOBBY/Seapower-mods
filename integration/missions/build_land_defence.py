@@ -722,6 +722,7 @@ def tel_ring_radius(spec):
 class Geo:
     def __init__(self, clat, clon):
         self.clat, self.clon = clat, clon
+        self.mask_enabled = True    # off for artificial islands the land mask does not know
 
     def to_ll(self, x, z):
         lon = self.clon + x / 60.0
@@ -746,7 +747,7 @@ class Geo:
         return math.degrees(math.atan2(dx, z2 - z1)) % 360.0
 
     def on_land(self, x, z):
-        if LAND is None:
+        if LAND is None or not self.mask_enabled:
             return True
         lat, lon = self.to_ll(x, z)
         return bool(LAND.is_land(lat, lon))
@@ -1048,6 +1049,7 @@ class Planner:
                 for sign in ((1,) if k == 0 else (1, -1)):
                     b = bearing + sign * k * 15.0
                     x, z = self.geo.offset(ax, az, b, dist * shrink)
+                    x, z = round(x, 2), round(z, 2)     # judge the coordinates that get written
                     tried += 1
                     if not self.geo.on_land(x, z):
                         continue
