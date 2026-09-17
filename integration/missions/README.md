@@ -8,6 +8,24 @@ Missions deployed by `tools/install-sest-packs.ps1` into
   (SEST RAN Fleet) against a PLAN diesel patrol line (Kilo + two Type 039 variants).
   Free-play escort scenario, no scripted triggers.
 
+- **SEST Indo-Pacific Land Assets** — a clean sandbox save, September 2026, built by
+  `build_indo_pacific_showcase.py` to show the collection's modern land units placed the way
+  they would really be deployed. 63 sites, 959 land units, 265 distinct unit types (187 of them
+  from mods — every modded land unit the region can justify appears at least once). Blue: the
+  northern RAAF bases with Patriot, THAAD and NASAMS, the US Marine rotation and a French
+  battle group with SAMP/T at Darwin, Pine Gap, the EDCA sites in the Philippines with Typhon,
+  NMESIS and a Patriot battalion line-up of every generation, a JGSDF Type 12 detachment at
+  Batanes, PNG forward bases. Red: PLA garrisons on Fiery Cross, Subi, Mischief and Woody
+  Island with HQ-9B/16/17/19/22 and YJ-12/62/83, a Russian S-400 regiment and Bastion battery
+  at Biak, DF-21/26 and CJ-10 batteries in Papua, PLA combined-arms battalions at the Belt-and-
+  Road industrial parks of Halmahera and Sulawesi, lodgements at Dili and Rabaul, and an
+  Iranian-armed insurgent enclave in Mindanao with every technical the pickup mod makes.
+  Neutral: TNI bases, Indonesian refineries and LNG plants, Malaysian and Bruneian ports,
+  bridges, the Timor Sea rigs. A small naval layer on each side gives the defences a threat
+  axis. Regenerate with `python3 integration/missions/build_indo_pacific_showcase.py`
+  (`--density standard` or `light` for fewer defence units); every coordinate is real and
+  nudged onto land by the mask, the reef bases and rigs excepted.
+
 - **NORTHERN FRONT II** — the user's Northern Front editor save, upgraded: the two `airbase_us`
   stand-ins are now the real `airbase_raaf_darwin` / `airbase_raaf_scherger` (their custom
   mission air groups are preserved), the date moves to 2026-08-24, and a five-ship civilian
