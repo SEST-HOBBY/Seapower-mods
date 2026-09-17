@@ -22,6 +22,10 @@
       6b. loadouts- give aircraft an explicit LoadoutVariant when their type has
                     no usable default, which crashes the map panel's converter
                     (fix_loadout_variants.py)
+      6c. defences- only with -LandDefence: lay out air defences around every
+                    airbase, port, installation and missile site that lacks
+                    them, modern kit from the collection's mods, oriented on
+                    the threat axis (build_land_defence.py)
       7. install  - copy the result back into the game (only with -Install)
 
     Every step is idempotent and preserves your placements, waypoints and
@@ -46,6 +50,10 @@
 .EXAMPLE
     # Re-run the tooling over the repo copy without touching the game:
     powershell -ExecutionPolicy Bypass -File .\tools\refresh-mission.ps1 -SkipImport
+
+.EXAMPLE
+    # Also stand up defences around every undefended base and site:
+    powershell -ExecutionPolicy Bypass -File .\tools\refresh-mission.ps1 -LandDefence -Install
 #>
 [CmdletBinding()]
 param(
@@ -53,6 +61,9 @@ param(
     [switch]$SkipImport,
     [switch]$Install,
     [switch]$InstallDeps,
+    [switch]$LandDefence,
+    [ValidateSet("light", "standard", "heavy")]
+    [string]$Posture = "standard",
     [string]$StreamingAssetsDir
 )
 
@@ -166,6 +177,18 @@ Invoke-Py "fix_squadron_refs.py" @("--mission", $Mission, "--spread", "--write")
 # runs after every import.
 Write-Host "`n[6b/7] checking loadout variants..." -ForegroundColor Cyan
 Invoke-Py "fix_loadout_variants.py" @("--mission", $Mission, "--write")
+
+# --- 6c. Land defences (opt-in) -----------------------------------------------
+# Adds units, so it only runs when asked. Idempotent all the same: a site that
+# already has a layer does not get it again, so -LandDefence can stay on the
+# command line across editing sessions. Uses the land mask when it is installed
+# (step 5's -InstallDeps) so nothing is stood up in the sea.
+if ($LandDefence) {
+    Write-Host "`n[6c/7] laying out land defences ($Posture posture)..." -ForegroundColor Cyan
+    Invoke-Py "build_land_defence.py" @("--mission", $Mission, "--posture", $Posture, "--write")
+} else {
+    Write-Host "`n[6c/7] land defences not touched (pass -LandDefence to add them)" -ForegroundColor DarkGray
+}
 
 # --- 7. Put it back in the game ----------------------------------------------
 if ($Install) {
