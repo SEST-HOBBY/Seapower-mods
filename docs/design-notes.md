@@ -27,6 +27,27 @@ and the rule gets a new revision — that has happened three times already.
   collapse cleanly — 263 of them do so in this collection every session. Redundant
   subscriptions are still worth pruning for clarity, but not out of fear of this.
 
+- **Terrain is a 1 km grid and not ours to change.** The devs build the world
+  from 30 arc-second elevation data (Dev Diary #4), hand-patch chokepoints in
+  Photoshop and with an in-engine terrain painter whose stamp textures
+  `terrain/terrain.ini` lists but StreamingAssets does not ship. No Workshop
+  or GitHub mod touches the heightmap, and the 2021 "(and you!)" promise of
+  player terrain editing never became a documented feature. Anything under
+  about 1 to 2 km, and everything reclaimed after the data vintage - Fiery
+  Cross, Subi, Mischief - is absent by construction; Singapore and the
+  Japanese home islands fuse to their mainlands for the same reason.
+- **A land unit on water does not sink, it floats at one metre.**
+  `terrain.ini` clamps placed land units to `MinHeightForLandUnits=1.0`, and
+  `campaigns/britishisles_ports.ini` says outright that a Port "doesn't snap
+  to terrain and does not flatten terrain around it" (`SnapToTerrain=False`).
+  Vanilla oil rigs, the armed-rig mod, the floating drydock and the FARP mod
+  all work at sea on that basis, helo operations included. So the reef bases
+  in SEST Indo-Pacific Land Assets render as runways and buildings sitting on
+  the sea surface with no ground under them, not as nothing. The only route
+  to a visible artificial island is a Port-type unit assembled from the
+  modular port meshes with a scaled concrete slab, built like the RAAF bases
+  from existing geometry; that is untested in game.
+
 ## The Tier 0 invariant
 
 Every SEST pack sits above every workshop mod, as one unbroken block, so
