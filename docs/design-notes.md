@@ -154,6 +154,25 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   donor. Check what a round demands of its mount, not just whether the ids
   resolve — `preflight` sees a resolvable reference either way.
 
+- **A launcher is only a launcher inside its radar's search radius.** A TEL
+  that fires through `ExternalGuidingSystems` looks for that system within its
+  `ExternalGuidingSystemSearchRadius` — 0.5 nm for vanilla and Red Storm
+  Arsenal launchers, 0.8 nm for the PLA pack and SAM Pack, 2 nm for NASAMS,
+  5 nm for the S-400 mod — and outside it the mount never fires, with no error.
+  The land-defence builder measures every battery's ring against the tightest
+  radius in it and checks, from the files, that the radar it stands up actually
+  provides the named system; a Patriot TEL from Red Storm Arsenal wants
+  `AN/MPQ-65` and the SAM Pack radar provides `AN/MPQ-65_mi`, so the two mods'
+  halves cannot be mixed however plausible the ids look.
+- **An analyser and a generator must share one taxonomy or the pass is not
+  idempotent.** The defence builder classifies what a site already has from
+  the units' own files (gun, SHORAD, medium, area, BMD, search radar by the
+  longest AAW round and its minimum engagement altitude). Its doctrine lists
+  once filed a Vulcan under SHORAD and a Shilka-M4 (which carries Strela)
+  under guns; each re-run then read those units back as the other layer and
+  added another. Ring candidates are now filtered through the same classifier
+  that reads them back, and `--catalog` names anything misfiled.
+
 - **Gates before every push:** `check_load_order`, `check_dependencies`,
   `preflight` (every reference the missions make), `check_station_clash`,
   `check_weapon_employment` (every weapon can actually be fired by the mount
