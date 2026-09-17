@@ -1,7 +1,11 @@
 # SEST Missions
 
 Missions deployed by `tools/install-sest-packs.ps1` into
-`StreamingAssets\user\missions\user_missions\` (additive — never touches your own missions).
+`StreamingAssets\user\missions\user_missions\`: new files are added, files with the same name
+are overwritten, nothing is deleted and no backup copies are made (git is the history, so
+`tools\import-mission.ps1` anything you edited in game before you install). The
+`* backup-*.ini` files still in this folder are leftovers of the old backup scheme and are not
+deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the game.
 
 - **SEST ANL Convoy - Coral Sea** — escort six ANL/RAN merchantmen (Auxilliary Merchant Pack)
   from the reef passage toward Port Moresby with HMAS Hobart, two Anzacs and HMAS Supply
