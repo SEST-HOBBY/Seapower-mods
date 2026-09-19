@@ -53,10 +53,20 @@ ALLOW = {
     "ger_seaspider":
         "MCC=2 wire-guided anti-torpedo round, steered over its wire from the "
         "hull sonar picture",
+    # All three Growler ids now read the same way. US Naval Aviation always
+    # shipped its _2020 like this; U.S. Navy 2027 commented its own
+    # [WeaponMagazineM61] out on 19 Sep 2026, and _2020s is rebuilt from the
+    # _2020 donor, so the same judgement covers all three. The mount left
+    # behind is a Dummy with 3-degree arcs - a gun in name only.
     "usn_ea-18g_2020 (SEST_Growler_NGJ_MALICE/aircraft) WS1 -> WeaponMagazineM61":
         "upstream's own file, and correct in effect: the real EA-18G deletes "
         "the M61 (its bay holds the ALQ-218 receiver), so a gun with no "
         "magazine is a gun that never fires",
+    "usn_ea-18g_2020s (SEST_Growler_NGJ_MALICE/aircraft) WS1 -> WeaponMagazineM61":
+        "same airframe, same deleted gun - this id is built from the _2020 donor",
+    "usn_ea-18g (SEST_Integration/aircraft) WS1 -> WeaponMagazineM61":
+        "same deleted gun: U.S. Navy 2027 commented its [WeaponMagazineM61] out "
+        "and left the Dummy mount pointing at it",
     "plan_j-15d (3486502935/aircraft)":
         "upstream writes |KH-31 against its own Kh-31Positions key - a case "
         "mismatch worth at most a ~17 cm seat offset on two YJ-91s; not worth "

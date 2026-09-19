@@ -39,10 +39,13 @@ OUT = Path(__file__).resolve().parent / "SEST_Allied_Fixes"
 MISSING = "usn_agm-84g"      # defined by nothing, anywhere
 REPLACE = "usn_agm-84n"      # U.S. Navy 2027's own Harpoon Block II+ ER
 
-# (workshop id, aircraft file)
+# (workshop id, aircraft file). A target whose typo upstream has since fixed
+# retires itself below - the file stops being overridden and the game uses the
+# author's own copy. The fix as a whole is only obsolete when every target is
+# clean, and the builder says so then.
 TARGETS = [
-    ("3606774881", "usn_p8_2027.ini"),   # U.S. Navy 2027 - fielded in NFIII FINAL
-    ("3602046770", "usn_p8.ini"),        # same typo, same fix
+    ("3606774881", "usn_p8_2027.ini"),   # FIXED UPSTREAM 19 Sep 2026 - now ships usn_agm-84n
+    ("3602046770", "usn_p8.ini"),        # same typo, still present
 ]
 
 INFO_INI = """\
@@ -62,6 +65,7 @@ def main():
     print("SEST_Allied_Fixes")
 
     built = 0
+    harpoon = 0
     for mod, name in TARGETS:
         src = ROOT / "mods-source" / mod / "aircraft" / name
         dst = OUT / "aircraft" / name
@@ -74,8 +78,15 @@ def main():
         text = src.read_text(encoding="utf-8-sig")
         n = len(re.findall(rf"^Station\d+={re.escape(MISSING)}\s*$", text, re.M))
         if not n:
-            sys.exit(f"{name}: no {MISSING} station lines left - upstream fixed it, "
-                     f"drop this target")
+            # Upstream fixed this one. Stop overriding it: the author's file is
+            # now correct and an override would only freeze it at today's copy.
+            if dst.exists():
+                dst.unlink()
+                print(f"    removed aircraft/{name} - upstream fixed the typo itself")
+            else:
+                print(f"  {name}  RETIRED - upstream fixed the typo itself")
+            harpoon += 1
+            continue
         out = re.sub(rf"^(Station\d+=){re.escape(MISSING)}(\s*)$", rf"\g<1>{REPLACE}\g<2>",
                      text, flags=re.M)
         if MISSING in out:
@@ -100,11 +111,13 @@ def main():
         text = src.read_text(encoding="utf-8-sig")
         if "uk_ah_mk_1" in text:
             sys.exit("rn_lph_ocean.ini: upstream now supports the Apache - drop this fix")
-        text, n = re.subn(r"^AircraftSupported=raac_lynx_ah7\s*$",
-                          "AircraftSupported=raac_lynx_ah7,uk_ah_mk_1",
-                          text, flags=re.M)
+        # Append rather than match the list exactly: the author adds airframes
+        # to this line over time (rn_sea_king_hc4 arrived 19 Sep 2026) and an
+        # exact match turns every such addition into a build failure.
+        text, n = re.subn(r"^AircraftSupported=(\S+?)[ \t]*$",
+                          r"AircraftSupported=\g<1>,uk_ah_mk_1", text, flags=re.M)
         if n != 1:
-            sys.exit(f"rn_lph_ocean.ini: AircraftSupported line changed upstream ({n} matches)")
+            sys.exit(f"rn_lph_ocean.ini: expected one AircraftSupported line, found {n}")
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(text, encoding="utf-8")
         print("  vessels/rn_lph_ocean.ini  (+uk_ah_mk_1 Apache AH1 supported)")
@@ -307,6 +320,9 @@ def main():
 
         built += 1
 
+    if harpoon == len(TARGETS):
+        sys.exit("every P-8 target now ships the right Harpoon - retire the "
+                 "usn_agm-84g fix (TARGETS, MISSING/REPLACE and this guard)")
     if not built:
         sys.exit("nothing built - no target mod is exported")
 
