@@ -261,7 +261,8 @@ class Side:
                 cls = max((ad_layer(self.units[t]["info"]) or "shorad" for t in tels),
                           key=lambda c: CLASS_RANK.get(c, 0))
                 rng = max((self.units[t]["info"]["max_aaw_nm"] or 0.0) for t in tels)
-                out.append((cls, rng, order[u["name"]], u["formation"], u["name"], tels))
+                home = self.battery_home(u["name"], tels)
+                out.append((cls, rng, order[u["name"]], home, u["name"], tels))
             elif u["kind"] == "sam_site":
                 out.append((ad_layer(u["info"]) or "area", u["info"]["max_aaw_nm"] or 0.0,
                             order[u["name"]], u["formation"], None, [u["name"]]))
@@ -276,6 +277,16 @@ class Side:
                         u["formation"], None, group))
         return out
 
+    def battery_home(self, radar, tels):
+        """Use the radar's formation, else the first formed launcher.
+
+        The editor can leave either end of a battery outside a formation.
+        A wholly unformed battery has no home; all its units are already kept.
+        """
+        names = ([radar] if radar else []) + tels
+        return next((self.units[n]["formation"] for n in names
+                     if self.units[n]["formation"] is not None), None)
+
     def bmd_batteries(self):
         """[(home formation, radar or None, [launcher names])] for the BMD sections."""
         groups = OrderedDict()
@@ -285,7 +296,7 @@ class Side:
         out = []
         for key, tels in groups.items():
             radar = None if isinstance(key, tuple) else key
-            home = self.units[radar]["formation"] if radar else self.units[tels[0]]["formation"]
+            home = self.battery_home(radar, tels)
             out.append((home, radar, tels))
         return out
 
@@ -338,6 +349,12 @@ class Trimmer:
     def rank(self, b):
         return (CLASS_RANK.get(b[0], 0), b[1], -b[2])
 
+    def keep_unit(self, name, reason):
+        """Record a formed unit in its own formation; strays are always kept."""
+        home = self.s.units[name]["formation"]
+        if home is not None:
+            self.s.forms[home]["keep"].setdefault(name, reason)
+
     def decide(self):
         s = self.s
         # 1. batteries: one per hand-placed formation, then one per layer where the site has none
@@ -365,12 +382,13 @@ class Trimmer:
         # 2. BMD sections
         if self.a.keep_bmd:
             for home, radar, tels in s.bmd_batteries():
-                f = s.forms[home]
+                if home is None:
+                    continue                 # every member is a stray, already kept
                 if radar:
-                    f["keep"][radar] = "bmd radar"
+                    self.keep_unit(radar, "bmd radar")
                     self.bound_radars.add(radar)
                 for t in tels[:2]:
-                    f["keep"][t] = "bmd launcher"
+                    self.keep_unit(t, "bmd launcher")
                 self.kept_batteries.append((home, "bmd", radar, tels[:2]))
         else:
             for home, radar, tels in s.bmd_batteries():
@@ -383,25 +401,24 @@ class Trimmer:
         for fi, f in enumerate(s.forms):
             if f["kind"] != "site":
                 self.trim_formation(fi)
-        # 4. a kept launcher keeps the radar that guides it, wherever that radar stands
-        for f in s.forms:
-            for u in list(f["keep"]):
-                fcr = s.units[u]["fcr"]
-                if fcr and s.units[u]["kind"] != "bmd_tel":
-                    home = s.forms[s.units[fcr]["formation"]]
-                    home["keep"].setdefault(fcr, f"guides {s.units[u]['type']}")
-                    self.bound_radars.add(fcr)
+        # 4. Every kept launcher, including a stray, keeps its associated radar.
+        # Either end can be outside a formation after an editor save.
+        kept = {u for f in s.forms for u in f["keep"]}
+        kept.update(u["name"] for u in s.strays)
+        for name, u in s.units.items():
+            if name in kept and u["fcr"]:
+                self.keep_unit(u["fcr"], f"guides {u['type']}")
+                self.bound_radars.add(u["fcr"])
 
     def keep_battery(self, fi, b):
         cls, rng, _, home, radar, tels = b
-        f = self.s.forms[fi]
         if radar:
-            f["keep"][radar] = f"{cls} battery radar"
+            self.keep_unit(radar, f"{cls} battery radar")
             self.bound_radars.add(radar)
         kept = tels if radar is None and len(tels) == 1 and self.s.units[tels[0]]["kind"] == "sam_site" \
             else tels[:self.a.tels]
         for t in kept:
-            self.s.forms[self.s.units[t]["formation"]]["keep"][t] = f"{cls} battery launcher"
+            self.keep_unit(t, f"{cls} battery launcher")
         self.kept_batteries.append((fi, cls, radar, kept))
 
     def trim_formation(self, fi):

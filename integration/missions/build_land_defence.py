@@ -988,7 +988,7 @@ class Mission:
                                       and pat.match(line).group(1) + pat.match(line).group(2) in names))
             self.sections[k] = (h, rename(b, h or "preamble"))
         self.set_mission_key(f"NumberOf{side}LandUnits", count)
-        self.added = [mapping[a] for a in self.added if a not in names]
+        self.added = [mapping.get(a, a) for a in self.added if a not in names]
         return mapping
 
     # An air-group line inside a unit block: <aircraft id>=Default,N or

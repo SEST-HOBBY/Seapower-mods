@@ -162,3 +162,13 @@ key, sets `NumberOf<side>LandUnits`, and stops on anything that still names a de
 `set_custom_air_group`, `set_name` and `set_description` do what they say; and `verify()` now
 also checks that no formation is empty, that numbering is dense and in order for every side
 and class, and that every unit named anywhere in the file exists.
+
+The final verification and commands to install only the Lean mission are in
+[`docs/banda-front-lean-verification.md`](../../docs/banda-front-lean-verification.md).
+The removal path also supports units added on both sides in the same run. A battery's radar
+or launchers may be outside a formation: those units remain, and any associated radar needed
+by a retained launcher remains with them. Regression checks:
+
+```bash
+python3 -m unittest discover -s tools/tests -p 'test_trim_land_sites.py' -v
+```
