@@ -862,8 +862,8 @@
       "author": "MyGo!!!!!鼓手椎名立希",
       "faction": "usa",
       "type": "fixed-wing",
-      "status": "deprecated",
-      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing."
+      "status": "unsubscribed",
+      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing. UNSUBSCRIBED 19 Sep 2026: Steam has not downloaded it and the game has never listed it, so set-mod-order had nothing to place."
     },
     {
       "id": "f-35c-alt-loadouts",
@@ -943,8 +943,8 @@
       "author": "MyGo!!!!!鼓手椎名立希",
       "faction": "usa",
       "type": "fixed-wing",
-      "status": "deprecated",
-      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing."
+      "status": "unsubscribed",
+      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing. UNSUBSCRIBED 19 Sep 2026: Steam has not downloaded it and the game has never listed it, so set-mod-order had nothing to place."
     },
     {
       "id": "murder-hornet",
@@ -1666,11 +1666,11 @@
       "author": "unknown (added 2026-08-24)",
       "faction": "utility",
       "type": "framework",
-      "status": "active",
+      "status": "unsubscribed",
       "requires": [
         "anchor-chain (presumed — code-level behavior mod; verify)"
       ],
-      "notes": "VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement."
+      "notes": "VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement. UNSUBSCRIBED 19 Sep 2026: Steam has not downloaded it and the game has never listed it, so set-mod-order had nothing to place."
     },
     {
       "id": "better-tacmap",
