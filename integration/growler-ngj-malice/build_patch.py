@@ -24,7 +24,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 NAVY_2027 = ROOT / "mods-source" / "3606774881"
-SUPER_HORNET = ROOT / "mods-source" / "3426791311"
+# The F/A-18E/F mod (3426791311) was deprecated into Modern US Navy and
+# unsubscribed on 19 Sep 2026, taking its meshes with it. Both things this
+# builder took from it now come from US Naval Aviation instead: the 610 gal
+# tank, which that mod also ships, and usn_ea-18g_2020s, which nothing ships
+# any more - see build_growler's donor note below.
 US_NAVAL_AVIATION = ROOT / "mods-source" / "3737267013"
 MURDER_HORNET = ROOT / "mods-source" / "3430135740"
 OUT = Path(__file__).resolve().parent / "SEST_Growler_NGJ_MALICE"
@@ -667,14 +671,18 @@ def build_tank_610_override() -> None:
     coordinates on all four airframes), so this override renders that mesh
     instead. Whole-file ammunition override: our pack outranks all three
     workshop mods that ship this file (F/A-18E/F, US Naval Aviation, RSA)."""
-    src = SUPER_HORNET / "ammunition" / "usn_tank_610_f-18.ini"
+    src = US_NAVAL_AVIATION / "ammunition" / "usn_tank_610_f-18.ini"
     text = src.read_text(encoding="utf-8-sig")
-    old = ("ResourcesFolder=assets/models/vechicle/aircraft/f-18e/\n"
-           "ResourcesRoot=fa-18e.obj\n"
-           "ResourcesMesh=f-18_fuletank\n"
-           "ResourcesMaterial=f-18e_mat.ini")
-    if old not in text:
+    # Match the four resource keys rather than one exact block: the two mods
+    # that still ship this file differ only in the folder path, and pinning the
+    # path made an ordinary re-export fail the build.
+    old_re = re.compile(r"^ResourcesFolder=\S+\n"
+                        r"ResourcesRoot=fa-18e\.obj\n"
+                        r"ResourcesMesh=f-18_fuletank\n"
+                        r"ResourcesMaterial=f-18e_mat\.ini$", re.M)
+    if not old_re.search(text):
         sys.exit("usn_tank_610_f-18: upstream Models block changed - re-check the re-mesh")
+    old = old_re.search(text).group(0)
     new = ("# SEST re-mesh: f-18_fuletank is a submesh of the fa-18e aircraft model\n"
            "# and carries its origin, riding low under every pylon. The vanilla\n"
            "# F-15C 610 gal tank mesh (what usn_tank_1200_f-18 renders) sits flush\n"
@@ -709,7 +717,11 @@ def port_tanker_fit(text: str, source_name: str) -> str:
     if not (m and keys and aar):
         sys.exit(f"{source_name}: USNA tanker blocks not found - upstream changed again")
     if "Tanker" in re.search(r"^AvailableLoadouts=(.+)$", text, re.M).group(1):
-        sys.exit(f"{source_name}: Tanker already declared - drop this port")
+        # The airframe we shadow now declares its own Tanker fit (U.S. Navy
+        # 2027, 19 Sep 2026), so there is nothing to carry across any more.
+        # Porting on top would declare it twice.
+        print(f"    {source_name}: Tanker port RETIRED - the base file declares its own")
+        return text
     text = extend_loadouts(text, ["Tanker"], source_name)
     # position keys go into the WS1 table, next to the other centre keys
     anchor = re.search(r"^Station29=[^\n]*\n", text, re.M)
@@ -915,8 +927,15 @@ def build_raaf_squadrons() -> None:
 def main() -> None:
     verify_ammunition()
     build_growler(NAVY_2027 / "aircraft" / "usn_ea-18g.ini", "usn_ea-18g.ini", upgrade_ngj=True)
+    # usn_ea-18g_2020s came from the deprecated F/A-18E/F mod. Nothing ships
+    # it now, and its meshes went with the unsubscribe, so the id survived only
+    # as this pack's file pointing at an asset folder no longer installed - a
+    # Growler with no model, fielded by ten saved missions. It is rebuilt from
+    # the live US Naval Aviation Growler so those missions keep flying, with a
+    # jet that renders. Retire the id (and retarget the missions) if you would
+    # rather not carry it.
     build_growler(
-        SUPER_HORNET / "aircraft" / "usn_ea-18g_2020s.ini",
+        US_NAVAL_AVIATION / "aircraft" / "usn_ea-18g_2020.ini",
         "usn_ea-18g_2020s.ini",
         upgrade_ngj=False,
     )

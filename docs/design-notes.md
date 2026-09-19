@@ -263,3 +263,16 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
 - **Severity follows the file kind.** A unit file with no base is the startup crash, because the
   loader cannot build the unit. A round with no base only means that weapon never fires, which
   the game survives, so the checker reports it and still exits zero.
+- **A guard that says "rebase this" should retire the fix itself when it can.** Five packs were
+  wedged because their guards treated "upstream fixed it" as a build failure. A guard can tell
+  the two apart: if the defect the fix targets is gone from the donor, stop overriding that file
+  and say so, and only fail when every target of a fix is clean (then the fix itself is
+  obsolete). The P-8 Harpoon typo, the F/A-18E tanker port, the AIM-9M and the MH-60R Penguin
+  seat all retired themselves this way, and the Ocean's Apache line stopped failing every time
+  the author added an airframe by appending to the list rather than matching it exactly.
+- **An unsubscribe can leave a unit that only your own patch defines.** usn_ea-18g_2020s came
+  from a mod deprecated into Modern US Navy; after the unsubscribe the id survived only as this
+  collection's shadow copy, pointing at an asset folder no longer installed - a Growler with no
+  model, fielded by ten saved missions. Check the whole file stack, not just the winner: if the
+  only provider is a SEST pack, the unit is being kept alive by the patch and needs either a
+  live donor or a retirement plus mission retargeting.

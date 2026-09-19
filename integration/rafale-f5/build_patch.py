@@ -7,7 +7,7 @@ NORTHERN FRONT mission). Each is derived from one of the mod's own fits by
 swapping rounds on the stations the donor already proves, so the geometry is
 the author's:
 
-  SEST_Intercept260F5  from AirToAirLongRange: every MICA-EM becomes AIM-260.
+  SEST_Intercept260F5  from AirToAirLongRange: every MICA NG-EM becomes AIM-260.
                      Wingtip MICA-IR, the donors' Meteors and the tanks stay.
   SEST_MALICE        from StrikeLongRange: the two SCALP-EG (S5/6, the heavy
                      wet stations) become AIM-424 on the same SCALP seat; the
@@ -33,6 +33,9 @@ OUT = Path(__file__).resolve().parent / "SEST_Rafale_F5"
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
+# The mod moved its active-radar MICA to the NG standard on 19 Sep 2026
+# (fr_mica-em -> fr_mica-ng-em); the IR round became fr_mica-ng-ir and is kept
+# untouched on the wingtips, as before.
 AIRFRAMES = ["fr_rafale_b_l", "fr_rafale_c_l", "fr_rafale_m_l"]
 NEW_KEYS = ["SEST_Intercept260F5", "SEST_MALICE", "SEST_AntiShipLRASM",
             "SEST_Intercept260Heavy", "SEST_LRASM_ER", "SEST_MALICE_ER"]
@@ -40,20 +43,20 @@ NEW_KEYS = ["SEST_Intercept260F5", "SEST_MALICE", "SEST_AntiShipLRASM",
 # (new name, donor loadout, [(old store spec, new store spec), ...])
 DERIVATIONS = [
     ("SEST_Intercept260F5", "AirToAirLongRange",
-     [("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
+     [("fr_mica-ng-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
     # The 424 mounts BARE, like the AIM-260 does - the SCALP seat's
     # -0.006 z offset floated it visibly clear of the pylon (screenshot).
     ("SEST_MALICE", "StrikeLongRange",
      [("fr_scalp-eg|SCALP", AIM424_ID),
-      ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
+      ("fr_mica-ng-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
     ("SEST_AntiShipLRASM", "AntiShip",
      [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),   # LRASM keeps the heavy seat
-      ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
+      ("fr_mica-ng-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")]),
     # Heavy AAM: max JATM. The donor's WING tanks (7/8) go - the AIM-260s the
     # swap puts on the adjacent rails are Meteor-class fat and clip them
     # (reported in-game); the centreline tank stays, nothing sits beside it.
     ("SEST_Intercept260Heavy", "AirToAirIntercept",
-     [("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
+     [("fr_mica-ng-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
      (), (), ("Station7", "Station8")),
     # LRASM with the centreline tank the AntiShip donor never fits.
     # MALICE with the centreline tank its StrikeLongRange donor never fits.
@@ -62,11 +65,11 @@ DERIVATIONS = [
     # left the tank hanging under an invisible pylon.
     ("SEST_MALICE_ER", "StrikeLongRange",
      [("fr_scalp-eg|SCALP", AIM424_ID),
-      ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
+      ("fr_mica-ng-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
      ["Station11=fr_tank_1200"], ("Center_Pylon",)),
     ("SEST_LRASM_ER", "AntiShip",
      [("fr_am-39_Block2|AM39", "dts_agm-158c-3|SCALP"),
-      ("fr_mica-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
+      ("fr_mica-ng-em", "dts_aim-260"), ("?fr_meteor", "dts_aim-260")],
      ["Station11=fr_tank_1200"], ("Center_Pylon",)),
 ]
 
