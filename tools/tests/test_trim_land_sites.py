@@ -162,7 +162,7 @@ class BandaFrontHandoverTests(unittest.TestCase):
             original = Mission(source)
             lean = Mission(temp / "SEST Banda Front Lean.ini")
             self.assertEqual([], lean.verify())
-            self.assertEqual(396, sum(len(lean.units(side, "LandUnit")) for side in trim.SIDES))
+            self.assertEqual(414, sum(len(lean.units(side, "LandUnit")) for side in trim.SIDES))
             for side in trim.SIDES:
                 original_forms = [(key, tail) for _, key, _, tail in original.formation_specs(side)]
                 lean_forms = [(key, tail) for _, key, _, tail in lean.formation_specs(side)]

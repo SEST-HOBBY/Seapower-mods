@@ -62,20 +62,24 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
   The save (`SEST Banda Front edited.ini`, the hand-edited copy, authoritative and never
   rewritten) is read by `trim_land_sites.py`, which writes this copy beside it: the same 114 sites
   (106 formations plus the eight bridges and rigs the editor leaves outside any formation), the
-  same positions and spread, 794 land units down to 396. Each site keeps its airbase, port, bridge
+  same positions and spread, 794 land units down to 414. Each base keeps its airbase, port, bridge
   or rig model, one search radar, ONE SAM battery (its fire-control radar and three launchers)
   and the THAAD or S-400 long-range section where it has one, the fuel farm, the ammo dump, a
   command element, one of each kind of industrial building, up to two anti-ship launchers, two
-  ballistic-missile TELs, two drone launchers and, in a combat group, one vehicle of each class;
-  the gun rings, the SHORAD swarm, the second and third batteries with their search radars,
-  trucks, tents, bunkers and the crowd of technicals go. Every neutral land unit whose file can
+  ballistic-missile TELs and two drone launchers (one of each type before a second of any) and,
+  in a combat group, one vehicle of each class; the gun rings, the SHORAD swarm, the second and
+  third batteries with their search radars, trucks, tents, bunkers and the crowd of technicals
+  go. A formation with no military unit in it - the refineries, LNG plants, ports and power
+  stations - is not a base and is left exactly as it is (`--trim-civil` applies the rule there
+  too). A hand-placed formation keeps its own battery, so a site laid out as several groups
+  (Biak's airbase and its S-400 battalion) can carry more than one. Every neutral land unit whose file can
   spawn aircraft - eleven TNI, RMAF, Balinese and Halim airfields on the vanilla `airfield_small_1`
   and Modern US `airfield_us` files, and the four Timor Sea helo rigs - carries `CustomAirGroup=True`
   with nothing under it, so no neutral E-3, P-3 or Sea King takes off on its own; blue and red air
   groups are as in the save. Regenerate with `python3 integration/missions/trim_land_sites.py`
   (`--dry-run` prints the plan and the numbers; `--tels`, `--coastal`, `--tbm`, `--drones`,
-  `--technicals`, `--no-bmd` and `--cluster-nm` move the line; the output is byte-identical on
-  every re-run).
+  `--technicals`, `--no-bmd`, `--trim-civil` and `--cluster-nm` move the line; the output is
+  byte-identical on every re-run).
 
   Two things the save itself carries, which the trim reports and leaves alone: the editor lays a
   saved formation out as rings at its 1.5 nm spacing, so a launcher stands 1-9 nm from the radar
@@ -144,7 +148,8 @@ of formations per side is checked to be identical before the copy is written. A 
 kept only together with the radar that guides it; a battery is its radar plus the first
 `--tels` launchers bound to it, ranked area over medium over SHORAD and by range. The builder's
 `<site> Air Defence` layer defers to the site's own hand-placed battery and radar where it has
-them. Every neutral unit that could spawn aircraft is given an empty `CustomAirGroup=True`
+them; a formation with no military unit is left alone unless `--trim-civil` is given. Every
+neutral unit that could spawn aircraft is given an empty `CustomAirGroup=True`
 (`--keep-neutral-air` to leave them). The source is verified before, the result is verified
 after, and every kept unit's block is checked byte for byte against the source before anything
 is written.

@@ -23,6 +23,10 @@ single unit that survives:
          tent groups, trenches and bunkers, duplicate vehicles, the crowd of
          technicals beyond --technicals
 
+A formation with no military unit in it - a refinery, an LNG plant, a port,
+a power station - is not a base and is left exactly as it is (--trim-civil
+applies the one-of-each-kind rule there too).
+
 Sites are never deleted. Every formation keeps at least one member (its
 first member when that unit carries the site's name), every unit outside a
 formation - the bridges and rigs the editor left as stray labelled units -
@@ -31,8 +35,9 @@ before and after. A launcher is kept only with the radar that guides it, and
 the output is re-read and checked against the source before it is written.
 
 Neutral airfields are grounded: every neutral land unit whose file carries
-an [AirGroup] (the vanilla airfield_small_1 spawns an E-3A, four P-3Cs and a
-dozen fighters by default) gets CustomAirGroup=True with no aircraft lines -
+an [AirGroup] (the vanilla airfield_small_1 spawns two dozen F-4s, an E-3A,
+four P-3Cs and a handful of recon, EW and helicopter aircraft by default)
+gets CustomAirGroup=True with no aircraft lines -
 the form the mission editor writes for an emptied base and the form the
 shipped missions use. Blue and red air groups are not touched.
 
@@ -102,7 +107,12 @@ STATIC_KINDS = [
 ONE_EACH = {"fuel", "ammo", "command", "comms", "warehouse", "sosus",
             "industry:refinery", "industry:pump", "industry:power", "industry:works"}
 VEHICLE_ONE_EACH = {"mlrs", "arty", "mbt", "ifv", "at", "apc", "recon"}
-CAPPED = {"tbm": "tbm", "drone": "drones", "technical": "technicals"}   # kind -> argparse cap
+# Kinds with a cap: one of each type first, then a second of a type once
+# every type is in, so a site keeps its two systems rather than a duplicate.
+CAPPED = {"coastal": "coastal", "tbm": "tbm", "drone": "drones", "technical": "technicals"}
+# A formation made only of these is a civil site, not a base.
+CIVIL_KINDS = {"fuel", "comms", "warehouse", "camp", "fort",
+               "industry:refinery", "industry:pump", "industry:power", "industry:works"}
 CLASS_RANK = {"area": 3, "medium": 2, "shorad": 1}
 # The radars the doctrine tables pair with a BMD launcher (AN/TPY-2 for
 # THAAD and so on): a BMD launcher names no guidance system in its file.
@@ -151,6 +161,9 @@ def kind(uid):
         return "coastal"                     # YJ-12/62, CJ-10, DF-10A launch vehicles
     if "coastal_artillery" in low:
         return "coastal"
+    if info["subtype"] == "Radar" or low.endswith("_radar") or (info["radars"] and not info["weapons"]):
+        return "radar"                       # search and fire-control radars alike; the HQ-7B's
+                                             # acquisition radar is filed as SAM and would read as a gun
     if info["guidance"]:
         return "tel"                         # a launcher that fires only with a battery radar
     layer = ad_layer(info)
@@ -160,9 +173,6 @@ def kind(uid):
         return "shorad"
     if layer in ("medium", "area"):
         return "self_sam"                    # SAMP/T, Buk, Rapier: launcher and radar in one
-    if info["subtype"] == "Radar" or low.endswith("_radar") or "radar" in low or \
-            (not info["weapons"] and info["radars"]):
-        return "radar"
     for k, pat in VEHICLE_CLASSES:
         if re.search(pat, low):
             return k
@@ -261,8 +271,7 @@ class Side:
                 cls = max((ad_layer(self.units[t]["info"]) or "shorad" for t in tels),
                           key=lambda c: CLASS_RANK.get(c, 0))
                 rng = max((self.units[t]["info"]["max_aaw_nm"] or 0.0) for t in tels)
-                home = self.battery_home(u["name"], tels)
-                out.append((cls, rng, order[u["name"]], home, u["name"], tels))
+                out.append((cls, rng, order[u["name"]], self.battery_home(u["name"], tels), u["name"], tels))
             elif u["kind"] == "sam_site":
                 out.append((ad_layer(u["info"]) or "area", u["info"]["max_aaw_nm"] or 0.0,
                             order[u["name"]], u["formation"], None, [u["name"]]))
@@ -278,12 +287,11 @@ class Side:
         return out
 
     def battery_home(self, radar, tels):
-        """Use the radar's formation, else the first formed launcher.
-
-        The editor can leave either end of a battery outside a formation.
-        A wholly unformed battery has no home; all its units are already kept.
-        """
-        names = ([radar] if radar else []) + tels
+        """The formation a battery is decided in: the radar's, else the first
+        launcher's that stands in one. The editor can leave either end of a
+        battery outside a formation; a wholly unformed battery has no home,
+        and every one of its units is a stray that is kept anyway."""
+        names = ([radar] if radar else []) + list(tels)
         return next((self.units[n]["formation"] for n in names
                      if self.units[n]["formation"] is not None), None)
 
@@ -296,8 +304,7 @@ class Side:
         out = []
         for key, tels in groups.items():
             radar = None if isinstance(key, tuple) else key
-            home = self.battery_home(radar, tels)
-            out.append((home, radar, tels))
+            out.append((self.battery_home(radar, tels), radar, tels))
         return out
 
     # --- which formations make one site ------------------------------------
@@ -336,6 +343,12 @@ def b_first(b):
     return b[2] or b[3][0]
 
 
+def civil(u):
+    """A building, a tank farm, a wharf, a bridge, a rig: not a military unit."""
+    return u["kind"] in CIVIL_KINDS or \
+        (u["kind"] == "asset" and u["info"]["subtype"] in ("Bridge", "OilRig", "Port"))
+
+
 # ---------------------------------------------------------------------------
 class Trimmer:
     def __init__(self, side, args):
@@ -343,24 +356,26 @@ class Trimmer:
         self.notes = []
         self.kept_batteries = []       # (formation, cls, radar, kept launchers)
         self.hand_battery_cls = {}     # cluster -> best class kept in a hand-placed formation
-        self.hand_ew = set()           # clusters where a hand-placed formation keeps a radar
+        self.site_ew = set()           # clusters where some formation already keeps a search radar
         self.bound_radars = set()      # radars spoken for by a kept battery or BMD section
 
     def rank(self, b):
         return (CLASS_RANK.get(b[0], 0), b[1], -b[2])
 
     def keep_unit(self, name, reason):
-        """Record a formed unit in its own formation; strays are always kept."""
-        home = self.s.units[name]["formation"]
-        if home is not None:
-            self.s.forms[home]["keep"].setdefault(name, reason)
+        """Record a unit as kept in ITS OWN formation. A stray (in no
+        formation) is never removed, so it needs no bookkeeping."""
+        fi = self.s.units[name]["formation"]
+        if fi is not None:
+            self.s.forms[fi]["keep"].setdefault(name, reason)
 
     def decide(self):
         s = self.s
         # 1. batteries: one per hand-placed formation, then one per layer where the site has none
         by_home = {}
         for b in s.batteries():
-            by_home.setdefault(b[3], []).append(b)
+            if b[3] is not None:              # a battery of strays is kept whole anyway
+                by_home.setdefault(b[3], []).append(b)
         for fi, f in enumerate(s.forms):
             if f["kind"] == "site" and by_home.get(fi):
                 best = max(by_home[fi], key=self.rank)
@@ -379,21 +394,17 @@ class Trimmer:
                 elif best[0] in ("area", "medium"):
                     self.keep_battery(fi, best)
                 # a shorad-class "battery" here is a Tor/HQ-17 pair; the shorad rule below decides
-        # 2. BMD sections
-        if self.a.keep_bmd:
-            for home, radar, tels in s.bmd_batteries():
-                if home is None:
-                    continue                 # every member is a stray, already kept
-                if radar:
-                    self.keep_unit(radar, "bmd radar")
-                    self.bound_radars.add(radar)
-                for t in tels[:2]:
-                    self.keep_unit(t, "bmd launcher")
-                self.kept_batteries.append((home, "bmd", radar, tels[:2]))
-        else:
-            for home, radar, tels in s.bmd_batteries():
-                if radar:
-                    self.bound_radars.add(radar)          # never mistaken for the search radar
+        # 2. BMD sections: each launcher kept in its own formation, its radar in its own
+        for home, radar, tels in s.bmd_batteries():
+            if radar:
+                self.bound_radars.add(radar)              # never mistaken for the search radar
+            if not self.a.keep_bmd or home is None:
+                continue
+            if radar:
+                self.keep_unit(radar, "bmd radar")
+            for t in tels[:2]:
+                self.keep_unit(t, "bmd launcher")
+            self.kept_batteries.append((home, "bmd", radar, tels[:2]))
         # 3. everything else, formation by formation: hand-placed first so the layers can defer to them
         for fi, f in enumerate(s.forms):
             if f["kind"] == "site":
@@ -401,10 +412,10 @@ class Trimmer:
         for fi, f in enumerate(s.forms):
             if f["kind"] != "site":
                 self.trim_formation(fi)
-        # 4. Every kept launcher, including a stray, keeps its associated radar.
-        # Either end can be outside a formation after an editor save.
-        kept = {u for f in s.forms for u in f["keep"]}
-        kept.update(u["name"] for u in s.strays)
+        # 4. every kept launcher, a stray included, keeps the radar that guides
+        #    it, wherever that radar stands - either end of a battery can be
+        #    outside a formation after an editor save
+        kept = {u for f in s.forms for u in f["keep"]} | {u["name"] for u in s.strays}
         for name, u in s.units.items():
             if name in kept and u["fcr"]:
                 self.keep_unit(u["fcr"], f"guides {u['type']}")
@@ -427,7 +438,18 @@ class Trimmer:
         keep = f["keep"]
         units = [s.units[u] for u in f["members"]]
         first = units[0]
-        if f["kind"] == "site" or first["named"]:
+        # a refinery, a port, a plant: not a base, left as it is
+        if f["kind"] == "site" and not getattr(a, "trim_civil", False) and all(civil(u) for u in units):
+            for u in units:
+                keep.setdefault(u["name"], "civil site, left as it is")
+            return
+        # the unit that carries the site's name stays, and so does any other
+        # unit someone named by hand; in a builder layer a name is a battery's
+        if f["kind"] == "site":
+            for u in units:
+                if u is first or u["named"]:
+                    keep.setdefault(u["name"], "carries the site name" if u is first else "carries a name")
+        elif first["named"]:
             keep.setdefault(first["name"], "carries the site name")
         cluster = f["cluster"]
         # what this formation (hand-placed) or this site (a layer) already keeps
@@ -440,7 +462,7 @@ class Trimmer:
         count = {}
         for u in keep:
             k = s.units[u]["kind"]
-            if k in CAPPED or k == "coastal":
+            if k in CAPPED:
                 count[k] = count.get(k, 0) + 1
                 seen_type.setdefault(k, set()).add(s.units[u]["type"])
         # the search radar: one per hand-placed formation, and one in a layer
@@ -449,13 +471,13 @@ class Trimmer:
         # warning types, then a named radar, then file order.
         free = [u for u in units if u["kind"] == "radar" and not u["tels"] and u["name"] not in self.bound_radars]
         has_free = any(s.units[u]["kind"] == "radar" and not s.units[u]["tels"] for u in keep)
-        want_ew = f["kind"] == "site" or cluster not in self.hand_ew
+        want_ew = f["kind"] == "site" or cluster not in self.site_ew
         if want_ew and free and not has_free:
             pick = min(free, key=lambda u: (u["type"] not in EW_RADARS, not u["named"], units.index(u)))
             keep[pick["name"]] = "search radar"
             has_free = True
-        if f["kind"] == "site" and has_free:
-            self.hand_ew.add(cluster)
+        if has_free:
+            self.site_ew.add(cluster)
         # armed technicals before the pickup with nothing on the back
         ordered = sorted(units, key=lambda u: (u["kind"] == "technical" and not u["info"]["weapons"]))
         for u in ordered:
@@ -468,10 +490,6 @@ class Trimmer:
                 if k not in seen_one:
                     seen_one.add(k)
                     keep[u["name"]] = k
-            elif k == "coastal":
-                if count.get(k, 0) < a.coastal:
-                    count[k] = count.get(k, 0) + 1
-                    keep[u["name"]] = "coastal launcher"
             elif k in CAPPED:
                 if count.get(k, 0) < getattr(a, CAPPED[k]) and u["type"] not in seen_type.setdefault(k, set()):
                     seen_type[k].add(u["type"])
@@ -530,9 +548,8 @@ def check_guidance(side_obj, kept):
     guidance radius) - the reach figure describes the source's geometry,
     which the trim leaves exactly as it is."""
     problems, orphans, n, far = [], [], 0, 0
-    for name in kept:
-        u = side_obj.units[name]
-        if not u["info"]["guidance"]:
+    for name, u in side_obj.units.items():
+        if name not in kept or not u["info"]["guidance"]:
             continue
         n += 1
         if u["fcr"] is None:
@@ -559,6 +576,9 @@ def parse_args():
                     help=f"formations whose leaders stand this close are one site (default {CLUSTER_NM})")
     ap.add_argument("--no-bmd", dest="keep_bmd", action="store_false",
                     help="cut the THAAD / BMD sections too (default: keep radar + 2 launchers)")
+    ap.add_argument("--trim-civil", action="store_true",
+                    help="apply the one-of-each-kind rule to civil sites too (refineries, ports, plants; "
+                         "default: a formation with no military unit is left exactly as it is)")
     ap.add_argument("--keep-neutral-air", action="store_true",
                     help="leave neutral air groups alone (default: ground every neutral base)")
     ap.add_argument("--dry-run", action="store_true", help="print the plan and the numbers, write nothing")
@@ -591,7 +611,8 @@ def main():
 
     print(f"source: {src.name}   ->   {out.name}")
     print(f"tels {a.tels}  coastal {a.coastal}  tbm {a.tbm}  drones {a.drones}  technicals {a.technicals}"
-          f"  bmd {'kept' if a.keep_bmd else 'cut'}  neutral air {'left' if a.keep_neutral_air else 'grounded'}\n")
+          f"  bmd {'kept' if a.keep_bmd else 'cut'}  civil sites {'trimmed' if a.trim_civil else 'left'}"
+          f"  neutral air {'left' if a.keep_neutral_air else 'grounded'}\n")
 
     sides, removals, kept_names, grounded, reach = {}, {}, {}, [], {}
     for side in SIDES:
@@ -623,11 +644,11 @@ def main():
         reach[side] = (n_guided, n_far)
         print()
 
-    # --- apply ---------------------------------------------------------------
+    # --- apply: ground first, so the report names neutral units as the save does ---
+    if not a.keep_neutral_air:
+        grounded = ground_neutral_air(mission, sides["Neutral"][0])
     for side in SIDES:
         mission.remove_land_units(side, removals[side])
-    if not a.keep_neutral_air:
-        grounded = ground_neutral_air(mission, Side(mission, "Neutral", a.cluster_nm))
     mission.set_name(a.out)
     desc = re.search(r"^Description=(.*)$", mission.body("[Language_en]"), re.M)
     if desc:

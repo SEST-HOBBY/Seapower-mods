@@ -1019,11 +1019,12 @@ class Mission:
             if h == f"[{section}]":
                 kept = [l for l in b.split("\n")
                         if not (l.startswith("CustomAirGroup=") or self.AIRGROUP_LINE.match(l))]
-                while kept and kept[-1] == "":
-                    kept.pop()
-                kept.append("CustomAirGroup=True")
-                kept.extend(f"{uid}={spec}" for uid, spec in aircraft)
-                self.sections[k] = (h, "\n".join(kept) + "\n")
+                # after the last line with content, so a blank line that
+                # separates this block from the next stays where it was
+                last = max((i for i, l in enumerate(kept) if l.strip()), default=-1)
+                block = ["CustomAirGroup=True"] + [f"{uid}={spec}" for uid, spec in aircraft]
+                body = "\n".join(kept[:last + 1] + block + kept[last + 1:])
+                self.sections[k] = (h, body if body.endswith("\n") else body + "\n")
                 return
         sys.exit(f"{self.path.name}: no section [{section}]")
 
