@@ -75,6 +75,12 @@
       "title": "SEST Growler NGJ + MALICE"
     },
     {
+      "folder": "SEST_Intercept_Model",
+      "source": "integration/intercept-model",
+      "builder": "build_patch.py",
+      "title": "SEST Intercept Model"
+    },
+    {
       "folder": "SEST_JMSDF_Mogami",
       "source": "integration/jmsdf-mogami",
       "builder": "build_patch.py",
