@@ -1,3 +1,12 @@
+v1.43 - 20260917
+
+	- Changes have been added to the mod to prepare it for the game's new features, which are still in beta.
+	- Updating and revising the mod's submarine colliders.
+
+v1.42 - 20260828
+
+	DC Teams number update: 3 for L61 and L5x, 2 for frigates, 1 for the rest.
+
 v1.41 - 20260825
 
 	Graphical review of ship damage models.
