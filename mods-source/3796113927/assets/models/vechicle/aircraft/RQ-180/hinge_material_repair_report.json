@@ -1,0 +1,166 @@
+{
+  "input_obj": "v0.1.8 baseline OBJ before hinge-frame compensation",
+  "output_obj": "assets/models/vechicle/aircraft/RQ-180/RQ-180.obj",
+  "single_obj_file": true,
+  "object_count": 29,
+  "airframe_baseline_revision": "v0.2.1",
+  "package_revision": "v0.3.4",
+  "material_island_binding": "explicit Gear_Extend/Gear_Retract sequences; no Parent binding",
+  "object_names": [
+    "hull",
+    "hull_m3",
+    "hull_m4",
+    "hull_m5",
+    "afterburner",
+    "elevator_l",
+    "elevator_r",
+    "aileron_l",
+    "aileron_r",
+    "gear_door_nose",
+    "gear_door_l",
+    "gear_door_r",
+    "gear_nose",
+    "gear_l",
+    "gear_r",
+    "bay_center_l",
+    "bay_center_r",
+    "bay_fwd_l",
+    "bay_fwd_r",
+    "bay_aft_l",
+    "bay_aft_r",
+    "gear_nose_m1",
+    "gear_nose_m2",
+    "gear_nose_m3",
+    "gear_nose_m6",
+    "gear_l_m2",
+    "gear_l_m4",
+    "gear_r_m2",
+    "gear_r_m4"
+  ],
+  "gear_material_split_objects": {
+    "gear_nose_m1": "rq180_body_mat.ini",
+    "gear_nose_m2": "rq180_silver_mat.ini",
+    "gear_nose_m3": "rq180_metal_mat.ini",
+    "gear_nose_m6": "rq180_engine_mat.ini",
+    "gear_l_m2": "rq180_silver_mat.ini",
+    "gear_l_m4": "rq180_black_matte_mat.ini",
+    "gear_r_m2": "rq180_silver_mat.ini",
+    "gear_r_m4": "rq180_black_matte_mat.ini"
+  },
+  "door_hinge_frames": {
+    "gear_door_nose": {
+      "static_rotation": [
+        -8.0907,
+        0.69036,
+        0.0
+      ],
+      "animated_axis": "Z",
+      "animated_angle_degrees": 90.0,
+      "source_hinge_axis": [
+        0.01192886,
+        0.14074049,
+        0.98997465
+      ],
+      "default_pose_compensation_max_error": 3.576224061345498e-18,
+      "axis_fit_error": 4.959184335169427e-08
+    },
+    "gear_door_l": {
+      "static_rotation": [
+        5.82741,
+        0.0,
+        0.0
+      ],
+      "animated_axis": "Z",
+      "animated_angle_degrees": 90.0,
+      "source_hinge_axis": [
+        0.0,
+        -0.10153227,
+        0.99483225
+      ],
+      "default_pose_compensation_max_error": 6.938893903907228e-18,
+      "axis_fit_error": 3.851190510962315e-08
+    },
+    "gear_door_r": {
+      "static_rotation": [
+        5.82741,
+        0.0,
+        0.0
+      ],
+      "animated_axis": "Z",
+      "animated_angle_degrees": -90.0,
+      "source_hinge_axis": [
+        0.0,
+        -0.10153227,
+        0.99483225
+      ],
+      "default_pose_compensation_max_error": 6.938893903907228e-18,
+      "axis_fit_error": 3.851190510962315e-08
+    }
+  },
+  "triangles_by_object": {
+    "hull": 752,
+    "hull_m3": 530,
+    "hull_m4": 354,
+    "hull_m5": 100,
+    "afterburner": 64,
+    "elevator_l": 8,
+    "elevator_r": 6,
+    "aileron_l": 8,
+    "aileron_r": 6,
+    "gear_door_nose": 32,
+    "gear_door_l": 12,
+    "gear_door_r": 14,
+    "gear_nose": 512,
+    "gear_l": 468,
+    "gear_r": 468,
+    "bay_center_l": 20,
+    "bay_center_r": 20,
+    "bay_fwd_l": 16,
+    "bay_fwd_r": 16,
+    "bay_aft_l": 16,
+    "bay_aft_r": 16,
+    "gear_nose_m1": 160,
+    "gear_nose_m2": 184,
+    "gear_nose_m3": 440,
+    "gear_nose_m6": 28,
+    "gear_l_m2": 196,
+    "gear_l_m4": 288,
+    "gear_r_m2": 196,
+    "gear_r_m4": 288
+  },
+  "sha256": "1114552bc02ffe065c131a405a2e3d7668a0def17079583826a53746ebc985a0",
+  "control_surface_hinge_frames": {
+    "aileron_l": {
+      "static_rotation": [
+        0.0,
+        -145.457834,
+        -1.4633813
+      ],
+      "animated_axis": "X",
+      "source_hinge_axis": [
+        -0.82344045,
+        -0.02553797,
+        0.5668277
+      ],
+      "vertices_inverse_compensated": 24,
+      "normals_inverse_compensated": 24,
+      "default_pose_compensation_max_error": 1.112930229387288e-16
+    },
+    "aileron_r": {
+      "static_rotation": [
+        0.0,
+        145.4578261,
+        1.4633909
+      ],
+      "animated_axis": "X",
+      "source_hinge_axis": [
+        -0.82344086,
+        0.02553792,
+        -0.5668271
+      ],
+      "vertices_inverse_compensated": 18,
+      "normals_inverse_compensated": 18,
+      "default_pose_compensation_max_error": 1.1123893155135927e-16
+    }
+  }
+}
