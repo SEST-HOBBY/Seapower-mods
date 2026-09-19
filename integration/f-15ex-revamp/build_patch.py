@@ -21,6 +21,30 @@ OUT = Path(__file__).resolve().parent / "SEST_F-15EX_Revamp"
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
+# The AIM-260 renders with its own mesh (dts_aim-260.obj) whose origin sits
+# LOWER and FURTHER AFT than the AIM-120's (dts_aim-120.obj). Upstream seats
+# both on the same "120" key, so every AIM-260 on a wing rail hangs low and
+# aft of the pylon - reported in game on the inner rails, where the 610 gal
+# tank alongside makes it obvious.
+#
+# This is the same mesh-origin difference the F-35 JATM packs measured over
+# four in-game tuning passes: with the AIM-120 flush at 0,0,0 their AIM-260s
+# needed 0,+0.0025,+0.002..0.0035 (integration/f-35c-jatm/build_patch.py).
+# The delta belongs to the two missiles, not to the airframe, so it carries
+# over: every AIM-260 seat below is its AIM-120 seat plus this.
+#
+# This is a FIRST CUT carried from that measurement, not a measurement of this
+# airframe - the F-35 pass compared a different AIM-120 mesh, so the numbers
+# are the right order but not proven here. The F-35's own first guess (up
+# 0.005) overshot and clipped the pylons, so this uses its SETTLED value
+# rather than its opening one, and errs small.
+#
+# Units are model units, roughly 7 cm per 0.001; +y is up, +z is forward.
+# ONE PLACE TO TUNE: if the rounds still hang low, raise the middle number; if
+# they still sit aft of the pylon, raise the last one; if they now clip INTO
+# the pylon or the tank, halve them. 0.0005 is about 3.5 cm.
+AIM260_SEAT_DELTA = (0.0, 0.0025, 0.0025)
+
 NEW_KEYS = ["SEST_AntiShipLRASM6", "Quicksink", "BigStick174", "BigStick174ER",
             "Truck174", "Malice6", "MaliceER", "MaliceTruck",
             "AAMT120Tanks", "AAMT260Tanks"]
@@ -71,10 +95,10 @@ ReadyUpTime=30               // in minutes. Time that plane will spend refueling
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # AIM-260 on the inner wing pylon rails, which this fit used to leave empty.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
+Station1=dts_aim-260_w|AAM260
+Station2=dts_aim-260_w|AAM260
+Station5=dts_aim-260_w|AAM260
+Station6=dts_aim-260_w|AAM260
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -95,10 +119,10 @@ SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33
 # or not they carry anything, so use them: AMRAAM on the pylon2 inner
 # stations, AIM-9X outboard of them on the outermost pair.
 # AIM-260 on the inner wing pylon rails alongside the tanks.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
+Station1=dts_aim-260_w|AAM260
+Station2=dts_aim-260_w|AAM260
+Station5=dts_aim-260_w|AAM260
+Station6=dts_aim-260_w|AAM260
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -118,10 +142,10 @@ SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33
 # 8-round AIM-174B missile truck: 4 under the fuselage (Bottom1 wells) and
 # 4 on the inner wing pylons' shoulder rails, with the outer wing pylons
 # carrying self-escort AAMs and centreline fuel only.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
+Station1=dts_aim-260_w|AAM260
+Station2=dts_aim-260_w|AAM260
+Station5=dts_aim-260_w|AAM260
+Station6=dts_aim-260_w|AAM260
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -139,10 +163,10 @@ ReadyUpTime=30               // in minutes. Time that plane will spend refueling
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # MALICE mirror of BigStick174: 6x AIM-424 plus AIM-260 on the inner rails.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
+Station1=dts_aim-260_w|AAM260
+Station2=dts_aim-260_w|AAM260
+Station5=dts_aim-260_w|AAM260
+Station6=dts_aim-260_w|AAM260
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -161,10 +185,10 @@ CoolDownTime=60              // in minutes. Time that plane will spend in mainte
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # MALICE mirror of BigStick174ER: 4x AIM-424 under, 3 tanks, AIM-260 on the
 # inner side rails (RAIL_EXEMPT keeps them; the outer pair is stripped).
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
+Station1=dts_aim-260_w|AAM260
+Station2=dts_aim-260_w|AAM260
+Station5=dts_aim-260_w|AAM260
+Station6=dts_aim-260_w|AAM260
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -216,22 +240,22 @@ ReadyUpTime=35               // in minutes. Time that plane will spend refueling
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R
 # The AIM-260 twin of the three-tank truck above - same 16x layout.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
-Station7=dts_aim-260_w|120
-Station8=dts_aim-260_w|120
-Station9=dts_aim-260_w|120
-Station10=dts_aim-260_w|120
-Station11=dts_aim-260|SESTR-OR
-Station12=dts_aim-260|SESTR-OL
-Station13=dts_aim-260|SESTR-OR
-Station14=dts_aim-260|SESTR-OL
-Station18=dts_aim-260|SESTR-FL
-Station19=dts_aim-260|SESTR-FR
-Station22=dts_aim-260|SESTR-AR
-Station23=dts_aim-260|SESTR-AL
+Station1=dts_aim-260_w|AAM260
+Station2=dts_aim-260_w|AAM260
+Station5=dts_aim-260_w|AAM260
+Station6=dts_aim-260_w|AAM260
+Station7=dts_aim-260_w|AAM260
+Station8=dts_aim-260_w|AAM260
+Station9=dts_aim-260_w|AAM260
+Station10=dts_aim-260_w|AAM260
+Station11=dts_aim-260|SESTROR260
+Station12=dts_aim-260|SESTROL260
+Station13=dts_aim-260|SESTROR260
+Station14=dts_aim-260|SESTROL260
+Station18=dts_aim-260|SESTRFL260
+Station19=dts_aim-260|SESTRFR260
+Station22=dts_aim-260|SESTRAR260
+Station23=dts_aim-260|SESTRAL260
 Station15=usaf_tank_610_f-15|WT
 Station16=usaf_tank_610_f-15|WT
 Station17=usaf_tank_610_f-15|WT
@@ -242,10 +266,10 @@ CoolDownTime=60              // in minutes. Time that plane will spend in mainte
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
 # MALICE mirror of Truck174: 8x AIM-424 plus self-escort AAMs on the outer
 # wing pylons, centreline fuel only.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
+Station1=dts_aim-260_w|AAM260
+Station2=dts_aim-260_w|AAM260
+Station5=dts_aim-260_w|AAM260
+Station6=dts_aim-260_w|AAM260
 Station7=dts_aim-120d-3_w|120
 Station8=dts_aim-120d-3_w|120
 Station9=dts_aim-9x
@@ -598,7 +622,7 @@ def build_aircraft_names(lang):
 SYMMETRY_FIXES = [
     ("WeaponSystem1AirToAirIntercept",
      "Station10=dts_aim-9x",
-     "Station10=dts_aim-260_w|120",
+     "Station10=dts_aim-260_w|AAM260",
      "AirToAirIntercept left outer pylon: AIM-9X -> AIM-260 to match Station9"),
     ("WeaponSystem1",
      "Station4=0.0486,-0.001,-0.0079      //Right Wing pylon bottom",
@@ -701,6 +725,39 @@ ApproximateVersion=0.8.2
 """
 
 
+def seat(text, key):
+    """The airframe's <key>Positions value as a list of (x, y, z) floats."""
+    m = re.search(rf"^{re.escape(key)}Positions=([^\n]*)$", text, re.M)
+    if not m:
+        sys.exit(f"{key}Positions not found - upstream layout changed")
+    return [tuple(float(v) for v in slot.split(",")) for slot in m.group(1).split("|")]
+
+
+def add_aim260_seats(text):
+    """Write an AIM-260 seat for every AIM-120 seat the loadouts use.
+
+    AAM260 shadows the wing-rail key "120"; SESTR<x>260 shadows each of the six
+    belly rack slots. Each is the AIM-120 seat plus AIM260_SEAT_DELTA.
+    """
+    dx, dy, dz = AIM260_SEAT_DELTA
+    lines = []
+    for src_key, dst_key in [("120", "AAM260")] + [(f"SESTR-{x}", f"SESTR{x}260")
+                                                   for x in ("OR", "OL", "FR", "FL", "AR", "AL")]:
+        if f"{dst_key}Positions" in text:
+            sys.exit(f"{dst_key}Positions already defined - re-check this fix")
+        slots = "|".join(f"{x + dx:g},{y + dy:g},{z + dz:g}" for x, y, z in seat(text, src_key))
+        lines.append(f"{dst_key}Positions={slots}\n")
+    # the aft rack pair carries a rotation as well as a position
+    for x in ("AR", "AL"):
+        m = re.search(rf"^SESTR-{x}Rotations=([^\n]*)$", text, re.M)
+        if m:
+            lines.append(f"SESTR{x}260Rotations={m.group(1)}\n")
+    anchor = re.search(r"^SESTR-ALPositions=[^\n]*\n", text, re.M)
+    if not anchor:
+        sys.exit("SESTR-ALPositions not found - the 1c block did not land")
+    return text[:anchor.end()] + "".join(lines) + text[anchor.end():]
+
+
 def main():
     src = UPSTREAM / "aircraft" / "usaf_f-15ex_SEII.ini"
     text = src.read_text(encoding="utf-8-sig")
@@ -753,6 +810,12 @@ def main():
             + "SESTR-ARRotations=-2,0,0\n"
             + "SESTR-ALRotations=-2,0,0\n"
             + text[agm.end():])
+
+    # 1d. AIM-260 seats: every one is its AIM-120 counterpart plus
+    #     AIM260_SEAT_DELTA (see the constant for why). Derived rather than
+    #     written out, so correcting the hang is a one-line edit up there and
+    #     the wing rails and the eight belly rack slots stay in step.
+    text = add_aim260_seats(text)
 
     # 2. Inject new sections just before the WeaponMagazines banner
     marker = "[---------- WeaponMagazines ----------]"
