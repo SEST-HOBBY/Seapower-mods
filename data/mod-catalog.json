@@ -27,6 +27,12 @@
       "title": "SEST ADF Persistent ISR"
     },
     {
+      "folder": "SEST_Aegis_BMD",
+      "source": "integration/aegis-bmd",
+      "builder": "build_patch.py",
+      "title": "SEST Aegis BMD"
+    },
+    {
       "folder": "SEST_Allied_Fixes",
       "source": "integration/allied-fixes",
       "builder": "build_patch.py",
