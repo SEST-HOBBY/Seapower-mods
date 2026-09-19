@@ -178,6 +178,13 @@ Invoke-Py "fix_squadron_refs.py" @("--mission", $Mission, "--spread", "--write")
 Write-Host "`n[6b/7] checking loadout variants..." -ForegroundColor Cyan
 Invoke-Py "fix_loadout_variants.py" @("--mission", $Mission, "--write")
 
+# --- 6d. U.S. Navy 2027 hulls -> Modern US Navy hulls --------------------------
+# A 2027 id is an alias patch over a Modern US Navy hull that gets renamed
+# almost daily; naming the base hull directly is the only stable reference.
+# Idempotent: a retargeted mission has nothing left to rewrite.
+Write-Host "`n[6d/7] retargeting U.S. Navy 2027 alias hulls..." -ForegroundColor Cyan
+Invoke-Py "retarget_usn2027_hulls.py" @("--mission", $Mission, "--write")
+
 # --- 6c. Land defences (opt-in) -----------------------------------------------
 # Adds units, so it only runs when asked. Idempotent all the same: a site that
 # already has a layer does not get it again, so -LandDefence can stay on the
