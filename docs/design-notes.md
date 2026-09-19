@@ -19,21 +19,26 @@ and the rule gets a new revision — that has happened three times already.
   collection: the five `InterceptSizeBonus*`, `InterceptOutOfAltitudePenalty`,
   `InterceptSpeedPenaltyMultiplier`, and `InterceptChanceOutOfAltitudeOverride`
   — the hard 5% ceiling on intercepting a target outside a weapon's altitude
-  band. None of the eight has a per-round override form, so every one of the
-  497 anti-air-capable rounds in the collection was silently running without
-  them. That mod wanted to change two impact-size values. `SEST_Intercept_Model`
+  band. Six of the eight have no per-round override form anywhere in the
+  corpus — the five size bonuses and the clamp — so none of the 514
+  anti-air-capable rounds could opt out of losing them. The other two,
+  `InterceptOutOfAltitudePenalty` and `InterceptSpeedPenaltyMultiplier`, are
+  declared per round in 154 and 160 ammunition files; the rest inherited
+  nothing. That mod wanted to change two impact-size values. `SEST_Intercept_Model`
   restores the table; `integration/intercept-model/build_patch.py` records what
   arming the clamp changes and which rounds needed fixing first.
   Measured, not observed in game: it was found by diffing the winning copy
   against vanilla, not by anything looking wrong on screen. Check global tables
   the same way you check units.
-- **An absent key is not the same as a zero.** Three stock AAW missiles
-  (`fr_super-530f`, `pla_pl-2`, `pla_pl-2b`) declare no attack-altitude band at
-  all, and they have always shipped against a `damage.ini` where the 5% clamp
-  is live. If a missing altitude bound defaulted to zero they would be
-  permanently clamped, so the engine treats an omitted bound as unbounded. That
-  matters because 62 modded rounds declare only one side of the band and no
-  vanilla file does.
+- **An absent band is not the same as a zero — an absent *bound* is still
+  open.** Three stock AAW missiles (`fr_super-530f`, `pla_pl-2`, `pla_pl-2b`)
+  declare no attack-altitude band at all and have always shipped against a
+  `damage.ini` where the 5% clamp is live, so a missing band cannot default to
+  zero or they would be permanently clamped. That settles the both-absent case
+  only. It does not settle the 61 modded rounds that declare *one* side and no
+  vanilla file does: an engine may skip the check when neither bound is present
+  yet still run it against a defaulted other side. Untested; fire an AMRAAM
+  (floor only) and a RAM (ceiling only) and read the percentage.
 - **`systems/` and `language_*/` merge key-by-key.** Proof: 89 mods ship a
   `systems/sensors.ini` from 8 to 8,141 lines and none deletes the others.
   Language merging is how packs rename other mods' units without owning the file.

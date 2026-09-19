@@ -68,10 +68,11 @@ THE DEFERRED FIX - the global intercept table, NOT shipped here.
     - 3558173926's idf_stunner.ini writes MaxAttackAltitude=51,000 with a
       thousands separator.  How the parser reads that decides whether its band
       is 500-51000 or the empty 500-51.
-    - 62 rounds across the collection declare only one side of the band
-      (usn_rim-174b.ini Max-only, fr_mica-em/ir.ini Min-only, and others).  No
-      vanilla file does this, so what the engine defaults the missing side to
-      is unknown and cannot be settled from the files.
+    - 61 rounds across the collection declare only one side of the band
+      (fr_mica-em/ir.ini Min-only, and others; the count is alias-aware, so
+      usn_rim-174b is NOT one of them - it inherits its floor from
+      usn_rim-174a).  No vanilla file does this, so what the engine defaults
+      the missing side to is unknown and cannot be settled from the files.
 
   Landing it safely needs those three answered first, and the survey belongs in
   its own pack with its own overrides - not smuggled in behind an SM-3 fix.

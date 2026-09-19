@@ -32,22 +32,25 @@ WHAT IS BROKEN
 WHAT RESTORING THEM ACTUALLY DOES
   Counted over the winning copy of all 1672 ammunition ids, resolved through
   the repo's own load-order resolver (winning_file in
-  integration/missions/refine_civ_traffic.py), there are 497 anti-air-capable
-  rounds. Against those:
+  integration/missions/refine_civ_traffic.py) AND through #!alias inheritance -
+  80 of those files are alias stubs whose base is itself resolved by load
+  order, so a round can carry a band it never literally declares - there are
+  514 anti-air-capable rounds. Against those:
 
-    - all 497 take the five InterceptSizeBonus values. No per-round override
-      form for them exists anywhere in the corpus, so nothing can opt out.
+    - six of the eight keys have NO per-round override form anywhere in the
+      corpus, so nothing can opt out of them: the five InterceptSizeBonus
+      values and the clamp. All 514 take them.
       InterceptSizeBonusWeapon=+0.2 makes every SAM better against missiles;
       InterceptSizeBonusAircraftLarge/LargeSARH make them worse against large
       aircraft.
-    - 360 inherit InterceptSpeedPenaltyMultiplier=1.4 and 366 inherit
-      InterceptOutOfAltitudePenalty=0.5, because they declare no value of their
-      own. Both globals are at or worse than the scale the round files' own
-      comments call "poor" - that is the intended penalty for not declaring.
+    - the other two DO have a per-round form, and most rounds decline it. 360
+      inherit InterceptSpeedPenaltyMultiplier=1.4 and 366 inherit
+      InterceptOutOfAltitudePenalty=0.5. Both globals are at or worse than the
+      scale the round files' own comments call "poor" - that is the intended
+      penalty for not declaring.
     - InterceptChanceOutOfAltitudeOverride=0.05 is the sharpest: a hard 5%
       ceiling on any intercept where the target sits outside the round's
-      MinAttackAltitude/MaxAttackAltitude band. It also has no per-round
-      override form.
+      MinAttackAltitude/MaxAttackAltitude band.
 
   This is a real rebalance, not a pure repair. It is the right one, because
   every mod in this collection was authored against a stock game where these
@@ -60,8 +63,10 @@ WHAT RESTORING THEM ACTUALLY DOES
   benefit and the risk rest on the same unproven assumption.
 
 WHAT THE CLAMP WOULD BREAK, AND IS FIXED HERE
-  311 of the 497 declare a band. Two are authored in a way the clamp turns
-  into a dead weapon:
+  328 of the 514 declare a band, 18 of them by alias inheritance. Scanned for
+  floors above 1000 ft, ceilings below 5000 ft, inverted or empty bands and
+  malformed values, two are authored in a way the clamp turns into a dead
+  weapon. The alias-resolved pass found no case the flat pass had missed:
 
   1. Red Storm Arsenal's SM-6 family (usn_rim_174a/b/c - note the UNDERSCORE,
      different ids from Euromod's hyphenated rounds) declares
@@ -69,13 +74,22 @@ WHAT THE CLAMP WOULD BREAK, AND IS FIXED HERE
      =AAW, SecondaryTargetType=ASuW, LandAttackCapability=ShoreTargetsOnly,
      260 nm reach. Its file opens with a "REQUIRES STATS REVISION" banner.
 
-     Two things settle that 70000 is an error, not a tier. First, the round's
-     own file: a ship sits at 0 ft and a shore target sits at 0 ft, so a
-     70,000 ft MINIMUM TARGET altitude contradicts its own secondary and land
-     roles. Second, the exact comparator: Euromod's usn_rim-174c has the
-     IDENTICAL 180000 ft ceiling and a floor of 5. Same variant, same ceiling,
-     floor 14,000x lower. Red Storm's own ESSM (usn_rim_162a) and SM-2
-     (usn_rim_66m5) use 15 on the same hulls. The floor drops to 15.
+     The argument that settles it is the comparator, not the role. Euromod's
+     usn_rim-174c has the IDENTICAL 180000 ft ceiling and a floor of 5 - same
+     variant, same ceiling, floor 14,000x lower. Red Storm's own ESSM
+     (usn_rim_162a) and SM-2 (usn_rim_66m5) use 15 on the same hulls. Across
+     the corpus, 132 anti-air rounds carry a surface or land role and declare a
+     floor; the highest any stock one uses is 328 ft. 70000 is 210x that.
+
+     Do NOT lean on the surface-role contradiction on its own, tempting as it
+     is: 23 of the 24 distinct floor values among those 132 rounds are above
+     zero, including vanilla's own ASuW-capable SAMs at 85, 100, 164 and 328
+     ft. A non-zero floor on a round that can shoot at ships is normal, so the
+     mere fact of one proves nothing - and the replacement 15 does not resolve
+     that contradiction either, since 15 is still above a ship's 0 ft. 15 is
+     chosen because it is what this mod and every other SM-6 in the collection
+     use, not because it fixes the surface case. Whether the clamp applies to
+     surface engagements at all is untested.
 
   2. 3558173926's idf_stunner.ini writes MaxAttackAltitude=51,000 with a
      thousands separator - the only such value among every altitude key in the
@@ -118,30 +132,46 @@ DELIBERATELY NOT CHANGED
     mission edit placing a 9M96 TEL alongside, not an ammunition override.
 
 CARRIED FORWARD, AND NOT A NUKE TWEAK
-  See VERY_LARGE_IMPACT below. Both mods' descriptions and this pack's first
-  draft called 3395022688's VeryLarge edit its "more realistic nuke". It is
-  not: VeryLarge is a GLOBAL [ImpactSize] tier, a diameter in metres, and 59
-  winning rounds use it, of which only 2 are that mod's own nuclear AS-15s.
+  See SHIPPED_IMPACT below. Both mods' descriptions and this pack's first draft
+  called 3395022688's VeryLarge edit its "more realistic nuke". It is not:
+  VeryLarge is a GLOBAL [ImpactSize] tier, and 59 winning rounds use it, of
+  which only 2 are that mod's own nuclear AS-15s. Preserving the install's
+  current behaviour is the reason it is kept; that is not the same as arguing
+  2000.0 is correct for the 57 conventional rounds that share the tier, and
+  this pack does not argue that.
+
+WHAT THIS PACK HAS NOT DEMONSTRATED
+  Everything above is read out of the files. None of it has been verified in
+  game, and the four repo checkers do not test behaviour - they test that
+  references resolve and that load order is sane. Three things in particular
+  are inference, not measurement, and each is flagged again where it is used:
+  what the engine substitutes for a missing GLOBAL key (if it already falls
+  back to these values, restoring the table changes nothing); what it
+  substitutes for a missing SIDE of an altitude band; and whether the clamp
+  applies to surface and land engagements as well as air. The way to settle
+  all three is to fire the rounds and read the percentages.
 
 THE ONE RESIDUAL RISK
-  62 of the 311 banded rounds declare only one side - 52 a floor and no
-  ceiling (the AMRAAM and Meteor families, floors of 10 to 67 ft), 10 a ceiling
-  and no floor (point-defence rounds: Roland, VT-1, HQ-10, RAM, ceilings of
-  4000 to 30000 ft). None of vanilla's 74 banded files does this.
+  61 of the 328 banded rounds declare only one side - a floor and no ceiling
+  (the AMRAAM and Meteor families, floors of 10 to 67 ft), or a ceiling and no
+  floor (point-defence rounds: Roland, VT-1, HQ-10, RAM, ceilings of 4000 to
+  30000 ft). None of vanilla's 74 banded files does this, so what the engine
+  substitutes for the missing side is not settled by stock content.
 
-  Stock content settles what an absent key means, though. Three vanilla AAW
-  MISSILES declare no band at all - fr_super-530f, pla_pl-2 and pla_pl-2b - and
-  they have shipped for years against a damage.ini where the clamp is live. If
-  an absent altitude key defaulted to zero, those three would be permanently
-  held at 5%. The engine must treat an omitted side as unbounded.
+  There is a partial argument, and it is worth being precise about how far it
+  reaches. Three vanilla AAW MISSILES declare no band AT ALL - fr_super-530f,
+  pla_pl-2 and pla_pl-2b - and they have shipped for years against a damage.ini
+  where the clamp is live. If a missing altitude bound defaulted to zero they
+  would be permanently held at 5%. That rules out a zero default for the
+  BOTH-ABSENT case. It does NOT prove the one-absent case: an engine may well
+  skip the band check entirely when neither bound is present while still
+  running it, against a defaulted other side, when one is. The 61 one-sided
+  rounds rest on the weaker inference that 23 mods ship them and play against a
+  stock table without the breakage being noticed.
 
-  A known blind spot in the survey behind these numbers: 80 of the 1672 winning
-  files are #!alias stubs, and an alias resolves its base through the load
-  order. A round can therefore inherit a band it never literally declares - the
-  ESSM, RAM and SM-2 families do exactly that - and one of them composes its
-  band across two mods. Every inherited band checked is sane, but the method
-  would not have caught a bad one. Make the survey alias-aware before trusting
-  it again.
+  If after installing this pack an AMRAAM or a RAM starts reading 5%, that
+  inference is wrong: the fix is to add the missing side to those rounds here,
+  and the diagnosis is recorded above.
 
 Usage (repo root):  python3 integration/intercept-model/build_patch.py
 """
@@ -185,12 +215,20 @@ INTERCEPT_KEYS = (
 #
 # Kept at the donor's values, deliberately. That is already the live state of
 # this install - 3395022688's damage.ini wins today - so keeping it changes
-# nothing a player has, while reverting would silently shrink 57 conventional
-# weapons AND break the one edit that mod exists to make. ImpactSize is a fixed
+# nothing a player has, while reverting would silently change 57 conventional
+# weapons AND undo the one edit that mod exists to make. ImpactSize is a fixed
 # enum, so the AS-15 cannot be given a tier of its own; there is no third
-# option. Flip these two values to "120.0" / "3.0" to take vanilla's instead -
-# that is the whole change, and the census above is the evidence for making it.
-VERY_LARGE_IMPACT = {"VeryLarge": "2000.0", "VeryLargeDecalScale": "1000.0"}
+# option.
+#
+# Two separate things, deliberately two constants. DONOR_IMPACT is what the
+# merge pin EXPECTS to find in 3395022688's file; SHIPPED_IMPACT is what this
+# pack WRITES. They are equal today, which is what "carried forward unchanged"
+# means. To take vanilla's values instead, edit SHIPPED_IMPACT alone and leave
+# DONOR_IMPACT describing the donor - an earlier version of this file used one
+# constant for both jobs, so the revert it advertised aborted its own build.
+DONOR_IMPACT = {"VeryLarge": "2000.0", "VeryLargeDecalScale": "1000.0"}
+SHIPPED_IMPACT = {"VeryLarge": "2000.0", "VeryLargeDecalScale": "1000.0"}
+VANILLA_IMPACT = {"VeryLarge": "120.0", "VeryLargeDecalScale": "3.0"}
 
 # New floor for the Red Storm SM-6 trio: the value its own mod uses for ESSM
 # and SM-2 on the very same hulls, and what every other SM-6 in the collection
@@ -300,23 +338,30 @@ def build_damage_ini():
     if added:
         sys.exit(f"damage.ini: {TU95} now ADDS keys vanilla lacks: {added}. Shipping "
                  "vanilla's file would delete them - rebase this merge")
-    if {k: b for k, (a, b) in changed.items()} != VERY_LARGE_IMPACT:
+    if {k: b for k, (a, b) in changed.items()} != DONOR_IMPACT:
         sys.exit(f"damage.ini: {TU95} now changes {changed}, expected only "
-                 f"{VERY_LARGE_IMPACT} - rebase this merge against its new values")
+                 f"{DONOR_IMPACT} - rebase this merge against its new values")
+    # Vanilla is the base we write onto, so its values must still be what
+    # SHIPPED_IMPACT is choosing between.
+    for key, want in VANILLA_IMPACT.items():
+        if v.get(key) != want:
+            sys.exit(f"damage.ini: vanilla {key} is now {v.get(key)!r}, not {want!r} - "
+                     "a game update moved the impact tier; re-decide SHIPPED_IMPACT")
 
     t = vanilla
-    for key, value in VERY_LARGE_IMPACT.items():
+    for key, value in SHIPPED_IMPACT.items():
         t = edit(t, rf"^{re.escape(key)}=[^\n]*$", f"{key}={value}", 1, "damage.ini")
 
+    origin = "vanilla" if SHIPPED_IMPACT == VANILLA_IMPACT else f"{TU95}'s value"
     write("ammunition/damage.ini", t,
           "SEST Intercept Model - the vanilla global damage and intercept table,\n"
-          f"with {TU95}'s VeryLarge={VERY_LARGE_IMPACT['VeryLarge']} impact tier carried\n"
-          "forward unchanged. That mod ships this file built on a pre-0.8.x copy, and\n"
-          "ammunition/ is a whole-file override, so winning it deleted eight global\n"
-          "intercept keys from the WHOLE collection - among them\n"
-          "InterceptChanceOutOfAltitudeOverride, the hard 5% ceiling on out-of-altitude\n"
-          "intercepts, and the five InterceptSizeBonus values no round can opt out of.\n"
-          "Restored. See this pack's builder for what VeryLarge actually affects.")
+          f"with the VeryLarge impact tier set to {SHIPPED_IMPACT['VeryLarge']} ({origin}).\n"
+          "That mod ships this file built on a pre-0.8.x copy, and ammunition/ is a\n"
+          "whole-file override, so winning it deleted eight global intercept keys from\n"
+          "the WHOLE collection - among them InterceptChanceOutOfAltitudeOverride, the\n"
+          "hard 5% ceiling on out-of-altitude intercepts, and the five\n"
+          "InterceptSizeBonus values no round can opt out of. Restored. See this pack's\n"
+          "builder for what the VeryLarge tier actually affects.")
     return dropped
 
 
