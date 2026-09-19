@@ -131,9 +131,15 @@ n = 0
 
 
 def emit(header, entries, annotated=True):
+    """Render a tier. Entries the catalog no longer carries are dropped: the
+    hand-written tiers name a mod by id, and leaving an unsubscribed one in
+    made set-mod-order warn on every run that it had nothing to place. The
+    SEST pack is not in `mods` at all and is always kept."""
     global n
     lines.append(f"## {header}")
     lines.append("")
+    entries = [e for e in entries
+               if (e[0] if isinstance(e, tuple) else e) in mods or entries is TIER0]
     for item in entries:
         n += 1
         if annotated:

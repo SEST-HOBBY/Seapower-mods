@@ -296,3 +296,13 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   well as this pack's, and a later step that writes a station line by hand would undo it - the
   symmetry repair did exactly that with a hardcoded `|120`. A guard after the last mutation
   fails the build if an AIM-260 is back on a key in the map.
+- **A mod renaming its units is the routine failure, not the exception.** Euromod JMSDF renamed
+  jp_sh-60j/k to jmsdf_sh-60j/k on 19 Sep 2026, a week after Modern US Navy retired the Burke
+  that crashed the game. The Mogami builder failed loudly (good) and twenty-nine missions carried
+  a dangling air group that only preflight caught. Both are cheap to fix and impossible to
+  notice by eye, which is the argument for running build_all and preflight after every export
+  rather than only when something looks wrong.
+- **An unsubscribed mod must leave the hand-written tiers too.** generate_load_order filtered
+  unsubscribed mods out of the alphabetical tiers but not out of TIER0-3 and TIER7, which name
+  ids directly, so set-mod-order kept warning that it had nothing to place for three mods Steam
+  had never downloaded. emit() now drops any entry the catalog no longer carries.
