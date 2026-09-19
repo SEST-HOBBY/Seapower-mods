@@ -1,0 +1,37 @@
+MODERN SPANISH NAVY MOD FOR SEA POWER
+
+CREDITS:
+
+- Authors:
+* Jabeitor: 3D models, textures, documentation
+* Jasoriab: Code, animations, effects, translation
+* Duncan, Sauronator: betatesters, mission creators
+
+- 3D models:
+* AV-8B: modified from original free model "av-8b-harrier-ii" by ruslangidziak CC BY 4.0 Attribution 4.0 International, https://skfb.ly/pAuNG
+* F/A-18: modified from original free model "McDonnell Douglas F/A-18C Hornet" by Rhine_Lab_Muelsyse CC BY 4.0 Attribution 4.0 International, https://skfb.ly/puTvR
+* Eurofighter: modified from original free model "Eurofighter Typhoon - Fighter Jet - Free" by bohmerang CC BY-NC-SA 4.0 Attribution-NonCommercial-ShareAlike 4.0 International, https://skfb.ly/oWBGO
+* SH-60B Seahawk: modified from original model of the SH-60B for Virtual Sailor included in "DDG-42 HMAS Sydney" by Jason Simpson, who provided us permission to use it in Sea Power
+* F100 frigate: modified from original model for Virtual Sailor "DDG-42 HMAS Sydney" by Jason Simpson, who provided us permission to use it in Sea Power
+* L51 Galicia: A modified version of the original Spanish mod for DCS World, provided with permission by its author from the Desdemicabina team solely for use in the Sea Power Spanish mod; modifications are not permitted without further authorisation.
+* S80: modified from Scorpene class "Riachuelo" 3d model by Zerrandalierer and textures by Berdo 
+* Taurus missile: modified from original free model "Taurus" by Mike, CC BY 4.0 Attribution 4.0 International, https://skfb.ly/pAULT
+* AIM-120 missile: modified from original free model "Game ready low poly Aim-120" by Mustafa Garip, CC BY 4.0 Attribution 4.0 International, https://skfb.ly/oxCJJ
+* Hellfire missile and launcher: extracted and modified from original free model "Boeing AH-64D Apache Combat Helicopter" by Muhamad Mirza Arrafi, CC BY 4.0 Attribution 4.0 International, https://skfb.ly/pvWzo
+* Meteor missile: modified from original free model "MBDA Meteor BVRAAM" by ChaHae CC BY-NC-SA 4.0 Attribution-NonCommercial-ShareAlike 4.0 International, https://skfb.ly/pDUo7
+* IRIS-T missile: modified from original free model "IRIS-T" by Rodrigo Lhamas Venancio CC BY-NC-SA 4.0 Attribution-NonCommercial-ShareAlike 4.0 International, https://skfb.ly/pF7YM
+* Litening pod: modified from original free model "Rafael Litening" by OHSWZ, free standard license, https://skfb.ly/pEGxV
+* L61 Juan Carlos I modified from original model for Virtual Sailor "HMAS Canberra" by Jason Simpson, who provided us permission to use it in Sea Power
+* BAM Meteoro: unknown author (I had the 3D model long time ago and forgot the procedence, searching in the net I found this page: https://www.kingmods.net/en/fs25/mods/76697/meteoro-class-patrol-vessel but I could swear I didn't get it from there; I think I got it from Sketchfab free models.)
+* F110 Frigate: 3d model & textures by Javier "Jabeitor" Moreno, thanks to Brazolargo and Txema Prada for their unvaluable help. Thanks to @llings for allowing us to install their excellent CAPTAS-4 on the frigate
+
+- Textures:
+San Segal: aircraft and helicopter textures
+Daggs: F100 frigate and aircraft textures
+Zzocalu: thank you for your patience in answering all our questions about textures
+
+- Code and extras:
+Euromod team: Thank you to all the members of the Euromod Team for answering our questions and providing constant support
+Gorka M.Mezo: We would like to thank you for your help in providing us with information on all the systems involved in the mod. Gorka is a longtime contributor to the wargame Harpoon, and his expertise is invaluable in accurately recreating a mod of this nature.
+
+We would like to thank all the staff, not only from our Armed Forces, but also from the associated defence companies who have selflessly collaborated with us by providing valuable information on all the systems featured in our mod; we dedicate this product, the result of months of work, to all of them. We would also like to thank the Sea Power community for providing us with constructive criticism that allows us to constantly improve, and, of course, we would like to thank our families for their patience with us.

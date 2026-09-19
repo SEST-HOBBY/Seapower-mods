@@ -1,0 +1,21 @@
+Sea Power Mod Consolidator — Merge Report
+Generated: 2026-07-03 15:30:48
+Combined mod: PLAN mod test (ApproximateVersion 0.8.0)
+
+Source mods (priority order, first wins defaults):
+  1. Type 052D and 052C Destroyers  [C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\Mod Update\052D]
+  2. PLAN Type 054A frigate  [C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\Mod Update\054A]
+  3. PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)  [C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\Mod Update\PLAN Submarines]
+  4. PLAN Surface Warships  [C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\Mod Update\PLAN Surface Combatants]
+
+Automatic actions:
+  Aircraft     copied=2 deduped=0 merged=0 skipped=0
+  Ammunition   copied=23 deduped=0 merged=0 skipped=0
+  Assets       copied=32 deduped=0 merged=0 skipped=0
+  Language     copied=3 deduped=0 merged=0 skipped=0
+  Other        copied=0 deduped=0 merged=0 skipped=9
+  Sensors      copied=1 deduped=0 merged=0 skipped=0
+  Vessels      copied=108 deduped=0 merged=0 skipped=0
+  Weapons      copied=1 deduped=0 merged=0 skipped=0
+
+Conflicts and resolutions:

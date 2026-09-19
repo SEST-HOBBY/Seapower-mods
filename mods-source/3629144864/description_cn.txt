@@ -1,0 +1,204 @@
+[img]https://i.imgur.com/znY7tOJ.png[/img]
+[h1]EUROMOD - 主包[/h1]
+
+本模组旨在为所有使用欧洲系统的模组提供更便捷的使用方式和更快的加载速度。
+我们的目标是建立一个涵盖欧洲各国现役武器与传感器的数据库。
+这样您就可以从现有的系统库中选用标准化且游戏内性能经过平衡的装备来建造自己的舰船。
+
+[h1]功能特色[/h1]
+
+可用于您舰船的武器/传感器/雷达对象及数据
+展示任务
+
+[h1]收录模组[/h1]
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741662715]F122 不来梅级护卫舰[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3678767059]巴西海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3505420313]冷战意大利海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3630495619]冷战西班牙海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3544262397]冷战阿根廷海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3764140910]冷战加拿大海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3593855954]冷战北欧海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3776730617]现代智利海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3444379330]现代荷兰海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3575847216]现代德国海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3488139470]现代意大利海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3599752717]现代英国海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3731208477]现代西班牙海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3642656500]现代北欧海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3390330875]现代美国海军[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3695809489]现代日本海上自卫队[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3687145109]伊丽莎白女王号航母[/url]
+
+[h2]本模组包含的武器（多数带有自定义模型）[/h2]
+
+空对空导弹：
+
+阿斯派德 Mk. 1A - 空射型
+天闪 - 英国半主动雷达制导空空导弹
+
+面对空与弹道导弹防御：
+
+SM-2 标准2 - Block II、IIIA/B/C 及 IV
+ - RIM-66G/H/J、K/L/M-2、M-5、N 及 P
+ - RIM-156A（增程型 Block IV）
+SM-3 标准3 - Block IA、IB 及 IIA
+ - RIM-161B、C 及 D
+SM-6 标准6 - Block I、IAU 及 IB
+ - RIM-174A、B 及 C
+RAM 滚体导弹 - Block 0、IA、II、IIA 及 IIB
+ - RIM-116A、B、C、D 及 E
+ESSM 改进型海麻雀 - Block I 及 II
+ - RIM-162A、B、D、F、H、J 及 K
+PAC-3 MSE 爱国者先进能力-3分段增强型 - 反导拦截弹
+紫菀 15 和 Aster 30 - 法意联合研制
+阿斯派德 2000 - 意大利面对空导弹
+海介体 CAMM 和 CAMM-ER - 英国通用防空模块化导弹
+IRIS-T SLM 和 SLX - 德国红外成像制导面对空导弹
+IDAS - 德国潜射面对空导弹
+米斯特拉尔 - 法国便携式防空导弹
+
+反舰导弹：
+
+鱼叉 - 波音研制
+ - R/UGM-84D、G、L、N 及 Q
+战斧反舰型 - 雷神研制
+ - R/UGM-109B1、E5a 及 M
+IRCPS 中程常规快速打击 - 高超音速反舰导弹
+RBS 15 - 萨博研制
+ - Mk 1、Mk 2、Mk 3 及 Mk 4 冈格尼尔
+海军打击导弹 - 康斯伯格研制，Block IA
+SM.39 飞鱼 Blk 2 - MBDA法国研制
+MM.40 飞鱼 Blk 3c - MBDA法国研制
+奥托马特 MK 2 - 意大利研制
+ - Blk I、Blk II、Blk IV 及 MK 2E "特塞奥进化型"
+马特 MK 2/S - 直升机发射反舰导弹
+AS.34 鸬鹚 - 德法联合研制
+SSM-1B 90式 - 三菱重工研制
+3SM 提尔锋 - 德挪联合研制超音速反舰/对地攻击导弹
+
+对地攻击导弹：
+
+战斧对地攻击型 - 雷神研制
+ - R/UGM-109C3、E、E5 及 E5b
+IRCPS 中程常规快速打击 - 高超音速对地攻击导弹
+MdCN 海军巡航导弹 - MBDA法国研制
+
+反潜导弹：
+
+VL-ASROC 垂直发射反潜火箭 - 洛克希德·马丁研制
+ - RUM-139A 及 C
+奥托马特 米拉斯 - 意法联合研制反潜导弹
+
+弹道导弹：
+
+阿尔法 - 意大利中程弹道导弹（计划取消）
+
+反舰鱼雷：
+
+Mk 14 - 二战直航鱼雷
+Mk 48 - 两用重型鱼雷
+ - Mod 5 ADCAP先进能力型、Mod 6、Mod 7 CBASS通用先进声自导系统 及 Mod 8 TI-1
+DM2A4 及 DM2A5 海鳕 - 德国阿特拉斯电子研制，两用重型鱼雷
+S.I. 270/522X7.2 Tipo I - 意大利二战直航鱼雷
+G6e - 意大利早期被动反舰鱼雷
+A.184 - 意大利两用重型鱼雷
+ - Mod.0、Mod.1、Mod.2 及 Mod.3
+黑鲨 - 意大利WASS研制，两用重型鱼雷
+F21 阿尔忒弥斯 - 法国海军集团研制，两用重型鱼雷
+G7e TIIIa - 德国二战直航鱼雷
+
+反潜鱼雷：
+
+A.182 - 意大利早期被动反潜鱼雷
+A.244、A.244/S 及 A.244/S Mod.1 - 意大利白头公司研制
+MU90 冲击 - 法意欧投联合研制
+黄貂鱼 - 英国BAE研制
+ - Mod 0 及 Mod 1
+Torped 45 及 47 - 瑞典萨博研制
+Mk 50 ALWT 先进轻型鱼雷
+Mk 54 LHT 轻型混合鱼雷
+Mk 58 CRAW VLWT 紧凑快速攻击超轻型鱼雷
+海蜘蛛 - 德国反鱼雷鱼雷
+
+重要提示：如需使用自定义武器模型，请在模组加载顺序中将本模组置于其他修改弹药的模组（如NTU）之前。反之则置于其后。
+
+[h2]包含的自定义传感器模型[/h2]
+
+本模组包含以下设备的自定义3D模型：
+
+CEROS-200 火控指挥仪（基础型、CWI、隐身型及轻型 - 黑色与灰色）
+STIR 180 火控照射雷达
+LW08 远程对空搜索雷达
+SMART-S 3D对空搜索雷达
+SMART-L 远程3D对空搜索雷达
+海鹰 光电火控系统
+9GA 208 对空搜索雷达
+
+[h2]包含的自定义发射架模型[/h2]
+
+本模组包含以下设备的自定义3D模型：
+
+Mk41 VLS 8单元与5单元（完整动画）
+ExLS VLS 3单元（完整动画）
+Mk41 基座：8、16、32、48及64单元（含/不含海上再装填支架，旧版）
+Mk49 RAM（完整动画）
+CAMM 6单元与24单元发射架
+海军打击导弹 隐身四联发射架
+RBS15 双联发射架（Mk3与Mk4）
+Mk. 141 鱼叉发射架
+StanFlex Mk. 56 VLS
+MTO 85 反舰导弹发射架
+RBU 1200 反潜火箭发射架
+
+[h2]包含的自定义舰炮模型[/h2]
+
+本模组包含以下设备的自定义3D模型：
+
+奥托·梅莱拉 76/62 紧凑型、超快速型、加大型、斯特拉莱斯
+奥托·梅莱拉 127/64 轻型
+奥托·布雷达 127
+奥托·甲板 轻型
+Mk. 71 8英寸舰炮
+4.5英寸 Mk. 8 舰炮
+博福斯 40mm Mk. 4
+博福斯 40mm L70 Mk 1 单管炮塔
+博福斯 120mm L46
+博福斯 57mm L70 m1
+萨科 23mm L87 早期型
+萨科 23mm L87 后期型
+康特拉尔托 反鱼雷诱饵系统
+守门员 近防系统
+梅农 舰炮
+希特罗尔 遥控武器站
+马林 30mm 武器站
+海蛇 30mm
+辛巴德 舰空导弹发射架
+厄利空 千禧年 35mm 近防炮
+麦德森 20mm
+
+[h1]路线图[/h1]
+
+更完善的描述
+更完善的图片
+依赖关系
+法国海军（现代）整合
+法国海军（冷战）整合
+意大利海军（冷战）整合
+
+[h1]已知问题[/h1]
+
+[h1]致谢[/h1]
+
+本模组由以下成员共同努力完成：
+Berdo
+MitcheLL600
+LLinqs
+Zsleyer
+Petrouvis
+Pointinthevoid
+Sebase11
+Skynet
+Zerrandalierer
+Zzocalu
+Ilp0tt1

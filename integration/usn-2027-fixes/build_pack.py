@@ -21,9 +21,14 @@ section by section, key by key, patch wins - written as one standalone hull.
 SEST_Integration sits above U.S. Navy 2027, so this file replaces the alias
 and nothing depends on Modern US Navy's file names any more.
 
+The same mod also deleted its ESSM Block 2 round (usn_rim-162e) without
+editing the hulls that load it, so the flattened hull's Mk 41 cells are
+re-pointed at Euromod's identical RIM-162H; see SUBSTITUTE_AMMO.
+
 Guards (the builder exits non-zero, so build_all and git status notice):
   - the live patch must still alias usn_ddg_burke_f3.ini; once its author
     re-points it, this pack is redundant and must be retired
+  - every substituted round must be genuinely gone and its replacement present
   - the donor base must carry [FlightDeck] and [AirGroup]
   - every non-loadout section the patch overrides must exist in the base
   - the flattened hull must carry [General], [FlightDeck], [AirGroup]
@@ -41,11 +46,23 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / "integration" / "missions"))
+from refine_civ_traffic import winning_file  # noqa: E402
 OUT = HERE / "SEST_USN2027_Fixes"
 PATCH = ROOT / "mods-source" / "3606774881" / "vessels" / "usn_ddg_arleigh_flt3_2027.ini"
 PATCH_VARIANTS = PATCH.with_name("usn_ddg_arleigh_flt3_2027_variants.ini")
 DONOR = HERE / "donors" / "usn_ddg_burke_f3.ini"
 STALE_BASE = "vessels/usn_ddg_burke_f3.ini"
+
+# Rounds the flattened hull loads that no enabled mod defines any more, and
+# what to load instead. U.S. Navy 2027 deleted usn_rim-162e (its ESSM Block 2)
+# on 15 Sep 2026 without editing the seventeen hulls that load it, so every
+# 2027 Burke now carries a magazine of a round that does not exist - the game
+# logs "could not find" and the cell never fires. Euromod's usn_rim-162h is
+# the same missile (RIM-162H ESSM Block II), so the flattened hull loads that.
+# Each substitute is checked against the load order below; drop an entry once
+# upstream defines the original again.
+SUBSTITUTE_AMMO = {"usn_rim-162e": "usn_rim-162h"}
 
 INFO = """[Language_en]
 Name=SEST USN 2027 Fixes
@@ -154,6 +171,17 @@ def main():
     merged, overridden, added = merge(base_secs, patch_secs)
     text = HEADER + "\n".join(h + "\n" + "\n".join(lines) for h, lines in merged)
     text = re.sub(r"\n{3,}", "\n\n", text).rstrip("\n") + "\n"
+
+    swapped = []
+    for gone, live in SUBSTITUTE_AMMO.items():
+        if not re.search(rf"^Ammunition\d+={re.escape(gone)}\s*$", text, re.M):
+            continue
+        if winning_file(f"ammunition/{gone}.ini") is not None:
+            sys.exit(f"{gone} is defined again - drop it from SUBSTITUTE_AMMO and re-run")
+        if winning_file(f"ammunition/{live}.ini") is None:
+            sys.exit(f"substitute {live} for {gone} is not defined by any enabled mod either")
+        text, n = re.subn(rf"^(Ammunition\d+=){re.escape(gone)}\s*$", rf"\g<1>{live}", text, flags=re.M)
+        swapped.append(f"{gone} -> {live} x{n}")
     for must in ("[General]", "[FlightDeck]", "[AirGroup]", "[WeaponSystems]"):
         if must not in text:
             sys.exit(f"flattened hull lacks {must}")
@@ -167,6 +195,8 @@ def main():
     (OUT / "_info.ini").write_text(INFO, encoding="utf-8", newline="\n")
     print(f"{OUT.name}: {PATCH.name} flattened onto {DONOR.name}: "
           f"{len(overridden)} sections overridden, {len(added)} added, {text.count(chr(10))} lines")
+    for s_ in swapped:
+        print(f"  retired round substituted: {s_}")
 
 
 if __name__ == "__main__":

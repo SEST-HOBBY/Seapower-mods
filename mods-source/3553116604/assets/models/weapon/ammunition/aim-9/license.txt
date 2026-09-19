@@ -1,0 +1,11 @@
+Model Information:
+* title:	US Weapon Pack
+* source:	https://sketchfab.com/3d-models/us-weapon-pack-c0783151b0024554a97d8ed6e5082745
+* author:	Rhine_Lab_Muelsyse (https://sketchfab.com/Rhine_Lab_Muelsyse)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "US Weapon Pack" (https://sketchfab.com/3d-models/us-weapon-pack-c0783151b0024554a97d8ed6e5082745) by Rhine_Lab_Muelsyse (https://sketchfab.com/Rhine_Lab_Muelsyse) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

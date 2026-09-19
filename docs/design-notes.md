@@ -231,3 +231,16 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   lanes stand a mile or two off the beach). Simplification is per leg so via points survive: a
   whole-chain simplification turned the Lombok–Makassar VLCC lane into one straight line hugging
   the Sulawesi coast, legal on the mask and wrong as a lane.
+- **A deletion mirror needs an absolute destination and a sanity bound.** The exporter's new
+  "remove files the mod no longer ships" loop compared `FullName` (absolute) against a
+  `$DestDir` still holding a literal `..\`, so no exported file ever matched the keep-set and
+  the first run deleted 7,876 of them - every mod but the twelve whose ids sort last. It now
+  normalises `$DestDir` with `GetFullPath`, skips a mod that copied nothing, and refuses to
+  delete more than half of a mod's exported files (above 20) on the grounds that an update
+  retires a handful, never most: a mirror that can empty the repo is worse than a ghost file.
+- **A mod can delete a round and leave the hulls that load it.** U.S. Navy 2027 removed
+  usn_rim-162e on 15 Sep 2026; seventeen of its own Burkes still name it in a Mk 41 magazine,
+  which the game logs as "could not find" and the cell never fires. Missions avoid this by
+  fielding the Modern US Navy hulls instead; the one hull SEST ships flattened re-points the
+  magazine at Euromod's identical RIM-162H, guarded both ways (the original must still be
+  gone, the substitute must resolve).
