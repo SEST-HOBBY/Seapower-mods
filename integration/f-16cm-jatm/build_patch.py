@@ -30,19 +30,27 @@ AIRFRAME = "usaf_f-16cm-bl52d"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+from common import aim260  # noqa: E402
 
 NEW_KEYS = ["SEST_F16_Intercept260", "SEST_F16_MALICE"]
+
+# The AMRAAM stations' seats, and the AIM-260 twin of each. A seat key carries
+# the offset that compensates for its store's mesh origin, so the AIM-260
+# cannot share the AIM-120's: it renders from a different mesh and hangs low
+# and aft of the rail. See integration/common/aim260.py for the offset and the
+# reasoning - that module is the one dial for every pack that mounts one.
+AIM260_SEATS = {"aim-120d-34": "AAM260-34", "aim-120d-56": "AAM260-56"}
 
 # (new name, donor loadout, [(old store spec, new store spec), ...])
 # Store specs are matched whole, pipe seat keys included, so a swap keeps or
 # changes the seat deliberately, never by accident.
 DERIVATIONS = [
     ("SEST_F16_Intercept260", "AirToAirVLongRange",
-     [("usaf_aim-120d|aim-120d-34", "dts_aim-260|aim-120d-34"),
-      ("usaf_aim-120d|aim-120d-56", "dts_aim-260|aim-120d-56")]),
+     [("usaf_aim-120d|aim-120d-34", "dts_aim-260|AAM260-34"),
+      ("usaf_aim-120d|aim-120d-56", "dts_aim-260|AAM260-56")]),
     ("SEST_F16_MALICE", "SEAD",
      [("usn_agm-88", AIM424_ID),
-      ("usaf_aim-120d|aim-120d-34", "dts_aim-260|aim-120d-34")]),
+      ("usaf_aim-120d|aim-120d-34", "dts_aim-260|AAM260-34")]),
 ]
 
 LOADOUT_NAMES = {
@@ -76,6 +84,24 @@ def derive(text, name, donor, swaps):
     return f"[WeaponSystem1{name}]\n" + body.rstrip("\n") + "\n\n"
 
 
+def add_aim260_seats(text):
+    """Write an AIM-260 seat beside each AMRAAM seat the new fits use.
+
+    Each is its AIM-120 counterpart plus aim260.SEAT_DELTA, so correcting the
+    hang is a one-line edit in that module and both F-16 fits move together.
+    """
+    lines = []
+    for src_key, dst_key in AIM260_SEATS.items():
+        m = re.search(rf"^{re.escape(src_key)}Positions=([^\n]*)$", text, re.M)
+        if not m:
+            sys.exit(f"{src_key}Positions not found - upstream layout changed")
+        if f"{dst_key}Positions" in text:
+            sys.exit(f"{dst_key}Positions already defined upstream - re-check this fix")
+        lines.append(f"{dst_key}Positions={aim260.shift(aim260.parse(m.group(1)))}\n")
+        at = m.end() + 1
+    return text[:at] + "".join(lines) + text[at:]
+
+
 def main():
     for mod, need in ((WEAPON_PACK, "ammunition/dts_aim-260.ini"),
                       (F16_MOD, f"aircraft/{AIRFRAME}.ini")):
@@ -91,6 +117,8 @@ def main():
     if any(k in la.group(2) for k in NEW_KEYS):
         sys.exit(f"{AIRFRAME}: SEST keys already declared upstream")
     text = text[:la.end(2)] + "," + ",".join(NEW_KEYS) + text[la.end(2):]
+
+    text = add_aim260_seats(text)
 
     blocks = "".join(derive(text, *d) for d in DERIVATIONS)
     marker = "[---------- WeaponMagazines ----------]"

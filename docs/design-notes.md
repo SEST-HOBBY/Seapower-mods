@@ -286,7 +286,13 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   plus one named delta so the wing rails and the eight belly rack slots cannot drift apart.
 - **When the only evidence is another airframe, ship the settled value, not the opening guess.**
   The F-35 JATM packs measured this same mesh-origin difference over four in-game passes; their
-  first attempt (up 0.005) clipped the pylons and was halved. Carrying 0.0025 across is a first
-  cut on a different AIM-120 mesh, so the F-15EX keeps its own loadouts corrected while the two
-  the author wrote stay on the old seat - flying them side by side says which is right in one
-  sortie, which no amount of reading the file can settle.
+  first attempt (up 0.005) clipped the pylons and was halved, so 0.0025 is what carries across.
+  It remains a first cut anywhere else, because that pass compared a different AIM-120 mesh.
+  The offset therefore lives in one place, `integration/common/aim260.py`, and every pack that
+  mounts an AIM-260 derives its seats from it - one edit moves the F-15EX's nine seats and the
+  F-16's two together, instead of a tuning round per airframe.
+- **Derive the corrected seats, and check nothing puts the store back on the shared one.** The
+  F-15EX pass runs after every loadout is assembled, so it covers the author's carried fits as
+  well as this pack's, and a later step that writes a station line by hand would undo it - the
+  symmetry repair did exactly that with a hardcoded `|120`. A guard after the last mutation
+  fails the build if an AIM-260 is back on a key in the map.
