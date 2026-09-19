@@ -47,6 +47,10 @@ $ErrorActionPreference = "Stop"
 # so paths are resolved here in the body instead.
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 if (-not $DestDir) { $DestDir = Join-Path $scriptDir "..\mods-source" }
+# Normalised, absolute: the deletion mirror below compares this against
+# FullName, and a "..\" left in here made every comparison miss (19 Sep 2026:
+# 7,876 files wiped from a healthy export).
+$DestDir = [IO.Path]::GetFullPath($DestDir)
 
 . (Join-Path $scriptDir "lib\common.ps1")
 
@@ -178,16 +182,22 @@ foreach ($mod in $modDirs) {
     # usn_rim-162e.ini as present for a whole day after Steam had deleted them,
     # while the game crashed on exactly those two files (19 Sep 2026).
     $modDest = Join-Path $DestDir $mod.Name
-    if (Test-Path -LiteralPath $modDest) {
-        $removed = 0
-        foreach ($old in Get-ChildItem -LiteralPath $modDest -Recurse -File) {
-            $relOld = $old.FullName.Substring($modDest.Length).TrimStart('\', '/')
-            if (-not $kept.ContainsKey($relOld.ToLower())) {
-                Remove-Item -LiteralPath $old.FullName -Force
-                $removed++
-            }
+    if ($copied -gt 0 -and (Test-Path -LiteralPath $modDest)) {
+        $modDest = (Get-Item -LiteralPath $modDest).FullName
+        $existing = @(Get-ChildItem -LiteralPath $modDest -Recurse -File)
+        $stale = @($existing | Where-Object {
+            $relOld = $_.FullName.Substring($modDest.Length).TrimStart('\', '/')
+            -not $kept.ContainsKey($relOld.ToLower())
+        })
+        # A mod's update retires a handful of files, never most of them. Losing
+        # more than that means the paths are not lining up (see above) - keep
+        # the files and say so rather than destroy the export.
+        if ($stale.Count -gt 20 -and $stale.Count -gt $existing.Count / 2) {
+            Write-Warning ("  {0}  would remove {1} of {2} exported files - refusing; the copy and the repo are not lining up" -f $mod.Name, $stale.Count, $existing.Count)
+        } else {
+            foreach ($old in $stale) { Remove-Item -LiteralPath $old.FullName -Force }
+            if ($stale.Count) { Write-Host ("  {0}  removed {1} file(s) the mod no longer ships" -f $mod.Name, $stale.Count) }
         }
-        if ($removed) { Write-Host ("  {0}  removed {1} file(s) the mod no longer ships" -f $mod.Name, $removed) }
     }
     # Display name straight from the mod's own _info.ini, read as UTF-8.
     $name = Get-ModDisplayName -ModDir $mod.FullName

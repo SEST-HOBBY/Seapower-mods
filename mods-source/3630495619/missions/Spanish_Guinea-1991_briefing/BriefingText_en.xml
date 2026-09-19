@@ -1,0 +1,55 @@
+<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+
+    <TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}" Text="31MAR1991"/>
+    <TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Right" FontSize="{StaticResource Font.Size.Header}" Text="04:26Z"/>
+
+    <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="FM"/>
+    <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="ALFLOT (ADMIRAL OF THE FLEET) / MADRID HQ"/>
+    
+    <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="TO"/>
+    <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="COMMANDER TASK GROUP 40.1 (F81 SANTA MARIA)"/>
+    
+    <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="SUBJ"/>
+    <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="OPERATION ROMEO MIKE - OPERATIONAL ORDERS"/>
+
+    <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        TOP SECRET - EYES ONLY - SPANISH NAVAL COMMAND
+        <LineBreak/><LineBreak/>
+        1. SITUATION:  Taking advantage of the confusion and high oil prices following the Coalition’s recent victory in Operation Desert Storm, Nigeria has begun to expand its territorial ambitions by laying claim to platforms currently under the control of Equatorial Guinea. Diplomatic failure with Nigeria has led to a kinetic blockade of Malabo by the Nigerian Navy which has deployed a naval minefield to prevent Spanish reinforcements. 
+        <LineBreak/><LineBreak/>
+        2. MISSION: Lead TG 40.1 and MCM assets to clear the approaches to Malabo. Secure the route so that the L22 Aragon can reach the port of Malabo and proceed with the disembarkation of the VII Bandera de la Legion troops, who will be responsible for defending the island and the oil platforms for the next weeks.
+        <LineBreak/><LineBreak/>
+        3. EXECUTION: 
+		A) MCM GROUP: Clearance of North/East Malabo minefield sectors.<LineBreak/> 
+        B) AMPHIBIOUS: L22 to reach Malabo harbour and holding area until troops unloading is complete.<LineBreak/> 
+        C) AIR DEFENSE: 462nd SQN Mirage F1EE (Malabo Is. Detachment) to provide CAP/Strike.<LineBreak/> 
+        D) ISR: P-3A Orion from Bata for surface surveillance.
+        <LineBreak/><LineBreak/>
+        4. FRIENDLY ORBAT: F81 Santa Maria, F35 Cazadora, F31 Descubierta, 3x MCM, L22 Aragon, F71 Baleares. Air: 6x Mirage F1EE, 1x P-3A Orion.
+        <LineBreak/><LineBreak/>
+        5. ROE: STRICT POSITIVE IDENTIFICATION (PID) REQUIRED. Collateral damage to oil platforms or neutral shipping is CATEGORICALLY FORBIDDEN.
+        <LineBreak/><LineBreak/>
+        6. REMARKS: The Legionarios are our only hope for immediately stabilising the area, we must protect L22 at all costs, honor to the Legion!
+        <LineBreak/><LineBreak/>
+        END OF MESSAGE // SIG: ALFLOT
+    </TextBlock>
+</Grid>

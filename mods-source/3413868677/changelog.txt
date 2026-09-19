@@ -1,0 +1,96 @@
+NEW ADDITIONS
+- Added Arleigh Burke-class (FLIGHT I) - 1991, 1997, 2003, 2013, 2016 and 2025 variants
+- Added Arleigh Burke-class (FLIGHT II) - 1998, 2003, 2013, 2016 and 2025 variants
+- Added Arleigh Burke-class (FLIGHT IIA) - 2000, 2003, 2013, 2019, 2026 and 2030 variants + USS Preble DDG-88 with HELIOS Laser
+- Added Arleigh Burke-class (FLIGHT III) - 2023, 2027 and 2030 variants + HELIOS Laser
+- Added Arleigh Burke-class (FLIGHT IA) - a fictional Flight I Burke with a single hangar. Inspired by a drawing by @USS Dogwater
+- Added "Rods from God" satellites, with a US, Chinese and Soviet variants. Can be found in "AIRCRAFT" under "ORBITAL BOMBARDMENT"
+- Added F-47 (Seperate Airbase will be included with it included)
+- Added F/A-XX (Will be called F/A-38. A seperate variant of the United States-class with it included)
+- Added J-36 (Seperate Airbase will be included with it included)
+- Added Pegasus-class, with 30 total variants
+- Added SA-20A/B SAM Site (S-300PMU-1 and S-300PMU-2)
+- Added SA-21 SAM Site (S-300PMU-3/S-400)
+- Added HQ-15 SAM Site (Chinese S-300PMU-1)
+- Added Coastal Defense Battery with RGM-84D (Harpoon AShM Site)
+- Tripoli-class can now deploy land vehicles. You need ANCHORCHAIN and the DEFINITE DISEMBARK mod for it to WORK!
+- Ivan Rogov-class can now deploy land vehicles. You need ANCHORCHAIN and the DEFINITE DISEMBARK mod for it to WORK!
+- Added a RGM-110L Tempest Site
+- Added AIM-260 JATM for F-47 and F/A-XX
+
+
+CREDITS
+- Massive credit to @FTC for making the F-47(F/A-XX) and J-36.
+- Thanks to @nuclearstonk for doing awesome texture work and hullnumbers for the Arleigh Burkes and for providing the "Seahawk"!
+- Thanks to @FTC for making the Mk 45 Mod 4!
+- Thanks to @Thömel for doing the disembark script and helping me making it work!
+- Thanks to @wryipadgjlzcbmqetuosfhkxvn for reworking the CGBL/Kansas-class
+- Thanks to @FTC for allowing me to modify his spy sats to make Rods from God
+
+
+CHANGES/IMPROVEMENTS
+- New Livery for Ka-28 Helix-A
+- Kansas-class is completely overhauled (Credit to @wryipadgjlzcbmqetuosfhkxvn)
+- Hullnumbers for Kansas-class
+- Added description for: Kansas-class, Virginia-class, United States-class
+- Tweaked AN/APG-71(V) (Changed range to 370km or 200nm)
+- Changed AccelerationTime on AIM-174B (Was 90 sec, is now 10 sec. *Time until start of the velocity bleed*)
+- Moved Fuso class to Aircraft Carrier list
+- Moved Constellation, Knox, Type 1135E and Type 054B to Frigate list
+- Reworked SH-2G, Harpoon is replaced by AGM-119 Penguin Mk3 among other changes. New texture
+- New texture on SH-3H and SH-3J
+- New Decoy on United States-class
+- Fixed the CIWS to proper Block 1B Phalanx on United States-class
+- Added ELINT to United States-class
+- Removed 3 SM Datalinks on United States-class
+- Tweaked Launch Turn Rate for: RIM-174B, RIM-156A, RIM-66M-5, RGM-109C/E, HQ-16, HQ-16FE, SS-N-27
+- Renamed SL-AMRAAM to be more clear
+- Tweaks to RGM-84L and RGM-184A
+- Reduced RGM-84L range to 110 nm
+- Added GPS to RGM-84L, AGM-84N and AGM-110L
+- Added Offensive ECM to B-52O
+- Tweaked the launch trajectory of the RUM-125B Sea Lance
+- Reduced range of AIM-174B, from 300 nm to 200 nm
+- New Texture for AIM-174B Gunslinger (Inspired by the AIM-174B mod for DCS World)
+- AIM-174B uses the RIM-24 as a base instead of RIM-66
+- Set launch altitude at 1k feet for AIM-174B Gunslinger
+- Removed option to fly at 37k feet on F-14E ST21
+- Added AirToAirLight Loadout to: F-14D and F-14E
+- Renamed the Japanese Tomcats to F-14DJ and F-14EJ
+- Tweaked the texture on the AGM-88G
+- Added fuel probe to J-1F
+- Tweaked the loadouts on J-1F (Added: Anti Ship Heavy and SEAD)
+- HogCheeks ESM gets more dB gain (Was 60, is now 240)
+- The Island on Tripoli-class is reworked
+- Different ECM on Tripoli-class
+- RGM-109E on Tripoli-class gets replaced by RGM-109C
+- Increased Minimum Launch Range on AGM-188A LHARM to 130nm
+- Decreased Maximum Launch range on AGM-188A LHARM to 400nm
+- Added a Minimum launch altitude for AGM-188A LHARM of 36k ft and a maximum launch altitude of 52k ft
+- AGM-188A LHARM gets new texture
+- Changed the texture for the roof panels on Constellation-class
+- Fixed/Changed HullFoam position on Constellation-class
+- Tweaked hull texture for Kirov II and Admiral Nakhimov
+- Changed JamConeViewArcs on ALQ 99 to 30.0
+- Changed to a more accurate model for PL-9
+
+
+FIXES
+- Fixed ERRORS on: TRIPOLI-CLASS
+- Fixed ERRORS on: UNITED STATES-CLASS
+- Fixed ERRORS on: OREL II-CLASS
+- Fixed ERRORS on: SOVREMENNY (VLS)-CLASS
+- Fixed ERRORS on: UDALOY III-CLASS
+- Fixed ERRORS on: AV-8B PLUS
+- Fixed ERRORS on: F-14E ST21
+- Fixed colliders on the ships listed above
+- Fix? to RIM-174B doing 180
+- Fix? to Transparent Harpoons
+- Fixed rear floating Mk29 GMLS on United States-class
+- Fixed unrealistic ASROC magazine on Knox FFG
+- Fixed Sensors on Knox FFG
+- Fixed Alvand-class (1995)
+
+
+COMPATIBLE VERSION
+- Now Compatible with 0.4.3

@@ -1,0 +1,64 @@
+<Grid
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+
+    <TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        25NOV1973
+    </TextBlock>
+
+    <TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Right" FontSize="{StaticResource Font.Size.Header}">
+        12:00Z
+    </TextBlock>
+
+    <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="FM"/>
+    <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="ALFLOT (ADMIRAL OF THE FLEET)"/>
+    
+    <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="TO"/>
+    <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="CMDR DÉDALO COMBAT GROUP"/>
+    
+    <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="SUBJ"/>
+    <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="EXERCISE MARE NOSTRUM 73 - OPERATIONAL ORDERS"/>
+
+    <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+        CONFIDENTIAL - SPANISH NAVY ONLY
+        <LineBreak/>
+        <LineBreak/>
+        1. SITUATION: The Spanish Navy is conducting high-readiness ASW exercises to evaluate recently integrated US technology. Tensions in the Mediterranean remain high, requiring peak proficiency in carrier group protection. A 'Red' submarine force is active West of the Balearic Islands with orders to intercept our transit to the mainland.
+        <LineBreak/>
+        <LineBreak/>
+        2. MISSION: Lead CVL Dédalo and escorting units from the current AO to the Port of Barcelona. Maintain a defensive screen and neutralize any underwater threats encountered during transit.
+        <LineBreak/>
+        <LineBreak/>
+        3. EXECUTION: Task Group 73.1 will maintain a high-speed transit, assign a destroyer to perform sonar picket duties using sprint-drift tactics. Use the SH-3D and AB-212 assets for long-range MAD/SONAR screening. MD-500 units will provide light scout support. Reach Barcelona harbor before 21:00Z.
+        <LineBreak/>
+        <LineBreak/>
+        4. BLUE ORDER OF BATTLE: 1 x CVL Dédalo, 4 x Churruca-class DD (FRAM II). Air wing: 8 x SH-3D Sea King, 4 x AB-212 ASW, 2 x MD-500 Defender.
+        <LineBreak/>
+        <LineBreak/>
+        5. ENEMY ORDER OF BATTLE (EXPECTED): 2 x S-60 Delfín-class submarines (Daphné variant) and 1 x U-205-class submarine. OPFOR will attempt to simulate torpedo runs on the Dédalo.
+        <LineBreak/>
+        <LineBreak/>
+        6. REMARKS: This is a test of our new ASW capabilities. Locate the threats before they get within firing range of the flagship. ALFLOT expects a flawless execution. Good luck.
+        <LineBreak/>
+        <LineBreak/>
+        END OF MESSAGE
+    </TextBlock>
+</Grid>

@@ -1,0 +1,8 @@
+Mettere i siluri sulla garibaldi
+Mettere i chaff sulla garibaldi (forse anche altre contromisure ed ecm)
+abbassare lo sparviero
+cambiare la mesh associata all'RTN10x sullo sparviero
+rimuovere l'arco di tiro preferenziale per gli otomat
+setta un radar apposito da associare agli otomat con dummy Mount
+e ripreso dal Neptune dei beir grassa
+sistemare il seeker dei marte:uguale a otomat
