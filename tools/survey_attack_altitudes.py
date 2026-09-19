@@ -45,12 +45,39 @@ LOW_CEILING_FT = 5000
 
 
 def ammunition_ids():
+    """Every ammunition id anyone ships, workshop mods AND the SEST packs.
+
+    Discovering names only under mods-source/ is not enough: a SEST pack may
+    introduce an entirely NEW round rather than override an existing one, and
+    resolution cannot find a name nothing told it to look for. Five ids exist
+    only in SEST packs (sest_aim-424, sest_agr-30, sest_agr-30_pod,
+    sest_agr-20er, sest_apkws_er), two of them anti-air. An earlier version of
+    this tool missed all five."""
     ids = set()
     for d in MODS.iterdir():
         if d.is_dir() and (d / "ammunition").is_dir():
             ids |= {f.name for f in (d / "ammunition").glob("*.ini")}
     ids |= {f.name for f in (MODS / "_vanilla/original/ammunition").glob("*.ini")}
+    for pack in local_packs():
+        amm = pack / "ammunition"
+        if amm.is_dir():
+            ids |= {f.name for f in amm.glob("*.ini")}
     return ids
+
+
+def local_packs():
+    """Built pack directories, from the local_packs registry plus the
+    consolidated dist that is what actually deploys."""
+    out = []
+    catalog = json.loads((ROOT / "data" / "mod-catalog.json").read_text(encoding="utf-8"))
+    for entry in catalog.get("local_packs", []):
+        d = ROOT / entry["source"] / entry["folder"]
+        if d.is_dir():
+            out.append(d)
+    dist = ROOT / "integration" / "dist" / "SEST_Integration"
+    if dist.is_dir():
+        out.append(dist)
+    return out
 
 
 def kv(text):
@@ -110,9 +137,16 @@ def feet(value):
         return value
 
 
+# The two of the eight global keys that HAVE a per-round form. A round that
+# declares neither inherits both from damage.ini, which is what makes it a valid
+# probe for "does a deleted global fall back to vanilla's value?".
+PENALTY_KEYS = ("InterceptSpeedPenaltyMultiplier", "InterceptOutOfAltitudePenalty")
+
+
 def survey():
-    rows, stats = [], dict.fromkeys(
-        ("total", "alias", "cycles", "aaw", "banded", "onesided", "inherited"), 0)
+    rows, probes, stats = [], [], dict.fromkeys(
+        ("total", "alias", "cycles", "aaw", "banded", "onesided", "inherited",
+         "inherits_speed", "inherits_alt", "inherits_both"), 0)
     for name in sorted(ammunition_ids()):
         d = resolve(f"ammunition/{name}")
         if not d:
@@ -126,7 +160,15 @@ def survey():
         if d.get("TargetType") != "AAW" and d.get("SecondaryTargetType") != "AAW":
             continue
         stats["aaw"] += 1
+        inh_speed = PENALTY_KEYS[0] not in d
+        inh_alt = PENALTY_KEYS[1] not in d
+        stats["inherits_speed"] += inh_speed
+        stats["inherits_alt"] += inh_alt
+        stats["inherits_both"] += (inh_speed and inh_alt)
         mn, mx = d.get("MinAttackAltitude"), d.get("MaxAttackAltitude")
+        if inh_speed and inh_alt and mn is not None and mx is not None:
+            probes.append({"id": name[:-4], "winner": d.get("__winner__"),
+                           "min": mn, "max": mx})
         if mn is None and mx is None:
             continue
         stats["banded"] += 1
@@ -143,7 +185,7 @@ def survey():
             "secondary": d.get("SecondaryTargetType"),
             "land": d.get("LandAttackCapability"),
         })
-    return rows, stats
+    return rows, probes, stats
 
 
 def classify(rows):
@@ -166,9 +208,9 @@ def classify(rows):
 
 
 def main():
-    rows, stats = survey()
+    rows, probes, stats = survey()
     if "--json" in sys.argv:
-        print(json.dumps({"stats": stats, "rows": rows}, indent=1))
+        print(json.dumps({"stats": stats, "rows": rows, "probes": probes}, indent=1))
         return
 
     print("winning ammunition ids resolved   ", stats["total"])
@@ -178,6 +220,11 @@ def main():
     print("  declaring an altitude band      ", stats["banded"])
     print("    band inherited via alias      ", stats["inherited"])
     print("    one side of the band only     ", stats["onesided"])
+    print("  inheriting the restored penalties:")
+    print("    InterceptSpeedPenaltyMultiplier", stats["inherits_speed"])
+    print("    InterceptOutOfAltitudePenalty  ", stats["inherits_alt"])
+    print("    both, and a two-sided band     ", len(probes),
+          f"(of {stats['inherits_both']} inheriting both)")
 
     groups = classify(rows)
     for label, key in (("MALFORMED (would not parse as written)", "malformed"),
@@ -195,6 +242,16 @@ def main():
           "ballistic-missile interceptor SHOULD have a high floor. Judge each\n"
           "against its own role and against what comparable rounds use; see\n"
           "integration/intercept-model/build_patch.py for the calls already made.")
+    print(f"\nPROBE ROUNDS for the missing-global test: {len(probes)} anti-air rounds\n"
+          "declare NEITHER penalty and carry a closed band, so they inherit both from\n"
+          "damage.ini and an engagement inside their band is not confounded by the\n"
+          "out-of-altitude clamp. Do NOT use the SM-3 for this - SEST_Aegis_BMD gives\n"
+          "it explicit values for both penalties, so it inherits neither. A sample:")
+    for r in probes[:12]:
+        print(f"   {r['id']:28} {r['winner']:16} "
+              f"min={str(r['min']):>8} max={str(r['max']):>9}")
+    print("   (full list: --json, 'probes')")
+
     print("\nRead the winner column: this resolves the tree INCLUDING the SEST packs,\n"
           "which sit at tier 0, so a round SEST already overrides shows SEST's values\n"
           "and a defect already fixed reads clean. usn_rim_174a/b/c and idf_stunner\n"
