@@ -30,24 +30,26 @@ WHAT IS BROKEN
   NOT among the eight. CIWS scoring was never affected.
 
 WHAT RESTORING THEM ACTUALLY DOES
-  Counted over the winning copy of all 1672 ammunition ids, resolved through
-  the repo's own load-order resolver (winning_file in
-  integration/missions/refine_civ_traffic.py) AND through #!alias inheritance -
-  80 of those files are alias stubs whose base is itself resolved by load
-  order, so a round can carry a band it never literally declares - there are
-  514 anti-air-capable rounds. Against those:
+  Counted by tools/survey_attack_altitudes.py over the winning copy of all
+  1677 ammunition ids - workshop mods AND the SEST packs, which introduce five
+  rounds of their own - resolved through the repo's own load-order resolver
+  (winning_file in integration/missions/refine_civ_traffic.py) AND through
+  #!alias inheritance, since 80 of those files are alias stubs whose base is
+  itself resolved by load order, so a round can carry a band it never literally
+  declares. That gives 516 anti-air-capable rounds. Against those:
 
     - six of the eight keys have NO per-round override form anywhere in the
       corpus, so nothing can opt out of them: the five InterceptSizeBonus
-      values and the clamp. All 514 take them.
+      values and the clamp. All 516 take them.
       InterceptSizeBonusWeapon=+0.2 makes every SAM better against missiles;
       InterceptSizeBonusAircraftLarge/LargeSARH make them worse against large
       aircraft.
-    - the other two DO have a per-round form, and most rounds decline it. 360
-      inherit InterceptSpeedPenaltyMultiplier=1.4 and 366 inherit
-      InterceptOutOfAltitudePenalty=0.5. Both globals are at or worse than the
-      scale the round files' own comments call "poor" - that is the intended
-      penalty for not declaring.
+    - the other two DO have a per-round form, and most rounds decline it. 364
+      inherit InterceptSpeedPenaltyMultiplier=1.4 and 369 inherit
+      InterceptOutOfAltitudePenalty=0.5; 350 inherit both, and 110 of those also
+      carry a closed band, which makes them the valid probes for test 1 below.
+      Both globals are at or worse than the scale the round files' own comments
+      call "poor" - that is the intended penalty for not declaring.
     - InterceptChanceOutOfAltitudeOverride=0.05 is the sharpest: a hard 5%
       ceiling on any intercept where the target sits outside the round's
       MinAttackAltitude/MaxAttackAltitude band.
@@ -69,7 +71,7 @@ WHAT RESTORING THEM ACTUALLY DOES
   reading is established. It is not.
 
 WHAT THE CLAMP WOULD BREAK, AND IS FIXED HERE
-  328 of the 514 declare a band, 18 of them by alias inheritance. Scanned for
+  329 of the 516 declare a band, 18 of them by alias inheritance. Scanned for
   floors above 1000 ft, ceilings below 5000 ft, inverted or empty bands and
   malformed values, two are authored in a way the clamp turns into a dead
   weapon. The alias-resolved pass found no case the flat pass had missed:
@@ -161,38 +163,51 @@ WHAT THIS PACK HAS NOT DEMONSTRATED, AND HOW TO SETTLE IT
   across every run below, or the impact tier becomes a second variable.
 
   1. Do missing globals already fall back to vanilla's values?
-     Run one engagement with this pack installed and the same engagement with
-     it disabled, so the only difference is which ammunition/damage.ini wins.
-     Use a round that declares NEITHER InterceptOutOfAltitudePenalty nor
-     InterceptSpeedPenaltyMultiplier, so it has to inherit both - 360 of the
-     514 qualify. Identical percentages mean the engine was already supplying
-     these values and this half of the pack is inert. Different percentages
-     mean the deletion was live and the restore is real.
+     Run tools/make_intercept_ab_builds.py. It writes two deployables that are
+     byte-identical except for ammunition/damage.ini - A carries the restored
+     table, B carries the Tu-95 mod's truncated one - and refuses to emit them
+     unless exactly one file differs. Toggling a mod cannot do this: the
+     deployable is the single consolidated SEST_Integration entry, so disabling
+     it would change every SEST override at once and leaving it enabled keeps
+     the restored table.
+
+     Fire the SAME engagement under each. Use a round that inherits BOTH
+     penalties and has a closed band, so the out-of-altitude clamp is not also
+     in play; tools/survey_attack_altitudes.py lists 110 of them. Do NOT use the
+     SM-3: SEST_Aegis_BMD gives it explicit InterceptSpeedPenaltyMultiplier and
+     InterceptOutOfAltitudePenalty values, so it inherits neither and cannot
+     probe this at all.
+
+     A difference means the deleted globals were doing something. NO difference
+     is the weaker result: it means no effect under the conditions tested, not
+     that the engine supplies vanilla's values. The penalty may be inactive for
+     that geometry, or masked by another cap. Vary speed, aspect and target size
+     before concluding anything from a null.
 
   2. How is a missing SIDE of an altitude band handled?
      Pick an AMRAAM (floor, no ceiling) and a RAM (ceiling, no floor). Run each
-     as shipped, then again against a local copy that supplies the missing
-     bound explicitly - an unbounded value for the open side, so the band
-     covers the same space either way. Same percentage means the engine already
-     treats an omitted side as open and the 61 one-sided rounds are safe.
-     A jump to 5% on the as-shipped run means it does not, and those rounds
-     need the missing bound written in, here, the way this pack fixes the SM-6.
+     as shipped, then again against a local copy that supplies the missing bound
+     explicitly - a value beyond anything reachable, so the band covers the same
+     space either way. Same percentage means the engine already treats an
+     omitted side as open and the 61 one-sided rounds are safe. A jump to 5% on
+     the as-shipped run means it does not, and those rounds need the missing
+     bound written in, here, the way this pack fixes the SM-6.
 
   3. Does the clamp reach surface and land engagements?
-     This one cannot be answered by any air engagement, so it needs its own
-     shot: fire a Red Storm SM-6 at a SHIP. That round carries
-     SecondaryTargetType=ASuW and a floor this pack sets to 15 ft, above a
-     ship's 0 ft, so if the clamp applies outside the air path the engagement
-     is capped at 5% even after the fix. If it is, the floor has to go to 0 for
-     rounds with a surface role, and the same question reopens for every other
-     round in the collection that has one.
+     No air engagement can answer this, so it needs its own shot: fire a Red
+     Storm SM-6 at a SHIP. That round carries SecondaryTargetType=ASuW and a
+     floor this pack sets to 15 ft, above a ship's 0 ft, so if the clamp applies
+     outside the air path the engagement is capped at 5% even after the fix. If
+     it is, the floor has to go to 0 for rounds with a surface role, and the
+     question reopens for every other round in the collection that has one.
 
-  Do (1) first with an SM-3 against a ballistic target above 100,000 ft, since
-  that is the engagement this whole line of work started from: it answers the
-  original complaint and question 1 in the same pair of runs.
+  Separately from all three, the engagement this work started from: an SM-3
+  against a ballistic target above 100,000 ft, before and after SEST_Aegis_BMD.
+  That is the original complaint and it is its own test - it does not answer
+  question 1, because of what the SM-3 declares.
 
 THE ONE RESIDUAL RISK
-  61 of the 328 banded rounds declare only one side - a floor and no ceiling
+  61 of the 329 banded rounds declare only one side - a floor and no ceiling
   (the AMRAAM and Meteor families, floors of 10 to 67 ft), or a ceiling and no
   floor (point-defence rounds: Roland, VT-1, HQ-10, RAM, ceilings of 4000 to
   30000 ft). None of vanilla's 74 banded files does this, so what the engine
