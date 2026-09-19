@@ -354,6 +354,7 @@ for rig_label, la, lo in (("Bayu-Undan Platform", -11.0833, 126.5667), ("Montara
          nation_key="timor_leste" if "Sunrise" in rig_label or "Bayu" in rig_label else "australia")
 
 # Naval context so the threat axes mean something: (side, type, variant, role, lat, lon, heading)
+SHIP_GROUPS = {TF1: "Darwin Surface Group", TF2: "Fiery Cross SAG"}
 SHIPS = [
     (TF1, "ran_ddg_hobart", "Variant1", "AAW", -11.70, 130.30, 300),
     (TF1, "ran_ffh_anzac", "Variant2", "ASW", -11.62, 130.40, 300),
@@ -412,12 +413,35 @@ def ship_block(uid, variant, role, x, z, hdg):
             f"RelativePositionInNM={x:.2f},0,{z:.2f}\nTelegraph=2\nHeading={hdg}\n")
 
 
-def merchant_block(uid, pts, hdg, tel):
+def bearing(p, q):
+    """Initial bearing from p to q, both (x, z) in datum nm, 0 = north."""
+    return int(round(math.degrees(math.atan2(q[0] - p[0], q[1] - p[1])))) % 360
+
+
+def merchant_block(uid, pts, hdg, tel, variant="Default"):
     xz = [to_xz(la, lo) for la, lo in pts]
     wpts = "|".join(f"{x:.1f},{Y_SEA},{z:.1f}" for x, z in xz[1:]) + "/SetTelegraph,3"
     x, z = xz[0]
-    return (f"Type={uid}\nVariantReference=Default\nRadarsActive=True\nCrewSkill=Trained\n"
+    if hdg is None:
+        hdg = bearing(xz[0], xz[1]) if len(xz) > 1 else 0
+    return (f"Type={uid}\nVariantReference={variant}\nRadarsActive=True\nCrewSkill=Trained\n"
             f"RelativePositionInNM={x:.1f},0,{z:.1f}\nTelegraph={tel}\nHeading={hdg}\nWaypoints={wpts}\n")
+
+
+def aircraft_block(uid, squadron, pts, alt_ft, tel=3):
+    """An airborne civil or military aircraft flying a lat/lon chain at alt_ft."""
+    xz = [to_xz(la, lo) for la, lo in pts]
+    x, z = xz[0]
+    hdg = bearing(xz[0], xz[1]) if len(xz) > 1 else 0
+    wpts = "|".join(f"{px:.1f},{alt_ft},{pz:.1f}" for px, pz in xz[1:])
+    return (f"Type={uid}\nSquadronReference={squadron}\nUnlimitedFuel=False\nWeaponStatus=Free\n"
+            f"RadarsActive=True\nMorale=3\nRelativePositionInNM={x:.2f},{alt_ft},{z:.2f}\n"
+            f"Telegraph={tel}\nHeading={hdg}\nWaypoints={wpts}\n")
+
+
+def airgroup_lines(group):
+    """CustomAirGroup lines for a land unit: [(aircraft id, 'Squadron1,6|Squadron2,6')]."""
+    return "CustomAirGroup=True\n" + "".join(f"{uid}={sq}\n" for uid, sq in group)
 
 
 class Spiral:
@@ -454,34 +478,48 @@ def check_units(units):
         sys.exit("unit ids no enabled mod defines: " + ", ".join(bad))
 
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--density", choices=("full", "standard", "light"), default="full",
-                    help="scale the defence postures down for a lighter mission")
-    ap.add_argument("--report", action="store_true", help="print modded-unit coverage and stop")
-    args = ap.parse_args()
-
+def generate(name, out, description, sites, ships, merchants, aircraft=(), airgroups=None,
+             ship_groups=None, datum=None, density="full", coverage_exempt=None, date="2026,9,17",
+             report_unused=True):
+    """Write the mission `out`: sites laid out on land, then the builder's
+    defences on top, then the coverage report. Everything the showcase and
+    its regional variants differ in comes through the arguments."""
+    global CLAT, CLON
+    if datum:
+        CLAT, CLON = datum
+    airgroups = airgroups or {}
+    ship_groups = ship_groups or SHIP_GROUPS
+    coverage_exempt = COVERAGE_EXEMPT if coverage_exempt is None else coverage_exempt
     downgrade = {"full": {}, "standard": {"heavy": "standard"},
-                 "light": {"heavy": "standard", "standard": "light", "light": "light"}}[args.density]
+                 "light": {"heavy": "standard", "standard": "light", "light": "light"}}[density]
 
-    every = [u for s in SITES for _, units in s["groups"] for u in expand(units)]
+    every = [u for s in sites for _, units in s["groups"] for u in expand(units)]
     check_units(every)
-    for side, uid, *_ in SHIPS:
+    for side, uid, *_ in ships:
         if winning_file(f"vessels/{uid}.ini") is None:
             sys.exit(f"vessel not provided by any enabled mod: {uid}")
-    for uid, *_ in MERCHANTS:
+    for uid, *_ in merchants:
         if winning_file(f"vessels/{uid}.ini") is None:
             sys.exit(f"vessel not provided by any enabled mod: {uid}")
+    for uid, *_ in aircraft:
+        if winning_file(f"aircraft/{uid}.ini") is None:
+            sys.exit(f"aircraft not provided by any enabled mod: {uid}")
+    for label, group in airgroups.items():
+        if label not in {s["label"] for s in sites}:
+            sys.exit(f"air group for an unknown site: {label!r}")
+        for uid, _ in group:
+            if winning_file(f"aircraft/{uid}.ini") is None:
+                sys.exit(f"air group aircraft not provided by any enabled mod: {uid}")
 
     geo = Geo(CLAT, CLON)
     occupied = []
     spiral = Spiral(geo, occupied)
 
     # --- lay the assets out ------------------------------------------------
-    units = {TF1: [], TF2: [], NEU: []}        # side -> [(label, uid, variant, x, z, hdg, nation_key)]
+    units = {TF1: [], TF2: [], NEU: []}        # side -> [(label, uid, variant, x, z, hdg, nation_key, extra)]
     formations = {TF1: [], TF2: [], NEU: []}   # side -> [(label, [indices])]
     names = {TF1: [], TF2: [], NEU: []}        # side -> [(index, name)]
-    for s in SITES:
+    for s in sites:
         cx, cz = to_xz(s["lat"], s["lon"])
         if s["mask"] and LAND is not None and not geo.on_land(cx, cz):
             # real coordinate that the 1 km mask calls water (a wharf, a reef-edge strip):
@@ -504,7 +542,10 @@ def main():
                 x, z = spiral.place(cx, cz, i, s["spread"], s["mask"])
                 hdg = 0 if i == 0 else (i * 137.508 + 90) % 360   # anchor faces north
                 variant = pick_variant(uid, s["nation"])
-                units[s["side"]].append((s["label"], uid, variant, x, z, hdg, s["nation_key"]))
+                extra = airgroup_lines(airgroups[s["label"]]) if i == 0 and s["label"] in airgroups else ""
+                if extra and unit_info(uid)["subtype"] != "Airbase":
+                    sys.exit(f"{s['label']}: air group on {uid}, which is not an Airbase")
+                units[s["side"]].append((s["label"], uid, variant, x, z, hdg, s["nation_key"], extra))
                 idx.append(len(units[s["side"]]) - 1)
                 i += 1
             formations[s["side"]].append((glabel, idx))
@@ -512,30 +553,34 @@ def main():
                 names[s["side"]].append((idx[0], s["label"]))
         s["xz"] = (cx, cz)
 
-    ships = {TF1: [], TF2: []}
-    for side, uid, variant, role, la, lo, hdg in SHIPS:
+    shipsby = {TF1: [], TF2: []}
+    ship_forms = {TF1: {}, TF2: {}}            # side -> {group label: [vessel section names]} in order
+    for side, uid, variant, role, la, lo, hdg, *group in ships:
         x, z = to_xz(la, lo)
-        ships[side].append((uid, variant, role, x, z, hdg))
+        shipsby[side].append((uid, variant, role, x, z, hdg))
+        label = group[0] if group else ship_groups[side]
+        ship_forms[side].setdefault(label, []).append(f"{side}Vessel{len(shipsby[side])}")
 
     # --- assemble the file -------------------------------------------------
-    lang = [f"Name={NAME}", f"Description={DESCRIPTION}"]
+    lang = [f"Name={name}", f"Description={description}"]
     for side in (TF1, TF2, NEU):
-        for idx, name in names[side]:
-            lang.append(f"{side}LandUnit{idx + 1}NameOverride={name}")
-    out = ["\n[Language_en]\n" + "\n".join(lang) + "\n"]
+        for idx, label in names[side]:
+            lang.append(f"{side}LandUnit{idx + 1}NameOverride={label}")
+    text = ["\n[Language_en]\n" + "\n".join(lang) + "\n"]
     for code in ("cn", "ru", "de", "es", "fr", "ko", "ja", "vn"):
-        out.append(f"[Language_{code}]\nName={NAME}\n")
-    out.append("[Environment]\nDate=2026,9,17\nTime=8,0\nConvertTimeToLocal=True\nSeaState=2\n"
-               "Clouds=Scattered_1\nWindDirection=SE\n"
-               f"MapCenterLatitude={CLAT}\nMapCenterLongitude={CLON}\nLoadBackgroundData=False\n")
+        text.append(f"[Language_{code}]\nName={name}\n")
+    text.append(f"[Environment]\nDate={date}\nTime=8,0\nConvertTimeToLocal=True\nSeaState=2\n"
+                "Clouds=Scattered_1\nWindDirection=SE\n"
+                f"MapCenterLatitude={CLAT}\nMapCenterLongitude={CLON}\nLoadBackgroundData=False\n")
     mission = ["Difficulty=0", "PlayerTaskforce=Taskforce1", "EnemyTaskforce=Taskforce2"]
-    mission += [f"NumberOfTaskforce1Vessels={len(ships[TF1])}", f"NumberOfTaskforce2Vessels={len(ships[TF2])}",
-                f"NumberOfNeutralVessels={len(MERCHANTS)}",
+    mission += [f"NumberOfTaskforce1Vessels={len(shipsby[TF1])}", f"NumberOfTaskforce2Vessels={len(shipsby[TF2])}",
+                f"NumberOfNeutralVessels={len(merchants)}",
                 f"NumberOfTaskforce1LandUnits={len(units[TF1])}", f"NumberOfTaskforce2LandUnits={len(units[TF2])}",
                 f"NumberOfNeutralLandUnits={len(units[NEU])}"]
+    if aircraft:
+        mission.append(f"NumberOfNeutralAircraft={len(aircraft)}")
     for side in (TF1, TF2):
-        forms = [(f"{'Darwin Surface Group' if side == TF1 else 'Fiery Cross SAG'}",
-                  [f"{side}Vessel{i + 1}" for i in range(len(ships[side]))])]
+        forms = list(ship_forms[side].items())
         forms += [(label, [f"{side}LandUnit{i + 1}" for i in idx]) for label, idx in formations[side]]
         mission.append(f"{side}_NumberOfFormations={len(forms)}")
         for n, (label, members) in enumerate(forms, 1):
@@ -546,23 +591,25 @@ def main():
     mission.append(f"Neutral_NumberOfFormations={len(nforms)}")
     for n, (label, members) in enumerate(nforms, 1):
         mission.append(f"Neutral_Formation{n}={','.join(members)}|{label}|Circle|1.5|OverrideSpawnPositions")
-    out.append("[Mission]\n" + "\n".join(mission) + "\n")
+    text.append("[Mission]\n" + "\n".join(mission) + "\n")
     for side in (TF1, TF2):
-        for i, (uid, variant, role, x, z, hdg) in enumerate(ships[side], 1):
-            out.append(f"[{side}Vessel{i}]\n" + ship_block(uid, variant, role, x, z, hdg))
-        for i, (_, uid, variant, x, z, hdg, nk) in enumerate(units[side], 1):
-            out.append(f"[{side}LandUnit{i}]\n" + land_block(uid, variant, x, z, hdg, nk))
-    for i, (uid, pts, hdg, tel) in enumerate(MERCHANTS, 1):
-        out.append(f"[NeutralVessel{i}]\n" + merchant_block(uid, pts, hdg, tel))
-    for i, (_, uid, variant, x, z, hdg, nk) in enumerate(units[NEU], 1):
-        out.append(f"[NeutralLandUnit{i}]\n" + land_block(uid, variant, x, z, hdg, nk))
-    out.append("[BackgroundData]\nNumberOfBackgroundCityFiles=0\nNumberOfBackgroundAirportFiles=0\n"
-               "NumberOfBackgroundPortFiles=0\nNumberOfBackgroundInstallationFiles=0\n"
-               "NumberOfBackgroundSceneryFiles=0\n")
-    OUT.write_bytes("".join(out).encode("utf-8"))
+        for i, (uid, variant, role, x, z, hdg) in enumerate(shipsby[side], 1):
+            text.append(f"[{side}Vessel{i}]\n" + ship_block(uid, variant, role, x, z, hdg))
+        for i, (_, uid, variant, x, z, hdg, nk, extra) in enumerate(units[side], 1):
+            text.append(f"[{side}LandUnit{i}]\n" + land_block(uid, variant, x, z, hdg, nk) + extra)
+    for i, (uid, pts, hdg, tel, *rest) in enumerate(merchants, 1):
+        text.append(f"[NeutralVessel{i}]\n" + merchant_block(uid, pts, hdg, tel, *rest))
+    for i, (uid, squadron, pts, alt) in enumerate(aircraft, 1):
+        text.append(f"[NeutralAircraft{i}]\n" + aircraft_block(uid, squadron, pts, alt))
+    for i, (_, uid, variant, x, z, hdg, nk, extra) in enumerate(units[NEU], 1):
+        text.append(f"[NeutralLandUnit{i}]\n" + land_block(uid, variant, x, z, hdg, nk) + extra)
+    text.append("[BackgroundData]\nNumberOfBackgroundCityFiles=0\nNumberOfBackgroundAirportFiles=0\n"
+                "NumberOfBackgroundPortFiles=0\nNumberOfBackgroundInstallationFiles=0\n"
+                "NumberOfBackgroundSceneryFiles=0\n")
+    out.write_bytes("".join(text).encode("utf-8"))
 
     # --- defences, through the builder ------------------------------------
-    m = Mission(OUT)
+    m = Mission(out)
     ns = argparse.Namespace(threat_bearing=None)
     planner = Planner(m, ns)
     added = 0
@@ -571,7 +618,7 @@ def main():
     for side in (TF1, TF2, NEU):
         for st in find_sites(m, m.geo, side, 6.0):
             sites_by[(side, st["label"])] = st
-    for s in SITES:
+    for s in sites:
         posture = downgrade.get(s["posture"], s["posture"])
         if posture == "none":
             continue
@@ -592,11 +639,11 @@ def main():
     problems = m.verify()
     if problems:
         sys.exit("generated mission fails its own checks:\n  " + "\n  ".join(problems))
-    OUT.write_bytes(m.text().encode("utf-8"))
+    out.write_bytes(m.text().encode("utf-8"))
 
     # --- report ------------------------------------------------------------
-    text = OUT.read_text(encoding="utf-8")
-    types = re.findall(r"^Type=(.+)$", text, re.M)
+    body = out.read_text(encoding="utf-8")
+    types = re.findall(r"^Type=(.+)$", body, re.M)
     land_types = [t for t in types if unit_info(t)]
     modded = sorted({t for t in land_types if unit_info(t)["provider"] not in ("vanilla",)
                      and not unit_info(t)["provider"].startswith("SEST_")})
@@ -606,25 +653,37 @@ def main():
             if not m.geo.on_land(x, z):
                 wet += 1
     total = len(m.units(cls="LandUnit"))
-    print(f"written: {OUT.name}")
-    print(f"  sites {len(SITES)}   land units {total} (assets {total - added}, defences {added})"
-          f"   ships {sum(len(v) for v in ships.values())}   merchants {len(MERCHANTS)}")
+    print(f"written: {out.name}")
+    print(f"  sites {len(sites)}   land units {total} (assets {total - added}, defences {added})"
+          f"   ships {sum(len(v) for v in shipsby.values())}   merchants {len(merchants)}"
+          f"   civil aircraft {len(aircraft)}   air groups {len(airgroups)}")
     print(f"  distinct land unit types {len(set(land_types))}, of which modded {len(modded)}")
     if LAND is not None:
         print(f"  land units the mask calls water: {wet} (reef bases and rigs are expected here)")
     for n in notes:
         print(f"  note: {n}")
-    if True:
-        pool = set()
-        for d in (ROOT / "mods-source").glob("*/land_units"):
-            if d.parent.name[0].isdigit():
-                pool |= {f.stem for f in d.glob("*.ini") if not f.name.endswith("_variants.ini")}
-        pool = {u for u in pool if unit_info(u) and unit_info(u)["provider"] != "vanilla"}
-        unused = sorted(pool - set(land_types) - COVERAGE_EXEMPT)
-        print(f"  modded land unit types available {len(pool)}, used {len(pool & set(land_types))}, "
-              f"exempt {len(pool & COVERAGE_EXEMPT)}, unused {len(unused)}")
-        if unused:
-            print("  unused: " + ", ".join(unused))
+    pool = set()
+    for d in (ROOT / "mods-source").glob("*/land_units"):
+        if d.parent.name[0].isdigit():
+            pool |= {f.stem for f in d.glob("*.ini") if not f.name.endswith("_variants.ini")}
+    pool = {u for u in pool if unit_info(u) and unit_info(u)["provider"] != "vanilla"}
+    unused = sorted(pool - set(land_types) - coverage_exempt)
+    print(f"  modded land unit types available {len(pool)}, used {len(pool & set(land_types))}, "
+          f"exempt {len(pool & coverage_exempt)}, unused {len(unused)}")
+    if unused and report_unused:
+        print("  unused: " + ", ".join(unused))
+
+
+def cli(default_density="full"):
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--density", choices=("full", "standard", "light"), default=default_density,
+                    help="scale the defence postures down for a lighter mission")
+    return ap.parse_args()
+
+
+def main():
+    args = cli()
+    generate(NAME, OUT, DESCRIPTION, SITES, SHIPS, MERCHANTS, density=args.density)
 
 
 if __name__ == "__main__":

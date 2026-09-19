@@ -219,3 +219,15 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   carrying it), full pack rebuilds. All exit non-zero; all have been
   negative-tested — the employment gate against both bugs it was built from,
   the stripped NSM datalink association and the GBU-53's 200 ft release band.
+- **Air wings on land units.** A mission gives an airbase its aircraft with `CustomAirGroup=True`
+  followed by `<aircraft id>=SquadronN,count|SquadronM,count` lines inside the land-unit block;
+  the squadron numbers index the aircraft's `_squadrons.ini`, and vanilla single-livery types use
+  `Default`. Only units whose file carries `[AirGroup]`/`[FlightDeck]` (LandUnitSubType=Airbase,
+  the helo rig) can take one; the showcase generator refuses an air group on anything else.
+- **Shipping lanes are routed, not drawn.** Hand-placed waypoints crossed land in 20 of 27 lanes
+  on the first try (Kangean, the Leti islands, Dolak, Jolo, Timor's south coast). `sea_routes.py`
+  takes via points that name the corridor and finds the water path between them on the land mask
+  (A*, 0.025° grid, no corner-cutting past land, a 60% cost penalty on cells touching land so
+  lanes stand a mile or two off the beach). Simplification is per leg so via points survive: a
+  whole-chain simplification turned the Lombok–Makassar VLCC lane into one straight line hugging
+  the Sulawesi coast, legal on the mask and wrong as a lane.
