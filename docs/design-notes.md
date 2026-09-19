@@ -276,3 +276,17 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   model, fielded by ten saved missions. Check the whole file stack, not just the winner: if the
   only provider is a SEST pack, the unit is being kept alive by the patch and needs either a
   live donor or a retirement plus mission retargeting.
+- **A seat key belongs to a mesh, not to a station.** `Station<n>=<store>|<Key>` applies
+  `<Key>Positions` as an offset from the hardpoint, so two stores with different mesh origins on
+  one key cannot both sit flush. The F-15EX seats the AIM-120 and the AIM-260 on the same "120"
+  key although they render from different meshes (dts_aim-120.obj, dts_aim-260.obj), which is
+  why the AIM-260s hang low and aft of the inner rails - visible mainly there because the 610
+  gal tank alongside gives the eye a reference. Upstream does the same, so the defect is
+  inherited rather than introduced. The fix is a key per mesh, derived from the AIM-120 seat
+  plus one named delta so the wing rails and the eight belly rack slots cannot drift apart.
+- **When the only evidence is another airframe, ship the settled value, not the opening guess.**
+  The F-35 JATM packs measured this same mesh-origin difference over four in-game passes; their
+  first attempt (up 0.005) clipped the pylons and was halved. Carrying 0.0025 across is a first
+  cut on a different AIM-120 mesh, so the F-15EX keeps its own loadouts corrected while the two
+  the author wrote stay on the old seat - flying them side by side says which is right in one
+  sortie, which no amount of reading the file can settle.
