@@ -30,6 +30,34 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
   (`--density standard` or `light` for fewer defence units); every coordinate is real and
   nudged onto land by the mask, the reef bases and rigs excepted.
 
+- **SEST Banda Front** — the showcase narrowed to one active zone, built by `build_banda_front.py`
+  on the same datum: Borneo and Java through Sulawesi, the Moluccas, Timor and Papua to northern
+  Australia and the Bismarck Sea, with the Sulu corner (Sabah, Zamboanga, Jolo, Marawi, Balabac)
+  kept exactly as the showcase has it. Gone: the Philippines north of Mindanao, the Spratly and
+  Paracel bases, Natuna, Australia south of Tindal, the Solomons. Added: 25 Borneo and Java sites
+  (RMAF Labuan and Kuching, Bintulu LNG, Miri, Seria, Sandakan, Tawau, Pontianak, Tarakan, the
+  Nusantara capital, Banjarmasin; Halim with a NASAMS battery, Tanjung Priok, Cilegon, Balongan,
+  Cilacap, Semarang, Iswahyudi, Juanda, Koarmada II, the Suramadu bridge, Paiton, Bali, Ketapang),
+  PLA lodgements at the Chinese-financed industrial parks (Tanah Kuning, Kendawangan, Batang with
+  a PLAN amphibious group offshore, Tanjung Jati) and militant camps at Lahad Datu and Poso.
+  Western Mindanao Command fields an air wing: six A-10C, six F-16CM, two MQ-9A, two MQ-9 ER,
+  four Marine UH-1Y and two Navy HH-60 for CSAR; the two US destroyers stand in the Celebes Sea.
+  Civil traffic is 27 ships on the real lanes (Lombok–Makassar VLCC and iron-ore route, the Java
+  Sea container run, Darwin LNG north through the Banda and Molucca Seas, Tangguh LNG past
+  Halmahera, Torres Strait, Vitiaz Strait, the Pelni liners, the Bali–Lombok and Surabaya–
+  Banjarmasin ferries, Zamboanga–Sandakan, fishing fleets in the Arafura, Timor, Banda, Sulu and
+  Celebes Seas) and 25 aircraft (A330/A320/A380 in Garuda, Lion, Qantas, SIA, Cathay, Air China,
+  JAL, AirAsia, Korean, Asiana, PAL and Cebu Pacific liveries on real city pairs; Cessna 340s,
+  Bonanzas and Hughes 500s on the short hops and rig runs). 72 sites, 794 land units, 199 types.
+  Regenerate with `python3 integration/missions/build_banda_front.py`.
+
+  Lanes are threaded through water by `sea_routes.py`: each lane is a chain of via points naming
+  the corridor, and A* over the 1 km land mask (0.025° grid, a mild penalty for hugging the
+  beach) joins them, keeping every via point and dropping the rest to the turns. Routed lanes are
+  cached in `banda_front_lanes.json`, keyed on their via points, so a rebuild is instant and only
+  a changed lane is re-routed; the generator then re-checks every leg against the mask at half-
+  mile spacing before writing.
+
 - **NORTHERN FRONT II** — the user's Northern Front editor save, upgraded: the two `airbase_us`
   stand-ins are now the real `airbase_raaf_darwin` / `airbase_raaf_scherger` (their custom
   mission air groups are preserved), the date moves to 2026-08-24, and a five-ship civilian
