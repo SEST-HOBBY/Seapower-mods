@@ -853,7 +853,7 @@
       "requires": [
         "the US Navy mods it edits (compilation of edits to multiple Workshop mods)"
       ],
-      "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test."
+      "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test. **Fragile by construction (Sep 2026):** every hull is a `#!alias` patch over a Modern US Navy hull, and Modern US Navy renames hulls almost daily (v558-567, 16-18 Sep). When a base name changes before this mod catches up the game crashes at startup with KeyNotFoundException 'AirGroup' (Modern US Navy v567 renamed the Flight III to usn_ddg_burke_125; this mod's flt3_2027 still aliased usn_ddg_burke_f3). Run tools/check_alias_bases.py after every export; if it names a MISSING BASE, disable this mod until its author updates, or override the one file."
     },
     {
       "id": "f-35c-mygo",
@@ -1129,7 +1129,7 @@
       "faction": "usa",
       "type": "ship",
       "status": "active",
-      "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN.",
+      "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN. **Renaming spree (Sep 2026):** Flight IIA hulls became per-ship files (usn_ddg_burke_085, _085_late, _088_laser, _089 ...), Flight III became usn_ddg_burke_125 (v567, 18 Sep). U.S. Navy 2027 aliases into these names and breaks each time one moves.",
       "overlaps": [
         "us-naval-aviation (SH-60/MH-60 family)",
         "mh-60r-2154545636",
