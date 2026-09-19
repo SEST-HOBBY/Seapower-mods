@@ -36,6 +36,15 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
   shipping lane plus a three-whale humpback pod (biologic sonar contacts) run along the
   Darwin–fleet axis. The original NORTHERN FRONT save is untouched.
 
+## U.S. Navy 2027 hulls
+
+`retarget_usn2027_hulls.py` moves a mission's U.S. Navy 2027 destroyers onto the Modern US Navy
+hulls they are aliased to (`usn_ddg_arleigh_flt2A_119_2027` becomes `usn_ddg_burke_f2a_119`,
+the Flight III becomes `usn_ddg_burke_f3_125`), dropping loadout variants the target does not
+offer. U.S. Navy 2027 has no hulls of its own, only `#!alias` patches, and Modern US Navy renames
+hulls almost daily; a mission that names the 2027 id inherits every rename as a crash or a ship
+that never spawns. Runs as step 6d of the refresh chain; idempotent.
+
 ## Land defence and site builder
 
 `build_land_defence.py` does for a Sea Power mission what Nuclear Option's editor does for a
