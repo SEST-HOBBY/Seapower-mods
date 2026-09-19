@@ -58,6 +58,32 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
   a changed lane is re-routed; the generator then re-checks every leg against the mask at half-
   mile spacing before writing.
 
+- **SEST Banda Front Lean** — the Banda Front editor save, every land site cut back to its core.
+  The save (`SEST Banda Front edited.ini`, the hand-edited copy, authoritative and never
+  rewritten) is read by `trim_land_sites.py`, which writes this copy beside it: the same 114 sites
+  (106 formations plus the eight bridges and rigs the editor leaves outside any formation), the
+  same positions and spread, 794 land units down to 396. Each site keeps its airbase, port, bridge
+  or rig model, one search radar, ONE SAM battery (its fire-control radar and three launchers)
+  and the THAAD or S-400 long-range section where it has one, the fuel farm, the ammo dump, a
+  command element, one of each kind of industrial building, up to two anti-ship launchers, two
+  ballistic-missile TELs, two drone launchers and, in a combat group, one vehicle of each class;
+  the gun rings, the SHORAD swarm, the second and third batteries with their search radars,
+  trucks, tents, bunkers and the crowd of technicals go. Every neutral land unit whose file can
+  spawn aircraft - eleven TNI, RMAF, Balinese and Halim airfields on the vanilla `airfield_small_1`
+  and Modern US `airfield_us` files, and the four Timor Sea helo rigs - carries `CustomAirGroup=True`
+  with nothing under it, so no neutral E-3, P-3 or Sea King takes off on its own; blue and red air
+  groups are as in the save. Regenerate with `python3 integration/missions/trim_land_sites.py`
+  (`--dry-run` prints the plan and the numbers; `--tels`, `--coastal`, `--tbm`, `--drones`,
+  `--technicals`, `--no-bmd` and `--cluster-nm` move the line; the output is byte-identical on
+  every re-run).
+
+  Two things the save itself carries, which the trim reports and leaves alone: the editor lays a
+  saved formation out as rings at its 1.5 nm spacing, so a launcher stands 1-9 nm from the radar
+  that guides it (outside the 0.8 nm guidance radius the generator honoured) in the save and in
+  the Lean copy alike; and `check_weapon_employment.py` lists the same findings for the save, the
+  generated original and the Lean copy (the NASAMS and SLAMRAAM launchers' datalink rounds, the
+  three MLRS magazines, the Su-57's KH-58 seat), none of them introduced here.
+
 - **NORTHERN FRONT II** — the user's Northern Front editor save, upgraded: the two `airbase_us`
   stand-ins are now the real `airbase_raaf_darwin` / `airbase_raaf_scherger` (their custom
   mission air groups are preserved), the date moves to 2026-08-24, and a five-ship civilian
@@ -105,3 +131,34 @@ python3 integration/missions/build_land_defence.py --catalog             # what 
 `tbm_battery`, `drone_site`, `hq`) at a latitude/longitude before defending it. Re-runs add
 nothing to a site that already has its layers, so the pass is safe in the refresh chain:
 `tools\refresh-mission.ps1 -LandDefence` (with `-Posture heavy` for the full stack).
+
+## Trimming a site back to its core
+
+`trim_land_sites.py` is the other direction: a mission whose sites have grown into swarms (the
+builder's layers on top of a generated site, or a save you have been adding to) is read, and a
+copy is written in which every formation keeps the units that make it a recognisable
+installation and loses the clutter, by rule and in file order, so the result is the same bytes
+every time. No site is deleted: every formation keeps at least one member (its first member
+when that unit carries the site's name), every unit outside a formation is kept, and the number
+of formations per side is checked to be identical before the copy is written. A launcher is
+kept only together with the radar that guides it; a battery is its radar plus the first
+`--tels` launchers bound to it, ranked area over medium over SHORAD and by range. The builder's
+`<site> Air Defence` layer defers to the site's own hand-placed battery and radar where it has
+them. Every neutral unit that could spawn aircraft is given an empty `CustomAirGroup=True`
+(`--keep-neutral-air` to leave them). The source is verified before, the result is verified
+after, and every kept unit's block is checked byte for byte against the source before anything
+is written.
+
+```bash
+python3 integration/missions/trim_land_sites.py --dry-run                    # the plan and the numbers
+python3 integration/missions/trim_land_sites.py                              # SEST Banda Front edited -> SEST Banda Front Lean
+python3 integration/missions/trim_land_sites.py --source "X" --out "X Lean" --tels 4 --no-bmd
+```
+
+Removal lives in `build_land_defence.py`'s `Mission` class next to the add path:
+`remove_land_units(side, names)` deletes the blocks, renumbers the survivors densely, rewrites
+every `<side>_FormationN` line (refusing to empty one), drops and renames every `NameOverride`
+key, sets `NumberOf<side>LandUnits`, and stops on anything that still names a deleted unit;
+`set_custom_air_group`, `set_name` and `set_description` do what they say; and `verify()` now
+also checks that no formation is empty, that numbering is dense and in order for every side
+and class, and that every unit named anywhere in the file exists.

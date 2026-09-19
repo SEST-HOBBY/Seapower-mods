@@ -844,6 +844,16 @@ class Mission:
         self._set_mission_lines(i, lines)
         return by
 
+    def set_mission_key(self, key, value):
+        """key = value in [Mission]; the key must already exist."""
+        i, lines = self._mission_lines()
+        for n, line in enumerate(lines):
+            if re.match(rf"^{key}=", line):
+                lines[n] = f"{key}={value}"
+                self._set_mission_lines(i, lines)
+                return
+        sys.exit(f"{self.path.name}: [Mission] has no {key}= line to set")
+
     def add_land_unit(self, side, uid, variant, x, z, heading, nation=None):
         n = max((int(re.match(r".*?(\d+)$", s).group(1)) for s, *_ in self.units(side, "LandUnit")),
                 default=0) + 1
@@ -891,6 +901,153 @@ class Mission:
             b += "\n"
         self.sections[i] = (h, b + extra)
 
+    # --- removing --------------------------------------------------------
+    # The add path above only ever appends, so the numbering stays dense by
+    # construction. Removal is the hard direction: the unit numbers are dense
+    # AND referenced - by every <side>_FormationN line, by every NameOverride
+    # key in the language blocks - so deleting one unit renumbers every later
+    # unit of that side and every reference to it. remove_land_units does the
+    # whole job in one place, and stops rather than leave anything dangling.
+    UNIT_REF = r"(?<![A-Za-z0-9_])((?:Taskforce[12]|Neutral)(?:Vessel|Submarine|Aircraft|LandUnit|Biologic))(\d+)(?!\d)"
+
+    def formation_specs(self, side):
+        """[(line index in [Mission], key, [members], tail)] in file order;
+        tail is everything from the first '|' on, kept verbatim."""
+        _, lines = self._mission_lines()
+        out = []
+        for n, line in enumerate(lines):
+            m = re.match(rf"^({side}_Formation\d+)=([^|]*)(.*)$", line)
+            if m:
+                out.append((n, m.group(1), [u.strip() for u in m.group(2).split(",") if u.strip()],
+                            m.group(3)))
+        return out
+
+    def remove_land_units(self, side, names):
+        """Delete land-unit sections of one side and renumber the survivors
+        densely in file order. Every <side>_FormationN line loses the deleted
+        members (a removal that would empty a formation is refused - a
+        formation with no members is a lost site, not a smaller one), every
+        [Language_*] NameOverride / ShortNameOverride key for a deleted unit
+        goes, every surviving reference anywhere in the file is renamed to its
+        new number, and NumberOf<side>LandUnits is set to what remains. Any
+        line that still names a deleted unit afterwards stops the run.
+        Returns {old section name: new section name} for the survivors."""
+        names = set(names)
+        if not names:
+            return {}
+        headers = {h[1:-1] for h, _ in self.sections if h}
+        unknown = sorted(n for n in names if n not in headers)
+        if unknown:
+            sys.exit(f"{self.path.name}: cannot remove units that do not exist: {unknown}")
+        bad = sorted(n for n in names if not re.match(rf"^{side}LandUnit\d+$", n))
+        if bad:
+            sys.exit(f"{self.path.name}: not {side} land units: {bad}")
+
+        # 1. formations: drop the deleted members, refuse to empty one
+        i, lines = self._mission_lines()
+        for n, key, members, tail in self.formation_specs(side):
+            kept = [u for u in members if u not in names]
+            if members and not kept:
+                label = tail.split("|")[1] if tail.count("|") >= 1 else ""
+                sys.exit(f"{self.path.name}: removing {sorted(names & set(members))} would empty "
+                         f"{key} ({label!r})")
+            lines[n] = f"{key}={','.join(kept)}{tail}"
+        self._set_mission_lines(i, lines)
+
+        # 2. sections: drop the deleted blocks, number the survivors in file order
+        survivors, mapping, count = [], {}, 0
+        for h, b in self.sections:
+            if h and h[1:-1] in names:
+                continue
+            if h and re.match(rf"^\[{side}LandUnit\d+\]$", h):
+                count += 1
+                mapping[h[1:-1]] = f"{side}LandUnit{count}"
+                h = f"[{mapping[h[1:-1]]}]"
+            survivors.append((h, b))
+        self.sections = survivors
+
+        pat = re.compile(rf"(?<![A-Za-z0-9_])({side}LandUnit)(\d+)(?!\d)")
+
+        def rename(text, where):
+            def sub(m):
+                old = m.group(1) + m.group(2)
+                if old in names:
+                    sys.exit(f"{self.path.name}: {where} still names deleted unit {old}")
+                if old not in mapping:
+                    sys.exit(f"{self.path.name}: {where} names {old}, which is not a unit section")
+                return mapping[old]
+            return pat.sub(sub, text)
+
+        # 3. language blocks: drop the deleted units' keys, then rename the rest;
+        #    4. every other body (the [Mission] formations included) is renamed,
+        #    and anything that still names a deleted unit is an error, not a leftover
+        for k, (h, b) in enumerate(self.sections):
+            if h and h.startswith("[Language_"):
+                b = "\n".join(line for line in b.split("\n")
+                              if not (pat.match(line) and re.match(r"^\w+=", line)
+                                      and pat.match(line).group(1) + pat.match(line).group(2) in names))
+            self.sections[k] = (h, rename(b, h or "preamble"))
+        self.set_mission_key(f"NumberOf{side}LandUnits", count)
+        self.added = [mapping[a] for a in self.added if a not in names]
+        return mapping
+
+    # An air-group line inside a unit block: <aircraft id>=Default,N or
+    # SquadronN,N (or several joined by |), and the mods' Random,N form. The
+    # value is what identifies it - an id can carry a space ("plaf_j16a
+    # block3" is a real file), and no ordinary key has a value of this shape.
+    AIRGROUP_LINE = re.compile(r"^[^=\n]+=(?:Default|Random|Squadron\d+),\d+"
+                               r"(?:\|(?:Default|Random|Squadron\d+),\d+)*\s*$")
+
+    def air_group(self, section):
+        """(declared, [(aircraft id, spec)]): declared is True when the block
+        carries CustomAirGroup=True; the list is what it names, empty for a
+        base that spawns nothing."""
+        body = self.body(f"[{section}]")
+        declared = bool(re.search(r"^CustomAirGroup=True", body, re.M))
+        lines = [(l.split("=", 1)[0], l.split("=", 1)[1].strip())
+                 for l in body.split("\n") if self.AIRGROUP_LINE.match(l)]
+        return declared, lines
+
+    def set_custom_air_group(self, section, aircraft=()):
+        """Give a unit an explicit air group: CustomAirGroup=True followed by
+        the aircraft lines. With none, the base spawns nothing - that is the
+        form the mission editor writes for an emptied base and the form the
+        shipped missions use (Caron at Grenada's neutral airfield_small_1,
+        forty such blocks across the vanilla missions and campaigns). Any
+        air-group lines already in the block are replaced."""
+        for k, (h, b) in enumerate(self.sections):
+            if h == f"[{section}]":
+                kept = [l for l in b.split("\n")
+                        if not (l.startswith("CustomAirGroup=") or self.AIRGROUP_LINE.match(l))]
+                while kept and kept[-1] == "":
+                    kept.pop()
+                kept.append("CustomAirGroup=True")
+                kept.extend(f"{uid}={spec}" for uid, spec in aircraft)
+                self.sections[k] = (h, "\n".join(kept) + "\n")
+                return
+        sys.exit(f"{self.path.name}: no section [{section}]")
+
+    def set_name(self, name):
+        """Name= in every [Language_*] block: what the in-game list shows."""
+        done = 0
+        for k, (h, b) in enumerate(self.sections):
+            if h and h.startswith("[Language_"):
+                b, n = re.subn(r"^Name=.*$", f"Name={name}", b, count=1, flags=re.M)
+                done += n
+                self.sections[k] = (h, b)
+        if not done:
+            sys.exit(f"{self.path.name}: no [Language_*] Name= line to set")
+
+    def set_description(self, text):
+        for k, (h, b) in enumerate(self.sections):
+            if h == "[Language_en]":
+                b, n = re.subn(r"^Description=.*$", f"Description={text}", b, count=1, flags=re.M)
+                if not n:
+                    b = b.rstrip("\n") + f"\nDescription={text}\n"
+                self.sections[k] = (h, b)
+                return
+        sys.exit(f"{self.path.name}: no [Language_en] block")
+
     def text(self):
         out = []
         for h, b in self.sections:
@@ -926,7 +1083,27 @@ class Mission:
             ty = re.search(r"^Type=(.+)$", self.body(f"[{name}]"), re.M)
             if not ty or winning_file(f"land_units/{ty.group(1).strip()}.ini") is None:
                 problems.append(f"{name}: Type does not resolve")
-        return problems
+        # A formation with no members is a site that has silently vanished.
+        for side in SIDES + ("Neutral",):
+            for _, key, members, _ in self.formation_specs(side):
+                if not members:
+                    problems.append(f"{key} has no members")
+        # Numbering is dense and in file order per side and class - what the
+        # game expects and what the removal path relies on.
+        for side in SIDES + ("Neutral",):
+            for cls in UNIT_CLASSES:
+                nums = [int(re.match(rf"^\[{side}{cls}(\d+)\]$", h).group(1))
+                        for h in headers if re.match(rf"^\[{side}{cls}\d+\]$", h)]
+                if nums != list(range(1, len(nums) + 1)):
+                    problems.append(f"{side}{cls} numbering is not dense and in order: {nums[:8]}...")
+        # Every unit named anywhere - a language key, a formation, anything -
+        # must be a section that exists.
+        header_set = set(headers)
+        for h, b in self.sections:
+            for m in re.finditer(self.UNIT_REF, b):
+                if f"[{m.group(1)}{m.group(2)}]" not in header_set:
+                    problems.append(f"{h or 'preamble'} names {m.group(1)}{m.group(2)}, which does not exist")
+        return sorted(set(problems))
 
 
 # ---------------------------------------------------------------------------
