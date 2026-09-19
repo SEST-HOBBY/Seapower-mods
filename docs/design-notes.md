@@ -250,3 +250,16 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   mission with a vessel ashore. A warship must also clear a 6 nm halo, since a position can be
   a water cell and still be a beach the group cannot manoeuvre in; a merchant only has to be on
   water, because a ferry legitimately starts alongside.
+- **Anchor Chain has two layering directives, not one.** `#!alias` replaces a whole unit;
+  `#!extend` merges a few keys onto the file of the SAME name one rung lower in the load order.
+  Seventy-eight ammunition files across three mods use `#!extend` and nothing checked them, even
+  though they break exactly the way the alias that crashed the game did. Resolving an extend
+  needs the load-order *stack*, not the winner: `winning_file` on a same-name target returns the
+  patch itself and loops. `refine_civ_traffic.file_stack` returns every copy in order, and the
+  checker takes the entry below the patch.
+- **An extend only applies if it outranks what it extends.** A mod the catalog does not list is
+  appended at the bottom of the order, which is fatal for an expansion pack whose whole content
+  is extends: the PLA AEP pack sat below every mod it patches and did nothing at all.
+- **Severity follows the file kind.** A unit file with no base is the startup crash, because the
+  loader cannot build the unit. A round with no base only means that weapon never fires, which
+  the game survives, so the checker reports it and still exits zero.

@@ -46,6 +46,8 @@ TIER2 = [
     ("us-navy-2027", "above Euromod - it ships better RIM-116/RIM-66/RIM-174 than Euromod's"),
     ("euromod-main", "above all Euromod addons"),
     ("modern-plan-systems", "above PLAN ships"),
+    ("pla-aep", "Anchor Chain #!extend patches over PLA/PLAN/PLAAF rounds - an extend "
+                "only applies if it outranks the copy it layers onto"),
 ]
 TIER3 = [
     ("f-35c-alt-loadouts", "kept for now — MUST stay below SEST F-35C JATM"),
