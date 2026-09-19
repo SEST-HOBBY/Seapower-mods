@@ -1771,6 +1771,98 @@
       "requires": [
         "anchor-chain"
       ]
+    },
+    {
+      "id": "f-2a-viper-zero",
+      "workshop_id": "3755769170",
+      "title": "F-2A 'Viper Zero'",
+      "author": "unknown",
+      "faction": "japan",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [
+        "an STDM/ACES weapon framework - its aces_aim-9m_stdm.ini aliases ammunition/stdm_base.ini, which nothing in the collection provides"
+      ],
+      "notes": "New subscription, catalogued 19 Sep 2026. Its AIM-9M variant has no base round; check_alias_bases reports MISSING BASE and that missile will not work until the framework mod is subscribed."
+    },
+    {
+      "id": "j-16-multirole",
+      "workshop_id": "3769142422",
+      "title": "J-16 Multirole Fighter",
+      "author": "unknown",
+      "faction": "china",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026. Shares only systems/sensors.ini, which merges key-by-key, so position is free. A separate J-16 (3506979898) is also subscribed - watchlist if they ever ship the same aircraft file."
+    },
+    {
+      "id": "pla-aep",
+      "workshop_id": "3789188689",
+      "title": "PLA & PLAN & PLAAF AEP",
+      "author": "unknown",
+      "faction": "china",
+      "type": "weapons",
+      "status": "active",
+      "requires": [
+        "anchor-chain (its ammunition files use the #!extend directive)"
+      ],
+      "notes": "New subscription, catalogued 19 Sep 2026. An Anchor Chain expansion: 18 ammunition files that #!extend rounds owned by the PLA land-unit pack, Type 003, Modern PLAN Systems and the J-16 mod. An extend only applies if it outranks the copy it layers onto, so it sits in tier 2 above those mods; below them it silently does nothing. Move it down to keep the original PL-15/DF-21D/HQ-19 values. Its plan_yj-18e.ini extends a file no other mod provides, so that round has no base."
+    },
+    {
+      "id": "rq-180-white-bat",
+      "workshop_id": "3796113927",
+      "title": "RQ-180 White Bat Airframe",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "uav",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026. Shares usn_mk50_air.ini with Euromod and US Naval Aviation."
+    },
+    {
+      "id": "yf-23-black-widow",
+      "workshop_id": "3796349767",
+      "title": "YF-23 Black Widow II",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026. Ships its own missions folder."
+    },
+    {
+      "id": "mig-31-foxhound",
+      "workshop_id": "3799742828",
+      "title": "MiG-31 Foxhound",
+      "author": "unknown",
+      "faction": "russia",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026."
+    },
+    {
+      "id": "ch-53e-standalone",
+      "workshop_id": "3801363152",
+      "title": "CH-53E Standalone",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "rotary",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026."
+    },
+    {
+      "id": "j-36-tailless",
+      "workshop_id": "3801549552",
+      "title": "J-36 Tailless Fighter",
+      "author": "unknown",
+      "faction": "china",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026. Shares plaaf_bbm2 and plaaf_4xgj with Type 003 and 3670643788."
     }
   ]
 }

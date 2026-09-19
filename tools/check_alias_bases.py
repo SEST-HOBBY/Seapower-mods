@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Resolve every #!alias base in the collection and flag what the game would choke on.
+"""Resolve every #!alias and #!extend base in the collection and flag what the
+game would choke on.
 
 A unit file that starts with `#!alias vessels/x.ini` is a patch layered on
 another mod's hull: the game loads the base, then applies the patch's sections.
@@ -32,10 +33,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
-from refine_civ_traffic import winning_file  # noqa: E402
+from refine_civ_traffic import winning_file, file_stack  # noqa: E402
 
-UNIT_DIRS = ("vessels", "submarines", "land_units", "aircraft")
-ALIAS = re.compile(r"^﻿?#!alias\s+(\S+)")
+# Anchor Chain has two layering directives and both resolve their base through
+# the load order, so both break the same way when an author renames the base.
+# #!alias is a whole-unit patch, #!extend merges a few keys onto the base; the
+# ammunition packs use #!extend heavily and nothing checked them until now.
+UNIT_DIRS = ("vessels", "submarines", "land_units", "aircraft", "ammunition")
+ALIAS = re.compile(r"^﻿?#!(alias|extend)\s+(\S+)")
 AIRGROUP = re.compile(r"^\[AirGroup\]", re.M)
 FLIGHTDECK = re.compile(r"^\[FlightDeck\]", re.M)
 AMMO = re.compile(r"^Ammunition\d*=([A-Za-z0-9_.\-]+)", re.M)
@@ -51,18 +56,28 @@ def provider(path):
 
 
 def resolve(path, depth=0):
-    """(text of the whole chain, [chain names], missing target or None)."""
+    """(text of the whole chain, [chain names], missing target or None).
+
+    A patch that names its own path (#!extend on a file of the same name)
+    layers onto the next copy DOWN the load order, so the base is looked up in
+    the stack below this file rather than at the top of it.
+    """
     text = path.read_text(encoding="utf-8", errors="replace")
     names = [path.name]
     m = ALIAS.match(text)
     if not m:
         return text, names, None
-    target = m.group(1).replace("\\", "/")
+    target = m.group(2).replace("\\", "/")
     if depth >= 8:
-        return text, names, f"{target} (alias chain deeper than 8)"
-    base = winning_file(target)
+        return text, names, f"{target} (chain deeper than 8)"
+    stack = file_stack(target)
+    try:
+        base = stack[stack.index(path) + 1]
+    except (ValueError, IndexError):
+        base = stack[0] if (stack and stack[0] != path) else None
     if base is None:
-        return text, names, target
+        why = "no copy below this one to layer onto" if stack else "no enabled mod defines it"
+        return text, names, f"{target} ({why})"
     bt, bnames, missing = resolve(base, depth + 1)
     return text + "\n" + bt, names + bnames, missing
 
@@ -90,22 +105,32 @@ def main():
             checked += 1
             where = f"{provider(win)}/{d.name}/{f.name}"
             if missing:
-                fatal.append(f"MISSING BASE  {where}: alias chain {' -> '.join(chain)} -> {missing}")
+                # A unit file with no base is the startup crash (the loader
+                # cannot build the unit at all). A round with no base only
+                # means that weapon never loads, which the game survives, so
+                # it is reported without failing the gate.
+                msg = (f"MISSING BASE  {where}: {ALIAS.match(text).group(1)} chain "
+                       f"{' -> '.join(chain)} -> {missing}")
+                (soft if d.name.lower() == "ammunition" else fatal).append(msg)
                 continue
             if FLIGHTDECK.search(text) and not AIRGROUP.search(text):
                 fatal.append(f"NO AIRGROUP   {where}: {' -> '.join(chain)} has a flight deck and no air group")
             for ammo in sorted(set(AMMO.findall(text))):
                 if winning_file(f"ammunition/{ammo}.ini") is None:
                     soft.append(f"MISSING AMMO  {where}: fires {ammo} and no enabled mod defines it")
-    print(f"checked {checked} alias unit(s)")
+    print(f"checked {checked} alias/extend file(s)")
     for line in soft:
         print("   " + line)
     if fatal:
-        print(f"\n{len(fatal)} alias(es) the game cannot load:\n")
+        print(f"\n{len(fatal)} unit file(s) the game cannot load:\n")
         for line in fatal:
             print("   " + line)
         sys.exit(1)
-    print("every alias base resolves and every aliased flight deck has an air group")
+    weak = sum(1 for line in soft if line.startswith("MISSING BASE"))
+    if weak:
+        print(f"\nevery unit file loads; {weak} round(s) above have no base and will not fire")
+    else:
+        print("every alias base resolves and every aliased flight deck has an air group")
 
 
 if __name__ == "__main__":
