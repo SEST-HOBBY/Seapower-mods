@@ -14,10 +14,11 @@ almost never hit anything.
    IB, 0.90 on the IIA).  220,000 ft is 2.2x the highest floor any other round
    in the collection uses.  It drops to 100000 ft; see MIN_ATTACK_ALT.
 
-   The same condition also gates vanilla's InterceptChanceOutOfAltitudeOverride
-   =0.05, a HARD 5% ceiling on any out-of-altitude intercept.  That key is not
-   live in this collection today - see THE DEFERRED FIX below - but it is stock
-   behaviour, so the floor is the right thing to repair either way.
+   The same condition gates vanilla's InterceptChanceOutOfAltitudeOverride=0.05,
+   a HARD 5% ceiling on any out-of-altitude intercept.  When this pack was first
+   written that key was suppressed collection-wide; SEST_Intercept_Model now
+   restores it (see THE DEFERRED FIX below), so the clamp is live and this floor
+   is what keeps the SM-3 out from under it.
 
 2. THE FLIGHT MODEL LIVES IN A CHAINLOADER-ONLY FILE.  The base files ship with
    MaxLoftAngle, LaunchTurnRate and TimeLimited commented out and a stub seeker
@@ -52,10 +53,11 @@ THE DEFERRED FIX - the global intercept table, NOT shipped here.
   InterceptOutOfAltitudePenalty, InterceptSpeedPenaltyMultiplier,
   InterceptChanceOutOfAltitudeOverride and the five InterceptSizeBonus* values.
   Its only intended edit is VeryLarge 120 -> 2000 / VeryLargeDecalScale 3 ->
-  1000, its "more realistic nuke".  Restoring vanilla's table with those two
-  values carried forward is a two-line merge and was written, tested and then
-  deliberately pulled back out, because restoring the table ARMS the 5% clamp
-  collection-wide and the blast radius is worse than the bug:
+  1000 - a global [ImpactSize] tier, not the "more realistic nuke" its
+  description claims.  Restoring vanilla's table with those two values carried
+  forward is a two-line merge and was written, tested and then deliberately
+  pulled back out of THIS pack, because restoring the table ARMS the 5% clamp
+  collection-wide and that needed surveying first:
 
     - Red Storm Arsenal's SM-6 family (3413868677's usn_rim_174a/b/c, note the
       UNDERSCORE - different ids from Euromod's hyphenated rounds, uncontested,
@@ -63,18 +65,19 @@ THE DEFERRED FIX - the global intercept table, NOT shipped here.
       clamp caps all three at 5% against every aircraft and anti-ship missile
       below 70,000 ft, and none of them sets AutoAttackOutsideAltitudes, so
       Aegis would keep firing into the clamp.
-    - 3551676319's idf_stunner.ini writes MaxAttackAltitude=51,000 with a
+    - 3558173926's idf_stunner.ini writes MaxAttackAltitude=51,000 with a
       thousands separator.  How the parser reads that decides whether its band
       is 500-51000 or the empty 500-51.
-    - About 70 rounds across the collection declare only one side of the band
+    - 62 rounds across the collection declare only one side of the band
       (usn_rim-174b.ini Max-only, fr_mica-em/ir.ini Min-only, and others).  No
       vanilla file does this, so what the engine defaults the missing side to
       is unknown and cannot be settled from the files.
 
   Landing it safely needs those three answered first, and the survey belongs in
   its own pack with its own overrides - not smuggled in behind an SM-3 fix.
-  Until then the intercept model stays suppressed, which is a real collection-
-  wide defect, just a pre-existing one this pack does not make worse.
+  That survey was done and the table now ships in SEST_Intercept_Model
+  (integration/intercept-model/), together with the SM-6 and Stunner overrides
+  it needs.  Read that builder for what arming the clamp actually changes.
 
 Usage (repo root):  python3 integration/aegis-bmd/build_patch.py
 """

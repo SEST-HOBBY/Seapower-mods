@@ -11,6 +11,29 @@ and the rule gets a new revision — that has happened three times already.
   mod's copy loads and the rest are *gone* — silently. This is the single most
   important fact in the repo; the Growler pack was inert for days because one
   reorder jumped U.S. Navy 2027 over it, with no error anywhere.
+- **That rule catches the global tables too, and nobody notices.**
+  `ammunition/damage.ini` is not a unit — it is the game's global damage and
+  intercept model — but it lives under `ammunition/`, so it obeys the same
+  whole-file rule. The Tu-95/AS-15 mod ships a copy built on a pre-0.8.x
+  version of that file. It won, and it deleted eight global keys from the whole
+  collection: the five `InterceptSizeBonus*`, `InterceptOutOfAltitudePenalty`,
+  `InterceptSpeedPenaltyMultiplier`, and `InterceptChanceOutOfAltitudeOverride`
+  — the hard 5% ceiling on intercepting a target outside a weapon's altitude
+  band. None of the eight has a per-round override form, so every one of the
+  497 anti-air-capable rounds in the collection was silently running without
+  them. That mod wanted to change two impact-size values. `SEST_Intercept_Model`
+  restores the table; `integration/intercept-model/build_patch.py` records what
+  arming the clamp changes and which rounds needed fixing first.
+  Measured, not observed in game: it was found by diffing the winning copy
+  against vanilla, not by anything looking wrong on screen. Check global tables
+  the same way you check units.
+- **An absent key is not the same as a zero.** Three stock AAW missiles
+  (`fr_super-530f`, `pla_pl-2`, `pla_pl-2b`) declare no attack-altitude band at
+  all, and they have always shipped against a `damage.ini` where the 5% clamp
+  is live. If a missing altitude bound defaulted to zero they would be
+  permanently clamped, so the engine treats an omitted bound as unbounded. That
+  matters because 62 modded rounds declare only one side of the band and no
+  vanilla file does.
 - **`systems/` and `language_*/` merge key-by-key.** Proof: 89 mods ship a
   `systems/sensors.ini` from 8 to 8,141 lines and none deletes the others.
   Language merging is how packs rename other mods' units without owning the file.
