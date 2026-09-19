@@ -162,12 +162,32 @@ foreach ($mod in $modDirs) {
     $files = Get-ChildItem -LiteralPath $mod.FullName -Recurse -File |
         Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes }
     $copied = 0; $bytes = 0
+    $kept = @{}
     foreach ($f in $files) {
         $rel = $f.FullName.Substring($mod.FullName.Length).TrimStart('\', '/')
         $target = Join-Path (Join-Path $DestDir $mod.Name) $rel
         New-Item -ItemType Directory -Force -Path (Split-Path $target) | Out-Null
         Copy-Item -LiteralPath $f.FullName -Destination $target -Force
+        $kept[$rel.ToLower()] = $true
         $copied++; $bytes += $f.Length
+    }
+    # Mirror deletions INSIDE the mod too. This loop only ever added and
+    # overwrote, so a file the author removed in an update stayed in the repo
+    # forever - and every checker kept resolving against it. That is how the
+    # repo showed Modern US Navy's usn_ddg_burke_f3.ini and U.S. Navy 2027's
+    # usn_rim-162e.ini as present for a whole day after Steam had deleted them,
+    # while the game crashed on exactly those two files (19 Sep 2026).
+    $modDest = Join-Path $DestDir $mod.Name
+    if (Test-Path -LiteralPath $modDest) {
+        $removed = 0
+        foreach ($old in Get-ChildItem -LiteralPath $modDest -Recurse -File) {
+            $relOld = $old.FullName.Substring($modDest.Length).TrimStart('\', '/')
+            if (-not $kept.ContainsKey($relOld.ToLower())) {
+                Remove-Item -LiteralPath $old.FullName -Force
+                $removed++
+            }
+        }
+        if ($removed) { Write-Host ("  {0}  removed {1} file(s) the mod no longer ships" -f $mod.Name, $removed) }
     }
     # Display name straight from the mod's own _info.ini, read as UTF-8.
     $name = Get-ModDisplayName -ModDir $mod.FullName

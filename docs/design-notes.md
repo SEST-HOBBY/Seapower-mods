@@ -194,6 +194,25 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   added another. Ring candidates are now filtered through the same classifier
   that reads them back, and `--catalog` names anything misfiled.
 
+- **The export must mirror deletions, or the repo lies.** For a day the repo
+  showed Modern US Navy's `usn_ddg_burke_f3.ini` and U.S. Navy 2027's
+  `usn_rim-162e.ini` as present while the game logged both as not found: the
+  exporter copied files in and pruned unsubscribed mods, but never deleted a
+  file an author had removed inside a mod, so every checker resolved against
+  ghosts and passed. It mirrors within each mod now. The tell was git: the
+  ghost files' last commit predated the export that touched their neighbours.
+- **A mod made only of `#!alias` patches breaks whenever its base mod renames
+  a hull.** U.S. Navy 2027 aliases every ship onto a Modern US Navy hull, and
+  Modern US Navy pushed ten renaming updates in three days (v558-567, 16-18
+  Sep 2026). The Flight III base was retired twelve hours after 2027's last
+  fix, and the game died at startup with KeyNotFoundException 'AirGroup' -
+  the patch's own [FlightDeck] asking for the air group the missing base
+  carried. `tools/check_alias_bases.py` names this before launch, and the
+  missions field the Modern US Navy hulls directly now
+  (`retarget_usn2027_hulls.py`). Re-pointing a patch at a re-laid-out base is
+  not a fix - slot 2 had become the Phalanx - so SEST_USN2027_Fixes flattens
+  old base plus patch into one standalone hull until the author catches up.
+
 - **Gates before every push:** `check_load_order`, `check_dependencies`,
   `preflight` (every reference the missions make), `check_station_clash`,
   `check_weapon_employment` (every weapon can actually be fired by the mount

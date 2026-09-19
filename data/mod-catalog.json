@@ -123,6 +123,12 @@
       "title": "SEST TacMap Colors"
     },
     {
+      "folder": "SEST_USN2027_Fixes",
+      "source": "integration/usn-2027-fixes",
+      "builder": "build_pack.py",
+      "title": "SEST USN 2027 Fixes"
+    },
+    {
       "folder": "SEST_Zumwalt_CPS",
       "source": "integration/zumwalt-cps",
       "builder": "build_patch.py",
