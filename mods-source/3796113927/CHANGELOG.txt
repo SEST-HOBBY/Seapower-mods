@@ -1,0 +1,341 @@
+v1.27.4 engine audio and MK-50 tracking enhancement
+---------------------------------------------------
+- Added a complete three-layer aircraft sound setup using the game's built-in
+  `TF30`, `jet_rear_1`, and `jet_far_1` audio clips, plus the built-in landing
+  gear sound. No audio file or additional sound dependency is packaged.
+- Improved the local MK-50 air torpedo's target acquisition, target memory,
+  sprint speed, turn rate, running range, reattack rate, launch reliability,
+  and resistance to decoys and jamming.
+- Added explicit snake-search angle and cycle fields and reduced search speed
+  to improve acquisition geometry before the 65-knot terminal sprint.
+- Flight controls, carrier recovery, aircraft geometry, animations, sensors,
+  weapon stations, and all other loadouts are unchanged.
+
+v1.27.3 unique RQ-180 sensor IDs and bilingual reference descriptions
+---------------------------------------------------------------------
+- Renamed every custom RQ-180 sensor-system ID to an `RQ180_`-prefixed key:
+  `RQ180_APG85`, `RQ180_EOTS`, `RQ180_EOTS_LASER`, `RQ180_EODAS`,
+  `RQ180_RWR`, `RQ180_ESM`, `RQ180_DECM`, and `RQ180_EPAWSS_OECM`.
+- Updated the aircraft INI, sensor definitions, and both language files so the
+  RQ-180 no longer reuses F-35 localization keys or sensor section names.
+  Display names retain the real-world reference designations with an RQ-180
+  prefix, making the aircraft's equipment distinct in the data-card UI.
+- Rewrote the aircraft and equipment descriptions in synchronized Chinese and
+  English. Public sources are used for system roles only; RQ-180 fit,
+  carrier adaptation, attack mission, and in-game EW limits remain fictional.
+- No flight-model, control-surface, animation, mesh, material, weapon-station,
+  or carrier-recovery value was changed by this text/localization revision.
+
+v1.27.2 outer-aileron hinge-frame correction
+----------------------------------------------
+- Corrected the v1.27.1 regression where removing all four static control-surface
+  rotations also removed the source hinge frame required by the two outer
+  ailerons. This made the ailerons detach or swing away when FlightControls
+  drove their local axis.
+- Restored only the outer frames: `aileron_l` uses
+  `Rotation=0,-145.4578340,-1.4633813` and `aileron_r` uses
+  `Rotation=0,145.4578261,1.4633909`. The corresponding OBJ vertices and
+  normals are inverse-compensated, so the neutral mesh remains in the original
+  position while local-X animation follows the source diagonal hinge axes.
+- Kept `elevator_l` and `elevator_r` unchanged from the v1.27.1 inner-surface
+  repair: no static rotation, standard `NumberOfElevators=2`, local-X axis,
+  and one FlightControls owner per physical surface.
+- No gear, bay, material-island, weapon, sensor, carrier-recovery, or animation
+  file was changed by this pass. Only the two outer-aileron OBJ blocks and the
+  aircraft INI aileron sections were corrected.
+
+v1.27.1 control-surface neutral-frame and carrier-interface correction
+---------------------------------------------------------------------
+- Removed the four accidental static `Rotation=` entries from the
+  `elevator_l`, `elevator_r`, `aileron_l`, and `aileron_r` model sections.
+  The package uses the unrotated v1.3 OBJ, so those transforms rotated and
+  displaced all four visible control surfaces instead of correcting them.
+- Restored the standard carrier-aircraft `NumberOfElevators=2` interface for
+  the two inner surfaces, with the audited local-X hinge axis and 5-degree
+  base angle. The inner surfaces are no longer registered as Elevons, which
+  could leave the carrier recovery controller without its normal pitch path.
+- Kept `LandingPivot`, `LandingPitch`, the recovery flight-model tuning,
+  gear/bay animation, and all model/material/weapon assets unchanged.
+
+v1.27 carrier recovery control repair
+-------------------------------------
+- Started from the complete v1.3 asset package and retained its RQ-180 OBJ,
+  collision boxes, materials, textures, sensors, local MK-50 definition,
+  localizations, weapon stations, loadout families, and animation file.
+- Replaced the F-35 diagnostic flight profile with the established RQ-180
+  B-2-style control-law envelope: `PitchGain=0.75`, `VelocityGain=0.15`,
+  `HeadingGain=3.2`, `YawRateLimit=100`, `BankGain=0.40`,
+  `MaxRollForHeading=78`, `MaxRollRate=150`, and the 91000 N twin-engine
+  performance profile.
+- Kept the outer Aileron path and registered the two inner surfaces as
+  Elevons only. Removed the unsupported duplicate `Elevon` + `Rudder` owner
+  arrangement, set `NumberOfRudders=0`, and removed the effectiveness curve
+  that reduced low-speed approach authority in earlier tests.
+- Restored `LandingPivot=0,-0.0300,-0.0700` as the aft virtual arresting point
+  and restored `LandingPitch=-5` so final approach does not default to an
+  early level attitude before localizer capture.
+- The supplied gear/bay animation is intentionally unchanged: its 40 model
+  bindings reference only gear, doors, material islands, and bay doors; none
+  reference the flight-control surfaces.
+
+v1.3 carrier alignment, terminology, and aircraft-entry revision
+------------------------------------------------------------------
+- F-35C performance-match diagnostic: copied the supplied F-35C
+  `[FlightModel]`, `[Performance]`, and elevator-control interface values into
+  the RQ-180 aircraft INI while retaining RQ-180 carrier geometry, models,
+  weapons, and animations. This deliberately replaces the preceding RQ-180
+  91000 N / 115-knot / 90-knot-stall test values to isolate aircraft-specific
+  final-approach behavior. The RQ-180 control surfaces now use the F-35C
+  `NumberOfElevators=2` interface with the audited local-X hinge axis. No
+  RQ-180 OBJ or animation asset was changed.
+- Follow-up carrier-approach test: the aircraft was observed deploying gear
+  as it entered final approach and then failing to complete the final turn.
+  Restored the previous `91000 N` per-engine thrust and retained the
+  approximately 115-knot landing profile, while tightening low-speed heading
+  capture with `BankGain=1.0`, `YawRateLimit=130`, `MaxRollForHeading=70`, and
+  `MaxRollRate=120`. The normal small/large carrier patterns are unchanged.
+- Follow-up performance test: raised both per-engine thrust fields to
+  `105000 N` and changed the landing profile to `SpeedAndRange_Landing=0.175,0.40`,
+  approximately 115 knots in the configuration's Mach-form speed entry. The
+  minimum stall-speed field remains `StallSpeed=90`.
+- Audited the source `elevator_l` and `elevator_r` mesh bounds and their
+  aircraft instances. Their hinge direction is local X, their positions are
+  symmetric about the centerline, and `Elevon1/2_RotationAxis=X` is retained;
+  no extra static rotation or custom animation file change is required.
+- Started from v1.2 as a separate test revision; the formal 1.0 package and
+  earlier revisions are not overwritten.
+- Matched the logical carrier recovery point's vertical datum to the deployed
+  wheel datum: `LandingPivot=0,-0.0300,-0.0700`, while retaining the aft
+  arresting position. The source OBJ has no physical arresting-hook mesh, so
+  this remains a virtual point. This directly tests the deck-height mismatch
+  seen during recovery.
+- Restored the source `aileron_l`, `aileron_r`, `elevator_l`, and `elevator_r`
+  flight-control bindings and reintroduced climb/descent pitch limits. The
+  previous v1.3 draft left all control-surface counts at zero, which could
+  make the AI overshoot the carrier's initial recovery pattern before it
+  reacquired the local five-leg approach. Landing-gear and bay-door animation
+  references are unchanged.
+- Re-tuned the flight model for final-approach tracking: the high-speed combat
+  gains are replaced by the proven stable flying-wing return-to-base values
+  (`PitchGain=0.75`, `BankGain=0.40`, `MaxRollForHeading=45`, and
+  `MaxRollRate=50`). The carrier's small/large/final pattern generation is not
+  changed; this pass targets the aircraft leaving the correct final-approach
+  line after the large pattern.
+- Follow-up tuning after the first approach test: the 45-degree/50-degree-per-
+  second roll limits did not let the aircraft complete the final turn. The
+  current test uses an intermediate `MaxRollForHeading=60`, `MaxRollRate=85`,
+  `BankGain=0.65`, and slightly higher heading response, while retaining the
+  stable pitch and thrust response.
+  OBJ, textures, gear, doors, wheel materials, and animation files are not
+  changed.
+- Removed the equipment-type words from the left side of sensor names. The
+  game supplies the type label in the equipment list, so names now show only
+  the designation; the explanatory descriptions remain intact.
+- Rewrote the Chinese and English RQ-180 aircraft entries as aircraft-focused
+  encyclopedia descriptions in the compact style used by the F-15EX entry.
+  Package/install details are left in the README and are not repeated in the
+  in-game aircraft description.
+
+v1.2 carrier recovery, approach-speed, and documentation revision
+----------------------------------------------------------------
+- Started from the delivered v1.1 package as an independent revision. The
+  formal 1.0 package and the previous v1.1 package are not overwritten.
+- Calibrated the logical carrier arresting point from
+  `LandingPivot=0,-0.0300,-0.0700` to `LandingPivot=0,-0.0270,-0.0700`.
+  The point is raised 0.003 model units relative to v1.1 because the previous
+  position left the aircraft visually above the carrier deck during recovery.
+  No hook mesh, OBJ vertex, gear mesh, or animation file was changed.
+- Reduced the landing profile from `StallSpeed=100` and
+  `SpeedAndRange_Landing=0.16,0.40` to 90 knots and `0.14,0.40`. Increased
+  heading/roll response to `HeadingGain=2.8`, `YawRateLimit=130`,
+  `MaxRollForHeading=70`, `MaxRollRate=120`, and `MaxG=6` to reduce the large
+  turn radius reported during carrier approach. Airport landing fields not
+  involved in the calibration remain unchanged.
+- Added bilingual descriptions for AN/APG-85, AN/AAQ-40 EOTS, AN/AAQ-37
+  EODAS, AN/ASQ-239A RWR/ESM/DECM, and the fictional RQ-180 integration of
+  AN/ALQ-250 EPAWSS. The descriptions distinguish public F-35/F-15EX system
+  functions from fictional RQ-180 integration and from unconfirmed RQ-180
+  public reporting.
+- Expanded the MK-50 air-torpedo description. The local `usn_mk50_air.ini`
+  remains byte-for-byte based on the supplied definition and still calls the
+  built-in MK-46 model/material; no torpedo asset was added.
+- Added `REFERENCE_NOTES.txt` with public-source links used for the prose.
+
+v1.1 performance, electronic warfare, callsign, and MK-50 loadout
+------------------------------------------------------------------
+- Started from the exact user-supplied formal 1.0 ZIP; the 1.0 package is not
+  overwritten.
+- Raised `MaxSpeedAtSeaLevel` to 800 knots, set the governing `MachLimit` and
+  max-speed profiles to 1.20, raised both per-engine thrust fields from
+  65000 N to 91000 N (+40%), and tuned the flight-model gains, roll/yaw limits,
+  maximum G, and climb rate for more responsive maneuvering. The known-good
+  landing speed, stall speed, landing pitch, and landing/gear animation chain
+  are retained.
+- Added F-35-derived AN/ASQ-239A RWR, ESM, and defensive ECM definitions, plus
+  an AN/ALQ-250 EPAWSS OECM entry shaped on the F-15EX system. The offensive
+  system uses the supplied F-35 OECM `Frequencies=All` coverage and the F-15EX
+  `MaxRange=200 km` / `JamConeViewArcs=120` envelope.
+- Set the airframe RCS to the smallest positive numeric value used for this
+  package (`0.0001`) so it remains a valid stealth aircraft field.
+- Added the default carrier-squadron callsign `蝙蝠` in both localization files.
+- Added `AntiSubmarine`: six `usn_mk50_air` torpedoes in the main internal bay;
+  the MK-50 INI is copied locally, while its model and material references
+  remain the game's built-in `usn_mk46` resources. No MK-50 model or texture is
+  included, and all pre-existing external weapon IDs/loadouts are unchanged.
+- Audited the carrier hook question: the formal 1.0 RQ-180 OBJ has no hook
+  mesh. Added only the supported logical `LandingPivot=0,-0.0300,-0.0700`
+  point behind the main-gear pivot so carrier arresting logic has a virtual
+  hook location; no visible hook mesh or hook animation reference is added.
+  The supplied F-15EX reference has no separate hook field/mesh, while the
+  carrier aircraft examples use `LandingPivot` for this purpose. The existing
+  `CarrierCapable=True`, landing pitch, ground pivot, and deck offset remain.
+
+v0.3.4 world-view selection collider test
+------------------------------------------
+- Added two analytic aircraft colliders, `col_body` and `col_wings`, matching
+  the RQ-180's central fuselage and approximately 40 m wing span. The source
+  visual OBJ had no collider section, unlike the supplied B-2, F-35, and F-15EX
+  aircraft configs; this was the leading cause of the world-model right-click
+  miss while the formation manager could still select the unit.
+- Preserved v0.3.3's `Size=VeryLarge` metadata and side-bay AIM-260 clearance.
+- Did not change the OBJ, textures, flight model, loadouts, ammunition
+  references, landing gear, gear doors, wheel materials, or animations.
+
+v0.3.3 side-bay AIM-260 clearance and large-aircraft selection test
+--------------------------------------------------------------------
+- Moved all four side-bay origins from `y=-0.0090,z=0.0370` to
+  `y=-0.0080,z=0.0270`: slightly higher and aft, keeping the AIM-260 forward
+  end within the side-bay aperture in Precision Strike and the other mixed
+  loadouts.
+- Added `Size=VeryLarge` to the aircraft General section for the RQ-180's
+  approximately 40 m span and as a configuration-side test for direct world
+  model selection/context-menu access.
+- Kept the v0.3.2 main-bay layout, external ammunition references, one OBJ,
+  livery/material files, flight baseline, landing gear, gear-door, wheel-
+  material, and bay animations unchanged.
+
+v0.3.2 main-bay three-wide layout and side-bay visibility fix
+---------------------------------------------------------------
+- Reorganized the six main-bay stations as a three-wide/two-row grid.
+  Precision Strike now uses stations 1-3 for three parallel AGM-183 missiles;
+  Nuclear Strike uses the symmetric first-row stations 1 and 3.
+- Adjusted Standard Anti-Ship to use symmetric two-by-two main-bay stations
+  1, 3, 4, and 6.
+- Moved the four side-bay station origins to `y=-0.0090`. The previous global
+  height correction placed side-bay AIM-9X/AIM-260 models above the shallow
+  side-bay aperture, making them invisible behind the upper fuselage.
+- Preserved the single OBJ, all gear/door/wheel-material animations, external
+  ammunition references, and all other loadout counts.
+
+v0.3.1 internal-bay station height correction
+-----------------------------------------------
+- Moved all ten weapon station origins from `y=-0.0118` to `y=-0.0035`.
+  The previous height placed large ammunition models through the belly skin;
+  the new height keeps them above the bay-door plane and inside the aircraft.
+- Kept the external ammunition references, six mission loadouts, single OBJ,
+  livery, landing gear, gear-door, wheel-material, and bay animations unchanged.
+
+v0.3.0 external-ammunition mission loadout integration
+---------------------------------------------------------
+- Added two internal hardpoint systems: six main-bay stations and four
+  left/right side-bay stations.
+- Added six named mission loadouts matching the requested station counts:
+  Air-to-Air, Air-to-Air Intercept, Standard Anti-Ship, Heavy Anti-Ship,
+  Precision Strike, and Nuclear Strike, plus the Empty loadout.
+- References `dts_aim-260`, `dts_aim-9x`, `dts_agm-158c-3`, `dts_agm-183a`,
+  and `dts_agm-183a(w62)` from the external Dingtools Weapon Pack. No weapon
+  or ammunition assets are copied into this aircraft package.
+- Preserved the v0.2.1 airport-landing, gear-door, gear-material, livery,
+  sensor, carrier, and single-OBJ baseline.
+
+v0.2.1 explicit gear-material and right-door direction test
+-------------------------------------------------------------
+- Kept the v0.2.0 single-axis tilted-hinge geometry and corrected the right
+  main landing-gear door's opening sign only; the other two door directions
+  are unchanged.
+- Removed all Parent=gear_* bindings from the eight material-island submodels.
+  Each island now has the same world position as its primary gear object and
+  an explicit Gear_Extend/Gear_Retract sequence, so wheel, silver hardware,
+  metal gear, and the source glow remain attached and visible.
+- Preserved the v0.1.8 airport-landing flight baseline, carrier capability,
+  Empty-only/no-ordnance scope, sensors, and one-OBJ packaging.
+
+v0.2.0 tilted hinge and gear-material repair test
+---------------------------------------------------
+- Started from the known-good v0.1.8 airport-landing package; older packages
+  remain unchanged.
+- Re-exported the three landing-gear-door blocks with inverse static-frame
+  compensation. The aircraft INI tilts each local Z frame onto the source
+  hinge axis, while the animation file uses only the native RotationZ key.
+- Restored the eight source gear material islands inside the same RQ-180 OBJ.
+  They use Parent=gear_nose/gear_l/gear_r, so tires and hardware follow their
+  parent gear without adding eight more landing-gear animation sequences.
+- Kept the 0.1.8 flight, airport-landing, sensor, carrier, Empty-loadout, and
+  no-ordnance baseline. Aileron/elevon control bindings remain disabled.
+
+v0.1 airframe and animation pass
+---------------------------------
+- Converted the first rigged RQ-180 glTF copy to a Sea Power-compatible OBJ.
+- Removed the duplicate static aircraft, watermark/display mesh, and source
+  ordnance meshes.
+- Baked the source fully retracted landing-gear pose as the default aircraft
+  state.
+- Added independent nose and main gear assemblies plus landing-gear doors.
+- Added six separate internal-bay doors with Bay_Open/Bay_Close hooks.
+- Added bilingual aircraft description, one default livery texture, and
+  source attribution.
+- Left weapons, ammunition, stations, and actual weapon loadouts intentionally
+  unconfigured.
+
+v0.1.1 model and animation cleanup
+-----------------------------------
+- Confirmed the package contains one aircraft OBJ only; hull material sections
+  remain object blocks inside that single OBJ for Sea Power rendering.
+- Fixed the OBJ global face-index offsets between object blocks. The previous
+  export restarted indices at 1 for every block, which made moving parts
+  reference hull vertices and appear as duplicated/exploded geometry in-game.
+- Removed the second source livery (`RQ-180_2_baseColor.png`) and its squadron
+  entry so only one aircraft texture set is distributed.
+- Corrected the forward-right internal-bay door open animation so it starts
+  closed and rotates to its open position instead of starting open.
+- Removed the stale reference to a nonexistent `hull_d` damage mesh; this
+  airframe-only package now uses no separate damage-state model.
+
+v0.1.2 texture orientation and tactical profile
+------------------------------------------------
+- Added `ui/profiles/usaf_rq-180.png` so the aircraft has a profile asset for
+  the aircraft UI and tactical map.
+- Compared the two supplied texture sets and confirmed the Blender
+  `rq-180-1.png` is the exact vertical-orientation counterpart of the glTF
+  `RQ-180_1_baseColor.png`.
+- Replaced the packaged default texture in both required lookup paths with
+  the Blender/OBJ-oriented version. The OBJ UVs remain unflipped, avoiding the
+  YF-23-style double V inversion that placed markings on the wrong surfaces.
+- Kept the package airframe-only: no weapons, ammunition, or actual weapon
+  loadouts were added.
+
+v0.1.3 empty loadout registration
+---------------------------------
+- Added the native aircraft-INI `[WeaponSystem1Empty]` definition used by the
+  working YF-23, F-15EX, and F-35 aircraft configs.
+- Kept `NumberOfWeaponSystems=0`: the new `Empty` entry is only a no-ordnance
+  placeholder and does not add weapon stations, weapon definitions, or
+  ammunition.
+
+v0.1.8 airport landing isolation test
+--------------------------------------
+- Created a separate test package from the last known airport-landing build;
+  the stable package is not overwritten.
+- Restored the 21-object OBJ and six standard gear sequences, including the
+  simple 90-degree landing-gear-door endpoints.
+- Removed the later eight gear material-split submodels and compound door
+  endpoints from this test variant.
+- Disabled aileron/elevon `[FlightControls]` bindings while their source hinge
+  axes are still being re-exported, preventing detached control surfaces from
+  affecting the test.
+- Restored the known-good landing/flight-control baseline and retained the
+  subdued specular/normal maps, F-35-derived sensor systems, carrier capability,
+  tactical profile, and Empty-only loadout.
+- Deliberately did not mix in the unresolved local livery-UV patch or final wing
+  control animation; those are separate follow-up variables after landing is
+  confirmed.
