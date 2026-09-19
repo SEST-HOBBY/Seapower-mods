@@ -201,14 +201,14 @@ AIRGROUPS = {
 # Naval context: (side, type, variant, role, lat, lon, heading, group label)
 # ---------------------------------------------------------------------------
 SHIPS = [
-    (TF1, "ran_ddg_hobart", "Variant1", "AAW", -11.70, 130.30, 300, "Darwin Surface Group"),
-    (TF1, "ran_ffh_anzac", "Variant2", "ASW", -11.62, 130.40, 300, "Darwin Surface Group"),
-    (TF1, "ran_ffh_anzac", "Variant3", "ASW", -11.78, 130.22, 300, "Darwin Surface Group"),
-    (TF1, "usn_takr_algol", "Variant1", "Transport", -11.55, 130.55, 120, "Darwin Surface Group"),
+    (TF1, "ran_ddg_hobart", "Variant1", "AAW", -11.30, 129.80, 300, "Darwin Surface Group"),
+    (TF1, "ran_ffh_anzac", "Variant2", "ASW", -11.22, 129.90, 300, "Darwin Surface Group"),
+    (TF1, "ran_ffh_anzac", "Variant3", "ASW", -11.38, 129.72, 300, "Darwin Surface Group"),
+    (TF1, "usn_takr_algol", "Variant1", "Transport", -11.15, 130.00, 120, "Darwin Surface Group"),
     (TF1, "usn_ddg_burke_f2a_113", "Variant1", "AAW", 5.60, 122.30, 250, "Celebes Sea SAG"),
     (TF1, "usn_ddg_burke_f3_125", "Variant1", "AAW", 5.50, 122.45, 250, "Celebes Sea SAG"),
-    (TF2, "rfn_ffg_22350_1-4", "Variant1", "AAW", -0.80, 135.50, 250, "Biak Frigate Group"),
-    (TF2, "rfn_ffg_22350_5-8", "Variant1", "AAW", -0.70, 135.65, 250, "Biak Frigate Group"),
+    (TF2, "rfn_ffg_22350_1-4", "Variant1", "AAW", -0.60, 135.90, 250, "Biak Frigate Group"),
+    (TF2, "rfn_ffg_22350_5-8", "Variant1", "AAW", -0.52, 136.02, 250, "Biak Frigate Group"),
     (TF2, "plan_lpd_type_071", "Variant1", "Transport", -6.55, 109.75, 90, "Java Sea Amphibious Group"),
     (TF2, "plan_type_054a_p5", "Variant1", "ASW", -6.50, 109.60, 90, "Java Sea Amphibious Group"),
     (TF2, "plan_type_056a", "Variant1", "ASW", -6.60, 109.95, 90, "Java Sea Amphibious Group"),

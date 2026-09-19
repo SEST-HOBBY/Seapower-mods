@@ -356,17 +356,17 @@ for rig_label, la, lo in (("Bayu-Undan Platform", -11.0833, 126.5667), ("Montara
 # Naval context so the threat axes mean something: (side, type, variant, role, lat, lon, heading)
 SHIP_GROUPS = {TF1: "Darwin Surface Group", TF2: "Fiery Cross SAG"}
 SHIPS = [
-    (TF1, "ran_ddg_hobart", "Variant1", "AAW", -11.70, 130.30, 300),
-    (TF1, "ran_ffh_anzac", "Variant2", "ASW", -11.62, 130.40, 300),
-    (TF1, "ran_ffh_anzac", "Variant3", "ASW", -11.78, 130.22, 300),
-    (TF1, "usn_ddg_burke_f2a_113", "Variant1", "AAW", 10.60, 119.30, 20),
-    (TF1, "usn_ddg_burke_f3_125", "Variant1", "AAW", 10.45, 119.45, 20),
-    (TF1, "usn_takr_algol", "Variant1", "Transport", -11.55, 130.55, 120),
+    (TF1, "ran_ddg_hobart", "Variant1", "AAW", -11.30, 129.80, 300),
+    (TF1, "ran_ffh_anzac", "Variant2", "ASW", -11.22, 129.90, 300),
+    (TF1, "ran_ffh_anzac", "Variant3", "ASW", -11.38, 129.72, 300),
+    (TF1, "usn_ddg_burke_f2a_113", "Variant1", "AAW", 10.60, 118.90, 20),
+    (TF1, "usn_ddg_burke_f3_125", "Variant1", "AAW", 10.50, 118.75, 20),
+    (TF1, "usn_takr_algol", "Variant1", "Transport", -11.15, 130.00, 120),
     (TF2, "plan_type_055_2026", "Variant2", "AAW", 9.20, 113.30, 120),
     (TF2, "plan_type_052d_p4", "Variant1", "AAW", 9.10, 113.45, 120),
     (TF2, "plan_type_054a_p5", "Variant1", "ASW", 9.30, 113.15, 120),
-    (TF2, "rfn_ffg_22350_1-4", "Variant1", "AAW", -0.80, 135.50, 250),
-    (TF2, "rfn_ffg_22350_5-8", "Variant1", "AAW", -0.70, 135.65, 250),
+    (TF2, "rfn_ffg_22350_1-4", "Variant1", "AAW", -0.60, 135.90, 250),
+    (TF2, "rfn_ffg_22350_5-8", "Variant1", "AAW", -0.52, 136.02, 250),
 ]
 # Neutral merchant lanes (lat/lon chains): spawn at the first point, waypoints through the rest.
 MERCHANTS = [
@@ -471,6 +471,20 @@ class Spiral:
         raise SystemExit(f"no room for asset {i} near ({cx:.2f},{cz:.2f})")
 
 
+def afloat(lat, lon, halo=0.10):
+    """A vessel needs open water under it and a little room around it. Ships
+    are placed by hand, so nothing else catches a position that looks like sea
+    on a map and is a beach on the mask (the Darwin group spent three builds
+    parked on the Tiwi Islands)."""
+    if LAND is None:
+        return True
+    if LAND.is_land(lat, lon):
+        return False
+    return not any(LAND.is_land(lat + halo * math.cos(math.radians(c)),
+                                lon + halo * math.sin(math.radians(c)) / math.cos(math.radians(lat)))
+                   for c in range(0, 360, 20))
+
+
 def check_units(units):
     """Every planned unit id must resolve, loudly."""
     bad = sorted({u for u in units if unit_info(u) is None})
@@ -553,6 +567,19 @@ def generate(name, out, description, sites, ships, merchants, aircraft=(), airgr
                 names[s["side"]].append((idx[0], s["label"]))
         s["xz"] = (cx, cz)
 
+    afloat_problems = []
+    for _side, uid, _v, _r, la, lo, _h, *_g in ships:
+        if not afloat(la, lo):
+            afloat_problems.append(f"{uid} at {la},{lo}")
+    for uid, pts, *_ in merchants:
+        # a merchant may legitimately start at a wharf, so it only has to be on
+        # water; a warship group needs room to manoeuvre and keeps the halo
+        if not afloat(*pts[0], halo=0.0):
+            afloat_problems.append(f"{uid} spawns at {pts[0][0]},{pts[0][1]}")
+    if afloat_problems:
+        sys.exit("vessels placed on land (the 1 km mask, with a clearance halo):\n  "
+                 + "\n  ".join(afloat_problems))
+
     shipsby = {TF1: [], TF2: []}
     ship_forms = {TF1: {}, TF2: {}}            # side -> {group label: [vessel section names]} in order
     for side, uid, variant, role, la, lo, hdg, *group in ships:
@@ -584,8 +611,8 @@ def generate(name, out, description, sites, ships, merchants, aircraft=(), airgr
         forms += [(label, [f"{side}LandUnit{i + 1}" for i in idx]) for label, idx in formations[side]]
         mission.append(f"{side}_NumberOfFormations={len(forms)}")
         for n, (label, members) in enumerate(forms, 1):
-            afloat = all("Vessel" in u for u in members)
-            shape = "Loose|1.5" if afloat else "Circle|1.5|OverrideSpawnPositions"
+            at_sea = all("Vessel" in u for u in members)
+            shape = "Loose|1.5" if at_sea else "Circle|1.5|OverrideSpawnPositions"
             mission.append(f"{side}_Formation{n}={','.join(members)}|{label}|{shape}")
     nforms = [(label, [f"NeutralLandUnit{i + 1}" for i in idx]) for label, idx in formations[NEU]]
     mission.append(f"Neutral_NumberOfFormations={len(nforms)}")

@@ -244,3 +244,9 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   fielding the Modern US Navy hulls instead; the one hull SEST ships flattened re-points the
   magazine at Euromod's identical RIM-162H, guarded both ways (the original must still be
   gone, the substitute must resolve).
+- **Hand-placed ships need the land mask too.** The land units go through the mask, so nobody
+  checked the vessels: the Darwin surface group had been parked on the Tiwi Islands and a US
+  destroyer on Palawan since the showcase was written. Both generators now refuse to write a
+  mission with a vessel ashore. A warship must also clear a 6 nm halo, since a position can be
+  a water cell and still be a beach the group cannot manoeuvre in; a merchant only has to be on
+  water, because a ferry legitimately starts alongside.
