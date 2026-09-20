@@ -67,6 +67,15 @@ ALLOW = {
         "out of usn_ea-18g while leaving the gun's AssociatedMagazine line - "
         "the packs copy that faithfully, and inventing a magazine here would "
         "arm a gun the real aircraft does not carry",
+    ("wp_su-57 (3503594612/aircraft)", "|KH-58"):
+        "the same case mismatch as plan_j-15d below, and settled the same way: "
+        "the SEAD fit seats two wp_as-11 on |KH-58 while the file defines "
+        "Kh-58Positions (lowercase h) in both of its hardpoint blocks. The "
+        "seats differ by (0,0,0.001) and (0,-0.0025,0.015), so the worst case "
+        "is a seat offset of about a centimetre on two rounds - not worth a "
+        "whole-file override of a workshop aircraft. Surfaced by the SEST "
+        "Banda vignettes, which field the Biak airfield this aircraft flies "
+        "from; latent in every mission that does",
     "plan_j-15d (3486502935/aircraft)":
         "upstream writes |KH-31 against its own Kh-31Positions key - a case "
         "mismatch worth at most a ~17 cm seat offset on two YJ-91s; not worth "
