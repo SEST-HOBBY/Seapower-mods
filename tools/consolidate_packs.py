@@ -19,6 +19,15 @@ Merge rules, in the order they are tried per colliding path:
                                 itself merges language files across mods, so
                                 this reproduces in one file what the game
                                 already computed from fifteen.
+  ui/**.ini                  -> merged as DELTAS against the vanilla copy. A ui
+                                file is a whole-file override, so every pack
+                                ships the complete file and most of what it
+                                contains is untouched vanilla. Comparing raw
+                                values would call SEST_TacMap_Colors' inherited
+                                MaxSize=400,800 a conflict with the geometry
+                                SEST_Second_Screen deliberately set. Only keys a
+                                pack actually CHANGED count as claims; two packs
+                                claiming one key differently is still an error.
   systems/*.ini              -> section-level merge (sensor definitions).
   _info.ini                  -> regenerated for the consolidated pack.
   anything else              -> ERROR. Two packs shipping different bytes at
@@ -37,6 +46,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "integration" / "dist" / "SEST_Integration"
+VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
 
 INFO_HEADER = """[Language_en]
 Name=SEST Integration Pack
@@ -97,6 +107,67 @@ def merge_kv(rel, contributions, problems):
             lines.append(section)
         lines.extend(f"{k}={v}" for k, v in keys.items())
     return "\n".join(lines) + "\n"
+
+
+def merge_ui(rel, contributions, problems):
+    """Delta-merge of ui files against vanilla; the vanilla text is the frame.
+
+    Returns None (having recorded a problem) if there is no vanilla copy to
+    diff against - without a baseline there is no way to tell a pack's choice
+    from what it merely inherited, and guessing would silently drop one.
+
+    The output is the vanilla file with the claimed lines rewritten in place,
+    so comments, section order and spacing survive: the game parses these
+    files itself and this is not the place to find out what it tolerates."""
+    base_path = VANILLA / rel
+    if not base_path.exists():
+        problems.append(f"{rel}: shipped with different bytes by "
+                        + ", ".join(name for name, _ in contributions)
+                        + f" and mods-source/_vanilla/original/{rel} does not exist, "
+                        "so there is no baseline to merge against; fix the sources")
+        return None
+    base_text = base_path.read_text(encoding="utf-8-sig", errors="replace")
+    base = parse_kv_ini(base_text)
+
+    claims = {}          # (section, key) -> (pack, value)
+    for pack_name, text in contributions:
+        for section, keys in parse_kv_ini(text).items():
+            for key, value in keys.items():
+                inherited = base.get(section, {}).get(key)
+                if inherited is None:
+                    problems.append(f"{rel}: {pack_name} sets [{section}] {key}, which "
+                                    "vanilla does not define — the ui merge only knows "
+                                    "how to rewrite existing keys")
+                    continue
+                if value.strip() == inherited.strip():
+                    continue
+                if (section, key) in claims and claims[(section, key)][1].strip() != value.strip():
+                    owner, other = claims[(section, key)]
+                    problems.append(
+                        f"{rel}: [{section}] {key} claimed differently by {owner} and {pack_name}:\n"
+                        f"      {owner}: {other!r}\n"
+                        f"      {pack_name}: {value!r}")
+                    continue
+                claims.setdefault((section, key), (pack_name, value))
+
+    out, current, applied = [], "", set()
+    for line in base_text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("[") and stripped.endswith("]"):
+            current = stripped
+        elif "=" in stripped and not stripped.startswith(("#", ";", "//")):
+            key = stripped.partition("=")[0].strip()
+            if (current, key) in claims:
+                line = f"{key}={claims[(current, key)][1]}"
+                # A set, not a counter: a key repeated in the vanilla file gets
+                # every copy rewritten, and that is one claim honoured, not two.
+                applied.add((current, key))
+        out.append(line)
+    if applied != set(claims):
+        missed = sorted(f"[{s}] {k}" for s, k in set(claims) - applied)
+        problems.append(f"{rel}: claimed key(s) never found in the vanilla text: "
+                        + ", ".join(missed))
+    return "\n".join(out) + "\n"
 
 
 def merge_sections(rel, contributions, problems):
@@ -171,6 +242,10 @@ def main():
         top = rel.split("/", 1)[0]
         if top.startswith("language_"):
             staged[rel] = merge_kv(rel, texts, problems).encode("utf-8")
+        elif top == "ui":
+            merged = merge_ui(rel, texts, problems)
+            if merged is not None:
+                staged[rel] = merged.encode("utf-8")
         elif top == "systems":
             staged[rel] = merge_sections(rel, texts, problems).encode("utf-8")
         else:
