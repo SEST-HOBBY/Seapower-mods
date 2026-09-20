@@ -825,7 +825,10 @@ def _spine(missions, events):
     for m in missions:
         for ev in events[1:-1]:
             if ev.get("before") == m["key"]:
-                out.append(dict(type="FreeEvent", comment=ev["title"],
+                # The title carries a literal \n for the campaign card's second
+                # line; the section comment is for a human reading the file.
+                out.append(dict(type="FreeEvent",
+                                comment=ev["title"].replace("\\n", " - "),
                                 file=ev["file"], name=ev["title"], sub=ev["sub"]))
         out.append(dict(type="Mission", comment=f"{m['num']} {m['key']}",
                         file=f"{m['num']} {m['key']}",
