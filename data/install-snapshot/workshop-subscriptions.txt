@@ -142,3 +142,17 @@
 
 subscribed but UNPLACED (0): 
 placed but NOT SUBSCRIBED (0): 
+
+--- Steam client record (appworkshop_1286220.acf) ---
+acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf, C:\Program Files (x86)\Steam\steamapps\workshop\appworkshop_1286220.acf
+folders on disk          : 138
+ids Steam tracks locally : 138
+NeedsDownload / NeedsUpdate: 0 / 0
+tracked but NOT on disk (0): 
+on disk but NOT tracked (0): 
+
+If the Steam UI's subscribed count is HIGHER than both numbers above, the
+extras are server-side only and there is nothing on this PC to find: the
+usual causes are subscribed Collections, which have no content to download,
+and items the author has delisted, which Steam keeps counting forever.
+Neither can load in game, so neither belongs in the load order.
