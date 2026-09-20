@@ -43,12 +43,19 @@ param(
     [ValidateSet("right", "left")][string]$PanelSide = "right",
     [int]$SplitSingleDisplay = 0,
     [int]$Margin = 12,
-    [string]$LayoutPath = (Join-Path (Split-Path $PSScriptRoot -Parent) "data\display-layout.json"),
+    [string]$LayoutPath,
     [string]$SettingsPath = (Join-Path $env:USERPROFILE "AppData\LocalLow\Triassic Games\Sea Power\usersettings.ini"),
     [switch]$Write
 )
 
 $ErrorActionPreference = "Stop"
+
+# $PSScriptRoot is EMPTY inside param() defaults on Windows PowerShell, which
+# made -LayoutPath's default throw "Cannot bind argument to parameter 'Path'
+# because it is an empty string" before the script ran a single line. Same
+# trap, same remedy as tools\export-mod-configs.ps1: resolve in the body.
+$scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
+if (-not $LayoutPath) { $LayoutPath = Join-Path $scriptDir "..\data\display-layout.json" }
 
 # Without this, a DPI-unaware PowerShell host is handed SCALED coordinates -
 # a 2560x1440 screen at 125% reports 2048x1152 and every computed position is
@@ -83,9 +90,10 @@ try {
             $_.Bounds.Width -eq $c.CurrentHorizontalResolution -and
             $_.Bounds.Height -eq $c.CurrentVerticalResolution }
         if (-not $match) {
-            Write-Warning ("adapter '{0}' reports {1}x{2}, which matches no display above - " +
-                "DPI scaling may be distorting these numbers; check the values before -Write." -f
-                $c.Name, $c.CurrentHorizontalResolution, $c.CurrentVerticalResolution)
+            $msg = "adapter '{0}' reports {1}x{2}, which matches no display above" -f `
+                $c.Name, $c.CurrentHorizontalResolution, $c.CurrentVerticalResolution
+            Write-Warning ($msg + " - DPI scaling may be distorting these numbers; " +
+                "check the values before -Write.")
         }
     }
 } catch { Write-Verbose "Win32_VideoController unavailable: $($_.Exception.Message)" }
@@ -192,6 +200,10 @@ Write-Host ""
 Write-Host $json
 
 if ($Write) {
+    $dir = Split-Path -Parent $LayoutPath
+    if (-not (Test-Path -LiteralPath $dir)) {
+        throw "layout directory does not exist: $dir (is -LayoutPath right?)"
+    }
     # LF, no BOM: the repo's .gitattributes normalises these files and Python
     # reads them back as plain UTF-8.
     [System.IO.File]::WriteAllText($LayoutPath, $json)
