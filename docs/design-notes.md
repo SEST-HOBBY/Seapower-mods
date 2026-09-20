@@ -212,6 +212,10 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   (`retarget_usn2027_hulls.py`). Re-pointing a patch at a re-laid-out base is
   not a fix - slot 2 had become the Phalanx - so SEST_USN2027_Fixes flattens
   old base plus patch into one standalone hull until the author catches up.
+  The author caught up on 2026-09-20: the 2027 patch now aliases
+  `usn_ddg_burke_f3_125.ini`, the hull Modern US Navy really ships, so the
+  pack's own guard said RETIRE THIS PACK and it is gone - the guard that
+  knows when its fix is obsolete is the whole point of writing one.
 
 - **Gates before every push:** `check_load_order`, `check_dependencies`,
   `preflight` (every reference the missions make), `check_station_clash`,

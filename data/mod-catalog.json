@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry.",
-    "count": 132,
+    "count": 143,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
@@ -121,12 +121,6 @@
       "source": "integration/tacmap-colors",
       "builder": "build_pack.py",
       "title": "SEST TacMap Colors"
-    },
-    {
-      "folder": "SEST_USN2027_Fixes",
-      "source": "integration/usn-2027-fixes",
-      "builder": "build_pack.py",
-      "title": "SEST USN 2027 Fixes"
     }
   ],
   "mods": [
@@ -1686,6 +1680,19 @@
       "notes": "VERIFIED: pure code mod (settings.cfg only in export) — Anchor Chain family UI overhaul."
     },
     {
+      "id": "auto-time-on-target",
+      "workshop_id": "3789793270",
+      "title": "Auto Time-on-Target",
+      "author": "unknown (workshop 3789793270)",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain"
+      ],
+      "notes": "VERIFIED: pure code mod (_info.ini only in export) - Anchor Chain family. Coordinated time-on-target strikes: every launch delayed so the salvo lands together. Requires Anchor Chain; subscribed 2026-09-19, seen live at the bottom of the game's order."
+    },
+    {
       "id": "arrw",
       "workshop_id": "3502273861",
       "title": "ARRW (AGM-183)",
@@ -1757,7 +1764,7 @@
       "workshop_id": "3790594162",
       "title": "Identify Expanded",
       "author": "Yoshi",
-      "faction": "none",
+      "faction": "utility",
       "type": "framework",
       "status": "unsubscribed",
       "load_order": "Removed at the user's request after trying it. If it comes back: tier 1b code mod, immediately below Better TacMap and above SAM Pack - it runs through Anchor Chain's preloader, so the only hard rule is that Anchor Chain stays above it, and it reads its own ini from its own folder rather than overriding game data, so it contests no unit files.",

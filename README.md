@@ -1,7 +1,7 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **128 active Workshop
+**Sea Power: Naval Combat in the Missile Age** install with **138 active Workshop
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 Everything here is built around interoperability: a mod is known by three names — a
