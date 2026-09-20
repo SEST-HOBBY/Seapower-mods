@@ -51,6 +51,41 @@ def ordered_packs():
     return out
 
 
+# Generated output is committed, and .gitattributes pins every .ini in it to
+# LF. Python's text mode translates "\n" to os.linesep on write, so the same
+# builder emits LF on Linux and CRLF on Windows - and 111 of the 117
+# write_text() calls across these builders do not pass newline=. Building on
+# the gaming PC therefore rewrote roughly 200 files with different bytes and
+# identical content, which git reports as a 200-file diff and sync-sest
+# refuses to merge on top of.
+#
+# Fixing it here rather than at the 111 call sites is deliberate: one place
+# instead of a hundred, it catches any future builder for free, and it does
+# not depend on Path.write_text(newline=...), which only exists on Python
+# 3.10+ and would break the build outright on an older interpreter.
+#
+# Scope is the generated tree only. mods-source/ is a byte-faithful export
+# whose CRLF files are meant to stay CRLF - .gitattributes marks it -text for
+# exactly that reason - and it is never touched here.
+GENERATED_TEXT = (".ini", ".txt", ".json", ".md", ".cfg", ".csv")
+
+
+def normalise_newlines():
+    """Rewrite CRLF to LF across the built packs. A no-op on Linux."""
+    fixed = 0
+    roots = list((ROOT / "integration").glob("*/SEST_*"))
+    for root in roots:
+        for f in root.rglob("*"):
+            if not (f.is_file() and f.suffix.lower() in GENERATED_TEXT):
+                continue
+            raw = f.read_bytes()
+            if b"\r\n" not in raw:
+                continue
+            f.write_bytes(raw.replace(b"\r\n", b"\n"))
+            fixed += 1
+    return fixed
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--from-scratch", action="store_true",
@@ -88,6 +123,10 @@ def main():
     print(("  ok      " if run.returncode == 0 else "  FAILED  ") + "SEST_Integration (dist)")
     if run.returncode != 0:
         sys.exit("    " + (run.stdout + run.stderr).strip().replace("\n", "\n    "))
+
+    fixed = normalise_newlines()
+    if fixed:
+        print(f"  normalised {fixed} generated file(s) to LF")
 
     print(f"\nall {len(packs)} packs built and consolidated. If output is committed, "
           "`git status` should now be clean — a diff means mods-source or a builder changed.")
