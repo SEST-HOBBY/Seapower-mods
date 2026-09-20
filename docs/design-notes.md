@@ -97,6 +97,50 @@ Earned twice in one session: the repo reported 138, the Mod Manager agreed at 13
 and Steam said 140. Nothing was wrong. Before chasing a count, say which of the three
 you are quoting.
 
+## What an editor round-trip keeps, and the one thing it silently rewrites
+
+Saving a mission in Sea Power's own editor rewrites every section from the editor's
+in-memory model. The save is not a diff, so the question is never "did it change the
+file" - it is "which of our intent survived the model". Measured on `SEST Banda Front
+Lean v2` (`b1c6ee1e` -> `a30a8b04`, three units added, ~90 nudged): 606 insertions
+against 734 deletions, a net loss of 128 lines while gaining three units.
+
+Almost all of that is the editor writing only non-default values, and is not loss:
+
+- `MissionType=NoMission` dropped on 74 units - `NoMission` is the default.
+- `RadarsActive=False` dropped on 45. Every dropped one was `False` and every
+  surviving one is `True`, on whales, airliners, fishing boats and narco subs.
+  Absent means off.
+- `ActiveSonarsEnabled=False` and `TowedArrayDeployed=False` dropped on 5 each,
+  all on the same submarines, all `False`. Same rule.
+- `Waypoints` dropped on 19 - **all 19 are formation followers, and all five of
+  their leaders kept the route.** A follower's waypoints were only ever a copy of
+  its leader's, which is why the dropped strings appeared three at a time.
+- `CustomAirGroup=True` dropped on 12, every one of which carried zero aircraft
+  entries before and after.
+- `123.000` -> `123`, `90.00` -> `90`, `277.02` -> `-85`. Formatting.
+
+One thing is real loss, and it is the one that changes the scenario:
+
+- **`WeaponStatus` does not round-trip.** All 57 `Hold` and all 10 `Tight` came back
+  as `Free`, and six units lost the key outright. That is the sanctioned convoys -
+  built by `add_sanctioned_shipping.py` to run "dark, dumb, non-reactive" on `Hold`
+  behind escorts on `Tight` "so they unmask only when the fleet is engaged" - and
+  the whole Allied carrier group, which sat on `Tight` to shadow rather than shoot.
+  The Q-ship `wp_ms_mercur_decoy`, whose entire job is holding fire, went weapons
+  free. Nothing warned: the unit count was right and preflight resolved all 879
+  references, because every reference was still valid. Only the intent was gone.
+
+`integration/missions/restore_roe.py` restores it from the last committed copy, and
+should be run after every editor save. Run it before the commit, not after.
+
+**Compare by unit identity, not by section name.** Inserting one vessel renumbers
+every section after it: `[Taskforce1Vessel5]` was a Flight IIA Burke before this save
+and a civilian motor ship after, and a name-keyed diff reports the whole tail as
+changed while hiding what actually moved. Align each index family by its `Type`
+sequence and skip inserted or deleted runs rather than guessing across them - that is
+what `restore_roe.py` does, and it is why it finds 67 units to fix instead of 62.
+
 ## The Tier 0 invariant
 
 Every SEST pack sits above every workshop mod, as one unbroken block, so
