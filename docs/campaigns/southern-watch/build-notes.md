@@ -3,6 +3,33 @@
 What was built from `campaign-bible.md`, where it departs from the bible, and —
 more importantly — what has **not** been demonstrated.
 
+## Review of f3e2a783: what changed here
+
+Every finding was reproduced before it was touched. The three anchor slots, the
+20 unresolved objective ids, the 10 zero-depth submarines and O01's
+already-satisfied victory circle were all exactly as reported.
+
+| # | Finding | Response |
+|---|---|---|
+| 1 | Anchor on `Taskforce1Vessel2/3` in SW09/10/11 | The anchored ship is now sorted to the front before anything is numbered, so it is always `Taskforce1Vessel1`; the build fails if it is not. Every stock Task Force Mode mission anchors the first unit of its kind — that is the evidence, independent of the authoring guide |
+| 2 | O01 starts 13.4 NM inside its own 20 NM victory circle | Arrival boxes are no longer hand-written coordinates. The roster authors a bearing and a radius; the builder solves the distance against the positions the units actually got, and rejects a box that is occupied at spawn or out of reach |
+| 3 | 20 objective ids resolved to nothing | Every objective now names a predicate (`victory`, `neutral`, `protect`, `survive`, `destroy`, `arrive`) and gets its own trigger. An objective without one fails the build. SW02 now needs the cargo count **and** the medical ship in the box; SW09 needs Supply and Collins by name, after a 35-minute service window. Terminal triggers end the mission and `Action_ObjectivesCancel` the other outcome's objective |
+| 4 | Purchased aircraft had no deployment path | `TaskForceModeAirTaskingAvailable` with flight rows per mission, and 27 `TaskForceModeAirTaskingSlot`/`Role` tags on the authored aircraft. Every mission that fields the task force now also carries `TaskForceModeMissionGenerationType=Generated`; leaving it blank meant the owned force never deployed |
+| 5 | C01 is not outcome-gated | Not implemented — **relabelled instead**. The special note and the briefing now say the recovery is offered unconditionally and that gating it on the lost-cargo outcome needs a saved condition this build has not demonstrated. The briefing no longer names a ship that may still be afloat |
+| 6 | Purchase and service rules were one boolean | `buy`, `repair` and `rearm` are three separate windows per mission. Purchases open at four force-assembly points, not before all twelve. Per-mission purchase allowlists are still **not** implemented |
+| 7 | All submarines at surface depth | Authored per boat: hunting boats 300–500 ft down, the semi-submersible at 60, Collins deliberately surfaced alongside her tender |
+| 8 | Routes and timing | `Condition_Time` is **seconds** — so the missions had no deadline at all, only a post-defeat exit timer. Each mission now has a real deadline in seconds that fails the main objective, and the arrival solver sizes every box to the mission's own clock. SW04's contact has waypoints to the box its objective depends on |
+| 9 | Resolver accepted disabled Workshop folders | The fallback to exported folders absent from the canonical order is gone. Resolution is enabled-mods-only, so an unsubscribe fails the build instead of being credited |
+| 10 | Range Week scored launchers as interceptions | The objective now says what the trigger tests — destroy three of four threat pads — and the authorised seaward target is exempt from the neutral-loss rule. A range safety boat and an airliner give the safety objective something it can actually fail on |
+| — | Story chronology | The Enclave screen moves 2 → 12 November; the epilogue 26 → 28 November |
+| — | O01/C01 real newlines in `Description=` | All mission text is normalised to the two-character `\n` escape centrally, so it cannot recur |
+| — | Branch integration | `origin/feature/northern-front-iii-export` merged: the three SM-3 commits are in, and the consolidated pack carries all six SM-3/PAC-3 rounds |
+
+Still open, and deliberately: **C01's gate** (relabelled, not built), **per-mission
+purchase allowlists**, **mission density** against v1.1's 20–45 / 45–80 targets,
+and **O02–O12 / C02–C06**. Everything in the Task Force Mode layer still needs
+the seven-step acceptance run in §16 of the bible.
+
 ## Bible v1.1: what changed here
 
 v1.1 corrects v1.0 on the point that mattered most, and the correction is

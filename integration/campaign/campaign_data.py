@@ -118,9 +118,9 @@ EVENTS = [
              "Bring the convoy together. Get the crews out of danger. Identify "
              "before you shoot - none of this is a war yet."]),
     dict(file="06_interlude", before="The Open Door",
-         title="The Enclave\\n2 November 2028",
+         title="The Enclave\\n12 November 2028",
          sub="A contested airfield, foreign advisers and a relief window",
-         dateline="2 NOVEMBER 2028  |  COALITION JOINT INTELLIGENCE",
+         dateline="12 NOVEMBER 2028  |  COALITION JOINT INTELLIGENCE",
          headline="SOMEONE ELSE'S AIR DEFENCE",
          body=[
              "Regional security forces have recovered most of the facilities "
@@ -135,9 +135,9 @@ EVENTS = [
              "Local authorities have asked for a protected window to move "
              "civilians and emergency supplies out. That window, not a body "
              "count, is the objective."]),
-    dict(file="12_closing", title="The First Ship Through\\n26 November 2028",
+    dict(file="12_closing", title="The First Ship Through\\n28 November 2028",
          sub="An imperfect ceasefire and a working sea route",
-         dateline="26 NOVEMBER 2028  |  MARITIME BORDER COMMAND, DARWIN",
+         dateline="28 NOVEMBER 2028  |  MARITIME BORDER COMMAND, DARWIN",
          headline="THE LANES ARE OPEN",
          body=[
              "Coral Pioneer made her destination with a cracked bearing and a "
@@ -371,8 +371,12 @@ MISSIONS.append(dict(
         ("Medical", "MV Kokoda Star must arrive", "15,-25,Complete"),
         ("Neutrals", "Harm no neutral shipping", "0,-30,Complete"),
     ],
-    victory=dict(kind="arrive", station="convoy", at=(-10.0, 147.4), radius=30,
-                 min_units=3, objective="Cargo"),
+    # Three of four arrive AND the medical ship is one of them. Without the
+    # second condition the mission could be won by leaving Kokoda Star safely
+    # behind and sending the other three.
+    victory=dict(kind="arrive", station="convoy", min_units=3,
+                 objective="Cargo",
+                 also=[dict(units=["convoy#1"], min_units=1)]),
     # Kokoda Star is the first hull at the convoy station: lose her and the
     # mission is over whatever the other three do.
     protect=["convoy#1"], protect_objective="Medical",
@@ -891,8 +895,12 @@ MISSIONS.append(dict(
         ("Collins", "HMAS Collins must survive", "25,-35,Complete"),
         ("Supply", "HMAS Supply must survive", "20,-30,Complete"),
     ],
-    victory=dict(kind="arrive", station="support", at=(-16.4, 149.9), radius=35,
-                 min_units=2, objective="Service"),
+    # Supply AND Collins, not "any two of the group" - the freighter could
+    # otherwise stand in for the submarine the mission is about. The time
+    # condition is the service window: withdrawing early does not count.
+    victory=dict(kind="arrive", units=["support#1", "support#2"], min_units=2,
+                 station="support", objective="Service",
+                 also=[dict(after_minutes=35)]),
     protect=["support"], protect_objective="Collins",
     neutral_objective="Service",
     win="The window held, Collins is dived and heading for Stirling, and "
@@ -1473,9 +1481,8 @@ MISSIONS.append(dict(
 
 MISSIONS.append(dict(
     group="dispatch", num="D5", key="Range Week", place="Northern Territory ranges",
-    intro="Range Week. Every missile system in the collection that would need "
-          "an improbable deployment to appear anywhere else, fired where such "
-          "things are actually fired.",
+    intro="Range Week. A live counter-launcher serial against the range's own "
+          "threat pads, plus an anti-ship shot at the seaward target.",
     date=(2028, 11, 9), time=(9, 0), sea=1, clouds="Clear", wind="SE",
     difficulty=2, minutes=60, centre=(-13.5, 131.5),
     blue_nation="Australia", red_nation="Iran",
@@ -1496,16 +1503,21 @@ MISSIONS.append(dict(
            "battery, an ARRW-capable range field and an A-10A target tow. "
            "Range threat pads: Scud-B, Sejjil, Iskander and a Shahed line.",
     objectives=[
-        ("Intercepts", "Defeat the range raid", "35,-25,Fail,Main"),
-        ("Serial", "Complete the anti-ship serial", "15,-10,Complete"),
-        ("Safety", "Keep everything inside the danger area", "0,-30,Complete"),
+        # The trigger destroys launchers, so the objective says destroy
+        # launchers. It used to promise intercepted rounds and score destroyed
+        # pads, which is two different exercises.
+        ("Pads", "Destroy three of the four range threat pads",
+         "35,-25,Fail,Main"),
+        ("Serial", "Put the anti-ship serial into the seaward target",
+         "15,-10,Complete"),
+        ("Safety", "Hit nothing outside the danger area", "0,-30,Complete"),
     ],
     victory=dict(kind="destroy", stations=["pads"], min_units=3,
-                 objective="Intercepts"),
-    protect=["battery"], protect_objective="Intercepts",
+                 objective="Pads"),
+    protect=["battery"], protect_objective="Pads",
     neutral_objective="Safety",
-    win="Three of four range rounds intercepted, the anti-ship serial away and "
-        "the trials staff already arguing about the fourth. Good week.",
+    win="Three of four pads down, the anti-ship serial into the target and the "
+        "trials staff already arguing about the fourth. Good week.",
     lose="The serial is a write-off and the trials report will say so at "
          "length.",
     stations={
@@ -1515,6 +1527,7 @@ MISSIONS.append(dict(
         "field": S(-12.6, 131.1, "Range field", heading=90),
         "tow": S(-13.0, 131.4, "Target tow", heading=180, alt=18000),
         "target": S(-12.0, 130.5, "Seaward target", heading=270),
+        "safety": S(-11.5, 129.6, "Range safety area", heading=90, alt=31000),
     },
     units=[
         U("blue", "thaad", "thaad_tel", "battery", name="THAAD launcher"),
@@ -1540,8 +1553,18 @@ MISSIONS.append(dict(
           name="Range pad ISKANDER"),
         U("red", "shahed-136-zero-two", "shahed_tel_white", "pads",
           name="Range pad DRONE"),
+        # The range's own target hulk. Excluded from the neutral-loss rule:
+        # shooting it is the serial, not a civilian casualty.
         U("neutral", "_vanilla", "civ_ms_roro_b", "target",
-          name="Range seaward target", snap="sea"),
+          name="Range seaward target (AUTHORISED)", snap="sea",
+          no_neutral_penalty=True),
+        # Range safety craft outside the danger area. Without a contact the
+        # safety objective can fail on, "hit nothing outside the danger area"
+        # is a line of text and nothing else.
+        U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "safety",
+          name="Range safety boat"),
+        U("neutral", "civil-aircraft-airbus", "civ_a330", "safety",
+          name="Darwin-Singapore service", snap="sea"),
     ],
 ))
 
@@ -1839,12 +1862,16 @@ MISSIONS.append(dict(
 MISSIONS.append(dict(
     group="contingency", num="C1", key="After the Wake", place="Coral Sea",
     expires_after="Rig Seventeen",
-    intro="Contingency. Three of four made Moresby. This is about the fourth "
-          "crew, not the fourth cargo.",
-    special="Recovery operation, available when STEEL HIGHWAY completed with "
-            "the essential ship but lost a cargo vessel. It pays no "
-            "requisition points. It saves people and it changes the debrief; "
-            "it does not restore the ship or its cargo.",
+    intro="Contingency, offered unconditionally. If STEEL HIGHWAY cost you a "
+          "hull, this is about her crew; if it did not, it is a search that "
+          "finds an empty sea.",
+    special="Recovery operation. It pays no requisition points: it saves "
+            "people and changes the debrief, and it does not restore the ship "
+            "or its cargo. NOTE: this is offered after STEEL HIGHWAY whatever "
+            "happened there. Gating it on the actual lost-cargo outcome needs "
+            "a saved campaign condition this build has not demonstrated, so "
+            "the unlock is unconditional and says so rather than pretending "
+            "otherwise.",
     date=(2028, 10, 23), time=(6, 10), sea=4, clouds="Overcast", wind="SE",
     difficulty=2, minutes=45, centre=(-13.5, 148.5),
     blue_nation="Australia", red_nation="China",
@@ -1906,17 +1933,21 @@ MISSIONS.append(dict(
 # first pass, not a measured pacing decision.
 #
 # generation="Generated" hands placement of the purchased force to the campaign.
-# Single-escort and air-focused missions keep authored placement, because the
-# bible is right that those need assignment proof the game has not given yet.
+# Every mission that deploys the task force now carries it: leaving it blank
+# means the owned force never deploys, so a mission with an anchor and no
+# Generated was asking the player to buy ships it would then ignore. The two
+# air-only operations (SW07, SW08) and the two side missions stay authored,
+# and the side missions disable the builder the way the stock campaign's
+# detached operations do.
 # =============================================================================
 
 SCHEDULE = {
     # num: (date, completion points, service window, generation, anchor station)
-    "01": ((2028, 10, 18), 100, False, None, "warramunga"),
+    "01": ((2028, 10, 18), 100, False, "Generated", "warramunga"),
     "O1": ((2028, 10, 19), 50, False, None, "patrol"),
     "02": ((2028, 10, 22), 140, False, "Generated", "escort"),
     "C1": ((2028, 10, 23), 0, False, None, "hobart"),
-    "03": ((2028, 10, 26), 120, True, None, "amphib"),
+    "03": ((2028, 10, 26), 120, True, "Generated", "amphib"),
     "04": ((2028, 10, 30), 100, False, "Generated", "patrol"),
     "05": ((2028, 11, 2), 140, True, "Generated", "warramunga"),
     "06": ((2028, 11, 6), 140, False, "Generated", "hobart"),
@@ -1990,3 +2021,252 @@ for _i, (_date, _title, _sub, _head, _body, _before) in enumerate(SITREPS, 1):
                            title=f"{_title}\\n{_date}", sub=_sub,
                            dateline=f"{_date.upper()}  |  MARITIME BORDER COMMAND, DARWIN",
                            headline=_head, body=_body))
+
+
+# =============================================================================
+# OBJECTIVES, WINDOWS AND GEOMETRY
+#
+# Three tables the review of f3e2a783 forced into existence. Each fixes a class
+# of defect that no gate in the build could see:
+#
+# RESOLVERS  every objective now names the predicate that completes or fails
+#            it. Twenty objective ids used to resolve to nothing at all: the
+#            player was told to keep the Triton flying, and losing it changed
+#            no score, no message and no outcome. "victory" means the main
+#            trigger completes it; "neutral" means the neutral-loss trigger
+#            fails it; everything else gets a trigger of its own.
+#
+# WINDOWS    purchases, repair and rearm are three separate permissions, and
+#            the campaign opens them at the points the design says rather than
+#            everywhere at once. Air tasking rows are what connect a purchased
+#            aircraft to a mission slot; without them the roster sells
+#            fighters that no mission can deploy.
+#
+# ARRIVALS   an arrival box that a 13-knot merchant cannot reach in 75 minutes
+#            is not an objective, and one the search helicopter starts inside
+#            is not either. Both shipped. The builder now refuses both.
+# =============================================================================
+
+CAP = ("CAP|Combat Air Patrol|Fighter|2|AirToAir/AirToAirLongRange/"
+       "AirToAirIntercept")
+RECON = ("Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/Recon/AntiShip/AEW")
+HELO = ("HeloRecon|Ship's Flight|Helicopter|1|ASW/ASWKiller/ASWHunter/"
+        "ASWLongRange")
+STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|AntiShipLongRange/AntiShip/"
+          "StrikeLongRange/Strike/StrikePrecision/SEAD/SEADLongRange")
+
+WINDOWS = {
+    # buy: the task force builder opens. repair/rearm: a service window.
+    # flights: air-tasking rows the purchased aircraft can be assigned to.
+    "01": dict(buy=True, flights=[HELO, RECON]),
+    "O1": dict(flights=[HELO]),
+    "02": dict(buy=True, repair=True, rearm=True, flights=[HELO, RECON, CAP]),
+    "C1": dict(flights=[HELO]),
+    "03": dict(flights=[HELO]),
+    "04": dict(rearm=True, flights=[HELO, RECON]),
+    "05": dict(buy=True, repair=True, rearm=True, flights=[HELO, STRIKE]),
+    "06": dict(flights=[CAP, RECON], airbase_prep=True),
+    "07": dict(repair=True, flights=[CAP], airbase_prep=True),
+    "08": dict(buy=True, flights=[STRIKE, CAP], airbase_prep=True),
+    "09": dict(repair=True, rearm=True, flights=[HELO, RECON]),
+    "10": dict(rearm=True, flights=[HELO, RECON, CAP]),
+    "11": dict(buy=True, repair=True, rearm=True, flights=[CAP, STRIKE]),
+    # SW12 is the epilogue passage: repair and aircraft replacement, no new
+    # hulls and no general rearm.
+    "12": dict(repair=True, flights=[HELO, RECON]),
+}
+
+TIMEOUTS = {
+    "01": "Last light, and the merchants are still scattered across forty miles "
+          "of the Arafura. Whatever this was, it worked.",
+    "O1": "Dark. The search resumes tomorrow in worse weather and colder water.",
+    "02": "The window at Moresby closed. The plant and the medical stores are "
+          "still at sea and the wharf party has gone home.",
+    "C1": "The drift box is open at the northern end and the weather is "
+          "building. The rest of that crew stays missing.",
+    "03": "The evacuation window expired with people still on the deck. There "
+          "will not be another one this week.",
+    "04": "The passenger is into the passage and gone. Whatever the route was, "
+          "it still is.",
+    "05": "The escort is still between the convoy and the corridor, and the "
+          "convoy has turned back.",
+    "06": "The passage window closed. The convoy is holding in open water "
+          "inside somebody's launch basket.",
+    "07": "The tanker never made the recovery line. Every sortie in the north "
+          "tomorrow gets shorter.",
+    "08": "The relief window expired. The next negotiation starts from a worse "
+          "place than this one did.",
+    "09": "The service window ran out with the boat still on the surface. She "
+          "goes home the long way, on what she has.",
+    "10": "The handover time passed. The cargo is still in the corridor and the "
+          "Japanese detachment is out of allocation.",
+    "11": "The transports never cleared the approaches. The talks open on "
+          "Friday with the corridor closed.",
+    "12": "Darwin's approaches are empty at the deadline. The first ship "
+          "through did not get through.",
+    "D1": "The group is still west of the line. The corridor plans around a "
+          "tank that does not refill.",
+    "D2": "The cycle broke and the visit was waved off. Somebody will write a "
+          "report about the afternoon the carriers stopped flying.",
+    "D3": "The beach window closed. The distribution point never opened and the "
+          "request for help goes elsewhere.",
+    "D4": "Daylight, and the auxiliary is still in the corridor at six knots "
+          "with every coalition sensor in the Banda looking for her.",
+    "D5": "The serial ran out of range time with pads still standing. The "
+          "trials report will say so at length.",
+    "D6": "The stream broke up short of release. Even in fiction, range is "
+          "range.",
+    "D7": "The exercise serial expired. The umpires have scored it against you.",
+    "D8": "Dark, and the column is still short of the airhead with the ridge "
+          "uncleared. The corridor goes back to flying.",
+}
+
+# Arrival boxes are authored as a BEARING (the direction the operation runs)
+# and a radius. The builder solves the distance against where the units
+# actually ended up after position snapping, so a box can be neither already
+# occupied at spawn nor out of reach in the mission's own running time. Both
+# shipped once as hand-written coordinates.
+ARRIVALS = {
+    "01": (52, 12),
+    "02": (-18, 12),
+    "03": (180, 20),
+    "04": (-177, 12),
+    "06": (-131, 12),
+    "07": (-170, 20),
+    "08": (161, 20),
+    "09": (154, 12),
+    "10": (139, 12),
+    "11": (138, 12),
+    "12": (-142, 12),
+    "C1": (-11, 20),
+    "D1": (85, 12),
+    "D2": (154, 20),
+    "D3": (133, 20),
+    "D4": (135, 12),
+    "D6": (28, 20),
+    "D8": (-41, 12),
+    "O1": (148, 20),
+}
+
+RESOLVERS = {
+    "01": {"Convoy": "victory", "Neutrals": "neutral",
+           "Warramunga": ("protect", "warramunga")},
+    "O1": {"Search": "victory", "Traffic": "neutral",
+           "Aircraft": ("protect", "datum")},
+    "02": {"Cargo": "victory", "Neutrals": "neutral",
+           "Medical": ("protect", "convoy#1")},
+    "C1": {"Survivors": "victory", "Assist": "neutral",
+           "Helicopter": ("protect", "search")},
+    "03": {"Evacuate": "victory", "Platform": "neutral",
+           "Ships": ("protect", "amphib")},
+    "04": {"Track": "victory", "Neutrals": "neutral",
+           "Patrol": ("protect", "patrol")},
+    "05": {"Escort": "victory", "Convoy": ("protect", "convoy"),
+           "Magazine": ("protect", "warramunga")},
+    "06": {"Convoy": "victory", "Sentry": ("protect", "isr"),
+           "Hobart": ("protect", "hobart")},
+    "07": {"Tanker": "victory", "Package": ("survive", "package"),
+           "Raptors": ("survive", "cap")},
+    "08": {"Window": "victory", "Town": "neutral",
+           "Battery": ("destroy", "battery", 2)},
+    "09": {"Service": "victory", "Collins": ("protect", "support#2"),
+           "Supply": ("protect", "support#1")},
+    "10": {"Cargo": "victory", "Allies": ("protect", "jmsdf"),
+           "Submarine": ("destroy", "red_sub", 1)},
+    "11": {"Transports": "victory", "Ford": ("protect", "carrier#1"),
+           "Strike": ("destroy", "red_air", 2)},
+    "12": {"Convoy": "victory", "Ceasefire": "neutral",
+           "Escorts": ("protect", "escort")},
+    "D1": {"Oiler": "victory", "Escorts": ("survive", "escort"),
+           "Shadow": ("destroy", "red_air", 2)},
+    "D2": {"Visit": "victory", "Cycle": ("protect", "carriers"),
+           "Tanker": ("protect", "air#2")},
+    "D3": {"Relief": "victory", "Town": "neutral",
+           "Group": ("protect", "group")},
+    "D4": {"Auxiliary": "victory", "Cruiser": ("protect", "escort#1"),
+           "Restraint": ("survive", "cap")},
+    "D5": {"Pads": "victory", "Safety": "neutral",
+           "Serial": ("destroy", "target", 1)},
+    "D6": {"Stream": "victory", "Escort": ("survive", "escort"),
+           "Sensor": ("protect", "sensor")},
+    "D7": {"Serial": "victory", "Recovery": ("protect", "high"),
+           "Umpire": ("protect", "sea")},
+    "D8": {"Column": "victory", "Village": "neutral",
+           "Gunship": ("protect", "support")},
+}
+
+for _m in MISSIONS:
+    _n = _m["num"]
+    _m["resolve"] = RESOLVERS[_n]
+    _m["timeout"] = TIMEOUTS[_n]
+    _m["window"] = WINDOWS.get(_n, {})
+    if _n in ARRIVALS:
+        _m["victory"]["bearing"], _m["victory"]["radius"] = ARRIVALS[_n]
+        _m["victory"].pop("at", None)
+
+
+# =============================================================================
+# AIR TASKING, DEPTH AND ROUTES
+#
+# SLOTS  connects a purchased aircraft to a place in a mission. The roster
+#        sells F-35s, Super Hornets, Growlers, P-8s, a Wedgetail, a Triton and
+#        a tanker; without a flight row and a matching mission slot, buying one
+#        changed nothing, because every airborne unit was a fixed authored one.
+#        The row is declared in WINDOWS, the slot is tagged here, and the role
+#        must be one the row's filter accepts.
+#
+# DEPTHS  every submarine was emitted at 0 - on the surface. That is correct
+#         for Collins alongside her tender in SW09 and wrong for a Type 039
+#         that is supposed to be the reason the mission is hard.
+#
+# ROUTES  SW04's whole objective is a contact reaching a handover box, and
+#         nothing in the file ever told it to go there. Waypoints are
+#         (lat, lon, depth-or-altitude).
+# =============================================================================
+
+SLOTS = {
+    # (mission, unit type): (flight row, role)
+    ("01", "usn_mh-60r"): (1, "HeloRecon"), ("01", "usn_p8"): (2, "Recon"),
+    ("O1", "usn_mh-60r"): (1, "HeloRecon"),
+    ("02", "E7A_Wedgetail"): (2, "Recon"),
+    ("C1", "usn_mh-60r"): (1, "HeloRecon"),
+    ("03", "usmc_ch53_standalone"): (1, "HeloRecon"),
+    ("04", "usn_mh-60r"): (1, "HeloRecon"), ("04", "usn_p8"): (2, "Recon"),
+    ("05", "usn_mh-60r"): (1, "HeloRecon"),
+    ("06", "raaf_f-35a"): (1, "CAP"), ("06", "raaf_mq-4c_triton"): (2, "Recon"),
+    ("07", "usaf_f-22_s6"): (1, "CAP"),
+    ("08", "usn_ea-18g"): (1, "Attack"), ("08", "raaf_f-35a"): (2, "CAP"),
+    ("09", "usn_mh-60r"): (1, "HeloRecon"),
+    ("10", "jp_sh-60k"): (1, "HeloRecon"), ("10", "jp_sh-60j"): (1, "HeloRecon"),
+    ("10", "jp_f-2a_late"): (3, "CAP"),
+    ("11", "usn_f-35c"): (1, "CAP"), ("11", "usn_ea-18g_2020"): (2, "Attack"),
+    ("12", "usn_p8"): (2, "Recon"),
+}
+
+DEPTHS = {
+    # Hunting boats sit below the layer; the ones on a surface task do not.
+    "plan_ss_type_039c": -400, "plan_ss_type_039": -350,
+    "plan_ss_kilo": -300, "wp_ssn_akula": -500,
+    "_narco_narcosub_adv": -60,          # semi-submersible, barely under
+    "civ_humpback": -120,                # a whale where a whale would be
+    "ran_ssg_collins": 0,                # surfaced alongside, deliberately
+    "usn_ssn_seawolf": -450,
+}
+
+ROUTES = {
+    # SW04's contact runs south out of the Seram passage for the handover box.
+    # Its objective is that it gets there; an unrouted contact never would.
+    ("04", "_narco_narcosub_adv"): [(-5.45, 130.19, -60), (-5.70, 130.18, -60),
+                                    (-5.95, 130.17, -60)],
+}
+
+for _m in MISSIONS:
+    for _u in _m["units"]:
+        _slot = SLOTS.get((_m["num"], _u["type"]))
+        if _slot:
+            _u["slot"] = _slot
+        if _u["type"] in DEPTHS:
+            _u["depth"] = DEPTHS[_u["type"]]
+        _route = ROUTES.get((_m["num"], _u["type"]))
+        if _route:
+            _u["route"] = _route

@@ -8,7 +8,7 @@
             TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black">
       <StackPanel Orientation="Vertical">
         <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
-        <TextBlock Text="26 NOVEMBER 2028  |  MARITIME BORDER COMMAND, DARWIN" Margin="0,14,0,14" FontSize="26"/>
+        <TextBlock Text="28 NOVEMBER 2028  |  MARITIME BORDER COMMAND, DARWIN" Margin="0,14,0,14" FontSize="26"/>
         <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
         <TextBlock Text="THE LANES ARE OPEN" FontWeight="Bold" FontSize="54"
                    TextWrapping="Wrap" TextAlignment="Center" Margin="0,26,0,26"/>
