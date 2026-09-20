@@ -473,7 +473,8 @@ def resolve(spec):
 
 # --- rendering ---------------------------------------------------------------
 
-BLOCK_ORDER = ("Type", "VariantReference", "SquadronReference", "LoadoutVariant",
+BLOCK_ORDER = ("Type", "VariantReference", "SpawnByVariableAND",
+               "SquadronReference", "LoadoutVariant",
                "TaskForceModeAnchor", "Nation", "UnlimitedFuel", "WeaponStatus",
                "RadarsActive", "CrewSkill", "Morale", "RelativePositionInNM",
                "Heading", "Telegraph")
@@ -574,6 +575,14 @@ def place(mission, snapper):
         # A purchased aircraft reaches a mission through a flight row and a
         # matching slot. Without these the roster sells aircraft that no
         # mission can deploy.
+        # SpawnByVariableAND lets an earlier operation change a later order of
+        # battle: 08A Pathfinders omits two SA-8 launchers when 07A sank the
+        # Palawan reinforcements, and 10 Vengeance at Luzon omits the Slava and
+        # its screen when 07A sank the Slava. This is how a consequence is
+        # enforced rather than narrated.
+        if spec.get("spawn_if"):
+            var, state = spec["spawn_if"]
+            keys["SpawnByVariableAND"] = f"{var},{state}"
         if spec.get("slot"):
             keys["TaskForceModeAirTaskingSlot"] = spec["slot"][0]
             keys["TaskForceModeAirTaskingRole"] = spec["slot"][1]
@@ -873,6 +882,11 @@ def render(mission, placed, members):
         L.append(f"{oid}Intel={ini_text(reward['intel'])}")
     for i, loss in enumerate(mission.get("support_loss", []), 1):
         L.append(f"SupportLoss{i}Intel={ini_text(loss['intel'])}")
+    for reveal in mission.get("reveal_if", []):
+        L.append(f"{reveal['variable']}Intel={ini_text(reveal['intel'])}")
+    for flag in mission.get("flags", []):
+        if flag.get("intel"):
+            L.append(f"{flag['name']}Intel={ini_text(flag['intel'])}")
     if neutral_tags:
         L.append("NeutralLossMessage=<color=orange>Neutral contact lost.</color>|"
                  "That one was not ours to shoot. The operation ends here and "
@@ -955,11 +969,15 @@ def render(mission, placed, members):
                                    extra.get("radius", victory.get("radius", 20)),
                                    units, extra.get("min_units", len(units)))
         expr += f" AND <Condition{n}>"
-    trigger("Objective met", cond + [f"ConditionsCompleted={expr}",
-            "Action_Taskforce1_Message=Taskforce1VictoryMessage",
-            "Action_Taskforce2_Message=Taskforce2DefeatMessage",
-            "Action_Victory=Taskforce1", "Action_EndMission=True",
-            "Action_EndMissionDelay=60", f"Action_ObjectivesCompleted={main}"])
+    win_lines = [f"ConditionsCompleted={expr}",
+                 "Action_Taskforce1_Message=Taskforce1VictoryMessage",
+                 "Action_Taskforce2_Message=Taskforce2DefeatMessage",
+                 "Action_Victory=Taskforce1", "Action_EndMission=True",
+                 "Action_EndMissionDelay=60",
+                 f"Action_ObjectivesCompleted={main}"]
+    if victory.get("sets"):
+        win_lines.append(f"Action_VariableSet={victory['sets']},True")
+    trigger("Objective met", cond + win_lines)
 
     # Every objective needs a predicate. "victory" is completed by the trigger
     # above; everything else gets its own, and an objective with no resolver
@@ -1008,6 +1026,8 @@ def render(mission, placed, members):
                      f"Condition_Units={','.join(units)}",
                      f"Condition_MinimumUnits={how[2]}",
                      f"Action_ObjectivesCompleted={oid}"]
+            if how[3] if len(how) > 3 else None:
+                lines.append(f"Action_VariableSet={how[3]},True")
             reward = mission.get("reveals", {}).get(oid)
             if reward:
                 revealed = [t for r in reward["units"] for t in refs(members, r)]
@@ -1046,7 +1066,22 @@ def render(mission, placed, members):
                 + ["ConditionsCompleted=<Condition1>",
                    f"Action_Taskforce1_Intel=SupportLoss{i}Intel"]
                 + ([f"Action_ObjectivesFailed={loss['objective']}"]
-                   if loss.get("objective") else []))
+                   if loss.get("objective") else [])
+                + ([f"Action_VariableSet={loss['sets']},True"]
+                   if loss.get("sets") else []))
+
+    # Campaign flags this mission writes for later ones. Only the IsFalse form
+    # of SpawnByVariableAND appears in the native export, so a flag always
+    # names something that HAPPENED and later missions spawn the content that
+    # exists when it did not. Inventing IsTrue would be inventing a mechanism.
+    for flag in mission.get("flags", []):
+        units = [t for r in flag["units"] for t in refs(members, r)]
+        trigger(f"Flag: {flag['name']}",
+                destroyed_condition(1, units, flag.get("minimum", 1))
+                + ["ConditionsCompleted=<Condition1>",
+                   f"Action_VariableSet={flag['name']},True"]
+                + ([f"Action_Taskforce1_Intel={flag['name']}Intel"]
+                   if flag.get("intel") else []))
 
     if placed.get("Taskforce1Vessel") or placed.get("Taskforce1Aircraft"):
         trigger("Player force gone", [
@@ -1064,6 +1099,20 @@ def render(mission, placed, members):
                    f"Action_ObjectivesFailed={mission['neutral_objective']}",
                    f"Action_ObjectivesCancel={main}", "Action_Victory=Taskforce2",
                    "Action_EndMission=True", "Action_EndMissionDelay=45"])
+
+    # A saved result from an earlier operation, read here. 09 Shadows off
+    # Palawan reveals the missile sites this way when 08A's recon completed.
+    for reveal in mission.get("reveal_if", []):
+        revealed = [t for r in reveal["units"] for t in refs(members, r)]
+        trigger(f"Reveal from {reveal['variable']}", [
+            "Condition_Condition1_Type=VariableCheck",
+            f"Condition_Condition1_Variable={reveal['variable']}",
+            "ConditionsCompleted=<Condition1>",
+            f"Action_Taskforce1_Intel={reveal['variable']}Intel",
+            "Action_UnitRevealToTaskforce=Taskforce1|"
+            + reveal.get("level", "Identify"),
+            "Action_UnitRevealTime=-1",
+            f"Action_Units={','.join(revealed)}"])
 
     L.append(f"NumberOfTriggers={len(T)}")
     L.append("")
@@ -1084,6 +1133,16 @@ def render(mission, placed, members):
                 "victory objective is completed by a terminal trigger")
         L.append(f"{oid}={spec}")
     L.append("")
+
+    # Variables this mission WRITES are declared here with their default, the
+    # way 07A and 08A declare theirs. A mission that only reads one does not
+    # declare it.
+    declared = sorted(mission.get("declares", []))
+    if declared:
+        L.append("[CampaignVariables]")
+        for var in declared:
+            L.append(f"{var}=False")
+        L.append("")
 
     for i, (comment, lines) in enumerate(T, 1):
         L.append(f"[Trigger{i}]  #{comment}")

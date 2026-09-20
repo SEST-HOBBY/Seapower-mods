@@ -241,7 +241,9 @@ ROSTER = [
     dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=60,
          note="unarmed in this implementation"),
     dict(unit="usaf_kc-46a_boom", picks=["Squadron1"], points=75,
-         note="US support; receiver pairing is unverified"),
+         note="US support. Role=Airliner with a single Tanker fit, so its "
+              "air-tasking row filters Airliner rather than a tanker role; "
+              "neither that tasking path nor receiver compatibility is tested"),
     dict(unit="usn_mh-60r", picks=["Squadron1"], points=20,
          note="one family chosen explicitly - usn_mh-60r_26 is a different "
               "unit and is never substituted for it"),
@@ -1115,7 +1117,7 @@ MISSIONS.append(dict(
         # This is the campaign's one fleet action; it should be the mission
         # where the player cannot watch every axis at once.
         U("red", "plan-submarines", "plan_ssn_type_093b", "red_sub",
-          name="Contact ROMEO", depth=-450),
+          name="Contact ROMEO"),
         U("red", "fujian-cv-18", "plan_j-35", "red_air", name="Falcon 11"),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
           name="Flying Shark 21"),
@@ -2072,33 +2074,56 @@ for _i, (_date, _title, _sub, _head, _body, _before) in enumerate(SITREPS, 1):
 #            is not either. Both shipped. The builder now refuses both.
 # =============================================================================
 
-CAP = ("CAP|Combat Air Patrol|Fighter|2|AirToAir/AirToAirLongRange/"
-       "AirToAirIntercept")
-RECON = ("Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/Recon/AntiShip/AEW")
-HELO = ("HeloRecon|Ship's Flight|Helicopter|1|ASW/ASWKiller/ASWHunter/"
-        "ASWLongRange")
-STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|AntiShipLongRange/AntiShip/"
-          "StrikeLongRange/Strike/StrikePrecision/SEAD/SEADLongRange")
+# A flight row's last field is a list of ACCEPTABLE LOADOUT NAMES, and the
+# names have to be the ones the winning files actually declare. The stock
+# 1985 vocabulary does not survive the mod collection: the Super Hornet's
+# fits are MurderHornetCAP and friends, and the Growler's are
+# MurderHornetSEADHeavy and SEST_NGJLongRange. Rows written against
+# AirToAir/SEAD would have quietly excluded the two aircraft the roster
+# sells for exactly those jobs. Checked against the winning files, not
+# assumed from the stock campaign.
+#
+# The speculative fits are deliberately absent: the F-35A's Malice424 and
+# Intercept260*, and the Growler's SEST_MaliceNGJ, belong to Future Front.
+CAP = ("CAP|Combat Air Patrol|Fighter|2|"
+       "AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor")
+RECON = "Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/AntiShip/Recon/AEW"
+HELO = ("HeloRecon|Ship's Flight|Helicopter|1|"
+        "ASW/ASWLongRange/ASWPatrol/Anti-shipLate")
+STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
+          "Strike/StrikeLongRange/StrikePrecision/AntiShip/AntiShipHeavy/"
+          "MurderHornetSEAD/MurderHornetAntiShip/MurderHornetSEADHeavy/"
+          "SEST_NGJLongRange")
+# The KC-46 is Role=Airliner with a single Tanker fit - a row filtering a
+# hypothetical tanker role would never match it. Whether a purchased tanker
+# can actually be tasked this way is untested; the roster comment says so.
+TANKER = "Tanker|Air-to-Air Refuelling|Airliner|1|Tanker"
 
+# The native build brief's service table, adopted as written. Purchases open
+# at six scheduled points and close at SW04, SW06 and SW08 - the chapters
+# where the player fights with what chapter's start gave them. SW10's rearm
+# is the labelled scheduled fallback the brief permits until the conditional
+# stores gate is demonstrated.
 WINDOWS = {
-    # buy: the task force builder opens. repair/rearm: a service window.
-    # flights: air-tasking rows the purchased aircraft can be assigned to.
-    "01": dict(buy=True, flights=[HELO, RECON]),
+    "01": dict(buy=True, repair=True, rearm=True, flights=[HELO, RECON]),
     "O1": dict(flights=[HELO]),
-    "02": dict(buy=True, repair=True, rearm=True, flights=[HELO, RECON, CAP]),
+    "02": dict(buy=True, repair=True, rearm=True,
+               flights=[HELO, RECON, CAP, TANKER]),
     "C1": dict(flights=[HELO]),
-    "03": dict(flights=[HELO]),
-    "04": dict(rearm=True, flights=[HELO, RECON]),
+    "03": dict(buy=True, repair=True, rearm=True, flights=[HELO]),
+    "04": dict(flights=[HELO, RECON]),
     "05": dict(buy=True, repair=True, rearm=True, flights=[HELO, STRIKE]),
     "06": dict(flights=[CAP, RECON], airbase_prep=True),
-    "07": dict(repair=True, flights=[CAP], airbase_prep=True),
-    "08": dict(buy=True, flights=[STRIKE, CAP], airbase_prep=True),
-    "09": dict(repair=True, rearm=True, flights=[HELO, RECON]),
+    "07": dict(buy=True, repair=True, rearm=True, flights=[CAP, TANKER],
+               airbase_prep=True),
+    "08": dict(flights=[STRIKE, CAP], airbase_prep=True),
+    "09": dict(buy=True, repair=True, rearm=True, flights=[HELO, RECON]),
+    # No ordinary hull purchases and no paid repair; the rearm is the
+    # scheduled fallback, not a proved conditional gate.
     "10": dict(rearm=True, flights=[HELO, RECON, CAP]),
     "11": dict(buy=True, repair=True, rearm=True, flights=[CAP, STRIKE]),
-    # SW12 is the epilogue passage: repair and aircraft replacement, no new
-    # hulls and no general rearm.
-    "12": dict(repair=True, flights=[HELO, RECON]),
+    # Aircraft replacement and repair only: no new hulls, no general rearm.
+    "12": dict(buy=True, repair=True, flights=[HELO, RECON]),
 }
 
 TIMEOUTS = {
@@ -2269,20 +2294,26 @@ SLOTS = {
 }
 
 DEPTHS = {
-    # Hunting boats sit below the layer; the ones on a surface task do not.
-    "plan_ss_type_039c": -400, "plan_ss_type_039": -350,
-    "plan_ss_kilo": -300, "wp_ssn_akula": -500,
-    "_narco_narcosub_adv": -60,          # semi-submersible, barely under
-    "civ_humpback": -120,                # a whale where a whale would be
+    # Depth is a NAMED TOKEN, not feet. The native export uses low, shallow,
+    # periscope, belowlayer and AboveLayer and never a number - an earlier pass
+    # here wrote -400 and friends, which the game has no reason to understand.
+    # Hunting boats sit below the layer, where a surface ship's sonar has to
+    # work for its contact; the semi-submersible runs at periscope depth
+    # because that is what it is.
+    "plan_ss_type_039c": "belowlayer", "plan_ss_type_039": "belowlayer",
+    "plan_ss_kilo": "belowlayer", "wp_ssn_akula": "belowlayer",
+    "plan_ssn_type_093b": "belowlayer", "usn_ssn_seawolf": "belowlayer",
+    "_narco_narcosub_adv": "periscope",
+    "civ_humpback": "shallow",
     "ran_ssg_collins": 0,                # surfaced alongside, deliberately
-    "usn_ssn_seawolf": -450,
 }
 
 ROUTES = {
     # SW04's contact runs south out of the Seram passage for the handover box.
     # Its objective is that it gets there; an unrouted contact never would.
-    ("04", "_narco_narcosub_adv"): [(-5.45, 130.19, -60), (-5.70, 130.18, -60),
-                                    (-5.95, 130.17, -60)],
+    ("04", "_narco_narcosub_adv"): [(-5.45, 130.19, "Periscope"),
+                                    (-5.70, 130.18, "Periscope"),
+                                    (-5.95, 130.17, "Periscope")],
 }
 
 for _m in MISSIONS:
@@ -2389,3 +2420,74 @@ for _m in MISSIONS:
 for _m in MISSIONS:
     if _m["num"] in ("03", "07", "08", "O1", "C1") or _m["group"] == "dispatch":
         _m.setdefault("window", {})["detachment"] = True
+
+
+# =============================================================================
+# CAMPAIGN VARIABLES: consequences that are ENFORCED, not narrated
+#
+# The native source pack settles a question this build had previously answered
+# wrongly. Campaign variables are real and demonstrated in the shipped export:
+#
+#   [CampaignVariables] 07ASlavaDestroyed=False   declares it with a default
+#   Action_VariableSet=07ASlavaDestroyed,True     a trigger writes it
+#   SpawnByVariableAND=07ASlavaDestroyed,IsFalse  a later unit spawns on it
+#   Condition_Condition1_Type=VariableCheck       a later trigger reads it
+#
+# 07A Hunt for the Cruiser writes two; 08A Pathfinders and 10 Vengeance at
+# Luzon read them and omit launchers and a Slava screen accordingly. 08A also
+# writes a recon flag that 09 Shadows off Palawan reads to reveal missile sites.
+#
+# ONE CONSTRAINT, OBSERVED. Only the IsFalse form appears in the export. So a
+# flag always names something that HAPPENED, and later missions spawn the
+# content that exists when it did NOT. IsTrue is not invented here.
+# =============================================================================
+
+VARIABLES = {
+    # Losing the replenishment ship in chapter 1 thins the rear area in
+    # chapter 5. Not a message about a consequence - the hull is absent.
+    "02": dict(declares=["SW02SupplyLost"]),
+    # Classifying the northern surface group is worth something three weeks
+    # later, which is what makes exposing the Triton a decision rather than a
+    # chore.
+    "06": dict(declares=["SW06NorthernGroupClassified"]),
+    # The fleet action's result carries into the last passage.
+    "11": dict(declares=["SW11FujianSunk"]),
+}
+
+for _m in MISSIONS:
+    _v = VARIABLES.get(_m["num"])
+    if _v:
+        _m["declares"] = _v["declares"]
+
+# SW02: the support-loss trigger writes the flag.
+for _m in MISSIONS:
+    if _m["num"] == "02":
+        _m["support_loss"][0]["sets"] = "SW02SupplyLost"
+    if _m["num"] == "06":
+        # ("classify", ref, minimum, variable-to-set)
+        _m["resolve"]["Picture"] = ("classify", "red_sag", 1,
+                                    "SW06NorthernGroupClassified")
+    if _m["num"] == "09":
+        # The second replenishment hull only exists if SUPPLY came through
+        # chapter 1. Lose her at Steel Highway and the rear-area group is one
+        # ship thinner for the service window that matters.
+        for _u in _m["units"]:
+            if _u["type"] == "civ_ms_amra":
+                _u["spawn_if"] = ("SW02SupplyLost", "IsFalse")
+    if _m["num"] == "11":
+        _m["flags"] = [dict(name="SW11FujianSunk", units=["red_cv#1"],
+                            intel="FUJIAN is down. What is left of that group "
+                                  "has no deck to fly from, and the corridor "
+                                  "knows it before the talks open.")]
+        _m["reveal_if"] = [dict(
+            variable="SW06NorthernGroupClassified",
+            units=["red_cv"], level="Identify",
+            intel="The surface group Sentry 06 classified on 6 November is the "
+                  "screen in front of you now. Their track is on your plot "
+                  "from the start - that reconnaissance sortie is why.")]
+    if _m["num"] == "12":
+        # Sink the carrier at Fujian's Shadow and the spoiler group has no air
+        # cover on the last morning.
+        for _u in _m["units"]:
+            if _u["station"] == "spoiler_air":
+                _u["spawn_if"] = ("SW11FujianSunk", "IsFalse")

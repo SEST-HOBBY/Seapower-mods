@@ -3,6 +3,55 @@
 What was built from `campaign-bible.md`, where it departs from the bible, and —
 more importantly — what has **not** been demonstrated.
 
+## Native source pack: what changed here, and one retraction
+
+`SEST_Native_Campaign_Source_Pack` is a curated set of extracts from the
+shipped game and the stock campaigns. Every claim in its build brief was
+re-checked against the files it points at before anything here moved. Four
+things changed, and one earlier statement of mine was wrong.
+
+**The retraction.** I previously said — in the working notes and in the reply
+that accompanied them — that a cross-mission consequence could not be built:
+that nothing in the shipped data showed how to gate mission nine on something
+that happened in mission two, so support-ship loss could only be *stated* in
+briefing text. That was wrong. `[CampaignVariables]` is shipped, and the
+stock campaigns use it. Three chains are now wired and verified in the built
+files:
+
+| Written in | How | Read in | How |
+|---|---|---|---|
+| SW02, when the supply ship is lost | `[CampaignVariables] SW02SupplyLost=False` + `Action_VariableSet=SW02SupplyLost,True` | SW09 | `SpawnByVariableAND=SW02SupplyLost,IsFalse` on `civ_ms_amra` — lose her in the Steel Highway and the ship she would have resupplied is not on the plot seven missions later |
+| SW06, when the northern group is classified | `Action_VariableSet=SW06NorthernGroupClassified,True` on the classify objective | SW11 | `Condition_Condition1_Type=VariableCheck` → `Action_UnitRevealToTaskforce=Taskforce1\|Identify` on the five-ship screen, plus an intel line naming the sortie that earned it |
+| SW11, when FUJIAN is sunk | `Action_VariableSet=SW11FujianSunk,True` | SW12 | `SpawnByVariableAND=SW11FujianSunk,IsFalse` on the spoiler strike flight — leave her afloat and the last mission is contested from the air |
+
+Only `IsFalse` appears anywhere in the shipped data, so every chain is authored
+as an absence: the variable's *unset* state is what spawns a unit. An `IsTrue`
+form may well exist; it is not attested, so it is not used. The reveal chain
+reads the variable through a trigger condition instead, which is attested.
+
+**Submarine depth is a named token, not a number.** The f3e2a783 fix put
+numbers there — 300 to 500 feet. A census of every `RelativePositionInNM` in
+the shipped missions returns 104 `low`, 88 `shallow`, 15 `periscope`, 1
+`belowlayer`, 1 `AboveLayer`, and no depth number anywhere. The hunting boats
+are now `belowlayer`, the semi-submersible `periscope`, the whale `shallow`,
+and Collins stays at `0` — surfaced alongside, deliberately.
+
+**The air-tasking flight rows filtered on loadouts the aircraft do not have.**
+The brief flagged it; it reproduces. `usn_fa-18f_blk3` carries
+`MurderHornetCAP`, not `AirToAir`; `usn_ea-18g` carries `MurderHornetSEADHeavy`
+and `SEST_NGJLongRange`, not `SEAD`. The CAP and strike rows as written would
+have excluded the two aircraft the roster sells for those jobs. All five rows
+now list the loadout names the winning files actually define.
+
+**Service windows follow the brief's §4 table.** Purchases open at four
+force-assembly points rather than before every mission; SW10 gets rearm only,
+SW12 repair and replacement aircraft but no new hulls.
+
+What this still does not establish: that any of it behaves as intended with the
+game running. A variable that is declared, written and read in three files is a
+static fact about those files. Whether the campaign carries it between missions
+is the seventh step of §16's acceptance run, and that step has not been taken.
+
 ## Review of f3e2a783: what changed here
 
 Every finding was reproduced before it was touched. The three anchor slots, the
@@ -15,9 +64,9 @@ already-satisfied victory circle were all exactly as reported.
 | 2 | O01 starts 13.4 NM inside its own 20 NM victory circle | Arrival boxes are no longer hand-written coordinates. The roster authors a bearing and a radius; the builder solves the distance against the positions the units actually got, and rejects a box that is occupied at spawn or out of reach |
 | 3 | 20 objective ids resolved to nothing | Every objective now names a predicate (`victory`, `neutral`, `protect`, `survive`, `destroy`, `arrive`) and gets its own trigger. An objective without one fails the build. SW02 now needs the cargo count **and** the medical ship in the box; SW09 needs Supply and Collins by name, after a 35-minute service window. Terminal triggers end the mission and `Action_ObjectivesCancel` the other outcome's objective |
 | 4 | Purchased aircraft had no deployment path | `TaskForceModeAirTaskingAvailable` with flight rows per mission, and 27 `TaskForceModeAirTaskingSlot`/`Role` tags on the authored aircraft. Every mission that fields the task force now also carries `TaskForceModeMissionGenerationType=Generated`; leaving it blank meant the owned force never deployed |
-| 5 | C01 is not outcome-gated | Not implemented — **relabelled instead**. The special note and the briefing now say the recovery is offered unconditionally and that gating it on the lost-cargo outcome needs a saved condition this build has not demonstrated. The briefing no longer names a ship that may still be afloat |
+| 5 | C01 is not outcome-gated | Not implemented — **relabelled instead**. The special note and the briefing say the recovery is offered unconditionally. Campaign variables can now gate a *unit* on a previous mission's outcome (see the section above), but gating whether a campaign *card* appears at all is a different key, and no shipped campaign does it. The briefing no longer names a ship that may still be afloat |
 | 6 | Purchase and service rules were one boolean | `buy`, `repair` and `rearm` are three separate windows per mission. Purchases open at four force-assembly points, not before all twelve. Per-mission purchase allowlists are still **not** implemented |
-| 7 | All submarines at surface depth | Authored per boat: hunting boats 300–500 ft down, the semi-submersible at 60, Collins deliberately surfaced alongside her tender |
+| 7 | All submarines at surface depth | Authored per boat — and then **corrected again**: depth is a named token, not a number. Hunting boats `belowlayer`, the semi-submersible `periscope`, Collins deliberately surfaced alongside her tender |
 | 8 | Routes and timing | `Condition_Time` is **seconds** — so the missions had no deadline at all, only a post-defeat exit timer. Each mission now has a real deadline in seconds that fails the main objective, and the arrival solver sizes every box to the mission's own clock. SW04's contact has waypoints to the box its objective depends on |
 | 9 | Resolver accepted disabled Workshop folders | The fallback to exported folders absent from the canonical order is gone. Resolution is enabled-mods-only, so an unsubscribe fails the build instead of being credited |
 | 10 | Range Week scored launchers as interceptions | The objective now says what the trigger tests — destroy three of four threat pads — and the authorised seaward target is exempt from the neutral-loss rule. A range safety boat and an airliner give the safety objective something it can actually fail on |
@@ -152,6 +201,11 @@ anything in this repository:
   are snapped to proven points and the pools are thin in some theatres, so
   density is the thing to raise once a mission has actually been profiled on
   the user's PC;
+- that a campaign variable survives between missions. Declaration, write and
+  read are all present and statically consistent in the three chains above,
+  and `IsFalse` is the only comparison the shipped data attests. Whether the
+  campaign actually carries the flag forward — and whether an objective that
+  completes late still writes it — needs the game;
 - that the mod-supplied campaign is surfaced by the Mod Manager at all. The
   missions are shipped a second time under `missions/` precisely so the
   campaign's content is playable either way.
