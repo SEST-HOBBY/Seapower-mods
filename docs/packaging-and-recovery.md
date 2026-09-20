@@ -68,6 +68,18 @@ keeps them blocked at the top for exactly that reason, and
 theoretical: `SEST_Growler_NGJ_MALICE` was inert for several sessions because
 U.S. Navy 2027 moved up one tier and happened to jump over it.
 
+## Retired packs
+
+A pack is retired when the upstream mod adopts the fix. The patch then adds
+nothing and costs something: an override is a whole-file replacement, so it
+freezes everything *else* in that file at the version the pack was built
+against, and it keeps a dependency alive for no gameplay reason. Git holds the
+implementation if upstream ever regresses.
+
+| Pack | Retired | Why |
+|---|---|---|
+| `SEST_Zumwalt_CPS` | 2026-09-20 | Modern US Navy fixed both defects it existed for. The duplicate `[WeaponSystem1]` is gone (the CPS hull now declares 1–23, each once, with a real `[WeaponSystem2]`), and the dangling `SensorSystem12` reference is gone with it. The LMVLS now carries no `AssociatedSensors` at all, which is correct here rather than a new bug: `usn_ircps` is `GuidanceType=0, MidCourseCorrection=0`, so it draws no guidance channel — the rule in `tools/check_weapon_employment.py` applies to MCC 1 and 3, not 0. |
+
 ## Removing them
 
 ```powershell

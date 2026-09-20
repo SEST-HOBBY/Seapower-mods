@@ -16,6 +16,11 @@ carried by its ships and its Super Hornets.
 usn_p8 from mod 3602046770 has the identical four-line typo and the identical
 ASW,AntiShip pair, so it gets the same substitution.
 
+UPDATE, 2026-09-20 export: U.S. Navy 2027 fixed its own copy - usn_p8_2027
+now writes Station1..4=usn_agm-84n, which is precisely what this patch was
+substituting. That target is retired (see RETIRED); 3602046770's usn_p8 still
+carries the typo four times and is still patched.
+
 Not included, having checked each one:
   - usn_e-2d, fr_e2c, fr_e2d, usn_ch-46d, usaf_ac-130a_83, jmsdf_kv_107*
     all declare a loadout with no matching block, but every one of them is an
@@ -41,9 +46,16 @@ REPLACE = "usn_agm-84n"      # U.S. Navy 2027's own Harpoon Block II+ ER
 
 # (workshop id, aircraft file)
 TARGETS = [
-    ("3606774881", "usn_p8_2027.ini"),   # U.S. Navy 2027 - fielded in NFIII FINAL
-    ("3602046770", "usn_p8.ini"),        # same typo, same fix
+    ("3602046770", "usn_p8.ini"),        # still carries the typo, 4x
 ]
+
+# Targets retired because upstream adopted the fix. Checked in the 2026-09-20
+# export: U.S. Navy 2027's usn_p8_2027 AntiShip block now reads
+# Station1..4=usn_agm-84n - the exact substitution this patch was making - so
+# shipping a copy of that file would add an override that changes nothing and
+# a dependency for no reason. The file is unlinked below so a pack folder
+# built before the retirement does not keep serving a stale copy.
+RETIRED = [("3606774881", "usn_p8_2027.ini", "upstream now writes usn_agm-84n itself")]
 
 INFO_INI = """\
 [Language_en]
@@ -60,6 +72,12 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     print("SEST_Allied_Fixes")
+
+    for _mod, name, why in RETIRED:
+        stale = OUT / "aircraft" / name
+        if stale.exists():
+            stale.unlink()
+            print(f"    removed aircraft/{name} - {why}")
 
     built = 0
     for mod, name in TARGETS:
@@ -100,11 +118,19 @@ def main():
         text = src.read_text(encoding="utf-8-sig")
         if "uk_ah_mk_1" in text:
             sys.exit("rn_lph_ocean.ini: upstream now supports the Apache - drop this fix")
-        text, n = re.subn(r"^AircraftSupported=raac_lynx_ah7\s*$",
-                          "AircraftSupported=raac_lynx_ah7,uk_ah_mk_1",
-                          text, flags=re.M)
+        # APPEND to whatever the line holds rather than matching an expected
+        # value: the 2026-09-20 export added rn_sea_king_hc4 to it, which an
+        # exact match read as "upstream changed, stop". The fix is still
+        # needed (no uk_ah_mk_1 anywhere in the file), so the patch now adds
+        # the Apache to the list as it finds it and prints what it appended to.
+        lines = re.findall(r"^AircraftSupported=([^\n]*?)\s*$", text, re.M)
+        if len(lines) != 1:
+            sys.exit(f"rn_lph_ocean.ini: expected 1 AircraftSupported line, found {len(lines)}")
+        had = lines[0]
+        text, n = re.subn(r"^AircraftSupported=[^\n]*?\s*$",
+                          f"AircraftSupported={had},uk_ah_mk_1", text, flags=re.M)
         if n != 1:
-            sys.exit(f"rn_lph_ocean.ini: AircraftSupported line changed upstream ({n} matches)")
+            sys.exit(f"rn_lph_ocean.ini: AircraftSupported substitution hit {n} lines")
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(text, encoding="utf-8")
         print("  vessels/rn_lph_ocean.ini  (+uk_ah_mk_1 Apache AH1 supported)")

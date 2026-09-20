@@ -8,7 +8,6 @@ SEST loadouts without changing the original choices.
 
 Targets:
   * usn_ea-18g       - U.S. Navy 2027 Capabilities (upgraded from ALQ-99)
-  * usn_ea-18g_2020s - F/A-18E/F (already carries the NGJ meshes)
   * usn_ea-18g_2020  - US Naval Aviation (already carries the NGJ meshes)
   * usn_fa-18f_blk3  - U.S. Navy 2027 Capabilities Block III Super Hornet
   * usn_fa-18f       - U.S. Navy 2027 two-seat Super Hornet (AN/APG-79)
@@ -24,7 +23,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 NAVY_2027 = ROOT / "mods-source" / "3606774881"
-SUPER_HORNET = ROOT / "mods-source" / "3426791311"
+# 3426791311 (F/A-18E/F) was unsubscribed 2026-09-20; both things this
+# pack took from it have been retired or rebased. Kept out deliberately.
 US_NAVAL_AVIATION = ROOT / "mods-source" / "3737267013"
 MURDER_HORNET = ROOT / "mods-source" / "3430135740"
 OUT = Path(__file__).resolve().parent / "SEST_Growler_NGJ_MALICE"
@@ -667,9 +667,16 @@ def build_tank_610_override() -> None:
     coordinates on all four airframes), so this override renders that mesh
     instead. Whole-file ammunition override: our pack outranks all three
     workshop mods that ship this file (F/A-18E/F, US Naval Aviation, RSA)."""
-    src = SUPER_HORNET / "ammunition" / "usn_tank_610_f-18.ini"
+    # DONOR REBASED 2026-09-20: was the deprecated F/A-18E/F (3426791311),
+    # unsubscribed and pruned. Of the two providers left, US Naval Aviation
+    # (rank 54) outranks Red Storm Arsenal (last), so it is the file that
+    # would win without this override and therefore the right base. It ships
+    # the same mesh under a different folder - assets/models/aircraft/
+    # usn_fa-18e/ rather than .../vechicle/aircraft/f-18e/ - which is why the
+    # expected block below changed with the donor.
+    src = US_NAVAL_AVIATION / "ammunition" / "usn_tank_610_f-18.ini"
     text = src.read_text(encoding="utf-8-sig")
-    old = ("ResourcesFolder=assets/models/vechicle/aircraft/f-18e/\n"
+    old = ("ResourcesFolder=assets/models/aircraft/usn_fa-18e/\n"
            "ResourcesRoot=fa-18e.obj\n"
            "ResourcesMesh=f-18_fuletank\n"
            "ResourcesMaterial=f-18e_mat.ini")
@@ -708,14 +715,35 @@ def port_tanker_fit(text: str, source_name: str) -> str:
     aar = re.search(r"^\[AerialRefuelingTanker\]\n(?:[^\n\[][^\n]*\n)*", donor, re.M)
     if not (m and keys and aar):
         sys.exit(f"{source_name}: USNA tanker blocks not found - upstream changed again")
-    if "Tanker" in re.search(r"^AvailableLoadouts=(.+)$", text, re.M).group(1):
-        sys.exit(f"{source_name}: Tanker already declared - drop this port")
+
+    # PARTIAL PORT, 2026-09-20. The base (U.S. Navy 2027) has since added a
+    # Tanker loadout of its own, with the same SupplySystem_* values and a
+    # SubModelsToHide list matched to its own model - but NO
+    # [AerialRefuelingTanker] module, which USNA's copy does carry. So the
+    # port now supplies only what the base still lacks instead of failing or
+    # duplicating: re-declaring the loadout would risk a doubled picker entry,
+    # and overwriting the base's block would swap its own submodel list for
+    # another model's.
+    base_has_loadout = "Tanker" in re.search(r"^AvailableLoadouts=(.+)$", text, re.M).group(1)
+    base_has_block = re.search(r"^\[WeaponSystem1Tanker\]", text, re.M) is not None
+    if base_has_loadout != base_has_block:
+        sys.exit(f"{source_name}: base declares Tanker={base_has_loadout} but has a "
+                 f"WeaponSystem1Tanker block={base_has_block} - half a fit, re-check by hand")
+    if base_has_loadout:
+        if re.search(r"^\[AerialRefuelingTanker\]", text, re.M):
+            print(f"    {source_name}: upstream ships the whole tanker fit - nothing to port")
+            return text
+        print(f"    {source_name}: upstream added the Tanker fit but not "
+              f"[AerialRefuelingTanker] - supplying that module only")
+        return text + ("" if text.endswith("\n") else "\n") + "\n" + aar.group(0)
+
     text = extend_loadouts(text, ["Tanker"], source_name)
     # position keys go into the WS1 table, next to the other centre keys
-    anchor = re.search(r"^Station29=[^\n]*\n", text, re.M)
-    if not anchor:
-        sys.exit(f"{source_name}: no Station29 to anchor FT_Center keys")
-    text = text[:anchor.end()] + keys.group(0) + text[anchor.end():]
+    if not re.search(r"^FT_CenterPositions=", text, re.M):
+        anchor = re.search(r"^Station29=[^\n]*\n", text, re.M)
+        if not anchor:
+            sys.exit(f"{source_name}: no Station29 to anchor FT_Center keys")
+        text = text[:anchor.end()] + keys.group(0) + text[anchor.end():]
     block = m.group(0).replace("Station2=usn_aim-9x\n",
                                "Station2=usn_aim-9x\n"
                                "Station11=dts_aim-260\n"
@@ -915,11 +943,17 @@ def build_raaf_squadrons() -> None:
 def main() -> None:
     verify_ammunition()
     build_growler(NAVY_2027 / "aircraft" / "usn_ea-18g.ini", "usn_ea-18g.ini", upgrade_ngj=True)
-    build_growler(
-        SUPER_HORNET / "aircraft" / "usn_ea-18g_2020s.ini",
-        "usn_ea-18g_2020s.ini",
-        upgrade_ngj=False,
-    )
+    # usn_ea-18g_2020s RETIRED 2026-09-20. Its only provider was the
+    # deprecated F/A-18E/F (3426791311), now unsubscribed and pruned, and no
+    # other mod in the collection ships that id - the unit simply no longer
+    # exists. Patching it would define an aircraft whose model is gone.
+    # Note for missions: 13 older mission files still field usn_ea-18g_2020s
+    # and will not find it. The ACTIVE mission does not (checked), which is
+    # why preflight stays green.
+    stale_2020s = OUT / "aircraft" / "usn_ea-18g_2020s.ini"
+    if stale_2020s.exists():
+        stale_2020s.unlink()
+        print("    removed aircraft/usn_ea-18g_2020s.ini (provider unsubscribed)")
     build_growler(
         US_NAVAL_AVIATION / "aircraft" / "usn_ea-18g_2020.ini",
         "usn_ea-18g_2020.ini",
@@ -941,8 +975,14 @@ def main() -> None:
     build_raaf_squadrons()
 
     outputs = sorted(path for path in OUT.rglob("*") if path.is_file())
+    # Counted, not asserted: retiring usn_ea-18g_2020s left the old hardcoded
+    # "3 NGJ Growlers" claiming a file the pack no longer ships.
+    ac = [f.name for f in (OUT / "aircraft").glob("*.ini") if "squadrons" not in f.name]
+    n_growlers = sum(1 for f in ac if "ea-18g" in f)
+    n_hornets = sum(1 for f in ac if "fa-18" in f)
     print(
-        f"built {OUT.relative_to(ROOT)}: 3 NGJ Growlers, 3 APG-79 Super Hornets, "
+        f"built {OUT.relative_to(ROOT)}: {n_growlers} NGJ Growlers, "
+        f"{n_hornets} APG-79 Super Hornets, "
         f"{len(GROWLER_KEYS) + len(BLOCK_III_KEYS) + 1} new loadouts "
         f"(NGJ Long Range on every Growler, two wing tanks), "
         f"{len(outputs)} files"

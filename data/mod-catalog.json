@@ -127,12 +127,6 @@
       "source": "integration/tacmap-colors",
       "builder": "build_pack.py",
       "title": "SEST TacMap Colors"
-    },
-    {
-      "folder": "SEST_Zumwalt_CPS",
-      "source": "integration/zumwalt-cps",
-      "builder": "build_patch.py",
-      "title": "SEST Zumwalt CPS Fix"
     }
   ],
   "mods": [
