@@ -53,10 +53,20 @@ ALLOW = {
     "ger_seaspider":
         "MCC=2 wire-guided anti-torpedo round, steered over its wire from the "
         "hull sonar picture",
-    "usn_ea-18g_2020 (SEST_Growler_NGJ_MALICE/aircraft) WS1 -> WeaponMagazineM61":
+    # A TUPLE key means every part must appear in the row. Keyed on the unit
+    # and the specific dangling magazine rather than the pack path: the same
+    # finding surfaces under SEST_Growler_NGJ_MALICE/aircraft or
+    # SEST_Integration/aircraft depending on which copy is walked, and
+    # "usn_ea-18g" also covers usn_ea-18g_2020. Naming the magazine keeps the
+    # waiver pinned to this defect instead of blessing the airframe outright.
+    ("usn_ea-18g", "WeaponMagazineM61"):
         "upstream's own file, and correct in effect: the real EA-18G deletes "
         "the M61 (its bay holds the ALQ-218 receiver), so a gun with no "
-        "magazine is a gun that never fires",
+        "magazine is a gun that never fires. Re-confirmed in the 2026-09-20 "
+        "export, where U.S. Navy 2027 commented the [WeaponMagazineM61] block "
+        "out of usn_ea-18g while leaving the gun's AssociatedMagazine line - "
+        "the packs copy that faithfully, and inventing a magazine here would "
+        "arm a gun the real aircraft does not carry",
     "plan_j-15d (3486502935/aircraft)":
         "upstream writes |KH-31 against its own Kh-31Positions key - a case "
         "mismatch worth at most a ~17 cm seat offset on two YJ-91s; not worth "
@@ -70,7 +80,14 @@ ALLOW = {
 
 
 def allowed(row):
-    return next((why for key, why in ALLOW.items() if key in row), None)
+    """A string key must appear in the row; a TUPLE key needs every part.
+
+    The tuple form keeps a waiver pinned to one unit AND one defect, so it
+    cannot quietly grow into a blanket exemption for an airframe."""
+    def hit(key):
+        return all(k in row for k in key) if isinstance(key, tuple) else key in row
+
+    return next((why for key, why in ALLOW.items() if hit(key)), None)
 
 
 def txt(p):

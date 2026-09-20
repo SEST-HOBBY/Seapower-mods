@@ -87,22 +87,32 @@ def main():
           "range, 25 nm seeker, no loft, which nothing in the collection ever fired.")
     built.append("usn_agm-88")
 
-    # usn_aim-9l / usn_aim-9m [audit: usn_aim-9l/9m cohort]. The deprecated
-    # Super Hornet's winning copies carry ImpactSize=5 - a numeric non-enum
-    # value used nowhere else (372x Medium / 350x Large / 167x VerySmall
-    # repo-wide, zero numeric) - and dropped InterceptSpeedPenaltyMultiplier
-    # that vanilla and the live successor both carry. Everything else kept.
+    # usn_aim-9l [audit: usn_aim-9l/9m cohort]. The winning copy carries
+    # ImpactSize=5 - a numeric non-enum value used nowhere else (372x Medium /
+    # 350x Large / 167x VerySmall repo-wide, zero numeric) - and drops
+    # InterceptSpeedPenaltyMultiplier that vanilla carries. Everything else kept.
+    #
+    # DONOR REBASED 2026-09-20. The original donor was the deprecated Super
+    # Hornet (3426791311), unsubscribed and pruned from the export. Re-measured
+    # against what is left: US Naval Aviation (3737267013, rank 54) is now the
+    # top provider and carries the IDENTICAL defect at the identical lines, so
+    # the fix still earns its place - only the donor changes.
+    #
+    # usn_aim-9m is RETIRED from this pack: 3737267013's copy is already
+    # ImpactSize=VerySmall with InterceptSpeedPenaltyMultiplier present, so
+    # there is nothing left to correct. Shipping it would be an override that
+    # changes nothing.
     ispm = ("InterceptSpeedPenaltyMultiplier=0.75                  "
             "// multiplier to the severity of the speed penalty, 0.75 for good, "
             "1.0 for average, 1.25 for poor")
-    for name, kp in (("usn_aim-9l", "0.80"), ("usn_aim-9m", "0.85")):
-        t = read("3426791311", f"ammunition/{name}.ini")
+    for name, kp in (("usn_aim-9l", "0.80"),):
+        t = read("3737267013", f"ammunition/{name}.ini")
         t = edit(t, r"^ImpactSize=5(\s)", r"ImpactSize=VerySmall\1", 1, name)
         if "InterceptSpeedPenaltyMultiplier" in t:
             sys.exit(f"{name}: donor now defines InterceptSpeedPenaltyMultiplier - rebase")
         t = edit(t, rf"^(KillProbability={re.escape(kp)})", ispm + "\n\\1", 1, name)
         write(f"ammunition/{name}.ini", t,
-              "SEST Collection Fixes - base: 3426791311's file. Two deltas back to\n"
+              "SEST Collection Fixes - base: 3737267013's file. Two deltas back to\n"
               "vanilla convention: ImpactSize 5 (non-enum) -> VerySmall, and the\n"
               "dropped InterceptSpeedPenaltyMultiplier=0.75 restored.")
         built.append(name)
@@ -322,22 +332,24 @@ def main():
     built.append("usn_cvn_nimitz_variants")
 
     # ------------------------------------------------------------- aircraft
-    # usn_mh-60r [audit: usn_mh-60r cohorts]. The winning U.S. Navy 2027 unit
-    # file's AntiShip fit seats its Penguin on '|MK46' - a position group the
-    # file does not define (only MK54/MK54L/Sonobuoys* exist), left over from
-    # the torpedo donor. Station10's bare form is the file's own idiom and
-    # Station9 already carries the Penguin hardpoint coordinates.
-    t = read("3606774881", "aircraft/usn_mh-60r.ini")
-    if re.search(r"^MK46Positions=", t, re.M):
-        sys.exit("usn_mh-60r: donor now defines MK46Positions - drop this fix")
-    t = edit(t, r"^Station9=knm_penguin_mk2\|MK46$", "Station9=knm_penguin_mk2",
-             1, "usn_mh-60r")
-    write("aircraft/usn_mh-60r.ini", t,
-          "SEST Collection Fixes - base: 3606774881's MH-60R (the 2026-correct\n"
-          "Mk54/SSQ-53H fit, unchanged). One delta: the AntiShip Penguin's dangling\n"
-          "'|MK46' seat reference removed - no MK46Positions group exists in the\n"
-          "file; the round now uses Station9's own Penguin hardpoint coordinates.")
-    built.append("usn_mh-60r")
+    # usn_mh-60r [audit: usn_mh-60r cohorts] - RETIRED 2026-09-20.
+    #
+    # The fix removed a dangling '|MK46' seat from the AntiShip fit's Penguin.
+    # In the 2026-09-20 export U.S. Navy 2027 has reworked the aircraft
+    # outright: the AntiShip loadout is gone, replaced by Anti-shipEarly
+    # (usn_agm-119_air) and Anti-shipLate (AGM-114 on TERAGM114), and the
+    # string MK46 no longer appears anywhere in the file. There is nothing
+    # left to correct, so the override is dropped rather than re-aimed.
+    #
+    # Checked before dropping, because retiring an override changes which file
+    # the game reads: the active mission's MH-60R flies LoadoutVariant=Default,
+    # and the four SEST RAAF base rosters name the unit without a loadout, so
+    # nothing referenced the loadout key that disappeared.
+    for stale in ("aircraft/usn_mh-60r.ini", "ammunition/usn_aim-9m.ini"):
+        f = OUT / stale
+        if f.exists():
+            f.unlink()
+            print(f"    removed {stale} (retired - upstream no longer carries the defect)")
 
     added = build_missing_sensors()
     named = build_missing_loadout_names()
