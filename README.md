@@ -8,7 +8,7 @@ Everything here is built around interoperability: a mod is known by three names 
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
 `mods-source/` export and its load-order token), and the display name the Mod Manager
 shows — and `data/mod-catalog.json` is the table that joins them, including the
-`local_packs` registry of the 18 SEST source packs.
+`local_packs` registry of the 16 SEST source packs.
 
 ## Layout
 
@@ -17,9 +17,8 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `data/mod-catalog.json` | **The registry.** Per mod: slug, `workshop_id`, faction, type, status, dependencies, overlap facts. Plus `local_packs`, the SEST pack roster with build order |
 | `data/load-order.tokens.txt` | **The load order.** One token per line; what `set-mod-order.ps1` writes into `usersettings.ini`. The consolidated pack is the single tier-0 entry |
 | `data/active-mission.txt` | The mission the tooling works on when you do not name one |
-| `data/display-layout.json` | The monitor layout `SEST_Second_Screen` is built for — written by `tools/detect-displays.ps1` |
 | `data/raw-workshop-list.txt` | The raw subscription list (source of record) |
-| `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook, second-screen guide |
+| `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
@@ -48,7 +47,6 @@ Windows install refuses unsigned local scripts):
 powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1        # deploy SEST_Integration
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing # game CLOSED: apply order
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla  # refresh mods-source/
-powershell -ExecutionPolicy Bypass -File .\tools\detect-displays.ps1 -Write  # record the monitor layout
 ```
 
 `docs/setup-runbook.md` is the full walkthrough.

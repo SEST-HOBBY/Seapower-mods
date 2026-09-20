@@ -117,12 +117,6 @@
       "title": "SEST Raptor Squadrons"
     },
     {
-      "folder": "SEST_Second_Screen",
-      "source": "integration/second-screen",
-      "builder": "build_pack.py",
-      "title": "SEST Second Screen"
-    },
-    {
       "folder": "SEST_TacMap_Colors",
       "source": "integration/tacmap-colors",
       "builder": "build_pack.py",
