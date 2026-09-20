@@ -52,6 +52,47 @@ game running. A variable that is declared, written and read in three files is a
 static fact about those files. Whether the campaign carries it between missions
 is the seventh step of §16's acceptance run, and that step has not been taken.
 
+## Review of 783da0f2: five findings, and what settling them turned up
+
+Each of the five reproduced before anything moved. Two of them turned out to
+be narrower than the defect underneath, and one of the review's arguments does
+not survive the native census — the fix is right, the reason given for it was
+not.
+
+| # | Finding | Response |
+|---|---|---|
+| 1 | Eight advertised flight rows had no mission slots | Fixed, and the defect was three times the size. A row's `SlotCount` is now derived from the sections that exist, a row with no cockpit is not emitted, and the slot integer is derived too: it is the ordinal among rows sharing a LABEL, not the row's position. Eleven more rows were mis-slotted on that second rule alone. `Tanker` is gone — `ui.ini` localises exactly six air-tasking roles and that is not one of them. 28 rows of which 19 did not conform became 22 that all do, against a native invariant of 13/13 exact |
+| 2 | SW06's Triton is unavailable before SW06 | Fixed at the root, which is not the purchase schedule. **No native mission binds a trigger to a slot-tagged aircraft — 20 slot-tagged sections in the shipped campaign, zero trigger references.** This campaign had twelve, across six missions. Every one now uses `JoinTaskForce=True` with a `CampaignTag`, which is what `04 Sunda Strait` does for the two A-4Gs its objectives name. The Triton is granted, not bought; SW06's Recon slot goes to the Wedgetail already in the mission |
+| 3 | SW09's defeat predicate included an unadvertised third ship | Fixed, and SW07 had the same shape. One flat protect list with one objective id meant whatever sank, the same objective was reported failed: SW09 said Collins was lost when a freighter went down, SW07 blamed the tanker for a Rhino. Each fatal loss now names its own units and its own objective, and MV Coral Provider — who carries no objective and only exists when SUPPLY survived SW02 — is no longer a silent defeat condition |
+| 4 | SW09's briefing promised service mechanics the predicate does not model | Relabelled, because there is nothing to implement. The shipped corpus uses **eleven condition types and seventeen sub-keys**, and not one tests speed, depth, heading, station, fuel or time spent inside an area; `UnitsInTheArea` is "Unit enters area". The briefing now states the rule the mission enforces — thirty-five minutes on the clock, then both ships south together — and leaves the replenishment as fiction in the fiction's voice |
+| 5 | Seven positive tasks default to `Complete` | Fixed, but not the way the finding argues. `Complete` on an optional positive task is *native*: `10 Vengeance at Luzon` carries `DestroySlava=30,-30,Complete,Hidden` under the objective text "OPTIONAL: Destroy the Slava", and 39 native objectives look like that. The real gap was `Action_ObjectivesCancel` — 55 of 142 native `Complete` objectives are cancelled on the defeat path so an unearned completion cannot be banked, and this campaign's seven had **no cancel reference anywhere**. Every terminal trigger now cancels every objective it does not itself resolve, and the victory trigger completes the survival objectives explicitly, both derived rather than authored |
+
+Two things the findings led to that they did not ask for:
+
+**The terminal-trigger design was replaced with the native one.** Twelve
+shipped missions end through a single shared exit: one trigger owns
+`Action_EndMission`, it ships `Disabled=True`, and every outcome sets its
+verdict and enables it (`missions/NATO/Charlies.ini` Trigger1). Ten native
+uses of `Action_EndMissionDelay` and every one is `0`. This campaign had five
+terminal triggers per mission with invented delays of 30, 45 and 60 seconds —
+which is exactly the window the review's acceptance list asks about, a loss
+landing during a victory's countdown. There is now one `EndMission` per
+mission and no window at all.
+
+**`ai_roles()` did not follow `#!alias`, and 65 unit files are aliases.**
+`jp_f-2a_late.ini` is `#!alias aircraft/jp_f-2a.ini` and carries only its own
+weapon systems, so reading it directly said the F-2A declares no role — which
+made a fighter look like a non-combatant to the pacing check and like a
+mismatch to the air-tasking gate. Role and loadout resolution now follow the
+alias. The same function also has to cut the value at the first `/`, because
+several of these files carry a trailing `//` comment on the `Role=` line.
+
+New gates, each negative-tested by breaking what it checks: every emitted row
+pairs exactly with its sections; no trigger may name a slot-tagged unit; a
+flight label must be one of the six the game localises; a fatal loss must name
+units its own objective watches; a discovered task cannot be earned before it
+is revealed.
+
 ## Native source pack, second pass: three checks and what they caught
 
 The first pass took the pack's corrections at face value and fixed them by
@@ -277,6 +318,19 @@ anything in this repository:
   `Condition_Time` is measured from mission start rather than from the moment it
   was enabled. The stock mission sets that time to a value its enabling trigger
   has already passed, which is consistent with either reading;
+- how the engine breaks a tie between two terminal triggers. The shared exit
+  means only one `Action_EndMission` exists and no delay window is open, which
+  is what twelve native missions do; it does not stop two outcome triggers
+  setting `Action_Victory` in the same update, and no shipped byte says which
+  one wins. `missions/NATO/Sub Duel Pacific Shield 1971.ini` has the same
+  unguarded race between a deadline and a victory;
+- that a `Disabled=True` trigger's own `Condition_Time` is measured from
+  mission start rather than from the moment it is enabled. Native sets that
+  time to a value already passed, which is consistent with either reading, and
+  both the discovery chain and the shared exit depend on it firing promptly;
+- what the engine does with a purchased aircraft assigned to a flight. Every
+  row now pairs with cockpits and no objective depends on one, which is the
+  native invariant; whether the assignment itself works is the acceptance run;
 - that the mod-supplied campaign is surfaced by the Mod Manager at all. The
   missions are shipped a second time under `missions/` precisely so the
   campaign's content is playable either way.

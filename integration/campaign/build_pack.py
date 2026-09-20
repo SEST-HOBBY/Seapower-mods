@@ -331,9 +331,25 @@ def squadrons(uid):
     return re.findall(r"^\[(Squadron\d+)\]", read(f), re.M)
 
 
-def loadouts(path):
+def alias_target(path):
+    """The file a `#!alias` unit file inherits from, or None.
+
+    65 unit files in this mod set are aliases - `jp_f-2a_late.ini` is
+    `#!alias aircraft/jp_f-2a.ini` carrying only its own weapon systems.
+    Anything that reads a unit's properties has to follow that the way
+    unit_type() already does, or an aliased hull looks like it declares
+    nothing at all.
+    """
+    m = re.search(r"#!alias\s+(\S+)", read(path))
+    return winning(m.group(1)) if m else None
+
+
+def loadouts(path, depth=0):
     m = re.search(r"^AvailableLoadouts=(.+)$", read(path), re.M)
-    return [x.strip() for x in m.group(1).split(",") if x.strip()] if m else []
+    if m:
+        return [x.strip() for x in m.group(1).split(",") if x.strip()]
+    base = alias_target(path) if depth < 4 else None
+    return loadouts(base, depth + 1) if base else []
 
 
 def pick_loadout(uid, path, want):
@@ -474,10 +490,10 @@ def resolve(spec):
 # --- rendering ---------------------------------------------------------------
 
 BLOCK_ORDER = ("Type", "VariantReference", "SpawnByVariableAND",
-               "SquadronReference", "LoadoutVariant",
+               "SquadronReference", "JoinTaskForce", "LoadoutVariant",
                "TaskForceModeAnchor", "Nation", "UnlimitedFuel", "WeaponStatus",
-               "RadarsActive", "CrewSkill", "Morale", "RelativePositionInNM",
-               "Heading", "Telegraph")
+               "RadarsActive", "CrewSkill", "Morale", "CampaignTag",
+               "RelativePositionInNM", "Heading", "Telegraph")
 
 
 def block(tag, keys):
@@ -583,9 +599,22 @@ def place(mission, snapper):
         if spec.get("spawn_if"):
             var, state = spec["spawn_if"]
             keys["SpawnByVariableAND"] = f"{var},{state}"
+        if spec.get("join"):
+            # The native grant of a unit the player did not buy: JoinTaskForce
+            # with a CampaignTag naming type, fit and mission - `04 Sunda
+            # Strait` line 504, `08A Pathfinders` line 531, four more. It is
+            # what a mission uses when an objective depends on the aircraft
+            # being THAT aircraft, and it never co-occurs with a tasking slot.
+            keys["JoinTaskForce"] = "True"
+            fit = keys.get("SquadronReference") or keys.get("VariantReference")
+            keys["CampaignTag"] = "_".join(
+                x for x in (keys["Type"], fit, mission["num"]) if x)
         if spec.get("slot"):
-            keys["TaskForceModeAirTaskingSlot"] = spec["slot"][0]
-            keys["TaskForceModeAirTaskingRole"] = spec["slot"][1]
+            role = spec["slot"]
+            keys["TaskForceModeAirTaskingSlot"] = slot_ordinal(
+                mission.get("window", {}).get("flights", []), role,
+                spec["mission"])
+            keys["TaskForceModeAirTaskingRole"] = role
         if spec.get("route"):
             keys["Waypoints"] = "|".join(
                 f"{(lo - centre[1]) * 60:.2f},{a},{(la - centre[0]) * 60:.2f}"
@@ -742,16 +771,29 @@ NONCOMBAT_HINT = {"Merchant", "Airliner", "Airfield", "Target", "Transport",
 
 @functools.lru_cache(maxsize=None)
 def ai_roles(uid):
+    """The unit's own [AI] Role= tokens, following #!alias.
+
+    Two traps live in this one line. The role sits in [AI], not at the top of
+    the file, and several of these files carry a trailing `//` comment on it
+    (`Role=Fighter                      //...`), so the value is cut at the
+    first slash. And an aliased file has no [AI] section of its own: read
+    jp_f-2a_late.ini directly and the F-2A declares no role at all, which
+    would make a fighter look like a non-combatant to check_pacing and like a
+    mismatch to the air-tasking gate.
+    """
     _kind, f = unit_file(uid)
-    if f is None:
+    return _roles_of(f)
+
+
+def _roles_of(path, depth=0):
+    if path is None or depth > 4:
         return frozenset()
-    m = re.search(r"^\[AI\]\s*$(.*?)(?=^\[)", read(f), re.M | re.S)
-    if not m:
-        return frozenset()
-    r = re.search(r"^Role=([^/\n]+)", m.group(1), re.M)
-    if not r:
-        return frozenset()
-    return frozenset(x.strip() for x in r.group(1).split(",") if x.strip())
+    m = re.search(r"^\[AI\]\s*$(.*?)(?=^\[)", read(path), re.M | re.S)
+    if m:
+        r = re.search(r"^Role=([^/\n]+)", m.group(1), re.M)
+        if r:
+            return frozenset(x.strip() for x in r.group(1).split(",") if x.strip())
+    return _roles_of(alias_target(path), depth + 1)
 
 
 def is_combat(uid):
@@ -939,12 +981,57 @@ def render(mission, placed, members):
     def trigger(comment, lines):
         T.append((comment, lines))
 
+    # The fourth field of an objective line is what the game does with that
+    # objective if it is still In Progress when the mission ends, so on a
+    # defeat every unfinished task would quietly resolve to its default and
+    # bank its score. The native answer is to cancel them: `03 Lifeline at the
+    # Edge of the World` line 517 ends a defeat with
+    # `Action_ObjectivesCancel=DestroySSKs,PetropavlovskMustSurvive,
+    # DestroyUSSAG,DestroyUSSSN` - every other objective in the mission,
+    # hidden ones included. 45 native triggers do this. The list is derived
+    # here rather than authored, because the one thing a hand-written cancel
+    # list reliably does is go stale when an objective is added.
+    all_objectives = [o[0] for o in mission["objectives"]]
+
+    # The shared exit. Twelve native missions end this way: ONE trigger owns
+    # Action_EndMission, it ships Disabled=True, and every outcome trigger
+    # sets its verdict and then enables it - `missions/NATO/Charlies.ini`
+    # Trigger1, and Gauntlet, and ten more. Two things follow that matter
+    # here. Only one EndMission exists, so a defeat cannot be followed by a
+    # victory ending the same mission again. And the delay is zero in all ten
+    # native uses of the key, which closes the window this campaign used to
+    # leave open: a loss landing 40 seconds into a victory's countdown.
+    trigger("Mission exit", [
+        "Disabled=True", "Condition_Type=Time", "Condition_Time=10",
+        "Action_EndMission=True", "Action_EndMissionDelay=0"])
+    EXIT = "Action_EnableTriggers=Trigger1"
+
+    def terminal(comment, conditions, *, failed=(), message, victor,
+                 completed=()):
+        named, won = list(failed), list(completed)
+        cancel = [o for o in all_objectives if o not in named and o not in won]
+        lines = list(conditions) + [
+            f"Action_Taskforce1_Message={message}", f"Action_Victory={victor}"]
+        if won:
+            lines.append(f"Action_ObjectivesCompleted={','.join(won)}")
+        if named:
+            lines.append(f"Action_ObjectivesFailed={','.join(named)}")
+        if cancel:
+            lines.append(f"Action_ObjectivesCancel={','.join(cancel)}")
+        lines.append(EXIT)
+        trigger(comment, lines)
+
+    # On a win, the survival objectives the player held are completed
+    # explicitly, the way `03 Lifeline` line 487 completes DefendSupplyShips
+    # and PetropavlovskMustSurvive. Positive tasks are not: they are earned by
+    # their own triggers or they are not earned.
+    held = [oid for oid, how in mission.get("resolve", {}).items()
+            if isinstance(how, tuple) and how[0] in ("protect", "survive")]
+
     deadline = mission["minutes"] * 60          # Condition_Time is SECONDS
-    trigger("Deadline", [
-        "Condition_Type=Time", f"Condition_Time={deadline}",
-        "Action_Taskforce1_Message=TimeoutMessage",
-        f"Action_ObjectivesFailed={main}", "Action_Victory=Taskforce2",
-        "Action_EndMission=True", "Action_EndMissionDelay=30"])
+    terminal("Deadline",
+             ["Condition_Type=Time", f"Condition_Time={deadline}"],
+             failed=[main], message="TimeoutMessage", victor="Taskforce2")
     trigger("Start message", [
         "Condition_Type=Time", "Condition_Time=1",
         "Action_Taskforce1_Message=Taskforce1StartMessage"])
@@ -974,11 +1061,12 @@ def render(mission, placed, members):
     win_lines = [f"ConditionsCompleted={expr}",
                  "Action_Taskforce1_Message=Taskforce1VictoryMessage",
                  "Action_Taskforce2_Message=Taskforce2DefeatMessage",
-                 "Action_Victory=Taskforce1", "Action_EndMission=True",
-                 "Action_EndMissionDelay=60",
-                 f"Action_ObjectivesCompleted={main}"]
+                 "Action_Victory=Taskforce1",
+                 "Action_ObjectivesCompleted="
+                 + ",".join([main] + [o for o in held if o != main])]
     if victory.get("sets"):
         win_lines.append(f"Action_VariableSet={victory['sets']},True")
+    win_lines.append(EXIT)
     trigger("Objective met", cond + win_lines)
 
     # Every objective needs a predicate. "victory" is completed by the trigger
@@ -993,8 +1081,10 @@ def render(mission, placed, members):
             continue
         kind = how[0]
         if kind == "protect":
-            units = [tag for r in how[1:] for tag in refs(members, r)]
-            trigger(f"{oid} lost", destroyed_condition(1, units, 1)
+            units = [tag for r in how[1:] if isinstance(r, str)
+                     for tag in refs(members, r)]
+            least = next((x for x in how[1:] if isinstance(x, int)), 1)
+            trigger(f"{oid} lost", destroyed_condition(1, units, least)
                     + ["ConditionsCompleted=<Condition1>",
                        f"Action_ObjectivesFailed={oid}"])
         elif kind == "survive":
@@ -1046,16 +1136,40 @@ def render(mission, placed, members):
     # Terminal states end the mission and cancel the other side's objective, so
     # a defeat cannot be followed by a victory action. Whether the engine gives
     # one precedence inside a single update is still untested.
-    if mission.get("protect"):
-        lost = [tag for r in mission["protect"] for tag in refs(members, r)]
-        trigger("Protected unit lost",
-                destroyed_condition(1, lost, mission.get("protect_min", 1))
-                + ["ConditionsCompleted=<Condition1>",
-                   "Action_Taskforce1_Message=Taskforce1DefeatMessage",
-                   "Action_Victory=Taskforce2",
-                   f"Action_ObjectivesFailed={mission['protect_objective']}",
-                   f"Action_ObjectivesCancel={main}",
-                   "Action_EndMission=True", "Action_EndMissionDelay=45"])
+    # One terminal trigger per protected objective, naming ONLY the units that
+    # objective is about. A single list with a single objective id made every
+    # loss fail the same objective: SW09 reported Collins lost when the ship
+    # that sank was a freighter with no objective of its own, and SW07 blamed
+    # the tanker when a Rhino went down. The units come from the objective's
+    # own resolver, so the trigger that ends the mission and the trigger that
+    # marks the objective failed can never disagree about what they watch.
+    for entry in mission.get("fatal", []):
+        oid = entry["objective"]
+        if oid not in {o[0] for o in mission["objectives"]}:
+            raise SystemExit(f"{mission['key']}: {oid} ends the mission but is "
+                             "not one of its objectives")
+        watch = entry.get("units")
+        least = entry.get("minimum", 1)
+        if watch is None:
+            how = mission["resolve"].get(oid)
+            if not (isinstance(how, tuple) and how[0] in ("protect", "survive")):
+                raise SystemExit(
+                    f"{mission['key']}: {oid} ends the mission but names no "
+                    f"units and its resolver is {how!r}, which supplies none - "
+                    "give the fatal entry its own units")
+            watch = list(how[1:])
+            if how[0] == "survive":
+                least = None            # all of them
+        watched = [tag for r in watch for tag in refs(members, r)]
+        if not watched:
+            raise SystemExit(f"{mission['key']}: {oid} ends the mission but "
+                             f"{watch} matches nothing placed")
+        terminal(f"{oid} lost - mission over",
+                 destroyed_condition(1, watched, least or len(watched))
+                 + ["ConditionsCompleted=<Condition1>"],
+                 failed=[oid], message="Taskforce1DefeatMessage",
+                 victor="Taskforce2")
+
     # Losing a support asset costs something the player can read at the time,
     # and - where `sets` names a campaign flag - something a later mission
     # reads back. Two mechanisms carry that: Task Force Mode's own persistence
@@ -1108,12 +1222,29 @@ def render(mission, placed, members):
                 f"{mission['key']}: {hidden} is unhidden by a discovery but is "
                 f"not flagged Hidden ({specs[hidden]!r}), so it is on the "
                 "player's list from the start and the reveal means nothing")
+        # The task's own completion trigger ships disabled as well, and the
+        # report is what switches it on. Otherwise it is live from mission
+        # start: identify the shuttle before finding the escorts and the
+        # objective completes silently, then a report arrives saying nobody
+        # has put a name on it. Native accepts that race - `10 Vengeance at
+        # Luzon`'s DestroySlava has one UnHide and one Completed trigger and
+        # nothing between them - but it costs nothing to close, and it uses
+        # the same Disabled/EnableTriggers pair the discovery already needs.
+        earner = [lines for comment, lines in T
+                  if comment.startswith(f"{hidden} ")]
+        if not earner:
+            raise SystemExit(f"{mission['key']}: {hidden} is discovered but "
+                             "has no trigger that completes it")
+        earner[0].insert(0, "Disabled=True")
+        earns = 1 + next(i for i, (_c, lines) in enumerate(T)
+                         if lines is earner[0])
         trigger(f"Report unhides {hidden}", [
             "Disabled=True",
             "Condition_Type=Time",
             f"Condition_Time={find.get('seconds', 120)}",
             f"Action_Taskforce1_Intel={hidden}Intel",
-            f"Action_ObjectivesUnHide={hidden}"])
+            f"Action_ObjectivesUnHide={hidden}",
+            f"Action_EnableTriggers=Trigger{earns}"])
         report = len(T)
         wanted = f"{find['after']} classified"
         enabling = [lines for comment, lines in T if comment == wanted]
@@ -1124,21 +1255,19 @@ def render(mission, placed, members):
         enabling[0].append(f"Action_EnableTriggers=Trigger{report}")
 
     if placed.get("Taskforce1Vessel") or placed.get("Taskforce1Aircraft"):
-        trigger("Player force gone", [
+        terminal("Player force gone", [
             "Condition_Type=HasNoUnitsOfType", "Condition_Taskforce=Taskforce1",
             "Condition_UnitType=" + ("Vessel" if placed.get("Taskforce1Vessel")
-                                     else "Aircraft"),
-            "Action_Taskforce1_Message=Taskforce1DefeatMessage",
-            "Action_Victory=Taskforce2", f"Action_ObjectivesCancel={main}",
-            "Action_EndMission=True", "Action_EndMissionDelay=45"])
+                                     else "Aircraft")],
+            failed=[main], message="Taskforce1DefeatMessage",
+            victor="Taskforce2")
     if neutral_tags:
-        trigger("Neutral harmed",
-                destroyed_condition(1, neutral_tags, mission.get("neutral_limit", 1))
-                + ["ConditionsCompleted=<Condition1>",
-                   "Action_Taskforce1_Message=NeutralLossMessage",
-                   f"Action_ObjectivesFailed={mission['neutral_objective']}",
-                   f"Action_ObjectivesCancel={main}", "Action_Victory=Taskforce2",
-                   "Action_EndMission=True", "Action_EndMissionDelay=45"])
+        terminal("Neutral harmed",
+                 destroyed_condition(1, neutral_tags,
+                                     mission.get("neutral_limit", 1))
+                 + ["ConditionsCompleted=<Condition1>"],
+                 failed=[mission["neutral_objective"]],
+                 message="NeutralLossMessage", victor="Taskforce2")
 
     # A saved result from an earlier operation, read here. 09 Shadows off
     # Palawan reveals the missile sites this way when 08A's recon completed.
@@ -1153,6 +1282,31 @@ def render(mission, placed, members):
             + reveal.get("level", "Identify"),
             "Action_UnitRevealTime=-1",
             f"Action_Units={','.join(revealed)}"])
+
+    # A unit sitting in an air-tasking slot is a placeholder the player fills
+    # from the aircraft they own, so binding a trigger to it is binding an
+    # objective to something that may not be there. Across all 20 slot-tagged
+    # sections in the native campaign, ZERO are named by any trigger - and the
+    # one native mission that does bind Taskforce1Aircraft1 and 2 to triggers
+    # (04 Sunda Strait) grants them with JoinTaskForce instead. That invariant
+    # is enforced here.
+    slotted = {tag for family, entries in placed.items()
+               if family.startswith("Taskforce1")
+               for tag, keys, _n, _x in entries
+               if "TaskForceModeAirTaskingSlot" in keys}
+    bound = {u.strip() for _c, lines in T for line in lines
+             for key, _, value in [line.partition("=")]
+             if key.endswith("_Units") or key == "Action_Units"
+             for u in value.split(",")}
+    clash = sorted(slotted & bound)
+    if clash:
+        by_tag = {tag: keys["Type"] for family, entries in placed.items()
+                  for tag, keys, _n, _x in entries}
+        raise SystemExit(
+            f"{mission['key']}: " + "; ".join(
+                f"{by_tag[t]} at {t} is an air-tasking placeholder and a "
+                "trigger depends on it - grant it with join=True instead"
+                for t in clash))
 
     L.append(f"NumberOfTriggers={len(T)}")
     L.append("")
@@ -1369,24 +1523,103 @@ def allowed_roster_units(allow, roster, where):
     return "|".join(f"{u},{','.join(priced[u]['picks'])}" for u in allow)
 
 
-def air_roles(uid):
-    """The aircraft's top-level Role= tokens - what an air-tasking row filters.
+# The six air-tasking roles the game localises, and the whole vocabulary:
+# language_en/ui.ini lines 3032-3037 define AirTaskingRole_SuCAP, _CAP,
+# _Recon, _HeloRecon, _Attack and _AEW and nothing else. A label outside this
+# set has no display string, so it is not a role - it is a word.
+TASKING_ROLES = ("SuCAP", "CAP", "Recon", "HeloRecon", "Attack", "AEW")
 
-    This is the file's own `Role=` line, not the `[AI] Role=` the pacing check
-    reads off vessels. `usn_p8` declares `MPA,ASW,Bomber,ESM`; `usn_mh-60r`
-    declares `ASW,MPA,SAR` and notably NOT `Helicopter`, which is why the one
-    stock helicopter tasking row is commented out in the shipped campaign.
+
+def slot_ordinal(rows, role, where):
+    """Which slot integer a section filling `role` must carry.
+
+    Not the row's position in the list. `TaskForceModeAirTaskingSlot` is the
+    1-based ordinal of the row AMONG THE ROWS SHARING ITS LABEL, and the two
+    native cases that tell the hypotheses apart both say so: Pacific Strike
+    Mission26's third row is CAP and its sections carry Slot=1 (09 Shadows off
+    Palawan.ini:833), while Mission29's third row is its second Recon row and
+    carries Slot=2 (10 Vengeance at Luzon.ini:754). Row index would have given
+    3 in both.
     """
-    _kind, f = unit_file(uid)
-    if f is None:
-        return frozenset()
-    m = re.search(r"^Role=(.+)$", read(f), re.M)
-    if not m:
-        return frozenset()
-    return frozenset(x.strip() for x in m.group(1).split(",") if x.strip())
+    seen = 0
+    for row in rows:
+        label = row.split("|")[0]
+        if label == role:
+            seen += 1
+            return seen
+    raise SystemExit(f"{where}: an aircraft is tagged for a {role!r} flight, "
+                     "which this mission does not advertise")
 
 
-def check_flights(rows, roster):
+def tasking_rows(mission, placed):
+    """The mission's air-tasking rows, with SlotCount taken from reality.
+
+    A campaign row and the mission's slot-tagged aircraft sections are the two
+    halves of Air Tasking: the row advertises the job, the sections are the
+    cockpits a purchased aircraft can fill. Native pairing is exact - all 13
+    active Pacific Strike rows have precisely as many sections as their Count,
+    none has zero - so the count is derived here rather than authored, and a
+    row with no section is not emitted at all.
+
+    Sections bind to a row by (Role, Slot), where Slot is the row's ordinal
+    among the rows sharing its label. Three further things are checked, since
+    an advertised job with a cockpit its aircraft cannot do is the same defect
+    one level down:
+
+      * the tagged aircraft's own [AI] Role must match the row's filter;
+      * if it declares loadouts, one must be a fit the row offers;
+      * the label must be a role the game has a name for.
+    """
+    rows, dropped, problems = [], [], []
+    tagged = collections.defaultdict(list)
+    for family, entries in placed.items():
+        if not family.startswith("Taskforce1"):
+            continue
+        for _tag, keys, _n, _x in entries:
+            slot = keys.get("TaskForceModeAirTaskingSlot")
+            if slot is not None:
+                tagged[(keys["TaskForceModeAirTaskingRole"], int(slot))].append(
+                    keys["Type"])
+    ordinals = collections.Counter()
+    for row in mission.get("window", {}).get("flights", []):
+        label, display, roles, _count, fits = row.split("|")
+        if label not in TASKING_ROLES:
+            problems.append(
+                f"{mission['key']}: {label!r} is not an air-tasking role - "
+                f"ui.ini names {', '.join(TASKING_ROLES)} and nothing else")
+            continue
+        ordinals[label] += 1
+        want_roles = frozenset(x for x in roles.split("/") if x)
+        want_fits = frozenset(x for x in fits.split("/") if x)
+        crews = tagged.pop((label, ordinals[label]), [])
+        if not crews:
+            dropped.append(label)
+            continue
+        for uid in crews:
+            have = ai_roles(uid)
+            if not have & want_roles:
+                problems.append(
+                    f"{mission['key']}: {uid} fills the {label} flight but its "
+                    f"[AI] Role is {'/'.join(sorted(have)) or 'undeclared'}, "
+                    f"which the row's filter {roles!r} does not match")
+            _kind, path = unit_file(uid)
+            has_fits = frozenset(loadouts(path))
+            if has_fits and not has_fits & want_fits:
+                problems.append(
+                    f"{mission['key']}: {uid} fills the {label} flight but "
+                    f"defines none of its fits (offers "
+                    f"{', '.join(sorted(has_fits))})")
+        rows.append(f"{label}|{display}|{roles}|{len(crews)}|{fits}")
+    for (role, slot), crews in sorted(tagged.items()):
+        problems.append(
+            f"{mission['key']}: {crews[0]} is tagged {role} slot {slot}, which "
+            "this mission has no flight row for")
+    if problems:
+        raise SystemExit("air tasking failed:\n  " + "\n  ".join(problems))
+    return rows, dropped
+
+
+def check_flights(rows, roster, authored=()):
     """Every air-tasking row must describe aircraft the roster actually sells.
 
     The contract is read off the stock rows rather than guessed. Pacific
@@ -1408,13 +1641,32 @@ def check_flights(rows, roster):
     default, and inventing a preset to satisfy a checker would be worse than
     leaving the behaviour unestablished.
     """
-    sellable = []
-    for entry in roster:
-        uid = entry["unit"]
+    # The two rules have different audiences, and conflating them is what made
+    # the first attempt at this reject good rows.
+    #
+    # Rule 1 - no orphan fit name - is about the row's whole cast: an aircraft
+    # the roster sells, OR one already authored into some mission's slot for
+    # this flight. SW03's CH-53 is the second kind: never purchasable, and the
+    # row still has to be able to arm it.
+    #
+    # Rule 2 - every matched aircraft can fly the job - is about PURCHASES
+    # only. An authored aircraft that happens to match this row's filter while
+    # being tagged to a different one never enters this flight, so holding the
+    # row responsible for arming it is wrong: SW11's EA-18G is tagged Attack
+    # and matches Fighter, and no amount of CAP fits would make that a bug.
+    def describe(uid):
         kind_dir, path = unit_file(uid)
         if kind_dir not in ("aircraft", "helicopters"):
-            continue
-        sellable.append((uid, air_roles(uid), frozenset(loadouts(path))))
+            return None
+        return (uid, ai_roles(uid), frozenset(loadouts(path)))
+
+    sellable = [d for d in (describe(e["unit"]) for e in roster) if d]
+    cast = {d[0]: d for d in sellable}
+    for uid in authored:
+        if uid not in cast:
+            d = describe(uid)
+            if d:
+                cast[uid] = d
     problems = []
     for row in sorted(set(rows)):
         parts = row.split("|")
@@ -1427,23 +1679,25 @@ def check_flights(rows, roster):
         want_fits = [x for x in fits.split("/") if x]
         if not count.isdigit() or int(count) < 1:
             problems.append(f"{label}: flight size {count!r} is not a count")
-        matched = [(u, f) for u, r, f in sellable if r & want_roles]
-        if not matched:
+        buyable = [(u, f) for u, r, f in sellable if r & want_roles]
+        if not buyable:
             problems.append(
                 f"{label}: role filter {roles!r} matches nothing the roster "
                 "sells - " + "; ".join(f"{u} is {'/'.join(sorted(r))}"
                                        for u, r, _ in sellable))
             continue
+        whole_cast = [(u, f) for u, r, f in cast.values() if r & want_roles]
         for fit in want_fits:
-            if not any(fit in f for _u, f in matched):
+            if not any(fit in f for _u, f in whole_cast):
                 problems.append(
-                    f"{label}: offers {fit!r}, which no aircraft the filter "
-                    f"{roles!r} matches defines")
-        for uid, fit_set in matched:
+                    f"{label}: offers {fit!r}, which nothing that can fly this "
+                    f"flight defines")
+        for uid, fit_set in buyable:
             if fit_set and not fit_set & set(want_fits):
                 problems.append(
-                    f"{label}: matches {uid}, which defines none of "
-                    f"{'/'.join(want_fits)} (has: {', '.join(sorted(fit_set))})")
+                    f"{label}: sells {uid} into this flight, and it defines "
+                    f"none of {'/'.join(want_fits)} "
+                    f"(has: {', '.join(sorted(fit_set))})")
     if problems:
         raise SystemExit("air tasking failed:\n  " + "\n  ".join(problems))
 
@@ -1523,9 +1777,16 @@ def campaign_ini(missions, events, placements):
                 L.append("TaskForceModeAllowedRosterUnits="
                          + allowed_roster_units(window["allow"], ROSTER,
                                                 mission["key"]))
-            if window.get("flights"):
+            flights, empty = tasking_rows(mission, placed)
+            if empty:
+                # An advertised flight with no cockpit is an offer the player
+                # can buy into and never deploy. Saying so out loud beats
+                # shipping it.
+                print(f"  {mission['key']}: no slot for "
+                      + ", ".join(empty) + " - row not emitted")
+            if flights:
                 L.append("TaskForceModeAirTaskingAvailable=True")
-                for n, row in enumerate(window["flights"], 1):
+                for n, row in enumerate(flights, 1):
                     L.append(f"TaskForceModeAirTaskingFlight{n}={row}")
             # Whether the whole owned force sails or the player picks a
             # detachment. Both keys are stock (pacific-strike campaign.ini);
@@ -1725,7 +1986,9 @@ def main():
     # ... and the air-tasking rows against that same roster, before any of them
     # is written into a campaign entry.
     check_flights([r for m in MISSIONS
-                   for r in m.get("window", {}).get("flights", [])], ROSTER)
+                   for r in m.get("window", {}).get("flights", [])], ROSTER,
+                  authored={u["type"] for m in MISSIONS for u in m["units"]
+                            if u.get("slot")})
     built, credits, worst, placements = [], {}, 0.0, {}
     for token, why in roster_credits.items():
         credits[token] = (why[0], why[1], "requisition roster")

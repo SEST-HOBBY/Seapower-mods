@@ -59,6 +59,20 @@ def U(side, mod, type, station, **kw):
     return dict(side=side, mod=mod, type=type, station=station, **kw)
 
 
+def F(objective, units=None, minimum=1):
+    """A loss that ends the mission, and the objective it fails.
+
+    One flat list with one objective id used to cover every protected unit in
+    a mission, so whatever sank, the same objective was reported failed:
+    SW09 said Collins was lost when a freighter with no objective of its own
+    went down, and SW07 blamed the tanker for a Rhino. Each entry now names
+    its own units, and `units=None` means take them from that objective's own
+    resolver - which is the only way the trigger that ends the mission and the
+    trigger that marks the objective failed cannot drift apart.
+    """
+    return dict(objective=objective, units=units, minimum=minimum)
+
+
 def S(lat, lon, label, heading=90, alt=None):
     st = dict(at=(lat, lon), label=label, heading=heading)
     if alt is not None:
@@ -300,7 +314,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="convoy", at=(-10.1, 132.3), radius=25,
                  min_units=3, objective="Convoy"),
-    protect=["convoy"], protect_min=2, protect_objective="Convoy",
+    fatal=[F("Convoy", ["convoy"], 2)],
     neutral_objective="Neutrals",
     win="The merchants are in the box and their crews are alive. The escort "
         "has been identified, and so has everything you did not shoot.",
@@ -381,7 +395,7 @@ MISSIONS.append(dict(
                  also=[dict(units=["convoy#1"], min_units=1)]),
     # Kokoda Star is the first hull at the convoy station: lose her and the
     # mission is over whatever the other three do.
-    protect=["convoy#1"], protect_objective="Medical",
+    fatal=[F("Medical", ["convoy#1"])],
     neutral_objective="Neutrals",
     win="Three hulls alongside at Moresby, Kokoda Star among them. The "
         "engineering plant is ashore and the route is a route again.",
@@ -424,6 +438,12 @@ MISSIONS.append(dict(
           name="Moresby wharf", weapons="Hold"),
         U("red", "plan-submarines", "plan_ss_type_039c", "sub",
           name="Contact BRAVO"),
+        # Air-tasking placeholder: no name, no objective, no line in the
+        # briefing. Its only job is to be a cockpit a purchased aircraft can
+        # take, the way every slot-tagged section in the shipped campaign is.
+        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air"),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "air"),
+        U("blue", "raaf-f-35a", "raaf_f-35a", "air"),
     ],
 ))
 
@@ -458,7 +478,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="lift", at=(-12.0, 126.4), radius=25,
                  min_units=1, objective="Evacuate"),
-    protect=["amphib"], protect_min=1, protect_objective="Ships",
+    fatal=[F("Ships", ["amphib"])],
     neutral_objective="Platform",
     win="Both airframes are south of the line with the platform crew aboard. "
         "Rig Seventeen is still standing and somebody else can argue about "
@@ -531,7 +551,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="passenger", at=(-7.1, 130.1),
                  radius=20, min_units=1, objective="Track"),
-    protect=["patrol"], protect_objective="Patrol",
+    fatal=[F("Patrol", ["patrol"])],
     neutral_objective="Neutrals",
     win="The passenger is in the box with a boarding party alongside and the "
         "Type 039 knows exactly how long you held it. The route is on paper "
@@ -601,7 +621,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="destroy", stations=["sag"], min_units=1,
                  objective="Escort"),
-    protect=["convoy"], protect_min=2, protect_objective="Convoy",
+    fatal=[F("Convoy", ["convoy"], 2)],
     neutral_objective="Convoy",
     win="The escort is burning and the transport has turned north. The convoy "
         "passed behind you while it happened, which was the entire point.",
@@ -637,6 +657,11 @@ MISSIONS.append(dict(
           name="MV Sunda Relief"),
         U("blue", "_vanilla", "civ_ms_ritina", "convoy",
           name="MT Timor Spirit"),
+        # Air-tasking placeholder: no name, no objective, no line in the
+        # briefing. Its only job is to be a cockpit a purchased aircraft can
+        # take, the way every slot-tagged section in the shipped campaign is.
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "air"),
+        U("blue", "raaf-f-35a", "raaf_f-35a", "air"),
     ],
 ))
 
@@ -677,8 +702,12 @@ MISSIONS.append(dict(
         # Not on the player's list at briefing. Classifying the surface group
         # is what puts it there, which is the second reconnaissance decision:
         # the Triton is already north and the clock is already running.
+        # `None` with a zero failure score: the native pairing for a hidden
+        # optional task (9 of the 11 uses of None in the shipped missions look
+        # exactly like this). Win without ever revealing it and it resolves to
+        # nothing, which is the truth - there was no task.
         ("Airlift", "Identify the transport running into the enclave",
-         "20,0,Complete,Hidden"),
+         "20,0,None,Hidden"),
     ],
     # The reconnaissance decision, and the reason this mission exists. Push the
     # Triton north far enough to classify the surface group and it is revealed
@@ -694,7 +723,7 @@ MISSIONS.append(dict(
                                    "operation.")},
     victory=dict(kind="arrive", station="convoy", at=(-11.9, 130.6), radius=30,
                  min_units=2, objective="Convoy"),
-    protect=["isr"], protect_objective="Sentry",
+    fatal=[F("Sentry", ["isr"])],
     neutral_objective="Convoy",
     win="The convoy is through the window and Sentry 06 is on its way back to "
         "Tindal with the surface picture. Tomorrow starts with information.",
@@ -773,7 +802,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="tanker", at=(-9.4, 132.6), radius=35,
                  min_units=1, objective="Tanker"),
-    protect=["tanker", "package"], protect_objective="Tanker",
+    fatal=[F("Tanker", ["tanker"]), F("Package", ["package"])],
     neutral_objective="Package",
     win="The tanker is south of the line and the package is behind it. Both "
         "Foxhounds turned back with nothing to show a staff officer.",
@@ -840,7 +869,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="relief", at=(-4.6, 136.8), radius=30,
                  min_units=1, objective="Window"),
-    protect=["relief"], protect_objective="Window",
+    fatal=[F("Window", ["relief"])],
     neutral_objective="Town",
     win="Both transports are south with the first hundred people out. The "
         "battery is off the air and the window held.",
@@ -906,10 +935,17 @@ MISSIONS.append(dict(
         "She is surfaced alongside SUPPLY taking fuel, stores and two crew off "
         "for medical, and while she is up there she is a very large grey "
         "target moving at eight knots.\\n\\n"
-        "The service window is the mission. Nothing transfers while she is "
-        "dived, and nothing transfers while the group is manoeuvring hard, so "
-        "every minute you spend avoiding something is a minute added to the "
-        "end.\\n\\n"
+        # The engine has no dwell, alongside, surfaced or service predicate -
+        # eleven condition types across the whole shipped corpus and not one
+        # of them measures time spent in an area, a unit's speed or its depth.
+        # So the briefing states the rule the mission actually enforces. The
+        # replenishment itself stays fiction, in the fiction's own voice.
+        "The service window is thirty-five minutes and it runs on the clock, "
+        "not on how much crossed the hose. Break off to chase something and "
+        "the clock does not stop for you - what you lose is the part of the "
+        "transfer nobody makes, not the deadline. When the thirty-five "
+        "minutes are up, SUPPLY and COLLINS come south together or the "
+        "window has failed.\\n\\n"
         "A Tu-214R came down the outside of the box last night and did not "
         "come back, which usually means somebody now knows where to look. "
         "There is an Akula unaccounted for and a Flanker pair within range of "
@@ -918,8 +954,8 @@ MISSIONS.append(dict(
            "Seahawk. Opposing: one Akula, one Tu-214R, a Flanker pair with a "
            "Ka-27RLD spotting for them.",
     objectives=[
-        ("Service", "Hold the service window and withdraw south",
-         "35,-35,Fail,Main"),
+        ("Service", "Bring SUPPLY and COLLINS south together once the "
+                    "35-minute window has run", "35,-35,Fail,Main"),
         ("Collins", "HMAS Collins must survive", "25,-35,Complete"),
         ("Supply", "HMAS Supply must survive", "20,-30,Complete"),
     ],
@@ -929,7 +965,17 @@ MISSIONS.append(dict(
     victory=dict(kind="arrive", units=["support#1", "support#2"], min_units=2,
                  station="support", objective="Service",
                  also=[dict(after_minutes=35)]),
-    protect=["support"], protect_objective="Collins",
+    # Both named service participants end the mission, each failing its own
+    # objective. Coral Provider is not one of them: she carries no objective,
+    # she only spawns when SUPPLY survived Steel Highway, and making her a
+    # silent third defeat condition meant losing a freighter reported Collins
+    # sunk while Collins was alongside.
+    # Each named participant ends the mission by being lost, and fails its own
+    # objective. MV Coral Provider is deliberately not here: she carries no
+    # objective, she only exists when SUPPLY survived Steel Highway, and as
+    # the third member of the "support" station she was a silent defeat
+    # condition that reported Collins sunk while Collins was alongside.
+    fatal=[F("Collins", ["support#2"]), F("Supply", ["support#1"])],
     neutral_objective="Service",
     win="The window held, Collins is dived and heading for Stirling, and "
         "Supply still has enough in her tanks to do this again next week.",
@@ -964,6 +1010,10 @@ MISSIONS.append(dict(
         U("red", "flanker-family", "wp_su-30m", "red_air", name="Flanker 22"),
         U("red", "ka-27rld", "wp_ka-27rdl", "red_air", name="Helix RLD 55",
           alt=9000, weapons="Hold"),
+        # Air-tasking placeholder: no name, no objective, no line in the
+        # briefing. Its only job is to be a cockpit a purchased aircraft can
+        # take, the way every slot-tagged section in the shipped campaign is.
+        U("blue", "p-8-poseidon", "usn_p8", "air"),
     ],
 ))
 
@@ -997,7 +1047,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="convoy", at=(-8.5, 134.5), radius=30,
                  min_units=2, objective="Cargo"),
-    protect=["convoy"], protect_min=2, protect_objective="Cargo",
+    fatal=[F("Cargo", ["convoy"], 2)],
     neutral_objective="Cargo",
     win="The cargo is at the handover and both Japanese ships are still on "
         "station. The corridor has a second usable escort force for the first "
@@ -1038,6 +1088,10 @@ MISSIONS.append(dict(
         U("red", "j-10c", "plaaf_j10c", "red_air", name="Dragon 41"),
         U("red", "pla-land-unit-pack", "pla_9k331", "kai",
           name="Island air defence"),
+        # Air-tasking placeholder: no name, no objective, no line in the
+        # briefing. Its only job is to be a cockpit a purchased aircraft can
+        # take, the way every slot-tagged section in the shipped campaign is.
+        U("blue", "p-8-poseidon", "usn_p8", "helo"),
     ],
 ))
 
@@ -1074,7 +1128,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="transports", at=(-7.0, 130.0),
                  radius=35, min_units=2, objective="Transports"),
-    protect=["carrier"], protect_objective="Ford",
+    fatal=[F("Ford", ["carrier"])],
     neutral_objective="Transports",
     win="The transports are through and Ford is intact with her window "
         "unexpired. Their carrier group is heading north-west and the talks "
@@ -1166,7 +1220,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="convoy", at=(-12.0, 130.5), radius=30,
                  min_units=3, objective="Convoy"),
-    protect=["convoy"], protect_min=2, protect_objective="Convoy",
+    fatal=[F("Convoy", ["convoy"], 2)],
     neutral_objective="Ceasefire",
     win="Coral Pioneer is alongside at Darwin on one shaft and the rest of the "
         "convoy is behind her. The withdrawing group went north and nobody "
@@ -1213,6 +1267,10 @@ MISSIONS.append(dict(
         U("red", "chinese-navy-plan", "plan_ss_kilo", "spoiler",
           name="Unacknowledged submarine"),
         U("red", "jh-7a", "plaaf_jh7a", "spoiler_air", name="Strike flight 71"),
+        # Air-tasking placeholder: no name, no objective, no line in the
+        # briefing. Its only job is to be a cockpit a purchased aircraft can
+        # take, the way every slot-tagged section in the shipped campaign is.
+        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air"),
     ],
 ))
 
@@ -1254,7 +1312,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="group", at=(-11.6, 129.4), radius=35,
                  min_units=2, objective="Oiler"),
-    protect=["group"], protect_objective="Oiler",
+    fatal=[F("Oiler", ["group"])],
     neutral_objective="Oiler",
     win="The group is in the eastern box and every escort in the rotation is "
         "still answering. The corridor has fuel for another fortnight.",
@@ -1333,7 +1391,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="visit", at=(-15.6, 149.6), radius=15,
                  min_units=1, objective="Visit"),
-    protect=["carriers"], protect_objective="Cycle",
+    fatal=[F("Cycle", ["carriers"])],
     neutral_objective="Cycle",
     win="The visitor is aboard, the package is down and the deck cycle never "
         "broke. A quiet day, which is the point of the exercise.",
@@ -1398,7 +1456,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="lift", at=(-0.5, 128.0), radius=25,
                  min_units=1, objective="Relief"),
-    protect=["group"], protect_objective="Group",
+    fatal=[F("Group", ["group"])],
     neutral_objective="Town",
     win="The distribution point is open and the column is ashore without a "
         "shot fired in the town. The coastal authority says so publicly, which "
@@ -1469,7 +1527,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="auxiliary", at=(-7.0, 132.5),
                  radius=35, min_units=1, objective="Auxiliary"),
-    protect=["auxiliary"], protect_objective="Auxiliary",
+    fatal=[F("Auxiliary", ["auxiliary"])],
     neutral_objective="Restraint",
     win="She is past the corridor and making for home at six knots with the "
         "stocks intact. Nobody on either side had to explain a fleet action "
@@ -1550,7 +1608,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="destroy", stations=["pads"], min_units=3,
                  objective="Pads"),
-    protect=["battery"], protect_objective="Pads",
+    fatal=[F("Pads", ["battery"])],
     neutral_objective="Safety",
     win="Three of four pads down, the anti-ship serial into the target and the "
         "trials staff already arguing about the fourth. Good week.",
@@ -1634,7 +1692,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="stream", at=(-1.2, 131.6), radius=40,
                  min_units=2, objective="Stream"),
-    protect=["stream"], protect_objective="Stream",
+    fatal=[F("Stream", ["stream"])],
     neutral_objective="Escort",
     win="The stream released on the complex and the escorts came home. In this "
         "timeline the aircraft that were cancelled in ours got to matter.",
@@ -1703,7 +1761,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="destroy", stations=["aggressor"], min_units=2,
                  objective="Serial"),
-    protect=["high"], protect_objective="Recovery",
+    fatal=[F("Recovery", ["high"])],
     neutral_objective="Umpire",
     win="The strike serial was broken outside its release line and everybody "
         "recovered. The debrief will still take four hours.",
@@ -1773,7 +1831,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="column", at=(-4.6, 137.1), radius=30,
                  min_units=1, objective="Column"),
-    protect=["support"], protect_objective="Gunship",
+    fatal=[F("Gunship", ["support"])],
     neutral_objective="Village",
     win="The column is at the airhead and the gunship went home with fuel to "
         "spare. The corridor stays overland for another week.",
@@ -1867,7 +1925,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="datum", at=(-10.6, 132.0), radius=20,
                  min_units=1, objective="Search"),
-    protect=["patrol"], protect_objective="Aircraft",
+    fatal=[F("Aircraft", ["patrol"])],
     neutral_objective="Traffic",
     win="Torres Light is found, her crew is off and the recordings from her "
         "bridge are in a bag on Arafura's quarterdeck. Somebody is going to "
@@ -1930,7 +1988,7 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="search", at=(-12.6, 148.2), radius=25,
                  min_units=1, objective="Survivors"),
-    protect=["hobart"], protect_objective="Helicopter",
+    fatal=[F("Helicopter", ["hobart"])],
     neutral_objective="Assist",
     win="Fourteen more out of the water, and the ones who did not make it are "
         "named rather than missing. That is the whole of what this operation "
@@ -2116,16 +2174,21 @@ RECON = "Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/AntiShip"
 # stock helicopter tasking row is commented out in the shipped campaign. `SAR`
 # is the only token the MH-60R declares that no other roster aircraft shares,
 # so it is the filter; `ASW` would drag the P-8 in. This path is unverified.
+# The fit list is a union across every airframe that can fill this flight,
+# each of which flies the intersection. SW03's CH-53s used to need their own
+# names here; they are granted outright now, so nothing that can take this
+# slot flies a CH53SA* fit and advertising one would be an orphan name.
 HELO = ("HeloRecon|Ship's Flight|SAR|1|"
         "ASW/ASWLongRange/ASWPatrol/Anti-shipLate")
 STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
           "Strike/StrikeLongRange/StrikePrecision/AntiShip/AntiShipHeavy/"
           "MurderHornetSEAD/MurderHornetAntiShip/MurderHornetSEADHeavy/"
           "SEST_NGJLongRange")
-# The KC-46 is Role=Airliner with a single Tanker fit - a row filtering a
-# hypothetical tanker role would never match it. Whether a purchased tanker
-# can actually be tasked this way is untested; the roster comment says so.
-TANKER = "Tanker|Air-to-Air Refuelling|Airliner|1|Tanker"
+# There is no tanker row. `ui.ini` localises exactly six air-tasking roles -
+# AirTaskingRole_SuCAP, _CAP, _Recon, _HeloRecon, _Attack and _AEW, lines
+# 3032-3037 - and Tanker is not among them. A seventh label would be a role
+# token invented here. The KC-46 and the KC-135 stay authored mission assets,
+# which is what they already were; they are not sold as a taskable flight.
 
 # The native build brief's service table, adopted as written. Purchases open
 # at six scheduled points and close at SW04, SW06 and SW08 - the chapters
@@ -2152,15 +2215,21 @@ BUY_12 = AIR_EARLY + AIR_LATE + ["usn_mh-60r"]
 
 WINDOWS = {
     "01": dict(buy=True, allow=BUY_01, repair=True, rearm=True, flights=[HELO, RECON]),
-    "O1": dict(flights=[HELO]),
+    # One helicopter, and the objective is about that helicopter. No row.
+    "O1": dict(),
     "02": dict(buy=True, allow=BUY_02, repair=True, rearm=True,
-               flights=[HELO, RECON, CAP, TANKER]),
-    "C1": dict(flights=[HELO]),
-    "03": dict(buy=True, allow=BUY_03, repair=True, rearm=True, flights=[HELO]),
+               flights=[HELO, RECON, CAP]),
+    "C1": dict(),
+    # Both lifters are granted assets an objective names; nothing is free.
+    "03": dict(buy=True, allow=BUY_03, repair=True, rearm=True),
     "04": dict(flights=[HELO, RECON]),
     "05": dict(buy=True, allow=BUY_05, repair=True, rearm=True, flights=[HELO, STRIKE]),
     "06": dict(flights=[CAP, RECON], airbase_prep=True),
-    "07": dict(buy=True, allow=BUY_07, repair=True, rearm=True, flights=[CAP, TANKER],
+    # Long Way Home has no air-tasking row. Every aircraft in it - the tanker,
+    # both Raptors, both Rhinos - is named by an objective, and an objective
+    # may not depend on a cockpit the player fills. The window still buys,
+    # repairs and rearms; it just has nowhere to put a bought aeroplane.
+    "07": dict(buy=True, allow=BUY_07, repair=True, rearm=True,
                airbase_prep=True),
     "08": dict(flights=[STRIKE, CAP], airbase_prep=True),
     "09": dict(buy=True, allow=BUY_09, repair=True, rearm=True, flights=[HELO, RECON]),
@@ -2259,7 +2328,7 @@ RESOLVERS = {
            "Ships": ("protect", "amphib")},
     "04": {"Track": "victory", "Neutrals": "neutral",
            "Patrol": ("protect", "patrol")},
-    "05": {"Escort": "victory", "Convoy": ("protect", "convoy"),
+    "05": {"Escort": "victory", "Convoy": ("protect", "convoy", 2),
            "Magazine": ("protect", "warramunga")},
     "06": {"Convoy": "victory", "Picture": ("classify", "red_sag", 1),
            "Sentry": ("protect", "isr"), "Hobart": ("protect", "hobart"),
@@ -2324,23 +2393,56 @@ for _m in MISSIONS:
 # =============================================================================
 
 SLOTS = {
-    # (mission, unit type): (flight row, role)
-    ("01", "usn_mh-60r"): (1, "HeloRecon"), ("01", "usn_p8"): (2, "Recon"),
-    ("O1", "usn_mh-60r"): (1, "HeloRecon"),
-    ("02", "E7A_Wedgetail"): (2, "Recon"),
-    ("C1", "usn_mh-60r"): (1, "HeloRecon"),
-    ("03", "usmc_ch53_standalone"): (1, "HeloRecon"),
-    ("04", "usn_mh-60r"): (1, "HeloRecon"), ("04", "usn_p8"): (2, "Recon"),
-    ("05", "usn_mh-60r"): (1, "HeloRecon"),
-    ("06", "raaf_f-35a"): (1, "CAP"), ("06", "raaf_mq-4c_triton"): (2, "Recon"),
-    ("07", "usaf_f-22_s6"): (1, "CAP"),
-    ("08", "usn_ea-18g"): (1, "Attack"), ("08", "raaf_f-35a"): (2, "CAP"),
-    ("09", "usn_mh-60r"): (1, "HeloRecon"),
-    ("10", "jp_sh-60k"): (1, "HeloRecon"), ("10", "jp_sh-60j"): (1, "HeloRecon"),
-    ("10", "jp_f-2a_late"): (3, "CAP"),
-    ("11", "usn_f-35c"): (1, "CAP"), ("11", "usn_ea-18g_2020"): (2, "Attack"),
-    ("12", "usn_p8"): (2, "Recon"),
+    # (mission, unit type): the air-tasking ROLE this aircraft's section fills.
+    #
+    # The slot INTEGER is not authored here. `TaskForceModeAirTaskingSlot` is
+    # the ordinal of the row among the rows sharing its LABEL, not the row's
+    # position in the list: Pacific Strike Mission26's third row is its FIRST
+    # CAP row and both its sections carry Slot=1, while Mission29's third row
+    # is its SECOND Recon row and carries Slot=2. No label repeats inside a
+    # Southern Watch mission, so every ordinal here is 1 - which is exactly
+    # why authoring the number by hand put 2s and 3s in eleven of them. The
+    # builder derives it now.
+    #
+    # Nothing in here may be named by a trigger. A slot is a cockpit the
+    # player's own aircraft fills, and no native mission binds an objective to
+    # one: 20 slot-tagged sections in the shipped campaign, 0 trigger
+    # references. Aircraft an objective depends on carry JOINS instead.
+    ("01", "raaf_mq-4c_triton"): "Recon",
+    ("01", "usn_mh-60r"): "HeloRecon",
+    ("02", "E7A_Wedgetail"): "Recon",
+    ("02", "usn_mh-60r"): "HeloRecon", ("02", "raaf_f-35a"): "CAP",
+    ("05", "raaf_f-35a"): "Attack",
+    ("09", "usn_p8"): "Recon",
+    ("10", "usn_p8"): "Recon",
+    ("12", "usn_mh-60r"): "HeloRecon",
+    ("04", "usn_mh-60r"): "HeloRecon", ("04", "usn_p8"): "Recon",
+    ("05", "usn_mh-60r"): "HeloRecon",
+    ("06", "raaf_f-35a"): "CAP", ("06", "E7A_Wedgetail"): "Recon",
+    ("08", "usn_ea-18g"): "Attack", ("08", "raaf_f-35a"): "CAP",
+    ("09", "usn_mh-60r"): "HeloRecon",
+    ("10", "jp_sh-60k"): "HeloRecon", ("10", "jp_sh-60j"): "HeloRecon",
+    ("10", "jp_f-2a_late"): "CAP",
+    ("11", "usn_f-35c"): "CAP", ("11", "usn_ea-18g_2020"): "Attack",
+    ("12", "usn_p8"): "Recon",
 }
+
+# Aircraft the player is GIVEN for a mission, because an objective names them.
+# `JoinTaskForce=True` with a `CampaignTag`: 04 Sunda Strait line 504, 08A
+# Pathfinders line 531, four more in the shipped campaign. This is the native
+# answer to "the mission depends on this exact aeroplane", and it is why SW06
+# can make the Triton's survival the decision it is without the campaign
+# having to sell the player a Triton first.
+JOINS = {
+    ("01", "usn_p8"),
+    ("03", "usmc_ch53_standalone"),
+    ("06", "raaf_mq-4c_triton"),
+    ("07", "usaf_f-22_s6"),
+    ("O1", "usn_mh-60r"),
+    ("C1", "usn_mh-60r"),
+}
+
+
 
 DEPTHS = {
     # Depth is a NAMED TOKEN, not feet. The native export uses low, shallow,
@@ -2370,6 +2472,8 @@ for _m in MISSIONS:
         _slot = SLOTS.get((_m["num"], _u["type"]))
         if _slot:
             _u["slot"] = _slot
+        if (_m["num"], _u["type"]) in JOINS:
+            _u["join"] = True
         if _u["type"] in DEPTHS:
             _u["depth"] = DEPTHS[_u["type"]]
         _route = ROUTES.get((_m["num"], _u["type"]))
@@ -2536,15 +2640,18 @@ for _m in MISSIONS:
                 _u["spawn_if"] = ("SW02SupplyLost", "IsFalse")
     if _m["num"] == "11":
         _m["flags"] = [dict(name="SW11FujianSunk", units=["red_cv#1"],
-                            intel="FUJIAN is down. What is left of that group "
-                                  "has no deck to fly from, and the corridor "
-                                  "knows it before the talks open.")]
+                            intel="FUJIAN is down. LIAONING is still out "
+                                  "there and still flying, but the newest "
+                                  "deck in their fleet is on the bottom of "
+                                  "the Banda Sea, and the corridor knows it "
+                                  "before the talks open.")]
         _m["reveal_if"] = [dict(
             variable="SW06NorthernGroupClassified",
-            units=["red_cv"], level="Identify",
-            intel="The surface group Sentry 06 classified on 6 November is the "
-                  "screen in front of you now. Their track is on your plot "
-                  "from the start - that reconnaissance sortie is why.")]
+            units=["red_cv#3", "red_cv#4", "red_cv#5"], level="Identify",
+            intel="Two of the escorts ahead of you are hulls Sentry 06 put a "
+                  "name to on 6 November, and the third keeps the company "
+                  "they kept. The screen is on your plot from the start. What "
+                  "is behind it is not - that you still have to find.")]
     if _m["num"] == "12":
         # Sink the carrier at Fujian's Shadow and the spoiler group has no air
         # cover on the last morning.
