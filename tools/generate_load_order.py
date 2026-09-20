@@ -36,8 +36,8 @@ TIER0 = [
 TIER1 = [("anchor-chain", "loader — SeaLifter loads via its preloader alongside")]
 TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
-    ("ai-doctrine-overhaul", "code mod — changes AI globally"),
     ("better-tacmap", "code mod — UI"),
+    ("auto-time-on-target", "code mod — ships no game data at all, one _info.ini"),
 ]
 TIER2 = [
     ("sam-pack", 'author: "top of TOE"'),
@@ -102,6 +102,9 @@ NOTES = {
     "rn-type23-old": "verified additive — position free",
     "rn-lynx-has3-old": "verified additive — position free",
     "e-7a-wedgetail": "KEEP — SEST RAAF Bases dependency",
+    "anzac-class-frigate": "KEEP — SEST RAN Fleet dependency; SEST wins both ran_ffh_anzac files, so this mod's hull is masked until the pack is rebased onto it",
+    "pla-plan-plaaf-aep": "Anchorchain expansion — below the loader, with the Euromod one",
+    "j-16-multirole": "duplicate platform with Shenyang J-16A — different unit ids, both load",
     "s-70b-2-seahawk": "KEEP — SEST RAN Fleet / RAAF Bases dependency",
     "tu-95ms-x-101": "watchlist: order vs the other Tu-95 mods decides shared files",
     "tu-95k-22": "watchlist: see Tu-95 row",
