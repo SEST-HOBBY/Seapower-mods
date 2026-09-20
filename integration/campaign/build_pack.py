@@ -48,6 +48,7 @@ Usage (repo root):
 """
 import argparse
 import collections
+import functools
 import math
 import re
 import sys
@@ -715,6 +716,84 @@ def solve_arrival(mission, placed, members):
     victory["at"] = (round(best[0], 3), round(best[1], 3))
 
 
+# The game classifies its own units in [AI] Role=. Anything here can shoot or
+# be shot at as part of the opposition; an AEW aircraft, a transport, an
+# airfield, a merchant or a range target cannot, and counting those as
+# "enemy strength" is how a mission with one submarine and a KJ-500 overhead
+# reads as five red units when it is really one threat.
+COMBAT_ROLES = {
+    "Fighter", "Bomber", "HeavyBomber", "StrategicBomber", "SEAD", "Attack",
+    "ASuW", "ASuW_VLR", "ASuW_Gun", "ASuW_Gun", "AAW", "SAM", "Gun", "SS",
+    "SSN", "SSBN", "ASW", "FAC", "Carrier", "CVL", "CVS", "ASM", "LandAttack",
+}
+NONCOMBAT_HINT = {"Merchant", "Airliner", "Airfield", "Target", "Transport",
+                  "Spy", "RAS", "AEW", "Recon", "MaritimePatrol", "Radar",
+                  "ESM", "SAR", "EW", "Landing"}
+
+
+@functools.lru_cache(maxsize=None)
+def ai_roles(uid):
+    _kind, f = unit_file(uid)
+    if f is None:
+        return frozenset()
+    m = re.search(r"^\[AI\]\s*$(.*?)(?=^\[)", read(f), re.M | re.S)
+    if not m:
+        return frozenset()
+    r = re.search(r"^Role=([^/\n]+)", m.group(1), re.M)
+    if not r:
+        return frozenset()
+    return frozenset(x.strip() for x in r.group(1).split(",") if x.strip())
+
+
+def is_combat(uid):
+    roles = ai_roles(uid)
+    if not roles:
+        return True          # unclassified: assume it fights, and be wrong safe
+    return bool(roles & COMBAT_ROLES)
+
+
+# What each mission role is allowed to weigh, counted in RED units that can
+# fight. The campaign's shape is an invariant, not a one-time edit: "smaller
+# opening engagements" and "occasional fleet battles" only stay true if the
+# build refuses to drift back.
+ROLE_BUDGET = {
+    "opening":   dict(max_combat=3),
+    "patrol":    dict(max_combat=4),
+    "recon":     dict(max_combat=5),
+    "escort":    dict(max_combat=6),
+    "strike":    dict(max_combat=8),
+    "logistics": dict(max_combat=6),
+    "fleet":     dict(min_combat=8),
+    "exercise":  dict(max_combat=99),
+}
+
+
+def check_pacing(mission, placed):
+    role = mission.get("role")
+    if not role:
+        raise SystemExit(f"{mission['key']}: no role - every mission declares "
+                         "its place in the escalation curve")
+    budget = ROLE_BUDGET.get(role)
+    if budget is None:
+        raise SystemExit(f"{mission['key']}: unknown role {role!r}")
+    red = [keys["Type"] for family, entries in placed.items()
+           if family.startswith("Taskforce2") for _t, keys, _n, _x in entries]
+    fighting = [u for u in red if is_combat(u)]
+    n = len(fighting)
+    if "max_combat" in budget and n > budget["max_combat"]:
+        raise SystemExit(
+            f"{mission['key']}: a {role} mission may field at most "
+            f"{budget['max_combat']} red combat units and has {n} "
+            f"({', '.join(sorted(set(fighting)))}). Either cut the opposition "
+            "or change the mission's role.")
+    if "min_combat" in budget and n < budget["min_combat"]:
+        raise SystemExit(
+            f"{mission['key']}: a {role} mission needs at least "
+            f"{budget['min_combat']} red combat units and has {n}. A fleet "
+            "action that is not one should be re-roled.")
+    return n
+
+
 def check_geometry(mission, placed, members):
     """An arrival objective must be neither already met nor impossible.
 
@@ -790,6 +869,10 @@ def render(mission, placed, members):
     # a civilian casualty.
     neutral_tags = [tag for family in placed if family.startswith("Neutral")
                     for tag, _k, _n, exempt in placed[family] if not exempt]
+    for oid, reward in mission.get("reveals", {}).items():
+        L.append(f"{oid}Intel={ini_text(reward['intel'])}")
+    for i, loss in enumerate(mission.get("support_loss", []), 1):
+        L.append(f"SupportLoss{i}Intel={ini_text(loss['intel'])}")
     if neutral_tags:
         L.append("NeutralLossMessage=<color=orange>Neutral contact lost.</color>|"
                  "That one was not ours to shoot. The operation ends here and "
@@ -910,6 +993,30 @@ def render(mission, placed, members):
                     area_condition(1, centre, how[2], how[3], units, how[4])
                     + ["ConditionsCompleted=<Condition1>",
                        f"Action_ObjectivesCompleted={oid}"])
+        elif kind == "classify":
+            # The reconnaissance decision, in the engine's own vocabulary:
+            # Condition_Type=UnitClassified fires when the player's side has
+            # classified the named contacts, and the pay-off is a permanent
+            # reveal of what they were screening. Both halves are stock -
+            # UnitClassified in missions/Warsaw Pact/Breakthrough.ini, the
+            # reveal pair in campaigns/linear-campaign-proto-1/missions/
+            # 03 Mind the Gap.ini. What it cannot do is model a partial or
+            # decaying picture: a contact is classified or it is not.
+            units = refs(members, how[1])
+            lines = ["Condition_Type=UnitClassified",
+                     "Condition_Taskforce=Taskforce1",
+                     f"Condition_Units={','.join(units)}",
+                     f"Condition_MinimumUnits={how[2]}",
+                     f"Action_ObjectivesCompleted={oid}"]
+            reward = mission.get("reveals", {}).get(oid)
+            if reward:
+                revealed = [t for r in reward["units"] for t in refs(members, r)]
+                lines += [f"Action_Taskforce1_Intel={oid}Intel",
+                          "Action_UnitRevealToTaskforce=Taskforce1|"
+                          + reward.get("level", "Classify"),
+                          f"Action_UnitRevealTime={reward.get('seconds', -1)}",
+                          f"Action_Units={','.join(revealed)}"]
+            trigger(f"{oid} classified", lines)
         else:
             raise SystemExit(f"{mission['key']}: objective {oid} has an unknown "
                              f"resolver {how!r}")
@@ -927,6 +1034,20 @@ def render(mission, placed, members):
                    f"Action_ObjectivesFailed={mission['protect_objective']}",
                    f"Action_ObjectivesCancel={main}",
                    "Action_EndMission=True", "Action_EndMissionDelay=45"])
+    # Losing a support asset costs something the player can read at the time.
+    # What the campaign can ENFORCE across missions is Task Force Mode's own
+    # persistence - a dead ship is gone and must be re-bought at its roster
+    # price. What it cannot yet do is gate a later mission on that loss, so the
+    # intel message states the cost rather than a trigger imposing it.
+    for i, loss in enumerate(mission.get("support_loss", []), 1):
+        units = [t for r in loss["units"] for t in refs(members, r)]
+        trigger(f"Support lost: {loss['asset']}",
+                destroyed_condition(1, units, 1)
+                + ["ConditionsCompleted=<Condition1>",
+                   f"Action_Taskforce1_Intel=SupportLoss{i}Intel"]
+                + ([f"Action_ObjectivesFailed={loss['objective']}"]
+                   if loss.get("objective") else []))
+
     if placed.get("Taskforce1Vessel") or placed.get("Taskforce1Aircraft"):
         trigger("Player force gone", [
             "Condition_Type=HasNoUnitsOfType", "Condition_Taskforce=Taskforce1",
@@ -1194,6 +1315,15 @@ def campaign_ini(missions, events, placements):
                 L.append("TaskForceModeAirTaskingAvailable=True")
                 for n, row in enumerate(window["flights"], 1):
                     L.append(f"TaskForceModeAirTaskingFlight{n}={row}")
+            # Whether the whole owned force sails or the player picks a
+            # detachment. Both keys are stock (pacific-strike campaign.ini);
+            # neither is documented in ui.ini, so the pairing is inferred from
+            # how the stock campaign uses them and is untested here.
+            if window.get("detachment"):
+                L += ["TaskForceModeDeploymentOptions=True",
+                      "TaskForceModeRequireEntireTaskForce=False"]
+            else:
+                L.append("TaskForceModeRequireEntireTaskForce=True")
             if window.get("airbase_prep"):
                 L += ["TaskForceModeAirbasePrepAvailable=True",
                       "TaskForceModeAirbasePrepReadySlots=2",
@@ -1387,6 +1517,7 @@ def main():
             sys.exit(f"{mission['key']}: anchor station "
                      f"{mission['anchor']!r} places no blue vessel")
         worst = max(worst, far)
+        weight = check_pacing(mission, placed)
         solve_arrival(mission, placed, members)
         check_geometry(mission, placed, members)
         name, text = render(mission, placed, members)
@@ -1397,8 +1528,8 @@ def main():
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
                 credits[token] = why
         units = sum(len(v) for v in placed.values())
-        print(f"  {name:<34} {units:>3} units  "
-              f"{len(mission_credits):>3} mods  snap<= {far:4.1f} NM")
+        print(f"  {name:<44} {units:>3} units {weight:>3} red combat  "
+              f"{len(mission_credits):>3} mods  snap<={far:5.1f} NM")
 
     rows, missing = coverage(credits, EXCUSES)
     if missing:
