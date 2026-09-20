@@ -1,49 +1,41 @@
-# Vessel SubModel Stabilization
+# Stabilized Ship SubModels
 
-Small AnchorChain extension for Sea Power that stabilizes individual SubModel roots
-against selected vessel rotations. The configuration is placed directly in the
-respective SubModel section of the vessel INI.
+Keep a radar platform, sensor mount or flight-deck element steady while the ship moves.
 
-## Configuration
+## Configure a vessel INI
 
-The three keys are named exactly:
+Add the settings to the section of the SubModel you want to stabilize. That section must also be listed under `[Submodels]`.
 
 ```ini
-IsStabilized=
-Stabilization=
-StabilizedSystem=
-```
+[Submodels]
+SubModel3=RadarPlatform
 
-Direct SubModel definitions:
-
-```ini
-[SubModel3]
+[RadarPlatform]
 Object=radar_base
 IsStabilized=SystemActive
-Stabilzation=Pitch,Roll
+Stabilization=Pitch,Roll
 StabilizedSystem=SensorSystem3
-
-[SubModel7]
-Object=flightdeck_platform
-IsStabilized=FlightOps
-Stabilzation=Pitch,Roll
-
-[SubModel8]
-Object=eo_base
-IsStabilized=SystemActive
-Stabilzation=Pitch,Yaw,Roll
-StabilizedSystem=SensorSystem6
 ```
 
-`Pitch`, `Yaw`, and `Roll` can be specified in any order, separated by commas.
-The order has no effect; unknown tokens are ignored with a warning. Full
-stabilization is written explicitly as `Pitch,Yaw,Roll`.
+Replace `radar_base` and `SensorSystem3` with the actual model and system on your ship. Keep existing SubModel entries and use an unused number. If the file uses `NumberOfSubModels`, update its count too.
 
-## Activation
+## Choose when and how to stabilize
 
-- `IsStabilized=FlightOps` is active only while the runtime FlightDeck states
-  `LaunchInProgress` or `LandingInProgress` are active. Merely having a flight
-  deck or embarked aircraft is not sufficient.
-- `IsStabilized=SystemActive` resolves `StabilizedSystem` to the vessel's actual
-  system instance and uses its generic `IsOn` state. The code is not restricted
-  to radar system classes.
+| Key | Options |
+|---|---|
+| `IsStabilized` | `SystemActive`: while the linked system is on. `FlightOps`: during an aircraft launch or landing. |
+| `Stabilization` | `Pitch`, `Roll`, `Yaw`, or a comma-separated combination. |
+| `StabilizedSystem` | The ship's system reference, such as `SensorSystem3`. Needed for `SystemActive` only. |
+
+`Pitch,Roll` keeps the platform level. Add `Yaw` to hold its heading when stabilization activates. Normal animations, such as radar rotation, continue.
+
+For a flight-deck SubModel, use:
+
+```ini
+IsStabilized=FlightOps
+Stabilization=Pitch,Roll
+```
+
+FlightOps applies only during an actual launch or landing, not whenever aircraft are aboard. Use the exact spelling `Stabilization`.
+
+Restart the game and check the ship in a fresh mission. See [example_stabilization.ini](example_stabilization.ini) for a complete fragment.

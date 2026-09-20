@@ -1,44 +1,28 @@
-YF-23 Black Widow II - Four Decades
+YF-23 Black Widow II
 By Alpine
 
-Four fictional carrier-capable F-23 configurations alongside the original YF-23.
-1990s: F-23A Block 10, available from 1998; six AIM-120C and two AIM-9M.
-2000s: F-23A Block 20, available from 2005; six AIM-120C-5 and two AIM-9X Block I.
-2010s: F-23A Block 30, available from 2016; six AIM-120D and two AIM-9X Block II.
-2020s: F-23A Block 40, available from 2025; six AIM-260A and two AIM-9X Block II.
-The fighters retain a 20 mm cannon, Empty/Ferry/AirToAir loadouts, US Navy livery,
-animated cockpit, landing gear, arresting hook, weapon bay and damage model.
-Radar and defensive electronic protection progress between blocks. Block 40 adds
-passive infrared-search detection using the game's native sensor model.
+Requires Sea Power. No other mods required.
 
-Requires Sea Power. No other mod is required. Enable the mod, restart the game,
-then find F-23A Block 10/20/30/40 in the US aircraft list in the mission editor.
-Use an appropriate mission date or disable historical filtering to see later blocks.
-Older blocks remain available after their introductory year.
+Aircraft
+YF-23 ATF 90s: prototype with a projected air-to-air loadout.
+YF-23 B10 90s: six AIM-120C and two AIM-9M missiles.
+YF-23 B20 00s: six AIM-120C-5 and two AIM-9X Block I missiles.
+YF-23 B30 10s: six AIM-120D and two AIM-9X Block II missiles.
+YF-23 B40 20s: six AIM-260A and two AIM-9X Block II missiles.
+YF-23 B40S 20s: two GBU-12 bombs and two AIM-9X Block II missiles.
+All combat variants retain a 20 mm cannon.
 
-These naval aircraft, service dates, integrations and performance are fictional
-gameplay adaptations. AIM-260 dimensions and performance are approximations.
-The four original blocks have air-superiority loadouts. The separate Block 40 Strike carries two GBU-12 laser-guided bombs and two AIM-9X Block II, with native laser designation.
-The internal bay uses a forward release envelope; rearward launches and complete
-real-world sensor-fusion behavior are not represented. Detection depends on
-target, aspect, altitude and the game's sensor rules.
+Southern Watch
+Four standalone Gulf of Aden scenarios set in a fictional September 2025 conflict.
+Older ships and aircraft remain in service in this alternate history.
+01 Silent Ledger: identify approaching aircraft and protect the sealift transit.
+02 Long Reach: protect the convoy against two strike pairs.
+03 Glass Needle: destroy two coastal targets and withdraw the strike aircraft.
+04 Last Watch: defend Nimitz with an airborne patrol and carrier reserves.
 
-Credits: Alpine - mod assembly and aircraft configuration.
-Sea Power stock assets and effects are referenced from the base game.
-Unofficial community mod.
+Enable the mod and find the missions under Scenarios > Black Widow - Southern Watch.
+The aircraft are available in the mission editor. Choose an appropriate mission date or disable historical filtering for later packages.
 
-Default livery: Sundowners-inspired NL-200. Alternate: VFA-147 NE-400.
-The canopy closes at the catapult; the pilot salutes before the launch hold.
-
-Black Widow - Southern Watch
-Four standalone fictional 2025 scenarios, available through Scenarios:
-01 Silent Ledger: classify two scouts and withdraw both fighters.
-02 Long Reach: intercept a bomber raid before it reaches the convoy defense line.
-03 Glass Needle: strike two coastal targets and extract both strike aircraft.
-04 Last Watch: defend Nimitz with an airborne patrol and four deck reserves.
-Each scenario includes a briefing, operational chart and explicit objectives.
-Flights start airborne in Vic formation. Last Watch also has player-controlled
-carrier reserves. Neutral traffic and infrastructure are protected.
-
-September 12 local revision: rebuilt scenario forces, routes, objectives and
-briefings; corrected pilot ejection settings and the Landing speed preset.
+Default livery: VF-111 Sundowners-inspired NL-200. Alternate: VFA-147 Argonauts NE-400.
+The naval variants, service dates and weapon integration are fictional gameplay adaptations. AIM-260A performance is approximate.
+Unofficial community mod. Sea Power stock assets and effects are referenced from the base game.
