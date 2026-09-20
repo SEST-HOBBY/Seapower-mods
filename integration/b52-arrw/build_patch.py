@@ -79,6 +79,15 @@ CSRL_BAY = "0,-0.0135,0.0026"                                  # WS1 Station6
 # and would give a different count and a different silhouette.
 LRASM = "dts_agm-158c-3"
 AGM86_PYLON = "0,-0.005,0.048|-0.0084,0.0000,0.048|0.0084,0.0000,0.048"
+# And the cant that makes those three points a triangle instead of a row.
+# Leaving this line off was a real bug in the first port: the B-52O and the
+# testbed got the positions and not the rotations, so their outer two rounds
+# stood upright out to the side of the rack instead of rolled 45 deg in
+# against it - reported in game as the LRASM fits "not angled on the wing
+# pylons". The H had it right all along; the port simply dropped half the
+# seat. A position key and its rotation key are one seat, never one without
+# the other. assert_pylon_seat() now fails the build if either drifts.
+AGM86_PYLON_ROT = "1,0,0|1,0,-45|1,0,45"
 
 
 def _stations(text, block_name):
@@ -89,6 +98,20 @@ def _stations(text, block_name):
         sys.exit(f"[{block_name}] not found - upstream layout changed")
     return {int(n): v.strip() for n, v in
             re.findall(r"^Station(\d+)=([-\d.,]+)\s*(?://.*)?$", m.group(1), re.M)}
+
+
+def assert_pylon_seat(text):
+    """The H owns the AGM86_Pylon seat; the ports copy it verbatim.
+
+    Both halves are checked, because the rotations half is the one that got
+    left behind once already."""
+    for key, want in (("AGM86_PylonPositions", AGM86_PYLON),
+                      ("AGM86_PylonRotations", AGM86_PYLON_ROT)):
+        m = re.search(rf"^{key}=([^\n]+)$", text, re.M)
+        got = m and re.split(r"\s*(?:#|//)", m.group(1))[0].strip()
+        if got != want:
+            sys.exit(f"dts_b-52h.ini: {key} is {got!r}, expected {want!r} - the "
+                     "donor seat moved, re-copy it into this script by hand")
 
 
 def assert_shared_geometry(files):
@@ -131,8 +154,13 @@ def extend_pylon_table(text, name):
     The recipients declare only the forward pylon pair. The H's 20-round fit
     hangs three rounds on each of two pairs, so the aft rows have to exist
     before the fit can be ported. They are the H's own Station7/8 verbatim -
-    same coordinates, and like the H's, no Rotation line (it defines those
-    only for stations 1-6)."""
+    same coordinates, and like the H's, no per-station Rotation line (it
+    defines those only for stations 1-6).
+
+    The SEAT is a different thing from the station, and both halves of it
+    come across: AGM86_PylonPositions and AGM86_PylonRotations. The first
+    port copied only the positions, which is why the ported fits' outer
+    rounds sat upright instead of rolled in against the rack."""
     m = re.search(r"^\[WeaponSystem2\][^\n]*\n(.*?)(?=^\[WeaponSystem)", text, re.M | re.S)
     if not m:
         sys.exit(f"{name}: [WeaponSystem2] not found - upstream layout changed")
@@ -156,6 +184,7 @@ def extend_pylon_table(text, name):
     new = (new[:mt.end()]
            + "\n#AGM-86 pylon triangle, ported from the B-52H with its 20x LRASM fit\n"
            + f"AGM86_PylonPositions={AGM86_PYLON}\n"
+           + f"AGM86_PylonRotations={AGM86_PYLON_ROT}\n"
            + new[mt.end():])
     return text[:m.start(1)] + new + text[m.end(1):]
 
@@ -548,6 +577,9 @@ def main():
         if path.exists():
             shared[label] = path.read_text(encoding="utf-8-sig")
     assert_shared_geometry(shared)
+    if "dts_b-52h" not in shared:
+        sys.exit("dts_b-52h.ini not exported - it is the donor for every ported fit")
+    assert_pylon_seat(shared["dts_b-52h"])
     print(f"  geometry contract: {len(shared)} B-52 airframe(s) agree on bay and pylons")
 
     build_ammunition()
