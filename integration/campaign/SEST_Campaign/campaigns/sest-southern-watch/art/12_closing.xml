@@ -1,0 +1,23 @@
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  d:DesignWidth="1920" d:DesignHeight="1080"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+  <Viewbox>
+    <Border Background="#F2EFE6" Width="1100" Height="760" Padding="60"
+            TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black">
+      <StackPanel Orientation="Vertical">
+        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
+        <TextBlock Text="26 NOVEMBER 2028  |  MARITIME BORDER COMMAND, DARWIN" Margin="0,14,0,14" FontSize="26"/>
+        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
+        <TextBlock Text="THE LANES ARE OPEN" FontWeight="Bold" FontSize="54"
+                   TextWrapping="Wrap" TextAlignment="Center" Margin="0,26,0,26"/>
+        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+        <TextBlock Text="Coral Pioneer made her destination with a cracked bearing and a volunteer engineer from the escort. Two hundred miles behind her, one group complied with its withdrawal order and another spent the afternoon deciding whether to." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
+        <TextBlock Text="The route is open. The partner governments that asked for help still hold their own ports. Most of the crews went home." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
+        <TextBlock Text="What is left of your task group is alongside at Darwin, and the ledger says which ships are in it. That is the whole measure of this campaign - not the exchange rate, the sea route and the people who used it." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
+        <TextBlock Text="Stand down the watch." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
+      </StackPanel>
+    </Border>
+  </Viewbox>
+</Page>
