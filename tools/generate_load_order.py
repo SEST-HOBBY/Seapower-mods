@@ -38,6 +38,7 @@ TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
     ("ai-doctrine-overhaul", "code mod — changes AI globally"),
     ("better-tacmap", "code mod — UI"),
+    ("auto-time-on-target", "code mod — coordinated time-on-target salvoes; needs Anchor Chain"),
 ]
 TIER2 = [
     ("sam-pack", 'author: "top of TOE"'),
