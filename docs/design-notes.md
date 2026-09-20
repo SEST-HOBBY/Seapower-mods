@@ -131,8 +131,19 @@ One thing is real loss, and it is the one that changes the scenario:
   free. Nothing warned: the unit count was right and preflight resolved all 879
   references, because every reference was still valid. Only the intent was gone.
 
-`integration/missions/restore_roe.py` restores it from the last committed copy, and
-should be run after every editor save. Run it before the commit, not after.
+`integration/missions/restore_roe.py` restores it, and `import-mission.ps1` now runs it
+on every mission it imports, so the fix lands before the commit rather than after.
+
+**"The previous commit" is not a safe reference, and getting that wrong hides exactly
+the bug the tool is for.** The first version defaulted to the commit before the most
+recent one. Run immediately after the fix was committed, that default pointed at the
+flattened save itself - which carries no `Hold` and no `Tight`, so it could restore
+none - and printed a reassuring `to restore 0` for a file it had not really checked.
+The default is now the newest commit whose copy *still carries restraint*; commits
+with none are skipped and named in the output, an explicit `--ref` with none is
+refused, and the summary line states how many restrained units the reference holds so
+a zero is never mistaken for a pass. Same lesson as the revert that aborted its own
+build: a check that cannot fail is not a check.
 
 **Compare by unit identity, not by section name.** Inserting one vessel renumbers
 every section after it: `[Taskforce1Vessel5]` was a Flight IIA Burke before this save

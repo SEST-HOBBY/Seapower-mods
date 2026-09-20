@@ -14,10 +14,16 @@ WeaponStatus=Tight "so they unmask only when the fleet is engaged", and the
 Allied carrier group sits on Tight so it shadows rather than shoots. Flatten
 all of that to Free and the first contact is a general engagement.
 
-WHAT THIS PASS DOES. It aligns the mission against a reference copy - the
-last committed state, by default - unit by unit, and restores WeaponStatus
-wherever the reference says Hold or Tight and the mission no longer does.
-Nothing else is touched.
+WHAT THIS PASS DOES. It aligns the mission against a reference copy unit by
+unit and restores WeaponStatus wherever the reference says Hold or Tight and
+the mission no longer does. Nothing else is touched.
+
+THE REFERENCE IS THE NEWEST COMMIT THAT STILL CARRIES RESTRAINT, not simply
+the previous one. Once a flattened save has been committed, the previous
+commit IS the flattened one: it holds no Hold and no Tight, so it can restore
+none, and a tool that used it would report a reassuring "nothing to restore"
+for a mission that has lost everything. Commits with no restraint in them are
+skipped and named; if none qualifies the pass refuses rather than reassures.
 
 WHAT IT DELIBERATELY DOES NOT DO. The same save also drops MissionType=
 NoMission, RadarsActive=False, ActiveSonarsEnabled=False and TowedArray
@@ -35,10 +41,12 @@ inside an inserted or deleted run are skipped entirely rather than guessed at.
 Usage (repo root):
     python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2"
     python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2" --write
+    python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2" --check
 """
 import argparse
 import collections
 import difflib
+import os
 import re
 import subprocess
 import sys
@@ -51,6 +59,7 @@ RESTRAINT = ("Hold", "Tight")
 # The editor's own key order, used to place a key it dropped entirely.
 AFTER_KEY = ("UnlimitedFuel", "VariantReference", "SquadronReference", "Type")
 INDEXED = re.compile(r"^(.*?)(\d+)$")
+MAX_HISTORY = 50
 
 
 def parse(text):
@@ -93,21 +102,60 @@ def align(ref, cur):
     return pairs
 
 
-def reference_text(path, rev):
-    rel = path.relative_to(ROOT).as_posix()
-    if rev is None:
-        log = subprocess.run(
-            ["git", "log", "--format=%H", "--", rel],
-            cwd=ROOT, capture_output=True, text=True, check=True).stdout.split()
-        if len(log) < 2:
-            sys.exit(f"{rel}: only {len(log)} commit(s) touch this mission - "
-                     f"pass --ref explicitly")
-        rev = log[1]
+def show(rel, rev):
     out = subprocess.run(["git", "show", f"{rev}:{rel}"],
                          cwd=ROOT, capture_output=True, text=True)
-    if out.returncode:
-        sys.exit(f"git show {rev}:{rel} failed: {out.stderr.strip()}")
-    return rev, out.stdout
+    return None if out.returncode else out.stdout
+
+
+def restraint_count(text):
+    sections, _ = parse(text)
+    return sum(1 for s in sections.values()
+               if s.get("WeaponStatus") in RESTRAINT)
+
+
+def reference_text(path, rev):
+    """Pick the newest committed copy that still carries Hold or Tight.
+
+    Taking "the previous commit" is the trap this tool exists to catch: once a
+    flattened save is committed, the previous commit IS the flattened one, it
+    carries no Hold and no Tight, and comparing against it reports a reassuring
+    "nothing to restore" for a mission that has lost everything. A reference
+    with no restraint in it cannot restore restraint, so it is not a reference.
+    """
+    rel = path.relative_to(ROOT).as_posix()
+    if rev is not None:
+        text = show(rel, rev)
+        if text is None:
+            sys.exit(f"cannot read {rel} at {rev}")
+        n = restraint_count(text)
+        if not n:
+            sys.exit(f"{rev[:8]} carries no Hold or Tight for this mission, so "
+                     f"it cannot restore any - pick an earlier revision")
+        return rev, text, n
+    log = subprocess.run(["git", "log", "--format=%H", "--", rel],
+                         cwd=ROOT, capture_output=True, text=True,
+                         check=True).stdout.split()
+    if not log:
+        print(f"{rel} is not committed yet, so there is nothing to compare it "
+              f"against. Commit it, then this pass guards every later save.")
+        sys.exit(0)
+    skipped = []
+    for candidate in log[:MAX_HISTORY]:
+        text = show(rel, candidate)
+        if text is None:
+            continue
+        n = restraint_count(text)
+        if n:
+            if skipped:
+                print(f"skipped {len(skipped)} flattened commit(s): "
+                      f"{', '.join(c[:8] for c in skipped)}")
+            return candidate, text, n
+        skipped.append(candidate)
+    sys.exit(f"no commit in the last {len(log[:MAX_HISTORY])} touching {rel} "
+             f"carries Hold or Tight. Either this mission never set a restrained "
+             f"posture, or every committed copy has been flattened - check by "
+             f"hand before trusting this tool on it.")
 
 
 def restore(text, fixes):
@@ -157,16 +205,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mission", required=True)
     ap.add_argument("--ref", default=None,
-                    help="git revision to read the mission from "
-                         "(default: the commit before the most recent one "
-                         "that touched it)")
+                    help="git revision to read the mission from (default: the "
+                         "newest commit whose copy still carries Hold or Tight)")
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--check", action="store_true",
+                    help="exit 1 if anything needs restoring; implies a dry run")
     args = ap.parse_args()
 
     path = MISSIONS / f"{args.mission}.ini"
     if not path.exists():
         sys.exit(f"no such mission: {path}")
-    rev, ref_text = reference_text(path, args.ref)
+    rev, ref_text, restrained = reference_text(path, args.ref)
     cur_text = path.read_text(encoding="utf-8-sig")
     ref, _ = parse(ref_text)
     cur, _ = parse(cur_text)
@@ -187,13 +236,17 @@ def main():
         print(f"  {b:<24} {cur[b].get('Type',''):<26} "
               f"{str(now):<5} -> {was:<5} {label}")
 
-    print(f"\nreference {rev[:8]}  aligned {len(pairs)} units  "
-          f"already correct {already}  to restore {len(fixes)}")
+    print(f"\nreference {rev[:8]}  carries {restrained} restrained unit(s)  "
+          f"aligned {len(pairs)}  already correct {already}  "
+          f"to restore {len(fixes)}")
     if not fixes:
-        return
+        return 0
+    if args.check:
+        print("check failed - run with --write")
+        return 1
     if not args.write:
         print("dry run - pass --write to apply")
-        return
+        return 0
     new = restore(cur_text, fixes)
     check, _ = parse(new)
     bad = [(n, v) for n, v in fixes if check.get(n, {}).get("WeaponStatus") != v]
@@ -202,7 +255,14 @@ def main():
                  f"{len(check)} sections vs {len(cur)}")
     path.write_text(new, encoding="utf-8", newline="")
     print(f"wrote {path}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        sys.exit(main())
+    except BrokenPipeError:
+        # Piped into head/less and the reader left. Point stdout at /dev/null
+        # so the interpreter's own flush does not raise again on the way out.
+        os.dup2(os.open(os.devnull, os.O_WRONLY), sys.stdout.fileno())
+        sys.exit(0)
