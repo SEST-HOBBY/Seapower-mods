@@ -387,9 +387,21 @@ def main():
     # Not removed here, because unlike the NSM this round really is a
     # high-altitude interceptor - the floor is wrong, not the idea of one.
     #
-    # NOT touched: MaxAttackAltitude. The SM-3s declare none, which is
-    # permissive rather than restrictive and cannot produce these symptoms.
-    MIN_ATTACK_ALT = {"usn_rim-161b", "usn_rim-161c", "usn_rim-161d"}
+    # NOT touched: MaxAttackAltitude. An earlier revision of this comment
+    # said the SM-3s do not declare it. They do - 1,640,000 ft on the B and
+    # C, 3,000,000 on the D - and both are realistic, which is exactly why
+    # the 300,000 ft MaxLoftAlt cap above is a defect rather than a choice.
+    #
+    # NOT touched: KillProbability. 0.85/0.85/0.90 against pla_hq-19's 0.95
+    # looks like the same asymmetry, but it is not - the real SM-3 test
+    # record is around 30 hits in 40 attempts, so these are honest numbers.
+    # If anything the 0.95 is the generous one, and it belongs to another
+    # author's mod.
+    # MaxFlightTime sized to each block's own declared range at its own
+    # MaxVelocity, with headroom for VelocityBleed=0.6: the B and C need
+    # 300 s for 486 nm and get 600; the D needs 617 s for 1500 nm and gets
+    # 900. Real SM-3 engagements at these ranges run ten minutes and up.
+    SM3 = {"usn_rim-161b": 600, "usn_rim-161c": 600, "usn_rim-161d": 900}
     LOFT_ANGLE = {"usn_rim-161b": "85.0", "usn_rim-161c": "85.0",
                   "usn_rim-161d": "85.0", "usn_rim-174a": "80.0",
                   "usn_rim-174c": "80.0", "usn_pac3_mse": "65.0"}
@@ -400,28 +412,63 @@ def main():
         t = edit(t, rf"^[;#]\s*MaxLoftAngle={angle}\b([^\n]*)$",
                  f"MaxLoftAngle={angle}\\1", 1, name)
         extra = ""
-        if name in MIN_ATTACK_ALT:
+        if name in SM3:
+            # ---- the SM-3 realism pass -----------------------------------
+            # Benchmark is pla_hq-19: the collection's other dedicated
+            # exoatmospheric BMD interceptor, a Chinese one, and the round
+            # this has to be measured against if the two sides are to behave
+            # like their real counterparts.
+            #
+            # 1. IT CANNOT CLIMB TO ITS OWN CEILING. MaxAttackAltitude is
+            #    1,640,000 ft (500 km) on the B and C and 3,000,000 ft
+            #    (914 km) on the D - realistic figures - but MaxLoftAlt caps
+            #    the climb at 300,000 ft (91 km). So the round is cleared to
+            #    engage through a band whose top 82-90% it physically cannot
+            #    reach. The real Block IIA apogees far above that and
+            #    intercepted an ICBM-class target in 2020. hq-19 has no such
+            #    hole because it lofts to "Target" - a documented symbolic
+            #    value meaning "climb to the altitude the target was at" -
+            #    so it always reaches its mark. The SM-3 gets the same.
+            t = edit(t, r"^MaxLoftAlt=300000\.0\b", "MaxLoftAlt=Target", 1, name)
+
+            # 2. THE PROVEN INTERCEPTOR IS RATED THE WORST ONE. SM-3 is the
+            #    most combat-proven BMD interceptor in service, and sits at
+            #    0.50 - "poor" by the file's own scale - while pla_hq-19 and
+            #    pla_hq-9 both get 0.10 and the SM-6 gets 0.15. The C is
+            #    worse still at 1.10, the only value in 151 AAW rounds past
+            #    the documented end of the scale. All three to hq-19's 0.10:
+            #    its direct opposite number, same role, same collection.
+            t = edit(t, r"^InterceptOutOfAltitudePenalty=(?:0\.50|1\.10)\b",
+                     "InterceptOutOfAltitudePenalty=0.10", 1, name)
+
+            # 3. IT DIES BEFORE ITS DECLARED RANGE. MaxFlightTime=300 s at
+            #    MaxVelocity buys the B and C exactly their 486 nm with zero
+            #    margin, and the D only 729 nm of its declared 1500 - it
+            #    expires at the half-way point of a shot the file says it can
+            #    take. VelocityBleed=0.6 makes both worse in practice. By
+            #    contrast hq-19's 280 s covers its 175 nm two and a half
+            #    times over, so the enemy round has the margin this one
+            #    lacks. Sized to the declared range plus that bleed.
+            t = edit(t, r"^MaxFlightTime=300\b", f"MaxFlightTime={SM3[name]}", 1, name)
+            extra = (f"\nMaxLoftAlt 300000 -> Target, so it climbs to the target instead "
+                     f"of\nstopping at 91 km inside a band that reaches 500-914 km.\n"
+                     f"InterceptOutOfAltitudePenalty -> 0.10, the value its opposite "
+                     f"number\npla_hq-19 carries; it had 0.50 ('poor'), and the C had an "
+                     f"off-scale 1.10.\nMaxFlightTime 300 -> {SM3[name]} s, enough to "
+                     f"actually fly its declared range.\nMinAttackAltitude 220000 -> "
+                     f"150000, where the ballistic threats fly.")
             t = edit(t, r"^MinAttackAltitude=220000\b", "MinAttackAltitude=150000",
                      1, name)
-            extra = ("\nSecond delta: MinAttackAltitude 220000 -> 150000. At 220,000 ft "
-                     "only\neleven threat rounds in the whole collection were ever "
-                     "inside the band,\nso nearly every engagement took the engine's "
-                     "out-of-band deviation\npenalty. 150,000 stays near the real "
-                     "exoatmospheric regime while covering\n18 threats, including the "
-                     "DF/JL family, Kinzhal, YJ-21 and SS-26.")
-        if name == "usn_rim-161c":
-            # Sole value past the documented 'poor' end (0.50) in 151 AAW
-            # rounds that define the key, and 2.2x its own two siblings,
-            # which both use 0.50 - while the C is BETTER than them on the
-            # other two penalty axes. Brought into line with the siblings
-            # rather than with usn_rim-174c's 0.10, which is the other
-            # reading of a slipped keystroke but would make the round better
-            # than its family on a guess.
-            t = edit(t, r"^InterceptOutOfAltitudePenalty=1\.10\b",
-                     "InterceptOutOfAltitudePenalty=0.50", 1, name)
-            extra += ("\nThird delta: InterceptOutOfAltitudePenalty 1.10 -> 0.50, matching\n"
-                     "its own B and D siblings. 1.10 was the only value in the collection\n"
-                     "past the scale this file's own comment documents.")
+        if name == "usn_rim-161d":
+            # The D is the fastest and newest of the three and is penalised
+            # 30x more than its older siblings for target speed, which is
+            # backwards. Aligned to the B and C's value - in-family, and the
+            # softest change in this block.
+            t = edit(t, r"^InterceptSpeedPenaltyMultiplier=0\.3\b",
+                     "InterceptSpeedPenaltyMultiplier=0.01", 1, name)
+            extra += ("\nInterceptSpeedPenaltyMultiplier 0.3 -> 0.01, its own B and C "
+                      "siblings'\nvalue: the fastest of the three was the worst at "
+                      "catching fast targets.")
         write(f"ammunition/{name}.ini", t,
               f"SEST Collection Fixes - base: 3629144864's {name}. One delta:\n"
               f"MaxLoftAngle={angle} un-commented. The author wrote the value and then\n"
