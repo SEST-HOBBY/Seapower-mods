@@ -1,0 +1,24 @@
+{
+  "_comment": [
+    "Where the game window lives, in Windows virtual-desktop pixels. Read by",
+    "integration/second-screen/build_pack.py to work out where to park the tactical",
+    "map and the Formation Manager window; rewritten from the real desktop by",
+    "tools/detect-displays.ps1 -Write on the gaming PC.",
+    "",
+    "A region is normally one physical monitor. Under NVIDIA Surround / AMD",
+    "Eyefinity the two monitors are ONE logical display to Windows, so the regions",
+    "are instead the left and right halves of it - the arithmetic is the same.",
+    "",
+    "mode: 'second-screen' places the panels in the 'panels' region. 'single-screen'",
+    "makes the pack a no-op that ships vanilla geometry - set it (or re-run the",
+    "detector) before playing on one monitor, or the map is parked off-screen."
+  ],
+  "source": "Stated by the user, 2026-09-20: two 2560x1440 monitors, side by side, panels on the right. Not yet confirmed against the live desktop - run tools/detect-displays.ps1.",
+  "detected": false,
+  "mode": "second-screen",
+  "margin": 12,
+  "regions": [
+    { "id": "main", "role": "view",   "x": 0,    "y": 0, "width": 2560, "height": 1440 },
+    { "id": "aux",  "role": "panels", "x": 2560, "y": 0, "width": 2560, "height": 1440 }
+  ]
+}
