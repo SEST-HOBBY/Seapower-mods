@@ -1,0 +1,41 @@
+2026/08/29
+
+beta版的
+
+WeaponBase.FlightStage 枚举值整体重排，导致弹药状态值全部+1 。这是必须更改的项
+
+====== 补充说明（2026-08-29，部署 SubAmmunitionMod.dll 时写入）======
+
+修改原因
+--------
+游戏从正式版 0.8.2 切换到测试版后，WeaponBase.FlightStage 枚举值发生重排：
+测试版在 Launch=2 之后新增了 SurfaceWaterEntry=3 成员，导致其后的所有值整体 +1：
+
+  TerminalApproach  13 → 14
+  Deployed          14 → 15
+  Debris            15 → 16
+  Terminated        16 → 17
+  SelfDestruct      17 → 18
+
+原 mod 在编译期把 FlightStage.TerminalApproach / Deployed 写死为正式版数值，
+在测试版下这些常量全部错位，导致飞行阶段判断错误。
+
+修复方式
+--------
+新增 FlightStageRef 静态类，改为运行时按枚举名解析（Enum.Parse）这三个阶段值，
+替换了 mod 内 3 处编译期常量比较：
+  - SubAmmunitionController.cs：投放收尾时 _flightStage != TerminalApproach 判断
+  - SubAmmunitionCreation.cs：声呐浮标部署状态 _flightStage == Deployed 诊断
+
+效果：这一份代码 / 一份 DLL 在正式版和测试版下均按当前版本解析枚举值，
+两个版本通用，无需分别维护。
+
+其他核查
+--------
+对照了测试版全部 mod 引用符号（方法 / 字段 / 属性 / 枚举），除上述 FlightStage
+枚举值外均与正式版一致，无其他变化。
+
+注意
+----
+本目录原为空，部署未覆盖任何原有文件。若测试版 mod 加载需要同目录 _info.ini，
+请另行补充。

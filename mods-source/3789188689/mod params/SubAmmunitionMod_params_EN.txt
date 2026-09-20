@@ -1,0 +1,162 @@
+====================================================================
+SubAmmunitionMod Editable Parameters (EN)
+====================================================================
+All parameters go in the [SubAmmunition] section of the HOST ammo ini
+(e.g. plan_ac/ammunition/plaaf_akf-98.ini).
+Sub-munition params use the SubAmmunition prefix; host-related params use MainAmmunition.
+
+WARNING!!!!!
+
+Do not nest cluster munitions too many times! In order to allow for more diverse mods, I only check whether the submunition is the same as itself. Looping cluster munition generation will most likely cause infinite recursion and freeze the game!!!!!!
+
+--------------------------------------------------------------------
+[SubAmmunition] section parameters
+--------------------------------------------------------------------
+
+1. SubAmmunitionType            // Launch script type (string)
+   // Note: Different types will apply different release logic. As a safety switch, if the detected Type does not match the submunition's INI setting, the submunition script will not execute.
+   // Allowed: missile / bomb / moss / sonobuoy / torpedo / parachutebomb
+   // Disabled: noisemaker / asroc / rbu / aerialrocket / unguidedrocket / chaff / mlrs / projectile / fueltank
+   // Note: moss is treated as a torpedo (created as Torpedo + launched via ASROC_Launch)
+   // parachutebomb = parachute bomb (physical type must be bomb; injects ParachuteSpeed + parachute landing point)
+   Example: SubAmmunitionType=Torpedo
+
+2. SubAmmunitionName            // Sub-munition ammo name (must exist in the game ammo library)
+   Example: SubAmmunitionName=plan_yu-12_air
+
+3. SubAmmunitionPosition        // Position of each sub-munition relative to the host (x,y,z)
+   // '|'-separated segment count = number of sub-munitions
+   // Unit: Unity units (1 unit ~ 67.2 m); currently visual-only (discarded at launch)
+   Example: SubAmmunitionPosition=0,0,0|0,0,0|0,0,0
+
+4. SubAmmunitionRotation        // Rotation of each sub-munition (Euler x,y,z; '|' segments optional)
+   // e.g. 0,90,0 = face left, 0,-90,0 = face right (works with EjectVelocity to pop out sideways)
+   Example: SubAmmunitionRotation=0,90,0|0,-90,0
+
+5. SubAmmunitionDelayBetweenLaunches  // Stagger interval between launches (seconds)
+   Example: SubAmmunitionDelayBetweenLaunches=0.1
+
+6. SubAmmunitionTriggerDist     // Distance trigger (nm): release when host distance to aim point <= this value
+   // **Mutually exclusive (priority Time>Dist>Height: a higher-priority param, if present, ignores the rest)**:
+   // only active when SubAmmunitionTriggerTime is ABSENT and SubAmmunitionTriggerHeight is not enabled (0/absent)
+   Example: SubAmmunitionTriggerDist=3
+
+7. SubAmmunitionTriggerTime     // Time trigger (seconds, from host launch)
+   // **Mutually exclusive (highest priority)**: if the key is written, it takes over exclusively and IGNORES Dist/Height
+   // (flight time after launch >= this value)
+   // 0 / negative / absent -> normalized to 0.01 (written time = release immediately after launch; absent = back to TriggerDist)
+   Example: SubAmmunitionTriggerTime=10     // release 10 s after launch
+   //      SubAmmunitionTriggerTime=0       // release immediately after launch (0.01)
+   //      (delete the line) = distance trigger (TriggerDist)
+
+8. SubAmmunitionTriggerHeight   // Height trigger (FEET, relative to TERRAIN = AGL): release when host's ground-clearance (ammo altitude - terrain height) <= this value (CBU-style fuze opening)
+   // **Mutually exclusive (lowest priority)**: only effective when TriggerTime is ABSENT and TriggerDist is not set (0/absent);
+   // if time or dist is enabled, this is IGNORED (anti-bug rule: having a higher-priority param ignores lower ones)
+   // 0 / absent -> disabled
+   // Note: AGL = ammo altitude above sea level - terrain height (terrain below sea treated as 0); if already below the threshold, it releases immediately;
+   // internally uses the game's ObjectBase.AltitudeOverSurface (ground clearance) compared via Utils.heightInFeetToUnity(feet) (game height unit is compressed, NOT meters!)
+   Example: SubAmmunitionTriggerHeight=2000   // open dispenser when ground clearance drops to 2000 ft
+
+9. SubAmmunitionSpread          // Circular spread radius (METERS); 0 = no spread
+   // Applies to: missile / torpedo types
+   Example: SubAmmunitionSpread=1000        // 1 km radius
+
+10. SubAmmunitionSpreadAngle    // Spread arc angle (degrees)
+    // 0    = all sub-munitions coincide at the aim point
+    // 0-360 = evenly spaced within +/-Angle/2 arc (near-equal angles)
+    // 360  = full circle (>360 treated as 360)
+    // Half-angle limited by seeker FOV (torpedo can only lock within +/-FOV/2)
+    Example: SubAmmunitionSpreadAngle=360
+
+11. SubAmmunitionCEP            // Sub-munition accuracy deviation (METERS; 0 = off)
+    // Per sub-munition random circular offset from its aim point, applied after Spread
+    Example: SubAmmunitionCEP=50
+
+12. SubAmmunitionDropDistance   // Sea-landing horizontal distance (nm; >0 fixed, 0 = use DropRatio) [sonobuoy]
+    Example: SubAmmunitionDropDistance=0
+
+13. SubAmmunitionDropRatio      // Landing distance = drop height x DropRatio (<1 = closer; sonobuoy parachute deceleration)
+    Example: SubAmmunitionDropRatio=0.5
+
+14. SubAmmunitionEjectVelocity  // Eject speed (knots): "min,max" -> random per munition, overrides the ammo's _ap._ejectVelocity (vanilla tangential eject along bomb.forward)
+    // Absent = use ammo's own EjectVelocity (tangential along sub-munition forward)
+    Example: SubAmmunitionEjectVelocity=8,30
+
+15. SubAmmunitionEjectVelocityVector // Eject direction (Euler pitch,yaw,roll degrees RELATIVE to host flight direction; '|' segments per munition)
+    // Non-zero (e.g. 0,90,0 / 0,-90,0) -> rotate the munition to the eject direction at release, so the vanilla tangential eject goes along it (alternating left/right)
+    // Absent / 0,0,0 = along host flight direction
+    Example: SubAmmunitionEjectVelocityVector=0,90,0|0,-90,0
+
+16. SubAmmunitionParachuteSpeed // ParachuteBomb injected initial speed + landing-point reference speed (knots, default 150; absent/<=0 -> 150)
+    Example: SubAmmunitionParachuteSpeed=120
+
+17. SubAmmunitionInheritTarget  // Whether sub-munitions inherit the host target (Torpedo always; Bomb/Missile controlled here)
+    Example: SubAmmunitionInheritTarget=True
+
+18. MainAmmunitionMesh          // Host: switch host model at release
+    // Finds the sub-mesh with this name inside the main obj ([Models] ResourcesRoot); empty = no switch
+    Example: MainAmmunitionMesh=akf98_open
+
+19. SubAmmunitionDisplayOnParent // Whether sub-munitions display on the parent (host)
+    Example: SubAmmunitionDisplayOnParent=True
+
+20. SubAmmunitionIgnoreHeightDifferenceForTargetDist  // Trigger distance ignores height difference
+    // True = pure horizontal (matches debug panel "dist to waypoint"); False = 3D including height (ballistic/high-altitude)
+    Example: SubAmmunitionIgnoreHeightDifferenceForTargetDist=True
+
+21. MainAmmunitionForceLevelFlight // Host: force level flight during release (prevent dive, hold altitude)
+    // True = level flight; False = normal terminal dive
+    Example: MainAmmunitionForceLevelFlight=True
+
+22. MainAmmunitionDisappear     // Host: whether to self-destruct after release
+    // True = self-destruct release-completion + 20s (or on sea hit); False = keep flying
+    Example: MainAmmunitionDisappear=True
+
+23. SubAmmunitionTriggerMinTime // Global minimum trigger time (seconds): the GATE in front of ALL trigger modes
+    // (time / distance / height / immediate) — release is only allowed once flight time >= this value;
+    // before it, no trigger fires even if a trigger condition is already met (it simply waits);
+    // the moment the minimum time passes, release happens immediately per the original trigger condition
+    // (if that condition was already satisfied).
+    // Absent / negative -> default 0.01 (prevents release at the instant of launch); explicitly 0 = disabled
+    // (no minimum-time restriction at all)
+    Example: SubAmmunitionTriggerMinTime=5    // release only after at least 5 s (even if distance/height already met)
+
+====================================================================
+Underwater release restriction (host is a Torpedo / AirDepthCharge)
+====================================================================
+When the host is a Torpedo or AirDepthCharge and is UNDER the water surface (position.y<0):
+- Only torpedo sub-munitions are allowed, using the vanilla SUBMARINE TORPEDO LAUNCH logic
+  (Torpedo.Container_Launch automatically enters the UnderwaterLaunch state); the sub-torpedo
+  is released at the host's underwater position, inherits host speed/target, and runs normally.
+- All other sub-munition types (including AirDepthCharge, missile/bomb/rocket/sonobuoy/
+  parachutebomb) are DISABLED — the release is abandoned (log: BLOCK_UNDERWATER).
+- Above water (y>=0) no restriction applies: torpedo still uses the air-drop path
+  (ASROC_Launch parachute entry), all other types work normally.
+
+====================================================================
+Reload list / config hot-reload
+====================================================================
+- The debug panel "Reload list" / "Respawn" triggers the game to clear its INI cache;
+  the mod now syncs this event — on the next NEWLY created / re-spawned weapon, the ammo
+  INI is re-parsed (including re-merging #!extend / #!alias / #!prepend), no game restart needed.
+- Already-existing weapons are NOT updated; a Respawn / fresh creation is required to use the
+  new config (same as the game's reload semantics).
+- Sub-munitions may use a #!extend override file (e.g. plan_yu-7_air.ini with only the changed
+  sections): the mod reads the base file with the same logic as the game, so unchanged sections
+  such as [General] do NOT need to be repeated in the override.
+
+====================================================================
+Release timing / sub-munition creation timing
+====================================================================
+- Sub-munitions are created and released ON THE SAME FRAME the release condition (trigger) is met;
+  no early pylon preview (avoids stutter from creating many pylons far out / at 50 nm).
+- A host that has NOT been launched (on a pylon / being loaded) is NOT created / released
+  (isLaunched gate) — prevents nested sub-munitions releasing early on the host's pylon
+  (e.g. rdcw_main releasing rdcw_sub while still on the AKF-98).
+- Behavior change: SubAmmunitionDisplayOnParent's pylon-preview visual is GONE — sub-munitions
+  are no longer displayed on the host in advance; they appear only at the moment of release.
+- No loss risk for very fast hosts: creation and release are synchronous in the same frame.
+
+====================================================================
+Debug log: plan_ac/SubAmmunition_debug.log (set plan_ac/debug.ini Enabled=1)
+====================================================================

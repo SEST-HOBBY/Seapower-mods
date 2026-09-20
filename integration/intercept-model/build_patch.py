@@ -31,22 +31,23 @@ WHAT IS BROKEN
 
 WHAT RESTORING THEM ACTUALLY DOES
   Counted by tools/survey_attack_altitudes.py over the winning copy of all
-  1677 ammunition ids - workshop mods AND the SEST packs, which introduce five
+  1701 ammunition ids - workshop mods AND the SEST packs, which introduce five
   rounds of their own - resolved through the repo's own load-order resolver
   (winning_file in integration/missions/refine_civ_traffic.py) AND through
-  #!alias inheritance, since 80 of those files are alias stubs whose base is
-  itself resolved by load order, so a round can carry a band it never literally
-  declares. That gives 516 anti-air-capable rounds. Against those:
+  #!alias and #!extend inheritance, since 99 of those files are directive stubs
+  whose base is itself resolved by load order, so a round can carry a band it
+  never literally declares. That gives 541 anti-air-capable rounds. Against
+  those:
 
     - six of the eight keys have NO per-round override form anywhere in the
       corpus, so nothing can opt out of them: the five InterceptSizeBonus
-      values and the clamp. All 516 take them.
+      values and the clamp. All 541 take them.
       InterceptSizeBonusWeapon=+0.2 makes every SAM better against missiles;
       InterceptSizeBonusAircraftLarge/LargeSARH make them worse against large
       aircraft.
-    - the other two DO have a per-round form, and most rounds decline it. 364
-      inherit InterceptSpeedPenaltyMultiplier=1.4 and 369 inherit
-      InterceptOutOfAltitudePenalty=0.5; 350 inherit both, and 110 of those also
+    - the other two DO have a per-round form, and most rounds decline it. 374
+      inherit InterceptSpeedPenaltyMultiplier=1.4 and 388 inherit
+      InterceptOutOfAltitudePenalty=0.5; 361 inherit both, and 111 of those also
       carry a closed band, which makes them the valid probes for test 1 below.
       Both globals are at or worse than the scale the round files' own comments
       call "poor" - that is the intended penalty for not declaring.
@@ -71,7 +72,7 @@ WHAT RESTORING THEM ACTUALLY DOES
   reading is established. It is not.
 
 WHAT THE CLAMP WOULD BREAK, AND IS FIXED HERE
-  329 of the 516 declare a band, 18 of them by alias inheritance. Scanned for
+  351 of the 541 declare a band, 23 of them by directive inheritance. Scanned for
   floors above 1000 ft, ceilings below 5000 ft, inverted or empty bands and
   malformed values, two are authored in a way the clamp turns into a dead
   weapon. The alias-resolved pass found no case the flat pass had missed:
@@ -173,7 +174,7 @@ WHAT THIS PACK HAS NOT DEMONSTRATED, AND HOW TO SETTLE IT
 
      Fire the SAME engagement under each. Use a round that inherits BOTH
      penalties and has a closed band, so the out-of-altitude clamp is not also
-     in play; tools/survey_attack_altitudes.py lists 110 of them. Do NOT use the
+     in play; tools/survey_attack_altitudes.py lists 111 of them. Do NOT use the
      SM-3: SEST_Aegis_BMD gives it explicit InterceptSpeedPenaltyMultiplier and
      InterceptOutOfAltitudePenalty values, so it inherits neither and cannot
      probe this at all.
@@ -189,7 +190,7 @@ WHAT THIS PACK HAS NOT DEMONSTRATED, AND HOW TO SETTLE IT
      as shipped, then again against a local copy that supplies the missing bound
      explicitly - a value beyond anything reachable, so the band covers the same
      space either way. Same percentage means the engine already treats an
-     omitted side as open and the 61 one-sided rounds are safe. A jump to 5% on
+     omitted side as open and the 68 one-sided rounds are safe. A jump to 5% on
      the as-shipped run means it does not, and those rounds need the missing
      bound written in, here, the way this pack fixes the SM-6.
 
@@ -207,7 +208,7 @@ WHAT THIS PACK HAS NOT DEMONSTRATED, AND HOW TO SETTLE IT
   question 1, because of what the SM-3 declares.
 
 THE ONE RESIDUAL RISK
-  61 of the 329 banded rounds declare only one side - a floor and no ceiling
+  68 of the 351 banded rounds declare only one side - a floor and no ceiling
   (the AMRAAM and Meteor families, floors of 10 to 67 ft), or a ceiling and no
   floor (point-defence rounds: Roland, VT-1, HQ-10, RAM, ceilings of 4000 to
   30000 ft). None of vanilla's 74 banded files does this, so what the engine
@@ -220,7 +221,7 @@ THE ONE RESIDUAL RISK
   would be permanently held at 5%. That rules out a zero default for the
   BOTH-ABSENT case. It does NOT prove the one-absent case: an engine may well
   skip the band check entirely when neither bound is present while still
-  running it, against a defaulted other side, when one is. The 61 one-sided
+  running it, against a defaulted other side, when one is. The 68 one-sided
   rounds rest on the weaker inference that 23 mods ship them and play against a
   stock table without the breakage being noticed.
 

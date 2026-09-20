@@ -1,0 +1,29 @@
+RQ-180 White Bat Airframe Mod — credits and license notes
+==========================================================
+
+Source model
+------------
+Title: Northrop Grumman RQ-180 White Bat: 600 followers
+Author: NETRUNNER_pl
+Source page:
+https://sketchfab.com/3d-models/northrop-grumman-rq-180-white-bat-600-followers-0eed1c87559a4e4490e184f2c2858a5c
+
+The source archive's license text is included as SOURCE_LICENSE.txt. Please
+review that file and the source page before redistributing this package.
+
+This package
+------------
+The Sea Power OBJ conversion, object split, animation INI, aircraft INI,
+localization, and packaging in this release are provided for non-commercial
+modding and testing. No source ordnance meshes or ordnance models are
+redistributed here. Existing air-to-air, anti-ship, and strike ammunition
+continues to be referenced from the external Dingtools Weapon Pack. The only
+local weapon definition is the user-supplied `usn_mk50_air.ini`; it references
+the game's built-in MK-46 model and material and does not add a weapon asset.
+
+Technical reference notes
+-------------------------
+Public-source links used for the non-authoritative equipment and airframe
+descriptions are listed in REFERENCE_NOTES.txt. They are background references
+only; the RQ-180 avionics, carrier adaptation, performance, and attack role in
+this package are fictional MOD integrations where explicitly stated.
