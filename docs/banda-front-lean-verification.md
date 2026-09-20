@@ -124,3 +124,39 @@ Verified source SHA-256:
 
 Verified Lean SHA-256:
 `8f22919799da44cf16805414349920341474482782f23facc4bf989bc3a6fa90`.
+
+## 20 September: the mod refresh, Living Seas and Lean v2
+
+The PC's export and install snapshot (`df44f58f`) changed the picture the checks run against:
+
+| What the snapshot showed | What was done |
+|---|---|
+| Nine subscriptions enabled in the game but absent from the canonical order (Auto Time-on-Target, RQ-180, J-16, F-2A, CH-53E, MiG-31, PLA & PLAN & PLAAF AEP, J-36, YF-23), all sitting at the bottom of the live order | Auto Time-on-Target catalogued as an Anchor Chain code mod; all nine placed in `data/load-order.tokens.txt` by the generator's tiers. PLA AEP goes to tier 2, where the catalog already put it: its 17 `#!extend` patches over PLA/PLAN/PLAAF rounds only apply from above the copies they layer onto, so at the bottom it was inert and from tier 2 it is live. The other eight collide with nothing that matters (J-36 and RQ-180 lose two and one files respectively wherever they sit). The canonical set now equals the live set exactly; `set-mod-order.ps1 -AddMissing` applies the positions. |
+| Three canonical entries no longer live: AI Doctrine Overhaul and the two deprecated MyGo airframes, all catalogued as unsubscribed | Dropped from the token file |
+| U.S. Navy 2027 updated: its Flight III patch now aliases `usn_ddg_burke_f3_125.ini`, the hull Modern US Navy ships | `SEST_USN2027_Fixes` retired as its own guard demanded: catalog entry removed, `integration/usn-2027-fixes` deleted, the consolidated pack rebuilt from scratch without its two files. The build is green again and, with that pack gone, the CRLF drift noted above is gone with it. Older missions that still name the 2027 hulls resolve through the mod's own alias. |
+| Modern US Navy, US Naval Aviation, PLAN Pack, the Euromod Anchorchain expansion, YF-23 and CH-53E updated by their authors | Every pack rebuilt from scratch against the fresh export with no output change; `check_load_order`, `check_dependencies` and `check_alias_bases` pass, the last still naming the two rounds with no base (the F-2A's AIM-9M alias and PLA AEP's YJ-18E extend), which are the mods' own gaps. |
+| The game's `SEST Banda Front Lean.ini` is an editor re-save of the first Lean copy: CRLF, the twelve single-member Air Defence formations folded into stray units, the Merauke wharf bridge handed to red, three merchant and one aircraft block edited in the editor | Preserved in `mods-source/_vanilla/user/missions/user_missions/`. Everything in it is carried by Living Seas and Lean v2. The installer will replace the game's copy with the repo's 414-unit Lean, so if that in-game copy matters as a playable file on its own, rename it in the game before installing. |
+
+Living Seas (`SEST Banda Front Living Seas.ini`, 168,067 bytes, the ChatGPT session's file, imported verbatim):
+
+| Check | Result |
+|---|---|
+| `Mission.verify()` | clean: 12 + 23 blue and red ships, 5 red submarines, 51 neutral ships, 37 neutral aircraft, 9 whales, 100 + 187 + 109 land units, 28 + 42 + 34 formations, every count and reference consistent |
+| `preflight.py` | 873 references resolve |
+| `check_weapon_employment.py` | The eight inherited findings plus five release-altitude advisories for the Y-9FQ's stores; nothing blocking that the save did not already carry |
+| `fix_squadron_refs.py`, `fix_loadout_variants.py` | Every squadron index and loadout resolves |
+| Air groups against base capacity | All fit: Biak 100 of 234, Sentani 76 of 80, Rabaul 36 of 36, Nadzab 64 of 80, Momote 39 of 48, the three drone teams capped at 10 |
+| Neutral air | Zero neutral land units able to spawn aircraft; the two rigs handed to red carry empty custom air groups |
+| Routes against the 1 km land mask, every leg sampled at 0.5 nm | 100 moving units, 0 legs over land |
+
+Lean v2 (`SEST Banda Front Lean v2.ini`): Living Seas with the four narco submarines' and eight
+fishing boats' repeated loops cut to one lap, 312 waypoints to 42. The diff against Living Seas is
+the nine `Name=` lines, the description and the twelve `Waypoints=` lines and nothing else; the
+output is byte-identical on every run; all the gates above hold unchanged.
+
+```bash
+python3 -m unittest discover -s tools/tests -p 'test_*.py' -v
+python3 integration/missions/thin_waypoints.py --dry-run
+python3 tools/preflight.py "SEST Banda Front Lean v2"
+```
+
