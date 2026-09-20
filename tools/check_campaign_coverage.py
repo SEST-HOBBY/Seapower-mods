@@ -70,13 +70,64 @@ def blocks(text):
     return out
 
 
+def trigger_integrity(path, text, blocks):
+    """Every reference a trigger makes must resolve inside its own mission.
+
+    Three ways a mission can be quietly broken that no other gate sees: a
+    condition naming a unit section that does not exist, an action completing
+    or failing an objective that was never declared, and a message or intel
+    action naming a key with no [Language_en] entry. All three load fine and
+    do nothing.
+    """
+    problems = []
+    rel = path.relative_to(ROOT)
+    sections = set(blocks)
+    objectives = set()
+    in_objectives = False
+    language = set()
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith("[") and line.endswith("]"):
+            in_objectives = line == "[Taskforce1_Objectives]"
+            continue
+        if in_objectives and "=" in line and not line.startswith("#"):
+            objectives.add(line.split("=", 1)[0].strip())
+    for key in blocks.get("Language_en", {}):
+        language.add(key)
+
+    for tag, keys in blocks.items():
+        if not tag.startswith("Trigger"):
+            continue
+        for key, value in keys.items():
+            if key.endswith("_Units") or key == "Action_Units":
+                for unit in value.split(","):
+                    unit = unit.strip()
+                    if unit and unit not in sections:
+                        problems.append(f"{rel}: [{tag}] {key} names {unit}, "
+                                        "which is not a section in this mission")
+            elif key.startswith("Action_Objectives"):
+                for oid in value.split(","):
+                    oid = oid.strip()
+                    if oid and oid not in objectives:
+                        problems.append(f"{rel}: [{tag}] {key}={oid} is not a "
+                                        "declared objective")
+            elif key.endswith("_Message") or key.endswith("_Intel"):
+                if value not in language:
+                    problems.append(f"{rel}: [{tag}] {key}={value} has no "
+                                    "[Language_en] entry")
+    return problems
+
+
 def main():
     files = missions()
     credits, problems, units = {}, [], 0
 
     for f in files:
         rel = f.relative_to(ROOT)
-        for tag, keys in blocks(f.read_text(encoding="utf-8")).items():
+        text = f.read_text(encoding="utf-8")
+        parsed = blocks(text)
+        problems += trigger_integrity(f, text, parsed)
+        for tag, keys in parsed.items():
             uid = keys.get("Type")
             if not uid or not re.match(r"^(Taskforce\d+|Neutral)", tag):
                 continue

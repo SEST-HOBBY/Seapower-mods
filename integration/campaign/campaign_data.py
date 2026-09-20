@@ -654,6 +654,10 @@ MISSIONS.append(dict(
         "unarmed, it is slow, and a pair of J-16s has come south off the "
         "enclave field on a vector that only makes sense if they know where "
         "the orbit is.\\n\\n"
+        "Classify that surface group and it stays on your plot for the rest of "
+        "the morning. To do it the Triton has to go north, into the part of "
+        "the sky the J-16s own. Hold her south and she lives, and HOBART "
+        "fights on her own horizon.\\n\\n"
         "Two Tindal F-35As are your entire air cover. You can spend them "
         "protecting the orbit or holding close escort on the convoy. You "
         "cannot do both, and whatever you lose today you do not have "
@@ -663,9 +667,22 @@ MISSIONS.append(dict(
            "into the enclave, and a surface group not yet located.",
     objectives=[
         ("Convoy", "The convoy reaches its passage window", "30,-30,Fail,Main"),
+        ("Picture", "Classify the northern surface group", "25,-15,Complete"),
         ("Sentry", "Keep the Triton flying", "25,-25,Complete"),
         ("Hobart", "Hobart survives", "10,-20,Complete"),
     ],
+    # The reconnaissance decision, and the reason this mission exists. Push the
+    # Triton north far enough to classify the surface group and it is revealed
+    # for the rest of the mission - Hobart fights with a picture. Keep the
+    # Triton south where the J-16s cannot reach it and the convoy runs on the
+    # destroyer's own horizon. Both are playable; neither is free.
+    reveals={"Picture": dict(units=["red_sag", "red_air"], level="Identify",
+                             seconds=-1,
+                             intel="Sentry 06 has the northern group classified: "
+                                   "two escorts on a south-westerly course, with "
+                                   "the fighters that came for her now on your "
+                                   "plot. The picture holds for the rest of the "
+                                   "operation.")},
     victory=dict(kind="arrive", station="convoy", at=(-11.9, 130.6), radius=30,
                  min_units=2, objective="Convoy"),
     protect=["isr"], protect_objective="Sentry",
@@ -1060,6 +1077,7 @@ MISSIONS.append(dict(
         "cvw": S(-4.2, 130.4, "Carrier air wing", heading=320, alt=28000),
         "red_cv": S(-2.5, 129.0, "Opposing carrier group", heading=140),
         "red_air": S(-2.7, 129.2, "Opposing air wing", heading=150, alt=30000),
+        "red_sub": S(-4.9, 129.2, "Submarine screen", heading=140),
     },
     units=[
         U("blue", "ford-cvn", "usn_cvn_ford", "carrier",
@@ -1091,6 +1109,13 @@ MISSIONS.append(dict(
           name="Type 055 escort"),
         U("red", "modern-plan-systems", "plan_type_052d_p3", "red_cv",
           name="Type 052D escort"),
+        U("red", "modern-plan-systems", "plan_type_054a_p5", "red_cv",
+          name="Type 054A escort"),
+        # A carrier group without a submarine screen is a missile exchange.
+        # This is the campaign's one fleet action; it should be the mission
+        # where the player cannot watch every axis at once.
+        U("red", "plan-submarines", "plan_ssn_type_093b", "red_sub",
+          name="Contact ROMEO", depth=-450),
         U("red", "fujian-cv-18", "plan_j-35", "red_air", name="Falcon 11"),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
           name="Flying Shark 21"),
@@ -2163,8 +2188,8 @@ RESOLVERS = {
            "Patrol": ("protect", "patrol")},
     "05": {"Escort": "victory", "Convoy": ("protect", "convoy"),
            "Magazine": ("protect", "warramunga")},
-    "06": {"Convoy": "victory", "Sentry": ("protect", "isr"),
-           "Hobart": ("protect", "hobart")},
+    "06": {"Convoy": "victory", "Picture": ("classify", "red_sag", 1),
+           "Sentry": ("protect", "isr"), "Hobart": ("protect", "hobart")},
     "07": {"Tanker": "victory", "Package": ("survive", "package"),
            "Raptors": ("survive", "cap")},
     "08": {"Window": "victory", "Town": "neutral",
@@ -2270,3 +2295,97 @@ for _m in MISSIONS:
         _route = ROUTES.get((_m["num"], _u["type"]))
         if _route:
             _u["route"] = _route
+
+
+# =============================================================================
+# THE ESCALATION CURVE
+#
+# Every mission declares its place in the shape of the campaign, and the
+# builder enforces a red-combat budget per role. "Red combat" is counted from
+# the game's own [AI] Role= classification, so an AEW aircraft, a transport,
+# an airfield or a merchant decoy does not inflate the opposition: SW04 reads
+# as five red units and is really three, and SW07 as four and is really two.
+#
+# Provisional assignment pending the pacing redesign.
+# =============================================================================
+
+ROLES = {
+    "01": "opening", "O1": "patrol", "02": "logistics", "C1": "patrol",
+    "03": "strike", "04": "recon", "05": "escort", "06": "recon",
+    "07": "escort", "08": "strike", "09": "logistics", "10": "escort",
+    # SW11 is the campaign's one fleet action. It qualifies now: a carrier
+    # group with a proper screen and a submarine the player cannot watch while
+    # watching the air picture.
+    "11": "fleet", "12": "escort",
+    "D1": "escort", "D2": "exercise", "D3": "logistics", "D4": "escort",
+    "D5": "exercise", "D6": "strike", "D7": "exercise", "D8": "strike",
+}
+
+for _m in MISSIONS:
+    _m["role"] = ROLES[_m["num"]]
+
+
+# =============================================================================
+# CONSEQUENCES FOR LOSING SUPPORT SHIPS
+#
+# Three tiers, kept apart on purpose.
+#
+# ENFORCED BY THE GAME. The campaign runs native Task Force Mode, so a
+# purchased support ship that dies is gone from the owned force and has to be
+# re-bought at its roster price: Supply 140 points, a tanker 75, the Wedgetail
+# 80, the Triton 60, against mainline allocations of 100-200 per mission. That
+# is most of a mission's income to replace one auxiliary, and it is automatic.
+# TaskForceModeRequireEntireTaskForce=True on the convoy operations means the
+# player cannot leave the AOR at home to keep her safe, either.
+#
+# ENFORCED BY MISSION DESIGN. Where a support asset is the mission's point -
+# the tanker in SW07, Supply and Collins in SW09 - losing it fails an objective
+# through a trigger, and in SW07 it cancels the main objective outright.
+#
+# STATED, NOT ENFORCED. What this build cannot do is gate mission nine on
+# something that happened in mission two: that needs a saved campaign outcome
+# nothing in the shipped data demonstrates. So the loss raises an intel message
+# naming what it will cost, and the cost is then real because the roster price
+# is real. The message is honest about which it is.
+# =============================================================================
+
+SUPPORT_LOSS = {
+    "01": [dict(asset="Bluefin 21", units=["air#2"],
+                intel="Bluefin 21 is down. The Poseidon was the only thing "
+                      "holding the picture past Warramunga's horizon, and "
+                      "92 Wing has no spare airframe in the north this week. "
+                      "Replacing her is 45 points out of an allocation of 100.")],
+    "02": [dict(asset="HMAS Supply", units=["escort#3"],
+                intel="SUPPLY is gone. Every operation after this one plans "
+                      "around a tank that does not refill, and 140 points is "
+                      "most of a mission's allocation to put another hull in "
+                      "her place."),
+           dict(asset="Texaco 51", units=["air#2"],
+                intel="The tanker is down. Sortie lengths across the northern "
+                      "corridor shorten from today, and the allied detachment "
+                      "that lent her will want a reason.")],
+    "06": [dict(asset="Sentry 06", units=["isr"], objective="Sentry",
+                intel="Sentry 06 is lost. The surface picture north of the "
+                      "horizon goes with her, and a replacement Triton is 60 "
+                      "points and a week of crew work at Edinburgh.")],
+    "09": [dict(asset="HMAS Supply", units=["support#1"], objective="Supply",
+                intel="SUPPLY is gone with the service half-finished. Collins "
+                      "goes home on what she has, and the corridor loses the "
+                      "one hull that let it operate east of the Cape.")],
+    "12": [dict(asset="Wedgetail 03", units=["aew"],
+                intel="Wedgetail 03 is down on the last morning of the "
+                      "campaign. 2 Squadron has two airframes and this was "
+                      "one of them.")],
+}
+
+for _m in MISSIONS:
+    _loss = SUPPORT_LOSS.get(_m["num"])
+    if _loss:
+        _m["support_loss"] = _loss
+
+# The convoy and replenishment operations sail with everything: the player may
+# not leave the auxiliary at home to keep it safe. The strike and side missions
+# let the player pick a detachment.
+for _m in MISSIONS:
+    if _m["num"] in ("03", "07", "08", "O1", "C1") or _m["group"] == "dispatch":
+        _m.setdefault("window", {})["detachment"] = True
