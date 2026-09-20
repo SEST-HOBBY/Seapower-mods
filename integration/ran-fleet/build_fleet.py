@@ -4,12 +4,19 @@ real European design donors in the Euromod packs.
 
 The RAN sails European designs, so the clones are honest: Hobart-class = the
 Spanish F-100 (ae_ffg_alvaro_bazan), Canberra-class LHD = Juan Carlos I,
-Collins stand-in = S-80, Anzac stand-in = Type 23 MLU, plus Galicia (Choules),
-Teide (Supply) and Meteoro (Arafura) stand-ins. Each clone gets Australian
+Collins stand-in = S-80, plus Galicia (Choules), Teide (Supply) and Meteoro
+(Arafura) stand-ins. Each clone gets Australian
 nation/flag, real HMAS hull names, transparent hull numbers (no Spanish
 pennants), and MH-60R / S-70B-2 air groups.
 
 Clones are NEW unit ids — nothing overrides the donors, so both fleets coexist.
+
+The Anzac is the exception, and the reason there are two modes here. It was a
+Type 23 MLU clone only because the collection had no Anzac; since 2026-09-20 it
+has the real ASMD hull (Workshop 3440622312), so that entry is a PATCH of the
+mod's own ran_ffh_anzac rather than a clone of somebody else's frigate. Patch
+mode keeps the mod's identity - its hull-number and emblem textures, its eight
+HMAS names - and changes only what is wrong or missing: see the entry in FLEET.
 
 Usage (repo root):  python3 integration/ran-fleet/build_fleet.py
 """
@@ -25,7 +32,10 @@ SPA_MODERN = "3731208477"   # Spanish Navy Mod (Modern)
 RSA = "3413868677"          # Red Storm Arsenal - sole source of usn_rgm_184a (NSM)
 EUROMOD = "3629144864"      # Euromod pack - usn_rgm-109e5a (Tomahawk Block Va)
 SPA_COLDWAR = "3630495619"  # Spanish Navy Mod (Cold War)
-RN_MODERN = "3599752717"    # Modern British Navy - Euromod
+# Modern British Navy (3599752717) is no longer a donor here - the Anzac was
+# its only customer and now patches the real hull instead. The mod stays
+# subscribed: SEST_Allied_Fixes patches HMS Ocean out of it.
+ANZAC = "3440622312"        # Anzac Class Frigate - the REAL hull, subscribed 2026-09-20
 
 HELOS = "usn_mh-60r,S-70B-2_Seahawk"
 
@@ -79,13 +89,19 @@ NSM_KNM = "knm_nsm_1a"           # Euromod, mission-proven on four fielded hulls
 NSM_RSA = "usn_rgm_184a"         # Red Storm Arsenal, the one that would not fire
 NSM_IDS = (NSM_KNM, NSM_RSA)
 
-def nsm_swap(rounds):
-    """Replace the donor's Harpoon lines positionally, one round per launcher."""
+def nsm_swap(rounds, replaces="usn_rgm-84d"):
+    """Replace the donor's anti-ship round positionally, one per launcher.
+
+    `replaces` is the id the donor ships on those mounts: the cloned hulls
+    inherit vanilla's Harpoon, while the real Anzac already carries its own
+    mod's RGM-184A. Either way the mounts are unchanged - only the round is."""
     def apply(text, ship_id):
         out, n = text, 0
+        note = ("NSM - replaced Harpoon from 2024" if replaces == "usn_rgm-84d"
+                else "NSM - the fleet-standard Kongsberg round")
         for rnd in rounds:
-            out, k = re.subn(r"^Ammunition=usn_rgm-84d[^\n]*$",
-                             f"Ammunition={rnd}               // NSM - replaced Harpoon from 2024",
+            out, k = re.subn(rf"^Ammunition={re.escape(replaces)}[^\n]*$",
+                             f"Ammunition={rnd}               // {note}",
                              out, count=1, flags=re.M)
             n += k
         if n != len(rounds):
@@ -95,9 +111,21 @@ def nsm_swap(rounds):
     return apply
 
 NSM_LOADS = {
-    "ran_ffh_anzac": (NSM_KNM, NSM_KNM),
-    "ran_ddg_hobart": (NSM_KNM, NSM_KNM),
+    # (rounds, the id the donor already carries on those mounts)
+    "ran_ffh_anzac": ((NSM_KNM, NSM_KNM), "RGM-184A"),
+    "ran_ddg_hobart": ((NSM_KNM, NSM_KNM), "usn_rgm-84d"),
 }
+# The Anzac mod ships its OWN RGM-184A and the hull already fires it, so this
+# swap is a deliberate standardisation rather than a fix. Both rounds are the
+# same missile structurally - GuidanceType=1, MidCourseCorrection=1, 620 kt -
+# and the Kongsberg one wins on the three grounds this pack already settled
+# the question on: it is the missile the RAN actually bought, Hobart fires it,
+# and four other fielded hulls fire it, so the encyclopedia shows one NSM
+# rather than two with different numbers. On the detail the two disagree
+# about most, it is also the more defensible: knm_nsm_1a acquires at 20 nm and
+# runs a 12 nm terminal leg inside that, where RGM-184A claims an 80 nm
+# passive seeker on an imaging-infrared round. To ship the mod author's round
+# instead, set the Anzac entry's rounds to ("RGM-184A", "RGM-184A").
 
 ARMAMENT_REFRESH = {
     "ran_ddg_hobart": [
@@ -147,13 +175,40 @@ MountPosition={position}
 
 """
 # ship id -> (sensor index to associate, position for a sensor to be added, add?)
+#
+# ran_ffh_anzac is NOT here any more, and that is the point of the rebase.
+# The Type 23 clone had to be given a sensor because none of its twelve could
+# guide a missile: Type996 and the nav radars are Search with
+# WeaponChannels=0, and the Type911s are Sea Wolf illuminators. The real Anzac
+# is the ASMD hull - both MK141 mounts already associate SensorSystem2
+# (CEAFAR), which its own systems/sensors.ini defines with WeaponChannels=10.
+# That is the condition tools/check_weapon_employment.py measures for an
+# MCC 1 or 3 round, so the remedy that saved Warramunga is simply not needed
+# on this hull. verify_nsm_channel() below asserts it rather than assuming it.
 NSM_DATALINK = {
     # already mounted as SensorSystem12; associate only
     "ran_ddg_hobart": {"sensor": 12, "add": False, "position": None},
-    # 12 systems, none of them RadioCommand: append one at the masthead
-    # position the donor already uses for its Type 675 jammer
-    "ran_ffh_anzac": {"sensor": 13, "add": True, "position": "0,0.3221,0.1801"},
 }
+
+
+def verify_nsm_channel(ship_id, text):
+    """Every NSM mount must associate SOME sensor - the Warramunga rule.
+
+    Checked here as well as in tools/check_weapon_employment.py because this
+    builder is what chooses the round: if a future donor drops the
+    association, the failure is silent in game (the ship just holds its
+    missiles) and this is the last place that can see it coming."""
+    ids = "|".join(re.escape(i) for i in NSM_IDS)
+    mounts = re.findall(rf"(?ms)^\[WeaponSystem\d+\][^\n]*\n(?:(?!^\[).)*?"
+                        rf"^Ammunition=(?:{ids})[^\n]*\n(?:(?!^\[).)*", text)
+    if not mounts:
+        sys.exit(f"{ship_id}: no NSM mount found after the swap")
+    bare = [i for i, b in enumerate(mounts, 1) if "AssociatedSensors" not in b]
+    if bare:
+        sys.exit(f"{ship_id}: NSM mount(s) {bare} associate no sensor - an MCC=1 "
+                 "round with no guidance channel never fires (see the Warramunga "
+                 "note above)")
+    return len(mounts)
 
 
 def wire_nsm_datalink(ship_id, text):
@@ -204,9 +259,97 @@ def wire_nsm_datalink(ship_id, text):
     return text
 
 
+ESSM_SRC = "RIM-162 ESSM"          # the mod's id - note the SPACE
+ESSM_ID = "sest_rim-162_essm"      # ours, without it
+
+
+def ship_essm():
+    """Re-ship the Anzac mod's ESSM under an id that has no space in it.
+
+    The mod stores the round as "RIM-162 ESSM.ini" and references it as
+    Ammunition1=RIM-162 ESSM. Every id parser in this repo stops at
+    whitespace, so both tools/preflight.py and
+    tools/check_weapon_employment.py read that as "RIM-162" and find nothing
+    defining it - the ship's 32 Mk41 cells hold a round that does not
+    resolve. Whether the game's own parser reads to end-of-line is not
+    something the files can answer, and it does not have to: no other id in
+    the collection contains a space, and a space-free copy works either way.
+
+    The round itself is kept exactly as the author tuned it - ESSM Block II
+    numbers (GuidanceType=3 active, 2666 kt, 28 nm) on the base game's
+    usn_rim-7 asset-bundle mesh. It is NOT swapped for the collection's
+    usn_rim-162, which is the semi-active Block I: the ASMD Anzac's whole
+    point is CEAFAR plus active ESSM. To use the collection round instead,
+    set ESSM_ID = "usn_rim-162" and delete this function's call."""
+    src = MODS / ANZAC / "ammunition" / f"{ESSM_SRC}.ini"
+    if not src.exists():
+        sys.exit(f"Anzac ESSM donor missing: {src}")
+    body = src.read_text(encoding="utf-8-sig", errors="replace")
+    header = (f"# SEST RAN Fleet - {ESSM_SRC} re-shipped as {ESSM_ID}.\n"
+              f"# Identical round; the only change is an id with no space in it,\n"
+              f"# because a spaced id does not resolve through this collection's\n"
+              f"# reference checkers. See ship_essm() in build_fleet.py.\n")
+    (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
+    (OUT / "ammunition" / f"{ESSM_ID}.ini").write_text(header + body, encoding="utf-8")
+
+    # and a display name, or the encyclopedia shows the raw id
+    name = re.search(rf"^{re.escape(ESSM_SRC)}=(.+)$",
+                     (MODS / ANZAC / "language_en" / "ammunition_names.ini")
+                     .read_text(encoding="utf-8-sig", errors="replace"), re.M)
+    if not name:
+        sys.exit("Anzac ESSM display name not found in the mod's ammunition_names.ini")
+    (OUT / "language_en").mkdir(parents=True, exist_ok=True)
+    (OUT / "language_en" / "ammunition_names.ini").write_text(
+        "# SEST RAN Fleet - name for the re-shipped ESSM (see ship_essm()).\n"
+        "[AmmunitionNames]\n"
+        f"{ESSM_ID}={name.group(1).strip()}\n", encoding="utf-8")
+    print(f"  ammunition/{ESSM_ID}.ini  (re-shipped from '{ESSM_SRC}' - spaced id)")
+
+
+def fix_vls_magazine(ship_id, text):
+    """Repair the Anzac mod's Mk41 magazine, which silently holds half its ESSM.
+
+    As shipped:
+
+        NumberOfAmmunitionTypes=1
+        Ammunition1=RIM-162 ESSM
+        Ammunition1_Count=32
+        Ammunition2=usn_rim-66h
+        Ammunition1_Count=16      <- second entry's count, mis-keyed
+
+    Two defects in four lines. The count key for the second round says
+    Ammunition1 again, so it overwrites the ESSM's 32 with 16 and the SM-1
+    gets no count at all; and NumberOfAmmunitionTypes=1 means the second
+    round was never enabled anyway. The ship therefore sails with 16 ESSM
+    where the author wrote 32, and an SM-1 that does not exist.
+
+    The fix keeps the author's stated intent - one ammunition type, 32 rounds
+    - and drops the orphan. 32 is also the right number: the ASMD Anzac's
+    8-cell Mk41 quad-packs ESSM, and the RAN's Anzacs never carried SM-1."""
+    m = re.search(r"^\[WeaponMagazineMK141\]\n(.*?)(?=^\[)", text, re.M | re.S)
+    if not m:
+        sys.exit(f"{ship_id}: [WeaponMagazineMK141] not found - donor changed")
+    body = m.group(1)
+    if body.count("Ammunition1_Count=") != 2:
+        sys.exit(f"{ship_id}: expected the doubled Ammunition1_Count in the Mk41 "
+                 "magazine - upstream may have fixed it, re-check this patch")
+    fixed = re.sub(r"^Ammunition2=[^\n]*\n", "", body, count=1, flags=re.M)
+    fixed = re.sub(r"^Ammunition1_Count=16[^\n]*\n", "", fixed, count=1, flags=re.M)
+    fixed = re.sub(r"^(Ammunition1_Count=)\d+", r"\g<1>32", fixed, count=1, flags=re.M)
+    fixed, n = re.subn(rf"^Ammunition1={re.escape(ESSM_SRC)}\s*$",
+                       f"Ammunition1={ESSM_ID}", fixed, count=1, flags=re.M)
+    if n != 1:
+        sys.exit(f"{ship_id}: the Mk41 magazine no longer loads '{ESSM_SRC}' - "
+                 "re-check ship_essm()")
+    if fixed.count("Ammunition1_Count=") != 1 or "Ammunition2=" in fixed:
+        sys.exit(f"{ship_id}: Mk41 magazine repair did not land cleanly")
+    return text[:m.start(1)] + fixed + text[m.end(1):]
+
+
 def refresh_armament(ship_id, text):
     if ship_id in NSM_LOADS:
-        text = nsm_swap(NSM_LOADS[ship_id])(text, ship_id)
+        rounds, replaces = NSM_LOADS[ship_id]
+        text = nsm_swap(rounds, replaces)(text, ship_id)
     for pat, repl, want in ARMAMENT_REFRESH.get(ship_id, []):
         text, n = re.subn(pat, repl, text, flags=re.M)
         if n != want:
@@ -229,14 +372,30 @@ FLEET = {
                   ("DDG 42 HMAS Sydney", "Sydney")],
         "airgroup": ["usn_mh-60r=Squadron1,1"],
     },
+    # REBASED 2026-09-20 from a clone to a PATCH. The Type 23 MLU stood in for
+    # the MEKO 200 only because the collection had no Anzac; it now has the
+    # real ASMD hull - CEAFAR/CEAMOUNT phased arrays, Ceros 200 directors,
+    # Spherion sonar, its own hull-number and emblem textures for all eight
+    # ships. Cloning a British frigate to stand in for a ship that is now
+    # modelled would be worse in every respect, so this entry stops cloning
+    # and starts patching the real file instead.
+    #
+    # What that changes about this entry: patch mode keeps the mod's own
+    # identity wholesale. Its variants file carries real FFH-150..157 hull
+    # numbers and per-ship emblems where the clone could only blank them out,
+    # and its vessel_names already names all eight HMAS hulls - so this pack
+    # now ships NEITHER for the Anzac and lets the mod's win. The hulls list
+    # below is kept for the build summary and as the record of what the class
+    # is; nothing is generated from it any more.
     "ran_ffh_anzac": {
-        "donor": (RN_MODERN, "rn_ff_type23_mlu"),
-        "class_name": "Anzac-class FFH (stand-in)",
+        "donor": (ANZAC, "ran_ffh_anzac"),
+        "patch": True,
+        "class_name": "Anzac-class FFH",
         "type_line": "FFH,Frigate",
         "short": "Anzac",
-        "desc": ("Royal Australian Navy long-range ASW/patrol frigate. Stand-in hull: the "
-                 "Type 23 MLU stands in for the MEKO 200 Anzac (no MEKO in the collection) — "
-                 "comparable size, towed array, point-defence SAM and a single helicopter."),
+        "desc": ("Royal Australian Navy long-range ASW/patrol frigate, ASMD-upgraded: "
+                 "CEAFAR/CEAMOUNT phased arrays, 32 ESSM in the Mk41, NSM on the deck "
+                 "launchers."),
         "service": "1996|2045",
         "hulls": [("FFH 150 HMAS Anzac", "Anzac"),
                   ("FFH 151 HMAS Arunta", "Arunta"),
@@ -246,7 +405,7 @@ FLEET = {
                   ("FFH 155 HMAS Ballarat", "Ballarat"),
                   ("FFH 156 HMAS Toowoomba", "Toowoomba"),
                   ("FFH 157 HMAS Perth", "Perth")],
-        "airgroup": ["usn_mh-60r=Squadron1,1"],
+        "airgroup": ["usn_mh-60r=Default,1"],
     },
     "ran_lhd_canberra": {
         "donor": (SPA_MODERN, "ae_lhd_juan_carlos"),
@@ -320,7 +479,7 @@ FLEET = {
 
 INFO_INI = """[Language_en]
 Name=SEST RAN Fleet
-Description=Royal Australian Navy fleet cloned from its real European design donors: Hobart-class DDG (F-100), Canberra-class LHD (Juan Carlos I), Anzac stand-in (Type 23 MLU), Collins stand-in (S-80), HMAS Choules (Galicia), Supply-class (Teide), Arafura OPV (Meteoro). New unit ids - donors are untouched. Requires Euromod Main, the Modern + Cold War Spanish Navy packs, Modern British Navy, and an MH-60R / S-70B-2 source. Place below the Euromod packs.
+Description=Royal Australian Navy fleet cloned from its real European design donors: Hobart-class DDG (F-100), Canberra-class LHD (Juan Carlos I), Collins stand-in (S-80), HMAS Choules (Galicia), Supply-class (Teide), Arafura OPV (Meteoro) - new unit ids, donors untouched. The Anzac is different: it patches the real Anzac Class Frigate mod rather than cloning anything, giving it the fleet-standard NSM, repairing a Mk41 magazine that silently held 16 ESSM instead of 32, re-shipping that ESSM under an id without a space in it so it resolves, and letting the deck operate the MH-60R. Requires Euromod Main, the Modern + Cold War Spanish Navy packs, the Anzac Class Frigate mod, and an MH-60R / S-70B-2 source. Place ABOVE the Anzac mod and below the Euromod packs.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -338,9 +497,15 @@ def main():
     problems = []
     for ship_id, ship in FLEET.items():
         mod, donor = ship["donor"]
-        for suffix in (".ini", "_variants.ini"):
+        # A patched ship keeps the mod's own variants file, so only the unit
+        # file has to be there.
+        needed = (".ini",) if ship.get("patch") else (".ini", "_variants.ini")
+        for suffix in needed:
             if not (MODS / mod / "vessels" / f"{donor}{suffix}").exists():
                 problems.append(f"{ship_id}: donor file missing: {mod}/vessels/{donor}{suffix}")
+        if ship.get("patch") and donor != ship_id:
+            problems.append(f"{ship_id}: patch mode must write the donor's own id, "
+                            f"got {donor}")
     for helo in HELOS.split(","):
         if not list(MODS.glob(f"*/aircraft/{helo}.ini")):
             problems.append(f"helo not found in any mod: {helo}")
@@ -363,7 +528,13 @@ def main():
         if n == 0:
             print(f"note: {donor} has no DisplayClassName line; relying on language names")
 
+        if ship.get("patch"):
+            ship_essm()
+            text = fix_vls_magazine(ship_id, text)
         text = refresh_armament(ship_id, text)
+        if ship_id in NSM_LOADS:
+            n_mounts = verify_nsm_channel(ship_id, text)
+            print(f"  {ship_id}: {n_mounts} NSM mount(s), each with a guidance channel")
 
         if ship["airgroup"]:
             new_ag = "[AirGroup]\n" + "\n".join(ship["airgroup"]) + "\n\n"
@@ -374,9 +545,36 @@ def main():
             text, n = re.subn(r"^(AircraftSupported=.*)$", rf"\1,{HELOS}", text,
                               count=1, flags=re.M)
             if n == 0:
-                sys.exit(f"{ship_id}: donor {donor} has no AircraftSupported line")
+                # The Anzac mod declares a flight deck and an air group but no
+                # AircraftSupported list at all, so the deck would accept only
+                # what the air group already names. Add it where every other
+                # helo-capable hull in the collection keeps it: in
+                # [FlightDeck], under the taxi-path count.
+                anchor = re.search(r"^(\[FlightDeck\](?:(?!^\[).)*?"
+                                   r"^NumberOfTaxiPaths=\d+\n)", text, re.M | re.S)
+                if not anchor:
+                    sys.exit(f"{ship_id}: donor {donor} has neither an "
+                             "AircraftSupported line nor a [FlightDeck] to add one to")
+                text = (text[:anchor.end(1)]
+                        + f"AircraftSupported={HELOS}"
+                        + "   // SEST: the deck operates both RAN Seahawks\n"
+                        + text[anchor.end(1):])
+                print(f"  {ship_id}: added AircraftSupported ({HELOS}) - donor had none")
 
         (OUT / "vessels" / f"{ship_id}.ini").write_text(text, encoding="utf-8")
+
+        if ship.get("patch"):
+            # The mod owns its identity: real hull-number and emblem textures
+            # in its variants file, all eight HMAS names in its vessel_names.
+            # Shipping ours would override the first and duplicate the second,
+            # so this pack ships neither. Clear the clone-era copy if it is
+            # still sitting in the pack folder from a previous build.
+            stale = OUT / "vessels" / f"{ship_id}_variants.ini"
+            if stale.exists():
+                stale.unlink()
+                print(f"  {ship_id}: removed the clone's variants file - the mod's "
+                      "own carries real hull numbers and emblems")
+            continue
 
         # Variants: keep the donor's [General] block (texture/reference wiring must
         # match the donor mesh), then emit Australian variants with clean hull numbers.
