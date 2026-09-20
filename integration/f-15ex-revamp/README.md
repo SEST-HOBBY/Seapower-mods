@@ -16,12 +16,9 @@ dropped - LRASM and Quicksink cover anti-ship far better and the AGM-84 added no
 |---|---|---|---|
 | `AntiShipHeavy` | AntiShipLRASM6 | **6× AGM-158C-3 LRASM** (surge fit, mirrors the JSOW 6-station pattern) + 2× AIM-120D-3 + 2× AIM-9X + tank + pods | none beyond upstream |
 | `Quicksink` | StrikeQuicksink | **4× GBU-31 anti-ship JDAM** + 2× AIM-120D-3 + 2× AIM-9X + tank + pods | Dingtools Weapon Pack (`dts_gbu-31`) |
-| `BigStick174` | Intercept174 | **6× AIM-174B** + **4× AIM-260** on the inner wing pylon rails + 2× AIM-120D-3 + 2× AIM-9X + tank | **Murder Hornet** (`usn_aim-174b`) |
-| `BigStick174ER` | Intercept174 LongRange | **4× AIM-174B** (fuselage) + 3× 610 gal tanks (centreline + both wing stations) + 2× AIM-120D-3 and 2× AIM-9X on the inner-pylon shoulder rails — outer wing pylons removed entirely | **Murder Hornet** (`usn_aim-174b`) |
-| `Truck174` | Intercept174 Truck (8×) | **8× AIM-174B** (4 fuselage + 4 on the inner-pylon shoulder rails) + centreline tank only | **Murder Hornet** (`usn_aim-174b`) |
-| `Malice6` | InterceptMALICE (6× AIM-424) | **6× AIM-424 MALICE** in the BigStick174 layout + 2× AIM-120D-3 + 2× AIM-9X + tank | **US Naval Aviation** (AGM-88G model) |
-| `MaliceER` | InterceptMALICE LongRange | **4× AIM-424** (fuselage) + 3 tanks + inboard AAMs — mirrors BigStick174ER | **US Naval Aviation** (AGM-88G model) |
-| `MaliceTruck` | InterceptMALICE Truck (8×) | **8× AIM-424** + centreline tank — mirrors Truck174 | **US Naval Aviation** (AGM-88G model) |
+| `Malice6` | InterceptMALICE (6× AIM-424) | **6× AIM-424 MALICE** (4 fuselage + 2 wing stations) + 2× AIM-120D-3 + 2× AIM-9X + tank | **US Naval Aviation** (AGM-88G model) |
+| `MaliceER` | InterceptMALICE LongRange | **4× AIM-424** (fuselage) + 3× 610 gal tanks + inboard AAMs + 4× AIM-260 on the inner-pylon rails | **US Naval Aviation** (AGM-88G model) |
+| `MaliceTruck` | InterceptMALICE Truck (8×) | **8× AIM-424** (4 fuselage + 4 on the inner-pylon shoulder rails) + centreline tank | **US Naval Aviation** (AGM-88G model) |
 
 The AIM-424 MALICE itself ships inside this pack (`ammunition/sest_aim-424.ini`, byte-identical
 copies in the two F-35 JATM packs and the Growler pack): AARGM-ER airframe, aligned key-for-key
@@ -43,13 +40,17 @@ full passive anti-emitter mode that homes on radars as well as jammers.
    (the always-loaded user-data layer).
 
 The three anti-ship loadouts keep the AAQ-33/AAQ-13 targeting pods and a centreline 610 gal tank,
-matching upstream's strike-fit conventions; `BigStick174` is a clean air-to-air fit with pods hidden.
+matching upstream's strike-fit conventions; `Malice6` is a clean air-to-air fit with pods hidden.
+
+The three AIM-174B "Gunslinger" fits this pack used to add — `BigStick174`, `BigStick174ER` and
+`Truck174` — were **removed at the user's request**. The MALICE fits carry the same three layouts
+on the AIM-424, so nothing in the pack needs Murder Hornet any more.
 
 ## Rebuilding after an upstream update
 
 The patch is generated, not hand-maintained: `build_patch.py` reads the original mod out of
 `mods-source/3636386513/`, injects the new loadouts, and validates every ammunition id and
-position key against the exported ecosystem (F-15EX mod, weapon pack, Murder Hornet, vanilla).
+position key against the exported ecosystem (F-15EX mod, weapon pack, US Naval Aviation, vanilla).
 When dingtools updates his mod, re-export `mods-source/` and re-run:
 
 ```bash
@@ -66,8 +67,9 @@ Two more long-range missile-truck fits trade the wing twin-racks for fuel:
 | `AAMT120Tanks` | AAMT120 LongRange (3 tanks) | **16× AIM-120D-3** (8 rails + 8 on the fuselage twin racks) + three 610 gal tanks | Dingtools Weapon Pack |
 | `AAMT260Tanks` | AAMT260 LongRange (3 tanks) | **16× AIM-260** in the same layout + three 610 gal tanks | Dingtools Weapon Pack |
 
-`BigStick174`, `BigStick174ER` and both MALICE mirrors also carry 4× AIM-260 on the
-inner wing pylon rails, which those fits previously left empty.
+`MaliceER` and `MaliceTruck` also carry 4× AIM-260 on the inner wing pylon rails.
+`Malice6` does not: its wing stations carry underslung AIM-424, and the rail rule below
+clears the rails under a store that wide.
 
 
 ## Squadrons
@@ -141,6 +143,41 @@ station table, and a loadout named `[WeaponSystemN<Name>]` indexes into *that* t
 them produces a page of false positives, because Station3 means "right wing pylon bottom" in
 WeaponSystem1 and "right bottom aft" in WeaponSystem2.
 
+
+## The AIM-260 hangs low from its own origin
+
+Reported in game: the JATMs sit wrong on almost every fit here. They ride `|120`, the AMRAAM
+rail seat — and the AMRAAMs on that same seat look right, so the round is the variable.
+
+The collection had already solved this on another airframe. Both F-35 JATM packs give
+`dts_aim-260` its **own** seat key instead of sharing the AMRAAM's, converged over four
+tuning passes against screenshots (`docs/interoperability-report.md`): *"correcting the
+low/aft hang the user screenshotted on the RAAF F-35A beast fit"* → *"First guess overshot -
+missiles clipped into the pylons. Halved the vertical offset (~17cm up from the model
+origin)"* → *"Vertical is flush at 0.0025"*. On the F-35 the AMRAAM on those same stations
+carries no key at all, so **+0.0025 is the gap between where the two meshes hang from one
+origin** — a property of `dts_aim-260.obj`, not of an F-35 pylon. Both pylon pairs needed the
+identical `y` while their `z` differed, which is what a mesh correction looks like.
+
+So every AIM-260 on this airframe now rides its own copy of whatever seat it used to share,
+lifted 0.0025. Ten keys, generated from the base seats rather than typed, so retuning a base
+seat carries into its JATM twin automatically:
+
+| JATM seat | copied from | used by |
+|---|---|---|
+| `AAM260` | `120` wing rail | every rail fit — the seat the report is about |
+| `AAM260B` | bare station | the fuselage rounds that carried no key |
+| `AAM260MTH` / `AAM260MTW` | upstream's belly / wing racks | `AAMT260` |
+| `AAM260-OR/OL/FR/FL/AR/AL` | this pack's `SESTR-*` slot seats | `AAMT260Tanks` |
+
+Nothing else moves: AMRAAM, AIM-9X and AIM-424 keep the seats they already had.
+
+**Scope, stated plainly.** The `|120` rail is the case the report is about and the one the
+F-35 evidence transfers to directly. The rack seats get the same lift on the same reasoning —
+the droop belongs to the mesh, so it applies wherever the round hangs — but that half is
+inference, not a screenshot. If the belly rack rounds come back sitting proud of their slots,
+name those seats in `JATM_SEATS_EXEMPT` in `build_patch.py` and they keep upstream's shared
+geometry; the rails stay fixed either way.
 
 ## Side-rail height
 
