@@ -124,10 +124,13 @@ def providers():
                     out.append((pack.name, pack))
         elif (MODS / token).is_dir():
             out.append((token, MODS / token))
-    listed = set(order)
-    for d in sorted(p for p in MODS.iterdir() if p.is_dir() and p.name[0].isdigit()):
-        if d.name not in listed:
-            out.append((d.name, d))
+    # Deliberately NOT falling back to exported folders that are absent from
+    # the canonical order. refine_civ_traffic.winning_file does fall back, which
+    # is right for diagnostics and wrong here: a campaign that resolves a unit
+    # through a mod the Mod Manager does not load is a campaign that breaks on
+    # the machine it ships to, and a coverage report that credits it is telling
+    # a comfortable lie. If a required mod is unsubscribed, this resolver fails
+    # and names the unit.
     out.append(("_vanilla", MODS / "_vanilla" / "original"))
     return out
 
@@ -178,6 +181,17 @@ def unit_file(uid):
 
 def read(path):
     return path.read_text(encoding="utf-8-sig", errors="replace")
+
+
+def ini_text(value):
+    """Mission INI text: paragraph breaks are the two-character escape \\n.
+
+    A real newline inside Description= or a message ends the key and leaves
+    bare continuation lines the parser has no home for. Two of the missions
+    were authored with real newlines and emitted exactly that, so this is
+    applied centrally rather than trusted to whoever writes the next brief.
+    """
+    return value.replace("\r\n", "\n").replace("\n", "\\n")
 
 
 def unit_type(uid, depth=0):
@@ -489,7 +503,25 @@ def place(mission, snapper):
     seats = collections.Counter()              # per-station air spacing
     worst = 0.0
 
-    for spec in mission["units"]:
+    # The generated force forms on Taskforce1Vessel1: every stock Task Force
+    # Mode mission puts TaskForceModeAnchor on the FIRST unit of its kind, and
+    # the authoring guide says other slots misbehave. So the anchored ship is
+    # sorted to the front of the blue vessels before anything is numbered,
+    # rather than being anchored wherever the roster happened to list it.
+    anchor = mission.get("anchor")
+    units = list(mission["units"])
+    if anchor:
+        station, _, idx = anchor.partition("#")
+        want = int(idx) if idx else 1
+        seen = 0
+        for i, spec in enumerate(units):
+            if spec["side"] == "blue" and spec["station"] == station:
+                seen += 1
+                if seen == want:
+                    units.insert(0, units.pop(i))
+                    break
+
+    for spec in units:
         spec = dict(spec, mission=mission["key"])
         st = mission["stations"][spec["station"]]
         kind, keys, credit = resolve(spec)
@@ -509,7 +541,11 @@ def place(mission, snapper):
             want = spec.get("snap") or ("land" if kind == "land" else "sea")
             (lat, lon), dist = snapper.take(want, st["at"])
             worst = max(worst, dist)
-            alt = "low" if kind == "land" else 0
+            # A submarine at 0 is on the surface. That is deliberate for the
+            # boat alongside its tender in SW09 and wrong for everything that
+            # is meant to be hunting; depth is authored per unit.
+            alt = "low" if kind == "land" else (spec.get("depth", 0)
+                                                if kind == "sub" else 0)
 
         keys = dict(Type=spec["type"], **keys)
         keys.update(UnlimitedFuel="False", WeaponStatus=spec.get("weapons", "Free"),
@@ -523,15 +559,30 @@ def place(mission, snapper):
         for k, v in spec.get("extra", {}).items():
             keys[k] = v
 
-        # The purchased task force forms on the anchor, which is how the stock
-        # Task Force Mode campaign hands a generated force a starting position.
-        anchor = mission.get("anchor")
-        if (anchor and spec["station"] == anchor and spec["side"] == "blue"
+        # The purchased task force forms on the anchor. The sort above put the
+        # anchored ship first, so it is the first blue vessel that gets the
+        # flag - every stock Task Force Mode mission anchors Taskforce1Vessel1,
+        # and three of these anchored Vessel2 or Vessel3 before that sort.
+        if (mission.get("anchor") and spec["side"] == "blue"
                 and kind == "vessel" and not mission.get("_anchored")):
+            if idx != 1:
+                sys.exit(f"{mission['key']}: the anchor landed on {tag}, not "
+                         "the first blue vessel")
             keys["TaskForceModeAnchor"] = "True"
             mission["_anchored"] = True
+        # A purchased aircraft reaches a mission through a flight row and a
+        # matching slot. Without these the roster sells aircraft that no
+        # mission can deploy.
+        if spec.get("slot"):
+            keys["TaskForceModeAirTaskingSlot"] = spec["slot"][0]
+            keys["TaskForceModeAirTaskingRole"] = spec["slot"][1]
+        if spec.get("route"):
+            keys["Waypoints"] = "|".join(
+                f"{(lo - centre[1]) * 60:.2f},{a},{(la - centre[0]) * 60:.2f}"
+                for la, lo, a in spec["route"])
 
-        placed[family].append((tag, keys, spec.get("name")))
+        placed[family].append((tag, keys, spec.get("name"),
+                               spec.get("no_neutral_penalty", False)))
         members[spec["station"]].append(tag)
         for token, why in credit.items():
             best = credits.get(token)
@@ -550,22 +601,201 @@ def mission_name(mission):
     return f"{TITLE} {mission['num']} - {mission['key']}"
 
 
+def refs(members, ref):
+    """"station" -> every tag at it; "station#2" -> just the second."""
+    station, _, idx = ref.partition("#")
+    if station not in members:
+        raise SystemExit(f"objective or condition names station {station!r}, "
+                         "which places nothing")
+    group = members[station]
+    if not idx:
+        return list(group)
+    if int(idx) > len(group):
+        raise SystemExit(f"{ref}: station {station!r} places only "
+                         f"{len(group)} unit(s)")
+    return [group[int(idx) - 1]]
+
+
+def area_condition(n, centre, at, radius, units, minimum, side="Blue"):
+    return [f"Condition_Condition{n}_Type=UnitsInTheArea",
+            f"Condition_Condition{n}_PositionNM="
+            f"{(at[1] - centre[1]) * 60:.2f},0,{(at[0] - centre[0]) * 60:.2f}",
+            f"Condition_Condition{n}_AreaRadiusNM={radius}",
+            f"Condition_Condition{n}_AreaDisplaySide={side}",
+            f"Condition_Condition{n}_Units={','.join(units)}",
+            f"Condition_Condition{n}_MinimumUnits={minimum}"]
+
+
+def destroyed_condition(n, units, minimum):
+    return [f"Condition_Condition{n}_Type=UnitDestroyed",
+            f"Condition_Condition{n}_Units={','.join(units)}",
+            f"Condition_Condition{n}_MinimumUnits={minimum}"]
+
+
+# Conservative transit speeds for the reachability check, in knots. They are
+# deliberately below what the hulls can do: the question is whether an arrival
+# objective is possible at all, not whether it is comfortable.
+# Keyed on the unit's own UnitType, because an Aircraft family holds both a
+# 300-knot jet and a 120-knot helicopter and the slow one is what decides
+# whether an objective is reachable.
+TRANSIT = {"Vessel": 18.0, "Submarine": 10.0, "LandUnit": 12.0,
+           "Aircraft": 300.0, "VTOL": 250.0, "Helicopter": 120.0,
+           "Biologic": 6.0}
+
+
+def transit_of(tag, placed):
+    for family, entries in placed.items():
+        for t, keys, _n, _x in entries:
+            if t == tag:
+                return TRANSIT.get(unit_type(keys["Type"]), 18.0)
+    return 18.0
+
+
+def solve_arrival(mission, placed, members):
+    """Put the arrival box where the units can actually reach it.
+
+    Hand-written coordinates were the wrong tool: the position snapper spreads
+    a convoy by however far the proven-point pool forces it, so a box that is
+    reachable in one theatre is 26 NM out of reach in another, and the author
+    cannot see which from the data. So the roster authors a BEARING and a
+    radius - the direction the operation is going and how big the handover area
+    is - and the box is solved against the positions the units actually got.
+
+    The chosen distance is the largest that still leaves the condition
+    satisfiable: the units the condition needs can reach it, and fewer than
+    that many start inside it.
+    """
+    victory = mission["victory"]
+    if victory["kind"] != "arrive" or "bearing" not in victory:
+        return
+    centre = mission["centre"]
+    wanted = (list(victory["units"]) if victory.get("units")
+              else [victory["station"]])
+    tags = {t for r in wanted for t in refs(members, r)}
+    spots = []
+    for family, entries in placed.items():
+        for tag, keys, _n, _x in entries:
+            if tag in tags:
+                x, _alt, z = keys["RelativePositionInNM"].split(",")
+                spots.append(((centre[0] + float(z) / 60.0,
+                               centre[1] + float(x) / 60.0),
+                              TRANSIT.get(unit_type(keys["Type"]), 18.0)))
+    if not spots:
+        raise SystemExit(f"{mission['key']}: the arrival condition names no unit")
+    minimum = victory.get("min_units", len(spots))
+    radius = victory.get("radius", 12)
+    lat0 = sum(p[0] for p, _f in spots) / len(spots)
+    lon0 = sum(p[1] for p, _f in spots) / len(spots)
+    brg = math.radians(victory["bearing"])
+
+    # Start from a distance that is a sensible operation rather than the
+    # furthest technically-reachable one: the slowest unit spends at most about
+    # 60% of the mission's clock getting there, leaving the rest for the fight
+    # that is the actual point of the mission.
+    slowest = min(f for _p, f in spots)
+    cap = int(radius + mission["minutes"] / 60.0 * slowest * 0.6)
+    best = None
+    for step in range(max(cap, radius + 4), radius + 2, -1):
+        at = (lat0 + step * math.cos(brg) / 60.0,
+              lon0 + step * math.sin(brg) / 60.0 / math.cos(math.radians(lat0)))
+        d = sorted((nm_between(p, at), f) for p, f in spots)
+        if sum(1 for x, _f in d if x < radius) >= minimum:
+            continue
+        if all(x - radius <= mission["minutes"] / 60.0 * f * 0.75
+               for x, f in d[:minimum]):
+            best = at
+            break
+    if best is None:
+        raise SystemExit(
+            f"{mission['key']}: no arrival distance on bearing "
+            f"{victory['bearing']} works - {minimum} unit(s) must both start "
+            f"outside a {radius} NM circle and reach it in "
+            f"{mission['minutes']} minutes. Slow the objective down or give "
+            "the mission more time.")
+    victory["at"] = (round(best[0], 3), round(best[1], 3))
+
+
+def check_geometry(mission, placed, members):
+    """An arrival objective must be neither already met nor impossible.
+
+    Both failure modes shipped: O01's search helicopter started 13 NM inside
+    its own 20 NM success circle, and SW02 asked 13-knot merchants to cover
+    220 NM in 75 minutes. Nothing else in the build could see either.
+
+    The test is on the units the condition actually needs. "Three of four
+    arrive" is met by the nearest three, so requiring the fourth to be able to
+    reach the box would reject a perfectly sound objective - and, symmetrically,
+    the objective is only already-met if min_units of them start inside.
+    """
+    victory = mission["victory"]
+    if victory["kind"] != "arrive":
+        return
+    at, radius = victory["at"], victory.get("radius", 20)
+    centre = mission["centre"]
+    wanted = (list(victory["units"]) if victory.get("units")
+              else [victory["station"]])
+    tags = {t for r in wanted for t in refs(members, r)}
+    minimum = victory.get("min_units", len(tags))
+
+    found = []
+    for family, entries in placed.items():
+        for tag, keys, _n, _x in entries:
+            if tag not in tags:
+                continue
+            x, _alt, z = keys["RelativePositionInNM"].split(",")
+            here = (centre[0] + float(z) / 60.0, centre[1] + float(x) / 60.0)
+            found.append((nm_between(here, at), tag, family))
+    found.sort()
+
+    inside = [t for d, t, _f in found if d < radius]
+    if len(inside) >= minimum:
+        raise SystemExit(
+            f"{mission['key']}: {len(inside)} of the {minimum} units the "
+            f"arrival condition needs start inside its {radius} NM circle "
+            f"({', '.join(inside)}) - the objective is met at spawn")
+    for d, tag, family in found[:minimum]:
+        speed = transit_of(tag, placed)
+        reach = mission["minutes"] / 60.0 * speed * 0.75
+        if d - radius > reach:
+            raise SystemExit(
+                f"{mission['key']}: {tag} is one of the {minimum} units the "
+                f"arrival condition needs and must cover {d - radius:.0f} NM; "
+                f"{mission['minutes']} minutes at a conservative {speed:.0f} kn "
+                f"buys {reach:.0f} NM. Move the box or lengthen the mission.")
+
+
 def render(mission, placed, members):
     name = mission_name(mission)
-    L = ["[Language_en]", f"Name={name}", f"Description={mission['brief']}"]
+    centre = mission["centre"]
+    victory = mission["victory"]
+    main = victory["objective"]
+
+    L = ["[Language_en]", f"Name={name}",
+         f"Description={ini_text(mission['brief'])}"]
     for oid, text, _spec in mission["objectives"]:
-        L.append(f"Objective_{oid}={text}")
-    L.append(f"Taskforce1StartMessage=<color=yellow>{mission['key']}</color>|{mission['brief']}")
-    L.append(f"Taskforce1VictoryMessage=<color=lime>Mission complete.</color>|{mission['win']}")
-    L.append(f"Taskforce1DefeatMessage=<color=red>Mission failed.</color>|{mission['lose']}")
-    L.append(f"Taskforce2VictoryMessage=<color=lime>Red victory.</color>|{mission['lose']}")
-    L.append(f"Taskforce2DefeatMessage=<color=red>Red defeat.</color>|{mission['win']}")
-    neutrals = [f for f in placed if f.startswith("Neutral")]
-    if neutrals:
-        L.append("NeutralLossMessage=<color=orange>Neutral contact hit.</color>|"
-                 "That one was not ours to shoot. It goes in the record.")
+        L.append(f"Objective_{oid}={ini_text(text)}")
+    L.append(f"Taskforce1StartMessage=<color=yellow>{mission['key']}</color>|"
+             f"{ini_text(mission['brief'])}")
+    L.append("Taskforce1VictoryMessage=<color=lime>Mission complete.</color>|"
+             f"{ini_text(mission['win'])}")
+    L.append("Taskforce1DefeatMessage=<color=red>Mission failed.</color>|"
+             f"{ini_text(mission['lose'])}")
+    L.append("Taskforce2VictoryMessage=<color=lime>Red victory.</color>|"
+             f"{ini_text(mission['lose'])}")
+    L.append("Taskforce2DefeatMessage=<color=red>Red defeat.</color>|"
+             f"{ini_text(mission['win'])}")
+    L.append("TimeoutMessage=<color=red>Out of time.</color>|"
+             f"{ini_text(mission['timeout'])}")
+    # Authorised range targets are exempt: a gunnery serial's own target is not
+    # a civilian casualty.
+    neutral_tags = [tag for family in placed if family.startswith("Neutral")
+                    for tag, _k, _n, exempt in placed[family] if not exempt]
+    if neutral_tags:
+        L.append("NeutralLossMessage=<color=orange>Neutral contact lost.</color>|"
+                 "That one was not ours to shoot. The operation ends here and "
+                 "it goes in the record.")
     for family in FAMILY_ORDER:
-        for tag, _keys, unit_name in placed.get(family, []):
+        for tag, _keys, unit_name, _x in placed.get(family, []):
             if unit_name:
                 L.append(f"{tag}NameOverride={unit_name}")
     L.append("")
@@ -574,8 +804,7 @@ def render(mission, placed, members):
     L += ["[Environment]", f"Date={d[0]},{d[1]},{d[2]}", f"Time={t[0]},{t[1]}",
           "ConvertTimeToLocal=True", f"SeaState={mission['sea']}",
           f"Clouds={mission['clouds']}", f"WindDirection={mission['wind']}",
-          f"MapCenterLatitude={mission['centre'][0]}",
-          f"MapCenterLongitude={mission['centre'][1]}",
+          f"MapCenterLatitude={centre[0]}", f"MapCenterLongitude={centre[1]}",
           "LoadBackgroundData=False", ""]
 
     L += ["[Mission]", f"Difficulty={mission.get('difficulty', 1)}",
@@ -586,8 +815,6 @@ def render(mission, placed, members):
         if placed.get(family):
             L.append(f"{COUNT_KEY[family]}={len(placed[family])}")
 
-    # One formation per station that holds more than one unit of one side, so
-    # the tactical map shows named groups instead of a scatter of contacts.
     forms = collections.defaultdict(list)
     for station, tags in members.items():
         by_side = collections.defaultdict(list)
@@ -597,32 +824,134 @@ def render(mission, placed, members):
                     "Neutral"].append(tag)
         for side, group in by_side.items():
             if len(group) > 1:
-                forms[side].append((mission["stations"][station].get("label", station), group))
+                forms[side].append((mission["stations"][station].get("label", station),
+                                    group))
     for side, groups in sorted(forms.items()):
         L.append(f"{side}_NumberOfFormations={len(groups)}")
         for i, (label, group) in enumerate(groups, 1):
             shape = "Vic" if "Aircraft" in group[0] else "Loose"
             spacing = "0.1" if shape == "Vic" else "1.5"
             L.append(f"{side}_Formation{i}={','.join(group)}|{label}|{shape}|{spacing}")
-    triggers = (3 + (1 if mission.get("protect") else 0)
-                + (1 if placed.get("Taskforce1Vessel") or
-                   placed.get("Taskforce1Aircraft") else 0)
-                + (1 if neutrals else 0))
-    L.append(f"NumberOfTriggers={triggers}")
+
+    # --- triggers -----------------------------------------------------------
+    # Build them first so the count in [Mission] is what actually follows.
+    T = []
+
+    def trigger(comment, lines):
+        T.append((comment, lines))
+
+    deadline = mission["minutes"] * 60          # Condition_Time is SECONDS
+    trigger("Deadline", [
+        "Condition_Type=Time", f"Condition_Time={deadline}",
+        "Action_Taskforce1_Message=TimeoutMessage",
+        f"Action_ObjectivesFailed={main}", "Action_Victory=Taskforce2",
+        "Action_EndMission=True", "Action_EndMissionDelay=30"])
+    trigger("Start message", [
+        "Condition_Type=Time", "Condition_Time=1",
+        "Action_Taskforce1_Message=Taskforce1StartMessage"])
+
+    if victory["kind"] == "arrive":
+        win_units = ([tag for r in victory["units"] for tag in refs(members, r)]
+                     if victory.get("units") else refs(members, victory["station"]))
+        cond = area_condition(1, centre, victory["at"], victory.get("radius", 20),
+                              win_units, victory.get("min_units", len(win_units)))
+    else:
+        win_units = [tag for st in victory["stations"] for tag in refs(members, st)]
+        cond = destroyed_condition(1, win_units, victory.get("min_units", len(win_units)))
+    if not win_units:
+        raise SystemExit(f"{mission['key']}: the victory condition names no unit")
+    expr, n = "<Condition1>", 1
+    for extra in victory.get("also", []):
+        n += 1
+        if extra.get("after_minutes"):
+            cond += [f"Condition_Condition{n}_Type=Time",
+                     f"Condition_Condition{n}_Time={extra['after_minutes'] * 60}"]
+        else:
+            units = [tag for r in extra["units"] for tag in refs(members, r)]
+            cond += area_condition(n, centre, extra.get("at", victory.get("at")),
+                                   extra.get("radius", victory.get("radius", 20)),
+                                   units, extra.get("min_units", len(units)))
+        expr += f" AND <Condition{n}>"
+    trigger("Objective met", cond + [f"ConditionsCompleted={expr}",
+            "Action_Taskforce1_Message=Taskforce1VictoryMessage",
+            "Action_Taskforce2_Message=Taskforce2DefeatMessage",
+            "Action_Victory=Taskforce1", "Action_EndMission=True",
+            "Action_EndMissionDelay=60", f"Action_ObjectivesCompleted={main}"])
+
+    # Every objective needs a predicate. "victory" is completed by the trigger
+    # above; everything else gets its own, and an objective with no resolver
+    # fails the build - twenty of them used to sit there resolving to nothing.
+    resolve = mission["resolve"]
+    for oid, _text, spec in mission["objectives"]:
+        if oid not in resolve:
+            raise SystemExit(f"{mission['key']}: objective {oid} has no resolver")
+        how = resolve[oid]
+        if how in ("victory", "neutral"):
+            continue
+        kind = how[0]
+        if kind == "protect":
+            units = [tag for r in how[1:] for tag in refs(members, r)]
+            trigger(f"{oid} lost", destroyed_condition(1, units, 1)
+                    + ["ConditionsCompleted=<Condition1>",
+                       f"Action_ObjectivesFailed={oid}"])
+        elif kind == "survive":
+            units = [tag for r in how[1:] for tag in refs(members, r)]
+            trigger(f"{oid} wiped out", destroyed_condition(1, units, len(units))
+                    + ["ConditionsCompleted=<Condition1>",
+                       f"Action_ObjectivesFailed={oid}"])
+        elif kind == "destroy":
+            units = [tag for tag in refs(members, how[1])]
+            trigger(f"{oid} met", destroyed_condition(1, units, how[2])
+                    + ["ConditionsCompleted=<Condition1>",
+                       f"Action_ObjectivesCompleted={oid}"])
+        elif kind == "arrive":
+            units = [tag for tag in refs(members, how[1])]
+            trigger(f"{oid} met",
+                    area_condition(1, centre, how[2], how[3], units, how[4])
+                    + ["ConditionsCompleted=<Condition1>",
+                       f"Action_ObjectivesCompleted={oid}"])
+        else:
+            raise SystemExit(f"{mission['key']}: objective {oid} has an unknown "
+                             f"resolver {how!r}")
+
+    # Terminal states end the mission and cancel the other side's objective, so
+    # a defeat cannot be followed by a victory action. Whether the engine gives
+    # one precedence inside a single update is still untested.
+    if mission.get("protect"):
+        lost = [tag for r in mission["protect"] for tag in refs(members, r)]
+        trigger("Protected unit lost",
+                destroyed_condition(1, lost, mission.get("protect_min", 1))
+                + ["ConditionsCompleted=<Condition1>",
+                   "Action_Taskforce1_Message=Taskforce1DefeatMessage",
+                   "Action_Victory=Taskforce2",
+                   f"Action_ObjectivesFailed={mission['protect_objective']}",
+                   f"Action_ObjectivesCancel={main}",
+                   "Action_EndMission=True", "Action_EndMissionDelay=45"])
+    if placed.get("Taskforce1Vessel") or placed.get("Taskforce1Aircraft"):
+        trigger("Player force gone", [
+            "Condition_Type=HasNoUnitsOfType", "Condition_Taskforce=Taskforce1",
+            "Condition_UnitType=" + ("Vessel" if placed.get("Taskforce1Vessel")
+                                     else "Aircraft"),
+            "Action_Taskforce1_Message=Taskforce1DefeatMessage",
+            "Action_Victory=Taskforce2", f"Action_ObjectivesCancel={main}",
+            "Action_EndMission=True", "Action_EndMissionDelay=45"])
+    if neutral_tags:
+        trigger("Neutral harmed",
+                destroyed_condition(1, neutral_tags, mission.get("neutral_limit", 1))
+                + ["ConditionsCompleted=<Condition1>",
+                   "Action_Taskforce1_Message=NeutralLossMessage",
+                   f"Action_ObjectivesFailed={mission['neutral_objective']}",
+                   f"Action_ObjectivesCancel={main}", "Action_Victory=Taskforce2",
+                   "Action_EndMission=True", "Action_EndMissionDelay=45"])
+
+    L.append(f"NumberOfTriggers={len(T)}")
     L.append("")
 
     for family in FAMILY_ORDER:
-        for tag, keys, _n in placed.get(family, []):
+        for tag, keys, _n, _x in placed.get(family, []):
             L.append(block(tag, keys))
             L.append("")
 
-    # StatusAtMissionEnd is what the objective is left as when the mission ends
-    # without a trigger resolving it. Exactly one trigger here COMPLETES an
-    # objective - the victory one - so only its objective may end in Fail.
-    # Everything else is something you are asked not to lose: it ends Complete
-    # and the protect or neutral trigger is what fails it. One objective was
-    # written the other way round and could only ever fail, which is what this
-    # check exists to catch.
     resolved = {mission["victory"]["objective"]}
     L.append("[Taskforce1_Objectives]")
     L.append("#ID=CompletedScore,FailedScore,StatusAtMissionEnd")
@@ -630,98 +959,16 @@ def render(mission, placed, members):
         status = spec.split(",")[2] if len(spec.split(",")) > 2 else ""
         if status == "Fail" and oid not in resolved:
             raise SystemExit(
-                f"{mission['key']}: objective {oid} ends Fail but no trigger "
-                "completes it - make it Complete, or give it a trigger")
+                f"{mission['key']}: objective {oid} ends Fail but only the "
+                "victory objective is completed by a terminal trigger")
         L.append(f"{oid}={spec}")
     L.append("")
 
-    # --- triggers -----------------------------------------------------------
-    # Two victory shapes, because a convoy campaign cannot express its wins as
-    # a body count: "arrive" tests UnitsInTheArea at a named handover point,
-    # "destroy" tests UnitDestroyed. Failure is always a protected unit dying,
-    # never the absence of a kill. Both resolve before the mission-exit timer.
-    victory = mission["victory"]
-    if victory["kind"] == "arrive":
-        win_units = members[victory["station"]]
-    else:
-        win_units = [tag for st in victory["stations"] for tag in members[st]]
-    if not win_units:
-        raise SystemExit(f"{mission['key']}: the victory condition names no "
-                         "placed unit")
-    # "convoy" protects every unit at that station; "convoy#1" protects one
-    # named hull, which is how a mission can say "three of four may arrive,
-    # but not without the medical ship".
-    protect = []
-    for entry in mission.get("protect", []):
-        station, _, index = entry.partition("#")
-        group = members[station]
-        protect += [group[int(index) - 1]] if index else group
-
-    n = 0
-    n += 1
-    L += [f"[Trigger{n}]  #Mission exit", "Name=Mission exit", "Disabled=True",
-          "Condition_Type=Time", f"Condition_Time={mission.get('minutes', 90)}",
-          "Action_EndMission=True", "Action_EndMissionDelay=0", ""]
-    n += 1
-    L += [f"[Trigger{n}]  #Start message", "Name=Start message",
-          "Condition_Type=Time", "Condition_Time=0.5",
-          "Action_Taskforce1_Message=Taskforce1StartMessage", ""]
-    n += 1
-    L += [f"[Trigger{n}]  #Objective met", "Name=Objective met"]
-    if victory["kind"] == "arrive":
-        centre = mission["centre"]
-        at = victory["at"]
-        L += ["Condition_Condition1_Type=UnitsInTheArea",
-              "Condition_Condition1_PositionNM="
-              f"{(at[1] - centre[1]) * 60:.2f},0,{(at[0] - centre[0]) * 60:.2f}",
-              f"Condition_Condition1_AreaRadiusNM={victory.get('radius', 20)}",
-              "Condition_Condition1_AreaDisplaySide=Blue",
-              f"Condition_Condition1_Units={','.join(win_units)}",
-              f"Condition_Condition1_MinimumUnits={victory.get('min_units', len(win_units))}",
-              "ConditionsCompleted=<Condition1>"]
-    else:
-        L += ["Condition_Condition1_Type=UnitDestroyed",
-              f"Condition_Condition1_Units={','.join(win_units)}",
-              f"Condition_Condition1_MinimumUnits={victory.get('min_units', len(win_units))}",
-              "ConditionsCompleted=<Condition1>"]
-    L += ["Action_Taskforce1_Message=Taskforce1VictoryMessage",
-          "Action_Taskforce2_Message=Taskforce2DefeatMessage",
-          "Action_Victory=Taskforce1", "Action_EndMission=True",
-          "Action_EndMissionDelay=60",
-          f"Action_ObjectivesCompleted={victory['objective']}", ""]
-    if protect:
-        n += 1
-        L += [f"[Trigger{n}]  #Protected unit lost", "Name=Protected unit lost",
-              "Condition_Condition1_Type=UnitDestroyed",
-              f"Condition_Condition1_Units={','.join(protect)}",
-              f"Condition_Condition1_MinimumUnits={mission.get('protect_min', 1)}",
-              "ConditionsCompleted=<Condition1>",
-              "Action_Taskforce1_Message=Taskforce1DefeatMessage",
-              "Action_Victory=Taskforce2",
-              f"Action_ObjectivesFailed={mission['protect_objective']}",
-              "Action_EnableTriggers=Trigger1",
-              "Action_ReactivateTriggers=Trigger1", ""]
-    if placed.get("Taskforce1Vessel") or placed.get("Taskforce1Aircraft"):
-        n += 1
-        L += [f"[Trigger{n}]  #Player force gone", "Name=Player force gone",
-              "Condition_Type=HasNoUnitsOfType", "Condition_Taskforce=Taskforce1",
-              "Condition_UnitType=" + ("Vessel" if placed.get("Taskforce1Vessel")
-                                       else "Aircraft"),
-              "Action_Taskforce1_Message=Taskforce1DefeatMessage",
-              "Action_Victory=Taskforce2", "Action_EnableTriggers=Trigger1",
-              "Action_ReactivateTriggers=Trigger1", ""]
-    if neutrals:
-        n += 1
-        tags = [tag for f in neutrals for tag, _k, _n2 in placed[f]]
-        L += [f"[Trigger{n}]  #Neutral harmed", "Name=Neutral harmed",
-              "Condition_Condition1_Type=UnitDestroyed",
-              f"Condition_Condition1_Units={','.join(tags)}",
-              f"Condition_Condition1_MinimumUnits={mission.get('neutral_limit', 1)}",
-              "ConditionsCompleted=<Condition1>",
-              "Action_Taskforce1_Message=NeutralLossMessage",
-              f"Action_ObjectivesFailed={mission['neutral_objective']}", ""]
-    if n != triggers:
-        raise SystemExit(f"{mission['key']}: declared {triggers} triggers, wrote {n}")
+    for i, (comment, lines) in enumerate(T, 1):
+        L.append(f"[Trigger{i}]  #{comment}")
+        L.append(f"Name={comment}")
+        L += lines
+        L.append("")
     return name, "\n".join(L) + "\n"
 
 
@@ -778,10 +1025,17 @@ def briefing_page(mission):
         parts.append(f'<TextBlock FontSize="16" TextWrapping="Wrap" '
                      f'Text="{xml_escape(text)}"/>')
 
-    section("SITUATION", mission["brief"].replace("\\n\\n", "  "))
+    section("SITUATION", mission["brief"].replace("\\n\\n", "  ").replace("\n", " "))
     section("TASK", "  ".join(f"{oid}: {text}"
                               for oid, text, _s in mission["objectives"]))
     section("FORCES", mission["forces"])
+    section("TIME", f"{mission['minutes']} minutes. The operation ends when the "
+                    "clock runs out, and the main objective fails with it.")
+    if any(not u.get("no_neutral_penalty") for u in mission["units"]
+           if u["side"] == "neutral"):
+        section("RULES OF ENGAGEMENT",
+                "Destroying a neutral contact ends the operation in failure. "
+                "Identify before you shoot.")
     # Named from the roster rather than hand-written, so the list cannot drift
     # from the order of battle the mission actually ships.
     titles = catalog()
@@ -928,11 +1182,22 @@ def campaign_ini(missions, events, placements):
             for what, value in threat_profile(placed):
                 L.append(f"TaskForceModeThreatProfile{what}={value}")
             L.append("")
-            service = "True" if mission.get("service") else "False"
-            L.append(f"TaskForceModeRepair={service}")
-            L.append(f"TaskForceModeRearm={service}")
+            # Builder access, repair and rearm are three separate windows, not
+            # one boolean: the design opens purchases at force-assembly points,
+            # repair at service windows and a free rearm at some of them.
+            window = mission.get("window", {})
+            L.append(f"TaskForceModeRepair={'True' if window.get('repair') else 'False'}")
+            L.append(f"TaskForceModeRearm={'True' if window.get('rearm') else 'False'}")
             L.append("TaskForceModeEnableTaskForceBuilder="
-                     f"{'False' if mission['group'] != 'core' else 'True'}")
+                     f"{'True' if window.get('buy') else 'False'}")
+            if window.get("flights"):
+                L.append("TaskForceModeAirTaskingAvailable=True")
+                for n, row in enumerate(window["flights"], 1):
+                    L.append(f"TaskForceModeAirTaskingFlight{n}={row}")
+            if window.get("airbase_prep"):
+                L += ["TaskForceModeAirbasePrepAvailable=True",
+                      "TaskForceModeAirbasePrepReadySlots=2",
+                      "TaskForceModeAirbasePrepInProgressSlots=1"]
             L.append(f"TaskForceModeCompletionPoints={mission.get('points', 0)}")
             # Zero cap increment for this first balance pass: a reward is not a
             # reason to raise the ceiling on unspent points.
@@ -1122,6 +1387,8 @@ def main():
             sys.exit(f"{mission['key']}: anchor station "
                      f"{mission['anchor']!r} places no blue vessel")
         worst = max(worst, far)
+        solve_arrival(mission, placed, members)
+        check_geometry(mission, placed, members)
         name, text = render(mission, placed, members)
         built.append((name, text, mission))
         placements[mission["key"]] = placed
