@@ -41,7 +41,6 @@ class PeriodTests(unittest.TestCase):
 class LeanV2HandoverTests(unittest.TestCase):
     def test_source_preservation_and_repeatable_output(self):
         source = MISSIONS / "SEST Banda Front Living Seas.ini"
-        expected = (MISSIONS / "SEST Banda Front Lean v2.ini").read_bytes()
         before = source.read_bytes()
         with tempfile.TemporaryDirectory() as td:
             temp = Path(td)
@@ -52,7 +51,15 @@ class LeanV2HandoverTests(unittest.TestCase):
                     first = (temp / "SEST Banda Front Lean v2.ini").read_bytes()
                     thin.main()
                 self.assertEqual(first, (temp / "SEST Banda Front Lean v2.ini").read_bytes())
-            self.assertEqual(expected, first)
+            # The committed Lean v2 stopped being a pure function of Living Seas
+            # at a30a8b04, when it was edited in the game: a blue and a red
+            # submarine patrol, a thirteenth Taskforce1 vessel and some ninety
+            # nudged placements, none of which exist upstream. Re-deriving it
+            # would throw that away, so the byte-for-byte pin on the committed
+            # file is retired - what the thinner still owes is determinism, an
+            # untouched source and a valid result, all checked on this temp copy.
+            # The shipped file is held to being a valid mission, nothing more.
+            self.assertEqual([], Mission(MISSIONS / "SEST Banda Front Lean v2.ini").verify())
             self.assertEqual(before, (temp / source.name).read_bytes())
             living = Mission(source)
             lean = Mission(temp / "SEST Banda Front Lean v2.ini")
