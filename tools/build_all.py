@@ -9,7 +9,7 @@ registry as "build_after" — this script topologically sorts on it, so the
 ordering can never again be satisfied only by accident of alphabetical
 iteration.
 
-    python3 tools/build_all.py               # rebuild all 15 in order
+    python3 tools/build_all.py               # rebuild every pack in order
     python3 tools/build_all.py --from-scratch  # delete pack output first, then
                                                # rebuild; with committed output,
                                                # `git status` after a clean run
@@ -64,10 +64,13 @@ def ordered_packs():
 # not depend on Path.write_text(newline=...), which only exists on Python
 # 3.10+ and would break the build outright on an older interpreter.
 #
+# .xml is in the list because the campaign pack ships XAML briefing and event
+# pages alongside its .ini missions, and they are written by the same builders.
+#
 # Scope is the generated tree only. mods-source/ is a byte-faithful export
 # whose CRLF files are meant to stay CRLF - .gitattributes marks it -text for
 # exactly that reason - and it is never touched here.
-GENERATED_TEXT = (".ini", ".txt", ".json", ".md", ".cfg", ".csv")
+GENERATED_TEXT = (".ini", ".txt", ".json", ".md", ".cfg", ".csv", ".xml")
 
 
 def normalise_newlines():

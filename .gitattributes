@@ -28,6 +28,7 @@
 # Reproduced byte-for-byte by the builders; collapsed by default in reviews.
 integration/*/SEST_*/**     linguist-generated=true
 docs/mod-catalog.md         linguist-generated=true
+docs/campaign-coverage.md   linguist-generated=true
 docs/load-order-full.md     linguist-generated=true
 data/load-order.preview.txt linguist-generated=true
 

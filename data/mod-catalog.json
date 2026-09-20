@@ -121,6 +121,30 @@
       "source": "integration/tacmap-colors",
       "builder": "build_pack.py",
       "title": "SEST TacMap Colors"
+    },
+    {
+      "folder": "SEST_Campaign",
+      "source": "integration/campaign",
+      "builder": "build_pack.py",
+      "title": "SEST Southern Watch Campaign",
+      "build_after": [
+        "SEST_ADF_Persistent_ISR",
+        "SEST_Allied_Fixes",
+        "SEST_B52_ARRW",
+        "SEST_Collection_Fixes",
+        "SEST_F-15EX_Revamp",
+        "SEST_F-35C_JATM",
+        "SEST_F16CM_JATM",
+        "SEST_Growler_NGJ_MALICE",
+        "SEST_JMSDF_Mogami",
+        "SEST_RAAF_Bases",
+        "SEST_RAAF_F-35A_JATM",
+        "SEST_RAAF_Wedgetail",
+        "SEST_RAN_Fleet",
+        "SEST_Rafale_F5",
+        "SEST_Raptor_Squadrons",
+        "SEST_TacMap_Colors"
+      ]
     }
   ],
   "mods": [

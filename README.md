@@ -8,7 +8,7 @@ Everything here is built around interoperability: a mod is known by three names 
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
 `mods-source/` export and its load-order token), and the display name the Mod Manager
 shows — and `data/mod-catalog.json` is the table that joins them, including the
-`local_packs` registry of the 16 SEST source packs.
+`local_packs` registry of the 17 SEST source packs.
 
 ## Layout
 
@@ -19,9 +19,11 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `data/active-mission.txt` | The mission the tooling works on when you do not name one |
 | `data/raw-workshop-list.txt` | The raw subscription list (source of record) |
 | `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook |
+| `docs/campaigns/southern-watch/` | The campaign bible and its build notes — including what the campaign has **not** been shown to do |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
+| `integration/campaign/` | **SEST Southern Watch** — a twelve-mission linear campaign plus eight optional dispatches, built so that every enabled mod is reached by something it places |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -30,12 +32,13 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 Linux / repo side:
 
 ```bash
-python3 tools/build_all.py --from-scratch   # rebuild all 16 packs + the consolidated dist;
+python3 tools/build_all.py --from-scratch   # rebuild all 17 packs + the consolidated dist;
                                             # a clean `git status` after = the regression gate
 python3 tools/preflight.py                  # resolve every reference the active mission makes
 python3 tools/check_load_order.py           # every SEST override still outranks its target
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
+python3 tools/check_campaign_coverage.py    # every enabled mod still reached by the campaign
 python3 tools/generate_catalog.py           # docs/mod-catalog.md      <- data/mod-catalog.json
 python3 tools/generate_load_order.py        # docs/load-order-full.md  <- catalog + tiers
 ```
@@ -51,11 +54,42 @@ powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -Include
 
 `docs/setup-runbook.md` is the full walkthrough.
 
+## The campaign
+
+`integration/campaign/` builds **SEST Southern Watch — The Northern Lifeline**:
+twelve connected missions in October–November 2028 in which Australia and its
+regional partners keep the northern sea routes open, plus eight optional
+dispatches (allied rotations, an opposing-force passage, a weapons range, an
+openly speculative 2034 branch and a 1988 exercise). `docs/campaigns/southern-watch/`
+holds the design bible it was built from.
+
+Its point is coverage. 128 subscriptions are a lot of content to own and never
+see, so the campaign is built so that **every mod in the canonical load order,
+and every SEST pack, is reached by something it places** — and "reached" is
+computed the way the game resolves files, not from the folder list:
+
+| class | what it means |
+|---|---|
+| `unit` | the mod's copy of the placed unit's file wins the load order |
+| `variant` / `squadron` | it wins the `_variants` / `_squadrons` file the mission names |
+| `store` | it wins an ammunition file the placed unit's chosen loadout hangs |
+| `library` | it wins nothing a mission can name — UI, effects, a bare dependency marker — and applies install-wide |
+| `shadowed` | everything it ships is outranked; nothing it contains can load |
+
+`docs/campaign-coverage.md` is the generated table, one row per mod.
+`tools/check_campaign_coverage.py` re-derives the whole thing from the **built**
+mission files, so it keeps telling the truth after a mod update the builder's
+roster has not caught up with. Positions are never invented: every sea and land
+station snaps to a point some already-loading mission put a unit of that kind
+on. What none of this proves — that the missions load, that helicopters
+recover, that replenishment transfers anything — is listed in
+`docs/campaigns/southern-watch/build-notes.md`.
+
 ## Why one pack
 
 A SEST patch is a whole-file replacement that must sit **above** the mod it patches; if
-anything outranks it, the patch silently does nothing. Fifteen separate packs meant
-fifteen chances for a reshuffle to break one — which is exactly how a pack once went
+anything outranks it, the patch silently does nothing. Separate packs meant
+one chance per pack for a reshuffle to break one — which is exactly how a pack once went
 inert unnoticed. Consolidated, tier 0 is a single entry and that failure class is gone
 by construction. The per-pack sources remain the build units; `tools/consolidate_packs.py`
 merges them with hard errors on any conflict (identical files dedupe, language and
