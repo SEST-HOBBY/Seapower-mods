@@ -140,5 +140,5 @@
 3801363152   CH-53E Standalone v0.1.0                             updated 2026-09-16
 3801549552   J-36 Tailless Fighter                                updated 2026-09-16
 
-subscribed but UNPLACED (9): 3755769170, 3769142422, 3789188689, 3789793270, 3796113927, 3796349767, 3799742828, 3801363152, 3801549552
-placed but NOT SUBSCRIBED (3): 3654230227, 3426791311, 3508978375
+subscribed but UNPLACED (0): 
+placed but NOT SUBSCRIBED (0): 
