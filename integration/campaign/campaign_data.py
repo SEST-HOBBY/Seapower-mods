@@ -663,7 +663,9 @@ MISSIONS.append(dict(
         "Two Tindal F-35As are your entire air cover. You can spend them "
         "protecting the orbit or holding close escort on the convoy. You "
         "cannot do both, and whatever you lose today you do not have "
-        "tomorrow."),
+        "tomorrow.\\n\\n"
+        "If the group is classified, expect the picture to raise a question it "
+        "does not answer, and expect it while the Triton is still north."),
     forces="HMAS Hobart, two RAAF F-35A off Tindal, one MQ-4C Triton, a "
            "Wedgetail on a long orbit. Opposing: two J-16, a Y-20 shuttling "
            "into the enclave, and a surface group not yet located.",
@@ -672,6 +674,11 @@ MISSIONS.append(dict(
         ("Picture", "Classify the northern surface group", "25,-15,Complete"),
         ("Sentry", "Keep the Triton flying", "25,-25,Complete"),
         ("Hobart", "Hobart survives", "10,-20,Complete"),
+        # Not on the player's list at briefing. Classifying the surface group
+        # is what puts it there, which is the second reconnaissance decision:
+        # the Triton is already north and the clock is already running.
+        ("Airlift", "Identify the transport running into the enclave",
+         "20,0,Complete,Hidden"),
     ],
     # The reconnaissance decision, and the reason this mission exists. Push the
     # Triton north far enough to classify the surface group and it is revealed
@@ -701,6 +708,8 @@ MISSIONS.append(dict(
         "aew": S(-11.6, 132.2, "Wedgetail orbit", heading=90, alt=32000),
         "tindal": S(-14.5, 132.5, "RAAF Base Tindal", heading=0),
         "red_air": S(-7.2, 133.2, "Enclave fighters", heading=180, alt=34000),
+        "red_lift": S(-6.4, 133.9, "Enclave shuttle track", heading=200,
+                      alt=28000),
         "red_sag": S(-7.6, 133.6, "Opposing surface group", heading=180),
     },
     units=[
@@ -724,7 +733,7 @@ MISSIONS.append(dict(
           name="MV Coral Pioneer"),
         U("red", "j-16-multirole", "plaaf_j16", "red_air", name="Enclave 11"),
         U("red", "j-16-multirole", "plaaf_j16", "red_air", name="Enclave 12"),
-        U("red", "y-20-kj-3000", "plaaf_y-20a", "red_air", name="Shuttle 40",
+        U("red", "y-20-kj-3000", "plaaf_y-20a", "red_lift", name="Shuttle 40",
           alt=28000, weapons="Hold"),
         U("red", "chinese-navy-plan", "plan_ddg_luda_typ_051dt", "red_sag",
           name="Opposing escort north"),
@@ -2085,10 +2094,29 @@ for _i, (_date, _title, _sub, _head, _body, _before) in enumerate(SITREPS, 1):
 #
 # The speculative fits are deliberately absent: the F-35A's Malice424 and
 # Intercept260*, and the Growler's SEST_MaliceNGJ, belong to Future Front.
+# Air-tasking rows. The role field is matched against the aircraft file's own
+# top-level `Role=` line and the fit field against its `AvailableLoadouts`;
+# build_pack.check_flights() proves every row against the roster before a
+# campaign entry is written, which is how the three bugs below were found.
+#
+# All three fast jets declare `Fighter,Bomber,SEAD`, so no role token separates
+# the Growler from the two fighters: a CAP flight can always draw one. Offering
+# it nothing would be the worse answer, so the row carries its escort fit -
+# AARGM-ER x2 and AIM-260 x2 - which is how a Growler flies with a CAP anyway.
 CAP = ("CAP|Combat Air Patrol|Fighter|2|"
-       "AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor")
-RECON = "Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/AntiShip/Recon/AEW"
-HELO = ("HeloRecon|Ship's Flight|Helicopter|1|"
+       "AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/"
+       "MurderHornetLightsOut")
+# `Recon` and `AEW` are stock fit names carried by the P-3C and E-2C. Nothing
+# in this roster defines either: the P-8 offers only ASW and AntiShip, and the
+# Wedgetail and Triton declare no AvailableLoadouts line at all. They still
+# match the role filter, and whatever the engine gives a fitless airframe is
+# its default - not a preset invented here to make a checker pass.
+RECON = "Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/AntiShip"
+# No helicopter declares a `Helicopter` role, which is very likely why the one
+# stock helicopter tasking row is commented out in the shipped campaign. `SAR`
+# is the only token the MH-60R declares that no other roster aircraft shares,
+# so it is the filter; `ASW` would drag the P-8 in. This path is unverified.
+HELO = ("HeloRecon|Ship's Flight|SAR|1|"
         "ASW/ASWLongRange/ASWPatrol/Anti-shipLate")
 STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
           "Strike/StrikeLongRange/StrikePrecision/AntiShip/AntiShipHeavy/"
@@ -2104,26 +2132,46 @@ TANKER = "Tanker|Air-to-Air Refuelling|Airliner|1|Tanker"
 # where the player fights with what chapter's start gave them. SW10's rearm
 # is the labelled scheduled fallback the brief permits until the conditional
 # stores gate is demonstrated.
+# The builder does not open on the whole roster. The force assembles in
+# stages, so each purchase window names what is actually available then -
+# rendered into TaskForceModeAllowedRosterUnits, which Pacific Strike uses
+# eleven times for exactly this. The variants come from ROSTER, never restated.
+ESCORTS = ["ran_ffh_anzac", "ran_opv_arafura", "usn_mh-60r"]
+AIR_EARLY = ["usn_p8", "raaf_f-35a"]
+AIR_LATE = ["usn_fa-18f_blk3", "E7A_Wedgetail", "usn_ea-18g",
+            "raaf_mq-4c_triton", "usaf_kc-46a_boom"]
+BUY_01 = ESCORTS
+BUY_02 = ESCORTS + ["ran_ddg_hobart", "ran_aor_supply", "usn_p8"]
+BUY_03 = BUY_02 + ["ran_lsd_choules", "ran_ssg_collins", "raaf_f-35a"]
+BUY_05 = BUY_03 + ["ran_lhd_canberra", "usn_fa-18f_blk3", "E7A_Wedgetail"]
+BUY_07 = BUY_05 + ["usn_ea-18g", "raaf_mq-4c_triton", "usaf_kc-46a_boom"]
+BUY_09 = BUY_07 + ["js_ffg_mogami"]
+# SW12 replaces aircraft and repairs hulls; it does not sell new ones. That
+# was a comment above the window until the allowlist made it a rule.
+BUY_12 = AIR_EARLY + AIR_LATE + ["usn_mh-60r"]
+
 WINDOWS = {
-    "01": dict(buy=True, repair=True, rearm=True, flights=[HELO, RECON]),
+    "01": dict(buy=True, allow=BUY_01, repair=True, rearm=True, flights=[HELO, RECON]),
     "O1": dict(flights=[HELO]),
-    "02": dict(buy=True, repair=True, rearm=True,
+    "02": dict(buy=True, allow=BUY_02, repair=True, rearm=True,
                flights=[HELO, RECON, CAP, TANKER]),
     "C1": dict(flights=[HELO]),
-    "03": dict(buy=True, repair=True, rearm=True, flights=[HELO]),
+    "03": dict(buy=True, allow=BUY_03, repair=True, rearm=True, flights=[HELO]),
     "04": dict(flights=[HELO, RECON]),
-    "05": dict(buy=True, repair=True, rearm=True, flights=[HELO, STRIKE]),
+    "05": dict(buy=True, allow=BUY_05, repair=True, rearm=True, flights=[HELO, STRIKE]),
     "06": dict(flights=[CAP, RECON], airbase_prep=True),
-    "07": dict(buy=True, repair=True, rearm=True, flights=[CAP, TANKER],
+    "07": dict(buy=True, allow=BUY_07, repair=True, rearm=True, flights=[CAP, TANKER],
                airbase_prep=True),
     "08": dict(flights=[STRIKE, CAP], airbase_prep=True),
-    "09": dict(buy=True, repair=True, rearm=True, flights=[HELO, RECON]),
+    "09": dict(buy=True, allow=BUY_09, repair=True, rearm=True, flights=[HELO, RECON]),
     # No ordinary hull purchases and no paid repair; the rearm is the
     # scheduled fallback, not a proved conditional gate.
     "10": dict(rearm=True, flights=[HELO, RECON, CAP]),
-    "11": dict(buy=True, repair=True, rearm=True, flights=[CAP, STRIKE]),
+    "11": dict(buy=True, allow=BUY_09, repair=True,
+           rearm=True, flights=[CAP, STRIKE]),
     # Aircraft replacement and repair only: no new hulls, no general rearm.
-    "12": dict(buy=True, repair=True, flights=[HELO, RECON]),
+    "12": dict(buy=True, allow=BUY_12, repair=True,
+           flights=[HELO, RECON]),
 }
 
 TIMEOUTS = {
@@ -2214,7 +2262,8 @@ RESOLVERS = {
     "05": {"Escort": "victory", "Convoy": ("protect", "convoy"),
            "Magazine": ("protect", "warramunga")},
     "06": {"Convoy": "victory", "Picture": ("classify", "red_sag", 1),
-           "Sentry": ("protect", "isr"), "Hobart": ("protect", "hobart")},
+           "Sentry": ("protect", "isr"), "Hobart": ("protect", "hobart"),
+           "Airlift": ("classify", "red_lift", 1)},
     "07": {"Tanker": "victory", "Package": ("survive", "package"),
            "Raptors": ("survive", "cap")},
     "08": {"Window": "victory", "Town": "neutral",
@@ -2467,6 +2516,17 @@ for _m in MISSIONS:
         # ("classify", ref, minimum, variable-to-set)
         _m["resolve"]["Picture"] = ("classify", "red_sag", 1,
                                     "SW06NorthernGroupClassified")
+        # Recon that produces tasking rather than just a reveal: the escorts
+        # are screening something, and the something is a shuttle track the
+        # player was never briefed on. Taking it means holding the Triton
+        # north for another leg with the convoy clock already running - the
+        # same decision as the first one, asked again at a worse moment.
+        _m["discoveries"] = [dict(
+            after="Picture", objective="Airlift", seconds=120,
+            intel="Those escorts are screening a track, not a patrol line. "
+                  "There is a transport running south-west into the enclave "
+                  "field and nobody has put a name on it. Sentry 06 is the "
+                  "only thing in range that can.")]
     if _m["num"] == "09":
         # The second replenishment hull only exists if SUPPLY came through
         # chapter 1. Lose her at Steel Highway and the rear-area group is one
