@@ -77,6 +77,26 @@ and the rule gets a new revision — that has happened three times already.
   modular port meshes with a scaled concrete slab, built like the RAAF bases
   from existing geometry; that is untested in game.
 
+## Three different mod counts, and only one of them is ours
+
+- **Folders on disk is the only count that decides anything.** `mods-source/`, the
+  load order and every checker are built from the directories under
+  `steamapps\workshop\content\1286220`. A mod with no folder cannot load, so it
+  cannot matter, whatever any other number says.
+- **Steam keeps its own local list** in `steamapps\workshop\appworkshop_1286220.acf`.
+  It normally agrees with the folders. When it does not, the gap is diagnostic: an id
+  it tracks with no folder is a download that never landed, and a folder it does not
+  track is left over from an unsubscribe. `capture-context.ps1` now reports both
+  directions, with `NeedsDownload` and `NeedsUpdate`.
+- **The Steam UI's subscribed count is server-side and can legitimately be higher
+  than both.** Subscribed Collections have no content to download, and an item the
+  author delists stays in your subscription count forever. Neither can load, so
+  neither belongs in the load order.
+
+Earned twice in one session: the repo reported 138, the Mod Manager agreed at 138,
+and Steam said 140. Nothing was wrong. Before chasing a count, say which of the three
+you are quoting.
+
 ## The Tier 0 invariant
 
 Every SEST pack sits above every workshop mod, as one unbroken block, so
