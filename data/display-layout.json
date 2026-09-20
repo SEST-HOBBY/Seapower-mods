@@ -13,12 +13,12 @@
     "makes the pack a no-op that ships vanilla geometry - set it (or re-run the",
     "detector) before playing on one monitor, or the map is parked off-screen."
   ],
-  "source": "Stated by the user, 2026-09-20: two 2560x1440 monitors, side by side, panels on the right. Not yet confirmed against the live desktop - run tools/detect-displays.ps1.",
-  "detected": false,
+  "source": "Detected by tools/detect-displays.ps1 on QPSMCCU, 2026-09-21 00:06 - 2 displays.",
+  "detected": true,
   "mode": "second-screen",
   "margin": 12,
   "regions": [
-    { "id": "main", "role": "view",   "x": 0,    "y": 0, "width": 2560, "height": 1440 },
-    { "id": "aux",  "role": "panels", "x": 2560, "y": 0, "width": 2560, "height": 1440 }
+    { "id": "main", "role": "view", "x": 0, "y": 0, "width": 2560, "height": 1440 },
+    { "id": "aux2", "role": "panels", "x": 2560, "y": 0, "width": 2560, "height": 1440 }
   ]
 }
