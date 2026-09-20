@@ -246,8 +246,13 @@ def scan(mission):
         sensors = unit_sensors(t)
         blocks = weapon_blocks(t)
         by_name = dict(blocks)
+        # (?=^\[|\Z): a magazine that is the LAST section in the file has no
+        # following [ to close the match, so without the \Z alternative it is
+        # invisible here and the weapon that points at it is reported as
+        # pointing at nothing. jp_f-2a_late ends on [WeaponMagazineChaff] and
+        # was flagged for a chaff magazine it plainly defines.
         mags = {m.group(1).lower(): (m.group(1), m.group(2)) for m in
-                re.finditer(r"^\[WeaponMagazine([^\]]+)\]\n(.*?)(?=^\[)", t, re.S | re.M)}
+                re.finditer(r"^\[WeaponMagazine([^\]]+)\]\n(.*?)(?=^\[|\Z)", t, re.S | re.M)}
         where = f"{'MISSION' if fielded else 'sest'} {uid} ({f.parts[-3]}/{kind})"
 
         for wsname, body in blocks:

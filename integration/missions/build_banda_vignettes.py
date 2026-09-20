@@ -44,6 +44,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "integration" / "missions"))
+from refine_civ_traffic import winning_file  # noqa: E402
 MISSIONS = ROOT / "integration" / "missions"
 MODS = ROOT / "mods-source"
 PARENT = (MODS / "_vanilla" / "user" / "missions" / "user_missions"
@@ -51,6 +53,13 @@ PARENT = (MODS / "_vanilla" / "user" / "missions" / "user_missions"
 
 PREFIX = "SEST Banda"          # every file this script owns starts with this
 MAP = ("-6", "130")            # the parent's map centre: lat, lon
+
+
+# Every unit list a vignette may declare. render(), validate() and the build
+# summary all walk this one tuple: adding "red_air" to the vignettes without
+# adding it here emitted scenarios with no enemy aircraft in them at all, and
+# only the unit count in the summary gave it away.
+GROUPS = ("blue", "red", "neutral", "blue_air", "red_air", "red_land", "red_sub")
 
 
 def known_types():
@@ -345,6 +354,279 @@ V.append(dict(
 ))
 
 
+# --- second batch: the rest of the collection ------------------------------
+# The first six lean on the hulls and airframes the parent puts in the middle
+# of the map. These reach for what else is installed and was going unused -
+# the JASDF F-2A, the MiG-31, the YF-23 and J-36, the JMSDF Mogami, the RAAF
+# Triton, and the Rafale F5 fits - one mod family per problem, still small.
+
+V.append(dict(
+    key="Viper Zero",
+    time=(6, 5),
+    sea=3, clouds="Scattered_1",
+    blue_nation="Japan", red_nation="China",
+    brief=(
+        "OFF KALIMANTAN. A Type 071 is standing in toward the Chinese "
+        "industrial park with a 054A and a 056A screening her, and whatever "
+        "is in her well deck is meant to be ashore by nightfall.\n\n"
+        "You have four F-2s of the JASDF detachment, ASM-2 under the wings. "
+        "The Viper Zero was built for precisely this and for nothing else: "
+        "it is a strike fighter with a sea-search radar and no business "
+        "within reach of a frigate's SAMs. The 054A's HQ-16 is the ruler "
+        "here - launch outside it and you are a nuisance they cannot answer, "
+        "cross it and you are four aircraft Japan does not have spare."),
+    objectives=[
+        ("LPD", "Sink the landing ship", "25,-20,Fail,Main"),
+        ("Escort", "Deal with the escorts", "10,0,None"),
+        ("Flight", "Bring the flight home", "10,-15,Complete"),
+    ],
+    blue=[],
+    blue_names=[],
+    blue_air=[
+        ("jp_f-2a_late", "-1330,22000,-60", 60, {"LoadoutVariant": "AntiShip"}),
+        ("jp_f-2a_late", "-1332,22000,-63", 60, {"LoadoutVariant": "AntiShip"}),
+        ("jp_f-2a_late", "-1334,21000,-66", 60, {"LoadoutVariant": "AntiShip"}),
+        ("jp_f-2a_late", "-1336,21000,-69", 60, {"LoadoutVariant": "AntiShip"}),
+    ],
+    blue_air_names=["Viper 01", "Viper 02", "Viper 03", "Viper 04"],
+    red=[
+        ("plan_lpd_type_071", "-1215,0,-33", 90, {}),
+        ("plan_type_054a_p5", "-1224,0,-30", 90, {}),
+        ("plan_type_056a", "-1203,0,-36", 90, {}),
+    ],
+    red_names=["Type 071 Landing Ship", "Type 054A Escort", "Type 056A Escort"],
+    neutral=[],
+    neutral_names=[],
+    win_units="Taskforce2Vessel1",
+    win_min=1,
+    win_text="The landing ship is down. Whatever was in her well deck stays at sea.",
+    lose_text="The flight is gone and the landing goes in on schedule.",
+))
+
+V.append(dict(
+    key="Foxhound Sweep",
+    time=(11, 0),
+    sea=2, clouds="Clear",
+    blue_nation="USA", red_nation="Russia",
+    brief=(
+        "HIGH OVER THE ARAFURA. The Wedgetail and the tanker are the reason "
+        "the allied air picture exists out here, and both of them are slow, "
+        "large and unable to defend themselves. Two MiG-31s have come off "
+        "Biak climbing hard on a vector that only makes sense if they know "
+        "exactly where the orbit is.\n\n"
+        "You have two Raptors on station. The Foxhound is the one aircraft "
+        "in theatre that can out-run and out-reach you: the R-37 is shot from "
+        "above 50,000 feet at speeds you cannot chase, and a stern chase is "
+        "a waste of fuel you do not have. Break the shot, not the aircraft. "
+        "If the Wedgetail dies, the picture goes with it."),
+    objectives=[
+        ("HVA", "Keep the Wedgetail and the tanker alive", "25,-30,Complete,Main"),
+        ("Foxhounds", "Turn the interceptors back", "15,-10,Fail"),
+    ],
+    blue=[],
+    blue_names=[],
+    blue_air=[
+        ("E7A_Wedgetail", "120,32000,-180", 270, {}),
+        ("usaf_kc-46a_boom", "108,26000,-192", 270, {"LoadoutVariant": "Tanker"}),
+        ("usaf_f-22_s6", "150,38000,-150", 20, {"LoadoutVariant": "AirToAirIntercept"}),
+        ("usaf_f-22_s6", "156,38000,-156", 20, {"LoadoutVariant": "AirToAirIntercept"}),
+    ],
+    blue_air_names=["Wedgetail 01", "Texaco 41", "Raptor 11", "Raptor 12"],
+    red=[],
+    red_names=[],
+    red_air=[
+        ("wp_mig-31bm", "300,52000,60", 215, {"LoadoutVariant": "AirToAirLongRange"}),
+        ("wp_mig-31bm", "306,52000,54", 215, {"LoadoutVariant": "AirToAirLongRange"}),
+    ],
+    red_air_names=["Foxhound 51", "Foxhound 52"],
+    neutral=[],
+    neutral_names=[],
+    win_units="Taskforce2Aircraft1,Taskforce2Aircraft2",
+    win_min=2,
+    win_text="Both Foxhounds down and the orbit never moved. The picture holds.",
+    lose_text="The high-value aircraft are gone. Everything east goes blind.",
+))
+
+V.append(dict(
+    key="Mogami's Corner",
+    time=(23, 30),
+    sea=2, clouds="Overcast",
+    blue_nation="Japan", red_nation="China",
+    brief=(
+        "BANDA SEA, last hour before midnight. A Type 093B went quiet "
+        "somewhere in this box six hours ago and has not been heard since. "
+        "Two Mogamis have the corner: shallow water, a thermal layer that "
+        "comes and goes, and a fishing fleet working right through the "
+        "search area.\n\n"
+        "The Mogami is built for exactly this and carries one helicopter to "
+        "do it with. A nuclear boat in shallow water is quieter than the "
+        "sea around it and faster than you, so this is a problem of patience "
+        "and geometry rather than speed - and every contact has to be "
+        "resolved before it is attacked, because two of them are trawlers."),
+    objectives=[
+        ("Boat", "Find and kill the submarine", "25,-20,Fail,Main"),
+        ("Fishing", "Leave the fishing fleet alone", "0,-25,Complete"),
+        ("Ships", "Keep both frigates", "10,-15,Complete"),
+    ],
+    blue=[
+        ("js_ffg_mogami", "24,0,84", 45, {
+            "CustomAirGroup": "True", "_air": ["jp_sh-60k=Squadron1,1"]}),
+        ("js_ffg_mogami", "36,0,108", 225, {
+            "CustomAirGroup": "True", "_air": ["jp_sh-60k=Squadron1,1"]}),
+    ],
+    blue_names=["JS Mogami", "JS Kumano"],
+    red=[],
+    red_names=[],
+    red_sub=[
+        ("plan_ssn_type_093b", "30,shallow,96", 270, {}),
+    ],
+    red_sub_names=["Type 093B"],
+    neutral=[
+        ("civ_fv_sterntrawler_a", "27,0,90", 180, {}),
+        ("civ_fv_fishingboat_b", "33,0,102", 10, {}),
+    ],
+    neutral_names=["Banda Fishing North", "Banda Fishing South"],
+    win_units="Taskforce2Submarine1",
+    win_min=1,
+    win_text="The boat is on the bottom. The corner is clear.",
+    lose_text="Both frigates lost to a submarine they never found.",
+))
+
+V.append(dict(
+    key="Triton's Picture",
+    time=(7, 45),
+    sea=3, clouds="Scattered_1",
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        "ARAFURA SEA. HOBART has the missiles and no idea where to put them. "
+        "The Triton has the picture and nothing to shoot with. Between them "
+        "that is a working kill chain, and it holds exactly as long as the "
+        "drone does.\n\n"
+        "Two J-16s are already up and looking for it. An MQ-4C is a "
+        "high-altitude sailplane with a radar: it cannot turn, it cannot run "
+        "and it cannot hide, so keeping it alive is a matter of where you "
+        "fly it, not how. Get the targeting solution, pass it, and do not "
+        "lose the drone doing it."),
+    objectives=[
+        ("SAG", "Sink the surface group", "20,-15,Fail,Main"),
+        ("Triton", "Keep the Triton flying", "20,-25,Complete"),
+    ],
+    blue=[
+        ("ran_ddg_hobart", "150,0,-240", 0, {"VariantReference": "Variant2"}),
+    ],
+    blue_names=["HMAS Brisbane"],
+    blue_air=[
+        ("raaf_mq-4c_triton", "186,55000,-150", 315, {}),
+    ],
+    blue_air_names=["Triton 01"],
+    red=[
+        ("plan_type_052d_p3", "240,0,-90", 180, {}),
+        ("plan_type_054a_p5", "246,0,-96", 180, {}),
+    ],
+    red_names=["Type 052D", "Type 054A"],
+    red_air=[
+        ("plaaf_j16", "270,30000,-30", 200, {"LoadoutVariant": "AirToAirLongRange"}),
+        ("plaaf_j16", "276,30000,-36", 200, {"LoadoutVariant": "AirToAirLongRange"}),
+    ],
+    red_air_names=["Red Fighter 21", "Red Fighter 22"],
+    neutral=[],
+    neutral_names=[],
+    win_units="Taskforce2Vessel1",
+    win_min=1,
+    win_text="The 052D is gone and the drone is still on station. That is how it is supposed to work.",
+    lose_text="No picture, no shot.",
+))
+
+V.append(dict(
+    key="Black Widow Debut",
+    time=(13, 0),
+    sea=2, clouds="Clear",
+    blue_nation="USA", red_nation="China",
+    brief=(
+        "CERAM SEA, high. A KJ-500 has been orbiting north of the Banda for "
+        "two days, and every red intercept in this half of the archipelago "
+        "has been run off its picture. It flies with a pair of J-36s tucked "
+        "in behind it, which is the whole problem: the tailless jet sees far "
+        "and is hard to see.\n\n"
+        "Two YF-23s, the only pair in theatre. This is the matchup nobody has "
+        "data on - both sides are stealthy, both shoot long, and whoever gets "
+        "the first uncued track probably wins. The controller is the target. "
+        "The escorts are only in the way."),
+    objectives=[
+        ("AEW", "Shoot down the KJ-500", "30,-20,Fail,Main"),
+        ("Escort", "Deal with the escorts", "10,0,None"),
+        ("Pair", "Bring both aircraft home", "15,-20,Complete"),
+    ],
+    blue=[],
+    blue_names=[],
+    blue_air=[
+        ("usaf_yf-23_black_widow_ii", "0,40000,-60", 0,
+         {"LoadoutVariant": "AirToAirIntercept"}),
+        ("usaf_yf-23_black_widow_ii", "6,40000,-66", 0,
+         {"LoadoutVariant": "AirToAirIntercept"}),
+    ],
+    blue_air_names=["Widow 01", "Widow 02"],
+    red=[],
+    red_names=[],
+    red_air=[
+        # AEW, not omitted: this airframe declares AvailableLoadouts=AEW and
+        # no Default, so an entry with no LoadoutVariant has nothing to fall
+        # back on - preflight catches exactly that.
+        ("plaaf_kj-500", "12,30000,90", 270, {"LoadoutVariant": "AEW"}),
+        ("plaaf_j36", "24,36000,78", 200, {"LoadoutVariant": "AirToAirLongRange"}),
+        ("plaaf_j36", "30,36000,72", 200, {"LoadoutVariant": "AirToAirLongRange"}),
+    ],
+    red_air_names=["KJ-500 Controller", "J-36 Escort One", "J-36 Escort Two"],
+    neutral=[],
+    neutral_names=[],
+    win_units="Taskforce2Aircraft1",
+    win_min=1,
+    win_text="The controller is down. Red intercepts go back to guessing.",
+    lose_text="Both Widows lost and the orbit never broke.",
+))
+
+V.append(dict(
+    key="Rafale, Timor Gap",
+    time=(16, 20),
+    sea=4, clouds="Overcast",
+    blue_nation="France", red_nation="Russia",
+    brief=(
+        "TIMOR GAP, late afternoon, weather closing. Two Russian frigates "
+        "have been shadowing the southern lane for a week and have now "
+        "turned toward the Darwin approaches. The 22350 is a small ship with "
+        "a serious air-defence suite and no reason to be here.\n\n"
+        "Four Rafale M of the French battle group, LRASM on the heavy "
+        "stations and three tanks for the reach. The F5 fit trades the "
+        "Exocet's short legs for a missile that can be launched from outside "
+        "anything they carry - the point of the sortie is to prove that, not "
+        "to close the range. Sea state four, and the weather is on your side "
+        "for once."),
+    objectives=[
+        ("Frigates", "Sink both frigates", "25,-20,Fail,Main"),
+        ("Flight", "Bring the flight home", "15,-15,Complete"),
+    ],
+    blue=[],
+    blue_names=[],
+    blue_air=[
+        ("fr_rafale_m_l", "250,26000,180", 45, {"LoadoutVariant": "SEST_LRASM_ER"}),
+        ("fr_rafale_m_l", "254,26000,176", 45, {"LoadoutVariant": "SEST_LRASM_ER"}),
+        ("fr_rafale_m_l", "258,25000,172", 45, {"LoadoutVariant": "SEST_AntiShipLRASM"}),
+        ("fr_rafale_m_l", "262,25000,168", 45, {"LoadoutVariant": "SEST_AntiShipLRASM"}),
+    ],
+    blue_air_names=["Rafale 11", "Rafale 12", "Rafale 13", "Rafale 14"],
+    red=[
+        ("rfn_ffg_22350_1-4", "355.9,0,323.86", 225, {}),
+        ("rfn_ffg_22350_5-8", "363.1,0,328.66", 225, {}),
+    ],
+    red_names=["Admiral Gorshkov", "Admiral Golovko"],
+    neutral=[],
+    neutral_names=[],
+    win_units="Taskforce2Vessel1,Taskforce2Vessel2",
+    win_min=2,
+    win_text="Both frigates down, launched from outside their envelope. The F5 fit works.",
+    lose_text="The flight is scattered and the frigates are still closing Darwin.",
+))
+
 def block(tag, unit, extra_order=("VariantReference",)):
     ty, pos, hdg, extra = unit
     out = [f"[{tag}]", f"Type={ty}"]
@@ -365,7 +647,7 @@ def block(tag, unit, extra_order=("VariantReference",)):
 
 def render(v):
     L, blue_air, red_land = [], v.get("blue_air", []), v.get("red_land", [])
-    red_sub = v.get("red_sub", [])
+    red_sub, red_air = v.get("red_sub", []), v.get("red_air", [])
     name = f"{PREFIX} - {v['key']}"
 
     L.append("[Language_en]")
@@ -385,7 +667,8 @@ def render(v):
     for fam, key in (("Taskforce1Vessel", "blue_names"), ("Taskforce2Vessel", "red_names"),
                      ("NeutralVessel", "neutral_names"), ("Taskforce1Aircraft", "blue_air_names"),
                      ("Taskforce2LandUnit", "red_land_names"),
-                     ("Taskforce2Submarine", "red_sub_names")):
+                     ("Taskforce2Submarine", "red_sub_names"),
+                     ("Taskforce2Aircraft", "red_air_names")):
         for i, n in enumerate(v.get(key, []), start=1):
             L.append(f"{fam}{i}NameOverride={n}")
     L.append("")
@@ -403,6 +686,7 @@ def render(v):
           f"NumberOfTaskforce2Vessels={len(v['red'])}",
           f"NumberOfNeutralVessels={len(v['neutral'])}",
           f"NumberOfTaskforce1Aircraft={len(blue_air)}",
+          f"NumberOfTaskforce2Aircraft={len(red_air)}",
           f"NumberOfTaskforce2Submarines={len(red_sub)}",
           f"NumberOfTaskforce2LandUnits={len(red_land)}"]
     n_trig = 3 + (1 if v["blue"] or blue_air else 0) + (1 if v["neutral"] else 0)
@@ -421,6 +705,11 @@ def render(v):
                        (ty, pos, hdg, extra), ("SquadronReference",)))
     for i, u in enumerate(v["red"], 1):
         L.append(block(f"Taskforce2Vessel{i}", u))
+    for i, u in enumerate(red_air, 1):
+        ty, pos, hdg, extra = u
+        extra = dict(extra, SquadronReference="Squadron1")
+        L.append(block(f"Taskforce2Aircraft{i}",
+                       (ty, pos, hdg, extra), ("SquadronReference",)))
     for i, u in enumerate(red_sub, 1):
         L.append(block(f"Taskforce2Submarine{i}", u))
     for i, u in enumerate(red_land, 1):
@@ -473,10 +762,43 @@ def render(v):
     return name, "\n".join(L) + "\n"
 
 
+def loadout_ok(ty, extra, known):
+    """Check the loadout against the file that WINS the load order.
+
+    An entry with no LoadoutVariant needs a Default to fall back on: the
+    KJ-500 declares AvailableLoadouts=AEW and nothing else, so omitting the
+    variant produced a mission the game cannot resolve. Other unarmed types
+    here (the Triton, the Wedgetail) declare no AvailableLoadouts at all,
+    which the game handles implicitly, so the rule is specifically about a
+    type that lists loadouts but not Default.
+
+    It has to be the WINNING file, not the first one on disk. The first cut
+    of this check walked mods-source and stopped at the first match, which
+    for fr_rafale_m_l is the upstream Rafale mod - and duly reported that the
+    SEST fits this pack adds do not exist. winning_file() is what preflight
+    resolves with, and the pack's copy is what the game reads."""
+    win = winning_file(f"aircraft/{ty}.ini")
+    if not win:
+        return None
+    m = re.search(r"^AvailableLoadouts=(.+)$",
+                  Path(win).read_text(encoding="utf-8-sig", errors="replace"), re.M)
+    if not m:
+        return None
+    offered = [x.strip() for x in m.group(1).split(",")]
+    want = extra.get("LoadoutVariant")
+    if want is None:
+        return (None if "Default" in offered else
+                f"{ty} declares loadouts but no Default, and this entry names none "
+                f"(offers: {', '.join(offered)})")
+    if want not in offered:
+        return f"{ty} does not offer loadout {want!r} (offers: {', '.join(offered)})"
+    return None
+
+
 def validate(known):
     problems = []
     for v in V:
-        for group in ("blue", "red", "neutral", "blue_air", "red_land", "red_sub"):
+        for group in GROUPS:
             for ty, _pos, _hdg, extra in v.get(group, []):
                 if ty not in known:
                     problems.append(f"{v['key']}: {group} type {ty!r} is not defined "
@@ -484,12 +806,15 @@ def validate(known):
                 # An air group is a list of "<unit id>=SquadronN,count" lines and
                 # an unresolvable id there is just as fatal as an unresolvable
                 # hull - it is simply harder to see, so check it here too.
+                bad = loadout_ok(ty, extra, known)
+                if bad:
+                    problems.append(f"{v['key']}: {bad}")
                 for line in extra.get("_air", []):
                     aid = line.split("=")[0].strip()
                     if aid not in known:
                         problems.append(f"{v['key']}: {ty} air group names {aid!r}, "
                                         "which is not defined by any mod or pack")
-        for key in ("blue", "red", "neutral", "blue_air", "red_land", "red_sub"):
+        for key in GROUPS:
             names = v.get(key.split("_")[0] + "_names" if "_" not in key
                           else key + "_names", [])
             if names and len(names) != len(v.get(key, [])):
@@ -515,8 +840,7 @@ def main():
         dst = MISSIONS / f"{name}.ini"
         if args.write:
             dst.write_text(text, encoding="utf-8")
-        units = sum(len(v.get(g, [])) for g in
-                    ("blue", "red", "neutral", "blue_air", "red_land", "red_sub"))
+        units = sum(len(v.get(g, [])) for g in GROUPS)
         print(f"  {'wrote' if args.write else 'would write'} {name}.ini  "
               f"({units} units, {len(v['objectives'])} objectives)")
     print(f"\n{len(V)} vignettes from {PARENT.name}"
