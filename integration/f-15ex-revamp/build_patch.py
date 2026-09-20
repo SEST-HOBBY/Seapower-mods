@@ -358,133 +358,33 @@ def lower_side_rails(text):
 # through whatever is on the station. Reported in game on AAMT260Tanks (16x
 # AIM-260, three tanks) and on the MALICE fits, both as a missile sitting on a
 # rail that already had fuel on it.
-# --- The AIM-260's mesh origin rides low ------------------------------------
-# Reported in game: the JATMs hang wrong on almost every SEST fit. They ride
-# |120, the AMRAAM rail seat, and the AMRAAMs on that same seat look right -
-# so the round is the variable, not the rail.
+# --- WITHDRAWN: the AIM-260 seat lift ---------------------------------------
+# For one release every AIM-260 on this airframe rode its own copy of its
+# seat, raised 0.0025 (~17cm), on the theory that dts_aim-260.obj's origin
+# sits low. In game that was worse, not better, and the derivation is where
+# it went wrong.
 #
-# The collection already settled this on another airframe. Both F-35 JATM
-# packs give dts_aim-260 its OWN seat key rather than sharing the AMRAAM's,
-# and the number was converged by four tuning passes against screenshots
-# (docs/interoperability-report.md): ee7d97c "correcting the low/aft hang the
-# user screenshotted on the RAAF F-35A beast fit", a3d140d "First guess
-# overshot - missiles clipped into the pylons. Halved the vertical offset
-# (~17cm up from the model origin)", 192437f "Vertical is flush at 0.0025".
-# On the F-35 the AMRAAM on those same stations carries no key at all, so
-# +0.0025 IS the gap between where the two meshes hang from one origin -
-# a property of dts_aim-260.obj, not of an F-35 pylon. Both pylon pairs
-# needed the identical y while their z differed, which is the signature of a
-# mesh correction rather than a per-pylon tweak.
+# The number came from the two F-35 JATM packs, which seat dts_aim-260_w at
+# y=+0.0025 on stations whose AMRAAM hangs bare. That does measure a gap
+# between two meshes - but the AMRAAM it is measured against is the RAAF
+# F-35A mod's usaf_aim-120c7, whose model is usaf_aim-120c.obj / mesh
+# usaf_aim-120. It is the gap between dts_aim-260.obj and THAT mesh.
 #
-# Same defect and same remedy as the AIM-424 seat above ("the 424 renders
-# with the AGM-88G mesh, whose origin rides lower"): raising the shared key
-# would unseat every AMRAAM beside it, so the JATM gets its own copy of each
-# seat it uses, lifted, and nothing else on the airframe moves.
-JATM_SEAT_LIFT = 0.0025
-JATM_ROUNDS = ("dts_aim-260_w", "dts_aim-260")
-
-# Scope, stated plainly: the |120 wing rail is the seat the report is about
-# and the one the F-35 evidence transfers to directly - rail to pylon, one
-# round hanging in free air. The rack seats (|MTH and |MTW belly/wing racks,
-# and this pack's SESTR-* slot seats) get the SAME lift on the same reasoning
-# - the droop is the mesh's, so it applies wherever the round hangs - but
-# that half is inference, not a screenshot. If the belly rack rounds come
-# back sitting proud of their slots, name those seats here and they keep
-# upstream's shared geometry; the rails stay fixed either way.
-JATM_SEATS_EXEMPT = ()
-
-
-def _seat_table(text):
-    """Every <key>Positions= in the file -> its raw value, comments stripped."""
-    out = {}
-    for m in re.finditer(r"^([\w\-]+)Positions=([^\n]+)$", text, re.M):
-        out[m.group(1)] = re.split(r"\s*(?:#|//)", m.group(2))[0].strip()
-    return out
-
-
-def _jatm_key(base):
-    """Name for the lifted copy of a seat. Mirrors the F-35 packs' AAM260."""
-    if base is None:
-        return "AAM260B"                    # bare station: no seat key at all
-    if base == "120":
-        return "AAM260"
-    if base.startswith("SESTR-"):
-        return "AAM260-" + base[len("SESTR-"):]
-    return "AAM260" + base
-
-
-def _lift(raw, dy):
-    segs = []
-    for seg in raw.split("|"):
-        try:
-            x, y, z = (float(v) for v in seg.split(","))
-        except ValueError:
-            sys.exit(f"seat {raw!r} is not a list of x,y,z triples - re-check by hand")
-        segs.append(f"{x:g},{round(y + dy, 6):g},{z:g}")
-    return "|".join(segs)
-
-
-def seat_jatm(text):
-    """Give every AIM-260 a lifted copy of the seat it currently rides."""
-    jatm = "|".join(re.escape(r) for r in JATM_ROUNDS)
-    station = re.compile(rf"^(Station\d+=)({jatm})(?:\|([\w\-]+))?[ \t]*$", re.M)
-
-    # A JATM outside the WeaponSystem1 loadouts would need its key defined in
-    # that other block's own table, which this does not do. Refuse instead.
-    for m in re.finditer(r"^\[(WeaponSystem\d+)([A-Za-z0-9_\-]*)\]\n(.*?)(?=^\[|\Z)",
-                         text, re.M | re.S):
-        if m.group(1) != "WeaponSystem1" and station.search(m.group(3)):
-            sys.exit(f"AIM-260 carried in [{m.group(1)}{m.group(2)}] - that block has its "
-                     "own position table; seat it there by hand")
-
-    seats = _seat_table(text)
-    unknown_exempt = [s for s in JATM_SEATS_EXEMPT if s not in seats]
-    if unknown_exempt:
-        sys.exit(f"JATM_SEATS_EXEMPT names seats that do not exist: {unknown_exempt}")
-    used = {}                               # base key (or None) -> lifted name
-    for m in station.finditer(text):
-        base = m.group(3)
-        if base is not None and base not in seats:
-            sys.exit(f"AIM-260 rides |{base}, which no {base}Positions= defines")
-        if base in JATM_SEATS_EXEMPT:
-            continue                        # keeps the shared seat, unlifted
-        used[base] = _jatm_key(base)
-    if not used:
-        sys.exit("no AIM-260 stations found - upstream dropped the round?")
-
-    lines = []
-    for base, new in sorted(used.items(), key=lambda kv: kv[1]):
-        if f"{new}Positions=" in text:
-            sys.exit(f"{new}Positions already defined - re-check by hand")
-        src = seats[base] if base else "0,0,0"
-        lines.append(f"{new}Positions={_lift(src, JATM_SEAT_LIFT)}"
-                     f"   # {base or 'bare station'} + {JATM_SEAT_LIFT:g} (JATM mesh hangs low)")
-        # A seat's rotation belongs to the seat: carry it onto the copy, or
-        # the lifted rounds quietly lose the pitch their partners keep.
-        rot = re.search(rf"^{re.escape(base)}Rotations=([^\n]+)$", text, re.M) if base else None
-        if rot:
-            lines.append(f"{new}Rotations={rot.group(1).strip()}")
-
-    agm = re.search(r"^AGMPositions=[^\n]*\n", text, re.M)
-    if not agm:
-        sys.exit("AGMPositions not found - upstream layout changed")
-    text = (text[:agm.end()]
-            + "# SEST: AIM-260 seats, each the round's current seat lifted "
-            + f"{JATM_SEAT_LIFT:g} (see JATM_SEAT_LIFT).\n"
-            + "\n".join(lines) + "\n"
-            + text[agm.end():])
-
-    def reseat(m):
-        if m.group(3) in JATM_SEATS_EXEMPT:
-            return m.group(0)
-        return f"{m.group(1)}{m.group(2)}|{_jatm_key(m.group(3))}"
-
-    text, n = station.subn(reseat, text)
-    n -= sum(1 for m in station.finditer(text) if m.group(3) in JATM_SEATS_EXEMPT)
-    print(f"  AIM-260: {n} station(s) reseated onto {len(used)} lifted key(s) "
-          f"(+{JATM_SEAT_LIFT:g}): {', '.join(sorted(used.values()))}")
-    return text
-
+# This airframe's |120 rail is tuned for dts_aim-120d-3 - Dingtools' own
+# AMRAAM, and a third mesh again. It is also the one round that has every
+# reason to share the JATM's origin: dts_aim-120.obj and dts_aim-260.obj
+# ship from the same folder in the same mod, with identical Scale
+# (0.005,0.005,0.05), identical colliders and the same Rotation=0,0,45. The
+# author seats both rounds on |120 in his own AirToAirIntercept and AAMT260
+# and evidently found that right. Carrying a delta measured against a
+# foreign mesh onto a rail already tuned for the sibling mesh was double-
+# counting, and 0.0025 is a full AMRAAM diameter of it.
+#
+# So the JATMs go back on upstream's seats - |120, |MTH, |MTW, bare and this
+# pack's SESTR-* slots - exactly as the mod author fits them. If they still
+# hang wrong, the next move needs a screenshot and a direction, not another
+# transferred constant: the honest position is that this pack has no
+# measurement of its own for this mesh on this airframe.
 
 WING_STATIONS = (16, 17)
 WING_PYLON_RAILS = (1, 2, 5, 6)
@@ -753,7 +653,7 @@ def check_symmetry(text):
 
 INFO_INI = """[Language_en]
 Name=SEST F-15EX Revamp
-Description=Seven extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x GBU-31 Quicksink, a what-if very-long-range AIM-424 MALICE family (6x / 4x+fuel / 8x-truck), and long-range versions of the AMRAAM and AIM-260 missile trucks that trade the wing twin-racks for fuel. Every AIM-260 sits on its own lifted seat so the JATM hangs flush instead of low. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
+Description=Seven extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x GBU-31 Quicksink, a what-if very-long-range AIM-424 MALICE family (6x / 4x+fuel / 8x-truck), and long-range versions of the AMRAAM and AIM-260 missile trucks that trade the wing twin-racks for fuel. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -846,11 +746,6 @@ def main():
     #     room for, then refuse to ship if one survives.
     text = clear_rails_under_wing_station(text)
     verify_rails_under_wing_station(text)
-
-    # 5c. Reseat the AIM-260s LAST, so the rounds the rail rule just cleared
-    #     are already gone and the symmetry fix's own Station10=...|120 is in
-    #     place to be converted with the rest.
-    text = seat_jatm(text)
 
     # 5d. Nothing may reference a seat the file does not define. Step 4
     #     checked only the sections this pack writes; this checks the whole
