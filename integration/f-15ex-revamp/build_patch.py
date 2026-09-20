@@ -21,15 +21,17 @@ OUT = Path(__file__).resolve().parent / "SEST_F-15EX_Revamp"
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 
-NEW_KEYS = ["SEST_AntiShipLRASM6", "Quicksink", "BigStick174", "BigStick174ER",
-            "Truck174", "Malice6", "MaliceER", "MaliceTruck",
-            "AAMT120Tanks", "AAMT260Tanks"]
+# The three AIM-174B "Gunslinger" fits (BigStick174, BigStick174ER,
+# Truck174) were removed at the user's request. Their MALICE mirrors -
+# Malice6, MaliceER, MaliceTruck - carry the same layouts on the AIM-424 and
+# stay. Nothing here needs Murder Hornet any more.
+NEW_KEYS = ["SEST_AntiShipLRASM6", "Quicksink", "Malice6", "MaliceER",
+            "MaliceTruck", "AAMT120Tanks", "AAMT260Tanks"]
 
 NEW_SECTIONS = """\
 [--------------------------- SEST Revamp loadouts ---------------------------]
 # Added by the SEST F-15EX Revamp patch. Requires the Dingtools Weapon Pack
-# (dts_ weapons); the BigStick174 loadout additionally requires Murder Hornet
-# (usn_aim-174b). The 610 gal tank is vanilla.
+# (dts_ weapons). The 610 gal tank is vanilla.
 
 [WeaponSystem1SEST_AntiShipLRASM6]
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
@@ -66,79 +68,14 @@ Station15=usaf_tank_610_f-15|WT
 Station26=dts_anaaq-33
 Station27=dts_anaaq-13
 
-[WeaponSystem1BigStick174]
-ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
-CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# AIM-260 on the inner wing pylon rails, which this fit used to leave empty.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
-Station7=dts_aim-120d-3_w|120
-Station8=dts_aim-120d-3_w|120
-Station9=dts_aim-9x
-Station10=dts_aim-9x
-Station11=usn_aim-174b|SEST174
-Station12=usn_aim-174b|SEST174
-Station13=usn_aim-174b|SEST174
-Station14=usn_aim-174b|SEST174
-Station15=usaf_tank_610_f-15|WT
-Station16=usn_aim-174b|WW
-Station17=usn_aim-174b|WW
 
-[WeaponSystem1BigStick174ER]
-ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
-CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# The outer wing pylons are baked into the airframe model and render whether
-# or not they carry anything, so use them: AMRAAM on the pylon2 inner
-# stations, AIM-9X outboard of them on the outermost pair.
-# AIM-260 on the inner wing pylon rails alongside the tanks.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
-Station7=dts_aim-120d-3_w|120
-Station8=dts_aim-120d-3_w|120
-Station9=dts_aim-9x
-Station10=dts_aim-9x
-Station11=usn_aim-174b|SEST174
-Station12=usn_aim-174b|SEST174
-Station13=usn_aim-174b|SEST174
-Station14=usn_aim-174b|SEST174
-Station15=usaf_tank_610_f-15|WT
-Station16=usaf_tank_610_f-15|WT
-Station17=usaf_tank_610_f-15|WT
 
-[WeaponSystem1Truck174]
-ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
-CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
-SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# 8-round AIM-174B missile truck: 4 under the fuselage (Bottom1 wells) and
-# 4 on the inner wing pylons' shoulder rails, with the outer wing pylons
-# carrying self-escort AAMs and centreline fuel only.
-Station1=dts_aim-260_w|120
-Station2=dts_aim-260_w|120
-Station5=dts_aim-260_w|120
-Station6=dts_aim-260_w|120
-Station7=dts_aim-120d-3_w|120
-Station8=dts_aim-120d-3_w|120
-Station9=dts_aim-9x
-Station10=dts_aim-9x
-Station11=usn_aim-174b|SEST174
-Station12=usn_aim-174b|SEST174
-Station13=usn_aim-174b|SEST174
-Station14=usn_aim-174b|SEST174
-Station16=usn_aim-174b|WW
-Station17=usn_aim-174b|WW
-Station15=usaf_tank_610_f-15|WT
 
 [WeaponSystem1Malice6]
 ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# MALICE mirror of BigStick174: 6x AIM-424 plus AIM-260 on the inner rails.
+# 6x AIM-424, plus AIM-260 on the inner rails where the pylon allows.
 Station1=dts_aim-260_w|120
 Station2=dts_aim-260_w|120
 Station5=dts_aim-260_w|120
@@ -159,7 +96,7 @@ Station17=sest_aim-424|M424W
 ReadyUpTime=30               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# MALICE mirror of BigStick174ER: 4x AIM-424 under, 3 tanks, AIM-260 on the
+# Long-range fit: 4x AIM-424 under, 3 tanks, AIM-260 on the
 # inner side rails (RAIL_EXEMPT keeps them; the outer pair is stripped).
 Station1=dts_aim-260_w|120
 Station2=dts_aim-260_w|120
@@ -240,7 +177,7 @@ Station17=usaf_tank_610_f-15|WT
 ReadyUpTime=35               // in minutes. Time that plane will spend refueling and rearming before takeoff.
 CoolDownTime=60              // in minutes. Time that plane will spend in maintenance after landing.
 SubModelsToHide=TER_Rack_Left,TER_Rack_Right,LAU-88_L,LAU-88_R,AAMT,Py13,Py33,33Glass
-# MALICE mirror of Truck174: 8x AIM-424 plus self-escort AAMs on the outer
+# 8x AIM-424 truck, plus self-escort AAMs on the outer
 # wing pylons, centreline fuel only.
 Station1=dts_aim-260_w|120
 Station2=dts_aim-260_w|120
@@ -264,9 +201,6 @@ LOADOUT_NAMES = {
     "en": {
         "SEST_AntiShipLRASM6": "SEST AntiShipLRASM6",
         "Quicksink": "SEST StrikeQuicksink",
-        "BigStick174": "SEST Intercept174",
-        "BigStick174ER": "SEST Intercept174 LongRange",
-        "Truck174": "SEST Intercept174 Truck (8x)",
         "Malice6": "SEST InterceptMALICE (6x AIM-424)",
         "MaliceER": "SEST InterceptMALICE LongRange",
         "MaliceTruck": "SEST InterceptMALICE Truck (8x)",
@@ -276,9 +210,6 @@ LOADOUT_NAMES = {
     "cn": {
         "SEST_AntiShipLRASM6": "SEST 重型反舰LRASM×6",
         "Quicksink": "SEST 快沉反舰JDAM",
-        "BigStick174": "SEST 超远程截击174",
-        "BigStick174ER": "SEST 超远程截击174 (远程)",
-        "Truck174": "SEST 超远程截击174 (8联卡车)",
         "Malice6": "SEST 马利斯截击 (6x AIM-424)",
         "MaliceER": "SEST 马利斯截击 (远程)",
         "MaliceTruck": "SEST 马利斯截击 (8联卡车)",
@@ -427,6 +358,134 @@ def lower_side_rails(text):
 # through whatever is on the station. Reported in game on AAMT260Tanks (16x
 # AIM-260, three tanks) and on the MALICE fits, both as a missile sitting on a
 # rail that already had fuel on it.
+# --- The AIM-260's mesh origin rides low ------------------------------------
+# Reported in game: the JATMs hang wrong on almost every SEST fit. They ride
+# |120, the AMRAAM rail seat, and the AMRAAMs on that same seat look right -
+# so the round is the variable, not the rail.
+#
+# The collection already settled this on another airframe. Both F-35 JATM
+# packs give dts_aim-260 its OWN seat key rather than sharing the AMRAAM's,
+# and the number was converged by four tuning passes against screenshots
+# (docs/interoperability-report.md): ee7d97c "correcting the low/aft hang the
+# user screenshotted on the RAAF F-35A beast fit", a3d140d "First guess
+# overshot - missiles clipped into the pylons. Halved the vertical offset
+# (~17cm up from the model origin)", 192437f "Vertical is flush at 0.0025".
+# On the F-35 the AMRAAM on those same stations carries no key at all, so
+# +0.0025 IS the gap between where the two meshes hang from one origin -
+# a property of dts_aim-260.obj, not of an F-35 pylon. Both pylon pairs
+# needed the identical y while their z differed, which is the signature of a
+# mesh correction rather than a per-pylon tweak.
+#
+# Same defect and same remedy as the AIM-424 seat above ("the 424 renders
+# with the AGM-88G mesh, whose origin rides lower"): raising the shared key
+# would unseat every AMRAAM beside it, so the JATM gets its own copy of each
+# seat it uses, lifted, and nothing else on the airframe moves.
+JATM_SEAT_LIFT = 0.0025
+JATM_ROUNDS = ("dts_aim-260_w", "dts_aim-260")
+
+# Scope, stated plainly: the |120 wing rail is the seat the report is about
+# and the one the F-35 evidence transfers to directly - rail to pylon, one
+# round hanging in free air. The rack seats (|MTH and |MTW belly/wing racks,
+# and this pack's SESTR-* slot seats) get the SAME lift on the same reasoning
+# - the droop is the mesh's, so it applies wherever the round hangs - but
+# that half is inference, not a screenshot. If the belly rack rounds come
+# back sitting proud of their slots, name those seats here and they keep
+# upstream's shared geometry; the rails stay fixed either way.
+JATM_SEATS_EXEMPT = ()
+
+
+def _seat_table(text):
+    """Every <key>Positions= in the file -> its raw value, comments stripped."""
+    out = {}
+    for m in re.finditer(r"^([\w\-]+)Positions=([^\n]+)$", text, re.M):
+        out[m.group(1)] = re.split(r"\s*(?:#|//)", m.group(2))[0].strip()
+    return out
+
+
+def _jatm_key(base):
+    """Name for the lifted copy of a seat. Mirrors the F-35 packs' AAM260."""
+    if base is None:
+        return "AAM260B"                    # bare station: no seat key at all
+    if base == "120":
+        return "AAM260"
+    if base.startswith("SESTR-"):
+        return "AAM260-" + base[len("SESTR-"):]
+    return "AAM260" + base
+
+
+def _lift(raw, dy):
+    segs = []
+    for seg in raw.split("|"):
+        try:
+            x, y, z = (float(v) for v in seg.split(","))
+        except ValueError:
+            sys.exit(f"seat {raw!r} is not a list of x,y,z triples - re-check by hand")
+        segs.append(f"{x:g},{round(y + dy, 6):g},{z:g}")
+    return "|".join(segs)
+
+
+def seat_jatm(text):
+    """Give every AIM-260 a lifted copy of the seat it currently rides."""
+    jatm = "|".join(re.escape(r) for r in JATM_ROUNDS)
+    station = re.compile(rf"^(Station\d+=)({jatm})(?:\|([\w\-]+))?[ \t]*$", re.M)
+
+    # A JATM outside the WeaponSystem1 loadouts would need its key defined in
+    # that other block's own table, which this does not do. Refuse instead.
+    for m in re.finditer(r"^\[(WeaponSystem\d+)([A-Za-z0-9_\-]*)\]\n(.*?)(?=^\[|\Z)",
+                         text, re.M | re.S):
+        if m.group(1) != "WeaponSystem1" and station.search(m.group(3)):
+            sys.exit(f"AIM-260 carried in [{m.group(1)}{m.group(2)}] - that block has its "
+                     "own position table; seat it there by hand")
+
+    seats = _seat_table(text)
+    unknown_exempt = [s for s in JATM_SEATS_EXEMPT if s not in seats]
+    if unknown_exempt:
+        sys.exit(f"JATM_SEATS_EXEMPT names seats that do not exist: {unknown_exempt}")
+    used = {}                               # base key (or None) -> lifted name
+    for m in station.finditer(text):
+        base = m.group(3)
+        if base is not None and base not in seats:
+            sys.exit(f"AIM-260 rides |{base}, which no {base}Positions= defines")
+        if base in JATM_SEATS_EXEMPT:
+            continue                        # keeps the shared seat, unlifted
+        used[base] = _jatm_key(base)
+    if not used:
+        sys.exit("no AIM-260 stations found - upstream dropped the round?")
+
+    lines = []
+    for base, new in sorted(used.items(), key=lambda kv: kv[1]):
+        if f"{new}Positions=" in text:
+            sys.exit(f"{new}Positions already defined - re-check by hand")
+        src = seats[base] if base else "0,0,0"
+        lines.append(f"{new}Positions={_lift(src, JATM_SEAT_LIFT)}"
+                     f"   # {base or 'bare station'} + {JATM_SEAT_LIFT:g} (JATM mesh hangs low)")
+        # A seat's rotation belongs to the seat: carry it onto the copy, or
+        # the lifted rounds quietly lose the pitch their partners keep.
+        rot = re.search(rf"^{re.escape(base)}Rotations=([^\n]+)$", text, re.M) if base else None
+        if rot:
+            lines.append(f"{new}Rotations={rot.group(1).strip()}")
+
+    agm = re.search(r"^AGMPositions=[^\n]*\n", text, re.M)
+    if not agm:
+        sys.exit("AGMPositions not found - upstream layout changed")
+    text = (text[:agm.end()]
+            + "# SEST: AIM-260 seats, each the round's current seat lifted "
+            + f"{JATM_SEAT_LIFT:g} (see JATM_SEAT_LIFT).\n"
+            + "\n".join(lines) + "\n"
+            + text[agm.end():])
+
+    def reseat(m):
+        if m.group(3) in JATM_SEATS_EXEMPT:
+            return m.group(0)
+        return f"{m.group(1)}{m.group(2)}|{_jatm_key(m.group(3))}"
+
+    text, n = station.subn(reseat, text)
+    n -= sum(1 for m in station.finditer(text) if m.group(3) in JATM_SEATS_EXEMPT)
+    print(f"  AIM-260: {n} station(s) reseated onto {len(used)} lifted key(s) "
+          f"(+{JATM_SEAT_LIFT:g}): {', '.join(sorted(used.values()))}")
+    return text
+
+
 WING_STATIONS = (16, 17)
 WING_PYLON_RAILS = (1, 2, 5, 6)
 
@@ -443,7 +502,7 @@ WING_PYLON_RAILS = (1, 2, 5, 6)
 # rails around one.
 # The trucks fly their side rails armed ABOVE the underslung round - user
 # call, same in-game-verified coexistence as MaliceER's rails-beside-tank.
-RAIL_EXEMPT = {(t, r) for t in ("MaliceTruck", "Truck174") for r in (1, 2, 5, 6)}
+RAIL_EXEMPT = {(t, r) for t in ("MaliceTruck",) for r in (1, 2, 5, 6)}
 
 
 def _rail_allowance(station_store):
@@ -694,7 +753,7 @@ def check_symmetry(text):
 
 INFO_INI = """[Language_en]
 Name=SEST F-15EX Revamp
-Description=Ten extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x GBU-31 Quicksink, and a what-if very-long-range family - 6x/4x+fuel/8x-truck AIM-174B fits plus matching 6x/4x+fuel/8x-truck AIM-424 MALICE fits, plus long-range versions of the AMRAAM and AIM-260 missile trucks that trade the wing twin-racks for fuel. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; AIM-174B fits also need Murder Hornet, and the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
+Description=Seven extra F-15EX loadouts: 6x LRASM anti-ship surge, 4x GBU-31 Quicksink, a what-if very-long-range AIM-424 MALICE family (6x / 4x+fuel / 8x-truck), and long-range versions of the AMRAAM and AIM-260 missile trucks that trade the wing twin-racks for fuel. Every AIM-260 sits on its own lifted seat so the JATM hangs flush instead of low. Requires the F-15SE (F-15EX) mod and Dingtools Weapon Pack; the MALICE model comes from US Naval Aviation. Place ABOVE the F-15EX mod in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -738,12 +797,9 @@ def main():
     #     partners S22/23 sit on +5 stations, so -2 nets +3 (assuming seat
     #     rotations ADD to the station's; if in game they lean the other way
     #     the engine replaces, and AR/AL want 3,0,0 instead).
-    #     SEST174 seats the belly AIM-174B: |AGM raised 0.001 to sit flush
-    #     with the fuselage (in-game call).
     text = (text[:agm.end()]
             + "M424Positions=0,-0.0005,0\n"
             + "M424WPositions=0,-0.0005,0\n"   # WW raised 0.001 - the 424 hung low underslung
-            + "SEST174Positions=0,-0.001,0\n"
             + "SESTR-ORPositions=0.0022,-0.0025,-0.01\n"
             + "SESTR-OLPositions=-0.0022,-0.0025,-0.01\n"
             + "SESTR-FRPositions=-0.0082,-0.0055,0.0335\n"   # S19 z is -0.0335 like S18 (S20 owns 0.003 - the first cut used the wrong row and pushed this round aft)
@@ -790,6 +846,20 @@ def main():
     #     room for, then refuse to ship if one survives.
     text = clear_rails_under_wing_station(text)
     verify_rails_under_wing_station(text)
+
+    # 5c. Reseat the AIM-260s LAST, so the rounds the rail rule just cleared
+    #     are already gone and the symmetry fix's own Station10=...|120 is in
+    #     place to be converted with the rest.
+    text = seat_jatm(text)
+
+    # 5d. Nothing may reference a seat the file does not define. Step 4
+    #     checked only the sections this pack writes; this checks the whole
+    #     shipped file, which is what the game actually reads.
+    defined = set(re.findall(r"^([\w\-]+)Positions=", text, re.M))
+    dangling = sorted({k for k in re.findall(r"^Station\d+=[^|\n]+\|([\w\-]+)[ \t]*$",
+                                             text, re.M)} - defined)
+    if dangling:
+        sys.exit(f"stations reference undefined position keys: {dangling}")
 
     # 6. Write the mod folder
     (OUT / "aircraft").mkdir(parents=True, exist_ok=True)

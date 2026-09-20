@@ -29,6 +29,17 @@ taste.
    Strike183Nuke mirrors the existing Strike183 exactly: the same four pylon
    stations, the same position keys, the same SubModelsToHide.
 
+3. The three B-52s each flew fits the others could not, for no reason but
+   which mod defined them. The B-52H's AntiShip is 20 rounds of AGM-158C-3
+   (8 in the rotary launcher, 3 on each of four pylon seats) while this pack
+   had given the B-52O a 16-round fit of its own invention; the 419th FLTS
+   testbed had exactly one loadout. They are the same airframe where it
+   matters - identical bay table, identical pylon coordinates, the H just
+   declares more rows - so the H's 20-round fit now flies on all three and
+   the testbed's usn_arrw fit flies on both B-52s and on the B-1B, each on
+   the carriage its own file already proved. assert_shared_geometry() fails
+   the build the day that stops being true.
+
 Usage (repo root):  python3 integration/b52-arrw/build_patch.py
 """
 import re
@@ -43,6 +54,55 @@ RSA = ROOT / "mods-source" / "3413868677"          # Red Storm Arsenal, ships us
 ARRW_MOD = ROOT / "mods-source" / "3502273861"     # ARRW, ships the 419th FLTS bird
 DINGTOOLS = ROOT / "mods-source" / "3760871384"    # Dingtools, WINS both AGM-183A files
 
+B1B_MOD = ROOT / "mods-source" / "3652097318"      # B-1B, ships usaf_b-1b_dts
+
+# --- The three B-52s are one airframe as far as carriage goes ---------------
+# Checked across the exported files, and the reason a fit can be ported
+# between them at all:
+#
+#   WS1 (bomb bay)   identical table on all three; Station6 is the CSRL
+#   WS2 (pylons)     identical coordinates - the forward pair is
+#                    -/+0.077,-0.0071,0.0693 in every one of the three
+#
+# The H differs only by DECLARING more pylon rows (8 against 2); the rows it
+# adds sit at coordinates the others simply do not list. So porting the H's
+# 20-round fit is not a guess about three models, it is the same numbers on
+# the same points - which is the argument build_b52o() already makes for the
+# ARRW pylon. assert_shared_geometry() fails the build if that stops holding.
+PYLON_FWD = ("-0.077,-0.0071,0.0693", "0.077,-0.0071,0.0693")
+PYLON_AFT = ("-0.077,-0.0071,-0.02", "0.077,-0.0071,-0.02")   # the H's Station7/8
+CSRL_BAY = "0,-0.0135,0.0026"                                  # WS1 Station6
+
+# The H's own 20-round LRASM fit: 8 in the rotary launcher plus 3 on each of
+# four pylon seats. AGM86_Pylon is a 3-position triangle, which is where the
+# 12 come from - the other B-52s' 6-position pylon keys are a different rack
+# and would give a different count and a different silhouette.
+LRASM = "dts_agm-158c-3"
+AGM86_PYLON = "0,-0.005,0.048|-0.0084,0.0000,0.048|0.0084,0.0000,0.048"
+
+
+def _stations(text, block_name):
+    """The Station<n>=x,y,z rows of one WeaponSystem block, as {n: 'x,y,z'}."""
+    m = re.search(rf"^\[{re.escape(block_name)}\][^\n]*\n(.*?)(?=^\[WeaponSystem)",
+                  text, re.M | re.S)
+    if not m:
+        sys.exit(f"[{block_name}] not found - upstream layout changed")
+    return {int(n): v.strip() for n, v in
+            re.findall(r"^Station(\d+)=([-\d.,]+)\s*(?://.*)?$", m.group(1), re.M)}
+
+
+def assert_shared_geometry(files):
+    """Refuse to port a fit if the airframes stop agreeing on where things are."""
+    for name, text in files.items():
+        ws1, ws2 = _stations(text, "WeaponSystem1"), _stations(text, "WeaponSystem2")
+        if ws1.get(6) != CSRL_BAY:
+            sys.exit(f"{name}: WS1 Station6 is {ws1.get(6)!r}, expected the CSRL at "
+                     f"{CSRL_BAY!r} - the bay table moved, re-check by hand")
+        if (ws2.get(1), ws2.get(2)) != PYLON_FWD:
+            sys.exit(f"{name}: WS2 pylon pair is {(ws2.get(1), ws2.get(2))!r}, expected "
+                     f"{PYLON_FWD!r} - the airframes no longer share pylon geometry")
+
+
 # usn_cps, the Navy boost-glide round already in the collection, is the anchor.
 # MaxLoftAngle is the one value not copied straight across: CPS is surface-
 # launched and needs a shallow 35 deg to reach its 1889 nm; ARRW is released
@@ -56,6 +116,71 @@ LOFT = {
 }
 
 AGM183 = ["dts_agm-183a", "dts_agm-183a(w62)"]
+
+# One key per fit, shared across airframes: loadout names are a GLOBAL
+# key->name table, so the same fit on four aircraft wants the same key and
+# gets one name. Neither key is used by any mission file (checked).
+LRASM20_KEY = "AntiShipLRASM20"
+TESTBED_KEY = "ARRWTestbed"
+TESTBED_ROUND = "usn_arrw"
+
+
+def extend_pylon_table(text, name):
+    """Give a 2-station pylon table the H's aft pair, and the AGM86 seat.
+
+    The recipients declare only the forward pylon pair. The H's 20-round fit
+    hangs three rounds on each of two pairs, so the aft rows have to exist
+    before the fit can be ported. They are the H's own Station7/8 verbatim -
+    same coordinates, and like the H's, no Rotation line (it defines those
+    only for stations 1-6)."""
+    m = re.search(r"^\[WeaponSystem2\][^\n]*\n(.*?)(?=^\[WeaponSystem)", text, re.M | re.S)
+    if not m:
+        sys.exit(f"{name}: [WeaponSystem2] not found - upstream layout changed")
+    body = m.group(1)
+    n = re.search(r"^NumberOfStations=(\d+)$", body, re.M)
+    if not n or n.group(1) != "2":
+        sys.exit(f"{name}: WS2 declares {n and n.group(1)} stations, expected 2 - "
+                 "upstream added pylon rows, re-check the port by hand")
+    if "AGM86_Pylon" in body:
+        sys.exit(f"{name}: AGM86_Pylon already defined upstream - re-check")
+
+    new = body.replace(f"NumberOfStations=2", "NumberOfStations=4", 1)
+    st2 = re.search(r"^Station2=[^\n]*\n", new, re.M)
+    new = (new[:st2.end()]
+           + f"Station3={PYLON_AFT[0]}       //Left Pylon aft (ported from the B-52H)\n"
+           + f"Station4={PYLON_AFT[1]}        //Right Pylon aft (ported from the B-52H)\n"
+           + new[st2.end():])
+    mt = re.search(r"^ModuleType=Weapon\n", new, re.M)
+    if not mt:
+        sys.exit(f"{name}: no ModuleType=Weapon in WS2 to anchor the seat key to")
+    new = (new[:mt.end()]
+           + "\n#AGM-86 pylon triangle, ported from the B-52H with its 20x LRASM fit\n"
+           + f"AGM86_PylonPositions={AGM86_PYLON}\n"
+           + new[mt.end():])
+    return text[:m.start(1)] + new + text[m.end(1):]
+
+
+def lrasm20(bay_template, name):
+    """The H's 20-round LRASM fit: 8 in the CSRL, 3 on each of four pylons."""
+    bay = re.sub(r"^Station\d+=.*$", f"Station6={LRASM}|CSRL", bay_template.rstrip("\n"),
+                 count=1, flags=re.M)
+    if f"Station6={LRASM}|CSRL" not in bay:
+        sys.exit(f"{name}: could not seat the CSRL round in the bay template")
+    return (f"[WeaponSystem1{LRASM20_KEY}]\n" + bay + "\n"
+            + f"[WeaponSystem2{LRASM20_KEY}]\n"
+            + "".join(f"Station{s}={LRASM}|AGM86_Pylon\n" for s in (1, 2, 3, 4)))
+
+
+def declare(text, name, *keys):
+    """Append loadout keys to AvailableLoadouts, refusing to double-declare."""
+    m = re.search(r"^AvailableLoadouts=([^\n]+)$", text, re.M)
+    if not m:
+        sys.exit(f"{name}: no AvailableLoadouts line - upstream layout changed")
+    have = [k.strip() for k in m.group(1).split(",")]
+    clash = [k for k in keys if k in have]
+    if clash:
+        sys.exit(f"{name}: loadout key(s) already declared upstream: {clash}")
+    return text[:m.start(1)] + m.group(1).rstrip() + "," + ",".join(keys) + text[m.end(1):]
 
 
 def add_loft(text: str, name: str) -> str:
@@ -82,7 +207,7 @@ def build_ammunition():
         print(f"  ammunition/{a}.ini  (+{len(LOFT)} loft keys)")
 
 
-def build_aircraft():
+def build_aircraft(testbed):
     src = B52_MOD / "aircraft" / "dts_b-52h.ini"
     text = src.read_text(encoding="utf-8-sig")
 
@@ -122,6 +247,17 @@ def build_aircraft():
             + ws2_body.replace("dts_agm-183a|", "dts_agm-183a(w62)|"))
     if "(w62)" not in nuke:
         sys.exit("W62 substitution did not take - station syntax changed")
+
+    # The 419th FLTS testbed's own fit on the H's proven ARRW carriage: its
+    # usn_arrw round, one in the bay (no rotary key, as the testbed carries
+    # it) and the four pylon rounds Strike183 already seats correctly. The
+    # round lives in the ARRW mod, so this fit exists only when that is
+    # exported.
+    if testbed:
+        nuke += ("\n[WeaponSystem1" + TESTBED_KEY + "]\n"
+                 + ws1_body + f"Station6={TESTBED_ROUND}\n"
+                 + "[WeaponSystem2" + TESTBED_KEY + "]\n"
+                 + re.sub(r"=dts_agm-183a\|", f"={TESTBED_ROUND}|", ws2_body))
     # and load the conventional fit's own bay in place
     text = (text[:m.start()]
             + "[WeaponSystem1Strike183]\n" + conv_bay
@@ -132,16 +268,16 @@ def build_aircraft():
 
     # Append after the Strike183 pair, and register it in the picker.
     text = text[:m.end()] + "\n" + nuke + text[m.end():]
-    la = re.search(r"^AvailableLoadouts=([^\n]+)$", text, re.M)
-    if "Strike183Nuke" in la.group(1):
-        sys.exit("Strike183Nuke already declared upstream")
-    text = (text[:la.start(1)] + la.group(1) + ",Strike183Nuke" + text[la.end(1):])
+    keys = ["Strike183Nuke"] + ([TESTBED_KEY] if testbed else [])
+    text = declare(text, "dts_b-52h.ini", *keys)
 
     dst = OUT / "aircraft" / "dts_b-52h.ini"
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(text, encoding="utf-8")
     n = nuke.count("dts_agm-183a(w62)")
-    print(f"  aircraft/dts_b-52h.ini  (+Strike183Nuke {n}x W62; bays: 8x JASSM-ER / 8x AGM-86B)")
+    extra = f"; +{TESTBED_KEY} 1+4x usn_arrw" if testbed else ""
+    print(f"  aircraft/dts_b-52h.ini  (+Strike183Nuke {n}x W62; "
+          f"bays: 8x JASSM-ER / 8x AGM-86B{extra})")
 
 
 def drop_stale(*rels):
@@ -159,7 +295,7 @@ def drop_stale(*rels):
             print(f"    removed stale {rel} (upstream no longer exported)")
 
 
-def build_b52o():
+def build_b52o(testbed):
     """Give Red Storm Arsenal's B-52O the ARRW, on the pylon it already uses.
 
     First cut reused RSA's RGM110_Rack position key, on the theory that its
@@ -175,6 +311,11 @@ def build_b52o():
     height checked out in game; the separation has been widened twice on
     screenshots - the H's 0.0457 was too tight, 0.0677 still lapped the
     forward round's fins - and now sits at 0.082 nose-to-tail. Two per pylon, four per loadout.
+
+    The pack's own 16-round AntiShipLRASM (8 external on an invented
+    LRASM_Pylon key + 8 in the CSRL) is GONE, replaced by the B-52H's
+    20-round fit on the H's own AGM86_Pylon triangle - more rounds, and the
+    author's geometry instead of this pack's.
 
     Its WeaponSystem1 wing pylons (Station7/8) are deliberately NOT used - the
     matching #RGM110_RackPositions there is commented out in RSA's own file, so
@@ -203,8 +344,6 @@ def build_b52o():
         sys.exit("usaf_b-52o.ini: RGM110_RackPositions gone - upstream changed")
     text = (text[:rk.end()]
             + "AGM183_PylonPositions=0,-0.003,-0.02|0,-0.003,0.062\n"
-            + "LRASM_PylonPositions=-0.0084,-0.0042,-0.035|0.0084,-0.0042,-0.035"
-              "|-0.0084,-0.0042,0.035|0.0084,-0.0042,0.035\n"
             + text[rk.end():])
     m = re.search(r"^\[WeaponSystem2AntiShipHeavy\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
     body = m.group(1)
@@ -216,33 +355,48 @@ def build_b52o():
         sys.exit("usaf_b-52o.ini: Standoff CSRL donor gone - upstream changed")
     bay = sd.group(1).replace("SubModelsToHide=Pylons,", "SubModelsToHide=")
 
-    # AntiShipLRASM gets its OWN carriage. The first cut reused AGM84_Pylon -
-    # the Harpoon six-pack - and in game the fat LRASM airframes read as a
-    # Harpoon cluster. LRASM_Pylon keeps the Harpoon rack's proven x/z frame
-    # but drops its centre column: the four corner positions only, uncanted,
-    # at the centre row's hang height. Four per pylon, eight external, plus a
-    # CSRL of eight - the round the B-52H's AntiShip already flies.
+    # HISTORY, kept because it says what NOT to do here: the retired
+    # AntiShipLRASM hung its rounds on an LRASM_Pylon key invented in this
+    # pack, after a first cut on AGM84_Pylon made the fat LRASM airframes
+    # read as a Harpoon cluster. Both are gone - the B-52H's own 20-round
+    # fit below uses the H's AGM86_Pylon triangle instead, so the carriage
+    # is the mod author's rather than this pack's guess at one.
+    fits = [("Strike183", "dts_agm-183a|AGM183_Pylon", "usaf_agm-86c"),
+            ("Strike183Nuke", "dts_agm-183a(w62)|AGM183_Pylon", "usaf_agm-86b")]
+    # The ARRW testbed's own fit, on the O's proven ARRW carriage: one round
+    # in the rotary launcher and two per pylon, the 419th FLTS arrangement.
+    # It flies usn_arrw, so it only exists when the ARRW mod is exported.
+    if testbed:
+        fits.append((TESTBED_KEY, f"{TESTBED_ROUND}|AGM183_Pylon", TESTBED_ROUND))
     blocks = ""
-    for name, ws2, alcm in (
-            ("Strike183", "dts_agm-183a|AGM183_Pylon", "usaf_agm-86c"),
-            ("Strike183Nuke", "dts_agm-183a(w62)|AGM183_Pylon", "usaf_agm-86b"),
-            ("AntiShipLRASM", "dts_agm-158c-3|LRASM_Pylon", "dts_agm-158c-3")):
-        blocks += (f"[WeaponSystem1{name}]\n"
-                   + bay.replace("usaf_agm-86c", alcm).rstrip("\n") + "\n"
+    for name, ws2, alcm in fits:
+        bay_block = bay.replace("usaf_agm-86c", alcm).rstrip("\n")
+        if name == TESTBED_KEY:
+            # A single round on the CSRL station, not a rotary of eight -
+            # the bay round the testbed actually carries.
+            bay_block = bay_block.replace(f"Station6={TESTBED_ROUND}|CSRL",
+                                          f"Station6={TESTBED_ROUND}")
+        blocks += (f"[WeaponSystem1{name}]\n" + bay_block + "\n"
                    + f"[WeaponSystem2{name}]\n"
                    + body.replace("usn_agm_110l|RGM110_Rack", ws2).rstrip("\n") + "\n\n")
-    text = text[:m.end()] + "\n" + blocks + text[m.end():]
 
-    la = re.search(r"^AvailableLoadouts=([^\n]+)$", text, re.M)
-    if "Strike183" in la.group(1):
-        sys.exit("usaf_b-52o.ini: Strike183 already declared upstream")
-    text = (text[:la.start(1)] + la.group(1)
-            + ",Strike183,Strike183Nuke,AntiShipLRASM" + text[la.end(1):])
+    # The 20-round LRASM fit, ported whole from the B-52H. It REPLACES this
+    # pack's own AntiShipLRASM (8 external + 8 CSRL = 16 on a pylon key
+    # invented here): the H's is the bigger load and the author's own
+    # geometry, and the two airframes' pylons are the same points.
+    text = extend_pylon_table(text, "usaf_b-52o.ini")
+    blocks += lrasm20(bay, "usaf_b-52o.ini") + "\n"
+
+    m = re.search(r"^\[WeaponSystem2AntiShipHeavy\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+    text = text[:m.end()] + "\n" + blocks + text[m.end():]
+    text = declare(text, "usaf_b-52o.ini", *[f[0] for f in fits], LRASM20_KEY)
 
     dst = OUT / "aircraft" / "usaf_b-52o.ini"
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(text, encoding="utf-8")
-    print("  aircraft/usaf_b-52o.ini  (+Strike183/+Nuke 4x ARRW; +AntiShipLRASM 8+8x LRASM)")
+    extra = f", +{TESTBED_KEY} 1+4x usn_arrw" if testbed else ""
+    print(f"  aircraft/usaf_b-52o.ini  (+Strike183/+Nuke 4x ARRW; "
+          f"+{LRASM20_KEY} 8+12x LRASM, replacing the 16-round fit{extra})")
 
 
 def build_419_flts():
@@ -273,7 +427,66 @@ def build_419_flts():
     (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
     (OUT / "ammunition" / "usn_arrw.ini").write_text(fixed, encoding="utf-8")
     print("  ammunition/usn_arrw.ini  (MaxVelocity 10,648 -> 10648)")
-    drop_stale("aircraft/usaf_b-52h_419_flts.ini")
+
+    # The testbed flies ONE fit. Give it the H's 20-round LRASM fit too, so
+    # the ARRW aircraft is not a one-trick airframe while its two siblings
+    # carry the same anti-ship load. Its bay template is its own
+    # AntiShipPrecision block - the recipient's submodel names, not the H's.
+    src = ARRW_MOD / "aircraft" / "usaf_b-52h_419_flts.ini"
+    if not src.exists():
+        print("  usaf_b-52h_419_flts.ini  SKIPPED - aircraft file not exported")
+        drop_stale("aircraft/usaf_b-52h_419_flts.ini")
+        return
+    text = src.read_text(encoding="utf-8-sig")
+    m = re.search(r"^\[WeaponSystem1AntiShipPrecision\]\n(.*?)(?=^\[)", text, re.M | re.S)
+    if not m or f"Station6={TESTBED_ROUND}" not in m.group(1):
+        sys.exit("usaf_b-52h_419_flts.ini: AntiShipPrecision bay block gone - upstream changed")
+    text = extend_pylon_table(text, "usaf_b-52h_419_flts.ini")
+
+    end = re.search(r"^\[WeaponSystem2AntiShipPrecision\]\n(.*?)(?=^\[|\Z)",
+                    text, re.M | re.S)
+    if not end:
+        sys.exit("usaf_b-52h_419_flts.ini: AntiShipPrecision pylon block gone")
+    text = (text[:end.end()] + "\n"
+            + lrasm20(m.group(1), "usaf_b-52h_419_flts.ini") + "\n"
+            + text[end.end():])
+    text = declare(text, "usaf_b-52h_419_flts.ini", LRASM20_KEY)
+    (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
+    (OUT / "aircraft" / "usaf_b-52h_419_flts.ini").write_text(text, encoding="utf-8")
+    print(f"  aircraft/usaf_b-52h_419_flts.ini  (+{LRASM20_KEY} 8+12x LRASM)")
+
+
+def build_b1b(testbed):
+    """Give the B-1B the testbed's ARRW round on its own six pylon seats.
+
+    The B-1B already flies dts_agm-183a from Strike183 - six rounds on the
+    three LAM pylon pairs, each a bare station seat the mod author placed.
+    The testbed fit is the same six seats with the ARRW mod's own round, so
+    nothing about the carriage is invented here; only the round changes.
+    Unlike the B-52s there is no bay round: the B-1B's bays are separate
+    weapon systems with their own racks, and external carriage is what the
+    real aircraft flew its hypersonic tests with."""
+    src = B1B_MOD / "aircraft" / "usaf_b-1b_dts.ini"
+    if not (testbed and src.exists()):
+        why = "ARRW mod not exported" if src.exists() else "B-1B mod not exported"
+        print(f"  usaf_b-1b_dts.ini  SKIPPED - {why}")
+        drop_stale("aircraft/usaf_b-1b_dts.ini")
+        return
+    text = src.read_text(encoding="utf-8-sig")
+    m = re.search(r"^\[WeaponSystem1Strike183\]\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+    if not m:
+        sys.exit("usaf_b-1b_dts.ini: Strike183 not found - upstream changed")
+    body = m.group(1)
+    if body.count("dts_agm-183a\n") != 6:
+        sys.exit(f"usaf_b-1b_dts.ini: Strike183 carries {body.count('dts_agm-183a')} "
+                 "ARRW station(s), expected 6 - re-check the mirror by hand")
+    block = (f"[WeaponSystem1{TESTBED_KEY}]\n"
+             + body.replace("dts_agm-183a", TESTBED_ROUND).rstrip("\n") + "\n\n")
+    text = text[:m.end()] + block + text[m.end():]
+    text = declare(text, "usaf_b-1b_dts.ini", TESTBED_KEY)
+    (OUT / "aircraft").mkdir(parents=True, exist_ok=True)
+    (OUT / "aircraft" / "usaf_b-1b_dts.ini").write_text(text, encoding="utf-8")
+    print(f"  aircraft/usaf_b-1b_dts.ini  (+{TESTBED_KEY} 6x usn_arrw)")
 
 
 def write_language():
@@ -293,7 +506,8 @@ def write_language():
         "# upstream name because the F-15EX also declares that key and loadout\n"
         "# names are a GLOBAL key->name table.\n"
         "Strike183Nuke=SEST Strike183 Nuclear (W62 + AGM-86B)\n"
-        "AntiShipLRASM=SEST AntiShip LRASM (8+8)\n",
+        f"{LRASM20_KEY}=SEST AntiShip LRASM (20x)\n"
+        f"{TESTBED_KEY}=SEST ARRW Testbed\n",
         encoding="utf-8")
     (d / "aircraft_names.ini").write_text(
         "# SEST B-52 ARRW - disambiguate the ARRW mod's own test aircraft.\n"
@@ -309,15 +523,38 @@ def main():
         "[Language_en]\n"
         "Name=SEST B-52 ARRW\n"
         "Description=AGM-183A across every in-service B-52: the lofted "
-        "boost-glide profile it was missing, the W62 on the B-52H, ARRW on "
-        "Red Storm Arsenal's B-52O, and the 419th FLTS testbed's unreachable "
-        "loadouts declared.\n",
+        "boost-glide profile it was missing, the W62 on the B-52H, and ARRW on "
+        "Red Storm Arsenal's B-52O. The three bombers also now share their fits - "
+        "the B-52H's 20x LRASM load flies on the B-52O (replacing a 16-round "
+        "one) and on the 419th FLTS testbed, and the testbed's own usn_arrw fit "
+        "flies on both B-52s and on the B-1B.\n",
         encoding="utf-8")
     print("SEST_B52_ARRW")
+
+    # usn_arrw is the ARRW mod's round; every testbed fit below is gated on
+    # it, so unsubscribing that mod removes the fits rather than leaving
+    # four aircraft pointing at a round nothing defines.
+    testbed = (ARRW_MOD / "ammunition" / f"{TESTBED_ROUND}.ini").exists()
+    if not testbed:
+        print(f"  note: {TESTBED_ROUND} not exported - testbed fits skipped")
+
+    # Porting a fit between airframes is only sound while they agree on
+    # where the bay and the pylons are. Check before writing anything.
+    shared = {}
+    for label, path in (("dts_b-52h", B52_MOD / "aircraft" / "dts_b-52h.ini"),
+                        ("usaf_b-52o", RSA / "aircraft" / "usaf_b-52o.ini"),
+                        ("usaf_b-52h_419_flts",
+                         ARRW_MOD / "aircraft" / "usaf_b-52h_419_flts.ini")):
+        if path.exists():
+            shared[label] = path.read_text(encoding="utf-8-sig")
+    assert_shared_geometry(shared)
+    print(f"  geometry contract: {len(shared)} B-52 airframe(s) agree on bay and pylons")
+
     build_ammunition()
-    build_aircraft()
-    build_b52o()
+    build_aircraft(testbed)
+    build_b52o(testbed)
     build_419_flts()
+    build_b1b(testbed)
     write_language()
 
 
