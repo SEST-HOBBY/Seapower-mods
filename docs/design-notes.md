@@ -413,14 +413,30 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   why the AIM-260s hang low and aft of the inner rails - visible mainly there because the 610
   gal tank alongside gives the eye a reference. Upstream does the same, so the defect is
   inherited rather than introduced. The fix is a key per mesh, derived from the AIM-120 seat
-  plus one named delta so the wing rails and the eight belly rack slots cannot drift apart.
-- **When the only evidence is another airframe, ship the settled value, not the opening guess.**
-  The F-35 JATM packs measured this same mesh-origin difference over four in-game passes; their
-  first attempt (up 0.005) clipped the pylons and was halved, so 0.0025 is what carries across.
-  It remains a first cut anywhere else, because that pass compared a different AIM-120 mesh.
-  The offset therefore lives in one place, `integration/common/aim260.py`, and every pack that
-  mounts an AIM-260 derives its seats from it - one edit moves the F-15EX's nine seats and the
-  F-16's two together, instead of a tuning round per airframe.
+  plus that airframe's own named delta, so the wing rails and the eight belly rack slots cannot
+  drift apart from each other - but they do not share a number with any other jet.
+- **An absolute position is not a delta, and one airframe's measurement is not evidence about
+  another.** This note used to say the opposite, and it put the F-16's AIM-260s a full body
+  diameter into the pylon. Two errors, compounding. First, the F-35 JATM packs' `0,0.0025,0.0035`
+  was read as a mesh-origin *difference* when it is an *absolute* seat: `usn_f-35c.ini` defines
+  Pilot, GBU-53 and the AIM-260 seats and nothing else, so its AMRAAMs sit on the bare hardpoint
+  and there is no AIM-120 seat for it to be a difference from. Adding it to another airframe's
+  AIM-120 seat stacks it on a baseline it never measured. Second, the reason given for it being
+  "a first cut elsewhere" was wrong too: dts_aim-260 and dts_aim-260_w both render from
+  dts_aim-260.obj, mesh `aim-260`, out of the AIM-120 folder with the AIM-120's own material,
+  differing only in DropDuration and a commented-out VelocityBleed. The AIM-260 is an AIM-120
+  derivative in the same origin convention, so an airframe whose AIM-120 seat is right usually
+  needs little or nothing. Measured on the F-16 on 20 Sep 2026: the inherited +0.0025 lifted the
+  round until the bottom of the missile was level with the bottom of the pylon - and 0.0025 is
+  about 17.5 cm against an 18 cm body, so the lift was the whole error. Its correction is now
+  (0,0,0): the AIM-260 seats exactly where the AMRAAM does, and check_station_clash reports the
+  SEST Intercept loadout pair-for-pair identical to its AirToAirVLongRange donor.
+- **A shared default is how an unmeasured number travels.** `integration/common/aim260.py` now
+  keys the correction by airframe and `delta()` raises rather than defaulting, so a new pack must
+  add its own entry and say what it looked at. The convenience that was advertised here - "one
+  edit moves the F-15EX's nine seats and the F-16's two together" - was the bug: the two airframes
+  have different AIM-120 baselines (MTH at y=-0.0025, aim-120d-34 at y=0), so the same delta lands
+  them at different absolute heights and only one of them can be right.
 - **Derive the corrected seats, and check nothing puts the store back on the shared one.** The
   F-15EX pass runs after every loadout is assembled, so it covers the author's carried fits as
   well as this pack's, and a later step that writes a station line by hand would undo it - the
