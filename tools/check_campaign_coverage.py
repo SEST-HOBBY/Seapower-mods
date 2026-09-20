@@ -40,11 +40,13 @@ def missions():
     if not pack.is_dir():
         sys.exit("no built campaign - run python3 integration/campaign/build_pack.py")
     found = sorted(f for f in pack.rglob("*.ini")
-                   if f.name not in ("_info.ini", "campaign.ini")
+                   if f.name not in ("_info.ini", "campaign.ini",
+                                     "player_task_force_roster.ini",
+                                     "commander_settings.ini")
                    and not f.parent.name.endswith("_briefing"))
-    # The twelve core missions ship twice - once for the campaign, once for
-    # the mission browser - and the two copies must stay byte-identical, or
-    # the campaign and the browser quietly diverge.
+    # A campaign mission ships twice - once for the campaign, once for the
+    # mission browser - and the two copies must stay byte-identical, or the
+    # campaign and the browser quietly diverge.
     for f in found:
         if f.parent.parent.name != "campaigns" and "campaigns" not in f.parts:
             continue
@@ -125,10 +127,45 @@ def main():
             for store in bp.stores(uid, kind_dir, path, fit):
                 note(bp.owner(f"ammunition/{store}.ini"), "store", f"{uid} / {store}")
 
+    # The requisition roster is read from the BUILT file too: a unit the player
+    # can buy is reached by the campaign, and a price naming a variant the hull
+    # no longer offers is a purchase the game would refuse.
+    roster = (CAMPAIGN / "SEST_Campaign" / "campaigns" / "sest-southern-watch"
+              / "player_task_force_roster.ini")
+    if not roster.exists():
+        problems.append("no player_task_force_roster.ini in the built campaign")
+    else:
+        section = ""
+        for line in roster.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith(";") or not line:
+                continue
+            if line.startswith("[") and line.endswith("]"):
+                section = line[1:-1]
+                continue
+            if "=" not in line or section == "LoadoutPrices":
+                continue
+            uid, _, spec = line.partition("=")
+            picks = spec.split("|")[0].split(",")
+            kind_dir, path = bp.unit_file(uid)
+            if path is None:
+                problems.append(f"roster: no enabled mod defines {uid}")
+                continue
+            pool = (bp.squadrons(uid) if section.endswith(("Aircraft", "Helicopters"))
+                    else bp.variants(uid, kind_dir))
+            for pick in picks:
+                if pick not in pool:
+                    problems.append(
+                        f"roster: {uid} is priced with {pick}, which its winning "
+                        f"file no longer offers ({', '.join(pool) or 'none'})")
+            token = bp.owner(f"{kind_dir}/{uid}.ini")
+            if token and token not in credits:
+                credits[token] = ("roster", uid, "requisition roster")
+
     rows, missing = bp.coverage(credits, EXCUSES)
-    print(f"{len(files)} mission file(s) - the twelve core missions ship twice "
-          f"and were checked in both places - {units} placed unit reference(s), "
-          f"{len(credits)} mod(s) reached directly")
+    print(f"{len(files)} mission file(s) - the campaign's own missions ship "
+          f"twice and were checked in both places - {units} placed unit "
+          f"reference(s), {len(credits)} mod(s) reached directly")
 
     if missing:
         print("\nOUT OF REACH - place it or give it a reason in EXCUSES:")

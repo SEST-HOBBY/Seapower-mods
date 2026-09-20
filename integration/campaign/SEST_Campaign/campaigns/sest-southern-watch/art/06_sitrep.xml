@@ -1,0 +1,21 @@
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  d:DesignWidth="1920" d:DesignHeight="1080"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+  <Viewbox>
+    <Border Background="#F2EFE6" Width="1100" Height="760" Padding="60"
+            TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black">
+      <StackPanel Orientation="Vertical">
+        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
+        <TextBlock Text="27 NOVEMBER 2028  |  MARITIME BORDER COMMAND, DARWIN" Margin="0,14,0,14" FontSize="26"/>
+        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
+        <TextBlock Text="ONE PASSAGE THAT MUST WORK" FontWeight="Bold" FontSize="54"
+                   TextWrapping="Wrap" TextAlignment="Center" Margin="0,26,0,26"/>
+        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+        <TextBlock Text="The talks opened with the corridor open, which is the only reason they opened at all. The ceasefire takes effect at midnight and not every group in the box has acknowledged it." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
+        <TextBlock Text="Coral Pioneer is at the head of the first convoy through, with a bearing running hot. Everything this campaign was about is in that one sentence." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
+      </StackPanel>
+    </Border>
+  </Viewbox>
+</Page>
