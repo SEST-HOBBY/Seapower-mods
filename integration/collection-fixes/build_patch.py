@@ -501,33 +501,49 @@ def build_missing_loadout_names():
 
 
 # Vessel name sections whose ONLY provider is a mod the collection is shedding.
-#   unit id -> (mod that ships the section, why it cannot be relied on)
+#   unit id -> (mod that shipped the section, the section text verbatim)
 # usn_cvn_nimitz_2000s: the hull is won by Murder Hornet (3430135740), which
-# ships no language file at all. Its Type/class/hull names come solely from
-# the DEPRECATED MyGo Super Hornet (3426791311) - the mod docs/setup-runbook.md
-# tells the user to unsubscribe - and there they sit on line 1 behind a UTF-8
+# ships no language file at all. Its Type/class/hull names came solely from the
+# DEPRECATED MyGo Super Hornet (3426791311) - the mod docs/setup-runbook.md
+# tells the user to unsubscribe - and there they sat on line 1 behind a UTF-8
 # BOM. Without them the picker files the carrier under "Missing Type" and
 # labels it "MISSING: usn_cvn_nimitz_2000s name or squadron reference".
 # language_*/ merges key-by-key, so carrying the section verbatim is a no-op
-# while MyGo is present and keeps the names when it goes.
+# while a provider is present and keeps the names when it goes.
+#
+# THE CARRY HOLDS THE TEXT, NOT A POINTER TO IT. Reading the section out of the
+# donor at build time works only while the donor is still exported - which is
+# exactly the case the carry exists to survive. MyGo was unsubscribed on
+# 19 Sep 2026, the next export dropped the file, and the build then died on it
+# instead of quietly keeping the names. The text below is the section as it
+# stood in mods-source/3426791311/language_en/vessel_names.ini at 7a31060c, the
+# last export that shipped it. While the donor IS present the build re-reads it
+# and fails on any drift, so this copy cannot go stale unnoticed.
 CARRIED_VESSEL_NAMES = {
-    "usn_cvn_nimitz_2000s": ("3426791311", ("Type", "Default", "DefaultDescription",
-                                            "Variant1", "Variant2", "Variant3")),
+    "usn_cvn_nimitz_2000s": ("3426791311", """\
+Type=CVN,Aircraft Carrier
+Default=Nimitz-class (2000s),Nimitz
+DefaultDescription=The largest warships in USN service during the Cold War the Nimitz-class is a nuclear powered supercarrier displacing over 100000 tons. These ships are one of the most threatening ways that the USN has to project power away from the US coastline.
+Variant1=Nimitz CVN-68,Nimitz
+Variant2=Dwight D. Eisenhower CVN-69,Eisenhower
+Variant3=Carl Vinson CVN-70,Vinson"""),
 }
 
 
 def build_carried_vessel_names():
     blocks, out = [], []
-    for uid, (donor_mod, keys) in CARRIED_VESSEL_NAMES.items():
-        src = read_file(MODS / donor_mod / "language_en" / "vessel_names.ini")
-        m = re.search(rf"^\[{re.escape(uid)}\]\n(.*?)(?=^\[|\Z)", src, re.S | re.M)
-        if not m:
-            sys.exit(f"[{uid}] no longer in {donor_mod}'s vessel_names.ini - rebase")
-        body = m.group(1).strip("\n")
-        have = {l.split("=", 1)[0] for l in body.splitlines() if "=" in l}
-        if not set(keys) <= have:
-            sys.exit(f"[{uid}] in {donor_mod} lost {sorted(set(keys) - have)} - rebase")
-        blocks.append(f"[{uid}]\n{body}\n")
+    for uid, (donor_mod, carried) in CARRIED_VESSEL_NAMES.items():
+        donor = MODS / donor_mod / "language_en" / "vessel_names.ini"
+        if donor.exists():
+            m = re.search(rf"^\[{re.escape(uid)}\]\n(.*?)(?=^\[|\Z)",
+                          read_file(donor), re.S | re.M)
+            if not m:
+                sys.exit(f"[{uid}] no longer in {donor_mod}'s vessel_names.ini - rebase")
+            live = m.group(1).strip("\n")
+            if live != carried:
+                sys.exit(f"[{uid}] has drifted in {donor_mod}. Update "
+                         f"CARRIED_VESSEL_NAMES to the live text:\n{live}")
+        blocks.append(f"[{uid}]\n{carried}\n")
         out.append(uid)
     if blocks:
         (OUT / "language_en").mkdir(parents=True, exist_ok=True)
