@@ -88,6 +88,24 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
   generated original and the Lean copy (the NASAMS and SLAMRAAM launchers' datalink rounds, the
   three MLRS magazines, the Su-57's KH-58 seat), none of them introduced here.
 
+- **SEST Banda Front Living Seas** — the Lean sandbox as it stood in the game on 19 September
+  (an editor re-save of the first Lean copy, in which the editor had folded the twelve
+  single-member Air Defence formations back into stray units and the Merauke wharf bridge had been
+  handed to red), extended in a ChatGPT session: 24 more civil ships, 12 more civil aircraft, a Ford
+  carrier group with RAN escorts, a PLAN carrier group with a Type 093B, four narco submarines, nine
+  whales, three sanctioned convoys, the two Timor Sea rigs handed to red with empty air groups, and
+  modernised blue and red air wings (the F-4s, MiG-21/23s and A-10As out; F-35A, F-15EX, Su-57,
+  Su-35S and their support in; the Port Moresby B-52 wing as saved). Imported verbatim from the
+  game by the export (`mods-source/_vanilla/user/missions/user_missions/`), authoritative and never
+  rewritten. Every one of its 873 references resolves, no route leg touches the 1 km land mask, and
+  every air group fits its base (Rabaul exactly, at 36 of 36).
+
+- **SEST Banda Front Lean v2** — Living Seas with the patrol loops of the four narco submarines and
+  the eight new fishing boats cut from twelve laps to one by `thin_waypoints.py` (312 waypoints down
+  to 42); every other block is byte for byte the Living Seas file. The carrier groups, the Type 093B
+  and the whales repeat the same way (`thin_waypoints.py --all` cuts those too). Regenerate with
+  `python3 integration/missions/thin_waypoints.py`.
+
 - **NORTHERN FRONT II** — the user's Northern Front editor save, upgraded: the two `airbase_us`
   stand-ins are now the real `airbase_raaf_darwin` / `airbase_raaf_scherger` (their custom
   mission air groups are preserved), the date moves to 2026-08-24, and a five-ship civilian
@@ -160,6 +178,24 @@ python3 integration/missions/trim_land_sites.py                              # S
 python3 integration/missions/trim_land_sites.py --source "X" --out "X Lean" --tels 4 --no-bmd
 ```
 
+## Patrol loops
+
+A generated patrol is often a short loop pasted many times over so the unit keeps moving all
+session: a narco submarine with a four-point loop repeated twelve times carries 48 waypoint
+markers. `thin_waypoints.py` finds every moving unit whose waypoint list is the same cycle
+repeated and keeps `--laps` laps of it (one by default), leaving the retained waypoint strings
+exactly as the source wrote them, depth and telegraph annotations included, so a leg the source
+routed through water stays where it was; every retained leg is re-checked against the land mask
+anyway. By default it takes the narco submarines and the fishing boats (`--match` chooses by a
+substring of the unit type, `--all` takes every moving unit); a route that does not repeat is
+left alone and reported. The source is never written and the output is the same bytes on every run.
+
+```bash
+python3 integration/missions/thin_waypoints.py --dry-run                 # who repeats, and by how much
+python3 integration/missions/thin_waypoints.py                           # Living Seas -> Lean v2
+python3 integration/missions/thin_waypoints.py --all --laps 2 --out "SEST Banda Front Lean v2 wide"
+```
+
 Removal lives in `build_land_defence.py`'s `Mission` class next to the add path:
 `remove_land_units(side, names)` deletes the blocks, renumbers the survivors densely, rewrites
 every `<side>_FormationN` line (refusing to empty one), drops and renames every `NameOverride`
@@ -175,5 +211,5 @@ or launchers may be outside a formation: those units remain, and any associated 
 by a retained launcher remains with them. Regression checks:
 
 ```bash
-python3 -m unittest discover -s tools/tests -p 'test_trim_land_sites.py' -v
+python3 -m unittest discover -s tools/tests -p 'test_*.py' -v
 ```
