@@ -23,7 +23,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
-| `integration/campaign/` | **SEST Southern Watch** — a twelve-mission linear campaign plus eight optional dispatches, built so that every enabled mod is reached by something it places |
+| `integration/campaign/` | **SEST Southern Watch** — a native Task Force Mode campaign (twelve main missions, an optional operation, a contingency) plus eight dispatches, built so that every enabled mod is reached by something it places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -58,10 +58,19 @@ powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -Include
 
 `integration/campaign/` builds **SEST Southern Watch — The Northern Lifeline**:
 twelve connected missions in October–November 2028 in which Australia and its
-regional partners keep the northern sea routes open, plus eight optional
-dispatches (allied rotations, an opposing-force passage, a weapons range, an
-openly speculative 2034 branch and a 1988 exercise). `docs/campaigns/southern-watch/`
-holds the design bible it was built from.
+regional partners keep the northern sea routes open, plus eight dispatches
+(allied rotations, an opposing-force passage, a weapons range, an openly
+speculative 2034 branch and a 1988 exercise). `docs/campaigns/southern-watch/`
+holds the design bible it was built from and the build notes.
+
+It runs on the game's **native Task Force Mode**, the same system the stock
+Pacific Strike campaign uses: you requisition a task force from a priced
+roster (`player_task_force_roster.ini`), and losses, damage, magazines and
+crew experience carry forward. Every key was read out of the exported stock
+campaign before it was used, and every price is checked against the variant or
+squadron the winning file actually offers — a price naming a fit the hull no
+longer has fails the build. None of the economy has been exercised in game;
+`docs/campaigns/southern-watch/build-notes.md` says so in detail.
 
 Its point is coverage. 128 subscriptions are a lot of content to own and never
 see, so the campaign is built so that **every mod in the canonical load order,
@@ -73,6 +82,7 @@ computed the way the game resolves files, not from the folder list:
 | `unit` | the mod's copy of the placed unit's file wins the load order |
 | `variant` / `squadron` | it wins the `_variants` / `_squadrons` file the mission names |
 | `store` | it wins an ammunition file the placed unit's chosen loadout hangs |
+| `roster` | the requisition roster prices it, so the player can buy it |
 | `library` | it wins nothing a mission can name — UI, effects, a bare dependency marker — and applies install-wide |
 | `shadowed` | everything it ships is outranked; nothing it contains can load |
 

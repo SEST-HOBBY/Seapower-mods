@@ -82,9 +82,9 @@ EXCUSES = {
         "`systems/` files and 66 ammunition overwrites that the EuroMod hulls "
         "in WESTERN PASSAGE and THE RELIEF SHIP resolve through"),
     "SEST_Campaign": (
-        "campaign", "this pack: it ships the campaign, its twenty missions and "
-        "their briefings. It is what the coverage below is measured on, so it "
-        "cannot place a unit to reach itself"),
+        "campaign", "this pack: it ships the campaign, its missions, its "
+        "requisition roster and their briefings. It is what the coverage below "
+        "is measured on, so it cannot place a unit to reach itself"),
     "SEST_TacMap_Colors": (
         "library", "recolours the tactical map (`ui/`); no unit, no round"),
     "y-8-y-9-family": (
@@ -152,6 +152,114 @@ EVENTS = [
              "people who used it.",
              "Stand down the watch."]),
 ]
+
+# =============================================================================
+# NATIVE TASK FORCE MODE
+#
+# Bible v1.1 corrects v1.0 on this point, and the correction is right: the
+# exported Pacific Strike campaign under mods-source/_vanilla/original/campaigns/
+# is a working Task Force Mode reference, so persistence, repair, rearm and the
+# requisition budget are native features rather than something a manual ledger
+# has to imitate. Every key below was read out of that campaign before it was
+# used here; none of them is invented.
+#
+# What that does NOT establish is that these particular numbers are balanced,
+# or that a modded hull can actually be bought, crewed and deployed. Section 16
+# of the bible lists the seven-step acceptance run that would settle it, and it
+# needs the running game.
+# =============================================================================
+
+TASKFORCE = dict(
+    Enabled="True",
+    TaskForceRequireFlagship="False",
+    DefaultTaskForceName="Southern Watch Task Group",
+    TaskForceNameOptions="Southern Watch Task Group|TG 627.1|Northern Escort Group",
+    CommanderSettingsFile="commander_settings.ini",
+    RosterFile="player_task_force_roster.ini",
+    TaskForceDifficultyPresets="Supported|Standard|Veteran",
+    DefaultTaskForceDifficultyPreset="Standard",
+    StartingPoints="1000",
+    PointCap="1500",
+    ShipIncludesAirwing="False",
+    PurchaseLoadouts="True",
+    # One point per complete group of 100 survivors. Rescue is an objective and
+    # a human consequence; it is not the campaign's income.
+    CSARPointModifier="100",
+    CrewSkillInitial="Trained",
+    CrewSkillThresholds="Trained:1|Seasoned:4|Veterans:9|Ultra:16",
+    UnitDecommissionPointReturnModifier="0.25",
+    UnitDismissPointReturnModifier="0.5",
+    DamageToAllowRepair="Light,Moderate",
+    DamageToDisallowRepair="Heavy",
+    RepairPointsCost="Light,0.1|Moderate,0.25",
+)
+
+# name, starting points, point cap, repair multiplier. Same objectives and the
+# same prices in all three - only the budget and the repair bill move, so a
+# package costed on one setting stays intelligible on another.
+DIFFICULTIES = [
+    ("Supported", 1250, 1500, "0.75"),
+    ("Standard", 1000, 1500, "1"),
+    ("Veteran", 850, 1250, "1.25"),
+]
+
+# The requisition roster. Points are fictional balance values; the variant and
+# squadron lists are not - the builder rejects any that the winning file does
+# not actually offer, which is the whole reason this is data and not prose.
+ROSTER = [
+    dict(unit="ran_ffh_anzac", picks=["Variant3", "Variant8"], points=240,
+         note="Warramunga and Perth; HMAS Anzac herself decommissioned in 2024, "
+              "so Variant1 stays out of the core roster"),
+    dict(unit="ran_ddg_hobart", picks=["Variant1", "Variant2", "Variant3"], points=480),
+    dict(unit="ran_opv_arafura", picks=["Variant1", "Variant2"], points=100,
+         note="donor Meteoro fit is richer than the real Arafura; the campaign "
+              "restricts it to two hulls until the fit is corrected"),
+    dict(unit="ran_aor_supply", picks=["Variant1", "Variant2"], points=140,
+         note="Teide stand-in; no SupplySystem_* block in the winning file, so "
+              "replenishment is unproven and SW09 does not depend on it"),
+    dict(unit="ran_lsd_choules", picks=["Variant1"], points=220),
+    dict(unit="ran_lhd_canberra", picks=["Variant1", "Variant2"], points=420,
+         note="helicopter-only in this campaign; the donor's allowed-aircraft "
+              "list inherits Spanish fixed-wing types"),
+    dict(unit="js_ffg_mogami", picks=["Variant1", "Variant2", "Variant3"], points=260,
+         note="allied attachment; only purchasable once a persistent allied "
+              "attachment is proved, otherwise it stays mission support"),
+    dict(unit="ran_ssg_collins", picks=["Variant1", "Variant2"], points=320,
+         note="S-80 stand-in; a submarine, so it goes in AllowedSubmarines"),
+    dict(unit="raaf_f-35a", picks=["Squadron3"], points=45,
+         note="No. 75 Squadron, RAAF Base Tindal - checked against the "
+              "squadron file's own comment"),
+    dict(unit="usn_fa-18f_blk3", picks=["Squadron8"], points=35,
+         note="Australian squadron in the SEST Growler pack's output"),
+    dict(unit="usn_ea-18g", picks=["Squadron6"], points=55,
+         note="conventional EW/SEAD fits; MALICE stays in Future Front"),
+    dict(unit="usn_p8", picks=["Squadron3"], points=45,
+         note="the squadron file labels every entry USN; Squadron3 is the "
+              "bible's choice, and the label is worth fixing upstream"),
+    dict(unit="E7A_Wedgetail", picks=["Squadron1"], points=80,
+         note="No. 2 Squadron RAAF, from the SEST Wedgetail pack"),
+    dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=60,
+         note="unarmed in this implementation"),
+    dict(unit="usaf_kc-46a_boom", picks=["Squadron1"], points=75,
+         note="US support; receiver pairing is unverified"),
+    dict(unit="usn_mh-60r", picks=["Squadron1"], points=20,
+         note="one family chosen explicitly - usn_mh-60r_26 is a different "
+              "unit and is never substituted for it"),
+]
+
+# Australian commander, no same-nation discount: the mod unit definitions carry
+# US and allied nationality, and a discount keyed to them would be arbitrary.
+# No emblem or ribbon art is referenced - every path would be a .png this repo
+# cannot produce.
+COMMANDER = """[CommanderSettings]
+CommanderNations=Australia
+CommanderDefaultNation=Australia
+CommanderNameDefaultAustralia=Alex Mercer
+CommanderStartingRankLevel=5
+SameNationUnitDiscount=0
+
+NavyNameAustralia=Royal Australian Navy
+"""
 
 MISSIONS = []
 
@@ -1656,3 +1764,229 @@ DISPATCH_DESC = (
     "speculative 2034 branch for the collection's experimental aircraft and "
     "weapons; Cold Sea is a 1988 exercise for its retired types. Each one "
     "states its own fiction in the briefing.")
+
+
+# =============================================================================
+# OPTIONAL AND CONTINGENCY - the two the bible's first release scope names.
+#
+# O01 and C01 are here because the vertical slice is meant to prove the
+# optional window and the setback gate, not because the other sixteen designs
+# are unwanted. The rest of O02-O12 and C02-C06 stay unbuilt until the harness
+# they depend on has been exercised in the running game; their point rewards
+# and branch conditions are unverifiable from here.
+# =============================================================================
+
+MISSIONS.append(dict(
+    group="optional", num="O1", key="The Missing Beacon",
+    place="Arafura Sea", expires_after="Steel Highway",
+    intro="Optional. A coaster stopped reporting on a route nobody was "
+          "watching. Find her before the weather does.",
+    special="Optional operation. It expires once the next main operation is "
+            "complete. A confirmed report improves the contact briefing for "
+            "STEEL HIGHWAY; a rescue is worth doing whether or not it does.",
+    date=(2028, 10, 19), time=(16, 40), sea=3, clouds="Broken_2", wind="NW",
+    difficulty=1, minutes=40, centre=(-10.0, 131.0),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        "ARAFURA SEA, late afternoon. MV Torres Light stopped transmitting "
+        "nineteen hours ago on a coastal route that carries no traffic worth "
+        "interfering with. Her beacon is silent and the weather is closing "
+        "from the north-west.\n\n"
+        "ARAFURA and a Seahawk have until last light. The lane has ordinary "
+        "traffic in it and one of those hulls was in company with her "
+        "yesterday, which is worth a conversation rather than a missile.\n\n"
+        "Find her, establish what happened, and bring the search aircraft "
+        "home. If this is what the last week suggests it is, the evidence is "
+        "worth as much as the crew."),
+    forces="HMAS Arafura and one MH-60R. Three merchant contacts on the lane, "
+           "one of them the missing coaster's last company.",
+    objectives=[
+        ("Search", "Reach the missing coaster's last reported position",
+         "30,-25,Fail,Main"),
+        ("Aircraft", "Bring the search helicopter home", "10,-15,Complete"),
+        ("Traffic", "Harm no lane traffic", "0,-25,Complete"),
+    ],
+    victory=dict(kind="arrive", station="datum", at=(-10.6, 132.0), radius=20,
+                 min_units=1, objective="Search"),
+    protect=["patrol"], protect_objective="Aircraft",
+    neutral_objective="Traffic",
+    win="Torres Light is found, her crew is off and the recordings from her "
+        "bridge are in a bag on Arafura's quarterdeck. Somebody is going to "
+        "have to explain them.",
+    lose="Last light came and went. The search resumes tomorrow with worse "
+         "weather and colder water.",
+    stations={
+        "patrol": S(-10.0, 131.5, "HMAS Arafura", heading=100),
+        "datum": S(-10.4, 131.9, "Search datum", heading=100, alt=2000),
+        "traffic": S(-11.4, 129.6, "Lane traffic", heading=70),
+    },
+    units=[
+        U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
+          name="HMAS Arafura", weapons="Tight"),
+        U("blue", "mh-60r-2154545636", "usn_mh-60r", "datum",
+          name="Arafura Flight", alt=2000, weapons="Tight"),
+        U("neutral", "merchants-expanded", "civ_ms_mairangi_bay", "traffic",
+          name="MV Coral Pioneer"),
+        U("neutral", "auxilliary-merchant-pack", "ran_ms_antares", "traffic",
+          name="MV Antares"),
+        U("neutral", "re-power-resupply", "civ_ms_freighter_a", "traffic",
+          name="MV Sunda Relief"),
+        U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "traffic",
+          name="Arafura trawler"),
+    ],
+))
+
+MISSIONS.append(dict(
+    group="contingency", num="C1", key="After the Wake", place="Coral Sea",
+    expires_after="Rig Seventeen",
+    intro="Contingency. Three of four made Moresby. This is about the fourth "
+          "crew, not the fourth cargo.",
+    special="Recovery operation, available when STEEL HIGHWAY completed with "
+            "the essential ship but lost a cargo vessel. It pays no "
+            "requisition points. It saves people and it changes the debrief; "
+            "it does not restore the ship or its cargo.",
+    date=(2028, 10, 23), time=(6, 10), sea=4, clouds="Overcast", wind="SE",
+    difficulty=2, minutes=45, centre=(-13.5, 148.5),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        "CORAL SEA, first light. MV Lae Provider went down at 2140 last night "
+        "with twenty-six aboard. Eleven are accounted for. The rest are "
+        "somewhere inside a drift box that has been growing all night.\n\n"
+        "HOBART is detached from the escort task with a Seahawk. The submarine "
+        "that did it has not left the area and the search pattern you need to "
+        "fly is exactly the pattern it will expect.\n\n"
+        "Search the box. Do not lose the helicopter doing it. If the boat "
+        "presents itself, that is a bonus and not the reason you are here."),
+    forces="HMAS Hobart and one MH-60R on the search. One Type 039C still in "
+           "the area. Two merchant hulls diverted to assist.",
+    objectives=[
+        ("Survivors", "Work the drift box to its northern edge",
+         "30,-25,Fail,Main"),
+        ("Helicopter", "Bring the search helicopter home", "15,-20,Complete"),
+        ("Assist", "Do not lose an assisting merchant", "0,-25,Complete"),
+    ],
+    victory=dict(kind="arrive", station="search", at=(-12.6, 148.2), radius=25,
+                 min_units=1, objective="Survivors"),
+    protect=["hobart"], protect_objective="Helicopter",
+    neutral_objective="Assist",
+    win="Fourteen more out of the water, and the ones who did not make it are "
+        "named rather than missing. That is the whole of what this operation "
+        "could achieve, and it achieved it.",
+    lose="The box is open at the northern end and the weather is building. "
+         "The rest of that crew stays missing.",
+    stations={
+        "hobart": S(-13.5, 148.6, "HMAS Hobart", heading=340),
+        "search": S(-13.2, 148.4, "Drift box", heading=340, alt=1500),
+        "assist": S(-16.5, 150.0, "Assisting merchants", heading=320),
+        "sub": S(-13.4, 148.2, "Submarine datum", heading=180),
+    },
+    units=[
+        U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "hobart",
+          name="HMAS Hobart", weapons="Tight"),
+        U("blue", "mh-60r-2154545636", "usn_mh-60r", "search",
+          name="Hobart Flight", alt=1500, weapons="Tight"),
+        U("neutral", "auxilliary-merchant-pack", "ran_ms_super_p", "assist",
+          name="MV Torres Trader"),
+        U("neutral", "re-power-resupply", "civ_ms_andizhan", "assist",
+          name="MV Coral Provider"),
+        U("red", "plan-submarines", "plan_ss_type_039c", "sub",
+          name="Contact BRAVO"),
+    ],
+))
+
+# =============================================================================
+# THE SIX-WEEK CALENDAR AND THE REQUISITION ALLOCATIONS
+#
+# Dates and completion points come from the bible's chapter table and its
+# mainline allocation table; they are applied here rather than repeated inside
+# twenty mission dicts, so the schedule can be read as a schedule.
+#
+# service=True marks a mission the player reaches through a service window:
+# repair and a free scheduled rearm are offered before it. Six of twelve is a
+# first pass, not a measured pacing decision.
+#
+# generation="Generated" hands placement of the purchased force to the campaign.
+# Single-escort and air-focused missions keep authored placement, because the
+# bible is right that those need assignment proof the game has not given yet.
+# =============================================================================
+
+SCHEDULE = {
+    # num: (date, completion points, service window, generation, anchor station)
+    "01": ((2028, 10, 18), 100, False, None, "warramunga"),
+    "O1": ((2028, 10, 19), 50, False, None, "patrol"),
+    "02": ((2028, 10, 22), 140, False, "Generated", "escort"),
+    "C1": ((2028, 10, 23), 0, False, None, "hobart"),
+    "03": ((2028, 10, 26), 120, True, None, "amphib"),
+    "04": ((2028, 10, 30), 100, False, "Generated", "patrol"),
+    "05": ((2028, 11, 2), 140, True, "Generated", "warramunga"),
+    "06": ((2028, 11, 6), 140, False, "Generated", "hobart"),
+    "07": ((2028, 11, 9), 120, True, None, "picket"),
+    "08": ((2028, 11, 13), 180, False, None, None),
+    "09": ((2028, 11, 16), 160, True, "Generated", "escort"),
+    "10": ((2028, 11, 20), 180, False, "Generated", "escort"),
+    "11": ((2028, 11, 23), 200, True, "Generated", "escort"),
+    "12": ((2028, 11, 28), 0, True, "Generated", "escort"),
+}
+
+for _m in MISSIONS:
+    _s = SCHEDULE.get(_m["num"])
+    if _s:
+        _m["date"], _m["points"], _m["service"], _m["generation"], _m["anchor"] = _s
+
+# Prologue, six situation reports and an epilogue: the eight story screens the
+# bible's timeline calls for, one report closing each of the first five
+# chapters and one before the last passage.
+SITREPS = [
+    ("24 October 2028", "Chapter 1 closes", "The Arafura convoy is through",
+     "THE ESCORT TASK IS FORMALISED",
+     ["Warramunga's report of the rendezvous went to Canberra inside an hour "
+      "and came back as a standing task. The escort group forms around her.",
+      "Port Moresby's engineering plant is ashore. The Pukpuk arrangements are "
+      "being read carefully by people who had not read them before."],
+     "Rig Seventeen"),
+    ("31 October 2028", "Chapter 2 closes", "The network behind the incidents",
+     "SOMEBODY IS SUPPLYING THEM",
+     ["The platform crews are ashore and the low-profile craft is in a shed "
+      "with photographers around it. What it was carrying matters less than "
+      "where it was going.",
+      "Two of the routes now have names. The people running them have not been "
+      "named, and the Meridian duty controller has stopped answering."],
+     "Warramunga's Shot"),
+    ("7 November 2028", "Chapter 3 closes", "Overt attacks begin",
+     "THIS IS NO LONGER DENIABLE",
+     ["An armed escort fired on a protected convoy in daylight. The recordings "
+      "are unambiguous and the diplomatic language has changed accordingly.",
+      "Growler and wider surveillance allocations are released. Damage and "
+      "magazine expenditure are no longer things the force can simply absorb."],
+     "Long Way Home"),
+    ("14 November 2028", "Chapter 4 closes", "The corridor is open",
+     "THE WINDOW HELD",
+     ["The relief movement is out and the enclave's battery is off the air. "
+      "The negotiation that follows starts from a better place than the one "
+      "that would have followed a closed window.",
+      "Tanker hours, not hulls, were the limiting factor this week. They will "
+      "be again."],
+     "Southern Lifeline"),
+    ("21 November 2028", "Chapter 5 closes", "The route is sustained",
+     "THE LIFELINE HOLDS",
+     ["Collins is dived and heading for Stirling. Supply still has enough in "
+      "her tanks to do it again.",
+      "The Japanese detachment is on station and the corridor has a second "
+      "usable escort force for the first time since October."],
+     "Fujian's Shadow"),
+    ("27 November 2028", "Before the last passage", "An imperfect ceasefire",
+     "ONE PASSAGE THAT MUST WORK",
+     ["The talks opened with the corridor open, which is the only reason they "
+      "opened at all. The ceasefire takes effect at midnight and not every "
+      "group in the box has acknowledged it.",
+      "Coral Pioneer is at the head of the first convoy through, with a "
+      "bearing running hot. Everything this campaign was about is in that one "
+      "sentence."],
+     "The First Ship Through"),
+]
+
+for _i, (_date, _title, _sub, _head, _body, _before) in enumerate(SITREPS, 1):
+    EVENTS.insert(_i, dict(file=f"{_i:02d}_sitrep", before=_before,
+                           title=f"{_title}\\n{_date}", sub=_sub,
+                           dateline=f"{_date.upper()}  |  MARITIME BORDER COMMAND, DARWIN",
+                           headline=_head, body=_body))

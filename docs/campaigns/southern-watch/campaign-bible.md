@@ -1,7 +1,7 @@
 # SEST SOUTHERN WATCH
 ## The Northern Lifeline — campaign lore, research and build brief
 
-**Design version:** 1.0 · **Research checked:** 20 September 2026 · **Fictional campaign:** October–November 2028
+**Design version:** 1.1 · **Research checked:** 20 September 2026 · **Fictional campaign:** 18 October–28 November 2028 (42 days)
 
 **Game:** Sea Power: Naval Combat in the Missile Age, using the SEST mod collection.
 
@@ -11,7 +11,7 @@ This is a campaign design and research package, not an installed mission pack. T
 
 ## 1. The campaign to build
 
-Build **one Australian-led story with twelve main missions**, supported by the existing Banda sandbox and optional allied, opposing-force and experimental episodes. Keep the complete enabled mod collection available throughout. Select the units needed for each episode; dependencies and improvements to existing units count as use of a mod even when that mod contributes no separate platform.
+Build **one Australian-led, six-week story with 30 playable mission designs: 12 main missions, 12 optional operations and six contingency missions**. A normal run targets 18–22 missions. The existing Banda sandbox, opposing-force and experimental anthologies sit alongside that story. Sections 12–16 fix the calendar, rewards, force choices and native campaign implementation. Keep the complete enabled mod collection available throughout. Select the units needed for each episode; dependencies and improvements to existing units count as use of a mod even when that mod contributes no separate platform.
 
 The defining experience is a small force working across a very large region. A frigate protects a convoy; an aircraft identifies something the frigate cannot see; the tanker keeps that aircraft on station; the replenishment ship makes tomorrow's mission possible. The player often has enough firepower to win an engagement but too little time or information to satisfy every objective.
 
@@ -21,9 +21,9 @@ The core should feel Australian through its responsibilities, geography and forc
 
 | Mode | Scope | Use of the collection |
 |---|---|---|
-| Northern Lifeline | Twelve connected 2028 missions | Modern Australian core, regional partners, limited US/Japanese/French support, credible conventional opponents |
+| Northern Lifeline | Twelve main missions plus 12 optional and six contingency designs in 2028 | Modern Australian core, regional partners, limited US/Japanese/French support, credible conventional opponents |
 | Living Seas | Large free-play theatre | Preserve the user's existing sandbox and hand edits; add campaign context through a separate version |
-| Allied Dispatches | Optional missions within the same crisis | Japanese, French, British, European and additional US equipment |
+| Allied Dispatches | Allied episodes included among the 12 optional operations; later extensions are separate | Japanese, French, British, European and additional US equipment |
 | Red Line | Optional opposing-force perspective | Russian/Chinese reconnaissance, escort and withdrawal problems; finite resources on both sides |
 | Future Front | Explicit alternate 2032–35 technology branch | YF-23 production fiction, J-36/J-50, Type 004, MALICE, speculative bomber and missile fits |
 | Cold Sea | Separate historical/exercise anthology | Cold War and retired equipment, historical nuclear-era assets with conventional mission settings |
@@ -144,15 +144,15 @@ Use short radio traffic, log extracts and debriefs. Avoid large fictional cabine
 | PNG ports and airfields | Relief, recovery and later resupply | PNG authorities and civilians remain visible participants |
 | Western Australian approaches | Allied submarine arrival and logistics | Suitable for a separate episode instead of stretching every tactical map to Perth |
 
-**Opening force allocation, purely a game-design assumption:** one Hobart-class destroyer, two Anzac-class frigates, one Collins-class submarine, one replenishment ship and one amphibious transport assigned across the opening act. A starting air detachment might contain eight F-35As, four Super Hornets, two Growlers, two P-8As, one Wedgetail, one Triton and two allied tankers. These are campaign allocations, not forecasts of actual deployability; only the subset relevant to the current mission spawns.
+**Opening theatre allocation, purely a game-design assumption—not a free player-owned fleet:** one Hobart-class destroyer, two Anzac-class frigates, one Collins-class submarine, one replenishment ship and one amphibious transport assigned across the opening act. A starting air detachment might contain eight F-35As, four Super Hornets, two Growlers, two P-8As, one Wedgetail, one Triton and two allied tankers. These are campaign allocations, not forecasts of actual deployability; only the subset relevant to the current mission spawns. The player requisitions a smaller persistent force from a 1,000-point opening budget. Named theatre support remains separately tasked, with no automatic ownership transfer. See sections 13–14 for prices and the opening purchase sequence.
 
-The remaining Australian fleet has other tasks, maintenance and transit commitments. A destroyed ship stays unavailable in the campaign ledger. An amphibious ship cannot be a disposable decoy. US, Japanese and French contributions arrive as named detachments with a mission, time window and exit condition. UK and European units protect the wider logistics chain in optional episodes.
+The remaining Australian fleet has other tasks, maintenance and transit commitments. A player-owned ship lost during a qualifying completed operation is removed from the persistent force. Native defeat/replay handling is a separate case, described in section 12. An amphibious ship cannot be a disposable decoy. US, Japanese and French contributions arrive as named detachments with a mission, time window and exit condition. UK and European units protect the wider logistics chain in optional episodes.
 
 Use modern opposing aircraft and ships already in the collection: J-10C/J-16/J-20 families, relevant special-mission aircraft, PLAN surface ships and conventional/nuclear attack submarines. Introduce the carrier after the player has encountered its scouts and supporting logistics. A modern escort should be dangerous because of the encounter design, not because every scenario grants it unlimited ammunition.
 
 ## 6. Main campaign: twelve missions
 
-Mission durations below are design targets for active play. Long strategic transits occur between missions. Each chapter should have a normal and setback start state, without requiring an automated campaign engine.
+Mission durations below are design targets for active play. Long strategic transits occur between missions. Use native Task Force Mode for the persistent force and authored conditions for normal/setback starts. The force compositions below are encounter targets; requisitioned units, reserves and separately assigned theatre support must be distinguished in every mission. The dated schedule and minimum completion rules in section 12 govern progression.
 
 | ID | Title and setting | Main task | Existing material to reuse |
 |---|---|---|---|
@@ -185,7 +185,7 @@ No mission should require Identify Expanded: it is unsubscribed. Use existing id
 
 PNG has requested a protected delivery of engineering equipment, medical stores and fuel. A submarine report disrupts the planned passage. Merchant masters want to continue; the escort wants time to classify the contact. Background shipping must not obediently form part of the player's convoy.
 
-**Win:** at least three of four priority vessels reach the exit area, including the named medical/engineering ship. **Fail:** that essential ship is lost or fewer than three arrive before the cutoff. **Optional:** all four arrive and the escort helicopter returns. **Carry-over:** four arrivals give SW08 its better logistics start; three arrivals give the normal start; failure triggers a reduced-supply variant.
+**Win:** at least three of four priority vessels reach the exit area, including the named medical/engineering ship. **Fail:** that essential ship is lost or fewer than three arrive before the cutoff. **Optional:** all four arrive and the escort helicopter returns. **Carry-over:** four arrivals give SW08 its better logistics start; three arrivals still complete SW02, open C01 and give a reduced-supply start. A hard defeat follows the native replay path; it must not silently advance the campaign.
 
 Use armed `ran_ms_*` auxiliaries only if the briefing explicitly describes armed support vessels. Prefer verified unarmed merchant types for ordinary civilian cargo.
 
@@ -211,11 +211,11 @@ The existing `_narco_narcosub_adv` is a game representation, not evidence that a
 
 ### SW05 — Warramunga's Shot
 
-**Player:** HMAS Warramunga, its helicopter and a short support-aircraft window. **Target:** 30–45 minutes.
+**Player:** HMAS Warramunga if still available, otherwise a surviving assigned Australian escort, its helicopter and a short support-aircraft window. **Target:** 30–45 minutes.
 
-An opposing armed escort is trying to turn back a protected convoy. The player must establish the target, engage the military threat and get Warramunga clear. Merchant hulls should not become valid targets merely because the designer placed “[SANCTIONED]” in their names.
+An opposing armed escort is trying to turn back a protected convoy. The player must establish the target, engage the military threat and get the assigned escort clear. If Warramunga was previously lost or withdrawn, acknowledge that in the briefing; the operation retains its established title and does not respawn the ship. Merchant hulls should not become valid targets merely because the designer placed “[SANCTIONED]” in their names.
 
-**Win:** the hostile escort is neutralised or withdraws, and the protected convoy passes. **Fail:** the priority merchant or Warramunga is lost. **Optional:** preserve a useful anti-ship magazine for later chapters. **Carry-over:** the surviving frigate returns in SW10; its expended weapons affect the ledger.
+**Win:** the hostile escort is neutralised or withdraws, and the protected convoy passes. **Fail:** the priority merchant or the designated escort is lost. **Optional:** preserve a useful anti-ship magazine for later chapters. **Carry-over:** the surviving frigate returns in SW10; its actual surviving ammunition carries forward in Task Force Mode.
 
 Retain the current Anzac model and NSM integration. Avoid briefing claims that the weapon outranges every possible opponent; the actual winning ammunition and opponent combination decide that in this installation.
 
@@ -225,7 +225,7 @@ Retain the current Anzac model and NSM integration. Avoid briefing claims that t
 
 The destroyer can defend the convoy but lacks a consistent picture beyond its local horizon. Triton locates the opposing surface group while hostile fighters attempt to drive it off. The player chooses between more information now and retaining the aircraft for tomorrow.
 
-**Win:** the convoy reaches its passage window while the reconnaissance asset survives. **Fail:** the protected convoy is lost. **Optional:** maintain the surveillance condition for the required period. **Carry-over:** losing Triton reduces warning quality in SW11 through different starting contacts and messages, rather than an unimplemented global intelligence system.
+**Win:** the convoy reaches its passage window. Reconnaissance-asset survival distinguishes a clean result from a qualifying setback. **Fail:** the protected convoy is lost. **Optional:** preserve the reconnaissance aircraft and maintain the surveillance condition for the required period. **Carry-over:** losing Triton reduces warning quality in SW11 through different starting contacts and messages, rather than an unimplemented global intelligence system.
 
 Prove the actual contact-sharing behaviour in game. If there is no trustworthy trigger for sensor-track state, define the objective around an observable patrol area/time condition and label the approximation in designer notes.
 
@@ -245,7 +245,7 @@ Foxhound Sweep provides a compact encounter seed. In the main story the Russian 
 
 The contested enclave is preventing relief access. Local authorities request a temporary protected window to move civilians and emergency supplies. Air-defence suppression and a follow-up strike on a confirmed military launcher support that window; neither should require destroying an entire regional industrial complex.
 
-**Win:** the evacuation/relief aircraft or ships complete their passage. **Fail:** the protected movement is destroyed or the window expires. **Optional:** neutralise the specific military battery and recover all support aircraft. **Carry-over:** success grants the improved SW10 staging option; failure produces a longer route.
+**Win:** the evacuation/relief aircraft or ships complete their passage. **Fail:** the protected movement is destroyed or the window expires. **Optional:** neutralise the specific military battery and recover all support aircraft. **Carry-over:** completed passage with the access battery neutralised grants the improved SW10 staging option; completed passage with that secondary threat still active opens C04 and requires the longer route. Destruction of the protected movement is a hard defeat.
 
 The Biak Regiment and Tigers over Papua supply units and encounter patterns. Their occupied-territory premise is fictional. Change the primary objective from a generic kill count to the passage outcome. Keep anti-radiation and strike fits within the chosen core-era rules.
 
@@ -255,7 +255,7 @@ The Biak Regiment and Tigers over Papua supply units and encounter patterns. The
 
 The submarine returns to a friendly rear rendezvous after a difficult patrol. Fuel, provisions, minor service and crew transfer are the immediate problem. An enemy scout or limited raid threatens the service window. Other vessels may support the submarine when the intended donor/receiver mechanics have been demonstrated.
 
-**Win:** support ship and submarine survive the required service window and the group can withdraw. **Fail:** either essential unit is lost. **Optional:** retain both escorts' readiness. **Carry-over:** a completed service restores a defined campaign availability token; it does not silently restore every weapon.
+**Win:** support ship and submarine survive the required service window and the group can withdraw. **Fail:** either essential unit is lost. **Optional:** complete the additional support-delivery condition and retain both escorts' readiness. **Carry-over:** minimum service permits progression; delivery of the additional stores enables the planned SW10 rearm window and an extra temporary ASW sortie in SW11. If the additional delivery is missed, C05 offers a recovery route. This uses an explicit between-mission service flag; it does not imply that a surfaced submarine reloads torpedoes at sea.
 
 **User requirement retained:** submarine transfer requires the boat to surface, approach a designated support ship and remain within the validated transfer limits. If a mod allows submerged transfer, impose a documented house rule unless a tested script enforces the restriction. Treat torpedo/missile reloads as tender/port work or a between-mission abstraction unless the chosen gameplay mode explicitly proves and labels a broader mechanic. Nuclear-reactor refuelling is not an at-sea replenishment objective.
 
@@ -354,20 +354,22 @@ Additional optional episodes give the wider collection purposeful roles:
 
 ## 9. A campaign that can actually be implemented
 
-### What persists
+### What persists: native Task Force Mode first
 
-Start with a manual, readable campaign ledger. The repository inspection did not establish automatic cross-mission state persistence. Prebuilt normal/setback mission variants are enough for the first release.
+**Correction to version 1.0:** the repo contains an exported native Task Force Mode campaign. The earlier claim that automatic persistence was not established was incomplete. Use that system for owned units, damage, magazines, points and crew progression. A manual ledger is only a fallback for bespoke story conditions that cannot yet be demonstrated; it is not the player's primary economy interface.
 
-| Ledger field | What to record | How it changes the next mission |
+The inspected primary implementation is `mods-source/_vanilla/original/campaigns/pacific-strike-task-force/`. Its `campaign.ini`, `player_task_force_roster.ini`, `commander_settings.ini` and `campaign_rules_en.xml` define a working reference. The exported `language_en/ui.ini` also contains optional-mission expiry warnings and the task-force management interface. These are read-only references, not files to overwrite.
+
+| State | Intended owner | Consequence |
 |---|---|---|
-| Escorts | Surviving named hulls; unavailable/damaged status | Remove lost hulls and substitute a smaller force where appropriate |
-| Air support | Wedgetail, Triton, tanker and fighter availability | Select a reduced-warning or reduced-air-support variant |
-| Cargo | Essential deliveries and optional deliveries | Determines which relief/staging option is available |
-| Magazines | Simple remaining-availability bands, not invented exact logistics | Full / limited / exhausted strike or air-defence allocation in the next authored start |
-| Civilian protection | Named losses and completed rescues | Debrief consequences and ending gates; never offset civilian failure with an unrelated kill score |
-| Regional access | Specific mission permissions unlocked by story outcome | Changes staging location or route, not national ownership of a base |
+| Purchased ships, aircraft and helicopters | Native task-force save | Surviving units remain available; completed-operation losses require replacements |
+| Damage and ship ammunition | Native task-force save | Repair costs and scheduled rearm windows constrain the next sortie |
+| Budget, purchased fits and crew experience | Native task-force save | Investment and experience remain attached to the force |
+| Essential/extra cargo, rescued groups and identified routes | Authored mission outcomes, with persistence proved in the prototype | Unlock specific support, route or contingency options |
+| Regional access and endings | Authored story conditions | Change staging or the debrief; never relabel a partner's base as Australian property |
+| Hard defeat and replay | Native campaign rules until a tested alternative exists | Do not promise that a lost mission automatically advances or commits its casualties |
 
-Example: SW02 with four arrivals selects `SW08_Normal`; three arrivals selects `SW08_LimitedSupply`; failure selects `SW08_DelayedRelief`. Keep these names in a designer manifest. Do not make the player edit INI files to continue.
+The full financial design is in section 13, and the distinction between verified native fields and untested story behaviour is in section 16. The [Triassic Games authoring guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3756769210) provides additional documentation; its campaign roster overrides avoid changing shared unit prices for other campaigns.
 
 ### Observable objectives
 
@@ -385,13 +387,13 @@ Preserve named formations and established safe passages from the user's saves. A
 
 ### First release scope
 
-1. Freeze the current intended branch/load-order baseline and decide the BMD/intercept integration separately.
-2. Build SW01, SW02 and SW06 as a playable vertical slice: identification, escort and surveillance. These establish the campaign's central experience using available units.
-3. Add SW03 only after helicopter movement and evacuation abstraction are demonstrated.
-4. Add SW09 after donor/receiver transfer, submarine surfacing and resource limits are proved; use a survival-and-service-window objective in the interim.
-5. Build the remaining main missions and the ledger variants; then add Allied Dispatches and Future Front.
+1. Freeze the branch/load-order baseline and decide the separate BMD/intercept integration.
+2. Prove a two-mission native campaign harness: buy a modded unit, spend ammunition, take repairable damage, complete the mission and save/reload into the next. Check the point balance, repair offer, rearm gate, aircraft assignment and qualifying completion semantics.
+3. Build SW01, SW02 and SW06 as the playable vertical slice. SW06 is a developer test entry in this slice, not an instruction to move its story date forward. Add O01 and C01 when the optional-window and setback gate are proved: five playable scenarios in the slice.
+4. Add SW03 after helicopter movement and evacuation abstraction are demonstrated. Add SW09 after donor/receiver transfer, submarine surfacing and resource limits are proved; retain a protected-service-window abstraction until then.
+5. Complete the 12-mission mainline, then the remaining optional/contingency missions to reach 30. Expand Future Front, Red Line and Cold Sea as separate products of the same collection.
 
-Suggested repository homes are `docs/campaigns/southern-watch/` for the bible and source notes, `integration/missions/southern_watch/` for the manifest/build inputs, and the installer's supported mission output directory for the emitted INIs. Confirm nested-directory deployment support before choosing nested output. Keep mission names prefixed `SEST Southern Watch` to make ownership clear.
+Suggested source homes are `docs/campaigns/southern-watch/` for design/evidence and `integration/campaigns/southern-watch/` for campaign build inputs. The required deployed structure is a mod-root-relative `campaigns/southern-watch/` folder containing `campaign.ini`, `commander_settings.ini`, `player_task_force_roster.ini`, descriptions, `missions/` and event/art assets. Extend the consolidation/install path only after confirming it copies this structure. A loose single-mission INI under `user_missions` does not establish campaign registration. Preserve the existing source-pack registration and ownership conventions.
 
 ### Build acceptance criteria
 
@@ -403,6 +405,7 @@ Suggested repository homes are `docs/campaigns/southern-watch/` for the bible an
 - Validate the ordinary victory route, an early defeat, a civilian-loss case, timeout, save/reload, and return to menu. Run the mission long enough to expose recovery and delayed-trigger behaviour.
 - For replenishment: prove transfer begins, the donor loses supply, the recipient gains the intended resource, limits are respected, and transfer ends when separation or the prescribed surfaced condition is broken. If surfacing is a house rule, say so.
 - For the BMD branch: verify the actual integrated altitude/speed/intercept behaviour before making success depend on it. Preserve the vanilla impact-table correction if included; do not assume earlier branch work survived consolidation.
+- Validate every purchasable roster entry has an explicit campaign price and a compatible variant/squadron. Check point rewards are not farmable by replay, optional windows expire correctly and purchases/aircraft assignments survive save/reload.
 - Require an in-game visual and behavioural smoke test. Static checks do not validate pylon positions, textures, invisible weapons, helicopter decks or AI route choice.
 
 Use existing tools first, naming the mission explicitly. For example, after SW01 has actually been generated:
@@ -441,10 +444,322 @@ Your immediate task is to bring the convoy together and get its crews out of dan
 
 The first release is set in 2028, uses conventional weapons, keeps Australia central and treats Indonesia, Timor-Leste and PNG as sovereign actors. The full enabled collection remains available. Experimental equipment is used openly in optional fiction. Existing missions and exported user saves are reference material and retain their identities; Southern Watch receives its own mission files.
 
-The three priority engineering questions are **which branch becomes the approved combined baseline**, **which exact donor/receiver pair supports submarine service**, and **which objective conditions the game reliably exposes**. Those questions affect implementation, but none prevents writing or building the first patrol/escort/surveillance slice.
+The priority engineering questions are **the combined branch baseline**, **native persistence and roster prices for the modern mods**, **the donor/receiver pair for submarine service**, and **the outcome conditions that reliably unlock story branches**. Those questions affect implementation, but none prevents writing or building the first patrol/escort/surveillance slice.
 
-The first scenario to build is **SW01 — White Water**, followed by **SW02 — Steel Highway** and **SW06 — Blind Horizon**. Together they establish the setting and test the core Australian fleet, civilian traffic, aircraft support and mission logic before the campaign grows.
+The first scenario to build is **SW01 — White Water**, followed by **SW02 — Steel Highway** and **SW06 — Blind Horizon**, inside a proved native campaign harness. The full target is 30 mission designs over 42 fictional days. Start with a 1,000-point requisition budget, staged purchases and explicit aircraft costs; treat every number as a first balancing pass.
 
+
+## 12. Timeline, mission count and branching
+
+### Scope and expected length
+
+**Campaign dates: 18 October–28 November 2028, inclusive: 42 days.** Two main operations anchor each seven-day chapter. Time advances through authored operations and situation reports; this is a connected campaign with scheduled choices, not a freely simulated strategic clock. Distances between theatres are handled by stated transit periods and detachments already operating there. A ship deployed to one distant operation must not appear hundreds of miles away minutes later.
+
+| Content | Authored designs | Role in one run |
+|---|---:|---|
+| SW01–SW12: main missions | 12 | Complete the central Australian story |
+| O01–O12: optional operations | 12 | Usually take 6–8; trade additional exposure and ammunition for support, information or budget |
+| C01–C06: contingency missions | 6 | Usually 0–2; recover from a qualifying setback |
+| **Playable total** | **30** | **Typical run: 18–22 missions** |
+| Prologue, six situation reports, epilogue | 8 events | Briefing/story screens; excluded from playable mission count |
+
+The original twelve main-mission duration ranges sum to **500–745 minutes: 8 hours 20 minutes–12 hours 25 minutes**. Optional missions target 25–40 minutes, contingencies 20–35 minutes. A typical run therefore targets roughly **11–19 hours of active play**, or **18–30 hours with planning, pauses and some retries**. These are estimates, not measured timings. A mainline-only run is supported. The longest branch need not expose every contingency, and repeat attempts are not counted as new missions.
+
+The 12 existing Banda vignettes are source material for this schedule; they are not twelve additional campaign missions. Living Seas free play and the Future Front, Red Line and Cold Sea anthologies are also outside the 30-mission count. Initially, 30 playable entries plus eight events suggest 38 timeline nodes. The final `NumberOfMissions` must count actual emitted entries, including any extra variant/gate events, rather than blindly hardcoding 38.
+
+### The six-week calendar
+
+| Chapter | Dates | Main missions and planned operation dates | Escalation and force decisions |
+|---|---|---|---|
+| 1 — The interrupted passage | 18–24 Oct | **18 Oct: SW01 White Water**; **22 Oct: SW02 Steel Highway** | Identify the armed interference, then protect the first PNG delivery. Begin with Warramunga; form the larger escort group before SW02. |
+| 2 — Pressure without a declaration | 25–31 Oct | **26 Oct: SW03 Rig Seventeen**; **30 Oct: SW04 The Quiet Passenger** | Evacuation and covert supply tracking expose the network behind the attacks. Decide whether more patrol coverage is worth less air defence. |
+| 3 — The corridor contested | 1–7 Nov | **2 Nov: SW05 Warramunga's Shot**; **6 Nov: SW06 Blind Horizon** | Overt attacks begin. Growler and wider surveillance allocations become available; damage and magazine use become harder to absorb. |
+| 4 — The relief window | 8–14 Nov | **9 Nov: SW07 Long Way Home**; **13 Nov: SW08 The Open Door** | Protect returning aircraft and open a humanitarian passage. Tanker access, specialist aircraft and regional staging matter as much as ships. |
+| 5 — Keep the force supplied | 15–21 Nov | **16 Nov: SW09 Southern Lifeline**; **20 Nov: SW10 Common Sea** | Replenishment, surfaced submarine support and the Japanese arrival sustain the route. Choose the allied air detachment for the convoy. |
+| 6 — One passage that must work | 22–28 Nov | **23 Nov: SW11 Fujian's Shadow**; **28 Nov: SW12 The First Ship Through** | Survive the fleet encounter, repair what can be repaired and escort the ceasefire convoy. The surviving force carries the ending. |
+
+Each chapter has two optional mission windows, one around each main operation, with closure clearly shown before advancing. The dates below fix narrative order; mission routing must preserve prerequisites and warn before closing an opportunity. A contingency occupies the final recovery window of its chapter. Taking it does not rewind time or reopen earlier optional missions.
+
+### Twelve optional operations
+
+Points are completion allocations on the proposed Standard setting. Information, access and borrowed forces are separate rewards; they do not convert into cash when dismissed. All outcomes below are authoring specifications pending in-game verification.
+
+| ID / date | Operation | Task and collection use | Reward and practical effect |
+|---|---|---|---|
+| O01 · 19 Oct | **The Missing Beacon** | Search an interrupted merchant route with a Seahawk and patrol ship; Living Seas traffic supplies innocent contacts. | **50 points**; a confirmed report improves the SW02 contact briefing. Rescue remains useful even when it yields no combat advantage. |
+| O02 · 21 Oct | **Paper Trail** | Shadow a suspected logistics merchant to a handover point; adapt Sanctioned Cargo without making merchant destruction the objective. | **60 points**; identifies a likely patrol lane for SW04. |
+| O03 · 27 Oct | **Night Shift** | Cover a second helicopter evacuation from the offshore area; use Choules/Canberra theatre support and existing helicopter assets. | **60 points**; preserves the extra rescued-group story condition. |
+| O04 · 29 Oct | **The Southern Gate** | Protect a regional patrol handover while distinguishing fishing traffic and biologic contacts from a hostile submarine. | **50 points**; makes an additional friendly patrol available in SW04, without granting ownership of it. |
+| O05 · 3 Nov | **Broken Contact** | Reacquire a suspected submarine before it crosses a merchant lane; use the player's ASW aircraft/escort combination. | **60 points**; a successful fix narrows the authored submarine starting area in SW10. |
+| O06 · 5 Nov | **Out of the Sun** | Escort a maritime reconnaissance sortie through an interceptor threat; conventional F-35/Super Hornet/Growler fits. | **70 points**; improves the early warning briefing for SW06. |
+| O07 · 10 Nov | **Weather Alternate** | Escort an allied tanker and survey the approach to a partner-approved diversion airfield. | **60 points**; unlocks the shorter recovery route in SW08, subject to the access conditions. |
+| O08 · 12 Nov | **Tigers over Papua** | Protect a relief approach and suppress one confirmed military threat, using the existing vignette as an encounter seed. | **70 points**; temporary allied support reduces pressure on SW08. Any A-10 addition is a separately staged allied detachment using the resolving `usa_a-10c`, not the missing A-10C+ ID. |
+| O09 · 17 Nov | **Viper Zero** | Fly the Japanese anti-ship escort episode associated with the incoming Mogami detachment. | **70 points**; F-2A support becomes the Japanese option for SW10. |
+| O10 · 19 Nov | **Rafale, Timor Gap** | Protect an allied maritime-strike package with a verified conventional Rafale fit. | **70 points**; French support becomes the alternative SW10 air allocation. The F5/LRASM fiction remains in Future Front. |
+| O11 · 24 Nov | **The Listening Line** | Protect a final reconnaissance effort among neutral traffic following the carrier encounter. | **60 points**; a better spoiler warning in SW12, at the cost of exposing already worn aircraft and escorts. |
+| O12 · 26 Nov | **Last Light** | Recover scattered civilian survivors and escort a small relief shipment before the ceasefire convoy forms. | **50 points**; strengthens the humanitarian debrief. It does not erase earlier civilian casualties. |
+
+**All optional allocations total 730 points.** Six to eight completed optionals usually provide about 350–500 points. They should improve choices without becoming mandatory grinding. Both O09 and O10 may be completed, but SW10 has capacity for one allied air-support branch; the player selects which to request. Allied-perspective missions can use fixed detachments without placing their losses into the Australian owned roster, while their completion still affects the story.
+
+### Six contingency designs
+
+These are recovery operations unlocked by an operation that has **met its minimum completion requirement while missing a secondary goal**. They are not generic rewards for losing. Each pays **zero additional requisition points**: its value is restoring access, saving people or preventing a later disadvantage. Design the trigger as a named outcome condition, then prove it can be saved and read by the campaign. The labels below are design labels, not invented INI keys.
+
+| ID / date | Operation | Qualifying setback | Recovery result |
+|---|---|---|---|
+| C01 · 23 Oct | **After the Wake** | SW02 completes with the essential ship and three arrivals, but the fourth cargo vessel is lost. | Protect the survivor search. Saves people and improves the debrief; it does not restore the destroyed cargo or ship. |
+| C02 · 31 Oct | **A Second Look** | SW04 hands over the required craft, but the secondary logistics contact remains unidentified. | Re-establish the supply-route picture; otherwise SW09 begins with less warning. |
+| C03 · 7 Nov | **Eyes at Sea** | SW06 gets the convoy through but loses its designated reconnaissance asset. | Use an escort/P-8 patrol to restore one warning condition. Triton remains lost and any replacement still costs points. |
+| C04 · 14 Nov | **The Long Route** | SW08 passes the relief movement, but the secondary access threat prevents the planned staging option. | Escort supplies along the longer approach. Opens a workable fallback for SW10 without pretending the original site is safe. |
+| C05 · 21 Nov | **The Reserve Tanker** | SW09 completes minimum protected service but misses the extra-stores delivery. | Protect an alternate support delivery to restore one temporary coalition ASW aircraft sortie in SW11. SW10 has already faced the reduced supply state; C05 cannot retroactively reload it. The aircraft does not join the owned roster. |
+| C06 · 27 Nov | **Bring Them Home** | SW11 meets its protected-transport and high-value-ship requirements but leaves a secondary escort/support ship unable to keep up. | Bring the straggler to safety before SW12. It remains damaged until eligible repairs are paid. |
+
+**Completion semantics matter.** The shipped Pacific Strike rules require a failed mission to be replayed and say failure itself applies no additional persistent penalties. Keep that behaviour for true hard defeats in the first build. Model the above setbacks as qualifying completions, with the accepted force state and a recorded secondary outcome. The developer guide also describes result-dependent branching, but a defeat branch must be tested for save-state behaviour before replacing the safer completion-based design. Never claim a lost ship is both permanently removed and restored by the same replay path.
+
+Civilian/protected-primary failures retain explicit hard gates. A setback is a bounded operational shortfall, not a mechanism to turn an unacceptable loss into routine progress. Before advancing, show the next mission, lost optional windows, service availability and important consequences in the briefing/debrief.
+
+## 13. Money: requisition, maintenance and replacements
+
+### What the points represent
+
+Use Sea Power's native **campaign points as a requisition budget**. The player is a commander allocating existing defence resources. Points abstract staff priority, transport, crews, spare parts, assigned aircraft and available hulls. They are not Australian dollars and do not imply buying or building a destroyer in a few days. A new hull in week four is an existing ship reassigned from another commitment, with an appropriate arrival window.
+
+One currency is enough. Ammunition, damage, available units and service opportunities create the other constraints; do not add a second invented fuel currency or a per-day payroll. The immediate loop is: review the next operation, check the force, choose repairs or replacements, select a deployable detachment, then accept the consequences of a completed mission.
+
+| Standard rule | First balancing pass |
+|---|---|
+| Opening allocation | **1,000 points** |
+| Unspent points cap | **1,500 points**; no automatic cap increases in the first balance pass |
+| Mainline completion allocations | **1,580 points total** across SW01–SW11; SW12 closes the campaign |
+| Optional completion allocations | 50–70 each; **730 points** if all 12 are completed |
+| Contingency completion allocations | 0; recovery benefits only |
+| Aircraft on newly bought ships | Bought explicitly; `ShipIncludesAirwing=False` across difficulties |
+| Commander nationality discount | 0% initially; avoid inconsistent discounts from Australian squadrons on US-named mod unit definitions |
+| Hull repair | Light: **10%** of the hull's base campaign price; Moderate: **25%**, at an enabled service window |
+| Heavy damage | Withdraw/decommission under the selected native rules; no instant full repair |
+| Dismiss an undamaged unit | 50% point return; it also leaves the owned force |
+| Decommission a heavily damaged unit | 25% point return; story calls this withdrawal from theatre, not necessarily scrapping the ship |
+| Unit lost in a committed completed operation | No refund; replacement is a separate purchase if an appropriate unit is available |
+| Crew experience | Earned through survival; never a point purchase |
+
+The point cap limits the available cash balance, not the combined value of owned units or the size of a deployed group. Force size must be handled through available roster entries, mission slots and supported deployment restrictions. Do not raise `TaskForceModeCompletionCapPoints` on every mission merely because a points reward is being granted.
+
+The native reference also awards small CSAR point credits. Set `CSARPointModifier=100` initially, matching one point per complete group of 100 survivors, and keep this outside the fixed totals above. The principal reasons to rescue remain the objective and human consequences. Do not award budget per ship sunk or create a destruction-based shopping loop. Mission score and commander awards can record combat performance without making it the campaign's income source.
+
+### Mainline allocations
+
+| Completion | Points | Why HQ releases this allocation |
+|---|---:|---|
+| SW01 | 100 | Formalises the escort task after the first incident |
+| SW02 | 140 | Sustains the established relief route |
+| SW03 | 120 | Covers follow-on evacuation and patrol commitments |
+| SW04 | 100 | Supports the newly identified maritime-security operation |
+| SW05 | 140 | Reinforces the force after open armed interference |
+| SW06 | 140 | Restores a workable surveillance and escort posture |
+| SW07 | 120 | Supports the next relief deployment |
+| SW08 | 180 | Sustains the opened humanitarian corridor |
+| SW09 | 160 | Allocates the next convoy's support effort |
+| SW10 | 180 | Prepares the final coalition passage |
+| SW11 | 200 | Funds final repairs and aircraft replacements before SW12 |
+| SW12 | 0 | Epilogue and service record; no further campaign shop |
+| **Total** | **1,580** | Fixed first-completion allocations; no kill bounties |
+
+A qualifying setback earns the main operation's ordinary allocation because its minimum task was completed. It loses its secondary benefit and may require a contingency. This avoids multiplying financial punishment into an unrecoverable spiral. Hard defeat does not pay. Verify that replaying completed missions cannot add repeated allocations to the active campaign save before releasing the economy.
+
+### Proposed roster prices
+
+These are **fictional game-balance values**, per hull or individual aircraft, using the existing collection. Every purchasable entry needs an explicit campaign override; several inspected modern definitions lack an explicit task-force cost. A price in this table does not itself make a unit a working purchase or establish deck compatibility.
+
+| Item | Exact current unit type / scope | Points | Earliest planned access |
+|---|---|---:|---|
+| Anzac-class frigate | `ran_ffh_anzac`; opening Variant3 Warramunga, later approved surviving-class hull variants | **240** | SW01; expand permitted named hulls at later service windows |
+| Hobart-class destroyer | `ran_ddg_hobart` | **480** | Before SW02 |
+| Arafura-class patrol vessel | `ran_opv_arafura` | **100** | Week 2, only after correcting/restricting the donor's inappropriate combat fit |
+| Collins-class submarine | `ran_ssg_collins` | **320** | Week 3, conditional on correct category, persistence and deployment support; authored theatre boat until proved |
+| Supply-class replenishment ship | `ran_aor_supply` | **140** | Week 3, after replenishment integration passes; assigned mission support before then |
+| Choules | `ran_lsd_choules` | **220** | Week 2; its evacuation role can also be provided as separately assigned theatre support |
+| Canberra-class LHD | `ran_lhd_canberra` | **420** | Week 4; helicopter-only campaign configuration |
+| Japanese Mogami | `js_ffg_mogami` | **260** | Week 5, only for a proved persistent allied attachment; otherwise mission-specific support |
+| F-35A | `raaf_f-35a`, Australian Squadron3 | **45** | Before SW02; conventional campaign fits only |
+| Super Hornet | `usn_fa-18f_blk3`, Australian Squadron8 | **35** | Before SW02 |
+| Growler | `usn_ea-18g`, Australian Squadron6 | **55** | Week 3; conventional EW/SEAD fits |
+| P-8A | `usn_p8`, Australian Squadron3 | **45** | SW01 |
+| Wedgetail | `E7A_Wedgetail`; validate the appropriate squadron | **80** | Before SW02; mission-specific support may precede player ownership |
+| Triton | `raaf_mq-4c_triton`; unarmed representation | **60** | Week 2 |
+| Allied tanker | Validated `usaf_kc-46a_boom` or `usaf_kc-46a_warp` receiver pairing | **75** | Week 4, if made persistent; otherwise authored allied support |
+| Seahawk | One validated `usn_mh-60r` or `usn_mh-60r_26` airframe/deck/squadron combination | **20** | SW01; choose the working family explicitly, never substitute the two IDs silently |
+
+Do not offer Ford or another carrier for personal purchase in this first campaign. Its theatre deployment is a story commitment with a bounded air group. This also prevents a cheap hull or inherited free air group from overwhelming the small-force economy. Do not use unlimited duplicate aircraft as a supposed national inventory; balance purchases with cost and actual mission basing/air-tasking capacity. The official guide currently states that per-type aircraft purchase quantity limits are unavailable.
+
+### A complete opening budget example
+
+No optional rewards, rescue credits, discounts or losses in SW01 are assumed in this example.
+
+| Step | Change | Available points |
+|---|---:|---:|
+| HQ opening allocation | +1,000 | **1,000** |
+| Before SW01: Warramunga 240 + Seahawk 20 + P-8A 45 | −305 | **695** |
+| Complete SW01 | +100 | **795** |
+| Before SW02: Hobart 480 + two F-35As 90 + second Seahawk 20 | −590 | **205** |
+| Complete SW02 | +140 | **345** |
+| At the next service window: repair moderate Hobart damage | −120 | **225** |
+| Replace one F-35 lost during SW02 | −45 | **180** |
+
+The force ends this sequence with two repaired/operational escorts, two Seahawks, a P-8 and two F-35s, assuming those were the only losses/damage and all aircraft assignments were valid. Buying more fighters before SW02 could have left too little for the destroyer repair. Preserving the destroyer could instead have funded a Wedgetail and another fighter. A 100–200 point working reserve is a useful opening target, not a required minimum.
+
+### Prevent a financial dead end without erasing consequences
+
+Keep the core completable without optional income. Test it with modest damage and a limited number of aircraft losses, then tune encounter pressure or rewards. Protect the player's choice of force by offering at least one viable convoy/air-support arrangement in every chapter. A temporary, explicitly assigned theatre escort or specialist sortie can satisfy a mission prerequisite when the owned roster lacks it; it does not join the owned fleet, generate a dismissal refund or replace every loss for free.
+
+A sunk named hull stays sunk on an accepted completed path. Its replacement uses another valid available hull and begins with the new-unit crew skill. The surviving air group of a lost ship needs explicit recovery/assignment handling in the game; never duplicate it onto the replacement automatically. The player may withdraw a damaged ship and sail a smaller detachment.
+
+Start with three difficulty budgets: **Supported 1,250**, **Standard 1,000**, **Veteran 850**. Keep the same objective logic and prices, with repair multipliers 0.75 / 1.0 / 1.25. Keep aircraft purchases explicit in all three, so package cost comparisons remain intelligible. These presets require playtesting; they are not claims of current game balance.
+
+## 14. Customisation and campaign identity
+
+Customisation should change the way an operation is solved. More air defence gives a different margin than another ASW aircraft; a second cheap escort covers another approach but cannot reproduce a destroyer's sensors or magazine. The player chooses a force suited to the next job while retaining the ships and crews that have already survived.
+
+| Layer | Player choice | Constraint and resulting value |
+|---|---|---|
+| Commander and group | Australian commander identity, task-group name and supported native service-record options | Personal continuity across the campaign; rank/awards follow progress rather than purchases |
+| Fleet composition | Escort mix, optional support hulls, which available units deploy and which remain in reserve | Cost, service access, valid named hulls and mission slots limit the choice |
+| Air detachment | Fighter, strike, EW, ASW, reconnaissance and AEW proportions | Individual aircraft cost points and need a working airfield/deck or air-tasking slot |
+| Aircraft loadouts | Compatible, verified conventional CAP, ASW, anti-ship or SEAD presets | Existing aircraft purchase includes loadout selection; there is no separate charge each time a fighter changes role |
+| Naval fits | Supported loadout presets, once correctly authored and unlocked | RAN preset work is required; preserve each hull's real weapon mounts and finite magazine capacity |
+| Deck/airbase assignments | Which compatible aircraft go aboard each ship or use the available bases | Owning an aircraft does not make it launchable from an incompatible deck |
+| Deployment | Formation, escort station, patrol areas, weapons control and sensor use | These affect exposure and coverage during the mission rather than adding numerical shop bonuses |
+| Crew development | Keep an experienced ship in service, rest/withdraw it, or risk it again | Experience comes from surviving missions and can be lost with the unit |
+| Visual identity | Existing valid hull variants, national markings and squadrons | New liveries, decals or paint editors are additional asset work, not included native features |
+
+**Naval fit implementation boundary:** the inspected consolidated Hobart, Anzac and Collins base definitions do not declare selectable loadout presets. Do not advertise functioning AAW/strike/ASW shop upgrades merely because Task Force Mode can charge for them. The first build can use a single validated conventional fit per hull. A later authoring pass may create a small number of genuinely compatible naval loadouts, with provisional unlock prices around **40 points for a role change** or **80 for a scarce strike allocation**. Price each exact implemented preset after testing; never add an arbitrary missile to a launcher that cannot use it, or present a 2028 electronics refit as an overnight shop item.
+
+Aircraft loadout selections and ship ammunition still need appropriate inventory and service availability. Check the chosen loadout's actual weapons, not just its name. In particular, an F-35 or Growler mod being enabled must not silently grant JATM/MALICE in the conventional 2028 branch. Some restrictions may require campaign-specific definitions or mission inventory overrides; verify enforcement before promising a locked technology tree.
+
+### Three opening force directions
+
+These examples show how a **1,000-point planning budget** could be distributed once SW02 opens the broader roster. They are package comparisons, not extra grants. They all include the opening Warramunga, one Seahawk and one P-8. The actual campaign may also have the SW01 reward available, as shown in section 13.
+
+| Direction | Example composition | Spent / reserve | What it gains and gives up |
+|---|---|---|---|
+| **Air-defence escort** | Hobart + Anzac + two Seahawks + two F-35As + P-8 | **895 / 105** | Stronger shipborne defence; relatively little airborne coverage and a costly repair exposure |
+| **Distributed escort** | Two Anzacs + two Seahawks + four F-35As + two P-8s + Wedgetail | **870 / 130** | More patrol/ASW coverage and air warning; lacks a Hobart's air-defence capability |
+| **Air-heavy detachment** | Anzac + Seahawk + six F-35As + four Super Hornets + two P-8s + Wedgetail | **840 / 160** | Flexible air patrol and maritime strike; one owned escort and dependence on operating bases |
+
+These are balance targets, not validated win guarantees. The air-heavy force still receives only the slots and aircraft access appropriate to the mission; purchasing ten fast jets is not permission to launch them all simultaneously. Add Growlers from week three and a tanker later if the player values sustained specialist coverage over another ship.
+
+### Availability progression
+
+- **Opening patrol:** narrow roster around Warramunga, a validated Seahawk and P-8. The opening story establishes the core ship and teaches identification.
+- **Before SW02:** broaden the purchase roster to a Hobart, a second appropriate Anzac hull, conventional fighters and Wedgetail. This is the first major force-design choice.
+- **Week 2:** patrol/evacuation support and Triton access; Arafura only after its fit is corrected. The mission's essential evacuation transport can be assigned separately.
+- **Week 3:** conventional Growler access, and Collins/Supply purchases only if their campaign mechanics pass the gates. The story can still use a separately authored submarine/support ship.
+- **Week 4:** validated tanker allocation, helicopter-only Canberra option and the first justified naval role presets, if implemented.
+- **Week 5:** Japanese detachment and the earned French/Japanese air-support choice. Friendly national identities remain intact.
+- **Week 6:** commit the force already built. A final limited support window repairs eligible damage and replaces aircraft; it does not deliver a freshly built carrier or an entire new escort fleet.
+
+The 139 enabled Workshop entries and 16 SEST source packs remain mapped in Appendices A–B. Purchasable entries are deliberately a much smaller subset. Opposing forces, neutral traffic, donor assets, UI improvements and future/historical branches all count toward using the collection without turning the Australian requisition screen into the entire mod browser. Unrestricted mode is a separate sandbox choice and is outside this story's balance.
+
+## 15. Service windows, ammunition and consequences
+
+A requisition budget only matters when availability and time matter too. Money permits an eligible repair; it does not conjure a replenishment ship into a dangerous sea area. Publish service windows in the briefing before a sortie, because a player should be able to decide how much ammunition to retain.
+
+| Window | Intended native service availability | Story rationale |
+|---|---|---|
+| Before SW01 · 18 Oct | Builder, repair and initial arming | Initial patrol preparation; narrow opening roster |
+| Before SW02 · 21–22 Oct | Builder, repair and rearm | The force assembles for the first major convoy; this is a deliberate additional opening service point |
+| Before SW03 · 25–26 Oct | Builder, repair and rearm | Rear-area service and evacuation preparation |
+| Before SW05 · 1–2 Nov | Builder, repair and rearm | Open hostilities bring the next authorised support allocation |
+| Before SW07 · 8–9 Nov | Builder, repair and rearm | Scheduled servicing before the relief operation; basing arrangements are explicitly partner-approved |
+| Before SW09 · 15–16 Nov | Builder, repair and rearm | Assemble the replenishment/service group |
+| Before SW10 · 20 Nov | Conditional rearm only; no ordinary hull purchases or paid repair | Extra stores delivered during SW09 support this convoy. If that secondary delivery failed, SW10 uses the carried state. |
+| Before SW11 · 22–23 Nov | Builder, repair and rearm | Final planned coalition support point; SW09 success or C05 recovery adds the temporary ASW sortie, without granting ownership |
+| Before SW12 · 27–28 Nov | Eligible repairs and aircraft purchases only; **no general ship rearm or new hull purchases** | Remaining spares and air reinforcements arrive, but the escorts sail with their remaining ship magazines |
+| All other transitions | No scheduled paid repair, builder or general rearm | Persistent wear and expenditure make the extra sorties a decision; limited native between-mission damage recovery may still occur |
+
+The SW10 conditional rearm needs a proved outcome/variable gate. If that cannot be demonstrated, ship the mainline with a plainly scheduled SW10 service rule and defer the conditional version; do not ask the player to edit a save or INI. The final air-only purchase window similarly requires a tested mission roster allowlist. Fixed allied-perspective episodes must not accidentally rearm or heal the Australian force when returning to the main story.
+
+**Rearming is free at enabled native windows in the inspected reference.** Its cost is the limited opportunity, not an invented per-missile cash charge. Persistent ship/submarine magazines and airbase/carrier stocks require separate verification; do not imply identical ammunition accounting for every platform. Aircraft loadout availability depends on validated settings and inventory. A damaged ship can be repairable while still short of missiles.
+
+SW09 retains the explicit surfaced-submarine requirement for the service represented in that mission. Fuel/provisions and between-mission ordnance reloads are different activities. The conditional campaign rearm is an authored logistical abstraction, not evidence of submerged transfer, torpedo loading alongside an arbitrary merchant or reactor refuelling at sea.
+
+Endings depend on the convoy route, protected people, access and surviving usable force. They do not require the richest bank balance or the largest enemy kill total. Spending 120 points to keep an experienced Hobart operational can therefore be a better campaign decision than saving the money for an impressive final score.
+
+## 16. Native build specification and proof gates
+
+### Primary evidence and what it establishes
+
+| Inspected source | Established behaviour / authoring pattern | Limit |
+|---|---|---|
+| Exported `original/config.ini`, `[LinearCampaign]` | Task Force Mode developer configuration is present | Does not prove this proposed mod campaign has been installed or registered |
+| Exported `pacific-strike-task-force/campaign.ini` | Enabled task-force mode, purchase budgets, damage repair rules, mission rewards, roster restrictions, repair/rearm windows and rewarded units | Reference values are not Southern Watch's balance values |
+| Exported `player_task_force_roster.ini` | Per-unit price override syntax; variant/squadron lists; separate ship-loadout prices; aircraft fits included | Every mod unit and fit still needs exact resolution |
+| Exported `campaign_rules_en.xml` | Saved force consequences, repair costs, free scheduled rearm, proficiency, native default defeat/replay behaviour | A different completion rule may change progression; prove it rather than extrapolating |
+| Exported `language_en/ui.ini` | Builder/aircraft management, optional-window closure messages and unrestricted-mode warning | UI text alone does not validate any specific new scenario |
+| Consolidated RAN unit definitions | No explicit task-force cost or declared selectable loadout presets in the inspected Hobart/Anzac/Collins base files | Use campaign prices; author/test naval presets before advertising them |
+| [Triassic Games authoring guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3756769210), checked 20 Sep 2026 | Campaign creation documentation, mod-price overrides and author notes on aircraft purchase limits | Native capability is documented; this mod collection still requires a running-game test |
+
+The local reference lives under the pinned repository's [`mods-source/_vanilla/original/campaigns/pacific-strike-task-force/`](https://github.com/SEST-HOBBY/Seapower-mods/tree/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/mods-source/_vanilla/original/campaigns/pacific-strike-task-force). It is a stronger implementation starting point than a separate finance app. Keep all new files under Southern Watch's own mod/source paths.
+
+### Concrete first-pass settings
+
+Use the existing native keys, with these proposed values in the campaign's task-force section and matching difficulty overrides:
+
+```ini
+[TaskForceMode]
+Enabled=True
+TaskForceRequireFlagship=False
+DefaultTaskForceName=Southern Watch Task Group
+CommanderSettingsFile=commander_settings.ini
+RosterFile=player_task_force_roster.ini
+StartingPoints=1000
+PointCap=1500
+ShipIncludesAirwing=False
+PurchaseLoadouts=True
+CSARPointModifier=100
+CrewSkillInitial=Trained
+CrewSkillThresholds=Trained:1|Seasoned:4|Veterans:9|Ultra:16
+UnitDecommissionPointReturnModifier=0.25
+UnitDismissPointReturnModifier=0.5
+DamageToAllowRepair=Light,Moderate
+DamageToDisallowRepair=Heavy
+RepairPointsCost=Light,0.1|Moderate,0.25
+```
+
+This is a settings excerpt, **not an installable campaign file**. It omits registration, difficulty sections, the implemented loadout allowlists, mission entries and assets. In commander settings use the native Australian commander configuration with `SameNationUnitDiscount=0`; do not invent a nation identifier or replace the historical nationality of allied units.
+
+Examples of campaign-specific prices, drawn from the inspected native roster format and resolved campaign candidates:
+
+```ini
+[AllowedVessels]
+ran_ffh_anzac=Variant3,Variant8|240
+ran_ddg_hobart=Variant1,Variant2,Variant3|480
+
+[AllowedAircraft]
+raaf_f-35a=Squadron3|45
+usn_fa-18f_blk3=Squadron8|35
+usn_ea-18g=Squadron6|55
+usn_p8=Squadron3|45
+```
+
+This partial roster illustrates exact pricing, not blanket availability: the first mission narrows purchases to its opening selection. The remaining candidates need validated variants/squadrons before inclusion. The Collins clone currently lives in the vessel export; resolve its effective type and native submarine placement rather than treating its filename as proof of compatibility.
+
+For each mission, emit explicit `TaskForceModeRearm`, `TaskForceModeRepair` and `TaskForceModeEnableTaskForceBuilder` values. Use `TaskForceModeCompletionPoints` for the reward table and a zero cap increment for this initial balance. `RequiredResult=CostlyVictory` is an existing reference pattern for accepting a qualifying completion; it does not by itself implement each secondary outcome. Use the native campaign relationship and persistent-condition mechanisms only after testing their actual semantics.
+
+Start with Generated placement where appropriate; special single-escort or air-focused missions need authored placement and assignment proof. Do not treat `TaskForceModeIncludes*` or threat-display fields as deployment restrictions: the authoring guide identifies them as presentation fields. Cap actual participating units through demonstrated mission slots and supported restrictions. Do not assume that a ship-specific restriction behaves identically for a submarine.
+
+Every story-critical support unit must declare one of three ownership states in the designer manifest: **owned persistent force**, **temporary theatre support**, or **civilian/partner objective**. A surviving temporary asset should only join the owned force when that transfer is deliberate and tested. Airfields and civilian traffic are not purchased fleet assets.
+
+### Minimum acceptance run
+
+1. Start with the intended mod order and Standard budget. Confirm displayed prices match the roster and that neither a missing price nor an included-airwing rule grants free assets.
+2. Buy the opening frigate, compatible helicopter and P-8. Confirm the planned 305-point spend, remaining 695 points and actual mission aircraft/deck/base assignment.
+3. Complete a mission with ammunition expenditure and repairable damage, save and reload. Confirm the committed force state, 100-point allocation and crew progression once; verify hard defeat separately from a qualifying setback.
+4. Advance through a no-service transition, then a service transition. Confirm ship rearm and paid repair occur only where authorised; inspect limited native automatic damage recovery rather than assuming damage is perfectly frozen.
+5. Complete SW02 with three arrivals including the essential ship. Confirm normal progression, the saved secondary condition, C01 visibility, lost-cargo persistence and SW08's intended supply state. Complete the clean four-arrival variant separately to verify the branches differ.
+6. Advance past an optional deadline and replay a completed mission. Confirm expiry messaging and that the active budget, losses and rewards cannot be duplicated or reset through replay.
+7. Run a core-only force through the slice without optional income. Confirm a viable ordinary result for each approved force direction, then check the larger air-tasking cases and the conditional naval/submarine mechanics before expanding their roster access.
+
+Passing static parsers is not passing these checks. No game process has been exercised for this design update. The deliverable here is the expanded calendar, economy, customisation and build specification; playable campaign files, price tuning and the runtime proof remain implementation work.
 
 ## Appendix A. Complete Workshop coverage
 
@@ -635,4 +950,4 @@ Keep an Australian 2028 core, allied national identities and a visible civilian 
 
 For SW09, preserve the requirement that submarines surface for service and permit suitable other vessels to support them only through a verified transfer arrangement. Treat current HMAS Supply gameplay replenishment and automated surfacing enforcement as unresolved until tested. For missile-defence chapters, integrate and validate the separate Aegis/intercept work before making it a mission-critical dependency.
 
-Deliver the three playable slice missions, a short dependency/approximation note, a campaign ledger and the actual static/in-game validation results. Report an untested mechanic plainly rather than writing a briefing that assumes it works.
+Deliver the native campaign harness, three main slice missions (SW01/SW02/SW06), O01 and C01 once their gates are proved, the explicit price roster, a short dependency/approximation note and the actual static/in-game validation results. Use native persistence for owned forces and points; include a manual story ledger only for a disclosed feature that remains unsupported. Follow sections 12–16 for dates, rewards, service windows and the full 30-mission scope. Report an untested mechanic plainly rather than writing a briefing that assumes it works.

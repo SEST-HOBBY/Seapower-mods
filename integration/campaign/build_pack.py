@@ -459,9 +459,9 @@ def resolve(spec):
 # --- rendering ---------------------------------------------------------------
 
 BLOCK_ORDER = ("Type", "VariantReference", "SquadronReference", "LoadoutVariant",
-               "Nation", "UnlimitedFuel", "WeaponStatus", "RadarsActive",
-               "CrewSkill", "Morale", "RelativePositionInNM", "Heading",
-               "Telegraph")
+               "TaskForceModeAnchor", "Nation", "UnlimitedFuel", "WeaponStatus",
+               "RadarsActive", "CrewSkill", "Morale", "RelativePositionInNM",
+               "Heading", "Telegraph")
 
 
 def block(tag, keys):
@@ -477,7 +477,7 @@ def block(tag, keys):
 
 # Most direct reason first: a mod that supplies a hull the mission places is
 # reported by that hull, not by a round the hull happens to carry.
-STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "store": 3}
+STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "roster": 3, "store": 4}
 
 
 def place(mission, snapper):
@@ -523,6 +523,14 @@ def place(mission, snapper):
         for k, v in spec.get("extra", {}).items():
             keys[k] = v
 
+        # The purchased task force forms on the anchor, which is how the stock
+        # Task Force Mode campaign hands a generated force a starting position.
+        anchor = mission.get("anchor")
+        if (anchor and spec["station"] == anchor and spec["side"] == "blue"
+                and kind == "vessel" and not mission.get("_anchored")):
+            keys["TaskForceModeAnchor"] = "True"
+            mission["_anchored"] = True
+
         placed[family].append((tag, keys, spec.get("name")))
         members[spec["station"]].append(tag)
         for token, why in credit.items():
@@ -532,8 +540,18 @@ def place(mission, snapper):
     return placed, members, credits, worst
 
 
+def mission_name(mission):
+    """The name the browser and the campaign card both show.
+
+    Prefixed, because a mission browser lists everything flat and "01 White
+    Water" beside a stock campaign's "01 Raid on Okinawa" tells nobody who
+    owns it.
+    """
+    return f"{TITLE} {mission['num']} - {mission['key']}"
+
+
 def render(mission, placed, members):
-    name = f"{mission['num']} {mission['key']}"
+    name = mission_name(mission)
     L = ["[Language_en]", f"Name={name}", f"Description={mission['brief']}"]
     for oid, text, _spec in mission["objectives"]:
         L.append(f"Objective_{oid}={text}")
@@ -778,33 +796,163 @@ def briefing_page(mission):
     return BRIEF_XML.format(body="".join(parts))
 
 
-def campaign_ini(missions, events):
-    """The campaign spine: an opening event, twelve missions, a closing event.
+ROSTER_SECTION = {"Vessel": "AllowedVessels", "Submarine": "AllowedSubmarines",
+                  "Aircraft": "AllowedAircraft", "Helicopter": "AllowedHelicopters",
+                  "VTOL": "AllowedAircraft"}
 
-    Entries are numbered in one sequence and chained with Parents, which is how
-    both stock linear campaigns gate progression. No image keys are written:
-    a MissionImage or BackgroundImage pointing at a .png this repo cannot
-    produce is a dangling reference, and the stock UI is happy without one.
+
+def roster_ini(roster):
+    """player_task_force_roster.ini, in the stock file's own syntax.
+
+    Every pick is checked against the file that WINS the load order first: a
+    price on a variant the hull no longer offers is a purchase the builder
+    would be advertising and the game would refuse. Aircraft go in by squadron,
+    ships by variant, and a submarine goes in AllowedSubmarines because its
+    UnitType says so - not because of what its filename looks like.
     """
-    entries = []
-    for slot in _spine(missions, events):
-        entries.append(slot)
+    by_section, problems, credits = collections.defaultdict(list), [], {}
+    for entry in roster:
+        uid = entry["unit"]
+        kind_dir, path = unit_file(uid)
+        if path is None:
+            problems.append(f"roster: no enabled mod defines {uid}")
+            continue
+        utype = unit_type(uid)
+        section = ROSTER_SECTION.get(utype)
+        if section is None:
+            problems.append(f"roster: {uid} is a {utype}, which is not a "
+                            "purchasable category")
+            continue
+        pool = (squadrons(uid) if section in ("AllowedAircraft", "AllowedHelicopters")
+                else variants(uid, kind_dir))
+        for pick in entry["picks"]:
+            if pick not in pool:
+                problems.append(
+                    f"roster: {uid} is priced with {pick}, which its winning "
+                    f"file does not offer (has: {', '.join(pool) or 'none'})")
+        by_section[section].append(entry)
+        token = owner(f"{kind_dir}/{uid}.ini")
+        if token:
+            credits[token] = ("roster", f"{uid} at {entry['points']} points")
+    if problems:
+        raise SystemExit("roster failed:\n  " + "\n  ".join(problems))
+
+    L = ["; SEST Southern Watch requisition roster.",
+         "; Generated by integration/campaign/build_pack.py - edit campaign_data.py.",
+         ";",
+         "; Points are fictional balance values. The variant and squadron lists",
+         "; are not: each one is checked against the file that wins the load",
+         "; order, so a price can never name a fit the hull does not offer."]
+    for section in ("AllowedVessels", "AllowedSubmarines", "AllowedAircraft",
+                    "AllowedHelicopters"):
+        if not by_section[section]:
+            continue
+        L += ["", f"[{section}]",
+              "; syntax is: <unit_type>=<variant_or_squadron>,...|<points_cost>"]
+        for entry in by_section[section]:
+            if entry.get("note"):
+                L.append(f"; {entry['note']}")
+            L.append(f"{entry['unit']}={','.join(entry['picks'])}|{entry['points']}")
+    L += ["", "[LoadoutPrices]",
+          "; Aircraft loadouts are included in the aircraft purchase cost.",
+          "; Naval loadout presets are not advertised until they are authored",
+          "; and tested - the inspected RAN hulls declare none."]
+    return "\n".join(L) + "\n", credits
+
+
+def threat_profile(placed):
+    """The mission info panel's threat display, read off the red order of battle.
+
+    These are presentation fields, not deployment restrictions - the authoring
+    guide is explicit about that - so they are derived rather than hand-set.
+    """
+    def level(family):
+        n = len(placed.get(family, []))
+        return f"True,{min(5, 2 + n // 3)}" if n else "False"
+    return [("Ship", level("Taskforce2Vessel")), ("Air", level("Taskforce2Aircraft")),
+            ("Sub", level("Taskforce2Submarine")), ("Land", level("Taskforce2LandUnit"))]
+
+
+def campaign_ini(missions, events, placements):
+    """The campaign spine, in native Task Force Mode.
+
+    Every key here was read out of the exported Pacific Strike campaign before
+    it was used. What that establishes is the vocabulary, not the balance: the
+    numbers are a first pass and the bible's acceptance run is what would
+    settle them.
+    """
     L = ["[File]", f"Base=campaigns/{SLUG}/campaign.ini", "",
-         "[Campaign]", "Type=Linear", "Difficulty=3", f"Length={len(missions)}",
+         "[Campaign]", "Type=Linear", "Difficulty=3",
+         f"Length={sum(1 for m in missions if m['group'] == 'core')}",
          "DisplayFormat=Legacy", "",
-         "[Language_en]", f"Name={TITLE} (Allied)",
-         "Description=" + CAMPAIGN_BLURB, "",
-         "[Missions]", f"NumberOfMissions={len(entries)}", ""]
+         "[TaskForceMode]"]
+    for key, value in TASKFORCE.items():
+        L.append(f"{key}={value}")
+    L.append("")
+    for name, points, cap, repair in DIFFICULTIES:
+        L += [f"[TaskForceModeDifficulty_{name}]", f"Name={name}",
+              f"StartingPoints={points}", f"PointCap={cap}",
+              "ShipIncludesAirwing=False", "PurchaseLoadouts=True",
+              f"RepairCostModifier={repair}",
+              f"CrewSkillInitial={TASKFORCE['CrewSkillInitial']}", ""]
+    L += ["[Language_en]", f"Name={TITLE} (Royal Australian Navy)",
+          "Description=" + CAMPAIGN_BLURB, ""]
+
+    entries = _spine(missions, events)
+    index_of = {e["mission"]["key"]: i for i, e in enumerate(entries, 1)
+                if e["type"] == "Mission"}
+    L += ["[Missions]", f"NumberOfMissions={len(entries)}", ""]
     for i, entry in enumerate(entries, 1):
         L.append(f"[Mission{i}]  #{entry['comment']}")
         L.append(f"Type={entry['type']}")
+        mission = entry.get("mission")
         if entry["type"] == "Mission":
             L.append(f"MissionFile=campaigns/{SLUG}/missions/{entry['file']}.ini")
+            if mission.get("generation"):
+                L.append(f"TaskForceModeMissionGenerationType={mission['generation']}")
             L.append("RequiredResult=CostlyVictory")
         L.append(f"IsUnlocked={'True' if i == 1 else 'False'}")
         L.append("IsComplete=False")
         if i > 1:
-            L.append(f"Parents={i - 1}")
+            L.append(f"Parents={entry.get('parent', i - 1)}")
+        if entry["type"] == "Mission":
+            placed = placements[mission["key"]]
+            L.append("")
+            L.append(f"TaskForceModeIncludesTaskForce="
+                     f"{'True' if placed.get('Taskforce1Vessel') else 'False'}")
+            L.append(f"TaskForceModeIncludesAirwing="
+                     f"{'True' if placed.get('Taskforce1Aircraft') else 'False'}")
+            L.append(f"TaskForceModeIncludesSubmarine="
+                     f"{'True' if placed.get('Taskforce1Submarine') else 'False'}")
+            L.append("")
+            for what, value in threat_profile(placed):
+                L.append(f"TaskForceModeThreatProfile{what}={value}")
+            L.append("")
+            service = "True" if mission.get("service") else "False"
+            L.append(f"TaskForceModeRepair={service}")
+            L.append(f"TaskForceModeRearm={service}")
+            L.append("TaskForceModeEnableTaskForceBuilder="
+                     f"{'False' if mission['group'] != 'core' else 'True'}")
+            L.append(f"TaskForceModeCompletionPoints={mission.get('points', 0)}")
+            # Zero cap increment for this first balance pass: a reward is not a
+            # reason to raise the ceiling on unspent points.
+            L.append("TaskForceModeCompletionCapPoints=0")
+            if mission.get("expires_after"):
+                # The stock campaign's value is the campaign ENTRY INDEX whose
+                # completion closes the window (03A and 03B both expire after
+                # entry 12, the next main mission), not a countdown. Getting
+                # that backwards ships an optional operation that expires
+                # before it can be flown.
+                closer = index_of.get(mission["expires_after"])
+                if closer is None:
+                    raise SystemExit(
+                        f"{mission['key']}: expires_after names "
+                        f"{mission['expires_after']!r}, which is not a mission "
+                        "in the campaign spine")
+                L.append(f"ExpiresAfterMissionComplete={closer}")
+            if mission.get("special"):
+                L.append("MissionSpecialNoteHighlightColor=Color.SeaPowerBlue")
+                L.append(f"MissionSpecialNote_en={mission['special']}")
         L.append("")
         L.append(f"Name_en={entry['name']}")
         L.append(f"Description_en={entry['sub']}")
@@ -820,23 +968,38 @@ def campaign_ini(missions, events):
 
 
 def _spine(missions, events):
-    out = [dict(type="FreeEvent", comment="Opening", file=events[0]["file"],
+    """Campaign entries in calendar order, with the optional branches hung off
+    the main chain rather than inside it.
+
+    Pacific Strike does this by giving a side mission and the next main mission
+    the SAME Parents value, so the side mission unlocks without gating what
+    follows. An optional operation the player skips must not stop the campaign.
+    """
+    scheduled = sorted((m for m in missions if m["group"] != "dispatch"),
+                       key=lambda m: m["date"])
+    out = [dict(type="FreeEvent", comment="Prologue", file=events[0]["file"],
                 name=events[0]["title"], sub=events[0]["sub"])]
-    for m in missions:
+    for m in scheduled:
         for ev in events[1:-1]:
             if ev.get("before") == m["key"]:
-                # The title carries a literal \n for the campaign card's second
-                # line; the section comment is for a human reading the file.
-                out.append(dict(type="FreeEvent",
-                                comment=ev["title"].replace("\\n", " - "),
+                out.append(dict(type="FreeEvent", comment=ev["title"].replace("\\n", " - "),
                                 file=ev["file"], name=ev["title"], sub=ev["sub"]))
+        label = {"optional": "OPTIONAL", "contingency": "CONTINGENCY"}.get(
+            m["group"], f"MISSION {m['num'].lstrip('0')}")
         out.append(dict(type="Mission", comment=f"{m['num']} {m['key']}",
-                        file=f"{m['num']} {m['key']}",
-                        name=f"{m['key'].upper()}", sub=m["place"],
-                        seq=f"MISSION {int(m['num'])}", short=m["num"],
-                        intro=m["intro"]))
-    out.append(dict(type="FreeEvent", comment="Closing", file=events[-1]["file"],
+                        file=mission_name(m), name=m["key"].upper(),
+                        sub=m["place"], seq=label, short=m["num"],
+                        intro=m["intro"], mission=m))
+    out.append(dict(type="FreeEvent", comment="Epilogue", file=events[-1]["file"],
                     name=events[-1]["title"], sub=events[-1]["sub"]))
+
+    chain = None
+    for i, entry in enumerate(out, 1):
+        side = entry.get("mission", {}).get("group") in ("optional", "contingency")
+        if chain is not None:
+            entry["parent"] = chain
+        if not side:
+            chain = i
     return out
 
 
@@ -844,6 +1007,7 @@ def _spine(missions, events):
 
 HOW_TEXT = {
     "unit": "places the unit; this mod wins its file",
+    "roster": "the requisition roster prices it, so the player can buy it",
     "variant": "supplies the hull variant the placed unit uses",
     "squadron": "supplies the squadron the placed airframe flies from",
     "store": "supplies a round the placed unit's loadout hangs",
@@ -907,8 +1071,8 @@ def report(rows, missions, worst):
     meaning["shadowed"] = ("every file it ships is outranked by something above "
                            "it; nothing it contains can load")
     meaning["campaign"] = "this pack - the campaign being measured"
-    for how in ("unit", "variant", "squadron", "store", "library", "shadowed",
-                "campaign"):
+    for how in ("unit", "variant", "squadron", "roster", "store", "library",
+                "shadowed", "campaign"):
         if counts.get(how):
             L.append(f"| `{how}` | {meaning[how]} | {counts[how]} |")
     L += ["", f"Sea and land positions are snapped to points already used by a "
@@ -934,19 +1098,33 @@ def main():
 
     sys.path.insert(0, str(HERE))
     from campaign_data import (MISSIONS, EVENTS, EXCUSES, INFO_DESC,  # noqa: E402
-                               DISPATCH_DESC)
+                               DISPATCH_DESC, TASKFORCE, DIFFICULTIES,
+                               ROSTER, COMMANDER)
+    globals().update(TASKFORCE=TASKFORCE, DIFFICULTIES=DIFFICULTIES)
     globals()["CAMPAIGN_BLURB"] = INFO_DESC
 
     pool = harvest()
     print(f"proven positions: {len(pool['sea'])} sea, {len(pool['land'])} land")
 
-    built, credits, worst = [], {}, 0.0
+    # The requisition roster is resolved first: a purchasable unit is reached
+    # by the campaign as surely as a placed one, and a bad price stops the
+    # build before twenty missions are rendered on top of it.
+    roster_text, roster_credits = roster_ini(ROSTER)
+    built, credits, worst, placements = [], {}, 0.0, {}
+    for token, why in roster_credits.items():
+        credits[token] = (why[0], why[1], "requisition roster")
     for mission in MISSIONS:
         snapper = Snapper(pool, limit_nm=mission.get("snap_limit", 60.0))
         placed, members, mission_credits, far = place(mission, snapper)
+        # A named anchor that matched nothing is a silent failure: the campaign
+        # would generate the purchased force with no starting position.
+        if mission.get("anchor") and not mission.get("_anchored"):
+            sys.exit(f"{mission['key']}: anchor station "
+                     f"{mission['anchor']!r} places no blue vessel")
         worst = max(worst, far)
         name, text = render(mission, placed, members)
         built.append((name, text, mission))
+        placements[mission["key"]] = placed
         for token, why in mission_credits.items():
             best = credits.get(token)
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
@@ -998,17 +1176,19 @@ def main():
     # means the campaign is playable mission by mission even on an install
     # where the Mod Manager does not surface a mod-supplied campaign.
     for name, text, mission in built:
-        if mission["group"] == "core":
+        if mission["group"] == "dispatch":
+            emit(extra, name, text, mission)
+        else:
             emit(camp / "missions", name, text, mission)
             emit(browse, name, text, mission)
-        else:
-            emit(extra, name, text, mission)
     for event in EVENTS:
         (camp / "art" / f"{event['file']}.xml").write_text(event_page(event),
                                                            encoding="utf-8")
     (camp / "campaign.ini").write_text(
-        campaign_ini([m for _n, _t, m in built if m["group"] == "core"],
-                     EVENTS) + "\n", encoding="utf-8")
+        campaign_ini([m for _n, _t, m in built], EVENTS, placements) + "\n",
+        encoding="utf-8")
+    (camp / "player_task_force_roster.ini").write_text(roster_text, encoding="utf-8")
+    (camp / "commander_settings.ini").write_text(COMMANDER, encoding="utf-8")
     (browse / "_info.ini").write_text(
         f"[Language_en]\nName={TITLE}\nDescription={INFO_DESC}\n", encoding="utf-8")
     (extra / "_info.ini").write_text(
