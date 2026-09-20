@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-09-20T13:50:19.
+# The [LoadOrder] Sea Power is actually using, captured 2026-09-20T14:14:11.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=139   entries parsed: 139
@@ -15,37 +15,37 @@ NumberOfModFiles=139   entries parsed: 139
   10. 3606774881   on     U.S. Navy 2027 Capabilities
   11. 3629144864   on     Euromod pack
   12. 3775128499   on     PLAN Pack
-  13. 3789188689   on     PLA & PLAN & PLAAF AEP
-  14. 3637954857   on     KJ-500
-  15. 3607989779   on     F-35C Lightning II Alt. Loadouts
-  16. 3430135740   on     Murder Hornet with AIM-174B
-  17. 3394781441   on     B-52G with AGM-86 ALCM(more realistic nuke)
-  18. 3395022688   on     Tu-95MS with AS-15 ALCM(more realistic nuke)
-  19. 3373960386   on     Flight Deck Ops
-  20. 3461091581   on     Air Deck Operations Upgrade - Nimitz (2000s)
-  21. 3508275114   on     Ground upgrade: SPAA
-  22. 3438479626   on     1143.5 Kuznetsov
-  23. 3432668460   on     Auxilliary Merchant Pack
-  24. 3567256221   on     Charles De Gaulle & Modern French Navy
-  25. 3695809489   on     Euromod-(Japan)JMSDF Modern navy
-  26. 3575847216   on     Euromod-Addon Modern German Navy
-  27. 3444379330   on     Euromod-Dutch Navy
-  28. 3642656500   on     Euromod-Scandinavian Navy
-  29. 3461044389   on     Gerald R. Ford-class CVN
-  30. 3384079999   on     Humpback Whale
-  31. 3505420313   on     Italian Navy mod
-  32. 3406985435   on     Kirov-class (Pyotr Velikiy Upgrade)
-  33. 3430106996   on     Merchants Expanded
-  34. 3417446309   on     MIG-29 Family
-  35. 3599752717   on     Modern British Navy - Euromod
-  36. 3488139470   on     Modern Italian Navy - Euromod
-  37. 3390330875   on     Modern US Navy
-  38. 3456859157   on     Mogami-class frigate
-  39. 3432592449   on     Nimitz Expanded
-  40. 3594891803   on     PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)
-  41. 3774859959   on     PLAN Type 001 Aircraft Carrier Liaoning
-  42. 3774572038   on     PLAN Type 071 LPD
-  43. 3663564190   on     Type003.CV-18.fujian.v0.02
+  13. 3637954857   on     KJ-500
+  14. 3607989779   on     F-35C Lightning II Alt. Loadouts
+  15. 3430135740   on     Murder Hornet with AIM-174B
+  16. 3394781441   on     B-52G with AGM-86 ALCM(more realistic nuke)
+  17. 3395022688   on     Tu-95MS with AS-15 ALCM(more realistic nuke)
+  18. 3373960386   on     Flight Deck Ops
+  19. 3461091581   on     Air Deck Operations Upgrade - Nimitz (2000s)
+  20. 3508275114   on     Ground upgrade: SPAA
+  21. 3438479626   on     1143.5 Kuznetsov
+  22. 3432668460   on     Auxilliary Merchant Pack
+  23. 3567256221   on     Charles De Gaulle & Modern French Navy
+  24. 3695809489   on     Euromod-(Japan)JMSDF Modern navy
+  25. 3575847216   on     Euromod-Addon Modern German Navy
+  26. 3444379330   on     Euromod-Dutch Navy
+  27. 3642656500   on     Euromod-Scandinavian Navy
+  28. 3461044389   on     Gerald R. Ford-class CVN
+  29. 3384079999   on     Humpback Whale
+  30. 3505420313   on     Italian Navy mod
+  31. 3406985435   on     Kirov-class (Pyotr Velikiy Upgrade)
+  32. 3430106996   on     Merchants Expanded
+  33. 3417446309   on     MIG-29 Family
+  34. 3599752717   on     Modern British Navy - Euromod
+  35. 3488139470   on     Modern Italian Navy - Euromod
+  36. 3390330875   on     Modern US Navy
+  37. 3456859157   on     Mogami-class frigate
+  38. 3432592449   on     Nimitz Expanded
+  39. 3594891803   on     PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)
+  40. 3774859959   on     PLAN Type 001 Aircraft Carrier Liaoning
+  41. 3774572038   on     PLAN Type 071 LPD
+  42. 3663564190   on     Type003.CV-18.fujian.v0.02
+  43. 3789188689   on     PLA & PLAN & PLAAF AEP
   44. 3436170138   on     PLAAF J-11
   45. 3486502935   on     Type 003 CV / future Type 004 CVN aircraft carriers
   46. 3417801942   on     PRC Chinese Navy (PLAN)
