@@ -57,12 +57,19 @@ def missions():
 
 
 def blocks(text):
-    """[Section] -> {key: value}, for the unit blocks only."""
+    """[Section] -> {key: value}.
+
+    The header pattern has to tolerate a trailing comment: the builder writes
+    `[Trigger10]  #Report unhides Airlift`, and a parser that insisted the
+    line END with `]` skipped every trigger in the campaign - which made
+    trigger_integrity() below pass vacuously for as long as it existed.
+    """
     out, current = {}, None
     for line in text.splitlines():
         s = line.strip()
-        if s.startswith("[") and s.endswith("]"):
-            current = s[1:-1]
+        head = re.match(r"^\[([^\]]+)\]", s)
+        if head:
+            current = head.group(1)
             out[current] = {}
         elif current and "=" in s:
             key, _, value = s.partition("=")
@@ -115,6 +122,30 @@ def trigger_integrity(path, text, blocks):
                 if value not in language:
                     problems.append(f"{rel}: [{tag}] {key}={value} has no "
                                     "[Language_en] entry")
+            elif key in ("Action_EnableTriggers", "Action_DisableTriggers",
+                         "Action_ReactivateTriggers"):
+                for ref in value.split(","):
+                    ref = ref.strip()
+                    if ref and ref not in blocks:
+                        problems.append(f"{rel}: [{tag}] {key} names {ref}, "
+                                        "which is not a trigger in this mission")
+
+    # A trigger that ships Disabled=True and is never enabled is dead weight
+    # the game loads and never runs - the hidden half of a discovered
+    # objective, silently never discovered.
+    enabled = set()
+    for tag, keys in blocks.items():
+        if not tag.startswith("Trigger"):
+            continue
+        for key in ("Action_EnableTriggers", "Action_ReactivateTriggers"):
+            for ref in keys.get(key, "").split(","):
+                if ref.strip():
+                    enabled.add(ref.strip())
+    for tag, keys in blocks.items():
+        if (tag.startswith("Trigger") and keys.get("Disabled") == "True"
+                and tag not in enabled):
+            problems.append(f"{rel}: [{tag}] ships Disabled=True and no "
+                            "trigger enables it, so it can never fire")
     return problems
 
 

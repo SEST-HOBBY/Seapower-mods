@@ -887,6 +887,8 @@ def render(mission, placed, members):
     for flag in mission.get("flags", []):
         if flag.get("intel"):
             L.append(f"{flag['name']}Intel={ini_text(flag['intel'])}")
+    for find in mission.get("discoveries", []):
+        L.append(f"{find['objective']}Intel={ini_text(find['intel'])}")
     if neutral_tags:
         L.append("NeutralLossMessage=<color=orange>Neutral contact lost.</color>|"
                  "That one was not ours to shoot. The operation ends here and "
@@ -1054,11 +1056,11 @@ def render(mission, placed, members):
                    f"Action_ObjectivesFailed={mission['protect_objective']}",
                    f"Action_ObjectivesCancel={main}",
                    "Action_EndMission=True", "Action_EndMissionDelay=45"])
-    # Losing a support asset costs something the player can read at the time.
-    # What the campaign can ENFORCE across missions is Task Force Mode's own
-    # persistence - a dead ship is gone and must be re-bought at its roster
-    # price. What it cannot yet do is gate a later mission on that loss, so the
-    # intel message states the cost rather than a trigger imposing it.
+    # Losing a support asset costs something the player can read at the time,
+    # and - where `sets` names a campaign flag - something a later mission
+    # reads back. Two mechanisms carry that: Task Force Mode's own persistence
+    # (a dead ship is gone and must be re-bought at its roster price) and
+    # [CampaignVariables], which SW02 writes and SW09 spawns against.
     for i, loss in enumerate(mission.get("support_loss", []), 1):
         units = [t for r in loss["units"] for t in refs(members, r)]
         trigger(f"Support lost: {loss['asset']}",
@@ -1082,6 +1084,44 @@ def render(mission, placed, members):
                    f"Action_VariableSet={flag['name']},True"]
                 + ([f"Action_Taskforce1_Intel={flag['name']}Intel"]
                    if flag.get("intel") else []))
+
+    # Reconnaissance that produces new tasking. The stock shape is a report
+    # trigger that ships `Disabled=True`, an earlier detection whose trigger
+    # carries `Action_EnableTriggers`, and `Action_ObjectivesUnHide` on an
+    # objective flagged `Hidden` in [Taskforce1_Objectives] - Triggers 8 and
+    # 10 of strike-group-molniya `03 Lifeline at the Edge of the World`, whose
+    # objectives block reads `DestroyUSSAG=20,-20,Complete,Hidden`.
+    #
+    # The report's own Condition_Time is measured from mission start there,
+    # not from the moment it is enabled: stock gives it the same 120 seconds
+    # the enabling trigger already required, so it fires as soon as it is
+    # switched on. That reading is what `seconds` means here, and it is the
+    # one thing in this block that a play test could still overturn.
+    for find in mission.get("discoveries", []):
+        hidden = find["objective"]
+        specs = {o[0]: o[2] for o in mission["objectives"]}
+        if hidden not in specs:
+            raise SystemExit(f"{mission['key']}: discovery unhides {hidden}, "
+                             "which is not one of this mission's objectives")
+        if "Hidden" not in specs[hidden].split(","):
+            raise SystemExit(
+                f"{mission['key']}: {hidden} is unhidden by a discovery but is "
+                f"not flagged Hidden ({specs[hidden]!r}), so it is on the "
+                "player's list from the start and the reveal means nothing")
+        trigger(f"Report unhides {hidden}", [
+            "Disabled=True",
+            "Condition_Type=Time",
+            f"Condition_Time={find.get('seconds', 120)}",
+            f"Action_Taskforce1_Intel={hidden}Intel",
+            f"Action_ObjectivesUnHide={hidden}"])
+        report = len(T)
+        wanted = f"{find['after']} classified"
+        enabling = [lines for comment, lines in T if comment == wanted]
+        if not enabling:
+            raise SystemExit(
+                f"{mission['key']}: discovery waits on {find['after']!r}, "
+                "which is not a classify objective in this mission")
+        enabling[0].append(f"Action_EnableTriggers=Trigger{report}")
 
     if placed.get("Taskforce1Vessel") or placed.get("Taskforce1Aircraft"):
         trigger("Player force gone", [
@@ -1307,6 +1347,107 @@ def threat_profile(placed):
             ("Sub", level("Taskforce2Submarine")), ("Land", level("Taskforce2LandUnit"))]
 
 
+def allowed_roster_units(allow, roster, where):
+    """TaskForceModeAllowedRosterUnits for one mission, from the roster itself.
+
+    Pacific Strike uses this key eleven times to open the builder on a subset
+    of the campaign roster - `usn_bb_iowa,Variant3|usn_cg_belknap,Variant4,...`
+    The variants are never re-stated here: they are read back out of the
+    roster entry, so a per-mission allowlist cannot advertise a fit the
+    roster does not price, and naming a unit the roster does not sell at all
+    fails the build rather than shipping a dead entry.
+    """
+    priced = {e["unit"]: e for e in roster}
+    unknown = [u for u in allow if u not in priced]
+    if unknown:
+        raise SystemExit(f"{where}: purchase allowlist names "
+                         f"{', '.join(unknown)}, which the roster does not sell")
+    seen = [u for u in allow if allow.count(u) > 1]
+    if seen:
+        raise SystemExit(f"{where}: purchase allowlist repeats "
+                         f"{', '.join(sorted(set(seen)))}")
+    return "|".join(f"{u},{','.join(priced[u]['picks'])}" for u in allow)
+
+
+def air_roles(uid):
+    """The aircraft's top-level Role= tokens - what an air-tasking row filters.
+
+    This is the file's own `Role=` line, not the `[AI] Role=` the pacing check
+    reads off vessels. `usn_p8` declares `MPA,ASW,Bomber,ESM`; `usn_mh-60r`
+    declares `ASW,MPA,SAR` and notably NOT `Helicopter`, which is why the one
+    stock helicopter tasking row is commented out in the shipped campaign.
+    """
+    _kind, f = unit_file(uid)
+    if f is None:
+        return frozenset()
+    m = re.search(r"^Role=(.+)$", read(f), re.M)
+    if not m:
+        return frozenset()
+    return frozenset(x.strip() for x in m.group(1).split(",") if x.strip())
+
+
+def check_flights(rows, roster):
+    """Every air-tasking row must describe aircraft the roster actually sells.
+
+    The contract is read off the stock rows rather than guessed. Pacific
+    Strike's `Recon|Recon|MPA/ASW/ESM/AEW|1|ASW/Recon/AntiShip/AEW` offers
+    `AEW` to the E-2C (whose only fit is AEW), `ASW/AntiShip/Recon` to the
+    P-3C and `ASW/AntiShip` to the S-3A: the row lists the UNION across the
+    aircraft its role filter matches, and each aircraft flies the
+    intersection. Two things follow, and both are checked:
+
+      * a fit named in a row must be defined by at least one roster aircraft
+        the row's roles match - otherwise it is a name from a different
+        decade's airframe, which is exactly how `Recon` and `AEW` got into
+        this campaign's rows;
+      * an aircraft the row matches must define at least one of the row's
+        fits - otherwise the row advertises a job it cannot offer.
+
+    An aircraft with no `AvailableLoadouts` line at all (E-7A, MQ-4C) is
+    exempt from the second rule: whatever the engine does with it is its own
+    default, and inventing a preset to satisfy a checker would be worse than
+    leaving the behaviour unestablished.
+    """
+    sellable = []
+    for entry in roster:
+        uid = entry["unit"]
+        kind_dir, path = unit_file(uid)
+        if kind_dir not in ("aircraft", "helicopters"):
+            continue
+        sellable.append((uid, air_roles(uid), frozenset(loadouts(path))))
+    problems = []
+    for row in sorted(set(rows)):
+        parts = row.split("|")
+        if len(parts) != 5:
+            problems.append(f"flight row {row!r} is not "
+                            "Label|Display|Roles|Count|Fits")
+            continue
+        label, _display, roles, count, fits = parts
+        want_roles = frozenset(x for x in roles.split("/") if x)
+        want_fits = [x for x in fits.split("/") if x]
+        if not count.isdigit() or int(count) < 1:
+            problems.append(f"{label}: flight size {count!r} is not a count")
+        matched = [(u, f) for u, r, f in sellable if r & want_roles]
+        if not matched:
+            problems.append(
+                f"{label}: role filter {roles!r} matches nothing the roster "
+                "sells - " + "; ".join(f"{u} is {'/'.join(sorted(r))}"
+                                       for u, r, _ in sellable))
+            continue
+        for fit in want_fits:
+            if not any(fit in f for _u, f in matched):
+                problems.append(
+                    f"{label}: offers {fit!r}, which no aircraft the filter "
+                    f"{roles!r} matches defines")
+        for uid, fit_set in matched:
+            if fit_set and not fit_set & set(want_fits):
+                problems.append(
+                    f"{label}: matches {uid}, which defines none of "
+                    f"{'/'.join(want_fits)} (has: {', '.join(sorted(fit_set))})")
+    if problems:
+        raise SystemExit("air tasking failed:\n  " + "\n  ".join(problems))
+
+
 def campaign_ini(missions, events, placements):
     """The campaign spine, in native Task Force Mode.
 
@@ -1335,6 +1476,10 @@ def campaign_ini(missions, events, placements):
     entries = _spine(missions, events)
     index_of = {e["mission"]["key"]: i for i, e in enumerate(entries, 1)
                 if e["type"] == "Mission"}
+    # The last playable entry, derived rather than named: the epilogue that
+    # follows SW12 is a story card, and flagging it would tell the game the
+    # campaign ends on something the player never flies.
+    last_playable = max(index_of.values())
     L += ["[Missions]", f"NumberOfMissions={len(entries)}", ""]
     for i, entry in enumerate(entries, 1):
         L.append(f"[Mission{i}]  #{entry['comment']}")
@@ -1370,6 +1515,14 @@ def campaign_ini(missions, events, placements):
             L.append(f"TaskForceModeRearm={'True' if window.get('rearm') else 'False'}")
             L.append("TaskForceModeEnableTaskForceBuilder="
                      f"{'True' if window.get('buy') else 'False'}")
+            # An open builder does not have to offer the whole roster. The
+            # campaign assembles the force in stages, and SW12 buys aircraft
+            # but no hulls - which is a comment in the data until this key
+            # makes it a rule the game enforces.
+            if window.get("buy") and window.get("allow"):
+                L.append("TaskForceModeAllowedRosterUnits="
+                         + allowed_roster_units(window["allow"], ROSTER,
+                                                mission["key"]))
             if window.get("flights"):
                 L.append("TaskForceModeAirTaskingAvailable=True")
                 for n, row in enumerate(window["flights"], 1):
@@ -1387,6 +1540,10 @@ def campaign_ini(missions, events, placements):
                 L += ["TaskForceModeAirbasePrepAvailable=True",
                       "TaskForceModeAirbasePrepReadySlots=2",
                       "TaskForceModeAirbasePrepInProgressSlots=1"]
+            if i == last_playable:
+                # Stock marks its final mission so the campaign can be
+                # replayed in sandbox afterwards.
+                L.append("TaskForceModeFinalMission=True")
             L.append(f"TaskForceModeCompletionPoints={mission.get('points', 0)}")
             # Zero cap increment for this first balance pass: a reward is not a
             # reason to raise the ceiling on unspent points.
@@ -1554,7 +1711,8 @@ def main():
     from campaign_data import (MISSIONS, EVENTS, EXCUSES, INFO_DESC,  # noqa: E402
                                DISPATCH_DESC, TASKFORCE, DIFFICULTIES,
                                ROSTER, COMMANDER)
-    globals().update(TASKFORCE=TASKFORCE, DIFFICULTIES=DIFFICULTIES)
+    globals().update(TASKFORCE=TASKFORCE, DIFFICULTIES=DIFFICULTIES,
+                     ROSTER=ROSTER)
     globals()["CAMPAIGN_BLURB"] = INFO_DESC
 
     pool = harvest()
@@ -1564,6 +1722,10 @@ def main():
     # by the campaign as surely as a placed one, and a bad price stops the
     # build before twenty missions are rendered on top of it.
     roster_text, roster_credits = roster_ini(ROSTER)
+    # ... and the air-tasking rows against that same roster, before any of them
+    # is written into a campaign entry.
+    check_flights([r for m in MISSIONS
+                   for r in m.get("window", {}).get("flights", [])], ROSTER)
     built, credits, worst, placements = [], {}, 0.0, {}
     for token, why in roster_credits.items():
         credits[token] = (why[0], why[1], "requisition roster")

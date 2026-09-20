@@ -52,6 +52,67 @@ game running. A variable that is declared, written and read in three files is a
 static fact about those files. Whether the campaign carries it between missions
 is the seventh step of §16's acceptance run, and that step has not been taken.
 
+## Native source pack, second pass: three checks and what they caught
+
+The first pass took the pack's corrections at face value and fixed them by
+hand. This pass turned each one into a gate, which is the only way a fix of
+that kind stays fixed. Every gate was tested by breaking the thing it checks
+and confirming it fails.
+
+**`check_flights()` — air-tasking rows against the roster.** The contract is
+read off the stock rows rather than guessed. Pacific Strike's
+`Recon|Recon|MPA/ASW/ESM/AEW|1|ASW/Recon/AntiShip/AEW` offers `AEW` to the
+E-2C (whose only fit is AEW), `ASW/AntiShip/Recon` to the P-3C and
+`ASW/AntiShip` to the S-3A: the row lists the union across the aircraft its
+role filter matches, and each aircraft flies the intersection. So a fit named
+in a row must be defined by some aircraft the row matches, and an aircraft the
+row matches must define some fit the row names. It caught three live bugs:
+
+| Row | What was wrong |
+|---|---|
+| Recon | offered `Recon` and `AEW`, which are P-3C and E-2C fit names. Nothing in this roster defines either — the P-8 has only `ASW` and `AntiShip` |
+| HeloRecon | filtered on role `Helicopter`, which **no helicopter declares**. The MH-60R is `ASW,MPA,SAR`. That is almost certainly why the one stock helicopter tasking row is commented out in the shipped campaign. `SAR` is now the filter: the only token the MH-60R declares that nothing else in the roster shares |
+| CAP | matched `usn_ea-18g` — all three fast jets declare `Fighter,Bomber,SEAD`, so no role token separates the Growler from the fighters — and then offered it four fits it does not have. It now carries its escort fit, AARGM-ER ×2 and AIM-260 ×2, which is how a Growler flies with a CAP anyway |
+
+The Wedgetail and Triton still match the recon row and declare no
+`AvailableLoadouts` line at all. They are exempt from the second rule
+deliberately: whatever the engine gives a fitless airframe is its own default,
+and inventing a preset to satisfy a checker would be worse than leaving the
+behaviour unestablished.
+
+**`trigger_integrity()` was passing vacuously, and had been since it was
+written.** It parsed a section header only when the line ended with `]`; the
+builder writes `[Trigger10]  #Report unhides Airlift`. So it saw zero triggers
+in thirty-six mission files and reported clean every time. With the header
+pattern fixed it checks **275 triggers and 901 references** — condition units
+against real sections, objective actions against declared objectives,
+message and intel keys against `[Language_en]`, and now trigger cross-
+references too. All 901 resolve. That result is worth exactly as much as the
+gate that produced it, which is why it is stated with the count.
+
+**Per-mission purchase allowlists**, listed as *still not implemented* in the
+f3e2a783 response, are implemented: `TaskForceModeAllowedRosterUnits`, which
+Pacific Strike uses eleven times. The force assembles in stages — three
+units at SW01, sixteen by SW09 — and SW12 sells aircraft and no hulls, which
+until now was a comment above the window rather than a rule. Variants are
+never restated: they come from the roster entry, so an allowlist cannot
+advertise a fit the roster does not price.
+
+**A discovered objective in SW06.** The stock shape is a report trigger that
+ships `Disabled=True`, an earlier detection carrying `Action_EnableTriggers`,
+and `Action_ObjectivesUnHide` on an objective flagged `Hidden` in
+`[Taskforce1_Objectives]` — Triggers 8 and 10 of strike-group-molniya `03
+Lifeline at the Edge of the World`, whose objectives block reads
+`DestroyUSSAG=20,-20,Complete,Hidden`. Classifying the northern surface group
+now reports that the escorts are screening a shuttle track, and a task to
+identify it appears that was not on the briefing. It is the same
+reconnaissance decision as the first one, asked again with the convoy clock
+running and the Triton already north. A trigger that ships disabled and that
+nothing enables is now a build failure.
+
+`Action_DisableTriggers` does exist, incidentally — Trigger9 of that same
+mission uses it. An earlier note here said it did not.
+
 ## Review of f3e2a783: what changed here
 
 Every finding was reproduced before it was touched. The three anchor slots, the
@@ -65,7 +126,7 @@ already-satisfied victory circle were all exactly as reported.
 | 3 | 20 objective ids resolved to nothing | Every objective now names a predicate (`victory`, `neutral`, `protect`, `survive`, `destroy`, `arrive`) and gets its own trigger. An objective without one fails the build. SW02 now needs the cargo count **and** the medical ship in the box; SW09 needs Supply and Collins by name, after a 35-minute service window. Terminal triggers end the mission and `Action_ObjectivesCancel` the other outcome's objective |
 | 4 | Purchased aircraft had no deployment path | `TaskForceModeAirTaskingAvailable` with flight rows per mission, and 27 `TaskForceModeAirTaskingSlot`/`Role` tags on the authored aircraft. Every mission that fields the task force now also carries `TaskForceModeMissionGenerationType=Generated`; leaving it blank meant the owned force never deployed |
 | 5 | C01 is not outcome-gated | Not implemented — **relabelled instead**. The special note and the briefing say the recovery is offered unconditionally. Campaign variables can now gate a *unit* on a previous mission's outcome (see the section above), but gating whether a campaign *card* appears at all is a different key, and no shipped campaign does it. The briefing no longer names a ship that may still be afloat |
-| 6 | Purchase and service rules were one boolean | `buy`, `repair` and `rearm` are three separate windows per mission. Purchases open at four force-assembly points, not before all twelve. Per-mission purchase allowlists are still **not** implemented |
+| 6 | Purchase and service rules were one boolean | `buy`, `repair` and `rearm` are three separate windows per mission. Purchases open at force-assembly points, not before all twelve. Per-mission purchase allowlists were open here and are now built with `TaskForceModeAllowedRosterUnits` |
 | 7 | All submarines at surface depth | Authored per boat — and then **corrected again**: depth is a named token, not a number. Hunting boats `belowlayer`, the semi-submersible `periscope`, Collins deliberately surfaced alongside her tender |
 | 8 | Routes and timing | `Condition_Time` is **seconds** — so the missions had no deadline at all, only a post-defeat exit timer. Each mission now has a real deadline in seconds that fails the main objective, and the arrival solver sizes every box to the mission's own clock. SW04's contact has waypoints to the box its objective depends on |
 | 9 | Resolver accepted disabled Workshop folders | The fallback to exported folders absent from the canonical order is gone. Resolution is enabled-mods-only, so an unsubscribe fails the build instead of being credited |
@@ -74,9 +135,10 @@ already-satisfied victory circle were all exactly as reported.
 | — | O01/C01 real newlines in `Description=` | All mission text is normalised to the two-character `\n` escape centrally, so it cannot recur |
 | — | Branch integration | `origin/feature/northern-front-iii-export` merged: the three SM-3 commits are in, and the consolidated pack carries all six SM-3/PAC-3 rounds |
 
-Still open, and deliberately: **C01's gate** (relabelled, not built), **per-mission
-purchase allowlists**, **mission density** against v1.1's 20–45 / 45–80 targets,
-and **O02–O12 / C02–C06**. Everything in the Task Force Mode layer still needs
+Still open, and deliberately: **C01's gate** (relabelled, not built),
+**mission density** against v1.1's 20–45 / 45–80 targets, and **O02–O12 /
+C02–C06**. Per-mission purchase allowlists were on this list and are now
+built — see the section above. Everything in the Task Force Mode layer still needs
 the seven-step acceptance run in §16 of the bible.
 
 ## Bible v1.1: what changed here
@@ -206,6 +268,15 @@ anything in this repository:
   and `IsFalse` is the only comparison the shipped data attests. Whether the
   campaign actually carries the flag forward — and whether an objective that
   completes late still writes it — needs the game;
+- that an air-tasking row behaves the way the stock rows imply. `check_flights()`
+  proves each row is internally consistent with the roster; it cannot prove the
+  engine intersects fit lists per airframe, nor what it does with the Wedgetail
+  and Triton, which declare no loadouts at all;
+- that a `Hidden` objective stays hidden, that `Action_EnableTriggers` reaches a
+  trigger that shipped `Disabled=True`, or that such a trigger's own
+  `Condition_Time` is measured from mission start rather than from the moment it
+  was enabled. The stock mission sets that time to a value its enabling trigger
+  has already passed, which is consistent with either reading;
 - that the mod-supplied campaign is surfaced by the Mod Manager at all. The
   missions are shipped a second time under `missions/` precisely so the
   campaign's content is playable either way.
