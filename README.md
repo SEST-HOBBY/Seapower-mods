@@ -1,7 +1,7 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **128 active Workshop
+**Sea Power: Naval Combat in the Missile Age** install with **138 active Workshop
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 Everything here is built around interoperability: a mod is known by three names — a
@@ -36,6 +36,7 @@ python3 tools/preflight.py                  # resolve every reference the active
 python3 tools/check_load_order.py           # every SEST override still outranks its target
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
+python3 tools/check_alias_bases.py          # every #!alias patch still has its base hull (run after every export)
 python3 tools/generate_catalog.py           # docs/mod-catalog.md      <- data/mod-catalog.json
 python3 tools/generate_load_order.py        # docs/load-order-full.md  <- catalog + tiers
 ```

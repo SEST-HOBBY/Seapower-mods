@@ -18,11 +18,21 @@ Two things it does that a plain grep cannot:
   - Load order. Only the WINNING copy of an id matters; ammunition/ is a
     whole-file override (docs/design-notes.md). Resolution goes through the
     repo's own winning_file(), so the answer matches what the game loads.
-  - #!alias inheritance. 80 ammunition files are alias stubs, and an alias
-    resolves its base through the load order too, so a round can carry a band
-    it never literally declares - the ESSM, RAM and SM-2 families all do, and
-    one composes its band across two mods. A flat scan misses 17 anti-air
-    rounds and miscounts the one-sided total.
+  - Directive inheritance, both kinds. Around 94 ammunition files open with
+    #!alias or #!extend, and both resolve their base through the load order, so
+    a round can carry a band it never literally declares - the ESSM, RAM and
+    SM-2 families all do, and one composes its band across two mods. A flat scan
+    misses about 20 anti-air rounds and miscounts the one-sided total.
+
+CAVEAT ON #!extend, and it is the important one. This tool resolves an extend
+optimistically: it layers the stub onto the highest copy BELOW it, which is what
+the directive means and what the game does WHEN THE ANCHOR CHAIN PRELOADER IS
+WORKING. data/mod-catalog.json records that preloader as subscribed but never
+verified. If it is not working, an extend stub that outranks its base does not
+layer - it simply wins the whole-file override with only its own handful of
+keys, and the round loses its TargetType, its warhead and its altitude band.
+The EXTEND STUBS section below lists exactly which rounds are exposed to that,
+so the reader can see what an unverified dependency is currently carrying.
 
     python3 tools/survey_attack_altitudes.py            # summary + harm classes
     python3 tools/survey_attack_altitudes.py --json     # every banded round
@@ -99,8 +109,20 @@ _cache = {}
 
 
 def resolve(rel, chain=()):
-    """Merged key map for an ammunition path, following #!alias through the
-    load order. The stub's own keys win over the inherited ones."""
+    """Merged key map for an ammunition path, following BOTH directives through
+    the load order. The stub's own keys win over the inherited ones.
+
+    Two directives, resolved differently:
+      #!alias  <path>   the base is whatever wins at <path> anywhere in the order.
+      #!extend <path>   the base is the winner at <path> BELOW this file, since an
+                        extend layers onto the copy it outranks. A stub that
+                        outranks nothing has no base and contributes only its own
+                        keys - which is how a round ends up with no TargetType and
+                        no warhead, so the survey must see that rather than skip it.
+
+    An earlier version followed only #!alias. When the load-order refresh moved
+    the PLA AEP pack above Type 003, four rounds became extend stubs and silently
+    dropped out of the anti-air population."""
     if rel in _cache:
         return _cache[rel]
     if rel in chain:
@@ -110,19 +132,65 @@ def resolve(rel, chain=()):
         return {}
     text = Path(won).read_text(encoding="utf-8-sig", errors="replace")
     own = kv(text)
-    own["__winner__"] = Path(won).parts[-3]
-    m = re.match(r"^\s*#!alias\s+(\S+)", text)
+    winner = Path(won).parts[-3]
+    own["__winner__"] = winner
+    m = re.match(r"^\s*#!(alias|extend)\s+(\S+)", text)
     if m:
-        base = resolve(m.group(1).strip(), chain + (rel,))
+        kind, target = m.group(1), m.group(2).strip()
+        base = (resolve(target, chain + (rel,)) if kind == "alias"
+                else resolve_below(target, winner, chain + (rel,)))
         merged = dict(base)
         merged.update(own)
-        merged["__alias_of__"] = m.group(1).strip()
+        merged[f"__{kind}_of__"] = target
+        merged["__alias_of__"] = target
         merged["__inherited_band__"] = any(
             k in base and k not in own
             for k in ("MinAttackAltitude", "MaxAttackAltitude"))
+        merged["__no_base__"] = not base
         own = merged
     _cache[rel] = own
     return own
+
+
+def _order():
+    global _ORDER_INDEX
+    if _ORDER_INDEX is None:
+        toks = [l.strip() for l in (ROOT / "data" / "load-order.tokens.txt")
+                .read_text(encoding="utf-8").splitlines()
+                if l.strip() and not l.lstrip().startswith("#")]
+        _ORDER_INDEX = {t: i for i, t in enumerate(toks)}
+    return _ORDER_INDEX
+
+
+_ORDER_INDEX = None
+
+
+def resolve_below(rel, above, chain=()):
+    """Resolve `rel` using only providers ranked BELOW `above`. That is what an
+    #!extend layers onto; a provider above it is not a base, it is a competitor."""
+    idx = _order()
+    here = idx.get(above)
+    if here is None:
+        return {}
+    best, best_i = None, None
+    for d in MODS.iterdir():
+        if not d.is_dir() or d.name == above:
+            continue
+        i = idx.get(d.name)
+        if i is None or i <= here:
+            continue
+        if (d / rel).exists() and (best_i is None or i < best_i):
+            best, best_i = d, i
+    if best is None:
+        van = MODS / "_vanilla" / "original" / rel
+        if not van.exists():
+            return {}
+        d2 = kv(van.read_text(encoding="utf-8-sig", errors="replace"))
+        d2["__winner__"] = "original"
+        return d2
+    d2 = kv((best / rel).read_text(encoding="utf-8-sig", errors="replace"))
+    d2["__winner__"] = best.name
+    return d2
 
 
 def feet(value):
@@ -144,9 +212,9 @@ PENALTY_KEYS = ("InterceptSpeedPenaltyMultiplier", "InterceptOutOfAltitudePenalt
 
 
 def survey():
-    rows, probes, stats = [], [], dict.fromkeys(
-        ("total", "alias", "cycles", "aaw", "banded", "onesided", "inherited",
-         "inherits_speed", "inherits_alt", "inherits_both"), 0)
+    rows, probes, extends, stats = [], [], [], dict.fromkeys(
+        ("total", "alias", "extend", "cycles", "aaw", "banded", "onesided",
+         "inherited", "inherits_speed", "inherits_alt", "inherits_both"), 0)
     for name in sorted(ammunition_ids()):
         d = resolve(f"ammunition/{name}")
         if not d:
@@ -157,6 +225,13 @@ def survey():
             continue
         if d.get("__alias_of__"):
             stats["alias"] += 1
+        if d.get("__extend_of__"):
+            stats["extend"] += 1
+            extends.append({"id": name[:-4], "winner": d.get("__winner__"),
+                            "target": d["__extend_of__"],
+                            "no_base": bool(d.get("__no_base__")),
+                            "aaw": d.get("TargetType") == "AAW"
+                                   or d.get("SecondaryTargetType") == "AAW"})
         if d.get("TargetType") != "AAW" and d.get("SecondaryTargetType") != "AAW":
             continue
         stats["aaw"] += 1
@@ -185,7 +260,7 @@ def survey():
             "secondary": d.get("SecondaryTargetType"),
             "land": d.get("LandAttackCapability"),
         })
-    return rows, probes, stats
+    return rows, probes, extends, stats
 
 
 def classify(rows):
@@ -208,13 +283,15 @@ def classify(rows):
 
 
 def main():
-    rows, probes, stats = survey()
+    rows, probes, extends, stats = survey()
     if "--json" in sys.argv:
-        print(json.dumps({"stats": stats, "rows": rows, "probes": probes}, indent=1))
+        print(json.dumps({"stats": stats, "rows": rows, "probes": probes,
+                          "extends": extends}, indent=1))
         return
 
     print("winning ammunition ids resolved   ", stats["total"])
     print("  of which #!alias stubs          ", stats["alias"])
+    print("  of which #!extend stubs         ", stats["extend"])
     print("  alias cycles (should be 0)      ", stats["cycles"])
     print("anti-air-capable rounds           ", stats["aaw"])
     print("  declaring an altitude band      ", stats["banded"])
@@ -242,6 +319,23 @@ def main():
           "ballistic-missile interceptor SHOULD have a high floor. Judge each\n"
           "against its own role and against what comparable rounds use; see\n"
           "integration/intercept-model/build_patch.py for the calls already made.")
+    exposed = [e for e in extends if not e["no_base"]]
+    orphan = [e for e in extends if e["no_base"]]
+    print(f"\nEXTEND STUBS: {len(extends)} round(s) open with #!extend. This tool layers\n"
+          "them onto the copy below, which is what happens only if the Anchor Chain\n"
+          f"preloader is working. {len(exposed)} of them outrank a real base, so their\n"
+          "stats depend on that unverified dependency; without it each loads as a bare\n"
+          "stub. Verify the preloader, or rank the stub below its base to keep the\n"
+          "base's values.")
+    for e in sorted(exposed, key=lambda e: (not e["aaw"], e["id"]))[:14]:
+        print(f"   {e['id']:28} {e['winner']:16} extends {e['target'].split('/')[-1]:26}"
+              f"{'  [anti-air]' if e['aaw'] else ''}")
+    if len(exposed) > 14:
+        print(f"   ... and {len(exposed) - 14} more (--json, 'extends')")
+    if orphan:
+        print(f"   NO BASE AT ALL ({len(orphan)}): "
+              f"{', '.join(e['id'] for e in orphan)} - these never fire either way")
+
     print(f"\nPROBE ROUNDS for the missing-global test: {len(probes)} anti-air rounds\n"
           "declare NEITHER penalty and carry a closed band, so they inherit both from\n"
           "damage.ini and an engagement inside their band is not confounded by the\n"

@@ -87,23 +87,33 @@ def main():
           "range, 25 nm seeker, no loft, which nothing in the collection ever fired.")
     built.append("usn_agm-88")
 
-    # usn_aim-9l / usn_aim-9m [audit: usn_aim-9l/9m cohort]. The deprecated
-    # Super Hornet's winning copies carry ImpactSize=5 - a numeric non-enum
-    # value used nowhere else (372x Medium / 350x Large / 167x VerySmall
-    # repo-wide, zero numeric) - and dropped InterceptSpeedPenaltyMultiplier
-    # that vanilla and the live successor both carry. Everything else kept.
+    # usn_aim-9l / usn_aim-9m [audit: usn_aim-9l/9m cohort]. These copies carry
+    # ImpactSize=5 - a numeric non-enum value used nowhere else (372x Medium /
+    # 350x Large / 167x VerySmall repo-wide, zero numeric) - and drop the
+    # InterceptSpeedPenaltyMultiplier that vanilla carries. Everything else kept.
+    #
+    # The donor was the F/A-18E/F mod, which was deprecated into Modern US Navy
+    # and unsubscribed (19 Sep 2026); US Naval Aviation now wins both files. It
+    # had already corrected its 9M, so that half retires itself below - the 9L
+    # still carries both defects.
     ispm = ("InterceptSpeedPenaltyMultiplier=0.75                  "
             "// multiplier to the severity of the speed penalty, 0.75 for good, "
             "1.0 for average, 1.25 for poor")
     for name, kp in (("usn_aim-9l", "0.80"), ("usn_aim-9m", "0.85")):
-        t = read("3426791311", f"ammunition/{name}.ini")
+        t = read("3737267013", f"ammunition/{name}.ini")
+        if "ImpactSize=5" not in t and "InterceptSpeedPenaltyMultiplier" in t:
+            stale = OUT / "ammunition" / f"{name}.ini"
+            if stale.exists():
+                stale.unlink()
+            print(f"  {name}  RETIRED - the donor now ships both values correctly")
+            continue
         t = edit(t, r"^ImpactSize=5(\s)", r"ImpactSize=VerySmall\1", 1, name)
         if "InterceptSpeedPenaltyMultiplier" in t:
             sys.exit(f"{name}: donor now defines InterceptSpeedPenaltyMultiplier - rebase")
         t = edit(t, rf"^(KillProbability={re.escape(kp)})", ispm + "\n\\1", 1, name)
         write(f"ammunition/{name}.ini", t,
-              "SEST Collection Fixes - base: 3426791311's file. Two deltas back to\n"
-              "vanilla convention: ImpactSize 5 (non-enum) -> VerySmall, and the\n"
+              "SEST Collection Fixes - base: US Naval Aviation's file. Two deltas back\n"
+              "to vanilla convention: ImpactSize 5 (non-enum) -> VerySmall, and the\n"
               "dropped InterceptSpeedPenaltyMultiplier=0.75 restored.")
         built.append(name)
 
@@ -327,17 +337,27 @@ def main():
     # file does not define (only MK54/MK54L/Sonobuoys* exist), left over from
     # the torpedo donor. Station10's bare form is the file's own idiom and
     # Station9 already carries the Penguin hardpoint coordinates.
+    #
+    # RETIRED 19 Sep 2026: U.S. Navy 2027 dropped the Penguin from this
+    # airframe altogether, so the dangling seat is gone from the file the game
+    # loads. The MH-60R mod below it still has the bad line, but it never wins.
     t = read("3606774881", "aircraft/usn_mh-60r.ini")
-    if re.search(r"^MK46Positions=", t, re.M):
-        sys.exit("usn_mh-60r: donor now defines MK46Positions - drop this fix")
-    t = edit(t, r"^Station9=knm_penguin_mk2\|MK46$", "Station9=knm_penguin_mk2",
-             1, "usn_mh-60r")
-    write("aircraft/usn_mh-60r.ini", t,
-          "SEST Collection Fixes - base: 3606774881's MH-60R (the 2026-correct\n"
-          "Mk54/SSQ-53H fit, unchanged). One delta: the AntiShip Penguin's dangling\n"
-          "'|MK46' seat reference removed - no MK46Positions group exists in the\n"
-          "file; the round now uses Station9's own Penguin hardpoint coordinates.")
-    built.append("usn_mh-60r")
+    stale = OUT / "aircraft" / "usn_mh-60r.ini"
+    if not re.search(r"^Station\d+=knm_penguin_mk2\|MK46$", t, re.M):
+        if stale.exists():
+            stale.unlink()
+        print("  usn_mh-60r  RETIRED - the winning file no longer seats a Penguin")
+    else:
+        if re.search(r"^MK46Positions=", t, re.M):
+            sys.exit("usn_mh-60r: donor now defines MK46Positions - drop this fix")
+        t = edit(t, r"^Station9=knm_penguin_mk2\|MK46$", "Station9=knm_penguin_mk2",
+                 1, "usn_mh-60r")
+        write("aircraft/usn_mh-60r.ini", t,
+              "SEST Collection Fixes - base: 3606774881's MH-60R (the 2026-correct\n"
+              "Mk54/SSQ-53H fit, unchanged). One delta: the AntiShip Penguin's dangling\n"
+              "'|MK46' seat reference removed - no MK46Positions group exists in the\n"
+              "file; the round now uses Station9's own Penguin hardpoint coordinates.")
+        built.append("usn_mh-60r")
 
     added = build_missing_sensors()
     named = build_missing_loadout_names()

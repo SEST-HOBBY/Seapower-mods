@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry.",
-    "count": 132,
+    "count": 143,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
@@ -133,12 +133,6 @@
       "source": "integration/tacmap-colors",
       "builder": "build_pack.py",
       "title": "SEST TacMap Colors"
-    },
-    {
-      "folder": "SEST_Zumwalt_CPS",
-      "source": "integration/zumwalt-cps",
-      "builder": "build_patch.py",
-      "title": "SEST Zumwalt CPS Fix"
     }
   ],
   "mods": [
@@ -865,7 +859,7 @@
       "requires": [
         "the US Navy mods it edits (compilation of edits to multiple Workshop mods)"
       ],
-      "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test."
+      "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test. **Fragile by construction (Sep 2026):** every hull is a `#!alias` patch over a Modern US Navy hull, and Modern US Navy renames hulls almost daily (v558-567, 16-18 Sep). When a base name changes before this mod catches up the game crashes at startup with KeyNotFoundException 'AirGroup' (Modern US Navy v567 renamed the Flight III to usn_ddg_burke_125; this mod's flt3_2027 still aliased usn_ddg_burke_f3). Run tools/check_alias_bases.py after every export; if it names a MISSING BASE, disable this mod until its author updates, or override the one file."
     },
     {
       "id": "f-35c-mygo",
@@ -874,8 +868,8 @@
       "author": "MyGo!!!!!鼓手椎名立希",
       "faction": "usa",
       "type": "fixed-wing",
-      "status": "deprecated",
-      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing."
+      "status": "unsubscribed",
+      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing. UNSUBSCRIBED 19 Sep 2026: Steam has not downloaded it and the game has never listed it, so set-mod-order had nothing to place."
     },
     {
       "id": "f-35c-alt-loadouts",
@@ -955,8 +949,8 @@
       "author": "MyGo!!!!!鼓手椎名立希",
       "faction": "usa",
       "type": "fixed-wing",
-      "status": "deprecated",
-      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing."
+      "status": "unsubscribed",
+      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing. UNSUBSCRIBED 19 Sep 2026: Steam has not downloaded it and the game has never listed it, so set-mod-order had nothing to place."
     },
     {
       "id": "murder-hornet",
@@ -1141,7 +1135,7 @@
       "faction": "usa",
       "type": "ship",
       "status": "active",
-      "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN.",
+      "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN. **Renaming spree (Sep 2026):** Flight IIA hulls became per-ship files (usn_ddg_burke_085, _085_late, _088_laser, _089 ...), Flight III became usn_ddg_burke_125 (v567, 18 Sep). U.S. Navy 2027 aliases into these names and breaks each time one moves.",
       "overlaps": [
         "us-naval-aviation (SH-60/MH-60 family)",
         "mh-60r-2154545636",
@@ -1678,11 +1672,11 @@
       "author": "unknown (added 2026-08-24)",
       "faction": "utility",
       "type": "framework",
-      "status": "active",
+      "status": "unsubscribed",
       "requires": [
         "anchor-chain (presumed — code-level behavior mod; verify)"
       ],
-      "notes": "VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement."
+      "notes": "VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement. UNSUBSCRIBED 19 Sep 2026: Steam has not downloaded it and the game has never listed it, so set-mod-order had nothing to place."
     },
     {
       "id": "better-tacmap",
@@ -1696,6 +1690,19 @@
         "anchor-chain (presumed — UI code mod; verify)"
       ],
       "notes": "VERIFIED: pure code mod (settings.cfg only in export) — Anchor Chain family UI overhaul."
+    },
+    {
+      "id": "auto-time-on-target",
+      "workshop_id": "3789793270",
+      "title": "Auto Time-on-Target",
+      "author": "unknown (workshop 3789793270)",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain"
+      ],
+      "notes": "VERIFIED: pure code mod (_info.ini only in export) - Anchor Chain family. Coordinated time-on-target strikes: every launch delayed so the salvo lands together. Requires Anchor Chain; subscribed 2026-09-19, seen live at the bottom of the game's order."
     },
     {
       "id": "arrw",
@@ -1769,7 +1776,7 @@
       "workshop_id": "3790594162",
       "title": "Identify Expanded",
       "author": "Yoshi",
-      "faction": "none",
+      "faction": "utility",
       "type": "framework",
       "status": "unsubscribed",
       "load_order": "Removed at the user's request after trying it. If it comes back: tier 1b code mod, immediately below Better TacMap and above SAM Pack - it runs through Anchor Chain's preloader, so the only hard rule is that Anchor Chain stays above it, and it reads its own ini from its own folder rather than overriding game data, so it contests no unit files.",
@@ -1777,6 +1784,98 @@
       "requires": [
         "anchor-chain"
       ]
+    },
+    {
+      "id": "f-2a-viper-zero",
+      "workshop_id": "3755769170",
+      "title": "F-2A 'Viper Zero'",
+      "author": "unknown",
+      "faction": "japan",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [
+        "an STDM/ACES weapon framework - its aces_aim-9m_stdm.ini aliases ammunition/stdm_base.ini, which nothing in the collection provides"
+      ],
+      "notes": "New subscription, catalogued 19 Sep 2026. Its AIM-9M variant has no base round; check_alias_bases reports MISSING BASE and that missile will not work until the framework mod is subscribed."
+    },
+    {
+      "id": "j-16-multirole",
+      "workshop_id": "3769142422",
+      "title": "J-16 Multirole Fighter",
+      "author": "unknown",
+      "faction": "china",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026. Shares only systems/sensors.ini, which merges key-by-key, so position is free. A separate J-16 (3506979898) is also subscribed - watchlist if they ever ship the same aircraft file."
+    },
+    {
+      "id": "pla-aep",
+      "workshop_id": "3789188689",
+      "title": "PLA & PLAN & PLAAF AEP",
+      "author": "unknown",
+      "faction": "china",
+      "type": "weapons",
+      "status": "active",
+      "requires": [
+        "anchor-chain (its ammunition files use the #!extend directive)"
+      ],
+      "notes": "New subscription, catalogued 19 Sep 2026. An Anchor Chain expansion: 18 ammunition files that #!extend rounds owned by the PLA land-unit pack, Type 003, Modern PLAN Systems and the J-16 mod. An extend only applies if it outranks the copy it layers onto. At its tier-2 position it outranks only ONE of the four - Type 003 (3663564190) - so 4 of the 18 apply (plaaf_pl-15, plaaf_pl-15_s, plaaf_pl-17, plaaf_akf-98) and 13 stay inert because the PLA land-unit pack and Modern PLAN Systems sit above it. Those four are the only rounds this placement changes, and they are fielded: the J-15T mounts PL-15. Moving it below 3663564190 keeps the original values for all 18. Its plan_yj-18e.ini extends a file no other mod provides, so that round has no base."
+    },
+    {
+      "id": "rq-180-white-bat",
+      "workshop_id": "3796113927",
+      "title": "RQ-180 White Bat Airframe",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "uav",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026. Shares usn_mk50_air.ini with Euromod and US Naval Aviation."
+    },
+    {
+      "id": "yf-23-black-widow",
+      "workshop_id": "3796349767",
+      "title": "YF-23 Black Widow II",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026. Ships its own missions folder."
+    },
+    {
+      "id": "mig-31-foxhound",
+      "workshop_id": "3799742828",
+      "title": "MiG-31 Foxhound",
+      "author": "unknown",
+      "faction": "russia",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026."
+    },
+    {
+      "id": "ch-53e-standalone",
+      "workshop_id": "3801363152",
+      "title": "CH-53E Standalone",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "rotary",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026."
+    },
+    {
+      "id": "j-36-tailless",
+      "workshop_id": "3801549552",
+      "title": "J-36 Tailless Fighter",
+      "author": "unknown",
+      "faction": "china",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [],
+      "notes": "New subscription, catalogued 19 Sep 2026. Shares plaaf_bbm2 and plaaf_4xgj with Type 003 and 3670643788."
     }
   ]
 }

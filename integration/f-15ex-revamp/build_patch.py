@@ -20,6 +20,27 @@ OUT = Path(__file__).resolve().parent / "SEST_F-15EX_Revamp"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+from common import aim260  # noqa: E402
+
+# The AIM-260 hangs low and aft when it rides an AIM-120's seat: the two
+# render from different meshes, so one seat key cannot fit both. The offset
+# and the reasoning live in integration/common/aim260.py, which is the single
+# dial for every pack that mounts one.
+
+# Every seat an AIM-260 rides on this airframe, and the name of its corrected
+# twin. "120" is the wing rails, MTH/MTW the fuselage and wing multi-rails
+# (both the mod author's), SESTR-* this pack's belly rack slots. Anything an
+# AIM-260 uses that is NOT listed here fails the build rather than sitting on
+# an AIM-120 seat unnoticed. Bare mounts (no key at all) are left alone: there
+# is no AIM-120 seat to derive from and no evidence about those stations.
+AIM260_SEATS = {
+    "120": "AAM260",
+    "MTH": "MTH260",
+    "MTW": "MTW260",
+    "SESTR-OR": "SESTROR260", "SESTR-OL": "SESTROL260",
+    "SESTR-FR": "SESTRFR260", "SESTR-FL": "SESTRFL260",
+    "SESTR-AR": "SESTRAR260", "SESTR-AL": "SESTRAL260",
+}
 
 NEW_KEYS = ["SEST_AntiShipLRASM6", "Quicksink", "BigStick174", "BigStick174ER",
             "Truck174", "Malice6", "MaliceER", "MaliceTruck",
@@ -598,7 +619,8 @@ def build_aircraft_names(lang):
 SYMMETRY_FIXES = [
     ("WeaponSystem1AirToAirIntercept",
      "Station10=dts_aim-9x",
-     "Station10=dts_aim-260_w|120",
+     f"Station10=dts_aim-260_w|{AIM260_SEATS['120']}",   # this runs after 2b, so name the
+                                                         # corrected seat, not the shared one
      "AirToAirIntercept left outer pylon: AIM-9X -> AIM-260 to match Station9"),
     ("WeaponSystem1",
      "Station4=0.0486,-0.001,-0.0079      //Right Wing pylon bottom",
@@ -701,6 +723,51 @@ ApproximateVersion=0.8.2
 """
 
 
+def seat(text, key):
+    """The airframe's <key>Positions value as a list of (x, y, z) floats."""
+    m = re.search(rf"^{re.escape(key)}Positions=([^\n]*)$", text, re.M)
+    if not m:
+        sys.exit(f"{key}Positions not found - upstream layout changed")
+    return aim260.parse(m.group(1))
+
+
+def add_aim260_seats(text):
+    """Move every keyed AIM-260 onto a seat of its own.
+
+    A seat key applies a fixed offset from the hardpoint, so it belongs to the
+    store's mesh. Sharing one key between the AIM-120 and the AIM-260 cannot
+    seat both. This derives an AIM-260 twin of each shared seat (the AIM-120
+    seat plus AIM260_SEAT_DELTA) and repoints every AIM-260 station at it -
+    this pack's loadouts and the ones carried from the mod author alike.
+    """
+    used = set(re.findall(r"^Station\d+=dts_aim-260(?:_w)?\|([\w\-]+)$", text, re.M))
+    unknown = sorted(u for u in used if u not in AIM260_SEATS)
+    if unknown:
+        sys.exit(f"AIM-260 rides seat(s) with no corrected twin: {unknown} - add them "
+                 "to AIM260_SEATS or the rounds keep the other missile's geometry")
+    lines = []
+    for src_key in sorted(used):
+        dst_key = AIM260_SEATS[src_key]
+        if f"{dst_key}Positions" in text:
+            sys.exit(f"{dst_key}Positions already defined - re-check this fix")
+        lines.append(f"{dst_key}Positions={aim260.shift(seat(text, src_key))}\n")
+        rot = re.search(rf"^{re.escape(src_key)}Rotations=([^\n]*)$", text, re.M)
+        if rot:
+            lines.append(f"{dst_key}Rotations={rot.group(1)}\n")
+    anchor = re.search(r"^SESTR-ALPositions=[^\n]*\n", text, re.M)
+    if not anchor:
+        sys.exit("SESTR-ALPositions not found - the 1c block did not land")
+    text = text[:anchor.end()] + "".join(lines) + text[anchor.end():]
+
+    def repoint(m):
+        return f"{m.group(1)}|{AIM260_SEATS[m.group(2)]}"
+
+    text, n = re.subn(r"^(Station\d+=dts_aim-260(?:_w)?)\|([\w\-]+)$", repoint, text, flags=re.M)
+    print(f"  AIM-260 seats: {len(used)} derived ({', '.join(sorted(used))}), "
+          f"{n} station line(s) repointed")
+    return text
+
+
 def main():
     src = UPSTREAM / "aircraft" / "usaf_f-15ex_SEII.ini"
     text = src.read_text(encoding="utf-8-sig")
@@ -754,11 +821,17 @@ def main():
             + "SESTR-ALRotations=-2,0,0\n"
             + text[agm.end():])
 
+
     # 2. Inject new sections just before the WeaponMagazines banner
     marker = "[---------- WeaponMagazines ----------]"
     if marker not in text:
         sys.exit("WeaponMagazines marker not found — upstream layout changed")
     text = text.replace(marker, NEW_SECTIONS + marker, 1)
+
+    # 2b. AIM-260 seats. Runs AFTER the sections above are in, so it sees every
+    #     loadout in the file - this pack's and the ones the mod author wrote -
+    #     and no AIM-260 anywhere is left on another missile's geometry.
+    text = add_aim260_seats(text)
 
     # 3. Validate: every referenced ammo id must exist in the ecosystem.
     #    Search ALL of mods-source (incl. _vanilla), not a hand-picked donor
@@ -785,6 +858,13 @@ def main():
     text, sym_fixed = fix_symmetry(text)
     text = lower_side_rails(text)
     check_symmetry(text)
+
+    # Nothing added after 2b may put an AIM-260 back on a shared seat.
+    late = re.findall(r"^Station\d+=dts_aim-260(?:_w)?\|(" + "|".join(
+        re.escape(k) for k in AIM260_SEATS) + r")$", text, re.M)
+    if late:
+        sys.exit(f"an AIM-260 is back on shared seat(s) {sorted(set(late))} - a step after 2b "
+                 "wrote a station line with the AIM-120's key")
 
     # 5b. The wing station owns its pylon - clear any rail store it has no
     #     room for, then refuse to ship if one survives.

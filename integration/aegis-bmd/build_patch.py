@@ -27,8 +27,30 @@ almost never hit anything.
    only applies if the Anchor Chain preloader is installed - and this repo
    records that install as never verified (data/mod-catalog.json's
    known_missing_dependencies, docs/setup-runbook.md Phase 1).  Every value
-   restored here is copied from that overwrite, so the round flies identically
-   whether or not the chainloader is present.  Nothing is invented.
+   restored here is copied from that overwrite.  Nothing is invented.
+
+   SCOPE OF THAT, precisely, because an earlier version of this file claimed
+   more.  The seven keys this pack copies - MaxLoftAngle, LaunchTurnRate,
+   InitialFlightPhaseDuration, TerminalApproachDist, SeekerFOV,
+   SeekerPassiveRange, TimeLimited - read the same with or without the
+   chainloader.  The ROUND does not, because the 2026-09-20 export rewrote the
+   overwrite and it now also sets two keys this pack deliberately does not
+   replicate:
+
+     CanNotAttackTypes  base and this pack: Aircraft,Helicopter.  Overwrite:
+                        empty, on all three variants.  With the chainloader the
+                        SM-3 may engage aircraft; without it, it may not.
+     MaxFlightTime      base and this pack: 300 s.  Overwrite: 3000 s, on the
+                        Block IIA only.
+
+   Neither is adopted here, on purpose.  MaxFlightTime=3000 would multiply the
+   round's reach tenfold for every player whether or not the preloader is
+   really installed, and clearing CanNotAttackTypes would turn a
+   ballistic-missile interceptor into a general SAM.  Both are the chainloader
+   author's calls to make inside the chainloader's own file.  What this pack
+   owes the reader is to say plainly that they diverge, which is what this
+   paragraph is for, and check_overwrite_still_agrees() now fails the build if
+   the overwrite adds a third.
 
 Deliberately NOT changed, and why:
   - MaxAttackAltitude (1,640,000 ft on B/C, 3,000,000 ft on D).  It is far
@@ -68,7 +90,7 @@ THE DEFERRED FIX - the global intercept table, NOT shipped here.
     - 3558173926's idf_stunner.ini writes MaxAttackAltitude=51,000 with a
       thousands separator.  How the parser reads that decides whether its band
       is 500-51000 or the empty 500-51.
-    - 61 rounds across the collection declare only one side of the band
+    - 68 rounds across the collection declare only one side of the band
       (fr_mica-em/ir.ini Min-only, and others; the count is alias-aware, so
       usn_rim-174b is NOT one of them - it inherits its floor from
       usn_rim-174a).  No vanilla file does this, so what the engine defaults
@@ -102,8 +124,16 @@ OVERWRITE = "3784474738"      # Euromod - Anchorchain Expansion, ships the _OVWR
 # that NO air-breathing cruise missile or anti-ship missile anywhere in the
 # collection exceeds 98,000 ft - the Zircon (3597650470's rfn_3m22.ini) tops
 # that list.  So a 100,000 ft floor excludes every non-ballistic threat in the
-# game by physics alone, on top of the CanNotAttackTypes=Aircraft,Helicopter
-# exclusion the files already carry.  The round cannot become a general SAM.
+# game by physics alone.  The round cannot become a general SAM on this floor.
+#
+# That conclusion rests on the altitude data alone, which is the point.  The
+# files' CanNotAttackTypes=Aircraft,Helicopter used to be quoted here as a
+# second, independent bar - but the 2026-09-20 export has the Anchorchain
+# overwrite CLEARING that key, so with the chainloader installed it is not a bar
+# at all.  AutoAttackOutsideAltitudes=False still gates auto-engagement in both
+# configurations, and nothing in the collection flies above 98,000 ft that is
+# not ballistic, so the floor holds either way.  The type exclusion is now a
+# belt-and-braces clause that is only sometimes there, not part of the case.
 #
 # It also lands on two independent in-collection precedents:
 #   - THAAD (3683253079/ammunition/thaad.ini) runs 20,000-99,000, so 100,000
@@ -236,9 +266,37 @@ OVWR_VALUES = {
 }
 
 
+# Keys the overwrite sets that this pack deliberately does NOT replicate, with
+# why. Each one is a real behaviour difference between the chainloader-present
+# and chainloader-absent cases, spelled out in the docstring.
+KNOWN_DIVERGENT = {
+    "CanNotAttackTypes": "overwrite clears it; keeping Aircraft,Helicopter keeps "
+                         "the round a ballistic-missile interceptor",
+    "MaxFlightTime": "overwrite raises 300 -> 3000 s on the Block IIA; adopting it "
+                     "would multiply reach tenfold on an unverified preloader",
+}
+
+# Everything cosmetic or chainloader-only: staging, meshes, effects, audio,
+# control surfaces, and the four extension keys no stock file reads. None of
+# these changes how the round flies without the chainloader, so the pack has
+# nothing to say about them.
+IGNORABLE = re.compile(
+    r"^(Stage\d|SubModel|ControlStages|ControlSurface|Resources|NumberOfStages|"
+    r"NumberOfSubModels|OptimalTargetDist|AutoAttack(Below|Above)\w*Altitude|"
+    r"Mesh$|Position$|Rotation$|Type$|TargetType$|InFlightSound$)|"
+    r"(Effect|Mesh|AudioClip|Explosion|Splash)")
+
+
 def check_overwrite_still_agrees(variant):
-    """The whole point of the flight-model half of this pack is that our values
-    match the chainloader overwrite exactly. If that mod re-tunes, we must too."""
+    """Two guards. The first is the original: the values this pack copies must
+    still be the overwrite's values, or the round would behave differently with
+    and without the chainloader on a key the pack claims to have matched.
+
+    The second exists because the 2026-09-20 export slipped two divergences past
+    the first one. Checking only the keys we copy can never notice a key the
+    overwrite ADDS, and it added MaxFlightTime and cleared CanNotAttackTypes.
+    So now any behaviour key the overwrite declares must be one this pack either
+    copies or has knowingly declined - a third one fails the build."""
     ovwr = read(OVERWRITE, f"ammunition_overwrite/usn_rim-161{variant}_OVWR.ini")
     for key, value in OVWR_VALUES.items():
         # (?![\d.]) and not (\D|$): '.' is a non-digit, so the loose form would
@@ -249,6 +307,18 @@ def check_overwrite_still_agrees(variant):
                      "round will behave differently with and without the chainloader")
     if not re.search(r"^TimeLimited=True$", ovwr, re.M):
         sys.exit(f"usn_rim-161{variant}: overwrite no longer sets TimeLimited=True - rebase")
+
+    declared = {ln.split("//", 1)[0].split("=", 1)[0].strip()
+                for ln in ovwr.splitlines()
+                if "=" in ln.split("//", 1)[0] and ln.strip()[:1] not in ("#", ";", "[")}
+    accounted = set(OVWR_VALUES) | {"TimeLimited"} | set(KNOWN_DIVERGENT)
+    surprises = sorted(k for k in declared - accounted if not IGNORABLE.search(k))
+    if surprises:
+        sys.exit(f"usn_rim-161{variant}: the overwrite now also sets {surprises}, which "
+                 "this pack neither copies nor knowingly declines. Decide for each "
+                 "whether to copy it into OVWR_VALUES or to record it in "
+                 "KNOWN_DIVERGENT with a reason, and say so in the docstring - "
+                 "silently ignoring it would make the pack's scope claim false again")
 
 
 def build_sm3(variant, extra):
@@ -316,9 +386,20 @@ def sm3_d(t, name):
     # MaxLaunchRange. The author's rule across this family is that declared range
     # equals MaxVelocity x MaxFlightTime: the B and C both declare 486.0, which is
     # exactly 5832 kt x 300 s. The D declares 1500.0 against a 728.9 nm ceiling -
-    # 2.06x, the worst overshoot in all 31 Euromod ammunition files. It also drives
+    # 2.06x, the worst overshoot of the 46 Euromod ammunition files that declare
+    # all three keys - though only just: am_slyflash is 2.02x. It also drives
     # the flight model: DragCoefficient=-1 back-solves drag FROM this number, so an
     # unreachable range also makes the missile fly nearly frictionless.
+    #
+    # "Unreachable" is configuration-dependent, and honestly so. 728.9 nm is the
+    # ceiling with MaxFlightTime=300, the value the base file carries and the only
+    # one in force without the chainloader. The rewritten Anchorchain overwrite
+    # raises it to 3000 s, which lifts the ceiling to 7289 nm and makes 1500
+    # comfortably reachable - so the author's figure may well be coherent inside
+    # his own file. 729.0 is kept because it is right for the configuration this
+    # repo can actually verify, and conservative rather than wrong in the other.
+    # DragCoefficient derives from MaxLaunchRange, not MaxFlightTime, so the
+    # drag-model half of this fix holds in both configurations.
     for key, value in (("MaxVelocity", "8747.0"), ("MaxFlightTime", "300"),
                        ("DragCoefficient", "-1")):
         if not re.search(rf"^{key}={re.escape(value)}(\D|$)", t, re.M):

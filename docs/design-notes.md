@@ -20,11 +20,12 @@ and the rule gets a new revision — that has happened three times already.
   `InterceptSpeedPenaltyMultiplier`, and `InterceptChanceOutOfAltitudeOverride`
   — the hard 5% ceiling on intercepting a target outside a weapon's altitude
   band. Six of the eight have no per-round override form anywhere in the
-  corpus — the five size bonuses and the clamp — so none of the 514
+  corpus — the five size bonuses and the clamp — so none of the 541
   anti-air-capable rounds could opt out of losing them. The other two,
   `InterceptOutOfAltitudePenalty` and `InterceptSpeedPenaltyMultiplier`, are
-  declared per round in 154 and 160 ammunition files; the rest inherited
-  nothing. That mod wanted to change two impact-size values. `SEST_Intercept_Model`
+  declared per round in 161 and 176 ammunition files; the rest inherited
+  nothing. Counts from `tools/survey_attack_altitudes.py`; re-run it after any
+  export or reorder rather than trusting these. That mod wanted to change two impact-size values. `SEST_Intercept_Model`
   restores the table; `integration/intercept-model/build_patch.py` records what
   arming the clamp changes and which rounds needed fixing first.
   Measured, not observed in game: it was found by diffing the winning copy
@@ -35,7 +36,7 @@ and the rule gets a new revision — that has happened three times already.
   declare no attack-altitude band at all and have always shipped against a
   `damage.ini` where the 5% clamp is live, so a missing band cannot default to
   zero or they would be permanently clamped. That settles the both-absent case
-  only. It does not settle the 61 modded rounds that declare *one* side and no
+  only. It does not settle the 68 modded rounds that declare *one* side and no
   vanilla file does: an engine may skip the check when neither bound is present
   yet still run it against a defaulted other side. Untested; fire an AMRAAM
   (floor only) and a RAM (ceiling only) and read the percentage.
@@ -54,6 +55,27 @@ and the rule gets a new revision — that has happened three times already.
   resolvable default loadout (see Working practices). Same-filename overrides
   collapse cleanly — 263 of them do so in this collection every session. Redundant
   subscriptions are still worth pruning for clarity, but not out of fear of this.
+
+- **Terrain is a 1 km grid and not ours to change.** The devs build the world
+  from 30 arc-second elevation data (Dev Diary #4), hand-patch chokepoints in
+  Photoshop and with an in-engine terrain painter whose stamp textures
+  `terrain/terrain.ini` lists but StreamingAssets does not ship. No Workshop
+  or GitHub mod touches the heightmap, and the 2021 "(and you!)" promise of
+  player terrain editing never became a documented feature. Anything under
+  about 1 to 2 km, and everything reclaimed after the data vintage - Fiery
+  Cross, Subi, Mischief - is absent by construction; Singapore and the
+  Japanese home islands fuse to their mainlands for the same reason.
+- **A land unit on water does not sink, it floats at one metre.**
+  `terrain.ini` clamps placed land units to `MinHeightForLandUnits=1.0`, and
+  `campaigns/britishisles_ports.ini` says outright that a Port "doesn't snap
+  to terrain and does not flatten terrain around it" (`SnapToTerrain=False`).
+  Vanilla oil rigs, the armed-rig mod, the floating drydock and the FARP mod
+  all work at sea on that basis, helo operations included. So the reef bases
+  in SEST Indo-Pacific Land Assets render as runways and buildings sitting on
+  the sea surface with no ground under them, not as nothing. The only route
+  to a visible artificial island is a Port-type unit assembled from the
+  modular port meshes with a scaled concrete slab, built like the RAAF bases
+  from existing geometry; that is untested in game.
 
 ## The Tier 0 invariant
 
@@ -182,9 +204,138 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   donor. Check what a round demands of its mount, not just whether the ids
   resolve — `preflight` sees a resolvable reference either way.
 
+- **A launcher is only a launcher inside its radar's search radius.** A TEL
+  that fires through `ExternalGuidingSystems` looks for that system within its
+  `ExternalGuidingSystemSearchRadius` — 0.5 nm for vanilla and Red Storm
+  Arsenal launchers, 0.8 nm for the PLA pack and SAM Pack, 2 nm for NASAMS,
+  5 nm for the S-400 mod — and outside it the mount never fires, with no error.
+  The land-defence builder measures every battery's ring against the tightest
+  radius in it and checks, from the files, that the radar it stands up actually
+  provides the named system; a Patriot TEL from Red Storm Arsenal wants
+  `AN/MPQ-65` and the SAM Pack radar provides `AN/MPQ-65_mi`, so the two mods'
+  halves cannot be mixed however plausible the ids look.
+- **An analyser and a generator must share one taxonomy or the pass is not
+  idempotent.** The defence builder classifies what a site already has from
+  the units' own files (gun, SHORAD, medium, area, BMD, search radar by the
+  longest AAW round and its minimum engagement altitude). Its doctrine lists
+  once filed a Vulcan under SHORAD and a Shilka-M4 (which carries Strela)
+  under guns; each re-run then read those units back as the other layer and
+  added another. Ring candidates are now filtered through the same classifier
+  that reads them back, and `--catalog` names anything misfiled.
+
+- **The export must mirror deletions, or the repo lies.** For a day the repo
+  showed Modern US Navy's `usn_ddg_burke_f3.ini` and U.S. Navy 2027's
+  `usn_rim-162e.ini` as present while the game logged both as not found: the
+  exporter copied files in and pruned unsubscribed mods, but never deleted a
+  file an author had removed inside a mod, so every checker resolved against
+  ghosts and passed. It mirrors within each mod now. The tell was git: the
+  ghost files' last commit predated the export that touched their neighbours.
+- **A mod made only of `#!alias` patches breaks whenever its base mod renames
+  a hull.** U.S. Navy 2027 aliases every ship onto a Modern US Navy hull, and
+  Modern US Navy pushed ten renaming updates in three days (v558-567, 16-18
+  Sep 2026). The Flight III base was retired twelve hours after 2027's last
+  fix, and the game died at startup with KeyNotFoundException 'AirGroup' -
+  the patch's own [FlightDeck] asking for the air group the missing base
+  carried. `tools/check_alias_bases.py` names this before launch, and the
+  missions field the Modern US Navy hulls directly now
+  (`retarget_usn2027_hulls.py`). Re-pointing a patch at a re-laid-out base is
+  not a fix - slot 2 had become the Phalanx - so SEST_USN2027_Fixes flattens
+  old base plus patch into one standalone hull until the author catches up.
+  The author caught up on 2026-09-20: the 2027 patch now aliases
+  `usn_ddg_burke_f3_125.ini`, the hull Modern US Navy really ships, so the
+  pack's own guard said RETIRE THIS PACK and it is gone - the guard that
+  knows when its fix is obsolete is the whole point of writing one.
+
 - **Gates before every push:** `check_load_order`, `check_dependencies`,
   `preflight` (every reference the missions make), `check_station_clash`,
   `check_weapon_employment` (every weapon can actually be fired by the mount
   carrying it), full pack rebuilds. All exit non-zero; all have been
   negative-tested — the employment gate against both bugs it was built from,
   the stripped NSM datalink association and the GBU-53's 200 ft release band.
+- **Air wings on land units.** A mission gives an airbase its aircraft with `CustomAirGroup=True`
+  followed by `<aircraft id>=SquadronN,count|SquadronM,count` lines inside the land-unit block;
+  the squadron numbers index the aircraft's `_squadrons.ini`, and vanilla single-livery types use
+  `Default`. Only units whose file carries `[AirGroup]`/`[FlightDeck]` (LandUnitSubType=Airbase,
+  the helo rig) can take one; the showcase generator refuses an air group on anything else.
+- **Shipping lanes are routed, not drawn.** Hand-placed waypoints crossed land in 20 of 27 lanes
+  on the first try (Kangean, the Leti islands, Dolak, Jolo, Timor's south coast). `sea_routes.py`
+  takes via points that name the corridor and finds the water path between them on the land mask
+  (A*, 0.025° grid, no corner-cutting past land, a 60% cost penalty on cells touching land so
+  lanes stand a mile or two off the beach). Simplification is per leg so via points survive: a
+  whole-chain simplification turned the Lombok–Makassar VLCC lane into one straight line hugging
+  the Sulawesi coast, legal on the mask and wrong as a lane.
+- **A deletion mirror needs an absolute destination and a sanity bound.** The exporter's new
+  "remove files the mod no longer ships" loop compared `FullName` (absolute) against a
+  `$DestDir` still holding a literal `..\`, so no exported file ever matched the keep-set and
+  the first run deleted 7,876 of them - every mod but the twelve whose ids sort last. It now
+  normalises `$DestDir` with `GetFullPath`, skips a mod that copied nothing, and refuses to
+  delete more than half of a mod's exported files (above 20) on the grounds that an update
+  retires a handful, never most: a mirror that can empty the repo is worse than a ghost file.
+- **A mod can delete a round and leave the hulls that load it.** U.S. Navy 2027 removed
+  usn_rim-162e on 15 Sep 2026; seventeen of its own Burkes still name it in a Mk 41 magazine,
+  which the game logs as "could not find" and the cell never fires. Missions avoid this by
+  fielding the Modern US Navy hulls instead; the one hull SEST ships flattened re-points the
+  magazine at Euromod's identical RIM-162H, guarded both ways (the original must still be
+  gone, the substitute must resolve).
+- **Hand-placed ships need the land mask too.** The land units go through the mask, so nobody
+  checked the vessels: the Darwin surface group had been parked on the Tiwi Islands and a US
+  destroyer on Palawan since the showcase was written. Both generators now refuse to write a
+  mission with a vessel ashore. A warship must also clear a 6 nm halo, since a position can be
+  a water cell and still be a beach the group cannot manoeuvre in; a merchant only has to be on
+  water, because a ferry legitimately starts alongside.
+- **Anchor Chain has two layering directives, not one.** `#!alias` replaces a whole unit;
+  `#!extend` merges a few keys onto the file of the SAME name one rung lower in the load order.
+  Seventy-eight ammunition files across three mods use `#!extend` and nothing checked them, even
+  though they break exactly the way the alias that crashed the game did. Resolving an extend
+  needs the load-order *stack*, not the winner: `winning_file` on a same-name target returns the
+  patch itself and loops. `refine_civ_traffic.file_stack` returns every copy in order, and the
+  checker takes the entry below the patch.
+- **An extend only applies if it outranks what it extends.** A mod the catalog does not list is
+  appended at the bottom of the order, which is fatal for an expansion pack whose whole content
+  is extends: the PLA AEP pack sat below every mod it patches and did nothing at all.
+- **Severity follows the file kind.** A unit file with no base is the startup crash, because the
+  loader cannot build the unit. A round with no base only means that weapon never fires, which
+  the game survives, so the checker reports it and still exits zero.
+- **A guard that says "rebase this" should retire the fix itself when it can.** Five packs were
+  wedged because their guards treated "upstream fixed it" as a build failure. A guard can tell
+  the two apart: if the defect the fix targets is gone from the donor, stop overriding that file
+  and say so, and only fail when every target of a fix is clean (then the fix itself is
+  obsolete). The P-8 Harpoon typo, the F/A-18E tanker port, the AIM-9M and the MH-60R Penguin
+  seat all retired themselves this way, and the Ocean's Apache line stopped failing every time
+  the author added an airframe by appending to the list rather than matching it exactly.
+- **An unsubscribe can leave a unit that only your own patch defines.** usn_ea-18g_2020s came
+  from a mod deprecated into Modern US Navy; after the unsubscribe the id survived only as this
+  collection's shadow copy, pointing at an asset folder no longer installed - a Growler with no
+  model, fielded by ten saved missions. Check the whole file stack, not just the winner: if the
+  only provider is a SEST pack, the unit is being kept alive by the patch and needs either a
+  live donor or a retirement plus mission retargeting.
+- **A seat key belongs to a mesh, not to a station.** `Station<n>=<store>|<Key>` applies
+  `<Key>Positions` as an offset from the hardpoint, so two stores with different mesh origins on
+  one key cannot both sit flush. The F-15EX seats the AIM-120 and the AIM-260 on the same "120"
+  key although they render from different meshes (dts_aim-120.obj, dts_aim-260.obj), which is
+  why the AIM-260s hang low and aft of the inner rails - visible mainly there because the 610
+  gal tank alongside gives the eye a reference. Upstream does the same, so the defect is
+  inherited rather than introduced. The fix is a key per mesh, derived from the AIM-120 seat
+  plus one named delta so the wing rails and the eight belly rack slots cannot drift apart.
+- **When the only evidence is another airframe, ship the settled value, not the opening guess.**
+  The F-35 JATM packs measured this same mesh-origin difference over four in-game passes; their
+  first attempt (up 0.005) clipped the pylons and was halved, so 0.0025 is what carries across.
+  It remains a first cut anywhere else, because that pass compared a different AIM-120 mesh.
+  The offset therefore lives in one place, `integration/common/aim260.py`, and every pack that
+  mounts an AIM-260 derives its seats from it - one edit moves the F-15EX's nine seats and the
+  F-16's two together, instead of a tuning round per airframe.
+- **Derive the corrected seats, and check nothing puts the store back on the shared one.** The
+  F-15EX pass runs after every loadout is assembled, so it covers the author's carried fits as
+  well as this pack's, and a later step that writes a station line by hand would undo it - the
+  symmetry repair did exactly that with a hardcoded `|120`. A guard after the last mutation
+  fails the build if an AIM-260 is back on a key in the map.
+- **A mod renaming its units is the routine failure, not the exception.** Euromod JMSDF renamed
+  jp_sh-60j/k to jmsdf_sh-60j/k on 19 Sep 2026, a week after Modern US Navy retired the Burke
+  that crashed the game. The Mogami builder failed loudly (good) and twenty-nine missions carried
+  a dangling air group that only preflight caught. Both are cheap to fix and impossible to
+  notice by eye, which is the argument for running build_all and preflight after every export
+  rather than only when something looks wrong.
+- **An unsubscribed mod must leave the hand-written tiers too.** generate_load_order filtered
+  unsubscribed mods out of the alphabetical tiers but not out of TIER0-3 and TIER7, which name
+  ids directly, so set-mod-order kept warning that it had nothing to place for three mods Steam
+  had never downloaded. emit() now drops any entry the catalog no longer carries.

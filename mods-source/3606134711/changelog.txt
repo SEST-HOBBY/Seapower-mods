@@ -1,5 +1,11 @@
 Change log
 ----------
+[u8.21]
+-Disabled number input for bomb salvo amounts due to incompatibility between NoesisGUI versions on live and beta branches
+
+[u8.20]
+-Updated some code references
+
 [u8.19]
 -Added Cyrano I and Cyrano II to MultiModeRadar functionality
 -Added English fallback values for all other languages

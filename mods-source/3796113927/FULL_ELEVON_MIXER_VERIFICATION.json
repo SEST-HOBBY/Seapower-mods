@@ -1,0 +1,98 @@
+{
+  "mixer": "four Elevons, no Aileron/Elevator/Rudder duplicate owners",
+  "models": [
+    "elevator_l",
+    "elevator_r",
+    "aileron_l",
+    "aileron_r"
+  ],
+  "side_keys_read_by_assembly": [
+    "Aileron1_Side",
+    "Aileron2_Side",
+    "Aileron3_Side",
+    "Aileron4_Side"
+  ],
+  "side_values": [
+    "Right",
+    "Left",
+    "Right",
+    "Left"
+  ],
+  "bases": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "representative_outputs_degrees": [
+    {
+      "roll": 0,
+      "pitch": 0.5,
+      "output": [
+        10.0,
+        10.0,
+        10.0,
+        10.0
+      ]
+    },
+    {
+      "roll": 0,
+      "pitch": -0.5,
+      "output": [
+        -10.0,
+        -10.0,
+        -10.0,
+        -10.0
+      ]
+    },
+    {
+      "roll": 0.5,
+      "pitch": 0,
+      "output": [
+        -10.0,
+        10.0,
+        -10.0,
+        10.0
+      ]
+    },
+    {
+      "roll": -0.5,
+      "pitch": 0,
+      "output": [
+        10.0,
+        -10.0,
+        10.0,
+        -10.0
+      ]
+    },
+    {
+      "roll": 0.5,
+      "pitch": 0.5,
+      "output": [
+        0.0,
+        20.0,
+        0.0,
+        20.0
+      ]
+    },
+    {
+      "roll": -0.5,
+      "pitch": 0.5,
+      "output": [
+        20.0,
+        0.0,
+        20.0,
+        0.0
+      ]
+    }
+  ],
+  "preserved_motion_parameter": "MaxPitchRate=22",
+  "preserved_assets": [
+    "RQ-180.obj",
+    "gear animations",
+    "bay animations",
+    "textures",
+    "weapons",
+    "sensors"
+  ]
+}

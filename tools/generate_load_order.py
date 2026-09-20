@@ -38,6 +38,7 @@ TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
     ("ai-doctrine-overhaul", "code mod — changes AI globally"),
     ("better-tacmap", "code mod — UI"),
+    ("auto-time-on-target", "code mod — coordinated time-on-target salvoes; needs Anchor Chain"),
 ]
 TIER2 = [
     ("sam-pack", 'author: "top of TOE"'),
@@ -46,6 +47,8 @@ TIER2 = [
     ("us-navy-2027", "above Euromod - it ships better RIM-116/RIM-66/RIM-174 than Euromod's"),
     ("euromod-main", "above all Euromod addons"),
     ("modern-plan-systems", "above PLAN ships"),
+    ("pla-aep", "Anchor Chain #!extend patches over PLA/PLAN/PLAAF rounds - an extend "
+                "only applies if it outranks the copy it layers onto"),
 ]
 TIER3 = [
     ("f-35c-alt-loadouts", "kept for now — MUST stay below SEST F-35C JATM"),
@@ -129,9 +132,15 @@ n = 0
 
 
 def emit(header, entries, annotated=True):
+    """Render a tier. Entries the catalog no longer carries are dropped: the
+    hand-written tiers name a mod by id, and leaving an unsubscribed one in
+    made set-mod-order warn on every run that it had nothing to place. The
+    SEST pack is not in `mods` at all and is always kept."""
     global n
     lines.append(f"## {header}")
     lines.append("")
+    entries = [e for e in entries
+               if (e[0] if isinstance(e, tuple) else e) in mods or entries is TIER0]
     for item in entries:
         n += 1
         if annotated:

@@ -1,0 +1,70 @@
+# Player.log - last 67 of 67 line(s), captured 2026-09-20T11:46:36.
+# Unity writes this fresh each launch; -prev is the session before.
+
+Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
+Mono config path = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/MonoBleedingEdge/etc'
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.0.67f1 (78a1c2bbeb6a)
+[Subsystems] Discovering subsystems at path C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/UnitySubsystems
+kGfxThreadingModeSplitJobs is not supported on Direct3D 11. Reverting to kGfxThreadingModeClientWorkerJobs instead.
+GfxDevice: creating device client; kGfxThreadingModeClientWorkerJobs
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 2070 SUPER (ID=0x1e84)
+    Vendor:   NVIDIA
+    VRAM:     7989 MB
+    Driver:   32.0.16.1074
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.280 seconds
+- Finished resetting the current domain, in  0.002 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+<RI> Initializing input.
+
+Using Windows.Gaming.Input
+<RI> Input initialized.
+
+[3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
+UnloadTime: 1.276300 ms
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.Directories contains Mods
+[3D WebView] System info (used by Vuplex support):
+Unity version: 6000.0.67f1
+Development build: False
+OS version: Windows 11  (10.0.26200)
+Device model: MS-7D91 (Micro-Star International Co., Ltd.)
+Graphics API: Direct3D11
+Rendering threading mode: LegacyJobified
+Render pipeline: default
+SRP Batcher: False
+[Singleton<SeaPower.FileManager>] There should never be more than one Singleton of type SeaPower.FileManager in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+0.8.2-23444+s358 (C) Triassic Games 2024-2026
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+FileManager.OnStart(Game) Subscribed Items = [(3789793270, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3514484654, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3504168760, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3508978375, k_EItemStateNone), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3426791311, k_EItemStateNone), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3663564190, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled)]
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.Directories contains Mods
+FileManager.CheckFileValidity(): Game passed file validity checks!
+FileManager.CheckForUpdates(): Skipping mod 3508978375 - not accessible (result: k_EResultAccessDenied, banned: False, visibility: k_ERemoteStoragePublishedFileVisibilityPublic).
+FileManager.CheckForUpdates(): Skipping mod 3426791311 - not accessible (result: k_EResultAccessDenied, banned: False, visibility: k_ERemoteStoragePublishedFileVisibilityPublic).
+FileManager.CheckForUpdates(): The following files require update []
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
+[2101 - HTTPRequestCompleted] - 38 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3807
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+[Physics::Module] Cleanup current backned.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.
