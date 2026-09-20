@@ -1,5 +1,49 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.50 - 20260917
+	NEW:
+	- S31 class submarine: USN Balao "Fleet snorkel" class, 1 unit (S31)
+	- S32 class submarine: USN GUPPY IIa late sail class, 3 units (S32,S34, S35)
+	- S33 class submarine: USN GUPPY IIa early sail class, 1 unit (S33)
+	- Mk14 heavyweight torpedo
+
+v3.42 - 20260916
+
+	- Changes have been added to the mod to prepare it for the game's new features, which are still in beta.
+	- Updating and revising the mod's submarine colliders.
+
+v3.41 - 20260830
+
+	C21 Canarias
+	- Added definition of surface radars.
+
+v3.40 - 20260830
+
+	Descubierta Class
+	- Fixed problem with Aspide missile due to missile name change in Euromod.
+
+v3.39 - 20260829
+
+	C21 Canarias
+	- The warhead of the 203mm/50 AP ammunition is defined as Armor Piercing.
+	- RecoilStrength value corrected for 203mm guns.
+
+v3.38 - 20260829
+
+	NEW: New textures for pre-constitutional Spanish flags.
+	C21 Canarias
+	 - More explicit differentiation between AP and HE ammunition for 203mm guns.
+	 - Revised 203mm/50 HE values.
+
+v3.37 - 20260828
+
+	NEW: Armament and systems support for the C21 Canarias Cruiser (available as a standalone mod soon).
+	Graphical review of ship damage models systems.
+	DC Teams number update: 3 for aircraft carriers, 2 for frigates, 1 for the rest.
+	AH-1G: Fixed Max speed at sea level.
+	Meroka CIWS: Review of firing parameters.
+	Bofors L/60 quad: Review of firing parameters.
+
 v3.36 - 20260822
 
 	AA missile values ​​updated to incorporate the latest game modifications.
