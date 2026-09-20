@@ -1,8 +1,8 @@
 {
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
-    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry.",
-    "count": 132,
+    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts.",
+    "count": 144,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
@@ -641,7 +641,7 @@
       "faction": "china",
       "type": "fixed-wing",
       "status": "active",
-      "notes": "Re-subscribed 2026-08-26. FULLY REDUNDANT with PLAN Pack (3775128499): all 12 of its aircraft files and every one of its ammunition files are shipped there too, so seated directly BELOW PLAN Pack every file it ships is outranked and it loads nothing. Kept because the user re-subscribed it deliberately; harmless in this position. Its only content difference is the KJ-500's Morden_RWR sensor, which PLAN Pack's version does not carry. Historical note: unsubscribed once as the suspected cause of the duplicate-key crash on quit - that crash was later traced to a mission aircraft with no resolvable default loadout, not to this mod."
+      "notes": "Re-subscribed 2026-08-26. FULLY REDUNDANT with PLAN Pack (3775128499): all 12 of its aircraft files and every one of its ammunition files are shipped there too, so seated directly BELOW PLAN Pack every file it ships is outranked and it loads nothing. Kept because the user re-subscribed it deliberately; harmless in this position. Its only content difference is the KJ-500's Morden_RWR sensor, which PLAN Pack's version does not carry. Historical note: unsubscribed once as the suspected cause of the duplicate-key crash on quit - that crash was later traced to a mission aircraft with no resolvable default loadout, not to this mod. Now exported (2026-09-20): its _info.ini Name is 'KJ-500', which is how it shows in the Mod Manager."
     },
     {
       "id": "eurofighter-typhoon",
@@ -868,8 +868,8 @@
       "author": "MyGo!!!!!鼓手椎名立希",
       "faction": "usa",
       "type": "fixed-wing",
-      "status": "deprecated",
-      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing."
+      "status": "unsubscribed",
+      "notes": "UNSUBSCRIBED 2026-09-20 (gone from the export). MEASURED CONSEQUENCE: it was the winning provider of usaf_aim-120c7, the RAAF F-35A's primary BVR round, and the fallback is now 3514484654's own copy - AntiCountermeasuresBonus and AntiJammerBonus both drop 0.6 -> 0.1, while MaxVelocity rises 1600 -> 2666 kt and MaxLaunchRange 65 -> 70 nm. Every mission F-35A now flies a faster, longer-legged AMRAAM with almost no ECCM. Its other flagged dependency is fine: usn_gbu-53_mat.ini is still shipped by 3737267013. Previously: Integrated into Modern US Navy. Unsubscribe candidate — BUT F-35C Alt. Loadouts was written against THIS mod; verify compatibility before removing."
     },
     {
       "id": "f-35c-alt-loadouts",
@@ -949,8 +949,8 @@
       "author": "MyGo!!!!!鼓手椎名立希",
       "faction": "usa",
       "type": "fixed-wing",
-      "status": "deprecated",
-      "notes": "Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing."
+      "status": "unsubscribed",
+      "notes": "UNSUBSCRIBED 2026-09-20 (gone from the export), as the setup runbook's Phase 2 recommended. Murder Hornet and U.S. Navy 2027 cover the Super Hornet. Previously: Integrated into Modern US Navy. Unsubscribe candidate — BUT F/A-18 Murder Hornet targets the E/F; verify compatibility before removing."
     },
     {
       "id": "murder-hornet",
@@ -1672,11 +1672,11 @@
       "author": "unknown (added 2026-08-24)",
       "faction": "utility",
       "type": "framework",
-      "status": "active",
+      "status": "unsubscribed",
       "requires": [
         "anchor-chain (presumed — code-level behavior mod; verify)"
       ],
-      "notes": "VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement."
+      "notes": "UNSUBSCRIBED 2026-09-20 (gone from the export). Was an Anchor Chain code mod in tier 1b; removed from the canonical order and from TIER1B in tools/generate_load_order.py. Previously: VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement."
     },
     {
       "id": "better-tacmap",
@@ -1763,7 +1763,7 @@
       "workshop_id": "3790594162",
       "title": "Identify Expanded",
       "author": "Yoshi",
-      "faction": "none",
+      "faction": "utility",
       "type": "framework",
       "status": "unsubscribed",
       "load_order": "Removed at the user's request after trying it. If it comes back: tier 1b code mod, immediately below Better TacMap and above SAM Pack - it runs through Anchor Chain's preloader, so the only hard rule is that Anchor Chain stays above it, and it reads its own ini from its own folder rather than overriding game data, so it contests no unit files.",
@@ -1771,6 +1771,118 @@
       "requires": [
         "anchor-chain"
       ]
+    },
+    {
+      "id": "anzac-class-frigate",
+      "workshop_id": "3440622312",
+      "title": "[DEPRECATED] Anzac Class Frigate",
+      "author": "unknown (model by Jason Simpson, Simpson's Virtual Slipway, used with permission)",
+      "faction": "australia",
+      "type": "ship",
+      "status": "deprecated",
+      "overlaps": [
+        "SEST_RAN_Fleet (ships the SAME two files: vessels/ran_ffh_anzac.ini and ran_ffh_anzac_variants.ini)"
+      ],
+      "notes": "KEEP - SEST_RAN_Fleet dependency. Measured with tools/check_mod_conflicts.py: 5 contestable files, of which the two ran_ffh_anzac vessel files collide head-on with SEST_RAN_Fleet and are won by SEST at tier 0. That means the REAL Anzac hull this mod adds is masked today: SEST's ran_ffh_anzac is a clone of Euromod's Type 23 (rn_ff_type23_mlu) carrying the NSM guidance fix, and it keeps winning the id. Rebasing SEST_RAN_Fleet's Anzac onto this mod as its donor is the fix; until then the model is installed but unseen. Also ships its own RGM-184A and RIM-162 ESSM rounds (2 files nothing else provides) and merges systems/sensors.ini. ApproximateVersion=0.4.0, well behind the 0.8.x collection."
+    },
+    {
+      "id": "f-2a-viper-zero",
+      "workshop_id": "3755769170",
+      "title": "F-2A 'Viper Zero'",
+      "author": "unknown",
+      "faction": "japan",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "JASDF F-2A, plus an 'ace' variant and a late model. Zero whole-file collisions - pure new content."
+    },
+    {
+      "id": "j-16-multirole",
+      "workshop_id": "3769142422",
+      "title": "J-16 Multirole Fighter",
+      "author": "unknown",
+      "faction": "china",
+      "type": "fixed-wing",
+      "status": "active",
+      "overlaps": [
+        "j-16a (3506979898) - same platform, DIFFERENT unit ids (plaaf_j16 vs plaf_j16a), so both coexist"
+      ],
+      "notes": "Second J-16 in the collection. Verified additive: no shared files with 3506979898, so this is a duplicate platform rather than a conflict - two J-16 entries will appear in the editor."
+    },
+    {
+      "id": "pla-plan-plaaf-aep",
+      "workshop_id": "3789188689",
+      "title": "PLA & PLAN & PLAAF AEP",
+      "author": "unknown",
+      "faction": "china",
+      "type": "weapons",
+      "status": "active",
+      "requires": [
+        "anchor-chain (its own description: 'Anchorchain Expansion Pack')"
+      ],
+      "notes": "Anchor Chain expansion pack of PLA/PLAN/PLAAF ordnance (DF-15/21/21D/26, YJ-18/20, HHQ-9C, HQ-19, AKF-98 and more). Ships a params/ folder and debug.ini alongside assets. Zero whole-file collisions. Placed with the other Anchorchain expansion pack, directly below the loader."
+    },
+    {
+      "id": "auto-time-on-target",
+      "workshop_id": "3789793270",
+      "title": "Auto Time-on-Target",
+      "author": "unknown",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain (stated: 'Requires the Anchor Chain mod ... fully restart the game')"
+      ],
+      "notes": "Pure code mod - its export is a single _info.ini, no game data at all. Delays each launch so a multi-shooter salvo lands simultaneously; planner panel on Alt+G, multi-target on Alt+H. Position not order-sensitive; sits in the Anchor Chain code-mod tier."
+    },
+    {
+      "id": "rq-180-white-bat",
+      "workshop_id": "3796113927",
+      "title": "RQ-180 White Bat Airframe",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "uav",
+      "status": "active",
+      "notes": "High-altitude stealth ISR UAV (usaf_rq-180). Zero whole-file collisions."
+    },
+    {
+      "id": "yf-23-black-widow-ii",
+      "workshop_id": "3796349767",
+      "title": "YF-23 Black Widow II",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "What-if production YF-23. Ships its own missions/ folder as well as the airframe. Zero whole-file collisions."
+    },
+    {
+      "id": "mig-31-foxhound",
+      "workshop_id": "3799742828",
+      "title": "MiG-31 Foxhound",
+      "author": "unknown",
+      "faction": "russia",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "MiG-31, -31BM and -31K (Kinzhal carrier). Zero whole-file collisions."
+    },
+    {
+      "id": "ch-53e-standalone",
+      "workshop_id": "3801363152",
+      "title": "CH-53E Standalone v0.1.0",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "rotary",
+      "status": "active",
+      "notes": "USMC and JMSDF CH-53E as standalone units (usmc_ch53_standalone, jmsdf_ch53_standalone). Early release - v0.1.0. Zero whole-file collisions."
+    },
+    {
+      "id": "j-36-tailless",
+      "workshop_id": "3801549552",
+      "title": "J-36 Tailless Fighter",
+      "author": "unknown",
+      "faction": "china",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "Sixth-generation tailless demonstrator (plaaf_j36). Zero whole-file collisions."
     }
   ]
 }
