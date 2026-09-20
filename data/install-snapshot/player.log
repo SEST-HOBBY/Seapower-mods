@@ -1,4 +1,4 @@
-# Player.log - last 67 of 67 line(s), captured 2026-09-20T14:14:13.
+# Player.log - last 185 of 185 line(s), captured 2026-09-20T17:44:31.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,7 +17,7 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1074
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.280 seconds
+- Loaded All Assemblies, in  0.243 seconds
 - Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -31,7 +31,7 @@ Using Windows.Gaming.Input
 <RI> Input initialized.
 
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 1.276300 ms
+UnloadTime: 1.134200 ms
 FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
 FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
 FileManager.Directories contains Mods
@@ -59,12 +59,130 @@ FileManager.CheckForUpdates(): The following files require update []
 LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
 LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-[2101 - HTTPRequestCompleted] - 38 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3807
-FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
-FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
-[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
-[Physics::Module] Cleanup current backned.
-[Physics::Module] Id: 0xf2b8ea05
-Input System module state changed to: ShutdownInProgress.
-Input System polling thread exited.
-Input System module state changed to: Shutdown.
+[2101 - HTTPRequestCompleted] - 49 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3807
+The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+[Singleton<SeaPower.TerrainManager>] There should never be more than one Singleton of type SeaPower.TerrainManager in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+[Singleton<SeaPower.FileManager>] There should never be more than one Singleton of type SeaPower.FileManager in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+[Singleton<SeaPower.UnityLog>] There should never be more than one Singleton of type SeaPower.UnityLog in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetFloat(_Shininess, 0.05)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetFloat(_Shininess, 0.05)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetFloat(_Shininess, 3.5)
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetFloat(_Fresnel, 0.75)
