@@ -40,6 +40,7 @@ NEW_KEYS = ["SEST_F16_Intercept260", "SEST_F16_MALICE"]
 # and aft of the rail. See integration/common/aim260.py for the offset and the
 # reasoning - that module is the one dial for every pack that mounts one.
 AIM260_SEATS = {"aim-120d-34": "AAM260-34", "aim-120d-56": "AAM260-56"}
+SEAT_DELTA = aim260.delta(AIRFRAME)
 
 # (new name, donor loadout, [(old store spec, new store spec), ...])
 # Store specs are matched whole, pipe seat keys included, so a swap keeps or
@@ -87,7 +88,8 @@ def derive(text, name, donor, swaps):
 def add_aim260_seats(text):
     """Write an AIM-260 seat beside each AMRAAM seat the new fits use.
 
-    Each is its AIM-120 counterpart plus aim260.SEAT_DELTA, so correcting the
+    Each is its AIM-120 counterpart plus this airframe's own correction from
+    aim260.SEAT_DELTA - measured on THIS airframe, not inherited - so fixing the
     hang is a one-line edit in that module and both F-16 fits move together.
     """
     lines = []
@@ -97,7 +99,8 @@ def add_aim260_seats(text):
             sys.exit(f"{src_key}Positions not found - upstream layout changed")
         if f"{dst_key}Positions" in text:
             sys.exit(f"{dst_key}Positions already defined upstream - re-check this fix")
-        lines.append(f"{dst_key}Positions={aim260.shift(aim260.parse(m.group(1)))}\n")
+        lines.append(f"{dst_key}Positions="
+                     f"{aim260.shift(aim260.parse(m.group(1)), SEAT_DELTA)}\n")
         at = m.end() + 1
     return text[:at] + "".join(lines) + text[at:]
 

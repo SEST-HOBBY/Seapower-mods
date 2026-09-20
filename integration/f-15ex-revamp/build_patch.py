@@ -22,10 +22,13 @@ sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
 from common import aim260  # noqa: E402
 
-# The AIM-260 hangs low and aft when it rides an AIM-120's seat: the two
-# render from different meshes, so one seat key cannot fit both. The offset
-# and the reasoning live in integration/common/aim260.py, which is the single
-# dial for every pack that mounts one.
+# The AIM-260 hangs low and aft when it rides an AIM-120's seat on THIS
+# airframe - seen in game against the 610 gal tank on the inner wing pylons.
+# A seat key carries the offset for one mesh, so one key cannot fit both. The
+# correction is per airframe and lives with its evidence in
+# integration/common/aim260.py; nothing here inherits another jet's number.
+AIRFRAME = "usaf_f-15ex_SEII"
+SEAT_DELTA = aim260.delta(AIRFRAME)
 
 # Every seat an AIM-260 rides on this airframe, and the name of its corrected
 # twin. "120" is the wing rails, MTH/MTW the fuselage and wing multi-rails
@@ -739,6 +742,7 @@ def add_aim260_seats(text):
     seat both. This derives an AIM-260 twin of each shared seat (the AIM-120
     seat plus AIM260_SEAT_DELTA) and repoints every AIM-260 station at it -
     this pack's loadouts and the ones carried from the mod author alike.
+    The correction is this airframe's own entry in aim260.SEAT_DELTA.
     """
     used = set(re.findall(r"^Station\d+=dts_aim-260(?:_w)?\|([\w\-]+)$", text, re.M))
     unknown = sorted(u for u in used if u not in AIM260_SEATS)
@@ -750,7 +754,8 @@ def add_aim260_seats(text):
         dst_key = AIM260_SEATS[src_key]
         if f"{dst_key}Positions" in text:
             sys.exit(f"{dst_key}Positions already defined - re-check this fix")
-        lines.append(f"{dst_key}Positions={aim260.shift(seat(text, src_key))}\n")
+        lines.append(f"{dst_key}Positions="
+                     f"{aim260.shift(seat(text, src_key), SEAT_DELTA)}\n")
         rot = re.search(rf"^{re.escape(src_key)}Rotations=([^\n]*)$", text, re.M)
         if rot:
             lines.append(f"{dst_key}Rotations={rot.group(1)}\n")
