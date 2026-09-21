@@ -1851,13 +1851,23 @@ def briefing_page(mission):
     # from the order of battle the mission actually ships.
     titles = catalog()
     by_id = {m["id"]: m["title"] for m in titles["mods"]}
-    by_id.update({p["folder"]: p["title"] for p in titles["local_packs"]})
+    # The local packs all ship INSIDE this one download, so a player reading
+    # this has no "SEST RAAF Bases" in their Mod Manager to go and look for -
+    # they have one entry, and it is the thing they are already running. And
+    # `_vanilla` is not a mod at all: it is this repo's folder name for the
+    # game's own files, and naming it in a briefing sends somebody to the
+    # Workshop to search for a mod that does not exist.
+    by_id.update({p["folder"]: "this pack" for p in titles["local_packs"]})
+    by_id["_vanilla"] = "the base game"
     seen = []
     for spec in mission["units"]:
         name = by_id.get(spec["mod"], spec["mod"])
         if name not in seen:
             seen.append(name)
-    section("MODS IN PLAY", ", ".join(seen) + ".")
+    # Two house entries, read last because that is where a reader stops caring.
+    tail = [n for n in ("the base game", "this pack") if n in seen]
+    body = [n for n in seen if n not in tail]
+    section("MODS IN PLAY", ", ".join(body + tail) + ".")
     return BRIEF_XML.format(body="".join(parts))
 
 
@@ -2455,10 +2465,61 @@ NEEDED = {"unit": "a unit a mission places",
           "store": "a weapon a loadout hangs"}
 
 
+def _squash(s):
+    return re.sub(r"[^a-z0-9]", "", s.lower())
+
+
+def prerequisites(need, rest):
+    """What the REQUIRED mods say they need, read out of their own _info.ini.
+
+    A mod reached by nothing the campaign places is not a mod the player can
+    skip if something the campaign DOES place asks for it. Anchor Chain is the
+    case that proves it: nothing here names a file of its, so coverage class
+    it `library` and the list said "the campaign does not call for them" -
+    while B-2 Spirit, which IS required, says "Requires AnchorChain and
+    SeaLifter" in its own description. A player who trusted the list would
+    have skipped a mod a required mod cannot run without.
+
+    Matched on squashed titles because a mod spells its dependency however it
+    likes: "AnchorChain", "Anchor Chain", "the Anchor Chain mod".
+
+    Returns (promoted, elsewhere): rows to move into the required list, and
+    names that are required but are in no part of this collection at all.
+    """
+    index = {}
+    for row in need + rest:
+        index[_squash(row[1])] = row
+    # Spelled out because they are not in the load order to be derived from:
+    # a dependency this collection does not carry is exactly the one a player
+    # is most likely to be missing.
+    OUTSIDE = {"sealifter": "SeaLifter"}
+    promoted, elsewhere = {}, {}
+    for row in need:
+        info = MODS / row[5] / "_info.ini"
+        if not info.is_file():
+            continue
+        text = info.read_text(encoding="utf-8-sig", errors="replace")
+        desc = " ".join(m.group(1) for m in
+                        re.finditer(r"^Description=(.*)$", text, re.M))
+        if not re.search(r"\brequir", desc, re.I):
+            continue
+        flat = _squash(desc)
+        for key, other in index.items():
+            if len(key) > 6 and key in flat and other[5] != row[5]:
+                if other in rest:
+                    promoted.setdefault(other, []).append(row[1])
+        for key, name in OUTSIDE.items():
+            if key in flat:
+                elsewhere.setdefault(name, []).append(row[1])
+    return promoted, elsewhere
+
+
 def requirements(rows):
     need = [r for r in rows if r[2] in NEEDED and r[5].isdigit()]
     rest = [r for r in rows if r[2] not in NEEDED and r[5].isdigit()]
     packs = [r for r in rows if not r[5].isdigit()]
+    promoted, elsewhere = prerequisites(need, rest)
+    rest = [r for r in rest if r not in promoted]
     key = lambda r: r[1].lower()
     L = [f"{TITLE.upper()} - required Steam Workshop mods", "",
          f"{len(need)} of them. Each supplies a file a mission names directly -",
@@ -2474,6 +2535,23 @@ def requirements(rows):
          f"{'Workshop id':<13} {'supplies':<32} mod", ""]
     for _mid, title, how, _detail, _mission, token in sorted(need, key=key):
         L.append(f"{token:<13} {NEEDED[how]:<32} {title}")
+    if promoted:
+        L += ["", "And these, which the campaign never names itself - but a mod",
+              "above does, in its own description. Skipping one breaks the mod",
+              "that asked for it.", ""]
+        for row, askers in sorted(promoted.items(), key=lambda kv: kv[0][1].lower()):
+            L.append(f"{row[5]:<13} {'required by another mod':<32} {row[1]}")
+            L.append(f"{'':<13} {'':<32}   asked for by: {', '.join(sorted(set(askers)))}")
+    if elsewhere:
+        L += ["", "NOT IN THIS LIST AND STILL REQUIRED:", ""]
+        for name, askers in sorted(elsewhere.items()):
+            L.append(f"  {name} - named as a requirement by "
+                     f"{', '.join(sorted(set(askers)))}.")
+            L.append(f"  It is not one of the mods above and this collection does "
+                     f"not carry it.")
+            L.append(f"  Find it on the Workshop. It needs a manual install: "
+                     f"subscribing alone")
+            L.append(f"  is not enough.")
     L += ["", "-" * 74, "",
           f"Also enabled while this was built ({len(rest)}), and left in the order",
           "because removing one changes which file wins: these ship systems,",
@@ -2490,9 +2568,10 @@ def requirements(rows):
         L.append(f"{'(local)':<13} {how:<32} {title}")
     L += ["", "-" * 74, "",
           "Two things this list cannot settle for you:", "",
-          "  * Some Workshop mods need a further download of their own and say",
-          "    so in their own description. SeaLifter is the one that bites:",
-          "    subscribing to it is not enough, it needs a manual install.",
+          "  * A mod can need a further download of its own and say so only in",
+          "    its own Workshop description. The ones this build could read out",
+          "    of an _info.ini are listed above; a description that is on the",
+          "    Workshop page and not in the file is not something it can see.",
           "  * Load ORDER decides which copy of a shared file the game reads.",
           "    Two mods that both ship the same aircraft will not both load it.",
           "    LOAD-ORDER.txt is the order this was built and tested against,",

@@ -93,7 +93,14 @@ $notListed = @($canonical | Where-Object { -not $live.Contains($_) })
 
 Write-Host ""
 Write-Host ("what the game has now : {0} entries, {1} in a different position to canonical" -f $live.Count, $outOfOrder)
-if ($unknown)   { Write-Warning "not in data\load-order.tokens.txt (will be appended at the end): $($unknown -join ', ')" }
+# What actually happens to these depends on the token: set-mod-order.ps1 DROPS
+# an unknown workshop id (the game re-adds it next launch, wherever it likes)
+# and only appends non-numeric ones. Saying "appended" for all of them sent
+# people looking for a mod at the bottom of a list it is not in.
+$unknownIds = @($unknown | Where-Object { $_ -match '^\d+$' })
+$unknownOther = @($unknown | Where-Object { $_ -notmatch '^\d+$' })
+if ($unknownIds)   { Write-Warning "not in data\load-order.tokens.txt - these will be REMOVED from the order (the game re-adds a still-subscribed mod on next launch, at its own position): $($unknownIds -join ', ')" }
+if ($unknownOther) { Write-Warning "not in data\load-order.tokens.txt (appended at the end): $($unknownOther -join ', ')" }
 if ($sestOff)   { Write-Warning "SEST packs you have DISABLED (their patches will do nothing): $($sestOff -join ', ')" }
 if ($notListed) { Write-Host    ("canonical entries the game has not listed : {0}" -f $notListed.Count) -ForegroundColor DarkGray }
 if ($outOfOrder -eq 0 -and -not $unknown) { Write-Host "order already matches canonical." -ForegroundColor Green }

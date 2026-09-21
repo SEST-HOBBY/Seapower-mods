@@ -22,9 +22,14 @@ git pull origin sest-dev/loving-bell-3cnvvw
 powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 ```
 
-Expect `1 of 1` installed plus a `purged` line per old per-pack folder, and no
-warnings. `canonical pack not installed in StreamingAssets` means the install
-did not take — stop there.
+Expect `1 of 1` installed plus a `purged` line per old per-pack folder.
+
+Two warnings are **expected** and are not faults: `dropped stale workshop
+entry` naming the two mods the repo has not catalogued yet (Automatic SAR and
+the Euromod South Korean Navy — see the install document's step 5), and the
+`component ApproximateVersion values differ` note from the consolidation.
+`canonical pack not installed in StreamingAssets` is the one that means the
+install did not take — stop there.
 
 The campaign ships twice on purpose: as a campaign under
 `campaigns/sest-southern-watch/`, and every mission again under

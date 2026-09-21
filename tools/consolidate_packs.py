@@ -154,28 +154,49 @@ def build_info(packs):
     return INFO_HEADER.format(desc=desc, version=version)
 
 
+UNIT_KINDS = ("aircraft", "vessels", "submarines", "land_units",
+              "ammunition", "biologic")
+
+
+def _lines(blob):
+    return [l.rstrip() for l in blob.decode("utf-8-sig", errors="replace")
+            .replace("\r\n", "\n").split("\n")]
+
+
 def credits_text(staged):
-    """Who else's work this pack is built on, read out of the files.
+    """Who else's work this pack is built on - measured, not declared.
 
-    Six of the RAN hulls here are another modder's ship with an Australian
-    name: HMAS Hobart is the Alvaro de Bazan, Canberra the Juan Carlos I,
-    Collins the S-80. Three of the six are byte-identical to the file they came
-    from and three carry small edits, and every one of them keeps the donor's
-    unit id in its first line - which is a note to whoever opens the file, not
-    a credit anyone downloading this would ever see.
+    A Sea Power unit file is a WHOLE-FILE override. There is no way to change
+    one line of another mod's aircraft without shipping the entire file, so a
+    patch pack is structurally a collection of other people's files with edits
+    in them. That is how this works and there is nothing wrong with it; what
+    would be wrong is not saying so.
 
-    So it is generated from that first line rather than typed: a hull added or
-    renamed later cannot fall out of this list, and a credit that is derived
-    cannot quietly go stale. It is also why those mods are REQUIRED and not
-    merely recommended - the model and the textures are theirs, and stay theirs.
+    The first version of this read a `# <original id>` comment off the first
+    line of each file and found six. The comment is a convention, and only six
+    files happened to follow it - the real number is over seventy. So this
+    diffs every shipped unit file against every file of the same kind in
+    mods-source and credits whatever comes back 90% or more alike. A credit
+    that is measured cannot be forgotten by someone who did not know the
+    convention.
+
+    Cost is kept down by trying same-named files first, which is the great
+    majority; only a file with no same-named candidate (the RAN hulls renamed
+    from Spanish ones, the RAAF airbases built off a US one) pays for the
+    fuzzy sweep.
     """
+    import difflib
     mods = ROOT / "mods-source"
-    donors = {}
+    by_name, by_kind = {}, {}
     for f in mods.rglob("*.ini"):
         rel = f.relative_to(mods)
-        if rel.parts[0] == "_vanilla":
+        if len(rel.parts) < 2 or rel.parts[0] == "_vanilla":
             continue
-        donors.setdefault(f.name, rel)
+        if rel.parts[1] not in UNIT_KINDS:
+            continue
+        by_name.setdefault((rel.parts[1], f.name), []).append((rel.parts[0], f))
+        by_kind.setdefault(rel.parts[1], []).append((rel.parts[0], f))
+
     titles = {}
     try:
         import json
@@ -187,18 +208,23 @@ def credits_text(staged):
 
     rows = []
     for rel, blob in sorted(staged.items()):
-        if "/" not in rel or rel.split("/", 1)[0] in (
-                "campaigns", "missions", "language_en", "systems"):
+        parts = rel.split("/")
+        if len(parts) < 2 or parts[0] not in UNIT_KINDS:
             continue
-        head = blob.decode("utf-8", errors="replace").split("\n", 1)[0].strip()
-        m = re.match(r"^#\s*([a-z0-9_\-]+)\s*$", head)
-        if not m or m.group(1) == rel.rsplit("/", 1)[-1][:-4]:
-            continue
-        src = donors.get(m.group(1) + ".ini")
-        if src is None:
-            continue
-        token = src.parts[0]            # mods-source/<workshop id>/...
-        rows.append((rel, m.group(1), token, titles.get(token, token)))
+        mine = _lines(blob)
+        name = parts[-1]
+        best = (0.0, None, None)
+        pool = by_name.get((parts[0], name)) or by_kind.get(parts[0], [])
+        for token, cand in pool:
+            theirs = _lines(cand.read_bytes())
+            sm = difflib.SequenceMatcher(None, mine, theirs)
+            if sm.quick_ratio() < 0.85:
+                continue
+            r = sm.ratio()
+            if r > best[0]:
+                best = (r, token, cand.name)
+        if best[0] >= 0.90:
+            rows.append((rel, best[0], best[1], best[2]))
 
     L = ["CREDITS", "",
          "This pack is one folder of .ini files. It ships no models, no",
@@ -206,23 +232,30 @@ def credits_text(staged):
          "mod it came from, which is why REQUIRED-MODS.txt lists them as",
          "required rather than suggested.", ""]
     if rows:
-        L += [f"{len(rows)} unit file(s) here are built directly on somebody",
-              "else's work: a hull from another mod, given an Australian name",
-              "and in some cases an edited weapon fit. The original file's id",
-              "is kept as the first line of each, and this list is generated",
-              "from those lines.", ""]
         by_mod = {}
-        for rel, origin, token, title in rows:
-            by_mod.setdefault((token, title), []).append((rel, origin))
-        for (token, title), items in sorted(by_mod.items(), key=lambda kv: kv[0][1].lower()):
+        for rel, ratio, token, origin in rows:
+            by_mod.setdefault((token, titles.get(token, token)), []).append(
+                (rel, ratio, origin))
+        L += [f"{len(rows)} of the unit files here are another author's file with",
+              "changes made to it. A Sea Power unit file is a whole-file",
+              "override - there is no way to alter one line of somebody's",
+              "aircraft without shipping the whole aircraft - so this is how a",
+              "patch has to work, and this list is what it patches.", "",
+              "Measured, not declared: every shipped unit file is diffed against",
+              f"every file of its kind in the collection, and the {len(rows)} below",
+              "came back 90% or more alike. The percentage is how much of the",
+              "file is unchanged.", ""]
+        for (token, title), items in sorted(by_mod.items(),
+                                            key=lambda kv: kv[0][1].lower()):
             L.append(f"  {title}  (workshop {token})")
-            for rel, origin in sorted(items):
-                L.append(f"      {rel:<34} from {origin}")
+            for rel, ratio, origin in sorted(items):
+                same = " " if origin == rel.split("/")[-1] else f" from {origin}"
+                L.append(f"      {ratio:>4.0%}  {rel}{same}")
             L.append("")
-        L += ["If you are the author of one of those mods and would rather this",
-              "pack aliased your file than carried a copy of it, say so and it",
-              "will be changed - the game supports it (#!alias) and nothing",
-              "here depends on the copy.", ""]
+        L += ["If you are the author of one of those and would rather this pack",
+              "did not carry a copy of your file, say so and it will be",
+              "changed - the game supports aliasing (#!alias) for the cases",
+              "where nothing needed to change.", ""]
     else:
         L += ["No unit file here is derived from another mod's file.", ""]
     return "\n".join(L) + "\n"

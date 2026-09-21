@@ -269,14 +269,33 @@ ROSTER = [
 # US and allied nationality, and a discount keyed to them would be arbitrary.
 # No emblem or ribbon art is referenced - every path would be a .png this repo
 # cannot produce.
+# CommanderStartingRankLevel is an index into [OfficerRanks], and this file
+# shipped for one build with the index and no ladder for it to point at. The
+# RAN ladder below is the base game's own, from Pacific Strike's
+# commander_settings.ini - the only shipped campaign that runs Task Force
+# Mode, and therefore the only reference for this file. Level 5 is Commander,
+# which is the right rank for a task group of this size.
+#
+# The insignia and the emblem are base-game assets referenced by path, not
+# copied: nothing here ships a PNG for them.
+#
+# No [TaskForceRibbons] or [MissionRewards]. Pacific Strike carries both and
+# awards a US rack with two Australian decorations in it; writing a RAN rack
+# would mean inventing decorations and their precedence, which is content, not
+# a fix. Their absence costs the campaign its ribbons and nothing else.
 COMMANDER = """[CommanderSettings]
 CommanderNations=Australia
 CommanderDefaultNation=Australia
 CommanderNameDefaultAustralia=Alex Mercer
+CommanderNamePoolAustralia=Names_Australia
 CommanderStartingRankLevel=5
 SameNationUnitDiscount=0
 
 NavyNameAustralia=Royal Australian Navy
+NavyEmblemAustralia=ui/campaign/navy_emblems/ran_emblem.png
+
+[OfficerRanks]
+Australia=Midshipman,MIDN,OF-D,0,ui/campaign/officer_ranks/australia/insignia_midn.png|Acting Sub Lieutenant,ASLT,OF-1,1,ui/campaign/officer_ranks/australia/insignia_aslt.png|Sub Lieutenant,SLT,OF-1,2,ui/campaign/officer_ranks/australia/insignia_slt.png|Lieutenant,LEUT,OF-2,3,ui/campaign/officer_ranks/australia/insignia_lt.png|Lieutenant Commander,LCDR,OF-3,4,ui/campaign/officer_ranks/australia/insignia_lcdr.png|Commander,CMDR,OF-4,5,ui/campaign/officer_ranks/australia/insignia_cdr.png|Captain,CAPT,OF-5,6,ui/campaign/officer_ranks/australia/insignia_capt.png|Commodore,CDRE,OF-6,7,ui/campaign/officer_ranks/australia/insignia_cdre.png|Rear Admiral,RADM,OF-7,8,ui/campaign/officer_ranks/australia/insignia_radm.png|Vice Admiral,VADM,OF-8,9,ui/campaign/officer_ranks/australia/insignia_vadm.png|Admiral,ADM,OF-9,10,ui/campaign/officer_ranks/australia/insignia_adm.png
 """
 
 MISSIONS = []
@@ -1165,7 +1184,7 @@ MISSIONS.append(dict(
         "to prove a point."),
     forces="USS Gerald R. Ford with F-35C and Growlers, two Arleigh Burkes, "
            "HMAS Hobart, three protected transports. Opposing: Fujian with "
-           "J-35 and J-15D, Liaoning, a J-20 pair and a KJ-600.",
+           "J-35 and J-15D, Liaoning, a J-20 and a KJ-600.",
     objectives=[
         ("Transports", "The transport group must pass to the south-east",
          "40,-40,Fail,Main"),
@@ -1211,8 +1230,12 @@ MISSIONS.append(dict(
           name="MV Torres Trader"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "transports",
           name="MV Coral Pioneer"),
+        # NOT Lae Provider: the contingency after STEEL HIGHWAY opens with her
+        # going down at 2140 with twenty-six aboard, and that beat is offered
+        # unconditionally. A sunk ship cannot be carrying cargo nine missions
+        # later, whether or not the player flew the search for her.
         U("blue", "re-power-resupply", "civ_ms_andizhan", "transports",
-          name="MV Lae Provider"),
+          name="MV Moresby Star"),
         U("red", "fujian-cv-18", "plan_cv_type_003", "red_cv", name="PLANS Fujian"),
         U("red", "liaoning-type-001", "plan_type_001", "red_cv",
           name="PLANS Liaoning"),
@@ -1419,8 +1442,9 @@ MISSIONS.append(dict(
     difficulty=1, minutes=55, centre=(-15.5, 149.5),
     blue_nation="USA", red_nation="Russia",
     brief=(
-        "CORAL SEA. Two carriers are working the same box: one recovering a "
-        "long-range package, one running deck drills with a new air department. "
+        "CORAL SEA. Three carriers are working the same box: one recovering a "
+        "long-range package, one running deck drills with a new air department "
+        "and one cycling alert aircraft. "
         "A Seawolf is riding shotgun below and an E-3G is holding the wider "
         "picture while the Wedgetail is off task.\\n\\n"
         "The tanker is the schedule. Everything airborne today is planned "
@@ -1430,18 +1454,20 @@ MISSIONS.append(dict(
         "coalition maritime commander across for the afternoon. That airframe "
         "gets deck priority over everything else that is not on fire. Keep the "
         "cycle running and get the visitor aboard."),
-    forces="USS Nimitz and the 2000s-era Nimitz air-deck group, one Seawolf, "
+    forces="USS Nimitz, Carl Vinson and Theodore Roosevelt with the 2000s-era "
+           "Nimitz air-deck group, one Seawolf, "
            "an E-3G, a KC-10A, an MQ-9A on the southern track and a VH-3D on "
            "the visit.",
     objectives=[
         ("Visit", "Get the VH-3D into the carrier box", "25,-20,Fail,Main"),
-        ("Cycle", "Keep both carriers operating", "20,-25,Complete"),
+        ("Cycle", "Keep the carriers operating", "20,-25,Complete"),
         ("Tanker", "Do not lose the tanker", "10,-10,Complete"),
+        ("Neutrals", "Harm no neutral shipping or aircraft", "0,-25,Complete"),
     ],
     victory=dict(kind="arrive", station="visit", at=(-15.6, 149.6), radius=15,
                  min_units=1, objective="Visit"),
     fatal=[F("Cycle", ["carriers"])],
-    neutral_objective="Cycle",
+    neutral_objective="Neutrals",
     win="The visitor is aboard, the package is down and the deck cycle never "
         "broke. A quiet day, which is the point of the exercise.",
     lose="The cycle broke. Somebody will write a report about the afternoon "
@@ -1654,10 +1680,17 @@ MISSIONS.append(dict(
         ("Serial", "Put the anti-ship serial into the seaward target",
          "15,-10,Complete"),
         ("Safety", "Hit nothing outside the danger area", "0,-30,Complete"),
+        # The loss rule below ends the exercise the moment ONE of the four
+        # defence units is destroyed. That was true before this objective
+        # existed too - it just went unannounced, and the defeat was reported
+        # as a failure to destroy the enemy's pads, which is a different
+        # exercise entirely. An unstated loss condition is not difficulty.
+        ("Battery", "Keep all four defence batteries in action",
+         "0,-30,Complete"),
     ],
     victory=dict(kind="destroy", stations=["pads"], min_units=3,
                  objective="Pads"),
-    fatal=[F("Pads", ["battery"])],
+    fatal=[F("Battery", ["battery"])],
     neutral_objective="Safety",
     win="Three of four pads down, the anti-ship serial into the target and the "
         "trials staff already arguing about the fourth. Good week.",
@@ -1947,15 +1980,24 @@ MISSIONS.append(dict(
     ],
 ))
 
+# Every series label here is followed by the missions it covers, by the names
+# the browser actually lists them under. It used to name five series -
+# "Allied Dispatches", "Red Line", "Future Front", "Cold Sea" - that appear on
+# no mission a player can see: they live in each mission's `intro`, which is a
+# campaign-map field, and the dispatches are browser entries with no campaign
+# map. A folder description that names things the folder does not contain
+# reads as a list of missing content.
 DISPATCH_DESC = (
-    "Optional episodes outside the twelve-mission Southern Watch spine. "
-    "Allied Dispatches rotate a European, French/Spanish or US detachment "
-    "through the same crisis; Red Line plays the opposing side's logistics "
-    "problem; Range Week fires the missile-defence and ballistic systems "
-    "where such things are actually fired; Future Front is an openly "
+    "Eight optional episodes outside the twelve-mission Southern Watch spine, "
+    "each stating its own fiction in the briefing. "
+    "Allied Dispatch - Western Passage, Flight Deck Day, The Relief Ship and "
+    "The Long Perimeter - rotates a European, French/Spanish or US detachment "
+    "through the same crisis. Return Passage plays the opposing side's "
+    "logistics problem. Range Week fires the missile-defence and ballistic "
+    "systems where such things are actually fired. Long Reach is an openly "
     "speculative 2034 branch for the collection's experimental aircraft and "
-    "weapons; Cold Sea is a 1988 exercise for its retired types. Each one "
-    "states its own fiction in the briefing.")
+    "weapons. Before the Lifeline is a 1988 exercise in the same water, for "
+    "its retired types.")
 
 
 # =============================================================================
@@ -2039,13 +2081,15 @@ MISSIONS.append(dict(
     intro="Contingency, offered unconditionally. If STEEL HIGHWAY cost you a "
           "hull, this is about her crew; if it did not, it is a search that "
           "finds an empty sea.",
+    # MissionSpecialNote is a player-facing panel on the campaign map - stock
+    # uses it for "Note: This is a detached submarine operation." The second
+    # half of this note used to explain which engine feature the author could
+    # not implement, which is a build note wearing a briefing's clothes. Why
+    # the unlock is unconditional belongs in the build notes, and is there.
     special="Recovery operation. It pays no requisition points: it saves "
             "people and changes the debrief, and it does not restore the ship "
             "or its cargo. NOTE: this is offered after STEEL HIGHWAY whatever "
-            "happened there. Gating it on the actual lost-cargo outcome needs "
-            "a saved campaign condition this build has not demonstrated, so "
-            "the unlock is unconditional and says so rather than pretending "
-            "otherwise.",
+            "happened there.",
     date=(2028, 10, 23), time=(6, 10), sea=4, clouds="Overcast", wind="SE",
     difficulty=2, minutes=45, centre=(-13.5, 148.5),
     blue_nation="Australia", red_nation="China",
@@ -2064,7 +2108,8 @@ MISSIONS.append(dict(
         ("Survivors", "Work the drift box to its northern edge",
          "30,-25,Fail,Main"),
         ("Helicopter", "Bring the search helicopter home", "15,-20,Complete"),
-        ("Assist", "Do not lose an assisting merchant", "0,-25,Complete"),
+        ("Assist", "Do not lose an assisting merchant or harm other traffic",
+         "0,-25,Complete"),
     ],
     victory=dict(kind="arrive", station="search", at=(-12.6, 148.2), radius=25,
                  min_units=1, objective="Survivors"),
@@ -2430,13 +2475,14 @@ RESOLVERS = {
     "D1": {"Oiler": "victory", "Escorts": ("survive", "escort"),
            "Shadow": ("destroy", "red_air", 2)},
     "D2": {"Visit": "victory", "Cycle": ("protect", "carriers"),
-           "Tanker": ("protect", "air#2")},
+           "Tanker": ("protect", "air#2"), "Neutrals": "neutral"},
     "D3": {"Relief": "victory", "Town": "neutral",
            "Group": ("protect", "group")},
     "D4": {"Auxiliary": "victory", "Cruiser": ("protect", "escort#1"),
            "Restraint": ("survive", "cap")},
     "D5": {"Pads": "victory", "Safety": "neutral",
-           "Serial": ("destroy", "target", 1)},
+           "Serial": ("destroy", "target", 1),
+           "Battery": ("protect", "battery")},
     "D6": {"Stream": "victory", "Escort": ("survive", "escort"),
            "Sensor": ("protect", "sensor")},
     "D7": {"Serial": "victory", "Recovery": ("protect", "high"),

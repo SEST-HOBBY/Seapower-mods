@@ -147,14 +147,27 @@ Workshop id   supplies                         mod
 3782020901    a unit a mission places          Y-20 / KJ-3000
 3796349767    a unit a mission places          YF-23 Black Widow II
 
+And these, which the campaign never names itself - but a mod
+above does, in its own description. Skipping one breaks the mod
+that asked for it.
+
+3380210757    required by another mod          Anchor Chain
+                                                 asked for by: B-2 Spirit
+
+NOT IN THIS LIST AND STILL REQUIRED:
+
+  SeaLifter - named as a requirement by B-2 Spirit.
+  It is not one of the mods above and this collection does not carry it.
+  Find it on the Workshop. It needs a manual install: subscribing alone
+  is not enough.
+
 --------------------------------------------------------------------------
 
-Also enabled while this was built (6), and left in the order
+Also enabled while this was built (5), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
 
-3380210757    library                          Anchor Chain
 3789793270    library                          Auto Time-on-Target
 3768036424    library                          Better TacMap
 3784474738    library                          Euromod - Anchorchain Expansion Pack
@@ -190,9 +203,10 @@ the repository also builds each of them on its own.
 
 Two things this list cannot settle for you:
 
-  * Some Workshop mods need a further download of their own and say
-    so in their own description. SeaLifter is the one that bites:
-    subscribing to it is not enough, it needs a manual install.
+  * A mod can need a further download of its own and say so only in
+    its own Workshop description. The ones this build could read out
+    of an _info.ini are listed above; a description that is on the
+    Workshop page and not in the file is not something it can see.
   * Load ORDER decides which copy of a shared file the game reads.
     Two mods that both ship the same aircraft will not both load it.
     LOAD-ORDER.txt is the order this was built and tested against,

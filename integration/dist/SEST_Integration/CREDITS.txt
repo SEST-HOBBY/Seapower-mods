@@ -5,24 +5,154 @@ textures and no audio - every one of those belongs to the Workshop
 mod it came from, which is why REQUIRED-MODS.txt lists them as
 required rather than suggested.
 
-6 unit file(s) here are built directly on somebody
-else's work: a hull from another mod, given an Australian name
-and in some cases an edited weapon fit. The original file's id
-is kept as the first line of each, and this list is generated
-from those lines.
+79 of the unit files here are another author's file with
+changes made to it. A Sea Power unit file is a whole-file
+override - there is no way to alter one line of somebody's
+aircraft without shipping the whole aircraft - so this is how a
+patch has to work, and this list is what it patches.
+
+Measured, not declared: every shipped unit file is diffed against
+every file of its kind in the collection, and the 79 below
+came back 90% or more alike. The percentage is how much of the
+file is unchanged.
+
+  [DEPRECATED] Anzac Class Frigate  (workshop 3440622312)
+       99%  ammunition/sest_rim-162_essm.ini from RIM-162 ESSM.ini
+      100%  vessels/ran_ffh_anzac.ini 
+
+  A-10C  (workshop 3459682829)
+       99%  aircraft/usa_a-10c.ini 
+
+  AH-64 Apache  (workshop 3425450153)
+       99%  aircraft/uk_ah_mk_1.ini 
+       99%  aircraft/usa_ah-64a.ini 
+       99%  aircraft/usa_ah-64d.ini 
+       99%  aircraft/usa_ah-64e.ini 
+       99%  aircraft/usn_ah-64na.ini 
+       96%  ammunition/sest_agr-20er.ini from usn_agr-20b_apache.ini
+       96%  ammunition/sest_agr-30_pod.ini from usn_agr-20b_apache.ini
+       99%  ammunition/sest_apkws_er.ini from usa_apkws_2_m282.ini
+
+  ARRW (AGM-183)  (workshop 3502273861)
+       99%  aircraft/usaf_b-52h_419_flts.ini 
+       99%  ammunition/usn_arrw.ini 
+
+  B-1B Lancer  (workshop 3652097318)
+       99%  aircraft/usaf_b-1b_dts.ini 
+
+  B-52H Stratofortress  (workshop 3741944366)
+       98%  aircraft/dts_b-52h.ini 
+       99%  ammunition/dts_agm-183a(w62).ini 
+       99%  ammunition/dts_agm-183a.ini 
+
+  Boeing P-8 Poseidon  (workshop 3602046770)
+       99%  aircraft/usn_p8.ini 
+
+  Dassault Rafale  (workshop 3504168760)
+       95%  aircraft/fr_rafale_b_l.ini 
+       95%  aircraft/fr_rafale_c_l.ini 
+       95%  aircraft/fr_rafale_m_l.ini 
+
+  Dingtools Weapon Pack  (workshop 3760871384)
+       96%  ammunition/sest_agr-30.ini from dts_apkws-ii.ini
 
   Euromod - Cold War Spanish Navy  (workshop 3630495619)
-      vessels/ran_aor_supply.ini         from ae_ao_teide
+      100%  vessels/ran_aor_supply.ini from ae_ao_teide.ini
+
+  Euromod - Main Pack  (workshop 3629144864)
+       98%  ammunition/usn_pac3_mse.ini 
+       95%  ammunition/usn_rim-161b.ini 
+       95%  ammunition/usn_rim-161c.ini 
+       94%  ammunition/usn_rim-161d.ini 
+       98%  ammunition/usn_rim-174a.ini 
+       99%  ammunition/usn_rim-174c.ini 
+
+  Euromod - Modern British Navy  (workshop 3599752717)
+      100%  vessels/rn_lph_ocean.ini 
 
   Euromod - Modern Spanish Navy  (workshop 3731208477)
-      vessels/ran_ddg_hobart.ini         from ae_ffg_alvaro_bazan
-      vessels/ran_lhd_canberra.ini       from ae_lhd_juan_carlos
-      vessels/ran_lsd_choules.ini        from ae_lpd_galicia
-      vessels/ran_opv_arafura.ini        from ae_opv_meteoro
-      vessels/ran_ssg_collins.ini        from ae_ssk_s80
+      100%  vessels/ran_ddg_hobart.ini from ae_ffg_alvaro_bazan.ini
+      100%  vessels/ran_lhd_canberra.ini from ae_lhd_juan_carlos.ini
+      100%  vessels/ran_lsd_choules.ini from ae_lpd_galicia.ini
+      100%  vessels/ran_opv_arafura.ini from ae_opv_meteoro.ini
+      100%  vessels/ran_ssg_collins.ini from ae_ssk_s80.ini
 
-If you are the author of one of those mods and would rather this
-pack aliased your file than carried a copy of it, say so and it
-will be changed - the game supports it (#!alias) and nothing
-here depends on the copy.
+  F-15 EX Eagle II  (workshop 3636386513)
+       92%  aircraft/usaf_f-15ex_SEII.ini 
+
+  F-16C Fighting Falcon (modern)  (workshop 3758320372)
+       99%  aircraft/usaf_f-16cm-bl52d.ini 
+       99%  ammunition/usn_agm-88.ini 
+
+  F-22 Raptor  (workshop 3418252667)
+       98%  land_units/airbase_raaf_amberley.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_butterworth.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_curtin.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_darwin.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_east_sale.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_edinburgh.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_gingin.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_learmonth.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_pearce.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_richmond.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_scherger.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_tindal.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_townsville.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_williamtown.ini from airfield_us_large.ini
+       98%  land_units/airbase_raaf_woomera.ini from airfield_us_large.ini
+
+  F-35C Lightning II Alt. Loadouts  (workshop 3607989779)
+       93%  aircraft/usn_f-35c.ini 
+       98%  ammunition/usn_gbu-53.ini 
+
+  F/A-18 Murder Hornet with AIM-174B  (workshop 3430135740)
+       95%  aircraft/usn_ea-18g_squadrons.ini 
+       97%  aircraft/usn_fa-18f_blk3_squadrons.ini 
+       95%  aircraft/usn_fa-18f_squadrons.ini 
+
+  French Helicopter Package  (workshop 3567228449)
+       98%  ammunition/usa_agm-114k.ini 
+
+  General Atomics MQ-9 Reaper  (workshop 3503670861)
+       99%  aircraft/usaf_mq-9_er.ini 
+       99%  aircraft/usaf_mq-9a.ini 
+
+  Mogami-class Frigate  (workshop 3456859157)
+       98%  ammunition/usn_rim-162.ini 
+      100%  vessels/js_ffg_mogami.ini 
+
+  Nimitz Expanded  (workshop 3432592449)
+       99%  vessels/usn_cvn_nimitz_variants.ini 
+
+  RAAF F-35A Lighting II  (workshop 3514484654)
+       93%  aircraft/raaf_f-35a.ini 
+
+  Red Storm Arsenal  (workshop 3413868677)
+       96%  aircraft/usaf_b-52o.ini 
+       99%  ammunition/usn_rgm_184a.ini 
+
+  Shenyang J-16A (歼-16A 潜龙)  (workshop 3506979898)
+       99%  ammunition/plaaf_akf-98a.ini 
+
+  Type 003 Aircraft Carrier - PLANS Fujian CV-18  (workshop 3663564190)
+       99%  ammunition/plaaf_kd-88.ini 
+
+  U.S. Navy 2027 Capabilities mod  (workshop 3606774881)
+       94%  aircraft/usn_ea-18g.ini 
+       97%  aircraft/usn_fa-18e.ini 
+       97%  aircraft/usn_fa-18f.ini 
+       97%  aircraft/usn_fa-18f_blk3.ini 
+       99%  ammunition/usn_aim-9x.ini 
+
+  United States Naval Aviation  (workshop 3737267013)
+       97%  aircraft/usn_ea-18g_2020.ini 
+       96%  aircraft/usn_f-35c_squadrons.ini 
+       98%  ammunition/usn_aim-9l.ini 
+       98%  ammunition/usn_gbu-12d.ini 
+       97%  ammunition/usn_gbu-39.ini 
+
+If you are the author of one of those and would rather this pack
+did not carry a copy of your file, say so and it will be
+changed - the game supports aliasing (#!alias) for the cases
+where nothing needed to change.
 

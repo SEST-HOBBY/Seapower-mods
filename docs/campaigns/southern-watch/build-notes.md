@@ -445,6 +445,122 @@ which is the more dangerous of the two failures: it reports success.
 written so that each step carries the check that would catch the failure that
 step is capable of producing.
 
+## The release audit: sixteen findings, and what verifying them turned up
+
+Seven dimensions swept the built pack and every finding was put to two
+independent skeptics before it was believed. Sixteen survived, eight did not,
+and a completeness critic found the one thing the sweep had not opened — which
+turned out to be the biggest of the lot.
+
+### The one that reached outside the campaign
+
+`language_*/loadout_names.ini` has exactly ONE section, `[LoadoutNames]`, so
+every key in it is a global loadout id rather than one aircraft's property.
+The RAAF F-35A upstream renames six of those ids to suit itself —
+`AntiShip=Anti-Ship JMS (Internal Only)`, `Strike=Close Air Support (Full
+Payload)`, `AirToAir=Ait-to-air (Full Payload)`, typo and all — and the pack
+copied its file wholesale to inherit the F-35A's loadout names.
+
+`AntiShip` is the anti-ship loadout of **159 aircraft files** in this
+collection. `Strike` of 212. `AirToAir` of 180. A French Alouette II's
+anti-ship fit was displaying as "Anti-Ship JMS (Internal Only)".
+
+Sitting at the top of the load order makes it worse rather than better: a SEST
+pack's copy of a key beats the upstream's and the base game's alike, so the
+pack had *guaranteed* the rename won. The US Naval Aviation Chinese file does
+the same to eighteen ids, cargo types on merchant ships included — `Oil`,
+`Ore`, `Troops`, `Fertilizer`.
+
+`integration/common/registry.py` now restores the base game's value for any
+key the base game already defines, and leaves alone the ids an upstream
+actually invented. Restoring rather than deleting is the point: dropping the
+line would only hand the key back to the upstream mod, which is still
+installed and still above vanilla. Writing the correct value at priority one
+is what puts the names back.
+
+`check_load_order.py` gates it, and was negative-tested by putting the rename
+back and watching the gate fail.
+
+The same file had seven loadouts whose display text was their own internal id
+— `StrikeJSOW=StrikeJSOW`, `Strike183=StrikeARRW` — while the same mod's
+Chinese file named them properly. They are named now, each verified against
+the stations it actually hangs: `StrikeJSOW` carries `dts_agm-154a`,
+`Strike183N` the `(w62)` round, `SEST_AntiShipLRASM6` six `dts_agm-158c-3`,
+counted.
+
+### The credits file that was wrong by a factor of thirteen
+
+An earlier pass in this branch added `CREDITS.txt`, generated from the
+`# <original id>` comment on the first line of each unit file. Six files carry
+that comment, so it credited six mods.
+
+The completeness critic asked what the sweep had not diffed, and diffed it:
+**79** shipped unit files are 90% or more identical to a specific Workshop
+mod's file, from 28 different mods. Fifteen RAAF airbases built off Modern US
+Airbase's large airfield. The Super Hornets from US Navy 2027. The Anzac, the
+ESSM, the ARRW, the Rafales.
+
+That is not a scandal — a Sea Power unit file is a whole-file override, so
+there is no way to change one line of somebody's aircraft without shipping the
+whole aircraft, and a patch pack is structurally a collection of other
+people's files with edits in them. What was wrong was the number. A credit
+derived from a convention only catches the files whose author knew the
+convention. It is measured now: every shipped unit file diffed against every
+file of its kind in the collection, 90% and up listed with the percentage
+unchanged.
+
+### A loss condition nobody was told about
+
+D5 Range Week ended in instant defeat the moment one of the player's own four
+air-defence units died — and reported it as a failure of "Destroy three of the
+four range threat pads", which is a different exercise. The fatal rule was
+`F("Pads", ["battery"])`: the right units watched, attributed to the wrong
+objective. There is a `Battery` objective now that says what the rule is, and
+the defeat names it.
+
+D2 failed "Keep the carriers operating" when the player shot a neutral. Every
+other mission with a neutral-harm trigger fails an objective about neutrals;
+this one had none to fail. Checked all twelve rather than just the one that
+was reported.
+
+### Smaller, and all real
+
+- A build note shipped inside `MissionSpecialNote_en`, a player-facing panel,
+  explaining which engine feature the author could not implement. In all nine
+  localisations.
+- `_vanilla` — this repo's folder name for the game's own files — listed as a
+  required mod in fifteen mission briefings, alongside the internal SEST pack
+  names for packs that ship inside this one download. Both now read as "the
+  base game" and "this pack".
+- D2's briefing said two carriers; the mission places three, named.
+- Mission 11's briefing promised a J-20 pair; there is one J-20.
+- MV Lae Provider sank in the contingency after STEEL HIGHWAY and sailed again
+  nine missions later, carrying cargo.
+- The Dispatches folder advertised five series — "Allied Dispatches", "Red
+  Line", "Future Front", "Cold Sea" — that appear on no mission a player can
+  see. They live in each mission's `intro`, which is a campaign-map field, and
+  the dispatches are browser entries with no campaign map.
+- `commander_settings.ini` set `CommanderStartingRankLevel=5` with no
+  `[OfficerRanks]` for the index to point at, and named the navy without its
+  emblem. Both are base-game assets referenced by path.
+- `REQUIRED-MODS.txt` put Anchor Chain under "the campaign does not call for
+  them" while B-2 Spirit — which IS required — says "Requires AnchorChain and
+  SeaLifter" in its own `_info.ini`. Prerequisites are derived from the
+  required mods' own descriptions now, and SeaLifter is named as a
+  requirement this collection does not carry.
+
+### What the refutations were worth
+
+Eight findings were killed. Four of them were killed on scope — "not
+player-facing" — while every fact in them reproduced, and four of those facts
+were wrong statements in this branch's own install procedure. The most
+important: `set-mod-order.ps1` **drops** a workshop id it does not recognise;
+it only appends non-numeric tokens. The procedure said the opposite, and the
+script's own help text had said the opposite for longer. Both say what the
+script does now.
+
+A skeptic that refuses a finding on scope has not shown the finding is wrong.
+
 ## What exists
 
 | Thing | Where |
