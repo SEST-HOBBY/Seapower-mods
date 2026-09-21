@@ -1,9 +1,15 @@
 SOUTHERN WATCH - required Steam Workshop mods
 
-133 of them. Each supplies something a mission names by file,
-so a missing mod is a mission that will not load - not a mission that
-loads with a gap in it. Subscribe in the Steam Workshop, then check
-the Mod Manager list against LOAD-ORDER.txt in this folder.
+133 of them. Each supplies a file a mission names directly -
+by Type=, SquadronReference=, VariantReference= or a loadout's store.
+
+What the game does with a reference it cannot resolve has not been
+tested here, so this file will not tell you. At best the unit is
+simply absent and the mission is a different, easier one; at worst
+the mission does not load. Neither is the mission that was built.
+
+Subscribe in the Steam Workshop, then check the Mod Manager list
+against LOAD-ORDER.txt in this folder.
 
 Workshop id   supplies                         mod
 
