@@ -1,23 +1,7 @@
-<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  d:DesignWidth="1920" d:DesignHeight="1080"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
-  <Viewbox>
-    <Border Background="#F2EFE6" Width="1100" Height="760" Padding="60"
-            TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black">
-      <StackPanel Orientation="Vertical">
-        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
-        <TextBlock Text="18 OCTOBER 2028  |  MARITIME BORDER COMMAND, DARWIN" Margin="0,14,0,14" FontSize="26"/>
-        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
-        <TextBlock Text="THE NORTH GOES QUIET" FontWeight="Bold" FontSize="54"
-                   TextWrapping="Wrap" TextAlignment="Center" Margin="0,26,0,26"/>
-        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
-        <TextBlock Text="It started as paperwork. A merchant missed its reporting window. A cable-repair ship received movement instructions from an office that does not exist. Two ports lost their cargo records in the same week, and insurers began declining voyages that were still legal and perfectly possible." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
-        <TextBlock Text="The Meridian Maritime Group has an answer for all of it: travel in escorted groups, accept its inspections, use its terminals. Most of its ships are ordinary commerce. A few are not, and nothing you can see at twelve miles tells you which is which." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
-        <TextBlock Text="This morning MV Coral Pioneer reported an engine casualty and an escort claiming the authority to inspect her. The Indonesian patrol sent to look has reported gunfire. HMAS Warramunga is the nearest coalition ship." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
-        <TextBlock Text="Bring the convoy together. Get the crews out of danger. Identify before you shoot - none of this is a war yet." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
-      </StackPanel>
-    </Border>
-  </Viewbox>
-</Page>
+  Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel>
+        <Image Source="{Binding Assets[00_opening_image]}"/>
+    </StackPanel>
+</Viewbox>

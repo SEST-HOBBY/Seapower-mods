@@ -1,22 +1,7 @@
-<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  d:DesignWidth="1920" d:DesignHeight="1080"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
-  <Viewbox>
-    <Border Background="#F2EFE6" Width="1100" Height="760" Padding="60"
-            TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black">
-      <StackPanel Orientation="Vertical">
-        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
-        <TextBlock Text="12 NOVEMBER 2028  |  COALITION JOINT INTELLIGENCE" Margin="0,14,0,14" FontSize="26"/>
-        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
-        <TextBlock Text="SOMEONE ELSE'S AIR DEFENCE" FontWeight="Bold" FontSize="54"
-                   TextWrapping="Wrap" TextAlignment="Center" Margin="0,26,0,26"/>
-        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
-        <TextBlock Text="Regional security forces have recovered most of the facilities Meridian's hard-line faction seized. One airfield and port enclave has not come back, and the battery covering it is not the man-portable inventory the first reports described." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
-        <TextBlock Text="A naval force has arrived under a protection-and-evacuation pretext and demanded the coalition patrols suspend. A small foreign expeditionary detachment is supporting the enclave under a separate arrangement. Its fuel and ammunition arrive by routes we can see, which is the one advantage we have." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
-        <TextBlock Text="Local authorities have asked for a protected window to move civilians and emergency supplies out. That window, not a body count, is the objective." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
-      </StackPanel>
-    </Border>
-  </Viewbox>
-</Page>
+  Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel>
+        <Image Source="{Binding Assets[06_interlude_image]}"/>
+    </StackPanel>
+</Viewbox>
