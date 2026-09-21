@@ -142,9 +142,15 @@ def build_info(packs):
         print(f"note: component ApproximateVersion values differ {sorted(versions)}; "
               "using the highest")
     version = max(versions, key=lambda s: [int(x) for x in re.findall(r"\d+", s)] or [0])
-    desc = ("All SEST content as one pack, so a single Mod Manager entry at the top "
-            "of the list carries every patch. Consolidated from: " + ", ".join(sorted(names))
-            + ". Built by the Seapower-mods repo; the per-pack sources remain there.")
+    # Player-facing: this string is what the Mod Manager shows a subscriber,
+    # who has no repository and no per-pack sources to go and look at.
+    desc = ("One mod folder carrying every SEST fix and the Southern Watch "
+            "campaign, so a single Mod Manager entry at the top of the list "
+            "covers all of it. Put it ABOVE your Workshop mods: these are "
+            "whole-file replacements, and anything that outranks them wins "
+            "instead. REQUIRED-MODS.txt and LOAD-ORDER.txt inside this folder "
+            "list the Workshop mods the campaign needs and the order it was "
+            "tested in. Includes: " + ", ".join(sorted(names)) + ".")
     return INFO_HEADER.format(desc=desc, version=version)
 
 
