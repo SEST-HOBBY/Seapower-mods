@@ -9,10 +9,16 @@ that column, not the whole card — skip to the next section.
 
 ## Install
 
-Game **closed** (it rewrites `usersettings.ini` on exit):
+`docs/campaigns/southern-watch/install-alignment.md` is the full procedure,
+and it is worth following once: the last install reported IN LINE against a
+commit that contained none of this campaign, because the repo was on the wrong
+branch and the guard was pointed at the wrong one.
+
+The short version, game **closed** (it rewrites `usersettings.ini` on exit):
 
 ```powershell
-git pull
+git checkout sest-dev/loving-bell-3cnvvw
+git pull origin sest-dev/loving-bell-3cnvvw
 powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 ```
 
@@ -38,6 +44,25 @@ is itself the answer to step 1.
 Load one mission from each theatre before going further — **01 White Water**,
 **08 The Open Door**, **11 Fujian's Shadow**. They use the most different
 content. A texture or model that fails shows up here, not in the rules.
+
+## 1A — the art (new, and entirely unverified)
+
+The pack now ships 24 generated PNGs and points `campaign.ini` at them with
+three keys read out of the vanilla campaigns. Whether a **mod-supplied**
+campaign's art loads the way the base game's does has never been watched
+happen, and the vanilla export carries no PNGs to compare against — so every
+row here is a guess until you look.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 1A.1 | Open the campaign list | A dark chart behind the list: graticule, numbered marks 01–12, a compass rose, SOUTHERN WATCH bottom-left | No backdrop = `BackgroundImage` is either ignored for mods, or ignored on `DisplayFormat=Legacy`. Say which, and try `MapView` |
+| 1A.2 | Look at a mission tile | A card: big number, big title, a blue plot of own force with the objective ring | A blank tile = `TileImagePath_en` unread. A tile but no card on the detail pane = `MissionImage_en` unread |
+| 1A.3 | Is the card **readable** at tile size? | The number and name carry it; the plot is a shape, not detail | Say what is too small — the card is generated, so this is a one-line change |
+| 1A.4 | Open a story card (entry 1, "White Water 18 October") | A cream newspaper sheet, headline and two columns of type | A blank page = the Viewbox/Image binding in the XAML is wrong |
+| 1A.5 | Is the backdrop cropped, stretched or letterboxed? | It should fill | Tell me the shape of what you see. 1920×1080 is a guess; nothing in the export states the wanted aspect |
+
+**This is the section most likely to fail**, and failing it costs nothing else
+— the campaign plays without art.
 
 ## 2 — Task Force Mode (never exercised, highest risk)
 
@@ -113,11 +138,13 @@ is the one thing no amount of reading can settle.
 
 ## What I most expect to be wrong
 
-1. **The bought force does not deploy the way the anchor assumes** (2.4).
-2. **The VH-3D runs dry** (4.3) — 87% of a radius that rests on a 0.40
+1. **None of the art appears** (1A) — three keys read out of the vanilla
+   campaigns, none of them ever watched working from a mod.
+2. **The bought force does not deploy the way the anchor assumes** (2.4).
+3. **The VH-3D runs dry** (4.3) — 87% of a radius that rests on a 0.40
    planning fraction.
-3. **Objective cancellation does not read as cancelled** (5.2).
-4. **A campaign variable does not survive a save** (6.4).
+4. **Objective cancellation does not read as cancelled** (5.2).
+5. **A campaign variable does not survive a save** (6.4).
 
 Any of those is a design answer, not a bug report — send what you saw and I
 will change the model rather than patch the symptom.

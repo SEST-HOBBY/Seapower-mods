@@ -149,15 +149,88 @@ def trigger_integrity(path, text, blocks):
     return problems
 
 
+COUNT_SECTION = {
+    "NumberOfTaskforce1Vessels": "Taskforce1Vessel",
+    "NumberOfTaskforce2Vessels": "Taskforce2Vessel",
+    "NumberOfNeutralVessels": "NeutralVessel",
+    "NumberOfTaskforce1Submarines": "Taskforce1Submarine",
+    "NumberOfTaskforce2Submarines": "Taskforce2Submarine",
+    "NumberOfNeutralSubmarines": "NeutralSubmarine",
+    "NumberOfTaskforce1Aircraft": "Taskforce1Aircraft",
+    "NumberOfTaskforce2Aircraft": "Taskforce2Aircraft",
+    "NumberOfNeutralAircraft": "NeutralAircraft",
+    "NumberOfTaskforce1LandUnits": "Taskforce1LandUnit",
+    "NumberOfTaskforce2LandUnits": "Taskforce2LandUnit",
+    "NumberOfNeutralLandUnits": "NeutralLandUnit",
+    "NumberOfNeutralBiologics": "NeutralBiologic",
+}
+
+
+def declared_counts(rel, parsed):
+    """[Mission] says how many of each family there are. Prove it.
+
+    The header counts are what the loader reads to decide how many sections to
+    walk. A count one too high reaches for a section that is not there; one too
+    low silently drops the last unit of that family - and a dropped unit is a
+    mission that is quietly easier than the one that was designed, which is the
+    kind of failure nothing else here would catch.
+    """
+    out = []
+    for key, prefix in COUNT_SECTION.items():
+        if key not in parsed.get("Mission", {}):
+            continue
+        want = int(parsed["Mission"][key])
+        have = sum(1 for tag in parsed if re.fullmatch(prefix + r"\d+", tag))
+        if want != have:
+            out.append(f"{rel}: {key}={want}, but {have} [{prefix}N] section(s)")
+    return out
+
+
+def art_resolves(pack):
+    """Every path campaign.ini points at, in every language it names one in.
+
+    Localised keys do not fall back - pacific-strike repeats the SAME English
+    PNG under TileImagePath_en, _ru and _de rather than relying on one - so the
+    campaign spells its art nine times, and nine chances to point at a file
+    that is not there. A missing PNG is silent in game: the tile is simply
+    blank, and nothing in the log says why.
+    """
+    out = []
+    camp = pack / "campaigns" / bp.SLUG / "campaign.ini"
+    parsed = blocks(camp.read_text(encoding="utf-8"))
+    referenced = set()
+    for tag, keys in parsed.items():
+        for key, value in keys.items():
+            if key == "BackgroundImage" or re.fullmatch(
+                    r"(MissionImage|TileImagePath|FilePath|MissionFile)(_[a-z]{2})?", key):
+                referenced.add(value)
+                if not (pack / value).is_file():
+                    out.append(f"campaign.ini [{tag}]: {key}={value} - no such file")
+            elif re.fullmatch(r"AssetsPath_[a-z]{2}", key):
+                if not (pack / value).is_dir():
+                    out.append(f"campaign.ini [{tag}]: {key}={value} - not a directory")
+    # And the other way: art nobody points at is weight in a download that a
+    # subscriber pays for and cannot see.
+    art = pack / "campaigns" / bp.SLUG / "art"
+    for f in sorted(art.glob("*.png")):
+        rel = f.relative_to(pack).as_posix()
+        if rel not in referenced:
+            out.append(f"{rel}: shipped, but nothing references it")
+    return out
+
+
 def main():
     files = missions()
     credits, problems, units = {}, [], 0
+    pack = CAMPAIGN / "SEST_Campaign"
+    problems += art_resolves(pack)
 
     for f in files:
         rel = f.relative_to(ROOT)
         text = f.read_text(encoding="utf-8")
         parsed = blocks(text)
         problems += trigger_integrity(f, text, parsed)
+        problems += declared_counts(rel, parsed)
         for tag, keys in parsed.items():
             uid = keys.get("Type")
             if not uid or not re.match(r"^(Taskforce\d+|Neutral)", tag):
