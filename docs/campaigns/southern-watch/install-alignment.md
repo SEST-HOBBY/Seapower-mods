@@ -84,9 +84,10 @@ What to read in its output:
 | `purged SEST_…` | an old per-pack folder removed | expected once, after the switch to the consolidated pack |
 | `appended (not canonical)` | a mod you subscribed to that the repo has never seen | expected for **Automatic SAR** and the **Euromod South Korean Navy** — see step 5 |
 
-The file count should now be **278**, not 122. It changed in this branch: the
-campaign gained 32 generated PNGs plus `REQUIRED-MODS.txt` and
-`LOAD-ORDER.txt`.
+The file count should now be **256**, not 122. It changed in this branch: the
+campaign gained 24 generated PNGs plus `REQUIRED-MODS.txt` and
+`LOAD-ORDER.txt`, and lost the fourteen `_info.ini` files it used to write into
+briefing folders under `campaigns/`, where the vanilla campaigns have none.
 
 If `sync-sest.ps1` refuses because of the branch guard, it is doing its job —
 go back to step 1 rather than reaching for `-AnyBranch`.
@@ -95,7 +96,7 @@ go back to step 1 rather than reaching for `-AnyBranch`.
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
-Get-ChildItem "$sa\campaigns\sest-southern-watch\art\*.png" | Measure-Object   # 32
+Get-ChildItem "$sa\campaigns\sest-southern-watch\art\*.png" | Measure-Object   # 24
 Test-Path "$sa\campaigns\sest-southern-watch\art\00_campaign_background.png"   # True
 Test-Path "$sa\REQUIRED-MODS.txt"                                              # True
 ```
@@ -123,7 +124,7 @@ appends them at the **bottom** of the order, below everything, and warns.
 That is safe but not free. Bottom of the list means *lowest* priority, so any
 file either of them shares with a mod above it is simply not read. Nothing in
 Southern Watch names a unit from either — the campaign is built and checked
-against the 147-entry canonical order, and both are additions to it, not
+against the 140-entry canonical order, and both are additions to it, not
 substitutions in it. Automatic SAR in particular is a behaviour mod: it will
 apply, and it costs nothing to leave where it is.
 

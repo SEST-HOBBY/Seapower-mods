@@ -374,6 +374,77 @@ run — which needs the running game. Building them now would mean authoring
 sixteen sets of unverifiable branch behaviour. They are specified in the
 bible and unimplemented here, deliberately.
 
+## Art, and what the pack tells a stranger
+
+Three keys carry the campaign's art, and all three were read out of the
+vanilla export before they were used: `MissionImage_en` and `TileImagePath_en`
+per mission entry, and `BackgroundImage` once in `[Campaign]`. The last is
+attested in all three shipped campaigns, and `linear-campaign-proto-1` pairs
+it with `DisplayFormat=Legacy` — the format this campaign uses — so the
+combination is not an extrapolation. The export carries text only; its PNGs
+were stripped, so nothing here copies the game's look, only its key names.
+
+`make_art.py` draws every card, dispatch sheet and the backdrop **from the
+mission files the builder has just written**, not from a parallel description.
+A card therefore cannot advertise a mission that changed underneath it, and
+the backdrop's graticule and marks are the twelve missions' real
+`MapCenterLatitude`/`Longitude`.
+
+The backdrop is a plotting sheet, not a map, and that is a decision rather
+than a shortcut. There is no shoreline data anywhere in this repo. A drawn
+coastline would be invented, and an invented Arafura Sea behind a campaign set
+in the Arafura Sea is worse than an honest empty one. What it does show is
+true: where the missions happen, and in what order.
+
+Two things went wrong in drawing it and are worth keeping:
+
+- the vignette's alpha climbed *inwards*, which painted a hard dark frame that
+  stopped dead 230 px from the edge instead of fading into the middle. It read
+  as a rectangle floating over the chart;
+- the first de-collision pass fanned overlapping marks by a fixed number of
+  DEGREES. Three missions share one patch of water, so the fan was needed —
+  but a degree is a different distance on every chart, and the fan shoved
+  mission 01 straight into mission 05 a degree away. It is done in pixels now,
+  by relaxation, which is scale-independent by construction.
+
+### The three things a subscriber could not have known
+
+The pack was, until this pass, written for the person who built it:
+
+- the campaign's own `Description` ended "See `docs/campaign-coverage.md` for
+  which mod supplies what" — a repo path, to a file a subscriber does not have;
+- the consolidated pack described itself as "Built by the Seapower-mods repo;
+  the per-pack sources remain there," which is a note to a colleague;
+- and the 140-entry load order the whole thing was built against shipped
+  nowhere at all. A stranger missing one mod got a broken mission and no way
+  to find out which.
+
+`REQUIRED-MODS.txt` and `LOAD-ORDER.txt` now ship inside the pack. The first
+is generated from the same `coverage()` rows the developer report uses, so it
+cannot drift from what the missions actually place, and it states its own
+limits rather than implying completeness: a mod may declare a manual
+dependency of its own (SeaLifter does), and a unit file may `#!extend` a base
+this build resolves without the campaign ever naming its mod. The full order
+ships beside it for exactly that reason.
+
+### The install that was in line with the wrong thing
+
+`data/deploy-branch.txt` named `feature/northern-front-iii-export`. The branch
+guard in `sync-sest.ps1` therefore did not fire, and the install reported
+
+```
+IN LINE: all 122 installed files match this commit (d2547151).
+```
+
+That commit contains zero Southern Watch files. "IN LINE" answers *do the
+deployed bytes match the repo* — it never claimed to answer *is the repo on
+the branch you meant*. The guard existed and was pointed at the wrong target,
+which is the more dangerous of the two failures: it reports success.
+
+`docs/campaigns/southern-watch/install-alignment.md` is the ordered procedure,
+written so that each step carries the check that would catch the failure that
+step is capable of producing.
+
 ## What exists
 
 | Thing | Where |
@@ -506,7 +577,28 @@ anything in this repository:
   there, rather than merely being associated with it;
 - that the mod-supplied campaign is surfaced by the Mod Manager at all. The
   missions are shipped a second time under `missions/` precisely so the
-  campaign's content is playable either way.
+  campaign's content is playable either way;
+- that the game displays ANY of this art. `BackgroundImage`,
+  `MissionImage_en` and `TileImagePath_en` are keys the vanilla campaigns set,
+  and the paths they are given here resolve to files that exist in the pack.
+  Whether a mod-supplied campaign's art is loaded the same way the base game's
+  is — and whether `DisplayFormat=Legacy` draws a backdrop at all, or only
+  `MapView` does — has not been watched happen. The vanilla export carries no
+  PNGs, so there is not even a reference image to compare against;
+- what resolution or aspect the game wants. 1920x1080 is a guess constrained
+  only by DXT5 needing both dimensions to be multiples of 4. A backdrop that
+  is letterboxed, cropped or stretched is a possibility this build cannot
+  rule out;
+- that `REQUIRED-MODS.txt` is SUFFICIENT. It is derived from what the missions
+  place, which makes it necessary-by-construction and complete with respect to
+  the load order it was built against. It is not a proof that a subscriber
+  with exactly those 133 mods and nothing else gets a working campaign — that
+  needs a clean install, which nobody has done;
+- what a mission does when it names an absent unit. The pack said, for one
+  build, that a missing mod meant "a mission that will not load" - a claim
+  nothing here supports. `REQUIRED-MODS.txt` now says instead that the
+  behaviour is untested and names both possibilities. Whether an unresolvable
+  `Type=` drops the unit or stops the load has not been observed;
 
 What *is* established, on every build: every `Type=`, `LoadoutVariant=`,
 `SquadronReference=` and `VariantReference=` in all twenty missions resolves

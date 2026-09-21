@@ -219,12 +219,19 @@ def render_all(camp_dir, missions, events, slug, title, subtitle):
     art.mkdir(parents=True, exist_ok=True)
     sheets, assets, marks = {}, {}, []
     for m in missions:
-        name = f"southern_watch_{m['num'].lower()}_sheet.png"
-        card(m["ini"], art / name, m["num"], m["key"], m["date"], m["place"], "")
-        sheets[m["key"]] = f"campaigns/{slug}/art/{name}"
+        # Every mission contributes a mark to the backdrop. Only the ones the
+        # CAMPAIGN lists get a card: MissionImage_/TileImagePath_ are
+        # campaign.ini keys, and no key in the vanilla export gives a mission
+        # BROWSER entry an image. The dispatches are browser-only, so a card
+        # for one is 60 KB the download carries and nothing can display.
         ll = _ll(m["ini"])
         if ll:
             marks.append((m["num"], ll[0], ll[1], m["group"] == "core"))
+        if m["group"] == "dispatch":
+            continue
+        name = f"southern_watch_{m['num'].lower()}_sheet.png"
+        card(m["ini"], art / name, m["num"], m["key"], m["date"], m["place"], "")
+        sheets[m["key"]] = f"campaigns/{slug}/art/{name}"
     backdrop(art / "00_campaign_background.png", marks, title, subtitle)
     for e in events:
         key = f"{e['file']}_image"
