@@ -64,13 +64,22 @@ This campaign is built on a large mod collection. It names units from
 give a very large collection somewhere purposeful to be used — but it means
 subscribing to this alone is not enough.
 
-After subscribing, open the mod's folder and read the two files in it:
+You should not have to subscribe to them one at a time. Every one is set as
+a Required Item on this page, so after subscribing here, open the Mod Manager
+and press **Sync**. The game asks Steam for this mod's dependencies,
+subscribes you to the ones you are missing and enables the ones you already
+have — and it iterates, so their dependencies come too.
+
+Then open this mod's folder and read the files in it:
 
   REQUIRED-MODS.txt — every Workshop mod the campaign names, with its ID
   LOAD-ORDER.txt    — the 140-entry Mod Manager order it was built against
+  CREDITS.txt       — whose work this is built on
 
 Put this pack at the TOP of your load order. It contains whole-file
-replacements, and anything above it wins instead.
+replacements, and anything above it wins instead. Sync handles subscribing;
+it does not handle ordering, and ordering is what decides which copy of a
+shared file the game reads.
 
 What the game does with a mission that names a unit you do not have has not
 been tested. At best the unit is simply absent and the mission is an easier,
