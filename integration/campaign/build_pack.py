@@ -579,10 +579,24 @@ def place(mission, snapper):
                                                 if kind == "sub" else 0)
 
         keys = dict(Type=spec["type"], **keys)
+        # Native writes UnlimitedFuel on every section kind - vessels,
+        # submarines, land units, even biologics - so it is emitted for all of
+        # them here too. It only MEANS anything for something that flies
+        # ("this aircraft or helicopter starts with unlimited fuel"), so only
+        # those get the derived value; everything else takes the inert False
+        # rather than flapping when an unrelated deck joins the mission.
+        #
         # A helicopter gets down on any deck; ten is the gap between an
         # escort's single spot and the smallest real flight deck here.
-        needs = 1 if unit_file(spec["type"])[0] == "helicopters" else 10
-        keys.update(UnlimitedFuel=("False" if decks >= needs else "True"),
+        # The DIRECTORY does not say which: every helicopter in this mod set
+        # ships under aircraft/ and declares UnitType=Helicopter (MH-60R,
+        # SH-60K, CH-53, Z-20J). Reading the folder put ship's flights on the
+        # fixed-wing rule and told them they had nowhere to land.
+        flying = unit_type(spec["type"])
+        flies = flying in ("Aircraft", "Helicopter")
+        needs = 1 if flying == "Helicopter" else 10
+        keys.update(UnlimitedFuel=("True" if flies and decks < needs
+                                   else "False"),
                     WeaponStatus=spec.get("weapons", "Free"),
                     RadarsActive=spec.get("radars", "True"),
                     CrewSkill=spec.get("skill", "Trained"), Morale="3")
@@ -852,20 +866,18 @@ REACH_PROBLEMS = []
 
 
 def deck_size(uid):
-    """Aircraft this unit can recover: an airbase is unlimited, a ship is its
-    `AircraftCapacity`, and anything else is zero.
+    """Aircraft this unit can recover, from its own `AircraftCapacity`.
 
-    The split is clean in the data and it matters, because a helicopter and an
-    F-35 do not have the same options: every escort here declares
-    `AircraftCapacity=1` (Anzac, Hobart, Arafura, Mogami, Maya) while the decks
-    declare 30 to 90 (Canberra 30, Charles de Gaulle 42, Type 003 85, Ford 90).
+    The number separates every case cleanly and needs no list of names: an
+    escort declares 1 (Anzac, Hobart, Arafura, Mogami, Maya), a flight deck 30
+    to 90 (Canberra 30, Charles de Gaulle 42, Type 003 85, Ford 90), and an
+    airbase 80 to 1000 (airfield_a-10 80, RAAF Darwin 200, the large PVO base
+    1000). Matching on "airbase" in the id worked and would have gone on
+    working right up to the first base that is not called one.
     """
-    kind_dir, path = unit_file(uid)
+    _kind_dir, path = unit_file(uid)
     if path is None:
         return 0
-    if unit_type(uid) == "LandUnit":
-        low = uid.lower()
-        return 999 if ("airbase" in low or "airfield" in low or uid == "FOB") else 0
     m = re.search(r"^AircraftCapacity=\s*(\d+)", read(path), re.M)
     return int(m.group(1)) if m else 0
 
@@ -924,16 +936,23 @@ def check_reach(mission, placed, members):
                 if len(bits) == 3:
                     try:
                         out.append((tag, keys["Type"], float(bits[0]),
-                                    float(bits[2]), ashore))
+                                    float(bits[2]), ashore,
+                                    keys.get("LoadoutVariant")))
                     except ValueError:
                         pass
         return out
 
-    def armed(uid):
+    def armed(uid, fit=None):
+        """Reach with the fit this mission actually placed, not a default.
+
+        `LoadoutVariant` is already on the emitted block; taking the default
+        instead would measure a different aeroplane from the one that ships.
+        """
         kind_dir, path = unit_file(uid)
         if path is None:
             return 0.0
-        fit, _why = pick_loadout(uid, path, None)
+        if fit is None:
+            fit, _why = pick_loadout(uid, path, None)
         return reach(uid, kind_dir, path, fit)
 
     blue = positions("Taskforce1")
@@ -946,10 +965,10 @@ def check_reach(mission, placed, members):
                  [mission["victory"].get("station")]) if r
                 for t in refs(members, r)}
         targets = [r for r in red if r[0] in want]
-        for tag, uid, x, z, _a in targets:
+        for tag, uid, x, z, _a, _f in targets:
             closest = min(
-                (math.hypot(x - bx, z - bz) - armed(buid) - steam, buid)
-                for _bt, buid, bx, bz, _ba in blue)
+                (math.hypot(x - bx, z - bz) - armed(buid, bfit) - steam, buid)
+                for _bt, buid, bx, bz, _ba, bfit in blue)
             if closest[0] > 0:
                 problems.append(
                     f"{mission['key']}: victory needs {uid} at {tag} destroyed, "
@@ -961,16 +980,16 @@ def check_reach(mission, placed, members):
 
     if not (blue and red):
         return None
-    gap = min(math.hypot(x - bx, z - bz) for _t, _u, x, z, _a in red
-              for _bt, _bu, bx, bz, _ba in blue)
-    longest = max([armed(u) for _t, u, _x, _z, _a in red] or [0.0])
+    gap = min(math.hypot(x - bx, z - bz) for _t, _u, x, z, _a, _f in red
+              for _bt, _bu, bx, bz, _ba, _bf in blue)
+    longest = max([armed(u, f) for _t, u, _x, _z, _a, f in red] or [0.0])
     # The standoff rule is about an engagement the player is dropped into
     # without a say, which happens at sea and in the air. Two ground forces
     # in contact ashore is not that - it is the scenario - so a land-on-land
     # pair does not count toward it.
     afloat = [math.hypot(x - bx, z - bz)
-              for _t, _u, x, z, ashore in red
-              for _bt, _bu, bx, bz, bashore in blue
+              for _t, _u, x, z, ashore, _f in red
+              for _bt, _bu, bx, bz, bashore, _bf in blue
               if not (ashore and bashore)]
 
     budget = ROLE_BUDGET[mission["role"]]
