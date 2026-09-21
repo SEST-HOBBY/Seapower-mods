@@ -52,6 +52,49 @@ game running. A variable that is declared, written and read in three files is a
 static fact about those files. Whether the campaign carries it between missions
 is the seventh step of §16's acceptance run, and that step has not been taken.
 
+## Adversarial pass on the reach work: two fatals in it
+
+The reach gate went in on the strength of numbers it was reading wrong. Nine
+reviewers were pointed at the shipped code with instructions to break it, and
+two of them did, both with the build run rather than predicted.
+
+**`reach()` never followed `#!extend`.** I had fixed exactly this for units two
+passes earlier — `ai_roles()` and `loadouts()` follow `#!alias` because 65 unit
+files are aliases — and did not think to ask the same question of ammunition.
+102 files in this collection open with `#!extend`, 18 of them rounds. The
+winner is a stub: `ammunition/plaaf_pl-15.ini` in mod 3789188689 is 483 bytes
+of `[Guidance]`, and `MaxLaunchRange=108.1` lives in 3436170138 below it. So a
+J-16 carrying a 108 NM missile read as a 15 NM one, and the DF-21 and DF-26
+read as zero. The reach numbers in the previous section of these notes were
+wrong; the station moves they justified happen to stand, but they were
+justified on false readings and D8's in particular was decided on 15 NM for a
+jet that reaches 108.
+
+**`stores()` credited rounds from fits the unit was not flying.** A pylon map
+named for a loadout the file does not offer — `pla_df-26b_tel` offers
+`AntiShip,Strike,NukeStrike` and still ships a `[WeaponSystem1Default]` —
+matched no known suffix and was therefore treated as a section loaded whatever
+the fit. 55 of 210 placed unit/fit pairs sat on that, and it credited a
+2,324 NM anti-ship round to the nuclear loadout. Suffixes now match
+longest-first, and a section that plainly names a fit this unit does not offer
+is skipped rather than counted as bare. One honest casualty: the `f-15ex` mod
+was reached only through a targeting pod on a fit D6 was not flying, so D6's
+Eagle II now flies `StrikePrecision` — which is what a strike mission should
+have authored in the first place.
+
+**`--dry-run` checked none of the air-tasking gates.** It returned before
+`campaign_ini()`, which is the only caller of `tasking_rows()`, so the row and
+slot pairing, the role and fit checks, the label vocabulary and the purchase
+allowlists were all dead in the command whose own help says "resolve and check
+everything, emit nothing". The same mutation passed `--dry-run` and failed the
+real build. The campaign text is built before the exit now; it is pure, so it
+costs nothing.
+
+**A gate that answered the wrong question.** A flight label outside the six the
+game localises was reported as "slot_ordinal and tasking_rows disagree about
+what a slot is" — an internal drift assertion — because the rejected row never
+consumed its sections. It says `'Tanker' is not an air-tasking role` now.
+
 ## Pacing: the variable the design never stated
 
 The brief was smaller opening engagements, more reconnaissance decisions,

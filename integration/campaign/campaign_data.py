@@ -1716,7 +1716,12 @@ MISSIONS.append(dict(
           name="Black Widow 11"),
         U("blue", "yf-23-black-widow-ii", "usaf_yf-23_black_widow_ii", "escort",
           name="Black Widow 12"),
-        U("blue", "f-15ex", "usaf_f-15ex_SEII", "escort", name="Eagle II 21"),
+        # Long Reach is a strike mission and the Eagle II flies a strike fit.
+        # It also has to: the f-15ex mod is reached through the targeting pod
+        # its strike loadouts hang, and the default air-to-air fit hangs
+        # nothing of that mod's at all.
+        U("blue", "f-15ex", "usaf_f-15ex_SEII", "escort", name="Eagle II 21",
+          loadout="StrikePrecision"),
         U("blue", "SEST_F16CM_JATM", "usaf_f-16cm-bl52d", "escort",
           name="Viper 31"),
         U("blue", "SEST_Rafale_F5", "fr_rafale_m_l", "escort", name="Rafale 41"),
