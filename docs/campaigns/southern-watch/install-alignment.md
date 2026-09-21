@@ -61,8 +61,14 @@ Then the four gates, which check different things and all have to pass:
 python tools\check_campaign_coverage.py   # 510 placed references, all resolve
 python tools\check_load_order.py          # every SEST pack outranks what it overrides
 python tools\check_dependencies.py        # every pack's upstream mods present
-python tools\preflight.py                 # units, air groups, loadouts, pylon stores
+python tools\preflight.py "Southern Watch 01 - White Water"
 ```
+
+`preflight.py` with no argument checks whatever `data\active-mission.txt`
+names, which is a Northern Front III mission — useful, but not this campaign.
+Name a mission to check this one. `check_campaign_coverage.py` above already
+walks all 22 Southern Watch missions, so the named preflight is a second
+opinion rather than the only coverage.
 
 ## 3 — install and order, one command
 
@@ -119,26 +125,34 @@ something the next cannot:
 
 **Automatic SAR** and the **Euromod South Korean Navy** were subscribed after
 the last catalog export, so they are not in `data\load-order.tokens.txt`.
-`set-mod-order.ps1` never invents a position for a mod it does not know: it
-appends them at the **bottom** of the order, below everything, and warns.
 
-That is safe but not free. Bottom of the list means *lowest* priority, so any
-file either of them shares with a mod above it is simply not read. Nothing in
-Southern Watch names a unit from either — the campaign is built and checked
-against the 140-entry canonical order, and both are additions to it, not
-substitutions in it. Automatic SAR in particular is a behaviour mod: it will
-apply, and it costs nothing to leave where it is.
+I had this backwards in the first version of this document, and it matters.
+`set-mod-order.ps1` does not append an unknown mod at the bottom — that is
+only what it does with a *non-numeric* token. A **workshop id** it does not
+recognise is **removed** from `[LoadOrder]`, with a warning, because an
+unsubscribed leftover left enabled is what kept the phantom KJ-500 alive as
+entry 144. The script's own help text said "appended … rather than dropped"
+for all three cases; it says what it actually does now, and so does
+`fix-load-order.ps1`'s warning.
 
-If you want them catalogued and placed deliberately rather than appended,
-re-run the export and say so:
+So each time you run the sync, those two are dropped, and the game re-adds
+them on the next launch at a position it chooses. Nothing breaks — the
+campaign names no unit from either, and Automatic SAR is a behaviour mod that
+applies wherever it sits — but neither has a stable position, and you will see
+a `dropped stale workshop entry` warning naming both on every run. That
+warning is expected and is not a problem with the install.
+
+To give them fixed positions they have to be catalogued, which means an
+export from your machine:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1
 powershell -ExecutionPolicy Bypass -File .\tools\capture-context.ps1 -IncludeSaves
 ```
 
-and push the result — the catalog, the order and the coverage report are all
-regenerated from that export.
+Push the result and the catalog, the canonical order and the coverage report
+are all regenerated from it. Until then the drop-and-re-add cycle is the
+expected behaviour, not a fault.
 
 ## 6 — then play the card
 
@@ -153,7 +167,7 @@ riskiest-claim-first. It starts where this document stops.
 |---|---|
 | campaign absent from the list | `Get-ChildItem "$sa\campaigns\sest-southern-watch"` — if the folder is missing the install did not take; if it is there, the Mod Manager is not reading mod-supplied campaigns and the browser copies are your route in |
 | a mission loads with units missing | the missing unit names its mod — check that mod is subscribed and enabled: `.\tools\show-load-order.ps1` |
-| a texture or model fails | that is the donor mod's asset, not this pack's — the SEST packs ship `.ini` files only, no models, no textures |
+| a texture or model fails | the pack ships 24 PNGs and they are all campaign art — the mission cards, the story sheets and the backdrop. Any unit texture or model belongs to the donor mod, so that failure names the mod to check, not this pack |
 | the order looks wrong | `.\tools\show-load-order.ps1` prints live order beside canonical; `.\tools\fix-load-order.ps1` reconciles |
 | you are not sure what the game actually has | `.\tools\capture-context.ps1 -IncludeSaves` writes a full snapshot into `data\install-snapshot` — logs, live load order, subscriptions, build number and campaign saves |
 

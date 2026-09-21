@@ -34,6 +34,57 @@ def mod_name(token):
     return token
 
 
+# Registry files that have exactly ONE section, so every key in them is a
+# GLOBAL id rather than one unit's property. Overriding a key here changes the
+# name of that thing on every unit in the game that uses it - and a SEST pack
+# sits at the top of the order, so its copy is the one that wins.
+#
+# aircraft_names.ini and vessel_names.ini are NOT in this list: they are
+# sectioned per unit, so `Squadron1` under [raaf_f-35a] is a different key from
+# `Squadron1` under [ru_mi-14pl] and collisions there are imaginary.
+GLOBAL_REGISTRIES = ("loadout_names.ini",)
+
+
+def single_section_values(path):
+    out = {}
+    for line in path.read_text(encoding="utf-8-sig", errors="replace").splitlines():
+        s = line.strip()
+        if s.startswith(("#", ";", "[")) or "=" not in s:
+            continue
+        key, _, value = s.partition("=")
+        out[key.strip()] = value.split("//")[0].strip()
+    return out
+
+
+def global_renames():
+    """Any SEST pack key that silently renames a base-game one, game-wide.
+
+    The RAAF F-35A upstream renames `AntiShip` to "Anti-Ship JMS (Internal
+    Only)". `AntiShip` is the anti-ship loadout of 159 aircraft files in this
+    collection - a French Alouette II included - and a pack that carries that
+    rename to the top of the load order renames it on all of them.
+    """
+    vanilla = ROOT / "mods-source" / "_vanilla" / "original"
+    out = []
+    for pack_dir in sorted((ROOT / "integration").glob("*/SEST_*")):
+        if pack_dir.parent.name == "dist":
+            continue
+        for f in sorted(pack_dir.rglob("language_*/*.ini")):
+            if f.name not in GLOBAL_REGISTRIES:
+                continue
+            base = vanilla / f.relative_to(pack_dir)
+            if not base.exists():
+                continue
+            van, mine = single_section_values(base), single_section_values(f)
+            for key, value in mine.items():
+                if key in van and van[key] != value:
+                    out.append(
+                        f"{pack_dir.name}: {f.relative_to(pack_dir).as_posix()} "
+                        f"sets {key}={value!r}, renaming the base game's "
+                        f"{van[key]!r} on every unit that uses it")
+    return out
+
+
 def main():
     tokens = [l.strip() for l in (ROOT / "data" / "load-order.tokens.txt")
               .read_text(encoding="utf-8").splitlines()
@@ -50,7 +101,7 @@ def main():
             if p.parent.name in OVERRIDE_DIRS:
                 ships[d.name].add(p.relative_to(d).as_posix().lower())
 
-    problems, checked = [], 0
+    problems, checked = global_renames(), 0
     # Source packs deploy consolidated as SEST_Integration, so a pack whose own
     # folder name is not a token takes the consolidated token's position. The
     # dist folder itself is skipped: it is the union of the sources, and
@@ -96,12 +147,15 @@ def main():
                 f"{mod_name(t)} (#{rank[t]+1}) sits above a SEST pack\n"
                 f"        SEST packs must occupy the top of the list, unbroken")
 
-    print(f"checked {checked} pack/mod file overlaps across {len(tokens)} load-order entries\n")
+    print(f"checked {checked} pack/mod file overlaps across {len(tokens)} "
+          f"load-order entries, and every global registry key\n")
     if problems:
-        print(f"{len(problems)} BROKEN ordering rule(s):\n")
+        print(f"{len(problems)} BROKEN rule(s):\n")
         for p in problems:
             print(f"   {p}\n")
-        print("Each of these patches is silently doing nothing. Move the SEST pack above it.")
+        print("An ordering rule means the patch is silently doing nothing - move the\n"
+              "SEST pack above it. A rename means the pack is silently changing the\n"
+              "base game for every unit - see integration/common/registry.py.")
         sys.exit(1)
     print("every SEST pack outranks every mod it shares an override file with")
 
