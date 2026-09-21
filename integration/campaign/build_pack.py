@@ -386,8 +386,19 @@ def stores(uid, kind, path, loadout):
             continue
         if not section.startswith(("WeaponSystem", "WeaponMagazine")):
             continue
-        suffix = next((l for l in known if section.endswith(l)), None)
-        if suffix and suffix != loadout:
+        # Longest-first, because one offered fit's name can be a suffix of
+        # another's. And a section that clearly carries a fit name which this
+        # unit does NOT offer is skipped rather than treated as bare: the
+        # df-26b offers AntiShip/Strike/NukeStrike and still ships a
+        # [WeaponSystem1Default] pylon map, and counting that as loaded
+        # whatever the fit credited a 2,324 NM anti-ship round to the nuclear
+        # loadout. 55 of 210 placed unit/fit pairs sat on that mistake.
+        suffix = next((l for l in sorted(known, key=len, reverse=True)
+                       if section.endswith(l)), None)
+        if suffix:
+            if suffix != loadout:
+                continue
+        elif re.match(r"WeaponSystem\d+[A-Za-z][A-Za-z0-9_-]*$", section):
             continue
         # Three spellings, all in shipped data: `Station7=`, `Ammunition1=`
         # and a bare `Ammunition=` with no index - which is how a launcher
@@ -861,6 +872,51 @@ ROLE_BUDGET = {
 }
 
 
+def all_copies(relpath):
+    """Every provider's copy of one file, highest priority first.
+
+    `winning()` answers which file the game reads FIRST, which is the right
+    question for a unit and the wrong one for a value. 102 files in this
+    collection open with `#!extend`, 18 of them ammunition: the winner is a
+    stub that adds a section or two and leaves the rest to the copy below it.
+    `ammunition/plaaf_pl-15.ini` is 483 bytes of [Guidance] in mod 3789188689
+    and `MaxLaunchRange=108.1` in 3436170138, so reading only the winner said
+    a PL-15 reaches nothing.
+    """
+    key = relpath.lower()
+    out = []
+    for _token, base in providers():
+        f = base / relpath
+        if f.is_file():
+            out.append(f)
+        else:                                   # case-insensitive filesystem
+            hit = _INDEX and _INDEX.get(key)
+            if hit and hit[1].parent == base / Path(relpath).parent:
+                out.append(hit[1])
+    return out
+
+
+def ammo_range(store, depth=0):
+    """`MaxLaunchRange` for one round, down the extend/alias chain.
+
+    The highest-priority file that actually DECLARES the value wins, which is
+    what overriding means; a stub that declares nothing defers to the copy
+    below it rather than answering zero.
+    """
+    if depth > 4:
+        return 0.0
+    best = 0.0
+    for f in all_copies(f"ammunition/{store}.ini"):
+        text = read(f)
+        m = re.search(r"^MaxLaunchRange=([\d.]+)", text, re.M)
+        if m:
+            return float(m.group(1))
+        a = re.search(r"#!alias\s+(\S+)", text)
+        if a:
+            best = max(best, ammo_range(Path(a.group(1)).stem, depth + 1))
+    return best
+
+
 _REACH = {}
 REACH_PROBLEMS = []
 
@@ -899,14 +955,8 @@ def reach(uid, kind_dir, path, fit):
     key = (uid, fit)
     if key in _REACH:
         return _REACH[key]
-    best = 0.0
-    for store in stores(uid, kind_dir, path, fit):
-        f = winning(f"ammunition/{store}.ini")
-        if not f:
-            continue
-        m = re.search(r"^MaxLaunchRange=([\d.]+)", read(f), re.M)
-        if m:
-            best = max(best, float(m.group(1)))
+    best = max([ammo_range(s) for s in stores(uid, kind_dir, path, fit)]
+               or [0.0])
     _REACH[key] = best
     return best
 
@@ -1799,15 +1849,19 @@ def tasking_rows(mission, placed):
     ordinals = collections.Counter()
     for row in mission.get("window", {}).get("flights", []):
         label, display, roles, _count, fits = row.split("|")
+        ordinals[label] += 1
+        # Consumed before the label is judged, so a bad label reports itself
+        # rather than leaving its sections behind to trip the drift assertion
+        # below - which used to answer "slot_ordinal and tasking_rows disagree"
+        # to a question that was really "Tanker is not a role".
+        crews = tagged.pop((label, ordinals[label]), [])
         if label not in TASKING_ROLES:
             problems.append(
                 f"{mission['key']}: {label!r} is not an air-tasking role - "
                 f"ui.ini names {', '.join(TASKING_ROLES)} and nothing else")
             continue
-        ordinals[label] += 1
         want_roles = frozenset(x for x in roles.split("/") if x)
         want_fits = frozenset(x for x in fits.split("/") if x)
-        crews = tagged.pop((label, ordinals[label]), [])
         if not crews:
             dropped.append(label)
             continue
@@ -2254,6 +2308,15 @@ def main():
                  + ", ".join(sorted(stale)))
     print(f"\ncoverage: {len(rows)} mods and packs, all accounted for")
 
+    # Built BEFORE the dry-run exit, because every air-tasking gate lives in
+    # here - the row/section pairing, the role and fit checks, the label
+    # vocabulary, the purchase allowlists. Returning first made `--dry-run`
+    # ("resolve and check everything, emit nothing") the one command that
+    # checked none of them: the same mutation passed dry-run and failed the
+    # real build. It is pure, so building it early costs nothing.
+    campaign_text = campaign_ini([m for _n, _t, m in built], EVENTS,
+                                 placements) + "\n"
+
     if args.dry_run:
         print("(dry run — nothing written)")
         return
@@ -2293,7 +2356,7 @@ def main():
         (camp / "art" / f"{event['file']}.xml").write_text(event_page(event),
                                                            encoding="utf-8")
     (camp / "campaign.ini").write_text(
-        campaign_ini([m for _n, _t, m in built], EVENTS, placements) + "\n",
+        campaign_text,
         encoding="utf-8")
     (camp / "player_task_force_roster.ini").write_text(roster_text, encoding="utf-8")
     (camp / "commander_settings.ini").write_text(COMMANDER, encoding="utf-8")
