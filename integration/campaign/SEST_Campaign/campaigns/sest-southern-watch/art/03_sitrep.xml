@@ -1,21 +1,7 @@
-<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  d:DesignWidth="1920" d:DesignHeight="1080"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
-  <Viewbox>
-    <Border Background="#F2EFE6" Width="1100" Height="760" Padding="60"
-            TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black">
-      <StackPanel Orientation="Vertical">
-        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
-        <TextBlock Text="7 NOVEMBER 2028  |  MARITIME BORDER COMMAND, DARWIN" Margin="0,14,0,14" FontSize="26"/>
-        <Rectangle HorizontalAlignment="Stretch" Height="4" Fill="Black"/>
-        <TextBlock Text="THIS IS NO LONGER DENIABLE" FontWeight="Bold" FontSize="54"
-                   TextWrapping="Wrap" TextAlignment="Center" Margin="0,26,0,26"/>
-        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
-        <TextBlock Text="An armed escort fired on a protected convoy in daylight. The recordings are unambiguous and the diplomatic language has changed accordingly." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
-        <TextBlock Text="Growler and wider surveillance allocations are released. Damage and magazine expenditure are no longer things the force can simply absorb." FontSize="24" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,18,0,0"/>
-      </StackPanel>
-    </Border>
-  </Viewbox>
-</Page>
+  Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel>
+        <Image Source="{Binding Assets[03_sitrep_image]}"/>
+    </StackPanel>
+</Viewbox>
