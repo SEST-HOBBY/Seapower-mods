@@ -510,7 +510,9 @@ BLOCK_ORDER = ("Type", "VariantReference", "SpawnByVariableAND",
                "SquadronReference", "JoinTaskForce", "LoadoutVariant",
                "TaskForceModeAnchor", "Nation", "UnlimitedFuel", "WeaponStatus",
                "RadarsActive", "CrewSkill", "Morale", "CampaignTag",
-               "RelativePositionInNM", "Heading", "Telegraph")
+               "RelativePositionInNM", "Heading", "Telegraph",
+               # last, after Waypoints, where the native blocks put it
+               "HomeBase")
 
 
 def block(tag, keys):
@@ -592,22 +594,10 @@ def place(mission, snapper):
         keys = dict(Type=spec["type"], **keys)
         # Native writes UnlimitedFuel on every section kind - vessels,
         # submarines, land units, even biologics - so it is emitted for all of
-        # them here too. It only MEANS anything for something that flies
-        # ("this aircraft or helicopter starts with unlimited fuel"), so only
-        # those get the derived value; everything else takes the inert False
-        # rather than flapping when an unrelated deck joins the mission.
-        #
-        # A helicopter gets down on any deck; ten is the gap between an
-        # escort's single spot and the smallest real flight deck here.
-        # The DIRECTORY does not say which: every helicopter in this mod set
-        # ships under aircraft/ and declares UnitType=Helicopter (MH-60R,
-        # SH-60K, CH-53, Z-20J). Reading the folder put ship's flights on the
-        # fixed-wing rule and told them they had nowhere to land.
-        flying = unit_type(spec["type"])
-        flies = flying in ("Aircraft", "Helicopter")
-        needs = 1 if flying == "Helicopter" else 10
-        keys.update(UnlimitedFuel=("True" if flies and decks < needs
-                                   else "False"),
+        # them here too, inert. assign_home_bases() overwrites it for anything
+        # that flies once every section has a number, because the answer
+        # depends on what else is in the mission.
+        keys.update(UnlimitedFuel="False",
                     WeaponStatus=spec.get("weapons", "Free"),
                     RadarsActive=spec.get("radars", "True"),
                     CrewSkill=spec.get("skill", "Trained"), Morale="3")
@@ -669,7 +659,77 @@ def place(mission, snapper):
             best = credits.get(token)
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
                 credits[token] = (why[0], why[1], mission["key"])
+
+    assign_home_bases(placed)
     return placed, members, credits, worst
+
+
+def assign_home_bases(placed):
+    """Give every aircraft somewhere to land, and only then charge it fuel.
+
+    `HomeBase` names the section of the field or the deck an aircraft belongs
+    to - 54 native aircraft and helicopters carry one, pointing at a
+    `Taskforce1LandUnit` airfield or at a ship. 42 of those 54 also carry
+    `UnlimitedFuel=False`, which is the whole point: an aeroplane with a base
+    can be made to care about fuel, and one without cannot be, because it will
+    fly until it falls out of the sky.
+
+    So the two keys are decided together and per airframe. A helicopter takes
+    any deck (every escort here declares `AircraftCapacity=1`); a fast jet
+    needs a real field or a carrier, ten being the gap between an escort's
+    single spot and the smallest flight deck in the collection. Nearest by
+    spawn position, so a ship's flight is homed on its own ship rather than on
+    whichever one happens to be numbered first.
+    """
+    # How far an airframe may be from its base and still be given finite fuel.
+    #
+    # AUTHORED JUDGEMENT, not measurement. Nothing in the shipped data states
+    # an airframe's range: `MaxRange` appears on some units but inside weapon
+    # and sensor blocks, so an AH-64E reads 1,035 NM and an F-35A reads
+    # nothing. These two numbers are a call, and the cost of getting them
+    # wrong is asymmetric - too generous and an aircraft flies until it falls
+    # out of the sky, which is the exact failure the game's own tooltip says
+    # UnlimitedFuel exists to prevent. Beyond the radius the aircraft keeps
+    # unlimited fuel and no HomeBase, because there genuinely is nowhere for
+    # it to land.
+    RADIUS = {"Helicopter": 150.0, "Aircraft": 600.0}
+
+    def spot(keys):
+        bits = keys.get("RelativePositionInNM", "").split(",")
+        try:
+            return float(bits[0]), float(bits[2])
+        except (ValueError, IndexError):
+            return None
+
+    decks = []
+    for family in ("Taskforce1LandUnit", "Taskforce1Vessel"):
+        for tag, keys, _n, _x in placed.get(family, []):
+            size = deck_size(keys["Type"])
+            if size:
+                decks.append((tag, size, spot(keys)))
+
+    for family in ("Taskforce1Aircraft", "Taskforce1Helicopter"):
+        for tag, keys, _n, _x in placed.get(family, []):
+            kind = unit_type(keys["Type"])
+            if kind not in ("Aircraft", "Helicopter"):
+                continue
+            needs = 1 if kind == "Helicopter" else 10
+            here = spot(keys)
+            usable = [(t, s, p) for t, s, p in decks if s >= needs]
+            if not usable:
+                keys["UnlimitedFuel"] = "True"
+                continue
+            def how_far(deck):
+                if not (here and deck[2]):
+                    return 9e9
+                return math.hypot(deck[2][0] - here[0], deck[2][1] - here[1])
+
+            usable.sort(key=how_far)
+            if how_far(usable[0]) > RADIUS[kind]:
+                keys["UnlimitedFuel"] = "True"
+                continue
+            keys["HomeBase"] = usable[0][0]
+            keys["UnlimitedFuel"] = "False"
 
 
 def mission_name(mission):
