@@ -1,0 +1,322 @@
+# Player-prev.log - last 319 of 319 line(s), captured 2026-09-21T22:25:30.
+# Unity writes this fresh each launch; -prev is the session before.
+
+Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
+Mono config path = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/MonoBleedingEdge/etc'
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.0.67f1 (78a1c2bbeb6a)
+[Subsystems] Discovering subsystems at path C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/UnitySubsystems
+kGfxThreadingModeSplitJobs is not supported on Direct3D 11. Reverting to kGfxThreadingModeClientWorkerJobs instead.
+GfxDevice: creating device client; kGfxThreadingModeClientWorkerJobs
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 2070 SUPER (ID=0x1e84)
+    Vendor:   NVIDIA
+    VRAM:     7989 MB
+    Driver:   32.0.16.1074
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.238 seconds
+- Finished resetting the current domain, in  0.002 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+<RI> Initializing input.
+
+Using Windows.Gaming.Input
+<RI> Input initialized.
+
+[3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
+UnloadTime: 1.159300 ms
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.Directories contains Mods
+[3D WebView] System info (used by Vuplex support):
+Unity version: 6000.0.67f1
+Development build: False
+OS version: Windows 11  (10.0.26200)
+Device model: MS-7D91 (Micro-Star International Co., Ltd.)
+Graphics API: Direct3D11
+Rendering threading mode: LegacyJobified
+Render pipeline: default
+SRP Batcher: False
+[Singleton<SeaPower.FileManager>] There should never be more than one Singleton of type SeaPower.FileManager in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+0.8.2-23444+s358 (C) Triassic Games 2024-2026
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+FileManager.OnStart(Game) Subscribed Items = [(3440622312, k_EItemStateSubscribed, k_EItemStateInstalled), (3789793270, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3514484654, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3504168760, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3508978375, k_EItemStateNone), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3426791311, k_EItemStateNone), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3663564190, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled)]
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.Directories contains Mods
+FileManager.CheckFileValidity(): Game passed file validity checks!
+FileManager.CheckForUpdates(): Skipping mod 3508978375 - not accessible (result: k_EResultAccessDenied, banned: False, visibility: k_ERemoteStoragePublishedFileVisibilityPublic).
+FileManager.CheckForUpdates(): Skipping mod 3426791311 - not accessible (result: k_EResultAccessDenied, banned: False, visibility: k_ERemoteStoragePublishedFileVisibilityPublic).
+FileManager.CheckForUpdates(): The following files require update []
+Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
+[2101 - HTTPRequestCompleted] - 23 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3807
+The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+[Singleton<SeaPower.TerrainManager>] There should never be more than one Singleton of type SeaPower.TerrainManager in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+[Singleton<SeaPower.FileManager>] There should never be more than one Singleton of type SeaPower.FileManager in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+[Singleton<SeaPower.UnityLog>] There should never be more than one Singleton of type SeaPower.UnityLog in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Unloading 7 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 180 unused Assets to reduce memory usage. Loaded Objects now: 16997.
+Total: 95.173400 ms (FindLiveObjects: 1.142000 ms CreateObjectMapping: 0.883200 ms MarkObjects: 92.851200 ms  DeleteObjects: 0.296600 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 17020.
+Total: 92.643200 ms (FindLiveObjects: 1.100300 ms CreateObjectMapping: 0.712700 ms MarkObjects: 90.792900 ms  DeleteObjects: 0.036600 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 17033.
+Total: 88.926400 ms (FindLiveObjects: 0.880600 ms CreateObjectMapping: 0.438900 ms MarkObjects: 87.582500 ms  DeleteObjects: 0.024000 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 17042.
+Total: 89.015100 ms (FindLiveObjects: 0.624500 ms CreateObjectMapping: 0.429000 ms MarkObjects: 87.935800 ms  DeleteObjects: 0.025400 ms)
+
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+[3D WebView] Unable to deliver a message from the native plugin to a webview GameObject because there is no longer a GameObject named 'WebView-a624a5a4-6ce1-4004-b4c9-c626ecc244fc'. This can sometimes happen directly after destroying a webview. In that case, it is benign and this message can be ignored.
+Unloading 1426 unused Assets to reduce memory usage. Loaded Objects now: 13341.
+Total: 154.853000 ms (FindLiveObjects: 0.530300 ms CreateObjectMapping: 0.508900 ms MarkObjects: 120.240700 ms  DeleteObjects: 33.572500 ms)
+
+The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+[Singleton<SeaPower.TerrainManager>] There should never be more than one Singleton of type SeaPower.TerrainManager in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+[Singleton<SeaPower.FileManager>] There should never be more than one Singleton of type SeaPower.FileManager in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+[Singleton<SeaPower.UnityLog>] There should never be more than one Singleton of type SeaPower.UnityLog in the scene, but 2 were found. The first instance found will be used, and all others will be destroyed.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.Directories contains Mods
+Unloading 6 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 65 unused Assets to reduce memory usage. Loaded Objects now: 15394.
+Total: 113.390400 ms (FindLiveObjects: 0.726700 ms CreateObjectMapping: 0.441600 ms MarkObjects: 111.914600 ms  DeleteObjects: 0.307200 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetFloat(_Shininess, 2.5)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetFloat(_Fresnel, 0.75)
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 28794.
+Total: 117.292500 ms (FindLiveObjects: 1.018400 ms CreateObjectMapping: 0.732300 ms MarkObjects: 115.476200 ms  DeleteObjects: 0.065300 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_Interval, 0.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_Lightness, 0.2)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_MaxSize, 5.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_TransitionDist, 1000.0)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_Interval, 0.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_Lightness, 0.2)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_MaxSize, 5.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_TransitionDist, 1000.0)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 36411.
+Total: 118.309800 ms (FindLiveObjects: 2.580400 ms CreateObjectMapping: 1.248200 ms MarkObjects: 114.420000 ms  DeleteObjects: 0.060900 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 39020.
+Total: 124.664100 ms (FindLiveObjects: 1.727600 ms CreateObjectMapping: 0.938600 ms MarkObjects: 121.926900 ms  DeleteObjects: 0.070600 ms)
+
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "2-plan_j-15t/Colliders/systemcolliders/coll_engl"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "2-plan_j-15t/Colliders/systemcolliders/coll_engr"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "3-plan_j-15t/Colliders/systemcolliders/coll_engl"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "3-plan_j-15t/Colliders/systemcolliders/coll_engr"
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetFloat(_Fresnel, 0.75)
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.Directories contains Mods
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.Directories contains Mods
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 733 unused Assets to reduce memory usage. Loaded Objects now: 74424.
+Total: 162.690700 ms (FindLiveObjects: 5.115300 ms CreateObjectMapping: 2.439400 ms MarkObjects: 154.381200 ms  DeleteObjects: 0.754300 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 74333.
+Total: 172.875200 ms (FindLiveObjects: 5.059100 ms CreateObjectMapping: 1.980800 ms MarkObjects: 165.736700 ms  DeleteObjects: 0.098300 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74327.
+Total: 137.816300 ms (FindLiveObjects: 3.948500 ms CreateObjectMapping: 1.671300 ms MarkObjects: 132.104200 ms  DeleteObjects: 0.091900 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74327.
+Total: 138.450200 ms (FindLiveObjects: 3.418500 ms CreateObjectMapping: 1.536800 ms MarkObjects: 133.379100 ms  DeleteObjects: 0.115400 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 81 unused Assets to reduce memory usage. Loaded Objects now: 74296.
+Total: 137.043100 ms (FindLiveObjects: 3.369900 ms CreateObjectMapping: 2.062400 ms MarkObjects: 131.465500 ms  DeleteObjects: 0.144900 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74299.
+Total: 141.989200 ms (FindLiveObjects: 3.904700 ms CreateObjectMapping: 1.604500 ms MarkObjects: 136.408900 ms  DeleteObjects: 0.070500 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74299.
+Total: 147.937000 ms (FindLiveObjects: 3.844200 ms CreateObjectMapping: 2.361200 ms MarkObjects: 141.653600 ms  DeleteObjects: 0.077400 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74299.
+Total: 134.922000 ms (FindLiveObjects: 3.245100 ms CreateObjectMapping: 1.355200 ms MarkObjects: 130.238100 ms  DeleteObjects: 0.083200 ms)
+
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.Directories contains Mods
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 83 unused Assets to reduce memory usage. Loaded Objects now: 74201.
+Total: 135.382700 ms (FindLiveObjects: 3.716100 ms CreateObjectMapping: 1.987900 ms MarkObjects: 129.496400 ms  DeleteObjects: 0.181900 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 74370.
+Total: 141.126500 ms (FindLiveObjects: 3.362100 ms CreateObjectMapping: 1.254200 ms MarkObjects: 136.388500 ms  DeleteObjects: 0.121200 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74364.
+Total: 156.673600 ms (FindLiveObjects: 3.685400 ms CreateObjectMapping: 2.012400 ms MarkObjects: 150.909000 ms  DeleteObjects: 0.066300 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74364.
+Total: 140.428200 ms (FindLiveObjects: 3.417600 ms CreateObjectMapping: 1.289500 ms MarkObjects: 135.632300 ms  DeleteObjects: 0.088200 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 81 unused Assets to reduce memory usage. Loaded Objects now: 74329.
+Total: 146.615400 ms (FindLiveObjects: 4.588900 ms CreateObjectMapping: 1.725200 ms MarkObjects: 140.150600 ms  DeleteObjects: 0.150300 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74332.
+Total: 145.473700 ms (FindLiveObjects: 4.976600 ms CreateObjectMapping: 2.216500 ms MarkObjects: 138.199200 ms  DeleteObjects: 0.080900 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74332.
+Total: 139.614800 ms (FindLiveObjects: 4.122500 ms CreateObjectMapping: 1.770400 ms MarkObjects: 133.646400 ms  DeleteObjects: 0.074900 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 74332.
+Total: 149.097400 ms (FindLiveObjects: 3.479300 ms CreateObjectMapping: 1.719700 ms MarkObjects: 143.812900 ms  DeleteObjects: 0.084800 ms)
+
+NullReferenceException: Object reference not set to an instance of an object | 1 vs 3
+NullReferenceException: Object reference not set to an instance of an object
+  at SeaPower.ObjectBase.SpawnPilot (System.String pilotIniName, UnityEngine.Vector3 offset, UnityEngine.Vector3 rotation) [0x00021] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.OnFixedUpdate () [0x00207] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Aircraft.OnFixedUpdate () [0x00128] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x0004f] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00012] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+
+FileManager.GetSearchDirectories() is skipping 3508978375 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.GetSearchDirectories() is skipping 3426791311 as itemState=k_EItemStateNone indicates the mod is not installed, or has a pending download.
+FileManager.Directories contains Mods
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+[3D WebView] Unable to deliver a message from the native plugin to a webview GameObject because there is no longer a GameObject named 'WebView-71e9aeaf-5ac1-49f7-a391-9e4743dc434a'. This can sometimes happen directly after destroying a webview. In that case, it is benign and this message can be ignored.
+Unloading 14843 unused Assets to reduce memory usage. Loaded Objects now: 14993.
+Total: 224.928300 ms (FindLiveObjects: 2.638100 ms CreateObjectMapping: 2.095200 ms MarkObjects: 149.319500 ms  DeleteObjects: 70.874900 ms)
+
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+[Physics::Module] Cleanup current backned.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.

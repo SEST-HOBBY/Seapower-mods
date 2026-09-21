@@ -1,0 +1,13 @@
+# Lines from Player-prev.log matching Exception/Error/not found/missing/failed.
+# 10 hit(s) - the first place to look when something did not load.
+
+     58: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+     91: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    291: NullReferenceException: Object reference not set to an instance of an object | 1 vs 3
+    292: NullReferenceException: Object reference not set to an instance of an object
+    298: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+    299: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+    300: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+    301: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+    302: UnityEngine.Logger:LogException(Exception, Object)
+    303: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
