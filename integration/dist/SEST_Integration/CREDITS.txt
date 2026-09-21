@@ -1,0 +1,28 @@
+CREDITS
+
+This pack is one folder of .ini files. It ships no models, no
+textures and no audio - every one of those belongs to the Workshop
+mod it came from, which is why REQUIRED-MODS.txt lists them as
+required rather than suggested.
+
+6 unit file(s) here are built directly on somebody
+else's work: a hull from another mod, given an Australian name
+and in some cases an edited weapon fit. The original file's id
+is kept as the first line of each, and this list is generated
+from those lines.
+
+  Euromod - Cold War Spanish Navy  (workshop 3630495619)
+      vessels/ran_aor_supply.ini         from ae_ao_teide
+
+  Euromod - Modern Spanish Navy  (workshop 3731208477)
+      vessels/ran_ddg_hobart.ini         from ae_ffg_alvaro_bazan
+      vessels/ran_lhd_canberra.ini       from ae_lhd_juan_carlos
+      vessels/ran_lsd_choules.ini        from ae_lpd_galicia
+      vessels/ran_opv_arafura.ini        from ae_opv_meteoro
+      vessels/ran_ssg_collins.ini        from ae_ssk_s80
+
+If you are the author of one of those mods and would rather this
+pack aliased your file than carried a copy of it, say so and it
+will be changed - the game supports it (#!alias) and nothing
+here depends on the copy.
+

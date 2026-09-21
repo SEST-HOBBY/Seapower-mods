@@ -154,6 +154,80 @@ def build_info(packs):
     return INFO_HEADER.format(desc=desc, version=version)
 
 
+def credits_text(staged):
+    """Who else's work this pack is built on, read out of the files.
+
+    Six of the RAN hulls here are another modder's ship with an Australian
+    name: HMAS Hobart is the Alvaro de Bazan, Canberra the Juan Carlos I,
+    Collins the S-80. Three of the six are byte-identical to the file they came
+    from and three carry small edits, and every one of them keeps the donor's
+    unit id in its first line - which is a note to whoever opens the file, not
+    a credit anyone downloading this would ever see.
+
+    So it is generated from that first line rather than typed: a hull added or
+    renamed later cannot fall out of this list, and a credit that is derived
+    cannot quietly go stale. It is also why those mods are REQUIRED and not
+    merely recommended - the model and the textures are theirs, and stay theirs.
+    """
+    mods = ROOT / "mods-source"
+    donors = {}
+    for f in mods.rglob("*.ini"):
+        rel = f.relative_to(mods)
+        if rel.parts[0] == "_vanilla":
+            continue
+        donors.setdefault(f.name, rel)
+    titles = {}
+    try:
+        import json
+        data = json.loads((ROOT / "data" / "mod-catalog.json").read_text(encoding="utf-8"))
+        titles = {str(m["workshop_id"]): m.get("title", "") for m in data["mods"]
+                  if m.get("workshop_id")}
+    except Exception:                       # a credits file is not worth a build
+        pass
+
+    rows = []
+    for rel, blob in sorted(staged.items()):
+        if "/" not in rel or rel.split("/", 1)[0] in (
+                "campaigns", "missions", "language_en", "systems"):
+            continue
+        head = blob.decode("utf-8", errors="replace").split("\n", 1)[0].strip()
+        m = re.match(r"^#\s*([a-z0-9_\-]+)\s*$", head)
+        if not m or m.group(1) == rel.rsplit("/", 1)[-1][:-4]:
+            continue
+        src = donors.get(m.group(1) + ".ini")
+        if src is None:
+            continue
+        token = src.parts[0]            # mods-source/<workshop id>/...
+        rows.append((rel, m.group(1), token, titles.get(token, token)))
+
+    L = ["CREDITS", "",
+         "This pack is one folder of .ini files. It ships no models, no",
+         "textures and no audio - every one of those belongs to the Workshop",
+         "mod it came from, which is why REQUIRED-MODS.txt lists them as",
+         "required rather than suggested.", ""]
+    if rows:
+        L += [f"{len(rows)} unit file(s) here are built directly on somebody",
+              "else's work: a hull from another mod, given an Australian name",
+              "and in some cases an edited weapon fit. The original file's id",
+              "is kept as the first line of each, and this list is generated",
+              "from those lines.", ""]
+        by_mod = {}
+        for rel, origin, token, title in rows:
+            by_mod.setdefault((token, title), []).append((rel, origin))
+        for (token, title), items in sorted(by_mod.items(), key=lambda kv: kv[0][1].lower()):
+            L.append(f"  {title}  (workshop {token})")
+            for rel, origin in sorted(items):
+                L.append(f"      {rel:<34} from {origin}")
+            L.append("")
+        L += ["If you are the author of one of those mods and would rather this",
+              "pack aliased your file than carried a copy of it, say so and it",
+              "will be changed - the game supports it (#!alias) and nothing",
+              "here depends on the copy.", ""]
+    else:
+        L += ["No unit file here is derived from another mod's file.", ""]
+    return "\n".join(L) + "\n"
+
+
 def main():
     packs = source_packs()
     if not packs:
@@ -195,9 +269,11 @@ def main():
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(blob)
     (DIST / "_info.ini").write_text(build_info(packs), encoding="utf-8")
+    (DIST / "CREDITS.txt").write_text(credits_text(staged), encoding="utf-8")
 
     merged = sum(1 for rel, owners in by_rel.items() if len(owners) > 1 and rel != "_info.ini")
-    print(f"built {DIST.relative_to(ROOT)}: {len(staged) + 1} files from "
+    files = sum(1 for f in DIST.rglob("*") if f.is_file())
+    print(f"built {DIST.relative_to(ROOT)}: {files} files from "
           f"{len(packs)} packs ({merged} colliding paths merged)")
 
 
