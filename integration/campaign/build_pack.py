@@ -660,7 +660,9 @@ def place(mission, snapper):
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
                 credits[token] = (why[0], why[1], mission["key"])
 
-    assign_home_bases(placed)
+    stranded = assign_home_bases(placed)
+    if stranded:
+        raise SystemExit(f"{mission['key']}: " + "; ".join(stranded))
     return placed, members, credits, worst
 
 
@@ -669,31 +671,25 @@ def assign_home_bases(placed):
 
     `HomeBase` names the section of the field or the deck an aircraft belongs
     to - 54 native aircraft and helicopters carry one, pointing at a
-    `Taskforce1LandUnit` airfield or at a ship. 42 of those 54 also carry
-    `UnlimitedFuel=False`, which is the whole point: an aeroplane with a base
-    can be made to care about fuel, and one without cannot be, because it will
-    fly until it falls out of the sky.
+    `Taskforce1LandUnit` airfield or at a ship, and 59 of them are on the RED
+    side. 42 of the 54 also carry `UnlimitedFuel=False`, which is the point:
+    an aeroplane with a base can be charged for fuel, and one without cannot
+    be, because it will fly until it falls out of the sky.
 
-    So the two keys are decided together and per airframe. A helicopter takes
-    any deck (every escort here declares `AircraftCapacity=1`); a fast jet
-    needs a real field or a carrier, ten being the gap between an escort's
-    single spot and the smallest flight deck in the collection. Nearest by
-    spawn position, so a ship's flight is homed on its own ship rather than on
-    whichever one happens to be numbered first.
+    Both keys are decided together, per airframe, per SIDE - an aircraft
+    recovers on its own side's deck or nobody's. A helicopter takes any deck
+    (every escort here declares `AircraftCapacity=1`); a fast jet needs a real
+    field or a carrier, ten being the gap between an escort's single spot and
+    the smallest flight deck in the collection. Nearest first, so a ship's
+    flight is homed on its own ship rather than whichever is numbered first.
+
+    A player aircraft with nowhere in range is returned as a problem and fails
+    the build: the answer is to give the mission a field or a deck, not to
+    hand the aeroplane infinite fuel. For red and neutral the same search runs
+    and the same bases are used where they exist, but nothing fails - their
+    order of battle is not the design's to fix, and a red fighter dropping out
+    of the sky at bingo would hand the player the mission.
     """
-    # How far an airframe may be from its base and still be given finite fuel.
-    #
-    # AUTHORED JUDGEMENT, not measurement. Nothing in the shipped data states
-    # an airframe's range: `MaxRange` appears on some units but inside weapon
-    # and sensor blocks, so an AH-64E reads 1,035 NM and an F-35A reads
-    # nothing. These two numbers are a call, and the cost of getting them
-    # wrong is asymmetric - too generous and an aircraft flies until it falls
-    # out of the sky, which is the exact failure the game's own tooltip says
-    # UnlimitedFuel exists to prevent. Beyond the radius the aircraft keeps
-    # unlimited fuel and no HomeBase, because there genuinely is nowhere for
-    # it to land.
-    RADIUS = {"Helicopter": 150.0, "Aircraft": 600.0}
-
     def spot(keys):
         bits = keys.get("RelativePositionInNM", "").split(",")
         try:
@@ -701,36 +697,61 @@ def assign_home_bases(placed):
         except (ValueError, IndexError):
             return None
 
-    decks = []
-    for family in ("Taskforce1LandUnit", "Taskforce1Vessel"):
-        for tag, keys, _n, _x in placed.get(family, []):
-            size = deck_size(keys["Type"])
-            if size:
-                decks.append((tag, size, spot(keys)))
+    stranded = []
+    for side in ("Taskforce1", "Taskforce2", "Neutral"):
+        decks = []
+        for kind_family in ("LandUnit", "Vessel"):
+            for tag, keys, _n, _x in placed.get(side + kind_family, []):
+                size = deck_size(keys["Type"])
+                if size:
+                    decks.append((tag, size, spot(keys)))
 
-    for family in ("Taskforce1Aircraft", "Taskforce1Helicopter"):
-        for tag, keys, _n, _x in placed.get(family, []):
-            kind = unit_type(keys["Type"])
-            if kind not in ("Aircraft", "Helicopter"):
-                continue
-            needs = 1 if kind == "Helicopter" else 10
-            here = spot(keys)
-            usable = [(t, s, p) for t, s, p in decks if s >= needs]
-            if not usable:
+        for family in (side + "Aircraft", side + "Helicopter"):
+            for tag, keys, _n, _x in placed.get(family, []):
+                kind = unit_type(keys["Type"])
+                if kind not in ("Aircraft", "Helicopter"):
+                    continue
+                needs = 1 if kind == "Helicopter" else 10
+                here = spot(keys)
+                usable = [d for d in decks if d[1] >= needs]
+
+                def how_far(deck):
+                    if not (here and deck[2]):
+                        return 9e9
+                    return math.hypot(deck[2][0] - here[0],
+                                      deck[2][1] - here[1])
+
+                usable.sort(key=how_far)
+                total = airframe_range(keys["Type"])
+                radius = (total or 0.0) * SORTIE_FRACTION
+                near = usable and how_far(usable[0]) <= radius
+                if near:
+                    keys["HomeBase"] = usable[0][0]
+                    keys["UnlimitedFuel"] = "False"
+                    continue
+                # Nowhere to land. For the player that is a design fault and
+                # the build says so; for anyone else it is the tooltip's own
+                # case, and infinite fuel beats falling out of the sky.
                 keys["UnlimitedFuel"] = "True"
-                continue
-            def how_far(deck):
-                if not (here and deck[2]):
-                    return 9e9
-                return math.hypot(deck[2][0] - here[0], deck[2][1] - here[1])
-
-            usable.sort(key=how_far)
-            if how_far(usable[0]) > RADIUS[kind]:
-                keys["UnlimitedFuel"] = "True"
-                continue
-            keys["HomeBase"] = usable[0][0]
-            keys["UnlimitedFuel"] = "False"
-
+                if side != "Taskforce1":
+                    continue
+                if total is None:
+                    stranded.append(
+                        f"{keys['Type']} at {tag} declares no range - no "
+                        "MaxRange, no SpeedAndRange_Cruise, no alias with one")
+                elif not usable:
+                    stranded.append(
+                        f"{keys['Type']} at {tag} has nowhere to land in this "
+                        "mission - no "
+                        + ("deck" if needs == 1 else "field or carrier")
+                        + " on its own side")
+                else:
+                    stranded.append(
+                        f"{keys['Type']} at {tag} is {how_far(usable[0]):.0f} "
+                        f"NM from the nearest field it can use, and "
+                        f"{total:.0f} NM of range gives it a {radius:.0f} NM "
+                        "radius. Put something it can land on within reach")
+    return stranded
 
 def mission_name(mission):
     """The name the browser and the campaign card both show.
@@ -975,6 +996,59 @@ def ammo_range(store, depth=0):
         if a:
             best = max(best, ammo_range(Path(a.group(1)).stem, depth + 1))
     return best
+
+
+_RANGE = {}
+
+# What fraction of an airframe's total range is usable as a sortie radius.
+#
+# The RANGE itself is data - see airframe_range() - but turning a range into a
+# radius needs one stated assumption, because a sortie has to come back. Half
+# of it goes out and half returns, and a real profile spends the rest on
+# reserve, join-up, time on task and the fact that nothing cruises the whole
+# way. 0.40 is the planning figure that falls out of that, and it is the only
+# number here that is not read from a file.
+SORTIE_FRACTION = 0.40
+
+
+def airframe_range(uid, depth=0):
+    """Total range in nautical miles, off the unit's own flight model.
+
+    Two spellings, both shipped. A helicopter declares `MaxRange` in
+    `[Physics]`, already in nautical miles - MH-60R 520, AH-64E 1035, VH-3D
+    542. A fixed-wing declares `SpeedAndRange_Cruise=<mach>,<range>` with a
+    `RangeUnits` line whose comment reads "Can be: Km. Any other value = nmi",
+    so only the literal Km converts - F-35A 1367 nmi, P-8 5000 km, B-2 9000.
+    Aliased files defer to the airframe they extend, as everywhere else.
+
+    Every one of the 100 airframes this campaign places answers.
+    """
+    if depth > 4:
+        return None
+    if uid in _RANGE:
+        return _RANGE[uid]
+    _kind, path = unit_file(uid)
+    if path is None:
+        return None
+    text = read(path)
+    out = None
+    m = re.search(r"^MaxRange=\s*([\d.]+)", text, re.M)
+    if m:
+        out = float(m.group(1))
+    else:
+        c = re.search(r"^SpeedAndRange_Cruise=\s*[\d.]+\s*,\s*([\d.]+)",
+                      text, re.M)
+        if c:
+            out = float(c.group(1))
+            u = re.search(r"^RangeUnits=\s*(\S+)", text, re.M)
+            if u and u.group(1).strip().lower() == "km":
+                out /= 1.852
+        else:
+            a = re.search(r"#!alias\s+(\S+)", text)
+            if a:
+                out = airframe_range(Path(a.group(1)).stem, depth + 1)
+    _RANGE[uid] = out
+    return out
 
 
 _REACH = {}
