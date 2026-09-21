@@ -52,55 +52,60 @@ game running. A variable that is declared, written and read in three files is a
 static fact about those files. Whether the campaign carries it between missions
 is the seventh step of §16's acceptance run, and that step has not been taken.
 
-## Bases, so fuel can matter
+## Bases, so fuel can matter — and the range is in the files
 
-The previous pass answered "no airbase" with `UnlimitedFuel=True`, which is
-what the tooltip prescribes and is also a way of removing a constraint rather
-than modelling it. Forty-eight aircraft never ran out of fuel, including all
-ten in Long Way Home — a mission whose whole subject is a tanker rendezvous,
-and where fuel was arguably the most interesting way to lose.
+Two passes ago this campaign answered "no airbase" with `UnlimitedFuel=True`
+for 48 aircraft. Then it answered it with bases and a radius I made up: 150 NM
+for a helicopter, 600 for a fast jet, on the stated grounds that nothing in
+the shipped data gives an airframe's range.
 
-The native answer is the other half of the pair. Fifty-four shipped aircraft
-carry `HomeBase=`, naming a `Taskforce1LandUnit` airfield or a ship, and
-forty-two of those also carry `UnlimitedFuel=False`. An aeroplane with a base
-can be charged for fuel; one without cannot be, because it will fly until it
-falls out of the sky.
+**That was wrong, and it was the laziest kind of wrong — I looked in one place
+and stopped.** The flight model carries it, in two spellings:
 
-So both keys are decided together, per airframe, after every section has a
-number:
+- a **helicopter** declares `MaxRange` in `[Physics]`, already in nautical
+  miles — MH-60R 520, SH-60K 412, CH-53 600, AH-64E 1035, VH-3D 542;
+- a **fixed-wing** declares `SpeedAndRange_Cruise=<mach>,<range>` beside a
+  `RangeUnits` line whose own comment reads *"Can be: Km. Any other value =
+  nmi"*, so only the literal `Km` converts — F-35A 1367 nmi, Super Hornet
+  1265, F-22 1841, P-8 5000 km, B-2 9000, Triton 9430.
 
-- a **helicopter** homes on any deck — every escort here declares
-  `AircraftCapacity=1` — and takes the nearest one, so a ship's flight belongs
-  to its own ship rather than to whichever is numbered first;
-- a **fast jet** needs a real field or a carrier, ten being the gap between an
-  escort's single spot and the smallest flight deck in the collection;
-- beyond a radius, neither: no base is assigned and the aircraft keeps
-  unlimited fuel.
+**All 100 airframes this campaign places answer.** Aliased files defer to what
+they extend, like everything else here.
 
-Ten missions gained a base, each a real RAAF station at its real coordinates —
-Darwin, Tindal, Curtin, Scherger — and every one of them sits within 0.2 NM of
-a point some already-loading mission has used, because `SEST_RAAF_Bases` ships
-missions that place them. No invented geography.
+One assumption remains and it is the only one: what fraction of total range is
+usable as a sortie radius. A sortie comes back, so half goes out and half
+returns, and a real profile spends more on reserve, join-up and time on task.
+**0.40** is the planning figure that falls out of that. It is the single
+number in this system not read from a file, and it is applied to a real
+per-airframe range rather than standing in for one.
 
-Campaign-wide the count went from 48 aircraft on unlimited fuel to **8**, with
-133 now flying on fuel and 86 carrying a home base.
+**Nowhere to land is now a build failure, not a fallback.** For the player's
+side, an aircraft outside every usable field's radius stops the build and
+names the distance, the range and the shortfall. The answer is to give the
+mission something to land on — which is what the last three missions needed,
+and each of them turned out to be a design gap the fuel question merely
+exposed:
 
-**The radius is a judgement, and it is the weakest thing here.** Nothing in
-the shipped data states an airframe's range: `MaxRange` appears on some units
-but inside weapon and sensor blocks, so an AH-64E reads 1,035 NM and an F-35A
-reads nothing at all. 150 NM for a helicopter and 600 for a fast jet are a
-call, taken knowing the cost is asymmetric — too generous and an aircraft
-flies until it falls out of the sky, which is the exact failure the tooltip
-says the key exists to prevent.
+| Mission | What the range data showed | What it needed |
+|---|---|---|
+| SW08 The Open Door | The package was 707 NM from Scherger against an F-35A's 547 NM radius and a Growler's 506 | A carrier 103 NM off the target. A strike on that enclave was always going to be flown from a deck |
+| SW10 Common Sea | The F-2As were homed on Darwin 428 NM away against a 360 NM radius — 856 NM of transit out of 900 NM of range, with nothing left for the orbit they exist to fly. Their station was already labelled a *detachment* | The strip they were detached from, on proven ground in the Kai group 19 NM away |
+| D6 Long Reach | Five escorts 495 NM from Darwin against radii of 360 to 480 — and one of them a Rafale **Marine**, a carrier aeroplane with no carrier. The mission already had an empty "offshore picket" station | A carrier on it, 70 NM from the escort track |
+| D8 The Long Perimeter | A Polish F-16 369 NM from Scherger against a 360 NM radius, and two Apaches sent 315 NM to the same field | A forward airstrip on the perimeter, which is where a perimeter operation flies from |
 
-The eight that stay unlimited are the ones with nowhere in range, and they are
-the interesting cases rather than the leftovers: The Open Door's package is
-707 NM from Scherger, which is not a sortie, so that mission has no base at
-all — a field on the map that nothing can reach is worse than none. Long
-Perimeter's two Apaches are 315 NM from the same field while its bombers are
-inside 420 and fly on fuel. And Flight Deck Day's VH-3D is 191 NM out on a
-station called `visit`, which is the mission's own idea: a distinguished
-visitor flying to the boat.
+The result: **94 player aircraft, every one on real fuel with a real base, and
+not one on unlimited.** The tightest margins in the campaign are Flight Deck
+Day's VH-3D at 87% of its radius and Long Way Home's Super Hornets at 74% —
+both real numbers now, both inside.
+
+The rule runs **per side**, because an aircraft recovers on its own side's
+deck or nobody's, and 59 native `HomeBase` lines are on red aircraft. Red and
+neutral get the same search and the same bases where they exist — 13 red
+aircraft are now on real fuel — but nothing fails for them: their order of
+battle is not this design's to fix, and a red fighter dropping out of the sky
+at bingo hands the player the mission. Before this ran per side, all 47 red
+and neutral aircraft had finite fuel and no base anywhere, which would have
+done exactly that.
 
 ## Adversarial pass on the reach work: two fatals in it
 
@@ -490,10 +495,13 @@ anything in this repository:
   not the launcher's arc, the sensor's detection range or the fire-control
   solution, and it says nothing about whether the weapon suits the target - a
   28 NM SAM and a 28 NM anti-ship missile read identically here;
-- that an aircraft can actually reach the base it is homed on, or get back.
-  The radius rule is an authored number, not a measurement, and no shipped
-  file states an airframe's range. A jet 550 NM from its field passes the rule
-  and may still not make it;
+- that 0.40 of total range is the right sortie radius. The range is read from
+  the airframe; the fraction is a planning assumption, and a jet at 87% of the
+  radius it implies may still not make it home with the orbit and the
+  manoeuvring a real sortie spends;
+- that the engine's own fuel burn agrees with `SpeedAndRange_Cruise`. The
+  figure is what the file declares as the airframe's range, not something
+  observed in play;
 - that `HomeBase` does what the name implies - that the aircraft will recover
   there, rather than merely being associated with it;
 - that the mod-supplied campaign is surfaced by the Mod Manager at all. The

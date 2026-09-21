@@ -899,6 +899,13 @@ MISSIONS.append(dict(
         "detach": S(-1.2, 136.4, "Foreign detachment", heading=180, alt=4000),
         "port": S(-4.5, 137.0, "Civilian port", heading=0),
         "sea": S(0.5, 135.5, "Offshore picket", heading=180),
+        # The deck this strike always implied. The nearest Australian
+        # field is Scherger, 707 NM south - outside an F-35A's 547 NM
+        # radius and outside a Growler's 506 - so the package had
+        # nowhere to come back to and was quietly given infinite fuel
+        # instead. A carrier 103 NM off the target is what a strike on
+        # this enclave would actually be flown from.
+        "cvn": S(-4.3133, 135.8867, "Carrier group"),
     },
     units=[
         # No home field: the nearest Australian base is Scherger, 707 NM
@@ -940,6 +947,8 @@ MISSIONS.append(dict(
           name="Civilian shelter camp"),
         U("neutral", "_vanilla", "civ_ms_encounter", "sea",
           name="Relief coaster"),
+        U("blue", "modern-us-navy", "usn_cvn_nimitz_2025", "cvn",
+          name="USS Theodore Roosevelt"),
     ],
 ))
 
@@ -1083,11 +1092,17 @@ MISSIONS.append(dict(
         "convoy": S(-6.6, 132.8, "Priority convoy", heading=160),
         "escort": S(-6.8, 133.2, "HMAS Perth", heading=160),
         "helo": S(-7.2, 133.2, "SH-60K pair", heading=180, alt=3000),
-        "f2": S(-5.6, 133.0, "Biak detachment", heading=180, alt=26000),
+        "f2": S(-5.6, 133.0, "Kai detachment CAP", heading=180, alt=26000),
         "red_sub": S(-8.4, 134.4, "Submarine datum", heading=20),
         "red_air": S(-5.4, 133.2, "Enclave fighters", heading=180, alt=32000),
         "kai": S(-7.0, 134.0, "Kai Islands", heading=0),
         "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
+        # The detachment's own strip. The station was already labelled a
+        # detachment, but nothing it flew from was ever placed, so the
+        # F-2As were homed on Darwin 428 NM away - against 900 NM of
+        # total range, which is 856 NM of transit with nothing left for
+        # the orbit they are there to fly.
+        "strip": S(-5.2953, 132.9232, "Forward strip, Kai group"),
     },
     units=[
         U("blue", "SEST_JMSDF_Mogami", "js_ffg_mogami", "jmsdf",
@@ -1119,6 +1134,8 @@ MISSIONS.append(dict(
         U("blue", "p-8-poseidon", "usn_p8", "helo"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
           name="RAAF Base Darwin", nation="australia", weapons="Hold"),
+        U("blue", "_vanilla", "airfield_small_1", "strip",
+          name="Langgur forward strip", weapons="Hold"),
     ],
 ))
 
@@ -1768,6 +1785,12 @@ MISSIONS.append(dict(
           name="Type 004 picket"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
           name="RAAF Base Darwin", nation="australia", weapons="Hold"),
+        # The escorts had 495 NM to Darwin against radii of 360 to 480,
+        # and one of them is a Rafale MARINE - a carrier aeroplane with
+        # no carrier. The offshore picket station was already here and
+        # empty; 70 NM from the escort track, it covers all five.
+        U("blue", "ford-cvn", "usn_cvn_ford_jsf", "sea",
+          name="USS Enterprise"),
     ],
 ))
 
@@ -1887,6 +1910,10 @@ MISSIONS.append(dict(
         "ridge": S(-8.55, 140.40, "Covered ridge", heading=120),
         "red_air": S(-8.1, 139.8, "Opposing fighter", heading=150, alt=30000),
         "home": S(-12.6188, 142.094, "RAAF Base Scherger"),
+        # A perimeter operation flies from the perimeter. Everything here
+        # was homed on Scherger 370 NM back - inside a Warthog's legs
+        # and outside a Viper's, and a long way to send an Apache.
+        "strip": S(-8.5165, 140.4812, "Forward airstrip"),
     },
     units=[
         U("blue", "ah-64", "usa_ah-64e", "gun", name="Gunfighter 11"),
@@ -1913,6 +1940,8 @@ MISSIONS.append(dict(
           name="Civilian traffic"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_scherger", "home",
           name="RAAF Base Scherger", nation="australia", weapons="Hold"),
+        U("blue", "_vanilla", "airfield_small_1", "strip",
+          name="Forward airstrip", weapons="Hold"),
     ],
 ))
 
