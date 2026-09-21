@@ -82,6 +82,18 @@ A few of those mods need a further download of their own and say so in their
 own descriptions. SeaLifter is the one that catches people: subscribing to it
 is not enough.
 
+CREDIT WHERE IT IS DUE
+
+Six of the Australian hulls in this pack are another modder's ship with an
+Australian name on it: HMAS Hobart is the Alvaro de Bazan, Canberra the Juan
+Carlos I, Collins the S-80, and so on. The models, the textures and most of
+the data are from Euromod's Modern and Cold War Spanish Navy packs, and they
+stay theirs - this pack ships .ini files only. CREDITS.txt inside the folder
+names every one of them and which file it came from.
+
+If you wrote one of those mods and would rather this aliased your file than
+carried a copy of it, say so and it will be changed.
+
 FICTION
 
 Every nation, unit, ship name, incident and date in this campaign is invented.

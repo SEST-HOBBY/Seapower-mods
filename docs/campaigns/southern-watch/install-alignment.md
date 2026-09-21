@@ -84,7 +84,7 @@ What to read in its output:
 | `purged SEST_…` | an old per-pack folder removed | expected once, after the switch to the consolidated pack |
 | `appended (not canonical)` | a mod you subscribed to that the repo has never seen | expected for **Automatic SAR** and the **Euromod South Korean Navy** — see step 5 |
 
-The file count should now be **256**, not 122. It changed in this branch: the
+The file count should now be **257**, not 122. It changed in this branch: the
 campaign gained 24 generated PNGs plus `REQUIRED-MODS.txt` and
 `LOAD-ORDER.txt`, and lost the fourteen `_info.ini` files it used to write into
 briefing folders under `campaigns/`, where the vanilla campaigns have none.
@@ -99,6 +99,7 @@ $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
 Get-ChildItem "$sa\campaigns\sest-southern-watch\art\*.png" | Measure-Object   # 24
 Test-Path "$sa\campaigns\sest-southern-watch\art\00_campaign_background.png"   # True
 Test-Path "$sa\REQUIRED-MODS.txt"                                              # True
+Test-Path "$sa\CREDITS.txt"                                                    # True
 ```
 
 The three things to look at in game, in this order, because each one tells you
