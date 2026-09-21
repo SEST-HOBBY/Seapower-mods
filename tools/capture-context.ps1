@@ -44,6 +44,7 @@ param(
     [string]$SettingsPath = (Join-Path $env:USERPROFILE "AppData\LocalLow\Triassic Games\Sea Power\usersettings.ini"),
     [string]$StreamingAssetsDir,
     [switch]$Redact,
+    [switch]$IncludeSaves,
     [int]$LogTailLines = 4000
 )
 
@@ -190,6 +191,78 @@ if (Test-Path $canonPath) {
     $lines += "placed but NOT SUBSCRIBED ($($gone.Count)): $($gone -join ', ')"
 }
 Write-Snapshot "workshop-subscriptions.txt" $lines
+
+# --- 5b. what the game ships now ----------------------------------------------
+# Everything this repo argues from - "native does X", the condition vocabulary,
+# the Task Force Mode keys - is read out of mods-source\_vanilla\original,
+# exported at 0.8.2 Build #358 on 20-Jul-2026. If the installed game has moved
+# on, some of those citations are stale and nothing here would say so.
+$lines = @("# The live install's own changelog head and campaign list, against the",
+           "# export this repo reasons from (0.8.2 Build #358, 20-Jul-2026).", "")
+if ($StreamingAssetsDir) {
+    $gameRoot = Split-Path -Parent $StreamingAssetsDir
+    $chg = Join-Path $gameRoot "changelog.txt"
+    if (-not (Test-Path -LiteralPath $chg)) {
+        $chg = Join-Path (Split-Path -Parent $gameRoot) "changelog.txt"
+    }
+    if (Test-Path -LiteralPath $chg) {
+        Copy-Item -LiteralPath $chg -Destination (Join-Path $outDir "changelog.live.txt") -Force
+        $lines += "changelog copied to changelog.live.txt; head:"
+        $lines += (Get-Content -LiteralPath $chg -TotalCount 12 | ForEach-Object { "    $_" })
+    } else { $lines += "changelog.txt not found beside the install" }
+
+    $camp = Join-Path $StreamingAssetsDir "campaigns"
+    if (Test-Path -LiteralPath $camp) {
+        $have = @("campaign-proto-1", "linear-campaign-proto-1",
+                  "pacific-strike-task-force", "strike-group-molniya-campaign")
+        $lines += ""; $lines += "campaign folders installed:"
+        foreach ($d in Get-ChildItem -LiteralPath $camp -Directory | Sort-Object Name) {
+            $mark = if ($have -contains $d.Name) { "" } else { "   <-- NEW, not in the export" }
+            $lines += ("    {0}{1}" -f $d.Name, $mark)
+        }
+    }
+} else { $lines += "StreamingAssets not found" }
+Write-Snapshot "game-content.txt" $lines
+
+# --- 5c. campaign saves --------------------------------------------------------
+# The single thing no amount of reading the shipped files can settle: what a
+# Task Force Mode campaign actually PERSISTS. Whether a [CampaignVariables]
+# flag survives, how the bought force is stored, how completion and CSAR points
+# accumulate. The changelog says a campaign save is a real artefact
+# ("Saving mid-mission now properly generates a companion campaign save"), so
+# one from any Task Force Mode campaign is worth more than another week of
+# inference. Listed always; copied only with -IncludeSaves, because a save is
+# personal and may be large.
+$saveRoots = @(
+    (Join-Path (Split-Path -Parent $SettingsPath) "Saves"),
+    (Join-Path (Split-Path -Parent $SettingsPath) "saves"),
+    (Join-Path (Split-Path -Parent $SettingsPath) "SaveGames")
+) | Where-Object { Test-Path -LiteralPath $_ }
+$lines = @("# Campaign and mission saves. The campaign layer of this repo is",
+           "# entirely inferred from shipped campaign.ini files; a save is the",
+           "# only evidence of what survives between missions.", "")
+if ($saveRoots) {
+    foreach ($root in $saveRoots) {
+        $lines += "root: $root"
+        foreach ($f in Get-ChildItem -LiteralPath $root -Recurse -File | Sort-Object LastWriteTime -Descending) {
+            $lines += ("    {0,-58} {1,10:N0} bytes  {2:yyyy-MM-dd HH:mm}" -f `
+                       $f.FullName.Substring($root.Length).TrimStart('\'), $f.Length, $f.LastWriteTime)
+        }
+        if ($IncludeSaves) {
+            $dest = Join-Path $outDir "saves"
+            New-Item -ItemType Directory -Force -Path $dest | Out-Null
+            Get-ChildItem -LiteralPath $root -Recurse -File |
+                Sort-Object LastWriteTime -Descending | Select-Object -First 4 |
+                ForEach-Object {
+                    Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $dest $_.Name) -Force
+                    $lines += "    copied: $($_.Name)"
+                }
+        } else {
+            $lines += "    (listing only - re-run with -IncludeSaves to copy the 4 most recent)"
+        }
+    }
+} else { $lines += "no save folder found beside usersettings.ini" }
+Write-Snapshot "campaign-saves.txt" $lines
 
 # --- 6. provenance -------------------------------------------------------------
 Write-Snapshot "environment.txt" @(
