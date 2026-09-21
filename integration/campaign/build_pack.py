@@ -1727,15 +1727,25 @@ def slot_ordinal(rows, role, where):
     Palawan.ini:833), while Mission29's third row is its second Recon row and
     carries Slot=2 (10 Vengeance at Luzon.ini:754). Row index would have given
     3 in both.
+
+    Which means a mission with two rows of one label cannot be authored the
+    way this campaign authors flights: SLOTS says what ROLE an aircraft fills,
+    and a role is not enough to pick between a first and a second Recon row.
+    Native does it (Mission29), so the ordinal is real; this builder cannot
+    express it, and saying so is better than silently handing every section
+    ordinal 1 and leaving the second row with no cockpits - which is what an
+    earlier version of this function did, by returning inside the loop.
     """
-    seen = 0
-    for row in rows:
-        label = row.split("|")[0]
-        if label == role:
-            seen += 1
-            return seen
-    raise SystemExit(f"{where}: an aircraft is tagged for a {role!r} flight, "
-                     "which this mission does not advertise")
+    same = [r for r in rows if r.split("|")[0] == role]
+    if not same:
+        raise SystemExit(f"{where}: an aircraft is tagged for a {role!r} "
+                         "flight, which this mission does not advertise")
+    if len(same) > 1:
+        raise SystemExit(
+            f"{where}: {len(same)} {role!r} rows, and a slot tag names only a "
+            "role - there is no way to say which of them an aircraft fills. "
+            "Give the rows distinct labels or author one")
+    return 1
 
 
 def tasking_rows(mission, placed):
@@ -1797,10 +1807,14 @@ def tasking_rows(mission, placed):
                     f"defines none of its fits (offers "
                     f"{', '.join(sorted(has_fits))})")
         rows.append(f"{label}|{display}|{roles}|{len(crews)}|{fits}")
-    for (role, slot), crews in sorted(tagged.items()):
-        problems.append(
-            f"{mission['key']}: {crews[0]} is tagged {role} slot {slot}, which "
-            "this mission has no flight row for")
+    # Nothing should be left: slot_ordinal() has already refused a role with
+    # no row and a role with two, so every tagged section is popped above.
+    # Kept as an assertion rather than a check, because if it ever fires the
+    # two functions have drifted apart.
+    if tagged:
+        raise SystemExit(
+            f"{mission['key']}: {sorted(tagged)} survived flight matching - "
+            "slot_ordinal and tasking_rows disagree about what a slot is")
     if problems:
         raise SystemExit("air tasking failed:\n  " + "\n  ".join(problems))
     return rows, dropped
