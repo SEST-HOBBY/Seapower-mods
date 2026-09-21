@@ -1,15 +1,23 @@
 SOUTHERN WATCH - required Steam Workshop mods
 
-133 of them. Each supplies a file a mission names directly -
-by Type=, SquadronReference=, VariantReference= or a loadout's store.
+TRY THE MOD MANAGER FIRST. Its Sync button asks Steam for this mod's
+required items and subscribes you to them - the game reports back
+"Subscribed to N new dependencies. Enabled N installed
+dependencies", and it iterates, so a dependency's own dependencies
+come too. If that works you do not need the list below at all, and
+it is here to check against rather than to work through by hand.
+
+133 mods. Each supplies a file a mission names directly - by
+Type=, SquadronReference=, VariantReference= or a loadout's store.
 
 What the game does with a reference it cannot resolve has not been
 tested here, so this file will not tell you. At best the unit is
 simply absent and the mission is a different, easier one; at worst
 the mission does not load. Neither is the mission that was built.
 
-Subscribe in the Steam Workshop, then check the Mod Manager list
-against LOAD-ORDER.txt in this folder.
+Either way, check the Mod Manager list against LOAD-ORDER.txt in
+this folder when you are done: subscribing is not ordering, and
+order decides which copy of a shared file the game reads.
 
 Workshop id   supplies                         mod
 
