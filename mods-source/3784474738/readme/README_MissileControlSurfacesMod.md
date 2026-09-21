@@ -159,19 +159,3 @@ independent of ControlStages. The original SubModel active state is respected.
 
 The ammunition INI is reopened on container launch/respawn and save restoration.
 No global Missile.OnFixedUpdate patch or per-frame INI/component scan is added.
-
-## Build and install
-
-Run build.ps1. Pass -BetaScriptsPath to compile against an available beta
-Seapower-Scripts.dll as well as the installed release.
--PolicyIniDirectory optionally runs parser tests against the 31 migrated OVWRs.
-Policy tests cover defaults, overrides, X/plus and opposing fore/aft mixing,
-transformed mesh bounds, shifted asset origins, small turns, limits,
-launch gating and same-frame stage transitions. Integration checks inspect
-the game/Harmony surface and cached neutral-hierarchy binding. Version 1.1.1
-requires no OVWR changes; existing rear-only configurations retain their response.
-
-Output: bin\MissileControlSurfaces.dll_ (inactive). Install as
-AC Pack\MissileControlSurfaces.dll with the game closed. Keep backups in this
-source project's backups folder, never beside the active DLL.
-Compilation and standalone checks do not substitute for an in-game visual test.

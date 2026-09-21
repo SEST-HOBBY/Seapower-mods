@@ -1,0 +1,11 @@
+# Contents of StreamingAssets - what is REALLY installed.
+
+StreamingAssets: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets
+
+EntityScenes                            1 file(s)   modified 2026-02-09 02:18
+original                             6986 file(s)   modified 2026-07-24 08:59
+SEST_Integration                      244 file(s)   modified 2026-09-21 21:37
+user                                 1055 file(s)   modified 2026-08-08 21:10
+
+SEST folders present: 1 -> SEST_Integration
+(expected: exactly one, SEST_Integration - per-pack folders are superseded)

@@ -1,0 +1,9 @@
+# Installed Sea Power build - what the packs' ApproximateVersion should track.
+
+exe            : C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power.exe
+product version: 6000.0.67f1 (78a1c2bbeb6a)
+file version   : 6000.0.67.7905730
+modified       : 2026-02-24 22:31
+steam buildid     : 24297410
+steam LastUpdated : 1784847550
+steam SizeOnDisk  : 18740212594
