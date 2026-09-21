@@ -121,6 +121,7 @@ Emit ""
 Emit "Sea Power load order - $($live.Count) entries (NumberOfModFiles=$activeCount)"
 Emit "Settings: $SettingsPath"
 Emit ("Canonical: {0} entries in data\load-order.tokens.txt" -f $canonical.Count)
+Emit "Legend:    [x] enabled   [ ] DISABLED - the game will not read it"
 Emit ("-" * 78)
 
 $moved = 0
@@ -131,7 +132,9 @@ for ($i = 0; $i -lt $live.Count; $i++) {
     $note = ""
     if ($null -eq $want) { $note = "  [not in canonical list]" }
     elseif ($want -ne $pos) { $note = "  [canonical position $want]"; $moved++ }
-    $flag = if ($e.Enabled) { " " } else { "x" }
+    # A ticked box means ON. It used to mean off, which read backwards to
+    # everyone who looked at it and is the wrong way round to be subtle about.
+    $flag = if ($e.Enabled) { "x" } else { " " }
     $name = if ($names.ContainsKey($e.Token)) { $names[$e.Token] }
             else { "(NOT in mods-source - run tools\export-mod-configs.ps1)" }
     $line = "{0,4}. [{1}] {2,-24} {3}{4}" -f $pos, $flag, $e.Token, $name, $note
