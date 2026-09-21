@@ -61,8 +61,12 @@ from refine_civ_traffic import load_order  # noqa: E402
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "SEST_Campaign"
 SLUG = "sest-southern-watch"
-TITLE = "SEST Southern Watch"
-DISPATCHES = "SEST Southern Watch - Dispatches"
+# The campaign's own name, and the only place it is spelled. It drives the
+# mission file names, both mission-browser folders, the campaign card and the
+# folder _info.ini files - so the pack's developer prefix does not leak into
+# anything a player reads. `SLUG` stays as it is: it is a path, not a label.
+TITLE = "Southern Watch"
+DISPATCHES = "Southern Watch - Dispatches"
 MODS = ROOT / "mods-source"
 UNIT_DIRS = ("aircraft", "vessels", "submarines", "land_units", "biologic")
 

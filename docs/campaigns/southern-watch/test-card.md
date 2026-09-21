@@ -22,7 +22,7 @@ did not take — stop there.
 
 The campaign ships twice on purpose: as a campaign under
 `campaigns/sest-southern-watch/`, and every mission again under
-`missions/SEST Southern Watch/` and `missions/SEST Southern Watch - Dispatches/`
+`missions/Southern Watch/` and `missions/Southern Watch - Dispatches/`
 so the mission browser can reach them without the campaign layer. **If the
 campaign does not appear, the browser copies still should** — that difference
 is itself the answer to step 1.
@@ -33,7 +33,7 @@ is itself the answer to step 1.
 |---|---|---|---|
 | 1.1 | Campaign list | **SOUTHERN WATCH** present, 23 entries | Campaign not surfaced by the Mod Manager. Go to 1.3 and work from the browser |
 | 1.2 | Start it | The 18 October card, then WHITE WATER | Note which of the two it stops on |
-| 1.3 | Mission browser → `SEST Southern Watch 01 - White Water` | Loads, ships and aircraft visible | A missing unit names the mod that failed to load |
+| 1.3 | Mission browser → `Southern Watch 01 - White Water` | Loads, ships and aircraft visible | A missing unit names the mod that failed to load |
 
 Load one mission from each theatre before going further — **01 White Water**,
 **08 The Open Door**, **11 Fujian's Shadow**. They use the most different

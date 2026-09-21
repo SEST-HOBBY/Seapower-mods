@@ -50,7 +50,7 @@ def missions():
     for f in found:
         if f.parent.parent.name != "campaigns" and "campaigns" not in f.parts:
             continue
-        twin = pack / "missions" / "SEST Southern Watch" / f.name
+        twin = pack / "missions" / bp.TITLE / f.name
         if twin.exists() and twin.read_bytes() != f.read_bytes():
             sys.exit(f"{f.name}: the campaign copy and the browser copy differ")
     return found
