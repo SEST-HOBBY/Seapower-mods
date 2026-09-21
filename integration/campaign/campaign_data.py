@@ -49,7 +49,9 @@ INFO_DESC = (
     "allied rotations, an opposing-force passage, a weapons range, an openly "
     "speculative future branch and a Cold War anthology - give the rest of the "
     "collection a purposeful role. Fiction throughout. "
-    "See docs/campaign-coverage.md for which mod supplies what.")
+    "Needs the Steam Workshop mods listed in REQUIRED-MODS.txt, in this "
+    "mod's own folder; LOAD-ORDER.txt beside it is the Mod Manager order it "
+    "was built and tested against.")
 
 
 def U(side, mod, type, station, **kw):

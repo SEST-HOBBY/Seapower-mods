@@ -206,20 +206,26 @@ def dispatch(out_png, masthead, dateline, headline, sub, body):
           f"{len(lines)} body lines at {size}pt")
 
 
-def render_all(camp_dir, missions, events, slug):
+def render_all(camp_dir, missions, events, slug, title, subtitle):
     """Write every card and dispatch into the campaign's art folder.
 
     Returns {mission key: relative image path} and {event file: asset key} so
     the campaign.ini and the story pages can point at what was actually
-    written, rather than at names somebody typed twice.
+    written, rather than at names somebody typed twice. The backdrop is
+    written to the native filename, so campaign.ini's BackgroundImage is the
+    one path here that is spelled rather than returned.
     """
     art = Path(camp_dir) / "art"
     art.mkdir(parents=True, exist_ok=True)
-    sheets, assets = {}, {}
+    sheets, assets, marks = {}, {}, []
     for m in missions:
         name = f"southern_watch_{m['num'].lower()}_sheet.png"
         card(m["ini"], art / name, m["num"], m["key"], m["date"], m["place"], "")
         sheets[m["key"]] = f"campaigns/{slug}/art/{name}"
+        ll = _ll(m["ini"])
+        if ll:
+            marks.append((m["num"], ll[0], ll[1], m["group"] == "core"))
+    backdrop(art / "00_campaign_background.png", marks, title, subtitle)
     for e in events:
         key = f"{e['file']}_image"
         dispatch(art / f"{key}.png",
@@ -227,3 +233,160 @@ def render_all(camp_dir, missions, events, slug):
                  e["headline"], e["sub"], e["body"])
         assets[e["file"]] = key
     return sheets, assets
+
+
+# --- the campaign backdrop ---------------------------------------------------
+# Native key, attested three times: Pacific Strike, Molniya and the linear
+# prototype all set BackgroundImage to art/00_campaign_background.png, and the
+# prototype does it on DisplayFormat=Legacy - the format this campaign uses.
+# The game's own PNGs are not in the repo's export (the export carries text
+# only), so nothing here copies their look; what it copies is the key.
+#
+# It is a plotting sheet, not a map. Drawing a coastline would mean inventing
+# one - there is no shoreline data in this repo - and a wrong Arafura Sea in
+# the background of a campaign set there is worse than no shoreline at all.
+# What IS real is where the missions happen: every mission file carries a
+# MapCenterLatitude/Longitude, so the graticule, the track and the marks are
+# read back out of the twelve files that just shipped.
+#
+# Everything is kept dark and low-contrast on purpose: this sits UNDER the
+# campaign UI, and a backdrop that competes with the mission list is a bug.
+DEEP   = (9, 12, 16)
+SEA    = (13, 18, 24)
+LINE   = (30, 40, 51)
+LINE_H = (44, 58, 73)                   # the 5-degree lines, one step up
+CHART  = (86, 104, 122)
+TRACK  = (52, 110, 152)
+TITLE_INK = (126, 140, 154)
+
+def _ll(path):
+    S = sections(path)
+    env = S.get("Environment") or S.get("Mission") or {}
+    for keys in S.values():
+        if "MapCenterLatitude" in keys:
+            env = keys
+            break
+    try:
+        return float(env["MapCenterLatitude"]), float(env["MapCenterLongitude"])
+    except (KeyError, ValueError):
+        return None
+
+def _hemi(v, pair):
+    return f"{abs(v):.0f}{pair[0] if v >= 0 else pair[1]}"
+
+def backdrop(out_png, marks, title, subtitle):
+    """marks: [(number, lat, lon, is_core)] in campaign order."""
+    img = Image.new("RGB", (W, H), DEEP)
+    d = ImageDraw.Draw(img, "RGBA")
+
+    lats = [m[1] for m in marks] or [-10.0]
+    lons = [m[2] for m in marks] or [131.0]
+    # Pad to the frame's aspect so the theatre is centred rather than stretched.
+    pad = 2.2
+    la0, la1 = min(lats) - pad, max(lats) + pad
+    lo0, lo1 = min(lons) - pad, max(lons) + pad
+    if (lo1 - lo0) / (la1 - la0) < W / H:
+        need = (la1 - la0) * W / H
+        mid = (lo0 + lo1) / 2
+        lo0, lo1 = mid - need / 2, mid + need / 2
+    else:
+        need = (lo1 - lo0) * H / W
+        mid = (la0 + la1) / 2
+        la0, la1 = mid - need / 2, mid + need / 2
+    def to_px(lat, lon):
+        return ((lon - lo0) / (lo1 - lo0) * W, (la1 - lat) / (la1 - la0) * H)
+
+    for y in range(0, H, 4):            # a shallow sea-to-deep gradient
+        t = y / H
+        d.rectangle([0, y, W, y + 4], fill=tuple(
+            int(a + (b - a) * t) for a, b in zip(SEA, DEEP)))
+
+    lo = math.ceil(lo0)
+    while lo <= lo1:                    # meridians, every degree
+        px, _ = to_px(0, lo)
+        heavy = lo % 5 == 0
+        d.line([(px, 0), (px, H)], fill=LINE_H if heavy else LINE,
+               width=2 if heavy else 1)
+        if heavy:
+            d.text((px + 10, H - 38),
+                   f"{abs(lo):.0f}°{'E' if lo >= 0 else 'W'}",
+                   font=mono(22), fill=(58, 72, 86))
+        lo += 1
+    la = math.ceil(la0)
+    while la <= la1:                    # parallels, every degree
+        _, py = to_px(la, 0)
+        heavy = la % 5 == 0
+        d.line([(0, py), (W, py)], fill=LINE_H if heavy else LINE,
+               width=2 if heavy else 1)
+        if heavy:
+            # Hemisphere from the sign, not from the theatre: padding the
+            # frame out to 16:9 pushes the top edge over the equator, and a
+            # parallel labelled 0S would be the one wrong thing on the chart.
+            d.text((14, py - 30), "EQUATOR" if la == 0 else
+                   f"{abs(la):.0f}°{'S' if la < 0 else 'N'}",
+                   font=mono(22), fill=(58, 72, 86))
+        la += 1
+
+    # Several missions share one patch of water - 01, 12 and the optional beat
+    # all sail from the same place - so the marks land on top of each other and
+    # the numbers turn to mud. Push them apart in PIXELS, not in degrees: a
+    # fixed angular offset is a different distance on every chart, and the
+    # first attempt at this shoved 01 straight into 05 a degree away.
+    marks.sort(key=lambda m: (not m[3], m[0]))
+    pos = [[m[0], *to_px(m[1], m[2]), m[3]] for m in marks]
+    for _ in range(140):
+        moved = False
+        for i, a in enumerate(pos):
+            for b in pos[i+1:]:
+                gap = 62 if (a[3] and b[3]) else 46
+                dx, dy = b[1] - a[1], b[2] - a[2]
+                dist = math.hypot(dx, dy)
+                if dist >= gap:
+                    continue
+                if dist < 1e-6:         # exactly coincident: pick a direction
+                    dx, dy, dist = math.cos(i), math.sin(i), 1.0
+                push = (gap - dist) / 2 / dist
+                a[1] -= dx * push; a[2] -= dy * push
+                b[1] += dx * push; b[2] += dy * push
+                moved = True
+        if not moved:
+            break
+
+    core = [m for m in pos if m[3]]
+    if len(core) > 1:                   # the campaign's track, in its own order
+        d.line([(m[1], m[2]) for m in core],
+               fill=(52, 110, 152, 96), width=3, joint="curve")
+    for num, px, py, is_core in pos:
+        if is_core:
+            d.ellipse([px-38, py-38, px+38, py+38], fill=(52, 110, 152, 26))
+            d.ellipse([px-21, py-21, px+21, py+21], fill=DEEP, outline=TRACK, width=4)
+            d.text((px, py + 1), num, font=font(22, True), fill=CHART,
+                   anchor="mm")
+        else:                           # the optional beats: present, not loud
+            d.ellipse([px-13, py-13, px+13, py+13], outline=(44, 74, 98), width=3)
+
+    cx, cy, r = W - 190, 190, 96        # compass rose, quiet
+    d.ellipse([cx-r, cy-r, cx+r, cy+r], outline=(38, 52, 66), width=3)
+    d.ellipse([cx-r+22, cy-r+22, cx+r-22, cy+r-22], outline=(30, 42, 54), width=2)
+    for a in range(0, 360, 15):
+        t = math.radians(a)
+        k = r if a % 45 == 0 else r - 12
+        d.line([(cx + math.sin(t)*(r-22), cy - math.cos(t)*(r-22)),
+                (cx + math.sin(t)*k, cy - math.cos(t)*k)], fill=(46, 62, 78), width=2)
+    d.polygon([(cx, cy-r+30), (cx+15, cy+16), (cx, cy+2), (cx-15, cy+16)],
+              fill=(58, 80, 100))
+    d.text((cx, cy + 62), "N", font=font(26, True), fill=(70, 92, 112), anchor="ms")
+
+    for i in range(260):                # vignette: the UI sits on top of this
+        a = int(120 * (1 - i / 260) ** 2.1)   # darkest at the edge, gone by the middle
+        if a:
+            d.rectangle([i, i, W-1-i, H-1-i], outline=(0, 0, 0, a), width=1)
+
+    d.text((92, H - 232), title.upper(), font=font(104, True), fill=TITLE_INK)
+    d.line([(96, H - 118), (96 + 260, H - 118)], fill=(52, 110, 152), width=5)
+    d.text((96, H - 100), subtitle.upper(), font=mono(28), fill=(72, 84, 96))
+    img.save(out_png)
+    print(f"wrote {Path(out_png).name}  {W}x{H}  "
+          f"{len(core)} core marks, {len(marks)-len(core)} optional, "
+          f"{_hemi(la1, 'NS')}..{_hemi(la0, 'NS')}, "
+          f"{_hemi(lo0, 'EW')}..{_hemi(lo1, 'EW')}")

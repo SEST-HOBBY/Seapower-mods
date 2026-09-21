@@ -67,6 +67,9 @@ SLUG = "sest-southern-watch"
 # anything a player reads. `SLUG` stays as it is: it is a path, not a label.
 TITLE = "Southern Watch"
 DISPATCHES = "Southern Watch - Dispatches"
+# The backdrop's second line. Not a name - the campaign's subject and
+# its dates, both of which the twelve missions already agree on.
+SUBTITLE = "The Northern Lifeline  ·  October - November 2028"
 MODS = ROOT / "mods-source"
 UNIT_DIRS = ("aircraft", "vessels", "submarines", "land_units", "biologic")
 
@@ -2150,6 +2153,10 @@ def campaign_ini(missions, events, placements):
     L = ["[File]", f"Base=campaigns/{SLUG}/campaign.ini", "",
          "[Campaign]", "Type=Linear", "Difficulty=3",
          f"Length={sum(1 for m in missions if m['group'] == 'core')}",
+         # Native placement: BackgroundImage sits between Length and
+         # DisplayFormat in all three shipped campaigns, and the linear
+         # prototype pairs it with Legacy exactly as this does.
+         f"BackgroundImage=campaigns/{SLUG}/art/00_campaign_background.png",
          "DisplayFormat=Legacy", "",
          "[TaskForceMode]"]
     for key, value in TASKFORCE.items():
@@ -2360,9 +2367,9 @@ def coverage(credits, excuses):
     for what, mid, token, title in sorted(wanted):
         if token in credits:
             how, detail, mission = credits[token]
-            rows.append((mid, title, how, detail, mission))
+            rows.append((mid, title, how, detail, mission, token))
         elif mid in excuses:
-            rows.append((mid, title, excuses[mid][0], excuses[mid][1], "-"))
+            rows.append((mid, title, excuses[mid][0], excuses[mid][1], "-", token))
         else:
             missing.append((what, mid, token, title))
     return rows, missing
@@ -2394,10 +2401,84 @@ def report(rows, missions, worst):
           f"loading mission; the furthest any anchor had to move is "
           f"{worst:.1f} NM.", "",
           "| mod / pack | title | class | via | mission |", "|---|---|---|---|---|"]
-    for mid, title, how, detail, mission in rows:
+    for mid, title, how, detail, mission, _token in rows:
         L.append(f"| `{mid}` | {title} | `{how}` | {detail} | {mission} |")
     L.append("")
     return "\n".join(L)
+
+
+# A player is not a developer: the coverage report above is a table of catalog
+# ids and internal classes, and it lives in the repo, which is not somewhere a
+# subscriber can read. This is the same fact set written for the person who
+# just downloaded the mod - workshop ids, because that is what a subscription
+# is addressed by, and a plain statement of what happens when one is absent.
+#
+# The honest scope of this list: it is every enabled mod the campaign REACHES,
+# derived from the units the missions place. It is not a proof of sufficiency.
+# Workshop mods declare dependencies of their own (the catalog records two that
+# do), and a unit file may #!extend a base this build resolves without the
+# campaign ever naming its mod. So the full order ships beside it.
+# Short forms of HOW_TEXT. The report's sentences read well in a table with a
+# `via` column beside them and turn to gibberish truncated into a column here.
+NEEDED = {"unit": "a unit a mission places",
+          "variant": "a hull variant in use",
+          "squadron": "a squadron a flight comes from",
+          "roster": "a unit the player can buy",
+          "store": "a weapon a loadout hangs"}
+
+
+def requirements(rows):
+    need = [r for r in rows if r[2] in NEEDED and r[5].isdigit()]
+    rest = [r for r in rows if r[2] not in NEEDED and r[5].isdigit()]
+    packs = [r for r in rows if not r[5].isdigit()]
+    key = lambda r: r[1].lower()
+    L = [f"{TITLE.upper()} - required Steam Workshop mods", "",
+         f"{len(need)} of them. Each supplies something a mission names by file,",
+         "so a missing mod is a mission that will not load - not a mission that",
+         "loads with a gap in it. Subscribe in the Steam Workshop, then check",
+         "the Mod Manager list against LOAD-ORDER.txt in this folder.", "",
+         f"{'Workshop id':<13} {'supplies':<32} mod", ""]
+    for _mid, title, how, _detail, _mission, token in sorted(need, key=key):
+        L.append(f"{token:<13} {NEEDED[how]:<32} {title}")
+    L += ["", "-" * 74, "",
+          f"Also enabled while this was built ({len(rest)}), and left in the order",
+          "because removing one changes which file wins: these ship systems,",
+          "effects or UI rather than anything a mission names, or are outranked",
+          "by something above them. The campaign does not call for them.", ""]
+    for _mid, title, how, _detail, _mission, token in sorted(rest, key=key):
+        L.append(f"{token:<13} {how:<32} {title}")
+    L += ["", "-" * 74, "",
+          "Not from the Workshop. These are this project's own packs. If you",
+          "have the consolidated download - one mod folder carrying everything",
+          "- they are already inside it and there is nothing to subscribe to;",
+          "the repository also builds each of them on its own.", ""]
+    for _mid, title, how, _detail, _mission, token in sorted(packs, key=key):
+        L.append(f"{'(local)':<13} {how:<32} {title}")
+    L += ["", "-" * 74, "",
+          "Two things this list cannot settle for you:", "",
+          "  * Some Workshop mods need a further download of their own and say",
+          "    so in their own description. SeaLifter is the one that bites:",
+          "    subscribing to it is not enough, it needs a manual install.",
+          "  * Load ORDER decides which copy of a shared file the game reads.",
+          "    Two mods that both ship the same aircraft will not both load it.",
+          "    LOAD-ORDER.txt is the order this was built and tested against,",
+          "    and this campaign's own folder belongs at the top of it.", ""]
+    return "\n".join(L) + "\n"
+
+
+def load_order_text():
+    """The canonical order, as a player's Mod Manager would read it."""
+    L = [f"{TITLE.upper()} - the load order this was built against", "",
+         "Top of the list first. The Mod Manager's own order is what the game",
+         "uses; this file is a copy to compare against, not something the game",
+         "reads. The one rule that matters: this campaign's folder, and any",
+         "other folder whose name starts with SEST_, sits ABOVE every Workshop",
+         "mod. They are whole-file replacements - anything that outranks them",
+         "wins instead, and the fix they carry is gone.", ""]
+    for i, token in enumerate(load_order(), 1):
+        L.append(f"{i:>4}. {token}")
+    L.append("")
+    return "\n".join(L) + "\n"
 
 
 # --- main --------------------------------------------------------------------
@@ -2534,11 +2615,11 @@ def main():
         print(f"  art not regenerated ({exc}) - keeping the committed PNGs")
     else:
         cards = [dict(num=m["num"], key=m["key"], place=m["place"],
-                      date=date_words(m["date"]),
+                      group=m["group"], date=date_words(m["date"]),
                       ini=(camp / "missions" if m["group"] != "dispatch"
                            else extra) / f"{name}.ini")
                  for name, _t, m in built]
-        make_art.render_all(camp, cards, EVENTS, SLUG)
+        make_art.render_all(camp, cards, EVENTS, SLUG, TITLE, SUBTITLE)
     (camp / "campaign.ini").write_text(
         campaign_text,
         encoding="utf-8")
@@ -2554,8 +2635,13 @@ def main():
         "[Compatibility]\nApproximateVersion=0.8.2\n", encoding="utf-8")
     (ROOT / "docs" / "campaign-coverage.md").write_text(
         report(rows, MISSIONS, worst), encoding="utf-8")
+    # The same facts, in the folder the player actually has. Generated from
+    # `rows`, so the list cannot drift from what the missions place.
+    (OUT / "REQUIRED-MODS.txt").write_text(requirements(rows), encoding="utf-8")
+    (OUT / "LOAD-ORDER.txt").write_text(load_order_text(), encoding="utf-8")
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())
+    print("wrote REQUIRED-MODS.txt and LOAD-ORDER.txt into the pack")
     print(f"\nbuilt {OUT.relative_to(ROOT)}: {files} files, "
           f"{len(built)} missions, {len(EVENTS)} campaign events")
     print("wrote docs/campaign-coverage.md")

@@ -249,16 +249,23 @@ if ($saveRoots) {
                        $f.FullName.Substring($root.Length).TrimStart('\'), $f.Length, $f.LastWriteTime)
         }
         if ($IncludeSaves) {
+            # Campaign saves first, THEN by recency. Sorting on recency alone
+            # took 42 MB of mid-mission saves and left the 1 KB campaign files
+            # behind - which are the only ones that answer what carries over.
             $dest = Join-Path $outDir "saves"
             New-Item -ItemType Directory -Force -Path $dest | Out-Null
             Get-ChildItem -LiteralPath $root -Recurse -File |
-                Sort-Object LastWriteTime -Descending | Select-Object -First 4 |
+                Sort-Object @{ Expression = {
+                                 $_.FullName -notmatch '\\campaigns?\\' -and
+                                 $_.BaseName -notmatch 'campaign' } },
+                            @{ Expression = 'LastWriteTime'; Descending = $true } |
+                Select-Object -First 6 |
                 ForEach-Object {
                     Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $dest $_.Name) -Force
-                    $lines += "    copied: $($_.Name)"
+                    $lines += ("    copied: {0}  ({1:N0} bytes)" -f $_.Name, $_.Length)
                 }
         } else {
-            $lines += "    (listing only - re-run with -IncludeSaves to copy the 4 most recent)"
+            $lines += "    (listing only - re-run with -IncludeSaves to copy the campaign saves)"
         }
     }
 } else { $lines += "no save folder found beside usersettings.ini" }
