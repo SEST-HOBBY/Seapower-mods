@@ -332,6 +332,7 @@ MISSIONS.append(dict(
         "air": S(-10.6, 131.2, "Southern Watch air", heading=70, alt=22000),
         "high": S(-9.6, 131.4, "Triton orbit", heading=90, alt=50000),
         "liner": S(-11.2, 130.4, "Denpasar service", heading=260, alt=34000),
+        "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
@@ -360,6 +361,8 @@ MISSIONS.append(dict(
           name="Meridian Escort 7"),
         U("red", "_vanilla", "wp_ms_mercur_decoy", "meridian",
           name="MV Meridian Assurance"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
     ],
 ))
 
@@ -570,6 +573,7 @@ MISSIONS.append(dict(
         "fishing": S(-5.1, 128.2, "Banda fishing fleet", heading=90),
         "air": S(-6.2, 130.6, "Patrol aircraft", heading=0, alt=16000),
         "red_air": S(-4.4, 129.9, "PLAAF orbit", heading=180, alt=28000),
+        "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
@@ -592,6 +596,8 @@ MISSIONS.append(dict(
           name="Biologic MIKE"),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "fishing",
           name="Banda fishing boat"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
     ],
 ))
 
@@ -639,6 +645,7 @@ MISSIONS.append(dict(
                      alt=24000),
         "helo": S(-9.3, 131.3, "Shipborne flight", heading=180, alt=3000),
         "air": S(-9.8, 131.4, "Warramunga Flight", heading=320, alt=3000),
+        "home": S(-14.5212, 132.3778, "RAAF Base Tindal"),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
@@ -666,6 +673,8 @@ MISSIONS.append(dict(
         # take, the way every slot-tagged section in the shipped campaign is.
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "air"),
         U("blue", "raaf-f-35a", "raaf_f-35a", "air"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "home",
+          name="RAAF Base Tindal", nation="australia", weapons="Hold"),
     ],
 ))
 
@@ -819,6 +828,7 @@ MISSIONS.append(dict(
         "red_air": S(-5.6, 132.6, "Interceptor pair", heading=170, alt=52000),
         "red_support": S(-4.5, 130.2, "Support orbit", heading=180, alt=30000),
         "picket": S(-7.6, 133.4, "Surface picket", heading=270),
+        "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
     units=[
         U("blue", "kc-135", "usaf_stratotanker", "tanker", name="Texaco 41",
@@ -839,6 +849,8 @@ MISSIONS.append(dict(
           weapons="Hold"),
         U("red", "il-78", "wp_il-78", "red_support", name="Midas 30",
           weapons="Hold"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
     ],
 ))
 
@@ -889,6 +901,11 @@ MISSIONS.append(dict(
         "sea": S(0.5, 135.5, "Offshore picket", heading=180),
     },
     units=[
+        # No home field: the nearest Australian base is Scherger, 707 NM
+        # south, which is not a sortie. These aircraft keep unlimited fuel -
+        # the game's own tooltip prescribes exactly that when no airbase is
+        # available, and a base on the map that nothing can reach is worse
+        # than none.
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "strike",
           squadron="Squadron6", name="Grizzly 33"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "strike",
@@ -992,6 +1009,7 @@ MISSIONS.append(dict(
         "cape": S(-12.5, 142.0, "Cape York strip", heading=0),
         "red_sub": S(-16.5, 150.0, "Akula datum", heading=320),
         "red_air": S(-11.0, 148.0, "Opposing aviation", heading=180, alt=30000),
+        "home": S(-12.6188, 142.094, "RAAF Base Scherger"),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_aor_supply", "support",
@@ -1018,6 +1036,8 @@ MISSIONS.append(dict(
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
         U("blue", "p-8-poseidon", "usn_p8", "air"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_scherger", "home",
+          name="RAAF Base Scherger", nation="australia", weapons="Hold"),
     ],
 ))
 
@@ -1067,6 +1087,7 @@ MISSIONS.append(dict(
         "red_sub": S(-8.4, 134.4, "Submarine datum", heading=20),
         "red_air": S(-5.4, 133.2, "Enclave fighters", heading=180, alt=32000),
         "kai": S(-7.0, 134.0, "Kai Islands", heading=0),
+        "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
     units=[
         U("blue", "SEST_JMSDF_Mogami", "js_ffg_mogami", "jmsdf",
@@ -1096,6 +1117,8 @@ MISSIONS.append(dict(
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
         U("blue", "p-8-poseidon", "usn_p8", "helo"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
     ],
 ))
 
@@ -1329,6 +1352,7 @@ MISSIONS.append(dict(
         "cap": S(-12.6, 125.4, "Typhoon pair", heading=20, alt=33000),
         "aew": S(-13.0, 125.2, "AEW orbit", heading=90, alt=30000),
         "red_air": S(-10.5, 125.0, "Shadowers", heading=200, alt=28000),
+        "home": S(-17.5813, 123.8283, "RAAF Base Curtin"),
     },
     units=[
         U("blue", "euromod-british", "rn_ddg_type45", "escort",
@@ -1363,6 +1387,8 @@ MISSIONS.append(dict(
         U("red", "mig-35", "wp_mig-35", "red_air", name="Fulcrum-F 22"),
         U("red", "more-su-24m-variants", "wp_su-24mp", "red_air",
           name="Fencer recon", weapons="Hold"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_curtin", "home",
+          name="RAAF Base Curtin", nation="australia", weapons="Hold"),
     ],
 ))
 
@@ -1710,6 +1736,7 @@ MISSIONS.append(dict(
         "red_bomber": S(-2.6, 129.3, "Opposing bomber", heading=150, alt=36000),
         "complex": S(-1.0, 131.5, "Launcher complex", heading=180),
         "sea": S(-4.6, 131.5, "Offshore picket", heading=270),
+        "home": S(-12.5212, 131.0, "RAAF Base Darwin"),
     },
     units=[
         U("blue", "yf-23-black-widow-ii", "usaf_yf-23_black_widow_ii", "escort",
@@ -1739,6 +1766,8 @@ MISSIONS.append(dict(
           name="Complex radar"),
         U("red", "type-003-004-maneuverwarfare", "plan_cvn_004", "sea",
           name="Type 004 picket"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
     ],
 ))
 
@@ -1857,6 +1886,7 @@ MISSIONS.append(dict(
         # up-country where a 6 NM SAM covers nothing.
         "ridge": S(-8.55, 140.40, "Covered ridge", heading=120),
         "red_air": S(-8.1, 139.8, "Opposing fighter", heading=150, alt=30000),
+        "home": S(-12.6188, 142.094, "RAAF Base Scherger"),
     },
     units=[
         U("blue", "ah-64", "usa_ah-64e", "gun", name="Gunfighter 11"),
@@ -1881,6 +1911,8 @@ MISSIONS.append(dict(
           name="Settlement"),
         U("neutral", "pickup-truck-extension", "civ_car_pickup_1983", "column",
           name="Civilian traffic"),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_scherger", "home",
+          name="RAAF Base Scherger", nation="australia", weapons="Hold"),
     ],
 ))
 
