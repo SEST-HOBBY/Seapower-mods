@@ -389,7 +389,13 @@ def stores(uid, kind, path, loadout):
         suffix = next((l for l in known if section.endswith(l)), None)
         if suffix and suffix != loadout:
             continue
-        m = re.match(r"(?:Station\d+|Ammunition\d+)=([^\s#/]+)", s)
+        # Three spellings, all in shipped data: `Station7=`, `Ammunition1=`
+        # and a bare `Ammunition=` with no index - which is how a launcher
+        # section names its one round (2,425 lines across 699 files, among
+        # them both of the Peykaap's Nasir launchers). Missing the bare form
+        # under-credited stores and made an anti-ship boat read as a rocket
+        # boat to the reach check.
+        m = re.match(r"(?:Station\d+|Ammunition\d*)=([^\s#/]+)", s)
         if m:
             out.add(m.group(1).split("|")[0])
         m = re.match(r"DateBased_\w+=(\S+)", s)
@@ -515,6 +521,13 @@ STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "roster": 3, "store": 4}
 def place(mission, snapper):
     """Give every authored unit a section id, a position and its credits."""
     centre = mission["centre"]
+    # Where this mission's aircraft can come down. `UnlimitedFuel` is the
+    # game's own answer to having nowhere: "Use this option when an airbase is
+    # not available for units to prevent aircraft from crashing at bingo fuel"
+    # (language_en/ui.ini:1081). Seventeen of these twenty-two missions field
+    # aircraft with no base and every one of them used to ship False.
+    decks = max([deck_size(u["type"]) for u in mission["units"]
+                 if u["side"] == "blue"] or [0])
     placed = collections.defaultdict(list)     # family -> [(tag, keys)]
     members = collections.defaultdict(list)    # station -> [tag]
     credits = {}
@@ -566,7 +579,11 @@ def place(mission, snapper):
                                                 if kind == "sub" else 0)
 
         keys = dict(Type=spec["type"], **keys)
-        keys.update(UnlimitedFuel="False", WeaponStatus=spec.get("weapons", "Free"),
+        # A helicopter gets down on any deck; ten is the gap between an
+        # escort's single spot and the smallest real flight deck here.
+        needs = 1 if unit_file(spec["type"])[0] == "helicopters" else 10
+        keys.update(UnlimitedFuel=("False" if decks >= needs else "True"),
+                    WeaponStatus=spec.get("weapons", "Free"),
                     RadarsActive=spec.get("radars", "True"),
                     CrewSkill=spec.get("skill", "Trained"), Morale="3")
         keys["RelativePositionInNM"] = (
@@ -807,16 +824,170 @@ def is_combat(uid):
 # fight. The campaign's shape is an invariant, not a one-time edit: "smaller
 # opening engagements" and "occasional fleet battles" only stay true if the
 # build refuses to drift back.
+# Hull counts and, since the reach check exists, the two distances that decide
+# whether those hulls are opposition or scenery.
+#
+#   contact   the furthest a red unit's own longest round can be from the
+#             nearest blue unit and still mean anything. A mission whose gap
+#             exceeds red's reach by this much is a standoff with ships in it,
+#             whatever its census says. None = the mission is not about a
+#             fight and nothing is required to reach.
+#   standoff  the closest red may spawn to blue. An opening that begins with
+#             a missile boat already inside the convoy is not an opening; it
+#             is an ambush the player cannot have seen coming.
 ROLE_BUDGET = {
-    "opening":   dict(max_combat=3),
-    "patrol":    dict(max_combat=4),
-    "recon":     dict(max_combat=5),
-    "escort":    dict(max_combat=6),
-    "strike":    dict(max_combat=8),
-    "logistics": dict(max_combat=6),
-    "fleet":     dict(min_combat=8),
+    "opening":   dict(max_combat=3, standoff=12, contact=0),
+    "patrol":    dict(max_combat=4, standoff=8),
+    "recon":     dict(max_combat=5, standoff=10, contact=0),
+    "escort":    dict(max_combat=6, standoff=6, contact=0),
+    "strike":    dict(max_combat=8, standoff=6, contact=0),
+    "logistics": dict(max_combat=6, standoff=5, contact=0),
+    "fleet":     dict(min_combat=8, standoff=15, contact=0),
     "exercise":  dict(max_combat=99),
 }
+
+
+_REACH = {}
+REACH_PROBLEMS = []
+
+
+def deck_size(uid):
+    """Aircraft this unit can recover: an airbase is unlimited, a ship is its
+    `AircraftCapacity`, and anything else is zero.
+
+    The split is clean in the data and it matters, because a helicopter and an
+    F-35 do not have the same options: every escort here declares
+    `AircraftCapacity=1` (Anzac, Hobart, Arafura, Mogami, Maya) while the decks
+    declare 30 to 90 (Canberra 30, Charles de Gaulle 42, Type 003 85, Ford 90).
+    """
+    kind_dir, path = unit_file(uid)
+    if path is None:
+        return 0
+    if unit_type(uid) == "LandUnit":
+        low = uid.lower()
+        return 999 if ("airbase" in low or "airfield" in low or uid == "FOB") else 0
+    m = re.search(r"^AircraftCapacity=\s*(\d+)", read(path), re.M)
+    return int(m.group(1)) if m else 0
+
+
+def reach(uid, kind_dir, path, fit):
+    """How far this unit can shoot, in NM, from the rounds it actually carries.
+
+    `MaxLaunchRange` off every ammunition file the chosen fit hangs. It is the
+    one number that says whether two groups on a map can affect each other,
+    and nothing in the campaign data states it - which is how a mission came
+    to declare a surface action and place its target 208 NM from a frigate
+    whose longest round reaches 28.
+
+    It is a ceiling, not a capability: it ignores what the round is FOR. A
+    ship with a 28 NM SAM and a 13 NM gun reads 28, and cannot sink anything
+    at 20. So this is used to prove a force CANNOT reach, never to prove it
+    can.
+    """
+    key = (uid, fit)
+    if key in _REACH:
+        return _REACH[key]
+    best = 0.0
+    for store in stores(uid, kind_dir, path, fit):
+        f = winning(f"ammunition/{store}.ini")
+        if not f:
+            continue
+        m = re.search(r"^MaxLaunchRange=([\d.]+)", read(f), re.M)
+        if m:
+            best = max(best, float(m.group(1)))
+    _REACH[key] = best
+    return best
+
+
+def check_reach(mission, placed, members):
+    """Can the two sides actually affect each other, and can the player win?
+
+    Two questions the unit census cannot answer and that no amount of counting
+    hulls will. A mission that declares a fleet action and places its enemy
+    135 NM beyond anybody's reach is a standoff with a fleet in it; a mission
+    whose victory is `destroy` against a target nothing aboard can reach is
+    not a hard mission, it is an unwinnable one.
+
+    Distance is straight-line at spawn plus what the slowest sensible transit
+    adds over the mission clock - 24 knots for a surface group, which is the
+    figure the campaign's own escorts are written around. Aircraft are not
+    given a transit allowance here because their own reach dwarfs it.
+    """
+    def positions(family_prefix):
+        out = []
+        for family, entries in placed.items():
+            if not family.startswith(family_prefix):
+                continue
+            ashore = family.endswith("LandUnit")
+            for tag, keys, _n, _x in entries:
+                bits = keys.get("RelativePositionInNM", "").split(",")
+                if len(bits) == 3:
+                    try:
+                        out.append((tag, keys["Type"], float(bits[0]),
+                                    float(bits[2]), ashore))
+                    except ValueError:
+                        pass
+        return out
+
+    def armed(uid):
+        kind_dir, path = unit_file(uid)
+        if path is None:
+            return 0.0
+        fit, _why = pick_loadout(uid, path, None)
+        return reach(uid, kind_dir, path, fit)
+
+    blue = positions("Taskforce1")
+    red = positions("Taskforce2")
+    steam = mission["minutes"] / 60.0 * 24.0
+
+    problems = []
+    if mission["victory"]["kind"] == "destroy" and blue and red:
+        want = {t for r in mission["victory"].get("stations",
+                 [mission["victory"].get("station")]) if r
+                for t in refs(members, r)}
+        targets = [r for r in red if r[0] in want]
+        for tag, uid, x, z, _a in targets:
+            closest = min(
+                (math.hypot(x - bx, z - bz) - armed(buid) - steam, buid)
+                for _bt, buid, bx, bz, _ba in blue)
+            if closest[0] > 0:
+                problems.append(
+                    f"{mission['key']}: victory needs {uid} at {tag} destroyed, "
+                    f"and the nearest thing that could do it ({closest[1]}) is "
+                    f"{closest[0]:.0f} NM short even after {steam:.0f} NM of "
+                    "steaming - this mission cannot be won")
+    if problems:
+        raise SystemExit("\n  ".join(problems))
+
+    if not (blue and red):
+        return None
+    gap = min(math.hypot(x - bx, z - bz) for _t, _u, x, z, _a in red
+              for _bt, _bu, bx, bz, _ba in blue)
+    longest = max([armed(u) for _t, u, _x, _z, _a in red] or [0.0])
+    # The standoff rule is about an engagement the player is dropped into
+    # without a say, which happens at sea and in the air. Two ground forces
+    # in contact ashore is not that - it is the scenario - so a land-on-land
+    # pair does not count toward it.
+    afloat = [math.hypot(x - bx, z - bz)
+              for _t, _u, x, z, ashore in red
+              for _bt, _bu, bx, bz, bashore in blue
+              if not (ashore and bashore)]
+
+    budget = ROLE_BUDGET[mission["role"]]
+    if budget.get("contact") is not None and gap - longest > budget["contact"]:
+        REACH_PROBLEMS.append(
+            f"{mission['key']}: a {mission['role']} mission, and the red force "
+            f"spawns {gap:.0f} NM from the nearest blue unit while its longest "
+            f"round reaches {longest:.0f} - {gap - longest:.0f} NM of open "
+            "water nothing can cross. Those hulls are scenery")
+    if budget.get("standoff") and afloat and min(afloat) < budget["standoff"]:
+        REACH_PROBLEMS.append(
+            f"{mission['key']}: a {mission['role']} mission opens with red "
+            f"{min(afloat):.0f} NM from blue, inside the "
+            f"{budget['standoff']} NM this "
+            "role is written around. An engagement the player is already "
+            "inside is not one they decided to have")
+    return gap, longest
 
 
 def check_pacing(mission, placed):
@@ -1160,6 +1331,22 @@ def render(mission, placed, members):
             watch = list(how[1:])
             if how[0] == "survive":
                 least = None            # all of them
+        # When a fatal entry names its own units AND the objective has a
+        # resolver that watches units too, the two must be the same set. They
+        # disagreed in O1 - the trigger watched the ship, the objective said
+        # helicopter - and nothing noticed because each was internally fine.
+        how = mission["resolve"].get(oid)
+        if entry.get("units") and isinstance(how, tuple) and how[0] in (
+                "protect", "survive"):
+            mine = {t for r in watch for t in refs(members, r)}
+            theirs = {t for r in how[1:] if isinstance(r, str)
+                      for t in refs(members, r)}
+            if mine != theirs:
+                raise SystemExit(
+                    f"{mission['key']}: {oid} ends the mission when "
+                    f"{sorted(mine)} is lost, but the objective itself is "
+                    f"about {sorted(theirs)}. One of them is reporting the "
+                    "wrong ship")
         watched = [tag for r in watch for tag in refs(members, r)]
         if not watched:
             raise SystemExit(f"{mission['key']}: {oid} ends the mission but "
@@ -2002,6 +2189,7 @@ def main():
                      f"{mission['anchor']!r} places no blue vessel")
         worst = max(worst, far)
         weight = check_pacing(mission, placed)
+        picture = check_reach(mission, placed, members)
         solve_arrival(mission, placed, members)
         check_geometry(mission, placed, members)
         name, text = render(mission, placed, members)
@@ -2012,8 +2200,13 @@ def main():
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
                 credits[token] = why
         units = sum(len(v) for v in placed.values())
+        gap = (f" gap{picture[0]:6.0f} reach{picture[1]:6.0f} NM"
+               if picture else "")
         print(f"  {name:<44} {units:>3} units {weight:>3} red combat  "
-              f"{len(mission_credits):>3} mods  snap<={far:5.1f} NM")
+              f"{len(mission_credits):>3} mods  snap<={far:4.1f}{gap}")
+
+    if REACH_PROBLEMS:
+        sys.exit("reach failed:\n  " + "\n  ".join(REACH_PROBLEMS))
 
     rows, missing = coverage(credits, EXCUSES)
     if missing:

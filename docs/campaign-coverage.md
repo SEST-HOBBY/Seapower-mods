@@ -14,7 +14,7 @@ The campaign is 22 missions built from 302 placed units. Every mod in the canoni
 | `shadowed` | every file it ships is outranked by something above it; nothing it contains can load | 2 |
 | `campaign` | this pack - the campaign being measured | 1 |
 
-Sea and land positions are snapped to points already used by a loading mission; the furthest any anchor had to move is 36.1 NM.
+Sea and land positions are snapped to points already used by a loading mission; the furthest any anchor had to move is 43.1 NM.
 
 | mod / pack | title | class | via | mission |
 |---|---|---|---|---|
@@ -54,7 +54,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `euromod-german` | Euromod - Modern German Navy | `unit` | ger_ffg_f124 | Western Passage |
 | `euromod-italian-modern` | Euromod - Modern Italian Navy | `unit` | ita_ffg_fremm_asw | Western Passage |
 | `euromod-jmsdf` | Euromod - Modern Japanese Maritime Self Defence Force | `unit` | jmsdf_ddg_maya | Common Sea |
-| `euromod-main` | Euromod - Main Pack | `store` | usn_mh-60r / usn_mk54_air | White Water |
+| `euromod-main` | Euromod - Main Pack | `store` | ran_ffh_anzac / knm_nsm_1a | White Water |
 | `euromod-nordic` | Euromod - Modern Nordic Navy | `unit` | hdms_iver_huitfeldt | Western Passage |
 | `euromod-spanish-cold-war` | Euromod - Cold War Spanish Navy | `unit` | spa_ab212 | The Relief Ship |
 | `euromod-spanish-modern` | Euromod - Modern Spanish Navy | `unit` | spa_av-8b_plus | The Relief Ship |

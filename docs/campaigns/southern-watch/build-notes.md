@@ -52,6 +52,63 @@ game running. A variable that is declared, written and read in three files is a
 static fact about those files. Whether the campaign carries it between missions
 is the seventh step of §16's acceptance run, and that step has not been taken.
 
+## Pacing: the variable the design never stated
+
+The brief was smaller opening engagements, more reconnaissance decisions,
+occasional fleet battles, consequences for losing support ships. Counting red
+hulls got the first and third of those roughly right and could not touch the
+question underneath, which is **whether the two sides can reach each other at
+all**. A census does not distinguish a fleet action from a fleet parked 135 NM
+away.
+
+`check_reach()` reads `MaxLaunchRange` off every ammunition file a placed unit
+actually hangs and compares it to the distance between the two forces at spawn.
+It is a ceiling and it is used only to prove a force *cannot* reach, never that
+it can — a ship whose longest round is a 28 NM SAM reads 28 and still cannot
+sink anything at 20. Two numbers per role:
+
+- **contact** — a red force further from blue than its own longest round is
+  scenery, whatever the census says;
+- **standoff** — red closer than this is an engagement the player was never
+  given the chance to decide about. Land-on-land pairs are exempt: two ground
+  forces in contact ashore is the scenario, not an ambush.
+
+It found five missions, and one of them was mission one.
+
+| Mission | Was | Now |
+|---|---|---|
+| SW01 White Water | opening, red **3 NM** inside the convoy | 20 NM, inside the boat's 49 NM reach and outside knife range. The station is authored directly onto a proven point — anywhere else and the snapper drags it back into the formation, which is how it got there |
+| SW05 Warramunga's Shot | red 165 NM away with 50 NM of reach | 17 NM |
+| SW06 Blind Horizon | red 98 NM away with 85 NM of reach | 61 NM. The fighters moved, not the surface group: the Triton still has to fly north to classify, and now something can meet it there |
+| SW07 Long Way Home | red 159 NM away with 86 NM of reach | 68 NM |
+| SW12 The First Ship Through | red 179 NM away with 85 NM of reach | 28 NM. Both groups — the one withdrawing and the one that has not acknowledged — are now inside the escort's picture, which is the whole mission |
+| D8 The Long Perimeter | red on a ridge 156 NM up-country with a 6 NM SAM | on the column's route |
+
+**`stores()` was missing a third of the ammunition in the game.** Rounds are
+declared three ways — `Station7=`, `Ammunition1=` and a bare `Ammunition=` with
+no index — and the parser only read the first two. That is 2,425 lines across
+699 files. The Peykaap in mission one read as a 5 NM rocket boat when it
+carries two Nasir at 48.6, and `ran_ffh_anzac` read as a 28 NM SAM ship when it
+carries NSM at 165.6. Every reach number before this fix was wrong, and so was
+the store coverage the report counts.
+
+**Seventeen of twenty-two missions flew aircraft with nowhere to land.** The
+game's own tooltip is explicit — "Use this option when an airbase is not
+available for units to prevent aircraft from crashing at bingo fuel"
+(`language_en/ui.ini:1081`) — and every one of those missions shipped
+`UnlimitedFuel=False`. It is derived now, per aircraft and per mission: a
+helicopter gets down on any deck, a fast jet needs an airbase or a real flight
+deck, and the gap between the two is unambiguous in the data (every escort here
+declares `AircraftCapacity=1`; Canberra 30, Charles de Gaulle 42, Type 003 85,
+Ford 90).
+
+**Two missions reported the wrong ship lost.** O1's fatal trigger watched HMAS
+Arafura while its objective was the search helicopter, and C1 watched HMAS
+Hobart while its objective was the recovery helicopter — so in both, losing the
+ship ended the mission announcing the aircraft was gone. A fatal entry that
+names its own units must now watch what its objective watches, or the build
+fails; both missions take their units from the resolver instead.
+
 ## Review of 783da0f2: five findings, and what settling them turned up
 
 Each of the five reproduced before anything moved. Two of them turned out to
@@ -331,6 +388,15 @@ anything in this repository:
 - what the engine does with a purchased aircraft assigned to a flight. Every
   row now pairs with cockpits and no objective depends on one, which is the
   native invariant; whether the assignment itself works is the acceptance run;
+- that a force inside its own weapon's reach will actually engage. The reach
+  check proves a red group CAN affect blue; whether the AI closes, shoots or
+  sits there is the game's business and nothing here has watched it happen.
+  Several of these red groups have no `Waypoints` and no `Telegraph`, so they
+  are stationary by construction;
+- that `MaxLaunchRange` is the number that matters. It is the round's envelope,
+  not the launcher's arc, the sensor's detection range or the fire-control
+  solution, and it says nothing about whether the weapon suits the target - a
+  28 NM SAM and a 28 NM anti-ship missile read identically here;
 - that the mod-supplied campaign is surfaced by the Mod Manager at all. The
   missions are shipped a second time under `missions/` precisely so the
   campaign's content is playable either way.

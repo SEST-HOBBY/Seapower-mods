@@ -324,7 +324,11 @@ MISSIONS.append(dict(
         "warramunga": S(-10.05, 131.45, "HMAS Warramunga", heading=80),
         "convoy": S(-10.4, 131.9, "Coral Pioneer group", heading=80),
         "neutrals": S(-11.4, 129.6, "Arafura traffic", heading=250),
-        "meridian": S(-10.5, 132.0, "Meridian escort", heading=250),
+        # Authored ON a proven point 24 NM from where the convoy snaps to.
+        # Anywhere else and the snapper drags the station back into the
+        # formation - the pool is thin east of 132 - which is how the
+        # opening came to start with a missile boat 3 NM inside the convoy.
+        "meridian": S(-10.9102, 132.1232, "Meridian escort", heading=250),
         "air": S(-10.6, 131.2, "Southern Watch air", heading=70, alt=22000),
         "high": S(-9.6, 131.4, "Triton orbit", heading=90, alt=50000),
         "liner": S(-11.2, 130.4, "Denpasar service", heading=260, alt=34000),
@@ -629,11 +633,11 @@ MISSIONS.append(dict(
          "through this corridor tomorrow.",
     stations={
         "warramunga": S(-10.0, 131.5, "HMAS Warramunga", heading=310),
-        "sag": S(-7.0, 130.0, "Opposing surface group", heading=220),
+        "sag": S(-9.4, 131.1, "Opposing surface group", heading=220),
         "convoy": S(-11.4, 129.6, "Protected convoy", heading=70),
-        "red_air": S(-7.2, 132.4, "Maritime strike flight", heading=200,
+        "red_air": S(-8.6, 131.9, "Maritime strike flight", heading=200,
                      alt=24000),
-        "helo": S(-7.1, 130.2, "Shipborne flight", heading=180, alt=3000),
+        "helo": S(-9.3, 131.3, "Shipborne flight", heading=180, alt=3000),
         "air": S(-9.8, 131.4, "Warramunga Flight", heading=320, alt=3000),
     },
     units=[
@@ -736,7 +740,7 @@ MISSIONS.append(dict(
         "cap": S(-10.2, 132.6, "Tindal CAP", heading=10, alt=30000),
         "aew": S(-11.6, 132.2, "Wedgetail orbit", heading=90, alt=32000),
         "tindal": S(-14.5, 132.5, "RAAF Base Tindal", heading=0),
-        "red_air": S(-7.2, 133.2, "Enclave fighters", heading=180, alt=34000),
+        "red_air": S(-8.0, 133.0, "Enclave fighters", heading=180, alt=34000),
         "red_lift": S(-6.4, 133.9, "Enclave shuttle track", heading=200,
                       alt=28000),
         "red_sag": S(-7.6, 133.6, "Opposing surface group", heading=180),
@@ -812,7 +816,7 @@ MISSIONS.append(dict(
         "tanker": S(-7.2, 133.0, "Texaco 41", heading=200, alt=26000),
         "package": S(-6.6, 133.2, "Returning package", heading=200, alt=28000),
         "cap": S(-6.9, 133.4, "Raptor pair", heading=20, alt=40000),
-        "red_air": S(-4.6, 131.4, "Interceptor pair", heading=170, alt=52000),
+        "red_air": S(-5.6, 132.6, "Interceptor pair", heading=170, alt=52000),
         "red_support": S(-4.5, 130.2, "Support orbit", heading=180, alt=30000),
         "picket": S(-7.6, 133.4, "Surface picket", heading=270),
     },
@@ -1232,9 +1236,9 @@ MISSIONS.append(dict(
         "convoy": S(-10.4, 131.8, "First convoy", heading=200),
         "air": S(-10.8, 131.0, "Air support", heading=200, alt=20000),
         "aew": S(-11.5, 130.8, "Wedgetail orbit", heading=90, alt=32000),
-        "withdraw": S(-7.0, 130.0, "Withdrawing group", heading=340),
-        "spoiler": S(-7.2, 132.4, "Unacknowledged group", heading=180),
-        "spoiler_air": S(-7.4, 132.6, "Strike flight", heading=180, alt=24000),
+        "withdraw": S(-8.9, 131.2, "Withdrawing group", heading=340),
+        "spoiler": S(-9.1, 131.9, "Unacknowledged group", heading=180),
+        "spoiler_air": S(-9.2, 132.0, "Strike flight", heading=180, alt=24000),
         "darwin": S(-12.4, 130.9, "Darwin", heading=0),
     },
     units=[
@@ -1843,8 +1847,11 @@ MISSIONS.append(dict(
         "support": S(-7.8, 139.2, "Gunship loiter", heading=270, alt=16000),
         "escort": S(-7.4, 138.8, "Escort section", heading=300, alt=28000),
         "pass": S(-6.8, 138.2, "Single allocated pass", heading=320, alt=40000),
-        "ridge": S(-4.5, 137.0, "Covered ridge", heading=120),
-        "red_air": S(-4.3, 137.2, "Opposing fighter", heading=150, alt=30000),
+        # The perimeter threat sits ON the column's route - the only proven
+        # ground in this theatre is around the column - instead of 156 NM
+        # up-country where a 6 NM SAM covers nothing.
+        "ridge": S(-8.55, 140.40, "Covered ridge", heading=120),
+        "red_air": S(-8.1, 139.8, "Opposing fighter", heading=150, alt=30000),
     },
     units=[
         U("blue", "ah-64", "usa_ah-64e", "gun", name="Gunfighter 11"),
@@ -1925,7 +1932,12 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="datum", at=(-10.6, 132.0), radius=20,
                  min_units=1, objective="Search"),
-    fatal=[F("Aircraft", ["patrol"])],
+    # The objective is the helicopter and the resolver watches the helicopter;
+    # this used to watch HMAS Arafura, so losing the ship ended the mission
+    # reporting that the search aircraft was lost. Units=None makes the fatal
+    # trigger read the objective's own resolver, which is the only way the two
+    # cannot drift apart again.
+    fatal=[F("Aircraft")],
     neutral_objective="Traffic",
     win="Torres Light is found, her crew is off and the recordings from her "
         "bridge are in a bag on Arafura's quarterdeck. Somebody is going to "
@@ -1988,7 +2000,9 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="arrive", station="search", at=(-12.6, 148.2), radius=25,
                  min_units=1, objective="Survivors"),
-    fatal=[F("Helicopter", ["hobart"])],
+    # Same defect O1 had: this watched HMAS Hobart while the objective is the
+    # recovery helicopter. The resolver is the source of truth.
+    fatal=[F("Helicopter")],
     neutral_objective="Assist",
     win="Fourteen more out of the water, and the ones who did not make it are "
         "named rather than missing. That is the whole of what this operation "
