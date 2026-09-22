@@ -235,9 +235,22 @@ def render_all(camp_dir, missions, events, slug, title, subtitle):
     backdrop(art / "00_campaign_background.png", marks, title, subtitle)
     for e in events:
         key = f"{e['file']}_image"
-        dispatch(art / f"{key}.png",
-                 e["dateline"].split("|")[-1].strip(), e["dateline"],
-                 e["headline"], e["sub"], e["body"])
+        form = e.get("form", "press")
+        if form == "press":
+            dispatch(art / f"{key}.png",
+                     e["dateline"].split("|")[-1].strip(), e["dateline"],
+                     e["headline"], e["sub"], e["body"])
+        elif form == "signal":
+            signal(art / f"{key}.png", e["header"], e["body"],
+                   strap=e.get("strap"), note=e.get("note"))
+        elif form == "log":
+            log(art / f"{key}.png", e["ship"], e["master"], e["date"],
+                e["entries"], note=e.get("note"))
+        elif form == "intsum":
+            intsum(art / f"{key}.png", e["org"], e["ref"], e["date"],
+                   e["subject"], e["body"], note=e.get("note"))
+        else:
+            raise SystemExit(f"{e['file']}: unknown story form {form!r}")
         assets[e["file"]] = key
     return sheets, assets
 
@@ -397,3 +410,171 @@ def backdrop(out_png, marks, title, subtitle):
           f"{len(core)} core marks, {len(marks)-len(core)} optional, "
           f"{_hemi(la1, 'NS')}..{_hemi(la0, 'NS')}, "
           f"{_hemi(lo0, 'EW')}..{_hemi(lo1, 'EW')}")
+
+
+# --- three more document forms ---------------------------------------------
+# Pacific Strike tells its story in at least ten forms - breaking news,
+# newspaper, INTSUM, JCS sitrep, logistics advisory, coastwatcher report, two
+# intercept transcripts, targeting intel, a BDA report, a combat record - and
+# that variety is how it makes six weeks feel like six weeks. This campaign
+# had one form. These are three more, chosen because the campaign's cast
+# writes in them: a liaison officer sends a cable, a master keeps a log, an
+# intelligence cell writes an INTSUM. Same 1920x1080, same multiples-of-4 rule.
+
+SIG_STOCK  = (226, 230, 224)            # a grey-green teleprinter roll
+SIG_INK    = (28, 32, 30)
+SIG_RULE   = (120, 128, 122)
+SIG_STRAP  = (150, 42, 36)
+LOG_STOCK  = (240, 236, 224)
+LOG_RULE   = (196, 190, 176)
+LOG_INK    = (30, 28, 26)
+LOG_MARGIN = (170, 60, 50)
+RPT_STOCK  = (250, 250, 248)
+RPT_INK    = (20, 20, 22)
+RPT_BAND   = (24, 24, 26)
+
+def _fit_lines(d, text, fnt, width):
+    out, cur = [], ""
+    for word in text.split():
+        trial = f"{cur} {word}".strip()
+        if d.textlength(trial, font=fnt) <= width:
+            cur = trial
+        else:
+            if cur: out.append(cur)
+            cur = word
+    if cur: out.append(cur)
+    return out
+
+def _set_block(d, lines, x, y, fnt, width, lh, fill):
+    """Wrap and draw a list of paragraphs; returns the y after the last line.
+    A paragraph is drawn as-is if it already fits (so a pre-formatted signal
+    line keeps its spacing), wrapped if it does not, and '' is a blank line.
+    A line that opens with a speaker tag ('A:  ') or a paragraph number
+    ('1. ') hangs its continuation under the text, not under the tag."""
+    for para in lines:
+        if para == "":
+            y += lh; continue
+        m = re.match(r"^([A-Z]:\s+|\d+\.\s+|[a-z]\.\s+)", para)
+        hang = d.textlength(m.group(1), font=fnt) if m else 0
+        if d.textlength(para, font=fnt) <= width:
+            chunk = [para]
+        else:
+            head, rest = (m.group(1), para[m.end():]) if m else ("", para)
+            wrapped = _fit_lines(d, rest, fnt, width - hang)
+            chunk = [head + wrapped[0]] + wrapped[1:]
+        for i, line in enumerate(chunk):
+            d.text((x + (hang if i else 0), y), line, font=fnt, fill=fill); y += lh
+    return y
+
+
+def signal(out_png, header, body, strap=None, note=None):
+    """A cable, a memo or an intercept: monospace on teleprinter stock.
+
+    `header` is a list of (label, value) rows for the ruled box at the top -
+    FROM/TO/DTG/PREC/SUBJ for a cable, or a single INTERCEPT line. `strap` is
+    the red word across the top when the page is an intercept. `note` is the
+    analyst's box at the foot, or None.
+    """
+    img = Image.new("RGB", (W, H), SIG_STOCK)
+    d = ImageDraw.Draw(img)
+    M, y = 110, 84
+    for x in range(0, W, 3):                     # faint perforation track
+        d.point((x, 40), fill=SIG_RULE); d.point((x, H-40), fill=SIG_RULE)
+    if strap:
+        d.text((M, y), strap, font=mono(30, True), fill=SIG_STRAP); y += 50
+    d.line([(M, y), (W-M, y)], fill=SIG_INK, width=3); y += 18
+    lab = mono(26, True); val = mono(26)
+    for k, v in header:
+        d.text((M, y), f"{k:<6}", font=lab, fill=SIG_INK)
+        d.text((M + 120, y), v, font=val, fill=SIG_INK); y += 36
+    y += 10
+    d.line([(M, y), (W-M, y)], fill=SIG_INK, width=3); y += 40
+    floor = H - (250 if note else 120)
+    for size in (28, 26, 24, 22, 20):
+        fnt, lh = mono(size), int(size * 1.5)
+        # measure first; only draw at the size that fits above the floor
+        yy = y
+        for para in body:
+            if para == "": yy += lh; continue
+            n = 1 if d.textlength(para, font=fnt) <= W-2*M else len(_fit_lines(d, para, fnt, W-2*M))
+            yy += n * lh
+        if yy <= floor: break
+    y = _set_block(d, body, M, y, fnt, W-2*M, lh, SIG_INK)
+    if note:
+        ny = H - 230
+        d.rectangle([M-16, ny-16, W-M+16, H-80], outline=SIG_RULE, width=3)
+        d.text((M, ny), "ANALYST NOTE", font=mono(22, True), fill=SIG_STRAP)
+        _set_block(d, [note], M, ny+34, mono(21), W-2*M, 30, SIG_INK)
+    d.text((W-M, H-64), "SOUTHERN WATCH  ·  FICTION", font=mono(20), fill=SIG_RULE, anchor="ra")
+    img.save(out_png)
+    print(f"wrote {Path(out_png).name}  {W}x{H}  signal, {len(body)} lines at {size}pt")
+
+
+def log(out_png, ship, master, date, entries, note=None):
+    """A deck log extract: ruled lines, a time column, a master's note.
+
+    `entries` is a list of (time, text); a time of '' continues the previous
+    entry. `note` is the paragraph in the master's own hand at the foot.
+    """
+    img = Image.new("RGB", (W, H), LOG_STOCK)
+    d = ImageDraw.Draw(img)
+    M, TCOL = 120, 150
+    d.line([(M + TCOL - 24, 60), (M + TCOL - 24, H-60)], fill=LOG_MARGIN, width=2)
+    y = 88
+    d.text((M, y), ship.upper(), font=serif(44, True), fill=LOG_INK)
+    d.text((W-M, y+10), date.upper(), font=mono(26), fill=(100, 96, 90), anchor="ra")
+    y += 58
+    d.text((M, y), f"DECK LOG EXTRACT  ·  MASTER: {master.upper()}", font=mono(22), fill=(100, 96, 90))
+    y += 50
+    d.line([(M, y), (W-M, y)], fill=LOG_INK, width=2); y += 26
+    fnt, tf, lh = serif(27), mono(27, True), 44
+    floor = H - (260 if note else 110)
+    for t, text in entries:
+        lines = _fit_lines(d, text, fnt, W - M - TCOL - M)
+        if y + lh * len(lines) > floor: break
+        if t: d.text((M, y), t, font=tf, fill=LOG_INK)
+        for line in lines:
+            d.line([(M, y+lh-8), (W-M, y+lh-8)], fill=LOG_RULE, width=1)
+            d.text((M + TCOL, y), line, font=fnt, fill=LOG_INK); y += lh
+    if note:
+        ny = H - 236
+        d.line([(M, ny-14), (W-M, ny-14)], fill=LOG_INK, width=2)
+        _set_block(d, [note], M, ny, ImageFont.truetype(SER % "-Bold", 25), W-2*M, 36, LOG_INK)
+    d.text((W-M, H-64), "SOUTHERN WATCH  ·  FICTION", font=mono(20), fill=LOG_RULE, anchor="ra")
+    img.save(out_png)
+    print(f"wrote {Path(out_png).name}  {W}x{H}  log, {len(entries)} entries")
+
+
+def intsum(out_png, org, ref, date, subject, paras, note=None):
+    """A typed intelligence summary with the one banner this campaign is
+    entitled to: FICTION. `paras` is a list of strings; a string starting
+    with a letter-and-dot ('a. ...') is a sub-paragraph and indents."""
+    img = Image.new("RGB", (W, H), RPT_STOCK)
+    d = ImageDraw.Draw(img)
+    M = 120
+    for by in (0, H-56):
+        d.rectangle([0, by, W, by+56], fill=RPT_BAND)
+        d.text((W/2, by+28), "FICTION  —  THIS IS A GAME DOCUMENT", font=mono(24, True),
+               fill=RPT_STOCK, anchor="mm")
+    y = 96
+    d.text((M, y), org.upper(), font=mono(24, True), fill=RPT_INK)
+    d.text((W-M, y), f"{ref}  ·  {date.upper()}", font=mono(24), fill=RPT_INK, anchor="ra"); y += 44
+    d.text((M, y), f"SUBJECT: {subject.upper()}", font=mono(28, True), fill=RPT_INK); y += 46
+    d.line([(M, y), (W-M, y)], fill=RPT_INK, width=2); y += 30
+    floor = H - (150 if note else 100)
+    for size in (26, 24, 22, 20, 18):
+        fnt, lh = mono(size), int(size * 1.5)
+        yy = y
+        for p in paras:
+            ind = 70 if re.match(r"^[a-z]\. ", p) else 0
+            yy += lh * len(_fit_lines(d, p, fnt, W-2*M-ind)) + (lh // 2)
+        if yy <= floor: break
+    for p in paras:
+        ind = 70 if re.match(r"^[a-z]\. ", p) else 0
+        for line in _fit_lines(d, p, fnt, W-2*M-ind):
+            d.text((M+ind, y), line, font=fnt, fill=RPT_INK); y += lh
+        y += lh // 2
+    if note:
+        d.text((M, H-120), note, font=ImageFont.truetype(SER % "", 28), fill=(60, 60, 120))
+    img.save(out_png)
+    print(f"wrote {Path(out_png).name}  {W}x{H}  intsum, {len(paras)} paras at {size}pt")

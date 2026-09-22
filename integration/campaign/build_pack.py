@@ -300,6 +300,60 @@ def nm_between(a, b):
     return math.hypot(dlat, dlon)
 
 
+# How far an OFFSHORE station may be moved to reach proven water before the
+# build refuses. 8 NM is inside any escort's sensor horizon and a tenth of a
+# 50-minute mission's steaming; 43 NM - what SW12 was getting - is neither.
+OFFSHORE_SNAP = 8.0
+# How far from every harvested LAND point a station has to be before its
+# authored position is trusted as open water without a proven sea point.
+OPEN_SEA = 25.0
+UNPROVEN = []
+PLACEMENT_PROBLEMS = []
+
+
+def open_water(snapper, at, where):
+    """Where an offshore station actually goes.
+
+    The proven-position pool is every spot a loading mission ever put a unit
+    on. Ashore that is a real test - an airbase is where the airbase is. At
+    sea it is a list of where other people's ships once happened to be, and
+    the open Arafura is nearly empty of them, so "snap to proven water" moved
+    stations by tens of miles to prove a thing the chart already says.
+
+    Three cases, in order:
+      1. Further than OPEN_SEA from every harvested land point: the authored
+         point is used exactly. It is open ocean; the designer put a ship on
+         it; the encounter is what they drew. Recorded as unproven so the
+         coverage report can list it.
+      2. Within OFFSHORE_SNAP of a proven sea point: snapped to it. Near a
+         coast, a proof is worth 8 NM.
+      3. Neither: refused, with the numbers. Move the station, or mark it
+         coastal=True and take the per-unit snap that a port or a rig gets.
+    """
+    land = min((nm_between(p, at) for p in snapper.pool["land"]), default=1e9)
+    sea_p, sea_d = None, 1e9
+    for p in snapper.pool["sea"]:
+        if p in snapper.used:
+            continue
+        d = nm_between(p, at)
+        if d < sea_d:
+            sea_p, sea_d = p, d
+    if land > OPEN_SEA:
+        UNPROVEN.append((where, at, land))
+        return (round(at[0], 4), round(at[1], 4)), 0.0
+    if sea_p is not None and sea_d <= OFFSHORE_SNAP:
+        snapper.used.add(sea_p)
+        return sea_p, sea_d
+    # Collected, not raised: the build should name EVERY station that needs a
+    # decision in one run, not the first one and then the next after a fix.
+    PLACEMENT_PROBLEMS.append(
+        f"{where}: station at {at} is {land:.0f} NM from the nearest known "
+        f"land and {sea_d:.0f} NM from the nearest proven water - too close "
+        "to a coast to trust and too far from proof to snap. Move it, or "
+        "mark the station coastal=True to take a per-unit snap.")
+    return (round(at[0], 4), round(at[1], 4)), 0.0
+
+
 class Snapper:
     """Hands out proven points near an anchor, never the same one twice.
 
@@ -312,7 +366,8 @@ class Snapper:
         self.limit = limit_nm
         self.used = set()
 
-    def take(self, kind, anchor, exclude_nm=0.4):
+    def take(self, kind, anchor, exclude_nm=0.4, limit=None, where=""):
+        limit = self.limit if limit is None else limit
         best, best_d = None, None
         for p in self.pool[kind]:
             if p in self.used:
@@ -320,11 +375,13 @@ class Snapper:
             d = nm_between(p, anchor)
             if best_d is None or d < best_d:
                 best, best_d = p, d
-        if best is None or best_d > self.limit:
+        if best is None or best_d > limit:
             raise SystemExit(
-                f"no proven {kind} position within {self.limit:.0f} NM of "
+                f"{where}: no proven {kind} position within {limit:.0f} NM of "
                 f"{anchor} - nearest is {best_d and round(best_d)} NM away. "
-                f"Move the station onto water/ground some mission already uses.")
+                "Move the station onto water/ground some mission already "
+                "uses, or mark it coastal=True if a large move is the truth "
+                "of the place (a port, a rig, a beacon).")
         self.used.add(best)
         return best, best_d
 
@@ -574,6 +631,8 @@ def place(mission, snapper):
     members = collections.defaultdict(list)    # station -> [tag]
     credits = {}
     seats = collections.Counter()              # per-station air spacing
+    berths = collections.Counter()             # per-station sea spacing
+    station_snap = {}                          # station -> ((lat, lon), drift)
     worst = 0.0
 
     # The generated force forms on Taskforce1Vessel1: every stock Task Force
@@ -608,17 +667,48 @@ def place(mission, snapper):
             lat = st["at"][0] - (n // 3) * 0.05
             lon = st["at"][1] + (n % 3) * 0.05
             alt = spec.get("alt", st.get("alt", 25000))
-        else:
-            # An oil rig is a LandUnit that belongs in water; everything else
-            # takes the pool its kind implies.
+        elif kind == "land" or spec.get("snap") or st.get("coastal"):
+            # Where the place IS the point - a port, an airbase, a rig that
+            # belongs in water, a drifting hull authored onto a proven spot -
+            # each unit is snapped on its own, as far as it takes. An oil rig
+            # is a LandUnit that belongs in water; everything else takes the
+            # pool its kind implies.
             want = spec.get("snap") or ("land" if kind == "land" else "sea")
-            (lat, lon), dist = snapper.take(want, st["at"])
+            (lat, lon), dist = snapper.take(want, st["at"],
+                                            where=f"{mission['key']} {spec['station']}")
             worst = max(worst, dist)
+            alt = "low" if kind == "land" else (spec.get("depth", 0)
+                                                if kind == "sub" else 0)
+        else:
+            # Offshore, the STATION is snapped - once - and its ships form on
+            # the snapped point. It used to snap every hull on its own to the
+            # nearest proven point nobody had used yet, which scattered a
+            # four-ship convoy across four unrelated spots and put its escort
+            # wherever ITS nearest point happened to be: SW01's authored
+            # 34 NM between Warramunga and her convoy shipped as 46-51, in a
+            # 50-minute mission an Anzac at flank covers 24 NM of. A point
+            # 0.6 NM from proven water is water. The limit is small on
+            # purpose: a station that has to move further than OFFSHORE_SNAP
+            # is a station that was authored in the wrong place, and the
+            # build should say so rather than quietly deform the encounter.
+            key = spec["station"]
+            if key not in station_snap:
+                station_snap[key] = open_water(snapper, st["at"],
+                                               f"{mission['key']} {key}")
+                worst = max(worst, station_snap[key][1])
+            (alat, alon), _d = station_snap[key]
+            n = berths[key]
+            berths[key] += 1
+            # line abreast on the station's heading, 0.6 NM apart, alternating
+            # sides of the snapped point so the group centres on it
+            side = (n + 1) // 2 * (1 if n % 2 else -1)
+            beam = math.radians(st.get("heading", 90) + 90)
+            lat = alat + side * 0.6 * math.cos(beam) / 60.0
+            lon = alon + side * 0.6 * math.sin(beam) / (60.0 * math.cos(math.radians(alat)))
             # A submarine at 0 is on the surface. That is deliberate for the
             # boat alongside its tender in SW09 and wrong for everything that
             # is meant to be hunting; depth is authored per unit.
-            alt = "low" if kind == "land" else (spec.get("depth", 0)
-                                                if kind == "sub" else 0)
+            alt = spec.get("depth", 0) if kind == "sub" else 0
 
         keys = dict(Type=spec["type"], **keys)
         # Native writes UnlimitedFuel on every section kind - vessels,
@@ -680,6 +770,12 @@ def place(mission, snapper):
             keys["Waypoints"] = "|".join(
                 f"{(lo - centre[1]) * 60:.2f},{a},{(la - centre[0]) * 60:.2f}"
                 for la, lo, a in spec["route"])
+            # A route without a speed is a route at whatever the game
+            # defaults to. Every one of the 169 waypointed vessel and
+            # submarine sections in the Pacific Strike export sets Telegraph=
+            # (0-5; 3 is cruise, 2 is the most common), and SW04's whole
+            # mission hangs on its passenger arriving before a deadline.
+            keys["Telegraph"] = spec.get("telegraph", 3)
 
         placed[family].append((tag, keys, spec.get("name"),
                                spec.get("no_neutral_penalty", False)))
@@ -1097,6 +1193,134 @@ def airframe_range(uid, depth=0):
 
 _REACH = {}
 REACH_PROBLEMS = []
+CLOSURE_PROBLEMS = []
+CLOSURE_NOTES = []
+
+
+def _bearing(fx, fz, tx, tz):
+    """Compass bearing from (fx, fz) to (tx, tz) in the mission's NM frame:
+    x east, z north."""
+    return math.degrees(math.atan2(tx - fx, tz - fz)) % 360.0
+
+
+def _off_bow(heading, bearing):
+    """Degrees between where a unit points and where something is."""
+    return abs((bearing - heading + 180.0) % 360.0 - 180.0)
+
+
+def protected_tags(mission, members):
+    """Every placed tag the mission says the player must keep alive or deliver:
+    the arrival group, every fatal entry's units, every protect/survive
+    resolver's stations."""
+    out = set()
+    v = mission.get("victory", {})
+    if v.get("kind") in ("arrive", "protect", "survive"):
+        for r in ([v.get("station")] + list(v.get("stations", []) or [])):
+            if r:
+                out |= set(refs(members, r))
+    for entry in mission.get("fatal", []):
+        for r in entry.get("units") or []:
+            out |= set(refs(members, r))
+    for how in mission.get("resolve", {}).values():
+        if isinstance(how, tuple) and how[0] in ("protect", "survive"):
+            for r in how[1:]:
+                if isinstance(r, str):
+                    out |= set(refs(members, r))
+    return out
+
+
+def check_closure(mission, placed, members):
+    """Is the encounter actually an encounter?
+
+    check_reach asks whether red can hurt blue. This asks the three things it
+    does not: whether the escort can get to what it is escorting before the
+    clock runs out, whether the neutrals are anywhere the player will have to
+    tell them apart from the threat, and whether a red unit that is supposed
+    to press the player is pointed at them or is set dressing.
+
+    SW01 shipped with its escort 50 NM from its convoy in a 50-minute mission,
+    its "identification traffic" 130 NM away and sailing off, and its armed
+    escort stationary, facing away, with a 17 NM radar 20 NM from the nearest
+    merchant. Every one of those passed every gate. The first is a hard
+    failure here; the other two are reported, because a background neutral
+    or a red picket that never closes can be a legitimate design - but it
+    has to be a decision, and a decision is something you can read.
+    """
+    def rows(prefix):
+        out = []
+        for family, entries in placed.items():
+            if not family.startswith(prefix):
+                continue
+            kind = ("land" if family.endswith("LandUnit") else
+                    "air" if family.endswith("Aircraft") else
+                    "sub" if family.endswith("Submarine") else "sea")
+            for tag, keys, _n, _x in entries:
+                bits = keys.get("RelativePositionInNM", "").split(",")
+                try:
+                    x, z = float(bits[0]), float(bits[2])
+                except (ValueError, IndexError):
+                    continue
+                out.append(dict(tag=tag, uid=keys["Type"], x=x, z=z, kind=kind,
+                                heading=float(keys.get("Heading", 0) or 0),
+                                moving=any(k.startswith(("Waypoint", "Telegraph"))
+                                           for k in keys),
+                                fit=keys.get("LoadoutVariant")))
+        return out
+
+    blue, red, neutral = rows("Taskforce1"), rows("Taskforce2"), rows("Neutral")
+    guard = protected_tags(mission, members)
+    protected = [b for b in blue if b["tag"] in guard and b["kind"] in ("sea", "sub")]
+    if not protected:
+        return
+    steam = mission["minutes"] / 60.0 * 24.0
+
+    def armed_reach(u):
+        kind_dir, path = unit_file(u["uid"])
+        if path is None:
+            return 0.0
+        fit = u["fit"]
+        if fit is None:
+            fit, _why = pick_loadout(u["uid"], path, None)
+        return reach(u["uid"], kind_dir, path, fit)
+
+    escorts = [b for b in blue if b["kind"] == "sea" and armed_reach(b) > 0]
+    if escorts:
+        for pr in protected:
+            nearest = min(escorts, key=lambda e: math.hypot(e["x"]-pr["x"], e["z"]-pr["z"]))
+            d = math.hypot(nearest["x"]-pr["x"], nearest["z"]-pr["z"])
+            if d - 2.0 > steam:
+                CLOSURE_PROBLEMS.append(
+                    f"{mission['key']}: {pr['tag']} ({pr['uid']}) is protected and "
+                    f"the nearest escort ({nearest['tag']}, {nearest['uid']}) is "
+                    f"{d:.0f} NM away - {mission['minutes']} minutes at 24 kn is "
+                    f"{steam:.0f} NM. The escort cannot reach what it escorts.")
+
+    def nearest_protected(u):
+        pr = min(protected, key=lambda p: math.hypot(p["x"]-u["x"], p["z"]-u["z"]))
+        return pr, math.hypot(pr["x"]-u["x"], pr["z"]-u["z"])
+
+    if mission.get("neutral_objective"):
+        for n in neutral:
+            if n["kind"] == "land":
+                continue
+            pr, d = nearest_protected(n)
+            closing = _off_bow(n["heading"], _bearing(n["x"], n["z"], pr["x"], pr["z"])) <= 60
+            if d > 35.0 and not closing and not n["moving"]:
+                CLOSURE_NOTES.append(
+                    f"{mission['key']}: neutral {n['tag']} ({n['uid']}) is {d:.0f} NM "
+                    f"from {pr['tag']} and pointed away - it is not part of the "
+                    "identification picture")
+
+    for r in red:
+        if r["kind"] == "land":
+            continue
+        pr, d = nearest_protected(r)
+        closing = _off_bow(r["heading"], _bearing(r["x"], r["z"], pr["x"], pr["z"])) <= 90
+        if not closing and not r["moving"] and d > armed_reach(r):
+            CLOSURE_NOTES.append(
+                f"{mission['key']}: red {r['tag']} ({r['uid']}) is {d:.0f} NM from "
+                f"{pr['tag']}, pointed away, with no waypoints and "
+                f"{armed_reach(r):.0f} NM of reach - set dressing unless it moves")
 
 
 def deck_size(uid):
@@ -1159,13 +1383,14 @@ def check_reach(mission, placed, members):
             if not family.startswith(family_prefix):
                 continue
             ashore = family.endswith("LandUnit")
+            flies = family.endswith("Aircraft")
             for tag, keys, _n, _x in entries:
                 bits = keys.get("RelativePositionInNM", "").split(",")
                 if len(bits) == 3:
                     try:
                         out.append((tag, keys["Type"], float(bits[0]),
                                     float(bits[2]), ashore,
-                                    keys.get("LoadoutVariant")))
+                                    keys.get("LoadoutVariant"), flies))
                     except ValueError:
                         pass
         return out
@@ -1193,10 +1418,10 @@ def check_reach(mission, placed, members):
                  [mission["victory"].get("station")]) if r
                 for t in refs(members, r)}
         targets = [r for r in red if r[0] in want]
-        for tag, uid, x, z, _a, _f in targets:
+        for tag, uid, x, z, _a, _f, _fl in targets:
             closest = min(
                 (math.hypot(x - bx, z - bz) - armed(buid, bfit) - steam, buid)
-                for _bt, buid, bx, bz, _ba, bfit in blue)
+                for _bt, buid, bx, bz, _ba, bfit, _bfl in blue)
             if closest[0] > 0:
                 problems.append(
                     f"{mission['key']}: victory needs {uid} at {tag} destroyed, "
@@ -1208,25 +1433,38 @@ def check_reach(mission, placed, members):
 
     if not (blue and red):
         return None
-    gap = min(math.hypot(x - bx, z - bz) for _t, _u, x, z, _a, _f in red
-              for _bt, _bu, bx, bz, _ba, _bf in blue)
-    longest = max([armed(u, f) for _t, u, _x, _z, _a, f in red] or [0.0])
+    gap = min(math.hypot(x - bx, z - bz) for _t, _u, x, z, _a, _f, _fl in red
+              for _bt, _bu, bx, bz, _ba, _bf, _bfl in blue)
+    longest = max([armed(u, f) for _t, u, _x, _z, _a, f, _fl in red] or [0.0])
+    # What red can actually cross: its longest round PLUS what the unit that
+    # carries it can move in the mission. An aircraft with an 86 NM missile
+    # 93 NM from the convoy is not 7 NM of open water nothing can cross - it
+    # is a minute of flight. 300 kn is a conservative cruise; ships get the
+    # same 24 kn the rest of the file uses; a land launcher gets nothing.
+    def transit(ashore, flies):
+        if ashore:
+            return 0.0
+        return mission["minutes"] / 60.0 * (300.0 if flies else 24.0)
+    short = min([min(math.hypot(x - bx, z - bz) for _bt, _bu, bx, bz, _ba, _bf, _bfl in blue)
+                 - armed(u, f) - transit(a, fl)
+                 for _t, u, x, z, a, f, fl in red] or [0.0])
     # The standoff rule is about an engagement the player is dropped into
     # without a say, which happens at sea and in the air. Two ground forces
     # in contact ashore is not that - it is the scenario - so a land-on-land
     # pair does not count toward it.
     afloat = [math.hypot(x - bx, z - bz)
-              for _t, _u, x, z, ashore, _f in red
-              for _bt, _bu, bx, bz, bashore, _bf in blue
+              for _t, _u, x, z, ashore, _f, _fl in red
+              for _bt, _bu, bx, bz, bashore, _bf, _bfl in blue
               if not (ashore and bashore)]
 
     budget = ROLE_BUDGET[mission["role"]]
-    if budget.get("contact") is not None and gap - longest > budget["contact"]:
+    if budget.get("contact") is not None and short > budget["contact"]:
         REACH_PROBLEMS.append(
             f"{mission['key']}: a {mission['role']} mission, and the red force "
-            f"spawns {gap:.0f} NM from the nearest blue unit while its longest "
-            f"round reaches {longest:.0f} - {gap - longest:.0f} NM of open "
-            "water nothing can cross. Those hulls are scenery")
+            f"spawns {gap:.0f} NM from the nearest blue unit; even the unit "
+            f"that gets closest, its longest round plus what it can move in "
+            f"{mission['minutes']} minutes, is {short:.0f} NM short. Those "
+            "hulls are scenery")
     if budget.get("standoff") and afloat and min(afloat) < budget["standoff"]:
         REACH_PROBLEMS.append(
             f"{mission['key']}: a {mission['role']} mission opens with red "
@@ -1342,6 +1580,8 @@ def render(mission, placed, members):
         L.append(f"{oid}Intel={ini_text(reward['intel'])}")
     for i, loss in enumerate(mission.get("support_loss", []), 1):
         L.append(f"SupportLoss{i}Intel={ini_text(loss['intel'])}")
+    if mission.get("victory", {}).get("after", {}).get("intel"):
+        L.append(f"StageIntel={ini_text(mission['victory']['after']['intel'])}")
     for reveal in mission.get("reveal_if", []):
         L.append(f"{reveal['variable']}Intel={ini_text(reveal['intel'])}")
     for flag in mission.get("flags", []):
@@ -1485,6 +1725,53 @@ def render(mission, placed, members):
     if victory.get("sets"):
         win_lines.append(f"Action_VariableSet={victory['sets']},True")
     win_lines.append(EXIT)
+
+    # A win the player has to EARN. Two missions scored their arrival with
+    # nothing asked of the player first: SW03 could be won by flying straight
+    # south from spawn and never going near the platform it is about, and
+    # SW04's contact drove itself into the box while the player watched. So
+    # the arrival trigger can ship Disabled=True behind a stage - the lifters
+    # over the rig, the contact classified - and only the stage enables it.
+    # Both halves are stock: Disabled=True + Action_EnableTriggers is the
+    # shared-exit pattern twelve native missions use, UnitsInTheArea and
+    # UnitClassified are the conditions the campaign already leans on. The
+    # stage is a trigger, so it can also carry the intel line that tells the
+    # player the first half is done.
+    stage = victory.get("after")
+    if stage:
+        s_units = [tag for tag in refs(members, stage["units"])]
+        if not s_units:
+            raise SystemExit(f"{mission['key']}: the victory stage names no unit")
+        if stage["kind"] == "area":
+            if "at_unit" in stage:
+                # the PLACED position of a unit - a snapped rig is where it
+                # was snapped to, not where the station was authored
+                ref = refs(members, stage["at_unit"])[0]
+                for _fam, entries in placed.items():
+                    for tag, keys, _n, _x in entries:
+                        if tag == ref:
+                            bx, _a, bz = keys["RelativePositionInNM"].split(",")
+                            s_at = (centre[0] + float(bz) / 60.0,
+                                    centre[1] + float(bx) / 60.0)
+            else:
+                s_at = stage["at"]
+            s_cond = area_condition(1, centre, s_at, stage.get("radius", 3),
+                                    s_units, stage.get("min_units", 1))
+            s_cond.append("ConditionsCompleted=<Condition1>")
+        elif stage["kind"] == "classify":
+            s_cond = ["Condition_Type=UnitClassified",
+                      "Condition_Taskforce=Taskforce1",
+                      f"Condition_Units={','.join(s_units)}",
+                      f"Condition_MinimumUnits={stage.get('min_units', 1)}"]
+        else:
+            raise SystemExit(f"{mission['key']}: unknown victory stage "
+                             f"{stage['kind']!r}")
+        met_no = len(T) + 2          # this stage trigger, then the arrival
+        if stage.get("intel"):
+            s_cond.append("Action_Taskforce1_Intel=StageIntel")
+        s_cond.append(f"Action_EnableTriggers=Trigger{met_no}")
+        trigger("Stage", s_cond)
+        cond.insert(0, "Disabled=True")
     trigger("Objective met", cond + win_lines)
 
     # Every objective needs a predicate. "victory" is completed by the trigger
@@ -1844,6 +2131,16 @@ def briefing_page(mission):
                      f'Text="{xml_escape(text)}"/>')
 
     section("SITUATION", mission["brief"].replace("\\n\\n", "  ").replace("\n", " "))
+    # Who is speaking, and what they actually want. The bible wrote seven
+    # recurring people and asked for "short radio traffic, log extracts and
+    # debriefs"; for a year not one of them reached a briefing. INTENT is
+    # where the campaign's thesis - identify first, protect the transports,
+    # do not spend what you cannot replace - is said in a voice, before every
+    # mission, by the person whose problem it is.
+    if mission.get("sender"):
+        section("FROM", mission["sender"])
+    if mission.get("intent"):
+        section("COMMANDER'S INTENT", mission["intent"])
     section("TASK", "  ".join(f"{oid}: {text}"
                               for oid, text, _s in mission["objectives"]))
     section("FORCES", mission["forces"])
@@ -2705,6 +3002,7 @@ def main():
         worst = max(worst, far)
         weight = check_pacing(mission, placed)
         picture = check_reach(mission, placed, members)
+        check_closure(mission, placed, members)
         solve_arrival(mission, placed, members)
         check_geometry(mission, placed, members)
         name, text = render(mission, placed, members)
@@ -2720,8 +3018,18 @@ def main():
         print(f"  {name:<44} {units:>3} units {weight:>3} red combat  "
               f"{len(mission_credits):>3} mods  snap<={far:4.1f}{gap}")
 
-    if REACH_PROBLEMS:
-        sys.exit("reach failed:\n  " + "\n  ".join(REACH_PROBLEMS))
+    if UNPROVEN:
+        print(f"\n{len(UNPROVEN)} offshore station(s) used as authored - open water "
+              f"by distance from known land, not by a proven point:")
+        for where, at, land in UNPROVEN:
+            print(f"  {where:<34} {at[0]:8.3f},{at[1]:8.3f}   nearest land {land:4.0f} NM")
+    if CLOSURE_NOTES:
+        print(f"\n{len(CLOSURE_NOTES)} unit(s) placed where they cannot take part:")
+        for note in CLOSURE_NOTES:
+            print(f"  {note}")
+    if REACH_PROBLEMS or CLOSURE_PROBLEMS or PLACEMENT_PROBLEMS:
+        sys.exit("geometry failed:\n  " + "\n  ".join(
+            PLACEMENT_PROBLEMS + REACH_PROBLEMS + CLOSURE_PROBLEMS))
 
     rows, missing = coverage(credits, EXCUSES)
     if missing:
