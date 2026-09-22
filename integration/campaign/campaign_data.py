@@ -1018,19 +1018,29 @@ MISSIONS.append(dict(
          "10,-10,Complete"),
     ],
     victory=dict(kind="arrive", station="tanker", at=(-9.4, 132.6), radius=35,
-                 min_units=1, objective="Tanker"),
-    fatal=[F("Tanker", ["tanker"]), F("Package", ["package"])],
+                 min_units=1, objective="Tanker",
+                 # "Bring the returning flight home" is a win condition now,
+                 # not a tripwire: two of the three have to be at the
+                 # recovery line with the tanker.
+                 also=[dict(units=["package"], min_units=2)]),
+    # The tanker ends it. The package ends it at TWO lost - one Rhino down
+    # used to end the mission with a message saying the tanker was gone.
+    fatal=[F("Tanker", ["tanker"]), F("Package", ["package"], 2)],
     neutral_objective="Package",
     win="The tanker is south of the line and the package is behind it. Both "
         "Foxhounds turned back with nothing to show a staff officer.",
-    lose="The tanker is down. Every sortie in the north tomorrow gets shorter, "
-         "and the ones over the enclave do not happen at all.",
+    lose="The tanker is down, or the package is. Either way every sortie in "
+         "the north tomorrow gets shorter, and the ones over the enclave do "
+         "not happen at all.",
     stations={
         "tanker": S(-7.2, 133.0, "Texaco 41", heading=200, alt=26000),
         "package": S(-6.6, 133.2, "Returning package", heading=200, alt=28000),
         "cap": S(-6.9, 133.4, "Raptor pair", heading=20, alt=40000),
         "red_air": S(-5.6, 132.6, "Interceptor pair", heading=170, alt=52000),
-        "red_support": S(-4.5, 130.2, "Support orbit", heading=180, alt=30000),
+        # On the Foxhounds' back-bearing, as the brief says - "their AEW
+        # aircraft is behind them and their own tanker is behind that" - not
+        # 150 NM west where nothing on the map could confirm the sentence.
+        "red_support": S(-4.6, 132.45, "Support orbit", heading=170, alt=30000),
         "picket": S(-7.6, 133.4, "Surface picket", heading=270),
         "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
@@ -1067,12 +1077,13 @@ MISSIONS.append(dict(
             "first hundred people out. A battery off the air for two hours "
             "beats a battery destroyed for the price of the strike package. "
             "When the window closes, come home."),
+    detached=True,
     date=(2028, 11, 8), time=(4, 50), sea=2, clouds="Scattered_1", wind="NE",
     difficulty=4, minutes=70, centre=(-2.0, 136.0),
     blue_nation="Australia", red_nation="Russia",
     brief=(
         "THE ENCLAVE, before dawn. Local authorities have negotiated a "
-        "ninety-minute window to move civilians and emergency supplies out of "
+        "seventy-minute window to move civilians and emergency supplies out of "
         "the port. The battery covering the approach is an S-400 the first "
         "reports called man-portable, and it is not being run by the people "
         "who seized the airfield.\\n\\n"
@@ -1087,12 +1098,13 @@ MISSIONS.append(dict(
            "battery with its Flap Lid, a ballistic launcher, a modern airbase, "
            "and a small foreign detachment with Hinds, Hips and Frogfoots.",
     objectives=[
-        ("Window", "Get the relief aircraft through to the south",
+        ("Window", "Get the relief aircraft through to the safe box",
          "40,-40,Fail,Main"),
         ("Battery", "Neutralise the surface-to-air battery", "20,-15,Complete"),
-        ("Town", "Leave the civilian port standing", "0,-30,Complete"),
+        ("Town", "Leave the civilian buildings on the field standing",
+         "0,-30,Complete"),
     ],
-    victory=dict(kind="arrive", station="relief", at=(-4.6, 136.8), radius=30,
+    victory=dict(kind="arrive", station="relief", at=(-2.9, 135.2), radius=25,
                  min_units=1, objective="Window"),
     fatal=[F("Window", ["relief"])],
     neutral_objective="Town",
@@ -1101,12 +1113,24 @@ MISSIONS.append(dict(
     lose="The window closed with the transports still holding. The next "
          "negotiation starts from a worse place.",
     stations={
-        "strike": S(-2.6, 135.9, "Strike package", heading=10, alt=30000),
-        "relief": S(-3.0, 136.2, "Relief flight", heading=170, alt=14000),
+        # The door is BETWEEN the relief and safety now. The transports used
+        # to spawn 113 NM south of the battery flying away from it toward a
+        # box 230 NM further south - a win by transit that the SEAD had no
+        # bearing on. They come from the north-west, outside the site's
+        # longest missile, hold a leg for seventeen minutes, then turn in
+        # for a box south-west of the field: 55 minutes of flying in a
+        # 70-minute window, with the battery between them and it. The
+        # package starts 129 NM out - inside the Growler's 140 NM HARM,
+        # outside the 130 NM 48N6 - instead of inside the envelope with its
+        # radars on.
+        "strike": S(-3.15, 136.1, "Strike package", heading=10, alt=30000),
+        "relief": S(-0.4, 132.5, "Relief flight", heading=170, alt=14000),
+        "box": S(-2.9, 135.2, "Safe box", heading=0),
         "battery": S(-1.0, 136.0, "S-400 battery", heading=180),
         "field": S(-1.1, 136.2, "Enclave airfield", heading=90),
         "detach": S(-1.2, 136.4, "Foreign detachment", heading=180, alt=4000),
         "port": S(-4.5, 137.0, "Civilian port", heading=0),
+        "coaster": S(-3.0, 135.3, "Relief coaster", heading=90),
         "sea": S(0.5, 135.5, "Offshore picket", heading=180),
         # The deck this strike always implied. The nearest Australian
         # field is Scherger, 707 NM south - outside an F-35A's 547 NM
@@ -1124,14 +1148,18 @@ MISSIONS.append(dict(
         # than none.
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "strike",
           squadron="Squadron6", name="Grizzly 33"),
+        # "The F-35 pair carries the follow-up": JSM, 120 NM, internal. They
+        # carried four AIM-120s.
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "strike",
-          squadron="Squadron3", name="Vigilant 31"),
+          squadron="Squadron3", name="Vigilant 31", loadout="StrikeLongRangeStealth"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "strike",
-          squadron="Squadron3", name="Vigilant 32"),
+          squadron="Squadron3", name="Vigilant 32", loadout="StrikeLongRangeStealth"),
         U("blue", "us-naval-aviation", "usmc_kc-130j", "relief",
-          name="Relief 61", alt=12000, weapons="Hold"),
+          name="Relief 61", alt=12000, weapons="Hold",
+          route=[(-1.6, 132.8, 14000), (-2.9, 135.2, 14000)]),
         U("blue", "us-naval-aviation", "usmc_kc-130j", "relief",
-          name="Relief 62", alt=12000, weapons="Hold"),
+          name="Relief 62", alt=12000, weapons="Hold",
+          route=[(-1.6, 132.85, 14000), (-2.9, 135.25, 14000)]),
         U("red", "sa-21-s400", "wp_sam_site_sa-21", "battery",
           name="Enclave battery"),
         U("red", "sa-21-s400", "wp_sa-21_flaplid", "battery",
@@ -1150,11 +1178,14 @@ MISSIONS.append(dict(
         U("red", "mi-8-t-tv", "wp_mi-8tv", "detach", name="Hip 41", alt=2500),
         U("red", "mi-8ew", "wp_mi-8ew", "detach", name="Hip EW 43", alt=5000),
         U("red", "su-25", "wp_su-25sm3", "detach", name="Frogfoot 61", alt=14000),
-        U("neutral", "buildings-targets-missions", "Coal_PowerPlant", "port",
-          name="Port power station"),
-        U("neutral", "buildings-targets-missions", "4tentgroup", "port",
+        # On the field, beside the airbase and the launcher - "everything on
+        # that field that is not shooting at you is somebody's town". They
+        # used to sit 211 NM away where no strike could have touched them.
+        U("neutral", "buildings-targets-missions", "Coal_PowerPlant", "field",
+          name="Field power station"),
+        U("neutral", "buildings-targets-missions", "4tentgroup", "field",
           name="Civilian shelter camp"),
-        U("neutral", "_vanilla", "civ_ms_encounter", "sea",
+        U("neutral", "_vanilla", "civ_ms_encounter", "coaster",
           name="Relief coaster"),
         U("blue", "modern-us-navy", "usn_cvn_nimitz_2025", "cvn",
           name="USS Theodore Roosevelt"),
@@ -2914,8 +2945,11 @@ WINDOWS = {
     # both Raptors, both Rhinos - is named by an objective, and an objective
     # may not depend on a cockpit the player fills. The window still buys,
     # repairs and rearms; it just has nowhere to put a bought aeroplane.
-    "07": dict(buy=True, allow=BUY_07, repair=True, rearm=True,
-               airbase_prep=True),
+    # No builder here: the mission places its aircraft and generates no
+    # force, so a ship bought in this window could not appear in it. BUY_09
+    # carries BUY_07's list, so nothing is lost - it is on sale one mission
+    # later, where the purchase can sail.
+    "07": dict(repair=True, rearm=True, airbase_prep=True),
     "08": dict(flights=[STRIKE, CAP], airbase_prep=True),
     "09": dict(buy=True, allow=BUY_09, repair=True, rearm=True, flights=[HELO, RECON]),
     # No ordinary hull purchases and no paid repair; the rearm is the
@@ -2984,7 +3018,6 @@ ARRIVALS = {
     "04": (-177, 12),
     "06": (-131, 12),
     "07": (-170, 20),
-    "08": (161, 20),
     "09": (154, 12),
     "10": (139, 12),
     "11": (138, 12),
@@ -3020,8 +3053,10 @@ RESOLVERS = {
     "06": {"Convoy": "victory", "Picture": ("classify", "red_sag", 1),
            "Sentry": ("protect", "isr"), "Hobart": ("protect", "hobart"),
            "Airlift": ("classify", "red_lift", 1)},
-    "07": {"Tanker": "victory", "Package": ("survive", "package"),
-           "Raptors": ("survive", "cap")},
+    # protect, not survive: the first loss fails the objective. "Do not
+    # trade the Raptors" used to pay in full after losing one.
+    "07": {"Tanker": "victory", "Package": ("protect", "package"),
+           "Raptors": ("protect", "cap")},
     "08": {"Window": "victory", "Town": "neutral",
            "Battery": ("destroy", "battery", 2)},
     "09": {"Service": "victory", "Collins": ("protect", "support#2"),
@@ -3130,7 +3165,6 @@ JOINS = {
     ("02", "E7A_Wedgetail"),
     ("03", "usmc_ch53_standalone"),
     ("06", "raaf_mq-4c_triton"),
-    ("07", "usaf_f-22_s6"),
     ("O1", "usn_mh-60r"),
     ("C1", "usn_mh-60r"),
 }
