@@ -188,7 +188,7 @@ def credits_text(staged):
     import difflib
     mods = ROOT / "mods-source"
     by_name, by_kind = {}, {}
-    for f in mods.rglob("*.ini"):
+    for f in sorted(mods.rglob("*.ini")):
         rel = f.relative_to(mods)
         if len(rel.parts) < 2 or rel.parts[0] == "_vanilla":
             continue
@@ -215,7 +215,11 @@ def credits_text(staged):
         name = parts[-1]
         best = (0.0, None, None)
         pool = by_name.get((parts[0], name)) or by_kind.get(parts[0], [])
-        for token, cand in pool:
+        # Sorted, and ties broken by (token, filename) rather than by whichever
+        # the filesystem happened to hand over first - two donors can be
+        # equally similar, and a credits file that names a different one on
+        # Windows than on Linux is a file that never stops showing as modified.
+        for token, cand in sorted(pool, key=lambda tc: (tc[0], tc[1].name)):
             theirs = _lines(cand.read_bytes())
             sm = difflib.SequenceMatcher(None, mine, theirs)
             if sm.quick_ratio() < 0.85:

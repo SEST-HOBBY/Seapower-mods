@@ -50,8 +50,10 @@ import argparse
 import collections
 import functools
 import math
+import pathlib
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -174,7 +176,12 @@ def index():
     if _INDEX is None:
         _INDEX = {}
         for token, base in providers():
-            for f in base.rglob("*"):
+            # Sorted, because this is a FIRST-WINS index and a mod can ship two
+            # files whose names differ only in case - check_load_order names
+            # Shahed_136_white.ini and shahed_136_white.ini. Windows sees one
+            # file there and Linux sees two, so an unsorted walk lets the two
+            # platforms disagree about which one won.
+            for f in sorted(base.rglob("*")):
                 if not f.is_file():
                     continue
                 rel = f.relative_to(base).as_posix().lower()
@@ -2743,6 +2750,23 @@ def main():
         return
 
     import shutil
+    # Decide about the art BEFORE the tree is destroyed. This used to rmtree
+    # the pack and only then try to import Pillow, so on a machine without it
+    # the builder deleted all 24 PNGs and printed "keeping the committed
+    # PNGs" - which was false, and which a contributor would only notice as 24
+    # deletions in `git status`. If Pillow is missing the art is copied out and
+    # put back, so the committed images survive a rebuild on any machine.
+    try:
+        import make_art
+    except ImportError as exc:
+        make_art, art_reason = None, str(exc)
+    else:
+        art_reason = None
+    keep_art = None
+    old_art = OUT / "campaigns" / SLUG / "art"
+    if make_art is None and old_art.is_dir():
+        keep_art = pathlib.Path(tempfile.mkdtemp(prefix="sest-art-"))
+        shutil.copytree(old_art, keep_art / "art")
     if OUT.exists():
         shutil.rmtree(OUT)
     camp = OUT / "campaigns" / SLUG
@@ -2792,12 +2816,19 @@ def main():
                                                            encoding="utf-8")
 
     # The art last, because a card is drawn FROM the mission file that was
-    # just written. Pillow is the only thing here that is not stdlib, so a
-    # machine without it keeps the committed PNGs and is told.
-    try:
-        import make_art
-    except ImportError as exc:
-        print(f"  art not regenerated ({exc}) - keeping the committed PNGs")
+    # just written. Pillow is the only thing here that is not stdlib; without
+    # it the images set aside above are put back unchanged.
+    if make_art is None:
+        if keep_art is not None:
+            for f in sorted((keep_art / "art").iterdir()):
+                shutil.copy2(f, camp / "art" / f.name)
+            shutil.rmtree(keep_art, ignore_errors=True)
+            print(f"  art not regenerated ({art_reason}) - restored "
+                  f"{len(list((camp / 'art').glob('*.png')))} committed PNG(s). "
+                  f"Install Pillow to rebuild them from the missions.")
+        else:
+            print(f"  art not regenerated ({art_reason}) and none was committed "
+                  f"- this pack has NO images. Install Pillow and rebuild.")
     else:
         cards = [dict(num=m["num"], key=m["key"], place=m["place"],
                       group=m["group"], date=date_words(m["date"]),
