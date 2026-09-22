@@ -103,8 +103,8 @@ What to read in its output:
 | `purged SEST_…` | an old per-pack folder removed | expected once, after the switch to the consolidated pack |
 | `appended (not canonical)` | a mod you subscribed to that the repo has never seen | expected for **Automatic SAR** and the **Euromod South Korean Navy** — see step 5 |
 
-The file count should now be **257**, not 122. It changed in this branch: the
-campaign gained 24 generated PNGs plus `REQUIRED-MODS.txt` and
+The file count should now be **273**, not 122. It changed in this branch: the
+campaign gained 32 generated PNGs plus `REQUIRED-MODS.txt` and
 `LOAD-ORDER.txt`, and lost the fourteen `_info.ini` files it used to write into
 briefing folders under `campaigns/`, where the vanilla campaigns have none.
 
@@ -115,7 +115,7 @@ go back to step 1 rather than reaching for `-AnyBranch`.
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
-Get-ChildItem "$sa\campaigns\sest-southern-watch\art\*.png" | Measure-Object   # 24
+Get-ChildItem "$sa\campaigns\sest-southern-watch\art\*.png" | Measure-Object   # 32
 Test-Path "$sa\campaigns\sest-southern-watch\art\00_campaign_background.png"   # True
 Test-Path "$sa\REQUIRED-MODS.txt"                                              # True
 Test-Path "$sa\CREDITS.txt"                                                    # True
@@ -127,7 +127,7 @@ something the next cannot:
 1. **Mod Manager** — `SEST Integration Pack` at the top of the list, enabled.
    Its description should read like a mod description, not like a repo note.
    If it still says "Built by the Seapower-mods repo", you are on the old build.
-2. **Campaign list** — `Southern Watch (Royal Australian Navy)`, 23 entries,
+2. **Campaign list** — `Southern Watch (Royal Australian Navy)`, 31 entries,
    with the chart backdrop behind it and a mission card on each tile.
 3. **Mission browser** — `Southern Watch 01 - White Water` under
    `Southern Watch`. The missions ship twice on purpose, so if the campaign

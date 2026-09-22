@@ -132,25 +132,33 @@ EVENTS = [
              "patrol sent to look has reported gunfire. HMAS Warramunga is the "
              "nearest coalition ship.",
              "Bring the convoy together. Get the crews out of danger. Identify "
-             "before you shoot - none of this is a war yet."]),
-    dict(file="06_interlude", before="The Open Door",
+             "before you shoot - none of this is a war yet, and the fastest "
+             "way to make it one is to be wrong about a fishing boat."]),
+    # Rendered as an INTSUM: its dateline already said COALITION JOINT
+    # INTELLIGENCE, and a press sheet from an intelligence cell is a form the
+    # campaign never had a reason to use.
+    dict(file="06_interlude", before="The Open Door", form="intsum",
          title="The Enclave\\n12 November 2028",
          sub="A contested airfield, foreign advisers and a relief window",
-         dateline="12 NOVEMBER 2028  |  COALITION JOINT INTELLIGENCE",
-         headline="SOMEONE ELSE'S AIR DEFENCE",
+         org="Coalition Joint Intelligence Centre, Darwin", ref="INTSUM 028-63",
+         date="12 November 2028", subject="The enclave",
          body=[
-             "Regional security forces have recovered most of the facilities "
-             "Meridian's hard-line faction seized. One airfield and port "
-             "enclave has not come back, and the battery covering it is not "
-             "the man-portable inventory the first reports described.",
-             "A naval force has arrived under a protection-and-evacuation "
+             "1. Regional security forces have recovered most of the "
+             "facilities Meridian's hard-line faction seized. One airfield and "
+             "port enclave has not come back, and the battery covering it is "
+             "not the man-portable inventory the first reports described.",
+             "2. A naval force has arrived under a protection-and-evacuation "
              "pretext and demanded the coalition patrols suspend. A small "
              "foreign expeditionary detachment is supporting the enclave under "
              "a separate arrangement. Its fuel and ammunition arrive by routes "
              "we can see, which is the one advantage we have.",
-             "Local authorities have asked for a protected window to move "
+             "3. Local authorities have asked for a protected window to move "
              "civilians and emergency supplies out. That window, not a body "
-             "count, is the objective."]),
+             "count, is the objective.",
+             "4. Guidance. A battery off the air for two hours is worth more "
+             "than a battery destroyed at the cost of the aircraft that were "
+             "going to fly the relief."],
+         note="Two hours. Not the battery.  - AM"),
     dict(file="12_closing", title="The First Ship Through\\n28 November 2028",
          sub="An imperfect ceasefire and a working sea route",
          dateline="28 NOVEMBER 2028  |  MARITIME BORDER COMMAND, DARWIN",
@@ -166,6 +174,9 @@ EVENTS = [
              "ledger says which ships are in it. That is the whole measure of "
              "this campaign - not the exchange rate, the sea route and the "
              "people who used it.",
+             "Master Santos's last entry for the passage, which she has allowed "
+             "to be quoted, reads: \"Alongside. One shaft. All hands.\" The "
+             "Commodore's, which he has not, is understood to be shorter.",
              "Stand down the watch."]),
 ]
 
@@ -716,7 +727,7 @@ MISSIONS.append(dict(
     difficulty=3, minutes=55, centre=(-9.0, 131.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "TIMOR CORRIDOR. A surface action group is working south-west across "
+        "TIMOR CORRIDOR. A surface action group is working south-east down "
         "the corridor screening an amphibious transport, and it has begun "
         "turning merchant traffic back by radio and then by gun.\\n\\n"
         "You are WARRAMUNGA again, alone, sixty miles on their disengaged bow "
@@ -736,22 +747,33 @@ MISSIONS.append(dict(
         ("Convoy", "The protected merchants must pass", "20,-30,Complete"),
         ("Magazine", "Bring Warramunga out with rounds left", "10,-10,Complete"),
     ],
-    victory=dict(kind="destroy", stations=["sag"], min_units=1,
+    # sag#1 is the Sovremenny. With both hulls counted, sinking the unarmed
+    # transport won "neutralise the armed escort".
+    victory=dict(kind="destroy", stations=["sag#1"], min_units=1,
                  objective="Escort"),
-    fatal=[F("Convoy", ["convoy"], 2)],
+    # Losing the frigate ends it. It used to fail one objective and play on
+    # with four merchants as the surviving Taskforce1.
+    fatal=[F("Convoy", ["convoy"], 2), F("Magazine", ["warramunga"])],
     neutral_objective="Convoy",
     win="The escort is burning and the transport has turned north. The convoy "
         "passed behind you while it happened, which was the entire point.",
     lose="Warramunga is gone or the lane is closed. Either way nothing moves "
          "through this corridor tomorrow.",
     stations={
-        "warramunga": S(-10.0, 131.5, "HMAS Warramunga", heading=310),
-        "sag": S(-9.4, 131.1, "Opposing surface group", heading=220),
-        "convoy": S(-11.4, 129.6, "Protected convoy", heading=70),
+        # "Sixty miles on their disengaged bow" - now sixty, not thirty-four
+        # inside the Moskit envelope. The SAG steams for the convoy, which is
+        # ten miles behind the frigate instead of 147 NM from anything; the
+        # Seahawk starts on the frigate's disengaged quarter, not 16.7 NM
+        # from a weapons-free Sovremenny whose SA-N-7 reaches 16.2; and there
+        # is traffic in the lane for the identification premise to be about.
+        "warramunga": S(-10.2, 131.7, "HMAS Warramunga", heading=310),
+        "sag": S(-9.4, 131.1, "Opposing surface group", heading=140),
+        "convoy": S(-10.3, 131.85, "Protected convoy", heading=70),
+        "lane": S(-9.9, 131.4, "Corridor traffic", heading=70),
         "red_air": S(-8.6, 131.9, "Maritime strike flight", heading=200,
                      alt=24000),
         "helo": S(-9.3, 131.3, "Shipborne flight", heading=180, alt=3000),
-        "air": S(-9.8, 131.4, "Warramunga Flight", heading=320, alt=3000),
+        "air": S(-10.35, 131.85, "Warramunga Flight", heading=320, alt=3000),
         "home": S(-14.5212, 132.3778, "RAAF Base Tindal"),
     },
     units=[
@@ -760,13 +782,21 @@ MISSIONS.append(dict(
         U("blue", "mh-60r-2154545636", "usn_mh-60r", "air",
           name="Warramunga Flight", alt=3000),
         U("red", "chinese-navy-plan", "plan_em_sovremenny", "sag",
-          name="Opposing escort"),
+          name="Opposing escort", route=[(-10.3, 131.85, 0)], telegraph=3),
         U("red", "type-071-lpd", "plan_lpd_type_071", "sag",
-          name="Amphibious transport"),
+          name="Amphibious transport", route=[(-10.3, 131.85, 0)], telegraph=3),
         U("red", "type-071-lpd", "planaf_z-20j", "helo", name="Transport flight"),
         U("red", "z-21", "pla_z21", "helo", name="Escort flight", alt=2500),
-        U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike flight lead"),
-        U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike flight two"),
+        # A maritime strike regiment that can strike: the default fit is four
+        # short-range air-to-air missiles and three tanks.
+        U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike flight lead",
+          loadout="AntiShip"),
+        U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike flight two",
+          loadout="AntiShip"),
+        U("neutral", "re-power-resupply", "civ_ms_freighter_b", "lane",
+          name="MV Kupang Trader", route=[(-9.7, 132.2, 0)], telegraph=3),
+        U("neutral", "_vanilla", "civ_ms_ritina", "lane",
+          name="MT Banda Spirit", route=[(-9.75, 132.1, 0)], telegraph=3),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_roro_a", "convoy",
@@ -816,7 +846,10 @@ MISSIONS.append(dict(
            "into the enclave, and a surface group not yet located.",
     objectives=[
         ("Convoy", "The convoy reaches its passage window", "30,-30,Fail,Main"),
-        ("Picture", "Classify the northern surface group", "25,-15,Complete"),
+        # Fail at the end if never done: holding the Triton south is a
+        # playable choice, and it costs fifteen. It used to resolve Complete
+        # for +25 whether the group was ever seen or not.
+        ("Picture", "Classify the northern surface group", "25,-15,Fail"),
         ("Sentry", "Keep the Triton flying", "25,-25,Complete"),
         ("Hobart", "Hobart survives", "10,-20,Complete"),
         # Not on the player's list at briefing. Classifying the surface group
@@ -843,7 +876,11 @@ MISSIONS.append(dict(
                                    "operation.")},
     victory=dict(kind="arrive", station="convoy", at=(-11.9, 130.6), radius=30,
                  min_units=2, objective="Convoy"),
-    fatal=[F("Sentry", ["isr"])],
+    # Losing the Triton is a COST - the objective fails, the intel says what
+    # it means for tomorrow, and SW11 starts with a worse picture. It was an
+    # instant red victory that cancelled the main objective, which nothing
+    # in the text, the bible or the design ever intended.
+    fatal=[],
     neutral_objective="Convoy",
     win="The convoy is through the window and Sentry 06 is on its way back to "
         "Tindal with the surface picture. Tomorrow starts with information.",
@@ -852,14 +889,26 @@ MISSIONS.append(dict(
     stations={
         "hobart": S(-10.5, 132.0, "HMAS Hobart", heading=250),
         "convoy": S(-10.6, 132.1, "Convoy", heading=250),
-        "isr": S(-9.0, 132.8, "Sentry orbit", heading=90, alt=50000),
+        # South of the fighters' reach at the start (PL-15 108 NM; the J-16s
+        # are 113 NM from here), so "hold her south" is a real state and
+        # "push her north" is a decision the player makes, not one the AI
+        # makes for them in the first seven minutes.
+        "isr": S(-9.8, 132.4, "Sentry orbit", heading=90, alt=50000),
         "cap": S(-10.2, 132.6, "Tindal CAP", heading=10, alt=30000),
         "aew": S(-11.6, 132.2, "Wedgetail orbit", heading=90, alt=32000),
         "tindal": S(-14.5, 132.5, "RAAF Base Tindal", heading=0),
         "red_air": S(-8.0, 133.0, "Enclave fighters", heading=180, alt=34000),
-        "red_lift": S(-6.4, 133.9, "Enclave shuttle track", heading=200,
+        # Inbound to the enclave, which is NORTH of the fighters' field - it
+        # used to fly south-west, away from it, through the CAP and into
+        # Hobart's SAM envelope. Now it comes up from the south-east, well
+        # east of anything Hobart can reach, and the Triton has to be north
+        # to see it.
+        "red_lift": S(-8.6, 134.2, "Enclave shuttle track", heading=330,
                       alt=28000),
-        "red_sag": S(-7.6, 133.6, "Opposing surface group", heading=180),
+        # 104 NM from Hobart and steaming for the convoy: YJ-83 reach plus an
+        # hour at 24 kn is 109. It was 204 NM away and stationary, so the
+        # "launch basket" the defeat text talks about did not exist.
+        "red_sag": S(-9.1, 132.7, "Opposing surface group", heading=235),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "hobart",
@@ -880,14 +929,20 @@ MISSIONS.append(dict(
           name="MV Sunda Relief"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
-        U("red", "j-16-multirole", "plaaf_j16", "red_air", name="Enclave 11"),
-        U("red", "j-16-multirole", "plaaf_j16", "red_air", name="Enclave 12"),
+        # A patrol box south of their field: they hold it, and the orbit that
+        # crosses into it is the orbit that gets shot at.
+        U("red", "j-16-multirole", "plaaf_j16", "red_air", name="Enclave 11",
+          route=[(-8.4, 133.3, 34000), (-8.2, 132.7, 34000)]),
+        U("red", "j-16-multirole", "plaaf_j16", "red_air", name="Enclave 12",
+          route=[(-8.2, 132.7, 34000), (-8.4, 133.3, 34000)]),
         U("red", "y-20-kj-3000", "plaaf_y-20a", "red_lift", name="Shuttle 40",
-          alt=28000, weapons="Hold"),
+          alt=28000, weapons="Hold", route=[(-6.2, 133.9, 28000)]),
+        # Named by class - which is what an Identify-level reveal shows - not
+        # "north" and "south", which the formation put the wrong way round.
         U("red", "chinese-navy-plan", "plan_ddg_luda_typ_051dt", "red_sag",
-          name="Opposing escort north"),
+          name="Luda destroyer", route=[(-10.3, 132.3, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "red_sag",
-          name="Opposing escort south"),
+          name="Type 054A frigate", route=[(-10.3, 132.3, 0)], telegraph=3),
     ],
 ))
 
@@ -2281,49 +2336,114 @@ for _m in MISSIONS:
 SITREPS = [
     ("24 October 2028", "Chapter 1 closes", "The Arafura convoy is through",
      "THE ESCORT TASK IS FORMALISED",
-     ["Warramunga's report of the rendezvous went to Canberra inside an hour "
-      "and came back as a standing task. The escort group forms around her.",
-      "Port Moresby's engineering plant is ashore. The Pukpuk arrangements are "
-      "being read carefully by people who had not read them before."],
+     ["Warramunga's report of the Arafura rendezvous went to Canberra inside "
+      "an hour and came back the next morning as a standing task. There is "
+      "now an Australian maritime task group, it has a name, and it has an "
+      "escort group forming around whichever hulls came back from the Coral "
+      "Sea.",
+      "Port Moresby's engineering plant is ashore. Commander Kila's message "
+      "on arrival was three words long and is not printable in a family "
+      "newspaper. The Pukpuk access arrangements are being read carefully, "
+      "by people who had not read them before, in three capitals.",
+      "The Indonesian patrol vessel that challenged the escort on the "
+      "eighteenth has been credited, publicly, by Jakarta. The escort has not "
+      "been named. Meridian's statement refers to \"a misunderstanding at "
+      "sea\" and announces expanded safety-escort coverage \"in response to "
+      "client demand\".",
+      "The task group's next request comes from an offshore platform, and it "
+      "is not a Meridian one."],
      "Rig Seventeen"),
     ("31 October 2028", "Chapter 2 closes", "The network behind the incidents",
      "SOMEBODY IS SUPPLYING THEM",
-     ["The platform crews are ashore and the low-profile craft is in a shed "
-      "with photographers around it. What it was carrying matters less than "
-      "where it was going.",
-      "Two of the routes now have names. The people running them have not been "
-      "named, and the Meridian duty controller has stopped answering."],
+     ["The platform crews are ashore in Darwin and Kupang. The low-profile "
+      "craft tracked into the Banda approaches is in a shed with "
+      "photographers around it, and what it was carrying matters less than "
+      "where it was going: a Meridian terminal that had been declared closed "
+      "for a month.",
+      "Two of the supply routes now have names on a chart. The people running "
+      "them do not. The Meridian duty controller net went off the air on "
+      "Tuesday and has not come back, which the intelligence staff regard as "
+      "the most informative thing it has ever done.",
+      "Meridian's board has issued a statement disowning \"unauthorised "
+      "actions by a security subsidiary\". Its hard-line faction has issued "
+      "nothing, holds a service platform and several logistics sites, and "
+      "has not disarmed when told to. One airfield-and-port enclave has not "
+      "been recovered.",
+      "The task group's next convoy sails Wednesday. The escort that fired on "
+      "the eighteenth has been seen again, and it has not changed its ways."],
      "Warramunga's Shot"),
     ("7 November 2028", "Chapter 3 closes", "Overt attacks begin",
      "THIS IS NO LONGER DENIABLE",
-     ["An armed escort fired on a protected convoy in daylight. The recordings "
-      "are unambiguous and the diplomatic language has changed accordingly.",
-      "Growler and wider surveillance allocations are released. Damage and "
-      "magazine expenditure are no longer things the force can simply absorb."],
+     ["An armed escort fired on a protected convoy in daylight on the second, "
+      "and a Royal Australian Navy frigate answered. The recordings from "
+      "three platforms are unambiguous and the diplomatic language changed "
+      "the same afternoon. Nobody is calling it a misunderstanding.",
+      "A naval force has arrived in the northern approaches under what its "
+      "government describes as a protection-and-evacuation mission, and has "
+      "demanded that coalition patrols suspend. The demand has been declined. "
+      "The force has not gone home. Commodore Mercer's assessment to "
+      "Canberra, which has leaked in the way these things do, was one line: "
+      "\"They can close the lane for a month. They cannot hold it for two.\"",
+      "Growler and wider surveillance allocations are released to the task "
+      "group from Monday. What this week has established, and what the "
+      "ledger will record, is that damage and magazine expenditure are no "
+      "longer things the force can simply absorb between operations.",
+      "The next problem is not a ship. It is a tanker, and how many aircraft "
+      "are depending on it at once."],
      "Long Way Home"),
     ("14 November 2028", "Chapter 4 closes", "The corridor is open",
      "THE WINDOW HELD",
-     ["The relief movement is out and the enclave's battery is off the air. "
-      "The negotiation that follows starts from a better place than the one "
-      "that would have followed a closed window.",
-      "Tanker hours, not hulls, were the limiting factor this week. They will "
-      "be again."],
+     ["The relief movement is out of the enclave. The first hundred people "
+      "were on the ground at Tindal before the battery that covered the field "
+      "had finished being surprised. The negotiation that follows starts from "
+      "a better place than the one that would have followed a closed window, "
+      "and the negotiators know it.",
+      "Commander Kila's report from the eastern route reads, in full: \"Road "
+      "open. Column through. Send the next one.\" The Port Moresby plant is "
+      "running and the hospital is off generator, which is the first sentence "
+      "in this campaign a civilian would recognise as a result.",
+      "Tanker hours, not hulls, were the limiting factor this week. Wing "
+      "Commander Ward has said so in writing, twice, and will be saying it "
+      "again.",
+      "The task group's replenishment ship has been at sea for three weeks. A "
+      "submarine has been at sea for five. They are going to meet, and "
+      "something is going to try to stop them."],
      "Southern Lifeline"),
     ("21 November 2028", "Chapter 5 closes", "The route is sustained",
      "THE LIFELINE HOLDS",
-     ["Collins is dived and heading for Stirling. Supply still has enough in "
-      "her tanks to do it again.",
-      "The Japanese detachment is on station and the corridor has a second "
-      "usable escort force for the first time since October."],
+     ["The service window in the rear area held. The submarine that needed it "
+      "is dived and heading for Stirling, and the replenishment group that "
+      "gave it to her still has enough in her tanks to do it again, which was "
+      "the point.",
+      "A Japanese ASW detachment is on station in the eastern Banda "
+      "approaches. For the first time since October the corridor has two "
+      "escort forces that can hunt, and the convoy that went through on the "
+      "twentieth was the first in a month to arrive with every hull it "
+      "sailed with.",
+      "The opposing task group has moved south. Its carrier and its escorts "
+      "are now inside the box the corridor runs through, and the talks that "
+      "were supposed to open Thursday have been moved to Saturday to see what "
+      "happens first. The Commodore's note to the force this morning did not "
+      "mention the talks. It said: \"Keep the transports moving. Keep the "
+      "high-value ship alive. Everything else is the enemy's problem.\"",
+      "What the ledger says about the task group after five weeks, the ledger "
+      "says. What it does not say is that the corridor closed. It did not."],
      "Fujian's Shadow"),
     ("27 November 2028", "Before the last passage", "An imperfect ceasefire",
      "ONE PASSAGE THAT MUST WORK",
      ["The talks opened with the corridor open, which is the only reason they "
-      "opened at all. The ceasefire takes effect at midnight and not every "
-      "group in the box has acknowledged it.",
-      "Coral Pioneer is at the head of the first convoy through, with a "
-      "bearing running hot. Everything this campaign was about is in that one "
-      "sentence."],
+      "opened at all. A ceasefire takes effect at midnight. Not every group "
+      "in the box has acknowledged it, and one of the groups that has is not "
+      "the one the intelligence staff are watching.",
+      "Coral Pioneer is at the head of the first convoy through. Her master "
+      "has declined a replacement ship, a replacement crew and, in writing, a "
+      "replacement master. She has a bearing running hot and a chief engineer "
+      "who says it will hold if nobody asks him how.",
+      "The escorts that will take her through are the escorts that are left. "
+      "The ledger has the list. What the list does not record is that every "
+      "name on it has done this before, in this water, against these people, "
+      "and that the people on the other side know it.",
+      "Everything this campaign was about is in the next eight hours."],
      "The First Ship Through"),
 ]
 
@@ -2332,6 +2452,238 @@ for _i, (_date, _title, _sub, _head, _body, _before) in enumerate(SITREPS, 1):
                            title=f"{_title}\\n{_date}", sub=_sub,
                            dateline=f"{_date.upper()}  |  MARITIME BORDER COMMAND, DARWIN",
                            headline=_head, body=_body))
+
+
+# The cast, in the forms they write in. A liaison officer sends a cable, a
+# master keeps a log, an intelligence cell writes an INTSUM, an intercept is
+# transcribed. Pacific Strike tells its story in at least ten such forms; this
+# campaign told its own in one. Every person, company, hull and incident here
+# is invented. No page names a ship the player could have lost as alive: where
+# a loss is possible the page speaks of the class or the role.
+DOCUMENTS = [
+    dict(file="00b_meridian_intsum", before="Steel Highway", form="intsum",
+         title="What we know about Meridian\\n19 October 2028",
+         sub="Coalition Joint Intelligence summary",
+         org="Coalition Joint Intelligence Centre, Darwin", ref="INTSUM 028-41",
+         date="19 October 2028", subject="Meridian Maritime Group",
+         body=[
+             "1. Meridian Maritime Group is a freight, port-services and "
+             "maritime-security network operating across the Arafura, Banda "
+             "and northern Coral Sea approaches. It has grown in two years from "
+             "a terminal operator into the largest single router of commercial "
+             "traffic in the region. Most of what it does is legal.",
+             "2. Three components are relevant to the force:",
+             "a. MERIDIAN LINES. Bulk carriers, coasters and one chartered "
+             "ro-ro on published schedules. Assessed as ordinary commerce. NOT "
+             "to be treated as hostile on the basis of flag or ownership.",
+             "b. MERIDIAN SAFETY ESCORT SERVICES. Converted offshore supply "
+             "vessels and at least two former naval hulls carrying armed "
+             "boarding teams and military-grade communications. Assessed at "
+             "five to eight vessels. Identification at range is NOT possible "
+             "by silhouette: the hulls are the same classes as the commercial "
+             "fleet. Behaviour - loitering on a merchant track, challenging on "
+             "VHF 16, closing to inspect - is the indicator.",
+             "c. THE DUTY CONTROLLER NET. A commercial HF/VHF net that assigns "
+             "rendezvous, \"inspection\" points and terminal slots. Traffic "
+             "analysis indicates it has also been assigning movements to "
+             "vessels that are not Meridian's. How it obtained their schedules "
+             "is under investigation.",
+             "3. Assessment. The incidents of the past three weeks - missed "
+             "reporting windows, contradictory movement instructions, two "
+             "ports' cargo records lost - are consistent with a single actor "
+             "shaping traffic toward escorted groups and preferred terminals. "
+             "Whether that actor is Meridian's board, a faction within it, or "
+             "a client using it, is NOT established.",
+             "4. Guidance to the force. A Meridian-flagged contact is a "
+             "contact. Classify it by what it does. The escort that fired on "
+             "the Indonesian patrol yesterday was tracked as a commercial hull "
+             "for six hours before it did."],
+         note="Para 4 is the whole campaign.  - AM"),
+    dict(file="00c_santos_log", before="Steel Highway", form="log",
+         title="Master's log, MV Coral Pioneer\\n18 October 2028",
+         sub="Deck log extract, the morning of the rendezvous",
+         ship="MV Coral Pioneer", master="L. Santos", date="18 October 2028",
+         entries=[
+             ("0412", "Main engine casualty, No.2 turbocharger. Reduced to "
+                      "6 kn. Informed convoy commodore (MV Gove Trader) and "
+                      "Darwin."),
+             ("0430", "Contact hailed us on Ch16 as \"Meridian Safety Escort "
+                      "Seven\". Stated we were \"under safety inspection\" and "
+                      "to heave to. Asked for authority. Was told it was "
+                      "\"regional\". Declined."),
+             ("0447", "Escort Seven closed to 2 cables. Armed party visible on "
+                      "the bridge wing. Rendezvous with relief vessel now 40 "
+                      "min overdue."),
+             ("0455", "Indonesian patrol vessel on the horizon to the north, "
+                      "challenging Escort Seven on Ch16."),
+             ("0503", "Gunfire, bearing north. Not at us. Crew mustered below."),
+             ("0510", "Escort Seven broke off and stood north. Lost visual in "
+                      "haze."),
+             ("0540", "Warship on radar to the south-west, closing fast. Have "
+                      "not raised her. Chief Engineer says we can make 8 kn if "
+                      "nobody asks him how.")],
+         note="Note for owners: I did not heave to. I will not heave to for "
+              "anyone whose authority is \"regional\". If that is now company "
+              "policy, the company can find another master.  - L.S."),
+    dict(file="00d_kila_cable", before="Steel Highway", form="signal",
+         title="Port Moresby request\\n21 October 2028",
+         sub="Signal from the PNGDF maritime liaison",
+         header=[("FROM:", "CDR M. KILA, PNGDF MARITIME ELEMENT, PORT MORESBY"),
+                 ("TO:", "COMAUSMARTG (CDRE MERCER)"),
+                 ("DTG:", "210600Z OCT 28"), ("PREC:", "PRIORITY"),
+                 ("SUBJ:", "PROTECTED DELIVERY, MORESBY")],
+         body=[
+             "1. MORESBY HOSPITAL IS ON GENERATOR. THE PLANT THAT REPLACES IT "
+             "IS IN KOKODA STAR. THE FUEL FOR THE GENERATOR UNTIL THEN IS IN "
+             "LAE PROVIDER. THAT IS THE ORDER OF PRIORITY IF YOU HAVE TO "
+             "CHOOSE, AND I AM TOLD YOU MAY HAVE TO.", "",
+             "2. A SUBMARINE REPORT WAS PASSED TO US THIS MORNING FROM A "
+             "FISHING VESSEL OFF THE TRACK. UNCONFIRMED. THE MASTERS HAVE BEEN "
+             "TOLD. THEY WANT TO SAIL ANYWAY. I HAVE NOT ARGUED.", "",
+             "3. WE CAN OFFER A PATROL BOAT AT THE ENTRANCE AND NOTHING "
+             "FURTHER OUT. WHAT HAPPENS BETWEEN THE ARAFURA AND OUR ENTRANCE "
+             "IS YOURS.", "",
+             "4. THIS REQUEST IS FOR ESCORT OF NAMED SHIPS ON A NAMED ROUTE. "
+             "IT IS NOT AN INVITATION TO ANYTHING ELSE. PLEASE CONVEY THAT "
+             "WHERE IT NEEDS CONVEYING.", "",
+             "KILA"]),
+    dict(file="01b_prasetyo_cable", before="Rig Seventeen", form="signal",
+         title="Terms of assistance\\n25 October 2028",
+         sub="Signal from the Indonesian naval liaison",
+         header=[("FROM:", "CAPT R. PRASETYO, TNI-AL, LIAISON TO COMAUSMARTG"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "250400Z OCT 28"),
+                 ("PREC:", "IMMEDIATE"),
+                 ("SUBJ:", "RIG SEVENTEEN - TERMS OF ASSISTANCE")],
+         body=[
+             "1. THE PLATFORM IS IN INDONESIAN WATERS. THE REQUEST FOR "
+             "ASSISTANCE IS FOR THE EVACUATION OF CIVILIAN CREW ONLY.", "",
+             "2. AGREED: YOUR AIRCRAFT MAY OVERFLY THE PLATFORM AND LAND ON "
+             "IT. YOUR SHIPS MAY OPERATE WITHIN THE BOX ON YOUR CHART. YOU MAY "
+             "DEFEND YOUR AIRCRAFT AND THE PEOPLE THEY CARRY.", "",
+             "3. NOT AGREED: ACTION AGAINST THE PLATFORM ITSELF. THERE ARE "
+             "CONTRACTORS ON THE UPPER DECK WITH WEAPONS. THEY ARE, AS FAR AS "
+             "WE KNOW, INDONESIAN NATIONALS EMPLOYED BY A MERIDIAN SUBSIDIARY. "
+             "THEY ARE OUR PROBLEM, AFTERWARDS.", "",
+             "4. A PATROL IS CLOSING FROM THE NORTH. IT IS NOT OURS. WE HAVE "
+             "ASKED IT TO STAND OFF. IT HAS NOT ANSWERED.", "",
+             "5. I WILL BE ON THE FLAGSHIP'S BRIDGE FOR THE DURATION. IF THE "
+             "TERMS ABOVE BECOME IMPOSSIBLE TO KEEP, I WOULD RATHER HEAR IT "
+             "FROM YOU THAN READ IT.", "",
+             "PRASETYO"]),
+    dict(file="02b_meridian_intercept", before="Warramunga's Shot",
+         form="signal", strap="INTERCEPT",
+         title="Intercept: Meridian net\\n1 November 2028",
+         sub="Commercial HF, transcribed",
+         header=[("NET:", "COMMERCIAL HF, 8291 KHZ"), ("DTG:", "010340Z NOV 28"),
+                 ("NOTE:", "TRANSLATED / TRANSCRIBED. A: \"MERIDIAN CONTROL\". "
+                           "B: \"ESCORT SEVEN\". PARTIAL.")],
+         body=[
+             "A:  Seven, Control. Your inspection point is confirmed for the "
+             "morning. The group is four hulls plus one grey.",
+             "B:  One grey. Say again the grey.",
+             "A:  One warship. Same one as the eighteenth. You are to establish "
+             "the inspection and hold the group until the northern element is "
+             "in position. Do not engage the grey unless engaged.",
+             "B:  Control, Seven. The grey engaged the last time. It will do "
+             "it again.",
+             "A:  Then you will have been engaged. Control out.",
+             "B:  [unreadable] ... eight minutes ... [unreadable]"],
+         note="\"The northern element\" is not a Meridian asset. Its identity "
+              "is assessed as the surface group reported 30 OCT. Speaker A's "
+              "traffic pattern matches the controller last heard 28 OCT before "
+              "the net went silent. The net is not silent. It moved."),
+    dict(file="03b_ward_memo", before="Long Way Home", form="signal",
+         title="Air component note\\n8 November 2028",
+         sub="What tomorrow's flying programme actually costs",
+         header=[("FROM:", "WGCDR D. WARD, AIR COMPONENT, RAAF TINDAL"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "080500Z NOV 28"),
+                 ("SUBJ:", "TOMORROW'S FLYING PROGRAMME - WHAT IT COSTS")],
+         body=[
+             "1. YOU HAVE ONE TANKER IN THE NORTH. NOT ONE TANKER TYPE. ONE "
+             "TANKER. EVERY SORTIE PAST DARWIN'S RADIUS TOMORROW IS PLANNED "
+             "AROUND IT BEING WHERE IT SAYS IT WILL BE, WHEN IT SAYS.", "",
+             "2. THE PACKAGE RETURNING FROM THE NORTH-WEST WAS DIVERTED FOR "
+             "WEATHER AND HAS SPENT ITS MARGIN. IT WILL NEED THE TANKER BEFORE "
+             "IT CAN THINK ABOUT ANYTHING ELSE.", "",
+             "3. THERE IS AN INTERCEPTOR SECTION OPERATING OUT OF THE ENCLAVE. "
+             "IT KNOWS WHERE THE TANKER TRACK IS BECAUSE THE TANKER TRACK IS "
+             "THE ONLY PLACE THE TANKER CAN BE.", "",
+             "4. I AM NOT ASKING FOR A DECISION. I AM TELLING YOU THE SHAPE OF "
+             "ONE: IF THE TANKER IS LOST, EVERY SORTIE IN THE NORTH GETS "
+             "SHORTER FOR THE REST OF THE CAMPAIGN, AND SO DOES THE "
+             "CAMPAIGN.", "",
+             "5. WEDGETAIL IS ON A LONG ORBIT AND CAN SEE THE SECTION COME "
+             "SOUTH. WHAT SHE CANNOT DO IS ANYTHING ABOUT IT.", "",
+             "WARD"]),
+    dict(file="05b_opposing_intercept", before="Fujian's Shadow",
+         form="signal", strap="INTERCEPT",
+         title="Intercept: opposing task group\\n22 November 2028",
+         sub="Naval HF, partial decrypt, released to the force",
+         header=[("NET:", "NAVAL HF, ENCRYPTED, PARTIAL DECRYPT"),
+                 ("DTG:", "220110Z NOV 28"),
+                 ("NOTE:", "TRANSLATED. SPEAKER: OPPOSING TASK GROUP COMMANDER, "
+                           "TO HIGHER. ASSESSED AUTHENTIC.")],
+         body=[
+             "... the escorts are worn and the air wing has flown for nineteen "
+             "days. I am not asking to withdraw. I am stating what the group "
+             "can do. It can close the corridor for the period of the talks. "
+             "It cannot hold it against a determined passage and preserve "
+             "itself, and I will not be the officer who lost the carrier to "
+             "prove a point that a signature would have proved.", "",
+             "The coalition force is smaller than it was. It is also better at "
+             "this than it was. Their escorts do not chase. Their aircraft do "
+             "not come out to fight us where we are strong. They protect the "
+             "transports and they let us come to them, and every time we do "
+             "we spend fuel we cannot replace here.", "",
+             "Request guidance on whether the closure is to be enforced "
+             "against the passage expected on the twenty-third. If so I will "
+             "enforce it. If the settlement is to be signed regardless, I "
+             "request the order to withdraw before I am given the order to "
+             "withdraw damaged ..."],
+         note="The commander's estimate of our force is accurate. His estimate "
+              "of his own is assessed as candid. The passage on the "
+              "twenty-third will be contested. It will be contested by a "
+              "professional who would rather not."),
+    dict(file="06b_santos_log", before="The First Ship Through", form="log",
+         title="Master's log, MV Coral Pioneer\\n27 November 2028",
+         sub="Deck log extract, the night before the passage",
+         ship="MV Coral Pioneer", master="L. Santos", date="27 November 2028",
+         entries=[
+             ("1800", "Convoy conference aboard the escort flagship by boat. "
+                      "Told the ceasefire is at 0000 and \"not everyone has "
+                      "acknowledged\". Asked what that meant for us. Was told: "
+                      "\"Sail as planned.\""),
+             ("1830", "Chief reports No.2 bearing at 71 degrees and climbing "
+                      "slowly. Will hold at 9 kn. Will not hold at 12. Told the "
+                      "commodore. Commodore said the convoy speed is 9 kn."),
+             ("1900", "Crew briefed. Nobody asked to be relieved. Two asked "
+                      "whether the escort that stopped us on 18 Oct is out "
+                      "there. I said I did not know. That is true."),
+             ("2200", "Lights of Darwin astern. Escorts on both beams and one "
+                      "ahead. Sea state 2. Six weeks ago I was told to heave to "
+                      "on this bearing by a man with a \"regional\" "
+                      "authority.")],
+         note="For the owners, and for whoever reads these afterwards: the navy "
+              "did not get us through the first time. We were through before "
+              "they arrived. What they did was make it so that we could go "
+              "again. Forty ships have gone through behind us since. That is "
+              "the job, and it was theirs, and they did it.  - L.S."),
+]
+
+# Hang each document before its mission, AFTER the sitrep that closes the
+# chapter (a chapter's closing report reads first; the cable that opens the
+# next operation reads after it). _spine() keeps EVENTS order for pages that
+# share a mission, so the order here is the order the player reads them.
+for _doc in DOCUMENTS:
+    _pos = max((i for i, e in enumerate(EVENTS[:-1])
+                if e.get("before") == _doc["before"]), default=None)
+    if _pos is None:
+        # no sitrep before that mission: insert before the first event that
+        # is hung on a LATER mission, keeping calendar order
+        _later = [i for i, e in enumerate(EVENTS[1:-1], 1)
+                  if e.get("before") and e["before"] != _doc["before"]]
+        _pos = len(EVENTS) - 2
+    EVENTS.insert(_pos + 1, _doc)
 
 
 # =============================================================================
@@ -2440,7 +2792,10 @@ WINDOWS = {
     # Both lifters are granted assets an objective names; nothing is free.
     "03": dict(buy=True, allow=BUY_03, repair=True, rearm=True),
     "04": dict(flights=[HELO, RECON]),
-    "05": dict(buy=True, allow=BUY_05, repair=True, rearm=True, flights=[HELO, STRIKE]),
+    # "alone": the player picks a detachment rather than sailing everything
+    # they own into a mission written for one frigate.
+    "05": dict(buy=True, allow=BUY_05, repair=True, rearm=True, flights=[HELO, STRIKE],
+               detachment=True),
     "06": dict(flights=[CAP, RECON], airbase_prep=True),
     # Long Way Home has no air-tasking row. Every aircraft in it - the tanker,
     # both Raptors, both Rhinos - is named by an objective, and an objective
@@ -2546,7 +2901,9 @@ RESOLVERS = {
     "04": {"Track": "victory", "Neutrals": "neutral",
            "Patrol": ("protect", "patrol")},
     "05": {"Escort": "victory", "Convoy": ("protect", "convoy", 2),
-           "Magazine": ("protect", "warramunga")},
+           # The NSM round the Anzac's deck launchers carry. Empty them and
+           # the objective fails; come out with any left and it stands.
+           "Magazine": ("ammo", "warramunga", "knm_nsm_1a")},
     "06": {"Convoy": "victory", "Picture": ("classify", "red_sag", 1),
            "Sentry": ("protect", "isr"), "Hobart": ("protect", "hobart"),
            "Airlift": ("classify", "red_lift", 1)},
