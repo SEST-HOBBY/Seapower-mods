@@ -761,6 +761,15 @@ def place(mission, snapper):
             keys["CampaignTag"] = "_".join(
                 x for x in (keys["Type"], fit, mission["num"]) if x)
         if spec.get("slot"):
+            # A slot is a cockpit the player fills with whatever they own.
+            # No slot-tagged section in the shipped campaign carries a
+            # NameOverride, and a hard-coded callsign on one promises an
+            # airframe the briefing cannot know is there.
+            if spec.get("name"):
+                sys.exit(f"{mission['key']}: {spec['type']} fills the "
+                         f"{spec['slot']!r} slot and is named "
+                         f"{spec['name']!r} - slot-tagged aircraft keep the "
+                         "player's own names; drop the name=")
             role = spec["slot"]
             keys["TaskForceModeAirTaskingSlot"] = slot_ordinal(
                 mission.get("window", {}).get("flights", []), role,
@@ -2165,6 +2174,10 @@ def event_page(event):
         '</Viewbox>\n')
 
 
+TITLE_FIX = {"RAAF F-35A Lighting II": "RAAF F-35A Lightning II",
+             "Auxilliary Merchant Pack": "Auxiliary Merchant Pack"}
+
+
 def briefing_page(mission):
     parts = []
 
@@ -2215,6 +2228,10 @@ def briefing_page(mission):
         # tells a player the campaign is built on something abandoned. It is
         # built on the file that wins the load order, which is the point.
         name = re.sub(r"^\s*\[(DEPRECATED|WIP|BETA|OLD)\]\s*", "", name, flags=re.I)
+        # Two upstream titles are misspelt in their own _info.ini; the
+        # player-facing line spells them right and the load order keeps the
+        # mod's own name.
+        name = TITLE_FIX.get(name, name)
         if name not in seen:
             seen.append(name)
     # Two house entries, read last because that is where a reader stops caring.

@@ -704,9 +704,18 @@ runs it in order with the other sixteen packs and consolidates it into
   Trigger8 — and then withdraw. Collins is placed surfaced; *staying*
   surfaced is a house rule stated in the briefing, because no condition type
   reads depth.
-- **No `MissionImage`, `BackgroundImage` or `TileImagePath` keys.** Every one
-  would point at a `.png` this repo cannot produce. A dangling art reference is
-  worse than a plain campaign card.
+- **The bible's four-arrival carry-over for SW02 is not scored.** The win is
+  three of four with Kokoda Star among them, and the mission ends ten seconds
+  after it fires; a fourth hull two minutes astern in the column can never be
+  counted. An objective that cannot complete is worse than none.
+- **Armed merchants never fire.** Every `ran_ms_*` hull in a convoy ships
+  `WeaponStatus=Hold`: the auxiliary pack's merchants carry guns and, on the
+  Super P, Styx, and a "priority ship" that opens fire on its own escort's
+  contact is not the mission. The pack stays in the campaign because coverage
+  needs it; the guns are decoration.
+- **Slot-tagged aircraft carry no `NameOverride`.** Whatever the player puts
+  in an air-tasking slot keeps its own name, as every slot-tagged section in
+  the shipped campaign does; the briefing never promises a callsign for one.
 - **Theatres follow the position evidence.** Each is somewhere a mission in
   this repo (or in the stock game) has already put a unit of that kind — see
   below. That is why the Levant, the Gulf and the Med do not appear: the

@@ -396,8 +396,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3", name="HMAS Warramunga", weapons="Tight"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight",
-          name="Warramunga Flight", alt=500, weapons="Tight"),
+        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight", alt=500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3",
           name="Bluefin 21", alt=18000, weapons="Tight"),
         U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "high",
@@ -405,9 +404,9 @@ MISSIONS.append(dict(
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         U("blue", "auxilliary-merchant-pack", "anl_ms_bulk", "convoy",
-          name="MV Gove Trader"),
+          name="MV Gove Trader", weapons="Hold"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_jeparit", "convoy",
-          name="MV Jeparit (chartered)"),
+          name="MV Jeparit (chartered)", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_freighter_a", "convoy",
           name="MV Sunda Relief"),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "neutrals",
@@ -508,8 +507,11 @@ MISSIONS.append(dict(
         # the moment it opened fire on the submarine.
         U("blue", "re-power-resupply", "civ_ms_freighter_b", "convoy",
           name="MV Kokoda Star"),
+        # The auxiliary pack's hulls all carry guns and, on this one, Styx.
+        # They are cargo here: WeaponStatus=Hold on every one of them, in
+        # every mission, so a "priority ship" never opens fire on its own.
         U("blue", "auxilliary-merchant-pack", "ran_ms_super_p", "convoy",
-          name="MV Torres Trader"),
+          name="MV Torres Trader", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_andizhan", "convoy",
           name="MV Lae Provider"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
@@ -719,10 +721,9 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
           name="HMAS Arafura", weapons="Tight"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air", name="Arafura Flight",
+        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air",
           alt=2500, weapons="Tight"),
-        U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3",
-          name="Bluefin 24", alt=15000, weapons="Tight"),
+        U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=15000, weapons="Tight"),
         U("red", "red-storm-arsenal", "_narco_narcosub_adv", "passenger",
           name="Contact WHISKEY"),
         U("red", "plan-submarines", "plan_ss_type_039", "sub",
@@ -810,8 +811,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3", name="HMAS Warramunga"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air",
-          name="Warramunga Flight", alt=3000),
+        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air", alt=3000),
         U("red", "chinese-navy-plan", "plan_em_sovremenny", "sag",
           name="Opposing escort", route=[(-10.3, 131.85, 0)], telegraph=3),
         U("red", "type-071-lpd", "plan_lpd_type_071", "sag",
@@ -831,7 +831,7 @@ MISSIONS.append(dict(
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_roro_a", "convoy",
-          name="MV Darwin Ranger"),
+          name="MV Darwin Ranger", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_freighter_b", "convoy",
           name="MV Sunda Relief"),
         U("blue", "_vanilla", "civ_ms_ritina", "convoy",
@@ -953,15 +953,14 @@ MISSIONS.append(dict(
         U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "isr",
           name="Sentry 06", weapons="Hold"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap",
-          squadron="Squadron3", name="Vigilant 21"),
-        U("blue", "raaf-f-35a", "raaf_f-35a", "cap", squadron="Squadron3",
-          name="Vigilant 22"),
-        U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 02",
+          squadron="Squadron3"),
+        U("blue", "raaf-f-35a", "raaf_f-35a", "cap", squadron="Squadron3"),
+        U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew",
           weapons="Hold"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "tindal",
           name="RAAF Base Tindal", nation="australia", weapons="Hold"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_bulk", "convoy",
-          name="MV Gove Trader"),
+          name="MV Gove Trader", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_freighter_d", "convoy",
           name="MV Sunda Relief"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
@@ -985,8 +984,8 @@ MISSIONS.append(dict(
 
 MISSIONS.append(dict(
     group="core", num="07", key="Long Way Home", place="Northern air corridor",
-    intro="A tanker with everybody's fuel on board, a flight that has none "
-          "left, and interceptors that can out-reach all of it.",
+    intro="A tanker with everybody's fuel on board, a flight that cannot get "
+          "home without it, and interceptors that can out-reach all of it.",
     sender="Wing Commander Daniel Ward, Air Component, RAAF Tindal",
     intent=("This is a recovery, not a sweep. The tanker is the mission. The "
             "package needs it, the interceptors know where it is, and "
@@ -1007,8 +1006,9 @@ MISSIONS.append(dict(
         "You have a Raptor pair and a Growler with the returning Super "
         "Hornets. The Foxhound is the one aircraft here you cannot chase: it "
         "shoots from above fifty thousand feet at speeds you will not catch, "
-        "and a stern chase is fuel you do not have. Break the shot, not the "
-        "aircraft. Bring the tanker home."),
+        "and a stern chase is time you do not have - the gas is on the clock, "
+        "not on the gauge. Break the shot, not the aircraft. Bring the tanker "
+        "home."),
     forces="Two F-22 on station, one EA-18G, two returning F/A-18F, one "
            "KC-135. Opposing: two MiG-31BM, one A-50U, one Il-78.",
     objectives=[
@@ -1147,13 +1147,13 @@ MISSIONS.append(dict(
         # available, and a base on the map that nothing can reach is worse
         # than none.
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "strike",
-          squadron="Squadron6", name="Grizzly 33"),
+          squadron="Squadron6"),
         # "The F-35 pair carries the follow-up": JSM, 120 NM, internal. They
         # carried four AIM-120s.
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "strike",
-          squadron="Squadron3", name="Vigilant 31", loadout="StrikeLongRangeStealth"),
+          squadron="Squadron3", loadout="StrikeLongRangeStealth"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "strike",
-          squadron="Squadron3", name="Vigilant 32", loadout="StrikeLongRangeStealth"),
+          squadron="Squadron3", loadout="StrikeLongRangeStealth"),
         U("blue", "us-naval-aviation", "usmc_kc-130j", "relief",
           name="Relief 61", alt=12000, weapons="Hold",
           route=[(-1.6, 132.8, 14000), (-2.9, 135.2, 14000)]),
@@ -1310,7 +1310,7 @@ MISSIONS.append(dict(
           name="HMAS Perth"),
         U("blue", "re-power-resupply", "civ_ms_amra", "stores",
           name="MV Coral Provider"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air", name="Perth Flight",
+        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air",
           alt=2500),
         U("blue", "buildings-targets-missions", "FOB", "cape",
           name="Cape York forward strip", weapons="Hold"),
@@ -1424,9 +1424,9 @@ MISSIONS.append(dict(
         U("blue", "SEST_JMSDF_Mogami", "js_ffg_mogami", "jmsdf",
           name="JS Mogami"),
         U("blue", "euromod-jmsdf", "jmsdf_ddg_maya", "jmsdf", name="JS Maya"),
-        U("blue", "euromod-jmsdf", "jp_sh-60k", "helo", name="Mogami Flight"),
+        U("blue", "euromod-jmsdf", "jp_sh-60k", "helo"),
         # Maya's deck lists jmsdf_ types, not jp_; both live on Mogami.
-        U("blue", "euromod-jmsdf", "jp_sh-60j", "helo", name="Mogami 2"),
+        U("blue", "euromod-jmsdf", "jp_sh-60j", "helo"),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8",
           name="HMAS Perth"),
         U("blue", "f-2a-viper-zero", "jp_f-2a_late", "f2", name="Viper 61",
@@ -1434,7 +1434,7 @@ MISSIONS.append(dict(
         U("blue", "f-2a-viper-zero", "jp_f-2a_late", "f2", name="Viper 62",
           loadout="AntiShip"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_antares", "convoy",
-          name="MV Antares"),
+          name="MV Antares", weapons="Hold"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         U("blue", "re-power-resupply", "civ_ms_freighter_a", "convoy",
@@ -1528,16 +1528,15 @@ MISSIONS.append(dict(
           name="USS Louis H. Wilson Jr."),
         U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "escort",
           name="HMAS Hobart"),
-        U("blue", "SEST_F-35C_JATM", "usn_f-35c", "cvw", name="Warhawk 101",
+        U("blue", "SEST_F-35C_JATM", "usn_f-35c", "cvw",
           loadout="AirToAirAMRAAM"),
-        U("blue", "SEST_F-35C_JATM", "usn_f-35c", "cvw", name="Warhawk 102",
+        U("blue", "SEST_F-35C_JATM", "usn_f-35c", "cvw",
           loadout="AirToAirAMRAAM"),
-        U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g_2020", "cvw",
-          name="Grizzly 35"),
+        U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g_2020", "cvw"),
         U("blue", "us-naval-aviation", "usn_e-2d", "cvw", name="Hawkeye 601",
           alt=27000, weapons="Hold"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_super_p", "transports",
-          name="MV Torres Trader"),
+          name="MV Torres Trader", weapons="Hold"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "transports",
           name="MV Coral Pioneer"),
         # NOT Lae Provider: the contingency after STEEL HIGHWAY opens with her
@@ -1632,8 +1631,7 @@ MISSIONS.append(dict(
           name="HMAS Perth", weapons="Tight"),
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "escort",
           name="HMAS Arafura", weapons="Tight"),
-        U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3",
-          name="Bluefin 27", alt=18000, weapons="Tight"),
+        U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3", alt=18000, weapons="Tight"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 03",
           weapons="Hold"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "darwin",
@@ -1641,9 +1639,9 @@ MISSIONS.append(dict(
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_jeparit", "convoy",
-          name="MV Jeparit"),
+          name="MV Jeparit", weapons="Hold"),
         U("blue", "auxilliary-merchant-pack", "anl_ms_bulk", "convoy",
-          name="MV Gove Trader"),
+          name="MV Gove Trader", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_freighter_b", "convoy",
           name="MV Sunda Relief"),
         U("neutral", "chinese-navy-plan", "plan_ddg_luda_typ_051d", "withdraw",
@@ -2427,7 +2425,7 @@ MISSIONS.append(dict(
         U("neutral", "merchants-expanded", "civ_ms_mairangi_bay", "traffic",
           name="MV Coral Pioneer"),
         U("neutral", "auxilliary-merchant-pack", "ran_ms_antares", "traffic",
-          name="MV Antares"),
+          name="MV Antares", weapons="Hold"),
         U("neutral", "re-power-resupply", "civ_ms_freighter_a", "traffic",
           name="MV Sunda Relief"),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "traffic",
@@ -2498,7 +2496,7 @@ MISSIONS.append(dict(
         U("blue", "mh-60r-2154545636", "usn_mh-60r", "search",
           name="Hobart Flight", alt=1500, weapons="Tight"),
         U("neutral", "auxilliary-merchant-pack", "ran_ms_super_p", "assist",
-          name="MV Torres Trader"),
+          name="MV Torres Trader", weapons="Hold"),
         U("neutral", "re-power-resupply", "civ_ms_andizhan", "assist",
           name="MV Coral Provider"),
         U("red", "plan-submarines", "plan_ss_type_039c", "sub",
