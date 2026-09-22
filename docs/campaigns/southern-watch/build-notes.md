@@ -631,6 +631,48 @@ that they can happen. The clocks, the speeds and the identification puzzle
 are now geometrically possible, which is the precondition the first build
 skipped.
 
+## The mission-by-mission review: what ten readers found, and what changed
+
+Every mission got one reader with the whole file, the briefing, its campaign
+entry, the bible section and the unit files behind every number it quotes,
+told to play it in their head and report only what they could point at. The
+first ten came back before the session's spend limit stopped the rest; the
+skeptic pass that was meant to follow each finding never ran, so every
+finding below was re-checked by hand against the built file before anything
+moved. What they found, and what changed:
+
+| Mission | The finding that mattered | What ships now |
+|---|---|---|
+| SW07 Long Way Home | The package was a tripwire, not a win condition; a lost Raptor paid out in full; two USAF F-22s joined the player's roster for good; red's AEW and tanker sat 145 NM west of the interceptors they were "behind" | Two of three package aircraft home is part of the win; the Raptors are `protect`, so a loss fails the objective; no join; the support orbit sits on the Foxhounds' back-bearing |
+| SW08 The Open Door | The win box was 230 NM *behind* the transports, so the door was not between them and anything; blue spawned inside the S-400 envelope; the brief promised ninety minutes on a seventy-minute clock | Relief comes from the north-west with a hold leg, the box is on the far side of the battery, the strike starts 129 NM out with JSM on the F-35s, the brief says seventy minutes, and the entry is `detached` like the stock detached operations |
+| SW09 Southern Lifeline | The Akula was 204 NM away, pointed elsewhere, with no route; nothing red could touch a ship; the "surfaced alongside for thirty-five minutes" premise was never asked of the player, so diving at t=0 and steaming 5.9 NM won at 35:00 exactly; HMAS Supply was the centrepiece unconditionally, seven missions after the campaign can sink her; the timeout text described the wrong clock; "comes home on Thursday" on a Thursday; a "Tu-214R that did not come back" airborne on the plot | The service ship is HMAS **Stalwart**; the window is a stage — both ships still inside five miles of the rendezvous *when* the clock reaches 35:00 (`UnitsInTheArea AND Time`, the shape of `03 Lifeline` Trigger8 on units that start inside the area) — and only then does the withdrawal line eighteen miles south open, on an 85-minute clock; the Akula starts 50 NM out and closes at 20 kn across the withdrawal track; one Flanker carries Kh-31A; the P-8 slot and Coral Provider each have their own station; the text says what is scored |
+| SW10 Common Sea | The submarine "that ends the mission" was 144 NM away, heading away, with no route — six miles from a handover point the solver had long since moved; the brief promised a surface group and an F-2A anti-ship sortie, the file had neither, and the F-2As were a CAP slot spawned 17 NM in front of four Flankers; no red weapon could reach a merchant; "locate and break off the submarine" was scored as a kill and paid out at mission end regardless; the two-of-three cargo rule was never stated; the win re-completed the Allies objective after a Japanese ship was sunk | The boat sits across the solved track 38 NM from the convoy; a Type 054A comes in from the east; the F-2As carry ASM-3 and are not a slot; the J-10C carries YJ-91; the fighters start a hundred miles out with routes; the submarine objective is `UnitClassified` and fails if never done; the brief states two-of-three; the win line no longer re-completes a protect objective whose loss the mission survives |
+| SW03 Rig Seventeen | Victory text said "both airframes" for a one-helicopter win; "bring both amphibious ships home" had no home | The text says what is scored: one lifter with the crew, both ships afloat |
+
+Two changes to the builder came out of it, both general:
+
+- **A victory stage can carry a clock.** `after=dict(kind="area", ...,
+  after_minutes=N)` emits the area test and a `Time` condition in one trigger,
+  `<Condition1> AND <Condition2>`. The vanilla export uses exactly this on
+  units that *start inside* the area (`03 Lifeline` Trigger8, two vessels 1.6
+  and 2.4 NM inside a 10 NM area, `Time=120`), which is the evidence that
+  `UnitsInTheArea` is a state and not only an entry event. It is the nearest
+  thing the engine has to a dwell.
+- **The win line completes only the survival objectives whose loss ends the
+  mission.** A `protect` objective the mission survives losing had already
+  been failed by its own trigger, and the vanilla-pattern win line was
+  flipping it back to complete on the same debrief. `StatusAtMissionEnd`
+  resolves the held case on its own.
+
+What the readers said the campaign does well is worth keeping in view: the
+briefings are honest about the engine in the fiction's own voice, the
+terminal triggers are cleanly separated and funnel through the one stock
+exit, and the premises — a second navy arriving so an exhausted escort force
+can look down while someone else looks up; a submarine on the surface being
+the most vulnerable thing either ship will ever do — are the strongest hooks
+in the campaign. The fixes above were made so those premises are what the
+file actually plays.
+
 ## What exists
 
 | Thing | Where |
@@ -654,11 +696,14 @@ runs it in order with the other sixteen packs and consolidates it into
   coverage is only provable once every mod has somewhere to be. The bible's
   own sequencing advice still stands for *playing*: SW01 → SW02 → SW06 is the
   slice to test first, and it is the slice to fix first if something is wrong.
-- **SW09 is written around survival and a service window, not replenishment.**
-  The bible flags `ran_aor_supply` as a Teide stand-in with no demonstrated
-  supply mechanism. The mission therefore asks you to hold the window and
-  withdraw; Collins is placed surfaced, and the surfacing rule stays a house
-  rule stated in the briefing rather than a scripted one.
+- **SW09 is written around a service window and a withdrawal, not
+  replenishment.** The bible flags `ran_aor_supply` as a Teide stand-in with
+  no demonstrated supply mechanism. The mission asks you to hold the service
+  box for thirty-five minutes — `UnitsInTheArea AND Time` on ships that start
+  inside the area, the shape of `03 Lifeline at the Edge of the World`
+  Trigger8 — and then withdraw. Collins is placed surfaced; *staying*
+  surfaced is a house rule stated in the briefing, because no condition type
+  reads depth.
 - **No `MissionImage`, `BackgroundImage` or `TileImagePath` keys.** Every one
   would point at a `.png` this repo cannot produce. A dangling art reference is
   worse than a plain campaign card.

@@ -564,12 +564,12 @@ MISSIONS.append(dict(
         "this coast is working its ordinary week."),
     forces="HMAS Choules and HMAS Canberra with two CH-53E for the lift. "
            "Ashore: a launcher site, a VL MICA battery, a Sosna vehicle and "
-           "technicals. One armed platform.",
+           "a technical. One armed platform.",
     objectives=[
-        ("Evacuate", "Get the lift helicopters clear to the south",
-         "35,-35,Fail,Main"),
+        ("Evacuate", "Get a lift helicopter clear to the south with the "
+                     "platform crew", "35,-35,Fail,Main"),
         ("Platform", "Leave the civilian platform standing", "10,-20,Complete"),
-        ("Ships", "Bring both amphibious ships home", "10,-20,Complete"),
+        ("Ships", "Keep both amphibious ships afloat", "10,-20,Complete"),
     ],
     victory=dict(kind="arrive", station="lift", at=(-11.55, 126.62), radius=12,
                  # Not scored until a lifter has been over the platform. The
@@ -583,9 +583,9 @@ MISSIONS.append(dict(
                  min_units=1, objective="Evacuate"),
     fatal=[F("Ships", ["amphib"])],
     neutral_objective="Platform",
-    win="The lifters are south of the line with the platform crew aboard. "
-        "Rig Seventeen is still standing and somebody else can argue about "
-        "who owns it.",
+    win="A lifter is south of the line with the platform crew aboard. Rig "
+        "Seventeen is still standing and somebody else can argue about who "
+        "owns it.",
     lose="The window closed with people still on the deck. There will not be "
          "another one this week.",
     stations={
@@ -1202,95 +1202,134 @@ MISSIONS.append(dict(
             "rendezvous working. A scout is coming to look at it and a raid "
             "may follow it. The window is the win."),
     date=(2028, 11, 11), time=(6, 30), sea=2, clouds="Broken_2", wind="SE",
-    difficulty=3, minutes=65, centre=(-12.5, 146.0),
+    difficulty=3, minutes=85, centre=(-12.5, 146.0),
     blue_nation="Australia", red_nation="Russia",
     brief=(
         "REAR SUPPORT AREA, east of the Cape. COLLINS has been out for "
-        "thirty-one days and comes home on Thursday whatever happens today. "
-        "She is surfaced alongside SUPPLY taking fuel, stores and two crew off "
-        "for medical, and while she is up there she is a very large grey "
-        "target moving at eight knots.\\n\\n"
-        # The engine has no dwell, alongside, surfaced or service predicate -
+        "thirty-one days and comes home next week whatever happens today. "
+        "She is surfaced alongside STALWART taking fuel, stores and two crew "
+        "off for medical, and while she is up there she is a very large grey "
+        "target making four knots.\\n\\n"
+        # The engine has no dwell, alongside, surfaced or depth predicate -
         # eleven condition types across the whole shipped corpus and not one
-        # of them measures time spent in an area, a unit's speed or its depth.
-        # So the briefing states the rule the mission actually enforces. The
-        # replenishment itself stays fiction, in the fiction's own voice.
+        # of them measures time spent in an area, a unit's speed or its
+        # depth. What it does have is `03 Lifeline` Trigger8: an area test
+        # AND a clock, on units that start inside the area. So the window is
+        # scored as "both ships still in the box when the window closes",
+        # and the briefing states exactly that rule. Surfaced stays a house
+        # rule, in the fiction's own voice.
         "The service window is thirty-five minutes and it runs on the clock, "
-        "not on how much crossed the hose. Break off to chase something and "
-        "the clock does not stop for you - what you lose is the part of the "
-        "transfer nobody makes, not the deadline. When the thirty-five "
-        "minutes are up, SUPPLY and COLLINS come south together or the "
-        "window has failed.\\n\\n"
+        "not on how much crossed the hose. STALWART and COLLINS stay inside "
+        "the service box - five miles around the rendezvous - until it has "
+        "run; if either of them is outside it when the window closes, the "
+        "transfer nobody made is the whole transfer. Break off to chase "
+        "something and the clock does not stop for you. When the thirty-five "
+        "minutes are up, both of them come south together to the withdrawal "
+        "line, and COLLINS dives the moment she is clear of the hose.\\n\\n"
+        "STALWART has the duty. MV Coral Provider was pencilled in with the "
+        "dry stores; whether she sailed depends on what Steel Highway left "
+        "the corridor to sail with.\\n\\n"
         "A Tu-214R came down the outside of the box last night and did not "
-        "come back, which usually means somebody now knows where to look. "
-        "There is an Akula unaccounted for and a Flanker pair within range of "
-        "here. Keep the window open and get everybody out of it."),
-    forces="HMAS Supply, HMAS Collins surfaced for service, HMAS Perth and a "
-           "Seahawk. Opposing: one Akula, one Tu-214R, a Flanker pair with a "
-           "Ka-27RLD spotting for them.",
+        "go home, which usually means somebody now knows where to look. "
+        "There is an Akula unaccounted for to the south-east, and a Flanker "
+        "pair within range of here with a Helix spotting for them off a "
+        "tender that has been loitering north of the box since Tuesday. "
+        "Assume one of those Flankers is carrying something for a ship. Keep "
+        "the window open and get everybody out of it."),
+    forces="HMAS Stalwart, HMAS Collins surfaced for service, HMAS Perth and "
+           "a Seahawk; one P-8 from Scherger if tasked. Opposing: one Akula, "
+           "one Tu-214R, a Flanker pair with a Ka-27RLD spotting for them.",
     objectives=[
-        ("Service", "Bring SUPPLY and COLLINS south together once the "
-                    "35-minute window has run", "35,-35,Fail,Main"),
+        ("Service", "Hold the service box for the 35-minute window, then "
+                    "bring STALWART and COLLINS south together to the "
+                    "withdrawal line", "35,-35,Fail,Main"),
         ("Collins", "HMAS Collins must survive", "25,-35,Complete"),
-        ("Supply", "HMAS Supply must survive", "20,-30,Complete"),
+        ("Supply", "HMAS Stalwart must survive", "20,-30,Complete"),
     ],
-    # Supply AND Collins, not "any two of the group" - the freighter could
-    # otherwise stand in for the submarine the mission is about. The time
-    # condition is the service window: withdrawing early does not count.
+    # Stalwart AND Collins, not "any two of the group" - the freighter could
+    # otherwise stand in for the submarine the mission is about. The window
+    # is the stage: both ships still inside five miles of the rendezvous
+    # WHEN the clock reaches thirty-five minutes (03 Lifeline Trigger8's
+    # shape). Dive and run at t=0 and the stage never fires, so the
+    # withdrawal line never opens. The line itself is authored, not solved:
+    # the group sits in open water where nothing snaps, and the solver does
+    # not know that the first thirty-five minutes are spent standing still.
     victory=dict(kind="arrive", units=["support#1", "support#2"], min_units=2,
                  station="support", objective="Service",
+                 at=(-13.8, 148.35), radius=12,
+                 after=dict(kind="area", units=["support#1", "support#2"],
+                            at_unit="support#1", radius=5, min_units=2,
+                            after_minutes=35,
+                            intel="The window has run. STALWART reports the "
+                                  "hose is in and COLLINS is casting off - "
+                                  "get them south together, to the "
+                                  "withdrawal line, before somebody comes "
+                                  "to look where the Tu-214R was looking."),
                  also=[dict(after_minutes=35)]),
-    # Both named service participants end the mission, each failing its own
-    # objective. Coral Provider is not one of them: she carries no objective,
-    # she only spawns when SUPPLY survived Steel Highway, and making her a
-    # silent third defeat condition meant losing a freighter reported Collins
-    # sunk while Collins was alongside.
-    # Each named participant ends the mission by being lost, and fails its own
-    # objective. MV Coral Provider is deliberately not here: she carries no
-    # objective, she only exists when SUPPLY survived Steel Highway, and as
-    # the third member of the "support" station she was a silent defeat
+    # Each named participant ends the mission by being lost, and fails its
+    # own objective. MV Coral Provider is deliberately not here: she carries
+    # no objective, she only exists when SUPPLY survived Steel Highway, and
+    # as a third member of the "support" station she was a silent defeat
     # condition that reported Collins sunk while Collins was alongside.
     fatal=[F("Collins", ["support#2"]), F("Supply", ["support#1"])],
     neutral_objective="Service",
     win="The window held, Collins is dived and heading for Stirling, and "
-        "Supply still has enough in her tanks to do this again next week. Kila, "
-        "from Moresby: 'Send the next one.'",
+        "Stalwart still has enough in her tanks to do this again next week. "
+        "Kila, from Moresby: 'Send the next one.'",
     lose="The support group is broken. Every boat in the north now has to come "
          "all the way home to do what should take four hours out here.",
     stations={
         "support": S(-13.5, 148.4, "Support group", heading=200),
-        "escort": S(-13.6, 148.6, "Escort", heading=200),
-        "air": S(-13.0, 148.2, "Perth Flight", heading=90, alt=3000),
+        # Her own station: a conditional hull inside an unconditional
+        # formation is a shape no vanilla file uses (10 Vengeance at Luzon's
+        # one SpawnByVariable formation is conditional throughout).
+        "stores": S(-13.45, 148.33, "Dry stores", heading=200),
+        "escort": S(-13.62, 148.55, "Escort", heading=160),
+        # On the threat axis, not thirty miles north of it.
+        "air": S(-13.7, 148.65, "Perth Flight", heading=135, alt=3000),
+        "mpa": S(-13.2, 148.9, "Maritime patrol", heading=135, alt=8000),
         "cape": S(-12.5, 142.0, "Cape York strip", heading=0),
-        "red_sub": S(-16.5, 150.0, "Akula datum", heading=320),
+        # Fifty miles east-south-east and closing at twenty knots: across the
+        # withdrawal track about when the window closes, and inside the
+        # Seahawk's reach from the first minute. She used to be 204 NM away,
+        # pointed elsewhere, with no route - set dressing with torpedoes.
+        "red_sub": S(-14.0, 149.1, "Akula datum", heading=290),
         "red_air": S(-11.0, 148.0, "Opposing aviation", heading=180, alt=30000),
         "home": S(-12.6188, 142.094, "RAAF Base Scherger"),
     },
     units=[
+        # The sister ship, not SUPPLY: Steel Highway can sink SUPPLY and
+        # the campaign says so in as many words. A hull the campaign has
+        # never sunk is the only one that can be the centrepiece here
+        # without lying to the player who lost the other one.
         U("blue", "SEST_RAN_Fleet", "ran_aor_supply", "support",
-          name="HMAS Supply"),
+          variant="Variant2", name="HMAS Stalwart"),
         U("blue", "SEST_RAN_Fleet", "ran_ssg_collins", "support",
           name="HMAS Collins (surfaced)"),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8",
           name="HMAS Perth"),
-        U("blue", "re-power-resupply", "civ_ms_amra", "support",
+        U("blue", "re-power-resupply", "civ_ms_amra", "stores",
           name="MV Coral Provider"),
         U("blue", "mh-60r-2154545636", "usn_mh-60r", "air", name="Perth Flight",
           alt=2500),
         U("blue", "buildings-targets-missions", "FOB", "cape",
           name="Cape York forward strip", weapons="Hold"),
         U("red", "russian-submarines", "wp_ssn_akula", "red_sub",
-          name="Contact VICTOR"),
+          name="Contact VICTOR", depth="belowlayer",
+          route=[(-13.75, 148.5, "belowlayer")], telegraph=5),
         U("red", "tu-214r-family", "msdvd_tu-214r", "red_air",
           name="Coot-A 90", alt=34000, weapons="Hold"),
-        U("red", "flanker-family", "wp_su-30m", "red_air", name="Flanker 21"),
+        # One of the pair carries Kh-31A, so the "Flanker pair within range
+        # of here" is a threat to the ships and not only to the helicopter.
+        U("red", "flanker-family", "wp_su-30m", "red_air", name="Flanker 21",
+          loadout="AntiShip"),
         U("red", "flanker-family", "wp_su-30m", "red_air", name="Flanker 22"),
         U("red", "ka-27rld", "wp_ka-27rdl", "red_air", name="Helix RLD 55",
           alt=9000, weapons="Hold"),
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
-        U("blue", "p-8-poseidon", "usn_p8", "air"),
+        U("blue", "p-8-poseidon", "usn_p8", "mpa"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_scherger", "home",
           name="RAAF Base Scherger", nation="australia", weapons="Hold"),
     ],
@@ -1303,8 +1342,9 @@ MISSIONS.append(dict(
     sender="Commodore Alex Mercer",
     intent=("The Japanese detachment brings the thing we ran out of: escorts "
             "that can hunt. Use them for that. The convoy is the cargo, the "
-            "submarine is theirs, the surface threat is yours. Bring both "
-            "allied hulls home - Thursday needs them too."),
+            "submarine is theirs, the surface group is the Vipers' one sortie, "
+            "and the fighters overhead are yours. Bring both allied hulls "
+            "home - Thursday needs them too."),
     date=(2028, 11, 15), time=(13, 40), sea=3, clouds="Scattered_1", wind="E",
     difficulty=3, minutes=75, centre=(-6.5, 133.0),
     blue_nation="Australia", red_nation="China",
@@ -1313,40 +1353,65 @@ MISSIONS.append(dict(
         "the submarine and surface threats overlap, and after three weeks the "
         "Australian escort force cannot cover both.\\n\\n"
         "MOGAMI and MAYA are here under the Japanese government's own "
-        "arrangements, with two SH-60Ks that are the best ASW asset in this "
-        "sea. A Japanese F-2A detachment forward at Biak has one sortie "
-        "allocation today and will use it on the surface group, not on your "
-        "convoy's CAP.\\n\\n"
-        "Get the priority cargo to the handover. The Type 039 is the threat "
-        "that ends the mission; the fighters overhead are the threat that "
-        "makes you spend the day looking up instead of down."),
-    forces="JS Mogami and JS Maya with two SH-60K, one F-2A pair from Biak, "
-           "HMAS Perth and the convoy. Opposing: a Type 039C, a J-11BG pair, "
-           "a J-11BS, a Su-27UBK and a J-10C off the enclave field.",
+        "arrangements, with an SH-60K and an SH-60J that are the best ASW "
+        "pair in this sea. A Japanese F-2A detachment forward at Langgur has "
+        "one sortie allocation today and it is loaded for ships: use it on "
+        "the frigate coming in from the east, not on the fighters.\\n\\n"
+        "Two of the three priority merchants have to reach the handover; lose "
+        "two and the corridor is closed. The Type 039C is the threat that "
+        "ends the mission - she carries YJ-18 as well as torpedoes, and the "
+        "fighters overhead are her eyes as much as they are the thing that "
+        "makes you spend the day looking up instead of down. One of them is "
+        "carrying something for a ship."),
+    forces="JS Mogami and JS Maya with an SH-60K and an SH-60J, one F-2A pair "
+           "from the Kai strip, HMAS Perth and the convoy. Opposing: a Type "
+           "039C, a Type 054A frigate from the east, a J-11BG, a J-11BS, a "
+           "Su-27UBK and a J-10C off the enclave field.",
     objectives=[
-        ("Cargo", "The priority convoy reaches the handover point",
-         "35,-35,Fail,Main"),
+        ("Cargo", "Two of the three priority merchants reach the handover "
+                  "point", "35,-35,Fail,Main"),
         ("Allies", "Keep the Japanese escorts in the fight", "20,-25,Complete"),
-        ("Submarine", "Locate and break off the submarine", "15,-10,Complete"),
+        # Scored on the text: classified, not sunk. It used to pay out at
+        # mission end whether or not a helicopter ever left the deck.
+        ("Submarine", "Locate and classify the submarine", "15,-10,Fail"),
     ],
     victory=dict(kind="arrive", station="convoy", at=(-8.5, 134.5), radius=30,
                  min_units=2, objective="Cargo"),
     fatal=[F("Cargo", ["convoy"], 2)],
     neutral_objective="Cargo",
-    win="The cargo is at the handover and both Japanese ships are still on "
-        "station. The corridor has a second usable escort force for the first "
-        "time since October.",
+    win="The cargo is at the handover. Whatever it cost the detachment to get "
+        "it there, the corridor has a Japanese escort force in it for the "
+        "first time since October.",
     lose="The convoy is short and the allied detachment is going home for "
          "repairs. The corridor is back to one navy again.",
     stations={
         "jmsdf": S(-7.0, 133.0, "Japanese detachment", heading=160),
         "convoy": S(-6.6, 132.8, "Priority convoy", heading=160),
         "escort": S(-6.8, 133.2, "HMAS Perth", heading=160),
-        "helo": S(-7.2, 133.2, "SH-60K pair", heading=180, alt=3000),
-        "f2": S(-5.6, 133.0, "Kai detachment CAP", heading=180, alt=26000),
-        "red_sub": S(-8.4, 134.4, "Submarine datum", heading=20),
-        "red_air": S(-5.4, 133.2, "Enclave fighters", heading=180, alt=32000),
-        "kai": S(-7.0, 134.0, "Kai Islands", heading=0),
+        # Ahead of the convoy on the handover bearing, first dip over the
+        # datum.
+        "helo": S(-6.9, 133.0, "ASW pair", heading=150, alt=3000),
+        "mpa": S(-6.4, 132.6, "Maritime patrol", heading=160, alt=15000),
+        # East of the convoy and a hundred miles from the fighters, pointed
+        # at the surface group. They used to spawn 17 NM in front of four
+        # Flankers, inside PL-15 range at second zero.
+        "f2": S(-6.45, 133.25, "Kai detachment", heading=120, alt=24000),
+        # Across the solved handover track, 38 NM from the convoy and inside
+        # Yu-6 range of it before the cargo is halfway. She used to sit 144
+        # NM away, pointed elsewhere, with no route, six miles from a
+        # handover point the solver had long since moved.
+        "red_sub": S(-7.05, 133.25, "Submarine datum", heading=320),
+        # A hundred miles out, so the fighters arrive over a quarter of an
+        # hour instead of at spawn.
+        "red_air": S(-4.7, 133.4, "Enclave fighters", heading=180, alt=32000),
+        # The surface half of "where the submarine and surface threats
+        # overlap": a hundred miles east of the handover and closing, inside
+        # YJ-83 range of it about when the convoy arrives. The F-2As' ASM-3
+        # reaches her from their station; so does Perth's NSM. One hull, not
+        # a group: an escort mission fields six red combat units at most, and
+        # the fighters and the boat are the other five. The Tor that used to
+        # sit on the Kai group 66 NM from the handover went the same way.
+        "red_sag": S(-7.7, 134.6, "Opposing frigate", heading=290),
         "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
         # The detachment's own strip. The station was already labelled a
         # detachment, but nothing it flew from was ever placed, so the
@@ -1360,11 +1425,14 @@ MISSIONS.append(dict(
           name="JS Mogami"),
         U("blue", "euromod-jmsdf", "jmsdf_ddg_maya", "jmsdf", name="JS Maya"),
         U("blue", "euromod-jmsdf", "jp_sh-60k", "helo", name="Mogami Flight"),
-        U("blue", "euromod-jmsdf", "jp_sh-60j", "helo", name="Maya Flight"),
+        # Maya's deck lists jmsdf_ types, not jp_; both live on Mogami.
+        U("blue", "euromod-jmsdf", "jp_sh-60j", "helo", name="Mogami 2"),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8",
           name="HMAS Perth"),
-        U("blue", "f-2a-viper-zero", "jp_f-2a_late", "f2", name="Viper 61"),
-        U("blue", "f-2a-viper-zero", "jp_f-2a_late", "f2", name="Viper 62"),
+        U("blue", "f-2a-viper-zero", "jp_f-2a_late", "f2", name="Viper 61",
+          loadout="AntiShip"),
+        U("blue", "f-2a-viper-zero", "jp_f-2a_late", "f2", name="Viper 62",
+          loadout="AntiShip"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_antares", "convoy",
           name="MV Antares"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
@@ -1372,17 +1440,24 @@ MISSIONS.append(dict(
         U("blue", "re-power-resupply", "civ_ms_freighter_a", "convoy",
           name="MV Sunda Relief"),
         U("red", "plan-submarines", "plan_ss_type_039c", "red_sub",
-          name="Contact SIERRA"),
-        U("red", "j-11", "plaaf_j-11bg", "red_air", name="Flanker 31"),
-        U("red", "j-11bs", "plaaf_j-11bs", "red_air", name="Flanker 32"),
-        U("red", "su-27ubk", "plaaf_su-27ubk", "red_air", name="Flanker 33"),
-        U("red", "j-10c", "plaaf_j10c", "red_air", name="Dragon 41"),
-        U("red", "pla-land-unit-pack", "pla_9k331", "kai",
-          name="Island air defence"),
+          name="Contact SIERRA", depth="belowlayer",
+          route=[(-6.75, 132.95, "belowlayer")], telegraph=3),
+        U("red", "j-11", "plaaf_j-11bg", "red_air", name="Flanker 31",
+          route=[(-6.7, 132.9, 30000)], telegraph=3),
+        U("red", "j-11bs", "plaaf_j-11bs", "red_air", name="Flanker 32",
+          route=[(-6.7, 132.9, 30000)], telegraph=3),
+        U("red", "su-27ubk", "plaaf_su-27ubk", "red_air", name="Flanker 33",
+          route=[(-6.7, 132.9, 30000)], telegraph=3),
+        # YJ-91 under the J-10C: the one red aircraft that can reach a
+        # merchant, so Maya's SM-2 has something to do.
+        U("red", "j-10c", "plaaf_j10c", "red_air", name="Dragon 41",
+          loadout="AntiShip", route=[(-6.7, 132.9, 30000)], telegraph=3),
+        U("red", "modern-plan-systems", "plan_type_054a_p5", "red_sag",
+          name="Type 054A frigate", route=[(-7.0, 133.2, 0)], telegraph=4),
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
-        U("blue", "p-8-poseidon", "usn_p8", "helo"),
+        U("blue", "p-8-poseidon", "usn_p8", "mpa"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
           name="RAAF Base Darwin", nation="australia", weapons="Hold"),
         U("blue", "_vanilla", "airfield_small_1", "strip",
@@ -2954,7 +3029,9 @@ WINDOWS = {
     "09": dict(buy=True, allow=BUY_09, repair=True, rearm=True, flights=[HELO, RECON]),
     # No ordinary hull purchases and no paid repair; the rearm is the
     # scheduled fallback, not a proved conditional gate.
-    "10": dict(rearm=True, flights=[HELO, RECON, CAP]),
+    # The F-2As are the detachment's own anti-ship sortie, not a CAP slot
+    # for the player to fill.
+    "10": dict(rearm=True, flights=[HELO, RECON]),
     "11": dict(buy=True, allow=BUY_09, repair=True,
            rearm=True, flights=[CAP, STRIKE]),
     # Aircraft replacement and repair only: no new hulls, no general rearm.
@@ -2982,8 +3059,9 @@ TIMEOUTS = {
           "tomorrow gets shorter.",
     "08": "The relief window expired. The next negotiation starts from a worse "
           "place than this one did.",
-    "09": "The service window ran out with the boat still on the surface. She "
-          "goes home the long way, on what she has.",
+    "09": "Eighty-five minutes and the group is still in the area. Whatever "
+          "crossed the hose, COLLINS goes home the long way on what she has, "
+          "and STALWART is still up here when the next Flanker pair comes.",
     "10": "The handover time passed. The cargo is still in the corridor and the "
           "Japanese detachment is out of allocation.",
     "11": "The transports never cleared the approaches. The talks open on "
@@ -3018,7 +3096,6 @@ ARRIVALS = {
     "04": (-177, 12),
     "06": (-131, 12),
     "07": (-170, 20),
-    "09": (154, 12),
     "10": (139, 12),
     "11": (138, 12),
     "12": (-142, 12),
@@ -3062,7 +3139,7 @@ RESOLVERS = {
     "09": {"Service": "victory", "Collins": ("protect", "support#2"),
            "Supply": ("protect", "support#1")},
     "10": {"Cargo": "victory", "Allies": ("protect", "jmsdf"),
-           "Submarine": ("destroy", "red_sub", 1)},
+           "Submarine": ("classify", "red_sub", 1)},
     "11": {"Transports": "victory", "Ford": ("protect", "carrier#1"),
            "Strike": ("destroy", "red_air", 2)},
     "12": {"Convoy": "victory", "Ceasefire": "neutral",
@@ -3143,7 +3220,6 @@ SLOTS = {
     ("08", "usn_ea-18g"): "Attack", ("08", "raaf_f-35a"): "CAP",
     ("09", "usn_mh-60r"): "HeloRecon",
     ("10", "jp_sh-60k"): "HeloRecon", ("10", "jp_sh-60j"): "HeloRecon",
-    ("10", "jp_f-2a_late"): "CAP",
     ("11", "usn_f-35c"): "CAP", ("11", "usn_ea-18g_2020"): "Attack",
     ("12", "usn_p8"): "Recon",
 }
@@ -3282,10 +3358,6 @@ SUPPORT_LOSS = {
                 intel="Sentry 06 is lost. The surface picture north of the "
                       "horizon goes with her, and a replacement Triton is 60 "
                       "points and a week of crew work at Edinburgh.  - Ward")],
-    "09": [dict(asset="HMAS Supply", units=["support#1"], objective="Supply",
-                intel="SUPPLY is gone with the service half-finished. Collins "
-                      "goes home on what she has, and the corridor loses the "
-                      "one hull that let it operate east of the Cape.  - Mercer")],
     "12": [dict(asset="Wedgetail 03", units=["aew"],
                 intel="Wedgetail 03 is down on the last morning of the "
                       "campaign. 2 Squadron has two airframes and this was "
