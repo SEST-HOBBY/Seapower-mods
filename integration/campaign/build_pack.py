@@ -2557,8 +2557,13 @@ def campaign_ini(missions, events, placements):
         if entry["type"] == "Mission":
             placed = placements[mission["key"]]
             L.append("")
+            # A detached operation - a strike flown from a carrier that is
+            # not the player's, a relief window - does not sail the owned
+            # force. Stock's detached ops set this False; a placed blue hull
+            # that is set dressing for the mission is not a reason to say
+            # True and sell the player ships that will not appear.
             L.append(f"TaskForceModeIncludesTaskForce="
-                     f"{'True' if placed.get('Taskforce1Vessel') else 'False'}")
+                     f"{'False' if mission.get('detached') else 'True' if placed.get('Taskforce1Vessel') else 'False'}")
             L.append(f"TaskForceModeIncludesAirwing="
                      f"{'True' if placed.get('Taskforce1Aircraft') else 'False'}")
             L.append(f"TaskForceModeIncludesSubmarine="
