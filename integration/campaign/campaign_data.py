@@ -319,6 +319,12 @@ MISSIONS.append(dict(
     group="core", num="01", key="White Water", place="Arafura Sea",
     intro="Find the convoy, work out which contact is armed, and keep the "
           "rendezvous open. Nothing here is a target without identification.",
+    sender="Commodore Alex Mercer, Maritime Border Command, Darwin",
+    intent=("Get the crews out of danger and the merchants into the box. "
+            "Identify before you shoot: a dead fishing boat ends this "
+            "operation and starts something worse, and a Meridian escort "
+            "that gets away is a problem for Wednesday. Coral Pioneer is the "
+            "ship this morning is about; bring her in."),
     date=(2028, 10, 18), time=(5, 40), sea=2, clouds="Scattered_1", wind="NW",
     difficulty=1, minutes=50, centre=(-10.0, 131.0),
     blue_nation="Australia", red_nation="China",
@@ -361,7 +367,8 @@ MISSIONS.append(dict(
     fatal=[F("Convoy", ["convoy"], 2)],
     neutral_objective="Neutrals",
     win="The merchants are in the box and their crews are alive. The escort "
-        "has been identified, and so has everything you did not shoot.",
+        "has been identified, and so has everything you did not shoot. Santos, on Ch16: 'Understood, "
+        "Warramunga. We were not going to heave to anyway.'",
     lose="The convoy is scattered and Coral Pioneer is not answering. Whatever "
          "this was, it worked.",
     stations={
@@ -427,6 +434,12 @@ MISSIONS.append(dict(
     group="core", num="02", key="Steel Highway", place="Coral Sea",
     intro="Four priority ships to Port Moresby. A submarine report on the "
           "planned track. The masters want to keep going.",
+    sender="Commodore Alex Mercer; Commander Mara Kila, PNGDF Maritime Element, concurring",
+    intent=("Kokoda Star is the hospital. Lae Provider is the fuel that "
+            "keeps it running until Kokoda Star arrives. If the submarine "
+            "report is real, it wants one of those two. Three of four "
+            "through the box is a pass; Kokoda Star among them is the pass. "
+            "All four is what Moresby is expecting."),
     date=(2028, 10, 21), time=(9, 20), sea=3, clouds="Broken_2", wind="SE",
     difficulty=2, minutes=75, centre=(-12.5, 148.0),
     blue_nation="Australia", red_nation="China",
@@ -527,6 +540,12 @@ MISSIONS.append(dict(
     group="core", num="03", key="Rig Seventeen", place="Timor Sea",
     intro="Civilians on an offshore platform, armed contractors on the deck "
           "above them, and a patrol closing from the north.",
+    sender="Commodore Alex Mercer; Captain Ratna Prasetyo, TNI-AL, embarked",
+    intent=("The platform is not a target. The people on its upper deck are "
+            "Captain Prasetyo's problem afterwards and not yours now. Two "
+            "airframes, one lift each, and a patrol closing from the north "
+            "that has answered nobody. Get the crew off before it arrives, "
+            "or hold it off until they are."),
     date=(2028, 10, 24), time=(16, 10), sea=3, clouds="Overcast", wind="W",
     difficulty=2, minutes=60, centre=(-11.0, 126.5),
     blue_nation="Australia", red_nation="China",
@@ -626,6 +645,11 @@ MISSIONS.append(dict(
     group="core", num="04", key="The Quiet Passenger", place="Banda approaches",
     intro="A low-profile craft, a genuine submarine somewhere in the same "
           "water, and a whale that will waste an hour of your life.",
+    sender="Commodore Alex Mercer",
+    intent=("Classify it, then walk it into the box. Do not sink it: what it "
+            "is carrying is evidence and where it was going is the route. "
+            "There is a real submarine in the same water and a whale that "
+            "will cost you an hour. Only one of the three matters tonight."),
     date=(2028, 10, 27), time=(2, 30), sea=2, clouds="Clear", wind="E",
     difficulty=2, minutes=45, centre=(-6.0, 130.5),
     blue_nation="Australia", red_nation="China",
@@ -723,6 +747,12 @@ MISSIONS.append(dict(
     group="core", num="05", key="Warramunga's Shot", place="Timor corridor",
     intro="One frigate, one salvo, a target beyond the horizon - and a convoy "
           "behind you that the shot is actually for.",
+    sender="Commodore Alex Mercer",
+    intent=("The frigate has the shot. The escort fired on a convoy under "
+            "protection in daylight, and that changes what you may do to it. "
+            "The convoy behind you is what the shot is for; the transport is "
+            "not. If it turns north, let it. Come out with rounds left - "
+            "Thursday needs them."),
     date=(2028, 10, 30), time=(14, 10), sea=4, clouds="Overcast", wind="SE",
     difficulty=3, minutes=55, centre=(-9.0, 131.0),
     blue_nation="Australia", red_nation="China",
@@ -758,7 +788,8 @@ MISSIONS.append(dict(
     win="The escort is burning and the transport has turned north. The convoy "
         "passed behind you while it happened, which was the entire point.",
     lose="Warramunga is gone or the lane is closed. Either way nothing moves "
-         "through this corridor tomorrow.",
+         "through this corridor tomorrow. Captain Prasetyo's report to Jakarta "
+         "will be short, and it will be accurate.",
     stations={
         # "Sixty miles on their disengaged bow" - now sixty, not thirty-four
         # inside the Moskit envelope. The SAG steams for the convoy, which is
@@ -819,6 +850,12 @@ MISSIONS.append(dict(
     group="core", num="06", key="Blind Horizon", place="Arafura Sea",
     intro="The destroyer can defend what it can see. Everything past that is "
           "one aircraft, and they are coming for it.",
+    sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the air plan",
+    intent=("The Triton is the only thing that can find the surface group. "
+            "It is also the only Triton. Push her north and you fight "
+            "tomorrow with a picture; hold her south and you fight today on "
+            "a destroyer's horizon, and the picture costs you at the "
+            "debrief. Both are decisions. Not making one is not."),
     date=(2028, 11, 2), time=(7, 0), sea=3, clouds="Scattered_1", wind="NW",
     difficulty=3, minutes=60, centre=(-11.0, 132.5),
     blue_nation="Australia", red_nation="China",
@@ -950,6 +987,11 @@ MISSIONS.append(dict(
     group="core", num="07", key="Long Way Home", place="Northern air corridor",
     intro="A tanker with everybody's fuel on board, a flight that has none "
           "left, and interceptors that can out-reach all of it.",
+    sender="Wing Commander Daniel Ward, Air Component, RAAF Tindal",
+    intent=("This is a recovery, not a sweep. The tanker is the mission. The "
+            "package needs it, the interceptors know where it is, and "
+            "Wedgetail can see them coming but cannot stop them. Nothing you "
+            "shoot down today is worth the tanker."),
     date=(2028, 11, 5), time=(11, 0), sea=2, clouds="Clear", wind="SE",
     difficulty=3, minutes=50, centre=(-7.0, 133.0),
     blue_nation="Australia", red_nation="Russia",
@@ -1020,6 +1062,11 @@ MISSIONS.append(dict(
     group="core", num="08", key="The Open Door", place="Contested enclave",
     intro="Open a relief window over an airfield somebody else's advisers are "
           "defending. The window is the objective, not the airfield.",
+    sender="Commodore Alex Mercer",
+    intent=("The window is the objective. Two transports through and the "
+            "first hundred people out. A battery off the air for two hours "
+            "beats a battery destroyed for the price of the strike package. "
+            "When the window closes, come home."),
     date=(2028, 11, 8), time=(4, 50), sea=2, clouds="Scattered_1", wind="NE",
     difficulty=4, minutes=70, centre=(-2.0, 136.0),
     blue_nation="Australia", red_nation="Russia",
@@ -1118,6 +1165,11 @@ MISSIONS.append(dict(
     group="core", num="09", key="Southern Lifeline", place="Rear support area",
     intro="A submarine on the surface alongside a supply ship, which is the "
           "most vulnerable thing either of them will ever do.",
+    sender="Commodore Alex Mercer; Commander Mara Kila for the eastern route",
+    intent=("Supply and Collins, in the same box, for the service period, "
+            "and then out. Every boat in the north depends on this "
+            "rendezvous working. A scout is coming to look at it and a raid "
+            "may follow it. The window is the win."),
     date=(2028, 11, 11), time=(6, 30), sea=2, clouds="Broken_2", wind="SE",
     difficulty=3, minutes=65, centre=(-12.5, 146.0),
     blue_nation="Australia", red_nation="Russia",
@@ -1170,7 +1222,8 @@ MISSIONS.append(dict(
     fatal=[F("Collins", ["support#2"]), F("Supply", ["support#1"])],
     neutral_objective="Service",
     win="The window held, Collins is dived and heading for Stirling, and "
-        "Supply still has enough in her tanks to do this again next week.",
+        "Supply still has enough in her tanks to do this again next week. Kila, "
+        "from Moresby: 'Send the next one.'",
     lose="The support group is broken. Every boat in the north now has to come "
          "all the way home to do what should take four hours out here.",
     stations={
@@ -1216,6 +1269,11 @@ MISSIONS.append(dict(
     group="core", num="10", key="Common Sea", place="Eastern Banda corridor",
     intro="A Japanese ASW detachment brings the one thing the Australian "
           "force has run out of: escorts that can hunt.",
+    sender="Commodore Alex Mercer",
+    intent=("The Japanese detachment brings the thing we ran out of: escorts "
+            "that can hunt. Use them for that. The convoy is the cargo, the "
+            "submarine is theirs, the surface threat is yours. Bring both "
+            "allied hulls home - Thursday needs them too."),
     date=(2028, 11, 15), time=(13, 40), sea=3, clouds="Scattered_1", wind="E",
     difficulty=3, minutes=75, centre=(-6.5, 133.0),
     blue_nation="Australia", red_nation="China",
@@ -1306,6 +1364,11 @@ MISSIONS.append(dict(
     intro="The carrier group has come to close the corridor for the "
           "negotiating period. You do not have to sink it. You have to keep "
           "the transports alive through it.",
+    sender="Commodore Alex Mercer",
+    intent=("The carrier group has come to close the corridor for the talks. "
+            "You do not have to sink it. Keep the transports moving and Ford "
+            "alive until the window, and let the enemy spend fuel he cannot "
+            "replace coming to you. He knows this. His own signals say so."),
     date=(2028, 11, 19), time=(10, 15), sea=4, clouds="Broken_2", wind="NE",
     difficulty=4, minutes=90, centre=(-4.5, 130.0),
     blue_nation="USA", red_nation="China",
@@ -1404,6 +1467,11 @@ MISSIONS.append(dict(
     group="core", num="12", key="The First Ship Through", place="Arafura Sea",
     intro="An imperfect ceasefire, a cargo ship with a cracked bearing, and "
           "two groups out there - one complying and one deciding.",
+    sender="Commodore Alex Mercer",
+    intent=("Coral Pioneer, nine knots, one shaft. One group out there is "
+            "complying with the ceasefire and one is deciding whether to. "
+            "Tell them apart before you fire, because the ceasefire is the "
+            "campaign, and a mistake tonight reopens all of it."),
     date=(2028, 11, 26), time=(6, 20), sea=2, clouds="Scattered_1", wind="NW",
     difficulty=3, minutes=65, centre=(-10.0, 131.0),
     blue_nation="Australia", red_nation="China",
@@ -1434,7 +1502,8 @@ MISSIONS.append(dict(
     neutral_objective="Ceasefire",
     win="Coral Pioneer is alongside at Darwin on one shaft and the rest of the "
         "convoy is behind her. The withdrawing group went north and nobody "
-        "shot at it. The route is a route again.",
+        "shot at it. The route is a route again. Santos's log, 0410: "
+        "'Alongside. One shaft. All hands.'",
     lose="The first ship through did not get through, and the ceasefire is "
          "now a thing that was tried once.",
     stations={
@@ -1498,6 +1567,11 @@ MISSIONS.append(dict(
     place="Timor Sea, western approach",
     intro="Allied Dispatch. A European escort rotation brings the replenishment "
           "group in from the west.",
+    sender="Captain (N) Elin Vasse, European escort rotation",
+    intent=("The oiler is the group. Everything east of here plans around "
+            "what is in her tanks. The shadowers are looking for a reason; "
+            "do not give them one, and do not let them get close enough to "
+            "find one on their own."),
     date=(2028, 11, 6), time=(8, 30), sea=4, clouds="Broken_2", wind="SW",
     difficulty=3, minutes=70, centre=(-12.5, 125.5),
     blue_nation="Europe", red_nation="Russia",
@@ -1582,6 +1656,11 @@ MISSIONS.append(dict(
     group="dispatch", num="D2", key="Flight Deck Day", place="Coral Sea",
     intro="Allied Dispatch. A recovery cycle, a deck that has to keep working, "
           "and nobody shooting at anybody if the day goes well.",
+    sender="Rear Admiral C. Halvorsen, Carrier Strike Group, Coral Sea",
+    intent=("Keep the deck cycling and get the visitor aboard. The tanker is "
+            "the schedule. Nobody shoots at anybody today if the day goes "
+            "well - and the day goes well if the drifting contact stays a "
+            "drifting contact."),
     date=(2028, 11, 13), time=(15, 0), sea=3, clouds="Scattered_1", wind="SE",
     difficulty=1, minutes=55, centre=(-15.5, 149.5),
     blue_nation="USA", red_nation="Russia",
@@ -1650,6 +1729,10 @@ MISSIONS.append(dict(
     group="dispatch", num="D3", key="The Relief Ship", place="Halmahera Sea",
     intro="Allied Dispatch. A French group lands relief into a port the "
           "fighting went round rather than through.",
+    sender="Capitaine de vaisseau A. Mercier, Groupe amphibie",
+    intent=("Land the relief and open the distribution point. The port never "
+            "changed hands; the roads to it did. The people on those roads "
+            "are why we are here, and they are not a target from any angle."),
     date=(2028, 11, 17), time=(7, 45), sea=2, clouds="Broken_2", wind="NE",
     difficulty=2, minutes=60, centre=(0.0, 127.2),
     blue_nation="France", red_nation="China",
@@ -1721,6 +1804,11 @@ MISSIONS.append(dict(
     group="dispatch", num="D4", key="Return Passage", place="Banda Sea",
     intro="Red Line. You are the other side, bringing a damaged auxiliary "
           "home through somebody else's corridor.",
+    sender="Opposing task group commander, to his own force",
+    intent=("You are the other side. The auxiliary took a torpedo forward "
+            "eleven days ago and has made six knots since. Get her home. The "
+            "coalition escort is professional and it does not chase; it will "
+            "not start today unless you give it a reason."),
     date=(2028, 11, 21), time=(3, 10), sea=4, clouds="Overcast", wind="NW",
     difficulty=4, minutes=75, centre=(-5.0, 130.0),
     blue_nation="Russia", red_nation="Australia",
@@ -1796,6 +1884,11 @@ MISSIONS.append(dict(
     group="dispatch", num="D5", key="Range Week", place="Northern Territory ranges",
     intro="Range Week. A live counter-launcher serial against the range's own "
           "threat pads, plus an anti-ship shot at the seaward target.",
+    sender="Trials Director, Northern Territory Ranges",
+    intent=("This is a trial, not a battle. Three of four pads down, the "
+            "anti-ship serial into the seaward target, and nothing outside "
+            "the danger area. The batteries are the serial; losing one ends "
+            "it."),
     date=(2028, 11, 9), time=(9, 0), sea=1, clouds="Clear", wind="SE",
     difficulty=2, minutes=60, centre=(-13.5, 131.5),
     blue_nation="Australia", red_nation="Iran",
@@ -1893,6 +1986,10 @@ MISSIONS.append(dict(
     intro="Future Front. Openly speculative: production YF-23s, a tailless "
           "J-36, the J-50, the RQ-180 and every custom missile fit in the "
           "collection, six years after the campaign ends.",
+    sender="Air Component, 2034 - openly speculative",
+    intent=("None of this is real and none of it is a forecast. The stream "
+            "releases on the complex or it does not. Get the escorts home "
+            "either way; even in fiction, range is range."),
     date=(2034, 3, 14), time=(1, 20), sea=3, clouds="Broken_2", wind="NE",
     difficulty=5, minutes=80, centre=(-4.0, 130.5),
     blue_nation="USA", red_nation="China",
@@ -1979,6 +2076,10 @@ MISSIONS.append(dict(
     place="Darwin approaches, 1988",
     intro="Cold Sea. A 1988 exercise in the same water, forty years before the "
           "campaign - the collection's retired aircraft where they belong.",
+    sender="Exercise Director, PITCH BLACK 88, maritime phase",
+    intent=("July 1988. The strike serial is broken outside its release line "
+            "or the umpires score it against you. Nobody is shooting "
+            "anything real. Everybody flies home."),
     date=(1988, 7, 12), time=(5, 55), sea=3, clouds="Scattered_1", wind="SE",
     difficulty=3, minutes=60, centre=(-11.0, 130.2),
     blue_nation="USA", red_nation="Russia",
@@ -2048,6 +2149,11 @@ MISSIONS.append(dict(
     group="dispatch", num="D8", key="The Long Perimeter", place="Southern Papua",
     intro="Allied Dispatch. A US ground-support package holds the relief "
           "perimeter open after the enclave window closes.",
+    sender="Lieutenant Colonel R. Okafor, US ground-support package",
+    intent=("The column reaches the airhead. The road is the corridor; the "
+            "corridor is the relief. Hold the perimeter open after the "
+            "enclave window closes, and bring the gunship home with fuel to "
+            "spare."),
     date=(2028, 11, 12), time=(17, 30), sea=2, clouds="Broken_2", wind="E",
     difficulty=3, minutes=65, centre=(-7.5, 138.5),
     blue_nation="USA", red_nation="China",
@@ -2163,6 +2269,9 @@ MISSIONS.append(dict(
     special="Optional operation. It expires once the next main operation is "
             "complete. A confirmed report improves the contact briefing for "
             "STEEL HIGHWAY; a rescue is worth doing whether or not it does.",
+    sender="Commodore Alex Mercer",
+    intent=("One coaster, one search, last light. Find her before the "
+            "weather does. Nothing out there is worth a helicopter."),
     date=(2028, 10, 19), time=(16, 40), sea=3, clouds="Broken_2", wind="NW",
     difficulty=1, minutes=40, centre=(-10.0, 131.0),
     blue_nation="Australia", red_nation="China",
@@ -2235,6 +2344,10 @@ MISSIONS.append(dict(
             "people and changes the debrief, and it does not restore the ship "
             "or its cargo. NOTE: this is offered after STEEL HIGHWAY whatever "
             "happened there.",
+    sender="Commodore Alex Mercer",
+    intent=("This one pays nothing and I would fly it anyway. Work the box "
+            "to its northern edge. Bring the helicopter home. The people we "
+            "do not find today we will not find."),
     date=(2028, 10, 23), time=(6, 10), sea=4, clouds="Overcast", wind="SE",
     difficulty=2, minutes=45, centre=(-13.5, 148.5),
     blue_nation="Australia", red_nation="China",
@@ -3117,12 +3230,12 @@ SUPPORT_LOSS = {
     "01": [dict(asset="Bluefin 21", units=["air#1"],
                 intel="Bluefin 21 is down. The Poseidon was the only thing "
                       "holding the picture past Warramunga's horizon, and "
-                      "92 Wing has no spare airframe in the north this week.")],
+                      "92 Wing has no spare airframe in the north this week.  - Ward")],
     "02": [dict(asset="HMAS Supply", units=["escort#3"],
                 intel="SUPPLY is gone. Every operation after this one plans "
                       "around a tank that does not refill, and 140 points is "
                       "most of a mission's allocation to put another hull in "
-                      "her place."),
+                      "her place.  - Mercer"),
            dict(asset="Texaco 51", units=["air#2"],
                 # Says what is true. It used to promise that sortie lengths
                 # would shorten "from today", and nothing in the campaign
@@ -3130,19 +3243,19 @@ SUPPORT_LOSS = {
                 intel="The tanker is down. The allied detachment that lent "
                       "her will want a reason, and until she is replaced "
                       "every sortie past Darwin's radius is planned around a "
-                      "tanker that is not there.")],
+                      "tanker that is not there.  - Ward")],
     "06": [dict(asset="Sentry 06", units=["isr"], objective="Sentry",
                 intel="Sentry 06 is lost. The surface picture north of the "
                       "horizon goes with her, and a replacement Triton is 60 "
-                      "points and a week of crew work at Edinburgh.")],
+                      "points and a week of crew work at Edinburgh.  - Ward")],
     "09": [dict(asset="HMAS Supply", units=["support#1"], objective="Supply",
                 intel="SUPPLY is gone with the service half-finished. Collins "
                       "goes home on what she has, and the corridor loses the "
-                      "one hull that let it operate east of the Cape.")],
+                      "one hull that let it operate east of the Cape.  - Mercer")],
     "12": [dict(asset="Wedgetail 03", units=["aew"],
                 intel="Wedgetail 03 is down on the last morning of the "
                       "campaign. 2 Squadron has two airframes and this was "
-                      "one of them.")],
+                      "one of them.  - Ward")],
 }
 
 for _m in MISSIONS:
