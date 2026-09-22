@@ -251,25 +251,23 @@ The Biak Regiment and Tigers over Papua supply units and encounter patterns. The
 
 ### SW09 — Southern Lifeline
 
-**Player:** replenishment group, escort, helicopter and one Collins-class submarine requiring service. **Target:** 45–65 minutes.
+**Player:** HMAS Stalwart, HMAS Collins surfaced for service, HMAS Perth with her Seahawk, a Maritime Patrol slot; MV Coral Provider with the dry stores if SUPPLY survived SW02. **Target:** 85 minutes.
 
-The submarine returns to a friendly rear rendezvous after a difficult patrol. Fuel, provisions, minor service and crew transfer are the immediate problem. An enemy scout or limited raid threatens the service window. Other vessels may support the submarine when the intended donor/receiver mechanics have been demonstrated.
+The boat returns to a friendly rear rendezvous after thirty-one days out. Fuel, provisions and a medical transfer are the immediate problem. A Tu-214R looked at the box the night before; an Akula is unaccounted for to the south-east and closing at twenty knots; a Flanker pair, one of them carrying Kh-31A, is within range with a Helix spotting for it.
 
-**Win:** support ship and submarine survive the required service window and the group can withdraw. **Fail:** either essential unit is lost. **Optional:** complete the additional support-delivery condition and retain both escorts' readiness. **Carry-over:** minimum service permits progression; delivery of the additional stores enables the planned SW10 rearm window and an extra temporary ASW sortie in SW11. If the additional delivery is missed, C05 offers a recovery route. This uses an explicit between-mission service flag; it does not imply that a surfaced submarine reloads torpedoes at sea.
+**Win:** both STALWART and COLLINS are still inside five miles of the rendezvous when the thirty-five-minute window closes — the stage is `UnitsInTheArea AND Time`, the shape of `03 Lifeline at the Edge of the World` Trigger8 on units that start inside the area — and then both reach the withdrawal line eighteen miles south before the clock runs out. **Fail:** either named hull is lost, or the clock. **Optional:** none scored; the P-8 slot is the player's to fill. **Carry-over:** losing SUPPLY at SW02 removes MV Coral Provider from this group (`SW02SupplyLost`, `IsFalse`); the service ship is STALWART precisely so the campaign never has to put a sunk hull back on the plot.
 
-**User requirement retained:** submarine transfer requires the boat to surface, approach a designated support ship and remain within the validated transfer limits. If a mod allows submerged transfer, impose a documented house rule unless a tested script enforces the restriction. Treat torpedo/missile reloads as tender/port work or a between-mission abstraction unless the chosen gameplay mode explicitly proves and labels a broader mechanic. Nuclear-reactor refuelling is not an at-sea replenishment objective.
-
-The current Supply stand-in needs verification or a reviewed support patch before it becomes a functional donor. A tested RE-power donor is an interim game option with its identity disclosed.
+**House rules, stated in the briefing:** COLLINS stays on the surface and inside the service box until the window has run. The engine has no depth or dwell predicate, so *position at the moment the window closes* is what is scored; diving early is the player's own fiction to keep or break. Replenishment transfers nothing; torpedo and missile reloads are tender or port work; nuclear-reactor refuelling is not an at-sea objective.
 
 ### SW10 — Common Sea
 
-**Player:** Australian escort plus a Japanese Mogami detachment; choose one allied air-support branch. **Target:** 50–75 minutes.
+**Player:** HMAS Perth, JS Mogami and JS Maya with an SH-60K and an SH-60J, a Japanese F-2A pair from the Kai strip loaded with ASM-3, the three-ship priority convoy, a Maritime Patrol slot. **Target:** 75 minutes.
 
-The convoy crosses a patrol area where submarine and surface threats overlap. Japanese ASW contributes something the depleted Australian force needs. An F-2A detachment or a French maritime-strike sortie supports a separate part of the operation; do not put every allied carrier on the same map.
+The convoy crosses a patrol area where a Type 039C and a Type 054A frigate overlap, under a four-fighter sweep from the enclave field — one J-10C carrying YJ-91, the rest air-to-air. The Japanese ASW pair is the thing the depleted Australian force needs; the F-2A sortie is the detachment's own, for the frigate coming in from the east, and is not a CAP slot for the player to fill.
 
-**Win:** the priority convoy reaches the handover point. **Fail:** the protected cargo threshold is missed. **Optional:** preserve the allied escort and locate the submarine. **Carry-over:** good results make an allied detachment available in SW11; poor results move it to casualty support.
+**Win:** two of the three priority merchants reach the handover point (the box is solved 25 NM down the track; the boat sits across it, 38 NM from the convoy). **Fail:** two of the three are lost, or the clock. **Optional:** keep both Japanese escorts afloat (scored at mission end, not re-completed by the win); locate and classify the submarine (`UnitClassified`; fails at mission end if never done). **Carry-over:** none scored yet; the SW11 detachment branch remains a design intent.
 
-Mogami's Corner and Viper Zero are useful seeds. Rafale, Timor Gap belongs here as an optional mission using a verified conventional fit. Its current SEST F5 LRASM fit belongs in Future Front unless deliberately accepted as campaign fiction.
+Mogami's Corner and Viper Zero are the seeds. Rafale, Timor Gap belongs elsewhere as an optional mission using a verified conventional fit.
 
 ### SW11 — Fujian's Shadow
 

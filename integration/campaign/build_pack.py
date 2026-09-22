@@ -1683,8 +1683,15 @@ def render(mission, placed, members):
     # explicitly, the way `03 Lifeline` line 487 completes DefendSupplyShips
     # and PetropavlovskMustSurvive. Positive tasks are not: they are earned by
     # their own triggers or they are not earned.
+    # ...but only the ones whose loss ENDS the mission. A protected unit the
+    # mission survives losing (SW10's Japanese escorts) has already had its
+    # objective failed by its own trigger, and the win line would flip it
+    # back to complete on the same debrief. StatusAtMissionEnd=Complete
+    # resolves the held case on its own.
+    ends = {f["objective"] for f in mission.get("fatal", [])}
     held = [oid for oid, how in mission.get("resolve", {}).items()
-            if isinstance(how, tuple) and how[0] in ("protect", "survive")]
+            if isinstance(how, tuple) and how[0] in ("protect", "survive")
+            and oid in ends]
 
     deadline = mission["minutes"] * 60          # Condition_Time is SECONDS
     terminal("Deadline",
@@ -1739,7 +1746,9 @@ def render(mission, placed, members):
     # player the first half is done.
     stage = victory.get("after")
     if stage:
-        s_units = [tag for tag in refs(members, stage["units"])]
+        s_refs = ([stage["units"]] if isinstance(stage["units"], str)
+                  else list(stage["units"]))
+        s_units = [tag for r in s_refs for tag in refs(members, r)]
         if not s_units:
             raise SystemExit(f"{mission['key']}: the victory stage names no unit")
         if stage["kind"] == "area":
@@ -1757,7 +1766,20 @@ def render(mission, placed, members):
                 s_at = stage["at"]
             s_cond = area_condition(1, centre, s_at, stage.get("radius", 3),
                                     s_units, stage.get("min_units", 1))
-            s_cond.append("ConditionsCompleted=<Condition1>")
+            s_expr = "<Condition1>"
+            if stage.get("after_minutes"):
+                # "Still there when the clock says so." The area test and a
+                # Time condition in one trigger, on units that START inside
+                # the area - the exact shape of `03 Lifeline at the Edge of
+                # the World` Trigger8 (<Condition1> AND <Condition2>, two
+                # vessels 1.6 and 2.4 NM inside a 10 NM area, Time=120). It
+                # is the nearest thing the engine has to a dwell, and SW09's
+                # service window is built on it: leave the box before the
+                # window closes and the stage never fires.
+                s_cond += ["Condition_Condition2_Type=Time",
+                           f"Condition_Condition2_Time={stage['after_minutes'] * 60}"]
+                s_expr += " AND <Condition2>"
+            s_cond.append(f"ConditionsCompleted={s_expr}")
         elif stage["kind"] == "classify":
             s_cond = ["Condition_Type=UnitClassified",
                       "Condition_Taskforce=Taskforce1",
