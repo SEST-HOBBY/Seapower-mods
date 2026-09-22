@@ -760,7 +760,11 @@ anything in this repository:
   can be bought, crewed, assigned aircraft and deployed; that the prices are
   balanced; that completion points are awarded once and cannot be farmed by
   replay; that repair and rearm offers appear only at the service windows;
-  that the anchor places the purchased force sensibly; that the optional
+  that the anchor places the purchased force sensibly, and whether the
+  anchored scripted hull stays on the plot beside the player's ships or is
+  replaced by one of them (SW01, SW05 and SW12 name their anchor HMAS
+  Warramunga; if the game substitutes, that name lands on whatever the
+  player anchors with); that the optional
   window expires when it should. §16 of the bible lists the seven-step
   acceptance run that would settle all of it, and every step needs the game
   running. None of it has been exercised;

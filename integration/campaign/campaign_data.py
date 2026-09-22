@@ -2495,9 +2495,13 @@ MISSIONS.append(dict(
           name="HMAS Hobart", weapons="Tight"),
         U("blue", "mh-60r-2154545636", "usn_mh-60r", "search",
           name="Hobart Flight", alt=1500, weapons="Tight"),
+        # Not a Steel Highway hull: any of that convoy's four can be lost
+        # the day before, and a page or a mission never names a losable hull
+        # as alive. Coral Provider is the same ship, and the same hull, that
+        # brings the dry stores to the Lifeline three weeks later.
         U("neutral", "auxilliary-merchant-pack", "ran_ms_super_p", "assist",
-          name="MV Torres Trader", weapons="Hold"),
-        U("neutral", "re-power-resupply", "civ_ms_andizhan", "assist",
+          name="MV Gulf Trader", weapons="Hold"),
+        U("neutral", "re-power-resupply", "civ_ms_amra", "assist",
           name="MV Coral Provider"),
         U("red", "plan-submarines", "plan_ss_type_039c", "sub",
           name="Contact BRAVO"),
