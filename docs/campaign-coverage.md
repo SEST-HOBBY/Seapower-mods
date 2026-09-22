@@ -14,7 +14,7 @@ The campaign is 22 missions built from 315 placed units. Every mod in the canoni
 | `shadowed` | every file it ships is outranked by something above it; nothing it contains can load | 2 |
 | `campaign` | this pack - the campaign being measured | 1 |
 
-Sea and land positions are snapped to points already used by a loading mission; the furthest any anchor had to move is 43.1 NM.
+Sea and land positions are snapped to points already used by a loading mission; the furthest any anchor had to move is 15.4 NM.
 
 | mod / pack | title | class | via | mission |
 |---|---|---|---|---|
@@ -116,7 +116,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `pla-land-unit-pack` | PLA Land Unit Pack | `unit` | pla_df-21c_tel | The Open Door |
 | `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plaaf_j16 / plaaf_pl-15 | Blind Horizon |
 | `plan-submarines` | PLAN Submarines | `unit` | plan_ss_type_039c | Steel Highway |
-| `raaf-f-35a` | RAAF F-35A Lighting II | `squadron` | raaf_f-35a | Steel Highway |
+| `raaf-f-35a` | RAAF F-35A Lighting II | `squadron` | raaf_f-35a | Warramunga's Shot |
 | `rafale` | Dassault Rafale | `unit` | fr_rafale_m | The Relief Ship |
 | `re-power-resupply` | RE-power: the resupply mod | `unit` | civ_ms_freighter_a | White Water |
 | `red-storm-arsenal` | Red Storm Arsenal | `unit` | ir_ptg_peykaap_3 | White Water |
@@ -168,7 +168,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `SEST_Growler_NGJ_MALICE` | SEST Growler NGJ + MALICE | `unit` | usn_ea-18g | Long Way Home |
 | `SEST_JMSDF_Mogami` | SEST JMSDF Mogami | `unit` | js_ffg_mogami | Common Sea |
 | `SEST_RAAF_Bases` | SEST RAAF Bases | `unit` | airbase_raaf_darwin | White Water |
-| `SEST_RAAF_F-35A_JATM` | SEST RAAF F-35A JATM | `unit` | raaf_f-35a | Steel Highway |
+| `SEST_RAAF_F-35A_JATM` | SEST RAAF F-35A JATM | `unit` | raaf_f-35a | Warramunga's Shot |
 | `SEST_RAAF_Wedgetail` | SEST RAAF Wedgetail | `squadron` | E7A_Wedgetail | Steel Highway |
 | `SEST_RAN_Fleet` | SEST RAN Fleet | `unit` | ran_ffh_anzac | White Water |
 | `SEST_Rafale_F5` | SEST Rafale F5 | `unit` | fr_rafale_m_l | Long Reach |

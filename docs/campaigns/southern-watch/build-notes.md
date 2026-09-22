@@ -561,6 +561,76 @@ script does now.
 
 A skeptic that refuses a finding on scope has not shown the finding is wrong.
 
+## Geometry: the encounters were not at encounter scale, and the build could not see it
+
+The full review's first two mission readers came back within minutes of each
+other with the same shape of finding from opposite ends of the campaign. In
+the opening mission, Warramunga started 46-51 NM from the convoy she is
+briefed to shepherd, in a 50-minute mission an Anzac at flank covers 24 NM
+of; the "identification traffic" was 130-140 NM away and sailing off; the
+armed Meridian escort was stationary, facing away, with a 17 NM navigation
+radar 20 NM from the nearest merchant. In SW02 the neutrals were 188 NM from
+the convoy. Every gate in the build had passed every one of those files.
+
+Two causes, both mechanical.
+
+**The snapper deformed every offshore mission.** To keep a ship off dry land,
+every vessel and submarine was moved - individually - to the nearest position
+any loading mission had ever put a unit of that kind on, one proven point per
+hull, never reused, up to 60 NM. A four-ship convoy took the four nearest
+distinct points, which scatter; its escort took *its* nearest point, in
+whatever direction that lay. SW01's authored 34 NM shipped as 46-51. SW12's
+worst displacement was 43 NM, D1's 36, SW11's 33. The pool of proven water is
+2,494 points across the whole theatre, which in the open Arafura is nearly
+empty, so "snap to proven water" was a rule that moved stations tens of
+miles to prove a thing the chart already says.
+
+It now snaps the **station**, not the unit, and only near a coast. A station
+more than 25 NM from every harvested land point is used exactly as authored -
+it is open ocean and the designer put a ship on it - and recorded as unproven
+so the build prints the list. Within 8 NM of a proven sea point near land, it
+snaps. Neither, it refuses, with the distances, and the refusals are collected
+so one dry-run names every station that needs a decision rather than the
+first. The ships of a station form on the snapped point 0.6 NM apart, and the
+game's own formation keys space them from there. Fifty-six stations now ship
+where they were drawn; the worst drift in the campaign is 0.4 NM.
+
+Uncovering honest positions also uncovered two accidents in the other
+direction: D1's shadowers were 7 NM outside their own missile reach, and D6
+had a red carrier and Ford sharing one station 0.6 NM apart. The old drift
+had been pulling both into something playable by luck.
+
+**Nothing checked that the pieces could meet.** `check_reach` asked whether
+red could hurt blue. Nothing asked whether the escort could reach what it was
+escorting, whether the neutrals were anywhere the player would have to tell
+them from the threat, or whether a red unit meant to press the player was
+pointed at them. `check_closure` now asks all three: a protected ship whose
+nearest armed escort cannot close inside the mission clock at 24 kn is a hard
+failure; a neutral more than 35 NM from anything protected and pointed away,
+or a red unit outside its own reach facing away with no route, is reported as
+"cannot take part" - because a background neutral or a picket that never
+closes can be a design, but it has to be a decision you can read.
+`check_reach` also stopped treating a MiG-35 seven miles outside missile
+reach as scenery: red units get transit by kind now - 300 kn for aircraft,
+24 kn for ships, nothing for a launcher ashore.
+
+All three gates were negative-tested by breaking one mission each and
+watching the message, then restoring.
+
+**Re-authored at encounter scale**, from the readouts rather than by feel:
+SW01's escort 8 NM astern on the convoy's heading, the trawlers 14 NM ahead
+closing, the Meridian hull and its decoy 16 NM up the track to the handover
+box with a route that brings it onto the convoy, the airliner crossing
+overhead. SW02's traffic 15 NM ahead of Kokoda Star. SW04's whale 12 NM from
+the patrol ship instead of 60. SW12's escorts 5 NM ahead, the withdrawing
+group 30 NM off the bow and opening - close enough that holding fire on it is
+the mission. D1's shadowers inside reach. D6's Ford on her own station.
+
+What this does not establish: that the encounters PLAY well. It establishes
+that they can happen. The clocks, the speeds and the identification puzzle
+are now geometrically possible, which is the precondition the first build
+skipped.
+
 ## What exists
 
 | Thing | Where |
