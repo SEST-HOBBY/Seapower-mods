@@ -23,8 +23,21 @@ load-order change made while it is running is thrown away silently.
 
 ## 1 — point the repo at this branch
 
+First, find the clone. `<repo>` below is a placeholder for a real path, not
+something to type — PowerShell reads `<` as a redirection operator and stops.
+
 ```powershell
-cd <repo>
+# where is it? checks the usual places without crawling the whole disk
+@("$env:USERPROFILE", "$env:USERPROFILE\Documents", "$env:USERPROFILE\source\repos",
+  "$env:USERPROFILE\Desktop", "C:\", "D:\") |
+  ForEach-Object { Get-ChildItem $_ -Directory -Filter Seapower-mods -ErrorAction SilentlyContinue } |
+  Select-Object -ExpandProperty FullName
+```
+
+Then use the path it prints:
+
+```powershell
+cd C:\Users\<you>\Seapower-mods      # the real path, no angle brackets
 git fetch origin sest-dev/loving-bell-3cnvvw
 git checkout sest-dev/loving-bell-3cnvvw
 git pull origin sest-dev/loving-bell-3cnvvw
