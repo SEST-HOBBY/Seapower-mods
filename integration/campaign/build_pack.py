@@ -1808,6 +1808,20 @@ def render(mission, placed, members):
                     area_condition(1, centre, how[2], how[3], units, how[4])
                     + ["ConditionsCompleted=<Condition1>",
                        f"Action_ObjectivesCompleted={oid}"])
+        elif kind == "ammo":
+            # "Bring the frigate out with rounds left" used to be scored as
+            # "the frigate survives" - nothing ever looked at the magazine.
+            # UnitsAreOutOfAmmo is stock (03 Lifeline uses it twice, on
+            # wp_ss-n-19 and wp_ss-n-12) and names the round it watches. The
+            # objective is not in `held`, so on a win it resolves by its own
+            # end-status unless this trigger has already failed it.
+            units = refs(members, how[1])
+            trigger(f"{oid} spent",
+                    ["Condition_Condition1_Type=UnitsAreOutOfAmmo",
+                     f"Condition_Condition1_Units={','.join(units)}",
+                     f"Condition_Condition1_Ammunition={how[2]}",
+                     "ConditionsCompleted=<Condition1>",
+                     f"Action_ObjectivesFailed={oid}"])
         elif kind == "classify":
             # The reconnaissance decision, in the engine's own vocabulary:
             # Condition_Type=UnitClassified fires when the player's side has
@@ -2037,7 +2051,15 @@ def render(mission, placed, members):
             L.append(block(tag, keys))
             L.append("")
 
-    resolved = {mission["victory"]["objective"]}
+    # An objective may end Fail if something can COMPLETE it before the end:
+    # the victory trigger, or its own classify/arrive/destroy resolver. Then
+    # "still open at the win" means "never done", and the failure score is
+    # the price of not doing it - which is what SW06's reconnaissance
+    # decision needs to cost anything. A protect/neutral objective only ever
+    # fails, so Fail-at-end on one of those would fail it on a clean win.
+    resolved = {mission["victory"]["objective"]} | {
+        oid for oid, how in mission.get("resolve", {}).items()
+        if isinstance(how, tuple) and how[0] in ("classify", "arrive", "destroy")}
     L.append("[Taskforce1_Objectives]")
     L.append("#ID=CompletedScore,FailedScore,StatusAtMissionEnd")
     for oid, _text, spec in mission["objectives"]:
@@ -2166,6 +2188,11 @@ def briefing_page(mission):
     seen = []
     for spec in mission["units"]:
         name = by_id.get(spec["mod"], spec["mod"])
+        # A Workshop title is the author's; the catalog's status tag on the
+        # front of it is ours, and "[DEPRECATED] E-7A Wedgetail" in a briefing
+        # tells a player the campaign is built on something abandoned. It is
+        # built on the file that wins the load order, which is the point.
+        name = re.sub(r"^\s*\[(DEPRECATED|WIP|BETA|OLD)\]\s*", "", name, flags=re.I)
         if name not in seen:
             seen.append(name)
     # Two house entries, read last because that is where a reader stops caring.
