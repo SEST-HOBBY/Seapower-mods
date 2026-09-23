@@ -224,6 +224,63 @@ def ini_text(value):
     return value.replace("\r\n", "\n").replace("\n", "\\n")
 
 
+def unit_value(uid, key, depth=0):
+    """A top-level key of the winning file, following #!alias like unit_type.
+
+    None when the file does not say. Callers must not read None as False:
+    a deck with no AircraftSupported list and an airframe with no
+    CarrierCapable line are UNDECLARED, and the build reports them as such
+    rather than deciding for the mod author either way.
+    """
+    _kind, f = unit_file(uid)
+    if f is None or depth > 4:
+        return None
+    text = read(f)
+    m = re.search(r"^\s*" + re.escape(key) + r"=([^\n/]*)", text, re.M)
+    if m:
+        return m.group(1).strip()
+    a = re.search(r"#!alias\s+(\S+)", text)
+    if a:
+        return unit_value(Path(a.group(1)).stem, key, depth + 1)
+    return None
+
+
+def unit_spot(keys):
+    bits = keys.get("RelativePositionInNM", "").split(",")
+    try:
+        return float(bits[0]), float(bits[2])
+    except (ValueError, IndexError):
+        return None
+
+
+def deck_fit(atype, kind, deck_type, is_ship):
+    """Can this airframe recover on that deck, by the two files' own words.
+
+    0 = compatible: a field; a ship whose AircraftSupported names the type;
+        or a ship with no list and an airframe that says CarrierCapable=True.
+    1 = undeclared: a ship with no list and a fixed-wing airframe with no
+        CarrierCapable line. Allowed, reported, and listed on the test card.
+    None = incompatible: CarrierCapable=False, or a ship whose list leaves
+        the type out. A helicopter on an unlisted escort deck is 0 - vanilla
+        escorts declare a capacity and, mostly, no list.
+    """
+    if not is_ship:
+        return 0
+    cc = unit_value(atype, "CarrierCapable")
+    if cc == "False":
+        return None
+    listed = unit_value(deck_type, "AircraftSupported")
+    if listed:
+        names = {x.strip() for x in listed.split(",") if x.strip()}
+        return 0 if atype in names else None
+    if cc == "True" or kind == "Helicopter":
+        return 0
+    return 1
+
+
+RECOVERY_NOTES = []
+
+
 def unit_type(uid, depth=0):
     """UnitType of the winning file, following #!alias like the game does."""
     kind, f = unit_file(uid)
@@ -594,7 +651,8 @@ def resolve(spec):
 
 BLOCK_ORDER = ("Type", "VariantReference", "SpawnByVariableAND",
                "SquadronReference", "JoinTaskForce", "LoadoutVariant",
-               "TaskForceModeAnchor", "Nation", "UnlimitedFuel", "WeaponStatus",
+               "TaskForceModeAnchor", "TaskForceModeReplacedUnitIndex",
+               "Nation", "UnlimitedFuel", "WeaponStatus",
                "RadarsActive", "CrewSkill", "Morale", "CampaignTag",
                "RelativePositionInNM", "Heading", "Telegraph",
                # last, after Waypoints, where the native blocks put it
@@ -737,7 +795,24 @@ def place(mission, snapper):
             if idx != 1:
                 sys.exit(f"{mission['key']}: the anchor landed on {tag}, not "
                          "the first blue vessel")
-            keys["TaskForceModeAnchor"] = "True"
+            # The guide: in a Generated mission the anchor is REPLACED by
+            # the player's first ship, which takes its position, heading,
+            # telegraph and waypoints; in a Replaced mission the slot with
+            # ReplacedUnitIndex=1 is filled the same way. Either way this
+            # section is the player's own hull at launch, so it carries no
+            # name (the player's ship keeps its own) and no fiction may call
+            # it by one. Blank generation launches the file as authored and
+            # the anchor key is not emitted at all.
+            if spec.get("name") and mission.get("generation"):
+                sys.exit(f"{mission['key']}: the anchor {spec['type']} is "
+                         f"named {spec['name']!r}, but at launch it is the "
+                         "player's first ship - drop the name= and address "
+                         "the player's force in the briefing")
+            if mission.get("generation"):
+                keys["TaskForceModeAnchor"] = "True"
+                if mission["generation"] == "Replaced":
+                    keys["TaskForceModeReplacedUnitIndex"] = "1"
+                mission["_anchor_tag"] = tag
             mission["_anchored"] = True
         # A purchased aircraft reaches a mission through a flight row and a
         # matching slot. Without these the roster sells aircraft that no
@@ -760,6 +835,10 @@ def place(mission, snapper):
             fit = keys.get("SquadronReference") or keys.get("VariantReference")
             keys["CampaignTag"] = "_".join(
                 x for x in (keys["Type"], fit, mission["num"]) if x)
+        if spec.get("slot") and not mission.get("generation"):
+            sys.exit(f"{mission['key']}: {spec['type']} is slot-tagged, but a "
+                     "blank-generation mission places no persistent aircraft "
+                     "- there is nothing to fill it with")
         if spec.get("slot"):
             # A slot is a cockpit the player fills with whatever they own.
             # No slot-tagged section in the shipped campaign carries a
@@ -817,6 +896,12 @@ def assign_home_bases(placed):
     the smallest flight deck in the collection. Nearest first, so a ship's
     flight is homed on its own ship rather than whichever is numbered first.
 
+    A deck is only a deck for an airframe the two files agree on: a ship's
+    `AircraftSupported` list, an airframe's `CarrierCapable`, a VTOL's own
+    UnitType. See deck_fit(). Fourteen assignments in the reviewed build put
+    helicopters on decks whose lists left them out and F-35As on a carrier
+    the airframe file says it cannot use.
+
     A player aircraft with nowhere in range is returned as a problem and fails
     the build: the answer is to give the mission a field or a deck, not to
     hand the aeroplane infinite fuel. For red and neutral the same search runs
@@ -824,13 +909,7 @@ def assign_home_bases(placed):
     order of battle is not the design's to fix, and a red fighter dropping out
     of the sky at bingo would hand the player the mission.
     """
-    def spot(keys):
-        bits = keys.get("RelativePositionInNM", "").split(",")
-        try:
-            return float(bits[0]), float(bits[2])
-        except (ValueError, IndexError):
-            return None
-
+    spot = unit_spot
     stranded = []
     for side in ("Taskforce1", "Taskforce2", "Neutral"):
         decks = []
@@ -838,16 +917,15 @@ def assign_home_bases(placed):
             for tag, keys, _n, _x in placed.get(side + kind_family, []):
                 size = deck_size(keys["Type"])
                 if size:
-                    decks.append((tag, size, spot(keys)))
+                    decks.append((tag, size, spot(keys), keys["Type"],
+                                  kind_family == "Vessel"))
 
         for family in (side + "Aircraft", side + "Helicopter"):
             for tag, keys, _n, _x in placed.get(family, []):
                 kind = unit_type(keys["Type"])
-                if kind not in ("Aircraft", "Helicopter"):
+                if kind not in ("Aircraft", "Helicopter", "VTOL"):
                     continue
-                needs = 1 if kind == "Helicopter" else 10
                 here = spot(keys)
-                usable = [d for d in decks if d[1] >= needs]
 
                 def how_far(deck):
                     if not (here and deck[2]):
@@ -855,13 +933,38 @@ def assign_home_bases(placed):
                     return math.hypot(deck[2][0] - here[0],
                                       deck[2][1] - here[1])
 
-                usable.sort(key=how_far)
                 total = airframe_range(keys["Type"])
                 radius = (total or 0.0) * SORTIE_FRACTION
-                near = usable and how_far(usable[0]) <= radius
-                if near:
-                    keys["HomeBase"] = usable[0][0]
+                options, refused = [], []
+                for d in decks:
+                    fit = deck_fit(keys["Type"], kind, d[3], d[4])
+                    if fit is None:
+                        refused.append(d[3])
+                        continue
+                    # A helicopter takes any deck; a fast jet needs a field
+                    # or a carrier; a VTOL takes a deck that names it and a
+                    # field otherwise.
+                    needs = 1 if kind == "Helicopter" else 10
+                    if kind == "VTOL" and d[4] and fit == 0:
+                        needs = 1
+                    if d[1] < needs:
+                        continue
+                    options.append((fit, how_far(d), d))
+                # Compatible decks first, nearest first within each class:
+                # a jet with no CarrierCapable line lands on a field 40 NM
+                # away before it lands on a carrier 10 NM away.
+                options.sort(key=lambda o: (o[0], o[1]))
+                pick = next((o for o in options if o[1] <= radius), None)
+                if pick:
+                    fit, dist, d = pick
+                    keys["HomeBase"] = d[0]
                     keys["UnlimitedFuel"] = "False"
+                    if fit == 1:
+                        RECOVERY_NOTES.append(
+                            f"{keys['Type']} at {tag} recovers on {d[3]} "
+                            f"({d[0]}), which lists no supported aircraft, "
+                            "and the airframe declares no CarrierCapable - "
+                            "undeclared, untested")
                     continue
                 # Nowhere to land. For the player that is a design fault and
                 # the build says so; for anyone else it is the tooltip's own
@@ -869,22 +972,25 @@ def assign_home_bases(placed):
                 keys["UnlimitedFuel"] = "True"
                 if side != "Taskforce1":
                     continue
+                why = (f" ({', '.join(sorted(set(refused)))} refused it: "
+                       "AircraftSupported or CarrierCapable)" if refused else "")
                 if total is None:
                     stranded.append(
                         f"{keys['Type']} at {tag} declares no range - no "
                         "MaxRange, no SpeedAndRange_Cruise, no alias with one")
-                elif not usable:
+                elif not options:
                     stranded.append(
                         f"{keys['Type']} at {tag} has nowhere to land in this "
-                        "mission - no "
-                        + ("deck" if needs == 1 else "field or carrier")
-                        + " on its own side")
+                        "mission - no compatible "
+                        + ("deck" if kind == "Helicopter" else "field or carrier")
+                        + " on its own side" + why)
                 else:
                     stranded.append(
-                        f"{keys['Type']} at {tag} is {how_far(usable[0]):.0f} "
-                        f"NM from the nearest field it can use, and "
+                        f"{keys['Type']} at {tag} is {options[0][1]:.0f} "
+                        f"NM from the nearest base it can use, and "
                         f"{total:.0f} NM of range gives it a {radius:.0f} NM "
-                        "radius. Put something it can land on within reach")
+                        "radius. Put something it can land on within reach"
+                        + why)
     return stranded
 
 MONTHS = ("January", "February", "March", "April", "May", "June", "July",
@@ -1003,7 +1109,10 @@ def solve_arrival(mission, placed, members):
     # furthest technically-reachable one: the slowest unit spends at most about
     # 60% of the mission's clock getting there, leaving the rest for the fight
     # that is the actual point of the mission.
-    slowest = min(f for _p, f in spots)
+    # A mission may state its own convoy speed - SW12's Coral Pioneer makes
+    # nine knots on one shaft, and a box solved at the class default of 18
+    # was a box she could not reach.
+    slowest = victory.get("transit") or min(f for _p, f in spots)
     cap = int(radius + mission["minutes"] / 60.0 * slowest * 0.6)
     best = None
     for step in range(max(cap, radius + 4), radius + 2, -1):
@@ -1591,6 +1700,9 @@ def render(mission, placed, members):
         L.append(f"SupportLoss{i}Intel={ini_text(loss['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("intel"):
         L.append(f"StageIntel={ini_text(mission['victory']['after']['intel'])}")
+    if mission.get("victory", {}).get("after", {}).get("lost"):
+        L.append("StageLostMessage=<color=red>Mission failed.</color>|"
+                 + ini_text(mission["victory"]["after"]["lost"]))
     for reveal in mission.get("reveal_if", []):
         L.append(f"{reveal['variable']}Intel={ini_text(reveal['intel'])}")
     for flag in mission.get("flags", []):
@@ -1604,7 +1716,7 @@ def render(mission, placed, members):
                  "it goes in the record.")
     for family in FAMILY_ORDER:
         for tag, _keys, unit_name, _x in placed.get(family, []):
-            if unit_name:
+            if unit_name and tag != mission.get("_anchor_tag"):
                 L.append(f"{tag}NameOverride={unit_name}")
     L.append("")
 
@@ -1674,9 +1786,10 @@ def render(mission, placed, members):
     EXIT = "Action_EnableTriggers=Trigger1"
 
     def terminal(comment, conditions, *, failed=(), message, victor,
-                 completed=()):
+                 completed=(), keep=()):
         named, won = list(failed), list(completed)
-        cancel = [o for o in all_objectives if o not in named and o not in won]
+        cancel = [o for o in all_objectives
+                  if o not in named and o not in won and o not in keep]
         lines = list(conditions) + [
             f"Action_Taskforce1_Message={message}", f"Action_Victory={victor}"]
         if won:
@@ -1703,9 +1816,16 @@ def render(mission, placed, members):
             and oid in ends]
 
     deadline = mission["minutes"] * 60          # Condition_Time is SECONDS
+    # The clock running out fails the main task and leaves the survival
+    # objectives to their own end-status: a carrier that survived the window
+    # survived it, whether or not the transports made the box. Cancelling
+    # them was telling the player the file contradicts its own rule.
+    survivals = [oid for oid, how in mission.get("resolve", {}).items()
+                 if isinstance(how, tuple) and how[0] in ("protect", "survive")]
     terminal("Deadline",
              ["Condition_Type=Time", f"Condition_Time={deadline}"],
-             failed=[main], message="TimeoutMessage", victor="Taskforce2")
+             failed=[main], message="TimeoutMessage", victor="Taskforce2",
+             keep=survivals)
     trigger("Start message", [
         "Condition_Type=Time", "Condition_Time=1",
         "Action_Taskforce1_Message=Taskforce1StartMessage"])
@@ -1754,12 +1874,14 @@ def render(mission, placed, members):
     # stage is a trigger, so it can also carry the intel line that tells the
     # player the first half is done.
     stage = victory.get("after")
+    per_unit = bool(stage and stage.get("per_unit"))
     if stage:
         s_refs = ([stage["units"]] if isinstance(stage["units"], str)
                   else list(stage["units"]))
         s_units = [tag for r in s_refs for tag in refs(members, r)]
         if not s_units:
             raise SystemExit(f"{mission['key']}: the victory stage names no unit")
+        s_at = None
         if stage["kind"] == "area":
             if "at_unit" in stage:
                 # the PLACED position of a unit - a snapped rig is where it
@@ -1773,37 +1895,85 @@ def render(mission, placed, members):
                                     centre[1] + float(bx) / 60.0)
             else:
                 s_at = stage["at"]
-            s_cond = area_condition(1, centre, s_at, stage.get("radius", 3),
-                                    s_units, stage.get("min_units", 1))
-            s_expr = "<Condition1>"
-            if stage.get("after_minutes"):
-                # "Still there when the clock says so." The area test and a
-                # Time condition in one trigger, on units that START inside
-                # the area - the exact shape of `03 Lifeline at the Edge of
-                # the World` Trigger8 (<Condition1> AND <Condition2>, two
-                # vessels 1.6 and 2.4 NM inside a 10 NM area, Time=120). It
-                # is the nearest thing the engine has to a dwell, and SW09's
-                # service window is built on it: leave the box before the
-                # window closes and the stage never fires.
-                s_cond += ["Condition_Condition2_Type=Time",
-                           f"Condition_Condition2_Time={stage['after_minutes'] * 60}"]
-                s_expr += " AND <Condition2>"
-            s_cond.append(f"ConditionsCompleted={s_expr}")
-        elif stage["kind"] == "classify":
-            s_cond = ["Condition_Type=UnitClassified",
-                      "Condition_Taskforce=Taskforce1",
-                      f"Condition_Units={','.join(s_units)}",
-                      f"Condition_MinimumUnits={stage.get('min_units', 1)}"]
+
+        def stage_conditions(units):
+            if stage["kind"] == "area":
+                c = area_condition(1, centre, s_at, stage.get("radius", 3),
+                                   units, stage.get("min_units", 1))
+                expr = "<Condition1>"
+                if stage.get("after_minutes"):
+                    # "Still there when the clock says so." The area test
+                    # and a Time condition in one trigger, on units that
+                    # START inside the area - the exact shape of `03 Lifeline
+                    # at the Edge of the World` Trigger8 (<Condition1> AND
+                    # <Condition2>, two vessels 1.6 and 2.4 NM inside a 10 NM
+                    # area, Time=120). It is the nearest thing the engine has
+                    # to a dwell, and SW09's service window is built on it:
+                    # leave the box before the window closes and the stage
+                    # never fires.
+                    c += ["Condition_Condition2_Type=Time",
+                          f"Condition_Condition2_Time={stage['after_minutes'] * 60}"]
+                    expr += " AND <Condition2>"
+                c.append(f"ConditionsCompleted={expr}")
+            elif stage["kind"] == "classify":
+                c = ["Condition_Type=UnitClassified",
+                     "Condition_Taskforce=Taskforce1",
+                     f"Condition_Units={','.join(units)}",
+                     f"Condition_MinimumUnits={stage.get('min_units', 1)}"]
+            else:
+                raise SystemExit(f"{mission['key']}: unknown victory stage "
+                                 f"{stage['kind']!r}")
+            if stage.get("intel"):
+                c.append("Action_Taskforce1_Intel=StageIntel")
+            if stage.get("sets"):
+                c.append(f"Action_VariableSet={stage['sets']},True")
+            return c
+
+        if per_unit:
+            # One chain PER AIRCRAFT: the lifter that reached the platform is
+            # the lifter that has to reach the withdrawal line, and losing it
+            # after the pickup loses the people aboard. Stage_i enables its
+            # own Win_i and Lost_i (a comma list, as seven native triggers
+            # do); the other aircraft's chain stays armed, so a second lifter
+            # can still fly the rescue after the first is lost on the way in.
+            for tag in s_units:
+                stage_no = len(T) + 1
+                s_cond = stage_conditions([tag])
+                s_cond.append(f"Action_EnableTriggers=Trigger{stage_no + 1},"
+                              f"Trigger{stage_no + 2}")
+                trigger(f"Stage {tag}", s_cond)
+                w_cond = area_condition(1, centre, victory["at"],
+                                        victory.get("radius", 20), [tag], 1)
+                w_expr, wn = "<Condition1>", 1
+                for extra in victory.get("also", []):
+                    wn += 1
+                    if extra.get("after_minutes"):
+                        w_cond += [f"Condition_Condition{wn}_Type=Time",
+                                   f"Condition_Condition{wn}_Time={extra['after_minutes'] * 60}"]
+                    else:
+                        units = [t for r in extra["units"] for t in refs(members, r)]
+                        w_cond += area_condition(wn, centre, extra.get("at", victory.get("at")),
+                                                 extra.get("radius", victory.get("radius", 20)),
+                                                 units, extra.get("min_units", len(units)))
+                    w_expr += f" AND <Condition{wn}>"
+                w_lines = [x for x in win_lines if not x.startswith("ConditionsCompleted=")]
+                trigger(f"Objective met by {tag}",
+                        ["Disabled=True"] + w_cond
+                        + [f"ConditionsCompleted={w_expr}"] + w_lines)
+                terminal(f"{tag} lost after the pickup",
+                         ["Disabled=True"] + destroyed_condition(1, [tag], 1)
+                         + ["ConditionsCompleted=<Condition1>"],
+                         failed=[main],
+                         message="StageLostMessage" if stage.get("lost") else "Taskforce1DefeatMessage",
+                         victor="Taskforce2")
         else:
-            raise SystemExit(f"{mission['key']}: unknown victory stage "
-                             f"{stage['kind']!r}")
-        met_no = len(T) + 2          # this stage trigger, then the arrival
-        if stage.get("intel"):
-            s_cond.append("Action_Taskforce1_Intel=StageIntel")
-        s_cond.append(f"Action_EnableTriggers=Trigger{met_no}")
-        trigger("Stage", s_cond)
-        cond.insert(0, "Disabled=True")
-    trigger("Objective met", cond + win_lines)
+            met_no = len(T) + 2          # this stage trigger, then the arrival
+            s_cond = stage_conditions(s_units)
+            s_cond.append(f"Action_EnableTriggers=Trigger{met_no}")
+            trigger("Stage", s_cond)
+            cond.insert(0, "Disabled=True")
+    if not per_unit:
+        trigger("Objective met", cond + win_lines)
 
     # Every objective needs a predicate. "victory" is completed by the trigger
     # above; everything else gets its own, and an objective with no resolver
@@ -1826,6 +1996,15 @@ def render(mission, placed, members):
         elif kind == "survive":
             units = [tag for r in how[1:] for tag in refs(members, r)]
             trigger(f"{oid} wiped out", destroyed_condition(1, units, len(units))
+                    + ["ConditionsCompleted=<Condition1>",
+                       f"Action_ObjectivesFailed={oid}"])
+        elif kind == "spare":
+            # Restraint, scored on the thing the text names: destroy any of
+            # these and the objective fails. It completes by its own
+            # end-status if the player never did. D4's "restraint" used to
+            # be "not all five red fighters shot down".
+            units = [tag for r in how[1:] for tag in refs(members, r)]
+            trigger(f"{oid} broken", destroyed_condition(1, units, 1)
                     + ["ConditionsCompleted=<Condition1>",
                        f"Action_ObjectivesFailed={oid}"])
         elif kind == "destroy":
@@ -2454,6 +2633,70 @@ def tasking_rows(mission, placed):
     return rows, dropped
 
 
+def check_purchased_recovery(mission, placed, roster_types):
+    """Every aircraft the roster could put in a tasking slot can recover.
+
+    A slot is filled by whatever the player owns that matches the row, so
+    the placeholder's own basing proves nothing about the purchase. For
+    each row, every roster airframe whose [AI] Role matches it (and whose
+    fits, if it declares any, overlap the row's) must have a compatible
+    field or deck - deck_fit() 0, not merely undeclared - within its sortie
+    radius of the cockpit. The reviewed build sold four types at the finale
+    that no row could take and a tanker no field could receive.
+    """
+    problems = []
+    rows = mission.get("window", {}).get("flights", [])
+    if not rows:
+        return problems
+    decks = []
+    for kind_family in ("LandUnit", "Vessel"):
+        for tag, keys, _n, _x in placed.get("Taskforce1" + kind_family, []):
+            size = deck_size(keys["Type"])
+            if size:
+                decks.append((tag, size, unit_spot(keys), keys["Type"],
+                              kind_family == "Vessel"))
+    slots = []
+    for family in ("Taskforce1Aircraft", "Taskforce1Helicopter"):
+        for tag, keys, _n, _x in placed.get(family, []):
+            if "TaskForceModeAirTaskingSlot" in keys:
+                slots.append((keys["TaskForceModeAirTaskingRole"], unit_spot(keys)))
+    for row in rows:
+        label, _display, roles, _count, fits = row.split("|")
+        want = frozenset(x for x in roles.split("/") if x)
+        want_fits = frozenset(x for x in fits.split("/") if x)
+        spots = [sp for r, sp in slots if r == label]
+        for uid in roster_types:
+            if not (ai_roles(uid) & want):
+                continue
+            _k, path = unit_file(uid)
+            has = frozenset(loadouts(path)) if path else frozenset()
+            if has and not has & want_fits:
+                continue
+            kind = unit_type(uid)
+            radius = (airframe_range(uid) or 0.0) * SORTIE_FRACTION
+            for sp in spots:
+                ok = False
+                for d in decks:
+                    if deck_fit(uid, kind, d[3], d[4]) != 0:
+                        continue
+                    needs = 1 if kind == "Helicopter" else 10
+                    if kind == "VTOL" and d[4]:
+                        needs = 1
+                    if d[1] < needs or not (sp and d[2]):
+                        continue
+                    if math.hypot(d[2][0] - sp[0], d[2][1] - sp[1]) <= radius:
+                        ok = True
+                        break
+                if not ok:
+                    problems.append(
+                        f"{mission['key']}: a purchased {uid} in the {label} "
+                        f"flight has no compatible field or deck within "
+                        f"{radius:.0f} NM of its cockpit - the row sells a "
+                        "sortie the aircraft cannot recover from")
+                    break
+    return problems
+
+
 def check_flights(rows, roster, authored=()):
     """Every air-tasking row must describe aircraft the roster actually sells.
 
@@ -2537,6 +2780,10 @@ def check_flights(rows, roster, authored=()):
         raise SystemExit("air tasking failed:\n  " + "\n  ".join(problems))
 
 
+def window_of(mission):
+    return mission.get("window", {})
+
+
 def campaign_ini(missions, events, placements):
     """The campaign spine, in native Task Force Mode.
 
@@ -2601,12 +2848,23 @@ def campaign_ini(missions, events, placements):
             # force. Stock's detached ops set this False; a placed blue hull
             # that is set dressing for the mission is not a reason to say
             # True and sell the player ships that will not appear.
+            # Blank generation (the guide: "launch as-is without any
+            # persistent task force units") is the detached operation. The
+            # Includes flags are display only, and what they display for such
+            # a mission is that nothing of the player's deploys - as the three
+            # stock detached operations show it.
+            blank = not mission.get("generation")
+            detached = blank or mission.get("detached")
             L.append(f"TaskForceModeIncludesTaskForce="
-                     f"{'False' if mission.get('detached') else 'True' if placed.get('Taskforce1Vessel') else 'False'}")
+                     f"{'False' if detached else 'True' if placed.get('Taskforce1Vessel') else 'False'}")
             L.append(f"TaskForceModeIncludesAirwing="
-                     f"{'True' if placed.get('Taskforce1Aircraft') else 'False'}")
+                     f"{'True' if placed.get('Taskforce1Aircraft') and not detached else 'False'}")
             L.append(f"TaskForceModeIncludesSubmarine="
-                     f"{'True' if placed.get('Taskforce1Submarine') else 'False'}")
+                     f"{'True' if placed.get('Taskforce1Submarine') and not detached else 'False'}")
+            if blank and (window_of(mission).get("flights") or window_of(mission).get("airbase_prep")):
+                raise SystemExit(f"{mission['key']}: a blank-generation mission "
+                                 "places no persistent units - it cannot "
+                                 "advertise flight rows or airbase prep")
             L.append("")
             for what, value in threat_profile(placed):
                 L.append(f"TaskForceModeThreatProfile{what}={value}")
@@ -2616,7 +2874,8 @@ def campaign_ini(missions, events, placements):
             # repair at service windows and a free rearm at some of them.
             window = mission.get("window", {})
             L.append(f"TaskForceModeRepair={'True' if window.get('repair') else 'False'}")
-            L.append(f"TaskForceModeRearm={'True' if window.get('rearm') else 'False'}")
+            L.append(f"TaskForceModeRearm="
+                     f"{'True' if window.get('rearm') or window.get('rearm_if') else 'False'}")
             L.append("TaskForceModeEnableTaskForceBuilder="
                      f"{'True' if window.get('buy') else 'False'}")
             # An open builder does not have to offer the whole roster. The
@@ -2628,6 +2887,13 @@ def campaign_ini(missions, events, placements):
                          + allowed_roster_units(window["allow"], ROSTER,
                                                 mission["key"]))
             flights, empty = tasking_rows(mission, placed)
+            bad = check_purchased_recovery(
+                mission, placed,
+                [e["unit"] for e in ROSTER
+                 if unit_type(e["unit"]) in ("Aircraft", "Helicopter", "VTOL")])
+            if bad:
+                raise SystemExit("purchased aircraft cannot recover:\n  "
+                                 + "\n  ".join(bad))
             if empty:
                 # An advertised flight with no cockpit is an offer the player
                 # can buy into and never deploy. Saying so out loud beats
@@ -2642,12 +2908,40 @@ def campaign_ini(missions, events, placements):
             # detachment. Both keys are stock (pacific-strike campaign.ini);
             # neither is documented in ui.ini, so the pairing is inferred from
             # how the stock campaign uses them and is untested here.
-            if window.get("detachment"):
+            if blank:
+                pass        # nothing of the player's sails: no deployment keys
+            elif window.get("detachment"):
                 L += ["TaskForceModeDeploymentOptions=True",
                       "TaskForceModeRequireEntireTaskForce=False"]
             else:
                 L.append("TaskForceModeRequireEntireTaskForce=True")
+            # A one-ship (or n-ship) restricted mission: the guide's own
+            # pattern, Replaced generation plus a unit limit.
+            if window.get("max_units"):
+                if mission.get("generation") != "Replaced":
+                    raise SystemExit(f"{mission['key']}: max_units needs "
+                                     "Replaced generation (the guide's rule)")
+                L += [f"TaskForceModeRequiredUnitType="
+                      f"{window.get('unit_type', 'Vessel')}",
+                      f"TaskForceModeMaxUnits={window['max_units']}"]
+            # Rearm that depends on an earlier result - the guide's
+            # TaskForceModeRearmByVariableAND, IsTrue included.
+            if window.get("rearm_if"):
+                var, state = window["rearm_if"]
+                L.append(f"TaskForceModeRearmByVariableAND={var},{state}")
+            if window.get("situation"):
+                L.append("TaskForceModeBuilderSituation_en="
+                         + ini_text(window["situation"]))
+            if window.get("notice"):
+                title, text = window["notice"]
+                L += [f"TaskForceModeDebriefNoticeTitle_en={title}",
+                      f"TaskForceModeDebriefNoticeText_en={ini_text(text)}"]
             if window.get("airbase_prep"):
+                if not any("airbase" in k["Type"].lower() or "airfield" in k["Type"].lower()
+                           for _t, k, _n, _x in placed.get("Taskforce1LandUnit", [])):
+                    raise SystemExit(f"{mission['key']}: airbase_prep needs a "
+                                     "player land unit whose Type contains "
+                                     "airbase or airfield (the guide's rule)")
                 L += ["TaskForceModeAirbasePrepAvailable=True",
                       "TaskForceModeAirbasePrepReadySlots=2",
                       "TaskForceModeAirbasePrepInProgressSlots=1"]
@@ -3094,6 +3388,10 @@ def main():
               f"by distance from known land, not by a proven point:")
         for where, at, land in UNPROVEN:
             print(f"  {where:<34} {at[0]:8.3f},{at[1]:8.3f}   nearest land {land:4.0f} NM")
+    if RECOVERY_NOTES:
+        print(f"\n{len(RECOVERY_NOTES)} recovery assignment(s) the files leave undeclared:")
+        for note in RECOVERY_NOTES:
+            print(f"   {note}")
     if CLOSURE_NOTES:
         print(f"\n{len(CLOSURE_NOTES)} unit(s) placed where they cannot take part:")
         for note in CLOSURE_NOTES:
