@@ -1895,6 +1895,19 @@
       "type": "fixed-wing",
       "status": "active",
       "notes": "Sixth-generation tailless demonstrator (plaaf_j36). Zero whole-file collisions."
+    },
+    {
+      "id": "euromod-south-korea",
+      "workshop_id": "3789208859",
+      "title": "Euromod-South Korea Navy",
+      "author": "unknown (Workshop 3789208859)",
+      "faction": "korea",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "euromod-main"
+      ],
+      "notes": "ROK Navy addon to Euromod. Sejong the Great (KDX-III, 3 hulls), Chungmugong Yi Sun-sin (KDX-II), Gwanggaeto (KDX-I), Incheon and Daegu FFG, Ulsan FF, Dokdo LPH, Pohang PCC, Yoon Youngha PKG, Chamsuri PKM/PKMR; Lynx Mk99/Mk99A and UH-60P; K2 MBT. Every weapon it hangs resolves: its own Haeseong, K-SAAM, Hyunmoo, Bilyong and K-745 files, the rest through Euromod main (RIM-66M-5, RIM-116, RUM-139, Mk46) and vanilla. The DDG and FFG decks list rok_mk99_a. No TaskForceCost in the hull files - the campaign uses the ships as a theatre contribution, not a purchase. Verified 23 Sep 2026 from the export; not yet seen in the game."
     }
   ]
 }
