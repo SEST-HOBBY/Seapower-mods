@@ -1019,7 +1019,7 @@ MISSIONS.append(dict(
         "else's fuel. TEXACO 41 is the only tanker in the corridor and three "
         "different flights are booked on it.\\n\\n"
         "The expeditionary detachment supporting the enclave has put two "
-        "MiG-31s up out of the northern field, climbing hard, on a vector "
+        "MiG-31s up out of the enclave field, already above fifty thousand feet, on a vector "
         "toward the tanker track. Their AEW aircraft is behind them and their "
         "own tanker is behind that, which tells you this was planned.\\n\\n"
         "You have a Raptor pair and a Growler with the returning Super "
@@ -1028,7 +1028,8 @@ MISSIONS.append(dict(
         "and a stern chase is time you do not have - the gas is on the clock, "
         "not on the gauge. Break the shot, not the aircraft. Bring the tanker "
         "home."),
-    forces="Two F-22 on station, one EA-18G, two returning F/A-18F, one "
+    forces="Two F-22 on station, one EA-18G, two returning F/A-18F, a Wedgetail "
+           "on a long orbit to the south, one "
            "KC-135. Opposing: two MiG-31BM, one A-50U, one Il-78.",
     objectives=[
         ("Tanker", "TEXACO 41 must reach the recovery line", "35,-35,Fail,Main"),
@@ -1061,6 +1062,10 @@ MISSIONS.append(dict(
         # 150 NM west where nothing on the map could confirm the sentence.
         "red_support": S(-4.6, 132.45, "Support orbit", heading=170, alt=30000),
         "picket": S(-7.6, 133.4, "Surface picket", heading=270),
+        # "WEDGETAIL IS ON A LONG ORBIT AND CAN SEE THE SECTION COME SOUTH"
+        # - Ward's memo, the page before this mission. South of the tanker
+        # track, out of the Foxhounds' reach, recovering on Darwin.
+        "aew": S(-8.3, 133.5, "Wedgetail orbit", heading=90, alt=32000),
         "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
     units=[
@@ -1081,6 +1086,8 @@ MISSIONS.append(dict(
         U("red", "a-50-il-76", "wp_a-50u", "red_support", name="Mainstay 20",
           weapons="Hold"),
         U("red", "il-78", "wp_il-78", "red_support", name="Midas 30",
+          weapons="Hold"),
+        U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 02",
           weapons="Hold"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
           name="RAAF Base Darwin", nation="australia", weapons="Hold"),
@@ -1222,6 +1229,9 @@ MISSIONS.append(dict(
     group="core", num="09", key="Southern Lifeline", place="Rear support area",
     intro="A submarine on the surface alongside a supply ship, which is the "
           "most vulnerable thing either of them will ever do.",
+    special="Hold the service window and Common Sea begins with a full rearm; "
+            "miss it and Common Sea flies on what you have left. The rule is "
+            "the box at the moment the window closes.",
     sender="Commodore Alex Mercer; Commander Mara Kila for the eastern route",
     intent=("Supply and Collins, in the same box, for the service period, "
             "and then out. Every boat in the north depends on this "
@@ -1245,13 +1255,14 @@ MISSIONS.append(dict(
         # and the briefing states exactly that rule. Surfaced stays a house
         # rule, in the fiction's own voice.
         "The service window is thirty-five minutes and it runs on the clock, "
-        "not on how much crossed the hose. STALWART and COLLINS stay inside "
-        "the service box - five miles around the rendezvous - until it has "
-        "run; if either of them is outside it when the window closes, the "
-        "transfer nobody made is the whole transfer. Break off to chase "
-        "something and the clock does not stop for you. When the thirty-five "
-        "minutes are up, both of them come south together to the withdrawal "
-        "line, and COLLINS dives the moment she is clear of the hose.\\n\\n"
+        "not on how much crossed the hose. STALWART and COLLINS have to be "
+        "inside the service box - five miles around the rendezvous - when the "
+        "window closes; what you do with them in between is your judgement, "
+        "and the clock does not stop for you. Hold it and Common Sea starts "
+        "with full magazines; miss it and Common Sea flies on what you have "
+        "left. When the thirty-five minutes are up, both of them come south "
+        "together to the withdrawal line, and COLLINS dives the moment she "
+        "is clear of the hose.\\n\\n"
         "STALWART has the duty. MV Coral Provider was pencilled in with the "
         "dry stores; whether she sailed depends on what Steel Highway left "
         "the corridor to sail with.\\n\\n"
@@ -1285,13 +1296,12 @@ MISSIONS.append(dict(
                  at=(-13.8, 148.35), radius=12,
                  after=dict(kind="area", units=["support#1", "support#2"],
                             at_unit="support#1", radius=5, min_units=2,
-                            after_minutes=35,
+                            after_minutes=35, sets="SW09ServiceHeld",
                             intel="The window has run. STALWART reports the "
                                   "hose is in and COLLINS is casting off - "
                                   "get them south together, to the "
                                   "withdrawal line, before somebody comes "
-                                  "to look where the Tu-214R was looking."),
-                 also=[dict(after_minutes=35)]),
+                                  "to look where the Tu-214R was looking.")),
     # Each named participant ends the mission by being lost, and fails its
     # own objective. MV Coral Provider is deliberately not here: she carries
     # no objective, she only exists when SUPPLY survived Steel Highway, and
@@ -1374,7 +1384,9 @@ MISSIONS.append(dict(
     difficulty=3, minutes=75, centre=(-6.5, 133.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "EASTERN BANDA CORRIDOR. The convoy has to cross a patrol box where "
+        "EASTERN BANDA CORRIDOR. Whatever came across the hose on the "
+        "sixteenth is what your magazines hold today. The convoy has to cross "
+        "a patrol box where "
         "the submarine and surface threats overlap, and after three weeks the "
         "Australian escort force cannot cover both.\\n\\n"
         "MOGAMI and MAYA are here under the Japanese government's own "
@@ -3149,20 +3161,20 @@ BUY_12 = ["usn_p8", "raaf_f-35a", "usn_fa-18f_blk3", "E7A_Wedgetail",
           "raaf_mq-4c_triton", "usn_mh-60r", "ran_opv_arafura", "ran_ffh_anzac"]
 
 WINDOWS = {
-    "01": dict(buy=True, allow=BUY_01, repair=True, rearm=True, flights=[HELO]),
+    "01": dict(buy=True, situation='First requisition. What you buy here sails on the eighteenth and is all you have until Steel Highway.', allow=BUY_01, repair=True, rearm=True, flights=[HELO]),
     # One helicopter, and the objective is about that helicopter. No row.
     "O1": dict(),
-    "02": dict(buy=True, allow=BUY_02, repair=True, rearm=True,
+    "02": dict(buy=True, situation='Requisition before Steel Highway. The next window is before Rig Seventeen.', allow=BUY_02, repair=True, rearm=True,
                flights=[HELO, RECON]),
     "C1": dict(),
     # Both lifters are granted assets an objective names; nothing is free.
-    "03": dict(buy=True, allow=BUY_03, repair=True, rearm=True),
+    "03": dict(buy=True, situation='Requisition before Rig Seventeen. The Quiet Passenger flies what you own; the next window is before Weapons Free, and that operation sails one ship.', allow=BUY_03, repair=True, rearm=True),
     # A detachment: nobody sails the whole force to walk one contact.
     "04": dict(flights=[HELO, RECON], detachment=True),
     # "alone": the player picks a detachment rather than sailing everything
     # they own into a mission written for one frigate.
     # The guide's one-ship pattern: Replaced generation plus a unit limit.
-    "05": dict(buy=True, allow=BUY_05, repair=True, rearm=True, flights=[HELO, STRIKE],
+    "05": dict(buy=True, situation='Requisition before Weapons Free - one ship of your choosing sails it. This is the last window before Southern Lifeline: Blind Horizon flies what you own now, and Long Way Home and The Open Door are flown with allocated aircraft.', allow=BUY_05, repair=True, rearm=True, flights=[HELO, STRIKE],
                max_units=1, unit_type="Vessel",
                detachment=True),
     "06": dict(flights=[CAP, RECON], airbase_prep=True),
@@ -3181,20 +3193,20 @@ WINDOWS = {
     # as-is"): no rows, no slots, no airbase prep - the aircraft are the
     # mission's own and the player flies what is placed.
     "08": dict(),
-    "09": dict(buy=True, allow=BUY_09, repair=True, rearm=True, flights=[HELO, RECON]),
+    "09": dict(buy=True, situation="Requisition before Southern Lifeline. Common Sea gets no builder and its rearm depends on the service window; the next window is before Fujian's Shadow.", allow=BUY_09, repair=True, rearm=True, flights=[HELO, RECON]),
     # No ordinary hull purchases and no paid repair; the rearm is the
     # scheduled fallback, not a proved conditional gate.
     # The F-2As are the detachment's own anti-ship sortie, not a CAP slot
     # for the player to fill.
     # The Japanese ASW pair are the detachment's own; the player's Seahawks
     # arrive with the ships they are assigned to. One patrol slot.
-    "10": dict(rearm=True, flights=[RECON]),
-    "11": dict(buy=True, allow=BUY_09, repair=True,
+    "10": dict(rearm_if=("SW09ServiceHeld", "IsTrue"), flights=[RECON]),
+    "11": dict(buy=True, situation='Requisition before the fleet action, which sails the whole force. The last window, before The First Ship Through, sells aircraft and replacement hulls.', allow=BUY_09, repair=True,
            rearm=True, flights=[CAP, STRIKE]),
     # Aircraft replacement and repair only: no new hulls, no general rearm.
     # The finale flies what it sells: a CAP row for the fighters (Darwin is
     # the placed field), the helicopter and patrol rows.
-    "12": dict(buy=True, allow=BUY_12, repair=True,
+    "12": dict(buy=True, situation='Final requisition: aircraft, a replacement hull or two, and repairs. Nothing bought here outlives the campaign.', allow=BUY_12, repair=True,
            flights=[HELO, RECON, CAP], airbase_prep=True),
 }
 
@@ -3519,6 +3531,19 @@ for _m in MISSIONS:
     if _loss:
         _m["support_loss"] = _loss
 
+# A mission with no builder says so on its card: the reviewed build let four
+# operations pass between windows without a word to the player.
+for _m in MISSIONS:
+    _w = _m.get("window", {})
+    if _m["group"] == "core" and "special" not in _m:
+        if _m["num"] in ("04", "06", "10"):
+            _m["special"] = ("No requisition before this operation: you sail "
+                             "and fly what you own.")
+        elif _m["num"] in ("07", "08"):
+            _m["special"] = ("No requisition, and nothing of your own force "
+                             "sails: this operation is flown with the aircraft "
+                             "allocated to it.")
+
 # The convoy and replenishment operations sail with everything: the player may
 # not leave the auxiliary at home to keep it safe. The strike and side missions
 # let the player pick a detachment.
@@ -3551,6 +3576,9 @@ VARIABLES = {
     # Losing the replenishment ship in chapter 1 thins the rear area in
     # chapter 5. Not a message about a consequence - the hull is absent.
     "02": dict(declares=["SW02SupplyLost"]),
+    # Holding the service window is what Common Sea's rearm is paid with -
+    # the guide's TaskForceModeRearmByVariableAND, IsTrue.
+    "09": dict(declares=["SW09ServiceHeld"]),
     # Classifying the northern surface group is worth something three weeks
     # later, which is what makes exposing the Triton a decision rather than a
     # chore.
