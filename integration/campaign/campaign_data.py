@@ -285,7 +285,7 @@ ROSTER = [
 COMMANDER = """[CommanderSettings]
 CommanderNations=Australia
 CommanderDefaultNation=Australia
-CommanderNameDefaultAustralia=Alex Mercer
+CommanderNameDefaultAustralia=Morgan Reid
 CommanderNamePoolAustralia=Names_Australia
 CommanderStartingRankLevel=5
 SameNationUnitDiscount=0
@@ -1507,9 +1507,10 @@ MISSIONS.append(dict(
     brief=(
         "WIDER BANDA APPROACHES. The ceasefire talks open on Friday and the "
         "opposing fleet has been told to make the corridor unusable before "
-        "they do. FUJIAN is three hundred miles north-west with LIAONING "
-        "astern of her, and the strike they are building is aimed at the "
-        "transports, not at you.\\n\\n"
+        "they do. FUJIAN is a hundred and thirty miles north-north-west with "
+        "LIAONING astern of her, screened by a Luda, a Sovremenny and a Type "
+        "054A, and the strike she is building is aimed at the transports and "
+        "at you both.\\n\\n"
         "FORD arrived on Tuesday under a bounded arrangement: one strike "
         "group, a defined window, and a departure date that does not move. "
         "You have her air wing, two Burkes and the last of the Australian "
@@ -1519,14 +1520,16 @@ MISSIONS.append(dict(
         "is the whole victory - you are not chasing it across the Celebes Sea "
         "to prove a point."),
     forces="USS Gerald R. Ford with F-35C and Growlers, two Arleigh Burkes, "
-           "your own escort group, three protected transports. Opposing: Fujian with "
-           "J-35 and J-15D, Liaoning, a J-20 and a KJ-600.",
+           "your own escort group, three protected transports. Opposing: "
+           "Fujian with J-35 and J-15D, Liaoning, a J-20 and a KJ-600, and "
+           "three escorts.",
     objectives=[
         ("Transports", "Two of the three transports, Coral Pioneer among "
                        "them, pass to the south-east",
          "40,-40,Fail,Main"),
         ("Ford", "USS Gerald R. Ford survives the window", "30,-40,Complete"),
-        ("Strike", "Break up the opposing strike", "15,-10,Complete"),
+        ("Strike", "Shoot down the anti-ship shooter before it launches",
+         "15,-10,Complete"),
     ],
     victory=dict(kind="arrive", station="transports", at=(-7.0, 130.0),
                  radius=35, min_units=2, objective="Transports",
@@ -1547,7 +1550,7 @@ MISSIONS.append(dict(
         "transports": S(-5.0, 128.2, "Protected transports", heading=120),
         "cvw": S(-4.2, 130.4, "Carrier air wing", heading=320, alt=28000),
         "red_cv": S(-2.5, 129.0, "Opposing carrier group", heading=140),
-        "red_air": S(-2.7, 129.2, "Opposing air wing", heading=150, alt=30000),
+        "red_air": S(-2.7, 129.2, "Opposing air wing", heading=205, alt=30000),
         "red_sub": S(-4.9, 129.2, "Submarine screen", heading=140),
         # The Kai strip Prasetyo lent for The Open Door, still ours ten days
         # later: the only field inside a purchased F-35A's radius of the
@@ -1587,10 +1590,14 @@ MISSIONS.append(dict(
         U("red", "fujian-cv-18", "plan_cv_type_003", "red_cv", name="PLANS Fujian"),
         U("red", "liaoning-type-001", "plan_type_001", "red_cv",
           name="PLANS Liaoning"),
-        U("red", "modern-plan-systems", "plan_type_055_2026", "red_cv",
-          name="Type 055 escort"),
-        U("red", "modern-plan-systems", "plan_type_052d_p3", "red_cv",
-          name="Type 052D escort"),
+        # No Type 055 or 052D: their files load YJ-17/YJ-20 hypersonics of
+        # ~1000 NM that decided whether Ford lived from beyond any reach the
+        # player has, and the bible keeps them out. These are the classes
+        # Sentry 06 put a name to on 6 November, plus a Sovremenny.
+        U("red", "chinese-navy-plan", "plan_ddg_luda_typ_051dt", "red_cv",
+          name="Luda destroyer"),
+        U("red", "chinese-navy-plan", "plan_em_sovremenny", "red_cv",
+          name="Sovremenny destroyer"),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "red_cv",
           name="Type 054A escort"),
         # A carrier group without a submarine screen is a missile exchange.
@@ -1599,8 +1606,11 @@ MISSIONS.append(dict(
         U("red", "plan-submarines", "plan_ssn_type_093b", "red_sub",
           name="Contact ROMEO"),
         U("red", "fujian-cv-18", "plan_j-35", "red_air", name="Falcon 11"),
+        # The one anti-ship shooter in the air wing: two YJ-83, pointed at
+        # the transports. Strike is scored on this aircraft, not on the AEW.
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
-          name="Flying Shark 21"),
+          name="Flying Shark 21", loadout="AntiShip",
+          route=[(-5.0, 128.2, 20000)], telegraph=3),
         U("red", "type-003-004-maneuverwarfare", "pla_kj-600", "red_air",
           name="KJ-600 Eye", alt=26000, weapons="Hold"),
         U("red", "j-20", "plaaf_j-20a", "red_air", name="Dragon 51"),
@@ -1623,7 +1633,7 @@ MISSIONS.append(dict(
         "ARAFURA SEA. The ceasefire came into effect at midnight and traffic "
         "started moving at first light because insurers move faster than "
         "diplomats. CORAL PIONEER is at the head of the first convoy through, "
-        "with a bearing running hot and eleven knots on a good hour.\\n\\n"
+        "with a bearing running hot and nine knots she can hold.\\n\\n"
         "There are two groups in the box. One has acknowledged its withdrawal "
         "order and is heading north at steady speed. The other has not "
         "acknowledged anything since 0400 and has a maritime strike flight "
@@ -1638,7 +1648,7 @@ MISSIONS.append(dict(
         ("Convoy", "Bring the convoy, Coral Pioneer at its head, into "
                    "Darwin's approaches",
          "40,-40,Fail,Main"),
-        ("Ceasefire", "Do not fire on the withdrawing group", "20,-35,Complete"),
+        ("Ceasefire", "Do not sink a withdrawing ship", "20,-35,Complete"),
         ("Escorts", "Bring the escorts home", "10,-15,Complete"),
     ],
     victory=dict(kind="arrive", station="convoy", at=(-12.0, 130.5), radius=30,
@@ -1659,12 +1669,19 @@ MISSIONS.append(dict(
         "eyre_flight": S(-10.52, 131.8, "Eyre Flight", heading=200, alt=1500),
         "convoy": S(-10.4, 131.8, "First convoy", heading=200),
         "air": S(-10.8, 131.0, "Air support", heading=200, alt=20000),
+        # Two fighter cockpits for whatever the finale's window sold, off
+        # Darwin's own field.
+        "cap": S(-11.2, 130.9, "Fighter cover", heading=20, alt=30000),
         "aew": S(-11.5, 130.8, "Wedgetail orbit", heading=90, alt=32000),
         # 30 NM off the convoy's bow and opening at 340: close enough that
         # the player has to tell it from the spoiler and hold fire on it,
         # which is the mission. It used to be 73 NM away.
         "withdraw": S(-10.02, 131.47, "Withdrawing group", heading=340),
         "spoiler": S(-9.1, 131.9, "Unacknowledged group", heading=180),
+        # The boat ahead of the convoy's track, twenty miles down it, so the
+        # Seahawk and the P-8 have a reason to exist; it used to sit 78 NM
+        # away with no route.
+        "spoiler_sub": S(-10.7, 131.65, "Unacknowledged submarine", heading=20),
         "spoiler_air": S(-9.2, 132.0, "Strike flight", heading=180, alt=24000),
         "darwin": S(-12.4, 130.9, "Darwin", heading=0),
     },
@@ -1689,19 +1706,25 @@ MISSIONS.append(dict(
           name="MV Nhulunbuy", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_freighter_b", "convoy",
           name="MV Arnhem Trader"),
+        # "Heading north at steady speed": a route, not a heading.
         U("neutral", "chinese-navy-plan", "plan_ddg_luda_typ_051d", "withdraw",
-          name="Withdrawing escort"),
+          name="Withdrawing escort", route=[(-9.55, 131.3, 0)], telegraph=3),
         U("neutral", "type-071-lpd", "plan_lpd_type_071", "withdraw",
-          name="Withdrawing transport"),
+          name="Withdrawing transport", route=[(-9.55, 131.3, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "spoiler",
-          name="Unacknowledged escort"),
-        U("red", "chinese-navy-plan", "plan_ss_kilo", "spoiler",
-          name="Unacknowledged submarine"),
-        U("red", "jh-7a", "plaaf_jh7a", "spoiler_air", name="Strike flight 71"),
+          name="Unacknowledged escort", route=[(-10.1, 131.6, 0)], telegraph=4),
+        U("red", "chinese-navy-plan", "plan_ss_kilo", "spoiler_sub",
+          name="Unacknowledged submarine", depth="belowlayer",
+          route=[(-10.6, 131.55, "belowlayer")], telegraph=2),
+        # Loaded for ships, as the brief says it is.
+        U("red", "jh-7a", "plaaf_jh7a", "spoiler_air", name="Strike flight 71",
+          loadout="AntiShip"),
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
         U("blue", "mh-60r-2154545636", "usn_mh-60r", "air"),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap"),
+        U("blue", "raaf-f-35a", "raaf_f-35a", "cap", squadron="Squadron3"),
     ],
 ))
 
@@ -2448,8 +2471,10 @@ MISSIONS.append(dict(
     intro="Optional. A coaster stopped reporting on a route nobody was "
           "watching. Find her before the weather does.",
     special="Optional operation. It expires once the next main operation is "
-            "complete. A confirmed report improves the contact briefing for "
-            "STEEL HIGHWAY; a rescue is worth doing whether or not it does.",
+            "complete. Identify the coaster and bring the aircraft home, and "
+            "what she recorded goes into the STEEL HIGHWAY briefing as a "
+            "classified contact; a rescue is worth doing whether or not it "
+            "does.",
     sender="Commodore Alex Mercer",
     intent=("One coaster, one search, last light. Find her before the "
             "weather does. Nothing out there is worth a helicopter."),
@@ -2467,16 +2492,27 @@ MISSIONS.append(dict(
         "Find her, establish what happened, and bring the search aircraft "
         "home. If this is what the last week suggests it is, the evidence is "
         "worth as much as the crew."),
-    forces="HMAS Arafura and one MH-60R. Three merchant contacts on the lane, "
-           "one of them the missing coaster's last company.",
+    forces="HMAS Arafura and one MH-60R. Four contacts on the lane between "
+           "you and the datum, one of them the missing coaster's last company.",
     objectives=[
-        ("Search", "Reach the missing coaster's last reported position",
-         "30,-25,Fail,Main"),
-        ("Aircraft", "Bring the search helicopter home", "10,-15,Complete"),
+        ("Search", "Identify Torres Light, then bring the search helicopter "
+                   "home", "30,-25,Fail,Main"),
+        ("Aircraft", "Do not lose the search helicopter", "10,-15,Complete"),
         ("Traffic", "Harm no lane traffic", "0,-25,Complete"),
     ],
-    victory=dict(kind="arrive", station="datum", at=(-10.6, 132.0), radius=20,
+    # Stage: the helicopter classifies the drifting coaster - which writes
+    # O1BeaconFound, read by Steel Highway as a revealed submarine contact.
+    # Win: the helicopter back within five miles of the ship. The reviewed
+    # build won on entering an empty 20 NM circle 48 NM from home.
+    victory=dict(kind="arrive", station="datum", at=(-10.0, 131.5), radius=5,
+                 after=dict(kind="classify", units="wreck", min_units=1,
+                            sets="O1BeaconFound",
+                            intel="Torres Light, adrift and holed above the "
+                                  "waterline, crew in the boats. Her bridge "
+                                  "recorder is coming off with them. Bring "
+                                  "the aircraft home."),
                  min_units=1, objective="Search"),
+    declares=["O1BeaconFound"],
     # The objective is the helicopter and the resolver watches the helicopter;
     # this used to watch HMAS Arafura, so losing the ship ended the mission
     # reporting that the search aircraft was lost. Units=None makes the fatal
@@ -2491,27 +2527,35 @@ MISSIONS.append(dict(
          "weather and colder water.",
     stations={
         "patrol": S(-10.0, 131.5, "HMAS Arafura", heading=100),
-        "datum": S(-10.4, 131.9, "Search datum", heading=100, alt=2000),
-        "traffic": S(-11.4, 129.6, "Lane traffic", heading=70),
+        "datum": S(-10.05, 131.55, "Arafura Flight", heading=100, alt=2000),
+        # The coaster herself, adrift at her last reported position, and
+        # the lane traffic between the ship and the datum with routes across
+        # the helicopter's track - the reviewed build had an empty circle and
+        # merchants 140 NM away.
+        "wreck": S(-10.4, 131.9, "Torres Light, adrift", heading=0),
+        "traffic": S(-10.25, 131.75, "Lane traffic", heading=70),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
           name="HMAS Arafura", weapons="Tight"),
         U("blue", "mh-60r-2154545636", "usn_mh-60r", "datum",
           name="Arafura Flight", alt=2000, weapons="Tight"),
+        U("neutral", "_vanilla", "civ_ms_encounter", "wreck",
+          name="MV Torres Light"),
         U("neutral", "merchants-expanded", "civ_ms_mairangi_bay", "traffic",
-          name="MV Arafura Trader"),
+          name="MV Arafura Trader", route=[(-10.15, 132.3, 0)], telegraph=3),
         U("neutral", "auxilliary-merchant-pack", "ran_ms_antares", "traffic",
-          name="MV Melville Trader", weapons="Hold"),
+          name="MV Melville Trader", weapons="Hold",
+          route=[(-10.2, 132.25, 0)], telegraph=3),
         U("neutral", "re-power-resupply", "civ_ms_freighter_a", "traffic",
-          name="MV Banda Trader"),
+          name="MV Banda Trader", route=[(-10.1, 132.2, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "traffic",
-          name="Arafura trawler"),
+          name="Arafura trawler", route=[(-10.35, 131.95, 0)], telegraph=2),
     ],
 ))
 
 MISSIONS.append(dict(
-    group="contingency", num="C1", key="After the Wake", place="Coral Sea",
+    group="contingency", num="C1", key="After the Wake", place="Gulf of Papua",
     expires_after="Rig Seventeen",
     intro="Contingency. A coaster that sailed without the convoy went down "
           "last night; this is about her crew, and it is offered whatever "
@@ -2735,7 +2779,7 @@ SITREPS = [
       "sailed with.",
       "The opposing task group has moved south. Its carrier and its escorts "
       "are now inside the box the corridor runs through, and the talks that "
-      "were supposed to open Thursday have been moved to Saturday to see what "
+      "were supposed to open on Thursday have been moved to Friday to see what "
       "happens first. The Commodore's note to the force this morning did not "
       "mention the talks. It said: \"Keep the transports moving. Keep the "
       "high-value ship alive. Everything else is the enemy's problem.\"",
@@ -3142,12 +3186,16 @@ WINDOWS = {
     # scheduled fallback, not a proved conditional gate.
     # The F-2As are the detachment's own anti-ship sortie, not a CAP slot
     # for the player to fill.
-    "10": dict(rearm=True, flights=[HELO, RECON]),
+    # The Japanese ASW pair are the detachment's own; the player's Seahawks
+    # arrive with the ships they are assigned to. One patrol slot.
+    "10": dict(rearm=True, flights=[RECON]),
     "11": dict(buy=True, allow=BUY_09, repair=True,
            rearm=True, flights=[CAP, STRIKE]),
     # Aircraft replacement and repair only: no new hulls, no general rearm.
+    # The finale flies what it sells: a CAP row for the fighters (Darwin is
+    # the placed field), the helicopter and patrol rows.
     "12": dict(buy=True, allow=BUY_12, repair=True,
-           flights=[HELO, RECON]),
+           flights=[HELO, RECON, CAP], airbase_prep=True),
 }
 
 TIMEOUTS = {
@@ -3251,7 +3299,7 @@ RESOLVERS = {
     "10": {"Cargo": "victory", "Allies": ("protect", "jmsdf"),
            "Submarine": ("classify", "red_sub", 1)},
     "11": {"Transports": "victory", "Ford": ("protect", "carrier#1"),
-           "Strike": ("destroy", "red_air", 2)},
+           "Strike": ("destroy", "red_air#2", 1)},
     "12": {"Convoy": "victory", "Ceasefire": "neutral",
            "Escorts": ("protect", "escort")},
     "D1": {"Oiler": "victory", "Escorts": ("survive", "escort"),
@@ -3328,9 +3376,8 @@ SLOTS = {
     ("05", "usn_mh-60r"): "HeloRecon",
     ("06", "raaf_f-35a"): "CAP", ("06", "E7A_Wedgetail"): "Recon",
     ("09", "usn_mh-60r"): "HeloRecon",
-    ("10", "jp_sh-60k"): "HeloRecon", ("10", "jp_sh-60j"): "HeloRecon",
     ("11", "usn_f-35c"): "CAP", ("11", "usn_ea-18g_2020"): "Attack",
-    ("12", "usn_p8"): "Recon",
+    ("12", "usn_p8"): "Recon", ("12", "raaf_f-35a"): "CAP",
 }
 
 # Aircraft the player is GIVEN for a mission, because an objective names them.
@@ -3521,6 +3568,15 @@ for _m in MISSIONS:
 for _m in MISSIONS:
     if _m["num"] == "02":
         _m["support_loss"][0]["sets"] = "SW02SupplyLost"
+        # The Missing Beacon's promise, kept: identify Torres Light there and
+        # her bridge recorder puts the boat on this plot as a classified
+        # contact from the first minute.
+        _m["reveal_if"] = [dict(
+            variable="O1BeaconFound", units=["sub"], level="Classify",
+            intel="Torres Light's bridge recorder put a submarine on this "
+                  "route two days before she went missing. Her last datum is "
+                  "on your plot as a classified contact: treat the first ping "
+                  "as hostile.")]
     if _m["num"] == "06":
         # ("classify", ref, minimum, variable-to-set)
         _m["resolve"]["Picture"] = ("classify", "red_sag", 1,
