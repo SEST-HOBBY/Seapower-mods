@@ -7,7 +7,7 @@ dependencies", and it iterates, so a dependency's own dependencies
 come too. If that works you do not need the list below at all, and
 it is here to check against rather than to work through by hand.
 
-133 mods. Each supplies a file a mission names directly - by
+134 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference= or a loadout's store.
 
 What the game does with a reference it cannot resolve has not been
@@ -62,6 +62,7 @@ Workshop id   supplies                         mod
 3695809489    a unit a mission places          Euromod - Modern Japanese Maritime Self Defence Force
 3642656500    a unit a mission places          Euromod - Modern Nordic Navy
 3731208477    a unit a mission places          Euromod - Modern Spanish Navy
+3789208859    a unit a mission places          Euromod-South Korea Navy
 3448845252    a unit a mission places          F-117 Nighthawk
 3636386513    a weapon a loadout hangs         F-15 EX Eagle II
 3553116604    a unit a mission places          F-15E StrikeEagle
