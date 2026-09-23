@@ -68,7 +68,7 @@ the **Steam Workshop item**, in Steam's own *Required Items* field.
 
 **Therefore: set all 134 mods as Required Items on the published item.** A
 subscriber then presses Sync and the game does the rest. Without it, you are
-asking a stranger to subscribe 133 times by hand, which nobody will do.
+asking a stranger to subscribe 134 times by hand, which nobody will do.
 
 `docs/campaigns/southern-watch/required-mods-urls.txt` is the list, generated
 by `build_pack.py` from the same coverage rows the pack's own

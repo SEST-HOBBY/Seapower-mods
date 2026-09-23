@@ -673,13 +673,69 @@ the most vulnerable thing either ship will ever do — are the strongest hooks
 in the campaign. The fixes above were made so those premises are what the
 file actually plays.
 
+## Review of 057405fe: what settling it changed
+
+The independent review of `057405fe` and the second-pass reader findings are
+dispositioned row by row in `review-disposition.md`, with the built trigger
+each answer rests on. The shape of what changed:
+
+- **Recovery is checked against the files, not the distance.** `deck_fit()`
+  reads the deck's `AircraftSupported` and the airframe's `CarrierCapable`
+  through `#!alias`; VTOL is fixed-wing that may use a deck naming it; a
+  player aircraft with nowhere to go fails the build. `check_purchased_recovery()`
+  runs the same test for every type a window sells against the mission's
+  decks. `deck_size()` falls back to the `[AirGroup]` a hull embarks when it
+  writes no `AircraftCapacity` - the five vanilla Soviet hulls and every
+  Korean hull declare their decks that way. Census on the built files: 102
+  player aircraft, 102 compatible, none undeclared or homeless.
+- **Anchors are the player's ships.** The guide says the generated mission
+  replaces `Taskforce1Vessel1` with the player's first ship, so no generated
+  anchor carries a name (the builder refuses one) and the fiction addresses
+  "your flagship". Weapons Free is the guide's one-ship pattern: `Replaced`
+  with `TaskForceModeMaxUnits=1`.
+- **A blank generation type is a model, not an omission.** SW07, SW08, O1,
+  O2 and C1 launch as authored: no deployment keys, no rows, no airbase
+  prep, `Includes*=False`, and a note that says nothing of the player's
+  force sails. The builder refuses flights or a slot tag on such a mission.
+- **Per-unit stages.** Rig Seventeen builds one pickup → extraction →
+  lost-after-pickup chain per lifter, so the aircraft that visited the
+  platform is the one that has to come home.
+- **Coral Pioneer is required by every win that places her and fatal
+  wherever a win does not depend on arrival**; every other merchant is unique
+  to its mission. No `JoinTaskForce` anywhere: allied aircraft are
+  allocations, never grants.
+- **Every purchase has a path.** The KC-46 is theatre support; the finale
+  sells aircraft against a CAP row with airbase prep and Darwin placed,
+  plus Arafura and Anzac as replacement hulls; Collins, Supply, Choules,
+  Canberra and Mogami left the roster. Every builder window says when the
+  next one is (`TaskForceModeBuilderSituation_en`).
+- **Eight consequence chains**, all in the guide's or the shipped data's
+  syntax: `SW02SupplyLost`, `SW06NorthernGroupClassified`, `SW11FujianSunk`,
+  `SW09ServiceHeld` (→ `TaskForceModeRearmByVariableAND` on Common Sea),
+  `O1BeaconFound`, `O2KiwiPicture`, `O3ShieldJoined`, `O4LanggurStocked`.
+- **Geometry that the story can survive.** Steel Highway and After the Wake
+  moved to the Gulf of Papua; every arrival box that is a place (carriers,
+  a distribution point, a strip, a ship) is authored rather than solved,
+  and the solver is used only for bearings.
+- **Four operations and a Korean detachment**: O2 Southern Cross, O3
+  Borrowed Shield, O4 Weather Alternate, C2 Broken Wake - see the bible's
+  "As built" table. Euromod-South Korea Navy (3789208859) is catalogued,
+  ordered after the other Euromod addons, and supplies Sejong the Great,
+  Daegu and the Lynx as a temporary attachment.
+
+One thing the evidence pass for the disposition caught: `O1` was still listed
+in `ARRIVALS`, and the solver overrides an authored box whenever a bearing is
+given, so the "helicopter home" win the rewrite drew on the ship had shipped
+as a circle 71 NM from her. `809d153a` removes the entry. An authored `at=`
+and an `ARRIVALS` bearing must never both exist for one mission.
+
 ## What exists
 
 | Thing | Where |
 |---|---|
-| The campaign | `integration/campaign/SEST_Campaign/campaigns/sest-southern-watch/campaign.ini` — a `Type=Linear`, native **Task Force Mode** campaign: twelve main missions, one optional operation, one contingency and nine story events |
-| Requisition | `player_task_force_roster.ini` (16 priced entries) and `commander_settings.ini` (Australian commander, no same-nation discount) beside it |
-| Campaign missions | the fourteen, shipped twice: under `campaigns/…/missions/` for the campaign and under `missions/SEST Southern Watch/` so the mission browser lists them too. The builder writes one copy and `tools/check_campaign_coverage.py` fails if the two ever differ |
+| The campaign | `integration/campaign/SEST_Campaign/campaigns/sest-southern-watch/campaign.ini` — a `Type=Linear`, native **Task Force Mode** campaign: twelve main missions, four optional operations, two contingencies and seventeen story events - 35 entries |
+| Requisition | `player_task_force_roster.ini` (10 priced entries) and `commander_settings.ini` (Australian commander, no same-nation discount) beside it |
+| Campaign missions | the eighteen, shipped twice: under `campaigns/…/missions/` for the campaign and under `missions/SEST Southern Watch/` so the mission browser lists them too. The builder writes one copy and `tools/check_campaign_coverage.py` fails if the two ever differ |
 | Dispatches | `missions/SEST Southern Watch - Dispatches/` — the eight optional episodes (Allied Dispatch ×3, Red Line, Range Week, Future Front, Cold Sea, plus the relief-perimeter episode) |
 | Briefings | a `_briefing/BriefingText_en.xml` beside every mission, with SITUATION / TASK / FORCES / MODS IN PLAY. The mod list is generated from the roster, so it cannot drift from the order of battle |
 | Source | `integration/campaign/campaign_data.py` (the script) and `build_pack.py` (the machinery) |
@@ -749,7 +805,26 @@ Static resolution is not a play test. None of the following is established by
 anything in this repository:
 
 - that any mission loads in game, or that every texture and model appears;
-- that a helicopter can recover aboard the ship it is assigned to;
+- that a helicopter can recover aboard the ship it is assigned to - and,
+  new with the review fixes, that a Lynx recovers on Sejong the Great (a deck
+  declared by `[AirGroup]` alone), a Harrier on Charles de Gaulle, the U-2 on
+  Kitty Hawk (its file says `CarrierCapable=True`), and an F-35A on the
+  Langgur strip;
+- that `SpawnByVariableAND=…,IsTrue` spawns a unit (the shipped data attests
+  only `IsFalse`); SW06's Sejong the Great and SW08's KC-46 depend on it;
+- that `TaskForceModeRearmByVariableAND` (the guide's key; no shipped
+  campaign uses it) grants or withholds Common Sea's rearm;
+- that a `Replaced` mission with `TaskForceModeMaxUnits=1` accepts exactly
+  one vessel, and that `UnitsAreOutOfAmmo` then reads the ship the player
+  sent rather than the authored placeholder;
+- that a land unit with `Waypoints` drives them (the D3 column and roadblock,
+  the D8 column; eight native sections carry the key);
+- that a per-unit stage chain behaves: the lifter that visited the platform
+  is the one whose withdrawal trigger is enabled, and losing it after the
+  pickup ends the mission;
+- that a Korean hull with no `TaskForceCost` appears and fights as an
+  allocated ship; the mod's hulls are never sold, so the cost line is never
+  read;
 - that the tankers can actually pass fuel to the receivers in the same mission;
 - that replenishment transfers anything, in SW09 or anywhere else;
 - that the `UnitsInTheArea` victory triggers fire where intended, that the
@@ -761,10 +836,10 @@ anything in this repository:
   balanced; that completion points are awarded once and cannot be farmed by
   replay; that repair and rearm offers appear only at the service windows;
   that the anchor places the purchased force sensibly, and whether the
-  anchored scripted hull stays on the plot beside the player's ships or is
-  replaced by one of them (SW01, SW05 and SW12 name their anchor HMAS
-  Warramunga; if the game substitutes, that name lands on whatever the
-  player anchors with); that the optional
+  anchored scripted hull is replaced by the player's first ship the way the
+  developer guide says it is (the anchors carry no name for that reason;
+  what is untested is the substitution itself, and the one-ship `Replaced`
+  pattern Weapons Free uses); that the optional
   window expires when it should. §16 of the bible lists the seven-step
   acceptance run that would settle all of it, and every step needs the game
   running. None of it has been exercised;
@@ -836,7 +911,7 @@ anything in this repository:
 - that `REQUIRED-MODS.txt` is SUFFICIENT. It is derived from what the missions
   place, which makes it necessary-by-construction and complete with respect to
   the load order it was built against. It is not a proof that a subscriber
-  with exactly those 133 mods and nothing else gets a working campaign — that
+  with exactly those 134 mods and nothing else gets a working campaign — that
   needs a clean install, which nobody has done;
 - what a mission does when it names an absent unit. The pack said, for one
   build, that a missing mod meant "a mission that will not load" - a claim
@@ -845,7 +920,7 @@ anything in this repository:
   `Type=` drops the unit or stops the load has not been observed;
 
 What *is* established, on every build: every `Type=`, `LoadoutVariant=`,
-`SquadronReference=` and `VariantReference=` in all twenty missions resolves
+`SquadronReference=` and `VariantReference=` in all twenty-six missions resolves
 against the file that wins the current load order, and every enabled mod is
 reached by something the campaign places — or carries a written reason why it
 cannot be.
