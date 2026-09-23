@@ -68,6 +68,7 @@ row here is a guess until you look.
 | 1A.5 | Open a story card (entry 1, "White Water 18 October") | A cream newspaper sheet, headline and two columns of type | A blank page = the `Assets[]` binding in the XAML is not resolving against `AssetsPath_` |
 | 1A.6 | Step through the pages before mission 2 | Three different documents: a typed INTSUM with a FICTION banner, a ship's log on ruled paper, a teleprinter cable | Tells us whether all four forms render, not just the press sheet |
 | 1A.7 | Is the backdrop cropped, stretched or letterboxed? | It should fill | Tell me the shape of what you see |
+| 1A.8 | The briefing screen's right-hand pane, before any mission | A chart: coastline, graticule, own forces in blue, reported enemy areas in red, a locator inset top-right | This was the blank area on the first install. Still blank = `BriefingMap_en.xml` is not read from a mod's `_briefing` folder, which would contradict the Workshop missions that ship one |
 
 **This is the section most likely to fail**, and failing it costs nothing else
 — the campaign plays without art.

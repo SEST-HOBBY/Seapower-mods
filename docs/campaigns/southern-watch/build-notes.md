@@ -397,6 +397,24 @@ and the pack now matches it where the game is the one drawing:
 | story images | reached only through the page's `Assets[]` binding | the same; 1920x1080 inside this pack's own XAML |
 | backdrop | `BackgroundImage` names a file that is not on disk in the stock folder | 1920x1080, still a guess |
 
+**The briefing map.** The briefing screen's right-hand pane is a separate
+thing from the campaign map's card: the game draws it from
+`<mission>_briefing/BriefingMap_en.xml` beside the .ini, a XAML fragment
+whose `<Image>` binds an asset by file stem to an image in the same folder.
+Every stock mission and every stock campaign mission ships one; no SEST
+mission did, so the pane was blank - the "large area where an image should
+be" the first install reported. `integration/missions/briefing_maps.py`
+now draws one per mission from the mission's own unit positions on Natural
+Earth coastlines (own forces placed, enemy as reported areas, enemy
+submarines withheld with a threat note, neutrals as shipping), at 2192x1328
+for the 1095x662 canvas the stock maps are laid out on. The campaign
+builder draws them for its 26 missions and mirrors them into the browser
+copies; `build_briefing_maps.py` does the loose SEST missions; the
+installer copies the folders beside the missions. This is ported from the
+`sest-dev/peaceful-gauss-e1zvfq` session's work, re-rendered in Pillow so
+the pack keeps one optional image dependency and the same keep-committed
+fallback.
+
 Whether a mod-supplied campaign's art is drawn at all is still the test
 card's question; what is no longer in doubt is that the sizes and the
 format are the stock ones. The `DXT5 ... requires a texture size that is a

@@ -194,6 +194,14 @@ if (Test-Path $missionSrc) {
         Copy-Item -LiteralPath $m.FullName -Destination $missionDest -Force
         Write-Host ("  mission    {0}" -f $m.Name)
     }
+    # The briefing map pane reads "<mission>_briefing\" beside the .ini; without
+    # it the right-hand pane is blank. Generated, so replaced wholesale.
+    foreach ($b in Get-ChildItem -LiteralPath $missionSrc -Directory -Filter "*_briefing" -Recurse) {
+        $destDir = Join-Path $missionDest $b.Name
+        if (Test-Path -LiteralPath $destDir) { Remove-Item -LiteralPath $destDir -Recurse -Force }
+        Copy-Item -LiteralPath $b.FullName -Destination $missionDest -Recurse -Force
+        Write-Host ("  briefing   {0}" -f $b.Name)
+    }
 }
 
 Write-Host "`n$installed of $($Packs.Count) packs in place."

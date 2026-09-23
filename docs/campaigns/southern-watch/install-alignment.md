@@ -103,11 +103,14 @@ What to read in its output:
 | `purged SEST_…` | an old per-pack folder removed | expected once, after the switch to the consolidated pack |
 | `appended (not canonical)` | a mod you subscribed to that the repo has never seen | expected for **Automatic SAR** only — see step 5. The Euromod South Korean Navy is catalogued now |
 
-The file count should now be **299**, not 122. It changed in this branch: the
+The file count should now be **387**, not 122. It changed in this branch: the
 campaign gained 38 generated PNGs plus `REQUIRED-MODS.txt` and
 `LOAD-ORDER.txt`, lost the `_info.ini` files it used to write into briefing
-folders under `campaigns/`, where the vanilla campaigns have none, and then
-gained four operations (O2, O3, O4, C2) with their briefings and cards.
+folders under `campaigns/`, where the vanilla campaigns have none, gained
+four operations (O2, O3, O4, C2) with their briefings and cards, and then a
+briefing map (`BriefingMap_en.xml` plus its chart) in all 44 briefing
+folders. The loose SEST missions get theirs copied beside them and show as
+`briefing` lines in the sync output.
 
 If `sync-sest.ps1` refuses because of the branch guard, it is doing its job —
 go back to step 1 rather than reaching for `-AnyBranch`.
@@ -173,8 +176,8 @@ are all regenerated from it. Until then the drop-and-re-add cycle is the
 expected behaviour, not a fault.
 
 The `IN LINE` line after a sync on this branch should name the short hash
-`git log --oneline -1` printed in step 1; the counts above (299 files, 38
-PNGs, 35 entries) are for the art-format commit after `b30ddbe3` and later builds of this branch.
+`git log --oneline -1` printed in step 1; the counts above (387 files, 38 art
+PNGs plus 44 briefing charts, 35 entries) are for the art-format commit after `b30ddbe3` and later builds of this branch.
 
 ## 6 — then play the card
 
