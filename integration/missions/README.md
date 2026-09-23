@@ -13,3 +13,19 @@ Missions deployed by `tools/install-sest-packs.ps1` into
   mission air groups are preserved), the date moves to 2026-08-24, and a five-ship civilian
   shipping lane plus a three-whale humpback pod (biologic sonar contacts) run along the
   Darwin–fleet axis. The original NORTHERN FRONT save is untouched.
+
+## Briefing maps
+
+Every `SEST *.ini` has a `<mission>_briefing/` folder beside it: `BriefingMap_en.xml`
+plus the chart it binds (`Assets[sest_<name>_map]`). Without that folder the right-hand
+pane of the briefing screen is blank. The charts are generated from the missions' own
+unit positions and committed:
+
+```bash
+pip install pillow
+python3 integration/missions/build_briefing_maps.py
+```
+
+Re-run after moving units in a mission. The installer copies the folders next to the
+missions. The campaign's own missions get theirs from the same renderer
+(`briefing_maps.py`) when the campaign pack is built.

@@ -3487,6 +3487,20 @@ def main():
     if make_art is None and old_art.is_dir():
         keep_art = pathlib.Path(tempfile.mkdtemp(prefix="sest-art-"))
         shutil.copytree(old_art, keep_art / "art")
+    # The briefing maps the same way: the renderer needs Pillow AND the
+    # Natural Earth coastlines (fetched once, cached), and a machine with
+    # neither keeps the committed maps rather than shipping a blank pane.
+    sys.path.insert(0, str(ROOT / "integration" / "missions"))
+    try:
+        import briefing_maps
+        geo, maps_reason = briefing_maps.available()
+    except ImportError as exc:
+        briefing_maps, geo, maps_reason = None, None, str(exc)
+    keep_maps = {}
+    if geo is None and OUT.exists():
+        for f in OUT.rglob("*_briefing/*"):
+            if f.suffix == ".png" or f.name == "BriefingMap_en.xml":
+                keep_maps[f.relative_to(OUT)] = f.read_bytes()
     if OUT.exists():
         shutil.rmtree(OUT)
     camp = OUT / "campaigns" / SLUG
@@ -3556,6 +3570,32 @@ def main():
                            else extra) / f"{name}.ini")
                  for name, _t, m in built]
         make_art.render_all(camp, cards, EVENTS, SLUG, TITLE, SUBTITLE)
+
+    # The briefing map beside every mission - the right-hand pane of the
+    # briefing screen, drawn from <mission>_briefing/BriefingMap_en.xml and
+    # the image it binds (see integration/missions/briefing_maps.py). Every
+    # stock mission ships one; these shipped none, and the pane was blank.
+    # Drawn once into the campaign copy and mirrored byte-for-byte into the
+    # browser copy, which check_campaign_coverage requires to be identical.
+    if geo is None:
+        put_back = 0
+        for rel, data in keep_maps.items():
+            target = OUT / rel
+            if target.parent.is_dir():
+                target.write_bytes(data)
+                put_back += 1
+        print(f"  briefing maps not regenerated ({maps_reason}) - restored "
+              f"{put_back} committed file(s). Install Pillow (and let it fetch "
+              f"the coastlines once) to redraw them from the missions.")
+    else:
+        for name, _t, m in built:
+            src = (extra if m["group"] == "dispatch" else camp / "missions") / f"{name}_briefing"
+            ini = src.parent / f"{name}.ini"
+            stem = briefing_maps.render(ini, src, m["key"], geo, series="SEST SOUTHERN WATCH")
+            if m["group"] != "dispatch":
+                dst = browse / f"{name}_briefing"
+                for fn in (f"{stem}.png", "BriefingMap_en.xml"):
+                    shutil.copy2(src / fn, dst / fn)
     (camp / "campaign.ini").write_text(
         campaign_text,
         encoding="utf-8")
