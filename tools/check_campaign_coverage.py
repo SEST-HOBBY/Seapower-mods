@@ -209,6 +209,20 @@ def art_resolves(pack):
             elif re.fullmatch(r"AssetsPath_[a-z]{2}", key):
                 if not (pack / value).is_dir():
                     out.append(f"campaign.ini [{tag}]: {key}={value} - not a directory")
+        # A story page reaches its images through the XAML's Assets[] binding,
+        # resolved against the entry's AssetsPath - the stock campaign's
+        # newspaper pages name their photographs that way and nowhere else.
+        # TileImagePath is the 128x128 tile behind the entry on the map, so it
+        # no longer doubles as the only reference to the story image.
+        assets_dir = keys.get("AssetsPath_en")
+        page = keys.get("FilePath_en")
+        if assets_dir and page and (pack / page).is_file():
+            xaml = (pack / page).read_text(encoding="utf-8")
+            for name in re.findall(r"Assets\[([^\]]+)\]", xaml):
+                rel = f"{assets_dir}/{name}.png"
+                referenced.add(rel)
+                if not (pack / rel).is_file():
+                    out.append(f"{page}: Assets[{name}] - {rel} is not shipped")
     # And the other way: art nobody points at is weight in a download that a
     # subscriber pays for and cannot see.
     art = pack / "campaigns" / bp.SLUG / "art"

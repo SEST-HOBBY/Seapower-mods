@@ -141,7 +141,7 @@ that turns out to be impossible is genuinely wanted.
 
 ## Screenshots, in this order
 
-The pack generates its own art; these are already the right size (1920×1080)
+The pack generates its own art. The mission sheets are the stock 1184×640 and the backdrop and story images 1920×1080; the screenshot slots take those as they are
 and are in `campaigns/sest-southern-watch/art/` inside the mod:
 
 1. `00_campaign_background.png` — the theatre chart. Sets the scale of the

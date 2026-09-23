@@ -377,12 +377,32 @@ bible and unimplemented here, deliberately.
 ## Art, and what the pack tells a stranger
 
 Three keys carry the campaign's art, and all three were read out of the
-vanilla export before they were used: `MissionImage_en` and `TileImagePath_en`
-per mission entry, and `BackgroundImage` once in `[Campaign]`. The last is
-attested in all three shipped campaigns, and `linear-campaign-proto-1` pairs
-it with `DisplayFormat=Legacy` — the format this campaign uses — so the
-combination is not an extrapolation. The export carries text only; its PNGs
-were stripped, so nothing here copies the game's look, only its key names.
+vanilla export before they were used: `MissionImage_en` per mission entry,
+`TileImagePath_en` per story event, and `BackgroundImage` once in
+`[Campaign]`. The export carries text only; its PNGs were stripped, so the
+first builds copied the key names and guessed the rest - 1920x1080 for every
+image, `DisplayFormat=Legacy` from the 1988 linear prototype, and the story
+image itself under `TileImagePath_`. The first install answered the guesses:
+the briefing panel before White Water drew no mission image at all.
+
+The stock Task Force Mode campaign's art was then measured on an installed
+copy (`StreamingAssets/original/campaigns/pacific-strike-task-force/art`),
+and the pack now matches it where the game is the one drawing:
+
+| Thing | Stock | Now shipped |
+|---|---|---|
+| `DisplayFormat` | `MapView` (Pacific Strike; `Legacy` is the linear prototype's) | `MapView` |
+| mission sheet (`MissionImage_`) | 1184x640, all fourteen | 1184x640, drawn at 2x and halved |
+| event tile (`TileImagePath_`) | `bkg_tile_message.png` / `bkg_tile_newspaper.png`, 128x128 | the same two names and size, generated |
+| story images | reached only through the page's `Assets[]` binding | the same; 1920x1080 inside this pack's own XAML |
+| backdrop | `BackgroundImage` names a file that is not on disk in the stock folder | 1920x1080, still a guess |
+
+Whether a mod-supplied campaign's art is drawn at all is still the test
+card's question; what is no longer in doubt is that the sizes and the
+format are the stock ones. The `DXT5 ... requires a texture size that is a
+multiple of 4` lines in the game log are the stock art's own (bkg_paper is
+3000x3855, bkg_newsprint 1215x1362): they were in the log before this
+campaign shipped an image, and every PNG here is a multiple of 4.
 
 `make_art.py` draws every card, dispatch sheet and the backdrop **from the
 mission files the builder has just written**, not from a parallel description.
@@ -901,13 +921,15 @@ anything in this repository:
   `MissionImage_en` and `TileImagePath_en` are keys the vanilla campaigns set,
   and the paths they are given here resolve to files that exist in the pack.
   Whether a mod-supplied campaign's art is loaded the same way the base game's
-  is — and whether `DisplayFormat=Legacy` draws a backdrop at all, or only
-  `MapView` does — has not been watched happen. The vanilla export carries no
-  PNGs, so there is not even a reference image to compare against;
-- what resolution or aspect the game wants. 1920x1080 is a guess constrained
-  only by DXT5 needing both dimensions to be multiples of 4. A backdrop that
-  is letterboxed, cropped or stretched is a possibility this build cannot
-  rule out;
+  is has not been watched happen. The first install, on `Legacy` with
+  1920x1080 sheets, drew no mission image; the pack now ships the stock
+  `MapView` and the stock sheet and tile sizes, measured on an installed
+  copy, and the next install is the test;
+- what resolution or aspect the game wants for the BACKDROP. The stock
+  campaign's `BackgroundImage` names a file that is not on disk, so 1920x1080
+  remains a guess constrained only by DXT5 needing multiples of 4. A backdrop
+  that is letterboxed, cropped or stretched is a possibility this build
+  cannot rule out;
 - that `REQUIRED-MODS.txt` is SUFFICIENT. It is derived from what the missions
   place, which makes it necessary-by-construction and complete with respect to
   the load order it was built against. It is not a proof that a subscriber

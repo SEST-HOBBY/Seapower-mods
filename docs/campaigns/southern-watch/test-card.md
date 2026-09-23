@@ -53,7 +53,7 @@ content. A texture or model that fails shows up here, not in the rules.
 
 ## 1A — the art (new, and entirely unverified)
 
-The pack now ships 36 generated PNGs and points `campaign.ini` at them with
+The pack now ships 38 generated PNGs and points `campaign.ini` at them with
 three keys read out of the vanilla campaigns. Whether a **mod-supplied**
 campaign's art loads the way the base game's does has never been watched
 happen, and the vanilla export carries no PNGs to compare against — so every
@@ -61,12 +61,13 @@ row here is a guess until you look.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| 1A.1 | Open the campaign list | A dark chart behind the list: graticule, numbered marks 01–12, a compass rose, SOUTHERN WATCH bottom-left | No backdrop = `BackgroundImage` is either ignored for mods, or ignored on `DisplayFormat=Legacy`. Say which, and try `MapView` |
-| 1A.2 | Look at a mission tile | A card: big number, big title, a blue plot of own force with the objective ring | A blank tile = `TileImagePath_en` unread. A tile but no card on the detail pane = `MissionImage_en` unread |
-| 1A.3 | Is the card **readable** at tile size? | The number and name carry it; the plot is a shape, not detail | Say what is too small — the card is generated, so this is a one-line change |
-| 1A.4 | Open a story card (entry 1, "White Water 18 October") | A cream newspaper sheet, headline and two columns of type | A blank page = the Viewbox/Image binding in the XAML is wrong |
+| 1A.1 | Open the campaign list | A dark chart behind the list: graticule, numbered marks 01–12, a compass rose, SOUTHERN WATCH bottom-left | No backdrop = `BackgroundImage` is ignored for mods. The format is now the stock `MapView`; the stock campaign's own backdrop is not on disk, so its size (1920x1080 here) is still a guess |
+| 1A.2 | Look at a mission entry and its briefing panel | A card at the stock sheet size (1184x640, the same as Pacific Strike's): big number, big title, a blue plot of own force with the objective ring | The first install drew nothing here on `Legacy` with 1920x1080 sheets. Blank again on `MapView` at the stock size = a mod-supplied `MissionImage_` is not read at all |
+| 1A.3 | Is the card **readable** in the panel? | The number and name carry it; the plot is a shape, not detail | Say what is too small — the card is generated, so this is a one-line change |
+| 1A.4 | A story entry's tile on the campaign map | A small plain tile behind the title: cream for a press sheet, dark for a signal, log or INTSUM (128x128, the stock names `bkg_tile_newspaper` / `bkg_tile_message`) | A blank tile = `TileImagePath_` unread for mods |
+| 1A.5 | Open a story card (entry 1, "White Water 18 October") | A cream newspaper sheet, headline and two columns of type | A blank page = the `Assets[]` binding in the XAML is not resolving against `AssetsPath_` |
 | 1A.6 | Step through the pages before mission 2 | Three different documents: a typed INTSUM with a FICTION banner, a ship's log on ruled paper, a teleprinter cable | Tells us whether all four forms render, not just the press sheet |
-| 1A.5 | Is the backdrop cropped, stretched or letterboxed? | It should fill | Tell me the shape of what you see. 1920×1080 is a guess; nothing in the export states the wanted aspect |
+| 1A.7 | Is the backdrop cropped, stretched or letterboxed? | It should fill | Tell me the shape of what you see |
 
 **This is the section most likely to fail**, and failing it costs nothing else
 — the campaign plays without art.
