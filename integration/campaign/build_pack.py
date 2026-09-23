@@ -1508,7 +1508,8 @@ def check_reach(mission, placed, members):
                     try:
                         out.append((tag, keys["Type"], float(bits[0]),
                                     float(bits[2]), ashore,
-                                    keys.get("LoadoutVariant"), flies))
+                                    keys.get("LoadoutVariant"), flies,
+                                    "Waypoints" in keys))
                     except ValueError:
                         pass
         return out
@@ -1536,10 +1537,10 @@ def check_reach(mission, placed, members):
                  [mission["victory"].get("station")]) if r
                 for t in refs(members, r)}
         targets = [r for r in red if r[0] in want]
-        for tag, uid, x, z, _a, _f, _fl in targets:
+        for tag, uid, x, z, _a, _f, _fl, _mv in targets:
             closest = min(
                 (math.hypot(x - bx, z - bz) - armed(buid, bfit) - steam, buid)
-                for _bt, buid, bx, bz, _ba, bfit, _bfl in blue)
+                for _bt, buid, bx, bz, _ba, bfit, _bfl, _mv in blue)
             if closest[0] > 0:
                 problems.append(
                     f"{mission['key']}: victory needs {uid} at {tag} destroyed, "
@@ -1551,28 +1552,30 @@ def check_reach(mission, placed, members):
 
     if not (blue and red):
         return None
-    gap = min(math.hypot(x - bx, z - bz) for _t, _u, x, z, _a, _f, _fl in red
-              for _bt, _bu, bx, bz, _ba, _bf, _bfl in blue)
-    longest = max([armed(u, f) for _t, u, _x, _z, _a, f, _fl in red] or [0.0])
+    gap = min(math.hypot(x - bx, z - bz) for _t, _u, x, z, _a, _f, _fl, _mv in red
+              for _bt, _bu, bx, bz, _ba, _bf, _bfl, _mv in blue)
+    longest = max([armed(u, f) for _t, u, _x, _z, _a, f, _fl, _mv in red] or [0.0])
     # What red can actually cross: its longest round PLUS what the unit that
     # carries it can move in the mission. An aircraft with an 86 NM missile
     # 93 NM from the convoy is not 7 NM of open water nothing can cross - it
     # is a minute of flight. 300 kn is a conservative cruise; ships get the
     # same 24 kn the rest of the file uses; a land launcher gets nothing.
-    def transit(ashore, flies):
+    def transit(ashore, flies, moves=False):
         if ashore:
-            return 0.0
+            # A land unit with Waypoints drives (eight native sections do);
+            # one without stays where it is put.
+            return mission["minutes"] / 60.0 * TRANSIT["LandUnit"] if moves else 0.0
         return mission["minutes"] / 60.0 * (300.0 if flies else 24.0)
-    short = min([min(math.hypot(x - bx, z - bz) for _bt, _bu, bx, bz, _ba, _bf, _bfl in blue)
-                 - armed(u, f) - transit(a, fl)
-                 for _t, u, x, z, a, f, fl in red] or [0.0])
+    short = min([min(math.hypot(x - bx, z - bz) for _bt, _bu, bx, bz, _ba, _bf, _bfl, _bmv in blue)
+                 - armed(u, f) - transit(a, fl, mv)
+                 for _t, u, x, z, a, f, fl, mv in red] or [0.0])
     # The standoff rule is about an engagement the player is dropped into
     # without a say, which happens at sea and in the air. Two ground forces
     # in contact ashore is not that - it is the scenario - so a land-on-land
     # pair does not count toward it.
     afloat = [math.hypot(x - bx, z - bz)
-              for _t, _u, x, z, ashore, _f, _fl in red
-              for _bt, _bu, bx, bz, bashore, _bf, _bfl in blue
+              for _t, _u, x, z, ashore, _f, _fl, _mv in red
+              for _bt, _bu, bx, bz, bashore, _bf, _bfl, _mv in blue
               if not (ashore and bashore)]
 
     budget = ROLE_BUDGET[mission["role"]]
@@ -2203,7 +2206,11 @@ def render(mission, placed, members):
                 "which is not a classify objective in this mission")
         enabling[0].append(f"Action_EnableTriggers=Trigger{report}")
 
-    if placed.get("Taskforce1Vessel") or placed.get("Taskforce1Aircraft"):
+    # force_loss=False: a mission whose player force is batteries on land
+    # (D5) is not lost when its last aircraft is; its own fatal rule says
+    # what losing it means.
+    if mission.get("force_loss", True) and (
+            placed.get("Taskforce1Vessel") or placed.get("Taskforce1Aircraft")):
         terminal("Player force gone", [
             "Condition_Type=HasNoUnitsOfType", "Condition_Taskforce=Taskforce1",
             "Condition_UnitType=" + ("Vessel" if placed.get("Taskforce1Vessel")
