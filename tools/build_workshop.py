@@ -457,6 +457,12 @@ for full credits.
         text = re.sub(r"^Name=.*$", lambda _: f"Name={i:02d} {title}", text,
                       count=1, flags=re.M)
         (folder / f"{i:02d} {title}.ini").write_bytes(text.encode("utf-8"))
+        # The briefing folder is named for its mission, so it follows the rename.
+        brief = path.with_name(f"{path.stem}_briefing")
+        if not brief.is_dir():
+            sys.exit(f"no briefing map for {path.stem}: "
+                     "run integration/missions/build_briefing_maps.py")
+        shutil.copytree(brief, folder / f"{i:02d} {title}_briefing")
 
     print(f"staged {PACK_FOLDER}: {sum(1 for _ in pack_out.rglob('*') if _.is_file())} "
           f"files, {len(pack_need)} required items")
