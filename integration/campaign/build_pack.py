@@ -1450,12 +1450,34 @@ def deck_size(uid):
     airbase 80 to 1000 (airfield_a-10 80, RAAF Darwin 200, the large PVO base
     1000). Matching on "airbase" in the id worked and would have gone on
     working right up to the first base that is not called one.
+
+    Not every hull with a deck writes the line. Five vanilla Soviet hulls
+    (Sovremenny, Slava, Kara, both Krestas) and every Euromod Korean hull
+    declare their deck through `[AirGroup]` (the embarked flight, e.g.
+    `rok_mk99_a=Default,1`) and `AircraftSupported`, with no capacity at all;
+    the game flies their helicopters regardless. So a hull with no capacity
+    line but an [AirGroup] falls back to the number of airframes that group
+    embarks, and one with a [FlightDeck] section but neither falls back to
+    its `DeckParkSlots`. A hull with none of these is not a deck.
     """
     _kind_dir, path = unit_file(uid)
     if path is None:
         return 0
-    m = re.search(r"^AircraftCapacity=\s*(\d+)", read(path), re.M)
-    return int(m.group(1)) if m else 0
+    text = read(path)
+    m = re.search(r"^AircraftCapacity=\s*(\d+)", text, re.M)
+    if m:
+        return int(m.group(1))
+    group = re.search(r"^\[AirGroup\]\s*\n((?:[^\[\n][^\n]*\n?)*)", text, re.M)
+    if group:
+        n = sum(int(c) for c in re.findall(
+            r"^\s*[^#\s=]+=\w+,(\d+)", group.group(1), re.M))
+        if n:
+            return n
+    if re.search(r"^\[FlightDeck\]", text, re.M):
+        m = re.search(r"^DeckParkSlots=\s*(\d+)", text, re.M)
+        if m:
+            return int(m.group(1))
+    return 0
 
 
 def reach(uid, kind_dir, path, fit):
