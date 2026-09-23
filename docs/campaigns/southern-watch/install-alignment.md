@@ -71,7 +71,7 @@ was reviewed. A dirty tree here is a stop, not a warning.
 Then the four gates, which check different things and all have to pass:
 
 ```powershell
-python tools\check_campaign_coverage.py   # 510 placed references, all resolve
+python tools\check_campaign_coverage.py   # 610 placed references, all resolve
 python tools\check_load_order.py          # every SEST pack outranks what it overrides
 python tools\check_dependencies.py        # every pack's upstream mods present
 python tools\preflight.py "Southern Watch 01 - White Water"
@@ -80,7 +80,7 @@ python tools\preflight.py "Southern Watch 01 - White Water"
 `preflight.py` with no argument checks whatever `data\active-mission.txt`
 names, which is a Northern Front III mission — useful, but not this campaign.
 Name a mission to check this one. `check_campaign_coverage.py` above already
-walks all 22 Southern Watch missions, so the named preflight is a second
+walks all 26 Southern Watch missions, so the named preflight is a second
 opinion rather than the only coverage.
 
 ## 3 — install and order, one command
@@ -101,12 +101,13 @@ What to read in its output:
 | the commit named in `IN LINE` | what you actually deployed | must equal step 1's short hash — if it does not, the pull did not take |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `purged SEST_…` | an old per-pack folder removed | expected once, after the switch to the consolidated pack |
-| `appended (not canonical)` | a mod you subscribed to that the repo has never seen | expected for **Automatic SAR** and the **Euromod South Korean Navy** — see step 5 |
+| `appended (not canonical)` | a mod you subscribed to that the repo has never seen | expected for **Automatic SAR** only — see step 5. The Euromod South Korean Navy is catalogued now |
 
-The file count should now be **273**, not 122. It changed in this branch: the
-campaign gained 32 generated PNGs plus `REQUIRED-MODS.txt` and
-`LOAD-ORDER.txt`, and lost the fourteen `_info.ini` files it used to write into
-briefing folders under `campaigns/`, where the vanilla campaigns have none.
+The file count should now be **297**, not 122. It changed in this branch: the
+campaign gained 36 generated PNGs plus `REQUIRED-MODS.txt` and
+`LOAD-ORDER.txt`, lost the `_info.ini` files it used to write into briefing
+folders under `campaigns/`, where the vanilla campaigns have none, and then
+gained four operations (O2, O3, O4, C2) with their briefings and cards.
 
 If `sync-sest.ps1` refuses because of the branch guard, it is doing its job —
 go back to step 1 rather than reaching for `-AnyBranch`.
@@ -115,7 +116,7 @@ go back to step 1 rather than reaching for `-AnyBranch`.
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
-Get-ChildItem "$sa\campaigns\sest-southern-watch\art\*.png" | Measure-Object   # 32
+Get-ChildItem "$sa\campaigns\sest-southern-watch\art\*.png" | Measure-Object   # 36
 Test-Path "$sa\campaigns\sest-southern-watch\art\00_campaign_background.png"   # True
 Test-Path "$sa\REQUIRED-MODS.txt"                                              # True
 Test-Path "$sa\CREDITS.txt"                                                    # True
@@ -127,17 +128,21 @@ something the next cannot:
 1. **Mod Manager** — `SEST Integration Pack` at the top of the list, enabled.
    Its description should read like a mod description, not like a repo note.
    If it still says "Built by the Seapower-mods repo", you are on the old build.
-2. **Campaign list** — `Southern Watch (Royal Australian Navy)`, 31 entries,
+2. **Campaign list** — `Southern Watch (Royal Australian Navy)`, 35 entries,
    with the chart backdrop behind it and a mission card on each tile.
 3. **Mission browser** — `Southern Watch 01 - White Water` under
    `Southern Watch`. The missions ship twice on purpose, so if the campaign
    layer does not surface but the browser entries do, that difference is
    itself the diagnosis.
 
-## 5 — the two mods the repo has not catalogued
+## 5 — the one mod the repo has not catalogued
 
-**Automatic SAR** and the **Euromod South Korean Navy** were subscribed after
-the last catalog export, so they are not in `data\load-order.tokens.txt`.
+**Automatic SAR** was subscribed after the last catalog export, so it is not
+in `data\load-order.tokens.txt`. The **Euromod South Korean Navy**
+(3789208859) was catalogued at `7454dc5b` from its exported files and sits at
+entry 36 of the canonical order, directly after the other Euromod addons; the
+campaign now places its hulls (O3 Borrowed Shield, SW06), so it is a required
+mod and will not be dropped.
 
 I had this backwards in the first version of this document, and it matters.
 `set-mod-order.ps1` does not append an unknown mod at the bottom — that is
@@ -148,15 +153,15 @@ entry 144. The script's own help text said "appended … rather than dropped"
 for all three cases; it says what it actually does now, and so does
 `fix-load-order.ps1`'s warning.
 
-So each time you run the sync, those two are dropped, and the game re-adds
-them on the next launch at a position it chooses. Nothing breaks — the
-campaign names no unit from either, and Automatic SAR is a behaviour mod that
-applies wherever it sits — but neither has a stable position, and you will see
-a `dropped stale workshop entry` warning naming both on every run. That
-warning is expected and is not a problem with the install.
+So each time you run the sync, Automatic SAR is dropped, and the game
+re-adds it on the next launch at a position it chooses. Nothing breaks — the
+campaign names no unit from it, and it is a behaviour mod that applies
+wherever it sits — but it has no stable position, and you will see a
+`dropped stale workshop entry` warning naming it on every run. That warning
+is expected and is not a problem with the install.
 
-To give them fixed positions they have to be catalogued, which means an
-export from your machine:
+To give it a fixed position it has to be catalogued, which means an export
+from your machine:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1
@@ -166,6 +171,10 @@ powershell -ExecutionPolicy Bypass -File .\tools\capture-context.ps1 -IncludeSav
 Push the result and the catalog, the canonical order and the coverage report
 are all regenerated from it. Until then the drop-and-re-add cycle is the
 expected behaviour, not a fault.
+
+The `IN LINE` line after a sync on this branch should name the short hash
+`git log --oneline -1` printed in step 1; the counts above (297 files, 36
+PNGs, 35 entries) are for `809d153a` and later builds of this branch.
 
 ## 6 — then play the card
 

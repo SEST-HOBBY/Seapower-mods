@@ -5,7 +5,7 @@ Everything below is for the Steam Workshop page. The mod's own
 page a subscriber reads before they click. Nothing here is generated, so if
 the campaign changes, this changes by hand.
 
-A note before the copy: this pack **requires 133 other Workshop mods**. That
+A note before the copy: this pack **requires 134 other Workshop mods**. That
 is not a footnote, it is the headline risk of publishing it. A subscriber who
 skims the description, subscribes, and starts the campaign with forty of them
 will get missions that are not the missions that were built. Say the number
@@ -47,8 +47,13 @@ It does not stay small.
 WHAT IT IS
   • Task Force Mode. You buy the force, and losses and expenditure carry
     forward. Losing a support ship costs you what that ship was doing.
-  • Twelve core missions, plus an optional operation and a contingency that
-    is offered whether or not you need it.
+  • Twelve core missions, plus four optional operations and two
+    contingencies. What you do in an optional operation is read later: a
+    contact briefing with a picture in it, a Korean destroyer in your screen,
+    a tanker on the track, a rearm you earned by holding a service window.
+  • Partners arrive on their own terms - a New Zealand Poseidon for one
+    sortie, a Korean detachment for a fortnight, a Japanese pair, an American
+    carrier under a bounded arrangement - and none of them is yours to keep.
   • Eight standalone dispatches in the mission browser: allied rotations, the
     opposing side's logistics problem, a weapons range, an openly speculative
     2034 branch, and a 1988 Cold War exercise.
@@ -60,7 +65,7 @@ WHAT IT IS
 WHAT IT NEEDS — READ THIS PART
 
 This campaign is built on a large mod collection. It names units from
-**133 Steam Workshop mods**. That is the point of it — the campaign exists to
+**134 Steam Workshop mods**. That is the point of it — the campaign exists to
 give a very large collection somewhere purposeful to be used — but it means
 subscribing to this alone is not enough.
 
@@ -73,7 +78,7 @@ have — and it iterates, so their dependencies come too.
 Then open this mod's folder and read the files in it:
 
   REQUIRED-MODS.txt — every Workshop mod the campaign names, with its ID
-  LOAD-ORDER.txt    — the 140-entry Mod Manager order it was built against
+  LOAD-ORDER.txt    — the 141-entry Mod Manager order it was built against
   CREDITS.txt       — whose work this is built on
 
 Put this pack at the TOP of your load order. It contains whole-file
@@ -123,7 +128,7 @@ locale is set to, but the writing in them is not translated.
 STATUS
 
 First public release. The build is checked automatically — every unit,
-squadron, loadout variant and weapon in all twenty-two missions is verified to
+squadron, loadout variant and weapon in all twenty-six missions is verified to
 resolve against the mod that wins the load order, on every build. What that
 does NOT check is balance. No mission here has been played to completion by
 its author at the time of writing. Feedback on difficulty, pacing and anything

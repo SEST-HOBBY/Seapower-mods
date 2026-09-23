@@ -25,8 +25,9 @@ powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 Expect `1 of 1` installed plus a `purged` line per old per-pack folder.
 
 Two warnings are **expected** and are not faults: `dropped stale workshop
-entry` naming the two mods the repo has not catalogued yet (Automatic SAR and
-the Euromod South Korean Navy — see the install document's step 5), and the
+entry` naming the one mod the repo has not catalogued yet (Automatic SAR —
+see the install document's step 5; the Euromod South Korean Navy is now
+catalogued and ordered), and the
 `component ApproximateVersion values differ` note from the consolidation.
 `canonical pack not installed in StreamingAssets` is the one that means the
 install did not take — stop there.
@@ -42,7 +43,7 @@ is itself the answer to step 1.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| 1.1 | Campaign list | **SOUTHERN WATCH** present, 31 entries | Campaign not surfaced by the Mod Manager. Go to 1.3 and work from the browser |
+| 1.1 | Campaign list | **SOUTHERN WATCH** present, 35 entries | Campaign not surfaced by the Mod Manager. Go to 1.3 and work from the browser |
 | 1.2 | Start it | The 18 October card, then WHITE WATER | Note which of the two it stops on |
 | 1.3 | Mission browser → `Southern Watch 01 - White Water` | Loads, ships and aircraft visible | A missing unit names the mod that failed to load |
 
@@ -52,7 +53,7 @@ content. A texture or model that fails shows up here, not in the rules.
 
 ## 1A — the art (new, and entirely unverified)
 
-The pack now ships 32 generated PNGs and points `campaign.ini` at them with
+The pack now ships 36 generated PNGs and points `campaign.ini` at them with
 three keys read out of the vanilla campaigns. Whether a **mod-supplied**
 campaign's art loads the way the base game's does has never been watched
 happen, and the vanilla export carries no PNGs to compare against — so every
@@ -81,8 +82,10 @@ Pacific Strike campaign and has never been run.
 | 2.2 | Open the builder before SW01 | Exactly **3** buyable: Anzac, Arafura, MH-60R |
 | 2.3 | Buy an Anzac, take Variant3 or Variant8 | Both offered, priced 240 |
 | 2.4 | Deploy into SW01 | The purchased ship is **Taskforce1Vessel1**, on station, not adrift |
-| 2.5 | Finish SW01, open the builder before SW02 | The list has **grown** to 6 — Hobart, Supply and the P-8 added |
-| 2.6 | Before SW12 | Aircraft only. **No hulls for sale** |
+| 2.5 | Finish SW01, open the builder before SW02 | The list has **grown** to 5 — Hobart and the P-8 added. No Supply, no Collins, no KC-46: the roster sells nothing a mission cannot deploy |
+| 2.6 | Before SW05 | The builder says one ship sails it; the deployment screen accepts **exactly one vessel** (`Replaced`, `MaxUnits=1`). Send an Arafura and the magazine objective must still read her NSM cells |
+| 2.7 | Before SW07, SW08, O1, O2, C1 | **No deployment screen at all.** The note says nothing of your force sails; the mission launches as authored |
+| 2.8 | Before SW12 | Aircraft plus **Arafura and Anzac** as replacement hulls; no Hobart. Buy an F-35A and assign it to Combat Air Patrol: it must appear, fly and recover at Darwin |
 
 2.4 is the one to watch. If the bought ship is missing, misplaced, or the
 authored ship is still there beside it, the anchor model is wrong and the
@@ -92,13 +95,13 @@ whole economy sits on it.
 
 | # | Do | Expect |
 |---|---|---|
-| 3.1 | Before SW01, open Air Tasking | Two flights: **Ship's Flight** (1 slot) and **Maritime Patrol** (1) |
+| 3.1 | Before SW01, open Air Tasking | One flight: **Ship's Flight** (1 slot). Before SW02: Ship's Flight and **Maritime Patrol** (1) |
 | 3.2 | Assign a bought MH-60R to Ship's Flight | It takes the slot and is airborne at mission start |
 | 3.3 | Before SW06 | **Combat Air Patrol** (2 slots) and **Maritime Patrol** (1) |
 | 3.4 | SW07 | **No air tasking offered at all** — every aircraft in it is a named asset |
 | 3.5 | Anywhere | No flight offered with **0 slots**, and no slot with no flight |
 
-3.5 is the invariant: 22 rows, each pairing exactly with its sections. One
+3.5 is the invariant: 17 rows, each pairing exactly with its sections. One
 empty row means the pairing model is wrong.
 
 ## 4 — Fuel and recovery (changed most recently)
@@ -138,9 +141,35 @@ shipped missions imply.
 | 6.3 | Classify the group in SW06, reach SW11 | The three escorts are identified from the start, with an intel line |
 | 6.4 | Save mid-campaign, quit to desktop, reload | The flags above still hold |
 
+| 6.5 | Classify Torres Light in O1, then start SW02 | An intel line and the submarine on the route shown as a **classified** contact from the start; skip O1 and it is not |
+| 6.6 | Identify the coaster in O2, then start SW04 | The same shape: Kiwi 01's picture as intel, the submarine classified |
+| 6.7 | Bring both Korean warships in at O3, then start SW06 | **ROKS Sejong the Great** is in the screen. Lose either, or skip O3, and she is not (`SpawnByVariableAND=O3ShieldJoined,IsTrue` — the first `IsTrue` spawn in the pack) |
+| 6.8 | Put both coasters in at O4, then start SW08 | A **KC-46** on the track south of the box; skip or fail O4 and there is none |
+| 6.9 | Hold the SW09 service window, then open the SW10 pre-mission screen | A **rearm** is offered. Miss the window (leave the box before 35:00 and lose it) and it is not (`TaskForceModeRearmByVariableAND`) |
+
 6.4 is the real test. Declaration, write and read are all present in the files
 and statically consistent; whether the campaign carries a flag across a save
-is the one thing no amount of reading can settle.
+is the one thing no amount of reading can settle. 6.7 and 6.9 use syntax the
+shipped data does not attest (`IsTrue`; the rearm-by-variable key is from the
+developer guide), so each is a design answer either way.
+
+## 7 — the review's engine tests
+
+The independent review of `057405fe` listed the runs that no static check
+can replace. Each is a counterexample to try, not a feature to admire.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 7.1 | SW03: send lifter A to the platform and park lifter B in the withdrawal box | Nothing. B's arrival scores nothing until **B** has visited the platform; A entering the box wins | If B's arrival wins, `Action_EnableTriggers` is not reaching the per-unit triggers |
+| 7.2 | SW03: A makes the pickup, then lose A | Defeat, with the "lost after the pickup" message | If the mission continues, the per-unit lost trigger was not enabled |
+| 7.3 | SW08 from the campaign map | No deployment screen; the authored Growler, F-35As and KC-130Js are present with their authored stores; the F-35As recover to **Langgur** | A deployment screen means blank generation does not do what the guide says |
+| 7.4 | SW09: leave the box at 30:00 and return at 34:00; then at 36:00 | Tells us whether `Time=2100` is absolute and whether re-entry counts. Record what completed and when | Either answer is a design answer: the brief says the rule is the box at the moment the window closes |
+| 7.5 | SW09: the withdrawal trigger it enables has its own clock | Note whether the box completes immediately on entry or waits | Decides whether a disabled trigger's `Condition_Time` restarts on enable |
+| 7.6 | Recovery: order RTB on the Lynx (O3), the Harrier (D3), the U-2 (D7), the VH-3D (D2) and an F-35A (SW08) | Each lands on its `HomeBase` | Name the airframe and the deck; the fit was declared by the two files |
+| 7.7 | D3: watch the column and the roadblock from the start | The column **drives** the road toward the distribution point; the roadblock moves onto it | Land units ignoring `Waypoints` means the column objective needs a different shape |
+| 7.8 | O3: the Korean ships | Sejong the Great and Daegu appear, fire, and the Lynx flies from Sejong | A missing hull names the mod (3789208859) or its Euromod parent |
+| 7.9 | SW01: win at the deadline's last minute; and win while a fatal loss lands in the same update | One outcome only, objectives resolved once | Two endings means the shared exit needs a delay after all |
+| 7.10 | SW05 with an Arafura alone | She is `Taskforce1Vessel1`; the mission's texts read correctly for her; the magazine objective fails when her NSM cells are empty | If the authored Anzac is still beside her, the `Replaced` model is wrong |
 
 ## What I most expect to be wrong
 
@@ -151,6 +180,8 @@ is the one thing no amount of reading can settle.
    planning fraction.
 4. **Objective cancellation does not read as cancelled** (5.2).
 5. **A campaign variable does not survive a save** (6.4).
+6. **`IsTrue` does not spawn** (6.7, 6.8) — the one comparison the shipped
+   data never uses.
 
 Any of those is a design answer, not a bug report — send what you saw and I
 will change the model rather than patch the symptom.

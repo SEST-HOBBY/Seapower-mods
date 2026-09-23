@@ -23,7 +23,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
-| `integration/campaign/` | **SEST Southern Watch** — a native Task Force Mode campaign (twelve main missions, an optional operation, a contingency) plus eight dispatches, built so that every enabled mod is reached by something it places or prices |
+| `integration/campaign/` | **SEST Southern Watch** — a native Task Force Mode campaign (twelve main missions, four optional operations, two contingencies) plus eight dispatches, built so that every enabled mod is reached by something it places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -58,7 +58,8 @@ powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -Include
 
 `integration/campaign/` builds **SEST Southern Watch — The Northern Lifeline**:
 twelve connected missions in October–November 2028 in which Australia and its
-regional partners keep the northern sea routes open, plus eight dispatches
+regional partners keep the northern sea routes open, four optional operations
+and two contingencies that the core reads back, plus eight dispatches
 (allied rotations, an opposing-force passage, a weapons range, an openly
 speculative 2034 branch and a 1988 exercise). `docs/campaigns/southern-watch/`
 holds the design bible it was built from and the build notes.

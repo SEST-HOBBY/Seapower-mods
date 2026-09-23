@@ -128,6 +128,9 @@ All named characters and commercial organisations in this section are fictional.
 | Master Leila Santos, MV Coral Pioneer | A civilian perspective that returns throughout the campaign | A route her crew can actually use and instructions they can trust |
 | Meridian duty controller | A changing mix of routine commerce, evasion and coercion | Early ambiguity; later evidence should distinguish individual actors |
 | Opposing task-group commander | Professional, constrained military opponent | Complete the assigned pressure operation without losing an irreplaceable fleet |
+| Commander Morgan Reid, RAN — the player | The task group commander at sea; Mercer's signals are addressed to them | Not a voice in the text: the player's decisions are the character |
+| Squadron Leader Tane Rewi, No. 5 Squadron RNZAF | One Poseidon, one sortie, on a national allocation (O2 Southern Cross) | A picture worth having, and the aircraft home to Darwin - she is not the player's to keep or to lose |
+| Captain Han, ROKN, Sejong the Great | A Korean detachment for one fortnight (O3 Borrowed Shield → SW06) | Fires when fired upon or when the player is; the fortnight starts only if both warships arrive |
 
 Use short radio traffic, log extracts and debriefs. Avoid large fictional cabinet speeches between every mission. No nationality should make every fishing boat, merchant or airliner hostile.
 
@@ -160,7 +163,7 @@ Mission durations below are design targets for active play. Long strategic trans
 | SW02 | Steel Highway — Coral Sea | Escort a priority supply convoy | SEST ANL Convoy – Coral Sea |
 | SW03 | Rig Seventeen — Timor Sea | Cover an offshore evacuation | Living Seas platform and helicopter assets |
 | SW04 | The Quiet Passenger — Banda approaches | Identify and track a suspected covert supply craft | Narco Transit |
-| SW05 | Warramunga's Shot — Timor corridor | Defeat an armed interception attempt | Warramunga's Shot |
+| SW05 | Weapons Free — Timor corridor | Defeat an armed interception attempt | Weapons Free |
 | SW06 | Blind Horizon — Arafura Sea | Maintain a usable maritime picture under pressure | Triton's Picture |
 | SW07 | Long Way Home — northern air corridor | Bring a strike/patrol package home while protecting support aircraft | Foxhound Sweep |
 | SW08 | The Open Door — fictional contested enclave | Open an evacuation/relief window | The Biak Regiment; Tigers over Papua |
@@ -209,7 +212,9 @@ A low-profile craft may be carrying weapons, smugglers or frightened crew. A con
 
 The existing `_narco_narcosub_adv` is a game representation, not evidence that armed narco submarines are a routine feature of the real Banda Sea. The core mission is tracking and interception; an explicitly armed variant can be an optional combat episode.
 
-### SW05 — Warramunga's Shot
+### SW05 — Weapons Free
+
+*(Titled Warramunga's Shot in the first drafts. As built it is the guide's one-ship pattern: `Replaced` generation with `TaskForceModeMaxUnits=1`, so the ship that sails is whichever the player sends, and the text addresses "your flagship" rather than a named hull.)*
 
 **Player:** HMAS Warramunga if still available, otherwise a surviving assigned Australian escort, its helicopter and a short support-aircraft window. **Target:** 30–45 minutes.
 
@@ -328,7 +333,7 @@ The identifiers below were resolved from the pinned snapshot. Re-resolve them af
 | Existing vignette | Campaign placement | Necessary adaptation |
 |---|---|---|
 | Sanctioned Cargo | SW01 and a later interdiction side mission | Retain classification pressure; replace blanket sanctioned-cargo sink objectives with individually established military threats and protected traffic |
-| Warramunga's Shot | SW05 | Protect the convoy, preserve the frigate, and remove universal weapon-superiority claims |
+| Weapons Free | SW05 | Protect the convoy, preserve the frigate, and remove universal weapon-superiority claims |
 | Fujian's Shadow | SW11 | Align scripted victory with transport/carrier protection; enemy carrier loss becomes optional |
 | The Biak Regiment | SW08 | Establish fictional occupation and partner consent; tie the strike to a relief window |
 | Narco Transit | SW04 | Tracking/interception primary; combat variant only with an explicitly armed threat |
@@ -471,7 +476,7 @@ The 12 existing Banda vignettes are source material for this schedule; they are 
 |---|---|---|---|
 | 1 — The interrupted passage | 18–24 Oct | **18 Oct: SW01 White Water**; **22 Oct: SW02 Steel Highway** | Identify the armed interference, then protect the first PNG delivery. Begin with Warramunga; form the larger escort group before SW02. |
 | 2 — Pressure without a declaration | 25–31 Oct | **26 Oct: SW03 Rig Seventeen**; **30 Oct: SW04 The Quiet Passenger** | Evacuation and covert supply tracking expose the network behind the attacks. Decide whether more patrol coverage is worth less air defence. |
-| 3 — The corridor contested | 1–7 Nov | **2 Nov: SW05 Warramunga's Shot**; **6 Nov: SW06 Blind Horizon** | Overt attacks begin. Growler and wider surveillance allocations become available; damage and magazine use become harder to absorb. |
+| 3 — The corridor contested | 1–7 Nov | **2 Nov: SW05 Weapons Free**; **6 Nov: SW06 Blind Horizon** | Overt attacks begin. Growler and wider surveillance allocations become available; damage and magazine use become harder to absorb. |
 | 4 — The relief window | 8–14 Nov | **9 Nov: SW07 Long Way Home**; **13 Nov: SW08 The Open Door** | Protect returning aircraft and open a humanitarian passage. Tanker access, specialist aircraft and regional staging matter as much as ships. |
 | 5 — Keep the force supplied | 15–21 Nov | **16 Nov: SW09 Southern Lifeline**; **20 Nov: SW10 Common Sea** | Replenishment, surfaced submarine support and the Japanese arrival sustain the route. Choose the allied air detachment for the convoy. |
 | 6 — One passage that must work | 22–28 Nov | **23 Nov: SW11 Fujian's Shadow**; **28 Nov: SW12 The First Ship Through** | Survive the fleet encounter, repair what can be repaired and escort the ceasefire convoy. The surviving force carries the ending. |
@@ -515,6 +520,34 @@ These are recovery operations unlocked by an operation that has **met its minimu
 **Completion semantics matter.** The shipped Pacific Strike rules require a failed mission to be replayed and say failure itself applies no additional persistent penalties. Keep that behaviour for true hard defeats in the first build. Model the above setbacks as qualifying completions, with the accepted force state and a recorded secondary outcome. The developer guide also describes result-dependent branching, but a defeat branch must be tested for save-state behaviour before replacing the safer completion-based design. Never claim a lost ship is both permanently removed and restored by the same replay path.
 
 Civilian/protected-primary failures retain explicit hard gates. A setback is a bounded operational shortfall, not a mechanism to turn an unacceptable loss into routine progress. Before advancing, show the next mission, lost optional windows, service availability and important consequences in the briefing/debrief.
+
+### As built (branch `sest-dev/loving-bell-3cnvvw`, 809d153a)
+
+The design tables above are the target. What ships is the twelve-mission core
+plus **four optional operations and two contingencies**, with eight standalone
+dispatches in the mission browser. IDs are stable; the remaining O/C designs
+above are future concepts and keep their design numbers until they are built.
+
+| ID · date | Operation | What it is | Consequence it writes / reads |
+|---|---|---|---|
+| O1 · 19 Oct | The Missing Beacon | Arafura and her Seahawk find MV Torres Light adrift among routed lane traffic; classify her, then bring the aircraft back to the ship. 50 points. | writes `O1BeaconFound` → SW02 reveals the submarine on the route as a classified contact, with the recorder's intel |
+| C1 · 23 Oct | After the Wake | Hobart's Seahawk works a drift box for MV Kerema Trader's people for thirty minutes, with a routed boat under it, then comes home. Pays 0. Offered whatever SW02 did, and says so. | none |
+| O2 · 24 Oct | Southern Cross | A New Zealand P-8A (No. 5 Squadron, Squadron Leader Rewi) on one sortie: identify the coaster pacing the lane, then land at Darwin. Launched as authored - nothing of the player's sails. 50 points. | writes `O2KiwiPicture` → SW04 reveals the submarine on the route with the picture as intel |
+| O3 · 4 Nov | Borrowed Shield | The player's detachment meets ROKS Sejong the Great, ROKS Daegu and the stores ship Busan Pioneer under a Kilo and a JH-7A pair; both warships must arrive alive. 60 points. | writes `O3ShieldJoined` → SW06 spawns Sejong the Great in the screen |
+| O4 · 10 Nov | Weather Alternate | Two fuel coasters into the Langgur anchorage past a Peykaap pair and a launcher on Kai Besar, with the town as the neutral objective. 50 points. | writes `O4LanggurStocked` → SW08 spawns a KC-46 on the track south of the box |
+| C2 · 25 Nov | Broken Wake | HMAS Stuart, one shaft, six knots by the Chief's word, escorted to the line under a Kilo and a J-15D pair. Pays 30 (recovery value). Stuart is a hull nothing else places, so she exists whatever happened at SW11. | none |
+
+Two further chains live in the core: `SW02SupplyLost` (SW09's dry-stores
+carrier is absent if Supply was lost), `SW06NorthernGroupClassified` (SW11
+starts with the screen identified), `SW11FujianSunk` (SW12's spoiler strike
+does not fly), and `SW09ServiceHeld` (Common Sea's rearm is granted only if
+the service window was held - `TaskForceModeRearmByVariableAND`).
+
+The Korean contribution is the Euromod addon **Euromod-South Korea Navy**
+(Workshop 3789208859): Sejong the Great (`ko_ddg-991`: SM-2, RAM, Hyunmoo,
+Haeseong), Daegu (`ko_ffg-818`: K-SAAM, 127 mm, ASROC, Mk46) and the
+`rok_mk99_a` Lynx. It is a temporary allied attachment, never sold: its hulls
+carry no `TaskForceCost`.
 
 ## 13. Money: requisition, maintenance and replacements
 
@@ -565,6 +598,8 @@ The native reference also awards small CSAR point credits. Set `CSARPointModifie
 A qualifying setback earns the main operation's ordinary allocation because its minimum task was completed. It loses its secondary benefit and may require a contingency. This avoids multiplying financial punishment into an unrecoverable spiral. Hard defeat does not pay. Verify that replaying completed missions cannot add repeated allocations to the active campaign save before releasing the economy.
 
 ### Proposed roster prices
+
+*As built, the roster sells eleven entries: Anzac 240, Hobart 480, Arafura 100; F-35A 45, F/A-18F 35, Growler 55, P-8 45, Wedgetail 80, Triton 60, MH-60R 20. Collins, Supply, Choules, Canberra, Mogami and the KC-46 in the table below are design options that no built mission can deploy as owned units, so they are not offered; Canberra, Supply, Choules, Mogami and the KC-46 appear as allocated theatre support where the story places them.*
 
 These are **fictional game-balance values**, per hull or individual aircraft, using the existing collection. Every purchasable entry needs an explicit campaign override; several inspected modern definitions lack an explicit task-force cost. A price in this table does not itself make a unit a working purchase or establish deck compatibility.
 
