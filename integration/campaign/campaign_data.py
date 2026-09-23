@@ -1757,7 +1757,7 @@ MISSIONS.append(dict(
             "do not give them one, and do not let them get close enough to "
             "find one on their own."),
     date=(2028, 11, 6), time=(8, 30), sea=4, clouds="Broken_2", wind="SW",
-    difficulty=3, minutes=70, centre=(-12.5, 125.5),
+    difficulty=3, minutes=85, centre=(-12.5, 125.5),
     blue_nation="Europe", red_nation="Russia",
     brief=(
         "WESTERN APPROACH. The corridor runs on fuel that arrives from outside "
@@ -1769,8 +1769,9 @@ MISSIONS.append(dict(
         "started. Typhoons out of Butterworth hold the air, with a Swedish "
         "AEW aircraft lent for the transit.\\n\\n"
         "The expeditionary detachment has put a MiG-35 pair and a Su-24 up "
-        "along the northern edge. They are here to find the oiler, not to "
-        "fight your escorts. Do not let them do either."),
+        "along the northern edge. They are here to find the oiler, and one "
+        "of the pair is carrying something for it. Take them down before "
+        "they do."),
     forces="Type 45, F124, Karel Doorman, Iver Huitfeldt, FREMM, Type 23, "
            "Merlin, Wildcat, a Sea Lynx and an NH90 across the group. "
            "Two Typhoons and a Saab AEW&C overhead. Opposing: MiG-35 pair and "
@@ -1779,14 +1780,15 @@ MISSIONS.append(dict(
         ("Oiler", "The replenishment group reaches the eastern box",
          "35,-35,Fail,Main"),
         ("Escorts", "Keep the escort rotation intact", "20,-25,Complete"),
-        ("Shadow", "Deny the shadowers a targeting solution", "15,-10,Complete"),
+        ("Shadow", "Splash the shadowers before they find the oiler", "15,-10,Complete"),
     ],
     victory=dict(kind="arrive", station="group", at=(-11.6, 129.4), radius=35,
+                 transit=14,
                  min_units=2, objective="Oiler"),
     fatal=[F("Oiler", ["group"])],
     neutral_objective="Oiler",
-    win="The group is in the eastern box and every escort in the rotation is "
-        "still answering. The corridor has fuel for another fortnight.",
+    win="The group is in the eastern box. The corridor has fuel for another "
+        "fortnight, and the rotation's ledger is whatever it is.",
     lose="The oiler is gone. Everything east of here now plans around a tank "
          "that does not refill.",
     stations={
@@ -1831,10 +1833,17 @@ MISSIONS.append(dict(
           name="MT Western Provider"),
         U("blue", "_vanilla", "civ_ms_ritina", "group",
           name="MT Passage Trader"),
-        U("red", "mig-35", "wp_mig-35", "red_air", name="Fulcrum-F 21"),
-        U("red", "mig-35", "wp_mig-35", "red_air", name="Fulcrum-F 22"),
+        # Routed onto the group: the shadowers used to sit 90 NM off with
+        # no waypoints. One of the pair carries Kh-31A, so finding the oiler
+        # has a consequence the Typhoons can prevent.
+        U("red", "mig-35", "wp_mig-35", "red_air", name="Fulcrum-F 21",
+          route=[(-11.6, 125.0, 28000), (-12.0, 124.6, 28000)], telegraph=3),
+        U("red", "mig-35", "wp_mig-35", "red_air", name="Fulcrum-F 22",
+          loadout="AntiShip",
+          route=[(-11.6, 125.0, 28000), (-12.0, 124.6, 28000)], telegraph=3),
         U("red", "more-su-24m-variants", "wp_su-24mp", "red_air",
-          name="Fencer recon", weapons="Hold"),
+          name="Fencer recon", weapons="Hold",
+          route=[(-11.5, 125.1, 28000), (-12.0, 124.7, 28000)], telegraph=3),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_curtin", "home",
           name="RAAF Base Curtin", nation="australia", weapons="Hold"),
     ],
@@ -1873,20 +1882,22 @@ MISSIONS.append(dict(
         ("Visit", "Get the VH-3D into the carrier box", "25,-20,Fail,Main"),
         ("Cycle", "Keep the carriers operating", "20,-25,Complete"),
         ("Tanker", "Do not lose the tanker", "10,-10,Complete"),
-        ("Neutrals", "Harm no neutral shipping or aircraft", "0,-25,Complete"),
+        ("Neutrals", "Harm no neutral shipping", "0,-25,Complete"),
     ],
-    victory=dict(kind="arrive", station="visit", at=(-15.6, 149.6), radius=15,
+    # The carrier box is the carriers: five miles around the deck the
+    # visitor lands on, not a solved circle 104 NM from it.
+    victory=dict(kind="arrive", station="visit", at=(-16.4, 150.0), radius=5,
                  min_units=1, objective="Visit"),
     fatal=[F("Cycle", ["carriers"])],
     neutral_objective="Neutrals",
-    win="The visitor is aboard, the package is down and the deck cycle never "
-        "broke. A quiet day, which is the point of the exercise.",
+    win="The visitor is aboard and the deck cycle never broke. A quiet day, "
+        "which is the point of the exercise.",
     lose="The cycle broke. Somebody will write a report about the afternoon "
          "the carriers stopped flying.",
     stations={
         "carriers": S(-16.4, 150.0, "Carrier box", heading=140),
         "screen": S(-16.5, 149.8, "Screen", heading=140),
-        "visit": S(-13.6, 148.5, "VIP lift", heading=180, alt=2000),
+        "visit": S(-15.2, 149.4, "VIP lift", heading=180, alt=2000),
         "air": S(-15.0, 149.4, "Support aircraft", heading=90, alt=28000),
         "sub": S(-16.6, 150.2, "Seawolf station", heading=140),
         "track": S(-13.5, 148.6, "Southern track", heading=200, alt=22000),
@@ -1944,13 +1955,18 @@ MISSIONS.append(dict(
     forces="Charles de Gaulle, a Horizon destroyer, Rafale M, Panther and "
            "Cougar helicopters, a VAB column ashore, Spanish AV-8B and AB-212.",
     objectives=[
-        ("Relief", "Get the relief column to the distribution point",
+        ("Relief", "Get both vehicles of the relief column to the distribution "
+                   "point",
          "35,-35,Fail,Main"),
         ("Town", "Leave the port and its people alone", "0,-35,Complete"),
+        ("Lift", "Put the lift over the distribution point", "10,-10,Complete"),
         ("Group", "Bring the amphibious group out", "15,-20,Complete"),
     ],
-    victory=dict(kind="arrive", station="lift", at=(-0.5, 128.0), radius=25,
-                 min_units=1, objective="Relief"),
+    # The column itself, both vehicles, at the point: land units carry
+    # Waypoints in eight native sections (Caron at Grenada, CombatRecon),
+    # so the column drives the road. The lift is scored separately.
+    victory=dict(kind="arrive", station="column", at=(-0.5, 128.0), radius=5,
+                 min_units=2, objective="Relief"),
     fatal=[F("Group", ["group"])],
     neutral_objective="Town",
     win="The distribution point is open and the column is ashore without a "
@@ -1963,6 +1979,11 @@ MISSIONS.append(dict(
         "lift": S(0.4, 127.0, "Relief lift", heading=110, alt=2000),
         "cap": S(0.6, 126.8, "Rafale pair", heading=90, alt=28000),
         "shore": S(-0.5, 128.0, "Distribution point", heading=0),
+        # The column starts twenty miles up the road; the roadblock sits
+        # between it and the point, not beside the tents.
+        "column": S(-0.3, 127.7, "Relief column", heading=120),
+        "road": S(-0.42, 127.88, "Roadblock", heading=300),
+        "beach": S(0.15, 127.35, "Lift-track traffic", heading=90),
         "harrier": S(0.2, 127.4, "Spanish detachment", heading=120, alt=15000),
     },
     units=[
@@ -1986,16 +2007,24 @@ MISSIONS.append(dict(
           name="Harrier 31"),
         U("blue", "euromod-spanish-cold-war", "spa_ab212", "harrier",
           name="Spanish Flight", alt=2500),
-        U("blue", "french-army-vehicles", "fr_apc_vab_top", "shore",
-          name="Relief column lead"),
-        U("blue", "french-army-vehicles", "fr_apc_griffon", "shore",
-          name="Relief column two"),
+        U("blue", "french-army-vehicles", "fr_apc_vab_top", "column",
+          name="Relief column lead", weapons="Tight",
+          route=[(-0.5, 128.0, 0)], telegraph=3),
+        U("blue", "french-army-vehicles", "fr_apc_griffon", "column",
+          name="Relief column two", weapons="Tight",
+          route=[(-0.5, 128.0, 0)], telegraph=3),
         U("neutral", "buildings-targets-missions", "4tentgroup", "shore",
           name="Distribution point"),
         U("blue", "_vanilla", "civ_ms_encounter", "group",
-          name="MV Halmahera coaster"),
-        U("red", "pla-land-unit-pack", "pla_apc_zbl-08", "shore",
-          name="Roadblock detachment"),
+          name="MV Halmahera coaster", loadout="Containers"),
+        U("red", "pla-land-unit-pack", "pla_apc_zbl-08", "road",
+          name="Roadblock detachment", route=[(-0.3, 127.7, 0)], telegraph=2),
+        # Something to tell the roadblock from: an unarmed pickup on the same
+        # road and a fishing boat off the beach the lift comes in over.
+        U("neutral", "pickup-truck-extension", "civ_car_pickup_1983", "road",
+          name="Village pickup"),
+        U("neutral", "_vanilla", "civ_fv_sterntrawler_b", "beach",
+          name="Halmahera fishing boat", route=[(-0.1, 127.7, 0)], telegraph=2),
     ],
 ))
 
@@ -2012,7 +2041,7 @@ MISSIONS.append(dict(
     difficulty=4, minutes=75, centre=(-5.0, 130.0),
     blue_nation="Russia", red_nation="Australia",
     brief=(
-        "BANDA SEA, first watch. The auxiliary took a torpedo forward eleven "
+        "BANDA SEA, middle watch. The auxiliary took a torpedo forward eleven "
         "days ago and has been making six knots ever since. She carries the "
         "detachment's remaining missile stocks and the only workshop between "
         "here and home.\\n\\n"
@@ -2022,19 +2051,25 @@ MISSIONS.append(dict(
         "tells the other side where you are going.\\n\\n"
         "Get her south-east past the corridor. This is not a raid. If you "
         "start a fleet action to protect a workshop ship you will lose both."),
-    forces="Pyotr Velikiy, a Project 11356 frigate, Su-57 pair, Su-30SM2, "
-           "MiG-29K, a Tu-160 and a Tu-95MS on call. One damaged auxiliary.",
+    forces="Pyotr Velikiy, a Project 11356 frigate and Kuznetsov's covering "
+           "group; a Felon, a Su-30SM2, a MiG-29K, a Su-33 and a lent J-16D; a "
+           "Tu-160 and two Tu-95MS already airborne. One damaged auxiliary, and "
+           "three neutral merchants on the same track. Opposing: an Australian "
+           "patrol - a Hobart and an Anzac with an F-35A and a P-8A over them.",
     objectives=[
         ("Auxiliary", "Bring the auxiliary through to the south-east",
          "40,-40,Fail,Main"),
         ("Cruiser", "Do not lose the heavy cruiser", "20,-30,Complete"),
-        ("Restraint", "Avoid a fleet action you cannot finish",
+        ("Traffic", "Harm no neutral shipping", "0,-25,Complete"),
+        ("Restraint", "Avoid a fleet action you cannot finish: harm nothing "
+                      "of the coalition's",
          "10,-15,Complete"),
     ],
     victory=dict(kind="arrive", station="auxiliary", at=(-7.0, 132.5),
+                 transit=6,
                  radius=35, min_units=1, objective="Auxiliary"),
     fatal=[F("Auxiliary", ["auxiliary"])],
-    neutral_objective="Restraint",
+    neutral_objective="Traffic",
     win="She is past the corridor and making for home at six knots with the "
         "stocks intact. Nobody on either side had to explain a fleet action "
         "to a government this week.",
@@ -2047,6 +2082,9 @@ MISSIONS.append(dict(
         "bomber": S(-2.6, 129.0, "Bomber track", heading=160, alt=34000),
         "red_sag": S(-5.2, 128.2, "Coalition patrol", heading=60),
         "red_air": S(-5.4, 128.4, "Coalition CAP", heading=60, alt=30000),
+        # The passage is "among neutral shipping": three merchants on the
+        # same track through the box.
+        "lane": S(-4.85, 130.45, "Corridor traffic", heading=130),
         # The bombers and the land-based fighters recover on the enclave's
         # dispersal field, 390 NM north-east, not on Kuznetsov.
         "field": S(-1.1, 136.2, "Enclave dispersal field", heading=90),
@@ -2077,10 +2115,19 @@ MISSIONS.append(dict(
           name="HMAS Hobart"),
         U("red", "SEST_RAN_Fleet", "ran_ffh_anzac", "red_sag", variant="Variant8",
           name="HMAS Perth"),
+        # Red can reply: JSM under the F-35A, Harpoon under the P-8. The
+        # reviewed build's only way to lose was the clock.
         U("red", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "red_air",
-          squadron="Squadron3", name="Vigilant 41"),
+          squadron="Squadron3", name="Vigilant 41",
+          loadout="StrikeLongRangeStealth"),
         U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
-          name="Bluefin 29"),
+          name="Bluefin 29", loadout="AntiShip"),
+        U("neutral", "_vanilla", "civ_ms_ritina", "lane", name="MT Seram Spirit",
+          route=[(-7.0, 132.5, 0)], telegraph=3),
+        U("neutral", "_vanilla", "civ_ms_roro_b", "lane", name="MV Ambon Ferry",
+          route=[(-7.0, 132.45, 0)], telegraph=3),
+        U("neutral", "re-power-resupply", "civ_ms_andizhan", "lane",
+          name="MV Tual Trader", route=[(-6.95, 132.55, 0)], telegraph=3),
     ],
 ))
 
@@ -2098,19 +2145,22 @@ MISSIONS.append(dict(
     blue_nation="Australia", red_nation="Iran",
     brief=(
         "NORTHERN TERRITORY RANGES. This is a trial, not a battle. The "
-        "coalition has brought its layered-defence systems to Delamere for a "
+        "coalition has brought its layered-defence systems to the Darwin range for a "
         "fortnight of live shots, and the threat side of the range is run by "
         "the trials unit with captured and purchased launchers.\\n\\n"
         "Today's serial is the hard one: a THAAD battery and a David's Sling "
         "pair engaging a mixed ballistic and cruise raid launched from the "
-        "range's own northern pads. A Japanese Type 12 battery is firing a "
-        "separate anti-ship serial at the seaward target, and an ARRW round is "
-        "being flown out of the range field.\\n\\n"
+        "range's own southern pads - the Sejjil pad among them is a target, "
+        "not a shooter; nothing on this range is inside its minimum. A "
+        "Japanese Type 12 battery is firing a separate anti-ship serial at "
+        "the seaward target, and a Warthog carries the counter-launcher "
+        "shot.\\n\\n"
         "Everything red here belongs to the range. Nothing ashore is "
-        "somebody's country. Score the intercepts and do not put a round "
+        "somebody's country. Kill three pads, put the serial into the target, and do not put a round "
         "outside the danger area."),
     forces="THAAD with AN/TPY-2, a David's Sling battery, a Type 12 SSM "
-           "battery, an ARRW-capable range field and an A-10A target tow. "
+           "battery, the range field, an A-10A with the counter-launcher shot "
+           "and an F-16A chase. "
            "Range threat pads: Scud-B, Sejjil, Iskander and a Shahed line.",
     objectives=[
         # The trigger destroys launchers, so the objective says destroy
@@ -2119,19 +2169,22 @@ MISSIONS.append(dict(
         ("Pads", "Destroy three of the four range threat pads",
          "35,-25,Fail,Main"),
         ("Serial", "Put the anti-ship serial into the seaward target",
-         "15,-10,Complete"),
+         "15,-10,Fail"),
         ("Safety", "Hit nothing outside the danger area", "0,-30,Complete"),
         # The loss rule below ends the exercise the moment ONE of the four
         # defence units is destroyed. That was true before this objective
         # existed too - it just went unannounced, and the defeat was reported
         # as a failure to destroy the enemy's pads, which is a different
         # exercise entirely. An unstated loss condition is not difficulty.
-        ("Battery", "Keep all four defence batteries in action",
+        ("Battery", "Keep all four defence units in action",
          "0,-30,Complete"),
     ],
     victory=dict(kind="destroy", stations=["pads"], min_units=3,
                  objective="Pads"),
     fatal=[F("Battery", ["battery"])],
+    # The player's force is the batteries; losing the two aircraft is not
+    # losing the trial.
+    force_loss=False,
     neutral_objective="Safety",
     win="Three of four pads down, the anti-ship serial into the target and the "
         "trials staff already arguing about the fourth. Good week.",
@@ -2142,9 +2195,10 @@ MISSIONS.append(dict(
         "pads": S(-14.5, 132.5, "Range threat pads", heading=180),
         "coastal": S(-12.4, 131.2, "Type 12 battery", heading=300),
         "field": S(-12.6, 131.1, "Range field", heading=90),
-        "tow": S(-13.0, 131.4, "Target tow", heading=180, alt=18000),
+        "tow": S(-13.0, 131.4, "Counter-launcher serial", heading=180, alt=18000),
         "target": S(-12.0, 130.5, "Seaward target", heading=270),
         "safety": S(-11.5, 129.6, "Range safety area", heading=90, alt=31000),
+        "airway": S(-11.7, 129.9, "Darwin-Singapore airway", heading=300, alt=31000),
     },
     units=[
         U("blue", "thaad", "thaad_tel", "battery", name="THAAD launcher"),
@@ -2159,8 +2213,8 @@ MISSIONS.append(dict(
           name="Range field", weapons="Hold"),
         U("blue", "apex-predators-mig-29-f-16", "airfield_us", "field",
           name="Range support strip", weapons="Hold"),
-        U("blue", "a-10a", "usa_a-10a", "tow", name="Target tow 01",
-          weapons="Hold"),
+        U("blue", "a-10a", "usa_a-10a", "tow", name="Counter-launcher 01",
+          loadout="AntiArmor"),
         U("blue", "apex-predators-mig-29-f-16", "usaf_f-16a", "tow",
           name="Chase 02", weapons="Hold"),
         U("red", "scud-b", "wp_scud_9k72", "pads", name="Range pad SCUD"),
@@ -2180,7 +2234,7 @@ MISSIONS.append(dict(
         # is a line of text and nothing else.
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "safety",
           name="Range safety boat"),
-        U("neutral", "civil-aircraft-airbus", "civ_a330", "safety",
+        U("neutral", "civil-aircraft-airbus", "civ_a330", "airway",
           name="Darwin-Singapore service", snap="sea"),
     ],
 ))
@@ -2202,7 +2256,7 @@ MISSIONS.append(dict(
         "The YF-23 went into production in this timeline, the AIM-260 and the "
         "AIM-424 exist in quantity, the Rafale F5 carries LRASM and the J-36 "
         "and J-50 are operational squadrons rather than airframes on a taxiway.\\n\\n"
-        "A bomber stream is going north-west against a relocatable launcher "
+        "A bomber stream is going north-east against a relocatable launcher "
         "complex with the RQ-180 ahead of it, and the opposing force has put "
         "up everything it does not officially have.\\n\\n"
         "Treat the weapons performance here as authored fiction. It is the "
@@ -2212,23 +2266,25 @@ MISSIONS.append(dict(
            "RQ-180, a B-52O, a B-1B and a B-52H in the stream. Opposing: J-36, "
            "J-50, a Tu-95MA with Meteorit and a relocatable launcher complex.",
     objectives=[
-        ("Stream", "Get the bomber stream through to release",
+        ("Stream", "Put the stream's release on the launcher complex",
          "40,-35,Fail,Main"),
         ("Escort", "Keep the escort fighters alive", "20,-20,Complete"),
-        ("Sensor", "Keep the RQ-180 on task", "15,-15,Complete"),
+        ("Sensor", "Keep the RQ-180 alive", "15,-15,Complete"),
     ],
-    victory=dict(kind="arrive", station="stream", at=(-1.2, 131.6), radius=40,
-                 min_units=2, objective="Stream"),
-    fatal=[F("Stream", ["stream"])],
+    # The complex is the target: the stream's Standoff rounds on it, not an
+    # arrival circle 57 NM short of it.
+    victory=dict(kind="destroy", stations=["complex"], min_units=1,
+ objective="Stream"),
+    fatal=[F("Stream", ["stream"], 2)],
     neutral_objective="Escort",
     win="The stream released on the complex and the escorts came home. In this "
         "timeline the aircraft that were cancelled in ours got to matter.",
     lose="The stream broke up short of release. Even in fiction, range is "
          "range.",
     stations={
-        "stream": S(-4.4, 130.1, "Bomber stream", heading=330, alt=38000),
-        "escort": S(-4.2, 130.4, "Escort", heading=330, alt=40000),
-        "sensor": S(-3.2, 130.8, "RQ-180 track", heading=320, alt=60000),
+        "stream": S(-4.4, 130.1, "Bomber stream", heading=28, alt=38000),
+        "escort": S(-4.2, 130.4, "Escort", heading=28, alt=40000),
+        "sensor": S(-3.2, 130.8, "RQ-180 track", heading=28, alt=60000),
         "red_air": S(-2.4, 129.1, "Opposing fighters", heading=150, alt=42000),
         "red_bomber": S(-2.6, 129.3, "Opposing bomber", heading=150, alt=36000),
         "complex": S(-1.0, 131.5, "Launcher complex", heading=180),
@@ -2241,10 +2297,12 @@ MISSIONS.append(dict(
         "red_field": S(-1.1, 136.2, "Enclave field", heading=90),
     },
     units=[
+        # The counters the brief promises: AIM-424 under the Widows, the
+        # very-long-range fit under the Viper. They flew Empty and AirToAir.
         U("blue", "yf-23-black-widow-ii", "usaf_yf-23_black_widow_ii", "escort",
-          name="Black Widow 11"),
+          name="Black Widow 11", loadout="AirToAirIntercept"),
         U("blue", "yf-23-black-widow-ii", "usaf_yf-23_black_widow_ii", "escort",
-          name="Black Widow 12"),
+          name="Black Widow 12", loadout="AirToAirIntercept"),
         # Long Reach is a strike mission and the Eagle II flies a strike fit.
         # It also has to: the f-15ex mod is reached through the targeting pod
         # its strike loadouts hang, and the default air-to-air fit hangs
@@ -2252,16 +2310,18 @@ MISSIONS.append(dict(
         U("blue", "f-15ex", "usaf_f-15ex_SEII", "escort", name="Eagle II 21",
           loadout="StrikePrecision"),
         U("blue", "SEST_F16CM_JATM", "usaf_f-16cm-bl52d", "escort",
-          name="Viper 31"),
+          name="Viper 31", loadout="AirToAirVLongRange"),
         U("blue", "SEST_Rafale_F5", "fr_rafale_m_l", "escort", name="Rafale 41"),
         U("blue", "rq-180-white-bat", "usaf_rq-180", "sensor",
           name="White Bat 01", weapons="Hold"),
-        U("blue", "SEST_B52_ARRW", "usaf_b-52o", "stream", name="Stream 01"),
+        U("blue", "SEST_B52_ARRW", "usaf_b-52o", "stream", name="Stream 01",
+          loadout="Standoff"),
         U("blue", "b-1b", "usaf_b-1b_dts", "stream", name="Stream 02"),
         U("blue", "b-52h", "dts_b-52h", "stream", name="Stream 03"),
         U("red", "j-36-tailless", "plaaf_j36", "red_air", name="Tailless 51"),
         U("red", "j-50", "plan_j-50", "red_air", name="Silent 52"),
-        U("red", "3m25-meteorit", "wp_tu-95ma", "red_bomber", name="Meteorit 90"),
+        U("red", "3m25-meteorit", "wp_tu-95ma", "red_bomber", name="Meteorit 90",
+          loadout="AntiShip"),
         U("red", "pla-land-unit-pack", "pla_df-26b_tel", "complex",
           name="Relocatable launcher"),
         U("red", "pla-land-unit-pack", "pla_h-200a_radar", "complex",
@@ -2289,9 +2349,10 @@ MISSIONS.append(dict(
     intro="Cold Sea. A 1988 exercise in the same water, forty years before the "
           "campaign - the collection's retired aircraft where they belong.",
     sender="Exercise Director, PITCH BLACK 88, maritime phase",
-    intent=("July 1988. The strike serial is broken outside its release line "
-            "or the umpires score it against you. Nobody is shooting "
-            "anything real. Everybody flies home."),
+    intent=("July 1988. It was an exercise until 0412, when the Bear released "
+            "on the range ship with a live round. Kill the Bear before its "
+            "release line, leave the tanker alone - the umpires still score "
+            "that - and bring the U-2 home."),
     date=(1988, 7, 12), time=(5, 55), sea=3, clouds="Scattered_1", wind="SE",
     difficulty=3, minutes=60, centre=(-11.0, 130.2),
     blue_nation="USA", red_nation="Russia",
@@ -2303,19 +2364,24 @@ MISSIONS.append(dict(
         "behind it, a Dragon Lady is high over the exercise box, and the "
         "Nighthawk detachment is flying its first Southern Hemisphere sortie "
         "with the F-8s of the aggressor squadron as its problem.\\n\\n"
-        "This is an exercise. It is also the only place in this collection "
-        "where a Tomcat, an F-117, a Tornado and a Bear G share a sky without "
-        "somebody having to invent a reason."),
+        "It was an exercise until 0412, when the Bear released a live round "
+        "at the range ship and the aggressors started answering with real "
+        "missiles. The umpires are still on the net: the Badger tanker is "
+        "out of play and a shot at it is scored against you. It is also the "
+        "only place in this collection where a Tomcat, an F-117, a Tornado "
+        "and a Bear G share a sky without somebody having to invent a "
+        "reason."),
     forces="F-14A and F-117 detachments, a B-52G, a U-2, an Italian Tornado "
            "detachment on exchange. Aggressors: J-8, Tu-16N, Tu-95 Bear G.",
     objectives=[
-        ("Serial", "Defeat the maritime strike serial", "35,-25,Fail,Main"),
-        ("Recovery", "Recover the exercise aircraft", "15,-15,Complete"),
-        ("Umpire", "Stay inside the exercise rules", "0,-20,Complete"),
+        ("Serial", "Kill the Bear before its release line", "35,-25,Fail,Main"),
+        ("Recovery", "Bring Dragon 41 home", "15,-15,Complete"),
+        ("Umpire", "The tanker is out of play - a shot at it is scored "
+                   "against you", "0,-20,Complete"),
     ],
-    victory=dict(kind="destroy", stations=["aggressor"], min_units=2,
+    victory=dict(kind="destroy", stations=["aggressor#1"], min_units=1,
                  objective="Serial"),
-    fatal=[F("Recovery", ["high"])],
+    fatal=[],
     neutral_objective="Umpire",
     win="The strike serial was broken outside its release line and everybody "
         "recovered. The debrief will still take four hours.",
@@ -2326,6 +2392,8 @@ MISSIONS.append(dict(
         "strike": S(-11.6, 129.9, "Strike detachment", heading=20, alt=24000),
         "high": S(-12.0, 130.5, "High assets", heading=90, alt=60000),
         "aggressor": S(-8.8, 129.2, "Aggressor force", heading=180, alt=30000),
+        # The fighters sweep ahead of the Bear instead of flying its speed.
+        "sweep": S(-9.6, 129.6, "Aggressor sweep", heading=180, alt=30000),
         "sea": S(-12.1, 130.7, "Exercise surface group", heading=270),
         "range": S(-12.5, 131.0, "Exercise field", heading=0),
     },
@@ -2346,13 +2414,13 @@ MISSIONS.append(dict(
         U("red", "tu-95k-22", "wp_tu-95_bearg", "aggressor", name="Bear G 90"),
         U("red", "tu-16n", "wp_tu-16n", "aggressor", name="Badger tanker",
           weapons="Hold"),
-        U("red", "j-8", "plaaf_j-8f", "aggressor", name="Aggressor 51"),
-        U("red", "j-8", "plaaf_j-8f", "aggressor", name="Aggressor 52"),
+        U("red", "j-8", "plaaf_j-8f", "sweep", name="Aggressor 51"),
+        U("red", "j-8", "plaaf_j-8f", "sweep", name="Aggressor 52"),
         # The Custom Loadout Editor's own files are its ammunition and its
         # authoring UI; its patches/ folder is not a path the game loads. The
         # aggressor Flogger's air-to-air fit hangs its rounds, which is the
         # only way a mission can make the game read it.
-        U("red", "custom-loadout-editor", "wp_mig-23a", "aggressor",
+        U("red", "custom-loadout-editor", "wp_mig-23a", "sweep",
           name="Aggressor 53"),
     ],
 ))
@@ -2367,7 +2435,7 @@ MISSIONS.append(dict(
             "enclave window closes, and bring the gunship home with fuel to "
             "spare."),
     date=(2028, 11, 12), time=(17, 30), sea=2, clouds="Broken_2", wind="E",
-    difficulty=3, minutes=65, centre=(-7.5, 138.5),
+    difficulty=3, minutes=80, centre=(-7.5, 138.5),
     blue_nation="USA", red_nation="China",
     brief=(
         "SOUTHERN PAPUA, last light. The relief corridor out of the enclave "
@@ -2377,19 +2445,26 @@ MISSIONS.append(dict(
         "a Warthog pair on the ridge, a gunship on the loiter and a Strike "
         "Eagle section holding the long shots. A Polish F-16 detachment "
         "transiting to the theatre has been pulled in for escort.\\n\\n"
-        "Get the column to the airhead. The gunship is only usable because "
-        "nothing in this sector has a working radar - if the J-16D "
-        "re-establishes the picture, it leaves."),
+        "Get the column - the relief truck is the column - to the airstrip. "
+        "The gunship is only usable because nothing in this sector has a "
+        "working radar; if the J-16 re-establishes the picture, pull it the "
+        "moment a fighter radar comes up. Losing the gunship ends the "
+        "operation."),
     forces="Two AH-64E, an A-10C, an AC-130J, two F-15E, a Polish F-16C, a "
-           "B-2 on a single allocated pass. Opposing: a J-16D, PLA road "
+           "B-2 on a single allocated pass. Opposing: a J-16, an attack "
+           "helicopter, PLA road "
            "detachments and a mobile SAM.",
     objectives=[
-        ("Column", "Get the relief column to the airhead", "35,-35,Fail,Main"),
+        ("Column", "Get the relief truck to the airstrip", "35,-35,Fail,Main"),
         ("Gunship", "Do not lose the gunship", "20,-25,Complete"),
         ("Village", "Leave the settlements alone", "0,-30,Complete"),
     ],
-    victory=dict(kind="arrive", station="column", at=(-4.6, 137.1), radius=30,
-                 min_units=1, objective="Column"),
+    # The airhead IS the airstrip, and the cargo IS the truck: the box is
+    # drawn on the strip and only the HEMTT counts. The reviewed build let
+    # the Jaguar escort, or a civilian pickup, win it 19 NM from the strip.
+    victory=dict(kind="arrive", units=["column#2"], station="column",
+                 at=(-8.38, 140.35), radius=3,
+ objective="Column"),
     fatal=[F("Gunship", ["support"])],
     neutral_objective="Village",
     win="The column is at the airhead and the gunship went home with fuel to "
@@ -2405,14 +2480,15 @@ MISSIONS.append(dict(
         # The perimeter threat sits ON the column's route - the only proven
         # ground in this theatre is around the column - instead of 156 NM
         # up-country where a 6 NM SAM covers nothing.
-        "ridge": S(-8.55, 140.40, "Covered ridge", heading=120),
+        "ridge": S(-8.45, 140.42, "Covered ridge", heading=120),
         "ridge_air": S(-8.3, 140.72, "Attack helicopter", heading=250, alt=1500),
-        "red_air": S(-8.1, 139.8, "Opposing fighter", heading=150, alt=30000),
+        "red_air": S(-8.6, 141.4, "Opposing fighter", heading=270, alt=30000),
         "home": S(-12.6188, 142.094, "RAAF Base Scherger"),
         # A perimeter operation flies from the perimeter. Everything here
         # was homed on Scherger 370 NM back - inside a Warthog's legs
         # and outside a Viper's, and a long way to send an Apache.
-        "strip": S(-8.5165, 140.4812, "Forward airstrip"),
+        "strip": S(-8.38, 140.35, "Forward airstrip"),
+        "traffic": S(-8.52, 140.48, "Road traffic", heading=300),
     },
     units=[
         U("blue", "ah-64", "usa_ah-64e", "gun", name="Gunfighter 11"),
@@ -2422,12 +2498,12 @@ MISSIONS.append(dict(
         U("blue", "f-15e-strike-eagle", "usaf_f-15e_SE", "escort",
           name="Strike Eagle 41"),
         U("blue", "f-16c-modern", "pol_f-16c-bl52plus", "escort",
-          name="Viper 51"),
+          name="Viper 51", loadout="AirToAir"),
         U("blue", "b-2-spirit", "usaf_b-2_spirit", "pass", name="Spirit 01"),
         U("blue", "french-army-vehicles", "fr_afv_jaguar", "column",
-          name="Column escort"),
+          name="Column escort", route=[(-8.38, 140.35, 0)], telegraph=3),
         U("blue", "re-power-resupply", "usa_car_hemtt", "column",
-          name="Relief column"),
+          name="Relief column", route=[(-8.38, 140.35, 0)], telegraph=3),
         U("red", "pla-land-unit-pack", "pla_9k331", "ridge",
           name="Mobile SAM, ridge"),
         U("red", "pla-land-unit-pack", "pla_apc_zbl-08", "ridge",
@@ -2438,7 +2514,7 @@ MISSIONS.append(dict(
         U("red", "z-21", "pla_z21", "ridge_air", name="Ridge flight", alt=1500),
         U("neutral", "buildings-targets-missions", "4tentgroup", "ridge",
           name="Settlement"),
-        U("neutral", "pickup-truck-extension", "civ_car_pickup_1983", "column",
+        U("neutral", "pickup-truck-extension", "civ_car_pickup_1983", "traffic",
           name="Civilian traffic"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_scherger", "home",
           name="RAAF Base Scherger", nation="australia", weapons="Hold"),
@@ -3241,11 +3317,11 @@ TIMEOUTS = {
           "through did not get through.",
     "D1": "The group is still west of the line. The corridor plans around a "
           "tank that does not refill.",
-    "D2": "The cycle broke and the visit was waved off. Somebody will write a "
+    "D2": "The visit was waved off. The deck kept cycling, but the commander is still on the beach and somebody will write a "
           "report about the afternoon the carriers stopped flying.",
     "D3": "The beach window closed. The distribution point never opened and the "
           "request for help goes elsewhere.",
-    "D4": "Daylight, and the auxiliary is still in the corridor at six knots "
+    "D4": "Nautical twilight, and the auxiliary is still in the corridor at six knots "
           "with every coalition sensor in the Banda looking for her.",
     "D5": "The serial ran out of range time with pads still standing. The "
           "trials report will say so at length.",
@@ -3271,11 +3347,7 @@ ARRIVALS = {
     "11": (138, 12),
     "12": (-142, 12),
     "D1": (85, 12),
-    "D2": (154, 20),
-    "D3": (133, 20),
     "D4": (135, 12),
-    "D6": (28, 20),
-    "D8": (-41, 12),
     "O1": (148, 20),
 }
 
@@ -3314,21 +3386,25 @@ RESOLVERS = {
            "Strike": ("destroy", "red_air#2", 1)},
     "12": {"Convoy": "victory", "Ceasefire": "neutral",
            "Escorts": ("protect", "escort")},
-    "D1": {"Oiler": "victory", "Escorts": ("survive", "escort"),
+    "D1": {"Oiler": "victory", "Escorts": ("protect", "escort"),
            "Shadow": ("destroy", "red_air", 2)},
     "D2": {"Visit": "victory", "Cycle": ("protect", "carriers"),
            "Tanker": ("protect", "air#2"), "Neutrals": "neutral"},
     "D3": {"Relief": "victory", "Town": "neutral",
-           "Group": ("protect", "group")},
+           "Group": ("protect", "group"),
+           "Lift": ("arrive", "lift", (-0.5, 128.0), 5, 1)},
     "D4": {"Auxiliary": "victory", "Cruiser": ("protect", "escort#1"),
-           "Restraint": ("survive", "cap")},
+           "Traffic": "neutral",
+           # Scored on the text: destroy anything of the coalition's and the
+           # objective fails. It used to be "not all five fighters lost".
+           "Restraint": ("spare", "red_sag", "red_air")},
     "D5": {"Pads": "victory", "Safety": "neutral",
            "Serial": ("destroy", "target", 1),
            "Battery": ("protect", "battery")},
-    "D6": {"Stream": "victory", "Escort": ("survive", "escort"),
+    "D6": {"Stream": "victory", "Escort": ("protect", "escort"),
            "Sensor": ("protect", "sensor")},
     "D7": {"Serial": "victory", "Recovery": ("protect", "high"),
-           "Umpire": ("protect", "sea")},
+           "Umpire": ("spare", "aggressor#2")},
     "D8": {"Column": "victory", "Village": "neutral",
            "Gunship": ("protect", "support")},
 }
