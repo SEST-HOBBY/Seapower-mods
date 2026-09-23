@@ -428,10 +428,10 @@ MISSIONS.append(dict(
             "through the box is a pass; Kokoda Star among them is the pass. "
             "All four is what Moresby is expecting."),
     date=(2028, 10, 21), time=(9, 20), sea=3, clouds="Broken_2", wind="SE",
-    difficulty=2, minutes=75, centre=(-12.5, 148.0),
+    difficulty=2, minutes=75, centre=(-10.3, 145.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "CORAL SEA. Port Moresby has asked for engineering plant, medical "
+        "GULF OF PAPUA. Port Moresby has asked for engineering plant, medical "
         "stores and fuel, and the Pukpuk arrangements mean we deliver them. "
         "Four priority hulls are in company with your flagship, EYRE and SUPPLY, "
         "and a Wedgetail is up with a tanker behind it.\\n\\n"
@@ -446,7 +446,8 @@ MISSIONS.append(dict(
            "E-7A Wedgetail and a KC-46 on the tanker track. One Type 039C in "
            "the area. Port Moresby is open beyond the box.",
     objectives=[
-        ("Cargo", "Get three of four priority ships into the Moresby box",
+        ("Cargo", "Get three of four priority ships, Coral Pioneer among them, "
+                  "into the Gulf box",
          "35,-35,Fail,Main"),
         ("Medical", "MV Kokoda Star must arrive", "15,-25,Complete"),
         ("Neutrals", "Harm no neutral shipping", "0,-30,Complete"),
@@ -456,26 +457,35 @@ MISSIONS.append(dict(
     # behind and sending the other three.
     victory=dict(kind="arrive", station="convoy", min_units=3,
                  objective="Cargo",
-                 also=[dict(units=["convoy#1"], min_units=1)]),
+                 # ...and Coral Pioneer, convoy#4, because the campaign is
+                 # about her and she sails again by name.
+                 also=[dict(units=["convoy#1"], min_units=1),
+                       dict(units=["convoy#4"], min_units=1)]),
     # Kokoda Star is the first hull at the convoy station: lose her and the
     # mission is over whatever the other three do.
-    fatal=[F("Medical", ["convoy#1"])],
+    fatal=[F("Medical", ["convoy#1"]), F("Cargo", ["convoy#4"])],
     neutral_objective="Neutrals",
     win="Three hulls through the approach box, Kokoda Star among them. "
         "Moresby's pilots have them from here, and the route is a route again.",
     lose="The convoy is short and Moresby is still waiting. The next one will "
          "have to be bigger, slower and later.",
     stations={
-        "escort": S(-13.4, 148.4, "Escort group", heading=320),
-        "convoy": S(-13.6, 148.6, "Priority convoy", heading=320),
-        "traffic": S(-13.41, 148.43, "Coral Sea traffic", heading=250),
+        # The Gulf of Papua, not the Coral Sea: the pages route this convoy
+        # from the Arafura through Torres Strait to "our entrance" (Kila's
+        # cable), and a coaster making eight knots since the eighteenth can
+        # be here on the twenty-second and could not be 230 NM south-east of
+        # Moresby. The box is the Gulf entrance where Moresby's pilots take
+        # over, 150 NM short of the wharf.
+        "escort": S(-10.2, 144.3, "Escort group", heading=70),
+        "convoy": S(-10.4, 144.5, "Priority convoy", heading=70),
+        "traffic": S(-10.21, 144.33, "Gulf traffic", heading=250),
         "moresby": S(-9.5, 147.0, "Port Moresby", heading=0),
-        "sub": S(-13.5, 148.2, "Submarine datum", heading=90),
-        "air": S(-12.0, 148.0, "Air support", heading=320, alt=30000),
+        "sub": S(-10.3, 144.1, "Submarine datum", heading=90),
+        "air": S(-10.0, 145.0, "Air support", heading=70, alt=30000),
         # The ship's helicopter spawned at 30,000 ft 86 NM from the ship it
         # is homed on, in a mission the submarine can decide in twenty
         # minutes. Beside the escorts, low.
-        "flight": S(-13.42, 148.42, "Ship's flight", heading=320, alt=500),
+        "flight": S(-10.22, 144.32, "Ship's flight", heading=70, alt=500),
     },
     units=[
         # The anchor: at launch this is the player's first ship (the guide -
@@ -508,9 +518,9 @@ MISSIONS.append(dict(
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         U("neutral", "_vanilla", "civ_ms_car_carrier_a", "traffic",
-          name="Coral Sea vehicle carrier"),
+          name="Gulf vehicle carrier"),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "traffic",
-          name="Coral Sea trawler"),
+          name="Gulf trawler"),
         U("blue", "modern-us-airbase", "airbase_us", "moresby",
           name="Jackson Field", nation="australia", weapons="Hold"),
         U("blue", "buildings-targets-missions", "Liberty", "moresby",
@@ -788,7 +798,8 @@ MISSIONS.append(dict(
                  objective="Escort"),
     # Losing the frigate ends it. It used to fail one objective and play on
     # with four merchants as the surviving Taskforce1.
-    fatal=[F("Convoy", ["convoy"], 2), F("Magazine", ["warramunga"])],
+    fatal=[F("Convoy", ["convoy"], 2), F("Convoy", ["convoy#1"]),
+           F("Magazine", ["warramunga"])],
     neutral_objective="Convoy",
     win="The escort is burning and the transport has turned north. The convoy "
         "passed behind you while it happened, which was the entire point.",
@@ -840,7 +851,7 @@ MISSIONS.append(dict(
         U("blue", "auxilliary-merchant-pack", "ran_ms_roro_a", "convoy",
           name="MV Darwin Ranger", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_freighter_b", "convoy",
-          name="MV Sunda Relief"),
+          name="MV Darwin Provider"),
         U("blue", "_vanilla", "civ_ms_ritina", "convoy",
           name="MT Timor Spirit"),
         # Air-tasking placeholder: no name, no objective, no line in the
@@ -919,12 +930,13 @@ MISSIONS.append(dict(
                                    "plot. The picture holds for the rest of the "
                                    "operation.")},
     victory=dict(kind="arrive", station="convoy", at=(-11.9, 130.6), radius=30,
-                 min_units=2, objective="Convoy"),
+                 min_units=2, objective="Convoy",
+                 also=[dict(units=["convoy#3"], min_units=1)]),
     # Losing the Triton is a COST - the objective fails, the intel says what
     # it means for tomorrow, and SW11 starts with a worse picture. It was an
     # instant red victory that cancelled the main objective, which nothing
     # in the text, the bible or the design ever intended.
-    fatal=[],
+    fatal=[F("Convoy", ["convoy#3"])],
     neutral_objective="Convoy",
     win="The convoy is through the window. Whatever Sentry 06 brought back or "
         "did not, the convoy is where it is supposed to be, and tomorrow "
@@ -967,9 +979,9 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "tindal",
           name="RAAF Base Tindal", nation="australia", weapons="Hold"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_bulk", "convoy",
-          name="MV Gove Trader", weapons="Hold"),
+          name="MV Weipa Trader", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_freighter_d", "convoy",
-          name="MV Sunda Relief"),
+          name="MV Gove Provider"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         # A patrol box south of their field: they hold it, and the orbit that
@@ -1370,8 +1382,9 @@ MISSIONS.append(dict(
         "pair in this sea. A Japanese F-2A detachment forward at Langgur has "
         "one sortie allocation today and it is loaded for ships: use it on "
         "the frigate coming in from the east, not on the fighters.\\n\\n"
-        "Two of the three priority merchants have to reach the handover; lose "
-        "two and the corridor is closed. The Type 039C is the threat that "
+        "Two of the three priority merchants have to reach the handover, and "
+        "CORAL PIONEER has to be one of them; lose her, or lose two, and the "
+        "corridor is closed. The Type 039C is the threat that "
         "ends the mission - she carries YJ-18 as well as torpedoes, and the "
         "fighters overhead are her eyes as much as they are the thing that "
         "makes you spend the day looking up instead of down. One of them is "
@@ -1381,16 +1394,17 @@ MISSIONS.append(dict(
            "039C, a Type 054A frigate from the east, a J-11BG, a J-11BS, a "
            "Su-27UBK and a J-10C off the enclave field.",
     objectives=[
-        ("Cargo", "Two of the three priority merchants reach the handover "
-                  "point", "35,-35,Fail,Main"),
+        ("Cargo", "Two of the three priority merchants, Coral Pioneer among "
+                  "them, reach the handover point", "35,-35,Fail,Main"),
         ("Allies", "Keep the Japanese escorts in the fight", "20,-25,Complete"),
         # Scored on the text: classified, not sunk. It used to pay out at
         # mission end whether or not a helicopter ever left the deck.
         ("Submarine", "Locate and classify the submarine", "15,-10,Fail"),
     ],
     victory=dict(kind="arrive", station="convoy", at=(-8.5, 134.5), radius=30,
-                 min_units=2, objective="Cargo"),
-    fatal=[F("Cargo", ["convoy"], 2)],
+                 min_units=2, objective="Cargo",
+                 also=[dict(units=["convoy#2"], min_units=1)]),
+    fatal=[F("Cargo", ["convoy"], 2), F("Cargo", ["convoy#2"])],
     neutral_objective="Cargo",
     win="The cargo is at the handover. Whatever it cost the detachment to get "
         "it there, the corridor has a Japanese escort force in it for the "
@@ -1450,7 +1464,7 @@ MISSIONS.append(dict(
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         U("blue", "re-power-resupply", "civ_ms_freighter_a", "convoy",
-          name="MV Sunda Relief"),
+          name="MV Kai Trader"),
         U("red", "plan-submarines", "plan_ss_type_039c", "red_sub",
           name="Contact SIERRA", depth="belowlayer",
           route=[(-6.75, 132.95, "belowlayer")], telegraph=3),
@@ -1508,14 +1522,19 @@ MISSIONS.append(dict(
            "your own escort group, three protected transports. Opposing: Fujian with "
            "J-35 and J-15D, Liaoning, a J-20 and a KJ-600.",
     objectives=[
-        ("Transports", "The transport group must pass to the south-east",
+        ("Transports", "Two of the three transports, Coral Pioneer among "
+                       "them, pass to the south-east",
          "40,-40,Fail,Main"),
         ("Ford", "USS Gerald R. Ford survives the window", "30,-40,Complete"),
         ("Strike", "Break up the opposing strike", "15,-10,Complete"),
     ],
     victory=dict(kind="arrive", station="transports", at=(-7.0, 130.0),
-                 radius=35, min_units=2, objective="Transports"),
-    fatal=[F("Ford", ["carrier"])],
+                 radius=35, min_units=2, objective="Transports",
+                 also=[dict(units=["transports#2"], min_units=1)]),
+    # Two transports lost ends it (the reviewed build waited out the clock);
+    # Coral Pioneer lost ends it on her own.
+    fatal=[F("Ford", ["carrier"]), F("Transports", ["transports"], 2),
+           F("Transports", ["transports#2"])],
     neutral_objective="Transports",
     win="The transports are through and Ford is intact with her window "
         "unexpired. Their carrier group is heading north-west and the talks "
@@ -1554,7 +1573,7 @@ MISSIONS.append(dict(
         U("blue", "us-naval-aviation", "usn_e-2d", "cvw", name="Hawkeye 601",
           alt=27000, weapons="Hold"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_super_p", "transports",
-          name="MV Torres Trader", weapons="Hold"),
+          name="MV Milne Trader", weapons="Hold"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "transports",
           name="MV Coral Pioneer"),
         # NOT Lae Provider: the contingency after STEEL HIGHWAY opens with her
@@ -1616,14 +1635,18 @@ MISSIONS.append(dict(
            "four merchant hulls. Two opposing groups: one withdrawing, one "
            "not. A Wedgetail is up.",
     objectives=[
-        ("Convoy", "Bring the convoy into Darwin's approaches",
+        ("Convoy", "Bring the convoy, Coral Pioneer at its head, into "
+                   "Darwin's approaches",
          "40,-40,Fail,Main"),
         ("Ceasefire", "Do not fire on the withdrawing group", "20,-35,Complete"),
         ("Escorts", "Bring the escorts home", "10,-15,Complete"),
     ],
     victory=dict(kind="arrive", station="convoy", at=(-12.0, 130.5), radius=30,
-                 min_units=3, objective="Convoy"),
-    fatal=[F("Convoy", ["convoy"], 2)],
+                 min_units=3, objective="Convoy",
+                 # Nine knots, one shaft: the box is solved at her speed.
+                 transit=9,
+                 also=[dict(units=["convoy#1"], min_units=1)]),
+    fatal=[F("Convoy", ["convoy"], 2), F("Convoy", ["convoy#1"])],
     neutral_objective="Ceasefire",
     win="Coral Pioneer is alongside at Darwin on one shaft and the rest of the "
         "convoy is behind her. The withdrawing group went north and nobody "
@@ -1661,11 +1684,11 @@ MISSIONS.append(dict(
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_jeparit", "convoy",
-          name="MV Jeparit", weapons="Hold"),
+          name="MV Wewak", weapons="Hold"),
         U("blue", "auxilliary-merchant-pack", "anl_ms_bulk", "convoy",
-          name="MV Gove Trader", weapons="Hold"),
+          name="MV Nhulunbuy", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_freighter_b", "convoy",
-          name="MV Sunda Relief"),
+          name="MV Arnhem Trader"),
         U("neutral", "chinese-navy-plan", "plan_ddg_luda_typ_051d", "withdraw",
           name="Withdrawing escort"),
         U("neutral", "type-071-lpd", "plan_lpd_type_071", "withdraw",
@@ -1854,9 +1877,9 @@ MISSIONS.append(dict(
         U("blue", "vh-3d-marine-one", "usmc_vh-3d", "visit", name="Nighthawk 1",
           weapons="Hold"),
         U("neutral", "_vanilla", "civ_ms_roro_c", "track",
-          name="MV drifting contact", snap="sea"),
+          name="MV Torres Venture", snap="sea"),
         U("neutral", "merchants-expanded", "civ_ms_mairangi_bay", "track",
-          name="MV Coral Pioneer", snap="sea"),
+          name="MV Solomon Trader", snap="sea"),
     ],
 ))
 
@@ -2477,11 +2500,11 @@ MISSIONS.append(dict(
         U("blue", "mh-60r-2154545636", "usn_mh-60r", "datum",
           name="Arafura Flight", alt=2000, weapons="Tight"),
         U("neutral", "merchants-expanded", "civ_ms_mairangi_bay", "traffic",
-          name="MV Coral Pioneer"),
+          name="MV Arafura Trader"),
         U("neutral", "auxilliary-merchant-pack", "ran_ms_antares", "traffic",
-          name="MV Antares", weapons="Hold"),
+          name="MV Melville Trader", weapons="Hold"),
         U("neutral", "re-power-resupply", "civ_ms_freighter_a", "traffic",
-          name="MV Sunda Relief"),
+          name="MV Banda Trader"),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "traffic",
           name="Arafura trawler"),
     ],
@@ -2490,9 +2513,9 @@ MISSIONS.append(dict(
 MISSIONS.append(dict(
     group="contingency", num="C1", key="After the Wake", place="Coral Sea",
     expires_after="Rig Seventeen",
-    intro="Contingency, offered unconditionally. If STEEL HIGHWAY cost you a "
-          "hull, this is about her crew; if it did not, it is a search that "
-          "finds an empty sea.",
+    intro="Contingency. A coaster that sailed without the convoy went down "
+          "last night; this is about her crew, and it is offered whatever "
+          "Steel Highway cost.",
     # MissionSpecialNote is a player-facing panel on the campaign map - stock
     # uses it for "Note: This is a detached submarine operation." The second
     # half of this note used to explain which engine feature the author could
@@ -2507,27 +2530,41 @@ MISSIONS.append(dict(
             "to its northern edge. Bring the helicopter home. The people we "
             "do not find today we will not find."),
     date=(2028, 10, 23), time=(6, 10), sea=4, clouds="Overcast", wind="SE",
-    difficulty=2, minutes=45, centre=(-13.5, 148.5),
+    difficulty=2, minutes=45, centre=(-10.5, 144.5),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "CORAL SEA, first light. MV Lae Provider went down at 2140 last night "
-        "with twenty-six aboard. Eleven are accounted for. The rest are "
-        "somewhere inside a drift box that has been growing all night.\n\n"
-        "HOBART is detached from the escort task with a Seahawk. The submarine "
-        "that did it has not left the area and the search pattern you need to "
-        "fly is exactly the pattern it will expect.\n\n"
-        "Search the box. Do not lose the helicopter doing it. If the boat "
-        "presents itself, that is a bonus and not the reason you are here."),
+        "GULF OF PAPUA, first light. MV Kerema Trader sailed independent - "
+        "Santos's people call it going without - and went down at 2140 last "
+        "night with twenty-six aboard, forty miles off the convoy track. "
+        "Eleven are accounted for. The rest are somewhere inside a drift box "
+        "that has been growing all night.\\n\\n"
+        "HOBART is detached from the escort task with a Seahawk. The boat "
+        "that did it has not left the area - it is inside torpedo range of "
+        "the ship - and the search pattern you need to fly is exactly the "
+        "pattern it will expect.\\n\\n"
+        "Work the box for the full thirty minutes, whatever you find, and "
+        "then bring the helicopter home. If the boat presents itself, that "
+        "is a bonus and not the reason you are here."),
     forces="HMAS Hobart and one MH-60R on the search. One Type 039C still in "
            "the area. Two merchant hulls diverted to assist.",
     objectives=[
-        ("Survivors", "Work the drift box to its northern edge",
+        ("Survivors", "Work the drift box for the full thirty minutes, then "
+                      "recover the helicopter",
          "30,-25,Fail,Main"),
         ("Helicopter", "Bring the search helicopter home", "15,-20,Complete"),
         ("Assist", "Do not lose an assisting merchant or harm other traffic",
          "0,-25,Complete"),
     ],
-    victory=dict(kind="arrive", station="search", at=(-12.6, 148.2), radius=25,
+    # The search is a timed stage - the helicopter inside the box WHEN the
+    # clock reaches thirty minutes - and the win is the helicopter back
+    # within five miles of the ship. "Bring the search helicopter home" is
+    # scored as coming home; it used to fire the moment the box was entered.
+    victory=dict(kind="arrive", station="search", at=(-10.75, 144.75), radius=5,
+                 after=dict(kind="area", units="search", at=(-10.45, 144.6),
+                            radius=20, after_minutes=30,
+                            intel="Fourteen more out of the water and the "
+                                  "box is worked to its northern edge. Bring "
+                                  "the aircraft home."),
                  min_units=1, objective="Survivors"),
     # Same defect O1 had: this watched HMAS Hobart while the objective is the
     # recovery helicopter. The resolver is the source of truth.
@@ -2539,10 +2576,10 @@ MISSIONS.append(dict(
     lose="The box is open at the northern end and the weather is building. "
          "The rest of that crew stays missing.",
     stations={
-        "hobart": S(-13.5, 148.6, "HMAS Hobart", heading=340),
-        "search": S(-13.2, 148.4, "Drift box", heading=340, alt=1500),
-        "assist": S(-16.5, 150.0, "Assisting merchants", heading=320),
-        "sub": S(-13.4, 148.2, "Submarine datum", heading=180),
+        "hobart": S(-10.75, 144.75, "HMAS Hobart", heading=340),
+        "search": S(-10.45, 144.6, "Drift box", heading=340, alt=1500),
+        "assist": S(-10.6, 144.55, "Assisting merchants", heading=20),
+        "sub": S(-10.55, 144.72, "Submarine datum", heading=200),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "hobart",
@@ -2558,7 +2595,8 @@ MISSIONS.append(dict(
         U("neutral", "re-power-resupply", "civ_ms_amra", "assist",
           name="MV Coral Provider"),
         U("red", "plan-submarines", "plan_ss_type_039c", "sub",
-          name="Contact BRAVO"),
+          name="Contact BRAVO", depth="belowlayer",
+          route=[(-10.72, 144.62, "belowlayer")], telegraph=2),
     ],
 ))
 
@@ -3165,14 +3203,13 @@ TIMEOUTS = {
 # shipped once as hand-written coordinates.
 ARRIVALS = {
     "01": (52, 12),
-    "02": (-18, 12),
+    "02": (70, 12),
     "04": (-177, 12),
     "06": (-131, 12),
     "07": (-170, 20),
     "10": (139, 12),
     "11": (138, 12),
     "12": (-142, 12),
-    "C1": (-11, 20),
     "D1": (85, 12),
     "D2": (154, 20),
     "D3": (133, 20),
