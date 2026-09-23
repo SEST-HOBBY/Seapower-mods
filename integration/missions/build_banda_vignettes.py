@@ -383,16 +383,20 @@ V.append(dict(
     blue=[],
     blue_names=[],
     blue_air=[
-        ("jp_f-2a_late", "-1330,22000,-60", 60, {"LoadoutVariant": "AntiShip"}),
-        ("jp_f-2a_late", "-1332,22000,-63", 60, {"LoadoutVariant": "AntiShip"}),
-        ("jp_f-2a_late", "-1334,21000,-66", 60, {"LoadoutVariant": "AntiShip"}),
-        ("jp_f-2a_late", "-1336,21000,-69", 60, {"LoadoutVariant": "AntiShip"}),
+        # Over the Java Sea, ~110 nm south-west of the landing group.
+        ("jp_f-2a_late", "-1320,22000,84", 55, {"LoadoutVariant": "AntiShip"}),
+        ("jp_f-2a_late", "-1322,22000,81", 55, {"LoadoutVariant": "AntiShip"}),
+        ("jp_f-2a_late", "-1324,21000,78", 55, {"LoadoutVariant": "AntiShip"}),
+        ("jp_f-2a_late", "-1326,21000,75", 55, {"LoadoutVariant": "AntiShip"}),
     ],
     blue_air_names=["Viper 01", "Viper 02", "Viper 03", "Viper 04"],
     red=[
-        ("plan_lpd_type_071", "-1215,0,-33", 90, {}),
-        ("plan_type_054a_p5", "-1224,0,-30", 90, {}),
-        ("plan_type_056a", "-1203,0,-36", 90, {}),
+        # Karimata Strait, ~65 nm SW of the Kendawangan industrial park
+        # (parent LandUnit108-116, 2.52S 110.21E) and standing in toward it.
+        # These sat off Java's north coast until the briefing map showed it.
+        ("plan_lpd_type_071", "-1227,0,153", 35, {}),
+        ("plan_type_054a_p5", "-1224,0,160", 35, {}),
+        ("plan_type_056a", "-1234,0,149", 35, {}),
     ],
     red_names=["Type 071 Landing Ship", "Type 054A Escort", "Type 056A Escort"],
     neutral=[],
