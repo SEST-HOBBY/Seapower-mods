@@ -54,7 +54,8 @@ powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -Include
 
 ## Publishing on the Steam Workshop
 
-Two items and a collection. `docs/workshop/` holds the descriptions, derived
+Two items and a collection. Start with `docs/workshop/SETUP.md` (step by step).
+`docs/workshop/` also holds the descriptions, derived
 Required Items and upload checklists:
 
 - **Definitive Modernised Seapower - SEST Integration Pack**: the consolidated pack

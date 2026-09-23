@@ -337,7 +337,7 @@ across the Banda, Timor, Arafura and Coral Seas.
                + CHECKLIST.format(
                    folder=PACK_FOLDER, tags="Modern, Units, Weapons",
                    pack_note="\n   Remove the local copy first "
-                   "(`install-sest-packs.ps1 -Remove`) or the game lists two.")
+                   "(`install-sest-packs.ps1 -Uninstall`) or the game lists two.")
                + f"\n## Required items ({len(pack_need)})\n\n"
                + req_table(pack_need, cat)
                + "\n\n## Steam description (paste as-is)\n\n```\n" + pack_bb + "```\n")

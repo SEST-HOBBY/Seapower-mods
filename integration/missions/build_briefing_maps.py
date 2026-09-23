@@ -60,6 +60,12 @@ SEA, LAND, COAST = "#16283a", "#5d6b58", "#a9b59a"
 GRID, TEXT, MUTED = "#2c4660", "#e8eef2", "#9fb2c2"
 FRIEND, HOSTILE, NEUTRAL = "#4fb3ff", "#ff5a4f", "#d9c35b"
 
+# Places a briefing names that no unit in the mission marks. They widen the
+# map so the thing the text talks about is actually on it.
+LANDMARKS = {
+    "Viper Zero": [("KENDAWANGAN\nINDUSTRIAL PARK", -2.52, 110.21)],
+}
+
 UNIT = re.compile(r"^\[(Taskforce(\d)|Neutral)(Vessel|Aircraft|Submarine|LandUnit)(\d+)\]")
 
 
@@ -153,7 +159,8 @@ def draw(mission, out_png, geo):
 
     units = [u for u in mission["units"]
              if not (u["side"] == "hostile" and u["kind"] == "Submarine")]
-    shown = units or mission["units"]
+    marks = LANDMARKS.get(mission["title"], [])
+    shown = (units or mission["units"]) + [{"lat": la, "lon": lo} for _, la, lo in marks]
     box = extent(shown)
     w, s, e, n = box
     k = math.cos(math.radians((s + n) / 2))
@@ -199,6 +206,13 @@ def draw(mission, out_png, geo):
         ax.plot(lon, lat, "s", ms=3 * SCALE / 2, color=MUTED, zorder=3)
         ax.text(lon + (e - w) * 0.006, lat, p["name"], color=MUTED,
                 fontsize=9 * SCALE / 2, va="center", zorder=3, path_effects=halo)
+
+    for label, la, lo in marks:
+        ax.plot(lo, la, "*", ms=14 * SCALE / 2, color=HOSTILE, mec="white", zorder=6)
+        # to the left of the star: the right edge is under the locator inset
+        ax.text(lo - (e - w) * 0.012, la, label, color=HOSTILE, ha="right",
+                fontsize=11 * SCALE / 2, weight="bold", va="center", zorder=6,
+                path_effects=halo)
 
     # neutral shipping
     for u in units:
