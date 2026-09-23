@@ -419,6 +419,10 @@ FLEET = {
         "hulls": [("L02 HMAS Canberra", "Canberra"),
                   ("L01 HMAS Adelaide", "Adelaide")],
         "airgroup": ["usn_mh-60r=Squadron1,4", "S-70B-2_Seahawk=Squadron1,4"],
+        # The LHD deck is rated for the CH-53E the campaign lifts with (the
+        # Juan Carlos design was sized for it); the campaign builder refuses
+        # to home an aircraft on a deck whose list leaves it out.
+        "deck": ["usmc_ch53_standalone"],
     },
     "ran_lsd_choules": {
         "donor": (SPA_MODERN, "ae_lpd_galicia"),
@@ -474,6 +478,10 @@ FLEET = {
                   ("OPV 205 HMAS Pilbara", "Pilbara"),
                   ("OPV 206 HMAS Gippsland", "Gippsland")],
         "airgroup": None,
+        # No hangar, so no embarked air group - but the flight deck is rated
+        # for a Seahawk to land and refuel, which is what the campaign's
+        # patrol missions ask of it.
+        "deck": HELOS.split(","),
     },
 }
 
@@ -560,6 +568,23 @@ def main():
                         + "   // SEST: the deck operates both RAN Seahawks\n"
                         + text[anchor.end(1):])
                 print(f"  {ship_id}: added AircraftSupported ({HELOS}) - donor had none")
+
+        if ship.get("deck"):
+            # Types the deck operates beyond the donor's own list and the
+            # embarked air group. Appended before any trailing comment.
+            add = ",".join(ship["deck"])
+            text, n = re.subn(r"^(AircraftSupported=[^\n/]*)", rf"\1,{add}", text,
+                              count=1, flags=re.M)
+            if n == 0:
+                anchor = re.search(r"^(\[FlightDeck\](?:(?!^\[).)*?"
+                                   r"^NumberOfTaxiPaths=\d+\n)", text, re.M | re.S)
+                if not anchor:
+                    sys.exit(f"{ship_id}: donor {donor} has neither an "
+                             "AircraftSupported line nor a [FlightDeck] to add one to")
+                text = (text[:anchor.end(1)] + f"AircraftSupported={add}"
+                        + "   // SEST: the deck operates these types\n"
+                        + text[anchor.end(1):])
+            print(f"  {ship_id}: deck also operates {add}")
 
         (OUT / "vessels" / f"{ship_id}.ini").write_text(text, encoding="utf-8")
 
