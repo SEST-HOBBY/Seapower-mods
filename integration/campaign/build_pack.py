@@ -2825,14 +2825,17 @@ def campaign_ini(missions, events, placements):
     numbers are a first pass and the bible's acceptance run is what would
     settle them.
     """
+    EVENT_FORMS = {e["file"]: e.get("form", "press") for e in events}
     L = ["[File]", f"Base=campaigns/{SLUG}/campaign.ini", "",
          "[Campaign]", "Type=Linear", "Difficulty=3",
          f"Length={sum(1 for m in missions if m['group'] == 'core')}",
          # Native placement: BackgroundImage sits between Length and
-         # DisplayFormat in all three shipped campaigns, and the linear
-         # prototype pairs it with Legacy exactly as this does.
+         # DisplayFormat in all three shipped campaigns. MapView is what the
+         # one shipped Task Force Mode campaign (Pacific Strike) uses; Legacy
+         # is the 1988 linear prototype's, and this campaign shipped Legacy
+         # for its first builds - the briefing panel drew no mission image.
          f"BackgroundImage=campaigns/{SLUG}/art/00_campaign_background.png",
-         "DisplayFormat=Legacy", "",
+         "DisplayFormat=MapView", "",
          "[TaskForceMode]"]
     for key, value in TASKFORCE.items():
         L.append(f"{key}={value}")
@@ -3017,10 +3020,17 @@ def campaign_ini(missions, events, placements):
             if mission.get("special"):
                 local.append(("MissionSpecialNote", mission["special"]))
         else:
+            # TileImagePath_ is the 128x128 tile BEHIND the event on the
+            # campaign map, not the story image: stock points every event at
+            # bkg_tile_message.png or bkg_tile_newspaper.png and reaches the
+            # page's own images through the XAML's Assets[] binding. The
+            # first builds put the 1920x1080 story image here.
+            form = EVENT_FORMS.get(entry["file"], "press")
+            tile = "newspaper" if form == "press" else "message"
             local += [("AssetsPath", f"campaigns/{SLUG}/art"),
                       ("FilePath", f"campaigns/{SLUG}/art/{entry['file']}.xml"),
                       ("TileImagePath",
-                       f"campaigns/{SLUG}/art/{entry['file']}_image.png")]
+                       f"campaigns/{SLUG}/art/bkg_tile_{tile}.png")]
         for lang in LANGS:
             L.append("")
             for key, value in local:

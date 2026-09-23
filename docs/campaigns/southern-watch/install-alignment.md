@@ -103,8 +103,8 @@ What to read in its output:
 | `purged SEST_…` | an old per-pack folder removed | expected once, after the switch to the consolidated pack |
 | `appended (not canonical)` | a mod you subscribed to that the repo has never seen | expected for **Automatic SAR** only — see step 5. The Euromod South Korean Navy is catalogued now |
 
-The file count should now be **297**, not 122. It changed in this branch: the
-campaign gained 36 generated PNGs plus `REQUIRED-MODS.txt` and
+The file count should now be **299**, not 122. It changed in this branch: the
+campaign gained 38 generated PNGs plus `REQUIRED-MODS.txt` and
 `LOAD-ORDER.txt`, lost the `_info.ini` files it used to write into briefing
 folders under `campaigns/`, where the vanilla campaigns have none, and then
 gained four operations (O2, O3, O4, C2) with their briefings and cards.
@@ -116,7 +116,7 @@ go back to step 1 rather than reaching for `-AnyBranch`.
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
-Get-ChildItem "$sa\campaigns\sest-southern-watch\art\*.png" | Measure-Object   # 36
+Get-ChildItem "$sa\campaigns\sest-southern-watch\art\*.png" | Measure-Object   # 38
 Test-Path "$sa\campaigns\sest-southern-watch\art\00_campaign_background.png"   # True
 Test-Path "$sa\REQUIRED-MODS.txt"                                              # True
 Test-Path "$sa\CREDITS.txt"                                                    # True
@@ -173,8 +173,8 @@ are all regenerated from it. Until then the drop-and-re-add cycle is the
 expected behaviour, not a fault.
 
 The `IN LINE` line after a sync on this branch should name the short hash
-`git log --oneline -1` printed in step 1; the counts above (297 files, 36
-PNGs, 35 entries) are for `809d153a` and later builds of this branch.
+`git log --oneline -1` printed in step 1; the counts above (299 files, 38
+PNGs, 35 entries) are for the art-format commit after `b30ddbe3` and later builds of this branch.
 
 ## 6 — then play the card
 

@@ -321,8 +321,10 @@ MISSIONS.append(dict(
         "minutes ago. Her last report mentioned an engine casualty and an "
         "escort claiming the authority to inspect the convoy. The Indonesian "
         "patrol sent to investigate has reported gunfire and nothing since.\\n\\n"
-        "You are the escort, with a Seahawk on the deck, a Poseidon on task for "
-        "the first part of the morning and a Triton high to the north. Bring "
+        "You are the escort, with the Seahawk you brought - if you bought one "
+        "at requisition and put it on Ship's Flight; the deck is otherwise "
+        "empty - a Poseidon on task for the first part of the morning and a "
+        "Triton high to the north. Bring "
         "the merchants together and walk them east to the handover box.\\n\\n"
         "The lane is working traffic: a bulker, a chartered coaster, a relief "
         "freighter, trawlers and the 0600 Denpasar service overhead. One "
@@ -3614,7 +3616,7 @@ BUY_12 = ["usn_p8", "raaf_f-35a", "usn_fa-18f_blk3", "E7A_Wedgetail",
           "raaf_mq-4c_triton", "usn_mh-60r", "ran_opv_arafura", "ran_ffh_anzac"]
 
 WINDOWS = {
-    "01": dict(buy=True, situation='First requisition. What you buy here sails on the eighteenth and is all you have until Steel Highway.', allow=BUY_01, repair=True, rearm=True, flights=[HELO]),
+    "01": dict(buy=True, situation="First requisition. What you buy here sails on the eighteenth and is all you have until Steel Highway. The frigate's Seahawk is not automatic: buy the MH-60R here and assign it to Ship's Flight under Air Tasking, or the deck is empty.", allow=BUY_01, repair=True, rearm=True, flights=[HELO]),
     # One helicopter, and the objective is about that helicopter. No row.
     "O1": dict(),
     "O2": dict(),

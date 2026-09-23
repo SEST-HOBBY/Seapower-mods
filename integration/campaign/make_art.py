@@ -18,7 +18,17 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-W, H = 1920, 1080                       # multiples of 4: DXT5 requires it
+W, H = 1920, 1080                       # story images and backdrop; multiples of 4 (DXT5)
+# The mission sheet is the stock size. Pacific Strike's fourteen
+# pacific_strike_*_sheet.png are all 1184x640 (measured on an installed copy),
+# and the briefing panel that draws MissionImage_ was laid out for that. The
+# card is drawn at exactly twice that and halved with Lanczos so the type
+# stays crisp; nothing here guesses a size the game never asked for.
+SHEET_W, SHEET_H = 1184, 640
+# The tile behind a story event on the campaign map. Stock ships two,
+# bkg_tile_message.png and bkg_tile_newspaper.png, both 128x128, and points
+# TileImagePath_ at them - never at the story image itself.
+TILE = 128
 SURFACE   = (22, 24, 27)
 PANEL     = (17, 19, 22)
 INK       = (240, 238, 234)
@@ -60,12 +70,13 @@ def card(ini, out_png, num, title, date, place, standfirst):
                         float(keys.get("Condition_Condition1_AreaRadiusNM", 10)))
             break
 
-    img = Image.new("RGB", (W, H), SURFACE)
+    CW, CH = SHEET_W * 2, SHEET_H * 2               # drawn at 2x, halved below
+    img = Image.new("RGB", (CW, CH), SURFACE)
     d = ImageDraw.Draw(img, "RGBA")
 
     # --- the plot, as a full-bleed graphic behind the type -------------------
-    PW, PH = 900, 900
-    ox, oy = W - PW - 70, (H - PH) // 2 + 10
+    PW, PH = 1100, 1100
+    ox, oy = CW - PW - 80, (CH - PH) // 2
     d.rectangle([ox-2, oy-2, ox+PW+2, oy+PH+2], fill=PANEL, outline=FRAME, width=3)
 
     pts = [(x, z) for x, z, _ in afloat] or [(0, 0)]
@@ -121,12 +132,38 @@ def card(ini, out_png, num, title, date, place, standfirst):
     y += 18
     d.line([(L, y), (L+300, y)], fill=BLUE, width=7); y += 40
     d.text((L+4, y), place.upper(), font=font(46), fill=INK_MUTE)
-    d.text((L+4, H-118), "SOUTHERN WATCH", font=font(34, True, mono=True), fill=INK_MUTE)
-    d.text((L+4, H-72), "OWN FORCE ONLY · OPPOSITION NOT SHOWN",
+    d.text((L+4, CH-118), "SOUTHERN WATCH", font=font(34, True, mono=True), fill=INK_MUTE)
+    d.text((L+4, CH-72), "OWN FORCE ONLY · OPPOSITION NOT SHOWN",
            font=font(26, mono=True), fill=(96, 98, 100))
+    img = img.resize((SHEET_W, SHEET_H), Image.LANCZOS)
     img.save(out_png)
-    print(f"wrote {Path(out_png).name}  {W}x{H}  {len(afloat)} marks, "
+    print(f"wrote {Path(out_png).name}  {SHEET_W}x{SHEET_H}  {len(afloat)} marks, "
           f"objective={'yes' if goal else 'no'}, scale {step} NM")
+
+
+def tile(out_png, kind):
+    """A 128x128 tile for the campaign map, the stock size and the stock names.
+
+    "newspaper" is the cream stock the press sheets are set on; "message" is
+    the dark surface every other form (signal, log, INTSUM) shares. Plain on
+    purpose: the map draws the event's title over it.
+    """
+    if kind == "newspaper":
+        img = Image.new("RGB", (TILE, TILE), STOCK)
+        d = ImageDraw.Draw(img)
+        d.rectangle([0, 0, TILE - 1, TILE - 1], outline=RULE, width=2)
+        d.line([(12, 30), (TILE - 12, 30)], fill=RULE, width=3)
+        for y in (48, 60, 72, 84, 96):
+            d.line([(12, y), (TILE - 12, y)], fill=PAPER_MUTE, width=1)
+    else:
+        img = Image.new("RGB", (TILE, TILE), PANEL)
+        d = ImageDraw.Draw(img)
+        d.rectangle([0, 0, TILE - 1, TILE - 1], outline=FRAME, width=2)
+        d.line([(12, 30), (TILE - 12, 30)], fill=BLUE, width=3)
+        for y in (48, 60, 72, 84, 96):
+            d.line([(12, y), (TILE - 12, y)], fill=GRID, width=1)
+    img.save(out_png)
+    print(f"wrote {Path(out_png).name}  {TILE}x{TILE}  tile ({kind})")
 
 
 PAPER_INK = (24, 24, 26)
@@ -233,6 +270,8 @@ def render_all(camp_dir, missions, events, slug, title, subtitle):
         card(m["ini"], art / name, m["num"], m["key"], m["date"], m["place"], "")
         sheets[m["key"]] = f"campaigns/{slug}/art/{name}"
     backdrop(art / "00_campaign_background.png", marks, title, subtitle)
+    tile(art / "bkg_tile_newspaper.png", "newspaper")
+    tile(art / "bkg_tile_message.png", "message")
     for e in events:
         key = f"{e['file']}_image"
         form = e.get("form", "press")
