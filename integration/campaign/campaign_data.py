@@ -888,7 +888,11 @@ MISSIONS.append(dict(
         "the orbit is.\\n\\n"
         "Classify that surface group and it stays on your plot for the rest of "
         "the morning. To do it the Triton has to go north, into the part of "
-        "the sky the J-16s own. Hold her south and she lives, and your flagship "
+        "the sky the J-16s own. If Borrowed Shield brought her in, SEJONG THE "
+        "GREAT is in your screen for this one operation under Captain Han's "
+        "rules - she fires when fired upon, or when you are - and she sails "
+        "for Guam on the eighth either way. Hold the Triton south and she "
+        "lives, and your flagship "
         "fights on her own horizon.\\n\\n"
         "Two Tindal F-35As are your entire air cover. You can spend them "
         "protecting the orbit or holding close escort on the convoy. You "
@@ -1118,7 +1122,10 @@ MISSIONS.append(dict(
         "Captain Prasetyo has the strip for this one operation and not an "
         "hour longer, and the pair recovers there, not on the carrier. The "
         "relief aircraft are behind you and they will not come in while that "
-        "radar is up.\\n\\n"
+        "radar is up. If Weather Alternate put fuel on Langgur, a tanker is "
+        "on the track south of the box and the pair can hold on station "
+        "twice as long; if it did not, they have what they took off "
+        "with.\\n\\n"
         "Suppress the battery, put the launcher out of the argument, and let "
         "the transports through. You are not levelling a regional industrial "
         "complex to do it. Everything on that field that is not shooting at "
@@ -1745,6 +1752,370 @@ MISSIONS.append(dict(
 # and give the rest of the collection a purposeful role instead of forcing a
 # Spanish frigate or a 1988 bomber into an Australian 2028 convoy escort.
 # =============================================================================
+
+# =============================================================================
+# THE OPTIONAL OPERATIONS AND THE SECOND CONTINGENCY
+#
+# Each one is a real trade-off with a consequence a later mission reads
+# through a campaign variable (the guide's IsTrue form): skip it and the core
+# campaign plays unchanged; fly it and something specific is better later.
+# None of them grants a unit to the player's roster - allied aircraft and
+# ships are theatre contributions that appear where the story puts them.
+# =============================================================================
+
+MISSIONS.append(dict(
+    group="optional", num="O2", key="Southern Cross",
+    place="Arafura Sea, north of Melville", expires_after="Rig Seventeen",
+    intro="Optional. New Zealand has lent one aircraft for one sortie. What "
+          "she finds today is on your plot next week.",
+    special="Optional operation. A New Zealand allocation: one aircraft, one "
+            "sortie, no ownership. Identify the coaster and bring Kiwi 01 "
+            "home, and her picture reaches The Quiet Passenger as a "
+            "classified contact.",
+    sender="Commodore Alex Mercer; Squadron Leader Tane Rewi, No. 5 Squadron "
+           "RNZAF, for the aircraft",
+    intent=("Wellington has given us one Poseidon and one sortie, and Rewi "
+            "flies it his way. Put a name on the coaster that has been "
+            "shadowing the lane with her transponder off, keep the aircraft "
+            "out of the Peykaap's reach, and bring her home. The picture is "
+            "the prize; the aircraft is not ours to spend."),
+    date=(2028, 10, 24), time=(10, 30), sea=3, clouds="Scattered_1", wind="E",
+    difficulty=2, minutes=70, centre=(-10.5, 131.2),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        "ARAFURA SEA, mid-morning. A coaster with no transponder has been "
+        "pacing the lane for three days, always just outside the twelve-mile "
+        "limit, always where the next convoy will be. Her name is what we "
+        "want.\\n\\n"
+        "KIWI 01 is a New Zealand Poseidon out of Darwin on a national "
+        "allocation: one sortie, Squadron Leader Rewi's crew, and she goes "
+        "home to Darwin when it is done - she is not yours to keep and not "
+        "yours to lose. PILBARA is on the lane with the ordinary traffic, and "
+        "a Meridian escort boat has been working the same water since "
+        "Tuesday with a drone spotting for it.\\n\\n"
+        "Get Kiwi 01 close enough to put a name on the coaster, keep her out "
+        "of the escort boat's reach, and recover her to Darwin. Everything "
+        "else on the lane is somebody's living."),
+    forces="HMAS Pilbara. One RNZAF P-8A on a single national sortie. Lane "
+           "traffic: two merchants and a trawler. Opposing: one coaster with "
+           "her transponder off, one Meridian escort boat, one spotter drone.",
+    objectives=[
+        ("Picture", "Identify the coaster, then recover Kiwi 01 to Darwin",
+         "30,-25,Fail,Main"),
+        ("Kiwi", "Do not lose Kiwi 01", "20,-30,Complete"),
+        ("Traffic", "Harm no lane traffic", "0,-25,Complete"),
+    ],
+    # Stage: the New Zealand aircraft classifies the coaster - which writes
+    # O2KiwiPicture, read by The Quiet Passenger as a revealed contact. Win:
+    # that same aircraft within ten miles of Darwin's field.
+    victory=dict(kind="arrive", station="kiwi", at=(-12.409, 130.8665), radius=10,
+                 after=dict(kind="classify", units="coaster", min_units=1,
+                            sets="O2KiwiPicture",
+                            intel="Kiwi 01 has her: MV Harbour Light, "
+                                  "chartered through the same Singapore "
+                                  "office as the Meridian boats, with a "
+                                  "towed array she has no business owning. "
+                                  "Rewi's crew has the datum logged. Bring "
+                                  "the aircraft home."),
+                 min_units=1, objective="Picture"),
+    declares=["O2KiwiPicture"],
+    fatal=[F("Kiwi", ["kiwi"])],
+    neutral_objective="Traffic",
+    win="Kiwi 01 is on the ground at Darwin with a name, a datum and a "
+        "recording, and Rewi's crew is already writing the report Wellington "
+        "will read first. The next contact briefing has a picture in it.",
+    lose="The Poseidon is down and the allocation with her. Wellington will "
+         "want to know why its one aircraft was inside a gunboat's reach.",
+    stations={
+        "patrol": S(-10.6, 131.2, "HMAS Pilbara", heading=90),
+        "kiwi": S(-10.95, 131.0, "Kiwi 01", heading=20, alt=12000),
+        "coaster": S(-10.2, 131.5, "Coaster, transponder off", heading=110),
+        "lane": S(-10.45, 131.35, "Lane traffic", heading=90),
+        "raider": S(-10.05, 131.65, "Meridian escort boat", heading=200),
+        "spotter": S(-10.4, 131.1, "Spotter drone", heading=90, alt=10000),
+        "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
+    },
+    units=[
+        U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
+          variant="Variant3", name="HMAS Pilbara", weapons="Tight"),
+        # No. 5 Squadron's own aircraft: Squadron23 in the winning squadrons
+        # file is New Zealand. No JoinTaskForce - the guide says that is a
+        # grant, and this is a loan.
+        U("blue", "red-storm-arsenal", "usn_p_8a", "kiwi", squadron="Squadron23",
+          name="Kiwi 01", alt=12000, weapons="Tight", loadout="ASW"),
+        U("red", "_vanilla", "civ_ms_encounter", "coaster", name="MV Harbour Light",
+          weapons="Hold", route=[(-10.35, 131.95, 0)], telegraph=2),
+        U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raider",
+          name="Meridian Escort 3", route=[(-10.4, 131.4, 0)], telegraph=4),
+        U("red", "small-medium-uav-series", "usn_ForpostR705", "spotter",
+          name="Spotter drone", alt=10000),
+        U("neutral", "_vanilla", "civ_ms_roro_b", "lane", name="MV Wessel Trader",
+          route=[(-10.4, 131.9, 0)], telegraph=3),
+        U("neutral", "re-power-resupply", "civ_ms_freighter_d", "lane",
+          name="MV Croker Provider", route=[(-10.5, 131.95, 0)], telegraph=3),
+        U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "lane",
+          name="Arafura trawler", route=[(-10.55, 131.6, 0)], telegraph=2),
+        U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
+          name="RAAF Base Darwin", nation="australia", weapons="Hold"),
+    ],
+))
+
+MISSIONS.append(dict(
+    group="optional", num="O3", key="Borrowed Shield",
+    place="Timor Sea, western approach", expires_after="Blind Horizon",
+    intro="Optional. A Korean destroyer and a frigate are coming in for one "
+          "fortnight under their own rules. Get them to the join point and "
+          "the shield is yours to stand behind at Blind Horizon.",
+    special="Optional operation. A Korean detachment for one fortnight: bring "
+            "both warships to the join point and SEJONG THE GREAT screens "
+            "Blind Horizon; lose either, or leave them short, and she does "
+            "not. Your detachment sails to meet them.",
+    sender="Commodore Alex Mercer; Captain Han Ji-woo, ROKS Sejong the Great, "
+           "for the detachment",
+    intent=("Seoul has sent the best air-defence ship in this ocean and a "
+            "frigate to keep her company, for fourteen days, under rules I "
+            "did not write: they screen what we are already screening and "
+            "they do not fire first. The shield is theirs to bring in. Meet "
+            "them at the join point with whatever you can spare, and do not "
+            "let a Kilo or a strike pair end the fortnight on its first "
+            "day."),
+    date=(2028, 11, 4), time=(9, 20), sea=3, clouds="Broken_2", wind="W",
+    difficulty=3, minutes=70, centre=(-11.3, 126.2),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        "TIMOR SEA, western approach. SEJONG THE GREAT and DAEGU are coming "
+        "in from the Lombok side with the stores ship BUSAN PIONEER, on the "
+        "Korean government's own arrangement: one fortnight, one destroyer, "
+        "one frigate, and Captain Han fires when fired upon or when you "
+        "are.\\n\\n"
+        "A Kilo has been reported on the approach they are using, and the "
+        "enclave has a strike pair on alert that came south twice this week "
+        "to look at the same water. Your detachment meets them at the join "
+        "point; until then the shield has to bring itself in.\\n\\n"
+        "Both warships reach the join point or there is no fortnight. The "
+        "stores ship is worth fifteen minutes of anybody's time, but she is "
+        "not the reason Seoul sent a destroyer."),
+    forces="Your detachment. Joining: ROKS Sejong the Great with her Lynx, "
+           "ROKS Daegu, and the stores ship Busan Pioneer. Two neutral "
+           "merchants on the approach. Opposing: one Kilo on the approach, "
+           "one JH-7A pair on alert.",
+    objectives=[
+        ("Shield", "Bring SEJONG THE GREAT and DAEGU to the join point",
+         "35,-35,Fail,Main"),
+        ("Stores", "Do not lose Busan Pioneer", "15,-15,Complete"),
+        ("Traffic", "Harm no neutral shipping", "0,-25,Complete"),
+    ],
+    # Both warships arrive, alive: the win writes O3ShieldJoined and Blind
+    # Horizon spawns Sejong the Great in the screen on it. A destroyed
+    # escort cannot be awarded later - losing either ends this mission.
+    victory=dict(kind="arrive", station="rok", units=["rok#1", "rok#2"],
+                 min_units=2, objective="Shield", transit=16,
+                 sets="O3ShieldJoined"),
+    declares=["O3ShieldJoined"],
+    fatal=[F("Shield", ["rok#1"]), F("Shield", ["rok#2"])],
+    neutral_objective="Traffic",
+    win="The shield is in. Sejong the Great and Daegu are in company with "
+        "your detachment, Busan Pioneer or not, and Captain Han has a signal "
+        "to send that says the fortnight has started.",
+    lose="The detachment is broken before it joined. Seoul's fortnight ends "
+         "before it began, and the corridor is back to one navy's magazines.",
+    stations={
+        "rok": S(-11.2, 125.8, "Korean detachment", heading=90),
+        "lynx": S(-11.15, 125.92, "Sejong Flight", heading=90, alt=2000),
+        # The player's detachment forms here, 45 NM east, and sails west to
+        # meet them.
+        "escort": S(-11.6, 126.6, "Detachment", heading=270),
+        "lane": S(-11.35, 126.2, "Approach traffic", heading=90),
+        "red_sub": S(-11.5, 126.35, "Kilo datum", heading=300),
+        "red_air": S(-9.6, 126.8, "Strike pair", heading=200, alt=30000),
+    },
+    units=[
+        U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant3",
+          weapons="Tight"),
+        U("blue", "euromod-south-korea", "ko_ddg-991", "rok", variant="Variant1",
+          name="ROKS Sejong the Great"),
+        U("blue", "euromod-south-korea", "ko_ffg-818", "rok", variant="Variant1",
+          name="ROKS Daegu"),
+        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "rok",
+          name="MV Busan Pioneer"),
+        U("blue", "euromod-south-korea", "rok_mk99_a", "lynx", name="Sejong Flight",
+          alt=2000),
+        U("neutral", "_vanilla", "civ_ms_ritina", "lane", name="MT Lombok Spirit",
+          route=[(-11.3, 127.0, 0)], telegraph=3),
+        U("neutral", "re-power-resupply", "civ_ms_andizhan", "lane",
+          name="MV Sumba Trader", route=[(-11.4, 127.0, 0)], telegraph=3),
+        U("red", "chinese-navy-plan", "plan_ss_kilo", "red_sub", name="Contact KILO",
+          depth="belowlayer", route=[(-11.25, 125.95, "belowlayer")], telegraph=2),
+        U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike 21",
+          loadout="AntiShip", route=[(-11.2, 125.8, 20000)], telegraph=3),
+        U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike 22",
+          loadout="AntiShip", route=[(-11.2, 125.8, 20000)], telegraph=3),
+    ],
+))
+
+MISSIONS.append(dict(
+    group="optional", num="O4", key="Weather Alternate",
+    place="Kai Islands", expires_after="The Open Door",
+    intro="Optional. A strip is only an alternate if there is fuel on it. "
+          "Take the bladders the last forty miles to Langgur.",
+    special="Optional operation. Put the fuel on Langgur and The Open Door "
+            "gets a tanker on the track south of the box; miss it and the "
+            "strike flies on what it took off with. The strip is Prasetyo's "
+            "either way.",
+    sender="Commodore Alex Mercer; Captain Ratna Prasetyo, TNI-AL, for the strip",
+    intent=("Prasetyo has given us Langgur for the relief window and not an "
+            "hour longer, and a strip is only an alternate if there is fuel "
+            "on it. Two coasters carry the bladders and the ground party. "
+            "You take them the last forty miles, past a Peykaap pair that "
+            "knows what Langgur is for and a launcher across the strait on "
+            "Kai Besar. "
+            "Langgur town is at the head of the anchorage: nothing in it is "
+            "yours to break."),
+    date=(2028, 11, 10), time=(14, 0), sea=2, clouds="Scattered_1", wind="E",
+    difficulty=3, minutes=70, centre=(-5.8, 132.7),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        "KAI ISLANDS, afternoon. Prasetyo has the strip at Langgur for the "
+        "relief window and not an hour longer, and a strip is only an "
+        "alternate if there is fuel on it. LANGGUR PROVIDER and KEI STAR "
+        "carry the bladders and the ground party; you take them the last "
+        "forty miles into the anchorage.\\n\\n"
+        "The enclave knows what Langgur is for. A Meridian escort pair has "
+        "been working the Kai passages since Tuesday, and the last transit "
+        "reported a launcher site on Kai Besar, across the strait east of "
+        "the anchorage. "
+        "Langgur town is at the head of it and every building in it is "
+        "somebody's.\\n\\n"
+        "Get both coasters in. Put the launcher out of the argument if you "
+        "can do it without touching the town."),
+    forces="Your detachment, two fuel coasters. Langgur town at the head of "
+           "the anchorage, the strip beyond it. Opposing: a Meridian escort "
+           "pair, a launcher site on Kai Besar.",
+    objectives=[
+        ("Fuel", "Get both coasters into the Langgur anchorage", "35,-35,Fail,Main"),
+        ("Site", "Neutralise the Kai Besar launcher site", "15,-10,Complete"),
+        ("Town", "Leave Langgur alone", "0,-30,Complete"),
+    ],
+    victory=dict(kind="arrive", station="fuel", min_units=2, objective="Fuel",
+                 transit=12, sets="O4LanggurStocked"),
+    declares=["O4LanggurStocked"],
+    fatal=[F("Fuel", ["fuel"], 1)],
+    neutral_objective="Town",
+    win="Both coasters are in the anchorage and the ground party is pumping "
+        "before the light goes. The Open Door has a tanker on the track.",
+    lose="The bladders are on the bottom forty miles short. The Open Door "
+         "flies on internal fuel and Prasetyo's strip is a runway with "
+         "nothing on it.",
+    stations={
+        "escort": S(-6.15, 132.7, "Detachment", heading=30),
+        "fuel": S(-6.1, 132.6, "Fuel coasters", heading=30),
+        "raiders": S(-5.7, 133.1, "Meridian pair", heading=210),
+        "site": S(-5.3643, 133.516, "Kai Besar launcher site", heading=240),
+        # The one proven ground at Langgur: the town takes it, and the strip
+        # the fuel is for is the same place in the story - it needs no unit
+        # here, nothing in this mission flies from it.
+        "town": S(-5.2953, 132.9232, "Langgur", heading=0),
+        "fishing": S(-5.9, 132.5, "Kai fishing", heading=60),
+    },
+    units=[
+        U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant3",
+          weapons="Tight"),
+        U("blue", "re-power-resupply", "civ_ms_freighter_d", "fuel",
+          name="MV Langgur Provider"),
+        U("blue", "_vanilla", "civ_ms_encounter", "fuel", name="MV Kei Star"),
+        U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raiders",
+          name="Meridian Escort 5", route=[(-6.05, 132.65, 0)], telegraph=4),
+        U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raiders",
+          name="Meridian Escort 6", route=[(-6.1, 132.7, 0)], telegraph=4),
+        U("red", "shahed-136-zero-two", "shahed_tel_black", "site",
+          name="Kai Besar launcher site"),
+        U("neutral", "buildings-targets-missions", "4tentgroup", "town",
+          name="Langgur town"),
+        U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "fishing",
+          name="Kai fishing boat", route=[(-5.75, 132.62, 0)], telegraph=2),
+    ],
+))
+
+MISSIONS.append(dict(
+    group="contingency", num="C2", key="Broken Wake",
+    place="Banda Sea, southern approaches", expires_after="The First Ship Through",
+    intro="Contingency. A frigate with one shaft and thirty-one wounded is "
+          "sixty miles from anywhere with a ceasefire two days off. Bring "
+          "her to the line.",
+    special="Contingency. It pays recovery value only. STUART's damage is the "
+            "story's, not the engine's: she makes six knots because the "
+            "Chief says so, and the box is drawn at six knots. Your "
+            "detachment escorts her.",
+    sender="Commodore Alex Mercer",
+    intent=("STUART was with Ford's oiler group north of your box on the "
+            "twenty-third and took a hit forward. One shaft, six knots, "
+            "thirty-one wounded. The carrier group has gone north-west and "
+            "she has not. Bring her to the line before somebody with a "
+            "torpedo finds her, and do not drive her faster than the Chief "
+            "says she will go."),
+    date=(2028, 11, 25), time=(5, 40), sea=3, clouds="Broken_2", wind="NW",
+    difficulty=3, minutes=75, centre=(-6.0, 130.2),
+    blue_nation="Australia", red_nation="China",
+    brief=(
+        "BANDA SEA, before dawn. STUART took a hit forward on the twenty-third "
+        "screening Ford's oiler group, outside your operation. She has one "
+        "shaft, six knots, and thirty-one wounded who need a hospital that "
+        "is a day and a half away at the speed she can make.\\n\\n"
+        "The carrier group went north-west and she did not. A Kilo has been "
+        "working the southern approaches since the fleet action, and the "
+        "enclave still has a strike pair that comes south to look. The "
+        "ceasefire is two days off and nobody has told either of them.\\n\\n"
+        "Bring her to the line. She makes six knots: take her faster and the "
+        "shaft goes, and so does the ship - that is the Chief's word, not a "
+        "rule the sea will enforce for you."),
+    forces="Your detachment. HMAS Stuart, one shaft. Two neutral merchants on "
+           "the same approach. Opposing: one Kilo, one J-15D pair.",
+    objectives=[
+        ("Stuart", "Bring STUART to the line", "30,-30,Fail,Main"),
+        ("Traffic", "Harm no neutral shipping", "0,-25,Complete"),
+    ],
+    victory=dict(kind="arrive", station="straggler", min_units=1,
+                 objective="Stuart", transit=6),
+    fatal=[F("Stuart", ["straggler"])],
+    neutral_objective="Traffic",
+    win="Stuart is at the line with her people aboard and a tug coming up "
+        "from Darwin. Thirty-one wounded get their hospital, and the ship "
+        "gets a dockyard instead of a reef.",
+    lose="Stuart is gone with her wounded aboard, two days short of a "
+         "ceasefire. The recovery that should have been routine is a court "
+         "of inquiry.",
+    stations={
+        "straggler": S(-5.9, 130.1, "HMAS Stuart", heading=160),
+        "escort": S(-5.95, 130.2, "Detachment", heading=160),
+        "lane": S(-5.7, 130.0, "Approach traffic", heading=160),
+        "red_sub": S(-6.2, 130.0, "Kilo datum", heading=330),
+        "red_air": S(-4.6, 129.9, "Strike pair", heading=160, alt=30000),
+    },
+    units=[
+        U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant3",
+          weapons="Tight"),
+        # Variant4 is Stuart - a hull the roster does not sell and no other
+        # mission places, so she exists whatever happened at Fujian's
+        # Shadow. Telegraph 1 on her route is the six knots; the rest is the
+        # Chief's word.
+        U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "straggler", variant="Variant4",
+          name="HMAS Stuart", weapons="Tight",
+          route=[(-6.4, 130.3, 0)], telegraph=1),
+        U("neutral", "_vanilla", "civ_ms_ritina", "lane", name="MT Banda Spirit",
+          route=[(-6.6, 130.2, 0)], telegraph=3),
+        U("neutral", "merchants-expanded", "civ_ms_mairangi_bay", "lane",
+          name="MV Tanimbar Trader", route=[(-6.65, 130.25, 0)], telegraph=3),
+        U("red", "chinese-navy-plan", "plan_ss_kilo", "red_sub", name="Contact TANGO",
+          depth="belowlayer", route=[(-5.95, 130.15, "belowlayer")], telegraph=2),
+        U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
+          name="Flying Shark 31", loadout="AntiShip",
+          route=[(-5.9, 130.1, 20000)], telegraph=3),
+        U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
+          name="Flying Shark 32", loadout="AntiShip",
+          route=[(-5.9, 130.1, 20000)], telegraph=3),
+    ],
+))
+
 
 MISSIONS.append(dict(
     group="dispatch", num="D1", key="Western Passage",
@@ -2758,15 +3129,19 @@ SCHEDULE = {
     "O1": ((2028, 10, 19), 50, False, None, "patrol"),
     "02": ((2028, 10, 22), 140, False, "Generated", "escort"),
     "C1": ((2028, 10, 23), 0, False, None, "hobart"),
+    "O2": ((2028, 10, 24), 50, False, None, "patrol"),
     "03": ((2028, 10, 26), 120, True, "Generated", "escort"),
     "04": ((2028, 10, 30), 100, False, "Generated", "patrol"),
     "05": ((2028, 11, 2), 140, True, "Replaced", "warramunga"),
+    "O3": ((2028, 11, 4), 60, False, "Generated", "escort"),
     "06": ((2028, 11, 6), 140, False, "Generated", "hobart"),
     "07": ((2028, 11, 9), 120, True, None, "picket"),
+    "O4": ((2028, 11, 10), 50, False, "Generated", "escort"),
     "08": ((2028, 11, 13), 180, False, None, None),
     "09": ((2028, 11, 16), 160, True, "Generated", "escort"),
     "10": ((2028, 11, 20), 180, False, "Generated", "escort"),
     "11": ((2028, 11, 23), 200, True, "Generated", "escort"),
+    "C2": ((2028, 11, 25), 30, False, "Generated", "escort"),
     "12": ((2028, 11, 28), 0, True, "Generated", "escort"),
 }
 
@@ -3240,6 +3615,10 @@ WINDOWS = {
     "01": dict(buy=True, situation='First requisition. What you buy here sails on the eighteenth and is all you have until Steel Highway.', allow=BUY_01, repair=True, rearm=True, flights=[HELO]),
     # One helicopter, and the objective is about that helicopter. No row.
     "O1": dict(),
+    "O2": dict(),
+    "O3": dict(detachment=True),
+    "O4": dict(detachment=True),
+    "C2": dict(detachment=True),
     "02": dict(buy=True, situation='Requisition before Steel Highway. The next window is before Rig Seventeen.', allow=BUY_02, repair=True, rearm=True,
                flights=[HELO, RECON]),
     "C1": dict(),
@@ -3290,6 +3669,16 @@ TIMEOUTS = {
     "01": "0630, half an hour after sunrise, and the merchants are still short "
           "of the Arafura. Whatever this was, it worked.",
     "O1": "Dark. The search resumes tomorrow in worse weather and colder water.",
+    "O2": "Kiwi 01 is at the end of her allocation with the coaster unnamed. "
+          "Wellington's hours were spent and nothing came of them.",
+    "O3": "The join point is empty at the end of the window. The Korean "
+          "detachment turns back for Surabaya, and the fortnight was spent on "
+          "the approach.",
+    "O4": "The light went with the bladders still forty miles short. The Open "
+          "Door flies on internal fuel and Prasetyo's strip is a runway with "
+          "nothing on it.",
+    "C2": "Stuart is still short of the line at first light with a Kilo "
+          "somewhere astern, and the tug from Darwin has nothing to meet.",
     "02": "The window at Moresby closed. The plant and the medical stores are "
           "still at sea and the wharf party has gone home.",
     "C1": "The drift box is open at the northern end and the weather is "
@@ -3343,6 +3732,9 @@ ARRIVALS = {
     "04": (-177, 12),
     "06": (-131, 12),
     "07": (-170, 20),
+    "O3": (90, 12),
+    "O4": (30, 8),
+    "C2": (160, 10),
     "10": (139, 12),
     "11": (138, 12),
     "12": (-142, 12),
@@ -3357,6 +3749,13 @@ RESOLVERS = {
            "Identify": ("classify", "meridian#1", 1)},
     "O1": {"Search": "victory", "Traffic": "neutral",
            "Aircraft": ("protect", "datum")},
+    "O2": {"Picture": "victory", "Traffic": "neutral",
+           "Kiwi": ("protect", "kiwi")},
+    "O3": {"Shield": "victory", "Traffic": "neutral",
+           "Stores": ("protect", "rok#3")},
+    "O4": {"Fuel": "victory", "Town": "neutral",
+           "Site": ("destroy", "site", 1)},
+    "C2": {"Stuart": "victory", "Traffic": "neutral"},
     "02": {"Cargo": "victory", "Neutrals": "neutral",
            "Medical": ("protect", "convoy#1")},
     "C1": {"Survivors": "victory", "Assist": "neutral",
@@ -3542,6 +3941,7 @@ ROLES = {
     # group with a proper screen and a submarine the player cannot watch while
     # watching the air picture.
     "11": "fleet", "12": "escort",
+    "O2": "patrol", "O3": "escort", "O4": "logistics", "C2": "escort",
     "D1": "escort", "D2": "exercise", "D3": "logistics", "D4": "escort",
     "D5": "exercise", "D6": "strike", "D7": "exercise", "D8": "strike",
 }
@@ -3655,6 +4055,10 @@ VARIABLES = {
     # Holding the service window is what Common Sea's rearm is paid with -
     # the guide's TaskForceModeRearmByVariableAND, IsTrue.
     "09": dict(declares=["SW09ServiceHeld"]),
+    # The optional operations' results, read by the core missions below.
+    "O2": dict(declares=["O2KiwiPicture"]),
+    "O3": dict(declares=["O3ShieldJoined"]),
+    "O4": dict(declares=["O4LanggurStocked"]),
     # Classifying the northern surface group is worth something three weeks
     # later, which is what makes exposing the Triton a decision rather than a
     # chore.
@@ -3696,6 +4100,29 @@ for _m in MISSIONS:
                   "There is a transport running south-west into the enclave "
                   "field and nobody has put a name on it. Sentry 06 is the "
                   "only thing in range that can.")]
+    if _m["num"] == "04":
+        # Southern Cross, kept: Kiwi 01's picture puts the boat on this plot.
+        _m["reveal_if"] = [dict(
+            variable="O2KiwiPicture", units=["sub"], level="Classify",
+            intel="Kiwi 01's picture from the twenty-fourth: the coaster "
+                  "Rewi's crew named was working with a submarine, and they "
+                  "logged its datum on this route. It is on your plot as a "
+                  "classified contact.")]
+    if _m["num"] == "06":
+        # Borrowed Shield, kept: the Korean destroyer stands in the screen.
+        _m["stations"]["shield"] = S(-10.55, 132.05, "Korean destroyer",
+                                     heading=250)
+        _m["units"].append(U("blue", "euromod-south-korea", "ko_ddg-991",
+                             "shield", variant="Variant1",
+                             name="ROKS Sejong the Great",
+                             spawn_if=("O3ShieldJoined", "IsTrue")))
+    if _m["num"] == "08":
+        # Weather Alternate, kept: a tanker on the track south of the box.
+        _m["stations"]["tanker"] = S(-3.9, 134.3, "Tanker track", heading=90,
+                                     alt=26000)
+        _m["units"].append(U("blue", "kc-46a", "usaf_kc-46a_boom", "tanker",
+                             name="Texaco 52", alt=26000, weapons="Hold",
+                             spawn_if=("O4LanggurStocked", "IsTrue")))
     if _m["num"] == "09":
         # The second replenishment hull only exists if SUPPLY came through
         # chapter 1. Lose her at Steel Highway and the rear-area group is one
