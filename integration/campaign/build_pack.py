@@ -2099,7 +2099,11 @@ def render(mission, placed, members):
             mine = {t for r in watch for t in refs(members, r)}
             theirs = {t for r in how[1:] if isinstance(r, str)
                       for t in refs(members, r)}
-            if mine != theirs:
+            # A fatal entry may name a SUBSET of the objective's units - the one
+            # hull whose loss alone ends the mission while the objective
+            # tolerates losing another - but never a ship the objective is
+            # not about.
+            if not mine <= theirs:
                 raise SystemExit(
                     f"{mission['key']}: {oid} ends the mission when "
                     f"{sorted(mine)} is lost, but the objective itself is "
