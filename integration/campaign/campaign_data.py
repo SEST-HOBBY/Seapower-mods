@@ -2986,7 +2986,9 @@ MISSIONS.append(dict(
          "weather and colder water.",
     stations={
         "patrol": S(-10.0, 131.5, "HMAS Arafura", heading=100),
-        "datum": S(-10.05, 131.55, "Arafura Flight", heading=100, alt=2000),
+        # Airborne on the outbound leg, 12 NM ahead of the ship: the win box is
+        # drawn on the ship, so the flight must start outside it.
+        "datum": S(-10.15, 131.65, "Arafura Flight", heading=100, alt=2000),
         # The coaster herself, adrift at her last reported position, and
         # the lane traffic between the ship and the datum with routes across
         # the helicopter's track - the reviewed build had an empty circle and
@@ -3740,7 +3742,6 @@ ARRIVALS = {
     "12": (-142, 12),
     "D1": (85, 12),
     "D4": (135, 12),
-    "O1": (148, 20),
 }
 
 RESOLVERS = {
