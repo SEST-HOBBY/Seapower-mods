@@ -1,10 +1,10 @@
 # Sea Power Mod Catalog
 
-144 subscribed Workshop mods, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
+147 subscribed Workshop mods, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
 
 See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency audit, and recommended mod order.
 
-## United States (40)
+## United States (41)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
@@ -39,6 +39,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | AH-64 Apache | misaka | rotary | Attack helicopter. |
 | CH-53E Standalone v0.1.0 | unknown | rotary | USMC and JMSDF CH-53E as standalone units (usmc_ch53_standalone, jmsdf_ch53_standalone). Early release - v0.1.0. Zero whole-file collisions. |
 | MH-60R Seahawk | 2154545636 | rotary | Standalone MH-60R. FOUR sources of MH-60-family helicopters in this list — duplicate/ID-conflict watch. **Load order:** Moved directly above US Naval Aviation (collection audit): its usn_mh-60r_squadrons.ini is the only squadron table whose serial reference (number) matches the MH-60R model that actually loads (U.S. Navy 2027's unit file, SubModel26=number). Only that one file changes hands. Load-bearing for the model/Hellfire/EOFLIR - keep subscribed. **Overlaps:** us-naval-aviation (MH-60R); modern-us-navy (MH-60); ado-nimitz-2000s (adds MH-60R) |
+| MV-22B Osprey Tiltrotor | unknown | rotary | Unarmed USMC MV-22B (mv22b_osprey) with Empty, Transport and Ferry loadouts, 32-seat SAR hover, search radar, EO/IR, RWR and jamming. Nacelle conversion and rotor folding via Anchor Chain. Zero whole-file collisions; shares systems/sensors.ini with Custom Loadout Editor, which merges key-by-key. **Requires:** anchor-chain (stated by the author) |
 | VH-3D Marine One MOD | plasm@n | rotary | Presidential transport helicopter. Workshop ID 3478767194. |
 | Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies) | ManeuverWarfare | ship | UPDATE 2026-08-11: now requires Modern US Navy for its F-35, F/A-18 and MH-60 air wing (replacing previous third-party aircraft dependencies). **Requires:** modern-us-navy |
 | Modern US Navy | Mitchell600 | ship | Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN. **Overlaps:** us-naval-aviation (SH-60/MH-60 family); mh-60r-2154545636; ado-nimitz-2000s (MH-60R); f-35c-alt-loadouts and murder-hornet (patch targets after the MyGo integration) |
@@ -160,6 +161,12 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Euromod - Modern Japanese Maritime Self Defence Force | Mitchell600 | ship | Modern JMSDF addon for Euromod. **Requires:** euromod-main (inferred from Euromod addon naming; not stated in the truncated description) |
 | Mogami-class Frigate | unknown (added 2026-08-24) | ship | JMSDF stealth multirole frigate; natural companion to Euromod JMSDF. VERIFIED: adds js_ffg_mogami. **Overlaps:** euromod-jmsdf (complementary — check for shared JMSDF weapon/sensor definitions) |
 
+## South Korea (1)
+
+| Mod | Author | Type | Notes |
+|---|---|---|---|
+| Euromod - South Korea Navy | unknown | ship | ROK Navy addon for Euromod: Sejong the Great DDG, Chungmugong Yi Sun-sin and Gwanggaeto the Great DDH, Incheon/Daegu/Chungnam FFG, Dokdo LPH, Yoon Youngha, Chamsuri and Pohang-class patrol craft, plus 17 munitions and 7 aircraft. Measured: 52 unique files. Contests 2: loses one to Euromod pack, and WINS ammunition/rn_sea_skua.ini from Sea Lynx (3455931957), which it outranks. Accepted: its copy is the more complete one (adds AmmoPoints for resupply and the land-attack flag, and a Small/moderate impact that fits Sea Skua's 30 kg warhead rather than Medium/Always); nothing SEST places uses it. Its vessels/non/ subfolder (KDDX, DDH-975 base, FFG-971) is outside vessels/ and does not load. **Requires:** euromod-main (Euromod addon) |
+
 ## Australia (5)
 
 | Mod | Author | Type | Notes |
@@ -201,13 +208,14 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Humpback Whale | unknown (added 2026-08-24) | civilian | Ambience / biologic sonar contact. VERIFIED: adds civ_humpback. |
 | Merchants Expanded | unknown (added 2026-08-24) | ship | Expanded civilian merchant traffic. VERIFIED: civilian merchant hulls (civ_ms_*). **Overlaps:** auxilliary-merchant-pack (two merchant packs — check for duplicate hulls) |
 
-## Utility / frameworks (7)
+## Utility / frameworks (8)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
 | AI Doctrine Overhaul | unknown (added 2026-08-24) | framework | UNSUBSCRIBED 2026-09-20 (gone from the export). Was an Anchor Chain code mod in tier 1b; removed from the canonical order and from TIER1B in tools/generate_load_order.py. Previously: VERIFIED: pure code mod (no unit data files) — Anchor Chain family. Changes AI behavior globally in every engagement. **Requires:** anchor-chain (presumed — code-level behavior mod; verify) |
 | Anchor Chain | PrimerGuided | framework | Community chainloader. 'Will not function on its own' — requires the documented manual install. Required by B-2 Spirit and Type 003/004 CVN, and by any code-modifying mod. Recommendation: keep at the very top of the mod order. |
 | Auto Time-on-Target | unknown | framework | Pure code mod - its export is a single _info.ini, no game data at all. Delays each launch so a multi-shooter salvo lands simultaneously; planner panel on Alt+G, multi-target on Alt+H. Position not order-sensitive; sits in the Anchor Chain code-mod tier. **Requires:** anchor-chain (stated: 'Requires the Anchor Chain mod ... fully restart the game') |
+| Automatic SAR | unknown | framework | Adds automatic search-and-rescue orders to unit right-click menus: ships and submarines visit sunken vessels with nearby distress beacons, helicopters work the beacons one by one. **Requires:** anchor-chain (inferred: a code mod; Anchor Chain is the collection's loader) **Load order:** tier 1b code mod, last in the tier. It ships a .NET assembly (AutomaticSAR.deps.json) plus language files and no game data, so it contests nothing; measured with check_mod_conflicts.py: 0 files the load order can fight over. |
 | Better TacMap | unknown (added 2026-08-24) | framework | VERIFIED: pure code mod (settings.cfg only in export) — Anchor Chain family UI overhaul. **Requires:** anchor-chain (presumed — UI code mod; verify) |
 | Custom Loadout Editor | unknown (added 2026-08-24) | framework | VERIFIED: Anchor Chain code mod plus *_patch_clm companion units for vanilla-era aircraft/ships (F-14, AV-8A, Tarawa, MiG-27...). All patch files use NEW ids — zero overlap with the SEST loadout patches. **Requires:** anchor-chain (presumed — code-level tool; verify) |
 | Identify Expanded | Yoshi | framework | Adds 13 identification and challenge orders (hail, warning, travel/cargo manifest, redirect, stop, slow, final warning, stand down, clear contact, and three hostile challenges: bail out, abandon ship, surrender) in three tones - polite, neutral, aggressive - with AI compliance rolls (base 50% redirect chance, morale and tone modifiers, partial-then-forced compliance) and TTS. The author warns to EXPECT BUGS. Its ini is hot-editable and worth tuning: [Vars] TtsEnabled=true switches the voice lines off, OrgName defaults to 'Katsuragi Security Service' and is only a fallback for senders with no nation, and [Intents]/[Responses] take pipe-separated alternatives - useful for the merchant traffic in NFIII. CAUTION: that ini lives in the Workshop folder, so a Steam update overwrites your edits, and because export-mod-configs.ps1 -CheckUpdates hashes content it reports your own edits as a change too - which is the point, it means edits are visible rather than lost silently. **Requires:** anchor-chain **Load order:** Removed at the user's request after trying it. If it comes back: tier 1b code mod, immediately below Better TacMap and above SAM Pack - it runs through Anchor Chain's preloader, so the only hard rule is that Anchor Chain stays above it, and it reads its own ini from its own folder rather than overriding game data, so it contests no unit files. |

@@ -38,6 +38,8 @@ TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
     ("better-tacmap", "code mod — UI"),
     ("auto-time-on-target", "code mod — ships no game data at all, one _info.ini"),
+    ("automatic-sar", "code mod — SAR orders; ships an assembly and language files, "
+     "contests nothing"),
 ]
 TIER2 = [
     ("sam-pack", 'author: "top of TOE"'),

@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts.",
-    "count": 144,
+    "count": 147,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
@@ -1871,6 +1871,46 @@
       "type": "fixed-wing",
       "status": "active",
       "notes": "Sixth-generation tailless demonstrator (plaaf_j36). Zero whole-file collisions."
+    },
+    {
+      "id": "automatic-sar",
+      "workshop_id": "3774105087",
+      "title": "Automatic SAR",
+      "author": "unknown",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "load_order": "tier 1b code mod, last in the tier. It ships a .NET assembly (AutomaticSAR.deps.json) plus language files and no game data, so it contests nothing; measured with check_mod_conflicts.py: 0 files the load order can fight over.",
+      "notes": "Adds automatic search-and-rescue orders to unit right-click menus: ships and submarines visit sunken vessels with nearby distress beacons, helicopters work the beacons one by one.",
+      "requires": [
+        "anchor-chain (inferred: a code mod; Anchor Chain is the collection's loader)"
+      ]
+    },
+    {
+      "id": "euromod-south-korea-navy",
+      "workshop_id": "3789208859",
+      "title": "Euromod - South Korea Navy",
+      "author": "unknown",
+      "faction": "korea",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "euromod-main (Euromod addon)"
+      ],
+      "notes": "ROK Navy addon for Euromod: Sejong the Great DDG, Chungmugong Yi Sun-sin and Gwanggaeto the Great DDH, Incheon/Daegu/Chungnam FFG, Dokdo LPH, Yoon Youngha, Chamsuri and Pohang-class patrol craft, plus 17 munitions and 7 aircraft. Measured: 52 unique files. Contests 2: loses one to Euromod pack, and WINS ammunition/rn_sea_skua.ini from Sea Lynx (3455931957), which it outranks. Accepted: its copy is the more complete one (adds AmmoPoints for resupply and the land-attack flag, and a Small/moderate impact that fits Sea Skua's 30 kg warhead rather than Medium/Always); nothing SEST places uses it. Its vessels/non/ subfolder (KDDX, DDH-975 base, FFG-971) is outside vessels/ and does not load."
+    },
+    {
+      "id": "mv-22b-osprey",
+      "workshop_id": "3806466625",
+      "title": "MV-22B Osprey Tiltrotor",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "rotary",
+      "status": "active",
+      "requires": [
+        "anchor-chain (stated by the author)"
+      ],
+      "notes": "Unarmed USMC MV-22B (mv22b_osprey) with Empty, Transport and Ferry loadouts, 32-seat SAR hover, search radar, EO/IR, RWR and jamming. Nacelle conversion and rotor folding via Anchor Chain. Zero whole-file collisions; shares systems/sensors.ini with Custom Loadout Editor, which merges key-by-key."
     }
   ]
 }
