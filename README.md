@@ -38,6 +38,7 @@ python3 tools/check_dependencies.py         # every pack's upstreams exported an
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
 python3 tools/generate_catalog.py           # docs/mod-catalog.md      <- data/mod-catalog.json
 python3 tools/generate_load_order.py        # docs/load-order-full.md  <- catalog + tiers
+python3 tools/build_workshop.py             # stage the Steam Workshop items + docs/workshop/
 ```
 
 Gaming PC (PowerShell, from the repo root, `-ExecutionPolicy Bypass` because a default
@@ -50,6 +51,15 @@ powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -Include
 ```
 
 `docs/setup-runbook.md` is the full walkthrough.
+
+## Publishing on the Steam Workshop
+
+Two items and a collection. `docs/workshop/` holds the descriptions, derived
+Required Items and upload checklists:
+
+- **Definitive Modernised Seapower - SEST Integration Pack**: the consolidated pack
+- **Southern Watch**: 13 scored missions, with the pack as a Required Item
+- **Definitive Modernised Seapower** collection: the whole mod list, as links
 
 ## Why one pack
 
