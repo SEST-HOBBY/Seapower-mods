@@ -51,7 +51,7 @@ def sections(path):
             k, _, v = s.partition("="); out[cur][k.strip()] = v.strip()
     return out
 
-def card(ini, out_png, num, title, date, place, standfirst):
+def card(ini, out_png, num, title, date, place, standfirst, label="SOUTHERN WATCH"):
     S = sections(ini)
     afloat, goal = [], None
     for tag, keys in S.items():
@@ -132,7 +132,7 @@ def card(ini, out_png, num, title, date, place, standfirst):
     y += 18
     d.line([(L, y), (L+300, y)], fill=BLUE, width=7); y += 40
     d.text((L+4, y), place.upper(), font=font(46), fill=INK_MUTE)
-    d.text((L+4, CH-118), "SOUTHERN WATCH", font=font(34, True, mono=True), fill=INK_MUTE)
+    d.text((L+4, CH-118), label, font=font(34, True, mono=True), fill=INK_MUTE)
     d.text((L+4, CH-72), "OWN FORCE ONLY · OPPOSITION NOT SHOWN",
            font=font(26, mono=True), fill=(96, 98, 100))
     img = img.resize((SHEET_W, SHEET_H), Image.LANCZOS)
@@ -175,7 +175,7 @@ MONO = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono%s.ttf"
 def serif(px, bold=False): return ImageFont.truetype(SER % ("-Bold" if bold else ""), px)
 def mono(px, bold=False):  return ImageFont.truetype(MONO % ("-Bold" if bold else ""), px)
 
-def dispatch(out_png, masthead, dateline, headline, sub, body):
+def dispatch(out_png, masthead, dateline, headline, sub, body, label="SOUTHERN WATCH"):
     img = Image.new("RGB", (W, H), STOCK)
     d = ImageDraw.Draw(img)
     M = 96
@@ -235,7 +235,7 @@ def dispatch(out_png, masthead, dateline, headline, sub, body):
            fill=(198, 192, 180), width=2)
 
     d.line([(M, H-132), (W-M, H-132)], fill=RULE, width=6)
-    d.text((M, H-112), "SOUTHERN WATCH", font=mono(26, True), fill=PAPER_MUTE)
+    d.text((M, H-112), label, font=mono(26, True), fill=PAPER_MUTE)
     d.text((W-M, H-112), dateline.split("|")[-1].strip().upper(),
            font=mono(26), fill=PAPER_MUTE, anchor="ra")
     img.save(out_png)
@@ -243,7 +243,8 @@ def dispatch(out_png, masthead, dateline, headline, sub, body):
           f"{len(lines)} body lines at {size}pt")
 
 
-def render_all(camp_dir, missions, events, slug, title, subtitle):
+def render_all(camp_dir, missions, events, slug, title, subtitle,
+               prefix="southern_watch", label="SOUTHERN WATCH"):
     """Write every card and dispatch into the campaign's art folder.
 
     Returns {mission key: relative image path} and {event file: asset key} so
@@ -263,11 +264,14 @@ def render_all(camp_dir, missions, events, slug, title, subtitle):
         # for one is 60 KB the download carries and nothing can display.
         ll = _ll(m["ini"])
         if ll:
-            marks.append((m["num"], ll[0], ll[1], m["group"] == "core"))
+            marks.append((m.get("code", m["num"]), ll[0], ll[1], m["group"] == "core"))
         if m["group"] == "dispatch":
             continue
-        name = f"southern_watch_{m['num'].lower()}_sheet.png"
-        card(m["ini"], art / name, m["num"], m["key"], m["date"], m["place"], "")
+        name = f"{prefix}_{m.get('code', m['num']).lower()}_sheet.png"
+        # A campaign with two series says which one on the date line, so a
+        # card numbered 01 cannot be mistaken for the other chapter's 01.
+        dated = f"{m['series'].upper()}  ·  {m['date']}" if m.get("series") else m["date"]
+        card(m["ini"], art / name, m["num"], m["key"], dated, m["place"], "", label=label)
         sheets[m["key"]] = f"campaigns/{slug}/art/{name}"
     backdrop(art / "00_campaign_background.png", marks, title, subtitle)
     tile(art / "bkg_tile_newspaper.png", "newspaper")
@@ -278,16 +282,16 @@ def render_all(camp_dir, missions, events, slug, title, subtitle):
         if form == "press":
             dispatch(art / f"{key}.png",
                      e["dateline"].split("|")[-1].strip(), e["dateline"],
-                     e["headline"], e["sub"], e["body"])
+                     e["headline"], e["sub"], e["body"], label=label)
         elif form == "signal":
             signal(art / f"{key}.png", e["header"], e["body"],
-                   strap=e.get("strap"), note=e.get("note"))
+                   strap=e.get("strap"), note=e.get("note"), label=label)
         elif form == "log":
             log(art / f"{key}.png", e["ship"], e["master"], e["date"],
-                e["entries"], note=e.get("note"))
+                e["entries"], note=e.get("note"), label=label)
         elif form == "intsum":
             intsum(art / f"{key}.png", e["org"], e["ref"], e["date"],
-                   e["subject"], e["body"], note=e.get("note"))
+                   e["subject"], e["body"], note=e.get("note"), label=label)
         else:
             raise SystemExit(f"{e['file']}: unknown story form {form!r}")
         assets[e["file"]] = key
@@ -419,12 +423,21 @@ def backdrop(out_png, marks, title, subtitle):
         if is_core:
             d.ellipse([px-38, py-38, px+38, py+38], fill=(52, 110, 152, 26))
             d.ellipse([px-21, py-21, px+21, py+21], fill=DEEP, outline=TRACK, width=4)
-            d.text((px, py + 1), num, font=font(22, True), fill=CHART,
-                   anchor="mm")
+            d.text((px, py + 1), num, font=font(22 if len(num) <= 2 else 15, True),
+                   fill=CHART, anchor="mm")
         else:                           # the optional beats: present, not loud
             d.ellipse([px-13, py-13, px+13, py+13], outline=(44, 74, 98), width=3)
 
-    cx, cy, r = W - 190, 190, 96        # compass rose, quiet
+    # The compass rose, quiet, in the first corner that has no mark under
+    # it: top-right by preference (every Southern Watch mark is south-west
+    # of it), else bottom-right, else top-left. A rose over a mission mark
+    # hides the mission.
+    r = 96
+    cx, cy = W - 190, 190
+    for ccx, ccy in ((W - 190, 190), (W - 190, H - 190), (190, 190)):
+        if all(math.hypot(px - ccx, py - ccy) > r + 40 for _n, px, py, _c in pos):
+            cx, cy = ccx, ccy
+            break
     d.ellipse([cx-r, cy-r, cx+r, cy+r], outline=(38, 52, 66), width=3)
     d.ellipse([cx-r+22, cy-r+22, cx+r-22, cy+r-22], outline=(30, 42, 54), width=2)
     for a in range(0, 360, 15):
@@ -506,7 +519,7 @@ def _set_block(d, lines, x, y, fnt, width, lh, fill):
     return y
 
 
-def signal(out_png, header, body, strap=None, note=None):
+def signal(out_png, header, body, strap=None, note=None, label="SOUTHERN WATCH"):
     """A cable, a memo or an intercept: monospace on teleprinter stock.
 
     `header` is a list of (label, value) rows for the ruled box at the top -
@@ -544,12 +557,12 @@ def signal(out_png, header, body, strap=None, note=None):
         d.rectangle([M-16, ny-16, W-M+16, H-80], outline=SIG_RULE, width=3)
         d.text((M, ny), "ANALYST NOTE", font=mono(22, True), fill=SIG_STRAP)
         _set_block(d, [note], M, ny+34, mono(21), W-2*M, 30, SIG_INK)
-    d.text((W-M, H-64), "SOUTHERN WATCH  ·  FICTION", font=mono(20), fill=SIG_RULE, anchor="ra")
+    d.text((W-M, H-64), f"{label}  ·  FICTION", font=mono(20), fill=SIG_RULE, anchor="ra")
     img.save(out_png)
     print(f"wrote {Path(out_png).name}  {W}x{H}  signal, {len(body)} lines at {size}pt")
 
 
-def log(out_png, ship, master, date, entries, note=None):
+def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH"):
     """A deck log extract: ruled lines, a time column, a master's note.
 
     `entries` is a list of (time, text); a time of '' continues the previous
@@ -579,12 +592,12 @@ def log(out_png, ship, master, date, entries, note=None):
         ny = H - 236
         d.line([(M, ny-14), (W-M, ny-14)], fill=LOG_INK, width=2)
         _set_block(d, [note], M, ny, ImageFont.truetype(SER % "-Bold", 25), W-2*M, 36, LOG_INK)
-    d.text((W-M, H-64), "SOUTHERN WATCH  ·  FICTION", font=mono(20), fill=LOG_RULE, anchor="ra")
+    d.text((W-M, H-64), f"{label}  ·  FICTION", font=mono(20), fill=LOG_RULE, anchor="ra")
     img.save(out_png)
     print(f"wrote {Path(out_png).name}  {W}x{H}  log, {len(entries)} entries")
 
 
-def intsum(out_png, org, ref, date, subject, paras, note=None):
+def intsum(out_png, org, ref, date, subject, paras, note=None, label="SOUTHERN WATCH"):
     """A typed intelligence summary with the one banner this campaign is
     entitled to: FICTION. `paras` is a list of strings; a string starting
     with a letter-and-dot ('a. ...') is a sub-paragraph and indents."""

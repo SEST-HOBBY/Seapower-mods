@@ -5,14 +5,14 @@ textures and no audio - every one of those belongs to the Workshop
 mod it came from, which is why REQUIRED-MODS.txt lists them as
 required rather than suggested.
 
-79 of the unit files here are another author's file with
+81 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 79 below
+every file of its kind in the collection, and the 81 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
@@ -100,6 +100,8 @@ file is unchanged.
        98%  land_units/airbase_raaf_townsville.ini from airfield_us_large.ini
        98%  land_units/airbase_raaf_williamtown.ini from airfield_us_large.ini
        98%  land_units/airbase_raaf_woomera.ini from airfield_us_large.ini
+       98%  land_units/airbase_rnzaf_auckland.ini from airfield_us_large.ini
+       98%  land_units/airbase_rnzaf_ohakea.ini from airfield_us_large.ini
 
   F-35C Lightning II Alt. Loadouts  (workshop 3607989779)
        93%  aircraft/usn_f-35c.ini 
