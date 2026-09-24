@@ -45,7 +45,11 @@ INFO_DESC = (
     "SOUTHERN WATCH - The Northern Lifeline. Twelve connected missions, "
     "October-November 2028: Australia and its regional partners keep the "
     "northern sea routes open through a maritime coercion campaign that "
-    "escalates into a limited regional war. Eight optional dispatches - "
+    "escalates into a limited regional war, with four optional operations "
+    "and two contingencies whose results later missions read. Survivors "
+    "your helicopters and ships pick up are paid as requisition points at "
+    "each debrief - with Automatic SAR, right-click a helicopter or ship "
+    "and choose Start automatic SAR. Eight optional dispatches - "
     "allied rotations, an opposing-force passage, a weapons range, an openly "
     "speculative future branch and a Cold War anthology - give the rest of the "
     "collection a purposeful role. Fiction throughout. "
@@ -91,6 +95,11 @@ EXCUSES = {
     "auto-time-on-target": (
         "library", "salvo-timing behaviour with no data files; it applies to "
         "every mission and no mission may depend on it"),
+    "automatic-sar": (
+        "library", "rescue behaviour (a DLL the export skips, plus its "
+        "language strings); no unit or round a mission can name. The campaign "
+        "reads it through the survivor reward, CSARPointModifier: what a "
+        "helicopter or ship picks up is paid at every debrief"),
     "better-tacmap": (
         "library", "player interface - ships `settings.cfg` and nothing else"),
     "euromod-anchorchain-expansion": (
@@ -209,9 +218,14 @@ TASKFORCE = dict(
     PointCap="1500",
     ShipIncludesAirwing="False",
     PurchaseLoadouts="True",
-    # One point per complete group of 100 survivors. Rescue is an objective and
-    # a human consequence; it is not the campaign's income.
-    CSARPointModifier="100",
+    # The stock Task Force campaign's value. Survivors picked up are paid at
+    # the debrief ("{0} survivors -> {1} additional point(s) awarded", ui.ini
+    # [TaskForceDebrief]), which is what makes Automatic SAR part of the
+    # campaign rather than a convenience. Which way the modifier scales is
+    # not stated anywhere readable - the stock comment says "100 survivors
+    # reward 1 pt" beside a value of 10 - so this ships the stock number and
+    # the test card reads the debrief line to settle it.
+    CSARPointModifier="10",
     CrewSkillInitial="Trained",
     CrewSkillThresholds="Trained:1|Seasoned:4|Veterans:9|Ultra:16",
     UnitDecommissionPointReturnModifier="0.25",
@@ -556,20 +570,23 @@ MISSIONS.append(dict(
     blue_nation="Australia", red_nation="China",
     brief=(
         "TIMOR SEA, late afternoon. Rig Seventeen stopped answering its shore "
-        "office on Tuesday. Forty-one contract staff are still aboard, and the "
+        "office on Tuesday. Thirty contract staff are still aboard, and the "
         "people holding the platform have a helicopter deck, a shore battery "
         "on the nearest headland and an air-defence vehicle they were not "
         "supposed to have.\\n\\n"
         "The coastal state has asked for help and set the boundary: you may "
         "cover an evacuation, you may not level the installation. CHOULES is "
-        "in company with CANBERRA and there are two Super Stallions for the "
-        "lift.\\n\\n"
+        "in company with CANBERRA, and the Marine rotational force out of "
+        "Darwin has lent the lift for one afternoon at the end of its "
+        "rotation: a Super Stallion and an Osprey off Canberra's deck, each "
+        "with a seat for everyone on that platform.\\n\\n"
         "Get the transports in, get the people off, get everybody out before "
         "the light goes. Not every platform out here is theirs and most of "
         "this coast is working its ordinary week. The lifter that takes the "
         "crew off is the lifter that has to bring them south - lose her after "
         "the pickup and they are gone with her."),
-    forces="HMAS Choules and HMAS Canberra with two CH-53E for the lift, and your escort. "
+    forces="HMAS Choules and HMAS Canberra, a USMC CH-53E and MV-22B on "
+           "loan from the Darwin rotational force for the lift, and your escort. "
            "Ashore: a launcher site, a VL MICA battery, a Sosna vehicle and "
            "a technical. One armed platform.",
     objectives=[
@@ -632,8 +649,10 @@ MISSIONS.append(dict(
         # helicopter with a story attached.
         U("blue", "ch-53e-standalone", "usmc_ch53_standalone", "lift",
           name="Lifter 11", alt=1500, weapons="Tight", loadout="CH53SARescue"),
-        U("blue", "ch-53e-standalone", "usmc_ch53_standalone", "lift",
-          name="Lifter 12", alt=1500, weapons="Tight", loadout="CH53SARescue"),
+        # The Marine Osprey: the Transport fit is the one with seats (32) -
+        # the mod's own README routes rescue and medevac through it.
+        U("blue", "mv-22b-osprey", "mv22b_osprey", "lift",
+          name="Lifter 12", alt=1500, weapons="Tight", loadout="Transport"),
         U("neutral", "armed-oil-rig", "civ_spar_rig_helo", "rig",
           name="Rig Seventeen", snap="sea"),
         U("neutral", "_vanilla", "civ_ms_ritina", "traffic",
@@ -2818,19 +2837,24 @@ MISSIONS.append(dict(
         "a Warthog pair on the ridge, a gunship on the loiter and a Strike "
         "Eagle section holding the long shots. A Polish F-16 detachment "
         "transiting to the theatre has been pulled in for escort.\\n\\n"
+        "Two Marine Ospreys are bringing the airhead's first lift in behind "
+        "the column, and the ridge covers their approach as surely as it "
+        "covers the road.\\n\\n"
         "Get the column - the relief truck is the column - to the airstrip. "
         "The gunship is only usable because nothing in this sector has a "
         "working radar; if the J-16 re-establishes the picture, pull it the "
         "moment a fighter radar comes up. Losing the gunship ends the "
         "operation."),
     forces="Two AH-64E, an A-10C, an AC-130J, two F-15E, a Polish F-16C, a "
-           "B-2 on a single allocated pass. Opposing: a J-16, an attack "
+           "B-2 on a single allocated pass, and two MV-22B with the airhead's "
+           "first lift. Opposing: a J-16, an attack "
            "helicopter, PLA road "
            "detachments and a mobile SAM.",
     objectives=[
         ("Column", "Get the relief truck to the airstrip", "35,-35,Fail,Main"),
         ("Gunship", "Do not lose the gunship", "20,-25,Complete"),
         ("Village", "Leave the settlements alone", "0,-30,Complete"),
+        ("Lift", "Land the Osprey lift at the airstrip", "15,-10,Fail"),
     ],
     # The airhead IS the airstrip, and the cargo IS the truck: the box is
     # drawn on the strip and only the HEMTT counts. The reviewed build let
@@ -2862,6 +2886,10 @@ MISSIONS.append(dict(
         # and outside a Viper's, and a long way to send an Apache.
         "strip": S(-8.38, 140.35, "Forward airstrip"),
         "traffic": S(-8.52, 140.48, "Road traffic", heading=300),
+        # 58 NM south-west of the strip, inbound: the last five miles are
+        # inside the ridge Tor's envelope, so the lift arrives when the
+        # ridge is cleared or it arrives under fire.
+        "lift": S(-9.0, 139.6, "Osprey lift", heading=35, alt=3000),
     },
     units=[
         U("blue", "ah-64", "usa_ah-64e", "gun", name="Gunfighter 11"),
@@ -2893,6 +2921,10 @@ MISSIONS.append(dict(
           name="RAAF Base Scherger", nation="australia", weapons="Hold"),
         U("blue", "_vanilla", "airfield_small_1", "strip",
           name="Forward airstrip", weapons="Hold"),
+        U("blue", "mv-22b-osprey", "mv22b_osprey", "lift", name="Dragon 71",
+          weapons="Hold", loadout="Transport"),
+        U("blue", "mv-22b-osprey", "mv22b_osprey", "lift", name="Dragon 72",
+          weapons="Hold", loadout="Transport"),
     ],
 ))
 
@@ -3808,7 +3840,8 @@ RESOLVERS = {
     "D7": {"Serial": "victory", "Recovery": ("protect", "high"),
            "Umpire": ("spare", "aggressor#2")},
     "D8": {"Column": "victory", "Village": "neutral",
-           "Gunship": ("protect", "support")},
+           "Gunship": ("protect", "support"),
+           "Lift": ("arrive", "lift", (-8.38, 140.35), 3, 1)},
 }
 
 for _m in MISSIONS:

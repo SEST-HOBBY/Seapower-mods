@@ -767,6 +767,47 @@ given, so the "helicopter home" win the rewrite drew on the ship had shipped
 as a circle 71 NM from her. `809d153a` removes the entry. An authored `at=`
 and an `ARRIVALS` bearing must never both exist for one mission.
 
+## Automatic SAR and the MV-22B
+
+Both were subscribed but uncatalogued, and the sync writes only catalogued
+mods into the order - so the Mod Manager showed them as not loaded. Both are
+catalogued now (`data/mod-catalog.json`, `data/load-order.tokens.txt`).
+
+**Automatic SAR** (3774105087) is a code mod: a DLL the export skips, plus
+language files. It is used through a mechanism the game already has. The
+Task Force debrief pays survivors picked up as requisition points
+(`ui.ini [TaskForceDebrief]`: "{0} survivors -> {1} additional point(s)
+awarded"), driven by `CSARPointModifier`. The campaign had set that to 100 to
+keep rescue from becoming income; it now ships the stock campaign's 10, and
+the campaign description tells the player that rescue pays and where the
+command is. Which way the modifier scales is unstated - the stock comment
+reads "100 survivors reward 1 pt" beside a value of 10 - so test card 6A.3
+reads the debrief line to settle it.
+
+**The MV-22B** (3806466625) is an unarmed tiltrotor, `UnitType=VTOL`,
+`CarrierCapable=True`, 32 seats on its Transport fit. It enters as US
+Marine lift out of Darwin, which is where the Marine Rotational Force flies
+them, and never as a purchase:
+
+- **Rig Seventeen**: one of the two rescue lifters is now an MRF-D Osprey
+  off HMAS Canberra (the class has hosted MV-22Bs in Talisman Sabre; the RAN
+  Fleet builder's `deck` key adds it to Canberra's list, and the recovery
+  gate homes it there). The rig's head count fell from forty-one to thirty:
+  forty-one never fitted one lift - the Super Stallion seats 37 - while the
+  win has always been one lifter's chain.
+- **The Long Perimeter**: two Ospreys bring the airhead's first lift in
+  from 58 NM south-west, the last five miles inside the ridge Tor's
+  envelope, scored by a new Lift objective (15/-10, fails at mission end).
+
+The same export carried a U.S. Navy 2027 update (sixteen new Flight I/II
+Arleigh Burke hulls, variant and language changes) and author updates to
+Euromod's interceptors. None of it changes a unit the campaign places; the
+six rounds Collection Fixes rebuilds (SM-3 IB/IIA/IIB, SM-6, SM-6 IB,
+PAC-3 MSE) take the author's new kill probabilities, penalties, numeric RCS
+and body areas, and every SEST delta (the loft angle, the 150,000 ft gate,
+the flight times) still lands on top. All 26 campaign missions and the
+loose missions preflight clean against the new files.
+
 ## What exists
 
 | Thing | Where |

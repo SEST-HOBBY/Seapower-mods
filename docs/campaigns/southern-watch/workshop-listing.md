@@ -5,7 +5,7 @@ Everything below is for the Steam Workshop page. The mod's own
 page a subscriber reads before they click. Nothing here is generated, so if
 the campaign changes, this changes by hand.
 
-A note before the copy: this pack **requires 134 other Workshop mods**. That
+A note before the copy: this pack **requires 135 other Workshop mods**. That
 is not a footnote, it is the headline risk of publishing it. A subscriber who
 skims the description, subscribes, and starts the campaign with forty of them
 will get missions that are not the missions that were built. Say the number
@@ -65,7 +65,7 @@ WHAT IT IS
 WHAT IT NEEDS — READ THIS PART
 
 This campaign is built on a large mod collection. It names units from
-**134 Steam Workshop mods**. That is the point of it — the campaign exists to
+**135 Steam Workshop mods**. That is the point of it — the campaign exists to
 give a very large collection somewhere purposeful to be used — but it means
 subscribing to this alone is not enough.
 
@@ -78,7 +78,7 @@ have — and it iterates, so their dependencies come too.
 Then open this mod's folder and read the files in it:
 
   REQUIRED-MODS.txt — every Workshop mod the campaign names, with its ID
-  LOAD-ORDER.txt    — the 141-entry Mod Manager order it was built against
+  LOAD-ORDER.txt    — the 143-entry Mod Manager order it was built against
   CREDITS.txt       — whose work this is built on
 
 Put this pack at the TOP of your load order. It contains whole-file

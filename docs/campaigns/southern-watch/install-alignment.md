@@ -101,7 +101,7 @@ What to read in its output:
 | the commit named in `IN LINE` | what you actually deployed | must equal step 1's short hash — if it does not, the pull did not take |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `purged SEST_…` | an old per-pack folder removed | expected once, after the switch to the consolidated pack |
-| `appended (not canonical)` | a mod you subscribed to that the repo has never seen | expected for **Automatic SAR** only — see step 5. The Euromod South Korean Navy is catalogued now |
+| `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected now: Automatic SAR, the MV-22B and the Euromod South Korean Navy are all catalogued. Any id it names is a new subscription - see step 5 |
 
 The file count should now be **387**, not 122. It changed in this branch: the
 campaign gained 38 generated PNGs plus `REQUIRED-MODS.txt` and
@@ -138,33 +138,24 @@ something the next cannot:
    layer does not surface but the browser entries do, that difference is
    itself the diagnosis.
 
-## 5 — the one mod the repo has not catalogued
+## 5 — a mod the repo has not catalogued
 
-**Automatic SAR** was subscribed after the last catalog export, so it is not
-in `data\load-order.tokens.txt`. The **Euromod South Korean Navy**
-(3789208859) was catalogued at `7454dc5b` from its exported files and sits at
-entry 36 of the canonical order, directly after the other Euromod addons; the
-campaign now places its hulls (O3 Borrowed Shield, SW06), so it is a required
-mod and will not be dropped.
+Every subscription is catalogued as of the MV-22B commit: **Automatic SAR**
+(3774105087) sits in the code-mod tier at entry 8, the **MV-22B Osprey**
+(3806466625) at entry 104, and the **Euromod South Korean Navy** (3789208859)
+after the other Euromod addons.
 
-I had this backwards in the first version of this document, and it matters.
-`set-mod-order.ps1` does not append an unknown mod at the bottom — that is
-only what it does with a *non-numeric* token. A **workshop id** it does not
-recognise is **removed** from `[LoadOrder]`, with a warning, because an
-unsubscribed leftover left enabled is what kept the phantom KJ-500 alive as
-entry 144. The script's own help text said "appended … rather than dropped"
-for all three cases; it says what it actually does now, and so does
-`fix-load-order.ps1`'s warning.
+`set-mod-order.ps1` writes only catalogued mods into `[LoadOrder]`. A
+**workshop id** it does not recognise is **removed**, with a warning, because
+an unsubscribed leftover left enabled is what kept the phantom KJ-500 alive as
+entry 144. That is why the Mod Manager reported Automatic SAR and the MV-22B
+as not loaded before: the sync dropped the first on every run and never added
+the second.
 
-So each time you run the sync, Automatic SAR is dropped, and the game
-re-adds it on the next launch at a position it chooses. Nothing breaks — the
-campaign names no unit from it, and it is a behaviour mod that applies
-wherever it sits — but it has no stable position, and you will see a
-`dropped stale workshop entry` warning naming it on every run. That warning
-is expected and is not a problem with the install.
-
-To give it a fixed position it has to be catalogued, which means an export
-from your machine:
+A mod you subscribe to from now on gets the same treatment until it is
+catalogued: `dropped stale workshop entry` names it, and the Mod Manager shows
+it as not loaded. Nothing breaks, but it is not in play. To catalogue it the
+repo needs its files, which means an export from your machine:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1
@@ -177,7 +168,7 @@ expected behaviour, not a fault.
 
 The `IN LINE` line after a sync on this branch should name the short hash
 `git log --oneline -1` printed in step 1; the counts above (387 files, 38 art
-PNGs plus 44 briefing charts, 35 entries) are for the art-format commit after `b30ddbe3` and later builds of this branch.
+PNGs plus 44 briefing charts, 35 entries, 143 order entries) are for the art-format commit after `b30ddbe3` and later builds of this branch.
 
 ## 6 — then play the card
 
