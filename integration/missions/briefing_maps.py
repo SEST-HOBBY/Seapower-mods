@@ -298,6 +298,7 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
     # enemy: one reported area per kind, not pins
     kinds = {"Vessel": "surface group", "Aircraft": "air activity",
              "LandUnit": "ground forces"}
+    area_labels = []                    # (x, y) of each label already drawn
     for kind, label in kinds.items():
         grp = [u for u in units if u["side"] == "hostile" and u["kind"] == kind]
         if not grp:
@@ -312,8 +313,14 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
         d.ellipse([x0, y0, x1, y1], fill=HOSTILE + (46,))
         _dashed_ellipse(d, (x0 + x1) / 2, (y0 + y1) / 2, (x1 - x0) / 2, (y1 - y0) / 2,
                         HOSTILE, int(1.5 * S))
-        _text(d, ((x0 + x1) / 2, y0 - 6 * S), f"REPORTED {label.upper()}", label_f,
-              HOSTILE, anchor="ms")
+        # Two reported areas over the same water (a group and its air wing)
+        # would print their labels on top of each other: the second goes
+        # under its ellipse instead.
+        lx, ly, anchor = (x0 + x1) / 2, y0 - 6 * S, "ms"
+        if any(abs(lx - px) < 160 * S and abs(ly - py) < 16 * S for px, py in area_labels):
+            ly, anchor = y1 + 6 * S, "ma"
+        area_labels.append((lx, ly))
+        _text(d, (lx, ly), f"REPORTED {label.upper()}", label_f, HOSTILE, anchor=anchor)
 
     # player forces: every unit, one label per cluster ("VIPER x4")
     friends = [u for u in units if u["side"] == "friend"]

@@ -142,7 +142,7 @@ CAMPAIGN = dict(
     DOCS_DIR=ROOT / "docs" / "campaigns" / "southern-reach",
     COVERAGE_DOC=ROOT / "docs" / "campaigns" / "southern-reach" / "coverage.md",
     CAMPAIGN_NAME_EN="Southern Reach - Tasman Shield (Royal Australian Navy)",
-    CAMPAIGN_DIFFICULTY="3", MAP_FOCUS_NM=350, MAP_INSET=(100, -66, 180, -25),
+    CAMPAIGN_DIFFICULTY="3", MAP_FOCUS_NM=350, MAP_INSET=(100, -70, 180, -25),
     INFO_DESC=INFO_DESC, DISPATCH_DESC="", TASKFORCE=TASKFORCE,
     DIFFICULTIES=DIFFICULTIES, ROSTER=ROSTER, COMMANDER=COMMANDER,
     EVENTS=EVENTS, MISSIONS=MISSIONS, EXCUSES={})
