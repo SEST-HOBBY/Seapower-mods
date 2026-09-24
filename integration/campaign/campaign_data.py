@@ -394,7 +394,8 @@ MISSIONS.append(dict(
         # times its height. Beside the ship, low, on the ship's heading.
         "flight": S(-10.44, 131.76, "Ship's flight", heading=80, alt=500),
         "high": S(-9.9, 131.9, "Triton orbit", heading=90, alt=50000),
-        "liner": S(-10.3, 132.32, "Denpasar service", heading=260, alt=34000),
+        # Pointed down the Darwin-Denpasar track (bearing 275 from here).
+        "liner": S(-10.3, 132.32, "Denpasar service", heading=275, alt=34000),
         "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
     units=[
@@ -417,8 +418,13 @@ MISSIONS.append(dict(
           name="Arafura trawler north"),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_c", "neutrals",
           name="Arafura trawler south"),
+        # An aircraft with no Waypoints is held in an orbit over its spawn -
+        # the first install saw the airliner circle one spot all mission.
+        # Stock airliners fly one waypoint far off the map at cruise
+        # (Charlies.ini's DC-10: 500 NM out, Telegraph=4), so this one does:
+        # 500 NM toward Denpasar, further than 50 minutes at cruise.
         U("neutral", "civil-aircraft-airbus", "civ_a320", "liner",
-          name="Denpasar 214"),
+          name="Denpasar 214", route=[(-9.57, 123.9, 34000)], telegraph=3),
         # The escort CLOSES: to the convoy's starting position, then on toward
         # the handover box - so it is the thing the player has to identify
         # before it is inside gun range of a merchant, not a hull parked
@@ -2626,8 +2632,11 @@ MISSIONS.append(dict(
         # is a line of text and nothing else.
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "safety",
           name="Range safety boat"),
+        # Flying the airway, not orbiting over it: 650 NM toward Singapore
+        # on the station's own heading, beyond an hour at cruise.
         U("neutral", "civil-aircraft-airbus", "civ_a330", "airway",
-          name="Darwin-Singapore service", snap="sea"),
+          name="Darwin-Singapore service", route=[(-6.28, 120.3, 31000)],
+          telegraph=3),
     ],
 ))
 
