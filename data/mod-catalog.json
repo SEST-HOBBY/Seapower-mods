@@ -81,6 +81,7 @@
       "title": "SEST RAAF Bases",
       "build_after": [
         "SEST_ADF_Persistent_ISR",
+        "SEST_Collection_Fixes",
         "SEST_F-15EX_Revamp",
         "SEST_RAAF_Wedgetail",
         "SEST_Raptor_Squadrons"
@@ -910,7 +911,7 @@
         "ado-nimitz-2000s (adds MH-60R)"
       ],
       "notes": "Standalone MH-60R. FOUR sources of MH-60-family helicopters in this list — duplicate/ID-conflict watch.",
-      "load_order": "Moved directly above US Naval Aviation (collection audit): its usn_mh-60r_squadrons.ini is the only squadron table whose serial reference (number) matches the MH-60R model that actually loads (U.S. Navy 2027's unit file, SubModel26=number). Only that one file changes hands. Load-bearing for the model/Hellfire/EOFLIR - keep subscribed."
+      "load_order": "Sits directly above US Naval Aviation (collection audit, 2026-09). The squadron table that rationale was about is now SEST Collection Fixes' own: U.S. Navy 2027's current usn_mh-60r draws US Naval Aviation's sh60 model (Modex/Emblem submodels), so the composed table is US Naval Aviation's plus 816 Squadron RAN. Still load-bearing - keep subscribed: ADO Nimitz 2000s' carrier draws its deck Seahawks from this mod's assets/models/aircraft/usn_sh-60b/ folder."
     },
     {
       "id": "nimitz-expanded",

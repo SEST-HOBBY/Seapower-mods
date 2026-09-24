@@ -95,14 +95,17 @@ FAMILY = {
     ("blue", "vessel"): "Taskforce1Vessel",
     ("blue", "sub"): "Taskforce1Submarine",
     ("blue", "air"): "Taskforce1Aircraft",
+    ("blue", "heli"): "Taskforce1Helicopter",
     ("blue", "land"): "Taskforce1LandUnit",
     ("red", "vessel"): "Taskforce2Vessel",
     ("red", "sub"): "Taskforce2Submarine",
     ("red", "air"): "Taskforce2Aircraft",
+    ("red", "heli"): "Taskforce2Helicopter",
     ("red", "land"): "Taskforce2LandUnit",
     ("neutral", "vessel"): "NeutralVessel",
     ("neutral", "sub"): "NeutralSubmarine",
     ("neutral", "air"): "NeutralAircraft",
+    ("neutral", "heli"): "NeutralHelicopter",
     ("neutral", "land"): "NeutralLandUnit",
     ("neutral", "bio"): "NeutralBiologic",
 }
@@ -118,6 +121,18 @@ COUNT_KEY = {
     "Taskforce1Aircraft": "NumberOfTaskforce1Aircraft",
     "Taskforce2Aircraft": "NumberOfTaskforce2Aircraft",
     "NeutralAircraft": "NumberOfNeutralAircraft",
+    # Helicopters are their own family. Every helicopter placement in the
+    # stock and workshop missions (60; 97 with the user-folder copies) sits in
+    # a [TaskforceNHelicopterM] or [NeutralHelicopterM] section counted by
+    # NumberOf...Helicopters - the
+    # format guide lists the family separately, stock names them with
+    # Taskforce1Helicopter1NameOverride, and its conditions test
+    # Condition_UnitType=Helicopter apart from Aircraft. This builder used to
+    # file every helicopter as Aircraft; the first one flown from an authored
+    # section (O1's Seahawk) showed the wrong flag and sat doing nothing.
+    "Taskforce1Helicopter": "NumberOfTaskforce1Helicopters",
+    "Taskforce2Helicopter": "NumberOfTaskforce2Helicopters",
+    "NeutralHelicopter": "NumberOfNeutralHelicopters",
     "Taskforce1LandUnit": "NumberOfTaskforce1LandUnits",
     "Taskforce2LandUnit": "NumberOfTaskforce2LandUnits",
     "NeutralLandUnit": "NumberOfNeutralLandUnits",
@@ -446,7 +461,7 @@ class Snapper:
 # --- what the game reads for one placed unit ---------------------------------
 
 KIND_OF = {"Vessel": "vessel", "Submarine": "sub", "Aircraft": "air",
-           "Helicopter": "air", "VTOL": "air", "LandUnit": "land",
+           "Helicopter": "heli", "VTOL": "air", "LandUnit": "land",
            "Biologic": "bio"}
 
 
@@ -617,7 +632,7 @@ def resolve(spec):
         keys["VariantReference"] = want
         note(owner(f"{kind_dir}/{uid}_variants.ini"), "variant", uid)
 
-    if kind == "air":
+    if kind in ("air", "heli"):
         sq = squadrons(uid)
         if sq:
             want = spec.get("squadron") or ("Squadron1" if "Squadron1" in sq else sq[0])
@@ -632,6 +647,9 @@ def resolve(spec):
         keys["LoadoutVariant"] = fit
     for store in stores(uid, kind_dir, path, fit):
         note(owner(f"ammunition/{store}.ini"), "store", f"{uid} / {store}")
+    for folder in sorted(set(ASSET_FOLDER.findall(read(path)))):
+        for token in sorted(asset_owners(folder)):
+            note(token, "asset", f"{uid} / {folder.rstrip('/')}")
 
     # The roster says which mod each unit is there to exercise. If the game
     # would read nothing of that mod's, the roster is wrong - either something
@@ -672,7 +690,36 @@ def block(tag, keys):
 
 # Most direct reason first: a mod that supplies a hull the mission places is
 # reported by that hull, not by a round the hull happens to carry.
-STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "roster": 3, "store": 4}
+STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "roster": 3, "store": 4,
+            "asset": 5}
+
+
+# Model folders a unit file loads from another mod's `assets/` tree. The game
+# resolves `ResourcesMeshFolder=assets/models/aircraft/usn_sh-60b/` through the
+# load order like any other path, so the mod that ships that folder is as much
+# a dependency as the one that ships the unit - and nothing else here sees it:
+# ADO Nimitz 2000s' carrier (D2's Carl Vinson) draws its deck Seahawks from
+# the MH-60R Seahawk mod, and the only thing that kept that mod on the
+# required list was a squadron table it no longer wins. Stock never uses the
+# `assets/` prefix, so every such path is a mod's. The export is text-only: a
+# folder that ships nothing but meshes and textures has no file here to own
+# it, and is skipped rather than reported missing.
+ASSET_FOLDER = re.compile(r"^\s*Resources\w*Folder\s*=\s*(assets/[^\s#/]+(?:/[^\s#/]+)*)/?",
+                          re.M | re.I)
+_ASSET_OWNERS = None
+
+
+def asset_owners(folder):
+    """Tokens that win at least one exported file under `folder`."""
+    global _ASSET_OWNERS
+    if _ASSET_OWNERS is None:
+        _ASSET_OWNERS = collections.defaultdict(set)
+        for rel, (token, _f) in index().items():
+            if rel.startswith("assets/"):
+                parts = rel.split("/")
+                for i in range(2, len(parts)):
+                    _ASSET_OWNERS["/".join(parts[:i])].add(token)
+    return _ASSET_OWNERS.get(folder.lower().rstrip("/"), set())
 
 
 def place(mission, snapper):
@@ -719,7 +766,7 @@ def place(mission, snapper):
         idx = len(placed[family]) + 1
         tag = f"{family}{idx}"
 
-        if kind == "air":
+        if kind in ("air", "heli"):
             n = seats[spec["station"]]
             seats[spec["station"]] += 1
             lat = st["at"][0] - (n // 3) * 0.05
@@ -1370,7 +1417,7 @@ def check_closure(mission, placed, members):
             if not family.startswith(prefix):
                 continue
             kind = ("land" if family.endswith("LandUnit") else
-                    "air" if family.endswith("Aircraft") else
+                    "air" if family.endswith(("Aircraft", "Helicopter")) else
                     "sub" if family.endswith("Submarine") else "sea")
             for tag, keys, _n, _x in entries:
                 bits = keys.get("RelativePositionInNM", "").split(",")
@@ -1523,7 +1570,7 @@ def check_reach(mission, placed, members):
             if not family.startswith(family_prefix):
                 continue
             ashore = family.endswith("LandUnit")
-            flies = family.endswith("Aircraft")
+            flies = family.endswith(("Aircraft", "Helicopter"))
             for tag, keys, _n, _x in entries:
                 bits = keys.get("RelativePositionInNM", "").split(",")
                 if len(bits) == 3:
@@ -1730,6 +1777,9 @@ def render(mission, placed, members):
                  + ini_text(mission["victory"]["after"]["lost"]))
     for reveal in mission.get("reveal_if", []):
         L.append(f"{reveal['variable']}Intel={ini_text(reveal['intel'])}")
+    for i, deny in enumerate(mission.get("denied", []), 1):
+        L.append(f"Denied{i}Message=<color=red>Mission failed.</color>|"
+                 + ini_text(deny["message"]))
     for flag in mission.get("flags", []):
         if flag.get("intel"):
             L.append(f"{flag['name']}Intel={ini_text(flag['intel'])}")
@@ -1760,21 +1810,29 @@ def render(mission, placed, members):
         if placed.get(family):
             L.append(f"{COUNT_KEY[family]}={len(placed[family])}")
 
+    # One formation per station, side AND way of moving. Grouping by station
+    # alone put SW05's Seahawk slot in a 0.1 NM Vic with two F-35As: a
+    # helicopter and a jet are never one formation, nor is anything that
+    # flies with anything afloat. A surfaced submarine keeping company with
+    # a ship (SW09's Collins and Stalwart) still is.
+    def moves(tag):
+        return ("rotary" if "Helicopter" in tag else "fixed" if "Aircraft" in tag
+                else "land" if "LandUnit" in tag else "afloat")
     forms = collections.defaultdict(list)
     for station, tags in members.items():
         by_side = collections.defaultdict(list)
         for tag in tags:
-            by_side["Taskforce1" if tag.startswith("Taskforce1") else
-                    "Taskforce2" if tag.startswith("Taskforce2") else
-                    "Neutral"].append(tag)
-        for side, group in by_side.items():
+            side = ("Taskforce1" if tag.startswith("Taskforce1") else
+                    "Taskforce2" if tag.startswith("Taskforce2") else "Neutral")
+            by_side[(side, moves(tag))].append(tag)
+        for (side, _family), group in by_side.items():
             if len(group) > 1:
                 forms[side].append((mission["stations"][station].get("label", station),
                                     group))
     for side, groups in sorted(forms.items()):
         L.append(f"{side}_NumberOfFormations={len(groups)}")
         for i, (label, group) in enumerate(groups, 1):
-            shape = "Vic" if "Aircraft" in group[0] else "Loose"
+            shape = "Vic" if ("Aircraft" in group[0] or "Helicopter" in group[0]) else "Loose"
             spacing = "0.1" if shape == "Vic" else "1.5"
             L.append(f"{side}_Formation{i}={','.join(group)}|{label}|{shape}|{spacing}")
 
@@ -2144,6 +2202,26 @@ def render(mission, placed, members):
                  failed=[oid], message="Taskforce1DefeatMessage",
                  victor="Taskforce2")
 
+    # A race the player can lose: an ENEMY unit reaching a place ends the
+    # mission. Stock's own shape - 01 Raid on Okinawa, "Assault unit reaches
+    # Kume - player defeat": UnitsInTheArea on a Taskforce2 unit, the area
+    # shown to both sides, EndMission and Victory=Taskforce2.
+    for i, deny in enumerate(mission.get("denied", []), 1):
+        oid = deny["objective"]
+        if oid not in {o[0] for o in mission["objectives"]}:
+            raise SystemExit(f"{mission['key']}: denied names objective {oid}, "
+                             "which the mission does not have")
+        units = [t for r in deny["units"] for t in refs(members, r)]
+        if not units or not all(u.startswith("Taskforce2") for u in units):
+            raise SystemExit(f"{mission['key']}: a denied race is lost to "
+                             f"enemy units; {deny['units']} places {units}")
+        terminal(f"{oid} denied",
+                 area_condition(1, centre, deny["at"], deny["radius"], units,
+                                deny.get("min_units", 1), side="Both")
+                 + ["ConditionsCompleted=<Condition1>"],
+                 failed=[oid], message=f"Denied{i}Message",
+                 victor="Taskforce2")
+
     # Losing a support asset costs something the player can read at the time,
     # and - where `sets` names a campaign flag - something a later mission
     # reads back. Two mechanisms carry that: Task Force Mode's own persistence
@@ -2231,12 +2309,17 @@ def render(mission, placed, members):
     # force_loss=False: a mission whose player force is batteries on land
     # (D5) is not lost when its last aircraft is; its own fatal rule says
     # what losing it means.
-    if mission.get("force_loss", True) and (
-            placed.get("Taskforce1Vessel") or placed.get("Taskforce1Aircraft")):
+    # With no ships, the force is whatever flies; stock lists several types
+    # in one HasNoUnitsOfType (`Condition_UnitType=Vessel,Submarine,Aircraft`),
+    # so a helicopter left in the air is still a force.
+    flying = [u for u, fam in (("Aircraft", "Taskforce1Aircraft"),
+                               ("Helicopter", "Taskforce1Helicopter"))
+              if placed.get(fam)]
+    if mission.get("force_loss", True) and (placed.get("Taskforce1Vessel") or flying):
         terminal("Player force gone", [
             "Condition_Type=HasNoUnitsOfType", "Condition_Taskforce=Taskforce1",
             "Condition_UnitType=" + ("Vessel" if placed.get("Taskforce1Vessel")
-                                     else "Aircraft")],
+                                     else ",".join(flying))],
             failed=[main], message="Taskforce1DefeatMessage",
             victor="Taskforce2")
     if neutral_tags:
@@ -2523,10 +2606,11 @@ def threat_profile(placed):
     These are presentation fields, not deployment restrictions - the authoring
     guide is explicit about that - so they are derived rather than hand-set.
     """
-    def level(family):
-        n = len(placed.get(family, []))
+    def level(*families):
+        n = sum(len(placed.get(f, [])) for f in families)
         return f"True,{min(5, 2 + n // 3)}" if n else "False"
-    return [("Ship", level("Taskforce2Vessel")), ("Air", level("Taskforce2Aircraft")),
+    return [("Ship", level("Taskforce2Vessel")),
+            ("Air", level("Taskforce2Aircraft", "Taskforce2Helicopter")),
             ("Sub", level("Taskforce2Submarine")), ("Land", level("Taskforce2LandUnit"))]
 
 
@@ -2894,7 +2978,7 @@ def campaign_ini(missions, events, placements):
             L.append(f"TaskForceModeIncludesTaskForce="
                      f"{'False' if detached else 'True' if placed.get('Taskforce1Vessel') else 'False'}")
             L.append(f"TaskForceModeIncludesAirwing="
-                     f"{'True' if placed.get('Taskforce1Aircraft') and not detached else 'False'}")
+                     f"{'True' if (placed.get('Taskforce1Aircraft') or placed.get('Taskforce1Helicopter')) and not detached else 'False'}")
             L.append(f"TaskForceModeIncludesSubmarine="
                      f"{'True' if placed.get('Taskforce1Submarine') and not detached else 'False'}")
             if blank and (window_of(mission).get("flights") or window_of(mission).get("airbase_prep")):
@@ -3083,6 +3167,7 @@ HOW_TEXT = {
     "variant": "supplies the hull variant the placed unit uses",
     "squadron": "supplies the squadron the placed airframe flies from",
     "store": "supplies a round the placed unit's loadout hangs",
+    "asset": "supplies a model folder the placed unit's file draws from",
 }
 
 
@@ -3143,8 +3228,8 @@ def report(rows, missions, worst):
     meaning["shadowed"] = ("every file it ships is outranked by something above "
                            "it; nothing it contains can load")
     meaning["campaign"] = "this pack - the campaign being measured"
-    for how in ("unit", "variant", "squadron", "roster", "store", "library",
-                "shadowed", "campaign"):
+    for how in ("unit", "variant", "squadron", "roster", "store", "asset",
+                "library", "shadowed", "campaign"):
         if counts.get(how):
             L.append(f"| `{how}` | {meaning[how]} | {counts[how]} |")
     L += ["", f"Sea and land positions are snapped to points already used by a "
@@ -3174,7 +3259,8 @@ NEEDED = {"unit": "a unit a mission places",
           "variant": "a hull variant in use",
           "squadron": "a squadron a flight comes from",
           "roster": "a unit the player can buy",
-          "store": "a weapon a loadout hangs"}
+          "store": "a weapon a loadout hangs",
+          "asset": "a model a placed unit draws"}
 
 
 def _squash(s):
@@ -3242,7 +3328,8 @@ def requirements(rows):
          "it is here to check against rather than to work through by hand.",
          "",
          f"{len(need)} mods. Each supplies a file a mission names directly - by",
-         "Type=, SquadronReference=, VariantReference= or a loadout's store.",
+         "Type=, SquadronReference=, VariantReference=, a loadout's store,",
+         "or a model folder a placed unit's own file draws from.",
          "",
          "What the game does with a reference it cannot resolve has not been",
          "tested here, so this file will not tell you. At best the unit is",

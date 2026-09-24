@@ -274,7 +274,7 @@ The review's economy table was accurate for the snapshot. As built now:
 | Purchase windows | SW01, SW02, SW03, SW05, SW09, SW11, SW12 — and each window's `TaskForceModeBuilderSituation_en` tells the player when the next one is |
 | Roster | Anzac 240, Hobart 480, Arafura 100; F-35A 45, F/A-18F 35, Growler 55, P-8 45, Wedgetail 80, Triton 60, MH-60R 20. Collins, Supply, Choules, Canberra, Mogami and the KC-46 are no longer sold |
 | Persistent grants | none — no `JoinTaskForce` anywhere in the pack. Allied and support aircraft are allocations |
-| Deployment | SW05 one ship; SW03, SW04 and the optional operations O3/O4/C2 let the player choose a detachment; SW07, SW08, O1, O2 and C1 sail nothing of the player's |
+| Deployment | SW05 one ship; SW03, SW04 and the optional operations O1/O3/O4/C1/C2 let the player choose a detachment; SW07, SW08 and O2 sail nothing of the player's. (O1 and C1 were detached at `809d153a`; they were converted after playtest, see build-notes "Side operations sail your ships") |
 
 The playthrough estimates the review asked for (lean force, larger force,
 loss-heavy) are **not done**: they need the game. The static floor holds at

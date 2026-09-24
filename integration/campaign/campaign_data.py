@@ -58,10 +58,19 @@ INFO_DESC = (
     "was built and tested against.")
 
 
+# 816 Squadron RAN: the one squadron of the MH-60R under the Australian flag.
+# Every source of the airframe ships only US Navy squadrons, so SEST Collection
+# Fixes composes the table and appends this one; a blue Seahawk in this
+# campaign is always a Royal Australian Navy ship's flight.
+RAN_SEAHAWK = "Squadron20"
+
+
 def U(side, mod, type, station, **kw):
     """One placed unit: whose side, which mod it is there to exercise, what it
     is, and where it stands. Hull variant, squadron and loadout are resolved
     from the winning file at build time, not guessed here."""
+    if type == "usn_mh-60r" and side == "blue":
+        kw.setdefault("squadron", RAN_SEAHAWK)
     return dict(side=side, mod=mod, type=type, station=station, **kw)
 
 
@@ -273,9 +282,9 @@ ROSTER = [
          note="US support. Role=Airliner with a single Tanker fit, so its "
               "air-tasking row filters Airliner rather than a tanker role; "
               "neither that tasking path nor receiver compatibility is tested"),
-    dict(unit="usn_mh-60r", picks=["Squadron1"], points=20,
-         note="one family chosen explicitly - usn_mh-60r_26 is a different "
-              "unit and is never substituted for it"),
+    dict(unit="usn_mh-60r", picks=[RAN_SEAHAWK], points=20,
+         note="816 Squadron RAN; one family chosen explicitly - usn_mh-60r_26 "
+              "is a different unit and is never substituted for it"),
 ]
 
 # Australian commander, no same-nation discount: the mod unit definitions carry
@@ -401,7 +410,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3", weapons="Tight"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight", alt=500, weapons="Tight"),
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3",
           name="Bluefin 21", alt=18000, weapons="Tight"),
         U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "high",
@@ -556,7 +565,7 @@ MISSIONS.append(dict(
         # ship and a maritime-patrol slot for the P-8 the roster starts
         # selling here. The two F-35A cockpits and their CAP row are gone -
         # this mission declares no air threat and sells no fighter.
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight"),
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight"),
         U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3"),
     ],
 ))
@@ -762,7 +771,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
           weapons="Tight"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air",
+        U("blue", "us-navy-2027", "usn_mh-60r", "air",
           alt=2500, weapons="Tight"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=15000, weapons="Tight"),
         U("red", "red-storm-arsenal", "_narco_narcosub_adv", "passenger",
@@ -856,7 +865,7 @@ MISSIONS.append(dict(
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "warramunga",
           variant="Variant3"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air", alt=3000),
+        U("blue", "us-navy-2027", "usn_mh-60r", "air", alt=3000),
         U("red", "chinese-navy-plan", "plan_em_sovremenny", "sag",
           name="Opposing escort", route=[(-10.3, 131.85, 0)], telegraph=3),
         U("red", "type-071-lpd", "plan_lpd_type_071", "sag",
@@ -1110,8 +1119,12 @@ MISSIONS.append(dict(
           squadron="Squadron8", name="Rhino 21"),
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_fa-18f_blk3", "package",
           squadron="Squadron8", name="Rhino 22"),
-        U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "picket", variant="Variant8",
-          name="HMAS Perth"),
+        # Not Perth: she is Variant8, on sale from the first window, and can be
+        # lost in Weapons Free or Blind Horizon three days earlier - a blank
+        # mission would sail her again, undamaged. Arunta is never sold and
+        # sails nowhere else in the campaign.
+        U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "picket", variant="Variant2",
+          name="HMAS Arunta"),
         U("red", "mig-31-foxhound", "wp_mig-31bm", "red_air", name="Foxhound 51"),
         U("red", "mig-31-foxhound", "wp_mig-31bm", "red_air", name="Foxhound 52"),
         U("red", "a-50-il-76", "wp_a-50u", "red_support", name="Mainstay 20",
@@ -1379,7 +1392,7 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
         U("blue", "re-power-resupply", "civ_ms_amra", "stores",
           name="MV Coral Provider"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air",
+        U("blue", "us-navy-2027", "usn_mh-60r", "air",
           alt=2500),
         U("blue", "buildings-targets-missions", "FOB", "cape",
           name="Cape York forward strip", weapons="Hold"),
@@ -1768,7 +1781,7 @@ MISSIONS.append(dict(
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "air"),
+        U("blue", "us-navy-2027", "usn_mh-60r", "air"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap"),
         U("blue", "raaf-f-35a", "raaf_f-35a", "cap", squadron="Squadron3"),
     ],
@@ -1796,9 +1809,10 @@ MISSIONS.append(dict(
     intro="Optional. New Zealand has lent one aircraft for one sortie. What "
           "she finds today is on your plot next week.",
     special="Optional operation. A New Zealand allocation: one aircraft, one "
-            "sortie, no ownership. Identify the coaster and bring Kiwi 01 "
-            "home, and her picture reaches The Quiet Passenger as a "
-            "classified contact.",
+            "sortie, no ownership. Nothing of your own force sails: HMAS "
+            "Pilbara and Kiwi 01 are allocated to this operation alone. "
+            "Identify the coaster and bring Kiwi 01 home, and her picture "
+            "reaches The Quiet Passenger as a classified contact.",
     sender="Commodore Alex Mercer; Squadron Leader Tane Rewi, No. 5 Squadron "
            "RNZAF, for the aircraft",
     intent=("Wellington has given us one Poseidon and one sortie, and Rewi "
@@ -2971,79 +2985,117 @@ MISSIONS.append(dict(
     group="optional", num="O1", key="The Missing Beacon",
     place="Arafura Sea", expires_after="Steel Highway",
     intro="Optional. A coaster stopped reporting on a route nobody was "
-          "watching. Find her before the weather does.",
-    special="Optional operation. It expires once the next main operation is "
-            "complete. Identify the coaster and bring the aircraft home, and "
-            "what she recorded goes into the STEEL HIGHWAY briefing as a "
-            "classified contact; a rescue is worth doing whether or not it "
-            "does.",
+          "watching, and a ship that was in company with her yesterday is "
+          "going back for her. Get there first.",
+    # The first build flew this with a placed HMAS Arafura and a placed
+    # Seahawk and deployed nothing of the player's (blank generation), so the
+    # morning after White Water the ship the player had lost was back and the
+    # damage they had taken was gone. It is the player's force now, sailing
+    # as White Water left it - a detachment of it, their choice which.
+    special="Optional operation. Your own ships sail it as White Water left "
+            "them - same damage, same losses, and the Seahawk if you bought "
+            "one and put it on Ship's Flight. It expires once the next main "
+            "operation is complete. Get your lead ship alongside Torres Light "
+            "before the Meridian ship does and her bridge recorder goes into "
+            "the STEEL HIGHWAY briefing as a classified contact.",
     sender="Commodore Alex Mercer",
-    intent=("One coaster, one search, last light. Find her before the "
-            "weather does. Nothing out there is worth a helicopter."),
-    date=(2028, 10, 19), time=(16, 40), sea=3, clouds="Broken_2", wind="NW",
-    difficulty=1, minutes=40, centre=(-10.0, 131.0),
+    intent=("One coaster, one recorder, and one ship out there that wants "
+            "it more than we do. Get your lead ship alongside first. This is "
+            "not a war yet: "
+            "Meridian's ship has not fired on anyone, and I would rather "
+            "explain a lost recorder than a sunk supply ship."),
+    date=(2028, 10, 19), time=(16, 10), sea=3, clouds="Broken_2", wind="NW",
+    difficulty=2, minutes=90, centre=(-10.3, 131.8),
     blue_nation="Australia", red_nation="China",
     brief=(
         "ARAFURA SEA, late afternoon. MV Torres Light stopped transmitting "
         "nineteen hours ago on a coastal route that carries no traffic worth "
-        "interfering with. Her beacon is silent and the weather is closing "
-        "from the north-west.\n\n"
-        "ARAFURA and a Seahawk have until last light. The lane has ordinary "
-        "traffic in it and one of those hulls was in company with her "
-        "yesterday, which is worth a conversation rather than a missile.\n\n"
-        "Find her, establish what happened, and bring the search aircraft "
-        "home. If this is what the last week suggests it is, the evidence is "
-        "worth as much as the crew."),
-    forces="HMAS Arafura and one MH-60R. Four contacts on the lane between "
-           "you and the datum, one of them the missing coaster's last company.",
+        "interfering with. A Poseidon found her an hour ago: adrift, holed "
+        "above the waterline, crew in the boats and her bridge recorder "
+        "still aboard.\\n\\n"
+        "She was not alone yesterday. A Meridian supply ship, a Delvar-class "
+        "hull with a crane and no business on this route, was in company "
+        "with her and has turned back towards her from the south-east. Her "
+        "master says it is a salvage claim. What is on that recorder says "
+        "otherwise.\\n\\n"
+        "Your detachment is eighteen miles out; Meridian's ship is fourteen, "
+        "and slow. Identify Torres Light and get your lead ship alongside "
+        "her first. Meridian's ship has not fired and is not a target - sinking "
+        "her settles the race and starts the argument this whole month is "
+        "about. The lane between you carries ordinary traffic. Your weapons "
+        "are tight."),
+    forces="Your detachment, and the Seahawk if you bought one. Torres Light "
+           "adrift; one Meridian support ship closing on her; four merchant "
+           "and fishing contacts on the lane.",
     objectives=[
-        ("Search", "Identify Torres Light, then bring the search helicopter "
-                   "home", "30,-25,Fail,Main"),
-        ("Aircraft", "Do not lose the search helicopter", "10,-15,Complete"),
+        ("Search", "Identify Torres Light and get your lead ship alongside "
+                   "her before Meridian's ship", "30,-25,Fail,Main"),
+        # `spare` - restraint, scored on the ship the text names. Done, it
+        # pays by its own end-status; sink her, and it fails.
+        ("Restraint", "Do not sink the Meridian ship", "10,-20,Complete"),
         ("Traffic", "Harm no lane traffic", "0,-25,Complete"),
     ],
-    # Stage: the helicopter classifies the drifting coaster - which writes
-    # O1BeaconFound, read by Steel Highway as a revealed submarine contact.
-    # Win: the helicopter back within five miles of the ship. The reviewed
-    # build won on entering an empty 20 NM circle 48 NM from home.
-    victory=dict(kind="arrive", station="datum", at=(-10.0, 131.5), radius=5,
+    # Stage: Torres Light classified. Win: the lead ship - Taskforce1Vessel1,
+    # which the generated mission replaces with the player's first ship - in
+    # a mile and a half of her. The win writes O1BeaconFound, so a recorder
+    # Meridian got to first puts nothing on Steel Highway's plot.
+    victory=dict(kind="arrive", station="patrol", at=(-10.4, 131.9),
+                 radius=1.5, min_units=1, objective="Search",
+                 sets="O1BeaconFound",
                  after=dict(kind="classify", units="wreck", min_units=1,
-                            sets="O1BeaconFound",
                             intel="Torres Light, adrift and holed above the "
                                   "waterline, crew in the boats. Her bridge "
-                                  "recorder is coming off with them. Bring "
-                                  "the aircraft home."),
-                 min_units=1, objective="Search"),
+                                  "recorder is still aboard. Get your lead "
+                                  "ship alongside before the Meridian ship "
+                                  "does.")),
     declares=["O1BeaconFound"],
-    # The objective is the helicopter and the resolver watches the helicopter;
-    # this used to watch HMAS Arafura, so losing the ship ended the mission
-    # reporting that the search aircraft was lost. Units=None makes the fatal
-    # trigger read the objective's own resolver, which is the only way the two
-    # cannot drift apart again.
-    fatal=[F("Aircraft")],
+    # The win names the lead ship alone, so losing her ends it - stock's
+    # "Flagship must survive", paired with every anchor-named win in Pacific
+    # Strike. Without it a detachment that lost her sailed on toward a win
+    # nothing could give.
+    fatal=[F("Search", ["patrol"])],
+    # The race, lost: Meridian's ship within a mile of the coaster. Stock
+    # ends a mission on an ENEMY unit reaching an area the same way - 01
+    # Raid on Okinawa's "Assault unit reaches Kume - player defeat" is a
+    # UnitsInTheArea on a Taskforce2 unit, AreaDisplaySide=Both.
+    denied=[dict(units=["meridian"], at=(-10.4, 131.9), radius=1.0,
+                 objective="Search",
+                 message="Meridian's ship is alongside Torres Light and her "
+                         "crane is working. Whatever that recorder held is "
+                         "going aboard a ship we cannot stop without "
+                         "sinking her.")],
     neutral_objective="Traffic",
     win="Torres Light is found, her crew is off and the recordings from her "
-        "bridge are in a bag on Arafura's quarterdeck. Somebody is going to "
-        "have to explain them.",
-    lose="Last light came and went. The search resumes tomorrow with worse "
-         "weather and colder water.",
+        "bridge are in a bag on your quarterdeck. Meridian's ship has "
+        "turned away. Somebody is going to have to explain what is on them.",
+    lose="Torres Light's recorder is not in our hands, and without it nobody "
+         "on this side can say what happened to her.",
     stations={
-        "patrol": S(-10.0, 131.5, "HMAS Arafura", heading=100),
-        # Airborne on the outbound leg, 12 NM ahead of the ship: the win box is
-        # drawn on the ship, so the flight must start outside it.
-        "datum": S(-10.15, 131.65, "Arafura Flight", heading=100, alt=2000),
-        # The coaster herself, adrift at her last reported position, and
-        # the lane traffic between the ship and the datum with routes across
-        # the helicopter's track - the reviewed build had an empty circle and
-        # merchants 140 NM away.
+        # The player's detachment forms here, 18 NM north-west of the wreck
+        # on the game's datum: 16.5 NM to the 1.5 NM ring, 55 minutes at a
+        # conservative 18 kn, 34 at an Anzac's 29, 45 at an Arafura's 22.
+        "patrol": S(-10.22, 131.66, "Detachment", heading=125),
+        # Ship's flight: beside the lead ship, low, on her heading.
+        "flight": S(-10.24, 131.64, "Ship's flight", heading=125, alt=500),
+        # The coaster herself, adrift at her last reported position.
         "wreck": S(-10.4, 131.9, "Torres Light, adrift", heading=0),
+        # Lane traffic between the detachment and the datum, routes across
+        # the lead ship's track.
         "traffic": S(-10.25, 131.75, "Lane traffic", heading=70),
+        # Meridian's ship, 14 NM south-east of the wreck: 13 NM to her 1 NM
+        # ring, 71 minutes at her 11 kn maximum. A frigate lead can spend half
+        # an hour on the lane and still win; an Arafura lead has 26 minutes to
+        # spare, and a lead slowed by White Water's damage less.
+        "meridian": S(-10.55, 132.08, "Meridian support ship", heading=310),
     },
     units=[
-        U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "patrol",
-          name="HMAS Arafura", weapons="Tight"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "datum",
-          name="Arafura Flight", alt=2000, weapons="Tight"),
+        # The anchor: replaced by the player's first ship. Unnamed - the
+        # builder refuses a name on a generated anchor.
+        U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "patrol", variant="Variant3",
+          weapons="Tight"),
+        # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
+          weapons="Tight"),
         U("neutral", "_vanilla", "civ_ms_encounter", "wreck",
           name="MV Torres Light"),
         U("neutral", "merchants-expanded", "civ_ms_mairangi_bay", "traffic",
@@ -3055,6 +3107,11 @@ MISSIONS.append(dict(
           name="MV Banda Trader", route=[(-10.1, 132.2, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_a", "traffic",
           name="Arafura trawler", route=[(-10.35, 131.95, 0)], telegraph=2),
+        # Flank, straight for the coaster. Weapons Hold: she is racing, not
+        # fighting, and she does not shoot first.
+        U("red", "re-power-resupply", "ir_aor_delvar", "meridian",
+          name="MV Meridian Salvor", weapons="Hold",
+          route=[(-10.4, 131.9, 0)], telegraph=5),
     ],
 ))
 
@@ -3069,16 +3126,21 @@ MISSIONS.append(dict(
     # half of this note used to explain which engine feature the author could
     # not implement, which is a build note wearing a briefing's clothes. Why
     # the unlock is unconditional belongs in the build notes, and is there.
+    # It used to be flown by a placed HMAS Hobart - a hull the player can buy
+    # before Steel Highway and lose in it, which this mission then sailed
+    # again the next morning. It is the player's own detachment now.
     special="Recovery operation. It pays no requisition points: it saves "
             "people and changes the debrief, and it does not restore the ship "
-            "or its cargo. NOTE: this is offered after STEEL HIGHWAY whatever "
-            "happened there.",
+            "or its cargo. Your own ships sail it as Steel Highway left them - "
+            "a detachment of your choosing, with the Seahawk if you have one "
+            "on Ship's Flight. NOTE: this is offered after STEEL HIGHWAY "
+            "whatever happened there.",
     sender="Commodore Alex Mercer",
-    intent=("This one pays nothing and I would fly it anyway. Work the box "
-            "to its northern edge. Bring the helicopter home. The people we "
-            "do not find today we will not find."),
+    intent=("This one pays nothing and I would sail it anyway. Work the box "
+            "to its northern edge with your lead ship. The people we do not "
+            "find today we will not find."),
     date=(2028, 10, 23), time=(6, 10), sea=4, clouds="Overcast", wind="SE",
-    difficulty=2, minutes=45, centre=(-10.5, 144.5),
+    difficulty=2, minutes=75, centre=(-10.5, 144.5),
     blue_nation="Australia", red_nation="China",
     brief=(
         "GULF OF PAPUA, first light. MV Kerema Trader sailed independent - "
@@ -3086,37 +3148,39 @@ MISSIONS.append(dict(
         "night with twenty-six aboard, forty miles off the convoy track. "
         "Eleven are accounted for. The rest are somewhere inside a drift box "
         "that has been growing all night.\\n\\n"
-        "HOBART is detached from the escort task with a Seahawk. The boat "
-        "that did it has not left the area - it is inside torpedo range of "
-        "the ship - and the search pattern you need to fly is exactly the "
-        "pattern it will expect.\\n\\n"
-        "Work the box for the full thirty minutes, whatever you find, and "
-        "then bring the helicopter home. If the boat presents itself, that "
-        "is a bonus and not the reason you are here."),
-    forces="HMAS Hobart and one MH-60R on the search. One Type 039C still in "
-           "the area. Two merchant hulls diverted to assist.",
+        "Your detachment is just south of the box. The boat that "
+        "did it has not left the area - it is inside torpedo range of the "
+        "box - and the search you need to run is exactly the pattern it will "
+        "expect.\\n\\n"
+        "Take your lead ship through the box to its northern edge, "
+        "whatever you find. A Seahawk, if you have "
+        "one on Ship's Flight, covers more water than any hull. If the boat "
+        "presents itself, classify it: that is a bonus and not the reason "
+        "you are here. Your weapons are tight."),
+    forces="Your detachment, and its Seahawk if one is embarked. One Type "
+           "039C still in the area. Two merchant hulls diverted to assist.",
     objectives=[
-        ("Survivors", "Work the drift box for the full thirty minutes, then "
-                      "recover the helicopter",
+        ("Survivors", "Take your lead ship through the drift box to its "
+                      "northern edge",
          "30,-25,Fail,Main"),
-        ("Helicopter", "Bring the search helicopter home", "15,-20,Complete"),
+        # `None` with a zero failure score - the native pairing for an
+        # optional task. The boat is a bonus, as the brief says.
+        ("Contact", "Classify the submarine", "10,0,None"),
         ("Assist", "Do not lose an assisting merchant or harm other traffic",
          "0,-25,Complete"),
     ],
-    # The search is a timed stage - the helicopter inside the box WHEN the
-    # clock reaches thirty minutes - and the win is the helicopter back
-    # within five miles of the ship. "Bring the search helicopter home" is
-    # scored as coming home; it used to fire the moment the box was entered.
-    victory=dict(kind="arrive", station="search", at=(-10.75, 144.75), radius=5,
-                 after=dict(kind="area", units="search", at=(-10.45, 144.6),
-                            radius=20, after_minutes=30,
-                            intel="Fourteen more out of the water and the "
-                                  "box is worked to its northern edge. Bring "
-                                  "the aircraft home."),
+    # The lead ship (Taskforce1Vessel1, which the generated mission replaces
+    # with the player's first ship) at the box's northern edge. No timer: a
+    # Time condition inside the Disabled win trigger reads either the mission
+    # clock or the time since it was enabled, and stock does not settle which
+    # - one reading made "past the half hour" a no-op, the other put the win
+    # after the deadline at 18 kn. The helicopter the first build scored is a
+    # Ship's Flight slot now, and no trigger may name a slot.
+    victory=dict(kind="arrive", station="hobart", at=(-10.4, 144.6), radius=3,
                  min_units=1, objective="Survivors"),
-    # Same defect O1 had: this watched HMAS Hobart while the objective is the
-    # recovery helicopter. The resolver is the source of truth.
-    fatal=[F("Helicopter")],
+    # The win names the lead ship alone, so losing her ends it (stock's
+    # "Flagship must survive"). The Type 039C is weapons free on her track.
+    fatal=[F("Survivors", ["hobart"])],
     neutral_objective="Assist",
     win="Fourteen more out of the water, and the ones who did not make it are "
         "named rather than missing. That is the whole of what this operation "
@@ -3124,16 +3188,22 @@ MISSIONS.append(dict(
     lose="The box is open at the northern end and the weather is building. "
          "The rest of that crew stays missing.",
     stations={
-        "hobart": S(-10.75, 144.75, "HMAS Hobart", heading=340),
-        "search": S(-10.45, 144.6, "Drift box", heading=340, alt=1500),
-        "assist": S(-10.6, 144.55, "Assisting merchants", heading=20),
-        "sub": S(-10.55, 144.72, "Submarine datum", heading=200),
+        # The detachment just south of the box: 15 NM to the northern-edge
+        # ring on the game's datum, 51 minutes at a conservative 18 kn in a
+        # 75-minute window.
+        "hobart": S(-10.7, 144.66, "Detachment", heading=350),
+        "flight": S(-10.71, 144.64, "Ship's flight", heading=350, alt=500),
+        "assist": S(-10.55, 144.55, "Assisting merchants", heading=20),
+        "sub": S(-10.47, 144.7, "Submarine datum", heading=200),
     },
     units=[
-        U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "hobart",
-          name="HMAS Hobart", weapons="Tight"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "search",
-          name="Hobart Flight", alt=1500, weapons="Tight"),
+        # The anchor: replaced by the player's first ship. Unnamed - the
+        # builder refuses a name on a generated anchor.
+        U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "hobart", variant="Variant3",
+          weapons="Tight"),
+        # The Ship's Flight slot a bought Seahawk fills. No trigger names it.
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
+          weapons="Tight"),
         # Not a Steel Highway hull: any of that convoy's four can be lost
         # the day before, and a page or a mission never names a losable hull
         # as alive. Coral Provider is the same ship, and the same hull, that
@@ -3142,9 +3212,10 @@ MISSIONS.append(dict(
           name="MV Gulf Trader", weapons="Hold"),
         U("neutral", "re-power-resupply", "civ_ms_amra", "assist",
           name="MV Coral Provider"),
+        # Across the box, towards the detachment's line of search.
         U("red", "plan-submarines", "plan_ss_type_039c", "sub",
           name="Contact BRAVO", depth="belowlayer",
-          route=[(-10.72, 144.62, "belowlayer")], telegraph=2),
+          route=[(-10.6, 144.6, "belowlayer")], telegraph=2),
     ],
 ))
 
@@ -3163,17 +3234,21 @@ MISSIONS.append(dict(
 # Every mission that deploys the task force now carries it: leaving it blank
 # means the owned force never deploys, so a mission with an anchor and no
 # Generated was asking the player to buy ships it would then ignore. The two
-# air-only operations (SW07, SW08) and the two side missions stay authored,
-# and the side missions disable the builder the way the stock campaign's
-# detached operations do.
+# air operations (SW07, SW08) and O2 stay authored, and O2 disables the
+# builder the way the stock campaign's detached operations do. None of them
+# names a hull the player can buy: SW07's picket is the unsold Arunta, not
+# Perth, who can be lost three days earlier. O1 and C1 sail the player's
+# ships - stock's 03B shape - because each follows a mission the player can
+# lose hulls in by a day, and a detached cast there brought back a ship they
+# had lost.
 # =============================================================================
 
 SCHEDULE = {
     # num: (date, completion points, service window, generation, anchor station)
     "01": ((2028, 10, 18), 100, False, "Generated", "warramunga"),
-    "O1": ((2028, 10, 19), 50, False, None, "patrol"),
+    "O1": ((2028, 10, 19), 50, False, "Generated", "patrol"),
     "02": ((2028, 10, 22), 140, False, "Generated", "escort"),
-    "C1": ((2028, 10, 23), 0, False, None, "hobart"),
+    "C1": ((2028, 10, 23), 0, False, "Generated", "hobart"),
     "O2": ((2028, 10, 24), 50, False, None, "patrol"),
     "03": ((2028, 10, 26), 120, True, "Generated", "escort"),
     "04": ((2028, 10, 30), 100, False, "Generated", "patrol"),
@@ -3658,15 +3733,17 @@ BUY_12 = ["usn_p8", "raaf_f-35a", "usn_fa-18f_blk3", "E7A_Wedgetail",
 
 WINDOWS = {
     "01": dict(buy=True, situation="First requisition. What you buy here sails on the eighteenth and is all you have until Steel Highway. The frigate's Seahawk is not automatic: buy the MH-60R here and assign it to Ship's Flight under Air Tasking, or the deck is empty.", allow=BUY_01, repair=True, rearm=True, flights=[HELO]),
-    # One helicopter, and the objective is about that helicopter. No row.
-    "O1": dict(),
+    # A detachment of what White Water left, and a Ship's Flight row for the
+    # Seahawk if one was bought. No builder, no repair: it is the next day.
+    "O1": dict(flights=[HELO], detachment=True),
     "O2": dict(),
     "O3": dict(detachment=True),
     "O4": dict(detachment=True),
     "C2": dict(detachment=True),
     "02": dict(buy=True, situation='Requisition before Steel Highway. The next window is before Rig Seventeen.', allow=BUY_02, repair=True, rearm=True,
                flights=[HELO, RECON]),
-    "C1": dict(),
+    # A detachment of what Steel Highway left, with a Ship's Flight row.
+    "C1": dict(flights=[HELO], detachment=True),
     # Both lifters are granted assets an objective names; nothing is free.
     "03": dict(buy=True, situation='Requisition before Rig Seventeen. The Quiet Passenger flies what you own; the next window is before Weapons Free, and that operation sails one ship.', allow=BUY_03, repair=True, rearm=True),
     # A detachment: nobody sails the whole force to walk one contact.
@@ -3713,7 +3790,11 @@ WINDOWS = {
 TIMEOUTS = {
     "01": "0630, half an hour after sunrise, and the merchants are still short "
           "of the Arafura. Whatever this was, it worked.",
-    "O1": "Dark. The search resumes tomorrow in worse weather and colder water.",
+    # Reached only once Meridian is out of the race: she is at the coaster
+    # by 71 minutes otherwise.
+    "O1": "Dark, and nobody alongside Torres Light. She drifts through the "
+          "night with her recorder still aboard, and whoever reaches her "
+          "first in the morning will read it.",
     "O2": "Kiwi 01 is at the end of her allocation with the coaster unnamed. "
           "Wellington's hours were spent and nothing came of them.",
     "O3": "The join point is empty at the end of the window. The Korean "
@@ -3792,7 +3873,7 @@ RESOLVERS = {
            "Warramunga": ("protect", "warramunga"),
            "Identify": ("classify", "meridian#1", 1)},
     "O1": {"Search": "victory", "Traffic": "neutral",
-           "Aircraft": ("protect", "datum")},
+           "Restraint": ("spare", "meridian")},
     "O2": {"Picture": "victory", "Traffic": "neutral",
            "Kiwi": ("protect", "kiwi")},
     "O3": {"Shield": "victory", "Traffic": "neutral",
@@ -3803,7 +3884,7 @@ RESOLVERS = {
     "02": {"Cargo": "victory", "Neutrals": "neutral",
            "Medical": ("protect", "convoy#1")},
     "C1": {"Survivors": "victory", "Assist": "neutral",
-           "Helicopter": ("protect", "search")},
+           "Contact": ("classify", "sub", 1)},
     "03": {"Evacuate": "victory", "Platform": "neutral",
            "Ships": ("protect", "amphib")},
     "04": {"Track": "victory", "Neutrals": "neutral",
@@ -3898,7 +3979,8 @@ SLOTS = {
     # player's own aircraft fills, and no native mission binds an objective to
     # one: 20 slot-tagged sections in the shipped campaign, 0 trigger
     # references. Aircraft an objective depends on carry JOINS instead.
-    ("01", "usn_mh-60r"): "HeloRecon",
+    ("01", "usn_mh-60r"): "HeloRecon", ("O1", "usn_mh-60r"): "HeloRecon",
+    ("C1", "usn_mh-60r"): "HeloRecon",
     ("02", "usn_mh-60r"): "HeloRecon", ("02", "usn_p8"): "Recon",
     ("05", "raaf_f-35a"): "Attack",
     ("09", "usn_p8"): "Recon",
@@ -4121,9 +4203,9 @@ for _m in MISSIONS:
 for _m in MISSIONS:
     if _m["num"] == "02":
         _m["support_loss"][0]["sets"] = "SW02SupplyLost"
-        # The Missing Beacon's promise, kept: identify Torres Light there and
-        # her bridge recorder puts the boat on this plot as a classified
-        # contact from the first minute.
+        # The Missing Beacon's promise, kept: get alongside Torres Light
+        # before Meridian does and her bridge recorder puts the boat on this
+        # plot as a classified contact from the first minute.
         _m["reveal_if"] = [dict(
             variable="O1BeaconFound", units=["sub"], level="Classify",
             intel="Torres Light's bridge recorder put a submarine on this "

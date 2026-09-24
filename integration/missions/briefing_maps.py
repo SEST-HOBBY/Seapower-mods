@@ -52,7 +52,7 @@ LANDMARKS = {
     "Weather Alternate": [("LANGGUR", -5.66, 132.73)],
 }
 
-UNIT = re.compile(r"^\[(Taskforce(\d)|Neutral)(Vessel|Aircraft|Submarine|LandUnit)(\d+)\]")
+UNIT = re.compile(r"^\[(Taskforce(\d)|Neutral)(Vessel|Aircraft|Helicopter|Submarine|LandUnit)(\d+)\]")
 
 XAML = """<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" \
 Margin="12" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -89,7 +89,9 @@ def parse(path):
                 else "friend" if m.group(2) == player else "hostile")
         key = m.group(0)[1:-1]
         utype = re.search(r"^Type=(.+)$", chunk, re.M).group(1).strip()
-        units.append({"side": side, "kind": m.group(3), "key": key,
+        # a helicopter is drawn and reported as air activity like any flyer
+        kind = "Aircraft" if m.group(3) == "Helicopter" else m.group(3)
+        units.append({"side": side, "kind": kind, "key": key,
                       "type": utype, "name": overrides.get(key),
                       "lat": clat + z / 60.0, "lon": clon + x / 60.0})
 

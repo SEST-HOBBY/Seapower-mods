@@ -159,6 +159,9 @@ COUNT_SECTION = {
     "NumberOfTaskforce1Aircraft": "Taskforce1Aircraft",
     "NumberOfTaskforce2Aircraft": "Taskforce2Aircraft",
     "NumberOfNeutralAircraft": "NeutralAircraft",
+    "NumberOfTaskforce1Helicopters": "Taskforce1Helicopter",
+    "NumberOfTaskforce2Helicopters": "Taskforce2Helicopter",
+    "NumberOfNeutralHelicopters": "NeutralHelicopter",
     "NumberOfTaskforce1LandUnits": "Taskforce1LandUnit",
     "NumberOfTaskforce2LandUnits": "Taskforce2LandUnit",
     "NumberOfNeutralLandUnits": "NeutralLandUnit",
@@ -183,6 +186,32 @@ def declared_counts(rel, parsed):
         have = sum(1 for tag in parsed if re.fullmatch(prefix + r"\d+", tag))
         if want != have:
             out.append(f"{rel}: {key}={want}, but {have} [{prefix}N] section(s)")
+    return out
+
+
+def unit_families(rel, parsed):
+    """A helicopter sits in a Helicopter section, and only a helicopter does.
+
+    Every helicopter placement in the stock and workshop missions is a
+    [TaskforceNHelicopterM] (or [NeutralHelicopterM]) section, and stock
+    conditions test Condition_UnitType=Helicopter apart from Aircraft. The
+    builder used to file every helicopter as Aircraft - O1's Seahawk was the
+    first flown from such a section and did nothing - so the family is proved
+    from the built file against the unit's own UnitType, not trusted.
+    VTOL is fixed-wing and belongs in Aircraft, as stock's Yak-38s do.
+    """
+    out = []
+    for tag, keys in parsed.items():
+        m = re.fullmatch(r"(Taskforce[12]|Neutral)(Aircraft|Helicopter)\d+", tag)
+        if not m or not keys.get("Type"):
+            continue
+        rotary = bp.unit_type(keys["Type"]) == "Helicopter"
+        if rotary and m.group(2) == "Aircraft":
+            out.append(f"{rel}: [{tag}] Type={keys['Type']} is a helicopter in an "
+                       "Aircraft section - stock files it as Helicopter")
+        elif not rotary and m.group(2) == "Helicopter":
+            out.append(f"{rel}: [{tag}] Type={keys['Type']} is not a helicopter "
+                       "but sits in a Helicopter section")
     return out
 
 
@@ -291,6 +320,7 @@ def main():
         parsed = blocks(text)
         problems += trigger_integrity(f, text, parsed)
         problems += declared_counts(rel, parsed)
+        problems += unit_families(rel, parsed)
         for tag, keys in parsed.items():
             uid = keys.get("Type")
             if not uid or not re.match(r"^(Taskforce\d+|Neutral)", tag):
@@ -341,6 +371,11 @@ def main():
                 continue
             for store in bp.stores(uid, kind_dir, path, fit):
                 note(bp.owner(f"ammunition/{store}.ini"), "store", f"{uid} / {store}")
+            # Model folders the unit's own file loads from another mod's
+            # assets/ tree - the same rule the builder credits by.
+            for folder in sorted(set(bp.ASSET_FOLDER.findall(bp.read(path)))):
+                for token in sorted(bp.asset_owners(folder)):
+                    note(token, "asset", f"{uid} / {folder.rstrip('/')}")
 
     # The requisition roster is read from the BUILT file too: a unit the player
     # can buy is reached by the campaign, and a price naming a variant the hull
