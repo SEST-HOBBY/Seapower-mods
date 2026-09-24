@@ -596,6 +596,28 @@ MISSING_LOADOUT_NAMES = {
     # upstream typo: vanilla's key is AirToAirLongRange with a capital R, so the
     # Su-35's lowercase spelling matches nothing and shows raw in the picker
     "AirToAirLongrange": "Air To Air Long Range",
+    # U.S. Navy 2027's MH-60R (the winning Seahawk, sold in Southern Watch
+    # and flown in White Water's Ship's Flight) and the JMSDF SH-60K offer
+    # these two and no mod names them - the picker read "MISSING TEXT -
+    # [LoadoutNames]Anti-shipLate". Early hangs a Penguin with the Hellfires;
+    # Late is Hellfires alone.
+    "Anti-shipEarly": "Anti-ship (Penguin, Hellfire)",
+    "Anti-shipLate": "Anti-ship (Hellfire)",
+    # The Mi-24P's alternates, in the same (alt) style as the rows above.
+    "DefaultAlt": "Default (alt)",
+    "DefaultHeavy": "Default Heavy",
+    "AntiArmorAlt": "AntiTank (alt)",
+    "AntiArmorHeavy": "AntiTank Heavy",
+    # J-36: YJ-91 and AKF-98 anti-radiation rounds with PL-15s.
+    "AntiRadiation": "Anti-Radiation",
+    # AS 332M Cougar: _1 dummies the .50 cal and keeps the 20 mm door gun,
+    # _2 the reverse.
+    "CASLight_1": "Close Air Support Light (20 mm)",
+    "CASLight_2": "Close Air Support Light (.50 cal)",
+    # Tu-95MA: an upstream typo for Default with no weapon section behind
+    # it, so the fit carries nothing. Named for what it is rather than
+    # disguised as the real Default.
+    "Defaul": "Unarmed (mod typo)",
 }
 
 

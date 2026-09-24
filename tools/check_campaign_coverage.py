@@ -233,11 +233,57 @@ def art_resolves(pack):
     return out
 
 
+def loadout_names(pack):
+    """Every loadout a player-side aircraft is offered has a display name.
+
+    The picker shows `MISSING TEXT - [LoadoutNames]<key>` for any
+    `AvailableLoadouts` entry no language file names, and it did for the
+    MH-60R's Anti-shipLate - a fit Southern Watch sells and slots. Names are
+    read from every enabled mod, the base game and the built pack, since
+    language_*/ files merge key by key. Comments are stripped both ways the
+    data writes them (`//` and ` #`); the F-35A's line carries a ` #` the
+    game reads as a comment.
+    """
+    names = set()
+    tokens = [l.strip() for l in (ROOT / "data" / "load-order.tokens.txt")
+              .read_text(encoding="utf-8").splitlines()
+              if l.strip() and not l.startswith("#")]
+    sources = [ROOT / "mods-source" / t for t in tokens]
+    sources += [ROOT / "mods-source" / "_vanilla" / "original",
+                ROOT / "integration" / "dist" / "SEST_Integration"]
+    for d in sources:
+        f = d / "language_en" / "loadout_names.ini"
+        if f.is_file():
+            names |= set(blocks(f.read_text(encoding="utf-8-sig", errors="replace"))
+                         .get("LoadoutNames", {}))
+    camp = pack / "campaigns" / bp.SLUG
+    player = set()
+    for f in list((camp / "missions").glob("*.ini")) + list(
+            (pack / "missions" / bp.DISPATCHES).glob("*.ini")):
+        for tag, keys in blocks(f.read_text(encoding="utf-8")).items():
+            if re.match(r"Taskforce1(Aircraft|Helicopter)\d+$", tag) and keys.get("Type"):
+                player.add(keys["Type"])
+    roster = (camp / "player_task_force_roster.ini").read_text(encoding="utf-8")
+    player |= set(re.findall(r"^([\w.-]+)=", roster, re.M))
+    out = []
+    for uid in sorted(player):
+        if bp.unit_type(uid) not in ("Aircraft", "Helicopter", "VTOL"):
+            continue
+        line = bp.unit_value(uid, "AvailableLoadouts") or ""
+        line = re.split(r"\s#", line, 1)[0]
+        for key in (k.strip() for k in line.split(",")):
+            if key and key not in names:
+                out.append(f"{uid}: loadout {key!r} has no [LoadoutNames] entry "
+                           f"anywhere - the picker shows MISSING TEXT")
+    return out
+
+
 def main():
     files = missions()
     credits, problems, units = {}, [], 0
     pack = CAMPAIGN / "SEST_Campaign"
     problems += art_resolves(pack)
+    problems += loadout_names(pack)
 
     for f in files:
         rel = f.relative_to(ROOT)
