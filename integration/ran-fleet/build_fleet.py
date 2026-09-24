@@ -259,51 +259,43 @@ def wire_nsm_datalink(ship_id, text):
     return text
 
 
-ESSM_SRC = "RIM-162 ESSM"          # the mod's id - note the SPACE
-ESSM_ID = "sest_rim-162_essm"      # ours, without it
+ESSM_SRC = "RIM-162 ESSM"          # the Anzac mod's id - note the SPACE
+# The round the ASMD Anzac's Mk41 fires: Euromod's RIM-162H, a complete
+# active ESSM Block II that nothing above Euromod overrides.
+#
+# The first builds re-shipped the Anzac mod's own "RIM-162 ESSM" under a
+# space-free id. That file is a RIM-7F template its author left flagged
+# "REQUIRES STATS REVISION": it declares no kinematic model (no
+# ApplyKinematics, no MaxLoftAlt/MaxLoftAngle, no TypicalTargetAlt), and
+# MinAttackAltitude=26 puts every sea-skimming anti-ship missile outside the
+# band where the engine "greatly increases missile deviation" - the one
+# target ESSM exists to kill. In game it was reported flying at a metre
+# above the sea like an anti-ship round. Both collection Block IIs are
+# complete: U.S. Navy 2027's usn_rim-162e and Euromod's usn_rim-162h. The
+# Euromod file is the one taken because it is the same family the rest of
+# SEST's interceptor work already rebuilds on (Collection Fixes' SM-3, SM-6
+# and PAC-3 MSE), accepts targets down to 5 ft, lofts (60,000 ft, 40 deg,
+# TerminalLoft) and carries a kill probability on the usual 0-1 scale; the
+# U.S. Navy 2027 file writes KillProbability=3.8 and TypicalTargetAlt=0.
+#
+# It is datalink midcourse (MidCourseCorrection=3). That needs a guidance
+# channel, and this hull has one: both Mk41 blocks associate CEAFAR
+# (SensorSystem2, WeaponChannels=10), which is the condition
+# tools/check_weapon_employment.py checks for an MCC 1 or 3 round.
+ESSM_ID = "usn_rim-162h"
+ESSM_DONOR = EUROMOD
 
 
-def ship_essm():
-    """Re-ship the Anzac mod's ESSM under an id that has no space in it.
-
-    The mod stores the round as "RIM-162 ESSM.ini" and references it as
-    Ammunition1=RIM-162 ESSM. Every id parser in this repo stops at
-    whitespace, so both tools/preflight.py and
-    tools/check_weapon_employment.py read that as "RIM-162" and find nothing
-    defining it - the ship's 32 Mk41 cells hold a round that does not
-    resolve. Whether the game's own parser reads to end-of-line is not
-    something the files can answer, and it does not have to: no other id in
-    the collection contains a space, and a space-free copy works either way.
-
-    The round itself is kept exactly as the author tuned it - ESSM Block II
-    numbers (GuidanceType=3 active, 2666 kt, 28 nm) on the base game's
-    usn_rim-7 asset-bundle mesh. It is NOT swapped for the collection's
-    usn_rim-162, which is the semi-active Block I: the ASMD Anzac's whole
-    point is CEAFAR plus active ESSM. To use the collection round instead,
-    set ESSM_ID = "usn_rim-162" and delete this function's call."""
-    src = MODS / ANZAC / "ammunition" / f"{ESSM_SRC}.ini"
-    if not src.exists():
-        sys.exit(f"Anzac ESSM donor missing: {src}")
-    body = src.read_text(encoding="utf-8-sig", errors="replace")
-    header = (f"# SEST RAN Fleet - {ESSM_SRC} re-shipped as {ESSM_ID}.\n"
-              f"# Identical round; the only change is an id with no space in it,\n"
-              f"# because a spaced id does not resolve through this collection's\n"
-              f"# reference checkers. See ship_essm() in build_fleet.py.\n")
-    (OUT / "ammunition").mkdir(parents=True, exist_ok=True)
-    (OUT / "ammunition" / f"{ESSM_ID}.ini").write_text(header + body, encoding="utf-8")
-
-    # and a display name, or the encyclopedia shows the raw id
-    name = re.search(rf"^{re.escape(ESSM_SRC)}=(.+)$",
-                     (MODS / ANZAC / "language_en" / "ammunition_names.ini")
-                     .read_text(encoding="utf-8-sig", errors="replace"), re.M)
-    if not name:
-        sys.exit("Anzac ESSM display name not found in the mod's ammunition_names.ini")
-    (OUT / "language_en").mkdir(parents=True, exist_ok=True)
-    (OUT / "language_en" / "ammunition_names.ini").write_text(
-        "# SEST RAN Fleet - name for the re-shipped ESSM (see ship_essm()).\n"
-        "[AmmunitionNames]\n"
-        f"{ESSM_ID}={name.group(1).strip()}\n", encoding="utf-8")
-    print(f"  ammunition/{ESSM_ID}.ini  (re-shipped from '{ESSM_SRC}' - spaced id)")
+def check_essm():
+    """The Block II round must still be where it was taken from."""
+    f = MODS / ESSM_DONOR / "ammunition" / f"{ESSM_ID}.ini"
+    if not f.exists():
+        sys.exit(f"{ESSM_ID} no longer ships in {ESSM_DONOR} - re-choose the Anzac's ESSM")
+    body = f.read_text(encoding="utf-8-sig", errors="replace")
+    for key, want in (("GuidanceType", "3"), ("TargetType", "AAW")):
+        m = re.search(rf"^{key}=(\S+)", body, re.M)
+        if not m or m.group(1) != want:
+            sys.exit(f"{ESSM_ID}: {key} is no longer {want} - re-check the Anzac's ESSM")
 
 
 def fix_vls_magazine(ship_id, text):
@@ -340,7 +332,7 @@ def fix_vls_magazine(ship_id, text):
                        f"Ammunition1={ESSM_ID}", fixed, count=1, flags=re.M)
     if n != 1:
         sys.exit(f"{ship_id}: the Mk41 magazine no longer loads '{ESSM_SRC}' - "
-                 "re-check ship_essm()")
+                 "re-check the ESSM swap")
     if fixed.count("Ammunition1_Count=") != 1 or "Ammunition2=" in fixed:
         sys.exit(f"{ship_id}: Mk41 magazine repair did not land cleanly")
     return text[:m.start(1)] + fixed + text[m.end(1):]
@@ -539,7 +531,7 @@ def main():
             print(f"note: {donor} has no DisplayClassName line; relying on language names")
 
         if ship.get("patch"):
-            ship_essm()
+            check_essm()
             text = fix_vls_magazine(ship_id, text)
         text = refresh_armament(ship_id, text)
         if ship_id in NSM_LOADS:

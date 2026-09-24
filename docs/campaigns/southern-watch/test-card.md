@@ -166,6 +166,8 @@ developer guide), so each is a design answer either way.
 | 6A.4 | Rig Seventeen: send **Lifter 12 (the Osprey)** to the rig, then south of the line | Victory - either lifter can make the lift, and the per-lifter chain works for the Osprey as for the Super Stallion | It must launch from and recover to HMAS Canberra; a refusal names the deck list |
 | 6A.5 | The Long Perimeter: fly Dragon 71/72 into the airstrip before the ridge is cleared | The Tor engages them in the last five miles; once the ridge is down, the landing completes **Lift** | The lift completing with the ridge untouched means the SAM never engaged - tell me |
 
+| 6A.6 | Any mission with an Anzac under missile attack | ESSMs climb out of the Mk41 and meet incoming sea-skimmers low; they no longer cruise at a metre above the sea to get there | If one still flies low, note what it was fired at - a ship means the ASuW secondary mode, not the flight profile |
+
 ## 7 — the review's engine tests
 
 The independent review of `057405fe` listed the runs that no static check
