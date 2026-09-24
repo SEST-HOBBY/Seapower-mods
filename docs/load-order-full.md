@@ -119,7 +119,7 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 93. KC-46A Pegasus - Strategic Tanker
 94. Lockheed AC-130 Pack
 95. McDonnell Douglas KC-10A Extender - Strategic Tanker
-96. MH-60R Seahawk — *resolved (collection audit): sits directly above US Naval Aviation so its squadrons file matches the loading model; unit file stays with U.S. Navy 2027*
+96. MH-60R Seahawk — *keep subscribed: ADO Nimitz 2000s draws its deck Seahawks from this mod's usn_sh-60b model folder. The MH-60R squadron table is SEST Collection Fixes' now (United States Naval Aviation's, written for the model that loads, plus 816 Squadron RAN), so its position above US Naval Aviation no longer decides it; unit file stays with U.S. Navy 2027*
 97. Mi-8 T/TV
 98. Mi-8EW
 99. MIG-29 Family — *watchlist: MiG-29/R-series overlap*

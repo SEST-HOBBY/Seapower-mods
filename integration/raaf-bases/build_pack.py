@@ -70,7 +70,7 @@ BASES = {
             ("usaf_f-15ex_SEII", "Squadron3,8"),
             ("usaf_kc-46a_warp", "Squadron1,2"),
             ("usn_p8", "Squadron3,2"),
-            ("usn_mh-60r", "Squadron1,4"),
+            ("usn_mh-60r", "Squadron20,4"),
         ],
     },
     "airbase_raaf_east_sale": {
@@ -94,7 +94,7 @@ BASES = {
         "desc": "Pearce satellite field: F-35A det, SAR helicopters",
         "airgroup": [
             ("raaf_f-35a", "Squadron1,4"),
-            ("usn_mh-60r", "Squadron1,2"),
+            ("usn_mh-60r", "Squadron20,2"),
         ],
     },
     "airbase_raaf_richmond": {
@@ -102,7 +102,7 @@ BASES = {
         "desc": "Air mobility home: Hercules fleet (KC-130T stand-in), SAR helicopters",
         "airgroup": [
             ("usmc_kc-130t", "Squadron1,6"),
-            ("usn_mh-60r", "Squadron2,2"),
+            ("usn_mh-60r", "Squadron20,2"),
         ],
     },
     "airbase_raaf_townsville": {
@@ -111,7 +111,7 @@ BASES = {
         "airgroup": [
             ("usa_ah-64e", "Squadron1,8"),
             ("usaf_f-15ex_SEII", "Squadron6,6"),
-            ("usn_mh-60r", "Squadron1,4"),
+            ("usn_mh-60r", "Squadron20,4"),
             ("S-70B-2_Seahawk", "Squadron1,4"),
             ("usmc_kc-130t", "Squadron2,2"),
         ],

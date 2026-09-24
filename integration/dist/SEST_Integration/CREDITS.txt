@@ -5,14 +5,14 @@ textures and no audio - every one of those belongs to the Workshop
 mod it came from, which is why REQUIRED-MODS.txt lists them as
 required rather than suggested.
 
-78 of the unit files here are another author's file with
+79 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 78 below
+every file of its kind in the collection, and the 79 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
@@ -146,6 +146,7 @@ file is unchanged.
   United States Naval Aviation  (workshop 3737267013)
        97%  aircraft/usn_ea-18g_2020.ini 
        96%  aircraft/usn_f-35c_squadrons.ini 
+       97%  aircraft/usn_mh-60r_squadrons.ini 
        98%  ammunition/usn_aim-9l.ini 
        98%  ammunition/usn_gbu-12d.ini 
        97%  ammunition/usn_gbu-39.ini 

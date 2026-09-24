@@ -362,7 +362,7 @@ FLEET = {
         "hulls": [("DDG 39 HMAS Hobart", "Hobart"),
                   ("DDG 41 HMAS Brisbane", "Brisbane"),
                   ("DDG 42 HMAS Sydney", "Sydney")],
-        "airgroup": ["usn_mh-60r=Squadron1,1"],
+        "airgroup": ["usn_mh-60r=Squadron20,1"],
     },
     # REBASED 2026-09-20 from a clone to a PATCH. The Type 23 MLU stood in for
     # the MEKO 200 only because the collection had no Anzac; it now has the
@@ -397,7 +397,7 @@ FLEET = {
                   ("FFH 155 HMAS Ballarat", "Ballarat"),
                   ("FFH 156 HMAS Toowoomba", "Toowoomba"),
                   ("FFH 157 HMAS Perth", "Perth")],
-        "airgroup": ["usn_mh-60r=Default,1"],
+        "airgroup": ["usn_mh-60r=Squadron20,1"],
     },
     "ran_lhd_canberra": {
         "donor": (SPA_MODERN, "ae_lhd_juan_carlos"),
@@ -410,7 +410,7 @@ FLEET = {
         "service": "2014|2060",
         "hulls": [("L02 HMAS Canberra", "Canberra"),
                   ("L01 HMAS Adelaide", "Adelaide")],
-        "airgroup": ["usn_mh-60r=Squadron1,4", "S-70B-2_Seahawk=Squadron1,4"],
+        "airgroup": ["usn_mh-60r=Squadron20,4", "S-70B-2_Seahawk=Squadron1,4"],
         # The LHD deck is rated for the CH-53E the campaign lifts with (the
         # Juan Carlos design was sized for it); the campaign builder refuses
         # to home an aircraft on a deck whose list leaves it out.
@@ -427,7 +427,7 @@ FLEET = {
                  "LPD stands in for the Bay-class."),
         "service": "2011|2050",
         "hulls": [("L100 HMAS Choules", "Choules")],
-        "airgroup": ["usn_mh-60r=Squadron1,2"],
+        "airgroup": ["usn_mh-60r=Squadron20,2"],
     },
     "ran_aor_supply": {
         "donor": (SPA_COLDWAR, "ae_ao_teide"),
