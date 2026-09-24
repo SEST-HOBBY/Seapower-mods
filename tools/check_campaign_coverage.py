@@ -46,12 +46,25 @@ def missions():
                    and not f.parent.name.endswith("_briefing"))
     # A campaign mission ships twice - once for the campaign, once for the
     # mission browser - and the two copies must stay byte-identical, or the
-    # campaign and the browser quietly diverge.
+    # campaign and the browser quietly diverge. The browser folder is the
+    # campaign's own rule (Southern Reach files its two chapters apart), so
+    # each campaign's spec says where its twin is.
+    by_name = {}
+    for spec in bp.campaign_specs():
+        bp.set_campaign(spec)
+        for m in spec["MISSIONS"]:
+            if m["group"] != "dispatch":
+                by_name[bp.mission_name(m) + ".ini"] = bp.browse_folder(m)
     for f in found:
-        if f.parent.parent.name != "campaigns" and "campaigns" not in f.parts:
+        if "campaigns" not in f.parts:
             continue
-        twin = pack / "missions" / bp.TITLE / f.name
-        if twin.exists() and twin.read_bytes() != f.read_bytes():
+        folder = by_name.get(f.name)
+        if folder is None:
+            sys.exit(f"{f.name}: in a campaign folder, but no campaign's data names it")
+        twin = pack / "missions" / folder / f.name
+        if not twin.exists():
+            sys.exit(f"{f.name}: no browser copy under missions/{folder}")
+        if twin.read_bytes() != f.read_bytes():
             sys.exit(f"{f.name}: the campaign copy and the browser copy differ")
     return found
 
@@ -186,7 +199,7 @@ def declared_counts(rel, parsed):
     return out
 
 
-def art_resolves(pack):
+def art_resolves(pack, slug):
     """Every path campaign.ini points at, in every language it names one in.
 
     Localised keys do not fall back - pacific-strike repeats the SAME English
@@ -196,7 +209,7 @@ def art_resolves(pack):
     blank, and nothing in the log says why.
     """
     out = []
-    camp = pack / "campaigns" / bp.SLUG / "campaign.ini"
+    camp = pack / "campaigns" / slug / "campaign.ini"
     parsed = blocks(camp.read_text(encoding="utf-8"))
     referenced = set()
     for tag, keys in parsed.items():
@@ -225,7 +238,7 @@ def art_resolves(pack):
                     out.append(f"{page}: Assets[{name}] - {rel} is not shipped")
     # And the other way: art nobody points at is weight in a download that a
     # subscriber pays for and cannot see.
-    art = pack / "campaigns" / bp.SLUG / "art"
+    art = pack / "campaigns" / slug / "art"
     for f in sorted(art.glob("*.png")):
         rel = f.relative_to(pack).as_posix()
         if rel not in referenced:
@@ -237,7 +250,9 @@ def main():
     files = missions()
     credits, problems, units = {}, [], 0
     pack = CAMPAIGN / "SEST_Campaign"
-    problems += art_resolves(pack)
+    slugs = [spec["SLUG"] for spec in bp.campaign_specs()]
+    for slug in slugs:
+        problems += art_resolves(pack, slug)
 
     for f in files:
         rel = f.relative_to(ROOT)
@@ -298,12 +313,13 @@ def main():
 
     # The requisition roster is read from the BUILT file too: a unit the player
     # can buy is reached by the campaign, and a price naming a variant the hull
-    # no longer offers is a purchase the game would refuse.
-    roster = (CAMPAIGN / "SEST_Campaign" / "campaigns" / "sest-southern-watch"
-              / "player_task_force_roster.ini")
-    if not roster.exists():
-        problems.append("no player_task_force_roster.ini in the built campaign")
-    else:
+    # no longer offers is a purchase the game would refuse. One roster per
+    # campaign.
+    for slug in slugs:
+        roster = pack / "campaigns" / slug / "player_task_force_roster.ini"
+        if not roster.exists():
+            problems.append(f"no player_task_force_roster.ini under campaigns/{slug}")
+            continue
         section = ""
         for line in roster.read_text(encoding="utf-8").splitlines():
             line = line.strip()

@@ -1,4 +1,4 @@
-SOUTHERN WATCH - the load order this was built against
+SOUTHERN WATCH / SOUTHERN REACH - the load order this was built against
 
 143 entries, top of the list first. The Mod Manager's own
 order is what the game uses; this is a copy to check yours against,

@@ -26,8 +26,12 @@ new models are needed.
 | **RAAF Base Scherger** *(bare base)* | 8× F-35A · 8× F-15EX (40th FLTS) · 4× MQ-9 ER |
 | **RAAF Woomera Airfield** | 2× U-2 · 4× MQ-9 ER · 2× B-2 (test det) |
 | **RAAF Base Butterworth** *(Malaysia)* | 6× F-35A · 3× P-8A · 2× KC-135 |
+| **RNZAF Base Ohakea** *(New Zealand)* | 4× P-8A (**No. 5 SQN RNZAF livery**, Squadron6 of the P-8 mod) |
+| **RNZAF Base Auckland (Whenuapai)** *(New Zealand)* | 2× P-8A (No. 5 SQN det) · 4× KC-130T (C-130J stand-in) |
 
-253 aircraft across 15 bases. All units are `Nation=Australia`, `LandUnitSubType=Airbase`.
+268 aircraft across 17 bases: 15 Australian (`Nation=Australia`) and, for the Southern Reach
+campaign's Tasman chapter, two New Zealand bases (`Nation=New Zealand`) whose air group is the one
+NZ airframe the collection resolves - the RNZAF P-8A. All are `LandUnitSubType=Airbase`.
 
 The F-15EX presence is 66 airframes across **eight distinct squadrons** — a full two-squadron wing
 at Amberley plus single-squadron dets at Tindal, Darwin, Scherger, Townsville, Curtin and

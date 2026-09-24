@@ -50,6 +50,24 @@ LANDMARKS = {
     "Viper Zero": [("KENDAWANGAN\nINDUSTRIAL PARK", -2.52, 110.21)],
     "The Open Door": [("LANGGUR", -5.66, 132.73)],
     "Weather Alternate": [("LANGGUR", -5.66, 132.73)],
+    # Southern Reach. A fourth element names the colour: "friend" for a port or
+    # a station of ours, "muted" for a feature; a three-tuple stays the red
+    # star the northern campaign used for an enemy-held place.
+    "Southern Departure": [("HOBART", -42.88, 147.33, "friend")],
+    "Silent Track": [("AUCKLAND ISLANDS", -50.70, 166.10, "muted")],
+    "Macquarie Passage": [("MACQUARIE ISLAND\nSTATION", -54.50, 158.94, "friend")],
+    "Broken Supply Line": [("BLUFF", -46.60, 168.34, "friend")],
+    "The Gateway": [("LYTTELTON", -43.60, 172.72, "friend")],
+    "Southern Line": [("CASEY STATION", -66.28, 110.53, "friend")],
+    "Home Waters": [("MILFORD SOUND", -44.67, 167.93, "muted")],
+    "Cook Strait": [("WELLINGTON", -41.29, 174.78, "friend"),
+                    ("COOK STRAIT\nCABLE ROUTE", -41.40, 174.45, "muted")],
+    "Chatham Watch": [("CHATHAM ISLANDS\n200 NM EAST", -44.00, 179.60, "muted")],
+    "Bass Strait": [("DEVONPORT", -41.17, 146.36, "friend")],
+    "Southern Air Bridge": [("SYDNEY", -33.87, 151.21, "friend")],
+    "The Southern Convoy": [("PORTLAND", -38.35, 141.60, "friend")],
+    "Northern Priority": [("AUCKLAND", -36.85, 174.76, "friend")],
+    "Southern Priority": [("PORT ADELAIDE", -34.85, 138.50, "friend")],
 }
 
 UNIT = re.compile(r"^\[(Taskforce(\d)|Neutral)(Vessel|Aircraft|Submarine|LandUnit)(\d+)\]")
@@ -198,13 +216,29 @@ def unit_label(u):
     return " ".join(parts).upper()
 
 
-def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH"):
+def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
+         inset_box=None):
+    """focus_nm: a base further than this from the player's ships and aircraft
+    is left off the chart and named in a corner instead - a Poseidon's field
+    640 NM away would otherwise shrink Storm Bay to a dot. inset_box: the
+    locator inset's own (w, s, e, n); the northern approaches by default."""
     from PIL import Image, ImageDraw
 
     units = [u for u in mission["units"]
              if not (u["side"] == "hostile" and u["kind"] == "Submarine")]
-    marks = LANDMARKS.get(mission["title"], [])
-    shown = (units or mission["units"]) + [{"lat": la, "lon": lo} for _, la, lo in marks]
+    marks = [m if len(m) == 4 else (*m, "hostile") for m in LANDMARKS.get(mission["title"], [])]
+    offmap = []
+    if focus_nm:
+        core = [u for u in units if u["kind"] != "LandUnit"] or units
+        clat = sum(u["lat"] for u in core) / len(core)
+        clon = sum(u["lon"] for u in core) / len(core)
+        kk = math.cos(math.radians(clat))
+
+        def far(u):
+            return math.hypot((u["lat"] - clat) * 60, (u["lon"] - clon) * 60 * kk)
+        offmap = [u for u in units if u["kind"] == "LandUnit" and far(u) > focus_nm]
+        units = [u for u in units if u not in offmap]
+    shown = (units or mission["units"]) + [{"lat": la, "lon": lo} for _, la, lo, _c in marks]
     w, s, e, n = box = extent(shown)
     k = math.cos(math.radians((s + n) / 2))
 
@@ -240,17 +274,18 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH"):
         _text(d, (x + 8 * S, y), p["name"], small, MUTED, anchor="lm", halo=2)
 
     label_f = _font(11 * S, bold=True)
-    for label, la, lo in marks:
+    for label, la, lo, colour in marks:
+        col = {"friend": FRIEND, "muted": MUTED}.get(colour, HOSTILE)
         x, y = to_px(lo, la)
         r = 9 * S
         star = [(x + r * math.cos(math.radians(-90 + i * 36)) * (1 if i % 2 == 0 else 0.45),
                  y + r * math.sin(math.radians(-90 + i * 36)) * (1 if i % 2 == 0 else 0.45))
                 for i in range(10)]
-        d.polygon(star, fill=HOSTILE, outline=(255, 255, 255), width=2)
+        d.polygon(star, fill=col, outline=(255, 255, 255), width=2)
         lines = label.split("\n")
         ly = y - (len(lines) - 1) * 7 * S
         for line in lines:
-            _text(d, (x - 14 * S, ly), line, label_f, HOSTILE, anchor="rm")
+            _text(d, (x - 14 * S, ly), line, label_f, col, anchor="rm")
             ly += 14 * S
 
     # neutral shipping
@@ -307,6 +342,14 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH"):
     if any(u["side"] == "hostile" and u["kind"] == "Submarine" for u in mission["units"]):
         _text(d, (16 * S, PH * 0.15), "SUBMARINE THREAT - POSITION UNKNOWN", label_f,
               HOSTILE, anchor="la")
+    # the fields left off the chart, with a bearing and distance from the force
+    for i, u in enumerate(offmap):
+        brg = (math.degrees(math.atan2((u["lon"] - clon) * kk, u["lat"] - clat)) + 360) % 360
+        pt = "NNE NE ENE E ESE SE SSE S SSW SW WSW W WNW NW NNW N".split()[int((brg + 11.25) // 22.5) % 16]
+        col = FRIEND if u["side"] == "friend" else NEUTRAL if u["side"] == "neutral" else HOSTILE
+        _text(d, (16 * S, PH * (0.20 + 0.04 * i)),
+              f"OFF CHART: {unit_label(u)}  {far(u):.0f} NM {pt}", _font(10 * S, bold=True),
+              col, anchor="la")
 
     # title block
     _text(d, (16 * S, PH * 0.03), mission["title"].upper(), _font(20 * S, bold=True),
@@ -343,10 +386,10 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH"):
                 d.line([(lx + a * r, yy), (lx + (a + 0.9) * r, yy)], fill=col, width=int(2 * S))
         _text(d, (lx + 14 * S, yy), txt, leg_f, TEXT, anchor="lm")
 
-    # locator inset: the whole northern approaches, with this map's box on it
-    ib = (93, -26, 162, 14)
+    # locator inset: the whole theatre, with this map's box on it
+    ib = tuple(inset_box) if inset_box else (93, -26, 162, 14)
     iw = int(PW * 0.24)
-    ih = int(iw * (ib[3] - ib[1]) / ((ib[2] - ib[0]) * math.cos(math.radians(-6))))
+    ih = int(iw * (ib[3] - ib[1]) / ((ib[2] - ib[0]) * math.cos(math.radians((ib[1] + ib[3]) / 2))))
     inset = Image.new("RGB", (iw, ih), SEA)
     di = ImageDraw.Draw(inset)
 
@@ -370,7 +413,8 @@ def stem_for(title):
     return "sest_" + re.sub(r"[^a-z0-9]+", "_", title.lower()).strip("_") + "_map"
 
 
-def render(ini, folder, title, geo, series="SEST SOUTHERN WATCH"):
+def render(ini, folder, title, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
+           inset_box=None):
     """Write <stem>.png and BriefingMap_en.xml into folder; returns the stem."""
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=True)
@@ -379,7 +423,8 @@ def render(ini, folder, title, geo, series="SEST SOUTHERN WATCH"):
     stem = stem_for(title)
     for old in folder.glob("*.png"):
         old.unlink()
-    draw(m, folder / f"{stem}.png", geo, series=series)
+    draw(m, folder / f"{stem}.png", geo, series=series, focus_nm=focus_nm,
+         inset_box=inset_box)
     (folder / "BriefingMap_en.xml").write_bytes(XAML.format(stem=stem).encode("utf-8"))
     return stem
 

@@ -72,6 +72,76 @@ DISPATCHES = "Southern Watch - Dispatches"
 # The backdrop's second line. Not a name - the campaign's subject and
 # its dates, both of which the twelve missions already agree on.
 SUBTITLE = "The Northern Lifeline  ·  October - November 2028"
+# Everything below this line is what a SECOND campaign in the same pack has to
+# be able to change, and every value here is Southern Watch's own - so a
+# campaign that sets none of them builds exactly what shipped before there
+# was a second one. set_campaign() swaps the lot per campaign; the functions
+# that read them are unchanged.
+ART_PREFIX = "southern_watch"           # <prefix>_<code>_sheet.png
+SERIES_LABEL = "SOUTHERN WATCH"         # the footer on cards and documents
+MAP_SERIES = "SEST SOUTHERN WATCH"      # the briefing map's series line
+GEOGRAPHY = "pool"                      # "pool": proven points; "coast": coastline
+BROWSE = {}                             # series/group -> mission-browser folder
+DOCS_DIR = ROOT / "docs" / "campaigns" / "southern-watch"
+COVERAGE_DOC = ROOT / "docs" / "campaign-coverage.md"
+CAMPAIGN_NAME_EN = None                 # None -> "<TITLE> (Royal Australian Navy)"
+CAMPAIGN_DIFFICULTY = "3"               # [Campaign] Difficulty=
+MAP_FOCUS_NM = None                     # briefing map: leave far bases off the chart
+MAP_INSET = None                        # briefing map: the locator inset's box
+
+
+def set_campaign(spec):
+    """Point every campaign-scoped global at one campaign's data.
+
+    `spec` is the dict a campaign module exports (see southern_reach/
+    __init__.py and campaign_spec() below for Southern Watch's). Keys it does
+    not set keep Southern Watch's values, which is why the first campaign's
+    output did not move when the second arrived.
+    """
+    g = globals()
+    for key in ("SLUG", "TITLE", "DISPATCHES", "SUBTITLE", "ART_PREFIX",
+                "SERIES_LABEL", "MAP_SERIES", "GEOGRAPHY", "BROWSE",
+                "DOCS_DIR", "COVERAGE_DOC", "CAMPAIGN_NAME_EN",
+                "CAMPAIGN_DIFFICULTY", "MAP_FOCUS_NM", "MAP_INSET",
+                "TASKFORCE", "DIFFICULTIES", "ROSTER"):
+        # A key the spec leaves out goes back to Southern Watch's value - not
+        # to whatever the previous campaign set. The first version of this
+        # left the second campaign's map focus in place and redrew every
+        # Southern Watch briefing map with the wrong inset.
+        g[key] = spec.get(key, _DEFAULTS[key])
+    g["CAMPAIGN_BLURB"] = spec["INFO_DESC"]
+
+
+_DEFAULTS = {k: globals()[k] for k in (
+    "SLUG", "TITLE", "DISPATCHES", "SUBTITLE", "ART_PREFIX", "SERIES_LABEL",
+    "MAP_SERIES", "GEOGRAPHY", "BROWSE", "DOCS_DIR", "COVERAGE_DOC",
+    "CAMPAIGN_NAME_EN", "CAMPAIGN_DIFFICULTY", "MAP_FOCUS_NM", "MAP_INSET")}
+_DEFAULTS.update(TASKFORCE=None, DIFFICULTIES=None, ROSTER=None)
+
+
+def campaign_specs():
+    """The campaigns this pack ships, in the order they are built.
+
+    Southern Watch is assembled from campaign_data's flat module globals;
+    Southern Reach exports one dict. Both come out the same shape.
+    """
+    sys.path.insert(0, str(HERE))
+    import campaign_data as sw                      # noqa: E402
+    import southern_reach as sr                     # noqa: E402
+    watch = dict(
+        SLUG="sest-southern-watch", TITLE="Southern Watch",
+        DISPATCHES="Southern Watch - Dispatches",
+        SUBTITLE="The Northern Lifeline  ·  October - November 2028",
+        ART_PREFIX="southern_watch", SERIES_LABEL="SOUTHERN WATCH",
+        MAP_SERIES="SEST SOUTHERN WATCH", GEOGRAPHY="pool", BROWSE={},
+        DOCS_DIR=ROOT / "docs" / "campaigns" / "southern-watch",
+        COVERAGE_DOC=ROOT / "docs" / "campaign-coverage.md",
+        CAMPAIGN_NAME_EN=None, CAMPAIGN_DIFFICULTY="3",
+        INFO_DESC=sw.INFO_DESC, DISPATCH_DESC=sw.DISPATCH_DESC,
+        TASKFORCE=sw.TASKFORCE, DIFFICULTIES=sw.DIFFICULTIES,
+        ROSTER=sw.ROSTER, COMMANDER=sw.COMMANDER, EVENTS=sw.EVENTS,
+        MISSIONS=sw.MISSIONS, EXCUSES=sw.EXCUSES)
+    return [watch, sr.CAMPAIGN]
 # The nine languages the game ships (one language_<xx> folder each in the
 # vanilla export). Localised keys have NO fallback: pacific-strike's Mission1
 # repeats the SAME English PNG under TileImagePath_en, _ru AND _de rather than
@@ -368,6 +438,102 @@ UNPROVEN = []
 PLACEMENT_PROBLEMS = []
 
 
+# The proof a coastline gives instead of a pool. Where no loading mission has
+# ever put a ship - Storm Bay, Cook Strait, the Macquarie Ridge - the position
+# is checked against the committed Natural Earth extract (coast.py): a land
+# unit must be ashore, a ship must be at sea, an offshore station must have
+# OFFSHORE_MIN of water around it, and a route's waypoints must not cross a
+# headland. It is a different proof, and the coverage report says which one
+# each station got.
+OFFSHORE_MIN = 2.0
+COAST_CHECKED = []
+
+
+def coast_data():
+    from coast import coast
+    return coast()
+
+
+class CoastPlacer:
+    """Stands in for Snapper on a mission whose geography is "coast".
+
+    Same take() signature, so place() does not care which it was handed;
+    positions are used as authored and refused if the coastline disagrees.
+    Hulls sharing a coastal station are spread 0.4 NM abeam, the way the pool
+    placer's distinct points spread them, so two ships never spawn on one
+    coordinate.
+    """
+
+    def __init__(self, coast, mission):
+        self.coast, self.mission = coast, mission
+        self.used, self.pool = set(), {"sea": [], "land": []}
+        self.berths = collections.Counter()
+
+    def _cover(self, at, where):
+        if not self.coast.covers(*at):
+            PLACEMENT_PROBLEMS.append(
+                f"{where}: {at} is outside the coastline extract's box "
+                f"{self.coast.box} - extend it with tools/make_coast_extract.py")
+            return False
+        return True
+
+    def take(self, kind, at, exclude_nm=0.4, limit=None, where=""):
+        lat, lon = at
+        if kind == "sea":
+            n = self.berths[where]
+            self.berths[where] += 1
+            st = self.mission["stations"].get(where.split(" ", 1)[-1], {})
+            side = (n + 1) // 2 * (1 if n % 2 else -1)
+            beam = math.radians(st.get("heading", 90) + 90)
+            lat = at[0] + side * 0.4 * math.cos(beam) / 60.0
+            lon = at[1] + side * 0.4 * math.sin(beam) / (60.0 * math.cos(math.radians(at[0])))
+        if self._cover((lat, lon), where):
+            land, nm = self.coast.check(lat, lon)
+            if kind == "land" and not land:
+                PLACEMENT_PROBLEMS.append(
+                    f"{where}: a land unit at {at} is at sea ({nm:.1f} NM from the "
+                    "nearest coast). Put it on the field's real coordinates")
+            elif kind == "sea" and land:
+                PLACEMENT_PROBLEMS.append(
+                    f"{where}: a sea position at {at} is ashore ({nm:.1f} NM "
+                    "inside the coast)")
+            else:
+                COAST_CHECKED.append((where, (lat, lon),
+                                      "ashore" if land else f"{nm:.1f} NM off"))
+        return (round(lat, 4), round(lon, 4)), 0.0
+
+    def offshore(self, at, where):
+        if self._cover(at, where):
+            land, nm = self.coast.check(*at)
+            if land or nm < OFFSHORE_MIN:
+                PLACEMENT_PROBLEMS.append(
+                    f"{where}: station at {at} is "
+                    f"{'ashore' if land else f'{nm:.1f} NM off the coast'} - an "
+                    f"offshore station needs {OFFSHORE_MIN:.0f} NM of water "
+                    "(mark it coastal=True for a port or an anchorage)")
+            else:
+                COAST_CHECKED.append((where, at, f"{nm:.0f} NM off"))
+        return (round(at[0], 4), round(at[1], 4)), 0.0
+
+    def waypoint(self, at, where):
+        if self._cover(at, where):
+            land, nm = self.coast.check(*at)
+            if land or nm < 0.5:
+                PLACEMENT_PROBLEMS.append(
+                    f"{where}: waypoint {at} is "
+                    f"{'ashore' if land else 'in the surf'} ({nm:.1f} NM from the "
+                    "coast) - route the track round the headland")
+
+    def point(self, at, where, least=1.0):
+        """An authored point a trigger uses - a box centre, a stage area."""
+        if self._cover(at, where):
+            land, nm = self.coast.check(*at)
+            if land or nm < least:
+                PLACEMENT_PROBLEMS.append(
+                    f"{where}: {at} is {'ashore' if land else f'{nm:.1f} NM off the coast'} "
+                    "- a trigger area's centre belongs on water")
+
+
 def open_water(snapper, at, where):
     """Where an offshore station actually goes.
 
@@ -387,6 +553,8 @@ def open_water(snapper, at, where):
       3. Neither: refused, with the numbers. Move the station, or mark it
          coastal=True and take the per-unit snap that a port or a rig gets.
     """
+    if isinstance(snapper, CoastPlacer):
+        return snapper.offshore(at, where)
     land = min((nm_between(p, at) for p in snapper.pool["land"]), default=1e9)
     sea_p, sea_d = None, 1e9
     for p in snapper.pool["sea"]:
@@ -855,6 +1023,10 @@ def place(mission, snapper):
                 spec["mission"])
             keys["TaskForceModeAirTaskingRole"] = role
         if spec.get("route"):
+            if isinstance(snapper, CoastPlacer) and kind in ("vessel", "sub"):
+                for la, lo, _a in spec["route"]:
+                    snapper.waypoint((la, lo), f"{mission['key']} {spec['station']} "
+                                               f"({spec['type']})")
             keys["Waypoints"] = "|".join(
                 f"{(lo - centre[1]) * 60:.2f},{a},{(la - centre[0]) * 60:.2f}"
                 for la, lo, a in spec["route"])
@@ -1003,9 +1175,19 @@ def date_words(date):
     return f"{d} {MONTHS[m - 1]} {y}"
 
 
+def mission_code(mission):
+    """The short id that names a mission's files and its mark on the backdrop.
+
+    Southern Watch's numbers are unique on their own ("01", "O1", "D1");
+    a campaign with two series numbers each from 01 and sets `code`
+    ("SR01", "TS01") so the two first missions do not share a card.
+    """
+    return mission.get("code", mission["num"])
+
+
 def sheet_path(mission):
     """Where this mission's card lives, spelled once."""
-    return f"campaigns/{SLUG}/art/southern_watch_{mission['num'].lower()}_sheet.png"
+    return f"campaigns/{SLUG}/art/{ART_PREFIX}_{mission_code(mission).lower()}_sheet.png"
 
 
 def mission_name(mission):
@@ -1013,9 +1195,19 @@ def mission_name(mission):
 
     Prefixed, because a mission browser lists everything flat and "01 White
     Water" beside a stock campaign's "01 Raid on Okinawa" tells nobody who
-    owns it.
+    owns it. A campaign with more than one series (Southern Reach's two
+    chapters) names each mission by its own series rather than the campaign.
     """
-    return f"{TITLE} {mission['num']} - {mission['key']}"
+    return f"{mission.get('series', TITLE)} {mission['num']} - {mission['key']}"
+
+
+def browse_folder(mission):
+    """Which mission-browser folder a mission's second copy goes in."""
+    if mission["group"] == "dispatch":
+        return DISPATCHES
+    if BROWSE:
+        return BROWSE.get(mission.get("series"), BROWSE.get(mission["group"], TITLE))
+    return TITLE
 
 
 def refs(members, ref):
@@ -1642,6 +1834,30 @@ def check_pacing(mission, placed):
             f"{budget['min_combat']} red combat units and has {n}. A fleet "
             "action that is not one should be re-roled.")
     return n
+
+
+def check_coast_geometry(mission, placer):
+    """On a coastline-proved mission, every trigger area sits on water too.
+
+    solve_arrival() walks a bearing until the box is reachable; on a coast it
+    can walk into Tasmania. The authored areas - a stage over a rig, an
+    arrival objective's own point - get the same check.
+    """
+    if not isinstance(placer, CoastPlacer):
+        return
+    key = mission["key"]
+    v = mission.get("victory", {})
+    if v.get("kind") == "arrive" and v.get("at"):
+        placer.point(v["at"], f"{key} arrival box")
+    for extra in v.get("also", []):
+        if extra.get("at"):
+            placer.point(extra["at"], f"{key} arrival box (also)")
+    stage = v.get("after")
+    if stage and stage.get("kind") == "area" and stage.get("at"):
+        placer.point(stage["at"], f"{key} stage area")
+    for oid, how in mission.get("resolve", {}).items():
+        if isinstance(how, tuple) and how[0] == "arrive":
+            placer.point(how[2], f"{key} {oid} arrival")
 
 
 def check_geometry(mission, placed, members):
@@ -2494,7 +2710,7 @@ def roster_ini(roster):
     if problems:
         raise SystemExit("roster failed:\n  " + "\n  ".join(problems))
 
-    L = ["; SEST Southern Watch requisition roster.",
+    L = [f"; SEST {TITLE} requisition roster.",
          "; Generated by integration/campaign/build_pack.py - edit campaign_data.py.",
          ";",
          "; Points are fictional balance values. The variant and squadron lists",
@@ -2827,7 +3043,7 @@ def campaign_ini(missions, events, placements):
     """
     EVENT_FORMS = {e["file"]: e.get("form", "press") for e in events}
     L = ["[File]", f"Base=campaigns/{SLUG}/campaign.ini", "",
-         "[Campaign]", "Type=Linear", "Difficulty=3",
+         "[Campaign]", "Type=Linear", f"Difficulty={CAMPAIGN_DIFFICULTY}",
          f"Length={sum(1 for m in missions if m['group'] == 'core')}",
          # Native placement: BackgroundImage sits between Length and
          # DisplayFormat in all three shipped campaigns. MapView is what the
@@ -2852,7 +3068,8 @@ def campaign_ini(missions, events, placements):
     # `missions/Intro/_info.ini` with five of the nine - so a missing section
     # is a case the game already handles in its own content, and nine copies
     # of one English paragraph would be bloat bought with a guess.
-    L += ["[Language_en]", f"Name={TITLE} (Royal Australian Navy)",
+    L += ["[Language_en]",
+          f"Name={CAMPAIGN_NAME_EN or f'{TITLE} (Royal Australian Navy)'}",
           "Description=" + CAMPAIGN_BLURB, ""]
 
     entries = _spine(missions, events)
@@ -3049,6 +3266,16 @@ def _spine(missions, events):
     """
     scheduled = sorted((m for m in missions if m["group"] != "dispatch"),
                        key=lambda m: m["date"])
+    keys = {m["key"] for m in scheduled}
+    import os
+    for ev in events[1:-1]:
+        if ev.get("before") not in keys:
+            msg = (f"event {ev['file']} hangs before {ev.get('before')!r}, which is "
+                   "not a mission in this campaign - it would silently never be shown")
+            if os.environ.get("SR_ALLOW_MISSING"):
+                print(f"  (partial build) {msg}")
+                continue
+            raise SystemExit(msg)
     out = [dict(type="FreeEvent", comment="Prologue", file=events[0]["file"],
                 name=events[0]["title"], sub=events[0]["sub"])]
     for m in scheduled:
@@ -3056,11 +3283,11 @@ def _spine(missions, events):
             if ev.get("before") == m["key"]:
                 out.append(dict(type="FreeEvent", comment=ev["title"].replace("\\n", " - "),
                                 file=ev["file"], name=ev["title"], sub=ev["sub"]))
-        label = {"optional": "OPTIONAL", "contingency": "CONTINGENCY"}.get(
+        label = m.get("seq") or {"optional": "OPTIONAL", "contingency": "CONTINGENCY"}.get(
             m["group"], f"MISSION {m['num'].lstrip('0')}")
-        out.append(dict(type="Mission", comment=f"{m['num']} {m['key']}",
+        out.append(dict(type="Mission", comment=f"{mission_code(m)} {m['key']}",
                         file=mission_name(m), name=m["key"].upper(),
-                        sub=m["place"], seq=label, short=m["num"],
+                        sub=m["place"], seq=label, short=mission_code(m),
                         intro=m["intro"], mission=m))
     out.append(dict(type="FreeEvent", comment="Epilogue", file=events[-1]["file"],
                     name=events[-1]["title"], sub=events[-1]["sub"]))
@@ -3125,7 +3352,7 @@ def coverage(credits, excuses):
     return rows, missing
 
 
-def report(rows, missions, worst):
+def report(rows, missions, worst, unused=(), coast=()):
     counts = collections.Counter(r[2] for r in rows)
     L = [f"# {TITLE} — mod coverage", "",
          "Generated by `integration/campaign/build_pack.py`. Do not edit.", "",
@@ -3135,8 +3362,17 @@ def report(rows, missions, worst):
          "SEST source pack appears below, with the mechanism that makes the "
          "game read its files. Coverage is measured on the load order rather "
          "than on catalog status, because five enabled entries are catalogued "
-         "deprecated and two WIP while still being required donors.", "",
-         "| class | meaning | mods |", "|---|---|---|"]
+         "deprecated and two WIP while still being required donors.", ""]
+    if unused:
+        L += [f"This campaign reaches {len(rows)} of the enabled mods and packs; "
+              f"the {len(unused)} it does not are listed at the end. The pack's "
+              "coverage rule - every enabled mod placed or excused - is met by "
+              "the pack as a whole, not by each campaign in it.", ""]
+    if coast:
+        L += [f"{len(coast)} station(s) were proved against the coastline "
+              "extract (`integration/campaign/geo/`) rather than a pool of "
+              "proven points: nothing in this repo had sailed this water before.", ""]
+    L += ["| class | meaning | mods |", "|---|---|---|"]
     meaning = dict(HOW_TEXT)
     meaning["library"] = ("ships no file a mission can name — systems, effects, "
                           "UI or a bare dependency marker — and applies install-wide")
@@ -3154,7 +3390,66 @@ def report(rows, missions, worst):
     for mid, title, how, detail, mission, _token in rows:
         L.append(f"| `{mid}` | {title} | `{how}` | {detail} | {mission} |")
     L.append("")
+    if unused:
+        L += ["## Enabled, and not reached by this campaign", "",
+              "Left in the load order because removing one changes which file "
+              "wins for the mods that are. See the campaign's own "
+              "REQUIRED-MODS.txt for the four lists a subscriber needs.", "",
+              "| mod / pack | title |", "|---|---|"]
+        for _what, mid, _token, title in unused:
+            L.append(f"| `{mid}` | {title} |")
+        L.append("")
     return "\n".join(L)
+
+
+def campaign_requirements(rows, missing, title):
+    """One campaign's dependency closure, in the four lists a release needs:
+    hard required, SEST donors, install-wide libraries, not used.
+
+    Computed from the same coverage rows as the pack-level file, so it cannot
+    name a mod the campaign's missions do not reach; the pack-level
+    REQUIRED-MODS.txt beside it is the union across every campaign shipped.
+    """
+    need = [r for r in rows if r[2] in NEEDED and r[5].isdigit()]
+    packs = [r for r in rows if r[2] in NEEDED and not r[5].isdigit()]
+    libs = [r for r in rows if r[2] in ("library",) and r[5].isdigit()]
+    shadowed = [r for r in rows if r[2] == "shadowed"]
+    promoted, elsewhere = prerequisites(
+        need, [r for r in rows if r[2] not in NEEDED and r[5].isdigit()])
+    key = lambda r: r[1].lower()
+    L = [f"{title.upper()} - what this campaign needs", "",
+         "Four lists. The pack-level REQUIRED-MODS.txt one folder up is the",
+         "union across every campaign in the pack; this is the closure for",
+         "this one, derived from the units its missions place, the squadrons",
+         "and hull variants they name, and the rounds their loadouts hang.", "",
+         f"1. HARD REQUIRED ({len(need) + len(promoted)}): a mission names a file of "
+         "theirs, or a mod above says it cannot run without them.", ""]
+    for _mid, t, how, _d, _m, token in sorted(need, key=key):
+        L.append(f"  {token:<13} {NEEDED[how]:<32} {t}")
+    for row, askers in sorted(promoted.items(), key=lambda kv: kv[0][1].lower()):
+        L.append(f"  {row[5]:<13} {'required by another mod':<32} {row[1]}")
+        L.append(f"  {'':<13} {'':<32}   asked for by: {', '.join(sorted(set(askers)))}")
+    for name, askers in sorted(elsewhere.items()):
+        L.append(f"  {'(workshop)':<13} {'manual install':<32} {name} - required by "
+                 f"{', '.join(sorted(set(askers)))}; not in this collection")
+    L += ["", f"2. SEST INTEGRATION PACKS ({len(packs)}): this project's own patches, "
+          "inside the consolidated download.", ""]
+    for _mid, t, how, _d, _m, token in sorted(packs, key=key):
+        L.append(f"  {'(local)':<13} {NEEDED[how]:<32} {t}")
+    L += ["", f"3. INSTALL-WIDE LIBRARIES AND UI ({len(libs)}): ship no file a mission "
+          "names. Optional unless a mod in list 1 asks for them (Anchor Chain",
+          "is asked for; the map, salvo and rescue tools are conveniences).", ""]
+    for _mid, t, how, _d, _m, token in sorted(libs, key=key):
+        L.append(f"  {token:<13} {'library':<32} {t}")
+    unused = [(mid, token, t) for _w, mid, token, t in missing] + \
+             [(r[0], r[5], r[1]) for r in shadowed]
+    L += ["", f"4. NOT USED BY THIS CAMPAIGN ({len(unused)}): enabled while it was built, "
+          "and left in the order because removing one changes which copy of a",
+          "shared file wins for the mods above.", ""]
+    for mid, token, t in sorted(unused, key=lambda x: x[2].lower()):
+        L.append(f"  {token if token.isdigit() else '(local)':<13} {t}")
+    L.append("")
+    return "\n".join(L) + "\n"
 
 
 # A player is not a developer: the coverage report above is a table of catalog
@@ -3373,97 +3668,153 @@ def main():
     # empty pack folder and a consolidated dist with no campaign in it.
     ap.add_argument("--dry-run", action="store_true",
                     help="resolve and check everything, emit nothing")
+    ap.add_argument("--campaign", metavar="SLUG",
+                    help="dry-run one campaign only (its slug or title)")
+    ap.add_argument("--only", metavar="CODES",
+                    help="dry-run only these missions, by code or number, "
+                         "comma-separated (SR03,TS01) - skips the pack coverage gate")
     args = ap.parse_args()
+    if (args.campaign or args.only) and not args.dry_run:
+        sys.exit("--campaign and --only are dry-run filters: a written pack is "
+                 "always the whole pack")
 
-    sys.path.insert(0, str(HERE))
-    from campaign_data import (MISSIONS, EVENTS, EXCUSES, INFO_DESC,  # noqa: E402
-                               DISPATCH_DESC, TASKFORCE, DIFFICULTIES,
-                               ROSTER, COMMANDER)
-    globals().update(TASKFORCE=TASKFORCE, DIFFICULTIES=DIFFICULTIES,
-                     ROSTER=ROSTER)
-    globals()["CAMPAIGN_BLURB"] = INFO_DESC
+    specs = campaign_specs()
+    if args.campaign:
+        squash = lambda x: re.sub(r"[^a-z0-9]", "", x.lower()).replace("sest", "", 1)
+        want = squash(args.campaign)
+        specs = [s for s in specs if want in (squash(s["SLUG"]), squash(s["TITLE"]))]
+        if not specs:
+            sys.exit(f"no campaign called {args.campaign!r} - "
+                     + ", ".join(s["SLUG"] for s in campaign_specs()))
 
     pool = harvest()
     print(f"proven positions: {len(pool['sea'])} sea, {len(pool['land'])} land")
 
-    # The requisition roster is resolved first: a purchasable unit is reached
-    # by the campaign as surely as a placed one, and a bad price stops the
-    # build before twenty missions are rendered on top of it.
-    roster_text, roster_credits = roster_ini(ROSTER)
-    # ... and the air-tasking rows against that same roster, before any of them
-    # is written into a campaign entry.
-    check_flights([r for m in MISSIONS
-                   for r in m.get("window", {}).get("flights", [])], ROSTER,
-                  authored={u["type"] for m in MISSIONS for u in m["units"]
-                            if u.get("slot")})
-    built, credits, worst, placements = [], {}, 0.0, {}
-    for token, why in roster_credits.items():
-        credits[token] = (why[0], why[1], "requisition roster")
-    for mission in MISSIONS:
-        snapper = Snapper(pool, limit_nm=mission.get("snap_limit", 60.0))
-        placed, members, mission_credits, far = place(mission, snapper)
-        # A named anchor that matched nothing is a silent failure: the campaign
-        # would generate the purchased force with no starting position.
-        if mission.get("anchor") and not mission.get("_anchored"):
-            sys.exit(f"{mission['key']}: anchor station "
-                     f"{mission['anchor']!r} places no blue vessel")
-        worst = max(worst, far)
-        weight = check_pacing(mission, placed)
-        picture = check_reach(mission, placed, members)
-        check_closure(mission, placed, members)
-        solve_arrival(mission, placed, members)
-        check_geometry(mission, placed, members)
-        name, text = render(mission, placed, members)
-        built.append((name, text, mission))
-        placements[mission["key"]] = placed
-        for token, why in mission_credits.items():
-            best = credits.get(token)
+    excuses, pack_credits, campaigns = {}, {}, []
+    for spec in specs:
+        set_campaign(spec)
+        excuses.update(spec.get("EXCUSES", {}))
+        missions = spec["MISSIONS"]
+        if args.only:
+            wanted = {x.strip().upper() for x in args.only.split(",") if x.strip()}
+            missions = [m for m in missions
+                        if mission_code(m).upper() in wanted or m["num"].upper() in wanted]
+            if not missions:
+                broken = getattr(sys.modules.get("southern_reach"), "BROKEN", {})
+                sys.exit(f"{TITLE}: none of {sorted(wanted)} is here"
+                         + (" - modules that failed to import: "
+                            + "; ".join(f"{k}: {v}" for k, v in broken.items())
+                            if broken else ""))
+        for lst in (UNPROVEN, RECOVERY_NOTES, CLOSURE_NOTES, REACH_PROBLEMS,
+                    CLOSURE_PROBLEMS, PLACEMENT_PROBLEMS, COAST_CHECKED):
+            del lst[:]
+        print(f"\n== {TITLE}")
+
+        # The requisition roster is resolved first: a purchasable unit is
+        # reached by the campaign as surely as a placed one, and a bad price
+        # stops the build before twenty missions are rendered on top of it.
+        roster_text, roster_credits = roster_ini(ROSTER)
+        # ... and the air-tasking rows against that same roster, before any of
+        # them is written into a campaign entry.
+        check_flights([r for m in spec["MISSIONS"]
+                       for r in m.get("window", {}).get("flights", [])], ROSTER,
+                      authored={u["type"] for m in spec["MISSIONS"] for u in m["units"]
+                                if u.get("slot")})
+        built, credits, worst, placements = [], {}, 0.0, {}
+        for token, why in roster_credits.items():
+            credits[token] = (why[0], why[1], "requisition roster")
+        for mission in missions:
+            if (mission.get("geography") or GEOGRAPHY) == "coast":
+                placer = CoastPlacer(coast_data(), mission)
+            else:
+                placer = Snapper(pool, limit_nm=mission.get("snap_limit", 60.0))
+            placed, members, mission_credits, far = place(mission, placer)
+            # A named anchor that matched nothing is a silent failure: the
+            # campaign would generate the purchased force with no starting
+            # position.
+            if mission.get("anchor") and not mission.get("_anchored"):
+                sys.exit(f"{mission['key']}: anchor station "
+                         f"{mission['anchor']!r} places no blue vessel")
+            worst = max(worst, far)
+            weight = check_pacing(mission, placed)
+            picture = check_reach(mission, placed, members)
+            check_closure(mission, placed, members)
+            solve_arrival(mission, placed, members)
+            check_coast_geometry(mission, placer)
+            check_geometry(mission, placed, members)
+            name, text = render(mission, placed, members)
+            built.append((name, text, mission))
+            placements[mission["key"]] = placed
+            for token, why in mission_credits.items():
+                best = credits.get(token)
+                if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
+                    credits[token] = why
+            units = sum(len(v) for v in placed.values())
+            gap = (f" gap{picture[0]:6.0f} reach{picture[1]:6.0f} NM"
+                   if picture else "")
+            print(f"  {name:<44} {units:>3} units {weight:>3} red combat  "
+                  f"{len(mission_credits):>3} mods  snap<={far:4.1f}{gap}")
+
+        if UNPROVEN:
+            print(f"\n{len(UNPROVEN)} offshore station(s) used as authored - open water "
+                  f"by distance from known land, not by a proven point:")
+            for where, at, land in UNPROVEN:
+                print(f"  {where:<34} {at[0]:8.3f},{at[1]:8.3f}   nearest land {land:4.0f} NM")
+        if COAST_CHECKED:
+            print(f"\n{len(COAST_CHECKED)} position(s) proved against the coastline extract:")
+            for where, at, how in COAST_CHECKED:
+                print(f"  {where:<40} {at[0]:8.3f},{at[1]:8.3f}   {how}")
+        if RECOVERY_NOTES:
+            print(f"\n{len(RECOVERY_NOTES)} recovery assignment(s) the files leave undeclared:")
+            for note in RECOVERY_NOTES:
+                print(f"   {note}")
+        if CLOSURE_NOTES:
+            print(f"\n{len(CLOSURE_NOTES)} unit(s) placed where they cannot take part:")
+            for note in CLOSURE_NOTES:
+                print(f"  {note}")
+        if REACH_PROBLEMS or CLOSURE_PROBLEMS or PLACEMENT_PROBLEMS:
+            sys.exit("geometry failed:\n  " + "\n  ".join(
+                PLACEMENT_PROBLEMS + REACH_PROBLEMS + CLOSURE_PROBLEMS))
+
+        # Built BEFORE the dry-run exit, because every air-tasking gate lives
+        # in here - the row/section pairing, the role and fit checks, the
+        # label vocabulary, the purchase allowlists. Returning first made
+        # `--dry-run` ("resolve and check everything, emit nothing") the one
+        # command that checked none of them: the same mutation passed dry-run
+        # and failed the real build. It is pure, so building it early costs
+        # nothing.
+        campaign_text = campaign_ini([m for _n, _t, m in built], spec["EVENTS"],
+                                     placements) + "\n"
+        rows, missing = coverage(credits, spec.get("EXCUSES", {}))
+        print(f"\n{TITLE}: reaches {len(rows)} mods and packs; "
+              f"{len(missing)} enabled and not reached by this campaign")
+        campaigns.append(dict(spec=spec, built=built, placements=placements,
+                              credits=credits, rows=rows, missing=missing,
+                              worst=worst, roster_text=roster_text,
+                              campaign_text=campaign_text, missions=missions,
+                              coast=list(COAST_CHECKED)))
+        for token, why in credits.items():
+            best = pack_credits.get(token)
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
-                credits[token] = why
-        units = sum(len(v) for v in placed.values())
-        gap = (f" gap{picture[0]:6.0f} reach{picture[1]:6.0f} NM"
-               if picture else "")
-        print(f"  {name:<44} {units:>3} units {weight:>3} red combat  "
-              f"{len(mission_credits):>3} mods  snap<={far:4.1f}{gap}")
+                pack_credits[token] = why
 
-    if UNPROVEN:
-        print(f"\n{len(UNPROVEN)} offshore station(s) used as authored - open water "
-              f"by distance from known land, not by a proven point:")
-        for where, at, land in UNPROVEN:
-            print(f"  {where:<34} {at[0]:8.3f},{at[1]:8.3f}   nearest land {land:4.0f} NM")
-    if RECOVERY_NOTES:
-        print(f"\n{len(RECOVERY_NOTES)} recovery assignment(s) the files leave undeclared:")
-        for note in RECOVERY_NOTES:
-            print(f"   {note}")
-    if CLOSURE_NOTES:
-        print(f"\n{len(CLOSURE_NOTES)} unit(s) placed where they cannot take part:")
-        for note in CLOSURE_NOTES:
-            print(f"  {note}")
-    if REACH_PROBLEMS or CLOSURE_PROBLEMS or PLACEMENT_PROBLEMS:
-        sys.exit("geometry failed:\n  " + "\n  ".join(
-            PLACEMENT_PROBLEMS + REACH_PROBLEMS + CLOSURE_PROBLEMS))
-
-    rows, missing = coverage(credits, EXCUSES)
-    if missing:
+    # The pack's coverage rule: every enabled mod is placed by SOME campaign
+    # in the pack, or excused in writing. A second campaign does not have to
+    # reach all 135 mods on its own - the spec for Southern Reach says it must
+    # not - but nothing in the load order may go unaccounted for.
+    rows, missing = coverage(pack_credits, excuses)
+    if missing and not (args.only or args.campaign):
         print("\nNOT INCORPORATED — every active mod must be placed or excused:")
         for what, mid, token, title in missing:
             print(f"   {what:<5} {mid:<34} {token:<18} {title}")
         sys.exit(f"{len(missing)} mod(s) uncovered")
-    stale = [m for m in EXCUSES if m in credits or
+    stale = [m for m in excuses if m in pack_credits or
              m in {r[0] for r in rows if r[2] in HOW_TEXT}]
-    if stale:
-        sys.exit("excuse no longer needed (the campaign now reaches it): "
+    if stale and not (args.only or args.campaign):
+        sys.exit("excuse no longer needed (the pack now reaches it): "
                  + ", ".join(sorted(stale)))
-    print(f"\ncoverage: {len(rows)} mods and packs, all accounted for")
-
-    # Built BEFORE the dry-run exit, because every air-tasking gate lives in
-    # here - the row/section pairing, the role and fit checks, the label
-    # vocabulary, the purchase allowlists. Returning first made `--dry-run`
-    # ("resolve and check everything, emit nothing") the one command that
-    # checked none of them: the same mutation passed dry-run and failed the
-    # real build. It is pure, so building it early costs nothing.
-    campaign_text = campaign_ini([m for _n, _t, m in built], EVENTS,
-                                 placements) + "\n"
+    if not (args.only or args.campaign):
+        print(f"\ncoverage: {len(rows)} mods and packs, all accounted for by the pack")
 
     if args.dry_run:
         print("(dry run — nothing written)")
@@ -3482,11 +3833,14 @@ def main():
         make_art, art_reason = None, str(exc)
     else:
         art_reason = None
-    keep_art = None
-    old_art = OUT / "campaigns" / SLUG / "art"
-    if make_art is None and old_art.is_dir():
-        keep_art = pathlib.Path(tempfile.mkdtemp(prefix="sest-art-"))
-        shutil.copytree(old_art, keep_art / "art")
+    keep_art = {}
+    if make_art is None:
+        for c in campaigns:
+            old_art = OUT / "campaigns" / c["spec"]["SLUG"] / "art"
+            if old_art.is_dir():
+                tmp = pathlib.Path(tempfile.mkdtemp(prefix="sest-art-"))
+                shutil.copytree(old_art, tmp / "art")
+                keep_art[c["spec"]["SLUG"]] = tmp
     # The briefing maps the same way: the renderer needs Pillow AND the
     # Natural Earth coastlines (fetched once, cached), and a machine with
     # neither keeps the committed maps rather than shipping a blank pane.
@@ -3503,13 +3857,6 @@ def main():
                 keep_maps[f.relative_to(OUT)] = f.read_bytes()
     if OUT.exists():
         shutil.rmtree(OUT)
-    camp = OUT / "campaigns" / SLUG
-    browse = OUT / "missions" / TITLE
-    extra = OUT / "missions" / DISPATCHES
-    (camp / "missions").mkdir(parents=True)
-    (camp / "art").mkdir(parents=True)
-    browse.mkdir(parents=True)
-    extra.mkdir(parents=True)
 
     def emit(base, name, text, mission, browsed):
         """One mission: its .ini and its briefing folder.
@@ -3522,6 +3869,7 @@ def main():
         `campaigns/pacific-strike-task-force/missions/` has an _info.ini at
         all. The campaign loads those by path, so there is nothing to describe.
         """
+        base.mkdir(parents=True, exist_ok=True)
         (base / f"{name}.ini").write_text(text, encoding="utf-8")
         brief = base / f"{name}_briefing"
         brief.mkdir(exist_ok=True)
@@ -3534,73 +3882,6 @@ def main():
         (brief / "BriefingText_en.xml").write_text(briefing_page(mission),
                                                    encoding="utf-8")
 
-    # The twelve core missions ship twice: once under campaigns/, which is what
-    # the linear campaign loads, and once under missions/, so they are also
-    # listed in the ordinary mission browser. Same bytes, one builder - and it
-    # means the campaign is playable mission by mission even on an install
-    # where the Mod Manager does not surface a mod-supplied campaign.
-    for name, text, mission in built:
-        if mission["group"] == "dispatch":
-            emit(extra, name, text, mission, browsed=True)
-        else:
-            emit(camp / "missions", name, text, mission, browsed=False)
-            emit(browse, name, text, mission, browsed=True)
-    for event in EVENTS:
-        (camp / "art" / f"{event['file']}.xml").write_text(event_page(event),
-                                                           encoding="utf-8")
-
-    # The art last, because a card is drawn FROM the mission file that was
-    # just written. Pillow is the only thing here that is not stdlib; without
-    # it the images set aside above are put back unchanged.
-    if make_art is None:
-        if keep_art is not None:
-            for f in sorted((keep_art / "art").iterdir()):
-                shutil.copy2(f, camp / "art" / f.name)
-            shutil.rmtree(keep_art, ignore_errors=True)
-            print(f"  art not regenerated ({art_reason}) - restored "
-                  f"{len(list((camp / 'art').glob('*.png')))} committed PNG(s). "
-                  f"Install Pillow to rebuild them from the missions.")
-        else:
-            print(f"  art not regenerated ({art_reason}) and none was committed "
-                  f"- this pack has NO images. Install Pillow and rebuild.")
-    else:
-        cards = [dict(num=m["num"], key=m["key"], place=m["place"],
-                      group=m["group"], date=date_words(m["date"]),
-                      ini=(camp / "missions" if m["group"] != "dispatch"
-                           else extra) / f"{name}.ini")
-                 for name, _t, m in built]
-        make_art.render_all(camp, cards, EVENTS, SLUG, TITLE, SUBTITLE)
-
-    # The briefing map beside every mission - the right-hand pane of the
-    # briefing screen, drawn from <mission>_briefing/BriefingMap_en.xml and
-    # the image it binds (see integration/missions/briefing_maps.py). Every
-    # stock mission ships one; these shipped none, and the pane was blank.
-    # Drawn once into the campaign copy and mirrored byte-for-byte into the
-    # browser copy, which check_campaign_coverage requires to be identical.
-    if geo is None:
-        put_back = 0
-        for rel, data in keep_maps.items():
-            target = OUT / rel
-            if target.parent.is_dir():
-                target.write_bytes(data)
-                put_back += 1
-        print(f"  briefing maps not regenerated ({maps_reason}) - restored "
-              f"{put_back} committed file(s). Install Pillow (and let it fetch "
-              f"the coastlines once) to redraw them from the missions.")
-    else:
-        for name, _t, m in built:
-            src = (extra if m["group"] == "dispatch" else camp / "missions") / f"{name}_briefing"
-            ini = src.parent / f"{name}.ini"
-            stem = briefing_maps.render(ini, src, m["key"], geo, series="SEST SOUTHERN WATCH")
-            if m["group"] != "dispatch":
-                dst = browse / f"{name}_briefing"
-                for fn in (f"{stem}.png", "BriefingMap_en.xml"):
-                    shutil.copy2(src / fn, dst / fn)
-    (camp / "campaign.ini").write_text(
-        campaign_text,
-        encoding="utf-8")
-    (camp / "player_task_force_roster.ini").write_text(roster_text, encoding="utf-8")
-    (camp / "commander_settings.ini").write_text(COMMANDER, encoding="utf-8")
     def info(name, desc, general="[General]\nType=Scenario\n\n", tail=""):
         """A folder's _info.ini.
 
@@ -3611,35 +3892,141 @@ def main():
         """
         return general + f"[Language_en]\nName={name}\nDescription={desc}\n" + tail
 
-    (browse / "_info.ini").write_text(info(TITLE, INFO_DESC), encoding="utf-8")
-    (extra / "_info.ini").write_text(info(DISPATCHES, DISPATCH_DESC),
-                                     encoding="utf-8")
+    total_files = 0
+    for c in campaigns:
+        spec = c["spec"]
+        set_campaign(spec)
+        built, missions = c["built"], c["missions"]
+        camp = OUT / "campaigns" / SLUG
+        (camp / "missions").mkdir(parents=True)
+        (camp / "art").mkdir(parents=True)
+        folders = {}          # browser folder -> description
+
+        # The core missions ship twice: once under campaigns/, which is what
+        # the linear campaign loads, and once under missions/, so they are
+        # also listed in the ordinary mission browser. Same bytes, one builder
+        # - and it means the campaign is playable mission by mission even on
+        # an install where the Mod Manager does not surface a mod-supplied
+        # campaign.
+        for name, text, mission in built:
+            folder = browse_folder(mission)
+            if mission["group"] == "dispatch":
+                folders[folder] = spec["DISPATCH_DESC"]
+                emit(OUT / "missions" / folder, name, text, mission, browsed=True)
+            else:
+                folders[folder] = (spec.get("BROWSE_DESC", {}).get(folder)
+                                   or spec["INFO_DESC"])
+                emit(camp / "missions", name, text, mission, browsed=False)
+                emit(OUT / "missions" / folder, name, text, mission, browsed=True)
+        for event in spec["EVENTS"]:
+            (camp / "art" / f"{event['file']}.xml").write_text(event_page(event),
+                                                               encoding="utf-8")
+
+        # The art last, because a card is drawn FROM the mission file that
+        # was just written. Pillow is the only thing here that is not stdlib;
+        # without it the images set aside above are put back unchanged.
+        if make_art is None:
+            kept = keep_art.get(SLUG)
+            if kept is not None:
+                for f in sorted((kept / "art").iterdir()):
+                    shutil.copy2(f, camp / "art" / f.name)
+                shutil.rmtree(kept, ignore_errors=True)
+                print(f"  {TITLE}: art not regenerated ({art_reason}) - restored "
+                      f"{len(list((camp / 'art').glob('*.png')))} committed PNG(s). "
+                      f"Install Pillow to rebuild them from the missions.")
+            else:
+                print(f"  {TITLE}: art not regenerated ({art_reason}) and none was "
+                      "committed - this campaign has NO images. Install Pillow and rebuild.")
+        else:
+            cards = [dict(num=m["num"], code=mission_code(m), key=m["key"],
+                          place=m["place"], group=m["group"],
+                          series=m.get("series"), date=date_words(m["date"]),
+                          ini=(camp / "missions" if m["group"] != "dispatch"
+                               else OUT / "missions" / browse_folder(m)) / f"{name}.ini")
+                     for name, _t, m in built]
+            make_art.render_all(camp, cards, spec["EVENTS"], SLUG, TITLE, SUBTITLE,
+                                prefix=ART_PREFIX, label=SERIES_LABEL)
+
+        # The briefing map beside every mission - the right-hand pane of the
+        # briefing screen, drawn from <mission>_briefing/BriefingMap_en.xml
+        # and the image it binds (see integration/missions/briefing_maps.py).
+        # Every stock mission ships one; these shipped none, and the pane was
+        # blank. Drawn once into the campaign copy and mirrored byte-for-byte
+        # into the browser copy, which check_campaign_coverage requires to be
+        # identical.
+        if geo is None:
+            put_back = 0
+            for rel, data in keep_maps.items():
+                target = OUT / rel
+                if target.parent.is_dir() and not target.exists():
+                    target.write_bytes(data)
+                    put_back += 1
+            print(f"  {TITLE}: briefing maps not regenerated ({maps_reason}) - restored "
+                  f"{put_back} committed file(s). Install Pillow (and let it fetch "
+                  f"the coastlines once) to redraw them from the missions.")
+        else:
+            for name, _t, m in built:
+                if m["group"] == "dispatch":
+                    src = OUT / "missions" / browse_folder(m) / f"{name}_briefing"
+                else:
+                    src = camp / "missions" / f"{name}_briefing"
+                ini = src.parent / f"{name}.ini"
+                stem = briefing_maps.render(ini, src, m["key"], geo, series=MAP_SERIES,
+                                            focus_nm=MAP_FOCUS_NM, inset_box=MAP_INSET)
+                if m["group"] != "dispatch":
+                    dst = OUT / "missions" / browse_folder(m) / f"{name}_briefing"
+                    for fn in (f"{stem}.png", "BriefingMap_en.xml"):
+                        shutil.copy2(src / fn, dst / fn)
+        (camp / "campaign.ini").write_text(c["campaign_text"], encoding="utf-8")
+        (camp / "player_task_force_roster.ini").write_text(c["roster_text"],
+                                                           encoding="utf-8")
+        (camp / "commander_settings.ini").write_text(spec["COMMANDER"], encoding="utf-8")
+        for folder, desc in folders.items():
+            (OUT / "missions" / folder / "_info.ini").write_text(info(folder, desc),
+                                                                 encoding="utf-8")
+        # This campaign's own closure, in the four lists a release needs.
+        (camp / "REQUIRED-MODS.txt").write_text(
+            campaign_requirements(c["rows"], c["missing"], TITLE), encoding="utf-8")
+        COVERAGE_DOC.parent.mkdir(parents=True, exist_ok=True)
+        COVERAGE_DOC.write_text(report(c["rows"], spec["MISSIONS"], c["worst"],
+                                       unused=c["missing"], coast=c["coast"]),
+                                encoding="utf-8")
+        # Publisher-facing, so it stays in docs/ rather than in the download:
+        # the Workshop's Required Items box takes one item at a time, and 133
+        # of them typed by hand is 133 chances to fat-finger an id.
+        DOCS_DIR.mkdir(parents=True, exist_ok=True)
+        (DOCS_DIR / "required-mods-urls.txt").write_text(required_urls(c["rows"]),
+                                                         encoding="utf-8")
+        files = sum(1 for f in camp.rglob("*") if f.is_file())
+        total_files += files
+        print(f"  {TITLE}: {len(built)} missions, {len(spec['EVENTS'])} events, "
+              f"{files} files under campaigns/{SLUG}; wrote "
+              f"{COVERAGE_DOC.relative_to(ROOT)}")
+
     # The pack's own entry in the Mod Manager. No Type= here: that key
     # classifies a MISSION folder, and native mod roots do not carry one.
+    # One entry carries every campaign in the pack, so its name and its
+    # description name them all.
+    titles = [c["spec"]["TITLE"] for c in campaigns]
+    blurb = " ".join(c["spec"]["INFO_DESC"] for c in campaigns)
     (OUT / "_info.ini").write_text(
-        info(TITLE, INFO_DESC, general="",
+        info(" - ".join(titles), blurb, general="",
              tail="\n[Compatibility]\nApproximateVersion=0.8.2\n"),
         encoding="utf-8")
-    (ROOT / "docs" / "campaign-coverage.md").write_text(
-        report(rows, MISSIONS, worst), encoding="utf-8")
-    # The same facts, in the folder the player actually has. Generated from
-    # `rows`, so the list cannot drift from what the missions place.
+    # The pack-level lists, from the union of what every campaign reaches.
+    set_campaign(dict(campaigns[0]["spec"], TITLE=" / ".join(titles)))
     (OUT / "REQUIRED-MODS.txt").write_text(requirements(rows), encoding="utf-8")
     (OUT / "LOAD-ORDER.txt").write_text(load_order_text(), encoding="utf-8")
-    # Publisher-facing, so it stays in docs/ rather than in the download: the
-    # Workshop's Required Items box takes one item at a time, and 133 of them
-    # typed by hand is 133 chances to fat-finger an id.
-    (ROOT / "docs" / "campaigns" / "southern-watch" /
-     "required-mods-urls.txt").write_text(required_urls(rows), encoding="utf-8")
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())
     print("wrote REQUIRED-MODS.txt and LOAD-ORDER.txt into the pack")
     print(f"\nbuilt {OUT.relative_to(ROOT)}: {files} files, "
-          f"{len(built)} missions, {len(EVENTS)} campaign events")
-    print("wrote docs/campaign-coverage.md")
+          f"{sum(len(c['built']) for c in campaigns)} missions across "
+          f"{len(campaigns)} campaign(s)")
 
 
 CAMPAIGN_BLURB = ""
+
 
 if __name__ == "__main__":
     main()
