@@ -24,11 +24,12 @@ powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 
 Expect `1 of 1` installed plus a `purged` line per old per-pack folder.
 
-Two warnings are **expected** and are not faults: `dropped stale workshop
-entry` naming the one mod the repo has not catalogued yet (Automatic SAR —
-see the install document's step 5; the Euromod South Korean Navy is now
-catalogued and ordered), and the
-`component ApproximateVersion values differ` note from the consolidation.
+One warning is **expected** and is not a fault: the
+`component ApproximateVersion values differ` note from the consolidation. A
+`dropped stale workshop entry` line should no longer appear - Automatic SAR,
+the MV-22B and the Korean navy are all catalogued - and if one does, it names
+a new subscription. Afterwards the Mod Manager should show **Automatic SAR**
+and **MV-22B Osprey** enabled.
 `canonical pack not installed in StreamingAssets` is the one that means the
 install did not take — stop there.
 
@@ -154,6 +155,16 @@ and statically consistent; whether the campaign carries a flag across a save
 is the one thing no amount of reading can settle. 6.7 and 6.9 use syntax the
 shipped data does not attest (`IsTrue`; the rearm-by-variable key is from the
 developer guide), so each is a design answer either way.
+
+## 6A — rescue and the Osprey (new)
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 6A.1 | Mod Manager after the sync | **Automatic SAR** and **MV-22B Osprey** enabled, not flagged as not loaded | Still not loaded = the order was rewritten after the sync (the game was running), or Anchor Chain's loader is not installed |
+| 6A.2 | Any mission where a ship sinks or an aircraft goes down: right-click a helicopter, **Start automatic SAR** | It flies to the nearest distress beacon and picks up survivors ("Picked up survivors") | Whether it treats the VTOL Osprey as a helicopter is untested - try it |
+| 6A.3 | Finish that mission and read the debrief | A **Survivors rescued** line and "*N* survivors -> *M* additional point(s) awarded". Tell me N and M | The campaign ships the stock `CSARPointModifier=10`; N and M settle which way it scales |
+| 6A.4 | Rig Seventeen: send **Lifter 12 (the Osprey)** to the rig, then south of the line | Victory - either lifter can make the lift, and the per-lifter chain works for the Osprey as for the Super Stallion | It must launch from and recover to HMAS Canberra; a refusal names the deck list |
+| 6A.5 | The Long Perimeter: fly Dragon 71/72 into the airstrip before the ridge is cleared | The Tor engages them in the last five miles; once the ridge is down, the landing completes **Lift** | The lift completing with the ridge untouched means the SAM never engaged - tell me |
 
 ## 7 — the review's engine tests
 

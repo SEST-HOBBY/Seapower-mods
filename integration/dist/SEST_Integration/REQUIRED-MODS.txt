@@ -7,7 +7,7 @@ dependencies", and it iterates, so a dependency's own dependencies
 come too. If that works you do not need the list below at all, and
 it is here to check against rather than to work through by hand.
 
-134 mods. Each supplies a file a mission names directly - by
+135 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference= or a loadout's store.
 
 What the game does with a reference it cannot resolve has not been
@@ -105,6 +105,7 @@ Workshop id   supplies                         mod
 3390330875    a unit a mission places          Modern US Navy
 3456859157    a hull variant in use            Mogami-class Frigate
 3716049886    a unit a mission places          MORE SU-24M VARIANTS
+3806466625    a unit a mission places          MV-22B Osprey Tiltrotor / JGSDF V-22B
 3681873198    a unit a mission places          Pickup truck extension
 3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
 3733719765    a unit a mission places          PLA Land Unit Pack
@@ -161,7 +162,7 @@ above does, in its own description. Skipping one breaks the mod
 that asked for it.
 
 3380210757    required by another mod          Anchor Chain
-                                                 asked for by: B-2 Spirit
+                                                 asked for by: B-2 Spirit, MV-22B Osprey Tiltrotor / JGSDF V-22B
 
 NOT IN THIS LIST AND STILL REQUIRED:
 
@@ -172,12 +173,13 @@ NOT IN THIS LIST AND STILL REQUIRED:
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (5), and left in the order
+Also enabled while this was built (6), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
 
 3789793270    library                          Auto Time-on-Target
+3774105087    library                          Automatic SAR
 3768036424    library                          Better TacMap
 3784474738    library                          Euromod - Anchorchain Expansion Pack
 3432592449    shadowed                         Nimitz Expanded

@@ -63,7 +63,7 @@ file is unchanged.
        95%  ammunition/usn_rim-161b.ini 
        95%  ammunition/usn_rim-161c.ini 
        94%  ammunition/usn_rim-161d.ini 
-       98%  ammunition/usn_rim-174a.ini 
+       99%  ammunition/usn_rim-174a.ini 
        99%  ammunition/usn_rim-174c.ini 
 
   Euromod - Modern British Navy  (workshop 3599752717)

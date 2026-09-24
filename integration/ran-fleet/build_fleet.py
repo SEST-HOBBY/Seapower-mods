@@ -422,7 +422,9 @@ FLEET = {
         # The LHD deck is rated for the CH-53E the campaign lifts with (the
         # Juan Carlos design was sized for it); the campaign builder refuses
         # to home an aircraft on a deck whose list leaves it out.
-        "deck": ["usmc_ch53_standalone"],
+        # USMC lift she carries in the campaign: the Super Stallion and, since
+        # MRF-D Ospreys have operated from the class in Talisman Sabre, the MV-22B.
+        "deck": ["usmc_ch53_standalone", "mv22b_osprey"],
     },
     "ran_lsd_choules": {
         "donor": (SPA_MODERN, "ae_lpd_galicia"),
