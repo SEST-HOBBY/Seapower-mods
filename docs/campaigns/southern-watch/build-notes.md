@@ -808,6 +808,32 @@ and body areas, and every SEST delta (the loft angle, the 150,000 ft gate,
 the flight times) still lands on top. All 26 campaign missions and the
 loose missions preflight clean against the new files.
 
+## The Anzac's ESSM
+
+Reported in game: the ESSM Block II flew like an anti-ship missile, a metre
+above the sea. The Anzac's Mk41 fired the Anzac mod's own "RIM-162 ESSM",
+which the RAN Fleet pack had been re-shipping unchanged under a space-free id.
+That file is a RIM-7F template its author left flagged `REQUIRES STATS
+REVISION`: no kinematic model at all (no `ApplyKinematics`, no
+`MaxLoftAlt`/`MaxLoftAngle`, no `TypicalTargetAlt`), and a 26 ft attack floor
+that puts every sea-skimming anti-ship missile outside the band where the
+engine "greatly increases missile deviation".
+
+The Mk41 now loads Euromod's `usn_rim-162h`, a complete active ESSM Block II
+(5 ft floor, lofts to 60,000 ft at 40 degrees with a terminal loft, 27 NM).
+It is datalink midcourse, and the ASMD hull's Mk41 blocks already take a
+guidance channel from CEAFAR (ten weapon channels) - the condition the
+weapon-employment gate checks, which passes. Hobart still fires the Block I
+(`usn_rim-162a`, semi-active).
+
+What the files cannot settle: all three ESSMs in the collection declare
+`SecondaryTargetType=ASuW`, which lets the AI fire them at ships. A surface
+shot flies low whichever round it is. If the new round is ever seen doing it,
+the question is what it was fired at, and dropping the secondary type is a
+one-line change. The same sweep checked the wider theory and ruled it out:
+the stock game ships 53 of its 71 air-defence and air-to-air missiles with
+no climb profile at all, so a missing loft is not by itself a fault.
+
 ## What exists
 
 | Thing | Where |
