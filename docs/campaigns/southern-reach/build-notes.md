@@ -17,7 +17,7 @@ unchanged. This file covers only what is new.
 | Placed units | 392, of which 200 stations were proved against the coastline extract |
 | Mods reached | 34 directly; the pack union with Southern Watch reaches all 159 enabled mods and SEST packs (`tools/check_campaign_coverage.py`) |
 | Points | 2,960 across the 23 mainline missions, +120 for the optionals; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 |
-| Southern Watch | byte-identical: every mission file, briefing map, card and `campaign.ini` under `sest-southern-watch/` is unchanged by this build |
+| Southern Watch | unchanged: every mission file, card, story page and `campaign.ini` under `sest-southern-watch/` is byte-identical. Three of its briefing maps (The Open Door, The First Ship Through, D8 The Long Perimeter) re-rendered because the map renderer now keeps two overlapping "REPORTED …" labels apart; nothing else on them moved |
 
 Both campaigns ship in the one `SEST_Campaign` pack (and in the consolidated
 `SEST_Integration` download). The pack `_info.ini` now names both; the pack
