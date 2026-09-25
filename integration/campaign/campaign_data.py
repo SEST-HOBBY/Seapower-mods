@@ -4211,9 +4211,9 @@ SUPPORT_LOSS = {
                       "92 Wing has no spare airframe in the north this week.  - Ward")],
     "02": [dict(asset="HMAS Supply", units=["escort#3"],
                 intel="SUPPLY is gone. Every operation after this one plans "
-                      "around a tank that does not refill, and 140 points is "
-                      "most of a mission's allocation to put another hull in "
-                      "her place.  - Mercer"),
+                      "around a tank that does not refill, and putting "
+                      "another hull in her place will take most of the next "
+                      "allocation.  - Mercer"),
            dict(asset="Texaco 51", units=["air#2"],
                 # Says what is true. It used to promise that sortie lengths
                 # would shorten "from today", and nothing in the campaign
@@ -4224,11 +4224,12 @@ SUPPORT_LOSS = {
                       "tanker that is not there.  - Ward")],
     "06": [dict(asset="Sentry 06", units=["isr"], objective="Sentry",
                 intel="Sentry 06 is lost. The surface picture north of the "
-                      "horizon goes with her, and a replacement Triton is 60 "
-                      "points and a week of crew work at Edinburgh.  - Ward")],
+                      "horizon goes with her, and a replacement Triton is a "
+                      "share of the next allocation and a week of crew work "
+                      "at Edinburgh.  - Ward")],
     "12": [dict(asset="Wedgetail 03", units=["aew"],
-                intel="Wedgetail 03 is down on the last morning of the "
-                      "campaign. 2 Squadron has two airframes and this was "
+                intel="Wedgetail 03 is down on the first morning of the "
+                      "ceasefire. 2 Squadron has two airframes and this was "
                       "one of them.  - Ward")],
 }
 
@@ -4327,8 +4328,8 @@ for _m in MISSIONS:
         _m["discoveries"] = [dict(
             after="Picture", objective="Airlift", seconds=120,
             intel="Those escorts are screening a track, not a patrol line. "
-                  "There is a transport running south-west into the enclave "
-                  "field and nobody has put a name on it. Sentry 06 is the "
+                  "There is a transport running north toward the enclave "
+                  "and nobody has put a name on it. Sentry 06 is the "
                   "only thing in range that can.")]
     if _m["num"] == "04":
         # Southern Cross, kept: Kiwi 01's picture puts the boat on this plot.
