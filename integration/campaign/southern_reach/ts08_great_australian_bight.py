@@ -10,18 +10,19 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="TS08", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 8",
     group="core", num="08", key="Great Australian Bight", place="The Bight",
-    intro="The Russian detachment's second boat, the one nobody has held, "
-          "is in the Bight ahead of the Southern Convoy's track. Collins has the "
+    intro="SIERRA-TWO, the Russian detachment's Yasen and the one boat "
+          "nobody has held contact on, is in the Bight ahead of the Southern Convoy's track. Collins has the "
           "western sector; you have the eastern. Eighty minutes.",
     special="Repair only before this mission: Adelaide's dockyard has "
             "the plate and not the magazines. Rearm comes before the "
             "Southern Convoy.",
     sender="Commodore Alex Mercer, for the Submarine Force",
-    intent=("SIERRA-TWO is the second nuclear boat the January intelligence "
-            "summary credited to the Russian detachment, and nobody has "
-            "held her; the last thing anybody "
+    intent=("SIERRA-TWO is the Yasen, the second nuclear boat the 5 January "
+            "intelligence summary credited to the Russian detachment, and "
+            "nobody has held contact on her; the last thing anybody "
             "wants under the Southern Convoy on the nineteenth is a Yasen. "
-            "The Udaloy and her oiler are at a rendezvous seventy miles "
+            "The Udaloy-class destroyer MARSHAL SHAPOSHNIKOV and her oiler "
+            "are at a rendezvous seventy miles "
             "south-west; that is where the boat is going and where she "
             "will be shallow. Collins has the western sector at periscope "
             "depth, weapons tight; you have the eastern with the Seahawk "
@@ -37,20 +38,19 @@ MISSION = dict(
         "before dawn. Two sectors: HMAS COLLINS in the western at periscope "
         "depth, your escorts in the eastern with the Seahawk and a "
         "Poseidon out of Edinburgh, three hundred miles behind you. The "
-        "Virginia on the Western Australia rotation is somewhere west of "
+        "US Navy Virginia-class boat on the Western Australia rotation is somewhere west of "
         "Collins and is not on your plot.\\n\\n"
-        "SIERRA-TWO, the Yasen, is the Russian detachment's second boat; "
-        "the January summary credited her and nobody has held her. She is "
-        "in the Bight because MARSHAL SHAPOSHNIKOV and "
+        "SIERRA-TWO, the Yasen, is in the Bight because MARSHAL "
+        "SHAPOSHNIKOV, an Udaloy-class destroyer, and "
         "the oiler BORIS CHILIKIN are seventy miles south-west of you, "
         "stopped, with a Ka-27 up - a rendezvous, and the one place she "
         "will come shallow.\\n\\n"
         "Find the boat and sink her before she reaches them. Two Port "
         "Lincoln tuna boats, a Bight bulker and a whale are in the "
         "sectors. The Udaloy has not fired; classify the oiler and leave "
-        "the Udaloy unless she gives you no choice. Eighty minutes is the "
-        "point."),
-    forces="Your task group with its Seahawk and Poseidon if bought, out "
+        "the Udaloy unless she gives you no choice. In eighty minutes "
+        "SIERRA-TWO is alongside the oiler."),
+    forces="Your task group with its Seahawk and Poseidon if requisitioned, out "
            "of Edinburgh; HMAS Collins in the western sector. Neutral: two "
            "tuna boats, a bulker, a whale. Opposing: one Yasen, the "
            "destroyer Marshal Shaposhnikov with a Ka-27 up, the oiler "

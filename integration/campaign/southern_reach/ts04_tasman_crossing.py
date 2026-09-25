@@ -11,19 +11,19 @@ MISSION = dict(
     code="TS04", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 4",
     group="core", num="04", key="Tasman Crossing", place="Mid-Tasman",
     intro="Two merchant groups thirty miles apart on the Auckland run, the "
-          "force between them, and a carrier's strike flight coming for "
+          "force between them, and Liaoning's strike flight coming for "
           "the one you are not with.",
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the "
            "fighter picture",
     intent=("Four hulls in two groups, thirty miles apart because the "
             "charterers would not wait for each other, and you cannot be "
-            "with both. The carrier is two hundred miles south-east and "
-            "its strike flight will come for whichever group it thinks "
+            "with both. LIAONING is two hundred miles south-east and "
+            "her strike flight will come for whichever group she thinks "
             "you are not covering. Wedgetail already has them, a hundred and twenty miles out; "
-            "Williamtown's fighters are on the CAP row for the first time "
-            "in the Tasman and the Super Hornets go on sale here. Three of "
-            "four into the box. Coral Pioneer is in group A and Santos "
-            "has not lost a hull yet."),
+            "Williamtown's F-35As can cover you this far out for the first "
+            "time, and from today the Super Hornets are ours too. Three of "
+            "four into the box. Coral Pioneer is in group A and her master, "
+            "Leila Santos, has not lost a hull yet."),
     date=(2029, 2, 1), time=(13, 0), sea=4, clouds="Scattered_2", wind="W",
     difficulty=3, minutes=80, centre=(-38.5, 158.5),
     blue_nation="Australia", red_nation="China",
@@ -35,17 +35,18 @@ MISSION = dict(
         "turning point north-east. Neither group would wait for the "
         "other and both want the same escort.\\n\\n"
         "LIAONING is two hundred miles south-east with a frigate, and the "
-        "J-15s that flew over the fishing fleet for the cameras in "
-        "December are already up with anti-ship missiles, a hundred and thirty miles from group B and closing. WEDGETAIL 05 is up "
-        "out of Williamtown and, for the first time in the Tasman, so is "
-        "a fighter that can reach you: the F-35As are on the CAP row and "
-        "the Super Hornets and Growlers go on sale here.\\n\\n"
+        "J-15s that flew over the Southern Ocean fishing fleet for the "
+        "cameras on New Year's Eve are already up with anti-ship missiles, a hundred and thirty miles from group B and closing. WEDGETAIL 05 is up "
+        "out of Williamtown and, for the first time this far out, so are "
+        "fighters that can reach you: Williamtown's F-35As are available "
+        "for fighter cover, and the Super Hornets and Growlers were released "
+        "to the task group at Sydney.\\n\\n"
         "Three of four hulls into the box, north-east. The Sydney-Auckland "
         "service, a cruise ship and a bulker are crossing the same water. "
         "The carrier's aircraft have not fired at a merchant yet; today "
         "they will."),
     forces="Your task group with its Seahawk, Poseidon and fighters if "
-           "bought, Wedgetail 05 out of Williamtown. Four merchant hulls in "
+           "requisitioned, Wedgetail 05 out of Williamtown. Four merchant hulls in "
            "two groups. Neutral: an airliner, a cruise ship, a bulker. "
            "Opposing: Liaoning with a Type 054A, a J-15 anti-ship pair and a "
            "J-15D routed onto group B, a Ka-31 up.",
@@ -143,8 +144,9 @@ MISSION = dict(
              "Wedgetail": ("protect", "aew"),
              "Flagship": ("protect", "escort")},
     reveal_if=[dict(variable="SR12NetworkNamed", units=["red_cv#2"], level="Classify",
-                    intel="Turning North's picture: the frigate with the carrier "
-                          "is the Type 054A you named in the Tasman approaches, "
+                    intel="From the shadowing on 14 January: the frigate with "
+                          "the carrier is the Type 054A that sailed with LIAONING "
+                          "into the Tasman, "
                           "and she is on your plot classified. Where she is, the "
                           "carrier is: a mile off her beam.")],
     window=dict(buy=True, repair=True, rearm=True,
@@ -153,10 +155,10 @@ MISSION = dict(
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
                 flights=[HELO, RECON, CAP],
                 situation="Sydney, before the crossing. Requisition, repair "
-                          "and rearm: the Super Hornet and the Growler go on "
-                          "sale, because Williamtown's aircraft reach the "
-                          "mid-Tasman and the carrier is in it. Under the Tasman "
-                          "has no builder; the next window is Melbourne, before "
+                          "and rearm: the Super Hornet and the Growler are "
+                          "released to the task group, because Williamtown's aircraft reach the "
+                          "mid-Tasman and the carrier is in it. There is no "
+                          "requisition before Under the Tasman; the next window is Melbourne, before "
                           "Bass Strait."),
     role="escort",
 )

@@ -11,17 +11,17 @@ from campaign_data import U, F, S, RECON, CAP
 MISSION = dict(
     code="TS07", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 7",
     group="core", num="07", key="Southern Air Bridge", place="The Tasman air route",
-    intro="A civil charter carrying the New Zealand relief detachment, a "
-          "Wedgetail beside it, and a carrier's flight routed onto the "
-          "track. The destroyer is half the umbrella; Williamtown is the "
-          "other half.",
-    special="Airbase preparation is open for the first time: two ready "
-            "slots and one in progress at Williamtown. What you stage "
-            "there flies the CAP row.",
+    intro="A charter with the advance party of New Zealand's relief "
+          "detachment for the Antarctic gateway, a Wedgetail beside it, and "
+          "Liaoning's fighters routed onto its track. The destroyer and "
+          "Williamtown are the umbrella.",
+    special="For the first time Williamtown readies aircraft for you before "
+            "you sail: two on the flight line and a third being turned round. "
+            "What you stage there flies fighter cover.",
     sender="Wing Commander Daniel Ward, Air Component; Commodore Alex "
            "Mercer for the surface half",
-    intent=("RELIEF 21 is an Airbus with the New Zealand relief "
-            "detachment's advance party in it - a civil charter - and "
+    intent=("RELIEF 21 is a civil Airbus charter with the advance party of "
+            "New Zealand's relief detachment for the Antarctic gateway in it, and "
             "WEDGETAIL 06 is flying beside her because the "
             "carrier has put a flight onto the track twice this week to see "
             "what we do. Today it is armed. Get the charter to the box off "
@@ -38,7 +38,7 @@ MISSION = dict(
         "coast, afternoon. RELIEF 21 - an A330, a civil charter carrying "
         "the New Zealand relief detachment's advance party - "
         "is inbound to Sydney on the air bridge with WEDGETAIL 06 beside "
-        "her and SENTRY 23 above them both. Two Sydney-Auckland services "
+        "her and SENTRY 23, a Triton, above them both. Two Sydney-Auckland services "
         "are on the same route and a cruise ship and a coastal bulker are "
         "under it.\\n\\n"
         "LIAONING is two hundred and fifty miles south-east. A J-15 pair "
@@ -46,14 +46,14 @@ MISSION = dict(
         "for the first time the flight is armed. Your force is on the "
         "track with the destroyer's missiles as the surface half of the "
         "umbrella; Williamtown is a hundred and ninety-five miles "
-        "north and its fighters are on the CAP row, with airbase "
-        "preparation open for the first time.\\n\\n"
+        "north, and its F-35As are available for fighter cover, readied "
+        "on its flight line for the first time.\\n\\n"
         "Relief 21 to the box off Sydney Heads. Keep the Wedgetail flying. "
         "Nobody shoots at an airliner in this box, and the way to make "
         "sure of that is to be between the carrier's flight and both of "
         "them."),
-    forces="Your task group with its Poseidon and fighters if bought, "
-           "Williamtown's fighters on the CAP row, Wedgetail 06, Sentry 23, "
+    forces="Your task group with its Poseidon and Williamtown fighters if "
+           "requisitioned; Wedgetail 06; Sentry 23, a Triton; "
            "the charter Relief 21. Neutral: two Sydney-Auckland airliners, "
            "a cruise ship, a coastal bulker. Opposing: Liaoning to the "
            "south-east, a J-15 pair and a J-15D routed onto the track, a "
@@ -149,8 +149,9 @@ MISSION = dict(
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
                 flights=[RECON, CAP],
                 situation="Sydney, before the air bridge. Requisition, repair "
-                          "and rearm, and airbase preparation at Williamtown for "
-                          "the first time: two ready slots, one in progress. "
+                          "and rearm, and for the first time Williamtown readies "
+                          "aircraft for you: two on the flight line, a third "
+                          "being turned round. "
                           "Great Australian Bight has repair only; the next full "
                           "window is Adelaide, before the Southern Convoy."),
     role="escort",

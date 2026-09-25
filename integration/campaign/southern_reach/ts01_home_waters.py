@@ -14,9 +14,10 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="TS01", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 1",
     group="core", num="01", key="Home Waters", place="The Fiordland approaches",
-    intro="New Zealand's water, the busiest box of the campaign, and a "
-          "tender off Puysegur that calls itself a compliance vessel. Put "
-          "a name on it, hold the patrol line, and harm nothing.",
+    intro="Fiordland's approaches, thick with cruise ships and cray boats, "
+          "and an Austral Meridian tender off Puysegur that calls itself a "
+          "compliance vessel. Put a name on it, hold the patrol line, and "
+          "harm nothing.",
     sender="Commodore Alex Mercer; Squadron Leader Tane Rewi, No. 5 Squadron "
            "RNZAF, for the New Zealand picture",
     intent=("This is New Zealand's water and we are here at their request, "
@@ -24,10 +25,10 @@ MISSION = dict(
             "somebody's constituent. The Austral Meridian Services tender "
             "has been off Puysegur for three days telling fishing masters "
             "which grounds are closed. Put a class and a name on her, hold "
-            "the patrol line to the south-west, and leave the boat to the "
-            "south-west alone unless it comes to you. Nothing here fires "
-            "first. Rewi's Poseidon is out of Invercargill and she knows "
-            "this coast; listen to him."),
+            "the patrol line to the south-west, and leave the submarine out "
+            "there alone unless it comes to you. Nothing here fires "
+            "first. Rewi's Poseidon, KIWI 05, is out of Invercargill and his "
+            "crew knows this coast; listen to him."),
     date=(2029, 1, 22), time=(9, 0), sea=3, clouds="Scattered_2", wind="SW",
     difficulty=2, minutes=65, centre=(-46.1, 165.9),
     blue_nation="Australia", red_nation="China",
@@ -40,18 +41,19 @@ MISSION = dict(
         "overhead.\\n\\n"
         "MV AUSTRAL COMPLIANCE, the Austral Meridian Services tender that "
         "followed the protection group north, is thirty miles south-west "
-        "broadcasting closed grounds on the fishing channels. The research "
-        "trawler that Turning North named is somewhere east of her, between her and the Solanders. A "
-        "conventional submarine was reported off the Solander Islands "
-        "yesterday; it is not routed at anyone and it is not the mission.\\n\\n"
+        "broadcasting closed grounds on the fishing channels. NAN HAI 27, "
+        "the group's intelligence collector since October, is somewhere "
+        "east of her, between her and the Solanders. A conventional "
+        "submarine, contact TANGO, is reported twenty miles south-west of "
+        "you, heading away from the traffic; it is not the mission.\\n\\n"
         "KIWI 05 is out of Invercargill with the New Zealand picture. Your "
-        "own Seahawk and Poseidon fly if bought; the Arafura goes on sale "
-        "here for the inshore work. Classify the tender - her radars, her "
+        "own Seahawk and Poseidon fly, and an Arafura sails for the inshore "
+        "work, if you requisitioned them at Sydney. Classify the tender - her radars, her "
         "signals, her name on the stern - then hold the patrol line to the "
         "south-west. Everything red is weapons tight and so are you. The "
         "cray boats do not move for warships."),
-    forces="Your task group with its Seahawk and Poseidon if bought, an "
-           "Arafura if bought, Kiwi 05 out of Invercargill. Neutral: two "
+    forces="Your task group with its Seahawk, Poseidon and Arafura if "
+           "requisitioned; Kiwi 05 out of Invercargill. Neutral: two "
            "Milford cruise ships, three cray boats and longliners, the "
            "Fisheries New Zealand patrol vessel, an airliner. Opposing: MV "
            "Austral Compliance, the research trawler Nan Hai 27, one Type "
@@ -68,22 +70,22 @@ MISSION = dict(
                  after=dict(kind="classify", units=["tender"], min_units=1,
                             sets="TS01TenderNamed",
                             intel="AUSTRAL COMPLIANCE has a name and a class: "
-                                  "the AMS coaster that followed the protection "
+                                  "the Austral Meridian coaster that followed the protection "
                                   "group north out of the Tasman approaches, "
                                   "now with a "
                                   "navigation radar Rewi's people say is a "
                                   "frigate's. Hold the patrol line to the "
-                                  "south-west. Chatham Watch will know her by her "
-                                  "emitters.")),
+                                  "south-west. Her emitters are on file for the "
+                                  "next time she turns up.")),
     fatal=[],
     neutral_objective="Traffic",
     win="The tender is named, the line is held, and nobody in Fiordland "
         "lost a boat. Rewi: 'That is how you are welcome here.'",
     lose="The flagship is gone off Puysegur, or a New Zealand hull is, and "
-         "the Tasman chapter opens with Wellington asking why.",
+         "the defence of the Tasman opens with Wellington asking why.",
     timeout="Sixty-five minutes and the tender is still a shape on the "
             "horizon with the cray fleet between you. She keeps her "
-            "anonymity for the Chathams.",
+            "anonymity for whatever she is here to meet.",
     stations={
         # The escort 25 NM off Puysegur; the tender 30 NM south-west on a
         # slow beat; the collector south of her; the boat 20 NM south-west
@@ -149,8 +151,9 @@ MISSION = dict(
              "Flagship": ("protect", "escort")},
     declares=["TS01TenderNamed"],
     reveal_if=[dict(variable="SR12NetworkNamed", units=["agi"], level="Classify",
-                    intel="Turning North's picture: the research trawler you "
-                          "named in the Tasman approaches is east of the tender, "
+                    intel="From the shadowing on 14 January: NAN HAI 27, the "
+                          "research trawler you named as the group turned north "
+                          "into the Tasman, is east of the tender, "
                           "and she is on your plot as a classified contact. Where "
                           "she is, the tender is being told what to say.")],
     window=dict(buy=True, repair=True, rearm=True,
@@ -159,9 +162,10 @@ MISSION = dict(
                        "raaf_f-35a"],
                 flights=[HELO, RECON],
                 situation="Sydney, before the Tasman. Requisition, repair and "
-                          "rearm: the Arafura goes on sale for the inshore work "
-                          "in New Zealand's water. Cook Strait and Chatham Watch "
-                          "have no builder; the next window is before Tasman "
+                          "rearm: the Arafura-class patrol vessel is released to "
+                          "the task group for the inshore work in New Zealand's "
+                          "water. Cook Strait and Chatham Watch sail on what you "
+                          "have; the next window is Sydney, before Tasman "
                           "Crossing."),
     role="patrol",
 )

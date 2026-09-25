@@ -21,6 +21,39 @@ Two facts shape it:
 Close Sea Power before any of it. It rewrites `usersettings.ini` on exit and
 throws away a load-order change made while it is running.
 
+## Already aligned once? The short version for later rounds
+
+After the first alignment both `sest-dev/loving-bell-3cnvvw` and
+`feature/northern-front-iii-export` sat on `9715f990` (the merge of pull
+request #13). Everything this session has pushed since builds straight on
+that commit, so a later round is the same fast-forward and one sync:
+
+```powershell
+cd C:\Users\<you>\Seapower-mods
+git status --short                                   # must be EMPTY
+git checkout sest-dev/loving-bell-3cnvvw
+git fetch origin
+git merge --ff-only origin/claude/campaign-missions-lore-td653z
+git push origin sest-dev/loving-bell-3cnvvw
+git push origin sest-dev/loving-bell-3cnvvw:feature/northern-front-iii-export
+powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1 -RefreshMissions
+```
+
+Type each command on its own line: the sync command pasted twice on one line
+is read as a file called `sync-sest.ps1powershell` and refused.
+`-RefreshMissions` is what reaches the missions you imported from the game
+yourself (the Northern Front files and the chapter missions): it gives any
+airliner whose route ran out inside the mission clock one more waypoint along
+its airway, so it stops circling. The two campaigns are rebuilt in the repo
+and need no flag. If `--ff-only` refuses, stop and report it, as in step 2.
+
+The round after the first alignment brought: New Zealand flags (the game's
+key is `NewZealand`), airliners that fly their airway in Southern Reach and in
+the loose missions, both campaigns' in-game descriptions without the SAR
+instructions or fiction tags, rewritten opening pages, a reformatted deck
+log, and a proofread of every briefing, card and story page in both
+campaigns. The installed file count is still 691.
+
 ---
 
 ## 0 — where things stand (read this first)

@@ -22,21 +22,21 @@ MISSION = dict(
     sender="Commodore Alex Mercer",
     intent=("A Type 054A and a Kilo came through Backstairs Passage last "
             "night and are sitting in the Gulf's approaches, which is "
-            "Adelaide's front door. OSBORNE SPIRIT is coming up Investigator "
-            "Strait for Outer Harbor with the refinery's fortnight in her. "
+            "Adelaide's front door. OSBORNE SPIRIT is coming up the Gulf "
+            "for Outer Harbor with the refinery's fortnight in her. "
             "Take a detachment and Edinburgh's Poseidon and get her to the "
             "approach past both of them. The frigate is weapons tight and "
             "the Kilo has not fired; the Kangaroo Island ferry is on her "
-            "crossing and the tuna boats are on the grounds. Classify the "
+            "crossing and the tuna boats are bound for Port Lincoln. Classify the "
             "boat if you can. Hold this and the southern element stays "
-            "here instead of joining the group off Sydney."),
+            "here instead of joining the group in the western Tasman."),
     date=(2029, 2, 22), time=(15, 0), sea=2, clouds="Clear", wind="S",
     difficulty=2, minutes=60, centre=(-35.15, 137.9),
     blue_nation="Australia", red_nation="China",
     brief=(
         "THE GULF ST VINCENT APPROACHES, afternoon, a light southerly. MT "
-        "OSBORNE SPIRIT is at the mouth of the Gulf with your detachment, "
-        "inbound for Outer Harbor with a fortnight's crude for the "
+        "OSBORNE SPIRIT is fourteen miles short of the Outer Harbor approach "
+        "with your detachment and a fortnight's crude for the "
         "refinery. The Kangaroo Island ferry is on the Cape Jervis-"
         "Penneshaw crossing, two tuna boats are bound out for Port "
         "Lincoln, a grain bulker is coming down from Port Giles for "
@@ -47,11 +47,11 @@ MISSION = dict(
         "closing at twelve knots to 'escort' her. A Kilo came through "
         "with her and is somewhere between the frigate and the tanker's "
         "track with a Z-9 dipping between her and the frigate.\\n\\n"
-        "Edinburgh's Poseidon is on the Recon row, thirty miles away. "
+        "Edinburgh's Poseidon flies your maritime patrol from thirty miles away. "
         "Get the tanker to the Outer Harbor approach. Classify the Kilo. "
         "Harm nothing that is South Australia's. Hold this and the "
         "southern element stays in the Gulf instead of going east."),
-    forces="Your detachment with its Seahawk and Poseidon if bought, out "
+    forces="Your detachment with its Seahawk and Poseidon if requisitioned, out "
            "of Edinburgh; the tanker Osborne Spirit. Neutral: the Kangaroo "
            "Island ferry, two tuna boats, a grain bulker, an airliner. "
            "Opposing: one Type 054A, one Kilo, a Z-9.",
@@ -72,7 +72,7 @@ MISSION = dict(
         "to escort. The southern element stays in the Gulf.",
     lose="The tanker is lost in Adelaide's front door, or the flagship "
          "is, and the southern element goes east to join the group.",
-    timeout="Sixty minutes and Osborne Spirit is still in the Gulf's mouth "
+    timeout="Sixty minutes and Osborne Spirit is still short of Outer Harbor "
             "with the frigate alongside her offering an escort. The "
             "southern element leaves for the Tasman tonight.",
     stations={

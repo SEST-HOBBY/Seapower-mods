@@ -10,20 +10,21 @@ from campaign_data import U, F, S, HELO, RECON, CAP, STRIKE
 MISSION = dict(
     code="TS11", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 11",
     group="core", num="11", key="Approaches", place="The western Tasman",
-    intro="Contain what is left of the group off Sydney while the last "
-          "movement passes north-east. The flagship pays; the carrier "
-          "changes the last mission.",
+    intro="Hold the group off while three relief transports for New "
+          "Zealand pass north-east. Sink the Type 052D flagship; sink "
+          "Liaoning too and the last convoy sails without her aircraft.",
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the "
-           "fighter and strike rows",
-    intent=("The group has come round to Sydney's approaches with what "
-            "Portland left it, and the northern and southern elements "
-            "have joined it unless you held them off. Three transports "
-            "with the Tasman relief in them have to pass to the "
+           "fighter cover and the strike",
+    intent=("The group has come into the western Tasman with what the "
+            "convoy action off Portland left it, and the elements it sent to "
+            "Auckland's and Adelaide's approaches have joined it unless you "
+            "held them there. Three transports with the relief detachment's "
+            "vehicles and stores in them have to pass to the "
             "north-east while the group is held off, and this time we are "
             "not holding it off by being in the way. The Type 052D has "
             "commanded this group since October; sink her. Sink the "
-            "carrier if it can be done - Southern Cross is a different "
-            "mission if she is on the bottom - but the transports are the "
+            "carrier if it can be done - with her on the bottom, the relief "
+            "convoy on 2 March sails without her aircraft over it - but the transports are the "
             "job and the destroyer is the prize. Time-on-target from "
             "Williamtown and East Sale is an advantage, not a requirement; "
             "the strike goes when it is ready."),
@@ -32,30 +33,30 @@ MISSION = dict(
     blue_nation="Australia", red_nation="China",
     brief=(
         "THE WESTERN TASMAN, 39 South, late morning. The last movement - "
-        "three transports with the Tasman relief detachment's vehicles "
-        "and stores - is on 045 for New Zealand with the whole force, "
-        "WEDGETAIL 05, and every Air Tasking row: the Seahawk, the "
+        "three transports with the vehicles and stores of New Zealand's "
+        "relief detachment - is on 045 for New Zealand with the whole force, "
+        "WEDGETAIL 05, and every aircraft it can task: the Seahawk, the "
         "Poseidon, East Sale's F-35As two hundred miles away, "
         "Williamtown's four hundred, and the Super Hornets and Growlers "
-        "on the Attack row.\\n\\n"
+        "tasked to strike.\\n\\n"
         "The group is eighty miles south-east: LIAONING, the Type 052D "
         "that has commanded it since October, a frigate, three J-15s "
         "with anti-ship missiles and a J-15D, a Ka-31 and a Z-18F up. If "
-        "Auckland's approaches were not held, the corvette and NAN HAI "
-        "27 have joined it from the north; if Adelaide's were not, a "
-        "second frigate has from the south.\\n\\n"
+        "Auckland's approaches were not held, the Type 056A and NAN HAI "
+        "27 from the Hauraki Gulf have joined it; if Adelaide's were not, "
+        "the Type 054A from Gulf St Vincent has too.\\n\\n"
         "Two of three transports into the box north-east. Sink the "
         "destroyer. Sink the carrier if you can. A coastal bulker, a "
         "trawler and the Sydney-Hobart service are in the box. Ninety "
         "minutes, and the strike goes when it is ready, not when the "
         "clock says."),
     forces="Your whole task group with its Seahawk, Poseidon, fighters and "
-           "strike aircraft if bought; Wedgetail 05. Three transports. "
+           "strike aircraft if requisitioned; Wedgetail 05. Three transports. "
            "Neutral: a bulker, a trawler, an airliner. Opposing: Liaoning, "
            "a Type 052D, a Type 054A, three J-15 with anti-ship missiles, "
            "a J-15D, a Ka-31, a Z-18F - and a Type 056A with Nan Hai 27, "
-           "or a second Type 054A, or both, if the priorities were not "
-           "held.",
+           "or a second Type 054A, or both, if Auckland's or Adelaide's "
+           "approaches were not held.",
     objectives=[
         ("Movement", "Two of three transports into the box north-east",
          "40,-40,Fail,Main"),
@@ -69,12 +70,12 @@ MISSION = dict(
     fatal=[F("Movement", ["lift"], 2)],
     neutral_objective="Neutrals",
     win="Two transports in the box, and the ledger says whether the "
-        "destroyer that commanded the group since October is on the bottom "
-        "off Sydney. What is left of "
-        "the group turns for home, or for the relief convoy, and "
-        "Southern Cross decides which.",
-    lose="Two transports lost in Sydney's approaches with the relief in "
-         "them. The group holds the western Tasman and the relief convoy "
+        "destroyer that commanded the group since October is on the "
+        "bottom. What is left of "
+        "the group turns for home, or waits for the relief convoy; the "
+        "second of March will show which.",
+    lose="Two transports lost in the western Tasman with the relief in "
+         "them. The group holds the water and the relief convoy "
          "sails into it anyway.",
     timeout="Ninety minutes and the transports are still short of the box "
             "with the group between them and New Zealand. The movement "
@@ -182,8 +183,8 @@ MISSION = dict(
     flags=[dict(name="TS11CarrierSunk", units=["red_cv#1"],
                 intel="LIAONING is gone. The carrier that flew over the "
                       "fishing fleet for the cameras on New Year's Eve is on "
-                      "the bottom off Sydney, and whatever meets the relief "
-                      "convoy at Southern Cross flies from nowhere.")],
+                      "the bottom of the western Tasman, and nothing that meets "
+                      "the relief convoy on 2 March will fly from her deck.")],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_opv_arafura",
                        "usn_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
