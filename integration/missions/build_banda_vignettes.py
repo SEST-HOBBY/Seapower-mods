@@ -383,16 +383,20 @@ V.append(dict(
     blue=[],
     blue_names=[],
     blue_air=[
-        ("jp_f-2a_late", "-1330,22000,-60", 60, {"LoadoutVariant": "AntiShip"}),
-        ("jp_f-2a_late", "-1332,22000,-63", 60, {"LoadoutVariant": "AntiShip"}),
-        ("jp_f-2a_late", "-1334,21000,-66", 60, {"LoadoutVariant": "AntiShip"}),
-        ("jp_f-2a_late", "-1336,21000,-69", 60, {"LoadoutVariant": "AntiShip"}),
+        # Over the Java Sea, ~110 nm south-west of the landing group.
+        ("jp_f-2a_late", "-1320,22000,84", 55, {"LoadoutVariant": "AntiShip"}),
+        ("jp_f-2a_late", "-1322,22000,81", 55, {"LoadoutVariant": "AntiShip"}),
+        ("jp_f-2a_late", "-1324,21000,78", 55, {"LoadoutVariant": "AntiShip"}),
+        ("jp_f-2a_late", "-1326,21000,75", 55, {"LoadoutVariant": "AntiShip"}),
     ],
     blue_air_names=["Viper 01", "Viper 02", "Viper 03", "Viper 04"],
     red=[
-        ("plan_lpd_type_071", "-1215,0,-33", 90, {}),
-        ("plan_type_054a_p5", "-1224,0,-30", 90, {}),
-        ("plan_type_056a", "-1203,0,-36", 90, {}),
+        # Karimata Strait, ~65 nm SW of the Kendawangan industrial park
+        # (parent LandUnit108-116, 2.52S 110.21E) and standing in toward it.
+        # These sat off Java's north coast until the briefing map showed it.
+        ("plan_lpd_type_071", "-1227,0,153", 35, {}),
+        ("plan_type_054a_p5", "-1224,0,160", 35, {}),
+        ("plan_type_056a", "-1234,0,149", 35, {}),
     ],
     red_names=["Type 071 Landing Ship", "Type 054A Escort", "Type 056A Escort"],
     neutral=[],
@@ -435,14 +439,22 @@ V.append(dict(
     red=[],
     red_names=[],
     red_air=[
-        ("wp_mig-31bm", "300,52000,60", 215, {"LoadoutVariant": "AirToAirLongRange"}),
-        ("wp_mig-31bm", "306,52000,54", 215, {"LoadoutVariant": "AirToAirLongRange"}),
+        # Inbound on the orbit, at speed: at Telegraph 3 a Foxhound is slower
+        # than the Wedgetail and the tanker at full power, and "speeds you
+        # cannot chase" was untrue. The waypoint is the Wedgetail's station.
+        ("wp_mig-31bm", "300,52000,60", 215, {"LoadoutVariant": "AirToAirLongRange",
+                                              "Waypoints": "120,52000,-180", "Telegraph": 4}),
+        ("wp_mig-31bm", "306,52000,54", 215, {"LoadoutVariant": "AirToAirLongRange",
+                                              "Waypoints": "126,52000,-186", "Telegraph": 4}),
     ],
     red_air_names=["Foxhound 51", "Foxhound 52"],
     neutral=[],
     neutral_names=[],
     win_units="Taskforce2Aircraft1,Taskforce2Aircraft2",
     win_min=2,
+    # The Wedgetail and the tanker: the MiGs now run at them, so losing
+    # either has to cost the objective it is named in.
+    protect=("Taskforce1Aircraft1,Taskforce1Aircraft2", "HVA"),
     win_text="Both Foxhounds down and the orbit never moved. The picture holds.",
     lose_text="The high-value aircraft are gone. Everything east goes blind.",
 ))
@@ -525,8 +537,12 @@ V.append(dict(
     ],
     red_names=["Type 052D", "Type 054A"],
     red_air=[
-        ("plaaf_j16", "270,30000,-30", 200, {"LoadoutVariant": "AirToAirLongRange"}),
-        ("plaaf_j16", "276,30000,-36", 200, {"LoadoutVariant": "AirToAirLongRange"}),
+        # "Already up and looking for it": a search down to the Triton's
+        # station, not a CAP over the Aru Islands.
+        ("plaaf_j16", "270,30000,-30", 200, {"LoadoutVariant": "AirToAirLongRange",
+                                             "Waypoints": "186,30000,-150", "Telegraph": 3}),
+        ("plaaf_j16", "276,30000,-36", 200, {"LoadoutVariant": "AirToAirLongRange",
+                                             "Waypoints": "192,30000,-156", "Telegraph": 3}),
     ],
     red_air_names=["Red Fighter 21", "Red Fighter 22"],
     neutral=[],
@@ -689,7 +705,8 @@ def render(v):
           f"NumberOfTaskforce2Aircraft={len(red_air)}",
           f"NumberOfTaskforce2Submarines={len(red_sub)}",
           f"NumberOfTaskforce2LandUnits={len(red_land)}"]
-    n_trig = 3 + (1 if v["blue"] or blue_air else 0) + (1 if v["neutral"] else 0)
+    n_trig = (3 + (1 if v.get("protect") else 0)
+              + (1 if v["blue"] or blue_air else 0) + (1 if v["neutral"] else 0))
     L.append(f"NumberOfTriggers={n_trig}")
     L.append("")
 
@@ -740,6 +757,21 @@ def render(v):
           "Action_Taskforce2_Message=Taskforce2DefeatMessage",
           "Action_Victory=Taskforce1",
           f"Action_ObjectivesCompleted={v['objectives'][0][0]}", ""]
+    # A must-survive objective is failed by its units' loss, the way stock
+    # scores one (UnitDestroyed -> ObjectivesFailed), and the loss ends the
+    # mission and switches the win off - otherwise shooting the attackers
+    # down afterwards "completed" an objective whose aircraft were dead.
+    if v.get("protect"):
+        units, oid = v["protect"]
+        win_no = 3
+        n += 1
+        L += [f"[Trigger{n}]  #{oid} lost", f"Name={oid} lost",
+              "Condition_Type=UnitDestroyed", f"Condition_Units={units}",
+              "Condition_MinimumUnits=1",
+              "Action_Taskforce1_Message=Taskforce1DefeatMessage",
+              "Action_Victory=Taskforce2", f"Action_ObjectivesFailed={oid}",
+              f"Action_DisableTriggers=Trigger{win_no}",
+              "Action_EnableTriggers=Trigger1", ""]
     if v["blue"] or blue_air:
         n += 1
         L += [f"[Trigger{n}]  #Player force gone", "Name=Player force gone",

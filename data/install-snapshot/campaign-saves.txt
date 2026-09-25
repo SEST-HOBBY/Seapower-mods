@@ -1,0 +1,42 @@
+# Campaign and mission saves. The campaign layer of this repo is
+# entirely inferred from shipped campaign.ini files; a save is the
+# only evidence of what survives between missions.
+
+root: C:\Users\rolyl\AppData\LocalLow\Triassic Games\Sea Power\Saves
+    steam_autocloud.vdf                                                52 bytes  2026-09-21 21:43
+    missions\Carrier 1v1 Coby Before I sped Up 20x.sav          5,710,439 bytes  2026-08-31 20:57
+    missions\New midgame.sav                                   22,847,208 bytes  2026-08-26 01:32
+    missions\NORTHERN FRONT MIDGAME III.sav                    14,033,660 bytes  2026-08-24 15:57
+    missions\NORTHERN FRONT MIDGAME.sav                        21,089,297 bytes  2026-08-19 00:38
+    campaigns\linear_campaign_20260815T185608.sav                   1,095 bytes  2026-08-15 18:56
+    campaigns\linear_campaign_20260424T233817.sav                     932 bytes  2026-04-24 23:38
+    campaigns\linear_campaign.tmp                                       0 bytes  2026-04-24 23:38
+    missions\EAST KOREAN GULF MIDGAME 0.7.7 v2.sav              9,153,489 bytes  2026-03-11 02:12
+    missions\EAST KOREAN GULF MIDGAME 0.7.7.sav                 8,581,963 bytes  2026-03-10 01:32
+    missions\newest midgamesave.sav                             6,376,064 bytes  2026-02-26 02:21
+    missions\ARWIN TRANSP MIDGAME.sav                           5,151,716 bytes  2026-02-16 18:51
+    missions\asian op aus midgame.sav                           2,927,218 bytes  2026-02-08 23:02
+    _QuickSave.sav                                                771,590 bytes  2026-02-07 14:48
+    copied: steam_autocloud.vdf
+    copied: Carrier 1v1 Coby Before I sped Up 20x.sav
+    copied: New midgame.sav
+    copied: NORTHERN FRONT MIDGAME III.sav
+root: C:\Users\rolyl\AppData\LocalLow\Triassic Games\Sea Power\saves
+    steam_autocloud.vdf                                                52 bytes  2026-09-21 21:43
+    missions\Carrier 1v1 Coby Before I sped Up 20x.sav          5,710,439 bytes  2026-08-31 20:57
+    missions\New midgame.sav                                   22,847,208 bytes  2026-08-26 01:32
+    missions\NORTHERN FRONT MIDGAME III.sav                    14,033,660 bytes  2026-08-24 15:57
+    missions\NORTHERN FRONT MIDGAME.sav                        21,089,297 bytes  2026-08-19 00:38
+    campaigns\linear_campaign_20260815T185608.sav                   1,095 bytes  2026-08-15 18:56
+    campaigns\linear_campaign_20260424T233817.sav                     932 bytes  2026-04-24 23:38
+    campaigns\linear_campaign.tmp                                       0 bytes  2026-04-24 23:38
+    missions\EAST KOREAN GULF MIDGAME 0.7.7 v2.sav              9,153,489 bytes  2026-03-11 02:12
+    missions\EAST KOREAN GULF MIDGAME 0.7.7.sav                 8,581,963 bytes  2026-03-10 01:32
+    missions\newest midgamesave.sav                             6,376,064 bytes  2026-02-26 02:21
+    missions\ARWIN TRANSP MIDGAME.sav                           5,151,716 bytes  2026-02-16 18:51
+    missions\asian op aus midgame.sav                           2,927,218 bytes  2026-02-08 23:02
+    _QuickSave.sav                                                771,590 bytes  2026-02-07 14:48
+    copied: steam_autocloud.vdf
+    copied: Carrier 1v1 Coby Before I sped Up 20x.sav
+    copied: New midgame.sav
+    copied: NORTHERN FRONT MIDGAME III.sav

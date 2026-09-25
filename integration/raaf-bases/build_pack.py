@@ -70,7 +70,7 @@ BASES = {
             ("usaf_f-15ex_SEII", "Squadron3,8"),
             ("usaf_kc-46a_warp", "Squadron1,2"),
             ("usn_p8", "Squadron3,2"),
-            ("usn_mh-60r", "Squadron1,4"),
+            ("usn_mh-60r", "Squadron20,4"),
         ],
     },
     "airbase_raaf_east_sale": {
@@ -94,7 +94,7 @@ BASES = {
         "desc": "Pearce satellite field: F-35A det, SAR helicopters",
         "airgroup": [
             ("raaf_f-35a", "Squadron1,4"),
-            ("usn_mh-60r", "Squadron1,2"),
+            ("usn_mh-60r", "Squadron20,2"),
         ],
     },
     "airbase_raaf_richmond": {
@@ -102,7 +102,7 @@ BASES = {
         "desc": "Air mobility home: Hercules fleet (KC-130T stand-in), SAR helicopters",
         "airgroup": [
             ("usmc_kc-130t", "Squadron1,6"),
-            ("usn_mh-60r", "Squadron2,2"),
+            ("usn_mh-60r", "Squadron20,2"),
         ],
     },
     "airbase_raaf_townsville": {
@@ -111,7 +111,7 @@ BASES = {
         "airgroup": [
             ("usa_ah-64e", "Squadron1,8"),
             ("usaf_f-15ex_SEII", "Squadron6,6"),
-            ("usn_mh-60r", "Squadron1,4"),
+            ("usn_mh-60r", "Squadron20,4"),
             ("S-70B-2_Seahawk", "Squadron1,4"),
             ("usmc_kc-130t", "Squadron2,2"),
         ],
@@ -152,6 +152,29 @@ BASES = {
             ("usaf_b-2_spirit", "Squadron2,2"),
         ],
     },
+    # Two New Zealand bases, for the Southern Reach campaign's Tasman chapter.
+    # Same template, Nation=New Zealand in the variants file, and an air group
+    # of the one NZ airframe that resolves in this collection: the RNZAF P-8A,
+    # Squadron6 of the winning P-8 squadrons file (Nation=New Zealand, RNZAF
+    # livery). No. 5 Squadron moved to Ohakea in 2023; Whenuapai keeps the
+    # transport wing, represented here by a KC-130 stand-in for the C-130J.
+    "airbase_rnzaf_ohakea": {
+        "name": "RNZAF Base Ohakea",
+        "nation": "New Zealand",
+        "desc": "New Zealand's maritime patrol base: No. 5 Squadron P-8A Poseidon",
+        "airgroup": [
+            ("usn_p8", "Squadron6,4"),
+        ],
+    },
+    "airbase_rnzaf_auckland": {
+        "name": "RNZAF Base Auckland (Whenuapai)",
+        "nation": "New Zealand",
+        "desc": "Air transport wing and a P-8A detachment; the C-130J is a KC-130 stand-in",
+        "airgroup": [
+            ("usn_p8", "Squadron6,2"),
+            ("usmc_kc-130t", "Squadron1,4"),
+        ],
+    },
     "airbase_raaf_butterworth": {
         "name": "RAAF Base Butterworth",
         "desc": "Forward presence, Malaysia: F-35A det, P-8A rotation, KC-135",
@@ -165,7 +188,7 @@ BASES = {
 
 INFO_INI = """[Language_en]
 Name=SEST RAAF Bases
-Description={n_bases} Australian airbases populated from the mod collection: {base_list} - {n_aircraft} aircraft in total, covering F-35A, F-15EX, B-52H, B-1B, B-2, E-7A, E-3G, P-8A, MQ-9, KC-135, KC-46A, KC-10A and MH-60R. The F-15EX presence is a full two-squadron wing at Amberley plus single-squadron dets at Tindal, Darwin, Scherger, Townsville, Curtin and Williamtown - eight distinct squadrons, which needs SEST F-15EX Revamp above the F-15EX mod to define them. Other aircraft come from their own mods - see the repo README for the dependency list. Place BELOW the aircraft mods in the Mod Manager.
+Description={n_bases} Australian and New Zealand airbases populated from the mod collection: {base_list} - {n_aircraft} aircraft in total, covering F-35A, F-15EX, B-52H, B-1B, B-2, E-7A, E-3G, P-8A (RAAF and RNZAF), MQ-9, KC-135, KC-46A, KC-10A and MH-60R. The F-15EX presence is a full two-squadron wing at Amberley plus single-squadron dets at Tindal, Darwin, Scherger, Townsville, Curtin and Williamtown - eight distinct squadrons, which needs SEST F-15EX Revamp above the F-15EX mod to define them. Other aircraft come from their own mods - see the repo README for the dependency list. Place BELOW the aircraft mods in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -176,10 +199,10 @@ AllVariantsAreOfSameNation=true
 NumberOfVariants=1
 
 [Default]
-Nation=Australia
+Nation={nation}
 
 [Variant1]
-Nation=Australia
+Nation={nation}
 """
 
 
@@ -259,7 +282,7 @@ def main():
 
     # Emit the five base units
     (OUT / "land_units").mkdir(parents=True, exist_ok=True)
-    names = ["[****************************** Australia ******************************]",
+    names = ["[****************************** Australia and New Zealand ******************************]",
              "[ -------------------- Airbases, airfields ----------------]", ""]
     for base_id, base in BASES.items():
         airgroup = "[AirGroup]\n# " + base["desc"] + "\n"
@@ -269,7 +292,8 @@ def main():
         text = re.sub(r"^DisplayClassName=.*$", f"DisplayClassName={base['name']}",
                       text, count=1, flags=re.M)
         (OUT / "land_units" / f"{base_id}.ini").write_text(text, encoding="utf-8")
-        (OUT / "land_units" / f"{base_id}_variants.ini").write_text(VARIANTS_INI, encoding="utf-8")
+        (OUT / "land_units" / f"{base_id}_variants.ini").write_text(
+            VARIANTS_INI.format(nation=base.get("nation", "Australia")), encoding="utf-8")
         names += [f"[{base_id}]", "Type=Airbase", f"Default={base['name']}",
                   f"Variant1={base['name']},Airbase", ""]
 
@@ -279,6 +303,7 @@ def main():
                      for _, s in b["airgroup"] for p in s.split("|"))
     base_list = ", ".join(sorted(
         b["name"].replace("RAAF Base ", "").replace("RAAF ", "")
+         .replace("RNZAF Base ", "").replace(" (Whenuapai)", "")
          .replace(" (Bare Base)", "").replace(" Airfield", "")
         for b in BASES.values()))
     (OUT / "_info.ini").write_text(

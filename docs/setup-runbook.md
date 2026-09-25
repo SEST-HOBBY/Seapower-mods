@@ -43,7 +43,9 @@ settles those properly later.
 tooling writes while the game is open is silently thrown away. Every script that touches
 that file now checks and refuses.
 
-Once the packs are installed and ordered the first time, the whole update loop is one command:
+Once the packs are installed and ordered the first time, the whole update loop is one command
+(`docs/campaigns/southern-reach/install-alignment.md` is the current step-by-step, including
+how to bring another session's branch into the deploy branch before you sync):
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1

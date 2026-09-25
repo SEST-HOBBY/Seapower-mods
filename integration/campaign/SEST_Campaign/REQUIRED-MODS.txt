@@ -1,0 +1,226 @@
+SOUTHERN WATCH / SOUTHERN REACH - required Steam Workshop mods
+
+TRY THE MOD MANAGER FIRST. Its Sync button asks Steam for this mod's
+required items and subscribes you to them - the game reports back
+"Subscribed to N new dependencies. Enabled N installed
+dependencies", and it iterates, so a dependency's own dependencies
+come too. If that works you do not need the list below at all, and
+it is here to check against rather than to work through by hand.
+
+135 mods. Each supplies a file a mission names directly - by
+Type=, SquadronReference=, VariantReference=, a loadout's store,
+or a model folder a placed unit's own file draws from.
+
+What the game does with a reference it cannot resolve has not been
+tested here, so this file will not tell you. At best the unit is
+simply absent and the mission is a different, easier one; at worst
+the mission does not load. Neither is the mission that was built.
+
+Either way, check the Mod Manager list against LOAD-ORDER.txt in
+this folder when you are done: subscribing is not ordering, and
+order decides which copy of a shared file the game reads.
+
+Workshop id   supplies                         mod
+
+3438479626    a unit a mission places          1143.5 Kuznetsov
+3587091564    a unit a mission places          3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
+3781062859    a unit a mission places          <<E-3G>>
+3673908868    a unit a mission places          <<Tu-16N>>
+3440622312    a hull variant in use            [DEPRECATED] Anzac Class Frigate
+3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
+3403661005    a unit a mission places          [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
+3414146266    a unit a mission places          A-10A Thunderbolt II
+3459682829    a squadron a flight comes from   A-10C
+3425450153    a squadron a flight comes from   AH-64 Apache
+3461091581    a unit a mission places          Air Deck Operations Upgrade - Nimitz (2000s)
+3416372890    a unit a mission places          Apex Predators MIG-29A & F-16A
+3403993583    a unit a mission places          Armed Oil Rig with Helo MOD
+3502273861    a unit a mission places          ARRW (AGM-183)
+3432668460    a unit a mission places          Auxilliary Merchant Pack
+3774746803    a unit a mission places          AVIC HARBIN Z-21
+3652097318    a squadron a flight comes from   B-1B Lancer
+3480965706    a unit a mission places          B-2 Spirit
+3394781441    a unit a mission places          B-52G with AGM-86 (realistic nuke)
+3741944366    a squadron a flight comes from   B-52H Stratofortress
+3602046770    a squadron a flight comes from   Boeing P-8 Poseidon
+3600788156    a unit a mission places          Buildings and Targets for Missions
+3801363152    a unit a mission places          CH-53E Standalone v0.1.0
+3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
+3481228992    a unit a mission places          ChengDu J-10C Vigorous Dragon
+3417801942    a unit a mission places          Chinese Navy (PLAN)
+3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
+3606134711    a weapon a loadout hangs         Custom Loadout Editor
+3504168760    a unit a mission places          Dassault Rafale
+3558173926    a unit a mission places          David's Sling
+3760871384    a weapon a loadout hangs         Dingtools Weapon Pack
+3587877691    a unit a mission places          Eurofighter Typhoon
+3630495619    a unit a mission places          Euromod - Cold War Spanish Navy
+3629144864    a weapon a loadout hangs         Euromod - Main Pack
+3599752717    a unit a mission places          Euromod - Modern British Navy
+3444379330    a unit a mission places          Euromod - Modern Dutch navy
+3575847216    a unit a mission places          Euromod - Modern German Navy
+3488139470    a unit a mission places          Euromod - Modern Italian Navy
+3695809489    a unit a mission places          Euromod - Modern Japanese Maritime Self Defence Force
+3642656500    a unit a mission places          Euromod - Modern Nordic Navy
+3731208477    a unit a mission places          Euromod - Modern Spanish Navy
+3789208859    a unit a mission places          Euromod-South Korea Navy
+3448845252    a unit a mission places          F-117 Nighthawk
+3636386513    a weapon a loadout hangs         F-15 EX Eagle II
+3553116604    a unit a mission places          F-15E StrikeEagle
+3758320372    a unit a mission places          F-16C Fighting Falcon (modern)
+3418252667    a unit a mission places          F-22 Raptor
+3755769170    a unit a mission places          F-2A 'Viper Zero'
+3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
+3430135740    a unit a mission places          F/A-18 Murder Hornet with AIM-174B
+3373960386    a unit a mission places          Flight Deck Ops
+3736147136    a unit a mission places          French Army Vehicles
+3567228449    a unit a mission places          French Helicopter Package
+3503670861    a squadron a flight comes from   General Atomics MQ-9 Reaper
+3461044389    a unit a mission places          Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
+3508275114    a unit a mission places          Ground Upgrade: SPAA
+3384079999    a unit a mission places          Humpback Whale
+3717610332    a unit a mission places          IL-78 TANKER
+3408662804    a unit a mission places          Iskander TBM
+3505420313    a unit a mission places          Italian Navy Mod
+3769142422    a unit a mission places          J-16 Multirole Fighter
+3591563716    a unit a mission places          J-20 (歼-20 威龙)
+3801549552    a unit a mission places          J-36 Tailless Fighter
+3776340577    a unit a mission places          Ka-27RLD
+3722749887    a unit a mission places          KC-135 STRATOTANKER
+3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
+3406985435    a unit a mission places          Kirov-class (Pyotr Velikiy Upgrade)
+3559495372    a unit a mission places          Lockheed AC-130 Pack
+3740293822    a unit a mission places          McDonnell Douglas KC-10A Extender - Strategic Tanker
+3430106996    a unit a mission places          Merchants Expanded
+3590477166    a model a placed unit draws      MH-60R Seahawk
+3465256032    a unit a mission places          Mi-8 T/TV
+3458148344    a unit a mission places          Mi-8EW
+3417446309    a unit a mission places          MIG-29 Family
+3799742828    a unit a mission places          MiG-31 Foxhound
+3659742367    a unit a mission places          MiG-35 Fulcrum-F (米格-35 支点-F)
+3513571010    a unit a mission places          Mil Mi-24 Hind
+3631042692    a unit a mission places          Modern Chinese Airbase (Large)
+3775128499    a unit a mission places          Modern PLAN Systems
+3629269283    a unit a mission places          Modern Russian Airbase (Large)
+3592460366    a unit a mission places          Modern US Airbase
+3390330875    a unit a mission places          Modern US Navy
+3456859157    a hull variant in use            Mogami-class Frigate
+3716049886    a unit a mission places          MORE SU-24M VARIANTS
+3806466625    a unit a mission places          MV-22B Osprey Tiltrotor / JGSDF V-22B
+3681873198    a unit a mission places          Pickup truck extension
+3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
+3733719765    a unit a mission places          PLA Land Unit Pack
+3729578404    a unit a mission places          PLA Shenyang J-11BS
+3729579342    a unit a mission places          PLA Sukhoi Su-27UBK
+3594891803    a unit a mission places          PLAN Submarines
+3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
+3774572038    a unit a mission places          PLAN Type 071 Amphibious Transport Dock
+3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
+3605013271    a unit a mission places          RE-power: the resupply mod
+3413868677    a unit a mission places          Red Storm Arsenal
+3378409795    a unit a mission places          Royal Navy Type 23 'Duke Class' Frigate [OLD]
+3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
+3796113927    a unit a mission places          RQ-180 White Bat Airframe
+3597650470    a unit a mission places          Russian Navy 21
+3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
+3392434750    a unit a mission places          SA-21/S-400 SAM
+3673250557    a unit a mission places          SAAB AEW&C PACK
+3437105712    a unit a mission places          SAM Pack
+3461519690    a unit a mission places          SCUD-B
+3455931957    a unit a mission places          Sea Lynx
+3551676319    a unit a mission places          SEJJIL (Iran Ballistic Missiles)
+3497601759    a unit a mission places          Shahed-136 Kamikaze Drone (Geran-2)
+3436170138    a unit a mission places          Shenyang J-11
+3506979898    a unit a mission places          Shenyang J-16A (歼-16A 潜龙)
+3670643788    a unit a mission places          Shenyang J-50 (沈阳航空工业 歼-50)
+3433577445    a unit a mission places          Shenyang J-8
+3601891050    a unit a mission places          Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
+3524112296    a unit a mission places          Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+3451166840    a unit a mission places          Su-25 Frogfoot
+3762023575    a unit a mission places          Su-30SM2
+3503594612    a unit a mission places          SU-57 Felon (重刑犯)
+3434072450    a unit a mission places          Sukhoi Flanker Family (苏霍伊侧卫家族)
+3683253079    a unit a mission places          Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
+3509329205    a unit a mission places          TU-160 Blackjack
+3780118683    a unit a mission places          Tu-214R Family (图-214R家族)
+3395022688    a unit a mission places          Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
+3411341227    a unit a mission places          Tu-95K-22 Bear G MOD
+3715323261    a unit a mission places          Tu-95MS (X-101)
+3663564190    a unit a mission places          Type 003 Aircraft Carrier - PLANS Fujian CV-18
+3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
+3470643173    a unit a mission places          Type 12 SSM-ER Anti-Ship Missile System
+3468959181    a unit a mission places          U-2 "Dragon Lady"
+3606774881    a unit a mission places          U.S. Navy 2027 Capabilities mod
+3737267013    a unit a mission places          United States Naval Aviation
+3478767194    a unit a mission places          VH-3D Marine One MOD
+3433957933    a unit a mission places          Virginia-, Seawolf-, and Ohio-class Submarines
+3526982088    a unit a mission places          XIAN JH-7A (歼轰-7A 飞豹)
+3782020901    a unit a mission places          Y-20 / KJ-3000
+3796349767    a unit a mission places          YF-23 Black Widow II
+
+And these, which the campaign never names itself - but a mod
+above does, in its own description. Skipping one breaks the mod
+that asked for it.
+
+3380210757    required by another mod          Anchor Chain
+                                                 asked for by: B-2 Spirit, MV-22B Osprey Tiltrotor / JGSDF V-22B
+
+NOT IN THIS LIST AND STILL REQUIRED:
+
+  SeaLifter - named as a requirement by B-2 Spirit.
+  It is not one of the mods above and this collection does not carry it.
+  Find it on the Workshop. It needs a manual install: subscribing alone
+  is not enough.
+
+--------------------------------------------------------------------------
+
+Also enabled while this was built (6), and left in the order
+because removing one changes which file wins: these ship systems,
+effects or UI rather than anything a mission names, or are outranked
+by something above them. The campaign does not call for them.
+
+3789793270    library                          Auto Time-on-Target
+3774105087    library                          Automatic SAR
+3768036424    library                          Better TacMap
+3784474738    library                          Euromod - Anchorchain Expansion Pack
+3432592449    shadowed                         Nimitz Expanded
+3637954857    shadowed                         Y-8/Y-9 Special Mission Aircraft Family
+
+--------------------------------------------------------------------------
+
+Not from the Workshop. These are this project's own packs. If you
+have the consolidated download - one mod folder carrying everything
+- they are already inside it and there is nothing to subscribe to;
+the repository also builds each of them on its own.
+
+(local)       unit                             SEST ADF Persistent ISR
+(local)       unit                             SEST Allied Fixes
+(local)       unit                             SEST B-52 ARRW
+(local)       variant                          SEST Collection Fixes
+(local)       unit                             SEST F-15EX Revamp
+(local)       unit                             SEST F-16CM JATM
+(local)       unit                             SEST F-35C JATM
+(local)       unit                             SEST Growler NGJ + MALICE
+(local)       unit                             SEST JMSDF Mogami
+(local)       unit                             SEST RAAF Bases
+(local)       unit                             SEST RAAF F-35A JATM
+(local)       squadron                         SEST RAAF Wedgetail
+(local)       unit                             SEST Rafale F5
+(local)       unit                             SEST RAN Fleet
+(local)       squadron                         SEST Raptor Squadrons
+(local)       campaign                         SEST Southern Watch Campaign
+(local)       library                          SEST TacMap Colors
+
+--------------------------------------------------------------------------
+
+Two things this list cannot settle for you:
+
+  * A mod can need a further download of its own and say so only in
+    its own Workshop description. The ones this build could read out
+    of an _info.ini are listed above; a description that is on the
+    Workshop page and not in the file is not something it can see.
+  * Load ORDER decides which copy of a shared file the game reads.
+    Two mods that both ship the same aircraft will not both load it.
+    LOAD-ORDER.txt is the order this was built and tested against,
+    and this campaign's own folder belongs at the top of it.
+

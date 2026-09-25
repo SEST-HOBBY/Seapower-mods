@@ -16,7 +16,7 @@ So this walks the references instead of the files:
   3. LoadoutVariant=<name>  -> listed in that unit's AvailableLoadouts
   4. Station<N>=<store>     in SEST packs  -> a winning ammunition file
 
-    python3 tools/preflight.py [mission name]
+    python3 tools/preflight.py [mission name]      # also finds a campaign mission
 
 Exits non-zero if anything dangles.
 """
@@ -52,7 +52,13 @@ def main():
         if l.strip() and not l.startswith("#"))
     mission = ROOT / "integration" / "missions" / f"{name}.ini"
     if not mission.exists():
-        sys.exit(f"no such mission: {mission}")
+        # Campaign missions live inside their pack rather than in
+        # integration/missions, so name one ("01 White Water") and it is found
+        # there too - the checks are the same and the campaign deserves them.
+        found = sorted((ROOT / "integration" / "campaign").rglob(f"{name}.ini"))
+        if not found:
+            sys.exit(f"no such mission: {mission}")
+        mission = found[0]
 
     problems, checked = [], 0
     print(f"mission: {name}\n")
@@ -89,7 +95,7 @@ def main():
         line = line.strip()
         if line.startswith("["):
             close_block()
-            in_aircraft = bool(re.match(r"^\[Taskforce\d+Aircraft\d+\]", line))
+            in_aircraft = bool(re.match(r"^\[Taskforce\d+(?:Aircraft|Helicopter)\d+\]", line))
         # \S+ would miss ids with spaces ("plaf_j16a block3" is a real file)
         # and leave cur_unit stale - six J-16 variant errors were blamed on
         # the B-52O above them before this handled spaces.

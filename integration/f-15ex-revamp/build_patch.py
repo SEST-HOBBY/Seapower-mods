@@ -20,6 +20,7 @@ OUT = Path(__file__).resolve().parent / "SEST_F-15EX_Revamp"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+from common.registry import restore_vanilla, rewrite_values  # noqa: E402
 
 # The three AIM-174B "Gunslinger" fits (BigStick174, BigStick174ER,
 # Truck174) were removed at the user's request. Their MALICE mirrors -
@@ -197,9 +198,27 @@ Station15=usaf_tank_610_f-15|WT
 
 """
 
+# The upstream's own display text for seven of its loadouts is the internal
+# id: "StrikeJSOW", "StrikeARRW", "MissileTruck120". Its Chinese file names
+# them properly, so this is an oversight in one language rather than a style.
+# Keep display strings comma-free.
+READABLE = {
+    "en": {
+        "AAMT120": "Missile Truck (AIM-120D-3)",
+        "AAMT260": "Missile Truck (AIM-260)",
+        "StrikeJSOW": "Strike (AGM-154 JSOW)",
+        "StrikeJASSM": "Strike (AGM-158B JASSM-ER)",
+        "StrikeSDB": "Strike (GBU-53 StormBreaker)",
+        "Strike183": "Strike (AGM-183 ARRW)",
+        "Strike183N": "Nuclear Strike (AGM-183 ARRW)",
+    },
+}
+
 LOADOUT_NAMES = {
     "en": {
-        "SEST_AntiShipLRASM6": "SEST AntiShipLRASM6",
+        # Six dts_agm-158c-3 across stations 1-4, 13 and 14 - counted, not
+        # assumed. The id was doubling as the display text.
+        "SEST_AntiShipLRASM6": "SEST Anti-Ship (6x LRASM)",
         "Quicksink": "SEST StrikeQuicksink",
         "Malice6": "SEST InterceptMALICE (6x AIM-424)",
         "MaliceER": "SEST InterceptMALICE LongRange",
@@ -771,6 +790,17 @@ def main():
     for lang, names in LOADOUT_NAMES.items():
         src_names = UPSTREAM / f"language_{lang}" / "loadout_names.ini"
         body = src_names.read_text(encoding="utf-8-sig").rstrip("\n")
+        body, _ = restore_vanilla(
+            body, VANILLA / f"language_{lang}" / "loadout_names.ini",
+            keep=names, label=f"language_{lang}/loadout_names.ini")
+        if lang in READABLE:
+            # Verified against this aircraft's own stations before naming:
+            # StrikeJSOW hangs dts_agm-154a, Strike183 dts_agm-183a,
+            # Strike183N the (w62) round, SEST_AntiShipLRASM6 six
+            # dts_agm-158c-3. A loadout named after a weapon it does not carry
+            # is worse than one named after nothing.
+            body, _ = rewrite_values(body, READABLE[lang],
+                                     label=f"language_{lang}/loadout_names.ini")
         body += "\n# ---------- SEST Revamp ----------\n"
         body += "".join(f"{k}={v}\n" for k, v in names.items())
         d = OUT / f"language_{lang}"
