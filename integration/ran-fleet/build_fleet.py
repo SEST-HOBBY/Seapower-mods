@@ -519,10 +519,11 @@ def main():
 
     (OUT / "vessels").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en").mkdir(exist_ok=True)
-    # Section headers stay ASCII, as every vanilla language file's are. This
-    # one carried an em dash, the one trait the SEST ship sections shared that
-    # no vanilla section does, when the editor listed those ships as "Missing
-    # Type / Missing Class" (16 Sep 2026; not confirmed as the cause).
+    # Section headers stay ASCII, as every vanilla language_en file's are.
+    # This one carried an em dash when the editor listed the SEST ships as
+    # "Missing Type / Missing Class" (16 Sep 2026). Not confirmed as the
+    # cause: vanilla's language_es/fr/vn files and one workshop language_en
+    # file (3681873198) put non-ASCII text inside [...] lines too.
     names = ["[****************************** Australia - SEST RAN Fleet ******************************]", ""]
 
     for ship_id, ship in FLEET.items():

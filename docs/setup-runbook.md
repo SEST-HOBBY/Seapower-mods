@@ -56,7 +56,9 @@ pack as enabled at its canonical position**, so a new pack no longer needs the l
 tick-it → quit → re-run dance. It also resolves the one merge conflict this workflow keeps
 producing (you imported a mission while the tooling changed the same file): your imported copy
 always wins, and `-RefreshMissions` re-runs the tooling to put its changes back on top. A
-conflict in any other file stops the script for you to handle.
+conflict in any other file stops the script for you to handle. The install step replaces a
+mission in the game with the repo's copy of the same name and keeps no backup, so import
+anything you edited in game before you sync (see *Refreshing a mission you edited in game*).
 
 The rest of this phase is the manual equivalent, useful the first time or when something
 looks wrong:
