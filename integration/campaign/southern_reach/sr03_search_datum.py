@@ -40,8 +40,8 @@ MISSION = dict(
         "brought, and SENTRY 21 high to the south. Six contacts are in the "
         "search box: longliners, a factory trawler that is only fishing, the "
         "expedition cruise ship POLAR HORIZON southbound, a whale, and the "
-        "one that matters. Classify her and put a ship within three miles "
-        "of her. Your weapons are tight, and a shot at the wrong hull is a "
+        "one that matters. Classify her and put your flagship within three "
+        "miles of her. Your weapons are tight, and a shot at the wrong hull is a "
         "shot at the crew."),
     forces="Your escort group with one MH-60R and one P-8A if bought, one "
            "MQ-4C Triton overhead. Neutral: two longliners, a factory "

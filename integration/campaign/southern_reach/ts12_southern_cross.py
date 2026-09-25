@@ -38,7 +38,7 @@ MISSION = dict(
         "MID-TASMAN, 40 South, morning, under a ceasefire that is nine "
         "hours old. The relief convoy for New Zealand: CORAL PIONEER, the "
         "freighter AOTEAROA RELIEF, the bulker WAIRAU TRADER and the "
-        "tanker TASMAN SPIRIT, eleven knots, east for Wellington, with "
+        "tanker TASMAN SPIRIT, eleven knots, east for Auckland, with "
         "your escorts - what the Tasman left of them - and KIWI 05 and "
         "WEDGETAIL 05 up. East Sale's and Williamtown's fighters are on "
         "the CAP row at the end of their reach.\\n\\n"
@@ -73,16 +73,16 @@ MISSION = dict(
     neutral_objective="Neutrals",
     win="Three hulls in the box, Coral Pioneer among them, and the "
         "withdrawing group over the northern horizon under a ceasefire "
-        "that held. Santos, from the bridge: 'Wellington on the bow. "
+        "that held. Santos, from the bridge: 'Auckland on the bow. "
         "Southern Cross overhead. We are done.'",
     lose="The relief convoy is broken in the middle of the Tasman on the "
          "first morning of the ceasefire, or the ceasefire is broken by "
          "us. Either way the ledger closes in the red.",
     timeout="Seventy-five minutes and the convoy is still short of the "
-            "box with the spoiler astern. She makes Wellington tomorrow, "
+            "box with the spoiler astern. She makes Auckland tomorrow, "
             "or she does not, and the campaign is over either way.",
     stations={
-        # The convoy and escorts on 080 for Wellington; the withdrawing
+        # The convoy and escorts on 080 for Auckland; the withdrawing
         # group 40 NM east on 000, neutral; the spoiler 30 NM south-west
         # routed onto the convoy with the collector ahead of her, ROMEO
         # under her if alive, the strike pair from the south-east if the
@@ -171,9 +171,9 @@ MISSION = dict(
              "Escorts": ("protect", "escort"),
              "Wedgetail": ("protect", "aew")},
     reveal_if=[dict(variable="SR03CrewRecovered", units=["agi"], level="Identify",
-                    intel="Search Datum's ledger: the trawler that held the "
-                          "airlink's crew in December is NAN HAI 27, the "
-                          "collector, and she is ahead of the spoiler as her "
+                    intel="Search Datum's ledger: the collector that came to "
+                          "take the airlink's crew off Nan Hai 24 in December "
+                          "is NAN HAI 27, and she is ahead of the spoiler as her "
                           "spotter. She is on your plot identified. Everything "
                           "the spoiler knows about this convoy, she is telling "
                           "her.")],

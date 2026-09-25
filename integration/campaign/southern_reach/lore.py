@@ -34,6 +34,31 @@ EVENTS = [
              "Get the convoy out of Storm Bay. Put a name on the trawler. Nobody "
              "shoots at a fishing boat in December."]),
 
+    # --- before SR02 Silent Track: the 6 December log, ahead of the 8 December cable
+    dict(file="00c_santos_log", before="Silent Track", form="log",
+         title="Master's log, MV Coral Pioneer\\n6 December 2028",
+         sub="Deck log extract, the morning out of Storm Bay",
+         ship="MV Coral Pioneer", master="L. Santos", date="6 December 2028",
+         entries=[
+             ("0515", "Departed the Derwent astern of SOUTHERN ENDEAVOUR, DERWENT "
+                      "SPIRIT in company. Convoy speed 12 kn. Escort on the "
+                      "starboard quarter, same class as October."),
+             ("0602", "Trawler fleet on radar to the south. Three hulls. One of "
+                      "them has been forty miles off the Derwent every time a ship "
+                      "sailed for the ice since October. Voyage leader Dr Marsh "
+                      "asked me which one. I said the one with the antennas."),
+             ("0640", "Hailed on Ch16 by \"Fisheries Protection\" and asked for "
+                      "our environmental compliance certificate. Told them our "
+                      "compliance is with the Australian Antarctic Division and "
+                      "they could ask Hobart. They asked again. Escort came up "
+                      "on the same channel and the conversation ended."),
+             ("0730", "Clear of the bay. Airlink went over for Wilkins at 0620, on time. "
+                      "Sea state four and building. Chief reports the No.2 "
+                      "bearing at 48 degrees and steady. He has stopped mentioning "
+                      "it, which means he is watching it.")],
+         note="For the owners: the escort did not have to be told what the "
+              "trawler was. Whoever she is, she has learned from October.  - L.S."),
+
     # --- before SR02 Silent Track ------------------------------------------
     dict(file="00b_rewi_cable", before="Silent Track", form="signal",
          title="Wellington's allocation\\n8 December 2028",
@@ -57,31 +82,6 @@ EVENTS = [
              "TO KEEP HER TRANSPONDER ON AND HER MOUTH SHUT.", "",
              "REWI"]),
 
-    # --- before SR03 Search Datum ------------------------------------------
-    dict(file="00c_santos_log", before="Search Datum", form="log",
-         title="Master's log, MV Coral Pioneer\\n6 December 2028",
-         sub="Deck log extract, the morning out of Storm Bay",
-         ship="MV Coral Pioneer", master="L. Santos", date="6 December 2028",
-         entries=[
-             ("0515", "Departed the Derwent astern of SOUTHERN ENDEAVOUR, DERWENT "
-                      "SPIRIT in company. Convoy speed 12 kn. Escort on the "
-                      "starboard quarter, same class as October."),
-             ("0602", "Trawler fleet on radar to the south. Three hulls. One of "
-                      "them has been forty miles off the Derwent every time a ship "
-                      "sailed for the ice since October. Voyage leader Dr Marsh "
-                      "asked me which one. I said the one with the antennas."),
-             ("0640", "Hailed on Ch16 by \"Fisheries Protection\" and asked for "
-                      "our environmental compliance certificate. Told them our "
-                      "compliance is with the Australian Antarctic Division and "
-                      "they could ask Hobart. They asked again. Escort came up "
-                      "on the same channel and the conversation ended."),
-             ("0730", "Clear of the bay. Airlink overhead for Wilkins, on time. "
-                      "Sea state four and building. Chief reports the No.2 "
-                      "bearing at 48 degrees and steady. He has stopped mentioning "
-                      "it, which means he is watching it.")],
-         note="For the owners: the escort did not have to be told what the "
-              "trawler was. Whoever she is, she has learned from October.  - L.S."),
-
     # --- before SR04 Macquarie Passage ------------------------------------
     dict(file="01_sitrep", before="Macquarie Passage",
          title="The first fortnight\\n14 December 2028",
@@ -96,7 +96,7 @@ EVENTS = [
              "for three hours on the ninth without either side doing anything "
              "the ceasefire would have to notice.",
              "The airlink to Wilkins went out of contact on the southern route "
-             "on the eleventh. Its crew came off a foreign trawler that had "
+             "on the twelfth. Its crew came off a foreign trawler that had "
              "\"recovered\" them and was steaming away from the search with "
              "them aboard when the task group put a boarding party alongside. "
              "The trawler's master says he was taking them to the nearest "
@@ -139,15 +139,15 @@ EVENTS = [
 
     # --- before SR06 Broken Supply Line ------------------------------------
     dict(file="01c_brand_signal", before="Broken Supply Line", form="signal",
-         title="Where the ships are\\n20 December 2028",
+         title="Where the ships are\\n21 December 2028",
          sub="Signal from the New Zealand maritime liaison",
          header=[("FROM:", "CDR T. BRAND RNZN, HQ JOINT FORCES NEW ZEALAND"),
-                 ("TO:", "COMAUSMARTG"), ("DTG:", "200600Z DEC 28"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "201500Z DEC 28"),
                  ("PREC:", "PRIORITY"), ("SUBJ:", "BLUFF, INVERCARGILL AND THE FLEET")],
          body=[
              "1. BLUFF IS OPEN TO YOUR SHIPS FOR REPAIR AND STORES. THE SLIPWAY "
              "CAN TAKE A COASTER. INVERCARGILL AIRPORT IS OPEN TO YOUR POSEIDONS "
-             "AND OURS; A DETACHMENT IS THERE FROM TOMORROW.", "",
+             "AND OURS; A DETACHMENT IS THERE FROM THIS MORNING.", "",
              "2. SO THAT NOBODY HAS TO ASK: TE KAHA IS IN DEVONPORT IN THE MIDDLE "
              "OF A REFIT SHE CANNOT LEAVE, AND TE MANA IS ON THE PACIFIC STATION "
              "WITH A TREATY OBLIGATION SHE CANNOT LEAVE EITHER. NEW ZEALAND'S "
@@ -227,7 +227,7 @@ EVENTS = [
              "over the fleet on New Year's Eve for the cameras. The protection "
              "group now has a flagship, an air wing and a reason to think the "
              "resupply season is negotiable.",
-             "It is not. The January voyage sails tomorrow: Southern Endeavour "
+             "It is not. The January voyage sailed from Hobart on the thirty-first: Southern Endeavour "
              "with Casey's second lift, the coaster out of Bluff with a new "
              "plate and the same Chief, Coral Pioneer, and two more hulls the "
              "Division has chartered because it will not be told to wait.",
@@ -315,8 +315,8 @@ EVENTS = [
          body=[
              "The task group is alongside at Sydney for six days, and the "
              "ledger says what it has: the hulls that came out of the south, "
-             "the aircraft that came back, the magazines that were not "
-             "refilled at Bluff because Bluff had nothing to refill them with.",
+             "the aircraft that came back, and the magazines as Hobart's last "
+             "window left them.",
              "The group that came north has its carrier and its flagship in the "
              "Tasman, a tender and a boat working the New Zealand side, a "
              "compliance contractor with coasters in every port, and an aim "
@@ -339,7 +339,7 @@ EVENTS = [
          sub="Signal from No. 5 Squadron RNZAF",
          header=[("FROM:", "SQNLDR T. REWI, NO. 5 SQN RNZAF, OHAKEA"),
                  ("TO:", "COMAUSMARTG"), ("DTG:", "270300Z JAN 29"),
-                 ("PREC:", "IMMEDIATE"), ("SUBJ:", "EAST OF THE CHATHAMS - THE RENDEZVOUS")],
+                 ("PREC:", "IMMEDIATE"), ("SUBJ:", "WEST OF THE CHATHAMS - THE RENDEZVOUS")],
          body=[
              "1. THE BOAT COOK STRAIT PUT A NAME ON, TANGO, IS A DIESEL BOAT. A "
              "DIESEL BOAT NEEDS A TENDER. THE TENDER IS THE AMS COASTER FIORDLAND "
@@ -378,7 +378,7 @@ EVENTS = [
              "Williamtown's fighters reach the middle of the crossing and no "
              "further; Wedgetail sees the carrier's aircraft come and cannot "
              "stop them.",
-             "The Commodore's note: \"Two groups, forty miles apart, one "
+             "The Commodore's note: \"Two groups, thirty miles apart, one "
              "escort force. Decide which one you are with when the strike "
              "comes, and be with it.\""]),
 
@@ -405,7 +405,7 @@ EVENTS = [
              "she is always there - sails tomorrow through them.",
              "It is a fleet action, and it is the group's last full-strength "
              "one. The task group sails with everything it owns, rearmed at "
-             "Adelaide, with Edinburgh's Poseidons and East Sale's fighters "
+             "Adelaide, with Edinburgh's Poseidons and fighters "
              "overhead. After it, both navies will be counting."]),
 
     # --- before TS11 Approaches -------------------------------------------
@@ -441,21 +441,21 @@ EVENTS = [
 
     # --- before TS12 Southern Cross ---------------------------------------
     dict(file="08_santos_log", before="Southern Cross", form="log",
-         title="Master's log, MV Coral Pioneer\\n1 March 2029",
-         sub="Deck log extract, the night before the crossing",
-         ship="MV Coral Pioneer", master="L. Santos", date="1 March 2029",
+         title="Master's log, MV Coral Pioneer\\n28 February 2029",
+         sub="Deck log extract, sailing day",
+         ship="MV Coral Pioneer", master="L. Santos", date="28 February 2029",
          entries=[
-             ("1730", "Convoy conference aboard the flagship. Four hulls for "
+             ("0930", "Convoy conference aboard the flagship. Four hulls for "
                       "Auckland with the relief cargo. One group out there is "
                       "complying with the withdrawal and one has not said. Told: "
                       "\"Sail as planned.\" Same words as November."),
-             ("1815", "Chief reports the No.2 bearing at 66 degrees. Will hold at "
+             ("1015", "Chief reports the No.2 bearing at 66 degrees. Will hold at "
                       "eleven knots. Convoy speed is eleven knots."),
-             ("1900", "Crew briefed. The two who asked in November whether the "
+             ("1100", "Crew briefed. The two who asked in November whether the "
                       "escort that stopped us on 18 October was out there asked "
                       "again about the trawler that held the airlink's crew in "
                       "December. I said I did not know. That is true."),
-             ("2200", "Lights of Sydney astern. Escorts on both beams. A New "
+             ("1630", "Sydney Heads astern. Escorts on both beams. A New "
                       "Zealand aircraft overhead going the same way we are. "
                       "Three months ago this ship was chartered for a fortnight.")],
          note="For whoever reads these afterwards: we have now been escorted by "

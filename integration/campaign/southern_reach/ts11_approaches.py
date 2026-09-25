@@ -68,8 +68,9 @@ MISSION = dict(
                  transit=14),
     fatal=[F("Movement", ["lift"], 2)],
     neutral_objective="Neutrals",
-    win="Two transports in the box and the destroyer that commanded the "
-        "group since October on the bottom off Sydney. What is left of "
+    win="Two transports in the box, and the ledger says whether the "
+        "destroyer that commanded the group since October is on the bottom "
+        "off Sydney. What is left of "
         "the group turns for home, or for the relief convoy, and "
         "Southern Cross decides which.",
     lose="Two transports lost in Sydney's approaches with the relief in "

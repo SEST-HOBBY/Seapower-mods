@@ -18,10 +18,10 @@ MISSION = dict(
           "the way. Hold the approaches with a detachment, or hold "
           "Adelaide's instead.",
     special="Optional, and one of a pair: a detachment can hold Auckland's "
-            "approaches or Adelaide's before Approaches, not both. "
+            "approaches, Adelaide's, or both before Approaches. "
             "Whichever is not held reinforces the group in the western "
             "Tasman. Expires when Approaches is complete.",
-    sender="Commander Hana Rewi, RNZN, Maritime Component Commander (NZ)",
+    sender="Commander Tessa Brand, RNZN, HQ Joint Forces New Zealand",
     intent=("After Portland the group has split what it has left: a "
             "corvette, the collector and the tender have come round North "
             "Cape and are trying to establish a 'compliance station' off "
@@ -73,7 +73,7 @@ MISSION = dict(
     win="Hauraki Trader is at the Rangitoto approach with the pilot "
         "aboard, and the compliance station is three ships steaming in "
         "circles off Colville with nobody to inspect. The northern "
-        "element stays in the Gulf. Rewi: 'Auckland noticed. That was "
+        "element stays in the Gulf. Brand: 'Auckland noticed. That was "
         "the point.'",
     lose="The container ship is lost in the Gulf, or the flagship is, "
          "and the northern element goes south to join the group with "
@@ -94,7 +94,7 @@ MISSION = dict(
         "red_056": S(-36.35, 175.35, "Type 056A", heading=20),
         "agi": S(-36.30, 175.30, "Research trawler", heading=90),
         "tender": S(-36.38, 175.40, "Austral Compliance", heading=340),
-        "container": S(-36.35, 175.25, "Tauranga service", heading=140),
+        "container": S(-36.35, 175.25, "Tauranga service", heading=350),
         "gb_ferry": S(-36.55, 175.00, "Great Barrier ferry", heading=40),
         "fish1": S(-36.60, 175.15, "Fishing boat", heading=300),
         "fish2": S(-36.40, 175.20, "Fishing boat", heading=200),

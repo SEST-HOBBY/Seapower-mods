@@ -2282,7 +2282,11 @@ def render(mission, placed, members):
             # reveal pair in campaigns/linear-campaign-proto-1/missions/
             # 03 Mind the Gap.ini. What it cannot do is model a partial or
             # decaying picture: a contact is classified or it is not.
-            units = refs(members, how[1])
+            # One station ref, or a list of them: Turning North's network
+            # objective names the carrier, the replenishment ship and the
+            # collector in a formation of six, not any three of the six.
+            units = [t for r in ([how[1]] if isinstance(how[1], str) else how[1])
+                     for t in refs(members, r)]
             lines = ["Condition_Type=UnitClassified",
                      "Condition_Taskforce=Taskforce1",
                      f"Condition_Units={','.join(units)}",
@@ -2456,12 +2460,21 @@ def render(mission, placed, members):
             failed=[main], message="Taskforce1DefeatMessage",
             victor="Taskforce2")
     if neutral_tags:
+        # A `spare` objective on a neutral hull (Cook Strait's ferries, the
+        # Bass Strait platforms, the withdrawing group under the ceasefire)
+        # is scored by its own trigger in the same tick this terminal
+        # fires; cancelling it here would take that score back. It keeps
+        # its own result, failed by its trigger or Complete at the end.
+        spared = [oid for oid, how in mission.get("resolve", {}).items()
+                  if isinstance(how, tuple) and how[0] == "spare"
+                  and any(t in neutral_tags for r in how[1:] for t in refs(members, r))]
         terminal("Neutral harmed",
                  destroyed_condition(1, neutral_tags,
                                      mission.get("neutral_limit", 1))
                  + ["ConditionsCompleted=<Condition1>"],
                  failed=[mission["neutral_objective"]],
-                 message="NeutralLossMessage", victor="Taskforce2")
+                 message="NeutralLossMessage", victor="Taskforce2",
+                 keep=spared)
 
     # A saved result from an earlier operation, read here. 09 Shadows off
     # Palawan reveals the missile sites this way when 08A's recon completed.

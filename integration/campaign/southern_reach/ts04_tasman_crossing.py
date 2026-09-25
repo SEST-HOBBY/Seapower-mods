@@ -1,6 +1,6 @@
 """TS04 - Tasman Crossing. Mid-Tasman, 1 February 2029.
 
-Two merchant groups forty miles apart, Auckland-bound, and the force
+Two merchant groups thirty miles apart, Auckland-bound, and the force
 between them with the first Tasman fighter cover; the carrier two hundred
 miles south-east sends its strike flight onto the trailing group. The
 escort problem of the chapter: which group gets the destroyer.
@@ -19,7 +19,7 @@ MISSION = dict(
             "charterers would not wait for each other, and you cannot be "
             "with both. The carrier is two hundred miles south-east and "
             "its strike flight will come for whichever group it thinks "
-            "you are not covering. Wedgetail sees them launch; "
+            "you are not covering. Wedgetail already has them, a hundred and twenty miles out; "
             "Williamtown's fighters are on the CAP row for the first time "
             "in the Tasman and the Super Hornets go on sale here. Three of "
             "four into the box. Coral Pioneer is in group A and Santos "
@@ -36,7 +36,7 @@ MISSION = dict(
         "other and both want the same escort.\\n\\n"
         "LIAONING is two hundred miles south-east with a frigate, and the "
         "J-15s that flew over the fishing fleet for the cameras in "
-        "December are on deck with anti-ship missiles. WEDGETAIL 05 is up "
+        "December are already up with anti-ship missiles, a hundred and thirty miles from group B and closing. WEDGETAIL 05 is up "
         "out of Williamtown and, for the first time in the Tasman, so is "
         "a fighter that can reach you: the F-35As are on the CAP row and "
         "the Super Hornets and Growlers go on sale here.\\n\\n"
@@ -146,7 +146,7 @@ MISSION = dict(
                     intel="Turning North's picture: the frigate with the carrier "
                           "is the Type 054A you named in the Tasman approaches, "
                           "and she is on your plot classified. Where she is, the "
-                          "carrier is thirty miles behind.")],
+                          "carrier is: a mile off her beam.")],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_opv_arafura",
                        "usn_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",

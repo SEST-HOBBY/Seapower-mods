@@ -1,7 +1,7 @@
 """SR08 - The Gateway. Christchurch approaches, 28 December 2028.
 
 New Zealand's Antarctic gateway: a US Antarctic Program cargo ship and a
-tanker into Lyttelton round Banks Peninsula, with a corvette closing to
+tanker into Lyttelton south-west across Pegasus Bay, with a corvette closing to
 "inspect" the tanker and a New Zealand Poseidon overhead. No RNZN hull is
 placed - Commander Brand's signal says where they are - and the New Zealand
 contribution is the aircraft, the field and the port.
@@ -11,7 +11,7 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="SR08", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 8",
     group="core", num="08", key="The Gateway", place="Christchurch approaches",
-    intro="Two gateway ships into Lyttelton round Banks Peninsula, a corvette "
+    intro="Two gateway ships into Lyttelton south-west across Pegasus Bay, a corvette "
           "that wants to inspect the tanker, and a New Zealand Poseidon "
           "overhead saying no in two languages.",
     sender="Commodore Alex Mercer; Commander Tessa Brand, RNZN, for Lyttelton",
@@ -31,7 +31,7 @@ MISSION = dict(
         "CHRISTCHURCH APPROACHES, afternoon. The gateway traffic for the "
         "American programme's summer is coming into Lyttelton: POLAR GIANT "
         "with McMurdo's cargo and CANTERBURY SPIRIT with its fuel, both "
-        "in Pegasus Bay and both making twelve knots round Banks Peninsula "
+        "in Pegasus Bay and both making twelve knots south-west across Pegasus Bay "
         "to the pilot station.\\n\\n"
         "A corvette flying the protection flag has been working the "
         "Canterbury coast for four days and has asked three tankers for "
@@ -59,7 +59,7 @@ MISSION = dict(
     # Both hulls into the approach: the box is authored on water off the
     # Heads, two miles from the coast, and solved for nothing.
     victory=dict(kind="arrive", station="gateway", min_units=2, objective="Gateway",
-                 at=(-43.62, 173.05), radius=6, transit=12),
+                 at=(-43.55, 172.90), radius=6, transit=12),
     fatal=[F("Gateway", ["gateway"], 1)],
     neutral_objective="Traffic",
     win="Both ships are at the pilot station with Lyttelton's tugs coming "
@@ -69,7 +69,7 @@ MISSION = dict(
     lose="A gateway ship is lost in New Zealand's front yard and the "
          "American programme's summer goes to Hobart. Wellington will say "
          "what it says.",
-    timeout="The light is going and the ships are still short of the Heads "
+    timeout="Sixty-five minutes and the ships are still short of the Heads "
             "with the corvette between them and the pilot. The gateway is "
             "a question again.",
     stations={

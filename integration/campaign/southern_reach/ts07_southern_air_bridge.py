@@ -46,7 +46,7 @@ MISSION = dict(
         "for the first time the flight is armed. Your force is on the "
         "track with the destroyer's missiles as the surface half of the "
         "umbrella; Williamtown is a hundred and ninety-five miles "
-        "north-west and its fighters are on the CAP row, with airbase "
+        "north and its fighters are on the CAP row, with airbase "
         "preparation open for the first time.\\n\\n"
         "Relief 21 to the box off Sydney Heads. Keep the Wedgetail flying. "
         "Nobody shoots at an airliner in this box, and the way to make "
@@ -135,7 +135,7 @@ MISSION = dict(
           name="MV Pacific Aurora (Sydney-bound cruise)",
           route=[(-34.00, 151.60, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_ms_bulk", "bulker",
-          name="MV Illawarra (Port Kembla-Newcastle)",
+          name="MV Illawarra (Melbourne-Newcastle)",
           route=[(-34.20, 151.90, 0)], telegraph=3),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_williamtown", "home",
           name="RAAF Base Williamtown", nation="australia", weapons="Hold"),

@@ -17,17 +17,17 @@ MISSION = dict(
     intro="New Zealand's water, the busiest box of the campaign, and a "
           "tender off Puysegur that calls itself a compliance vessel. Put "
           "a name on it, hold the patrol line, and harm nothing.",
-    sender="Commodore Alex Mercer; Commander Hana Rewi, RNZN, for the New "
-           "Zealand picture",
+    sender="Commodore Alex Mercer; Squadron Leader Tane Rewi, No. 5 Squadron "
+           "RNZAF, for the New Zealand picture",
     intent=("This is New Zealand's water and we are here at their request, "
             "which means every cray boat and cruise ship in the box is "
-            "somebody's constituent. The Australian Maritime Services tender "
+            "somebody's constituent. The Austral Meridian Services tender "
             "has been off Puysegur for three days telling fishing masters "
             "which grounds are closed. Put a class and a name on her, hold "
-            "the patrol line south-west of her, and leave the boat to the "
+            "the patrol line to the south-west, and leave the boat to the "
             "south-west alone unless it comes to you. Nothing here fires "
             "first. Rewi's Poseidon is out of Invercargill and she knows "
-            "this coast; listen to her."),
+            "this coast; listen to him."),
     date=(2029, 1, 22), time=(9, 0), sea=3, clouds="Scattered_2", wind="SW",
     difficulty=2, minutes=65, centre=(-46.1, 165.9),
     blue_nation="Australia", red_nation="China",
@@ -38,10 +38,10 @@ MISSION = dict(
         "Bluff cray fleet on the grounds, a longliner, the Fisheries New "
         "Zealand patrol vessel, and the Invercargill-Queenstown service "
         "overhead.\\n\\n"
-        "MV AUSTRAL COMPLIANCE, the Australian Maritime Services tender that "
+        "MV AUSTRAL COMPLIANCE, the Austral Meridian Services tender that "
         "followed the protection group north, is thirty miles south-west "
         "broadcasting closed grounds on the fishing channels. The research "
-        "trawler that Turning North named is somewhere south of her. A "
+        "trawler that Turning North named is somewhere east of her, between her and the Solanders. A "
         "conventional submarine was reported off the Solander Islands "
         "yesterday; it is not routed at anyone and it is not the mission.\\n\\n"
         "KIWI 05 is out of Invercargill with the New Zealand picture. Your "
@@ -58,8 +58,8 @@ MISSION = dict(
            "039C submarine to the south-west.",
     objectives=[
         ("Tender", "Classify MV Austral Compliance, then hold the patrol "
-                   "line south-west of her", "30,-30,Fail,Main"),
-        ("Boat", "Classify the submarine off the Solander Islands", "15,0,None"),
+                   "line to the south-west", "30,-30,Fail,Main"),
+        ("Boat", "Classify the submarine reported to the south-west", "15,0,None"),
         ("Traffic", "Harm no cruise ship, fishing boat, patrol vessel or "
                     "aircraft", "0,-30,Complete"),
         ("Flagship", "Bring your flagship out intact", "10,-15,Complete"),
@@ -68,11 +68,12 @@ MISSION = dict(
                  after=dict(kind="classify", units=["tender"], min_units=1,
                             sets="TS01TenderNamed",
                             intel="AUSTRAL COMPLIANCE has a name and a class: "
-                                  "the same tender that fuelled the group off "
-                                  "Macquarie in December, now with a "
+                                  "the AMS coaster that followed the protection "
+                                  "group north out of the Tasman approaches, "
+                                  "now with a "
                                   "navigation radar Rewi's people say is a "
-                                  "frigate's. Hold the patrol line south-west "
-                                  "of her. Chatham Watch will know her by her "
+                                  "frigate's. Hold the patrol line to the "
+                                  "south-west. Chatham Watch will know her by her "
                                   "emitters.")),
     fatal=[],
     neutral_objective="Traffic",
@@ -97,12 +98,12 @@ MISSION = dict(
         "agi": S(-46.55, 166.10, "Research trawler", heading=90),
         "red_sub": S(-46.35, 165.55, "Contact TANGO", heading=250),
         "cruise": S(-45.70, 166.10, "Milford-bound", heading=20),
-        "exped": S(-46.00, 166.20, "Expedition ship", heading=200),
+        "exped": S(-46.00, 166.20, "Expedition ship", heading=20),
         "cray1": S(-46.30, 166.10, "Cray boat", heading=90),
         "cray2": S(-46.20, 166.30, "Cray boat", heading=180),
         "cray3": S(-46.40, 166.00, "Longliner", heading=60),
         "fnz": S(-46.05, 166.15, "Fisheries patrol", heading=200),
-        "airliner": S(-45.95, 166.45, "Queenstown-Invercargill", heading=230, alt=14000),
+        "airliner": S(-45.95, 166.45, "Invercargill-Queenstown", heading=40, alt=14000),
         "home": S(-46.412, 168.313, "Invercargill Airport"),
     },
     units=[
@@ -127,7 +128,7 @@ MISSION = dict(
           route=[(-44.60, 167.60, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_ms_roro_c", "exped",
           name="MV Tutoko Explorer (expedition ship, stand-in)",
-          route=[(-46.60, 167.30, 0)], telegraph=3),
+          route=[(-44.60, 167.60, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_crabboat", "cray1", name="Cray boat Kotare",
           route=[(-46.55, 167.50, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "cray2", name="Cray boat Ranui",
@@ -138,7 +139,7 @@ MISSION = dict(
           name="Fisheries New Zealand patrol (stand-in)",
           route=[(-46.35, 166.45, 0)], telegraph=2),
         U("neutral", "civil-aircraft-airbus", "civ_a320", "airliner",
-          name="Queenstown-Invercargill 612 (descending over Foveaux)"),
+          name="Invercargill-Queenstown 612 (Fiordland scenic routing)"),
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Invercargill Airport (RNZAF detachment)", nation="New Zealand",
           weapons="Hold"),
@@ -149,7 +150,7 @@ MISSION = dict(
     declares=["TS01TenderNamed"],
     reveal_if=[dict(variable="SR12NetworkNamed", units=["agi"], level="Classify",
                     intel="Turning North's picture: the research trawler you "
-                          "named in the Tasman approaches is south of the tender, "
+                          "named in the Tasman approaches is east of the tender, "
                           "and she is on your plot as a classified contact. Where "
                           "she is, the tender is being told what to say.")],
     window=dict(buy=True, repair=True, rearm=True,

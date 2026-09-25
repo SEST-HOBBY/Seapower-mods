@@ -162,7 +162,9 @@ resolve={"Convoy": "victory",                   # completed by the victory trigg
          "Identify": ("classify", "shadow", 1, "SR01ShadowNamed")}  # completes on classify; 4th item writes a variable
 ```
 
-Every objective needs one. `declares=[...]` must list every variable the
+Every objective needs one. A `classify` resolver's station may also be a
+list of refs (`["network#1", "network#4", "network#5"]`) when the objective
+names particular hulls inside a larger formation. `declares=[...]` must list every variable the
 mission writes (in a resolver, a stage `sets`, a victory `sets`, a `flags`
 entry or a `support_loss` `sets`).
 
@@ -239,7 +241,7 @@ has an origin and a destination and a route that shows it. No real company
 names; fictional ship names with a New Zealand or Tasmanian flavour where the
 water is theirs. Callsigns: Bluefin (RAAF P-8), Kiwi (RNZAF P-8), Sentry
 (Triton), Wedgetail, Vigilant (F-35A). Contact names: red submarines VICTOR
-(Akula), SIERRA-TWO (Yasen), ROMEO (093B), TANGO (039C/Kilo); the collector is
+(Akula), SIERRA-TWO (Yasen), ROMEO (093B), TANGO (039C), KILO (Kilo); the collector is
 *Nan Hai 27*, the AMS tender *MV Austral Compliance*, the Russian tender *RV
 Akademik Fersman*, the cargo/research ship *RSV Southern Endeavour (resupply
 ship, stand-in)*, Santos's ship *MV Coral Pioneer*, the coaster *MT Derwent
@@ -262,7 +264,7 @@ Land units (blue fields; `nation=` as shown):
 | `civ_radiostation` | Macquarie Island station (neutral) | −54.499, 158.937 |
 
 Mission centres (all on water; distance to the nearest coast in brackets):
-SR02 −50.3, 162.8 (122) · SR03 −52.0, 140.0 (open) · SR04 −54.3, 158.3 (24; Buckles Bay anchorage −54.50, 158.99, 1 NM, `coastal=True`; withdrawal line −54.05, 158.50) · SR05 −56.0, 148.0 (open) · SR06 −51.5, 165.0 (51) · SR07 −57.5, 152.0 (275) · SR08 −43.7, 173.5 (17; Lyttelton approach −43.62, 173.05, 2 NM; Pegasus Bay −43.40, 173.10) · SR09 −48.5, 137.0 (open) · SR10 −60.0, 118.0 (375) · SR11 −55.5, 128.0 (open) · SR12 −40.5, 151.5 (138) · TS01 −46.1, 165.9 (25; Puysegur −46.30, 166.40) · TS02 −41.55, 174.45 (12.6; Cloudy Bay −41.50, 174.25; off Oteranga −41.35, 174.55; Cape Campbell −41.70, 174.50; Wellington approach −41.42, 174.75 needs checking) · TS03 −44.0, 178.3 (190; nothing east of 179.9) · TS04 −38.5, 158.5 (open) · TS05 −36.5, 160.5 (300) · TS06 −39.3, 147.0 (18; rigs −38.55, 148.20 and −38.60, 147.85; Wilsons Promontory south −39.35, 146.45; west of Flinders −39.90, 147.50) · TS07 −36.0, 152.5 (98; Sydney Heads approach −33.85, 151.55) · TS08 −35.5, 132.5 (139) · TS09 −38.6, 140.5 (33; Portland approach −38.6, 141.6) · TS10A −36.45, 175.05 (7; Colville Channel −36.20, 175.25; Tiritiri −36.60, 174.95; Rangitoto approach −36.72, 174.90 needs checking) · TS10B −35.4, 137.3 (11; Backstairs Passage −35.70, 138.10; Outer Harbor approach −34.75, 138.35) · TS11 −39.5, 151.0 (124) · TS12 −40.5, 155.5 (310).
+SR02 −50.3, 162.8 (122) · SR03 −52.0, 140.0 (open) · SR04 −54.3, 158.3 (24; Buckles Bay anchorage −54.50, 158.99, 1 NM, `coastal=True`; withdrawal line −54.05, 158.50) · SR05 −56.0, 148.0 (open) · SR06 −51.5, 165.0 (51) · SR07 −57.5, 152.0 (275) · SR08 −43.7, 173.5 (17; Lyttelton approach −43.55, 172.90, 4 NM; Pegasus Bay −43.40, 173.10) · SR09 −48.5, 137.0 (open) · SR10 −60.0, 118.0 (375) · SR11 −55.5, 128.0 (open) · SR12 −40.5, 151.5 (138) · TS01 −46.1, 165.9 (25; Puysegur −46.30, 166.40) · TS02 −41.55, 174.45 (12.6; Cloudy Bay −41.50, 174.25; off Oteranga −41.35, 174.55; Cape Campbell −41.70, 174.50; Wellington approach −41.42, 174.75 needs checking) · TS03 −44.0, 178.3 (190; nothing east of 179.9) · TS04 −38.5, 158.5 (open) · TS05 −36.5, 160.5 (300) · TS06 −39.3, 147.0 (18; rigs −38.55, 148.20 and −38.60, 147.85; Wilsons Promontory south −39.35, 146.45; west of Flinders −39.90, 147.50) · TS07 −36.0, 152.5 (98; Sydney Heads approach −33.85, 151.55) · TS08 −35.5, 132.5 (139) · TS09 −38.6, 140.5 (33; Portland approach −38.6, 141.6) · TS10A −36.45, 175.05 (7; Colville Channel −36.20, 175.25; Tiritiri −36.60, 174.95; Rangitoto approach −36.72, 174.90 needs checking) · TS10B −35.15, 137.9 (7; Backstairs Passage −35.70, 138.10; Outer Harbor approach −34.75, 138.35) · TS11 −39.5, 151.0 (124) · TS12 −40.5, 155.5 (310).
 
 ## Units and the mod to attribute them to
 
@@ -305,10 +307,10 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `plan_z-9c` | Helicopter | `modern-plan-systems` | the 054A/052D/056A deck helicopter; `loadout="ASWKiller"` |
 | `plan_type_054a_p5` | Vessel | `modern-plan-systems` | frigate, reach 85; supports Z-9 |
 | `plan_type_056a` | Vessel | `modern-plan-systems` | corvette, reach 85; `loadout` Default/AntiShip/ASW |
-| `plan_type_052d_p3` | Vessel | `modern-plan-systems` | flagship, reach 1,050 - TS09, TS11, TS12 only |
+| `plan_type_052d_p3` | Vessel | `modern-plan-systems` | flagship, reach 1,050 - TS09, TS11 only |
 | `plan_ssn_type_093b` | Submarine | `plan-submarines` | ROMEO; reach 350 |
 | `plan_ss_type_039c` | Submarine | `plan-submarines` | TANGO in chapter B (surfaced in TS03: `depth=0`) |
-| `plan_ss_kilo` | Submarine | `chinese-navy-plan` | reach 20 (torpedoes) |
+| `plan_ss_kilo` | Submarine | `chinese-navy-plan` | KILO; reach 20 (torpedoes) |
 | `wp_ssn_akula` | Submarine | `russian-submarines` | VICTOR |
 | `wp_ssgn_yasen` | Submarine | `russian-submarines` | SIERRA-TWO |
 | `wp_bpk_udaloy` | Vessel | `_vanilla` | Marshal Shaposhnikov; reach 27; deck 2 (Ka-27) |

@@ -2,7 +2,7 @@
 
 The southern half of the optional pair: a frigate and a Kilo in the
 approaches to Adelaide, a tanker for Outer Harbor, the Kangaroo Island
-ferry on its crossing, and a Poseidon out of Edinburgh sixty miles away.
+ferry on its crossing, and a Poseidon out of Edinburgh thirty miles away.
 Holding it is what keeps the southern element out of Approaches.
 """
 from campaign_data import U, F, S, HELO, RECON
@@ -16,7 +16,7 @@ MISSION = dict(
           "through them. Hold the approaches with a detachment, or hold "
           "Auckland's instead.",
     special="Optional, and one of a pair: a detachment can hold Adelaide's "
-            "approaches or Auckland's before Approaches, not both. "
+            "approaches, Auckland's, or both before Approaches. "
             "Whichever is not held reinforces the group in the western "
             "Tasman. Expires when Approaches is complete.",
     sender="Commodore Alex Mercer",
@@ -46,8 +46,8 @@ MISSION = dict(
         "forty miles south-west of the tanker, weapons tight, "
         "closing at twelve knots to 'escort' her. A Kilo came through "
         "with her and is somewhere between the frigate and the tanker's "
-        "track with a Z-9 dipping over her.\\n\\n"
-        "Edinburgh's Poseidon is on the Recon row, sixty miles away. "
+        "track with a Z-9 dipping between her and the frigate.\\n\\n"
+        "Edinburgh's Poseidon is on the Recon row, thirty miles away. "
         "Get the tanker to the Outer Harbor approach. Classify the Kilo. "
         "Harm nothing that is South Australia's. Hold this and the "
         "southern element stays in the Gulf instead of going east."),
@@ -79,7 +79,7 @@ MISSION = dict(
         # The tanker and detachment inside the Gulf's mouth on 020, 14 NM
         # from the approach box (the clock buys 13.5 NM at the solver's
         # 18 kn); the frigate 40 NM south-west closing slowly; the Kilo between the
-        # frigate and the track with the Z-9 over her; the ferry on the
+        # frigate and the track with the Z-9 between her and the frigate; the ferry on the
         # real crossing, the grain bulker for Backstairs Passage, the tuna
         # boats round Cape Spencer for Port Lincoln.
         "tanker": S(-34.92, 138.15, "Osborne Spirit", heading=20),

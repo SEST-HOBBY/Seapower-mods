@@ -18,7 +18,7 @@ MISSION = dict(
     special="Choose a detachment: the strait is twelve miles wide and the "
             "whole force will not fit in it usefully. No builder before "
             "this mission or the next.",
-    sender="Commander Hana Rewi, RNZN, Maritime Component Commander (NZ)",
+    sender="Commander Tessa Brand, RNZN, HQ Joint Forces New Zealand",
     intent=("The Tasman cable comes ashore at Oteranga Bay and TASMAN "
             "RELIANCE is repairing the fault the survey ship found in it. "
             "She needs twenty-five minutes inside the declared corridor and "
@@ -43,9 +43,9 @@ MISSION = dict(
         "back - with a Marlborough fishing boat, a coastal tanker and the "
         "Wellington-Christchurch service in the same box. TANGO, the boat "
         "from Fiordland, is at periscope depth on the corridor. The Type "
-        "056A that inspected the freighters off Lyttelton is coming up "
-        "from Cape Campbell, weapons tight, to do it again.\\n\\n"
-        "Your detachment is eight miles east of the corridor. KIWI 05 is "
+        "056A that tried to inspect the tanker off Lyttelton is coming up "
+        "from Cape Campbell, weapons tight, to try again.\\n\\n"
+        "Your detachment is five miles south-south-east of the cable ship, on the corridor's southern edge. KIWI 05 is "
         "out of Ohakea. Hold the corridor, get the cable ship to the "
         "approach, classify the boat if you can. Fire on nothing that has "
         "not fired; a ferry in this strait is a thousand people."),
@@ -77,7 +77,7 @@ MISSION = dict(
     fatal=[F("Corridor", ["cable"])],
     neutral_objective="Traffic",
     win="The cable is repaired, the ferries crossed, and the corvette "
-        "inspected nothing. Rewi: 'Wellington heard it on the news, which "
+        "inspected nothing. Brand: 'Wellington heard it on the news, which "
         "is how it should be.'",
     lose="The cable ship is lost in the strait, or a ferry is, and the "
          "Tasman war has its first hull.",
@@ -144,7 +144,7 @@ MISSION = dict(
     declares=["TS02SubNamed"],
     reveal_if=[dict(variable="SR08CorvetteNamed", units=["red_056"], level="Classify",
                     intel="The Gateway's picture: the corvette coming up from "
-                          "Cape Campbell is the one that inspected the freighters "
+                          "Cape Campbell is the one that tried to inspect the tanker "
                           "off Lyttelton, and she is on your plot classified. Her "
                           "captain has done this before.")],
     window=dict(detachment=True, flights=[HELO, RECON]),

@@ -27,13 +27,14 @@ MISSION = dict(
             "is shadowing from the east with a helicopter up. Bring the "
             "coaster to the line. Do not drive her faster than the Chief "
             "says she will go - that is his word, not a rule the sea "
-            "enforces. If the boat presents itself, that is Wellington's "
-            "question and mine, and the answer is yes."),
+            "enforces. If the boat fires again you answer her. The hunt for "
+            "her is Wellington's question and Canberra's, and neither has "
+            "answered it yet."),
     date=(2028, 12, 21), time=(5, 50), sea=5, clouds="Overcast", wind="SW",
     difficulty=3, minutes=75, centre=(-51.5, 165.0),
     blue_nation="Australia", red_nation="Russia",
     brief=(
-        "SOUTH OF THE AUCKLAND ISLANDS, before dawn. DERWENT SPIRIT took a "
+        "SOUTH OF THE AUCKLAND ISLANDS, early morning. DERWENT SPIRIT took a "
         "torpedo forward at 0210 - the first shot fired in the south - and "
         "she is still afloat because the Chief got a collision mat over the "
         "hole and the tanks aft are full. One engine, six knots, Bluff. "
@@ -49,8 +50,9 @@ MISSION = dict(
         "Bring the coaster to the line. The expedition ship out of the "
         "islands, the longliner and the whale are in the same water; nobody "
         "in New Zealand's region will forgive a dead tourist. Weapons tight "
-        "on anything that has not fired; on the boat, Wellington and "
-        "Canberra have both said yes."),
+        "on anything that has not fired; on the boat, answer her if she "
+        "fires again - the hunt waits on Wellington and Canberra, and that "
+        "answer comes on Christmas Eve."),
     forces="Your escort group with its Seahawk and Poseidon, out of "
            "Invercargill. MT Derwent Spirit at six knots and MV Coral "
            "Pioneer in company. Neutral: an expedition ship out of the "
@@ -69,8 +71,8 @@ MISSION = dict(
     win="Derwent Spirit is at the line with a tug coming down from Bluff, "
         "and Coral Pioneer is beside her. The Chief's mat held. Brand: 'She "
         "is in our region now. Nobody touches her.'",
-    lose="The coaster is gone with the winter's fuel in her, sixty miles "
-         "from a slipway. Casey's January is a different problem now.",
+    lose="The coaster is gone with the winter's fuel in her, three hundred "
+         "miles from a slipway. Casey's January is a different problem now.",
     timeout="Seventy-five minutes and the coaster is still short of the line "
             "with a boat somewhere ahead of her. The tug from Bluff has "
             "nothing to meet yet.",

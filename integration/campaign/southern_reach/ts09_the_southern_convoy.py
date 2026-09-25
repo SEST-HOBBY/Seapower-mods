@@ -17,8 +17,8 @@ MISSION = dict(
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the "
            "strike and fighter rows",
     intent=("This is the one. Five hulls with a month of Adelaide's and "
-            "Melbourne's cargo in them, the whole force, East Sale's "
-            "fighters, Edinburgh's Poseidon and Wedgetail and the Super "
+            "Melbourne's cargo in them, the whole force, Edinburgh's "
+            "fighters, Poseidon and Wedgetail and the Super "
             "Hornets on the Attack row for the first time. The group is "
             "eighty miles south-west with its flagship destroyer in the "
             "line, and it means to break the convoy here because it "
@@ -39,11 +39,11 @@ MISSION = dict(
         "The protection group is eighty miles south-west and it has "
         "stopped pretending: LIAONING, the Type 052D that has commanded "
         "the group since October, two frigates and a corvette, three J-15s "
-        "with anti-ship missiles and a J-15D on deck, a Ka-31 and a Z-18F "
+        "with anti-ship missiles and a J-15D with them, a Ka-31 and a Z-18F "
         "up. If Under the Tasman missed ROMEO she is under the convoy; if "
         "the Bight missed SIERRA-TWO, so is she.\\n\\n"
         "You have the whole force: the Seahawk, Edinburgh's Poseidon and "
-        "WEDGETAIL 05, East Sale's F-35As on the CAP row, and for the "
+        "WEDGETAIL 05, Edinburgh's F-35As on the CAP row, and for the "
         "first time the Super Hornets and Growlers on the Attack row, "
         "recovering at Edinburgh. A coastal ro-ro, a bulker and the "
         "Melbourne-Perth service are in the box. Four of five to the "
@@ -76,7 +76,8 @@ MISSION = dict(
             "pilot boat waits for a convoy that turned back.",
     stations={
         # The convoy and escorts on 060 for the split point; every cockpit
-        # on the Edinburgh and East Sale side; the group 85 NM south-west
+        # on the Edinburgh side (the nearer field, so the fighters recover
+        # there too); the group 85 NM south-west
         # routed onto the convoy with its strike flight ahead of it; the
         # boats across the track, each only if the chapter left it alive.
         "convoy": S(-38.70, 140.30, "Southern Convoy", heading=60),
@@ -95,7 +96,6 @@ MISSION = dict(
         "roro": S(-39.10, 141.30, "Coastal ro-ro", heading=90),
         "bulker": S(-38.20, 140.00, "Bulker", heading=300),
         "airliner": S(-38.30, 141.50, "Melbourne-Perth", heading=280, alt=38000),
-        "east_sale": S(-38.099, 147.149, "RAAF Base East Sale"),
         "edinburgh": S(-34.703, 138.622, "RAAF Base Edinburgh"),
     },
     units=[
@@ -168,8 +168,6 @@ MISSION = dict(
           route=[(-37.60, 139.20, 0)], telegraph=3),
         U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner",
           name="Melbourne-Perth 471"),
-        U("blue", "SEST_RAAF_Bases", "airbase_raaf_east_sale", "east_sale",
-          name="RAAF Base East Sale", nation="australia", weapons="Hold"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_edinburgh", "edinburgh",
           name="RAAF Base Edinburgh", nation="australia", weapons="Hold"),
     ],
