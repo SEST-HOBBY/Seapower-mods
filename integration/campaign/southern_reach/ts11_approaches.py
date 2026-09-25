@@ -12,15 +12,15 @@ MISSION = dict(
     group="core", num="11", key="Approaches", place="The western Tasman",
     intro=(
         "Hold the opposing group off while the relief transports pass north-east through the "
-        "western Tasman. Secure the passage, engage the Type 052D command ship, and attack "
+        "western Tasman. Secure the passage, sink the Type 052D command ship, and sink "
         "Liaoning if the opportunity permits."
     ),
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the "
            "fighter cover and the strike",
     intent=((
         "Bring at least two of the three relief transports to the north-eastern handover. "
-        "Engage the Type 052D command ship while protecting that movement; attack Liaoning if "
-        "an opportunity permits. The carrier's confirmed loss removes its contribution to the "
+        "Sink the Type 052D command ship while protecting that movement; sink Liaoning if the "
+        "opportunity permits. The carrier's confirmed loss removes its contribution to the "
         "relief-convoy interception on 2 March. The opposing force also depends on whether the "
         "Auckland and Adelaide detachments were contained. Coordinate the allocated aircraft "
         "without delaying a necessary defensive engagement."
@@ -179,7 +179,7 @@ MISSION = dict(
     declares=["TS11CarrierSunk"],
     flags=[dict(name="TS11CarrierSunk", units=["red_cv#1"],
                 intel=(
-                    "DAMAGE REPORT | LIAONING confirmed lost. Its contribution to the next "
+                    "DAMAGE REPORT: LIAONING confirmed lost. Its contribution to the next "
                     "convoy interception is removed from the air threat assessment. Surface "
                     "ships and submarines remain threats; maintain the escort screen."
                 ))],

@@ -149,7 +149,7 @@ MISSION = dict(
     support_loss=[dict(asset="Derwent Spirit", units=["convoy#2"], objective="Tanker",
                        sets="SR09TankerLost",
                        intel=(
-                           "LOGISTICS REPORT | DERWENT SPIRIT confirmed lost with the winter "
+                           "LOGISTICS REPORT: DERWENT SPIRIT confirmed lost with the winter "
                            "fuel cargo. The final southern voyage must sail without her. The "
                            "Antarctic Division needs a revised fuel account from the deliveries"
                            " already made. - Mercer"

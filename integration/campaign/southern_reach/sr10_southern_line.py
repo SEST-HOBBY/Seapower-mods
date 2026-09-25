@@ -67,7 +67,7 @@ MISSION = dict(
     victory=dict(kind="arrive", station="escort", min_units=1, objective="Identify",
                  after=dict(kind="classify", units=["group#1", "group#4"], min_units=2,
                             intel=(
-                                "IDENTIFICATION REPORT | Carrier confirmed as LIAONING; "
+                                "IDENTIFICATION REPORT: Carrier confirmed as LIAONING; "
                                 "collector confirmed as NAN HAI 27. Joint intelligence has "
                                 "accepted the identifications and updated the surface picture. "
                                 "Withdraw north to the line. Existing engagement restrictions "
@@ -140,10 +140,11 @@ MISSION = dict(
     reveal_if=[dict(variable="SR05GroupClassified", units=["group#2", "group#3"],
                     level="Identify",
                     intel=(
-                        "FUSION CELL | Sentry 22's frigate and corvette records from 18 "
+                        "FUSION CELL: Sentry 22's frigate and corvette records from 18 "
                         "December have been correlated with reporting at the ice edge. Those "
-                        "two escorts are identified on the plot. The carrier and collector "
-                        "still require local confirmation."
+                        "two escorts are identified on the plot and held there for the "
+                        "operation. The carrier and collector still require local "
+                        "confirmation."
                     ))],
     window=dict(flights=[HELO]),
     role="recon",

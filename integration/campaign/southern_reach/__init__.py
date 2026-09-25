@@ -110,13 +110,14 @@ INFO_DESC = (
     "fisheries and research protection group - a frigate, two corvettes, an intelligence "
     "trawler and, in the new year, the carrier Liaoning - is stopping Antarctic-bound ships"
     " off Tasmania. Its contractor, Austral Meridian Services, sells compliance corridors "
-    "while a Russian submarine works the Macquarie Ridge. A newly allocated Australian task"
-    " group escorts the resupply season from Storm Bay to the ice edge at 60 South. As the "
+    "while a Russian submarine works the Macquarie Ridge. The Australian task group that "
+    "held the north escorts the resupply season from Storm Bay to the ice edge at 60 South."
+    " As the "
     "formation turns north, the escort task follows it through Fiordland, Cook Strait, the "
     "Tasman, Bass Strait and the Bight. New Zealand's Poseidons support the search among "
     "ferries, tankers, gas platforms and undersea cables. Operations near Auckland and "
-    "Adelaide affect the opposing force available for the final relief passage through the "
-    "western Tasman."
+    "Adelaide decide which opposing detachments rejoin the carrier group for the fleet "
+    "action in the western Tasman."
 )
 
 BROWSE = {"Southern Reach": "Southern Reach", "Tasman Shield": "Tasman Shield"}

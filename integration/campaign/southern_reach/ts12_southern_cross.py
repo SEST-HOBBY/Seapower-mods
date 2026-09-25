@@ -180,9 +180,10 @@ MISSION = dict(
              "Wedgetail": ("protect", "aew")},
     reveal_if=[dict(variable="SR03CrewRecovered", units=["agi"], level="Identify",
                     intel=(
-                        "FUSION CELL | The Wilkins airlink search record of 12 December "
+                        "FUSION CELL: The Wilkins airlink search record of 12 December "
                         "identifies the collector ahead of the spoiler as NAN HAI 27. The "
-                        "contact is entered on the plot. Intelligence assesses a possible "
+                        "contact is identified on the plot and held there for the operation. "
+                        "Intelligence assesses a possible "
                         "spotting role; the contents of its current transmissions remain "
                         "unknown."
                     ))],

@@ -107,17 +107,15 @@ MISSION = dict(
     declares=["SR07AkulaSunk"],
     flags=[dict(name="SR07AkulaSunk", units=["red_sub"],
                 intel=(
-                    "DAMAGE REPORT | VICTOR confirmed lost. Remove that Akula from the "
+                    "DAMAGE REPORT: VICTOR confirmed lost. Remove that Akula from the "
                     "outstanding threat list. Other submarines remain possible; the research "
                     "vessel's presence alone does not establish one."
                 ))],
     reveal_if=[dict(variable="SR02BoatNamed", units=["red_sub"], level="Classify",
                     intel=(
-                        "ASW CELL | HMAS Collins's Macquarie Ridge record of 9 December, shared"
-                        " with Squadron Leader Rewi's crew, supports classification of the "
-                        "reported boat as VICTOR. The matching contact is marked on the plot. "
-                        "Establish local acoustic contact; the earlier record does not prove "
-                        "her current course or depth."
+                        "ASW CELL: HMAS Collins's Macquarie Ridge record of 9 December, shared"
+                        " with Squadron Leader Rewi's crew, identifies the reported boat as "
+                        "VICTOR. She is classified on the plot and held there for the operation."
                     ))],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",

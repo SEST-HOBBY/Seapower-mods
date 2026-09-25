@@ -64,7 +64,7 @@ MISSION = dict(
                  after=dict(kind="classify", units=["network#1", "network#4", "network#5"],
                             min_units=3,
                             intel=(
-                                "SURFACE PICTURE | LIAONING, the Qiongsha-class support ship "
+                                "SURFACE PICTURE: LIAONING, the Qiongsha-class support ship "
                                 "and NAN HAI 27 are classified. Their identities have been "
                                 "passed to Sydney and Wellington for the next patrol's "
                                 "correlation. Hold the shadowing line; reacquire any contact "

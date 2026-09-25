@@ -56,8 +56,9 @@ Orders and outcomes are matched more closely to the existing conditions:
 - Recovery and handover reports avoid claiming a checked landing where the
   condition is an area arrival. Several outcomes no longer assert unobserved
   enemy withdrawals or optional classifications.
-- The 1988 PITCH BLACK dispatch remains an exercise; its denied message reports
-  the umpires' simulated-release decision.
+- The 1988 PITCH BLACK dispatch is the exercise that went live at 0412 (see
+  the review below); its denied message reports the Bear at its release area
+  and the umpires closing the serial.
 
 ## Layout
 
@@ -67,8 +68,8 @@ remain in the technical installation and coverage files.
 
 Deck logs separate the date, ship and master, align times beside wrapped
 remarks, and size the master's note before reserving its space. Signals wrap
-long metadata and analyst notes. Intelligence summaries separate organisation,
-reference/date and subject. These renderers reject vertical overflow instead
+long metadata and analyst notes. Intelligence summaries set the organisation
+and reference/date on one line when they fit, then the subject. These renderers reject vertical overflow instead
 of dropping or clipping content. Fiction banners are absent from the narrative.
 
 ## Verification
@@ -103,3 +104,64 @@ git diff --check
 This is static and rendered-page verification. The in-game briefing panes,
 story scaling, displayed messages and runtime trigger behaviour still require
 a Sea Power play test. The existing test cards retain those checks.
+
+## Review of this revision (26 September)
+
+Three reviewers checked this revision: mechanics and reproducibility, facts
+and narrative, and page layout. They confirmed that it changes display text
+only. Their 27 findings, and what was done about each, are listed here. The
+revision's prose remains the baseline; only these points changed.
+
+**Message format**
+
+| Finding | Done |
+|---|---|
+| Blocking: SW D7 and SW O1 denied messages had a second `\|` inside the body. The game reads a message as `Title\|Body\|Button` | Both now read `SENDER: text`. `build_pack.check_message_texts()` runs in `render()` and stops the build, naming the mission and key, on a `\|` in brief, win, lose, timeout, stage-lost or denied text, or in any intel text |
+| All rewritten intel used `SENDER \| text`; no evidence that intel text accepts `\|` | 37 strings in both campaigns now use `SENDER: text`, with the same senders. Generated INI files: 156 intel values, none with `\|`; 1,300 message values, each with exactly the builder's own `Title\|` separator |
+| `TITLE_FIX` was dead after MODS IN PLAY went | Deleted |
+| build-notes still listed MODS IN PLAY | The briefing row lists SITUATION / FROM / COMMANDER'S INTENT / TASK / FORCES / TIME / RULES OF ENGAGEMENT |
+| Both red-side banners read "Command report."; TIME no longer said the main task fails | "Opposing force prevailed." / "Opposing force defeated."; TIME ends "...and the main task will be recorded as failed." |
+
+**Facts and story**
+
+| Finding | Done |
+|---|---|
+| Blocking: D7 read as a pure exercise, but the Bear must be shot down with live weapons. This reopened review-disposition "nobody is shooting anything real" | Brief, intent, intro, win, denied message and the dispatch description say the serial went live at 0412: a live round at the range ship, and aggressors answering with real missiles. The umpires still score the tanker |
+| Reveal messages sent the player to confirm contacts that `UnitRevealTime=-1` keeps on the plot | SW02, SW04, SW06 (and its brief: "it stays on your plot for the rest of the morning"), SW11, SR05, SR07, SR10, TS01, TS02, TS03 (both), TS04, TS05 and TS12 say the contact is held on the plot for the operation. Only contacts a reveal does not cover are left to local sensors |
+| Southern Reach task group was "newly allocated" | INFO_DESC and the opening page: the task group that held the north |
+| INFO_DESC tied TS10A/B to the final relief passage | They decide which opposing detachments rejoin the carrier group for the western-Tasman fleet action (TS11) |
+| D4 put the Australian patrol across the corridor and used a Tu-95MS as the sensor | About 120 NM west-south-west of the auxiliary, closing north-east; the escorts' and fighters' sensors update it |
+| 5 January INTSUM put the formation south of the Casey route | With the fishing fleet at the ice edge, across the route to Casey |
+| TS11 said "engage" for a scored destroy objective | Intro and intent: sink the Type 052D, and Liaoning if the opportunity permits |
+| O1 denied text read as recoverable; "recovery handover distance" | Salvor alongside with her crane working, recovery failed; "inside a mile and a half" |
+| SW03 "complete the pickup" for an area check | Lifter over the rig, crew boarding; the order is the return |
+| SW12 first light read as 27 November | Ceasefire 0000 on 27 November; the first convoy sails at first light today (28th) |
+| SW01 window lost the empty-deck warning | The Seahawk is not automatic: allocate an MH-60R and assign it to Ship's Flight under Air Tasking, or the deck sails empty |
+| 12 November INTSUM para 4 quoted the objective rules | Guidance in voice: seventy-minute window, a silent battery is worth more than a destroyed one, the civilian buildings are not targets |
+| 8 November Ward memo: wrong "tomorrow" | Para 4: packages still airborne lose their fuel and the next day's sorties are replanned |
+| SR epilogue asserted crew losses | "Whatever it cost is in the task group's report"; "any crews lost" |
+
+**Layout**
+
+| Finding | Done |
+|---|---|
+| SW Meridian INTSUM fell to 18pt | `intsum()` sets ref/date on the organisation line when they fit, drops the half-line counted after the last paragraph, and keeps a trailing "  - Cdre Mercer" intact. Para 4 is two lines. Now 22pt; SR 03b INTSUM 24 to 26pt |
+| Speaker tags collapsed to one space | "A:  " / "B:  " in both intercepts; the dialogue column aligns |
+| SR 04 sitrep body contradicted "THE STATIONS ARE SUPPLIED"; 21pt | The stations have their winter; the fuel margin depends on which tankers came through. 23pt |
+| "Force allocation" jargon on the SR opening page | Removed (see the task-group line) |
+| "12 / kn." split in the 6 December log | "twelve knots" |
+| One-word widow in the 28 February master's note | Two lines |
+| SR 02 and 06 sitreps stepped down to 21pt | Both 23pt with the facts kept. SR 02 no longer strands one line at the head of the right column. SW 03b and SR 05b stay at 24pt (not in scope) |
+| Briefing loose ends | Bullets use `Margin="0,0,0,4"`; defeat banners read "Operation failed." (Taskforce1DefeatMessage, StageLostMessage, Denied), and the neutral-loss body says the operation has failed |
+
+[isr-dialogue-notes.md](isr-dialogue-notes.md) rows 5, 7-9, 13, 18, 19, 22, 24,
+25 and 31-34 now describe the current wording.
+
+Verification: `build_pack.py` and `consolidate_packs.py` succeed.
+`check_campaign_coverage.py`, `check_load_order.py`, `check_dependencies.py`,
+`preflight.py`, and `preflight.py` run on each of the 51 campaign missions by
+name, all exit 0. All 188 briefing XML files parse, and `git diff --check`
+passes. Thirteen story pages changed; each was viewed as rendered. Type sizes
+that moved: SW 00b 18 to 22pt; SR 02, 04 and 06 sitreps 21 to 23pt; SR 03b
+24 to 26pt. Nothing got smaller. In-game display of messages and intel still
+needs the play test in the test cards.

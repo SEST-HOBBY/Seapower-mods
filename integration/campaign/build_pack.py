@@ -2055,7 +2055,49 @@ def check_geometry(mission, placed, members):
                 f"buys {reach:.0f} NM. Move the box or lengthen the mission.")
 
 
+def message_texts(mission):
+    """Every in-game message body and intel text this mission writes, as
+    (where, text). The builder puts its own 'Title|' in front of a message;
+    the text after it must not add another '|'. The game reads a message as
+    Title|Body|Button - its own missions end theirs '|Exit mission' and
+    '|Start mission' - so a second pipe turns the rest of the sentence into
+    the button label. Intel text is shown by Action_Taskforce1_Intel, and
+    no mission in the game, the repo or its mods puts a '|' in one."""
+    out = [(k, mission[k]) for k in ("brief", "win", "lose", "timeout")
+           if mission.get(k)]
+    after = mission.get("victory", {}).get("after", {})
+    if after.get("lost"):
+        out.append(("victory.after.lost (stage lost)", after["lost"]))
+    if after.get("intel"):
+        out.append(("victory.after.intel (stage intel)", after["intel"]))
+    for i, deny in enumerate(mission.get("denied", []), 1):
+        out.append((f"denied[{i}].message", deny["message"]))
+    for oid, reward in mission.get("reveals", {}).items():
+        out.append((f"reveals[{oid}].intel", reward["intel"]))
+    for i, loss in enumerate(mission.get("support_loss", []), 1):
+        out.append((f"support_loss[{i}].intel", loss["intel"]))
+    for reveal in mission.get("reveal_if", []):
+        out.append((f"reveal_if[{reveal['variable']}].intel", reveal["intel"]))
+    for flag in mission.get("flags", []):
+        if flag.get("intel"):
+            out.append((f"flags[{flag['name']}].intel", flag["intel"]))
+    for find in mission.get("discoveries", []):
+        out.append((f"discoveries[{find['objective']}].intel", find["intel"]))
+    return out
+
+
+def check_message_texts(mission):
+    for where, text in message_texts(mission):
+        if "|" in text:
+            raise SystemExit(
+                f"{mission.get('code', mission['num'])} {mission['key']}: '|' in "
+                f"{where}. The game splits a message on '|' into title, body and "
+                "button, and intel text is not known to accept one; write the "
+                "sender as 'SENDER: text'.")
+
+
 def render(mission, placed, members):
+    check_message_texts(mission)
     name = mission_name(mission)
     centre = mission["centre"]
     victory = mission["victory"]
@@ -2069,11 +2111,11 @@ def render(mission, placed, members):
              f"{ini_text(mission['brief'])}")
     L.append("Taskforce1VictoryMessage=<color=lime>Operation complete.</color>|"
              f"{ini_text(mission['win'])}")
-    L.append("Taskforce1DefeatMessage=<color=red>Operation suspended.</color>|"
+    L.append("Taskforce1DefeatMessage=<color=red>Operation failed.</color>|"
              f"{ini_text(mission['lose'])}")
-    L.append("Taskforce2VictoryMessage=<color=lime>Command report.</color>|"
+    L.append("Taskforce2VictoryMessage=<color=lime>Opposing force prevailed.</color>|"
              f"{ini_text(mission['lose'])}")
-    L.append("Taskforce2DefeatMessage=<color=red>Command report.</color>|"
+    L.append("Taskforce2DefeatMessage=<color=red>Opposing force defeated.</color>|"
              f"{ini_text(mission['win'])}")
     L.append("TimeoutMessage=<color=red>Operational window closed.</color>|"
              f"{ini_text(mission['timeout'])}")
@@ -2088,12 +2130,12 @@ def render(mission, placed, members):
     if mission.get("victory", {}).get("after", {}).get("intel"):
         L.append(f"StageIntel={ini_text(mission['victory']['after']['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("lost"):
-        L.append("StageLostMessage=<color=red>Operation suspended.</color>|"
+        L.append("StageLostMessage=<color=red>Operation failed.</color>|"
                  + ini_text(mission["victory"]["after"]["lost"]))
     for reveal in mission.get("reveal_if", []):
         L.append(f"{reveal['variable']}Intel={ini_text(reveal['intel'])}")
     for i, deny in enumerate(mission.get("denied", []), 1):
-        L.append(f"Denied{i}Message=<color=red>Operation suspended.</color>|"
+        L.append(f"Denied{i}Message=<color=red>Operation failed.</color>|"
                  + ini_text(deny["message"]))
     for flag in mission.get("flags", []):
         if flag.get("intel"):
@@ -2102,8 +2144,8 @@ def render(mission, placed, members):
         L.append(f"{find['objective']}Intel={ini_text(find['intel'])}")
     if neutral_tags:
         L.append("NeutralLossMessage=<color=orange>Neutral contact lost.</color>|"
-                 "A protected contact has been destroyed. Command has suspended "
-                 "the operation. Preserve the contact and engagement records.")
+                 "A protected contact has been destroyed. The operation has "
+                 "failed. Preserve the contact and engagement records.")
     for family in FAMILY_ORDER:
         for tag, _keys, unit_name, _x in placed.get(family, []):
             if unit_name and tag != mission.get("_anchor_tag"):
@@ -2797,10 +2839,6 @@ def event_page(event):
         '</Viewbox>\n')
 
 
-TITLE_FIX = {"RAAF F-35A Lighting II": "RAAF F-35A Lightning II",
-             "Auxilliary Merchant Pack": "Auxiliary Merchant Pack"}
-
-
 def briefing_page(mission):
     parts = []
 
@@ -2809,8 +2847,10 @@ def briefing_page(mission):
                      f'Text="{xml_escape(head)}"/>')
         for paragraph in re.split(r"(?:\\n\\n|\n\s*\n)", text):
             if paragraph.strip():
+                # a task bullet sits closer to the next one than prose does
+                gap = "4" if paragraph.strip().startswith("\u2022") else "10"
                 parts.append(f'<TextBlock FontSize="16" TextWrapping="Wrap" '
-                             f'Margin="0,0,0,10" '
+                             f'Margin="0,0,0,{gap}" '
                              f'Text="{xml_escape(paragraph.strip())}"/>')
 
     section("SITUATION", mission["brief"])
@@ -2828,7 +2868,8 @@ def briefing_page(mission):
                                 for _oid, text, _s in mission["objectives"]))
     section("FORCES", mission["forces"])
     section("TIME", f"Complete the assigned task within {mission['minutes']} "
-                    "minutes. Command will close the operation at that deadline.")
+                    "minutes. Command will close the operation at that deadline "
+                    "and the main task will be recorded as failed.")
     if any(not u.get("no_neutral_penalty") for u in mission["units"]
            if u["side"] == "neutral"):
         section("RULES OF ENGAGEMENT",

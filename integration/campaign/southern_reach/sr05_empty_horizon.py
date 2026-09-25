@@ -66,7 +66,7 @@ MISSION = dict(
                  after=dict(kind="classify", units=["group#1", "group#2"],
                             min_units=2,
                             intel=(
-                                "SENTRY 22 REPORT | Type 054A frigate and Type 056A corvette "
+                                "SENTRY 22 REPORT: Type 054A frigate and Type 056A corvette "
                                 "classified. The intelligence cell can now correlate these "
                                 "contacts with earlier satellite detections. Withdraw the "
                                 "Triton north; maintain separation from the frigate's "
@@ -143,10 +143,10 @@ MISSION = dict(
     declares=["SR05GroupClassified"],
     reveal_if=[dict(variable="SR01ShadowNamed", units=["agi"], level="Classify",
                     intel=(
-                        "FUSION CELL | Earlier Storm Bay reporting identifies NAN HAI 27. That "
+                        "FUSION CELL: Earlier Storm Bay reporting identifies NAN HAI 27. That "
                         "identification has been correlated with the collector in the current "
-                        "search area and entered on the plot. The frigate and corvette still "
-                        "require classification."
+                        "search area; the collector is on the plot and held there for the "
+                        "operation. The frigate and corvette still require classification."
                     ))],
     window=dict(),
     role="recon",

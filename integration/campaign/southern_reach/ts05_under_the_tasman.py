@@ -116,10 +116,11 @@ MISSION = dict(
                       "beneath it.")],
     reveal_if=[dict(variable="TS03TenderNamed", units=["survey"], level="Classify",
                     intel=(
-                        "FUSION CELL | AUSTRAL SURVEY carries an emitter set recorded at "
+                        "FUSION CELL: AUSTRAL SURVEY carries an emitter set recorded at "
                         "AUSTRAL COMPLIANCE's rendezvous on 28 January. The surface contact is "
-                        "classified on the plot. This supports an association with the tender "
-                        "network; establish an acoustic contact to locate ROMEO."
+                        "classified on the plot and held there for the operation. This supports"
+                        " an association with the tender network; ROMEO is not on the plot and "
+                        "needs an acoustic contact."
                     ))],
     window=dict(),
     # Farncomb going home after the kill is not the force being wiped out.

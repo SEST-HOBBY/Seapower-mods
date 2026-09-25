@@ -185,10 +185,10 @@ EVENTS = [
              "window to move civilians and emergency supplies out. That "
              "window, not a body count, is the aim.",
              (
-                 "4. The agreed relief window is seventy minutes. Both transports must survive "
-                 "and at least one must reach the safe area within that window. Suppress the "
-                 "battery covering the route and leave civilian buildings standing. The relief "
-                 "movement takes priority over damage to the airfield."
+                 "4. Guidance. The agreed relief window is seventy minutes. A battery kept off "
+                 "the air for that long is worth more than a battery destroyed at the cost of the"
+                 " aircraft flying the relief. The civilian buildings on the field are not "
+                 "targets."
              )],
          note=(
              "Keep the relief route open for the agreed window. Bring the transports through.  "
@@ -656,10 +656,10 @@ MISSIONS.append(dict(
                  after=dict(kind="area", units="lift", at_unit="rig", radius=3,
                             min_units=1, per_unit=True,
                             intel=(
-                                "AMPHIBIOUS CONTROL | The lifter is within Rig Seventeen's "
-                                "pickup area. The platform crew reports ready on the helideck. "
-                                "Complete the pickup and return the helicopter to the "
-                                "amphibious group; keep the approach clear of the patrol boat."
+                                "AMPHIBIOUS CONTROL: The lifter is over Rig Seventeen. The "
+                                "platform crew is on the helideck and boarding. Return the "
+                                "helicopter to the amphibious group; keep the approach clear of"
+                                " the patrol boat."
                             ),
                             lost="The lifter with the platform crew aboard is "
                                  "down. There is nobody left to bring south."),
@@ -778,7 +778,7 @@ MISSIONS.append(dict(
                  # because finding out what it is IS the task.
                  after=dict(kind="classify", units="passenger", min_units=1,
                             intel=(
-                                "ESCORT CONTACT REPORT | WHISKEY classified as a low-profile "
+                                "ESCORT CONTACT REPORT: WHISKEY classified as a low-profile "
                                 "semi-submersible. Correlate the local observations with the "
                                 "surface track and keep the craft under surveillance to the "
                                 "handover box. Its cargo is still unconfirmed. Do not sink the "
@@ -979,9 +979,9 @@ MISSIONS.append(dict(
             "northern surface search. Earlier satellite detections and merchant reports give a "
             "search area; they do not fix the group's current position. It is unarmed, it is "
             "slow, and a pair of J-16s has come south off the enclave field on a vector that "
-            "only makes sense if they know where the orbit is.\\n\\nClassify the surface group so"
-            " the intelligence cell can correlate its identities and distribute the report. To "
-            "do it the Triton has to go north, into the part of the sky the J-16s own. Holding "
+            "only makes sense if they know where the orbit is.\\n\\nClassify that surface group "
+            "and it stays on your plot for the rest of the morning. To do it the Triton has to "
+            "go north, into the part of the sky the J-16s own. Holding "
             "the Triton south reduces its exposure but leaves gaps in the northern search; the "
             "flagship must work with its remaining sensors and earlier reports. If the Korean "
             "detachment reached the join point on the fourth, ROKS SEJONG THE GREAT is in your "
@@ -1021,11 +1021,10 @@ MISSIONS.append(dict(
     reveals={"Picture": dict(units=["red_sag", "red_air"], level="Identify",
                              seconds=-1,
                              intel=(
-                                 "FUSION CELL / SENTRY 06 | Northern group classified: a Luda "
-                                 "destroyer and a Type 054A frigate. Their identities and the "
-                                 "associated J-16 reports are entered on the plot. Compare the "
-                                 "reported south-westerly movement with current detections "
-                                 "before committing weapons."
+                                 "FUSION CELL / SENTRY 06: The northern group is a Luda "
+                                 "destroyer and a Type 054A frigate, with the J-16s that came "
+                                 "for the Triton. All of them are identified on the plot and "
+                                 "held there for the rest of the operation."
                              ))},
     victory=dict(kind="arrive", station="convoy", at=(-11.9, 130.6), radius=30,
                  min_units=2, objective="Convoy",
@@ -1412,7 +1411,7 @@ MISSIONS.append(dict(
                             at_unit="support#1", radius=5, min_units=2,
                             after_minutes=35, sets="SW09ServiceHeld",
                             intel=(
-                                "SERVICE CONTROL | Stalwart and Collins are inside the area at "
+                                "SERVICE CONTROL: Stalwart and Collins are inside the area at "
                                 "the scheduled check. The protected rendezvous is complete and "
                                 "the next ammunition allocation is released. Withdraw both "
                                 "vessels south together. The last reconnaissance report remains"
@@ -1791,10 +1790,10 @@ MISSIONS.append(dict(
     blue_nation="Australia", red_nation="China",
     brief=(
         (
-            "ARAFURA SEA. The ceasefire came into effect at 0000 on 27 November and traffic "
-            "started moving at first light because insurers move faster than diplomats. CORAL "
-            "PIONEER is at the head of the first convoy through, with a bearing running hot and"
-            " nine knots she can hold.\\n\\nThere are two Chinese naval groups in the box. One "
+            "ARAFURA SEA. The ceasefire came into effect at 0000 on 27 November, and the first "
+            "convoy sails at first light today because insurers move faster than diplomats. "
+            "CORAL PIONEER is at the head of it, with a bearing running hot and nine knots she "
+            "can hold.\\n\\nThere are two Chinese naval groups in the box. One "
             "has acknowledged its withdrawal order and is heading north at steady speed. The "
             "other has not acknowledged anything since 0400 and, if FUJIAN is still afloat, has"
             " a maritime strike flight within range.\\n\\nTell them apart. Get the convoy home. "
@@ -1960,7 +1959,7 @@ MISSIONS.append(dict(
                  after=dict(kind="classify", units="coaster", min_units=1,
                             sets="O2KiwiPicture",
                             intel=(
-                                "CONTACT CORRELATION / KIWI 01 | Coaster identified as MV "
+                                "CONTACT CORRELATION / KIWI 01: Coaster identified as MV "
                                 "HARBOUR LIGHT. Rewi's crew has logged the collection fit and a"
                                 " report of submarine activity in company. Pass the separate "
                                 "surface and acoustic records to Darwin and Wellington, then "
@@ -2585,10 +2584,11 @@ MISSIONS.append(dict(
             " side where you are going.\\n\\nGet her south-east past the corridor. This is not a "
             "raid. If you start a fleet action to protect a workshop ship you will lose "
             "both.\\n\\nDETACHMENT INTELLIGENCE: Earlier surface-search reporting places an "
-            "Australian Hobart-class destroyer and Anzac-class frigate across the withdrawal "
-            "corridor, with a P-8A and an assessed F-35A patrol. Bear 02 and the ships' sensors"
-            " must update that report as contact permits. Avoid widening the fight while the "
-            "auxiliary clears south-east."
+            "Australian Hobart-class destroyer and Anzac-class frigate about a hundred and "
+            "twenty miles west-south-west of the auxiliary, closing north-east, with a P-8A and"
+            " an assessed F-35A patrol. The escorts' and fighters' sensors must update that "
+            "report as contact permits. Avoid widening the fight while the auxiliary clears "
+            "south-east."
         )),
     forces="Pyotr Velikiy, a Project 11356 frigate and Kuznetsov's covering "
            "group; a Felon, a Su-30SM2, a MiG-29K, a Su-33 and a lent J-16D; a "
@@ -2902,14 +2902,15 @@ MISSIONS.append(dict(
     group="dispatch", num="D7", key="Before the Lifeline",
     place="Darwin approaches, 1988",
     intro=(
-        "Darwin approaches, July 1988. Intercept the maritime exercise strike before the Bear "
-        "reaches its release line and protect the high-altitude reconnaissance aircraft."
+        "Darwin approaches, July 1988. A PITCH BLACK strike serial has gone live: shoot down "
+        "the Bear before its release line and protect the high-altitude reconnaissance "
+        "aircraft."
     ),
     sender="Exercise Director, PITCH BLACK 88, maritime phase",
     intent=((
-        "This is an exercise interception. Stop the Bear before its simulated release line, "
-        "keep the U-2 safe and leave the Badger tanker out of the engagement. The umpires will "
-        "assess the strike against the surface group if it reaches the line."
+        "The exercise went live at 0412. Kill the Bear before its release line, keep the U-2 "
+        "safe and leave the Badger tanker out of the engagement; the umpires still score a "
+        "shot at it."
     )),
     date=(1988, 7, 12), time=(5, 55), sea=3, clouds="Scattered_1", wind="SE",
     difficulty=3, minutes=60, centre=(-11.0, 130.2),
@@ -2921,10 +2922,11 @@ MISSIONS.append(dict(
             " Soviet and Chinese profiles.\\n\\nA Bear G is running the maritime strike serial "
             "with a Badger tanker behind it. Dragon 41, the U-2, is high over the exercise box;"
             " the Nighthawk detachment faces the aggressor squadron's J-8s and MiG-23. Airborne"
-            " and ship radar reports form the working picture.\\n\\nIntercept the Bear before its"
-            " simulated release line and protect Dragon 41 throughout the engagement. The "
-            "Badger tanker is excluded from engagement. The umpires assess a simulated launch "
-            "if the Bear reaches the line; the serial remains an exercise."
+            " and ship radar reports form the working picture.\\n\\nIt was an exercise until "
+            "0412, when the Bear released a live round at the range ship and the aggressors "
+            "started answering with real missiles. Kill the Bear before its release line and "
+            "protect Dragon 41 throughout the engagement. The umpires are still on the net: the"
+            " Badger tanker is out of play and a shot at it is scored against you."
         )),
     forces="USS Kitty Hawk, F-14A and F-117 detachments, a B-52G, a U-2, "
            "an Italian Tornado on exchange. Aggressors: two J-8, a MiG-23, a "
@@ -2942,15 +2944,15 @@ MISSIONS.append(dict(
     denied=[dict(units=["aggressor#1"], at=(-10.9, 130.1), radius=5,
                  objective="Serial",
                  message=(
-                     "EXERCISE CONTROL | BEAR G 90 has reached the release area. The umpires "
-                     "score a simulated launch against the surface group. Pass the radar record"
-                     " to the debrief staff and keep the Badger tanker out of the engagement."
+                     "EXERCISE CONTROL: BEAR G 90 has reached its release area with the serial "
+                     "intact. The umpires score the launch against the surface group and close "
+                     "the serial. Pass the radar record to the debrief staff."
                  ))],
     fatal=[],
     neutral_objective="Umpire",
     win=(
-        "The Bear was intercepted before the release line. Report the reconnaissance aircraft's"
-        " status and account for the remaining exercise participants."
+        "The Bear is down short of its release line. Report the reconnaissance aircraft's "
+        "status and account for the remaining exercise participants."
     ),
     lose="The serial got through. Somebody's squadron is buying the drinks and "
          "writing the report.",
@@ -3129,8 +3131,8 @@ DISPATCH_DESC = (
     "Relief Ship and The Long Perimeter follow European and American detachments through "
     "the crisis. Return Passage follows a Russian auxiliary's withdrawal. Range Week "
     "records a live counter-launcher and missile-defence trial. Long Reach follows a bomber"
-    " escort in March 2034, while Before the Lifeline returns to the 1988 PITCH BLACK "
-    "exercise in the same waters."
+    " escort in March 2034, while Before the Lifeline returns to the morning in 1988 when a"
+    " PITCH BLACK exercise serial in the same waters went live."
 )
 
 
@@ -3210,11 +3212,11 @@ MISSIONS.append(dict(
                  sets="O1BeaconFound",
                  after=dict(kind="classify", units="wreck", min_units=1,
                             intel=(
-                                "ESCORT WATCH | TORRES LIGHT identified, adrift with damage "
+                                "ESCORT WATCH: TORRES LIGHT identified, adrift with damage "
                                 "above the waterline and boats reported alongside. The bridge "
-                                "recorder is believed to remain aboard. Bring the lead ship "
-                                "within the recovery handover distance before MERIDIAN SALVOR "
-                                "reaches her. Maintain contact with both vessels."
+                                "recorder is believed to remain aboard. Get the lead ship "
+                                "alongside her, inside a mile and a half, before MERIDIAN "
+                                "SALVOR reaches her. Maintain contact with both vessels."
                             ))),
     declares=["O1BeaconFound"],
     # The win names the lead ship alone, so losing her ends it - stock's
@@ -3229,10 +3231,10 @@ MISSIONS.append(dict(
     denied=[dict(units=["meridian"], at=(-10.4, 131.9), radius=1.0,
                  objective="Search",
                  message=(
-                     "ESCORT WATCH | MERIDIAN SALVOR has reached TORRES LIGHT before our lead "
-                     "ship. Access to the recorder is no longer assured. Preserve the contact "
-                     "record and report the recovery attempt; the order not to sink the "
-                     "Meridian vessel remains in force."
+                     "ESCORT WATCH: MERIDIAN SALVOR is alongside TORRES LIGHT and her crane is "
+                     "working. The recorder is going aboard a ship we cannot stop without sinking"
+                     " her. The recovery has failed; the order not to sink the Meridian vessel "
+                     "remains in force."
                  ))],
     neutral_objective="Traffic",
     win=(
@@ -3622,11 +3624,9 @@ DOCUMENTS = [
              "a client using it, is NOT established.",
              (
                  "4. Guidance to the force. Meridian Safety Escort Seven, which fired on the "
-                 "Indonesian patrol on 18 October, had been correlated as a commercial hull for"
-                 " six hours using AIS, merchant reports and patrol observations. That record "
-                 "did not establish peaceful intent. Match every identity against local "
-                 "behaviour and emissions; apply the engagement orders to the contact's "
-                 "actions, not its flag or owner."
+                 "Indonesian patrol on 18 October, passed for six hours as a commercial hull on"
+                 " AIS and merchant reports. Judge a contact by its behaviour and emissions, not"
+                 " its flag or owner."
              )],
          note=(
              "Ownership is not hostile intent. Confirm the contact and its actions.  - Cdre "
@@ -3717,15 +3717,15 @@ DOCUMENTS = [
          body=[
              "A:  Seven, Control. Your inspection point is confirmed for "
              "tomorrow. The group is four hulls plus one grey.",
-             "B: One grey. Say again the grey.",
+             "B:  One grey. Say again the grey.",
              (
-                 "A: One warship. Same one as the eighteenth. You are to establish the "
+                 "A:  One warship. Same one as the eighteenth. You are to establish the "
                  "inspection and hold the group until the northern element is in position. Do "
                  "not engage the grey unless engaged."
              ),
-             "B: Control, Seven. The grey engaged the last time. It will do it again.",
-             "A: Then you will have been engaged. Control out.",
-             "B: [unreadable] ... eight minutes ... [unreadable]"],
+             "B:  Control, Seven. The grey engaged the last time. It will do it again.",
+             "A:  Then you will have been engaged. Control out.",
+             "B:  [unreadable] ... eight minutes ... [unreadable]"],
          note=(
              "The 'northern element' is assessed as the Chinese surface group reported on 30 "
              "October: a Sovremenny-class destroyer and a Type 071 transport. Patrol reporting "
@@ -3754,9 +3754,9 @@ DOCUMENTS = [
                  " FROM THE ENCLAVE."
              ), "",
              (
-                 "4. THE TANKER'S LOSS WOULD REMOVE TOMORROW'S REFUELLING SUPPORT AND FORCE A "
-                 "REVIEW OF FOLLOWING SORTIES. PROTECT IT. DO NOT ASSUME ANOTHER AIRFRAME IS "
-                 "AVAILABLE TO REPLACE IT."
+                 "4. IF THE TANKER IS LOST, EVERY PACKAGE STILL AIRBORNE LOSES ITS FUEL AND THE "
+                 "NEXT DAY'S SORTIES MUST BE REPLANNED. PROTECT IT. DO NOT ASSUME ANOTHER "
+                 "AIRFRAME IS AVAILABLE TO REPLACE IT."
              ), "",
              (
                  "5. WEDGETAIL WILL PASS THE INTERCEPTOR PICTURE AS RADAR CONTACTS ARE ACQUIRED"
@@ -3953,9 +3953,9 @@ BUY_12 = ["usn_p8", "raaf_f-35a", "usn_fa-18f_blk3", "E7A_Wedgetail",
 
 WINDOWS = {
     "01": dict(buy=True, situation=(
-        "Assemble the escort force for the eighteenth. Assign an MH-60R to Ship's Flight under "
-        "the air tasking plan as required; the embarked flight needs a separate allocation. "
-        "Further force allocation is available before Steel Highway."
+        "Assemble the escort force for the eighteenth. The Seahawk is not automatic: allocate "
+        "an MH-60R here and assign it to Ship's Flight under Air Tasking, or the deck sails "
+        "empty. Further force allocation is available before Steel Highway."
     ), allow=BUY_01, repair=True, rearm=True, flights=[HELO]),
     # A detachment of what White Water left, and a Ship's Flight row for the
     # Seahawk if one was bought. No builder, no repair: it is the next day.
@@ -4353,13 +4353,13 @@ for _m in MISSIONS:
 SUPPORT_LOSS = {
     "01": [dict(asset="Bluefin 21", units=["air#1"],
                 intel=(
-                    "AIR COMPONENT | Bluefin 21 confirmed lost. The Poseidon's local sensor "
+                    "AIR COMPONENT: Bluefin 21 confirmed lost. The Poseidon's local sensor "
                     "coverage is gone. Correlate available Triton, ship and shore reports; "
                     "expect gaps until another patrol can be assigned. - Ward"
                 ))],
     "02": [dict(asset="HMAS Supply", units=["escort#3"],
                 intel=(
-                    "COMMAND | SUPPLY confirmed lost. Her support allocation is no longer "
+                    "COMMAND: SUPPLY confirmed lost. Her support allocation is no longer "
                     "available. The next logistics plan must use the surviving ships and any "
                     "replacement command can release. - Mercer"
                 )),
@@ -4368,20 +4368,20 @@ SUPPORT_LOSS = {
                 # would shorten "from today", and nothing in the campaign
                 # recorded the loss to make that happen.
                 intel=(
-                    "AIR COMPONENT | The tanker is lost. Its support for this operation has "
+                    "AIR COMPONENT: The tanker is lost. Its support for this operation has "
                     "ended. Reassess aircraft recovery and report remaining fuel; later "
                     "allocations will require a new plan. - Ward"
                 ))],
     "06": [dict(asset="Sentry 06", units=["isr"], objective="Sentry",
                 intel=(
-                    "AIR COMPONENT | Sentry 06 confirmed lost. Its local surveillance "
+                    "AIR COMPONENT: Sentry 06 confirmed lost. Its local surveillance "
                     "contribution has ended. Retain earlier reports with their observation "
                     "times and use surviving sensors to check them; command cannot promise an "
                     "immediate replacement. - Ward"
                 ))],
     "12": [dict(asset="Wedgetail 03", units=["aew"],
                 intel=(
-                    "AIR COMPONENT | Wedgetail 03 confirmed lost. The allocated "
+                    "AIR COMPONENT: Wedgetail 03 confirmed lost. The allocated "
                     "air-surveillance detachment has lost one of its aircraft. Use the "
                     "surviving sensors to maintain the final convoy's warning picture. - Ward"
                 ))],
@@ -4470,10 +4470,9 @@ for _m in MISSIONS:
         _m["reveal_if"] = [dict(
             variable="O1BeaconFound", units=["sub"], level="Classify",
             intel=(
-                "ASW CELL | Torres Light's recovered bridge record has been correlated with the"
-                " submarine report on this route. The matching contact is classified on the "
-                "plot. Establish local contact and apply the current engagement orders; a "
-                "historical datum alone is not permission to fire."
+                "ASW CELL: Torres Light's recovered bridge record matches the submarine report "
+                "on this route. The contact is classified on the plot and held there for the "
+                "operation. Engage it under the current orders."
             ))]
     if _m["num"] == "06":
         # ("classify", ref, minimum, variable-to-set)
@@ -4487,7 +4486,7 @@ for _m in MISSIONS:
         _m["discoveries"] = [dict(
             after="Picture", objective="Airlift", seconds=120,
             intel=(
-                "FUSION CELL / SENTRY 06 | The escorts appear to be screening an air route. An "
+                "FUSION CELL / SENTRY 06: The escorts appear to be screening an air route. An "
                 "unidentified heavy transport is running north towards the Biak enclave. Extend"
                 " the search only if the Triton can do so safely; the convoy remains the "
                 "priority."
@@ -4497,9 +4496,9 @@ for _m in MISSIONS:
         _m["reveal_if"] = [dict(
             variable="O2KiwiPicture", units=["sub"], level="Classify",
             intel=(
-                "ASW CELL | Kiwi 01's earlier report links the coaster to submarine activity on"
-                " this route. The matching submarine contact is classified on the plot. Its "
-                "current position and movement still require local sensor contact."
+                "ASW CELL: Kiwi 01's earlier report links MV Harbour Light to a submarine "
+                "working this route. That contact, the Type 039, is classified on the plot and "
+                "held there for the operation. It is not the passenger."
             ))]
     if _m["num"] == "06":
         # Borrowed Shield, kept: the Korean destroyer stands in the screen.
@@ -4526,7 +4525,7 @@ for _m in MISSIONS:
     if _m["num"] == "11":
         _m["flags"] = [dict(name="SW11FujianSunk", units=["red_cv#1"],
                             intel=(
-                                "DAMAGE REPORT | FUJIAN confirmed lost. Its contribution to the"
+                                "DAMAGE REPORT: FUJIAN confirmed lost. Its contribution to the"
                                 " next interception has been removed from the threat "
                                 "assessment. Liaoning's status and any remaining aircraft must "
                                 "be established separately."
@@ -4535,9 +4534,10 @@ for _m in MISSIONS:
             variable="SW06NorthernGroupClassified",
             units=["red_cv#3", "red_cv#4", "red_cv#5"], level="Identify",
             intel=(
-                "FUSION CELL | Earlier Sentry 06 reporting has been correlated with the present"
-                " escort screen. The identified escorts are entered on the plot. The carriers "
-                "remain unconfirmed locally; use current sensors to establish their positions."
+                "FUSION CELL: Earlier Sentry 06 reporting has been correlated with the present"
+                " escort screen. The identified escorts are on the plot and held there for the "
+                "operation. The carriers are not; use current sensors to establish their "
+                "positions."
             ))]
     if _m["num"] == "12":
         # Sink the carrier at Fujian's Shadow and the spoiler group has no air
