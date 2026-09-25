@@ -1,5 +1,10 @@
 # Aligning a Sea Power install with this branch
 
+> The current procedure, with the counts for a pack that carries both
+> campaigns, is `../southern-reach/install-alignment.md`. This file is kept
+> for the failure it records and the checks it explains; its counts are
+> Southern Watch's alone.
+
 The procedure below exists because of one specific failure. On the last run
 the install reported
 
@@ -103,13 +108,14 @@ What to read in its output:
 | `purged SEST_…` | an old per-pack folder removed | expected once, after the switch to the consolidated pack |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected now: Automatic SAR, the MV-22B and the Euromod South Korean Navy are all catalogued. Any id it names is a new subscription - see step 5 |
 
-The file count should now be **387**, not 122. It changed in this branch: the
+The file count should now be **388**, not 122. It changed in this branch: the
 campaign gained 38 generated PNGs plus `REQUIRED-MODS.txt` and
 `LOAD-ORDER.txt`, lost the `_info.ini` files it used to write into briefing
 folders under `campaigns/`, where the vanilla campaigns have none, gained
 four operations (O2, O3, O4, C2) with their briefings and cards, and then a
 briefing map (`BriefingMap_en.xml` plus its chart) in all 44 briefing
-folders. The loose SEST missions get theirs copied beside them and show as
+folders, and then two squadron tables: the composed MH-60R one that gives
+the RAN its Seahawk squadron, and the S-70B-2's, back under the Australian flag. The loose SEST missions get theirs copied beside them and show as
 `briefing` lines in the sync output.
 
 If `sync-sest.ps1` refuses because of the branch guard, it is doing its job —
@@ -167,7 +173,7 @@ are all regenerated from it. Until then the drop-and-re-add cycle is the
 expected behaviour, not a fault.
 
 The `IN LINE` line after a sync on this branch should name the short hash
-`git log --oneline -1` printed in step 1; the counts above (387 files, 38 art
+`git log --oneline -1` printed in step 1; the counts above (388 files, 38 art
 PNGs plus 44 briefing charts, 35 entries, 143 order entries) are for the art-format commit after `b30ddbe3` and later builds of this branch.
 
 ## 6 — then play the card

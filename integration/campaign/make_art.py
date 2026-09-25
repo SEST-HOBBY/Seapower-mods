@@ -60,7 +60,7 @@ def card(ini, out_png, num, title, date, place, standfirst, label="SOUTHERN WATC
         b = keys["RelativePositionInNM"].split(",")
         try: x, z = float(b[0]), float(b[2])
         except ValueError: continue
-        afloat.append((x, z, "air" if "Aircraft" in tag else
+        afloat.append((x, z, "air" if ("Aircraft" in tag or "Helicopter" in tag) else
                              "sub" if "Submarine" in tag else "ship"))
     for tag, keys in S.items():
         if tag.startswith("Trigger") and keys.get("Condition_Condition1_Type") == "UnitsInTheArea":

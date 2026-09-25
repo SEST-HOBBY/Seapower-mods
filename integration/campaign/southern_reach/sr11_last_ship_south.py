@@ -91,7 +91,7 @@ MISSION = dict(
         U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "convoy",
           name="MT Derwent Spirit", spawn_if=("SR09TankerLost", "IsFalse")),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight", alt=500,
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
           slot="HeloRecon"),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "red_sag",
           name="Type 054A frigate", route=[(-55.35, 128.30, 0)], telegraph=3),

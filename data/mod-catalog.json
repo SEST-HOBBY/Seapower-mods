@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts.",
-    "count": 144,
+    "count": 147,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
@@ -81,6 +81,7 @@
       "title": "SEST RAAF Bases",
       "build_after": [
         "SEST_ADF_Persistent_ISR",
+        "SEST_Collection_Fixes",
         "SEST_F-15EX_Revamp",
         "SEST_RAAF_Wedgetail",
         "SEST_Raptor_Squadrons"
@@ -910,7 +911,7 @@
         "ado-nimitz-2000s (adds MH-60R)"
       ],
       "notes": "Standalone MH-60R. FOUR sources of MH-60-family helicopters in this list — duplicate/ID-conflict watch.",
-      "load_order": "Moved directly above US Naval Aviation (collection audit): its usn_mh-60r_squadrons.ini is the only squadron table whose serial reference (number) matches the MH-60R model that actually loads (U.S. Navy 2027's unit file, SubModel26=number). Only that one file changes hands. Load-bearing for the model/Hellfire/EOFLIR - keep subscribed."
+      "load_order": "Sits directly above US Naval Aviation (collection audit, 2026-09). The squadron table that rationale was about is now SEST Collection Fixes' own: U.S. Navy 2027's current usn_mh-60r draws US Naval Aviation's sh60 model (Modex/Emblem submodels), so the composed table is US Naval Aviation's plus 816 Squadron RAN. Still load-bearing - keep subscribed: ADO Nimitz 2000s' carrier draws its deck Seahawks from this mod's assets/models/aircraft/usn_sh-60b/ folder."
     },
     {
       "id": "nimitz-expanded",
@@ -1795,7 +1796,7 @@
       "overlaps": [
         "SEST_RAN_Fleet (patches this mod's vessels/ran_ffh_anzac.ini; SEST must stay ABOVE it, which tier 0 guarantees)"
       ],
-      "notes": "KEEP - SEST_RAN_Fleet is built ON it. REBASED 2026-09-20: the pack used to clone Euromod's Type 23 MLU as an Anzac stand-in, which masked this mod's hull because both ship vessels/ran_ffh_anzac.ini and SEST wins at tier 0. The pack now PATCHES this file instead, so the real ASMD hull is what you see - CEAFAR/CEAMOUNT arrays, Ceros 200 directors, Spherion sonar, and this mod's own FFH-150..157 hull-number and emblem textures. SEST no longer ships ran_ffh_anzac_variants.ini or Anzac vessel names at all; this mod's own are better and now win. Four deltas SEST applies: NSM standardised to knm_nsm_1a (what Hobart and four other fielded hulls fire), the Mk41 magazine repaired (a duplicated Ammunition1_Count silently cut ESSM from 32 to 16 and left an uncounted usn_rim-66h that NumberOfAmmunitionTypes=1 never enabled), its 'RIM-162 ESSM' re-shipped as sest_rim-162_essm because a space in an id does not resolve, and AircraftSupported added so the deck operates the MH-60R. Its own RGM-184A and RIM-162 ESSM remain defined and unused. ApproximateVersion=0.4.0, well behind the 0.8.x collection."
+      "notes": "KEEP - SEST_RAN_Fleet is built ON it. REBASED 2026-09-20: the pack used to clone Euromod's Type 23 MLU as an Anzac stand-in, which masked this mod's hull because both ship vessels/ran_ffh_anzac.ini and SEST wins at tier 0. The pack now PATCHES this file instead, so the real ASMD hull is what you see - CEAFAR/CEAMOUNT arrays, Ceros 200 directors, Spherion sonar, and this mod's own FFH-150..157 hull-number and emblem textures. SEST no longer ships ran_ffh_anzac_variants.ini or Anzac vessel names at all; this mod's own are better and now win. Four deltas SEST applies: NSM standardised to knm_nsm_1a (what Hobart and four other fielded hulls fire), the Mk41 magazine repaired (a duplicated Ammunition1_Count silently cut ESSM from 32 to 16 and left an uncounted usn_rim-66h that NumberOfAmmunitionTypes=1 never enabled), its Mk41 loaded with Euromod's usn_rim-162h ESSM Block II instead of its own 'RIM-162 ESSM' (an unrevised RIM-7F template - no kinematic model, MinAttackAltitude=26 ft so every sea-skimmer is out of band; reported in game flying at a metre above the sea),  and AircraftSupported added so the deck operates the MH-60R. Its own RGM-184A and RIM-162 ESSM remain defined and unused. ApproximateVersion=0.4.0, well behind the 0.8.x collection."
     },
     {
       "id": "f-2a-viper-zero",

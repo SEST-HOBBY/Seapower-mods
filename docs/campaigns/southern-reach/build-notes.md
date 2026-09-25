@@ -139,6 +139,24 @@ destroy objective whose end-status paid its points unearned. The refuted
 eight were reviewers' misreadings or the bible's own disclaimers; none was
 left standing without a reason recorded in the workflow journal.
 
+## Merged with the deploy branch
+
+The deploy branch (`sest-dev/loving-bell-3cnvvw`) moved on while this was
+built: helicopters now sit in their own `Helicopter` sections, the RAN's
+Seahawks fly 816 Squadron's colours from a composed squadron table, the
+Anzac fires Euromod's ESSM Block II, loadouts no longer show MISSING TEXT, and
+the coverage checker learned three new checks. It was merged in, and the
+three conflicts resolved: the coverage checker keeps both sides (the new
+helicopter and loadout-name checks, run once per campaign), and two
+Southern Watch briefing charts take this branch's label fix. Southern Reach
+follows the deploy branch's conventions: every Seahawk is now attributed to
+U.S. Navy 2027, which wins the unit file, and flies Squadron20 (816 Squadron
+RAN) in the missions and the roster. Every pack was rebuilt from scratch on
+the merged tree and the four gates pass. The catalog generator, which had
+stopped running on the deploy branch (a hand-kept count one registration
+behind, and a Korean faction it did not know), is fixed with another
+session's one-line port and its count.
+
 ## Notes the builder still prints
 
 One closure note survives, on purpose:

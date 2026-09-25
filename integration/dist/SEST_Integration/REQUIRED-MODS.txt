@@ -8,7 +8,8 @@ come too. If that works you do not need the list below at all, and
 it is here to check against rather than to work through by hand.
 
 135 mods. Each supplies a file a mission names directly - by
-Type=, SquadronReference=, VariantReference= or a loadout's store.
+Type=, SquadronReference=, VariantReference=, a loadout's store,
+or a model folder a placed unit's own file draws from.
 
 What the game does with a reference it cannot resolve has not been
 tested here, so this file will not tell you. At best the unit is
@@ -91,7 +92,7 @@ Workshop id   supplies                         mod
 3559495372    a unit a mission places          Lockheed AC-130 Pack
 3740293822    a unit a mission places          McDonnell Douglas KC-10A Extender - Strategic Tanker
 3430106996    a unit a mission places          Merchants Expanded
-3590477166    a squadron a flight comes from   MH-60R Seahawk
+3590477166    a model a placed unit draws      MH-60R Seahawk
 3465256032    a unit a mission places          Mi-8 T/TV
 3458148344    a unit a mission places          Mi-8EW
 3417446309    a unit a mission places          MIG-29 Family

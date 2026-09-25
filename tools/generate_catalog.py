@@ -18,6 +18,7 @@ FACTION_ORDER = [
     ("italy", "Italy"),
     ("spain", "Spain"),
     ("japan", "Japan"),
+    ("korea", "South Korea"),
     ("australia", "Australia"),
     ("iran", "Iran"),
     ("multi", "Multi-nation packs"),

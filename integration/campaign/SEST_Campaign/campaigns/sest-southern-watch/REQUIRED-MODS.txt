@@ -77,7 +77,7 @@ and hull variants they name, and the rounds their loadouts hang.
   3559495372    a unit a mission places          Lockheed AC-130 Pack
   3740293822    a unit a mission places          McDonnell Douglas KC-10A Extender - Strategic Tanker
   3430106996    a unit a mission places          Merchants Expanded
-  3590477166    a squadron a flight comes from   MH-60R Seahawk
+  3590477166    a model a placed unit draws      MH-60R Seahawk
   3465256032    a unit a mission places          Mi-8 T/TV
   3458148344    a unit a mission places          Mi-8EW
   3417446309    a unit a mission places          MIG-29 Family

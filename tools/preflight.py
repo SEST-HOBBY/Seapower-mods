@@ -95,7 +95,7 @@ def main():
         line = line.strip()
         if line.startswith("["):
             close_block()
-            in_aircraft = bool(re.match(r"^\[Taskforce\d+Aircraft\d+\]", line))
+            in_aircraft = bool(re.match(r"^\[Taskforce\d+(?:Aircraft|Helicopter)\d+\]", line))
         # \S+ would miss ids with spaces ("plaf_j16a block3" is a real file)
         # and leave cur_unit stale - six J-16 variant errors were blamed on
         # the B-52O above them before this handled spaces.
