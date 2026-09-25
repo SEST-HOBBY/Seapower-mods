@@ -15,10 +15,12 @@ MISSION = dict(
           "Adelaide's approaches with a tanker for Outer Harbor coming "
           "through them. Hold the approaches with a detachment, or hold "
           "Auckland's instead.",
-    special="Optional, and one of a pair: a detachment can hold Adelaide's "
-            "approaches, Auckland's, or both before Approaches. "
-            "Whichever is not held reinforces the group in the western "
-            "Tasman. Expires when Approaches is complete.",
+    special=(
+        "Adelaide and Auckland have requested separate escort detachments. Undertake either "
+        "task or both before the final western Tasman passage. An opposing detachment left "
+        "uncontained can rejoin the main formation. Both requests close when Approaches is "
+        "complete."
+    ),
     sender="Commodore Alex Mercer",
     intent=("A Type 054A and a Kilo came through Backstairs Passage last "
             "night and are sitting in the Gulf's approaches, which is "
@@ -51,10 +53,11 @@ MISSION = dict(
         "Get the tanker to the Outer Harbor approach. Classify the Kilo. "
         "Harm nothing that is South Australia's. Hold this and the "
         "southern element stays in the Gulf instead of going east."),
-    forces="Your detachment with its Seahawk and Poseidon if requisitioned, out "
-           "of Edinburgh; the tanker Osborne Spirit. Neutral: the Kangaroo "
-           "Island ferry, two tuna boats, a grain bulker, an airliner. "
-           "Opposing: one Type 054A, one Kilo, a Z-9.",
+    forces=(
+        "Your detachment with its Seahawk and Poseidon if assigned, out of Edinburgh; the "
+        "tanker Osborne Spirit. Neutral: the Kangaroo Island ferry, two tuna boats, a grain "
+        "bulker, an airliner. Opposing: one Type 054A, one Kilo, a Z-9."
+    ),
     objectives=[
         ("Approaches", "MT Osborne Spirit reaches the Outer Harbor approach",
          "30,-30,Fail,Main"),
@@ -67,9 +70,11 @@ MISSION = dict(
                  at=(-34.75, 138.35), radius=5, sets="TS10BSouthHeld"),
     fatal=[F("Approaches", ["tanker"])],
     neutral_objective="Traffic",
-    win="Osborne Spirit is at the Outer Harbor approach with the pilot "
-        "aboard and the frigate twenty miles astern of her with nothing "
-        "to escort. The southern element stays in the Gulf.",
+    win=(
+        "Osborne Spirit has reached the Outer Harbor approach. The southern detachment remains "
+        "committed to Spencer Gulf, reducing the force available for the next interception. "
+        "Report the frigate's present position before handing over the escort."
+    ),
     lose="The tanker is lost in Adelaide's front door, or the flagship "
          "is, and the southern element goes east to join the group.",
     timeout="Sixty minutes and Osborne Spirit is still short of Outer Harbor "

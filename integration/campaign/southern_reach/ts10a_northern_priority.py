@@ -17,10 +17,12 @@ MISSION = dict(
           "setting up a 'compliance station' off the Colville Channel, "
           "across Auckland's traffic. Hold these approaches with a "
           "detachment, or hold Adelaide's instead.",
-    special="Optional, and one of a pair: a detachment can hold Auckland's "
-            "approaches, Adelaide's, or both before Approaches. "
-            "Whichever is not held reinforces the group in the western "
-            "Tasman. Expires when Approaches is complete.",
+    special=(
+        "Auckland and Adelaide have requested separate escort detachments. Undertake either "
+        "task or both before the final western Tasman passage. An opposing detachment left "
+        "uncontained can rejoin the main formation. Both requests close when Approaches is "
+        "complete."
+    ),
     sender="Commander Tessa Brand, RNZN, HQ Joint Forces New Zealand",
     intent=("After the convoy action off Portland the group has split what "
             "it has left: a Type 056A, the collector NAN HAI 27 and the "
@@ -54,11 +56,12 @@ MISSION = dict(
         "approach, classify the tender, harm nothing that is New "
         "Zealand's. Hold this and the northern element stays here instead "
         "of joining the group in the western Tasman."),
-    forces="Your detachment with its Seahawk and Poseidon if requisitioned, Kiwi "
-           "05 out of Whenuapai, the container ship Hauraki Trader. "
-           "Neutral: the Tauranga container service, the Great Barrier "
-           "ferry, two fishing boats, an airliner. Opposing: one Type 056A, "
-           "the research trawler Nan Hai 27, MV Austral Compliance.",
+    forces=(
+        "Your detachment with its Seahawk and Poseidon if assigned, Kiwi 05 out of Whenuapai, "
+        "the container ship Hauraki Trader. Neutral: the Tauranga container service, the Great "
+        "Barrier ferry, two fishing boats, an airliner. Opposing: one Type 056A, the research "
+        "trawler Nan Hai 27, MV Austral Compliance."
+    ),
     objectives=[
         ("Approaches", "MV Hauraki Trader reaches the Rangitoto Channel "
                        "approach", "30,-30,Fail,Main"),
@@ -71,11 +74,11 @@ MISSION = dict(
                  at=(-36.72, 174.90), radius=4, sets="TS10ANorthHeld"),
     fatal=[F("Approaches", ["trader"])],
     neutral_objective="Traffic",
-    win="Hauraki Trader is at the Rangitoto approach with the pilot "
-        "aboard, and the compliance station is three ships steaming in "
-        "circles off Colville with nobody to inspect. The northern "
-        "element stays in the Gulf. Brand: 'Auckland noticed. That was "
-        "the point.'",
+    win=(
+        "Hauraki Trader has reached the Rangitoto approach. The northern detachment remains "
+        "committed to the Hauraki Gulf, reducing the force available for the next interception."
+        " Brand: 'Auckland noticed. That was the point.'"
+    ),
     lose="The container ship is lost in the Gulf, or the flagship is, "
          "and the northern element goes south to join the group with "
          "Auckland's week on the bottom behind it.",

@@ -16,10 +16,12 @@ MISSION = dict(
     intro="The fisheries-protection group's command element at the ice edge, a Seahawk for "
           "aviation, and a rule of engagement that is the whole mission: "
           "identify the carrier, fire on nothing that has not fired.",
-    special="No requisition before this operation, and the weather has "
-            "grounded the Poseidons and the Triton: the Seahawk is your "
-            "aviation. Everything in the group's line starts weapons tight. Fire "
-            "first and it answers.",
+    special=(
+        "No additional force allocation is available. Weather has prevented the allocated "
+        "fixed-wing sorties, leaving the embarked helicopter for local reconnaissance. The "
+        "opposing formation is reported under restrictive engagement orders; observe your own "
+        "orders and do not assume it will remain passive."
+    ),
     sender="Commodore Alex Mercer",
     intent=("The carrier is at the ice edge with a frigate, a corvette and "
             "the collector, holding station over the fishing fleet where "
@@ -33,20 +35,24 @@ MISSION = dict(
     difficulty=3, minutes=60, centre=(-60.0, 118.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "THE ICE EDGE, 60 South, midday. The protection group's command "
-        "element has come south to the fishing fleet: the carrier, a "
-        "frigate, a corvette, the research trawler NAN HAI 27, a Ka-31 "
-        "over it all. It is holding station where every voyage to Casey "
-        "must pass, to be seen there, and to be fired on first.\\n\\n"
-        "The weather at Hobart has grounded the Poseidons and the Triton, "
-        "and no field in the world reaches here for anything else. Your "
-        "aviation is the Seahawk. AKADEMIK FERSMAN, VICTOR's tender at "
-        "Christmas, is at the ice with the trawlers, a research vessel again; and if VICTOR "
-        "survived Christmas Eve she is somewhere in this line.\\n\\n"
-        "Identify the carrier and the collector by class and name, and "
-        "pull back north to the withdrawal line. Everything red starts weapons tight. "
-        "Fire on nothing that has not fired; a shot at the collector is the "
-        "incident they came here to have."),
+        (
+            "THE ICE EDGE, 60 South, midday. The protection group's command element has come "
+            "south to the fishing fleet: the carrier, a frigate, a corvette, the research "
+            "trawler NAN HAI 27, a Ka-31 over it all. It is holding station where every voyage "
+            "to Casey must pass, to be seen there, and to be fired on first.\\n\\nThe weather at "
+            "Hobart has grounded the Poseidons and the Triton, and no alternative fixed-wing "
+            "detachment is allocated within reach. Your aviation is the Seahawk. AKADEMIK "
+            "FERSMAN, VICTOR's tender at Christmas, is at the ice with the trawlers, a research"
+            " vessel again; and if VICTOR survived Christmas Eve she is somewhere in this "
+            "line.\\n\\nIdentify the carrier and the collector by class and name, and pull back "
+            "north to the withdrawal line. The opposing formation is reported under restrictive"
+            " engagement orders. Fire on nothing that has not fired; a shot at the collector is"
+            " the incident they came here to have.\\n\\nINTELLIGENCE: Recent satellite radar "
+            "imagery gives the formation's last observed area despite cloud cover. It does not "
+            "establish hull identities or continuous tracks. With the fixed-wing sorties "
+            "grounded, use ship sensors and the Seahawk to identify the carrier and collector "
+            "locally."
+        )),
     forces="Your escort group with its Seahawk. Opposing, at the ice edge: "
            "Liaoning, a Type 054A, a Type 056A, the research trawler Nan Hai "
            "27, a Ka-31 up - and VICTOR, if she got away. Neutral: three "
@@ -60,16 +66,20 @@ MISSION = dict(
     ],
     victory=dict(kind="arrive", station="escort", min_units=1, objective="Identify",
                  after=dict(kind="classify", units=["group#1", "group#4"], min_units=2,
-                            intel="The carrier is LIAONING, and the collector is "
-                                  "the same Nan Hai 27 that shadowed the Storm Bay "
-                                  "convoy on 6 December. The group has a name, a flagship "
-                                  "and a face. Pull back north to the withdrawal line - and "
-                                  "do not give them the shot they came for.")),
+                            intel=(
+                                "IDENTIFICATION REPORT | Carrier confirmed as LIAONING; "
+                                "collector confirmed as NAN HAI 27. Joint intelligence has "
+                                "accepted the identifications and updated the surface picture. "
+                                "Withdraw north to the line. Existing engagement restrictions "
+                                "remain in force."
+                            ))),
     fatal=[],
     neutral_objective="Neutrals",
-    win="The escort is north of the withdrawal line with the carrier and the collector "
-        "named, and nothing in the south fired first. The photographs are "
-        "ours this time.",
+    win=(
+        "The escort has reached the northern withdrawal line with the carrier and collector "
+        "identified. The report distinguishes the naval formation from nearby fishing and "
+        "research traffic."
+    ),
     lose="The escort is gone at the ice edge, or the incident happened. "
          "Either way the group has what it came south for.",
     timeout="Sixty minutes and the escort is still at the ice edge with the "
@@ -129,11 +139,12 @@ MISSION = dict(
              "Flagship": ("protect", "escort")},
     reveal_if=[dict(variable="SR05GroupClassified", units=["group#2", "group#3"],
                     level="Identify",
-                    intel="Sentry 22's picture from Empty Horizon: the frigate "
-                          "and the corvette in that line are the two she "
-                          "classified on the eighteenth, and they are identified "
-                          "on your plot from the start. The carrier and the "
-                          "collector are not - that you still have to do.")],
+                    intel=(
+                        "FUSION CELL | Sentry 22's frigate and corvette records from 18 "
+                        "December have been correlated with reporting at the ice edge. Those "
+                        "two escorts are identified on the plot. The carrier and collector "
+                        "still require local confirmation."
+                    ))],
     window=dict(flights=[HELO]),
     role="recon",
 )

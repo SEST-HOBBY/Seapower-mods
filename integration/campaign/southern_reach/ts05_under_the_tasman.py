@@ -15,37 +15,39 @@ MISSION = dict(
           "that has screened the group since the January voyages to Casey. "
           "She is escorting a survey ship along the Tasman cable. Depth and "
           "the layer are the mission.",
-    special="No requisition, and nothing of your own force sails: this is "
-            "Farncomb's operation. What she sinks here does not sail "
-            "against the Southern Convoy or Southern Cross.",
+    special=(
+        "No additional force allocation, and your standing task group remains on other duties: "
+        "this is Farncomb's operation. What she sinks here does not sail against the Southern "
+        "Convoy or Southern Cross."
+    ),
     sender="Commodore Alex Mercer, for the Submarine Force",
-    intent=("The rules changed when Wellington authorised weapons on TANGO. "
-            "ROMEO - the Type 093B that crossed the convoy's track on 2 "
-            "January and lay under the last voyage south - is on the cable "
-            "corridor escorting AUSTRAL SURVEY, the survey ship that found "
-            "the cable fault, with a frigate over the top and its "
-            "helicopter dipping. Farncomb is on the corridor ahead of them "
-            "at periscope depth, weapons free. Sink the boat. The survey "
-            "ship is a merchant hull under a state flag and she is not a "
-            "target; the frigate is, if she gets in the way, but the boat "
-            "is the mission and the frigate will not go home without her."),
+    intent=((
+        "The rules changed when Wellington authorised weapons on TANGO. ROMEO - the Type 093B "
+        "that crossed the convoy's track on 2 January and lay under the last voyage south - is "
+        "on the cable corridor escorting AUSTRAL SURVEY, the survey ship that found the cable "
+        "fault, with a frigate over the top and its helicopter dipping. Farncomb is on the "
+        "corridor ahead of them at periscope depth, weapons free. Sink the boat. The survey "
+        "ship is a merchant hull under a state flag and she is not a target; the frigate is, if"
+        " she gets in the way, but the boat is the mission and the frigate remains a threat "
+        "until its status is established."
+    )),
     date=(2029, 2, 4), time=(2, 30), sea=3, clouds="Overcast", wind="NW",
     difficulty=4, minutes=75, centre=(-36.5, 160.5),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "THE TASMAN CABLE CORRIDOR, 36 South, the small hours. HMAS "
-        "FARNCOMB is at periscope depth on the corridor, three hundred "
-        "miles from the nearest coast, with the cable somewhere under her "
-        "and a group coming up it from the south-west at eight knots.\\n\\n"
-        "RV AUSTRAL SURVEY is following the "
-        "cable with a towed array. ROMEO is under her, escorting; a Type "
-        "054A is over the top of both with a Z-9 dipping ahead of them. "
-        "The layer is at a hundred and twenty feet and the frigate's sonar "
-        "does not see below it.\\n\\n"
-        "Weapons free on the boat and the frigate. The survey ship is not "
-        "a target. A Tasman bulker and a whale are in the box, and the "
-        "whale sounds like a boat. Seventy-five minutes. Nothing on the "
-        "surface knows Farncomb is here until she fires."),
+        (
+            "THE TASMAN CABLE CORRIDOR, 36 South, the small hours. HMAS FARNCOMB is at "
+            "periscope depth on the corridor, three hundred miles from the nearest coast, with "
+            "the cable somewhere under her and a group coming up it from the south-west at "
+            "eight knots.\\n\\nRV AUSTRAL SURVEY is following the cable with a towed array. "
+            "Intelligence assesses ROMEO, the Type 093B, as escorting her; a Type 054A is over "
+            "the top of both with a Z-9 dipping ahead of them. A thermal layer is reported near"
+            " 120 feet. It may complicate acoustic contact, but does not guarantee concealment "
+            "from the frigate, helicopter or submarine.\\n\\nWeapons free on the boat and the "
+            "frigate. The survey ship is not a target. A Tasman bulker and a whale are in the "
+            "box, and the whale sounds like a boat. Seventy-five minutes. Enemy awareness of "
+            "Farncomb is unknown. Do not assume that silence means the boat is undetected."
+        )),
     forces="HMAS Farncomb, alone. Neutral: a bulker, a whale. Opposing: "
            "one Type 093B under the survey ship, one Type 054A with a Z-9 "
            "dipping, the survey ship RV Austral Survey.",
@@ -58,10 +60,11 @@ MISSION = dict(
     victory=dict(kind="destroy", stations=["red_sub"], min_units=1, objective="Romeo"),
     fatal=[F("Farncomb", ["farncomb"])],
     neutral_objective="Neutrals",
-    win="ROMEO is on the bottom of the Tasman with the cable under her, "
-        "and the survey ship has turned for home with her towed array "
-        "still streaming. Farncomb goes deep. The Southern Convoy sails "
-        "without her beneath it.",
+    win=(
+        "ROMEO is confirmed lost. Farncomb remains available to withdraw; retain the survey "
+        "ship's contact record and report the frigate's status. This boat will no longer "
+        "threaten the southern convoy."
+    ),
     lose="Farncomb is lost under the Tasman, and ROMEO, which has screened "
          "the group since January, is still down there.",
     timeout="Seventy-five minutes and ROMEO has passed up the corridor "
@@ -112,12 +115,12 @@ MISSION = dict(
                       "of the Tasman. The Southern Convoy sails without her "
                       "beneath it.")],
     reveal_if=[dict(variable="TS03TenderNamed", units=["survey"], level="Classify",
-                    intel="From the rendezvous east of New Zealand on 28 "
-                          "January: the survey ship on the corridor carries "
-                          "AUSTRAL COMPLIANCE's emitters - the same "
-                          "navigation set, the same signals fit - and she is on "
-                          "your plot classified. Where she is, the boat is "
-                          "under her.")],
+                    intel=(
+                        "FUSION CELL | AUSTRAL SURVEY carries an emitter set recorded at "
+                        "AUSTRAL COMPLIANCE's rendezvous on 28 January. The surface contact is "
+                        "classified on the plot. This supports an association with the tender "
+                        "network; establish an acoustic contact to locate ROMEO."
+                    ))],
     window=dict(),
     # Farncomb going home after the kill is not the force being wiped out.
     force_loss=False,

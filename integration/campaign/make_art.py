@@ -582,25 +582,34 @@ def signal(out_png, header, body, strap=None, note=None, label="SOUTHERN WATCH")
     if strap:
         d.text((M, y), strap, font=mono(30, True), fill=SIG_STRAP); y += 50
     d.line([(M, y), (W-M, y)], fill=SIG_INK, width=3); y += 18
-    lab = mono(26, True); val = mono(26)
+    lab = mono(24, True); val = mono(24)
     for k, v in header:
         d.text((M, y), f"{k:<6}", font=lab, fill=SIG_INK)
-        d.text((M + 120, y), v, font=val, fill=SIG_INK); y += 36
+        for line in _fit_lines(d, v, val, W - 2*M - 130):
+            d.text((M + 130, y), line, font=val, fill=SIG_INK)
+            y += 34
     y += 10
     d.line([(M, y), (W-M, y)], fill=SIG_INK, width=3); y += 40
-    floor = H - (250 if note else 120)
+    note_lines = _fit_lines(d, note, mono(21), W-2*M) if note else []
+    note_height = 50 + len(note_lines)*30 if note else 0
+    floor = H - 100 - note_height - (36 if note else 0)
     for size in (28, 26, 24, 22, 20):
         fnt, lh = mono(size), int(size * 1.5)
         # measure first; only draw at the size that fits above the floor
         yy = y
         for para in body:
             if para == "": yy += lh; continue
-            n = 1 if d.textlength(para, font=fnt) <= W-2*M else len(_fit_lines(d, para, fnt, W-2*M))
+            hang = re.match(r"^([A-Z]:\s+|\d+\.\s+|[a-z]\.\s+)", para)
+            indent = d.textlength(hang.group(1), font=fnt) if hang else 0
+            content = para[hang.end():] if hang else para
+            n = len(_fit_lines(d, content, fnt, W-2*M-indent))
             yy += n * lh
         if yy <= floor: break
+    if yy > floor:
+        raise ValueError(f"{out_png}: signal body exceeds the page")
     y = _set_block(d, body, M, y, fnt, W-2*M, lh, SIG_INK)
     if note:
-        ny = H - 230
+        ny = H - 100 - note_height
         d.rectangle([M-16, ny-16, W-M+16, H-80], outline=SIG_RULE, width=3)
         d.text((M, ny), "ANALYST NOTE", font=mono(22, True), fill=SIG_STRAP)
         _set_block(d, [note], M, ny+34, mono(21), W-2*M, 30, SIG_INK)
@@ -623,12 +632,13 @@ def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH")
     M = 120
     muted = (100, 96, 90)
 
-    y = 84
+    y = 70
+    d.text((M, y), "DECK LOG EXTRACT", font=mono(24, True), fill=muted)
+    d.text((W-M, y), date.upper(), font=mono(24), fill=muted, anchor="ra")
+    y += 44
     d.text((M, y), ship.upper(), font=serif(46, True), fill=LOG_INK)
-    d.text((W-M, y+12), date.upper(), font=mono(26), fill=muted, anchor="ra")
-    y += 62
-    d.text((M, y), f"DECK LOG  ·  EXTRACT  ·  MASTER {master.upper()}",
-           font=mono(22), fill=muted)
+    y += 60
+    d.text((M, y), f"MASTER: {master.upper()}", font=mono(22), fill=muted)
     y += 44
     d.line([(M, y), (W-M, y)], fill=LOG_INK, width=3)
     y += 14
@@ -637,7 +647,13 @@ def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH")
     d.text((M + TCOL, y), "REMARKS", font=mono(18, True), fill=muted)
     y += 34
     top = y
-    floor = H - (300 if note else 120)
+    # Measure the note before reserving space, including a separate signature.
+    sig = re.search(r"\s+-\s*([A-Z][A-Za-z.]{0,5}\.?)\s*$", note) if note else None
+    note_body = note[:sig.start()] if sig else note
+    note_lines = _fit_lines(d, note_body, serif(26), W-2*M-56) if note else []
+    note_height = 56 + len(note_lines)*38 + (54 if sig else 28) if note else 0
+    box_top = H - 98 - note_height
+    floor = box_top - 36 if note else H - 120
 
     for size in (28, 27, 26, 25, 24, 23, 22, 21, 20):
         fnt, tf = serif(size), mono(size, True)
@@ -646,6 +662,8 @@ def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH")
                    for _t, text in entries)
         if top + need <= floor:
             break
+    else:
+        raise ValueError(f"{out_png}: deck log exceeds the page; shorten or split the extract")
 
     rule_x = M + TCOL - 28
     for t, text in entries:
@@ -660,13 +678,11 @@ def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH")
     d.line([(rule_x, top - 6), (rule_x, max(y, top + lh))], fill=LOG_MARGIN, width=2)
 
     if note:
-        box_top = H - 262
         d.rectangle([M, box_top, W-M, H-98], outline=LOG_RULE, width=2)
         d.text((M + 28, box_top + 22), "MASTER'S NOTE", font=mono(18, True), fill=LOG_MARGIN)
         # a trailing "  - L.S." is a signature: set it right, never wrapped
-        sig = re.search(r"\s+-\s*([A-Z][A-Za-z.]{0,5}\.?)\s*$", note)
-        body = note[:sig.start()] if sig else note
-        _set_block(d, [body], M + 28, box_top + 56, serif(26), W - 2*M - 56, 38, LOG_INK)
+        for i, line in enumerate(note_lines):
+            d.text((M+28, box_top+56+i*38), line, font=serif(26), fill=LOG_INK)
         if sig:
             d.text((W - M - 28, H - 98 - 22), f"- {sig.group(1)}", font=serif(26, True),
                    fill=LOG_INK, anchor="rd")
@@ -677,9 +693,8 @@ def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH")
 
 def intsum(out_png, org, ref, date, subject, paras, note=None, label="SOUTHERN WATCH",
            marking="SECRET  //  RELEASABLE TO COALITION PARTNERS"):
-    """A typed intelligence summary under its security marking, top and
-    foot. `paras` is a list of strings; a string starting with a letter-and-
-    dot ('a. ...') is a sub-paragraph and indents."""
+    """A typed intelligence summary. `paras` is a list of strings; a string starting
+    with a letter-and-dot ('a. ...') is a sub-paragraph and indents."""
     img = Image.new("RGB", (W, H), RPT_STOCK)
     d = ImageDraw.Draw(img)
     M = 120
@@ -689,10 +704,15 @@ def intsum(out_png, org, ref, date, subject, paras, note=None, label="SOUTHERN W
                fill=RPT_STOCK, anchor="mm")
     y = 96
     d.text((M, y), org.upper(), font=mono(24, True), fill=RPT_INK)
-    d.text((W-M, y), f"{ref}  ·  {date.upper()}", font=mono(24), fill=RPT_INK, anchor="ra"); y += 44
-    d.text((M, y), f"SUBJECT: {subject.upper()}", font=mono(28, True), fill=RPT_INK); y += 46
+    y += 38
+    d.text((M, y), f"{ref}  ·  {date.upper()}", font=mono(23), fill=RPT_INK); y += 44
+    for line in _fit_lines(d, f"SUBJECT: {subject.upper()}", mono(28, True), W-2*M):
+        d.text((M, y), line, font=mono(28, True), fill=RPT_INK)
+        y += 40
     d.line([(M, y), (W-M, y)], fill=RPT_INK, width=2); y += 30
-    floor = H - (150 if note else 100)
+    note_lines = _fit_lines(d, note, serif(26), W-2*M) if note else []
+    note_height = len(note_lines)*36 + 28 if note else 0
+    floor = H - 100 - note_height
     for size in (26, 24, 22, 20, 18):
         fnt, lh = mono(size), int(size * 1.5)
         yy = y
@@ -700,12 +720,15 @@ def intsum(out_png, org, ref, date, subject, paras, note=None, label="SOUTHERN W
             ind = 70 if re.match(r"^[a-z]\. ", p) else 0
             yy += lh * len(_fit_lines(d, p, fnt, W-2*M-ind)) + (lh // 2)
         if yy <= floor: break
+    if yy > floor:
+        raise ValueError(f"{out_png}: intelligence summary exceeds the page")
     for p in paras:
         ind = 70 if re.match(r"^[a-z]\. ", p) else 0
         for line in _fit_lines(d, p, fnt, W-2*M-ind):
             d.text((M+ind, y), line, font=fnt, fill=RPT_INK); y += lh
         y += lh // 2
     if note:
-        d.text((M, H-120), note, font=ImageFont.truetype(SER % "", 28), fill=(60, 60, 120))
+        for i, line in enumerate(note_lines):
+            d.text((M, H-100-note_height+28+i*36), line, font=serif(26), fill=(60, 60, 120))
     img.save(out_png)
     print(f"wrote {Path(out_png).name}  {W}x{H}  intsum, {len(paras)} paras at {size}pt")

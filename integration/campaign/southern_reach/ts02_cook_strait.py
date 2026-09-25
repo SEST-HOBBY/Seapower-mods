@@ -15,22 +15,22 @@ MISSION = dict(
     intro="The cable ship Tasman Reliance has to hold the declared corridor "
           "while the ferries cross, with a submarine at periscope depth on "
           "it and a Type 056A coming up from the south to inspect her.",
-    special="Choose a detachment: the strait is twelve miles wide and the "
-            "whole force will not fit in it usefully. No requisition, "
-            "repair or rearm before this operation or the next.",
+    special=(
+        "Choose a detachment: the strait is twelve miles wide and the whole force will not fit "
+        "in it usefully. No additional force allocation, repair or rearm before this operation "
+        "or the next."
+    ),
     sender="Commander Tessa Brand, RNZN, HQ Joint Forces New Zealand",
-    intent=("The Tasman cable comes ashore at Oteranga Bay and TASMAN "
-            "RELIANCE is repairing the fault the survey ship AUSTRAL SURVEY "
-            "found in it. "
-            "She needs twenty-five minutes inside the declared corridor and "
-            "then a clear run to Wellington's approach. A submarine has been "
-            "on the corridor at periscope depth since dawn, and the corvette "
-            "that tried the same thing on a tanker off Lyttelton in December "
-            "is coming up from Cape Campbell to 'inspect' "
-            "her under some regulation nobody has read. Keep the cable ship "
-            "in the box, keep the ferries crossing, and keep it from "
-            "becoming the first shot of the Tasman war. Nothing red has "
-            "fired. Neither have we."),
+    intent=((
+        "The Tasman cable comes ashore at Oteranga Bay and TASMAN RELIANCE is repairing the "
+        "fault the survey ship AUSTRAL SURVEY found in it. She must be inside the declared "
+        "service area at the 25-minute check, then have a clear run to Wellington's approach. A"
+        " submarine has been on the corridor at periscope depth since dawn, and the corvette "
+        "that tried the same thing on a tanker off Lyttelton in December is coming up from Cape"
+        " Campbell to 'inspect' her under some regulation nobody has read. Keep the cable ship "
+        "in the box, keep the ferries crossing, and keep it from becoming the first shot of the"
+        " Tasman war. No opposing unit has fired. Neither have we."
+    )),
     date=(2029, 1, 25), time=(11, 30), sea=4, clouds="Broken_2", wind="NW",
     difficulty=3, minutes=60, centre=(-41.55, 174.45),
     blue_nation="Australia", red_nation="China",
@@ -52,14 +52,17 @@ MISSION = dict(
         "out of Ohakea. Hold the corridor, get the cable ship to the "
         "approach, classify the boat if you can. Fire on nothing that has "
         "not fired; a ferry in this strait is a thousand people."),
-    forces="Your detachment with its Seahawk and Poseidon if requisitioned, Kiwi "
-           "05 out of Ohakea, the cable ship Tasman Reliance. Neutral: two "
-           "Interislander ferries, a fishing boat, a coastal tanker, an "
-           "airliner. Opposing: one Type 039C at periscope depth, one Type "
-           "056A corvette from the south.",
+    forces=(
+        "Your detachment with its Seahawk and Poseidon if assigned, Kiwi 05 out of Ohakea, the "
+        "cable ship Tasman Reliance. Neutral: two Interislander ferries, a fishing boat, a "
+        "coastal tanker, an airliner. Opposing: one Type 039C at periscope depth, one Type 056A"
+        " corvette from the south."
+    ),
     objectives=[
-        ("Corridor", "Tasman Reliance holds the corridor box for 25 minutes, "
-                     "then reaches Wellington's approach", "35,-35,Fail,Main"),
+        ("Corridor", (
+            "Have Tasman Reliance inside the service area at 25 minutes, then escort her to the"
+            " Wellington approach"
+        ), "35,-35,Fail,Main"),
         ("Contact", "Classify the submarine on the corridor", "15,0,None"),
         ("Ferries", "The Interislander ferries are not targets", "10,-30,Complete"),
         ("Traffic", "Harm no fishing boat, tanker or aircraft", "0,-25,Complete"),
@@ -73,15 +76,19 @@ MISSION = dict(
                  at=(-41.42, 174.75), radius=5, transit=14,
                  after=dict(kind="area", units=["cable"], at_unit="cable#1",
                             radius=5, min_units=1, after_minutes=25,
-                            intel="The splice is made and the corridor has "
-                                  "held. TASMAN RELIANCE is recovering her "
-                                  "gear: bring her to Wellington's approach "
-                                  "before the corvette is alongside her.")),
+                            intel=(
+                                "CABLE CONTROL | Tasman Reliance is inside the work area at the"
+                                " scheduled check. The protected work period is complete. "
+                                "Escort her to the Wellington approach while maintaining "
+                                "separation from the corvette and ferry traffic."
+                            ))),
     fatal=[F("Corridor", ["cable"])],
     neutral_objective="Traffic",
-    win="The cable is repaired, the ferries crossed, and the corvette "
-        "inspected nothing. Brand: 'Wellington heard it on the news, which "
-        "is how it should be.'",
+    win=(
+        "Tasman Reliance has completed the protected service check and reached the Wellington "
+        "approach. Forward her cable-work report and the remaining traffic picture. Brand: "
+        "'Wellington can take over from here.'"
+    ),
     lose="The cable ship is lost in the strait, or a ferry is, and the "
          "Tasman war has its first hull.",
     timeout="Sixty minutes and the cable ship is still short of "
@@ -146,11 +153,12 @@ MISSION = dict(
              "Flagship": ("protect", "escort")},
     declares=["TS02SubNamed"],
     reveal_if=[dict(variable="SR08CorvetteNamed", units=["red_056"], level="Classify",
-                    intel="From Pegasus Bay on 28 December: the corvette coming "
-                          "up from Cape Campbell is the Type 056A that tried to "
-                          "inspect the tanker Canterbury Spirit off Lyttelton, "
-                          "and she is on your plot classified. Her "
-                          "captain has done this before.")],
+                    intel=(
+                        "FUSION CELL | The corvette approaching from Cape Campbell matches the "
+                        "vessel classified off Lyttelton. That classification is entered on the"
+                        " plot. Monitor its present actions; the earlier incident does not "
+                        "establish hostile intent today."
+                    ))],
     window=dict(detachment=True, flights=[HELO, RECON]),
     role="patrol",
 )

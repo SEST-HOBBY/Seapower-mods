@@ -26,26 +26,29 @@ MISSION = dict(
     difficulty=3, minutes=70, centre=(-40.5, 151.5),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "THE TASMAN APPROACHES, morning. The protection group is fifty miles "
-        "north-east of you, transiting at fourteen knots: LIAONING, a "
-        "frigate, a corvette, a replenishment ship, the research trawler "
-        "NAN HAI 27 and the Russian research vessel AKADEMIK FERSMAN, all in company, all "
-        "going the same way. The fishing fleet it came to protect has been "
-        "left to fish.\\n\\n"
-        "You have what came out of the south, WEDGETAIL 05 out of East Sale, "
-        "and for the first time since the group arrived in October a fighter that can reach the "
-        "water you are in. Coastal traffic and the Melbourne-Auckland "
-        "service are in the same box.\\n\\n"
-        "Shadow the group. Classify the carrier, the replenishment ship and "
-        "the collector. Hold the shadowing line behind them. Everything red "
-        "is weapons tight and so are you: nobody in this box fires first, "
-        "and the day that changes it will be in the Tasman, not here."),
-    forces="Your task group with its Seahawk; your Poseidon and F-35As, if "
-           "requisitioned, and Wedgetail 05, all out of East Sale. Neutral: a coastal "
-           "bulker, a trawler, an airliner. Opposing, transiting north-east: "
-           "Liaoning, a Type 054A, a Type 056A, a replenishment ship, the "
-           "research trawler Nan Hai 27, the Russian research vessel, a "
-           "Ka-31 up.",
+        (
+            (
+                "THE TASMAN APPROACHES, morning. The protection group is fifty miles north-east"
+                " of you, transiting at fourteen knots: LIAONING, a frigate, a corvette, a "
+                "replenishment ship, the research trawler NAN HAI 27 and the Russian research "
+                "vessel AKADEMIK FERSMAN, all in company, all going the same way. The fishing "
+                "fleet it came to protect has been left to fish.\\n\\nYou have what came out of "
+                "the south, WEDGETAIL 05 out of East Sale, and for the first time since the "
+                "southern deployment began a fighter that can reach the water you are in. "
+                "Coastal traffic and the Melbourne-Auckland service are in the same "
+                "box.\\n\\nShadow the group. Classify the carrier, the replenishment ship and the"
+                " collector. Hold the shadowing line behind them. The opposing formation is "
+                "reported under restrictive engagement orders. Your own orders prohibit opening"
+                " fire. Hold the shadowing line and report any change in the contacts' "
+                "behaviour."
+            )
+        )),
+    forces=(
+        "Your task group with its Seahawk; your Poseidon and F-35As, if assigned, and Wedgetail"
+        " 05, all out of East Sale. Neutral: a coastal bulker, a trawler, an airliner. "
+        "Opposing, transiting north-east: Liaoning, a Type 054A, a Type 056A, a replenishment "
+        "ship, the research trawler Nan Hai 27, the Russian research vessel, a Ka-31 up."
+    ),
     objectives=[
         ("Network", "Classify the carrier, the replenishment ship and the "
                     "collector", "25,-25,Fail"),
@@ -60,17 +63,24 @@ MISSION = dict(
     victory=dict(kind="arrive", station="escort", min_units=1, objective="Shadow",
                  after=dict(kind="classify", units=["network#1", "network#4", "network#5"],
                             min_units=3,
-                            intel="The network has names: LIAONING, a "
-                                  "Qiongsha-class replenishment ship, and NAN "
-                                  "HAI 27 - the collector that shadowed the Storm Bay "
-                                  "convoy on 6 December. Sydney and Wellington have the "
-                                  "picture. Hold the shadowing line behind them.")),
+                            intel=(
+                                "SURFACE PICTURE | LIAONING, the Qiongsha-class support ship "
+                                "and NAN HAI 27 are classified. Their identities have been "
+                                "passed to Sydney and Wellington for the next patrol's "
+                                "correlation. Hold the shadowing line; reacquire any contact "
+                                "that leaves sensor coverage."
+                            ))),
     fatal=[],
     neutral_objective="Neutrals",
-    win="The group is in the Tasman with every hull in its network named, "
-        "and nobody fired. The ledger closes the south and opens the north.",
-    lose="The escort is gone in the Tasman approaches, or the war started "
-         "here. Either way the fight for the Tasman opens on the group's terms.",
+    win=(
+        "The escort has reached the shadowing line with the carrier, support ship and collector"
+        " classified. Sydney and Wellington have an identified formation to monitor as the "
+        "force moves into the Tasman."
+    ),
+    lose=(
+        "The shadowing operation has failed. Sydney and Wellington require the surviving "
+        "force's report before they can meet the formation in the Tasman."
+    ),
     timeout="Seventy minutes and the group is over the horizon with half "
             "its network unnamed. Sydney meets it without a picture.",
     stations={
@@ -142,11 +152,12 @@ MISSION = dict(
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton", "E7A_Wedgetail", "raaf_f-35a"],
                 flights=[HELO, RECON, CAP],
-                situation="Hobart, after the last voyage. Requisition, repair "
-                          "and rearm before Turning North - and the F-35A is "
-                          "released to the task group, because East Sale's fighters reach the Tasman "
-                          "approaches. The next window is Sydney, before Home "
-                          "Waters."),
+                situation=(
+                    "Hobart, after the last voyage. Force allocation, repairs and ammunition "
+                    "resupply before Turning North - and the F-35A is released to the task "
+                    "group, because East Sale's fighters reach the Tasman approaches. The next "
+                    "window is Sydney, before Home Waters."
+                )),
     role="recon",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 40, 15

@@ -14,36 +14,37 @@ MISSION = dict(
     intro="Two aircraft, an empty ocean, and a group somewhere in it that "
           "calls itself fisheries protection. Put a class and a name on its "
           "command element and bring the Triton home.",
-    special="No requisition, and nothing of your own force flies: this "
-            "operation is flown with the Triton and the Poseidon allocated "
-            "to it. What Sentry 22 classifies today is on your plot at the "
-            "ice edge in January.",
+    special=(
+        "This detached reconnaissance uses the allocated Triton and Poseidon. Your standing "
+        "task group remains on its other duties. Contact classifications from this sortie will "
+        "support the January patrol at the ice edge."
+    ),
     sender="Wing Commander Daniel Ward, Air Component, RAAF Edinburgh",
-    intent=("The protection group has a command element somewhere south of "
-            "the fishing fleet and nobody has put a class on it. Sentry 22 "
-            "and Bluefin 32 are the only things in the south that can. "
-            "Classify the frigate and the corvette, and the Triton comes "
-            "home; lose the Triton and the south is a rumour until March. "
-            "The frigate has a surface-to-air missile with a forty-mile reach "
-            "and no reason yet to use it. Do not give it one, and do not "
-            "give me a reason to explain a Poseidon."),
+    intent=((
+        "The protection group has a command element somewhere south of the fishing fleet and "
+        "nobody has put a class on it. Sentry 22 and Bluefin 32 are assigned to establish the "
+        "local picture from the earlier search cues. Classify the frigate and the corvette, and"
+        " the Triton comes home; losing the Triton leaves a major gap in local surveillance. "
+        "The frigate has a surface-to-air missile with a forty-mile reach and no reason yet to "
+        "use it. Do not give it one, and do not give me a reason to explain a Poseidon."
+    )),
     date=(2028, 12, 18), time=(10, 40), sea=6, clouds="Broken_3", wind="W",
     difficulty=2, minutes=65, centre=(-56.0, 148.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "THE SOUTHERN OCEAN, 56 South, mid-morning. The protection group's "
-        "command element - a frigate, a corvette, the research trawler NAN "
-        "HAI 27 and whatever is keeping them fuelled - has been south of the "
-        "fishing fleet for a week, and every report of it is a fishing "
-        "master's word.\\n\\n"
-        "SENTRY 22 is high and BLUEFIN 32 is under the cloud, both out of "
-        "Hobart, both with the fuel for one look. The fleet is three factory "
-        "trawlers, a Russian oiler that visits it, and the expedition ship "
-        "POLAR HORIZON coming home to the west of them.\\n\\n"
-        "Classify the frigate and the corvette, then recover the Triton to "
-        "the point north. The frigate's missiles reach forty miles and "
-        "nobody has fired at an aircraft yet; you are not going to be the "
-        "first. Nothing here is a target. The picture is the mission."),
+        (
+            "THE SOUTHERN OCEAN, 56 South, mid-morning. The protection group's command element "
+            "- a frigate, a corvette, the research trawler NAN HAI 27 and whatever is keeping "
+            "them fuelled - has been south of the fishing fleet for a week. Satellite radar "
+            "detections and merchant reports give a broad search area, but identities and "
+            "present positions remain uncertain.\\n\\nSENTRY 22 is high and BLUEFIN 32 is under "
+            "the cloud, both out of Hobart, both with the fuel for one look. The fleet is three"
+            " factory trawlers, a Russian oiler that visits it, and the expedition ship POLAR "
+            "HORIZON coming home to the west of them.\\n\\nClassify the frigate and the corvette,"
+            " then recover the Triton to the point north. The frigate's missiles reach forty "
+            "miles and nobody has fired at an aircraft yet; you are not going to be the first. "
+            "Nothing here is a target. Bring back the identification report."
+        )),
     forces="One MQ-4C Triton, one P-8A, both allocated, both out of Hobart. "
            "Neutral: three factory trawlers, an expedition cruise ship, a "
            "whale. Opposing: a Type 054A frigate and a Type 056A corvette "
@@ -64,17 +65,23 @@ MISSION = dict(
                  at=(-54.0, 148.3), radius=15,
                  after=dict(kind="classify", units=["group#1", "group#2"],
                             min_units=2,
-                            intel="Sentry 22 has them: a Type 054A and a Type "
-                                  "056A holding station south of the fleet with "
-                                  "the collector in company. The command element "
-                                  "has a class. Bring the Triton north.")),
+                            intel=(
+                                "SENTRY 22 REPORT | Type 054A frigate and Type 056A corvette "
+                                "classified. The intelligence cell can now correlate these "
+                                "contacts with earlier satellite detections. Withdraw the "
+                                "Triton north; maintain separation from the frigate's "
+                                "air-defence envelope."
+                            ))),
     fatal=[F("Sentry", ["high"])],
     neutral_objective="Neutrals",
     win="The Triton is at the recovery point with the group's command "
         "element classified and on file. Ward: 'That is the whole south "
         "on one plot. Now bring the aeroplane home.'",
-    lose="Sentry 22 is down at 56 South. Everything south of the fleet is "
-         "a fishing master's word until March.",
+    lose=(
+        "The reconnaissance operation has failed. Existing imagery and reports remain "
+        "available, but they cannot replace a current patrol picture. Command must reassess "
+        "coverage before the next convoy."
+    ),
     timeout="Fuel. Both aircraft turn for Hobart with the frigate still a "
             "contact and the corvette still a rumour.",
     stations={
@@ -135,10 +142,12 @@ MISSION = dict(
              "Bluefin": ("protect", "mpa")},
     declares=["SR05GroupClassified"],
     reveal_if=[dict(variable="SR01ShadowNamed", units=["agi"], level="Classify",
-                    intel="Storm Bay's picture from the sixth: NAN HAI 27, the "
-                          "research trawler classified there, is with the command "
-                          "element and on your plot as a classified contact. "
-                          "Where she is, the frigate is.")],
+                    intel=(
+                        "FUSION CELL | Earlier Storm Bay reporting identifies NAN HAI 27. That "
+                        "identification has been correlated with the collector in the current "
+                        "search area and entered on the plot. The frigate and corvette still "
+                        "require classification."
+                    ))],
     window=dict(),
     role="recon",
 )

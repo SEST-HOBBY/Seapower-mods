@@ -25,10 +25,12 @@ EVENTS = [
              "for the ice. Its contractor, Austral Meridian Services, shares an "
              "address with Meridian's old escort company. New name; the "
              "pretext is now conservation.",
-             "Hobart's first convoy of the season - the resupply ship Southern "
-             "Endeavour, the fuel coaster Derwent Spirit and MV Coral Pioneer - "
-             "sails at dawn with the stations' year of fuel, food and people, "
-             "escorted by the task group that held the north.",
+             (
+                 "Hobart's first convoy of the season - the resupply ship Southern Endeavour, "
+                 "the fuel coaster Derwent Spirit and MV Coral Pioneer - sails at dawn with the"
+                 " stations' year of fuel, food and people, under a new southern force "
+                 "allocation informed by the northern escort operation."
+             ),
              "Get the convoy out of Storm Bay. Put a name on the trawler. "
              "Nobody shoots at a fishing boat in December."]),
 
@@ -51,10 +53,11 @@ EVENTS = [
                       "compliance is with the Australian Antarctic Division and "
                       "they could ask Hobart. They asked again. Escort came up "
                       "on the same channel and the conversation ended."),
-             ("0730", "Clear of the bay. Airlink went over for Wilkins at 0620, on time. "
-                      "Sea state four and building. Chief reports the No.2 "
-                      "bearing at 48 degrees and steady. He has stopped mentioning "
-                      "it, which means he is watching it.")],
+             ("0730", (
+                 "Clear of the bay. Wilkins airlink passed overhead at 0620. Sea state 4 and "
+                 "building. Chief Engineer reports No. 2 bearing at 48 degrees C and steady. "
+                 "Machinery watch continued."
+             ))],
          note="For the owners: the escort did not have to be told what the "
               "trawler was. Whoever she is, she remembers what Meridian's "
               "Escort Seven did in the Arafura.  - L.S."),
@@ -70,10 +73,12 @@ EVENTS = [
              "1. WELLINGTON HAS ALLOCATED ONE POSEIDON, ONE CREW, ONE SORTIE A "
              "DAY FOR THE RIDGE SEARCH, KIWI 05, MY CREW, OUT OF OHAKEA. THE "
              "AIRCRAFT REMAINS UNDER NATIONAL COMMAND. IT FLIES YOUR PLAN.", "",
-             "2. THE CONTACT REPORTED BY THE LONGLINER SOUTH OF CAMPBELL ISLAND ON THE "
-             "SIXTH IS NOT A DIESEL BOAT. NOTHING DIESEL IS TWELVE HUNDRED MILES "
-             "FROM A TENDER IN DECEMBER. IT IS NUCLEAR AND IT IS WORKING THE "
-             "RIDGE BECAUSE THE RIDGE IS WHERE THE RESUPPLY ROUTE CROSSES.", "",
+             (
+                 "2. THE LONGLINER'S REPORT SOUTH OF CAMPBELL ON THE SIXTH GIVES US A SEARCH "
+                 "AREA, NOT A CLASSIFICATION. SUBSEQUENT ACOUSTIC REPORTING SUGGESTS A NUCLEAR "
+                 "SUBMARINE. RANGE FROM A TENDER DOES NOT EXCLUDE A DIESEL-ELECTRIC BOAT. "
+                 "COLLINS AND KIWI 05 ARE TO CONFIRM THE CONTACT."
+             ), "",
              "3. COLLINS AND MY AIRCRAFT WILL PUT A NAME ON IT. THE CEASEFIRE "
              "HOLDS DOWN HERE UNTIL SOMEBODY SAYS IT DOES NOT, AND THAT IS NOT "
              "GOING TO BE A POSEIDON WITH A TORPEDO.", "",
@@ -89,13 +94,13 @@ EVENTS = [
          dateline="14 DECEMBER 2028  |  MARITIME BORDER COMMAND, HOBART DETACHMENT",
          headline="THE SOUTH HAS A PICTURE",
          body=[
-             "The convoy is south. The trawler that was not one has a name - "
-             "Nan Hai 27, a converted Okean hull with a collection fit that "
-             "would not disgrace a navy - and so has the boat working the "
-             "Macquarie Ridge. She is an Akula the force calls VICTOR, and Collins "
-             "and a New Zealand Poseidon tracked her for three hours on the ninth "
-             "without either side doing anything "
-             "the ceasefire would have to notice.",
+             (
+                 "The first convoy has cleared Storm Bay. Reports identify Nan Hai 27 as the "
+                 "suspected collector among the fishing vessels. On 9 December, Collins and a "
+                 "New Zealand Poseidon classified an Akula on the Macquarie Ridge, designated "
+                 "VICTOR. The acoustic record gives later patrols a basis for comparison; it "
+                 "does not establish the submarine's present position."
+             ),
              "The airlink to Wilkins went down on the southern route on the "
              "twelfth. Its crew were found aboard Nan Hai 24, a factory trawler "
              "from the fishing fleet the protection group escorts. She had "
@@ -124,16 +129,22 @@ EVENTS = [
                  ("NOTE:", "TRANSLATED / TRANSCRIBED. A: \"AUSTRAL CONTROL\". "
                            "B: \"PROTECTION ONE\", ASSESSED AS THE GROUP'S FRIGATE. PARTIAL.")],
          body=[
-             "A:  Protection One, Control. The command element holds its box "
-             "south of the fleet until the carrier is in the area. Compliance "
-             "corridors resume when it is.",
-             "B:  Control, One. The grey force has a long-range aircraft over "
-             "us every day. It sees the box.",
-             "A:  It sees a fishing fleet with an escort. That is what it is "
-             "for. Do not illuminate the aircraft. Do not answer the aircraft.",
-             "B:  And the trawler.",
-             "A:  The trawler is a trawler. Control out.",
-             "B:  [unreadable] ... eight days ... [unreadable]"],
+             (
+                 "A: Protection One, Control. The command element holds its box south of the "
+                 "fleet until the carrier is in the area. Compliance corridors resume when it "
+                 "is."
+             ),
+             (
+                 "B: Control, One. The grey force has a long-range aircraft over us every day. "
+                 "It sees the box."
+             ),
+             (
+                 "A: It sees a fishing fleet with an escort. That is what it is for. Do not "
+                 "illuminate the aircraft. Do not answer the aircraft."
+             ),
+             "B: And the trawler.",
+             "A: The trawler is a trawler. Control out.",
+             "B: [unreadable] ... eight days ... [unreadable]"],
          note="Speaker A's traffic pattern matches the Meridian duty controller "
               "intercepted in the north on 1 November. \"The carrier\" is assessed as the group's "
               "reinforcement, transiting; not yet in the Southern Ocean. "
@@ -169,25 +180,29 @@ EVENTS = [
          dateline="23 DECEMBER 2028  |  MARITIME BORDER COMMAND, HOBART DETACHMENT",
          headline="NO LONGER A CEASEFIRE",
          body=[
-             "A torpedo hit the fuel coaster Derwent Spirit on the resupply route on the "
-             "twenty-first, south of the Auckland Islands, in New Zealand's "
-             "search and rescue region and in nobody's war. The coaster made "
-             "Bluff on one engine with an escort on each side of her. The "
-             "boat that fired was VICTOR, the Akula Collins tracked on the "
-             "Macquarie Ridge on the ninth, and everybody knows it.",
-             "Canberra and Wellington said the same thing on the same afternoon, "
-             "which has not happened before. The task group is authorised to "
-             "find the boat that fired and sink it. It is not authorised to "
-             "touch Akademik Fersman, the Russian research vessel the boat lives "
-             "off, which is a merchant "
-             "hull under a state flag with a science party aboard, and the "
-             "difference between those two sentences is what the next month "
-             "turns on.",
-             "The fisheries-protection group has not commented. Its frigate has "
-             "moved south to the fishing fleet, and Nan Hai 27 has moved "
-             "with it. The carrier the Austral Meridian net spoke of on the "
-             "seventeenth has been seen "
-             "leaving the Java Sea, heading south-east.",
+             (
+                 "A torpedo struck Derwent Spirit on the resupply route on the twenty-first, "
+                 "south of the Auckland Islands. The coaster reached the escort handover on one"
+                 " engine and continued towards Bluff. Acoustic evidence links the attack to "
+                 "VICTOR, the Akula reported on the Macquarie Ridge. Joint intelligence "
+                 "assesses that link as probable; the next patrol must establish a fresh "
+                 "contact."
+             ),
+             (
+                 "Canberra and Wellington have authorised an operation against the submarine "
+                 "responsible. RV Akademik Fersman, the research vessel associated with its "
+                 "support network, is excluded from that authority. Its activities are to be "
+                 "documented, not attacked. The distinction is specific to these orders: a "
+                 "vessel's civilian appearance alone does not settle its role."
+             ),
+             (
+                 "The fisheries-protection formation has made no public response. Satellite "
+                 "radar imagery places its frigate and intelligence collector near the fishing "
+                 "fleet. Separate imagery and intercepted naval traffic indicate a carrier "
+                 "movement from the Java Sea towards the south-east. These are dated "
+                 "observations; patrol aircraft are tasked to establish the formation's current"
+                 " position."
+             ),
              "Christmas Eve, 57 South. The task group sails with what it "
              "rearmed at Bluff and a Poseidon it will have to share with the "
              "weather."]),
@@ -200,16 +215,23 @@ EVENTS = [
                  ("TO:", "COMAUSMARTG"), ("DTG:", "270500Z DEC 28"),
                  ("SUBJ:", "THE SOUTH - WHAT A SORTIE COSTS")],
          body=[
-             "1. A POSEIDON OUT OF HOBART IS ON TASK AT 55 SOUTH FOR TWO HOURS "
-             "AND THEN IT IS NOT. THERE IS NO TANKER DOWN HERE, THERE WILL BE NO "
-             "TANKER DOWN HERE, AND EVERY PLAN THAT ASSUMES OTHERWISE IS A PLAN "
-             "WITH A HOLE IN IT.", "",
-             "2. THE TRITON FLIES WHEN THE WEATHER AT HOBART LETS IT LAND AGAIN. "
-             "SOUTH OF SIXTY THE WEATHER DOES NOT ASK. ASSUME THE ORBIT IS NOT "
-             "THERE ON THE DAY YOU NEED IT MOST.", "",
-             "3. NO FIGHTER IN AUSTRALIA CAN REACH ANYTHING SOUTH OF TASMANIA AND "
-             "COME HOME. UNTIL THE FORCE IS BACK IN THE TASMAN, THE DESTROYER IS "
-             "THE AIR DEFENCE. FORM THE FORCE ACCORDINGLY.", "",
+             (
+                 "1. POSEIDON SORTIES FROM HOBART HAVE LIMITED TIME ON STATION AFTER TRANSIT "
+                 "AND RECOVERY RESERVES. NO TANKER IS ALLOCATED TO THESE SOUTHERN PATROLS. PLAN"
+                 " EACH SEARCH AROUND THE AIRCRAFT'S ASSIGNED SORTIE, NOT AN ASSUMED SECOND "
+                 "PASS."
+             ), "",
+             (
+                 "2. SATELLITE RADAR IMAGERY, SHIP REPORTS AND INTERCEPTED EMISSIONS HELP US "
+                 "CUE THE SEARCH. THEY DO NOT PROVIDE UNBROKEN TRACKING. WEATHER CAN GROUND THE"
+                 " AIRCRAFT NEEDED TO UPDATE THOSE REPORTS; CLOUD CAN ALSO PREVENT OPTICAL "
+                 "CONFIRMATION. MARK THE AGE AND CONFIDENCE OF EVERY POSITION."
+             ), "",
+             (
+                 "3. NO LAND-BASED FIGHTER COVER IS ALLOCATED TO THE DEEP-SOUTHERN OPERATIONS. "
+                 "THE ESCORTS MUST PROVIDE LOCAL AIR DEFENCE. FIGHTER SUPPORT RESUMES IN THE "
+                 "TASMAN WHERE THE ASSIGNED BASES CAN SUPPORT IT. PLAN YOUR FORCE ACCORDINGLY."
+             ), "",
              "4. THE NEW ZEALANDERS ARE FLYING OUT OF INVERCARGILL AND "
              "CHRISTCHURCH WITH ONE CREW AND ONE AIRCRAFT AT A TIME. THEY ARE "
              "GOOD. THEY ARE ALSO ONE AIRCRAFT.", "",
@@ -258,18 +280,28 @@ EVENTS = [
              "Akula and a Yasen), and very long-range aircraft with tanker "
              "support - operating alongside it under its own orders, not the "
              "group's.",
-             "2. Its command element has moved to the ice edge at 60 South with "
-             "the fishing fleet, across the route to Casey. Assessed intent: to be where the "
-             "last resupply voyages must pass, to be seen there, and to be fired "
-             "on first.",
+             (
+                 "2. Recent radar-satellite detections and naval emissions place the formation "
+                 "near the fishing fleet, south of the Casey route. Identification of the "
+                 "carrier remains to be confirmed locally. Assessed intent: obstruct the final "
+                 "resupply voyages while inviting the coalition to fire first. Positions are "
+                 "intelligence cues, not continuous weapon-quality tracks."
+             ),
              "3. Guidance to the force. Identify the carrier and the collector "
              "by class and name. Do not fire on anything that has not fired. "
              "AKADEMIK FERSMAN at the ice edge is a research vessel, whatever "
              "she was to the Akula in December. A trawler is a trawler.",
-             "4. The boat the task group hunted on 24 December is either on the "
-             "bottom or in that line. The force will know which when it "
-             "arrives."],
-         note="Para 3 is the whole mission. Again.  - Cdre Mercer"),
+             (
+                 "4. VICTOR's status depends on the Christmas Eve action report. A confirmed "
+                 "loss removes that particular threat; otherwise an Akula remains possible near"
+                 " the formation. A second Russian nuclear submarine, assessed as Yasen-class "
+                 "and designated SIERRA-TWO, remains unlocated. Neither satellite imagery nor a"
+                 " surface vessel's position establishes a submerged boat's location."
+             )],
+         note=(
+             "Confirm the contacts. Observe the engagement restrictions. Bring back evidence.  "
+             "- Cdre Mercer"
+         )),
 
     # --- before SR11 Last Ship South --------------------------------------
     dict(file="03c_marsh_signal", before="Last Ship South", form="signal",
@@ -299,16 +331,21 @@ EVENTS = [
          dateline="13 JANUARY 2029  |  MARITIME BORDER COMMAND, HOBART DETACHMENT",
          headline="THE STATIONS ARE SUPPLIED",
          body=[
-             "The last ship south is south. Casey has its winter fuel, Davis and "
-             "Mawson their lifts, Macquarie its year, and the Antarctic Division's "
-             "operations manager has sent the task group a photograph of a "
-             "fuel gauge with nothing written under it.",
-             "The protection group has turned north. Its carrier, its escorts, "
-             "its collector, its replenishment hull and the Russian tender "
-             "Akademik Fersman are "
-             "in company, transiting east of Tasmania into the Tasman at "
-             "fourteen knots, and the fishing fleet it came to protect has "
-             "been left to fish.",
+             (
+                 "Southern Endeavour has cleared the final escort handover for Casey. The ship "
+                 "carries the remaining stores for winter; the season's final fuel position "
+                 "will depend on the tanker and cargo-loss reports. The Division is reconciling"
+                 " deliveries to Casey, Davis, Mawson and Macquarie before deciding what can "
+                 "still sail."
+             ),
+             (
+                 "The protection group has turned north. Triton surface-search reporting, "
+                 "correlated with recent imagery, places the carrier, escorts, collector, "
+                 "replenishment hull and Russian tender Akademik Fersman east of Tasmania, "
+                 "moving towards the Tasman at a reported fourteen knots. That is the last "
+                 "reported formation; the next patrol must update its course and membership. "
+                 "The fishing fleet has been left to fish."
+             ),
              "Nobody in Canberra or Wellington believes it is going home. The "
              "Tasman is where the two countries' ports, ferries, cables and "
              "trade are, and a group that wanted to make the Antarctic route "
@@ -322,7 +359,7 @@ EVENTS = [
     # --- chapter card: before TS01 Home Waters ----------------------------
     dict(file="05_chapter", before="Home Waters",
          title="Tasman Shield\\n21 January 2029",
-         sub="Chapter B: the approaches two countries share",
+         sub="The approaches Australia and New Zealand share",
          dateline="21 JANUARY 2029  |  MARITIME BORDER COMMAND, SYDNEY",
          headline="TASMAN SHIELD",
          body=[
@@ -356,19 +393,28 @@ EVENTS = [
                  ("TO:", "COMAUSMARTG"), ("DTG:", "270300Z JAN 29"),
                  ("PREC:", "IMMEDIATE"), ("SUBJ:", "WEST OF THE CHATHAMS - THE RENDEZVOUS")],
          body=[
-             "1. TANGO, THE BOAT YOU PUT A NAME ON IN COOK STRAIT, IS A DIESEL "
-             "BOAT. A DIESEL BOAT NEEDS A TENDER. THE TENDER IS AUSTRAL "
-             "COMPLIANCE, THE AUSTRAL MERIDIAN COASTER YOU NAMED OFF FIORDLAND, "
-             "AND SHE SAILED EAST ON THE TWENTY-SIXTH WITH HER TRANSPONDER OFF.", "",
-             "2. A BOAT AND A TENDER MEET ON THE SURFACE, IN DAYLIGHT, WHERE "
-             "NOBODY LOOKS. EAST OF NEW ZEALAND, WEST OF THE CHATHAMS, IS WHERE "
-             "NOBODY LOOKS. WE WILL BE LOOKING.", "",
+             (
+                 "1. TANGO IS THE DIESEL-ELECTRIC SUBMARINE REPORTED ON THE COOK STRAIT CABLE "
+                 "ROUTE. INTERCEPTS INDICATE A PLANNED STORES TRANSFER WITH AUSTRAL COMPLIANCE."
+                 " THIS IS A SPECIFIC RENDEZVOUS, NOT A REQUIREMENT FOR EVERY DIESEL BOAT. THE "
+                 "TENDER SAILED EAST ON THE TWENTY-SIXTH AND STOPPED TRANSMITTING AIS."
+             ), "",
+             (
+                 "2. A SATELLITE RADAR DETECTION AND THE TENDER'S LAST REPORTED COURSE DEFINE "
+                 "THE SEARCH AREA WEST OF THE CHATHAMS. THEY DO NOT CONFIRM A SUBMARINE "
+                 "ALONGSIDE. THE POSEIDONS ARE TO REACQUIRE THE TENDER AND CHECK FOR A SURFACED"
+                 " BOAT BEFORE REPORTING A RENDEZVOUS."
+             ), "",
              "3. YOUR POSEIDON AND MINE, ONE SEARCH PLAN, TWO AIR FORCES, OUT OF "
              "OHAKEA. WELLINGTON HAS AUTHORISED WEAPONS ON THE BOAT. IT HAS NOT "
              "AUTHORISED WEAPONS ON THE COASTER, WHICH IS A MERCHANT HULL WITH A "
              "CREW WHO WERE TOLD THEY WERE DELIVERING FUEL.", "",
-             "4. KEEP EVERYTHING WEST OF 180 DEGREES. THE CHATHAMS ARE ON THE "
-             "OTHER SIDE OF IT AND THEY STAY OUT OF THIS.", "",
+             (
+                 "4. KEEP THE SEARCH WEST OF 180 DEGREES; THE CHATHAM ISLANDS LIE EAST OF THAT "
+                 "MERIDIAN. REPORT OBSERVATION TIMES IN UTC, WITH THE SOURCE AND CONFIDENCE OF "
+                 "EACH FIX. THE CIVIL DATE LINE BENDS AROUND THE ISLANDS; DO NOT USE THE "
+                 "MERIDIAN AS A DATE BOUNDARY."
+             ), "",
              "REWI"]),
 
     # --- before TS04 Tasman Crossing --------------------------------------
@@ -383,11 +429,14 @@ EVENTS = [
              "found on the Cook Strait cable route on the twenty-fifth, among the "
              "ferries, and the ferries ran. The two of them met east of New "
              "Zealand on the twenty-eighth, and two air forces were watching.",
-             "Wellington has published the Poseidons' recordings of the "
-             "rendezvous. Austral Meridian Services has announced a review of "
-             "its subcontractors. The group has not commented. Its carrier has "
-             "moved into the middle of the Tasman, and its air wing has "
-             "been flying over the Sydney-Auckland airway for four days.",
+             (
+                 "Wellington has published the Poseidons' recordings of the 28 January "
+                 "rendezvous. Austral Meridian Services has announced a review of its "
+                 "subcontractors. The group has not commented. Patrol imagery places its "
+                 "carrier in the central Tasman, while Wedgetail and partner air reports record"
+                 " carrier aircraft over the Sydney-Auckland airway during the past four days. "
+                 "The latest surface and air observations still need to be correlated."
+             ),
              "Merchant traffic across the Tasman is sailing in dispersed groups "
              "with whatever escort can be found, which is the task group. "
              "Williamtown's fighters reach the middle of the crossing and no "
@@ -467,8 +516,10 @@ EVENTS = [
                       "complying with the withdrawal and one has not said. Told: "
                       "\"Sail as planned.\" Same words as the night before "
                       "the Darwin passage in November."),
-             ("1015", "Chief reports the No.2 bearing at 66 degrees. Will hold at "
-                      "eleven knots. Convoy speed is eleven knots."),
+             ("1015", (
+                 "Chief Engineer reports No. 2 bearing at 66 degrees C. Eleven knots "
+                 "acceptable. Convoy speed set to 11 kn."
+             )),
              ("1100", "Crew briefed. The two who asked in November whether "
                       "Meridian's Escort Seven, which ordered us to heave to on "
                       "18 October, was out there asked again, this time about "
@@ -478,10 +529,12 @@ EVENTS = [
                       "Zealand aircraft overhead going the same way we are. "
                       "Three months ago this ship was chartered for a fortnight's "
                       "run to Macquarie Island.")],
-         note="For whoever reads these afterwards: we have now been escorted by "
-              "the same people through two seas, a strait, Buckles Bay at the bottom "
-              "of the world and a summer. They are fewer than they were. So are "
-              "we. The route is open.  - L.S."),
+         note=(
+             "For whoever reads this afterwards: the escorts have brought us through two seas, "
+             "a strait, Buckles Bay and a summer. There are fewer familiar voices on the radio "
+             "now. On the second we ask them to bring the Auckland convoy through once more.  -"
+             " L.S."
+         )),
 
     # --- epilogue ----------------------------------------------------------
     dict(file="24_closing", title="Southern Cross\\n2 March 2029",
@@ -495,15 +548,18 @@ EVENTS = [
              "fewer ships than it arrived with, and the two countries that held "
              "the line against it are counting what is left, at Sydney and at "
              "Auckland.",
-             "The stations are supplied through the winter. The Cook Strait and "
-             "Bass Strait ferries run. The Tasman cable is where it was. The "
-             "Gippsland rigs are standing. New Zealand's relief detachment is at "
-             "Christchurch. Austral Meridian Services has closed its Hobart office.",
-             "What the ledger says about the task group after three months at "
-             "sea, the ledger says: which hulls, which aircraft, which "
-             "magazines. The measure of those months is not what was sunk on "
-             "either side. It is the route, and the people in two countries who "
-             "used it.",
+             (
+                 "The final relief convoy is through. The resupply programme is accounting for "
+                 "winter stocks, port authorities are keeping the ferry routes open, and the "
+                 "repaired cable is back in service. There are losses to account for as well as"
+                 " passages completed. The compliance contractor has closed its Hobart office."
+             ),
+             (
+                 "The task group's report lists the ships and aircraft that returned, the crews"
+                 " lost and the ammunition spent. Those costs belong beside the result: "
+                 "Australia and New Zealand can continue to use their ports and sea routes "
+                 "without accepting the protection group's inspections."
+             ),
              "Master Santos's entry for the arrival, which she has allowed to "
              "be quoted, reads: \"Alongside Auckland. All hands. Same escort.\"",
              "Stand down the watch."]),

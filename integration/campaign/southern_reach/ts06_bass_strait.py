@@ -30,30 +30,28 @@ MISSION = dict(
     difficulty=3, minutes=70, centre=(-39.3, 147.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "BASS STRAIT, morning. MT BASS PROVIDER, Geelong-bound with a "
-        "cargo Melbourne has been waiting a fortnight for, is thirty miles "
-        "east of Wilsons Promontory with your force. The strait around "
-        "her is its ordinary self: two Devonport ferries on the crossing, "
-        "a bulker westbound, two supply boats running out to the Gippsland "
-        "platforms, three of which are on your plot some sixty miles "
-        "north-east, and the Melbourne-Hobart service overhead.\\n\\n"
-        "MV SOUTHERN COMPLIANCE, an Austral Meridian Services merchant, "
-        "has been radiating a frigate's search radar since dawn: she is "
-        "a decoy and a provocation, and she is a merchant. A Kilo is "
-        "inside the strait somewhere south-west of the tanker's track. A "
-        "Type 056A with a Z-9 up is coming in from the east, south of the "
-        "platforms.\\n\\n"
-        "The tanker to the western line. The platforms are not to be "
-        "touched - a missile that finds a rig instead of a corvette ends "
-        "the campaign in a courtroom. East Sale's F-35As are available "
-        "for fighter cover. The Kilo has not fired. Classify her if you can; sink her "
-        "if she does."),
-    forces="Your task group with its Seahawk, Poseidon and East Sale "
-           "fighters if requisitioned; the tanker Bass "
-           "Provider. Neutral: two Devonport ferries, a bulker, two rig "
-           "supply boats, three platforms, an airliner. Opposing: MV "
-           "Southern Compliance radiating a frigate's radar, one Kilo, one "
-           "Type 056A with a Z-9.",
+        (
+            "BASS STRAIT, morning. MT BASS PROVIDER, Geelong-bound with a cargo Melbourne has "
+            "been waiting a fortnight for, is thirty miles east of Wilsons Promontory with your"
+            " force. The strait around her is its ordinary self: two Devonport ferries on the "
+            "crossing, a bulker westbound, two supply boats running out to the Gippsland "
+            "platforms, three of which are on your plot some sixty miles north-east, and the "
+            "Melbourne-Hobart service overhead.\\n\\nMV SOUTHERN COMPLIANCE, an Austral Meridian "
+            "Services merchant, has been radiating a frigate's search radar since dawn: she is "
+            "a decoy and a provocation, and she is a merchant. A Kilo is inside the strait "
+            "somewhere south-west of the tanker's track. A Type 056A with a Z-9 up is coming in"
+            " from the east, south of the platforms.\\n\\nThe tanker to the western line. The "
+            "platforms are not to be touched - a platform hit would suspend this escort "
+            "operation and require an immediate investigation. East Sale's F-35As are available"
+            " for fighter cover. The Kilo has not fired. Classify her if you can; sink her if "
+            "she does."
+        )),
+    forces=(
+        "Your task group with its Seahawk, Poseidon and East Sale fighters if assigned; the "
+        "tanker Bass Provider. Neutral: two Devonport ferries, a bulker, two rig supply boats, "
+        "three platforms, an airliner. Opposing: MV Southern Compliance radiating a frigate's "
+        "radar, one Kilo, one Type 056A with a Z-9."
+    ),
     objectives=[
         ("Tanker", "MT Bass Provider reaches the western line", "35,-35,Fail,Main"),
         ("Platforms", "The Gippsland platforms are not to be touched",
@@ -67,9 +65,10 @@ MISSION = dict(
                  transit=12),
     fatal=[F("Tanker", ["tanker"])],
     neutral_objective="Traffic",
-    win="Bass Provider is west of the line with the ferries still "
-        "crossing and every platform where it was. The corvette went home "
-        "past the rigs it was hoping you would hit.",
+    win=(
+        "Bass Provider has crossed the western line and the protected platforms remain intact. "
+        "The traffic authorities can continue the ferry and supply-boat movements."
+    ),
     lose="The tanker is lost in Bass Strait, or a platform is, and "
          "Melbourne's fortnight becomes a month.",
     timeout="Seventy minutes and the tanker is still east of the line "
@@ -155,10 +154,12 @@ MISSION = dict(
                        "usn_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
                 flights=[HELO, RECON, CAP],
-                situation="Melbourne, after Under the Tasman. Requisition, "
-                          "repair and rearm before Bass Strait. The next window "
-                          "is Sydney, before Southern Air Bridge, when "
-                          "Williamtown's ground crews first ready aircraft for you."),
+                situation=(
+                    "Melbourne, after Under the Tasman. Force allocation, repairs and "
+                    "ammunition resupply before Bass Strait. The next window is Sydney, before "
+                    "Southern Air Bridge, when Williamtown's ground crews first ready aircraft "
+                    "for you."
+                )),
     role="escort",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 250, 10

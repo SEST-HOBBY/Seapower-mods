@@ -14,10 +14,11 @@ MISSION = dict(
     intro="The last voyage south with what is left: Southern Endeavour, "
           "Derwent Spirit if she survived Cold Route, a Seahawk, and "
           "magazines refilled only if that convoy got through.",
-    special="No requisition before this operation. Hold Cold Route and your "
-            "ships are rearmed for this one; lose it and they sail on what "
-            "Cold Route left them. No "
-            "Poseidon reaches this water from any field.",
+    special=(
+        "No additional force allocation is available. The ammunition release for this passage "
+        "depends on Cold Route's result. Shipborne helicopters provide the assigned aviation "
+        "support; no Poseidon sortie is allocated."
+    ),
     sender="Commodore Alex Mercer; Dr Helen Marsh, RSV Southern Endeavour, for the voyage",
     intent=("SOUTHERN ENDEAVOUR is the winter. She goes south whatever else "
             "does. A frigate and a corvette of the group are coming "
@@ -30,19 +31,18 @@ MISSION = dict(
     difficulty=4, minutes=80, centre=(-55.5, 128.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "THE DEEP TRANSIT, 55 South, morning. SOUTHERN ENDEAVOUR is on the "
-        "last voyage of the season with Casey's winter aboard; DERWENT "
-        "SPIRIT is in company if Cold Route left her afloat. Twelve knots, "
-        "south-west, and what remains of the force around them.\\n\\n"
-        "The frigate and the corvette that screened the carrier on the "
-        "second are coming north-east to meet the voyage; ROMEO, the Type 093B "
-        "that was ahead of the January convoy, is across this track too. The "
-        "carrier is two hundred miles east and has a pair loaded for ships "
-        "with its Ka-31 up. Hobart is eleven hundred miles behind you - "
-        "nothing with wings reaches here and comes home. The Seahawk is your "
-        "aviation.\\n\\n"
-        "Bring Southern Endeavour to the handover line. Bring the tanker if "
-        "she is with you. The trawler and the whale are in the same water."),
+        (
+            "THE DEEP TRANSIT, 55 South, morning. SOUTHERN ENDEAVOUR is on the last voyage of "
+            "the season with Casey's winter aboard; DERWENT SPIRIT is in company if Cold Route "
+            "left her afloat. Twelve knots, south-west, and what remains of the force around "
+            "them.\\n\\nThe frigate and the corvette that screened the carrier on the second are "
+            "coming north-east to meet the voyage; ROMEO, the Type 093B that was ahead of the "
+            "January convoy, is across this track too. The carrier is two hundred miles east "
+            "and has a pair loaded for ships with its Ka-31 up. Hobart is eleven hundred miles "
+            "behind you - no land-based fixed-wing support is allocated to this passage. The "
+            "Seahawk is your aviation.\\n\\nBring Southern Endeavour to the handover line. Bring "
+            "the tanker if she is with you. The trawler and the whale are in the same water."
+        )),
     forces="What remains of your task group, with its Seahawk. RSV Southern "
            "Endeavour; MT Derwent Spirit if she survived Cold Route. "
            "Opposing: a Type 054A and a Type 056A closing, a Type 093B "
@@ -59,9 +59,11 @@ MISSION = dict(
                  objective="Endeavour", transit=12),
     fatal=[F("Endeavour", ["convoy#1"])],
     neutral_objective="Neutrals",
-    win="Southern Endeavour is at the line and Casey has its winter. "
-        "Whatever the escort spent getting her there is in the ledger; "
-        "Marsh's message, in full: 'You were.'",
+    win=(
+        "Southern Endeavour has reached the escort handover with Casey's remaining winter "
+        "stores aboard. The final fuel position still depends on Derwent Spirit's status. "
+        "Marsh: 'Escort remained with us to the line. Thank you.'"
+    ),
     lose="The last ship south is lost with the winter in her. The stations "
          "close early, and the season the task group sailed to keep is "
          "over.",

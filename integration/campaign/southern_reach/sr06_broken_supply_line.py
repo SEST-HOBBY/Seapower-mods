@@ -14,10 +14,11 @@ MISSION = dict(
     intro="The fuel coaster Derwent Spirit took a torpedo and is making six "
           "knots for Bluff. The Akula that fired is ahead of her, and this is what you have "
           "left to stop it with.",
-    special="No requisition before this operation: you sail what you own, "
-            "rearmed only if Supply and Coral Pioneer held the Macquarie "
-            "service window. The coaster makes six knots because her Chief "
-            "says so, and the handover line with Bluff's tug is set for six knots.",
+    special=(
+        "No additional force allocation is available before this escort. Ammunition reflects "
+        "the Macquarie Passage service result. Derwent Spirit is proceeding at the Chief "
+        "Engineer's requested six knots; plan the escort around that speed."
+    ),
     sender="Commodore Alex Mercer; Commander Tessa Brand, RNZN, for Bluff",
     intent=("DERWENT SPIRIT was hit at 0210 south of the Auckland Islands, "
             "in New Zealand's search and rescue region and in nobody's war. "
@@ -34,25 +35,24 @@ MISSION = dict(
     difficulty=3, minutes=75, centre=(-51.5, 165.0),
     blue_nation="Australia", red_nation="Russia",
     brief=(
-        "SOUTH OF THE AUCKLAND ISLANDS, early morning. DERWENT SPIRIT took a "
-        "torpedo forward at 0210 - the first shot fired in the south - and "
-        "she is still afloat because the Chief got a collision mat over the "
-        "hole and the tanks aft are full. One engine, six knots, Bluff. "
-        "CORAL PIONEER is in company because her master, Leila Santos, would not be "
-        "elsewhere.\\n\\n"
-        "The boat that fired is VICTOR, the Akula HMAS Collins named on the "
-        "Macquarie Ridge on the ninth, and "
-        "she is ahead of the coaster's track, somewhere between here and "
-        "the islands. A Type 054A flying the fisheries-protection flag is fifty miles "
-        "east with its helicopter up and has been keeping station on the "
-        "coaster since first light, which is not something a fisheries "
-        "patrol does. A Bear is overhead.\\n\\n"
-        "You have what you own and what Macquarie left in the magazines. "
-        "Bring the coaster to the handover line. The expedition ship out of the "
-        "islands, the longliner and the whale are in the same water; nobody "
-        "in New Zealand's region will forgive a dead tourist. Weapons tight "
-        "on anything that has not fired; on the boat, answer her if she "
-        "fires again - the hunt waits on Wellington and Canberra."),
+        (
+            "SOUTH OF THE AUCKLAND ISLANDS, early morning. DERWENT SPIRIT took a torpedo "
+            "forward at 0210 - the first shot fired in the south - and she is still afloat "
+            "because the Chief got a collision mat over the hole and the tanks aft are full. "
+            "One engine, six knots, Bluff. CORAL PIONEER is in company because her master, "
+            "Leila Santos, would not be elsewhere.\\n\\nAcoustic reporting links the attack to "
+            "VICTOR, the Akula HMAS Collins named on the Macquarie Ridge on the ninth. The last"
+            " estimated position is ahead of the coaster's track, between here and the islands;"
+            " establish the present contact before acting. A Type 054A flying the "
+            "fisheries-protection flag is fifty miles east with its helicopter up and has been "
+            "keeping station on the coaster since first light, which is not something a "
+            "fisheries patrol does. A Bear is overhead.\\n\\nYou have the force already allocated"
+            " and what Macquarie left in the magazines. Bring the coaster to the handover line."
+            " The expedition ship out of the islands, the longliner and the whale are in the "
+            "same water; nobody in New Zealand's region will forgive a dead tourist. Weapons "
+            "tight on anything that has not fired; on the boat, answer her if she fires again -"
+            " the hunt waits on Wellington and Canberra."
+        )),
     forces="Your escort group with its Seahawk; your Poseidon out of "
            "Invercargill. MT Derwent Spirit at six knots and MV Coral "
            "Pioneer in company. Neutral: an expedition ship out of the "

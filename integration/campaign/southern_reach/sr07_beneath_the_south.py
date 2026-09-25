@@ -15,15 +15,15 @@ MISSION = dict(
           "Derwent Spirit, is the task group's to sink; the research vessel "
           "she lives off is not.",
     sender="Commodore Alex Mercer",
-    intent=("Canberra and Wellington said the same thing on the same "
-            "afternoon: find the boat that fired and sink her. That is the "
-            "whole authorisation. The tender is a research vessel with a "
-            "flag and a science party, and the day you sink her is the day "
-            "this stops being a torpedo attack on a coaster and becomes "
-            "something with a name. The Poseidon is out of Hobart with fuel "
-            "for one field of buoys; the Seahawk is what you have after "
-            "that. Use the water. She has to come to the tender, and the "
-            "tender is where you can see it."),
+    intent=((
+        "Canberra and Wellington said the same thing on the same afternoon: find the boat that "
+        "fired and sink her. That is the whole authorisation. The tender is excluded from the "
+        "engagement authority. Attacking her would expand the operation beyond the submarine "
+        "hunt Canberra and Wellington have approved. The Poseidon is out of Hobart with fuel "
+        "for one field of buoys; the Seahawk is what you have after that. Use the water. The "
+        "tender helps define a search area. Establish the submarine's position acoustically; "
+        "the surface vessel does not locate it for you."
+    )),
     date=(2028, 12, 24), time=(13, 30), sea=6, clouds="Overcast", wind="W",
     difficulty=3, minutes=80, centre=(-57.5, 152.0),
     blue_nation="Australia", red_nation="Russia",
@@ -106,24 +106,28 @@ MISSION = dict(
              "Flagship": ("protect", "escort")},
     declares=["SR07AkulaSunk"],
     flags=[dict(name="SR07AkulaSunk", units=["red_sub"],
-                intel="VICTOR is on the bottom. The boat that fired the first "
-                      "shot in the south will not be waiting for the January "
-                      "voyage, and the research vessel has nothing left to "
-                      "tend.")],
+                intel=(
+                    "DAMAGE REPORT | VICTOR confirmed lost. Remove that Akula from the "
+                    "outstanding threat list. Other submarines remain possible; the research "
+                    "vessel's presence alone does not establish one."
+                ))],
     reveal_if=[dict(variable="SR02BoatNamed", units=["red_sub"], level="Classify",
-                    intel="HMAS Collins's datum from the Macquarie Ridge on the "
-                          "ninth: VICTOR is on your plot as a classified contact, "
-                          "with the signature Squadron Leader Rewi's RNZAF crew "
-                          "logged there. "
-                          "You know what she sounds like. Now find where.")],
+                    intel=(
+                        "ASW CELL | HMAS Collins's Macquarie Ridge record of 9 December, shared"
+                        " with Squadron Leader Rewi's crew, supports classification of the "
+                        "reported boat as VICTOR. The matching contact is marked on the plot. "
+                        "Establish local acoustic contact; the earlier record does not prove "
+                        "her current course or depth."
+                    ))],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton", "E7A_Wedgetail"],
                 flights=[HELO, RECON],
-                situation="Christmas at Bluff. Requisition, repair and a full "
-                          "rearm before Beneath the South - Bluff's slipway and "
-                          "Invercargill's field are New Zealand's contribution "
-                          "and they are open. The next window is at Lyttelton, "
-                          "before The Gateway."),
+                situation=(
+                    "Christmas at Bluff. Force allocation, repair and a full rearm before "
+                    "Beneath the South - Bluff's slipway and Invercargill's field are New "
+                    "Zealand's contribution and they are open. The next window is at Lyttelton,"
+                    " before The Gateway."
+                )),
     role="escort",
 )

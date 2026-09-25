@@ -28,28 +28,32 @@ MISSION = dict(
     difficulty=3, minutes=80, centre=(-38.5, 158.5),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "MID-TASMAN, early afternoon. Two merchant groups on the Auckland "
-        "run: GROUP A is CORAL PIONEER and the bulker WAIRAU TRADER, thirty "
-        "miles south-east of GROUP B, the freighter TASMAN VENTURE and the "
-        "car carrier HAURAKI HIGHWAY, both groups making for the same "
-        "turning point north-east. Neither group would wait for the "
-        "other and both want the same escort.\\n\\n"
-        "LIAONING is two hundred miles south-east with a frigate, and the "
-        "J-15s that flew over the Southern Ocean fishing fleet for the "
-        "cameras on New Year's Eve are already up with anti-ship missiles, a hundred and thirty miles from group B and closing. WEDGETAIL 05 is up "
-        "out of Williamtown and, for the first time this far out, so are "
-        "fighters that can reach you: Williamtown's F-35As are available "
-        "for fighter cover, and the Super Hornets and Growlers were released "
-        "to the task group at Sydney.\\n\\n"
-        "Three of four hulls into the box, north-east. The Sydney-Auckland "
-        "service, a cruise ship and a bulker are crossing the same water. "
-        "The carrier's aircraft have not fired at a merchant yet; today "
-        "they will."),
-    forces="Your task group with its Seahawk, Poseidon and fighters if "
-           "requisitioned, Wedgetail 05 out of Williamtown. Four merchant hulls in "
-           "two groups. Neutral: an airliner, a cruise ship, a bulker. "
-           "Opposing: Liaoning with a Type 054A, a J-15 anti-ship pair and a "
-           "J-15D routed onto group B, a Ka-31 up.",
+        (
+            "MID-TASMAN, early afternoon. Two merchant groups on the Auckland run: GROUP A is "
+            "CORAL PIONEER and the bulker WAIRAU TRADER, thirty miles south-east of GROUP B, "
+            "the freighter TASMAN VENTURE and the car carrier HAURAKI HIGHWAY, both groups "
+            "making for the same turning point north-east. Neither group would wait for the "
+            "other and both want the same escort.\\n\\nLIAONING is two hundred miles south-east "
+            "with a frigate, and the J-15s that flew over the Southern Ocean fishing fleet for "
+            "the cameras on New Year's Eve are already up with anti-ship missiles, a hundred "
+            "and thirty miles from group B and closing. WEDGETAIL 05 is up out of Williamtown "
+            "and, for the first time this far out, so are fighters that can reach you: "
+            "Williamtown's F-35As are available for fighter cover, and the Super Hornets and "
+            "Growlers were released to the task group at Sydney.\\n\\nThree of four hulls into "
+            "the box, north-east. The Sydney-Auckland service, a cruise ship and a bulker are "
+            "crossing the same water. The carrier's aircraft are assessed as a threat to the "
+            "crossing. Maintain identification and track the approach while covering both "
+            "merchant groups.\\n\\nAIR PICTURE: Wedgetail 05 and the assigned fighters provide "
+            "current raid reports. The shore cell supplies the carrier's last reported area "
+            "from imagery and emissions. Compare that earlier report with the task group's "
+            "sensors as the crossing develops."
+        )),
+    forces=(
+        "Your task group with its Seahawk, Poseidon and fighters if assigned, Wedgetail 05 out "
+        "of Williamtown. Four merchant hulls in two groups. Neutral: an airliner, a cruise "
+        "ship, a bulker. Opposing: Liaoning with a Type 054A, a J-15 anti-ship pair and a J-15D"
+        " routed onto group B, a Ka-31 up."
+    ),
     objectives=[
         ("Crossing", "Three of four merchant hulls into the box north-east",
          "40,-40,Fail,Main"),
@@ -66,9 +70,11 @@ MISSION = dict(
                  at=(-38.33, 158.87), radius=15),
     fatal=[F("Crossing", ["group_a", "group_b"], 2)],
     neutral_objective="Neutrals",
-    win="Three hulls in the box and the strike flight spent. Santos, from "
-        "Coral Pioneer: 'Group B says thank you. Group A says nothing, "
-        "which is what we always say.'",
+    win=(
+        "At least three merchant hulls have reached the handover. Pass the surviving ships to "
+        "the Auckland escort authority and account for the aircraft and ships committed to the "
+        "crossing."
+    ),
     lose="Two hulls lost in the middle of the Tasman with Auckland's "
          "cargo in them. The charterers were right not to wait.",
     timeout="Eighty minutes and the groups are still short of the box "
@@ -144,21 +150,23 @@ MISSION = dict(
              "Wedgetail": ("protect", "aew"),
              "Flagship": ("protect", "escort")},
     reveal_if=[dict(variable="SR12NetworkNamed", units=["red_cv#2"], level="Classify",
-                    intel="From the shadowing on 14 January: the frigate with "
-                          "the carrier is the Type 054A that sailed with LIAONING "
-                          "into the Tasman, "
-                          "and she is on your plot classified. Where she is, the "
-                          "carrier is: a mile off her beam.")],
+                    intel=(
+                        "FUSION CELL | The escort reported with LIAONING matches the Type 054A "
+                        "identified on 14 January. Its classification is entered on the plot. "
+                        "Use the correlation to orient the search; determine the carrier's "
+                        "current position separately."
+                    ))],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_opv_arafura",
                        "usn_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
                 flights=[HELO, RECON, CAP],
-                situation="Sydney, before the crossing. Requisition, repair "
-                          "and rearm: the Super Hornet and the Growler are "
-                          "released to the task group, because Williamtown's aircraft reach the "
-                          "mid-Tasman and the carrier is in it. There is no "
-                          "requisition before Under the Tasman; the next window is Melbourne, before "
-                          "Bass Strait."),
+                situation=(
+                    "Sydney, before the crossing. Force allocation, repairs and ammunition "
+                    "resupply: the Super Hornet and the Growler are released to the task group,"
+                    " because Williamtown's aircraft reach the mid-Tasman and the carrier is in"
+                    " it. There is no further force allocation before Under the Tasman; the "
+                    "next window is Melbourne, before Bass Strait."
+                )),
     role="escort",
 )

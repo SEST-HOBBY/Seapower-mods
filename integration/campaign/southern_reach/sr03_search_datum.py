@@ -16,38 +16,42 @@ MISSION = dict(
           "in the search box, and one of them has the crew aboard and no "
           "intention of bringing them home.",
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the search plan",
-    intent=("WILKINS 03 put down on the water at 0410 and her crew are alive: "
-            "the EPIRB says so and so does the longliner that heard it. "
-            "Something recovered them before we could, and it is not steaming "
-            "for Hobart. Find it among the traffic, classify it, and put a "
-            "ship alongside. Do not fire at anything on the water today - the "
-            "people we want are on one of those decks."),
+    intent=((
+        "WILKINS 03 put down on the water at 0410 and the longliner reports survivors. The "
+        "distress beacon provided a datum; it could not confirm their condition. Something "
+        "recovered them before we could, and it is not steaming for Hobart. Find it among the "
+        "traffic, classify it, and put a ship alongside. Do not fire at anything on the water "
+        "today - the people we want are on one of those decks."
+    )),
     date=(2028, 12, 12), time=(9, 15), sea=5, clouds="Overcast", wind="W",
     difficulty=2, minutes=70, centre=(-52.0, 140.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "THE SOUTHERN ROUTE, mid-morning. WILKINS 03, the A319 airlink to Wilkins Aerodrome, "
-        "lost contact on the Hobart-Casey track at 0352 and put down on the "
-        "water eighteen minutes later. Her EPIRB ran for forty minutes and "
-        "then stopped, which is what happens when somebody switches it "
-        "off.\\n\\n"
-        "A longliner heard it and reported it. A factory trawler from the "
-        "fleet that shadowed the Storm Bay convoy was closer, and the "
-        "trawler is now holding position sixty miles west of the datum, "
-        "answering nobody, with the research trawler NAN HAI 27 steaming to "
-        "meet her.\\n\\n"
-        "You have your escort group with the Seahawk and the Poseidon you "
-        "brought, and SENTRY 21 high to the south. Six contacts are in the "
-        "search box: longliners, a factory trawler that is only fishing, the "
-        "expedition cruise ship POLAR HORIZON southbound, a whale, and the "
-        "one that matters. Classify her and put your flagship within three "
-        "miles of her. Your weapons are tight, and a shot at the wrong hull is a "
-        "shot at the crew."),
-    forces="Your escort group with one MH-60R and one P-8A if requisitioned, one "
-           "MQ-4C Triton overhead. Neutral: two longliners, a factory "
-           "trawler, an expedition cruise ship, a whale. Opposing: the "
-           "trawler holding the crew, unarmed; the research trawler Nan Hai "
-           "27 closing to meet her.",
+        (
+            "THE SOUTHERN ROUTE, mid-morning. WILKINS 03, the A319 airlink to Wilkins "
+            "Aerodrome, lost contact on the Hobart-Casey track at 0352 and put down on the "
+            "water eighteen minutes later. Her distress beacon transmitted for forty minutes "
+            "and then stopped. Failure, damage or deliberate interference are all possible; the"
+            " cessation alone does not establish what happened.\\n\\nA longliner heard it and "
+            "reported it. A factory trawler from the fleet that shadowed the Storm Bay convoy "
+            "was closer, and the trawler is now holding position sixty miles west of the datum,"
+            " answering nobody, with the research trawler NAN HAI 27 steaming to meet "
+            "her.\\n\\nYou have your escort group with the Seahawk and the Poseidon you brought, "
+            "and SENTRY 21 high to the south. Six contacts are in the search box: longliners, a"
+            " factory trawler that is only fishing, the expedition cruise ship POLAR HORIZON "
+            "southbound, a whale, and the one that matters. Classify her and put your flagship "
+            "within three miles of her. Your weapons are tight, and a shot at the wrong hull is"
+            " a shot at the crew.\\n\\nSEARCH UPDATE: Satellite detections and the last AIS "
+            "reports narrow the surface search. They do not identify who recovered the "
+            "survivors. Correlate the longliner's witness report with local sensor contacts "
+            "before approaching the suspected trawler."
+        )),
+    forces=(
+        "Your escort group with one MH-60R and one P-8A if assigned, one MQ-4C Triton overhead."
+        " Neutral: two longliners, a factory trawler, an expedition cruise ship, a whale. "
+        "Opposing: the trawler holding the crew, unarmed; the research trawler Nan Hai 27 "
+        "closing to meet her."
+    ),
     objectives=[
         ("Datum", "Classify the trawler holding the crew, then put your "
                   "flagship within three miles of her", "35,-35,Fail,Main"),
@@ -62,11 +66,13 @@ MISSION = dict(
     victory=dict(kind="arrive", station="escort", min_units=1, objective="Datum",
                  at=(-52.25, 139.65), radius=3, sets="SR03CrewRecovered",
                  after=dict(kind="classify", units="datum", min_units=1,
-                            intel="NAN HAI 24 classified: the Okean hull with "
-                                  "her nets stowed and eleven people on deck who "
-                                  "are not fishermen. She is holding for the "
-                                  "collector. Get the flagship alongside before "
-                                  "it arrives.")),
+                            intel=(
+                                "SEARCH CONTROL | NAN HAI 24 classified. The contact report "
+                                "matches the trawler last seen near the ditching datum; "
+                                "intelligence assesses that she is holding the airlink's crew. "
+                                "Bring the flagship within three nautical miles so the recovery"
+                                " party can proceed. Do not fire on the vessel."
+                            ))),
     fatal=[F("Datum", ["datum"])],
     neutral_objective="Neutrals",
     win="A boarding party is on Nan Hai 24's deck and the airlink's crew are "
@@ -136,10 +142,11 @@ MISSION = dict(
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton"],
                 flights=[HELO, RECON],
-                situation="Requisition before Search Datum. The Poseidon and the "
-                          "Triton are released to the task group here: a Poseidon "
-                          "tasked for maritime patrol is the search, and it "
-                          "recovers at Hobart. "
-                          "The next window is before Macquarie Passage."),
+                situation=(
+                    "Force allocation before Search Datum. The Poseidon and the Triton are "
+                    "released to the task group here: a Poseidon tasked for maritime patrol is "
+                    "the search, and it recovers at Hobart. The next window is before Macquarie"
+                    " Passage."
+                )),
     role="patrol",
 )

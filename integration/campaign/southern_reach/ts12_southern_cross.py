@@ -16,9 +16,11 @@ MISSION = dict(
           "nine-hour-old ceasefire, and a frigate that has not read it. Three of "
           "four hulls across, Coral Pioneer among them. The ledger closes "
           "here.",
-    special="The last mission. Nothing requisitioned here outlives the campaign; "
-            "there is no rearm. The withdrawing group is neutral under "
-            "the ceasefire and is not to be fired on.",
+    special=(
+        "Final relief passage. Repairs and replacement allocations are available, but there is "
+        "no ammunition resupply. The withdrawing formation is protected by the ceasefire and "
+        "must not be attacked."
+    ),
     sender="Commodore Alex Mercer",
     intent=("There is a ceasefire as of midnight and most of the group is "
             "keeping it: a frigate and the replenishment ship are steaming "
@@ -35,30 +37,32 @@ MISSION = dict(
     difficulty=4, minutes=75, centre=(-40.5, 155.5),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "MID-TASMAN, 40 South, morning, under a ceasefire that is nine "
-        "hours old. The relief convoy for New Zealand: CORAL PIONEER, the "
-        "freighter AOTEAROA RELIEF, the bulker WAIRAU TRADER and the "
-        "tanker TASMAN SPIRIT, eleven knots, east for Auckland, with "
-        "your escorts - what the Tasman left of them - and KIWI 05 and "
-        "WEDGETAIL 05 up. East Sale's and Williamtown's F-35As can give "
-        "you fighter cover at the end of their reach.\\n\\n"
-        "Two groups are in the box. The WITHDRAWING GROUP - a Type 054A "
-        "and the Qiongsha-class supply ship - is forty miles east steaming north under the "
-        "ceasefire, complying, and is neutral. The SPOILER is a second "
-        "Type 054A south-west of the convoy on a course to intercept it, "
-        "with the research trawler NAN HAI 27 ahead of her, ROMEO under "
-        "her if Farncomb missed her on 4 February, and a J-15 pair coming "
-        "if LIAONING is afloat to send it.\\n\\n"
-        "Three of four into the box east, Coral Pioneer among them. The "
-        "spoiler is a target when she fires; the withdrawing group is not "
-        "a target at all. A Tasman bulker and the Sydney-Wellington "
-        "service are in the box. Seventy-five minutes and it is over."),
-    forces="Your task group with its Seahawk, Poseidon and fighters if "
-           "requisitioned, Kiwi 05, Wedgetail 05. Four convoy hulls. Neutral: the "
-           "withdrawing Type 054A and the Qiongsha under the ceasefire, a "
-           "bulker, an airliner. Opposing: the spoiler Type 054A, the "
-           "research trawler Nan Hai 27, ROMEO if she is alive, a J-15 pair "
-           "if Liaoning is.",
+        (
+            "MID-TASMAN, 40 South, morning, under a ceasefire that is nine hours old. The "
+            "relief convoy for New Zealand: CORAL PIONEER, the freighter AOTEAROA RELIEF, the "
+            "bulker WAIRAU TRADER and the tanker TASMAN SPIRIT, eleven knots, east for "
+            "Auckland, with your escorts - what the Tasman left of them - and KIWI 05 and "
+            "WEDGETAIL 05 up. East Sale's and Williamtown's F-35As can give you fighter cover "
+            "at the end of their reach.\\n\\nTwo groups are in the box. The WITHDRAWING GROUP - a"
+            " Type 054A and the Qiongsha-class supply ship - is forty miles east steaming north"
+            " under the ceasefire, complying, and is neutral. The SPOILER is a second Type 054A"
+            " south-west of the convoy on a course to intercept it, with the research trawler "
+            "NAN HAI 27 ahead of her, ROMEO under her if Farncomb missed her on 4 February, and"
+            " a J-15 pair coming if LIAONING is afloat to send it.\\n\\nThree of four into the "
+            "box east, Coral Pioneer among them. The spoiler is a target when she fires; the "
+            "withdrawing group is not a target at all. A Tasman bulker and the "
+            "Sydney-Wellington service are in the box. Seventy-five minutes and it is "
+            "over.\\n\\nINTELLIGENCE: Joint reporting distinguishes the declared withdrawing "
+            "formation from the suspected spoiler. Check those assessments against current "
+            "movement, emissions and hostile acts. Shared ship classes or an old position "
+            "report are insufficient to place both groups under the same engagement authority."
+        )),
+    forces=(
+        "Your task group with its Seahawk, Poseidon and fighters if assigned, Kiwi 05, "
+        "Wedgetail 05. Four convoy hulls. Neutral: the withdrawing Type 054A and the Qiongsha "
+        "under the ceasefire, a bulker, an airliner. Opposing: the spoiler Type 054A, the "
+        "research trawler Nan Hai 27, ROMEO if she is alive, a J-15 pair if Liaoning is."
+    ),
     objectives=[
         ("Convoy", "Three of four convoy hulls into the box east, Coral "
                    "Pioneer among them", "40,-40,Fail,Main"),
@@ -71,16 +75,20 @@ MISSION = dict(
                  transit=11, also=[dict(units=["convoy#1"], min_units=1)]),
     fatal=[F("Convoy", ["convoy#1"]), F("Convoy", ["convoy"], 2)],
     neutral_objective="Neutrals",
-    win="Three hulls in the box, Coral Pioneer among them, and the "
-        "withdrawing group over the northern horizon under a ceasefire "
-        "that held. Santos, from the bridge: 'Auckland on the bow. "
-        "Southern Cross overhead. We are done.'",
+    win=(
+        "At least three merchants, including Coral Pioneer, have reached the Auckland handover "
+        "and the withdrawing group remains protected. Account for the ships still at sea and "
+        "maintain the ceasefire. Santos, from the bridge: 'Auckland on the bow. Southern Cross "
+        "overhead. We are through.'"
+    ),
     lose="The relief convoy is broken in the middle of the Tasman on the "
          "first morning of the ceasefire, or the ceasefire is broken by "
          "us. Either way the ledger closes in the red.",
-    timeout="Seventy-five minutes and the convoy is still short of the "
-            "box with the spoiler astern. She makes Auckland tomorrow, "
-            "or she does not, and the campaign is over either way.",
+    timeout=(
+        "The convoy has not met the handover requirement within seventy-five minutes. Suspend "
+        "the passage and report the ships' positions. Their eventual arrival and the spoiler's "
+        "next move remain unconfirmed."
+    ),
     stations={
         # The convoy and escorts on 080 for Auckland; the withdrawing
         # group 40 NM east on 000, neutral; the spoiler 30 NM south-west
@@ -171,21 +179,23 @@ MISSION = dict(
              "Escorts": ("protect", "escort"),
              "Wedgetail": ("protect", "aew")},
     reveal_if=[dict(variable="SR03CrewRecovered", units=["agi"], level="Identify",
-                    intel="From the Wilkins airlink search on 12 December: the "
-                          "collector that was coming to take the crew off "
-                          "Nan Hai 24 is NAN HAI 27, and she is ahead of the spoiler as her "
-                          "spotter. She is on your plot identified. Everything "
-                          "the spoiler knows about this convoy, the collector "
-                          "is telling her.")],
+                    intel=(
+                        "FUSION CELL | The Wilkins airlink search record of 12 December "
+                        "identifies the collector ahead of the spoiler as NAN HAI 27. The "
+                        "contact is entered on the plot. Intelligence assesses a possible "
+                        "spotting role; the contents of its current transmissions remain "
+                        "unknown."
+                    ))],
     window=dict(buy=True, repair=True,
                 allow=["ran_ffh_anzac", "ran_opv_arafura", "usn_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton", "E7A_Wedgetail", "raaf_f-35a",
                        "usn_fa-18f_blk3", "usn_ea-18g"],
                 flights=[HELO, RECON, CAP],
-                situation="Sydney, the last window. Requisition and repair "
-                          "before Southern Cross; no rearm - the magazines are "
-                          "what the fleet action on the twenty-sixth left in "
-                          "them. Nothing requisitioned here outlives the campaign."),
+                situation=(
+                    "Sydney can provide repairs and replacement allocations before the final "
+                    "relief passage. No ammunition resupply is available; plan around what "
+                    "remains after Approaches."
+                )),
     role="escort",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 80, 15

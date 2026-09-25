@@ -11,47 +11,52 @@ from campaign_data import U, F, S, HELO
 MISSION = dict(
     code="SR01", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 1",
     group="core", num="01", key="Southern Departure", place="Storm Bay, Tasmania",
-    intro="The resupply convoy clears Storm Bay past a fishing fleet that is not "
-          "all fishing. Put a name on the one that is not before it puts a name "
-          "on you.",
+    intro=(
+        "Escort the Antarctic resupply convoy out of Storm Bay. Identify the suspected "
+        "intelligence collector among the fishing vessels while keeping the civilian traffic "
+        "safe."
+    ),
     sender="Commodore Alex Mercer, Maritime Border Command, Hobart detachment",
-    intent=("Three ships out of Storm Bay and into the open Southern Ocean, "
-            "SOUTHERN ENDEAVOUR among them - she is the season. Something in "
-            "that fishing fleet has been logging our departures since October: "
-            "classify it, and it is a name on a chart instead of a rumour. The "
-            "frigate to the south-east will ask you questions on channel 16. "
-            "Answer them. Your weapons are tight, and a dead trawler ends the "
-            "resupply season on its first morning."),
+    intent=((
+        "Three ships out of Storm Bay and into the open Southern Ocean, SOUTHERN ENDEAVOUR "
+        "among them: she carries Casey's personnel and essential stores. Something in that "
+        "fishing fleet has been logging our departures since October: classify it, and it is a "
+        "name on a chart instead of a rumour. The frigate to the south-east will ask you "
+        "questions on channel 16. Answer them. Your weapons are tight, and a dead trawler ends "
+        "the resupply season on its first morning."
+    )),
     date=(2028, 12, 6), time=(6, 20), sea=4, clouds="Broken_2", wind="W",
     difficulty=1, minutes=60, centre=(-43.4, 147.9),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "STORM BAY, 0620. The first resupply convoy of the season cleared the "
-        "Derwent an hour ago: RSV SOUTHERN ENDEAVOUR with Casey's people and "
-        "stores, MV CORAL PIONEER chartered for the Macquarie Island run, and "
-        "the fuel coaster DERWENT SPIRIT. They make twelve knots together and "
-        "they will not make more.\\n\\n"
-        "A factory-trawler fleet has been working the shelf edge since October "
-        "under the Southern Ocean Fisheries and Research Protection Group's "
-        "flag, and one hull in it carries an "
-        "electronics fit no trawler needs. It has been forty miles off the "
-        "Derwent every time a ship has sailed for the ice. This morning it is "
-        "closer. Sixty miles south-east, a frigate flying the same flag has "
-        "been calling merchant masters to ask for their environmental "
-        "compliance paperwork. It has not been told to stop.\\n\\n"
-        "You are the escort, with your Seahawk if one is embarked. "
-        "BLUEFIN 31 is a Poseidon out of "
-        "Edinburgh for the first half of the morning and SENTRY 21 is a Triton "
-        "high to the south. Walk the convoy south out of the bay to the "
-        "handover line and classify the trawler that is not one. An expedition "
-        "cruise ship, two Tasmanian fishing boats and the morning airlink to "
-        "Wilkins Aerodrome are in the same water and the same sky. "
-        "Identify before you shoot. Your weapons are tight."),
-    forces="Your escort group, one MH-60R if requisitioned, one P-8A on task, one "
-           "MQ-4C Triton overhead. Three convoy hulls to walk out. Neutral: an "
-           "expedition cruise ship, two Tasmanian fishing boats, two factory "
-           "trawlers, the Wilkins airlink. One research trawler with an "
-           "intelligence fit, one frigate to the south-east.",
+        (
+            "STORM BAY, 0620. The first resupply convoy of the season cleared the Derwent an "
+            "hour ago: RSV SOUTHERN ENDEAVOUR with Casey's people and stores, MV CORAL PIONEER "
+            "chartered for the Macquarie Island run, and the fuel coaster DERWENT SPIRIT. They "
+            "make twelve knots together and they will not make more.\\n\\nA factory-trawler fleet"
+            " has been working the shelf edge since October under the Southern Ocean Fisheries "
+            "and Research Protection Group's flag, and one hull in it carries an electronics "
+            "fit no trawler needs. It has been forty miles off the Derwent every time a ship "
+            "has sailed for the ice. This morning it is closer. Sixty miles south-east, a "
+            "frigate flying the same flag has been calling merchant masters to ask for their "
+            "environmental compliance paperwork. It has not been told to stop.\\n\\nYou are the "
+            "escort, with your Seahawk if one is embarked. BLUEFIN 31 is a Poseidon out of "
+            "Edinburgh for the first half of the morning and SENTRY 21 is a Triton high to the "
+            "south. Walk the convoy south out of the bay to the handover line and classify the "
+            "trawler that is not one. An expedition cruise ship, two Tasmanian fishing boats "
+            "and the morning airlink to Wilkins Aerodrome are in the same water and the same "
+            "sky. Identify before you shoot. Your weapons are tight.\\n\\nINTELLIGENCE: Hobart is"
+            " comparing satellite radar detections with AIS and port departure reports. Nan Hai"
+            " 27 is the suspected collector, but distinguish the trawlers locally. Bluefin 31 "
+            "and Sentry 21 support the current search. Missing AIS or an unusual antenna fit "
+            "calls for investigation under the existing engagement orders."
+        )),
+    forces=(
+        "Your escort group, one MH-60R if assigned, one P-8A on task, one MQ-4C Triton "
+        "overhead. Three convoy hulls to walk out. Neutral: an expedition cruise ship, two "
+        "Tasmanian fishing boats, two factory trawlers, the Wilkins airlink. One research "
+        "trawler with an intelligence fit, one frigate to the south-east."
+    ),
     objectives=[
         ("Convoy", "Walk the convoy south out of Storm Bay to the handover line",
          "30,-30,Fail,Main"),
@@ -67,9 +72,11 @@ MISSION = dict(
                  transit=12, also=[dict(units=["convoy#1"], min_units=1)]),
     fatal=[F("Convoy", ["convoy"])],
     neutral_objective="Neutrals",
-    win="The convoy is past the handover line and the escort has put a name on "
-        "the trawler that was not one. Santos, Coral Pioneer's master, on "
-        "channel 16: 'Same escort as the Arafura. Good.'",
+    win=(
+        "All three resupply ships have crossed the handover line. Forward any classification "
+        "reports to the intelligence cell before the next patrol. Santos, on channel 16: 'Same "
+        "escort as October. Good.'"
+    ),
     lose="SOUTHERN ENDEAVOUR is not going south this week, and the stations "
          "start the season on what the winter left them.",
     timeout="0720 and the convoy is still in the bay. The frigate has its "
@@ -150,11 +157,12 @@ MISSION = dict(
     declares=["SR01ShadowNamed"],
     window=dict(buy=True, repair=True, rearm=True, allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r"],
                 flights=[HELO],
-                situation="First requisition of the southern season. What you buy "
-                          "here sails on the sixth. A frigate or a destroyer with "
-                          "its Seahawk on Ship's Flight is the escort; the "
-                          "Poseidon and the Triton are allocated to you and not "
-                          "yours to keep. The next window is before Search Datum."),
+                situation=(
+                    "Sydney and Hobart have released the first southern force allocation. "
+                    "Select your escort and assign an embarked MH-60R to Ship's Flight if "
+                    "required. Bluefin 31 and Sentry 21 are supporting allocations for this "
+                    "operation. Further force allocation is available before Search Datum."
+                )),
     role="opening",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 170, 12
