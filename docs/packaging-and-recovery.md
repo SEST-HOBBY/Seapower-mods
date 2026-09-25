@@ -109,8 +109,11 @@ What is genuinely at risk, and what covers it:
 A full game snapshot would duplicate the four rows that are already covered and
 would not help with the one that is not. **The gap is missions you have edited
 in the mission editor and not yet imported** — those live in the game's
-`user_missions` folder, outside the repo, and nothing else has a copy. That is
-the thing worth being disciplined about, and it is one command:
+`user_missions` folder, outside the repo, and nothing else has a copy.
+`install-sest-packs.ps1` overwrites a mission there with the repo's copy of the
+same name and keeps no backup (git is the history), so an edit that was not
+imported first is gone after the next install. That is the thing worth being
+disciplined about, and it is one command:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\refresh-mission.ps1

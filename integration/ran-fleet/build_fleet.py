@@ -519,7 +519,11 @@ def main():
 
     (OUT / "vessels").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en").mkdir(exist_ok=True)
-    names = ["[****************************** Australia — SEST RAN Fleet ******************************]", ""]
+    # Section headers stay ASCII, as every vanilla language file's are. This
+    # one carried an em dash, the one trait the SEST ship sections shared that
+    # no vanilla section does, when the editor listed those ships as "Missing
+    # Type / Missing Class" (16 Sep 2026; not confirmed as the cause).
+    names = ["[****************************** Australia - SEST RAN Fleet ******************************]", ""]
 
     for ship_id, ship in FLEET.items():
         mod, donor = ship["donor"]

@@ -482,9 +482,9 @@ V.append(dict(
     ],
     blue=[
         ("js_ffg_mogami", "24,0,84", 45, {
-            "CustomAirGroup": "True", "_air": ["jp_sh-60k=Squadron1,1"]}),
+            "CustomAirGroup": "True", "_air": ["jmsdf_sh-60k=Squadron1,1"]}),
         ("js_ffg_mogami", "36,0,108", 225, {
-            "CustomAirGroup": "True", "_air": ["jp_sh-60k=Squadron1,1"]}),
+            "CustomAirGroup": "True", "_air": ["jmsdf_sh-60k=Squadron1,1"]}),
     ],
     blue_names=["JS Mogami", "JS Kumano"],
     red=[],

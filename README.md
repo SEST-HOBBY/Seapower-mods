@@ -48,10 +48,16 @@ Gaming PC (PowerShell, from the repo root, `-ExecutionPolicy Bypass` because a d
 Windows install refuses unsigned local scripts):
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1        # deploy SEST_Integration
+powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1        # deploy SEST_Integration + missions
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing # game CLOSED: apply order
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla  # refresh mods-source/
 ```
+
+Missions install add-and-overwrite with no backup copies, so import anything edited in
+game first (`tools\import-mission.ps1`); `install-sest-packs.ps1 -PurgeBackups` clears the
+old `* backup-*.ini` copies out of the game once. The exporter mirrors deletions inside each
+mod, so a file an author removed leaves `mods-source/` too: review its deletions in
+`git status` before committing.
 
 `docs/setup-runbook.md` is the full walkthrough.
 

@@ -14,6 +14,15 @@
     folders earlier versions installed) is removed: they would double-define
     every unit alongside the consolidated pack.
 
+    Missions are plain add-and-overwrite: every .ini under integration\missions
+    is copied into the game's user_missions folder - new ones added, changed
+    ones replaced in place, unchanged ones left alone, nothing deleted, no
+    backup copies and no renaming. Git holds the history, so run
+    import-mission.ps1 on anything you edited in game before installing.
+    Each mission's "<name>_briefing" folder (its briefing map) is copied
+    beside it. Old "<name> backup-<stamp>.ini" files are no longer deployed;
+    -PurgeBackups removes the ones already in the game folder.
+
 .EXAMPLE
     # From the repo root, in PowerShell:
     git pull
@@ -28,6 +37,9 @@
     # Remove every installed pack again, leaving the workshop mods alone:
     powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -Uninstall
 
+    # Install, and clear the old backup missions out of the game's mission list:
+    powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -PurgeBackups
+
 .NOTES
     The packs are patches, not standalone mods - 99 files and every one a .ini,
     with no model, texture or asset bundle among them. Each needs the workshop
@@ -38,7 +50,8 @@
 param(
     [string]$StreamingAssetsDir,
     [switch]$Uninstall,
-    [switch]$WhatIfOnly
+    [switch]$WhatIfOnly,
+    [switch]$PurgeBackups
 )
 
 $ErrorActionPreference = "Stop"
@@ -127,76 +140,56 @@ foreach ($d in Get-ChildItem -LiteralPath $StreamingAssetsDir -Directory -Filter
 }
 
 # --- Missions ----------------------------------------------------------------
+# Plain add-and-overwrite. Every .ini under integration\missions (scenarios\
+# included; the game lists user_missions flat) is copied into the game's
+# user_missions folder: new files are added, changed files are overwritten in
+# place, unchanged files are left alone, and nothing the game has is ever
+# deleted. There are no backup copies and no renaming - git is the backup, so
+# import-mission.ps1 anything you edited in game BEFORE installing, or the
+# in-game copy is replaced by the repo's. Files named "<name> backup-<stamp>.ini"
+# (made by the old backup scheme) are not deployed; -PurgeBackups removes the
+# ones already in the game folder.
 $missionSrc = Join-Path $repoRoot "integration\missions"
 if (Test-Path $missionSrc) {
     $missionDest = Join-Path $StreamingAssetsDir "user\missions\user_missions"
     New-Item -ItemType Directory -Force -Path $missionDest | Out-Null
-    # Backups are ordinary .ini missions so the game can list and load them
-    # for recovery. Migrate any file from the two earlier schemes
-    # ("<name>.ini.backup-<stamp>" and "<name>.backup-<stamp>.bak") into
-    # "<name> backup-<stamp>.ini". One-time per file; harmless when empty.
-    $legacy = @(Get-ChildItem -LiteralPath $missionDest -Filter "*.ini.backup-*") +
-              @(Get-ChildItem -LiteralPath $missionDest -Filter "*.backup-*.bak")
-    foreach ($old in $legacy) {
-        if ($old.Name -notmatch '^(.*?)(?:\.ini)?\.backup-([0-9-]+)(?:\.bak)?$') { continue }
-        $fixed = "{0} backup-{1}.ini" -f $Matches[1], $Matches[2]
-        # Steam Cloud can resurrect an old-scheme file after a rename made
-        # while the game was running - then both names exist and Rename-Item
-        # refuses. The migrated copy is the same content, so drop the old one.
-        if (Test-Path -LiteralPath (Join-Path $missionDest $fixed)) {
-            Remove-Item -LiteralPath $old.FullName -Force
-            Write-Host ("  removed    {0} (already migrated to {1})" -f $old.Name, $fixed)
-        } else {
-            Rename-Item -LiteralPath $old.FullName -NewName $fixed
-            Write-Host ("  renamed    {0} -> {1} (backups are loadable missions now)" -f $old.Name, $fixed)
+    if ($PurgeBackups) {
+        foreach ($bak in Get-ChildItem -LiteralPath $missionDest -Filter "* backup-*.ini") {
+            if ($WhatIfOnly) { Write-Host ("  would purge  {0}" -f $bak.Name); continue }
+            Remove-Item -LiteralPath $bak.FullName -Force
+            Write-Host ("  purged     {0}" -f $bak.Name)
         }
     }
-    # Restamp internal titles on any backup still carrying the original's -
-    # the browser displays the INTERNAL name, so without this a mission with
-    # several backups shows as that many identical entries. Idempotent: once
-    # the titles carry the stamp, the replace finds nothing to change.
-    foreach ($bak in Get-ChildItem -LiteralPath $missionDest -Filter "* backup-*.ini") {
-        if ($bak.BaseName -notmatch '^(.*) backup-([0-9-]+)$') { continue }
-        $base = $Matches[1]; $bstamp = $Matches[2]
-        $raw = Get-Content -LiteralPath $bak.FullName -Raw
-        $esc = [regex]::Escape($base)
-        $new = $raw -replace "(?m)^Name=$esc\s*$", ("Name={0} backup-{1}" -f $base, $bstamp)
-        if ($new -ne $raw) {
-            Set-Content -LiteralPath $bak.FullName -Value $new -Encoding UTF8 -NoNewline
-            Write-Host ("  restamped  {0} (internal titles now carry the backup stamp)" -f $bak.Name)
-        }
-    }
-    # -Recurse so integration\missions\scenarios\ ships too. The game lists
-    # user_missions flat, so the subfolder is a repo-side grouping only - the
-    # scenario files land alongside the full missions, named "SEST NF3 - ...".
+    $overwritten = @()
     foreach ($m in Get-ChildItem -LiteralPath $missionSrc -Filter "*.ini" -Recurse) {
+        if ($m.BaseName -match ' backup-[0-9-]+$') { continue }
         $destFile = Join-Path $missionDest $m.Name
-        if (Test-Path $destFile) {
-            $srcRaw = Get-Content -LiteralPath $m.FullName -Raw
-            $dstRaw = Get-Content -LiteralPath $destFile -Raw
-            if ($srcRaw -eq $dstRaw) {
+        if (Test-Path -LiteralPath $destFile) {
+            if ((Get-Content -LiteralPath $m.FullName -Raw) -eq (Get-Content -LiteralPath $destFile -Raw)) {
                 Write-Host ("  mission    {0} (unchanged)" -f $m.Name)
                 continue
             }
-            # The in-game copy differs (e.g. edited in the mission editor):
-            # keep a timestamped backup before overwriting - saved as a real
-            # .ini so the mission browser lists it and it can be opened for
-            # recovery like any other mission. Its internal titles get the
-            # stamp appended so the two entries are tellable apart; only
-            # lines exactly matching this mission's own name are touched.
-            $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
-            $bakName = "{0} backup-{1}.ini" -f $m.BaseName, $stamp
-            $esc = [regex]::Escape($m.BaseName)
-            ($dstRaw -replace "(?m)^Name=$esc\s*$", ("Name={0} backup-{1}" -f $m.BaseName, $stamp)) |
-                Set-Content -LiteralPath (Join-Path $missionDest $bakName) -Encoding UTF8 -NoNewline
-            Write-Host ("  backup     {0} -> {1}" -f $m.Name, $bakName)
+            $overwritten += $m.Name
+            if ($WhatIfOnly) { Write-Host ("  would update  {0}" -f $m.Name); continue }
+            Copy-Item -LiteralPath $m.FullName -Destination $destFile -Force
+            Write-Host ("  mission    {0} (updated)" -f $m.Name)
+        } else {
+            if ($WhatIfOnly) { Write-Host ("  would add     {0}" -f $m.Name); continue }
+            Copy-Item -LiteralPath $m.FullName -Destination $destFile -Force
+            Write-Host ("  mission    {0} (new)" -f $m.Name)
         }
-        Copy-Item -LiteralPath $m.FullName -Destination $missionDest -Force
-        Write-Host ("  mission    {0}" -f $m.Name)
+    }
+    if ($overwritten.Count -and $WhatIfOnly) {
+        Write-Host ("  would replace the in-game copy of: {0}" -f ($overwritten -join ", ")) -ForegroundColor Yellow
+        Write-Host "  (import-mission.ps1 any of those you edited in game before installing for real)"
+    } elseif ($overwritten.Count) {
+        Write-Host ("  replaced the in-game copy of: {0}" -f ($overwritten -join ", ")) -ForegroundColor Yellow
+        Write-Host "  (if any of those carried unsaved editor work, it is gone - import-mission.ps1 first next time)"
     }
     # The briefing map pane reads "<mission>_briefing\" beside the .ini; without
     # it the right-hand pane is blank. Generated, so replaced wholesale.
     foreach ($b in Get-ChildItem -LiteralPath $missionSrc -Directory -Filter "*_briefing" -Recurse) {
+        if ($WhatIfOnly) { Write-Host ("  would copy    {0}" -f $b.Name); continue }
         $destDir = Join-Path $missionDest $b.Name
         if (Test-Path -LiteralPath $destDir) { Remove-Item -LiteralPath $destDir -Recurse -Force }
         Copy-Item -LiteralPath $b.FullName -Destination $missionDest -Recurse -Force

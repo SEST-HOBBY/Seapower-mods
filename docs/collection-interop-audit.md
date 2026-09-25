@@ -1457,6 +1457,8 @@ Euromod vs 3737267013: two lines only. ResourcesMaterialFolder=assets/europack/m
 
 **Recommendation** — Keep 3629144864 on top. It is the only version whose material path is verified present, and it is the one carrying the modern selectable-speed torpedo model. If you want RSA's longer 8 nm standoff, take it as a targeted SEST edit of MaxLaunchRange (and optionally SpeedSettingRanges) rather than by promoting 3413868677 from line 139 to above line 18 — that move would put Red Storm Arsenal above 120 mods and is far too blunt for one torpedo.
 
+**Update, 2026-09-25** — Euromod JMSDF renamed `jp_sh-60k`/`jp_sh-60j` to `jmsdf_sh-60k`/`jmsdf_sh-60j` on 19 Sep 2026, and the missions now field `jmsdf_sh-60k=Squadron1,1`. Both renamed airframes still hang `usn_mk54_air`, so the finding above applies to them unchanged.
+
 
 *Sampled: All three versions read in full and diffed pairwise. Verified 3629144864/assets/europack/materials/usn_mk46/ exists and contains usn_mk54_mat.ini. Grepped every aircraft and vessel consuming usn_mk54_air and cross-checked against the mission order of battle.*
 

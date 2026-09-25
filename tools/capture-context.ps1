@@ -27,7 +27,9 @@
       game-build.txt          install build/version, so the packs'
                               ApproximateVersion claims can be checked
       workshop-subscriptions.txt  every subscribed id with its _info.ini name,
-                              which is how new mods get catalogued
+                              which is how new mods get catalogued, checked
+                              both ways against Steam's own record
+                              (appworkshop_1286220.acf)
       environment.txt         when, on what, and by which tool version
 
     Logs can carry the local user name in paths; -Redact rewrites the profile
@@ -189,6 +191,55 @@ if (Test-Path $canonPath) {
     $gone = $canon | Where-Object { $_ -notmatch "^\d+$" -eq $false -and -not $seen.ContainsKey($_) }
     $lines += ""; $lines += "subscribed but UNPLACED ($($new.Count)): $($new -join ', ')"
     $lines += "placed but NOT SUBSCRIBED ($($gone.Count)): $($gone -join ', ')"
+}
+
+# --- cross-check the folders against Steam's own local record -------------------
+# Everything above counts FOLDERS under workshop\content\1286220. Steam's client
+# keeps its own list in appworkshop_1286220.acf, and the Steam UI shows a third
+# number that lives on Valve's servers. They can all disagree, and when they do
+# the repo has no way to know unless it says so here. Two questions this answers:
+# an id Steam tracks with no folder is a download that never landed, and a folder
+# Steam does not track is left over from an unsubscribe.
+$acfIds = @{}
+$acfPaths = @()
+$needsDownload = $null
+$needsUpdate = $null
+foreach ($lib in Get-SteamLibraries) {
+    $acf = Join-Path $lib "workshop\appworkshop_1286220.acf"
+    # Get-SteamLibraries can return one library twice in different letter
+    # case (registry vs Program Files); -contains compares case-insensitively.
+    if (-not (Test-Path $acf) -or $acfPaths -contains $acf) { continue }
+    $acfPaths += $acf
+    $raw = Get-Content -LiteralPath $acf -Raw
+    foreach ($m in [regex]::Matches($raw, '"(\d{9,10})"\s*\{')) { $acfIds[$m.Groups[1].Value] = $true }
+    $md = [regex]::Match($raw, '"NeedsDownload"\s*"(\d+)"')
+    $mu = [regex]::Match($raw, '"NeedsUpdate"\s*"(\d+)"')
+    if ($md.Success -and -not $needsDownload) { $needsDownload = $md.Groups[1].Value }
+    if ($mu.Success -and -not $needsUpdate)   { $needsUpdate   = $mu.Groups[1].Value }
+}
+$lines += ""
+$lines += "--- Steam client record (appworkshop_1286220.acf) ---"
+if ($acfPaths.Count -eq 0) {
+    $lines += "acf not found in any Steam library - cross-check skipped."
+} else {
+    # @(...) so .Count is valid when the pipeline yields nothing, which is the
+    # healthy case and would otherwise render blank instead of 0.
+    $trackedNotOnDisk = @($acfIds.Keys | Where-Object { -not $seen.ContainsKey($_) } | Sort-Object)
+    $onDiskNotTracked = @($seen.Keys   | Where-Object { -not $acfIds.ContainsKey($_) } | Sort-Object)
+    $lines += ("acf file(s)              : {0}" -f ($acfPaths -join ", "))
+    $lines += ("folders on disk          : {0}" -f $seen.Count)
+    $lines += ("ids Steam tracks locally : {0}" -f $acfIds.Count)
+    $lines += ("NeedsDownload / NeedsUpdate: {0} / {1}" -f
+               $(if ($null -ne $needsDownload) { $needsDownload } else { "?" }),
+               $(if ($null -ne $needsUpdate)   { $needsUpdate }   else { "?" }))
+    $lines += ("tracked but NOT on disk ({0}): {1}" -f $trackedNotOnDisk.Count, ($trackedNotOnDisk -join ', '))
+    $lines += ("on disk but NOT tracked ({0}): {1}" -f $onDiskNotTracked.Count, ($onDiskNotTracked -join ', '))
+    $lines += ""
+    $lines += "If the Steam UI's subscribed count is HIGHER than both numbers above, the"
+    $lines += "extras are server-side only and there is nothing on this PC to find: the"
+    $lines += "usual causes are subscribed Collections, which have no content to download,"
+    $lines += "and items the author has delisted, which Steam keeps counting forever."
+    $lines += "Neither can load in game, so neither belongs in the load order."
 }
 Write-Snapshot "workshop-subscriptions.txt" $lines
 

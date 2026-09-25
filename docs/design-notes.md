@@ -27,6 +27,26 @@ and the rule gets a new revision — that has happened three times already.
   collapse cleanly — 263 of them do so in this collection every session. Redundant
   subscriptions are still worth pruning for clarity, but not out of fear of this.
 
+## Three different mod counts, and only one of them is ours
+
+- **Folders on disk is the only count that decides anything.** `mods-source/`, the
+  load order and every checker are built from the directories under
+  `steamapps\workshop\content\1286220`. A mod with no folder cannot load, so it
+  cannot matter, whatever any other number says.
+- **Steam keeps its own local list** in `steamapps\workshop\appworkshop_1286220.acf`.
+  It normally agrees with the folders. When it does not, the gap is diagnostic: an id
+  it tracks with no folder is a download that never landed, and a folder it does not
+  track is left over from an unsubscribe. `capture-context.ps1` reports both
+  directions, with `NeedsDownload` and `NeedsUpdate`.
+- **The Steam UI's subscribed count is server-side and can legitimately be higher
+  than both.** Subscribed Collections have no content to download, and an item the
+  author delists stays in your subscription count forever. Neither can load, so
+  neither belongs in the load order.
+
+Earned twice in one session (20 Sep 2026): the repo reported 138, the Mod Manager
+agreed at 138, and Steam said 140. Nothing was wrong. Before chasing a count, say
+which of the three you are quoting.
+
 ## The Tier 0 invariant
 
 Every SEST pack sits above every workshop mod, as one unbroken block, so
@@ -110,6 +130,29 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   override hides — USNA's buddy-tanker fit landed in a file the Growler pack
   owns and was ported the same day. After any export, diff what changed and
   check it against pack donors.
+- **The export must mirror deletions, or the repo lies.** `export-mod-configs.ps1`
+  copied files in and pruned unsubscribed mods, but never deleted a file an author
+  removed *inside* a mod, so every checker kept resolving against ghosts and passed.
+  On 19 Sep 2026 the repo showed Modern US Navy's `usn_ddg_burke_f3.ini` and U.S.
+  Navy 2027's `usn_rim-162e.ini` as present while the game logged both as not found.
+  The tell is git: a ghost's last commit predates the export that touched its
+  neighbours, and a mod folder holds more files than `_export-manifest.csv` says were
+  copied (Euromod JMSDF: 43 against 37). The exporter mirrors within each mod now,
+  with two guards learned the hard way: `$DestDir` is normalised with `GetFullPath`
+  (a literal `..\` made every path miss the keep-set, and the first run deleted 7,876
+  of 7,888 exported files), and it refuses to remove more than half of a mod's files
+  when that is over 20, because an update retires a handful, never most. Review the
+  first mirrored export's deletions in git before committing it, and expect checks
+  that only passed on ghosts to go red.
+- **A mod renaming its units is the routine failure, not the exception.** Euromod
+  JMSDF renamed `jp_sh-60j`/`jp_sh-60k` to `jmsdf_sh-60j`/`jmsdf_sh-60k` on 19 Sep
+  2026. Here nothing failed: the ghost `jp_` files kept the Mogami builder, the
+  Southern Watch 10 roster and eight loose missions resolving, while the mod's own
+  language file named only the `jmsdf_` ids. The retarget is recorded in
+  `retarget_units.py`. Porting the builder alone would have been worse than
+  nothing: the campaign builder homes a helicopter on the nearest deck that lists
+  it, so SW10's two Seahawks would have quietly moved from JS Mogami to the Langgur
+  forward strip ashore.
 - **An aircraft needs a loadout it can actually resolve.** A mission entry with no
   `LoadoutVariant` makes the UI resolve a default at display time; if the winning
   unit file's `AvailableLoadouts` does not list `Default`, there is nothing to

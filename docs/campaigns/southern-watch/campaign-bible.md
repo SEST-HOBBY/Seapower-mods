@@ -316,7 +316,7 @@ The identifiers below were resolved from the pinned snapshot. Re-resolve them af
 | Helicopters | `usn_mh-60r` and `usn_mh-60r_26` | Different IDs. Australian ship support lists often name the former; do not substitute the latter without a deck check. RAN livery is not verified by the unit name |
 | Allied fighter | `usaf_f-15ex_SEII` | USAF detachment, not a real RAAF F-15 fleet. Keep speculative fits in the explicit fiction tier |
 | Allied attack aircraft | `usa_a-10c` | Current SEST-modified unit; do not use the absent `usaf_a-10c_plus` ID |
-| Japanese escort | `js_ffg_mogami` | JMSDF in the 2028 core; current supported helicopter IDs include `jp_sh-60k` and `jp_sh-60j` |
+| Japanese escort | `js_ffg_mogami` | JMSDF in the 2028 core; current supported helicopter IDs include `jmsdf_sh-60k` and `jmsdf_sh-60j` (Euromod JMSDF's `jp_` ids until 19 Sep 2026) |
 | US carrier | `usn_cvn_ford` | Winner is Workshop `3461044389`; declared capacity 90 is a game ceiling, not the desired mission allocation |
 | Opposing carrier | `plan_cv_type_003` | Actual winner here is Workshop `3663564190`, capacity 85. Do not pick a Fujian owner from old catalog prose; several mods contain carrier alternatives |
 | Opposing escorts | `plan_type_055_2026`, `plan_type_052d_p3`, `plan_type_054a_p5` | Resolve each fit and supporting aircraft against the current PLAN pack |
