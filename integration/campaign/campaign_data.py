@@ -74,6 +74,14 @@ def U(side, mod, type, station, **kw):
     return dict(side=side, mod=mod, type=type, station=station, **kw)
 
 
+# Formation members fly the same route (the SW10 and D1 convention), so a
+# leader lost does not leave its wingman circling a spawn point.
+_SW05_STRIKE = [(-8.8, 130.7, 24000), (-10.2, 131.7, 24000), (-8.6, 131.9, 24000)]
+_SW07_SWEEP = [(-7.2, 133.0, 52000), (-4.6, 132.45, 52000)]
+_SW09_RAID = [(-14.5, 147.0, 30000), (-13.5, 148.4, 30000), (-11.0, 148.05, 30000)]
+_D6_HUNT = [(-3.3, 130.48, 42000), (-4.4, 130.1, 42000)]
+_D7_SWEEP = [(-10.9, 130.1, 30000), (-11.6, 129.9, 30000)]
+
 def F(objective, units=None, minimum=1):
     """A loss that ends the mission, and the objective it fails.
 
@@ -874,10 +882,14 @@ MISSIONS.append(dict(
           name="Meridian Escort 7", route=[(-10.3, 131.85, 0)], telegraph=4),
         # A maritime strike regiment that can strike: the default fit is four
         # short-range air-to-air missiles and three tanks.
+        # It used to orbit 97 NM out with a 59-NM YJ-91, so "the counter-strike
+        # arrives" never did. It marshals west on the SAG's back-bearing first
+        # (so no shot before ~14 minutes: the player gets the surface action),
+        # runs down the corridor onto the frigate's box, and goes home.
         U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike flight lead",
-          loadout="AntiShip"),
+          loadout="AntiShip", route=_SW05_STRIKE, telegraph=3),
         U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike flight two",
-          loadout="AntiShip"),
+          loadout="AntiShip", route=_SW05_STRIKE, telegraph=3),
         U("neutral", "re-power-resupply", "civ_ms_freighter_b", "lane",
           name="MV Kupang Trader", route=[(-9.7, 132.2, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_ms_ritina", "lane",
@@ -1125,8 +1137,14 @@ MISSIONS.append(dict(
         # sails nowhere else in the campaign.
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "picket", variant="Variant2",
           name="HMAS Arunta"),
-        U("red", "mig-31-foxhound", "wp_mig-31bm", "red_air", name="Foxhound 51"),
-        U("red", "mig-31-foxhound", "wp_mig-31bm", "red_air", name="Foxhound 52"),
+        # "On a vector toward the tanker track", then "turned back": a sweep
+        # to TEXACO's station (the R-33 reaches 86 NM; the orbit was 99 NM
+        # out and never threatened her) and home to their own AEW and tanker.
+        # A tanker that leaves at once is never in reach; one that lingers is.
+        U("red", "mig-31-foxhound", "wp_mig-31bm", "red_air", name="Foxhound 51",
+          route=_SW07_SWEEP, telegraph=3),
+        U("red", "mig-31-foxhound", "wp_mig-31bm", "red_air", name="Foxhound 52",
+          route=_SW07_SWEEP, telegraph=3),
         U("red", "a-50-il-76", "wp_a-50u", "red_support", name="Mainstay 20",
           weapons="Hold"),
         U("red", "il-78", "wp_il-78", "red_support", name="Midas 30",
@@ -1377,7 +1395,13 @@ MISSIONS.append(dict(
         # Seahawk's reach from the first minute. She used to be 204 NM away,
         # pointed elsewhere, with no route - set dressing with torpedoes.
         "red_sub": S(-14.0, 149.1, "Akula datum", heading=290),
-        "red_air": S(-11.0, 148.0, "Opposing aviation", heading=180, alt=30000),
+        # Now only the Ka-27RLD, on the seat it held beside the scout and
+        # the Flankers before they were split off.
+        "red_air": S(-11.05, 148.0, "Opposing aviation", heading=180, alt=30000),
+        # Split off red_air so neither routed flight follows an orbiting
+        # leader; both keep the spawns they had there.
+        "red_scout": S(-11.0, 148.0, "Scout", heading=180, alt=34000),
+        "red_raid": S(-11.0, 148.05, "Flanker pair", heading=180, alt=30000),
         "home": S(-12.6188, 142.094, "RAAF Base Scherger"),
     },
     units=[
@@ -1399,13 +1423,23 @@ MISSIONS.append(dict(
         U("red", "russian-submarines", "wp_ssn_akula", "red_sub",
           name="Contact VICTOR", depth="belowlayer",
           route=[(-13.75, 148.5, "belowlayer")], telegraph=5),
-        U("red", "tu-214r-family", "msdvd_tu-214r", "red_air",
-          name="Coot-A 90", alt=34000, weapons="Hold"),
+        # "A scout is coming to look at it and a raid may follow it." The
+        # scout looks from 33 NM west of the box, then leaves (the stage
+        # intel speaks of where it WAS looking). Its own station, so it no
+        # longer leads the Flankers' formation while orbiting.
+        U("red", "tu-214r-family", "msdvd_tu-214r", "red_scout",
+          name="Coot-A 90", alt=34000, weapons="Hold",
+          route=[(-13.5, 147.85, 34000), (-11.0, 148.0, 34000)], telegraph=3),
         # One of the pair carries Kh-31A, so the "Flanker pair within range
         # of here" is a threat to the ships and not only to the helicopter.
-        U("red", "flanker-family", "wp_su-30m", "red_air", name="Flanker 21",
-          loadout="AntiShip"),
-        U("red", "flanker-family", "wp_su-30m", "red_air", name="Flanker 22"),
+        # The raid comes down the outside of the box and its Kh-31A window
+        # opens at about 30 minutes - inside the service window, before the
+        # ESSM envelope - then it goes home. A straight run would have shot
+        # at 12 minutes, before the scout had looked at anything.
+        U("red", "flanker-family", "wp_su-30m", "red_raid", name="Flanker 21",
+          loadout="AntiShip", route=_SW09_RAID, telegraph=3),
+        U("red", "flanker-family", "wp_su-30m", "red_raid", name="Flanker 22",
+          route=_SW09_RAID, telegraph=3),
         U("red", "ka-27rld", "wp_ka-27rdl", "red_air", name="Helix RLD 55",
           alt=9000, weapons="Hold"),
         # Air-tasking placeholder: no name, no objective, no line in the
@@ -1610,6 +1644,9 @@ MISSIONS.append(dict(
         "cvw": S(-4.2, 130.4, "Carrier air wing", heading=320, alt=28000),
         "red_cv": S(-2.5, 129.0, "Opposing carrier group", heading=140),
         "red_air": S(-2.7, 129.2, "Opposing air wing", heading=205, alt=30000),
+        "red_strike": S(-2.7, 129.25, "Anti-ship shooter", heading=205, alt=30000),
+        "red_aew": S(-2.7, 129.3, "KJ-600", heading=205, alt=30000),
+        "red_j20": S(-2.75, 129.2, "J-20A", heading=205, alt=30000),
         "red_sub": S(-4.9, 129.2, "Submarine screen", heading=140),
         # The Kai strip Prasetyo lent for The Open Door, still ours ten days
         # later: the only field inside a purchased F-35A's radius of the
@@ -1667,12 +1704,19 @@ MISSIONS.append(dict(
         U("red", "fujian-cv-18", "plan_j-35", "red_air", name="Falcon 11"),
         # The one anti-ship shooter in the air wing: two YJ-83, pointed at
         # the transports. Strike is scored on this aircraft, not on the AEW.
-        U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
+        # Its own station: as the second member of red_air's formation its
+        # route sat under an unrouted J-35 leader, a shape no stock file uses.
+        # Strike is scored on red_strike, not red_air#2 - after the move that
+        # index would have been the KJ-600.
+        U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_strike",
           name="Flying Shark 21", loadout="AntiShip",
           route=[(-5.0, 128.2, 20000)], telegraph=3),
-        U("red", "type-003-004-maneuverwarfare", "pla_kj-600", "red_air",
+        # Their own stations, on the seats they held before the J-15D left
+        # red_air: re-seated, the KJ-600 moved 3 NM and the J-20A 6.7 NM,
+        # which tipped its nearest deck from Liaoning to Fujian.
+        U("red", "type-003-004-maneuverwarfare", "pla_kj-600", "red_aew",
           name="KJ-600 Eye", alt=26000, weapons="Hold"),
-        U("red", "j-20", "plaaf_j-20a", "red_air", name="Dragon 51"),
+        U("red", "j-20", "plaaf_j-20a", "red_j20", name="Dragon 51"),
     ],
 ))
 
@@ -1776,8 +1820,11 @@ MISSIONS.append(dict(
           name="Unacknowledged submarine", depth="belowlayer",
           route=[(-10.6, 131.55, "belowlayer")], telegraph=2),
         # Loaded for ships, as the brief says it is.
+        # It orbited 73 NM out with a 59-NM YJ-91. Now it opens east first
+        # (no shot for ~20 minutes), comes in over the convoy and goes home.
         U("red", "jh-7a", "plaaf_jh7a", "spoiler_air", name="Strike flight 71",
-          loadout="AntiShip"),
+          loadout="AntiShip", telegraph=3,
+          route=[(-9.0, 133.5, 24000), (-10.9, 131.5, 24000), (-9.2, 132.0, 24000)]),
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
@@ -2733,8 +2780,13 @@ MISSIONS.append(dict(
           loadout="Standoff"),
         U("blue", "b-1b", "usaf_b-1b_dts", "stream", name="Stream 02"),
         U("blue", "b-52h", "dts_b-52h", "stream", name="Stream 03"),
-        U("red", "j-36-tailless", "plaaf_j36", "red_air", name="Tailless 51"),
-        U("red", "j-50", "plan_j-50", "red_air", name="Silent 52"),
+        # Onto the stream's line and back down it to where it launched: the
+        # orbit was 134 NM north-north-west of the stream and 96 NM off its
+        # track, and the J-50's PL-15s never reached it.
+        U("red", "j-36-tailless", "plaaf_j36", "red_air", name="Tailless 51",
+          route=_D6_HUNT, telegraph=3),
+        U("red", "j-50", "plan_j-50", "red_air", name="Silent 52",
+          route=_D6_HUNT, telegraph=3),
         U("red", "3m25-meteorit", "wp_tu-95ma", "red_bomber", name="Meteorit 90",
           loadout="AntiShip"),
         U("red", "pla-land-unit-pack", "pla_df-26b_tel", "complex",
@@ -2796,6 +2848,14 @@ MISSIONS.append(dict(
     ],
     victory=dict(kind="destroy", stations=["aggressor#1"], min_units=1,
                  objective="Serial"),
+    # "Before its release line" used to be prose: nothing failed the serial
+    # until the clock ran out. The Bear inside five miles of its release
+    # point now ends it.
+    denied=[dict(units=["aggressor#1"], at=(-10.9, 130.1), radius=5,
+                 objective="Serial",
+                 message="Bear G 90 is at its release line with the serial "
+                         "intact. The umpires score the simulated launch "
+                         "against the surface group.")],
     fatal=[],
     neutral_objective="Umpire",
     win="The strike serial was broken outside its release line and everybody "
@@ -2807,6 +2867,8 @@ MISSIONS.append(dict(
         "strike": S(-11.6, 129.9, "Strike detachment", heading=20, alt=24000),
         "high": S(-12.0, 130.5, "High assets", heading=90, alt=60000),
         "aggressor": S(-8.8, 129.2, "Aggressor force", heading=180, alt=30000),
+        # The Badger's own station, on the spot it held as the Bear's #2.
+        "tanker": S(-8.8, 129.25, "Badger tanker", heading=180, alt=30000),
         # The fighters sweep ahead of the Bear instead of flying its speed.
         "sweep": S(-9.6, 129.6, "Aggressor sweep", heading=180, alt=30000),
         "sea": S(-12.1, 130.7, "Exercise surface group", heading=270),
@@ -2826,17 +2888,28 @@ MISSIONS.append(dict(
           name="USS Kitty Hawk"),
         U("blue", "a-10a", "airfield_a-10", "range", name="Exercise field",
           weapons="Hold"),
-        U("red", "tu-95k-22", "wp_tu-95_bearg", "aggressor", name="Bear G 90"),
-        U("red", "tu-16n", "wp_tu-16n", "aggressor", name="Badger tanker",
+        # To the release line on the 157 line, 82 NM short of Kitty Hawk,
+        # where the serial ends (the `denied` terminal below). The leg out on
+        # the reciprocal only flies if that terminal ever fails to fire - it
+        # keeps her from circling the release point in that case.
+        U("red", "tu-95k-22", "wp_tu-95_bearg", "aggressor", name="Bear G 90",
+          route=[(-10.9, 130.1, 30000), (-6.5, 128.2, 30000)], telegraph=3),
+        # Its own station: flying in the Bear's Vic took the out-of-play
+        # tanker down to within 42 NM of weapons-free Tomcats.
+        U("red", "tu-16n", "wp_tu-16n", "tanker", name="Badger tanker",
           weapons="Hold"),
-        U("red", "j-8", "plaaf_j-8f", "sweep", name="Aggressor 51"),
-        U("red", "j-8", "plaaf_j-8f", "sweep", name="Aggressor 52"),
+        # Ahead of the Bear, then onto the strike detachment's station -
+        # inside AA-7 reach of the CAP, which is where the sweep's job is.
+        U("red", "j-8", "plaaf_j-8f", "sweep", name="Aggressor 51",
+          route=_D7_SWEEP, telegraph=3),
+        U("red", "j-8", "plaaf_j-8f", "sweep", name="Aggressor 52",
+          route=_D7_SWEEP, telegraph=3),
         # The Custom Loadout Editor's own files are its ammunition and its
         # authoring UI; its patches/ folder is not a path the game loads. The
         # aggressor Flogger's air-to-air fit hangs its rounds, which is the
         # only way a mission can make the game read it.
         U("red", "custom-loadout-editor", "wp_mig-23a", "sweep",
-          name="Aggressor 53"),
+          name="Aggressor 53", route=_D7_SWEEP, telegraph=3),
     ],
 ))
 
@@ -3907,7 +3980,7 @@ RESOLVERS = {
     "10": {"Cargo": "victory", "Allies": ("protect", "jmsdf"),
            "Submarine": ("classify", "red_sub", 1)},
     "11": {"Transports": "victory", "Ford": ("protect", "carrier#1"),
-           "Strike": ("destroy", "red_air#2", 1)},
+           "Strike": ("destroy", "red_strike", 1)},
     "12": {"Convoy": "victory", "Ceasefire": "neutral",
            "Escorts": ("protect", "escort")},
     "D1": {"Oiler": "victory", "Escorts": ("protect", "escort"),
@@ -3928,7 +4001,7 @@ RESOLVERS = {
     "D6": {"Stream": "victory", "Escort": ("protect", "escort"),
            "Sensor": ("protect", "sensor")},
     "D7": {"Serial": "victory", "Recovery": ("protect", "high"),
-           "Umpire": ("spare", "aggressor#2")},
+           "Umpire": ("spare", "tanker")},
     "D8": {"Column": "victory", "Village": "neutral",
            "Gunship": ("protect", "support"),
            "Lift": ("arrive", "lift", (-8.38, 140.35), 3, 1)},

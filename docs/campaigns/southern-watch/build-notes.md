@@ -976,6 +976,41 @@ the test card's question. Neither is the telegraph mapping for a hull with
 no `TelegraphVelocities`: the Delvar is capped by her own 11-knot maximum,
 which is why she was chosen.
 
+## Red aircraft that were briefed to come
+
+The airliner that circled one spot in White Water had a sibling problem on
+the red side: an aircraft with no `Waypoints` holds an orbit over its spawn,
+and several briefings describe a strike, a sweep or an interceptor that
+arrives. Every red aircraft without waypoints - 52 in 16 missions, the
+campaign's, the dispatches' and the Banda and Northern Front vignettes' -
+plus SW11's J-15D (routed, but flying as the #2 of an unrouted leader) was
+read against its own briefing, weapons and triggers, and each proposed route
+was put to an independent reviewer who checked the timing against the built
+positions, speeds and weapon ranges. 34 hold a station their text gives them
+(AEW, tankers, pickets, the Bomber Stream's trail) and are unchanged; 18 now
+fly, and the J-15D flies its own route.
+
+| Mission | Aircraft | Was | Now |
+|---|---|---|---|
+| SW05 Weapons Free | JH-7A strike pair | 97 NM out with a 59-NM YJ-91: "the counter-strike arrives" never did | marshals on the SAG's back-bearing, runs onto the frigate's box, goes home; first shot about 14 minutes |
+| SW07 Long Way Home | MiG-31 pair | 99 NM from the tanker, R-33 reaches 86 | sweeps to TEXACO's station, turns back to their own AEW and tanker; a tanker that leaves at once is never in reach |
+| SW09 Southern Lifeline | Tu-214R scout; Su-30 pair | orbiting 150 NM out, the scout leading the Flankers' formation | the scout looks from 33 NM west of the box and leaves; the pair comes down the outside of the box, Kh-31A window at about 30 minutes; each on its own station |
+| SW11 Fujian's Shadow | J-15D anti-ship shooter | routed, but as #2 under an unrouted J-35 leader | its own station; `Strike` now names that station, not `red_air#2` (which after the move would have been the KJ-600) |
+| SW12 The First Ship Through | JH-7A spoiler strike | 73 NM out with a 59-NM YJ-91 | opens east, is inside YJ-91 range of the convoy at about 21 minutes, passes over it at about 35-38, goes home |
+| D6 Long Reach | J-36 / J-50 pair | orbiting 134 NM north-north-west of the stream, 96 NM off its track; the J-50's PL-15s never reached | onto the stream's line and back down it |
+| D7 Before the Lifeline | Bear G; the aggressor sweep | the Bear orbited; "before its release line" was prose | the Bear flies to its release point, where the serial now ends - the Bear inside five miles of it fails `Serial` (O1's `denied` terminal); the sweep goes ahead of it onto the strike detachment; the Badger has its own station so the Bear's Vic no longer drags it at the Tomcats |
+| Banda: Foxhound Sweep | MiG-31 pair | 300 NM out | onto the Wedgetail at Telegraph 4: at 3 a Foxhound is slower than the Wedgetail and the tanker at full power, and "speeds you cannot chase" was untrue. Because they can now reach the orbit, losing the Wedgetail or the tanker fails `HVA` and ends the mission - before, nothing failed it, and shooting the MiGs down afterwards still paid it |
+| Banda: Triton's Picture | J-16 pair | a CAP over the Aru Islands | "already up and looking for it": down to the Triton's station |
+
+Formation members fly the same route (the SW10 and D1 convention), so a
+wingman whose leader is shot down does not go back to circling its spawn.
+Every spawn is where it was. The splits used a station per aircraft that
+left, and a station per aircraft that would otherwise have been re-seated:
+SW09's Ka-27RLD and SW11's KJ-600 and J-20A (the J-20A, re-seated, had
+tipped its nearest deck from Liaoning to Fujian). SW11's red air wing no
+longer flies as one 0.1 NM Vic of fighters, an AEW aircraft and the
+shooter; the J-35, the KJ-600 and the J-20A each hold their own spawn.
+
 ## What exists
 
 | Thing | Where |
