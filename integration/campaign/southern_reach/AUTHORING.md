@@ -64,7 +64,7 @@ calendar has them (the package fills them in either way).
 | `minutes` | the clock. The main objective fails when it runs out |
 | `centre` | `(lat, lon)`; every unit's position is relative to it. Keep every unit within ~250 NM of it except far bases |
 | `blue_nation`, `red_nation` | `"Australia"`, `"China"` or `"Russia"` |
-| `brief` | the situation, 3-4 paragraphs separated by `"\\n\\n"` (the two-character escape, as in the example). Say what the player has, what is in the water, what the rules are, and name every stand-in |
+| `brief` | the situation, 3-4 paragraphs separated by `"\\n\\n"` (the two-character escape, as in the example). Explain the assigned forces, assessed threats and orders. Describe a vessel's operational role; document substitute models in build notes rather than contact names or dialogue |
 | `forces` | one paragraph: own, allocated, neutral, opposing |
 | `objectives` | list of `(id, text, "completed,failed,StatusAtEnd[,Main][,Hidden]")`. The main objective carries `,Main`; `Fail` at end only on an objective something can complete (the victory, a classify/arrive/destroy resolver); protect/neutral objectives end `Complete`; an optional task is `"n,0,None"` |
 | `victory` | see below |
@@ -236,15 +236,23 @@ the traffic; point the threat.
 ### Writing
 
 The voice is Southern Watch's: short, concrete, Australian, with the rule of
-engagement said plainly and the stand-ins named as stand-ins. Every neutral
+engagement said plainly. Player-facing prose and contact names do not carry
+fiction banners, stand-in tags, point prices or development terminology.
+Technical limitations and substitute models belong in the build notes.
+Intelligence reports distinguish the source, observation age, assessed identity
+and current contact. Satellite imagery cues a search; do not describe it as
+continuous tracking or as a submerged-submarine firing solution. A saved
+classification can support correlation without proving the contact's present
+course or depth. Match every outcome line to the predicate that displays it.
+Every neutral
 has an origin and a destination and a route that shows it. No real company
 names; fictional ship names with a New Zealand or Tasmanian flavour where the
 water is theirs. Callsigns: Bluefin (RAAF P-8), Kiwi (RNZAF P-8), Sentry
 (Triton), Wedgetail, Vigilant (F-35A). Contact names: red submarines VICTOR
 (Akula), SIERRA-TWO (Yasen), ROMEO (093B), TANGO (039C), KILO (Kilo); the collector is
 *Nan Hai 27*, the AMS tender *MV Austral Compliance*, the Russian tender *RV
-Akademik Fersman*, the cargo/research ship *RSV Southern Endeavour (resupply
-ship, stand-in)*, Santos's ship *MV Coral Pioneer*, the coaster *MT Derwent
+Akademik Fersman*, the cargo/research ship *RSV Southern Endeavour*,
+Santos's ship *MV Coral Pioneer*, the coaster *MT Derwent
 Spirit*.
 
 ## Verified coordinates

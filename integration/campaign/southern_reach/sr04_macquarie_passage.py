@@ -15,17 +15,20 @@ MISSION = dict(
     intro="HMAS Supply and MV Coral Pioneer in Buckles Bay for the service "
           "window the island's weather allows one day in three, with a Russian "
           "nuclear boat closing and a Bear-F coming to look.",
-    special="Hold the service window and your ships are rearmed before Broken "
-            "Supply Line; miss it and they sail it on what they have left. "
-            "Supply and Coral Pioneer must both be in the service box when it closes.",
+    special=(
+        "Supply and Coral Pioneer must both be inside the five-nautical-mile service area at "
+        "the 30-minute check, then reach the withdrawal line together. Completion secures the "
+        "ammunition allocation for Broken Supply Line."
+    ),
     sender="Commodore Alex Mercer",
-    intent=("Thirty minutes in the anchorage for Supply and Coral Pioneer, "
-            "and then both of them north together to the withdrawal line. The island "
-            "gets its year in those thirty minutes. A Russian nuclear boat is coming up from "
-            "the south-west to look at the anchorage and a Bear is coming to "
-            "look at you; the tender west of the island is a research vessel "
-            "with a science party and a flag. Nothing here has fired and you "
-            "do not fire first. The window is the job."),
+    intent=((
+        "Supply and Coral Pioneer must both be inside the anchorage's service area at the "
+        "30-minute check, then withdraw north together. Protect the ships and the island's "
+        "annual resupply while the weather allows work. VICTOR, the Akula reported on the "
+        "ridge, is approaching from the south-west, with a Russian Bear reconnaissance flight "
+        "in the same sector. RV Akademik Fersman remains outside the engagement authority. "
+        "Maintain the screen and do not fire first."
+    )),
     date=(2028, 12, 15), time=(7, 10), sea=5, clouds="Overcast", wind="W",
     difficulty=3, minutes=75, centre=(-54.3, 158.3),
     blue_nation="Australia", red_nation="Russia",
@@ -49,15 +52,17 @@ MISSION = dict(
         "flight until it is not; the tender is a research vessel with a "
         "flag. Your weapons are tight. Hold the window and get everybody "
         "out of it."),
-    forces="HMAS Supply and MV Coral Pioneer at the anchorage, your escort "
-           "group with its Seahawk and Poseidon if requisitioned. The station "
-           "ashore. Opposing: one Akula closing from the south-west, its "
-           "tender to the west, one Bear-F with tanker support. A longliner "
-           "east of the island and a whale to the north.",
+    forces=(
+        "HMAS Supply and MV Coral Pioneer at the anchorage, your escort group with its Seahawk "
+        "and Poseidon if assigned. The station ashore. Opposing: one Akula closing from the "
+        "south-west, its tender to the west, one Bear-F with tanker support. A longliner east "
+        "of the island and a whale to the north."
+    ),
     objectives=[
-        ("Service", "Hold the service box for the 30-minute window, then "
-                    "bring SUPPLY and CORAL PIONEER north together to the "
-                    "withdrawal line", "35,-35,Fail,Main"),
+        ("Service", (
+            "Have SUPPLY and CORAL PIONEER inside the service area at 30 minutes, then bring "
+            "both to the northern withdrawal line"
+        ), "35,-35,Fail,Main"),
         ("Supply", "HMAS Supply must survive", "20,-30,Complete"),
         ("Cargo", "MV Coral Pioneer must survive", "15,-25,Complete"),
         ("Restraint", "Fire on nothing that has not fired: the boat, the Bear "
@@ -74,16 +79,20 @@ MISSION = dict(
                  after=dict(kind="area", units=["support#1", "support#2"],
                             at_unit="support#1", radius=5, min_units=2,
                             after_minutes=30, sets="SR04ServiceHeld",
-                            intel="The window has run. The station has its "
-                                  "year and the last boat is hoisted. Bring "
-                                  "SUPPLY and CORAL PIONEER north together to "
-                                  "the withdrawal line before the boat from the "
-                                  "south-west is inside the bay.")),
+                            intel=(
+                                "SERVICE CONTROL | Both ships are inside the service area at "
+                                "the scheduled check. The rendezvous is complete and the next "
+                                "ammunition allocation is released. Withdraw SUPPLY and CORAL "
+                                "PIONEER north together; continue screening the south-western "
+                                "approach."
+                            ))),
     fatal=[F("Supply", ["support#1"]), F("Cargo", ["support#2"])],
     neutral_objective="Neutrals",
-    win="The window held and both ships are north of the line. Macquarie "
-        "Island has its year, your escorts will be rearmed, and the "
-        "Bear went home with photographs of a resupply.",
+    win=(
+        "The service check is complete and both ships have reached the withdrawal line. The "
+        "island's resupply can continue, and the force has secured its next ammunition "
+        "allocation."
+    ),
     lose="The anchorage is broken. The island gets what was ashore before "
          "the window closed and nothing more until next summer.",
     timeout="Seventy-five minutes and the ships are still south of the "
@@ -151,11 +160,12 @@ MISSION = dict(
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton", "E7A_Wedgetail"],
                 flights=[HELO, RECON],
-                situation="Requisition before Macquarie Passage. The Wedgetail "
-                          "is released to the task group here and recovers at Hobart. "
-                          "There is no requisition before Broken Supply Line, and "
-                          "its rearm depends on holding the service window; the "
-                          "next window is Christmas at Bluff, "
-                          "before Beneath the South."),
+                situation=(
+                    "Force allocation before Macquarie Passage. The Wedgetail is released to "
+                    "the task group here and recovers at Hobart. There is no further force "
+                    "allocation before Broken Supply Line, and its rearm depends on holding the"
+                    " service window; the next window is Christmas at Bluff, before Beneath the"
+                    " South."
+                )),
     role="logistics",
 )

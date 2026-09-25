@@ -14,39 +14,39 @@ MISSION = dict(
     intro="HMAS Collins and a New Zealand Poseidon put a name on the nuclear "
           "boat working the Macquarie Ridge. The ceasefire holds until somebody says it does not, and "
           "that is not going to be a torpedo.",
-    special="No requisition, and nothing of your own force sails: this is a "
-            "detached submarine operation. You command HMAS Collins for this "
-            "operation only, with a New Zealand Poseidon overhead on a "
-            "national allocation.",
+    special=(
+        "No additional force allocation, and your standing task group remains on other duties: "
+        "this is a detached submarine operation. You command HMAS Collins for this operation "
+        "only, with a New Zealand Poseidon overhead on a national allocation."
+    ),
     sender="Commodore Alex Mercer; Squadron Leader Tane Rewi, No. 5 Squadron RNZAF, for the aircraft",
-    intent=("A nuclear boat is working the ridge because the ridge is where "
-            "the Antarctic resupply route crosses. Put a name on her - class, and if you can, "
-            "hull - and get off her track. Nobody fires. The ceasefire is twelve "
-            "days old and it is not Collins's to end. Rewi's crew flies its "
-            "own plan and goes home to Ohakea; the aircraft is not yours to "
-            "spend. A research vessel with a New Zealand flag is on the ridge "
-            "with a science party. She is ours."),
+    intent=((
+        "A suspected nuclear boat is working the ridge because the ridge is where the Antarctic"
+        " resupply route crosses. Put a name on her - class, and if you can, hull - and get off"
+        " her track. Nobody fires. The ceasefire is twelve days old and it is not Collins's to "
+        "end. Rewi's crew flies its own plan and goes home to Ohakea; the aircraft is not yours"
+        " to spend. A research vessel with a New Zealand flag is on the ridge with a science "
+        "party. She is ours."
+    )),
     date=(2028, 12, 9), time=(4, 30), sea=5, clouds="Overcast", wind="W",
     difficulty=2, minutes=70, centre=(-50.3, 162.8),
     blue_nation="Australia", red_nation="Russia",
     brief=(
-        "MACQUARIE RIDGE, before dawn. A longliner south of Campbell Island "
-        "reported a submarine contact on the sixth, twelve hundred miles from "
-        "any tender, where no diesel boat works in December. Contact VICTOR "
-        "is nuclear, it is "
-        "working the ridge, and the ridge is where every ship for the ice "
-        "crosses.\\n\\n"
-        "COLLINS is at periscope depth on the ridge's western flank with "
-        "thirty-one days of patrol left in her. KIWI 05, a New Zealand "
-        "Poseidon out of Ohakea with Squadron Leader Rewi's crew, has one "
-        "sortie and a field of buoys. NAN HAI 27, the research trawler that "
-        "shadowed the Storm Bay convoy, is thirty miles north, and the boat "
-        "will not be far from her.\\n\\n"
-        "Classify the contact, then take Collins east off the ridge to the "
-        "exit point. Do not attack it. RV SOUTHERN SURVEYOR is on the ridge "
-        "with a science party, a Bluff longliner is working the shelf, and "
-        "there is a whale that three sonar operators will call a submarine. "
-        "The ceasefire holds down here until somebody says it does not."),
+        (
+            "MACQUARIE RIDGE, before dawn. A longliner south of Campbell Island reported a "
+            "possible submarine on the sixth. Subsequent acoustic reporting suggests a nuclear "
+            "boat, designated VICTOR, near the resupply route. Distance from a tender does not "
+            "identify its propulsion or class; establish a fresh contact.\\n\\nCOLLINS is at "
+            "periscope depth on the ridge's western flank with thirty-one days of patrol left "
+            "in her. KIWI 05, a New Zealand Poseidon out of Ohakea with Squadron Leader Rewi's "
+            "crew, has one sortie and a field of buoys. NAN HAI 27, the research trawler that "
+            "shadowed the Storm Bay convoy, is thirty miles north. Her presence is a search "
+            "cue, not a submarine fix.\\n\\nClassify VICTOR, then take Collins east off the ridge"
+            " to the exit point. Do not attack it. RV SOUTHERN SURVEYOR is on the ridge with a "
+            "science party; a Bluff longliner and a whale are also in the area. Distinguish "
+            "those contacts before classifying the boat. The ceasefire is twelve days old and "
+            "nobody fires first here."
+        )),
     forces="HMAS Collins at periscope depth. One RNZAF P-8A on a single "
            "national sortie. In the water: one nuclear boat, one research "
            "trawler with an intelligence fit, a New Zealand research vessel, "
@@ -65,17 +65,20 @@ MISSION = dict(
     # to the exit point east of the ridge, solved at a submarine's speed.
     victory=dict(kind="arrive", station="collins", min_units=1, objective="Track",
                  after=dict(kind="classify", units="red_sub", min_units=1,
-                            intel="VICTOR classified: an Akula-class nuclear "
-                                  "boat, running north-east along the ridge at "
-                                  "eight knots. Rewi's crew has the datum logged "
-                                  "for Wellington and Canberra both. Take Collins "
-                                  "east, off her track, and do not give her a "
-                                  "reason.")),
+                            intel=(
+                                "ASW REPORT | Contact classified as Akula-class, designated "
+                                "VICTOR. The acoustic record has been passed to Wellington and "
+                                "Canberra. Continue tracking with available sensors while "
+                                "Collins withdraws east; this classification does not authorise"
+                                " an attack."
+                            ))),
     fatal=[F("Collins", ["collins"])],
     neutral_objective="Traffic",
-    win="Collins is off the ridge with a name on the boat, and the boat never "
-        "knew how long she was held. Rewi, on the way home: 'One Akula. One "
-        "whale. No torpedoes. Good morning.'",
+    win=(
+        "Collins has reached the eastern exit with VICTOR classified. Rewi's crew has filed the"
+        " acoustic record. No assessment of whether the submarine detected Collins is "
+        "available."
+    ),
     lose="Collins is lost on a ridge nobody was fighting over, and the "
          "ceasefire in the south is now a question.",
     timeout="Seventy minutes and the contact is still a contact. She is off "

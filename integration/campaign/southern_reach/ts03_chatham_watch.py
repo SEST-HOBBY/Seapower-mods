@@ -15,39 +15,38 @@ MISSION = dict(
           "has authorised the kill. The tender is not a target.",
     sender="Commodore Alex Mercer; Commander Tessa Brand, RNZN, for "
            "Wellington's authority",
-    intent=("After Cook Strait, Wellington has said what Canberra was "
-            "waiting for it to say: TANGO, the boat that lay on the cable "
-            "corridor, is a hostile submarine in New Zealand's zone and she may be "
-            "engaged. She is on the surface alongside AUSTRAL COMPLIANCE "
-            "sixty miles east of you, taking on stores, and she will dive "
-            "the moment she hears you coming. Sink her. Do not touch the "
-            "tender - she is a merchant hull under a state flag and the "
-            "day we sink one of those is the day this becomes something "
-            "else. Classify her instead; we want her emitters on file for "
-            "the next hull that carries them."),
+    intent=((
+        "After Cook Strait, Wellington has said what Canberra was waiting for it to say: TANGO,"
+        " the boat that lay on the cable corridor, is a hostile submarine in New Zealand's zone"
+        " and she may be engaged. She is on the surface alongside AUSTRAL COMPLIANCE sixty "
+        "miles east of you, taking on stores, and may submerge before you can establish an "
+        "attack. Sink her. Do not touch the tender - Wellington's engagement authority excludes"
+        " that vessel. Classify her instead; we want her emitters on file for the next hull "
+        "that carries them."
+    )),
     date=(2029, 1, 28), time=(6, 20), sea=4, clouds="Broken_3", wind="W",
     difficulty=3, minutes=70, centre=(-44.0, 178.3),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "EAST OF NEW ZEALAND, 44 South, first light. KIWI 05 found them at "
-        "0400: TANGO on the surface, stopped, alongside MV AUSTRAL "
-        "COMPLIANCE with a hose across, two hundred miles west of the "
-        "Chatham Islands and sixty miles east of you. The tender has been "
-        "steaming in circles out here for two days waiting for her.\\n\\n"
-        "Wellington has authorised the engagement under the New Zealand "
-        "zone's rules and Canberra has concurred. TANGO is the boat that "
-        "lay on the Tasman cable at periscope depth; she is a target. The "
-        "tender is not: she is a merchant hull under a state flag, and "
-        "the rules for her are the rules for any merchant. Classify her "
-        "and leave her.\\n\\n"
-        "KIWI 05 is back on station out of Ohakea with your own Poseidon "
-        "if requisitioned. The Chatham Islands freighter and two longliners are "
-        "in the box, and a whale that sounds like a boat on a bad day. "
-        "Seventy minutes. She will dive when she hears you."),
-    forces="Your task group with its Seahawk and Poseidon if requisitioned, Kiwi 05 "
-           "out of Ohakea. Neutral: the Chatham Islands freighter, two "
-           "longliners, a whale. Opposing: one Type 039C on the surface, "
-           "the tender MV Austral Compliance alongside her.",
+        (
+            "EAST OF NEW ZEALAND, 44 South, first light. KIWI 05 found them at 0400: TANGO "
+            "surfaced near MV AUSTRAL COMPLIANCE in an apparent support rendezvous, two hundred"
+            " miles west of the Chatham Islands and sixty miles east of you. The tender has "
+            "been steaming in circles out here for two days waiting for her.\\n\\nWellington has "
+            "authorised the engagement under the New Zealand zone's rules and Canberra has "
+            "concurred. TANGO is the boat that lay on the Tasman cable at periscope depth; she "
+            "is a target. The tender is not: the engagement authority specifically excludes "
+            "AUSTRAL COMPLIANCE. Document her activity without attacking her. Classify her and "
+            "leave her.\\n\\nKIWI 05 is back on station out of Ohakea with your own Poseidon if "
+            "assigned. The Chatham Islands freighter and two longliners are in the box, and a "
+            "whale that sounds like a boat on a bad day. Seventy minutes. Treat the surfaced "
+            "report as perishable and be prepared for the boat to submerge."
+        )),
+    forces=(
+        "Your task group with its Seahawk and Poseidon if assigned, Kiwi 05 out of Ohakea. "
+        "Neutral: the Chatham Islands freighter, two longliners, a whale. Opposing: one Type "
+        "039C on the surface, the tender MV Austral Compliance alongside her."
+    ),
     objectives=[
         ("Boat", "Destroy TANGO", "35,-35,Fail,Main"),
         ("Tender", "Classify MV Austral Compliance", "15,0,None"),
@@ -58,14 +57,17 @@ MISSION = dict(
     victory=dict(kind="destroy", stations=["red_sub"], min_units=1, objective="Boat"),
     fatal=[],
     neutral_objective="Neutrals",
-    win="TANGO is on the bottom two hundred miles west of the Chathams, and "
-        "the tender that fed her is steaming home with her name on file. "
-        "The first authorised kill in New Zealand's water, and the cleanest.",
+    win=(
+        "TANGO is confirmed lost west of the Chathams. Report the tender's condition and any "
+        "identification obtained; the submarine's destruction does not settle those separate "
+        "questions."
+    ),
     lose="The flagship is gone east of New Zealand, or the tender is, and "
          "the boat that lay on the cable is still at sea.",
-    timeout="Seventy minutes and TANGO dived before you reached her. She "
-            "is somewhere east of you with full stores, and the tender is "
-            "already steaming for the next rendezvous.",
+    timeout=(
+        "The engagement window has closed without confirmation of TANGO's loss. Reassess the "
+        "submarine's position and the tender's movements before committing another search."
+    ),
     stations={
         # The escort 60 NM west of the rendezvous; the boat surfaced and
         # stopped alongside the tender, everything west of 180; the
@@ -117,16 +119,18 @@ MISSION = dict(
              "Flagship": ("protect", "escort")},
     declares=["TS03TenderNamed"],
     reveal_if=[dict(variable="TS01TenderNamed", units=["tender"], level="Classify",
-                    intel="From Fiordland on the twenty-second: the tender at "
-                          "the rendezvous is AUSTRAL COMPLIANCE, the hull you "
-                          "named off Puysegur, and she is on your plot classified. She "
-                          "is still not a target."),
+                    intel=(
+                        "FUSION CELL | The tender at the reported rendezvous matches AUSTRAL "
+                        "COMPLIANCE, classified off Puysegur. Its identity is entered on the "
+                        "plot. It remains excluded from the engagement authority."
+                    )),
                dict(variable="TS02SubNamed", units=["red_sub"], level="Classify",
-                    intel="From Cook Strait on the twenty-fifth: the boat on the "
-                          "surface is TANGO, the Type 039C you classified on the "
-                          "cable corridor, "
-                          "and she is on your plot from the first minute. She is "
-                          "a target now.")],
+                    intel=(
+                        "ASW CELL | The submarine report has been correlated with TANGO's Cook "
+                        "Strait record. TANGO is classified on the plot. Wellington has "
+                        "authorised engagement of this contact; confirm the current position "
+                        "before firing."
+                    ))],
     window=dict(flights=[HELO, RECON]),
     role="patrol",
 )

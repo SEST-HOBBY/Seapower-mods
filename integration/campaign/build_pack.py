@@ -2067,15 +2067,15 @@ def render(mission, placed, members):
         L.append(f"Objective_{oid}={ini_text(text)}")
     L.append(f"Taskforce1StartMessage=<color=yellow>{mission['key']}</color>|"
              f"{ini_text(mission['brief'])}")
-    L.append("Taskforce1VictoryMessage=<color=lime>Mission complete.</color>|"
+    L.append("Taskforce1VictoryMessage=<color=lime>Operation complete.</color>|"
              f"{ini_text(mission['win'])}")
-    L.append("Taskforce1DefeatMessage=<color=red>Mission failed.</color>|"
+    L.append("Taskforce1DefeatMessage=<color=red>Operation suspended.</color>|"
              f"{ini_text(mission['lose'])}")
-    L.append("Taskforce2VictoryMessage=<color=lime>Red victory.</color>|"
+    L.append("Taskforce2VictoryMessage=<color=lime>Command report.</color>|"
              f"{ini_text(mission['lose'])}")
-    L.append("Taskforce2DefeatMessage=<color=red>Red defeat.</color>|"
+    L.append("Taskforce2DefeatMessage=<color=red>Command report.</color>|"
              f"{ini_text(mission['win'])}")
-    L.append("TimeoutMessage=<color=red>Out of time.</color>|"
+    L.append("TimeoutMessage=<color=red>Operational window closed.</color>|"
              f"{ini_text(mission['timeout'])}")
     # Authorised range targets are exempt: a gunnery serial's own target is not
     # a civilian casualty.
@@ -2088,12 +2088,12 @@ def render(mission, placed, members):
     if mission.get("victory", {}).get("after", {}).get("intel"):
         L.append(f"StageIntel={ini_text(mission['victory']['after']['intel'])}")
     if mission.get("victory", {}).get("after", {}).get("lost"):
-        L.append("StageLostMessage=<color=red>Mission failed.</color>|"
+        L.append("StageLostMessage=<color=red>Operation suspended.</color>|"
                  + ini_text(mission["victory"]["after"]["lost"]))
     for reveal in mission.get("reveal_if", []):
         L.append(f"{reveal['variable']}Intel={ini_text(reveal['intel'])}")
     for i, deny in enumerate(mission.get("denied", []), 1):
-        L.append(f"Denied{i}Message=<color=red>Mission failed.</color>|"
+        L.append(f"Denied{i}Message=<color=red>Operation suspended.</color>|"
                  + ini_text(deny["message"]))
     for flag in mission.get("flags", []):
         if flag.get("intel"):
@@ -2102,8 +2102,8 @@ def render(mission, placed, members):
         L.append(f"{find['objective']}Intel={ini_text(find['intel'])}")
     if neutral_tags:
         L.append("NeutralLossMessage=<color=orange>Neutral contact lost.</color>|"
-                 "That one was not ours to shoot. The operation ends here and "
-                 "it goes in the record.")
+                 "A protected contact has been destroyed. Command has suspended "
+                 "the operation. Preserve the contact and engagement records.")
     for family in FAMILY_ORDER:
         for tag, _keys, unit_name, _x in placed.get(family, []):
             if unit_name and tag != mission.get("_anchor_tag"):
@@ -2807,10 +2807,13 @@ def briefing_page(mission):
     def section(head, text):
         parts.append(f'<TextBlock FontSize="20" Margin="0,14,0,6" '
                      f'Text="{xml_escape(head)}"/>')
-        parts.append(f'<TextBlock FontSize="16" TextWrapping="Wrap" '
-                     f'Text="{xml_escape(text)}"/>')
+        for paragraph in re.split(r"(?:\\n\\n|\n\s*\n)", text):
+            if paragraph.strip():
+                parts.append(f'<TextBlock FontSize="16" TextWrapping="Wrap" '
+                             f'Margin="0,0,0,10" '
+                             f'Text="{xml_escape(paragraph.strip())}"/>')
 
-    section("SITUATION", mission["brief"].replace("\\n\\n", "  ").replace("\n", " "))
+    section("SITUATION", mission["brief"])
     # Who is speaking, and what they actually want. The bible wrote seven
     # recurring people and asked for "short radio traffic, log extracts and
     # debriefs"; for a year not one of them reached a briefing. INTENT is
@@ -2821,46 +2824,18 @@ def briefing_page(mission):
         section("FROM", mission["sender"])
     if mission.get("intent"):
         section("COMMANDER'S INTENT", mission["intent"])
-    section("TASK", "  ".join(f"{oid}: {text}"
-                              for oid, text, _s in mission["objectives"]))
+    section("TASK", "\n\n".join(f"• {text}"
+                                for _oid, text, _s in mission["objectives"]))
     section("FORCES", mission["forces"])
-    section("TIME", f"{mission['minutes']} minutes. The operation ends when the "
-                    "clock runs out, and the main objective fails with it.")
+    section("TIME", f"Complete the assigned task within {mission['minutes']} "
+                    "minutes. Command will close the operation at that deadline.")
     if any(not u.get("no_neutral_penalty") for u in mission["units"]
            if u["side"] == "neutral"):
         section("RULES OF ENGAGEMENT",
-                "Destroying a neutral contact ends the operation in failure. "
-                "Identify before you shoot.")
-    # Named from the roster rather than hand-written, so the list cannot drift
-    # from the order of battle the mission actually ships.
-    titles = catalog()
-    by_id = {m["id"]: m["title"] for m in titles["mods"]}
-    # The local packs all ship INSIDE this one download, so a player reading
-    # this has no "SEST RAAF Bases" in their Mod Manager to go and look for -
-    # they have one entry, and it is the thing they are already running. And
-    # `_vanilla` is not a mod at all: it is this repo's folder name for the
-    # game's own files, and naming it in a briefing sends somebody to the
-    # Workshop to search for a mod that does not exist.
-    by_id.update({p["folder"]: "this pack" for p in titles["local_packs"]})
-    by_id["_vanilla"] = "the base game"
-    seen = []
-    for spec in mission["units"]:
-        name = by_id.get(spec["mod"], spec["mod"])
-        # A Workshop title is the author's; the catalog's status tag on the
-        # front of it is ours, and "[DEPRECATED] E-7A Wedgetail" in a briefing
-        # tells a player the campaign is built on something abandoned. It is
-        # built on the file that wins the load order, which is the point.
-        name = re.sub(r"^\s*\[(DEPRECATED|WIP|BETA|OLD)\]\s*", "", name, flags=re.I)
-        # Two upstream titles are misspelt in their own _info.ini; the
-        # player-facing line spells them right and the load order keeps the
-        # mod's own name.
-        name = TITLE_FIX.get(name, name)
-        if name not in seen:
-            seen.append(name)
-    # Two house entries, read last because that is where a reader stops caring.
-    tail = [n for n in ("the base game", "this pack") if n in seen]
-    body = [n for n in seen if n not in tail]
-    section("MODS IN PLAY", ", ".join(body + tail) + ".")
+                "All designated neutral contacts are protected. A protected "
+                "neutral loss cancels the operation. Identify before you shoot.")
+    # Installation and provider details remain in REQUIRED-MODS.txt and the
+    # coverage report; the operational briefing contains only the orders.
     return BRIEF_XML.format(body="".join(parts))
 
 

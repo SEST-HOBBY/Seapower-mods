@@ -105,34 +105,33 @@ for _mod, _err in BROKEN.items():
     print(f"  (partial build) {_mod} failed to import and was skipped: {_err}")
 
 INFO_DESC = (
-    "SOUTHERN REACH - Tasman Shield. December 2028. Nine days after the "
-    "northern ceasefire, the network that tried to close the Arafura has "
-    "come south under a new flag. A 'fisheries and research protection "
-    "group' - a frigate, two corvettes, an intelligence trawler and, in the "
-    "new year, the carrier Liaoning - is stopping ships bound for Antarctica "
-    "sixty miles off Tasmania, its contractor Austral Meridian Services is "
-    "selling 'compliance corridors' to the trade, and a Russian submarine is "
-    "working the Macquarie Ridge. Twelve missions escort the Antarctic "
-    "resupply season from Storm Bay to the ice edge at 60 South, where "
-    "contacts are few and naming a trawler is half the fight. Then Tasman "
-    "Shield: twelve more with the same worn ships, through Fiordland, Cook "
-    "Strait, the Tasman, Bass Strait and the Bight, among ferries, tankers, "
-    "gas platforms and undersea cables, with New Zealand's Poseidons "
-    "overhead. Two optional operations decide who reinforces the last fight "
-    "off Sydney.")
+    "SOUTHERN REACH - Tasman Shield. December 2028. Nine days after the northern ceasefire,"
+    " the network that tried to close the Arafura has come south under a new flag. A "
+    "fisheries and research protection group - a frigate, two corvettes, an intelligence "
+    "trawler and, in the new year, the carrier Liaoning - is stopping Antarctic-bound ships"
+    " off Tasmania. Its contractor, Austral Meridian Services, sells compliance corridors "
+    "while a Russian submarine works the Macquarie Ridge. A newly allocated Australian task"
+    " group escorts the resupply season from Storm Bay to the ice edge at 60 South. As the "
+    "formation turns north, the escort task follows it through Fiordland, Cook Strait, the "
+    "Tasman, Bass Strait and the Bight. New Zealand's Poseidons support the search among "
+    "ferries, tankers, gas platforms and undersea cables. Operations near Auckland and "
+    "Adelaide affect the opposing force available for the final relief passage through the "
+    "western Tasman."
+)
 
 BROWSE = {"Southern Reach": "Southern Reach", "Tasman Shield": "Tasman Shield"}
 BROWSE_DESC = {
     "Southern Reach": (
-        "Chapter A of the Southern Reach campaign, playable mission by mission: "
-        "the Antarctic resupply season, December 2028 to January 2029. Storm "
-        "Bay, the Macquarie Ridge, the Southern Ocean and the ice edge. "
-        "The full campaign is under Campaigns."),
+        "The Antarctic resupply season, December 2028 to January 2029. Escort fuel, "
+        "stores and people from Storm Bay across the Macquarie Ridge and Southern Ocean "
+        "to the ice edge, while identifying the naval force behind the declared fisheries"
+        " protection zone."
+    ),
     "Tasman Shield": (
-        "Chapter B of the Southern Reach campaign, playable mission by mission: "
-        "the homeland approaches, January to March 2029. Fiordland, Cook "
-        "Strait, the Tasman, Bass Strait and the Great Australian Bight. "
-        "The full campaign is under Campaigns."),
+        "The homeland approaches, January to March 2029. Protect shipping through "
+        "Fiordland, Cook Strait, the Tasman, Bass Strait and the Great Australian Bight "
+        "as the protection group turns north and the rules of engagement change."
+    ),
 }
 
 ROOT = HERE.parents[2]

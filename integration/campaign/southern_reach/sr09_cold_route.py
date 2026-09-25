@@ -28,22 +28,20 @@ MISSION = dict(
     difficulty=4, minutes=90, centre=(-48.5, 137.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "SOUTH OF AUSTRALIA, 48 South, morning. The January voyage is two "
-        "days out of Hobart: SOUTHERN ENDEAVOUR with Casey's second lift, "
-        "DERWENT SPIRIT with a new plate and the winter's fuel, CORAL "
-        "PIONEER, AURORA TRADER and DAVIS PROVIDER. Twelve knots, "
-        "south-west, and the whole force with them.\\n\\n"
-        "The protection group's carrier, LIAONING, is a hundred and fifty miles "
-        "south-east with two frigates and a corvette, and its air wing "
-        "flew over the fishing fleet for the cameras on New Year's Eve. "
-        "Today it flies for the convoy. ROMEO, a Type 093B nuclear boat the "
-        "group calls a fisheries survey asset, is somewhere ahead of the track. WEDGETAIL "
-        "05 and KIWI 05 are up out of Edinburgh; no fighter in Australia "
-        "reaches this water and comes home, and the destroyer's magazine is "
-        "the air defence.\\n\\n"
-        "Four of five into the handover box, Southern Endeavour among them. "
-        "The trawlers and the Hobart-bound bulker are not part of this and "
-        "will not move out of your way."),
+        (
+            "SOUTH OF AUSTRALIA, 48 South, morning. The January voyage is two days out of "
+            "Hobart: SOUTHERN ENDEAVOUR with Casey's second lift, DERWENT SPIRIT with a new "
+            "plate and the winter's fuel, CORAL PIONEER, AURORA TRADER and DAVIS PROVIDER. "
+            "Twelve knots, south-west, and the whole force with them.\\n\\nThe protection group's"
+            " carrier, LIAONING, is a hundred and fifty miles south-east with two frigates and "
+            "a corvette, and its air wing flew over the fishing fleet for the cameras on New "
+            "Year's Eve. Today it flies for the convoy. ROMEO, a Type 093B nuclear boat the "
+            "group calls a fisheries survey asset, is somewhere ahead of the track. WEDGETAIL "
+            "05 and KIWI 05 are up out of Edinburgh; no fighter cover is allocated to this "
+            "operation, and the destroyer's magazine is the air defence.\\n\\nFour of five into "
+            "the handover box, Southern Endeavour among them. The trawlers and the Hobart-bound"
+            " bulker are not part of this and will not move out of your way."
+        )),
     forces="Your whole task group with its Seahawk and Poseidon, Wedgetail "
            "05 and Kiwi 05 out of Edinburgh. Five convoy hulls. Neutral: two "
            "factory trawlers, a bulker. Opposing: Liaoning with two Type 054A "
@@ -67,9 +65,11 @@ MISSION = dict(
         "We saw yours too.'",
     lose="The voyage is broken south of Australia with the stations' "
          "winter in it. Casey gets what the first lift left.",
-    timeout="Ninety minutes and the convoy is still short of the box with "
-            "the carrier's second strike forming. The route is theirs "
-            "today.",
+    timeout=(
+        "The convoy has not met the handover requirement within ninety minutes. Suspend this "
+        "passage and regroup under escort; the carrier and submarine threats have not been "
+        "resolved."
+    ),
     stations={
         # Convoy and escorts on 240; the carrier group 150 NM south-east
         # with its strike flight routed onto the convoy and its AEW up; the
@@ -148,19 +148,23 @@ MISSION = dict(
     declares=["SR09TankerLost", "SR09ColdRouteHeld"],
     support_loss=[dict(asset="Derwent Spirit", units=["convoy#2"], objective="Tanker",
                        sets="SR09TankerLost",
-                       intel="DERWENT SPIRIT is gone with the winter's fuel in "
-                             "her. The last voyage south sails without a tanker, and "
-                             "Casey's winter is whatever the first lift put "
-                             "ashore.  - Mercer")],
+                       intel=(
+                           "LOGISTICS REPORT | DERWENT SPIRIT confirmed lost with the winter "
+                           "fuel cargo. The final southern voyage must sail without her. The "
+                           "Antarctic Division needs a revised fuel account from the deliveries"
+                           " already made. - Mercer"
+                       ))],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton", "E7A_Wedgetail"],
                 flights=[HELO, RECON],
-                situation="Hobart, before the January voyage. Requisition, "
-                          "repair and rearm: Cold Route sails the whole force and "
-                          "there is no requisition after it until Turning North - "
-                          "none before Southern Line, and Last Ship South is "
-                          "rearmed only if this convoy gets through."),
+                situation=(
+                    "Hobart, before the January voyage. Force allocation, repairs and "
+                    "ammunition resupply: Cold Route sails the whole force and there is no "
+                    "further force allocation after it until Turning North - none before "
+                    "Southern Line, and Last Ship South is rearmed only if this convoy gets "
+                    "through."
+                )),
     role="fleet",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 240, 15

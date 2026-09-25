@@ -62,10 +62,11 @@ MISSION = dict(
                  at=(-43.55, 172.90), radius=6, transit=12),
     fatal=[F("Gateway", ["gateway"], 1)],
     neutral_objective="Traffic",
-    win="Both ships are at the pilot station with Lyttelton's tugs coming "
-        "out, and Kiwi 05 has a recording of the corvette "
-        "asking a tanker for a certificate. Brand: 'That is the gateway. It "
-        "stays open.'",
+    win=(
+        "Polar Giant and Canterbury Spirit have reached the Lyttelton approach. Send any "
+        "corvette identification and radio recordings to Wellington. Brand: 'That is the "
+        "gateway. It stays open.'"
+    ),
     lose="A gateway ship is lost in New Zealand's front yard and the "
          "US Antarctic Program's summer goes to Hobart. Wellington will say "
          "what it says.",
@@ -136,9 +137,10 @@ MISSION = dict(
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton", "E7A_Wedgetail"],
                 flights=[HELO, RECON],
-                situation="Lyttelton. Requisition, repair and rearm before The "
-                          "Gateway; the Poseidon recovers at Christchurch. The "
-                          "next window is at Hobart, before Cold Route - and "
-                          "Cold Route sails the whole force."),
+                situation=(
+                    "Lyttelton. Force allocation, repair and ammunition resupply before The "
+                    "Gateway; the Poseidon recovers at Christchurch. The next window is at "
+                    "Hobart, before Cold Route - and Cold Route sails the whole force."
+                )),
     role="escort",
 )

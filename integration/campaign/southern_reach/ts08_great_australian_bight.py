@@ -13,48 +13,51 @@ MISSION = dict(
     intro="SIERRA-TWO, the Russian detachment's Yasen and the one boat "
           "nobody has held contact on, is in the Bight ahead of the Southern Convoy's track. Collins has the "
           "western sector; you have the eastern. Eighty minutes.",
-    special="Repair only before this mission: Adelaide's dockyard has "
-            "the plate and not the magazines. Rearm comes before the "
-            "Southern Convoy.",
+    special=(
+        "Repair only before this operation: Adelaide's dockyard has the plate and not the "
+        "magazines. Rearm comes before the Southern Convoy."
+    ),
     sender="Commodore Alex Mercer, for the Submarine Force",
-    intent=("SIERRA-TWO is the Yasen, the second nuclear boat the 5 January "
-            "intelligence summary credited to the Russian detachment, and "
-            "nobody has held contact on her; the last thing anybody "
-            "wants under the Southern Convoy on the nineteenth is a Yasen. "
-            "The Udaloy-class destroyer MARSHAL SHAPOSHNIKOV and her oiler "
-            "are at a rendezvous seventy miles "
-            "south-west; that is where the boat is going and where she "
-            "will be shallow. Collins has the western sector at periscope "
-            "depth, weapons tight; you have the eastern with the Seahawk "
-            "and Edinburgh's Poseidon. Find her and sink her. The Udaloy "
-            "is a warship that has not fired and the oiler is an oiler; "
-            "classify the oiler, leave the Udaloy unless she makes it "
-            "necessary. Eighty minutes."),
+    intent=((
+        "SIERRA-TWO is the Yasen, the second nuclear boat the 5 January intelligence summary "
+        "credited to the Russian detachment, and nobody has held contact on her; the last thing"
+        " anybody wants under the Southern Convoy on the nineteenth is a Yasen. The "
+        "Udaloy-class destroyer MARSHAL SHAPOSHNIKOV and her oiler are at a rendezvous seventy "
+        "miles south-west; intelligence assesses a possible rendezvous there, but the boat's "
+        "present course and depth are unconfirmed. Collins has the western sector at periscope "
+        "depth, weapons tight; you have the eastern with the Seahawk and Edinburgh's Poseidon. "
+        "Find her and sink her. The Udaloy is a warship that has not fired and the oiler is an "
+        "oiler; classify the oiler, leave the Udaloy unless she makes it necessary. Eighty "
+        "minutes."
+    )),
     date=(2029, 2, 15), time=(5, 50), sea=4, clouds="Broken_3", wind="SW",
     difficulty=4, minutes=80, centre=(-35.5, 132.5),
     blue_nation="Australia", red_nation="Russia",
     brief=(
-        "THE GREAT AUSTRALIAN BIGHT, a hundred and forty miles offshore, "
-        "before dawn. Two sectors: HMAS COLLINS in the western at periscope "
-        "depth, your escorts in the eastern with the Seahawk and a "
-        "Poseidon out of Edinburgh, three hundred miles behind you. The "
-        "US Navy Virginia-class boat on the Western Australia rotation is somewhere west of "
-        "Collins and is not on your plot.\\n\\n"
-        "SIERRA-TWO, the Yasen, is in the Bight because MARSHAL "
-        "SHAPOSHNIKOV, an Udaloy-class destroyer, and "
-        "the oiler BORIS CHILIKIN are seventy miles south-west of you, "
-        "stopped, with a Ka-27 up - a rendezvous, and the one place she "
-        "will come shallow.\\n\\n"
-        "Find the boat and sink her before she reaches them. Two Port "
-        "Lincoln tuna boats, a Bight bulker and a whale are in the "
-        "sectors. The Udaloy has not fired; classify the oiler and leave "
-        "the Udaloy unless she gives you no choice. In eighty minutes "
-        "SIERRA-TWO is alongside the oiler."),
-    forces="Your task group with its Seahawk and Poseidon if requisitioned, out "
-           "of Edinburgh; HMAS Collins in the western sector. Neutral: two "
-           "tuna boats, a bulker, a whale. Opposing: one Yasen, the "
-           "destroyer Marshal Shaposhnikov with a Ka-27 up, the oiler "
-           "Boris Chilikin.",
+        (
+            "THE GREAT AUSTRALIAN BIGHT, a hundred and forty miles offshore, before dawn. Two "
+            "sectors: HMAS COLLINS in the western at periscope depth, your escorts in the "
+            "eastern with the Seahawk and a Poseidon out of Edinburgh, three hundred miles "
+            "behind you. The US Navy Virginia-class boat on the Western Australia rotation is "
+            "somewhere west of Collins and is not on your plot.\\n\\nSIERRA-TWO, the Yasen, is in"
+            " the Bight because MARSHAL SHAPOSHNIKOV, an Udaloy-class destroyer, and the oiler "
+            "BORIS CHILIKIN are seventy miles south-west of you, stopped, with a Ka-27 up - a "
+            "suspected support rendezvous and a useful search cue. It does not establish the "
+            "submarine's position or depth.\\n\\nFind the boat and sink her before she reaches "
+            "them. Two Port Lincoln tuna boats, a Bight bulker and a whale are in the sectors. "
+            "The Udaloy has not fired; classify the oiler and leave the Udaloy unless she gives"
+            " you no choice. The search window is eighty minutes. The submarine's arrival at "
+            "the suspected rendezvous is unconfirmed.\\n\\nASW PICTURE: Satellite imagery and "
+            "surface reports can locate the support ships. Collins, the escorts and maritime "
+            "patrol aircraft must find SIERRA-TWO acoustically. Correlate acoustic reports "
+            "independently of the surface rendezvous assessment."
+        )),
+    forces=(
+        "Your task group with its Seahawk and Poseidon if assigned, out of Edinburgh; HMAS "
+        "Collins in the western sector. Neutral: two tuna boats, a bulker, a whale. Opposing: "
+        "one Yasen, the destroyer Marshal Shaposhnikov with a Ka-27 up, the oiler Boris "
+        "Chilikin."
+    ),
     objectives=[
         ("Boat", "Destroy SIERRA-TWO", "40,-40,Fail,Main"),
         ("Oiler", "Classify the oiler at the rendezvous", "15,0,None"),
@@ -65,14 +68,18 @@ MISSION = dict(
     victory=dict(kind="destroy", stations=["red_sub"], min_units=1, objective="Boat"),
     fatal=[F("Collins", ["collins"])],
     neutral_objective="Neutrals",
-    win="SIERRA-TWO is on the bottom of the Bight short of her rendezvous, "
-        "and the Udaloy has turned for the west with her oiler. The "
-        "Southern Convoy sails with nothing Russian under it.",
+    win=(
+        "SIERRA-TWO is confirmed lost in the Bight. The Udaloy and oiler require a separate "
+        "contact report; their withdrawal has not been confirmed. This submarine will no longer"
+        " threaten the southern convoy."
+    ),
     lose="Collins is lost in the Bight, or the flagship is, and the Yasen "
          "reaches her rendezvous with full stores.",
-    timeout="Eighty minutes and SIERRA-TWO is alongside the oiler with the "
-            "Udaloy over her. She is under the Southern Convoy's track by "
-            "the nineteenth.",
+    timeout=(
+        "No confirmed loss of SIERRA-TWO has been reported within the search window. Retain the"
+        " Yasen on the outstanding threat list for the Southern Convoy; its arrival at the "
+        "suspected rendezvous is unconfirmed."
+    ),
     stations={
         # The escorts in the eastern sector on 240; Collins 25 NM west at
         # periscope depth (an escort has to be able to steam to what it
@@ -133,8 +140,10 @@ MISSION = dict(
                       "Bight, and the Southern Convoy sails "
                       "without her.")],
     window=dict(repair=True, flights=[HELO, RECON],
-                situation="Adelaide, before the Bight. Repair only: the "
-                          "dockyard has the plate and not the magazines. Rearm "
-                          "and requisition come before the Southern Convoy."),
+                situation=(
+                    "Adelaide can repair the force before the Bight search, but no ammunition "
+                    "resupply or replacement allocation is available at this stop. Full support"
+                    " resumes before the Southern Convoy."
+                )),
     role="patrol",
 )

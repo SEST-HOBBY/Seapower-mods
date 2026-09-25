@@ -16,16 +16,15 @@ MISSION = dict(
           "group's Type 052D flagship and whatever is still under the water.",
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the "
            "strike and the fighter cover",
-    intent=("This is the one. Five hulls with a month of Adelaide's and "
-            "Melbourne's cargo in them, the whole force, Edinburgh's "
-            "fighters, Poseidon and Wedgetail, and for the first time Super "
-            "Hornets tasked to strike. The group is "
-            "eighty miles south-west with its flagship destroyer in the "
-            "line, and it means to break the convoy here because it "
-            "cannot break it off Sydney. Four of five into the split point "
-            "off Portland. Whatever Farncomb and the Bight search left alive "
-            "under the water is under this convoy; they decided that, "
-            "not me. Use everything."),
+    intent=((
+        "This is the one. Five hulls with a month of Adelaide's and Melbourne's cargo in them, "
+        "the whole force, Edinburgh's fighters, Poseidon and Wedgetail, and for the first time "
+        "Super Hornets tasked to strike. The group is eighty miles south-west with its flagship"
+        " destroyer in the line, and it means to break the convoy here because it cannot break "
+        "it off Sydney. Four of five into the split point off Portland. ROMEO and SIERRA-TWO "
+        "remain possible threats unless the earlier action reports confirm their loss. Use "
+        "everything."
+    )),
     date=(2029, 2, 19), time=(10, 0), sea=5, clouds="Broken_3", wind="SW",
     difficulty=4, minutes=90, centre=(-38.6, 140.5),
     blue_nation="Australia", red_nation="China",
@@ -48,12 +47,13 @@ MISSION = dict(
         "recovering at Edinburgh. A coastal ro-ro, a bulker and the "
         "Melbourne-Perth service are in the box. Four of five to the "
         "split point."),
-    forces="Your whole task group with its Seahawk, Poseidon, Wedgetail, "
-           "fighters and strike aircraft if requisitioned; Wedgetail 05. Five "
-           "convoy hulls. Neutral: a coastal ro-ro, a bulker, an airliner. "
-           "Opposing: Liaoning, a Type 052D, two Type 054A, a Type 056A, "
-           "three J-15 with anti-ship missiles, a J-15D, a Ka-31, a Z-18F, "
-           "and ROMEO and SIERRA-TWO if Farncomb and the Bight search left them alive.",
+    forces=(
+        "Your whole task group with its Seahawk, Poseidon, Wedgetail, fighters and strike "
+        "aircraft if assigned; Wedgetail 05. Five convoy hulls. Neutral: a coastal ro-ro, a "
+        "bulker, an airliner. Opposing: Liaoning, a Type 052D, two Type 054A, a Type 056A, "
+        "three J-15 with anti-ship missiles, a J-15D, a Ka-31, a Z-18F, and ROMEO and "
+        "SIERRA-TWO if Farncomb and the Bight search left them alive."
+    ),
     objectives=[
         ("Convoy", "Four of five convoy hulls into the split point off "
                    "Portland", "45,-45,Fail,Main"),
@@ -65,9 +65,11 @@ MISSION = dict(
                  transit=12),
     fatal=[F("Convoy", ["convoy"], 2)],
     neutral_objective="Neutrals",
-    win="Four hulls at the split point and the group's air wing spent "
-        "south of Portland. Santos: 'Adelaide turns west here. So do "
-        "we, for once, with something to show.'",
+    win=(
+        "At least four ships have reached the Portland split point. Adelaide-bound cargo can "
+        "turn west while the Melbourne ships continue east. Command is accounting for losses "
+        "and remaining ammunition before the next passage."
+    ),
     lose="Two hulls lost south of Portland with a month of two cities' "
          "cargo in them. The group broke the convoy where it said it "
          "would.",
@@ -179,12 +181,15 @@ MISSION = dict(
                        "usn_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
                 flights=[HELO, RECON, CAP, STRIKE],
-                situation="Adelaide, before the Southern Convoy. Requisition, "
-                          "repair and rearm everything: the convoy sails the "
-                          "whole force with every aircraft it can task, and "
-                          "there is no requisition before the optional "
-                          "priorities after it. The "
-                          "next window is Sydney, before Approaches."),
+                situation=(
+                    (
+                        "Adelaide, before the Southern Convoy. Force allocation, repairs and "
+                        "ammunition resupply: the convoy sails the whole force with every "
+                        "aircraft it can task, and there is no further force allocation before "
+                        "the optional priorities after it. The next window is Sydney, before "
+                        "Approaches."
+                    )
+                )),
     role="fleet",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 60, 15

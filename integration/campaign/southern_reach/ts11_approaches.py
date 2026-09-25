@@ -10,24 +10,21 @@ from campaign_data import U, F, S, HELO, RECON, CAP, STRIKE
 MISSION = dict(
     code="TS11", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 11",
     group="core", num="11", key="Approaches", place="The western Tasman",
-    intro="Hold the group off while three relief transports for New "
-          "Zealand pass north-east. Sink the Type 052D flagship; sink "
-          "Liaoning too and the last convoy sails without her aircraft.",
+    intro=(
+        "Hold the opposing group off while the relief transports pass north-east through the "
+        "western Tasman. Secure the passage, engage the Type 052D command ship, and attack "
+        "Liaoning if the opportunity permits."
+    ),
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the "
            "fighter cover and the strike",
-    intent=("The group has come into the western Tasman with what the "
-            "convoy action off Portland left it, and the elements it sent to "
-            "Auckland's and Adelaide's approaches have joined it unless you "
-            "held them there. Three transports with the relief detachment's "
-            "vehicles and stores in them have to pass to the "
-            "north-east while the group is held off, and this time we are "
-            "not holding it off by being in the way. The Type 052D has "
-            "commanded this group since October; sink her. Sink the "
-            "carrier if it can be done - with her on the bottom, the relief "
-            "convoy on 2 March sails without her aircraft over it - but the transports are the "
-            "job and the destroyer is the prize. Time-on-target from "
-            "Williamtown and East Sale is an advantage, not a requirement; "
-            "the strike goes when it is ready."),
+    intent=((
+        "Bring at least two of the three relief transports to the north-eastern handover. "
+        "Engage the Type 052D command ship while protecting that movement; attack Liaoning if "
+        "an opportunity permits. The carrier's confirmed loss removes its contribution to the "
+        "relief-convoy interception on 2 March. The opposing force also depends on whether the "
+        "Auckland and Adelaide detachments were contained. Coordinate the allocated aircraft "
+        "without delaying a necessary defensive engagement."
+    )),
     date=(2029, 2, 26), time=(11, 40), sea=4, clouds="Broken_2", wind="S",
     difficulty=5, minutes=90, centre=(-39.5, 151.0),
     blue_nation="Australia", red_nation="China",
@@ -50,13 +47,13 @@ MISSION = dict(
         "trawler and the Sydney-Hobart service are in the box. Ninety "
         "minutes, and the strike goes when it is ready, not when the "
         "clock says."),
-    forces="Your whole task group with its Seahawk, Poseidon, fighters and "
-           "strike aircraft if requisitioned; Wedgetail 05. Three transports. "
-           "Neutral: a bulker, a trawler, an airliner. Opposing: Liaoning, "
-           "a Type 052D, a Type 054A, three J-15 with anti-ship missiles, "
-           "a J-15D, a Ka-31, a Z-18F - and a Type 056A with Nan Hai 27, "
-           "or a second Type 054A, or both, if Auckland's or Adelaide's "
-           "approaches were not held.",
+    forces=(
+        "Your whole task group with its Seahawk, Poseidon, fighters and strike aircraft if "
+        "assigned; Wedgetail 05. Three transports. Neutral: a bulker, a trawler, an airliner. "
+        "Opposing: Liaoning, a Type 052D, a Type 054A, three J-15 with anti-ship missiles, a "
+        "J-15D, a Ka-31, a Z-18F - and a Type 056A with Nan Hai 27, or a second Type 054A, or "
+        "both, if Auckland's or Adelaide's approaches were not held."
+    ),
     objectives=[
         ("Movement", "Two of three transports into the box north-east",
          "40,-40,Fail,Main"),
@@ -181,20 +178,21 @@ MISSION = dict(
              "Wedgetail": ("protect", "aew")},
     declares=["TS11CarrierSunk"],
     flags=[dict(name="TS11CarrierSunk", units=["red_cv#1"],
-                intel="LIAONING is gone. The carrier that flew over the "
-                      "fishing fleet for the cameras on New Year's Eve is on "
-                      "the bottom of the western Tasman, and nothing that meets "
-                      "the relief convoy on 2 March will fly from her deck.")],
+                intel=(
+                    "DAMAGE REPORT | LIAONING confirmed lost. Its contribution to the next "
+                    "convoy interception is removed from the air threat assessment. Surface "
+                    "ships and submarines remain threats; maintain the escort screen."
+                ))],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_opv_arafura",
                        "usn_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
                 flights=[HELO, RECON, CAP, STRIKE],
-                situation="Sydney, after the priorities. Requisition, repair "
-                          "and rearm everything before Approaches: it is the "
-                          "second fleet action, and the last window of the "
-                          "campaign is a repair and a requisition before "
-                          "Southern Cross, with no rearm."),
+                situation=(
+                    "Sydney can repair, rearm and reinforce the force before Approaches. This "
+                    "is the final ammunition resupply before Southern Cross; repairs and "
+                    "replacement allocations remain available for that last passage."
+                )),
     role="fleet",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 45, 15
