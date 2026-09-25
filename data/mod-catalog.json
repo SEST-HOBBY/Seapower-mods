@@ -872,7 +872,7 @@
       "requires": [
         "the US Navy mods it edits (compilation of edits to multiple Workshop mods)"
       ],
-      "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test."
+      "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test. **Fragile by construction:** every one of its 28 hulls is a `#!alias` patch over a Modern US Navy hull, so a rename there breaks it until its author catches up, and the game then dies at startup with KeyNotFoundException 'AirGroup' rather than warning (Modern US Navy v567 renamed the Flight III usn_ddg_burke_f3 to usn_ddg_burke_f3_125 on 18 Sep 2026 while flt3_2027 still aliased the old name). As of the 24 Sep 2026 export all 28 bases resolve, flt3_2027 -> usn_ddg_burke_f3_125 included, so missions keep the 2027 hulls and their loadouts. Run tools/check_alias_bases.py after every mirrored export; on a MISSING BASE, disable this mod until it is updated or override the one file."
     },
     {
       "id": "f-35c-mygo",
@@ -1148,7 +1148,7 @@
       "faction": "usa",
       "type": "ship",
       "status": "active",
-      "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN.",
+      "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN. **Renames hulls often (Sep 2026):** the Flight IIA became per-ship files (usn_ddg_burke_f2a_085, _085_late, _088_laser, _089 ...) on 16-17 Sep and the Flight III became usn_ddg_burke_f3_125 (v567, 18 Sep). U.S. Navy 2027 aliases into these names and breaks whenever one moves; tools/check_alias_bases.py finds it. The old names can linger in mods-source until an export with the deletion mirror removes them.",
       "overlaps": [
         "us-naval-aviation (SH-60/MH-60 family)",
         "mh-60r-2154545636",

@@ -177,6 +177,39 @@ def _resolve(base, relpath):
     return _ci_index(str(base)).get(relpath.lower())
 
 
+def file_stack(relpath):
+    """Every copy of <relpath> the collection holds, highest priority first.
+
+    winning_file is the head of this list. The tail matters for Anchor Chain's
+    #!extend, where a mod ships a file of the SAME name that merges onto the
+    copy below it: resolving such a base with winning_file finds the patch
+    itself and loops.
+    """
+    global _ORDER
+    if _ORDER is None:
+        _ORDER = load_order()
+    out = []
+    for token in _ORDER:
+        if token.startswith("SEST_"):
+            for pack in (ROOT / "integration").glob(f"*/{token}"):
+                f = _resolve(pack, relpath)
+                if f:
+                    out.append(f)
+            continue
+        f = _resolve(MODS / token, relpath)
+        if f:
+            out.append(f)
+    ordered = set(out)
+    for d in sorted(p for p in MODS.iterdir() if p.is_dir() and p.name[0].isdigit()):
+        f = _resolve(d, relpath)
+        if f and f not in ordered:
+            out.append(f)
+    f = _resolve(MODS / "_vanilla" / "original", relpath)
+    if f:
+        out.append(f)
+    return out
+
+
 def winning_file(relpath):
     """The copy of <relpath> the game actually loads, or None."""
     global _ORDER

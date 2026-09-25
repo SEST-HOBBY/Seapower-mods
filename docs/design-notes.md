@@ -153,6 +153,30 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   nothing: the campaign builder homes a helicopter on the nearest deck that lists
   it, so SW10's two Seahawks would have quietly moved from JS Mogami to the Langgur
   forward strip ashore.
+- **A renamed base breaks every patch aliased onto it.** U.S. Navy 2027 is 28
+  `#!alias` patches over Modern US Navy hulls. Modern US Navy renamed its Flight III
+  from `usn_ddg_burke_f3` to `usn_ddg_burke_f3_125` (v567, 18 Sep 2026) before 2027
+  caught up, and the game died at startup with *KeyNotFoundException 'AirGroup'*:
+  the patch's own `[FlightDeck]` asked for the air group the missing base would have
+  supplied, and Player.log named the symptom, not the file.
+  `tools/check_alias_bases.py` walks every chain through the load order the way the
+  game does. Run it after every mirrored export; before the mirror, a deleted base
+  kept resolving against its ghost. On the 24 Sep 2026 export all 28 bases resolve
+  (2027 now aliases `usn_ddg_burke_f3_125`), so the missions keep the 2027 hulls and
+  their `≥119_*` / `≥125_*` loadouts instead of being moved onto plain Modern US
+  Navy hulls, which would drop those fits.
+- **Anchor Chain has two layering directives, not one.** `#!alias` replaces a whole
+  unit; `#!extend` merges a few keys onto the file of the SAME name one rung lower in
+  the load order. Ammunition packs lean on it (all 18 of the PLA AEP pack's rounds
+  on the 24 Sep 2026 export), and an extend breaks exactly the way the alias that
+  crashed the game did. Resolving an extend needs the load-order *stack*, not the
+  winner: `winning_file` on a same-name target returns the patch itself and loops.
+  `refine_civ_traffic.file_stack` returns every copy in order, and the checker
+  takes the entry below the patch. Severity
+  follows the file kind: a unit file with no base is the startup crash, because the
+  loader cannot build the unit, so it fails the check; a round with no base only
+  means that weapon never fires, which the game survives, so it is reported and the
+  check still exits zero.
 - **An aircraft needs a loadout it can actually resolve.** A mission entry with no
   `LoadoutVariant` makes the UI resolve a default at display time; if the winning
   unit file's `AvailableLoadouts` does not list `Default`, there is nothing to
@@ -170,6 +194,38 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   a duplicate-key message is the dictionary KEY, not necessarily a duplicated
   thing. Read the stack: `IniToPlanConverter` inside a measure pass is the UI
   building a plan, not the loader registering units.
+
+  And the lesson after that: the fix has to land in every file the game can
+  open, not just the one the tooling refreshes. The refresh chain only ever
+  touched the active mission, while the installer deploys every other `.ini`
+  under `integration/missions/` too (drafts, older saves, edited chapters,
+  scenarios) and the editor opens any of them. The KJ-500 crash was fixed in
+  NORTHERN FRONT III FINAL NEWEST and still live in the FINAL, DRAFT and earlier
+  copies listed right beside it: 32 aircraft in 9 deployed files on 25 Sep 2026
+  (P-8s, KJ-500s, Y-9LGs, A-50s, MiG-25PDs and an E-3A).
+  `fix_loadout_variants.py --all --write` sweeps everything the installer deploys,
+  and `preflight --all` fails on any aircraft left with the crash while listing
+  the older saves' other dangling references for information only. The old
+  `<name> backup-<stamp>.ini` snapshots carry the crash too (104 more aircraft) and
+  are left as they are: they are no longer deployed, a rewritten snapshot is no
+  longer a snapshot, and `install-sest-packs.ps1 -PurgeBackups` removes the copies
+  an earlier install put in the game.
+- **A hull variant has to be declared, not just present.** The engine pools only
+  the first `NumberOfVariants` sections of a `_variants.ini`; a `[VariantN]` block
+  past that count is in the file yet unselectable, and a mission naming it gets the
+  picker's *"MISSING: &lt;unit&gt; name or squadron reference"*. Murder Hornet's
+  winning `usn_cvn_nimitz_2000s_variants.ini` declares 2 and ships 3 (CVN-70,
+  *"#Not included atm"*) while AUS DEF asks for `Variant3`. `preflight` checks every
+  `VariantReference` against the winning declaration, and `preflight --all` still
+  lists AUS DEF's: an override that restores the count was built on another branch
+  and withheld after a load hung, and it has not been proven in game since.
+  Same carrier, second defect: its Type/class/hull names came solely from the
+  deprecated MyGo Super Hornet's language file (line 1, behind a BOM), which was
+  unsubscribed on 19 Sep 2026. A unit whose only name provider is on the way out
+  gets its section carried verbatim in Collection Fixes (`CARRIED_VESSEL_NAMES`).
+  The carry holds the text, not a pointer to the donor: reading the donor at build
+  time dies the moment the donor leaves the export, the one case the carry exists
+  for. While the donor is present the build compares the two and fails on drift.
 
 - **A missile's guidance profile is a contract with the launcher.** Swapping a
   round into a proven launcher block is not always free: a `MidCourseCorrection`
