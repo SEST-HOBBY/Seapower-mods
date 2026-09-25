@@ -1571,9 +1571,10 @@ MISSIONS.append(dict(
         U("blue", "SEST_JMSDF_Mogami", "js_ffg_mogami", "jmsdf",
           name="JS Mogami"),
         U("blue", "euromod-jmsdf", "jmsdf_ddg_maya", "jmsdf", name="JS Maya"),
-        U("blue", "euromod-jmsdf", "jp_sh-60k", "helo"),
-        # Maya's deck lists jmsdf_ types, not jp_; both live on Mogami.
-        U("blue", "euromod-jmsdf", "jp_sh-60j", "helo"),
+        U("blue", "euromod-jmsdf", "jmsdf_sh-60k", "helo"),
+        # Euromod JMSDF renamed its Seahawks from jp_ to jmsdf_ (19 Sep
+        # 2026). Mogami (SEST_JMSDF_Mogami) and Maya now list both ids.
+        U("blue", "euromod-jmsdf", "jmsdf_sh-60j", "helo"),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
         U("blue", "f-2a-viper-zero", "jp_f-2a_late", "f2", name="Viper 61",
           loadout="AntiShip"),

@@ -2785,6 +2785,8 @@ Gives the three late-standard Dassault Rafales (fr_rafale_b_l / c_l / m_l) six J
 
 Reconciles the standalone Mogami-class frigate mod with the Euromod JMSDF pack by replacing the frigate's USN SH-2F air group with the JMSDF SH-60K and admitting both Euromod Seahawks, so a JMSDF ship stops flying an American helicopter when the two mods are subscribed together.
 
+**Update, 2026-09-25** — Euromod JMSDF renamed its Seahawks `jp_sh-60k`/`jp_sh-60j` to `jmsdf_sh-60k`/`jmsdf_sh-60j` on 19 Sep 2026, and build_patch.py follows it: wherever this section quotes a `jp_sh-60*` id, the builder, the pack and the missions now read `jmsdf_sh-60*`. The pack now writes `[AirGroup] jmsdf_sh-60k=Default,1` and `AircraftSupported=jmsdf_sh-60k,jmsdf_sh-60j,usn_sh-2f`. The new airframes offer every loadout the old ones did, plus Transport. The `jp_sh-60*` files still in mods-source are leftovers from before the exporter mirrored deletions (docs/design-notes.md, "The export must mirror deletions").
+
 
 **Files (4)**
 
