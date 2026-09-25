@@ -55,7 +55,7 @@ are the signal, the log and the INTSUM tile (`bkg_tile_message.png`).
 | # | Do | Expect | If not |
 |---|---|---|---|
 | 1B.1 | Campaign list backdrop | A dark chart 29–66°S, 116–180°E, 23 marks coded SR01…TS12 joined in campaign order, two small open circles for the optionals (TS10A off the Hauraki Gulf top-right, TS10B off Adelaide), the compass rose bottom-right, SOUTHERN REACH bottom-left | |
-| 1B.2 | Step through the story pages before SR02 and SR03 | A cable on teleprinter stock (Wellington's allocation), then a ship's log on ruled paper (Coral Pioneer, 6 December) | Either blank = that form's tile or image path is not read |
+| 1B.2 | Step through the two story pages before SR02 | A ship's log on ruled paper (Coral Pioneer, 6 December), then a cable on teleprinter stock (Wellington's allocation, 8 December) | Either blank = that form's tile or image path is not read |
 | 1B.3 | The page before SR10 | A typed INTSUM with a FICTION banner (The command element) | |
 | 1B.4 | Any Tasman Shield mission card | The TASMAN SHIELD series label and date line, the code (TS01…) in the corner, own force in blue, the objective ring | A card still saying SOUTHERN REACH on a Tasman mission = the series label is not per mission |
 | 1B.5 | The briefing chart for **SR10 Southern Line** | The ice-edge box at 60°S with a locator inset of the whole southern theatre, and *no* Hobart Airport on the chart (it is 1,000 NM away) | Hobart on the chart = `focus_nm` not applied |
@@ -102,7 +102,7 @@ writer both ways where the card says so.
 
 | # | Mission | Do | Expect | If not |
 |---|---|---|---|---|
-| 4.1 | SR03 Search Datum | Classify *Nan Hai 24*, put a ship or the Seahawk within 3 NM of her | Victory; sinking her fails the mission | The `at_unit` box does not follow her / the fatal on a red hull does not fire |
+| 4.1 | SR03 Search Datum | Classify *Nan Hai 24*, put your flagship within 3 NM of her | Victory; sinking her fails the mission | The `at_unit` box does not follow her / the fatal on a red hull does not fire |
 | 4.2 | SR04 Macquarie Passage | Keep both ships inside 5 NM until T+30, then north | The intel at T+30, then the line | The stage fires early (units merely inside at any time) or never |
 | 4.3 | TS02 Cook Strait | Same shape at T+25 with the cable ship | | |
 | 4.4 | TS03 Chatham Watch | Approach the surfaced TANGO | She dives when she detects the force | She sits on the surface: report it, the mission is then too easy |

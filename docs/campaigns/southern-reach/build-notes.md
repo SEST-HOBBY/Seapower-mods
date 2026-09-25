@@ -16,7 +16,7 @@ unchanged. This file covers only what is new.
 | Browser copies | every mission again under `missions/Southern Reach/` and `missions/Tasman Shield/` |
 | Placed units | 392, of which 200 stations were proved against the coastline extract |
 | Mods reached | 34 directly; the pack union with Southern Watch reaches all 159 enabled mods and SEST packs (`tools/check_campaign_coverage.py`) |
-| Points | 2,960 across the 23 mainline missions, +120 for the optionals; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 |
+| Points | 2,800 across the 23 mainline missions, +120 for the optionals; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 |
 | Southern Watch | unchanged: every mission file, card, story page and `campaign.ini` under `sest-southern-watch/` is byte-identical. Three of its briefing maps (The Open Door, The First Ship Through, D8 The Long Perimeter) re-rendered because the map renderer now keeps two overlapping "REPORTED …" labels apart; nothing else on them moved |
 
 Both campaigns ship in the one `SEST_Campaign` pack (and in the consolidated
@@ -97,10 +97,47 @@ the module; this is the list.
 | TS10B Southern Priority | centre −35.4, 137.3; tanker in Investigator Strait | centre −35.15, 137.9; tanker 14 NM from the Outer Harbor box; frigate 40 NM south-west | 60 minutes at the solver's 18 kn buys 13.5 NM; the box is where the bible put it |
 | TS11 Approaches | Flagship objective `20,-10,Complete` | `20,-10,Fail` | a destroy objective that ends Complete pays its 20 points for nothing |
 | TS02, TS06, TS12 | objective lists as on the card | a `Traffic`/`Neutrals` objective added beside `Ferries`/`Platforms`/`Ceasefire` | every mission needs one objective the neutral-loss rule fails; the `spare` objectives score the specific hulls |
+| SR01 Southern Departure | Southern Endeavour's loss fatal | any convoy hull's loss fatal | the win needs all three; losing one left the player running out a clock they could not win |
+| SR04 Macquarie Passage | `spare` the Bear and the tender | `spare` VICTOR too | "fire on nothing that has not fired" now scores a shot at the boat; she has to be alive for SR06 and SR07 |
+| SR05 Empty Horizon | the collector at the command element's station | the collector on her own station | the Picture objective and `SR05GroupClassified` are the two warships, not any two of three |
+| SR08 The Gateway | Lyttelton approach box −43.62, 173.05, "round Banks Peninsula" | −43.55, 172.90, 4 NM off Godley Head, "south-west across Pegasus Bay" | the first box was off the peninsula's north-east bays, 10 NM from the Heads |
+| SR10 Southern Line | `spare` the trawlers and the research vessel | `spare` *Nan Hai 27*; a `Neutrals` objective | the neutral-loss rule already covers the neutral hulls; Restraint scores the collector the briefing names |
+| SR12 Turning North | classify "the network", min 3 | classify the carrier, the replenishment ship and the collector (a list of refs) | any three of six would have written `SR12NetworkNamed` |
+| TS09 The Southern Convoy | F-35A from East Sale | the fighters recover at Edinburgh; East Sale not placed | the builder homes a cockpit on the nearest field, and Edinburgh is 60 NM nearer |
 
 None of these changes what a mission is about. The one that changes what it
 feels like is TS04: "two groups thirty miles apart abeam of the track" instead
 of "forty miles apart in line ahead"; the briefing was rewritten to match.
+
+## The review pass
+
+Before this was committed, five reviewers read every module against its
+bible card, the authoring contract and the emitted files (one per six
+missions, one for the cross-cutting chains: variables, calendar, roster,
+names), and every finding went to a separate verifier told to refute it.
+79 findings, 71 confirmed, 8 refuted. All 71 were applied. Two were the
+builder's:
+
+- A `classify` resolver now takes a list of station refs, so Turning
+  North's Network objective and the variable it writes are the three named
+  hulls of a six-hull formation, not any three.
+- The neutral-loss terminal no longer cancels a `spare` objective whose
+  hulls are neutral (Cook Strait's ferries, the Bass Strait platforms, the
+  withdrawing group under the ceasefire): it was cancelling the objective
+  in the same tick its own trigger scored it. Southern Watch has no such
+  objective, so its files do not change.
+
+The rest were the fiction against the data: a signal dated the day before
+the attack it reports, a "sixty miles" that measured thirty, a New Zealand
+officer who existed in neither the cast nor the lore (the Poseidon voice is
+Squadron Leader Tane Rewi, RNZAF; the Navy's is Commander Tessa Brand), the
+contractor's name (Austral Meridian Services, not Australian Maritime),
+Search Datum's trawler (*Nan Hai 24*) confused with the collector (*Nan Hai
+27*), the relief convoy bound for Wellington in one file and Auckland in
+the next, a Yasen "last held" in a mission that never placed one, and a
+destroy objective whose end-status paid its points unearned. The refuted
+eight were reviewers' misreadings or the bible's own disclaimers; none was
+left standing without a reason recorded in the workflow journal.
 
 ## Notes the builder still prints
 

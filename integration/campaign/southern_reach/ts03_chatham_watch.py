@@ -13,8 +13,8 @@ MISSION = dict(
     intro="The boat that lay on the cable corridor is on the surface "
           "alongside her tender, sixty miles east. Wellington has "
           "authorised the kill. The tender is not a target.",
-    sender="Commodore Alex Mercer; Commander Hana Rewi for Wellington's "
-           "authority",
+    sender="Commodore Alex Mercer; Commander Tessa Brand, RNZN, for "
+           "Wellington's authority",
     intent=("After Cook Strait, Wellington has said what Canberra was "
             "waiting for it to say: the boat that lay on the corridor is a "
             "hostile submarine in New Zealand's zone and she may be "

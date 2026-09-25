@@ -18,7 +18,7 @@ MISSION = dict(
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for East Sale",
     intent=("Bass Strait is the shipping lane and the gas field and the "
             "ferries, and today it is also a Kilo, a corvette, and a "
-            "merchant that has been radiating a Type 054A's search radar "
+            "merchant that has been radiating a frigate's search radar "
             "since dawn to see what we do about it. Get BASS PROVIDER to "
             "the western line. Do not put a missile into a merchant "
             "because it sounds like a frigate, and do not put one within a "
@@ -31,14 +31,14 @@ MISSION = dict(
     blue_nation="Australia", red_nation="China",
     brief=(
         "BASS STRAIT, morning. MT BASS PROVIDER, Geelong-bound with a "
-        "cargo Melbourne has been waiting a fortnight for, is eighteen "
-        "miles off Wilsons Promontory with your force. The strait around "
+        "cargo Melbourne has been waiting a fortnight for, is thirty miles "
+        "east of Wilsons Promontory with your force. The strait around "
         "her is its ordinary self: two Devonport ferries on the crossing, "
         "a bulker westbound, two supply boats running out to the Gippsland "
-        "platforms, three of which are on your plot thirty miles "
+        "platforms, three of which are on your plot some sixty miles "
         "north-east, and the Melbourne-Hobart service overhead.\\n\\n"
-        "MV SOUTHERN COMPLIANCE, an Australian Maritime Services merchant, "
-        "has been radiating a Type 054A's search radar since dawn: she is "
+        "MV SOUTHERN COMPLIANCE, an Austral Meridian Services merchant, "
+        "has been radiating a frigate's search radar since dawn: she is "
         "a decoy and a provocation, and she is a merchant. A Kilo is "
         "inside the strait somewhere south-west of the tanker's track. A "
         "Type 056A with a Z-9 up is coming in from the east past the "
@@ -76,7 +76,7 @@ MISSION = dict(
             "with a Kilo somewhere under her track. She anchors off "
             "Wilsons Promontory and waits for tomorrow.",
     stations={
-        # The tanker and escort 18 NM off the Promontory on 250; the Kilo
+        # The tanker and escort 30 NM east of the Promontory (16 NM off the Kent Group) on 250; the Kilo
         # 17 NM south-west across the track; the corvette 30 NM east
         # coming in past the platforms; the decoy 15 NM south-east on a
         # slow westbound beat; the ferries on the real crossing; the supply
@@ -113,6 +113,7 @@ MISSION = dict(
         U("blue", "_vanilla", "civ_ms_ritina", "tanker", name="MT Bass Provider"),
         U("red", "_vanilla", "wp_ms_mercur_decoy", "red_decoy",
           name="MV Southern Compliance (AMS merchant, decoy)", weapons="Hold",
+          loadout="KrivakI",
           route=[(-39.50, 146.50, 0)], telegraph=2),
         U("red", "chinese-navy-plan", "plan_ss_kilo", "red_sub", name="Contact KILO",
           depth="belowlayer", weapons="Tight",

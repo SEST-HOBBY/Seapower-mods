@@ -1,8 +1,7 @@
 """TS08 - Great Australian Bight. 15 February 2029.
 
 A long-range search with limited service: the escorts and Collins working
-two sectors against SIERRA-TWO, the Yasen that has not been seen since
-Southern Line, with the Udaloy and its oiler at a rendezvous to the
+two sectors against SIERRA-TWO, the Yasen nobody has held, with the Udaloy and its oiler at a rendezvous to the
 south-west. Eighty minutes is the point. The flag on the Yasen is what the
 Southern Convoy reads.
 """
@@ -11,15 +10,16 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="TS08", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 8",
     group="core", num="08", key="Great Australian Bight", place="The Bight",
-    intro="The Yasen that has not been seen since the ice edge is in the "
-          "Bight ahead of the Southern Convoy's track. Collins has the "
+    intro="The Russian detachment's second boat, the one nobody has held, "
+          "is in the Bight ahead of the Southern Convoy's track. Collins has the "
           "western sector; you have the eastern. Eighty minutes.",
     special="Repair only before this mission: Adelaide's dockyard has "
             "the plate and not the magazines. Rearm comes before the "
             "Southern Convoy.",
     sender="Commodore Alex Mercer, for the Submarine Force",
-    intent=("SIERRA-TWO is the Russian boat that the Southern Line's "
-            "Bear was talking to in January, and the last thing anybody "
+    intent=("SIERRA-TWO is the second nuclear boat the January intelligence "
+            "summary credited to the Russian detachment, and nobody has "
+            "held her; the last thing anybody "
             "wants under the Southern Convoy on the nineteenth is a Yasen. "
             "The Udaloy and her oiler are at a rendezvous seventy miles "
             "south-west; that is where the boat is going and where she "
@@ -39,8 +39,9 @@ MISSION = dict(
         "Poseidon out of Edinburgh, three hundred miles behind you. The "
         "Virginia on the Western Australia rotation is somewhere west of "
         "Collins and is not on your plot.\\n\\n"
-        "SIERRA-TWO, the Yasen, was last held on the Southern Line in "
-        "January. She is in the Bight because MARSHAL SHAPOSHNIKOV and "
+        "SIERRA-TWO, the Yasen, is the Russian detachment's second boat; "
+        "the January summary credited her and nobody has held her. She is "
+        "in the Bight because MARSHAL SHAPOSHNIKOV and "
         "the oiler BORIS CHILIKIN are seventy miles south-west of you, "
         "stopped, with a Ka-27 up - a rendezvous, and the one place she "
         "will come shallow.\\n\\n"
@@ -127,9 +128,9 @@ MISSION = dict(
              "Flagship": ("protect", "escort")},
     declares=["TS08YasenSunk"],
     flags=[dict(name="TS08YasenSunk", units=["red_sub"],
-                intel="SIERRA-TWO is gone, short of her rendezvous. The Yasen "
-                      "the Southern Line's Bear talked to in January is on "
-                      "the bottom of the Bight, and the Southern Convoy sails "
+                intel="SIERRA-TWO is gone, short of her rendezvous. The Russian "
+                      "detachment's second boat is on the bottom of the "
+                      "Bight, and the Southern Convoy sails "
                       "without her.")],
     window=dict(repair=True, flights=[HELO, RECON],
                 situation="Adelaide, before the Bight. Repair only: the "

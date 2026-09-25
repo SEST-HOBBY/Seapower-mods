@@ -110,7 +110,7 @@ MISSION = dict(
           route=[(-60.00, 118.30, 9000), (-60.20, 118.80, 9000)], telegraph=2),
         # In the line only if Beneath the South did not put her on the bottom.
         U("red", "russian-submarines", "wp_ssn_akula", "red_sub", name="Contact VICTOR",
-          depth="belowlayer", spawn_if=("SR07AkulaSunk", "IsFalse"),
+          depth="belowlayer", weapons="Tight", spawn_if=("SR07AkulaSunk", "IsFalse"),
           route=[(-59.85, 118.00, "belowlayer")], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_okean", "fleet", name="Factory trawler Nan Hai 21",
           route=[(-60.40, 118.20, 0)], telegraph=2),

@@ -30,7 +30,7 @@ MISSION = dict(
     difficulty=3, minutes=75, centre=(-54.3, 158.3),
     blue_nation="Australia", red_nation="Russia",
     brief=(
-        "MACQUARIE ISLAND, first light. SUPPLY and CORAL PIONEER are in "
+        "MACQUARIE ISLAND, morning. SUPPLY and CORAL PIONEER are in "
         "Buckles Bay under the station, with the island's year going ashore "
         "by boat and by helicopter while the weather allows it, which is "
         "about one day in three. This is the day.\\n\\n"
@@ -53,15 +53,15 @@ MISSION = dict(
            "group with its Seahawk and Poseidon if bought. The station "
            "ashore. Opposing: one Akula closing from the south-west, its "
            "tender to the west, one Bear-F with tanker support. A longliner "
-           "and a whale east of the island.",
+           "east of the island and a whale to the north.",
     objectives=[
         ("Service", "Hold the service box for the 30-minute window, then "
                     "bring SUPPLY and CORAL PIONEER north together to the "
                     "withdrawal line", "35,-35,Fail,Main"),
         ("Supply", "HMAS Supply must survive", "20,-30,Complete"),
         ("Cargo", "MV Coral Pioneer must survive", "15,-25,Complete"),
-        ("Restraint", "Fire on nothing that has not fired: the Bear and the "
-                      "tender are not targets", "10,-20,Complete"),
+        ("Restraint", "Fire on nothing that has not fired: the boat, the Bear "
+                      "and the tender are not targets", "10,-20,Complete"),
         ("Neutrals", "Harm no fishing boat or whale", "0,-25,Complete"),
     ],
     # Supply AND Coral Pioneer, still inside five miles of Supply's start
@@ -136,7 +136,7 @@ MISSION = dict(
           weapons="Hold", loadout="ASW",
           route=[(-54.50, 159.00, 8000), (-53.80, 159.60, 8000)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_d", "longliner",
-          name="Longliner Austral Leader", route=[(-54.30, 159.80, 0)], telegraph=2),
+          name="Longliner Macquarie Star (Hobart)", route=[(-54.30, 159.80, 0)], telegraph=2),
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic GOLF",
           depth="shallow"),
         U("blue", "_vanilla", "airfield_small_1", "home",
@@ -145,7 +145,7 @@ MISSION = dict(
     resolve={"Service": "victory", "Neutrals": "neutral",
              "Supply": ("protect", "support#1"),
              "Cargo": ("protect", "support#2"),
-             "Restraint": ("spare", "bear", "tender")},
+             "Restraint": ("spare", "bear", "tender", "red_sub")},
     declares=["SR04ServiceHeld"],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",

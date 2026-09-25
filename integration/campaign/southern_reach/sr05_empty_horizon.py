@@ -39,7 +39,7 @@ MISSION = dict(
         "SENTRY 22 is high and BLUEFIN 32 is under the cloud, both out of "
         "Hobart, both with the fuel for one look. The fleet is three factory "
         "trawlers, a Russian oiler that visits it, and the expedition ship "
-        "POLAR HORIZON coming home through the middle of them.\\n\\n"
+        "POLAR HORIZON coming home to the west of them.\\n\\n"
         "Classify the frigate and the corvette, then recover the Triton to "
         "the point north. The frigate's missiles reach forty miles and "
         "nobody has fired at an aircraft yet; you are not going to be the "
@@ -84,6 +84,7 @@ MISSION = dict(
         "high": S(-55.40, 148.30, "Sentry 22", heading=180, alt=50000),
         "mpa": S(-55.60, 147.60, "Bluefin 32", heading=180, alt=15000),
         "group": S(-57.30, 148.40, "Command element", heading=90),
+        "agi": S(-57.28, 148.45, "Research trawler", heading=90),
         "red_helo": S(-57.15, 148.60, "Ka-31 orbit", heading=90, alt=9000),
         "red_dip": S(-57.35, 148.10, "Z-9 dip", heading=270, alt=1500),
         "oiler": S(-57.60, 147.50, "Russian oiler", heading=60),
@@ -103,7 +104,9 @@ MISSION = dict(
         U("red", "modern-plan-systems", "plan_type_056a", "group",
           name="Fisheries protection corvette", weapons="Tight",
           route=[(-57.30, 149.00, 0)], telegraph=2),
-        U("red", "_vanilla", "wp_agi_okean", "group", name="Research trawler Nan Hai 27",
+        # Her own station, so the Picture objective and the variable it
+        # writes are the two warships and not any two of three.
+        U("red", "_vanilla", "wp_agi_okean", "agi", name="Research trawler Nan Hai 27",
           weapons="Hold", route=[(-57.30, 149.00, 0)], telegraph=2),
         U("red", "modern-plan-systems", "plan_ka-31", "red_helo", name="Ka-31 eye",
           alt=9000, weapons="Hold", loadout="AEW"),
@@ -131,7 +134,7 @@ MISSION = dict(
              "Sentry": ("protect", "high"),
              "Bluefin": ("protect", "mpa")},
     declares=["SR05GroupClassified"],
-    reveal_if=[dict(variable="SR01ShadowNamed", units=["group#3"], level="Classify",
+    reveal_if=[dict(variable="SR01ShadowNamed", units=["agi"], level="Classify",
                     intel="Storm Bay's picture from the sixth: the research "
                           "trawler you named there is with the command element, "
                           "and she is on your plot as a classified contact. "

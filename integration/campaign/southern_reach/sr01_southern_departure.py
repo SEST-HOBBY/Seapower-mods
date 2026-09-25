@@ -58,11 +58,13 @@ MISSION = dict(
         ("Flagship", "Bring your flagship out intact", "10,-15,Complete"),
         ("Identify", "Classify the research trawler before the handover", "15,0,None"),
     ],
-    # All three, and SOUTHERN ENDEAVOUR is the one that cannot be traded: she
-    # is the season, and the defeat text mourns her by name.
+    # All three: the win needs every hull, so losing any of them ends the
+    # mission rather than leaving the player to run out a clock they can no
+    # longer win. SOUTHERN ENDEAVOUR is the one the defeat text mourns by
+    # name, because she is the season.
     victory=dict(kind="arrive", station="convoy", min_units=3, objective="Convoy",
                  transit=12, also=[dict(units=["convoy#1"], min_units=1)]),
-    fatal=[F("Convoy", ["convoy#1"])],
+    fatal=[F("Convoy", ["convoy"])],
     neutral_objective="Neutrals",
     win="The convoy is past the handover line and the escort has put a name on "
         "the trawler that was not one. Santos, on channel 16: 'Same escort as "
