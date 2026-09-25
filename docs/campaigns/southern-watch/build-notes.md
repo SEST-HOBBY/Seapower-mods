@@ -731,8 +731,11 @@ each answer rests on. The shape of what changed:
   anchor carries a name (the builder refuses one) and the fiction addresses
   "your flagship". Weapons Free is the guide's one-ship pattern: `Replaced`
   with `TaskForceModeMaxUnits=1`.
-- **A blank generation type is a model, not an omission.** SW07, SW08, O1,
-  O2 and C1 launch as authored: no deployment keys, no rows, no airbase
+- **A blank generation type is a model, not an omission.** SW07, SW08 and
+  O2 launch as authored. (O1 and C1 did as well, until they were found
+  bringing back ships the player had lost; their notes never said nothing
+  of the player's sailed - see "Side operations sail your ships".)
+  No deployment keys, no rows, no airbase
   prep, `Includes*=False`, and a note that says nothing of the player's
   force sails. The builder refuses flights or a slot tag on such a mission.
 - **Per-unit stages.** Rig Seventeen builds one pickup → extraction →
@@ -807,6 +810,206 @@ PAC-3 MSE) take the author's new kill probabilities, penalties, numeric RCS
 and body areas, and every SEST delta (the loft angle, the 150,000 ft gate,
 the flight times) still lands on top. All 26 campaign missions and the
 loose missions preflight clean against the new files.
+
+## The Anzac's ESSM
+
+Reported in game: the ESSM Block II flew like an anti-ship missile, a metre
+above the sea. The Anzac's Mk41 fired the Anzac mod's own "RIM-162 ESSM",
+which the RAN Fleet pack had been re-shipping unchanged under a space-free id.
+That file is a RIM-7F template its author left flagged `REQUIRES STATS
+REVISION`: no kinematic model at all (no `ApplyKinematics`, no
+`MaxLoftAlt`/`MaxLoftAngle`, no `TypicalTargetAlt`), and a 26 ft attack floor
+that puts every sea-skimming anti-ship missile outside the band where the
+engine "greatly increases missile deviation".
+
+The Mk41 now loads Euromod's `usn_rim-162h`, a complete active ESSM Block II
+(5 ft floor, lofts to 60,000 ft at 40 degrees with a terminal loft, 27 NM).
+It is datalink midcourse, and the ASMD hull's Mk41 blocks already take a
+guidance channel from CEAFAR (ten weapon channels) - the condition the
+weapon-employment gate checks, which passes. Hobart still fires the Block I
+(`usn_rim-162a`, semi-active).
+
+What the files cannot settle: all three ESSMs in the collection declare
+`SecondaryTargetType=ASuW`, which lets the AI fire them at ships. A surface
+shot flies low whichever round it is. If the new round is ever seen doing it,
+the question is what it was fired at, and dropping the secondary type is a
+one-line change. The same sweep checked the wider theory and ruled it out:
+the stock game ships 53 of its 71 air-defence and air-to-air missiles with
+no climb profile at all, so a missing loft is not by itself a fault.
+
+## Side operations sail your ships; helicopters are helicopters
+
+Reported in game after White Water: the next operation "didn't seem
+persistent at all" - no damage, and a ship short had come back - a stray
+contact near 0°, 0° with a blue unit pushed to the edge of the tactical map,
+the Seahawk showing a French flag, and not much to do.
+
+**O1 and C1 sail the player's force now.** Both were blank-generation
+missions: The Missing Beacon placed HMAS Arafura and a Seahawk, After the Wake
+placed HMAS Hobart and a Seahawk, and all three `Includes` flags were False,
+so the game launched the files as written and nothing of the player's
+deployed. Pacific Strike has four side missions. Three (03A, 07A, 08A) are
+detached submarine sorties whose note says in so many words that "your task
+force will not deploy"; the fourth, 03B Holding the Lombok Strait, is
+`Generated` and sails a ship from the player's own task force. Ours said
+nothing of the kind, and they came the day after missions in which the player
+can lose hulls. C1's Hobart is on sale before Steel Highway, so a player who
+bought and lost her there got her back the next morning. That breaks the
+campaign's own rule: a destroyed ship never sails again as the same surviving
+ship.
+
+Both are `Generated` now - 03B's shape - with `TaskForceModeAnchor` on the lead
+ship, a detachment of the player's choosing and a Ship's Flight row for a
+bought Seahawk. No builder, no repair: each is the next day. Each win names
+the lead ship (`Taskforce1Vessel1`, which the generated mission fills with the
+player's first ship), so each pairs it with a loss terminal on that ship -
+stock's "Flagship must survive", which every anchor-named win in Pacific
+Strike has. Without it a detachment that lost its lead sailed on towards a
+win nothing could give.
+
+- **The Missing Beacon** is a race. MV Torres Light is adrift with her bridge
+  recorder aboard, and MV Meridian Salvor - an 11-knot Delvar-class support
+  ship, Meridian's usual Iranian-built hardware, weapons Hold - is steaming
+  for her. Meridian needs 13 NM to her one-mile ring: 71 minutes. The lead
+  ship needs 16.5 NM to its 1.5-mile ring: 34 minutes for an Anzac (29 kn,
+  the file that loads), 35 for a Hobart, 45 for an Arafura, 55 at a
+  conservative 18 kn. So a frigate lead can waste half an hour and still win;
+  an Arafura or a ship slowed by White Water's damage cannot. Classify the
+  coaster, then get the lead ship alongside; that win writes `O1BeaconFound`,
+  so Steel Highway's reveal now depends on the recorder being recovered, not
+  only seen. Meridian inside her ring first ends the mission - stock's own
+  shape, 01 Raid on Okinawa's "Assault unit reaches Kume - player defeat" (a
+  Taskforce2 unit in an area, `AreaDisplaySide=Both`), built by a new
+  `denied` entry. Sinking her removes the competitor and fails `Restraint`
+  (+10 held, -20 broken); the player still has to get alongside. The mission
+  is 90 minutes, and its timeout is written for the only case that reaches
+  it: Meridian out of the race and nobody alongside by dark.
+- **After the Wake** is the same recovery, flown by the player's own ships:
+  take the lead ship through the drift box to its northern edge. The first
+  draft also asked her to be in the box "past the half hour", with the Time
+  condition in the win trigger - which ships `Disabled=True` behind a stage.
+  Whether a Time condition in a Disabled trigger reads the mission clock or
+  the time since it was enabled is not settled by any stock file, and one
+  reading made the half hour a no-op while the other put the win after the
+  deadline at 18 knots. So there is no timer: the win is the edge. The
+  Seahawk objective went, because a Ship's Flight slot may not be named by a
+  trigger. Classifying the Type 039C is an optional +10.
+
+**SW07's picket was the same defect.** It placed a named HMAS Perth - Anzac
+`Variant8`, on sale from the first window and losable in Weapons Free or
+Blind Horizon three days earlier - in a blank mission that would sail her
+again undamaged. Its picket is HMAS Arunta (`Variant2`), which the roster
+never sells and no other mission places. SW08 and O2 are the remaining
+blank-generation missions; their named blue hulls (USS Theodore Roosevelt,
+HMAS Pilbara) are not for sale, and O2's note now says, as SW07's and SW08's
+do, that nothing of the player's force sails.
+
+**Helicopters were in the wrong sections.** Every helicopter placement in the
+stock and workshop missions - 60 of them, 97 counting the copies in the
+user's own mission folder - sits in a `[TaskforceNHelicopterM]` or
+`[NeutralHelicopterM]` section counted by `NumberOf...Helicopters`. The format
+guide lists the family separately, stock names units with
+`Taskforce1Helicopter1NameOverride`, and stock conditions test
+`Condition_UnitType=Helicopter` separately from `Aircraft`. This builder filed
+every helicopter as `Aircraft`, in 16 missions; O1's Seahawk was the first to
+fly from an authored section, and it did little. A helicopter family now
+exists end to end: the counts, name overrides, trigger references, the
+player-force-gone condition (a flying force is `Aircraft,Helicopter`, stock's
+comma form), the threat profile, the art, the briefing maps, preflight, and
+`check_campaign_coverage.py`, which now fails a helicopter in an `Aircraft`
+section or anything else in a `Helicopter` one. VTOL stays in `Aircraft`, as
+stock's Yak-38s do. Formations are split by how units move as well: SW05 had
+its Seahawk slot in a 0.1 NM Vic with two F-35As, and SW12 had a P-8 with a
+Seahawk. A surfaced submarine in company with a ship (SW09's Collins and
+Stalwart) is still one formation.
+
+**The RAN's helicopters fly under the Australian flag.** An aircraft's nation
+is its squadron's `Nation` - stock's `usn_p-2h_squadrons.ini` gives its RAAF
+squadron `Nation=Australia` and `flag_australia`.
+
+- Every MH-60R squadron in every mod is US Navy, and the table that won was
+  also the wrong one: 3590477166's, naming a `number` serial submodel the
+  winning model does not have (U.S. Navy 2027's `usn_mh-60r` draws United
+  States Naval Aviation's sh60 mesh, with `Modex` and `Emblem` submodels).
+  SEST Collection Fixes now composes the table from 3737267013's 19
+  squadrons, the set written for that model, and appends `Squadron20` - 816
+  Squadron RAN, `Nation=Australia`, the Australian flag, the Default livery
+  and serials, no US badge. It also ships 3737267013's names for Squadron1-3,
+  because 3590477166's load above them and would have labelled HSM-35's
+  livery HSM-51. Every RAN MH-60R - the campaign's, the roster's, the RAN
+  Fleet air groups', the four RAAF bases' - uses it. (SW08's USS Theodore
+  Roosevelt keeps her own US squadrons, as she should.) The unit is credited to U.S. Navy
+  2027, the file the game reads.
+- The S-70B-2 flew only with the RAN (816 Squadron, the Tigers), and its mod
+  names its one squadron "S-70B-2 'Tiger'" - with `Nation=US`. Collection
+  Fixes changes that one value in `[Default]` and `[Squadron1]`.
+
+**A dependency the builder could not see.** Taking the MH-60R squadron table
+away from 3590477166 took it off the required list, and the review of this
+change caught what that broke: ADO Nimitz 2000s' carrier - D2's USS Carl
+Vinson - draws its deck Seahawks from 3590477166's
+`assets/models/aircraft/usn_sh-60b/` folder, and nothing else ships it. That
+mod had been required only by accident. The builder and the coverage gate now
+follow every `Resources…Folder=assets/…` path in a placed unit's own file to
+the mods that supply it, and credit them as `asset`. On this collection that
+adds exactly one row, 3590477166, "a model a placed unit draws", and the
+required list is back to 135. One consequence is left open: that prop names
+`AircraftLivery=usn_mh-60r`, and the composed table's liveries were painted
+for the sh60 mesh, not the SH-60B one the prop draws. If the game applies a
+squadron livery to a deck prop the way stock pairs them, Carl Vinson's deck
+Seahawks will look wrong; the test card checks it.
+
+**What the files could not explain.** No placed unit in O1, SW01, SW02, C1 or
+O2 is anywhere near 0°, 0°, and no position key is missing. The one
+structural departure from stock O1 had - a helicopter in an `Aircraft`
+section - is gone; a Task Force mission with no anchor was not one (stock's
+03B, 07A and 08A have none). Nothing in the mod files names France for the
+MH-60R. The squadron table now sets the nation explicitly, which settles the
+flag whatever the old source was, and the stray contact goes on the test card
+as a watch item, not as fixed.
+
+**Not demonstrated:** a helicopter air-tasking slot has no working stock
+precedent. Stock's one `HeloRecon` row is commented out, and its helicopters
+are grants in `Helicopter` sections. The slot now sits in the family stock
+uses for helicopters, but whether the air-tasking screen fills it is still
+the test card's question. Neither is the telegraph mapping for a hull with
+no `TelegraphVelocities`: the Delvar is capped by her own 11-knot maximum,
+which is why she was chosen.
+
+## Red aircraft that were briefed to come
+
+The airliner that circled one spot in White Water had a sibling problem on
+the red side: an aircraft with no `Waypoints` holds an orbit over its spawn,
+and several briefings describe a strike, a sweep or an interceptor that
+arrives. Every red aircraft without waypoints - 52 in 16 missions, the
+campaign's, the dispatches' and the Banda and Northern Front vignettes' -
+plus SW11's J-15D (routed, but flying as the #2 of an unrouted leader) was
+read against its own briefing, weapons and triggers, and each proposed route
+was put to an independent reviewer who checked the timing against the built
+positions, speeds and weapon ranges. 34 hold a station their text gives them
+(AEW, tankers, pickets, the Bomber Stream's trail) and are unchanged; 18 now
+fly, and the J-15D flies its own route.
+
+| Mission | Aircraft | Was | Now |
+|---|---|---|---|
+| SW05 Weapons Free | JH-7A strike pair | 97 NM out with a 59-NM YJ-91: "the counter-strike arrives" never did | marshals on the SAG's back-bearing, runs onto the frigate's box, goes home; first shot about 14 minutes |
+| SW07 Long Way Home | MiG-31 pair | 99 NM from the tanker, R-33 reaches 86 | sweeps to TEXACO's station, turns back to their own AEW and tanker; a tanker that leaves at once is never in reach |
+| SW09 Southern Lifeline | Tu-214R scout; Su-30 pair | orbiting 150 NM out, the scout leading the Flankers' formation | the scout looks from 33 NM west of the box and leaves; the pair comes down the outside of the box, Kh-31A window at about 30 minutes; each on its own station |
+| SW11 Fujian's Shadow | J-15D anti-ship shooter | routed, but as #2 under an unrouted J-35 leader | its own station; `Strike` now names that station, not `red_air#2` (which after the move would have been the KJ-600) |
+| SW12 The First Ship Through | JH-7A spoiler strike | 73 NM out with a 59-NM YJ-91 | opens east, is inside YJ-91 range of the convoy at about 21 minutes, passes over it at about 35-38, goes home |
+| D6 Long Reach | J-36 / J-50 pair | orbiting 134 NM north-north-west of the stream, 96 NM off its track; the J-50's PL-15s never reached | onto the stream's line and back down it |
+| D7 Before the Lifeline | Bear G; the aggressor sweep | the Bear orbited; "before its release line" was prose | the Bear flies to its release point, where the serial now ends - the Bear inside five miles of it fails `Serial` (O1's `denied` terminal); the sweep goes ahead of it onto the strike detachment; the Badger has its own station so the Bear's Vic no longer drags it at the Tomcats |
+| Banda: Foxhound Sweep | MiG-31 pair | 300 NM out | onto the Wedgetail at Telegraph 4: at 3 a Foxhound is slower than the Wedgetail and the tanker at full power, and "speeds you cannot chase" was untrue. Because they can now reach the orbit, losing the Wedgetail or the tanker fails `HVA` and ends the mission - before, nothing failed it, and shooting the MiGs down afterwards still paid it |
+| Banda: Triton's Picture | J-16 pair | a CAP over the Aru Islands | "already up and looking for it": down to the Triton's station |
+
+Formation members fly the same route (the SW10 and D1 convention), so a
+wingman whose leader is shot down does not go back to circling its spawn.
+Every spawn is where it was. The splits used a station per aircraft that
+left, and a station per aircraft that would otherwise have been re-seated:
+SW09's Ka-27RLD and SW11's KJ-600 and J-20A (the J-20A, re-seated, had
+tipped its nearest deck from Liaoning to Fujian). SW11's red air wing no
+longer flies as one 0.1 NM Vic of fighters, an AEW aircraft and the
+shooter; the J-35, the KJ-600 and the J-20A each hold their own spawn.
 
 ## What exists
 

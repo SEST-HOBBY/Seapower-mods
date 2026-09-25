@@ -105,7 +105,7 @@ MISSION = dict(
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "escort"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight", alt=500,
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=12000,
           loadout="ASW", slot="Recon"),

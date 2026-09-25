@@ -99,7 +99,7 @@ MISSION = dict(
           weapons="Tight"),
         # Air-tasking placeholders: the cockpits a purchased Seahawk and
         # Poseidon take. Unnamed, and named by no trigger.
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight", alt=500, weapons="Tight",
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight",
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=15000,
           weapons="Tight", loadout="ASW", slot="Recon"),

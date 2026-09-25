@@ -104,7 +104,7 @@ MISSION = dict(
           route=[(-51.20, 165.45, 0), (-50.90, 165.95, 0)], telegraph=1),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7",
           weapons="Tight"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight", alt=500, weapons="Tight",
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight",
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=10000,
           weapons="Tight", loadout="ASW", slot="Recon"),

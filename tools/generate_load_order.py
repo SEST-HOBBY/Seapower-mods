@@ -109,7 +109,7 @@ NOTES = {
     "s-70b-2-seahawk": "KEEP — SEST RAN Fleet / RAAF Bases dependency",
     "tu-95ms-x-101": "watchlist: order vs the other Tu-95 mods decides shared files",
     "tu-95k-22": "watchlist: see Tu-95 row",
-    "mh-60r-2154545636": "resolved (collection audit): sits directly above US Naval Aviation so its squadrons file matches the loading model; unit file stays with U.S. Navy 2027",
+    "mh-60r-2154545636": "keep subscribed: ADO Nimitz 2000s draws its deck Seahawks from this mod's usn_sh-60b model folder. The MH-60R squadron table is SEST Collection Fixes' now (United States Naval Aviation's, written for the model that loads, plus 816 Squadron RAN), so its position above US Naval Aviation no longer decides it; unit file stays with U.S. Navy 2027",
     "sa-21-s400": "watchlist: land air-defense overlap",
     "mig-29-family": "watchlist: MiG-29/R-series overlap",
 }

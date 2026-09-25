@@ -194,7 +194,7 @@ counts the cockpits into the row. The rows and what fills them:
 
 | row | label | filter | cockpit unit | put the cockpit... |
 |---|---|---|---|---|
-| `HELO` | HeloRecon | SAR | `usn_mh-60r` (mod `mh-60r-2154545636`) | beside the anchor ship, 500-2,000 ft, within 150 NM of a deck |
+| `HELO` | HeloRecon | SAR | `usn_mh-60r` (mod `us-navy-2027`) | beside the anchor ship, 500-2,000 ft, within 150 NM of a deck |
 | `RECON` | Recon | MPA/ASW/ESM/AEW | `usn_p8` (`p-8-poseidon`, `loadout="ASW"`) | at a patrol station; every roster aircraft the filter matches (P-8, Wedgetail, Triton **and the MH-60R**, which is ASW/MPA) must have a compatible field or deck within its own radius - so keep the Recon cockpit within ~150 NM of the anchor ship's deck and within 1,080 NM of a field |
 | `CAP` | CAP | Fighter | two `raaf_f-35a` (`SEST_RAAF_F-35A_JATM`) | a CAP station within 547 NM of a placed RAAF field (F-35A), 506 NM (F/A-18F, EA-18G) |
 | `STRIKE` | Attack | Bomber/SEAD | two `usn_fa-18f_blk3` or `usn_ea-18g` (`SEST_Growler_NGJ_MALICE`) | within 506 NM of a field; the P-8 matches this filter too (1,080) |
@@ -279,7 +279,7 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `ran_opv_arafura` | Vessel | `SEST_RAN_Fleet` | Variant1 Arafura, 2 Eyre, 3 Pilbara, 4 Gippsland; fits Containers/AntiShip/AntiAir |
 | `ran_ssg_collins` | Submarine | `SEST_RAN_Fleet` | Variant1 Collins, 2 Farncomb; `depth="periscope"` |
 | `ran_aor_supply` | Vessel | `SEST_RAN_Fleet` | Variant1 Supply, 2 Stalwart; `loadout` Default |
-| `usn_mh-60r` | Helicopter | `mh-60r-2154545636` | range 520; fits ASW, ASWLongRange, ASWPatrol, Anti-shipLate |
+| `usn_mh-60r` | Helicopter | `us-navy-2027` | range 520; fits ASW, ASWLongRange, ASWPatrol, Anti-shipLate; `U()` gives a blue Seahawk Squadron20 (816 Squadron RAN) unless told otherwise |
 | `usn_p8` | Aircraft | `p-8-poseidon` | range 2,700; fits ASW, AntiShip; Squadron3 RAAF, Squadron6 RNZAF |
 | `E7A_Wedgetail` | Aircraft | `e-7a-wedgetail` | range 2,700; no fits; Squadron1 |
 | `raaf_mq-4c_triton` | Aircraft | `SEST_ADF_Persistent_ISR` | range 9,430; unarmed, `weapons="Hold"` |

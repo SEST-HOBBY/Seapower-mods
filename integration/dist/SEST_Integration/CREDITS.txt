@@ -17,7 +17,6 @@ came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
   [DEPRECATED] Anzac Class Frigate  (workshop 3440622312)
-       99%  ammunition/sest_rim-162_essm.ini from RIM-162 ESSM.ini
       100%  vessels/ran_ffh_anzac.ini 
 
   A-10C  (workshop 3459682829)
@@ -149,6 +148,7 @@ file is unchanged.
   United States Naval Aviation  (workshop 3737267013)
        97%  aircraft/usn_ea-18g_2020.ini 
        96%  aircraft/usn_f-35c_squadrons.ini 
+       97%  aircraft/usn_mh-60r_squadrons.ini 
        98%  ammunition/usn_aim-9l.ini 
        98%  ammunition/usn_gbu-12d.ini 
        97%  ammunition/usn_gbu-39.ini 

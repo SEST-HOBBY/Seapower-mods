@@ -3,6 +3,8 @@ settings and the commander. One place, so the schedule reads as a schedule
 and a mission module that disagrees with it fails the build.
 """
 
+from campaign_data import RAN_SEAHAWK  # 816 Squadron RAN, composed by SEST Collection Fixes
+
 # The mission modules, in campaign order. Chapter A then chapter B; the
 # builder sorts the spine by date, so this order is also the date order.
 MODULES = [
@@ -112,9 +114,9 @@ ROSTER = [
     dict(unit="E7A_Wedgetail", picks=["Squadron1"], points=80),
     dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=60,
          note="unarmed in this implementation"),
-    dict(unit="usn_mh-60r", picks=["Squadron1"], points=20,
-         note="one family chosen explicitly - usn_mh-60r_26 is a different "
-              "unit and is never substituted for it"),
+    dict(unit="usn_mh-60r", picks=[RAN_SEAHAWK], points=20,
+         note="816 Squadron RAN; one family chosen explicitly - usn_mh-60r_26 "
+              "is a different unit and is never substituted for it"),
 ]
 
 # The same RAN ladder Southern Watch uses (the base game's own, from Pacific

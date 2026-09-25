@@ -87,7 +87,8 @@ Pacific Strike campaign and has never been run.
 | 2.4 | Deploy into SW01 | The purchased ship is **Taskforce1Vessel1**, on station, not adrift |
 | 2.5 | Finish SW01, open the builder before SW02 | The list has **grown** to 5 — Hobart and the P-8 added. No Supply, no Collins, no KC-46: the roster sells nothing a mission cannot deploy |
 | 2.6 | Before SW05 | The builder says one ship sails it; the deployment screen accepts **exactly one vessel** (`Replaced`, `MaxUnits=1`). Send an Arafura and the magazine objective must still read her NSM cells |
-| 2.7 | Before SW07, SW08, O1, O2, C1 | **No deployment screen at all.** The note says nothing of your force sails; the mission launches as authored |
+| 2.7 | Before SW07, SW08, O2 | **No deployment screen at all.** The note says nothing of your force sails; the mission launches as authored |
+| 2.7a | Before O1 and C1 | A **deployment screen** (a detachment of your choosing) and a Ship's Flight row; no builder, no repair |
 | 2.8 | Before SW12 | Aircraft plus **Arafura and Anzac** as replacement hulls; no Hobart. Buy an F-35A and assign it to Combat Air Patrol: it must appear, fly and recover at Darwin |
 
 2.4 is the one to watch. If the bought ship is missing, misplaced, or the
@@ -144,7 +145,7 @@ shipped missions imply.
 | 6.3 | Classify the group in SW06, reach SW11 | The three escorts are identified from the start, with an intel line |
 | 6.4 | Save mid-campaign, quit to desktop, reload | The flags above still hold |
 
-| 6.5 | Classify Torres Light in O1, then start SW02 | An intel line and the submarine on the route shown as a **classified** contact from the start; skip O1 and it is not |
+| 6.5 | Get alongside Torres Light first in O1, then start SW02 | An intel line and the submarine on the route shown as a **classified** contact from the start; skip O1, or let Meridian's ship get there first, and it is not |
 | 6.6 | Identify the coaster in O2, then start SW04 | The same shape: Kiwi 01's picture as intel, the submarine classified |
 | 6.7 | Bring both Korean warships in at O3, then start SW06 | **ROKS Sejong the Great** is in the screen. Lose either, or skip O3, and she is not (`SpawnByVariableAND=O3ShieldJoined,IsTrue` — the first `IsTrue` spawn in the pack) |
 | 6.8 | Put both coasters in at O4, then start SW08 | A **KC-46** on the track south of the box; skip or fail O4 and there is none |
@@ -165,6 +166,45 @@ developer guide), so each is a design answer either way.
 | 6A.3 | Finish that mission and read the debrief | A **Survivors rescued** line and "*N* survivors -> *M* additional point(s) awarded". Tell me N and M | The campaign ships the stock `CSARPointModifier=10`; N and M settle which way it scales |
 | 6A.4 | Rig Seventeen: send **Lifter 12 (the Osprey)** to the rig, then south of the line | Victory - either lifter can make the lift, and the per-lifter chain works for the Osprey as for the Super Stallion | It must launch from and recover to HMAS Canberra; a refusal names the deck list |
 | 6A.5 | The Long Perimeter: fly Dragon 71/72 into the airstrip before the ridge is cleared | The Tor engages them in the last five miles; once the ridge is down, the landing completes **Lift** | The lift completing with the ridge untouched means the SAM never engaged - tell me |
+
+| 6A.6 | Any mission with an Anzac under missile attack | ESSMs climb out of the Mk41 and meet incoming sea-skimmers low; they no longer cruise at a metre above the sea to get there | If one still flies low, note what it was fired at - a ship means the ASuW secondary mode, not the flight profile |
+
+## 6B — side operations carry your losses (new)
+
+Reported: the operation after White Water brought back a ship that had been
+lost there, without its damage. O1 and C1 now deploy your own force; SW07's
+picket is a hull you cannot buy.
+
+| # | Do | Expect |
+|---|---|---|
+| 6B.1 | Take damage and lose a ship in SW01, then open O1 | The lost ship is **not offered**; the damaged one deploys **with its damage** |
+| 6B.2 | O1, go straight for Torres Light at speed | Classify her (intel line), get the **lead ship** within 1.5 NM: **victory**, and SW02 reveals the submarine (6.5) |
+| 6B.3 | O1, stay on the lane and let Meridian Salvor run (about 70 minutes) | She reaches Torres Light first: **defeat** with the Meridian message, and no SW02 reveal. With a frigate lead, 30 minutes on the lane is still recoverable; with an Arafura it is not |
+| 6B.4 | O1, sink Meridian Salvor, then get the lead ship alongside | **Victory**, and **Restraint fails** (-20) at the debrief. Sink her and never get alongside: the clock runs out with the timeout text, not the Meridian one |
+| 6B.5 | O1 or C1, lose the lead ship while another survives | The mission **ends at once** in a defeat, not at the deadline |
+| 6B.6 | Lose Hobart in SW02, then open C1 | Hobart is **not** in C1; your own detachment sails it, and the lead ship reaching the box's northern edge wins |
+| 6B.7 | Lose HMAS Perth in SW05 or SW06, then play SW07 | SW07's picket is **HMAS Arunta**, not Perth |
+| 6B.8 | Select any RAN MH-60R or S-70B-2 (bought, or on a fleet ship or RAAF base) | The unit panel shows **Australia** - 816 Squadron RAN for the MH-60R, 'Tiger' for the S-70B-2 - not the US or France |
+| 6B.9 | Any mission with a helicopter | The helicopter flies and works as one: it hovers, dips and lands on its ship. It is never in a formation with a jet or a ship |
+| 6B.10 | D2, look at USS Carl Vinson's deck | Her parked Seahawks look like Seahawks. A scrambled texture means the composed MH-60R livery is being applied to ADO's SH-60B deck prop (build notes) |
+| 6B.11 | O1's tactical map | **No contact near 0°, 0°**, and no blue unit pushed against the map's edge. If either is still there, note what the contact says it is |
+
+## 6C — red aircraft that were briefed to come (new)
+
+Each of these used to orbit its spawn point (6C.4's J-15D was routed but
+flew as the #2 of an unrouted leader). Watch the first 20 minutes, and 40 in
+SW09 and SW12.
+
+| # | Do | Expect |
+|---|---|---|
+| 6C.1 | SW05, sit still | The JH-7A pair goes **west first**, then comes down the corridor; no YJ-91 before about 14 minutes |
+| 6C.2 | SW07, send the tanker home at once | The Foxhounds come south towards TEXACO's station and **turn back north** at about 13 minutes; the tanker is never in R-33 reach. The returning package is, for about the first 13 minutes, and so is a Wedgetail that holds its orbit from about 11 to 15 |
+| 6C.3 | SW09 | The Tu-214R comes to about 33 NM west of the service box at about 20 minutes and leaves; the Flanker pair swings round the outside and is in Kh-31A range of the ships at about 30-34 minutes, near the end of the window |
+| 6C.4 | SW11 | Flying Shark 21 heads for the transports on its own; shooting it down completes **Strike** (not the KJ-600) |
+| 6C.5 | SW12, Fujian alive in SW11 | The spoiler JH-7A opens east, is inside YJ-91 range of the convoy at about 21 minutes (expect a launch then), passes over it at about 35-38, and goes home |
+| 6C.6 | D7, leave the Bear alone | It reaches the marked release line at about 19 minutes and the serial **fails** with the umpires' message; the Badger stays north, out of play |
+| 6C.7 | Banda Foxhound Sweep | The MiG-31s run at the Wedgetail fast. Lose the Wedgetail or the tanker: **defeat**, HVA failed - shooting the MiGs down afterwards does not win it back |
+| 6C.8 | Banda Triton's Picture | The J-16s come down to the Triton's station |
 
 ## 7 — the review's engine tests
 

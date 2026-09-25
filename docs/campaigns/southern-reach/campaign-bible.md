@@ -147,7 +147,7 @@ Mainline allocations total 2,800 points across 23 missions; the two optionals ad
 |---|---|---|---:|---|
 | Anzac-class frigate | `ran_ffh_anzac` | Variant2, 3, 5, 6, 7, 8 (Arunta, Warramunga, Parramatta, Ballarat, Toowoomba, Perth) | 240 | SR01 |
 | Hobart-class destroyer | `ran_ddg_hobart` | Variant1–3 | 480 | SR01 |
-| Seahawk | `usn_mh-60r` | Squadron1 | 20 | SR01 |
+| Seahawk | `usn_mh-60r` | Squadron20 (816 Squadron RAN, composed by SEST Collection Fixes) | 20 | SR01 |
 | P-8A Poseidon | `usn_p8` | Squadron3 (RAAF) | 45 | SR03 |
 | MQ-4C Triton | `raaf_mq-4c_triton` | Squadron1 | 60 | SR03 |
 | E-7A Wedgetail | `E7A_Wedgetail` | Squadron1 | 80 | SR04 |

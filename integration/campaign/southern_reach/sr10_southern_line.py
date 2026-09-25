@@ -91,7 +91,7 @@ MISSION = dict(
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "escort", weapons="Tight"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight", alt=500, weapons="Tight",
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight",
           slot="HeloRecon"),
         U("red", "liaoning-type-001", "plan_type_001", "group", name="Liaoning",
           weapons="Tight", route=[(-60.40, 118.90, 0)], telegraph=2),

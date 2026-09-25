@@ -105,7 +105,7 @@ MISSION = dict(
         U("blue", "_vanilla", "civ_ms_act_1", "trader", name="MV Hauraki Trader"),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7",
           weapons="Tight"),
-        U("blue", "mh-60r-2154545636", "usn_mh-60r", "flight", alt=500, weapons="Tight",
+        U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight",
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=8000,
           weapons="Tight", loadout="ASW", slot="Recon"),
