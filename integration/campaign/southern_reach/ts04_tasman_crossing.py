@@ -151,10 +151,10 @@ MISSION = dict(
              "Flagship": ("protect", "escort")},
     reveal_if=[dict(variable="SR12NetworkNamed", units=["red_cv#2"], level="Classify",
                     intel=(
-                        "FUSION CELL | The escort reported with LIAONING matches the Type 054A "
-                        "identified on 14 January. Its classification is entered on the plot. "
-                        "Use the correlation to orient the search; determine the carrier's "
-                        "current position separately."
+                        "FUSION CELL: The escort reported with LIAONING matches the Type 054A "
+                        "identified on 14 January. The escort is classified on the plot and "
+                        "held there for the operation. Use it to orient the search; the "
+                        "carrier's position must be found separately."
                     ))],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "ran_opv_arafura",

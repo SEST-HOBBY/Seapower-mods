@@ -69,7 +69,7 @@ MISSION = dict(
                  after=dict(kind="classify", units=["tender"], min_units=1,
                             sets="TS01TenderNamed",
                             intel=(
-                                "IDENTIFICATION REPORT | AUSTRAL COMPLIANCE classified: the "
+                                "IDENTIFICATION REPORT: AUSTRAL COMPLIANCE classified as the "
                                 "Austral Meridian Services coaster reported with the protection"
                                 " group. Its emissions and registration have been recorded for "
                                 "comparison with later contacts. Hold the patrol line "
@@ -153,9 +153,10 @@ MISSION = dict(
     declares=["TS01TenderNamed"],
     reveal_if=[dict(variable="SR12NetworkNamed", units=["agi"], level="Classify",
                     intel=(
-                        "FUSION CELL | The 14 January identification of NAN HAI 27 matches the "
+                        "FUSION CELL: The 14 January identification of NAN HAI 27 matches the "
                         "collector reported east of AUSTRAL COMPLIANCE. The contact is "
-                        "classified on the plot. Its association with Austral Meridian Services"
+                        "classified on the plot and held there for the operation. Its "
+                        "association with Austral Meridian Services"
                         " is assessed; the contents of its current transmissions are "
                         "unconfirmed."
                     ))],

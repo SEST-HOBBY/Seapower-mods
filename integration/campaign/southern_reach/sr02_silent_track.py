@@ -66,7 +66,7 @@ MISSION = dict(
     victory=dict(kind="arrive", station="collins", min_units=1, objective="Track",
                  after=dict(kind="classify", units="red_sub", min_units=1,
                             intel=(
-                                "ASW REPORT | Contact classified as Akula-class, designated "
+                                "ASW REPORT: Contact classified as Akula-class, designated "
                                 "VICTOR. The acoustic record has been passed to Wellington and "
                                 "Canberra. Continue tracking with available sensors while "
                                 "Collins withdraws east; this classification does not authorise"

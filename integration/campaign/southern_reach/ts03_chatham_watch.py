@@ -120,16 +120,17 @@ MISSION = dict(
     declares=["TS03TenderNamed"],
     reveal_if=[dict(variable="TS01TenderNamed", units=["tender"], level="Classify",
                     intel=(
-                        "FUSION CELL | The tender at the reported rendezvous matches AUSTRAL "
-                        "COMPLIANCE, classified off Puysegur. Its identity is entered on the "
-                        "plot. It remains excluded from the engagement authority."
+                        "FUSION CELL: The tender at the reported rendezvous matches AUSTRAL "
+                        "COMPLIANCE, classified off Puysegur. It is classified on the plot and "
+                        "held there for the operation. It remains excluded from the engagement "
+                        "authority."
                     )),
                dict(variable="TS02SubNamed", units=["red_sub"], level="Classify",
                     intel=(
-                        "ASW CELL | The submarine report has been correlated with TANGO's Cook "
-                        "Strait record. TANGO is classified on the plot. Wellington has "
-                        "authorised engagement of this contact; confirm the current position "
-                        "before firing."
+                        "ASW CELL: TANGO's Cook Strait record matches the submarine report. "
+                        "She is classified on the plot from the first minute and held there for"
+                        " the operation. Wellington has authorised engagement of this "
+                        "contact."
                     ))],
     window=dict(flights=[HELO, RECON]),
     role="patrol",

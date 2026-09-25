@@ -28,8 +28,8 @@ EVENTS = [
              (
                  "Hobart's first convoy of the season - the resupply ship Southern Endeavour, "
                  "the fuel coaster Derwent Spirit and MV Coral Pioneer - sails at dawn with the"
-                 " stations' year of fuel, food and people, under a new southern force "
-                 "allocation informed by the northern escort operation."
+                 " stations' year of fuel, food and people, escorted by the task group that "
+                 "held the north."
              ),
              "Get the convoy out of Storm Bay. Put a name on the trawler. "
              "Nobody shoots at a fishing boat in December."]),
@@ -41,7 +41,7 @@ EVENTS = [
          ship="MV Coral Pioneer", master="L. Santos", date="6 December 2028",
          entries=[
              ("0515", "Departed the Derwent astern of SOUTHERN ENDEAVOUR, DERWENT "
-                      "SPIRIT in company. Convoy speed 12 kn. Escort on the "
+                      "SPIRIT in company. Convoy speed twelve knots. Escort on the "
                       "starboard quarter, from the task group that came for us in "
                       "the Arafura in October."),
              ("0602", "Trawler fleet on radar to the south. Three hulls. One of "
@@ -130,21 +130,21 @@ EVENTS = [
                            "B: \"PROTECTION ONE\", ASSESSED AS THE GROUP'S FRIGATE. PARTIAL.")],
          body=[
              (
-                 "A: Protection One, Control. The command element holds its box south of the "
+                 "A:  Protection One, Control. The command element holds its box south of the "
                  "fleet until the carrier is in the area. Compliance corridors resume when it "
                  "is."
              ),
              (
-                 "B: Control, One. The grey force has a long-range aircraft over us every day. "
+                 "B:  Control, One. The grey force has a long-range aircraft over us every day. "
                  "It sees the box."
              ),
              (
-                 "A: It sees a fishing fleet with an escort. That is what it is for. Do not "
+                 "A:  It sees a fishing fleet with an escort. That is what it is for. Do not "
                  "illuminate the aircraft. Do not answer the aircraft."
              ),
-             "B: And the trawler.",
-             "A: The trawler is a trawler. Control out.",
-             "B: [unreadable] ... eight days ... [unreadable]"],
+             "B:  And the trawler.",
+             "A:  The trawler is a trawler. Control out.",
+             "B:  [unreadable] ... eight days ... [unreadable]"],
          note="Speaker A's traffic pattern matches the Meridian duty controller "
               "intercepted in the north on 1 November. \"The carrier\" is assessed as the group's "
               "reinforcement, transiting; not yet in the Southern Ocean. "
@@ -181,19 +181,18 @@ EVENTS = [
          headline="NO LONGER A CEASEFIRE",
          body=[
              (
-                 "A torpedo struck Derwent Spirit on the resupply route on the twenty-first, "
-                 "south of the Auckland Islands. The coaster reached the escort handover on one"
-                 " engine and continued towards Bluff. Acoustic evidence links the attack to "
-                 "VICTOR, the Akula reported on the Macquarie Ridge. Joint intelligence "
-                 "assesses that link as probable; the next patrol must establish a fresh "
-                 "contact."
+                 "A torpedo struck Derwent Spirit south of the Auckland Islands on the "
+                 "twenty-first. The coaster made the escort handover on one engine and went on "
+                 "to Bluff. Acoustic evidence links the attack to VICTOR, the Akula reported on "
+                 "the Macquarie Ridge. Joint intelligence rates the link probable; the next "
+                 "patrol must regain contact."
              ),
              (
                  "Canberra and Wellington have authorised an operation against the submarine "
                  "responsible. RV Akademik Fersman, the research vessel associated with its "
                  "support network, is excluded from that authority. Its activities are to be "
-                 "documented, not attacked. The distinction is specific to these orders: a "
-                 "vessel's civilian appearance alone does not settle its role."
+                 "documented, not attacked. The distinction comes from these orders, not from "
+                 "her civilian appearance."
              ),
              (
                  "The fisheries-protection formation has made no public response. Satellite "
@@ -282,9 +281,10 @@ EVENTS = [
              "group's.",
              (
                  "2. Recent radar-satellite detections and naval emissions place the formation "
-                 "near the fishing fleet, south of the Casey route. Identification of the "
-                 "carrier remains to be confirmed locally. Assessed intent: obstruct the final "
-                 "resupply voyages while inviting the coalition to fire first. Positions are "
+                 "with the fishing fleet at the ice edge, across the route to Casey. "
+                 "Identification of the carrier remains to be confirmed locally. Assessed "
+                 "intent: obstruct the final resupply voyages while inviting the coalition to "
+                 "fire first. Positions are "
                  "intelligence cues, not continuous weapon-quality tracks."
              ),
              "3. Guidance to the force. Identify the carrier and the collector "
@@ -332,19 +332,16 @@ EVENTS = [
          headline="THE STATIONS ARE SUPPLIED",
          body=[
              (
-                 "Southern Endeavour has cleared the final escort handover for Casey. The ship "
-                 "carries the remaining stores for winter; the season's final fuel position "
-                 "will depend on the tanker and cargo-loss reports. The Division is reconciling"
-                 " deliveries to Casey, Davis, Mawson and Macquarie before deciding what can "
-                 "still sail."
+                 "The last ship south is south. Southern Endeavour has cleared the final escort "
+                 "handover with Casey's winter aboard; Davis and Mawson have their lifts and "
+                 "Macquarie its year. How much fuel margin the season ends with depends on "
+                 "which tankers came through, and the Division is doing that arithmetic now."
              ),
              (
-                 "The protection group has turned north. Triton surface-search reporting, "
-                 "correlated with recent imagery, places the carrier, escorts, collector, "
-                 "replenishment hull and Russian tender Akademik Fersman east of Tasmania, "
-                 "moving towards the Tasman at a reported fourteen knots. That is the last "
-                 "reported formation; the next patrol must update its course and membership. "
-                 "The fishing fleet has been left to fish."
+                 "The protection group has turned north. Triton reporting, correlated with "
+                 "recent imagery, places the carrier, escorts, collector, replenishment hull and"
+                 " Russian tender Akademik Fersman east of Tasmania, making for the Tasman at a "
+                 "reported fourteen knots. The fishing fleet has been left to fish."
              ),
              "Nobody in Canberra or Wellington believes it is going home. The "
              "Tasman is where the two countries' ports, ferries, cables and "
@@ -437,7 +434,7 @@ EVENTS = [
                  " carrier aircraft over the Sydney-Auckland airway during the past four days. "
                  "The latest surface and air observations still need to be correlated."
              ),
-             "Merchant traffic across the Tasman is sailing in dispersed groups "
+             "Merchant traffic across the Tasman sails in dispersed groups "
              "with whatever escort can be found, which is the task group. "
              "Williamtown's fighters reach the middle of the crossing and no "
              "further; Wedgetail sees the carrier's aircraft come and cannot "
@@ -531,9 +528,8 @@ EVENTS = [
                       "run to Macquarie Island.")],
          note=(
              "For whoever reads this afterwards: the escorts have brought us through two seas, "
-             "a strait, Buckles Bay and a summer. There are fewer familiar voices on the radio "
-             "now. On the second we ask them to bring the Auckland convoy through once more.  -"
-             " L.S."
+             "a strait, Buckles Bay and a summer. There are fewer familiar voices on the radio. "
+             "On the second we ask them to bring the Auckland convoy through again.  - L.S."
          )),
 
     # --- epilogue ----------------------------------------------------------
@@ -551,11 +547,12 @@ EVENTS = [
              (
                  "The final relief convoy is through. The resupply programme is accounting for "
                  "winter stocks, port authorities are keeping the ferry routes open, and the "
-                 "repaired cable is back in service. There are losses to account for as well as"
-                 " passages completed. The compliance contractor has closed its Hobart office."
+                 "repaired cable is back in service. Whatever it cost is in the task group's "
+                 "report, beside the passages completed. The compliance contractor has closed "
+                 "its Hobart office."
              ),
              (
-                 "The task group's report lists the ships and aircraft that returned, the crews"
+                 "The task group's report lists the ships and aircraft that returned, any crews"
                  " lost and the ammunition spent. Those costs belong beside the result: "
                  "Australia and New Zealand can continue to use their ports and sea routes "
                  "without accepting the protection group's inspections."

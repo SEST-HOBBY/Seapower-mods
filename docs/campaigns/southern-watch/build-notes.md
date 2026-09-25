@@ -1019,7 +1019,7 @@ shooter; the J-35, the KJ-600 and the J-20A each hold their own spawn.
 | Requisition | `player_task_force_roster.ini` (10 priced entries) and `commander_settings.ini` (Australian commander, no same-nation discount) beside it |
 | Campaign missions | the eighteen, shipped twice: under `campaigns/…/missions/` for the campaign and under `missions/SEST Southern Watch/` so the mission browser lists them too. The builder writes one copy and `tools/check_campaign_coverage.py` fails if the two ever differ |
 | Dispatches | `missions/SEST Southern Watch - Dispatches/` — the eight optional episodes (Allied Dispatch ×3, Red Line, Range Week, Future Front, Cold Sea, plus the relief-perimeter episode) |
-| Briefings | a `_briefing/BriefingText_en.xml` beside every mission, with SITUATION / TASK / FORCES / MODS IN PLAY. The mod list is generated from the roster, so it cannot drift from the order of battle |
+| Briefings | a `_briefing/BriefingText_en.xml` beside every mission, with SITUATION / FROM / COMMANDER'S INTENT / TASK / FORCES / TIME, and RULES OF ENGAGEMENT where protected neutrals are on the plot; one TextBlock per paragraph, the task as bullets. Mod provenance lives in REQUIRED-MODS.txt and the coverage report, not in the briefing |
 | Source | `integration/campaign/campaign_data.py` (the script) and `build_pack.py` (the machinery) |
 | Coverage report | `docs/campaign-coverage.md`, regenerated on every build |
 

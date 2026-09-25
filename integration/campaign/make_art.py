@@ -703,22 +703,42 @@ def intsum(out_png, org, ref, date, subject, paras, note=None, label="SOUTHERN W
         d.text((W/2, by+28), marking, font=mono(24, True),
                fill=RPT_STOCK, anchor="mm")
     y = 96
-    d.text((M, y), org.upper(), font=mono(24, True), fill=RPT_INK)
-    y += 38
-    d.text((M, y), f"{ref}  ·  {date.upper()}", font=mono(23), fill=RPT_INK); y += 44
+    # The originator and the reference share the top line, as on a typed
+    # form; only an originator too long for that drops the reference below
+    # it. Stacking them always cost the Meridian summary two sizes of type.
+    head, refdate = org.upper(), f"{ref}  ·  {date.upper()}"
+    hf, rf = mono(24, True), mono(23)
+    d.text((M, y), head, font=hf, fill=RPT_INK)
+    if d.textlength(head, font=hf) + 40 + d.textlength(refdate, font=rf) <= W - 2*M:
+        d.text((W-M, y), refdate, font=rf, fill=RPT_INK, anchor="ra"); y += 44
+    else:
+        y += 38
+        d.text((M, y), refdate, font=rf, fill=RPT_INK); y += 44
     for line in _fit_lines(d, f"SUBJECT: {subject.upper()}", mono(28, True), W-2*M):
         d.text((M, y), line, font=mono(28, True), fill=RPT_INK)
         y += 40
     d.line([(M, y), (W-M, y)], fill=RPT_INK, width=2); y += 30
-    note_lines = _fit_lines(d, note, serif(26), W-2*M) if note else []
+    # A trailing "  - Cdre Mercer" is a signature: it keeps its two spaces
+    # and is never split, on the last line if it fits there, else its own.
+    sig = re.search(r"\s{2,}-\s*([A-Z][A-Za-z. ]{0,30}?)\s*$", note) if note else None
+    note_body = note[:sig.start()] if sig else note
+    note_lines = _fit_lines(d, note_body, serif(26), W-2*M) if note else []
+    if sig:
+        signed = f"{note_lines[-1]}  - {sig.group(1)}" if note_lines else f"- {sig.group(1)}"
+        if note_lines and d.textlength(signed, font=serif(26)) <= W-2*M:
+            note_lines[-1] = signed
+        else:
+            note_lines.append(f"- {sig.group(1)}")
     note_height = len(note_lines)*36 + 28 if note else 0
     floor = H - 100 - note_height
     for size in (26, 24, 22, 20, 18):
         fnt, lh = mono(size), int(size * 1.5)
         yy = y
-        for p in paras:
+        for i, p in enumerate(paras):
             ind = 70 if re.match(r"^[a-z]\. ", p) else 0
-            yy += lh * len(_fit_lines(d, p, fnt, W-2*M-ind)) + (lh // 2)
+            yy += lh * len(_fit_lines(d, p, fnt, W-2*M-ind))
+            # the half-line is the gap BETWEEN paragraphs; nothing follows the last
+            yy += (lh // 2) if i < len(paras) - 1 else 0
         if yy <= floor: break
     if yy > floor:
         raise ValueError(f"{out_png}: intelligence summary exceeds the page")

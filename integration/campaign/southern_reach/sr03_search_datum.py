@@ -67,7 +67,7 @@ MISSION = dict(
                  at=(-52.25, 139.65), radius=3, sets="SR03CrewRecovered",
                  after=dict(kind="classify", units="datum", min_units=1,
                             intel=(
-                                "SEARCH CONTROL | NAN HAI 24 classified. The contact report "
+                                "SEARCH CONTROL: NAN HAI 24 classified. The contact report "
                                 "matches the trawler last seen near the ditching datum; "
                                 "intelligence assesses that she is holding the airlink's crew. "
                                 "Bring the flagship within three nautical miles so the recovery"

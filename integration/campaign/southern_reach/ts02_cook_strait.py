@@ -77,7 +77,7 @@ MISSION = dict(
                  after=dict(kind="area", units=["cable"], at_unit="cable#1",
                             radius=5, min_units=1, after_minutes=25,
                             intel=(
-                                "CABLE CONTROL | Tasman Reliance is inside the work area at the"
+                                "CABLE CONTROL: Tasman Reliance is inside the work area at the"
                                 " scheduled check. The protected work period is complete. "
                                 "Escort her to the Wellington approach while maintaining "
                                 "separation from the corvette and ferry traffic."
@@ -154,10 +154,10 @@ MISSION = dict(
     declares=["TS02SubNamed"],
     reveal_if=[dict(variable="SR08CorvetteNamed", units=["red_056"], level="Classify",
                     intel=(
-                        "FUSION CELL | The corvette approaching from Cape Campbell matches the "
-                        "vessel classified off Lyttelton. That classification is entered on the"
-                        " plot. Monitor its present actions; the earlier incident does not "
-                        "establish hostile intent today."
+                        "FUSION CELL: The corvette approaching from Cape Campbell matches the "
+                        "vessel classified off Lyttelton. It is classified on the plot and held"
+                        " there for the operation. Monitor its present actions; the earlier "
+                        "incident does not establish hostile intent today."
                     ))],
     window=dict(detachment=True, flights=[HELO, RECON]),
     role="patrol",

@@ -80,7 +80,7 @@ MISSION = dict(
                             at_unit="support#1", radius=5, min_units=2,
                             after_minutes=30, sets="SR04ServiceHeld",
                             intel=(
-                                "SERVICE CONTROL | Both ships are inside the service area at "
+                                "SERVICE CONTROL: Both ships are inside the service area at "
                                 "the scheduled check. The rendezvous is complete and the next "
                                 "ammunition allocation is released. Withdraw SUPPLY and CORAL "
                                 "PIONEER north together; continue screening the south-western "
