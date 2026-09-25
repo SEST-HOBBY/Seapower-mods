@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts.",
-    "count": 144,
+    "count": 147,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
@@ -81,6 +81,7 @@
       "title": "SEST RAAF Bases",
       "build_after": [
         "SEST_ADF_Persistent_ISR",
+        "SEST_Collection_Fixes",
         "SEST_F-15EX_Revamp",
         "SEST_RAAF_Wedgetail",
         "SEST_Raptor_Squadrons"
@@ -121,6 +122,30 @@
       "source": "integration/tacmap-colors",
       "builder": "build_pack.py",
       "title": "SEST TacMap Colors"
+    },
+    {
+      "folder": "SEST_Campaign",
+      "source": "integration/campaign",
+      "builder": "build_pack.py",
+      "title": "SEST Southern Watch Campaign",
+      "build_after": [
+        "SEST_ADF_Persistent_ISR",
+        "SEST_Allied_Fixes",
+        "SEST_B52_ARRW",
+        "SEST_Collection_Fixes",
+        "SEST_F-15EX_Revamp",
+        "SEST_F-35C_JATM",
+        "SEST_F16CM_JATM",
+        "SEST_Growler_NGJ_MALICE",
+        "SEST_JMSDF_Mogami",
+        "SEST_RAAF_Bases",
+        "SEST_RAAF_F-35A_JATM",
+        "SEST_RAAF_Wedgetail",
+        "SEST_RAN_Fleet",
+        "SEST_Rafale_F5",
+        "SEST_Raptor_Squadrons",
+        "SEST_TacMap_Colors"
+      ]
     }
   ],
   "mods": [
@@ -886,7 +911,7 @@
         "ado-nimitz-2000s (adds MH-60R)"
       ],
       "notes": "Standalone MH-60R. FOUR sources of MH-60-family helicopters in this list — duplicate/ID-conflict watch.",
-      "load_order": "Moved directly above US Naval Aviation (collection audit): its usn_mh-60r_squadrons.ini is the only squadron table whose serial reference (number) matches the MH-60R model that actually loads (U.S. Navy 2027's unit file, SubModel26=number). Only that one file changes hands. Load-bearing for the model/Hellfire/EOFLIR - keep subscribed."
+      "load_order": "Sits directly above US Naval Aviation (collection audit, 2026-09). The squadron table that rationale was about is now SEST Collection Fixes' own: U.S. Navy 2027's current usn_mh-60r draws US Naval Aviation's sh60 model (Modex/Emblem submodels), so the composed table is US Naval Aviation's plus 816 Squadron RAN. Still load-bearing - keep subscribed: ADO Nimitz 2000s' carrier draws its deck Seahawks from this mod's assets/models/aircraft/usn_sh-60b/ folder."
     },
     {
       "id": "nimitz-expanded",
@@ -1771,7 +1796,7 @@
       "overlaps": [
         "SEST_RAN_Fleet (patches this mod's vessels/ran_ffh_anzac.ini; SEST must stay ABOVE it, which tier 0 guarantees)"
       ],
-      "notes": "KEEP - SEST_RAN_Fleet is built ON it. REBASED 2026-09-20: the pack used to clone Euromod's Type 23 MLU as an Anzac stand-in, which masked this mod's hull because both ship vessels/ran_ffh_anzac.ini and SEST wins at tier 0. The pack now PATCHES this file instead, so the real ASMD hull is what you see - CEAFAR/CEAMOUNT arrays, Ceros 200 directors, Spherion sonar, and this mod's own FFH-150..157 hull-number and emblem textures. SEST no longer ships ran_ffh_anzac_variants.ini or Anzac vessel names at all; this mod's own are better and now win. Four deltas SEST applies: NSM standardised to knm_nsm_1a (what Hobart and four other fielded hulls fire), the Mk41 magazine repaired (a duplicated Ammunition1_Count silently cut ESSM from 32 to 16 and left an uncounted usn_rim-66h that NumberOfAmmunitionTypes=1 never enabled), its 'RIM-162 ESSM' re-shipped as sest_rim-162_essm because a space in an id does not resolve, and AircraftSupported added so the deck operates the MH-60R. Its own RGM-184A and RIM-162 ESSM remain defined and unused. ApproximateVersion=0.4.0, well behind the 0.8.x collection."
+      "notes": "KEEP - SEST_RAN_Fleet is built ON it. REBASED 2026-09-20: the pack used to clone Euromod's Type 23 MLU as an Anzac stand-in, which masked this mod's hull because both ship vessels/ran_ffh_anzac.ini and SEST wins at tier 0. The pack now PATCHES this file instead, so the real ASMD hull is what you see - CEAFAR/CEAMOUNT arrays, Ceros 200 directors, Spherion sonar, and this mod's own FFH-150..157 hull-number and emblem textures. SEST no longer ships ran_ffh_anzac_variants.ini or Anzac vessel names at all; this mod's own are better and now win. Four deltas SEST applies: NSM standardised to knm_nsm_1a (what Hobart and four other fielded hulls fire), the Mk41 magazine repaired (a duplicated Ammunition1_Count silently cut ESSM from 32 to 16 and left an uncounted usn_rim-66h that NumberOfAmmunitionTypes=1 never enabled), its Mk41 loaded with Euromod's usn_rim-162h ESSM Block II instead of its own 'RIM-162 ESSM' (an unrevised RIM-7F template - no kinematic model, MinAttackAltitude=26 ft so every sea-skimmer is out of band; reported in game flying at a metre above the sea),  and AircraftSupported added so the deck operates the MH-60R. Its own RGM-184A and RIM-162 ESSM remain defined and unused. ApproximateVersion=0.4.0, well behind the 0.8.x collection."
     },
     {
       "id": "f-2a-viper-zero",
@@ -1823,6 +1848,19 @@
       "notes": "Pure code mod - its export is a single _info.ini, no game data at all. Delays each launch so a multi-shooter salvo lands simultaneously; planner panel on Alt+G, multi-target on Alt+H. Position not order-sensitive; sits in the Anchor Chain code-mod tier."
     },
     {
+      "id": "automatic-sar",
+      "workshop_id": "3774105087",
+      "title": "Automatic SAR",
+      "author": "unknown (Workshop 3774105087)",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain (inferred: it ships AutomaticSAR.dll, and every DLL mod in this collection loads through the chainloader)"
+      ],
+      "notes": "Code mod - its export is AutomaticSAR.deps.json (the DLL itself is a binary the export skips) plus a language file per locale; no game data. Adds 'Start automatic SAR' to a unit's right-click menu: helicopters work distress beacons (nearest downed pilot or nearest beacon first), ships and submarines visit sunk vessels with beacons nearby, and a unit returns to base or loiters when done. Southern Watch uses it through the campaign's own survivor reward (CSARPointModifier): survivors a helicopter or ship picks up are counted in the debrief and paid as requisition points. Position not order-sensitive; sits in the Anchor Chain code-mod tier. Catalogued 24 Sep 2026 from the export; not yet seen in the game."
+    },
+    {
       "id": "rq-180-white-bat",
       "workshop_id": "3796113927",
       "title": "RQ-180 White Bat Airframe",
@@ -1871,6 +1909,32 @@
       "type": "fixed-wing",
       "status": "active",
       "notes": "Sixth-generation tailless demonstrator (plaaf_j36). Zero whole-file collisions."
+    },
+    {
+      "id": "euromod-south-korea",
+      "workshop_id": "3789208859",
+      "title": "Euromod-South Korea Navy",
+      "author": "unknown (Workshop 3789208859)",
+      "faction": "korea",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "euromod-main"
+      ],
+      "notes": "ROK Navy addon to Euromod. Sejong the Great (KDX-III, 3 hulls), Chungmugong Yi Sun-sin (KDX-II), Gwanggaeto (KDX-I), Incheon and Daegu FFG, Ulsan FF, Dokdo LPH, Pohang PCC, Yoon Youngha PKG, Chamsuri PKM/PKMR; Lynx Mk99/Mk99A and UH-60P; K2 MBT. Every weapon it hangs resolves: its own Haeseong, K-SAAM, Hyunmoo, Bilyong and K-745 files, the rest through Euromod main (RIM-66M-5, RIM-116, RUM-139, Mk46) and vanilla. The DDG and FFG decks list rok_mk99_a. No TaskForceCost in the hull files - the campaign uses the ships as a theatre contribution, not a purchase. Verified 23 Sep 2026 from the export; not yet seen in the game."
+    },
+    {
+      "id": "mv-22b-osprey",
+      "workshop_id": "3806466625",
+      "title": "MV-22B Osprey Tiltrotor / JGSDF V-22B",
+      "author": "unknown (Workshop 3806466625)",
+      "faction": "usa",
+      "type": "rotary",
+      "status": "active",
+      "requires": [
+        "anchor-chain (stated: 'Requires Anchor Chain (3380210757)'; the flight mechanics are OspreyMechanics.dll)"
+      ],
+      "notes": "Unarmed tiltrotor, two units: mv22b_osprey (USMC, VMM-263 / VMM-162) and jgsdf_mv22b_osprey (JGSDF 107th/108th). UnitType=VTOL, CarrierCapable=True, Role=Transport,SAR; loadouts Empty, Transport (32 seats, also used for SAR and medevac) and Ferry; 275 kt, 2,200 km total range. Ships systems/sensors.ini with four uniquely named entries (MV22_SearchRadar, MV22_FLIR, MV22_RWR, MV22_DECM), so it adds to the sensor registry and collides with nothing. Southern Watch flies it as US Marine rotational lift out of Darwin: one of the two rescue lifters in Rig Seventeen, off HMAS Canberra, and the airhead lift in The Long Perimeter. Never sold - it is a US allocation. Catalogued 24 Sep 2026 from the export; not yet seen in the game."
     }
   ]
 }

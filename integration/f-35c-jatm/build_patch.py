@@ -24,6 +24,7 @@ OUT = Path(__file__).resolve().parent / "SEST_F-35C_JATM"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.aim424 import AIM424_ID, write_aim424  # noqa: E402
+from common.registry import restore_vanilla  # noqa: E402
 
 NEW_KEYS = ["Intercept260", "Intercept260Beast", "Malice424"]
 
@@ -273,6 +274,13 @@ def main():
         if not src_names.exists():
             continue
         body = src_names.read_text(encoding="utf-8-sig").rstrip("\n")
+        # The upstream renames generic loadout ids to suit its own
+        # aircraft. Those ids belong to every aircraft in the game, and
+        # this pack sits at the top of the load order, so carrying the
+        # rename forward would guarantee it wins. See common/registry.
+        body, _ = restore_vanilla(
+            body, VANILLA / f"language_{lang}" / "loadout_names.ini",
+            keep=names, label=f"language_{lang}/loadout_names.ini")
         body += "\n\n#--------------- SEST F-35C JATM ----------------\n"
         body += "".join(f"{k}={v}\n" for k, v in names.items())
         d = OUT / f"language_{lang}"

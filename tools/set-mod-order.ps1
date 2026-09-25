@@ -9,10 +9,31 @@
     checks and refuses if it finds Sea Power running.
 
     Safety: a timestamped backup is written next to the file every run; each
-    entry's enabled/disabled flag is preserved from your current settings; mods
-    present in your settings but not in the canonical list are appended at the
-    end (with a warning) rather than dropped; the stale duplicate tail the game
-    leaves beyond NumberOfModFiles is cleaned away.
+    entry's enabled/disabled flag is preserved from your current settings; the
+    stale duplicate tail the game leaves beyond NumberOfModFiles is cleaned
+    away.
+
+    WHAT HAPPENS TO A MOD THE CANONICAL LIST DOES NOT KNOW depends on what
+    kind of token it is, and this used to be described here as one rule when
+    it is three:
+
+      numeric (a workshop id)  DROPPED, with a warning. It is either freshly
+                               subscribed - in which case the game re-adds it
+                               on the next launch, at a position the game
+                               picks - or an unsubscribed leftover, and
+                               keeping a leftover enabled is what kept the
+                               phantom KJ-500 alive as entry 144 and is
+                               implicated in the duplicate-key crash on quit.
+      SEST_*                   DROPPED, with a warning: the canonical list is
+                               authoritative for our own packs, so one that is
+                               not in it has been retired and the installer
+                               has already deleted its folder.
+      anything else            APPENDED at the end, with a warning.
+
+    So a workshop mod you have just subscribed to and have NOT added to
+    data\load-order.tokens.txt does not get a stable position: it is removed
+    here and re-added by the game. Add it to the canonical list if you want it
+    to stay where you put it.
 
     -AddMissing removes the one manual step left in the loop. A SEST pack you
     have just installed is not in usersettings.ini yet, because the game only

@@ -19,6 +19,7 @@
 *.txt    text eol=lf
 *.ini    text eol=lf
 *.csv    text eol=lf
+*.png    binary
 
 # PowerShell is checked out CRLF (native Windows convention) but stored LF,
 # so a Windows editor saving CRLF produces no diff.

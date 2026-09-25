@@ -1,0 +1,16 @@
+# The live install's own changelog head and campaign list, against the
+# export this repo reasons from (0.8.2 Build #358, 20-Jul-2026).
+
+changelog copied to changelog.live.txt; head:
+    Change log
+    ----------
+    
+    ===============================================================================
+    
+    20-Jul-2026: 0.8.2 Build #358 (23444) Public Release
+    ----------------------------------------------------
+    [FIX] S-300 battery targeting points
+    
+    [NEW] Please see changes below
+    
+    ===============================================================================
