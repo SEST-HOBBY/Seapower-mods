@@ -85,7 +85,7 @@ MISSION = dict(
     },
     units=[
         U("blue", "re-power-resupply", "civ_ms_freighter_d", "convoy",
-          name="RSV Southern Endeavour (resupply ship, stand-in)"),
+          name="RSV Southern Endeavour"),
         # Only if Cold Route did not sink her: the spawn reads the flag the
         # support-loss trigger there writes.
         U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "convoy",

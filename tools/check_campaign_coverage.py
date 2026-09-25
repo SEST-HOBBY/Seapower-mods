@@ -228,6 +228,56 @@ def unit_families(rel, parsed):
     return out
 
 
+_GAME_NATIONS = None
+
+
+def nations(rel, parsed):
+    """Every placed unit flies a flag the game has.
+
+    A unit's nation comes from its own Nation= key in the mission, else the
+    squadron it flies from, else its hull variant. The game matches that
+    string against its own keys (language_en/nations.ini - NewZealand,
+    South_Korea: no spaces), case-insensitively, and shows no flag for
+    anything else. "New Zealand" with a space is how the RNZAF bases and
+    the P-8 mod's No. 5 Squadron shipped, and why they showed none.
+    A biologic has no flag to show and is skipped, and "Unknown" (what the
+    whale mod declares) is taken as a deliberate no-flag.
+    """
+    global _GAME_NATIONS
+    if _GAME_NATIONS is None:
+        f = ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini"
+        _GAME_NATIONS = {l.split("=", 1)[0].strip().lower()
+                         for l in f.read_text(encoding="utf-8-sig").splitlines() if "=" in l}
+    out = []
+    for tag, keys in parsed.items():
+        m = re.match(r"(Taskforce\d|Neutral)(Vessel|Submarine|Aircraft|Helicopter|LandUnit)\d+$", tag)
+        uid = keys.get("Type")
+        if not m or not uid:
+            continue
+        kind_dir, path = bp.unit_file(uid)
+        if path is None or bp.unit_type(uid) == "Biologic":
+            continue
+        nation, source = keys.get("Nation"), "its mission section"
+        for suffix, ref in (("_squadrons", keys.get("SquadronReference")),
+                            ("_variants", keys.get("VariantReference") or "Default")):
+            if nation or not ref:
+                continue
+            hit = bp.index().get(f"{kind_dir}/{uid}{suffix}.ini".lower())
+            if not hit:
+                continue
+            table = blocks(Path(hit[1]).read_text(encoding="utf-8-sig", errors="replace"))
+            value = table.get(ref, {}).get("Nation") or table.get("Default", {}).get("Nation")
+            if value:
+                nation, source = value, f"{ref} of {uid}{suffix}.ini ({hit[0]})"
+        if nation:
+            nation = re.split(r"\s*(?://|#|;)", nation, 1)[0].strip()
+        # "Unknown" is a deliberate no-flag (the humpback whale declares it)
+        if nation and nation.lower() not in _GAME_NATIONS | {"unknown"}:
+            out.append(f"{rel}: [{tag}] {uid} flies Nation={nation!r} from {source} - "
+                       "the game has no such key and shows no flag")
+    return out
+
+
 def art_resolves(pack, slug):
     """Every path campaign.ini points at, in every language it names one in.
 
@@ -337,6 +387,7 @@ def main():
         problems += trigger_integrity(f, text, parsed)
         problems += declared_counts(rel, parsed)
         problems += unit_families(rel, parsed)
+        problems += nations(rel, parsed)
         for tag, keys in parsed.items():
             uid = keys.get("Type")
             if not uid or not re.match(r"^(Taskforce\d+|Neutral)", tag):

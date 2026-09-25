@@ -5,18 +5,20 @@ union across every campaign in the pack; this is the closure for
 this one, derived from the units its missions place, the squadrons
 and hull variants they name, and the rounds their loadouts hang.
 
-1. HARD REQUIRED (30): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (32): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a squadron a flight comes from   1143.5 Kuznetsov
   3440622312    a hull variant in use            [DEPRECATED] Anzac Class Frigate
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
   3459682829    a model a placed unit draws      A-10C
   3432668460    a unit a mission places          Auxilliary Merchant Pack
-  3602046770    a squadron a flight comes from   Boeing P-8 Poseidon
+  3602046770    a model a placed unit draws      Boeing P-8 Poseidon
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
   3760871384    a weapon a loadout hangs         Dingtools Weapon Pack
+  3630495619    a model a placed unit draws      Euromod - Cold War Spanish Navy
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
+  3731208477    a model a placed unit draws      Euromod - Modern Spanish Navy
   3553116604    a model a placed unit draws      F-15E StrikeEagle
   3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
   3503670861    a model a placed unit draws      General Atomics MQ-9 Reaper
@@ -53,7 +55,7 @@ and hull variants they name, and the rounds their loadouts hang.
 is asked for; the map, salvo and rescue tools are conveniences).
 
 
-4. NOT USED BY THIS CAMPAIGN (121): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (119): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -84,14 +86,12 @@ shared file wins for the mods above.
   3558173926    David's Sling
   3587877691    Eurofighter Typhoon
   3784474738    Euromod - Anchorchain Expansion Pack
-  3630495619    Euromod - Cold War Spanish Navy
   3599752717    Euromod - Modern British Navy
   3444379330    Euromod - Modern Dutch navy
   3575847216    Euromod - Modern German Navy
   3488139470    Euromod - Modern Italian Navy
   3695809489    Euromod - Modern Japanese Maritime Self Defence Force
   3642656500    Euromod - Modern Nordic Navy
-  3731208477    Euromod - Modern Spanish Navy
   3789208859    Euromod-South Korea Navy
   3448845252    F-117 Nighthawk
   3636386513    F-15 EX Eagle II

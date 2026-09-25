@@ -35,7 +35,7 @@ MISSION = dict(
         "FARNCOMB is at periscope depth on the corridor, three hundred "
         "miles from the nearest coast, with the cable somewhere under her "
         "and a group coming up it from the south-west at eight knots.\\n\\n"
-        "RV AUSTRAL SURVEY - a survey ship, a stand-in - is following the "
+        "RV AUSTRAL SURVEY, a survey ship, is following the "
         "cable with a towed array. ROMEO is under her, escorting; a Type "
         "054A is over the top of both with a Z-9 dipping ahead of them. "
         "The layer is at a hundred and twenty feet and the frigate's sonar "
@@ -86,7 +86,7 @@ MISSION = dict(
           route=[(-36.40, 160.80, "belowlayer"), (-36.10, 161.30, "belowlayer")],
           telegraph=2),
         U("red", "re-power-resupply", "civ_ms_slavyansk", "survey",
-          name="RV Austral Survey (survey ship, stand-in)", weapons="Hold",
+          name="RV Austral Survey (survey ship)", weapons="Hold",
           route=[(-36.42, 160.78, 0), (-36.12, 161.28, 0)], telegraph=2),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "red_frig",
           name="Type 054A frigate",

@@ -436,6 +436,18 @@ def harvest():
     return pool
 
 
+# Civil air traffic: a Mach 0.8 airliner at cruise altitude makes about 470
+# knots (civ_a330 SpeedAndRange_Cruise=0.82, civ_a320 0.78). An airway's one
+# waypoint goes this many times further than that covers in the mission's
+# clock, so no airliner ever arrives, turns and orbits.
+CIVIL_CRUISE_KN = 470
+AIRWAY_MARGIN = 1.5
+
+
+def civil_reach_nm(mission):
+    return CIVIL_CRUISE_KN * mission.get("minutes", 60) / 60.0
+
+
 def nm_between(a, b):
     dlat = (a[0] - b[0]) * 60.0
     dlon = (a[1] - b[1]) * 60.0 * math.cos(math.radians((a[0] + b[0]) / 2.0))
@@ -872,22 +884,63 @@ STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "roster": 3, "store": 4,
 # `assets/` prefix, so every such path is a mod's. The export is text-only: a
 # folder that ships nothing but meshes and textures has no file here to own
 # it, and is skipped rather than reported missing.
-ASSET_FOLDER = re.compile(r"^\s*Resources\w*Folder\s*=\s*(assets/[^\s#/]+(?:/[^\s#/]+)*)/?",
+ASSET_FOLDER = re.compile(r"^\s*Resources\w*Folder\s*=\s*([A-Za-z0-9_][^\s#/]*(?:/[^\s#/]+)*)/?",
                           re.M | re.I)
 _ASSET_OWNERS = None
 
 
 def asset_owners(folder):
-    """Tokens that win at least one exported file under `folder`."""
+    """Tokens that win at least one exported file under `folder`.
+
+    Any folder a unit file loads from counts, not only `assets/` ones: the
+    P-8 mod's airframe lives in aircraft/P8_Poseidon/Upgrade/, and once a
+    SEST pack patches both of that aircraft's text files the model folder is
+    the only thing left saying the mod is read at all. index() skips files
+    nested inside the unit folders (it answers "which unit file wins"), so
+    this walks every provider in the same first-wins order. A folder the
+    stock game also ships (aircraft/materials/) is shared ground and credits
+    nobody.
+    """
     global _ASSET_OWNERS
     if _ASSET_OWNERS is None:
         _ASSET_OWNERS = collections.defaultdict(set)
-        for rel, (token, _f) in index().items():
-            if rel.startswith("assets/"):
+        seen = set()
+        for token, base in providers():
+            for f in sorted(base.rglob("*")):
+                if not f.is_file():
+                    continue
+                rel = f.relative_to(base).as_posix().lower()
+                if rel in seen:
+                    continue
+                seen.add(rel)
                 parts = rel.split("/")
                 for i in range(2, len(parts)):
                     _ASSET_OWNERS["/".join(parts[:i])].add(token)
-    return _ASSET_OWNERS.get(folder.lower().rstrip("/"), set())
+    key = folder.lower().rstrip("/")
+    owners = _ASSET_OWNERS.get(key, set())
+    return set() if ("_vanilla" in owners or key in stock_folders()) else owners
+
+
+_STOCK_FOLDERS = None
+
+
+def stock_folders():
+    """Every folder a stock unit file loads from - shared ground.
+
+    The vanilla export is text-only, so a folder of stock meshes and
+    textures (aircraft/materials/) has no exported file to show it is the
+    game's; the stock unit files that load from it are the evidence. A mod
+    that ships into such a folder is dressing shared ground, not supplying
+    this unit's model, and is not credited for it.
+    """
+    global _STOCK_FOLDERS
+    if _STOCK_FOLDERS is None:
+        _STOCK_FOLDERS = set()
+        base = ROOT / "mods-source" / "_vanilla" / "original"
+        for f in base.rglob("*.ini"):
+            text = f.read_text(encoding="utf-8-sig", errors="replace")
+            _STOCK_FOLDERS |= {m.lower().rstrip("/") for m in ASSET_FOLDER.findall(text)}
+    return _STOCK_FOLDERS
 
 
 def place(mission, snapper):
@@ -996,6 +1049,29 @@ def place(mission, snapper):
         keys["RelativePositionInNM"] = (
             f"{(lon - centre[1]) * 60:.2f},{alt},{(lat - centre[0]) * 60:.2f}")
         keys["Heading"] = spec.get("heading", st.get("heading", 90))
+        # A civil aircraft flies an airway, never an orbit. With no Waypoints
+        # the game holds an aircraft in a circle over its spawn, and one that
+        # reaches its last waypoint circles there - White Water's airliner did
+        # the first, and every Southern Reach airliner did it all mission.
+        # `airway=(lat, lon)` names where the service is going; the one
+        # waypoint written lies on that bearing and past anything the clock
+        # lets an airliner reach at cruise, so it is still en route when the
+        # mission ends. That is the stock pattern: Charlies.ini's DC-10 flies
+        # a single waypoint 500 NM out.
+        if spec.get("airway") and not spec.get("route"):
+            if kind != "air":
+                sys.exit(f"{mission['key']}: airway= is for fixed-wing traffic; "
+                         f"{spec['type']} is {kind}")
+            to_lat, to_lon = spec["airway"]
+            dx, dz = (to_lon - lon) * 60, (to_lat - lat) * 60
+            dist = math.hypot(dx, dz)
+            if dist < 1:
+                sys.exit(f"{mission['key']}: {spec['type']}'s airway ends where it starts")
+            stretch = max(1.0, AIRWAY_MARGIN * civil_reach_nm(mission) / dist)
+            spec = dict(spec, route=[(lat + (to_lat - lat) * stretch,
+                                      lon + (to_lon - lon) * stretch, alt)],
+                        telegraph=spec.get("telegraph", 3))
+            keys["Heading"] = round(math.degrees(math.atan2(dx, dz)) % 360)
         if spec.get("nation"):
             keys["Nation"] = spec["nation"]
         for k, v in spec.get("extra", {}).items():
@@ -1091,6 +1167,29 @@ def place(mission, snapper):
             best = credits.get(token)
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
                 credits[token] = (why[0], why[1], mission["key"])
+
+    # Every civil aircraft is still on its airway when the clock runs out:
+    # one with no route circles its spawn, one that reaches its last
+    # waypoint circles that, and players notice both.
+    reach = civil_reach_nm(mission)
+    for tag, keys, name, _x in placed.get("NeutralAircraft", []):
+        if not str(keys.get("Type", "")).startswith("civ_"):
+            continue
+        label = f"{tag} ({keys['Type']}{', ' + name if name else ''})"
+        if not keys.get("Waypoints"):
+            raise SystemExit(f"{mission['key']}: {label} has no route - an aircraft "
+                             "with no Waypoints circles its spawn all mission; give "
+                             "it airway=(lat, lon), where the service is going")
+        x, _a, z = (float(v) for v in keys["RelativePositionInNM"].split(",")[:3])
+        path = 0.0
+        for wp in keys["Waypoints"].split("|"):
+            wx, _wa, wz = (float(v) for v in wp.split("/")[0].split(",")[:3])
+            path += math.hypot(wx - x, wz - z)
+            x, z = wx, wz
+        if path <= reach:
+            raise SystemExit(f"{mission['key']}: {label} flies {path:.0f} NM of route "
+                             f"and the clock gives it {reach:.0f} at cruise - it "
+                             "arrives and circles; use airway= or extend the route")
 
     stranded = assign_home_bases(placed)
     if stranded:
@@ -4108,7 +4207,13 @@ def main():
     # One entry carries every campaign in the pack, so its name and its
     # description name them all.
     titles = [c["spec"]["TITLE"] for c in campaigns]
-    blurb = " ".join(c["spec"]["INFO_DESC"] for c in campaigns)
+    # The campaigns' own descriptions are the in-game bios and stay in the
+    # world. What a player needs to install it belongs here, on the pack's
+    # Mod Manager entry, once.
+    blurb = (" ".join(c["spec"]["INFO_DESC"] for c in campaigns)
+             + " Needs the Steam Workshop mods listed in REQUIRED-MODS.txt in "
+               "this mod's folder; LOAD-ORDER.txt beside it is the Mod Manager "
+               "order it was built and tested against.")
     (OUT / "_info.ini").write_text(
         info(" - ".join(titles), blurb, general="",
              tail="\n[Compatibility]\nApproximateVersion=0.8.2\n"),

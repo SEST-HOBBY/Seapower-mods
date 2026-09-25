@@ -110,7 +110,7 @@ MISSION = dict(
           name="Type 056A corvette", weapons="Tight",
           route=[(-39.60, 152.90, 0)], telegraph=3),
         U("red", "_vanilla", "plan_ap_qiongsha", "network",
-          name="Replenishment ship (Qiongsha-class stand-in)", weapons="Hold",
+          name="Qiongsha-class supply ship", weapons="Hold",
           route=[(-39.60, 152.90, 0)], telegraph=3),
         U("red", "_vanilla", "wp_agi_okean", "network", name="Research trawler Nan Hai 27",
           weapons="Hold", route=[(-39.60, 152.90, 0)], telegraph=3),
@@ -127,7 +127,7 @@ MISSION = dict(
         U("neutral", "_vanilla", "civ_fv_sterntrawler_b", "trawler",
           name="Trawler Eden Star", route=[(-40.50, 152.00, 0)], telegraph=2),
         U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner",
-          name="Melbourne-Auckland 402"),
+          name="Melbourne-Auckland 402", airway=(-37.01, 174.79)),  # Auckland
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_east_sale", "home",
           name="RAAF Base East Sale", nation="australia", weapons="Hold"),
     ],

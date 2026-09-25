@@ -112,7 +112,7 @@ MISSION = dict(
         U("red", "modern-plan-systems", "plan_z-9c", "red_dip", name="Z-9 dip",
           alt=1500, loadout="ASWKiller", weapons="Tight"),
         U("neutral", "_vanilla", "civ_ms_roro_c", "ferry",
-          name="Kangaroo Island ferry Sealink (stand-in)",
+          name="Kangaroo Island ferry Penneshaw Star",
           route=[(-35.70, 137.98, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "tuna",
           name="Tuna boat Lincoln Cove",
@@ -124,7 +124,7 @@ MISSION = dict(
           name="MV Yorke Harvest (Port Giles-Melbourne)",
           route=[(-35.66, 138.08, 0), (-35.85, 138.45, 0)], telegraph=3),
         U("neutral", "civil-aircraft-airbus", "civ_a320", "airliner",
-          name="Adelaide-Melbourne 684"),
+          name="Adelaide-Melbourne 684", airway=(-37.67, 144.84)),  # Melbourne
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_edinburgh", "home",
           name="RAAF Base Edinburgh", nation="australia", weapons="Hold"),
     ],

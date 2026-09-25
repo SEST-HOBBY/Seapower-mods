@@ -157,6 +157,52 @@ stopped running on the deploy branch (a hand-kept count one registration
 behind, and a Korean faction it did not know), is fixed with another
 session's one-line port and its count.
 
+## After the first install: flags, circling airliners, the story pages
+
+**No New Zealand flag.** The game's nation key is `NewZealand`, with no space
+(`language_en/nations.ini`; `Settings_UI_General.ini` maps that key to the
+flag art). This build wrote `New Zealand` on the two RNZAF bases and the two
+New Zealand civil airfields, and the P-8 mod itself writes `New Zealand` for
+its No. 5 Squadron RNZAF livery (and `South Korea` for its ROKN one). All
+now use the game's keys: the bases and airfields in their own files, the
+Poseidon through a patched copy of the P-8 mod's squadron table in SEST
+Allied Fixes that changes only those two `Nation=` lines and refuses to
+build if any other name in it is not a game key. The coverage checker now
+fails any placed unit whose nation the game cannot resolve; across both
+campaigns the only ones were these.
+
+Shipping that squadron table meant SEST now supplies both text files the
+game reads for the P-8, and the builder concluded the P-8 mod was no longer
+used. It is: the aircraft file loads its airframe from
+`aircraft/P8_Poseidon/Upgrade/`, which only that mod ships. Model folders
+now count wherever they sit, not only under `assets/`, unless a stock unit
+loads from the same folder (shared ground like `aircraft/materials/` credits
+nobody).
+
+**Airliners circling.** An aircraft with no route orbits its spawn, and one
+that reaches its last waypoint orbits there. Every Southern Reach airliner
+had no route. Each now names its destination (`airway=` in the module:
+Sydney, Auckland, Hobart, Perth, Wilkins...) and the builder writes one
+waypoint on that bearing, half again beyond what an airliner at cruise
+covers in the mission's clock. A new build gate refuses any neutral civil
+aircraft without a route that outlasts the clock. In the loose missions, 30
+civil aircraft in 10 files ran out of route inside two hours;
+`integration/missions/extend_civil_airways.py` appends one waypoint along
+each one's last leg (nothing else in the file changes, and it is idempotent),
+and `sync-sest.ps1 -RefreshMissions` now runs it after an import.
+
+**The story pages.** The FICTION footer and INTSUM banner are gone; the
+INTSUM carries a security marking instead. The deck log was rebuilt: the
+heading sits clear of the margin rule, entries hang in a time column, the
+type steps down until every entry fits (the old page silently dropped any
+that did not), and the master's note is boxed with the signature set right.
+The front page splits its two columns at a paragraph break where it can and
+never strands a single line; a page whose text will not fit now fails the
+build instead of losing its last paragraph. Both campaigns' opening pages
+and in-game descriptions were rewritten; the Automatic SAR instructions and
+the install notes left the campaign descriptions for the pack's own Mod
+Manager entry.
+
 ## Notes the builder still prints
 
 One closure note survives, on purpose:

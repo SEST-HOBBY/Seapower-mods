@@ -109,7 +109,7 @@ MISSION = dict(
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic MIKE",
           depth="shallow"),
         U("blue", "SEST_RAAF_Bases", "airbase_rnzaf_ohakea", "home",
-          name="RNZAF Base Ohakea", nation="New Zealand", weapons="Hold"),
+          name="RNZAF Base Ohakea", nation="NewZealand", weapons="Hold"),
     ],
     resolve={"Boat": "victory", "Neutrals": "neutral",
              "Tender": ("classify", "tender", 1, "TS03TenderNamed"),

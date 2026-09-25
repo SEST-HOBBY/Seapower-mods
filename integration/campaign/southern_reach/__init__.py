@@ -105,17 +105,21 @@ for _mod, _err in BROKEN.items():
     print(f"  (partial build) {_mod} failed to import and was skipped: {_err}")
 
 INFO_DESC = (
-    "SOUTHERN REACH - and its second chapter, TASMAN SHIELD. One continuous "
-    "Task Force campaign, December 2028 to March 2029, following Southern "
-    "Watch south: twelve missions escort the Antarctic resupply season through "
-    "the Southern Ocean - Storm Bay, the Macquarie Ridge, the ice edge - where "
-    "contacts are sparse, the weather sets the force you have, and identifying "
-    "a trawler is most of the work; then twelve more defend the homeland "
-    "approaches with the same worn force - Fiordland, Cook Strait, the Tasman, "
-    "Bass Strait, the Bight - among ferries, tankers, rigs and cable routes. "
-    "Australia and New Zealand carry the story; allied support is bounded and "
-    "named. Fiction throughout. Needs the Steam Workshop mods in this pack's "
-    "REQUIRED-MODS.txt; the campaign's own folder carries its narrower closure.")
+    "SOUTHERN REACH - Tasman Shield. December 2028. Nine days after the "
+    "northern ceasefire, the network that tried to close the Arafura has "
+    "come south under a new flag. A 'fisheries and research protection "
+    "group' - a frigate, two corvettes, an intelligence trawler and, in the "
+    "new year, the carrier Liaoning - is stopping ships bound for Antarctica "
+    "sixty miles off Tasmania, its contractor Austral Meridian Services is "
+    "selling 'compliance corridors' to the trade, and a Russian submarine is "
+    "working the Macquarie Ridge. Twelve missions escort the Antarctic "
+    "resupply season from Storm Bay to the ice edge at 60 South, where "
+    "contacts are few and naming a trawler is half the fight. Then Tasman "
+    "Shield: twelve more with the same worn ships, through Fiordland, Cook "
+    "Strait, the Tasman, Bass Strait and the Bight, among ferries, tankers, "
+    "gas platforms and undersea cables, with New Zealand's Poseidons "
+    "overhead. Two optional operations decide who reinforces the last fight "
+    "off Sydney.")
 
 BROWSE = {"Southern Reach": "Southern Reach", "Tasman Shield": "Tasman Shield"}
 BROWSE_DESC = {
@@ -123,12 +127,12 @@ BROWSE_DESC = {
         "Chapter A of the Southern Reach campaign, playable mission by mission: "
         "the Antarctic resupply season, December 2028 to January 2029. Storm "
         "Bay, the Macquarie Ridge, the Southern Ocean and the ice edge. "
-        "Fiction; the campaign itself is under Campaigns."),
+        "The full campaign is under Campaigns."),
     "Tasman Shield": (
         "Chapter B of the Southern Reach campaign, playable mission by mission: "
         "the homeland approaches, January to March 2029. Fiordland, Cook "
         "Strait, the Tasman, Bass Strait and the Great Australian Bight. "
-        "Fiction; the campaign itself is under Campaigns."),
+        "The full campaign is under Campaigns."),
 }
 
 ROOT = HERE.parents[2]

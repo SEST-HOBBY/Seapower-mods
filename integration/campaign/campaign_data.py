@@ -42,20 +42,21 @@ that reason, and the campaign's own notes say so.
 """
 
 INFO_DESC = (
-    "SOUTHERN WATCH - The Northern Lifeline. Twelve connected missions, "
-    "October-November 2028: Australia and its regional partners keep the "
-    "northern sea routes open through a maritime coercion campaign that "
-    "escalates into a limited regional war, with four optional operations "
-    "and two contingencies whose results later missions read. Survivors "
-    "your helicopters and ships pick up are paid as requisition points at "
-    "each debrief - with Automatic SAR, right-click a helicopter or ship "
-    "and choose Start automatic SAR. Eight optional dispatches - "
-    "allied rotations, an opposing-force passage, a weapons range, an openly "
-    "speculative future branch and a Cold War anthology - give the rest of the "
-    "collection a purposeful role. Fiction throughout. "
-    "Needs the Steam Workshop mods listed in REQUIRED-MODS.txt, in this "
-    "mod's own folder; LOAD-ORDER.txt beside it is the Mod Manager order it "
-    "was built and tested against.")
+    "SOUTHERN WATCH - The Northern Lifeline. October 2028. A confrontation "
+    "elsewhere in the Indo-Pacific has drawn most of America's ready combat "
+    "power north, and the sea lanes above Australia are closing without a "
+    "shot fired: forged movement orders, missing cargo records, insurers "
+    "refusing cover. The Meridian Maritime Group offers escorts, inspections "
+    "and its own terminals, and some of its ships carry armed teams. When "
+    "one of its escorts fires on an Indonesian patrol in the Arafura Sea, "
+    "HMAS Warramunga is the nearest warship. Twelve missions over six weeks "
+    "take an Australian task group from convoy escort under tight rules of "
+    "engagement to a contested enclave, a Chinese carrier group in the Banda "
+    "approaches, and a ceasefire convoy that has to cross without restarting "
+    "the war. Four optional operations and two contingencies change what "
+    "later missions hold. Eight dispatches follow allied detachments, the "
+    "other side's supply run, a live-fire range week, a 2034 what-if and a "
+    "1988 exercise in the same waters.")
 
 
 # 816 Squadron RAN: the one squadron of the MH-60R under the Australian flag.
@@ -140,26 +141,26 @@ EXCUSES = {
 
 EVENTS = [
     dict(file="00_opening", title="White Water\\n18 October 2028",
-         sub="A missed rendezvous in the Arafura Sea",
+         sub="An armed escort stops a crippled freighter north of Darwin",
          dateline="18 OCTOBER 2028  |  MARITIME BORDER COMMAND, DARWIN",
-         headline="THE NORTH GOES QUIET",
+         headline="SHOTS FIRED IN THE ARAFURA",
          body=[
-             "It started as paperwork. A merchant missed its reporting window. "
-             "A cable-repair ship received movement instructions from an office "
-             "that does not exist. Two ports lost their cargo records in the "
-             "same week, and insurers began declining voyages that were still "
-             "legal and perfectly possible.",
-             "The Meridian Maritime Group has an answer for all of it: travel "
-             "in escorted groups, accept its inspections, use its terminals. "
-             "Most of its ships are ordinary commerce. A few are not, and "
-             "nothing you can see at twelve miles tells you which is which.",
-             "This morning MV Coral Pioneer reported an engine casualty and an "
-             "escort claiming the authority to inspect her. The Indonesian "
-             "patrol sent to look has reported gunfire. HMAS Warramunga is the "
-             "nearest coalition ship.",
-             "Bring the convoy together. Get the crews out of danger. Identify "
-             "before you shoot - none of this is a war yet, and the fastest "
-             "way to make it one is to be wrong about a fishing boat."]),
+             "Before dawn today, 150 miles north of Darwin, an armed Meridian "
+             "escort ordered the crippled Australian-chartered freighter MV "
+             "Coral Pioneer to stop for inspection. The Indonesian patrol boat "
+             "sent to investigate reported gunfire, then went silent.",
+             "It is the first shot in a campaign that has been closing the "
+             "northern sea lanes for months without one: forged movement "
+             "orders, lost cargo records, insurers refusing legal voyages.",
+             "Meridian - freight lines and security contractors under one name "
+             "- sells the cure: its escorts, its inspections, its terminals. "
+             "Most of its ships are honest. A few carry armed teams, and at "
+             "twelve miles they look exactly the same.",
+             "With much of America's ready combat power drawn north by a crisis "
+             "elsewhere in the Indo-Pacific, HMAS Warramunga is the nearest "
+             "coalition warship. Bring the convoy together. Get the crews out. "
+             "Identify before you shoot: the fastest way to start a war is to "
+             "be wrong about a fishing boat."]),
     # Rendered as an INTSUM: its dateline already said COALITION JOINT
     # INTELLIGENCE, and a press sheet from an intelligence cell is a form the
     # campaign never had a reason to use.
@@ -2286,8 +2287,10 @@ MISSIONS.append(dict(
           name="Typhoon 11"),
         U("blue", "eurofighter-typhoon", "raf_ef2000_fgr4_late", "cap",
           name="Typhoon 12"),
+        # Squadron2, the Swedish GlobalEye: the default Squadron1 is the UAE's,
+        # and the game has no UAE nation key, so it flew with no flag.
         U("blue", "saab-aewc-pack", "dts_saab_ge", "aew", name="Argus 70",
-          weapons="Hold"),
+          squadron="Squadron2", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "group",
           name="MT Western Provider"),
         U("blue", "_vanilla", "civ_ms_ritina", "group",
@@ -3032,16 +3035,13 @@ MISSIONS.append(dict(
 # map. A folder description that names things the folder does not contain
 # reads as a list of missing content.
 DISPATCH_DESC = (
-    "Eight optional episodes outside the twelve-mission Southern Watch spine, "
-    "each stating its own fiction in the briefing. "
-    "Allied Dispatch - Western Passage, Flight Deck Day, The Relief Ship and "
-    "The Long Perimeter - rotates a European, French/Spanish or US detachment "
-    "through the same crisis. Return Passage plays the opposing side's "
-    "logistics problem. Range Week fires the missile-defence and ballistic "
-    "systems where such things are actually fired. Long Reach is an openly "
-    "speculative 2034 branch for the collection's experimental aircraft and "
-    "weapons. Before the Lifeline is a 1988 exercise in the same water, for "
-    "its retired types.")
+    "Eight episodes alongside Southern Watch's twelve missions. Western "
+    "Passage, Flight Deck Day, The Relief Ship and The Long Perimeter follow "
+    "European, French and Spanish, and US detachments through the same "
+    "crisis. Return Passage runs the other side's supply convoy. Range Week "
+    "fires the missile-defence and ballistic systems on a live range. Long "
+    "Reach is a 2034 what-if for the newest aircraft and weapons. Before the "
+    "Lifeline is a 1988 exercise in the same waters, for the retired types.")
 
 
 # =============================================================================

@@ -61,8 +61,9 @@ INFO_INI = """\
 [Language_en]
 Name=SEST Allied Fixes
 Description=Small allied corrections: the P-8's anti-ship fit pointed at a \
-Harpoon no mod defines (loaded empty), and HMS Ocean could not operate the \
-Apache AH1 her sister hulls already support.
+Harpoon no mod defines (loaded empty), HMS Ocean could not operate the \
+Apache AH1 her sister hulls already support, and the RNZAF and ROKN P-8 \
+squadrons named nations the game has no flag for.
 """
 
 
@@ -102,6 +103,49 @@ def main():
         dst.write_text(out, encoding="utf-8")
         print(f"  aircraft/{name}  ({n}x {MISSING} -> {REPLACE})")
         built += 1
+
+    # The P-8's squadron flags. 3602046770 writes Nation=New Zealand for its
+    # No. 5 Squadron RNZAF livery and Nation=South Korea for its ROKN one,
+    # but the game's nation keys have no spaces (language_en/nations.ini:
+    # NewZealand, South_Korea; Settings_UI_General.ini maps those keys to the
+    # flag art). An unknown key shows no flag, which is what the RNZAF
+    # Poseidons of the Southern Reach campaign did. Only the Nation= values
+    # change; every livery, serial and emblem line is upstream's.
+    sq_src = ROOT / "mods-source" / "3602046770" / "aircraft" / "usn_p8_squadrons.ini"
+    sq_dst = OUT / "aircraft" / "usn_p8_squadrons.ini"
+    nations_ini = ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini"
+    if not sq_src.exists():
+        if sq_dst.exists():
+            sq_dst.unlink()
+            print("    removed stale aircraft/usn_p8_squadrons.ini (upstream gone)")
+        print("  usn_p8_squadrons.ini  SKIPPED - P-8 mod not exported")
+    else:
+        game_keys = {l.split("=", 1)[0].strip().lower()
+                     for l in nations_ini.read_text(encoding="utf-8-sig").splitlines()
+                     if "=" in l}
+        spelled = {"new zealand": "NewZealand", "south korea": "South_Korea"}
+        text = sq_src.read_text(encoding="utf-8-sig")
+        fixed = []
+
+        def respell(m):
+            value = m.group(2).strip()
+            key = spelled.get(value.lower())
+            if key:
+                fixed.append(f"{value} -> {key}")
+                return f"{m.group(1)}{key}{m.group(3)}"
+            return m.group(0)
+
+        text = re.sub(r"^(Nation=)([^\r\n/#;]*?)(\s*(?://.*|#.*|;.*)?)$", respell, text, flags=re.M)
+        left = [v for v in re.findall(r"^Nation=([^\r\n/#;]*)", text, re.M)
+                if v.strip().lower() not in game_keys]
+        if left:
+            sys.exit(f"usn_p8_squadrons.ini: nation(s) the game has no key for: {left}")
+        if not fixed:
+            sys.exit("usn_p8_squadrons.ini: every Nation= is already a game key - "
+                     "upstream fixed it, drop this patch")
+        sq_dst.parent.mkdir(parents=True, exist_ok=True)
+        sq_dst.write_text(text, encoding="utf-8")
+        print(f"  aircraft/usn_p8_squadrons.ini  ({'; '.join(fixed)})")
 
     # HMS Ocean vs the Apache: her own sister hulls in the same mod
     # (rn_lph_ocean_asw_00 and _asw_13) already list uk_ah_mk_1 - the British

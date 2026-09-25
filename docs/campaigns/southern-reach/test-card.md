@@ -56,10 +56,19 @@ are the signal, the log and the INTSUM tile (`bkg_tile_message.png`).
 |---|---|---|---|
 | 1B.1 | Campaign list backdrop | A dark chart 29–66°S, 116–180°E, 23 marks coded SR01…TS12 joined in campaign order, two small open circles for the optionals (TS10A off the Hauraki Gulf top-right, TS10B off Adelaide), the compass rose bottom-right, SOUTHERN REACH bottom-left | |
 | 1B.2 | Step through the two story pages before SR02 | A ship's log on ruled paper (Coral Pioneer, 6 December), then a cable on teleprinter stock (Wellington's allocation, 8 December) | Either blank = that form's tile or image path is not read |
-| 1B.3 | The page before SR10 | A typed INTSUM with a FICTION banner (The command element) | |
+| 1B.3 | The page before SR10 | A typed INTSUM under a SECRET // RELEASABLE TO COALITION PARTNERS marking (The command element) | |
 | 1B.4 | Any Tasman Shield mission card | The TASMAN SHIELD series label and date line, the code (TS01…) in the corner, own force in blue, the objective ring | A card still saying SOUTHERN REACH on a Tasman mission = the series label is not per mission |
 | 1B.5 | The briefing chart for **SR10 Southern Line** | The ice-edge box at 60°S with a locator inset of the whole southern theatre, and *no* Hobart Airport on the chart (it is 1,000 NM away) | Hobart on the chart = `focus_nm` not applied |
 | 1B.6 | The briefing chart for **TS02 Cook Strait** | Both islands, Ohakea marked, the cable-route and Wellington labels legible | Overlapping labels are a known cosmetic issue; say if they are unreadable |
+
+## 1C — flags and traffic (fixed after the first install)
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 1C.1 | Any Tasman Shield mission with Kiwi 05, or an RNZAF base (TS02, TS03, TS10A) | The New Zealand flag on the Poseidon's unit panel and on Ohakea / Whenuapai | Still no flag = the game reads the nation from somewhere this build did not fix; note which unit |
+| 1C.2 | SR08 or TS01, the civil airfield (Christchurch, Invercargill) | New Zealand flag | Same |
+| 1C.3 | Any Southern Reach mission with an airliner, run at 8x for ten minutes | The airliner flies off along its route (Sydney, Auckland, Hobart...) and does not circle | An airliner orbiting its start point = its route did not load; name the mission |
+| 1C.4 | A loose mission you play often (Northern Front III, the chapter missions) | Civil aircraft carry on past where they used to turn and orbit | One still circling: name the mission and the aircraft |
 
 ## 2 — Task Force Mode (the new keys)
 

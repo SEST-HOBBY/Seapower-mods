@@ -211,6 +211,11 @@ if ($RefreshMissions) {
         $tool = Join-Path $repoRoot "integration\missions\fix_squadron_refs.py"
         $argList = @($py.Pre) + @($tool, "--spread", "--write")
         & $py.Exe @argList
+        # civil aircraft that would reach the end of their route and circle
+        # get one waypoint further along their airway; idempotent
+        $tool = Join-Path $repoRoot "integration\missions\extend_civil_airways.py"
+        $argList = @($py.Pre) + @($tool, "--write")
+        & $py.Exe @argList
         Write-Host "`nFor the full civilian-traffic and water passes on one mission, use:"
         Write-Host "  .\tools\refresh-mission.ps1 -Mission `"NORTHERN FRONT III FINAL`" -SkipImport"
     }

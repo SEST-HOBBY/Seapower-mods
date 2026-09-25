@@ -12,27 +12,25 @@ possible the page speaks of the class, the squadron or the role.
 EVENTS = [
     # --- prologue -----------------------------------------------------------
     dict(file="00_opening", title="Southern Departure\\n6 December 2028",
-         sub="The season opens with a convoy, a trawler and a question",
+         sub="A 'fisheries' frigate is stopping ships bound for Antarctica",
          dateline="6 DECEMBER 2028  |  MARITIME BORDER COMMAND, HOBART DETACHMENT",
-         headline="THE SEASON OPENS",
+         headline="THE PAPER WAR GOES SOUTH",
          body=[
-             "The ceasefire in the north is nine days old. The task group that "
-             "held the corridor is alongside at Sydney with its dents, and the "
-             "escort work has moved south with the summer: the Antarctic resupply "
-             "season, which runs on a calendar the ice keeps and nobody else.",
-             "Hobart sails the stations' cargo, fuel and people every December. "
-             "This year it sails them past a fishing fleet that arrived in "
-             "October under a fisheries-protection flag, a research trawler with "
-             "more antennas than nets, and a frigate that has been asking "
-             "merchant masters for their compliance paperwork sixty miles south "
-             "of Tasmania.",
-             "None of it is a war. All of it is the same network the north just "
-             "fought, with the name changed and the pretext changed to "
-             "conservation. MV Coral Pioneer, with a bearing that held and a "
-             "master who would not heave to, is chartered for the Macquarie "
-             "run.",
-             "Get the convoy out of Storm Bay. Put a name on the trawler. Nobody "
-             "shoots at a fishing boat in December."]),
+             "Nine days after the ceasefire in the north, the network that "
+             "tried to close the Arafura has come south under a new flag. The "
+             "Southern Ocean Fisheries and Research Protection Group - a "
+             "frigate, two corvettes and a research trawler with more antennas "
+             "than nets - has been off Tasmania since October.",
+             "Its frigate demands a compliance certificate from every ship bound "
+             "for the ice. Its contractor, Austral Meridian Services, shares an "
+             "address with Meridian's old escort company. New name; the "
+             "pretext is now conservation.",
+             "Hobart's first convoy of the season - the resupply ship Southern "
+             "Endeavour, the fuel coaster Derwent Spirit and MV Coral Pioneer - "
+             "sails at dawn with the stations' year of fuel, food and people, "
+             "escorted by the task group that held the north.",
+             "Get the convoy out of Storm Bay. Put a name on the trawler. "
+             "Nobody shoots at a fishing boat in December."]),
 
     # --- before SR02 Silent Track: the 6 December log, ahead of the 8 December cable
     dict(file="00c_santos_log", before="Silent Track", form="log",

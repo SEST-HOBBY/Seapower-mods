@@ -34,7 +34,7 @@ MISSION = dict(
     blue_nation="Australia", red_nation="China",
     brief=(
         "COOK STRAIT, late morning, a northerly building. CS TASMAN RELIANCE "
-        "- a cable repair ship, a stand-in - is on the declared corridor "
+        "- a cable repair ship - is on the declared corridor "
         "twelve miles south-west of Oteranga Bay with the Tasman cable's "
         "fault under her. The corridor is a box on a chart, five miles "
         "around her: she has to be inside it when twenty-five minutes have "
@@ -105,7 +105,7 @@ MISSION = dict(
     },
     units=[
         U("blue", "_vanilla", "civ_ms_encounter", "cable",
-          name="CS Tasman Reliance (cable repair ship, stand-in)"),
+          name="CS Tasman Reliance (cable repair ship)"),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7",
           weapons="Tight"),
         U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500, weapons="Tight",
@@ -122,10 +122,10 @@ MISSION = dict(
           name="Type 056A corvette", weapons="Tight",
           route=[(-41.55, 174.55, 0), (-41.49, 174.60, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_ms_roro_a", "ferry_a",
-          name="Interislander Aratere (stand-in)",
+          name="Interislander Aratere",
           route=[(-41.36, 174.50, 0), (-41.28, 174.42, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_ms_roro_b", "ferry_b",
-          name="Interislander Kaitaki (stand-in)",
+          name="Interislander Kaitaki",
           route=[(-41.38, 174.70, 0), (-41.40, 174.80, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fish",
           name="Fishing boat Te Awaiti", route=[(-41.55, 174.45, 0)], telegraph=2),
@@ -133,9 +133,9 @@ MISSION = dict(
           name="MT Kapiti Coast (Lyttelton-Wellington)",
           route=[(-41.45, 174.78, 0)], telegraph=3),
         U("neutral", "civil-aircraft-airbus", "civ_a320", "airliner",
-          name="Wellington-Christchurch 428"),
+          name="Wellington-Christchurch 428", airway=(-43.49, 172.53)),  # Christchurch
         U("blue", "SEST_RAAF_Bases", "airbase_rnzaf_ohakea", "home",
-          name="RNZAF Base Ohakea", nation="New Zealand", weapons="Hold"),
+          name="RNZAF Base Ohakea", nation="NewZealand", weapons="Hold"),
     ],
     resolve={"Corridor": "victory", "Traffic": "neutral",
              "Contact": ("classify", "red_sub", 1, "TS02SubNamed"),

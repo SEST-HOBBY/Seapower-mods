@@ -99,7 +99,7 @@ file; the builder refuses a unit whose stated mod the game would not read.
 - `snap="sea"` on a LandUnit that belongs in water (a rig). `coastal=True` on a station puts each hull there through the per-unit sea check instead of the 2 NM offshore rule (an anchorage, a port).
 - `slot="HeloRecon"|"Recon"|"CAP"|"Attack"` - an air-tasking cockpit (below).
 - `spawn_if=("Variable", "IsFalse")` - the unit exists only when the variable was never set. `IsFalse` is the only attested form.
-- `nation="australia"` on RAAF bases, `nation="New Zealand"` on RNZAF bases (matches their variants files).
+- `nation="australia"` on RAAF bases, `nation="NewZealand"` on RNZAF bases and New Zealand airfields - the game's own key, no space (`language_en/nations.ini`); "New Zealand" with a space shows no flag.
 - `no_neutral_penalty=True` exempts a neutral from the neutral-loss rule (a range target). Do not use it here.
 
 ### Stations and geometry - the coastline gate
@@ -256,8 +256,8 @@ Land units (blue fields; `nation=` as shown):
 | `airbase_raaf_edinburgh` | RAAF Base Edinburgh | −34.703, 138.622 (`nation="australia"`) |
 | `airbase_raaf_east_sale` | RAAF Base East Sale | −38.099, 147.149 |
 | `airbase_raaf_williamtown` | RAAF Base Williamtown | −32.795, 151.834 |
-| `airbase_rnzaf_ohakea` | RNZAF Base Ohakea | −40.206, 175.388 (`nation="New Zealand"`) |
-| `airbase_rnzaf_auckland` | RNZAF Base Auckland (Whenuapai) | −36.788, 174.630 (`nation="New Zealand"`) |
+| `airbase_rnzaf_ohakea` | RNZAF Base Ohakea | −40.206, 175.388 (`nation="NewZealand"`) |
+| `airbase_rnzaf_auckland` | RNZAF Base Auckland (Whenuapai) | −36.788, 174.630 (`nation="NewZealand"`) |
 | `airfield_small_1` | Hobart Airport | −42.836, 147.510 |
 | `airfield_small_1` | Christchurch International | −43.489, 172.532 |
 | `airfield_small_1` | Invercargill Airport | −46.412, 168.313 |
