@@ -11,8 +11,8 @@ from campaign_data import U, F, S
 MISSION = dict(
     code="SR02", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 2",
     group="core", num="02", key="Silent Track", place="Macquarie Ridge, south of New Zealand",
-    intro="Collins and a New Zealand Poseidon put a name on the boat working "
-          "the ridge. The ceasefire holds until somebody says it does not, and "
+    intro="HMAS Collins and a New Zealand Poseidon put a name on the nuclear "
+          "boat working the Macquarie Ridge. The ceasefire holds until somebody says it does not, and "
           "that is not going to be a torpedo.",
     special="No requisition, and nothing of your own force sails: this is a "
             "detached submarine operation. You command HMAS Collins for this "
@@ -20,8 +20,8 @@ MISSION = dict(
             "national allocation.",
     sender="Commodore Alex Mercer; Squadron Leader Tane Rewi, No. 5 Squadron RNZAF, for the aircraft",
     intent=("A nuclear boat is working the ridge because the ridge is where "
-            "the route crosses. Put a name on her - class, and if you can, "
-            "hull - and get off her track. Nobody fires. The ceasefire is nine "
+            "the Antarctic resupply route crosses. Put a name on her - class, and if you can, "
+            "hull - and get off her track. Nobody fires. The ceasefire is twelve "
             "days old and it is not Collins's to end. Rewi's crew flies its "
             "own plan and goes home to Ohakea; the aircraft is not yours to "
             "spend. A research vessel with a New Zealand flag is on the ridge "
@@ -31,16 +31,17 @@ MISSION = dict(
     blue_nation="Australia", red_nation="Russia",
     brief=(
         "MACQUARIE RIDGE, before dawn. A longliner south of Campbell Island "
-        "reported a contact on the sixth that no diesel boat could be, twelve "
-        "hundred miles from a tender in December. It is nuclear, it is "
+        "reported a submarine contact on the sixth, twelve hundred miles from "
+        "any tender, where no diesel boat works in December. Contact VICTOR "
+        "is nuclear, it is "
         "working the ridge, and the ridge is where every ship for the ice "
         "crosses.\\n\\n"
         "COLLINS is at periscope depth on the ridge's western flank with "
         "thirty-one days of patrol left in her. KIWI 05, a New Zealand "
         "Poseidon out of Ohakea with Squadron Leader Rewi's crew, has one "
-        "sortie and a field of buoys. The research trawler that shadowed the "
-        "Storm Bay convoy is thirty miles north, which tells you where the "
-        "boat is not.\\n\\n"
+        "sortie and a field of buoys. NAN HAI 27, the research trawler that "
+        "shadowed the Storm Bay convoy, is thirty miles north, and the boat "
+        "will not be far from her.\\n\\n"
         "Classify the contact, then take Collins east off the ridge to the "
         "exit point. Do not attack it. RV SOUTHERN SURVEYOR is on the ridge "
         "with a science party, a Bluff longliner is working the shelf, and "

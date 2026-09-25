@@ -11,13 +11,13 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="SR06", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 6",
     group="core", num="06", key="Broken Supply Line", place="South of the Auckland Islands",
-    intro="The coaster took a torpedo and is making six knots for Bluff. "
-          "The boat that fired is ahead of her, and this is what you have "
+    intro="The fuel coaster Derwent Spirit took a torpedo and is making six "
+          "knots for Bluff. The Akula that fired is ahead of her, and this is what you have "
           "left to stop it with.",
-    special="No requisition before this operation: you sail what you own, and "
-            "your magazines are what Macquarie Passage's service window left "
-            "them. The coaster makes six knots because the Chief says so, "
-            "and the line is drawn at six knots.",
+    special="No requisition before this operation: you sail what you own, "
+            "rearmed only if Supply and Coral Pioneer held the Macquarie "
+            "service window. The coaster makes six knots because her Chief "
+            "says so, and the handover line with Bluff's tug is set for six knots.",
     sender="Commodore Alex Mercer; Commander Tessa Brand, RNZN, for Bluff",
     intent=("DERWENT SPIRIT was hit at 0210 south of the Auckland Islands, "
             "in New Zealand's search and rescue region and in nobody's war. "
@@ -25,9 +25,9 @@ MISSION = dict(
             "PIONEER in company. The boat that hit her is somewhere ahead of "
             "her track, and a frigate that calls itself fisheries protection "
             "is shadowing from the east with a helicopter up. Bring the "
-            "coaster to the line. Do not drive her faster than the Chief "
-            "says she will go - that is his word, not a rule the sea "
-            "enforces. If the boat fires again you answer her. The hunt for "
+            "coaster north-east to the handover line, where Bluff's tug will "
+            "meet her. Do not drive her faster than the Chief says she will "
+            "go. If the boat fires again you answer her. The hunt for "
             "her is Wellington's question and Canberra's, and neither has "
             "answered it yet."),
     date=(2028, 12, 21), time=(5, 50), sea=5, clouds="Overcast", wind="SW",
@@ -38,28 +38,28 @@ MISSION = dict(
         "torpedo forward at 0210 - the first shot fired in the south - and "
         "she is still afloat because the Chief got a collision mat over the "
         "hole and the tanks aft are full. One engine, six knots, Bluff. "
-        "CORAL PIONEER is in company because Santos would not be "
+        "CORAL PIONEER is in company because her master, Leila Santos, would not be "
         "elsewhere.\\n\\n"
-        "The boat that fired is the boat Collins named on the ridge, and "
+        "The boat that fired is VICTOR, the Akula HMAS Collins named on the "
+        "Macquarie Ridge on the ninth, and "
         "she is ahead of the coaster's track, somewhere between here and "
-        "the islands. A frigate flying the protection flag is fifty miles "
+        "the islands. A Type 054A flying the fisheries-protection flag is fifty miles "
         "east with its helicopter up and has been keeping station on the "
         "coaster since first light, which is not something a fisheries "
         "patrol does. A Bear is overhead.\\n\\n"
         "You have what you own and what Macquarie left in the magazines. "
-        "Bring the coaster to the line. The expedition ship out of the "
+        "Bring the coaster to the handover line. The expedition ship out of the "
         "islands, the longliner and the whale are in the same water; nobody "
         "in New Zealand's region will forgive a dead tourist. Weapons tight "
         "on anything that has not fired; on the boat, answer her if she "
-        "fires again - the hunt waits on Wellington and Canberra, and that "
-        "answer comes on Christmas Eve."),
-    forces="Your escort group with its Seahawk and Poseidon, out of "
+        "fires again - the hunt waits on Wellington and Canberra."),
+    forces="Your escort group with its Seahawk; your Poseidon out of "
            "Invercargill. MT Derwent Spirit at six knots and MV Coral "
            "Pioneer in company. Neutral: an expedition ship out of the "
            "islands, a Bluff longliner, a whale. Opposing: one Akula ahead of "
            "the track, a Type 054A shadowing with a Z-9 up, a Bear-D overhead.",
     objectives=[
-        ("Coaster", "Bring DERWENT SPIRIT to the line", "35,-35,Fail,Main"),
+        ("Coaster", "Bring DERWENT SPIRIT to the handover line", "35,-35,Fail,Main"),
         ("Cargo", "MV Coral Pioneer must survive", "15,-25,Complete"),
         ("Flagship", "Bring your flagship out intact", "10,-15,Complete"),
         ("Neutrals", "Harm no expedition ship, fishing boat or whale", "0,-25,Complete"),
@@ -70,7 +70,7 @@ MISSION = dict(
     neutral_objective="Neutrals",
     win="Derwent Spirit is at the line with a tug coming down from Bluff, "
         "and Coral Pioneer is beside her. The Chief's mat held. Brand: 'She "
-        "is in our region now. Nobody touches her.'",
+        "is in our hands now. Nobody touches her.'",
     lose="The coaster is gone with the winter's fuel in her, three hundred "
          "miles from a slipway. Casey's January is a different problem now.",
     timeout="Seventy-five minutes and the coaster is still short of the line "

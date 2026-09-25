@@ -11,9 +11,9 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="SR07", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 7",
     group="core", num="07", key="Beneath the South", place="The deep Southern Ocean",
-    intro="Christmas Eve at 57 South. The boat that fired on the coaster is "
-          "the task group's to sink, and the research vessel it lives off "
-          "is not.",
+    intro="Christmas Eve at 57 South. VICTOR, the Akula that torpedoed "
+          "Derwent Spirit, is the task group's to sink; the research vessel "
+          "she lives off is not.",
     sender="Commodore Alex Mercer",
     intent=("Canberra and Wellington said the same thing on the same "
             "afternoon: find the boat that fired and sink her. That is the "
@@ -28,10 +28,10 @@ MISSION = dict(
     difficulty=3, minutes=80, centre=(-57.5, 152.0),
     blue_nation="Australia", red_nation="Russia",
     brief=(
-        "THE DEEP SOUTHERN OCEAN, 57 South, Christmas Eve. VICTOR fired on "
+        "THE DEEP SOUTHERN OCEAN, 57 South, Christmas Eve. The Akula VICTOR fired on "
         "DERWENT SPIRIT on the twenty-first and has been running south ever "
         "since, toward the research vessel that keeps her at sea. The "
-        "vessel is here, sixty miles south-west, holding station where the "
+        "vessel is here, forty-five miles south-south-west, holding station where the "
         "boat will come to her.\\n\\n"
         "You have what you rearmed at Bluff, the Seahawk, and a Poseidon out "
         "of Hobart with fuel for one field of buoys before she has to turn "
@@ -42,12 +42,12 @@ MISSION = dict(
         "she is a merchant hull under a state flag with forty scientists "
         "aboard, and she is not the boat. A factory trawler and a whale are "
         "in the same water."),
-    forces="Your escort group with its Seahawk and Poseidon, out of Hobart. "
+    forces="Your escort group with its Seahawk; your Poseidon out of Hobart. "
            "Opposing: one Akula, her tender, a Bear-F with tanker support. "
            "Neutral: a factory trawler, a whale.",
     objectives=[
         ("Boat", "Sink VICTOR", "40,-35,Fail,Main"),
-        ("Tender", "Leave the research vessel alone", "10,-30,Complete"),
+        ("Tender", "Leave RV Akademik Fersman alone", "10,-30,Complete"),
         ("Flagship", "Bring your flagship out intact", "10,-15,Complete"),
         ("Neutrals", "Harm no trawler or whale", "0,-20,Complete"),
     ],
@@ -107,13 +107,14 @@ MISSION = dict(
     declares=["SR07AkulaSunk"],
     flags=[dict(name="SR07AkulaSunk", units=["red_sub"],
                 intel="VICTOR is on the bottom. The boat that fired the first "
-                      "shot in the south will not be in the line at the ice "
-                      "edge, and the research vessel has nothing left to "
+                      "shot in the south will not be waiting for the January "
+                      "voyage, and the research vessel has nothing left to "
                       "tend.")],
     reveal_if=[dict(variable="SR02BoatNamed", units=["red_sub"], level="Classify",
-                    intel="Collins's datum from the ninth: VICTOR is on your "
-                          "plot as a classified contact from the first minute, "
-                          "with the signature Rewi's crew logged on the ridge. "
+                    intel="HMAS Collins's datum from the Macquarie Ridge on the "
+                          "ninth: VICTOR is on your plot as a classified contact, "
+                          "with the signature Squadron Leader Rewi's RNZAF crew "
+                          "logged there. "
                           "You know what she sounds like. Now find where.")],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",
@@ -123,6 +124,6 @@ MISSION = dict(
                           "rearm before Beneath the South - Bluff's slipway and "
                           "Invercargill's field are New Zealand's contribution "
                           "and they are open. The next window is at Lyttelton, "
-                          "before Cold Route."),
+                          "before The Gateway."),
     role="escort",
 )

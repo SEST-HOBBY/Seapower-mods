@@ -13,21 +13,21 @@ from campaign_data import U, F, S, HELO
 MISSION = dict(
     code="SR10", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 10",
     group="core", num="10", key="Southern Line", place="The ice edge, 60 South",
-    intro="The group's command element at the ice edge, a Seahawk for "
+    intro="The fisheries-protection group's command element at the ice edge, a Seahawk for "
           "aviation, and a rule of engagement that is the whole mission: "
           "identify the carrier, fire on nothing that has not fired.",
     special="No requisition before this operation, and the weather has "
             "grounded the Poseidons and the Triton: the Seahawk is your "
-            "aviation. Everything in the line starts weapons tight. Fire "
+            "aviation. Everything in the group's line starts weapons tight. Fire "
             "first and it answers.",
     sender="Commodore Alex Mercer",
     intent=("The carrier is at the ice edge with a frigate, a corvette and "
             "the collector, holding station over the fishing fleet where "
             "the last voyages have to pass. Put a class and a name on the "
-            "carrier and the collector, and withdraw north to the line. Do "
-            "not fire on a unit that has not fired. The research vessel is "
-            "a research vessel today; the trawlers are trawlers. If the "
-            "boat we hunted on Christmas Eve got away, she is in that line "
+            "carrier and the collector, and pull back north to the withdrawal line. Do "
+            "not fire on anything that has not fired. AKADEMIK FERSMAN is "
+            "a research vessel today; the trawlers are trawlers. If VICTOR, "
+            "the Akula we hunted on Christmas Eve, got away, she is in that line "
             "and she is the one thing here that has already fired at us."),
     date=(2029, 1, 6), time=(11, 0), sea=6, clouds="Overcast", wind="SW",
     difficulty=3, minutes=60, centre=(-60.0, 118.0),
@@ -40,11 +40,11 @@ MISSION = dict(
         "must pass, to be seen there, and to be fired on first.\\n\\n"
         "The weather at Hobart has grounded the Poseidons and the Triton, "
         "and no field in the world reaches here for anything else. Your "
-        "aviation is the Seahawk. The Russian research vessel is at the "
-        "ice with the trawlers, a research vessel again; and if VICTOR "
+        "aviation is the Seahawk. AKADEMIK FERSMAN, VICTOR's tender at "
+        "Christmas, is at the ice with the trawlers, a research vessel again; and if VICTOR "
         "survived Christmas Eve she is somewhere in this line.\\n\\n"
         "Identify the carrier and the collector by class and name, and "
-        "withdraw north to the line. Everything red starts weapons tight. "
+        "pull back north to the withdrawal line. Everything red starts weapons tight. "
         "Fire on nothing that has not fired; a shot at the collector is the "
         "incident they came here to have."),
     forces="Your escort group with its Seahawk. Opposing, at the ice edge: "
@@ -52,8 +52,8 @@ MISSION = dict(
            "27, a Ka-31 up - and VICTOR, if she got away. Neutral: three "
            "factory trawlers, a research vessel, a whale.",
     objectives=[
-        ("Identify", "Classify the carrier and the collector, then withdraw "
-                     "north to the line", "35,-35,Fail,Main"),
+        ("Identify", "Classify the carrier and the collector, then pull back "
+                     "north to the withdrawal line", "35,-35,Fail,Main"),
         ("Restraint", "Do not fire on the collector", "10,-25,Complete"),
         ("Flagship", "Bring your flagship out intact", "10,-20,Complete"),
         ("Neutrals", "Harm no trawler, research vessel or whale", "0,-30,Complete"),
@@ -61,18 +61,18 @@ MISSION = dict(
     victory=dict(kind="arrive", station="escort", min_units=1, objective="Identify",
                  after=dict(kind="classify", units=["group#1", "group#4"], min_units=2,
                             intel="The carrier is LIAONING, and the collector is "
-                                  "the same Nan Hai 27 that shadowed Storm Bay "
-                                  "in December. The group has a name, a flagship "
-                                  "and a face. Withdraw north to the line - and "
+                                  "the same Nan Hai 27 that shadowed the Storm Bay "
+                                  "convoy on 6 December. The group has a name, a flagship "
+                                  "and a face. Pull back north to the withdrawal line - and "
                                   "do not give them the shot they came for.")),
     fatal=[],
     neutral_objective="Neutrals",
-    win="The escort is north of the line with the carrier and the collector "
+    win="The escort is north of the withdrawal line with the carrier and the collector "
         "named, and nothing in the south fired first. The photographs are "
         "ours this time.",
     lose="The escort is gone at the ice edge, or the incident happened. "
          "Either way the group has what it came south for.",
-    timeout="Sixty minutes and the escort is still in the line with the "
+    timeout="Sixty minutes and the escort is still at the ice edge with the "
             "carrier a contact and no name. The group will be there "
             "tomorrow; the last voyage will not.",
     stations={

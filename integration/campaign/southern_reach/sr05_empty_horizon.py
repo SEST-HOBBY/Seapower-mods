@@ -135,9 +135,9 @@ MISSION = dict(
              "Bluefin": ("protect", "mpa")},
     declares=["SR05GroupClassified"],
     reveal_if=[dict(variable="SR01ShadowNamed", units=["agi"], level="Classify",
-                    intel="Storm Bay's picture from the sixth: the research "
-                          "trawler you named there is with the command element, "
-                          "and she is on your plot as a classified contact. "
+                    intel="Storm Bay's picture from the sixth: NAN HAI 27, the "
+                          "research trawler classified there, is with the command "
+                          "element and on your plot as a classified contact. "
                           "Where she is, the frigate is.")],
     window=dict(),
     role="recon",

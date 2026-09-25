@@ -10,8 +10,8 @@ from campaign_data import U, F, S, HELO, RECON, CAP
 MISSION = dict(
     code="SR12", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 12",
     group="core", num="12", key="Turning North", place="The Tasman approaches",
-    intro="The group turns north into the Tasman with its carrier, its "
-          "tender and its collector in company. Shadow it, name every hull, "
+    intro="The fisheries-protection group turns north into the Tasman with "
+          "its carrier, its replenishment ship and its collector in company. Shadow it, name every hull, "
           "and do not start the war it is going north to have.",
     sender="Commodore Alex Mercer",
     intent=("The group is going north into the Tasman and it is not going "
@@ -19,7 +19,7 @@ MISSION = dict(
             "every hull in the network - the carrier, the replenishment "
             "ship, the collector - so that Sydney and Wellington know what "
             "is coming before it arrives. Fire on nothing. East Sale's "
-            "fighters reach this water for the first time since October; "
+            "fighters reach this water for the first time since the group arrived in October; "
             "they are cover, not a strike. Hold the shadowing line and come "
             "home to Hobart."),
     date=(2029, 1, 14), time=(9, 20), sea=4, clouds="Scattered_2", wind="SW",
@@ -29,19 +29,19 @@ MISSION = dict(
         "THE TASMAN APPROACHES, morning. The protection group is fifty miles "
         "north-east of you, transiting at fourteen knots: LIAONING, a "
         "frigate, a corvette, a replenishment ship, the research trawler "
-        "NAN HAI 27 and the Russian research vessel, all in company, all "
+        "NAN HAI 27 and the Russian research vessel AKADEMIK FERSMAN, all in company, all "
         "going the same way. The fishing fleet it came to protect has been "
         "left to fish.\\n\\n"
         "You have what came out of the south, WEDGETAIL 05 out of East Sale, "
-        "and for the first time since October a fighter that can reach the "
+        "and for the first time since the group arrived in October a fighter that can reach the "
         "water you are in. Coastal traffic and the Melbourne-Auckland "
         "service are in the same box.\\n\\n"
         "Shadow the group. Classify the carrier, the replenishment ship and "
         "the collector. Hold the shadowing line behind them. Everything red "
         "is weapons tight and so are you: nobody in this box fires first, "
         "and the day that changes it will be in the Tasman, not here."),
-    forces="Your task group with its Seahawk, Poseidon and fighters if "
-           "bought, Wedgetail 05, all out of East Sale. Neutral: a coastal "
+    forces="Your task group with its Seahawk; your Poseidon and F-35As, if "
+           "requisitioned, and Wedgetail 05, all out of East Sale. Neutral: a coastal "
            "bulker, a trawler, an airliner. Opposing, transiting north-east: "
            "Liaoning, a Type 054A, a Type 056A, a replenishment ship, the "
            "research trawler Nan Hai 27, the Russian research vessel, a "
@@ -62,15 +62,15 @@ MISSION = dict(
                             min_units=3,
                             intel="The network has names: LIAONING, a "
                                   "Qiongsha-class replenishment ship, and NAN "
-                                  "HAI 27 - the same collector Storm Bay met "
-                                  "in December. Sydney and Wellington have the "
+                                  "HAI 27 - the collector that shadowed the Storm Bay "
+                                  "convoy on 6 December. Sydney and Wellington have the "
                                   "picture. Hold the shadowing line behind them.")),
     fatal=[],
     neutral_objective="Neutrals",
     win="The group is in the Tasman with every hull in its network named, "
         "and nobody fired. The ledger closes the south and opens the north.",
     lose="The escort is gone in the Tasman approaches, or the war started "
-         "here. Either way the Tasman chapter opens on the group's terms.",
+         "here. Either way the fight for the Tasman opens on the group's terms.",
     timeout="Seventy minutes and the group is over the horizon with half "
             "its network unnamed. Sydney meets it without a picture.",
     stations={
@@ -143,8 +143,8 @@ MISSION = dict(
                        "raaf_mq-4c_triton", "E7A_Wedgetail", "raaf_f-35a"],
                 flights=[HELO, RECON, CAP],
                 situation="Hobart, after the last voyage. Requisition, repair "
-                          "and rearm before Turning North - and the F-35A goes on "
-                          "sale, because East Sale's fighters reach the Tasman "
+                          "and rearm before Turning North - and the F-35A is "
+                          "released to the task group, because East Sale's fighters reach the Tasman "
                           "approaches. The next window is Sydney, before Home "
                           "Waters."),
     role="recon",

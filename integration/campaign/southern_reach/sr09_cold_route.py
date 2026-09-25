@@ -12,17 +12,17 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="SR09", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 9",
     group="core", num="09", key="Cold Route", place="South of Australia",
-    intro="The January voyage: five hulls, the whole force, a Wedgetail and "
-          "no fighter within a thousand miles, against a carrier's air wing "
-          "and a boat across the track.",
+    intro="The January voyage to Casey: five hulls, the whole force, a Wedgetail "
+          "and no fighter within a thousand miles, against Liaoning's air wing "
+          "and a nuclear boat across the track.",
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the air picture",
     intent=("Four of five through, SOUTHERN ENDEAVOUR among them - she is "
             "Casey's second lift and there is no third. The carrier's "
             "aircraft will come for the convoy and the destroyer is the air "
             "defence; Wedgetail sees them come and cannot stop them. The "
             "boat ahead of the track is the one that keeps the destroyer "
-            "looking the wrong way. Keep the tanker alive if you can - Last "
-            "Ship South sails on what she carries - and keep the trawlers "
+            "looking the wrong way. Keep the tanker alive if you can - the "
+            "last voyage south, on the tenth, sails on what she carries - and keep the trawlers "
             "and the bulker out of your missiles' way."),
     date=(2029, 1, 2), time=(8, 30), sea=5, clouds="Broken_3", wind="W",
     difficulty=4, minutes=90, centre=(-48.5, 137.0),
@@ -33,11 +33,11 @@ MISSION = dict(
         "DERWENT SPIRIT with a new plate and the winter's fuel, CORAL "
         "PIONEER, AURORA TRADER and DAVIS PROVIDER. Twelve knots, "
         "south-west, and the whole force with them.\\n\\n"
-        "The protection group's carrier is a hundred and fifty miles "
+        "The protection group's carrier, LIAONING, is a hundred and fifty miles "
         "south-east with two frigates and a corvette, and its air wing "
         "flew over the fishing fleet for the cameras on New Year's Eve. "
-        "Today it flies for the convoy. A nuclear boat the group calls a "
-        "fisheries survey asset is somewhere ahead of the track. WEDGETAIL "
+        "Today it flies for the convoy. ROMEO, a Type 093B nuclear boat the "
+        "group calls a fisheries survey asset, is somewhere ahead of the track. WEDGETAIL "
         "05 and KIWI 05 are up out of Edinburgh; no fighter in Australia "
         "reaches this water and comes home, and the destroyer's magazine is "
         "the air defence.\\n\\n"
@@ -63,7 +63,7 @@ MISSION = dict(
     neutral_objective="Neutrals",
     win="Four hulls in the box and Southern Endeavour among them. The "
         "carrier's air wing spent its morning and the boat spent its "
-        "chance. Marsh, from the Endeavour's bridge: 'We saw the missiles. "
+        "chance. Dr Marsh, the voyage leader, from Southern Endeavour's bridge: 'We saw the missiles. "
         "We saw yours too.'",
     lose="The voyage is broken south of Australia with the stations' "
          "winter in it. Casey gets what the first lift left.",
@@ -149,7 +149,7 @@ MISSION = dict(
     support_loss=[dict(asset="Derwent Spirit", units=["convoy#2"], objective="Tanker",
                        sets="SR09TankerLost",
                        intel="DERWENT SPIRIT is gone with the winter's fuel in "
-                             "her. Last Ship South sails without a tanker, and "
+                             "her. The last voyage south sails without a tanker, and "
                              "Casey's winter is whatever the first lift put "
                              "ashore.  - Mercer")],
     window=dict(buy=True, repair=True, rearm=True,
@@ -158,9 +158,9 @@ MISSION = dict(
                 flights=[HELO, RECON],
                 situation="Hobart, before the January voyage. Requisition, "
                           "repair and rearm: Cold Route sails the whole force and "
-                          "there is no window after it until Turning North - "
-                          "Southern Line has no builder and Last Ship South's "
-                          "rearm depends on holding this route."),
+                          "there is no requisition after it until Turning North - "
+                          "none before Southern Line, and Last Ship South is "
+                          "rearmed only if this convoy gets through."),
     role="fleet",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 240, 15
