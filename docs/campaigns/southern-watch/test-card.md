@@ -189,6 +189,23 @@ picket is a hull you cannot buy.
 | 6B.10 | D2, look at USS Carl Vinson's deck | Her parked Seahawks look like Seahawks. A scrambled texture means the composed MH-60R livery is being applied to ADO's SH-60B deck prop (build notes) |
 | 6B.11 | O1's tactical map | **No contact near 0°, 0°**, and no blue unit pushed against the map's edge. If either is still there, note what the contact says it is |
 
+## 6C — red aircraft that were briefed to come (new)
+
+Each of these used to orbit its spawn point (6C.4's J-15D was routed but
+flew as the #2 of an unrouted leader). Watch the first 20 minutes, and 40 in
+SW09 and SW12.
+
+| # | Do | Expect |
+|---|---|---|
+| 6C.1 | SW05, sit still | The JH-7A pair goes **west first**, then comes down the corridor; no YJ-91 before about 14 minutes |
+| 6C.2 | SW07, send the tanker home at once | The Foxhounds come south towards TEXACO's station and **turn back north** at about 13 minutes; the tanker is never in R-33 reach. The returning package is, for about the first 13 minutes, and so is a Wedgetail that holds its orbit from about 11 to 15 |
+| 6C.3 | SW09 | The Tu-214R comes to about 33 NM west of the service box at about 20 minutes and leaves; the Flanker pair swings round the outside and is in Kh-31A range of the ships at about 30-34 minutes, near the end of the window |
+| 6C.4 | SW11 | Flying Shark 21 heads for the transports on its own; shooting it down completes **Strike** (not the KJ-600) |
+| 6C.5 | SW12, Fujian alive in SW11 | The spoiler JH-7A opens east, is inside YJ-91 range of the convoy at about 21 minutes (expect a launch then), passes over it at about 35-38, and goes home |
+| 6C.6 | D7, leave the Bear alone | It reaches the marked release line at about 19 minutes and the serial **fails** with the umpires' message; the Badger stays north, out of play |
+| 6C.7 | Banda Foxhound Sweep | The MiG-31s run at the Wedgetail fast. Lose the Wedgetail or the tanker: **defeat**, HVA failed - shooting the MiGs down afterwards does not win it back |
+| 6C.8 | Banda Triton's Picture | The J-16s come down to the Triton's station |
+
 ## 7 — the review's engine tests
 
 The independent review of `057405fe` listed the runs that no static check
