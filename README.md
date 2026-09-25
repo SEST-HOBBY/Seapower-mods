@@ -35,6 +35,9 @@ Linux / repo side:
 python3 tools/build_all.py --from-scratch   # rebuild all 17 packs + the consolidated dist;
                                             # a clean `git status` after = the regression gate
 python3 tools/preflight.py                  # resolve every reference the active mission makes
+python3 tools/preflight.py --all            # every deployed mission: fails on the editor crash, lists the rest
+python3 integration/missions/fix_loadout_variants.py --all --write   # sweep that crash out of them
+python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
 python3 tools/check_load_order.py           # every SEST override still outranks its target
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with

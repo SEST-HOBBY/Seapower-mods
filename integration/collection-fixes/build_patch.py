@@ -36,8 +36,10 @@ Euromod's ballistics, lifts the Hellfire's 2000-ft launch ceiling for the \
 gunship, fixes AIM-9L/M impact size and speed-penalty keys, raises the \
 AIM-9X turn rate, sharpens the GBU-39 SDB to its author's 1.5 m CEP, gives \
 the KD-88 its 108 nm range and the AKF-98A its active-radar seeker, restores \
-the eight Nimitz Expanded carriers with the CVN-70 typo fixed, and repairs \
-the MH-60R's dangling Penguin seat reference, gives the MH-60R an 816 \
+the eight Nimitz Expanded carriers with the CVN-70 typo fixed, keeps the \
+Nimitz (2000s)'s type, class and hull names now that the retired mod that \
+alone supplied them is gone, and repairs the MH-60R's dangling Penguin seat \
+reference, gives the MH-60R an 816 \
 Squadron RAN squadron under the Australian flag and returns the S-70B-2 to \
 the Australian flag it only ever flew under, restores the loft angle the \
 SM-3, SM-6 and PAC-3 MSE had commented out, and brings the SM-3's \
@@ -579,11 +581,13 @@ def main():
     build_mh60r_names()
     added = build_missing_sensors()
     named = build_missing_loadout_names()
+    carried = build_carried_vessel_names()
 
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     print(f"built {OUT.relative_to(ROOT)}: {len(built)} overrides - {', '.join(built)}")
     print(f"  + {len(added)} sensor definitions no mod supplied: {', '.join(added)}")
     print(f"  + {len(named)} loadout display names: {', '.join(named)}")
+    print(f"  + {len(carried)} vessel name section(s) carried: {', '.join(carried)}")
 
 
 # Sensor types that units mount but NO mod defines, so the sensor is inert.
@@ -727,6 +731,62 @@ def build_missing_loadout_names():
     (OUT / "language_en").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en" / "loadout_names.ini").write_text(body, encoding="utf-8")
     return list(MISSING_LOADOUT_NAMES)
+
+
+# Vessel name sections whose ONLY provider is a mod the collection is shedding.
+#   unit id -> (mod that shipped the section, the section text verbatim)
+# usn_cvn_nimitz_2000s: the hull is won by Murder Hornet (3430135740), which
+# ships no language file at all. Its Type/class/hull names came solely from the
+# DEPRECATED MyGo Super Hornet (3426791311) - the mod docs/setup-runbook.md
+# tells the user to unsubscribe - and there they sat on line 1 behind a UTF-8
+# BOM. Without them the picker files the carrier under "Missing Type" and
+# labels it "MISSING: usn_cvn_nimitz_2000s name or squadron reference".
+# language_*/ merges key-by-key, so carrying the section verbatim is a no-op
+# while a provider is present and keeps the names when it goes.
+#
+# THE CARRY HOLDS THE TEXT, NOT A POINTER TO IT. Reading the section out of the
+# donor at build time works only while the donor is still exported - which is
+# exactly the case the carry exists to survive. MyGo was unsubscribed on
+# 19 Sep 2026, the next export dropped the file, and the build then died on it
+# instead of quietly keeping the names. The text below is the section as it
+# stood in mods-source/3426791311/language_en/vessel_names.ini at 7a31060c, the
+# last export that shipped it. While the donor IS present the build re-reads it
+# and fails on any drift, so this copy cannot go stale unnoticed.
+CARRIED_VESSEL_NAMES = {
+    "usn_cvn_nimitz_2000s": ("3426791311", """\
+Type=CVN,Aircraft Carrier
+Default=Nimitz-class (2000s),Nimitz
+DefaultDescription=The largest warships in USN service during the Cold War the Nimitz-class is a nuclear powered supercarrier displacing over 100000 tons. These ships are one of the most threatening ways that the USN has to project power away from the US coastline.
+Variant1=Nimitz CVN-68,Nimitz
+Variant2=Dwight D. Eisenhower CVN-69,Eisenhower
+Variant3=Carl Vinson CVN-70,Vinson"""),
+}
+
+
+def build_carried_vessel_names():
+    blocks, out = [], []
+    for uid, (donor_mod, carried) in CARRIED_VESSEL_NAMES.items():
+        donor = MODS / donor_mod / "language_en" / "vessel_names.ini"
+        if donor.exists():
+            m = re.search(rf"^\[{re.escape(uid)}\]\n(.*?)(?=^\[|\Z)",
+                          read_file(donor), re.S | re.M)
+            if not m:
+                sys.exit(f"[{uid}] no longer in {donor_mod}'s vessel_names.ini - rebase")
+            live = m.group(1).strip("\n")
+            if live != carried:
+                sys.exit(f"[{uid}] has drifted in {donor_mod}. Update "
+                         f"CARRIED_VESSEL_NAMES to the live text:\n{live}")
+        blocks.append(f"[{uid}]\n{carried}\n")
+        out.append(uid)
+    if blocks:
+        (OUT / "language_en").mkdir(parents=True, exist_ok=True)
+        (OUT / "language_en" / "vessel_names.ini").write_text(
+            "# SEST Collection Fixes - vessel name sections carried verbatim from the\n"
+            "# only mod that provides them, so the unit keeps its type, class and hull\n"
+            "# names when that mod is unsubscribed. language_*/ merges key-by-key, so\n"
+            "# nothing upstream is replaced. See CARRIED_VESSEL_NAMES in build_patch.py.\n\n"
+            + "\n".join(blocks), encoding="utf-8")
+    return out
 
 
 def read_file(p):

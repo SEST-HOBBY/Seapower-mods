@@ -18,6 +18,27 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
   shipping lane plus a three-whale humpback pod (biologic sonar contacts) run along the
   Darwin–fleet axis. The original NORTHERN FRONT save is untouched.
 
+## The editor-crash sweep
+
+An aircraft or helicopter entry with no `LoadoutVariant=` whose winning unit file offers no
+`Default` loadout crashes the mission editor's map panel ("An item with the same key has
+already been added. Key: plaaf_kj-500"). The editor leaves the key out whenever a loadout was
+never picked by hand, so it comes back with every save. The refresh chain fixes the mission it
+refreshes; the installer deploys every mission here, so the rest are swept too:
+
+```bash
+python3 integration/missions/fix_loadout_variants.py --all          # report; exits 1 if any would change
+python3 integration/missions/fix_loadout_variants.py --all --write  # write the type's first loadout
+python3 tools/preflight.py --all                                    # fails on this crash, lists the rest
+```
+
+`--all` means what the installer deploys: every `.ini` here and under `scenarios/`, except
+the stamped backups, which are snapshots and are left as they are. `preflight --all` also lists
+every other dangling reference, mostly units and fits the older saves name that mods have
+since dropped or renamed; those are for information and do not fail it. The sweep is
+idempotent: the 25 Sep 2026 run wrote 32 `LoadoutVariant` lines into 9 files, and a second
+run found nothing.
+
 ## Briefing maps
 
 Every `SEST *.ini` has a `<mission>_briefing/` folder beside it: `BriefingMap_en.xml`
