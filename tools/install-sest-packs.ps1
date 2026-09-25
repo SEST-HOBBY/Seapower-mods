@@ -155,6 +155,10 @@ if (Test-Path $missionSrc) {
     New-Item -ItemType Directory -Force -Path $missionDest | Out-Null
     if ($PurgeBackups) {
         foreach ($bak in Get-ChildItem -LiteralPath $missionDest -Filter "* backup-*.ini") {
+            # Only the old scheme's own "<name> backup-<yyyyMMdd-HHmmss>" names.
+            # user_missions also holds the player's own missions, and a title
+            # such as "Strait backup-plan" must survive the purge.
+            if ($bak.BaseName -notmatch ' backup-[0-9-]+$') { continue }
             if ($WhatIfOnly) { Write-Host ("  would purge  {0}" -f $bak.Name); continue }
             Remove-Item -LiteralPath $bak.FullName -Force
             Write-Host ("  purged     {0}" -f $bak.Name)

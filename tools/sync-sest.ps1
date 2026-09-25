@@ -13,7 +13,9 @@
                     resolving the one conflict this workflow keeps producing
                     (see below). Skip with -SkipPull.
       2. install  - copy every SEST pack into StreamingAssets
-                    (tools\install-sest-packs.ps1)
+                    (tools\install-sest-packs.ps1). Missions are
+                    overwritten in place with no backup copy, so
+                    import-mission.ps1 anything edited in game first.
       3. order    - rewrite usersettings.ini [LoadOrder] from the canonical
                     list, INSERTING any newly installed pack as enabled
                     (tools\set-mod-order.ps1 -AddMissing)
