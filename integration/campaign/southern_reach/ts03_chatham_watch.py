@@ -10,21 +10,21 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="TS03", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 3",
     group="core", num="03", key="Chatham Watch", place="East of New Zealand",
-    intro="The boat that lay on the cable corridor is on the surface "
-          "alongside her tender, sixty miles east. Wellington has "
-          "authorised the kill. The tender is not a target.",
+    intro="TANGO, the submarine that lay on the Cook Strait cable, is on "
+          "the surface alongside her tender sixty miles east. Wellington "
+          "has authorised the kill. The tender is not a target.",
     sender="Commodore Alex Mercer; Commander Tessa Brand, RNZN, for "
            "Wellington's authority",
     intent=("After Cook Strait, Wellington has said what Canberra was "
-            "waiting for it to say: the boat that lay on the corridor is a "
-            "hostile submarine in New Zealand's zone and she may be "
+            "waiting for it to say: TANGO, the boat that lay on the cable "
+            "corridor, is a hostile submarine in New Zealand's zone and she may be "
             "engaged. She is on the surface alongside AUSTRAL COMPLIANCE "
             "sixty miles east of you, taking on stores, and she will dive "
             "the moment she hears you coming. Sink her. Do not touch the "
             "tender - she is a merchant hull under a state flag and the "
             "day we sink one of those is the day this becomes something "
-            "else. Classify her instead; Under the Tasman wants her "
-            "emitters."),
+            "else. Classify her instead; we want her emitters on file for "
+            "the next hull that carries them."),
     date=(2029, 1, 28), time=(6, 20), sea=4, clouds="Broken_3", wind="W",
     difficulty=3, minutes=70, centre=(-44.0, 178.3),
     blue_nation="Australia", red_nation="China",
@@ -41,10 +41,10 @@ MISSION = dict(
         "the rules for her are the rules for any merchant. Classify her "
         "and leave her.\\n\\n"
         "KIWI 05 is back on station out of Ohakea with your own Poseidon "
-        "if bought. The Chatham Islands freighter and two longliners are "
+        "if requisitioned. The Chatham Islands freighter and two longliners are "
         "in the box, and a whale that sounds like a boat on a bad day. "
         "Seventy minutes. She will dive when she hears you."),
-    forces="Your task group with its Seahawk and Poseidon if bought, Kiwi 05 "
+    forces="Your task group with its Seahawk and Poseidon if requisitioned, Kiwi 05 "
            "out of Ohakea. Neutral: the Chatham Islands freighter, two "
            "longliners, a whale. Opposing: one Type 039C on the surface, "
            "the tender MV Austral Compliance alongside her.",
@@ -60,7 +60,7 @@ MISSION = dict(
     neutral_objective="Neutrals",
     win="TANGO is on the bottom two hundred miles west of the Chathams, and "
         "the tender that fed her is steaming home with her name on file. "
-        "The first kill of the Tasman chapter, and the cleanest.",
+        "The first authorised kill in New Zealand's water, and the cleanest.",
     lose="The flagship is gone east of New Zealand, or the tender is, and "
          "the boat that lay on the cable is still at sea.",
     timeout="Seventy minutes and TANGO dived before you reached her. She "
@@ -117,13 +117,14 @@ MISSION = dict(
              "Flagship": ("protect", "escort")},
     declares=["TS03TenderNamed"],
     reveal_if=[dict(variable="TS01TenderNamed", units=["tender"], level="Classify",
-                    intel="Home Waters' picture: the tender at the rendezvous "
-                          "is AUSTRAL COMPLIANCE, the hull you named off "
-                          "Puysegur, and she is on your plot classified. She "
+                    intel="From Fiordland on the twenty-second: the tender at "
+                          "the rendezvous is AUSTRAL COMPLIANCE, the hull you "
+                          "named off Puysegur, and she is on your plot classified. She "
                           "is still not a target."),
                dict(variable="TS02SubNamed", units=["red_sub"], level="Classify",
-                    intel="Cook Strait's picture: the boat on the surface is "
-                          "TANGO, the Type 039C you classified on the corridor, "
+                    intel="From Cook Strait on the twenty-fifth: the boat on the "
+                          "surface is TANGO, the Type 039C you classified on the "
+                          "cable corridor, "
                           "and she is on your plot from the first minute. She is "
                           "a target now.")],
     window=dict(flights=[HELO, RECON]),

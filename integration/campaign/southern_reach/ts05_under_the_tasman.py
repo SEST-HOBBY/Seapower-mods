@@ -11,17 +11,19 @@ from campaign_data import U, F, S
 MISSION = dict(
     code="TS05", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 5",
     group="core", num="05", key="Under the Tasman", place="The cable corridor",
-    intro="Farncomb alone, weapons free, against the nuclear boat that "
-          "has screened the group since Cold Route. She is escorting the "
-          "survey ship along the cable. Depth and the layer are the mission.",
+    intro="HMAS Farncomb alone, weapons free, against ROMEO, the Type 093B "
+          "that has screened the group since the January voyages to Casey. "
+          "She is escorting a survey ship along the Tasman cable. Depth and "
+          "the layer are the mission.",
     special="No requisition, and nothing of your own force sails: this is "
-            "Farncomb's operation. What she sinks here is not in the "
-            "Southern Convoy or in the box at Southern Cross.",
+            "Farncomb's operation. What she sinks here does not sail "
+            "against the Southern Convoy or Southern Cross.",
     sender="Commodore Alex Mercer, for the Submarine Force",
-    intent=("The rules changed at Chatham Watch. ROMEO - the Type 093B that "
-            "crossed the track at Cold Route and lay under the last voyage "
-            "south - is on the cable corridor escorting the survey ship "
-            "that found the fault, with a frigate over the top and its "
+    intent=("The rules changed when Wellington authorised weapons on TANGO. "
+            "ROMEO - the Type 093B that crossed the convoy's track on 2 "
+            "January and lay under the last voyage south - is on the cable "
+            "corridor escorting AUSTRAL SURVEY, the survey ship that found "
+            "the cable fault, with a frigate over the top and its "
             "helicopter dipping. Farncomb is on the corridor ahead of them "
             "at periscope depth, weapons free. Sink the boat. The survey "
             "ship is a merchant hull under a state flag and she is not a "
@@ -35,7 +37,7 @@ MISSION = dict(
         "FARNCOMB is at periscope depth on the corridor, three hundred "
         "miles from the nearest coast, with the cable somewhere under her "
         "and a group coming up it from the south-west at eight knots.\\n\\n"
-        "RV AUSTRAL SURVEY, a survey ship, is following the "
+        "RV AUSTRAL SURVEY is following the "
         "cable with a towed array. ROMEO is under her, escorting; a Type "
         "054A is over the top of both with a Z-9 dipping ahead of them. "
         "The layer is at a hundred and twenty feet and the frigate's sonar "
@@ -59,9 +61,9 @@ MISSION = dict(
     win="ROMEO is on the bottom of the Tasman with the cable under her, "
         "and the survey ship has turned for home with her towed array "
         "still streaming. Farncomb goes deep. The Southern Convoy sails "
-        "without a boat beneath it.",
-    lose="Farncomb is lost under the Tasman. The boat that has screened "
-         "the group since Cold Route is still under it.",
+        "without her beneath it.",
+    lose="Farncomb is lost under the Tasman, and ROMEO, which has screened "
+         "the group since January, is still down there.",
     timeout="Seventy-five minutes and ROMEO has passed up the corridor "
             "with the survey ship over her. She is in the Southern Convoy's "
             "water by the nineteenth.",
@@ -104,13 +106,15 @@ MISSION = dict(
              "Farncomb": ("protect", "farncomb")},
     declares=["TS05RomeoSunk"],
     flags=[dict(name="TS05RomeoSunk", units=["red_sub"],
-                intel="ROMEO is gone. The boat that crossed the track at Cold "
-                      "Route and lay under Last Ship South is on the bottom "
+                intel="ROMEO is gone. The Type 093B that crossed the convoy's "
+                      "track on 2 January and lay under the last voyage south "
+                      "is on the bottom "
                       "of the Tasman. The Southern Convoy sails without her "
                       "beneath it.")],
     reveal_if=[dict(variable="TS03TenderNamed", units=["survey"], level="Classify",
-                    intel="Chatham Watch's picture: the survey ship on the "
-                          "corridor carries the tender's emitters - the same "
+                    intel="From the rendezvous east of New Zealand on 28 "
+                          "January: the survey ship on the corridor carries "
+                          "AUSTRAL COMPLIANCE's emitters - the same "
                           "navigation set, the same signals fit - and she is on "
                           "your plot classified. Where she is, the boat is "
                           "under her.")],

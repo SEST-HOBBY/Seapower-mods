@@ -41,15 +41,15 @@ MISSION = dict(
         "has been radiating a frigate's search radar since dawn: she is "
         "a decoy and a provocation, and she is a merchant. A Kilo is "
         "inside the strait somewhere south-west of the tanker's track. A "
-        "Type 056A with a Z-9 up is coming in from the east past the "
+        "Type 056A with a Z-9 up is coming in from the east, south of the "
         "platforms.\\n\\n"
         "The tanker to the western line. The platforms are not to be "
         "touched - a missile that finds a rig instead of a corvette ends "
-        "the campaign in a courtroom. East Sale's F-35As are on the CAP "
-        "row. The Kilo has not fired. Classify her if you can; sink her "
+        "the campaign in a courtroom. East Sale's F-35As are available "
+        "for fighter cover. The Kilo has not fired. Classify her if you can; sink her "
         "if she does."),
-    forces="Your task group with its Seahawk, Poseidon and fighters if "
-           "bought, East Sale's fighters on the CAP row, the tanker Bass "
+    forces="Your task group with its Seahawk, Poseidon and East Sale "
+           "fighters if requisitioned; the tanker Bass "
            "Provider. Neutral: two Devonport ferries, a bulker, two rig "
            "supply boats, three platforms, an airliner. Opposing: MV "
            "Southern Compliance radiating a frigate's radar, one Kilo, one "
@@ -157,8 +157,8 @@ MISSION = dict(
                 flights=[HELO, RECON, CAP],
                 situation="Melbourne, after Under the Tasman. Requisition, "
                           "repair and rearm before Bass Strait. The next window "
-                          "is Sydney, before Southern Air Bridge, where "
-                          "Williamtown's airbase preparation opens."),
+                          "is Sydney, before Southern Air Bridge, when "
+                          "Williamtown's ground crews first ready aircraft for you."),
     role="escort",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 250, 10

@@ -3885,7 +3885,7 @@ WINDOWS = {
     # as-is"): no rows, no slots, no airbase prep - the aircraft are the
     # mission's own and the player flies what is placed.
     "08": dict(),
-    "09": dict(buy=True, situation="Requisition before Southern Lifeline. Common Sea gets no builder and its rearm depends on the service window; the next window is before Fujian's Shadow.", allow=BUY_09, repair=True, rearm=True, flights=[HELO, RECON]),
+    "09": dict(buy=True, situation="Requisition before Southern Lifeline. There is no requisition before Common Sea, and its rearm depends on the service window; the next window is before Fujian's Shadow.", allow=BUY_09, repair=True, rearm=True, flights=[HELO, RECON]),
     # No ordinary hull purchases and no paid repair; the rearm is the
     # scheduled fallback, not a proved conditional gate.
     # The F-2As are the detachment's own anti-ship sortie, not a CAP slot
@@ -3898,7 +3898,7 @@ WINDOWS = {
     # Aircraft replacement and repair only: no new hulls, no general rearm.
     # The finale flies what it sells: a CAP row for the fighters (Darwin is
     # the placed field), the helicopter and patrol rows.
-    "12": dict(buy=True, situation='Final requisition: aircraft, a replacement hull or two, and repairs. Nothing bought here outlives the campaign.', allow=BUY_12, repair=True,
+    "12": dict(buy=True, situation='Final requisition: aircraft, a replacement hull or two, and repairs. Nothing requisitioned here outlives the campaign.', allow=BUY_12, repair=True,
            flights=[HELO, RECON, CAP], airbase_prep=True),
 }
 

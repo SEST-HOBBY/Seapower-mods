@@ -12,19 +12,19 @@ MISSION = dict(
     code="TS09", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 9",
     group="core", num="09", key="The Southern Convoy", place="South of Portland",
     intro="Five hulls for Adelaide and Melbourne, the whole force and "
-          "every aircraft it can task, against the carrier, the flagship "
-          "destroyer, the air wing and whatever is still under the water.",
+          "every aircraft it can task, against Liaoning, her air wing, the "
+          "group's Type 052D flagship and whatever is still under the water.",
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the "
-           "strike and fighter rows",
+           "strike and the fighter cover",
     intent=("This is the one. Five hulls with a month of Adelaide's and "
             "Melbourne's cargo in them, the whole force, Edinburgh's "
-            "fighters, Poseidon and Wedgetail and the Super "
-            "Hornets on the Attack row for the first time. The group is "
+            "fighters, Poseidon and Wedgetail, and for the first time Super "
+            "Hornets tasked to strike. The group is "
             "eighty miles south-west with its flagship destroyer in the "
             "line, and it means to break the convoy here because it "
             "cannot break it off Sydney. Four of five into the split point "
-            "off Portland. Whatever the chapter left alive under the water "
-            "is under this convoy - Farncomb and the Bight decided that, "
+            "off Portland. Whatever Farncomb and the Bight search left alive "
+            "under the water is under this convoy; they decided that, "
             "not me. Use everything."),
     date=(2029, 2, 19), time=(10, 0), sea=5, clouds="Broken_3", wind="SW",
     difficulty=4, minutes=90, centre=(-38.6, 140.5),
@@ -40,20 +40,20 @@ MISSION = dict(
         "stopped pretending: LIAONING, the Type 052D that has commanded "
         "the group since October, two frigates and a corvette, three J-15s "
         "with anti-ship missiles and a J-15D with them, a Ka-31 and a Z-18F "
-        "up. If Under the Tasman missed ROMEO she is under the convoy; if "
-        "the Bight missed SIERRA-TWO, so is she.\\n\\n"
+        "up. If Farncomb missed ROMEO on the fourth, she is under the "
+        "convoy; if the Bight search missed SIERRA-TWO, so is she.\\n\\n"
         "You have the whole force: the Seahawk, Edinburgh's Poseidon and "
-        "WEDGETAIL 05, Edinburgh's F-35As on the CAP row, and for the "
-        "first time the Super Hornets and Growlers on the Attack row, "
+        "WEDGETAIL 05, Edinburgh's F-35As for fighter cover, and for the "
+        "first time Super Hornets and Growlers tasked to strike, "
         "recovering at Edinburgh. A coastal ro-ro, a bulker and the "
         "Melbourne-Perth service are in the box. Four of five to the "
         "split point."),
     forces="Your whole task group with its Seahawk, Poseidon, Wedgetail, "
-           "fighters and strike aircraft if bought; Wedgetail 05. Five "
+           "fighters and strike aircraft if requisitioned; Wedgetail 05. Five "
            "convoy hulls. Neutral: a coastal ro-ro, a bulker, an airliner. "
            "Opposing: Liaoning, a Type 052D, two Type 054A, a Type 056A, "
            "three J-15 with anti-ship missiles, a J-15D, a Ka-31, a Z-18F, "
-           "and ROMEO and SIERRA-TWO if the chapter left them alive.",
+           "and ROMEO and SIERRA-TWO if Farncomb and the Bight search left them alive.",
     objectives=[
         ("Convoy", "Four of five convoy hulls into the split point off "
                    "Portland", "45,-45,Fail,Main"),
@@ -181,8 +181,9 @@ MISSION = dict(
                 flights=[HELO, RECON, CAP, STRIKE],
                 situation="Adelaide, before the Southern Convoy. Requisition, "
                           "repair and rearm everything: the convoy sails the "
-                          "whole force with every Air Tasking row, and the "
-                          "optional priorities after it have no builder. The "
+                          "whole force with every aircraft it can task, and "
+                          "there is no requisition before the optional "
+                          "priorities after it. The "
                           "next window is Sydney, before Approaches."),
     role="fleet",
 )

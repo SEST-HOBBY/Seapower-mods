@@ -12,11 +12,11 @@ from campaign_data import U, F, S, HELO, RECON, CAP
 MISSION = dict(
     code="TS12", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 12",
     group="core", num="12", key="Southern Cross", place="Mid-Tasman",
-    intro="The relief convoy to New Zealand, a group withdrawing under "
-          "the ceasefire, and a spoiler that has not read it. Three of "
+    intro="The relief convoy to New Zealand, two ships withdrawing under a "
+          "nine-hour-old ceasefire, and a frigate that has not read it. Three of "
           "four hulls across, Coral Pioneer among them. The ledger closes "
           "here.",
-    special="The last mission. Nothing bought here outlives the campaign; "
+    special="The last mission. Nothing requisitioned here outlives the campaign; "
             "there is no rearm. The withdrawing group is neutral under "
             "the ceasefire and is not to be fired on.",
     sender="Commodore Alex Mercer",
@@ -27,9 +27,9 @@ MISSION = dict(
             "it, and neither is whatever is under her or over her. The "
             "relief convoy - four hulls, Coral Pioneer among them - goes "
             "to New Zealand today and three of four get there. Fire on "
-            "the spoiler when she fires. Do not fire on the withdrawing "
-            "group, whatever it does, because the ceasefire is the thing "
-            "we sailed to get. This is the last one. Bring the escorts "
+            "that frigate - the spoiler - when she fires. Do not fire on the "
+            "withdrawing group, whatever it does, because the ceasefire is "
+            "what three months at sea were for. This is the last one. Bring the escorts "
             "home."),
     date=(2029, 3, 2), time=(9, 15), sea=4, clouds="Scattered_2", wind="SW",
     difficulty=4, minutes=75, centre=(-40.5, 155.5),
@@ -40,25 +40,25 @@ MISSION = dict(
         "freighter AOTEAROA RELIEF, the bulker WAIRAU TRADER and the "
         "tanker TASMAN SPIRIT, eleven knots, east for Auckland, with "
         "your escorts - what the Tasman left of them - and KIWI 05 and "
-        "WEDGETAIL 05 up. East Sale's and Williamtown's fighters are on "
-        "the CAP row at the end of their reach.\\n\\n"
+        "WEDGETAIL 05 up. East Sale's and Williamtown's F-35As can give "
+        "you fighter cover at the end of their reach.\\n\\n"
         "Two groups are in the box. The WITHDRAWING GROUP - a Type 054A "
-        "and the Qiongsha - is forty miles east steaming north under the "
+        "and the Qiongsha-class supply ship - is forty miles east steaming north under the "
         "ceasefire, complying, and is neutral. The SPOILER is a second "
         "Type 054A south-west of the convoy on a course to intercept it, "
         "with the research trawler NAN HAI 27 ahead of her, ROMEO under "
-        "her if Farncomb missed the boat, and a J-15 pair coming if the "
-        "carrier is afloat to send it.\\n\\n"
+        "her if Farncomb missed her on 4 February, and a J-15 pair coming "
+        "if LIAONING is afloat to send it.\\n\\n"
         "Three of four into the box east, Coral Pioneer among them. The "
         "spoiler is a target when she fires; the withdrawing group is not "
         "a target at all. A Tasman bulker and the Sydney-Wellington "
         "service are in the box. Seventy-five minutes and it is over."),
     forces="Your task group with its Seahawk, Poseidon and fighters if "
-           "bought, Kiwi 05, Wedgetail 05. Four convoy hulls. Neutral: the "
+           "requisitioned, Kiwi 05, Wedgetail 05. Four convoy hulls. Neutral: the "
            "withdrawing Type 054A and the Qiongsha under the ceasefire, a "
            "bulker, an airliner. Opposing: the spoiler Type 054A, the "
            "research trawler Nan Hai 27, ROMEO if she is alive, a J-15 pair "
-           "if the carrier is.",
+           "if Liaoning is.",
     objectives=[
         ("Convoy", "Three of four convoy hulls into the box east, Coral "
                    "Pioneer among them", "40,-40,Fail,Main"),
@@ -171,12 +171,12 @@ MISSION = dict(
              "Escorts": ("protect", "escort"),
              "Wedgetail": ("protect", "aew")},
     reveal_if=[dict(variable="SR03CrewRecovered", units=["agi"], level="Identify",
-                    intel="Search Datum's ledger: the collector that came to "
-                          "take the airlink's crew off Nan Hai 24 in December "
-                          "is NAN HAI 27, and she is ahead of the spoiler as her "
+                    intel="From the Wilkins airlink search on 12 December: the "
+                          "collector that was coming to take the crew off "
+                          "Nan Hai 24 is NAN HAI 27, and she is ahead of the spoiler as her "
                           "spotter. She is on your plot identified. Everything "
-                          "the spoiler knows about this convoy, she is telling "
-                          "her.")],
+                          "the spoiler knows about this convoy, the collector "
+                          "is telling her.")],
     window=dict(buy=True, repair=True,
                 allow=["ran_ffh_anzac", "ran_opv_arafura", "usn_mh-60r", "usn_p8",
                        "raaf_mq-4c_triton", "E7A_Wedgetail", "raaf_f-35a",
@@ -184,8 +184,8 @@ MISSION = dict(
                 flights=[HELO, RECON, CAP],
                 situation="Sydney, the last window. Requisition and repair "
                           "before Southern Cross; no rearm - the magazines are "
-                          "what Approaches left in them. Nothing bought here "
-                          "outlives the campaign."),
+                          "what the fleet action on the twenty-sixth left in "
+                          "them. Nothing requisitioned here outlives the campaign."),
     role="escort",
 )
 MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 80, 15

@@ -12,19 +12,21 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="TS02", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 2",
     group="core", num="02", key="Cook Strait", place="Cook Strait",
-    intro="The cable ship has to hold the declared corridor while the "
-          "ferries cross, with a boat at periscope depth on the corridor "
-          "and a corvette coming up from the south to inspect her.",
+    intro="The cable ship Tasman Reliance has to hold the declared corridor "
+          "while the ferries cross, with a submarine at periscope depth on "
+          "it and a Type 056A coming up from the south to inspect her.",
     special="Choose a detachment: the strait is twelve miles wide and the "
-            "whole force will not fit in it usefully. No builder before "
-            "this mission or the next.",
+            "whole force will not fit in it usefully. No requisition, "
+            "repair or rearm before this operation or the next.",
     sender="Commander Tessa Brand, RNZN, HQ Joint Forces New Zealand",
     intent=("The Tasman cable comes ashore at Oteranga Bay and TASMAN "
-            "RELIANCE is repairing the fault the survey ship found in it. "
+            "RELIANCE is repairing the fault the survey ship AUSTRAL SURVEY "
+            "found in it. "
             "She needs twenty-five minutes inside the declared corridor and "
             "then a clear run to Wellington's approach. A submarine has been "
-            "on the corridor at periscope depth since dawn and the corvette "
-            "from Lyttelton is coming up from Cape Campbell to 'inspect' "
+            "on the corridor at periscope depth since dawn, and the corvette "
+            "that tried the same thing on a tanker off Lyttelton in December "
+            "is coming up from Cape Campbell to 'inspect' "
             "her under some regulation nobody has read. Keep the cable ship "
             "in the box, keep the ferries crossing, and keep it from "
             "becoming the first shot of the Tasman war. Nothing red has "
@@ -33,7 +35,7 @@ MISSION = dict(
     difficulty=3, minutes=60, centre=(-41.55, 174.45),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "COOK STRAIT, late morning, a northerly building. CS TASMAN RELIANCE "
+        "COOK STRAIT, late morning, a north-westerly building. CS TASMAN RELIANCE "
         "- a cable repair ship - is on the declared corridor "
         "twelve miles south-west of Oteranga Bay with the Tasman cable's "
         "fault under her. The corridor is a box on a chart, five miles "
@@ -41,15 +43,16 @@ MISSION = dict(
         "run, and then make Wellington's approach.\\n\\n"
         "Two Interislander ferries are crossing - Wellington to Picton and "
         "back - with a Marlborough fishing boat, a coastal tanker and the "
-        "Wellington-Christchurch service in the same box. TANGO, the boat "
-        "from Fiordland, is at periscope depth on the corridor. The Type "
-        "056A that tried to inspect the tanker off Lyttelton is coming up "
+        "Wellington-Christchurch service in the same box. TANGO, the Type "
+        "039C reported off Fiordland on the twenty-second, is at periscope "
+        "depth on the corridor. The Type 056A that tried to inspect a tanker "
+        "off Lyttelton on 28 December is coming up "
         "from Cape Campbell, weapons tight, to try again.\\n\\n"
         "Your detachment is five miles south-south-east of the cable ship, on the corridor's southern edge. KIWI 05 is "
         "out of Ohakea. Hold the corridor, get the cable ship to the "
         "approach, classify the boat if you can. Fire on nothing that has "
         "not fired; a ferry in this strait is a thousand people."),
-    forces="Your detachment with its Seahawk and Poseidon if bought, Kiwi "
+    forces="Your detachment with its Seahawk and Poseidon if requisitioned, Kiwi "
            "05 out of Ohakea, the cable ship Tasman Reliance. Neutral: two "
            "Interislander ferries, a fishing boat, a coastal tanker, an "
            "airliner. Opposing: one Type 039C at periscope depth, one Type "
@@ -81,9 +84,9 @@ MISSION = dict(
         "is how it should be.'",
     lose="The cable ship is lost in the strait, or a ferry is, and the "
          "Tasman war has its first hull.",
-    timeout="Sixty minutes and the cable ship is still short of the "
-            "approach with the corvette closing. Wellington's cable is "
-            "spliced and the strait belongs to whoever is left in it.",
+    timeout="Sixty minutes and the cable ship is still short of "
+            "Wellington's approach with the corvette closing. The strait "
+            "belongs to whoever is left in it.",
     stations={
         # The corridor 12 NM south-west of Oteranga; the detachment 8 NM
         # east; the boat on the corridor 10 NM west of the cable ship; the
@@ -143,9 +146,10 @@ MISSION = dict(
              "Flagship": ("protect", "escort")},
     declares=["TS02SubNamed"],
     reveal_if=[dict(variable="SR08CorvetteNamed", units=["red_056"], level="Classify",
-                    intel="The Gateway's picture: the corvette coming up from "
-                          "Cape Campbell is the one that tried to inspect the tanker "
-                          "off Lyttelton, and she is on your plot classified. Her "
+                    intel="From Pegasus Bay on 28 December: the corvette coming "
+                          "up from Cape Campbell is the Type 056A that tried to "
+                          "inspect the tanker Canterbury Spirit off Lyttelton, "
+                          "and she is on your plot classified. Her "
                           "captain has done this before.")],
     window=dict(detachment=True, flights=[HELO, RECON]),
     role="patrol",

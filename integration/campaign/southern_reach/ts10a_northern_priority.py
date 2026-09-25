@@ -13,17 +13,18 @@ MISSION = dict(
     code="TS10A", series="Tasman Shield", seq="TASMAN SHIELD  ·  OPTIONAL",
     group="optional", num="10A", key="Northern Priority",
     place="The Hauraki Gulf approaches",
-    intro="The group's northern element is trying to set up a compliance "
-          "station off the Colville Channel with the Auckland traffic in "
-          "the way. Hold the approaches with a detachment, or hold "
-          "Adelaide's instead.",
+    intro="A corvette, Nan Hai 27 and the tender Austral Compliance are "
+          "setting up a 'compliance station' off the Colville Channel, "
+          "across Auckland's traffic. Hold these approaches with a "
+          "detachment, or hold Adelaide's instead.",
     special="Optional, and one of a pair: a detachment can hold Auckland's "
             "approaches, Adelaide's, or both before Approaches. "
             "Whichever is not held reinforces the group in the western "
             "Tasman. Expires when Approaches is complete.",
     sender="Commander Tessa Brand, RNZN, HQ Joint Forces New Zealand",
-    intent=("After Portland the group has split what it has left: a "
-            "corvette, the collector and the tender have come round North "
+    intent=("After the convoy action off Portland the group has split what "
+            "it has left: a Type 056A, the collector NAN HAI 27 and the "
+            "tender AUSTRAL COMPLIANCE have come round North "
             "Cape and are trying to establish a 'compliance station' off "
             "the Colville Channel, which is a way of saying they intend to "
             "stop the Auckland traffic and inspect it. HAURAKI TRADER is "
@@ -43,7 +44,7 @@ MISSION = dict(
         "ferry, the Tauranga container service outbound, two fishing "
         "boats and the Auckland-Sydney service are in the same water, "
         "which is narrow.\\n\\n"
-        "Off the Colville Channel, fifteen miles north-east, a Type 056A, "
+        "Off the Colville Channel, eighteen miles north-east, a Type 056A, "
         "the research trawler NAN HAI 27 and MV AUSTRAL COMPLIANCE are "
         "steaming slow circles and broadcasting a 'compliance station' on "
         "the port's working channel: an intention to stop and inspect. "
@@ -52,8 +53,8 @@ MISSION = dict(
         "Whenuapai, thirty miles away. Get HAURAKI TRADER to the Rangitoto "
         "approach, classify the tender, harm nothing that is New "
         "Zealand's. Hold this and the northern element stays here instead "
-        "of joining the group off Sydney."),
-    forces="Your detachment with its Seahawk and Poseidon if bought, Kiwi "
+        "of joining the group in the western Tasman."),
+    forces="Your detachment with its Seahawk and Poseidon if requisitioned, Kiwi "
            "05 out of Whenuapai, the container ship Hauraki Trader. "
            "Neutral: the Tauranga container service, the Great Barrier "
            "ferry, two fishing boats, an airliner. Opposing: one Type 056A, "

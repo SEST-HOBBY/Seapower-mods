@@ -223,14 +223,80 @@ Give the Russians their own picture: '0310 BEAR 02 surface search: HOBART-class 
 
 ### Southern Reach - story pages
 
-_Not reviewed yet._
+**lore.py 02_sitrep body para 3 (this slice has no intel= strings; these are story-page track reports)**
+
+> The carrier the Austral Meridian net spoke of on the seventeenth has been seen leaving the Java Sea, heading south-east.
+
+Make it a dated satellite pass: e.g. 'A commercial imaging pass at 0215Z on the 22nd put the carrier and two escorts in the Lombok Strait approaches, course 160, 16 knots.'
+
+**lore.py 04_sitrep body para 2**
+
+> Its carrier, its escorts, its collector, its replenishment hull and the Russian tender Akademik Fersman are in company, transiting east of Tasmania into the Tasman at fourteen knots
+
+Give it as a Triton track: e.g. 'SENTRY 22, 2140Z 12 Jan: six hulls in company at 43 30S 149 50E, course 040, 14 knots, Ka-31 up; held continuously since 0600Z.'
+
+**lore.py 03b_intsum body para 2**
+
+> Its command element has moved to the ice edge at 60 South with the fishing fleet, across the route to Casey.
+
+Add source, time and age of the last fix: e.g. 'Last held by BLUEFIN 32 at 0410Z 4 Jan, 60 05S 118 20E, stationary over the fishing fleet; no track since, the Triton is grounded at Hobart.'
+
+**lore.py 06_sitrep body para 2**
+
+> Its carrier has moved into the middle of the Tasman, and its air wing has been flying over the Sydney-Auckland airway for four days.
+
+Cue it from the Wedgetail and a P-8: e.g. 'WEDGETAIL 05 has held J-15 pairs crossing the Sydney-Auckland airway near 38S 160E on four consecutive days; carrier last fixed by a P-8 at 0300Z 30 Jan, course 070, 12 knots.'
 
 ### Southern Reach - SR01 to SR12
 
-_Not reviewed yet._
+**sr02_silent_track.py, victory after-stage intel (classify VICTOR)**
+
+> VICTOR classified: an Akula-class nuclear boat, running north-east along the ridge at eight knots. Rewi's crew has the datum logged for Wellington and Canberra both. Take Collins east, off her track, and do not give her a reason.
+
+Make it a KIWI 05 buoy-field track report: 'KIWI 05, 0525: VICTOR held on the field, Akula-class, 50°03'S 163°09'E, course 040, 8 kn, below the layer; track passed to COLLINS, Wellington and Canberra. Collins open east.'
+
+**sr05_empty_horizon.py, victory after-stage intel (classify the 054A and 056A)**
+
+> Sentry 22 has them: a Type 054A and a Type 056A holding station south of the fleet with the collector in company. The command element has a class. Bring the Triton north.
+
+Time-stamped Triton radar/ESM report: 'SENTRY 22, 1125: Type 054A and Type 056A at 57°18'S 148°24'E, course 090, 5 kn, NAN HAI 27 in company, Ka-31 radiating; HQ-16 envelope 40 NM around the frigate. Sentry 22 returning north.'
+
+**sr10_southern_line.py, victory after-stage intel (classify Liaoning and Nan Hai 27)**
+
+> The carrier is LIAONING, and the collector is the same Nan Hai 27 that shadowed the Storm Bay convoy on 6 December. The group has a name, a flagship and a face.
+
+With the Poseidons and Triton grounded, cue it from a satellite pass: 'Allied SAR satellite pass, 1130: carrier-sized return at 60°24'S 118°18'E, course 090, 4 kn, three escorts; Seahawk FLIR confirms LIAONING and NAN HAI 27 by hull number.'
+
+**sr12_turning_north.py, victory after-stage intel (classify the network)**
+
+> The network has names: LIAONING, a Qiongsha-class replenishment ship, and NAN HAI 27 - the collector that shadowed the Storm Bay convoy on 6 December. Sydney and Wellington have the picture.
+
+Wedgetail track update: 'WEDGETAIL 05, 1010: group at 40°12'S 152°12'E, course 040, 14 kn; LIAONING, Qiongsha-class AOR and NAN HAI 27 classified by ESM and F-35A imagery; track passed to MHQ Sydney and Wellington.'
 
 ### Southern Reach - Tasman Shield TS01 to TS12
 
-_Not reviewed yet._
+**integration/campaign/southern_reach/ts01_home_waters.py reveal_if SR12NetworkNamed intel**
+
+> From the shadowing on 14 January: NAN HAI 27, the research trawler you named as the group turned north into the Tasman, is east of the tender, and she is on your plot as a classified contact.
+
+KIWI 05, 0907: NAN HAI 27 held on ESM and radar at 46-33S 166-06E, 33 NM east of AUSTRAL COMPLIANCE, course 080, 6 kn; her emitters match the 14 January file.
+
+**integration/campaign/southern_reach/ts03_chatham_watch.py reveal_if TS02SubNamed intel (and brief para 1)**
+
+> From Cook Strait on the twenty-fifth: the boat on the surface is TANGO, the Type 039C you classified on the cable corridor, and she is on your plot from the first minute.
+
+KIWI 05, 0400: surfaced Type 039C and AUSTRAL COMPLIANCE stopped together at 44-03S 179-18E, hose rigged, 60 NM bearing 093 from the task group; a 0540 satellite pass shows both still stopped.
+
+**integration/campaign/southern_reach/ts04_tasman_crossing.py reveal_if SR12NetworkNamed intel**
+
+> From the shadowing on 14 January: the frigate with the carrier is the Type 054A that sailed with LIAONING into the Tasman, and she is on your plot classified.
+
+WEDGETAIL 05, 1300: LIAONING and a Type 054A (ELINT match to 14 January) at 41-00S 161-12E, course 320, 15 kn, 196 NM bearing 140; three J-15s airborne 120 NM out, closing group B at 450 kn.
+
+**integration/campaign/southern_reach/ts12_southern_cross.py reveal_if SR03CrewRecovered intel**
+
+> the collector that was coming to take the crew off Nan Hai 24 is NAN HAI 27, and she is ahead of the spoiler as her spotter.
+
+WEDGETAIL 05, 0915: NAN HAI 27 at 40-21S 155-45E, course 080, 6 kn, HF bursts every ten minutes; the spoiler Type 054A 30 NM south-south-west of the convoy, course 040, 18 kn, closing.
 
 <!-- isr-notes:end -->
