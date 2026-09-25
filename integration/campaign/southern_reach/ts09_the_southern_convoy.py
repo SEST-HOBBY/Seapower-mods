@@ -167,7 +167,7 @@ MISSION = dict(
           name="MV Kingston (Portland-Whyalla)",
           route=[(-37.60, 139.20, 0)], telegraph=3),
         U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner",
-          name="Melbourne-Perth 471"),
+          name="Melbourne-Perth 471", airway=(-31.94, 115.97)),  # Perth
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_edinburgh", "edinburgh",
           name="RAAF Base Edinburgh", nation="australia", weapons="Hold"),
     ],

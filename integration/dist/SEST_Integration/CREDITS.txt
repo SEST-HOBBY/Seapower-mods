@@ -5,14 +5,14 @@ textures and no audio - every one of those belongs to the Workshop
 mod it came from, which is why REQUIRED-MODS.txt lists them as
 required rather than suggested.
 
-81 of the unit files here are another author's file with
+82 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 81 below
+every file of its kind in the collection, and the 82 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
@@ -45,6 +45,7 @@ file is unchanged.
 
   Boeing P-8 Poseidon  (workshop 3602046770)
        99%  aircraft/usn_p8.ini 
+       97%  aircraft/usn_p8_squadrons.ini 
 
   Dassault Rafale  (workshop 3504168760)
        95%  aircraft/fr_rafale_b_l.ini 

@@ -128,7 +128,7 @@ MISSION = dict(
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic INDIA",
           depth="shallow"),
         U("blue", "_vanilla", "airfield_small_1", "home",
-          name="Invercargill Airport (RNZAF/RAAF detachment)", nation="New Zealand",
+          name="Invercargill Airport (RNZAF/RAAF detachment)", nation="NewZealand",
           weapons="Hold"),
     ],
     resolve={"Coaster": "victory", "Neutrals": "neutral",

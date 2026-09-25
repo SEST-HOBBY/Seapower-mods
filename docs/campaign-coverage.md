@@ -8,9 +8,9 @@ The campaign is 26 missions built from 374 placed units. Every mod in the canoni
 |---|---|---|
 | `unit` | places the unit; this mod wins its file | 131 |
 | `variant` | supplies the hull variant the placed unit uses | 3 |
-| `squadron` | supplies the squadron the placed airframe flies from | 9 |
+| `squadron` | supplies the squadron the placed airframe flies from | 8 |
 | `store` | supplies a round the placed unit's loadout hangs | 6 |
-| `asset` | supplies a model folder the placed unit's file draws from | 1 |
+| `asset` | supplies a model folder the placed unit's file draws from | 2 |
 | `library` | ships no file a mission can name — systems, effects, UI or a bare dependency marker — and applies install-wide | 6 |
 | `shadowed` | every file it ships is outranked by something above it; nothing it contains can load | 2 |
 | `campaign` | this pack - the campaign being measured | 1 |
@@ -115,7 +115,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `murder-hornet` | F/A-18 Murder Hornet with AIM-174B | `unit` | usn_cvn_nimitz_2000s | Flight Deck Day |
 | `mv-22b-osprey` | MV-22B Osprey Tiltrotor / JGSDF V-22B | `unit` | mv22b_osprey | Rig Seventeen |
 | `nimitz-expanded` | Nimitz Expanded | `shadowed` | ships one file, `vessels/usn_cvn_nimitz_variants.ini`, which SEST Collection Fixes replaces - that patch is why it exists | - |
-| `p-8-poseidon` | Boeing P-8 Poseidon | `squadron` | usn_p8 | White Water |
+| `p-8-poseidon` | Boeing P-8 Poseidon | `asset` | usn_p8 / aircraft/P8_Poseidon/Upgrade | White Water |
 | `pickup-truck-extension` | Pickup truck extension | `unit` | civ_car_pickup_1983_assault_civ | Rig Seventeen |
 | `pla-land-unit-pack` | PLA Land Unit Pack | `unit` | pla_df-21c_tel | The Open Door |
 | `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plaaf_j16 / plaaf_pl-15 | Blind Horizon |

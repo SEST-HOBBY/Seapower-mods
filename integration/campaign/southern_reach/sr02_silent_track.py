@@ -116,7 +116,7 @@ MISSION = dict(
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic ECHO",
           depth="shallow"),
         U("blue", "SEST_RAAF_Bases", "airbase_rnzaf_ohakea", "home",
-          name="RNZAF Base Ohakea", nation="New Zealand", weapons="Hold"),
+          name="RNZAF Base Ohakea", nation="NewZealand", weapons="Hold"),
     ],
     resolve={"Track": "victory", "Traffic": "neutral",
              "Restraint": ("spare", "red_sub"),

@@ -27,7 +27,7 @@ and hull variants they name, and the rounds their loadouts hang.
   3480965706    a unit a mission places          B-2 Spirit
   3394781441    a unit a mission places          B-52G with AGM-86 (realistic nuke)
   3741944366    a squadron a flight comes from   B-52H Stratofortress
-  3602046770    a squadron a flight comes from   Boeing P-8 Poseidon
+  3602046770    a model a placed unit draws      Boeing P-8 Poseidon
   3600788156    a unit a mission places          Buildings and Targets for Missions
   3801363152    a unit a mission places          CH-53E Standalone v0.1.0
   3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)

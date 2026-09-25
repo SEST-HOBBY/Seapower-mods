@@ -129,7 +129,7 @@ MISSION = dict(
         U("red", "modern-plan-systems", "plan_ka-31", "red_helo", name="Ka-31 eye",
           alt=9000, weapons="Hold", loadout="AEW"),
         U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner",
-          name="Sydney-Auckland 145"),
+          name="Sydney-Auckland 145", airway=(-37.01, 174.79)),  # Auckland
         U("neutral", "_vanilla", "civ_ms_ivan_franko", "cruise",
           name="MV Coral Princess Royal (Auckland-Sydney cruise)",
           route=[(-39.50, 157.50, 0)], telegraph=3),

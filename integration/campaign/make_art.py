@@ -133,7 +133,7 @@ def card(ini, out_png, num, title, date, place, standfirst, label="SOUTHERN WATC
     d.line([(L, y), (L+300, y)], fill=BLUE, width=7); y += 40
     d.text((L+4, y), place.upper(), font=font(46), fill=INK_MUTE)
     d.text((L+4, CH-118), label, font=font(34, True, mono=True), fill=INK_MUTE)
-    d.text((L+4, CH-72), "OWN FORCE ONLY · OPPOSITION NOT SHOWN",
+    d.text((L+4, CH-72), "OWN FORCES · CONTACTS NOT PLOTTED",
            font=font(26, mono=True), fill=(96, 98, 100))
     img = img.resize((SHEET_W, SHEET_H), Image.LANCZOS)
     img.save(out_png)
@@ -225,8 +225,14 @@ def dispatch(out_png, masthead, dateline, headline, sub, body, label="SOUTHERN W
         per = max(1, (floor - top) // LH)
         if len(lines) <= per * 2:
             break
-    half = min(per, (len(lines) + 1) // 2)
-    for i, col in enumerate((lines[:half], lines[half:half + per])):
+    else:
+        # Never set a page that drops its last paragraph: Southern Reach's
+        # first draft lost its closing orders this way. Say so and stop.
+        raise SystemExit(f"{Path(out_png).name}: the front page needs {len(lines)} "
+                         f"lines at {size}pt and has room for {per * 2} - shorten "
+                         "the body, the sub or the headline")
+    left, right = _split_columns(lines, per)
+    for i, col in enumerate((left, right)):
         cx, cy = M + i * (CW + GAP), top
         for line in col:
             if line: d.text((cx, cy), line, font=fnt, fill=PAPER_INK)
@@ -241,6 +247,46 @@ def dispatch(out_png, masthead, dateline, headline, sub, body, label="SOUTHERN W
     img.save(out_png)
     print(f"wrote {Path(out_png).name}  {W}x{H}  "
           f"{len(lines)} body lines at {size}pt")
+
+
+def _split_columns(lines, per):
+    """Two newspaper columns from wrapped lines ('' marks a paragraph break).
+
+    An even split by line count ignores the paragraphs, and on Southern
+    Reach's front page it stranded one word of a sentence ("Tasmania.") at the
+    head of the second column. Every split point that fits both columns is
+    scored: a paragraph break costs nothing, a break inside a paragraph costs
+    a little if at least two of its lines stay on each side and a lot if one
+    is stranded, and the columns should come out close to level.
+    """
+    n = len(lines)
+    best = None
+    for i in range(1, n + 1):
+        left = lines[:i]
+        right = lines[i:]
+        while right and right[0] == "":
+            right = right[1:]
+        while left and left[-1] == "":
+            left = left[:-1]
+        if len(left) > per or len(right) > per:
+            continue
+        at_break = (i == n) or lines[i - 1] == "" or lines[i] == ""
+        if at_break:
+            cost = 0
+        else:
+            j = i
+            while j > 0 and lines[j - 1] != "":
+                j -= 1
+            k = i
+            while k < n and lines[k] != "":
+                k += 1
+            cost = 4 if (i - j >= 2 and k - i >= 2) else 60
+        score = cost + abs(len(left) - len(right))
+        if best is None or score < best[0]:
+            best = (score, left, right)
+    if best is None:
+        raise SystemExit("front page: the body does not fit two columns")
+    return best[1], best[2]
 
 
 def render_all(camp_dir, missions, events, slug, title, subtitle,
@@ -291,7 +337,8 @@ def render_all(camp_dir, missions, events, slug, title, subtitle,
                 e["entries"], note=e.get("note"), label=label)
         elif form == "intsum":
             intsum(art / f"{key}.png", e["org"], e["ref"], e["date"],
-                   e["subject"], e["body"], note=e.get("note"), label=label)
+                   e["subject"], e["body"], note=e.get("note"), label=label,
+                   **({"marking": e["marking"]} if e.get("marking") else {}))
         else:
             raise SystemExit(f"{e['file']}: unknown story form {form!r}")
         assets[e["file"]] = key
@@ -557,56 +604,88 @@ def signal(out_png, header, body, strap=None, note=None, label="SOUTHERN WATCH")
         d.rectangle([M-16, ny-16, W-M+16, H-80], outline=SIG_RULE, width=3)
         d.text((M, ny), "ANALYST NOTE", font=mono(22, True), fill=SIG_STRAP)
         _set_block(d, [note], M, ny+34, mono(21), W-2*M, 30, SIG_INK)
-    d.text((W-M, H-64), f"{label}  ·  FICTION", font=mono(20), fill=SIG_RULE, anchor="ra")
+    d.text((W-M, H-64), label, font=mono(20), fill=SIG_RULE, anchor="ra")
     img.save(out_png)
     print(f"wrote {Path(out_png).name}  {W}x{H}  signal, {len(body)} lines at {size}pt")
 
 
 def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH"):
-    """A deck log extract: ruled lines, a time column, a master's note.
+    """A deck log extract: a ruled page with a time column and a master's note.
 
     `entries` is a list of (time, text); a time of '' continues the previous
-    entry. `note` is the paragraph in the master's own hand at the foot.
+    entry. `note` is the master's remark, boxed at the foot. The heading sits
+    clear of the red margin rule, which runs only beside the entries; each
+    entry's wrapped lines hang under its first, ruled at the baseline; and
+    the type steps down until every entry fits - an entry is never dropped.
     """
     img = Image.new("RGB", (W, H), LOG_STOCK)
     d = ImageDraw.Draw(img)
-    M, TCOL = 120, 150
-    d.line([(M + TCOL - 24, 60), (M + TCOL - 24, H-60)], fill=LOG_MARGIN, width=2)
-    y = 88
-    d.text((M, y), ship.upper(), font=serif(44, True), fill=LOG_INK)
-    d.text((W-M, y+10), date.upper(), font=mono(26), fill=(100, 96, 90), anchor="ra")
-    y += 58
-    d.text((M, y), f"DECK LOG EXTRACT  ·  MASTER: {master.upper()}", font=mono(22), fill=(100, 96, 90))
-    y += 50
-    d.line([(M, y), (W-M, y)], fill=LOG_INK, width=2); y += 26
-    fnt, tf, lh = serif(27), mono(27, True), 44
-    floor = H - (260 if note else 110)
+    M = 120
+    muted = (100, 96, 90)
+
+    y = 84
+    d.text((M, y), ship.upper(), font=serif(46, True), fill=LOG_INK)
+    d.text((W-M, y+12), date.upper(), font=mono(26), fill=muted, anchor="ra")
+    y += 62
+    d.text((M, y), f"DECK LOG  ·  EXTRACT  ·  MASTER {master.upper()}",
+           font=mono(22), fill=muted)
+    y += 44
+    d.line([(M, y), (W-M, y)], fill=LOG_INK, width=3)
+    y += 14
+    d.text((M, y), "TIME", font=mono(18, True), fill=muted)
+    TCOL = 170
+    d.text((M + TCOL, y), "REMARKS", font=mono(18, True), fill=muted)
+    y += 34
+    top = y
+    floor = H - (300 if note else 120)
+
+    for size in (28, 27, 26, 25, 24, 23, 22, 21, 20):
+        fnt, tf = serif(size), mono(size, True)
+        lh, gap = int(size * 1.62), int(size * 0.55)
+        need = sum(len(_fit_lines(d, text, fnt, W - M - TCOL - M)) * lh + gap
+                   for _t, text in entries)
+        if top + need <= floor:
+            break
+
+    rule_x = M + TCOL - 28
     for t, text in entries:
         lines = _fit_lines(d, text, fnt, W - M - TCOL - M)
-        if y + lh * len(lines) > floor: break
-        if t: d.text((M, y), t, font=tf, fill=LOG_INK)
+        if t:
+            d.text((rule_x - 22, y), t, font=tf, fill=LOG_INK, anchor="ra")
         for line in lines:
-            d.line([(M, y+lh-8), (W-M, y+lh-8)], fill=LOG_RULE, width=1)
-            d.text((M + TCOL, y), line, font=fnt, fill=LOG_INK); y += lh
+            d.text((M + TCOL, y), line, font=fnt, fill=LOG_INK)
+            y += lh
+            d.line([(M, y - 10), (W-M, y - 10)], fill=LOG_RULE, width=1)
+        y += gap
+    d.line([(rule_x, top - 6), (rule_x, max(y, top + lh))], fill=LOG_MARGIN, width=2)
+
     if note:
-        ny = H - 236
-        d.line([(M, ny-14), (W-M, ny-14)], fill=LOG_INK, width=2)
-        _set_block(d, [note], M, ny, ImageFont.truetype(SER % "-Bold", 25), W-2*M, 36, LOG_INK)
-    d.text((W-M, H-64), f"{label}  ·  FICTION", font=mono(20), fill=LOG_RULE, anchor="ra")
+        box_top = H - 262
+        d.rectangle([M, box_top, W-M, H-98], outline=LOG_RULE, width=2)
+        d.text((M + 28, box_top + 22), "MASTER'S NOTE", font=mono(18, True), fill=LOG_MARGIN)
+        # a trailing "  - L.S." is a signature: set it right, never wrapped
+        sig = re.search(r"\s+-\s*([A-Z][A-Za-z.]{0,5}\.?)\s*$", note)
+        body = note[:sig.start()] if sig else note
+        _set_block(d, [body], M + 28, box_top + 56, serif(26), W - 2*M - 56, 38, LOG_INK)
+        if sig:
+            d.text((W - M - 28, H - 98 - 22), f"- {sig.group(1)}", font=serif(26, True),
+                   fill=LOG_INK, anchor="rd")
+    d.text((W-M, H-64), label, font=mono(20), fill=LOG_RULE, anchor="ra")
     img.save(out_png)
-    print(f"wrote {Path(out_png).name}  {W}x{H}  log, {len(entries)} entries")
+    print(f"wrote {Path(out_png).name}  {W}x{H}  log, {len(entries)} entries at {size}pt")
 
 
-def intsum(out_png, org, ref, date, subject, paras, note=None, label="SOUTHERN WATCH"):
-    """A typed intelligence summary with the one banner this campaign is
-    entitled to: FICTION. `paras` is a list of strings; a string starting
-    with a letter-and-dot ('a. ...') is a sub-paragraph and indents."""
+def intsum(out_png, org, ref, date, subject, paras, note=None, label="SOUTHERN WATCH",
+           marking="SECRET  //  RELEASABLE TO COALITION PARTNERS"):
+    """A typed intelligence summary under its security marking, top and
+    foot. `paras` is a list of strings; a string starting with a letter-and-
+    dot ('a. ...') is a sub-paragraph and indents."""
     img = Image.new("RGB", (W, H), RPT_STOCK)
     d = ImageDraw.Draw(img)
     M = 120
     for by in (0, H-56):
         d.rectangle([0, by, W, by+56], fill=RPT_BAND)
-        d.text((W/2, by+28), "FICTION  —  THIS IS A GAME DOCUMENT", font=mono(24, True),
+        d.text((W/2, by+28), marking, font=mono(24, True),
                fill=RPT_STOCK, anchor="mm")
     y = 96
     d.text((M, y), org.upper(), font=mono(24, True), fill=RPT_INK)

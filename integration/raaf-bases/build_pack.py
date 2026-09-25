@@ -160,7 +160,7 @@ BASES = {
     # transport wing, represented here by a KC-130 stand-in for the C-130J.
     "airbase_rnzaf_ohakea": {
         "name": "RNZAF Base Ohakea",
-        "nation": "New Zealand",
+        "nation": "NewZealand",
         "desc": "New Zealand's maritime patrol base: No. 5 Squadron P-8A Poseidon",
         "airgroup": [
             ("usn_p8", "Squadron6,4"),
@@ -168,7 +168,7 @@ BASES = {
     },
     "airbase_rnzaf_auckland": {
         "name": "RNZAF Base Auckland (Whenuapai)",
-        "nation": "New Zealand",
+        "nation": "NewZealand",
         "desc": "Air transport wing and a P-8A detachment; the C-130J is a KC-130 stand-in",
         "airgroup": [
             ("usn_p8", "Squadron6,2"),

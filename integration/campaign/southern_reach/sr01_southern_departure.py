@@ -112,7 +112,7 @@ MISSION = dict(
         # no icebreaker exists in the collection, and the briefing says so
         # in her name.
         U("blue", "re-power-resupply", "civ_ms_freighter_d", "convoy",
-          name="RSV Southern Endeavour (resupply ship, stand-in)"),
+          name="RSV Southern Endeavour"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "convoy",
@@ -129,7 +129,7 @@ MISSION = dict(
         U("neutral", "_vanilla", "civ_fv_okean", "trawlers",
           name="Factory trawler Nan Hai 24", route=[(-43.28, 147.66, 0)], telegraph=2),
         U("neutral", "civil-aircraft-airbus", "civ_a320", "airlink",
-          name="Wilkins airlink 07"),
+          name="Wilkins airlink 07", airway=(-66.69, 111.52)),  # Wilkins runway
         # The one that is not fishing: an Okean-class intelligence collector
         # among Okean-class trawlers, closing on the convoy's bow. Unarmed;
         # classification is the whole task.

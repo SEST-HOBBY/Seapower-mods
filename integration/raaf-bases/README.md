@@ -30,7 +30,7 @@ new models are needed.
 | **RNZAF Base Auckland (Whenuapai)** *(New Zealand)* | 2× P-8A (No. 5 SQN det) · 4× KC-130T (C-130J stand-in) |
 
 268 aircraft across 17 bases: 15 Australian (`Nation=Australia`) and, for the Southern Reach
-campaign's Tasman chapter, two New Zealand bases (`Nation=New Zealand`) whose air group is the one
+campaign's Tasman chapter, two New Zealand bases (`Nation=NewZealand`, the game's own key - with a space it shows no flag) whose air group is the one
 NZ airframe the collection resolves - the RNZAF P-8A. All are `LandUnitSubType=Airbase`.
 
 The F-15EX presence is 66 airframes across **eight distinct squadrons** — a full two-squadron wing

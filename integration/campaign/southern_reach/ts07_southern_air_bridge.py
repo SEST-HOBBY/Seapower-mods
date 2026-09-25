@@ -21,8 +21,8 @@ MISSION = dict(
     sender="Wing Commander Daniel Ward, Air Component; Commodore Alex "
            "Mercer for the surface half",
     intent=("RELIEF 21 is an Airbus with the New Zealand relief "
-            "detachment's advance party in it - a civil charter, a "
-            "stand-in - and WEDGETAIL 06 is flying beside her because the "
+            "detachment's advance party in it - a civil charter - and "
+            "WEDGETAIL 06 is flying beside her because the "
             "carrier has put a flight onto the track twice this week to see "
             "what we do. Today it is armed. Get the charter to the box off "
             "Sydney Heads with the destroyer's missiles underneath her and "
@@ -36,7 +36,7 @@ MISSION = dict(
     brief=(
         "THE TASMAN AIR ROUTE, a hundred miles off the New South Wales "
         "coast, afternoon. RELIEF 21 - an A330, a civil charter carrying "
-        "the New Zealand relief detachment's advance party, a stand-in - "
+        "the New Zealand relief detachment's advance party - "
         "is inbound to Sydney on the air bridge with WEDGETAIL 06 beside "
         "her and SENTRY 23 above them both. Two Sydney-Auckland services "
         "are on the same route and a cruise ship and a coastal bulker are "
@@ -107,7 +107,7 @@ MISSION = dict(
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron2",
           slot="CAP"),
         U("blue", "civil-aircraft-airbus", "civ_a330", "relief",
-          name="Relief 21 (NZ relief detachment charter, civil stand-in)",
+          name="Relief 21 (NZ relief detachment charter)",
           alt=35000, weapons="Hold",
           route=[(-34.60, 152.10, 35000), (-33.85, 151.55, 20000)], telegraph=3),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 06",
@@ -128,9 +128,9 @@ MISSION = dict(
         U("red", "modern-plan-systems", "plan_ka-31", "red_helo", name="Ka-31 eye",
           alt=9000, weapons="Hold", loadout="AEW"),
         U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner1",
-          name="Sydney-Auckland 147"),
+          name="Sydney-Auckland 147", airway=(-37.01, 174.79)),  # Auckland
         U("neutral", "civil-aircraft-airbus", "civ_a320", "airliner2",
-          name="Auckland-Sydney 802"),
+          name="Auckland-Sydney 802", airway=(-33.95, 151.18)),  # Sydney
         U("neutral", "_vanilla", "civ_ms_ivan_franko", "cruise",
           name="MV Pacific Aurora (Sydney-bound cruise)",
           route=[(-34.00, 151.60, 0)], telegraph=3),

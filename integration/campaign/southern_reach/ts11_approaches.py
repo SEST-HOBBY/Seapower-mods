@@ -168,7 +168,7 @@ MISSION = dict(
         U("neutral", "_vanilla", "civ_fv_sterntrawler_b", "trawler",
           name="Trawler Ulladulla Pride", route=[(-39.80, 151.70, 0)], telegraph=2),
         U("neutral", "civil-aircraft-airbus", "civ_a320", "airliner",
-          name="Sydney-Hobart 1531"),
+          name="Sydney-Hobart 1531", airway=(-42.84, 147.51)),  # Hobart
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_williamtown", "williamtown",
           name="RAAF Base Williamtown", nation="australia", weapons="Hold"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_east_sale", "east_sale",
