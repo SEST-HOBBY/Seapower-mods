@@ -827,33 +827,35 @@ MISSIONS.append(dict(
     intro="One ship of your choosing, one salvo, a target beyond the horizon - "
           "and a convoy behind you that the shot is actually for.",
     sender="Commodore Alex Mercer",
-    intent=("Your ship has the shot. The escort fired on a convoy under "
-            "protection in daylight, and that changes what you may do to it. "
-            "The convoy behind you is what the shot is for; the transport is "
-            "not. If it turns north, let it. Come out with rounds left - "
-            "Thursday needs them."),
+    intent=("Your ship has the shot. The Sovremenny fired on a protected "
+            "convoy in daylight, and that changes what you may do to her. "
+            "The convoy behind you is what the shot is for; the Type 071 "
+            "transport is not. If she turns north, let her. Come out with "
+            "rounds left - there is no reload before Monday's convoy."),
     date=(2028, 10, 30), time=(14, 10), sea=4, clouds="Overcast", wind="SE",
     difficulty=3, minutes=55, centre=(-9.0, 131.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "TIMOR CORRIDOR. A surface action group is working south-east down "
+        "TIMOR CORRIDOR. A Chinese surface action group is working south-east down "
         "the corridor screening an amphibious transport, and it has begun "
         "turning merchant traffic back by radio and then by gun.\\n\\n"
         "You send one ship, alone, sixty miles on their disengaged bow "
         "with the weather in your favour and a full deck-launcher load. The "
-        "convoy you are covering is four hulls and a tug's worth of speed "
-        "behind you.\\n\\n"
+        "four merchants you are covering are ten miles behind you at a tug's "
+        "speed, and ESCORT SEVEN, the Meridian boat that tried to stop Coral "
+        "Pioneer on the eighteenth, is on their track to hold them for the "
+        "surface group.\\n\\n"
         "Establish the military threat, engage it, and be somewhere else when "
-        "the counter-strike arrives - their maritime strike regiment is "
+        "the counter-strike arrives - their JH-7A strike pair is "
         "within range of this box and their helicopter is already up. The "
         "merchants in the lane are not targets because somebody wrote "
         "SANCTIONED on a manifest."),
     forces="One escort of your choice, with her anti-ship missiles and her flight. Opposing: a Sovremenny, "
-           "a Type 071 with its Z-20J, a JH-7A pair and a Z-21. Four protected "
-           "merchant hulls in the lane behind you.",
+           "a Type 071 with its Z-20J, a JH-7A pair, a Z-21 and Meridian Escort "
+           "Seven. Four protected merchants behind you, two neutral ones ahead.",
     objectives=[
-        ("Escort", "Neutralise the armed escort group", "35,-30,Fail,Main"),
-        ("Convoy", "The protected merchants must pass", "20,-30,Complete"),
+        ("Escort", "Neutralise the Sovremenny screening the transport", "35,-30,Fail,Main"),
+        ("Convoy", "Lose no more than one merchant, and not Coral Pioneer", "20,-30,Complete"),
         ("Magazine", "Bring your ship out with anti-ship rounds left", "10,-10,Complete"),
     ],
     # sag#1 is the Sovremenny. With both hulls counted, sinking the unarmed
@@ -865,9 +867,9 @@ MISSIONS.append(dict(
     fatal=[F("Convoy", ["convoy"], 2), F("Convoy", ["convoy#1"]),
            F("Magazine", ["warramunga"])],
     neutral_objective="Convoy",
-    win="The escort is burning and the transport has turned north. The convoy "
+    win="The Sovremenny is burning and the transport has turned north. The convoy "
         "passed behind you while it happened, which was the entire point.",
-    lose="The escort is gone or the lane is closed. Either way nothing moves "
+    lose="Your ship is gone or the convoy is broken. Either way nothing moves "
          "through this corridor tomorrow. Captain Prasetyo's report to Jakarta "
          "will be short, and it will be accurate.",
     stations={
@@ -935,9 +937,10 @@ MISSIONS.append(dict(
 MISSIONS.append(dict(
     group="core", num="06", key="Blind Horizon", place="Arafura Sea",
     intro="The destroyer can defend what it can see. Everything past that is "
-          "one aircraft, and they are coming for it.",
+          "one unarmed Triton, and the enclave's J-16s are coming for it.",
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the air plan",
-    intent=("The Triton is the only thing that can find the surface group. "
+    intent=("The Triton is the only thing that can find the Chinese surface "
+            "group to the north. "
             "It is also the only Triton. Push her north and you fight "
             "tomorrow with a picture; hold her south and you fight today on "
             "a destroyer's horizon, and the picture costs you at the "
@@ -946,8 +949,8 @@ MISSIONS.append(dict(
     difficulty=3, minutes=60, centre=(-11.0, 132.5),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "ARAFURA SEA, first light. Your flagship is covering a convoy across the top "
-        "of the Gulf and can hold an air picture out to about her own horizon. "
+        "ARAFURA SEA, first light. Your flagship is covering a three-ship convoy "
+        "south-west toward Darwin and can hold an air picture out to about her own horizon. "
         "The surface group that matters is somewhere north of that line.\\n\\n"
         "SENTRY 06 is your Triton, launched from Tindal, and it is the only "
         "thing that can find them before they are inside missile range. It is "
@@ -956,23 +959,23 @@ MISSIONS.append(dict(
         "the orbit is.\\n\\n"
         "Classify that surface group and it stays on your plot for the rest of "
         "the morning. To do it the Triton has to go north, into the part of "
-        "the sky the J-16s own. If Borrowed Shield brought her in, SEJONG THE "
-        "GREAT is in your screen for this one operation under Captain Han's "
-        "rules - she fires when fired upon, or when you are - and she sails "
-        "for Guam on the eighth either way. Hold the Triton south and she "
-        "lives, and your flagship "
-        "fights on her own horizon.\\n\\n"
+        "the sky the J-16s own. Hold her south and she lives, and your "
+        "flagship fights on her own horizon. If the Korean detachment "
+        "reached the join point on the fourth, ROKS SEJONG THE GREAT is in "
+        "your screen for this one operation under Captain Han's rules: she "
+        "fires when fired upon, or when you are.\\n\\n"
         "Two Tindal F-35As are your entire air cover. You can spend them "
         "protecting the orbit or holding close escort on the convoy. You "
         "cannot do both, and whatever you lose today you do not have "
         "tomorrow.\\n\\n"
-        "If the group is classified, expect the picture to raise a question it "
-        "does not answer, and expect it while the Triton is still north."),
-    forces="Your escort group, two RAAF F-35A off Tindal, one MQ-4C Triton, a "
+        "If the group is classified, expect it to be screening something you "
+        "have not seen yet, and expect to find out while the Triton is still "
+        "north."),
+    forces="Your escort group, a three-ship convoy, two RAAF F-35A off Tindal, one MQ-4C Triton, a "
            "Wedgetail on a long orbit. Opposing: two J-16, a Y-20 shuttling "
            "into the enclave, and a surface group not yet located.",
     objectives=[
-        ("Convoy", "The convoy reaches its passage window", "30,-30,Fail,Main"),
+        ("Convoy", "Get Coral Pioneer and one other merchant to the passage window", "30,-30,Fail,Main"),
         # Fail at the end if never done: holding the Triton south is a
         # playable choice, and it costs fifteen. It used to resolve Complete
         # for +25 whether the group was ever seen or not.
@@ -997,8 +1000,9 @@ MISSIONS.append(dict(
     reveals={"Picture": dict(units=["red_sag", "red_air"], level="Identify",
                              seconds=-1,
                              intel="Sentry 06 has the northern group classified: "
-                                   "two escorts on a south-westerly course, with "
-                                   "the fighters that came for her now on your "
+                                   "two escorts, a Luda destroyer and a Type 054A "
+                                   "frigate, on a south-westerly course, with "
+                                   "the J-16s that came for her now on your "
                                    "plot. The picture holds for the rest of the "
                                    "operation.")},
     victory=dict(kind="arrive", station="convoy", at=(-11.9, 130.6), radius=30,
@@ -1013,8 +1017,8 @@ MISSIONS.append(dict(
     win="The convoy is through the window. Whatever Sentry 06 brought back or "
         "did not, the convoy is where it is supposed to be, and tomorrow "
         "starts from there.",
-    lose="The orbit is gone. Everything north of the horizon is now a rumour, "
-         "and the convoy is inside somebody's launch basket.",
+    lose="Coral Pioneer is gone, and the passage with her. Whatever the Triton "
+         "saw, the convoy was inside the surface group's launch basket.",
     stations={
         "hobart": S(-10.5, 132.0, "Escort", heading=250),
         "convoy": S(-10.6, 132.1, "Convoy", heading=250),
@@ -1090,19 +1094,19 @@ MISSIONS.append(dict(
         "package forty minutes long and everybody is coming home on somebody "
         "else's fuel. TEXACO 41 is the only tanker in the corridor and three "
         "different flights are booked on it.\\n\\n"
-        "The expeditionary detachment supporting the enclave has put two "
+        "The Russian expeditionary detachment supporting the enclave has put two "
         "MiG-31s up out of the enclave field, already above fifty thousand feet, on a vector "
         "toward the tanker track. Their AEW aircraft is behind them and their "
         "own tanker is behind that, which tells you this was planned.\\n\\n"
-        "You have a Raptor pair and a Growler with the returning Super "
-        "Hornets. The Foxhound is the one aircraft here you cannot chase: it "
+        "You have a USAF Raptor pair and a Growler with the returning Super "
+        "Hornets. The MiG-31 Foxhound is the one aircraft here you cannot chase: it "
         "shoots from above fifty thousand feet at speeds you will not catch, "
         "and a stern chase is time you do not have - the gas is on the clock, "
         "not on the gauge. Break the shot, not the aircraft. Bring the tanker "
         "home."),
     forces="Two F-22 on station, one EA-18G, two returning F/A-18F, a Wedgetail "
-           "on a long orbit to the south, one "
-           "KC-135. Opposing: two MiG-31BM, one A-50U, one Il-78.",
+           "orbiting to the south, one KC-135, HMAS Arunta "
+           "on picket near the track. Opposing: two MiG-31BM, one A-50U, one Il-78.",
     objectives=[
         ("Tanker", "TEXACO 41 must reach the recovery line", "35,-35,Fail,Main"),
         ("Package", "Bring the returning flight home", "20,-25,Complete"),
@@ -1178,8 +1182,8 @@ MISSIONS.append(dict(
 
 MISSIONS.append(dict(
     group="core", num="08", key="The Open Door", place="Contested enclave",
-    intro="Open a relief window over an airfield somebody else's advisers are "
-          "defending. The window is the objective, not the airfield.",
+    intro="Open a seventy-minute relief window over the enclave on Biak, "
+          "where Russian advisers are running the air defence.",
     sender="Commodore Alex Mercer",
     intent=("The window is the objective. Two transports through and the "
             "first hundred people out. A battery off the air for two hours "
@@ -1190,27 +1194,29 @@ MISSIONS.append(dict(
     difficulty=4, minutes=70, centre=(-2.0, 136.0),
     blue_nation="Australia", red_nation="Russia",
     brief=(
-        "THE ENCLAVE, before dawn. Local authorities have negotiated a "
+        "THE ENCLAVE, BIAK, before dawn. Local Indonesian authorities have negotiated a "
         "seventy-minute window to move civilians and emergency supplies out of "
         "the port. The battery covering the approach is an S-400 the first "
-        "reports called man-portable, and it is not being run by the people "
-        "who seized the airfield.\\n\\n"
-        "GRIZZLY has the jamming and the anti-radiation shots, off ROOSEVELT. "
-        "The F-35 pair carries the follow-up, out of Langgur on the Kai group - "
-        "Captain Prasetyo has the strip for this one operation and not an "
+        "reports called man-portable. Its crews are from the Russian "
+        "detachment, not Meridian's hard-line faction, which seized the airfield.\\n\\n"
+        "GRIZZLY, the Growler, has the jamming and the anti-radiation shots, "
+        "off the US carrier THEODORE ROOSEVELT. The F-35 pair carries the "
+        "follow-up strike, out of Langgur on the Kai group - Captain Prasetyo "
+        "has lent the strip for this one operation and not an "
         "hour longer, and the pair recovers there, not on the carrier. The "
-        "relief aircraft are behind you and they will not come in while that "
-        "radar is up. If Weather Alternate put fuel on Langgur, a tanker is "
-        "on the track south of the box and the pair can hold on station "
-        "twice as long; if it did not, they have what they took off "
+        "two relief KC-130Js are holding to the west and will not come "
+        "in while that radar is up. If the coasters got fuel into Langgur on "
+        "the tenth, a KC-46 is on the track south of the box and the pair can "
+        "hold on station twice as long; if not, the pair has what it took off "
         "with.\\n\\n"
-        "Suppress the battery, put the launcher out of the argument, and let "
+        "Suppress the battery, put its launcher out of the argument, and let "
         "the transports through. You are not levelling a regional industrial "
         "complex to do it. Everything on that field that is not shooting at "
         "you is somebody's town."),
-    forces="One EA-18G, two F-35A, two relief transports. Opposing: an S-400 "
+    forces="One EA-18G off Theodore Roosevelt, two F-35A out of Langgur, "
+           "two relief transports. Opposing: an S-400 "
            "battery with its Flap Lid, a ballistic launcher, a modern airbase, "
-           "and a small foreign detachment with Hinds, Hips and Frogfoots.",
+           "and a small Russian detachment with Hinds, Hips and Frogfoots.",
     objectives=[
         ("Window", "Get the relief aircraft through to the safe box",
          "40,-40,Fail,Main"),
@@ -1224,7 +1230,7 @@ MISSIONS.append(dict(
     neutral_objective="Town",
     win="Both transports are south with the first hundred people out. The "
         "battery is off the air and the window held.",
-    lose="The window closed with the transports still holding. The next "
+    lose="A relief transport is down, and the window with it. The next "
          "negotiation starts from a worse place.",
     stations={
         # The door is BETWEEN the relief and safety now. The transports used
@@ -1312,22 +1318,22 @@ MISSIONS.append(dict(
 
 MISSIONS.append(dict(
     group="core", num="09", key="Southern Lifeline", place="Rear support area",
-    intro="A submarine on the surface alongside a supply ship, which is the "
-          "most vulnerable thing either of them will ever do.",
-    special="Hold the service window and Common Sea begins with a full rearm; "
-            "miss it and Common Sea flies on what you have left. The rule is "
-            "the box at the moment the window closes.",
+    intro="HMAS Collins on the surface alongside the replenishment ship HMAS "
+          "Stalwart: the most vulnerable thing either of them will ever do.",
+    special="Hold the service window and your ships are rearmed before Common "
+            "Sea; miss it and they sail it on what they have left. Stalwart "
+            "and Collins must both be in the service box when it closes.",
     sender="Commodore Alex Mercer; Commander Mara Kila for the eastern route",
-    intent=("Supply and Collins, in the same box, for the service period, "
+    intent=("Stalwart and Collins, in the same box, for the service period, "
             "and then out. Every boat in the north depends on this "
-            "rendezvous working. A scout is coming to look at it and a raid "
-            "may follow it. The window is the win."),
+            "rendezvous working. A Russian scout is coming to look at it and "
+            "a raid may follow it. Holding the window is the job."),
     date=(2028, 11, 11), time=(6, 30), sea=2, clouds="Broken_2", wind="SE",
     difficulty=3, minutes=85, centre=(-12.5, 146.0),
     blue_nation="Australia", red_nation="Russia",
     brief=(
-        "REAR SUPPORT AREA, east of the Cape. COLLINS has been out for "
-        "thirty-one days and comes home next week whatever happens today. "
+        "REAR SUPPORT AREA, Coral Sea, east of Cape York. COLLINS has been out for "
+        "thirty-five days and comes home next week whatever happens today. "
         "She is surfaced alongside STALWART taking fuel, stores and two crew "
         "off for medical, and while she is up there she is a very large grey "
         "target making four knots.\\n\\n"
@@ -1343,15 +1349,16 @@ MISSIONS.append(dict(
         "not on how much crossed the hose. STALWART and COLLINS have to be "
         "inside the service box - five miles around the rendezvous - when the "
         "window closes; what you do with them in between is your judgement, "
-        "and the clock does not stop for you. Hold it and Common Sea starts "
-        "with full magazines; miss it and Common Sea flies on what you have "
-        "left. When the thirty-five minutes are up, both of them come south "
-        "together to the withdrawal line, and COLLINS dives the moment she "
+        "and the clock does not stop for you. Hold it and your ships are "
+        "rearmed before Common Sea, the Banda convoy on the twentieth; miss "
+        "it and they sail that convoy on what they have left. When the "
+        "thirty-five minutes are up, both of them go together to the "
+        "withdrawal line eighteen miles south, and COLLINS dives the moment she "
         "is clear of the hose.\\n\\n"
         "STALWART has the duty. MV Coral Provider was pencilled in with the "
-        "dry stores; whether she sailed depends on what Steel Highway left "
-        "the corridor to sail with.\\n\\n"
-        "A Tu-214R came down the outside of the box last night and did not "
+        "dry stores; she sails only if SUPPLY came through Steel Highway "
+        "in October.\\n\\n"
+        "A Russian Tu-214R came down the outside of the box last night and did not "
         "go home, which usually means somebody now knows where to look. "
         "There is an Akula unaccounted for to the south-east, and a Flanker "
         "pair within range of here with a Helix spotting for them off a "
@@ -1359,12 +1366,12 @@ MISSIONS.append(dict(
         "Assume one of those Flankers is carrying something for a ship. Keep "
         "the window open and get everybody out of it."),
     forces="HMAS Stalwart, HMAS Collins surfaced for service, your escort and "
-           "her flight; one P-8 from Scherger if tasked. Opposing: one Akula, "
+           "her flight; one P-8 from Scherger if tasked. Opposing, all Russian: one Akula, "
            "one Tu-214R, a Flanker pair with a Ka-27RLD spotting for them.",
     objectives=[
         ("Service", "Hold the service box for the 35-minute window, then "
-                    "bring STALWART and COLLINS south together to the "
-                    "withdrawal line", "35,-35,Fail,Main"),
+                    "bring STALWART and COLLINS together to the "
+                    "withdrawal line 18 miles south", "35,-35,Fail,Main"),
         ("Collins", "HMAS Collins must survive", "25,-35,Complete"),
         ("Supply", "HMAS Stalwart must survive", "20,-30,Complete"),
     ],
@@ -1476,36 +1483,36 @@ MISSIONS.append(dict(
     intro="A Japanese ASW detachment brings the one thing the Australian "
           "force has run out of: escorts that can hunt.",
     sender="Commodore Alex Mercer",
-    intent=("The Japanese detachment brings the thing we ran out of: escorts "
-            "that can hunt. Use them for that. The convoy is the cargo, the "
-            "submarine is theirs, the surface group is the Vipers' one sortie, "
-            "and the fighters overhead are yours. Bring both allied hulls "
-            "home - Thursday needs them too."),
+    intent=("Let the Japanese escorts hunt; that is what they are here for. "
+            "The convoy is the cargo, the submarine is theirs, the frigate "
+            "from the east is the F-2A pair's one sortie, and the fighters "
+            "overhead are yours. Bring both Japanese ships home - the "
+            "corridor still needs them after today."),
     date=(2028, 11, 15), time=(13, 40), sea=3, clouds="Scattered_1", wind="E",
     difficulty=3, minutes=75, centre=(-6.5, 133.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "EASTERN BANDA CORRIDOR. Whatever came across the hose on the "
-        "sixteenth is what your magazines hold today. The convoy has to cross "
-        "a patrol box where "
-        "the submarine and surface threats overlap, and after three weeks the "
+        "EASTERN BANDA CORRIDOR. If STALWART's service window held on the "
+        "sixteenth, your magazines were refilled; if not, you sail on what "
+        "Southern Lifeline left you. The convoy has to cross a patrol box "
+        "where a submarine and a surface threat overlap, and five weeks in, the "
         "Australian escort force cannot cover both.\\n\\n"
-        "MOGAMI and MAYA are here under the Japanese government's own "
-        "arrangements, with an SH-60K and an SH-60J that are the best ASW "
-        "pair in this sea. A Japanese F-2A detachment forward at Langgur has "
-        "one sortie allocation today and it is loaded for ships: use it on "
+        "MOGAMI and MAYA sail under Tokyo's orders, not ours, with an SH-60K "
+        "and an SH-60J that are the best ASW "
+        "pair in this sea. A Japanese F-2A pair forward at Langgur, in the Kai "
+        "Islands, has one sortie today and it is loaded for ships: use it on "
         "the frigate coming in from the east, not on the fighters.\\n\\n"
         "Two of the three priority merchants have to reach the handover, and "
         "CORAL PIONEER has to be one of them; lose her, or lose two, and the "
-        "corridor is closed. The Type 039C is the threat that "
-        "ends the mission - she carries YJ-18 as well as torpedoes, and the "
-        "fighters overhead are her eyes as much as they are the thing that "
-        "makes you spend the day looking up instead of down. One of them is "
+        "corridor is closed. The Type 039C is the real danger - she carries "
+        "YJ-18 as well as torpedoes, and the four fighters coming down from "
+        "the Biak enclave are her eyes as much as they are the reason you "
+        "spend the day looking up instead of down. One of them is "
         "carrying something for a ship."),
     forces="JS Mogami and JS Maya with an SH-60K and an SH-60J, one F-2A pair "
-           "from the Kai strip, your escort group and the convoy. Opposing: a Type "
+           "from Langgur, your escort group and the convoy. Opposing: a Type "
            "039C, a Type 054A frigate from the east, a J-11BG, a J-11BS, a "
-           "Su-27UBK and a J-10C off the enclave field.",
+           "Su-27UBK and a J-10C off the Biak enclave field.",
     objectives=[
         ("Cargo", "Two of the three priority merchants, Coral Pioneer among "
                   "them, reach the handover point", "35,-35,Fail,Main"),
@@ -1520,7 +1527,7 @@ MISSIONS.append(dict(
     fatal=[F("Cargo", ["convoy"], 2), F("Cargo", ["convoy#2"])],
     neutral_objective="Cargo",
     win="The cargo is at the handover. Whatever it cost the detachment to get "
-        "it there, the corridor has a Japanese escort force in it for the "
+        "it there, the corridor has two escort forces that can hunt, for the "
         "first time since October.",
     lose="The convoy is short and the allied detachment is going home for "
          "repairs. The corridor is back to one navy again.",
@@ -1606,14 +1613,14 @@ MISSIONS.append(dict(
 
 MISSIONS.append(dict(
     group="core", num="11", key="Fujian's Shadow", place="Wider Banda approaches",
-    intro="The carrier group has come to close the corridor for the "
-          "negotiating period. You do not have to sink it. You have to keep "
-          "the transports alive through it.",
+    intro="The Chinese carrier Fujian and her group have come to close the "
+          "corridor before the ceasefire talks open. You do not have to sink "
+          "them. You have to get the transports through alive.",
     sender="Commodore Alex Mercer",
-    intent=("The carrier group has come to close the corridor for the talks. "
-            "You do not have to sink it. Keep the transports moving and Ford "
-            "alive until the window, and let the enemy spend fuel he cannot "
-            "replace coming to you. He knows this. His own signals say so."),
+    intent=("Keep the transports moving and Ford afloat, and let their "
+            "commander spend fuel he cannot replace coming to you. He knows "
+            "it: his own signal to fleet headquarters on the twenty-second "
+            "says so."),
     date=(2028, 11, 19), time=(10, 15), sea=4, clouds="Broken_2", wind="NE",
     difficulty=4, minutes=90, centre=(-4.5, 130.0),
     blue_nation="USA", red_nation="China",
@@ -1622,26 +1629,26 @@ MISSIONS.append(dict(
         "opposing fleet has been told to make the corridor unusable before "
         "they do. FUJIAN is a hundred and thirty miles north-north-west with "
         "LIAONING astern of her, screened by a Luda, a Sovremenny and a Type "
-        "054A, and the strike she is building is aimed at the transports and "
-        "at you both.\\n\\n"
-        "FORD arrived on Tuesday under a bounded arrangement: one strike "
-        "group, a defined window, and a departure date that does not move. "
+        "054A, and the strike she is building is aimed at the transports, at "
+        "FORD and at you.\\n\\n"
+        "FORD arrived on Tuesday on Washington's terms: one strike group, a "
+        "fixed window in theatre, and a departure date that does not move. "
         "You have her air wing, two Burkes and the last of the Australian "
         "escorts.\\n\\n"
         "The protected transports and FORD herself have to come out of this "
         "usable. If their carrier turns north having achieved nothing, that "
         "is the whole victory - you are not chasing it across the Celebes Sea "
         "to prove a point."),
-    forces="USS Gerald R. Ford with F-35C and Growlers, two Arleigh Burkes, "
-           "your own escort group, three protected transports. Opposing: "
-           "Fujian with J-35 and J-15D, Liaoning, a J-20 and a KJ-600, and "
-           "three escorts.",
+    forces="USS Gerald R. Ford with F-35Cs, a Growler and a Hawkeye, two "
+           "Arleigh Burkes, your own escort group, three protected transports. "
+           "Opposing: Fujian with J-35 and J-15D, Liaoning, a J-20 and a "
+           "KJ-600, three escorts and a submarine.",
     objectives=[
         ("Transports", "Two of the three transports, Coral Pioneer among "
                        "them, pass to the south-east",
          "40,-40,Fail,Main"),
-        ("Ford", "USS Gerald R. Ford survives the window", "30,-40,Complete"),
-        ("Strike", "Shoot down the anti-ship shooter before it launches",
+        ("Ford", "USS Gerald R. Ford must survive", "30,-40,Complete"),
+        ("Strike", "Shoot down the YJ-83-armed J-15D before it launches",
          "15,-10,Complete"),
     ],
     victory=dict(kind="arrive", station="transports", at=(-7.0, 130.0),
@@ -1742,13 +1749,12 @@ MISSIONS.append(dict(
 
 MISSIONS.append(dict(
     group="core", num="12", key="The First Ship Through", place="Arafura Sea",
-    intro="An imperfect ceasefire, a cargo ship with a cracked bearing, and "
-          "two groups out there - one complying and one deciding.",
+    intro="An imperfect ceasefire, Coral Pioneer with a cracked bearing, and "
+          "two Chinese naval groups out there - one complying and one deciding.",
     sender="Commodore Alex Mercer",
-    intent=("Coral Pioneer, nine knots, one shaft. One group out there is "
-            "complying with the ceasefire and one is deciding whether to. "
-            "Tell them apart before you fire, because the ceasefire is the "
-            "campaign, and a mistake tonight reopens all of it."),
+    intent=("Coral Pioneer, nine knots, one shaft. Tell the two groups apart "
+            "before you fire: the ceasefire is what six weeks were for, and "
+            "one mistake today reopens all of it."),
     date=(2028, 11, 26), time=(6, 20), sea=2, clouds="Scattered_1", wind="NW",
     difficulty=3, minutes=65, centre=(-10.0, 131.0),
     blue_nation="Australia", red_nation="China",
@@ -1757,19 +1763,19 @@ MISSIONS.append(dict(
         "started moving at first light because insurers move faster than "
         "diplomats. CORAL PIONEER is at the head of the first convoy through, "
         "with a bearing running hot and nine knots she can hold.\\n\\n"
-        "There are two groups in the box. One has acknowledged its withdrawal "
+        "There are two Chinese naval groups in the box. One has acknowledged its withdrawal "
         "order and is heading north at steady speed. The other has not "
-        "acknowledged anything since 0400 and has a maritime strike flight "
-        "within range.\\n\\n"
+        "acknowledged anything since 0400 and, if FUJIAN is still afloat, has "
+        "a maritime strike flight within range.\\n\\n"
         "Tell them apart. Get the convoy home. Do not be the incident that "
         "restarts this - a withdrawing ship you sink today is the reason "
-        "there is no ceasefire on Monday."),
+        "the ceasefire does not see its first full day."),
     forces="Your escort group with HMAS Eyre and her flight attached, a Poseidon, and "
-           "four merchant hulls. Two opposing groups: one withdrawing, one "
+           "four merchant hulls. Two Chinese groups: one withdrawing, one "
            "not. A Wedgetail is up.",
     objectives=[
-        ("Convoy", "Bring the convoy, Coral Pioneer at its head, into "
-                   "Darwin's approaches",
+        ("Convoy", "Bring three of the four merchants, Coral Pioneer among "
+                   "them, into Darwin's approaches",
          "40,-40,Fail,Main"),
         ("Ceasefire", "Do not sink a withdrawing ship", "20,-35,Complete"),
         ("Escorts", "Bring the escorts home", "10,-15,Complete"),
@@ -1783,7 +1789,7 @@ MISSIONS.append(dict(
     neutral_objective="Ceasefire",
     win="Coral Pioneer is alongside at Darwin on one shaft and the rest of the "
         "convoy is behind her. The withdrawing group went north and nobody "
-        "shot at it. The route is a route again. Santos's log, 0410: "
+        "shot at it. The route is a route again. Master Santos's log, 0410: "
         "'Alongside. One shaft. All hands.'",
     lose="The first ship through did not get through, and the ceasefire is "
          "now a thing that was tried once.",
@@ -1900,7 +1906,7 @@ MISSIONS.append(dict(
         "home to Darwin when it is done - she is not yours to keep and not "
         "yours to lose. PILBARA is on the lane with the ordinary traffic, and "
         "a Meridian escort boat has been working the same water since "
-        "Tuesday with a drone spotting for it.\\n\\n"
+        "Sunday with a drone spotting for it.\\n\\n"
         "Get Kiwi 01 close enough to put a name on the coaster, keep her out "
         "of the escort boat's reach, and recover her to Darwin. Everything "
         "else on the lane is somebody's living."),
@@ -2944,7 +2950,7 @@ MISSIONS.append(dict(
             "corridor is the relief. Hold the perimeter open after the "
             "enclave window closes, and bring the gunship home with fuel to "
             "spare."),
-    date=(2028, 11, 12), time=(17, 30), sea=2, clouds="Broken_2", wind="E",
+    date=(2028, 11, 14), time=(17, 30), sea=2, clouds="Broken_2", wind="E",
     difficulty=3, minutes=80, centre=(-7.5, 138.5),
     blue_nation="USA", red_nation="China",
     brief=(
