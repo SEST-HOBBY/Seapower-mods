@@ -32,21 +32,22 @@ MISSION = dict(
         "the fuel coaster DERWENT SPIRIT. They make twelve knots together and "
         "they will not make more.\\n\\n"
         "A factory-trawler fleet has been working the shelf edge since October "
-        "under a fisheries-protection flag, and one hull in it carries an "
+        "under the Southern Ocean Fisheries and Research Protection Group's "
+        "flag, and one hull in it carries an "
         "electronics fit no trawler needs. It has been forty miles off the "
         "Derwent every time a ship has sailed for the ice. This morning it is "
         "closer. Sixty miles south-east, a frigate flying the same flag has "
         "been calling merchant masters to ask for their environmental "
         "compliance paperwork. It has not been told to stop.\\n\\n"
-        "You are the escort, with the Seahawk you brought if you put one on "
-        "Ship's Flight at requisition. BLUEFIN 31 is a Poseidon out of "
+        "You are the escort, with your Seahawk if one is embarked. "
+        "BLUEFIN 31 is a Poseidon out of "
         "Edinburgh for the first half of the morning and SENTRY 21 is a Triton "
         "high to the south. Walk the convoy south out of the bay to the "
         "handover line and classify the trawler that is not one. An expedition "
         "cruise ship, two Tasmanian fishing boats and the morning airlink to "
-        "Wilkins are in the same water and the same sky. "
+        "Wilkins Aerodrome are in the same water and the same sky. "
         "Identify before you shoot. Your weapons are tight."),
-    forces="Your escort group, one MH-60R if bought, one P-8A on task, one "
+    forces="Your escort group, one MH-60R if requisitioned, one P-8A on task, one "
            "MQ-4C Triton overhead. Three convoy hulls to walk out. Neutral: an "
            "expedition cruise ship, two Tasmanian fishing boats, two factory "
            "trawlers, the Wilkins airlink. One research trawler with an "
@@ -67,8 +68,8 @@ MISSION = dict(
     fatal=[F("Convoy", ["convoy"])],
     neutral_objective="Neutrals",
     win="The convoy is past the handover line and the escort has put a name on "
-        "the trawler that was not one. Santos, on channel 16: 'Same escort as "
-        "October. Good.'",
+        "the trawler that was not one. Santos, Coral Pioneer's master, on "
+        "channel 16: 'Same escort as the Arafura. Good.'",
     lose="SOUTHERN ENDEAVOUR is not going south this week, and the stations "
          "start the season on what the winter left them.",
     timeout="0720 and the convoy is still in the bay. The frigate has its "

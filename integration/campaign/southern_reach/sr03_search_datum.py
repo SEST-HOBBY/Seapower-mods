@@ -12,7 +12,7 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="SR03", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 3",
     group="core", num="03", key="Search Datum", place="The southern route",
-    intro="The Wilkins airlink is missing on the southern route. Six contacts "
+    intro="The Wilkins airlink is missing on the Hobart-Casey track. Six contacts "
           "in the search box, and one of them has the crew aboard and no "
           "intention of bringing them home.",
     sender="Commodore Alex Mercer; Wing Commander Daniel Ward for the search plan",
@@ -26,7 +26,7 @@ MISSION = dict(
     difficulty=2, minutes=70, centre=(-52.0, 140.0),
     blue_nation="Australia", red_nation="China",
     brief=(
-        "THE SOUTHERN ROUTE, mid-morning. WILKINS 03, the airlink to the ice, "
+        "THE SOUTHERN ROUTE, mid-morning. WILKINS 03, the A319 airlink to Wilkins Aerodrome, "
         "lost contact on the Hobart-Casey track at 0352 and put down on the "
         "water eighteen minutes later. Her EPIRB ran for forty minutes and "
         "then stopped, which is what happens when somebody switches it "
@@ -43,7 +43,7 @@ MISSION = dict(
         "one that matters. Classify her and put your flagship within three "
         "miles of her. Your weapons are tight, and a shot at the wrong hull is a "
         "shot at the crew."),
-    forces="Your escort group with one MH-60R and one P-8A if bought, one "
+    forces="Your escort group with one MH-60R and one P-8A if requisitioned, one "
            "MQ-4C Triton overhead. Neutral: two longliners, a factory "
            "trawler, an expedition cruise ship, a whale. Opposing: the "
            "trawler holding the crew, unarmed; the research trawler Nan Hai "
@@ -137,8 +137,9 @@ MISSION = dict(
                        "raaf_mq-4c_triton"],
                 flights=[HELO, RECON],
                 situation="Requisition before Search Datum. The Poseidon and the "
-                          "Triton go on sale here: a Poseidon on the Maritime "
-                          "Patrol row is the search, and it recovers at Hobart. "
+                          "Triton are released to the task group here: a Poseidon "
+                          "tasked for maritime patrol is the search, and it "
+                          "recovers at Hobart. "
                           "The next window is before Macquarie Passage."),
     role="patrol",
 )

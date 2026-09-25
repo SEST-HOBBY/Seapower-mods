@@ -11,18 +11,18 @@ from campaign_data import U, F, S, HELO
 MISSION = dict(
     code="SR11", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 11",
     group="core", num="11", key="Last Ship South", place="The deep transit",
-    intro="The last voyage south with what is left: Southern Endeavour, the "
-          "tanker if she lived, a Seahawk, and magazines that are what Cold "
-          "Route left them.",
-    special="No requisition before this operation. The rearm before it is "
-            "paid with Cold Route: hold that route and the magazines are "
-            "full here; lose it and they are what Cold Route left. No "
+    intro="The last voyage south with what is left: Southern Endeavour, "
+          "Derwent Spirit if she survived Cold Route, a Seahawk, and "
+          "magazines refilled only if that convoy got through.",
+    special="No requisition before this operation. Hold Cold Route and your "
+            "ships are rearmed for this one; lose it and they sail on what "
+            "Cold Route left them. No "
             "Poseidon reaches this water from any field.",
     sender="Commodore Alex Mercer; Dr Helen Marsh, RSV Southern Endeavour, for the voyage",
     intent=("SOUTHERN ENDEAVOUR is the winter. She goes south whatever else "
-            "does. Two escorts of the group are coming north to meet her "
-            "and a boat is across the track; the carrier is over the "
-            "horizon to the east with a pair up. There is no Poseidon, no "
+            "does. A frigate and a corvette of the group are coming "
+            "north-east to meet her and a nuclear boat is across the track; the carrier is over the "
+            "horizon to the east with a J-15 pair up. There is no Poseidon, no "
             "Wedgetail and no fighter for any of it, and Dr Marsh has asked "
             "me, in writing, whether the escort will be there the whole "
             "way. I told her yes."),
@@ -35,12 +35,12 @@ MISSION = dict(
         "SPIRIT is in company if Cold Route left her afloat. Twelve knots, "
         "south-west, and what remains of the force around them.\\n\\n"
         "The frigate and the corvette that screened the carrier on the "
-        "second are coming north-east to meet the voyage; the nuclear boat "
-        "that was ahead of the January convoy is across this track too. The "
+        "second are coming north-east to meet the voyage; ROMEO, the Type 093B "
+        "that was ahead of the January convoy, is across this track too. The "
         "carrier is two hundred miles east and has a pair loaded for ships "
         "with its Ka-31 up. Hobart is eleven hundred miles behind you - "
         "nothing with wings reaches here and comes home. The Seahawk is your "
-        "aviation and the magazines are what Cold Route left.\\n\\n"
+        "aviation.\\n\\n"
         "Bring Southern Endeavour to the handover line. Bring the tanker if "
         "she is with you. The trawler and the whale are in the same water."),
     forces="What remains of your task group, with its Seahawk. RSV Southern "

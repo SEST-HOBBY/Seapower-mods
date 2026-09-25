@@ -11,8 +11,8 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="SR08", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 8",
     group="core", num="08", key="The Gateway", place="Christchurch approaches",
-    intro="Two gateway ships into Lyttelton south-west across Pegasus Bay, a corvette "
-          "that wants to inspect the tanker, and a New Zealand Poseidon "
+    intro="A US Antarctic Program cargo ship and a tanker into Lyttelton across "
+          "Pegasus Bay, a 'fisheries' corvette that wants to inspect the tanker, and a New Zealand Poseidon "
           "overhead saying no in two languages.",
     sender="Commodore Alex Mercer; Commander Tessa Brand, RNZN, for Lyttelton",
     intent=("POLAR GIANT and CANTERBURY SPIRIT into the Lyttelton approach, "
@@ -29,14 +29,14 @@ MISSION = dict(
     blue_nation="Australia", red_nation="China",
     brief=(
         "CHRISTCHURCH APPROACHES, afternoon. The gateway traffic for the "
-        "American programme's summer is coming into Lyttelton: POLAR GIANT "
+        "US Antarctic Program's summer is coming into Lyttelton: POLAR GIANT "
         "with McMurdo's cargo and CANTERBURY SPIRIT with its fuel, both "
-        "in Pegasus Bay and both making twelve knots south-west across Pegasus Bay "
+        "in Pegasus Bay and making twelve knots south-west "
         "to the pilot station.\\n\\n"
-        "A corvette flying the protection flag has been working the "
+        "A Type 056A corvette flying the fisheries-protection flag has been working the "
         "Canterbury coast for four days and has asked three tankers for "
-        "their environmental compliance certificates. It is south-east of "
-        "the peninsula with its helicopter up, and the research trawler "
+        "their environmental compliance certificates. It is east of Banks "
+        "Peninsula with its helicopter up, and the research trawler "
         "NAN HAI 27 is off Akaroa. KIWI 05 is overhead out of Christchurch "
         "and stays overhead; the Chatham freighter, the pilot launch, two "
         "trawlers and the afternoon Sydney flight are in the same water and "
@@ -44,7 +44,7 @@ MISSION = dict(
         "Walk both ships into the Lyttelton approach. Classify the corvette. "
         "Weapons tight: nobody fires first in this bay, and if the corvette "
         "does, you answer it and Wellington answers everything else."),
-    forces="Your escort group with its Seahawk and Poseidon, out of "
+    forces="Your escort group with its Seahawk; your Poseidon out of "
            "Christchurch. One RNZAF P-8A on a national allocation. Two "
            "gateway ships. Neutral: the Chatham freighter, the pilot launch, "
            "two trawlers, an airliner. Opposing: a Type 056A corvette with "
@@ -63,11 +63,11 @@ MISSION = dict(
     fatal=[F("Gateway", ["gateway"], 1)],
     neutral_objective="Traffic",
     win="Both ships are at the pilot station with Lyttelton's tugs coming "
-        "out, and the corvette has a class, a name and a recording of itself "
+        "out, and Kiwi 05 has a recording of the corvette "
         "asking a tanker for a certificate. Brand: 'That is the gateway. It "
         "stays open.'",
     lose="A gateway ship is lost in New Zealand's front yard and the "
-         "American programme's summer goes to Hobart. Wellington will say "
+         "US Antarctic Program's summer goes to Hobart. Wellington will say "
          "what it says.",
     timeout="Sixty-five minutes and the ships are still short of the Heads "
             "with the corvette between them and the pilot. The gateway is "

@@ -12,20 +12,20 @@ from campaign_data import U, F, S, HELO, RECON
 MISSION = dict(
     code="SR04", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 4",
     group="core", num="04", key="Macquarie Passage", place="Macquarie Island",
-    intro="Supply and Coral Pioneer in Buckles Bay for the service window the "
-          "island's weather allows one day in three, with a Russian boat "
-          "closing and a Bear coming to look.",
-    special="Hold the service window and Broken Supply Line begins with a full "
-            "rearm; miss it and Broken Supply Line sails on what you have "
-            "left. The rule is the box at the moment the window closes.",
+    intro="HMAS Supply and MV Coral Pioneer in Buckles Bay for the service "
+          "window the island's weather allows one day in three, with a Russian "
+          "nuclear boat closing and a Bear-F coming to look.",
+    special="Hold the service window and your ships are rearmed before Broken "
+            "Supply Line; miss it and they sail it on what they have left. "
+            "Supply and Coral Pioneer must both be in the service box when it closes.",
     sender="Commodore Alex Mercer",
     intent=("Thirty minutes in the anchorage for Supply and Coral Pioneer, "
-            "and then both of them north together to the line. The island "
-            "gets its year in those thirty minutes. A boat is coming up from "
+            "and then both of them north together to the withdrawal line. The island "
+            "gets its year in those thirty minutes. A Russian nuclear boat is coming up from "
             "the south-west to look at the anchorage and a Bear is coming to "
             "look at you; the tender west of the island is a research vessel "
             "with a science party and a flag. Nothing here has fired and you "
-            "do not fire first. The window is the win."),
+            "do not fire first. The window is the job."),
     date=(2028, 12, 15), time=(7, 10), sea=5, clouds="Overcast", wind="W",
     difficulty=3, minutes=75, centre=(-54.3, 158.3),
     blue_nation="Australia", red_nation="Russia",
@@ -38,19 +38,19 @@ MISSION = dict(
         "on what crosses the beach. Both ships have to be inside the service "
         "box - five miles around the anchorage - when the window closes; "
         "what you do with them in between is your judgement. Hold it and "
-        "Broken Supply Line starts with full magazines; miss it and it sails "
-        "on what you have. When the thirty minutes are up, both ships come "
+        "your ships are rearmed before their next operation; miss it and "
+        "they sail it on what they have. When the thirty minutes are up, both ships come "
         "north together to the withdrawal line.\\n\\n"
-        "The boat Collins named on the ridge, or one very like it, is "
-        "forty-five miles south-west and closing at twenty knots. The "
-        "Russian research vessel that keeps station west of the island is "
-        "her tender, and a Bear-F is coming down the outside of the box "
-        "with a Midas somewhere behind it. The Bear is a reconnaissance "
+        "VICTOR, the Akula HMAS Collins named on the Macquarie Ridge, or one "
+        "very like it, is fifty-five miles south-west and closing at twenty knots. The "
+        "Russian research vessel AKADEMIK FERSMAN, keeping station west of "
+        "the island, is her tender, and a Bear-F is coming up from the "
+        "south-west over the anchorage with a Midas tanker somewhere behind it. The Bear is a reconnaissance "
         "flight until it is not; the tender is a research vessel with a "
         "flag. Your weapons are tight. Hold the window and get everybody "
         "out of it."),
     forces="HMAS Supply and MV Coral Pioneer at the anchorage, your escort "
-           "group with its Seahawk and Poseidon if bought. The station "
+           "group with its Seahawk and Poseidon if requisitioned. The station "
            "ashore. Opposing: one Akula closing from the south-west, its "
            "tender to the west, one Bear-F with tanker support. A longliner "
            "east of the island and a whale to the north.",
@@ -82,7 +82,7 @@ MISSION = dict(
     fatal=[F("Supply", ["support#1"]), F("Cargo", ["support#2"])],
     neutral_objective="Neutrals",
     win="The window held and both ships are north of the line. Macquarie "
-        "Island has its year, Broken Supply Line has its magazines, and the "
+        "Island has its year, your escorts will be rearmed, and the "
         "Bear went home with photographs of a resupply.",
     lose="The anchorage is broken. The island gets what was ashore before "
          "the window closed and nothing more until next summer.",
@@ -152,9 +152,10 @@ MISSION = dict(
                        "raaf_mq-4c_triton", "E7A_Wedgetail"],
                 flights=[HELO, RECON],
                 situation="Requisition before Macquarie Passage. The Wedgetail "
-                          "goes on sale here and recovers at Hobart. Broken Supply "
-                          "Line gets no builder and its rearm depends on the "
-                          "service window; the next window is Christmas at Bluff, "
+                          "is released to the task group here and recovers at Hobart. "
+                          "There is no requisition before Broken Supply Line, and "
+                          "its rearm depends on holding the service window; the "
+                          "next window is Christmas at Bluff, "
                           "before Beneath the South."),
     role="logistics",
 )
