@@ -147,7 +147,9 @@ MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 170, 12
   `radius=` for a box of their own); `dict(after_minutes=n)` - not before
   minute n; `dict(kind="destroyed", units=[...], min_units=n)` - and those
   units are gone. A kind, or a key the term's kind does not read, stops the
-  build.
+  build; so does a term no win can meet - no units, a `min_units` above the
+  count, a minute at or past the mission's clock, or `destroyed` on the
+  player's own units.
 - `after=` stages: `kind="classify"` (UnitClassified on those units) or
   `kind="area"` with `at=`/`at_unit=`, `radius=`, `min_units=`, and optionally
   `after_minutes=N` (the units must be inside the area when the clock reaches
@@ -173,9 +175,11 @@ resolve={"Convoy": "victory",                   # completed by the victory trigg
 Every objective needs one. `unseen` is stock's `UnitClassified` with
 `Condition_Taskforce=Taskforce2` on the player's own units (Operation Polar
 Fury 1985 Trigger5). It measures classification, not detection, and only
-ever fails, so its objective ends `Complete`. `F("Unseen", kind="unseen")`
-ends the mission on it; a fatal entry of that kind takes its units from the
-`unseen` resolver, as a loss takes them from `protect`. A `classify` resolver's station may also be a
+ever fails, so its objective ends `Complete`. It names stations only and
+fails on the first unit classified; there is no count. `F("Unseen",
+kind="unseen")` ends the mission on it; a fatal entry of that kind takes its
+units from the `unseen` resolver, as a loss takes them from `protect`, and
+its `minimum=` runs from 1 to the number it watches. A `classify` resolver's station may also be a
 list of refs (`["network#1", "network#4", "network#5"]`) when the objective
 names particular hulls inside a larger formation. `declares=[...]` must list every variable the
 mission writes (in a resolver, a stage `sets`, a victory `sets`, a `flags`
@@ -239,8 +243,10 @@ plus what it can move in the clock (24 kn ships, 300 kn aircraft): the
 mission fails the gate if the closest red unit still cannot touch the nearest
 blue one. A `destroy` victory fails the build if nothing blue can reach the
 target even after steaming. The standoff distance does not apply to a red
-unit at `weapons="Hold"` whose own role is not a combat one (an armed coaster
-in company, `Role=Spy`): it will not open the engagement.
+unit at `weapons="Hold"` whose every role is a known non-combat one (an armed
+coaster in company, `Role=Spy`; the list is the builder's `NONCOMBAT_HINT`):
+it will not open the engagement. A role the list does not name counts as one
+that fights - `usn_ssgn_ohio` declares only `SSGN`.
 
 The closure check also refuses a protected hull further from its nearest
 armed escort than the escort can steam in the clock (24 kn for a ship, 10 kn

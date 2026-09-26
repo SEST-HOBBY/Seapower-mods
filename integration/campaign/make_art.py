@@ -308,14 +308,20 @@ def render_all(camp_dir, missions, events, slug, title, subtitle,
     one path here that is spelled rather than returned.
 
     `tiles` is the map tiles the campaign's events stand on (the builder's
-    event_tiles()). Only those are written: a campaign with no press page
-    that shipped bkg_tile_newspaper.png would carry a file nothing points at.
+    event_tile() of each event). Only those are written: a campaign with no
+    press page that shipped bkg_tile_newspaper.png would carry a file nothing
+    points at. A name that is not a tile stops the build rather than leave
+    campaign.ini pointing at a tile nobody drew.
 
     The pages were drawn from the coalition's side of the table. An event may
     relabel them: `note_label` on a signal or a log (default ANALYST NOTE /
     MASTER'S NOTE), `log_heading` and `master_label` on a log (DECK LOG
     EXTRACT / MASTER), `marking` on an intelligence summary.
     """
+    stray = set(tiles) - {"newspaper", "message"}
+    if stray:
+        raise SystemExit(f"{slug}: no map tile called {', '.join(sorted(stray))}"
+                         " - the tiles are newspaper and message")
     art = Path(camp_dir) / "art"
     art.mkdir(parents=True, exist_ok=True)
     sheets, assets, marks = {}, {}, []

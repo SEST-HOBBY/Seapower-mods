@@ -1516,9 +1516,18 @@ def also_condition(mission, n, extra, members):
     otherwise). `destroyed`: min_units of them are gone. Without a `kind`
     a term is `time` if it sets after_minutes and `area` if not, which is
     how every term written before the kinds existed reads.
+
+    A term the engine would accept and the player could never meet stops
+    the build as well: one that names no unit (`Units=` with
+    `MinimumUnits=0`), a min_units above what it names, a minute the
+    Deadline trigger reaches first, or a `destroyed` term on the player's
+    own units - a win that waits for the player to lose them.
     """
     victory = mission["victory"]
-    kind = extra.get("kind") or ("time" if extra.get("after_minutes") else "area")
+    if not isinstance(extra, dict):
+        raise SystemExit(f"{mission['key']}: a victory also-term is a dict, "
+                         f"not {extra!r}")
+    kind = extra.get("kind") or ("time" if "after_minutes" in extra else "area")
     if kind not in ALSO_TERMS:
         raise SystemExit(f"{mission['key']}: victory also-term has kind {kind!r}; "
                          f"the builder knows {', '.join(ALSO_TERMS)}")
@@ -1526,21 +1535,42 @@ def also_condition(mission, n, extra, members):
     stray, missing = sorted(set(extra) - reads), sorted(needs - set(extra))
     if stray or missing:
         raise SystemExit(
-            f"{mission['key']}: a {kind!r} also-term "
+            f"{mission['key']}: a victory also-term of kind {kind!r} "
             + (f"does not read {', '.join(map(repr, stray))}" if stray else "")
             + (" and " if stray and missing else "")
             + (f"needs {', '.join(map(repr, missing))}" if missing else "")
             + f" - {kind} reads {', '.join(sorted(reads))}")
     if kind == "time":
+        after = extra["after_minutes"]
+        if (not isinstance(after, int) or isinstance(after, bool)
+                or not 0 < after < mission["minutes"]):
+            raise SystemExit(
+                f"{mission['key']}: a victory also-term waits for minute "
+                f"{after!r}, and the Deadline fails the mission at minute "
+                f"{mission['minutes']} - a time term is whole minutes inside "
+                "the clock")
         return [f"Condition_Condition{n}_Type=Time",
-                f"Condition_Condition{n}_Time={extra['after_minutes'] * 60}"]
+                f"Condition_Condition{n}_Time={after * 60}"]
     wanted = [extra["units"]] if isinstance(extra["units"], str) else extra["units"]
     units = [tag for r in wanted for tag in refs(members, r)]
+    least = extra.get("min_units", len(units))
+    if (not units or not isinstance(least, int) or isinstance(least, bool)
+            or not 1 <= least <= len(units)):
+        raise SystemExit(
+            f"{mission['key']}: a victory also-term of kind {kind!r} asks for "
+            f"{least!r} of {units} - it needs at least one unit, and a "
+            "min_units from 1 to the number it names")
     if kind == "destroyed":
-        return destroyed_condition(n, units, extra.get("min_units", len(units)))
+        own = [t for t in units if t.startswith("Taskforce1")]
+        if own:
+            raise SystemExit(
+                f"{mission['key']}: a victory also-term of kind 'destroyed' "
+                f"names the player's own {', '.join(own)} - the win would wait "
+                "for the player to lose them")
+        return destroyed_condition(n, units, least)
     return area_condition(n, mission["centre"], extra.get("at", victory.get("at")),
                           extra.get("radius", victory.get("radius", 20)),
-                          units, extra.get("min_units", len(units)))
+                          units, least)
 
 
 # Conservative transit speeds for the reachability check, in knots. They are
@@ -1676,6 +1706,20 @@ def is_combat(uid):
     if not roles:
         return True          # unclassified: assume it fights, and be wrong safe
     return bool(roles & COMBAT_ROLES)
+
+
+def is_passive(uid):
+    """Every one of the unit's roles is a known non-combat one.
+
+    Not the same as `not is_combat()`, which is true of any role missing from
+    COMBAT_ROLES. usn_ssgn_ohio declares Role=SSGN and nothing else and
+    carries a 1,000 NM Tomahawk; sea_mine declares SeaMine; neither is in
+    either list. The census may miss them, but a gate that lets a unit start
+    alongside the player because it is "not combat" has to be sure: a role
+    NONCOMBAT_HINT does not name counts as one that fights.
+    """
+    roles = ai_roles(uid)
+    return bool(roles) and roles <= NONCOMBAT_HINT
 
 
 # What each mission role is allowed to weigh, counted in RED units that can
@@ -2110,14 +2154,15 @@ def check_reach(mission, placed, members):
     # without a say, which happens at sea and in the air. Two ground forces
     # in contact ashore is not that - it is the scenario - so a land-on-land
     # pair does not count toward it. Nor does a red unit at weapons Hold
-    # whose own [AI] Role is not a combat one: an armed coaster sailing in
-    # company with the player's group (Role=Spy) will not open fire and is
-    # not built to, so it is the situation the player is briefed on, not an
-    # ambush. Free, Tight or a combat role and the gate applies as before.
+    # whose every [AI] Role is a known non-combat one: an armed coaster
+    # sailing in company with the player's group (Role=Spy) will not open
+    # fire and is not built to, so it is the situation the player is briefed
+    # on, not an ambush. Free, Tight or any role is_passive() does not know
+    # and the gate applies as before.
     passive = {tag for family, entries in placed.items()
                if family.startswith("Taskforce2")
                for tag, keys, _n, _x in entries
-               if keys.get("WeaponStatus") == "Hold" and not is_combat(keys["Type"])}
+               if keys.get("WeaponStatus") == "Hold" and is_passive(keys["Type"])}
     afloat = [math.hypot(x - bx, z - bz)
               for t, _u, x, z, ashore, _f, _fl, _mv in red if t not in passive
               for _bt, _bu, bx, bz, bashore, _bf, _bfl, _mv in blue
@@ -2601,9 +2646,16 @@ def render(mission, placed, members):
     def own_units(what, station_refs):
         """The player's units at these stations, for a predicate on what the
         enemy knows about them. A red or neutral unit here is an authoring
-        mistake the engine would accept and never fire on."""
-        units = [t for r in station_refs if isinstance(r, str)
-                 for t in refs(members, r)]
+        mistake the engine would accept and never fire on. So is anything
+        that is not a station ref: `("unseen", "boats", 2)` reads like
+        protect's count and would be dropped without a word."""
+        odd = [r for r in station_refs if not isinstance(r, str)]
+        if odd:
+            raise SystemExit(
+                f"{mission['key']}: {what} names stations, and {odd!r} is not "
+                "one - the objective fails on the first unit classified; a "
+                "fatal entry's minimum= is its count")
+        units = [t for r in station_refs for t in refs(members, r)]
         foreign = [t for t in units if not t.startswith("Taskforce1")]
         if not units or foreign:
             raise SystemExit(
@@ -2768,6 +2820,15 @@ def render(mission, placed, members):
                     "wrong ship")
         if fkind == "unseen":
             watched = own_units(f"the fatal entry on {oid}", watch)
+            # MinimumUnits=0 is met at spawn and ends the mission on its first
+            # tick; one above the count is never met. A loss's minimum falls
+            # back to "all of them" on 0; nothing sensible does here.
+            if (not isinstance(least, int) or isinstance(least, bool)
+                    or not 1 <= least <= len(watched)):
+                raise SystemExit(
+                    f"{mission['key']}: the fatal entry on {oid} ends the "
+                    f"mission when {least!r} of {watched} are classified - "
+                    "minimum= runs from 1 to the number it watches")
             terminal(f"{oid} classified by the enemy - mission over",
                      classified_condition(1, watched, least, "Taskforce2")
                      + ["ConditionsCompleted=<Condition1>"],

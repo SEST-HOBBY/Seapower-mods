@@ -241,6 +241,22 @@ class VictoryAlsoTerms(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "'radius'"):
             self.win([dict(kind="destroyed", units=["spoiler"], radius=5)])
 
+    def test_a_term_no_win_can_meet_stops_the_build(self):
+        for term, why in ((dict(kind="destroyed", units=[]), r"\[\]"),
+                          (dict(units=[]), r"\[\]"),
+                          (dict(kind="destroyed", units=["spoiler"], min_units=5), "5 of"),
+                          (dict(units=["escort"], min_units=0), "0 of"),
+                          (dict(after_minutes=80), "minute 80"),
+                          (dict(after_minutes=0), "minute 0"),
+                          (dict(kind="time", after_minutes=70.5), "minute 70.5"),
+                          (("destroyed", "spoiler"), "is a dict")):
+            with self.assertRaisesRegex(SystemExit, why, msg=repr(term)):
+                self.win([term])
+
+    def test_a_destroyed_term_on_the_players_own_units_stops_the_build(self):
+        with self.assertRaisesRegex(SystemExit, "player's own Taskforce1Vessel1"):
+            self.win([dict(kind="destroyed", units=["escort"])])
+
     def test_the_per_unit_chain_reads_the_same_terms(self):
         stage = dict(kind="area", units="escort", at=(-4.45, 128.85), radius=3,
                      per_unit=True)
@@ -313,6 +329,23 @@ class UnseenObjective(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "ends Fail"):
             rendered(self.mission(spec="25,-40,Fail"))
 
+    def test_the_resolver_names_stations_only(self):
+        # protect reads a trailing count; unseen has none, and used to drop it
+        for how in (("unseen", "escort", 2), ("unseen", ["escort", "group"])):
+            with self.assertRaisesRegex(SystemExit, "names stations", msg=repr(how)):
+                rendered(self.mission(how=how))
+
+    def test_a_fatal_minimum_runs_from_one_to_the_count(self):
+        two = ("unseen", "escort", "group")
+        lines = rendered(self.mission(how=two, fatal=[F("Unseen", kind="unseen", minimum=2)]))[
+            "Unseen classified by the enemy - mission over"]
+        self.assertIn("Condition_Condition1_Units=Taskforce1Vessel1,Taskforce1Vessel2", lines)
+        self.assertIn("Condition_Condition1_MinimumUnits=2", lines)
+        for least in (0, 3):     # 0 ends the mission on its first tick; 3 never
+            with self.assertRaisesRegex(SystemExit, "minimum= runs from 1"):
+                rendered(self.mission(how=two, fatal=[F("Unseen", kind="unseen",
+                                                        minimum=least)]))
+
     def test_an_unknown_fatal_kind_stops_the_build(self):
         with self.assertRaisesRegex(SystemExit, "'sighted'"):
             rendered(self.mission(fatal=[F("Unseen", ["escort"], kind="sighted")]))
@@ -383,6 +416,16 @@ class StandoffAndClosure(unittest.TestCase):
         self.assertEqual(len(self.standoff(dict(
             side="red", mod="SEST_RAN_Fleet", type="ran_ffh_anzac",
             station="spoiler", weapons="Hold"))), 1)
+
+    def test_a_role_the_builder_does_not_name_is_not_passive(self):
+        # Role=SSGN is in neither list, so is_combat() says no; a 1,000 NM
+        # Tomahawk boat at Hold must still not start inside the standoff.
+        self.assertFalse(bp.is_combat("usn_ssgn_ohio"))
+        self.assertFalse(bp.is_passive("usn_ssgn_ohio"))
+        self.assertTrue(bp.is_passive("ran_ms_super_p"))
+        self.assertEqual(len(self.standoff(dict(
+            side="red", mod="us-submarines", type="usn_ssgn_ohio",
+            station="spoiler", depth="periscope", weapons="Hold"))), 1)
 
     def test_the_decoy_alone_is_too_far_to_escort(self):
         problems = self.closure([self.TENDER, self.DECOY])
@@ -484,6 +527,11 @@ class StoryArt(unittest.TestCase):
         art = self.render_all(events, tiles={bp.event_tile(e) for e in events})
         self.assertEqual(sorted(f.name for f in art.glob("bkg_tile_*.png")),
                          ["bkg_tile_message.png"])
+
+    def test_a_tile_that_is_not_one_stops_the_build(self):
+        with self.assertRaisesRegex(SystemExit, "no map tile called press"):
+            self.render_all([SIGNAL], tiles={"press", "message"})
+        self.assertFalse((self.tmp / "camp").exists())
 
     def test_the_tile_rule(self):
         self.assertEqual(bp.event_tile(dict(file="x")), "newspaper")
