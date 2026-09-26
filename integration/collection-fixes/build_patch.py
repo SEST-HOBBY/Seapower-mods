@@ -134,13 +134,13 @@ SM3_OVWR_DECLINED = {
 }
 # Keys the overwrite sets to the base file's own value. They are checked,
 # not copied: if the overwrite moves off the base value (the 2026-09-20
-# export cleared CanNotAttackTypes, so with the preloader only the seeker
-# stopped ignoring aircraft), the build stops so the choice is made on
+# export cleared CanNotAttackTypes, so only with the preloader did the
+# seeker stop ignoring aircraft), the build stops so the choice is made on
 # purpose.
 SM3_OVWR_SAME = ("TargetType", "CanNotAttackTypes")
 # Everything else the overwrite declares is presentation - meshes, stages,
 # effects, audio, control-fin animation - or one of the four extension keys
-# no vanilla file declares (AutoAttackBelow/AboveMaxAltitude,
+# no vanilla file declares (AutoAttackBelowMinAltitude/AboveMaxAltitude,
 # OptimalTargetDist, NumberOfStages), which the overwrite still supplies
 # whenever the preloader that reads them is installed.
 SM3_OVWR_IGNORABLE = re.compile(
@@ -217,8 +217,10 @@ def sm3_fold_overwrite(t, name):
             sys.exit(f"{name}: no {key} line in the donor - rebase this fix")
     # Kept to three lines: the header counts against the file's similarity
     # to its donor, and below 90% the file drops out of dist CREDITS.txt.
-    note = ("From the Anchorchain overwrite, so it flies the same without the "
-            "preloader: " + ", ".join(f"{k}={v}" for k, v in SM3_OVWR_VALUES.items())
+    # "These", not "the round": the D's declined MaxFlightTime still differs
+    # with the preloader.
+    note = ("From the Anchorchain overwrite, so these hold without the preloader "
+            "too: " + ", ".join(f"{k}={v}" for k, v in SM3_OVWR_VALUES.items())
             + ".")
     return t, "\n" + textwrap.fill(note, 76, break_on_hyphens=False)
 
