@@ -58,17 +58,24 @@ INFO_DESC = (
 
 # 816 Squadron RAN: the one squadron of the MH-60R under the Australian flag.
 # Every source of the airframe ships only US Navy squadrons, so SEST Collection
-# Fixes composes the table and appends this one; a blue Seahawk in this
-# campaign is always a Royal Australian Navy ship's flight.
+# Fixes composes the table and appends this one; a Seahawk on an Australian
+# side is always a Royal Australian Navy ship's flight.
 RAN_SEAHAWK = "Squadron20"
 
 
 def U(side, mod, type, station, **kw):
     """One placed unit: whose side, which mod it is there to exercise, what it
     is, and where it stands. Hull variant, squadron and loadout are resolved
-    from the winning file at build time, not guessed here."""
-    if type == "usn_mh-60r" and side == "blue":
-        kw.setdefault("squadron", RAN_SEAHAWK)
+    from the winning file at build time, not guessed here.
+
+    A Seahawk's squadron follows its flag, not its side: 816 Squadron when the
+    side it sails for is Australian (or its own nation= says so), the file's
+    default otherwise. "Blue" was a proxy for Australian while every player
+    was; a campaign played from the other side put the RAN's Seahawk on red
+    and it came out as a US Navy squadron. The builder applies it once the
+    mission's nations are known; an explicit squadron= always wins."""
+    if type == "usn_mh-60r":
+        kw.setdefault("squadron_by_nation", {"Australia": RAN_SEAHAWK})
     return dict(side=side, mod=mod, type=type, station=station, **kw)
 
 

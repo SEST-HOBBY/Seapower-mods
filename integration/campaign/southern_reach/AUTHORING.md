@@ -304,7 +304,7 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `ran_opv_arafura` | Vessel | `SEST_RAN_Fleet` | Variant1 Arafura, 2 Eyre, 3 Pilbara, 4 Gippsland; fits Containers/AntiShip/AntiAir |
 | `ran_ssg_collins` | Submarine | `SEST_RAN_Fleet` | Variant1 Collins, 2 Farncomb; `depth="periscope"` |
 | `ran_aor_supply` | Vessel | `SEST_RAN_Fleet` | Variant1 Supply, 2 Stalwart; `loadout` Default |
-| `usn_mh-60r` | Helicopter | `us-navy-2027` | range 520; fits ASW, ASWLongRange, ASWPatrol, Anti-shipLate; `U()` gives a blue Seahawk Squadron20 (816 Squadron RAN) unless told otherwise |
+| `usn_mh-60r` | Helicopter | `us-navy-2027` | range 520; fits ASW, ASWLongRange, ASWPatrol, Anti-shipLate; a Seahawk on an Australian side, or with its own `nation=` Australian, flies Squadron20 (816 Squadron RAN) unless told otherwise; on any other side it keeps the file's default |
 | `usn_p8` | Aircraft | `p-8-poseidon` | range 2,700; fits ASW, AntiShip; Squadron3 RAAF, Squadron6 RNZAF |
 | `E7A_Wedgetail` | Aircraft | `e-7a-wedgetail` | range 2,700; no fits; Squadron1 |
 | `raaf_mq-4c_triton` | Aircraft | `SEST_ADF_Persistent_ISR` | range 9,430; unarmed, `weapons="Hold"` |
