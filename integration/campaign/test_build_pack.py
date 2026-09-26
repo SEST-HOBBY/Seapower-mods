@@ -11,8 +11,12 @@ builder emits. Nothing is written into the tree.
 
     python3 integration/campaign/test_build_pack.py
 """
+import contextlib
 import importlib.abc
+import io
+import shutil
 import sys
+import tempfile
 import types
 import unittest
 from pathlib import Path
@@ -23,6 +27,10 @@ sys.path.insert(0, str(HERE.parents[1] / "tools"))
 import build_pack as bp  # noqa: E402
 import check_campaign_coverage as coverage_check  # noqa: E402
 from campaign_data import F, S  # noqa: E402
+try:
+    import make_art  # noqa: E402
+except ImportError:          # Pillow missing: the art tests are skipped
+    make_art = None
 
 _ABSENT = object()
 
@@ -399,6 +407,87 @@ class StandoffAndClosure(unittest.TestCase):
             self.placed([self.TENDER, dict(
                 side="red", mod="auxilliary-merchant-pack", type="ran_ms_super_p",
                 station="spoiler", weapons="Hold", independent=True)])
+
+
+SIGNAL = dict(file="99_test_signal", form="signal",
+              header=[("FROM", "FLEET HQ"), ("TO", "COMMANDER CARRIER TASK GROUP")],
+              body=["1. THE GROUP IS NOT AT WAR WITH ANY STATE."],
+              note="Para 3 is the order.")
+LOG = dict(file="99_test_log", form="log", ship="Test Ship", master="A. Test",
+           date="28 November 2028", entries=[("0510", "Group turned north-west.")],
+           note="Acknowledged.  - A.T.")
+INTSUM = dict(file="99_test_intsum", form="intsum", org="Fleet HQ", ref="INTSUM 01",
+              date="22 December 2028", subject="Test", body=["The picture."])
+
+
+@unittest.skipIf(make_art is None, "Pillow is not installed")
+class StoryArt(unittest.TestCase):
+    """The page labels a campaign played from the other side needs, and only
+    the map tiles something stands on."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="sest-art-test-"))
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def png(self, draw, *args, **kw):
+        out = self.tmp / "page.png"
+        with contextlib.redirect_stdout(io.StringIO()):
+            draw(out, *args, **kw)
+        return out.read_bytes()
+
+    def render_all(self, events, **kw):
+        with contextlib.redirect_stdout(io.StringIO()):
+            make_art.render_all(self.tmp / "camp", [], events, "sest-test",
+                                "Test", "Subtitle", **kw)
+        return self.tmp / "camp" / "art"
+
+    def signal(self, **kw):
+        return self.png(make_art.signal, SIGNAL["header"], SIGNAL["body"],
+                        note=SIGNAL["note"], **kw)
+
+    def log(self, **kw):
+        return self.png(make_art.log, LOG["ship"], LOG["master"], LOG["date"],
+                        LOG["entries"], note=LOG["note"], **kw)
+
+    def test_the_defaults_draw_what_they_drew(self):
+        self.assertEqual(self.signal(), self.signal(note_label="ANALYST NOTE"))
+        self.assertEqual(self.log(), self.log(heading="DECK LOG EXTRACT",
+                                              master_label="MASTER",
+                                              note_label="MASTER'S NOTE"))
+
+    def test_each_label_changes_the_page(self):
+        self.assertNotEqual(self.signal(), self.signal(note_label="SENDER'S NOTE"))
+        for key, value in (("heading", "LOG EXTRACT"), ("master_label", "CAPTAIN"),
+                           ("note_label", "CAPTAIN'S NOTE")):
+            self.assertNotEqual(self.log(), self.log(**{key: value}), key)
+
+    def test_render_all_passes_the_event_keys_through(self):
+        art = self.render_all([
+            dict(SIGNAL, note_label="SENDER'S NOTE"),
+            dict(LOG, log_heading="LOG EXTRACT", master_label="CAPTAIN",
+                 note_label="CAPTAIN'S NOTE"),
+            dict(INTSUM, marking="SECRET  //  FLEET HQ ONLY")])
+        self.assertEqual((art / "99_test_signal_image.png").read_bytes(),
+                         self.signal(note_label="SENDER'S NOTE"))
+        self.assertEqual((art / "99_test_log_image.png").read_bytes(),
+                         self.log(heading="LOG EXTRACT", master_label="CAPTAIN",
+                                  note_label="CAPTAIN'S NOTE"))
+        self.assertEqual((art / "99_test_intsum_image.png").read_bytes(),
+                         self.png(make_art.intsum, INTSUM["org"], INTSUM["ref"],
+                                  INTSUM["date"], INTSUM["subject"], INTSUM["body"],
+                                  marking="SECRET  //  FLEET HQ ONLY"))
+
+    def test_only_the_tiles_the_events_stand_on_are_written(self):
+        events = [SIGNAL, LOG]
+        art = self.render_all(events, tiles={bp.event_tile(e) for e in events})
+        self.assertEqual(sorted(f.name for f in art.glob("bkg_tile_*.png")),
+                         ["bkg_tile_message.png"])
+
+    def test_the_tile_rule(self):
+        self.assertEqual(bp.event_tile(dict(file="x")), "newspaper")
+        self.assertEqual({bp.event_tile(e) for e in (SIGNAL, LOG, INTSUM)}, {"message"})
 
 
 if __name__ == "__main__":
