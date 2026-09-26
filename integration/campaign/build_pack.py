@@ -1019,6 +1019,7 @@ def place(mission, snapper):
     berths = collections.Counter()             # per-station sea spacing
     station_snap = {}                          # station -> ((lat, lon), drift)
     worst = 0.0
+    alone = set()                              # independent=True, by tag
 
     # The generated force forms on Taskforce1Vessel1: every stock Task Force
     # Mode mission puts TaskForceModeAnchor on the FIRST unit of its kind, and
@@ -1222,6 +1223,15 @@ def place(mission, snapper):
         placed[family].append((tag, keys, spec.get("name"),
                                spec.get("no_neutral_penalty", False)))
         members[spec["station"]].append(tag)
+        # A player hull that sails unescorted on purpose - the tender slipping
+        # in while the frigate draws the patrol off - is exempt from the
+        # closure gate's escort distance. It is not a key the game reads, so
+        # it rides on the mission, the way the anchor's tag does.
+        if spec.get("independent"):
+            if spec["side"] != "blue":
+                sys.exit(f"{mission['key']}: independent=True is for the "
+                         f"player's own hulls; {spec['type']} is {spec['side']}")
+            alone.add(tag)
         for token, why in credit.items():
             best = credits.get(token)
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
@@ -1253,6 +1263,7 @@ def place(mission, snapper):
     stranded = assign_home_bases(placed)
     if stranded:
         raise SystemExit(f"{mission['key']}: " + "; ".join(stranded))
+    mission["_independent"] = alone
     return placed, members, credits, worst
 
 
@@ -1859,7 +1870,6 @@ def check_closure(mission, placed, members):
     protected = [b for b in blue if b["tag"] in guard and b["kind"] in ("sea", "sub")]
     if not protected:
         return
-    steam = mission["minutes"] / 60.0 * 24.0
 
     def armed_reach(u):
         kind_dir, path = unit_file(u["uid"])
@@ -1870,17 +1880,35 @@ def check_closure(mission, placed, members):
             fit, _why = pick_loadout(u["uid"], path, None)
         return reach(u["uid"], kind_dir, path, fit)
 
-    escorts = [b for b in blue if b["kind"] == "sea" and armed_reach(b) > 0]
+    # An escort is anything armed that sails: a surface ship at the 24 kn
+    # this file uses everywhere, or a boat at the reach check's 10 kn dived.
+    # Only surface ships counted once, so a tender meeting her submarine
+    # with the frigate drawing a patrol off thirty miles east was refused
+    # as unescorted. The one that gets closest in the clock is the escort.
+    # A hull marked independent=True sails alone on purpose (place() records
+    # it) and is not measured at all.
+    knots = {"sea": 24.0, "sub": TRANSIT["Submarine"]}
+    escorts = [b for b in blue if b["kind"] in knots and armed_reach(b) > 0]
+    alone = mission.get("_independent", set())
+
+    def short_of(e, pr):
+        return (math.hypot(e["x"]-pr["x"], e["z"]-pr["z"]) - 2.0
+                - mission["minutes"] / 60.0 * knots[e["kind"]])
+
     if escorts:
         for pr in protected:
-            nearest = min(escorts, key=lambda e: math.hypot(e["x"]-pr["x"], e["z"]-pr["z"]))
+            if pr["tag"] in alone:
+                continue
+            nearest = min(escorts, key=lambda e: short_of(e, pr))
             d = math.hypot(nearest["x"]-pr["x"], nearest["z"]-pr["z"])
-            if d - 2.0 > steam:
+            if short_of(nearest, pr) > 0:
+                kn = knots[nearest["kind"]]
                 CLOSURE_PROBLEMS.append(
                     f"{mission['key']}: {pr['tag']} ({pr['uid']}) is protected and "
                     f"the nearest escort ({nearest['tag']}, {nearest['uid']}) is "
-                    f"{d:.0f} NM away - {mission['minutes']} minutes at 24 kn is "
-                    f"{steam:.0f} NM. The escort cannot reach what it escorts.")
+                    f"{d:.0f} NM away - {mission['minutes']} minutes at {kn:.0f} kn is "
+                    f"{mission['minutes'] / 60.0 * kn:.0f} NM. The escort cannot "
+                    "reach what it escorts.")
 
     def nearest_protected(u):
         pr = min(protected, key=lambda p: math.hypot(p["x"]-u["x"], p["z"]-u["z"]))
@@ -2063,9 +2091,17 @@ def check_reach(mission, placed, members):
     # The standoff rule is about an engagement the player is dropped into
     # without a say, which happens at sea and in the air. Two ground forces
     # in contact ashore is not that - it is the scenario - so a land-on-land
-    # pair does not count toward it.
+    # pair does not count toward it. Nor does a red unit at weapons Hold
+    # whose own [AI] Role is not a combat one: an armed coaster sailing in
+    # company with the player's group (Role=Spy) will not open fire and is
+    # not built to, so it is the situation the player is briefed on, not an
+    # ambush. Free, Tight or a combat role and the gate applies as before.
+    passive = {tag for family, entries in placed.items()
+               if family.startswith("Taskforce2")
+               for tag, keys, _n, _x in entries
+               if keys.get("WeaponStatus") == "Hold" and not is_combat(keys["Type"])}
     afloat = [math.hypot(x - bx, z - bz)
-              for _t, _u, x, z, ashore, _f, _fl, _mv in red
+              for t, _u, x, z, ashore, _f, _fl, _mv in red if t not in passive
               for _bt, _bu, bx, bz, bashore, _bf, _bfl, _mv in blue
               if not (ashore and bashore)]
 
