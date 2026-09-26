@@ -9,7 +9,7 @@ The campaign is 26 missions built from 374 placed units. Every mod in the canoni
 | `unit` | places the unit; this mod wins its file | 131 |
 | `variant` | supplies the hull variant the placed unit uses | 3 |
 | `squadron` | supplies the squadron the placed airframe flies from | 8 |
-| `store` | supplies a round the placed unit's loadout hangs | 6 |
+| `store` | supplies a round the placed unit's loadout hangs | 7 |
 | `asset` | supplies a model folder the placed unit's file draws from | 2 |
 | `library` | ships no file a mission can name — systems, effects, UI or a bare dependency marker — and applies install-wide | 6 |
 | `shadowed` | every file it ships is outranked by something above it; nothing it contains can load | 2 |
@@ -170,6 +170,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `SEST_F-35C_JATM` | SEST F-35C JATM | `unit` | usn_f-35c | Fujian's Shadow |
 | `SEST_F16CM_JATM` | SEST F-16CM JATM | `unit` | usaf_f-16cm-bl52d | Long Reach |
 | `SEST_Growler_NGJ_MALICE` | SEST Growler NGJ + MALICE | `unit` | usn_ea-18g | Long Way Home |
+| `SEST_Intercept_Model` | SEST Intercept Model | `store` | idf_dsws / idf_stunner | Range Week |
 | `SEST_JMSDF_Mogami` | SEST JMSDF Mogami | `unit` | js_ffg_mogami | Common Sea |
 | `SEST_RAAF_Bases` | SEST RAAF Bases | `unit` | airbase_raaf_darwin | White Water |
 | `SEST_RAAF_F-35A_JATM` | SEST RAAF F-35A JATM | `unit` | raaf_f-35a | Weapons Free |

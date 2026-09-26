@@ -23,6 +23,7 @@ which overrides the base mod rather than replacing it, so the base mods must sta
 
 - **Mogami-class frigate** (`3456859157`) — **SEST JMSDF Mogami is built from it** - integration/jmsdf-mogami/build_patch.py reads this mod. Dropping it breaks that pack.
 - **J-20A** (`3591563716`) — unused *today* only because you deleted the Eastern Sweep formation. add_red_air_group.py can restore it and needs plaaf_j-20a.
+- **Tu-95 With AS-15** (`3395022688`), **Red Storm Arsenal** (`3413868677`), **David's Sling** (`3558173926`), **Euromod-South Korea Navy** (`3789208859`) — **SEST Intercept Model is built from them** - integration/intercept-model/build_patch.py reads the Tu-95 mod's `damage.ini` (the file that pack exists to replace), the Red Storm SM-6s, the Korean K-SAM II and the David's Sling Stunner. Dropping one stops that build. Dropping the Tu-95 mod also removes the defect; retire the pack's `damage.ini` half then rather than rebasing it.
 
 ## Unsubscribe candidates
 

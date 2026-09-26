@@ -55,7 +55,7 @@ and hull variants they name, and the rounds their loadouts hang.
 is asked for; the map, salvo and rescue tools are conveniences).
 
 
-4. NOT USED BY THIS CAMPAIGN (119): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (120): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -149,6 +149,7 @@ shared file wins for the mods above.
   (local)       SEST F-15EX Revamp
   (local)       SEST F-16CM JATM
   (local)       SEST F-35C JATM
+  (local)       SEST Intercept Model
   (local)       SEST JMSDF Mogami
   (local)       SEST Rafale F5
   (local)       SEST Raptor Squadrons
