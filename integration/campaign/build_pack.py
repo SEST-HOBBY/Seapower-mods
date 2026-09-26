@@ -2087,6 +2087,13 @@ def message_texts(mission):
 
 
 def check_message_texts(mission):
+    # The mission's name is the title of its start message, so a '|' there
+    # shifts the brief into the button field just as one in a body would.
+    if "|" in mission["key"]:
+        raise SystemExit(
+            f"{mission.get('code', mission['num'])} {mission['key']}: '|' in the "
+            "mission name, which is the start message's title; the game would "
+            "read the rest of the name as the body and the brief as the button.")
     for where, text in message_texts(mission):
         if "|" in text:
             raise SystemExit(
