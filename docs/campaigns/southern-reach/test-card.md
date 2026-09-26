@@ -24,6 +24,7 @@ Watch card; fly those first. Three come back here:
 3. **The Chinese replenishment ships** — SR05's Type 903A and SR12's and
    TS12's Type 901 are SEST Replenishment's own hulls: each appears in its
    group. A missing one names that pack.
+4. **RAAF Growlers fly full** — 4.12 below.
 
 Red Line's Hold/Tight and unseen triggers are on its own card
 (`../red-line/test-card.md`, 4 and 5).
@@ -139,6 +140,7 @@ writer both ways where the card says so.
 | 4.9 | SR06 Broken Supply Line | Fly it once with empty magazines (2.3) | Winnable by keeping the coaster moving and the Seahawk over the boat | If it is not, the rearm consequence is too hard and the bible's §4 needs a softer rule |
 | 4.10 | SR04 Macquarie Passage | Fire an escort's NSM or ESSM, then bring her inside half a mile of Supply at 12 kn or less during the window | The round comes back from Supply | Nothing crosses: report it with Southern Watch 6E, same system |
 | 4.11 | TS09 The Southern Convoy | Re-fly Southern Watch's Blind Horizon and Fujian's Shadow air defence first (Southern Watch card 6F: the restored 5% out-of-band intercept ceiling), then let Flying Shark 54's two YJ-83 come at the convoy | They skim at 8 ft. If 6F found the ceiling live, a Hobart (10-ft floors on ESSM, SM-2 and SM-6) is held to about 5% against them and an Anzac's ESSM Block 2 (5-ft floor) is the one class engaging at normal odds; bring back which ship killed each | Both at normal odds while 6F found the ceiling live means the band is not read per round - say which ship and round |
+| 4.12 | TS04 Tasman Crossing (or any TS mission after the Growler goes on sale) | Buy a Growler, then look at it on the deck and in flight: once parked at the base, and once launched on a Maritime Strike tasking | Both wing tanks on the inboard pylons, two AGM-88G on the outboard pylons, the jammer pods on the middle pylons, two AIM-120D under the fuselage. No pylon bare, no tank floating below its wing | A bare inboard or outboard pylon: note which fit the Growler shows in its loadout panel - every fit on `usn_ea-18g` is built full now, so a bare one means the deployed pack is older than this round |
 
 ## 5 — the numbers to bring back
 
