@@ -326,6 +326,9 @@ Game closed, after the sync in step 4:
    mission is gone; and every `usersettings.ini.bak_*` but the newest three
    (each sync writes one; `set-mod-order.ps1` now prunes to three itself).
    Read the preview: a mission of your own with "backup" in its title is on it.
+   If the missions are back after the next launch (seen on the PC: every
+   purged backup returned), Steam Cloud restored them. Start Sea Power, stay
+   at the main menu, run the two lines again, then exit the game normally.
 
 ## 7 — then play
 
