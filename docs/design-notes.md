@@ -211,6 +211,196 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
 - Stations 13/14 look like pylons but carry sead/aam rack meshes; a tank there
   floats in mid-air.
 
+## Replenishment at sea — five gates, and only one of them is obvious
+
+- **The supply system was shipped switched off, and the commented block names
+  the WRONG system.** Vanilla's only `[SupplySystem1]` on a hull is commented
+  out on `usn_aoe_sacramento.ini` and says `VesselSupplySystem` — a name that
+  appears in no working file anywhere and has no localisation. RE-power
+  (3605013271), field-tested on 23 ship suppliers, uses
+  `SystemName=TruckSupplySystem` with `TargetTypes=Vessel` or `=Submarine` on
+  every one, and its bundled reference doc gives the TargetTypes vocabulary as
+  "LandUnit", "Vessel" or "Submarine". Derive from what runs, not from what a
+  comment promises.
+- **A round has to clear five gates.** `TargetTypes` vs the receiver's
+  `UnitType`; then `SupplyRange`/`MaxOwnVelocity`/`MaxTargetVelocity`/
+  `MaxTargets`; then the round's `AmmoPoints` against the supplier's
+  `MaxAmmoPoints`; then `SupplyCategory` against the supplier's
+  `AccountableAmmunitionCategory_N`; then the receiving launcher.
+- **Omitting `MaxAmmoPoints` removes the size cap entirely.** That is not an
+  oversight — `tgt_ammo_depot_small` comments it out deliberately, which is the
+  only reason the depot can reload an SA-5 (21000 points) that a truck capped
+  at 200 cannot. It is the cleanest lever for "ammunition ship vs fleet oiler".
+- **A launcher with no magazine can never be reloaded.** `Ammunition=` with no
+  `AssociatedMagazine=` needs `ReloadableWithoutMagazine=True` or it is
+  one-shot forever. Vanilla states it on the Long Beach's Mk141 canisters,
+  which set it `False`; across the whole corpus the flag is set `True` on 11
+  units and every one is a land SAM TEL. **No vessel anywhere sets it.** This
+  is the gate that decides whether the other four matter, and it is why
+  RE-power's author reports that anti-ship missiles and torpedoes will not
+  replenish.
+- **Red Storm Arsenal models every Mk41 cell as its own bare launcher.** So the
+  flag is not a deck-canister detail: without it, not one VLS round on any of
+  RSA's 103 affected hulls could ever be replenished. Scale surprises are the
+  norm — on the 24 Sep 2026 export 2220 launchers on 309 modern hulls are
+  affected, 93% of every launcher in the modern collection that actually holds
+  a round (2393; the other 173 have a magazine and were always fine). SEST
+  Replenishment At Sea reaches 2215 of them on 307 hulls, every one it is
+  entitled to touch; the other 5 sit on the Mogami and HMS Ocean, whose own
+  packs apply the same transform. Not the handful the Long Beach example
+  suggests.
+- **"It only changes the block we replace anyway" is a measurement, not an
+  assumption.** The pack first forked RE-power's copy of the nine shared
+  auxiliary hulls on the ordinary rule — fork the load-order winner, the copy
+  the player actually sees — resting on the belief that RE-power's only edit
+  to them was the supply block. Diffed, it was not: 26 changed lines on the
+  Sacramento alone outside that block, the whole `[OpticalView]` section
+  deleted, `ArmorType` dropped `Minor` → `None`, `MaxAccelerationFactor`
+  0.21 → 2.4, `LinearDrag` and the acoustic figures retuned, `CavitationSpeed`
+  and `Prairie` removed. At tier 0 that republishes every one of them under
+  SEST's name. Forking the winner is right when the file is one you are
+  *extending*; when you only need one block, fork VANILLA and inherit nothing.
+  `tools/check_pack_fidelity.py` proves the result but cannot make this choice
+  for you — it only checks the file equals whatever upstream you named.
+- **A cloned hull inherits its donor's whole combat system, not just its
+  shape.** The replenishment clones were donor plus a supply block and nothing
+  else, so a 2017 Chinese and a 2017 British replenishment ship each sailed
+  with a Mk29 NATO Sea Sparrow launcher, two Phalanx, an SPS-40 and an
+  AN/SLQ-32 — a US Navy 1970s fit, on the wrong navy — and a 2006 MSC ship
+  carried twin 3″/50 mounts. Picking a donor on hull length answers "what does
+  it look like"; it says nothing about what it *is*. The fix is a refit table
+  that rewrites `SystemName` inside system sections and `Ammunition1` inside
+  magazine sections and touches nothing else, because `Mount`, `Collider`,
+  `Gun` and `Container` all name geometry that exists only in the donor mesh.
+- **A mesh section's `SystemName` is decorative — measure before assuming a
+  link.** Vanilla's `[SPS_40]` mesh block carries `SystemName=SPS-40` beside
+  its `Mesh=` line, which looks like the pairing a refit must keep consistent.
+  It is not: across every vanilla vessel, of the mesh sections a sensor
+  actually mounts, **757 carry no `SystemName` at all**, 129 carry a matching
+  one, and 11 carry one that disagrees — the Ticonderoga's SPS-55 mounts a mesh
+  labelled `usn_cg_ticonderoga_sps_55`, a mesh name, and the Ivan Rogov's three
+  Palm Fronds mount meshes labelled `Nav_Radar`. The link the engine uses is
+  `Mount=`, pointing at the section by name.
+- **A missile launcher's `SystemName` carries GEOMETRY; a gun's and a sensor's
+  do not.** `[MK29]` declares eight `AttachmentPosition` entries and
+  `[HQ-10_24]` twenty-four — mesh-relative coordinates for where each round is
+  drawn on the mount. Swapping one launcher name for another therefore renders
+  the rounds at a different launcher's coordinates on a mount that has the old
+  number of rails. Refit a launcher through its MAGAZINE instead: the Type 901
+  fires HQ-10 from a Mk29. `[MK15]` and `[Type_730]` are rates, arcs and
+  effects with no geometry at all, so guns swap freely.
+- **Half a swap is worse than none.** Give a hull a Type 730 and leave its
+  magazine on `usn_cal_20mm` and it has a CIWS with nothing to fire. Anything
+  that changes a weapon has to change its round in the same table row, which is
+  why the refit keys the two together rather than listing them apart.
+- **Ships carry loadouts too, and their launchers hide in the suffix.** A
+  header regex matching only `[WeaponSystemN]` silently skips
+  `[WeaponSystem6AntiShip]`, `[WeaponSystem4Strike]`, `[WeaponSystem12Late]`
+  and friends — 241 bare launchers on 24 modern hulls today, including the
+  Meteoro/Arafura's NSM quad launcher and the FREMM and Type 052D anti-ship
+  fits. Same trap as the aircraft `[WeaponSystem1Tanker]` blocks. Anything
+  sweeping weapon systems must allow the suffix.
+- **A section header can carry a comment.** Vanilla writes
+  `[Recon_Camera] #Generic recon camera` and Red Storm Arsenal
+  `[Type_345] #HHQ-7 FCR`. A parser whose header has to end at `]` skips every
+  such section: `check_weapon_employment` read the HQ-7's two-channel command
+  radar as no radar at all and blamed the pack's HQ-7 store repair for a
+  missing guidance channel. Match `^\[name\][^\n]*`, never `^\[name\]\n`.
+- **A "dangling reference" is three different problems, and two of them are
+  not references.** Thirteen modern hulls were once skipped for hanging an
+  ammunition id nothing defines, at a cost of 77 launchers. Two were not broken
+  at all: `DateBased_HWT=0,ger_dm2a4|2035,ger_dm2a5` declares a date-selected
+  round and `Ammunition1=DateBased_HWT` reads it — a stock mechanic, vanilla
+  submarines included — and the Han's `Ammunition4=` sits past its own
+  `NumberOfAmmunitionTypes=3`, so the engine never reads it. Six were a typo
+  away from a round the same mod already ships (`usn_rim_162essm` for
+  `usn_rim_162a`, `wp_ss-n-27` for `wp_ss_n_27`). Only the last four were
+  genuinely missing content. Detect precisely before deciding policy: a
+  detector that cannot tell a mechanic from a mistake makes the skip list, and
+  the loss, look justified.
+- **Fix the reference, never invent the id.** Defining the missing
+  `usn_rgm-84.ini` would work and would put SEST tier 0 in front of the real
+  file if the mod ever ships it. Repairing the reference inside the copy the
+  pack was already forking claims no name at all.
+- **Whose defect is it?** The same rule settles systems, stores and weapon
+  employment: if an upstream copy of the unit file has the same problem, the
+  pack inherited it with the file it forked and can only report it; if nothing
+  upstream has it, this repo introduced it and the build fails.
+  `check_dependencies` and `check_weapon_employment` both apply it. Without
+  that distinction a pack cannot ship a forked hull that carries an upstream
+  bug — which is how ten hulls once lost the launcher fix over references that
+  were equally broken with or without SEST.
+- **`SupplyRange` is nautical miles.** The ini comment says "In miles";
+  `language_en/ui.ini:2685` renders it `${SupplyRangeInMiles} nmi.` The UI
+  string wins, same as a screenshot wins.
+- **Fork the load-order winner, never the first file you find.** Three
+  modern hulls (six files with their variants) are shipped by two modern mods
+  at once; taking whichever the iteration reaches last forked the LOSING copy
+  of `plan_cv_fujian`, which at tier 0 would have replaced the hull the player
+  actually sees with a different mod's version. The same trap the ammunition
+  side already resolves by rank. A `_variants` file in the hull list is the
+  same trap waiting to spring: Nimitz Expanded ships only
+  `usn_cvn_nimitz_variants.ini`, and Flight Deck Ops ships that file too and
+  outranks it.
+- **`errors="replace"` corrupts a whole-file override.** Three upstream files
+  are not valid UTF-8 — a stray `0xFF` in Euromod's `usn_rgm-109e5a.ini`
+  beside two real NUL bytes, and `0xA0` in both `ger_ffg_f124` sensor labels.
+  Reading with `replace` rewrites each as U+FFFD, a silent edit to somebody
+  else's file. `errors="surrogateescape"` round-trips them. Pass `newline`
+  explicitly too, or a Windows rebuild emits CRLF and diffs the whole pack.
+- **Put back the key, not the file.** Restoring two stripped keys by shipping
+  the vanilla copy would have reverted the Tu-95 mod's whole rework of
+  `wp_ss-n-19` — Power, impact size, the sea-skimming profile — undoing the
+  mod's point. Fork the winner and insert the two lines.
+- **A hand-written id list is a coverage bug waiting to happen.** The metering
+  table started as 38 explicit ids. It caught the dash-named vanilla and
+  Euromod rounds and missed Red Storm Arsenal's entire underscore-named
+  parallel family — `usn_rgm_109c3` alone sits in 90 launchers. Derived from
+  `AmmoPoints`/`Type`/`TargetType` on every build it comes to 87 on the
+  24 Sep 2026 export. Same principle as `check_load_order.py` computing its
+  rules instead of listing them: nothing to keep in sync, nothing to forget
+  when a mod is added.
+- **A derived rule still has to reach files it does not own.** Ten of those
+  87 rounds are files SEST Collection Fixes or SEST Intercept Model already
+  ship, and two packs cannot ship one path. The owner tags its own copy with
+  the shared `tag_ammunition()`, and the RAS builder checks both directions —
+  every sibling-owned metered round carries exactly the category the rule
+  derives, and every `SEST_` category a sibling declares is one the rule still
+  selects — so a table and a rule cannot quietly drift apart.
+- **Check the LAND units before tagging a round.** The three land suppliers
+  stock no accountable categories at all, so tagging a round they service
+  removes the only supply path the game ships working. Red Storm Arsenal's
+  `usa_tomahawk_launcher` fires `usn_rgm-109b`; eight rounds are excluded from
+  metering for exactly this reason.
+- **A submerged submarine replenishes. Tested in game, 2026.** The engine
+  applies no surfaced-state check, and none can be added: no supply key
+  mentions depth, and the one candidate that looked like a lever —
+  `EnabledSurfaced` — is cosmetic, appearing only in mesh sections
+  (`[Sail_Submerged]`/`[Sail_Surfaced]`, flags, crew figures, hatches) to show
+  or hide a model part. Kept enabled as a house rule rather than lost along
+  with surfaced rearm; the off switch is dropping `Submarine` from
+  `SUPPLIERS`, since the only other submarine-capable supplier in the
+  collection is a dock. **The screenshot won again**: the pack shipped saying
+  this was unverifiable from files, and the answer was one mission away.
+- **`TargetTypes` takes a comma list.** `Vessel,Submarine` parses, proven in
+  game. Nothing in vanilla or the exported mods uses a multi-value supply
+  target list — RE-power picks one per hull — so this was the pack's riskiest
+  single line: had the comma not parsed, all 19 suppliers would have failed
+  at once, not just the submarine half.
+- **Adding a `SupplyCategory` can only ever restrict.** A round that had none
+  was unrestricted commodity ordnance; tagging it makes it unreplenishable by
+  every supplier that does not stock the category — flight decks included. So
+  tag only rounds no aircraft carries, and re-check that on every build: a
+  future mod hanging one on a pylon turns a balance choice into a regression.
+- **A stocked category the size gate blocks is a dead line.** Kazbek gets no
+  `SovietAdvancedASM` because the cheapest round in it costs 7740 against a
+  2000 ceiling. Keep the two gates consistent per hull or the supply panel
+  advertises ordnance that can never move.
+- **Some three hundred forks freeze some three hundred hulls.** Every hull the
+  launcher fix touches is a whole-file override of somebody else's file, so an
+  upstream update to it is masked until the pack is rebuilt. Rebuild after
+  every export (`docs/packaging-and-recovery.md`).
+
 ## Working practices
 
 - **Derive, don't invent.** New loadouts clone a donor block the mod's author
@@ -407,7 +597,9 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   `preflight` (every reference the missions make), `check_station_clash`,
   `check_weapon_employment` (every weapon can actually be fired by the mount
   carrying it), `check_stale_phrases` (retired claims, such as the pre-reveal
-  AIM-424's, kept out of every builder, README and emitted file), full pack
-  rebuilds. All exit non-zero; all have been
+  AIM-424's, kept out of every builder, README and emitted file),
+  `check_pack_fidelity` (every SEST Replenishment file is its upstream plus
+  only the lines the pack inserts), full pack rebuilds. All exit non-zero;
+  all have been
   negative-tested — the employment gate against both bugs it was built from,
   the stripped NSM datalink association and the GBU-53's 200 ft release band.

@@ -3,11 +3,13 @@
 The island's resupply is a service window, not a mechanic: HMAS Supply and
 Coral Pioneer have to be inside five miles of the Buckles Bay anchorage when
 thirty minutes have run, and then come north together to the withdrawal
-line. Supply's own rig is a mechanic - she carries a working supply system,
-so an escort that comes alongside really does take missiles and torpedoes
-back - but ships are all it serves, and the window is what is scored. A Russian boat is closing from the south-west, its tender is keeping
-station to the west, and a Bear-F comes to look. Holding the window is what
-Broken Supply Line's rearm is paid with.
+line. Supply's own rig is a mechanic - she carries a supply system (SEST RAN
+Fleet, tuned in integration/common/ras.py), so an escort that comes
+alongside can take missiles and torpedoes back - but ships are all it
+serves, and the window is what is scored. A Russian boat is closing from
+the south-west, its tender is keeping station to the west, and a Bear-F
+comes to look. Holding the window is what Broken Supply Line's rearm is
+paid with.
 """
 from campaign_data import U, F, S, HELO, RECON
 

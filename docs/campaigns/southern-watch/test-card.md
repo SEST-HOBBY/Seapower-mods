@@ -229,7 +229,7 @@ has been seen in the game.
 |---|---|---|---|
 | 6E.1 | SW09, fire one of Perth's NSMs early, then bring her inside half a mile of Stalwart at 12 kn or less | Stalwart's supply panel ("Ammunition supply") appears and the empty NSM canister refills | No panel: the supply block is not read. A panel but no refill: the canister's reload flag is not honoured (the pack README's checklist item 2) |
 | 6E.2 | SW09, Collins alongside with a torpedo or two gone | The torpedoes come back while she is surfaced | Nothing crosses: say whether the panel showed Collins as a receiver at all |
-| 6E.3 | SW09, run Perth up to 20 kn during a transfer | The transfer stops | It carries on: the speed gate is not honoured |
+| 6E.3 | SW09, during a transfer, run Perth up to 20 kn and watch the range to Stalwart | The transfer stops as her speed passes 16 kn, while she is still inside half a mile | It carries on past 16 kn: the speed gate is not honoured. If it only stops once the range opens past half a mile, that was the range gate; slow down, close up and try again |
 
 ## 7 — the review's engine tests
 
