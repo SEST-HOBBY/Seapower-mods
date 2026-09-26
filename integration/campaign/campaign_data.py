@@ -2794,6 +2794,12 @@ MISSIONS.append(dict(
     units=[
         U("blue", "thaad", "thaad_tel", "battery", name="THAAD launcher"),
         U("blue", "thaad", "wp_an_tpy_2", "battery", name="AN/TPY-2"),
+        # Load-bearing for coverage: this launcher's idf_stunner is the one
+        # round SEST Intercept Model ships that anything in the pack loads
+        # (credited as a store, Range Week only). Remove or re-type it and
+        # the coverage gate stops the build on that pack. It is also the
+        # mission the restored 5% out-of-band ceiling bites hardest: the
+        # Shahed line flies at 300 ft, under the Stunner's 500-ft floor.
         U("blue", "davids-sling", "idf_dsws", "battery",
           name="David's Sling launcher"),
         U("blue", "davids-sling", "idf_dsws_radar", "battery",
