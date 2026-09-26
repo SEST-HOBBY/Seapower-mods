@@ -346,6 +346,12 @@ First run on a machine, add `-InstallDeps` to fetch the land-mask package.
 Other missions: `-Mission "NORTHERN FRONT II"`. Without Python installed the
 script explains the git round trip instead.
 
+Add `-LandDefence` to also stand up air defences around every airbase, port,
+installation and missile site that lacks them (`-Posture heavy` for the full
+stack with BMD). It is opt-in because it adds units, but it is idempotent: a
+site that already has a layer is left alone. The same tool runs on its own
+for one site or a new one — see `integration/missions/README.md`.
+
 Afterwards, commit so the repo keeps your edits:
 
 ```powershell
