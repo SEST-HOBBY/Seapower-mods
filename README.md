@@ -19,11 +19,11 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `data/active-mission.txt` | The mission the tooling works on when you do not name one |
 | `data/raw-workshop-list.txt` | The raw subscription list (source of record) |
 | `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook |
-| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and the procedure that lines the gaming PC up with the branch |
+| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and the procedure that lines the gaming PC up with the branch |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
-| `integration/campaign/` | **Two native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches) and *SEST Southern Reach* (two chapters, 25 missions, 19 story pages; its data lives in `southern_reach/`), built so that every enabled mod is reached by something one of them places or prices |
+| `integration/campaign/` | **Three native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 25 missions, 19 story pages; its data lives in `southern_reach/`) and *SEST Red Line* (six missions from the other side; `red_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -57,7 +57,7 @@ powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -Include
 
 ## The campaigns
 
-`integration/campaign/` builds two campaigns into one `SEST_Campaign` pack. The
+`integration/campaign/` builds three campaigns into one `SEST_Campaign` pack. The
 first is **SEST Southern Watch — The Northern Lifeline**:
 twelve connected missions in October–November 2028 in which Australia and its
 regional partners keep the northern sea routes open, four optional operations
@@ -79,7 +79,18 @@ Sydney. Every position was proved against a Natural Earth coastline
 water before. `docs/campaigns/southern-reach/` holds its bible, build notes,
 test card and the review that was run on it before it was committed.
 
-Both run on the game's **native Task Force Mode**, the same system the stock
+The third is **SEST Red Line — The Other Watch**: six missions, November 2028 to
+January 2029, played by the Chinese carrier group commander both of the others
+only hear on the radio. He puts a class on the submarine trailing his carrier,
+escorts fuel into the Biak enclave, builds the picture of a convoy, stops the
+one ship in his company that wants the war back in the first hours of the
+ceasefire, and in the south passes a Poseidon barrier and meets a tender off
+Fiordland without being classified. Every mission is won by restraint,
+escort or evasion, and each victory is written to fit the other two
+campaigns' story whatever happens in it. `docs/campaigns/red-line/` holds its
+bible (with the timeline against both), build notes and test card.
+
+All three run on the game's **native Task Force Mode**, the same system the stock
 Pacific Strike campaign uses: you requisition a task force from a priced
 roster (`player_task_force_roster.ini`), and losses, damage, magazines and
 crew experience carry forward. Every key was read out of the exported stock
