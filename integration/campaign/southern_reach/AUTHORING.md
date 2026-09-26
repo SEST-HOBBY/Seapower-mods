@@ -318,7 +318,7 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `raaf_mq-4c_triton` | Aircraft | `SEST_ADF_Persistent_ISR` | range 9,430; unarmed, `weapons="Hold"` |
 | `raaf_f-35a` | Aircraft | `SEST_RAAF_F-35A_JATM` | range 1,367; Squadron1/2; fits AirToAir, AirToAirStealth, AntiShip, StrikeLongRangeStealth |
 | `usn_fa-18f_blk3` | Aircraft | `SEST_Growler_NGJ_MALICE` | Squadron8; MurderHornetCAP, MurderHornetAntiShip, MH_LRASM |
-| `usn_ea-18g` | Aircraft | `SEST_Growler_NGJ_MALICE` | Squadron6; MurderHornetSEADHeavy, SEST_NGJLongRange |
+| `usn_ea-18g` | Aircraft | `SEST_Growler_NGJ_MALICE` | Squadron6; SEST_SEAD120D (the only fit the rows offer; every Growler fit carries both wing tanks and a full outboard pair) |
 | `civ_a320`, `civ_a330` | Aircraft | `civil-aircraft-airbus` | airliners; blue for a charter, neutral for a service |
 | `civ_ms_freighter_d` | Vessel | `re-power-resupply` | Southern Endeavour's stand-in |
 | `civ_ms_freighter_a`, `civ_ms_freighter_b`, `civ_ms_amra`, `civ_ms_andizhan`, `civ_ms_irkutsk`, `civ_ms_slavyansk` | Vessel | `re-power-resupply` | unarmed merchants |

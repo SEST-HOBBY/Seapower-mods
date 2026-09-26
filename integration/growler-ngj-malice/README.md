@@ -105,16 +105,25 @@ was never the fuel tanks, which sit a whole pylon further inboard.
 Growler carries **two** heavy weapons, not four or six. The four- and six-AGM fits cannot exist as
 such, so they are re-cut to differ by fuel instead of by weapon count:
 
-| Fit | Outboard | Fuselage | Inboard | Centreline |
+| Fit (`usn_ea-18g`) | Outboard | Fuselage | Inboard | Centreline |
 |---|---|---|---|---|
-| `MurderHornetSEADHeavy` | 2× AGM-88G | 2× AMRAAM | — | — |
-| `MurderHornetSEADHeavyTanks` | 2× AGM-88G | 2× AMRAAM | 2× tank | — |
-| `MurderHornetLightsOut` | 2× AGM-88G | 2× AMRAAM | 2× tank | tank |
-| `SEST_MaliceNGJ` | 2× AIM-424 | 2× AMRAAM | 2× tank | — |
-| `SEST_NGJLongRange` | — | 2× AMRAAM | 2× tank | tank |
+| `MurderHornetSEADHeavy` | 2× AGM-88G | 2× AIM-260 | 2× tank | EW |
+| `MurderHornetSEADHeavyTanks` | 2× AGM-88G | 2× AIM-260 | 2× tank | EW |
+| `MurderHornetLightsOut` | 2× AGM-88G | 2× AIM-260 | 2× tank | EW |
+| `SEST_MaliceNGJ` | 2× AIM-424 | 2× AIM-260 | 2× tank | EW |
+| `SEST_NGJLongRange` | 2× AIM-260 | 2× AIM-260 | 2× tank | EW |
+| `SEST_SEAD120D` | 2× AGM-88G | 2× AIM-120D | 2× tank | EW |
 
-The build **fails** if any Growler loadout puts a store on the mid-wing pylon. The 2020 and 2020s
-Growlers already complied and were not touched.
+The build **fails** if any Growler loadout puts a store on the mid-wing pylon.
+
+**Every Growler fit flies full** (26 September): both wing tanks inboard, the outboard pair filled,
+and the tank pylon never hidden under a tank. `MurderHornetSEADHeavy` used to be the clean,
+no-fuel fit, and as the airframe's first fit it is what a Growler parked on an airbase launches
+with, so an RAAF Growler in a Tasman mission flew with bare inboard pylons. `SEST_NGJLongRange`
+used to leave the outboard pair empty; it now carries two more AIM-260 there. `MurderHornetLightsOut`
+hid the tank pylon under its tanks, so they floated. `verify_full_growler_fits` now fails the build
+on any of the three, on both Growler airframes (`usn_ea-18g_2020`'s `SEST_NGJLongRange` got the
+same outboard pair).
 
 ## Other stores near the tanks
 

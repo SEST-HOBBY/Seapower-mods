@@ -130,15 +130,23 @@ Station28=__WING_TANK__
 # end at NumberOfStations=28, and 13/14 carry sead/aam racks a tank would
 # float beside. So maximum persistence is TWO wing tanks - which also means
 # every Growler gets this fit now, not just the ones with a Station29.
+#
+# The outboard pair used to be left bare - no anti-radiation missiles - and in
+# game that reads as a Growler flying with an empty pylon (user report). The
+# outboard pylon takes an AAM as readily as an ARM (the convention below), so
+# the escort jammer now carries four AIM-260: two outboard, two on the
+# fuselage seats.
 LONG_RANGE_LOADOUT = """\
 [--------------------------- SEST NGJ Long Range ---------------------------]
-# Maximum-persistence jamming fit: no anti-radiation missiles, both wing
-# tanks, a pair of AMRAAM for self-defence, centreline left to the EW fit.
+# Maximum-persistence escort jamming fit: no anti-radiation missiles, both
+# wing tanks, four AAMs (outboard and fuselage), centreline left to the EW fit.
 # fule_tank_point must stay VISIBLE for the wing tanks - no hide line here.
 
 [WeaponSystem1SEST_NGJLongRange]
 ReadyUpTime=25               // minutes to refuel and rearm before takeoff
 CoolDownTime=60              // minutes of maintenance after landing
+Station3=dts_aim-260
+Station4=dts_aim-260
 Station11=dts_aim-260
 Station12=dts_aim-260
 Station27=__WING_TANK__
@@ -185,7 +193,7 @@ JamChance=0.3
 LOADOUT_NAMES = {
     "en": {
         "SEST_MaliceNGJ": "SEST NGJ MALICE (2x AIM-424)",
-        "SEST_NGJLongRange": "SEST NGJ Long Range (2 tanks)",
+        "SEST_NGJLongRange": "SEST NGJ Long Range (4x AIM-260, 2 tanks)",
         "SEST_MaliceBlockIII": "SEST Block III MALICE (4x AIM-424)",
         "SEST_Intercept260": "SEST Intercept (8x AIM-260)",
         "SEST_Intercept260ER": "SEST Intercept260 LongRange (3 tanks)",
@@ -195,7 +203,7 @@ LOADOUT_NAMES = {
     },
     "cn": {
         "SEST_MaliceNGJ": "SEST NGJ MALICE (2x AIM-424)",
-        "SEST_NGJLongRange": "SEST NGJ Long Range (2 tanks)",
+        "SEST_NGJLongRange": "SEST NGJ Long Range (4x AIM-260, 2 tanks)",
         "SEST_MaliceBlockIII": "SEST Block III MALICE (4x AIM-424)",
         "SEST_Intercept260": "SEST Intercept (8x AIM-260)",
         "SEST_Intercept260ER": "SEST Intercept260 LongRange (3 tanks)",
@@ -370,11 +378,12 @@ def fix_floating_tanks(text: str, source_name: str) -> str:
             return match.group(0)
         kept = [p for p in hidden.group(1).split(",")
                 if p.strip() and p.strip() != WING_TANK_POINT]
-        new_line = ("SubModelsToHide=" + ",".join(kept)) if kept else ""
-        new_body = re.sub(r"^SubModelsToHide=.*$", lambda _: new_line, body,
-                          count=1, flags=re.M)
-        if not kept:
-            new_body = new_body.replace("\n\n", "\n", 1)
+        if kept:
+            new_body = re.sub(r"^SubModelsToHide=.*$",
+                              lambda _: "SubModelsToHide=" + ",".join(kept), body,
+                              count=1, flags=re.M)
+        else:                             # drop the whole line, newline and all
+            new_body = re.sub(r"^SubModelsToHide=.*\n", "", body, count=1, flags=re.M)
         fixed.append(re.match(r"\[WeaponSystem1([A-Za-z0-9_\-]+)\]", header).group(1))
         return header + new_body
 
@@ -425,10 +434,15 @@ CENTRELINE_TANK = 29
 # The Growler fits, re-cut to the convention. Each is (loadout, description of
 # what changed) plus the station lines that replace whatever was there.
 GROWLER_FIT_PLAN = {
+    # Was the clean fit, no fuel. It is also the airframe's FIRST fit, so it
+    # is what a Growler parked on an airbase launches with - an RAAF Growler
+    # in a Tasman mission flew with bare inboard pylons (user report). Every
+    # Growler fit now carries both wing tanks: see verify_full_growler_fits.
     "MurderHornetSEADHeavy": (
-        "clean SEAD: 2x AGM-88G outboard, no fuel",
+        "SEAD: 2x AGM-88G outboard, 2 wing tanks inboard (was no fuel)",
         [(3, "usn_agm-88g"), (4, "usn_agm-88g"),
-         (11, "dts_aim-260"), (12, "dts_aim-260")]),
+         (11, "dts_aim-260"), (12, "dts_aim-260"),
+         (27, "__WING_TANK__"), (28, "__WING_TANK__")]),
     "MurderHornetSEADHeavyTanks": (
         "SEAD with fuel: 2x AGM-88G outboard, 2 wing tanks inboard",
         [(3, "usn_agm-88g"), (4, "usn_agm-88g"),
@@ -531,6 +545,38 @@ def verify_pylon_convention(text: str, source_name: str) -> None:
                  + "\n  ".join(sorted(set(problems))))
 
 
+def verify_full_growler_fits(text: str, source_name: str) -> None:
+    """Every Growler fit flies full: fuel inboard, a store outboard.
+
+    Each loadout on the airframe - upstream's re-cut ones and ours - must hang
+    both wing tanks, fill the outboard pair, and leave the tank pylon visible.
+    The mid-wing pylon is the NGJ pods' (verify_pylon_convention) and the
+    wingtips carry the receiver pods, so these are the stations a player sees
+    bare. An RAAF Growler flying with no fuel or an empty outboard pylon was a
+    user report; this keeps it from coming back.
+    """
+    problems = []
+    for m in re.finditer(r"^\[WeaponSystem1([A-Za-z0-9_\-]+)\]\n(.*?)(?=^\[)",
+                         text, re.M | re.S):
+        name, body = m.group(1), m.group(2)
+        stores = {int(s): a for s, a in
+                  re.findall(r"^Station(\d+)=(\S+)", body, re.M)}
+        if not stores:
+            continue                      # not a loadout section
+        tanks = {s for s, a in stores.items() if "tank" in a}
+        if not WING_TANK_STATIONS <= tanks:
+            problems.append(f"{name}: no wing tank on {sorted(WING_TANK_STATIONS - tanks)}")
+        empty = [s for s in OUTBOARD_WEAPON if s not in stores]
+        if empty:
+            problems.append(f"{name}: outboard station(s) {empty} empty")
+        hidden = re.search(r"^SubModelsToHide=(.*)$", body, re.M)
+        if hidden and WING_TANK_POINT in hidden.group(1) and tanks & WING_TANK_STATIONS:
+            problems.append(f"{name}: hides {WING_TANK_POINT} under its wing tanks")
+    if problems:
+        sys.exit(f"{source_name}: Growler fits not flying full:\n  "
+                 + "\n  ".join(problems))
+
+
 def detect_wing_tank(text: str, source_name: str) -> str:
     """The tank THIS airframe's own loadouts hang on the wing stations.
 
@@ -623,9 +669,12 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool,
         if missing:
             sys.exit(f"{source.name}: upstream NGJ layout changed; missing {missing}")
 
-    text = fix_floating_tanks(text, source.name)
     wing_tank = detect_wing_tank(text, source.name)
     text = apply_pylon_convention(text, source.name, wing_tank)
+    # After the plan, not before: the plan adds wing tanks to fits whose
+    # upstream hide line still hid the tank pylon (MH SEAD Full's tanks
+    # floated for exactly that reason).
+    text = fix_floating_tanks(text, source.name)
     verify_station_geometry(text, GROWLER_LOADOUTS, source.name)
     verify_tank_points(GROWLER_LOADOUTS, source.name)
     keys = list(GROWLER_KEYS) + [LONG_RANGE_KEY]
@@ -649,6 +698,7 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool,
             sys.exit(f"{source.name}: invalid generated {key} section count")
 
     text = derive_sead260(text, source.name)
+    verify_full_growler_fits(text, source.name)
     aircraft = OUT / "aircraft"
     aircraft.mkdir(parents=True, exist_ok=True)
     (aircraft / destination_name).write_text(normalize_generated_text(text), encoding="utf-8")
@@ -875,9 +925,12 @@ def build_super_hornet(file_name: str) -> None:
     source = NAVY_2027 / "aircraft" / file_name
     text = source.read_text(encoding="utf-8-sig")
     text = replace_harpoons(text, source.name)
-    text = fix_floating_tanks(text, source.name)
     wing_tank = detect_wing_tank(text, source.name)
     text = apply_pylon_convention(text, source.name, wing_tank)
+    # After the plan, not before: the plan adds wing tanks to fits whose
+    # upstream hide line still hid the tank pylon (MH SEAD Full's tanks
+    # floated for exactly that reason).
+    text = fix_floating_tanks(text, source.name)
     verify_station_geometry(text, BLOCK_III_LOADOUT, source.name)
     verify_tank_points(BLOCK_III_LOADOUT, source.name)
     text = extend_loadouts(text, BLOCK_III_KEYS, source.name)
