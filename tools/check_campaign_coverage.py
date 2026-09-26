@@ -17,8 +17,9 @@ files, resolved exactly the way Sea Power resolves them:
   squadron  it wins <unit>_squadrons.ini and the mission names that squadron
   store     it wins an ammunition file the mission's chosen loadout hangs
 
-Anything it cannot reach must carry a written reason in the builder's EXCUSES
-table. Along the way every Type=, LoadoutVariant=, SquadronReference= and
+Anything it cannot reach must carry a written reason in an EXCUSES table -
+Southern Watch's in campaign_data.py, or any other campaign's own; the rule is
+the pack's, so every campaign's excuses are read together. Along the way every Type=, LoadoutVariant=, SquadronReference= and
 VariantReference= in the campaign is resolved, so a retired variant or a
 renamed loadout fails here rather than spawning a default fit in mission nine.
 
@@ -32,7 +33,6 @@ ROOT = Path(__file__).resolve().parents[1]
 CAMPAIGN = ROOT / "integration" / "campaign"
 sys.path.insert(0, str(CAMPAIGN))
 import build_pack as bp                      # noqa: E402
-from campaign_data import EXCUSES            # noqa: E402
 
 
 def missions():
@@ -480,7 +480,7 @@ def main():
             if token and token not in credits:
                 credits[token] = ("roster", uid, "requisition roster")
 
-    rows, missing = bp.coverage(credits, EXCUSES)
+    rows, missing = bp.coverage(credits, bp.pack_excuses(specs))
     print(f"{len(files)} mission file(s) - the campaign's own missions ship "
           f"twice and were checked in both places - {units} placed unit "
           f"reference(s), {len(credits)} mod(s) reached directly")
