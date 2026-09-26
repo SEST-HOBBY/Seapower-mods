@@ -26,6 +26,26 @@ and the rule gets a new revision — that has happened three times already.
   resolvable default loadout (see Working practices). Same-filename overrides
   collapse cleanly — 263 of them do so in this collection every session. Redundant
   subscriptions are still worth pruning for clarity, but not out of fear of this.
+- **Terrain is a 1 km grid and not ours to change.** The devs build the world
+  from 30 arc-second elevation data (Dev Diary #4), hand-patch chokepoints in
+  Photoshop and with an in-engine terrain painter whose stamp textures
+  `terrain/terrain.ini` lists but StreamingAssets does not ship. No Workshop
+  or GitHub mod touches the heightmap, and the 2021 "(and you!)" promise of
+  player terrain editing never became a documented feature. Anything under
+  about 1 to 2 km, and everything reclaimed after the data vintage - Fiery
+  Cross, Subi, Mischief - is absent by construction; Singapore and the
+  Japanese home islands fuse to their mainlands for the same reason.
+- **A land unit on water does not sink, it floats at one metre.**
+  `terrain.ini` clamps placed land units to `MinHeightForLandUnits=1.0`, and
+  `campaigns/britishisles_ports.ini` says outright that a Port "doesn't snap
+  to terrain and does not flatten terrain around it" (`SnapToTerrain=False`).
+  Vanilla oil rigs, the armed-rig mod, the floating drydock and the FARP mod
+  all work at sea on that basis, helo operations included. So the reef bases
+  in SEST Indo-Pacific Land Assets render as runways and buildings sitting on
+  the sea surface with no ground under them, not as nothing. The only route
+  to a visible artificial island is a Port-type unit assembled from the
+  modular port meshes with a scaled concrete slab, built like the RAAF bases
+  from existing geometry; that is untested in game.
 
 ## Three different mod counts, and only one of them is ours
 
@@ -177,6 +197,14 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   unit file with no base is the startup crash, because the loader cannot build the
   unit, so it fails the check; a round with no base only means that weapon never
   fires, which the game survives, so it is reported and the check still exits zero.
+  Anything that reads a round's keys has to walk the same chain. The land-defence
+  builder classified a launcher by its round's `TargetType`, `MaxLaunchRange` and
+  `MinAttackAltitude` read from the winner alone; once the AEP pack loaded above
+  the PLA Land Unit Pack, `pla_hq-19.ini` resolved to an extend stub carrying none
+  of the three, the HQ-19 read back as a gun layer, and the Spratly bases gained a
+  BMD section they already had and lost guns they lacked. `layered_text` in
+  `build_land_defence.py` now follows the `#!extend` / `#!alias` chain and takes
+  each key from the highest copy that sets it.
 - **An aircraft needs a loadout it can actually resolve.** A mission entry with no
   `LoadoutVariant` makes the UI resolve a default at display time; if the winning
   unit file's `AvailableLoadouts` does not list `Default`, there is nothing to
@@ -252,6 +280,31 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   and flies fine, and the launcher geometry is byte-identical to a working
   donor. Check what a round demands of its mount, not just whether the ids
   resolve — `preflight` sees a resolvable reference either way.
+
+- **A launcher is only a launcher inside its radar's search radius.** A TEL
+  that fires through `ExternalGuidingSystems` looks for that system within its
+  `ExternalGuidingSystemSearchRadius` — 0.5 nm for vanilla and Red Storm
+  Arsenal launchers, 0.8 nm for the PLA pack and SAM Pack, 2 nm for NASAMS,
+  5 nm for the S-400 mod — and outside it the mount never fires, with no error.
+  The land-defence builder measures every battery's ring against the tightest
+  radius in it and checks, from the files, that the radar it stands up actually
+  provides the named system; a Patriot TEL from Red Storm Arsenal wants
+  `AN/MPQ-65` and the SAM Pack radar provides `AN/MPQ-65_mi`, so the two mods'
+  halves cannot be mixed however plausible the ids look.
+- **An analyser and a generator must share one taxonomy or the pass is not
+  idempotent.** The defence builder classifies what a site already has from
+  the units' own files (gun, SHORAD, medium, area, BMD, search radar by the
+  longest AAW round and its minimum engagement altitude). Its doctrine lists
+  once filed a Vulcan under SHORAD and a Shilka-M4 (which carries Strela)
+  under guns; each re-run then read those units back as the other layer and
+  added another. Ring candidates are now filtered through the same classifier
+  that reads them back, and `--catalog` names anything misfiled.
+- **Hand-placed ships need the land mask too.** The land units go through the mask, so nobody
+  checked the vessels: the Darwin surface group had been parked on the Tiwi Islands and a US
+  destroyer on Palawan since the showcase was written. The generator now refuses to write a
+  mission with a vessel ashore. A warship must also clear a 6 nm halo, since a position can be
+  a water cell and still be a beach the group cannot manoeuvre in; a merchant only has to be on
+  water, because a ferry legitimately starts alongside.
 
 - **Gates before every push:** `check_load_order`, `check_dependencies`,
   `preflight` (every reference the missions make), `check_station_clash`,
