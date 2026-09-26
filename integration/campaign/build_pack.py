@@ -123,7 +123,8 @@ def campaign_specs():
     """The campaigns this pack ships, in the order they are built.
 
     Southern Watch is assembled from campaign_data's flat module globals;
-    Southern Reach exports one dict. Both come out the same shape.
+    Southern Reach exports one dict, and so does Red Line when its package
+    is in the tree. All come out the same shape.
     """
     sys.path.insert(0, str(HERE))
     import campaign_data as sw                      # noqa: E402
@@ -141,7 +142,32 @@ def campaign_specs():
         TASKFORCE=sw.TASKFORCE, DIFFICULTIES=sw.DIFFICULTIES,
         ROSTER=sw.ROSTER, COMMANDER=sw.COMMANDER, EVENTS=sw.EVENTS,
         MISSIONS=sw.MISSIONS, EXCUSES=sw.EXCUSES)
-    return [watch, sr.CAMPAIGN]
+    specs = [watch, sr.CAMPAIGN]
+    # Red Line is optional: a tree without its package builds the two
+    # campaigns it always did. A package that is present and fails to import
+    # is a broken campaign, not a missing one, so only the package's OWN
+    # absence is caught. A folder left holding nothing but __pycache__ (a
+    # checkout from before the package existed) imports as an empty namespace
+    # package with no __file__, and counts as absent too.
+    try:
+        import red_line as rl                       # noqa: E402
+    except ModuleNotFoundError as exc:
+        if exc.name != "red_line":
+            raise
+    else:
+        if getattr(rl, "__file__", None):
+            specs.append(rl.CAMPAIGN)
+    return specs
+
+
+def pack_excuses(specs):
+    """Every campaign's EXCUSES in one table. The coverage rule is the pack's
+    - every enabled mod placed by SOME campaign or excused in writing - so an
+    excuse any campaign gives counts for all of them."""
+    out = {}
+    for spec in specs:
+        out.update(spec.get("EXCUSES", {}))
+    return out
 # The nine languages the game ships (one language_<xx> folder each in the
 # vanilla export). Localised keys have NO fallback: pacific-strike's Mission1
 # repeats the SAME English PNG under TileImagePath_en, _ru AND _de rather than
@@ -3912,10 +3938,9 @@ def main():
     pool = harvest()
     print(f"proven positions: {len(pool['sea'])} sea, {len(pool['land'])} land")
 
-    excuses, pack_credits, campaigns = {}, {}, []
+    excuses, pack_credits, campaigns = pack_excuses(specs), {}, []
     for spec in specs:
         set_campaign(spec)
-        excuses.update(spec.get("EXCUSES", {}))
         missions = spec["MISSIONS"]
         if args.only:
             wanted = {x.strip().upper() for x in args.only.split(",") if x.strip()}
