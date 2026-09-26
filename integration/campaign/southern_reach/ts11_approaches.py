@@ -113,8 +113,9 @@ MISSION = dict(
           slot="CAP"),
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_fa-18f_blk3", "attack",
           squadron="Squadron8", slot="Attack"),
+        # Conventional fit: 2029 flies no AIM-260.
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "attack",
-          squadron="Squadron6", slot="Attack"),
+          squadron="Squadron6", slot="Attack", loadout="SEST_SEAD120D"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 05",
           alt=32000, weapons="Hold"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_roro_a", "lift",

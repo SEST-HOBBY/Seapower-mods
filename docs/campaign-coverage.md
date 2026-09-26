@@ -46,7 +46,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `civil-aircraft-airbus` | Civil Aircraft Mod (Airbus Family) | `unit` | civ_a320 | White Water |
 | `custom-loadout-editor` | Custom Loadout Editor | `store` | wp_mig-23a / wp_ua | Before the Lifeline |
 | `davids-sling` | David's Sling | `unit` | idf_dsws | Range Week |
-| `dingtools-weapon-pack` | Dingtools Weapon Pack | `store` | usn_ea-18g / dts_aim-260 | Long Way Home |
+| `dingtools-weapon-pack` | Dingtools Weapon Pack | `store` | usaf_f-15ex_SEII / dts_aim-120d-3_w | Long Reach |
 | `e-3g` | <<E-3G>> | `unit` | usaf_e-3g | Flight Deck Day |
 | `e-7a-wedgetail` | [DEPRECATED] E-7A Wedgetail | `unit` | E7A_Wedgetail | Steel Highway |
 | `eurofighter-typhoon` | Eurofighter Typhoon | `unit` | raf_ef2000_fgr4_late | Western Passage |

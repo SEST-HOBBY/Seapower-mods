@@ -308,7 +308,7 @@ The identifiers below were resolved from the pinned snapshot. Re-resolve them af
 | Patrol vessel | `ran_opv_arafura` | Meteoro stand-in with donor weapon options including AntiShip/AntiAir. Restrict the core fit; do not present its donor armament as real Arafura equipment |
 | F-35A | `raaf_f-35a` | Tindal's 75 Squadron is `Squadron3`; `Squadron4` is 2 OCU, not a generic combat squadron. `AirToAirStealth` exists; verify its actual weapons |
 | Super Hornet | `usn_fa-18f_blk3`, Australian `Squadron8` | Australian nation entry exists in SEST output; donor is a US Block III representation, so identify the fit approximation |
-| Growler | `usn_ea-18g`, Australian `Squadron6` | Use current ID and checked loadout. `SEST_NGJLongRange` exists; do not silently choose `SEST_MaliceNGJ` in the core |
+| Growler | `usn_ea-18g`, Australian `Squadron6` | Use current ID and checked loadout. The core flies `SEST_SEAD120D` (2x AGM-88G, 2x AIM-120D, two tanks); every other fit on this airframe hangs the AIM-260, and `SEST_MaliceNGJ` belongs to Future Front |
 | Wedgetail | `E7A_Wedgetail` | Deprecated Workshop source is still an enabled dependency; SEST also provides squadron work |
 | Poseidon | `usn_p8`, Australian `Squadron3` | `ASW` and `AntiShip` are available. Do not infer an LRASM fit from the real-world firing announcement |
 | Triton | `raaf_mq-4c_triton` | SEST unit uses an MQ-9 ER mesh; unarmed in this implementation |

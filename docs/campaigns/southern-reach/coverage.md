@@ -13,8 +13,8 @@ This campaign reaches 41 of the enabled mods and packs; the 121 it does not are 
 | `unit` | places the unit; this mod wins its file | 20 |
 | `variant` | supplies the hull variant the placed unit uses | 1 |
 | `squadron` | supplies the squadron the placed airframe flies from | 4 |
-| `store` | supplies a round the placed unit's loadout hangs | 8 |
-| `asset` | supplies a model folder the placed unit's file draws from | 8 |
+| `store` | supplies a round the placed unit's loadout hangs | 7 |
+| `asset` | supplies a model folder the placed unit's file draws from | 9 |
 
 Sea and land positions are snapped to points already used by a loading mission; the furthest any anchor had to move is 0.0 NM.
 
@@ -25,7 +25,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `auxilliary-merchant-pack` | Auxilliary Merchant Pack | `unit` | anl_ms_bulk | Cold Route |
 | `chinese-navy-plan` | Chinese Navy (PLAN) | `unit` | plan_z-18f | Cold Route |
 | `civil-aircraft-airbus` | Civil Aircraft Mod (Airbus Family) | `unit` | civ_a320 | Southern Departure |
-| `dingtools-weapon-pack` | Dingtools Weapon Pack | `store` | usn_ea-18g / dts_aim-260 | Approaches |
+| `dingtools-weapon-pack` | Dingtools Weapon Pack | `asset` | raaf_f-35a / assets/models/weapon/ammunition/gbu-39 | Turning North |
 | `e-7a-wedgetail` | [DEPRECATED] E-7A Wedgetail | `unit` | E7A_Wedgetail | Cold Route |
 | `euromod-main` | Euromod - Main Pack | `store` | ran_ffh_anzac / usn_rim-162h | Southern Departure |
 | `euromod-spanish-cold-war` | Euromod - Cold War Spanish Navy | `asset` | ran_aor_supply / ships/ae_ao_teide | Macquarie Passage |

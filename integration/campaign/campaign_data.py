@@ -1188,8 +1188,10 @@ MISSIONS.append(dict(
           weapons="Hold"),
         U("blue", "f-22", "usaf_f-22_s6", "cap", name="Raptor 11"),
         U("blue", "f-22", "usaf_f-22_s6", "cap", name="Raptor 12"),
+        # The conventional fit (rule 3): every other usn_ea-18g fit hangs
+        # the AIM-260.
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "package",
-          squadron="Squadron6", name="Grizzly 31"),
+          squadron="Squadron6", name="Grizzly 31", loadout="SEST_SEAD120D"),
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_fa-18f_blk3", "package",
           squadron="Squadron8", name="Rhino 21"),
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_fa-18f_blk3", "package",
@@ -1310,8 +1312,11 @@ MISSIONS.append(dict(
         # the game's own tooltip prescribes exactly that when no airbase is
         # available, and a base on the map that nothing can reach is worse
         # than none.
+        # The anti-radiation shots on the conventional fit (rule 3): two
+        # AGM-88G, as MurderHornetSEADHeavy carried, with AIM-120D in place
+        # of its AIM-260.
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "strike",
-          squadron="Squadron6"),
+          squadron="Squadron6", loadout="SEST_SEAD120D"),
         # "The F-35 pair carries the follow-up": JSM, 120 NM, internal. They
         # carried four AIM-120s.
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "strike",
@@ -1764,7 +1769,10 @@ MISSIONS.append(dict(
           loadout="AirToAirAMRAAM"),
         U("blue", "SEST_F-35C_JATM", "usn_f-35c", "cvw",
           loadout="AirToAirAMRAAM"),
-        U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g_2020", "cvw"),
+        # Ford's own Growler, on its own conventional SEAD fit (AGM-88G and
+        # AIM-120D) - named rather than left to whichever fit is first.
+        U("blue", "SEST_Growler_NGJ_MALICE", "usn_ea-18g_2020", "cvw",
+          loadout="SEAD"),
         U("blue", "us-naval-aviation", "usn_e-2d", "cvw", name="Hawkeye 601",
           alt=27000, weapons="Hold"),
         U("blue", "auxilliary-merchant-pack", "ran_ms_super_p", "transports",
@@ -3944,14 +3952,19 @@ for _doc in DOCUMENTS:
 # A flight row's last field is a list of ACCEPTABLE LOADOUT NAMES, and the
 # names have to be the ones the winning files actually declare. The stock
 # 1985 vocabulary does not survive the mod collection: the Super Hornet's
-# fits are MurderHornetCAP and friends, and the Growler's are
-# MurderHornetSEADHeavy and SEST_NGJLongRange. Rows written against
+# fits are MurderHornetCAP and friends, and the Growler's is SEST_SEAD120D
+# (the US Navy Growler off Ford flies its own SEAD). Rows written against
 # AirToAir/SEAD would have quietly excluded the two aircraft the roster
 # sells for exactly those jobs. Checked against the winning files, not
 # assumed from the stock campaign.
 #
 # The speculative fits are deliberately absent: the F-35A's Malice424 and
 # Intercept260*, and the Growler's SEST_MaliceNGJ, belong to Future Front.
+# So does every other Growler fit on usn_ea-18g - MurderHornetSEADHeavy,
+# MurderHornetSEADHeavyTanks, MurderHornetLightsOut and SEST_NGJLongRange all
+# hang the AIM-260 on the fuselage seats, and the rows used to offer three of
+# them. The Growler pack now builds SEST_SEAD120D - LightsOut's seats with the
+# AIM-120D in place of the AIM-260 - and it is the only Growler fit here.
 # Air-tasking rows. The role field is matched against the aircraft file's own
 # top-level `Role=` line and the fit field against its `AvailableLoadouts`;
 # build_pack.check_flights() proves every row against the roster before a
@@ -3960,10 +3973,10 @@ for _doc in DOCUMENTS:
 # All three fast jets declare `Fighter,Bomber,SEAD`, so no role token separates
 # the Growler from the two fighters: a CAP flight can always draw one. Offering
 # it nothing would be the worse answer, so the row carries its escort fit -
-# AARGM-ER x2 and AIM-260 x2 - which is how a Growler flies with a CAP anyway.
+# AARGM-ER x2 and AIM-120D x2 - which is how a Growler flies with a CAP anyway.
 CAP = ("CAP|Combat Air Patrol|Fighter|2|"
        "AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/"
-       "MurderHornetLightsOut")
+       "SEST_SEAD120D")
 # `Recon` and `AEW` are stock fit names carried by the P-3C and E-2C. Nothing
 # in this roster defines either: the P-8 offers only ASW and AntiShip, and the
 # Wedgetail and Triton declare no AvailableLoadouts line at all. They still
@@ -3982,8 +3995,13 @@ HELO = ("HeloRecon|Ship's Flight|SAR|1|"
         "ASW/ASWLongRange/ASWPatrol/Anti-shipLate")
 STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
           "Strike/StrikeLongRange/StrikePrecision/AntiShip/AntiShipHeavy/"
-          "MurderHornetSEAD/MurderHornetAntiShip/MurderHornetSEADHeavy/"
-          "SEST_NGJLongRange")
+          "MurderHornetSEAD/MurderHornetAntiShip/SEST_SEAD120D")
+# Fujian's Shadow's Attack cockpit is the one Growler that is not the RAAF's:
+# Ford's usn_ea-18g_2020, whose own SEAD fit hangs the AIM-120D. It matched
+# the shared row only through SEST_NGJLongRange (AIM-260), so that window's
+# row adds `SEAD`. Only that one: Southern Reach imports STRIKE and places no
+# such Growler, and a fit nothing in the flight defines fails check_flights.
+STRIKE_FORD = STRIKE + "/SEAD"
 # There is no tanker row. `ui.ini` localises exactly six air-tasking roles -
 # AirTaskingRole_SuCAP, _CAP, _Recon, _HeloRecon, _Attack and _AEW, lines
 # 3032-3037 - and Tanker is not among them. A seventh label would be a role
@@ -4106,7 +4124,7 @@ WINDOWS = {
         "tasking. Repairs and replacement allocations, helicopters and patrol aircraft "
         "included, remain available before The First Ship Through."
     ), allow=BUY_11, repair=True,
-           rearm=True, flights=[CAP, STRIKE]),
+           rearm=True, flights=[CAP, STRIKE_FORD]),
     # Aircraft replacement and repair only: no new hulls, no general rearm.
     # The finale flies what it sells: a CAP row for the fighters (Darwin is
     # the placed field), the helicopter and patrol rows.

@@ -1114,6 +1114,28 @@ Seahawk on Kitty Hawk, whose file lists nothing; it is named Tiger 01 rather
 than Adelaide's flight for that reason. The KC-10A homes on the exercise
 field.
 
+**The Growler flies conventional.** Every fit on `usn_ea-18g` hung the AIM-260:
+the Growler pack's pylon convention puts it on the fuselage seats (11/12) of
+each fit it re-cuts, and its own SEST fits carry it too. Rule 3 keeps JATM in
+Future Front, and SW07, SW08 and TS11 flew it anyway, through
+`MurderHornetSEADHeavy`; the CAP and Attack rows offered three AIM-260 fits.
+The pack now builds `SEST_SEAD120D` on `usn_ea-18g` - `MurderHornetLightsOut`'s
+seats with the AIM-120D the upstream file hangs on 11/12, derived from the
+same plan so the two cannot drift: 2x AGM-88G, 2x AIM-120D, two wing tanks,
+no AIM-260 and no AIM-424. It is the only Growler fit on the CAP and Attack
+rows, and Grizzly 31 (SW07), SW08's Growler and TS11's Attack cockpit fly it.
+Fujian's Shadow's Growler is Ford's `usn_ea-18g_2020`, which already had a
+conventional `SEAD` fit (AGM-88G, AIM-120D); it is named on the unit now
+rather than left to the first fit, and that window's Attack row adds `SEAD`
+because the cockpit used to match the row only through `SEST_NGJLongRange`.
+Southern Reach imports the shared row without it - no such Growler flies
+there, and a fit nothing in the flight defines fails `check_flights`. Future
+Front places no Growler and is untouched. `check_weapon_employment` and
+`preflight` pass with the new fit. The Dingtools Weapon Pack, which SW07's
+AIM-260 used to credit, is still reached: through the F-15EX's AIM-120D in
+Long Reach here, and through a model the F-35A draws in Turning North for
+Southern Reach.
+
 ## What exists
 
 | Thing | Where |

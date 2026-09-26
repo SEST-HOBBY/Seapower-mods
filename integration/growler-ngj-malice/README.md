@@ -17,6 +17,15 @@ New selectable loadouts:
 - **NGJ MALICE** — 2x AIM-424 MALICE, 2x AIM-120D3, 2x 610-gallon tanks, NGJ pods retained.
 - **NGJ MALICE Heavy** — 4x AIM-424 MALICE, 2x AIM-120D3, 2x 610-gallon tanks, NGJ pods retained.
 - **Block III MALICE** — 4x AIM-424 MALICE, 4x AIM-120D3, 2x AIM-9X, centerline tank.
+- **SEAD120D** (`SEST_SEAD120D`, `usn_ea-18g` only) — the conventional EW/SEAD fit:
+  2x AGM-88G outboard, 2x AIM-120D (`usn_aim-120d-3`, the round U.S. Navy 2027 hangs
+  on stations 11/12), 2x wing tanks, NGJ pods retained. No AIM-260, no AIM-424. The
+  pylon convention below puts the AIM-260 on 11/12 of every fit it re-cuts, so
+  before this fit the 2027 Growler had nothing a campaign keeping JATM out of its
+  2028 core could fly. It is `MurderHornetLightsOut`'s re-cut seats with the
+  AIM-260 swapped back, derived from the same plan in the builder, and it is
+  appended last so the airframe's default fit does not move. `usn_ea-18g_2020`
+  does not need it: its own `SEAD` fit already hangs the AIM-120D.
 
 The pack includes the same `sest_aim-424` definition used by the existing SEST
 F-35 and F-15EX patches. US Naval Aviation supplies its AGM-88G AARGM-ER 3D
