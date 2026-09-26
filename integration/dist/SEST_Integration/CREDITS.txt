@@ -60,9 +60,9 @@ file is unchanged.
 
   Euromod - Main Pack  (workshop 3629144864)
        98%  ammunition/usn_pac3_mse.ini 
-       95%  ammunition/usn_rim-161b.ini 
-       95%  ammunition/usn_rim-161c.ini 
-       94%  ammunition/usn_rim-161d.ini 
+       91%  ammunition/usn_rim-161b.ini 
+       91%  ammunition/usn_rim-161c.ini 
+       90%  ammunition/usn_rim-161d.ini 
        99%  ammunition/usn_rim-174a.ini 
        99%  ammunition/usn_rim-174c.ini 
 
