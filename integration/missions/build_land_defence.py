@@ -36,11 +36,11 @@ What it does, per site:
      layer group, bumps the counts, and names the key radars in [Language_en]
 
 Everything resolves through the load order (winning_file, and a round's
-#!extend / #!alias chain down to its base): a unit is planned
-only if the game will load it, its VariantReference is the variant whose
-Nation matches the site, and a battery is used only if its radar really
-provides the guidance system its launchers ask for - checked against the
-files, not assumed.
+#!extend / #!alias chain down to its base): a unit is planned only if the
+game will load it, its VariantReference is the variant whose Nation matches
+the site, and a battery is used only if its radar really provides the
+guidance system its launchers ask for - checked against the files, not
+assumed.
 
 Re-runs are safe: a layer a site already has is not added again, so this can
 sit in the refresh chain (refresh-mission.ps1 -LandDefence). Nothing already
