@@ -153,12 +153,13 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   nothing: the campaign builder homes a helicopter on the nearest deck that lists
   it, so SW10's two Seahawks would have quietly moved from JS Mogami to the Langgur
   forward strip ashore.
-- **A renamed base breaks every patch aliased onto it.** U.S. Navy 2027 is 28
-  `#!alias` patches over Modern US Navy hulls. Modern US Navy renamed its Flight III
-  from `usn_ddg_burke_f3` to `usn_ddg_burke_f3_125` (v567, 18 Sep 2026) before 2027
-  caught up, and the game died at startup with *KeyNotFoundException 'AirGroup'*:
-  the patch's own `[FlightDeck]` asked for the air group the missing base would have
-  supplied, and Player.log named the symptom, not the file.
+- **A renamed base breaks every patch aliased onto it.** U.S. Navy 2027's Arleigh
+  Burkes and its Nimitz, 28 hulls, are `#!alias` patches over Modern US Navy hulls.
+  Modern US Navy renamed its Flight III from `usn_ddg_burke_f3` to
+  `usn_ddg_burke_f3_125` (v567, 18 Sep 2026) before 2027 caught up, and the game
+  died at startup with *KeyNotFoundException 'AirGroup'*: the patch's own
+  `[FlightDeck]` asked for the air group the missing base would have supplied, and
+  Player.log named the symptom, not the file.
   `tools/check_alias_bases.py` walks every chain through the load order the way the
   game does. Run it after every mirrored export; before the mirror, a deleted base
   kept resolving against its ghost. On the 24 Sep 2026 export all 28 bases resolve
@@ -167,16 +168,15 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   Navy hulls, which would drop those fits.
 - **Anchor Chain has two layering directives, not one.** `#!alias` replaces a whole
   unit; `#!extend` merges a few keys onto the file of the SAME name one rung lower in
-  the load order. Ammunition packs lean on it (all 18 of the PLA AEP pack's rounds
-  on the 24 Sep 2026 export), and an extend breaks exactly the way the alias that
-  crashed the game did. Resolving an extend needs the load-order *stack*, not the
-  winner: `winning_file` on a same-name target returns the patch itself and loops.
-  `refine_civ_traffic.file_stack` returns every copy in order, and the checker
-  takes the entry below the patch. Severity
-  follows the file kind: a unit file with no base is the startup crash, because the
-  loader cannot build the unit, so it fails the check; a round with no base only
-  means that weapon never fires, which the game survives, so it is reported and the
-  check still exits zero.
+  the load order. Ammunition packs lean on it (18 of the PLA AEP pack's 21
+  ammunition files on the 24 Sep 2026 export), and an extend breaks exactly the way
+  the alias that crashed the game did. Resolving an extend needs the load-order
+  *stack*, not the winner: `winning_file` on a same-name target returns the patch
+  itself and loops. `refine_civ_traffic.file_stack` returns every copy in order, and
+  the checker takes the entry below the patch. Severity follows the file kind: a
+  unit file with no base is the startup crash, because the loader cannot build the
+  unit, so it fails the check; a round with no base only means that weapon never
+  fires, which the game survives, so it is reported and the check still exits zero.
 - **An aircraft needs a loadout it can actually resolve.** A mission entry with no
   `LoadoutVariant` makes the UI resolve a default at display time; if the winning
   unit file's `AvailableLoadouts` does not list `Default`, there is nothing to
