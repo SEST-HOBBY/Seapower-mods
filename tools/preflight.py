@@ -44,8 +44,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MISSIONS = ROOT / "integration" / "missions"
 sys.path.insert(0, str(MISSIONS))
+sys.path.insert(0, str(ROOT / "integration"))
 from refine_civ_traffic import winning_file  # noqa: E402
 from fix_loadout_variants import deployed_missions  # noqa: E402
+from common.snapshot import stale_mods  # noqa: E402
 
 UNIT_DIRS = ("aircraft", "vessels", "submarines", "land_units", "biologic")
 
@@ -88,6 +90,54 @@ def variant_check(unit_file, uid, want):
     return (f"{uid} VariantReference={want} is outside the winning variants file\n"
             f"        declares: NumberOfVariants={declared.group(1) if declared else '?'}, "
             f"sections: {len(sections)}\n        from: {vf.parts[-3]}")
+
+
+def stale_note():
+    """The paragraph that follows a failure while mods-source is behind the catalog.
+
+    This tool resolves ids against the files on disk, so a mod that is not
+    exported looks exactly like a typo: nothing is left in mods-source to
+    attribute the id to, and the lines above will say "no enabled mod defines
+    it" about a unit sitting in the user's game working perfectly.
+
+    The 2026-09-13 export pruned four mods whose folders it did not find. Two, the
+    B-52H (3741944366) and the B-1B (3652097318), were known to be back the
+    same day. The other two, the SAAB AEW&C pack (3673250557) and the Type 003
+    Fujian (3663564190), were judged gone for good and their references were
+    repaired by hand - nine dangling references became six. The 2026-09-16
+    export then returned all four. The judgement was wrong, and the hand repair
+    had removed content that was about to resolve again.
+
+    That is the case for not guessing. Nothing here can separate a mod that is
+    coming back from one that is not while the window is open: the catalog's
+    status field is edited after an export, not during it, and an absent
+    folder proves nothing about the Steam account. So this deliberately does
+    NOT say which reference belongs to which mod, does NOT soften the exit
+    code, and does NOT promise that re-exporting will fix anything. It names
+    what is missing and both ways out, and leaves the reading to a person.
+
+    The opposite drift is invisible here: a file mods-source still holds after
+    the mod stopped shipping it resolves, and the reference passes while the
+    game cannot find it. tools/check_inventory.py is what catches that.
+    """
+    # Reading the catalog is new work on a path that used to need none, so it
+    # fails soft: a malformed catalog costs the note, never the report above it.
+    try:
+        stale = stale_mods()
+    except Exception as exc:
+        return f"   (could not read data/mod-catalog.json: {exc})\n"
+    if not stale:
+        return ""
+    names = "\n".join(f"      {t} ({i})"
+                      for i, t in sorted(stale.items(), key=lambda kv: kv[1]))
+    return (
+        "   mods-source is behind data/mod-catalog.json. These mods are active in\n"
+        "   the catalog but are not exported, so anything they define dangles above\n"
+        "   whether or not it is really missing from the game:\n\n"
+        f"{names}\n\n"
+        "   Still installed? Re-run tools/export-mod-configs.ps1. If deliberately\n"
+        "   removed, set status to unsubscribed and review affected references.\n"
+        "   An absent local folder does not prove Steam account unsubscription.\n")
 
 
 def check_mission(mission):
@@ -251,6 +301,7 @@ def main():
             print(f"{len(total_problems)} DANGLING reference(s):\n")
             for p in total_problems:
                 print(f"   {p}\n")
+            print(stale_note(), end="")
         if total_crashes or pack_problems:
             print(f"FAILED: {len(total_crashes)} aircraft would crash the editor's map panel "
                   f"and {len(pack_problems)} SEST pylon store(s) have no file")
@@ -264,6 +315,7 @@ def main():
         print(f"{len(total_problems)} DANGLING reference(s):\n")
         for p in total_problems:
             print(f"   {p}\n")
+        print(stale_note(), end="")
         sys.exit(1)
     print("every unit, air group, loadout variant, hull variant and pylon store resolves")
 

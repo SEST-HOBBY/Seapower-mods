@@ -1688,10 +1688,17 @@ MISSIONS.append(dict(
         # The anchor - the player's flagship - is the Australian ship; the
         # two Burkes are scripted and stay whatever the player brought.
         U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "escort"),
-        U("blue", "modern-us-navy", "usn_ddg_burke_f2a_g4_2022", "escort",
-          name="USS Jack H. Lucas"),
+        # Both Flight III, each on the variant that carries her own hull
+        # number: Variant1 is DDG-125, Variant2 DDG-126. Lucas used to sail
+        # as usn_ddg_burke_f2a_g4_2022, a Flight IIA group file painted
+        # DDG-97. Modern US Navy no longer ships it - the Flight IIA went to
+        # per-ship files on 16-17 Sep 2026 and the mirrored 20 Sep export has
+        # no group files - and it resolved here only because the export
+        # never deleted. The game has no such unit.
+        U("blue", "modern-us-navy", "usn_ddg_burke_f3_125", "escort",
+          variant="Variant1", name="USS Jack H. Lucas"),
         U("blue", "us-navy-2027", "usn_ddg_arleigh_flt3_2027", "escort",
-          name="USS Louis H. Wilson Jr."),
+          variant="Variant2", name="USS Louis H. Wilson Jr."),
         U("blue", "SEST_F-35C_JATM", "usn_f-35c", "cvw",
           loadout="AirToAirAMRAAM"),
         U("blue", "SEST_F-35C_JATM", "usn_f-35c", "cvw",
