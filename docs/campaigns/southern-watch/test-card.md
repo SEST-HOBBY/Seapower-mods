@@ -105,6 +105,7 @@ whole economy sits on it.
 | 3.3 | Before SW06 | **Combat Air Patrol** (2 slots) and **Maritime Patrol** (1) |
 | 3.4 | SW07 | **No air tasking offered at all** — every aircraft in it is a named asset |
 | 3.5 | Anywhere | No flight offered with **0 slots**, and no slot with no flight |
+| 3.6 | Before SW11, assign a bought Growler to Combat Air Patrol, then to Maritime Strike | The only fit offered in either is **SEST SEAD120D** (2x AGM-88G, 2x AIM-120D, two tanks); no fit with the AIM-260 appears. Ford's Growler in the strike slot flies its own **SEAD** fit. Grizzly 31 in SW07 carries AIM-120D, not AIM-260 |
 
 3.5 is the invariant: 17 rows, each pairing exactly with its sections. One
 empty row means the pairing model is wrong.

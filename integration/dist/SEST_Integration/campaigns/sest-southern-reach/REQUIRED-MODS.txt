@@ -15,7 +15,7 @@ and hull variants they name, and the rounds their loadouts hang.
   3602046770    a model a placed unit draws      Boeing P-8 Poseidon
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
-  3760871384    a weapon a loadout hangs         Dingtools Weapon Pack
+  3760871384    a model a placed unit draws      Dingtools Weapon Pack
   3630495619    a model a placed unit draws      Euromod - Cold War Spanish Navy
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
   3731208477    a model a placed unit draws      Euromod - Modern Spanish Navy

@@ -191,6 +191,7 @@ LOADOUT_NAMES = {
         "SEST_Intercept260ER": "SEST Intercept260 LongRange (3 tanks)",
         "SEST_Escort260": "SEST Escort260 (4x AIM-260, 3 tanks)",
         "SEST_SEAD260": "SEST SEAD260 (AGM-88G + AIM-260)",
+        "SEST_SEAD120D": "SEST SEAD120D (AGM-88G + AIM-120D, 2 tanks)",
     },
     "cn": {
         "SEST_MaliceNGJ": "SEST NGJ MALICE (2x AIM-424)",
@@ -200,12 +201,13 @@ LOADOUT_NAMES = {
         "SEST_Intercept260ER": "SEST Intercept260 LongRange (3 tanks)",
         "SEST_Escort260": "SEST Escort260 (4x AIM-260, 3 tanks)",
         "SEST_SEAD260": "SEST SEAD260 (AGM-88G + AIM-260)",
+        "SEST_SEAD120D": "SEST SEAD120D (AGM-88G + AIM-120D, 2 tanks)",
     },
 }
 
 INFO_INI = """[Language_en]
 Name=SEST Growler NGJ + MALICE
-Description=Adds functional AN/ALQ-249 Next Generation Jammer equipment and an AIM-424 MALICE fit to the modern EA-18G Growlers, plus a four-MALICE counter-air fit for every AN/APG-79 Super Hornet (F/A-18F Block III, F/A-18F and F/A-18E), whose anti-ship fits now carry LRASM in place of the AGM-84N Harpoon. Requires U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation. US Naval Aviation supplies the AGM-88G model used by MALICE. Place this patch ABOVE all three required mods.
+Description=Adds functional AN/ALQ-249 Next Generation Jammer equipment and an AIM-424 MALICE fit to the modern EA-18G Growlers, a conventional SEAD fit (AGM-88G with AIM-120D, no AIM-260 or AIM-424) to the U.S. Navy 2027 Growler, plus a four-MALICE counter-air fit for every AN/APG-79 Super Hornet (F/A-18F Block III, F/A-18F and F/A-18E), whose anti-ship fits now carry LRASM in place of the AGM-84N Harpoon. Requires U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation. US Naval Aviation supplies the AGM-88G model used by MALICE. Place this patch ABOVE all three required mods.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -441,6 +443,39 @@ GROWLER_FIT_PLAN = {
 }
 
 
+# The conventional fit. The convention above puts the AIM-260 on the fuselage
+# seats (11/12) of every fit it re-cuts, and the SEST fits carry it too, so
+# until this existed no fit on usn_ea-18g could fly without JATM - which a
+# campaign that keeps JATM in its what-if branch (Southern Watch's rule 3)
+# could not give an Australian Growler in 2028. SEST_SEAD120D is
+# MurderHornetLightsOut's seats exactly as re-cut above, with the AIM-120D
+# that U.S. Navy 2027's own file hangs on stations 11/12 in place of the
+# AIM-260: 2x AGM-88G outboard, 2x AIM-120D, both wing tanks. No AIM-260 and
+# no AIM-424. Derived from the plan, not restated, so the two cannot drift.
+# Tanks visible: no SubModelsToHide line, as in SEST_NGJLongRange.
+CONVENTIONAL_KEY = "SEST_SEAD120D"
+CONVENTIONAL_AAM = "usn_aim-120d-3"      # upstream's own round on 11/12
+
+
+def conventional_loadout() -> str:
+    _why, plan = GROWLER_FIT_PLAN["MurderHornetLightsOut"]
+    seats = [(s, CONVENTIONAL_AAM if a == "dts_aim-260" else a) for s, a in plan]
+    if sum(1 for _s, a in seats if a == CONVENTIONAL_AAM) != 2:
+        sys.exit("SEST_SEAD120D: the LightsOut plan no longer hangs two AIM-260 "
+                 "to replace - re-check the conventional fit")
+    body = "".join(f"Station{s}={a}\n" for s, a in seats)
+    for banned in ("dts_aim-260", AIM424_ID):
+        if banned in body:
+            sys.exit(f"SEST_SEAD120D: {banned} is in the conventional fit")
+    return ("[--------------------------- SEST SEAD120D ---------------------------]\n"
+            "# Conventional EW/SEAD: MurderHornetLightsOut's seats with the AIM-120D\n"
+            "# upstream hangs on 11/12. No AIM-260, no AIM-424.\n\n"
+            f"[WeaponSystem1{CONVENTIONAL_KEY}]\n"
+            "ReadyUpTime=25               // minutes to refuel and rearm before takeoff\n"
+            "CoolDownTime=60              // minutes of maintenance after landing\n"
+            + body + "\n")
+
+
 def pylon_of(x: float) -> str:
     for limit, name in PYLON_BANDS:
         if abs(x) < limit:
@@ -565,6 +600,7 @@ def verify_ammunition() -> None:
     expected = {
         AIM424_ID,
         "usn_aim-120d3",
+        CONVENTIONAL_AAM,
         "usn_aim-9x",
         "usn_tank_610_f-18",
         "usn_tank_1200_f-18",
@@ -576,7 +612,8 @@ def verify_ammunition() -> None:
         sys.exit(f"unresolved ammunition ids: {missing}")
 
 
-def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> None:
+def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool,
+                  conventional: bool = False) -> None:
     text = source.read_text(encoding="utf-8-sig")
     if upgrade_ngj:
         text = upgrade_legacy_growler(text)
@@ -592,8 +629,17 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool) -> 
     verify_station_geometry(text, GROWLER_LOADOUTS, source.name)
     verify_tank_points(GROWLER_LOADOUTS, source.name)
     keys = list(GROWLER_KEYS) + [LONG_RANGE_KEY]
-    sections = (GROWLER_LOADOUTS + LONG_RANGE_LOADOUT).replace('__WING_TANK__', wing_tank)
+    sections = GROWLER_LOADOUTS + LONG_RANGE_LOADOUT
     verify_station_geometry(text, LONG_RANGE_LOADOUT, source.name)
+    if conventional:
+        # Appended last, so no fit that a mission already names moves and
+        # the airframe's default (its first fit) stays what it was.
+        extra = conventional_loadout()
+        verify_station_geometry(text, extra, source.name)
+        verify_tank_points(extra, source.name)
+        keys.append(CONVENTIONAL_KEY)
+        sections += extra
+    sections = sections.replace('__WING_TANK__', wing_tank)
     text = extend_loadouts(text, keys, source.name)
     text = inject_loadouts(text, sections, source.name)
     verify_pylon_convention(text, source.name)
@@ -942,7 +988,10 @@ def build_raaf_squadrons() -> None:
 
 def main() -> None:
     verify_ammunition()
-    build_growler(NAVY_2027 / "aircraft" / "usn_ea-18g.ini", "usn_ea-18g.ini", upgrade_ngj=True)
+    # Only the 2027 airframe needs the conventional fit: usn_ea-18g_2020's own
+    # SEAD and Default fits already hang the AIM-120D on 11/12.
+    build_growler(NAVY_2027 / "aircraft" / "usn_ea-18g.ini", "usn_ea-18g.ini",
+                  upgrade_ngj=True, conventional=True)
     # usn_ea-18g_2020s RETIRED 2026-09-20. Its only provider was the
     # deprecated F/A-18E/F (3426791311), now unsubscribed and pruned, and no
     # other mod in the collection ships that id - the unit simply no longer
@@ -983,8 +1032,9 @@ def main() -> None:
     print(
         f"built {OUT.relative_to(ROOT)}: {n_growlers} NGJ Growlers, "
         f"{n_hornets} APG-79 Super Hornets, "
-        f"{len(GROWLER_KEYS) + len(BLOCK_III_KEYS) + 1} new loadouts "
-        f"(NGJ Long Range on every Growler, two wing tanks), "
+        f"{len(GROWLER_KEYS) + len(BLOCK_III_KEYS) + 2} new loadouts "
+        f"(NGJ Long Range on every Growler, two wing tanks; "
+        f"{CONVENTIONAL_KEY} on usn_ea-18g), "
         f"{len(outputs)} files"
     )
 

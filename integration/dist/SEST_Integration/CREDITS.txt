@@ -567,7 +567,7 @@ file is unchanged.
       100%  vessels/plan_cvn_004.ini 
 
   U.S. Navy 2027 Capabilities mod  (workshop 3606774881)
-       94%  aircraft/usn_ea-18g.ini 
+       93%  aircraft/usn_ea-18g.ini 
        97%  aircraft/usn_fa-18e.ini 
        97%  aircraft/usn_fa-18f.ini 
        97%  aircraft/usn_fa-18f_blk3.ini 
