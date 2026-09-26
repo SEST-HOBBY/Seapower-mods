@@ -1446,6 +1446,54 @@ def destroyed_condition(n, units, minimum):
             f"Condition_Condition{n}_MinimumUnits={minimum}"]
 
 
+# What a victory `also` term may say, by kind: (keys it needs, keys it reads).
+# A term used to be a Time test if it had after_minutes and an area test
+# otherwise, whatever else it said - so `also=[dict(kind="destroyed",
+# units=["spoiler"])]` came out as "the spoiler is inside the arrival box",
+# a mission nobody could win, and the build was clean. A kind or a key this
+# table does not know now stops the build instead.
+ALSO_TERMS = {
+    "time": ({"after_minutes"}, {"kind", "after_minutes"}),
+    "area": ({"units"}, {"kind", "units", "at", "radius", "min_units"}),
+    "destroyed": ({"units"}, {"kind", "units", "min_units"}),
+}
+
+
+def also_condition(mission, n, extra, members):
+    """Condition n of the victory trigger, from one `also` term.
+
+    `time`: the clock has reached after_minutes. `area`: min_units of the
+    units are in a box (the victory's own unless `at`/`radius` say
+    otherwise). `destroyed`: min_units of them are gone. Without a `kind`
+    a term is `time` if it sets after_minutes and `area` if not, which is
+    how every term written before the kinds existed reads.
+    """
+    victory = mission["victory"]
+    kind = extra.get("kind") or ("time" if extra.get("after_minutes") else "area")
+    if kind not in ALSO_TERMS:
+        raise SystemExit(f"{mission['key']}: victory also-term has kind {kind!r}; "
+                         f"the builder knows {', '.join(ALSO_TERMS)}")
+    needs, reads = ALSO_TERMS[kind]
+    stray, missing = sorted(set(extra) - reads), sorted(needs - set(extra))
+    if stray or missing:
+        raise SystemExit(
+            f"{mission['key']}: a {kind!r} also-term "
+            + (f"does not read {', '.join(map(repr, stray))}" if stray else "")
+            + (" and " if stray and missing else "")
+            + (f"needs {', '.join(map(repr, missing))}" if missing else "")
+            + f" - {kind} reads {', '.join(sorted(reads))}")
+    if kind == "time":
+        return [f"Condition_Condition{n}_Type=Time",
+                f"Condition_Condition{n}_Time={extra['after_minutes'] * 60}"]
+    wanted = [extra["units"]] if isinstance(extra["units"], str) else extra["units"]
+    units = [tag for r in wanted for tag in refs(members, r)]
+    if kind == "destroyed":
+        return destroyed_condition(n, units, extra.get("min_units", len(units)))
+    return area_condition(n, mission["centre"], extra.get("at", victory.get("at")),
+                          extra.get("radius", victory.get("radius", 20)),
+                          units, extra.get("min_units", len(units)))
+
+
 # Conservative transit speeds for the reachability check, in knots. They are
 # deliberately below what the hulls can do: the question is whether an arrival
 # objective is possible at all, not whether it is comfortable.
@@ -2349,14 +2397,7 @@ def render(mission, placed, members):
     expr, n = "<Condition1>", 1
     for extra in victory.get("also", []):
         n += 1
-        if extra.get("after_minutes"):
-            cond += [f"Condition_Condition{n}_Type=Time",
-                     f"Condition_Condition{n}_Time={extra['after_minutes'] * 60}"]
-        else:
-            units = [tag for r in extra["units"] for tag in refs(members, r)]
-            cond += area_condition(n, centre, extra.get("at", victory.get("at")),
-                                   extra.get("radius", victory.get("radius", 20)),
-                                   units, extra.get("min_units", len(units)))
+        cond += also_condition(mission, n, extra, members)
         expr += f" AND <Condition{n}>"
     win_lines = [f"ConditionsCompleted={expr}",
                  "Action_Taskforce1_Message=Taskforce1VictoryMessage",
@@ -2453,14 +2494,7 @@ def render(mission, placed, members):
                 w_expr, wn = "<Condition1>", 1
                 for extra in victory.get("also", []):
                     wn += 1
-                    if extra.get("after_minutes"):
-                        w_cond += [f"Condition_Condition{wn}_Type=Time",
-                                   f"Condition_Condition{wn}_Time={extra['after_minutes'] * 60}"]
-                    else:
-                        units = [t for r in extra["units"] for t in refs(members, r)]
-                        w_cond += area_condition(wn, centre, extra.get("at", victory.get("at")),
-                                                 extra.get("radius", victory.get("radius", 20)),
-                                                 units, extra.get("min_units", len(units)))
+                    w_cond += also_condition(mission, wn, extra, members)
                     w_expr += f" AND <Condition{wn}>"
                 w_lines = [x for x in win_lines if not x.startswith("ConditionsCompleted=")]
                 trigger(f"Objective met by {tag}",
