@@ -80,7 +80,7 @@ What the consolidated pack contains (16 source packs):
 `SEST_Growler_NGJ_MALICE` (NGJ + MALICE Growlers; Super Hornet AIM-260 fits incl. the
 Intercept260/ER/Escort trucks; the F/A-18E buddy tanker; RAAF 1 SQN / 6 SQN squadron
 identities) · `SEST_F-15EX_Revamp` (24+ loadouts, eight squadrons, the six-round MALICE and
-174B trucks) · `SEST_B52_ARRW` (AGM-183A with its loft profile restored, across the B-52H and
+174B trucks) · `SEST_B52_ARRW` (AGM-183A flying its boost-glide profile, across the B-52H and
 B-52O, W62 variants, LRASM and bay ALCMs; names the ARRW mod's 419th FLTS testbed distinctly) ·
 `SEST_Allied_Fixes` (P-8 anti-ship fit repaired; HMS Ocean operates the Apache AH1) ·
 `SEST_F-35C_JATM` · `SEST_RAAF_F-35A_JATM` · `SEST_Rafale_F5` (six JATM/MALICE/LRASM fits on

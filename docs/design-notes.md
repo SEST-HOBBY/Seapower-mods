@@ -373,6 +373,8 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
 - **Gates before every push:** `check_load_order`, `check_dependencies`,
   `preflight` (every reference the missions make), `check_station_clash`,
   `check_weapon_employment` (every weapon can actually be fired by the mount
-  carrying it), full pack rebuilds. All exit non-zero; all have been
+  carrying it), `check_stale_phrases` (retired claims, such as the pre-reveal
+  AIM-424's, kept out of every builder, README and emitted file), full pack
+  rebuilds. All exit non-zero; all have been
   negative-tested — the employment gate against both bugs it was built from,
   the stripped NSM datalink association and the GBU-53's 200 ft release band.

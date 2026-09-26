@@ -16,10 +16,10 @@ marked **UNSTATED** rather than given a plausible-sounding one.
 |---|---:|---:|---|
 | File semantics | 101 | 30% | Follows from the engine's override/merge rules — not a preference |
 | UNSTATED | 57 | 17% | No recorded justification. The audit gap. |
-| Upstream donor | 55 | 16% | Cloned from a block the mod's own author shipped and proved |
+| Upstream donor | 54 | 16% | Cloned from a block the mod's own author shipped and proved |
 | In-game observation | 46 | 14% | Someone looked at it running — screenshots, visual checks |
 | Engine precedent | 33 | 10% | Matched to what the engine/collection already does elsewhere |
-| Real-world spec | 19 | 6% | Real aircraft or weapon performance figures |
+| Real-world spec | 20 | 6% | Real aircraft or weapon performance figures |
 | Comparison | 13 | 4% | Candidates compared on stated criteria before choosing |
 | Player directive | 10 | 3% | The player asked for it explicitly |
 | Author mandate | 5 | 1% | The upstream author's stated load-order requirement |
@@ -276,7 +276,7 @@ Adds ten cross-mod loadouts and six extra squadrons to dingtools' F-15 EX Eagle 
 - Any side-rail drop beyond the measured 0.0007 is explicitly refused as guesswork: "Dropping further is guesswork until somebody who can see the model says the whole group is too high."
 - Upstream's "pylon bottom" stations still share a point with "pylon outer" on each wing; left uncorrected because "correcting it would mean inventing a vertical offset that can't be verified from the model".
 - The AIM-424's visual size cannot be changed from the ini: "The visual renders at the shared usn_rim-7 mesh's native size, same as usn_agm-88g, and cannot be resized from the ini (ResourcesMeshScale, the one candidate key, breaks …
-- AIM-424 reach is deliberately capped below the AIM-174B: "MaxLaunchRange 290 vs 316 nm - it has to fit inside an F-35 weapons bay."
+- AIM-424 reach is deliberately set below the AIM-174B: "MaxLaunchRange 290 vs 316 nm - the Navy states \"in excess of 250\"; 290 clears that floor and sits just under the 174B"
 - SESTR-AR/AL rotation is an untested assumption about whether seat rotations add to or replace the station's rotation.
 - Rack slot assignment is opaque to the ini: "segment assignment per station is engine-internal", which is why every round gets an explicit single-segment seat.
 - StrikeNuke's single B61 on one wing station is left asymmetric on purpose (SYMMETRY_EXEMPT = {(16,17)}) — "Upstream's choice, and a real single weapon carry is a thing."
@@ -471,7 +471,7 @@ Three EA-18G identifiers and three APG-79 Super Hornets are shipped by four diff
   If the donor changes: No texture dependency at all for this squadron.
 
 - **Ship one shared AIM-424 MALICE definition (integration/common/aim424.py) rather than a pack-local variant, with the flight model aligned key-for-key to Navy 2027's AIM-174B.**  
-  *Comparison* — common/aim424.py: 'Aligned to usn_aim-174b as shipped by U.S. Navy 2027 Capabilities (3606774881) - the version that actually wins the load order in this collection, and the card the MALICE gets compared against in game', followed by an explicit ledger of intentional deltas ('MaxLaunchRange 290 vs 316 nm - it has to fit inside an F-35 we…
+  *Comparison* — common/aim424.py: 'Aligned to usn_aim-174b as shipped by U.S. Navy 2027 Capabilities (3606774881) - the version that actually wins the load order in this collection, and the card the MALICE gets compared against in game', followed by an explicit ledger of intentional deltas ('MaxLaunchRange 290 vs 316 nm - the Navy states "in excess of 250"; 290 clears that floor and sits just under the 174B…
   
   Effect: MALICE is a peer of the AIM-174B, not a strictly better round, and behaves identically whichever SEST pack is loaded highest.
   
@@ -552,7 +552,7 @@ Three mods (deprecated MyGo F-35C, F-35C Alt. Loadouts, US Naval Aviation) all s
 | `language_en/ammunition_names.ini` | adds | None — authored in integration/common/a… | Language files merge key-by-key, so a one-key file adds the encyclopedia entry without owning any other mod's names. aim424.py: 'All four SEST packs … |
 | `_info.ini` | adds | None — pack metadata | Declares `ApproximateVersion=0.8.2` and the load-order instruction: 'Place ABOVE F-35C Alt. Loadouts, US Naval Aviation, the deprecated MyGo F-35C, a… |
 
-**Decisions (26)** — File semantics 6, Upstream donor 6, UNSTATED 6, In-game observation 5, Comparison 1, Engine precedent 1, Author mandate 1
+**Decisions (26)** — File semantics 6, UNSTATED 6, Upstream donor 5, In-game observation 5, Comparison 1, Engine precedent 1, Real-world spec 1, Author mandate 1
 
 
 - **Rebase the whole-file override on F-35C Alt. Loadouts (20 loadouts) rather than US Naval Aviation (9), after establishing that neither file is a superset of the other.**  
@@ -653,12 +653,12 @@ Three mods (deprecated MyGo F-35C, F-35C Alt. Loadouts, US Naval Aviation) all s
   
   If the donor changes: Ceiling of the engine/mesh, not a donor dependency.
 
-- **Take Mass=467 straight from the airframe donor.**  
-  *Upstream donor* — `Mass=467` in sest_aim-424.ini matches `Mass=467` in mods-source/3737267013/ammunition/usn_agm-88g.ini exactly — the AGM-88G whose airframe and mesh the MALICE rides.
+- **Take Mass=680 from the U.S. Navy's published weight.**  
+  *Real-world spec* — common/aim424.py: `Mass=680 // in kg. 1,500 lb per the U.S. Navy fact file "AIM-424 LRAAM - Malice" (navy.mil, 22 Aug 2026)`. The three other AIM-424 rounds in the collection agree: usn_aim-424 in 3737267013 and 3606774881 at Mass=680, yf23_aim424_internal in 3796349767 at 680.4. It used to be 467, copied from usn_agm-88g.ini while the MALICE was still modelled as an AGM-88G derivative; the Navy's 22 August 2026 reveal retired that.
   
-  Effect: Bay-carriage weight and aircraft loadout mass match the real donor airframe.
+  Effect: Loadout mass matches the real missile: +213 kg a round over the old AGM-88G figure (+1,704 kg on the F-15EX's 8x MaliceTruck).
   
-  If the donor changes: Static value; a USNA change to its AGM-88G would not propagate (the value is literal in aim424.py).
+  If the donor changes: Static value, literal in aim424.py; nothing upstream propagates to it.
 
 - **Set AmmoPoints=2600 for the MALICE.**  
   ***UNSTATED*** — No comment, commit message or design note explains the figure. It sits between the two rounds the file is otherwise derived from (usn_aim-174b 2500 in 3606774881, usn_agm-88g 2850 in 3737267013), which is suggestive but nowhere recorded. FLAG.
@@ -749,7 +749,7 @@ Three mods (deprecated MyGo F-35C, F-35C Alt. Loadouts, US Naval Aviation) all s
 **Known limits**
 
 - The AIM-424 MALICE cannot be visually resized: 'The visual renders at the shared usn_rim-7 mesh's native size, same as usn_agm-88g, and cannot be resized from the ini (ResourcesMeshScale, the one candidate key, breaks the model)'…
-- MaxLaunchRange is capped at 290 nm rather than the AIM-174B's 316 — a deliberate ceiling, 'it has to fit inside an F-35 weapons bay'.
+- MaxLaunchRange is capped at 290 nm rather than the AIM-174B's 316 — a deliberate ceiling above the Navy's stated 'in excess of 250' and just under the 174B.
 - MaxTurnRate 28 deg/s vs the AIM-260's 40 — the MALICE 'out-reaches everything you can carry internally but loses the endgame knife fight' (commit f147057). Accepted so the JATM stays worth carrying.
 - language_cn covers only the 8 carried USNA loadout keys plus the 3 SEST keys; the 20 Alt. Loadouts keys have no Chinese names because that mod is English-only. Non-en/cn languages get no loadout_names.ini at all (the builder `con…
 - language_en/ammunition_names.ini is English-only — Chinese players see the raw `sest_aim-424` id in the encyclopedia.
@@ -1128,7 +1128,7 @@ Adds four future-arsenal loadouts (AIM-260 JATM x3, AIM-424 MALICE x1) and an F-
   If the donor changes: Enforced by tools/check_load_order.py before every push; not enforced by the game.
 
 - **The AIM-424's AmmoPoints=2600 sits between the AGM-88G airframe donor's 2850 and the AIM-174B's 2500, with no recorded reason for the value.**  
-  ***UNSTATED*** — common/aim424.py sets `AmmoPoints=2600` with no comment, while neighbouring values carry explicit `// cf. AIM-174B ...` annotations. mods-source/3737267013/ammunition/usn_agm-88g.ini has AmmoPoints=2850 (and Mass=467, which the MALICE does copy); mods-source/3606774881/ammunition/usn_aim-174b.ini has AmmoPoints=2500. FLAG.
+  ***UNSTATED*** — common/aim424.py sets `AmmoPoints=2600` with no comment, while neighbouring values carry explicit `// cf. AIM-174B ...` annotations. mods-source/3737267013/ammunition/usn_agm-88g.ini has AmmoPoints=2850 (its Mass=467 was the MALICE's until the published 680 replaced it); mods-source/3606774881/ammunition/usn_aim-174b.ini has AmmoPoints=2500. FLAG.
   
   Effect: Affects how many MALICE an airbase/magazine load consumes; no stated basis for the exact figure.
   
@@ -1153,7 +1153,7 @@ Adds four future-arsenal loadouts (AIM-260 JATM x3, AIM-424 MALICE x1) and an F-
 
 - The AIM-424 MALICE cannot be made to look smaller than an AGM-88G. "the Scale key in ammunition inis is the hit collider (every file carries it under [col_main]; the [Models] block has no size key), and the one candidate visual k…
 - Malice424 is a 4-round fit (2 MALICE + 2 AIM-260), not 6 — the MALICE occupies the two big bay stations (7/8) that JSM/JDAM use, so bay capacity is the ceiling.
-- The MALICE's 290 nm is deliberately short of the AIM-174B's 316 nm: "it has to fit inside an F-35 weapons bay" (common/aim424.py).
+- The MALICE's 290 nm is deliberately short of the AIM-174B's 316 nm: "290 clears that floor and sits just under the 174B" (common/aim424.py), the floor being the Navy's stated "in excess of 250".
 - MaxTurnRate 28 deg/s against the AIM-260's 40 is a deliberate trade, not a shortfall: "the MALICE out-reaches everything you can carry internally but loses the endgame knife fight" (commit f147057).
 - The EW transplant is a regex cut against US Naval Aviation's usn_f-35c.ini layout; any restructuring of that file's sensor section aborts the build ("could not extract the F-35C sensor block — upstream layout changed") rather tha…
 - The override hides upstream updates to raaf_f-35a.ini until the pack is rebuilt — docs/design-notes.md: "Upstream moves under you. A shadowed file can receive author updates the override hides... After any export, diff what chang…
@@ -1268,10 +1268,12 @@ Repairs two allied units that were broken by cross-mod data defects (the P-8's a
   
   If the donor changes: Guarded by exact-match swaps against dts_apkws-ii; any upstream change to those five lines fails the build loudly.
 
-- **Redback performance deltas: MaxLaunchRange 6 -> 15 nm, SeekerPassiveRange 6.0 -> 8, MaxLoftAngle 5.0 -> 12.0, MaxLoftAlt 1500 -> 4000; motor, fuze, effects and terminal logic untouched.**  
-  ***UNSTATED*** — The mechanism is stated ('range 6 -> 15 nm, loft raised 5/1500 -> 12/4000 for the higher profile. Motor, fuze, effects, terminal logic all stay the working weapon's') but no authority is given for 15 nm / 8 nm / 12 deg / 4000 ft. The weapon is explicitly fictional — the language file calls it a 'What-if evolution of the 70mm guided rocke…
+- **Redback performance deltas: MaxLaunchRange 6 -> 25 nm, SeekerPassiveRange 6.0 -> 25, MaxLoftAngle 5.0 -> 12.0, MaxLoftAlt 1500 -> 4000; motor, fuze, effects and terminal logic untouched.**  
+  ***UNSTATED*** — The mechanism is stated ('range 6 -> 25 nm with the seeker matched to it, loft raised 5/1500 -> 12/4000 for the higher profile. Motor, fuze, effects, terminal logic all stay the working weapon's') but no authority is given for 25 nm / 12 deg / 4000 ft. The weapon is explicitly fictional — the language file calls it a 'What-if evolution of the 70mm guided rocke…
   
-  Effect: A 28-round fire-and-forget salvo out to 15 nm from a rocket pod — missile reach at rocket ammo cost.
+  Effect: A 28-round fire-and-forget salvo out to 25 nm from a rocket pod — missile reach at rocket ammo cost.
+  
+  **Update, 2026-09-26** — The seeker now matches the reach. The round is GuidanceType=1 with MidCourseCorrection=0, so nothing corrects it after release and a shot beyond the seeker's reach has nothing to home on; the earlier 8 nm seeker on a 15 nm weapon left every shot past 8 nm unguided. Both are now 25 nm (the builder's swaps comment says so). The reach itself is still a what-if figure with no real specification behind it.
   
   If the donor changes: Literals in build_patch.py's `swaps` list; each exits the build if it does not match upstream exactly once.
 
@@ -1566,7 +1568,7 @@ Gives the collection a playable Royal Australian Navy — 7 classes, 26 named hu
 
 ### `b52-arrw`
 
-Makes the AGM-183A ARRW behave like a boost-glide weapon and be carriable across every in-service B-52 in the collection, by rebasing the two Dingtools AGM-183A ammunition files (the copies that actually win the override race) with the loft keys they were missing, and by grafting ARRW/W62/LRASM loadouts onto the Dingtools B-52H and Red Storm Arsenal's B-52O using each aircraft's own proven donor blocks.
+Makes the AGM-183A ARRW behave like a boost-glide weapon and be carriable across every in-service B-52 in the collection, by rebasing the two Dingtools AGM-183A ammunition files (the copies that actually win the override race) from a 90,000 ft sea-skim onto the ARRW mod's own boost-glide profile, and by grafting ARRW/W62/LRASM loadouts onto the Dingtools B-52H and Red Storm Arsenal's B-52O using each aircraft's own proven donor blocks.
 
 
 **Files (8)**
@@ -1585,31 +1587,31 @@ Makes the AGM-183A ARRW behave like a boost-glide weapon and be carriable across
 **Decisions (21)** — In-game observation 5, Engine precedent 3, Upstream donor 3, File semantics 3, Comparison 2, UNSTATED 2, Real-world spec 2, Author mandate 1
 
 
-- **Add a four-key loft block (MaxLoftAngle/MaxLoftAlt/IgnoreHeightDifferenceForTargetDist/TerminalVelocity) to both dts_agm-183a files, inserted immediately after SeaSkimmingAlt**  
-  *Engine precedent* — build_patch.py:8-16: "Every other hypersonic weapon here pairs a high SeaSkimmingAlt (the cruise altitude) with a MaxLoftAlt (the boost apex): usn_cps 99000/90000, plan_yj21 99000/90000, plan_yj_17 92000/95000, usa_prsm 160000/160000, wp_ss-n-26 46000/46000. dts_agm-183a and dts_agm-183a(w62) are the ONLY two files in the collection carr…
+- **Turn both dts_agm-183a files from a 90,000 ft sea-skim into a boost-glide: SeaSkimming True -> False, Acceleration 6.0 -> 16.0, ResourcesMeshSwitchTime 15 -> 35.0, and six keys added after SeaSkimmingAlt (MaxLoftAngle 75, MaxLoftAlt 99000, AccelerationTime 35, VelocityBleed 0.6, IgnoreHeightDifferenceForTargetDist True, TerminalVelocity 3800)**  
+  *Engine precedent* — build_patch.py docstring and ADD/SET comments: Dingtools models the weapon with SeaSkimming=True and SeaSkimmingAlt=90000, "the sea-skimming flight model with the skim altitude moved to 90,000 feet: climb, then hold ONE ALTITUDE all the way in". The files declare no loft keys, no AccelerationTime and no VelocityBleed. The pack's first fix only added MaxLoftAngle 45 / MaxLoftAlt 90000, which were inert because sea-skimming owns the trajectory; that is why the flag itself is now turned off.
   
-  Effect: ARRW now boosts to a 90,000 ft apex and glides in instead of cruising flat at 90,000 ft with no climb phase; IgnoreHeightDifferenceForTargetDist stops the altitude counting against range at…
+  Effect: ARRW boosts at 75° to a 99,000 ft apex over 35 s, swaps from the launch mesh to the glide vehicle at booster burnout, and glides in holding most of its speed (VelocityBleed 0.6) instead of cruising level at 90,000 ft; IgnoreHeightDifferenceForTargetDist stops the altitude counting against range. Needs an in-game shot to confirm; no static gate models trajectories.
   
-  If the donor changes: Nothing breaks structurally — the loft keys are additive to a Dingtools file. If the Dingtools Weapon Pack is unsubscribed, the pack's copy still loads (unit .ini) but points at Dingtools' …
+  If the donor changes: Every existing key is overridden as (expected, new) and every added key must be absent upstream, so an upstream change to any of them fails the build instead of being silently overwritten.
 
-- **Anchor the loft values on usn_cps (Red Storm Arsenal's Conventional Prompt Strike) rather than on the ARRW mod's own usn_arrw, and change nothing else in the Dingtools files**  
-  *Comparison* — build_patch.py:18-24: "Anchored to usn_cps - the US Navy's own boost-glide round, which this collection already fields on the Zumwalt - rather than to the ARRW mod's usn_arrw. usn_arrw models the profile well but gets the hardware wrong: 850 kg against the real ~2270 kg, Power 45 against 300, and a MaxVelocity written '10,648' with a tho…
+- **Take the profile from the ARRW mod's own usn_arrw, keep Dingtools' hardware**  
+  *Comparison* — build_patch.py docstring: usn_arrw is "the reference implementation of this exact weapon" (no SeaSkimming key, MaxLoftAngle 75, MaxLoftAlt 99000, Acceleration 16, VelocityBleed 0.6, ResourcesMeshSwitchTime 35.0) but "gets the hardware wrong: 850 kg against the real ~2270 kg, Power 45 against 300, and a MaxVelocity written '10,648' with a thousands separator". usn_cps (no SeaSkimming key, Acceleration 16, IgnoreHeightDifferenceForTargetDist True) corroborates the shape.
   
-  Effect: The round keeps Dingtools' 2270 kg mass, Power 300 penetrator warhead, 5291 kt / 865 nm envelope — only the flight profile changes. Confirmed by diff: exactly four added lines per file, not…
+  Effect: The round keeps Dingtools' 2270 kg mass, Power 300 penetrator warhead and 5291 kt / 865 nm envelope; only the flight profile changes.
   
-  If the donor changes: usn_cps is RSA content, but only its VALUES were read at authoring time — the built pack carries no runtime dependency on RSA for the ammunition files.
+  If the donor changes: Only usn_arrw's VALUES were read at authoring time — the built pack carries no runtime dependency on the ARRW mod for the ammunition files.
 
-- **MaxLoftAngle set to 45.0 — the one loft value deliberately NOT copied from usn_cps**  
-  *Comparison* — build_patch.py:46-50: "MaxLoftAngle is the one value not copied straight across: CPS is surface-launched and needs a shallow 35 deg to reach its 1889 nm; ARRW is released above 40,000 ft and boosts steeply from there, so 45 sits between CPS and the ARRW mod's 75 without inventing range the weapon does not claim." Verified: usn_cps.ini Ma…
+- **AccelerationTime 35 s, not usn_arrw's 75.7 — cut to booster separation**  
+  *Comparison* — build_patch.py MESH_SWITCH comment: Dingtools' file already carries ResourcesMeshForLaunch=launch switching to ResourcesMesh=AGM at ResourcesMeshSwitchTime=15, "which matched no physical event because no boost duration existed". The boost and the swap are both set to 35 s (usn_arrw also swaps at 35.0), so the swap reads as the boosted stack dropping away.
   
-  Effect: A steeper boost than the surface-launched CPS but shallower than the ARRW mod's, so the round lofts without gaining range the Dingtools MaxLaunchRange=865 does not claim.
+  Effect: A shorter powered phase than usn_arrw's, ending where the model changes to the glide vehicle.
   
-  If the donor changes: Self-contained constant in LOFT; no donor coupling.
+  If the donor changes: MESH_SWITCH = ("15", "35.0") is guarded; an upstream change to the switch time fails the build.
 
 - **TerminalVelocity set to 3800**  
-  ***UNSTATED*** — build_patch.py:55 — `"TerminalVelocity": "3800",` carries no comment. The docstring at :47 explicitly claims "MaxLoftAngle is the one value not copied straight across", but usn_cps.ini has TerminalVelocity=3333 and usn_arrw.ini has TerminalVelocity=4000, so 3800 is a second uncopied value with no recorded justification. The commit messag…
+  ***UNSTATED*** — build_patch.py, ADD — `"TerminalVelocity": "3800",` carries no comment. usn_cps.ini has TerminalVelocity=3333 and usn_arrw.ini has TerminalVelocity=4000, so 3800 is the one flight value taken from neither reference, with no recorded justification. The commit messag…
   
-  Effect: Sets the ARRW's terminal-dive speed to 3800 kt, ~14% above the CPS anchor's 3333 and just under the ARRW mod's 4000; affects intercept difficulty and impact behaviour.
+  Effect: Sets the ARRW's terminal-dive speed to 3800 kt, ~14% above usn_cps's 3333 and just under the ARRW mod's 4000; affects intercept difficulty and impact behaviour.
   
   If the donor changes: One dict entry; no donor coupling. But nothing records what it was calibrated against, so a future editor has no basis to keep or change it.
 
@@ -2494,7 +2496,7 @@ Adds two derived loadouts (AIM-260 JATM intercept, AIM-424 MALICE) to the USAF F
   If the donor changes: If upstream drops those position keys the missiles shift to raw station coordinates; nothing errors, it just looks wrong.
 
 - **Derive SEST_F16_MALICE from the SEAD block and put the AIM-424 on the HARM stations (Station9/Station10), hung BARE with no seat key, exactly as the donor hung usn_agm-88.**  
-  *Upstream donor* — build_patch.py docstring: "the two AGM-88 HARMs become AIM-424 MALICE - the 424 rides the AGM-88G AARGM-ER airframe, so these are literally its stations"; swap tuple is ("usn_agm-88", AIM424_ID) with no pipe key on either side. This is the one airframe where design-notes' rule ("The AIM-424 renders with the AGM-88G mesh whose origin ride…
+  *Upstream donor* — build_patch.py docstring: "the two AGM-88 HARMs become AIM-424 MALICE - at 4.11 m the 424 matches the HARM for length, so the HARM stations are its natural seat"; swap tuple is ("usn_agm-88", AIM424_ID) with no pipe key on either side. This is the one airframe where design-notes' rule ("The AIM-424 renders with the AGM-88G mesh whose origin ride…
   
   Effect: 2× AIM-424 MALICE where the HARMs were, plus 2× AIM-260, 2× AIM-9X, Sniper + HTS pods and all three tanks.
   
@@ -2722,9 +2724,9 @@ Gives the three late-standard Dassault Rafales (fr_rafale_b_l / c_l / m_l) six J
   If the donor changes: A hand-edit to any single pack's copy would fail consolidation with a named-pack error rather than silently diverging.
 
 - **The AIM-424's flight model is aligned key-for-key to U.S. Navy 2027's usn_aim-174b, with a short list of deliberate deltas; DragCoefficient is pinned explicitly at 3.6.**  
-  *Upstream donor* — integration/common/aim424.py: 'Aligned to usn_aim-174b as shipped by U.S. Navy 2027 Capabilities (3606774881) - the version that actually wins the load order in this collection ... Same explicit-drag flight model, same 150,000 ft loft ceiling ... What stays different, on purpose: MaxLaunchRange 290 vs 316 nm - it has to fit inside an F-3…
+  *Upstream donor* — integration/common/aim424.py: 'Aligned to usn_aim-174b as shipped by U.S. Navy 2027 Capabilities (3606774881) - the version that actually wins the load order in this collection ... Same explicit-drag flight model, same 150,000 ft loft ceiling ... What stays different, on purpose: MaxLaunchRange 290 vs 316 nm - the Navy states "in excess of 250"; 290 clears that floor…
   
-  Effect: 290 nm reach, 40 nm active / 80 nm passive seeker, dual-pulse motor — a peer of the AIM-174B rather than a lesser cousin, and readable against it on the same card assumptions.
+  Effect: 290 nm reach, 40 nm active / 80 nm passive seeker, two-stage motor — a peer of the AIM-174B rather than a lesser cousin, and readable against it on the same card assumptions.
   
   If the donor changes: If 3606774881 is unsubscribed the missile still works; only the comparison baseline it was tuned against disappears.
 

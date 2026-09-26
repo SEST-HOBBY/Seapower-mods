@@ -14,10 +14,12 @@ mod's own Stealth / non-Stealth loadout convention.
 | Intercept MALICE (2× AIM-424 int) | 2× **AIM-424 MALICE** on the big bay stations + 2× AIM-260 on the bay door rails — full stealth |
 
 The AIM-260 comes from the **Dingtools Weapon Pack** (`dts_aim-260` internal, `dts_aim-260_w`
-external); the AIM-9X is bundled with the RAAF mod itself. The AIM-424 MALICE is this pack's
-own what-if weapon (`ammunition/sest_aim-424.ini`, identical copy in the F-35C pack): the
-AGM-88G AARGM-ER airframe with AIM-174B-class reach and a passive anti-emitter mode — keep
-**US Naval Aviation** enabled, it provides the AGM-88G 3D model the MALICE renders with.
+external); the AIM-9X is bundled with the RAAF mod itself. The AIM-424 MALICE ships inside
+this pack (`ammunition/sest_aim-424.ini`, identical copy in the F-35C pack): the Raytheon
+LRAAM the US Navy revealed on 22 August 2026 — 680 kg on the SM-6's 34.3 cm diameter, 290 nm
+here against the Navy's stated "in excess of 250", with a passive anti-emitter mode. Keep
+**US Naval Aviation** enabled: the missile renders on its AGM-88G model, the stand-in proven
+to load.
 
 ## Install
 
