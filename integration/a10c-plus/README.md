@@ -5,13 +5,16 @@ standard one rather than replacing it. Built from the A-10C mod (Workshop `34596
 
 ## What it adds
 
-| | standard A-10C | A-10C+ |
+| | A-10C mod, as shipped | A-10C+ |
 |---|---|---|
 | Maverick IR head | declared, **not registered** | registered and working |
 | Litening targeting pod | — | `SensorSystem4` |
 | AN/AAQ-28 laser designator | — | `SensorSystem5` |
-| self-defence rails | AIM-9M | **AIM-9X**, all 11 loadouts |
+| self-defence rails | AIM-9M | **AIM-9X**, all 10 loadouts |
 | squadrons declared / defined | 7 / 2 | 2 / 2 |
+
+The first and last rows are bugs, so SEST Allied Fixes repairs them on the standard A-10C as
+well (see *Two bugs, fixed in both aircraft*).
 
 ## The author already designed this aircraft
 
@@ -108,7 +111,12 @@ the ridge. Both of the mod's squadrons are valid for a roster.
 ## Dependencies and load order
 
 - **A-10C** (`3459682829`) — the base airframe, and both new sensors' definitions.
-- **U.S. Navy 2027** (`3606774881`) — `usn_aim-9x`.
+- **U.S. Navy 2027** (`3606774881`) — `usn_aim-9x`, which SEST Collection Fixes ships with
+  one correction on top of this mod's file.
+
+`tools/check_dependencies.py` also lists the **A-10A** (`3414146266`), the mod the A-10C is
+built on, whose copy of the 30 mm round wins its key, and the **Italian Navy Mod**
+(`3505420313`), whose `usn_agm-65d` currently wins that key over the A-10C mod's own.
 
 Deploys inside the consolidated SEST Integration Pack at tier 0.
 
