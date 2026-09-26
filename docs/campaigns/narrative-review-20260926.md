@@ -116,7 +116,7 @@ revision's prose remains the baseline; only these points changed.
 
 | Finding | Done |
 |---|---|
-| Blocking: SW D7 and SW O1 denied messages had a second `\|` inside the body. The game reads a message as `Title\|Body\|Button` | Both now read `SENDER: text`. `build_pack.check_message_texts()` runs in `render()` and stops the build, naming the mission and key, on a `\|` in brief, win, lose, timeout, stage-lost or denied text, or in any intel text |
+| Blocking: SW D7 and SW O1 denied messages had a second `\|` inside the body. The game reads a message as `Title\|Body\|Button` | Both now read `SENDER: text`. `build_pack.check_message_texts()` runs in `render()` and stops the build, naming the mission and key, on a `\|` in brief, win, lose, timeout, stage-lost or denied text, in any intel text, or in the mission name, which is the start message's title |
 | All rewritten intel used `SENDER \| text`; no evidence that intel text accepts `\|` | 37 strings in both campaigns now use `SENDER: text`, with the same senders. Generated INI files: 156 intel values, none with `\|`; 1,300 message values, each with exactly the builder's own `Title\|` separator |
 | `TITLE_FIX` was dead after MODS IN PLAY went | Deleted |
 | build-notes still listed MODS IN PLAY | The briefing row lists SITUATION / FROM / COMMANDER'S INTENT / TASK / FORCES / TIME / RULES OF ENGAGEMENT |
