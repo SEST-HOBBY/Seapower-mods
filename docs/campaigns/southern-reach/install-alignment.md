@@ -348,7 +348,8 @@ closed.
 2. Copy the contents of the folder in it that holds `winhttp.dll` into the
    Sea Power folder, beside `Sea Power.exe` (this needs admin rights). The
    Explorer route is equally good: Extract All, open the folder holding
-   `winhttp.dll`, and copy its contents beside `Sea Power.exe`. Or save the
+   `winhttp.dll`, and copy its contents beside `Sea Power.exe`, leaving out
+   any `changelog.txt` (the game has its own). Or save the
    zip into the Sea Power folder and paste this into PowerShell run as
    administrator (change `$g` if Steam lives elsewhere):
 
