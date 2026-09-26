@@ -22,7 +22,7 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parents[1] / "tools"))
 import build_pack as bp  # noqa: E402
 import check_campaign_coverage as coverage_check  # noqa: E402
-from campaign_data import S  # noqa: E402
+from campaign_data import F, S  # noqa: E402
 
 _ABSENT = object()
 
@@ -50,10 +50,10 @@ def small_mission(**over):
                   "spoiler": S(-4.62, 128.90, "Armed coaster"),
                   "red_air": S(-4.00, 129.40, "Poseidon", alt=14000)},
         objectives=[("Withdrawal", "Withdraw north-west", "35,-35,Fail,Main"),
-                    ("Spoiler", "Stop the coaster", "20,-40,Complete")],
+                    ("Spoiler", "Stop the coaster", "20,-40,Fail")],
         victory=dict(kind="arrive", station="group", at=(-4.30, 128.60),
                      radius=12, objective="Withdrawal"),
-        resolve={"Withdrawal": "victory", "Spoiler": ("protect", "escort")},
+        resolve={"Withdrawal": "victory", "Spoiler": ("destroy", "spoiler", 1)},
         units=[])
     m.update(over)
     return m
@@ -241,6 +241,78 @@ class VictoryAlsoTerms(unittest.TestCase):
         self.assertIn("Condition_Condition2_Type=UnitDestroyed", lines)
         with self.assertRaisesRegex(SystemExit, "kind 'sunk'"):
             self.win([dict(kind="sunk", units=["spoiler"])], after=stage)
+
+
+STOCK = bp.ROOT / "mods-source" / "_vanilla" / "original" / "missions"
+
+
+class UnseenObjective(unittest.TestCase):
+    """('unseen', station): fails when the ENEMY classifies those player
+    units, in stock's own shape; F(..., kind="unseen") ends the mission on it."""
+
+    def mission(self, fatal=(), how=("unseen", "escort"), spec="25,-40,Complete"):
+        m = small_mission()
+        m["objectives"] = m["objectives"] + [("Unseen", "Stay unclassified", spec)]
+        m["resolve"] = dict(m["resolve"], Unseen=how)
+        m["fatal"] = list(fatal)
+        return m
+
+    def test_the_condition_is_stocks_own(self):
+        stock = coverage_check.blocks(
+            (STOCK / "Warsaw Pact" / "Operation Polar Fury 1985.ini").read_text(
+                encoding="utf-8-sig", errors="replace"))["Trigger5"]
+        want = [k for k in stock if k.startswith("Condition")]
+        lines = rendered(self.mission())["Unseen classified by the enemy"]
+        got = [l.partition("=")[0] for l in lines if l.startswith("Condition")]
+        self.assertEqual(got, want)
+        self.assertEqual(stock["Condition_Condition1_Taskforce"], "Taskforce2")
+
+    def test_the_resolver_fails_the_objective(self):
+        lines = rendered(self.mission())["Unseen classified by the enemy"]
+        self.assertEqual(lines, [
+            "Condition_Condition1_Type=UnitClassified",
+            "Condition_Condition1_Taskforce=Taskforce2",
+            "Condition_Condition1_Units=Taskforce1Vessel1",
+            "Condition_Condition1_MinimumUnits=1",
+            "ConditionsCompleted=<Condition1>",
+            "Action_ObjectivesFailed=Unseen"])
+
+    def test_the_fatal_ends_the_mission(self):
+        triggers = rendered(self.mission(fatal=[F("Unseen", kind="unseen")]))
+        lines = triggers["Unseen classified by the enemy - mission over"]
+        for want in ("Condition_Condition1_Type=UnitClassified",
+                     "Condition_Condition1_Taskforce=Taskforce2",
+                     "Condition_Condition1_Units=Taskforce1Vessel1",
+                     "Action_Victory=Taskforce2", "Action_ObjectivesFailed=Unseen",
+                     "Action_EnableTriggers=Trigger1"):
+            self.assertIn(want, lines)
+        self.assertEqual(triggers["Mission exit"][-2:],
+                         ["Action_EndMission=True", "Action_EndMissionDelay=0"])
+
+    def test_a_fatal_may_name_a_subset_and_nothing_else(self):
+        rendered(self.mission(fatal=[F("Unseen", ["escort"], kind="unseen")]))
+        with self.assertRaisesRegex(SystemExit, "reporting the wrong ship"):
+            rendered(self.mission(fatal=[F("Unseen", ["group"], kind="unseen")]))
+
+    def test_only_the_players_units_can_be_unseen(self):
+        with self.assertRaisesRegex(SystemExit, "Taskforce2Vessel1"):
+            rendered(self.mission(how=("unseen", "spoiler")))
+        with self.assertRaisesRegex(SystemExit, "Taskforce2Vessel1"):
+            rendered(self.mission(fatal=[F("Unseen", ["spoiler"], kind="unseen")],
+                                  how=("spare", "spoiler")))
+
+    def test_it_only_fails_so_it_cannot_end_fail(self):
+        with self.assertRaisesRegex(SystemExit, "ends Fail"):
+            rendered(self.mission(spec="25,-40,Fail"))
+
+    def test_an_unknown_fatal_kind_stops_the_build(self):
+        with self.assertRaisesRegex(SystemExit, "'sighted'"):
+            rendered(self.mission(fatal=[F("Unseen", ["escort"], kind="sighted")]))
+
+    def test_unseen_units_are_not_escorted_hulls(self):
+        placed, members = small_placement()
+        m = self.mission(fatal=[F("Unseen", kind="unseen")])
+        self.assertNotIn("Taskforce1Vessel1", bp.protected_tags(m, members))
 
 
 if __name__ == "__main__":

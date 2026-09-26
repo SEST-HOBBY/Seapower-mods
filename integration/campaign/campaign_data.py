@@ -80,7 +80,7 @@ _SW09_RAID = [(-14.5, 147.0, 30000), (-13.5, 148.4, 30000), (-11.0, 148.05, 3000
 _D6_HUNT = [(-3.3, 130.48, 42000), (-4.4, 130.1, 42000)]
 _D7_SWEEP = [(-10.9, 130.1, 30000), (-11.6, 129.9, 30000)]
 
-def F(objective, units=None, minimum=1):
+def F(objective, units=None, minimum=1, kind="destroyed"):
     """A loss that ends the mission, and the objective it fails.
 
     One flat list with one objective id used to cover every protected unit in
@@ -90,8 +90,12 @@ def F(objective, units=None, minimum=1):
     its own units, and `units=None` means take them from that objective's own
     resolver - which is the only way the trigger that ends the mission and the
     trigger that marks the objective failed cannot drift apart.
+
+    `kind="destroyed"` is a loss. `kind="unseen"` ends the mission when the
+    enemy classifies those player units instead, and takes its units from an
+    `unseen` resolver when it names none.
     """
-    return dict(objective=objective, units=units, minimum=minimum)
+    return dict(objective=objective, units=units, minimum=minimum, kind=kind)
 
 
 def S(lat, lon, label, heading=90, alt=None):

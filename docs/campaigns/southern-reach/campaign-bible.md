@@ -316,7 +316,7 @@ Centre −40.5, 155.5. The relief convoy to New Zealand: **Coral Pioneer**, `civ
 - That a hose ever passes fuel. Every service is a window and a position.
 - That a submarine is surfaced, dived, quiet or loud. Depth tokens are placement; "surfaced" is a house rule in the text.
 - That ice, fog, the Convergence, ducting, icing or polar communications exist in the engine.
-- That anything is "undetected". No trigger measures it; nothing scores it.
+- That anything is "undetected". Nothing in this campaign scores it. The builder's `unseen` resolver (stock `UnitClassified` with `Condition_Taskforce=Taskforce2` on the player's units, as in Operation Polar Fury 1985) fails an objective when the enemy classifies a player unit; that is classification, not detection, and no Southern Reach mission uses it.
 - That a red aircraft with no field is fuel-limited. It is not; the engine's own rule for a base-less aircraft is unlimited fuel, and the briefings say a tanker is behind the Bears.
 - That the Antarctic coast, Casey or Wilkins are on a map anything sails to. The southernmost centre is 375 NM from the nearest coastline.
 - That an RNZN ship exists in this collection. None is placed.
