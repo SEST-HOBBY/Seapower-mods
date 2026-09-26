@@ -1153,6 +1153,17 @@ tells the player not to chase and nothing the fight needs. Southern Reach and
 Red Line's Chinese replenishment ships are the real classes now - see their
 build notes.
 
+**The restored intercept table.** SEST Intercept Model puts back the 5%
+ceiling on any surface-to-air shot outside the round's altitude band, and the
+YJ-83 family skims at 8 ft - under the 10-ft floor of every SAM a Hobart
+carries and of the Burkes' SM-2 and SM-6. If the ceiling is live, Blind
+Horizon and Fujian's Shadow are harder than they were built to be, and only
+the ESSM Block 2 (Anzacs, Lucas) and RAM are inside the band. The test card's
+6F re-flies both air defences and says what each outcome means; Southern
+Reach's card re-flies TS09 against the same result. Range Week's David's
+Sling carries a note at the unit: its Stunner is the one round of that pack
+anything in the campaigns loads, so it is the pack's whole coverage.
+
 ## What exists
 
 | Thing | Where |

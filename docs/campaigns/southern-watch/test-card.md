@@ -233,6 +233,33 @@ has been seen in the game.
 | 6E.2 | SW09, Collins alongside with a torpedo or two gone | The torpedoes come back while she is surfaced | Nothing crosses: say whether the panel showed Collins as a receiver at all |
 | 6E.3 | SW09, during a transfer, run Perth up to 20 kn and watch the range to Stalwart | The transfer stops as her speed passes 16 kn, while she is still inside half a mile | It carries on past 16 kn: the speed gate is not honoured. If it only stops once the range opens past half a mile, that was the range gate; slow down, close up and try again |
 
+## 6F — the restored intercept table (new)
+
+SEST Intercept Model puts back the global intercept keys a Workshop copy of
+`damage.ini` had dropped, among them `InterceptChanceOutOfAltitudeOverride=0.05`:
+any surface-to-air shot at a target outside the round's attack-altitude band
+is capped at 5%. Whether the engine was already falling back to that is not
+in any file, and it has not been seen in the game. The two missions where it
+decides most are Blind Horizon and Fujian's Shadow, because the YJ-83 family
+skims at **8 ft** (`SeaSkimmingAlt`, feet): under the 10-ft floor of every SAM
+Hobart carries (ESSM `usn_rim-162a`, SM-2 `usn_rim-66m-5`, SM-6
+`usn_rim-174a`) and of Sejong's RAM (`usn_rim-116e`), under the Burkes' SM-2
+and SM-6 (10 ft) and Ford's ESSM (26 ft). The ESSM Block 2 (`usn_rim-162h`,
+5-ft floor) that Lucas and the Anzacs carry and Ford's own RAM (no band) are
+the only blue rounds inside it. Every fighter in both missions flies well
+inside every band.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 6F.1 | SW06, let the surface group reach its launch basket and fire at the convoy (YJ-83A from the 054A, HY-1JA from the Luda) | If the ceiling is live: a Hobart - and Sejong, if Borrowed Shield put her there - engages the YJ-83A at about **5%** a shot and the guns do the work, while an Anzac in the escort engages it at normal odds with ESSM Block 2; the HY-1JA (82 ft, inside every band) is engaged at normal odds by all | Normal odds against the YJ-83A mean the engine already fell back and the pack changes nothing here. Either way, bring back the odds shown or the SAMs fired per missile killed |
+| 6F.2 | SW06, fight the J-16s at 34,000 ft with the F-35As, and let Hobart take one if it comes in range | Normal odds throughout: 34,000 ft is inside every band on both sides | A 5% cap here means the band test is not what the files say - name the round |
+| 6F.3 | SW11, let Flying Shark 21 launch its two YJ-83 at the transports | Lucas's ESSM Block 2, any Anzac's and Ford's RAM engage at normal odds; a Hobart, Wilson and Ford's ESSM at about 5% | Say which ship killed each missile. Everything at 5%, Lucas included, means the floor is not read in feet |
+| 6F.4 | SW11, the J-35, J-20 and J-15D against Ford's F-35Cs and the Burkes' SM-6 | Normal odds: all at 30,000 ft | As 6F.2 |
+
+Compare with Range Week (D5): its Shahed line flies at 300 ft, under the
+David's Sling Stunner's 500-ft floor and THAAD's, so a live ceiling holds both
+batteries to 5% there too.
+
 ## 7 — the review's engine tests
 
 The independent review of `057405fe` listed the runs that no static check
