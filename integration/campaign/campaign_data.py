@@ -1839,7 +1839,7 @@ MISSIONS.append(dict(
             "Do not be the incident that restarts this - a withdrawing ship you sink today is "
             "the reason the ceasefire fails before this convoy reaches port."
         )),
-    forces="Your escort group with HMAS Eyre and her flight attached, a Poseidon, and "
+    forces="Your escort group with HMAS Eyre attached, a Poseidon, and "
            "four merchant hulls. Two Chinese groups: one withdrawing, one "
            "not. A Wedgetail is up.",
     objectives=[
@@ -1866,7 +1866,6 @@ MISSIONS.append(dict(
          "now a thing that was tried once.",
     stations={
         "escort": S(-10.48, 131.77, "Escort group", heading=200),
-        "eyre_flight": S(-10.52, 131.8, "Eyre Flight", heading=200, alt=1500),
         "convoy": S(-10.4, 131.8, "First convoy", heading=200),
         "air": S(-10.8, 131.0, "Air support", heading=200, alt=20000),
         # Two fighter cockpits for whatever the finale's window sold, off
@@ -1890,9 +1889,11 @@ MISSIONS.append(dict(
           weapons="Tight"),
         U("blue", "SEST_RAN_Fleet", "ran_opv_arafura", "escort",
           variant="Variant2", name="HMAS Eyre", weapons="Tight"),
-        # Eyre's own flight: the S-70B-2 the RAN deck lists, on the RAN deck.
-        U("blue", "s-70b-2-seahawk", "S-70B-2_Seahawk", "eyre_flight",
-          name="Eyre Flight", alt=1500, weapons="Tight"),
+        # No flight of her own. She used to carry an S-70B-2 as "Eyre
+        # Flight", and the RAN retired the S-70B-2 in 2017 - and an Arafura
+        # has a flight deck and no hangar. The type flies in COLD SEA now
+        # (Before the Lifeline, 1988), and the helicopter over this convoy is
+        # the player's own MH-60R on the Ship's Flight row.
         U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3", alt=18000, weapons="Tight"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 03",
           weapons="Hold"),
@@ -2435,7 +2436,7 @@ MISSIONS.append(dict(
             "package, one running deck drills with a new air department and one cycling alert "
             "aircraft. A Seawolf is riding shotgun below and an E-3G is holding the wider "
             "picture while the RAAF Wedgetail is tasked elsewhere.\\n\\nThe tanker is the "
-            "schedule. Everything airborne today is planned around one KC-10, and the Reaper "
+            "schedule. Everything airborne today is planned around one KC-46, and the Reaper "
             "north of the box is watching a merchant that has been drifting off its filed route"
             " for two days.\\n\\nThere is a distinguished-visitor lift inbound - a VH-3D bringing"
             " the coalition maritime commander across for the afternoon. That airframe gets "
@@ -2446,7 +2447,7 @@ MISSIONS.append(dict(
             "before drawing conclusions about intent."
         )),
     forces="USS Nimitz, Carl Vinson and Theodore Roosevelt, one Seawolf, "
-           "an E-3G, a KC-10A, an MQ-9A north of the box and a VH-3D on "
+           "an E-3G, a KC-46A, an MQ-9A north of the box and a VH-3D on "
            "the visit.",
     objectives=[
         ("Visit", "Get the VH-3D into the carrier box", "25,-20,Fail,Main"),
@@ -2471,7 +2472,7 @@ MISSIONS.append(dict(
         "air": S(-15.0, 149.4, "Support aircraft", heading=90, alt=28000),
         "sub": S(-16.6, 150.2, "Seawolf station", heading=140),
         "track": S(-13.5, 148.6, "Southern track", heading=200, alt=22000),
-        # The Sentry and the Extender are land-based; a carrier with no
+        # The Sentry and the Pegasus are land-based; a carrier with no
         # AircraftSupported list took them only because nothing else could.
         "home": S(-12.6188, 142.094, "RAAF Base Scherger"),
     },
@@ -2486,7 +2487,10 @@ MISSIONS.append(dict(
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_scherger", "home",
           name="RAAF Base Scherger", nation="australia", weapons="Hold"),
         U("blue", "e-3g", "usaf_e-3g", "air", name="Sentry 40", weapons="Hold"),
-        U("blue", "kc-10a", "usaf_kc-10a_extender", "air", name="Texaco 60",
+        # A KC-46, not the KC-10A this used to be: the USAF retired the
+        # Extender in 2024. It flies in COLD SEA's exercise now, where 1988
+        # is its own year. Still air#2, so the Tanker objective reads it.
+        U("blue", "kc-46a", "usaf_kc-46a_boom", "air", name="Texaco 60",
           weapons="Hold"),
         U("blue", "mq-9-reaper", "usaf_mq-9a", "track", name="Reaper 12",
           weapons="Tight"),
@@ -2735,7 +2739,7 @@ MISSIONS.append(dict(
         "Japanese Type 12 battery is firing a separate anti-ship serial at "
         "the seaward target."),
     forces="THAAD with AN/TPY-2, a David's Sling battery, a Type 12 SSM "
-           "battery, the range field, an A-10A with the counter-launcher shot "
+           "battery, the range field, an A-10C with the counter-launcher shot "
            "and an F-16A chase. "
            "Range threat pads: Scud-B, Sejjil, Iskander and a Shahed line.",
     objectives=[
@@ -2789,8 +2793,13 @@ MISSIONS.append(dict(
           name="Range field", weapons="Hold"),
         U("blue", "apex-predators-mig-29-f-16", "airfield_us", "field",
           name="Range support strip", weapons="Hold"),
-        U("blue", "a-10a", "usa_a-10a", "tow", name="Counter-launcher 01",
-          loadout="AntiArmor"),
+        # An A-10C+, not the A-10A this used to be: the A-10A fleet became
+        # A-10Cs long before 2028. The plus pack's Litening pod and laser are
+        # what a counter-launcher shot wants, and AntiArmor is one of its own
+        # fits. D8's Hog 22 is the same airframe; the A-10A mod is still
+        # placed by COLD SEA's exercise field.
+        U("blue", "SEST_A10C_Plus", "usaf_a-10c_plus", "tow",
+          name="Counter-launcher 01", loadout="AntiArmor"),
         U("blue", "apex-predators-mig-29-f-16", "usaf_f-16a", "tow",
           name="Chase 02", weapons="Hold"),
         U("red", "scud-b", "wp_scud_9k72", "pads", name="Range pad SCUD"),
@@ -2957,8 +2966,8 @@ MISSIONS.append(dict(
     brief=(
         (
             "DARWIN APPROACHES, JULY 1988. Exercise PITCH BLACK's maritime phase places an "
-            "American carrier group south of the Arafura against a mixed aggressor force flying"
-            " Soviet and Chinese profiles.\\n\\nA Bear G is running the maritime strike serial "
+            "American carrier group, with HMAS ADELAIDE in its screen, south of the Arafura "
+            "against a mixed aggressor force flying Soviet and Chinese profiles.\\n\\nA Bear G is running the maritime strike serial "
             "with a Badger tanker behind it. Dragon 41, the U-2, is high over the exercise box;"
             " the Nighthawk detachment faces the aggressor squadron's J-8s and MiG-23. Airborne"
             " and ship radar reports form the working picture.\\n\\nIt was an exercise until "
@@ -2967,9 +2976,9 @@ MISSIONS.append(dict(
             "protect Dragon 41 throughout the engagement. The umpires are still on the net: the"
             " Badger tanker is out of play and a shot at it is scored against you."
         )),
-    forces="USS Kitty Hawk, F-14A and F-117 detachments, a B-52G, a U-2, "
-           "an Italian Tornado on exchange. Aggressors: two J-8, a MiG-23, a "
-           "Bear G, a Tu-16N tanker.",
+    forces="USS Kitty Hawk and HMAS Adelaide, an RAN Seahawk, F-14A and F-117 "
+           "detachments, a B-52G, a U-2, a KC-10A, an Italian Tornado on "
+           "exchange. Aggressors: two J-8, a MiG-23, a Bear G, a Tu-16N tanker.",
     objectives=[
         ("Serial", "Kill the Bear before its release line", "35,-25,Fail,Main"),
         ("Recovery", "Keep Dragon 41 safe throughout the interception", "15,-15,Complete"),
@@ -3006,6 +3015,12 @@ MISSIONS.append(dict(
         "sweep": S(-9.6, 129.6, "Aggressor sweep", heading=180, alt=30000),
         "sea": S(-12.1, 130.7, "Exercise surface group", heading=270),
         "range": S(-12.5, 131.0, "Exercise field", heading=0),
+        # The blue tanker's own track, off the Recovery objective's "high"
+        # station - which protects every unit on it - and off the red
+        # Badger's "tanker", which the Umpire objective spares. West of
+        # Darwin, so its map label clears the field's and the town's.
+        "texaco": S(-12.6, 129.6, "Exercise tanker track", heading=270,
+                    alt=26000),
     },
     units=[
         U("blue", "_vanilla", "usn_f-14a", "cap", name="Tomcat 101"),
@@ -3019,6 +3034,21 @@ MISSIONS.append(dict(
           weapons="Hold"),
         U("blue", "flight-deck-ops", "usn_cv_kitty_hawk", "sea",
           name="USS Kitty Hawk"),
+        # The RAN in the surface group, in the year it was still the
+        # Adelaide class's navy (Variant1, FFG-01, in service 1980-2008).
+        U("blue", "_vanilla", "ran_ffg_adelaide_shorthull", "sea",
+          variant="Variant1", name="HMAS Adelaide"),
+        # The S-70B-2 in its own era: 816 Squadron's type from 1988 to 2017.
+        # The vanilla Adelaide's deck list is the Squirrel-era one and leaves
+        # the Seahawk out, so the builder homes it on Kitty Hawk, whose file
+        # lists nothing and takes any helicopter - an RAN aircraft cross-
+        # decked for the exercise. Unnamed as Adelaide's for that reason.
+        U("blue", "s-70b-2-seahawk", "S-70B-2_Seahawk", "sea",
+          name="Tiger 01", alt=1500, weapons="Tight"),
+        # The KC-10A, in service from 1981: it left D2's 2028 carrier box
+        # for this. Out of the fight, Hold.
+        U("blue", "kc-10a", "usaf_kc-10a_extender", "texaco",
+          name="Exercise tanker", weapons="Hold"),
         U("blue", "a-10a", "airfield_a-10", "range", name="Exercise field",
           weapons="Hold"),
         # To the release line on the 157 line, 82 NM short of Kitty Hawk,
