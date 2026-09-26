@@ -51,6 +51,46 @@ def sections(path):
             k, _, v = s.partition("="); out[cur][k.strip()] = v.strip()
     return out
 
+def plot_extent(afloat, goal):
+    """The card's chart as a square in the mission's NM frame: (x0, z1, span),
+    its west edge, its north edge and its side.
+
+    Framed on the own-force marks and the objective's centre, with 42% to
+    spare. That was the whole rule, and it let a wide objective ring run off
+    the chart, past the frame's edge and over the page around it, because the
+    centre was framed and the radius never was. Nine shipped cards did it.
+    When the ring would leave the square, the square is framed on the ring as
+    well; a card whose ring already fits is framed exactly as before.
+    """
+    pts = [(x, z) for x, z, _ in afloat] or [(0, 0)]
+    if goal: pts.append((goal[0], goal[1]))
+
+    def frame(pts):
+        xs, zs = [p[0] for p in pts], [p[1] for p in pts]
+        span = max(max(xs)-min(xs), max(zs)-min(zs), 20.0) * 1.42
+        return (min(xs)+max(xs))/2, (min(zs)+max(zs))/2, span
+
+    cx, cz, span = frame(pts)
+    if goal:
+        gx, gz, r = goal
+        if max(abs(gx - cx), abs(gz - cz)) + r > span / 2:
+            cx, cz, span = frame(pts + [(gx - r, gz - r), (gx + r, gz + r)])
+    return cx - span/2, cz + span/2, span
+
+def title_size(lines, room, measure, size=132, floor=96):
+    """The card title's size in px: 132, or as far below it (6 px a step,
+    never under `floor`) as the widest line needs to fit `room`.
+
+    The title is wrapped at eleven characters and set at 132 px whatever the
+    letters were, so an eleven-letter line of wide capitals ran into the
+    chart's frame - BROKEN WAKE and HOME WATERS touched it, CONVERGENCE
+    crossed it. `measure(line, size)` is the line's width at that size. A
+    title that fits keeps 132, so its card is drawn as before.
+    """
+    while size > floor and max(measure(l, size) for l in lines) > room:
+        size -= 6
+    return size
+
 def card(ini, out_png, num, title, date, place, standfirst, label="SOUTHERN WATCH"):
     S = sections(ini)
     afloat, goal = [], None
@@ -79,12 +119,7 @@ def card(ini, out_png, num, title, date, place, standfirst, label="SOUTHERN WATC
     ox, oy = CW - PW - 80, (CH - PH) // 2
     d.rectangle([ox-2, oy-2, ox+PW+2, oy+PH+2], fill=PANEL, outline=FRAME, width=3)
 
-    pts = [(x, z) for x, z, _ in afloat] or [(0, 0)]
-    if goal: pts.append((goal[0], goal[1]))
-    xs, zs = [p[0] for p in pts], [p[1] for p in pts]
-    span = max(max(xs)-min(xs), max(zs)-min(zs), 20.0) * 1.42
-    cx, cz = (min(xs)+max(xs))/2, (min(zs)+max(zs))/2
-    x0, z1 = cx - span/2, cz + span/2
+    x0, z1, span = plot_extent(afloat, goal)
     def to_px(x, z): return (ox + (x-x0)/span*PW, oy + (z1-z)/span*PH)
 
     step = next(s for s in (2, 5, 10, 20, 25, 50, 100) if span/s <= 7)
@@ -126,9 +161,12 @@ def card(ini, out_png, num, title, date, place, standfirst, label="SOUTHERN WATC
     d.text((L, 128), num, font=font(300, True), fill=BLUE_DIM)
     d.text((L+6, 424), date.upper(), font=font(40, True, mono=True), fill=BLUE)
     lines = textwrap.wrap(title.upper(), 11)
+    # The title stays 40 px clear of the chart's frame.
+    size = title_size(lines, ox - 40 - L,
+                      lambda line, px: d.textlength(line, font=font(px, True)))
     y = 456
     for line in lines:
-        d.text((L, y), line, font=font(132, True), fill=INK); y += 132
+        d.text((L, y), line, font=font(size, True), fill=INK); y += size
     y += 18
     d.line([(L, y), (L+300, y)], fill=BLUE, width=7); y += 40
     d.text((L+4, y), place.upper(), font=font(46), fill=INK_MUTE)
@@ -411,11 +449,9 @@ def _ll(path):
 def _hemi(v, pair):
     return f"{abs(v):.0f}{pair[0] if v >= 0 else pair[1]}"
 
-def backdrop(out_png, marks, title, subtitle):
-    """marks: [(number, lat, lon, is_core)] in campaign order."""
-    img = Image.new("RGB", (W, H), DEEP)
-    d = ImageDraw.Draw(img, "RGBA")
-
+def backdrop_frame(marks):
+    """The backdrop's chart as (south, north, west, east) in degrees, for
+    marks [(number, lat, lon, is_core)]."""
     lats = [m[1] for m in marks] or [-10.0]
     lons = [m[2] for m in marks] or [131.0]
     # Pad to the frame's aspect so the theatre is centred rather than stretched.
@@ -430,6 +466,34 @@ def backdrop(out_png, marks, title, subtitle):
         need = (lo1 - lo0) * H / W
         mid = (la0 + la1) / 2
         la0, la1 = mid - need / 2, mid + need / 2
+    # The pad is in degrees, which is a margin on a theatre of a dozen
+    # degrees and none on one of fifty: Red Line runs from the equator to 47
+    # South, and its first and last marks sat on the frame's edge with the
+    # track running through the title. Keep the northernmost campaign mark
+    # 100 px below the top and the southernmost 150 px clear of the bottom,
+    # where the title is. The optional beats are small and may sit nearer;
+    # a chart whose campaign marks already clear both keeps its frame.
+    core_lats = [m[1] for m in marks if m[3]] or lats
+    ppd = H / (la1 - la0)
+    if (la1 - max(core_lats)) * ppd < 100 or (min(core_lats) - la0) * ppd < 150:
+        ppd = (H - 250) / max(max(lats) - min(lats), 1e-6)
+        s_, n_ = min(lats) - 150 / ppd, max(lats) + 100 / ppd
+        if (n_ - s_) * W / H >= lo1 - lo0:      # the height governs: widen
+            la0, la1 = s_, n_
+            need, mid = (la1 - la0) * W / H, (lo0 + lo1) / 2
+            lo0, lo1 = mid - need / 2, mid + need / 2
+        else:                                   # the width does: grow the margins
+            extra = (lo1 - lo0) * H / W - (n_ - s_)
+            la0, la1 = s_ - extra * 0.6, n_ + extra * 0.4
+    return la0, la1, lo0, lo1
+
+
+def backdrop(out_png, marks, title, subtitle):
+    """marks: [(number, lat, lon, is_core)] in campaign order."""
+    img = Image.new("RGB", (W, H), DEEP)
+    d = ImageDraw.Draw(img, "RGBA")
+    la0, la1, lo0, lo1 = backdrop_frame(marks)
+
     def to_px(lat, lon):
         return ((lon - lo0) / (lo1 - lo0) * W, (la1 - lat) / (la1 - la0) * H)
 
@@ -439,14 +503,19 @@ def backdrop(out_png, marks, title, subtitle):
             int(a + (b - a) * t) for a, b in zip(SEA, DEEP)))
 
     lo = math.ceil(lo0)
+    lon_labels = []                     # x of each meridian label on the bottom row
     while lo <= lo1:                    # meridians, every degree
         px, _ = to_px(0, lo)
         heavy = lo % 5 == 0
         d.line([(px, 0), (px, H)], fill=LINE_H if heavy else LINE,
                width=2 if heavy else 1)
         if heavy:
+            lon_labels.append(px + 10)
+            # East of the date line the chart is still counting east: 185E
+            # is 175W, and a chart that spans both theatres reaches it.
+            east = lo if lo <= 180 else lo - 360
             d.text((px + 10, H - 38),
-                   f"{abs(lo):.0f}°{'E' if lo >= 0 else 'W'}",
+                   f"{abs(east):.0f}°{'E' if east >= 0 else 'W'}",
                    font=mono(22), fill=(58, 72, 86))
         lo += 1
     la = math.ceil(la0)
@@ -455,7 +524,10 @@ def backdrop(out_png, marks, title, subtitle):
         heavy = la % 5 == 0
         d.line([(0, py), (W, py)], fill=LINE_H if heavy else LINE,
                width=2 if heavy else 1)
-        if heavy:
+        # A parallel's label that would print over a meridian's on the
+        # bottom row is left off; the meridian's is the one the row is for.
+        crowded = py - 30 > H - 60 and any(x < 14 + 80 for x in lon_labels)
+        if heavy and not crowded:
             # Hemisphere from the sign, not from the theatre: padding the
             # frame out to 16:9 pushes the top edge over the equator, and a
             # parallel labelled 0S would be the one wrong thing on the chart.

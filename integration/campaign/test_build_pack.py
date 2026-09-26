@@ -538,6 +538,110 @@ class StoryArt(unittest.TestCase):
         self.assertEqual({bp.event_tile(e) for e in (SIGNAL, LOG, INTSUM)}, {"message"})
 
 
+@unittest.skipIf(make_art is None, "Pillow is not installed")
+class CardFrame(unittest.TestCase):
+    """The mission card's chart holds the whole objective ring, not only its
+    centre, and the card's title stays off the chart."""
+
+    # The ceasefire-morning card: the group ahead, the box 21 NM up its
+    # course, 12 NM across - wider than the margin the marks leave.
+    MARKS = [(0.0, 9.0, "ship"), (-12.0, 6.0, "ship"), (-18.0, 12.0, "ship"),
+             (-1.2, 7.8, "air")]
+
+    @staticmethod
+    def square(afloat, goal):
+        x0, z1, span = make_art.plot_extent(afloat, goal)
+        return x0, x0 + span, z1 - span, z1
+
+    def assertInside(self, goal, square):
+        w, e, s, n = square
+        gx, gz, r = goal
+        self.assertTrue(w <= gx - r and gx + r <= e and s <= gz - r and gz + r <= n,
+                        f"ring {goal} leaves the chart {square}")
+
+    def test_a_wide_ring_is_framed_whole(self):
+        goal = (-30.12, 16.74, 12.0)
+        self.assertInside(goal, self.square(self.MARKS, goal))
+
+    def test_a_ring_that_fits_is_framed_as_before(self):
+        # The old rule: the marks and the ring's centre, with 42% to spare.
+        goal = (-6.0, 8.0, 3.0)
+        xs = [x for x, _z, _k in self.MARKS] + [goal[0]]
+        zs = [z for _x, z, _k in self.MARKS] + [goal[1]]
+        span = max(max(xs) - min(xs), max(zs) - min(zs), 20.0) * 1.42
+        x0 = (min(xs) + max(xs)) / 2 - span / 2
+        z1 = (min(zs) + max(zs)) / 2 + span / 2
+        self.assertEqual(make_art.plot_extent(self.MARKS, goal), (x0, z1, span))
+        self.assertInside(goal, self.square(self.MARKS, goal))
+
+    def test_no_objective_frames_the_marks(self):
+        x0, z1, span = make_art.plot_extent(self.MARKS, None)
+        self.assertAlmostEqual(span, 20.0 * 1.42)
+
+    @staticmethod
+    def measure(line, px):
+        from PIL import Image, ImageDraw
+        d = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+        return d.textlength(line, font=make_art.font(px, True))
+
+    # The card's own geometry: the chart's frame starts at 1188 px on the
+    # 2x canvas and the title at 86, 40 px clear of it.
+    ROOM = make_art.SHEET_W * 2 - 1100 - 80 - 40 - 86 if make_art else 0
+
+    def test_a_wide_title_is_set_smaller_to_clear_the_chart(self):
+        for title in (["UNDER THE", "CONVERGENCE"], ["BROKEN WAKE"]):
+            self.assertGreater(max(self.measure(l, 132) for l in title), self.ROOM)
+            size = make_art.title_size(title, self.ROOM, self.measure)
+            self.assertLess(size, 132)
+            self.assertLessEqual(max(self.measure(l, size) for l in title), self.ROOM)
+
+    def test_a_title_that_fits_keeps_its_size(self):
+        self.assertEqual(make_art.title_size(["THE QUIET", "PASSENGER"], self.ROOM,
+                                             self.measure), 132)
+
+
+@unittest.skipIf(make_art is None, "Pillow is not installed")
+class BackdropFrame(unittest.TestCase):
+    """The campaign backdrop keeps its campaign marks off the chart's top edge
+    and clear of the title at the bottom, however tall the theatre."""
+
+    @staticmethod
+    def old_rule(marks):
+        # 2.2 degrees round the marks, then padded out to the frame's aspect.
+        W, H = make_art.W, make_art.H
+        lats, lons = [m[1] for m in marks], [m[2] for m in marks]
+        la0, la1 = min(lats) - 2.2, max(lats) + 2.2
+        lo0, lo1 = min(lons) - 2.2, max(lons) + 2.2
+        if (lo1 - lo0) / (la1 - la0) < W / H:
+            need, mid = (la1 - la0) * W / H, (lo0 + lo1) / 2
+            return la0, la1, mid - need / 2, mid + need / 2
+        need, mid = (lo1 - lo0) * H / W, (la0 + la1) / 2
+        return mid - need / 2, mid + need / 2, lo0, lo1
+
+    def test_a_tall_theatre_keeps_its_marks_off_the_edges(self):
+        # The equator to 47 South: 2.2 degrees left the first and last marks
+        # on the frame's edge.
+        marks = [("RL01", 1.3, 126.7, True), ("RL02", -0.5, 135.8, True),
+                 ("RL03", -5.6, 131.5, True), ("RL04", -4.6, 128.9, True),
+                 ("RL05", -47.5, 140.5, True), ("RL06", -46.3, 166.0, True)]
+        H, W = make_art.H, make_art.W
+        s, n, w, e = self.old_rule(marks)
+        self.assertLess((n - 1.3) / (n - s) * H, 100)
+        s, n, w, e = make_art.backdrop_frame(marks)
+        self.assertGreaterEqual((n - 1.3) / (n - s) * H, 100 - 1e-6)
+        self.assertGreaterEqual((-47.5 - s) / (n - s) * H, 150 - 1e-6)
+        self.assertTrue(all(w < m[2] < e for m in marks))
+        self.assertAlmostEqual((e - w) / (n - s), W / H)
+
+    def test_a_compact_theatre_is_framed_as_before(self):
+        # An optional beat near the bottom does not move the frame; only the
+        # campaign marks are held to the margins.
+        marks = [("01", -10.5, 131.2, True), ("02", -10.0, 145.0, True),
+                 ("08", -2.0, 135.0, True), ("03", -11.0, 126.0, True),
+                 ("D1", -15.9, 148.8, False)]
+        self.assertEqual(make_art.backdrop_frame(marks), self.old_rule(marks))
+
+
 class RosterAndSeahawk(unittest.TestCase):
     """Generated text that assumed Southern Watch: the roster file's header
     and footer, and a Seahawk's squadron chosen by side instead of flag."""
