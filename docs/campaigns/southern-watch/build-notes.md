@@ -1063,6 +1063,30 @@ SM-3 IIA from a Flight III Burke at a DF-21D or DF-26B raid should lock well
 outside 10 NM, with no lock/unlock cycling, and a close-in shot should still
 turn onto its target with a 5°/s launch turn.
 
+## The buy-list and mission audit
+
+An audit of both rosters and every mission unit list, written before the
+Replenishment, A-10C+ and Intercept Model ports landed and re-checked against
+the tree after them. What it changed, by group:
+
+**The roster.** The KC-46 was priced at 75 points and no purchase window ever
+sold it: `allowed_roster_units()` refused an allowlist naming something the
+roster did not price, and nothing refused the reverse. The builder now does
+(`check_roster_on_sale()`), and it was run against the unedited roster first -
+it stopped the build on `usaf_kc-46a_boom` - before the entry came out. The
+unarmed Triton cost 60 against the armed P-8's 45 for the same patrol row; it
+is 40 now and the P-8 55, in both campaigns, which keeps the Triton under the
+F-35A (45) and the P-8 level with the Growler. Two windows sold aircraft no
+row could fly: window 03 sold the F-35A two operations before Weapons Free's
+strike row could take it (it goes on sale at window 05 now, where it first
+flies), and window 11 sold the Seahawk, Wedgetail and Triton into a carrier
+action with only CAP and Attack rows (window 12 sells all three for the
+finale). The P-8 stays on sale at window 11: its Bomber role and AntiShip fit
+take the Attack row, which the audit had missed. Window 09 has the same shape
+- fighters on sale two operations before a fighter row, and on sale again at
+window 11 - and was left alone: those are replacement sales of aircraft the
+player has been able to buy and fly since window 05.
+
 ## What exists
 
 | Thing | Where |

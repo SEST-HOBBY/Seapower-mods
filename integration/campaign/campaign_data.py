@@ -294,8 +294,9 @@ ROSTER = [
               "so Variant1 stays out of the core roster"),
     dict(unit="ran_ddg_hobart", picks=["Variant1", "Variant2", "Variant3"], points=480),
     dict(unit="ran_opv_arafura", picks=["Variant1"], points=100,
-         note="donor Meteoro fit is richer than the real Arafura; the campaign "
-              "restricts it to two hulls until the fit is corrected"),
+         note="donor Meteoro fit is richer than the real Arafura; one hull "
+              "(HMAS Arafura) is on sale until the fit is corrected - Eyre "
+              "and Pilbara sail as scripted hulls"),
     dict(unit="raaf_f-35a", picks=["Squadron3"], points=45,
          note="No. 75 Squadron, RAAF Base Tindal - checked against the "
               "squadron file's own comment"),
@@ -303,17 +304,16 @@ ROSTER = [
          note="Australian squadron in the SEST Growler pack's output"),
     dict(unit="usn_ea-18g", picks=["Squadron6"], points=55,
          note="conventional EW/SEAD fits; MALICE stays in Future Front"),
-    dict(unit="usn_p8", picks=["Squadron3"], points=45,
+    # The armed patrol aircraft costs more than the unarmed one: both fill the
+    # Recon row, and at 45 against the Triton's 60 nobody would buy the Triton.
+    dict(unit="usn_p8", picks=["Squadron3"], points=55,
          note="the squadron file labels every entry USN; Squadron3 is the "
               "bible's choice, and the label is worth fixing upstream"),
     dict(unit="E7A_Wedgetail", picks=["Squadron1"], points=80,
          note="No. 2 Squadron RAAF, from the SEST Wedgetail pack"),
-    dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=60,
-         note="unarmed in this implementation"),
-    dict(unit="usaf_kc-46a_boom", picks=["Squadron1"], points=75,
-         note="US support. Role=Airliner with a single Tanker fit, so its "
-              "air-tasking row filters Airliner rather than a tanker role; "
-              "neither that tasking path nor receiver compatibility is tested"),
+    dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=40,
+         note="unarmed in this implementation, so priced under the P-8 and "
+              "the F-35A"),
     dict(unit="usn_mh-60r", picks=[RAN_SEAHAWK], points=20,
          note="816 Squadron RAN; one family chosen explicitly - usn_mh-60r_26 "
               "is a different unit and is never substituted for it"),
@@ -3980,10 +3980,21 @@ BUY_01 = ESCORTS
 # KC-46 no field could receive. The Growler goes on sale before the strike
 # it exists for.
 BUY_02 = ESCORTS + ["ran_ddg_hobart", "usn_p8"]
-BUY_03 = BUY_02 + ["raaf_f-35a"]
-BUY_05 = BUY_03 + ["usn_fa-18f_blk3", "E7A_Wedgetail", "usn_ea-18g"]
+# The F-35A goes on sale where it first flies. Window 03 used to sell it,
+# and neither Rig Seventeen (no tasking rows) nor The Quiet Passenger (Ship's
+# Flight and patrol only) has a row a fighter can take: a jet bought there
+# sat at Tindal for two operations until Weapons Free's strike row, and
+# window 05 sells it anyway.
+BUY_03 = BUY_02
+BUY_05 = BUY_03 + ["raaf_f-35a", "usn_fa-18f_blk3", "E7A_Wedgetail", "usn_ea-18g"]
 BUY_07 = BUY_05 + ["raaf_mq-4c_triton"]
 BUY_09 = BUY_07
+# The carrier action tasks fighters and strike aircraft only, so window 11
+# sells no Seahawk, Wedgetail or Triton: none of them has a row in Fujian's
+# Shadow, and window 12 sells all three for the finale that does. The P-8
+# stays - its Bomber role and AntiShip fit take the Attack row.
+BUY_11 = [u for u in BUY_09
+          if u not in ("usn_mh-60r", "E7A_Wedgetail", "raaf_mq-4c_triton")]
 # SW12 replaces aircraft and repairs hulls; it does not sell new ones. That
 # was a comment above the window until the allowlist made it a rule.
 # The finale sells what its rows can fly - a CAP row for the fighters, the
@@ -4060,9 +4071,11 @@ WINDOWS = {
     # arrive with the ships they are assigned to. One patrol slot.
     "10": dict(rearm_if=("SW09ServiceHeld", "IsTrue"), flights=[RECON]),
     "11": dict(buy=True, situation=(
-        "Assemble and service the whole force before the carrier action. Repairs and "
-        "replacement allocations remain available before The First Ship Through."
-    ), allow=BUY_09, repair=True,
+        "Assemble and service the whole force before the carrier action. Only ships, fighters "
+        "and strike aircraft are offered: the carrier action has no patrol or ship's-flight "
+        "tasking. Repairs and replacement allocations, helicopters and patrol aircraft "
+        "included, remain available before The First Ship Through."
+    ), allow=BUY_11, repair=True,
            rearm=True, flights=[CAP, STRIKE]),
     # Aircraft replacement and repair only: no new hulls, no general rearm.
     # The finale flies what it sells: a CAP row for the fighters (Darwin is
@@ -4238,8 +4251,8 @@ for _m in MISSIONS:
 # AIR TASKING, DEPTH AND ROUTES
 #
 # SLOTS  connects a purchased aircraft to a place in a mission. The roster
-#        sells F-35s, Super Hornets, Growlers, P-8s, a Wedgetail, a Triton and
-#        a tanker; without a flight row and a matching mission slot, buying one
+#        sells F-35s, Super Hornets, Growlers, P-8s, a Wedgetail and a Triton;
+#        without a flight row and a matching mission slot, buying one
 #        changed nothing, because every airborne unit was a fixed authored one.
 #        The row is declared in WINDOWS, the slot is tagged here, and the role
 #        must be one the row's filter accepts.
@@ -4373,10 +4386,11 @@ for _m in MISSIONS:
 # Three tiers, kept apart on purpose.
 #
 # ENFORCED BY THE GAME. The campaign runs native Task Force Mode, so a
-# purchased support ship that dies is gone from the owned force and has to be
-# re-bought at its roster price: Supply 140 points, a tanker 75, the Wedgetail
-# 80, the Triton 60, against mainline allocations of 100-200 per mission. That
-# is most of a mission's income to replace one auxiliary, and it is automatic.
+# purchased support asset that dies is gone from the owned force and has to be
+# re-bought at its roster price: the Wedgetail 80 points, the P-8 55, the
+# Triton 40, against mainline allocations of 100-200 per mission. That is a
+# large share of a mission's income to replace one, and it is automatic.
+# (Supply and the tankers are not on the roster: they are theatre assets.)
 # TaskForceModeRequireEntireTaskForce=True on the convoy operations means the
 # player cannot leave the AOR at home to keep her safe, either.
 #
