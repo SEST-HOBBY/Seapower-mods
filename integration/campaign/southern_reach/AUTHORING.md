@@ -165,10 +165,16 @@ resolve={"Convoy": "victory",                   # completed by the victory trigg
          "Restraint": ("spare", "tender"),      # fails if the player destroys any of these
          "Boat": ("destroy", "red_sub", 1),     # completes on n destroyed
          "Lift": ("arrive", "lift", (lat, lon), radius, n),
-         "Identify": ("classify", "shadow", 1, "SR01ShadowNamed")}  # completes on classify; 4th item writes a variable
+         "Identify": ("classify", "shadow", 1, "SR01ShadowNamed"),  # completes on classify; 4th item writes a variable
+         "Unseen": ("unseen", "boat")}          # fails if the ENEMY classifies any of these player units
 ```
 
-Every objective needs one. A `classify` resolver's station may also be a
+Every objective needs one. `unseen` is stock's `UnitClassified` with
+`Condition_Taskforce=Taskforce2` on the player's own units (Operation Polar
+Fury 1985 Trigger5). It measures classification, not detection, and only
+ever fails, so its objective ends `Complete`. `F("Unseen", kind="unseen")`
+ends the mission on it; a fatal entry of that kind takes its units from the
+`unseen` resolver, as a loss takes them from `protect`. A `classify` resolver's station may also be a
 list of refs (`["network#1", "network#4", "network#5"]`) when the objective
 names particular hulls inside a larger formation. `declares=[...]` must list every variable the
 mission writes (in a resolver, a stage `sets`, a victory `sets`, a `flags`

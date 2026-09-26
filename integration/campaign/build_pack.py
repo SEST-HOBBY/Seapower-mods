@@ -1446,6 +1446,26 @@ def destroyed_condition(n, units, minimum):
             f"Condition_Condition{n}_MinimumUnits={minimum}"]
 
 
+def classified_condition(n, units, minimum, by):
+    """`by` has classified at least `minimum` of `units`.
+
+    The numbered form with the minimum spelled out, key for key as stock
+    writes it when the ENEMY is the side classifying: Operation Polar Fury
+    1985 Trigger5 (Taskforce2 classifying the player's two submarines) and
+    Mind the Gap - Original 1988 Trigger2 (the player's five ships). The
+    player-side classify resolver keeps its own un-numbered form.
+    """
+    return [f"Condition_Condition{n}_Type=UnitClassified",
+            f"Condition_Condition{n}_Taskforce={by}",
+            f"Condition_Condition{n}_Units={','.join(units)}",
+            f"Condition_Condition{n}_MinimumUnits={minimum}"]
+
+
+# A fatal entry's kinds, and the resolvers each may take its units from when
+# it names none (see F() in campaign_data.py).
+FATAL_SOURCES = {"destroyed": ("protect", "survive"), "unseen": ("unseen",)}
+
+
 # What a victory `also` term may say, by kind: (keys it needs, keys it reads).
 # A term used to be a Time test if it had after_minutes and an area test
 # otherwise, whatever else it said - so `also=[dict(kind="destroyed",
@@ -1782,6 +1802,10 @@ def protected_tags(mission, members):
             if r:
                 out |= set(refs(members, r))
     for entry in mission.get("fatal", []):
+        # An `unseen` fatal is about who the enemy classifies, not what it
+        # sinks; the boat slipping through a barrier is not an escorted hull.
+        if entry.get("kind", "destroyed") != "destroyed":
+            continue
         for r in entry.get("units") or []:
             out |= set(refs(members, r))
     for how in mission.get("resolve", {}).values():
@@ -2519,6 +2543,21 @@ def render(mission, placed, members):
     # above; everything else gets its own, and an objective with no resolver
     # fails the build - twenty of them used to sit there resolving to nothing.
     resolve = mission["resolve"]
+
+    def own_units(what, station_refs):
+        """The player's units at these stations, for a predicate on what the
+        enemy knows about them. A red or neutral unit here is an authoring
+        mistake the engine would accept and never fire on."""
+        units = [t for r in station_refs if isinstance(r, str)
+                 for t in refs(members, r)]
+        foreign = [t for t in units if not t.startswith("Taskforce1")]
+        if not units or foreign:
+            raise SystemExit(
+                f"{mission['key']}: {what} is scored on the enemy classifying "
+                f"the player's units, and {list(station_refs)} places "
+                f"{', '.join(foreign) if foreign else 'nothing'}")
+        return units
+
     for oid, _text, spec in mission["objectives"]:
         if oid not in resolve:
             raise SystemExit(f"{mission['key']}: objective {oid} has no resolver")
@@ -2602,6 +2641,17 @@ def render(mission, placed, members):
                           f"Action_UnitRevealTime={reward.get('seconds', -1)}",
                           f"Action_Units={','.join(revealed)}"]
             trigger(f"{oid} classified", lines)
+        elif kind == "unseen":
+            # The same condition turned round: the objective fails the moment
+            # the ENEMY classifies any of these player units. It measures
+            # classification, not detection - a boat the patrol holds as an
+            # unknown contact is still unseen. It only ever fails, so it
+            # completes by its own end-status, as `spare` does.
+            units = own_units(f"objective {oid}", how[1:])
+            trigger(f"{oid} classified by the enemy",
+                    classified_condition(1, units, 1, "Taskforce2")
+                    + ["ConditionsCompleted=<Condition1>",
+                       f"Action_ObjectivesFailed={oid}"])
         else:
             raise SystemExit(f"{mission['key']}: objective {oid} has an unknown "
                              f"resolver {how!r}")
@@ -2616,16 +2666,25 @@ def render(mission, placed, members):
     # the tanker when a Rhino went down. The units come from the objective's
     # own resolver, so the trigger that ends the mission and the trigger that
     # marks the objective failed can never disagree about what they watch.
+    # A fatal entry of kind "unseen" is the same terminal on a different
+    # condition: the enemy classifying the named player units, in the shape
+    # classified_condition() copies from stock. Its units come from an
+    # `unseen` resolver the way a loss's come from `protect`/`survive`.
     for entry in mission.get("fatal", []):
         oid = entry["objective"]
         if oid not in {o[0] for o in mission["objectives"]}:
             raise SystemExit(f"{mission['key']}: {oid} ends the mission but is "
                              "not one of its objectives")
+        fkind = entry.get("kind", "destroyed")
+        if fkind not in FATAL_SOURCES:
+            raise SystemExit(f"{mission['key']}: {oid} ends the mission on kind "
+                             f"{fkind!r}; the builder knows "
+                             f"{', '.join(FATAL_SOURCES)}")
         watch = entry.get("units")
         least = entry.get("minimum", 1)
         if watch is None:
             how = mission["resolve"].get(oid)
-            if not (isinstance(how, tuple) and how[0] in ("protect", "survive")):
+            if not (isinstance(how, tuple) and how[0] in FATAL_SOURCES[fkind]):
                 raise SystemExit(
                     f"{mission['key']}: {oid} ends the mission but names no "
                     f"units and its resolver is {how!r}, which supplies none - "
@@ -2638,8 +2697,7 @@ def render(mission, placed, members):
         # disagreed in O1 - the trigger watched the ship, the objective said
         # helicopter - and nothing noticed because each was internally fine.
         how = mission["resolve"].get(oid)
-        if entry.get("units") and isinstance(how, tuple) and how[0] in (
-                "protect", "survive"):
+        if entry.get("units") and isinstance(how, tuple) and how[0] in FATAL_SOURCES[fkind]:
             mine = {t for r in watch for t in refs(members, r)}
             theirs = {t for r in how[1:] if isinstance(r, str)
                       for t in refs(members, r)}
@@ -2650,9 +2708,18 @@ def render(mission, placed, members):
             if not mine <= theirs:
                 raise SystemExit(
                     f"{mission['key']}: {oid} ends the mission when "
-                    f"{sorted(mine)} is lost, but the objective itself is "
+                    f"{sorted(mine)} is "
+                    f"{'classified' if fkind == 'unseen' else 'lost'}, but the objective itself is "
                     f"about {sorted(theirs)}. One of them is reporting the "
                     "wrong ship")
+        if fkind == "unseen":
+            watched = own_units(f"the fatal entry on {oid}", watch)
+            terminal(f"{oid} classified by the enemy - mission over",
+                     classified_condition(1, watched, least, "Taskforce2")
+                     + ["ConditionsCompleted=<Condition1>"],
+                     failed=[oid], message="Taskforce1DefeatMessage",
+                     victor="Taskforce2")
+            continue
         watched = [tag for r in watch for tag in refs(members, r)]
         if not watched:
             raise SystemExit(f"{mission['key']}: {oid} ends the mission but "
