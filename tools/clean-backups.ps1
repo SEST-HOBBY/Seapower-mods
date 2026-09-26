@@ -15,6 +15,10 @@
                         set-mod-order.ps1 writes on every sync; the newest
                         -KeepSettingsBackups are kept.
 
+    Steam Cloud: missions deleted while the game is closed can be restored
+    at its next launch. If they come back, run this with Sea Power running
+    (at its main menu) and then exit the game normally.
+
     Nothing else is touched: no mission without one of those marks, no save,
     no log, nothing outside the two folders. Links (junctions, symlinks) are
     never followed or removed. Run it with -WhatIfOnly first; it lists
@@ -83,3 +87,8 @@ if ($WhatIfOnly) {
 } else {
     Write-Host ("`n{0} item(s) removed. The newest {1} settings backup(s) are kept." -f $all.Count, $KeepSettingsBackups) -ForegroundColor Green
 }
+# Seen on the PC 27 Sep: missions deleted with the game closed were all back
+# after the next launch, most likely Steam Cloud restoring them. A deletion
+# made while the game runs is the one it carries to the cloud on exit.
+Write-Host "`nIf these come back after the game next starts, Steam Cloud restored them:"
+Write-Host "start Sea Power, stay at the main menu, run this again, then exit the game normally."
