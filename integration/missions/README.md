@@ -122,7 +122,18 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
   stand-ins are now the real `airbase_raaf_darwin` / `airbase_raaf_scherger` (their custom
   mission air groups are preserved), the date moves to 2026-08-24, and a five-ship civilian
   shipping lane plus a three-whale humpback pod (biologic sonar contacts) run along the
-  Darwin–fleet axis. The original NORTHERN FRONT save is untouched.
+  Darwin–fleet axis. The original NORTHERN FRONT save is untouched. Its three 2027 Burkes
+  name U.S. Navy 2027's current fits (`≥125_MST`, `≥119_AA`, `≥119_MSTBF`); the bare `MST`,
+  `AA` and `MSTBF` it was saved with are gone from that mod.
+
+- **SEST NF3 - \*** (11 scenarios, in `scenarios/`) — small standalone fights carved out of
+  NORTHERN FRONT III FINAL NEWEST by `make_scenarios.py`, from 11 units (Northern Fleet
+  Sortie) to 84 (Sanctioned Convoy). Every unit keeps the type, loadout, position and
+  waypoints it has in the parent mission, and the parent is never modified — re-import a newer
+  save, re-run, and the scenarios match it. Five of them also carry a replenishment ship the
+  parent lacks (six in all), for SEST Replenishment At Sea to work with; one whose type no mod
+  or SEST pack defines is left out rather than written, so run it after `tools/build_all.py`,
+  then `build_briefing_maps.py`. See `scenarios/README.md`, which is generated alongside them.
 
 ## The editor-crash sweep
 

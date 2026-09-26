@@ -234,14 +234,14 @@ U.S. Navy 2027 ghost, yet eighteen of that mod's 2027 Burkes (every Flight IIA
 and the Flight III) still load it into a Mk 41 magazine every fit carries and
 its 2027 Nimitz into both SAM launchers, so in game those are empty - on
 Southern Watch 11's second Burke, and on the 2027 hulls in the NORTHERN FRONT II
-and III saves, the NF3 Boomer Hunt and Carrier Duel scenarios, DARWIN US SUPPLY
-and four SULU SEA OFFENSIVE cuts. That is upstream's to fix, not a reference
-either campaign can move, and `check_alias_bases.py` will report it as MISSING
-AMMO once the ghost is deleted. `check_weapon_employment.py` will then fail on
-the active mission's two 2027 Burkes: that pre-flight check stays red until
-upstream ships the round again or a SEST pack supplies one, so read its failure
-against this paragraph before blaming the export. The other ghosts that missions
-or packs reach (`usn_rim-162a`, `usn_rim-66m-2`, `usn_rim-66m-5`,
+and III saves, the NF3 Boomer Hunt, Carrier Duel and Fujian Strike scenarios,
+DARWIN US SUPPLY and four SULU SEA OFFENSIVE cuts. That is upstream's to fix,
+not a reference either campaign can move, and `check_alias_bases.py` will report
+it as MISSING AMMO once the ghost is deleted. `check_weapon_employment.py` will
+then fail on the active mission's two 2027 Burkes: that pre-flight check stays
+red until upstream ships the round again or a SEST pack supplies one, so read
+its failure against this paragraph before blaming the export. The other ghosts
+that missions or packs reach (`usn_rim-162a`, `usn_rim-66m-2`, `usn_rim-66m-5`,
 `usn_rim-116c`, the two sonobuoys, `usn_agm-65b`, `usn_agm-65d`,
 `fr_am-39_Block2`) still resolve once deleted, through another mod's or the base
 game's copy of the same id, which is the one the game already loads.
