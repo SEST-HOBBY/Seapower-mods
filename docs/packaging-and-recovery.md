@@ -172,7 +172,7 @@ install you can re-download.
 
 The repo is the source of truth for everything except Steam's own downloads.
 
-**After Claude pushes work:**
+**After a session pushes work:**
 ```powershell
 git pull
 powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
