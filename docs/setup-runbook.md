@@ -370,7 +370,9 @@ for one site or a new one — see `integration/missions/README.md`.
 Afterwards, commit so the repo keeps your edits:
 
 ```powershell
-git add integration\missions ; git commit -m "Refresh mission" ; git push
+git add integration\missions
+git commit -m "Refresh mission"
+git push
 ```
 
 

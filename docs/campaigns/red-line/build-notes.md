@@ -13,10 +13,10 @@ are theirs and are not repeated.
 |---|---|
 | Campaign | `campaigns/sest-red-line/` — 6 missions, 4 story pages, 44 files |
 | Browser copies | every mission again under `missions/Red Line/` (31 files) |
-| Placed units | 62; RL05 and RL06's 11 positions proved against the coastline extract, RL01–RL04's 23 stations used as authored (below) |
-| Mods reached | 35 directly; the pack union with the other two campaigns still reaches all 159 enabled mods and SEST packs |
-| Points | 560 across six missions; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 |
-| The pack | `SEST_Campaign` now carries three campaigns, 638 files and 57 missions; the consolidated `SEST_Integration` is 766 files (691 before) |
+| Placed units | 63; RL05 and RL06's 11 positions proved against the coastline extract, RL01–RL04's 22 stations used as authored (below) |
+| Mods reached | 36 directly; the pack union with the other two campaigns still reaches all 162 enabled mods and SEST packs |
+| Points | 560 across six missions; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 (1,250 on Veteran) |
+| The pack | `SEST_Campaign` now carries three campaigns, 638 files and 57 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before) and is 1189 with the ported work (`../southern-reach/install-alignment.md`, §6) |
 | The other campaigns | every mission file, story page and `campaign.ini` of Southern Watch and Southern Reach is byte-identical. Nine of their mission cards changed, on purpose (below) |
 
 The code is `integration/campaign/red_line/`: `__init__.py` (the spec, the
@@ -199,12 +199,13 @@ group.
 
 - The build and the six gates on a clean rebuild: 58 builder tests; `build_pack.py`;
   `consolidate_packs.py`; `check_campaign_coverage.py` (106 mission files,
-  1,520 placed references, 159/159 mods and packs, nothing dangling);
+  1,520 placed references, 159/159 mods and packs, nothing dangling; after
+  the ported work, 1,524 and 162/162);
   `check_load_order.py`; `check_dependencies.py`; `preflight.py` (every unit,
   air group, loadout variant and pylon store resolves).
 - Every unit type and mod id in the six missions resolved through the build.
 - The northern positions. There is no committed coastline north of 25 South,
-  so RL01–RL04 use Southern Watch's pool rule, and the builder lists 23
+  so RL01–RL04 use Southern Watch's pool rule, and the builder lists 22
   stations "used as authored". Every one of them, every route waypoint and
   every trigger area centre in those four missions was also checked against a
   Natural Earth extract of the north made for the purpose (118–145E, 16S–5N)

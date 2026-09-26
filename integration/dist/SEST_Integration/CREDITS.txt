@@ -1,9 +1,10 @@
 CREDITS
 
-This pack is one folder of .ini files. It ships no models, no
-textures and no audio - every one of those belongs to the Workshop
-mod it came from, which is why REQUIRED-MODS.txt lists them as
-required rather than suggested.
+This pack is one folder of .ini files, plus the campaigns' own
+pages and art. It ships no models, no textures and no audio -
+every one of those belongs to the Workshop mod it came from,
+which is why REQUIRED-MODS.txt lists them as required rather
+than suggested.
 
 481 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file

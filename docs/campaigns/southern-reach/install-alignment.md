@@ -60,8 +60,8 @@ pack count is **20**.
 
 The installed file count goes from 691 to **1189**:
 `campaigns\sest-red-line\` (44 files: six missions with their briefing
-folders, 12 pieces of art, `campaign.ini`, roster, commander settings and a
-`REQUIRED-MODS.txt`) and the browser copies under `missions\Red Line\` (31),
+folders, 16 art files - the four story pages and 12 images - `campaign.ini`,
+roster, commander settings and a `REQUIRED-MODS.txt`) and the browser copies under `missions\Red Line\` (31),
 plus 423 from the ports: 333 vessel files (Replenishment's reloadable
 launchers and supply systems), 87 ammunition files and 3 aircraft files.
 Nothing needs subscribing: every mod it places is one the canonical load
@@ -244,8 +244,8 @@ reviewed on its own before it landed here (merge `17df05a6`):
 1. The JMSDF Seahawk rename (SW10, the Mogami pack, the Banda vignette, the
    Northern Front saves), the exporter's deletion mirror, and mission
    installs with no timestamped backups (`-PurgeBackups`).
-2. The editor-crash sweep over 31 deployed missions, `preflight --all` and
-   `check_alias_bases`.
+2. The editor-crash sweep over every mission the installer deploys (32
+   aircraft in nine files), `preflight --all` and `check_alias_bases`.
 3. The land-defence site builder and the Indo-Pacific Land Assets showcase.
 4. Banda Front Lean v2 and Living Seas as saved, `restore_roe`, and the
    generator chain behind them.
