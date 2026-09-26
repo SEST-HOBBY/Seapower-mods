@@ -202,7 +202,7 @@ and adds a structural backstop for stale exports. Negative-tested both ways.
   `MinAttackAltitude` read from the winner alone; once the AEP pack loaded above
   the PLA Land Unit Pack, `pla_hq-19.ini` resolved to an extend stub carrying none
   of the three, the HQ-19 read back as a gun layer, and the Spratly bases gained a
-  BMD section they already had and lost guns they lacked. `layered_text` in
+  second BMD section in place of the guns they lacked. `layered_text` in
   `build_land_defence.py` now follows the `#!extend` / `#!alias` chain and takes
   each key from the highest copy that sets it.
 - **An aircraft needs a loadout it can actually resolve.** A mission entry with no

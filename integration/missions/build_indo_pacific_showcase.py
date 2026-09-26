@@ -32,7 +32,9 @@ are modern wherever the collection has one.
 
     python3 integration/missions/build_indo_pacific_showcase.py            # write the mission
     python3 integration/missions/build_indo_pacific_showcase.py --density standard   # lighter defences
-    python3 integration/missions/build_indo_pacific_showcase.py --report   # coverage of modded units
+
+Every run ends with the coverage of modded land units: how many the
+collection offers, how many the mission places, and which are still unused.
 """
 import argparse
 import math
