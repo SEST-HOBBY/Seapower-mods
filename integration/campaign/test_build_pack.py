@@ -89,6 +89,41 @@ class CampaignRegistry(unittest.TestCase):
         self.assertIn("red-line-only-mod", merged)
         self.assertIn("anchor-chain", merged)     # Southern Watch's own
 
+    def test_two_campaigns_may_not_share_a_report(self):
+        reach = bp.ROOT / "docs" / "campaigns" / "southern-reach" / "coverage.md"
+        sys.modules["red_line"] = self.fake_red_line(COVERAGE_DOC=reach)
+        with self.assertRaisesRegex(SystemExit, "Southern Reach and Red Line both set COVERAGE_DOC"):
+            bp.campaign_specs()
+
+
+class CampaignFiles(unittest.TestCase):
+    """Only Southern Watch may leave out the paths main() writes into docs/."""
+
+    def tearDown(self):
+        bp.set_campaign(bp.campaign_specs()[0])
+
+    def test_southern_watch_may_rely_on_its_defaults(self):
+        bp.set_campaign(dict(SLUG="sest-southern-watch", INFO_DESC=""))
+        self.assertEqual(bp.COVERAGE_DOC, bp.ROOT / "docs" / "campaign-coverage.md")
+
+    def test_the_shipped_specs_pass(self):
+        for spec in bp.campaign_specs():
+            bp.set_campaign(spec)
+            self.assertEqual(bp.COVERAGE_DOC, spec["COVERAGE_DOC"])
+
+    def test_a_new_campaign_must_name_its_own(self):
+        for key in ("DOCS_DIR", "COVERAGE_DOC"):
+            spec = dict(CampaignRegistry.fake_red_line().CAMPAIGN)
+            del spec[key]
+            with self.assertRaisesRegex(SystemExit, f"Red Line: the spec sets no {key}"):
+                bp.set_campaign(spec)
+
+    def test_a_new_campaign_may_not_borrow_southern_watchs(self):
+        spec = dict(CampaignRegistry.fake_red_line().CAMPAIGN,
+                    COVERAGE_DOC=bp.ROOT / "docs" / "campaign-coverage.md")
+        with self.assertRaisesRegex(SystemExit, "COVERAGE_DOC is Southern Watch's"):
+            bp.set_campaign(spec)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

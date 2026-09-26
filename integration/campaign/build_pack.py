@@ -97,7 +97,25 @@ def set_campaign(spec):
     __init__.py and campaign_spec() below for Southern Watch's). Keys it does
     not set keep Southern Watch's values, which is why the first campaign's
     output did not move when the second arrived.
+
+    Except the files a campaign WRITES outside its own pack folder. main()
+    writes a coverage report and a required-mods list for every campaign, so
+    a spec that fell back to Southern Watch's paths would overwrite Southern
+    Watch's report with its own and nothing would say so. Only Southern
+    Watch may leave them out, and no other campaign may name its paths.
     """
+    if spec.get("SLUG") != _DEFAULTS["SLUG"]:
+        who = spec.get("TITLE") or spec.get("SLUG") or "a campaign spec"
+        for key in _OWN_FILES:
+            if not spec.get(key):
+                raise SystemExit(
+                    f"{who}: the spec sets no {key}, and falling back would "
+                    f"write over Southern Watch's {_DEFAULTS[key].relative_to(ROOT)}"
+                    " - give the campaign its own")
+            if Path(spec[key]).resolve() == _DEFAULTS[key].resolve():
+                raise SystemExit(
+                    f"{who}: {key} is Southern Watch's "
+                    f"{_DEFAULTS[key].relative_to(ROOT)} - give the campaign its own")
     g = globals()
     for key in ("SLUG", "TITLE", "DISPATCHES", "SUBTITLE", "ART_PREFIX",
                 "SERIES_LABEL", "MAP_SERIES", "GEOGRAPHY", "BROWSE",
@@ -117,6 +135,8 @@ _DEFAULTS = {k: globals()[k] for k in (
     "MAP_SERIES", "GEOGRAPHY", "BROWSE", "DOCS_DIR", "COVERAGE_DOC",
     "CAMPAIGN_NAME_EN", "CAMPAIGN_DIFFICULTY", "MAP_FOCUS_NM", "MAP_INSET")}
 _DEFAULTS.update(TASKFORCE=None, DIFFICULTIES=None, ROSTER=None)
+# What main() writes into docs/ for each campaign. See set_campaign().
+_OWN_FILES = ("DOCS_DIR", "COVERAGE_DOC")
 
 
 def campaign_specs():
@@ -157,6 +177,19 @@ def campaign_specs():
     else:
         if getattr(rl, "__file__", None):
             specs.append(rl.CAMPAIGN)
+    # Two campaigns sharing a pack folder or a report overwrite each other in
+    # build order, silently. Southern Watch's own paths are set_campaign()'s
+    # to guard; this is every other pair.
+    for key in ("SLUG",) + _OWN_FILES:
+        seen = {}
+        for spec in specs:
+            if not spec.get(key):
+                continue
+            value = spec[key] if key == "SLUG" else Path(spec[key]).resolve()
+            if value in seen:
+                raise SystemExit(f"{seen[value]} and {spec.get('TITLE')} both "
+                                 f"set {key}={spec[key]} - each campaign needs its own")
+            seen[value] = spec.get("TITLE")
     return specs
 
 
