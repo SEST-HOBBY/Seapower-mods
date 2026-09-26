@@ -70,8 +70,8 @@ def system_index():
     # The SEST packs' own systems/ files count. Some packs define sensors that
     # exist nowhere else - the Triton's AN/ZPY-3, the Growler's NGJ pods, the
     # A-10C+'s SEST_A10C_FLIR - and leaving them out would report a pack for
-    # naming a system it ships itself, one directory away. systems/*.ini merge section by section,
-    # so a pack's definitions are as available as vanilla's.
+    # naming a system it ships itself, one directory away. systems/*.ini merge
+    # section by section, so a pack's definitions are as available as vanilla's.
     sest = sorted((ROOT / "integration").glob("*/SEST_*/systems/*.ini"))
     for path in list(MODS.glob("*/systems/*.ini")) + list(VANILLA.glob("systems/*.ini")) + sest:
         if VANILLA in path.parents:
@@ -188,6 +188,7 @@ def owners_index():
 
 def main():
     idx, order = owners_index(), load_order()
+    rank = {t: i for i, t in enumerate(order)}
     systems = system_index()
     upstream_systems = upstream_system_names()
     upstream_stores = upstream_store_names()
@@ -231,10 +232,6 @@ def main():
                     # vanilla and the pack itself are not dependencies
                     elif w.parts[-3].isdigit() and w.parts[-3] != pack:
                         reference[w.parts[-3]] += 1
-                # Units the pack rosters - an airbase that spawns E-7As needs
-                # whatever mod defines the E-7A just as much as a loadout needs
-                # its missile. Missing this reported SEST_RAAF_Bases, which
-                # rosters an entire wing, as standalone.
                 # Systems the file names. An unresolved one is only THIS
                 # repo's if no upstream unit file names it either: a name the
                 # collection uses widely and systems/ never defines is an
@@ -255,8 +252,16 @@ def main():
                                             "nothing defines and no upstream unit file "
                                             "uses - this one is ours")
                     elif not any(o == "vanilla" or o.startswith("SEST_") for o in owners):
-                        reference[sorted(owners)[0]] += 1
+                        # Several mods can define one name. The section the
+                        # game uses is the one from the mod highest in the
+                        # Mod Manager, as with a file, so that mod is the one
+                        # credited - not whichever id happens to sort first.
+                        reference[min(owners, key=lambda o: (rank.get(o, len(rank)), o))] += 1
 
+                # Units the pack rosters - an airbase that spawns E-7As needs
+                # whatever mod defines the E-7A just as much as a loadout needs
+                # its missile. Missing this reported SEST_RAAF_Bases, which
+                # rosters an entire wing, as standalone.
                 for uid in set(re.findall(r"^([A-Za-z0-9_.\-]+)=Squadron\d+,\d+",
                                           text, re.M)):
                     for kind in UNIT_DIRS:

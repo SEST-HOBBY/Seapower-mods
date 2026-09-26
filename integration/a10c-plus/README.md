@@ -115,8 +115,12 @@ the ridge. Both of the mod's squadrons are valid for a roster.
   one correction on top of this mod's file.
 
 `tools/check_dependencies.py` also lists the **A-10A** (`3414146266`), the mod the A-10C is
-built on, whose copy of the 30 mm round wins its key, and the **Italian Navy Mod**
-(`3505420313`), whose `usn_agm-65d` currently wins that key over the A-10C mod's own.
+built on. It sits one place above the A-10C mod, so its copies of the 30 mm round and of the
+`GAU-8/A`, `A-10_IR` and `A-10_AIR_CHAFF_DISP` system entries win those keys. It lists the
+**Italian Navy Mod** (`3505420313`) for `usn_agm-65d`, but that copy is a file the mod no
+longer ships, left behind by the pre-mirror exports (`docs/packaging-and-recovery.md`); in
+game, and here once a mirrored export is committed, US Naval Aviation's (`3737267013`) wins
+the key.
 
 Deploys inside the consolidated SEST Integration Pack at tier 0.
 

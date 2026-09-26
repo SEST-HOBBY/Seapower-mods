@@ -131,9 +131,10 @@ def stale_note():
     names = "\n".join(f"      {t} ({i})"
                       for i, t in sorted(stale.items(), key=lambda kv: kv[1]))
     return (
-        "   mods-source is behind data/mod-catalog.json. These mods are active in\n"
-        "   the catalog but are not exported, so anything they define dangles above\n"
-        "   whether or not it is really missing from the game:\n\n"
+        "   mods-source is behind data/mod-catalog.json. The catalog counts these\n"
+        "   mods as installed (active, deprecated or wip) but they are not exported,\n"
+        "   so anything they define dangles above whether or not it is really\n"
+        "   missing from the game:\n\n"
         f"{names}\n\n"
         "   Still installed? Re-run tools/export-mod-configs.ps1. If deliberately\n"
         "   removed, set status to unsubscribed and review affected references.\n"

@@ -42,6 +42,8 @@ spread is wide: `SEST_TacMap_Colors` needs nothing but the base game;
 System names count because a sensor is a reference like any other: before they
 did, `SEST_ADF_Persistent_ISR` was reported standalone although its Triton's
 `AN/AAS-52_Visual` turret is defined only by the MQ-9 Reaper mod (`3503670861`).
+A name several mods define is credited to the one highest in the load order,
+whose section is the one the game uses.
 
 The check exits non-zero if a pack needs something that is not exported and not
 in the load order, or hangs a store, rosters a unit or names a system that
@@ -187,29 +189,32 @@ Navy (`3505420313`) 64 of 65, Euromod (`3629144864`) 42 of 45, U.S. Navy 2027
 (`3737267013`) 4 of 5, Modern British Navy (`3599752717`) 1 of 2, and all of it
 in the Dutch Navy (`3444379330`), French Navy (`3567256221`), F-35C Alt.
 Loadouts (`3607989779`) and Spanish Navy Modern (`3731208477`) mods. The other
-32, one each in Modern Italian Navy (`3488139470`) and Anchor Chain
-(`3784474738`) among them, cannot be named from git: the 20 Sep mirror still
-had them, or an export after it wrote them, and the 24 Sep manifest no longer
-counts them. Only the mirror can name those.
+32, one each in Modern Italian Navy (`3488139470`) and Euromod's Anchorchain
+Expansion (`3784474738`) among them, cannot be named from git: the 20 Sep mirror
+still had them, or an export after it wrote them, and the 24 Sep manifest no
+longer counts them. Only the mirror can name those.
 
 Of the 171, one reached a campaign: Southern Watch 11 placed USS Jack H. Lucas
 as `usn_ddg_burke_f2a_g4_2022`, a Modern US Navy Flight IIA group file that was
-gone by 20 Sep. She now sails as `usn_ddg_burke_f3_125` Variant1, her own
-Flight III hull. One more is a round: `usn_rim-162e` (ESSM Block II) exists
-only as a U.S. Navy 2027 ghost, yet that mod's eighteen 2027 Burkes still load
-it into a Mk 41 magazine every fit carries and its 2027 Nimitz into both SAM
-launchers, so in game those are empty - on Southern Watch 11's second Burke,
-and on the 2027 hulls in the NORTHERN FRONT II and III saves, the NF3 Boomer
-Hunt and Carrier Duel scenarios, DARWIN US SUPPLY and four SULU SEA OFFENSIVE
-cuts. That is upstream's to fix, not a reference either campaign can move, and
-`check_alias_bases.py` will report it as MISSING AMMO once the ghost is
-deleted. The other ghosts that missions or packs reach (`usn_rim-162a`,
-`usn_rim-66m-2`, `usn_rim-66m-5`, `usn_rim-116c`, the two sonobuoys,
-`usn_agm-65b`, `usn_agm-65d`, `fr_am-39_Block2`) still resolve once deleted,
-through another mod's or the base game's copy of the same id, which is the one
-the game already loads.
+gone by 20 Sep. She now sails as `usn_ddg_burke_f3_125` Variant1, her own Flight
+III hull. One more is a round: `usn_rim-162e` (ESSM Block II) exists only as a
+U.S. Navy 2027 ghost, yet eighteen of that mod's 2027 Burkes (every Flight IIA
+and the Flight III) still load it into a Mk 41 magazine every fit carries and
+its 2027 Nimitz into both SAM launchers, so in game those are empty - on
+Southern Watch 11's second Burke, and on the 2027 hulls in the NORTHERN FRONT II
+and III saves, the NF3 Boomer Hunt and Carrier Duel scenarios, DARWIN US SUPPLY
+and four SULU SEA OFFENSIVE cuts. That is upstream's to fix, not a reference
+either campaign can move, and `check_alias_bases.py` will report it as MISSING
+AMMO once the ghost is deleted. `check_weapon_employment.py` will then fail on
+the active mission's two 2027 Burkes: that pre-flight check stays red until
+upstream ships the round again or a SEST pack supplies one, so read its failure
+against this paragraph before blaming the export. The other ghosts that missions
+or packs reach (`usn_rim-162a`, `usn_rim-66m-2`, `usn_rim-66m-5`,
+`usn_rim-116c`, the two sonobuoys, `usn_agm-65b`, `usn_agm-65d`,
+`fr_am-39_Block2`) still resolve once deleted, through another mod's or the base
+game's copy of the same id, which is the one the game already loads.
 
-**Line endings (4 mods: same file count, fewer bytes).** PLAN Pack
+**Line endings (4 mods: same file count, fewer bytes).** Modern PLAN Systems
 (`3775128499`), Ka-31 (`3776340577`), Tu-214R (`3780118683`) and E-3G
 (`3781062859`) hold files committed on 25 Aug with their CRs stripped, the day
 before `mods-source/` was pinned `-text`; the manifest measures the CRLF
