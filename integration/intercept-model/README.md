@@ -18,6 +18,9 @@ collection. The one reading from the game points that way: under the truncated t
 high floor to be held to 5% against anything below it: the SA-21 40N6 (21,000 ft) and 48N6E3
 (2,900 ft) TELs, HQ-19 (99,000 ft), THAAD (20,000 ft) and the SM-3 (150,000 ft, set by SEST
 Collection Fixes). The NORTHERN FRONT missions place the SA-21 TELs with no 9M96 TEL beside them.
+In the campaign, Range Week's Shahed-136s are authored to fly no higher than 300 ft, under both
+the Stunner's 500 ft floor and THAAD's; if the ceiling is live, neither battery does better than
+5% against them, and that mission ends when one launcher or radar is lost.
 
 Restoring the ceiling would turn three rounds into dead weapons, so the pack fixes them too:
 

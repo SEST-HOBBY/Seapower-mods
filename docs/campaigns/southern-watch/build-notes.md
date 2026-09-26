@@ -1052,7 +1052,11 @@ SM-3 shot at a target below it to 5%, the 99,000 ft tier the builder names
 included; automatic launch below the floor was already off. The floor was
 kept at 150,000 in the port: it is the user's choice, and it should be decided
 again once the paired builds from `tools/make_intercept_ab_builds.py` have
-shown in game whether the cap is live. Nobody has run them yet.
+shown in game whether the cap is live. Nobody has run them yet. The same test
+decides D5 Range Week: its Shahed-136s are authored to fly no higher than
+300 ft, under the David's Sling Stunner's 500 ft floor and THAAD's 20,000 ft,
+so with the cap live neither battery does better than 5% against them, and
+losing one launcher or radar ends the trial.
 
 **Not demonstrated:** that Aegis ships now hold a ballistic raid better. An
 SM-3 IIA from a Flight III Burke at a DF-21D or DF-26B raid should lock well

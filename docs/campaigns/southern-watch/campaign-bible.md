@@ -44,7 +44,7 @@ The design is pinned to [`SEST-HOBBY/Seapower-mods`, commit `afed87cef9dfbcf63fa
 | Living Seas and Lean v2 | Current default branch contains exported copies under `mods-source/_vanilla/user/missions/user_missions/`; it does not contain their top-level `integration/missions/` versions from the other branches. Both have since been ported into `integration/missions/` (26 Sep 2026), unchanged from the exported copies apart from civil air routes extended along their airways |
 | Living Seas exported content | Declares 51 neutral vessels, 37 neutral aircraft, 9 neutral biologics and 396 total land units. It is a useful world reference, not a suitable mandatory starting size for every chapter |
 | New Anzac model | Current builder patches Workshop `3440622312`'s actual Anzac model. The RAN pack README still describes the old Type 23 stand-in; use the builder and winning output as evidence |
-| Aegis BMD / intercept fixes | Present on `sest-dev/kind-faraday-ctr5h0` at `b45ad8cb859290f6b44d62374d6eede3153a6448`; absent from the current default branch's registered packs |
+| Aegis BMD / intercept fixes | Present on `sest-dev/kind-faraday-ctr5h0` at `b45ad8cb859290f6b44d62374d6eede3153a6448`; absent from the current default branch's registered packs. The SM-3 work has since landed in SEST Collection Fixes in another form, and the Intercept Model pack has since been ported (26 Sep 2026) as `SEST_Intercept_Model`, not yet tested in game |
 | A-10C+ | `usaf_a-10c_plus` does not resolve in this snapshot. `usa_a-10c` does resolve, with SEST modifications |
 | RAN replenishment ship | `ran_aor_supply` resolves, but the inspected winning INI has no explicit `SupplySystem_*` block. Its name and ship role do not prove that it can replenish another unit in game |
 
