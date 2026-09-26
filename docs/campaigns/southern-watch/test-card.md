@@ -7,6 +7,39 @@ in, riskiest first, and what "wrong" looks like for each.
 Report back with the step number and what you saw. A step that fails stops
 that column, not the whole card — skip to the next section.
 
+## First things to fly after this round
+
+This round brought the other sessions' ported work
+(`../southern-reach/install-alignment.md`, §6). Its in-game checks, quickest
+first; the detail lives where each line points:
+
+1. **RAS with Stalwart** — SW09, 6E below. The pack's own list is
+   `integration/replenishment/README.md`, *In-game test checklist*.
+2. **Intercept Model A/B** — the paired builds from
+   `tools/make_intercept_ab_builds.py` (`integration/intercept-model/README.md`),
+   then 6F below: is the 5% out-of-band ceiling live?
+3. **A-10C+ sensors** — D8's Hog 22, 6D below.
+4. **Mogami's Seahawk** — SW10: the SH-60K and SH-60J launch from and recover
+   to JS Mogami, not the Langgur strip (`docs/design-notes.md`, the JMSDF
+   rename).
+5. **The ARRW profile** — *SEST NF3 - SEAD over the Shelf*: the B-52Os'
+   AGM-183As loft to about 99,000 ft, where they used to cruise level at
+   90,000.
+6. **The Redback** — *SEST NF3 - Coastal Ambush*: the A-10Cs' AGR-30s guide
+   out to 25 NM; before, a shot past 8 NM fell unguided.
+7. **MALICE mass** — an F-15EX on its Malice6 fit (six AIM-424s, 680 kg each
+   now) gets airborne and reaches its station.
+8. **SM-3 terminal** — a Flight III Burke's SM-3 IIA at a DF-21D or DF-26B
+   raid locks well outside 10 NM, with no lock/unlock cycling (`build-notes.md`,
+   *The SM-3 seeker*).
+9. **The editor-crash sweep** — open the missions you edit in the mission
+   editor: no "An item with the same key has already been added"
+   (`integration/missions/README.md`).
+10. **The new scenarios** — eleven `SEST NF3 -` missions in the list, five with
+    a supply ship (`integration/missions/scenarios/README.md`).
+11. **Red Line's Hold/Tight and unseen triggers** — `../red-line/test-card.md`,
+    4 and 5.
+
 ## Install
 
 `docs/campaigns/southern-watch/install-alignment.md` is the full procedure,

@@ -17,7 +17,11 @@ which overrides the base mod rather than replacing it, so the base mods must sta
 | Super Hornets E / F / F Blk III | `SEST_Growler_NGJ_MALICE` | U.S. Navy 2027 (3606774881) |
 | F-35C | `SEST_F-35C_JATM` | F-35C Alt. Loadouts (3607989779) |
 | F-35A (RAAF) | `SEST_RAAF_F-35A_JATM` | RAAF F-35A (3514484654) |
-| Zumwalt (CPS) | `SEST_Zumwalt_CPS` | Modern US Navy + Euromod |
+
+The Zumwalt (CPS) was on this list while `SEST_Zumwalt_CPS` won it. That pack was retired on
+20 Sep 2026, once Modern US Navy fixed both defects it existed for, so Modern US Navy
+(3390330875) now wins the hull itself; it and Euromod (3629144864, which supplies the CPS
+round `usn_ircps`) must still stay.
 
 ## Keep despite looking unused
 

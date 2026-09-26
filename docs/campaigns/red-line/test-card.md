@@ -11,6 +11,20 @@ missions are lost when the *enemy* classifies you.
 Report back with the step number and what you saw. A step that fails stops
 that column, not the whole card.
 
+## First things to fly after this round
+
+1. **Hold and Tight** — 4.1 and 4.3 below: the whole campaign stands on them.
+   Test the installed copies: a mission re-saved in the game's editor comes
+   back with every Hold and Tight turned Free.
+2. **The unseen trigger** — 5.1 and 5.2 below.
+3. **RL04's replenishment ship** — the Type 901 beside Liaoning is SEST
+   Replenishment's hull; the win needs both in the box (6.2).
+
+The rest of this round's checks (RAS, the ARRW profile, the Redback, MALICE
+mass, SM-3 terminal, Intercept Model A/B, the A-10C+, Mogami's Seahawk, the
+editor-crash sweep, the new scenarios) are listed at the top of the Southern
+Watch card.
+
 ## Install
 
 Same procedure and pack as the other two (`../southern-reach/install-alignment.md`).

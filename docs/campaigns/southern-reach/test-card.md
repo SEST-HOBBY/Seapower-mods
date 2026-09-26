@@ -11,6 +11,23 @@ repeated here except where this campaign does something new.
 Report back with the step number and what you saw. A step that fails stops
 that column, not the whole card.
 
+## First things to fly after this round
+
+The ported work's checks (RAS, the ARRW profile, the Redback, MALICE mass,
+SM-3 terminal, Intercept Model A/B, the A-10C+, Mogami's Seahawk, the
+editor-crash sweep, the new scenarios) are listed at the top of the Southern
+Watch card; fly those first. Three come back here:
+
+1. **RAS with Supply** — SR04, 4.10 below, after Southern Watch 6E.
+2. **The intercept ceiling** — TS09, 4.11 below, after Southern Watch 6F and
+   the A/B builds.
+3. **The Chinese replenishment ships** — SR05's Type 903A and SR12's and
+   TS12's Type 901 are SEST Replenishment's own hulls: each appears in its
+   group. A missing one names that pack.
+
+Red Line's Hold/Tight and unseen triggers are on its own card
+(`../red-line/test-card.md`, 4 and 5).
+
 ## Install
 
 Same procedure as Southern Watch (`../southern-watch/install-alignment.md`).
