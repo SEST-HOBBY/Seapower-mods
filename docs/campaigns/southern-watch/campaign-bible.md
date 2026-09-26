@@ -41,12 +41,12 @@ The design is pinned to [`SEST-HOBBY/Seapower-mods`, commit `afed87cef9dfbcf63fa
 | SEST source packs | 16 registered packs, consolidated into one deployable |
 | Active mission setting | `NORTHERN FRONT III FINAL NEWEST`; always name the new mission explicitly when running tools |
 | Banda scenarios | Twelve generated vignettes in `integration/missions/`, produced by `build_banda_vignettes.py` |
-| Living Seas and Lean v2 | Current default branch contains exported copies under `mods-source/_vanilla/user/missions/user_missions/`; it does not contain their top-level `integration/missions/` versions from the other branches |
+| Living Seas and Lean v2 | Current default branch contains exported copies under `mods-source/_vanilla/user/missions/user_missions/`; it does not contain their top-level `integration/missions/` versions from the other branches. Both have since been ported into `integration/missions/` (26 Sep 2026), unchanged from the exported copies apart from civil air routes extended along their airways |
 | Living Seas exported content | Declares 51 neutral vessels, 37 neutral aircraft, 9 neutral biologics and 396 total land units. It is a useful world reference, not a suitable mandatory starting size for every chapter |
 | New Anzac model | Current builder patches Workshop `3440622312`'s actual Anzac model. The RAN pack README still describes the old Type 23 stand-in; use the builder and winning output as evidence |
-| Aegis BMD / intercept fixes | Present on `sest-dev/kind-faraday-ctr5h0` at `b45ad8cb859290f6b44d62374d6eede3153a6448`; absent from the current default branch's registered packs |
-| A-10C+ | `usaf_a-10c_plus` does not resolve in this snapshot. `usa_a-10c` does resolve, with SEST modifications |
-| RAN replenishment ship | `ran_aor_supply` resolves, but the inspected winning INI has no explicit `SupplySystem_*` block. Its name and ship role do not prove that it can replenish another unit in game |
+| Aegis BMD / intercept fixes | Present on `sest-dev/kind-faraday-ctr5h0` at `b45ad8cb859290f6b44d62374d6eede3153a6448`; absent from the current default branch's registered packs. The SM-3 work has since landed in SEST Collection Fixes in another form, and the Intercept Model pack has since been ported (26 Sep 2026) as `SEST_Intercept_Model`, not yet tested in game |
+| A-10C+ | `usaf_a-10c_plus` does not resolve in this snapshot. `usa_a-10c` does resolve, with SEST modifications. The A-10C+ pack has since been ported (26 Sep 2026) as `SEST_A10C_Plus`, so the ID now resolves; D8 flies it as Hog 22 beside Hog 21 |
+| RAN replenishment ship | `ran_aor_supply` resolves, but the inspected winning INI has no explicit `SupplySystem_*` block. Its name and ship role do not prove that it can replenish another unit in game. Since the SEST Replenishment At Sea port (26 Sep 2026) SEST RAN Fleet ships her with a working `[SupplySystem1]` (`TruckSupplySystem`, the name every RE-power ship supplier uses): 0.5 nmi, 12 kn for her and 16 kn for the receiver, nothing dearer than 8000 points, so NSM, Tomahawk, SM-6 and torpedoes pass. No transfer from her has been seen in game yet |
 
 The dry-run vignette builder, load-order checker and dependency checker passed during this review. Those checks establish limited static properties. They do not establish that the missions load, that every texture appears, that an aircraft can recover aboard its assigned ship, or that a resupply or victory trigger behaves correctly in game.
 
@@ -167,7 +167,7 @@ Mission durations below are design targets for active play. Long strategic trans
 | SW06 | Blind Horizon — Arafura Sea | Maintain a usable maritime picture under pressure | Triton's Picture |
 | SW07 | Long Way Home — northern air corridor | Bring a strike/patrol package home while protecting support aircraft | Foxhound Sweep |
 | SW08 | The Open Door — fictional contested enclave | Open an evacuation/relief window | The Biak Regiment; Tigers over Papua |
-| SW09 | Southern Lifeline — rear support area | Protect replenishment and a surfaced submarine service period | RE-power assets; RAN Fleet |
+| SW09 | Southern Lifeline — rear support area | Protect replenishment and a surfaced submarine service period | RE-power assets; RAN Fleet (Stalwart's supply system, tuned in SEST Replenishment At Sea's table) |
 | SW10 | Common Sea — eastern Banda corridor | Pass a convoy through a submarine and surface threat | Mogami's Corner; Viper Zero; French support as a branch |
 | SW11 | Fujian's Shadow — wider Banda approaches | Keep the corridor and high-value ships viable through a fleet encounter | Fujian's Shadow |
 | SW12 | The First Ship Through — restored route | Escort the first post-crisis convoy and contain a spoiler | Living Seas traffic and campaign survivors |
@@ -262,7 +262,7 @@ The boat returns to a friendly rear rendezvous after thirty-one days out. Fuel, 
 
 **Win:** both STALWART and COLLINS are still inside five miles of the rendezvous when the thirty-five-minute window closes — the stage is `UnitsInTheArea AND Time`, the shape of `03 Lifeline at the Edge of the World` Trigger8 on units that start inside the area — and then both reach the withdrawal line eighteen miles south before the clock runs out. **Fail:** either named hull is lost, or the clock. **Optional:** none scored; the P-8 slot is the player's to fill. **Carry-over:** losing SUPPLY at SW02 removes MV Coral Provider from this group (`SW02SupplyLost`, `IsFalse`); the service ship is STALWART precisely so the campaign never has to put a sunk hull back on the plot.
 
-**House rules, stated in the briefing:** COLLINS stays on the surface and inside the service box until the window has run. The engine has no depth or dwell predicate, so *position at the moment the window closes* is what is scored; diving early is the player's own fiction to keep or break. Replenishment transfers nothing; torpedo and missile reloads are tender or port work; nuclear-reactor refuelling is not an at-sea objective.
+**House rules, stated in the briefing:** COLLINS stays on the surface and inside the service box until the window has run. The engine has no depth or dwell predicate, so *position at the moment the window closes* is what is scored; diving early is the player's own fiction to keep or break. The replenishment itself is real but not scored: STALWART carries a working supply system (above), so while the window runs she passes COLLINS her torpedoes and any escort inside half a mile at 12 kn or less its missiles, up to an NSM, a Tomahawk or an SM-6, from a finite pool. Nothing counts what crossed; the window is still scored on position. Nuclear-reactor refuelling is not an at-sea objective.
 
 ### SW10 — Common Sea
 
@@ -304,7 +304,7 @@ The identifiers below were resolved from the pinned snapshot. Re-resolve them af
 | Australian frigate | `ran_ffh_anzac` | Current Anzac model. `Variant3` = Warramunga, `Variant8` = Perth. Avoid `Variant1`/HMAS Anzac in the core unless recommissioning is explicit fiction |
 | Australian conventional submarine | `ran_ssg_collins` | Resolves under the collection's vessel files; S-80 model is a stand-in. Do not claim the donor's acoustics are verified Collins performance |
 | Amphibious support | `ran_lhd_canberra`, `ran_lsd_choules` | Canberra's allowed-aircraft list inherits Spanish fixed-wing types; use an explicit helicopter-only campaign air group. Choules uses a Galicia stand-in |
-| Replenishment | `ran_aor_supply` | Teide stand-in; gameplay supply mechanism unproven in the inspected file |
+| Replenishment | `ran_aor_supply` | Teide stand-in; carries a working supply system since 26 Sep 2026 (0.5 nmi, 12 kn, 8000-point ceiling: NSM, Tomahawk, SM-6 and torpedoes pass). Not yet seen transferring in game |
 | Patrol vessel | `ran_opv_arafura` | Meteoro stand-in with donor weapon options including AntiShip/AntiAir. Restrict the core fit; do not present its donor armament as real Arafura equipment |
 | F-35A | `raaf_f-35a` | Tindal's 75 Squadron is `Squadron3`; `Squadron4` is 2 OCU, not a generic combat squadron. `AirToAirStealth` exists; verify its actual weapons |
 | Super Hornet | `usn_fa-18f_blk3`, Australian `Squadron8` | Australian nation entry exists in SEST output; donor is a US Block III representation, so identify the fit approximation |
@@ -315,8 +315,8 @@ The identifiers below were resolved from the pinned snapshot. Re-resolve them af
 | Tanker support | `usaf_kc-46a_boom` / `usaf_kc-46a_warp`, `Tanker` | Use as US support. No dedicated KC-30A unit was found by the reviewed filename searches; confirm broader inventory before proposing a new asset |
 | Helicopters | `usn_mh-60r` and `usn_mh-60r_26` | Different IDs. Australian ship support lists often name the former; do not substitute the latter without a deck check. RAN livery is not verified by the unit name |
 | Allied fighter | `usaf_f-15ex_SEII` | USAF detachment, not a real RAAF F-15 fleet. Keep speculative fits in the explicit fiction tier |
-| Allied attack aircraft | `usa_a-10c` | Current SEST-modified unit; do not use the absent `usaf_a-10c_plus` ID |
-| Japanese escort | `js_ffg_mogami` | JMSDF in the 2028 core; current supported helicopter IDs include `jp_sh-60k` and `jp_sh-60j` |
+| Allied attack aircraft | `usa_a-10c`, `usaf_a-10c_plus` | Both come from SEST packs. The standard aircraft (SEST Allied Fixes) carries the Redback fit and the infrared-head and squadron repairs; the A-10C+ is a separate unit with a Litening pod, a laser designator and AIM-9X, and no Redback fit |
+| Japanese escort | `js_ffg_mogami` | JMSDF in the 2028 core; current supported helicopter IDs include `jmsdf_sh-60k` and `jmsdf_sh-60j` (Euromod JMSDF's `jp_` ids until 19 Sep 2026) |
 | US carrier | `usn_cvn_ford` | Winner is Workshop `3461044389`; declared capacity 90 is a game ceiling, not the desired mission allocation |
 | Opposing carrier | `plan_cv_type_003` | Actual winner here is Workshop `3663564190`, capacity 85. Do not pick a Fujian owner from old catalog prose; several mods contain carrier alternatives |
 | Opposing escorts | `plan_type_055_2026`, `plan_type_052d_p3`, `plan_type_054a_p5` | Resolve each fit and supporting aircraft against the current PLAN pack |
@@ -496,7 +496,7 @@ Points are completion allocations on the proposed Standard setting. Information,
 | O05 · 3 Nov | **Broken Contact** | Reacquire a suspected submarine before it crosses a merchant lane; use the player's ASW aircraft/escort combination. | **60 points**; a successful fix narrows the authored submarine starting area in SW10. |
 | O06 · 5 Nov | **Out of the Sun** | Escort a maritime reconnaissance sortie through an interceptor threat; conventional F-35/Super Hornet/Growler fits. | **70 points**; improves the early warning briefing for SW06. |
 | O07 · 10 Nov | **Weather Alternate** | Escort an allied tanker and survey the approach to a partner-approved diversion airfield. | **60 points**; unlocks the shorter recovery route in SW08, subject to the access conditions. |
-| O08 · 12 Nov | **Tigers over Papua** | Protect a relief approach and suppress one confirmed military threat, using the existing vignette as an encounter seed. | **70 points**; temporary allied support reduces pressure on SW08. Any A-10 addition is a separately staged allied detachment using the resolving `usa_a-10c`, not the missing A-10C+ ID. |
+| O08 · 12 Nov | **Tigers over Papua** | Protect a relief approach and suppress one confirmed military threat, using the existing vignette as an encounter seed. | **70 points**; temporary allied support reduces pressure on SW08. Any A-10 addition is a separately staged allied detachment; `usa_a-10c` and, since the 26 Sep 2026 port, `usaf_a-10c_plus` both resolve. |
 | O09 · 17 Nov | **Viper Zero** | Fly the Japanese anti-ship escort episode associated with the incoming Mogami detachment. | **70 points**; F-2A support becomes the Japanese option for SW10. |
 | O10 · 19 Nov | **Rafale, Timor Gap** | Protect an allied maritime-strike package with a verified conventional Rafale fit. | **70 points**; French support becomes the alternative SW10 air allocation. The F5/LRASM fiction remains in Future Front. |
 | O11 · 24 Nov | **The Listening Line** | Protect a final reconnaissance effort among neutral traffic following the carrier encounter. | **60 points**; a better spoiler warning in SW12, at the cost of exposing already worn aircraft and escorts. |
@@ -857,7 +857,7 @@ Every enabled Workshop token is listed below in canonical load order. Position i
 | 56 | `3433957933` | Virginia-, Seawolf-, and Ohio-class Submarines — active | Allied Dispatch: US SSN reinforcement, retaining US identity in 2028. |
 | 57 | `3602046770` | Boeing P-8 Poseidon — active | Core: maritime patrol, ASW and surveillance using Australian Squadron3. |
 | 58 | `3414146266` | A-10A Thunderbolt II — active | Support / Cold Sea: A-10 model dependency and historical aircraft. |
-| 59 | `3459682829` | A-10C — active | Allied Dispatch: current usa_a-10c upgrade; forward assignment is a fictional campaign allocation. |
+| 59 | `3459682829` | A-10C — active | Allied Dispatch: current usa_a-10c upgrade, and the donor of the SEST A-10C+; forward assignment is a fictional campaign allocation. |
 | 60 | `3425450153` | AH-64 Apache — active | Allied Dispatch / relief-perimeter episode: verified operator/livery and bounded allocation. |
 | 61 | `3403993583` | Armed Oil Rig with Helo MOD — active | World / SW03: platform objective; armed version needs explicit hostile military role. |
 | 62 | `3652097318` | B-1B Lancer — active | Allied Dispatch: finite US maritime/stand-off strike support; custom fits labelled. |
@@ -981,6 +981,6 @@ Use the existing Banda vignette builder as reference material. Correct objective
 
 Keep an Australian 2028 core, allied national identities and a visible civilian world. The optional modules account for the full collection. Put experimental or historical equipment in its declared branch instead of presenting it as confirmed contemporary Australian equipment. Do not re-enable unsubscribed mods.
 
-For SW09, preserve the requirement that submarines surface for service and permit suitable other vessels to support them only through a verified transfer arrangement. Treat current HMAS Supply gameplay replenishment and automated surfacing enforcement as unresolved until tested. For missile-defence chapters, integrate and validate the separate Aegis/intercept work before making it a mission-critical dependency.
+For SW09, preserve the requirement that submarines surface for service and permit suitable other vessels to support them only through a verified transfer arrangement. Treat current HMAS Supply gameplay replenishment and automated surfacing enforcement as unresolved until tested. (Since 26 Sep 2026 HMAS Supply and Stalwart carry a working supply system from SEST Replenishment At Sea's table; the in-game test is still owed, and the engine enforces no surfacing: a submerged boat replenishes.) For missile-defence chapters, integrate and validate the separate Aegis/intercept work before making it a mission-critical dependency.
 
 Deliver the native campaign harness, three main slice missions (SW01/SW02/SW06), O01 and C01 once their gates are proved, the explicit price roster, a short dependency/approximation note and the actual static/in-game validation results. Use native persistence for owned forces and points; include a manual story ledger only for a disclosed feature that remains unsupported. Follow sections 12–16 for dates, rewards, service windows and the full 30-mission scope. Report an untested mechanic plainly rather than writing a briefing that assumes it works.

@@ -305,6 +305,13 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
             r = 4 * S
             d.ellipse([x - r, y - r, x + r, y + r], outline=NEUTRAL, width=int(1.5 * S))
 
+    # The locator inset is pasted last, over the top right of the chart, so a
+    # label that has to stay readable must know where it will land.
+    ib = tuple(inset_box) if inset_box else (93, -26, 162, 14)
+    iw = int(PW * 0.24)
+    ih = int(iw * (ib[3] - ib[1]) / ((ib[2] - ib[0]) * math.cos(math.radians((ib[1] + ib[3]) / 2))))
+    ix, iy = int(PW * 0.745), int(PH * 0.02)
+
     # enemy: one reported area per kind, not pins
     kinds = {"Vessel": "surface group", "Aircraft": "air activity",
              "LandUnit": "ground forces"}
@@ -323,14 +330,29 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
         d.ellipse([x0, y0, x1, y1], fill=HOSTILE + (46,))
         _dashed_ellipse(d, (x0 + x1) / 2, (y0 + y1) / 2, (x1 - x0) / 2, (y1 - y0) / 2,
                         HOSTILE, int(1.5 * S))
+        # Above the ellipse, centred - unless that runs off the image or under
+        # the inset, which would hide it (Fujian Strike's carrier group read as
+        # a stray "GR"). Then: slid back onto the image, under the ellipse, or
+        # moved left clear of the inset, whichever is readable first.
+        text = f"REPORTED {label.upper()}"
+        half = d.textlength(text, font=label_f) / 2 + 3
+        mid = min(max((x0 + x1) / 2, half + 8 * S), PW - half - 8 * S)
+        left = min(mid, ix - 8 * S - half)
+
+        def readable(x, y, anc):
+            tl, tt, tr, tb = d.textbbox((x, y), text, font=label_f, anchor=anc)
+            return (tl >= 0 and tr <= PW and tt >= 0 and tb <= PH
+                    and not (tl < ix + iw and tr > ix and tt < iy + ih and tb > iy))
+        spots = [((x0 + x1) / 2, y0 - 6 * S, "ms"), (mid, y0 - 6 * S, "ms"),
+                 (mid, y1 + 6 * S, "ma"), (left, y0 - 6 * S, "ms"), (left, y1 + 6 * S, "ma")]
+        lx, ly, anchor = next((sp for sp in spots if readable(*sp)), spots[1])
         # Two reported areas over the same water (a group and its air wing)
         # would print their labels on top of each other: the second goes
         # under its ellipse instead.
-        lx, ly, anchor = (x0 + x1) / 2, y0 - 6 * S, "ms"
         if any(abs(lx - px) < 160 * S and abs(ly - py) < 16 * S for px, py in area_labels):
             ly, anchor = y1 + 6 * S, "ma"
         area_labels.append((lx, ly))
-        _text(d, (lx, ly), f"REPORTED {label.upper()}", label_f, HOSTILE, anchor=anchor)
+        _text(d, (lx, ly), text, label_f, HOSTILE, anchor=anchor)
 
     # player forces: every unit, one label per cluster ("VIPER x4")
     friends = [u for u in units if u["side"] == "friend"]
@@ -404,9 +426,6 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
         _text(d, (lx + 14 * S, yy), txt, leg_f, TEXT, anchor="lm")
 
     # locator inset: the whole theatre, with this map's box on it
-    ib = tuple(inset_box) if inset_box else (93, -26, 162, 14)
-    iw = int(PW * 0.24)
-    ih = int(iw * (ib[3] - ib[1]) / ((ib[2] - ib[0]) * math.cos(math.radians((ib[1] + ib[3]) / 2))))
     inset = Image.new("RGB", (iw, ih), SEA)
     di = ImageDraw.Draw(inset)
 
@@ -421,7 +440,7 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
     bx1, by1 = to_in(e, s)
     di.rectangle([bx0, by0, bx1, by1], outline=BOX, width=3)
     di.rectangle([0, 0, iw - 1, ih - 1], outline=(255, 255, 255), width=4)
-    img.paste(inset, (int(PW * 0.745), int(PH * 0.02)))
+    img.paste(inset, (ix, iy))
 
     img.save(out_png)
 

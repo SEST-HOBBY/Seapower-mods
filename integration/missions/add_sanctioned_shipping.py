@@ -22,6 +22,12 @@ non-reactive. Escorts are vanilla hulls built for exactly this masquerade:
     because radiating wrong is its entire job; the armed pair stay dark with
     WeaponStatus=Tight so they unmask only when the fleet is engaged.
 
+THAT POSTURE DOES NOT SURVIVE THE EDITOR. Saving the mission in game rewrites
+every Hold and every Tight to Free, so one round-trip turns this fleet from a
+shadowing problem into a shooting match, with nothing in the file to show for
+it. Run integration/missions/restore_roe.py after every editor save;
+tools/import-mission.ps1 does it for each mission it imports.
+
 GEOGRAPHY IS READ, NOT ASSUMED. The lift clusters anchor on the mission's own
 seized rigs - every Taskforce2 land unit of Type=civ_spar_rig_helo, wherever
 the editor has them today. The transit pair runs NW from the rig centroid.

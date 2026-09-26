@@ -18,6 +18,17 @@ mod's own ran_ffh_anzac rather than a clone of somebody else's frigate. Patch
 mode keeps the mod's identity - its hull-number and emblem textures, its eight
 HMAS names - and changes only what is wrong or missing: see the entry in FLEET.
 
+Replenishment At Sea is applied here rather than by the SEST Replenishment
+pack, because these seven hulls belong to THIS pack and two packs shipping
+different bytes at one unit path is an unconditional consolidation failure.
+The tuning and the transforms both come from integration/common/ras.py, so
+HMAS Supply's supply system is identical in syntax to the hulls that pack
+owns, and the six combatants get the same launcher fix as every other modern
+hull in the collection. Supply and Stalwart are the RAN's own 2021+
+replenishment ships and have to service the RAN's own missiles, which is why
+that entry carries an 8000-point ceiling: Tomahawk, Mk48 ADCAP, SM-6 Block IB
+and the NSM pass, SM-3 does not.
+
 Usage (repo root):  python3 integration/ran-fleet/build_fleet.py
 """
 import re
@@ -27,6 +38,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MODS = ROOT / "mods-source"
 OUT = Path(__file__).resolve().parent / "SEST_RAN_Fleet"
+
+sys.path.insert(0, str(ROOT / "integration"))
+from common.ras import SUPPLIERS, insert_supply_block, make_reloadable  # noqa: E402
 
 SPA_MODERN = "3731208477"   # Spanish Navy Mod (Modern)
 RSA = "3413868677"          # Red Storm Arsenal - sole source of usn_rgm_184a (NSM)
@@ -481,7 +495,7 @@ FLEET = {
 
 INFO_INI = """[Language_en]
 Name=SEST RAN Fleet
-Description=Royal Australian Navy fleet cloned from its real European design donors: Hobart-class DDG (F-100), Canberra-class LHD (Juan Carlos I), Collins stand-in (S-80), HMAS Choules (Galicia), Supply-class (Teide), Arafura OPV (Meteoro) - new unit ids, donors untouched. The Anzac is different: it patches the real Anzac Class Frigate mod rather than cloning anything, giving it the fleet-standard NSM, repairing a Mk41 magazine that silently held 16 ESSM instead of 32, re-shipping that ESSM under an id without a space in it so it resolves, and letting the deck operate the MH-60R. Requires Euromod Main, the Modern + Cold War Spanish Navy packs, the Anzac Class Frigate mod, and an MH-60R / S-70B-2 source. Place ABOVE the Anzac mod and below the Euromod packs.
+Description=Royal Australian Navy fleet cloned from its real European design donors: Hobart-class DDG (F-100), Canberra-class LHD (Juan Carlos I), Collins stand-in (S-80), HMAS Choules (Galicia), Supply-class (Teide), Arafura OPV (Meteoro) - new unit ids, donors untouched. The Anzac is different: it patches the real Anzac Class Frigate mod rather than cloning anything, giving it the fleet-standard NSM, repairing a Mk41 magazine that silently held 16 ESSM instead of 32, re-shipping that ESSM under an id without a space in it so it resolves, and letting the deck operate the MH-60R. HMAS Supply and Stalwart carry a working Replenishment At Sea system and every hull's magazine-less launchers are flagged reloadable, in step with SEST Replenishment At Sea. Requires Euromod Main, the Modern + Cold War Spanish Navy packs, the Anzac Class Frigate mod, and an MH-60R / S-70B-2 source. Place ABOVE the Anzac mod and below the Euromod packs.
 
 [Compatibility]
 ApproximateVersion=0.8.2
@@ -519,7 +533,13 @@ def main():
 
     (OUT / "vessels").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en").mkdir(exist_ok=True)
-    names = ["[****************************** Australia — SEST RAN Fleet ******************************]", ""]
+    suppliers, reloadable = [], 0
+    # Section headers stay ASCII, as every vanilla language_en file's are.
+    # This one carried an em dash when the editor listed the SEST ships as
+    # "Missing Type / Missing Class" (16 Sep 2026). Not confirmed as the
+    # cause: vanilla's language_es/fr/vn files and one workshop language_en
+    # file (3681873198) put non-ASCII text inside [...] lines too.
+    names = ["[****************************** Australia - SEST RAN Fleet ******************************]", ""]
 
     for ship_id, ship in FLEET.items():
         mod, donor = ship["donor"]
@@ -580,6 +600,15 @@ def main():
                         + text[anchor.end(1):])
             print(f"  {ship_id}: deck also operates {add}")
 
+        # Replenishment At Sea. HMAS Supply becomes a supplier; every hull,
+        # the oiler included, gets its magazine-less launchers flagged so a
+        # supplier can actually refill them.
+        if ship_id in SUPPLIERS:
+            text, _ = insert_supply_block(text, SUPPLIERS[ship_id], ship_id)
+            suppliers.append(ship_id)
+        text, n = make_reloadable(text)
+        reloadable += n
+
         (OUT / "vessels" / f"{ship_id}.ini").write_text(text, encoding="utf-8")
 
         if ship.get("patch"):
@@ -623,7 +652,8 @@ def main():
 
     n_hulls = sum(len(s["hulls"]) for s in FLEET.values())
     print(f"built {OUT.relative_to(ROOT)}: {len(FLEET)} classes, {n_hulls} named hulls, "
-          "all donors and helos validated")
+          f"all donors and helos validated; RAS: {len(suppliers)} supplier "
+          f"({', '.join(suppliers)}), {reloadable} launchers made reloadable")
 
 
 if __name__ == "__main__":

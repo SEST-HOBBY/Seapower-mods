@@ -34,11 +34,14 @@ files the game can load. Three rules hold everything together:
 WHAT IS NOT PROVEN
 
 Static resolution is not a play test. Nothing here establishes that a
-helicopter can recover aboard its assigned ship, that replenishment transfers
-actually move fuel, that a briefing's tanker can pass gas to its receiver, or
-that a trigger fires when the game is running. SW09 is written around
-survival and a service window rather than a replenishment mechanic for exactly
-that reason, and the campaign's own notes say so.
+helicopter can recover aboard its assigned ship, that a replenishment transfer
+moves what it is tuned to, that a briefing's tanker can pass gas to its
+receiver, or that a trigger fires when the game is running. SW09 is scored on
+survival and a service window rather than on a transfer: HMAS Supply and
+Stalwart carry a supply system (SEST RAN Fleet, tuned in SEST Replenishment
+At Sea's table) that is set up to pass the missiles and torpedoes the
+briefing names while the window runs, but no condition type the engine
+offers can count them. The campaign's own notes say so.
 """
 
 INFO_DESC = (
@@ -1375,26 +1378,43 @@ MISSIONS.append(dict(
     difficulty=3, minutes=85, centre=(-12.5, 146.0),
     blue_nation="Australia", red_nation="Russia",
     brief=(
+        # The engine has no dwell, alongside, surfaced or depth predicate -
+        # eleven condition types across the whole shipped corpus and not one
+        # of them measures time spent in an area, a unit's speed or its
+        # depth. What it does have is `03 Lifeline` Trigger8: an area test
+        # AND a clock, on units that start inside the area. So the window is
+        # scored as "both ships still in the box when the window closes",
+        # and the briefing states exactly that rule. Surfaced stays a house
+        # rule, in the fiction's own voice. The transfer the brief describes
+        # is the one the data sets up: SEST RAN Fleet gives STALWART the
+        # supply system in integration/common/ras.py (half a mile, 12 kn for
+        # her and 16 for the receiver, nothing dearer than the NSM's 8000
+        # points), and what it says crosses is what that system passes. It
+        # is just not what is scored.
         (
             "REAR SUPPORT AREA, Coral Sea, east of Cape York. COLLINS has been out for "
             "thirty-five days and comes home next week whatever happens today. She is surfaced "
-            "alongside STALWART taking fuel, stores and two crew off for medical, and while she"
-            " is up there she is a very large grey target making four knots.\\n\\nThe service "
-            "window is thirty-five minutes and it runs on the clock, not on how much crossed "
-            "the hose. STALWART and COLLINS have to be inside the service box - five miles "
-            "around the rendezvous - when the window closes; what you do with them in between "
-            "is your judgement, and the clock does not stop for you. Hold it and your ships are"
-            " rearmed before the Banda convoy on the twentieth; miss it and they sail that "
-            "convoy on what they have left. When the thirty-five minutes are up, both of them "
-            "go together to the withdrawal line eighteen miles south, and COLLINS dives the "
-            "moment she is clear of the hose.\\n\\nSTALWART has the duty. MV Coral Provider was "
-            "pencilled in with the dry stores; she sails only if SUPPLY survived the Gulf of "
-            "Papua passage in October.\\n\\nA Russian Tu-214R came down the outside of the box "
-            "last night and did not go home, which usually means somebody now knows where to "
-            "look. There is an Akula unaccounted for to the south-east, and a Flanker pair "
-            "within range of here with a Helix spotting for them off a tender that has been "
-            "loitering north of the box since Tuesday. Assume one of those Flankers is carrying"
-            " something for a ship. Keep the window open and get everybody out of it."
+            "alongside STALWART taking fuel, stores and torpedoes, and putting two crew across "
+            "for medical, and while she is up there she is a very large grey target making four"
+            " knots.\\n\\nThe service window is thirty-five minutes and it runs on the clock, "
+            "not on how much crossed the hose. What crosses is real: STALWART passes COLLINS her"
+            " torpedoes, and any escort that comes inside half a mile at twelve knots or less "
+            "can take missiles back across - she will pass anything up to an NSM, a Tomahawk or"
+            " an SM-6 - for as long as her magazines last. STALWART and COLLINS have to be "
+            "inside the service box - five miles around the rendezvous - when the window "
+            "closes; what you do with them in between is your judgement, and the clock does not"
+            " stop for you. Hold it and your ships are rearmed before the Banda convoy on the "
+            "twentieth; miss it and they sail that convoy on what they have left. When the "
+            "thirty-five minutes are up, both of them go together to the withdrawal line "
+            "eighteen miles south, and COLLINS dives the moment she is clear of the "
+            "hose.\\n\\nSTALWART has the duty. MV Coral Provider was pencilled in with the dry "
+            "stores; she sails only if SUPPLY survived the Gulf of Papua passage in "
+            "October.\\n\\nA Russian Tu-214R came down the outside of the box last night and "
+            "did not go home, which usually means somebody now knows where to look. There is an"
+            " Akula unaccounted for to the south-east, and a Flanker pair within range of here "
+            "with a Helix spotting for them off a tender that has been loitering north of the "
+            "box since Tuesday. Assume one of those Flankers is carrying something for a ship. "
+            "Keep the window open and get everybody out of it."
         )),
     forces="HMAS Stalwart, HMAS Collins surfaced for service, your escort and "
            "her flight; one P-8 from Scherger if tasked. Opposing, all Russian: one Akula, "
@@ -1607,9 +1627,10 @@ MISSIONS.append(dict(
         U("blue", "SEST_JMSDF_Mogami", "js_ffg_mogami", "jmsdf",
           name="JS Mogami"),
         U("blue", "euromod-jmsdf", "jmsdf_ddg_maya", "jmsdf", name="JS Maya"),
-        U("blue", "euromod-jmsdf", "jp_sh-60k", "helo"),
-        # Maya's deck lists jmsdf_ types, not jp_; both live on Mogami.
-        U("blue", "euromod-jmsdf", "jp_sh-60j", "helo"),
+        U("blue", "euromod-jmsdf", "jmsdf_sh-60k", "helo"),
+        # Euromod JMSDF renamed its Seahawks from jp_ to jmsdf_ (19 Sep
+        # 2026). Mogami (SEST_JMSDF_Mogami) and Maya now list both ids.
+        U("blue", "euromod-jmsdf", "jmsdf_sh-60j", "helo"),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant8"),
         U("blue", "f-2a-viper-zero", "jp_f-2a_late", "f2", name="Viper 61",
           loadout="AntiShip"),
@@ -1728,10 +1749,17 @@ MISSIONS.append(dict(
         # The anchor - the player's flagship - is the Australian ship; the
         # two Burkes are scripted and stay whatever the player brought.
         U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "escort"),
-        U("blue", "modern-us-navy", "usn_ddg_burke_f2a_g4_2022", "escort",
-          name="USS Jack H. Lucas"),
+        # Both Flight III, each on the variant that carries her own hull
+        # number: Variant1 is DDG-125, Variant2 DDG-126. Lucas used to sail
+        # as usn_ddg_burke_f2a_g4_2022, a Flight IIA group file painted
+        # DDG-97. Modern US Navy no longer ships it - the Flight IIA went to
+        # per-ship files on 16-17 Sep 2026 and the mirrored 20 Sep export has
+        # no group files - and it resolved here only because the export
+        # never deleted. The game has no such unit.
+        U("blue", "modern-us-navy", "usn_ddg_burke_f3_125", "escort",
+          variant="Variant1", name="USS Jack H. Lucas"),
         U("blue", "us-navy-2027", "usn_ddg_arleigh_flt3_2027", "escort",
-          name="USS Louis H. Wilson Jr."),
+          variant="Variant2", name="USS Louis H. Wilson Jr."),
         U("blue", "SEST_F-35C_JATM", "usn_f-35c", "cvw",
           loadout="AirToAirAMRAAM"),
         U("blue", "SEST_F-35C_JATM", "usn_f-35c", "cvw",
@@ -2098,7 +2126,7 @@ MISSIONS.append(dict(
           name="ROKS Sejong the Great"),
         U("blue", "euromod-south-korea", "ko_ffg-818", "rok", variant="Variant1",
           name="ROKS Daegu"),
-        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "rok",
+        U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "rok",
           name="MV Busan Pioneer"),
         U("blue", "euromod-south-korea", "rok_mk99_a", "lynx", name="Sejong Flight",
           alt=2000),
@@ -2368,7 +2396,7 @@ MISSIONS.append(dict(
         # and the game has no UAE nation key, so it flew with no flag.
         U("blue", "saab-aewc-pack", "dts_saab_ge", "aew", name="Argus 70",
           squadron="Squadron2", weapons="Hold"),
-        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "group",
+        U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "group",
           name="MT Western Provider"),
         U("blue", "_vanilla", "civ_ms_ritina", "group",
           name="MT Passage Trader"),
@@ -3034,7 +3062,7 @@ MISSIONS.append(dict(
         "by road, and the column has stopped twice today because the "
         "road is covered from a ridge nobody has cleared.\\n\\n"
         "A US package has been allocated for one evening: Apaches on the road, "
-        "a Warthog on the ridge, a gunship on the loiter and a Strike "
+        "a Warthog pair on the ridge, a gunship on the loiter and a Strike "
         "Eagle holding the long shots. A Polish F-16 detachment "
         "transiting to the theatre has been pulled in for escort.\\n\\n"
         "Two Marine Ospreys are bringing the airhead's first lift in behind "
@@ -3044,7 +3072,7 @@ MISSIONS.append(dict(
         "The gunship is usable only while no fighter radar is watching this "
         "sector: if the J-16 comes up, pull the gunship the moment its radar "
         "does. Losing the gunship ends the operation."),
-    forces="An AH-64E and an AH-64D, an A-10C, an AC-130J, an F-15E, a "
+    forces="An AH-64E and an AH-64D, two A-10Cs, an AC-130J, an F-15E, a "
            "Polish F-16C, a "
            "B-2 on a single allocated pass, and two MV-22B with the airhead's "
            "first lift. Opposing: a J-16, an attack "
@@ -3097,6 +3125,8 @@ MISSIONS.append(dict(
         U("blue", "ah-64", "usa_ah-64e", "gun", name="Gunfighter 11"),
         U("blue", "ah-64", "usa_ah-64d", "gun", name="Gunfighter 12"),
         U("blue", "a-10c", "usa_a-10c", "gun", name="Hog 21", alt=8000),
+        U("blue", "SEST_A10C_Plus", "usaf_a-10c_plus", "gun", name="Hog 22",
+          alt=8000),
         U("blue", "ac-130-pack", "usaf_ac-130j", "support", name="Spectre 31"),
         U("blue", "f-15e-strike-eagle", "usaf_f-15e_SE", "escort",
           name="Strike Eagle 41"),
@@ -3294,7 +3324,7 @@ MISSIONS.append(dict(
           name="Arafura trawler", route=[(-10.35, 131.95, 0)], telegraph=2),
         # Flank, straight for the coaster. Weapons Hold: she is racing, not
         # fighting, and she does not shoot first.
-        U("red", "re-power-resupply", "ir_aor_delvar", "meridian",
+        U("red", "SEST_Replenishment", "ir_aor_delvar", "meridian",
           name="MV Meridian Salvor", weapons="Hold",
           route=[(-10.4, 131.9, 0)], telegraph=5),
     ],

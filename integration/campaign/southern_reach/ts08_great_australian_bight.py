@@ -113,7 +113,7 @@ MISSION = dict(
           telegraph=2),
         U("red", "_vanilla", "wp_bpk_udaloy", "red_rv", name="Marshal Shaposhnikov",
           weapons="Tight", telegraph=1),
-        U("red", "re-power-resupply", "wp_vt_boris_chilikin", "red_rv",
+        U("red", "SEST_Replenishment", "wp_vt_boris_chilikin", "red_rv",
           name="Oiler Boris Chilikin", weapons="Hold", telegraph=1),
         U("red", "_vanilla", "wp_ka-27", "red_helo", name="Ka-27 search",
           alt=1500, loadout="ASW", weapons="Tight"),

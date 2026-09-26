@@ -56,7 +56,9 @@ pack as enabled at its canonical position**, so a new pack no longer needs the l
 tick-it → quit → re-run dance. It also resolves the one merge conflict this workflow keeps
 producing (you imported a mission while the tooling changed the same file): your imported copy
 always wins, and `-RefreshMissions` re-runs the tooling to put its changes back on top. A
-conflict in any other file stops the script for you to handle.
+conflict in any other file stops the script for you to handle. The install step replaces a
+mission in the game with the repo's copy of the same name and keeps no backup, so import
+anything you edited in game before you sync (see *Refreshing a mission you edited in game*).
 
 The rest of this phase is the manual equivalent, useful the first time or when something
 looks wrong:
@@ -74,20 +76,32 @@ consolidated pack). One Mod Manager entry at the very top now carries every patc
 can jump over an individual pack and silently disable it. Re-run any time after a `git pull`;
 it mirrors in place.
 
-What the consolidated pack contains (16 source packs):
+What the consolidated pack contains (20 source packs):
 `SEST_Growler_NGJ_MALICE` (NGJ + MALICE Growlers; Super Hornet AIM-260 fits incl. the
 Intercept260/ER/Escort trucks; the F/A-18E buddy tanker; RAAF 1 SQN / 6 SQN squadron
 identities) · `SEST_F-15EX_Revamp` (24+ loadouts, eight squadrons, the six-round MALICE and
-174B trucks) · `SEST_B52_ARRW` (AGM-183A with its loft profile restored, across the B-52H and
+174B trucks) · `SEST_B52_ARRW` (AGM-183A flying its boost-glide profile, across the B-52H and
 B-52O, W62 variants, LRASM and bay ALCMs; names the ARRW mod's 419th FLTS testbed distinctly) ·
-`SEST_Allied_Fixes` (P-8 anti-ship fit repaired; HMS Ocean operates the Apache AH1) ·
+`SEST_Allied_Fixes` (P-8 anti-ship fit repaired; HMS Ocean operates the Apache AH1; the
+A-10C's infrared head registered and its squadron count matched to its two liveries) ·
 `SEST_F-35C_JATM` · `SEST_RAAF_F-35A_JATM` · `SEST_Rafale_F5` (six JATM/MALICE/LRASM fits on
 the late Rafales) · `SEST_JMSDF_Mogami` · `SEST_RAAF_Wedgetail` (E-7A squadrons) ·
-`SEST_Raptor_Squadrons` (seven real F-22 squadrons) · `SEST_Zumwalt_CPS` (repairs the
-Zumwalt's hypersonic launcher) · `SEST_TacMap_Colors` · `SEST_RAN_Fleet` (2027 armament:
-NSM, Tomahawk, SM-6) · `SEST_ADF_Persistent_ISR` (RAAF MQ-4C Triton) · `SEST_RAAF_Bases`
-(15 placeable RAAF airfields with rosters) · `SEST_F16CM_JATM` (AIM-260 intercept and
-AIM-424 MALICE-on-the-HARM-stations fits for the USAF F-16CM Block 52).
+`SEST_Raptor_Squadrons` (seven real F-22 squadrons) · `SEST_TacMap_Colors` ·
+`SEST_RAN_Fleet` (2027 armament: NSM, Tomahawk, SM-6; HMAS Supply and Stalwart can replenish) · `SEST_ADF_Persistent_ISR` (RAAF MQ-4C
+Triton) · `SEST_RAAF_Bases` (15 placeable RAAF airfields with rosters) · `SEST_F16CM_JATM`
+(AIM-260 intercept and AIM-424 MALICE-on-the-HARM-stations fits for the USAF F-16CM Block 52) ·
+`SEST_Intercept_Model` (puts back the global intercept keys, among them the 5% out-of-band
+ceiling, that the Tu-95 With AS-15 mod's older `damage.ini` deletes, and repairs the SM-6,
+K-SAM II and David's Sling bands the ceiling would make useless; not yet tested in game, so SAMs
+with a high floor may read 5% against low targets) · `SEST_Collection_Fixes` (value-level corrections from
+the collection-wide override audit, the SM-3 repair among them) · `SEST_A10C_Plus` (a
+selectable A-10C+ beside the standard A-10C: the Litening pod and AN/AAQ-28 designator the A-10C
+mod defines but never fits, under names of its own, and AIM-9X on every self-defence rail) ·
+`SEST_Replenishment` (working replenishment at sea: ten auxiliaries given a supply system,
+eight modern replenishment ships, five BLUE and three RED, heavy strike and area-SAM rounds
+metered, and every magazine-less launcher on some three hundred modern hulls made reloadable;
+those hulls are frozen at the export the pack was built from, so rebuild after every export) ·
+`SEST_Campaign` (the Southern Watch and Southern Reach campaigns).
 
 Then, with the game **closed**, run `set-mod-order.ps1 -AddMissing` — it inserts the
 freshly installed pack into `usersettings.ini` at its canonical position (the very top),
@@ -191,7 +205,8 @@ SEST Zumwalt CPS Fix             ← above Modern US Navy
 SEST TacMap Colors               ← overrides the vanilla tactical-map UI
 F/A-18 Murder Hornet
 B-52G with AGM-86
-Tu-95 With AS-15                 (its global munition edits make it a patch)
+Tu-95 With AS-15                 (its global munition edits make it a patch;
+                                  SEST Intercept Model overrides its damage.ini)
 Flight Deck Ops
 ADO - Nimitz (2000s)             (if kept after the Phase 2 test)
 Ground Upgrade: SPAA
@@ -343,6 +358,12 @@ waypoints and formations, so it is safe after each editing session.
 First run on a machine, add `-InstallDeps` to fetch the land-mask package.
 Other missions: `-Mission "NORTHERN FRONT II"`. Without Python installed the
 script explains the git round trip instead.
+
+Add `-LandDefence` to also stand up air defences around every airbase, port,
+installation and missile site that lacks them (`-Posture heavy` for the full
+stack with BMD). It is opt-in because it adds units, but it is idempotent: a
+site that already has a layer is left alone. The same tool runs on its own
+for one site or a new one — see `integration/missions/README.md`.
 
 Afterwards, commit so the repo keeps your edits:
 

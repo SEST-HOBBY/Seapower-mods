@@ -25,11 +25,19 @@ FACTION_ORDER = [
     ("civilian", "Civilian"),
     ("utility", "Utility / frameworks"),
 ]
-STATUS_BADGE = {"active": "", "deprecated": " ⚠️ **DEPRECATED**", "wip": " 🚧 WIP"}
+STATUS_BADGE = {"active": "", "deprecated": " ⚠️ **DEPRECATED**", "wip": " 🚧 WIP",
+                "unsubscribed": " — historical / unsubscribed"}
 
 
 def cell(text):
     return str(text).replace("|", "\\|").replace("\n", " ")
+
+
+def headline(mods):
+    """Separate the observed local inventory from retained historical entries."""
+    installed = sum(m.get("status") in {"active", "deprecated", "wip"} for m in mods)
+    return (f"{len(mods)} Workshop mods catalogued — {installed} in the local inventory, "
+            f"{len(mods) - installed} historical entries kept for reference")
 
 
 def main():
@@ -53,7 +61,7 @@ def main():
     lines = [
         "# Sea Power Mod Catalog",
         "",
-        f"{len(mods)} subscribed Workshop mods, grouped by faction. "
+        f"{headline(mods)}, grouped by faction. "
         "Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.",
         "",
         "See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency audit, and recommended mod order.",

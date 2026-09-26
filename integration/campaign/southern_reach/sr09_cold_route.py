@@ -102,7 +102,7 @@ MISSION = dict(
           name="Kiwi 05", alt=10000, weapons="Tight", loadout="ASW"),
         U("blue", "re-power-resupply", "civ_ms_freighter_d", "convoy",
           name="RSV Southern Endeavour"),
-        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "convoy",
+        U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "convoy",
           name="MT Derwent Spirit"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),

@@ -22,6 +22,13 @@ All units are `Nation=Australia` with the Australian ensign and transparent hull
 `AircraftSupported` lists are extended so MH-60R and S-70B-2 can cross-deck anywhere in
 the fleet.
 
+Replenishment at sea: HMAS Supply and Stalwart carry a working supply system (half a mile,
+12 kn for the oiler and 16 for the receiver, nothing dearer than 8000 points, so NSM,
+Tomahawk, SM-6 and torpedoes pass), and every hull's magazine-less launchers carry
+`ReloadableWithoutMagazine=True` so a supplier can refill them. Both come from
+`integration/common/ras.py`, the table SEST Replenishment At Sea uses for the hulls it owns;
+this pack applies them because it ships these files.
+
 ## Dependencies
 
 Euromod Main Pack · Spanish Navy Mod (Modern) · Spanish Navy Mod (Cold War — Teide donor) ·

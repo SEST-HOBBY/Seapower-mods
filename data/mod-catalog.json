@@ -21,6 +21,12 @@
   ],
   "local_packs": [
     {
+      "folder": "SEST_A10C_Plus",
+      "source": "integration/a10c-plus",
+      "builder": "build_patch.py",
+      "title": "SEST A-10C+"
+    },
+    {
       "folder": "SEST_ADF_Persistent_ISR",
       "source": "integration/adf-persistent-isr",
       "builder": "build_pack.py",
@@ -67,6 +73,12 @@
       "source": "integration/growler-ngj-malice",
       "builder": "build_patch.py",
       "title": "SEST Growler NGJ + MALICE"
+    },
+    {
+      "folder": "SEST_Intercept_Model",
+      "source": "integration/intercept-model",
+      "builder": "build_patch.py",
+      "title": "SEST Intercept Model"
     },
     {
       "folder": "SEST_JMSDF_Mogami",
@@ -118,6 +130,19 @@
       "title": "SEST Raptor Squadrons"
     },
     {
+      "folder": "SEST_Replenishment",
+      "source": "integration/replenishment",
+      "builder": "build_patch.py",
+      "title": "SEST Replenishment At Sea",
+      "build_after": [
+        "SEST_Allied_Fixes",
+        "SEST_Collection_Fixes",
+        "SEST_Intercept_Model",
+        "SEST_JMSDF_Mogami",
+        "SEST_RAN_Fleet"
+      ]
+    },
+    {
       "folder": "SEST_TacMap_Colors",
       "source": "integration/tacmap-colors",
       "builder": "build_pack.py",
@@ -129,6 +154,7 @@
       "builder": "build_pack.py",
       "title": "SEST Southern Watch Campaign",
       "build_after": [
+        "SEST_A10C_Plus",
         "SEST_ADF_Persistent_ISR",
         "SEST_Allied_Fixes",
         "SEST_B52_ARRW",
@@ -137,6 +163,7 @@
         "SEST_F-35C_JATM",
         "SEST_F16CM_JATM",
         "SEST_Growler_NGJ_MALICE",
+        "SEST_Intercept_Model",
         "SEST_JMSDF_Mogami",
         "SEST_RAAF_Bases",
         "SEST_RAAF_F-35A_JATM",
@@ -144,6 +171,7 @@
         "SEST_RAN_Fleet",
         "SEST_Rafale_F5",
         "SEST_Raptor_Squadrons",
+        "SEST_Replenishment",
         "SEST_TacMap_Colors"
       ]
     }
@@ -872,7 +900,7 @@
       "requires": [
         "the US Navy mods it edits (compilation of edits to multiple Workshop mods)"
       ],
-      "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test."
+      "notes": "Compilation of edits to many US Navy mods to reflect near-real capabilities. Highly load-order sensitive; overlaps with Dingtools Weapon Pack and Murder Hornet on modern US weapons. Recommendation (not author instruction): keep above the mods it modifies; if its edits touch weapons also defined by Dingtools Weapon Pack, it must sit above that pack too — test. **Fragile by construction:** 28 of its hulls (every Arleigh Burke and the 2027 Nimitz) are `#!alias` patches over Modern US Navy hulls, so a rename there breaks them until its author catches up, and the game then dies at startup with KeyNotFoundException 'AirGroup' rather than warning (Modern US Navy v567 renamed the Flight III usn_ddg_burke_f3 to usn_ddg_burke_f3_125 on 18 Sep 2026 while flt3_2027 still aliased the old name). As of the 24 Sep 2026 export all 28 bases resolve, flt3_2027 -> usn_ddg_burke_f3_125 included, so missions keep the 2027 hulls and their loadouts. Run tools/check_alias_bases.py after every mirrored export; on a MISSING BASE, disable this mod until it is updated or override the one file."
     },
     {
       "id": "f-35c-mygo",
@@ -1148,7 +1176,7 @@
       "faction": "usa",
       "type": "ship",
       "status": "active",
-      "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN.",
+      "notes": "Arleigh Burke, Wasp, Freedom LCS, Zumwalt and more; now also includes the F-35C, F/A-18E/F and MH-60 (absorbed the MyGo aircraft mods). Required by Ford-class CVN. **Renames hulls often (Sep 2026):** the Flight IIA became per-ship files (usn_ddg_burke_f2a_085, _085_late, _088_laser, _089 ...) on 16-17 Sep and the Flight III became usn_ddg_burke_f3_125 (v567, 18 Sep). U.S. Navy 2027 aliases into these names and breaks whenever one moves; tools/check_alias_bases.py finds it. The old names can linger in mods-source until an export with the deletion mirror removes them.",
       "overlaps": [
         "us-naval-aviation (SH-60/MH-60 family)",
         "mh-60r-2154545636",
@@ -1769,7 +1797,7 @@
       "faction": "multi",
       "type": "ship",
       "status": "active",
-      "notes": "Naval resupply mechanics: 23 vessels and 4 land units, every one of them content nothing else in the collection ships. Zero file collisions, so its position is forgiving."
+      "notes": "Naval resupply mechanics: 23 vessels and 4 land units. SEST_Replenishment overrides 9 of the 23 at tier 0 (Sacramento, Kilauea, T2, Boris Chilikin, Kazbek, Don, Delvar, Sealift Pacific, Algol): it forks vanilla for those hulls and adds only a tuned supply block (and, on the Don, two launcher reload flags), so RE-power's other edits to them do not load. Its 14 other ship suppliers and its 4 land units are shipped by no other mod or SEST pack, so they keep working below the SEST packs."
     },
     {
       "id": "identify-expanded",
@@ -1878,7 +1906,7 @@
       "faction": "usa",
       "type": "fixed-wing",
       "status": "active",
-      "notes": "What-if production YF-23. Ships its own missions/ folder as well as the airframe. Zero whole-file collisions."
+      "notes": "What-if production YF-23. Ships its own missions/ folder as well as the airframe. Zero whole-file collisions. Upstream now carries its own AIM-424 fit (AirToAirIntercept: 2x yf23_aim424_internal on its own mesh), so no SEST YF-23 MALICE pack is needed; the one built for the older six-airframe layout targeted yf23_f23a_block40_2025.ini, which upstream has removed."
     },
     {
       "id": "mig-31-foxhound",

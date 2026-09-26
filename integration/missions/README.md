@@ -1,18 +1,160 @@
 # SEST Missions
 
 Missions deployed by `tools/install-sest-packs.ps1` into
-`StreamingAssets\user\missions\user_missions\` (additive — never touches your own missions).
+`StreamingAssets\user\missions\user_missions\`: new files are added, files with the same name
+are overwritten, nothing is deleted and no backup copies are made (git is the history, so
+`tools\import-mission.ps1` anything you edited in game before you install). The
+`* backup-*.ini` files still in this folder are leftovers of the old backup scheme and are not
+deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the game.
 
 - **SEST ANL Convoy - Coral Sea** — escort six ANL/RAN merchantmen (Auxilliary Merchant Pack)
   from the reef passage toward Port Moresby with HMAS Hobart, two Anzacs and HMAS Supply
   (SEST RAN Fleet) against a PLAN diesel patrol line (Kilo + two Type 039 variants).
   Free-play escort scenario, no scripted triggers.
 
+- **SEST Indo-Pacific Land Assets** — a clean sandbox save, September 2026, built by
+  `build_indo_pacific_showcase.py` to show the collection's modern land units placed the way
+  they would really be deployed. 63 sites, 959 land units, 265 distinct unit types (187 of them
+  from mods — every modded land unit the region can justify appears at least once). Blue: the
+  northern RAAF bases with Patriot, THAAD and NASAMS, the US Marine rotation and a French
+  battle group with SAMP/T at Darwin, Pine Gap, the EDCA sites in the Philippines with Typhon,
+  NMESIS and a Patriot battalion line-up of every generation, a JGSDF Type 12 detachment at
+  Batanes, PNG forward bases. Red: PLA garrisons on Fiery Cross, Subi, Mischief and Woody
+  Island with HQ-9B/16/17/19/22 and YJ-12/62/83, a Russian S-400 regiment and Bastion battery
+  at Biak, DF-21/26 and CJ-10 batteries in Papua, PLA combined-arms battalions at the Belt-and-
+  Road industrial parks of Halmahera and Sulawesi, lodgements at Dili and Rabaul, and an
+  Iranian-armed insurgent enclave in Mindanao with every technical the pickup mod makes.
+  Neutral: TNI bases, Indonesian refineries and LNG plants, Malaysian and Bruneian ports,
+  bridges, the Timor Sea rigs. A small naval layer on each side gives the defences a threat
+  axis. Regenerate with `python3 integration/missions/build_indo_pacific_showcase.py`
+  (`--density standard` or `light` for fewer defence units); every coordinate is real and
+  nudged onto land by the mask, the reef bases and rigs excepted. The generator needs
+  `pip install global-land-mask numpy`: without them it still writes the file, but with no
+  land nudge and no check for ships ashore, and its summary loses the "land units the mask
+  calls water" line. Re-run `build_briefing_maps.py` afterwards for its `_briefing/` chart.
+
+- **SEST Banda Front Lean v2** — the Banda Front sandbox to play: a free-play world from Borneo
+  and Java through Sulawesi, the Moluccas, Timor and Papua to northern Australia and the
+  Bismarck Sea, with no objectives: 536 units, 396 of them on land. RAAF, US and French bases,
+  PLA lodgements at the Chinese-financed industrial parks, a Russian S-400 regiment at Biak,
+  TNI, RMAF and Bruneian sites; 51 civil ships on the real lanes and 37 civil aircraft, a Ford
+  carrier group with RAN escorts, a Fujian carrier group, three sanctioned convoys running
+  dark, four narco submarines, whales, and modern air wings on the land bases.
+  It is Living Seas (below) with the patrol loops of the narco submarines and eight fishing
+  boats cut from twelve laps to one by `thin_waypoints.py` (312 waypoints down to 42), then
+  **edited in the game** on 20 September: a blue Virginia Block V and a red Yasen on patrol, a
+  C8 lighter carrier sailing with the blue fleet as its supply ship, and about ninety nudged
+  placements. That save flattened every `WeaponStatus=Hold` and `Tight` to `Free`;
+  `restore_roe.py` put all 67 back (57 `Hold`, 10 `Tight`: the convoys, their escorts, the
+  `wp_ms_mercur_decoy` Q-ship and the carrier group). Because of the hand edits it can no
+  longer be regenerated: it is a save, guarded by `restore_roe.py` on every import.
+  `build_banda_vignettes.py` lifts the twelve `SEST Banda - ...` scenarios out of it.
+
+- **SEST Banda Front Living Seas** — the Lean sandbox (below) as it stood in the game on 19
+  September: an editor re-save of the first Lean copy (the editor had folded its twelve
+  single-member Air Defence formations back into stray units, and the Merauke wharf bridge had
+  been handed to red), then extended with 24 more civil ships, 12 more civil aircraft, the
+  two carrier groups (the Fujian with a Type 093B), four narco submarines, nine whales, the
+  three sanctioned convoys (`add_sanctioned_shipping.py`), the two Timor Sea rigs handed to red
+  with empty air groups, and modernised blue and red air wings (the F-4s, MiG-21/23s and A-10As
+  out; F-35A, F-15EX, Su-57, Su-35S and their support in; the Port Moresby B-52 wing as saved).
+  The source `thin_waypoints.py` reads.
+
+- **SEST Banda Front** — the Indo-Pacific showcase narrowed to one zone, generated by
+  `build_banda_front.py` on the same datum: the Sulu corner (Sabah, Zamboanga, Jolo, Marawi,
+  Balabac) kept as the showcase has it; the Philippines north of Mindanao, the Spratly and
+  Paracel bases, Natuna, Australia south of Tindal and the Solomons gone; 25 Borneo and Java
+  sites added (RMAF Labuan and Kuching, Bintulu LNG, Miri, Seria, Sandakan, Tawau, Pontianak,
+  Tarakan, the Nusantara capital, Banjarmasin; Halim with a NASAMS battery, Tanjung Priok,
+  Cilegon, Balongan, Cilacap, Semarang, Iswahyudi, Juanda, Koarmada II, the Suramadu bridge,
+  Paiton, Bali, Ketapang), PLA lodgements at Tanah Kuning, Kendawangan, Batang (with a PLAN
+  amphibious group offshore) and Tanjung Jati, and militant camps at Lahad Datu and Poso.
+  Western Mindanao Command fields six A-10C, six F-16CM, two MQ-9A, two MQ-9 ER, four UH-1Y and
+  two HH-60; the two US destroyers stand in the Celebes Sea. 27 civil ships on the real lanes
+  and 25 aircraft (airliners in Garuda, Lion, Qantas, SIA, Cathay, Air China, JAL, AirAsia,
+  Korean, Asiana, PAL and Cebu Pacific liveries on real city pairs; Cessna 340s, Bonanzas and
+  Hughes 500s on the short hops and rig runs). 72 sites, 794 land units, 199 types. The first
+  draft of the Banda Front line, superseded by the two above and kept because it is the
+  generator's output and the PC already has it. Regenerate with
+  `python3 integration/missions/build_banda_front.py` (it imports
+  `build_indo_pacific_showcase.py` and `build_land_defence.py`, and needs
+  `pip install global-land-mask numpy`); its last step is the airway pass, so the output is
+  this file byte for byte.
+
+  Lanes are threaded through water by `sea_routes.py`: each lane is a chain of via points naming
+  the corridor, and A* over the 1 km land mask (0.025° grid, a mild penalty for hugging the
+  beach) joins them, keeping every via point and dropping the rest to the turns. Routed lanes are
+  cached in `banda_front_lanes.json`, keyed on their via points, so a rebuild is quick and only a
+  changed lane is re-routed (an empty cache re-routes to the same file); the generator then
+  re-checks every leg against the mask at half-mile spacing before writing.
+
+- **SEST Banda Front EDITED** — `SEST Banda Front` as the user edited and saved it in the game
+  (its in-game name is still `SEST Banda Front`), kept under the file name the game has. It is
+  the source `trim_land_sites.py` reads and a fixture of `tools/tests/test_trim_land_sites.py`.
+
+- **SEST Banda Front Lean** — `SEST Banda Front EDITED` with every land site cut back to its
+  core by `trim_land_sites.py`: the same 114 sites (106 formations plus the eight bridges and
+  rigs the editor leaves outside any formation), the same positions and spread, 794 land units
+  down to 414. Each base keeps its airbase, port, bridge or rig model, one search radar, ONE
+  SAM battery (its fire-control radar and three launchers) and the THAAD or S-400 section where
+  it has one, the fuel farm, the ammo dump, a command element, one of each kind of industrial
+  building, up to two anti-ship launchers, two ballistic-missile TELs and two drone launchers
+  and, in a combat group, one vehicle of each class. A hand-placed formation keeps its own
+  battery, so a site laid out as several groups (Biak's airbase and its S-400 battalion) can
+  carry more than one. The fifteen neutral land units whose files can spawn aircraft (eleven
+  TNI, RMAF, Balinese and Halim airfields and the four Timor Sea helo rigs) carry an empty
+  `CustomAirGroup=True`, so no neutral E-3, P-3 or Sea King takes off on its own. Regenerate
+  with `python3 integration/missions/trim_land_sites.py`; the output is this file byte for byte.
+  The save lays a formation out as rings at the editor's 1.5 nm spacing, so 31 of the 40
+  launchers the trim keeps stand outside their radar's guidance radius, as they do in the save;
+  the trim reports that and moves nothing.
+
+  Each Banda Front file differs from the PC's copy (the 24 Sep export) only by the airway pass
+  (`extend_civil_airways.py`: 36 civil routes in Lean v2 and Living Seas, 25 in the other
+  three), so the short hops fly on off the map instead of circling at their last waypoint.
+  Named on any of the five, `tools/check_weapon_employment.py` exits 1 on the same six findings,
+  all in upstream unit files and shared with `SEST Indo-Pacific Land Assets`: the F-4E's CAS
+  stations (in the vanilla `airfield_small_1` default air group), the SLAMRAAM and HMMWV
+  AIM-120 rounds with no datalink sensor, and the M270, M270A2 and BM-21 magazines. None is a
+  fault in these missions.
+
 - **NORTHERN FRONT II** — the user's Northern Front editor save, upgraded: the two `airbase_us`
   stand-ins are now the real `airbase_raaf_darwin` / `airbase_raaf_scherger` (their custom
   mission air groups are preserved), the date moves to 2026-08-24, and a five-ship civilian
   shipping lane plus a three-whale humpback pod (biologic sonar contacts) run along the
-  Darwin–fleet axis. The original NORTHERN FRONT save is untouched.
+  Darwin–fleet axis. The original NORTHERN FRONT save is untouched. Its three 2027 Burkes
+  name U.S. Navy 2027's current fits (`≥125_MST`, `≥119_AA`, `≥119_MSTBF`); the bare `MST`,
+  `AA` and `MSTBF` it was saved with are gone from that mod.
+
+- **SEST NF3 - \*** (11 scenarios, in `scenarios/`) — small standalone fights carved out of
+  NORTHERN FRONT III FINAL NEWEST by `make_scenarios.py`, from 11 units (Northern Fleet
+  Sortie) to 84 (Sanctioned Convoy). Every unit keeps the type, loadout, position and
+  waypoints it has in the parent mission, and the parent is never modified — re-import a newer
+  save, re-run, and the scenarios match it. Five of them also carry a replenishment ship the
+  parent lacks (six in all), for SEST Replenishment At Sea to work with; one whose type no mod
+  or SEST pack defines is left out rather than written, so run it after `tools/build_all.py`,
+  then `build_briefing_maps.py`. See `scenarios/README.md`, which is generated alongside them.
+
+## The editor-crash sweep
+
+An aircraft or helicopter entry with no `LoadoutVariant=` whose winning unit file offers no
+`Default` loadout crashes the mission editor's map panel ("An item with the same key has
+already been added. Key: plaaf_kj-500"). The editor leaves the key out whenever a loadout was
+never picked by hand, so it comes back with every save. The refresh chain fixes the mission it
+refreshes; the installer deploys every mission here, so the rest are swept too:
+
+```bash
+python3 integration/missions/fix_loadout_variants.py --all          # report; exits 1 if any would change
+python3 integration/missions/fix_loadout_variants.py --all --write  # write the type's first loadout
+python3 tools/preflight.py --all                                    # fails on this crash, lists the rest
+```
+
+`--all` means what the installer deploys: every `.ini` here and under `scenarios/`, except
+the stamped backups, which are snapshots and are left as they are. `preflight --all` also lists
+every other dangling reference, mostly units and fits the older saves name that mods have
+since dropped or renamed; those are for information and do not fail it. The sweep is
+idempotent: the 25 Sep 2026 run wrote 32 `LoadoutVariant` lines into 9 files, and a second
+run found nothing.
 
 ## Briefing maps
 
@@ -29,3 +171,126 @@ python3 integration/missions/build_briefing_maps.py
 Re-run after moving units in a mission. The installer copies the folders next to the
 missions. The campaign's own missions get theirs from the same renderer
 (`briefing_maps.py`) when the campaign pack is built.
+
+## Land defence and site builder
+
+`build_land_defence.py` does for a Sea Power mission what Nuclear Option's editor does for a
+base: name the asset, get the defences. It finds every airbase, port, installation, missile
+site, TBM and drone launcher group on both sides, reads which air-defence layers each already
+has (classifying every existing unit by the longest AAW missile it fires), and lays out only
+the missing layers around it — gun ring on the perimeter, SHORAD a mile out, a medium battery
+on the flank, an area battery forward, a search radar off to the side, BMD behind in the heavy
+posture — oriented on the threat axis to the enemy side's units.
+
+The kit is the collection's **modern** equipment by default (S-400, HQ-9B/16B/17, PAC-3 and
+THAAD, NASAMS, Tor and Pantsir, SAMP/T, David's Sling), chosen by the site's nation; `--era
+cold-war` gives vanilla S-300PS / Hawk / Rapier layouts instead. Every unit is resolved through
+the load order, the variant whose `Nation` matches is picked, a battery is only used when its
+radar really provides the guidance system its launchers name, and every launcher is placed
+inside its radar's `ExternalGuidingSystemSearchRadius`. With the land-mask package installed
+nothing is stood up in the sea (a rig at sea is skipped, not flooded).
+
+```bash
+python3 integration/missions/build_land_defence.py                       # plan for the active mission
+python3 integration/missions/build_land_defence.py --write               # apply it
+python3 integration/missions/build_land_defence.py --around Townsville --posture heavy --coastal --write
+python3 integration/missions/build_land_defence.py --build fob --at -11.55 130.95 \
+    --side Taskforce2 --nation china --label "Melville FOB" --posture heavy --coastal --write
+python3 integration/missions/build_land_defence.py --list-sites          # what it sees, and what each site has
+python3 integration/missions/build_land_defence.py --catalog             # what each doctrine resolves to, and from which mod
+```
+
+`--build` also creates the site itself (`fob`, `depot`, `radar_station`, `coastal_battery`,
+`tbm_battery`, `drone_site`, `hq`) at a latitude/longitude before defending it. Re-runs add
+nothing to a site that already has its layers, so the pass is safe in the refresh chain:
+`tools\refresh-mission.ps1 -LandDefence` (with `-Posture heavy` for the full stack).
+
+## Restoring the ROE the editor flattens
+
+Saving a mission in the game's editor turns every `WeaponStatus=Hold` and `=Tight` into
+`Free` (and drops the key from some units), with nothing in the file to show for it: every
+reference still resolves, and the sanctioned convoys, their escorts and the carrier group that
+were meant to hold or shadow go weapons free. `restore_roe.py` aligns the mission against the
+newest committed copy that still carries `Hold` or `Tight`, unit by unit through the `Type`
+sequence of each section family (inserting one ship renumbers every section after it, so
+section names do not identify units), and puts back only `WeaponStatus`.
+
+```bash
+python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2"           # report
+python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2" --write   # restore
+python3 integration/missions/restore_roe.py --mission "SEST Banda Front Lean v2" --check   # exit 1 if any is lost
+python3 integration/missions/restore_roe.py --mission "X" --ref <revision>                 # compare with that copy
+```
+
+`tools\import-mission.ps1` runs it with `--write` on every mission it imports, before you
+commit: once a flattened copy is committed it is one more commit between the mission and its
+posture. Commits whose copy carries no restraint are skipped and named, so a flattened commit
+is never taken as the reference. A mission that is not committed yet, or whose history never
+restrained anyone (most of them), is reported and passes; an explicit `--ref` with no
+restraint in it is refused. The summary line says how many restrained units the reference
+holds, so `to restore 0` against a reference that holds none is never mistaken for a clean
+bill. The other keys the same save drops are defaults the editor omits; see
+`docs/design-notes.md`.
+
+## Trimming a site back to its core
+
+`trim_land_sites.py` is the other direction from the site builder: a mission whose sites have
+grown into swarms (the builder's layers on top of a generated site, or a save you have been
+adding to) is read, and a copy is written in which every formation keeps the units that make it
+a recognisable installation and loses the clutter, by rule and in file order, so the result is
+the same bytes every time. No site is deleted: every formation keeps at least one member (its
+first member when that unit carries the site's name), every unit outside a formation is kept,
+and the number of formations per side is checked to be identical before the copy is written. A
+launcher is kept only together with the radar that guides it; a battery is its radar plus the
+first `--tels` launchers bound to it, ranked area over medium over SHORAD and by range. The
+builder's `<site> Air Defence` layer defers to the site's own hand-placed battery and radar
+where it has them; a formation with no military unit (a refinery, an LNG plant, a port) is left
+alone unless `--trim-civil` is given. Every neutral unit that could spawn aircraft is given an
+empty `CustomAirGroup=True` (`--keep-neutral-air` to leave them). The source is verified before,
+the result after, and every kept unit's block is checked byte for byte against the source
+before anything is written.
+
+```bash
+python3 integration/missions/trim_land_sites.py --dry-run         # the plan and the numbers
+python3 integration/missions/trim_land_sites.py                   # SEST Banda Front EDITED -> SEST Banda Front Lean
+python3 integration/missions/trim_land_sites.py --source "X" --out "X Lean" --tels 4 --no-bmd
+```
+
+Removal lives in `build_land_defence.py`'s `Mission` class next to the add path:
+`remove_land_units(side, names)` deletes the blocks, renumbers the survivors densely, rewrites
+every `<side>_FormationN` line (refusing to empty one), drops and renames every `NameOverride`
+key, sets `NumberOf<side>LandUnits`, and stops on anything that still names a deleted unit.
+
+## Patrol loops
+
+A generated patrol is often a short loop pasted many times over so the unit keeps moving all
+session: a narco submarine with a four-point loop repeated twelve times carries 48 waypoint
+markers. `thin_waypoints.py` finds every moving unit whose waypoint list is the same cycle
+repeated and keeps `--laps` laps of it (one by default), leaving the retained waypoint strings
+exactly as the source wrote them, depth and telegraph annotations included; every retained leg
+is re-checked against the land mask anyway. By default it takes the narco submarines and the
+fishing boats (`--match` chooses by a substring of the unit type, `--all` takes every moving
+unit); a route that does not repeat is left alone and reported. The source is never written and
+the output is the same bytes on every run.
+
+The default output is `SEST Banda Front Living Seas thinned`, not Lean v2: Lean v2 was made
+this way and then edited in the game, so re-deriving it would throw those edits and its
+restored ROE away. An output that exists and differs from what the run would write is not
+replaced without `--force`.
+
+```bash
+python3 integration/missions/thin_waypoints.py --dry-run          # who repeats, and by how much
+python3 integration/missions/thin_waypoints.py                    # Living Seas -> Living Seas thinned
+python3 integration/missions/thin_waypoints.py --all --laps 2 --out "SEST Banda Front Living Seas wide"
+```
+
+## Regression tests
+
+`tools/tests/` holds unit tests for the trim and thin passes, using the Banda Front files as
+fixtures: the trim regenerates `SEST Banda Front Lean` from `SEST Banda Front EDITED` byte for
+byte, the thinner leaves Living Seas untouched and repeats itself exactly, and neither loses a
+radar, a formation or a unit it should keep. They run without the land-mask packages.
+
+```bash
+python3 -m unittest discover -s tools/tests -p 'test_*.py' -v
+```
