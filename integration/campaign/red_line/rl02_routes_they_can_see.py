@@ -5,9 +5,11 @@ northern roads the night before the coalition's relief window opens (The
 Open Door, 0450 on the 13th), with a submarine nobody has claimed on the
 route and a Poseidon over it that must not be touched.
 
-The coalition's intelligence summary of 12 November says the enclave's
-supply routes show up in imagery, patrol reports and intercepted logistics
-traffic. This is one of them, seen from the tanker's escort. The boat is
+The coalition's intelligence summary of 12 November says the Russian
+detachment's supply routes into the enclave show up in imagery, patrol
+reports and intercepted logistics traffic. The Chinese detachment on the
+same field is supplied the same way, and this is its fuel run, seen from
+the tanker's escort. The boat is
 the one that torpedoed the Russian detachment's auxiliary two nights before
 (Return Passage: "a torpedo forward eleven days ago" on the 21st). Nobody
 in either campaign says whose she is, and no text here does either: she is
@@ -22,14 +24,14 @@ MISSION = dict(
     code="RL02", series="Red Line", seq="RED LINE  ·  MISSION 2",
     group="core", num="02", key="Routes They Can See", place="Biak approaches",
     intro=(
-        "Take the enclave field's jet fuel into Biak's northern roads before the relief window"
-        " opens at dawn. A submarine is on the route; a patrol aircraft is over it."
+        "Take the enclave field's jet fuel into Biak's northern roads tonight, ahead of the "
+        "coalition's relief window. A submarine is on the route; a patrol aircraft is over it."
     ),
     sender="Fleet headquarters",
     intent=((
         "The detachment on the enclave field flies on fuel that comes by sea, and it is down to"
-        " two days. Hai Yang 7 goes in tonight and is clear of the southern approach before "
-        "the coalition's relief aircraft arrive over it. Defend her against anything that "
+        " two days. Hai Yang 7 goes in tonight by the northern roads, away from the southern "
+        "approach the coalition's relief aircraft will be over. Defend her against anything that "
         "attacks her. The patrol aircraft attacks nothing: it records. Shooting it down is "
         "the incident Beijing does not want this week."
     )),
@@ -40,7 +42,7 @@ MISSION = dict(
         (
             "BIAK APPROACHES, 2310. The detachment on the enclave field flies on fuel that "
             "comes by sea, and it is down to two days. MT HAI YANG 7, chartered, is in company "
-            "with a full load of aviation fuel. At dawn the coalition's relief window opens "
+            "with a full load of aviation fuel. Before dawn the coalition's relief window opens "
             "over the enclave and its aircraft will be over the southern approach. A tanker "
             "there at first light is a target and an incident, so she goes into the northern "
             "roads tonight.\\n\\nTwo nights ago a submarine put a torpedo into the Russian "
@@ -80,8 +82,8 @@ MISSION = dict(
                 ))],
     win=(
         "HAI YANG 7 is in the northern roads and discharging, and the detachment flies "
-        "tomorrow. The Poseidon has four hours of a frigate escorting a tanker, which is what "
-        "it was."
+        "tomorrow. The Poseidon has a night's recording of a frigate escorting a tanker, which "
+        "is what it was."
     ),
     lose=(
         "HAI YANG 7 is lost, or the patrol aircraft is down. Either way the enclave's week has "
@@ -92,7 +94,7 @@ MISSION = dict(
             "flies on what it has.",
     stations={
         # Out of the west, north of Supiori and Numfor, for the roads off
-        # Biak's north coast: the frigate ahead of the tanker, GOLF closing
+        # Biak's north coast: the frigate 13 NM astern of the tanker, GOLF closing
         # from the east across the track, the Poseidon north of it all.
         "escort": S(-0.40, 135.50, "Escort", heading=110),
         "flight": S(-0.42, 135.48, "Ship's flight", heading=110, alt=500),

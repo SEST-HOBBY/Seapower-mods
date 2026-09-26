@@ -73,18 +73,19 @@ EVENTS = [
     # --- chapter card: before RL05, the southern orders --------------------
     dict(file="02_southern_orders", before="Under the Convergence", form="signal",
          title="New orders\\n22 December 2028",
-         sub="Signal from Fleet headquarters: the southern tasking",
+         sub="Signal from Fleet headquarters, received at sea: the southern tasking",
          header=[("FROM:", "FLEET HEADQUARTERS"),
                  ("TO:", "COMMANDER, CARRIER TASK GROUP"),
                  ("DTG:", "220300Z DEC 28"), ("PREC:", "IMMEDIATE"),
                  ("SUBJ:", "SOUTHERN TASKING")],
          body=[
              "1. ON ARRIVAL YOU ASSUME COMMAND OF THE SOUTHERN OCEAN FISHERIES "
-             "AND RESEARCH PROTECTION GROUP. ITS FRIGATE, CORVETTES AND RESEARCH "
-             "TRAWLER COME UNDER YOUR ORDERS.", "",
-             "2. LIAONING, TWO FRIGATES AND A CORVETTE SAIL FROM THE JAVA SEA "
-             "TODAY. THE SUBMARINE SAILS AHEAD OF THEM AND IS NOT TO BE REPORTED "
-             "ON ANY NET UNTIL THE CARRIER IS ON STATION.", "",
+             "AND RESEARCH PROTECTION GROUP. ITS DESTROYER, FRIGATE, CORVETTES AND "
+             "RESEARCH TRAWLER COME UNDER YOUR ORDERS. THE DESTROYER IS YOUR "
+             "FLAGSHIP. SHE IS NOT TO BE LOST.", "",
+             "2. LIAONING, TWO FRIGATES AND A CORVETTE CONTINUE SOUTH-EAST. THE "
+             "SUBMARINE GOES AHEAD OF THEM AND IS NOT TO BE REPORTED ON ANY NET "
+             "UNTIL THE CARRIER IS ON STATION.", "",
              "3. THE CONTRACTOR IN THE SOUTH IS AUSTRAL MERIDIAN SERVICES. YOU "
              "HAVE MET ITS PARENT.", "",
              "4. A COASTER WAS TORPEDOED SOUTH OF THE AUCKLAND ISLANDS ON THE "
@@ -93,8 +94,9 @@ EVENTS = [
              "5. THE GROUP IS NOT AT WAR WITH ANY STATE. IT WILL NOT FIRE FIRST.", "",
              "ACKNOWLEDGE."],
          note_label="COMMANDER'S NOTE",
-         note="Paragraph 5 is November's paragraph 3, word for word. This "
-              "time paragraph 3 is the reason it will be hard."),
+         note="Received five days out of the Java Sea. Paragraph 5 is "
+              "November's paragraph 3, word for word. This time paragraph 3 is "
+              "the reason it will be hard."),
 
     # --- epilogue: the signal of 25 February, as sent ----------------------
     dict(file="03_last_signal", form="signal", strap="OUTGOING",

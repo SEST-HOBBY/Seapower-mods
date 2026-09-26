@@ -6,14 +6,19 @@ carrying it out. The one ship that wants the war back is in the group's own
 company: a Meridian armed coaster that has turned south for the Arafura
 lane, where the coalition's first convoy sails for The First Ship Through
 on the 28th. Stop her before she clears the screen, take the carrier across
-the line, and touch nothing of the coalition's.
+the line, and touch nothing else: not the coalition's aircraft, and not the
+boat that may be astern, whose nobody has said.
 
 Southern Watch's 27 November report says not every Chinese group had
-acknowledged the ceasefire; this one had. Its closing page says one group
-"complied with its withdrawal order"; nothing here says which of the groups
-that was, and nothing here goes near the Arafura box The First Ship Through
-sails. Fujian is not placed: Fujian's Shadow may have sunk her, so the
-carrier is Liaoning, whom Southern Reach keeps afloat until February.
+acknowledged the ceasefire; this one had. Its closing page has two groups
+two hundred miles behind the convoy, one complying and one deciding, and
+The First Ship Through places them in its Arafura box: a Luda and a Type 071
+withdrawing (the northern element's kind of ship, which the tasking says is
+not this commander's) and an unacknowledged 054A. This group is neither of
+them and goes nowhere near that box; it withdraws north-west from the Banda
+Sea, 370 NM from it. Fujian is not placed: Fujian's Shadow may have sunk
+her, so the carrier is Liaoning, whom Southern Reach keeps afloat until
+February.
 
 The coaster is ran_ms_super_p, Role=Spy, at weapons Hold: a passive red
 unit may start in company, inside the escort role's standoff. The win
@@ -34,8 +39,8 @@ MISSION = dict(
     intent=((
         "The ceasefire is the group's order now, and it binds the group, not Meridian. "
         "Withdraw as ordered. The coaster does not reach the lane, whatever it takes to stop "
-        "her. The aircraft overhead and any boat astern are the coalition's, and under a "
-        "ceasefire the coalition's are not targets at all."
+        "her. The aircraft overhead is the coalition's, and nobody has said whose the boat "
+        "astern is. Under a ceasefire neither is a target."
     )),
     date=(2028, 11, 27), time=(3, 10), sea=2, clouds="Clear", wind="E",
     difficulty=4, minutes=80, centre=(-4.6, 128.9),
@@ -46,7 +51,7 @@ MISSION = dict(
             "acknowledged the order to withdraw at 2304 last night and is carrying it out: "
             "LIAONING, the replenishment ship and HAI YANG 7, chartered, north-west for the "
             "Manipa approaches with what the twenty-third left, and your frigate on the "
-            "southern flank. Not every group in the corridor has acknowledged. This one has, "
+            "starboard quarter. Not every group in the corridor has acknowledged. This one has, "
             "and the coalition is watching to see which is which.\\n\\nMV MERIDIAN HARMONY is "
             "not withdrawing. She is one"
             " of Meridian's armed coasters; she joined the group on the twenty-fourth asking "
@@ -56,8 +61,8 @@ MISSION = dict(
             "been told to stop, twice, on the group's net and on channel 16, and has not "
             "answered. Meridian is not a party to the ceasefire. If she reaches that lane, "
             "whatever she does there she will have done from this group's company.\\n\\nA "
-            "coalition Poseidon is overhead, recording the withdrawal, and an allied submarine "
-            "may be astern. Neither is to be touched. Your frigate and its flight start at "
+            "coalition Poseidon is overhead, recording the withdrawal, and a submarine may be "
+            "astern. Neither is to be touched. Your frigate and its flight start at "
             "weapons Hold: engage the coaster by direct order, because a ship left free may "
             "find the Poseidon on its own. Stop her before she clears the screen, then take "
             "LIAONING and the replenishment ship across the line north-west.\\n\\nA Banda "
@@ -72,7 +77,7 @@ MISSION = dict(
         ("Withdrawal", "Take Liaoning and the replenishment ship north-west across the line",
          "35,-35,Fail,Main"),
         ("Spoiler", "Stop Meridian Harmony before she clears the screen", "20,-40,Fail"),
-        ("Restraint", "Fire on nothing of the coalition's", "15,-40,Complete"),
+        ("Restraint", "Fire on nothing but Meridian Harmony", "15,-40,Complete"),
         ("Carrier", "Bring Liaoning through intact", "10,-30,Complete"),
         ("Traffic", "Harm no fishing boat or ferry", "0,-30,Complete"),
     ],
@@ -100,15 +105,16 @@ MISSION = dict(
         "group's report will say what was done and why; the Poseidon has the same account."
     ),
     lose=(
-        "The withdrawal has become an incident: the carrier is hurt, or a weapon has touched "
-        "the coalition's aircraft or boat. The ceasefire is hours old, and the group is in its"
-        " first violation report."
+        "The withdrawal has become an incident: LIAONING is lost, or the Poseidon or the boat "
+        "astern is down. The ceasefire is hours old, and the group is in its first violation "
+        "report."
     ),
     timeout="0430, and the group is still south of the line. The withdrawal order had a "
             "time on it, and the coalition's aircraft has recorded the group missing it.",
     stations={
         # The group on its withdrawal course, 300, for the Manipa approaches;
-        # the frigate on the southern flank; the coaster five miles astern of
+        # the frigate on the carrier's starboard quarter, 9 NM east-north-east
+        # of her and north-east of the coaster; the coaster five miles astern of
         # the carrier, in company, with her route turned south-south-east.
         "escort": S(-4.45, 128.85, "Escort", heading=300),
         "flight": S(-4.47, 128.83, "Ship's flight", heading=300, alt=500),

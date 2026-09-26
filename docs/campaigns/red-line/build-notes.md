@@ -77,6 +77,33 @@ Two things it uses that were already there:
 - **No Russian prequel dispatch.** Southern Watch's D4 covers that side.
 - **RL05's cruise ship** is *MV Southern Light*, not Southern Reach's *Polar
   Horizon*, which that campaign has northbound on the 18th.
+- **Liaoning sails on 17 December, not 22 December.** Southern Reach's
+  25 February signal has an air wing that "has flown seventy days", which is
+  17 December to the day, and its 17 December intercept already has "the
+  carrier" transiting. The 22 December page is the southern tasking received
+  at sea, five days out; the 23 December sitrep's carrier movement from the
+  Java Sea is a dated observation of the same passage.
+
+## Canon review
+
+Every text leaf here was read against the current Southern Watch and
+Southern Reach text after the first build. What changed, and why:
+
+| Where | Was | Now, and the text it answers to |
+|---|---|---|
+| RL04 brief, intent, objective, lose | "an allied submarine may be astern"; "any boat astern are the coalition's"; "Fire on nothing of the coalition's" | "a submarine may be astern"; "nobody has said whose the boat astern is"; "Fire on nothing but Meridian Harmony". RL02 and the bible leave GOLF unclaimed, and *Return Passage* names no shooter |
+| RL04 brief | "your frigate on the southern flank" | "on the starboard quarter": the anchor is 9 NM east-north-east of Liaoning on a course of 300, and north-east of the coaster |
+| RL04 lose | "the carrier is hurt" | "LIAONING is lost": the fatal is her loss, not damage |
+| RL04 docstring, bible | "nothing here says which of the groups that was" | *The First Ship Through* places both: a Luda and a Type 071 withdrawing, an unacknowledged 054A. This group is neither, 370 NM from that box |
+| 22 December page | Liaoning and her escorts "sail from the Java Sea today"; the protection group's "frigate, corvettes and research trawler" | received five days out (above); its destroyer is the flagship, "not to be lost", as the 25 February signal has it and as *Approaches* has the Type 052D commanding the group since October |
+| RL05 docstring, bible | Southern Reach meets Hull 419 "for the first time" in *Cold Route*; the boat "the coalition will call ROMEO" | *Fujian's Shadow* already calls the Type 093B in the northern screen ROMEO, and may sink her. Hull 419 is the boat Southern Reach calls ROMEO; nothing says whether she is the northern one |
+| RL05 lose | the boat classified or sunk | or a patrol aircraft down, which the fatal also ends it for |
+| RL02 docstring, bible | the 12 November INTSUM sees "the enclave's supply routes" | it sees the Russian detachment's; the Chinese detachment on the same field is supplied the same way |
+| RL02 intro, brief, win | the relief window opens "at dawn"; the Poseidon has "four hours" of the escort | before dawn (*The Open Door* is at 0450, "before dawn"); the Poseidon has flown the route since dusk, so "a night's recording" |
+| RL01 brief, objective, win | "the Banda station", 22 NM down the track in the northern Molucca Sea | "her morning station, twenty-two miles down the track"; the Banda station is days south |
+| RL03 brief, forces, lose | "Kai fishing boats"; the enclave field "380 miles"; "has fired on the convoy" | a Kai fishing boat and a stern trawler, as placed; 400 miles, as placed; "has sunk a ship of the convoy", the fatal |
+| RL06 | "your frigate" throughout; "thirty-odd miles"; "fired on their aircraft" | the screen, since the window offers a frigate or a corvette; "some thirty miles" (29 NM); "their aircraft is down", the fatal |
+| Bible, names | "the only person named is Rewi"; "no real unit is named" | no person is named in any page or briefing; real ships appear only where the coalition campaigns put them |
 
 ## Changes to the shared renderers
 
