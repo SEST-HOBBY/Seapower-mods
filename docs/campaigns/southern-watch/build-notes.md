@@ -1014,9 +1014,9 @@ shooter; the J-35, the KJ-600 and the J-20A each hold their own spawn.
 ## The SM-3 seeker, from the Aegis BMD pack
 
 The `sest-dev/kind-faraday-ctr5h0` branch carries a standalone SEST Aegis BMD
-pack for the three Euromod SM-3s. The pack is not ported. It ships the same three files as
-Collection Fixes, which consolidation refuses, and most of it is already here
-or was decided otherwise later. Its 100,000 ft floor gave way to the user's
+pack for the three Euromod SM-3s. The pack is not ported. It ships the same
+three files as Collection Fixes, which consolidation refuses, and most of it
+is already here or was decided otherwise later. Its 100,000 ft floor gave way to the user's
 150,000 (`e5eda59c`). It kept the 300,000 ft loft ceiling and 300 s of flight,
 where this branch lofts to the target and flies 600/600/900 s (`d2547151`).
 It cut the IIA's declared range from 1,500 NM to the 729 NM that 300 s
