@@ -45,7 +45,7 @@ The design is pinned to [`SEST-HOBBY/Seapower-mods`, commit `afed87cef9dfbcf63fa
 | Living Seas exported content | Declares 51 neutral vessels, 37 neutral aircraft, 9 neutral biologics and 396 total land units. It is a useful world reference, not a suitable mandatory starting size for every chapter |
 | New Anzac model | Current builder patches Workshop `3440622312`'s actual Anzac model. The RAN pack README still describes the old Type 23 stand-in; use the builder and winning output as evidence |
 | Aegis BMD / intercept fixes | Present on `sest-dev/kind-faraday-ctr5h0` at `b45ad8cb859290f6b44d62374d6eede3153a6448`; absent from the current default branch's registered packs. The SM-3 work has since landed in SEST Collection Fixes in another form, and the Intercept Model pack has since been ported (26 Sep 2026) as `SEST_Intercept_Model`, not yet tested in game |
-| A-10C+ | `usaf_a-10c_plus` does not resolve in this snapshot. `usa_a-10c` does resolve, with SEST modifications |
+| A-10C+ | `usaf_a-10c_plus` does not resolve in this snapshot. `usa_a-10c` does resolve, with SEST modifications. The A-10C+ pack has since been ported (26 Sep 2026) as `SEST_A10C_Plus`, so the ID now resolves; D8 flies it as Hog 22 beside Hog 21 |
 | RAN replenishment ship | `ran_aor_supply` resolves, but the inspected winning INI has no explicit `SupplySystem_*` block. Its name and ship role do not prove that it can replenish another unit in game |
 
 The dry-run vignette builder, load-order checker and dependency checker passed during this review. Those checks establish limited static properties. They do not establish that the missions load, that every texture appears, that an aircraft can recover aboard its assigned ship, or that a resupply or victory trigger behaves correctly in game.
@@ -315,7 +315,7 @@ The identifiers below were resolved from the pinned snapshot. Re-resolve them af
 | Tanker support | `usaf_kc-46a_boom` / `usaf_kc-46a_warp`, `Tanker` | Use as US support. No dedicated KC-30A unit was found by the reviewed filename searches; confirm broader inventory before proposing a new asset |
 | Helicopters | `usn_mh-60r` and `usn_mh-60r_26` | Different IDs. Australian ship support lists often name the former; do not substitute the latter without a deck check. RAN livery is not verified by the unit name |
 | Allied fighter | `usaf_f-15ex_SEII` | USAF detachment, not a real RAAF F-15 fleet. Keep speculative fits in the explicit fiction tier |
-| Allied attack aircraft | `usa_a-10c` | Current SEST-modified unit; do not use the absent `usaf_a-10c_plus` ID |
+| Allied attack aircraft | `usa_a-10c`, `usaf_a-10c_plus` | Both come from SEST packs. The standard aircraft (SEST Allied Fixes) carries the Redback fit and the infrared-head and squadron repairs; the A-10C+ is a separate unit with a Litening pod, a laser designator and AIM-9X, and no Redback fit |
 | Japanese escort | `js_ffg_mogami` | JMSDF in the 2028 core; current supported helicopter IDs include `jmsdf_sh-60k` and `jmsdf_sh-60j` (Euromod JMSDF's `jp_` ids until 19 Sep 2026) |
 | US carrier | `usn_cvn_ford` | Winner is Workshop `3461044389`; declared capacity 90 is a game ceiling, not the desired mission allocation |
 | Opposing carrier | `plan_cv_type_003` | Actual winner here is Workshop `3663564190`, capacity 85. Do not pick a Fujian owner from old catalog prose; several mods contain carrier alternatives |
@@ -496,7 +496,7 @@ Points are completion allocations on the proposed Standard setting. Information,
 | O05 · 3 Nov | **Broken Contact** | Reacquire a suspected submarine before it crosses a merchant lane; use the player's ASW aircraft/escort combination. | **60 points**; a successful fix narrows the authored submarine starting area in SW10. |
 | O06 · 5 Nov | **Out of the Sun** | Escort a maritime reconnaissance sortie through an interceptor threat; conventional F-35/Super Hornet/Growler fits. | **70 points**; improves the early warning briefing for SW06. |
 | O07 · 10 Nov | **Weather Alternate** | Escort an allied tanker and survey the approach to a partner-approved diversion airfield. | **60 points**; unlocks the shorter recovery route in SW08, subject to the access conditions. |
-| O08 · 12 Nov | **Tigers over Papua** | Protect a relief approach and suppress one confirmed military threat, using the existing vignette as an encounter seed. | **70 points**; temporary allied support reduces pressure on SW08. Any A-10 addition is a separately staged allied detachment using the resolving `usa_a-10c`, not the missing A-10C+ ID. |
+| O08 · 12 Nov | **Tigers over Papua** | Protect a relief approach and suppress one confirmed military threat, using the existing vignette as an encounter seed. | **70 points**; temporary allied support reduces pressure on SW08. Any A-10 addition is a separately staged allied detachment; `usa_a-10c` and, since the 26 Sep 2026 port, `usaf_a-10c_plus` both resolve. |
 | O09 · 17 Nov | **Viper Zero** | Fly the Japanese anti-ship escort episode associated with the incoming Mogami detachment. | **70 points**; F-2A support becomes the Japanese option for SW10. |
 | O10 · 19 Nov | **Rafale, Timor Gap** | Protect an allied maritime-strike package with a verified conventional Rafale fit. | **70 points**; French support becomes the alternative SW10 air allocation. The F5/LRASM fiction remains in Future Front. |
 | O11 · 24 Nov | **The Listening Line** | Protect a final reconnaissance effort among neutral traffic following the carrier encounter. | **60 points**; a better spoiler warning in SW12, at the cost of exposing already worn aircraft and escorts. |
@@ -857,7 +857,7 @@ Every enabled Workshop token is listed below in canonical load order. Position i
 | 56 | `3433957933` | Virginia-, Seawolf-, and Ohio-class Submarines — active | Allied Dispatch: US SSN reinforcement, retaining US identity in 2028. |
 | 57 | `3602046770` | Boeing P-8 Poseidon — active | Core: maritime patrol, ASW and surveillance using Australian Squadron3. |
 | 58 | `3414146266` | A-10A Thunderbolt II — active | Support / Cold Sea: A-10 model dependency and historical aircraft. |
-| 59 | `3459682829` | A-10C — active | Allied Dispatch: current usa_a-10c upgrade; forward assignment is a fictional campaign allocation. |
+| 59 | `3459682829` | A-10C — active | Allied Dispatch: current usa_a-10c upgrade, and the donor of the SEST A-10C+; forward assignment is a fictional campaign allocation. |
 | 60 | `3425450153` | AH-64 Apache — active | Allied Dispatch / relief-perimeter episode: verified operator/livery and bounded allocation. |
 | 61 | `3403993583` | Armed Oil Rig with Helo MOD — active | World / SW03: platform objective; armed version needs explicit hostile military role. |
 | 62 | `3652097318` | B-1B Lancer — active | Allied Dispatch: finite US maritime/stand-off strike support; custom fits labelled. |

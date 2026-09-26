@@ -30,7 +30,7 @@ Workshop id   supplies                         mod
 3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
 3403661005    a unit a mission places          [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
 3414146266    a unit a mission places          A-10A Thunderbolt II
-3459682829    a squadron a flight comes from   A-10C
+3459682829    a weapon a loadout hangs         A-10C
 3425450153    a squadron a flight comes from   AH-64 Apache
 3461091581    a unit a mission places          Air Deck Operations Upgrade - Nimitz (2000s)
 3416372890    a unit a mission places          Apex Predators MIG-29A & F-16A
@@ -193,6 +193,7 @@ have the consolidated download - one mod folder carrying everything
 - they are already inside it and there is nothing to subscribe to;
 the repository also builds each of them on its own.
 
+(local)       unit                             SEST A-10C+
 (local)       unit                             SEST ADF Persistent ISR
 (local)       unit                             SEST Allied Fixes
 (local)       unit                             SEST B-52 ARRW

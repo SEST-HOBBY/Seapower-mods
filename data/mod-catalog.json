@@ -21,6 +21,12 @@
   ],
   "local_packs": [
     {
+      "folder": "SEST_A10C_Plus",
+      "source": "integration/a10c-plus",
+      "builder": "build_patch.py",
+      "title": "SEST A-10C+"
+    },
+    {
       "folder": "SEST_ADF_Persistent_ISR",
       "source": "integration/adf-persistent-isr",
       "builder": "build_pack.py",
@@ -135,6 +141,7 @@
       "builder": "build_pack.py",
       "title": "SEST Southern Watch Campaign",
       "build_after": [
+        "SEST_A10C_Plus",
         "SEST_ADF_Persistent_ISR",
         "SEST_Allied_Fixes",
         "SEST_B52_ARRW",
