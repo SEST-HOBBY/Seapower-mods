@@ -241,6 +241,16 @@ Red Line's Order to Withdraw puts the same Hulunhu with Liaoning in the Banda
 in November, so the ship the player shadows north in January is the one the
 other side took south.
 
+## Tasman Crossing's window
+
+The window before Tasman Crossing released the Super Hornet and the Growler
+"because Williamtown's aircraft reach the mid-Tasman". 1 and 6 Squadrons are
+Amberley's (the squadron files say "fwd Townsville", Southern Watch's
+northern arrangement), and no SEST RAAF Bases air group holds either type. A
+bought one flies from the only field the mission places, Williamtown, so the
+note now says what is true in both senses: Amberley's squadrons, staged
+through Williamtown.
+
 ## What has not been demonstrated
 
 Nothing in this campaign has been run in the game. Beyond everything the
