@@ -8,7 +8,8 @@
     it rewrites this file on exit and would clobber the change. The script
     checks and refuses if it finds Sea Power running.
 
-    Safety: a timestamped backup is written next to the file every run; each
+    Safety: a timestamped backup is written next to the file every run (the
+    newest three are kept, older ones removed); each
     entry's enabled/disabled flag is preserved from your current settings; the
     stale duplicate tail the game leaves beyond NumberOfModFiles is cleaned
     away.
@@ -249,6 +250,10 @@ if ($DryRun) { Write-Host "`nDRY RUN - nothing written. Re-run without -DryRun t
 
 $backup = "$SettingsPath.bak_$(Get-Date -Format yyyyMMdd_HHmmss)"
 Copy-Item -LiteralPath $SettingsPath -Destination $backup
+# Every sync writes one, and they piled up: keep the newest three. The stamp
+# sorts by age; the copy keeps the original's write time, so that does not.
+Get-ChildItem -LiteralPath (Split-Path -Parent $SettingsPath) -File -Filter ((Split-Path -Leaf $SettingsPath) + ".bak_*") |
+    Sort-Object Name -Descending | Select-Object -Skip 3 | Remove-Item -Force
 [System.IO.File]::WriteAllText($SettingsPath, $newText)
 Write-Host "`nApplied ($($final.Count) entries). Backup: $backup"
 Write-Host "Launch Sea Power and open the Mod Manager to verify the order."

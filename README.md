@@ -79,7 +79,9 @@ powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -Include
 Missions install add-and-overwrite with no backup copies, so import anything edited in
 game first (`tools\import-mission.ps1`, which also puts back the `Hold`/`Tight` weapon status
 the editor turns into `Free` on save); `install-sest-packs.ps1 -PurgeBackups` clears the
-old `* backup-*.ini` copies out of the game once. The exporter mirrors deletions inside each
+old `* backup-*.ini` copies out of the game once, and `tools\clean-backups.ps1` (preview with
+`-WhatIfOnly`) clears every other backup copy, orphaned `_briefing` folder and all but the newest
+three `usersettings.ini.bak_*` files. `set-mod-order.ps1` itself now keeps only the newest three. The exporter mirrors deletions inside each
 mod, so a file an author removed leaves `mods-source/` too: review its deletions in
 `git status` before committing. Until the first mirrored export is committed,
 `check_inventory.py` stays red: `docs/packaging-and-recovery.md` lists what it finds and
