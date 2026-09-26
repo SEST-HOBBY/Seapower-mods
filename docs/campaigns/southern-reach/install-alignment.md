@@ -218,16 +218,18 @@ back, say which and it becomes a session's job, not a PC step.
 | Branch | Last commit | What it holds that the deploy branch lacks | Verdict |
 |---|---|---|---|
 | `sest-dev/peaceful-gauss-e1zvfq` | 23 Sep | a two-item Workshop staging script and guide; a one-line fix to the catalog generator | Everything else on it was ported to the deploy branch by its own session (briefing maps, Viper Zero, the three new mods). The generator fix is **applied in this merge**. The two-item Workshop design was replaced by the one-pack design; leave it |
-| `sest-dev/kind-faraday-ctr5h0` (contains `beautiful-cerf-i7fqei`, `fix/banda-front-lean-finalize` and `affectionate-volta-3xqkx6`) | 20 Sep | the SEST Aegis BMD and SEST Intercept Model packs; the Banda Front Lean and Living Seas missions; Indo-Pacific Land Assets and a land-defence site builder; an editor-crash sweep over 31 older missions; its own AIM-260 seating | **Not merged, and not safe to merge whole.** It forked on 31 August. Its mod list is older than the PC's (it lacks the Anzac, Automatic SAR, the Korean Navy and the MV-22B that the deploy branch catalogues), it withheld one of its own changes (the Nimitz CVN-70 variant) as the suspect for a stuck load, and the SM-3 repair it carries exists on the deploy branch in another form. Its missions and two packs are real work that needs a porting session of its own |
+| `sest-dev/kind-faraday-ctr5h0` (contains `beautiful-cerf-i7fqei`, `fix/banda-front-lean-finalize` and `affectionate-volta-3xqkx6`) | 20 Sep | the SEST Aegis BMD and SEST Intercept Model packs; the Banda Front Lean and Living Seas missions (since ported); Indo-Pacific Land Assets and a land-defence site builder; an editor-crash sweep over 31 older missions; its own AIM-260 seating | **Not merged, and not safe to merge whole.** It forked on 31 August. Its mod list is older than the PC's (it lacks the Anzac, Automatic SAR, the Korean Navy and the MV-22B that the deploy branch catalogues), it withheld one of its own changes (the Nimitz CVN-70 variant) as the suspect for a stuck load, and the SM-3 repair it carries exists on the deploy branch in another form. Its missions and two packs are real work that needs a porting session of its own |
 | `feature/ras-integration`, `chore/workshop-inventory-20260916`, `…-notes` | 14–16 Sep | the SEST Replenishment, A-10C+, YF-23 MALICE and Zumwalt CPS packs; an AIM-424 respec; a 137-mod inventory snapshot | **Not merged.** Forked on 26 August, the oldest base of all; each pack would have to be rebuilt against today's export before it could load correctly |
 | `feature/northern-front-iii-export`, `sest-dev/quirky-noether-fq5i98`, `claude/repo-cleanup-interoperability-hleer5` | ≤ 20 Sep | nothing | already inside the deploy branch |
 
 The practical meaning: after this procedure the PC has everything any session
 put on the deploy branch, plus this session's campaign. What it will **not**
-have is the work stranded on the two older lines above. If you played the
-Banda Front Lean or Living Seas missions, or relied on replenishment, those
-came from a branch the PC is no longer on; ask for them to be ported and they
-arrive through the deploy branch like everything else.
+have is the work stranded on the two older lines above. If you relied on
+replenishment, that came from a branch the PC is no longer on; ask for it to
+be ported and it arrives through the deploy branch like everything else. The
+Banda Front missions have been ported that way: Lean v2, Living Seas and the
+rest of their line are in `integration/missions/` and install like any other
+mission (see its README).
 
 ## 7 — then play
 
