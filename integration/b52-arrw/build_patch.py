@@ -19,14 +19,15 @@ taste.
    The profile now comes from the ARRW mod's usn_arrw, the reference
    implementation of this exact weapon: sea-skimming off, a 75 deg loft to
    99,000 ft, Acceleration 16 and VelocityBleed 0.6, with the boost cut to
-   35 s so it lines up with the booster-separation mesh swap Dingtools'
-   file already carries. usn_cps, the Navy boost-glide round, corroborates
-   the shape. The hardware stays Dingtools': usn_arrw gets that wrong -
-   850 kg against the real ~2270 kg, Power 45 against 300, and a MaxVelocity
-   written "10,648" with a thousands separator that no other value in the
-   collection uses - so Dingtools keeps its mass, motor and warhead and only
-   the flight profile changes. Every key it overrides is checked as
-   (expected, new), so an upstream value change fails the build.
+   35 s and the booster-separation mesh swap Dingtools' file already
+   carries moved from 15 s to 35 s to match. usn_cps, the Navy boost-glide
+   round, corroborates the shape. The hardware stays Dingtools': usn_arrw
+   gets that wrong - 850 kg against the real ~2270 kg, Power 45 against
+   300, and a MaxVelocity written "10,648" with a thousands separator that
+   no other value in the collection uses - so Dingtools keeps its mass,
+   motor and warhead and only the flight profile changes. Every key it
+   overrides is checked as (expected, new), so an upstream value change
+   fails the build.
 
 2. The B-52H cannot carry the W62. dts_agm-183a(w62) ships in the B-52H mod's
    own folder, and the F-15EX and B-1B both have loadouts for it - but the
@@ -625,7 +626,7 @@ def main():
         "booster separation on the mesh swap already in the file, then a "
         "descending hypersonic glide that keeps most of its speed. Also the "
         "W62 on the B-52H and ARRW on Red Storm Arsenal's B-52O. The three "
-        "bombers also now share their fits - the B-52H's 20x LRASM load flies "
+        "bombers now share their fits - the B-52H's 20x LRASM load flies "
         "on the B-52O (replacing a 16-round one) and on the 419th FLTS testbed, "
         "and the testbed's own usn_arrw fit flies on both B-52s and on the "
         "B-1B.\n",
