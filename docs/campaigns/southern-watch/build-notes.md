@@ -1087,6 +1087,15 @@ take the Attack row, which the audit had missed. Window 09 has the same shape
 window 11 - and was left alone: those are replacement sales of aircraft the
 player has been able to buy and fly since window 05.
 
+The independent review of the roster group found two things the audit left
+wrong. Window 11's note told the player patrol aircraft were not offered
+while the P-8 was, and said helicopters and patrol aircraft "remain
+available" in a window that sold neither; it now names the P-8 and says the
+Seahawk, Wedgetail and Triton come back before The First Ship Through. And
+the bible's opening budget example bought a P-8 before SW01 and two F-35As
+before SW02, neither of which any built window sells; it buys only what the
+windows offer now.
+
 **Retired types out of 2028.** Rule 3 puts retired types in COLD SEA, and
 three had stayed in the 2028 lists:
 
@@ -1113,6 +1122,15 @@ Squirrel-era list and leaves the S-70B-2 out, so the builder homes the
 Seahawk on Kitty Hawk, whose file lists nothing; it is named Tiger 01 rather
 than Adelaide's flight for that reason. The KC-10A homes on the exercise
 field.
+
+The independent review of this group found Tiger 01 on the S-70B-2 file's
+Default fit, which hangs four Hellfires beside its torpedoes. The RAN's
+Seahawks of 1988 carried Mk 46 torpedoes and sonobuoys, and no Hellfire, so
+Tiger 01 flies the file's own ASW fit now. The same review noted that the
+real USS Kitty Hawk spent 1988 in her service-life extension at
+Philadelphia; D7 placed her before this audit and is an exercise that turns
+live, fiction from its first line, so she stays and nothing here claims
+otherwise.
 
 **The Growler flies conventional.** Every fit on `usn_ea-18g` hung the AIM-260:
 the Growler pack's pylon convention puts it on the fuselage seats (11/12) of
@@ -1158,8 +1176,9 @@ ceiling on any surface-to-air shot outside the round's altitude band, and the
 YJ-83 family skims at 8 ft - under the 10-ft floor of every SAM a Hobart
 carries and of the Burkes' SM-2 and SM-6. If the ceiling is live, Blind
 Horizon and Fujian's Shadow are harder than they were built to be, and only
-the ESSM Block 2 (Anzacs, Lucas) and RAM are inside the band. The test card's
-6F re-flies both air defences and says what each outcome means; Southern
+the ESSM Block 2 (Anzacs, Lucas) and Ford's RAM are inside the band - Sejong's
+RAM has the 10-ft floor too. The test card's 6F re-flies both air defences
+and says what each outcome means; Southern
 Reach's card re-flies TS09 against the same result. Range Week's David's
 Sling carries a note at the unit: its Stunner is the one round of that pack
 anything in the campaigns loads, so it is the pack's whole coverage.

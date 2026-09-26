@@ -599,7 +599,7 @@ A qualifying setback earns the main operation's ordinary allocation because its 
 
 ### Proposed roster prices
 
-*As built, the roster sells ten entries: Anzac 240, Hobart 480, Arafura 100; F-35A 45, F/A-18F 35, Growler 55, P-8 55, Wedgetail 80, Triton 40, MH-60R 20. The unarmed Triton is priced under the armed P-8 because both fill the same patrol row. Collins, Supply, Choules, Canberra, Mogami and the KC-46 in the table below are design options that no built mission can deploy as owned units, so they are not offered - the KC-46 left the roster file too, and the builder now refuses a roster entry that no purchase window sells; Canberra, Supply, Choules, Mogami and the KC-46 appear as allocated theatre support where the story places them.*
+*As built, the roster sells ten entries: Anzac 240, Hobart 480, Arafura 100; F-35A 45, F/A-18F 35, Growler 55, P-8 55, Wedgetail 80, Triton 40, MH-60R 20. The unarmed Triton is priced under the armed P-8 because both fill the same patrol row. The built windows open the list in stages, later than the planned-access column below: the escorts and the Seahawk before SW01, the Hobart and the P-8 before SW02, the F-35A, Super Hornet, Growler and Wedgetail before SW05, the Triton before SW09. Collins, Supply, Choules, Canberra, Mogami and the KC-46 in the table below are design options that no built mission can deploy as owned units, so they are not offered - the KC-46 left the roster file too, and the builder now refuses a roster entry that no purchase window sells; Canberra, Supply, Choules, Mogami and the KC-46 appear as allocated theatre support where the story places them.*
 
 These are **fictional game-balance values**, per hull or individual aircraft, using the existing collection. Every purchasable entry needs an explicit campaign override; several inspected modern definitions lack an explicit task-force cost. A price in this table does not itself make a unit a working purchase or establish deck compatibility.
 
@@ -631,14 +631,14 @@ No optional rewards, rescue credits, discounts or losses in SW01 are assumed in 
 | Step | Change | Available points |
 |---|---:|---:|
 | HQ opening allocation | +1,000 | **1,000** |
-| Before SW01: Warramunga 240 + Seahawk 20 + P-8A 55 | −315 | **685** |
-| Complete SW01 | +100 | **785** |
-| Before SW02: Hobart 480 + two F-35As 90 + second Seahawk 20 | −590 | **195** |
-| Complete SW02 | +140 | **335** |
-| At the next service window: repair moderate Hobart damage | −120 | **215** |
-| Replace one F-35 lost during SW02 | −45 | **170** |
+| Before SW01: Warramunga 240 + Seahawk 20 | −260 | **740** |
+| Complete SW01 | +100 | **840** |
+| Before SW02: Hobart 480 + P-8A 55 + second Seahawk 20 | −555 | **285** |
+| Complete SW02 | +140 | **425** |
+| At the next service window: repair moderate Hobart damage | −120 | **305** |
+| Replace one Seahawk lost during SW02 | −20 | **285** |
 
-The force ends this sequence with two repaired/operational escorts, two Seahawks, a P-8 and two F-35s, assuming those were the only losses/damage and all aircraft assignments were valid. Buying more fighters before SW02 could have left too little for the destroyer repair. Preserving the destroyer could instead have funded a Wedgetail and another fighter. A 100–200 point working reserve is a useful opening target, not a required minimum.
+Every purchase here is one the built windows offer at that point. The force ends this sequence with two repaired/operational escorts, two Seahawks and a P-8, assuming those were the only losses/damage and all aircraft assignments were valid, with 285 points in hand; SW03 and SW04 add 220 before the window before SW05, where the first fighters and the Wedgetail go on sale. A second Anzac before SW02 would have left 65 points after the repair, and little for the fighters before SW05. Preserving the destroyer could instead have funded a second P-8 and a larger reserve for that window. A 100–200 point working reserve is a useful opening target, not a required minimum.
 
 ### Prevent a financial dead end without erasing consequences
 
