@@ -16,7 +16,8 @@ don't misdiagnose breakage later.
 
 1. **Anchor Chain** — subscribed ✔ but "will not function on its own": its documented manual
    preloader install must be done. Quick test: if the **B-2 Spirit** shows up and flies in-game,
-   both loaders are fine.
+   both loaders are fine. The preloader steps, and the Auto Time-on-Target check that proves
+   them, are in `docs/campaigns/southern-reach/install-alignment.md`, *Code mods do not load*.
 2. **SeaLifter** — not in your subscription list, but required by A-10A/A-10C, Su-25, Mi-8 T/TV,
    B-2, and the Type 003/004 carriers. If any of those is missing from the unit list, install
    SeaLifter (subscribe + its preloader) before proceeding.
@@ -101,7 +102,9 @@ mod defines but never fits, under names of its own, and AIM-9X on every self-def
 eight modern replenishment ships, five BLUE and three RED, heavy strike and area-SAM rounds
 metered, and every magazine-less launcher on some three hundred modern hulls made reloadable;
 those hulls are frozen at the export the pack was built from, so rebuild after every export) ·
-`SEST_Campaign` (the Southern Watch and Southern Reach campaigns).
+`SEST_Campaign` (the Southern Watch, Southern Reach and Red Line campaigns).
+`SEST_Zumwalt_CPS` is no longer among them: it was retired on 20 Sep 2026 once Modern US Navy
+fixed both defects it existed for (`docs/packaging-and-recovery.md`).
 
 Then, with the game **closed**, run `set-mod-order.ps1 -AddMissing` — it inserts the
 freshly installed pack into `usersettings.ini` at its canonical position (the very top),
@@ -170,7 +173,7 @@ by hand in the Mod Manager (top of the list wins when two mods ship the same fil
    happens to win).
 7. **SEST RAAF F-35A JATM above the RAAF F-35A mod.**
 8. **SEST RAAF Wedgetail above the E-7A Wedgetail mod**, **SEST Raptor Squadrons above the
-   F-22 mod**, and **SEST Zumwalt CPS Fix above Modern US Navy.** Both carry full replacement `*_squadrons.ini` files. Below their target they do
+   F-22 mod**. Both carry full replacement `*_squadrons.ini` files. Below their target they do
    nothing, and the aircraft go back to having no resolvable squadrons — which is not an obvious
    failure in game, it just quietly shows every jet as the same anonymous unit.
 
@@ -201,7 +204,6 @@ SEST F-35C JATM                  ← above US Naval Aviation & Modern US Navy
 SEST RAAF F-35A JATM             ← above the RAAF F-35A mod
 SEST RAAF Wedgetail              ← above the E-7A Wedgetail mod
 SEST Raptor Squadrons            ← above the F-22 mod
-SEST Zumwalt CPS Fix             ← above Modern US Navy
 SEST TacMap Colors               ← overrides the vanilla tactical-map UI
 F/A-18 Murder Hornet
 B-52G with AGM-86

@@ -1,9 +1,9 @@
 # Aligning the gaming PC with this branch — and with the other sessions
 
 This is the procedure for bringing a Sea Power install up to a build that
-carries **the campaigns** (Southern Watch and Southern Reach, and from the Red
-Line round a third, Red Line) together with every fix the other sessions have
-pushed to the deploy branch. It replaces
+carries **the three campaigns** (Southern Watch, Southern Reach and Red Line)
+together with every fix the other sessions have pushed, and the work ported
+from their older branches (§6). It replaces
 the counts in `../southern-watch/install-alignment.md`; the checks and the
 failure story there still hold and are not repeated.
 
@@ -14,20 +14,20 @@ Two facts shape it:
   other branch, on purpose — the last time it ran on the wrong one it reported
   `IN LINE` against a build with none of the campaign in it.
 - **Sessions work on their own branches.** This session's work is on
-  `claude/campaign-missions-lore-td653z`. That branch already contains the
-  deploy branch's latest commit (the two were merged here, the three
-  conflicts resolved and every pack rebuilt from scratch on the result), so
-  bringing it into the deploy branch is a fast-forward: nothing to resolve.
+  `claude/campaign-missions-lore-td653z`. That branch is built on the deploy
+  branch's latest commit, so bringing it into the deploy branch is a
+  fast-forward: nothing to resolve.
 
 Close Sea Power before any of it. It rewrites `usersettings.ini` on exit and
 throws away a load-order change made while it is running.
 
 ## Already aligned once? The short version for later rounds
 
-After the first alignment both `sest-dev/loving-bell-3cnvvw` and
-`feature/northern-front-iii-export` sat on `9715f990` (the merge of pull
-request #13). Everything this session has pushed since builds straight on
-that commit, so a later round is the same fast-forward and one sync:
+After the last round both `sest-dev/loving-bell-3cnvvw` and
+`feature/northern-front-iii-export` sit on `d5468582` (the Tasman Shield
+proofread and the ISR notes). Everything this session has pushed since builds
+straight on that commit, so a later round is the same fast-forward and one
+sync:
 
 ```powershell
 cd C:\Users\<you>\Seapower-mods
@@ -45,31 +45,28 @@ is read as a file called `sync-sest.ps1powershell` and refused.
 `-RefreshMissions` is what reaches the missions you imported from the game
 yourself (the Northern Front files and the chapter missions): it gives any
 airliner whose route ran out inside the mission clock one more waypoint along
-its airway, so it stops circling. The two campaigns are rebuilt in the repo
+its airway, so it stops circling. The campaigns are rebuilt in the repo
 and need no flag. If `--ff-only` refuses, stop and report it, as in step 2.
 
-The round after the first alignment brought: New Zealand flags (the game's
-key is `NewZealand`), airliners that fly their airway in Southern Reach and in
-the loose missions, both campaigns' in-game descriptions without the SAR
-instructions or fiction tags, rewritten opening pages, a reformatted deck
-log, and a proofread of every briefing, card and story page in both
-campaigns. The installed file count is still 691.
-
-### The Red Line round
+### This round: Red Line and the ported work
 
 This round adds a third campaign to the same pack, **Red Line — The Other
 Watch**: six missions played from the Chinese side, with its own folder of
 docs (`docs/campaigns/red-line/`). It also redraws nine Southern Watch and
-Southern Reach mission cards whose objective ring ran off the chart; nothing
-else of theirs changes. It arrives the same way as the rounds above, a
-fast-forward and one sync, once it is on the branch you merge from.
+Southern Reach mission cards whose objective ring ran off the chart, and it
+brings eleven pieces of the other sessions' work (§6), among them three new
+packs: SEST Replenishment At Sea, SEST A-10C+ and SEST Intercept Model. The
+pack count is **20**.
 
-The installed file count goes from 691 to **766**: `campaigns\sest-red-line\`
-(44 files: six missions with their briefing folders, 12 pieces of art,
-`campaign.ini`, roster, commander settings and a `REQUIRED-MODS.txt`) and the
-browser copies under `missions\Red Line\` (31). Nothing needs subscribing:
-every mod it places is one the canonical load order already enables. Step 5
-has its checks.
+The installed file count goes from 691 to **1189**:
+`campaigns\sest-red-line\` (44 files: six missions with their briefing
+folders, 12 pieces of art, `campaign.ini`, roster, commander settings and a
+`REQUIRED-MODS.txt`) and the browser copies under `missions\Red Line\` (31),
+plus 423 from the ports: 333 vessel files (Replenishment's reloadable
+launchers and supply systems), 87 ammunition files and 3 aircraft files.
+Nothing needs subscribing: every mod it places is one the canonical load
+order already enables. Step 5 has its checks, and §6 has **four one-time
+steps on the PC** that the ports need.
 
 ---
 
@@ -77,13 +74,14 @@ has its checks.
 
 | Branch | What it is | State |
 |---|---|---|
-| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | 56 commits ahead of the repo's default branch; carries every other session's merged work: the helicopter sections, the RAN Seahawk squadron, the ESSM fix, the Banda vignettes, the airliner routes |
-| `claude/campaign-missions-lore-td653z` | this session: Southern Reach, the multi-campaign builder, the coastline proof, the RNZAF bases | contains the deploy branch's head; every pack rebuilt from scratch on the merged tree; the four gates pass |
-| `feature/northern-front-iii-export` | the repo's default branch on GitHub | behind the deploy branch by 56 commits and contains no campaign; do not deploy from it |
-| the other `sest-dev/*`, `fix/*`, `feature/*`, `chore/*` branches | earlier sessions | see §5: surveyed, none needed for this install |
+| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `d5468582` after the last round's push |
+| `claude/campaign-missions-lore-td653z` | this session: the three campaigns, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | `d5468582` plus this round; every pack rebuilt from scratch; the gates in step 3 pass |
+| `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `d5468582` with the deploy branch if the last round's second push was made; do not deploy from it |
+| the other `sest-dev/*`, `fix/*`, `feature/*`, `chore/*` branches | earlier sessions | see §6: what was ported, and what was left and why |
 
 So "aligned to this session and the other sessions" means: the deploy branch
-fast-forwarded to this session's branch, then the normal sync.
+fast-forwarded to this session's branch, then the normal sync, then §6's
+one-time steps.
 
 ## 1 — on the PC: find the clone and get on the deploy branch
 
@@ -133,8 +131,8 @@ git push origin sest-dev/loving-bell-3cnvvw
 
 Then make GitHub show it. The repository's landing page (and every new
 session, which starts from the default branch) reads
-`feature/northern-front-iii-export`, which is 56 commits behind the deploy
-branch and has no campaign in it. Either:
+`feature/northern-front-iii-export`, which moves only when you push it.
+Either:
 
 - **GitHub → the repository → Settings → General → Default branch →**
   switch to `sest-dev/loving-bell-3cnvvw` (recommended: the page, the README
@@ -154,29 +152,32 @@ Check, and do not skip:
 git branch --show-current            # sest-dev/loving-bell-3cnvvw
 git log --oneline -1                 # note the short hash: the IN LINE line must name it
 Get-Content data\deploy-branch.txt   # sest-dev/loving-bell-3cnvvw
-Test-Path integration\dist\SEST_Integration\campaigns\sest-southern-reach\campaign.ini   # True
+Test-Path integration\dist\SEST_Integration\campaigns\sest-red-line\campaign.ini   # True
 ```
 
-The last line is the one that says the merge brought the second campaign.
+The last line is the one that says the merge brought this round.
 `False` means step 2 did not take.
 
 ## 3 — let the build check itself (optional on the PC, done here)
 
-The committed packs are the builders' own output, rebuilt from scratch on the
-merged tree in this session with a clean `git status` afterwards, and the four
-gates were run on that tree:
+The committed packs are the builders' own output, rebuilt from scratch on
+this tree in this session with a clean `git status` afterwards, and the gates
+were run on it:
 
 ```
-python tools\build_all.py --from-scratch      # 17 packs, clean git status after
-python tools\check_campaign_coverage.py       # both campaigns, 1394 placed references, 159/159 mods
+python tools\build_all.py --from-scratch      # 20 packs, clean git status after
+python tools\check_campaign_coverage.py       # three campaigns, 1524 placed references, 162/162 mods and packs
 python tools\check_load_order.py
 python tools\check_dependencies.py
+python tools\check_weapon_employment.py
+python tools\check_scenarios.py
 python tools\preflight.py "Tasman Shield 09 - The Southern Convoy"
 ```
 
-Running them again on the PC proves the PC's Python sees the same tree; it
-does not change what gets installed. Skip it if you are short of time; do not
-skip step 2's checks.
+`check_inventory.py` is the one known red: it stays red until the PC runs
+the mirrored export (§6, step 2). Running the rest again on the PC proves the
+PC's Python sees the same tree; it does not change what gets installed. Skip
+it if you are short of time; do not skip step 2's checks.
 
 ## 4 — install and order, one command
 
@@ -188,81 +189,139 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 690** for this build — the pack now carries two campaigns (see below) |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1189** for this build |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |
 
-Why the count changed from Southern Watch's 388: the pack now ships
+Where the count comes from, from Southern Watch's 388: the pack ships
 `campaigns\sest-southern-reach\` (25 missions with their briefing folders and
-charts, 66 pieces of art, `campaign.ini`, roster, commander settings and a
+charts, 66 art files, `campaign.ini`, roster, commander settings and a
 `REQUIRED-MODS.txt`), the browser copies under `missions\Southern Reach\` and
 `missions\Tasman Shield\`, a `REQUIRED-MODS.txt` for Southern Watch's own
-folder, and the two RNZAF base files in the land units.
+folder and the two RNZAF base files (691 in all); then this round's Red Line
+and ported files (1189).
 
-## 5 — confirm both campaigns arrived
+## 5 — confirm the campaigns arrived
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
-Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-southern-reach, sest-southern-watch (and sest-red-line)
-(Get-ChildItem "$sa\campaigns\sest-southern-reach\art\*.png").Count   # 66
+Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-red-line, sest-southern-reach, sest-southern-watch
+(Get-ChildItem "$sa\campaigns\sest-southern-reach\art\*.png").Count   # 47
 (Get-ChildItem "$sa\campaigns\sest-southern-reach\missions\*.ini").Count   # 25
-Test-Path "$sa\land_units\airbase_rnzaf_ohakea.ini"                   # True
-Get-ChildItem "$sa\missions" -Directory | Select-Object Name          # …, Southern Reach, Tasman Shield, Southern Watch, …
-# after the Red Line round:
 (Get-ChildItem "$sa\campaigns\sest-red-line\art\*.png").Count         # 12
 (Get-ChildItem "$sa\campaigns\sest-red-line\missions\*.ini").Count    # 6
+Test-Path "$sa\land_units\airbase_rnzaf_ohakea.ini"                   # True
+Test-Path "$sa\vessels\plan_aor_type901.ini"                          # True: Replenishment arrived
+Get-ChildItem "$sa\missions" -Directory | Select-Object Name          # Red Line, Southern Reach, Southern Watch, Southern Watch - Dispatches, Tasman Shield
 ```
 
 Then in game, in this order:
 
 1. **Mod Manager** — `SEST Integration Pack` at the top, enabled; its
-   description now ends "Southern Watch - Southern Reach" ("... - Red
-   Line" after the Red Line round).
-2. **Campaign list** — two entries: `Southern Watch (Royal Australian Navy)`
-   and `Southern Reach - Tasman Shield (Royal Australian Navy)`, 44 entries
-   in the second, a dark chart 29–66°S behind it.
-3. **Mission browser** — folders `Southern Reach` (12) and `Tasman Shield`
-   (13) beside the Southern Watch ones. If the campaign list shows one
-   campaign but the browser has both folders, the Mod Manager is not reading
-   the second `campaigns\` folder; that difference is the diagnosis.
-4. **After the Red Line round** — a third campaign, `Red Line - The Other
-   Watch (People's Liberation Army Navy)`, 10 entries, and a `Red Line`
-   folder (6) in the browser. Its own test card is
-   `../red-line/test-card.md`.
+   description lists SEST A-10C+, SEST Intercept Model and SEST
+   Replenishment At Sea among the packs and ends "Southern Watch - Southern
+   Reach - Red Line".
+2. **Campaign list** — three entries: `Southern Watch (Royal Australian
+   Navy)`, `Southern Reach - Tasman Shield (Royal Australian Navy)` (44
+   entries, a dark chart 29–66°S behind it) and `Red Line - The Other Watch
+   (People's Liberation Army Navy)` (10 entries).
+3. **Mission browser** — folders `Southern Reach` (12), `Tasman Shield`
+   (13) and `Red Line` (6) beside the Southern Watch ones. If the campaign
+   list is short but the browser has every folder, the Mod Manager is not
+   reading one of the `campaigns\` folders; that difference is the diagnosis.
 
-## 6 — the other sessions' branches
+## 6 — the other sessions' branches: what was ported, what was not
 
-Seven other branches on GitHub are not in the deploy branch. They were
-surveyed one by one for what they hold that the deploy branch lacks, in
-substance rather than in files. The short answer is that **none of them is
-needed for this install**; the long answer is in the table below and in the
-build notes. Nothing was merged from them; if one of them holds work you want
-back, say which and it becomes a session's job, not a PC step.
+Two older lines held work the deploy branch lacked: `sest-dev/kind-faraday-ctr5h0`
+(with `beautiful-cerf-i7fqei`, `fix/banda-front-lean-finalize` and
+`affectionate-volta-3xqkx6` inside it) and `feature/ras-integration` with
+`chore/workshop-inventory-20260916` (the INV line). Neither was merged whole:
+each forked in late August from a mod list older than the PC's. Instead,
+eleven items were ported one by one, each rebuilt against today's export and
+reviewed on its own before it landed here (merge `17df05a6`):
 
-| Branch | Last commit | What it holds that the deploy branch lacks | Verdict |
-|---|---|---|---|
-| `sest-dev/peaceful-gauss-e1zvfq` | 23 Sep | a two-item Workshop staging script and guide; a one-line fix to the catalog generator | Everything else on it was ported to the deploy branch by its own session (briefing maps, Viper Zero, the three new mods). The generator fix is **applied in this merge**. The two-item Workshop design was replaced by the one-pack design; leave it |
-| `sest-dev/kind-faraday-ctr5h0` (contains `beautiful-cerf-i7fqei`, `fix/banda-front-lean-finalize` and `affectionate-volta-3xqkx6`) | 20 Sep | the SEST Aegis BMD pack (its SM-3 seeker and handover values since ported into SEST Collection Fixes; its floor, range and loft edits superseded by the deploy branch's own SM-3 work) and the SEST Intercept Model pack (since ported, with the Korean K-SAM II added to its fixes); the Banda Front Lean and Living Seas missions, Indo-Pacific Land Assets and a land-defence site builder (all three since ported); an editor-crash sweep over 31 older missions; its own AIM-260 seating | **Not merged, and not safe to merge whole.** It forked on 31 August. Its mod list is older than the PC's (it lacks the Anzac, Automatic SAR, the Korean Navy and the MV-22B that the deploy branch catalogues), it withheld one of its own changes (the Nimitz CVN-70 variant) as the suspect for a stuck load, and the SM-3 repair it carries exists on the deploy branch in another form. What is not marked ported is real work that needs a porting session of its own |
-| `feature/ras-integration`, `chore/workshop-inventory-20260916`, `…-notes` | 14–16 Sep | the SEST Replenishment (since ported and rebuilt against today's export, with its launcher fix and HMAS Supply's supply system applied in the sibling packs and its metering tags in SEST Collection Fixes and SEST Intercept Model), A-10C+ (since ported, rebuilt against today's export, with its infrared-head and squadron repairs applied to the standard A-10C in SEST Allied Fixes and the new unit flying in D8), YF-23 MALICE and Zumwalt CPS packs; an AIM-424 respec; a 137-mod inventory snapshot | **Not merged.** Forked on 26 August, the oldest base of all; each pack would have to be rebuilt against today's export before it could load correctly. What is not marked ported needs a porting session of its own |
-| `feature/northern-front-iii-export`, `sest-dev/quirky-noether-fq5i98`, `claude/repo-cleanup-interoperability-hleer5` | ≤ 20 Sep | nothing | already inside the deploy branch |
+1. The JMSDF Seahawk rename (SW10, the Mogami pack, the Banda vignette, the
+   Northern Front saves), the exporter's deletion mirror, and mission
+   installs with no timestamped backups (`-PurgeBackups`).
+2. The editor-crash sweep over 31 deployed missions, `preflight --all` and
+   `check_alias_bases`.
+3. The land-defence site builder and the Indo-Pacific Land Assets showcase.
+4. Banda Front Lean v2 and Living Seas as saved, `restore_roe`, and the
+   generator chain behind them.
+5. ARRW boost-glide, the Redback's seeker reach and the AIM-424 respec
+   (680 kg).
+6. The SM-3 overwrite's seeker and handover, folded into SEST Collection
+   Fixes.
+7. SEST Intercept Model: the global intercept table restored.
+8. SEST A-10C+ and the standard A-10C's infrared head and squadron repairs; a
+   second Warthog in D8.
+9. `check_inventory`, `check_scenarios`, a stricter `check_dependencies`, and
+   SW11's ghost Burke retargeted.
+10. SEST Replenishment At Sea: working replenishment for the modern fleet,
+    HMAS Supply and Stalwart real suppliers.
+11. Eleven NF3 scenarios regenerated, with supply ships where the load order
+    defines them.
 
-The practical meaning: after this procedure the PC has everything any session
-put on the deploy branch, plus this session's campaign. What it will **not**
-have is the work stranded on the two older lines above. Replenishment has
-since been ported: SEST Replenishment At Sea arrives through the deploy
-branch like everything else, inside `SEST_Integration`. So have the Banda
-Front missions: Lean v2, Living Seas and the
-rest of their line are in `integration/missions/` and install like any other
-mission (see its README).
+Deliberately **not** ported:
+
+| Item | Why not |
+|---|---|
+| SEST YF-23 MALICE pack | upstream now ships the fit: the restructured YF-23 mod carries its own AIM-424 intercept loadout, and the file the pack patched is gone |
+| SEST Zumwalt CPS | retired on 20 Sep (`1233fd41`): Modern US Navy fixed both defects it existed for |
+| the F-15EX AIM-260 seat lift | withdrawn (`afed87ce`) after an in-game report: the number was measured against a different missile mesh |
+| the U.S. Navy 2027 retargets | not needed: the aliases resolve today, and `check_alias_bases.py` proves it after every export |
+| the standalone SEST Aegis BMD pack | superseded: its SM-3 seeker and handover values are in SEST Collection Fixes (item 6), and its floor, range and loft were decided otherwise here |
+| INV's `generate_load_order` and exporter rewrites | written on the 16 Sep base; the tools here have moved on since (the kind-faraday deletion mirror, unsubscribed mods dropped from the order), and the rewrites would undo that |
+| peaceful-gauss's Workshop staging script | built for a two-item Workshop release that the one-pack design replaced |
+
+The other branches (`feature/northern-front-iii-export`,
+`sest-dev/quirky-noether-fq5i98`, `claude/repo-cleanup-interoperability-hleer5`)
+hold nothing the deploy branch lacks.
+
+### One-time steps on the PC for the ports
+
+Game closed, after the sync in step 4:
+
+1. **Clear the old backup missions.** Installs no longer write
+   `* backup-<stamp>.ini` copies, but the old ones are still in the game's
+   mission list. Preview, then purge:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -PurgeBackups -WhatIfOnly
+   powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -PurgeBackups
+   ```
+
+   Only names ending ` backup-<digits>` are touched; a mission of your own
+   called "Strait backup-plan" survives.
+2. **Run the export once, now that it mirrors deletions.**
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla
+   git status --short mods-source
+   ```
+
+   Expect deletions: the ghost files earlier exports left behind (about 200
+   over 13 mods; `docs/packaging-and-recovery.md`, *Known red*, lists them).
+   Review them, then commit and push. `python tools\check_inventory.py`
+   should then go green; the same section says what to do if four mods stay
+   red on line endings, and which pre-flight failure the deletions are
+   expected to cause.
+3. **Rebuild after that export, and after every export from now on.**
+   SEST Replenishment At Sea freezes about 300 hulls at the export it was
+   built from, so a pack older than the mods beside it puts last month's hull
+   above this month's mod. `python tools\build_all.py --from-scratch`, commit
+   the output with the export, push; or push the export alone and say so, and
+   the next session rebuilds on it.
+4. **Sync again** so the game carries the rebuilt pack.
 
 ## 7 — then play
 
-Southern Watch's card (`../southern-watch/test-card.md`) has new rows from
-the other sessions (side operations carrying losses, helicopters flying as
-helicopters, red aircraft that were briefed to come). Southern Reach's
-(`test-card.md`) starts where this document stops: the coastline first,
-because that is the claim this build makes that no earlier one did.
+Each test card now opens with a short *first things to fly after this round*
+list: the in-game checks the ports added, pointing at where each is written
+up. Southern Watch's (`../southern-watch/test-card.md`) has the most of them.
+Southern Reach's (`test-card.md`) still starts with the coastline, and Red
+Line's (`../red-line/test-card.md`) with its rules of engagement.
 
 ---
 
@@ -272,7 +331,62 @@ because that is the claim this build makes that no earlier one did.
 |---|---|
 | `git merge --ff-only` refuses | `git log --oneline origin/sest-dev/loving-bell-3cnvvw -5` — whatever is there and not on this session's branch was pushed after the merge here; report it |
 | sync refuses on the branch guard | you are not on `sest-dev/loving-bell-3cnvvw`; go back to step 1 rather than passing `-AnyBranch` |
-| the second campaign is missing in game but present on disk | `Get-ChildItem "$sa\campaigns\sest-southern-reach"` shows the files; the browser copies are your route in, and the difference is the report |
-| a Southern Reach unit is missing in a mission | the unit names its mod: `campaigns\sest-southern-reach\REQUIRED-MODS.txt` lists the 26 hard-required Workshop mods for this campaign; `.\tools\show-load-order.ps1` shows which are enabled |
+| a campaign is missing in game but present on disk | `Get-ChildItem "$sa\campaigns\sest-southern-reach"` (or `sest-red-line`) shows the files; the browser copies are your route in, and the difference is the report |
+| a Southern Reach unit is missing in a mission | the unit names its mod: `campaigns\sest-southern-reach\REQUIRED-MODS.txt` lists the 32 hard-required Workshop mods for this campaign; `.\tools\show-load-order.ps1` shows which are enabled |
 | a Red Line unit is missing in a mission | `campaigns\sest-red-line\REQUIRED-MODS.txt` lists the 29 hard-required Workshop mods for that campaign |
 | a ship is ashore or a route crosses land | the coastline extract disagrees with the game there; note the mission and the hull, that is the first row of the test card |
+| `check_inventory.py` red after the export | read `docs/packaging-and-recovery.md`, *Known red*, before deleting or restoring anything |
+| a code mod does nothing: Auto Time-on-Target's planner (Left Alt+G) does not open | Anchor Chain's preloader is not installed; subscribing is not enough. See below |
+
+### Code mods do not load (Auto Time-on-Target)
+
+Sourced from the Anchor Chain docs and the Auto Time-on-Target README. Game
+closed.
+
+1. Download `ACPreloader.zip` from the latest release at
+   <https://github.com/SeaPower-Modders/AnchorChain/releases>.
+2. Copy the contents of the folder in it that holds `winhttp.dll` into the
+   Sea Power folder, beside `Sea Power.exe` (this needs admin rights). The
+   Explorer route is equally good: Extract All, open the folder holding
+   `winhttp.dll`, and copy its contents beside `Sea Power.exe`. Or save the
+   zip into the Sea Power folder and paste this into PowerShell run as
+   administrator (change `$g` if Steam lives elsewhere):
+
+   ```powershell
+   & {
+   $ErrorActionPreference = 'Stop'
+   $g   = 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power'
+   $zip = Join-Path $g 'ACPreloader.zip'
+   if (-not (Test-Path -LiteralPath (Join-Path $g 'Sea Power.exe'))) { throw "Sea Power.exe not found in $g - stopping" }
+   if (-not (Test-Path -LiteralPath $zip)) { throw "ACPreloader.zip not found in $g - stopping" }
+   $tmp = Join-Path $env:TEMP ('ACPreloader-' + [guid]::NewGuid().ToString('N'))
+   Expand-Archive -LiteralPath $zip -DestinationPath $tmp
+   $hits = @(Get-ChildItem -LiteralPath $tmp -Recurse -Force -Filter winhttp.dll)
+   if ($hits.Count -ne 1) { $hits.FullName; throw "Expected one winhttp.dll in the zip, found $($hits.Count) - stopping" }
+   $src = $hits[0].DirectoryName
+   foreach ($n in 'doorstop_config.ini', 'BepInEx') { if (-not (Test-Path -LiteralPath (Join-Path $src $n))) { throw "$n is not next to winhttp.dll in the zip - stopping" } }
+   $items = @(Get-ChildItem -LiteralPath $src -Force | Where-Object Name -ne 'changelog.txt')
+   $clash = @($items | Where-Object { Test-Path -LiteralPath (Join-Path $g $_.Name) })
+   if ($clash.Count) { $clash.Name; throw 'These are already in the game folder - stopping so nothing is overwritten' }
+   'Copying: ' + ($items.Name -join ', ')
+   $items | Copy-Item -Destination $g -Recurse -Force
+   foreach ($n in 'winhttp.dll', 'doorstop_config.ini', 'BepInEx') { '{0}: {1}' -f $n, (Test-Path -LiteralPath (Join-Path $g $n)) }
+   }
+   ```
+
+   It checks every path before it copies anything and stops rather than
+   overwrite. If the prompt still shows `>>` after pasting, press Enter once
+   more.
+3. Confirm `winhttp.dll`, `doorstop_config.ini` and `BepInEx\` are beside
+   `Sea Power.exe`.
+4. Enable Anchor Chain and Auto Time-on-Target in the Mods menu, exit the
+   game fully and start it again.
+5. `BepInEx\LogOutput.log` should have a line `Auto Time-on-Target v...
+   loaded`. `BepInEx\config\com.seapowermods.autotot.cfg` holds `Enabled`,
+   `ShowIndicator` and `PanelKey`: check it is enabled and which key opens
+   the panel.
+6. Press Left Alt+G inside a running mission.
+
+One BepInEx only: the multiplayer launcher installs its own. If `BepInEx` is
+already in the game folder, do not copy a second over it (the script above
+stops there).

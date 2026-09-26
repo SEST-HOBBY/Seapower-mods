@@ -27,6 +27,15 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
+The 20 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persistent_ISR`,
+`SEST_Allied_Fixes`, `SEST_B52_ARRW`, `SEST_Collection_Fixes`, `SEST_F-15EX_Revamp`,
+`SEST_F-35C_JATM`, `SEST_F16CM_JATM`, `SEST_Growler_NGJ_MALICE`, `SEST_Intercept_Model`,
+`SEST_JMSDF_Mogami`, `SEST_RAAF_Bases`, `SEST_RAAF_F-35A_JATM`, `SEST_RAAF_Wedgetail`,
+`SEST_RAN_Fleet`, `SEST_Rafale_F5`, `SEST_Raptor_Squadrons`, `SEST_Replenishment`,
+`SEST_TacMap_Colors` and `SEST_Campaign` (the three campaigns). Consolidated, they are 1189
+files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
+when Modern US Navy fixed what it patched (`docs/packaging-and-recovery.md`).
+
 ## Commands
 
 Linux / repo side:
@@ -160,6 +169,9 @@ copies `integration\dist\SEST_Integration` into StreamingAssets, rewrites the
 load order, and hashes every deployed file back against the commit. The
 step-by-step, with what each line of its output means and how to bring another
 session's branch in first, is `docs/campaigns/southern-reach/install-alignment.md`.
+Its *When something is wrong* table covers the usual faults, including code mods
+that do not load (Auto Time-on-Target's planner not opening means Anchor Chain's
+preloader needs its manual install).
 
 ## Why one pack
 
