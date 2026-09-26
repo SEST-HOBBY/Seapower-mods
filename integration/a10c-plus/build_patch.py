@@ -161,11 +161,11 @@ def main():
     text = text[:anchor.start()] + NEW_SENSORS + text[anchor.start():]
 
     # 3. AIM-9X wherever the AIM-9M sits, keeping the mod's own seat key.
-    #    Not just the air-to-air fit: the Warthog carries two self-defence
-    #    rails on EVERY loadout (one on station 2, two on AirToAir), eleven
-    #    lines across eleven loadouts. Upgrading the aircraft means upgrading
-    #    all of them - a variant that flew AIM-9X only when configured for
-    #    air-to-air would be the odd one out.
+    #    Not just the air-to-air fit: the Warthog carries a Sidewinder rail
+    #    on station 2 of EVERY loadout, and a second on station 1 in AirToAir,
+    #    eleven station lines across the ten loadouts. Upgrading the aircraft
+    #    means upgrading all of them - a variant that flew AIM-9X only when
+    #    configured for air-to-air would be the odd one out.
     text, n = re.subn(r"^(Station[12]=)usn_aim-9m(\|AIM-9_CH)\s*$", r"\1usn_aim-9x\2",
                       text, flags=re.M)
     if n != 11:
@@ -228,7 +228,7 @@ def main():
         "infrared head as a sensor module - it lacks ModuleType=Sensor upstream which is why "
         "the aircraft reads as having no infrared at all - corrects a squadron count of seven "
         "against two defined liveries which is the likeliest reason only one scheme appears - "
-        "and upgrades every self-defence rail from AIM-9M to AIM-9X across all eleven loadouts. No radar is added: the "
+        "and upgrades every self-defence rail from AIM-9M to AIM-9X across all ten loadouts. No radar is added: the "
         "real A-10C has none and the Litening pod is the ground sensor. Requires the A-10C "
         "mod. Deploys inside the SEST Integration Pack.\n"
         "\n[Compatibility]\nApproximateVersion=0.8.2\n", encoding="utf-8")

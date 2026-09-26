@@ -214,7 +214,7 @@ A-10C+. Neither change to the aircraft files has been seen in the game.
 | # | Do | Expect | If not |
 |---|---|---|---|
 | 6D.1 | D8, select Hog 22 and open its encyclopedia entry | **A-10C+**, with an infrared sensor, the Litening pod and a laser designator listed; AIM-9X on its rails | No designator or pod means the new sensor blocks are not read - name what the entry does list |
-| 6D.2 | D8, Hog 22 as briefed (its Default fit carries two GBU-12s): drop one on the ridge with no other aircraft lasing | The bomb guides on Hog 22's own designator | An unguided fall means the designator does not feed the bomb |
+| 6D.2 | D8, Hog 22 as briefed (its Default fit hangs GBU-12s on the two inboard pylons): drop one on the ridge with no other aircraft lasing | The bomb guides on Hog 22's own designator | An unguided fall means the designator does not feed the bomb |
 | 6D.3 | Mission editor: place a standard A-10C and look at its squadrons | **Two** liveries to choose from (81st and 91st TFW), and Hog 21's panel shows an infrared sensor | One livery means the squadron count was not the cause |
 
 ## 7 — the review's engine tests
