@@ -65,7 +65,7 @@ roster, commander settings and a `REQUIRED-MODS.txt`) and the browser copies und
 plus 423 from the ports: 333 vessel files (Replenishment's reloadable
 launchers and supply systems), 87 ammunition files and 3 aircraft files.
 Nothing needs subscribing: every mod it places is one the canonical load
-order already enables. Step 5 has its checks, and §6 has **four one-time
+order already enables. Step 5 has its checks, and §6 has **five one-time
 steps on the PC** that the ports need.
 
 ---
@@ -314,6 +314,18 @@ Game closed, after the sync in step 4:
    the output with the export, push; or push the export alone and say so, and
    the next session rebuilds on it.
 4. **Sync again** so the game carries the rebuilt pack.
+5. **Clear the rest of the backup clutter**, game closed. Preview, then clean:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\tools\clean-backups.ps1 -WhatIfOnly
+   powershell -ExecutionPolicy Bypass -File .\tools\clean-backups.ps1
+   ```
+
+   It removes, from the game's `user_missions` only, any `.ini` with "backup"
+   in its name, `* - Copy.ini`, `*.bak`/`*.old`, and `_briefing` folders whose
+   mission is gone; and every `usersettings.ini.bak_*` but the newest three
+   (each sync writes one; `set-mod-order.ps1` now prunes to three itself).
+   Read the preview: a mission of your own with "backup" in its title is on it.
 
 ## 7 — then play
 
