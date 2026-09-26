@@ -161,12 +161,17 @@ MISSION = dict(
                        "usn_mh-60r", "usn_p8", "raaf_mq-4c_triton", "E7A_Wedgetail",
                        "raaf_f-35a", "usn_fa-18f_blk3", "usn_ea-18g"],
                 flights=[HELO, RECON, CAP],
+                # Amberley's squadrons, not Williamtown's: 1 and 6 Squadrons are
+                # Amberley units (the squadron files say "fwd Townsville", the
+                # north's arrangement), and no SEST RAAF Bases air group holds
+                # either type. In this mission a bought one flies from the
+                # only field placed, Williamtown - hence "staged through".
                 situation=(
                     "Sydney, before the crossing. Force allocation, repairs and ammunition "
-                    "resupply: the Super Hornet and the Growler are released to the task group,"
-                    " because Williamtown's aircraft reach the mid-Tasman and the carrier is in"
-                    " it. There is no further force allocation before Under the Tasman; the "
-                    "next window is Melbourne, before Bass Strait."
+                    "resupply: the Super Hornet and the Growler are released to the task group"
+                    " - Amberley's squadrons, staged through Williamtown, whose aircraft reach "
+                    "the mid-Tasman and the carrier in it. There is no further force allocation"
+                    " before Under the Tasman; the next window is Melbourne, before Bass Strait."
                 )),
     role="escort",
 )
