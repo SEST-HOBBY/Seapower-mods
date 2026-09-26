@@ -19,9 +19,77 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(HERE.parents[1] / "tools"))
 import build_pack as bp  # noqa: E402
+import check_campaign_coverage as coverage_check  # noqa: E402
+from campaign_data import S  # noqa: E402
 
 _ABSENT = object()
+
+
+# --- a small mission, rendered ----------------------------------------------
+# The ceasefire-morning shape from the Red Line design: a frigate, a carrier
+# withdrawing, an armed coaster in company that has turned for the convoy
+# lane, a Poseidon overhead. Positions are in the mission's NM frame and are
+# written straight into `placed`, so render() runs without the proven-point
+# pool or the coastline.
+
+def _keys(uid, x, z, **extra):
+    return dict(Type=uid, RelativePositionInNM=f"{x},0,{z}", **extra)
+
+
+def small_mission(**over):
+    m = dict(
+        key="Test Withdrawal", code="T01", num="01", group="core",
+        brief="Brief.", win="Won.", lose="Lost.", timeout="Out of time.",
+        date=(2028, 11, 28), time=(5, 10), sea=2, clouds="Clear", wind="E",
+        centre=(-4.6, 128.9), blue_nation="China", red_nation="Australia",
+        minutes=80, role="escort",
+        stations={"escort": S(-4.45, 128.85, "Escort"),
+                  "group": S(-4.50, 128.70, "Carrier group"),
+                  "spoiler": S(-4.62, 128.90, "Armed coaster"),
+                  "red_air": S(-4.00, 129.40, "Poseidon", alt=14000)},
+        objectives=[("Withdrawal", "Withdraw north-west", "35,-35,Fail,Main"),
+                    ("Spoiler", "Stop the coaster", "20,-40,Complete")],
+        victory=dict(kind="arrive", station="group", at=(-4.30, 128.60),
+                     radius=12, objective="Withdrawal"),
+        resolve={"Withdrawal": "victory", "Spoiler": ("protect", "escort")},
+        units=[])
+    m.update(over)
+    return m
+
+
+def small_placement():
+    placed = {
+        "Taskforce1Vessel": [
+            ("Taskforce1Vessel1", _keys("plan_type_054a_p5", 0, 9), None, False),
+            ("Taskforce1Vessel2", _keys("plan_type_001", -12, 6), "Liaoning", False)],
+        "Taskforce2Vessel": [
+            ("Taskforce2Vessel1", _keys("ran_ms_super_p", 0, -1), "MV Meridian Harmony", False)],
+        "Taskforce2Aircraft": [
+            ("Taskforce2Aircraft1", _keys("usn_p8", 30, 36), None, False)],
+    }
+    members = {"escort": ["Taskforce1Vessel1"], "group": ["Taskforce1Vessel2"],
+               "spoiler": ["Taskforce2Vessel1"], "red_air": ["Taskforce2Aircraft1"]}
+    return placed, members
+
+
+def rendered(mission, placed=None, members=None):
+    """render() -> {trigger name: [lines]}, after the pack checker's own
+    trigger-integrity pass has read the whole file."""
+    if placed is None:
+        placed, members = small_placement()
+    _name, text = bp.render(mission, placed, members)
+    parsed = coverage_check.blocks(text)
+    problems = coverage_check.trigger_integrity(HERE / "test.ini", text, parsed)
+    if problems:
+        raise AssertionError("\n".join(problems))
+    triggers = {}
+    for line in text.split("\n\n"):
+        rows = line.strip().splitlines()
+        if rows and rows[0].startswith("[Trigger"):
+            triggers[rows[1].partition("=")[2]] = rows[2:]
+    return triggers
 
 
 class _BrokenRedLine(importlib.abc.MetaPathFinder):
@@ -123,6 +191,56 @@ class CampaignFiles(unittest.TestCase):
                     COVERAGE_DOC=bp.ROOT / "docs" / "campaign-coverage.md")
         with self.assertRaisesRegex(SystemExit, "COVERAGE_DOC is Southern Watch's"):
             bp.set_campaign(spec)
+
+
+class VictoryAlsoTerms(unittest.TestCase):
+    """An `also` term compiles to the condition its kind names, or stops the
+    build. kind='destroyed' used to come out as an area test on the same
+    units - the spoiler inside the arrival box - and the mission it was
+    written for could not be won."""
+
+    def win(self, also, **victory):
+        v = dict(small_mission()["victory"], also=also, **victory)
+        return rendered(small_mission(victory=v))
+
+    def test_destroyed_term_is_a_kill(self):
+        lines = self.win([dict(kind="destroyed", units=["spoiler"])])["Objective met"]
+        self.assertIn("Condition_Condition2_Type=UnitDestroyed", lines)
+        self.assertIn("Condition_Condition2_Units=Taskforce2Vessel1", lines)
+        self.assertIn("Condition_Condition2_MinimumUnits=1", lines)
+        self.assertIn("ConditionsCompleted=<Condition1> AND <Condition2>", lines)
+        self.assertNotIn("Condition_Condition2_Type=UnitsInTheArea", lines)
+
+    def test_area_and_time_terms_read_as_before(self):
+        lines = self.win([dict(units=["escort"], min_units=1),
+                          dict(after_minutes=70)])["Objective met"]
+        self.assertIn("Condition_Condition2_Type=UnitsInTheArea", lines)
+        self.assertIn("Condition_Condition2_AreaRadiusNM=12", lines)
+        self.assertIn("Condition_Condition3_Type=Time", lines)
+        self.assertIn("Condition_Condition3_Time=4200", lines)
+        self.assertIn("ConditionsCompleted=<Condition1> AND <Condition2> AND <Condition3>",
+                      lines)
+
+    def test_unknown_kind_stops_the_build(self):
+        with self.assertRaisesRegex(SystemExit, "kind 'sunk'"):
+            self.win([dict(kind="sunk", units=["spoiler"])])
+
+    def test_unknown_key_stops_the_build(self):
+        with self.assertRaisesRegex(SystemExit, "'minimum'"):
+            self.win([dict(units=["spoiler"], minimum=1)])
+
+    def test_a_key_the_kind_does_not_read_stops_the_build(self):
+        with self.assertRaisesRegex(SystemExit, "'radius'"):
+            self.win([dict(kind="destroyed", units=["spoiler"], radius=5)])
+
+    def test_the_per_unit_chain_reads_the_same_terms(self):
+        stage = dict(kind="area", units="escort", at=(-4.45, 128.85), radius=3,
+                     per_unit=True)
+        triggers = self.win([dict(kind="destroyed", units=["spoiler"])], after=stage)
+        lines = triggers["Objective met by Taskforce1Vessel1"]
+        self.assertIn("Condition_Condition2_Type=UnitDestroyed", lines)
+        with self.assertRaisesRegex(SystemExit, "kind 'sunk'"):
+            self.win([dict(kind="sunk", units=["spoiler"])], after=stage)
 
 
 if __name__ == "__main__":

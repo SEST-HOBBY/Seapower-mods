@@ -141,6 +141,12 @@ MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 170, 12
   the clock. Put them abeam of the track, 15 NM either side, and author the
   box 20 NM ahead of the escort; each group is then 25 NM from it.
 - `kind="destroy"` with `stations=["red_sub"]`, `min_units=1`.
+- `also=` terms are ANDed onto the win condition, each one of three kinds:
+  `dict(units=[...], min_units=n)` - those units in the box too (`at=`,
+  `radius=` for a box of their own); `dict(after_minutes=n)` - not before
+  minute n; `dict(kind="destroyed", units=[...], min_units=n)` - and those
+  units are gone. A kind, or a key the term's kind does not read, stops the
+  build.
 - `after=` stages: `kind="classify"` (UnitClassified on those units) or
   `kind="area"` with `at=`/`at_unit=`, `radius=`, `min_units=`, and optionally
   `after_minutes=N` (the units must be inside the area when the clock reaches
