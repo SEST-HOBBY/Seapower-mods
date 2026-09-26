@@ -118,9 +118,71 @@ was, not only on this campaign's art:
 | Meridians east of 180 are labelled west; a parallel's label that would print over the meridians' row is left off | Red Line only |
 | The briefing map keeps a pennant's number (*Hull 419*, not *HULL*); Red Line landmarks (Kai Islands, Manipa Strait, Milford Sound) | no other map changed |
 
+## Playability review
+
+Each generated mission file was read against the builder's dry run and its
+own brief. Distances are true nautical miles from the positions the files
+write. Speeds are the files' own: `TelegraphVelocities` where a hull has one
+(every submarine here), and for a surface hull without one, 5, 10, 15 and 20
+knots at telegraph 1 to 4, capped at its `MaxForwardVelocity` - the game's
+default ladder is not in any file, so that is an assumption the test card
+checks. A Poseidon cruises at about 400 knots, a Triton at 310, a KJ-500 at
+about 265.
+
+| Mission | The main task | Distance, and time | Clock |
+|---|---|---|---|
+| RL01 | Classify ALPHA, then Fujian into her station box | 11.9 NM to the box edge: 48 min at telegraph 3, 22 at her 32 kn. ALPHA starts 12.4 NM astern of Fujian and 10.8 NM from Dipper 21 | 70 |
+| RL02 | Hai Yang 7 into the northern roads | 13.4 NM: 54 min at telegraph 3, 67 at the brief's twelve knots. GOLF starts 24.7 NM from her, closing at 10 kn | 95 |
+| RL03 | Three classifications, then the frigate into the north-west box | 13.0 NM after the stage: 26 min at 30 kn. The convoy is 64 NM from the frigate; the names come from the air | 75 |
+| RL04 | Liaoning and the replenishment ship in the box, Meridian Harmony sunk | The group 8.9 NM: 33-36 min. The coaster 15.3 NM to her denied box: 46 min at telegraph 4, 40 at her 23 kn, 61 at 15. The frigate starts 8.5 NM from her | 80 |
+| RL05 | Hull 419 through the barrier into the forward box | 9.7 NM, the box's near edge a mile past the racetrack line: 58 min at 10 kn, 97 at 6, 116 at 5 | 120 (was 80) |
+| RL06 | The decoy on station at T+30, then the tender and Hull 334 in the holding box | The decoy starts at its circle's centre. The tender 9.1 NM: 36 min at telegraph 3. Hull 334 3.7 NM: 22 min at 10 kn, 44 at 5. Earliest win about T+36 | 80 |
+
+**What changed, and why.**
+
+| Where | Was | Now |
+|---|---|---|
+| Every red racetrack (RL01, RL02, RL04, RL05's Poseidon and Triton, RL06's Kiwi 05, RL03's F-35s) and RL03's KJ-500 | Two to five waypoints over the same two ends. An aircraft that reaches its last waypoint circles there, so each ran out in 16-42 minutes: RL05's barrier became an orbit 19 NM north of the boat's crossing at about T+29, and Kiwi 05 was circling 39 NM from the rendezvous at about T+23, before the rendezvous could count | The two ends and `\|Loop`, stock's own form (Senkaku Run's Tu-95RT): every patrol is flown until the clock runs out. The builder's `loop=True` refuses a ship, an unrouted aircraft and civil traffic, with its own tests |
+| RL05's clock | 80 minutes: only ten knots reached the box in time, and a boat keeping off the plot at five timed out under the barrier | 120 minutes (timeout 0630) |
+| Hull 419, Hull 334, the tender; ALPHA and GOLF | `RadarsActive=True`: a mast raised at periscope depth radiates, and ESM classifies an emitter | `False`, as every submarine in the stock missions starts. The screen is the one that radiates |
+| RL04's GOLF | In the Restraint fatal. She spawns only if RL02 left her afloat, and whether the engine counts a unit that never spawned as destroyed is unproven: if it does, every player who sank her lost RL04 at its first second on every replay | Her own objective, *Boat*, scored 0/-40 and never fatal - the shape Southern Reach's *Last Ship South* gives its tanker "if she sailed". Restraint and its fatal are the Poseidon's |
+| RL02's escort | 12.5 NM astern of the tanker with the threat ahead: a tanker at cruise running at GOLF opens that gap faster than a frigate at 30 knots closes it, and the brief has the tanker "in company" | 3.5 NM on the tanker's port bow, between her and GOLF, 21 NM from the boat |
+| RL03's air tasking | The Y-9 and the KJ-500 were on sale and no row in RL03 or after could fly them | A Recon row and cockpit: a Y-9 bought in RL02 or RL03, or a KJ-500, flies it. The brief, forces and builder text say so |
+| RL01's brief | "A RAAF Poseidon and a Triton are over the group" | The Triton circles 44 NM south-west; the brief puts it there |
+| The roster note on the Sovremenny | "north only; the windows enforce it" | "on sale in the north only; one already owned still sails": `TaskForceModeRequireEntireTaskForce` takes every owned hull south |
+
+**Checked and sound.**
+
+- *Stage order.* RL01's arrival trigger is disabled until ALPHA is classified;
+  RL03's until all three hulls are; RL06's until the decoy is inside its circle
+  with 1,800 seconds run. RL04's win is one trigger, box AND kill. RL02 and RL05
+  have no stage.
+- *The unseen fatals* name `Taskforce1Submarine1` and nothing else, and the
+  classifying side is Taskforce2, which is only the patrol aircraft (RL05's
+  Poseidon and Triton, RL06's Kiwi 05). The tender, the screen and the ship's
+  flight cannot fail them.
+- *RL04's race.* The win needs Meridian Harmony destroyed, so she reaches her
+  denied box only if nobody stopped her, and a player who ignores her loses to
+  the box (about T+46), not the clock.
+- *Hold and Tight.* The game's own tooltip (`language_en/ui.ini` 1049): Hold
+  disables weapon use, Tight allows self-defence only, Free engages any
+  hostile. RL02's Tight frigate and RL03's Tight F-35s will not open fire
+  unprovoked; every brief that says "set them free and..." is about Free.
+- *Positions.* A Natural Earth extract of the north was cut again for this
+  review and every unit, route leg (sampled every quarter mile) and trigger
+  centre in RL01-RL04 is on water: the nearest are RL02's tanker leg 7.6 NM
+  off Biak, RL04's ferry 8.9 NM off Ambon, RL01's tuna boats 10 NM off Mayu.
+  RL05 and RL06 are proved by the build; RL06's cray boat is the nearest,
+  10.3 NM off.
+- *Rosters and rows.* `check_flights` passes, and every airframe on sale in a
+  window has a row in that window it can fly: the Z-9C everywhere, the Y-9 in
+  RL02 and RL03, the KJ-500 in RL03, the J-15 and J-15D in RL03.
+- *Art.* Every path `campaign.ini` and the page and briefing XML name exists;
+  `check_campaign_coverage.py` reports nothing dangling.
+
 ## Checked here
 
-- The build and the six gates on a clean rebuild: 55 builder tests; `build_pack.py`;
+- The build and the six gates on a clean rebuild: 58 builder tests; `build_pack.py`;
   `consolidate_packs.py`; `check_campaign_coverage.py` (106 mission files,
   1,520 placed references, 159/159 mods and packs, nothing dangling);
   `check_load_order.py`; `check_dependencies.py`; `preflight.py` (every unit,
@@ -147,14 +209,16 @@ Nothing in this campaign has been run in the game. In the order to test
 - **The `unseen` trigger.** It is stock's shape (Operation Polar Fury 1985
   Trigger5), never seen fire in a SEST mission. It measures *classification*,
   not detection: a boat detected and never classified passes.
-- **RL04's race.** Meridian Harmony runs 15 NM to the edge of her denied box at
-  telegraph 4. The file gives her no speed key; if she takes longer than the
+- **RL04's race.** Meridian Harmony runs 15.3 NM to the edge of her denied box
+  at telegraph 4: about 46 minutes if telegraph 4 is 20 knots. Her file has a
+  23-knot maximum and no telegraph ladder; if she takes longer than the
   80-minute clock the mission ends on the clock instead of the box.
 - **Chinese rank insignia.** The game ships insignia and emblems for the United
   States, Japan and Australia only, so every rank's image field is empty and no
   navy emblem is named. How the commander screen draws that is unknown.
 - **The briefing map's own-force label** takes the first hull in a cluster, so
-  RL04's reads "TYPE 054A P5 x5" for the frigate, Liaoning and the rest.
+  RL04's reads "TYPE 054A P5 x5" for the frigate, Liaoning and the rest, and
+  RL02's "TYPE 054A P5 x4" for the frigate, the tanker and the flight.
 - **RL06's card** rings the decoy station, the first area the mission scores,
   as Southern Lifeline's and Cook Strait's cards ring their windows.
 - **Names the game will show.** ALPHA is `ran_ssg_collins` Variant6; a full

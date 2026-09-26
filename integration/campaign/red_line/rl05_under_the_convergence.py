@@ -38,7 +38,7 @@ MISSION = dict(
         "answer it. She leaves."
     )),
     date=(2028, 12, 27), time=(4, 30), sea=5, clouds="Overcast", wind="W",
-    difficulty=3, minutes=80, centre=(-47.5, 140.5),
+    difficulty=3, minutes=120, centre=(-47.5, 140.5),
     blue_nation="China", red_nation="Australia",
     geography="coast",
     brief=(
@@ -71,8 +71,11 @@ MISSION = dict(
     ],
     # The forward box, authored rather than solved: a box solved on the
     # boat's course lands short of the racetrack, and the operation is the
-    # passage under it. Its near edge is the barrier line, 10 NM ahead of
-    # the boat - what 75% of the clock buys dived at a conservative 10 kn.
+    # passage under it. Its near edge is a mile past the barrier line, 9.7 NM
+    # ahead of the boat. The clock is two hours because the passage is meant
+    # to be made quietly: 116 minutes at five knots, 97 at six, 58 at ten.
+    # At eighty minutes only ten knots arrived in time, and a boat keeping
+    # herself off the plot at five ran out of clock under the barrier.
     victory=dict(kind="arrive", station="boat", at=(-47.42, 140.25), radius=10,
                  min_units=1, objective="Passage"),
     # Classified is lost: the boat on their plot ends it the same way the
@@ -89,7 +92,7 @@ MISSION = dict(
         "Any of them makes the group's screen boat a named contact before the carrier arrives, "
         "and the southern task starts from that."
     ),
-    timeout="0550, and HULL 419 is short of the box. She will be in it by nightfall, half "
+    timeout="0630, and HULL 419 is short of the box. She will be in it by nightfall, half "
             "a day behind the plan the carrier is sailing to.",
     stations={
         # The boat west of the barrier, heading 110 for the box beyond it.
@@ -105,19 +108,20 @@ MISSION = dict(
         "whale": S(-47.35, 140.05, "Biologic", heading=150),
     },
     units=[
+        # Radars off, as every submarine in the stock missions starts: a mast
+        # raised at periscope depth with the radar live is an emitter the
+        # Poseidon's ESM classifies.
         U("blue", "plan-submarines", "plan_ssn_type_093b", "boat", name="Hull 419",
-          depth="belowlayer", weapons="Hold"),
+          depth="belowlayer", weapons="Hold", radars="False"),
         # The barrier: a racetrack across the boat's track, flown until the
         # clock runs out.
         U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
           loadout="ASW", weapons="Hold",
-          route=[(-47.05, 140.15, 15000), (-47.65, 139.85, 15000),
-                 (-47.05, 140.15, 15000), (-47.65, 139.85, 15000),
-                 (-47.05, 140.15, 15000)],
+          route=[(-47.05, 140.15, 15000), (-47.65, 139.85, 15000)], loop=True,
           telegraph=3),
         # High to the north, working back and forth over the barrier.
         U("red", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "triton", weapons="Hold",
-          route=[(-47.30, 140.20, 50000), (-46.80, 140.90, 50000), (-47.30, 140.20, 50000)],
+          route=[(-47.30, 140.20, 50000), (-46.80, 140.90, 50000)], loop=True,
           telegraph=3),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_c", "longliner",
           name="Longliner Tasman Harvest", route=[(-47.90, 141.00, 0)], telegraph=2),

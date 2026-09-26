@@ -1237,6 +1237,23 @@ def place(mission, snapper):
             # (0-5; 3 is cruise, 2 is the most common), and SW04's whole
             # mission hangs on its passenger arriving before a deadline.
             keys["Telegraph"] = spec.get("telegraph", 3)
+        # A patrol flown until the clock runs out. An aircraft that reaches
+        # its last waypoint circles there, so a racetrack written as its two
+        # ends three or four times over is half an hour of a Poseidon's
+        # cruise: in Red Line's eighty-minute missions every barrier became
+        # an orbit off to one side of the water it was barring. `|Loop` after
+        # the last waypoint is stock's own form (Senkaku Run's Tu-95RT,
+        # 01A line 654) and is attested on aircraft only, so it is refused on
+        # anything else - and on civil traffic, which flies an airway.
+        if spec.get("loop"):
+            if kind not in ("air", "heli") or not spec.get("route"):
+                sys.exit(f"{mission['key']}: {spec['type']} has loop=True - a "
+                         "looped route is for an aircraft with a route= "
+                         "(stock loops aircraft patrols and nothing else)")
+            if spec["side"] == "neutral" and spec["type"].startswith("civ_"):
+                sys.exit(f"{mission['key']}: {spec['type']} is civil traffic and "
+                         "flies an airway; it does not loop")
+            keys["Waypoints"] += "|Loop"
 
         placed[family].append((tag, keys, spec.get("name"),
                                spec.get("no_neutral_penalty", False)))

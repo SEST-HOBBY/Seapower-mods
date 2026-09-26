@@ -24,6 +24,14 @@ The coaster is ran_ms_super_p, Role=Spy, at weapons Hold: a passive red
 unit may start in company, inside the escort role's standoff. The win
 requires her destroyed (an also-term of kind "destroyed"), and a denied race
 ends the mission if she reaches the edge of the screen first.
+
+GOLF is only there if Routes They Can See left her afloat, so she is kept
+out of every trigger that ends the mission: whether the engine counts a
+unit that never spawned as destroyed is unproven, and if it does, a fatal
+on her would lose this mission at its first second, every replay, for
+every player who sank her in November. She has her own objective, scored
+and never fatal - the shape Southern Reach's Last Ship South gives its
+tanker "if she sailed".
 """
 from campaign_data import U, F, S
 from .tables import HELO
@@ -78,6 +86,7 @@ MISSION = dict(
          "35,-35,Fail,Main"),
         ("Spoiler", "Stop Meridian Harmony before she clears the screen", "20,-40,Fail"),
         ("Restraint", "Fire on nothing but Meridian Harmony", "15,-40,Complete"),
+        ("Boat", "Leave the boat astern alone, if she is there", "0,-40,None"),
         ("Carrier", "Bring Liaoning through intact", "10,-30,Complete"),
         ("Traffic", "Harm no fishing boat or ferry", "0,-30,Complete"),
     ],
@@ -97,7 +106,7 @@ MISSION = dict(
                      "lane at full speed. The group cannot follow her and keep its withdrawal "
                      "order. Whatever she does tomorrow, she sailed from this group's company."
                  ))],
-    fatal=[F("Restraint", ["red_air", "red_sub"]), F("Carrier")],
+    fatal=[F("Restraint", ["red_air"]), F("Carrier")],
     neutral_objective="Traffic",
     win=(
         "LIAONING and the replenishment ship are north-west of the line, and MERIDIAN HARMONY "
@@ -105,9 +114,8 @@ MISSION = dict(
         "group's report will say what was done and why; the Poseidon has the same account."
     ),
     lose=(
-        "The withdrawal has become an incident: LIAONING is lost, or the Poseidon or the boat "
-        "astern is down. The ceasefire is hours old, and the group is in its first violation "
-        "report."
+        "The withdrawal has become an incident: LIAONING is lost, or the Poseidon is down. "
+        "The ceasefire is hours old, and the group is in its first violation report."
     ),
     timeout="0430, and the group is still south of the line. The withdrawal order had a "
             "time on it, and the coalition's aircraft has recorded the group missing it.",
@@ -145,12 +153,13 @@ MISSION = dict(
           route=[(-4.84, 128.92, 0), (-5.40, 129.25, 0)], telegraph=4),
         U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
           loadout="ASW", weapons="Hold",
-          route=[(-4.80, 128.40, 14000), (-4.00, 129.40, 14000), (-4.80, 128.40, 14000)],
+          route=[(-4.80, 128.40, 14000), (-4.00, 129.40, 14000)], loop=True,
           telegraph=3),
         # The boat from the Biak approaches, astern and listening - unless
         # Routes They Can See put her on the bottom.
         U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", name="Contact GOLF",
-          depth="belowlayer", weapons="Hold", spawn_if=("RL02GolfSunk", "IsFalse"),
+          depth="belowlayer", weapons="Hold", radars="False",
+          spawn_if=("RL02GolfSunk", "IsFalse"),
           route=[(-4.40, 128.30, "belowlayer")], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
           name="Banda fishing boat Lautaka", route=[(-4.60, 129.20, 0)], telegraph=2),
@@ -160,7 +169,8 @@ MISSION = dict(
     ],
     resolve={"Withdrawal": "victory", "Traffic": "neutral",
              "Spoiler": ("destroy", "spoiler", 1),
-             "Restraint": ("spare", "red_air", "red_sub"),
+             "Restraint": ("spare", "red_air"),
+             "Boat": ("spare", "red_sub"),
              "Carrier": ("protect", "group#1")},
     declares=[],
     # Repair only. What the twenty-third spent stays spent: there is no
