@@ -40,7 +40,7 @@ and hull variants they name, and the rounds their loadouts hang.
   3606774881    a unit a mission places          U.S. Navy 2027 Capabilities mod
   3737267013    a model a placed unit draws      United States Naval Aviation
 
-2. SEST INTEGRATION PACKS (8): this project's own patches, inside the consolidated download.
+2. SEST INTEGRATION PACKS (9): this project's own patches, inside the consolidated download.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
   (local)       a unit a mission places          SEST Allied Fixes
@@ -50,6 +50,7 @@ and hull variants they name, and the rounds their loadouts hang.
   (local)       a unit a mission places          SEST RAAF F-35A JATM
   (local)       a squadron a flight comes from   SEST RAAF Wedgetail
   (local)       a unit a mission places          SEST RAN Fleet
+  (local)       a unit a mission places          SEST Replenishment At Sea
 
 3. INSTALL-WIDE LIBRARIES AND UI (0): ship no file a mission names. Optional unless a mod in list 1 asks for them (Anchor Chain
 is asked for; the map, salvo and rescue tools are conveniences).

@@ -8,7 +8,7 @@ Everything here is built around interoperability: a mod is known by three names 
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
 `mods-source/` export and its load-order token), and the display name the Mod Manager
 shows — and `data/mod-catalog.json` is the table that joins them, including the
-`local_packs` registry of the 19 SEST source packs.
+`local_packs` registry of the 20 SEST source packs.
 
 ## Layout
 
@@ -32,7 +32,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 Linux / repo side:
 
 ```bash
-python3 tools/build_all.py --from-scratch   # rebuild all 19 packs + the consolidated dist;
+python3 tools/build_all.py --from-scratch   # rebuild all 20 packs + the consolidated dist;
                                             # a clean `git status` after = the regression gate
 python3 tools/preflight.py                  # resolve every reference the active mission makes
 python3 tools/preflight.py --all            # every deployed mission: fails on the editor crash, lists the rest
@@ -47,6 +47,9 @@ python3 tools/check_scenarios.py            # the carved NF3 scenarios' counts, 
 python3 tools/check_stale_phrases.py        # retired claims (the pre-reveal AIM-424) stay out of builders and packs
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
 python3 tools/check_system_names.py         # pack-added SystemName refs a rival mod's definition could win (report)
+python3 tools/check_weapon_employment.py    # every mount can fire what it carries (inherited upstream defects reported)
+python3 tools/check_pack_fidelity.py        # every SEST_Replenishment file is its upstream plus only the intended lines
+python3 tools/check_reloadable.py           # what still cannot be reloaded at sea, and why (report)
 python3 tools/check_campaign_coverage.py    # every enabled mod still reached by the campaigns (the pack union)
 python3 tools/survey_attack_altitudes.py    # anti-air altitude bands against the 5% out-of-band ceiling (after each export)
 python3 tools/make_intercept_ab_builds.py   # two deployables differing only in damage.ini, for the in-game intercept test
@@ -129,7 +132,7 @@ mission files, so it keeps telling the truth after a mod update the builder's
 roster has not caught up with. Positions are never invented: every sea and land
 station snaps to a point some already-loading mission put a unit of that kind
 on. What none of this proves — that the missions load, that helicopters
-recover, that replenishment transfers anything — is listed in
+recover, that a replenishment transfer moves what it is tuned to — is listed in
 `docs/campaigns/southern-watch/build-notes.md`.
 
 ## Keeping the gaming PC in line
@@ -167,3 +170,18 @@ systems files merge key-by-key the way the game itself merges them across mods).
    consolidator will fail the build on the first clash — that check exists because two
    unprefixed keys were silently fighting over display strings in-game.
 4. `python3 tools/build_all.py --from-scratch` then the four checkers must be green.
+
+## Rebuild after every export
+
+A pack forks the upstream file it patches, so it freezes everything else in
+that file at the export it was built from: an update to the mod underneath is
+masked until the pack is rebuilt. Most packs fork a handful of files. **SEST
+Replenishment At Sea forks about three hundred** — every modern hull with a
+magazine-less launcher across Red Storm Arsenal, Modern US Navy, U.S. Navy
+2027, the PLAN packs, Russian Navy 21, the Euromod navies and the submarine
+packs, to add one `ReloadableWithoutMagazine=True` line per launcher. So after
+every `export-mod-configs.ps1` run, rebuild (`build_all.py --from-scratch`),
+commit the output with the export, and redeploy; a stale pack puts last
+month's hull above this month's mod. `check_pack_fidelity.py` proves the
+rebuilt forks differ from their upstream only by the lines the pack inserts.
+`docs/packaging-and-recovery.md` has the details.

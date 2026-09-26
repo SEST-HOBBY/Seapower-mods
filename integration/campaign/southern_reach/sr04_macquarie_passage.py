@@ -3,7 +3,9 @@
 The island's resupply is a service window, not a mechanic: HMAS Supply and
 Coral Pioneer have to be inside five miles of the Buckles Bay anchorage when
 thirty minutes have run, and then come north together to the withdrawal
-line. A Russian boat is closing from the south-west, its tender is keeping
+line. Supply's own rig is a mechanic - she carries a working supply system,
+so an escort that comes alongside really does take missiles and torpedoes
+back - but ships are all it serves, and the window is what is scored. A Russian boat is closing from the south-west, its tender is keeping
 station to the west, and a Bear-F comes to look. Holding the window is what
 Broken Supply Line's rearm is paid with.
 """
@@ -35,7 +37,11 @@ MISSION = dict(
         "by boat and by helicopter while the weather allows it, which is "
         "about one day in three. This is the day.\\n\\n"
         "The service window is thirty minutes and it runs on the clock, not "
-        "on what crosses the beach. Both ships have to be inside the service "
+        "on what crosses the beach. SUPPLY's own rig is live while she waits: "
+        "an escort that comes inside half a mile of her at twelve knots or "
+        "less can take missiles and torpedoes back across - anything up to "
+        "an NSM, a Tomahawk or an SM-6 - for as long as her magazines "
+        "last. Both ships have to be inside the service "
         "box - five miles around the anchorage - when the window closes; "
         "what you do with them in between is your judgement. Hold it and "
         "your ships are rearmed before their next operation; miss it and "

@@ -278,7 +278,7 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `ran_ddg_hobart` | Vessel | `SEST_RAN_Fleet` | Variant1 Hobart, 2 Brisbane, 3 Sydney |
 | `ran_opv_arafura` | Vessel | `SEST_RAN_Fleet` | Variant1 Arafura, 2 Eyre, 3 Pilbara, 4 Gippsland; fits Containers/AntiShip/AntiAir |
 | `ran_ssg_collins` | Submarine | `SEST_RAN_Fleet` | Variant1 Collins, 2 Farncomb; `depth="periscope"` |
-| `ran_aor_supply` | Vessel | `SEST_RAN_Fleet` | Variant1 Supply, 2 Stalwart; `loadout` Default |
+| `ran_aor_supply` | Vessel | `SEST_RAN_Fleet` | Variant1 Supply, 2 Stalwart; `loadout` Default; a working supplier (0.5 nmi, 12 kn, nothing dearer than 8000 points: passes NSM, Tomahawk, SM-6, torpedoes) |
 | `usn_mh-60r` | Helicopter | `us-navy-2027` | range 520; fits ASW, ASWLongRange, ASWPatrol, Anti-shipLate; `U()` gives a blue Seahawk Squadron20 (816 Squadron RAN) unless told otherwise |
 | `usn_p8` | Aircraft | `p-8-poseidon` | range 2,700; fits ASW, AntiShip; Squadron3 RAAF, Squadron6 RNZAF |
 | `E7A_Wedgetail` | Aircraft | `e-7a-wedgetail` | range 2,700; no fits; Squadron1 |
@@ -288,7 +288,8 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `usn_ea-18g` | Aircraft | `SEST_Growler_NGJ_MALICE` | Squadron6; MurderHornetSEADHeavy, SEST_NGJLongRange |
 | `civ_a320`, `civ_a330` | Aircraft | `civil-aircraft-airbus` | airliners; blue for a charter, neutral for a service |
 | `civ_ms_freighter_d` | Vessel | `re-power-resupply` | Southern Endeavour's stand-in |
-| `civ_ms_freighter_a`, `civ_ms_freighter_b`, `civ_ms_amra`, `civ_ms_andizhan`, `civ_ms_irkutsk`, `civ_ms_slavyansk`, `civ_ms_sealift_pacific` (tanker) | Vessel | `re-power-resupply` | unarmed merchants |
+| `civ_ms_freighter_a`, `civ_ms_freighter_b`, `civ_ms_amra`, `civ_ms_andizhan`, `civ_ms_irkutsk`, `civ_ms_slavyansk` | Vessel | `re-power-resupply` | unarmed merchants |
+| `civ_ms_sealift_pacific` (tanker) | Vessel | `SEST_Replenishment` | unarmed; the game reads her from SEST Replenishment At Sea, which gives her a small supply system (0.5 nmi, nothing dearer than 2000 points) |
 | `civ_ms_mairangi_bay` | Vessel | `merchants-expanded` | Coral Pioneer |
 | `anl_ms_bulk` | Vessel | `auxilliary-merchant-pack` | bulker (unarmed) |
 | `ran_ms_roro_a`, `ran_ms_super_p`, `ran_ms_jeparit` | Vessel | `auxilliary-merchant-pack` | ARMED auxiliaries - always `weapons="Hold"` |
@@ -299,7 +300,7 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `wp_agi_okean` | Vessel | `_vanilla` | the collector *Nan Hai 27*; `weapons="Hold"` |
 | `wp_ms_mercur_decoy` | Vessel | `_vanilla` | a merchant radiating a warship's radars; `loadout` Default/Udaloy/... |
 | `plan_ap_qiongsha` | Vessel | `_vanilla` | replenishment stand-in |
-| `wp_vt_boris_chilikin` | Vessel | `re-power-resupply` | Russian oiler |
+| `wp_vt_boris_chilikin` | Vessel | `SEST_Replenishment` | Russian oiler; a working supplier that can rearm the red ships near her (nothing dearer than 13000 points) |
 | `plan_type_001` | Vessel | `liaoning-type-001` | Liaoning; deck 36 |
 | `plan_j-15`, `plan_j-15d` | Aircraft | `type-003-004-maneuverwarfare` | range 1,864; `loadout="AntiShip"` (156 NM) or `"AirToAir"` |
 | `plan_ka-31` | Helicopter | `modern-plan-systems` | AEW; `loadout="AEW"`, Hold |

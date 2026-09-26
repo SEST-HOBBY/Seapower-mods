@@ -219,7 +219,7 @@ not.
 | 1 | Eight advertised flight rows had no mission slots | Fixed, and the defect was three times the size. A row's `SlotCount` is now derived from the sections that exist, a row with no cockpit is not emitted, and the slot integer is derived too: it is the ordinal among rows sharing a LABEL, not the row's position. Eleven more rows were mis-slotted on that second rule alone. `Tanker` is gone — `ui.ini` localises exactly six air-tasking roles and that is not one of them. 28 rows of which 19 did not conform became 22 that all do, against a native invariant of 13/13 exact |
 | 2 | SW06's Triton is unavailable before SW06 | Fixed at the root, which is not the purchase schedule. **No native mission binds a trigger to a slot-tagged aircraft — 20 slot-tagged sections in the shipped campaign, zero trigger references.** This campaign had twelve, across six missions. Every one now uses `JoinTaskForce=True` with a `CampaignTag`, which is what `04 Sunda Strait` does for the two A-4Gs its objectives name. The Triton is granted, not bought; SW06's Recon slot goes to the Wedgetail already in the mission |
 | 3 | SW09's defeat predicate included an unadvertised third ship | Fixed, and SW07 had the same shape. One flat protect list with one objective id meant whatever sank, the same objective was reported failed: SW09 said Collins was lost when a freighter went down, SW07 blamed the tanker for a Rhino. Each fatal loss now names its own units and its own objective, and MV Coral Provider — who carries no objective and only exists when SUPPLY survived SW02 — is no longer a silent defeat condition |
-| 4 | SW09's briefing promised service mechanics the predicate does not model | Relabelled, because there is nothing to implement. The shipped corpus uses **eleven condition types and seventeen sub-keys**, and not one tests speed, depth, heading, station, fuel or time spent inside an area; `UnitsInTheArea` is "Unit enters area". The briefing now states the rule the mission enforces — thirty-five minutes on the clock, then both ships south together — and leaves the replenishment as fiction in the fiction's voice |
+| 4 | SW09's briefing promised service mechanics the predicate does not model | Relabelled, because there is nothing to implement. The shipped corpus uses **eleven condition types and seventeen sub-keys**, and not one tests speed, depth, heading, station, fuel or time spent inside an area; `UnitsInTheArea` is "Unit enters area". The briefing now states the rule the mission enforces — thirty-five minutes on the clock, then both ships south together — and the replenishment is not scored. Since 26 Sep 2026 it is not fiction either: STALWART carries a working supply system (SEST Replenishment At Sea's table, shipped by SEST RAN Fleet), so the briefing says what really crosses and the scored rule is unchanged |
 | 5 | Seven positive tasks default to `Complete` | Fixed, but not the way the finding argues. `Complete` on an optional positive task is *native*: `10 Vengeance at Luzon` carries `DestroySlava=30,-30,Complete,Hidden` under the objective text "OPTIONAL: Destroy the Slava", and 39 native objectives look like that. The real gap was `Action_ObjectivesCancel` — 55 of 142 native `Complete` objectives are cancelled on the defeat path so an unearned completion cannot be banked, and this campaign's seven had **no cancel reference anywhere**. Every terminal trigger now cancels every objective it does not itself resolve, and the victory trigger completes the survival objectives explicitly, both derived rather than authored |
 
 Two things the findings led to that they did not ask for:
@@ -1086,9 +1086,14 @@ runs it in order with the other seventeen packs and consolidates it into
   coverage is only provable once every mod has somewhere to be. The bible's
   own sequencing advice still stands for *playing*: SW01 → SW02 → SW06 is the
   slice to test first, and it is the slice to fix first if something is wrong.
-- **SW09 is written around a service window and a withdrawal, not
-  replenishment.** The bible flags `ran_aor_supply` as a Teide stand-in with
-  no demonstrated supply mechanism. The mission asks you to hold the service
+- **SW09 is scored on a service window and a withdrawal, not on
+  replenishment.** The bible flagged `ran_aor_supply` as a Teide stand-in with
+  no demonstrated supply mechanism. Since 26 Sep 2026 she has one (SEST
+  Replenishment At Sea's table, shipped by SEST RAN Fleet: half a mile, 12 kn,
+  nothing dearer than 8000 points), and the briefing says what crosses: COLLINS'
+  torpedoes, and an escort's missiles up to an NSM, a Tomahawk or an SM-6. No
+  condition type can count a transfer, so the scoring did not change: the
+  mission asks you to hold the service
   box for thirty-five minutes — `UnitsInTheArea AND Time` on ships that start
   inside the area, the shape of `03 Lifeline at the Edge of the World`
   Trigger8 — and then withdraw. Collins is placed surfaced; *staying*
@@ -1160,7 +1165,9 @@ anything in this repository:
   allocated ship; the mod's hulls are never sold, so the cost line is never
   read;
 - that the tankers can actually pass fuel to the receivers in the same mission;
-- that replenishment transfers anything, in SW09 or anywhere else;
+- that STALWART's or SUPPLY's supply system transfers what it is tuned to,
+  in SW09, SR04 or anywhere else: the system is real since 26 Sep 2026, but
+  no transfer from either hull has been seen in game;
 - that the `UnitsInTheArea` victory triggers fire where intended, that the
   protected-unit failure resolves before victory in the same update, or that
   the neutral-loss handler prevents a win;

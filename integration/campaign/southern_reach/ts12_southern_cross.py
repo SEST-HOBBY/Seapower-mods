@@ -125,7 +125,7 @@ MISSION = dict(
           name="MV Aotearoa Relief"),
         U("blue", "auxilliary-merchant-pack", "anl_ms_bulk", "convoy",
           name="MV Wairau Trader", weapons="Hold"),
-        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "convoy",
+        U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "convoy",
           name="MT Tasman Spirit"),
         # Under the ceasefire: neutral, complying, steaming north. The
         # neutral-loss rule ends the mission if the player fires on them.

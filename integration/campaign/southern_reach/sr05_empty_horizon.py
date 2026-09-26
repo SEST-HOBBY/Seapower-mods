@@ -112,7 +112,7 @@ MISSION = dict(
           alt=9000, weapons="Hold", loadout="AEW"),
         U("red", "modern-plan-systems", "plan_z-9c", "red_dip", name="Z-9 dip",
           alt=1500, loadout="ASWKiller"),
-        U("red", "re-power-resupply", "wp_vt_boris_chilikin", "oiler",
+        U("red", "SEST_Replenishment", "wp_vt_boris_chilikin", "oiler",
           name="Oiler Boris Chilikin", weapons="Hold",
           route=[(-57.40, 148.20, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_okean", "fleet", name="Factory trawler Nan Hai 21",

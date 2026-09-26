@@ -304,6 +304,9 @@ ROOT = Path(__file__).resolve().parents[2]
 MODS = ROOT / "mods-source"
 OUT = Path(__file__).resolve().parent / "SEST_Intercept_Model"
 
+sys.path.insert(0, str(ROOT / "integration"))
+from common.ras import LONG_RANGE_SAM, tag_ammunition  # noqa: E402
+
 TU95 = "3395022688"        # Tu-95 With AS-15, ships the truncated damage.ini
 REDSTORM = "3413868677"    # Red Storm Arsenal, ships the underscore SM-6 family
 STUNNER = "3558173926"     # David's Sling, ships idf_stunner.ini
@@ -501,7 +504,8 @@ def build_damage_ini():
 
 # ------------------------------------------- the rounds the table would break
 def lower_floor(donor, name, header):
-    """One area SAM's 70,000 ft floor down to SM6_FLOOR, and nothing else."""
+    """One area SAM's 70,000 ft floor down to SM6_FLOOR. The only other line
+    it adds is the SEST Replenishment metering tag, explained below."""
     sole_provider(f"ammunition/{name}.ini", donor)
     t = read(donor, f"ammunition/{name}.ini")
 
@@ -514,6 +518,18 @@ def lower_floor(donor, name, header):
                      "70000 ft floor is still wrong before overriding it")
     t = edit(t, r"^MinAttackAltitude=70000(\s)", rf"MinAttackAltitude={SM6_FLOOR}\1",
              1, name)
+    # Not a fix, and nothing to do with the clamp. SEST Replenishment At Sea
+    # meters every heavy ship-launched area SAM under this category (the rule
+    # is in integration/common/ras.py), and all four rounds this function
+    # writes qualify. This pack ships the file, so the tag has to ride in this
+    # copy; the RAS builder checks it is here, and fails if it ever stops
+    # being one the rule selects.
+    if re.search(r"^SupplyCategory\s*=", t, re.M):
+        sys.exit(f"{name}: upstream now declares a SupplyCategory - re-check it "
+                 "against the SEST Replenishment metering before adding a second one")
+    t = tag_ammunition(t, LONG_RANGE_SAM, name)
+    header += (f"\nSupplyCategory={LONG_RANGE_SAM} added for SEST Replenishment At Sea,\n"
+               "which meters this round; not a fix, see lower_floor in the builder.")
     write(f"ammunition/{name}.ini", t, header)
     return name
 

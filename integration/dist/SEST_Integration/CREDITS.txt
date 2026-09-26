@@ -5,19 +5,24 @@ textures and no audio - every one of those belongs to the Workshop
 mod it came from, which is why REQUIRED-MODS.txt lists them as
 required rather than suggested.
 
-91 of the unit files here are another author's file with
+481 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 91 below
+every file of its kind in the collection, and the 481 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
+  1143.5 Kuznetsov  (workshop 3438479626)
+      100%  vessels/ru_cv_kuznetsov.ini 
+      100%  vessels/ru_cv_varyag.ini 
+      100%  vessels/yns_cv_kuznetsov.ini 
+
   [DEPRECATED] Anzac Class Frigate  (workshop 3440622312)
-      100%  vessels/ran_ffh_anzac.ini 
+       99%  vessels/ran_ffh_anzac.ini 
 
   A-10A Thunderbolt II  (workshop 3414146266)
        95%  aircraft/usaf_a-10c_plus_squadrons.ini from usa_a-10a_squadrons.ini
@@ -52,6 +57,15 @@ file is unchanged.
        99%  aircraft/usn_p8.ini 
        97%  aircraft/usn_p8_squadrons.ini 
 
+  Charles De Gaulle & Modern French Navy Pack (WIP)  (workshop 3567256221)
+      100%  ammunition/fr__mdcn_sub.ini 
+
+  Chinese Navy (PLAN)  (workshop 3417801942)
+      100%  vessels/plan_ddg_luda_typ_051.ini 
+      100%  vessels/plan_ddg_luda_typ_051d.ini 
+      100%  vessels/plan_ddg_luda_typ_051dt.ini 
+      100%  vessels/plan_em_sovremenny.ini 
+
   Dassault Rafale  (workshop 3504168760)
        95%  aircraft/fr_rafale_b_l.ini 
        95%  aircraft/fr_rafale_c_l.ini 
@@ -64,20 +78,116 @@ file is unchanged.
        96%  ammunition/sest_agr-30.ini from dts_apkws-ii.ini
 
   Euromod - Cold War Spanish Navy  (workshop 3630495619)
-      100%  vessels/ran_aor_supply.ini from ae_ao_teide.ini
+       98%  vessels/ae_ao_teide.ini 
+      100%  vessels/ae_cvl_dedalo.ini 
+      100%  vessels/ae_cvl_principe_asturias.ini 
+      100%  vessels/ae_ffg_baleares_late.ini 
+      100%  vessels/ae_ffg_descubierta.ini 
+       98%  vessels/ae_ffg_descubierta_late.ini 
+      100%  vessels/ae_ptm_lazaga.ini 
+       98%  vessels/ran_aor_supply.ini from ae_ao_teide.ini
+       98%  vessels/usn_tao_kaiser.ini from ae_ao_teide.ini
 
   Euromod - Main Pack  (workshop 3629144864)
+      100%  ammunition/fr__mdcn.ini 
+      100%  ammunition/ger_IRIS-T_SLM.ini 
+      100%  ammunition/ger_IRIS-T_SLX.ini 
+      100%  ammunition/knm_3sm_tyrfing.ini 
+      100%  ammunition/knm_nsm_1a.ini 
+      100%  ammunition/mbda_aquila.ini 
+      100%  ammunition/mbda_aster_30.ini 
+      100%  ammunition/mbda_aster_30_blk1.ini 
+      100%  ammunition/mm_alfa.ini 
+      100%  ammunition/usn_ircps.ini 
        98%  ammunition/usn_pac3_mse.ini 
+      100%  ammunition/usn_rgm-109b1.ini 
+      100%  ammunition/usn_rgm-109c3.ini 
+      100%  ammunition/usn_rgm-109e.ini 
+      100%  ammunition/usn_rgm-109e5.ini 
+      100%  ammunition/usn_rgm-109e5a.ini 
+      100%  ammunition/usn_rim-156a.ini 
        91%  ammunition/usn_rim-161b.ini 
-       91%  ammunition/usn_rim-161c.ini 
-       90%  ammunition/usn_rim-161d.ini 
-       99%  ammunition/usn_rim-174a.ini 
-       99%  ammunition/usn_rim-174c.ini 
+       90%  ammunition/usn_rim-161c.ini 
+       98%  ammunition/usn_rim-174a.ini 
+       98%  ammunition/usn_rim-174b.ini 
+       98%  ammunition/usn_rim-174c.ini 
+      100%  ammunition/usn_rim-66p.ini 
+       92%  ammunition/usn_ugm-109b1.ini 
+       92%  ammunition/usn_ugm-109c3.ini 
+       92%  ammunition/usn_ugm-109e.ini 
+       92%  ammunition/usn_ugm-109e5.ini 
+       92%  ammunition/usn_ugm-109e5a.ini 
+       92%  ammunition/usn_ugm-109e5b.ini 
 
   Euromod - Modern British Navy  (workshop 3599752717)
+      100%  vessels/rn_ddg_type45.ini 
+      100%  vessels/rn_ddg_type45_22.ini 
+      100%  vessels/rn_ddg_type45_26.ini 
+      100%  vessels/rn_ff_type23.ini 
+      100%  vessels/rn_ff_type23_early.ini 
+      100%  vessels/rn_ff_type23_mlu.ini 
       100%  vessels/rn_lph_ocean.ini 
+      100%  vessels/rn_lph_ocean_asw.ini 
+      100%  vessels/rn_lph_ocean_asw_00.ini 
+      100%  vessels/rn_lph_ocean_asw_13.ini 
+      100%  vessels/rn_opv_river_batch2.ini 
+
+  Euromod - Modern Dutch navy  (workshop 3444379330)
+      100%  vessels/rnn_ddg_zeven.ini 
+      100%  vessels/rnn_ddg_zeven_mlu.ini 
+      100%  vessels/rnn_ffg_Van_Galen.ini 
+      100%  vessels/rnn_ffg_karel.ini 
+      100%  vessels/rnn_ffg_karel_eol.ini 
+      100%  vessels/rnn_ffg_karel_mlu.ini 
+      100%  vessels/rnn_usv_12m.ini 
+
+  Euromod - Modern German Navy  (workshop 3575847216)
+      100%  vessels/ger_ffg_f123_1994.ini 
+      100%  vessels/ger_ffg_f123_2007.ini 
+      100%  vessels/ger_ffg_f123_2012_MVP.ini 
+      100%  vessels/ger_ffg_f123_2015_essm.ini 
+      100%  vessels/ger_ffg_f123_2025_mlu.ini 
+      100%  vessels/ger_ffg_f123_2030_mlu_high.ini 
+      100%  vessels/ger_ffg_f124.ini 
+      100%  vessels/ger_ffg_f124_ASMD.ini 
+      100%  vessels/ger_ffg_f124_MLU.ini 
+      100%  vessels/ger_ffg_f125.ini 
+      100%  vessels/ger_ffg_f125_MLU.ini 
+      100%  vessels/ger_ffg_f127.ini 
+      100%  vessels/ger_ffg_f127_batch2.ini 
+      100%  vessels/ger_fsg_k130_batch1_early.ini 
+      100%  vessels/ger_fsg_k130_batch1_late.ini 
+      100%  vessels/ger_fsg_k130_batch2.ini 
+      100%  vessels/ger_fsg_k130_batch2_late.ini 
+
+  Euromod - Modern Italian Navy  (workshop 3488139470)
+      100%  vessels/ita_ddg_ddx.ini 
+      100%  vessels/ita_ddg_orizzonte.ini 
+      100%  vessels/ita_ddg_orizzonte_18.ini 
+      100%  vessels/ita_ffg_fremm.ini 
+      100%  vessels/ita_ffg_fremm_asw.ini 
+      100%  vessels/ita_ffg_ppa.ini 
+      100%  vessels/ita_ffg_ppa_evo.ini 
+
+  Euromod - Modern Japanese Maritime Self Defence Force  (workshop 3695809489)
+      100%  vessels/jmsdf_dd_asahi.ini 
+      100%  vessels/jmsdf_ddg_atago.ini 
+      100%  vessels/jmsdf_ddg_maya.ini 
+
+  Euromod - Modern Nordic Navy  (workshop 3642656500)
+      100%  vessels/hdms_iver_huitfeldt.ini 
+      100%  vessels/hdms_iver_huitfeldt_mlu.ini 
+      100%  vessels/knm_cor_skjold.ini 
+      100%  vessels/swe_fsg_visby_v5.ini 
+      100%  vessels/swe_fsg_visby_v6.ini 
 
   Euromod - Modern Spanish Navy  (workshop 3731208477)
+      100%  vessels/ae_ffg_alvaro_bazan.ini 
+      100%  vessels/ae_ffg_bonifaz.ini 
+      100%  vessels/ae_ffg_cristobal_colon.ini 
+      100%  vessels/ae_lhd_juan_carlos.ini 
+      100%  vessels/ae_lpd_galicia.ini 
+      100%  vessels/ae_opv_meteoro.ini 
       100%  vessels/ran_ddg_hobart.ini from ae_ffg_alvaro_bazan.ini
       100%  vessels/ran_lhd_canberra.ini from ae_lhd_juan_carlos.ini
       100%  vessels/ran_lsd_choules.ini from ae_lpd_galicia.ini
@@ -85,7 +195,22 @@ file is unchanged.
       100%  vessels/ran_ssg_collins.ini from ae_ssk_s80.ini
 
   Euromod-South Korea Navy  (workshop 3789208859)
+      100%  ammunition/ko_Antiship_2.ini 
+      100%  ammunition/ko_Antiship_2_ship.ini 
+      100%  ammunition/ko_Hycore.ini 
+      100%  ammunition/rok_hyunmoo_4_2.ini 
        97%  ammunition/rok_k-sam-II.ini 
+      100%  vessels/ko_ddg-991.ini 
+      100%  vessels/ko_ddg-995.ini 
+      100%  vessels/ko_ddh-971.ini 
+      100%  vessels/ko_ddh-975_kvls.ini 
+      100%  vessels/ko_ff-951.ini 
+      100%  vessels/ko_ffg-811.ini 
+      100%  vessels/ko_ffg-818.ini 
+      100%  vessels/ko_ffg-828.ini 
+      100%  vessels/ko_lph-6111.ini 
+      100%  vessels/ko_pcc-756.ini 
+      100%  vessels/ko_pkg-711.ini 
 
   F-15 EX Eagle II  (workshop 3636386513)
        92%  aircraft/usaf_f-15ex_SEII.ini 
@@ -122,6 +247,7 @@ file is unchanged.
        95%  aircraft/usn_ea-18g_squadrons.ini 
        97%  aircraft/usn_fa-18f_blk3_squadrons.ini 
        95%  aircraft/usn_fa-18f_squadrons.ini 
+       99%  ammunition/usn_agm-84d.ini 
 
   French Helicopter Package  (workshop 3567228449)
        98%  ammunition/usa_agm-114k.ini 
@@ -130,31 +256,315 @@ file is unchanged.
        99%  aircraft/usaf_mq-9_er.ini 
        99%  aircraft/usaf_mq-9a.ini 
 
+  Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)  (workshop 3461044389)
+      100%  vessels/usn_cvn_ford.ini 
+      100%  vessels/usn_cvn_ford_jsf.ini 
+      100%  vessels/usn_cvn_ford_legacy.ini 
+
+  Kirov-class (Pyotr Velikiy Upgrade)  (workshop 3406985435)
+      100%  ammunition/wp_sa-n-20.ini 
+      100%  vessels/wp_rkr_kirov_improved.ini 
+
+  Modern PLAN Systems  (workshop 3775128499)
+      100%  ammunition/plan_48n6e1.ini 
+      100%  ammunition/plan_cj-10.ini 
+      100%  ammunition/plan_hhq-9b.ini 
+      100%  ammunition/plan_yj-12a.ini 
+      100%  ammunition/plan_yj-18c.ini 
+      100%  ammunition/plan_yj-19.ini 
+      100%  ammunition/plan_yj-62.ini 
+      100%  vessels/plan_type_051b_1997.ini 
+      100%  vessels/plan_type_051b_2017.ini 
+      100%  vessels/plan_type_051c.ini 
+      100%  vessels/plan_type_052_2004.ini 
+      100%  vessels/plan_type_052_2011.ini 
+      100%  vessels/plan_type_052b_2004.ini 
+      100%  vessels/plan_type_052b_2019.ini 
+      100%  vessels/plan_type_052c.ini 
+      100%  vessels/plan_type_052d_p1.ini 
+      100%  vessels/plan_type_052d_p2_1.ini 
+      100%  vessels/plan_type_052d_p2_2.ini 
+      100%  vessels/plan_type_052d_p3.ini 
+      100%  vessels/plan_type_052d_p4.ini 
+      100%  vessels/plan_type_053h3_p1.ini 
+      100%  vessels/plan_type_053h3_p2.ini 
+      100%  vessels/plan_type_054_p1.ini 
+      100%  vessels/plan_type_054_p2.ini 
+      100%  vessels/plan_type_054a_p1.ini 
+      100%  vessels/plan_type_054a_p2.ini 
+      100%  vessels/plan_type_054a_p3.ini 
+      100%  vessels/plan_type_054a_p4.ini 
+      100%  vessels/plan_type_054a_p5.ini 
+      100%  vessels/plan_type_055_2020.ini 
+      100%  vessels/plan_type_055_2026.ini 
+      100%  vessels/plan_type_056a.ini 
+
+  Modern US Navy  (workshop 3390330875)
+      100%  vessels/usn_cg_ticonderoga_vls_1990.ini 
+      100%  vessels/usn_cg_ticonderoga_vls_1996.ini 
+      100%  vessels/usn_cg_ticonderoga_vls_2004.ini 
+      100%  vessels/usn_cg_ticonderoga_vls_2011.ini 
+      100%  vessels/usn_cg_ticonderoga_vls_2013.ini 
+      100%  vessels/usn_cg_ticonderoga_vls_2018.ini 
+      100%  vessels/usn_cg_ticonderoga_vls_2025.ini 
+      100%  vessels/usn_cvn_nimitz_2025.ini 
+      100%  vessels/usn_dd_spruance_eu_vls.ini 
+      100%  vessels/usn_dd_spruance_mk71.ini 
+      100%  vessels/usn_dd_spruance_ram.ini 
+      100%  vessels/usn_dd_spruance_vls.ini 
+      100%  vessels/usn_ddg_arleigh_concept.ini 
+      100%  vessels/usn_ddg_burke_f1_051.ini 
+      100%  vessels/usn_ddg_burke_f1_051_early.ini 
+      100%  vessels/usn_ddg_burke_f1_051_late.ini 
+      100%  vessels/usn_ddg_burke_f1_052.ini 
+      100%  vessels/usn_ddg_burke_f1_052_early.ini 
+      100%  vessels/usn_ddg_burke_f1_052_late.ini 
+      100%  vessels/usn_ddg_burke_f1_054.ini 
+      100%  vessels/usn_ddg_burke_f1_054_early.ini 
+      100%  vessels/usn_ddg_burke_f1_054_late.ini 
+      100%  vessels/usn_ddg_burke_f1_062_late.ini 
+      100%  vessels/usn_ddg_burke_f1_064_late.ini 
+      100%  vessels/usn_ddg_burke_f1_1996.ini 
+      100%  vessels/usn_ddg_burke_f1_2003.ini 
+      100%  vessels/usn_ddg_burke_f1_2007.ini 
+      100%  vessels/usn_ddg_burke_f1_2025.ini 
+      100%  vessels/usn_ddg_burke_f2_072_early.ini 
+      100%  vessels/usn_ddg_burke_f2_2003.ini 
+      100%  vessels/usn_ddg_burke_f2_2007.ini 
+      100%  vessels/usn_ddg_burke_f2_2025.ini 
+      100%  vessels/usn_ddg_burke_f2a_g1.ini 
+      100%  vessels/usn_ddg_burke_f2a_g1_2026.ini 
+      100%  vessels/usn_ddg_burke_f2a_g2.ini 
+      100%  vessels/usn_ddg_burke_f2a_g2_2022.ini 
+      100%  vessels/usn_ddg_burke_f2a_g3.ini 
+      100%  vessels/usn_ddg_burke_f2a_g3_2022.ini 
+      100%  vessels/usn_ddg_burke_f2a_g4.ini 
+      100%  vessels/usn_ddg_burke_f2a_g4_2022.ini 
+      100%  vessels/usn_ddg_burke_f2a_g5.ini 
+      100%  vessels/usn_ddg_burke_f2a_g6.ini 
+      100%  vessels/usn_ddg_burke_f3.ini 
+      100%  vessels/usn_ffg_oliver_hazard_perry_mlu.ini 
+      100%  vessels/usn_lcs_freedom_suw_early.ini 
+      100%  vessels/usn_lcs_freedom_suw_late.ini 
+      100%  vessels/usn_lhd_wasp.ini 
+      100%  vessels/usn_ssgn_virginia_blk5_vpm.ini 
+      100%  vessels/usn_ssn_los_angeles_flt2_90.ini 
+      100%  vessels/usn_ssn_los_angeles_flt3_2026.ini 
+      100%  vessels/usn_ssn_los_angeles_flt3_90.ini 
+      100%  vessels/usn_ssn_virginia_block1.ini 
+      100%  vessels/usn_ssn_virginia_block1_2015.ini 
+      100%  vessels/usn_ssn_virginia_block1_2026.ini 
+      100%  vessels/usn_ssn_virginia_block2.ini 
+      100%  vessels/usn_ssn_virginia_block2_2015.ini 
+      100%  vessels/usn_ssn_virginia_block2_2026.ini 
+      100%  vessels/usn_ssn_virginia_block3.ini 
+      100%  vessels/usn_ssn_virginia_block3_2026.ini 
+      100%  vessels/usn_ssn_virginia_block4.ini 
+      100%  vessels/usn_ssn_virginia_block5.ini 
+
   Mogami-class Frigate  (workshop 3456859157)
+      100%  ammunition/usn_rgm-84d.ini 
        98%  ammunition/usn_rim-162.ini 
       100%  vessels/js_ffg_mogami.ini 
 
   Nimitz Expanded  (workshop 3432592449)
        99%  vessels/usn_cvn_nimitz_variants.ini 
 
+  PLAN Type 071 Amphibious Transport Dock  (workshop 3774572038)
+      100%  vessels/plan_lpd_type_071.ini 
+
   RAAF F-35A Lighting II  (workshop 3514484654)
        93%  aircraft/raaf_f-35a.ini 
 
+  RE-power: the resupply mod  (workshop 3605013271)
+       96%  vessels/civ_ms_sealift_pacific.ini 
+       97%  vessels/ir_aor_delvar.ini 
+       95%  vessels/jmsdf_aoe_mashuu.ini from usn_aoe_sacramento.ini
+       94%  vessels/plan_aor_type901.ini from usn_aoe_sacramento.ini
+       96%  vessels/plan_aor_type903a.ini from wp_vt_boris_chilikin.ini
+       95%  vessels/rfn_aor_pashin.ini from wp_vt_kazbek.ini
+       95%  vessels/rn_aor_tide.ini from usn_aoe_sacramento.ini
+       97%  vessels/usn_ae_kilauea.ini 
+       97%  vessels/usn_ao_t2.ini 
+       96%  vessels/usn_aoe_sacramento.ini 
+       96%  vessels/usn_take_lewis_clark.ini from usn_ae_kilauea.ini
+       97%  vessels/usn_takr_algol.ini 
+       95%  vessels/usn_taoe_supply.ini from usn_aoe_sacramento.ini
+       98%  vessels/wp_pb_don.ini 
+       96%  vessels/wp_vt_boris_chilikin.ini 
+       95%  vessels/wp_vt_kazbek.ini 
+
   Red Storm Arsenal  (workshop 3413868677)
        96%  aircraft/usaf_b-52o.ini 
-       99%  ammunition/usn_rgm_184a.ini 
+      100%  ammunition/plan_cj_10a.ini 
+      100%  ammunition/plan_yj18.ini 
+      100%  ammunition/plan_yj18_sub.ini 
+      100%  ammunition/plan_yj_20.ini 
+      100%  ammunition/plan_yj_62.ini 
+      100%  ammunition/usn_cps.ini 
+      100%  ammunition/usn_rgm_109b3.ini 
+      100%  ammunition/usn_rgm_109c.ini 
+      100%  ammunition/usn_rgm_109c3.ini 
+      100%  ammunition/usn_rgm_109e.ini 
+      100%  ammunition/usn_rgm_109e5.ini 
+      100%  ammunition/usn_rgm_109e_tactical.ini 
+       98%  ammunition/usn_rgm_184a.ini 
+      100%  ammunition/usn_rim_156a.ini 
        97%  ammunition/usn_rim_174a.ini 
        97%  ammunition/usn_rim_174b.ini 
        97%  ammunition/usn_rim_174c.ini 
+      100%  ammunition/usn_ugm_109c3.ini 
+      100%  ammunition/usn_ugm_109e.ini 
+      100%  ammunition/usn_ugm_109e_tactical.ini 
+      100%  ammunition/wp_ss-n-14b.ini from wp_ss_n_14b.ini
+      100%  ammunition/wp_ss_n_14c.ini 
+      100%  vessels/ir_ffg_alvand_95.ini 
+      100%  vessels/ir_ptg_peykaap_2.ini 
+      100%  vessels/ir_ptg_peykaap_3.ini 
+      100%  vessels/ir_ptg_peykaap_3_export.ini 
+      100%  vessels/jmsdf_cv_shokaku_late.ini 
+      100%  vessels/jmsdf_cvn_yamato.ini 
+      100%  vessels/jmsdf_ddh_fuso.ini 
+      100%  vessels/plan_cg_type045_early.ini 
+      100%  vessels/plan_cg_type045_late.ini 
+      100%  vessels/plan_cg_type1164e.ini 
+      100%  vessels/plan_cv_fujian_rsa.ini 
+      100%  vessels/plan_cv_liaoning.ini 
+      100%  vessels/plan_ddg_type051m.ini 
+      100%  vessels/plan_ddg_type956e.ini 
+      100%  vessels/plan_ddg_type956e_early.ini 
+      100%  vessels/plan_ddg_type_052C_rsa.ini 
+      100%  vessels/plan_ddg_type_052D_rsa.ini 
+      100%  vessels/plan_ddg_type_055_late_rsa.ini 
+      100%  vessels/plan_ddg_type_055_rsa.ini 
+      100%  vessels/plan_ffg_krivak2.ini 
+      100%  vessels/plan_ffg_type_054_late_rsa.ini 
+      100%  vessels/plan_ffg_type_054_rsa.ini 
+      100%  vessels/plan_ffg_type_054a_late_rsa.ini 
+      100%  vessels/plan_ffg_type_054a_rsa.ini 
+      100%  vessels/plan_ffg_type_054b.ini 
+      100%  vessels/plan_lha_type1143e.ini 
+      100%  vessels/plan_ptg_type037IIE.ini 
+      100%  vessels/plan_sshn_type_100.ini 
+      100%  vessels/plan_ssn_type_093b_rsa.ini 
+      100%  vessels/plan_ssn_type_095_rsa.ini 
+      100%  vessels/ran_ddg_hobart_alt_early.ini 
+      100%  vessels/ran_ddg_hobart_alt_late.ini 
+      100%  vessels/ran_ffg_adelaide_ffg_upgrade.ini 
+      100%  vessels/usn_aem_james_madison.ini 
+      100%  vessels/usn_aem_nathan_hale.ini 
+      100%  vessels/usn_bb_iowa_vls_refit.ini 
+      100%  vessels/usn_bbg_trump.ini 
+      100%  vessels/usn_cg_kansas_late.ini 
+      100%  vessels/usn_cg_ticonderogaABL.ini 
+      100%  vessels/usn_cg_ticonderogaVLS.ini 
+      100%  vessels/usn_cg_ticonderogaVLS_early.ini 
+      100%  vessels/usn_cgn_alaska_vls.ini 
+      100%  vessels/usn_cgn_california_alt.ini 
+      100%  vessels/usn_cgn_virginia_vls_refit.ini 
+      100%  vessels/usn_cvn_gerald_r_ford.ini 
+      100%  vessels/usn_cvn_nimitz_alt.ini 
+      100%  vessels/usn_cvn_united_states.ini 
+      100%  vessels/usn_cvn_united_states_early.ini 
+      100%  vessels/usn_cvn_united_states_late.ini 
+      100%  vessels/usn_dd_spruance_1994.ini 
+      100%  vessels/usn_dd_spruance_2003.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight1_1991.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight1_1997.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight1_2003.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight1_2013.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight1_2016.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight1_2025.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2_1998.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2_2003.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2_2013.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2_2016.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2_2025.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2a_2000.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2a_2003.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2a_2013.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2a_2019.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2a_2026.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2a_2030.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight2a_HELIOS.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight3_2023.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight3_2027.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight3_2030.ini 
+      100%  vessels/usn_ddg_arleigh_burke_flight3_HELIOS.ini 
+      100%  vessels/usn_ddg_ddgx.ini 
+      100%  vessels/usn_ddg_oldendorf.ini 
+      100%  vessels/usn_ddg_richard_morris.ini 
+      100%  vessels/usn_ffg_constellation.ini 
+      100%  vessels/usn_ffg_oliver_hazard_perry_vls_refit.ini 
+      100%  vessels/usn_lha_tarawa_refit.ini 
+      100%  vessels/usn_lha_tripoli.ini 
+      100%  vessels/usn_phm_pegasus_rsa.ini 
+      100%  vessels/usn_phm_pegasus_rsa_early.ini 
+      100%  vessels/usn_ssn_los_angeles_flight2.ini 
+      100%  vessels/usn_ssn_los_angeles_flight3.ini 
+      100%  vessels/usn_ssn_seawolf_late_rsa.ini 
+      100%  vessels/wp_bdk_ivan_rogov_90.ini 
+      100%  vessels/wp_bpk_udaloy3.ini 
+      100%  vessels/wp_bpk_udaloy_98.ini 
+      100%  vessels/wp_em_sovremenny_98.ini 
+      100%  vessels/wp_em_sovremenny_vls.ini 
+      100%  vessels/wp_mrk_nanuchka3_rsa.ini 
+      100%  vessels/wp_rkr_admiral_nakhimov_refit.ini 
+      100%  vessels/wp_rkr_slava_16.ini 
+      100%  vessels/wp_rkr_slava_98.ini 
+      100%  vessels/wp_rkr_varyag_08.ini 
+      100%  vessels/wp_rkr_varyag_12.ini 
+      100%  vessels/wp_rkr_varyag_95.ini 
+      100%  vessels/wp_skr_admiral_gorshkov_alt_rsa.ini 
+      100%  vessels/wp_skr_admiral_gorshkov_m_rsa.ini 
+      100%  vessels/wp_skr_admiral_gorshkov_rsa.ini 
+      100%  vessels/wp_skr_admiral_grigorovich_rsa.ini 
+      100%  vessels/wp_tavkr_leningrad_98.ini 
+      100%  vessels/wp_tavkr_ulyanovsk.ini 
+
+  Royal Navy Type 23 'Duke Class' Frigate [OLD]  (workshop 3378409795)
+      100%  vessels/rn_type23.ini 
+      100%  vessels/rn_type23_refit.ini 
+
+  Russian Navy 21  (workshop 3597650470)
+      100%  ammunition/rfn_3m14.ini 
+      100%  ammunition/rfn_3m22.ini 
+      100%  ammunition/rfn_3m54.ini 
+      100%  ammunition/rfn_40n6.ini 
+      100%  ammunition/rfn_48n6m.ini 
+      100%  vessels/rfn_cvt_20380_3-6.ini 
+      100%  vessels/rfn_cvt_20380_531.ini 
+      100%  vessels/rfn_cvt_20380_550.ini 
+      100%  vessels/rfn_cvt_20380_7-12.ini 
+      100%  vessels/rfn_cvt_20385.ini 
+      100%  vessels/rfn_cvt_21631.ini 
+      100%  vessels/rfn_ddg_21956_early.ini 
+      100%  vessels/rfn_ddg_21956_late.ini 
+      100%  vessels/rfn_ddg_21956m.ini 
+      100%  vessels/rfn_ffg_11356.ini 
+      100%  vessels/rfn_ffg_22350_1-4.ini 
+      100%  vessels/rfn_ffg_22350_5-8.ini 
+
+  Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)  (workshop 3468260539)
+      100%  vessels/wp_ssbn_redoctober.ini 
+      100%  vessels/wp_ssbn_typhoon.ini 
+      100%  vessels/wp_ssgn_oscar2.ini 
+      100%  vessels/wp_ssgn_yasen.ini 
 
   Shenyang J-16A (歼-16A 潜龙)  (workshop 3506979898)
        99%  ammunition/plaaf_akf-98a.ini 
 
   Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)  (workshop 3395022688)
        92%  ammunition/damage.ini 
+       99%  ammunition/wp_ss-n-12.ini 
+      100%  ammunition/wp_ss-n-19.ini 
 
   Type 003 Aircraft Carrier - PLANS Fujian CV-18  (workshop 3663564190)
        99%  ammunition/plaaf_kd-88.ini 
+
+  Type 003 Fujian / Type 004 CVN Aircraft Carriers  (workshop 3486502935)
+      100%  vessels/plan_cv_fujian.ini 
+      100%  vessels/plan_cvn_004.ini 
 
   U.S. Navy 2027 Capabilities mod  (workshop 3606774881)
        94%  aircraft/usn_ea-18g.ini 
@@ -162,6 +572,20 @@ file is unchanged.
        97%  aircraft/usn_fa-18f.ini 
        97%  aircraft/usn_fa-18f_blk3.ini 
        99%  ammunition/usn_aim-9x.ini 
+      100%  ammunition/usn_rgm-109j.ini 
+       96%  ammunition/usn_ugm-109j.ini 
+      100%  vessels/usn_cg_ticonderoga_vls_2027.ini 
+      100%  vessels/usn_ddg_arleigh_flt1_051_2027.ini 
+      100%  vessels/usn_ddg_arleigh_flt1_052_2027.ini 
+      100%  vessels/usn_ddg_arleigh_flt1_054_2027.ini 
+      100%  vessels/usn_ddg_arleigh_flt1_064_2027.ini 
+      100%  vessels/usn_ddg_arleigh_flt1_2027.ini 
+      100%  vessels/usn_ddg_arleigh_flt2_072_2027.ini 
+      100%  vessels/usn_ddg_arleigh_flt2_075_2027.ini 
+      100%  vessels/usn_ddg_arleigh_flt2_2027.ini 
+      100%  vessels/usn_ssn_los_angeles_flt3_2027.ini 
+      100%  vessels/usn_ssn_virginia_2027.ini 
+      100%  vessels/usn_ssn_virginia_seal_2027.ini 
 
   United States Naval Aviation  (workshop 3737267013)
        97%  aircraft/usn_ea-18g_2020.ini 
@@ -170,6 +594,10 @@ file is unchanged.
        98%  ammunition/usn_aim-9l.ini 
        98%  ammunition/usn_gbu-12d.ini 
        97%  ammunition/usn_gbu-39.ini 
+
+  Virginia-, Seawolf-, and Ohio-class Submarines  (workshop 3433957933)
+      100%  vessels/usn_ssn_virginia.ini 
+      100%  vessels/usn_ssn_virginia_seal.ini 
 
 If you are the author of one of those and would rather this pack
 did not carry a copy of your file, say so and it will be

@@ -6,8 +6,8 @@ The campaign is 26 missions built from 375 placed units. Every mod in the canoni
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 132 |
-| `variant` | supplies the hull variant the placed unit uses | 3 |
+| `unit` | places the unit; this mod wins its file | 125 |
+| `variant` | supplies the hull variant the placed unit uses | 11 |
 | `squadron` | supplies the squadron the placed airframe flies from | 7 |
 | `store` | supplies a round the placed unit's loadout hangs | 8 |
 | `asset` | supplies a model folder the placed unit's file draws from | 2 |
@@ -42,7 +42,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `buildings-targets-missions` | Buildings and Targets for Missions | `unit` | Liberty | Steel Highway |
 | `cdg-modern-french-navy` | Charles De Gaulle & Modern French Navy Pack (WIP) | `unit` | fr_cvn_charles-de-gaulle | The Relief Ship |
 | `ch-53e-standalone` | CH-53E Standalone v0.1.0 | `unit` | usmc_ch53_standalone | Rig Seventeen |
-| `chinese-navy-plan` | Chinese Navy (PLAN) | `unit` | plan_em_sovremenny | Weapons Free |
+| `chinese-navy-plan` | Chinese Navy (PLAN) | `unit` | plan_ss_kilo | The First Ship Through |
 | `civil-aircraft-airbus` | Civil Aircraft Mod (Airbus Family) | `unit` | civ_a320 | White Water |
 | `custom-loadout-editor` | Custom Loadout Editor | `store` | wp_mig-23a / wp_ua | Before the Lifeline |
 | `davids-sling` | David's Sling | `unit` | idf_dsws | Range Week |
@@ -51,16 +51,16 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `e-7a-wedgetail` | [DEPRECATED] E-7A Wedgetail | `unit` | E7A_Wedgetail | Steel Highway |
 | `eurofighter-typhoon` | Eurofighter Typhoon | `unit` | raf_ef2000_fgr4_late | Western Passage |
 | `euromod-anchorchain-expansion` | Euromod - Anchorchain Expansion Pack | `library` | well-deck and effects framework: 182 effect files, six `systems/` files and 66 ammunition overwrites that the EuroMod hulls in WESTERN PASSAGE and THE RELIEF SHIP resolve through | - |
-| `euromod-british` | Euromod - Modern British Navy | `unit` | rn_ddg_type45 | Western Passage |
-| `euromod-dutch` | Euromod - Modern Dutch navy | `unit` | rnn_ffg_karel_mlu | Western Passage |
-| `euromod-german` | Euromod - Modern German Navy | `unit` | ger_ffg_f124 | Western Passage |
-| `euromod-italian-modern` | Euromod - Modern Italian Navy | `unit` | ita_ffg_fremm_asw | Western Passage |
-| `euromod-jmsdf` | Euromod - Modern Japanese Maritime Self Defence Force | `unit` | jmsdf_ddg_maya | Common Sea |
-| `euromod-main` | Euromod - Main Pack | `store` | ran_ffh_anzac / knm_nsm_1a | White Water |
-| `euromod-nordic` | Euromod - Modern Nordic Navy | `unit` | hdms_iver_huitfeldt | Western Passage |
-| `euromod-south-korea` | Euromod-South Korea Navy | `unit` | ko_ddg-991 | Blind Horizon |
+| `euromod-british` | Euromod - Modern British Navy | `unit` | rn_merlin_hm2 | Western Passage |
+| `euromod-dutch` | Euromod - Modern Dutch navy | `variant` | rnn_ffg_karel_mlu | Western Passage |
+| `euromod-german` | Euromod - Modern German Navy | `unit` | ger_sea_lynx_mk88 | Western Passage |
+| `euromod-italian-modern` | Euromod - Modern Italian Navy | `variant` | ita_ffg_fremm_asw | Western Passage |
+| `euromod-jmsdf` | Euromod - Modern Japanese Maritime Self Defence Force | `unit` | jmsdf_sh-60k | Common Sea |
+| `euromod-main` | Euromod - Main Pack | `store` | ran_ffh_anzac / usn_rim-162h | White Water |
+| `euromod-nordic` | Euromod - Modern Nordic Navy | `variant` | hdms_iver_huitfeldt | Western Passage |
+| `euromod-south-korea` | Euromod-South Korea Navy | `unit` | rok_mk99_a | Borrowed Shield |
 | `euromod-spanish-cold-war` | Euromod - Cold War Spanish Navy | `unit` | spa_ab212 | The Relief Ship |
-| `euromod-spanish-modern` | Euromod - Modern Spanish Navy | `unit` | ae_lhd_juan_carlos | The Relief Ship |
+| `euromod-spanish-modern` | Euromod - Modern Spanish Navy | `unit` | spa_av-8b_plus | The Relief Ship |
 | `f-117` | F-117 Nighthawk | `unit` | usaf_f-117 | Before the Lifeline |
 | `f-15e-strike-eagle` | F-15E StrikeEagle | `unit` | usaf_f-15e_SE | The Long Perimeter |
 | `f-15ex` | F-15 EX Eagle II | `store` | usaf_f-15ex_SEII / dts_anaaq-13 | Long Reach |
@@ -70,7 +70,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `f-35c-alt-loadouts` | F-35C Lightning II Alt. Loadouts | `store` | usaf_f-22_s6 / usn_aim-120d-3 | Long Way Home |
 | `flanker-family` | Sukhoi Flanker Family (苏霍伊侧卫家族) | `unit` | wp_su-30m | Southern Lifeline |
 | `flight-deck-ops` | Flight Deck Ops | `unit` | usn_cvn_nimitz | Flight Deck Day |
-| `ford-cvn` | Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies) | `unit` | usn_cvn_ford | Fujian's Shadow |
+| `ford-cvn` | Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies) | `variant` | usn_cvn_ford | Fujian's Shadow |
 | `french-army-vehicles` | French Army Vehicles | `unit` | fr_apc_vab_top | The Relief Ship |
 | `french-helicopter-package` | French Helicopter Package | `unit` | nl_nh90 | Western Passage |
 | `fujian-cv-18` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 | `unit` | plan_cv_type_003 | Fujian's Shadow |
@@ -93,8 +93,8 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `kc-10a` | McDonnell Douglas KC-10A Extender - Strategic Tanker | `unit` | usaf_kc-10a_extender | Flight Deck Day |
 | `kc-135` | KC-135 STRATOTANKER | `unit` | usaf_stratotanker | Long Way Home |
 | `kc-46a` | KC-46A Pegasus - Strategic Tanker | `unit` | usaf_kc-46a_boom | Steel Highway |
-| `kirov-pyotr-velikiy` | Kirov-class (Pyotr Velikiy Upgrade) | `unit` | wp_rkr_kirov_improved | Return Passage |
-| `kuznetsov-1143-5` | 1143.5 Kuznetsov | `unit` | ru_cv_kuznetsov | Return Passage |
+| `kirov-pyotr-velikiy` | Kirov-class (Pyotr Velikiy Upgrade) | `variant` | wp_rkr_kirov_improved | Return Passage |
+| `kuznetsov-1143-5` | 1143.5 Kuznetsov | `unit` | wp_su-33 | Return Passage |
 | `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_type_001 | Fujian's Shadow |
 | `merchants-expanded` | Merchants Expanded | `unit` | civ_ms_mairangi_bay | White Water |
 | `mh-60r-2154545636` | MH-60R Seahawk | `asset` | usn_cvn_nimitz_2000s_adou / assets/models/aircraft/usn_sh-60b | Flight Deck Day |
@@ -108,7 +108,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `modern-plan-systems` | Modern PLAN Systems | `unit` | plaaf_kj-500 | The Quiet Passenger |
 | `modern-russian-airbase` | Modern Russian Airbase (Large) | `unit` | wp_airbase_modern | The Open Door |
 | `modern-us-airbase` | Modern US Airbase | `unit` | airbase_us | Steel Highway |
-| `modern-us-navy` | Modern US Navy | `unit` | usn_cvn_nimitz_2025 | The Open Door |
+| `modern-us-navy` | Modern US Navy | `unit` | usn_ddg_burke_f3_125 | Fujian's Shadow |
 | `mogami-frigate` | Mogami-class Frigate | `variant` | js_ffg_mogami | Common Sea |
 | `more-su-24m-variants` | MORE SU-24M VARIANTS | `unit` | wp_su-24mp | Western Passage |
 | `mq-9-reaper` | General Atomics MQ-9 Reaper | `squadron` | usaf_mq-9a | Flight Deck Day |
@@ -123,11 +123,11 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `raaf-f-35a` | RAAF F-35A Lighting II | `squadron` | raaf_f-35a | Weapons Free |
 | `rafale` | Dassault Rafale | `unit` | fr_rafale_m | The Relief Ship |
 | `re-power-resupply` | RE-power: the resupply mod | `unit` | civ_ms_freighter_a | White Water |
-| `red-storm-arsenal` | Red Storm Arsenal | `unit` | ir_ptg_peykaap_3 | White Water |
+| `red-storm-arsenal` | Red Storm Arsenal | `unit` | _narco_narcosub_adv | The Quiet Passenger |
 | `rn-lynx-has3-old` | Royal Navy Westland Lynx HAS.3 Kitbash [OLD] | `unit` | rn_wildcat | Western Passage |
-| `rn-type23-old` | Royal Navy Type 23 'Duke Class' Frigate [OLD] | `unit` | rn_type23_refit | Western Passage |
+| `rn-type23-old` | Royal Navy Type 23 'Duke Class' Frigate [OLD] | `variant` | rn_type23_refit | Western Passage |
 | `rq-180-white-bat` | RQ-180 White Bat Airframe | `unit` | usaf_rq-180 | Long Reach |
-| `russian-navy-21` | Russian Navy 21 | `unit` | rfn_ffg_11356 | Return Passage |
+| `russian-navy-21` | Russian Navy 21 | `variant` | rfn_ffg_11356 | Return Passage |
 | `russian-submarines` | Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes) | `unit` | wp_ssn_akula | Southern Lifeline |
 | `s-70b-2-seahawk` | [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles | `unit` | S-70B-2_Seahawk | The First Ship Through |
 | `sa-21-s400` | SA-21/S-400 SAM | `unit` | wp_sam_site_sa-21 | The Open Door |
@@ -150,7 +150,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `tu-95k-22` | Tu-95K-22 Bear G MOD | `unit` | wp_tu-95_bearg | Before the Lifeline |
 | `tu-95ms-x-101` | Tu-95MS (X-101) | `unit` | wp_tu-95ms_x101 | Return Passage |
 | `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `unit` | plan_j-15d | Fujian's Shadow |
-| `type-071-lpd` | PLAN Type 071 Amphibious Transport Dock | `unit` | plan_lpd_type_071 | Weapons Free |
+| `type-071-lpd` | PLAN Type 071 Amphibious Transport Dock | `variant` | plan_lpd_type_071 | Weapons Free |
 | `type-12-ssm` | Type 12 SSM-ER Anti-Ship Missile System | `unit` | jp_12ssmht | Range Week |
 | `u-2` | U-2 "Dragon Lady" | `unit` | usaf_u-2_1960 | Before the Lifeline |
 | `us-naval-aviation` | United States Naval Aviation | `unit` | usmc_kc-130j | The Open Door |
@@ -179,4 +179,5 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `SEST_RAN_Fleet` | SEST RAN Fleet | `unit` | ran_ffh_anzac | White Water |
 | `SEST_Rafale_F5` | SEST Rafale F5 | `unit` | fr_rafale_m_l | Long Reach |
 | `SEST_Raptor_Squadrons` | SEST Raptor Squadrons | `squadron` | usaf_f-22_s6 | Long Way Home |
+| `SEST_Replenishment` | SEST Replenishment At Sea | `unit` | ir_ptg_peykaap_3 | White Water |
 | `SEST_TacMap_Colors` | SEST TacMap Colors | `library` | recolours the tactical map (`ui/`); no unit, no round | - |

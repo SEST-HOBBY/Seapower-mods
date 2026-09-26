@@ -42,11 +42,11 @@ and hull variants they name, and the rounds their loadouts hang.
   3630495619    a unit a mission places          Euromod - Cold War Spanish Navy
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
   3599752717    a unit a mission places          Euromod - Modern British Navy
-  3444379330    a unit a mission places          Euromod - Modern Dutch navy
+  3444379330    a hull variant in use            Euromod - Modern Dutch navy
   3575847216    a unit a mission places          Euromod - Modern German Navy
-  3488139470    a unit a mission places          Euromod - Modern Italian Navy
+  3488139470    a hull variant in use            Euromod - Modern Italian Navy
   3695809489    a unit a mission places          Euromod - Modern Japanese Maritime Self Defence Force
-  3642656500    a unit a mission places          Euromod - Modern Nordic Navy
+  3642656500    a hull variant in use            Euromod - Modern Nordic Navy
   3731208477    a unit a mission places          Euromod - Modern Spanish Navy
   3789208859    a unit a mission places          Euromod-South Korea Navy
   3448845252    a unit a mission places          F-117 Nighthawk
@@ -61,7 +61,7 @@ and hull variants they name, and the rounds their loadouts hang.
   3736147136    a unit a mission places          French Army Vehicles
   3567228449    a unit a mission places          French Helicopter Package
   3503670861    a squadron a flight comes from   General Atomics MQ-9 Reaper
-  3461044389    a unit a mission places          Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
+  3461044389    a hull variant in use            Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3508275114    a unit a mission places          Ground Upgrade: SPAA
   3384079999    a unit a mission places          Humpback Whale
   3717610332    a unit a mission places          IL-78 TANKER
@@ -73,7 +73,7 @@ and hull variants they name, and the rounds their loadouts hang.
   3776340577    a unit a mission places          Ka-27RLD
   3722749887    a unit a mission places          KC-135 STRATOTANKER
   3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
-  3406985435    a unit a mission places          Kirov-class (Pyotr Velikiy Upgrade)
+  3406985435    a hull variant in use            Kirov-class (Pyotr Velikiy Upgrade)
   3559495372    a unit a mission places          Lockheed AC-130 Pack
   3740293822    a unit a mission places          McDonnell Douglas KC-10A Extender - Strategic Tanker
   3430106996    a unit a mission places          Merchants Expanded
@@ -99,14 +99,14 @@ and hull variants they name, and the rounds their loadouts hang.
   3729579342    a unit a mission places          PLA Sukhoi Su-27UBK
   3594891803    a unit a mission places          PLAN Submarines
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
-  3774572038    a unit a mission places          PLAN Type 071 Amphibious Transport Dock
+  3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
   3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
   3605013271    a unit a mission places          RE-power: the resupply mod
   3413868677    a unit a mission places          Red Storm Arsenal
-  3378409795    a unit a mission places          Royal Navy Type 23 'Duke Class' Frigate [OLD]
+  3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
   3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
   3796113927    a unit a mission places          RQ-180 White Bat Airframe
-  3597650470    a unit a mission places          Russian Navy 21
+  3597650470    a hull variant in use            Russian Navy 21
   3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
   3392434750    a unit a mission places          SA-21/S-400 SAM
   3673250557    a unit a mission places          SAAB AEW&C PACK
@@ -146,7 +146,7 @@ and hull variants they name, and the rounds their loadouts hang.
                                                    asked for by: B-2 Spirit, MV-22B Osprey Tiltrotor / JGSDF V-22B
   (workshop)    manual install                   SeaLifter - required by B-2 Spirit; not in this collection
 
-2. SEST INTEGRATION PACKS (17): this project's own patches, inside the consolidated download.
+2. SEST INTEGRATION PACKS (18): this project's own patches, inside the consolidated download.
 
   (local)       a unit a mission places          SEST A-10C+
   (local)       a unit a mission places          SEST ADF Persistent ISR
@@ -165,6 +165,7 @@ and hull variants they name, and the rounds their loadouts hang.
   (local)       a unit a mission places          SEST Rafale F5
   (local)       a unit a mission places          SEST RAN Fleet
   (local)       a squadron a flight comes from   SEST Raptor Squadrons
+  (local)       a unit a mission places          SEST Replenishment At Sea
 
 3. INSTALL-WIDE LIBRARIES AND UI (5): ship no file a mission names. Optional unless a mod in list 1 asks for them (Anchor Chain
 is asked for; the map, salvo and rescue tools are conveniences).

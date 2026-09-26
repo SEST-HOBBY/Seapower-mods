@@ -93,6 +93,38 @@ implementation if upstream ever regresses.
 |---|---|---|
 | `SEST_Zumwalt_CPS` | 2026-09-20 | Modern US Navy fixed both defects it existed for. The duplicate `[WeaponSystem1]` is gone (the CPS hull now declares 1–23, each once, with a real `[WeaponSystem2]`), and the dangling `SensorSystem12` reference is gone with it. The LMVLS now carries no `AssociatedSensors` at all, which is correct here rather than a new bug: `usn_ircps` is `GuidanceType=0, MidCourseCorrection=0`, so it draws no guidance channel — the rule in `tools/check_weapon_employment.py` applies to MCC 1 and 3, not 0. |
 
+## The frozen hulls, and rebuilding after an export
+
+The same cost applies to every live override, and one pack pays it on a
+scale no other does. **SEST Replenishment At Sea ships about three hundred
+whole-file overrides of other authors' hulls** (317 on the 24 Sep 2026
+export): 307 modern hulls from 23 mods, each with one
+`ReloadableWithoutMagazine=True` line per launcher that holds a round and has
+no magazine, because without it that launcher can never be reloaded by
+anything; and ten auxiliaries given a tuned supply block, nine of them hulls
+RE-power also ships, forked from vanilla. It overrides 81 ammunition files
+too. Each of those files is the upstream copy as it stood at the last export,
+so until the pack is rebuilt:
+
+- an upstream fix or rebalance to one of those hulls - Red Storm Arsenal,
+  Modern US Navy, U.S. Navy 2027, the PLAN packs, Russian Navy 21, the
+  Euromod navies - does not reach the game, because tier 0 still serves the
+  old copy;
+- a hull an author deletes keeps loading from the pack;
+- a system or round an author renames leaves the fork naming the old one
+  (`check_dependencies.py` reports it).
+
+**The rule: rebuild after every export.** Run `export-mod-configs.ps1`,
+then `python3 tools/build_all.py --from-scratch`, commit the regenerated
+packs with the export, and redeploy. `tools/check_pack_fidelity.py` then
+proves every SEST_Replenishment file is its current upstream plus only the
+lines the pack inserts, and `tools/check_weapon_employment.py` reports the
+defects a fork inherited from its upstream (a CIWS wired to a magazine the
+upstream file never wrote, say) without failing on them, while still failing
+anything the pack itself introduced. Deploying a pack built from an older
+export than the mods installed beside it is the one way to make this pack
+do harm.
+
 ## Removing them
 
 ```powershell

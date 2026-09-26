@@ -120,6 +120,7 @@ writer both ways where the card says so.
 | 4.7 | TS12 Southern Cross | Leave the withdrawing frigate alone, fight the spoiler | The ceasefire objective holds; the neutral-loss rule ends the mission if the player fires on the withdrawing group | The player's weapons-free escorts engage the neutral frigate on their own |
 | 4.8 | SR10 Southern Line | Everything red starts Tight | Nothing fires until the player does | The group opens fire unprovoked = the Tight state is not honoured on spawn |
 | 4.9 | SR06 Broken Supply Line | Fly it once with empty magazines (2.3) | Winnable by keeping the coaster moving and the Seahawk over the boat | If it is not, the rearm consequence is too hard and the bible's §4 needs a softer rule |
+| 4.10 | SR04 Macquarie Passage | Fire an escort's NSM or ESSM, then bring her inside half a mile of Supply at 12 kn or less during the window | The round comes back from Supply | Nothing crosses: report it with Southern Watch 6E, same system |
 
 ## 5 — the numbers to bring back
 
