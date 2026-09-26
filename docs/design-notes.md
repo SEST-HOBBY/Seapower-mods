@@ -116,12 +116,13 @@ refused, and the summary line states how many restrained units the reference hol
 a zero is never mistaken for a pass. A check that cannot fail is not a check.
 
 **A mission that never restrained anyone is information, not a failure.** Four of
-the 76 missions at the top of `integration/missions/` carry `Hold` or `Tight`, and
-the import hook runs the pass on every mission it brings in. As first written, a
-history with no restraint in it exited 1, so nearly every import would have printed
-"could not settle". It now says that nothing was compared and why - the mission
-never set a restrained posture, or every committed copy was flattened - and exits 0.
-Only the second case needs a person, and the message names it.
+the 54 missions at the top of `integration/missions/` (backup copies aside) carry
+`Hold` or `Tight`, and the import hook runs the pass on every mission it brings in.
+As first written, a history with no restraint in it exited 1, so nearly every import
+would have printed "could not settle". It now says that nothing was compared and
+why - the mission never set a restrained posture, or every committed copy was
+flattened - and exits 0. Only the second case needs a person, and the message names
+it.
 
 **Compare by unit identity, not by section name.** Inserting one vessel renumbers
 every section after it: `[Taskforce1Vessel5]` was a Flight IIA Burke before this save
