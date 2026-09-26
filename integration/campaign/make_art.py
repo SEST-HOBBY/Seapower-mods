@@ -289,8 +289,16 @@ def _split_columns(lines, per):
     return best[1], best[2]
 
 
+def _optional(event, **params):
+    """The labels an event chooses to set, as keyword arguments: event key ->
+    parameter name. A key the event leaves out keeps the page's own default,
+    so Southern Watch's and Southern Reach's pages are drawn as they were."""
+    return {param: event[key] for key, param in params.items() if event.get(key)}
+
+
 def render_all(camp_dir, missions, events, slug, title, subtitle,
-               prefix="southern_watch", label="SOUTHERN WATCH"):
+               prefix="southern_watch", label="SOUTHERN WATCH",
+               tiles=("newspaper", "message")):
     """Write every card and dispatch into the campaign's art folder.
 
     Returns {mission key: relative image path} and {event file: asset key} so
@@ -298,6 +306,15 @@ def render_all(camp_dir, missions, events, slug, title, subtitle,
     written, rather than at names somebody typed twice. The backdrop is
     written to the native filename, so campaign.ini's BackgroundImage is the
     one path here that is spelled rather than returned.
+
+    `tiles` is the map tiles the campaign's events stand on (the builder's
+    event_tiles()). Only those are written: a campaign with no press page
+    that shipped bkg_tile_newspaper.png would carry a file nothing points at.
+
+    The pages were drawn from the coalition's side of the table. An event may
+    relabel them: `note_label` on a signal or a log (default ANALYST NOTE /
+    MASTER'S NOTE), `log_heading` and `master_label` on a log (DECK LOG
+    EXTRACT / MASTER), `marking` on an intelligence summary.
     """
     art = Path(camp_dir) / "art"
     art.mkdir(parents=True, exist_ok=True)
@@ -320,8 +337,9 @@ def render_all(camp_dir, missions, events, slug, title, subtitle,
         card(m["ini"], art / name, m["num"], m["key"], dated, m["place"], "", label=label)
         sheets[m["key"]] = f"campaigns/{slug}/art/{name}"
     backdrop(art / "00_campaign_background.png", marks, title, subtitle)
-    tile(art / "bkg_tile_newspaper.png", "newspaper")
-    tile(art / "bkg_tile_message.png", "message")
+    for kind in ("newspaper", "message"):
+        if kind in tiles:
+            tile(art / f"bkg_tile_{kind}.png", kind)
     for e in events:
         key = f"{e['file']}_image"
         form = e.get("form", "press")
@@ -331,14 +349,17 @@ def render_all(camp_dir, missions, events, slug, title, subtitle,
                      e["headline"], e["sub"], e["body"], label=label)
         elif form == "signal":
             signal(art / f"{key}.png", e["header"], e["body"],
-                   strap=e.get("strap"), note=e.get("note"), label=label)
+                   strap=e.get("strap"), note=e.get("note"), label=label,
+                   **_optional(e, note_label="note_label"))
         elif form == "log":
             log(art / f"{key}.png", e["ship"], e["master"], e["date"],
-                e["entries"], note=e.get("note"), label=label)
+                e["entries"], note=e.get("note"), label=label,
+                **_optional(e, log_heading="heading", master_label="master_label",
+                            note_label="note_label"))
         elif form == "intsum":
             intsum(art / f"{key}.png", e["org"], e["ref"], e["date"],
                    e["subject"], e["body"], note=e.get("note"), label=label,
-                   **({"marking": e["marking"]} if e.get("marking") else {}))
+                   **_optional(e, marking="marking"))
         else:
             raise SystemExit(f"{e['file']}: unknown story form {form!r}")
         assets[e["file"]] = key
@@ -566,13 +587,15 @@ def _set_block(d, lines, x, y, fnt, width, lh, fill):
     return y
 
 
-def signal(out_png, header, body, strap=None, note=None, label="SOUTHERN WATCH"):
+def signal(out_png, header, body, strap=None, note=None, label="SOUTHERN WATCH",
+           note_label="ANALYST NOTE"):
     """A cable, a memo or an intercept: monospace on teleprinter stock.
 
     `header` is a list of (label, value) rows for the ruled box at the top -
     FROM/TO/DTG/PREC/SUBJ for a cable, or a single INTERCEPT line. `strap` is
     the red word across the top when the page is an intercept. `note` is the
-    analyst's box at the foot, or None.
+    box at the foot, or None, headed `note_label`: an analyst's on a page the
+    coalition read, the sender's own on a signal the other side kept.
     """
     img = Image.new("RGB", (W, H), SIG_STOCK)
     d = ImageDraw.Draw(img)
@@ -611,18 +634,21 @@ def signal(out_png, header, body, strap=None, note=None, label="SOUTHERN WATCH")
     if note:
         ny = H - 100 - note_height
         d.rectangle([M-16, ny-16, W-M+16, H-80], outline=SIG_RULE, width=3)
-        d.text((M, ny), "ANALYST NOTE", font=mono(22, True), fill=SIG_STRAP)
+        d.text((M, ny), note_label, font=mono(22, True), fill=SIG_STRAP)
         _set_block(d, [note], M, ny+34, mono(21), W-2*M, 30, SIG_INK)
     d.text((W-M, H-64), label, font=mono(20), fill=SIG_RULE, anchor="ra")
     img.save(out_png)
     print(f"wrote {Path(out_png).name}  {W}x{H}  signal, {len(body)} lines at {size}pt")
 
 
-def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH"):
+def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH",
+        heading="DECK LOG EXTRACT", master_label="MASTER", note_label="MASTER'S NOTE"):
     """A deck log extract: a ruled page with a time column and a master's note.
 
     `entries` is a list of (time, text); a time of '' continues the previous
-    entry. `note` is the master's remark, boxed at the foot. The heading sits
+    entry. `note` is the master's remark, boxed at the foot. A warship's log
+    is headed and signed differently - `heading`, `master_label` (the line
+    that names `master`) and `note_label` say how. The heading sits
     clear of the red margin rule, which runs only beside the entries; each
     entry's wrapped lines hang under its first, ruled at the baseline; and
     the type steps down until every entry fits - an entry is never dropped.
@@ -633,12 +659,12 @@ def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH")
     muted = (100, 96, 90)
 
     y = 70
-    d.text((M, y), "DECK LOG EXTRACT", font=mono(24, True), fill=muted)
+    d.text((M, y), heading, font=mono(24, True), fill=muted)
     d.text((W-M, y), date.upper(), font=mono(24), fill=muted, anchor="ra")
     y += 44
     d.text((M, y), ship.upper(), font=serif(46, True), fill=LOG_INK)
     y += 60
-    d.text((M, y), f"MASTER: {master.upper()}", font=mono(22), fill=muted)
+    d.text((M, y), f"{master_label}: {master.upper()}", font=mono(22), fill=muted)
     y += 44
     d.line([(M, y), (W-M, y)], fill=LOG_INK, width=3)
     y += 14
@@ -679,7 +705,7 @@ def log(out_png, ship, master, date, entries, note=None, label="SOUTHERN WATCH")
 
     if note:
         d.rectangle([M, box_top, W-M, H-98], outline=LOG_RULE, width=2)
-        d.text((M + 28, box_top + 22), "MASTER'S NOTE", font=mono(18, True), fill=LOG_MARGIN)
+        d.text((M + 28, box_top + 22), note_label, font=mono(18, True), fill=LOG_MARGIN)
         # a trailing "  - L.S." is a signature: set it right, never wrapped
         for i, line in enumerate(note_lines):
             d.text((M+28, box_top+56+i*38), line, font=serif(26), fill=LOG_INK)

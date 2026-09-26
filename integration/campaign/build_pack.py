@@ -3448,6 +3448,14 @@ def window_of(mission):
     return mission.get("window", {})
 
 
+def event_tile(event):
+    """The map tile a story event stands on: the newspaper for a press page,
+    the message tile for every other form. campaign.ini points at it and
+    make_art writes only the tiles something stands on; both ask here, so
+    the two cannot disagree about which file is referenced."""
+    return "newspaper" if event.get("form", "press") == "press" else "message"
+
+
 def campaign_ini(missions, events, placements):
     """The campaign spine, in native Task Force Mode.
 
@@ -3456,7 +3464,7 @@ def campaign_ini(missions, events, placements):
     numbers are a first pass and the bible's acceptance run is what would
     settle them.
     """
-    EVENT_FORMS = {e["file"]: e.get("form", "press") for e in events}
+    EVENT_TILES = {e["file"]: event_tile(e) for e in events}
     L = ["[File]", f"Base=campaigns/{SLUG}/campaign.ini", "",
          "[Campaign]", "Type=Linear", f"Difficulty={CAMPAIGN_DIFFICULTY}",
          f"Length={sum(1 for m in missions if m['group'] == 'core')}",
@@ -3657,8 +3665,7 @@ def campaign_ini(missions, events, placements):
             # bkg_tile_message.png or bkg_tile_newspaper.png and reaches the
             # page's own images through the XAML's Assets[] binding. The
             # first builds put the 1920x1080 story image here.
-            form = EVENT_FORMS.get(entry["file"], "press")
-            tile = "newspaper" if form == "press" else "message"
+            tile = EVENT_TILES.get(entry["file"], "newspaper")
             local += [("AssetsPath", f"campaigns/{SLUG}/art"),
                       ("FilePath", f"campaigns/{SLUG}/art/{entry['file']}.xml"),
                       ("TileImagePath",
@@ -4362,7 +4369,8 @@ def main():
                                else OUT / "missions" / browse_folder(m)) / f"{name}.ini")
                      for name, _t, m in built]
             make_art.render_all(camp, cards, spec["EVENTS"], SLUG, TITLE, SUBTITLE,
-                                prefix=ART_PREFIX, label=SERIES_LABEL)
+                                prefix=ART_PREFIX, label=SERIES_LABEL,
+                                tiles={event_tile(e) for e in spec["EVENTS"]})
 
         # The briefing map beside every mission - the right-hand pane of the
         # briefing screen, drawn from <mission>_briefing/BriefingMap_en.xml
