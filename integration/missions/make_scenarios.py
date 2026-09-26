@@ -67,9 +67,10 @@ SCENARIOS = [
     {
         "file": "SEST NF3 - Bomber Stream",
         "title": "Bomber Stream",
-        "desc": ("Nine H-6K Zhanshen inbound in three packages. Two F-22 flights and their "
-                 "tankers are all that stands between them and the coast. Pure air intercept - "
-                 "no surface units, no land clutter. Carved from NORTHERN FRONT III."),
+        "desc": ("Nine H-6K Zhanshen in three packages and six Tu-95MS are inbound. Two F-22 "
+                 "flights and their tankers are all that stands between them and the coast. "
+                 "Pure air intercept - no surface units, no land clutter. Carved from NORTHERN "
+                 "FRONT III."),
         "tf1": ["F-22 Group 1", "KC Group 1", "F-22 Group 2", "KC Group 2"],
         "tf2": ["H-6K Zhanshen", "Tu-95 Bomber Flight"],
         "neutrals": False,
@@ -92,9 +93,9 @@ SCENARIOS = [
     {
         "file": "SEST NF3 - SEAD over the Shelf",
         "title": "SEAD over the Shelf",
-        "desc": ("An S-400 site and a supporting air-defence battery cover the shelf. A strike "
-                 "package with dedicated escort has to open the corridor. The SEST MALICE and "
-                 "AGM-88 fits are what this one is for. Carved from NORTHERN FRONT III."),
+        "desc": ("An S-400 site and a supporting air-defence battery cover the shelf. Four "
+                 "B-52s with ARRW and cruise missiles, escorted by four F-15EX carrying sixteen "
+                 "AIM-260 each, have to open the corridor. Carved from NORTHERN FRONT III."),
         "tf1": ["Strike Group 2", "F-15 Escort"],
         "tf2": ["S-400 SAM Site", "Air Defence Site"],
         "neutrals": False,
@@ -444,11 +445,11 @@ def build(source_text, scenario):
 def write_readme(source_name, built):
     """Regenerate scenarios/README.md from what was just built.
 
-    The file has always CLAIMED to be generated. It was not - it was
-    hand-maintained, and it drifted: it called Carrier Duel "the smallest of
-    the set" long after that stopped being true. Unit counts come from the
-    build itself now, so the table cannot describe scenarios that do not
-    exist or miss ones that do. `built` is [(scenario, total, injected)],
+    The file always CLAIMED to be generated, but it was hand-maintained, so
+    it could drift: its "the smallest of the set" sat on Carrier Duel, and
+    nothing would have moved it when a smaller scenario was added. Unit
+    counts come from the build itself now, so the table cannot describe
+    scenarios that do not exist or miss ones that do. `built` is [(scenario, total, injected)],
     where `injected` lists only the extras actually written.
     """
     smallest = min(built, key=lambda b: b[1])
