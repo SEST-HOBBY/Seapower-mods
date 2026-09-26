@@ -2,9 +2,10 @@
 
 An allocated air operation, blank generation: a Triton and a Poseidon,
 nothing of the owned force. Classify the protection group's command element
-among a fishing fleet, a Russian oiler and a cruise ship, and bring the
-Triton home. Nothing scores "undetected"; the frigate's missiles are the
-reason the Triton cannot simply overfly, and the briefing says so.
+among a fishing fleet, the group's replenishment ship and a cruise ship,
+and bring the Triton home. Nothing scores "undetected"; the frigate's
+missiles are the reason the Triton cannot simply overfly, and the briefing
+says so.
 """
 from campaign_data import U, F, S
 
@@ -39,8 +40,9 @@ MISSION = dict(
             "detections and merchant reports give a broad search area, but identities and "
             "present positions remain uncertain.\\n\\nSENTRY 22 is high and BLUEFIN 32 is under "
             "the cloud, both out of Hobart, both with the fuel for one look. The fleet is three"
-            " factory trawlers, a Russian oiler that visits it, and the expedition ship POLAR "
-            "HORIZON coming home to the west of them.\\n\\nClassify the frigate and the corvette,"
+            " factory trawlers, a Type 903A replenishment ship working between them and the "
+            "group, and the expedition ship POLAR HORIZON coming home to the west of them."
+            "\\n\\nClassify the frigate and the corvette,"
             " then recover the Triton to the point north. The frigate's missiles reach forty "
             "miles and nobody has fired at an aircraft yet; you are not going to be the first. "
             "Nothing here is a target. Bring back the identification report."
@@ -49,7 +51,7 @@ MISSION = dict(
            "Neutral: three factory trawlers, an expedition cruise ship, a "
            "whale. Opposing: a Type 054A frigate and a Type 056A corvette "
            "with a Ka-31 and a Z-9 up, the research trawler Nan Hai 27, and "
-           "a Russian oiler.",
+           "a Type 903A replenishment ship.",
     objectives=[
         ("Picture", "Classify the frigate and the corvette", "25,-25,Fail"),
         ("Recover", "Then bring Sentry 22 to the recovery point north",
@@ -94,7 +96,7 @@ MISSION = dict(
         "agi": S(-57.28, 148.45, "Research trawler", heading=90),
         "red_helo": S(-57.15, 148.60, "Ka-31 orbit", heading=90, alt=9000),
         "red_dip": S(-57.35, 148.10, "Z-9 dip", heading=270, alt=1500),
-        "oiler": S(-57.60, 147.50, "Russian oiler", heading=60),
+        "oiler": S(-57.60, 147.50, "Replenishment ship", heading=60),
         "fleet": S(-57.00, 149.20, "Factory trawlers", heading=270),
         "cruise": S(-56.60, 147.00, "Polar Horizon", heading=20),
         "whale": S(-56.80, 148.20, "Biologic", heading=90),
@@ -119,8 +121,12 @@ MISSION = dict(
           alt=9000, weapons="Hold", loadout="AEW"),
         U("red", "modern-plan-systems", "plan_z-9c", "red_dip", name="Z-9 dip",
           alt=1500, loadout="ASWKiller"),
-        U("red", "SEST_Replenishment", "wp_vt_boris_chilikin", "oiler",
-          name="Oiler Boris Chilikin", weapons="Hold",
+        # The group's own replenishment ship, a Type 903A (SEST Replenishment's
+        # real class, Variant1: 889 Taihu). It used to be RE-power's Soviet-
+        # named Boris Chilikin, a Russian oiler, sailing with a Chinese group.
+        # Unarmed; weapons Hold is for the Picture objective's sake.
+        U("red", "SEST_Replenishment", "plan_aor_type903a", "oiler", variant="Variant1",
+          name="Replenishment ship Taihu", weapons="Hold",
           route=[(-57.40, 148.20, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_okean", "fleet", name="Factory trawler Nan Hai 21",
           route=[(-56.80, 148.60, 0)], telegraph=2),

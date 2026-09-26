@@ -64,8 +64,8 @@ MISSION = dict(
                  after=dict(kind="classify", units=["network#1", "network#4", "network#5"],
                             min_units=3,
                             intel=(
-                                "SURFACE PICTURE: LIAONING, the Qiongsha-class support ship "
-                                "and NAN HAI 27 are classified. Their identities have been "
+                                "SURFACE PICTURE: LIAONING, the Type 901 replenishment ship "
+                                "HULUNHU and NAN HAI 27 are classified. Their identities have been "
                                 "passed to Sydney and Wellington for the next patrol's "
                                 "correlation. Hold the shadowing line; reacquire any contact "
                                 "that leaves sensor coverage."
@@ -73,7 +73,7 @@ MISSION = dict(
     fatal=[],
     neutral_objective="Neutrals",
     win=(
-        "The escort has reached the shadowing line with the carrier, support ship and collector"
+        "The escort has reached the shadowing line with the carrier, replenishment ship and collector"
         " classified. Sydney and Wellington have an identified formation to monitor as the "
         "force moves into the Tasman."
     ),
@@ -119,8 +119,12 @@ MISSION = dict(
         U("red", "modern-plan-systems", "plan_type_056a", "network",
           name="Type 056A corvette", weapons="Tight",
           route=[(-39.60, 152.90, 0)], telegraph=3),
-        U("red", "_vanilla", "plan_ap_qiongsha", "network",
-          name="Qiongsha-class supply ship", weapons="Hold",
+        # The carrier's own fast combat support ship: a Type 901 (SEST
+        # Replenishment, Variant1: 965 Hulunhu), the class built to keep
+        # station with the carriers. It was a vanilla Qiongsha, a troop
+        # transport standing in. network#4, which the Network objective reads.
+        U("red", "SEST_Replenishment", "plan_aor_type901", "network", variant="Variant1",
+          name="Replenishment ship Hulunhu", weapons="Hold",
           route=[(-39.60, 152.90, 0)], telegraph=3),
         U("red", "_vanilla", "wp_agi_okean", "network", name="Research trawler Nan Hai 27",
           weapons="Hold", route=[(-39.60, 152.90, 0)], telegraph=3),

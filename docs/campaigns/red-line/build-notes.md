@@ -180,6 +180,21 @@ about 265.
 - *Art.* Every path `campaign.ini` and the page and briefing XML name exists;
   `check_campaign_coverage.py` reports nothing dangling.
 
+## Liaoning's replenishment ship
+
+The Order to Withdraw sailed a vanilla `plan_ap_qiongsha` as "the
+replenishment ship" - a troop transport standing in. SEST Replenishment now
+ships the real class, so she is the Type 901 **Hulunhu**
+(`plan_aor_type901` Variant1), the same hull Southern Reach names in Turning
+North and Southern Cross, and the brief names her. She is a working supplier:
+the screen could take stores from her at sea, at thirteen knots or less, at
+the cost of time the withdrawal does not have. The window's "no rearming" is
+the service between operations, which stays shut, and the next operation the
+screen sails, The Quiet Side, rearms anyway; nothing downstream reads a
+magazine this could fill. The victory's transit is authored at twelve knots
+and did not change, and the builder's arrival solve passes with her in the
+group.
+
 ## Checked here
 
 - The build and the six gates on a clean rebuild: 58 builder tests; `build_pack.py`;

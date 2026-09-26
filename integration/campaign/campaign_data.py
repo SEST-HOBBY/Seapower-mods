@@ -2345,8 +2345,8 @@ MISSIONS.append(dict(
             "Use the AEW picture to cue the Typhoons and ship sensors; keep both tankers "
             "covered while confirming the approaching tracks."
         )),
-    forces="Two tankers. Type 45, F124, Karel Doorman, Iver Huitfeldt, "
-           "FREMM, Type 23, "
+    forces="Two tankers, RFA Tidesurge and a merchant. Type 45, F124, Karel "
+           "Doorman, Iver Huitfeldt, FREMM, Type 23, "
            "Merlin, Wildcat, a Sea Lynx and an NH90 across the group. "
            "Two Typhoons and a Saab AEW&C overhead. Opposing: MiG-35 pair and "
            "a Su-24MP.",
@@ -2407,8 +2407,11 @@ MISSIONS.append(dict(
           squadron="Squadron2", weapons="Hold"),
         U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "group",
           name="MT Western Provider"),
-        U("blue", "_vanilla", "civ_ms_ritina", "group",
-          name="MT Passage Trader"),
+        # The rotation's own fleet tanker: a Tide-class (SEST Replenishment,
+        # Variant3: A138 Tidesurge), where a vanilla merchant tanker used to
+        # sail as the second hull. Same slot in the group, same objective.
+        U("blue", "SEST_Replenishment", "rn_aor_tide", "group", variant="Variant3",
+          name="RFA Tidesurge"),
         # Routed onto the group: the shadowers used to sit 90 NM off with
         # no waypoints. One of the pair carries Kh-31A, so finding the oiler
         # has a consequence the Typhoons can prevent.

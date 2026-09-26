@@ -332,7 +332,8 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `civ_spar_rig` | LandUnit | `_vanilla` | unarmed platform; `snap="sea"`; neutral |
 | `wp_agi_okean` | Vessel | `_vanilla` | the collector *Nan Hai 27*; `weapons="Hold"` |
 | `wp_ms_mercur_decoy` | Vessel | `_vanilla` | a merchant radiating a warship's radars; `loadout` Default/Udaloy/... |
-| `plan_ap_qiongsha` | Vessel | `_vanilla` | replenishment stand-in |
+| `plan_aor_type901` | Vessel | `SEST_Replenishment` | the Liaoning group's Type 901 AOE (Variant1 Hulunhu, Variant2 Chaganhu); a working supplier |
+| `plan_aor_type903a` | Vessel | `SEST_Replenishment` | the protection group's Type 903A AOR (Variant1-4: Taihu, Chaohu, Honghu, Luomahu); unarmed, a working supplier |
 | `wp_vt_boris_chilikin` | Vessel | `SEST_Replenishment` | Russian oiler; a working supplier that can rearm the red ships near her (nothing dearer than 13000 points) |
 | `plan_type_001` | Vessel | `liaoning-type-001` | Liaoning; deck 36 |
 | `plan_j-15`, `plan_j-15d` | Aircraft | `type-003-004-maneuverwarfare` | range 1,864; `loadout="AntiShip"` (156 NM) or `"AirToAir"` |

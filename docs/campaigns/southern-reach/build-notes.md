@@ -215,6 +215,32 @@ That hull is *Nan Hai 24*, hove to with the airlink's crew aboard. She is the
 datum: the victory box is drawn on her (`at_unit`, 3 NM), and the mission
 fails if she is sunk. She is not meant to move.
 
+## The group's replenishment ships are the real classes
+
+SEST Replenishment ships the Chinese classes the campaign had been standing
+in for, so the stand-ins are gone:
+
+- **Empty Horizon.** The protection group's command element sailed with
+  RE-power's Soviet-named *Boris Chilikin*, briefed as "a Russian oiler that
+  visits" the fleet. It is the group's own Type 903A now, **Taihu**
+  (`plan_aor_type903a` Variant1), and the brief, the forces line and the
+  station say so. She is unarmed and at Hold; the Picture objective still
+  reads only the frigate and the corvette.
+- **Turning North** and **Southern Cross.** The Liaoning group's
+  replenishment ship was a vanilla `plan_ap_qiongsha`, a troop transport the
+  bible called "the Qiongsha replenishment stand-in". It is a Type 901,
+  **Hulunhu** (`plan_aor_type901` Variant1) - the class built to keep station
+  with the carriers - in both: `network#4`, which the Network objective
+  classifies, and the neutral withdrawing hull under the ceasefire. The
+  intel line, the win text, the brief and the forces line name her.
+- **Great Australian Bight** keeps its *Boris Chilikin*: she sails with a
+  Russian Udaloy, which is the class's own navy, and she was already credited
+  to SEST Replenishment.
+
+Red Line's Order to Withdraw puts the same Hulunhu with Liaoning in the Banda
+in November, so the ship the player shadows north in January is the one the
+other side took south.
+
 ## What has not been demonstrated
 
 Nothing in this campaign has been run in the game. Beyond everything the

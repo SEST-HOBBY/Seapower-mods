@@ -44,7 +44,7 @@ MISSION = dict(
             "Auckland, with your escorts - what the Tasman left of them - and KIWI 05 and "
             "WEDGETAIL 05 up. East Sale's and Williamtown's F-35As can give you fighter cover "
             "at the end of their reach.\\n\\nTwo groups are in the box. The WITHDRAWING GROUP - a"
-            " Type 054A and the Qiongsha-class supply ship - is forty miles east steaming north"
+            " Type 054A and the replenishment ship HULUNHU - is forty miles east steaming north"
             " under the ceasefire, complying, and is neutral. The SPOILER is a second Type 054A"
             " south-west of the convoy on a course to intercept it, with the research trawler "
             "NAN HAI 27 ahead of her, ROMEO under her if Farncomb missed her on 4 February, and"
@@ -59,9 +59,10 @@ MISSION = dict(
         )),
     forces=(
         "Your task group with its Seahawk, Poseidon and fighters if assigned, Kiwi 05, "
-        "Wedgetail 05. Four convoy hulls. Neutral: the withdrawing Type 054A and the Qiongsha "
-        "under the ceasefire, a bulker, an airliner. Opposing: the spoiler Type 054A, the "
-        "research trawler Nan Hai 27, ROMEO if she is alive, a J-15 pair if Liaoning is."
+        "Wedgetail 05. Four convoy hulls. Neutral: the withdrawing Type 054A and the "
+        "replenishment ship Hulunhu under the ceasefire, a bulker, an airliner. Opposing: "
+        "the spoiler Type 054A, the research trawler Nan Hai 27, ROMEO if she is alive, a "
+        "J-15 pair if Liaoning is."
     ),
     objectives=[
         ("Convoy", "Three of four convoy hulls into the box east, Coral "
@@ -140,8 +141,9 @@ MISSION = dict(
         U("neutral", "modern-plan-systems", "plan_type_054a_p5", "withdrawing",
           name="Type 054A frigate (withdrawing under the ceasefire)",
           weapons="Hold", route=[(-39.50, 156.40, 0)], telegraph=3),
-        U("neutral", "_vanilla", "plan_ap_qiongsha", "withdrawing",
-          name="Qiongsha-class supply ship (withdrawing)",
+        # Turning North's Type 901, Hulunhu, going home with the ceasefire.
+        U("neutral", "SEST_Replenishment", "plan_aor_type901", "withdrawing",
+          variant="Variant1", name="Replenishment ship Hulunhu (withdrawing)",
           weapons="Hold", route=[(-39.50, 156.40, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "spoiler",
           name="Type 054A frigate (the spoiler)",
