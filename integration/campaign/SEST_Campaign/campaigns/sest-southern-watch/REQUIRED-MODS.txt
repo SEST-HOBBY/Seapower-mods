@@ -15,7 +15,7 @@ and hull variants they name, and the rounds their loadouts hang.
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
   3403661005    a unit a mission places          [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
   3414146266    a unit a mission places          A-10A Thunderbolt II
-  3459682829    a squadron a flight comes from   A-10C
+  3459682829    a weapon a loadout hangs         A-10C
   3425450153    a squadron a flight comes from   AH-64 Apache
   3461091581    a unit a mission places          Air Deck Operations Upgrade - Nimitz (2000s)
   3416372890    a unit a mission places          Apex Predators MIG-29A & F-16A
@@ -146,8 +146,9 @@ and hull variants they name, and the rounds their loadouts hang.
                                                    asked for by: B-2 Spirit, MV-22B Osprey Tiltrotor / JGSDF V-22B
   (workshop)    manual install                   SeaLifter - required by B-2 Spirit; not in this collection
 
-2. SEST INTEGRATION PACKS (16): this project's own patches, inside the consolidated download.
+2. SEST INTEGRATION PACKS (17): this project's own patches, inside the consolidated download.
 
+  (local)       a unit a mission places          SEST A-10C+
   (local)       a unit a mission places          SEST ADF Persistent ISR
   (local)       a unit a mission places          SEST Allied Fixes
   (local)       a unit a mission places          SEST B-52 ARRW

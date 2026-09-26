@@ -2960,7 +2960,7 @@ MISSIONS.append(dict(
         "by road, and the column has stopped twice today because the "
         "road is covered from a ridge nobody has cleared.\\n\\n"
         "A US package has been allocated for one evening: Apaches on the road, "
-        "a Warthog on the ridge, a gunship on the loiter and a Strike "
+        "a Warthog pair on the ridge, a gunship on the loiter and a Strike "
         "Eagle holding the long shots. A Polish F-16 detachment "
         "transiting to the theatre has been pulled in for escort.\\n\\n"
         "Two Marine Ospreys are bringing the airhead's first lift in behind "
@@ -2970,7 +2970,7 @@ MISSIONS.append(dict(
         "The gunship is usable only while no fighter radar is watching this "
         "sector: if the J-16 comes up, pull the gunship the moment its radar "
         "does. Losing the gunship ends the operation."),
-    forces="An AH-64E and an AH-64D, an A-10C, an AC-130J, an F-15E, a "
+    forces="An AH-64E and an AH-64D, two A-10Cs, an AC-130J, an F-15E, a "
            "Polish F-16C, a "
            "B-2 on a single allocated pass, and two MV-22B with the airhead's "
            "first lift. Opposing: a J-16, an attack "
@@ -3021,6 +3021,8 @@ MISSIONS.append(dict(
         U("blue", "ah-64", "usa_ah-64e", "gun", name="Gunfighter 11"),
         U("blue", "ah-64", "usa_ah-64d", "gun", name="Gunfighter 12"),
         U("blue", "a-10c", "usa_a-10c", "gun", name="Hog 21", alt=8000),
+        U("blue", "SEST_A10C_Plus", "usaf_a-10c_plus", "gun", name="Hog 22",
+          alt=8000),
         U("blue", "ac-130-pack", "usaf_ac-130j", "support", name="Spectre 31"),
         U("blue", "f-15e-strike-eagle", "usaf_f-15e_SE", "escort",
           name="Strike Eagle 41"),

@@ -5,22 +5,27 @@ textures and no audio - every one of those belongs to the Workshop
 mod it came from, which is why REQUIRED-MODS.txt lists them as
 required rather than suggested.
 
-88 of the unit files here are another author's file with
+91 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 88 below
+every file of its kind in the collection, and the 91 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
   [DEPRECATED] Anzac Class Frigate  (workshop 3440622312)
       100%  vessels/ran_ffh_anzac.ini 
 
+  A-10A Thunderbolt II  (workshop 3414146266)
+       95%  aircraft/usaf_a-10c_plus_squadrons.ini from usa_a-10a_squadrons.ini
+
   A-10C  (workshop 3459682829)
        99%  aircraft/usa_a-10c.ini 
+       95%  aircraft/usa_a-10c_squadrons.ini 
+       97%  aircraft/usaf_a-10c_plus.ini from usa_a-10c.ini
 
   AH-64 Apache  (workshop 3425450153)
        99%  aircraft/uk_ah_mk_1.ini 

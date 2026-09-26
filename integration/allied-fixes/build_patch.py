@@ -41,6 +41,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent / "SEST_Allied_Fixes"
 
+sys.path.insert(0, str(ROOT / "integration"))
+from common.a10c import fix_squadron_count, register_ir_head  # noqa: E402
+
 MISSING = "usn_agm-84g"      # defined by nothing, anywhere
 REPLACE = "usn_agm-84n"      # U.S. Navy 2027's own Harpoon Block II+ ER
 
@@ -62,8 +65,10 @@ INFO_INI = """\
 Name=SEST Allied Fixes
 Description=Small allied corrections: the P-8's anti-ship fit pointed at a \
 Harpoon no mod defines (loaded empty), HMS Ocean could not operate the \
-Apache AH1 her sister hulls already support, and the RNZAF and ROKN P-8 \
-squadrons named nations the game has no flag for.
+Apache AH1 her sister hulls already support, the RNZAF and ROKN P-8 \
+squadrons named nations the game has no flag for, and the A-10C's infrared \
+head was never registered as a sensor module while its squadron file \
+declared seven squadrons against two defined liveries.
 """
 
 
@@ -343,6 +348,10 @@ def main():
             if not csrc.exists():
                 if cdst.exists():
                     cdst.unlink()
+                if fname == "usa_a-10c.ini":
+                    stale_sq = cdst.parent / "usa_a-10c_squadrons.ini"
+                    if stale_sq.exists():
+                        stale_sq.unlink()
                 print(f"  {fname}  SKIPPED - {mod} not exported")
                 continue
             ct = csrc.read_text(encoding="utf-8-sig", errors="replace")
@@ -374,9 +383,22 @@ def main():
                     sys.exit(f"{fname}: {donor} swapped {k} lines for {pat}, expected {need}")
             ct = ct[:bm.end()] + "[WeaponSystem1SEST_REDBACK]\n" + body + ct[bm.end():]
             cdst.parent.mkdir(parents=True, exist_ok=True)
+            extra = ""
+            if fname == "usa_a-10c.ini":
+                # Two defects in the standard aircraft, repaired here because
+                # this pack already ships the file. They are bugs, not the
+                # upgrade: SEST A-10C+ carries the added sensors and AIM-9X on
+                # a separate unit id, and applies these same two repairs from
+                # integration/common/a10c.py so the pair cannot drift.
+                ct = register_ir_head(ct, fname)
+                sqsrc = ROOT / "mods-source" / mod / "aircraft" / "usa_a-10c_squadrons.ini"
+                sq, was, defined = fix_squadron_count(
+                    sqsrc.read_text(encoding="utf-8-sig", errors="replace"), sqsrc.name)
+                (cdst.parent / sqsrc.name).write_text(sq, encoding="utf-8")
+                extra = f", IR head registered, squadrons {was}->{defined}"
             cdst.write_text(ct, encoding="utf-8")
             pods = body.count("sest_agr-30_pod")
-            print(f"  aircraft/{fname}  SEST_REDBACK ({pods} pods, donor {donor})")
+            print(f"  aircraft/{fname}  SEST_REDBACK ({pods} pods, donor {donor}){extra}")
 
 
 
