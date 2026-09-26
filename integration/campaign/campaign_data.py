@@ -3060,8 +3060,11 @@ MISSIONS.append(dict(
         # the Seahawk out, so the builder homes it on Kitty Hawk, whose file
         # lists nothing and takes any helicopter - an RAN aircraft cross-
         # decked for the exercise. Unnamed as Adelaide's for that reason.
+        # On its ASW fit (sonobuoys and two Mk 46), which is what the RAN's
+        # Seahawks carried in 1988. The file's Default hangs four Hellfires,
+        # which an RAN Seahawk did not carry that year.
         U("blue", "s-70b-2-seahawk", "S-70B-2_Seahawk", "sea",
-          name="Tiger 01", alt=1500, weapons="Tight"),
+          name="Tiger 01", alt=1500, weapons="Tight", loadout="ASW"),
         # The KC-10A, in service from 1981: it left D2's 2028 carrier box
         # for this. Out of the fight, Hold.
         U("blue", "kc-10a", "usaf_kc-10a_extender", "texaco",
@@ -4129,9 +4132,10 @@ WINDOWS = {
     "10": dict(rearm_if=("SW09ServiceHeld", "IsTrue"), flights=[RECON]),
     "11": dict(buy=True, situation=(
         "Assemble and service the whole force before the carrier action. Only ships, fighters "
-        "and strike aircraft are offered: the carrier action has no patrol or ship's-flight "
-        "tasking. Repairs and replacement allocations, helicopters and patrol aircraft "
-        "included, remain available before The First Ship Through."
+        "and strike aircraft are offered, the P-8 among them for its Harpoons: the carrier "
+        "action has no patrol or ship's-flight tasking. The Seahawk, the Wedgetail and the "
+        "Triton are offered again before The First Ship Through, with repairs and "
+        "replacement allocations."
     ), allow=BUY_11, repair=True,
            rearm=True, flights=[CAP, STRIKE_FORD]),
     # Aircraft replacement and repair only: no new hulls, no general rearm.
