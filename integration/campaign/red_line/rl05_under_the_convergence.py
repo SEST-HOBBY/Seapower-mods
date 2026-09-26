@@ -8,10 +8,13 @@ barrier and must not be classified. It is the first mission in the pack
 scored on what the ENEMY knows: the 'unseen' objective and fatal fail it
 the moment the coalition's side classifies the boat.
 
-Southern Reach meets this boat for the first time on 2 January (Cold Route,
-where she is ROMEO) and its intelligence summary of 5 January is the first
-to list a Type 093B. So on 27 December she must pass unclassified, and the
-mission's canonical outcome - its victory - is exactly that.
+Southern Reach first puts a Type 093B in the south on 2 January (Cold
+Route, where she is ROMEO), and its intelligence summary of 5 January is the
+first to list one with the protection group. So on 27 December she must pass
+unclassified, and the mission's canonical outcome - its victory - is exactly
+that. Fujian's Shadow already calls the Type 093B in the northern screen
+ROMEO; nothing here says whether Hull 419 is that boat, because that
+mission may sink her.
 """
 from campaign_data import U, F, S
 
@@ -77,16 +80,17 @@ MISSION = dict(
     fatal=[F("Unseen", kind="unseen"), F("Restraint", ["red_air", "triton"]), F("Boat")],
     neutral_objective="Traffic",
     win=(
-        "HULL 419 is in the forward box and the coalition's plot has no Type 093B on it. The "
-        "coalition knows a carrier is coming. It does not know her submarine is already here."
+        "HULL 419 is in the forward box, and the coalition's plot of the Southern Ocean has no "
+        "Type 093B on it. The coalition knows a carrier is coming. It does not know her "
+        "submarine is already here."
     ),
     lose=(
-        "HULL 419 is on the coalition's plot, or on the bottom. Either way the group's screen "
-        "boat is a named contact before the carrier arrives, and the southern task starts "
-        "from that."
+        "HULL 419 is on the coalition's plot or on the bottom, or a patrol aircraft is down. "
+        "Any of them makes the group's screen boat a named contact before the carrier arrives, "
+        "and the southern task starts from that."
     ),
-    timeout="0550, and HULL 419 is short of the box. She will be in it by nightfall, a day "
-            "behind the plan the carrier is sailing to.",
+    timeout="0550, and HULL 419 is short of the box. She will be in it by nightfall, half "
+            "a day behind the plan the carrier is sailing to.",
     stations={
         # The boat west of the barrier, heading 110 for the box beyond it.
         # The Poseidon's racetrack runs north-north-east to south-south-west

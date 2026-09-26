@@ -28,12 +28,12 @@ MISSION = dict(
     code="RL06", series="Red Line", seq="RED LINE  ·  MISSION 6",
     group="core", num="06", key="The Quiet Side", place="Fiordland approaches",
     intro=(
-        "Your frigate is the loud one. The tender and the boat are the quiet ones."
+        "Your screen is the loud one. The tender and the boat are the quiet ones."
     ),
     sender="Fleet headquarters, southern tasking",
     intent=((
         "The boat off Fiordland has a week of patrol left in her and none of it is worth "
-        "anything without her tender. The frigate draws the patrol's eye and keeps it; the "
+        "anything without her tender. The screen draws the patrol's eye and keeps it; the "
         "tender and the boat meet where the aircraft is not looking. Answer nothing on the "
         "radio. Illuminate nothing. Kiwi 05 is New Zealand's, and nothing the group does "
         "this morning gives Wellington a reason to say otherwise."
@@ -48,11 +48,12 @@ MISSION = dict(
             " working the New Zealand side, needs her tender, and MV AUSTRAL COMPLIANCE, the "
             "AMS coaster, is to meet her this morning in the Milford cruise traffic west of "
             "Puysegur.\\n\\nKIWI 05, a New Zealand Poseidon out of Invercargill, flies a "
-            "racetrack over this approach every morning. Your frigate is the loud one: take the"
+            "racetrack over this approach every morning. Your screen is the loud one: take the"
             " decoy station on the cray grounds to the east, radiate every search set it has, "
             "and still be on station at the half hour. Only then does the tender's arrival "
-            "count.\\n\\nThe tender and the boat go to the holding position quietly, thirty-odd "
-            "miles west of the frigate. If the aircraft puts a class on HULL 334, the rendezvous"
+            "count.\\n\\nThe tender and the boat go to the holding position quietly, some thirty "
+            "miles west of the decoy station. If the aircraft puts a class on HULL 334, the "
+            "rendezvous"
             " is known and the operation has failed. Answer nothing on the radio. Illuminate "
             "nothing: no fire-control radar goes near the aircraft.\\n\\nA cruise ship bound for"
             " Milford, a Bluff cray boat and an Otago longliner are in the approach."
@@ -68,7 +69,7 @@ MISSION = dict(
         ("Unseen", "Keep Hull 334 off their plot: do not let the patrol classify her",
          "25,-40,Complete"),
         ("Restraint", "Answer nothing: fire on nothing", "15,-40,Complete"),
-        ("Frigate", "Bring the frigate off the decoy station intact", "10,-20,Complete"),
+        ("Frigate", "Bring the screen off the decoy station intact", "10,-20,Complete"),
         ("Traffic", "Harm no cruise ship or fishing boat", "0,-30,Complete"),
     ],
     # The tender AND the boat at the holding position, and only once the
@@ -80,22 +81,22 @@ MISSION = dict(
                  after=dict(kind="area", units="decoy", at=(-46.32, 166.15), radius=8,
                             min_units=1, after_minutes=30,
                             intel=(
-                                "DECOY REPORT: The frigate has held the decoy station for "
+                                "DECOY REPORT: The screen has held the decoy station for "
                                 "thirty minutes with the patrol on its racetrack. The "
                                 "rendezvous is cleared to proceed."
                             ))),
     fatal=[F("Unseen", kind="unseen"), F("Restraint", ["red_air"])],
     neutral_objective="Traffic",
     win=(
-        "The tender and HULL 334 are at the holding position, and the patrol has a frigate on "
+        "The tender and HULL 334 are at the holding position, and the patrol has a warship on "
         "its plot and nothing under it. The boat will have what she needs by nightfall."
     ),
     lose=(
-        "HULL 334 is on the New Zealanders' plot, or the group has fired on their aircraft. "
-        "The rendezvous is known either way, and the boat goes without."
+        "HULL 334 is on the New Zealanders' plot, or their aircraft is down. The rendezvous "
+        "is known either way, and the boat goes without."
     ),
     timeout="0640, and the tender is short of the holding position. The patrol will be "
-            "back over the approach at first light tomorrow, and so will the frigate.",
+            "back over the approach at first light tomorrow, and so will the decoy.",
     stations={
         # West of Puysegur: the decoy station 22 NM off the coast towards the
         # cray grounds, under the north-east end of Kiwi 05's racetrack; the

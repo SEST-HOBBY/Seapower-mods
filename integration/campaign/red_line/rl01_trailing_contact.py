@@ -40,8 +40,9 @@ MISSION = dict(
             "Islands, matching the carrier's speed and keeping her distance. She is designated "
             "ALPHA.\\n\\nA RAAF Poseidon and a Triton are over the group. They are recording "
             "everything it does, and anything it does to that boat.\\n\\nPut a class on ALPHA, "
-            "so the group knows what has been following it, then take FUJIAN south to the "
-            "Banda station. Your ships and helicopters start at weapons Hold. Set them free and"
+            "so the group knows what has been following it, then take FUJIAN to her morning "
+            "station, twenty-two miles down the track. Your ships and helicopters start at "
+            "weapons Hold. Set them free and"
             " the ship's flight may put a torpedo on the boat without being told, and that "
             "ends the operation.\\n\\nThe Ternate-Bitung ferry, two tuna boats and a coaster "
             "bound north for the Sangihe islands are in the same water. Identify before you "
@@ -53,7 +54,7 @@ MISSION = dict(
         "diesel submarine, ALPHA. Neutral: a ferry, two tuna boats and a coaster."
     ),
     objectives=[
-        ("Contact", "Classify ALPHA, then take Fujian south to the Banda station",
+        ("Contact", "Classify ALPHA, then take Fujian south to her morning station",
          "35,-35,Fail,Main"),
         ("Restraint", "Fire on nothing: not the boat, not the aircraft", "15,-40,Complete"),
         ("Carrier", "Bring Fujian through intact", "10,-30,Complete"),
@@ -62,7 +63,8 @@ MISSION = dict(
     ],
     # Nothing counts until ALPHA has a class: the operation is called
     # Trailing Contact because knowing what she is IS the task. Then the
-    # carrier on the Banda station, 22 NM down the group's course. The box is
+    # carrier on her morning station, 22 NM down the group's course (the Banda
+    # station itself is days south; this is the first leg). The box is
     # authored so that Fujian's own route ends inside it: a solved box she
     # sailed through before the stage fired would leave her beyond it.
     victory=dict(kind="arrive", station="carrier", at=(1.24, 126.74), radius=10,
@@ -80,7 +82,7 @@ MISSION = dict(
     fatal=[F("Restraint", ["red_sub", "red_air", "triton"]), F("Carrier")],
     neutral_objective="Traffic",
     win=(
-        "FUJIAN is on the Banda station and the boat astern has a class: Collins-class, "
+        "FUJIAN is on her station and the boat astern has a class: Collins-class, "
         "Australian. She is still there. The Poseidon's recording shows a carrier group going "
         "about its business."
     ),

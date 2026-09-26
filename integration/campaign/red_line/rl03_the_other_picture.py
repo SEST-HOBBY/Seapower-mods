@@ -45,13 +45,13 @@ MISSION = dict(
             " weapons Tight. If they fire, you may reply against the aircraft that fired and "
             "nothing else. Nothing in that convoy or its escort is a target.\\n\\nThe picture "
             "you build goes to headquarters. What is done with it tomorrow will be done by "
-            "people this group does not command.\\n\\nKai fishing boats, a stern trawler and "
+            "people this group does not command.\\n\\nA Kai fishing boat, a stern trawler and "
             "the Tual-Ambon ferry are in the box."
         )),
     forces=(
         "Your screen with its flight, and a J-15 pair if allocated. Allocated: Dragon Eye 05, "
         "a KJ-500. Opposing: three merchants, JS Mogami and JS Maya, and two RAAF F-35As at "
-        "weapons Tight. Neutral: two Kai fishing hulls and a ferry. The enclave field, 380 "
+        "weapons Tight. Neutral: two Kai fishing hulls and a ferry. The enclave field, 400 "
         "miles north-east, is where the aircraft recover."
     ),
     objectives=[
@@ -83,7 +83,7 @@ MISSION = dict(
         " will not be the one that meets it."
     ),
     lose=(
-        "The group has fired on the convoy or its escort, the day before a passage the "
+        "The group has sunk a ship of the convoy or its escort, the day before a passage the "
         "coalition has announced to the world. The picture no longer matters; the incident "
         "does."
     ),
@@ -98,7 +98,7 @@ MISSION = dict(
         "flight": S(-5.42, 131.03, "Ship's flight", heading=120, alt=500),
         "eye": S(-4.40, 131.00, "Dragon Eye 05", heading=150, alt=30000),
         "cap": S(-4.80, 131.20, "Fighter escort", heading=150, alt=28000),
-        # The enclave field on Biak, 380 NM north-east: where the J-15s and
+        # The enclave field on Biak, 400 NM north-east: where the J-15s and
         # the KJ-500 recover. Off the briefing chart.
         "field": S(-1.10, 136.20, "Enclave field"),
         "convoy": S(-6.10, 132.00, "Convoy", heading=120),
