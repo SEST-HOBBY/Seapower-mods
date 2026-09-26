@@ -42,6 +42,7 @@ python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the mis
 python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
 python3 tools/check_load_order.py           # every SEST override still outranks its target
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered
+python3 tools/check_stale_phrases.py        # retired claims (the pre-reveal AIM-424) stay out of builders and packs
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
 python3 tools/check_campaign_coverage.py    # every enabled mod still reached by the campaigns (the pack union)
 python3 integration/campaign/build_pack.py --dry-run --campaign southern-reach --only TS09   # one mission through every gate, nothing written

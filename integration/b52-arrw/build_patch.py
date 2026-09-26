@@ -5,23 +5,28 @@ and make it actually loft.
 TWO DEFECTS, both found by comparing against the collection rather than by
 taste.
 
-1. The AGM-183A never lofts. Every other hypersonic weapon here pairs a high
-   SeaSkimmingAlt (the cruise altitude) with a MaxLoftAlt (the boost apex):
-   usn_cps 99000/90000, plan_yj21 99000/90000, plan_yj_17 92000/95000,
-   usa_prsm 160000/160000, wp_ss-n-26 46000/46000. dts_agm-183a and
-   dts_agm-183a(w62) are the ONLY two files in the collection carrying a
-   SeaSkimmingAlt above 20,000 ft with no MaxLoftAlt at all - so the boost-
-   glide weapon flies a flat cruise instead of the lofted profile that is the
-   entire point of it. Same class of omission as the AIM-424's missing
-   DragCoefficient: a key left off, silently costing the weapon its behaviour.
+1. The AGM-183A flies flat. Dingtools' dts_agm-183a and dts_agm-183a(w62),
+   which win the load order over the ARRW mod's own usn_arrw, model the
+   weapon with SeaSkimming=True and SeaSkimmingAlt=90000: the sea-skimming
+   flight model with the skim altitude moved to 90,000 ft, so the round
+   climbs once and then holds that one altitude all the way in - a boost-
+   glide weapon reduced to a high-altitude cruise missile. The files also
+   declare no loft keys, no AccelerationTime and no VelocityBleed, so the
+   boost has no defined duration and nothing holds speed through a glide.
+   This pack used to add only MaxLoftAngle/MaxLoftAlt, which are inert while
+   sea-skimming owns the trajectory.
 
-   Anchored to usn_cps - the US Navy's own boost-glide round, which this
-   collection already fields on the Zumwalt - rather than to the ARRW mod's
-   usn_arrw. usn_arrw models the profile well but gets the hardware wrong:
+   The profile now comes from the ARRW mod's usn_arrw, the reference
+   implementation of this exact weapon: sea-skimming off, a 75 deg loft to
+   99,000 ft, Acceleration 16 and VelocityBleed 0.6, with the boost cut to
+   35 s so it lines up with the booster-separation mesh swap Dingtools'
+   file already carries. usn_cps, the Navy boost-glide round, corroborates
+   the shape. The hardware stays Dingtools': usn_arrw gets that wrong -
    850 kg against the real ~2270 kg, Power 45 against 300, and a MaxVelocity
    written "10,648" with a thousands separator that no other value in the
-   collection uses. Dingtools has the mass and warhead right and the profile
-   missing, so the profile is what gets added; nothing else is touched.
+   collection uses - so Dingtools keeps its mass, motor and warhead and only
+   the flight profile changes. Every key it overrides is checked as
+   (expected, new), so an upstream value change fails the build.
 
 2. The B-52H cannot carry the W62. dts_agm-183a(w62) ships in the B-52H mod's
    own folder, and the F-15EX and B-1B both have loadouts for it - but the
@@ -126,17 +131,58 @@ def assert_shared_geometry(files):
                      f"{PYLON_FWD!r} - the airframes no longer share pylon geometry")
 
 
-# usn_cps, the Navy boost-glide round already in the collection, is the anchor.
-# MaxLoftAngle is the one value not copied straight across: CPS is surface-
-# launched and needs a shallow 35 deg to reach its 1889 nm; ARRW is released
-# above 40,000 ft and boosts steeply from there, so 45 sits between CPS and the
-# ARRW mod's 75 without inventing range the weapon does not claim.
-LOFT = {
-    "MaxLoftAngle": "45.0",
-    "MaxLoftAlt": "90000.0",
+# THE ROUND FLEW FLAT, and adding loft keys alone could never fix it.
+#
+# Dingtools' dts_agm-183a - which wins the load order over the ARRW mod's own
+# usn_arrw - models the weapon with SeaSkimming=True and SeaSkimmingAlt=90000.
+# That is the sea-skimming flight model with the skim altitude moved to 90,000
+# feet: climb, then hold ONE ALTITUDE all the way in. A boost-glide weapon
+# reduced to a high-altitude cruise missile. Worse, the loft keys this pack
+# used to add were inert underneath it - the profile that owns the trajectory
+# was never loft, so MaxLoftAngle changed nothing anyone could see.
+#
+# The ARRW mod's own usn_arrw is the reference implementation of this exact
+# weapon and it does it properly: no sea-skimming, a steep 75 deg loft to
+# 99,000 ft, a long powered boost (AccelerationTime=75.7) and VelocityBleed to
+# hold hypersonic speed through the glide. Those are the author's figures for
+# this airframe, so they are taken rather than invented - except the boost
+# duration, which is cut to match booster separation (see SET below).
+#
+# usn_cps, the Navy boost-glide round, corroborates the shape: loft to 90,000
+# ft, no sea-skimming, IgnoreHeightDifferenceForTargetDist=True, a long
+# terminal dive.
+ADD = {
+    # Dingtools' copy declares NO loft keys at all - it had no loft phase to
+    # tune, which is the other half of why the round flew flat.
+    # 75 deg and 99,000 ft are the ARRW mod author's own figures for this
+    # airframe; they only take effect now that SeaSkimming is off.
+    "MaxLoftAngle": "75.0",
+    "MaxLoftAlt": "99000.0",
+    # No AccelerationTime at all upstream, so the boost had no defined
+    # duration. 35 s of powered climb, then the vehicle is on its own.
+    "AccelerationTime": "35.0",
+    # 0.6 = keep most of the speed through the glide instead of bleeding to
+    # subsonic. The ARRW mod's value; nothing in Dingtools' copy retained speed.
+    "VelocityBleed": "0.6",
     "IgnoreHeightDifferenceForTargetDist": "True",
     "TerminalVelocity": "3800",
 }
+
+# Keys that EXIST upstream and carry the wrong value. Each is (old, new) so a
+# silent upstream change to the value cannot be overwritten unnoticed.
+SET = {
+    # The whole defect. False hands the trajectory back to the loft keys.
+    "SeaSkimming": ("True", "False"),
+    # 6.0 leaves it wallowing off the wing; both CPS and the ARRW mod use 16.
+    "Acceleration": ("6.0", "16.0"),
+}
+
+# The mesh swap is ALREADY in Dingtools' file: ResourcesMeshForLaunch=launch
+# becomes ResourcesMesh=AGM at ResourcesMeshSwitchTime. It fired at 15 s, which
+# matched no physical event because no boost duration existed. Aligned to
+# AccelerationTime it becomes what it looks like - booster burnout, the boosted
+# stack dropping away and the glide vehicle flying on.
+MESH_SWITCH = ("15", "35.0")
 
 AGM183 = ["dts_agm-183a", "dts_agm-183a(w62)"]
 
@@ -213,14 +259,33 @@ def declare(text, name, *keys):
 
 
 def add_loft(text: str, name: str) -> str:
-    """Insert the loft block right after SeaSkimmingAlt, where its peers put it."""
-    for key in LOFT:
+    """Turn the high-altitude cruise back into a boost-glide profile."""
+    for key in ADD:
         if re.search(rf"^{re.escape(key)}=", text, re.M):
             sys.exit(f"{name}: {key} already present - upstream changed, re-check by hand")
+
+    for key, (want, new) in SET.items():
+        m = re.search(rf"^{re.escape(key)}=([^\s/]*)([^\n]*)$", text, re.M)
+        if not m:
+            sys.exit(f"{name}: {key} not found upstream - re-check this override by hand")
+        if want and m.group(1) != want:
+            sys.exit(f"{name}: {key} is {m.group(1)!r} upstream, expected {want!r} - "
+                     "the author changed it, re-check whether this override is still right")
+        text = text[:m.start()] + f"{key}={new}{m.group(2)}" + text[m.end():]
+
+    m = re.search(r"^ResourcesMeshSwitchTime=([^\s/]*)([^\n]*)$", text, re.M)
+    if not m:
+        sys.exit(f"{name}: no ResourcesMeshSwitchTime - the launch-mesh swap is gone")
+    want, new = MESH_SWITCH
+    if m.group(1) != want:
+        sys.exit(f"{name}: ResourcesMeshSwitchTime is {m.group(1)!r}, expected {want!r} - "
+                 "re-check it still marks booster separation")
+    text = text[:m.start()] + f"ResourcesMeshSwitchTime={new}{m.group(2)}" + text[m.end():]
+
     m = re.search(r"^SeaSkimmingAlt=[^\n]*\n", text, re.M)
     if not m:
-        sys.exit(f"{name}: no SeaSkimmingAlt to anchor the loft block to")
-    block = ("".join(f"{k}={v}\n" for k, v in LOFT.items()))
+        sys.exit(f"{name}: no SeaSkimmingAlt to anchor the added keys to")
+    block = "".join(f"{k}={v}\n" for k, v in ADD.items())
     return text[:m.end()] + block + text[m.end():]
 
 
@@ -233,7 +298,7 @@ def build_ammunition():
         dst = OUT / "ammunition" / f"{a}.ini"
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(out, encoding="utf-8")
-        print(f"  ammunition/{a}.ini  (+{len(LOFT)} loft keys)")
+        print(f"  ammunition/{a}.ini  (+{len(ADD)} added, {len(SET)} corrected, mesh swap -> {MESH_SWITCH[1]}s)")
 
 
 def build_aircraft(testbed):
@@ -551,12 +616,19 @@ def main():
     (OUT / "_info.ini").write_text(
         "[Language_en]\n"
         "Name=SEST B-52 ARRW\n"
-        "Description=AGM-183A across every in-service B-52: the lofted "
-        "boost-glide profile it was missing, the W62 on the B-52H, and ARRW on "
-        "Red Storm Arsenal's B-52O. The three bombers also now share their fits - "
-        "the B-52H's 20x LRASM load flies on the B-52O (replacing a 16-round "
-        "one) and on the 419th FLTS testbed, and the testbed's own usn_arrw fit "
-        "flies on both B-52s and on the B-1B.\n",
+        "Description=AGM-183A across every in-service B-52, flying a real "
+        "boost-glide profile. The Dingtools round that wins the load order "
+        "models the ARRW as a sea-skimmer with the skim altitude set to 90000 "
+        "feet - a hypersonic weapon reduced to a level high-altitude cruise. "
+        "This restores the profile the ARRW mod's own author gave the same "
+        "airframe: a steep 75 degree boost to 99000 feet over 35 seconds, "
+        "booster separation on the mesh swap already in the file, then a "
+        "descending hypersonic glide that keeps most of its speed. Also the "
+        "W62 on the B-52H and ARRW on Red Storm Arsenal's B-52O. The three "
+        "bombers also now share their fits - the B-52H's 20x LRASM load flies "
+        "on the B-52O (replacing a 16-round one) and on the 419th FLTS testbed, "
+        "and the testbed's own usn_arrw fit flies on both B-52s and on the "
+        "B-1B.\n",
         encoding="utf-8")
     print("SEST_B52_ARRW")
 
