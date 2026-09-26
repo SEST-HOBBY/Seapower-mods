@@ -1087,6 +1087,33 @@ take the Attack row, which the audit had missed. Window 09 has the same shape
 window 11 - and was left alone: those are replacement sales of aircraft the
 player has been able to buy and fly since window 05.
 
+**Retired types out of 2028.** Rule 3 puts retired types in COLD SEA, and
+three had stayed in the 2028 lists:
+
+- SW12's "Eyre Flight" was an S-70B-2, which the RAN retired in 2017, on an
+  Arafura, which has a flight deck and no hangar. It is gone; the forces line
+  says "HMAS Eyre attached", and the helicopter over the convoy is the
+  player's MH-60R on the Ship's Flight row.
+- D2's Texaco 60 was a KC-10A, which the USAF retired in 2024. It is a KC-46
+  now, still `air#2`, so the Tanker objective reads it; the brief says KC-46.
+- D5's counter-launcher was an A-10A. It is the SEST A-10C+ with its own
+  AntiArmor fit. D8's Hog 22 already covers that pack, so this is a second
+  placement rather than a coverage one; it was chosen over leaving the A-10C+
+  in D8 alone because a counter-launcher shot is what the plus pack's
+  Litening pod and laser are for, and any 2028 A-10 in D5 would be an A-10C
+  of one pack or the other. The A-10A mod is still placed, by D7's exercise
+  field.
+
+D7 (July 1988) takes what left: HMAS Adelaide (vanilla
+`ran_ffg_adelaide_shorthull` Variant1, in service 1980-2008) in the surface
+group, an S-70B-2 as Tiger 01, and the KC-10A as the exercise tanker on its
+own track - not on the "high" station, whose every unit the Recovery
+objective protects. The vanilla Adelaide's `AircraftSupported` is the
+Squirrel-era list and leaves the S-70B-2 out, so the builder homes the
+Seahawk on Kitty Hawk, whose file lists nothing; it is named Tiger 01 rather
+than Adelaide's flight for that reason. The KC-10A homes on the exercise
+field.
+
 ## What exists
 
 | Thing | Where |
