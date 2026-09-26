@@ -57,12 +57,12 @@ launcher:
      See make_reloadable() below - this is the gate that decides whether any
      of the other four matter.
 
-Gates 3 and 4 are what keep this from being a cheat. Of 643 ship-referenced
-ammunition files only 32 carry any SupplyCategory, and every modern VLS round
-in the collection - SM-2/3/6, ESSM, RAM, Tomahawk, LRASM, NSM, Kalibr, Onyx,
-Zircon, YJ-18 - carries none. Turning the Sacramento block on and stopping
-there hands out 184 Tomahawks from one pool with nothing rationing them.
-SEST_CATEGORIES below closes that.
+Gates 3 and 4 are what keep this from being a cheat. Of 654 ship-referenced
+ammunition files on the 24 Sep 2026 export only 35 carry any SupplyCategory,
+and every modern VLS round in the collection - SM-2/3/6, ESSM, RAM,
+Tomahawk, LRASM, NSM, Kalibr, Onyx, Zircon, YJ-18 - carries none. Turning
+the Sacramento block on and stopping there hands out 184 Tomahawks from one
+pool with nothing rationing them. SEST_CATEGORIES below closes that.
 
 ----------------------------------------------------------------------------
 UNITS AND TUNING
@@ -96,13 +96,14 @@ corpus uses one - RE-power picks one value per hull - so this was the riskiest
 line here; had it not parsed, all 19 suppliers would have failed at once). And
 a SUBMERGED boat replenishes: the engine applies no surfaced-state check, and
 none can be added from the ini layer. No supply key mentions depth, and
-`EnabledSurfaced` - the one candidate, 90 occurrences - is cosmetic, appearing
-only in [Sail_Submerged]/[Sail_Surfaced] mesh sections to swap the
-conning-tower model. Underwater resupply is therefore left ENABLED as a
-deliberate house rule ("surface your boats") rather than lose surfaced rearm
-along with it. To close it, drop "Submarine" from the target_types below: the
-only other submarine-capable supplier in the collection is RE-power's
-nv_pt_boats_docks_small, a dock, which is where a boat should rearm anyway.
+`EnabledSurfaced` - the one candidate - is cosmetic, appearing only in mesh
+sections ([Sail_Submerged]/[Sail_Surfaced], flags, crew figures, hatches) to
+show or hide a model part such as the conning tower. Underwater resupply is
+therefore left ENABLED as a deliberate house rule ("surface your boats")
+rather than lose surfaced rearm along with it. To close it, drop
+"Submarine" from the target_types below: the only other submarine-capable
+supplier in the collection is RE-power's nv_pt_boats_docks_small, a dock,
+which is where a boat should rearm anyway.
 """
 
 import re
@@ -230,10 +231,11 @@ RESTORE_ROUNDS = {
 def tag_ammunition(text, category, ammo_id):
     """Add one SupplyCategory line to an ammunition file, inside [General].
 
-    SupplyCategory is a [General] key: every one of the 106 files that declares
-    it does so there, next to AmmoPoints. Euromod's eu_mu_90_air.ini is the
-    reference for the alias case - `#!alias ammunition/eu_mu_90_ship.ini`, then
-    a real `[General]` section carrying nothing but the overrides. Putting the
+    SupplyCategory is a [General] key: every one of the 120 files that declares
+    it on the 24 Sep 2026 export does so there, next to AmmoPoints. Euromod's
+    eu_mu_90_air.ini is the reference for the alias case -
+    `#!alias ammunition/eu_mu_90_ship.ini`, then a real `[General]` section
+    carrying nothing but the overrides. Putting the
     key above the first section header instead would file it under the
     nameless section and it would never be read.
 
@@ -1094,10 +1096,10 @@ def make_reloadable(text):
 
     A launcher fed by `AssociatedMagazine=` refills when its magazine refills.
     A launcher holding a bare `Ammunition=` - a sealed canister, a deck rail, a
-    fixed tube - needs this flag or it is one-shot forever. The flag appears on
-    exactly 11 units in vanilla plus the mods, ALL of them land SAM TELs, i.e.
-    precisely the units the supply trucks exist to service. No vessel anywhere
-    sets it True.
+    fixed tube - needs this flag or it is one-shot forever. The flag is set
+    True on exactly 11 units in vanilla plus the mods, ALL of them land SAM
+    TELs, i.e. precisely the units the supply trucks exist to service. No
+    vessel anywhere sets it True.
 
     That matters far beyond deck canisters: Red Storm Arsenal models every
     Mk41 cell as its own launcher with a bare `Ammunition=` line, so without

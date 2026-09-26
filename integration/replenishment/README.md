@@ -55,7 +55,7 @@ of the 103 hulls that carry one could ever be replenished.
 
 #### The scale of gate 2
 
-Across the 440 hull files in the 27 modern mods the builder reads (resolved by load order,
+Across the 440 hull files in the 28 modern mods the builder reads (resolved by load order,
 `_variants` files excluded), there are **6 926** launcher sections on the 24 Sep 2026 export.
 Sorting them by how they are fed:
 
@@ -93,7 +93,7 @@ Mogami, `rn_lph_ocean` in SEST Allied Fixes), which apply the same fix in their 
 2 215 + 5 = 2 220. The build's headline "2 217 launchers across 308 hulls" adds the Don
 tender's two chaff launchers — the only flag any of the 18 auxiliaries needed, because a
 supplier's own point defence is nearly always magazine-fed already. SEST RAN Fleet flags 18
-more on its own five armed clones, so the collection-wide total is **2 240 launchers on 315
+more on five of its own hulls, so the collection-wide total is **2 240 launchers on 315
 hulls**.
 
 ### The broken store references
@@ -392,7 +392,9 @@ This builder then checks both directions: every metered round a sibling owns mus
 exactly the category the rule derives, and every `SEST_` category a sibling declares must be
 one the rule still selects. Anything else fails the build. Lookups are case-folded here too:
 `usn_ddg_burke_f3_concept` hangs `usn_rim-161D` and everything else `usn_rim-161d`, which on
-the player's disk are one file, so they are judged once, under the file's own name. The builder prints four deterministic audit lists on every
+the player's disk are one file, so they are judged once, under the file's own name.
+
+The builder prints four deterministic audit lists on every
 run — metered, excluded (with the reason), heavy uncategorised rounds nothing carries, and the
 **63 ship/sub-carried missiles with no usable `AmmoPoints`** anywhere in their alias chain.
 Those 63 cost nothing and can never be metered; inventing prices for them would change every
@@ -465,10 +467,10 @@ What this pack will NOT do is fake the restriction by rewriting every submarine.
 ## Dependencies
 
 None hard. The pack patches whatever it finds: the ten supplier hulls come from vanilla plus
-Euromod Cold War Spanish, and the launcher fix covers the 23 mods it finds bare launchers in at build time (27 are
-listed in `MODERN_SOURCES`; the Charles de Gaulle pack is left out while it is catalogued
-work-in-progress, and the Cold War Italian pack because it is Cold War only). The
-eight new hulls ride vanilla Sacramento / Kilauea / Boris Chilikin / Kazbek and Spanish Teide
+Euromod Cold War Spanish, and the launcher fix covers the 23 mods it finds bare launchers in
+at build time (28 are listed in `MODERN_SOURCES`; the Charles de Gaulle pack is left out while
+it is catalogued work-in-progress, and the Cold War Italian pack because it is Cold War only).
+The eight new hulls ride vanilla Sacramento / Kilauea / Boris Chilikin / Kazbek and Spanish Teide
 meshes, so those must stay enabled. RE-power (3605013271) is optional and complementary.
 
 The refit is the one part that is **built against your collection rather than shipped fixed**.

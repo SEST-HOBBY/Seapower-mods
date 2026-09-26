@@ -30,6 +30,11 @@ Restoring the ceiling would turn three rounds into dead weapons, so the pack fix
 | `rok_k-sam-II` (K-SAM II, a copy of the Red Storm SM-6 file) | Euromod-South Korea Navy (3789208859) | `MinAttackAltitude` 70000 -> 15 |
 | `idf_stunner` (David's Sling) | David's Sling (3558173926) | `MaxAttackAltitude=51,000` -> `51000`, which reads as 51 under a de-DE or fr-FR locale |
 
+The four SM-6-family rounds also carry `SupplyCategory=SEST_LongRangeSAM`. That is not a fix:
+SEST Replenishment At Sea meters every heavy ship-launched area SAM under that category, and as
+this pack ships these files the tag has to ride in its copy. The replenishment builder checks
+that it is there and fails if the rule stops selecting one of them.
+
 The builder stops if the Tu-95 copy stops differing from vanilla by exactly those eight keys and
 the two impact values, or if any file it overrides gains a second provider. The reasoning, the
 counts, and the three paired tests that would settle what is still inference are in the builder's

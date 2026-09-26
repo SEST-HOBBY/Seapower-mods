@@ -12,6 +12,10 @@ Euromod JMSDF renamed its Seahawks from `jp_sh-60k`/`jp_sh-60j` to the `jmsdf_` 
 export that predates the exporter's deletion mirror; the next `tools\export-mod-configs.ps1`
 run removes them.
 
+It also flags the Mogami's four magazine-less launchers (the Mk141 canisters and chaff)
+`ReloadableWithoutMagazine=True`, the SEST Replenishment At Sea launcher fix, which this pack
+applies because it ships the Mogami's file.
+
 **Requires:** Mogami-class Frigate mod · Euromod JMSDF (+ Euromod Main).
 **Order:** above the Mogami-class Frigate mod.
 **Rebuild:** `python3 integration/jmsdf-mogami/build_patch.py`

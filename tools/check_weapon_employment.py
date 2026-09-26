@@ -30,13 +30,14 @@ the rule.
 
 A SEST file that forks an upstream unit inherits that unit's defects with it.
 SEST_Replenishment forks some three hundred modern hulls to add one line per
-bare launcher, and dozens of them arrive with a CIWS pointing at a magazine
-the upstream file never wrote. Those are reported, not failed: a finding on a
-SEST file that the same check also makes on an upstream copy of the SAME file
-is upstream's, equally broken with or without the pack, and failing it would
-leave dropping the fork as the only way back to green. A finding upstream does
-not share is this repo's and still fails. Same rule, same reason, as the
-inherited stores and systems in tools/check_dependencies.py.
+bare launcher, and more than a dozen of them arrive with a CIWS pointing at
+a magazine the upstream file never wrote. Those are reported, not failed: a
+finding on a SEST file that the same check also makes on an upstream copy of
+the SAME file is upstream's, equally broken with or without the pack, and
+failing it would leave dropping the fork as the only way back to green. A
+finding upstream does not share is this repo's and still fails. Same rule,
+same reason, as the inherited stores and systems in
+tools/check_dependencies.py.
 
     python3 tools/check_weapon_employment.py [mission name]
 

@@ -38,10 +38,10 @@ helicopter can recover aboard its assigned ship, that a replenishment transfer
 moves what it is tuned to, that a briefing's tanker can pass gas to its
 receiver, or that a trigger fires when the game is running. SW09 is scored on
 survival and a service window rather than on a transfer: HMAS Supply and
-Stalwart carry a working supply system (SEST RAN Fleet, tuned in SEST
-Replenishment At Sea's table), so the missiles and torpedoes really do cross
-while the window runs, but no condition type the engine offers can count
-them. The campaign's own notes say so.
+Stalwart carry a supply system (SEST RAN Fleet, tuned in SEST Replenishment
+At Sea's table) that is set up to pass the missiles and torpedoes the
+briefing names while the window runs, but no condition type the engine
+offers can count them. The campaign's own notes say so.
 """
 
 INFO_DESC = (
@@ -1348,10 +1348,11 @@ MISSIONS.append(dict(
         # scored as "both ships still in the box when the window closes",
         # and the briefing states exactly that rule. Surfaced stays a house
         # rule, in the fiction's own voice. The transfer the brief describes
-        # is the real one: SEST RAN Fleet gives STALWART the supply system in
-        # integration/common/ras.py (half a mile, 12 kn for her and 16 for
-        # the receiver, nothing dearer than the NSM's 8000 points), so what
-        # it says crosses does cross. It is just not what is scored.
+        # is the one the data sets up: SEST RAN Fleet gives STALWART the
+        # supply system in integration/common/ras.py (half a mile, 12 kn for
+        # her and 16 for the receiver, nothing dearer than the NSM's 8000
+        # points), and what it says crosses is what that system passes. It
+        # is just not what is scored.
         "The service window is thirty-five minutes and it runs on the clock, "
         "not on how much crossed the hose. What crosses is real: STALWART "
         "passes COLLINS her torpedoes, and any escort that comes inside half "
