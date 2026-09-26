@@ -96,7 +96,7 @@ MISSION = dict(
     },
     units=[
         # Telegraph 1 on her route is the six knots; the rest is the Chief.
-        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "coaster",
+        U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "coaster",
           name="MT Derwent Spirit (one engine)",
           route=[(-51.20, 165.40, 0), (-50.90, 165.90, 0)], telegraph=1),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "coaster",

@@ -123,7 +123,7 @@ MISSION = dict(
           name="RSV Southern Endeavour"),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
-        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "convoy",
+        U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "convoy",
           name="MT Derwent Spirit"),
         U("neutral", "_vanilla", "civ_ms_ivan_franko", "cruise",
           name="MV Polar Horizon (expedition cruise)",

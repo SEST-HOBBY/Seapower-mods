@@ -219,7 +219,7 @@ not.
 | 1 | Eight advertised flight rows had no mission slots | Fixed, and the defect was three times the size. A row's `SlotCount` is now derived from the sections that exist, a row with no cockpit is not emitted, and the slot integer is derived too: it is the ordinal among rows sharing a LABEL, not the row's position. Eleven more rows were mis-slotted on that second rule alone. `Tanker` is gone — `ui.ini` localises exactly six air-tasking roles and that is not one of them. 28 rows of which 19 did not conform became 22 that all do, against a native invariant of 13/13 exact |
 | 2 | SW06's Triton is unavailable before SW06 | Fixed at the root, which is not the purchase schedule. **No native mission binds a trigger to a slot-tagged aircraft — 20 slot-tagged sections in the shipped campaign, zero trigger references.** This campaign had twelve, across six missions. Every one now uses `JoinTaskForce=True` with a `CampaignTag`, which is what `04 Sunda Strait` does for the two A-4Gs its objectives name. The Triton is granted, not bought; SW06's Recon slot goes to the Wedgetail already in the mission |
 | 3 | SW09's defeat predicate included an unadvertised third ship | Fixed, and SW07 had the same shape. One flat protect list with one objective id meant whatever sank, the same objective was reported failed: SW09 said Collins was lost when a freighter went down, SW07 blamed the tanker for a Rhino. Each fatal loss now names its own units and its own objective, and MV Coral Provider — who carries no objective and only exists when SUPPLY survived SW02 — is no longer a silent defeat condition |
-| 4 | SW09's briefing promised service mechanics the predicate does not model | Relabelled, because there is nothing to implement. The shipped corpus uses **eleven condition types and seventeen sub-keys**, and not one tests speed, depth, heading, station, fuel or time spent inside an area; `UnitsInTheArea` is "Unit enters area". The briefing now states the rule the mission enforces — thirty-five minutes on the clock, then both ships south together — and leaves the replenishment as fiction in the fiction's voice |
+| 4 | SW09's briefing promised service mechanics the predicate does not model | Relabelled, because there is nothing to implement. The shipped corpus uses **eleven condition types and seventeen sub-keys**, and not one tests speed, depth, heading, station, fuel or time spent inside an area; `UnitsInTheArea` is "Unit enters area". The briefing now states the rule the mission enforces — thirty-five minutes on the clock, then both ships south together — and the replenishment is not scored. Since 26 Sep 2026 it is not fiction either: STALWART carries a working supply system (SEST Replenishment At Sea's table, shipped by SEST RAN Fleet), so the briefing says what really crosses and the scored rule is unchanged |
 | 5 | Seven positive tasks default to `Complete` | Fixed, but not the way the finding argues. `Complete` on an optional positive task is *native*: `10 Vengeance at Luzon` carries `DestroySlava=30,-30,Complete,Hidden` under the objective text "OPTIONAL: Destroy the Slava", and 39 native objectives look like that. The real gap was `Action_ObjectivesCancel` — 55 of 142 native `Complete` objectives are cancelled on the defeat path so an unearned completion cannot be banked, and this campaign's seven had **no cancel reference anywhere**. Every terminal trigger now cancels every objective it does not itself resolve, and the victory trigger completes the survival objectives explicitly, both derived rather than authored |
 
 Two things the findings led to that they did not ask for:
@@ -805,7 +805,7 @@ them, and never as a purchase:
 The same export carried a U.S. Navy 2027 update (sixteen new Flight I/II
 Arleigh Burke hulls, variant and language changes) and author updates to
 Euromod's interceptors. None of it changes a unit the campaign places; the
-six rounds Collection Fixes rebuilds (SM-3 IB/IIA/IIB, SM-6, SM-6 IB,
+six rounds Collection Fixes rebuilds (SM-3 IA/IB/IIA, SM-6, SM-6 IB,
 PAC-3 MSE) take the author's new kill probabilities, penalties, numeric RCS
 and body areas, and every SEST delta (the loft angle, the 150,000 ft gate,
 the flight times) still lands on top. All 26 campaign missions and the
@@ -1011,6 +1011,58 @@ tipped its nearest deck from Liaoning to Fujian). SW11's red air wing no
 longer flies as one 0.1 NM Vic of fighters, an AEW aircraft and the
 shooter; the J-35, the KJ-600 and the J-20A each hold their own spawn.
 
+## The SM-3 seeker, from the Aegis BMD pack
+
+The `sest-dev/kind-faraday-ctr5h0` branch carries a standalone SEST Aegis BMD
+pack for the three Euromod SM-3s. The pack is not ported. It ships the same
+three files as Collection Fixes, which consolidation refuses, and most of it
+is already here or was decided otherwise later. Its 100,000 ft floor gave way to the user's
+150,000 (`e5eda59c`). It kept the 300,000 ft loft ceiling and 300 s of flight,
+where this branch lofts to the target and flies 600/600/900 s (`d2547151`).
+It cut the IIA's declared range from 1,500 NM to the 729 NM that 300 s
+allowed; here the IIA keeps 1,500 and gets the 900 s to fly it. It raised the
+IIA's `TypicalTargetAlt` to 800,000 ft because 200,000 sat under the old
+220,000 ft floor; it sits inside the band now. Its `LiftFactor` was borrowed
+from the PAC-3 MSE, not written for this round by anyone. Its two penalty
+values were already the same here.
+
+One part was still missing, and it is now in Collection Fixes. Without the
+Anchor Chain preloader, still an unverified install, the SM-3 homed on a stub
+in its base file: an 18 s unguided first phase (14 s on the IIA), an 8 NM
+terminal handover and a 10 NM / 30° seeker. The author's own values ship in
+the Anchorchain Expansion's `ammunition_overwrite/usn_rim-161*_OVWR.ini`,
+which only the preloader reads. The builder now folds them in: a 5 s first
+phase, a 50 NM handover, a 100 NM / 90° seeker, `LaunchTurnRate=5`,
+`TimeLimited=True`, and the overwrite's 90° loft in place of the 85° on the
+base file's disabled line, so the round climbs the same way on both installs
+(the builder comment gives the reasons). The builder re-reads the overwrite on
+every build and stops if the author changes a value it copies, declines or
+agrees with, or adds a key. One difference remains by design: with the
+preloader, the overwrite still sets the IIA's `MaxFlightTime` to 3000 s on top
+of the 900 s this pack ships.
+
+The same branch's SEST Intercept Model pack is now ported
+(`integration/intercept-model/`). It restores vanilla's
+`ammunition/damage.ini`, and with it `InterceptChanceOutOfAltitudeOverride=0.05`,
+a hard 5% cap on any intercept outside the round's altitude band. Before it,
+the Tu-95 mod's older `damage.ini` won and lacked the key, and the 7% reading
+against supersonic-high targets far below the old 220,000 ft floor suggests
+there was no cap. If the cap is live, the 150,000 ft floor holds every manual
+SM-3 shot at a target below it to 5%, the 99,000 ft tier the builder names
+included; automatic launch below the floor was already off. The floor was
+kept at 150,000 in the port: it is the user's choice, and it should be decided
+again once the paired builds from `tools/make_intercept_ab_builds.py` have
+shown in game whether the cap is live. Nobody has run them yet. The same test
+decides D5 Range Week: its Shahed-136s are authored to fly no higher than
+300 ft, under the David's Sling Stunner's 500 ft floor and THAAD's 20,000 ft,
+so with the cap live neither battery does better than 5% against them, and
+losing one launcher or radar ends the trial.
+
+**Not demonstrated:** that Aegis ships now hold a ballistic raid better. An
+SM-3 IIA from a Flight III Burke at a DF-21D or DF-26B raid should lock well
+outside 10 NM, with no lock/unlock cycling, and a close-in shot should still
+turn onto its target with a 5°/s launch turn.
+
 ## What exists
 
 | Thing | Where |
@@ -1024,7 +1076,7 @@ shooter; the J-35, the KJ-600 and the J-20A each hold their own spawn.
 | Coverage report | `docs/campaign-coverage.md`, regenerated on every build |
 
 `python3 integration/campaign/build_pack.py` builds it; `tools/build_all.py`
-runs it in order with the other sixteen packs and consolidates it into
+runs it in order with the other seventeen packs and consolidates it into
 `SEST_Integration`.
 
 ## Where this departs from the bible, and why
@@ -1034,9 +1086,14 @@ runs it in order with the other sixteen packs and consolidates it into
   coverage is only provable once every mod has somewhere to be. The bible's
   own sequencing advice still stands for *playing*: SW01 → SW02 → SW06 is the
   slice to test first, and it is the slice to fix first if something is wrong.
-- **SW09 is written around a service window and a withdrawal, not
-  replenishment.** The bible flags `ran_aor_supply` as a Teide stand-in with
-  no demonstrated supply mechanism. The mission asks you to hold the service
+- **SW09 is scored on a service window and a withdrawal, not on
+  replenishment.** The bible flagged `ran_aor_supply` as a Teide stand-in with
+  no demonstrated supply mechanism. Since 26 Sep 2026 she has one (SEST
+  Replenishment At Sea's table, shipped by SEST RAN Fleet: half a mile, 12 kn,
+  nothing dearer than 8000 points), and the briefing says what crosses: COLLINS'
+  torpedoes, and an escort's missiles up to an NSM, a Tomahawk or an SM-6. No
+  condition type can count a transfer, so the scoring did not change: the
+  mission asks you to hold the service
   box for thirty-five minutes — `UnitsInTheArea AND Time` on ships that start
   inside the area, the shape of `03 Lifeline at the Edge of the World`
   Trigger8 — and then withdraw. Collins is placed surfaced; *staying*
@@ -1108,7 +1165,9 @@ anything in this repository:
   allocated ship; the mod's hulls are never sold, so the cost line is never
   read;
 - that the tankers can actually pass fuel to the receivers in the same mission;
-- that replenishment transfers anything, in SW09 or anywhere else;
+- that STALWART's or SUPPLY's supply system transfers what it is tuned to,
+  in SW09, SR04 or anywhere else: the system is real since 26 Sep 2026, but
+  no transfer from either hull has been seen in game;
 - that the `UnitsInTheArea` victory triggers fire where intended, that the
   protected-unit failure resolves before victory in the same update, or that
   the neutral-loss handler prevents a win;

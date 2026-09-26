@@ -48,8 +48,7 @@ sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from refine_civ_traffic import winning_file  # noqa: E402
 MISSIONS = ROOT / "integration" / "missions"
 MODS = ROOT / "mods-source"
-PARENT = (MODS / "_vanilla" / "user" / "missions" / "user_missions"
-          / "SEST Banda Front Lean v2.ini")
+PARENT = MISSIONS / "SEST Banda Front Lean v2.ini"   # the repo's own copy
 
 PREFIX = "SEST Banda"          # every file this script owns starts with this
 MAP = ("-6", "130")            # the parent's map centre: lat, lon
@@ -482,9 +481,9 @@ V.append(dict(
     ],
     blue=[
         ("js_ffg_mogami", "24,0,84", 45, {
-            "CustomAirGroup": "True", "_air": ["jp_sh-60k=Squadron1,1"]}),
+            "CustomAirGroup": "True", "_air": ["jmsdf_sh-60k=Squadron1,1"]}),
         ("js_ffg_mogami", "36,0,108", 225, {
-            "CustomAirGroup": "True", "_air": ["jp_sh-60k=Squadron1,1"]}),
+            "CustomAirGroup": "True", "_air": ["jmsdf_sh-60k=Squadron1,1"]}),
     ],
     blue_names=["JS Mogami", "JS Kumano"],
     red=[],
@@ -861,7 +860,7 @@ def main():
     args = ap.parse_args()
 
     if not PARENT.exists():
-        sys.exit(f"parent mission missing: {PARENT} - re-export mods-source")
+        sys.exit(f"parent mission missing: {PARENT}")
     known = known_types()
     problems = validate(known)
     if problems:

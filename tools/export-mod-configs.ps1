@@ -10,6 +10,12 @@
     are skipped so the repo stays light — the configs are what loadout/integration
     work needs.
 
+    Each mod's folder is mirrored, not overlaid: a file the author has removed
+    is deleted from mods-source/<workshop-id>/ too, so checkers stop resolving
+    against it. A mod that would lose more than half of its exported files
+    (and more than 20) is left alone with a warning. Review the deletions in
+    git status before committing.
+
     Also writes mods-source/_export-manifest.csv mapping each workshop ID to a
     guessed mod name, file count, and copied bytes.
 
@@ -47,6 +53,10 @@ $ErrorActionPreference = "Stop"
 # so paths are resolved here in the body instead.
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 if (-not $DestDir) { $DestDir = Join-Path $scriptDir "..\mods-source" }
+# Normalised, absolute: the deletion mirror below compares this against
+# FullName, and a "..\" left in here made every comparison miss (19 Sep 2026:
+# 7,876 files wiped from a healthy export).
+$DestDir = [IO.Path]::GetFullPath($DestDir)
 
 . (Join-Path $scriptDir "lib\common.ps1")
 
@@ -162,12 +172,38 @@ foreach ($mod in $modDirs) {
     $files = Get-ChildItem -LiteralPath $mod.FullName -Recurse -File |
         Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes }
     $copied = 0; $bytes = 0
+    $kept = @{}
     foreach ($f in $files) {
         $rel = $f.FullName.Substring($mod.FullName.Length).TrimStart('\', '/')
         $target = Join-Path (Join-Path $DestDir $mod.Name) $rel
         New-Item -ItemType Directory -Force -Path (Split-Path $target) | Out-Null
         Copy-Item -LiteralPath $f.FullName -Destination $target -Force
+        $kept[$rel.ToLower()] = $true
         $copied++; $bytes += $f.Length
+    }
+    # Mirror deletions INSIDE the mod too. This loop only ever added and
+    # overwrote, so a file the author removed in an update stayed in the repo
+    # forever - and every checker kept resolving against it. That is how the
+    # repo showed Modern US Navy's usn_ddg_burke_f3.ini and U.S. Navy 2027's
+    # usn_rim-162e.ini as present for a whole day after Steam had deleted them,
+    # while the game crashed on exactly those two files (19 Sep 2026).
+    $modDest = Join-Path $DestDir $mod.Name
+    if ($copied -gt 0 -and (Test-Path -LiteralPath $modDest)) {
+        $modDest = (Get-Item -LiteralPath $modDest).FullName
+        $existing = @(Get-ChildItem -LiteralPath $modDest -Recurse -File)
+        $stale = @($existing | Where-Object {
+            $relOld = $_.FullName.Substring($modDest.Length).TrimStart('\', '/')
+            -not $kept.ContainsKey($relOld.ToLower())
+        })
+        # A mod's update retires a handful of files, never most of them. Losing
+        # more than that means the paths are not lining up (see above) - keep
+        # the files and say so rather than destroy the export.
+        if ($stale.Count -gt 20 -and $stale.Count -gt $existing.Count / 2) {
+            Write-Warning ("  {0}  would remove {1} of {2} exported files - refusing; the copy and the repo are not lining up" -f $mod.Name, $stale.Count, $existing.Count)
+        } else {
+            foreach ($old in $stale) { Remove-Item -LiteralPath $old.FullName -Force }
+            if ($stale.Count) { Write-Host ("  {0}  removed {1} file(s) the mod no longer ships" -f $mod.Name, $stale.Count) }
+        }
     }
     # Display name straight from the mod's own _info.ini, read as UTF-8.
     $name = Get-ModDisplayName -ModDir $mod.FullName

@@ -28,9 +28,21 @@ channel from a separate battery radar vehicle) and ASW standoff rounds fired
 at a datum, so both are allowed for by ALLOW below rather than by weakening
 the rule.
 
+A SEST file that forks an upstream unit inherits that unit's defects with it.
+SEST_Replenishment forks some three hundred modern hulls to add one line per
+bare launcher, and more than a dozen of them arrive with a CIWS pointing at
+a magazine the upstream file never wrote. Those are reported, not failed: a
+finding on a SEST file that the same check also makes on an upstream copy of
+the SAME file is upstream's, equally broken with or without the pack, and
+failing it would leave dropping the fork as the only way back to green. A
+finding upstream does not share is this repo's and still fails. Same rule,
+same reason, as the inherited stores and systems in
+tools/check_dependencies.py.
+
     python3 tools/check_weapon_employment.py [mission name]
 
-Exits non-zero if a weapon cannot be employed. Advisories print but pass.
+Exits non-zero if a weapon cannot be employed. Advisories and inherited
+findings print but pass.
 """
 import re
 import sys
@@ -39,7 +51,9 @@ from collections import defaultdict
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
-from refine_civ_traffic import winning_file  # noqa: E402
+from refine_civ_traffic import file_stack, winning_file  # noqa: E402
+
+INTEGRATION = ROOT / "integration"
 
 UNIT_DIRS = ("aircraft", "vessels", "submarines", "land_units", "biologic")
 MOUNT_KINDS = ("vessels", "submarines", "land_units")
@@ -148,7 +162,13 @@ def sensor_defs():
         files.append(ROOT / "mods-source/_vanilla/original/systems/sensors.ini")
         out = {}
         for f in files:                     # highest first; first wins
-            for m in re.finditer(r"^\[([^\]]+)\]\n(.*?)(?=^\[|\Z)", txt(f), re.S | re.M):
+            # [^\n]* after the bracket: a header may carry a comment, as
+            # vanilla's own "[Recon_Camera] #Generic recon camera" does. A
+            # header that had to end at "]" skipped every such sensor, and
+            # Red Storm Arsenal writes "[Type_345] #HHQ-7 FCR" - so the HQ-7's
+            # two-channel command radar read as no radar at all.
+            for m in re.finditer(r"^\[([^\]]+)\][^\n]*\n(.*?)(?=^\[|\Z)", txt(f),
+                                 re.S | re.M):
                 name = m.group(1).strip()
                 if name in out:
                     continue
@@ -217,8 +237,9 @@ def mission_units(name):
 
 
 def scan(mission):
-    """-> (failures, advisories, waived, checked)"""
+    """-> (failures, advisories, waived, inherited, checked)"""
     fail, note, waived, checked = defaultdict(list), defaultdict(list), [], 0
+    inherited = defaultdict(list)
 
     targets = {}
     for uid in sorted(mission_units(mission)):
@@ -242,130 +263,170 @@ def scan(mission):
             bucket[check].append(row)
 
     for (uid, kind), (f, fielded) in sorted(targets.items()):
-        t = txt(f)
-        sensors = unit_sensors(t)
-        blocks = weapon_blocks(t)
-        by_name = dict(blocks)
-        # (?=^\[|\Z): a magazine that is the LAST section in the file has no
-        # following [ to close the match, so without the \Z alternative it is
-        # invisible here and the weapon that points at it is reported as
-        # pointing at nothing. jp_f-2a_late ends on [WeaponMagazineChaff] and
-        # was flagged for a chaff magazine it plainly defines.
-        mags = {m.group(1).lower(): (m.group(1), m.group(2)) for m in
-                re.finditer(r"^\[WeaponMagazine([^\]]+)\]\n(.*?)(?=^\[|\Z)", t, re.S | re.M)}
         where = f"{'MISSION' if fielded else 'sest'} {uid} ({f.parts[-3]}/{kind})"
+        found, n = file_findings(f, kind, where)
+        checked += n
+        # What an upstream copy of this same file already fails, checked
+        # under the same label so the rows compare as text. Only asked of a
+        # file this repo ships; a workshop file has nothing above it to blame.
+        theirs = set()
+        if INTEGRATION in f.parents and any(b == "fail" for b, _, _ in found):
+            for u in upstream_copies(kind, uid):
+                theirs |= {(c, r) for b, c, r in file_findings(u, kind, where)[0]
+                           if b == "fail"}
+        for bucket, check, row in found:
+            if bucket == "fail" and not allowed(row) and (check, row) in theirs:
+                inherited[check].append(row)
+            else:
+                record(fail if bucket == "fail" else note, check, row)
+    return fail, note, waived, inherited, checked
 
-        for wsname, body in blocks:
-            am = re.search(r"^Ammunition=(\S+)", body, re.M)
-            a = ammo(am.group(1).split("|")[0]) if am else None
-            aid = am.group(1).split("|")[0] if am else ""
-            names = assoc_names(body, sensors)
-            checked += 1
 
-            # midcourse guidance needs a channel; wire guidance (2) does not
-            if a and a["mcc"] and a["mcc"] in (1, 3) and kind in MOUNT_KINDS:
-                if not any(channels(n) > 0 for n in names):
-                    record(fail, "midcourse round with no guidance channel",
-                           f"{where} WS{wsname} {aid} (MCC={a['mcc']}) -> "
-                           f"{names or 'no associated sensor'}")
+def upstream_copies(kind, uid):
+    """Every workshop or vanilla copy of <kind>/<uid>.ini, without the SEST
+    packs above them.
 
-            # semi-active homing needs something lighting the target
-            if a and a["gt"] == 2 and kind in MOUNT_KINDS:
-                if not any((sensor_defs().get(n) or {}).get("mode") == "Illuminate"
-                           and channels(n) > 0 for n in names):
-                    record(fail, "semi-active round with no illuminator",
-                           f"{where} WS{wsname} {aid} -> {names or 'no associated sensor'}")
+    All of them rather than the load-order winner alone, because a fork's
+    source is not always the winner: SEST_Replenishment forks VANILLA for the
+    nine auxiliaries RE-power also ships, deliberately, so the copy it
+    inherited from sits below the one the game would otherwise load.
+    """
+    return [c for c in file_stack(f"{kind}/{uid}.ini") if INTEGRATION not in c.parents]
 
-            for mm in re.finditer(r"^AssociatedMagazine=WeaponMagazine([^\s/]+)", body, re.M):
-                entry = mags.get(mm.group(1).lower())
-                mb = entry[1] if entry else None
-                if mb is None:
-                    record(fail, "weapon points at a magazine the file never defines",
+
+def file_findings(f, kind, where):
+    """-> ([(bucket, check, row)], checked) for one unit file, bucket being
+    "fail" or "note". Waivers are applied by the caller."""
+    found, checked = [], 0
+    fail, note = "fail", "note"
+
+    def record(bucket, check, row):
+        found.append((bucket, check, row))
+
+    t = txt(f)
+    sensors = unit_sensors(t)
+    blocks = weapon_blocks(t)
+    by_name = dict(blocks)
+    # (?=^\[|\Z): a magazine that is the LAST section in the file has no
+    # following [ to close the match, so without the \Z alternative it is
+    # invisible here and the weapon that points at it is reported as
+    # pointing at nothing. jp_f-2a_late ends on [WeaponMagazineChaff] and
+    # was flagged for a chaff magazine it plainly defines.
+    mags = {m.group(1).lower(): (m.group(1), m.group(2)) for m in
+            re.finditer(r"^\[WeaponMagazine([^\]]+)\][^\n]*\n(.*?)(?=^\[|\Z)", t,
+                        re.S | re.M)}
+
+    for wsname, body in blocks:
+        am = re.search(r"^Ammunition=(\S+)", body, re.M)
+        a = ammo(am.group(1).split("|")[0]) if am else None
+        aid = am.group(1).split("|")[0] if am else ""
+        names = assoc_names(body, sensors)
+        checked += 1
+
+        # midcourse guidance needs a channel; wire guidance (2) does not
+        if a and a["mcc"] and a["mcc"] in (1, 3) and kind in MOUNT_KINDS:
+            if not any(channels(n) > 0 for n in names):
+                record(fail, "midcourse round with no guidance channel",
+                       f"{where} WS{wsname} {aid} (MCC={a['mcc']}) -> "
+                       f"{names or 'no associated sensor'}")
+
+        # semi-active homing needs something lighting the target
+        if a and a["gt"] == 2 and kind in MOUNT_KINDS:
+            if not any((sensor_defs().get(n) or {}).get("mode") == "Illuminate"
+                       and channels(n) > 0 for n in names):
+                record(fail, "semi-active round with no illuminator",
+                       f"{where} WS{wsname} {aid} -> {names or 'no associated sensor'}")
+
+        for mm in re.finditer(r"^AssociatedMagazine=WeaponMagazine([^\s/]+)", body, re.M):
+            entry = mags.get(mm.group(1).lower())
+            mb = entry[1] if entry else None
+            if mb is None:
+                record(fail, "weapon points at a magazine the file never defines",
+                       f"{where} WS{wsname} -> WeaponMagazine{mm.group(1)}")
+            else:
+                counts = [int(c) for c in re.findall(r"^Ammunition\d+_Count=(\d+)", mb, re.M)]
+                if counts and sum(counts) == 0:
+                    record(fail, "weapon wired to a magazine holding zero rounds",
                            f"{where} WS{wsname} -> WeaponMagazine{mm.group(1)}")
+
+        # a seat group the block never defines: the MH-60R's |MK46 shape
+        seats = body + by_name.get(base_of(wsname), "")
+        for st in re.finditer(r"^Station\d+=[^\s|]+\|([^\s/#]+)", body, re.M):
+            if not re.search(rf"^{re.escape(st.group(1))}Positions=", seats, re.M):
+                record(fail, "store seated in a position group that is never defined",
+                       f"{where} WS{wsname} |{st.group(1)}")
+
+        # a loadout may not hang stores on a mount that has none
+        if base_of(wsname) != wsname:
+            bb = by_name.get(base_of(wsname), "")
+            nst = re.search(r"^NumberOfStations=(\d+)", bb, re.M)
+            if nst:
+                over = sorted({int(x) for x in
+                               re.findall(r"^Station(\d+)=[A-Za-z]", body, re.M)
+                               if int(x) > int(nst.group(1))})
+                if over:
+                    record(fail, "loadout uses stations the mount does not have",
+                           f"{where} WS{wsname} stations {over} > {nst.group(1)}")
+
+        if re.search(r"^Type=Missile", body, re.M):
+            nc = re.search(r"^NumberOfContainers=(\d+)", body, re.M)
+            if nc and int(nc.group(1)) == 0:
+                record(fail, "missile mount declares zero containers",
+                       f"{where} WS{wsname}")
+
+    for mname, mbody in mags.values():
+        for k, v in re.findall(r"^(Ammunition\d+)=([^/\s]+)", mbody, re.M):
+            checked += 1
+            if not winning_file(f"ammunition/{v}.ini"):
+                record(fail, "magazine holds a round no enabled mod defines",
+                       f"{where} WeaponMagazine{mname} {k}={v}")
+
+    # every selectable loadout should hang something
+    av = re.search(r"^AvailableLoadouts=([^#\n]*)", t, re.M)
+    if av:
+        armed = any(re.search(r"^Station\d+=[A-Za-z]", b, re.M) for _, b in blocks)
+        for key in [k.strip() for k in av.group(1).split(",") if k.strip()]:
+            if key in ("Empty", "Ferry"):
+                continue
+            checked += 1
+            if not any(n.endswith(key) for n in by_name):
+                row = f"{where} loadout '{key}'"
+                if armed:
+                    record(fail, "selectable loadout has no weapon-system block", row)
                 else:
-                    counts = [int(c) for c in re.findall(r"^Ammunition\d+_Count=(\d+)", mb, re.M)]
-                    if counts and sum(counts) == 0:
-                        record(fail, "weapon wired to a magazine holding zero rounds",
-                               f"{where} WS{wsname} -> WeaponMagazine{mm.group(1)}")
+                    record(note, "loadout with no block on an unarmed unit (cosmetic)", row)
 
-            # a seat group the block never defines: the MH-60R's |MK46 shape
-            seats = body + by_name.get(base_of(wsname), "")
-            for st in re.finditer(r"^Station\d+=[^\s|]+\|([^\s/#]+)", body, re.M):
-                if not re.search(rf"^{re.escape(st.group(1))}Positions=", seats, re.M):
-                    record(fail, "store seated in a position group that is never defined",
-                           f"{where} WS{wsname} |{st.group(1)}")
-
-            # a loadout may not hang stores on a mount that has none
-            if base_of(wsname) != wsname:
-                bb = by_name.get(base_of(wsname), "")
-                nst = re.search(r"^NumberOfStations=(\d+)", bb, re.M)
-                if nst:
-                    over = sorted({int(x) for x in
-                                   re.findall(r"^Station(\d+)=[A-Za-z]", body, re.M)
-                                   if int(x) > int(nst.group(1))})
-                    if over:
-                        record(fail, "loadout uses stations the mount does not have",
-                               f"{where} WS{wsname} stations {over} > {nst.group(1)}")
-
-            if re.search(r"^Type=Missile", body, re.M):
-                nc = re.search(r"^NumberOfContainers=(\d+)", body, re.M)
-                if nc and int(nc.group(1)) == 0:
-                    record(fail, "missile mount declares zero containers",
-                           f"{where} WS{wsname}")
-
-        for mname, mbody in mags.values():
-            for k, v in re.findall(r"^(Ammunition\d+)=([^/\s]+)", mbody, re.M):
-                checked += 1
-                if not winning_file(f"ammunition/{v}.ini"):
-                    record(fail, "magazine holds a round no enabled mod defines",
-                           f"{where} WeaponMagazine{mname} {k}={v}")
-
-        # every selectable loadout should hang something
-        av = re.search(r"^AvailableLoadouts=([^#\n]*)", t, re.M)
-        if av:
-            armed = any(re.search(r"^Station\d+=[A-Za-z]", b, re.M) for _, b in blocks)
-            for key in [k.strip() for k in av.group(1).split(",") if k.strip()]:
-                if key in ("Empty", "Ferry"):
-                    continue
-                checked += 1
-                if not any(n.endswith(key) for n in by_name):
-                    row = f"{where} loadout '{key}'"
-                    if armed:
-                        record(fail, "selectable loadout has no weapon-system block", row)
-                    else:
-                        record(note, "loadout with no block on an unarmed unit (cosmetic)", row)
-
-        # a store the aircraft cannot release from the altitude it flies at.
-        # Calibrated on the GBU-53, whose 9900-10100 ft window left an F-35C
-        # cruising at 36000 exactly one usable rung.
-        if kind == "aircraft":
-            cru = re.search(r"^CruiseAltitude=(\d+)", t, re.M)
-            alt = re.search(r"^Altitudes=([\d,\s]+)", t, re.M)
-            band = [float(x) for x in alt.group(1).split(",") if x.strip()] if alt else []
-            if cru:
-                cruise, seen = float(cru.group(1)), set()
-                for wsname, body in blocks:
-                    for st in re.finditer(r"^Station\d+=([A-Za-z][^\s|]*)", body, re.M):
-                        sid = st.group(1)
-                        a = ammo(sid)
-                        if sid in seen or not a:
-                            continue
-                        if a["minalt"] is None and a["maxalt"] is None:
-                            continue
-                        lo = a["minalt"] or 0.0
-                        hi = a["maxalt"] if a["maxalt"] is not None else 1e9
-                        if lo <= cruise <= hi:
-                            continue
-                        seen.add(sid)
-                        checked += 1
-                        usable = [x for x in band if lo <= x <= hi]
-                        row = (f"{where} {sid} releases {lo:.0f}-{hi:.0f} ft, "
-                               f"cruise {cruise:.0f} ft, {len(usable)}/{len(band)} rungs usable")
-                        record(fail if len(usable) <= 1 else note,
-                               "store cannot be released from the altitude the aircraft flies"
-                               if len(usable) <= 1 else
-                               "store unusable from cruise altitude (lower rungs work)", row)
-    return fail, note, waived, checked
+    # a store the aircraft cannot release from the altitude it flies at.
+    # Calibrated on the GBU-53, whose 9900-10100 ft window left an F-35C
+    # cruising at 36000 exactly one usable rung.
+    if kind == "aircraft":
+        cru = re.search(r"^CruiseAltitude=(\d+)", t, re.M)
+        alt = re.search(r"^Altitudes=([\d,\s]+)", t, re.M)
+        band = [float(x) for x in alt.group(1).split(",") if x.strip()] if alt else []
+        if cru:
+            cruise, seen = float(cru.group(1)), set()
+            for wsname, body in blocks:
+                for st in re.finditer(r"^Station\d+=([A-Za-z][^\s|]*)", body, re.M):
+                    sid = st.group(1)
+                    a = ammo(sid)
+                    if sid in seen or not a:
+                        continue
+                    if a["minalt"] is None and a["maxalt"] is None:
+                        continue
+                    lo = a["minalt"] or 0.0
+                    hi = a["maxalt"] if a["maxalt"] is not None else 1e9
+                    if lo <= cruise <= hi:
+                        continue
+                    seen.add(sid)
+                    checked += 1
+                    usable = [x for x in band if lo <= x <= hi]
+                    row = (f"{where} {sid} releases {lo:.0f}-{hi:.0f} ft, "
+                           f"cruise {cruise:.0f} ft, {len(usable)}/{len(band)} rungs usable")
+                    record(fail if len(usable) <= 1 else note,
+                           "store cannot be released from the altitude the aircraft flies"
+                           if len(usable) <= 1 else
+                           "store unusable from cruise altitude (lower rungs work)", row)
+    return found, checked
 
 
 def main():
@@ -373,7 +434,7 @@ def main():
         l.strip() for l in txt(ROOT / "data" / "active-mission.txt").splitlines()
         if l.strip() and not l.startswith("#"))
     print(f"mission: {name}\n")
-    fail, note, waived, checked = scan(name)
+    fail, note, waived, inherited, checked = scan(name)
 
     for check in sorted(note):
         rows = sorted(set(note[check]))
@@ -386,6 +447,21 @@ def main():
 
     if waived:
         print(f"waived as verified benign: {len(waived)} (see ALLOW in this file)\n")
+
+    if inherited:
+        rows = {r for rs in inherited.values() for r in rs}
+        units = {r.split(" (")[0] for r in rows}
+        print(f"inherited from upstream - reported, not failed: {len(rows)} finding(s) "
+              f"on {len(units)} SEST file(s), each also made on an upstream copy of the "
+              "same file")
+        for check in sorted(inherited):
+            rs = sorted(set(inherited[check]))
+            print(f"  {check} [{len(rs)}]")
+            for r in rs[:8]:
+                print(f"    {r}")
+            if len(rs) > 8:
+                print(f"    ... and {len(rs) - 8} more")
+        print()
 
     if not fail:
         print(f"checked {checked} weapon/loadout contract(s)\n")

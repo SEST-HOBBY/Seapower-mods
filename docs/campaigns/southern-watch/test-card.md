@@ -206,6 +206,31 @@ SW09 and SW12.
 | 6C.7 | Banda Foxhound Sweep | The MiG-31s run at the Wedgetail fast. Lose the Wedgetail or the tanker: **defeat**, HVA failed - shooting the MiGs down afterwards does not win it back |
 | 6C.8 | Banda Triton's Picture | The J-16s come down to the Triton's station |
 
+## 6D — the A-10C+ (new)
+
+D8 now flies a Warthog pair: Hog 21 is the standard A-10C, Hog 22 the SEST
+A-10C+. Neither change to the aircraft files has been seen in the game.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 6D.1 | D8, select Hog 22 and open its encyclopedia entry | **A-10C+**, with an infrared sensor, the Litening pod and a laser designator listed; AIM-9X on its rails | No designator or pod means the new sensor blocks are not read - name what the entry does list |
+| 6D.2 | D8, Hog 22 as briefed (its Default fit hangs GBU-12s on the two inboard pylons): drop one on the ridge with no other aircraft lasing | The bomb guides on Hog 22's own designator | An unguided fall means the designator does not feed the bomb |
+| 6D.3 | Mission editor: place a standard A-10C and look at its squadrons | **Two** liveries to choose from (81st and 91st TFW), and Hog 21's panel shows an infrared sensor | One livery means the squadron count was not the cause |
+
+## 6E — Stalwart's supply system (new)
+
+HMAS Supply and Stalwart now carry a working supply system (SEST
+Replenishment At Sea's table, shipped by SEST RAN Fleet): half a mile, 12 kn
+for her and 16 for the receiver, nothing dearer than 8000 points. SW09's
+briefing says what crosses; nothing scores it. No transfer from either hull
+has been seen in the game.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 6E.1 | SW09, fire one of Perth's NSMs early, then bring her inside half a mile of Stalwart at 12 kn or less | Stalwart's supply panel ("Ammunition supply") appears and the empty NSM canister refills | No panel: the supply block is not read. A panel but no refill: the canister's reload flag is not honoured (the pack README's checklist item 2) |
+| 6E.2 | SW09, Collins alongside with a torpedo or two gone | The torpedoes come back while she is surfaced | Nothing crosses: say whether the panel showed Collins as a receiver at all |
+| 6E.3 | SW09, during a transfer, run Perth up to 20 kn and watch the range to Stalwart | The transfer stops as her speed passes 16 kn, while she is still inside half a mile | It carries on past 16 kn: the speed gate is not honoured. If it only stops once the range opens past half a mile, that was the range gate; slow down, close up and try again |
+
 ## 7 — the review's engine tests
 
 The independent review of `057405fe` listed the runs that no static check

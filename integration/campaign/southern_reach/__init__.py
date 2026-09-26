@@ -18,10 +18,13 @@ of this campaign's own:
      mission here declares geography="coast" and the builder checks each
      position against the committed Natural Earth extract (coast.py).
 
-  2. No mechanic the engine has not been seen to have. Replenishment is a
-     service window (position when the clock runs, as SW09), ice and weather
-     are briefing text and force allocation, "undetected" is never scored,
-     and the Antarctic coast itself is not a map anything sails to.
+  2. No mechanic the engine has not been seen to have. Replenishment is
+     scored as a service window (position when the clock runs, as SW09):
+     HMAS Supply and Stalwart carry a working supply system, so what the
+     briefings say crosses does cross, but no condition type can count it.
+     Ice and weather are briefing text and force allocation, "undetected" is
+     never scored, and the Antarctic coast itself is not a map anything sails
+     to.
 
   3. New Zealand is a partner with its own aircraft and its own voice, not a
      stand-in fleet. The RNZAF P-8A (Squadron6 of the winning P-8 squadrons

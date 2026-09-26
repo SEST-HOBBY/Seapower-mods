@@ -41,6 +41,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent / "SEST_Allied_Fixes"
 
+sys.path.insert(0, str(ROOT / "integration"))
+from common.a10c import fix_squadron_count, register_ir_head  # noqa: E402
+from common.ras import make_reloadable  # noqa: E402
+
 MISSING = "usn_agm-84g"      # defined by nothing, anywhere
 REPLACE = "usn_agm-84n"      # U.S. Navy 2027's own Harpoon Block II+ ER
 
@@ -62,8 +66,10 @@ INFO_INI = """\
 Name=SEST Allied Fixes
 Description=Small allied corrections: the P-8's anti-ship fit pointed at a \
 Harpoon no mod defines (loaded empty), HMS Ocean could not operate the \
-Apache AH1 her sister hulls already support, and the RNZAF and ROKN P-8 \
-squadrons named nations the game has no flag for.
+Apache AH1 her sister hulls already support, the RNZAF and ROKN P-8 \
+squadrons named nations the game has no flag for, and the A-10C's infrared \
+head was never registered as a sensor module while its squadron file \
+declared seven squadrons against two defined liveries.
 """
 
 
@@ -175,9 +181,15 @@ def main():
                           f"AircraftSupported={had},uk_ah_mk_1", text, flags=re.M)
         if n != 1:
             sys.exit(f"rn_lph_ocean.ini: AircraftSupported substitution hit {n} lines")
+        # SEST Replenishment At Sea owns the launcher fix for every modern hull,
+        # but it cannot touch this one - THIS pack ships rn_lph_ocean.ini, and
+        # two packs shipping different bytes at one path is an unconditional
+        # consolidation failure. So the transform is imported and applied here.
+        text, reloadable = make_reloadable(text)
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(text, encoding="utf-8")
-        print("  vessels/rn_lph_ocean.ini  (+uk_ah_mk_1 Apache AH1 supported)")
+        print(f"  vessels/rn_lph_ocean.ini  (+uk_ah_mk_1 Apache AH1 supported, "
+              f"{reloadable} launcher(s) made reloadable for RAS)")
 
     # APKWS II-ER: the medium-range strike guided rocket (user ask). The
     # Apache mod's M282 APKWS with its launch envelope extended 3.5 -> 8 nm -
@@ -244,7 +256,7 @@ def main():
             "sest_agr-30=AGR-30,Redback,GFFAR,"
             "What-if evolution of the 70mm guided rocket family: the AGR-30 "
             "Redback replaces the APKWS II laser kit with an imaging-infrared "
-            "seeker - true fire and forget out to 15 nautical miles with a "
+            "seeker - true fire and forget out to 25 nautical miles with a "
             "lofted profile and terminal dive. Same airframe and warhead as "
             "the APKWS II; missile performance at rocket cost.\n",
             encoding="utf-8")
@@ -261,17 +273,22 @@ def main():
         # the collection's own weapon pack, so the Redback is now that file
         # with the minimum deltas: IR seeker instead of laser (GuidanceType
         # 1, MidCourseCorrection stays 0 - pure fire and forget, five
-        # in-container precedents), range 6 -> 15 nm, loft raised 5/1500 ->
-        # 12/4000 for the higher profile. Motor, fuze, effects, terminal
-        # logic all stay the working weapon's.
+        # in-container precedents), range 6 -> 25 nm with the seeker matched to
+        # it, loft raised 5/1500 -> 12/4000 for the higher profile. Motor,
+        # fuze, effects, terminal logic all stay the working weapon's.
         rb_src = ROOT / "mods-source" / "3760871384" / "ammunition" / "dts_apkws-ii.ini"
         if not rb_src.exists():
             sys.exit("dts_apkws-ii.ini missing - Dingtools Weapon Pack must be exported")
         rb = rb_src.read_text(encoding="utf-8-sig", errors="replace")
         swaps = [
             (r"^GuidanceType=5\b", "GuidanceType=1"),
-            (r"^SeekerPassiveRange=6\.0\b", "SeekerPassiveRange=8"),
-            (r"^MaxLaunchRange=6\b", "MaxLaunchRange=15"),
+            # The seeker must reach as far as the weapon may be shot. This is
+            # GuidanceType=1 with MidCourseCorrection=0 - pure fire and forget,
+            # nothing corrects it after release - so a shot taken beyond the
+            # seeker's reach has nothing to home on. It was an 8 nm seeker on a
+            # 15 nm weapon, leaving every shot past 8 nm unguided. Both are 25.
+            (r"^SeekerPassiveRange=6\.0\b", "SeekerPassiveRange=25"),
+            (r"^MaxLaunchRange=6\b", "MaxLaunchRange=25"),
             (r"^MaxLoftAngle=5\.0\b", "MaxLoftAngle=12.0"),
             (r"^MaxLoftAlt=1500\b", "MaxLoftAlt=4000"),
         ]
@@ -281,8 +298,8 @@ def main():
                 sys.exit(f"dts_apkws-ii: {pat} matched {k} times - upstream changed")
         (OUT / "ammunition" / "sest_agr-30.ini").write_text(
             "# SEST AGR-30 Redback - dts_apkws-ii (proven in-pod, lofting) with an\n"
-            "# IR seeker, 15 nm reach and a raised loft. Minimum-delta rebase after\n"
-            "# the M282-based build froze the game twice.\n"
+            "# IR seeker, 25 nm reach matched by a 25 nm seeker, and a raised loft.\n"
+            "# Minimum-delta rebase after the M282-based build froze the game twice.\n"
             + rb, encoding="utf-8")
 
         rbpod, k = re.subn(r"^Ammunition=usa_apkws_2_m282\s*$",
@@ -338,6 +355,10 @@ def main():
             if not csrc.exists():
                 if cdst.exists():
                     cdst.unlink()
+                if fname == "usa_a-10c.ini":
+                    stale_sq = cdst.parent / "usa_a-10c_squadrons.ini"
+                    if stale_sq.exists():
+                        stale_sq.unlink()
                 print(f"  {fname}  SKIPPED - {mod} not exported")
                 continue
             ct = csrc.read_text(encoding="utf-8-sig", errors="replace")
@@ -369,9 +390,22 @@ def main():
                     sys.exit(f"{fname}: {donor} swapped {k} lines for {pat}, expected {need}")
             ct = ct[:bm.end()] + "[WeaponSystem1SEST_REDBACK]\n" + body + ct[bm.end():]
             cdst.parent.mkdir(parents=True, exist_ok=True)
+            extra = ""
+            if fname == "usa_a-10c.ini":
+                # Two defects in the standard aircraft, repaired here because
+                # this pack already ships the file. They are bugs, not the
+                # upgrade: SEST A-10C+ carries the added sensors and AIM-9X on
+                # a separate unit id, and applies these same two repairs from
+                # integration/common/a10c.py so the pair cannot drift.
+                ct = register_ir_head(ct, fname)
+                sqsrc = ROOT / "mods-source" / mod / "aircraft" / "usa_a-10c_squadrons.ini"
+                sq, was, defined = fix_squadron_count(
+                    sqsrc.read_text(encoding="utf-8-sig", errors="replace"), sqsrc.name)
+                (cdst.parent / sqsrc.name).write_text(sq, encoding="utf-8")
+                extra = f", IR head registered, squadrons {was}->{defined}"
             cdst.write_text(ct, encoding="utf-8")
             pods = body.count("sest_agr-30_pod")
-            print(f"  aircraft/{fname}  SEST_REDBACK ({pods} pods, donor {donor})")
+            print(f"  aircraft/{fname}  SEST_REDBACK ({pods} pods, donor {donor}){extra}")
 
 
 

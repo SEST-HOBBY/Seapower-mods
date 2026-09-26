@@ -22,6 +22,19 @@ made it safe rather than being a blind rename:
       nothing else, and the replacement declares SEAD plus three SEST fits,
       so every mission reference (all of them SEAD) resolves unchanged.
 
+  jp_sh-60k -> jmsdf_sh-60k, jp_sh-60j -> jmsdf_sh-60j   (applied by hand)
+      Euromod JMSDF renamed its Seahawks on 19 Sep 2026. Its
+      aircraft_names.ini names only the jmsdf_ ids, and mods-source holds 43
+      of its files against the 37 the last export copied: the jp_ unit and
+      squadron files are leftovers the exporter never deleted. Each jmsdf_
+      airframe offers every loadout its jp_ twin did, plus Transport, and
+      ships Squadron1, so the missions' `jmsdf_sh-60k=Squadron1,1` air groups
+      resolve unchanged. The six live NORTHERN FRONT saves and
+      scenarios/SEST NF3 - Boomer Hunt were edited whole-token instead of
+      through RETARGET, because the guard in main() refuses an old id that
+      mods-source still defines. Add the pair to RETARGET once an export with
+      the deletion mirror has removed the jp_ files.
+
 Scope: live missions only. The timestamped *backup-*.ini files are snapshots
 of a mission at a moment, and rewriting them would destroy the only thing
 they are for.

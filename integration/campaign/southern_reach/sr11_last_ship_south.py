@@ -90,7 +90,7 @@ MISSION = dict(
           name="RSV Southern Endeavour"),
         # Only if Cold Route did not sink her: the spawn reads the flag the
         # support-loss trigger there writes.
-        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "convoy",
+        U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "convoy",
           name="MT Derwent Spirit", spawn_if=("SR09TankerLost", "IsFalse")),
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7"),
         U("blue", "us-navy-2027", "usn_mh-60r", "flight", alt=500,
