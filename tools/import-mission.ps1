@@ -9,6 +9,10 @@
     copies the named mission (or every user mission) into
     integration\missions\, and normalises CRLF to LF so the diff stays clean.
 
+    The editor turns every WeaponStatus=Hold and =Tight into Free on save,
+    so each imported mission then goes through restore_roe.py, which puts
+    back the posture of the newest committed copy that still had it.
+
     Your edited file becomes the authoritative copy. Re-run the mission
     tooling afterwards (civilian dressing, depth pass, land check) - all of
     it is idempotent and preserves every placement you made.
@@ -72,6 +76,7 @@ $files = if ($All) {
 }
 
 $imported = 0
+$importedNames = @()
 foreach ($f in $files) {
     $dest = Join-Path $destDir $f.Name
     $text = Get-Content -LiteralPath $f.FullName -Raw
@@ -84,11 +89,42 @@ foreach ($f in $files) {
     [System.IO.File]::WriteAllText($dest, $lf)
     Write-Host ("  imported   {0}  ({1:N0} bytes, saved {2})" -f $f.Name, $f.Length, $f.LastWriteTime)
     $imported++
+    $importedNames += $f.BaseName
 }
 
 Write-Host "`n$imported mission(s) imported into integration\missions."
-Write-Host "Next:"
+
+# --- Restore the ROE the editor flattened ------------------------------------
+# Saving in the editor rewrites every WeaponStatus=Hold and =Tight to Free, so
+# an import is the last moment this is cheap to undo: once a flattened copy is
+# committed it is one more commit between the mission and its posture, and a
+# naive "compare with the previous commit" then compares two flattened copies
+# and reports all clear. Restore here, before the commit.
+if ($importedNames.Count -gt 0) {
+    $py = Get-Python
+    if (-not $py) {
+        Write-Host ""
+        Write-Host "Python 3 was not found, so WeaponStatus was NOT restored." -ForegroundColor Yellow
+        Write-Host "The editor turns every Hold and Tight into Free on save. Either install"
+        Write-Host "Python and run the line(s) below, or push the import and say it needs it:"
+        foreach ($n in $importedNames) {
+            Write-Host ("  python .\integration\missions\restore_roe.py --mission `"{0}`" --write" -f $n)
+        }
+    } else {
+        Write-Host "`nRestoring the ROE the editor flattened:"
+        $roe = Join-Path $repoRoot "integration\missions\restore_roe.py"
+        foreach ($n in $importedNames) {
+            $argList = @($py.Pre) + @($roe, "--mission", $n, "--write")
+            & $py.Exe @argList
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host ("  restore_roe.py could not settle {0} - read its message above before committing." -f $n) -ForegroundColor Yellow
+            }
+        }
+    }
+}
+
+Write-Host "`nNext:"
 Write-Host "  git add integration\missions"
 Write-Host "  git commit -m `"Import edited mission`""
 Write-Host "  git push"
-Write-Host "Then the mission tooling can be re-run over your edits (it is idempotent)."
+Write-Host "Then the rest of the mission tooling can be re-run over your edits (it is idempotent)."
