@@ -201,6 +201,7 @@ the repository also builds each of them on its own.
 (local)       unit                             SEST F-16CM JATM
 (local)       unit                             SEST F-35C JATM
 (local)       unit                             SEST Growler NGJ + MALICE
+(local)       store                            SEST Intercept Model
 (local)       unit                             SEST JMSDF Mogami
 (local)       unit                             SEST RAAF Bases
 (local)       unit                             SEST RAAF F-35A JATM

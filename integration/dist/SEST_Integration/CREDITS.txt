@@ -5,14 +5,14 @@ textures and no audio - every one of those belongs to the Workshop
 mod it came from, which is why REQUIRED-MODS.txt lists them as
 required rather than suggested.
 
-82 of the unit files here are another author's file with
+88 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 82 below
+every file of its kind in the collection, and the 88 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
@@ -52,6 +52,9 @@ file is unchanged.
        95%  aircraft/fr_rafale_c_l.ini 
        95%  aircraft/fr_rafale_m_l.ini 
 
+  David's Sling  (workshop 3558173926)
+       97%  ammunition/idf_stunner.ini 
+
   Dingtools Weapon Pack  (workshop 3760871384)
        96%  ammunition/sest_agr-30.ini from dts_apkws-ii.ini
 
@@ -75,6 +78,9 @@ file is unchanged.
       100%  vessels/ran_lsd_choules.ini from ae_lpd_galicia.ini
       100%  vessels/ran_opv_arafura.ini from ae_opv_meteoro.ini
       100%  vessels/ran_ssg_collins.ini from ae_ssk_s80.ini
+
+  Euromod-South Korea Navy  (workshop 3789208859)
+       97%  ammunition/rok_k-sam-II.ini 
 
   F-15 EX Eagle II  (workshop 3636386513)
        92%  aircraft/usaf_f-15ex_SEII.ini 
@@ -132,9 +138,15 @@ file is unchanged.
   Red Storm Arsenal  (workshop 3413868677)
        96%  aircraft/usaf_b-52o.ini 
        99%  ammunition/usn_rgm_184a.ini 
+       97%  ammunition/usn_rim_174a.ini 
+       97%  ammunition/usn_rim_174b.ini 
+       97%  ammunition/usn_rim_174c.ini 
 
   Shenyang J-16A (歼-16A 潜龙)  (workshop 3506979898)
        99%  ammunition/plaaf_akf-98a.ini 
+
+  Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)  (workshop 3395022688)
+       92%  ammunition/damage.ini 
 
   Type 003 Aircraft Carrier - PLANS Fujian CV-18  (workshop 3663564190)
        99%  ammunition/plaaf_kd-88.ini 

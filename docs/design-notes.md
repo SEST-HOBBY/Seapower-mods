@@ -11,6 +11,39 @@ and the rule gets a new revision — that has happened three times already.
   mod's copy loads and the rest are *gone* — silently. This is the single most
   important fact in the repo; the Growler pack was inert for days because one
   reorder jumped U.S. Navy 2027 over it, with no error anywhere.
+- **That rule catches the global tables too, and nobody notices.**
+  `ammunition/damage.ini` is not a unit — it is the game's global damage and
+  intercept model — but it lives under `ammunition/`, so it obeys the same
+  whole-file rule. The Tu-95/AS-15 mod ships a copy built on a pre-0.8.x
+  version of that file. It won, and it deleted eight global keys from the whole
+  collection: the five `InterceptSizeBonus*`, `InterceptOutOfAltitudePenalty`,
+  `InterceptSpeedPenaltyMultiplier`, and `InterceptChanceOutOfAltitudeOverride`
+  — the hard 5% ceiling on intercepting a target outside a weapon's altitude
+  band. Six of the eight have no per-round override form anywhere in the
+  corpus — the five size bonuses and the clamp — so none of the 557
+  anti-air-capable rounds could opt out of losing them. The other two,
+  `InterceptOutOfAltitudePenalty` and `InterceptSpeedPenaltyMultiplier`, are
+  declared per round by 156 and 168 of those rounds; the other 401 and 389
+  read the global, which was gone. Counts from `tools/survey_attack_altitudes.py`;
+  re-run it after any export or reorder rather than trusting these. That mod
+  wanted to change two impact-size values. `SEST_Intercept_Model` restores the
+  table; `integration/intercept-model/build_patch.py` records what arming the
+  clamp changes and which rounds needed fixing first (the Red Storm SM-6, the
+  Korean K-SAM II copied from it, and David's Sling).
+  Measured, not observed in game: it was found by diffing the winning copy
+  against vanilla, not by anything looking wrong on screen, and the paired
+  builds that would show whether the restore changes anything have not been
+  run. Check global tables the same way you check units.
+- **An absent band is not the same as a zero — an absent *bound* is still
+  open.** Three stock AAW missiles (`fr_super-530f`, `pla_pl-2`, `pla_pl-2b`)
+  declare no attack-altitude band at all and have always shipped against a
+  `damage.ini` where the 5% clamp is live, so a missing band cannot default to
+  zero or they would be permanently clamped. That settles the both-absent case
+  only. It does not settle the 69 modded rounds that declare *one* side and no
+  vanilla file does: an engine may skip the check when neither bound is present
+  yet still run it against a defaulted other side. Untested; fire an AMRAAM
+  (floor only) and a Roland or Crotale VT-1 (ceiling only) and read the
+  percentage.
 - **`systems/` and `language_*/` merge key-by-key.** Proof: 89 mods ship a
   `systems/sensors.ini` from 8 to 8,141 lines and none deletes the others.
   Language merging is how packs rename other mods' units without owning the file.

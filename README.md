@@ -8,7 +8,7 @@ Everything here is built around interoperability: a mod is known by three names 
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
 `mods-source/` export and its load-order token), and the display name the Mod Manager
 shows — and `data/mod-catalog.json` is the table that joins them, including the
-`local_packs` registry of the 17 SEST source packs.
+`local_packs` registry of the 18 SEST source packs.
 
 ## Layout
 
@@ -32,7 +32,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 Linux / repo side:
 
 ```bash
-python3 tools/build_all.py --from-scratch   # rebuild all 17 packs + the consolidated dist;
+python3 tools/build_all.py --from-scratch   # rebuild all 18 packs + the consolidated dist;
                                             # a clean `git status` after = the regression gate
 python3 tools/preflight.py                  # resolve every reference the active mission makes
 python3 tools/preflight.py --all            # every deployed mission: fails on the editor crash, lists the rest
@@ -45,6 +45,8 @@ python3 tools/check_dependencies.py         # every pack's upstreams exported an
 python3 tools/check_stale_phrases.py        # retired claims (the pre-reveal AIM-424) stay out of builders and packs
 python3 tools/check_mod_conflicts.py <id>   # what a newly added mod would collide with
 python3 tools/check_campaign_coverage.py    # every enabled mod still reached by the campaigns (the pack union)
+python3 tools/survey_attack_altitudes.py    # anti-air altitude bands against the 5% out-of-band ceiling (after each export)
+python3 tools/make_intercept_ab_builds.py   # two deployables differing only in damage.ini, for the in-game intercept test
 python3 integration/campaign/build_pack.py --dry-run --campaign southern-reach --only TS09   # one mission through every gate, nothing written
 python3 tools/generate_catalog.py           # docs/mod-catalog.md      <- data/mod-catalog.json
 python3 tools/generate_load_order.py        # docs/load-order-full.md  <- catalog + tiers

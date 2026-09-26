@@ -69,6 +69,12 @@
       "title": "SEST Growler NGJ + MALICE"
     },
     {
+      "folder": "SEST_Intercept_Model",
+      "source": "integration/intercept-model",
+      "builder": "build_patch.py",
+      "title": "SEST Intercept Model"
+    },
+    {
       "folder": "SEST_JMSDF_Mogami",
       "source": "integration/jmsdf-mogami",
       "builder": "build_patch.py",
@@ -137,6 +143,7 @@
         "SEST_F-35C_JATM",
         "SEST_F16CM_JATM",
         "SEST_Growler_NGJ_MALICE",
+        "SEST_Intercept_Model",
         "SEST_JMSDF_Mogami",
         "SEST_RAAF_Bases",
         "SEST_RAAF_F-35A_JATM",

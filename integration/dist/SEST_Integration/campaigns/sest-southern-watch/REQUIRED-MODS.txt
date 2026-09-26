@@ -146,7 +146,7 @@ and hull variants they name, and the rounds their loadouts hang.
                                                    asked for by: B-2 Spirit, MV-22B Osprey Tiltrotor / JGSDF V-22B
   (workshop)    manual install                   SeaLifter - required by B-2 Spirit; not in this collection
 
-2. SEST INTEGRATION PACKS (15): this project's own patches, inside the consolidated download.
+2. SEST INTEGRATION PACKS (16): this project's own patches, inside the consolidated download.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
   (local)       a unit a mission places          SEST Allied Fixes
@@ -156,6 +156,7 @@ and hull variants they name, and the rounds their loadouts hang.
   (local)       a unit a mission places          SEST F-16CM JATM
   (local)       a unit a mission places          SEST F-35C JATM
   (local)       a unit a mission places          SEST Growler NGJ + MALICE
+  (local)       a weapon a loadout hangs         SEST Intercept Model
   (local)       a unit a mission places          SEST JMSDF Mogami
   (local)       a unit a mission places          SEST RAAF Bases
   (local)       a unit a mission places          SEST RAAF F-35A JATM

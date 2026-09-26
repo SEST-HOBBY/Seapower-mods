@@ -1041,13 +1041,18 @@ agrees with, or adds a key. One difference remains by design: with the
 preloader, the overwrite still sets the IIA's `MaxFlightTime` to 3000 s on top
 of the 900 s this pack ships.
 
-For whoever ports the same branch's SEST Intercept Model pack: it restores
-vanilla's `ammunition/damage.ini`, and with it
-`InterceptChanceOutOfAltitudeOverride=0.05`, a hard 5% cap on any intercept
-outside the round's altitude band. Today the Tu-95 mod's older `damage.ini`
-wins and lacks the key, so there is no cap. Once it is back, the 150,000 ft
-floor caps every SM-3 shot at a target below it at 5%, the 99,000 ft tier the
-builder names included, so the floor has to be decided again in that port.
+The same branch's SEST Intercept Model pack is now ported
+(`integration/intercept-model/`). It restores vanilla's
+`ammunition/damage.ini`, and with it `InterceptChanceOutOfAltitudeOverride=0.05`,
+a hard 5% cap on any intercept outside the round's altitude band. Before it,
+the Tu-95 mod's older `damage.ini` won and lacked the key, and the 7% reading
+against supersonic-high targets far below the old 220,000 ft floor suggests
+there was no cap. If the cap is live, the 150,000 ft floor holds every manual
+SM-3 shot at a target below it to 5%, the 99,000 ft tier the builder names
+included; automatic launch below the floor was already off. The floor was
+kept at 150,000 in the port: it is the user's choice, and it should be decided
+again once the paired builds from `tools/make_intercept_ab_builds.py` have
+shown in game whether the cap is live. Nobody has run them yet.
 
 **Not demonstrated:** that Aegis ships now hold a ballistic raid better. An
 SM-3 IIA from a Flight III Burke at a DF-21D or DF-26B raid should lock well
@@ -1067,7 +1072,7 @@ turn onto its target with a 5°/s launch turn.
 | Coverage report | `docs/campaign-coverage.md`, regenerated on every build |
 
 `python3 integration/campaign/build_pack.py` builds it; `tools/build_all.py`
-runs it in order with the other sixteen packs and consolidates it into
+runs it in order with the other seventeen packs and consolidates it into
 `SEST_Integration`.
 
 ## Where this departs from the bible, and why
