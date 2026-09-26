@@ -211,7 +211,7 @@ Adds ten cross-mod loadouts and six extra squadrons to dingtools' F-15 EX Eagle 
   If the donor changes: Requires 3737267013 United States Naval Aviation to stay subscribed for assets/models/ammunition/agm-88/agm-88g.obj; without it "the game falls back to the RIM-7 asset-bundle stand-in, same…
 
 - **Write byte-identical copies of ammunition/sest_aim-424.ini and the partial language_en/ammunition_names.ini from four different SEST packs instead of factoring the missile into one pack.**  
-  *File semantics* — integration/common/aim424.py docstring: "All four SEST packs that carry MALICE fits write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager." Confirmed: the same file is emitted by f-15ex-revamp, rafal…
+  *File semantics* — integration/common/aim424.py docstring: "All six SEST packs that carry MALICE fits (F-15EX Revamp, F-16CM JATM, F-35C JATM, RAAF F-35A JATM, Growler NGJ+MALICE, Rafale F5) write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager." Confirmed: the same file is emitted by f-15ex-revamp, rafal…
   
   Effect: Any one of those packs alone gives a working MALICE; installing several cannot produce a version conflict.
   
@@ -549,7 +549,7 @@ Three mods (deprecated MyGo F-35C, F-35C Alt. Loadouts, US Naval Aviation) all s
 | `ammunition/sest_aim-424.ini` | adds | New id under the `sest_` namespace. Fli… | Four subscribed mods ship `usn_aim-174b.ini` (3426791311, 3430135740, 3606774881, 3737267013). aim424.py picks 3606774881 explicitly: 'Aligned to usn… |
 | `language_en/loadout_names.ini` | merges | 3607989779 — F-35C Lightning II Alt. Lo… | The base file is Alt. Loadouts', so its loadout-name file is the matching one. 43 lines out. |
 | `language_cn/loadout_names.ini` | merges | 3737267013 — United States Naval Aviati… | Builder comment: 'Alt. Loadouts ships English only; fall back to US Naval Aviation for any other language so its names are not lost by the override.'… |
-| `language_en/ammunition_names.ini` | adds | None — authored in integration/common/a… | Language files merge key-by-key, so a one-key file adds the encyclopedia entry without owning any other mod's names. aim424.py: 'All four SEST packs … |
+| `language_en/ammunition_names.ini` | adds | None — authored in integration/common/a… | Language files merge key-by-key, so a one-key file adds the encyclopedia entry without owning any other mod's names. aim424.py: 'All six SEST packs … |
 | `_info.ini` | adds | None — pack metadata | Declares `ApproximateVersion=0.8.2` and the load-order instruction: 'Place ABOVE F-35C Alt. Loadouts, US Naval Aviation, the deprecated MyGo F-35C, a… |
 
 **Decisions (26)** — File semantics 6, UNSTATED 6, Upstream donor 5, In-game observation 5, Comparison 1, Engine precedent 1, Real-world spec 1, Author mandate 1
@@ -619,7 +619,7 @@ Three mods (deprecated MyGo F-35C, F-35C Alt. Loadouts, US Naval Aviation) all s
   If the donor changes: Station geometry is inherited from the base file; a donor change to the bay table would move the stores.
 
 - **Build the AIM-424 MALICE as a new `sest_` id rather than editing any existing missile, and ship byte-identical copies from every pack that uses it.**  
-  *File semantics* — integration/common/aim424.py: 'All four SEST packs that carry MALICE fits write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager.' Enforced by tools/consolidate_packs.py ('identical bytes -> keep one …
+  *File semantics* — integration/common/aim424.py: 'All six SEST packs that carry MALICE fits (F-15EX Revamp, F-16CM JATM, F-35C JATM, RAAF F-35A JATM, Growler NGJ+MALICE, Rafale F5) write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager.' Enforced by tools/consolidate_packs.py ('identical bytes -> keep one …
   
   Effect: A new encyclopedia entry appears; no existing missile's stats are changed for any other mod's aircraft.
   
@@ -656,7 +656,7 @@ Three mods (deprecated MyGo F-35C, F-35C Alt. Loadouts, US Naval Aviation) all s
 - **Take Mass=680 from the U.S. Navy's published weight.**  
   *Real-world spec* — common/aim424.py: `Mass=680 // in kg. 1,500 lb per the U.S. Navy fact file "AIM-424 LRAAM - Malice" (navy.mil, 22 Aug 2026)`. The three other AIM-424 rounds in the collection agree: usn_aim-424 in 3737267013 and 3606774881 at Mass=680, yf23_aim424_internal in 3796349767 at 680.4. It used to be 467, copied from usn_agm-88g.ini while the MALICE was still modelled as an AGM-88G derivative; the Navy's 22 August 2026 reveal retired that.
   
-  Effect: Loadout mass matches the real missile: +213 kg a round over the old AGM-88G figure (+1,704 kg on the F-15EX's 8x MaliceTruck).
+  Effect: Loadout mass matches the real missile: +213 kg a round over the old AGM-88G figure (+1,278 kg on the F-15EX's Malice6 and MaliceTruck, which each hang six rounds whatever the truck's "8x" name says).
   
   If the donor changes: Static value, literal in aim424.py; nothing upstream propagates to it.
 
@@ -974,7 +974,7 @@ Adds four future-arsenal loadouts (AIM-260 JATM x3, AIM-424 MALICE x1) and an F-
 | `/home/user/Seapower-mods/integration/raaf-f-35a-jat…` | overrides | 3514484654 — "RAAF F-35A Lighting II" (… | It is the only mod in mods-source/ that ships aircraft/raaf_f-35a.ini (find over mods-source returns 3514484654 only); the catalog lists its sole ove… |
 | `/home/user/Seapower-mods/integration/raaf-f-35a-jat…` | adds | flight model rebased on usn_aim-174b as… | New id, no upstream file to displace. Two donors, each chosen for a stated reason: for the flight model, "Aligned to usn_aim-174b as shipped by U.S. … |
 | `/home/user/Seapower-mods/integration/raaf-f-35a-jat…` | merges | 3514484654 — "RAAF F-35A Lighting II" (… | language_*/ files merge key-by-key, but the builder still rebases on upstream's own loadout_names.ini (`src_names = UPSTREAM / f"language_{lang}" / "… |
-| `/home/user/Seapower-mods/integration/raaf-f-35a-jat…` | merges | none — SEST-authored, emitted by integr… | Deliberately partial (one line, sest_aim-424) rather than rebased on any mod's ammunition_names.ini: "All four SEST packs that carry MALICE fits writ… |
+| `/home/user/Seapower-mods/integration/raaf-f-35a-jat…` | merges | none — SEST-authored, emitted by integr… | Deliberately partial (one line, sest_aim-424) rather than rebased on any mod's ammunition_names.ini: "All six SEST packs that carry MALICE fits (F-15EX Revamp, F-16CM… |
 | `/home/user/Seapower-mods/integration/raaf-f-35a-jat…` | adds | n/a — pack manifest | Carries the load-order mandate the pack depends on ("Place ABOVE the RAAF F-35A mod in the Mod Manager") and ApproximateVersion=0.8.2. |
 
 **Decisions (23)** — File semantics 7, Upstream donor 5, In-game observation 4, UNSTATED 3, Engine precedent 2, Author mandate 1, Comparison 1
@@ -1072,7 +1072,7 @@ Adds four future-arsenal loadouts (AIM-260 JATM x3, AIM-424 MALICE x1) and an F-
   If the donor changes: Station 7/8 coordinates come from upstream's table; if Greene retunes the bay the fit follows on rebuild.
 
 - **Ship the AIM-424 MALICE from one shared source module written byte-identically into every pack that carries a MALICE fit (six packs) instead of per-pack variants.**  
-  *File semantics* — integration/common/aim424.py docstring: "All four SEST packs that carry MALICE fits write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager." Enforced downstream by tools/consolidate_packs.py: "identic…
+  *File semantics* — integration/common/aim424.py docstring: "All six SEST packs that carry MALICE fits (F-15EX Revamp, F-16CM JATM, F-35C JATM, RAAF F-35A JATM, Growler NGJ+MALICE, Rafale F5) write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager." Enforced downstream by tools/consolidate_packs.py: "identic…
   
   Effect: The MALICE performs the same whichever aircraft carries it and whichever pack sits highest.
   
@@ -2552,7 +2552,7 @@ Adds two derived loadouts (AIM-260 JATM intercept, AIM-424 MALICE) to the USAF F
   If the donor changes: n/a
 
 - **Add sest_aim-424.ini as a new ammunition id rather than editing or overriding any existing missile, and accept that six SEST packs now ship byte-identical copies.**  
-  *File semantics* — integration/common/aim424.py: "All four SEST packs that carry MALICE fits write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager." tools/consolidate_packs.py rule 1: "identical bytes -> keep one copy"…
+  *File semantics* — integration/common/aim424.py: "All six SEST packs that carry MALICE fits (F-15EX Revamp, F-16CM JATM, F-35C JATM, RAAF F-35A JATM, Growler NGJ+MALICE, Rafale F5) write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager." tools/consolidate_packs.py rule 1: "identical bytes -> keep one copy"…
   
   Effect: No existing weapon changes stats because of this pack; ammunition/ override order is irrelevant for the 424.
   
@@ -2615,7 +2615,7 @@ Adds two derived loadouts (AIM-260 JATM intercept, AIM-424 MALICE) to the USAF F
 - No language_cn. The pack writes only language_en, so SEST_F16_Intercept260 and SEST_F16_MALICE appear as raw keys in a Chinese-language client. Four sibling packs (f-15ex-revamp, f-35c-jatm, growler-ngj-malice, raptor-squadrons) …
 - No in-game verification is recorded for either fit. The commit reports "16 packs build from scratch byte-identically; preflight, check_load_order and check_dependencies green" — check_station_clash is not among them, and docs/set…
 - No README. Every other JATM/loadout pack of comparable size documents itself (integration/f-35c-jatm/README.md, raaf-f-35a-jatm/README.md, f-15ex-revamp/README.md); this pack's entire rationale lives in the builder docstring, the…
-- Doc drift in the shared MALICE module this pack depends on: integration/common/aim424.py still says "All four SEST packs that carry MALICE fits" (six do now) and its "# Users:" line lists usn_f-35c, raaf_f-35a, usaf_f-15ex_SEII a…
+- Resolved 2026-09-26: integration/common/aim424.py used to say "All four SEST packs that carry MALICE fits" when six did, and its "# Users:" line missed this pack's F-16CM. The AIM-424 respec names all six packs in the docstring and lists every carrier, usaf_f-16cm-bl52d included, in the emitted header.
 - The pack shadows Zero Two's F-16 file. Any future author update to usaf_f-16cm-bl52d.ini is invisible in game until mods-source is re-exported and build_patch.py re-run — the standing hazard design-notes names ("Upstream moves un…
 
 ### `rafale-f5`
@@ -2717,7 +2717,7 @@ Gives the three late-standard Dassault Rafales (fr_rafale_b_l / c_l / m_l) six J
   If the donor changes: Every upstream change that would invalidate the pack becomes a build failure, not a broken save.
 
 - **The AIM-424 MALICE is a shared, byte-identical file written by integration/common/aim424.py, not a Rafale-local weapon.**  
-  *File semantics* — integration/common/aim424.py module docstring: 'All four SEST packs that carry MALICE fits write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager.' (Now seven copies including dist; all md5 86788be118…
+  *File semantics* — integration/common/aim424.py module docstring: 'All six SEST packs that carry MALICE fits (F-15EX Revamp, F-16CM JATM, F-35C JATM, RAAF F-35A JATM, Growler NGJ+MALICE, Rafale F5) write identical copies of ammunition/sest_aim-424.ini and a partial language_en/ammunition_names.ini - identical same-path files are a safe overlap whichever pack sits higher in the Mod Manager.' (Now seven copies including dist; all md5 86788be118…
   
   Effect: The Rafale's MALICE is the same missile the F-35C, RAAF F-35A, F-15EX, F-16CM and Growler packs carry — one encyclopedia card, one balance point.
   

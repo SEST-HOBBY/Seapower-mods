@@ -108,7 +108,7 @@ LOADOUT_NAMES = {
 
 INFO_INI = """[Language_en]
 Name=SEST F-35C JATM
-Description=AIM-260 JATM and AIM-424 MALICE loadout options for the F-35C the Gerald R. Ford JSF air wing flies: a 6-missile internal stealth intercept fit, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (Raytheon's two-stage LRAAM, in excess of 250 nm). Built on the F-35C Alt. Loadouts file so all 20 of its loadouts are kept. Requires F-35C Lightning II Alt. Loadouts, US Naval Aviation (supplies the model the MALICE borrows as a rendering stand-in) and the Dingtools Weapon Pack. Place ABOVE F-35C Alt. Loadouts, US Naval Aviation, the deprecated MyGo F-35C, and Modern US Navy.
+Description=AIM-260 JATM and AIM-424 MALICE loadout options for the F-35C the Gerald R. Ford JSF air wing flies: a 6-missile internal stealth intercept fit, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (Raytheon's LRAAM, in excess of 250 nm). Built on the F-35C Alt. Loadouts file so all 20 of its loadouts are kept. Requires F-35C Lightning II Alt. Loadouts, US Naval Aviation (supplies the model the MALICE borrows as a rendering stand-in) and the Dingtools Weapon Pack. Place ABOVE F-35C Alt. Loadouts, US Naval Aviation, the deprecated MyGo F-35C, and Modern US Navy.
 
 [Compatibility]
 ApproximateVersion=0.8.2
