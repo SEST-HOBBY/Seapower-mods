@@ -57,8 +57,8 @@ MISSION = dict(
         (
             "BANDA SEA, 0310, 27 NOVEMBER. The ceasefire took effect at 0000. The group "
             "acknowledged the order to withdraw at 2304 last night and is carrying it out: "
-            "LIAONING, the replenishment ship and HAI YANG 7, chartered, north-west for the "
-            "Manipa approaches with what the twenty-third left, and your frigate on the "
+            "LIAONING, the replenishment ship HULUNHU and HAI YANG 7, chartered, north-west "
+            "for the Manipa approaches with what the twenty-third left, and your frigate on the "
             "starboard quarter. Not every group in the corridor has acknowledged. This one has, "
             "and the coalition is watching to see which is which.\\n\\nMV MERIDIAN HARMONY is "
             "not withdrawing. She is one"
@@ -142,8 +142,17 @@ MISSION = dict(
         # Liaoning first: the Carrier objective and the win name group#1.
         U("blue", "liaoning-type-001", "plan_type_001", "group", name="Liaoning",
           weapons="Hold", route=[(-4.31, 128.38, 0)], telegraph=3),
-        U("blue", "_vanilla", "plan_ap_qiongsha", "group", name="Replenishment ship",
-          weapons="Hold", route=[(-4.34, 128.41, 0)], telegraph=3),
+        # Liaoning's Type 901, Hulunhu (SEST Replenishment, Variant1): the
+        # ship that goes south with her in December and that Southern Reach
+        # names in Turning North and Southern Cross. It was a vanilla
+        # Qiongsha standing in. She is a working supplier, so the screen can
+        # take stores from her at sea at thirteen knots or less - time the
+        # withdrawal order does not have to spare; the window's "no rearming"
+        # is the service between operations, which stays shut, and the next
+        # one the screen sails (The Quiet Side) rearms anyway.
+        U("blue", "SEST_Replenishment", "plan_aor_type901", "group", variant="Variant1",
+          name="Replenishment ship Hulunhu", weapons="Hold",
+          route=[(-4.34, 128.41, 0)], telegraph=3),
         U("blue", "_vanilla", "civ_ms_ritina", "charter", name="MT Hai Yang 7 (chartered)",
           weapons="Hold", route=[(-4.26, 128.33, 0)], telegraph=3),
         # A flag of convenience: Meridian's coasters are nobody's navy. Hold,

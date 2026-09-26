@@ -1136,6 +1136,23 @@ AIM-260 used to credit, is still reached: through the F-15EX's AIM-120D in
 Long Reach here, and through a model the F-35A draws in Turning North for
 Southern Reach.
 
+**Supply ships.** The audit proposed supply ships for two missions here, and
+one went in.
+Western Passage's second tanker was a vanilla merchant (`civ_ms_ritina`, "MT
+Passage Trader") in a dispatch whose whole objective is a European
+replenishment group; she is **RFA Tidesurge** now (`rn_aor_tide` Variant3,
+SEST Replenishment), the rotation's own fleet tanker, in the same slot of the
+same group under the same objective - one hull for another, no new target,
+no new protected unit. Fujian's Shadow gets neither of the two proposed
+(a Type 901 with Fujian, a Kaiser with Ford). A working supplier on the
+player's side in the fleet action would let the task group refill its
+magazines at sea before The First Ship Through, whose window sells no
+ammunition because the finale is fought on what the fleet action left; and a
+red replenishment ship in Fujian's group adds a logistics target the brief
+tells the player not to chase and nothing the fight needs. Southern Reach and
+Red Line's Chinese replenishment ships are the real classes now - see their
+build notes.
+
 ## What exists
 
 | Thing | Where |
