@@ -805,7 +805,7 @@ them, and never as a purchase:
 The same export carried a U.S. Navy 2027 update (sixteen new Flight I/II
 Arleigh Burke hulls, variant and language changes) and author updates to
 Euromod's interceptors. None of it changes a unit the campaign places; the
-six rounds Collection Fixes rebuilds (SM-3 IB/IIA/IIB, SM-6, SM-6 IB,
+six rounds Collection Fixes rebuilds (SM-3 IA/IB/IIA, SM-6, SM-6 IB,
 PAC-3 MSE) take the author's new kill probabilities, penalties, numeric RCS
 and body areas, and every SEST delta (the loft angle, the 150,000 ft gate,
 the flight times) still lands on top. All 26 campaign missions and the
@@ -1010,6 +1010,49 @@ SW09's Ka-27RLD and SW11's KJ-600 and J-20A (the J-20A, re-seated, had
 tipped its nearest deck from Liaoning to Fujian). SW11's red air wing no
 longer flies as one 0.1 NM Vic of fighters, an AEW aircraft and the
 shooter; the J-35, the KJ-600 and the J-20A each hold their own spawn.
+
+## The SM-3 seeker, from the Aegis BMD pack
+
+The `sest-dev/kind-faraday-ctr5h0` branch carries a standalone SEST Aegis BMD
+pack for the three Euromod SM-3s. The pack is not ported. It ships the same three files as
+Collection Fixes, which consolidation refuses, and most of it is already here
+or was decided otherwise later. Its 100,000 ft floor gave way to the user's
+150,000 (`e5eda59c`). It kept the 300,000 ft loft ceiling and 300 s of flight,
+where this branch lofts to the target and flies 600/600/900 s (`d2547151`).
+It cut the IIA's declared range from 1,500 NM to the 729 NM that 300 s
+allowed; here the IIA keeps 1,500 and gets the 900 s to fly it. It raised the
+IIA's `TypicalTargetAlt` to 800,000 ft because 200,000 sat under the old
+220,000 ft floor; it sits inside the band now. Its `LiftFactor` was borrowed
+from the PAC-3 MSE, not written for this round by anyone. Its two penalty
+values were already the same here.
+
+One part was still missing, and it is now in Collection Fixes. Without the
+Anchor Chain preloader, still an unverified install, the SM-3 homed on a stub
+in its base file: an 18 s unguided first phase (14 s on the IIA), an 8 NM
+terminal handover and a 10 NM / 30° seeker. The author's own values ship in
+the Anchorchain Expansion's `ammunition_overwrite/usn_rim-161*_OVWR.ini`,
+which only the preloader reads. The builder now folds them in: a 5 s first
+phase, a 50 NM handover, a 100 NM / 90° seeker, `LaunchTurnRate=5`,
+`TimeLimited=True`, and the overwrite's 90° loft in place of the 85° on the
+base file's disabled line, so the round climbs the same way on both installs
+(the builder comment gives the reasons). The builder re-reads the overwrite on
+every build and stops if the author changes a value it copies, declines or
+agrees with, or adds a key. One difference remains by design: with the
+preloader, the overwrite still sets the IIA's `MaxFlightTime` to 3000 s on top
+of the 900 s this pack ships.
+
+For whoever ports the same branch's SEST Intercept Model pack: it restores
+vanilla's `ammunition/damage.ini`, and with it
+`InterceptChanceOutOfAltitudeOverride=0.05`, a hard 5% cap on any intercept
+outside the round's altitude band. Today the Tu-95 mod's older `damage.ini`
+wins and lacks the key, so there is no cap. Once it is back, the 150,000 ft
+floor caps every SM-3 shot at a target below it at 5%, the 99,000 ft tier the
+builder names included, so the floor has to be decided again in that port.
+
+**Not demonstrated:** that Aegis ships now hold a ballistic raid better. An
+SM-3 IIA from a Flight III Burke at a DF-21D or DF-26B raid should lock well
+outside 10 NM, with no lock/unlock cycling, and a close-in shot should still
+turn onto its target with a 5°/s launch turn.
 
 ## What exists
 
