@@ -749,5 +749,48 @@ class RosterAndSeahawk(unittest.TestCase):
                          "Squadron2")
 
 
+class RosterOnSale(unittest.TestCase):
+    """A roster entry no purchase window sells is a price nobody can pay -
+    Southern Watch's KC-46 was one until the builder refused it."""
+
+    ROSTER = [dict(unit="ran_ffh_anzac", picks=["Variant3"], points=240),
+              dict(unit="usn_p8", picks=["Squadron3"], points=55)]
+
+    @staticmethod
+    def missions(*windows):
+        return [dict(key=f"M{n}", window=w) for n, w in enumerate(windows, 1)]
+
+    def check(self, roster, missions):
+        bp.check_roster_on_sale(roster, missions, "Test")
+
+    def test_an_entry_no_window_sells_stops_the_build(self):
+        with self.assertRaises(SystemExit) as caught:
+            self.check(self.ROSTER, self.missions(dict(buy=True, allow=["ran_ffh_anzac"])))
+        self.assertIn("usn_p8", str(caught.exception))
+        self.assertNotIn("ran_ffh_anzac", str(caught.exception))
+
+    def test_an_entry_on_sale_in_any_window_passes(self):
+        self.check(self.ROSTER, self.missions(dict(buy=True, allow=["ran_ffh_anzac"]),
+                                              dict(), dict(buy=True, allow=["usn_p8"])))
+
+    def test_an_allowlist_on_a_closed_builder_sells_nothing(self):
+        with self.assertRaises(SystemExit):
+            self.check(self.ROSTER, self.missions(dict(buy=True, allow=["ran_ffh_anzac"]),
+                                                  dict(buy=False, allow=["usn_p8"])))
+
+    def test_an_open_builder_without_an_allowlist_sells_the_roster(self):
+        self.check(self.ROSTER, self.missions(dict(buy=True, allow=["ran_ffh_anzac"]),
+                                              dict(buy=True)))
+
+    def test_the_shipped_campaigns_pass_and_the_kc46_would_not(self):
+        for spec in bp.campaign_specs():
+            self.check(spec["ROSTER"], spec["MISSIONS"])
+        watch = bp.campaign_specs()[0]
+        kc46 = dict(unit="usaf_kc-46a_boom", picks=["Squadron1"], points=75)
+        with self.assertRaises(SystemExit) as caught:
+            self.check(watch["ROSTER"] + [kc46], watch["MISSIONS"])
+        self.assertIn("usaf_kc-46a_boom", str(caught.exception))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

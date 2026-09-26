@@ -3287,6 +3287,30 @@ def allowed_roster_units(allow, roster, where):
     return "|".join(f"{u},{','.join(priced[u]['picks'])}" for u in allow)
 
 
+def check_roster_on_sale(roster, missions, title):
+    """The reverse of allowed_roster_units(): every roster entry must be on
+    sale in at least one purchase window.
+
+    allowed_roster_units() refuses an allowlist that names something the
+    roster does not sell. Nothing refused a roster entry no allowlist names,
+    and Southern Watch shipped one: a KC-46 priced at 75 points that no
+    window ever offered - a line in the player's roster file that reads as a
+    purchase and can never be one. An open builder with no allowlist sells
+    the whole roster, so one such window satisfies every entry. `missions`
+    is the whole campaign, never a --only subset: a window outside the
+    filter still sells.
+    """
+    buying = [m.get("window", {}) for m in missions if m.get("window", {}).get("buy")]
+    if any(not w.get("allow") for w in buying):
+        return
+    on_sale = {u for w in buying for u in w["allow"]}
+    dead = [e["unit"] for e in roster if e["unit"] not in on_sale]
+    if dead:
+        raise SystemExit(f"{title}: the roster prices {', '.join(dead)}, which no "
+                         "purchase window's allowlist names - a price nobody can "
+                         "pay. Put it on sale in a window or take it off the roster")
+
+
 # The six air-tasking roles the game localises, and the whole vocabulary:
 # language_en/ui.ini lines 3032-3037 define AirTaskingRole_SuCAP, _CAP,
 # _Recon, _HeloRecon, _Attack and _AEW and nothing else. A label outside this
@@ -4242,6 +4266,8 @@ def main():
         # reached by the campaign as surely as a placed one, and a bad price
         # stops the build before twenty missions are rendered on top of it.
         roster_text, roster_credits = roster_ini(ROSTER)
+        # ... every entry on sale somewhere, against the whole campaign ...
+        check_roster_on_sale(ROSTER, spec["MISSIONS"], TITLE)
         # ... and the air-tasking rows against that same roster, before any of
         # them is written into a campaign entry.
         check_flights([r for m in spec["MISSIONS"]

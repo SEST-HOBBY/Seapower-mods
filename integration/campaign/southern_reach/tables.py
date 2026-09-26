@@ -108,12 +108,15 @@ ROSTER = [
          note="Australian squadron in the SEST Growler pack's output"),
     dict(unit="usn_ea-18g", picks=["Squadron6"], points=55,
          note="conventional EW/SEAD fits; MALICE stays out of 2029"),
-    dict(unit="usn_p8", picks=["Squadron3"], points=45,
+    # The armed patrol aircraft over the unarmed one, as in Southern Watch:
+    # both fill the Recon row, and the Triton at 60 was never the buy.
+    dict(unit="usn_p8", picks=["Squadron3"], points=55,
          note="No. 11 and 12 Squadrons fly the same file; Squadron3 is the RAAF "
               "livery. Squadron6 is the RNZAF one and is never sold"),
     dict(unit="E7A_Wedgetail", picks=["Squadron1"], points=80),
-    dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=60,
-         note="unarmed in this implementation"),
+    dict(unit="raaf_mq-4c_triton", picks=["Squadron1"], points=40,
+         note="unarmed in this implementation, so priced under the P-8 and "
+              "the F-35A"),
     dict(unit="usn_mh-60r", picks=[RAN_SEAHAWK], points=20,
          note="816 Squadron RAN; one family chosen explicitly - usn_mh-60r_26 "
               "is a different unit and is never substituted for it"),

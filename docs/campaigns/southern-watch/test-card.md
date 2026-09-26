@@ -89,6 +89,7 @@ Pacific Strike campaign and has never been run.
 | 2.6 | Before SW05 | The builder says one ship sails it; the deployment screen accepts **exactly one vessel** (`Replaced`, `MaxUnits=1`). Send an Arafura and the magazine objective must still read her NSM cells |
 | 2.7 | Before SW07, SW08, O2 | **No deployment screen at all.** The note says nothing of your force sails; the mission launches as authored |
 | 2.7a | Before O1 and C1 | A **deployment screen** (a detachment of your choosing) and a Ship's Flight row; no builder, no repair |
+| 2.7b | Before SW03, then before SW05, then before SW11 | SW03's list is SW02's: **no F-35A** until the window before SW05, where the strike row can take it. Before SW11 there is **no Seahawk, Wedgetail or Triton** (no row in the carrier action); the P-8 is offered and fits the Attack row |
 | 2.8 | Before SW12 | Aircraft plus **Arafura and Anzac** as replacement hulls; no Hobart. Buy an F-35A and assign it to Combat Air Patrol: it must appear, fly and recover at Darwin |
 
 2.4 is the one to watch. If the bought ship is missing, misplaced, or the
