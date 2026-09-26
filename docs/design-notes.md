@@ -67,6 +67,69 @@ Earned twice in one session (20 Sep 2026): the repo reported 138, the Mod Manage
 agreed at 138, and Steam said 140. Nothing was wrong. Before chasing a count, say
 which of the three you are quoting.
 
+## What an editor round-trip keeps, and the one thing it silently rewrites
+
+Saving a mission in Sea Power's own editor rewrites every section from the editor's
+in-memory model. The save is not a diff, so the question is never "did it change the
+file" - it is "which of our intent survived the model". Measured on `SEST Banda Front
+Lean v2` (`b1c6ee1e` -> `a30a8b04` on the kind-faraday line, three units added, ~90
+nudged): 606 insertions against 734 deletions, a net loss of 128 lines while gaining
+three units.
+
+Almost all of that is the editor writing only non-default values, and is not loss:
+
+- `MissionType=NoMission` dropped on 74 units - `NoMission` is the default.
+- `RadarsActive=False` dropped on 45. Every dropped one was `False` and every
+  surviving one is `True`, on whales, airliners, fishing boats and narco subs.
+  Absent means off.
+- `ActiveSonarsEnabled=False` and `TowedArrayDeployed=False` dropped on 5 each,
+  all on the same submarines, all `False`. Same rule.
+- `Waypoints` dropped on 19 - **all 19 are formation followers, and all five of
+  their leaders kept the route.** A follower's waypoints were only ever a copy of
+  its leader's, which is why the dropped strings appeared three at a time.
+- `CustomAirGroup=True` dropped on 12, every one of which carried zero aircraft
+  entries before and after.
+- `123.000` -> `123`, `90.00` -> `90`, `277.02` -> `-85`. Formatting.
+
+One thing is real loss, and it is the one that changes the scenario:
+
+- **`WeaponStatus` does not round-trip.** All 57 `Hold` and all 10 `Tight` came back
+  as `Free`, and six units lost the key outright. That is the sanctioned convoys -
+  built by `add_sanctioned_shipping.py` to run "dark, dumb, non-reactive" on `Hold`
+  behind escorts on `Tight` "so they unmask only when the fleet is engaged" - and
+  the whole Allied carrier group, which sat on `Tight` to shadow rather than shoot.
+  The Q-ship `wp_ms_mercur_decoy`, whose entire job is holding fire, went weapons
+  free. Nothing warned: the unit count was right and preflight resolved every
+  reference, because every reference was still valid. Only the intent was gone.
+
+`integration/missions/restore_roe.py` restores it, and `import-mission.ps1` runs it
+on every mission it imports, so the fix lands before the commit rather than after.
+
+**"The previous commit" is not a safe reference, and getting that wrong hides exactly
+the bug the tool is for.** The first version defaulted to the commit before the most
+recent one. Run immediately after the fix was committed, that default pointed at the
+flattened save itself - which carries no `Hold` and no `Tight`, so it could restore
+none - and printed a reassuring `to restore 0` for a file it had not really checked.
+The default is now the newest commit whose copy *still carries restraint*; commits
+with none are skipped and named in the output, an explicit `--ref` with none is
+refused, and the summary line states how many restrained units the reference holds so
+a zero is never mistaken for a pass. A check that cannot fail is not a check.
+
+**A mission that never restrained anyone is information, not a failure.** Four of
+the 76 missions at the top of `integration/missions/` carry `Hold` or `Tight`, and
+the import hook runs the pass on every mission it brings in. As first written, a
+history with no restraint in it exited 1, so nearly every import would have printed
+"could not settle". It now says that nothing was compared and why - the mission
+never set a restrained posture, or every committed copy was flattened - and exits 0.
+Only the second case needs a person, and the message names it.
+
+**Compare by unit identity, not by section name.** Inserting one vessel renumbers
+every section after it: `[Taskforce1Vessel5]` was a Flight IIA Burke before this save
+and a civilian motor ship after, and a name-keyed diff reports the whole tail as
+changed while hiding what actually moved. Align each index family by its `Type`
+sequence and skip inserted or deleted runs rather than guessing across them - that is
+what `restore_roe.py` does, and it is why it finds 67 units to fix instead of 62.
+
 ## The Tier 0 invariant
 
 Every SEST pack sits above every workshop mod, as one unbroken block, so

@@ -37,6 +37,8 @@ python3 tools/build_all.py --from-scratch   # rebuild all 17 packs + the consoli
 python3 tools/preflight.py                  # resolve every reference the active mission makes
 python3 tools/preflight.py --all            # every deployed mission: fails on the editor crash, lists the rest
 python3 integration/missions/fix_loadout_variants.py --all --write   # sweep that crash out of them
+python3 integration/missions/restore_roe.py --mission "<name>" --write  # put back the Hold/Tight an editor save turned Free
+python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the mission tools' regression tests
 python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
 python3 tools/check_load_order.py           # every SEST override still outranks its target
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered
@@ -57,7 +59,8 @@ powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -Include
 ```
 
 Missions install add-and-overwrite with no backup copies, so import anything edited in
-game first (`tools\import-mission.ps1`); `install-sest-packs.ps1 -PurgeBackups` clears the
+game first (`tools\import-mission.ps1`, which also puts back the `Hold`/`Tight` weapon status
+the editor turns into `Free` on save); `install-sest-packs.ps1 -PurgeBackups` clears the
 old `* backup-*.ini` copies out of the game once. The exporter mirrors deletions inside each
 mod, so a file an author removed leaves `mods-source/` too: review its deletions in
 `git status` before committing.
