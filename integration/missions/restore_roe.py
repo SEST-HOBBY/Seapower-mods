@@ -106,8 +106,12 @@ def align(ref, cur):
 
 
 def show(rel, rev):
-    out = subprocess.run(["git", "show", f"{rev}:{rel}"],
-                         cwd=ROOT, capture_output=True, text=True)
+    # Decode the blob the way the working copy is read, not in the locale's
+    # encoding: on Windows that is cp1252, which cannot decode some UTF-8 bytes
+    # (the ship names in "chapter 2 - Hybrid Hostilities" among them), and the
+    # import hook would stop on a traceback instead of restoring anything.
+    out = subprocess.run(["git", "show", f"{rev}:{rel}"], cwd=ROOT,
+                         capture_output=True, encoding="utf-8-sig", errors="replace")
     return None if out.returncode else out.stdout
 
 

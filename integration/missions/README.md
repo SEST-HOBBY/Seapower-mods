@@ -35,10 +35,11 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
 
 - **SEST Banda Front Lean v2** — the Banda Front sandbox to play: a free-play world from Borneo
   and Java through Sulawesi, the Moluccas, Timor and Papua to northern Australia and the
-  Bismarck Sea, with no objectives: 536 units, 396 of them on land. RAAF, US and French bases, PLA
-  lodgements at the Chinese-financed industrial parks, a Russian S-400 regiment at Biak, TNI,
-  RMAF and Bruneian sites; 51 civil ships on the real lanes and 37 civil aircraft, a Ford carrier group with RAN escorts, a Fujian carrier group, three sanctioned
-  convoys running dark, four narco submarines, whales, and modern air wings on the land bases.
+  Bismarck Sea, with no objectives: 536 units, 396 of them on land. RAAF, US and French bases,
+  PLA lodgements at the Chinese-financed industrial parks, a Russian S-400 regiment at Biak,
+  TNI, RMAF and Bruneian sites; 51 civil ships on the real lanes and 37 civil aircraft, a Ford
+  carrier group with RAN escorts, a Fujian carrier group, three sanctioned convoys running
+  dark, four narco submarines, whales, and modern air wings on the land bases.
   It is Living Seas (below) with the patrol loops of the narco submarines and eight fishing
   boats cut from twelve laps to one by `thin_waypoints.py` (312 waypoints down to 42), then
   **edited in the game** on 20 September: a blue Virginia Block V and a red Yasen on patrol, a
@@ -74,8 +75,9 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
   Korean, Asiana, PAL and Cebu Pacific liveries on real city pairs; Cessna 340s, Bonanzas and
   Hughes 500s on the short hops and rig runs). 72 sites, 794 land units, 199 types. The first
   draft of the Banda Front line, superseded by the two above and kept because it is the
-  generator's output and the PC already has it. Regenerate with `python3 integration/missions/build_banda_front.py`
-  (it imports `build_indo_pacific_showcase.py` and `build_land_defence.py`, and needs
+  generator's output and the PC already has it. Regenerate with
+  `python3 integration/missions/build_banda_front.py` (it imports
+  `build_indo_pacific_showcase.py` and `build_land_defence.py`, and needs
   `pip install global-land-mask numpy`); its last step is the airway pass, so the output is
   this file byte for byte.
 
@@ -110,6 +112,11 @@ deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the
   Each Banda Front file differs from the PC's copy (the 24 Sep export) only by the airway pass
   (`extend_civil_airways.py`: 36 civil routes in Lean v2 and Living Seas, 25 in the other
   three), so the short hops fly on off the map instead of circling at their last waypoint.
+  Named on any of the five, `tools/check_weapon_employment.py` exits 1 on the same six findings,
+  all in upstream unit files and shared with `SEST Indo-Pacific Land Assets`: the F-4E's CAS
+  stations (in the vanilla `airfield_small_1` default air group), the SLAMRAAM and HMMWV
+  AIM-120 rounds with no datalink sensor, and the M270, M270A2 and BM-21 magazines. None is a
+  fault in these missions.
 
 - **NORTHERN FRONT II** — the user's Northern Front editor save, upgraded: the two `airbase_us`
   stand-ins are now the real `airbase_raaf_darwin` / `airbase_raaf_scherger` (their custom
