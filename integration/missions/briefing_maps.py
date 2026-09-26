@@ -68,6 +68,11 @@ LANDMARKS = {
     "The Southern Convoy": [("PORTLAND", -38.35, 141.60, "friend")],
     "Northern Priority": [("AUCKLAND", -36.85, 174.76, "friend")],
     "Southern Priority": [("PORT ADELAIDE", -34.85, 138.50, "friend")],
+    # Red Line. "friend" is still the player's side, which here is the
+    # carrier group's; the places its briefings name are features.
+    "The Other Picture": [("KAI ISLANDS", -5.30, 133.05, "muted")],
+    "The Order to Withdraw": [("MANIPA STRAIT", -3.35, 127.42, "muted")],
+    "The Quiet Side": [("MILFORD SOUND", -44.67, 167.93, "muted")],
 }
 
 UNIT = re.compile(r"^\[(Taskforce(\d)|Neutral)(Vessel|Aircraft|Helicopter|Submarine|LandUnit)(\d+)\]")
@@ -211,6 +216,9 @@ def _dashed_ellipse(d, cx, cy, rx, ry, fill, width):
 def unit_label(u):
     """'Viper 01' -> 'VIPER'; an unnamed 'ran_ddg_hobart' -> 'DDG HOBART'."""
     if u["name"]:
+        # A callsign's number goes ('Viper 01'); a pennant's is the name.
+        if re.fullmatch(r"(?i)hull\s+\d+", u["name"].strip()):
+            return u["name"].strip().upper()
         return re.sub(r"\s*\d+$", "", u["name"]).upper()
     parts = u["type"].split("_")
     if len(parts) > 1 and parts[0].isalpha() and len(parts[0]) <= 5:

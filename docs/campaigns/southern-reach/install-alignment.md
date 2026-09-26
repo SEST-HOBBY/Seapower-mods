@@ -1,8 +1,9 @@
 # Aligning the gaming PC with this branch — and with the other sessions
 
 This is the procedure for bringing a Sea Power install up to a build that
-carries **both campaigns** (Southern Watch and Southern Reach) together with
-every fix the other sessions have pushed to the deploy branch. It replaces
+carries **the campaigns** (Southern Watch and Southern Reach, and from the Red
+Line round a third, Red Line) together with every fix the other sessions have
+pushed to the deploy branch. It replaces
 the counts in `../southern-watch/install-alignment.md`; the checks and the
 failure story there still hold and are not repeated.
 
@@ -53,6 +54,22 @@ the loose missions, both campaigns' in-game descriptions without the SAR
 instructions or fiction tags, rewritten opening pages, a reformatted deck
 log, and a proofread of every briefing, card and story page in both
 campaigns. The installed file count is still 691.
+
+### The Red Line round
+
+This round adds a third campaign to the same pack, **Red Line — The Other
+Watch**: six missions played from the Chinese side, with its own folder of
+docs (`docs/campaigns/red-line/`). It also redraws nine Southern Watch and
+Southern Reach mission cards whose objective ring ran off the chart; nothing
+else of theirs changes. It arrives the same way as the rounds above, a
+fast-forward and one sync, once it is on the branch you merge from.
+
+The installed file count goes from 691 to **766**: `campaigns\sest-red-line\`
+(44 files: six missions with their briefing folders, 12 pieces of art,
+`campaign.ini`, roster, commander settings and a `REQUIRED-MODS.txt`) and the
+browser copies under `missions\Red Line\` (31). Nothing needs subscribing:
+every mod it places is one the canonical load order already enables. Step 5
+has its checks.
 
 ---
 
@@ -187,17 +204,21 @@ folder, and the two RNZAF base files in the land units.
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
-Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-southern-reach, sest-southern-watch
+Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-southern-reach, sest-southern-watch (and sest-red-line)
 (Get-ChildItem "$sa\campaigns\sest-southern-reach\art\*.png").Count   # 66
 (Get-ChildItem "$sa\campaigns\sest-southern-reach\missions\*.ini").Count   # 25
 Test-Path "$sa\land_units\airbase_rnzaf_ohakea.ini"                   # True
 Get-ChildItem "$sa\missions" -Directory | Select-Object Name          # …, Southern Reach, Tasman Shield, Southern Watch, …
+# after the Red Line round:
+(Get-ChildItem "$sa\campaigns\sest-red-line\art\*.png").Count         # 12
+(Get-ChildItem "$sa\campaigns\sest-red-line\missions\*.ini").Count    # 6
 ```
 
 Then in game, in this order:
 
 1. **Mod Manager** — `SEST Integration Pack` at the top, enabled; its
-   description now ends "Southern Watch - Southern Reach".
+   description now ends "Southern Watch - Southern Reach" ("... - Red
+   Line" after the Red Line round).
 2. **Campaign list** — two entries: `Southern Watch (Royal Australian Navy)`
    and `Southern Reach - Tasman Shield (Royal Australian Navy)`, 44 entries
    in the second, a dark chart 29–66°S behind it.
@@ -205,6 +226,10 @@ Then in game, in this order:
    (13) beside the Southern Watch ones. If the campaign list shows one
    campaign but the browser has both folders, the Mod Manager is not reading
    the second `campaigns\` folder; that difference is the diagnosis.
+4. **After the Red Line round** — a third campaign, `Red Line - The Other
+   Watch (People's Liberation Army Navy)`, 10 entries, and a `Red Line`
+   folder (6) in the browser. Its own test card is
+   `../red-line/test-card.md`.
 
 ## 6 — the other sessions' branches
 
@@ -247,4 +272,5 @@ because that is the claim this build makes that no earlier one did.
 | sync refuses on the branch guard | you are not on `sest-dev/loving-bell-3cnvvw`; go back to step 1 rather than passing `-AnyBranch` |
 | the second campaign is missing in game but present on disk | `Get-ChildItem "$sa\campaigns\sest-southern-reach"` shows the files; the browser copies are your route in, and the difference is the report |
 | a Southern Reach unit is missing in a mission | the unit names its mod: `campaigns\sest-southern-reach\REQUIRED-MODS.txt` lists the 26 hard-required Workshop mods for this campaign; `.\tools\show-load-order.ps1` shows which are enabled |
+| a Red Line unit is missing in a mission | `campaigns\sest-red-line\REQUIRED-MODS.txt` lists the 29 hard-required Workshop mods for that campaign |
 | a ship is ashore or a route crosses land | the coastline extract disagrees with the game there; note the mission and the hull, that is the first row of the test card |
