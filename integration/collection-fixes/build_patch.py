@@ -25,6 +25,40 @@ ROOT = Path(__file__).resolve().parents[2]
 MODS = ROOT / "mods-source"
 OUT = Path(__file__).resolve().parent / "SEST_Collection_Fixes"
 
+sys.path.insert(0, str(ROOT / "integration"))
+from common.ras import LAND_ATTACK, LONG_RANGE_SAM, tag_ammunition  # noqa: E402
+
+# SEST Replenishment At Sea meters every heavy ship-launched strike and
+# area-SAM round under a counted SEST_ supply category (the rule and its
+# reasons are in integration/common/ras.py). Six of those rounds are files
+# THIS pack ships, and two packs cannot ship one path, so the tag rides in
+# this pack's copy instead of that pack's. It is not a fix and changes nothing
+# about how the round flies: it only means an auxiliary has to stock the
+# category to hand the round over. integration/replenishment/build_patch.py
+# checks both ways that this table and its derived rule agree, so a round
+# that stops qualifying fails the build rather than staying tagged.
+RAS_METERED = {
+    "usn_rgm_184a": LAND_ATTACK,
+    "usn_rim-161b": LONG_RANGE_SAM,
+    "usn_rim-161c": LONG_RANGE_SAM,
+    "usn_rim-161d": LONG_RANGE_SAM,
+    "usn_rim-174a": LONG_RANGE_SAM,
+    "usn_rim-174c": LONG_RANGE_SAM,
+}
+
+
+def ras_meter(text, name):
+    """(text, header note) with this round's SEST Replenishment tag in place."""
+    if name not in RAS_METERED:
+        return text, ""
+    if re.search(r"^SupplyCategory\s*=", text, re.M):
+        sys.exit(f"{name}: upstream now declares a SupplyCategory - re-check "
+                 "RAS_METERED against it before adding a second one")
+    category = RAS_METERED[name]
+    return (tag_ammunition(text, category, name),
+            f"\nSupplyCategory={category} added for SEST Replenishment At Sea,\n"
+            "which meters this round; not a fix, see RAS_METERED in the builder.")
+
 INFO_INI = """\
 [Language_en]
 Name=SEST Collection Fixes
@@ -460,12 +494,14 @@ def main():
     # or flight - and TargetMemory=True carries the round through the gap.
     t = read("3413868677", "ammunition/usn_rgm_184a.ini")
     t = edit(t, r"^MinAttackAltitude=55[^\n]*\n", "", 1, "usn_rgm_184a")
+    t, meter_note = ras_meter(t, "usn_rgm_184a")
     write("ammunition/usn_rgm_184a.ini", t,
           "SEST Collection Fixes - base: 3413868677's NSM (RGM-184A), the round the\n"
           "RAN Anzacs and Hobarts fire. One delta: MinAttackAltitude=55 removed. It\n"
           "put every sea-level target outside the round's own engagement band, where\n"
           "the engine 'greatly increases' missile deviation; no vanilla anti-ship\n"
-          "round declares the key and no other NSM in the collection does either.")
+          "round declares the key and no other NSM in the collection does either."
+          + meter_note)
     built.append("usn_rgm_184a")
 
     # usn_rim-161b/c/d, usn_rim-174a/c, usn_pac3_mse [SM-3 investigation].
@@ -628,6 +664,8 @@ def main():
             extra += ("\nInterceptSpeedPenaltyMultiplier 0.3 -> 0.01, its own B and C "
                       "siblings'\nvalue: the fastest of the three was the worst at "
                       "catching fast targets.")
+        t, meter_note = ras_meter(t, name)
+        extra += meter_note
         write(f"ammunition/{name}.ini", t,
               f"SEST Collection Fixes - base: 3629144864's {name}. One delta:\n"
               f"MaxLoftAngle={angle} un-commented. The author wrote the value and then\n"

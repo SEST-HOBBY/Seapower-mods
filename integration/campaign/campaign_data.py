@@ -34,11 +34,14 @@ files the game can load. Three rules hold everything together:
 WHAT IS NOT PROVEN
 
 Static resolution is not a play test. Nothing here establishes that a
-helicopter can recover aboard its assigned ship, that replenishment transfers
-actually move fuel, that a briefing's tanker can pass gas to its receiver, or
-that a trigger fires when the game is running. SW09 is written around
-survival and a service window rather than a replenishment mechanic for exactly
-that reason, and the campaign's own notes say so.
+helicopter can recover aboard its assigned ship, that a replenishment transfer
+moves what it is tuned to, that a briefing's tanker can pass gas to its
+receiver, or that a trigger fires when the game is running. SW09 is scored on
+survival and a service window rather than on a transfer: HMAS Supply and
+Stalwart carry a working supply system (SEST RAN Fleet, tuned in SEST
+Replenishment At Sea's table), so the missiles and torpedoes really do cross
+while the window runs, but no condition type the engine offers can count
+them. The campaign's own notes say so.
 """
 
 INFO_DESC = (
@@ -1334,9 +1337,9 @@ MISSIONS.append(dict(
     brief=(
         "REAR SUPPORT AREA, Coral Sea, east of Cape York. COLLINS has been out for "
         "thirty-five days and comes home next week whatever happens today. "
-        "She is surfaced alongside STALWART taking fuel, stores and two crew "
-        "off for medical, and while she is up there she is a very large grey "
-        "target making four knots.\\n\\n"
+        "She is surfaced alongside STALWART taking fuel, stores and torpedoes, "
+        "and putting two crew across for medical, and while she is up there "
+        "she is a very large grey target making four knots.\\n\\n"
         # The engine has no dwell, alongside, surfaced or depth predicate -
         # eleven condition types across the whole shipped corpus and not one
         # of them measures time spent in an area, a unit's speed or its
@@ -1344,9 +1347,17 @@ MISSIONS.append(dict(
         # AND a clock, on units that start inside the area. So the window is
         # scored as "both ships still in the box when the window closes",
         # and the briefing states exactly that rule. Surfaced stays a house
-        # rule, in the fiction's own voice.
+        # rule, in the fiction's own voice. The transfer the brief describes
+        # is the real one: SEST RAN Fleet gives STALWART the supply system in
+        # integration/common/ras.py (half a mile, 12 kn for her and 16 for
+        # the receiver, nothing dearer than the NSM's 8000 points), so what
+        # it says crosses does cross. It is just not what is scored.
         "The service window is thirty-five minutes and it runs on the clock, "
-        "not on how much crossed the hose. STALWART and COLLINS have to be "
+        "not on how much crossed the hose. What crosses is real: STALWART "
+        "passes COLLINS her torpedoes, and any escort that comes inside half "
+        "a mile at twelve knots or less can take missiles back across - she "
+        "will pass anything up to an NSM, a Tomahawk or an SM-6 - for as "
+        "long as her magazines last. STALWART and COLLINS have to be "
         "inside the service box - five miles around the rendezvous - when the "
         "window closes; what you do with them in between is your judgement, "
         "and the clock does not stop for you. Hold it and your ships are "
@@ -2065,7 +2076,7 @@ MISSIONS.append(dict(
           name="ROKS Sejong the Great"),
         U("blue", "euromod-south-korea", "ko_ffg-818", "rok", variant="Variant1",
           name="ROKS Daegu"),
-        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "rok",
+        U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "rok",
           name="MV Busan Pioneer"),
         U("blue", "euromod-south-korea", "rok_mk99_a", "lynx", name="Sejong Flight",
           alt=2000),
@@ -2333,7 +2344,7 @@ MISSIONS.append(dict(
         # and the game has no UAE nation key, so it flew with no flag.
         U("blue", "saab-aewc-pack", "dts_saab_ge", "aew", name="Argus 70",
           squadron="Squadron2", weapons="Hold"),
-        U("blue", "re-power-resupply", "civ_ms_sealift_pacific", "group",
+        U("blue", "SEST_Replenishment", "civ_ms_sealift_pacific", "group",
           name="MT Western Provider"),
         U("blue", "_vanilla", "civ_ms_ritina", "group",
           name="MT Passage Trader"),
@@ -3220,7 +3231,7 @@ MISSIONS.append(dict(
           name="Arafura trawler", route=[(-10.35, 131.95, 0)], telegraph=2),
         # Flank, straight for the coaster. Weapons Hold: she is racing, not
         # fighting, and she does not shoot first.
-        U("red", "re-power-resupply", "ir_aor_delvar", "meridian",
+        U("red", "SEST_Replenishment", "ir_aor_delvar", "meridian",
           name="MV Meridian Salvor", weapons="Hold",
           route=[(-10.4, 131.9, 0)], telegraph=5),
     ],

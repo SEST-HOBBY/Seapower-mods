@@ -43,6 +43,7 @@ OUT = Path(__file__).resolve().parent / "SEST_Allied_Fixes"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.a10c import fix_squadron_count, register_ir_head  # noqa: E402
+from common.ras import make_reloadable  # noqa: E402
 
 MISSING = "usn_agm-84g"      # defined by nothing, anywhere
 REPLACE = "usn_agm-84n"      # U.S. Navy 2027's own Harpoon Block II+ ER
@@ -180,9 +181,15 @@ def main():
                           f"AircraftSupported={had},uk_ah_mk_1", text, flags=re.M)
         if n != 1:
             sys.exit(f"rn_lph_ocean.ini: AircraftSupported substitution hit {n} lines")
+        # SEST Replenishment At Sea owns the launcher fix for every modern hull,
+        # but it cannot touch this one - THIS pack ships rn_lph_ocean.ini, and
+        # two packs shipping different bytes at one path is an unconditional
+        # consolidation failure. So the transform is imported and applied here.
+        text, reloadable = make_reloadable(text)
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(text, encoding="utf-8")
-        print("  vessels/rn_lph_ocean.ini  (+uk_ah_mk_1 Apache AH1 supported)")
+        print(f"  vessels/rn_lph_ocean.ini  (+uk_ah_mk_1 Apache AH1 supported, "
+              f"{reloadable} launcher(s) made reloadable for RAS)")
 
     # APKWS II-ER: the medium-range strike guided rocket (user ask). The
     # Apache mod's M282 APKWS with its launch envelope extended 3.5 -> 8 nm -

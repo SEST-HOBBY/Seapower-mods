@@ -217,6 +217,20 @@ A-10C+. Neither change to the aircraft files has been seen in the game.
 | 6D.2 | D8, Hog 22 as briefed (its Default fit hangs GBU-12s on the two inboard pylons): drop one on the ridge with no other aircraft lasing | The bomb guides on Hog 22's own designator | An unguided fall means the designator does not feed the bomb |
 | 6D.3 | Mission editor: place a standard A-10C and look at its squadrons | **Two** liveries to choose from (81st and 91st TFW), and Hog 21's panel shows an infrared sensor | One livery means the squadron count was not the cause |
 
+## 6E — Stalwart's supply system (new)
+
+HMAS Supply and Stalwart now carry a working supply system (SEST
+Replenishment At Sea's table, shipped by SEST RAN Fleet): half a mile, 12 kn
+for her and 16 for the receiver, nothing dearer than 8000 points. SW09's
+briefing says what crosses; nothing scores it. No transfer from either hull
+has been seen in the game.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 6E.1 | SW09, fire one of Perth's NSMs early, then bring her inside half a mile of Stalwart at 12 kn or less | Stalwart's supply panel ("Ammunition supply") appears and the empty NSM canister refills | No panel: the supply block is not read. A panel but no refill: the canister's reload flag is not honoured (the pack README's checklist item 2) |
+| 6E.2 | SW09, Collins alongside with a torpedo or two gone | The torpedoes come back while she is surfaced | Nothing crosses: say whether the panel showed Collins as a receiver at all |
+| 6E.3 | SW09, run Perth up to 20 kn during a transfer | The transfer stops | It carries on: the speed gate is not honoured |
+
 ## 7 — the review's engine tests
 
 The independent review of `057405fe` listed the runs that no static check
