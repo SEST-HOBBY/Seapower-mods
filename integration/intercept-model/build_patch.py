@@ -94,7 +94,8 @@ WHAT THE CLAMP WOULD BREAK, AND IS FIXED HERE
      different ids from Euromod's hyphenated rounds) declares
      MinAttackAltitude=70000 ft on a multi-role area-defence SAM: TargetType
      =AAW, SecondaryTargetType=ASuW, LandAttackCapability=ShoreTargetsOnly,
-     260 nm reach. Its file opens with a "REQUIRES STATS REVISION" banner.
+     260 nm reach (360 on the C). Its file opens with a "REQUIRES STATS
+     REVISION" banner.
 
      The argument that settles it is the comparator, not the role. Euromod's
      usn_rim-174c has the IDENTICAL 180000 ft ceiling to the Red Storm C and a
@@ -146,6 +147,14 @@ WHAT THE CLAMP WOULD BREAK, AND IS FIXED HERE
   and Trump - appear in loose missions under integration/missions/ (AUS DEF,
   AUS INDO-PAC ESCA among them), none in either campaign. No mission places
   ko_ffg-828. The rest are fixed because the units are selectable.
+
+  Range Week is also where the campaign would feel a live ceiling. Its
+  Shahed-136 pad (3497601759's Shahed_136_white) is authored to fly no higher
+  than 300 ft - MaxLoftAlt and FinalFlightPhaseAlt both 300 - which is under
+  the Stunner's own 500 ft floor, left as its author set it, and under THAAD's
+  20,000 ft. If test 1 shows the ceiling live, neither battery does better
+  than 5% against the drones, and that mission ends the moment one of its
+  launchers or radars is lost.
 
 DELIBERATELY NOT CHANGED
   - thaad (3683253079) 20000-99000, pla_hq-19 (3789188689's #!extend over
@@ -259,8 +268,9 @@ THE ONE RESIDUAL RISK
   (the AMRAAM, Meteor, MICA, PL-12/PL-15, R-27 and R-77 families among them,
   floors of 15 to 67 ft), or a ceiling and no floor (point-defence rounds:
   Roland, Crotale VT-1, HQ-10, ADATS, 9M340E and three PLA land-unit rounds,
-  ceilings of 4000 to 30000 ft). None of vanilla's 74 banded files does this, so what the engine
-  substitutes for the missing side is not settled by stock content.
+  ceilings of 4000 to 30000 ft). None of vanilla's 74 banded files does this,
+  so what the engine substitutes for the missing side is not settled by stock
+  content.
 
   There is a partial argument, and it is worth being precise about how far it
   reaches. Three vanilla AAW MISSILES declare no band AT ALL - fr_super-530f,
