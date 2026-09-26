@@ -96,6 +96,8 @@ file; the builder refuses a unit whose stated mod the game would not read.
   mission's player units are `Tight`.
 - `alt=feet` for aircraft (overrides the station's); `depth="belowlayer"|"periscope"|"shallow"|0` for submarines and the whale.
 - `route=[(lat, lon, alt_or_depth), ...]`, `telegraph=1..5` (2 slow, 3 cruise; 1 is a damaged hull). Every waypoint of a vessel or submarine is checked against the coastline.
+- `loop=True` on a routed aircraft flies the route until the clock runs out (`|Loop` after the last waypoint, stock's own form). Without it an aircraft that reaches its last waypoint circles there: a racetrack written as its two ends three times over is half an hour of a Poseidon's cruise. A patrol, a barrier or an AEW orbit that must last the mission loops; a ship, an unrouted aircraft or an airliner may not.
+- `radars="False"` starts a unit with its radars off. Every submarine in the stock missions starts that way; a boat whose mission is not to be classified must.
 - `snap="sea"` on a LandUnit that belongs in water (a rig). `coastal=True` on a station puts each hull there through the per-unit sea check instead of the 2 NM offshore rule (an anchorage, a port).
 - `slot="HeloRecon"|"Recon"|"CAP"|"Attack"` - an air-tasking cockpit (below).
 - `spawn_if=("Variable", "IsFalse")` - the unit exists only when the variable was never set. `IsFalse` is the only attested form.

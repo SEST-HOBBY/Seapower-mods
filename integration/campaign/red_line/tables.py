@@ -73,7 +73,7 @@ ROSTER = [
     dict(unit="plan_ddg_luda_typ_051dt", picks=["Variant1", "Variant2"], points=160,
          note="an older destroyer the northern screen still has"),
     dict(unit="plan_em_sovremenny", picks=["Variant1", "Variant2"], points=320,
-         note="north only; the windows enforce it"),
+         note="on sale in the north only; one already owned still sails"),
     dict(unit="plan_type_056a", picks=["Variant1", "Variant2", "Variant3"], points=120,
          note="the protection group's corvette; on sale in the south only"),
     dict(unit="plan_z-9c", picks=["Squadron1"], points=20,

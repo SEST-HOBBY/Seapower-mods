@@ -452,6 +452,49 @@ class StandoffAndClosure(unittest.TestCase):
                 station="spoiler", weapons="Hold", independent=True)])
 
 
+class RacetrackLoop(unittest.TestCase):
+    """loop=True flies a patrol aircraft's route until the clock runs out,
+    in stock's own form; nothing else may loop."""
+
+    STATIONS = {"red_air": S(-47.60, 140.60, "Barrier patrol", alt=15000),
+                "ship": S(-47.50, 140.50, "Ship"),
+                "airliner": S(-47.40, 140.40, "Airliner", alt=35000)}
+    TRACK = [(-47.05, 140.15, 15000), (-47.65, 139.85, 15000)]
+    P8 = dict(side="red", mod="p-8-poseidon", type="usn_p8", station="red_air",
+              squadron="Squadron3", loadout="ASW", weapons="Hold", route=TRACK)
+
+    def setUp(self):
+        del bp.PLACEMENT_PROBLEMS[:]
+
+    def waypoints(self, unit):
+        m = dict(key="Test Barrier", num="05", group="core", centre=(-47.5, 140.5),
+                 minutes=120, stations=self.STATIONS, units=[unit])
+        placed, _members, _credits, _far = bp.place(m, bp.CoastPlacer(bp.coast_data(), m))
+        return next(keys for entries in placed.values()
+                    for _tag, keys, _n, _x in entries).get("Waypoints")
+
+    def test_a_looped_patrol_ends_on_stocks_token(self):
+        self.assertEqual(self.waypoints(dict(self.P8, loop=True)),
+                         "-21.00,15000,27.00|-39.00,15000,-9.00|Loop")
+
+    def test_without_loop_the_route_is_as_before(self):
+        self.assertEqual(self.waypoints(self.P8),
+                         "-21.00,15000,27.00|-39.00,15000,-9.00")
+
+    def test_a_ship_an_unrouted_aircraft_and_an_airliner_may_not(self):
+        for unit in (dict(side="blue", mod="modern-plan-systems",
+                          type="plan_type_054a_p5", station="ship",
+                          route=[(-47.40, 140.80, 0)], loop=True),
+                     dict({k: v for k, v in self.P8.items() if k != "route"},
+                          loop=True),
+                     dict(side="neutral", mod="civil-aircraft-airbus", type="civ_a330",
+                          station="airliner", route=[(-40.0, 150.0, 35000)],
+                          loop=True)):
+            with self.assertRaises(SystemExit) as caught:
+                self.waypoints(unit)
+            self.assertIn("loop", str(caught.exception.code))
+
+
 SIGNAL = dict(file="99_test_signal", form="signal",
               header=[("FROM", "FLEET HQ"), ("TO", "COMMANDER CARRIER TASK GROUP")],
               body=["1. THE GROUP IS NOT AT WAR WITH ANY STATE."],

@@ -15,7 +15,7 @@ fighters) are not this commander's, and the brief says the picture goes
 to people he does not command.
 """
 from campaign_data import U, F, S
-from .tables import HELO, CAP, NORTH_HULLS, NORTH_AIR, CARRIER_AIR
+from .tables import HELO, RECON, CAP, NORTH_HULLS, NORTH_AIR, CARRIER_AIR
 
 MISSION = dict(
     code="RL03", series="Red Line", seq="RED LINE  ·  MISSION 3",
@@ -40,7 +40,8 @@ MISSION = dict(
             "Islands with a Japanese escort detachment, and it sails tomorrow. Headquarters "
             "wants names: which merchant matters, and which escorts hunt submarines.\\n\\nDRAGON"
             " EYE 05, a KJ-500, has the long look from the north-west, and a J-15 pair keeps "
-            "it company. Your frigate shadows from outside the escorts' reach and closes only "
+            "it company; a patrol aircraft from the enclave field can share the look if one is "
+            "allocated. Your frigate shadows from outside the escorts' reach and closes only "
             "as far as a classification needs. Two Australian F-35s are covering the convoy at"
             " weapons Tight. If they fire, you may reply against the aircraft that fired and "
             "nothing else. Nothing in that convoy or its escort is a target.\\n\\nThe picture "
@@ -49,7 +50,8 @@ MISSION = dict(
             "the Tual-Ambon ferry are in the box."
         )),
     forces=(
-        "Your screen with its flight, and a J-15 pair if allocated. Allocated: Dragon Eye 05, "
+        "Your screen with its flight, and a J-15 pair and a patrol aircraft if allocated. "
+        "Allocated: Dragon Eye 05, "
         "a KJ-500. Opposing: three merchants, JS Mogami and JS Maya, and two RAAF F-35As at "
         "weapons Tight. Neutral: two Kai fishing hulls and a ferry. The enclave field, 400 "
         "miles north-east, is where the aircraft recover."
@@ -97,6 +99,9 @@ MISSION = dict(
         "shadow": S(-5.40, 131.05, "Shadow", heading=120),
         "flight": S(-5.42, 131.03, "Ship's flight", heading=120, alt=500),
         "eye": S(-4.40, 131.00, "Dragon Eye 05", heading=150, alt=30000),
+        # The cockpit a purchased Y-9 or KJ-500 takes, east of the fighter
+        # escort and clear of Dragon Eye's own mark on the briefing map.
+        "mpa": S(-4.60, 131.60, "Patrol aircraft", heading=150, alt=24000),
         "cap": S(-4.80, 131.20, "Fighter escort", heading=150, alt=28000),
         # The enclave field on Biak, 400 NM north-east: where the J-15s and
         # the KJ-500 recover. Off the briefing chart.
@@ -114,8 +119,13 @@ MISSION = dict(
           loadout="ASWHunter", slot="HeloRecon"),
         U("blue", "modern-plan-systems", "plaaf_kj-500", "eye", name="Dragon Eye 05",
           loadout="AEW", weapons="Hold",
-          route=[(-5.30, 131.50, 30000), (-4.40, 131.00, 30000), (-5.30, 131.50, 30000)],
+          route=[(-5.30, 131.50, 30000), (-4.40, 131.00, 30000)], loop=True,
           telegraph=3),
+        # Air-tasking placeholder for a purchased Y-9 or KJ-500: no name, no
+        # objective. Without this row the two were on sale here and could fly
+        # in no mission after it.
+        U("blue", "modern-plan-systems", "plan_y-9fq", "mpa", alt=24000, weapons="Hold",
+          loadout="ASW", slot="Recon"),
         # Two cockpits for a purchased J-15 pair. No names, no objective.
         U("blue", "type-003-004-maneuverwarfare", "plan_j-15", "cap", alt=28000,
           loadout="AirToAir", weapons="Tight", slot="CAP"),
@@ -134,14 +144,17 @@ MISSION = dict(
           weapons="Hold", route=[(-6.25, 132.40, 0)], telegraph=2),
         U("red", "euromod-jmsdf", "jmsdf_ddg_maya", "jmsdf", name="JS Maya",
           weapons="Hold", route=[(-6.25, 132.40, 0)], telegraph=2),
-        # Weapons Tight, coming out towards the KJ-500's track: the reason the
-        # long look has to stay long.
+        # Weapons Tight, coming out towards the KJ-500's track and back over
+        # the convoy until the clock runs out: the reason the long look has
+        # to stay long.
         U("red", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "red_air", squadron="Squadron3",
           loadout="AirToAir", weapons="Tight",
-          route=[(-5.40, 131.30, 25000), (-6.40, 131.80, 25000)], telegraph=3),
+          route=[(-5.40, 131.30, 25000), (-6.40, 131.80, 25000)], loop=True,
+          telegraph=3),
         U("red", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "red_air", squadron="Squadron3",
           loadout="AirToAir", weapons="Tight",
-          route=[(-5.40, 131.30, 25000), (-6.40, 131.80, 25000)], telegraph=3),
+          route=[(-5.40, 131.30, 25000), (-6.40, 131.80, 25000)], loop=True,
+          telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
           name="Kai fishing boat Harapan", route=[(-6.00, 131.60, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_b", "fishing",
@@ -156,11 +169,12 @@ MISSION = dict(
     declares=[],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=NORTH_HULLS + NORTH_AIR + CARRIER_AIR,
-                flights=[HELO, CAP],
+                flights=[HELO, RECON, CAP],
                 situation=(
                     "The carrier air wing has released aircraft to the enclave field for "
-                    "escort work ashore. A J-15 pair can be allocated to cover Dragon Eye 05; "
-                    "the KJ-500 itself is allocated to this operation."
+                    "escort work ashore. A J-15 pair can be allocated to cover Dragon Eye 05,"
+                    " and a Y-9 or a second KJ-500 to share the look; Dragon Eye 05 itself is "
+                    "allocated to this operation."
                 )),
     role="recon",
 )

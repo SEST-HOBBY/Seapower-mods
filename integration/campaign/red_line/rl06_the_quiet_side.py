@@ -117,22 +117,25 @@ MISSION = dict(
         U("blue", "modern-plan-systems", "plan_z-9c", "flight", alt=500, weapons="Hold",
           loadout="ASWHunter", slot="HeloRecon"),
         # AMS charters under a flag of convenience; the hull's own file flies
-        # a Soviet flag.
+        # a Soviet flag. She and the boat start with their radars off: the
+        # screen is the one that radiates.
         U("blue", "_vanilla", "civ_ms_kommunist", "tender",
           name="MV Austral Compliance (AMS tender)", nation="Panama", weapons="Hold",
-          route=[(-46.38, 165.45, 0)], telegraph=3),
+          radars="False", route=[(-46.38, 165.45, 0)], telegraph=3),
         # The holding position is ten miles south. The route is flown at
         # cruise; slower is quieter, and the choice is the player's.
         U("blue", "plan-submarines", "plan_ss_type_039c", "boat", name="Hull 334",
-          depth="belowlayer", weapons="Hold",
+          depth="belowlayer", weapons="Hold", radars="False",
           route=[(-46.38, 165.47, "belowlayer")], telegraph=3),
-        # Rewi's Poseidon, out of Invercargill. The field is not placed: a red
+        # Rewi's Poseidon, out of Invercargill, on her racetrack until the
+        # clock runs out; without the loop she flew it for twenty-odd minutes
+        # and circled its north-east end, 39 NM from the rendezvous, before
+        # the rendezvous could count. The field is not placed: a red
         # aircraft with no field flies on the engine's unlimited fuel, and an
         # enemy airfield on the chart reads as a target the orders forbid.
         U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron6", name="Kiwi 05",
           loadout="ASW", weapons="Hold",
-          route=[(-46.50, 165.60, 12000), (-46.00, 166.20, 12000),
-                 (-46.50, 165.60, 12000), (-46.00, 166.20, 12000)],
+          route=[(-46.50, 165.60, 12000), (-46.00, 166.20, 12000)], loop=True,
           telegraph=3),
         U("neutral", "_vanilla", "civ_ms_ivan_franko", "cruise",
           name="MV Southern Explorer (Milford cruise)", route=[(-45.30, 166.30, 0)],

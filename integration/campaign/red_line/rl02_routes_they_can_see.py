@@ -94,10 +94,14 @@ MISSION = dict(
             "flies on what it has.",
     stations={
         # Out of the west, north of Supiori and Numfor, for the roads off
-        # Biak's north coast: the frigate 13 NM astern of the tanker, GOLF closing
-        # from the east across the track, the Poseidon north of it all.
-        "escort": S(-0.40, 135.50, "Escort", heading=110),
-        "flight": S(-0.42, 135.48, "Ship's flight", heading=110, alt=500),
+        # Biak's north coast: the frigate in company, three and a half miles
+        # on the tanker's port bow and between her and GOLF, who closes from
+        # the east across the track; the Poseidon's racetrack runs over the
+        # route and is flown until the clock runs out. (The frigate used to
+        # start 13 NM astern, and a tanker at cruise running at the boat
+        # opens that gap faster than a frigate at 30 knots closes it.)
+        "escort": S(-0.48, 135.755, "Escort", heading=110),
+        "flight": S(-0.46, 135.74, "Ship's flight", heading=110, alt=500),
         "tanker": S(-0.50, 135.70, "Hai Yang 7", heading=110),
         "mpa": S(-0.20, 135.60, "Maritime patrol", heading=110, alt=8000),
         # The enclave field, on the airfield The Open Door strikes the next
@@ -123,11 +127,11 @@ MISSION = dict(
         # Weapons free and routed across the tanker's track: the threat the
         # escort exists for.
         U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", name="Contact GOLF",
-          depth="belowlayer", weapons="Free",
+          depth="belowlayer", weapons="Free", radars="False",
           route=[(-0.55, 135.85, "belowlayer")], telegraph=2),
         U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
           loadout="ASW", weapons="Hold",
-          route=[(-0.45, 135.40, 12000), (0.00, 136.20, 12000), (-0.45, 135.40, 12000)],
+          route=[(-0.45, 135.40, 12000), (0.00, 136.20, 12000)], loop=True,
           telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
           name="Numfor fishing boat Karang", route=[(-0.35, 135.75, 0)], telegraph=2),

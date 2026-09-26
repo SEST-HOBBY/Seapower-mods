@@ -38,8 +38,9 @@ MISSION = dict(
             "bound for its station in the Banda approaches. Last night DIPPER 21's sonar heard "
             "a diesel boat twelve miles astern of FUJIAN. She has been there since the Talaud "
             "Islands, matching the carrier's speed and keeping her distance. She is designated "
-            "ALPHA.\\n\\nA RAAF Poseidon and a Triton are over the group. They are recording "
-            "everything it does, and anything it does to that boat.\\n\\nPut a class on ALPHA, "
+            "ALPHA.\\n\\nA RAAF Poseidon is over the group and a Triton is high to the "
+            "south-west. They are recording everything it does, and anything it does to that "
+            "boat.\\n\\nPut a class on ALPHA, "
             "so the group knows what has been following it, then take FUJIAN to her morning "
             "station, twenty-two miles down the track. Your ships and helicopters start at "
             "weapons Hold. Set them free and"
@@ -103,8 +104,9 @@ MISSION = dict(
         "carrier": S(1.60, 126.80, "Fujian", heading=190),
         "dipper": S(1.62, 126.84, "Dipper 21", heading=190, alt=500),
         "red_sub": S(1.80, 126.85, "Contact ALPHA", heading=190),
-        # The Poseidon's racetrack runs the length of the group; the Triton
-        # stays high to the south-west.
+        # The Poseidon's racetrack runs the length of the group and is flown
+        # until the clock runs out; the Triton circles high to the
+        # south-west, where its radar has the whole group.
         "red_air": S(0.90, 127.05, "Patrol aircraft", heading=330, alt=15000),
         "triton": S(0.60, 126.40, "Triton", heading=20, alt=50000),
         "ferry": S(1.10, 126.90, "Ternate-Bitung ferry", heading=280),
@@ -125,11 +127,11 @@ MISSION = dict(
         # The boat that has been following since the Talaud Islands, still
         # following: a route down the group's track at a trailing speed.
         U("red", "SEST_RAN_Fleet", "ran_ssg_collins", "red_sub", variant="Variant6",
-          name="Contact ALPHA", depth="belowlayer", weapons="Hold",
+          name="Contact ALPHA", depth="belowlayer", weapons="Hold", radars="False",
           route=[(1.20, 126.75, "belowlayer")], telegraph=2),
         U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
           loadout="ASW", weapons="Hold",
-          route=[(1.90, 126.60, 15000), (0.90, 127.05, 15000), (1.90, 126.60, 15000)],
+          route=[(1.90, 126.60, 15000), (0.90, 127.05, 15000)], loop=True,
           telegraph=3),
         U("red", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "triton", weapons="Hold"),
         U("neutral", "_vanilla", "civ_ms_roro_b", "ferry",
