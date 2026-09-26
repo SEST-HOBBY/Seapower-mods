@@ -101,6 +101,7 @@ file; the builder refuses a unit whose stated mod the game would not read.
 - `spawn_if=("Variable", "IsFalse")` - the unit exists only when the variable was never set. `IsFalse` is the only attested form.
 - `nation="australia"` on RAAF bases, `nation="NewZealand"` on RNZAF bases and New Zealand airfields - the game's own key, no space (`language_en/nations.ini`); "New Zealand" with a space shows no flag.
 - `no_neutral_penalty=True` exempts a neutral from the neutral-loss rule (a range target). Do not use it here.
+- `independent=True` on a player hull that sails unescorted on purpose: the closure gate does not measure its distance to an escort (below).
 
 ### Stations and geometry - the coastline gate
 
@@ -237,13 +238,17 @@ tender or a transport does not count. "Reach" is the longest round it carries
 plus what it can move in the clock (24 kn ships, 300 kn aircraft): the
 mission fails the gate if the closest red unit still cannot touch the nearest
 blue one. A `destroy` victory fails the build if nothing blue can reach the
-target even after steaming.
+target even after steaming. The standoff distance does not apply to a red
+unit at `weapons="Hold"` whose own role is not a combat one (an armed coaster
+in company, `Role=Spy`): it will not open the engagement.
 
 The closure check also refuses a protected hull further from its nearest
-armed escort than the escort can steam in the clock, and *reports* (does not
+armed escort than the escort can steam in the clock (24 kn for a ship, 10 kn
+for an armed submarine, which counts as an escort), and *reports* (does not
 fail) a neutral more than 35 NM from the protected ships and pointed away, or
 a red unit with no route pointed away outside its reach - set dressing. Route
-the traffic; point the threat.
+the traffic; point the threat. A player hull that sails unescorted on purpose
+takes `independent=True` and is not measured.
 
 ### Writing
 

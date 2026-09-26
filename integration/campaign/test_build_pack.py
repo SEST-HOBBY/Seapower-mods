@@ -315,5 +315,91 @@ class UnseenObjective(unittest.TestCase):
         self.assertNotIn("Taskforce1Vessel1", bp.protected_tags(m, members))
 
 
+class StandoffAndClosure(unittest.TestCase):
+    """The standoff gate ignores a red unit that will not shoot and is not
+    built to; the closure gate counts an armed boat as an escort and leaves
+    a hull marked independent=True alone. Real units, placed by the builder
+    on the coastline extract, well south of the Bight."""
+
+    STATIONS = {"tender": S(-47.50, 140.50, "Tender"),
+                "boat": S(-47.50, 140.70, "Boat"),          # 12 NM east
+                "far_boat": S(-47.50, 141.20, "Far boat"),  # 42 NM east
+                "decoy": S(-47.50, 142.00, "Decoy"),        # 90 NM east
+                "spoiler": S(-47.53, 140.50, "In company")}  # 1.8 NM south
+
+    TENDER = dict(side="blue", mod="_vanilla", type="civ_ms_kommunist",
+                  station="tender", weapons="Hold")
+    DECOY = dict(side="blue", mod="modern-plan-systems", type="plan_type_054a_p5",
+                 station="decoy", weapons="Hold")
+    BOAT = dict(side="blue", mod="plan-submarines", type="plan_ss_type_039c",
+                station="boat", depth="belowlayer", weapons="Hold")
+
+    def setUp(self):
+        for lst in (bp.PLACEMENT_PROBLEMS, bp.COAST_CHECKED, bp.CLOSURE_PROBLEMS,
+                    bp.CLOSURE_NOTES, bp.REACH_PROBLEMS):
+            del lst[:]
+
+    def placed(self, units):
+        m = dict(key="Test Quiet Side", num="06", group="core", centre=(-47.5, 140.5),
+                 minutes=80, role="escort", stations=self.STATIONS,
+                 units=[dict(u) for u in units],
+                 victory=dict(kind="arrive", station="tender", at=(-47.30, 140.20),
+                              radius=6, objective="Rendezvous"),
+                 objectives=[("Rendezvous", "Meet", "35,-35,Fail,Main")],
+                 resolve={"Rendezvous": "victory"}, fatal=[])
+        placed, members, _credits, _far = bp.place(m, bp.CoastPlacer(bp.coast_data(), m))
+        self.assertEqual(bp.PLACEMENT_PROBLEMS, [])
+        return m, placed, members
+
+    def standoff(self, red):
+        m, placed, members = self.placed([self.TENDER, self.DECOY, red])
+        bp.check_reach(m, placed, members)
+        return [p for p in bp.REACH_PROBLEMS if "opens with red" in p]
+
+    def closure(self, units):
+        m, placed, members = self.placed(units)
+        bp.check_closure(m, placed, members)
+        return bp.CLOSURE_PROBLEMS
+
+    def test_a_passive_spoiler_may_start_in_company(self):
+        self.assertEqual(self.standoff(dict(
+            side="red", mod="auxilliary-merchant-pack", type="ran_ms_super_p",
+            station="spoiler", weapons="Hold")), [])
+
+    def test_the_same_hull_weapons_free_may_not(self):
+        self.assertEqual(len(self.standoff(dict(
+            side="red", mod="auxilliary-merchant-pack", type="ran_ms_super_p",
+            station="spoiler", weapons="Free"))), 1)
+
+    def test_a_warship_at_hold_may_not(self):
+        self.assertEqual(len(self.standoff(dict(
+            side="red", mod="SEST_RAN_Fleet", type="ran_ffh_anzac",
+            station="spoiler", weapons="Hold"))), 1)
+
+    def test_the_decoy_alone_is_too_far_to_escort(self):
+        problems = self.closure([self.TENDER, self.DECOY])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("Taskforce1Vessel1 (civ_ms_kommunist) is protected", problems[0])
+        self.assertIn("at 24 kn", problems[0])
+
+    def test_an_armed_boat_escorts_her_tender(self):
+        self.assertEqual(self.closure([self.TENDER, self.DECOY, self.BOAT]), [])
+
+    def test_a_boat_is_held_to_a_boats_speed(self):
+        problems = self.closure([self.TENDER, dict(self.BOAT, station="far_boat")])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("at 10 kn", problems[0])
+
+    def test_an_independent_hull_is_not_measured(self):
+        self.assertEqual(self.closure([dict(self.TENDER, independent=True),
+                                       self.DECOY]), [])
+
+    def test_only_the_players_hulls_can_be_independent(self):
+        with self.assertRaises(SystemExit):
+            self.placed([self.TENDER, dict(
+                side="red", mod="auxilliary-merchant-pack", type="ran_ms_super_p",
+                station="spoiler", weapons="Hold", independent=True)])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
