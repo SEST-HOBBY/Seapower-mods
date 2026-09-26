@@ -144,13 +144,13 @@ def build_info(packs):
     version = max(versions, key=lambda s: [int(x) for x in re.findall(r"\d+", s)] or [0])
     # Player-facing: this string is what the Mod Manager shows a subscriber,
     # who has no repository and no per-pack sources to go and look at.
-    desc = ("One mod folder carrying every SEST fix and the Southern Watch "
-            "campaign, so a single Mod Manager entry at the top of the list "
-            "covers all of it. Put it ABOVE your Workshop mods: these are "
-            "whole-file replacements, and anything that outranks them wins "
-            "instead. REQUIRED-MODS.txt and LOAD-ORDER.txt inside this folder "
-            "list the Workshop mods the campaign needs and the order it was "
-            "tested in. Includes: " + ", ".join(sorted(names)) + ".")
+    desc = ("One mod folder carrying every SEST fix and the campaigns, so a "
+            "single Mod Manager entry at the top of the list covers all of "
+            "it. Put it ABOVE your Workshop mods: these are whole-file "
+            "replacements, and anything that outranks them wins instead. "
+            "REQUIRED-MODS.txt and LOAD-ORDER.txt inside this folder list the "
+            "Workshop mods the campaigns need and the order they were tested "
+            "in. Includes: " + ", ".join(sorted(names)) + ".")
     return INFO_HEADER.format(desc=desc, version=version)
 
 
@@ -231,10 +231,11 @@ def credits_text(staged):
             rows.append((rel, best[0], best[1], best[2]))
 
     L = ["CREDITS", "",
-         "This pack is one folder of .ini files. It ships no models, no",
-         "textures and no audio - every one of those belongs to the Workshop",
-         "mod it came from, which is why REQUIRED-MODS.txt lists them as",
-         "required rather than suggested.", ""]
+         "This pack is one folder of .ini files, plus the campaigns' own",
+         "pages and art. It ships no models, no textures and no audio -",
+         "every one of those belongs to the Workshop mod it came from,",
+         "which is why REQUIRED-MODS.txt lists them as required rather",
+         "than suggested.", ""]
     if rows:
         by_mod = {}
         for rel, ratio, token, origin in rows:
