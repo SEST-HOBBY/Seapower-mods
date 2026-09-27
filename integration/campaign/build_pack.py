@@ -147,6 +147,120 @@ _DEFAULTS.update(TASKFORCE=None, DIFFICULTIES=None, ROSTER=None)
 _OWN_FILES = ("DOCS_DIR", "COVERAGE_DOC")
 
 
+# ---------------------------------------------------------------- rules page
+# The Campaign Rules button on the campaign map opens campaign_rules_<lang>.xml
+# from the campaign's own folder. The stock task-force campaign ships one (a
+# Noesis page: overview, commander, unit prices, campaign rules); these
+# campaigns did not, so the button opened nothing (user report, 27 Sep). Each
+# page is the stock one with only its campaign-specific passages replaced -
+# the prices table, refund percentages and the survivor reward are Bindings the
+# game fills from this campaign's own campaign.ini and roster. A template the
+# game has changed stops the build rather than shipping a half-edited page.
+RULES_TEMPLATE = (ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
+                  / "pacific-strike-task-force" / "campaign_rules_en.xml")
+RULES_WELCOME = {
+    "sest-southern-watch": (
+        "October 2028. With most of America's ready combat power drawn north, the sea "
+        "lanes above Australia are closing. You command the Royal Australian Navy task "
+        "force sent to keep them open."),
+    "sest-southern-reach": (
+        "December 2028. Nine days after the northern ceasefire, the network that tried to "
+        "close the Arafura has come south. You command the Royal Australian Navy task "
+        "force on the Southern Ocean and Tasman routes."),
+    "sest-red-line": (
+        "November 2028, from the other bridge. You command a People's Liberation Army Navy "
+        "carrier group in the Banda approaches, under an order that says it will not fire "
+        "first."),
+}
+
+
+def _xml_text(s):
+    return (s.replace("&", "&amp;").replace('"', "&quot;")
+             .replace("<", "&lt;").replace(">", "&gt;"))
+
+
+def campaign_rules(spec):
+    """This campaign's campaign_rules_en.xml, built from the stock page."""
+    t = RULES_TEMPLATE.read_text(encoding="utf-8")
+    navy = re.search(r"^NavyName\w+=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
+
+    def swap(old, new, what):
+        nonlocal t
+        if t.count(old) != 1:
+            raise SystemExit(f"campaign rules: the stock page's {what} has changed "
+                             f"({t.count(old)} matches) - rebase campaign_rules()")
+        t = t.replace(old, new)
+
+    line = ('<TextBlock Text="{}" FontSize="15" Foreground="#D8DDE8" '
+            'TextWrapping="Wrap" Margin="0,0,0,{}"/>')
+    swap('Text="Pacific Strike \'85 - Task Force Mode"',
+         f'Text="{_xml_text(spec["TITLE"])} - Task Force Mode"', "title")
+    swap('Text="War has broken out in Europe and the Pacific. You are the Allies\' first '
+         'line of defense, stationed in Japan at the outbreak of hostilities."',
+         f'Text="{_xml_text(RULES_WELCOME[spec["SLUG"]])}"', "welcome")
+    start = t.find('<TextBlock Text="Coalition Command"')
+    end_marker = ('<TextBlock Text="- Japanese or Australian commanders increase the '
+                  'challenge without changing the missions themselves."')
+    end = t.find(end_marker)
+    if start < 0 or end < 0:
+        raise SystemExit("campaign rules: the stock commander section has changed - "
+                         "rebase campaign_rules()")
+    end = t.index("/>", end) + 2
+    indent = "\n            "
+    block = indent.join([
+        '<TextBlock Text="Command" FontSize="17" FontWeight="Bold" Foreground="White" '
+        'TextWrapping="Wrap" Margin="0,0,0,6"/>',
+        line.format(_xml_text(f"You command the {navy} task force for the whole "
+                              "campaign. The commander's nation is fixed."), 14),
+        line.format("Commander nationality does not change mission rules, ship "
+                    "performance, aircraft performance, or combat capability.", 14),
+        line.format("- No national purchase discount applies: every unit costs its "
+                    "listed price.", 14),
+    ])
+    t = t[:start] + block + t[end:]
+    swap('Text="- Unit availability can change between missions. Japanese units, for '
+         'example, may not be available after leaving Japanese waters."',
+         'Text="- Unit availability changes between missions: Task Force Builder offers '
+         'only what the current force-allocation window allows."', "availability line")
+    swap('Text="- Ships purchased in Task Force Builder include their airwing for free, and '
+         'those aircraft are assigned to the ship automatically. Replacement aircraft must '
+         'be purchased separately if aircraft are lost."',
+         'Text="- Ships purchased in Task Force Builder come without aircraft. Helicopters '
+         'and aircraft are bought separately, and replacements must be bought if aircraft '
+         'are lost."', "airwing line")
+    # All three campaigns sell a helicopter in their first window and add
+    # fixed-wing types from the second (checked 27 Sep), so the stock
+    # helicopter and fixed-wing lines stand as written.
+    swap('Text="- Helicopters are available immediately at campaign start. Each ship will '
+         'show its supported aircraft in Task Force Builder."',
+         'Text="- Helicopters are available from the first force allocation. Each ship '
+         'shows its supported aircraft in Task Force Builder."', "helicopter line")
+    # No roster sells a submarine, and there are no submarine side missions.
+    swap('Text="- Submarines operate independently of your task force. They appear in '
+         'separate (but connected) optional side missions, which offer benefits to '
+         'complete, but do not advance the main campaign."',
+         'Text="- Submarines cannot be bought in this campaign. A mission that gives you '
+         'one provides it with the mission; it does not join your task force."',
+         "submarine line")
+    # The table's Survived Missions column, from this campaign's own
+    # CrewSkillThresholds (the stock page's numbers are its own campaign's).
+    # Brush names give the level each row shows: Green = Novice, Trained =
+    # Regular, Seasoned, Veterans = Veteran, Ultra = Elite.
+    thresholds = dict(p.split(":") for p in
+                      spec["TASKFORCE"]["CrewSkillThresholds"].split("|"))
+    for row, (level, stock) in enumerate(
+            [("Trained", "1"), ("Seasoned", "2"), ("Veterans", "4"), ("Ultra", "7")],
+            start=2):
+        cell = re.search(rf'<Border Grid\.Row="{row}" Grid\.Column="1"[^>]*>'
+                         rf'<TextBlock Text="{stock}"', t)
+        if not cell or f"Brush.CrewSkill.{level}" not in t:
+            raise SystemExit(f"campaign rules: the stock proficiency table's {level} row "
+                             "has changed - rebase campaign_rules()")
+        t = (t[:cell.start()] + cell.group(0)[:-len(f'"{stock}"')]
+             + f'"{thresholds[level]}"' + t[cell.end():])
+    return t
+
+
 def campaign_specs():
     """The campaigns this pack ships, in the order they are built.
 
@@ -1295,14 +1409,14 @@ def place(mission, snapper):
                              f"and the clock gives it {reach:.0f} at cruise - it "
                              "arrives and circles; use airway= or extend the route")
 
-    stranded = assign_home_bases(placed)
+    stranded = assign_home_bases(placed, generated=bool(mission.get("generation")))
     if stranded:
         raise SystemExit(f"{mission['key']}: " + "; ".join(stranded))
     mission["_independent"] = alone
     return placed, members, credits, worst
 
 
-def assign_home_bases(placed):
+def assign_home_bases(placed, generated=False):
     """Give every aircraft somewhere to land, and only then charge it fuel.
 
     `HomeBase` names the section of the field or the deck an aircraft belongs
@@ -1331,6 +1445,18 @@ def assign_home_bases(placed):
     and the same bases are used where they exist, but nothing fails - their
     order of battle is not the design's to fix, and a red fighter dropping out
     of the sky at bingo would hand the player the mission.
+
+    Where the player's force is generated into the mission (Generated or
+    Replaced), a player-side aircraft is still checked against the decks in
+    reach but is never written a `HomeBase` naming a Taskforce1 ship. The
+    stock task-force campaign never writes one - its Taskforce1 aircraft name
+    a Taskforce1 airfield or nothing, helicopters included - and Rig
+    Seventeen, the one mission to name an authored ship past the anchor for
+    authored aircraft, died in ResolvePlacedCampaignAircraft twice
+    ("NullReferenceException ... | 1 vs 3": one player ship against
+    `Taskforce1Vessel3`), both times with a force carried through earlier
+    missions. The slot MH-60R homed on `Taskforce1Vessel1` loaded, but its
+    SAR reported "no home base" all the same (Player.log, snapshot 9208d39e).
     """
     spot = unit_spot
     stranded = []
@@ -1380,7 +1506,8 @@ def assign_home_bases(placed):
                 pick = next((o for o in options if o[1] <= radius), None)
                 if pick:
                     fit, dist, d = pick
-                    keys["HomeBase"] = d[0]
+                    if not (generated and side == "Taskforce1" and d[4]):
+                        keys["HomeBase"] = d[0]
                     keys["UnlimitedFuel"] = "False"
                     if fit == 1:
                         RECOVERY_NOTES.append(
@@ -4544,6 +4671,7 @@ def main():
         (camp / "player_task_force_roster.ini").write_text(c["roster_text"],
                                                            encoding="utf-8")
         (camp / "commander_settings.ini").write_text(spec["COMMANDER"], encoding="utf-8")
+        (camp / "campaign_rules_en.xml").write_text(campaign_rules(spec), encoding="utf-8")
         for folder, desc in folders.items():
             (OUT / "missions" / folder / "_info.ini").write_text(info(folder, desc),
                                                                  encoding="utf-8")

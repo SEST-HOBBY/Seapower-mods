@@ -145,8 +145,11 @@ empty row means the pairing model is wrong.
 
 ## 4 — Fuel and recovery (changed most recently)
 
-Every player aircraft now flies on finite fuel with a `HomeBase`, using ranges
-read from the airframe files. Nothing here has been observed.
+Every player aircraft now flies on finite fuel, using ranges read from the
+airframe files, and has a field or deck in reach. In a mission your force is
+generated into, one whose nearest deck is a Taskforce1 ship names no
+`HomeBase` (the stock rule; build notes, "Rig Seventeen died again"): order
+it to land on the ship. Nothing here has been observed.
 
 | # | Do | Expect |
 |---|---|---|
@@ -303,10 +306,10 @@ can replace. Each is a counterexample to try, not a feature to admire.
 | 7.1 | SW03: send lifter A to the platform and park lifter B in the withdrawal box | Nothing. B's arrival scores nothing until **B** has visited the platform; A entering the box wins | If B's arrival wins, `Action_EnableTriggers` is not reaching the per-unit triggers |
 | 7.2 | SW03: A makes the pickup, then lose A | Defeat, with the "lost after the pickup" message | If the mission continues, the per-unit lost trigger was not enabled |
 | 7.3 | SW08 from the campaign map | No deployment screen; the authored Growler, F-35As and KC-130Js are present with their authored stores; the F-35As recover to **Langgur** | A deployment screen means blank generation does not do what the guide says |
-| 7.3a | SW03 Rig Seventeen from the campaign map (and O3 Borrowed Shield when it opens) - **SW03 passed 27 Sep** | The mission loads; the Osprey and the CH-53 are over HMAS Canberra; none of your own aircraft appear (neither mission has an air-tasking slot) | A load that dies again: run `tools\\capture-context.ps1 -Redact` with the game closed and push it - the log names the step |
+| 7.3a | SW03 Rig Seventeen from the campaign map **on a force carried through 01 and 02**, and O3 Borrowed Shield when it opens. The direct load on a fresh force passed 27 Sep; the carried-over load died the same day and is what this row tests | The mission loads; the Osprey and the CH-53 are over HMAS Canberra with no home base named; none of your own aircraft appear (neither mission has an air-tasking slot) | A load that dies again: run `tools\\capture-context.ps1 -Redact -IncludeSaves` with the game closed and push it - the log names the step and the save shows the force |
 | 7.4 | SW09: leave the box at 30:00 and return at 34:00; then at 36:00 | Tells us whether `Time=2100` is absolute and whether re-entry counts. Record what completed and when | Either answer is a design answer: the brief says the rule is the box at the moment the window closes |
 | 7.5 | SW09: the withdrawal trigger it enables has its own clock | Note whether the box completes immediately on entry or waits | Decides whether a disabled trigger's `Condition_Time` restarts on enable |
-| 7.6 | Recovery: order RTB on the Lynx (O3), the Harrier (D3), the U-2 (D7), the VH-3D (D2) and an F-35A (SW08) | Each lands on its `HomeBase` | Name the airframe and the deck; the fit was declared by the two files |
+| 7.6 | Recovery: order RTB on the Harrier (D3), the U-2 (D7), the VH-3D (D2) and an F-35A (SW08); order the Lynx (O3) to land on Sejong the Great | Each lands on its `HomeBase`; the Lynx, which names none since 27 Sep, lands where it is sent | Name the airframe and the deck; the fit was declared by the two files |
 | 7.7 | D3: watch the column and the roadblock from the start | The column **drives** the road toward the distribution point; the roadblock moves onto it | Land units ignoring `Waypoints` means the column objective needs a different shape |
 | 7.8 | O3: the Korean ships | Sejong the Great and Daegu appear, fire, and the Lynx flies from Sejong | A missing hull names the mod (3789208859) or its Euromod parent |
 | 7.9 | SW01: win at the deadline's last minute; and win while a fatal loss lands in the same update | One outcome only, objectives resolved once | Two endings means the shared exit needs a delay after all |

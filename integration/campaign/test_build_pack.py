@@ -14,6 +14,7 @@ builder emits. Nothing is written into the tree.
 import contextlib
 import importlib.abc
 import io
+import re
 import shutil
 import sys
 import tempfile
@@ -790,6 +791,80 @@ class RosterOnSale(unittest.TestCase):
         with self.assertRaises(SystemExit) as caught:
             self.check(watch["ROSTER"] + [kc46], watch["MISSIONS"])
         self.assertIn("usaf_kc-46a_boom", str(caught.exception))
+
+
+class HomeBases(unittest.TestCase):
+    """Where the player's force is generated in, a player-side aircraft
+    names no Taskforce1 ship as its HomeBase - stock never does, and Rig
+    Seventeen died in ResolvePlacedCampaignAircraft twice when it did."""
+
+    @staticmethod
+    def placed():
+        return {
+            "Taskforce1Vessel": [
+                ("Taskforce1Vessel1", _keys("plan_type_054a_p5", 0, 9), None, False),
+                ("Taskforce1Vessel2", _keys("plan_cv_type_003", 6, 18), None, False)],
+            "Taskforce1Helicopter": [
+                ("Taskforce1Helicopter1", _keys("plan_z-18f", 8.4, 19.2), None, False)],
+            "Taskforce2Vessel": [
+                ("Taskforce2Vessel1", _keys("plan_cv_type_003", 40, 40), None, False)],
+            "Taskforce2Helicopter": [
+                ("Taskforce2Helicopter1", _keys("plan_z-18f", 41, 41), None, False)],
+        }
+
+    def test_a_generated_mission_writes_no_player_ship_home(self):
+        placed = self.placed()
+        self.assertEqual(bp.assign_home_bases(placed, generated=True), [])
+        helo = placed["Taskforce1Helicopter"][0][1]
+        self.assertNotIn("HomeBase", helo)
+        self.assertEqual(helo["UnlimitedFuel"], "False")      # still charged fuel
+        # The other side's deck is not the player's force: it keeps its home.
+        self.assertEqual(placed["Taskforce2Helicopter"][0][1]["HomeBase"],
+                         "Taskforce2Vessel1")
+
+    def test_a_mission_launched_as_authored_keeps_the_deck(self):
+        placed = self.placed()
+        self.assertEqual(bp.assign_home_bases(placed, generated=False), [])
+        self.assertEqual(placed["Taskforce1Helicopter"][0][1]["HomeBase"],
+                         "Taskforce1Vessel2")
+
+    def test_no_shipped_generated_mission_names_a_player_ship_home(self):
+        for spec in bp.campaign_specs():
+            camp = bp.ROOT / "integration" / "campaign" / "SEST_Campaign" / "campaigns" / spec["SLUG"]
+            ini = (camp / "campaign.ini").read_text(encoding="utf-8")
+            for block in re.split(r"\n(?=\[)", ini):
+                gen = re.search(r"^TaskForceModeMissionGenerationType=(\S+)", block, re.M)
+                path = re.search(r"^MissionFile=campaigns/[^/]+/(.+)$", block, re.M)
+                if not (gen and path):
+                    continue
+                text = (camp / path.group(1).strip()).read_text(encoding="utf-8")
+                self.assertNotRegex(text, r"(?m)^HomeBase=Taskforce1Vessel",
+                                    path.group(1))
+
+
+class RulesPage(unittest.TestCase):
+    """The Campaign Rules button opens campaign_rules_en.xml; each campaign's
+    page is the stock one with its own passages and thresholds in place."""
+
+    def test_each_page_parses_and_carries_only_its_own_campaign(self):
+        import xml.dom.minidom
+        for spec in bp.campaign_specs():
+            page = bp.campaign_rules(spec)
+            xml.dom.minidom.parseString(page.encode("utf-8"))
+            self.assertIn(f'Text="{bp._xml_text(spec["TITLE"])} - Task Force Mode"', page)
+            for stock in ("Pacific Strike", "Japan", "optional side missions",
+                          "include their airwing for free"):
+                self.assertNotIn(stock, page, f"{spec['SLUG']}: {stock}")
+
+    def test_the_survived_missions_column_is_the_campaigns_thresholds(self):
+        spec = dict(bp.campaign_specs()[0])
+        spec["TASKFORCE"] = dict(spec["TASKFORCE"], CrewSkillThresholds=
+                                 "Trained:3|Seasoned:6|Veterans:11|Ultra:23")
+        page = bp.campaign_rules(spec)
+        table = page[page.index('Text="Survived Missions"'):]
+        cells = re.findall(r'Grid\.Row="\d" Grid\.Column="1"[^>]*><TextBlock Text="([^"]*)"',
+                           table)
+        self.assertEqual(cells, ["0", "3", "6", "11", "23"])
 
 
 if __name__ == "__main__":
