@@ -124,6 +124,11 @@ EXCUSES = {
     "auto-time-on-target": (
         "library", "salvo-timing behaviour with no data files; it applies to "
         "every mission and no mission may depend on it"),
+    "identify-expanded": (
+        "library", "identification and challenge orders (hail, warn, redirect, "
+        "stop, surrender) run through Anchor Chain; its data is five IFF sensor "
+        "sections and its own strings - nothing a mission can name. It acts on "
+        "every contact in every mission and no mission may depend on it"),
     "automatic-sar": (
         "library", "rescue behaviour (a DLL the export skips, plus its "
         "language strings); no unit or round a mission can name. The campaign "
@@ -2696,8 +2701,11 @@ MISSIONS.append(dict(
         U("blue", "j-16a", "plaf_j16d", "cap", name="Lent escort"),
         U("blue", "tu-160", "wp_tu-160", "bomber", name="Blackjack 01",
           weapons="Tight"),
-        U("blue", "tu-95ms-x-101", "wp_tu-95ms_x101", "bomber", name="Bear 02",
-          weapons="Tight"),
+        # The mod renamed its airframe wp_tu-95ms_x101 -> wp_tu95ms (27 Sep
+        # export) and gave it real fits; LandAttack is the Kh-101 one, the
+        # round the old name was about.
+        U("blue", "tu-95ms-x-101", "wp_tu95ms", "bomber", name="Bear 02",
+          weapons="Tight", loadout="LandAttack"),
         U("blue", "tu-95-as-15", "wp_tu-95ms", "bomber", name="Bear 03",
           weapons="Tight"),
         U("blue", "kuznetsov-1143-5", "ru_cv_kuznetsov", "escort",
@@ -2863,8 +2871,8 @@ MISSIONS.append(dict(
     brief=(
         (
             "BANDA SEA, MARCH 2034. A mobile launcher complex threatens the north-eastern "
-            "passage. An RQ-180 is ahead of the bomber package; the escort includes YF-23s and "
-            "aircraft carrying long-range missile fits.\\n\\nOpposing J-36 and J-50 fighters "
+            "passage. An RQ-180 is ahead of the bomber package; the escort includes YF-23s, two "
+            "Fury wingmen off Enterprise and aircraft carrying long-range missile fits.\\n\\nOpposing J-36 and J-50 fighters "
             "cover the complex, with a Tu-95MA contributing a further missile threat. Earlier "
             "imagery narrows the launcher search area, but mobile equipment must be located and"
             " identified before attack.\\n\\nStrike the launcher complex and preserve a recovery "
@@ -2872,8 +2880,9 @@ MISSIONS.append(dict(
             "recover to Langgur in the Kai Islands or to USS Enterprise, south-east of the "
             "track."
         )),
-    forces="Two YF-23, one F-15EX, an F-16CM with JATM, a Rafale F5, the "
-           "RQ-180, a B-52O, a B-1B and a B-52H in the stream. Opposing: J-36, "
+    forces="Two YF-23, one F-15EX, an F-16CM with JATM, a Rafale F5, two "
+           "FQ-44 Fury wingmen (escort and EW), the RQ-180, a B-52O, a B-1B and "
+           "a B-52H in the stream. Opposing: J-36, "
            "J-50, a Tu-95MA with Meteorit, a Type 004 picket and a relocatable "
            "launcher complex.",
     objectives=[
@@ -2899,6 +2908,10 @@ MISSIONS.append(dict(
     stations={
         "stream": S(-4.4, 130.1, "Bomber stream", heading=28, alt=38000),
         "escort": S(-4.2, 130.4, "Escort", heading=28, alt=40000),
+        # The Fury wingmen fly their own station, not the escort's: they are
+        # expendable carrier drones, and "Keep the escort fighters alive"
+        # is about the crewed jets.
+        "wing": S(-4.3, 130.3, "Fury wingmen", heading=28, alt=38000),
         "sensor": S(-3.2, 130.8, "RQ-180 track", heading=28, alt=60000),
         "red_air": S(-2.4, 129.1, "Opposing fighters", heading=150, alt=42000),
         "red_bomber": S(-2.6, 129.3, "Opposing bomber", heading=150, alt=36000),
@@ -2929,6 +2942,13 @@ MISSIONS.append(dict(
         U("blue", "SEST_Rafale_F5", "fr_rafale_m_l", "escort", name="Rafale 41"),
         U("blue", "rq-180-white-bat", "usaf_rq-180", "sensor",
           name="White Bat 01", weapons="Hold"),
+        # FQ-44 Fury carrier wingmen (Workshop 3804868806, fictional naval
+        # variants): the escort with AMRAAM, the EW Fury with the directional
+        # jammer, out of Enterprise like the Rafale MARINE.
+        U("blue", "fq-44-fury-carrier-wingmen", "usn_fury_escort", "wing",
+          name="Fury 61", loadout="AirToAir"),
+        U("blue", "fq-44-fury-carrier-wingmen", "usn_fury_ew", "wing",
+          name="Fury 62", loadout="Empty", weapons="Hold"),
         U("blue", "SEST_B52_ARRW", "usaf_b-52o", "stream", name="Stream 01",
           loadout="Standoff"),
         U("blue", "b-1b", "usaf_b-1b_dts", "stream", name="Stream 02"),
@@ -4004,7 +4024,7 @@ RECON = "Recon|Maritime Patrol|MPA/ASW/ESM/AEW|1|ASW/AntiShip"
 # names here; they are granted outright now, so nothing that can take this
 # slot flies a CH53SA* fit and advertising one would be an orphan name.
 HELO = ("HeloRecon|Ship's Flight|SAR|1|"
-        "ASW/ASWLongRange/ASWPatrol/Anti-shipLate")
+        "ASW/ASWLongRange/ASWPatrol/AntiShipLate")
 STRIKE = ("Attack|Maritime Strike|Bomber/SEAD|2|"
           "Strike/StrikeLongRange/StrikePrecision/AntiShip/AntiShipHeavy/"
           "MurderHornetSEAD/MurderHornetAntiShip/SEST_SEAD120D")

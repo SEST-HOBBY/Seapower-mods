@@ -5,7 +5,7 @@ union across every campaign in the pack; this is the closure for
 this one, derived from the units its missions place, the squadrons
 and hull variants they name, and the rounds their loadouts hang.
 
-1. HARD REQUIRED (136): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (137): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a unit a mission places          1143.5 Kuznetsov
   3587091564    a unit a mission places          3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -18,6 +18,7 @@ and hull variants they name, and the rounds their loadouts hang.
   3459682829    a weapon a loadout hangs         A-10C
   3425450153    a squadron a flight comes from   AH-64 Apache
   3461091581    a unit a mission places          Air Deck Operations Upgrade - Nimitz (2000s)
+  3804868806    a unit a mission places          Anduril FQ-44 Fury US Navy Carrier Wingmen
   3416372890    a unit a mission places          Apex Predators MIG-29A & F-16A
   3403993583    a unit a mission places          Armed Oil Rig with Helo MOD
   3502273861    a unit a mission places          ARRW (AGM-183)
@@ -143,7 +144,7 @@ and hull variants they name, and the rounds their loadouts hang.
   3782020901    a unit a mission places          Y-20 / KJ-3000
   3796349767    a unit a mission places          YF-23 Black Widow II
   3380210757    required by another mod          Anchor Chain
-                                                   asked for by: B-2 Spirit, MV-22B Osprey Tiltrotor / JGSDF V-22B
+                                                   asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, B-2 Spirit, MV-22B Osprey Tiltrotor / JGSDF V-22B, YF-23 Black Widow II
   (workshop)    manual install                   SeaLifter - required by B-2 Spirit; not in this collection
 
 2. SEST INTEGRATION PACKS (18): this project's own patches, inside the consolidated download.
@@ -167,7 +168,7 @@ and hull variants they name, and the rounds their loadouts hang.
   (local)       a squadron a flight comes from   SEST Raptor Squadrons
   (local)       a unit a mission places          SEST Replenishment At Sea
 
-3. INSTALL-WIDE LIBRARIES AND UI (5): ship no file a mission names. Optional unless a mod in list 1 asks for them (Anchor Chain
+3. INSTALL-WIDE LIBRARIES AND UI (6): ship no file a mission names. Optional unless a mod in list 1 asks for them (Anchor Chain
 is asked for; the map, salvo and rescue tools are conveniences).
 
   3380210757    library                          Anchor Chain
@@ -175,6 +176,7 @@ is asked for; the map, salvo and rescue tools are conveniences).
   3774105087    library                          Automatic SAR
   3768036424    library                          Better TacMap
   3784474738    library                          Euromod - Anchorchain Expansion Pack
+  3790594162    library                          Identify Expanded
 
 4. NOT USED BY THIS CAMPAIGN (2): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.

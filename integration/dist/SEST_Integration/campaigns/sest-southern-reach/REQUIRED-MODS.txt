@@ -56,7 +56,7 @@ and hull variants they name, and the rounds their loadouts hang.
 is asked for; the map, salvo and rescue tools are conveniences).
 
 
-4. NOT USED BY THIS CAMPAIGN (121): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (123): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -67,6 +67,7 @@ shared file wins for the mods above.
   3425450153    AH-64 Apache
   3461091581    Air Deck Operations Upgrade - Nimitz (2000s)
   3380210757    Anchor Chain
+  3804868806    Anduril FQ-44 Fury US Navy Carrier Wingmen
   3416372890    Apex Predators MIG-29A & F-16A
   3403993583    Armed Oil Rig with Helo MOD
   3502273861    ARRW (AGM-183)
@@ -105,6 +106,7 @@ shared file wins for the mods above.
   3567228449    French Helicopter Package
   3461044389    Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3508275114    Ground Upgrade: SPAA
+  3790594162    Identify Expanded
   3717610332    IL-78 TANKER
   3408662804    Iskander TBM
   3505420313    Italian Navy Mod

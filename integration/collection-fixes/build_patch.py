@@ -156,6 +156,17 @@ SM3_OVWR_VALUES = {
     "LaunchTurnRate": "5",
     "TimeLimited": "True",
 }
+# Where the overwrite gives one round its own figure. 27 Sep export: the
+# author took the Block IIA's (usn_rim-161c) loft from 90.0 to 75.0 and left
+# the B and the D at 90.0, so the C folds 75.0.
+SM3_OVWR_PER_ROUND = {
+    "MaxLoftAngle": {"usn_rim-161c": "75.0"},
+}
+
+
+def sm3_value(key, name):
+    """The overwrite's value of key for this round."""
+    return SM3_OVWR_PER_ROUND.get(key, {}).get(name, SM3_OVWR_VALUES[key])
 # Keys the overwrite sets that this pack knowingly does not copy, with the
 # overwrite's value per round (a round not listed must not set the key).
 # MaxFlightTime: the overwrite gives the D 3000 s. This pack sizes the
@@ -176,9 +187,12 @@ SM3_OVWR_SAME = ("TargetType", "CanNotAttackTypes")
 # effects, audio, control-fin animation - or one of the four extension keys
 # no vanilla file declares (AutoAttackBelowMinAltitude/AboveMaxAltitude,
 # OptimalTargetDist, NumberOfStages), which the overwrite still supplies
-# whenever the preloader that reads them is installed.
+# whenever the preloader that reads them is installed. The ThermalGlow* keys
+# (27 Sep export: material, start/full speed, intensity, heat-up/cool-down/
+# fade-in times, start stage) are the extension's heated-airframe glow - how
+# the round looks at speed, read only by the preloader, nothing it flies by.
 SM3_OVWR_IGNORABLE = re.compile(
-    r"^(Stage\d|SubModel|ControlStages|ControlSurface|Resources|NumberOfStages|"
+    r"^(Stage\d|SubModel|ControlStages|ControlSurface|Resources|NumberOfStages|ThermalGlow|"
     r"NumberOfSubModels|OptimalTargetDist|AutoAttack(Below|Above)\w*Altitude|"
     r"Mesh$|Position$|Rotation$|Type$|InFlightSound$)|"
     r"(Effect|Mesh|AudioClip|Explosion|Splash)")
@@ -204,7 +218,8 @@ def sm3_check_overwrite(t, name):
         return "(not set)" if values is None else " / ".join(v or "(empty)" for v in values)
 
     rebase = "rebase the SM-3 overwrite fold"
-    for key, value in SM3_OVWR_VALUES.items():
+    for key in SM3_OVWR_VALUES:
+        value = sm3_value(key, name)
         if ovwr.get(key) != [value]:
             sys.exit(f"{name}: the Anchorchain overwrite now has {key}="
                      f"{shown(ovwr.get(key))}, not {value} - {rebase}, or the round "
@@ -234,19 +249,19 @@ def sm3_fold_overwrite(t, name):
     sm3_check_overwrite(t, name)
     for key in ("InitialFlightPhaseDuration", "MaxLoftAngle", "TerminalApproachDist",
                 "SeekerFOV", "SeekerPassiveRange"):
-        t = edit(t, rf"^{key}=[\d.]+(?![\d.])", f"{key}={SM3_OVWR_VALUES[key]}", 1, name)
+        t = edit(t, rf"^{key}=[\d.]+(?![\d.])", f"{key}={sm3_value(key, name)}", 1, name)
     for key in ("LaunchTurnRate", "TimeLimited"):
         if re.search(rf"^{key}=", t, re.M):
             sys.exit(f"{name}: {key} is now live in the donor - drop this edit")
         if re.search(rf"^[;#]{key}=", t, re.M):
             # Both markers: the C comments LaunchTurnRate with '#', its
             # siblings with ';'.
-            t = edit(t, rf"^[;#]{key}=[^\s/]*", f"{key}={SM3_OVWR_VALUES[key]}", 1, name)
+            t = edit(t, rf"^[;#]{key}=[^\s/]*", f"{key}={sm3_value(key, name)}", 1, name)
         elif key == "TimeLimited":
             # The B never declares it, even commented out. It goes next to
             # VelocityBleed, near where the C and D keep theirs.
             t = edit(t, r"^(VelocityBleed=[^\n]*)$",
-                     rf"\1\n{key}={SM3_OVWR_VALUES[key]}", 1, name)
+                     rf"\1\n{key}={sm3_value(key, name)}", 1, name)
         else:
             sys.exit(f"{name}: no {key} line in the donor - rebase this fix")
     # Kept to three lines: the header counts against the file's similarity
@@ -254,7 +269,7 @@ def sm3_fold_overwrite(t, name):
     # "These", not "the round": the D's declined MaxFlightTime still differs
     # with the preloader.
     note = ("From the Anchorchain overwrite, so these hold without the preloader "
-            "too: " + ", ".join(f"{k}={v}" for k, v in SM3_OVWR_VALUES.items())
+            "too: " + ", ".join(f"{k}={sm3_value(k, name)}" for k in SM3_OVWR_VALUES)
             + ".")
     return t, "\n" + textwrap.fill(note, 76, break_on_hyphens=False)
 
