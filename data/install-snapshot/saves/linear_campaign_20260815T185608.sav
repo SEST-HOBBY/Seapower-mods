@@ -1,0 +1,51 @@
+#!alias campaigns/strike-group-molniya-campaign/campaign.ini
+[File]
+Version=1
+CreationTime=2026-08-15T08:56:08Z
+Base=campaigns/strike-group-molniya-campaign/campaign.ini
+[Mission1]
+IsUnlocked=True
+IsComplete=True
+[Mission2]
+IsUnlocked=True
+IsComplete=True
+[Mission3]
+IsUnlocked=True
+IsComplete=True
+[Mission4]
+IsUnlocked=True
+IsComplete=False
+[Mission5]
+IsUnlocked=False
+IsComplete=False
+[Mission6]
+IsUnlocked=False
+IsComplete=False
+[Mission7]
+IsUnlocked=False
+IsComplete=False
+[Mission8]
+IsUnlocked=False
+IsComplete=False
+[Mission9]
+IsUnlocked=False
+IsComplete=False
+[Mission10]
+IsUnlocked=False
+IsComplete=False
+[Mission11]
+IsUnlocked=False
+IsComplete=False
+[Mission12]
+IsUnlocked=False
+IsComplete=False
+[Mission13]
+IsUnlocked=False
+IsComplete=False
+[PersistentData]
+CommanderName=Sergei Alexandrovich Markov
+CommanderNameConfirmed=False
+CommanderName_ru=Сергей Александрович Марков
+CommanderName_cn=谢尔盖·亚历山德罗维奇·马尔可夫
+PlayerTaskForceName=Strike Group Molniya
+LastSelectedMission=Mission4
