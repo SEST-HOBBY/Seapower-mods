@@ -1,0 +1,16 @@
+ANCHOR CHAIN SETUP
+
+Subscribe to Anchor Chain and complete its one-time preloader installation:
+https://steamcommunity.com/sharedfiles/filedetails/?id=3380210757
+https://seapower-modders.github.io/AnchorChain/install-anchor-chain.html
+
+If Anchor Chain already works, no separate installer is needed for this mod.
+Enable the mod and restart Sea Power. Keep its DLLs inside the mod folder.
+Harmony is supplied by the shared loader; do not install another copy.
+Restart after changing code mods. Game updates can require a patch update.
+
+FURY RADIO
+Custom Fury calls and the friendly-aircraft-loss response are included. Other US aircraft retain their normal voices. The former Fury Optional Voices subscription is no longer required.
+
+UPGRADING FROM THE OLD VOICE INSTALLER
+With Sea Power closed, use its Remove Voice Code option, retaining the shared loader. Alternatively remove only FuryVoice.Patcher.dll from BepInEx/patchers and FuryVoice.Harmony.dll and FuryVoice.Loss.dll from BepInEx/plugins. Do not remove BepInEx or other mods.
