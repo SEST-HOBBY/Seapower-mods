@@ -485,11 +485,13 @@ FLEET = {
                   ("OPV 204 HMAS Eyre", "Eyre"),
                   ("OPV 205 HMAS Pilbara", "Pilbara"),
                   ("OPV 206 HMAS Gippsland", "Gippsland")],
-        "airgroup": None,
-        # No hangar, so no embarked air group - but the flight deck is rated
-        # for a Seahawk to land and refuel, which is what the campaign's
-        # patrol missions ask of it.
-        "deck": HELOS.split(","),
+        # "None" here left the donor's own air group in place: the Meteoro
+        # embarks the Spanish Navy's SH-60B, so every Arafura - bought, or
+        # placed by a mission - came with a Spanish-flagged helicopter (user
+        # report). The deck's embarked flight is the RAN's MH-60R, the one
+        # the Anzacs and Hobarts already fly; the air-group path also adds
+        # both RAN Seahawks to AircraftSupported.
+        "airgroup": ["usn_mh-60r=Squadron20,1"],
     },
 }
 
