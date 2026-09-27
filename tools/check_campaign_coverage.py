@@ -325,6 +325,74 @@ def art_resolves(pack, slug):
     return out
 
 
+def open_twin(pack, slug):
+    """The campaign's Open Allocation twin differs from it only in what it sells.
+
+    The twin (build_pack.open_allocation_ini) is a second entry in the
+    campaign list that loads this campaign's missions and art by path and
+    sells the whole roster at every open window. Read from the built bytes:
+    the three files the game reads from the campaign's own folder are this
+    campaign's, byte for byte; its campaign.ini is this one line for line
+    except the file's own Base, the campaign's name and description, and in
+    each window the allowlist (every roster entry, every priced pick) and the
+    situation (the note first, then the base text unchanged). A twin that
+    drifted - a gate, a reward, a MissionFile - would be a different campaign
+    under the same missions, and nothing in game would say so.
+    """
+    name = bp.open_slug(slug)
+    base, twin = pack / "campaigns" / slug, pack / "campaigns" / name
+    if not (twin / "campaign.ini").is_file():
+        return [f"campaigns/{name}: no Open Allocation twin for {slug}"]
+    out = []
+    for fn in ("player_task_force_roster.ini", "commander_settings.ini", "REQUIRED-MODS.txt"):
+        if not (twin / fn).is_file() or (twin / fn).read_bytes() != (base / fn).read_bytes():
+            out.append(f"campaigns/{name}/{fn}: missing, or not the base campaign's file")
+    if not (twin / "campaign_rules_en.xml").is_file():
+        out.append(f"campaigns/{name}: no campaign_rules_en.xml")
+    picks, section = {}, ""
+    for line in (base / "player_task_force_roster.ini").read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line.startswith("[") and line.endswith("]"):
+            section = line[1:-1]
+        elif line and not line.startswith(";") and "=" in line and section != "LoadoutPrices":
+            uid, _, spec = line.partition("=")
+            picks[uid] = spec.split("|")[0].split(",")
+    b_lines = (base / "campaign.ini").read_text(encoding="utf-8").split("\n")
+    t_lines = (twin / "campaign.ini").read_text(encoding="utf-8").split("\n")
+    if len(b_lines) != len(t_lines):
+        return out + [f"campaigns/{name}/campaign.ini: {len(t_lines)} lines against the "
+                      f"base's {len(b_lines)} - the twin is not the base spine"]
+    section, windows, allowlists = "", 0, 0
+    for n, (b, w) in enumerate(zip(b_lines, t_lines), 1):
+        if b.startswith("["):
+            section = b.split("]")[0] + "]"
+        if w.startswith("TaskForceModeEnableTaskForceBuilder=True"):
+            windows += 1
+        if w.startswith("TaskForceModeAllowedRosterUnits="):
+            allowlists += 1
+            entries = [e.split(",") for e in w.partition("=")[2].split("|")]
+            got = {e[0]: e[1:] for e in entries}
+            if len(entries) != len(got) or got != picks:
+                out.append(f"campaigns/{name}/campaign.ini:{n}: the allowlist is not "
+                           "the whole roster with every priced pick")
+            continue
+        if b == w:
+            continue
+        key = b.partition("=")[0]
+        ok = ((key == "Base" and w == f"Base=campaigns/{name}/campaign.ini")
+              or (section == "[Language_en]" and key in ("Name", "Description")
+                  and w.startswith(key + "="))
+              or (key == "TaskForceModeBuilderSituation_en"
+                  and w == f"{key}={bp.OPEN_NOTE} {b.partition('=')[2]}"))
+        if not ok:
+            out.append(f"campaigns/{name}/campaign.ini:{n}: differs from the base "
+                       f"campaign's ({key or b[:40]!r})")
+    if not windows or allowlists > windows:
+        out.append(f"campaigns/{name}/campaign.ini: {windows} open window(s), "
+                   f"{allowlists} allowlist(s)")
+    return out + art_resolves(pack, name)
+
+
 def loadout_names(pack, slug, dispatches):
     """Every loadout a player-side aircraft is offered has a display name.
 
@@ -379,6 +447,7 @@ def main():
     for spec in specs:
         problems += art_resolves(pack, spec["SLUG"])
         problems += loadout_names(pack, spec["SLUG"], spec["DISPATCHES"])
+        problems += open_twin(pack, spec["SLUG"])
 
     for f in files:
         rel = f.relative_to(ROOT)

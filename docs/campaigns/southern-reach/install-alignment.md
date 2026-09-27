@@ -58,10 +58,12 @@ brings eleven pieces of the other sessions' work (§6), among them three new
 packs: SEST Replenishment At Sea, SEST A-10C+ and SEST Intercept Model. The
 pack count is **20**.
 
-The installed file count goes from 691 to **1174** (it was 1189 until the 27 Sep
-export: 21 Burke and Spruance overrides left with the hulls Modern US Navy and
-U.S. Navy 2027 deleted, three reload files arrived with rounds they added; then
-each campaign gained its Campaign Rules page, `campaign_rules_en.xml`):
+The installed file count goes from 691 to **1189**. It was 1189 before the 27 Sep
+export too, by coincidence: that export took it to 1171 (21 Burke and Spruance
+overrides left with the hulls Modern US Navy and U.S. Navy 2027 deleted, three
+reload files arrived with rounds they added), each campaign's Campaign Rules
+page made 1174, and the three Open Allocation twins - five files each under
+`campaigns\sest-*-open\` - made 1189:
 `campaigns\sest-red-line\` (44 files: six missions with their briefing
 folders, 16 art files - the four story pages and 12 images - `campaign.ini`,
 roster, commander settings and a `REQUIRED-MODS.txt`) and the browser copies under `missions\Red Line\` (31),
@@ -192,7 +194,7 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1174** for this build |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1189** for this build |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |
@@ -204,7 +206,7 @@ charts, 66 art files, `campaign.ini`, roster, commander settings and a
 `missions\Tasman Shield\`, a `REQUIRED-MODS.txt` for Southern Watch's own
 folder and the two RNZAF base files (691 in all); then this round's Red Line
 and ported files (1189; 1171 after the 27 Sep export; 1174 with the three Campaign Rules
-pages).
+pages; 1189 with the three Open Allocation twins).
 
 ## 5 — confirm the campaigns arrived
 

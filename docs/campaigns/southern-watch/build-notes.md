@@ -1325,6 +1325,49 @@ price table, refund percentages and survivor reward are Bindings the game
 fills from each campaign's own files. If the stock page changes, the build
 stops rather than ship a half-edited one. English only, as stock.
 
+## Open Allocation (27 September)
+
+Asked for: a switch that puts assets on sale before the story releases them.
+The storyline's force-allocation windows stay where they are; what changes is
+what each window offers. Each campaign now also appears in the campaign list
+as an Open Allocation twin - "Southern Watch - Open Allocation (Royal
+Australian Navy)" and the same for Southern Reach and Red Line - and in the
+twin every window whose builder is open offers the whole roster: in Southern
+Watch, the Hobart, the P-8, the F-35A, the Super Hornet, the Growler, the
+Wedgetail and the Triton are all on sale before White Water.
+
+Why a twin and not a switch inside the campaign. The game ties purchases to
+the roster and each window's `TaskForceModeAllowedRosterUnits`, and nothing
+else: a difficulty preset carries points, airwing, loadout, repair, refund and
+crew keys only (the Difficulty* strings under `ui.ini [TaskForceMode]`), and
+no stock key conditions an allowlist on a campaign variable. The game's own
+start option, Unrestricted mode ("every unit in the game can be purchased,
+ignoring the campaign roster and mission restrictions"), is the opposite of a
+curated roster. A second campaign entry is the one switch the game can read,
+chosen at the start the way its own start options are, and it keeps its own
+save; the standard campaign and a save under way are not touched.
+
+What the twin is. `open_allocation_ini()` takes the base campaign.ini and
+changes four kinds of line: `[File] Base` (the file's own location), the
+campaign's name and description, and in each open window the allowlist (every
+roster entry, every priced pick) and the situation, which now opens "Open
+Allocation: the whole roster is on offer at this window. The story's
+allocation for it reads:" before the unchanged story text. A repair-only stop
+keeps its text; nothing is on offer there. Every `MissionFile` and art path
+still points into the base campaign's folder - they are StreamingAssets-
+relative in every stock campaign - so the twin ships five files (the spine, a
+rules page saying so, and byte-identical copies of the roster, commander
+settings and REQUIRED-MODS), not a second copy of the missions. Points,
+prices, gates, rewards, one-ship operations and deployment rules are the base
+campaign's; an aircraft bought before a mission has a row or an airbase for
+it waits in reserve, as it would have. `check_campaign_coverage` compares each
+twin with its base line by line from the built files and fails on any other
+difference; `test_build_pack.py` (`OpenAllocation`) holds the transform.
+
+Not demonstrated: that the game lists a campaign whose missions live in
+another campaign's folder, and loads them. Stock never does it; nothing in
+stock says it cannot. Test card 6G.
+
 ## What has NOT been demonstrated
 
 Static resolution is not a play test. None of the following is established by

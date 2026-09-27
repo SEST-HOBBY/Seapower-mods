@@ -179,8 +179,12 @@ def _xml_text(s):
              .replace("<", "&lt;").replace(">", "&gt;"))
 
 
-def campaign_rules(spec):
-    """This campaign's campaign_rules_en.xml, built from the stock page."""
+def campaign_rules(spec, open_allocation=False):
+    """This campaign's campaign_rules_en.xml, built from the stock page.
+
+    `open_allocation` is the Open Allocation twin's page: the same rules, with
+    the availability lines saying the whole roster is on sale from the first
+    force allocation."""
     t = RULES_TEMPLATE.read_text(encoding="utf-8")
     navy = re.search(r"^NavyName\w+=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
 
@@ -193,8 +197,9 @@ def campaign_rules(spec):
 
     line = ('<TextBlock Text="{}" FontSize="15" Foreground="#D8DDE8" '
             'TextWrapping="Wrap" Margin="0,0,0,{}"/>')
+    title = spec["TITLE"] + (" - Open Allocation" if open_allocation else "")
     swap('Text="Pacific Strike \'85 - Task Force Mode"',
-         f'Text="{_xml_text(spec["TITLE"])} - Task Force Mode"', "title")
+         f'Text="{_xml_text(title)} - Task Force Mode"', "title")
     swap('Text="War has broken out in Europe and the Pacific. You are the Allies\' first '
          'line of defense, stationed in Japan at the outbreak of hostilities."',
          f'Text="{_xml_text(RULES_WELCOME[spec["SLUG"]])}"', "welcome")
@@ -220,8 +225,11 @@ def campaign_rules(spec):
     t = t[:start] + block + t[end:]
     swap('Text="- Unit availability can change between missions. Japanese units, for '
          'example, may not be available after leaving Japanese waters."',
-         'Text="- Unit availability changes between missions: Task Force Builder offers '
-         'only what the current force-allocation window allows."', "availability line")
+         ('Text="- Open Allocation: every force allocation offers the whole campaign '
+          'roster, from the first. Some operations still limit what sails, and every '
+          'unit costs its listed price."' if open_allocation else
+          'Text="- Unit availability changes between missions: Task Force Builder offers '
+          'only what the current force-allocation window allows."'), "availability line")
     swap('Text="- Ships purchased in Task Force Builder include their airwing for free, and '
          'those aircraft are assigned to the ship automatically. Replacement aircraft must '
          'be purchased separately if aircraft are lost."',
@@ -233,8 +241,17 @@ def campaign_rules(spec):
     # helicopter and fixed-wing lines stand as written.
     swap('Text="- Helicopters are available immediately at campaign start. Each ship will '
          'show its supported aircraft in Task Force Builder."',
-         'Text="- Helicopters are available from the first force allocation. Each ship '
-         'shows its supported aircraft in Task Force Builder."', "helicopter line")
+         ('Text="- Helicopters and fixed-wing aircraft are on sale from the first force '
+          'allocation. Each ship shows its supported aircraft in Task Force Builder."'
+          if open_allocation else
+          'Text="- Helicopters are available from the first force allocation. Each ship '
+          'shows its supported aircraft in Task Force Builder."'), "helicopter line")
+    if open_allocation:
+        swap('Text="- Fixed-wing aircraft are not available for purchase at the start of '
+             'the campaign, but become available later on."',
+             'Text="- Fixed-wing aircraft bought before a mission can use them wait in '
+             'reserve: they deploy only where a mission has an airbase or an Air Tasking '
+             'row for them."', "fixed-wing line")
     # No roster sells a submarine, and there are no submarine side missions.
     swap('Text="- Submarines operate independently of your task force. They appear in '
          'separate (but connected) optional side missions, which offer benefits to '
@@ -259,6 +276,81 @@ def campaign_rules(spec):
         t = (t[:cell.start()] + cell.group(0)[:-len(f'"{stock}"')]
              + f'"{thresholds[level]}"' + t[cell.end():])
     return t
+
+
+# ---------------------------------------------------------- open allocation
+# Each campaign also ships as an Open Allocation twin (user request, 27 Sep):
+# the same missions, points and prices, but every force-allocation window
+# sells the whole roster instead of what the story has released so far. The
+# game has no switch for that. A difficulty preset carries points, airwing,
+# loadout, repair, refund and crew keys and nothing else (the Difficulty*
+# strings under ui.ini [TaskForceMode]); its own Unrestricted start option
+# sells every unit of every nation, ignoring the roster. So the switch is a
+# second entry in the campaign list, chosen at the start the way the game's
+# own start options are, with its own save. The twin is the base campaign.ini
+# with four kinds of line changed, and it loads the base campaign's missions
+# and art by path - MissionFile and every art key are StreamingAssets-relative
+# in every stock campaign - so nothing but the spine is duplicated.
+OPEN_SUFFIX = "-open"
+# The window's own situation follows the note unchanged: it still says what
+# sails, what is rearmed and where the next window is, and what it says is on
+# offer is read as the story's allocation, which the note sets aside.
+OPEN_NOTE = ("Open Allocation: the whole roster is on offer at this window. The "
+             "story's allocation for it reads:")
+OPEN_BLURB = ("OPEN ALLOCATION - every unit this campaign sells is on offer from the "
+              "first force allocation, whatever the story has released. Same missions, "
+              "points and prices. ")
+
+
+def open_slug(slug):
+    return slug + OPEN_SUFFIX
+
+
+def open_allocation_ini(text, slug, roster):
+    """The Open Allocation twin's campaign.ini, from the base campaign's text.
+
+    Changed: `[File] Base` (the file's own location, which stock says every
+    system needs), the campaign's `[Language_en]` Name and Description, and in
+    every window whose builder is open, the allowlist (the whole roster, every
+    priced variant) and the situation (OPEN_NOTE first). A repair-only stop
+    keeps its situation: nothing is on offer there. Everything else - every
+    MissionFile, every art path, every gate and reward - is the base
+    campaign's, byte for byte.
+    """
+    full = allowed_roster_units([e["unit"] for e in roster], roster,
+                                f"{slug}: open allocation")
+    counts = collections.Counter()
+    out = []
+    for sec in re.split(r"\n(?=\[)", text):
+        head = sec.split("\n", 1)[0].strip()
+        if head.startswith("[File]"):
+            old = f"Base=campaigns/{slug}/campaign.ini"
+            counts["base"] += sec.count(old)
+            sec = sec.replace(old, f"Base=campaigns/{open_slug(slug)}/campaign.ini")
+        elif head == "[Language_en]":
+            sec, n = re.subn(r"^Name=(.*?)( \([^)]*\))?$",
+                             lambda m: f"Name={m.group(1)} - Open Allocation{m.group(2) or ''}",
+                             sec, count=1, flags=re.M)
+            counts["name"] += n
+            sec, n = re.subn(r"^Description=", lambda m: "Description=" + OPEN_BLURB,
+                             sec, count=1, flags=re.M)
+            counts["description"] += n
+        elif re.search(r"^TaskForceModeEnableTaskForceBuilder=True$", sec, re.M):
+            counts["windows"] += 1
+            sec, n = re.subn(r"^TaskForceModeAllowedRosterUnits=.*$",
+                             lambda m: "TaskForceModeAllowedRosterUnits=" + full,
+                             sec, flags=re.M)
+            counts["allow"] += n
+            sec, n = re.subn(r"^TaskForceModeBuilderSituation_en=",
+                             lambda m: "TaskForceModeBuilderSituation_en=" + OPEN_NOTE + " ",
+                             sec, flags=re.M)
+            counts["situation"] += n
+        out.append(sec)
+    if (counts["base"], counts["name"], counts["description"]) != (1, 1, 1) \
+            or not counts["windows"]:
+        raise SystemExit(f"{slug}: open allocation could not find the campaign's "
+                         f"Base, Name, Description or a purchase window ({dict(counts)})")
+    return "\n".join(out)
 
 
 def campaign_specs():
@@ -4678,6 +4770,18 @@ def main():
         # This campaign's own closure, in the four lists a release needs.
         (camp / "REQUIRED-MODS.txt").write_text(
             campaign_requirements(c["rows"], c["missing"], TITLE), encoding="utf-8")
+        # The Open Allocation twin: its own spine, rules page and copies of the
+        # three files the game reads from the campaign's own folder; the
+        # missions and art stay here (see open_allocation_ini()).
+        twin = OUT / "campaigns" / open_slug(SLUG)
+        twin.mkdir(parents=True)
+        (twin / "campaign.ini").write_text(
+            open_allocation_ini(c["campaign_text"], SLUG, spec["ROSTER"]), encoding="utf-8")
+        (twin / "campaign_rules_en.xml").write_text(campaign_rules(spec, open_allocation=True),
+                                                    encoding="utf-8")
+        for fn in ("player_task_force_roster.ini", "commander_settings.ini",
+                   "REQUIRED-MODS.txt"):
+            shutil.copy2(camp / fn, twin / fn)
         COVERAGE_DOC.parent.mkdir(parents=True, exist_ok=True)
         COVERAGE_DOC.write_text(report(c["rows"], spec["MISSIONS"], c["worst"],
                                        unused=c["missing"], coast=c["coast"]),
@@ -4690,9 +4794,11 @@ def main():
                                                          encoding="utf-8")
         files = sum(1 for f in camp.rglob("*") if f.is_file())
         total_files += files
+        twin_files = sum(1 for f in twin.rglob("*") if f.is_file())
+        total_files += twin_files
         print(f"  {TITLE}: {len(built)} missions, {len(spec['EVENTS'])} events, "
-              f"{files} files under campaigns/{SLUG}; wrote "
-              f"{COVERAGE_DOC.relative_to(ROOT)}")
+              f"{files} files under campaigns/{SLUG}, {twin_files} under "
+              f"campaigns/{open_slug(SLUG)}; wrote {COVERAGE_DOC.relative_to(ROOT)}")
 
     # The pack's own entry in the Mod Manager. No Type= here: that key
     # classifies a MISSION folder, and native mod roots do not carry one.
@@ -4703,6 +4809,9 @@ def main():
     # world. What a player needs to install it belongs here, on the pack's
     # Mod Manager entry, once.
     blurb = (" ".join(c["spec"]["INFO_DESC"] for c in campaigns)
+             + " Each campaign is also listed as an Open Allocation version, which "
+               "offers its whole roster from the first force allocation instead of "
+               "as the story releases it."
              + " Needs the Steam Workshop mods listed in REQUIRED-MODS.txt in "
                "this mod's folder; LOAD-ORDER.txt beside it is the Mod Manager "
                "order it was built and tested against.")

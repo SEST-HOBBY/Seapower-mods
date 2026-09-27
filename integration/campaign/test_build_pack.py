@@ -842,6 +842,66 @@ class HomeBases(unittest.TestCase):
                                     path.group(1))
 
 
+class OpenAllocation(unittest.TestCase):
+    """The Open Allocation twin sells the whole roster at every open window
+    and is otherwise its base campaign's spine, line for line."""
+
+    ROSTER = [dict(unit="ran_ffh_anzac", picks=["Variant3", "Variant8"], points=240),
+              dict(unit="usn_p8", picks=["Squadron3"], points=55)]
+    FULL = "ran_ffh_anzac,Variant3,Variant8|usn_p8,Squadron3"
+    SPINE = "\n".join([
+        "[File]", "Base=campaigns/sest-test/campaign.ini", "",
+        "[TaskForceModeDifficulty_Standard]", "Name=Standard", "",
+        "[Language_en]", "Name=Test Watch (Royal Australian Navy)", "Description=Blurb.", "",
+        "[Missions]", "NumberOfMissions=3", "",
+        "[Mission1]  #01 First", "MissionFile=campaigns/sest-test/missions/One.ini",
+        "TaskForceModeEnableTaskForceBuilder=True",
+        "TaskForceModeAllowedRosterUnits=ran_ffh_anzac,Variant3,Variant8",
+        "TaskForceModeBuilderSituation_en=Frigates only.", "",
+        "[Mission2]  #Stop", "TaskForceModeEnableTaskForceBuilder=False",
+        "TaskForceModeBuilderSituation_en=Repairs only.", "",
+        "[Mission3]  #02 Second", "MissionFile=campaigns/sest-test/missions/Two.ini",
+        "TaskForceModeEnableTaskForceBuilder=True", ""])
+
+    def test_the_twin_sells_everything_and_keeps_the_rest(self):
+        twin = bp.open_allocation_ini(self.SPINE, "sest-test", self.ROSTER).split("\n")
+        base = self.SPINE.split("\n")
+        self.assertEqual(len(twin), len(base))
+        changed = {b: w for b, w in zip(base, twin) if b != w}
+        self.assertEqual(changed, {
+            "Base=campaigns/sest-test/campaign.ini":
+                "Base=campaigns/sest-test-open/campaign.ini",
+            "Name=Test Watch (Royal Australian Navy)":
+                "Name=Test Watch - Open Allocation (Royal Australian Navy)",
+            "Description=Blurb.": "Description=" + bp.OPEN_BLURB + "Blurb.",
+            "TaskForceModeAllowedRosterUnits=ran_ffh_anzac,Variant3,Variant8":
+                "TaskForceModeAllowedRosterUnits=" + self.FULL,
+            "TaskForceModeBuilderSituation_en=Frigates only.":
+                "TaskForceModeBuilderSituation_en=" + bp.OPEN_NOTE + " Frigates only.",
+        })
+        # The missions are still the base campaign's; the repair-only stop
+        # and the preset keep their text.
+        self.assertIn("MissionFile=campaigns/sest-test/missions/One.ini", twin)
+        self.assertIn("TaskForceModeBuilderSituation_en=Repairs only.", twin)
+        self.assertIn("Name=Standard", twin)
+
+    def test_a_spine_it_cannot_read_stops_the_build(self):
+        with self.assertRaises(SystemExit):
+            bp.open_allocation_ini(self.SPINE.replace("sest-test/campaign.ini", "x.ini"),
+                                   "sest-test", self.ROSTER)
+
+    def test_the_twins_rules_page_says_so(self):
+        spec = bp.campaign_specs()[0]
+        page = bp.campaign_rules(spec, open_allocation=True)
+        import xml.dom.minidom
+        xml.dom.minidom.parseString(page.encode("utf-8"))
+        self.assertIn(f'{bp._xml_text(spec["TITLE"])} - Open Allocation - Task Force Mode',
+                      page)
+        self.assertIn("every force allocation offers the whole campaign roster", page)
+        self.assertNotIn("not available for purchase at the start", page)
+        self.assertNotIn("Open Allocation", bp.campaign_rules(spec))
+
+
 class RulesPage(unittest.TestCase):
     """The Campaign Rules button opens campaign_rules_en.xml; each campaign's
     page is the stock one with its own passages and thresholds in place."""
