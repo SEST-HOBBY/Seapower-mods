@@ -243,3 +243,11 @@ Nothing in this campaign has been run in the game. In the order to test
   page says whose she is. Meridian Harmony and Austral Compliance fly Panama.
 - **Hai Yang 7 in RL04** is in company and scored by nothing: the group's
   orders are about the carrier, the coaster and the coalition.
+
+## Open Allocation (27 September)
+
+The campaign is also listed as "Red Line - The Other Watch - Open Allocation",
+which offers the whole roster at every open force-allocation window (the Y-9,
+KJ-500, J-15 and J-15D are on sale at RL01) and is otherwise this campaign,
+line for line, loading these missions by path. Why a twin and what it changes:
+Southern Watch build notes, "Open Allocation"; test card 6G there.

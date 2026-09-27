@@ -296,6 +296,19 @@ Compare with Range Week (D5): its Shahed line flies at 300 ft, under the
 David's Sling Stunner's 500-ft floor and THAAD's, so a live ceiling holds both
 batteries to 5% there too.
 
+## 6G — Open Allocation (new)
+
+Three new entries in the campaign list, one per campaign, that sell the whole
+roster from the first window. Build notes, "Open Allocation".
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| G.1 | Open the campaign list | Three more entries: Southern Watch, Southern Reach - Tasman Shield and Red Line - The Other Watch, each with "- Open Allocation" before the navy in brackets, with the same background art | An entry missing = the game does not list a campaign folder with no missions of its own. Bring back the Player.log lines from opening the list |
+| G.2 | Start Southern Watch - Open Allocation and open Task Force Builder at the first window | Anzac, Hobart, Arafura, F-35A, Super Hornet, Growler, P-8, Wedgetail, Triton and MH-60R on sale at their usual prices; the situation opens with the Open Allocation line; the Campaign Rules button shows "Southern Watch - Open Allocation - Task Force Mode" | Only the three first-window units = the twin's allowlist was not read |
+| G.3 | Buy an F-35A there, then fly White Water | White Water loads and plays as in the standard campaign; the F-35A does not appear (no row for it) and is still in the force afterwards | A load failure = missions are not loaded from another campaign's folder: capture with `-IncludeSaves` and push |
+| G.4 | Continue the standard Southern Watch save | Unchanged: its own windows, its own progress | The twin sharing the standard save = the campaigns are keyed by something other than their folder |
+| G.5 | Red Line - Open Allocation, first window | Every Red Line roster entry on sale, the J-15, J-15D, KJ-500 and Y-9 among them | As G.2 |
+
 ## 7 — the review's engine tests
 
 The independent review of `057405fe` listed the runs that no static check

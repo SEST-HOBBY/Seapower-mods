@@ -298,3 +298,12 @@ the order to test in (`test-card.md`):
 | `integration/campaign/build_pack.py`, `make_art.py`, `integration/missions/briefing_maps.py` | multi-campaign builder, art prefix/label, map focus and inset |
 | `integration/raaf-bases/` | the two RNZAF bases |
 | `docs/campaigns/southern-reach/` | this file, `campaign-bible.md`, `test-card.md`, `coverage.md` (generated), `required-mods-urls.txt` (generated) |
+
+## Open Allocation (27 September)
+
+The campaign is also listed as "Southern Reach - Tasman Shield - Open
+Allocation", which offers the whole roster at every open force-allocation
+window (the P-8, Triton, Wedgetail, F-35A, Super Hornet and Growler are on
+sale at SR01) and is otherwise this campaign, line for line, loading these
+missions by path. Why a twin and what it changes: Southern Watch build notes,
+"Open Allocation"; test card 6G there.
