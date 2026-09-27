@@ -1258,6 +1258,24 @@ mile of the real Darwin and Scherger.
 This makes a ship-on-land placement very unlikely. It does not make it
 impossible, and it says nothing about depth, reef or channel width.
 
+## Rig Seventeen would not load (27 September)
+
+The first in-game report of a mission failing to load. `Player.log` (install
+snapshot `9208d39e`) ends with a `NullReferenceException` in
+`SeaPower.SceneCreator.ResolvePlacedCampaignAircraft`, straight after the
+Osprey's and the CH-53's models load. Every reference in the mission resolved;
+what was wrong was a flag. The builder wrote `TaskForceModeIncludesAirwing=True`
+whenever a mission placed any Taskforce1 aircraft, on the belief that the
+Includes flags were display only. The stock task-force campaign never does
+that: every one of its missions with `IncludesAirwing=True` has at least one
+air-tasking row, and the ones whose Taskforce1 aircraft are authored set
+dressing (01, 02, 03B, 04) say `False`. Rig Seventeen said `True` over an
+authored Osprey and CH-53 with no row to put the player's aircraft in, and so
+did O3 Borrowed Shield. `IncludesAirwing` now follows the rows: `True` only when
+the mission emits at least one. Those two missions change; nothing else does.
+That this was the cause is the best reading of the log, not a proof: the load
+has to be tried again (test card 7.3a).
+
 ## What has NOT been demonstrated
 
 Static resolution is not a play test. None of the following is established by

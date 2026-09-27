@@ -3653,16 +3653,25 @@ def campaign_ini(missions, events, placements):
             # that is set dressing for the mission is not a reason to say
             # True and sell the player ships that will not appear.
             # Blank generation (the guide: "launch as-is without any
-            # persistent task force units") is the detached operation. The
-            # Includes flags are display only, and what they display for such
-            # a mission is that nothing of the player's deploys - as the three
-            # stock detached operations show it.
+            # persistent task force units") is the detached operation, and
+            # what the Includes flags say for such a mission is that nothing
+            # of the player's deploys - as the three stock detached operations
+            # show it. (IncludesAirwing is not display only: see below.)
             blank = not mission.get("generation")
             detached = blank or mission.get("detached")
             L.append(f"TaskForceModeIncludesTaskForce="
                      f"{'False' if detached else 'True' if placed.get('Taskforce1Vessel') else 'False'}")
+            # The airwing sails only into a mission with air-tasking slots to
+            # put it in. Every stock mission with IncludesAirwing=True has at
+            # least one row, and every stock one whose Taskforce1 aircraft are
+            # authored set dressing (01, 02, 03B, 04) says False. Rig Seventeen
+            # said True over an authored Osprey and CH-53 and no row, and the
+            # game died loading it: NullReferenceException in
+            # SceneCreator.ResolvePlacedCampaignAircraft (Player.log, install
+            # snapshot 9208d39e). So the flag is not display only.
+            flights, empty = tasking_rows(mission, placed)
             L.append(f"TaskForceModeIncludesAirwing="
-                     f"{'True' if (placed.get('Taskforce1Aircraft') or placed.get('Taskforce1Helicopter')) and not detached else 'False'}")
+                     f"{'True' if flights and not detached else 'False'}")
             L.append(f"TaskForceModeIncludesSubmarine="
                      f"{'True' if placed.get('Taskforce1Submarine') and not detached else 'False'}")
             if blank and (window_of(mission).get("flights") or window_of(mission).get("airbase_prep")):
@@ -3690,7 +3699,6 @@ def campaign_ini(missions, events, placements):
                 L.append("TaskForceModeAllowedRosterUnits="
                          + allowed_roster_units(window["allow"], ROSTER,
                                                 mission["key"]))
-            flights, empty = tasking_rows(mission, placed)
             bad = check_purchased_recovery(
                 mission, placed,
                 [e["unit"] for e in ROSTER
