@@ -1273,8 +1273,8 @@ dressing (01, 02, 03B, 04) say `False`. Rig Seventeen said `True` over an
 authored Osprey and CH-53 with no row to put the player's aircraft in, and so
 did O3 Borrowed Shield. `IncludesAirwing` now follows the rows: `True` only when
 the mission emits at least one. Those two missions change; nothing else does.
-That this was the cause is the best reading of the log, not a proof: the load
-has to be tried again (test card 7.3a).
+Confirmed in game the same day: with the flag following the rows, Rig Seventeen
+loads (test card 7.3a).
 
 ## What has NOT been demonstrated
 
