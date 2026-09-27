@@ -1,4 +1,27 @@
-# MissileControlMod 0.1.10
+# MissileControlMod 0.1.14
+
+## Optional Lo-Lo flight profile and map range
+
+Add these keys to the ammunition INI's existing `[Guidance]` section:
+
+```ini
+[Guidance]
+LoLoMaxLaunchRange=40    // Nautical miles; example value
+ShowLowLowRange=True    // Default True, including when omitted
+```
+
+`LoLoMaxLaunchRange` accepts a finite value from 0 to 21600 nautical miles. Zero or an omitted key disables the feature. At or inside this horizontal target distance at launch, an eligible surface-target missile skips its initial loft waypoint and proceeds to its existing sea-skimming profile after normal launch clearance/turnover. Longer shots keep the normal profile. The choice is fixed for that shot, survives target movement/replanning and save/load, and resets on a new launch.
+
+`ShowLowLowRange=False` hides only the extra map circle. With the default True, selecting the weapon for an attack displays an additional circle in the normal maximum-range color (red by default), labelled with the weapon's display name, for example `SS-N-26 Lo-Lo Max Range`. It follows the normal weapon-range circle's lifetime. The label sits to the right of the circle to avoid the beta's native labels above it. No extra ring is shown without a positive, eligible Lo-Lo range.
+
+The range is a configured profile-selection threshold, not a separately simulated maximum flight range. Native range/launch restrictions still apply. Existing `SeaSkimmingAlt` and a positive `SeaSkimmingStartDistToTarget` must define the low-flight profile. Applies to missiles configured for ASuW, including a secondary ASuW role; air-target shots and submunition-delivery weapons keep native behavior. Launch control, TVC and MultiStage are not required for this feature. Native terminal pop-up, terminal/final-flight settings and terrain constraints remain in place. Shared ammunition parameters are never changed.
+
+Existing saves without a saved Lo-Lo choice retain their normal profile. No ammunition is opted in automatically; the 40 nm example is not an installed weapon setting.
+
+Version 0.1.14 is built as one DLL. `test-lolo-compatibility.ps1` checks that exact artifact against supplied release and stable-beta assemblies, including native waypoint generation, shot/save callbacks, UI APIs and existing launch/stage regressions. Offline checks do not constitute in-game flight or map-rendering verification.
+
+## Earlier launch-control compatibility
+
 Version 0.1.10 supports one DLL for the release steering API and the beta steering API with its additional Kinematics=None fallback. Startup validates exact hook signatures, required fields and parameter names, native planner/movement/collision order, patch occurrence counts, compiled member references and the MultiStage adapter contract. It no longer locks the whole game or MultiStage DLL to a single SHA-256. Unsupported contracts are logged and MissileControl patches are rolled back before control is enabled. Other mods that install conflicting transpilers still cause a controlled refusal.
 
 Clock and native timestamp access binds once to float/double members. Mod deadlines retain double precision. Transitional beta builds still store some native timestamps as float values from GameTime.time; those ages and restored motor timestamps use the same native clock, independently of the double mission clock. Flight phases are matched by name. In beta, the main steering routine and its legacy fallback are both patched; the G bonus is added once in the main routine, and terminal caps remain covered in either path.

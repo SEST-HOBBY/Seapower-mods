@@ -1,0 +1,10 @@
+ANCHOR CHAIN SETUP
+
+Subscribe to Anchor Chain and complete its one-time preloader installation:
+https://steamcommunity.com/sharedfiles/filedetails/?id=3380210757
+https://seapower-modders.github.io/AnchorChain/install-anchor-chain.html
+
+If Anchor Chain already works, no separate installer is needed for this mod.
+Enable the mod and restart Sea Power. Keep its DLLs inside the mod folder.
+Harmony is supplied by the shared loader; do not install another copy.
+Restart after changing code mods. Game updates can require a patch update.

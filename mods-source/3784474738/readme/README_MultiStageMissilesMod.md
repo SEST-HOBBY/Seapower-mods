@@ -1,172 +1,340 @@
-Version 1.2.31: release/beta compatibility maintenance. Float/double clocks and native launch timestamps are bound once to runtime members. Effect, delayed-pulse, audio and debris deadlines retain double precision. A transitional beta float _launchTime is compared with GameTime.time rather than the separate missionElapsedTime clock, preserving launch-relative delays. Initialization failure now removes this mod's partial Harmony patches; repeated successful entry calls do not stack patches. INI keys and defaults are unchanged.
+# Multi-Stage Missiles 1.7.1
 
-The shared TimeApi.cs source is in ../MissileControlMod; build.ps1 includes it. ../MissileControlMod/test-compatibility.ps1 validates the identical compiled DLL against both supplied game APIs and records their hashes. The local beta check uses an exported beta snapshot with the installed Unity dependencies; it is an offline compatibility check, not a live Unity test or a guarantee for future beta revisions.
-# Multi-Stage Missile Visuals 1.2.31
+Optional sounds for native INI particle effects: [INI effect audio](README_IniEffectAudio.md). Configure per-effect volume, audible distance in metres, one-shots/loops, delay, pitch and fades. Custom WAVs use the installed CustomAudioLoader.
 
-Configure up to 16 visual stages in an ammunition INI. Stages change models, effects and sounds; they do not change missile performance or guidance.
+Stage motors, ignition delays, automatic BurnTime transitions and animated stage-owned submodels: [configuration](README_StagePropulsionAndSubmodels.md). Native thrust can optionally add to stage thrust. Submodels disappear on stage changes unless the receiving stage enables InheritSubmodels.
 
-## Start with two stages
+Optional independent missiles, bombs, torpedoes and native chaff clouds are configured in [Submunitions](README_Submunitions.md). Glow and visual jettison continue to work separately. No ammunition is opted in automatically. Release and beta evidence is offline only.
 
-Add these keys to the existing `[Models]` section. Replace the example mesh names and effect paths with your own assets.
+Composite direct INI effects can opt out of native effect pooling per ammunition with `IndependentEffectInstances=True` in `[Models]`. This covers all direct effect slots on that ammunition while leaving effect classes and unconfigured ammunition on the base-game pool. Details and limits are in [Submunitions](README_Submunitions.md).
+
+New in 1.5.2: set both thermal speed thresholds to `-1` for time-driven engine glow using stage burn windows and independent heat/cool response.
+
+Features: altitude/speed thermal glow with per-stage inheritance, save restoration and optional debris afterglow; up to eight independent jettison objects per stage. Existing INIs remain valid. See [Thermal glow and multiple jettison objects](README_StageGlowAndJettison.md) for keys and examples.
+
+# Generic Multi-Stage Missile Visual System
+
+This is an isolated AnchorChain plug-in for both Sea Power 0.8.2 release and the unified-time beta. The output is
+the deliberately inert build artifact `bin/MultiStageMissiles.dll_`; installation renames it to
+`MultiStageMissiles.dll` in the AC Pack. It does not replace or rewrite `Seapower-Scripts.dll`,
+`AnchorChain.dll`, SATCOM, or any other existing mod. Archived DLL versions belong in the separate
+external `X:\Modding\Sea Power Modding` development directory, never beside the active DLL in a loadable mod directory.
+
+The same `SeaPower.Missile` object remains alive for the complete engagement. Visual mesh changes create no extra weapons or hit sources. Submunitions and physical stage motors are separate opt-in features. Target, guidance, SATCOM/datalink and seeker state remain owned by the native missile.
+
+Version 1.2.26 also exposes `MissileStageDriver.CurrentStageNumber` as a public, read-only integer.
+Optional visual submods can use the INI-style stage number (`1` through `16`) without accessing or
+changing MultiStage runtime state. A newly created or newly rebound driver starts at `1`.
+After the final stage becomes idle and its update driver is suspended, the read-only value retains
+the last active stage. Rebinding the runtime for a respawn resets it to Stage 1.
+
+## Release/Beta time compatibility
+
+The plug-in does not use a Sea Power build number. At runtime it inspects the available API and
+prefers `GameTime.missionElapsedTime`; when that member is absent it falls back to the release
+member `GameTime.time`. `WeaponBase._launchTime` is also read through reflection and converted to
+`float`, so both the release `float` field and beta `double` field are supported by the same DLL.
+Named `WeaponBase.FlightStage` transitions are parsed by enum name at runtime, so the beta enum
+insertion does not shift configured transition meanings.
+
+For an explicit two-assembly build check, pass the old game assembly to the build script:
+
+```powershell
+.\build.ps1 -LegacyScriptsPath 'C:\path\to\Seapower-Scripts_legacy.dll'
+```
+
+## Configuration
+
+Staging is enabled with `NumberOfStages` in `[Models]`. `ThermalGlowMaterial` or `NumberOfSubmunitionLaunchers` also enables an implicit single stage:
 
 ```ini
 [Models]
-NumberOfStages=2
-
-Stage1Mesh=missile_complete
-Stage1SeparationTime=5.5
-Stage1FlightEffect=effects/weapons/stage1_motor
-Stage1BurnTime=5
-Stage1JettisonMesh=spent_booster
-
-Stage2Mesh=missile_without_booster
-Stage2FlightEffect=effects/weapons/stage2_motor
-Stage2BurnTime=12
+NumberOfStages=6
 ```
 
-This switches to Stage 2 at 5.5 seconds after launch. The first motor effect lasts 5 seconds; the second lasts 12 seconds after Stage 2 begins.
+`NumberOfStages=1` through `NumberOfStages=16` use the same dynamic code. Values above 16 are
+clamped to 16 with a warning. If all three enabling keys are absent, vanilla behavior is retained.
 
-## Stage settings
-
-Replace `N` with the stage number, for example `Stage2Mesh`.
-
-| Key | What to enter |
-|---|---|
-| `NumberOfStages` | Total stages, from 1 to 16. |
-| `StageNMesh` | Mesh name from the ammunition's model resource, or a loadable model resource path. |
-| `StageNSeparationTime` | Seconds **since launch**, not time spent in this stage. Numeric times must increase. Omit for the final stage. |
-| `StageNFlightEffect` | Motor effect path. Use `StageNFlightEffectClass` instead to select an effect class. |
-| `StageNBurnTime` | Effect and stage-sound duration in seconds from the start of this stage. Omit to continue until separation; `0` disables them. Effects stop at separation even if time remains. |
-| `StageNSeparationEffect` | Effect played once when this stage separates. |
-| `StageNJettisonMesh` | Detached model of the discarded part. |
-
-Instead of a numeric separation time, use `WaterExit` for an underwater launch, or a flight phase such as `MaintainSeaSkimming` or `TerminalApproach`.
-
-### Position, rotation and scale
-
-Add `Position` or `Rotation` to a mesh or flight-effect key:
+For each stage `N` from 1 through the configured count, these are the exact new optional keys:
 
 ```ini
-Stage1MeshPosition=0,0,0
-Stage1MeshRotation=0,0,0
-Stage1FlightEffectPosition=0,0,-0.5
-Stage1FlightEffectRotation=0,0,0
-Stage1FlightEffectScale=1,1,1
-Stage1JettisonMeshPosition=0,0,-0.4
-Stage1JettisonMeshRotation=0,0,0
-Stage1SeparationEffectPosition=0,0,-0.4
+StageNMesh=
+StageNMeshPosition=0,0,0
+StageNMeshRotation=0,0,0
+StageNSeparationTime=
+StageNFlightEffect=
+StageNFlightEffectClass=
+StageNFlightEffectPosition=0,0,0
+StageNFlightEffectRotation=0,0,0
+StageNFlightEffectScale=0,0,0
+# The fully numbered StageNFlightEffect1... family is also accepted for slot 1.
+StageNBurnTime=
+StageNAudioClip=
+StageNFlightEffect2=
+StageNFlightEffect2Class=
+StageNFlightEffect2Position=0,0,0
+StageNFlightEffect2Rotation=0,0,0
+StageNFlightEffect2Scale=0,0,0
+StageNBurnTime2=
+# Repeat the same pattern through FlightEffect8 / BurnTime8.
+StageNSeparationEffect=
+StageNSeparationEffectPosition=0,0,0
+StageNJettisonMesh=
+StageNJettisonMeshPosition=0,0,0
+StageNJettisonMeshRotation=0,0,0
 ```
 
-Values use `x,y,z`; rotations are in degrees. Positions are local to the missile. Omit effect scale to keep the asset's original size; an explicit scale sets its size rather than multiplying it.
+No jettison velocity, force, lifetime, drag, damage, guidance, physics, or stage-performance keys are
+added in V1.
 
-### Multiple motor effects
+Detached jettison meshes use a fixed linear damping of `0.35`, so spent stages lose speed and fall
+behind a missile instead of retaining their full launch velocity for their entire lifetime.
 
-Each stage supports up to eight effects playing together. Number extra effects from 2 to 8:
+`StageNSeparationTime` accepts an absolute time in seconds since `WeaponBase._launchTime`, the special
+case-insensitive value `WaterExit`, or a case-insensitive base-game `WeaponBase.FlightStage` name. For example:
 
 ```ini
-Stage1FlightEffect2=effects/weapons/extra_smoke
-Stage1FlightEffect2Position=0,0,-0.5
-Stage1FlightEffect2Scale=1,1,1
-Stage1BurnTime2=3
+Stage1SeparationTime=8.5
+Stage2SeparationTime=WaterExit
+Stage3SeparationTime=MaintainSeaSkimming
+Stage4SeparationTime=TerminalApproach
 ```
 
-Extra effects use `StageNBurnTime` unless given their own `StageNBurnTime2` through `StageNBurnTime8`. An individual value of `0` disables only that effect.
+A numeric transition fires when its launch-relative time is reached; configured numeric times must
+increase strictly. `WaterExit` fires once an underwater-launched missile's base-game
+`_checkForWaterExit` flag changes from `true` to `false` at the surface; it does not fire for ordinary
+above-water launches. A named transition fires when the missile's current base-game flight stage exactly
+matches the value. `Terminal` is accepted as an alias for `TerminalApproach`. A missing transition uses Delay + BurnTime when BurnTime is configured; otherwise it remains disabled. Malformed, negative, unknown or non-monotonic explicit transitions are disabled without aborting ammunition loading. The final stage needs no separation value.
 
-Version 1.2.31 adds optional per-slot delayed starts:
+Each stage has up to eight independent visual flight-effect slots. Slot 1 canonically uses the
+unnumbered `StageNFlightEffect...` keys, while the fully numbered `StageNFlightEffect1...` family is
+accepted as an exact alias. If both are present, the unnumbered form wins. Slots 2 through 8 append
+their number directly after `FlightEffect`.
+Every slot supports Sea Power's normal `Effect` key family: the direct effect resource or `Class`,
+plus `Position`, `Rotation`, and `Scale`. For example, `Stage1FlightEffect2Scale=0.35,0.35,1.5`
+controls only effect slot 2 of Stage 1. All configured slots spawn concurrently when the stage begins.
+Each slot receives its own child transform anchor. Position and rotation are applied to that anchor,
+while scale remains confined to the effect root beneath it so Unity's local particle scaling continues
+to work. The anchor cancels the missile hierarchy's inherited `lossyScale`, making each configured
+effect scale independent of the missile model/root scale. Later slots therefore cannot modify an
+earlier slot's transform. Each anchor remains inactive while its resource prefab is cloned, cleared,
+parented, positioned, rotated, scaled, and prepared. The complete slot hierarchy is activated only
+after all transforms are final, so Play On Awake particles and trails cannot capture an intermediate
+transform. Every active slot runs on its own direct private instance and never enters Sea Power's
+global effect pool. No pooled transform, scale, particle, or lifetime state can therefore be shared
+between slot 1, slot 2, another stage, or another missile. When no scale key is present, a direct
+resource's original prefab scale is retained.
+
+Normal stage loading, reload, scale, scheduling, stopping, and recovered pool-reuse events are silent.
+The plug-in logs one successful startup message and otherwise only actionable warnings or errors.
+
+`StageNFlightEffectScale` values are absolute Unity local scales, matching Sea Power's normal Effect
+keys; they are not multipliers. Omit the key (or use `0,0,0`) to retain the effect prefab's original
+root scale. Unnumbered `StageNFlightEffect...` keys are simply slot 1 and remain fully independent for
+every stage. The unconditional private instances also prevent a large salvo from letting one missile's
+stage effect overwrite another missile's effect.
+
+`StageNBurnTime` sets physical motor duration when stage propulsion is enabled and is the shared default duration for flight effects/audio. `StageNBurnTimeDelay` delays ignition and those effects from stage entry.
+`StageNBurnTime2` through `StageNBurnTime8` optionally override that duration for their corresponding
+numbered slot. For compatibility, `StageNFlightEffect2BurnTime` and
+`StageNFlightEffectBurnTime2` (and the equivalent suffixes through 8) are also accepted as aliases;
+the canonical `StageNBurnTimeX` form takes precedence. If neither a slot override nor the shared key
+exists, that effect continues until separation. Like the base-game `SustainerEffect`/
+`SustainerAccelerationTime` path, the requested duration is passed directly to
+the private root particle instance so it also replaces the particle asset's shorter default duration.
+A shared `0` suppresses every stage effect without an individual override; an indexed `0`
+suppresses only that slot. A positive value stops the applicable slot when the duration expires or at
+separation, whichever happens first. With stage propulsion enabled it also limits motor output; without an explicit separation trigger, Delay + BurnTime advances to the next stage. Guidance stays native. Save loading reconstructs each slot's remaining duration instead of restarting an
+already expired burn.
+
+## Stage audio
+
+Every stage can define exactly one looping sound with `StageNAudioClip`. The plug-in creates one
+private 3D `AudioSource`, routes it through Sea Power's normal `Sfx` mixer, and inherits the relevant
+booster/sustainer source's spatial rolloff, distances, pitch, volume, reverb, and mixer properties.
+Unity and Sea Power therefore handle spatial attenuation and reverb; the plug-in performs no camera
+distance checks, near/far crossfade, audibility override, or synthetic echo.
+
+The unindexed `StageNBurnTime` controls the sound. A positive value stops and destroys the loop at
+that stage-burn deadline; `0` suppresses it. If the shared burn time is omitted, the loop continues
+until separation. Indexed visual-effect overrides such as `StageNBurnTime2` do not change the stage
+sound duration. On save restore, the loop receives only the remaining shared burn time and resumes at
+the corresponding position inside the audio file.
+
+No other stage-audio configuration keys are used. Base-game resource names work directly. PCM16 WAV
+paths are resolved through the installed CustomAudioLoader's normal `ResourceLoader` hook.
+
+Example:
 
 ```ini
-Stage1FlightEffect2=effects/weapons/emitters/thrusters/control_thruster_large.ini
-Stage1FlightEffect2StartDelay=1          // Seconds since launch for Stage 1; since stage entry for later stages.
-Stage1BurnTime2=0.35                    // Seconds of emission after this slot's scheduled start.
-Stage1FlightEffect2ContinuousChildren=True // Optional: drive continuous children of an invisible Birth/InheritNothing carrier directly.
-```
-
-`StartDelay` defaults to zero (0..3600 seconds). Only slots with a positive delay use this explicit schedule; old zero-delay ignition behavior stays unchanged. Stage 1's delay is launch-relative, so a native mesh-switch wait is not added. A delayed slot requires its stage to be active: if the stage becomes available late, elapsed emission time is deducted and an expired pulse is skipped. Separation, respawn and destruction cancel pending slots. Loading a save does not replay an expired pulse. Numeric later-stage transitions can reconstruct elapsed stage time; phase-triggered later stages retain the existing stage-time reconstruction limitation. Stage separation always cuts off a slot, even if it has burn time left.
-
-`ContinuousChildren` defaults to False. Set it for reusable continuous thruster composites whose invisible root otherwise schedules non-inheriting children at Birth. It only changes that slot's private clone and preserves its configured orientation. Ordinary motor effects remain unchanged. On cutoff these opted-in jets retain their existing particles for a bounded tail lifetime, including world-space smoke.
-
-### Sounds
-
-Add these optional keys under `[Models]`:
-
-```ini
+Stage1BurnTime=6.5
 Stage1AudioClip=audio/weapons/Missile-Large_MotorLoop.wav
+```
+
+See `example_six_stage.ini` for a complete six-stage fragment.
+
+## Mesh loading and switching
+
+The current game uses the `[Models]` values `ResourcesFolder`, `ResourcesRoot`, `ResourcesMesh`,
+`ResourcesMeshForLaunch`, and `ResourcesMeshCanister`. Stage mesh names are first resolved as child
+transforms of the same cached `ResourcesFolder + ResourcesRoot` GameObject. A stage value may also
+name a directly loadable GameObject resource; that fallback still goes through Sea Power's cached
+`ResourceLoader.getGameObjectResource`.
+
+`WeaponBase.initResources` stores only lightweight stage slots. A stage mesh is instantiated the first
+time that stage actually becomes active; a jettison visual is instantiated only at its separation.
+The resource root and each resolved slot are then cached for that missile. Stored VLS ammunition no
+longer creates all of its future stage/debris hierarchies in advance. The active stage mesh is a child
+of the existing missile root, with its configured local position and Euler rotation. A missing mesh
+leaves the current stage or normal missile mesh active.
+
+The finalized material from the vanilla main missile mesh is resolved once and shared across every
+renderer below each stage and jettison visual, including every material slot. No per-visual `Material`
+copy is allocated or leaked. If that runtime material is unavailable, the loaded `WeaponInstance`
+material is used as the fallback. This ensures that nested renderers receive the texture and shader
+data loaded from `ResourcesMaterialFolder` and `ResourcesMaterial`.
+
+Sea Power calls private `Missile.ScheduleFlightEffects()` when the motor flight begins, but a surface
+launch can still be displaying `ResourcesMeshForLaunch` at that moment. The plug-in records that call
+and waits for the vanilla main airborne mesh to become active before enabling Stage 1. It never
+changes the game's normal launch/canister switch or its timing.
+
+## Effects
+
+Stage effects are parsed with Sea Power's existing `Effect` class and pre-resolved by its
+`ResourceLoader`:
+
+- Up to eight flight effects are spawned concurrently as direct private resource instances. Each is
+  created below an inactive per-slot anchor, receives its own final local position/rotation/scale,
+  and is only then activated. It is stopped and destroyed when its effective
+  shared-or-overridden burn time expires or before the next stage begins.
+- A separation effect is spawned once at
+  `missile.position + missile.rotation * StageNSeparationEffectPosition`, with no missile parent.
+  No transform scale, hidden resource transform, or other position offset is added.
+- Every vanilla booster, `InFlightEffect`, and sustainer instance remains completely untouched and
+  visible. The plug-in does not stop, free, hide, disable, or clear references to those effects and
+  does not start, stop, loop, or replace their audio. Its separate stage-audio children are additive
+  and are the only audio sources controlled by the plug-in. Users can remove unwanted vanilla effects
+  in their ammunition definitions. Custom stage effects and sounds can therefore run alongside any
+  retained vanilla content. Physical stage motors are enabled separately as described in the propulsion README.
+
+## Jettison debris
+
+Each configured jettison visual is instantiated only when its separation occurs. It is positioned
+using the missile transform before the stage mesh switch and rotated by
+`missile.rotation * Quaternion.Euler(localRotation)`. It is activated while still parented to the
+missile for its first visible render frame. In `LateUpdate`, its exact visible world pose is captured,
+it is detached with that pose preserved, and only then is its independent physics motion enabled.
+
+`StageNJettisonMeshPosition=0,0,0` now means exactly the missile-root world position at the separation
+instant. A non-zero configured position is rotated into missile-local space and added exactly once;
+missile scale is deliberately ignored. This deferred detachment prevents a speed-dependent first-frame
+gap between the visible missile pose and a newly independent Rigidbody, so fixed compensating offsets
+are unnecessary.
+
+It is a plain GameObject with no `ObjectBase`, `WeaponBase`, `Missile`, guidance, target, damage, or
+collider. After deferred detachment its non-kinematic Rigidbody inherits
+`Missile.UnityVelocityVector` with only a gentle 0.5 m/s backward difference along the current flight
+axis. No radial linear velocity, gravity, or linear damping is applied. A very small angular velocity
+produces mostly axial roll instead of a strong radial tumble, and the debris is destroyed after 25
+seconds. Only the INI position controls its initial separation pose.
+The lifecycle component registers it with Sea Power's existing relocation set so world-origin shifts
+during those 25 seconds do not leave it behind. Its one-frame deferred-detachment `LateUpdate`
+callback disables itself immediately afterwards; movement remains with the Rigidbody.
+
+## Independent physical-stage state
+
+Sea Power's existing `WeaponBase.FlightStage`, `_stageStartTime`, and `OnFlightStageChanged` represent
+launch/guidance/terminal/search phases. The plug-in may read the current `FlightStage` as a configured
+separation trigger, but never changes it. `MissileStageRuntime` stores a separate zero-based
+`_currentStage` in a `ConditionalWeakTable<Missile, MissileStageRuntime>` owned by the plug-in.
+`MissileStageDefinition` is the dynamic definition type and the definitions are held in a
+`List<MissileStageDefinition>`.
+
+## INI reload on ship respawn
+
+The ammunition-constructor postfix reopens and reparses the current ammunition INI every time the
+base game creates new `AmmunitionParameters`. There is no permanent parsed-filename gate. Therefore,
+changes to stage counts, meshes, transforms, timings, effects, and audio apply when the ship is respawned in
+the same game session, following the base game's own ammunition reconstruction. Missiles and ships
+that already exist retain their current snapshot. Each prepared or pooled missile also retains its
+ammunition filename and `WeaponInstance`; immediately before its next launch, the plug-in compares
+its runtime snapshot with the latest respawn configuration and rebuilds the staged runtime/assets when
+they differ. Assets remain lazy after that rebuild. This makes edited burn times and other stage keys effective even when Sea Power reuses a
+pooled missile object. Removing `NumberOfStages` removes the plug-in's cached definition and retires
+the old staged runtime so the next launch returns to vanilla visuals.
+
+## Runtime lifecycle
+
+Configuration is reparsed when native ammunition is reconstructed. Prepared/pool-reused missiles receive the latest snapshot before launch. Meshes, effects, sound, glow and submodels are created lazily. Stage transitions manage visual ownership and motor timing; save/load restores current state without replaying old separations or daughter launches. Cleanup releases private objects.
+
+Propulsion hooks select native Missile helpers on release or MissileSimulator helpers on beta by API capabilities. See the propulsion README for prediction limits and optional additive native thrust. Unconfigured weapons retain native propulsion.
+
+## Build and verification
+
+Run:
+
+```powershell
+& .\build.ps1
+```
+
+The build compiles against the currently installed DLLs, then checks:
+
+- vanilla/no-key behavior;
+- 1, 2, 6, and 10 stages;
+- `NumberOfStages=20` clamping to 16 with a warning;
+- absolute numeric and named base-game FlightStage transitions, including malformed and non-monotonic
+  values;
+- up to eight concurrent effects per stage with unconditional private instances, deterministic transforms, and inherited/overridden
+  missing, zero, positive, and invalid visual burn times, including the base-game dynamic
+  effect-manager duration path;
+- fully visible, untouched vanilla flight effects and untouched vanilla effect audio;
+- exactly one engine-spatialized audio loop per stage, base-game `Sfx` routing and inherited source
+  properties, shared-burn-time stopping, and save restoration;
+- render-aligned zero/configured separation and jettison positions without transform-scale or
+  first-frame physics offsets;
+- gentle axial-backward jettison velocity with no radial linear component or gravity;
+- all mesh, flight-effect, separation-effect, and jettison position/rotation/scale values;
+- replacement and removal of a previously parsed definition on respawn;
+- launch-time replacement of stale staged runtimes on pooled missile objects;
+- nested-renderer discovery and assignment through every renderer's complete material-slot array;
+- lazy stage/debris instantiation, cached shared materials, deadline-gated cleanup, self-disabling
+  debris callbacks, and the absence of a global missile fixed-update postfix;
+- all six current Harmony target signatures plus the staged-missile-only local driver;
+- absence of non-visual Sea Power field writes and weapon-specific identifiers;
+- unchanged SHA-256 hashes for `Seapower-Scripts.dll`, `AnchorChain.dll`, and existing protected mods.
+
+Offline tests confirm that all five transitions in a six-stage configuration reach and retain Stage 6,
+and that the same algorithm handles up to 16 stages. A desktop verifier cannot render Unity particle
+systems or fly a guidance/SATCOM/terminal-seeker mission. Final visual placement and the requested
+guidance/SATCOM/seeker continuity scenarios still require an in-game mission using actual stage assets.
+
+## Continuous flight sound
+
+Optional ammunition `[Models]` key:
+
+```ini
 InFlightSound=audio/weapons/Missile-Small_MotorLoop.wav
 ```
 
-`StageNAudioClip` loops during that stage's shared burn time. `InFlightSound` continues across all stages until the missile is removed. Custom WAV files require CustomAudioLoader. Existing missile sounds and effects still play, so remove unwanted duplicates from your ammunition settings.
+Omit the key or leave it empty to disable it. This creates one separate spatial audio loop per launched staged missile. It starts after launch, continues across all stage changes and burnouts, and ends when the missile is removed or reset. StageNAudioClip remains an independent optional motor sound and can overlap it. Existing ammunition sound settings are not changed automatically. Missing clips produce a warning and disable only this sound. Saved launched missiles resume at the elapsed-flight position within the loop.
 
-`StageNJettisonAudioClip` plays one optional 3D one-shot on the discarded mesh when stage N separates. It works without StageNAudioClip or a particle effect. It stays on the debris, finishes naturally and stops if the debris expires; JettisonEffectDuration only bounds the particle effect and any audio embedded in that effect prefab. Missing meshes produce no jettison sound. Loading a save does not replay previous jettisons. The final stage needs a subsequent stage/transition to be discarded.
+## Solidrocket surface illumination
 
-```ini
-[Models]
-Stage3JettisonAudioClip= // Optional audio resource path; empty disables this debris sound
-Stage3JettisonAudioVolume=1 // Sound volume from 0 to 1; 0 mutes it
-```
-
-Use the same resource paths as StageNAudioClip. The sound pauses with the game and requires no MissileControl launch configuration. Existing audio embedded in an effect prefab still plays separately; avoid duplicating the same sound there. There is no StageNSeparationAudioClip key.
-
-### Motor light
-
-To illuminate nearby surfaces, add this separate section to the **particle-effect INI**:
+Opt-in `[MotorLight]` section in a particle-effect INI, supported by the mod's factory postfix (native `[Lights]` remains unsupported):
 
 ```ini
 [MotorLight]
 Enabled=True
 Position=0,0,-0.01854
-Color=1,0.82,0.68
+Color=1,0.81704,0.67647
 Range=0.5
 Intensity=1
 ```
 
-The light follows the effect's `exhaust_core` particles. Color uses RGB values from 0 to 1; range uses game world units.
+Creates one shadowless point light per effect instance. It illuminates nearby meshes while exhaust_core particles are alive and switches off when the flame ends or the instance is disabled. Serialized references survive native and private prefab cloning. Other effects without this section are untouched. Warm color and point-light behavior were inspected in native sam_medium_effect/usn_rim-66_booster assets. Range is in game world units.
 
-## Try your changes
+## Launch-controlled ignition
 
-### Directional debris with an attached effect (1.2.27)
+MissileControlMod can hold a configured `IgnitionStage` until tip-over and upward braking finish. See its `[MissileLaunchControl]` keys. MultiStage used alone keeps its existing timing. A held transition keeps the departing mesh attached; its effects still obey their own burn times. Absolute separation deadlines are unchanged, including after save/load.
 
-These optional keys go in `[Models]`, alongside `StageNJettisonMesh`. They apply when stage N separates. The existing numeric/WaterExit/flight-phase separation triggers are unchanged. The final stage does not separate by itself.
-
-| Key | Default | Meaning |
-|---|---|---|
-| `StageNJettisonVelocity` | Omitted | Additional `x,y,z` velocity in **metres/second along the missile's local axes at release**. +Z is forward; -Z rearward; X/Y allow sideways release. The missile's existing velocity is inherited and the configured vector is added. Omit to retain the original gentle backward release; `0,0,0` adds no impulse. |
-| `StageNJettisonAngularVelocity` | Omitted | Local `x,y,z` rotation rates in degrees/second. `0,0,0` disables tumble. Omit for the original small random tumble. |
-| `StageNJettisonLifetime` | `25` | Debris lifetime in simulation seconds since release; 0.01..3600. |
-| `StageNJettisonEffect` | Empty | Effect resource attached directly to the detached mesh as a private child. |
-| `StageNJettisonEffectClass` | Empty | Effect class alternative to JettisonEffect. |
-| `StageNJettisonEffectPosition` | `0,0,0` | **Debris-local mesh units**, relative to the detached mesh's origin. |
-| `StageNJettisonEffectRotation` | `0,0,0` | Debris-local Euler degrees applied to the effect's authored direction. |
-| `StageNJettisonEffectScale` | `0,0,0` | Zero keeps authored scale; otherwise sets the effect root's local scale. |
-| `StageNJettisonEffectContinuousChildren` | `False` | Opt in for composite control jets with an invisible Birth/InheritNothing carrier. Drives its private continuous children directly so their positions and directions follow the debris. Emission still ends at JettisonEffectDuration; other effect types retain native scheduling. |
-| `StageNJettisonEffectDuration` | `-1` | Maximum new-emission time after release, in simulation seconds. -1 imposes no extra cutoff; 0 disables the effect; positive values up to 3600 stop emission after that interval. Existing particles finish their authored lifetimes while the debris exists. |
-
-The effect emitter stays with the debris as it moves and tumbles. Particle simulation spaces remain authored: for example, world-space smoke can trail behind a moving emitter. Use a looping effect for continuous emission. The effect does not apply additional force. At the configured cutoff, particle emission and effect audio stop; at debris expiry the whole private object is destroyed. Debris owns these clocks independently of the missile and later stage changes. Only the detached root is registered for origin relocation; its effect follows as a child. Invalid durations/vectors warn and use defaults. Missing optional effects leave the debris mesh available.
-
-`StageNSeparationEffect` remains the existing one-shot effect at the separation point. Use `StageNJettisonEffect` for a flame or smoke emitter that must travel with the discarded part. A detached part needs its own mesh; remove it from the subsequent flying-stage mesh to avoid showing it twice. The new keys also work without MissileControlMod. Detached cosmetic debris is not serialized into saved games, matching the previous jettison behavior.
-
-The paired MissileControlMod 0.1.6 adds `Profile=BoostedTurnover`: the native motor remains active while the short launch movement retains inertia. Stage burn/separation clocks remain independent of launch alignment. See [example_boosted_tipover.ini](example_boosted_tipover.ini) for English inline comments and a forward-release example.
-
-Source/build: `CustomSonarAudio/MultiStageMissilesMod`. The 1.2.27 working copy was based on the verified 1.2.26 source in `X:/Modding/Sea Power Modding/AC Pack/Development/CustomSonarAudio/MultiStageMissilesMod`.
-
-### Applying settings
-
-Respawn the launching ship after editing stage settings, then launch a new missile. Existing missiles keep their previous settings. Restart the game when changing asset files.
-
-For a larger template, see [example_six_stage.ini](example_six_stage.ini). Remove `NumberOfStages` to return to normal missile visuals on a fresh spawn.
-
-
-`StageNJettisonAudioDebug=True` enables bounded playback diagnostics for this stage (default `False`). The log records source creation, the queued request, Play, the following playback frame and source disable. It includes clip load state, sample position, playing/virtual/mute flags, listener pause/volume, listener distance and mixer group. This setting does not change volume or playback. Set it back to False after troubleshooting.
-
-### Launch-controlled ignition (1.2.33)
-
-MissileControlMod 0.1.11 can hold `IgnitionStage` until tip-over and upward braking finish. Configure `StopUpwardMotion`, `UpwardBrakeTime` and `UpwardBrakeMode` under `[MissileLaunchControl]`; see its README. Used alone, MultiStage retains its existing timing. The departing mesh stays attached while held; its effects retain their burn limits. Absolute separation deadlines remain unchanged, including after save/load. Keep the intended ignition deadline within `MaxControlTime + UpwardBrakeTime` to avoid the launch controller's bounded fallback.
-
-Audio debug in 1.2.34 also records the resolved resource file, a bounded decoded PCM sample, source output and combined listener output levels, mixer volume/filter values, position, scale and active listener count. Playback is sampled for at most 16 additional points (80 ms apart) or until it ends. These are read-only diagnostics; no replay, volume boost, rerouting or file edits. The combined listener signal includes every audible sound and does not alone prove the cap is audible. Source output history may initially be empty; inspect subsequent samples.
-
-### Surface launch timing (1.2.35)
-
-With MissileControl 0.1.13 and `StartAfterWaterExit=True`, submerged controlled missiles wait for native water exit before starting their visual stages. Numerical `StageNSeparationTime` values and delayed Stage1 effect slots then count from that exit. The launch controller stores this clock in saves. Standalone MultiStage and surface launches retain their existing timing.
-
-### Main-model fallback (1.2.36)
-
-After the first successful stage mesh activates, the native main mesh remains hidden for that flight, including the terminal phase and after stage timers become idle. No INI flag is required. A missing later stage mesh keeps the last usable stage visual; loading such a flight resolves the latest available predecessor. If no stage mesh is available, the native main model remains the fallback. Reset/removal releases visual ownership so the game's launch/destruction handling can run normally.
