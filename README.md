@@ -1,7 +1,7 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **142 Workshop
+**Sea Power: Naval Combat in the Missile Age** install with **144 Workshop
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 Everything here is built around interoperability: a mod is known by three names — a
@@ -32,7 +32,7 @@ The 20 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persisten
 `SEST_F-35C_JATM`, `SEST_F16CM_JATM`, `SEST_Growler_NGJ_MALICE`, `SEST_Intercept_Model`,
 `SEST_JMSDF_Mogami`, `SEST_RAAF_Bases`, `SEST_RAAF_F-35A_JATM`, `SEST_RAAF_Wedgetail`,
 `SEST_RAN_Fleet`, `SEST_Rafale_F5`, `SEST_Raptor_Squadrons`, `SEST_Replenishment`,
-`SEST_TacMap_Colors` and `SEST_Campaign` (the three campaigns). Consolidated, they are 1189
+`SEST_TacMap_Colors` and `SEST_Campaign` (the three campaigns). Consolidated, they are 1171
 files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
 when Modern US Navy fixed what it patched (`docs/packaging-and-recovery.md`).
 

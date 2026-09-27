@@ -642,6 +642,54 @@ V.append(dict(
     lose_text="The flight is scattered and the frigates are still closing Darwin.",
 ))
 
+# The FQ-44 Fury carrier wingmen (Workshop 3804868806, added 27 Sep). The
+# mod's own README says how they fly: a crewed fighter leads, the Furys
+# follow and match its speed, the EW variant's jammer is aimed to cover the
+# flight. Its six variants are fictional naval Furys, so they stay out of the
+# campaigns' 2028 story and debut here, the way the YF-23 and the J-36 did.
+V.append(dict(
+    key="Fury Wingmen",
+    time=(10, 30),
+    sea=3, clouds="Scattered_1",
+    blue_nation="USA", red_nation="China",
+    brief=(
+        "BANDA SEA, mid-morning. A PLAAF J-16 pair has held a combat air "
+        "patrol over the northern Banda since dawn, and the strike waiting "
+        "behind it cannot launch until the patrol is gone.\n\n"
+        "One Super Hornet from the carrier and three FQ-44 Fury wingmen: two "
+        "escorts with AMRAAM and Sidewinder, and an EW Fury carrying the "
+        "jammer. Nobody has flown the naval Fury in anger. Keep the wingmen "
+        "behind the Super Hornet, point the jammer at the J-16s, and let the "
+        "Furys take the first shots. The Super Hornet comes home."),
+    objectives=[
+        ("CAP", "Shoot down the J-16 patrol", "30,-20,Fail,Main"),
+        ("Lead", "Bring the Super Hornet home", "15,-20,Complete"),
+    ],
+    protect=("Taskforce1Aircraft1", "Lead"),
+    blue=[],
+    blue_names=[],
+    blue_air=[
+        ("usn_fa-18f_blk3", "0,28000,-40", 0, {"LoadoutVariant": "MurderHornetCAP"}),
+        ("usn_fury_escort", "-2,28000,-42", 0, {"LoadoutVariant": "AirToAir"}),
+        ("usn_fury_escort", "2,28000,-42", 0, {"LoadoutVariant": "AirToAir"}),
+        ("usn_fury_ew", "0,28000,-44", 0, {"LoadoutVariant": "Empty"}),
+    ],
+    blue_air_names=["Rook 01", "Fury 11", "Fury 12", "Fury 13"],
+    red=[],
+    red_names=[],
+    red_air=[
+        ("plaaf_j16", "18,30000,60", 200, {"LoadoutVariant": "AirToAirLongRange"}),
+        ("plaaf_j16", "24,30000,54", 200, {"LoadoutVariant": "AirToAirLongRange"}),
+    ],
+    red_air_names=["Red Fighter 31", "Red Fighter 32"],
+    neutral=[],
+    neutral_names=[],
+    win_units="Taskforce2Aircraft1,Taskforce2Aircraft2",
+    win_min=2,
+    win_text="The patrol is down and the strike can launch. The wingmen did the shooting.",
+    lose_text="The Super Hornet is lost, or the patrol still holds the northern Banda.",
+))
+
 def block(tag, unit, extra_order=("VariantReference",)):
     ty, pos, hdg, extra = unit
     out = [f"[{tag}]", f"Type={ty}"]

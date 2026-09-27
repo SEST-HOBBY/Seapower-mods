@@ -6,14 +6,14 @@ every one of those belongs to the Workshop mod it came from,
 which is why REQUIRED-MODS.txt lists them as required rather
 than suggested.
 
-481 of the unit files here are another author's file with
+462 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 481 below
+every file of its kind in the collection, and the 462 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
@@ -106,19 +106,19 @@ file is unchanged.
       100%  ammunition/usn_rgm-109e.ini 
       100%  ammunition/usn_rgm-109e5.ini 
       100%  ammunition/usn_rgm-109e5a.ini 
+      100%  ammunition/usn_rgm-109m.ini 
       100%  ammunition/usn_rim-156a.ini 
        91%  ammunition/usn_rim-161b.ini 
        90%  ammunition/usn_rim-161c.ini 
        98%  ammunition/usn_rim-174a.ini 
-       98%  ammunition/usn_rim-174b.ini 
        98%  ammunition/usn_rim-174c.ini 
-      100%  ammunition/usn_rim-66p.ini 
        92%  ammunition/usn_ugm-109b1.ini 
        92%  ammunition/usn_ugm-109c3.ini 
        92%  ammunition/usn_ugm-109e.ini 
        92%  ammunition/usn_ugm-109e5.ini 
        92%  ammunition/usn_ugm-109e5a.ini 
        92%  ammunition/usn_ugm-109e5b.ini 
+      100%  ammunition/usn_ugm-96a.ini 
 
   Euromod - Modern British Navy  (workshop 3599752717)
       100%  vessels/rn_ddg_type45.ini 
@@ -312,7 +312,6 @@ file is unchanged.
       100%  vessels/usn_dd_spruance_eu_vls.ini 
       100%  vessels/usn_dd_spruance_mk71.ini 
       100%  vessels/usn_dd_spruance_ram.ini 
-      100%  vessels/usn_dd_spruance_vls.ini 
       100%  vessels/usn_ddg_arleigh_concept.ini 
       100%  vessels/usn_ddg_burke_f1_051.ini 
       100%  vessels/usn_ddg_burke_f1_051_early.ini 
@@ -325,25 +324,7 @@ file is unchanged.
       100%  vessels/usn_ddg_burke_f1_054_late.ini 
       100%  vessels/usn_ddg_burke_f1_062_late.ini 
       100%  vessels/usn_ddg_burke_f1_064_late.ini 
-      100%  vessels/usn_ddg_burke_f1_1996.ini 
-      100%  vessels/usn_ddg_burke_f1_2003.ini 
-      100%  vessels/usn_ddg_burke_f1_2007.ini 
-      100%  vessels/usn_ddg_burke_f1_2025.ini 
       100%  vessels/usn_ddg_burke_f2_072_early.ini 
-      100%  vessels/usn_ddg_burke_f2_2003.ini 
-      100%  vessels/usn_ddg_burke_f2_2007.ini 
-      100%  vessels/usn_ddg_burke_f2_2025.ini 
-      100%  vessels/usn_ddg_burke_f2a_g1.ini 
-      100%  vessels/usn_ddg_burke_f2a_g1_2026.ini 
-      100%  vessels/usn_ddg_burke_f2a_g2.ini 
-      100%  vessels/usn_ddg_burke_f2a_g2_2022.ini 
-      100%  vessels/usn_ddg_burke_f2a_g3.ini 
-      100%  vessels/usn_ddg_burke_f2a_g3_2022.ini 
-      100%  vessels/usn_ddg_burke_f2a_g4.ini 
-      100%  vessels/usn_ddg_burke_f2a_g4_2022.ini 
-      100%  vessels/usn_ddg_burke_f2a_g5.ini 
-      100%  vessels/usn_ddg_burke_f2a_g6.ini 
-      100%  vessels/usn_ddg_burke_f3.ini 
       100%  vessels/usn_ffg_oliver_hazard_perry_mlu.ini 
       100%  vessels/usn_lcs_freedom_suw_early.ini 
       100%  vessels/usn_lcs_freedom_suw_late.ini 
@@ -574,16 +555,16 @@ file is unchanged.
        97%  aircraft/usn_fa-18f_blk3.ini 
        99%  ammunition/usn_aim-9x.ini 
       100%  ammunition/usn_rgm-109j.ini 
+       96%  ammunition/usn_rim-174b.ini 
+      100%  ammunition/usn_rim-66p.ini 
        96%  ammunition/usn_ugm-109j.ini 
       100%  vessels/usn_cg_ticonderoga_vls_2027.ini 
       100%  vessels/usn_ddg_arleigh_flt1_051_2027.ini 
       100%  vessels/usn_ddg_arleigh_flt1_052_2027.ini 
       100%  vessels/usn_ddg_arleigh_flt1_054_2027.ini 
       100%  vessels/usn_ddg_arleigh_flt1_064_2027.ini 
-      100%  vessels/usn_ddg_arleigh_flt1_2027.ini 
       100%  vessels/usn_ddg_arleigh_flt2_072_2027.ini 
       100%  vessels/usn_ddg_arleigh_flt2_075_2027.ini 
-      100%  vessels/usn_ddg_arleigh_flt2_2027.ini 
       100%  vessels/usn_ssn_los_angeles_flt3_2027.ini 
       100%  vessels/usn_ssn_virginia_2027.ini 
       100%  vessels/usn_ssn_virginia_seal_2027.ini 

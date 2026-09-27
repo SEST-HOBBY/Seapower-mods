@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts.",
-    "count": 147,
+    "count": 148,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
@@ -1806,11 +1806,25 @@
       "author": "Yoshi",
       "faction": "utility",
       "type": "framework",
-      "status": "unsubscribed",
-      "load_order": "Removed at the user's request after trying it. If it comes back: tier 1b code mod, immediately below Better TacMap and above SAM Pack - it runs through Anchor Chain's preloader, so the only hard rule is that Anchor Chain stays above it, and it reads its own ini from its own folder rather than overriding game data, so it contests no unit files.",
+      "status": "active",
+      "load_order": "Re-subscribed 27 Sep 2026 (removed 31 Aug at the user's request). Tier 1b code mod, last of the code mods - below Automatic SAR, above SAM Pack. It runs through Anchor Chain's preloader, so the one hard rule is that Anchor Chain stays above it; it reads its own ini from its own folder and ships one systems/sensors.ini (five IFF transponder/interrogator sections) that merges key by key with Custom Loadout Editor's, so it contests no unit file (check_mod_conflicts.py, 27 Sep).",
       "notes": "Adds 13 identification and challenge orders (hail, warning, travel/cargo manifest, redirect, stop, slow, final warning, stand down, clear contact, and three hostile challenges: bail out, abandon ship, surrender) in three tones - polite, neutral, aggressive - with AI compliance rolls (base 50% redirect chance, morale and tone modifiers, partial-then-forced compliance) and TTS. The author warns to EXPECT BUGS. Its ini is hot-editable and worth tuning: [Vars] TtsEnabled=true switches the voice lines off, OrgName defaults to 'Katsuragi Security Service' and is only a fallback for senders with no nation, and [Intents]/[Responses] take pipe-separated alternatives - useful for the merchant traffic in NFIII. CAUTION: that ini lives in the Workshop folder, so a Steam update overwrites your edits, and because export-mod-configs.ps1 -CheckUpdates hashes content it reports your own edits as a change too - which is the point, it means edits are visible rather than lost silently.",
       "requires": [
         "anchor-chain"
+      ]
+    },
+    {
+      "id": "fq-44-fury-carrier-wingmen",
+      "workshop_id": "3804868806",
+      "title": "Anduril FQ-44 Fury US Navy Carrier Wingmen",
+      "author": "unknown",
+      "faction": "usa",
+      "type": "uav",
+      "status": "active",
+      "load_order": "Tier 5, alphabetical (after AH-64 Apache). No whole-file collision with anything (check_mod_conflicts.py, 27 Sep): 16 files nothing else ships (twelve aircraft files, four rounds) and one systems/sensors.ini (nine Fury_* sensor sections) that merges with Custom Loadout Editor's.",
+      "notes": "Six fictional naval Fury variants - usn_fury_escort (AirToAir, AirToAirIntercept), usn_fury_interceptor (AirToAirIntercept), usn_fury_strike (StrikePrecision), usn_fury_sead (SEAD), usn_fury_recon and usn_fury_ew (no weapons; Empty/Ferry) - all CarrierCapable, Nation US, black Navy livery, with their own rounds (fury_aim120d, fury_aim424, fury_aim9x, fury_harm), shared sensors and eleven 'Fury Trials' missions. A code component (custom radio calls, friendly-loss response) runs through Anchor Chain; its README: a crewed fighter leads in a Vic, the Furys follow at its speed, the EW variant's directional jammer is aimed to cover the flight. Fictional, so kept out of the 2028 campaign story: it debuts in the vignette 'SEST Banda - Fury Wingmen'.",
+      "requires": [
+        "anchor-chain (stated: 'Requires Anchor Chain and its one-time preloader setup')"
       ]
     },
     {

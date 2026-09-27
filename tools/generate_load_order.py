@@ -39,6 +39,7 @@ TIER1B = [
     ("better-tacmap", "code mod — UI"),
     ("auto-time-on-target", "code mod — ships no game data at all, one _info.ini"),
     ("automatic-sar", "code mod — right-click SAR; the campaign pays for survivors"),
+    ("identify-expanded", "code mod — identification and challenge orders; reads its own ini"),
 ]
 TIER2 = [
     ("sam-pack", 'author: "top of TOE"'),
