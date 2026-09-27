@@ -357,39 +357,53 @@ def open_twin(pack, slug):
         elif line and not line.startswith(";") and "=" in line and section != "LoadoutPrices":
             uid, _, spec = line.partition("=")
             picks[uid] = spec.split("|")[0].split(",")
-    b_lines = (base / "campaign.ini").read_text(encoding="utf-8").split("\n")
-    t_lines = (twin / "campaign.ini").read_text(encoding="utf-8").split("\n")
-    if len(b_lines) != len(t_lines):
-        return out + [f"campaigns/{name}/campaign.ini: {len(t_lines)} lines against the "
-                      f"base's {len(b_lines)} - the twin is not the base spine"]
-    section, windows, allowlists = "", 0, 0
-    for n, (b, w) in enumerate(zip(b_lines, t_lines), 1):
-        if b.startswith("["):
-            section = b.split("]")[0] + "]"
-        if w.startswith("TaskForceModeEnableTaskForceBuilder=True"):
-            windows += 1
-        if w.startswith("TaskForceModeAllowedRosterUnits="):
-            allowlists += 1
-            entries = [e.split(",") for e in w.partition("=")[2].split("|")]
-            got = {e[0]: e[1:] for e in entries}
-            if len(entries) != len(got) or got != picks:
-                out.append(f"campaigns/{name}/campaign.ini:{n}: the allowlist is not "
-                           "the whole roster with every priced pick")
+    # Section by section, with every expected change REQUIRED rather than
+    # merely allowed: a twin still naming the base's Base, a Name that did
+    # not change, or an open window without its note is as wrong as a gate
+    # that moved (review of 814e85a2).
+    where = f"campaigns/{name}/campaign.ini"
+    b_secs = re.split(r"\n(?=\[)", (base / "campaign.ini").read_text(encoding="utf-8"))
+    t_secs = re.split(r"\n(?=\[)", (twin / "campaign.ini").read_text(encoding="utf-8"))
+    if len(b_secs) != len(t_secs):
+        return out + [f"{where}: {len(t_secs)} sections against the base's {len(b_secs)}"]
+    line_no, windows, found = 0, 0, {"Base": 0, "Name": 0, "Description": 0}
+    for b_sec, t_sec in zip(b_secs, t_secs):
+        b_lines, t_lines = b_sec.split("\n"), t_sec.split("\n")
+        head = b_lines[0].split("]")[0] + "]"
+        if len(b_lines) != len(t_lines) or t_lines[0] != b_lines[0]:
+            out.append(f"{where}:{line_no + 1}: section {head} is not the base's")
+            line_no += len(b_lines)
             continue
-        if b == w:
-            continue
-        key = b.partition("=")[0]
-        ok = ((key == "Base" and w == f"Base=campaigns/{name}/campaign.ini")
-              or (section == "[Language_en]" and key in ("Name", "Description")
-                  and w.startswith(key + "="))
-              or (key == "TaskForceModeBuilderSituation_en"
-                  and w == f"{key}={bp.OPEN_NOTE} {b.partition('=')[2]}"))
-        if not ok:
-            out.append(f"campaigns/{name}/campaign.ini:{n}: differs from the base "
-                       f"campaign's ({key or b[:40]!r})")
-    if not windows or allowlists > windows:
-        out.append(f"campaigns/{name}/campaign.ini: {windows} open window(s), "
-                   f"{allowlists} allowlist(s)")
+        is_open = "TaskForceModeEnableTaskForceBuilder=True" in b_lines
+        windows += is_open
+        for b, w in zip(b_lines, t_lines):
+            line_no += 1
+            key, _, value = b.partition("=")
+            if head == "[File]" and key == "Base":
+                found["Base"] += 1
+                ok = w == f"Base=campaigns/{name}/campaign.ini"
+            elif head == "[Language_en]" and key == "Name":
+                found["Name"] += 1
+                ok = (w != b and " - Open Allocation" in w
+                      and w.replace(" - Open Allocation", "", 1) == b)
+            elif head == "[Language_en]" and key == "Description":
+                found["Description"] += 1
+                ok = w == f"Description={bp.OPEN_BLURB}{value}"
+            elif is_open and key == "TaskForceModeAllowedRosterUnits":
+                entries = [e.split(",") for e in w.partition("=")[2].split("|")]
+                got = {e[0]: e[1:] for e in entries}
+                ok = (w.startswith(key + "=") and len(entries) == len(got)
+                      and got == picks)
+            elif is_open and key == "TaskForceModeBuilderSituation_en":
+                ok = w == f"{key}={bp.OPEN_NOTE} {value}"
+            else:
+                ok = w == b
+            if not ok:
+                out.append(f"{where}:{line_no}: {head} {key or b[:40]!r} is not the "
+                           "base campaign's line with the Open Allocation change")
+    if list(found.values()) != [1, 1, 1] or not windows:
+        out.append(f"{where}: expected one Base, Name and Description and at least one "
+                   f"open window, found {found} and {windows} window(s)")
     return out + art_resolves(pack, name)
 
 

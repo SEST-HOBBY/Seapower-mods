@@ -1,7 +1,8 @@
 SOUTHERN REACH - what this campaign needs
 
-Four lists. The pack-level REQUIRED-MODS.txt one folder up is the
-union across every campaign in the pack; this is the closure for
+Four lists. The pack-level REQUIRED-MODS.txt two folders up, at the
+pack's root, is the union across every campaign in the pack; this is
+the closure for
 this one, derived from the units its missions place, the squadrons
 and hull variants they name, and the rounds their loadouts hang.
 

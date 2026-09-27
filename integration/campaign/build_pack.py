@@ -249,9 +249,8 @@ def campaign_rules(spec, open_allocation=False):
     if open_allocation:
         swap('Text="- Fixed-wing aircraft are not available for purchase at the start of '
              'the campaign, but become available later on."',
-             'Text="- Fixed-wing aircraft bought before a mission can use them wait in '
-             'reserve: they deploy only where a mission has an airbase or an Air Tasking '
-             'row for them."', "fixed-wing line")
+             'Text="- Fixed-wing aircraft are on sale from the first force allocation, '
+             'before any mission can use them."', "fixed-wing line")
     # No roster sells a submarine, and there are no submarine side missions.
     swap('Text="- Submarines operate independently of your task force. They appear in '
          'separate (but connected) optional side missions, which offer benefits to '
@@ -4196,8 +4195,9 @@ def campaign_requirements(rows, missing, title):
         need, [r for r in rows if r[2] not in NEEDED and r[5].isdigit()])
     key = lambda r: r[1].lower()
     L = [f"{title.upper()} - what this campaign needs", "",
-         "Four lists. The pack-level REQUIRED-MODS.txt one folder up is the",
-         "union across every campaign in the pack; this is the closure for",
+         "Four lists. The pack-level REQUIRED-MODS.txt two folders up, at the",
+         "pack's root, is the union across every campaign in the pack; this is",
+         "the closure for",
          "this one, derived from the units its missions place, the squadrons",
          "and hull variants they name, and the rounds their loadouts hang.", "",
          f"1. HARD REQUIRED ({len(need) + len(promoted)}): a mission names a file of "

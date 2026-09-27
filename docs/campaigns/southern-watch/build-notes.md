@@ -1344,8 +1344,9 @@ no stock key conditions an allowlist on a campaign variable. The game's own
 start option, Unrestricted mode ("every unit in the game can be purchased,
 ignoring the campaign roster and mission restrictions"), is the opposite of a
 curated roster. A second campaign entry is the one switch the game can read,
-chosen at the start the way its own start options are, and it keeps its own
-save; the standard campaign and a save under way are not touched.
+chosen at the start the way its own start options are. The standard
+campaign's files are not touched by it, so a save under way reads the same
+campaign it did.
 
 What the twin is. `open_allocation_ini()` takes the base campaign.ini and
 changes four kinds of line: `[File] Base` (the file's own location), the
@@ -1361,12 +1362,14 @@ settings and REQUIRED-MODS), not a second copy of the missions. Points,
 prices, gates, rewards, one-ship operations and deployment rules are the base
 campaign's; an aircraft bought before a mission has a row or an airbase for
 it waits in reserve, as it would have. `check_campaign_coverage` compares each
-twin with its base line by line from the built files and fails on any other
-difference; `test_build_pack.py` (`OpenAllocation`) holds the transform.
+twin with its base section by section from the built files: it fails on any
+other difference, and on any of those changes missing; `test_build_pack.py` (`OpenAllocation`) holds the transform.
 
 Not demonstrated: that the game lists a campaign whose missions live in
-another campaign's folder, and loads them. Stock never does it; nothing in
-stock says it cannot. Test card 6G.
+another campaign's folder, and loads them - stock never does it, and nothing
+in stock says it cannot - or that the twin's progress is saved apart from the
+standard campaign's, which it should be as a campaign file of its own. Test
+card 6G (G.1, G.3, G.4).
 
 ## What has NOT been demonstrated
 
