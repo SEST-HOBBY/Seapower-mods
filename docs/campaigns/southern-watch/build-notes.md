@@ -1273,8 +1273,57 @@ dressing (01, 02, 03B, 04) say `False`. Rig Seventeen said `True` over an
 authored Osprey and CH-53 with no row to put the player's aircraft in, and so
 did O3 Borrowed Shield. `IncludesAirwing` now follows the rows: `True` only when
 the mission emits at least one. Those two missions change; nothing else does.
-Confirmed in game the same day: with the flag following the rows, Rig Seventeen
-loads (test card 7.3a).
+The same day Rig Seventeen loaded when unlocked straight onto a fresh force,
+and that was taken as confirmation. It was not: see the next section.
+
+## Rig Seventeen died again after 01 and 02 (27 September)
+
+Played through from White Water, Rig Seventeen died the same way with the
+flag already `False`. So the flag was never the cause: the first crash had
+`IncludesAirwing=True` and the second `False`, and both came after a
+campaign played through with a small force. The first log shows that force:
+one Hobart and the MH-60Rs. The one direct load that worked was onto a force
+bought fresh for the mission.
+
+The exception carries the game's own note, `| 1 vs 3`. Rig Seventeen's
+authored Osprey and CH-53 were homed on `Taskforce1Vessel3` (HMAS Canberra,
+an authored ship behind the anchor), and the force that crashed had one
+ship. The reading that fits both crashes and the pass: in a mission the
+player's force is generated into, a `Taskforce1VesselN` home base is looked
+up among the player's own ships, and a small force has no third one. The
+first log also has the slot MH-60R, homed on `Taskforce1Vessel1`, reporting
+"is full but has no home base" to Automatic SAR, so those references were not
+resolving as written even where nothing crashed.
+
+Stock never writes one. No Taskforce1 aircraft in any mission of the stock
+task-force campaign names a Taskforce1 ship as its `HomeBase` - helicopters
+included. They name a Taskforce1 airfield (`Taskforce1LandUnit1`) or nothing,
+and slot aircraft with no home (06, 08, 09) fly on finite fuel. The builder
+now follows that: in a `Generated` or `Replaced` mission a player-side
+aircraft is still checked against the decks in reach (a build with nowhere
+to land still fails), but it is never written a `HomeBase` naming a
+Taskforce1 ship. Airfield homes and missions that launch as authored (SW07,
+SW08, O2 and the detached operations) are unchanged. 44 lines go, one per
+aircraft, across 38 missions of the three campaigns (12 Southern Watch, 21
+Southern Reach, 5 Red Line); nothing else in the files moves. `test_build_pack.py` (`HomeBases`) holds the rule.
+
+Not proven until the mission loads on a carried-over force: test card 7.3a.
+
+## The Campaign Rules button (27 September)
+
+The button at the bottom right of the campaign map opens
+`campaign_rules_<lang>.xml` from the campaign's folder. The stock task-force
+campaign ships one; these three did not, so it opened nothing. Each campaign
+now ships `campaign_rules_en.xml`, built by `campaign_rules()` from the stock
+page with only the passages that are not true here replaced: the title and
+welcome, the commander section (one fixed nation, no national discount:
+`SameNationUnitDiscount=0`), ships sold without aircraft
+(`ShipIncludesAirwing=False`), helicopters from the first window, no
+submarines on sale, and the proficiency table's Survived Missions column read
+from `CrewSkillThresholds` (1/4/9/16, where stock's page says 1/2/4/7). The
+price table, refund percentages and survivor reward are Bindings the game
+fills from each campaign's own files. If the stock page changes, the build
+stops rather than ship a half-edited one. English only, as stock.
 
 ## What has NOT been demonstrated
 
