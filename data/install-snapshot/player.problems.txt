@@ -1,4 +1,52 @@
 # Lines from Player.log matching Exception/Error/not found/missing/failed.
-# 1 hit(s) - the first place to look when something did not load.
+# 49 hit(s) - the first place to look when something did not load.
 
-    133: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    280: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    344: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    363: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    407: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    485: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    493: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    516: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    578: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    640: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    654: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    718: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    793: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    880: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    881: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    883: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    884: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    886: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    887: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    898: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+    987: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    991: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    993: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1004: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1064: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+   1161: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1162: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1192: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+   1287: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1291: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1294: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1299: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1713: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   2236: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+   2323: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   2330: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   2340: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   2355: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+   2446: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   2447: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   2467: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+   2594: The referenced script on this Behaviour (Game Object 'InputManager') is missing!
+   2783: NullReferenceException: Object reference not set to an instance of an object | 1 vs 3
+   2784: NullReferenceException: Object reference not set to an instance of an object
+   2788: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   2789: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   2790: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   2791: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   2792: UnityEngine.Logger:LogException(Exception, Object)
+   2793: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)

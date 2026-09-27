@@ -6,7 +6,7 @@
 3378409795   Type 23 Frigate                                      updated 2026-08-24
 3380210757   Anchor Chain                                         updated 2026-08-22
 3384079999   Humpback Whale                                       updated 2026-08-24
-3390330875   Modern US Navy                                       updated 2026-09-21
+3390330875   Euromod - Modern US Navy                             updated 2026-09-27
 3392434750   S-400 SAM                                            updated 2026-08-24
 3394781441   B-52G with AGM-86 ALCM(more realistic nuke)          updated 2026-08-16
 3395022688   Tu-95MS with AS-15 ALCM(more realistic nuke)         updated 2026-08-16
@@ -51,7 +51,7 @@
 3480965706   B-2 Spirit                                           updated 2026-08-15
 3481228992   J10C                                                 updated 2026-08-16
 3486502935   Type 003 CV / future Type 004 CVN aircraft carriers  updated 2026-08-16
-3488139470   Modern Italian Navy - Euromod                        updated 2026-09-12
+3488139470   Modern Italian Navy - Euromod                        updated 2026-09-23
 3497601759   Shahed 136                                           updated 2026-08-17
 3499239964   E-7A Wedgetail                                       updated 2026-08-19
 3502273861   arrw                                                 updated 2026-08-25
@@ -80,7 +80,7 @@
 3592460366   Modern US Airbase                                    updated 2026-08-16
 3594891803   PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A) updated 2026-08-15
 3597650470   Russian Navy 21                                      updated 2026-08-31
-3599752717   Modern British Navy - Euromod                        updated 2026-09-12
+3599752717   Modern British Navy - Euromod                        updated 2026-09-23
 3600788156   Buildings and Objectives                             updated 2026-09-06
 3601891050   中小型无人机系列                                             updated 2026-08-15
 3602046770                                                        updated 2026-08-16
@@ -88,7 +88,7 @@
 3606134711   Custom Loadout Editor                                updated 2026-09-08
 3606774881   U.S. Navy 2027 Capabilities                          updated 2026-08-16
 3607989779   F-35C Lightning II Alt. Loadouts                     updated 2026-08-16
-3629144864   Euromod pack                                         updated 2026-09-21
+3629144864   Euromod pack                                         updated 2026-09-27
 3629269283   Modern Russian Airbase                               updated 2026-08-16
 3630495619   Spanish Navy Mod (Cold War)                          updated 2026-09-19
 3631042692   Modern Chinese Airbase                               updated 2026-08-16
@@ -104,7 +104,7 @@
 3681873198   Pickup                                               updated 2026-08-24
 3683253079   THAAD & AN/TPY-2                                     updated 2026-08-15
 3695809489   Euromod-(Japan)JMSDF Modern navy                     updated 2026-09-21
-3715323261   Tu-95MS (X-101)                                      updated 2026-08-16
+3715323261   Tu-95MS                                              updated 2026-09-25
 3716049886   MORE SU24M VARIANTS                                  updated 2026-08-16
 3717610332   IL-78 TANKER                                         updated 2026-08-16
 3722749887   KC-135 Stratotanker                                  updated 2026-08-15
@@ -113,7 +113,7 @@
 3731208477   Spanish Navy Mod (Modern)                            updated 2026-09-17
 3733719765   中国地面单位包                                              updated 2026-08-15
 3736147136   French army vehicule                                 updated 2026-09-19
-3737267013   US Naval Aviation                                    updated 2026-09-20
+3737267013   US Naval Aviation                                    updated 2026-09-27
 3740293822   KC-10A Extender by ZeroTwo                           updated 2026-08-15
 3741944366   B-52H                                                updated 2026-09-13
 3744475027   Boeing KC-46 Pegasus by ZeroTwo                      updated 2026-08-15
@@ -133,15 +133,30 @@
 3780118683   Tu-214R Family Pack                                  updated 2026-08-16
 3781062859   E-3G AWAC                                            updated 2026-08-17
 3782020901   Y-20 / KJ-3000                                       updated 2026-08-15
-3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-09-21
-3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-09-16
+3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-09-27
+3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-09-27
 3789208859   Euromod-South Korea Navy                             updated 2026-09-21
 3789793270   Auto Time-on-Target                                  updated 2026-09-19
 3796113927   RQ-180 White Bat Airframe                            updated 2026-09-16
-3796349767   YF-23 Black Widow II                                 updated 2026-09-20
+3796349767   YF-23 Black Widow II                                 updated 2026-09-25
 3799742828   MiG-31 Foxhound                                      updated 2026-09-16
 3801363152   CH-53E Standalone v0.1.0                             updated 2026-09-16
 3801549552   J-36 Tailless Fighter                                updated 2026-09-16
+3806466625   MV-22B Osprey Tiltrotor / JGSDF V-22B                updated 2026-09-26
 
-subscribed but UNPLACED (2): 3774105087, 3789208859
+subscribed but UNPLACED (0): 
 placed but NOT SUBSCRIBED (0): 
+
+--- Steam client record (appworkshop_1286220.acf) ---
+acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
+folders on disk          : 142
+ids Steam tracks locally : 142
+NeedsDownload / NeedsUpdate: 0 / 0
+tracked but NOT on disk (0): 
+on disk but NOT tracked (0): 
+
+If the Steam UI's subscribed count is HIGHER than both numbers above, the
+extras are server-side only and there is nothing on this PC to find: the
+usual causes are subscribed Collections, which have no content to download,
+and items the author has delisted, which Steam keeps counting forever.
+Neither can load in game, so neither belongs in the load order.
