@@ -1156,5 +1156,47 @@ class RulesPage(unittest.TestCase):
         self.assertEqual(cells, ["0", "3", "6", "11", "23"])
 
 
+class BriefingChartSupport(unittest.TestCase):
+    """An unarmed aircraft far from the ships is named, not charted.
+
+    The wider forces put tankers 130-280 NM behind the fighters and a Midas
+    behind the Bear; charted, they tripled the span of TS09, TS11 and SR07.
+    A Hold aircraft near the ships (SR05's Triton at 102 NM), an armed one
+    far out, and every surface unit stay on the chart."""
+
+    def setUp(self):
+        sys.path.insert(0, str(HERE.parent / "missions"))
+        import briefing_maps
+        self.bm = briefing_maps
+
+    @staticmethod
+    def _u(kind, lat, lon, hold=False, side="friend"):
+        return dict(kind=kind, lat=lat, lon=lon, hold=hold, side=side, key=f"{kind}{lat}")
+
+    def test_far_tanker_is_named_near_triton_is_drawn(self):
+        ships = [self._u("Vessel", -40.0, 140.0), self._u("Vessel", -40.1, 140.1)]
+        tanker = self._u("Aircraft", -36.2, 140.0, hold=True)    # ~230 NM
+        triton = self._u("Aircraft", -38.4, 140.0, hold=True)    # ~100 NM
+        fighter = self._u("Aircraft", -36.0, 140.0)              # far, armed
+        kept, named, far = self.bm.off_chart(ships + [tanker, triton, fighter], 350)
+        self.assertEqual(named, [tanker])
+        self.assertIn(triton, kept)
+        self.assertIn(fighter, kept)
+        self.assertEqual(len(far.centre), 2)
+
+    def test_far_field_rule_unchanged(self):
+        ships = [self._u("Vessel", -43.0, 147.5)]
+        field = self._u("LandUnit", -34.7, 138.6)                # Edinburgh, ~640 NM
+        kept, named, _far = self.bm.off_chart(ships + [field], 350)
+        self.assertEqual(named, [field])
+        self.assertEqual(kept, ships)
+
+    def test_no_ships_no_support_rule(self):
+        planes = [self._u("Aircraft", -40.0, 140.0), self._u("Aircraft", -30.0, 140.0, hold=True)]
+        kept, named, _far = self.bm.off_chart(planes, 350)
+        self.assertEqual(named, [])
+        self.assertEqual(kept, planes)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -259,3 +259,37 @@ The campaign now carries Pacific Strike's 20% same-nation discount
 its roster is registered to China by its squadron or hull variant, so the
 discount covers all of it. Southern Watch build notes, "Same-nation discount";
 test card G.6 there.
+
+## Wider forces (28 September)
+
+The campaign now draws on more of the enabled mods and packs (the count is in
+`coverage.md`; 36 before). Four missions gained one to four units each, at stations of their own; no
+objective, victory or existing unit changed. Every coalition unit added is
+spared - added to the mission's Restraint objective and its fatal entry - as
+the campaign's first rule requires, and every aircraft of the player's added
+here flies at weapons Hold, so an AI fighter cannot fire first on the
+player's behalf.
+
+| Mission | Added | Why it is there |
+|---|---|---|
+| RL01 Trailing Contact | a RAAF E-7A Wedgetail (`e-7a-wedgetail`, its squadron from SEST RAAF Wedgetail), coalition, Hold, 114 NM south of the carrier; the Manado-Ambon airliner (`civ_a320`, an Indonesian regional livery), neutral | the coalition's air picture, which the brief says is watching; one more contact to identify before acting |
+| RL02 Routes They Can See | Enclave 21 and 22, a J-16 pair from the enclave field (`j-16-multirole`), the player's, Hold | Southern Watch calls the enclave's J-16s "Enclave nn"; the air-to-air fit, not the long-range one, so a released pair cannot reach the spared Poseidon from far off |
+| RL03 The Other Picture | Tanker 31, a YY-20A from the enclave field (`y-20-kj-3000`), the player's, Hold; a RAAF No. 6 Squadron EA-18G with the F-35As (`SEST_Growler_NGJ_MALICE`), coalition, Hold; the Port Moresby-Singapore airliner (`civ_a330`, a Singapore livery), neutral | fuel for fighters 400 NM from home; the escort the F-35As would have; the airway that crosses the box. Red combat is at the recon cap, 5. The lose text now covers "an aircraft that never fired" |
+| RL05 Under the Convergence | HOTEL, the US Navy Virginia-class boat of Submarine Rotational Force-West out of Stirling (`usn_ssn_virginia`, `us-submarines`), coalition, Hold, dived, crossing the passage line at about minute 90 | Southern Reach's TS08 already has her on the Western Australia rotation; she is a second pair of ears the player has to keep clear of, since a class from her fails Unseen as one from the aircraft does |
+
+Not done, and why:
+
+- RL03's J-15s stay J-15s. They are the cockpits the player's purchased CAP
+  flight takes; the roster sells J-15 and J-15D, so a J-20 there would never
+  reach the game.
+- A Type 071 carrying the enclave detachment home in RL04 was built and
+  taken out: this bible gives the Type 071 to the northern element, not to
+  this commander's group.
+- A New Zealand offshore patrol vessel on the Fiordland fisheries patrol in
+  RL06 was built and taken out, for the reason Southern Reach took HMNZS
+  Otago out of TS01: that campaign's story is that New Zealand's ships are
+  not there, and this bible's rule is that real ships appear only where the
+  coalition campaigns put them.
+
+All the added units are the real types. The campaign's `REQUIRED-MODS.txt`
+now lists 36 hard-required mods (29 before).

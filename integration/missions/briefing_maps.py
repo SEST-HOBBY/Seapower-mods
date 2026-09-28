@@ -36,6 +36,9 @@ LAYERS = ("ne_10m_land", "ne_10m_minor_islands", "ne_10m_populated_places_simple
 # The stock canvas, used for the map's aspect; the pixels are PW x PH.
 W, H = 1095, 662
 PW, PH = 2192, 1328
+# With a focus set (the southern campaigns), an unarmed aircraft further
+# than this from the centre of the ships is named off the chart, not drawn.
+SUPPORT_NM = 120
 S = PW / W                               # pixels per canvas unit
 
 SEA, LAND, COAST = (22, 40, 58), (93, 107, 88), (169, 181, 154)
@@ -116,6 +119,7 @@ def parse(path):
         kind = "Aircraft" if m.group(3) == "Helicopter" else m.group(3)
         units.append({"side": side, "kind": kind, "key": key,
                       "type": utype, "name": overrides.get(key),
+                      "hold": bool(re.search(r"^WeaponStatus=Hold\s*$", chunk, re.M)),
                       "lat": clat + z / 60.0, "lon": clon + x / 60.0})
 
     date = re.search(r"^Date=(\d+),(\d+),(\d+)", text, re.M)
@@ -226,6 +230,40 @@ def unit_label(u):
     return " ".join(parts).upper()
 
 
+def _nm(a, b):
+    k = math.cos(math.radians((a[0] + b[0]) / 2))
+    return math.hypot((a[0] - b[0]) * 60, (a[1] - b[1]) * 60 * k)
+
+
+def off_chart(units, focus_nm):
+    """(units to chart, units to name in the corner, distance function).
+
+    A land unit further than focus_nm from the centre of everything that is
+    not a land unit - a Poseidon's field 640 NM away - is named, not drawn:
+    charted, it would shrink Storm Bay to a dot. So is an unarmed aircraft
+    (weapons Hold) more than SUPPORT_NM from the centre of the ships - a
+    tanker behind the fighters, a Midas behind the Bear: charted, the TS09
+    tanker 240 NM out made the convoy action a third of the size it had been.
+    The distance function measures from the first centre, which is where the
+    corner labels give bearings from; its .centre is that (lat, lon).
+    """
+    core = [u for u in units if u["kind"] != "LandUnit"] or units
+    centre = (sum(u["lat"] for u in core) / len(core),
+              sum(u["lon"] for u in core) / len(core))
+
+    def far(u):
+        return _nm((u["lat"], u["lon"]), centre)
+    far.centre = centre
+    offmap = [u for u in units if u["kind"] == "LandUnit" and far(u) > focus_nm]
+    ships = [u for u in units if u["kind"] == "Vessel"]
+    if ships:
+        fleet = (sum(u["lat"] for u in ships) / len(ships),
+                 sum(u["lon"] for u in ships) / len(ships))
+        offmap += [u for u in units if u["kind"] == "Aircraft" and u.get("hold")
+                   and _nm((u["lat"], u["lon"]), fleet) > SUPPORT_NM]
+    return [u for u in units if u not in offmap], offmap, far
+
+
 def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
          inset_box=None):
     """focus_nm: a base further than this from the player's ships and aircraft
@@ -239,15 +277,9 @@ def draw(mission, out_png, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
     marks = [m if len(m) == 4 else (*m, "hostile") for m in LANDMARKS.get(mission["title"], [])]
     offmap = []
     if focus_nm:
-        core = [u for u in units if u["kind"] != "LandUnit"] or units
-        clat = sum(u["lat"] for u in core) / len(core)
-        clon = sum(u["lon"] for u in core) / len(core)
+        units, offmap, far = off_chart(units, focus_nm)
+        clat, clon = far.centre
         kk = math.cos(math.radians(clat))
-
-        def far(u):
-            return math.hypot((u["lat"] - clat) * 60, (u["lon"] - clon) * 60 * kk)
-        offmap = [u for u in units if u["kind"] == "LandUnit" and far(u) > focus_nm]
-        units = [u for u in units if u not in offmap]
     shown = (units or mission["units"]) + [{"lat": la, "lon": lo} for _, la, lo, _c in marks]
     w, s, e, n = box = extent(shown)
     k = math.cos(math.radians((s + n) / 2))

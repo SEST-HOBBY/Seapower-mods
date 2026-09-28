@@ -44,13 +44,16 @@ MISSION = dict(
             "interception threat. Your force is on the track with the destroyer's missiles as "
             "the surface half of the umbrella; Williamtown is a hundred and ninety-five miles "
             "north, and its F-35As are available for fighter cover, readied on its flight line "
-            "for the first time.\\n\\nRelief 21 to the box off Sydney Heads. Keep the Wedgetail "
+            "for the first time. TEXACO 61, a USAF KC-46A on the Enhanced Air Cooperation "
+            "rotation, holds a tanker track eighty miles east of Sydney for them.\\n\\nRelief 21 "
+            "to the box off Sydney Heads. Keep the Wedgetail "
             "flying. Nobody shoots at an airliner in this box, and the way to make sure of that"
             " is to be between the carrier's flight and both of them."
         )),
     forces=(
         "Your task group with its Poseidon and Williamtown fighters if assigned; Wedgetail 06; "
-        "Sentry 23, a Triton; the charter Relief 21. Neutral: two Sydney-Auckland airliners, a "
+        "Sentry 23, a Triton; Texaco 61, a USAF KC-46A tanker, east of Sydney; the charter "
+        "Relief 21. Neutral: two Sydney-Auckland airliners, a "
         "cruise ship, a coastal bulker. Opposing: Liaoning to the south-east, a J-15 pair and a"
         " J-15D routed onto the track, a Ka-31 up."
     ),
@@ -85,6 +88,9 @@ MISSION = dict(
         "escort": S(-36.00, 152.50, "Escort group", heading=320),
         "mpa": S(-36.20, 152.20, "Maritime patrol", heading=320, alt=12000),
         "cap": S(-35.70, 152.60, "Fighter cover", heading=140, alt=30000),
+        # The tanker track east of Sydney, 105-135 NM behind the fighters
+        # and 60 NM clear of where the J-15 pair's route ends.
+        "tanker": S(-33.50, 152.50, "Tanker track", heading=135, alt=26000),
         "red_cv": S(-39.30, 155.60, "Carrier group", heading=320),
         "red_air": S(-38.00, 154.60, "Strike flight", heading=320, alt=25000),
         "red_helo": S(-39.10, 155.40, "Ka-31 orbit", heading=320, alt=9000),
@@ -110,6 +116,12 @@ MISSION = dict(
           alt=32000, weapons="Hold"),
         U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "high",
           name="Sentry 23", weapons="Hold"),
+        # A USAF KC-46A on the Enhanced Air Cooperation rotation, looping a
+        # track for Williamtown's F-35As.
+        U("blue", "kc-46a", "usaf_kc-46a_boom", "tanker", name="Texaco 61",
+          alt=26000, weapons="Hold", loadout="Tanker",
+          route=[(-33.50, 152.50, 26000), (-34.00, 153.10, 26000)], loop=True,
+          telegraph=3),
         U("red", "liaoning-type-001", "plan_type_001", "red_cv", name="Liaoning",
           route=[(-38.60, 154.90, 0)], telegraph=3),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",

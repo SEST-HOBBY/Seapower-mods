@@ -315,3 +315,67 @@ The campaign now carries Pacific Strike's 20% same-nation discount
 its roster is registered to Australia by its squadron or hull variant, so the
 discount covers all of it. Southern Watch build notes, "Same-nation discount";
 test card G.6 there.
+
+## Wider forces (28 September)
+
+Asked for broad use of the collection without convoluting the missions, the
+campaign now draws on more of the enabled mods and packs (the count is in
+`coverage.md`; 41 before). Eight missions gained one or two units each, every
+one at a station of its own; no victory, fatal entry or existing station
+changed. Two objective texts widened to cover what was added: SR04's
+Restraint now spares the Bear's tanker, and TS10A's Traffic names a warship.
+The forces paragraph and brief of each mission say what is new. Every choice
+had to be something the real navies and air forces would put in that water in
+early 2029, and had to fit the bible; what failed either test is listed after
+the table.
+
+| Mission | Added | Why it is there |
+|---|---|---|
+| SR04 Macquarie Passage | Il-78 Midas 41 (`il-78`), red, Hold, 75 NM behind the Bear | the bible has always said the Bears come south "with a tanker behind them"; now one is. Restraint spares it with the Bear |
+| SR07 Beneath the South | Il-78 Midas 42, red, Hold, 200 NM behind the Bear | the same; beyond every anti-air round the player can buy, since no objective covers it |
+| SR08 The Gateway | Skier 95, an LC-130 of Operation Deep Freeze climbing out of Christchurch for McMurdo at 9,000 ft (neutral `usmc_kc-130j`, `us-naval-aviation`) | Christchurch is the US Antarctic Program's gateway and late December is its season |
+| TS04 Tasman Crossing, TS11 Approaches | Texaco 71, a USAF KC-135 (`kc-135`) | a tanker for the F-35As, on the Enhanced Air Cooperation rotation; its track is 270+ NM from the Type 052D's HHQ-9 where there is one |
+| TS07 Southern Air Bridge, TS09 The Southern Convoy | Texaco 61, a USAF KC-46A (`kc-46a`) | the same |
+| TS08 Great Australian Bight | the Pacific Fleet corvette Aldar Tsydenzhapov (`rfn_cvt_20380_7-12` Variant3, `russian-navy-21`), with the Udaloy and the oiler, holding fire | Pacific Fleet Project 20380s deploy with the Udaloys. Hold, because her Uran-U reaches 140 NM and the bible keeps the Bight's surface escort to the Udaloy's 27 NM on purpose (section 3, now noting her) |
+| TS09, TS11 | the Type 052D's Z-20F (`plan_z-20f`) | the destroyer's own anti-submarine helicopter; the 052D's file lists it for its deck |
+| TS10A Northern Priority | FS Courbet, a French La Fayette-class frigate outbound from Devonport for Noumea, and her Panther (`cdg-modern-french-navy`, `french-helicopter-package`), both neutral | a warship that is not a threat: one more identification problem in the Gulf |
+
+Stand-in, which player-facing text never names: a USMC KC-130J for the
+ski-equipped LC-130 of the 109th Airlift Wing. The Il-78, the Project 20380,
+the Z-20F, the KC-46A, the KC-135 and FS Courbet are the real types.
+
+Tried and taken out again:
+
+- HMNZS Otago in TS01 (a River Batch 2 standing in for a Protector-class OPV)
+  and an RNZAF NH90 on search-and-rescue in TS02 (a French NH90 TTH). The
+  chapter card before TS01 gives New Zealand's contribution as No. 5
+  Squadron, the airfields and "Commander Brand's plain signals about where
+  its ships are not", and section 5 places no New Zealand helicopter. That is
+  the story's point and it matches the RNZN's real crew shortages, so both
+  came out;
+- a reconnaissance drone over SR01's convoy and SR10's ice edge
+  (`usn_ForpostR705`). A Type 054A has no way to launch or recover a
+  fixed-wing drone of that size, and the one in the collection is a Russian
+  Forpost that shows a Soviet flag;
+- a Tu-214R electronic-intelligence aircraft over the Bight. It has no
+  refuelling probe and no base within its range of that water;
+- an A380 for TS07's Sydney-Auckland airliner. The only livery that fits the
+  Tasman is the UAE one, and the game has no UAE nation key, so it would fly
+  with no flag (`check_campaign_coverage.py` refuses that); the A330 stays;
+- the Z-20J (`planaf_z-20j`, `type-071-lpd`) as the 052D's helicopter. Its
+  file hangs no stores and carries no radar or sonar, and the 052D's deck
+  does not list it; the Z-20F has both and is listed.
+
+The tankers are American because the RAAF's own, the KC-30A, is an A330 MRTT
+and nothing in the collection models one; a USAF tanker in Australia is the
+real Enhanced Air Cooperation arrangement.
+
+The briefing charts name an unarmed aircraft more than 120 NM from the ships
+in the corner ("OFF CHART: TEXACO 226 NM NNE") the way they already named a
+far airfield, rather than drawing it: charted, TS09's tanker made the convoy
+action a third of the size it had been (`integration/missions/briefing_maps.py`,
+`off_chart`; tested in `test_build_pack.py`, BriefingChartSupport).
+
+What it costs: every mod a mission places is one the campaign needs, so the
+campaign's `REQUIRED-MODS.txt` lists more than it did (40 hard-required,
+32 before). The pack as a whole needed all of them already.

@@ -49,16 +49,21 @@ MISSION = dict(
             "Eve. Canberra and Wellington have authorised action against one submarine, the "
             "Russian boat they blame for the coaster torpedoed on the twenty-first, and their "
             "aircraft carry torpedoes. At forty-seven south, on a sonobuoy, one nuclear boat "
-            "sounds much like another.\\n\\nTake HULL 419 through the barrier to the forward "
-            "box. Nothing is fired. If the patrol puts a class on her, the boat is a named "
-            "contact before the carrier arrives and the operation has failed.\\n\\nA longliner,"
+            "sounds much like another. The American Virginia-class boat on the Western "
+            "Australia rotation, designated HOTEL, left Stirling on the twenty-third and is "
+            "assessed to cross this line southbound this morning; there is no current contact, "
+            "and a class from her counts as one from the aircraft.\\n\\nTake HULL 419 through "
+            "the barrier to the forward box. Nothing is fired. If the patrol puts a class on "
+            "her, the boat is a named contact before the carrier arrives and the operation has "
+            "failed.\\n\\nA longliner,"
             " an expedition cruise ship bound for the ice, a bulker for Hobart and a humpback "
             "are in the sonar picture. Use them."
         )),
     forces=(
         "Hull 419, a Type 093B, dived. Watching: a RAAF P-8A on a barrier racetrack and an "
-        "MQ-4C Triton high to the north. Neutral: a toothfish longliner, an expedition cruise "
-        "ship, a bulker and a whale."
+        "MQ-4C Triton high to the north. Crossing: HOTEL, a US Navy Virginia-class "
+        "submarine out of Stirling, southbound and dived. Neutral: a toothfish longliner, an "
+        "expedition cruise ship, a bulker and a whale."
     ),
     objectives=[
         ("Passage", "Take Hull 419 through the barrier to the carrier's forward box",
@@ -79,8 +84,9 @@ MISSION = dict(
     victory=dict(kind="arrive", station="boat", at=(-47.42, 140.25), radius=10,
                  min_units=1, objective="Passage"),
     # Classified is lost: the boat on their plot ends it the same way the
-    # boat on the bottom does.
-    fatal=[F("Unseen", kind="unseen"), F("Restraint", ["red_air", "triton"]), F("Boat")],
+    # boat on the bottom does. HOTEL is spared with the aircraft.
+    fatal=[F("Unseen", kind="unseen"), F("Restraint", ["red_air", "triton", "hotel"]),
+           F("Boat")],
     neutral_objective="Traffic",
     win=(
         "HULL 419 is in the forward box, and the coalition's plot of the Southern Ocean has no "
@@ -88,7 +94,8 @@ MISSION = dict(
         "submarine is already here."
     ),
     lose=(
-        "HULL 419 is on the coalition's plot or on the bottom, or a patrol aircraft is down. "
+        "HULL 419 is on the coalition's plot or on the bottom, or a patrol aircraft is down "
+        "or the American boat is lost. "
         "Any of them makes the group's screen boat a named contact before the carrier arrives, "
         "and the southern task starts from that."
     ),
@@ -102,6 +109,10 @@ MISSION = dict(
         "boat": S(-47.30, 139.80, "Hull 419", heading=110),
         "red_air": S(-47.65, 139.85, "Barrier patrol", heading=20, alt=15000),
         "triton": S(-46.80, 140.50, "Triton", heading=230, alt=50000),
+        # HOTEL, 30 NM north of the passage line, heading 201 - square across
+        # it - to cross 2.5 NM down the boat's track, behind anyone already
+        # under way. At 20 knots that is about minute 90.
+        "hotel": S(-46.85, 140.127, "Contact HOTEL", heading=201),
         "longliner": S(-47.50, 140.00, "Longliner", heading=120),
         "cruise": S(-46.90, 140.80, "Expedition cruise ship", heading=165),
         "bulker": S(-47.00, 139.50, "Bulker", heading=85),
@@ -123,6 +134,16 @@ MISSION = dict(
         U("red", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "triton", weapons="Hold",
           route=[(-47.30, 140.20, 50000), (-46.80, 140.90, 50000)], loop=True,
           telegraph=3),
+        # The rotational force's Virginia (Variant3, Hawaii), southbound from
+        # Stirling at a transit twenty knots, dived, radars off, weapons Hold.
+        # She crosses the passage rather than sitting on it: a contact to be
+        # heard coming and kept clear of, because a class from her fails
+        # Unseen as surely as one from the Poseidon. Spared like the aircraft:
+        # a torpedo on her is the group firing first.
+        U("red", "us-submarines", "usn_ssn_virginia", "hotel", variant="Variant3",
+          name="Contact HOTEL", depth="belowlayer", weapons="Hold", radars="False",
+          route=[(-47.315, 139.857, "belowlayer"), (-47.75, 139.605, "belowlayer")],
+          telegraph=4),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_c", "longliner",
           name="Longliner Tasman Harvest", route=[(-47.90, 141.00, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_ms_ivan_franko", "cruise",
@@ -136,7 +157,7 @@ MISSION = dict(
     ],
     resolve={"Passage": "victory", "Traffic": "neutral",
              "Unseen": ("unseen", "boat"),
-             "Restraint": ("spare", "red_air", "triton"),
+             "Restraint": ("spare", "red_air", "triton", "hotel"),
              "Boat": ("protect", "boat")},
     declares=[],
     window=dict(),

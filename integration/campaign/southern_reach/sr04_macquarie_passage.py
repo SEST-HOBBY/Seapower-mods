@@ -56,14 +56,16 @@ MISSION = dict(
         "very like it, is fifty-five miles south-west and closing at twenty knots. The "
         "Russian research vessel AKADEMIK FERSMAN, keeping station west of "
         "the island, is her tender, and a Bear-F is coming up from the "
-        "south-west over the anchorage with a Midas tanker somewhere behind it. The Bear is a reconnaissance "
+        "south-west over the anchorage. Its Midas tanker, MIDAS 41, is holding "
+        "a track seventy-five miles behind it. The Bear is a reconnaissance "
         "flight until it is not; the tender is a research vessel with a "
         "flag. Your weapons are tight. Hold the window and get everybody "
         "out of it."),
     forces=(
         "HMAS Supply and MV Coral Pioneer at the anchorage, your escort group with its Seahawk "
         "and Poseidon if assigned. The station ashore. Opposing: one Akula closing from the "
-        "south-west, its tender to the west, one Bear-F with tanker support. A longliner east "
+        "south-west, its tender to the west, one Bear-F, and an Il-78 Midas tanker holding "
+        "behind it to the south-west. A longliner east "
         "of the island and a whale to the north."
     ),
     objectives=[
@@ -73,8 +75,8 @@ MISSION = dict(
         ), "35,-35,Fail,Main"),
         ("Supply", "HMAS Supply must survive", "20,-30,Complete"),
         ("Cargo", "MV Coral Pioneer must survive", "15,-25,Complete"),
-        ("Restraint", "Fire on nothing that has not fired: the boat, the Bear "
-                      "and the tender are not targets", "10,-20,Complete"),
+        ("Restraint", "Fire on nothing that has not fired: the boat, the Bear, "
+                      "its tanker and the tender are not targets", "10,-20,Complete"),
         ("Neutrals", "Harm no fishing boat or whale", "0,-25,Complete"),
     ],
     # Supply AND Coral Pioneer, still inside five miles of Supply's start
@@ -121,6 +123,11 @@ MISSION = dict(
         "red_sub": S(-54.95, 157.60, "Contact VICTOR", heading=40),
         "tender": S(-54.55, 157.70, "Research vessel", heading=90),
         "bear": S(-55.40, 157.20, "Bear-F", heading=40, alt=8000),
+        # The Bear's tanker, 75 NM back down its inbound axis (229 from the
+        # Bear): 157-170 NM from every blue unit, beyond the ESSM, the SM-2
+        # and the NSM. Only a Hobart's SM-6 reaches that far, and Restraint
+        # spares it.
+        "tanker": S(-56.22, 155.52, "Midas tanker", heading=140, alt=28000),
         "longliner": S(-54.70, 159.40, "Longliner", heading=30),
         "whale": S(-54.20, 158.90, "Biologic", heading=180),
         "home": S(-42.836, 147.510, "Hobart Airport"),
@@ -152,6 +159,13 @@ MISSION = dict(
         U("red", "_vanilla", "wp_tu-142m", "bear", name="Bear-F 22", alt=8000,
           weapons="Hold", loadout="ASW",
           route=[(-54.50, 159.00, 8000), (-53.80, 159.60, 8000)], telegraph=3),
+        # The Midas the Bear came south with, flying a looped refuelling
+        # track across the Bear's inbound axis until the clock runs out. An
+        # unarmed transport (Role=Airliner), not a combat unit; no field, so
+        # the engine's unlimited fuel, and the briefing places it.
+        U("red", "il-78", "wp_il-78", "tanker", name="Midas 41", alt=28000,
+          weapons="Hold", loadout="Empty",
+          route=[(-56.50, 155.96, 28000), (-55.94, 155.09, 28000)], loop=True),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_d", "longliner",
           name="Longliner Macquarie Star (Hobart)", route=[(-54.30, 159.80, 0)], telegraph=2),
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic GOLF",
@@ -162,7 +176,7 @@ MISSION = dict(
     resolve={"Service": "victory", "Neutrals": "neutral",
              "Supply": ("protect", "support#1"),
              "Cargo": ("protect", "support#2"),
-             "Restraint": ("spare", "bear", "tender", "red_sub")},
+             "Restraint": ("spare", "bear", "tanker", "tender", "red_sub")},
     declares=["SR04ServiceHeld"],
     window=dict(buy=True, repair=True, rearm=True,
                 allow=["ran_ffh_anzac", "ran_ddg_hobart", "usn_mh-60r", "usn_p8",

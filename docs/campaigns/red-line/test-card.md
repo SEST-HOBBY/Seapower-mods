@@ -19,6 +19,15 @@ that column, not the whole card.
 2. **The unseen trigger** — 5.1 and 5.2 below.
 3. **RL04's replenishment ship** — the Type 901 beside Liaoning is SEST
    Replenishment's hull; the win needs both in the box (6.2).
+4. **The wider forces** (build notes, "Wider forces"). Pause each at T+0:
+   RL01, the Wedgetail on its orbit to the south and the Manado-Ambon
+   airliner flying off south-east, not circling; RL02, Enclave 21 and 22 on
+   their racetrack at weapons Hold; RL03, Tanker 31 north of the escort, the
+   Growler behind the F-35As, the airliner crossing the box; RL05, HOTEL
+   north of the passage line (open the unit list: she is there even though
+   she is not on the plot). Then run RL02 and RL03 at 8x for ten minutes: the J-16s and
+   the YY-20A fire on nothing and the Growler fires on nothing. Any of them
+   firing is a Hold that did not load, and it fails Restraint.
 
 The rest of this round's checks (RAS, the ARRW profile, the Redback, MALICE
 mass, SM-3 terminal, Intercept Model A/B, the A-10C+, Mogami's Seahawk, the
