@@ -127,7 +127,7 @@ CommanderDefaultNation=China
 CommanderNameDefaultChina=Cao Mingyuan
 CommanderNamePoolChina=Names_China
 CommanderStartingRankLevel=8
-SameNationUnitDiscount=0
+SameNationUnitDiscount=0.2
 
 NavyNameChina=People's Liberation Army Navy
 

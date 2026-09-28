@@ -902,6 +902,55 @@ class OpenAllocation(unittest.TestCase):
         self.assertNotIn("Open Allocation", bp.campaign_rules(spec))
 
 
+class SameNationDiscount(unittest.TestCase):
+    """The discount is the game's own rule; the page says what it covers,
+    read from the squadron and hull-variant files the game takes nations from."""
+
+    def test_every_shipped_roster_is_the_commanders_own(self):
+        for spec in bp.campaign_specs():
+            nation = re.search(r"^CommanderNations=(.+)$", spec["COMMANDER"], re.M).group(1)
+            self.assertEqual(bp.same_nation_discount(spec["COMMANDER"]), 0.2, spec["SLUG"])
+            self.assertEqual(set(bp.roster_nations(spec["ROSTER"]).values()), {nation},
+                             spec["SLUG"])
+
+    def test_the_us_built_airframes_fly_australian_squadrons(self):
+        for uid, pick in (("usn_fa-18f_blk3", "Squadron8"), ("usn_ea-18g", "Squadron6"),
+                          ("usn_p8", "Squadron3"), ("usn_mh-60r", "Squadron20")):
+            self.assertEqual(bp.pick_nation(uid, pick), "Australia", uid)
+
+    def test_the_page_carries_the_games_binding_and_the_cover(self):
+        page = bp.campaign_rules(bp.campaign_specs()[0])
+        self.assertIn("{Binding SameNationDiscountPercentText}", page)
+        self.assertIn("registered to Australia by its squadron or hull variant, so the "
+                      "discount applies to all of it", page)
+        self.assertNotIn("No national purchase discount", page)
+
+    def test_no_discount_says_so(self):
+        spec = dict(bp.campaign_specs()[0])
+        spec["COMMANDER"] = spec["COMMANDER"].replace("SameNationUnitDiscount=0.2",
+                                                      "SameNationUnitDiscount=0")
+        page = bp.campaign_rules(spec)
+        self.assertIn("No national purchase discount applies", page)
+        self.assertNotIn("SameNationDiscountPercentText", page)
+
+    def test_a_foreign_unit_is_named_at_its_listed_price(self):
+        spec = dict(bp.campaign_specs()[0])
+        spec["ROSTER"] = spec["ROSTER"] + [
+            dict(unit="plan_j-15", picks=["Squadron1"], points=40)]
+        page = bp.campaign_rules(spec)
+        self.assertIn("cost their listed price: plan_j-15 (China)", page)
+
+    def test_a_pick_with_no_declared_nation_stops_the_build(self):
+        saved = bp.pick_nation
+        bp.pick_nation = lambda uid, pick: None if uid == "usn_p8" else "Australia"
+        try:
+            with self.assertRaises(SystemExit) as caught:
+                bp.roster_nations(bp.campaign_specs()[0]["ROSTER"])
+            self.assertIn("usn_p8", str(caught.exception))
+        finally:
+            bp.pick_nation = saved
+
+
 class RulesPage(unittest.TestCase):
     """The Campaign Rules button opens campaign_rules_en.xml; each campaign's
     page is the stock one with its own passages and thresholds in place."""

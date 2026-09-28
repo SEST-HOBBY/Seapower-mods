@@ -251,3 +251,11 @@ which offers the whole roster at every open force-allocation window (the Y-9,
 KJ-500, J-15 and J-15D are on sale at RL01) and is otherwise this campaign,
 line for line, loading these missions by path. Why a twin and what it changes:
 Southern Watch build notes, "Open Allocation"; test card 6G there.
+
+## Same-nation discount (28 September)
+
+The campaign now carries Pacific Strike's 20% same-nation discount
+(`SameNationUnitDiscount=0.2`), in its Open Allocation twin too. Every unit on
+its roster is registered to China by its squadron or hull variant, so the
+discount covers all of it. Southern Watch build notes, "Same-nation discount";
+test card G.6 there.

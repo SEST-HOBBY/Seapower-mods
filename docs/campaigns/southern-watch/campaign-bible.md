@@ -565,7 +565,7 @@ One currency is enough. Ammunition, damage, available units and service opportun
 | Optional completion allocations | 50–70 each; **730 points** if all 12 are completed |
 | Contingency completion allocations | 0; recovery benefits only |
 | Aircraft on newly bought ships | Bought explicitly; `ShipIncludesAirwing=False` across difficulties |
-| Commander nationality discount | 0% initially; avoid inconsistent discounts from Australian squadrons on US-named mod unit definitions |
+| Commander nationality discount | **20%** (Pacific Strike's value) from 28 Sep. It started at 0% for fear of inconsistent discounts on US-named mod unit definitions; the unit files declare no nation, and every roster pick is registered to Australia by its squadron or hull variant, so it covers the whole roster (build notes, "Same-nation discount") |
 | Hull repair | Light: **10%** of the hull's base campaign price; Moderate: **25%**, at an enabled service window |
 | Heavy damage | Withdraw/decommission under the selected native rules; no instant full repair |
 | Dismiss an undamaged unit | 50% point return; it also leaves the owned force |

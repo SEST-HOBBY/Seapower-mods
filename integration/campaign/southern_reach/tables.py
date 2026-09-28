@@ -132,7 +132,7 @@ CommanderDefaultNation=Australia
 CommanderNameDefaultAustralia=Morgan Reid
 CommanderNamePoolAustralia=Names_Australia
 CommanderStartingRankLevel=6
-SameNationUnitDiscount=0
+SameNationUnitDiscount=0.2
 
 NavyNameAustralia=Royal Australian Navy
 NavyEmblemAustralia=ui/campaign/navy_emblems/ran_emblem.png
