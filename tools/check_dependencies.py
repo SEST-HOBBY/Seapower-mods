@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Work out what each SEST pack needs installed alongside it, and check it is.
 
-The packs ship 99 files and every one is a .ini - not a single model, texture
-or asset bundle among them. That is deliberate (the repo stays small and the
-patches stay readable) but it means NO pack is standalone. Each one is a set of
-edits to files whose geometry lives in somebody else's mod, so installing a
-pack without its upstream leaves the game with a unit definition pointing at a
-mesh that is not there.
+The patch packs ship nothing but .ini files - not a single model, texture or
+asset bundle among them (only the campaign pack adds anything else: its pages,
+briefing maps, art and mod lists). That is deliberate (the repo stays small
+and the patches stay readable) but it means NO pack is standalone. Each one is
+a set of edits to files whose geometry lives in somebody else's mod, so
+installing a pack without its upstream leaves the game with a unit definition
+pointing at a mesh that is not there.
 
 Two kinds of dependency, both derived rather than declared:
 

@@ -63,12 +63,12 @@ for the mission browser.
 
 | # | Before | Expect | If not |
 |---|---|---|---|
-| 3.1 | RL01 | Builder open: Type 054A (280), Luda (160), Sovremenny (320), Z-9C (20); one Ship's Flight row | Anything else on sale = the allowlist is not read |
-| 3.2 | RL02 | The same, plus the Y-9 (50) and a Maritime Patrol row | |
-| 3.3 | RL03 | Plus the J-15 (40), J-15D (45) and KJ-500 (70); a Maritime Patrol row and a two-seat CAP row. A Y-9 bought in RL02 is offered for the Maritime Patrol row | A Y-9 or KJ-500 with no row to fly = the Recon row is not read |
+| 3.1 | RL01 | Builder open: Type 054A (224: the roster's 280 less the 20% same-nation discount, Southern Watch G.6), Luda (128), Sovremenny (256), Z-9C (16); one Ship's Flight row | Anything else on sale = the allowlist is not read; the roster's own prices (280, 160, 320, 20) = the discount is not applied: report it under Southern Watch G.6 |
+| 3.2 | RL02 | The same, plus the Y-9 (40) and a Maritime Patrol row | |
+| 3.3 | RL03 | Plus the J-15 (32), J-15D (36) and KJ-500 (56); a Maritime Patrol row and a two-seat CAP row. A Y-9 bought in RL02 is offered for the Maritime Patrol row | A Y-9 or KJ-500 with no row to fly = the Recon row is not read |
 | 3.4 | RL04 | Repair only: no purchase, no rearm ("what the twenty-third spent stays spent") | Rearm offered = `TaskForceModeRearm=False` ignored |
 | 3.5 | RL05 | No builder and no deployment: Hull 419 alone, as authored | Any of the screen on the plot = blank generation not honoured |
-| 3.6 | RL06 | On sale: Type 054A, Type 056A (120), Z-9C; the Sovremenny and Luda are not. One already owned still sails with the screen (`TaskForceModeRequireEntireTaskForce`) | A northern hull left behind = the whole force is not required after all; say which |
+| 3.6 | RL06 | On sale: Type 054A, Type 056A (96), Z-9C; the Sovremenny and Luda are not. One already owned still sails with the screen (`TaskForceModeRequireEntireTaskForce`) | A northern hull left behind = the whole force is not required after all; say which |
 
 ## 4 — the rules of engagement (the biggest single risk)
 
@@ -125,8 +125,8 @@ behaviour of the engine that no file states.
 | 8.1 | RL05 at 8x | Watch the Poseidon for the whole 120 minutes; then Kiwi 05 in RL06 | It flies its racetrack to the end, back and forth (`Waypoints=...\|Loop`, stock's Senkaku Run form) | It circles one end after about half an hour = `\|Loop` is not honoured; RL05's barrier and RL06's watch over the rendezvous then close after 23-29 minutes, and every looped route needs its ends written out to the clock instead |
 | 8.2 | RL02, RL04, RL06 | Read the speed of Hai Yang 7 at telegraph 3, Meridian Harmony at telegraph 4 and Austral Compliance at telegraph 3 | About 15, 20 and 15 knots: the build notes' times assume 5/10/15/20 knots at telegraph 1-4 for a hull without its own ladder | Bring back the three speeds; every surface time in the build notes scales with them |
 | 8.3 | RL01, RL04, RL06 | Let Fujian, the withdrawing group and the tender reach the ends of their routes, each of which ends inside its box | They stop there, or hold station | A hull that sails on out of its box: a win that comes later than her arrival (RL01 after the classification, RL04 after the kill, RL06 after the half hour) needs the player to stop her first. Note it for the brief |
-| 8.4 | RL05, RL06 | Watch the Poseidon (weapons **Hold**, ASW fit) over a boat that is below the layer | Note whether it lays sonobuoys or only flies | A Poseidon that never lays a buoy classifies only a mast or a periscope: the unseen objectives are then decided at periscope depth alone. Say what classified the boat when one did |
-| 8.5 | RL05 | Take Hull 419 to periscope depth with her radars off (they start off), then switch the radar on | Off: nothing, unless the periscope is seen. On: the Poseidon's ESM classifies her and the mission ends | Classified with the radar off by ESM = something else is radiating; say what |
+| 8.4 | RL05, RL06 | Watch the Poseidon (weapons **Hold**, ASW fit) over a boat that is below the layer | Note whether it lays sonobuoys or only flies | A Poseidon that never lays a buoy classifies only a mast or a periscope: RL06's unseen objective is then decided at periscope depth alone, and RL05's at periscope depth or by HOTEL, whose sonar can classify Hull 419 at any depth. Say what classified the boat when one did |
+| 8.5 | RL05 | Take Hull 419 to periscope depth with her radars off (they start off), then switch the radar on | Off: nothing, unless the periscope is seen or HOTEL's sonar classifies her (8.4). On: the Poseidon's ESM classifies her and the mission ends | Classified with the radar off by ESM = something else is radiating; say what |
 | 8.6 | RL02 | Let the tanker run at GOLF with the frigate on her bow, doing nothing | GOLF attacks Hai Yang 7 somewhere in the first half hour; the frigate, 3.5 NM on the threat bow, is where the escort should be | GOLF firing from beyond 20 NM, before any escort could act = the boat is too good at weapons Free; bring back the range she fired from |
 | 8.7 | RL04 | Sink Meridian Harmony with a mobility kill first (engines, not hull) | The win waits for her to be destroyed | If the player can only stop her, never sink her, the win never comes: say which weapons finished her |
 

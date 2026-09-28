@@ -1,7 +1,7 @@
 # Setup Runbook — cleaning the 109 and installing the SEST packs
 
 Follow top to bottom on the gaming PC. Everything here reflects the file-level findings from
-`mods-source/` and the fifteen SEST packs on this branch.
+`mods-source/` and the twenty SEST packs on this branch.
 
 ## Phase 0 — before touching anything
 
@@ -155,75 +155,66 @@ never invented — Steam owns those.
 
 The rules below are what that canonical order encodes; read them if you ever need to reorder
 by hand in the Mod Manager (top of the list wins when two mods ship the same file).
+[load-order-full.md](load-order-full.md) lists every mod tier by tier.
 
 ### The moves that actually matter (do these even if you do nothing else)
 
-1. **Anchor Chain to the very top.**
-2. **Dingtools Weapon Pack above all four dingtools mods** (F-15SE/F-15EX, B-52H, B-1B,
+1. **SEST Integration Pack to the very top, above everything, Anchor Chain included.** It is
+   the only SEST entry the Mod Manager shows: Growler NGJ + MALICE, F-15EX Revamp, F-35C JATM,
+   RAAF F-35A JATM, RAAF Wedgetail, Raptor Squadrons, TacMap Colors, RAN Fleet, RAAF Bases and
+   every other SEST pack are inside it. A patch works only while nothing it patches sits above
+   it; below its target it does nothing and says nothing. The F-35C JATM patch, for one, would
+   lose the Ford's AIM-260 fits to either of the two other `usn_f-35c` files above it (F-35C
+   Alt. Loadouts and US Naval Aviation; the MyGo F-35C was unsubscribed on 20 Sep 2026).
+   One entry at the top keeps every patch winning. A separate `SEST_*` entry is a retired
+   per-pack folder: re-run `install-sest-packs.ps1` and `set-mod-order.ps1`, which remove it.
+2. **Anchor Chain directly below the SEST pack.**
+3. **Dingtools Weapon Pack above all four dingtools mods** (F-15SE/F-15EX, B-52H, B-1B,
    SAAB AEW&C) — author-mandated.
-3. **PLA Land Unit Pack above every PLA-related mod**; **SAM Pack near the top** — both
+4. **PLA Land Unit Pack above every PLA-related mod**; **SAM Pack near the top** — both
    author-mandated.
-4. **SEST Growler NGJ + MALICE above U.S. Navy 2027 Capabilities, F/A-18E/F, and US Naval Aviation.**
-   It owns the four patched aircraft files and must win all three conflicts.
-5. **SEST F-15EX Revamp above the F-15EX mod** (listed as "F-15SE") — below the Weapon Pack.
-6. **SEST F-35C JATM above ALL FOUR other F-35C sources.** Because you kept the MyGo F-35C
-   and F-35C Alt. Loadouts for now, there are four mods carrying `usn_f-35c`: those two,
-   US Naval Aviation, and Modern US Navy. If any of them sits above the SEST patch, the
-   Ford's jets silently lose the AIM-260 fits (and you'll be flying whichever F-35C file
-   happens to win).
-7. **SEST RAAF F-35A JATM above the RAAF F-35A mod.**
-8. **SEST RAAF Wedgetail above the E-7A Wedgetail mod**, **SEST Raptor Squadrons above the
-   F-22 mod**. Both carry full replacement `*_squadrons.ini` files. Below their target they do
-   nothing, and the aircraft go back to having no resolvable squadrons — which is not an obvious
-   failure in game, it just quietly shows every jet as the same anonymous unit.
-
-The two Australian content packs (`SEST_RAAF_Bases`, `SEST_RAN_Fleet`) only ADD new files —
-they conflict with nothing, so their position is forgiving; bottom of the list is fine.
-`SEST_TacMap_Colors` only overrides a vanilla UI file, so it is equally forgiving.
-
-Note that `SEST_RAAF_Bases` now *depends* on two of the patch packs rather than merely
-coexisting with them: its F-15EX dets reference squadrons 3–8 (from SEST F-15EX Revamp) and its
-Williamtown Wedgetails reference No. 2 Squadron RAAF (from SEST RAAF Wedgetail).
 
 ### The full target order
 
 ```
+── Tier 0: SEST ─────────────────────────────────────────────
+SEST Integration Pack            (every SEST pack, one entry; above everything)
 ── Tier 1: loaders ──────────────────────────────────────────
 Anchor Chain                     (SeaLifter loads via its preloader)
+Anchor Chain expansions          (Euromod Anchorchain Expansion,
+                                  PLA & PLAN & PLAAF AEP)
+Anchor Chain code mods           (Custom Loadout Editor, Better TacMap, Auto
+                                  Time-on-Target, Automatic SAR, Identify Expanded)
 ── Tier 2: weapon/system databases ──────────────────────────
 SAM Pack                         (author: "top of TOE")
 PLA Land Unit Pack               (author: above any PLA-related mod)
 Dingtools Weapon Pack            (author: above any dingtools mod)
+U.S. Navy 2027 Capabilities
 Euromod - Main Pack
 Modern PLAN Systems
 ── Tier 3: patches (each above what it modifies) ────────────
-SEST Growler NGJ + MALICE          ← above all three naval aviation sources
-U.S. Navy 2027 Capabilities
-SEST F-15EX Revamp               ← above the F-15EX mod
-SEST F-35C JATM                  ← above US Naval Aviation & Modern US Navy
-SEST RAAF F-35A JATM             ← above the RAAF F-35A mod
-SEST RAAF Wedgetail              ← above the E-7A Wedgetail mod
-SEST Raptor Squadrons            ← above the F-22 mod
-SEST TacMap Colors               ← overrides the vanilla tactical-map UI
+F-35C Lightning II Alt. Loadouts
 F/A-18 Murder Hornet
 B-52G with AGM-86
 Tu-95 With AS-15                 (its global munition edits make it a patch;
-                                  SEST Intercept Model overrides its damage.ini)
+                                  SEST Intercept Model, inside the SEST pack,
+                                  overrides its damage.ini)
 Flight Deck Ops
 ADO - Nimitz (2000s)             (if kept after the Phase 2 test)
 Ground Upgrade: SPAA
 ── Tier 4: core faction packs ───────────────────────────────
 Modern US Navy · United States Naval Aviation · all Euromod
 addons (both Spanish, British, German, Dutch, Nordic, Italian,
-JMSDF) · SEST RAN Fleet · Chinese Navy · Russian Navy 21 ·
-submarine packs · carriers & amphibs
+JMSDF) · Chinese Navy · Russian Navy 21 · submarine packs ·
+carriers & amphibs
 ── Tier 5: individual units ─────────────────────────────────
 All standalone aircraft/helis/UAVs/land systems (E-7A, S-70B-2,
 P-8, U-2, tankers, MQ-9, AH-64, fighters, bombers...) · Civil
 Aircraft Mod
 ── Tier 6: airbases last ────────────────────────────────────
-SEST RAAF Bases · Modern US Airbase · Modern Russian Airbase ·
-Modern Chinese Airbase
+Modern US Airbase · Modern Russian Airbase · Modern Chinese Airbase
+── Tier 7: bulk arsenals ────────────────────────────────────
+Red Storm Arsenal                (below everything it duplicates)
 ```
 
 ## Phase 4b — pre-flight (30 seconds, before you launch)
@@ -245,9 +236,10 @@ this round". That is the gap the RAN Anzacs' NSMs fell through — every
 reference resolved and the launchers still never fired, because a datalink
 round needs a guidance channel the mount was never given.
 
-`check_dependencies` catches the third way this breaks: the packs ship 99 files
-and every one is a `.ini`, so each depends on the workshop mod that supplies the
-geometry. Unsubscribe that mod and the pack is left describing a unit whose model
+`check_dependencies` catches the third way this breaks: the patch packs ship
+nothing but `.ini` files (only the campaign pack adds pages, briefing maps, art
+and mod lists), so each depends on the workshop mod that supplies the geometry.
+Unsubscribe that mod and the pack is left describing a unit whose model
 is gone. See [packaging-and-recovery.md](packaging-and-recovery.md) for the full
 dependency, install/uninstall and backup story.
 
@@ -381,7 +373,7 @@ git push
 `data\active-mission.txt` names the scenario the tooling works on when you don't pass one:
 
 ```
-NORTHERN FRONT III FINAL
+NORTHERN FRONT III FINAL NEWEST
 ```
 
 Both `tools\refresh-mission.ps1` / `tools\import-mission.ps1` and every script in

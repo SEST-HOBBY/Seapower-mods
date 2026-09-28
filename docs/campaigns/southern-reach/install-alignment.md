@@ -24,13 +24,13 @@ throws away a load-order change made while it is running.
 ## Already aligned once? The short version for later rounds
 
 Both `sest-dev/loving-bell-3cnvvw` and `feature/northern-front-iii-export`
-sit on `cf90a836` after the 27 Sep round (the Rig Seventeen home-base fix
-and the Campaign Rules pages). Everything this session has pushed since
-builds straight on that commit, so a later round is the same fast-forward
-and one sync. Close Sea Power, then paste this into PowerShell as one block.
-It has no blank lines on purpose: the console reads a paste line by line, and
-an empty line would end the block early. If it stops at a `>>` prompt, press
-Enter once more to run it.
+sit on `4693b635` (The Twelve-Mile Line's post-sync check), pushed from the
+PC on 29 Sep as the 28 Sep round's last step. Everything this session has
+pushed since builds straight on that commit, so a later round is the same
+fast-forward and one sync. Close Sea Power, then paste this into PowerShell
+as one block. It has no blank lines on purpose: the console reads a paste
+line by line, and an empty line would end the block early. If it stops at a
+`>>` prompt, press Enter once more to run it.
 
 ```powershell
 & { $ErrorActionPreference = 'Stop'
@@ -178,9 +178,9 @@ steps on the PC** that the ports need.
 
 | Branch | What it is | State |
 |---|---|---|
-| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `cf90a836` after the 27 Sep round's push |
-| `claude/campaign-missions-lore-td653z` | this session: the three campaigns and their Open Allocation twins, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | `3d5d5323`: `cf90a836` plus Open Allocation; every pack rebuilt from scratch; the gates in step 3 pass |
-| `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `cf90a836` with the deploy branch; do not deploy from it |
+| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `4693b635` after the 28 Sep round's push |
+| `claude/campaign-missions-lore-td653z` | this session: the three campaigns and their Open Allocation twins, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | `4693b635` plus documentation and builder-report fixes (the pack is unchanged); every pack rebuilt from scratch; the gates in step 3 pass |
+| `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `4693b635` with the deploy branch; do not deploy from it |
 | the other `sest-dev/*`, `fix/*`, `feature/*`, `chore/*` branches | earlier sessions | see §6: what was ported, and what was left and why |
 
 So "aligned to this session and the other sessions" means: the deploy branch
@@ -256,11 +256,13 @@ Check, and do not skip:
 git branch --show-current            # sest-dev/loving-bell-3cnvvw
 git log --oneline -1                 # note the short hash: the IN LINE line must name it
 Get-Content data\deploy-branch.txt   # sest-dev/loving-bell-3cnvvw
-Test-Path integration\dist\SEST_Integration\campaigns\sest-red-line\campaign.ini   # True
+git merge-base --is-ancestor origin/claude/campaign-missions-lore-td653z HEAD; $?   # True
 ```
 
-The last line is the one that says the merge brought this round.
-`False` means step 2 did not take.
+The last line is the one that says the merge brought this round: it asks git
+whether this session's branch is now inside the deploy branch. (A file check
+would need a file only this round brings, and a round of fixes may bring
+none.) `False` means step 2 did not take.
 
 ## 3 — let the build check itself (optional on the PC, done here)
 
@@ -270,7 +272,7 @@ were run on it:
 
 ```
 python tools\build_all.py --from-scratch      # 20 packs, clean git status after
-python tools\check_campaign_coverage.py       # three campaigns, 1526 placed references, 164/164 mods and packs
+python tools\check_campaign_coverage.py       # three campaigns, 1580 placed references, 164/164 mods and packs
 python tools\check_load_order.py
 python tools\check_dependencies.py
 python tools\check_weapon_employment.py
@@ -278,8 +280,12 @@ python tools\check_scenarios.py
 python tools\preflight.py "Tasman Shield 09 - The Southern Convoy"
 ```
 
-`check_inventory.py` is the one known red: it stays red until the PC runs
-the mirrored export (§6, step 2). Running the rest again on the PC proves the
+`check_inventory.py` is the one known red. The mirrored export (§6, step 2)
+ran on the PC on 27 Sep (`97eac5f7`) and cleared the ghost files; what stays
+red is four mods whose files differ from the manifest only by line endings
+(3775128499, 3776340577, 3780118683, 3781062859).
+`docs/packaging-and-recovery.md`, *Known red*, gives the
+`git add --renormalize` fix. Running the rest again on the PC proves the
 PC's Python sees the same tree; it does not change what gets installed. Skip
 it if you are short of time; do not skip step 2's checks.
 
@@ -305,15 +311,17 @@ charts, 66 art files, `campaign.ini`, roster, commander settings and a
 `missions\Tasman Shield\`, a `REQUIRED-MODS.txt` for Southern Watch's own
 folder and the two RNZAF base files (691 in all); then this round's Red Line
 and ported files (1189; 1171 after the 27 Sep export; 1174 with the three Campaign Rules
-pages; 1189 with the three Open Allocation twins).
+pages; 1189 with the three Open Allocation twins; 1201 with The Twelve-Mile Line - its
+mission, briefing folder and chart in both copies, its card and the story page before
+it - which takes Southern Reach to 26 missions and 69 art files).
 
 ## 5 — confirm the campaigns arrived
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
 Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-red-line, sest-southern-reach, sest-southern-watch, each also with -open
-(Get-ChildItem "$sa\campaigns\sest-southern-reach\art\*.png").Count   # 47
-(Get-ChildItem "$sa\campaigns\sest-southern-reach\missions\*.ini").Count   # 25
+(Get-ChildItem "$sa\campaigns\sest-southern-reach\art\*.png").Count   # 49
+(Get-ChildItem "$sa\campaigns\sest-southern-reach\missions\*.ini").Count   # 26
 (Get-ChildItem "$sa\campaigns\sest-red-line\art\*.png").Count         # 12
 (Get-ChildItem "$sa\campaigns\sest-red-line\missions\*.ini").Count    # 6
 Test-Path "$sa\land_units\airbase_rnzaf_ohakea.ini"                   # True
@@ -328,13 +336,13 @@ Then in game, in this order:
    Replenishment At Sea among the packs and ends "Southern Watch - Southern
    Reach - Red Line".
 2. **Campaign list** — six entries: `Southern Watch (Royal Australian
-   Navy)`, `Southern Reach - Tasman Shield (Royal Australian Navy)` (44
+   Navy)`, `Southern Reach - Tasman Shield (Royal Australian Navy)` (46
    entries, a dark chart 29–66°S behind it) and `Red Line - The Other Watch
    (People's Liberation Army Navy)` (10 entries), and each again with
    `- Open Allocation` before the navy in brackets. The Campaign Rules button
    at the bottom right of each opens its rules page.
 3. **Mission browser** — folders `Southern Reach` (12), `Tasman Shield`
-   (13) and `Red Line` (6) beside the Southern Watch ones. If the campaign
+   (14) and `Red Line` (6) beside the Southern Watch ones. If the campaign
    list is short but the browser has every folder, the Mod Manager is not
    reading one of the `campaigns\` folders; that difference is the diagnosis.
 
@@ -401,19 +409,20 @@ Game closed, after the sync in step 4:
 
    Only names ending ` backup-<digits>` are touched; a mission of your own
    called "Strait backup-plan" survives.
-2. **Run the export once, now that it mirrors deletions.**
+2. **Run the export once, now that it mirrors deletions.** Done on 27 Sep
+   (`97eac5f7`): it deleted the ghost files earlier exports left behind, 192
+   over 13 mods (`docs/packaging-and-recovery.md`, *Known red*), and the
+   packs were rebuilt on it (`1a1befbc`). A later export mirrors the same
+   way, so it should delete only what authors have removed since:
 
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla
    git status --short mods-source
    ```
 
-   Expect deletions: the ghost files earlier exports left behind (about 200
-   over 13 mods; `docs/packaging-and-recovery.md`, *Known red*, lists them).
-   Review them, then commit and push. `python tools\check_inventory.py`
-   should then go green; the same section says what to do if four mods stay
-   red on line endings, and which pre-flight failure the deletions are
-   expected to cause.
+   Review any deletions, then commit and push. `python tools\check_inventory.py`
+   stays red on four mods whose files differ only by line endings until they
+   are renormalised; the same section gives the fix.
 3. **Rebuild after that export, and after every export from now on.**
    SEST Replenishment At Sea freezes about 300 hulls at the export it was
    built from, so a pack older than the mods beside it puts last month's hull

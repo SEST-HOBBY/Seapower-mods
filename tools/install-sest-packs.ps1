@@ -41,9 +41,10 @@
     powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -PurgeBackups
 
 .NOTES
-    The packs are patches, not standalone mods - 99 files and every one a .ini,
-    with no model, texture or asset bundle among them. Each needs the workshop
-    mod that supplies the geometry its .ini refers to. Run
+    The patch packs are not standalone mods - nothing but .ini files, with
+    no model, texture or asset bundle among them (only the campaign pack adds
+    pages, maps and art). Each needs the workshop mod that supplies the
+    geometry its .ini refers to. Run
     tools\check_dependencies.py to see what each one requires.
 #>
 [CmdletBinding()]

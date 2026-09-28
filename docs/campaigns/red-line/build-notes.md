@@ -11,12 +11,12 @@ are theirs and are not repeated.
 
 | | |
 |---|---|
-| Campaign | `campaigns/sest-red-line/` — 6 missions, 4 story pages, 44 files |
+| Campaign | `campaigns/sest-red-line/` — 6 missions, 4 story pages, 45 files |
 | Browser copies | every mission again under `missions/Red Line/` (31 files) |
-| Placed units | 63; RL05 and RL06's 11 positions proved against the coastline extract, RL01–RL04's 22 stations used as authored (below) |
-| Mods reached | 36 directly; the pack union with the other two campaigns still reaches all 162 enabled mods and SEST packs |
+| Placed units | 68; RL05 and RL06's 12 positions proved against the coastline extract, RL01–RL04's 22 stations used as authored (below) |
+| Mods reached | 43 directly; the pack union with the other two campaigns still reaches all 164 enabled mods and SEST packs |
 | Points | 560 across six missions; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 (1,250 on Veteran) |
-| The pack | `SEST_Campaign` now carries three campaigns, 638 files and 57 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before) and is 1189 with the ported work (`../southern-reach/install-alignment.md`, §6) |
+| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 668 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6) and is 1201 now |
 | The other campaigns | every mission file, story page and `campaign.ini` of Southern Watch and Southern Reach is byte-identical. Nine of their mission cards changed, on purpose (below) |
 
 The code is `integration/campaign/red_line/`: `__init__.py` (the spec, the
@@ -158,9 +158,10 @@ about 265.
   with 1,800 seconds run. RL04's win is one trigger, box AND kill. RL02 and RL05
   have no stage.
 - *The unseen fatals* name `Taskforce1Submarine1` and nothing else, and the
-  classifying side is Taskforce2, which is only the patrol aircraft (RL05's
-  Poseidon and Triton, RL06's Kiwi 05). The tender, the screen and the ship's
-  flight cannot fail them.
+  classifying side is Taskforce2: the patrol aircraft (RL05's Poseidon and
+  Triton, RL06's Kiwi 05) and, in RL05, HOTEL, the Virginia added under
+  "Wider forces", whose sonar can classify the boat at any depth. The tender,
+  the screen and the ship's flight cannot fail them.
 - *RL04's race.* The win needs Meridian Harmony destroyed, so she reaches her
   denied box only if nobody stopped her, and a player who ignores her loses to
   the box (about T+46), not the clock.
@@ -265,8 +266,10 @@ test card G.6 there.
 The campaign now draws on more of the enabled mods and packs (the count is in
 `coverage.md`; 36 before). Three missions gained units, at stations of their
 own; no victory or existing unit changed. Every coalition unit added is spared
-- added to the mission's Restraint objective and its fatal entry, and named in
-the objective's text - as the campaign's first rule requires.
+(added to the mission's Restraint objective and its fatal entry), as the
+campaign's first rule requires. RL03's Restraint text names the Growler; RL01's
+Wedgetail is covered by its "not the aircraft", and RL05's HOTEL by its "Fire on
+nothing" (her name is in the Unseen objective).
 
 | Mission | Added | Why it is there |
 |---|---|---|

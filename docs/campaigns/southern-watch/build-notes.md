@@ -94,9 +94,11 @@ exposed:
 | D8 The Long Perimeter | A Polish F-16 369 NM from Scherger against a 360 NM radius, and two Apaches sent 315 NM to the same field | A forward airstrip on the perimeter, which is where a perimeter operation flies from |
 
 The result: **94 player aircraft, every one on real fuel with a real base, and
-not one on unlimited.** The tightest margins in the campaign are Flight Deck
-Day's VH-3D at 87% of its radius and Long Way Home's Super Hornets at 74% —
-both real numbers now, both inside.
+not one on unlimited.** The tightest margins in the campaign are Long Way
+Home's Super Hornets and Growler at 74% of their radius and The Relief Ship's
+AB 212 at 68% — both real numbers now, both inside. (Flight Deck Day's VH-3D
+was at 87% when this was written; since 87fbd9a4 it starts 80 NM from its
+deck, 37%.)
 
 The rule runs **per side**, because an aircraft recovers on its own side's
 deck or nobody's, and 59 native `HomeBase` lines are on red aircraft. Red and
@@ -1380,9 +1382,11 @@ allocation for it reads:" before the unchanged story text. A repair-only stop
 keeps its text; nothing is on offer there. Every `MissionFile` and art path
 still points into the base campaign's folder - they are StreamingAssets-
 relative in every stock campaign - so the twin ships five files (the spine, a
-rules page saying so, and byte-identical copies of the roster, commander
-settings and REQUIRED-MODS), not a second copy of the missions. Points,
-prices, gates, rewards, one-ship operations and deployment rules are the base
+rules page saying so, its own roster and REQUIRED-MODS - retitled for the
+twin, and in Southern Watch and Southern Reach with the allied fleet and the
+mods it needs added - and a byte-identical copy of the commander settings),
+not a second copy of the missions. Points, prices, gates, rewards, one-ship
+operations and deployment rules are the base
 campaign's; an aircraft bought before a mission has a row or an airbase for
 it waits in reserve, as it would have. `check_campaign_coverage` compares each
 twin with its base section by section from the built files: it fails on any
@@ -1492,17 +1496,23 @@ carry their nation in their variants, as ours do. The prefix table in the
 base game's `nations_reference.ini` (`usn` = US) cannot be what prices the
 discount: it has no entry for the `ran_` and `jasdf_` units Pacific Strike's
 Australian and Japanese commanders buy. So the discount covers every unit on
-every roster: about 25% more buying power than the budgets in the bible were
-set for, and no choice between nations to make, since there are no foreign
-units on sale.
+the three campaigns' rosters (and on Red Line's twin): about 25% more buying
+power than the budgets in the bible were set for, and no choice between
+nations to make, since they sell no foreign units. The Southern Watch and
+Southern Reach Open Allocation twins also sell the allied fleet ("The allied
+fleet" above) at list price: there the discount covers the 14 classes
+registered to Australia, and the 79 (Southern Watch) and 72 (Southern Reach)
+classes registered to other nations cost their listed price.
 
 `roster_nations()` re-reads those files on every build and stops on a pick
 with no declared nation (an empty or commented-out `Nation=` counts as
 none), a unit whose picks disagree, or a unit file whose own Nation differs
 from its picks'; the rules page's new National Purchase Discount section
 uses the stock line and its `{Binding SameNationDiscountPercentText}`, then
-says the discount covers the whole roster - or names the units it does not,
-if a foreign one is ever added. `test_build_pack.py` (`SameNationDiscount`)
+says the discount covers the whole roster - or, where foreign units are on
+sale (the Southern Watch and Southern Reach twins), how many classes it
+covers, with the rest counted by nation (Southern Watch's: "from USA (24),
+France (10), ...") rather than named. `test_build_pack.py` (`SameNationDiscount`)
 holds it.
 
 Not demonstrated: that the game reads a unit's nation for the discount from
@@ -1600,7 +1610,7 @@ anything in this repository:
   solution, and it says nothing about whether the weapon suits the target - a
   28 NM SAM and a 28 NM anti-ship missile read identically here;
 - that 0.40 of total range is the right sortie radius. The range is read from
-  the airframe; the fraction is a planning assumption, and a jet at 87% of the
+  the airframe; the fraction is a planning assumption, and a jet at 74% of the
   radius it implies may still not make it home with the orbit and the
   manoeuvring a real sortie spends;
 - that the engine's own fuel burn agrees with `SpeedAndRange_Cruise`. The
@@ -1627,7 +1637,7 @@ anything in this repository:
 - that `REQUIRED-MODS.txt` is SUFFICIENT. It is derived from what the missions
   place, which makes it necessary-by-construction and complete with respect to
   the load order it was built against. It is not a proof that a subscriber
-  with exactly those 134 mods and nothing else gets a working campaign — that
+  with exactly the mods it lists and nothing else gets a working campaign — that
   needs a clean install, which nobody has done;
 - what a mission does when it names an absent unit. The pack said, for one
   build, that a missing mod meant "a mission that will not load" - a claim
