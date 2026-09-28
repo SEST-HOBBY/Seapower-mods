@@ -502,6 +502,41 @@ EVENTS = [
               "be in the western Tasman on the twenty-sixth. Both, if neither "
               "was."),
 
+    # --- before TS11A The Twelve-Mile Line (optional) ------------------------
+    # _spine hangs an event before an optional mission in the main chain, so
+    # every player reads this whether or not they fly it: it reports the
+    # request and nothing that follows from it.
+    dict(file="07c_channel_sixteen", before="The Twelve-Mile Line", form="signal",
+         title="Channel sixteen\\n27 February 2029",
+         sub="Relay from Bluefin 31, with the Commodore's note",
+         header=[("FROM:", "BLUEFIN 31, RAAF P-8A"),
+                 ("TO:", "MBC SYDNEY / COMAUSMARTG"), ("DTG:", "261425Z FEB 29"),
+                 ("PREC:", "FLASH"),
+                 ("SUBJ:", "REQUEST FOR PROTECTION - TYPE 056A OF THE PROTECTION GROUP")],
+         body=[
+             (
+                 "1. AT 1055Z A TYPE 056A LEFT HER PICKET STATION ABOUT 180 NM EAST-SOUTH-EAST"
+                 " OF GABO ISLAND, TURNED ONTO 295 AND STOPPED RADIATING. HELD ON BLUEFIN'S "
+                 "RADAR SINCE 1320Z. POSITION CURRENT TO 1410Z."
+             ), "",
+             (
+                 "2. AT 1420Z ON CHANNEL 16, IN ENGLISH, A VOICE GIVING HIS RANK AS HER "
+                 "COMMANDING OFFICER: \"I REQUEST THE PROTECTION OF THE AUSTRALIAN GOVERNMENT "
+                 "FOR MY SHIP'S COMPANY. I AM STEERING FOR EDEN. NOBODY ON THIS SHIP WILL FIRE "
+                 "HER WEAPONS. I CANNOT ANSWER FOR THE SHIPS BEHIND ME.\" VOICE NOT "
+                 "IDENTIFIED; THE TRACK AND THE TRANSMISSION CORRELATE."
+             ), "",
+             (
+                 "3. AT 1330Z A TYPE 054A OF THE SAME SCREEN TURNED ONTO HER COURSE ABOUT 30 NM "
+                 "ASTERN AND IS CLOSING SLOWLY. SHE IS CALLING HER BACK ON THE GROUP'S NET."
+             ), "",
+             "4. REQUEST INSTRUCTIONS FOR A REPLY."],
+         note=(
+             "Whether she is a warship with immunity, a ship that has surrendered, or seventy "
+             "people asking for help is for the lawyers. Whether the ship goes back is for the "
+             "talks. Whether she reaches twelve miles is for us.  - A.M."
+         )),
+
     # --- before TS12 Southern Cross ---------------------------------------
     dict(file="08_santos_log", before="Southern Cross", form="log",
          title="Master's log, MV Coral Pioneer\\n28 February 2029",

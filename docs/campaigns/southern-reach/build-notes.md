@@ -382,3 +382,72 @@ action a third of the size it had been (`integration/missions/briefing_maps.py`,
 What it costs: every mod a mission places is one the campaign needs, so the
 campaign's `REQUIRED-MODS.txt` lists more than it did (40 hard-required,
 32 before). The pack as a whole needed all of them already.
+
+## The Twelve-Mile Line (28 September)
+
+Asked for "a defector escort from red to blue", the player chose a Southern
+Reach optional mission and a warship's crew, and asked that it be realistic.
+Three independent designs (realism first, mechanics first, story first) were
+scored by three judges (a naval officer and maritime lawyer, the builder's
+owner, the story editor); all three chose the mechanics design, "The
+Twelve-Mile Line", with grafts from the other two. It is built to that card
+(bible section 7, TS11A) with the judges' must-fix list applied.
+
+**The story.** The night after Approaches, a Type 056A on picket leaves the
+screen and runs for Eden; her captain and political officer hold the bridge
+and engine room, the rest hold the operations room, and her weapons are made
+safe. Canberra accepts her ship's company's request for protection. A Type
+054A of her screen follows with Fleet headquarters' order that she "is not to
+reach a foreign port". The player's detachment, on passage to Sydney, meets
+her, does not fire first, defends her once the frigate shows hostile intent,
+and brings her inside twelve miles, where the frigate will not follow. The
+model is the Storozhevoy, November 1975: a split crew, a pursuer ordered to
+stop her own ship short of foreign waters, force as the last resort near the
+line. The ship goes back after the talks; the people are heard.
+
+**Where it sits.** 27 February, between Approaches and Southern Cross, and
+closed by Southern Cross. Earlier would contradict the group commander's 25
+February signal, printed as sent in both campaigns, which accounts for his
+ships and mentions no defection. Winning sets `TS11ADefectorSafe`, and
+Southern Cross then opens with the spoiler identified from the defectors'
+debrief; it changes no order of battle. The story page before it
+(`07c_channel_sixteen`, Bluefin 31's relay of the call) sits in the main
+chain, so it reports the request and nothing after it.
+
+**Three builder features**, each emitting only stock keys, each tested
+(`test_build_pack.py`, DefectorEscortFeatures) and documented in AUTHORING:
+
+- *Waypoint orders.* A route point may carry orders; `AttackAtWaypoint` is a
+  single scripted strike at one named unit (stock: 06 Raid on Lombok's Osa,
+  at `OverrideWeaponStatus=Tight`). The frigate stays Tight - "self-defence
+  only", the game's own tooltip - so she never opens on the RAN, and fires two
+  and then four YJ-83A at the corvette and at nothing else. The builder
+  checks the round is in her fit and the target is exactly one unit on the
+  other side; the pack checker checks the target is a section of the mission.
+- *`disable=`.* The corvette's weapons are off from the first second (stock:
+  08 Defense of North Borneo, Trigger4, key for key). A hull disarmed this
+  way is not counted as an escort by the closure gate.
+- *`lift=`.* When the frigate reaches her firing position - the
+  fire-control lock - Restraint's trigger is switched off and Bluefin 31
+  says so: firing first costs Restraint; defending her after the lock does
+  not.
+
+**Where it departs from the winning card.** Restraint is scored, not fatal:
+whether a Generated force inherits the anchor's weapons Tight is unproven,
+and a Free escort killing the Z-9 in the first minute must not end the
+mission before the player has decided anything (test card 6.3). No text
+states an Approaches outcome, names a Chinese person, or gives the corvette a
+name or pennant (Red Line bible, section 2). The airliner the card had is
+left out: no livery in the collection flies Sydney-Hobart. The chart names
+East Sale in its corner (`map_focus_nm=100`).
+
+**Not merged: TS08A "The Defector".** A different defector mission was built
+in another session, on `feature/tasman-shield-defector` (a Russian support
+vessel off the Bight, between TS08 and TS09). It is not on this branch: the
+request was a Chinese warship's crew, and one defector mission is enough. The
+branch is left as it was.
+
+**For a campaign in progress.** The mission and its story page add two
+campaign entries after Approaches, which renumbers the three after them. A
+Southern Reach campaign already past Approaches should be started again; one
+before it is unaffected.

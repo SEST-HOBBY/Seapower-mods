@@ -1389,6 +1389,69 @@ def stock_folders():
     return _STOCK_FOLDERS
 
 
+# Orders a route may carry at a waypoint, as stock writes them after the
+# waypoint's coordinates with "/" (06 Raid on Lombok l.279, Operation Polar
+# Fury 1985 l.315): `x,alt,z/SetTelegraph,2/AttackAtWaypoint,ammo,Target,2`.
+# AttackAtWaypoint is a single scripted strike at a named unit, fired whatever
+# the shooter's weapon status - the Osa in Raid on Lombok does it at
+# OverrideWeaponStatus=Tight - which is how a unit can be made to fire at one
+# ship and at nothing else.
+WAYPOINT_ORDERS = ("SetTelegraph", "SetWeaponStatus", "AttackAtWaypoint")
+TARGET_MARK = "\x00target:{}\x00"
+
+# U(..., disable=(...)): a unit's systems switched off at mission start, the
+# way 08 Defense of North Borneo's Trigger4 does it, key for key.
+DISABLE_ACTIONS = {"weapons": "WeaponSystems", "sensors": "SensorSystems",
+                   "propulsion": "PropulsionSystems"}
+
+
+def waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n):
+    """The "/Order,..." suffix of one waypoint, validated against the files.
+
+    An AttackAtWaypoint target is a station ref; it is written as a mark and
+    resolved to the target's section once every unit has one (place())."""
+    where = f"{mission['key']}: {spec['type']} at {spec['station']}, waypoint {n}"
+    if not orders:
+        return ""
+    if kind == "land":
+        raise SystemExit(f"{where}: waypoint orders on a land unit")
+    out = []
+    for order in orders:
+        order = tuple(order)
+        verb = order[0] if order else None
+        if verb not in WAYPOINT_ORDERS:
+            raise SystemExit(f"{where}: unknown waypoint order {verb!r} "
+                             f"(known: {', '.join(WAYPOINT_ORDERS)})")
+        if verb == "SetTelegraph":
+            if (len(order) != 2 or not isinstance(order[1], int)
+                    or isinstance(order[1], bool) or not 0 <= order[1] <= 5):
+                raise SystemExit(f"{where}: SetTelegraph takes one telegraph 0-5")
+            out.append(f"SetTelegraph,{order[1]}")
+        elif verb == "SetWeaponStatus":
+            if len(order) != 2 or order[1] not in ("Hold", "Tight", "Free"):
+                raise SystemExit(f"{where}: SetWeaponStatus takes Hold, Tight or Free")
+            out.append(f"SetWeaponStatus,{order[1]}")
+        else:
+            if len(order) != 4:
+                raise SystemExit(f"{where}: AttackAtWaypoint takes (ammunition, "
+                                 "target station ref, rounds)")
+            _v, ammo, target, rounds = order
+            if not isinstance(rounds, int) or isinstance(rounds, bool) or rounds < 1:
+                raise SystemExit(f"{where}: AttackAtWaypoint rounds must be 1 or more")
+            kind_dir, path = unit_file(spec["type"])
+            carried = stores(spec["type"], kind_dir, path, keys.get("LoadoutVariant"))
+            if ammo not in carried:
+                raise SystemExit(f"{where}: AttackAtWaypoint fires {ammo!r}, which "
+                                 f"{spec['type']} does not carry in this fit "
+                                 f"(carries: {', '.join(sorted(carried)) or 'nothing'})")
+            pending.append((tag, target, spec["side"], where))
+            out.append(f"AttackAtWaypoint,{ammo},{TARGET_MARK.format(target)},{rounds}")
+            # Raid on Lombok's Osa: the status the unit holds everywhere
+            # except where it is told to fire.
+            keys["OverrideWeaponStatus"] = keys["WeaponStatus"]
+    return "".join("/" + o for o in out)
+
+
 def place(mission, snapper):
     """Give every authored unit a section id, a position and its credits."""
     centre = mission["centre"]
@@ -1407,6 +1470,8 @@ def place(mission, snapper):
     station_snap = {}                          # station -> ((lat, lon), drift)
     worst = 0.0
     alone = set()                              # independent=True, by tag
+    pending = []                               # AttackAtWaypoint targets
+    disabled = []                              # (tag, systems) off at start
 
     # The generated force forms on Taskforce1Vessel1: every stock Task Force
     # Mode mission puts TaskForceModeAnchor on the FIRST unit of its kind, and
@@ -1561,6 +1626,7 @@ def place(mission, snapper):
                     keys["TaskForceModeReplacedUnitIndex"] = "1"
                 mission["_anchor_tag"] = tag
             mission["_anchored"] = True
+            mission["_anchor_section"] = tag
         # A purchased aircraft reaches a mission through a flight row and a
         # matching slot. Without these the roster sells aircraft that no
         # mission can deploy.
@@ -1602,13 +1668,18 @@ def place(mission, snapper):
                 spec["mission"])
             keys["TaskForceModeAirTaskingRole"] = role
         if spec.get("route"):
+            # A waypoint is (lat, lon, alt) or (lat, lon, alt, orders): the
+            # orders are carried out on reaching it (WAYPOINT_ORDERS).
+            route = [(p[0], p[1], p[2], list(p[3]) if len(p) > 3 else [])
+                     for p in spec["route"]]
             if isinstance(snapper, CoastPlacer) and kind in ("vessel", "sub"):
-                for la, lo, _a in spec["route"]:
+                for la, lo, _a, _o in route:
                     snapper.waypoint((la, lo), f"{mission['key']} {spec['station']} "
                                                f"({spec['type']})")
             keys["Waypoints"] = "|".join(
                 f"{(lo - centre[1]) * 60:.2f},{a},{(la - centre[0]) * 60:.2f}"
-                for la, lo, a in spec["route"])
+                + waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n)
+                for n, (la, lo, a, orders) in enumerate(route, 1))
             # A route without a speed is a route at whatever the game
             # defaults to. Every one of the 169 waypointed vessel and
             # submarine sections in the Pacific Strike export sets Telegraph=
@@ -1645,6 +1716,24 @@ def place(mission, snapper):
                 sys.exit(f"{mission['key']}: independent=True is for the "
                          f"player's own hulls; {spec['type']} is {spec['side']}")
             alone.add(tag)
+        # Systems off from the first second: TS11A's corvette, whose plot
+        # holds her bridge and engines but not her operations room. The
+        # player's own hull at launch cannot be the one - in a Generated
+        # mission it is whatever they bought - nor can an air-tasking
+        # placeholder.
+        if spec.get("disable"):
+            systems = tuple(spec["disable"])
+            unknown = [s for s in systems if s not in DISABLE_ACTIONS]
+            if not systems or unknown:
+                sys.exit(f"{mission['key']}: {spec['type']} disable={systems!r} - "
+                         f"name one or more of {', '.join(DISABLE_ACTIONS)}")
+            if tag == mission.get("_anchor_section"):
+                sys.exit(f"{mission['key']}: {spec['type']} is the anchor, the "
+                         "player's own hull at launch; disable= cannot apply to it")
+            if spec.get("slot"):
+                sys.exit(f"{mission['key']}: {spec['type']} fills an air-tasking "
+                         "slot; disable= cannot apply to a placeholder")
+            disabled.append((tag, systems))
         for token, why in credit.items():
             best = credits.get(token)
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
@@ -1673,10 +1762,32 @@ def place(mission, snapper):
                              f"and the clock gives it {reach:.0f} at cruise - it "
                              "arrives and circles; use airway= or extend the route")
 
+    # Every section has its number now: point each scripted attack at its
+    # target's. A target must be exactly one unit on the other side - never
+    # a neutral, never a slot the player fills with whatever they own.
+    if pending:
+        sections = {tag: keys for entries in placed.values()
+                    for tag, keys, _n, _x in entries}
+        for tag, ref, side, where in pending:
+            hits = refs(members, ref)
+            if len(hits) != 1:
+                raise SystemExit(f"{where}: AttackAtWaypoint target {ref!r} is "
+                                 f"{len(hits)} units; name exactly one")
+            target = hits[0]
+            other = "Taskforce1" if side == "red" else "Taskforce2"
+            if side == "neutral" or not target.startswith(other):
+                raise SystemExit(f"{where}: AttackAtWaypoint target {ref!r} is "
+                                 f"{target}, not on the other side")
+            if "TaskForceModeAirTaskingSlot" in sections[target]:
+                raise SystemExit(f"{where}: AttackAtWaypoint target {ref!r} is an "
+                                 "air-tasking placeholder")
+            keys = sections[tag]
+            keys["Waypoints"] = keys["Waypoints"].replace(TARGET_MARK.format(ref), target)
     stranded = assign_home_bases(placed, generated=bool(mission.get("generation")))
     if stranded:
         raise SystemExit(f"{mission['key']}: " + "; ".join(stranded))
     mission["_independent"] = alone
+    mission["_disabled"] = disabled
     return placed, members, credits, worst
 
 
@@ -2358,7 +2469,12 @@ def check_closure(mission, placed, members):
     # A hull marked independent=True sails alone on purpose (place() records
     # it) and is not measured at all.
     knots = {"sea": 24.0, "sub": TRANSIT["Submarine"]}
-    escorts = [b for b in blue if b["kind"] in knots and armed_reach(b) > 0]
+    # A hull whose weapons are switched off at the start (disable=) carries
+    # them and cannot fire them: TS11A's corvette is not her own escort.
+    disarmed = {tag for tag, systems in mission.get("_disabled", [])
+                if "weapons" in systems}
+    escorts = [b for b in blue if b["kind"] in knots and armed_reach(b) > 0
+               and b["tag"] not in disarmed]
     alone = mission.get("_independent", set())
 
     def short_of(e, pr):
@@ -2642,6 +2758,8 @@ def check_coast_geometry(mission, placer):
     for oid, how in mission.get("resolve", {}).items():
         if isinstance(how, tuple) and how[0] == "arrive":
             placer.point(how[2], f"{key} {oid} arrival")
+    for lift in mission.get("lift", []):
+        placer.point(lift["at"], f"{key} {lift['objective']} lift area")
 
 
 def check_geometry(mission, placed, members):
@@ -2721,6 +2839,8 @@ def message_texts(mission):
             out.append((f"flags[{flag['name']}].intel", flag["intel"]))
     for find in mission.get("discoveries", []):
         out.append((f"discoveries[{find['objective']}].intel", find["intel"]))
+    for lift in mission.get("lift", []):
+        out.append((f"lift[{lift['objective']}].intel", lift["intel"]))
     return out
 
 
@@ -2787,6 +2907,8 @@ def render(mission, placed, members):
             L.append(f"{flag['name']}Intel={ini_text(flag['intel'])}")
     for find in mission.get("discoveries", []):
         L.append(f"{find['objective']}Intel={ini_text(find['intel'])}")
+    for lift in mission.get("lift", []):
+        L.append(f"{lift['objective']}LiftIntel={ini_text(lift['intel'])}")
     if neutral_tags:
         L.append("NeutralLossMessage=<color=orange>Neutral contact lost.</color>|"
                  "A protected contact has been destroyed. The operation has "
@@ -2914,6 +3036,17 @@ def render(mission, placed, members):
     trigger("Start message", [
         "Condition_Type=Time", "Condition_Time=1",
         "Action_Taskforce1_Message=Taskforce1StartMessage"])
+    # disable=: systems off from the first second, one trigger per set of
+    # systems - 08 Defense of North Borneo Trigger4, key for key.
+    groups = collections.defaultdict(list)
+    for tag, systems in mission.get("_disabled", []):
+        groups[systems].append(tag)
+    for systems, tags in groups.items():
+        trigger("Systems disabled at start", [
+            "Condition_Condition1_Type=OnMissionStart",
+            "ConditionsCompleted=<Condition1>",
+            f"Action_Units={','.join(tags)}"]
+            + [f"Action_EnableDisable{DISABLE_ACTIONS[s]}=Disable" for s in systems])
 
     if victory["kind"] == "arrive":
         win_units = ([tag for r in victory["units"] for tag in refs(members, r)]
@@ -3252,6 +3385,56 @@ def render(mission, placed, members):
                  + ["ConditionsCompleted=<Condition1>"],
                  failed=[oid], message="Taskforce1DefeatMessage",
                  victor="Taskforce2")
+
+    # lift=: a restraint that stops binding when the other side shows hostile
+    # intent. TS11A's frigate reaching her firing position is the fire-control
+    # lock; from then, defending the corvette - the frigate or her helicopter
+    # included - no longer breaks Restraint. The area test is stock
+    # UnitsInTheArea with the circle not shown (AreaDisplaySide=None, 22
+    # native uses); the switch-off is Action_DisableTriggers with a comma
+    # list (Caron at Grenada 1983 and seven more).
+    for lift in mission.get("lift", []):
+        oid = lift["objective"]
+        how = mission.get("resolve", {}).get(oid)
+        if not (isinstance(how, tuple) and how[0] == "spare"):
+            raise SystemExit(f"{mission['key']}: lift names {oid!r}, which is not a "
+                             "spare objective; only a restraint can be lifted")
+        units = [tag for r in lift["units"] for tag in refs(members, r)]
+        if not units or any(not u.startswith("Taskforce2") for u in units):
+            raise SystemExit(f"{mission['key']}: lift on {oid} must watch opposing "
+                             "units - it is their move that lifts the restraint")
+        numbers = [i for i, (comment, _l) in enumerate(T, 1)
+                   if comment in (f"{oid} broken", f"{oid} lost - mission over")]
+        if not numbers:
+            raise SystemExit(f"{mission['key']}: lift on {oid} has no trigger to "
+                             "switch off")
+        at, radius = lift["at"], lift["radius"]
+        # A circle nothing it watches ever reaches is a restraint that never
+        # lifts, and a mission that says it will.
+        sections = {tag: keys for entries in placed.values()
+                    for tag, keys, _n, _x in entries}
+        cx, cz = (at[1] - centre[1]) * 60, (at[0] - centre[0]) * 60
+        reached = False
+        for u in units:
+            keys = sections[u]
+            spots = [keys["RelativePositionInNM"]] + [
+                w.split("/")[0] for w in keys.get("Waypoints", "").split("|") if w]
+            for s in spots:
+                bits = s.split(",")
+                try:
+                    x, z = float(bits[0]), float(bits[2])
+                except (ValueError, IndexError):
+                    continue
+                reached |= math.hypot(x - cx, z - cz) <= radius
+        if not reached:
+            raise SystemExit(f"{mission['key']}: lift on {oid}: no spawn or "
+                             "waypoint of the watched units is inside the circle, "
+                             "so the restraint would never lift")
+        trigger(f"{oid} lifted",
+                area_condition(1, centre, at, radius, units, 1, side="None")
+                + ["ConditionsCompleted=<Condition1>",
+                   f"Action_Taskforce1_Intel={oid}LiftIntel",
+                   "Action_DisableTriggers=" + ",".join(f"Trigger{i}" for i in numbers)])
 
     # A race the player can lose: an ENEMY unit reaching a place ends the
     # mission. Stock's own shape - 01 Raid on Okinawa, "Assault unit reaches
@@ -5074,7 +5257,8 @@ def main():
                     src = camp / "missions" / f"{name}_briefing"
                 ini = src.parent / f"{name}.ini"
                 stem = briefing_maps.render(ini, src, m["key"], geo, series=MAP_SERIES,
-                                            focus_nm=MAP_FOCUS_NM, inset_box=MAP_INSET)
+                                            focus_nm=m.get("map_focus_nm", MAP_FOCUS_NM),
+                                            inset_box=MAP_INSET)
                 if m["group"] != "dispatch":
                     dst = OUT / "missions" / browse_folder(m) / f"{name}_briefing"
                     for fn in (f"{stem}.png", "BriefingMap_en.xml"):

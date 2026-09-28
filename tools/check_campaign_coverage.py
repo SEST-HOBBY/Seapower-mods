@@ -143,6 +143,21 @@ def trigger_integrity(path, text, blocks):
                         problems.append(f"{rel}: [{tag}] {key} names {ref}, "
                                         "which is not a trigger in this mission")
 
+    # A scripted attack names its target inside the shooter's Waypoints
+    # (`x,alt,z/AttackAtWaypoint,ammo,Taskforce1Vessel2,2`): a target that is
+    # not a section here is a salvo at nothing, and the escort the mission is
+    # about never has anything to defend against.
+    for tag, keys in blocks.items():
+        for wp in keys.get("Waypoints", "").split("|"):
+            for order in wp.split("/")[1:]:
+                bits = order.split(",")
+                if bits[0] == "AttackAtWaypoint" and len(bits) > 2:
+                    target = bits[2].strip()
+                    if target and ":" not in target and target not in sections:
+                        problems.append(f"{rel}: [{tag}] AttackAtWaypoint names "
+                                        f"{target}, which is not a section in "
+                                        "this mission")
+
     # A trigger that ships Disabled=True and is never enabled is dead weight
     # the game loads and never runs - the hidden half of a discovered
     # objective, silently never discovered.

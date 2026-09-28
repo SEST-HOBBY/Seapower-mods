@@ -36,6 +36,10 @@ Watch card; fly those first. Three come back here:
    she is at Hold. The briefing charts for SR07, TS09 and TS11 name the
    tanker in the top-left corner ("OFF CHART") and keep the fight large.
 
+6. **The Twelve-Mile Line** (TS11A, the defector escort) - section 6 below,
+   from the mission browser first (Tasman Shield 11A), then in the campaign
+   after Approaches.
+
 Red Line's Hold/Tight and unseen triggers are on its own card
 (`../red-line/test-card.md`, 4 and 5).
 
@@ -55,9 +59,9 @@ browser.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| 1.1 | Campaign list | **SOUTHERN REACH** beside SOUTHERN WATCH, 44 entries (25 missions, 19 story pages) | Only one campaign listed = the second `campaigns/` folder is not scanned; go to 1.3 |
+| 1.1 | Campaign list | **SOUTHERN REACH** beside SOUTHERN WATCH, 46 entries (26 missions, 20 story pages) | Only one campaign listed = the second `campaigns/` folder is not scanned; go to 1.3 |
 | 1.2 | Start it | The 6 December press page, then SOUTHERN DEPARTURE | Note which it stops on |
-| 1.3 | Mission browser | Two new folders, **Southern Reach** (12) and **Tasman Shield** (13) | A missing folder names a broken `_info.ini` |
+| 1.3 | Mission browser | Two new folders, **Southern Reach** (12) and **Tasman Shield** (14) | A missing folder names a broken `_info.ini` |
 | 1.4 | Load one mission from each water | **SR01 Southern Departure** (Storm Bay), **SR10 Southern Line** (60°S), **TS02 Cook Strait**, **TS10A Northern Priority** (the Hauraki Gulf) | These are the four most different charts; a unit that fails to appear names its mod |
 
 ## 1A — the coastline (new, and the biggest single risk)
@@ -158,3 +162,23 @@ Whatever else, bring back for each mission played: the mission number, the
 result (win / lose / timeout), the objective ledger as shown, the points
 awarded, and any unit that was ashore, missing or misnamed. Those are what the
 next build pass is made of.
+
+## 6 — The Twelve-Mile Line (TS11A, the defector escort)
+
+New, and built on three things no mission here has used before: a scripted
+salvo at one named ship, weapons switched off at the start, and a restraint
+that lifts at hostile intent. Fly it from the mission browser first; the
+browser copy is the same file.
+
+| # | Do | Right | Wrong looks like |
+|---|---|---|---|
+| 6.1 | Load it, pause at T+0 | The corvette 19 NM south-east of your ship, Chinese flag, on your side; the frigate 16 NM astern of her; the Z-9 between them; East Sale named off the briefing chart | The corvette on the enemy side, or with an Australian flag = the nation or side did not load |
+| 6.2 | Select the corvette and try to fire anything | Nothing fires: her weapons are disabled | She fires = the start trigger (`OnMissionStart`, `Action_EnableDisableWeaponSystems=Disable`) did not run in a Generated mission; fallback is a `Time=1` condition |
+| 6.3 | Watch your own ships for the first minute | They do not fire on the Z-9 or the frigate by themselves | They do = the generated force does not inherit the anchor's Tight. Restraint is scored, not fatal, so the mission continues; report it |
+| 6.4 | Let the frigate close; note the time | About T+10, Bluefin 31 reports the fire-control lock (intel) | No message = the lift area is missed; the frigate's route passes through its centre |
+| 6.5 | Keep watching | About T+14-17 exactly two YJ-83 are launched, at the corvette; about T+30-36, four more | None = `AttackAtWaypoint` does not fire from the modded 054A; the mission is then an easy escort. Fallback: `SetWeaponStatus,Free` at that waypoint |
+| 6.6 | Before the lock, destroy the Z-9 (a separate run) | Restraint fails; the mission goes on | The mission ends = a fatal crept onto Restraint |
+| 6.7 | After the lock, destroy the Z-9 or the frigate | Restraint stays whole | It fails = the lift did not switch off "Restraint broken" |
+| 6.8 | Bring her into the box off Green Cape | Victory; the frigate turned away at wpC and never followed her in | The frigate follows her into the box = her route; report it |
+| 6.9 | Win it, then fly Southern Cross | The spoiler is identified at start with the Twofold Bay debrief intel | Not identified = `TS11ADefectorSafe` not set or not read |
+| 6.10 | Campaign map | The Twelve-Mile Line offered after Approaches beside the channel-sixteen page, gone once Southern Cross is complete; pays 60 once | Offered before Approaches, or still offered after Southern Cross = the expiry index |

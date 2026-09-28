@@ -77,7 +77,7 @@ calendar has them (the package fills them in either way).
 | `declares` | campaign variables this mission WRITES |
 | `window` | the service window and air tasking rows (below) |
 | `role` | the escalation budget: `opening`, `patrol`, `recon`, `escort`, `logistics`, `strike`, `fleet` |
-| optional | `special` (a note on the campaign map), `reveal_if`, `reveals`, `flags`, `support_loss`, `discoveries`, `detached`, `force_loss`, `neutral_limit`, `expires_after`, `snap_limit` |
+| optional | `special` (a note on the campaign map), `reveal_if`, `reveals`, `flags`, `support_loss`, `discoveries`, `detached`, `force_loss`, `neutral_limit`, `expires_after`, `snap_limit`, `lift` (below), `map_focus_nm` (the briefing chart's far-base distance for this mission; the campaign's is 350) |
 
 ### Units: `U(side, mod, type, station, **kw)`
 
@@ -104,6 +104,8 @@ file; the builder refuses a unit whose stated mod the game would not read.
 - `nation="australia"` on RAAF bases, `nation="NewZealand"` on RNZAF bases and New Zealand airfields - the game's own key, no space (`language_en/nations.ini`); "New Zealand" with a space shows no flag.
 - `no_neutral_penalty=True` exempts a neutral from the neutral-loss rule (a range target). Do not use it here.
 - `independent=True` on a player hull that sails unescorted on purpose: the closure gate does not measure its distance to an escort (below).
+- Waypoint orders: a route point may carry a fourth element, a list of orders carried out on reaching it - `("SetTelegraph", 0-5)`, `("SetWeaponStatus", "Hold"|"Tight"|"Free")` or `("AttackAtWaypoint", ammunition, target station ref, rounds)`. The last is a single scripted strike at one named unit, fired whatever the shooter's weapon status (stock: 06 Raid on Lombok's Osa, `OverrideWeaponStatus=Tight`, which the builder writes for you). The round must be one the unit carries in its fit, and the target exactly one unit on the other side, never a neutral or a slot. TS11A's frigate fires at the defecting corvette and at nothing else this way.
+- `disable=("weapons", "sensors", "propulsion")` - those systems off from the first second (stock: 08 Defense of North Borneo, Trigger4). Not on the anchor or a slot. A hull with its weapons disabled is not counted as an armed escort by the closure gate.
 
 ### Stations and geometry - the coastline gate
 
@@ -186,6 +188,21 @@ list of refs (`["network#1", "network#4", "network#5"]`) when the objective
 names particular hulls inside a larger formation. `declares=[...]` must list every variable the
 mission writes (in a resolver, a stage `sets`, a victory `sets`, a `flags`
 entry or a `support_loss` `sets`).
+
+### A restraint that lifts
+
+```python
+lift=[dict(objective="Restraint", units=["frigate"], at=(-37.42, 150.78), radius=2.5,
+           intel="BLUEFIN 31: The frigate's fire-control radar is locked on the corvette...")]
+```
+
+When any of `units` (opposing units) enters the circle, the `spare` objective
+named stops binding: its "broken" trigger (and its fatal, if it has one) is
+switched off with stock `Action_DisableTriggers`, and the intel line is sent.
+It models hostile intent under the rules of engagement: before it, firing
+first costs Restraint; after it, defending what is threatened does not. The
+builder refuses a lift on anything but a `spare` objective, on units that are
+not opposing, and a circle none of their spawn points or waypoints reaches.
 
 ### Consequences
 
