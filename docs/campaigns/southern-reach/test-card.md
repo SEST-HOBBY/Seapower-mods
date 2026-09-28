@@ -29,8 +29,9 @@ Watch card; fly those first. Three come back here:
    T+0: TS08, the corvette Aldar Tsydenzhapov stopped beside the Udaloy;
    TS10A, FS Courbet sailing north past Tiritiri with her Panther, French
    flag; SR04 and SR07, the Midas on its track behind the Bear; SR08, Skier
-   95 climbing south out of Christchurch; TS04, TS07, TS09 and TS11, the
-   tanker on its track, and the Z-20F ahead of the 052D (TS09, TS11). A
+   95 climbing south out of Christchurch; TS07, TS09 and TS11, the tanker
+   on its track, and the Z-20F ahead of the 052D (TS09, TS11), homed on the
+   052D, not Liaoning (unit panel). A
    missing unit names its mod; a wrong flag names the unit. Run TS08 at 8x for ten minutes: the corvette fires on nothing -
    she is at Hold. The briefing charts for SR07, TS09 and TS11 name the
    tanker in the top-left corner ("OFF CHART") and keep the fight large.

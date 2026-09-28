@@ -22,7 +22,7 @@ MISSION = dict(
     group="core", num="03", key="The Other Picture", place="Eastern Banda Sea",
     intro=(
         "Name the convoy and its Japanese escort from outside their reach. Fire on nothing "
-        "afloat."
+        "afloat, nor on the Growler."
     ),
     sender="Fleet headquarters",
     intent=((
@@ -41,20 +41,20 @@ MISSION = dict(
             "wants names: which merchant matters, and which escorts hunt submarines.\\n\\nDRAGON"
             " EYE 05, a KJ-500, has the long look from the north-west, and a J-15 pair keeps "
             "it company; a patrol aircraft from the enclave field can share the look if one is "
-            "allocated. TANKER 31, a YY-20A out of the enclave field, holds a track to the "
-            "north for the fighters. Your frigate shadows from outside the escorts' reach and "
-            "closes only as far as a classification needs. Two Australian F-35s are covering "
-            "the convoy at weapons Tight, and a RAAF Growler flies with them. If they fire, you "
-            "may reply against the aircraft that fired and nothing else. Nothing in that convoy"
-            " or its escort is a target.\\n\\nThe picture you build goes to headquarters. What "
+            "allocated. Your frigate shadows from outside the escorts' reach and closes only as"
+            " far as a classification needs. Two Australian F-35s are covering the convoy at "
+            "weapons Tight, and a RAAF Growler flies with them, listening. If they fire, you "
+            "may reply against the aircraft that fired and nothing else - by direct order: "
+            "fighters left free will find the Growler, which never fires, and that ends the "
+            "operation. Nothing in that convoy or its escort is a target.\\n\\nThe picture you build goes to headquarters. What "
             "is done with it tomorrow will be done by people this group does not command.\\n\\n"
             "A Kai fishing boat, a stern trawler and the Tual-Ambon ferry are in the box, and "
-            "the Port Moresby-Singapore service crosses it at altitude."
+            "the Sydney-Hong Kong service crosses it at altitude."
         )),
     forces=(
         "Your screen with its flight, and a J-15 pair and a patrol aircraft if allocated. "
         "Allocated: Dragon Eye 05, "
-        "a KJ-500, and Tanker 31, a YY-20A. Opposing: three merchants, JS Mogami and JS Maya,"
+        "a KJ-500. Opposing: three merchants, JS Mogami and JS Maya,"
         " two RAAF F-35As at weapons Tight and a RAAF EA-18G Growler at weapons Hold. "
         "Neutral: two Kai fishing hulls, a ferry and an airliner. The enclave field, 400 "
         "miles north-east, is where the aircraft recover."
@@ -62,7 +62,8 @@ MISSION = dict(
     objectives=[
         ("Picture", "Classify MV Coral Pioneer and both Japanese escorts, then take the "
                     "frigate back north-west", "35,-35,Fail,Main"),
-        ("Restraint", "Fire on nothing in the convoy or its escort", "15,-40,Complete"),
+        ("Restraint", "Fire on nothing in the convoy or its escort, nor on the Growler",
+         "15,-40,Complete"),
         ("Eye", "Bring Dragon Eye 05 home", "10,-20,Complete"),
         ("Fighters", "Classify the covering fighters", "10,0,None"),
         ("Traffic", "Harm no fishing boat, ferry or airliner", "0,-30,Complete"),
@@ -111,15 +112,12 @@ MISSION = dict(
         # The enclave field on Biak, 400 NM north-east: where the J-15s and
         # the KJ-500 recover. Off the briefing chart.
         "field": S(-1.10, 136.20, "Enclave field"),
-        # The tanker's track on the group's side of the picture, 30 NM north
-        # of the fighter cockpits and 60 NM clear of the F-35s' racetrack.
-        "tanker": S(-4.20, 131.55, "Tanker 31", heading=60, alt=26000),
         # The Growler's racetrack runs the F-35s', 8 NM behind them to the
         # south-east, the side away from the KJ-500.
         "growler": S(-6.50, 131.95, "Growler", heading=300, alt=24000),
-        # The Port Moresby-Singapore airliner, east of the box on the airway
-        # that takes it across the middle of it.
-        "airliner": S(-6.29, 133.24, "Port Moresby-Singapore service", heading=285,
+        # The Sydney-Hong Kong airliner south-east of the box, on the great
+        # circle that takes it north-west across the middle of it.
+        "airliner": S(-7.66, 132.40, "Sydney-Hong Kong service", heading=328,
                       alt=37000),
         "convoy": S(-6.10, 132.00, "Convoy", heading=120),
         "jmsdf": S(-6.00, 131.95, "Japanese escort", heading=120),
@@ -148,13 +146,6 @@ MISSION = dict(
           loadout="AirToAir", weapons="Tight", slot="CAP"),
         U("blue", "modern-chinese-airbase", "pla_airbase_modern", "field",
           name="Enclave field (PLAAF detachment)", weapons="Hold"),
-        # Fuel for the fighters 400 NM from home: a YY-20A from the enclave
-        # field on a tanker track north of the escort, flown until the clock
-        # runs out. Unarmed and Hold; it recovers where it came from.
-        U("blue", "y-20-kj-3000", "plaaf_yy-20a", "tanker", name="Tanker 31",
-          loadout="Tanker", weapons="Hold",
-          route=[(-4.35, 131.35, 26000), (-4.00, 131.95, 26000)], loop=True,
-          telegraph=3),
         # Coral Pioneer first: the Picture stage names convoy#1.
         U("red", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer", route=[(-6.35, 132.45, 0)], telegraph=1),
@@ -178,10 +169,13 @@ MISSION = dict(
           route=[(-5.40, 131.30, 25000), (-6.40, 131.80, 25000)], loop=True,
           telegraph=3),
         # A RAAF No. 6 Squadron Growler with the F-35s, on their racetrack a
-        # few miles behind them. Weapons Hold: it fires on nothing, so it is
-        # never the aircraft that fired, and it is spared with the convoy.
+        # few miles behind them, listening. Weapons Hold: it fires on nothing,
+        # so it is never the aircraft that fired, and it is spared with the
+        # convoy. Emitters off (radars="False"): weapons Hold does not switch
+        # off its ALQ-249, and a jammer on the picture the mission is about
+        # is not the escort of a convoy nobody is attacking.
         U("red", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "growler", squadron="Squadron6",
-          loadout="SEST_SEAD120D", weapons="Hold",
+          loadout="SEST_SEAD120D", weapons="Hold", radars="False",
           route=[(-5.50, 131.40, 24000), (-6.50, 131.95, 24000)], loop=True,
           telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
@@ -190,12 +184,12 @@ MISSION = dict(
           name="Trawler Sinar Tual", route=[(-5.95, 131.70, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_ms_roro_a", "ferry",
           name="KM Nuhu Evav (Tual-Ambon ferry)", route=[(-4.90, 130.40, 0)], telegraph=3),
-        # Civil traffic at altitude: an airliner on the Port Moresby-Singapore
-        # airway, which runs across the middle of the box. The file's default
-        # livery is Air China's; Squadron64 is a Singapore one.
+        # Civil traffic at altitude: the daily Sydney-Hong Kong A330, whose
+        # great circle crosses the box. Squadron61 is Qantas, which flies
+        # it; the file's default livery is Air China's.
         U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner",
-          name="Port Moresby-Singapore service", squadron="Squadron64",
-          airway=(1.36, 103.99)),  # Singapore
+          name="Sydney-Hong Kong service", squadron="Squadron61",
+          airway=(22.31, 113.91)),  # Hong Kong
     ],
     resolve={"Picture": "victory", "Traffic": "neutral",
              "Restraint": ("spare", "convoy", "jmsdf", "growler"),

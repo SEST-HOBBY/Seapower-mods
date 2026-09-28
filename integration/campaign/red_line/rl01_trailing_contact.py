@@ -160,10 +160,11 @@ MISSION = dict(
           name="KM Sangihe Jaya", route=[(2.40, 126.70, 0)], telegraph=3),
         # Civil traffic over the Molucca Sea: a regional airliner out of
         # Manado on its airway for Ambon - one more air contact the screen has
-        # to identify before it acts. The file's default livery is a Saudi
-        # one; Squadron61 is the regional low-cost livery, flagged Indonesian.
-        U("neutral", "civil-aircraft-airbus", "civ_a320", "airliner",
-          name="Manado-Ambon service", squadron="Squadron61", nation="Indonesia",
+        # to identify before it acts. Squadron50 is Lion Air, an Indonesian
+        # carrier; Indonesia keeps domestic routes for its own airlines, and
+        # the A320 file has no Indonesian livery, so the A330.
+        U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner",
+          name="Manado-Ambon service", squadron="Squadron50",
           airway=(-3.71, 128.09)),  # Ambon
     ],
     resolve={"Contact": "victory", "Traffic": "neutral",

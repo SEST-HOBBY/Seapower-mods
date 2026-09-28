@@ -101,8 +101,9 @@ MISSION = dict(
         "whale": S(-35.40, 132.20, "Biologic", heading=180),
         "home": S(-34.703, 138.622, "RAAF Base Edinburgh"),
         # The Pacific Fleet corvette screening the rendezvous five miles
-        # north-east of it, stopped with the group.
-        "red_cvt": S(-36.24, 131.38, "Project 20380", heading=0),
+        # south-west of it, stopped with the group - the side away from the
+        # Ka-27, so the helicopter stays homed on the Udaloy.
+        "red_cvt": S(-36.36, 131.22, "Project 20380", heading=0),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7"),

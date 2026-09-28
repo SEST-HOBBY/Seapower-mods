@@ -70,7 +70,7 @@ MISSION = dict(
         ("Approaches", "MV Hauraki Trader reaches the Rangitoto Channel "
                        "approach", "30,-30,Fail,Main"),
         ("Station", "Classify MV Austral Compliance", "15,0,None"),
-        ("Traffic", "Harm no ferry, merchant, warship, fishing boat or aircraft",
+        ("Traffic", "Harm no ferry, merchant, fishing boat, aircraft or the French frigate",
          "0,-30,Complete"),
         ("Flagship", "Bring your flagship out intact", "10,-15,Complete"),
     ],

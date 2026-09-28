@@ -51,15 +51,13 @@ MISSION = dict(
             " designated GOLF.\\n\\nA RAAF Poseidon has been over the route since dusk. It is "
             "recording, not attacking. Leave it alone.\\n\\nYour frigate and its flight, a Y-9 "
             "out of the enclave field if one is allocated, and HAI YANG 7 at twelve knots. "
-            "The field has released two J-16s, ENCLAVE 21 and 22, to cover her at weapons "
-            "Hold; they engage nothing. Numfor's fishing boats and a coaster bound east for "
-            "Jayapura are on the same water."
+            "Numfor's fishing boats and a coaster bound east for Jayapura are on the same "
+            "water."
         )),
     forces=(
         "Your screen, a Z-9C if embarked and a Y-9 if allocated. Allocated: MT Hai Yang 7, "
-        "chartered, the enclave field, and a J-16 pair it has released to cover her, Enclave "
-        "21 and 22, at weapons Hold. Opposing: one submarine, GOLF. Watching: a RAAF P-8A. "
-        "Neutral: two Numfor fishing boats and a coaster."
+        "chartered, and the enclave field. Opposing: one submarine, GOLF. Watching: a RAAF "
+        "P-8A. Neutral: two Numfor fishing boats and a coaster."
     ),
     objectives=[
         ("Fuel", "Bring Hai Yang 7 into Biak's northern roads", "40,-40,Fail,Main"),
@@ -109,10 +107,6 @@ MISSION = dict(
         # The enclave field, on the airfield The Open Door strikes the next
         # morning; it snaps to proven land.
         "field": S(-1.10, 136.20, "Enclave field"),
-        # The enclave's J-16 pair, 25 NM out from the field towards the
-        # tanker's route, on a racetrack along its south side at 28,000 ft -
-        # clear of the Poseidon, which works at 12,000 ft north of the route.
-        "cover": S(-0.80, 135.90, "Enclave 21", heading=290, alt=28000),
         "red_sub": S(-0.40, 136.10, "Contact GOLF", heading=250),
         "red_air": S(0.00, 136.20, "Patrol aircraft", heading=240, alt=12000),
         "fishing": S(-0.30, 135.45, "Numfor fishing boats", heading=90),
@@ -130,17 +124,6 @@ MISSION = dict(
           loadout="ASW", slot="Recon"),
         U("blue", "modern-chinese-airbase", "pla_airbase_modern", "field",
           name="Enclave field (PLAAF detachment)", weapons="Hold"),
-        # The pair the enclave field released to cover the tanker, flying its
-        # racetrack until the clock runs out. Weapons Hold: a fighter left
-        # Tight or Free near the Poseidon may find it on its own.
-        U("blue", "j-16-multirole", "plaaf_j16", "cover", name="Enclave 21",
-          loadout="AirToAir", weapons="Hold",
-          route=[(-0.70, 135.60, 28000), (-0.85, 136.10, 28000)], loop=True,
-          telegraph=3),
-        U("blue", "j-16-multirole", "plaaf_j16", "cover", name="Enclave 22",
-          loadout="AirToAir", weapons="Hold",
-          route=[(-0.70, 135.60, 28000), (-0.85, 136.10, 28000)], loop=True,
-          telegraph=3),
         # Weapons free and routed across the tanker's track: the threat the
         # escort exists for.
         U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", name="Contact GOLF",
