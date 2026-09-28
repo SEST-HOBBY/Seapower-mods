@@ -1,7 +1,7 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-09-27T14:40:37.
+# The [LoadOrder] Sea Power is actually using, captured 2026-09-28T20:02:23.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
-NumberOfModFiles=143   entries parsed: 143
+NumberOfModFiles=146   entries parsed: 146
 
    1. SEST_Integration on     
    2. 3380210757   on     Anchor Chain
@@ -11,144 +11,147 @@ NumberOfModFiles=143   entries parsed: 143
    6. 3768036424   on     BetterTacMap
    7. 3789793270   on     Auto Time-on-Target
    8. 3774105087   on     Automatic SAR
-   9. 3437105712   on     SAM Pack
-  10. 3733719765   on     中国地面单位包
-  11. 3760871384   on     Dingtools Weapon Pack
-  12. 3606774881   on     U.S. Navy 2027 Capabilities
-  13. 3629144864   on     Euromod pack
-  14. 3775128499   on     PLAN Pack
-  15. 3637954857   on     KJ-500
-  16. 3607989779   on     F-35C Lightning II Alt. Loadouts
-  17. 3430135740   on     Murder Hornet with AIM-174B
-  18. 3394781441   on     B-52G with AGM-86 ALCM(more realistic nuke)
-  19. 3395022688   on     Tu-95MS with AS-15 ALCM(more realistic nuke)
-  20. 3373960386   on     Flight Deck Ops
-  21. 3461091581   on     Air Deck Operations Upgrade - Nimitz (2000s)
-  22. 3508275114   on     Ground upgrade: SPAA
-  23. 3438479626   on     1143.5 Kuznetsov
-  24. 3440622312   on     Anzac Class Frigate
-  25. 3432668460   on     Auxilliary Merchant Pack
-  26. 3567256221   on     Charles De Gaulle & Modern French Navy
-  27. 3695809489   on     Euromod-(Japan)JMSDF Modern navy
-  28. 3575847216   on     Euromod-Addon Modern German Navy
-  29. 3444379330   on     Euromod-Dutch Navy
-  30. 3789208859   on     Euromod-South Korea Navy
-  31. 3642656500   on     Euromod-Scandinavian Navy
-  32. 3461044389   on     Gerald R. Ford-class CVN
-  33. 3384079999   on     Humpback Whale
-  34. 3505420313   on     Italian Navy mod
-  35. 3406985435   on     Kirov-class (Pyotr Velikiy Upgrade)
-  36. 3430106996   on     Merchants Expanded
-  37. 3417446309   on     MIG-29 Family
-  38. 3599752717   on     Modern British Navy - Euromod
-  39. 3488139470   on     Modern Italian Navy - Euromod
-  40. 3390330875   on     Euromod - Modern US Navy
-  41. 3456859157   on     Mogami-class frigate
-  42. 3432592449   on     Nimitz Expanded
-  43. 3594891803   on     PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)
-  44. 3774859959   on     PLAN Type 001 Aircraft Carrier Liaoning
-  45. 3774572038   on     PLAN Type 071 LPD
-  46. 3663564190   on     Type003.CV-18.fujian.v0.02
-  47. 3436170138   on     PLAAF J-11
-  48. 3486502935   on     Type 003 CV / future Type 004 CVN aircraft carriers
-  49. 3417801942   on     PRC Chinese Navy (PLAN)
-  50. 3597650470   on     Russian Navy 21
-  51. 3468260539   on     Russian Submarines
-  52. 3403661005   on     S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
-  53. 3630495619   on     Spanish Navy Mod (Cold War)
-  54. 3731208477   on     Spanish Navy Mod (Modern)
-  55. 3378409795   on     Type 23 Frigate
-  56. 3590477166   on     MH-60R
-  57. 3737267013   on     US Naval Aviation
-  58. 3433957933   on     Virginia, Seawolf, and Ohio-class submarines
-  59. 3602046770   on     
-  60. 3414146266   on     A-10
-  61. 3459682829   on     A-10C
-  62. 3425450153   on     AH-64  Apache
-  63. 3403993583   on     Armed Oil Rig with helo
-  64. 3652097318   on     B-1B Lancer
-  65. 3480965706   on     B-2 Spirit
-  66. 3741944366   on     B-52H
-  67. 3524112296   on     Beriev a-50 series AEW&C AND Il-76 Airliner
-  68. 3744475027   on     Boeing KC-46 Pegasus by ZeroTwo
-  69. 3600788156   on     Buildings and Objectives
-  70. 3801363152   on     CH-53E Standalone v0.1.0
-  71. 3746453639   on     Civil Aircraft Mod
-  72. 3504168760   on     Dassault Rafale
-  73. 3781062859   on     E-3G AWAC
-  74. 3499239964   on     E-7A Wedgetail
-  75. 3587877691   on     Eurofighter Typhoon
-  76. 3448845252   on     F-117
-  77. 3636386513   on     F-15EX
-  78. 3553116604   on     F-15E StrikeEagle
-  79. 3758320372   on     F-16C Fighting Falcon (by ZeroTwo)
-  80. 3418252667   on     F-22
-  81. 3755769170   on     F-2A 'Viper Zero'
-  82. 3736147136   on     French army vehicule
-  83. 3567228449   on     French Helicopter Package
-  84. 3503670861   on     General Atomics MQ-9 Reaper
-  85. 3717610332   on     IL-78 TANKER
-  86. 3506979898   on     J-16
-  87. 3769142422   on     J-16 Multirole Fighter
-  88. 3591563716   on     J-20A
-  89. 3801549552   on     J-36 Tailless Fighter
-  90. 3670643788   on     J-50
-  91. 3481228992   on     J10C
-  92. 3526982088   on     JH7A
-  93. 3776340577   on     Ka-27RLD - Ka-31 AEW Helicopter
-  94. 3740293822   on     KC-10A Extender by ZeroTwo
-  95. 3722749887   on     KC-135 Stratotanker
-  96. 3559495372   on     Lockheed AC-130
-  97. 3458148344   on     Mi-8EW
-  98. 3465256032   on     Mi-8T/TV
-  99. 3416372890   on     MIG-29A & F-16A
- 100. 3799742828   on     MiG-31 Foxhound
- 101. 3659742367   on     Mig-35
- 102. 3513571010   on     Mil Mi-24 Hind
- 103. 3716049886   on     MORE SU24M VARIANTS
- 104. 3806466625   on     MV-22B Osprey Tiltrotor / JGSDF V-22B
- 105. 3587091564   on     P-750 Meteorit-A
- 106. 3681873198   on     Pickup
- 107. 3774746803   on     PLA Z-21
- 108. 3729578404   on     PLAAF J-11BS
- 109. 3433577445   on     PLAAF J-8
- 110. 3729579342   on     PLAAF Su-27UBK
- 111. 3514484654   on     RAAF F-35A Lighting II
- 112. 3796113927   on     RQ-180 White Bat Airframe
- 113. 3392434750   on     S-400 SAM
- 114. 3673250557   on     Saab Global Eye
- 115. 3461519690   on     SCUD-B
- 116. 3455931957   on     Sea Lynx
- 117. 3551676319   on     SEJJIL (Ballistic Missiles)
- 118. 3497601759   on     Shahed 136
- 119. 3451166840   on     SU-25 Frogfoot
- 120. 3762023575   on     Su-30SM2
- 121. 3503594612   on     SU-57
- 122. 3434072450   on     Sukhoi Su-27
- 123. 3683253079   on     THAAD & AN/TPY-2
- 124. 3558173926   on     David's Sling
- 125. 3502273861   on     arrw
- 126. 3509329205   on     TU-160
- 127. 3673908868   on     TU-16N AIR TANKER
- 128. 3780118683   on     Tu-214R Family Pack
- 129. 3411341227   on     Tu-95K-22
- 130. 3715323261   on     Tu-95MS
- 131. 3468959181   on     U-2 Dragon Lady
- 132. 3478767194   on     VH-3D Marine One Mod
- 133. 3373356293   on     Westland Lynx HAS.3
- 134. 3782020901   on     Y-20 / KJ-3000
- 135. 3796349767   on     YF-23 Black Widow II
- 136. 3601891050   on     中小型无人机系列
- 137. 3408662804   on     伊斯坎德尔
- 138. 3470643173   on     日本陆上自卫队12式岸舰导弹系统
- 139. 3631042692   on     Modern Chinese Airbase
- 140. 3629269283   on     Modern Russian Airbase
- 141. 3592460366   on     Modern US Airbase
- 142. 3413868677   on     Red Storm Arsenal
- 143. 3605013271   on     RE-power: the resupply mod
+   9. 3790594162   on     Identify Expanded
+  10. 3437105712   on     SAM Pack
+  11. 3733719765   on     中国地面单位包
+  12. 3760871384   on     Dingtools Weapon Pack
+  13. 3606774881   on     U.S. Navy 2027 Capabilities
+  14. 3629144864   on     Euromod - Main Pack
+  15. 3775128499   on     PLAN Pack
+  16. 3637954857   on     KJ-500
+  17. 3607989779   on     F-35C Lightning II Alt. Loadouts
+  18. 3430135740   on     Murder Hornet with AIM-174B
+  19. 3394781441   on     B-52G with AGM-86 ALCM(more realistic nuke)
+  20. 3395022688   on     Tu-95MS with AS-15 ALCM(more realistic nuke)
+  21. 3373960386   on     Flight Deck Ops
+  22. 3461091581   on     Air Deck Operations Upgrade - Nimitz (2000s)
+  23. 3508275114   on     Ground upgrade: SPAA
+  24. 3438479626   on     1143.5 Kuznetsov
+  25. 3440622312   on     Anzac Class Frigate
+  26. 3432668460   on     Auxilliary Merchant Pack
+  27. 3567256221   on     Charles De Gaulle & Modern French Navy
+  28. 3695809489   on     Euromod-(Japan)JMSDF Modern navy
+  29. 3575847216   on     Euromod-Addon Modern German Navy
+  30. 3444379330   on     Euromod-Dutch Navy
+  31. 3789208859   on     Euromod-South Korea Navy
+  32. 3642656500   on     Euromod-Scandinavian Navy
+  33. 3461044389   on     Gerald R. Ford-class CVN
+  34. 3384079999   on     Humpback Whale
+  35. 3505420313   on     Italian Navy mod
+  36. 3406985435   on     Kirov-class (Pyotr Velikiy Upgrade)
+  37. 3430106996   on     Merchants Expanded
+  38. 3417446309   on     MIG-29 Family
+  39. 3599752717   on     Modern British Navy - Euromod
+  40. 3488139470   on     Modern Italian Navy - Euromod
+  41. 3390330875   on     Euromod - Modern US Navy
+  42. 3456859157   on     Mogami-class frigate
+  43. 3432592449   on     Nimitz Expanded
+  44. 3594891803   on     PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)
+  45. 3774859959   on     PLAN Type 001 Aircraft Carrier Liaoning
+  46. 3774572038   on     PLAN Type 071 LPD
+  47. 3663564190   on     Type003.CV-18.fujian.v0.02
+  48. 3436170138   on     PLAAF J-11
+  49. 3486502935   on     Type 003 CV / future Type 004 CVN aircraft carriers
+  50. 3417801942   on     PRC Chinese Navy (PLAN)
+  51. 3597650470   on     Russian Navy 21
+  52. 3468260539   on     Russian Submarines
+  53. 3403661005   on     S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
+  54. 3630495619   on     Spanish Navy Mod (Cold War)
+  55. 3731208477   on     Spanish Navy Mod (Modern)
+  56. 3378409795   on     Type 23 Frigate
+  57. 3590477166   on     MH-60R
+  58. 3737267013   on     US Naval Aviation
+  59. 3433957933   on     Virginia, Seawolf, and Ohio-class submarines
+  60. 3602046770   on     
+  61. 3414146266   on     A-10
+  62. 3459682829   on     A-10C
+  63. 3425450153   on     AH-64  Apache
+  64. 3804868806   on     Anduril FQ-44 Fury US Navy Carrier Wingmen
+  65. 3403993583   on     Armed Oil Rig with helo
+  66. 3652097318   on     B-1B Lancer
+  67. 3480965706   on     B-2 Spirit
+  68. 3741944366   on     B-52H
+  69. 3524112296   on     Beriev a-50 series AEW&C AND Il-76 Airliner
+  70. 3744475027   on     Boeing KC-46 Pegasus by ZeroTwo
+  71. 3600788156   on     Buildings and Objectives
+  72. 3801363152   on     CH-53E Standalone v0.1.0
+  73. 3746453639   on     Civil Aircraft Mod
+  74. 3504168760   on     
+  75. 3781062859   on     E-3G AWAC
+  76. 3499239964   on     E-7A Wedgetail
+  77. 3587877691   on     Eurofighter Typhoon
+  78. 3448845252   on     F-117
+  79. 3636386513   on     F-15EX
+  80. 3553116604   on     F-15E StrikeEagle
+  81. 3758320372   on     F-16C Fighting Falcon (by ZeroTwo)
+  82. 3418252667   on     F-22
+  83. 3755769170   on     F-2A 'Viper Zero'
+  84. 3736147136   on     French army vehicule
+  85. 3567228449   on     French Helicopter Package
+  86. 3503670861   on     General Atomics MQ-9 Reaper
+  87. 3717610332   on     IL-78 TANKER
+  88. 3506979898   on     J-16
+  89. 3769142422   on     J-16 Multirole Fighter
+  90. 3591563716   on     J-20A
+  91. 3801549552   on     J-36 Tailless Fighter
+  92. 3670643788   on     J-50
+  93. 3481228992   on     J10C
+  94. 3526982088   on     JH7A
+  95. 3776340577   on     Ka-27RLD - Ka-31 AEW Helicopter
+  96. 3740293822   on     KC-10A Extender by ZeroTwo
+  97. 3722749887   on     KC-135 Stratotanker
+  98. 3559495372   on     Lockheed AC-130
+  99. 3458148344   on     Mi-8EW
+ 100. 3465256032   on     Mi-8T/TV
+ 101. 3416372890   on     MIG-29A & F-16A
+ 102. 3799742828   on     MiG-31 Foxhound
+ 103. 3659742367   on     Mig-35
+ 104. 3513571010   on     Mil Mi-24 Hind
+ 105. 3716049886   on     MORE SU24M VARIANTS
+ 106. 3806466625   on     MV-22B Osprey Tiltrotor / JGSDF V-22B
+ 107. 3587091564   on     P-750 Meteorit-A
+ 108. 3681873198   on     Pickup
+ 109. 3774746803   on     PLA Z-21
+ 110. 3729578404   on     PLAAF J-11BS
+ 111. 3433577445   on     PLAAF J-8
+ 112. 3729579342   on     PLAAF Su-27UBK
+ 113. 3514484654   on     RAAF F-35A Lighting II
+ 114. 3796113927   on     RQ-180 White Bat Airframe
+ 115. 3392434750   on     S-400 SAM
+ 116. 3673250557   on     Saab Global Eye
+ 117. 3461519690   on     SCUD-B
+ 118. 3455931957   on     Sea Lynx
+ 119. 3551676319   on     SEJJIL (Ballistic Missiles)
+ 120. 3497601759   on     Shahed 136
+ 121. 3451166840   on     SU-25 Frogfoot
+ 122. 3762023575   on     Su-30SM2
+ 123. 3503594612   on     SU-57
+ 124. 3434072450   on     Sukhoi Su-27
+ 125. 3683253079   on     THAAD & AN/TPY-2
+ 126. 3558173926   on     David's Sling
+ 127. 3502273861   on     arrw
+ 128. 3509329205   on     TU-160
+ 129. 3673908868   on     TU-16N AIR TANKER
+ 130. 3780118683   on     Tu-214R Family Pack
+ 131. 3411341227   on     Tu-95K-22
+ 132. 3715323261   on     Tu-95MS
+ 133. 3468959181   on     U-2 Dragon Lady
+ 134. 3478767194   on     VH-3D Marine One Mod
+ 135. 3373356293   on     Westland Lynx HAS.3
+ 136. 3782020901   on     Y-20 / KJ-3000
+ 137. 3796349767   on     YF-23 Black Widow II
+ 138. 3601891050   on     中小型无人机系列
+ 139. 3408662804   on     伊斯坎德尔
+ 140. 3470643173   on     日本陆上自卫队12式岸舰导弹系统
+ 141. 3631042692   on     Modern Chinese Airbase
+ 142. 3629269283   on     Modern Russian Airbase
+ 143. 3592460366   on     Modern US Airbase
+ 144. 3413868677   on     Red Storm Arsenal
+ 145. 3605013271   on     RE-power: the resupply mod
+ 146. ACConfigs    on     
 
 --- drift against the canonical order ---
 canonical but not live (0): 
-live but not canonical (0): 
+live but not canonical (1): ACConfigs
 order of shared entries matches: YES
 disabled in game (0): 
