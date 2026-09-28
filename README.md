@@ -23,7 +23,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
-| `integration/campaign/` | **Three native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 25 missions, 19 story pages; its data lives in `southern_reach/`) and *SEST Red Line* (six missions from the other side; `red_line/`), built so that every enabled mod is reached by something one of them places or prices |
+| `integration/campaign/` | **Three native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) and *SEST Red Line* (six missions from the other side; `red_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -50,7 +50,7 @@ python3 tools/preflight.py --all            # every deployed mission: fails on t
 python3 integration/missions/fix_loadout_variants.py --all --write   # sweep that crash out of them
 python3 integration/missions/restore_roe.py --mission "<name>" --write  # put back the Hold/Tight an editor save turned Free
 python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the mission and inventory tools' regression tests
-python3 tools/check_inventory.py            # mods-source agrees with its export manifest (red until a mirrored export is committed)
+python3 tools/check_inventory.py            # mods-source agrees with its export manifest (red on four line-ending mods until renormalised)
 python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
 python3 tools/check_load_order.py           # every SEST override still outranks its target
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered (stores, rosters, system names)
@@ -85,9 +85,11 @@ old `* backup-*.ini` copies out of the game once, and `tools\clean-backups.ps1` 
 `-WhatIfOnly`) clears every other backup copy, orphaned `_briefing` folder and all but the newest
 three `usersettings.ini.bak_*` files. `set-mod-order.ps1` itself now keeps only the newest three. The exporter mirrors deletions inside each
 mod, so a file an author removed leaves `mods-source/` too: review its deletions in
-`git status` before committing. Until the first mirrored export is committed,
-`check_inventory.py` stays red: `docs/packaging-and-recovery.md` lists what it finds and
-the one campaign unit that had been resolving only through a leftover file.
+`git status` before committing. The mirrored 27 Sep export cleared the leftover
+files, but `check_inventory.py` stays red on four mods whose committed files lost their CRs,
+until each is renormalised (`git add --renormalize mods-source/<id>`):
+`docs/packaging-and-recovery.md` (Known red) lists them and the one campaign unit that had
+been resolving only through a leftover file.
 
 `tools\quiet-mod-debug.ps1` turns off debug switches that Workshop mods ship switched on -
 so far the PLA & PLAN & PLAAF AEP's `debug.ini`, whose logging on every physics tick froze
@@ -108,18 +110,18 @@ and two contingencies that the core reads back, plus eight dispatches
 speculative 2034 branch and a 1988 exercise). `docs/campaigns/southern-watch/`
 holds the design bible it was built from and the build notes.
 
-The second is **SEST Southern Reach — Tasman Shield**: 25 missions in two
+The second is **SEST Southern Reach — Tasman Shield**: 26 missions in two
 chapters, December 2028 to March 2029. *Southern Reach* (SR01–SR12) escorts the
 Antarctic resupply season from Storm Bay to the ice edge at 60°S against a
 "fisheries protection" group and a Russian boat; *Tasman Shield* (TS01–TS12,
-with an optional pair) fights the same group through Fiordland, Cook Strait,
-the Tasman, Bass Strait and the Bight to a ceasefire. Eighteen campaign
-variables carry the consequences forward — a boat sunk under the Tasman is
-absent from the Southern Convoy, an approach not held reinforces the group off
-Sydney. Every position was proved against a Natural Earth coastline
-(`integration/campaign/geo/`), because nothing in this repo had sailed that
-water before. `docs/campaigns/southern-reach/` holds its bible, build notes,
-test card and the review that was run on it before it was committed.
+with an optional pair and an optional defector escort, TS11A) fights the same
+group through Fiordland, Cook Strait, the Tasman, Bass Strait and the Bight to a
+ceasefire. Nineteen campaign variables carry the consequences forward — a boat
+sunk under the Tasman is absent from the Southern Convoy, an approach not held
+reinforces the group off Sydney. Every position was proved against a Natural
+Earth coastline (`integration/campaign/geo/`), because nothing in this repo had
+sailed that water before. `docs/campaigns/southern-reach/` holds its bible,
+build notes, test card and the review that was run on it before it was committed.
 
 The third is **SEST Red Line — The Other Watch**: six missions, November 2028 to
 January 2029, played by the Chinese carrier group commander both of the others
@@ -141,7 +143,7 @@ squadron the winning file actually offers — a price naming a fit the hull no
 longer has fails the build. None of the economy has been exercised in game;
 each campaign's `build-notes.md` says so in detail.
 
-Its point is coverage. 142 subscriptions are a lot of content to own and never
+Its point is coverage. 144 subscriptions are a lot of content to own and never
 see, so the campaigns are built so that **every mod in the canonical load
 order, and every SEST pack, is reached by something one of them places** — and
 "reached" is

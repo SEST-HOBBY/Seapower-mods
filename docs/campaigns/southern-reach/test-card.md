@@ -33,8 +33,9 @@ Watch card; fly those first. Three come back here:
    on its track, and the Z-20F ahead of the 052D (TS09, TS11), homed on the
    052D, not Liaoning (unit panel). A
    missing unit names its mod; a wrong flag names the unit. Run TS08 at 8x for ten minutes: the corvette fires on nothing -
-   she is at Hold. The briefing charts for SR07, TS09 and TS11 name the
-   tanker in the top-left corner ("OFF CHART") and keep the fight large.
+   she is at Hold. The briefing charts for SR04 and SR07 (the Midas) and
+   TS07, TS09 and TS11 (the tanker) name it in the top-left corner
+   ("OFF CHART") and keep the fight large.
 
 6. **The Twelve-Mile Line** (TS11A, the defector escort) - section 6 below,
    from the mission browser first (Tasman Shield 11A), then in the campaign
@@ -72,12 +73,12 @@ for a ship, half a mile for a waypoint.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| 1A.1 | Load **TS02 Cook Strait**, pause at T+0, look at every hull | All afloat: the cable ship 9 NM off Oteranga, the detachment east of it, two ferries in the strait, a fishing boat in Cloudy Bay, a tanker off Cape Campbell | A hull ashore: say which. The extract's margin is wrong there and the rule needs widening |
+| 1A.1 | Load **TS02 Cook Strait**, pause at T+0, look at every hull | All afloat: the cable ship 9 NM off Oteranga, the detachment 5 NM south-south-east of it, two ferries in the strait, a fishing boat in Cloudy Bay, a tanker off Cape Campbell | A hull ashore: say which. The extract's margin is wrong there and the rule needs widening |
 | 1A.2 | Run TS02 at 8x for ten minutes, watch the ferries | They cross Wellington–Picton without grounding | A ferry that beaches names a waypoint the extract passed and the game does not |
 | 1A.3 | Load **SR04 Macquarie Passage** | Supply and Coral Pioneer in Buckles Bay 1 NM off the isthmus; the station ashore on it; the Akula's route round the north tip stays wet | The `coastal=True` rule (any distance, per hull) is the one being tested |
-| 1A.4 | Load **TS06 Bass Strait** | Three platforms *in the water* 30–40 NM north-east of the force, not on the Gippsland coast | `snap="sea"` on a land unit not honoured |
+| 1A.4 | Load **TS06 Bass Strait** | Three platforms *in the water* 30–40 NM off the Gippsland coast (about 55–70 NM north-east of the force), not on the coast | `snap="sea"` on a land unit not honoured |
 | 1A.5 | Load **TS10A** and **TS10B** | The Hauraki Gulf and Gulf St Vincent traffic all afloat; the arrival boxes (Rangitoto Channel approach, Outer Harbor approach) at sea | An approach box drawn on land = the 1 NM trigger margin is too thin there |
-| 1A.6 | Load **SR08 The Gateway** | The Lyttelton approach box 2 NM off the Heads, on water | Same |
+| 1A.6 | Load **SR08 The Gateway** | The Lyttelton approach box centred on water about 4 NM off the Heads; its 6 NM rim reaches the shore to the south and west, which is expected (the builder proves only the centre) | The centre on land = the 1 NM trigger margin is too thin there |
 
 ## 1B — the art
 
@@ -86,11 +87,11 @@ are the signal, the log and the INTSUM tile (`bkg_tile_message.png`).
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| 1B.1 | Campaign list backdrop | A dark chart 29–66°S, 116–180°E, 23 marks coded SR01…TS12 joined in campaign order, two small open circles for the optionals (TS10A off the Hauraki Gulf top-right, TS10B off Adelaide), the compass rose bottom-right, SOUTHERN REACH bottom-left | |
+| 1B.1 | Campaign list backdrop | A dark chart 29–66°S, 116–180°E, 23 marks coded SR01…TS12 joined in campaign order, three small open circles for the optionals (TS10A off the Hauraki Gulf top-right, TS10B off Adelaide, TS11A off Green Cape just north of the TS11 mark), the compass rose bottom-right, SOUTHERN REACH bottom-left | |
 | 1B.2 | Step through the two story pages before SR02 | A ship's log on ruled paper (Coral Pioneer, 6 December), then a cable on teleprinter stock (Wellington's allocation, 8 December) | Either blank = that form's tile or image path is not read |
 | 1B.3 | The page before SR10 | A typed INTSUM under a SECRET // RELEASABLE TO COALITION PARTNERS marking (The command element); organisation, reference/date and subject occupy separate lines, with no clipping | |
 | 1B.4 | Any Tasman Shield mission card | The TASMAN SHIELD series label and date line, the code (TS01…) in the corner, own force in blue, the objective ring | A card still saying SOUTHERN REACH on a Tasman mission = the series label is not per mission |
-| 1B.5 | The briefing chart for **SR10 Southern Line** | The ice-edge box at 60°S with a locator inset of the whole southern theatre, and *no* Hobart Airport on the chart (it is 1,000 NM away) | Hobart on the chart = `focus_nm` not applied |
+| 1B.5 | The briefing charts for **SR10 Southern Line** and **SR07 Beneath the South** | SR10: the ice-edge box at 60°S with a locator inset of the whole southern theatre (the DDG HOBART label is your destroyer and her Seahawk, not the airfield). SR07: *no* Hobart Airport drawn on the chart; it is named top-left instead, "OFF CHART: HOBART AIRPORT (RAAF DETACHMENT) 932 NM NNE", with "OFF CHART: MIDAS 229 NM SW" under it | SR10's inset showing the northern approaches, with no box on it = `inset_box` not applied; Hobart Airport drawn on the SR07 chart, the action shrunk to a dot = `focus_nm` not applied |
 | 1B.6 | The briefing chart for **TS02 Cook Strait** | Both islands, Ohakea marked, the cable-route and Wellington labels legible | Overlapping labels are a known cosmetic issue; say if they are unreadable |
 
 ## 1C — flags and traffic (fixed after the first install)
@@ -106,7 +107,7 @@ are the signal, the log and the INTSUM tile (`bkg_tile_message.png`).
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| 2.1 | Before SR01 | Builder open: Anzac (240), Hobart (480), Seahawk (20) on sale, nothing else | |
+| 2.1 | Before SR01 | Builder open: Anzac (192), Hobart (384), Seahawk (16) on sale, nothing else: the roster's 240, 480 and 20 less the 20% same-nation discount (Southern Watch G.6) | List prices (240, 480, 20) = the discount is not applied; report it under Southern Watch G.6 |
 | 2.2 | SR02 Silent Track | No builder, no deployment: Collins and Kiwi 05 only; the mission launches as authored | Anything of the owned force on the plot = blank generation not honoured |
 | 2.3 | Before SR06, having **missed** the SR04 window | No rearm offered | Rearm offered = `TaskForceModeRearmByVariableAND=SR04ServiceHeld,IsTrue` not read |
 | 2.4 | Before SR06, having **held** it | Rearm offered | |
@@ -181,4 +182,4 @@ browser copy is the same file.
 | 6.7 | After the lock, destroy the Z-9 or the frigate | Restraint stays whole | It fails = the lift did not switch off "Restraint broken" |
 | 6.8 | Bring her into the box off Green Cape | Victory; the frigate turned away at wpC and never followed her in | The frigate follows her into the box = her route; report it |
 | 6.9 | Win it, then fly Southern Cross | The spoiler is identified at start with the Twofold Bay debrief intel | Not identified = `TS11ADefectorSafe` not set or not read |
-| 6.10 | Campaign map | The Twelve-Mile Line offered after Approaches beside the channel-sixteen page, gone once Southern Cross is complete; pays 60 once | Offered before Approaches, or still offered after Southern Cross = the expiry index |
+| 6.10 | Campaign map | The Twelve-Mile Line offered after the channel-sixteen page that follows Approaches, beside the Master's log page (MV Coral Pioneer, 28 February); gone once Southern Cross is complete; pays 60 once | Offered before Approaches, or still offered after Southern Cross = the expiry index |

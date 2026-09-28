@@ -11,12 +11,12 @@ unchanged. This file covers only what is new.
 
 | | |
 |---|---|
-| Campaign | `campaigns/sest-southern-reach/` — 25 missions, 19 story pages, 170 files |
-| Chapters | Southern Reach SR01–SR12 (6 Dec 2028 – 14 Jan 2029); Tasman Shield TS01–TS12 with the optional pair TS10A/TS10B (22 Jan – 2 Mar 2029) |
+| Campaign | `campaigns/sest-southern-reach/` — 26 missions, 20 story pages, 178 files |
+| Chapters | Southern Reach SR01–SR12 (6 Dec 2028 – 14 Jan 2029); Tasman Shield TS01–TS12 with the optional pair TS10A/TS10B and the optional TS11A (22 Jan – 2 Mar 2029) |
 | Browser copies | every mission again under `missions/Southern Reach/` and `missions/Tasman Shield/` |
-| Placed units | 392, of which 200 stations were proved against the coastline extract |
-| Mods reached | 34 directly; the pack union with Southern Watch reaches all 159 enabled mods and SEST packs (`tools/check_campaign_coverage.py`) |
-| Points | 2,800 across the 23 mainline missions, +120 for the optionals; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 |
+| Placed units | 413, of which 209 stations were proved against the coastline extract |
+| Mods reached | 49 directly (`coverage.md`); the pack as a whole places or excuses every one of the 164 enabled mods and SEST packs (`tools/check_campaign_coverage.py`) |
+| Points | 2,800 across the 23 mainline missions, +180 for the three optionals; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 |
 | Southern Watch | unchanged: every mission file, card, story page and `campaign.ini` under `sest-southern-watch/` is byte-identical. Three of its briefing maps (The Open Door, The First Ship Through, D8 The Long Perimeter) re-rendered because the map renderer now keeps two overlapping "REPORTED …" labels apart; nothing else on them moved |
 
 Both campaigns ship in the one `SEST_Campaign` pack (and in the consolidated
@@ -54,7 +54,7 @@ the nearest coast", and `CoastPlacer` in the builder enforces:
 | every route waypoint of a ship or boat | on water, 0.5 NM or more off |
 | every trigger area centre (arrival boxes, stage areas, `arrive` resolvers) | on water, 1 NM or more off |
 
-Every one of the 200 stations passed, and each mission's coverage note says
+Every one of the 209 stations passed, and each mission's coverage note says
 so. What this does **not** prove is that the game's own coastline agrees with
 Natural Earth to within those margins; see the risks below.
 
@@ -293,7 +293,7 @@ the order to test in (`test-card.md`):
 
 | | |
 |---|---|
-| `integration/campaign/southern_reach/` | the campaign package: `__init__.py` (spec, calendar enforcement, variable audit), `tables.py` (modules, calendar, roster, task force, difficulties, commander), `lore.py` (19 events), 25 mission modules, `AUTHORING.md` |
+| `integration/campaign/southern_reach/` | the campaign package: `__init__.py` (spec, calendar enforcement, variable audit), `tables.py` (modules, calendar, roster, task force, difficulties, commander), `lore.py` (20 events), 26 mission modules, `AUTHORING.md` |
 | `integration/campaign/coast.py`, `geo/southern_theatre_coast.json`, `tools/make_coast_extract.py` | the coastline proof |
 | `integration/campaign/build_pack.py`, `make_art.py`, `integration/missions/briefing_maps.py` | multi-campaign builder, art prefix/label, map focus and inset |
 | `integration/raaf-bases/` | the two RNZAF bases |
@@ -374,9 +374,9 @@ and nothing in the collection models one; a USAF tanker in Australia is the
 real Enhanced Air Cooperation arrangement.
 
 The briefing charts name an unarmed aircraft more than 120 NM from the ships
-in the corner ("OFF CHART: TEXACO 226 NM NNE") the way they already named a
-far airfield, rather than drawing it: charted, TS09's tanker made the convoy
-action a third of the size it had been (`integration/missions/briefing_maps.py`,
+in the corner ("OFF CHART: TEXACO 249 NM NNE" on TS09's chart) the way they
+already named a far airfield, rather than drawing it: charted, TS09's tanker
+made the convoy action a third of the size it had been (`integration/missions/briefing_maps.py`,
 `off_chart`; tested in `test_build_pack.py`, BriefingChartSupport).
 
 What it costs: every mod a mission places is one the campaign needs, so the

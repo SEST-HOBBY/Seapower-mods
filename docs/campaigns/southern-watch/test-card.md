@@ -140,7 +140,7 @@ whole economy sits on it.
 | 3.5 | Anywhere | No flight offered with **0 slots**, and no slot with no flight |
 | 3.6 | Before SW11, assign a bought Growler to Combat Air Patrol, then to Maritime Strike | The only fit offered in either is **SEST SEAD120D** (2x AGM-88G, 2x AIM-120D, two tanks); no fit with the AIM-260 appears. Ford's Growler in the strike slot flies its own **SEAD** fit. Grizzly 31 in SW07 carries AIM-120D, not AIM-260 |
 
-3.5 is the invariant: 17 rows, each pairing exactly with its sections. One
+3.5 is the invariant: 19 rows, each pairing exactly with its sections. One
 empty row means the pairing model is wrong.
 
 ## 4 — Fuel and recovery (changed most recently)
@@ -153,9 +153,9 @@ it to land on the ship. Nothing here has been observed.
 
 | # | Do | Expect |
 |---|---|---|
-| 4.1 | SW01, follow the P-8 | Fuel falls. It is homed on **RAAF Darwin**, 111 NM, 34% of its radius |
-| 4.2 | SW07, follow a Super Hornet to the end of the clock | 378 NM to Darwin, 74% of radius — the tightest fast-jet margin. It should make it |
-| 4.3 | D2, the VH-3D | 191 NM to the carrier, **87%** — the tightest margin anywhere. Most likely thing on this card to fail |
+| 4.1 | SW01, follow the P-8 | Fuel falls. It is homed on **RAAF Darwin**, 117 NM, 11% of its radius |
+| 4.2 | SW07, follow a Super Hornet to the end of the clock | 378 NM to Darwin, 74% of radius — the tightest margin anywhere. Most likely thing in this section to fail |
+| 4.3 | D2, the VH-3D | 80 NM to the carrier box and its deck, **USS Theodore Roosevelt**, 37% of radius. It should make it easily |
 | 4.4 | Any mission, let one fly past bingo | It should divert or recover, not fall out of the sky |
 
 If 4.2 or 4.3 runs dry, the 0.40 sortie fraction is too generous and wants
@@ -308,10 +308,10 @@ roster from the first window. Build notes, "Open Allocation".
 | G.3 | Buy an F-35A there, then fly White Water | White Water loads and plays as in the standard campaign; the F-35A does not appear (no row for it) and is still in the force afterwards | A load failure = missions are not loaded from another campaign's folder: capture with `-IncludeSaves` and push |
 | G.4 | Continue the standard Southern Watch save | Unchanged: its own windows, its own progress | The twin sharing the standard save = the campaigns are keyed by something other than their folder |
 | G.5 | Red Line - Open Allocation, first window | Every Red Line roster entry on sale, the J-15, J-15D, KJ-500 and Y-9 among them | As G.2 |
-| G.6 | Any campaign, standard or Open Allocation: open the Service Record, then Campaign Rules > Unit Catalog, then Task Force Builder; later, damage a Hobart to Moderate before a repair window | The Service Record reads "Same-nation discount: 20%". In the Unit Catalog every row's nation is the commander's: Australia in Southern Watch and Southern Reach, the Super Hornet, Growler, P-8 and MH-60R included; China in Red Line. Builder prices a fifth under the roster's: Anzac 240 to 192, Hobart 480 to 384, MH-60R 20 to 16; 054A 280 to 224, Z-9C 20 to 16. Record the Moderate repair: 120 = charged on the listed price, 96 = on the discounted one. Note whether your Rig Seventeen save shows the discount or only a new campaign does | A US-built airframe at full price = the game takes the discount nation from the unit file, not the squadron: say which, and it goes back to a per-unit decision |
+| G.6 | Any campaign, standard or Open Allocation: open the Service Record, then Campaign Rules > Unit Catalog, then Task Force Builder; later, damage a Hobart to Moderate before a repair window | The Service Record reads "Same-nation discount: 20%". In the Unit Catalog the campaign's own units show the commander's nation: Australia in Southern Watch and Southern Reach, the Super Hornet, Growler, P-8 and MH-60R included; China in Red Line. In the standard campaigns and both Red Line versions that is every row; in the Southern Watch and Southern Reach Open Allocation versions Canberra, Choules, Supply and Collins show Australia too, and every allied class shows its own nation at list price (see G.7). Builder prices a fifth under the roster's: Anzac 240 to 192, Hobart 480 to 384, MH-60R 20 to 16; 054A 280 to 224, Z-9C 20 to 16. Record the Moderate repair: 120 = charged on the listed price, 96 = on the discounted one. Note whether your Rig Seventeen save shows the discount or only a new campaign does | One of the campaign's own US-built airframes (the Super Hornet, Growler, P-8 or MH-60R) at full price = the game takes the discount nation from the unit file, not the squadron: say which, and it goes back to a per-unit decision. The allied US aircraft at full price in those two Open Allocation versions (F-22, F-35C, F-15E, F/A-18E, the US Navy's P-8, and in Southern Watch the F-15EX) are correct |
 | G.7 | Southern Watch - Open Allocation: Campaign Rules > Unit Catalog | The allied classes are listed with their nations and prices - e.g. Arleigh Burke Flt III 520 (USA), Type 45 460 (United Kingdom), Maya 500 (Japan), Rafale M 50 (France) - beside the campaign's own at their discounted prices; the Commander tab says the discount covers 14 Australian classes and 79 of other nations pay full price | A short catalogue = the game did not read the long roster; bring back which entries appear |
 | G.8 | Same campaign, first force allocation: buy a Burke Flight III and fly White Water | The builder offers the allied fleet at the first window and the Burke sails with the escort; nothing else in White Water changes | The Burke missing from the builder = the long allowlist line was not read |
-| G.9 | Buy a Typhoon (United Kingdom) and a Collins; fly Steel Highway, then Southern Lifeline | The Typhoon is offered in a fighter or patrol row where its role fits; the Collins waits in reserve until Southern Lifeline, where it sails | A Typhoon no row offers, or a Collins that never sails: note the mission and the row |
+| G.9 | Buy a Typhoon (United Kingdom) and a Collins; fly Steel Highway, Blind Horizon, then Southern Lifeline | Steel Highway and Southern Lifeline offer the Typhoon no row: their Ship's Flight (SAR) and Maritime Patrol (MPA/ASW/ESM/AEW) rows do not take its Fighter and Bomber roles. Blind Horizon offers it in Combat Air Patrol. The Collins waits in reserve until Southern Lifeline, where it sails | A Typhoon offered in a Ship's Flight or Maritime Patrol row, a Typhoon missing from Blind Horizon's Combat Air Patrol, or a Collins that never sails: note the mission and the row |
 
 ## 7 — the review's engine tests
 
@@ -338,7 +338,7 @@ can replace. Each is a counterexample to try, not a feature to admire.
 1. **None of the art appears** (1A) — three keys read out of the vanilla
    campaigns, none of them ever watched working from a mod.
 2. **The bought force does not deploy the way the anchor assumes** (2.4).
-3. **The VH-3D runs dry** (4.3) — 87% of a radius that rests on a 0.40
+3. **A Super Hornet runs dry** (4.2) — 74% of a radius that rests on a 0.40
    planning fraction.
 4. **Objective cancellation does not read as cancelled** (5.2).
 5. **A campaign variable does not survive a save** (6.4).

@@ -1,15 +1,19 @@
 # Packaging, dependencies and recovery
 
-Two questions this answers: how the SEST packs coexist with 142 workshop mods,
+Two questions this answers: how the SEST packs coexist with 144 workshop mods,
 and what you actually need to be able to recover if the game install goes bad.
 
 ## A SEST pack is a patch, not a mod
 
-The packs ship **121 files and every one is a `.ini`** — not a single model,
-texture or asset bundle among them. Check it yourself:
+The patch packs ship **nothing but `.ini` files** — not a single model,
+texture or asset bundle among them. Only the campaign pack adds anything else:
+its campaign pages, briefing maps, art and mod lists. Check it yourself (the
+filter leaves out the campaign pack and the built `dist` copy):
 
 ```powershell
-Get-ChildItem integration\*\SEST_* -Recurse -File | Group-Object Extension
+Get-ChildItem integration\*\SEST_* -Recurse -File |
+  Where-Object { $_.FullName -notmatch '\\(campaign|dist)\\' } |
+  Group-Object Extension
 ```
 
 That is deliberate: the repo stays small and every change is readable as a
@@ -58,28 +62,32 @@ Choules' `Aldebaran`, which came with the Galicia it is cloned from.
 
 ## Installing alongside other mods
 
-Each pack installs as its **own folder** under `StreamingAssets`, exactly like a
-workshop mod, and never writes into the game's own files. Sea Power's Mod
-Manager lists them beside the workshop entries and they take part in the same
-load order.
+The packs install as **one folder**, `SEST_Integration`, under
+`StreamingAssets`, exactly like a workshop mod, and never write into the game's
+own files. `tools/consolidate_packs.py` builds it from every source pack; Sea
+Power's Mod Manager lists it as one entry, SEST Integration Pack, beside the
+workshop entries, and it takes part in the same load order.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -WhatIfOnly   # dry run
 powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1              # apply
-# launch the game once, enable the SEST entries in the Mod Manager, quit
+# game closed: -AddMissing puts a newly installed pack at the top, enabled
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing
 ```
 
-The installer **discovers** packs under `integration\` rather than working from
-a list, so a new pack needs no edit anywhere to be picked up.
+The consolidation **discovers** packs under `integration\` rather than working
+from a list, so every `SEST_*` source folder there goes into `SEST_Integration`.
+Only `tools/build_all.py`, which runs each pack's builder, needs a new pack
+listed, in `local_packs` in `data/mod-catalog.json`.
 
-**The one rule that matters:** every SEST pack sits above every workshop mod.
+**The one rule that matters:** the SEST pack sits above every workshop mod.
 A pack is a whole-file replacement, so anything that outranks it makes the patch
 silently do nothing — no error, nothing in the log. `data/load-order.tokens.txt`
-keeps them blocked at the top for exactly that reason, and
-`tools/check_load_order.py` fails the build if one sinks. This is not
-theoretical: `SEST_Growler_NGJ_MALICE` was inert for several sessions because
-U.S. Navy 2027 moved up one tier and happened to jump over it.
+keeps `SEST_Integration` at the very top, above Anchor Chain, for exactly that
+reason, and `tools/check_load_order.py` fails the build if it sinks. This is not
+theoretical: `SEST_Growler_NGJ_MALICE`, when it was still its own entry, was
+inert for several sessions because U.S. Navy 2027 moved up one tier and happened
+to jump over it.
 
 ## Retired packs
 
@@ -205,53 +213,39 @@ manifest, the folders, the installed catalog entries and the load order all name
 the same Workshop ids. A folder holding more than its manifest row is a file the
 mod no longer ships; nothing else in the repo can see one.
 
-### Known red: `check_inventory` until the first mirrored export is committed
+### Known red: `check_inventory` on four line-ending mods
 
-`check_inventory.py` exits 1 on this branch, and is expected to until the gaming
-PC runs the mirroring exporter and the deletions are committed. On the 24 Sep
-2026 export it fails 17 mods, for two reasons.
+`check_inventory.py` exits 1 on this branch. The mirrored export ran on the
+gaming PC on 27 Sep (`97eac5f7`) and cleared the ghost files; what stays red is
+four mods whose files differ from their manifests only by line endings. On the
+24 Sep 2026 export it failed 17 mods, for two reasons: ghost files and line
+endings.
 
-**Ghost files (13 mods, 203 files over their manifests).** Every export before
-the mirror was an overlay, so a file an author deleted or renamed stayed behind
-and kept resolving. 171 files here are missing from the mirrored 20 Sep export
-on the `sest-dev/kind-faraday` line and untouched by any export since, and they
-account for most of the surplus: Modern US Navy (`3390330875`) 37 of 56, Italian
-Navy (`3505420313`) 64 of 65, Euromod (`3629144864`) 42 of 45, U.S. Navy 2027
-(`3606774881`) 8 of 12, Euromod JMSDF (`3695809489`) 5 of 6, US Naval Aviation
-(`3737267013`) 4 of 5, Modern British Navy (`3599752717`) 1 of 2, and all of it
-in the Dutch Navy (`3444379330`), French Navy (`3567256221`), F-35C Alt.
-Loadouts (`3607989779`) and Spanish Navy Modern (`3731208477`) mods. The other
-32, one each in Modern Italian Navy (`3488139470`) and Euromod's Anchorchain
-Expansion (`3784474738`) among them, cannot be named from git: the 20 Sep mirror
-still had them, or an export after it wrote them, and the 24 Sep manifest no
-longer counts them. Only the mirror can name those.
+**Ghost files (13 mods on 24 Sep; cleared 27 Sep).** Every export before the
+mirror was an overlay, so a file an author deleted or renamed stayed behind and
+kept resolving. On the 24 Sep export 13 mods held 203 files over their
+manifests. The 27 Sep mirror deleted what the mods no longer ship (git counts
+192 deletions over 13 mods in `97eac5f7`), and every mod but the four below now
+matches its manifest.
 
-Of the 171, one reached a campaign: Southern Watch 11 placed USS Jack H. Lucas
+Of the ghosts, one reached a campaign: Southern Watch 11 placed USS Jack H. Lucas
 as `usn_ddg_burke_f2a_g4_2022`, a Modern US Navy Flight IIA group file that was
 gone by 20 Sep. She now sails as `usn_ddg_burke_f3_125` Variant1, her own Flight
-III hull. One more is a round: `usn_rim-162e` (ESSM Block II) exists only as a
-U.S. Navy 2027 ghost, yet eighteen of that mod's 2027 Burkes (every Flight IIA
-and the Flight III) still load it into a Mk 41 magazine every fit carries and
-its 2027 Nimitz into both SAM launchers, so in game those are empty - on
-Southern Watch 11's second Burke, and on the 2027 hulls in the NORTHERN FRONT II
-and III saves, the NF3 Boomer Hunt, Carrier Duel and Fujian Strike scenarios,
-DARWIN US SUPPLY and four SULU SEA OFFENSIVE cuts. That is upstream's to fix,
-not a reference either campaign can move, and `check_alias_bases.py` will report
-it as MISSING AMMO once the ghost is deleted. `check_weapon_employment.py` will
-then fail on the active mission's two 2027 Burkes: that pre-flight check stays
-red until upstream ships the round again or a SEST pack supplies one, so read
-its failure against this paragraph before blaming the export. The other ghosts
-that missions or packs reach (`usn_rim-162a`, `usn_rim-66m-2`, `usn_rim-66m-5`,
-`usn_rim-116c`, the two sonobuoys, `usn_agm-65b`, `usn_agm-65d`,
-`fr_am-39_Block2`) still resolve once deleted, through another mod's or the base
-game's copy of the same id, which is the one the game already loads.
+III hull. Two rounds this section had counted as ghosts are back: the 20 Sep
+mirror had dropped `usn_rim-162e` (ESSM Block II) and `usn_rim-116c`, but U.S.
+Navy 2027 ships both again, in new versions, so the 27 Sep mirror updated them
+rather than deleting them. The ESSM loads on that mod's 2027 Burkes and Nimitz
+resolve again, and `check_weapon_employment.py` passes. The other ghosts that
+missions or packs reached (`usn_rim-162a`, `usn_rim-66m-2`, `usn_rim-66m-5`, the two sonobuoys,
+`usn_agm-65b`, `usn_agm-65d`, `fr_am-39_Block2`) still resolve now that they are
+deleted, through another mod's or the base game's copy of the same id.
 
 **Line endings (4 mods: same file count, fewer bytes).** Modern PLAN Systems
 (`3775128499`), Ka-31 (`3776340577`), Tu-214R (`3780118683`) and E-3G
 (`3781062859`) hold files committed on 25 Aug with their CRs stripped, the day
 before `mods-source/` was pinned `-text`; the manifest measures the CRLF
-originals. The mirrored 20 Sep export did not change those blobs either, so a
-mirrored export may leave these four red. If it does, run
+originals. Neither mirrored export (20 Sep, 27 Sep) changed those blobs, so
+these four stay red until they are renormalised: run
 `git add --renormalize mods-source/<id>` for each and check
 `git diff --cached --stat` shows only those folders before committing.
 
