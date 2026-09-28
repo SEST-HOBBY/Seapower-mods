@@ -17,10 +17,10 @@ The Gemini draft this campaign grew from was reviewed against the repository bef
 
 | Rule | How it is applied |
 |---|---|
-| One continuous campaign, two chapters | One `campaign.ini`, 23 core missions plus a two-way optional branch; two mission-browser folders (*Southern Reach*, *Tasman Shield*) for mission-by-mission play |
+| One continuous campaign, two chapters | One `campaign.ini`, 23 core missions plus three optional missions; two mission-browser folders (*Southern Reach*, *Tasman Shield*) for mission-by-mission play |
 | Native Task Force Mode, not a points calculator | `player_task_force_roster.ini`, per-mission allowlists, explicit `TaskForceModeRearm` / `TaskForceModeRepair` / `TaskForceModeEnableTaskForceBuilder` on every entry, emitted by the builder for every mission |
 | `Includes*` and threat-profile fields are display only | Deployment is by `Generated` placement on an anchor, `Replaced` where a detachment is restricted, blank generation for the three detached submarine operations, and Air Tasking rows paired with cockpit slots |
-| `Generated` vs `Replaced` | `Generated` for the 21 missions that sail the owned force; blank for the detached submarine and air operations (the stock pattern, Pacific Strike 03A/07A/08A: an authored boat, `IncludesSubmarine=True`, no builder). No mission uses `TaskForceModeMaxUnits` |
+| `Generated` vs `Replaced` | `Generated` for the 23 missions that sail the owned force; blank for the detached submarine and air operations (the stock pattern, Pacific Strike 03A/07A/08A: an authored boat, `IncludesSubmarine=True`, no builder). No mission uses `TaskForceModeMaxUnits` |
 | Air Tasking is not automatic | Every row is one of the six roles `ui.ini` localises; every row has a slot-tagged cockpit; every purchasable aircraft that matches a row has a compatible field within its own sortie radius, checked by the builder |
 | Airbase Preparation needs a real blue airfield | Enabled on TS07 only, where RAAF Base Williamtown is a placed player land unit |
 | `JoinTaskForce` is not a persistence flag | No unit carries it. Allied and allocated aircraft fly the mission they are placed in |
@@ -133,13 +133,14 @@ The best ending is a supplied Antarctic winter, a working trans-Tasman route, tw
 | TS06 | 8 Feb | Bass Strait | 140 | buy · repair · rearm (Melbourne) | HeloRecon, Recon, CAP | Generated |
 | TS07 | 11 Feb | Southern Air Bridge | 140 | buy · repair · rearm (Sydney) · airbase prep | Recon, CAP | Generated |
 | TS08 | 15 Feb | Great Australian Bight | 120 | repair only | HeloRecon, Recon | Generated |
+| TS08A | 17 Feb | The Defector (optional) | 60 | none; detachment | HeloRecon, Recon | Generated |
 | TS09 | 19 Feb | The Southern Convoy | 180 | buy · repair · rearm (Adelaide) | HeloRecon, Recon, CAP, Attack | Generated |
 | TS10A | 22 Feb | Northern Priority (optional) | 60 | none; detachment | HeloRecon, Recon | Generated |
 | TS10B | 22 Feb | Southern Priority (optional) | 60 | none; detachment | HeloRecon, Recon | Generated |
 | TS11 | 26 Feb | Approaches | 180 | buy · repair · rearm (Sydney) | HeloRecon, Recon, CAP, Attack | Generated |
 | TS12 | 2 Mar | Southern Cross | 0 | buy (aircraft, Anzac, Arafura) · repair | HeloRecon, Recon, CAP | Generated |
 
-Mainline allocations total 2,800 points across 23 missions; the two optionals add 120. Opening budgets: Supported 1,250 / Standard 1,000 / Veteran 850, repair multipliers 0.75 / 1 / 1.25, point cap 1,500 (1,250 Veteran). Zero cap increments. `CSARPointModifier=10`, the stock value, so Automatic SAR's survivors are paid at every debrief.
+Mainline allocations total 2,800 points across 23 missions; the three optionals add 180. Opening budgets: Supported 1,250 / Standard 1,000 / Veteran 850, repair multipliers 0.75 / 1 / 1.25, point cap 1,500 (1,250 Veteran). Zero cap increments. `CSARPointModifier=10`, the stock value, so Automatic SAR's survivors are paid at every debrief.
 
 ### The roster (fictional prices; real variants and squadrons, checked by the builder)
 
@@ -293,6 +294,10 @@ Centre −36.0, 152.5 (98 NM off the NSW coast). Protect **Relief 21** (`civ_a33
 
 ### TS08 — Great Australian Bight · 15 Feb · role `patrol` · 80 min
 Centre −35.5, 132.5 (139 NM offshore). Long-range search with limited service: the player's escorts Generated with HELO and RECON rows from **RAAF Base Edinburgh** (blue, 300 NM); **HMAS Collins** (Variant1, blue, authored, `periscope`, Tight) 25 NM west of the escorts as the search's other half — a protected hull has to be within what its escort can steam in the clock (32 NM at 24 kn in 80 minutes), so she is not a separate sector 45 NM off. Red: **SIERRA-TWO** (`wp_ssgn_yasen`, `belowlayer`), the vanilla **Udaloy** *Marshal Shaposhnikov* (`wp_bpk_udaloy`, with a Ka-27 up) and the oiler **Boris Chilikin** (red, Hold) at a rendezvous 70 NM south-west. Neutral: two Port Lincoln tuna boats, a Bight bulker, a whale. Objectives: **Boat** (main: destroy SIERRA-TWO — 80 minutes is the point), **Oiler** (classify, `15,0,None`), **Collins** (protect), **Neutrals**. Writes `TS08YasenSunk` (flag). Window: repair only. The USN Virginia on the Western Australia rotation is in the briefing and not on the plot.
+
+### TS08A — The Defector · eastern Bight · 17 Feb · optional · role `escort` · 95 min
+
+Centre −35.60, 134.30. A bridge party aboard the fictional **RV Severny Veter** (`civ_ms_kommunist`) requests protection after refusing orders. The stopped ship begins on the opposing side at weapons Hold. Bring the player's flagship within 2 NM of her fixed position to transfer her to player control, then manually set her course and speed. Both she and the flagship must reach the 4 NM handover area at −35.58, 134.45. A separate Udaloy recovery escort closes from the southwest, with a Ka-27 searching ahead; it is not TS08's named ship, which may have been sunk. Two fishing boats and a westbound merchant must survive. Loss of the defector or flagship, civilian loss, or expiry fails the task. HELO and RECON rows use the ship's flight and Edinburgh. No purchase, repair or rearm window, no persistent prize-ship grant, no new campaign variable. Available after TS08 and expires after TS09; skipping it leaves the main path open. The bridge party's account is unverified and the asylum decision is outside the mission. This is a fresh implementation of the paused work's visible brief; see `defector-handover.md` for provenance and required engine checks.
 
 ### TS09 — The Southern Convoy · south of Portland · 19 Feb · role `fleet` · 90 min
 Centre −38.6, 140.5 (proved on water; Portland's approach at −38.6, 141.6 is 10 NM off). Five critical hulls (Adelaide and Melbourne bound: `civ_ms_ritina`, `anl_ms_bulk`, `civ_ms_freighter_b`, `civ_ms_car_carrier_a`, Coral Pioneer) and the player's escorts Generated; HELO, RECON, CAP and **Attack** rows — F-35A, Poseidon and Wedgetail from **Edinburgh** (251 NM, the nearer field, so the fighters recover there), the Super Hornet/Growler Attack row recovering at Edinburgh (radius 506). **Wedgetail 05** fixed. Red: **Liaoning**, **a 052D** (the flagship, only here and in TS11), **two 054A**, **a 056A**, three **J-15 AntiShip**, a **J-15D**, **Ka-31**, **Z-18F**, **ROMEO** (`spawn_if=("TS05RomeoSunk","IsFalse")`), **SIERRA-TWO** (`spawn_if=("TS08YasenSunk","IsFalse")`). Objectives: **Convoy** (main: 4 of 5, bearing 60 — the split point off Portland; bearing 20 runs into the Coorong coast at the solved distance — radius 15, `transit=12`), **Wedgetail**, **Neutrals** (a coastal ro-ro, a bulker, the Melbourne–Perth airliner), **Flagship**. Window: buy, repair, rearm (Adelaide).

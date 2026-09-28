@@ -45,7 +45,7 @@ MISSION = dict(
 ```
 
 Chapter B modules use `series="Tasman Shield"`, `seq="TASMAN SHIELD  ·  MISSION n"`,
-codes `TS01`..`TS12`; the optional pair uses `group="optional"`, `num="10A"`/`"10B"`,
+codes `TS01`..`TS12`; the optionals use `group="optional"`, `num="08A"`/`"10A"`/`"10B"`,
 `seq="TASMAN SHIELD  ·  OPTIONAL"`, `expires_after="Approaches"` and `special=`
 (see below). `date`, `points`, `generation` and `anchor` come from
 `tables.CALENDAR` and are checked: write them in your module exactly as the
@@ -157,6 +157,15 @@ MISSION["victory"]["bearing"], MISSION["victory"]["radius"] = 170, 12
   `after_minutes=N` (the units must be inside the area when the clock reaches
   N minutes - the service-window shape). `sets=` writes a variable when the
   stage fires; `intel=` is the message.
+- `after.transfer_to_player="station"` is the TS08A handover: one stopped
+  opposing surface ship (`Telegraph=0`, no waypoints, weapons Hold), an area
+  stage at that same ship, and player surface ships as the rendezvous units.
+  It emits stock `Action_UnitTransferToTaskforce=Taskforce1` with
+  `Action_Units=<original section name>`. An explicit fatal loss rule is
+  required. No `JoinTaskForce`, `CampaignTag`, moving rendezvous or per-unit
+  stage is supported. This grants control during the mission; it does not
+  author a purchase or persistent roster grant. See `defector-handover.md`
+  in the campaign docs for the engine play tests still required.
 - A station reference is `"name"` (every unit there) or `"name#2"` (the second
   unit placed there, in `units` order).
 

@@ -14,7 +14,7 @@ MODULES = [
     "sr10_southern_line", "sr11_last_ship_south", "sr12_turning_north",
     "ts01_home_waters", "ts02_cook_strait", "ts03_chatham_watch",
     "ts04_tasman_crossing", "ts05_under_the_tasman", "ts06_bass_strait",
-    "ts07_southern_air_bridge", "ts08_great_australian_bight",
+    "ts07_southern_air_bridge", "ts08_great_australian_bight", "ts08a_the_defector",
     "ts09_the_southern_convoy", "ts10a_northern_priority",
     "ts10b_southern_priority", "ts11_approaches", "ts12_southern_cross",
 ]
@@ -46,6 +46,7 @@ CALENDAR = {
     "TS06": ((2029, 2, 8), 140, "Generated", "escort"),
     "TS07": ((2029, 2, 11), 140, "Generated", "escort"),
     "TS08": ((2029, 2, 15), 120, "Generated", "escort"),
+    "TS08A": ((2029, 2, 17), 60, "Generated", "escort"),
     "TS09": ((2029, 2, 19), 180, "Generated", "escort"),
     "TS10A": ((2029, 2, 22), 60, "Generated", "escort"),
     "TS10B": ((2029, 2, 22), 60, "Generated", "escort"),
