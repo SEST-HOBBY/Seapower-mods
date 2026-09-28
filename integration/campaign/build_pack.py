@@ -4424,9 +4424,22 @@ def report(rows, missions, worst, unused=(), coast=()):
     return "\n".join(L)
 
 
-def campaign_requirements(rows, missing, title):
-    """One campaign's dependency closure, in the four lists a release needs:
-    hard required, SEST donors, install-wide libraries, not used.
+def dispatch_only(all_rows, play_rows):
+    """The rows of mods only the Dispatches need: required by the campaign's
+    full build, not by what the campaign itself plays."""
+    playing = {r[5] for r in play_rows if r[2] in NEEDED}
+    return [r for r in all_rows if r[2] in NEEDED and r[5] not in playing]
+
+
+def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=None):
+    """One campaign's dependency closure, in the lists a release needs: hard
+    required, the Dispatches' extras, SEST donors, install-wide libraries,
+    not used.
+
+    `rows` and `missing` are what the campaign itself plays - its missions
+    and its roster; `dispatches` are the rows only its browser Dispatches
+    need (dispatch_only), listed apart so a player of the campaign alone
+    knows what they can leave out.
 
     Computed from the same coverage rows as the pack-level file, so it cannot
     name a mod the campaign's missions do not reach; the pack-level
@@ -4440,11 +4453,10 @@ def campaign_requirements(rows, missing, title):
         need, [r for r in rows if r[2] not in NEEDED and r[5].isdigit()])
     key = lambda r: r[1].lower()
     L = [f"{title.upper()} - what this campaign needs", "",
-         "Four lists. The pack-level REQUIRED-MODS.txt two folders up, at the",
-         "pack's root, is the union across every campaign in the pack; this is",
-         "the closure for",
-         "this one, derived from the units its missions place, the squadrons",
-         "and hull variants they name, and the rounds their loadouts hang.", "",
+         "Derived from the units its missions place, the squadrons and hull",
+         "variants they name, the rounds their loadouts hang and the units its",
+         "roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the",
+         "pack's root, is the union across every campaign in the pack.", "",
          f"1. HARD REQUIRED ({len(need) + len(promoted)}): a mission names a file of "
          "theirs, or a mod above says it cannot run without them.", ""]
     for _mid, t, how, _d, _m, token in sorted(need, key=key):
@@ -4455,6 +4467,13 @@ def campaign_requirements(rows, missing, title):
     for name, askers in sorted(elsewhere.items()):
         L.append(f"  {'(workshop)':<13} {'manual install':<32} {name} - required by "
                  f"{', '.join(sorted(set(askers)))}; not in this collection")
+    disp = [r for r in dispatches if r[5].isdigit()]
+    if disp:
+        L += ["", f"1b. ONLY FOR THE DISPATCHES ({len(disp)}): the optional browser "
+              f"missions in missions/{dispatch_folder} place these; the campaign",
+              "itself never loads them. Leave them out if you only play the campaign.", ""]
+        for _mid, t, how, _d, _m, token in sorted(disp, key=key):
+            L.append(f"  {token:<13} {NEEDED[how]:<32} {t}")
     L += ["", f"2. SEST INTEGRATION PACKS ({len(packs)}): this project's own patches, "
           "inside the consolidated download.", ""]
     for _mid, t, how, _d, _m, token in sorted(packs, key=key):
@@ -4464,7 +4483,9 @@ def campaign_requirements(rows, missing, title):
           "is asked for; the map, salvo and rescue tools are conveniences).", ""]
     for _mid, t, how, _d, _m, token in sorted(libs, key=key):
         L.append(f"  {token:<13} {'library':<32} {t}")
-    unused = [(mid, token, t) for _w, mid, token, t in missing] + \
+    dispatch_tokens = {r[5] for r in dispatches}
+    unused = [(mid, token, t) for _w, mid, token, t in missing
+              if token not in dispatch_tokens] + \
              [(r[0], r[5], r[1]) for r in shadowed]
     L += ["", f"4. NOT USED BY THIS CAMPAIGN ({len(unused)}): enabled while it was built, "
           "and left in the order because removing one changes which copy of a",
@@ -4751,6 +4772,13 @@ def main():
         built, credits, worst, placements = [], {}, 0.0, {}
         for token, why in roster_credits.items():
             credits[token] = (why[0], why[1], "requisition roster")
+        # What the campaign itself loads - its own missions and its roster -
+        # apart from the Dispatches, which are browser missions the campaign
+        # never loads. Southern Watch's eight Dispatches place a unit from
+        # nearly every mod in the collection (they are the pack's coverage),
+        # and a REQUIRED-MODS built from both told a player of the campaign
+        # to install 137 mods it does not use (user report, 28 Sep).
+        play_credits = dict(credits)
         for mission in missions:
             if (mission.get("geography") or GEOGRAPHY) == "coast":
                 placer = CoastPlacer(coast_data(), mission)
@@ -4777,6 +4805,10 @@ def main():
                 best = credits.get(token)
                 if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
                     credits[token] = why
+                if mission["group"] != "dispatch":
+                    best = play_credits.get(token)
+                    if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
+                        play_credits[token] = why
             units = sum(len(v) for v in placed.values())
             gap = (f" gap{picture[0]:6.0f} reach{picture[1]:6.0f} NM"
                    if picture else "")
@@ -4842,7 +4874,8 @@ def main():
         twin_roster_text, twin_roster_credits = roster_ini(
             twin_roster, heading=f"; SEST {TITLE} - Open Allocation requisition roster: "
                                  "the campaign's own units, then the allied fleet.")
-        twin_credits = dict(credits)
+        play_rows, play_missing = coverage(play_credits, spec.get("EXCUSES", {}))
+        twin_credits = dict(play_credits)
         for token, why in twin_roster_credits.items():
             twin_credits.setdefault(token, (why[0], why[1], "requisition roster"))
         twin_rows, twin_missing = coverage(twin_credits, spec.get("EXCUSES", {}))
@@ -4856,6 +4889,7 @@ def main():
                               rules_text=rules_text, twin_rules_text=twin_rules_text,
                               twin_campaign_text=twin_campaign_text,
                               twin_rows=twin_rows, twin_missing=twin_missing,
+                              play_rows=play_rows, play_missing=play_missing,
                               credits=credits, rows=rows, missing=missing,
                               worst=worst, roster_text=roster_text,
                               campaign_text=campaign_text, missions=missions,
@@ -5055,7 +5089,9 @@ def main():
                                                                  encoding="utf-8")
         # This campaign's own closure, in the four lists a release needs.
         (camp / "REQUIRED-MODS.txt").write_text(
-            campaign_requirements(c["rows"], c["missing"], TITLE), encoding="utf-8")
+            campaign_requirements(c["play_rows"], c["play_missing"], TITLE,
+                                  dispatch_only(c["rows"], c["play_rows"]),
+                                  spec["DISPATCHES"]), encoding="utf-8")
         # The Open Allocation twin: its own spine, rules page and copies of the
         # three files the game reads from the campaign's own folder; the
         # missions and art stay here (see open_allocation_ini()).
@@ -5067,7 +5103,9 @@ def main():
                                                           encoding="utf-8")
         (twin / "REQUIRED-MODS.txt").write_text(
             campaign_requirements(c["twin_rows"], c["twin_missing"],
-                                  f"{TITLE} - Open Allocation"), encoding="utf-8")
+                                  f"{TITLE} - Open Allocation",
+                                  dispatch_only(c["rows"], c["twin_rows"]),
+                                  spec["DISPATCHES"]), encoding="utf-8")
         shutil.copy2(camp / "commander_settings.ini", twin / "commander_settings.ini")
         COVERAGE_DOC.parent.mkdir(parents=True, exist_ok=True)
         COVERAGE_DOC.write_text(report(c["rows"], spec["MISSIONS"], c["worst"],
