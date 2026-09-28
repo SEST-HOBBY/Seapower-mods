@@ -212,22 +212,48 @@ def campaign_rules(spec, open_allocation=False):
                          "rebase campaign_rules()")
     end = t.index("/>", end) + 2
     indent = "\n            "
-    block = indent.join([
+    # The stock discount line, verbatim: the percentage is the game's own
+    # Binding, so the page shows whatever SameNationUnitDiscount it applies.
+    stock_discount = re.search(r'<TextBlock FontSize="15"[^>]*>\s*<Run Text="- Commanders '
+                               r'receive a "/>.*?</TextBlock>', t[start:end], re.S)
+    separator = ('<Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" '
+                 'Opacity="0.45" Margin="0,0,0,14"/>')
+    if not stock_discount or separator not in t[start:end]:
+        raise SystemExit("campaign rules: the stock discount section has changed - "
+                         "rebase campaign_rules()")
+    discount = same_nation_discount(spec["COMMANDER"])
+    nation = re.search(r"^CommanderNations=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
+    lines = [
         '<TextBlock Text="Command" FontSize="17" FontWeight="Bold" Foreground="White" '
         'TextWrapping="Wrap" Margin="0,0,0,6"/>',
         line.format(_xml_text(f"You command the {navy} task force for the whole "
                               "campaign. The commander's nation is fixed."), 14),
         line.format("Commander nationality does not change mission rules, ship "
                     "performance, aircraft performance, or combat capability.", 14),
-        line.format("- No national purchase discount applies: every unit costs its "
-                    "listed price.", 14),
-    ])
-    t = t[:start] + block + t[end:]
+    ]
+    if discount:
+        foreign = sorted(f"{u} ({n})" for u, n in roster_nations(spec["ROSTER"]).items()
+                         if n.lower() != nation.lower())
+        lines += [separator + "\n",
+                  '<TextBlock Text="National Purchase Discount" FontSize="17" '
+                  'FontWeight="Bold" Foreground="White" TextWrapping="Wrap" '
+                  'Margin="0,0,0,6"/>',
+                  stock_discount.group(0),
+                  line.format(_xml_text(
+                      f"- Every unit on this campaign's roster is registered to {nation} "
+                      "by its squadron or hull variant, so the discount applies to all "
+                      "of it." if not foreign else
+                      f"- Units registered to another nation cost their listed price: "
+                      f"{', '.join(foreign)}."), 14)]
+    else:
+        lines.append(line.format("- No national purchase discount applies: every unit "
+                                 "costs its listed price.", 14))
+    t = t[:start] + indent.join(lines) + t[end:]
     swap('Text="- Unit availability can change between missions. Japanese units, for '
          'example, may not be available after leaving Japanese waters."',
          ('Text="- Open Allocation: every force allocation offers the whole campaign '
-          'roster, from the first. Some operations still limit what sails, and every '
-          'unit costs its listed price."' if open_allocation else
+          'roster, from the first. Some operations still limit what sails, and prices '
+          'are the standard campaign\'s."' if open_allocation else
           'Text="- Unit availability changes between missions: Task Force Builder offers '
           'only what the current force-allocation window allows."'), "availability line")
     swap('Text="- Ships purchased in Task Force Builder include their airwing for free, and '
@@ -940,6 +966,54 @@ def squadrons(uid):
     if f is None:
         return []
     return re.findall(r"^\[(Squadron\d+)\]", read(f), re.M)
+
+
+def pick_nation(uid, pick):
+    """The nation a roster pick is registered to, or None.
+
+    No unit file in this collection declares a Nation; the squadron (for an
+    aircraft) or the hull variant (for a ship) does, else that file's
+    [Default] - the same place the game takes a unit's flag from, and the
+    place check_campaign_coverage reads it. The Super Hornet, Growler, P-8
+    and Seahawk on sale are US-built airframes flying Australian squadrons,
+    and this is what says so.
+    """
+    kind, _path = unit_file(uid)
+    f = winning(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
+    if f is None:
+        return None
+    text = read(f)
+    for section in (pick, "Default"):
+        m = re.search(rf"^\[{re.escape(section)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+        n = m and re.search(r"^\s*Nation\s*=\s*(.+?)\s*$", m.group(1), re.M)
+        if n:
+            return re.split(r"\s*(?://|#|;)", n.group(1), 1)[0].strip()
+    return None
+
+
+def roster_nations(roster):
+    """{unit: nation} for a roster, every pick of a unit agreeing.
+
+    A same-nation discount is decided per unit by the game; a pick with no
+    declared nation, or a unit whose picks disagree, would make that decision
+    somewhere this build cannot see, so either stops it.
+    """
+    out = {}
+    for e in roster:
+        found = {pick_nation(e["unit"], p) for p in e["picks"]}
+        if None in found or len(found) != 1:
+            raise SystemExit(f"roster: {e['unit']} {e['picks']} - no single declared "
+                             f"nation across its picks ({sorted(map(str, found))}); the "
+                             "same-nation discount would be decided somewhere this "
+                             "build cannot see")
+        out[e["unit"]] = found.pop()
+    return out
+
+
+def same_nation_discount(commander):
+    """SameNationUnitDiscount from a commander_settings text, as a fraction."""
+    m = re.search(r"^SameNationUnitDiscount=\s*([0-9.]+)", commander, re.M)
+    return float(m.group(1)) if m else 0.0
 
 
 def alias_target(path):

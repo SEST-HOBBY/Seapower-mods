@@ -1188,7 +1188,7 @@ anything in the campaigns loads, so it is the pack's whole coverage.
 | Thing | Where |
 |---|---|
 | The campaign | `integration/campaign/SEST_Campaign/campaigns/sest-southern-watch/campaign.ini` — a `Type=Linear`, native **Task Force Mode** campaign: twelve main missions, four optional operations, two contingencies and seventeen story events - 35 entries |
-| Requisition | `player_task_force_roster.ini` (10 priced entries) and `commander_settings.ini` (Australian commander, no same-nation discount) beside it |
+| Requisition | `player_task_force_roster.ini` (10 priced entries) and `commander_settings.ini` (Australian commander, 20% same-nation discount since 28 Sep) beside it |
 | Campaign missions | the eighteen, shipped twice: under `campaigns/…/missions/` for the campaign and under `missions/SEST Southern Watch/` so the mission browser lists them too. The builder writes one copy and `tools/check_campaign_coverage.py` fails if the two ever differ |
 | Dispatches | `missions/SEST Southern Watch - Dispatches/` — the eight optional episodes (Allied Dispatch ×3, Red Line, Range Week, Future Front, Cold Sea, plus the relief-perimeter episode) |
 | Briefings | a `_briefing/BriefingText_en.xml` beside every mission, with SITUATION / FROM / COMMANDER'S INTENT / TASK / FORCES / TIME, and RULES OF ENGAGEMENT where protected neutrals are on the plot; one TextBlock per paragraph, the task as bullets. Mod provenance lives in REQUIRED-MODS.txt and the coverage report, not in the briefing |
@@ -1316,8 +1316,8 @@ The button at the bottom right of the campaign map opens
 campaign ships one; these three did not, so it opened nothing. Each campaign
 now ships `campaign_rules_en.xml`, built by `campaign_rules()` from the stock
 page with only the passages that are not true here replaced: the title and
-welcome, the commander section (one fixed nation, no national discount:
-`SameNationUnitDiscount=0`), ships sold without aircraft
+welcome, the commander section (one fixed nation, and the discount - see
+the next section), ships sold without aircraft
 (`ShipIncludesAirwing=False`), helicopters from the first window, no
 submarines on sale, and the proficiency table's Survived Missions column read
 from `CrewSkillThresholds` (1/4/9/16, where stock's page says 1/2/4/7). The
@@ -1370,6 +1370,39 @@ another campaign's folder, and loads them - stock never does it, and nothing
 in stock says it cannot - or that the twin's progress is saved apart from the
 standard campaign's, which it should be as a campaign file of its own. Test
 card 6G (G.1, G.3, G.4).
+
+## Same-nation discount (28 September)
+
+Asked for: the player noticed an Australian commander got no same-nation
+discount. All three campaigns now carry Pacific Strike's own
+`SameNationUnitDiscount=0.2`, and so do the Open Allocation twins, which copy
+the commander settings byte for byte.
+
+It shipped at 0 on the bible's caution: the Super Hornet, Growler, P-8 and
+Seahawk on sale are US-named unit files (`usn_*`), and a discount keyed to
+the unit's nation might price them as American. They are not American in
+the files. No unit file in this collection declares a nation; the squadron
+(aircraft) or hull variant (ship) does - the same place the game takes the
+flag from - and every pick on sale is registered to Australia there: the
+Super Hornet's Squadron8 and the Growler's Squadron6 (SEST Growler pack),
+the P-8's Squadron3 (SEST Allied Fixes), the Seahawk's Squadron20 (SEST
+Collection Fixes), and the RAN hull variants. Red Line's roster is Chinese
+throughout. So the discount covers every unit on every roster: about 25% more
+buying power than the budgets in the bible were set for, and no choice
+between nations to make, since there are no foreign units on sale.
+
+`roster_nations()` re-reads those files on every build and stops on a pick
+with no declared nation or a unit whose picks disagree; the rules page's
+new National Purchase Discount section uses the stock line and its
+`{Binding SameNationDiscountPercentText}`, then says the discount covers the
+whole roster - or names the units it does not, if a foreign one is ever
+added. `test_build_pack.py` (`SameNationDiscount`) holds it.
+
+Not demonstrated: that the game reads a unit's nation for the discount from
+the squadron and variant, as it does for the flag (test card G.6), how it
+rounds (Pacific Strike's changelog: the discount always takes at least a
+point off), whether repairs are charged on the discounted or the listed
+price, and whether a campaign already under way picks the new value up.
 
 ## What has NOT been demonstrated
 

@@ -90,7 +90,7 @@ before playing.
 
 ### This round (28 Sep): the Rig Seventeen fix, rules pages, Open Allocation
 
-Three changes since the Red Line round, in play order:
+Four changes since the Red Line round, in play order:
 
 1. **Rig Seventeen** died twice on a force carried through White Water and
    Steel Highway. In a mission your force is inserted into, no player-side
@@ -106,6 +106,13 @@ Three changes since the Red Line round, in play order:
    missions with the whole roster on sale from the first force allocation.
    It is a new campaign with its own save; the standard ones are untouched.
    Southern Watch test card 6G is its check list.
+4. **Same-nation discount** - every campaign, standard and Open Allocation,
+   now gives its commander Pacific Strike's 20% off units of their own
+   nation, and every unit on sale is the commander's own (the US-built
+   airframes fly Australian squadrons). It came after the first 28 Sep
+   sync: the same update block brings it, the count stays 1189, and the
+   Campaign Rules page gains a National Purchase Discount section. Test
+   card G.6 is its check.
 
 The file count goes from 1171 to 1189: the three rules pages (1174) and the
 three Open Allocation folders of five files each.

@@ -324,8 +324,15 @@ ROSTER = [
               "is a different unit and is never substituted for it"),
 ]
 
-# Australian commander, no same-nation discount: the mod unit definitions carry
-# US and allied nationality, and a discount keyed to them would be arbitrary.
+# Australian commander, and Pacific Strike's own same-nation discount (0.2).
+# It shipped at 0 while the fear was that US-built airframes flying Australian
+# squadrons would be priced as American. They are not: no unit file here
+# declares a nation, and every pick the roster sells is registered to
+# Australia by its squadron or hull variant (the Super Hornet's Squadron8,
+# the Growler's Squadron6, the P-8's Squadron3, the Seahawk's Squadron20).
+# build_pack.roster_nations() re-reads that on every build and stops on a
+# pick with no declared nation; the rules page lists any unit the discount
+# does not cover. Restored 28 Sep at the player's request.
 # No emblem or ribbon art is referenced - every path would be a .png this repo
 # cannot produce.
 # CommanderStartingRankLevel is an index into [OfficerRanks], and this file
@@ -348,7 +355,7 @@ CommanderDefaultNation=Australia
 CommanderNameDefaultAustralia=Morgan Reid
 CommanderNamePoolAustralia=Names_Australia
 CommanderStartingRankLevel=5
-SameNationUnitDiscount=0
+SameNationUnitDiscount=0.2
 
 NavyNameAustralia=Royal Australian Navy
 NavyEmblemAustralia=ui/campaign/navy_emblems/ran_emblem.png

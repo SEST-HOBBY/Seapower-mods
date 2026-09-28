@@ -308,6 +308,7 @@ roster from the first window. Build notes, "Open Allocation".
 | G.3 | Buy an F-35A there, then fly White Water | White Water loads and plays as in the standard campaign; the F-35A does not appear (no row for it) and is still in the force afterwards | A load failure = missions are not loaded from another campaign's folder: capture with `-IncludeSaves` and push |
 | G.4 | Continue the standard Southern Watch save | Unchanged: its own windows, its own progress | The twin sharing the standard save = the campaigns are keyed by something other than their folder |
 | G.5 | Red Line - Open Allocation, first window | Every Red Line roster entry on sale, the J-15, J-15D, KJ-500 and Y-9 among them | As G.2 |
+| G.6 | Any Southern Watch or Southern Reach campaign, standard or Open Allocation: open the Unit Prices tab, then Task Force Builder | Service Record reads "Same-nation discount: 20%"; every row's nation is Australia, the Super Hornet, Growler, P-8 and MH-60R included; builder prices about a fifth under the roster's (Anzac 240 about 192, MH-60R 20 about 16). Note whether your Rig Seventeen save shows it too | A US-built airframe at full price = the game takes the discount nation from the unit file, not the squadron: say which, and it goes back to a per-unit decision |
 
 ## 7 — the review's engine tests
 
