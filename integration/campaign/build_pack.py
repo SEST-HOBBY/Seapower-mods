@@ -2741,8 +2741,61 @@ def check_message_texts(mission):
                 "sender as 'SENDER: text'.")
 
 
+def stage_transfer(mission, placed, members):
+    """One stationary opposing ship accepts protection at the rendezvous.
+
+    Action_UnitTransferToTaskforce is stock: PLAN 04 Escape from the Sulu
+    Sea, Trigger6, transfers NeutralSubmarine1 and keeps that section name
+    in the later survival trigger. This narrowly supports the defector
+    handover; it does not grant a persistent purchase or change the ship's
+    nationality. The area is fixed at the placed ship, so a moving target
+    would make the stated rendezvous false and must be refused.
+    """
+    stage = mission.get("victory", {}).get("after", {})
+    if "transfer_to_player" not in stage:
+        return []
+    fail = lambda why: SystemExit(f"{mission['key']}: transfer_to_player {why}")
+    ref = stage["transfer_to_player"]
+    if not isinstance(ref, str) or not ref:
+        raise fail("must name one station reference")
+    tags = refs(members, ref)
+    if len(tags) != 1 or not tags[0].startswith("Taskforce2Vessel"):
+        raise fail("must name exactly one opposing surface ship")
+    if stage.get("kind") != "area" or stage.get("per_unit"):
+        raise fail("needs one shared area stage, not a per-unit or classify stage")
+    if not stage.get("at_unit") or refs(members, stage["at_unit"]) != tags:
+        raise fail("needs at_unit to name that same ship's rendezvous")
+    escorts = stage.get("units", [])
+    escorts = [escorts] if isinstance(escorts, str) else escorts
+    meeting = [t for r in escorts for t in refs(members, r)]
+    if not meeting or any(not t.startswith("Taskforce1Vessel") for t in meeting):
+        raise fail("requires the player's surface escort at the rendezvous")
+    least, radius = stage.get("min_units", 1), stage.get("radius", 3)
+    if (not isinstance(least, int) or isinstance(least, bool)
+            or not 1 <= least <= len(meeting)
+            or not isinstance(radius, (int, float)) or isinstance(radius, bool)
+            or not math.isfinite(radius) or radius <= 0):
+        raise fail("needs a positive rendezvous radius and an attainable unit count")
+    keys = next(k for entries in placed.values() for t, k, _n, _x in entries
+                if t == tags[0])
+    if keys.get("Telegraph") != "0" or keys.get("Waypoints"):
+        raise fail("needs a stopped ship (Telegraph=0, no Waypoints)")
+    if keys.get("WeaponStatus") != "Hold":
+        raise fail("needs the requesting ship at weapons Hold")
+    if keys.get("JoinTaskForce") == "True" or keys.get("CampaignTag"):
+        raise fail("is mission control, not a JoinTaskForce grant")
+    fatal = {t for f in mission.get("fatal", [])
+             if f.get("kind", "destroyed") == "destroyed" and f.get("minimum", 1) == 1
+             for r in (f.get("units") or []) for t in refs(members, r)}
+    if tags[0] not in fatal:
+        raise fail("needs an explicit fatal loss rule for the requesting ship")
+    return ["Action_UnitTransferToTaskforce=Taskforce1",
+            f"Action_Units={tags[0]}"]
+
+
 def render(mission, placed, members):
     check_message_texts(mission)
+    transfer = stage_transfer(mission, placed, members)
     name = mission_name(mission)
     centre = mission["centre"]
     victory = mission["victory"]
@@ -3005,6 +3058,7 @@ def render(mission, placed, members):
                 c.append("Action_Taskforce1_Intel=StageIntel")
             if stage.get("sets"):
                 c.append(f"Action_VariableSet={stage['sets']},True")
+            c += transfer
             return c
 
         if per_unit:

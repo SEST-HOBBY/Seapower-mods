@@ -13,6 +13,10 @@ that column, not the whole card.
 
 ## First things to fly after this round
 
+For **TS08A The Defector**, use the mission browser first and follow the
+handover, loss and skip checks in [`defector-handover.md`](defector-handover.md).
+Campaign testing needs a new save; the new dated entry changes later indices.
+
 The ported work's checks (RAS, the ARRW profile, the Redback, MALICE mass,
 SM-3 terminal, Intercept Model A/B, the A-10C+, Mogami's Seahawk, the
 editor-crash sweep, the new scenarios) are listed at the top of the Southern
@@ -54,9 +58,9 @@ browser.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| 1.1 | Campaign list | **SOUTHERN REACH** beside SOUTHERN WATCH, 44 entries (25 missions, 19 story pages) | Only one campaign listed = the second `campaigns/` folder is not scanned; go to 1.3 |
+| 1.1 | Campaign list | **SOUTHERN REACH** beside SOUTHERN WATCH, 45 entries (26 missions, 19 story pages) | Only one campaign listed = the second `campaigns/` folder is not scanned; go to 1.3 |
 | 1.2 | Start it | The 6 December press page, then SOUTHERN DEPARTURE | Note which it stops on |
-| 1.3 | Mission browser | Two new folders, **Southern Reach** (12) and **Tasman Shield** (13) | A missing folder names a broken `_info.ini` |
+| 1.3 | Mission browser | Two new folders, **Southern Reach** (12) and **Tasman Shield** (14, including **08A The Defector**) | A missing folder names a broken `_info.ini` |
 | 1.4 | Load one mission from each water | **SR01 Southern Departure** (Storm Bay), **SR10 Southern Line** (60°S), **TS02 Cook Strait**, **TS10A Northern Priority** (the Hauraki Gulf) | These are the four most different charts; a unit that fails to appear names its mod |
 
 ## 1A — the coastline (new, and the biggest single risk)
@@ -81,7 +85,7 @@ are the signal, the log and the INTSUM tile (`bkg_tile_message.png`).
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| 1B.1 | Campaign list backdrop | A dark chart 29–66°S, 116–180°E, 23 marks coded SR01…TS12 joined in campaign order, two small open circles for the optionals (TS10A off the Hauraki Gulf top-right, TS10B off Adelaide), the compass rose bottom-right, SOUTHERN REACH bottom-left | |
+| 1B.1 | Campaign list backdrop | A dark chart 29–66°S, 116–180°E, 23 marks coded SR01…TS12 joined in campaign order, three small open circles for the optionals (TS08A in the eastern Bight, TS10A off the Hauraki Gulf top-right, TS10B off Adelaide), the compass rose bottom-right, SOUTHERN REACH bottom-left | |
 | 1B.2 | Step through the two story pages before SR02 | A ship's log on ruled paper (Coral Pioneer, 6 December), then a cable on teleprinter stock (Wellington's allocation, 8 December) | Either blank = that form's tile or image path is not read |
 | 1B.3 | The page before SR10 | A typed INTSUM under a SECRET // RELEASABLE TO COALITION PARTNERS marking (The command element); organisation, reference/date and subject occupy separate lines, with no clipping | |
 | 1B.4 | Any Tasman Shield mission card | The TASMAN SHIELD series label and date line, the code (TS01…) in the corner, own force in blue, the objective ring | A card still saying SOUTHERN REACH on a Tasman mission = the series label is not per mission |

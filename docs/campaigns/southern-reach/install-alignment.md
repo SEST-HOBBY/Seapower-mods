@@ -269,27 +269,27 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1189** for this build |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1199** with TS08A The Defector |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |
 
 Where the count comes from, from Southern Watch's 388: the pack ships
-`campaigns\sest-southern-reach\` (25 missions with their briefing folders and
+`campaigns\sest-southern-reach\` (26 missions with their briefing folders and
 charts, 66 art files, `campaign.ini`, roster, commander settings and a
 `REQUIRED-MODS.txt`), the browser copies under `missions\Southern Reach\` and
 `missions\Tasman Shield\`, a `REQUIRED-MODS.txt` for Southern Watch's own
 folder and the two RNZAF base files (691 in all); then this round's Red Line
 and ported files (1189; 1171 after the 27 Sep export; 1174 with the three Campaign Rules
-pages; 1189 with the three Open Allocation twins).
+pages; 1189 with the three Open Allocation twins; 1199 with The Defector).
 
 ## 5 — confirm the campaigns arrived
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
 Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-red-line, sest-southern-reach, sest-southern-watch, each also with -open
-(Get-ChildItem "$sa\campaigns\sest-southern-reach\art\*.png").Count   # 47
-(Get-ChildItem "$sa\campaigns\sest-southern-reach\missions\*.ini").Count   # 25
+(Get-ChildItem "$sa\campaigns\sest-southern-reach\art\*.png").Count   # 48
+(Get-ChildItem "$sa\campaigns\sest-southern-reach\missions\*.ini").Count   # 26
 (Get-ChildItem "$sa\campaigns\sest-red-line\art\*.png").Count         # 12
 (Get-ChildItem "$sa\campaigns\sest-red-line\missions\*.ini").Count    # 6
 Test-Path "$sa\land_units\airbase_rnzaf_ohakea.ini"                   # True
@@ -304,13 +304,13 @@ Then in game, in this order:
    Replenishment At Sea among the packs and ends "Southern Watch - Southern
    Reach - Red Line".
 2. **Campaign list** — six entries: `Southern Watch (Royal Australian
-   Navy)`, `Southern Reach - Tasman Shield (Royal Australian Navy)` (44
+   Navy)`, `Southern Reach - Tasman Shield (Royal Australian Navy)` (45
    entries, a dark chart 29–66°S behind it) and `Red Line - The Other Watch
    (People's Liberation Army Navy)` (10 entries), and each again with
    `- Open Allocation` before the navy in brackets. The Campaign Rules button
    at the bottom right of each opens its rules page.
 3. **Mission browser** — folders `Southern Reach` (12), `Tasman Shield`
-   (13) and `Red Line` (6) beside the Southern Watch ones. If the campaign
+   (14) and `Red Line` (6) beside the Southern Watch ones. If the campaign
    list is short but the browser has every folder, the Mod Manager is not
    reading one of the `campaigns\` folders; that difference is the diagnosis.
 

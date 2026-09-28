@@ -23,7 +23,7 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
-| `integration/campaign/` | **Three native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 25 missions, 19 story pages; its data lives in `southern_reach/`) and *SEST Red Line* (six missions from the other side; `red_line/`), built so that every enabled mod is reached by something one of them places or prices |
+| `integration/campaign/` | **Three native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 19 story pages; its data lives in `southern_reach/`) and *SEST Red Line* (six missions from the other side; `red_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -108,11 +108,11 @@ and two contingencies that the core reads back, plus eight dispatches
 speculative 2034 branch and a 1988 exercise). `docs/campaigns/southern-watch/`
 holds the design bible it was built from and the build notes.
 
-The second is **SEST Southern Reach — Tasman Shield**: 25 missions in two
+The second is **SEST Southern Reach — Tasman Shield**: 26 missions in two
 chapters, December 2028 to March 2029. *Southern Reach* (SR01–SR12) escorts the
 Antarctic resupply season from Storm Bay to the ice edge at 60°S against a
 "fisheries protection" group and a Russian boat; *Tasman Shield* (TS01–TS12,
-with an optional pair) fights the same group through Fiordland, Cook Strait,
+with three optional missions) fights the same group through Fiordland, Cook Strait,
 the Tasman, Bass Strait and the Bight to a ceasefire. Eighteen campaign
 variables carry the consequences forward — a boat sunk under the Tasman is
 absent from the Southern Convoy, an approach not held reinforces the group off
@@ -120,6 +120,13 @@ Sydney. Every position was proved against a Natural Earth coastline
 (`integration/campaign/geo/`), because nothing in this repo had sailed that
 water before. `docs/campaigns/southern-reach/` holds its bible, build notes,
 test card and the review that was run on it before it was committed.
+
+**TS08A — The Defector** adds an optional escort after Great Australian Bight:
+meet a stopped Russian support vessel, accept control, and bring her and your
+flagship out. It is also in the mission browser. Use a new Southern Reach
+campaign for this build; existing campaign saves have not been migrated.
+The side-transfer action still needs an in-game check; see
+[`defector-handover.md`](docs/campaigns/southern-reach/defector-handover.md).
 
 The third is **SEST Red Line — The Other Watch**: six missions, November 2028 to
 January 2029, played by the Chinese carrier group commander both of the others

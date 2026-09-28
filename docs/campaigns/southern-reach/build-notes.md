@@ -11,12 +11,12 @@ unchanged. This file covers only what is new.
 
 | | |
 |---|---|
-| Campaign | `campaigns/sest-southern-reach/` — 25 missions, 19 story pages, 170 files |
-| Chapters | Southern Reach SR01–SR12 (6 Dec 2028 – 14 Jan 2029); Tasman Shield TS01–TS12 with the optional pair TS10A/TS10B (22 Jan – 2 Mar 2029) |
+| Campaign | `campaigns/sest-southern-reach/` — 26 missions, 19 story pages, 176 files |
+| Chapters | Southern Reach SR01–SR12 (6 Dec 2028 – 14 Jan 2029); Tasman Shield TS01–TS12 with optional TS08A/TS10A/TS10B (22 Jan – 2 Mar 2029) |
 | Browser copies | every mission again under `missions/Southern Reach/` and `missions/Tasman Shield/` |
-| Placed units | 392, of which 200 stations were proved against the coastline extract |
-| Mods reached | 34 directly; the pack union with Southern Watch reaches all 159 enabled mods and SEST packs (`tools/check_campaign_coverage.py`) |
-| Points | 2,800 across the 23 mainline missions, +120 for the optionals; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 |
+| Placed units | 413, with 209 positions proved against the coastline extract |
+| Mods reached | 49 directly; the three-campaign pack accounts for all 164 enabled mods and SEST packs (`tools/check_campaign_coverage.py`) |
+| Points | 2,800 across the 23 mainline missions, +180 for the optionals; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 |
 | Southern Watch | unchanged: every mission file, card, story page and `campaign.ini` under `sest-southern-watch/` is byte-identical. Three of its briefing maps (The Open Door, The First Ship Through, D8 The Long Perimeter) re-rendered because the map renderer now keeps two overlapping "REPORTED …" labels apart; nothing else on them moved |
 
 Both campaigns ship in the one `SEST_Campaign` pack (and in the consolidated
@@ -379,3 +379,36 @@ action a third of the size it had been (`integration/missions/briefing_maps.py`,
 What it costs: every mod a mission places is one the campaign needs, so the
 campaign's `REQUIRED-MODS.txt` lists more than it did (40 hard-required,
 32 before). The pack as a whole needed all of them already.
+
+## The Defector (29 September)
+
+TS08A adds a 60-point optional escort on 17 February, between the Bight and
+the convoy. The paused session's failed synthesis was not recovered; this
+is a fresh implementation of the visible brief. There are now 26 missions
+and 19 story pages (45 entries), with 14 Tasman Shield browser missions.
+
+The new `transfer_to_player` stage emits the stock side-transfer action,
+requires a stopped ship at Hold and a player surface rendezvous, and refuses
+a persistent grant. The defector and flagship must both escape; losses and
+timeout fail the mission. The convoy remains reachable when the diversion
+is skipped. Five regression tests cover transfer, rejection of invalid
+handover shapes, losses and branch bypass.
+
+The play-test card, stock evidence, provenance and save limitation are in
+[`defector-handover.md`](defector-handover.md). The engine's control transfer
+and post-transfer references remain untested in game. Start a new campaign
+or play the standalone mission; older saves have not been migrated.
+
+`tools/install-defector.ps1` installs from a clean, exact commit in a separate
+checkout. It backs up installed SEST packs, `StreamingAssets/user` and the
+Sea Power profile before calling the regular sync with `-SkipPull`, then
+verifies the installed pack's file count and SHA-256 hashes. It never merges
+or pushes the user's working repository.
+
+Validation: all 20 packs rebuilt and consolidated (1,199 deployed files);
+all 96 compiler tests passed. Campaign coverage, load order, dependencies,
+weapon employment, scenario structure and TS08A's 331-reference preflight
+passed. Existing mission INIs outside TS08A were byte-identical after the
+build; only Southern Reach's campaign entry lists and backdrop changed.
+The new card and briefing chart were inspected. The Windows installation
+script was reviewed here but could not be run against Sea Power on this host.

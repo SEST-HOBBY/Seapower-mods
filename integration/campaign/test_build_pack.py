@@ -271,6 +271,100 @@ class VictoryAlsoTerms(unittest.TestCase):
 STOCK = bp.ROOT / "mods-source" / "_vanilla" / "original" / "missions"
 
 
+class DefectorHandover(unittest.TestCase):
+    """The ship stays opposing until the escort reaches it, then must escape."""
+
+    def setUp(self):
+        self.placed, self.members = small_placement()
+        self.ship = self.placed["Taskforce2Vessel"][0][1]
+        self.ship.update(Type="civ_ms_kommunist", Telegraph="0", WeaponStatus="Hold")
+        self.mission = small_mission(
+            objectives=[("Withdrawal", "Bring the ship out", "40,-40,Fail,Main")],
+            victory=dict(kind="arrive", station="spoiler", at=(-4.3, 128.6),
+                         radius=4, objective="Withdrawal",
+                         also=[dict(units=["escort"], min_units=1)],
+                         after=dict(kind="area", units="escort", at_unit="spoiler",
+                                    radius=2, transfer_to_player="spoiler")),
+            resolve={"Withdrawal": "victory"},
+            fatal=[F("Withdrawal", ["spoiler"])])
+
+    def render(self):
+        return rendered(self.mission, self.placed, self.members)
+
+    def test_only_the_rendezvous_changes_side_and_enables_escape(self):
+        triggers = self.render()
+        stage, escape = triggers["Stage"], triggers["Objective met"]
+        self.assertIn("Condition_Condition1_Units=Taskforce1Vessel1", stage)
+        self.assertIn("Condition_Condition1_AreaRadiusNM=2", stage)
+        self.assertIn("Action_UnitTransferToTaskforce=Taskforce1", stage)
+        self.assertIn("Action_Units=Taskforce2Vessel1", stage)
+        self.assertIn("Disabled=True", escape)
+        self.assertEqual(sum("Action_UnitTransferToTaskforce=Taskforce1" in lines
+                             for lines in triggers.values()), 1)
+        # Transfer keeps the original file reference, as in stock PLAN 04.
+        self.assertIn("Condition_Condition1_Units=Taskforce2Vessel1", escape)
+        self.assertIn("Condition_Condition2_Units=Taskforce1Vessel1", escape)
+        self.assertIn("ConditionsCompleted=<Condition1> AND <Condition2>", escape)
+        loss = triggers["Withdrawal lost - mission over"]
+        self.assertNotIn("Disabled=True", loss)
+        self.assertIn("Condition_Condition1_Units=Taskforce2Vessel1", loss)
+        self.assertIn("Action_ObjectivesFailed=Withdrawal", loss)
+
+    def test_a_moving_firing_or_persistent_ship_is_refused(self):
+        for key, value in (("Telegraph", "3"), ("Waypoints", "10,0,20"),
+                           ("WeaponStatus", "Free"), ("JoinTaskForce", "True"),
+                           ("CampaignTag", "prize")):
+            old = self.ship.get(key, _ABSENT)
+            with self.subTest(key=key):
+                self.ship[key] = value
+                with self.assertRaisesRegex(SystemExit, "transfer_to_player"):
+                    self.render()
+            if old is _ABSENT:
+                self.ship.pop(key)
+            else:
+                self.ship[key] = old
+
+    def test_transfer_requires_the_escorts_shared_area_stage(self):
+        stage = self.mission["victory"]["after"]
+        for update in (dict(kind="classify"), dict(per_unit=True),
+                       dict(units="red_air"), dict(at_unit="group"),
+                       dict(transfer_to_player="escort"), dict(transfer_to_player="")):
+            previous = dict(stage)
+            with self.subTest(update=update):
+                stage.update(update)
+                with self.assertRaises(SystemExit):
+                    self.render()
+            stage.clear()
+            stage.update(previous)
+
+    def test_ship_loss_must_always_end_the_mission(self):
+        self.mission["fatal"] = []
+        with self.assertRaisesRegex(SystemExit, "fatal loss rule"):
+            self.render()
+
+    def test_the_authored_mission_is_optional_and_never_grants_a_prize(self):
+        import southern_reach as sr
+        mission = next(m for m in sr.MISSIONS if m["code"] == "TS08A")
+        self.assertEqual(mission["group"], "optional")
+        self.assertEqual(mission["expires_after"], "The Southern Convoy")
+        self.assertEqual(mission["points"], 60)
+        self.assertFalse(any(mission["window"].get(k) for k in ("buy", "repair", "rearm")))
+        ship = next(u for u in mission["units"] if u["station"] == "defector")
+        self.assertEqual(ship["extra"]["Telegraph"], "0")
+        self.assertNotIn("route", ship)
+        self.assertFalse(ship.get("join"))
+        self.assertNotIn(ship["type"], [r["unit"] for r in sr.ROSTER])
+        spine = bp._spine(sr.MISSIONS, sr.EVENTS)
+        by_code = {e["mission"]["code"]: e for e in spine if "mission" in e}
+        # Skipping this diversion must leave the next core entry unlocked.
+        parents, parent = [], by_code["TS09"]["parent"]
+        while parent:
+            parents.append(parent)
+            parent = spine[parent - 1].get("parent")
+        self.assertIn(by_code["TS08A"]["parent"], parents)
+        self.assertNotIn(spine.index(by_code["TS08A"]) + 1, parents)
+
+
 class UnseenObjective(unittest.TestCase):
     """('unseen', station): fails when the ENEMY classifies those player
     units, in stock's own shape; F(..., kind="unseen") ends the mission on it."""
