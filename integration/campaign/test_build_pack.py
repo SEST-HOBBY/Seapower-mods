@@ -939,7 +939,8 @@ class SameNationDiscount(unittest.TestCase):
             dict(unit="plan_j-15", picks=["Squadron1"], points=40)]
         page = bp.campaign_rules(spec)
         self.assertIn("The discount covers the 10 classes registered to Australia. The 1 "
-                      "allied class - from China (1) - cost their listed price.", page)
+                      "class registered to other nations - from China (1) - costs its "
+                      "listed price.", page)
 
     def _squadrons(self, text):
         """pick_nation() over a squadrons file with this text."""
@@ -1073,6 +1074,61 @@ class AlliedFleet(unittest.TestCase):
                 bp.campaign_rules(spec, open_allocation=True, submarine_missions=[])
         finally:
             bp.unit_type = saved
+
+
+class AlliedFleetReview(unittest.TestCase):
+    """The review of 2e845dc9: the flight rule on allied aircraft, the allied
+    sentence's grammar, and the gate on a twin that drifted."""
+
+    def test_an_aircraft_whose_role_a_row_takes_without_its_fits_is_dropped(self):
+        spec = bp.campaign_specs()[0]
+        bp.set_campaign(spec)
+        rows = [r for m in spec["MISSIONS"] for r in m.get("window", {}).get("flights", [])]
+        authored = {u["type"] for m in spec["MISSIONS"] for u in m["units"] if u.get("slot")}
+        saved = bp.airframe_rows
+        bp.airframe_rows = lambda uid, m, placed: [("Attack", 400.0, True, 1)]
+        try:
+            kept, dropped = bp.usable_allied(
+                [dict(unit="usaf_f-16cm-bl52d", picks=["Squadron1"], points=32)],
+                spec["MISSIONS"], {m["key"]: {} for m in spec["MISSIONS"]},
+                rows, spec["ROSTER"], authored)
+        finally:
+            bp.airframe_rows = saved
+        self.assertEqual(kept, [])
+        self.assertIn("offers none of its fits", dropped[0][1])
+
+    def test_the_allied_sentence_reads_for_one_nation_and_for_several(self):
+        commander = "CommanderNations=Australia\n"
+        one = bp.allied_line([dict(unit="plan_j-15", picks=["Squadron1"])], commander)
+        self.assertEqual(one, "The allied fleet is on sale beside it at full price: "
+                              "1 class from China. ")
+        two = bp.allied_line([dict(unit="plan_j-15", picks=["Squadron1"]),
+                              dict(unit="usn_fa-18f_blk3", picks=["Squadron8"]),
+                              dict(unit="usn_p8_2027", picks=["Squadron1"])], commander)
+        self.assertIn("2 classes from China and USA.", two)
+        self.assertEqual(bp.allied_line([dict(unit="usn_p8", picks=["Squadron3"])],
+                                        commander), "")
+
+    def test_the_gate_refuses_a_twin_that_drifted(self):
+        pack = bp.ROOT / "integration" / "campaign" / "SEST_Campaign"
+        slug = "sest-red-line"
+        if not (pack / "campaigns" / bp.open_slug(slug)).is_dir():
+            self.skipTest("pack not built")
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            for s in (slug, bp.open_slug(slug)):
+                shutil.copytree(pack / "campaigns" / s, tmp / "campaigns" / s)
+            self.assertEqual(coverage_check.open_twin(tmp, slug)[:1], [])
+            ini = tmp / "campaigns" / bp.open_slug(slug) / "campaign.ini"
+            good = ini.read_text(encoding="utf-8")
+            for bad in (good.replace("Description=OPEN ALLOCATION - ",
+                                     "Description=OPEN ALLOCATION - junk ", 1),
+                        good.replace("|plan_z-9c,Squadron1", "", 1)):
+                self.assertNotEqual(bad, good)
+                ini.write_text(bad, encoding="utf-8")
+                self.assertTrue(coverage_check.open_twin(tmp, slug))
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
 
 
 class RulesPage(unittest.TestCase):

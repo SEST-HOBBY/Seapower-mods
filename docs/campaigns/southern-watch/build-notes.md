@@ -1403,7 +1403,7 @@ and Southern Reach now sell it beside the campaign's roster, from the first
 force allocation; the standard campaigns keep their story roster, and Red
 Line's PLAN commander gets no allied fleet.
 
-The list (`integration/campaign/allied_fleet.py`, 107 classes before the
+The list (`integration/campaign/allied_fleet.py`, 106 classes before the
 aircraft filter) was curated from the enabled collection: every unit file
 whose variants or squadrons are registered to an allied nation, one entry per
 class per navy, the most modern and complete file where mods duplicate a
@@ -1411,25 +1411,47 @@ class, picks in service in October 2028 (the files' own `ServiceDate` where
 they give one, a stated judgment where they do not) and registered to one
 nation. Prices are capability tiers on the campaign's own scale - Anzac 240,
 Hobart 480, Arafura 100, F-35A 45, P-8 55, Seahawk 20 - for example a Burke
-Flight III 520, a Type 45 460, a FREMM 360, a Virginia 460-500, a Ford 1,400,
-a Rafale M 50, a Typhoon 45. They are list prices: the same-nation discount
+Flight III 520, a Type 45 460, a FREMM 360, a Virginia 460-500, a Rafale M 50,
+a Typhoon 45. They are list prices: the same-nation discount
 covers only the four Australian additions (Canberra, Choules, Supply, Collins)
 and the campaign's own units. Ships come without aircraft here, so the big
-amphibians are priced as hulls (Wasp 550, Canberra and Juan Carlos 500,
-Mistral 450).
+amphibians and the carriers are priced as hulls (Ford 650, Nimitz 600,
+Charles de Gaulle 550, Wasp 550, Canberra and Juan Carlos 500, Mistral 450):
+no row launches from a bought deck.
 
 Aircraft are sold only where they can fly: `usable_allied()` keeps one only
 if some air-tasking row with a cockpit in the campaign takes it and it
 recovers in every row that would, by the same deck and field test the build
-applies to the campaign roster. That leaves 16 allied aircraft types in
-Southern Watch's version and 8 in Southern Reach's; the rest - bombers, AEW,
+applies to the campaign roster, and only if every row whose roles take it
+offers one of its fits (`check_flights`, run per aircraft and then over the
+whole twin roster). That leaves 15 allied aircraft types in Southern Watch's
+version and 8 in Southern Reach's; the rest - bombers, AEW,
 tankers and gunships (no row asks for them), the allied helicopters (the RAN
 decks in the missions list only the MH-60R), and several fighters in the
 Tasman (no field in reach of the CAP slots) - are listed by the build with
 the reason. Submarines are sold; one sails only in a mission that includes
 the owned submarine (Southern Lifeline; Great Australian Bight), and the
-rules page says so. Southern Watch's version sells 85 allied units, Southern
-Reach's 77.
+rules page says so. Southern Watch's version sells 83 allied units, Southern
+Reach's 76.
+
+Two independent reviews of the first cut changed it. Code: the F-16CM had
+passed the recovery test while matching the Weapons Free strike row, which
+offers none of its fits - the base build refuses that, and the twin's roster
+had never been put through the same check; it is now, and the F-16CM, the
+E-3G, both E-2Ds, the AC-130J, the MQ-9 and the French Panther go. The twin's
+rules pages and spine are built before the pack folder is cleared (and in a
+dry run); the gate compares the twin's description exactly, parses roster
+lines by section (a uid may carry an apostrophe: Ronarc'h), refuses a unit
+priced twice or a base line moved, and reads the twin's aircraft loadout
+names. Data: the Ticonderogas out (all retire by the end of FY2027),
+Eisenhower out (hull life ends October 2027), the F-35C's disestablished
+VFA-101 and the Super Hornet's VFA-115 (now on the F-35C) out, the F124 and
+F125 spelled as their files are (`MLU`; the roster now refuses any key its
+file spells differently), and prices evened: Zumwalt 480 (its CPS cannot
+strike ships), Jeongjo 520, Sejong 480, Iver Huitfeldt 400, Galicia 250.
+Display quirks left in the mods: Charles de Gaulle's class name carries
+"(2018-2027)", the German Typhoon shows the RAF's "FGR.4", and Mogami's fourth
+hull is spelled "Mikma" in its short name.
 
 Left out on review: Dokdo (its file has no flight deck), the Pohang
 corvettes (2028 service unverified), and the Freedom LCS, which would show in
