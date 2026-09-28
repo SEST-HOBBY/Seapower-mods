@@ -23,32 +23,93 @@ throws away a load-order change made while it is running.
 
 ## Already aligned once? The short version for later rounds
 
-After the last round both `sest-dev/loving-bell-3cnvvw` and
-`feature/northern-front-iii-export` sit on `d5468582` (the Tasman Shield
-proofread and the ISR notes). Everything this session has pushed since builds
-straight on that commit, so a later round is the same fast-forward and one
-sync:
+Both `sest-dev/loving-bell-3cnvvw` and `feature/northern-front-iii-export`
+sit on `cf90a836` after the 27 Sep round (the Rig Seventeen home-base fix
+and the Campaign Rules pages). Everything this session has pushed since
+builds straight on that commit, so a later round is the same fast-forward
+and one sync. Close Sea Power, then paste this into PowerShell as one block.
+It has no blank lines on purpose: the console reads a paste line by line, and
+an empty line would end the block early. If it stops at a `>>` prompt, press
+Enter once more to run it.
 
 ```powershell
-cd C:\Users\<you>\Seapower-mods
-git status --short                                   # must be EMPTY
-git checkout sest-dev/loving-bell-3cnvvw
-git fetch origin
-git merge --ff-only origin/claude/campaign-missions-lore-td653z
-git push origin sest-dev/loving-bell-3cnvvw
-git push origin sest-dev/loving-bell-3cnvvw:feature/northern-front-iii-export
-powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1 -RefreshMissions
+& { $ErrorActionPreference = 'Stop'
+  if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
+  git checkout sest-dev/loving-bell-3cnvvw
+  if ($LASTEXITCODE) { throw 'checkout failed' }
+  git fetch origin
+  if ($LASTEXITCODE) { throw 'fetch failed' }
+  git merge --ff-only origin/claude/campaign-missions-lore-td653z
+  if ($LASTEXITCODE) { throw 'merge refused - stop and report it' }
+  git push origin sest-dev/loving-bell-3cnvvw sest-dev/loving-bell-3cnvvw:feature/northern-front-iii-export
+  if ($LASTEXITCODE) { throw 'push failed' }
+  powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
+  if ($LASTEXITCODE) { throw 'sync failed - read its last lines' }
+}
 ```
 
-Type each command on its own line: the sync command pasted twice on one line
-is read as a file called `sync-sest.ps1powershell` and refused.
-`-RefreshMissions` is what reaches the missions you imported from the game
-yourself (the Northern Front files and the chapter missions): it gives any
-airliner whose route ran out inside the mission clock one more waypoint along
-its airway, so it stops circling. The campaigns are rebuilt in the repo
-and need no flag. If `--ff-only` refuses, stop and report it, as in step 2.
+It stops, before anything is pushed or installed, if the game is running, if
+the clone has changes of its own (report them rather than committing them),
+or if the fast-forward is refused (step 2). The sync's last lines should read
+`IN LINE: all 1189 installed files match this commit (3d5d5323)`.
+`-RefreshMissions` on the sync is only for a round where the sync says it
+merged your own mission edits: it re-spreads the airliners in the missions
+you imported from the game.
 
-### This round: Red Line and the ported work
+Then check what landed (game closed or open):
+
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  . .\tools\lib\common.ps1
+  $root = Find-StreamingAssets
+  if (-not $root) { throw 'Sea Power StreamingAssets not found' }
+  $c = Join-Path $root 'SEST_Integration\campaigns'
+  foreach ($d in Get-ChildItem -LiteralPath $c -Directory | Sort-Object Name) {
+    $own = Select-String -LiteralPath (Join-Path $d.FullName 'campaign.ini') -SimpleMatch -Pattern ('Base=campaigns/' + $d.Name + '/campaign.ini') -Quiet
+    $rules = Test-Path -LiteralPath (Join-Path $d.FullName 'campaign_rules_en.xml')
+    '{0,-26} own file: {1,-5}  rules page: {2}' -f $d.Name, $own, $rules
+  }
+  $rig = Join-Path $c 'sest-southern-watch\missions\Southern Watch 03 - Rig Seventeen.ini'
+  'Rig Seventeen ship home bases: {0} (want 0)' -f @(Select-String -LiteralPath $rig -Pattern '^HomeBase=Taskforce1Vessel').Count
+  $open = Join-Path $c 'sest-southern-watch-open\campaign.ini'
+  if (-not (Test-Path -LiteralPath $open)) { throw 'No Open Allocation campaigns installed - the sync did not take this build' }
+  $line = Select-String -LiteralPath $open -Pattern '^TaskForceModeAllowedRosterUnits=(.*)$' | Select-Object -First 1
+  'Southern Watch Open Allocation, first window: {0} units on sale (want 10)' -f ($line.Matches[0].Groups[1].Value -split '\|').Count
+}
+```
+
+It should print six campaign folders, each `own file: True  rules page:
+True`, then `Rig Seventeen ship home bases: 0` and `10 units on sale`. A
+folder missing, a `False`, a count of 2, or "No Open Allocation campaigns
+installed" means the sync did not install this build: read its output
+before playing.
+
+### This round (28 Sep): the Rig Seventeen fix, rules pages, Open Allocation
+
+Three changes since the Red Line round, in play order:
+
+1. **Rig Seventeen** died twice on a force carried through White Water and
+   Steel Highway. In a mission your force is inserted into, no player-side
+   aircraft names a Taskforce1 ship as its home base any more, as in stock
+   (44 lines across 38 missions; Southern Watch build notes, "Rig Seventeen
+   died again"). Your Southern Watch save needs nothing: continue it and
+   load Rig Seventeen. If it dies again, capture with `-IncludeSaves` and
+   push. Your helicopters now name no home ship; order them to land on it.
+2. **Campaign Rules** - the button at the bottom right of the campaign map
+   now opens a page in each campaign (it opened nothing before).
+3. **Open Allocation** - each campaign is listed a second time, e.g.
+   "Southern Watch - Open Allocation (Royal Australian Navy)": the same
+   missions with the whole roster on sale from the first force allocation.
+   It is a new campaign with its own save; the standard ones are untouched.
+   Southern Watch test card 6G is its check list.
+
+The file count goes from 1171 to 1189: the three rules pages (1174) and the
+three Open Allocation folders of five files each.
+
+### The round before: Red Line and the ported work
 
 This round adds a third campaign to the same pack, **Red Line — The Other
 Watch**: six missions played from the Chinese side, with its own folder of
@@ -79,9 +140,9 @@ steps on the PC** that the ports need.
 
 | Branch | What it is | State |
 |---|---|---|
-| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `d5468582` after the last round's push |
-| `claude/campaign-missions-lore-td653z` | this session: the three campaigns, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | `d5468582` plus this round; every pack rebuilt from scratch; the gates in step 3 pass |
-| `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `d5468582` with the deploy branch if the last round's second push was made; do not deploy from it |
+| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `cf90a836` after the 27 Sep round's push |
+| `claude/campaign-missions-lore-td653z` | this session: the three campaigns and their Open Allocation twins, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | `3d5d5323`: `cf90a836` plus Open Allocation; every pack rebuilt from scratch; the gates in step 3 pass |
+| `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `cf90a836` with the deploy branch; do not deploy from it |
 | the other `sest-dev/*`, `fix/*`, `feature/*`, `chore/*` branches | earlier sessions | see §6: what was ported, and what was left and why |
 
 So "aligned to this session and the other sessions" means: the deploy branch
@@ -212,7 +273,7 @@ pages; 1189 with the three Open Allocation twins).
 
 ```powershell
 $sa = "<…>\Sea Power_Data\StreamingAssets\SEST_Integration"
-Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-red-line, sest-southern-reach, sest-southern-watch
+Get-ChildItem "$sa\campaigns" -Directory | Select-Object Name        # sest-red-line, sest-southern-reach, sest-southern-watch, each also with -open
 (Get-ChildItem "$sa\campaigns\sest-southern-reach\art\*.png").Count   # 47
 (Get-ChildItem "$sa\campaigns\sest-southern-reach\missions\*.ini").Count   # 25
 (Get-ChildItem "$sa\campaigns\sest-red-line\art\*.png").Count         # 12
@@ -228,10 +289,12 @@ Then in game, in this order:
    description lists SEST A-10C+, SEST Intercept Model and SEST
    Replenishment At Sea among the packs and ends "Southern Watch - Southern
    Reach - Red Line".
-2. **Campaign list** — three entries: `Southern Watch (Royal Australian
+2. **Campaign list** — six entries: `Southern Watch (Royal Australian
    Navy)`, `Southern Reach - Tasman Shield (Royal Australian Navy)` (44
    entries, a dark chart 29–66°S behind it) and `Red Line - The Other Watch
-   (People's Liberation Army Navy)` (10 entries).
+   (People's Liberation Army Navy)` (10 entries), and each again with
+   `- Open Allocation` before the navy in brackets. The Campaign Rules button
+   at the bottom right of each opens its rules page.
 3. **Mission browser** — folders `Southern Reach` (12), `Tasman Shield`
    (13) and `Red Line` (6) beside the Southern Watch ones. If the campaign
    list is short but the browser has every folder, the Mod Manager is not
@@ -352,6 +415,8 @@ Line's (`../red-line/test-card.md`) with its rules of engagement.
 |---|---|
 | `git merge --ff-only` refuses | `git log --oneline origin/sest-dev/loving-bell-3cnvvw -5` — whatever is there and not on this session's branch was pushed after the merge here; report it |
 | sync refuses on the branch guard | you are not on `sest-dev/loving-bell-3cnvvw`; go back to step 1 rather than passing `-AnyBranch` |
+| an Open Allocation entry is missing from the campaign list, or will not load its first mission | the twin loads its missions from the standard campaign's folder, which stock never does: Southern Watch test card 6G, G.1 and G.3 say what to bring back. The standard entries are unaffected either way |
+| Rig Seventeen dies loading again | `powershell -ExecutionPolicy Bypass -File .\tools\capture-context.ps1 -Redact -IncludeSaves` with the game closed, then commit `data\install-snapshot` and push the deploy branch: the log names the step and the save shows the force |
 | a campaign is missing in game but present on disk | `Get-ChildItem "$sa\campaigns\sest-southern-reach"` (or `sest-red-line`) shows the files; the browser copies are your route in, and the difference is the report |
 | a Southern Reach unit is missing in a mission | the unit names its mod: `campaigns\sest-southern-reach\REQUIRED-MODS.txt` lists the 32 hard-required Workshop mods for this campaign; `.\tools\show-load-order.ps1` shows which are enabled |
 | a Red Line unit is missing in a mission | `campaigns\sest-red-line\REQUIRED-MODS.txt` lists the 29 hard-required Workshop mods for that campaign |
