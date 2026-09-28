@@ -88,7 +88,7 @@ folder missing, a `False`, a count of 2, or "No Open Allocation campaigns
 installed" means the sync did not install this build: read its output
 before playing.
 
-### This round (28 Sep): the Rig Seventeen fix, rules pages, Open Allocation
+### This round (28 Sep): the Rig Seventeen fix, rules pages, Open Allocation, the discount
 
 Four changes since the Red Line round, in play order:
 
@@ -111,8 +111,9 @@ Four changes since the Red Line round, in play order:
    nation, and every unit on sale is the commander's own (the US-built
    airframes fly Australian squadrons). It came after the first 28 Sep
    sync: the same update block brings it, the count stays 1189, and the
-   Campaign Rules page gains a National Purchase Discount section. Test
-   card G.6 is its check.
+   Campaign Rules page gains a National Purchase Discount section. A
+   campaign already under way may keep its old value - a new start will
+   show it; test card G.6 checks both.
 
 The file count goes from 1171 to 1189: the three rules pages (1174) and the
 three Open Allocation folders of five files each.

@@ -332,7 +332,7 @@ ROSTER = [
 # the Growler's Squadron6, the P-8's Squadron3, the Seahawk's Squadron20).
 # build_pack.roster_nations() re-reads that on every build and stops on a
 # pick with no declared nation; the rules page lists any unit the discount
-# does not cover. Restored 28 Sep at the player's request.
+# does not cover. Set 28 Sep at the player's request.
 # No emblem or ribbon art is referenced - every path would be a .png this repo
 # cannot produce.
 # CommanderStartingRankLevel is an index into [OfficerRanks], and this file
@@ -4475,8 +4475,9 @@ for _m in MISSIONS:
 #
 # ENFORCED BY THE GAME. The campaign runs native Task Force Mode, so a
 # purchased support asset that dies is gone from the owned force and has to be
-# re-bought at its roster price: the Wedgetail 80 points, the P-8 55, the
-# Triton 40, against mainline allocations of 100-200 per mission. That is a
+# re-bought at its roster price less the 20% same-nation discount: the
+# Wedgetail 64 points, the P-8 44, the Triton 32 (80, 55 and 40 listed),
+# against mainline allocations of 100-200 per mission. That is a
 # large share of a mission's income to replace one, and it is automatic.
 # (Supply and the tankers are not on the roster: they are theatre assets.)
 # TaskForceModeRequireEntireTaskForce=True on the convoy operations means the

@@ -971,12 +971,15 @@ def squadrons(uid):
 def pick_nation(uid, pick):
     """The nation a roster pick is registered to, or None.
 
-    No unit file in this collection declares a Nation; the squadron (for an
+    No unit file on these rosters declares a Nation; the squadron (for an
     aircraft) or the hull variant (for a ship) does, else that file's
     [Default] - the same place the game takes a unit's flag from, and the
     place check_campaign_coverage reads it. The Super Hornet, Growler, P-8
     and Seahawk on sale are US-built airframes flying Australian squadrons,
-    and this is what says so.
+    and this is what says so. Stock does the same: Pacific Strike sells
+    `usn_fa-18a=Squadron7,Squadron8` to an Australian commander, and its
+    squadrons file registers both to Australia. An empty or comment-only
+    Nation= is undeclared, and falls through to [Default].
     """
     kind, _path = unit_file(uid)
     f = winning(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
@@ -985,18 +988,23 @@ def pick_nation(uid, pick):
     text = read(f)
     for section in (pick, "Default"):
         m = re.search(rf"^\[{re.escape(section)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
-        n = m and re.search(r"^\s*Nation\s*=\s*(.+?)\s*$", m.group(1), re.M)
-        if n:
-            return re.split(r"\s*(?://|#|;)", n.group(1), 1)[0].strip()
+        n = m and re.search(r"^[ \t]*Nation[ \t]*=[ \t]*(.*?)[ \t]*\r?$", m.group(1), re.M)
+        value = n and re.split(r"\s*(?://|#|;)", n.group(1), 1)[0].strip()
+        if value:
+            return value
     return None
 
 
 def roster_nations(roster):
     """{unit: nation} for a roster, every pick of a unit agreeing.
 
-    A same-nation discount is decided per unit by the game; a pick with no
-    declared nation, or a unit whose picks disagree, would make that decision
-    somewhere this build cannot see, so either stops it.
+    The game decides the discount per purchase; this builder describes it per
+    unit, so it needs one nation per unit - a limit of this builder, not the
+    game's rule (stock sells usn_p-3c squadrons of three nations under one
+    entry). A pick with no declared nation, picks that disagree, or a unit
+    file that declares a nation of its own different from its picks' would
+    put the decision somewhere this build cannot see, so any of them stops
+    it.
     """
     out = {}
     for e in roster:
@@ -1006,14 +1014,34 @@ def roster_nations(roster):
                              f"nation across its picks ({sorted(map(str, found))}); the "
                              "same-nation discount would be decided somewhere this "
                              "build cannot see")
-        out[e["unit"]] = found.pop()
+        nation = found.pop()
+        own = unit_value(e["unit"], "Nation")
+        if own and own.lower() != nation.lower():
+            raise SystemExit(f"roster: {e['unit']} declares Nation={own} in its unit "
+                             f"file but its picks are registered to {nation}; which one "
+                             "the discount follows is not something this build can see")
+        out[e["unit"]] = nation
     return out
 
 
 def same_nation_discount(commander):
-    """SameNationUnitDiscount from a commander_settings text, as a fraction."""
-    m = re.search(r"^SameNationUnitDiscount=\s*([0-9.]+)", commander, re.M)
-    return float(m.group(1)) if m else 0.0
+    """SameNationUnitDiscount from a commander_settings text, as a fraction.
+
+    0 when the key is absent. Pacific Strike writes a fraction (0.2); a
+    value that does not read as one stops the build rather than ship a
+    discount nobody chose.
+    """
+    m = re.search(r"^SameNationUnitDiscount=(.*)$", commander, re.M)
+    if not m:
+        return 0.0
+    try:
+        value = float(m.group(1).strip())
+    except ValueError:
+        value = -1.0
+    if not 0 <= value < 1:
+        raise SystemExit(f"commander settings: SameNationUnitDiscount={m.group(1).strip()} "
+                         "is not a fraction between 0 and 1 (Pacific Strike's is 0.2)")
+    return value
 
 
 def alias_target(path):

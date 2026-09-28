@@ -940,6 +940,56 @@ class SameNationDiscount(unittest.TestCase):
         page = bp.campaign_rules(spec)
         self.assertIn("cost their listed price: plan_j-15 (China)", page)
 
+    def _squadrons(self, text):
+        """pick_nation() over a squadrons file with this text."""
+        tmp = Path(tempfile.mkdtemp()) / "u_squadrons.ini"
+        tmp.write_text(text, encoding="utf-8")
+        saved = bp.unit_file, bp.winning
+        bp.unit_file = lambda uid: ("aircraft", tmp)
+        bp.winning = lambda rel: tmp
+        try:
+            return bp.pick_nation("u", "Squadron1")
+        finally:
+            bp.unit_file, bp.winning = saved
+            shutil.rmtree(tmp.parent, ignore_errors=True)
+
+    def test_an_empty_or_commented_nation_falls_through_to_default(self):
+        for body in ("Nation=\nName=No. 1 Sqn\n", "Nation=//todo\nName=x\n",
+                     "Name=No. 1 Sqn\n", "Nation= \r\nName=x\r\n"):
+            self.assertEqual(self._squadrons(f"[Squadron1]\n{body}[Default]\nNation=US\n"),
+                             "US", repr(body))
+        self.assertEqual(self._squadrons("[Squadron1]  ; RAAF\nNation=Australia  // 77 Sqn\n"
+                                         "[Default]\nNation=US\n"), "Australia")
+        self.assertIsNone(self._squadrons("[Squadron1]\nNation=\n[Default]\nName=x\n"))
+
+    def test_picks_that_disagree_stop_the_build(self):
+        saved = bp.pick_nation
+        bp.pick_nation = lambda uid, pick: "Australia" if pick == "Squadron3" else "US"
+        try:
+            with self.assertRaises(SystemExit) as caught:
+                bp.roster_nations([dict(unit="usn_p8", picks=["Squadron3", "Squadron1"],
+                                        points=55)])
+            self.assertIn("usn_p8", str(caught.exception))
+        finally:
+            bp.pick_nation = saved
+
+    def test_a_unit_file_nation_that_disagrees_stops_the_build(self):
+        saved = bp.unit_value
+        bp.unit_value = lambda uid, key, depth=0: "US" if key == "Nation" else saved(uid, key)
+        try:
+            with self.assertRaises(SystemExit) as caught:
+                bp.roster_nations([dict(unit="usn_p8", picks=["Squadron3"], points=55)])
+            self.assertIn("Nation=US", str(caught.exception))
+        finally:
+            bp.unit_value = saved
+
+    def test_a_discount_that_is_not_a_fraction_stops_the_build(self):
+        self.assertEqual(bp.same_nation_discount("[CommanderSettings]\n"), 0.0)
+        self.assertEqual(bp.same_nation_discount("SameNationUnitDiscount= 0.20\n"), 0.2)
+        for bad in ("20", ".", "", "-0.1", "1"):
+            with self.assertRaises(SystemExit):
+                bp.same_nation_discount(f"SameNationUnitDiscount={bad}\n")
+
     def test_a_pick_with_no_declared_nation_stops_the_build(self):
         saved = bp.pick_nation
         bp.pick_nation = lambda uid, pick: None if uid == "usn_p8" else "Australia"

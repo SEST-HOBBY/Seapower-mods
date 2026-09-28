@@ -116,7 +116,7 @@ Pacific Strike campaign and has never been run.
 |---|---|---|
 | 2.1 | Start the campaign on **Standard** | 1,000 points, cap 1,500 |
 | 2.2 | Open the builder before SW01 | Exactly **3** buyable: Anzac, Arafura, MH-60R |
-| 2.3 | Buy an Anzac, take Variant3 or Variant8 | Both offered, priced 240 |
+| 2.3 | Buy an Anzac, take Variant3 or Variant8 | Both offered, at 192: the roster's 240 less the 20% same-nation discount (G.6) |
 | 2.4 | Deploy into SW01 | The purchased ship is **Taskforce1Vessel1**, on station, not adrift |
 | 2.5 | Finish SW01, open the builder before SW02 | The list has **grown** to 5 — Hobart and the P-8 added. No Supply, no Collins, no KC-46: the roster sells nothing a mission cannot deploy |
 | 2.6 | Before SW05 | The builder says one ship sails it; the deployment screen accepts **exactly one vessel** (`Replaced`, `MaxUnits=1`). Send an Arafura and the magazine objective must still read her NSM cells |
@@ -308,7 +308,7 @@ roster from the first window. Build notes, "Open Allocation".
 | G.3 | Buy an F-35A there, then fly White Water | White Water loads and plays as in the standard campaign; the F-35A does not appear (no row for it) and is still in the force afterwards | A load failure = missions are not loaded from another campaign's folder: capture with `-IncludeSaves` and push |
 | G.4 | Continue the standard Southern Watch save | Unchanged: its own windows, its own progress | The twin sharing the standard save = the campaigns are keyed by something other than their folder |
 | G.5 | Red Line - Open Allocation, first window | Every Red Line roster entry on sale, the J-15, J-15D, KJ-500 and Y-9 among them | As G.2 |
-| G.6 | Any Southern Watch or Southern Reach campaign, standard or Open Allocation: open the Unit Prices tab, then Task Force Builder | Service Record reads "Same-nation discount: 20%"; every row's nation is Australia, the Super Hornet, Growler, P-8 and MH-60R included; builder prices about a fifth under the roster's (Anzac 240 about 192, MH-60R 20 about 16). Note whether your Rig Seventeen save shows it too | A US-built airframe at full price = the game takes the discount nation from the unit file, not the squadron: say which, and it goes back to a per-unit decision |
+| G.6 | Any campaign, standard or Open Allocation: open the Service Record, then Campaign Rules > Unit Catalog, then Task Force Builder; later, damage a Hobart to Moderate before a repair window | The Service Record reads "Same-nation discount: 20%". In the Unit Catalog every row's nation is the commander's: Australia in Southern Watch and Southern Reach, the Super Hornet, Growler, P-8 and MH-60R included; China in Red Line. Builder prices a fifth under the roster's: Anzac 240 to 192, Hobart 480 to 384, MH-60R 20 to 16; 054A 280 to 224, Z-9C 20 to 16. Record the Moderate repair: 120 = charged on the listed price, 96 = on the discounted one. Note whether your Rig Seventeen save shows the discount or only a new campaign does | A US-built airframe at full price = the game takes the discount nation from the unit file, not the squadron: say which, and it goes back to a per-unit decision |
 
 ## 7 — the review's engine tests
 

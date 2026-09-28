@@ -566,7 +566,7 @@ One currency is enough. Ammunition, damage, available units and service opportun
 | Contingency completion allocations | 0; recovery benefits only |
 | Aircraft on newly bought ships | Bought explicitly; `ShipIncludesAirwing=False` across difficulties |
 | Commander nationality discount | **20%** (Pacific Strike's value) from 28 Sep. It started at 0% for fear of inconsistent discounts on US-named mod unit definitions; the unit files declare no nation, and every roster pick is registered to Australia by its squadron or hull variant, so it covers the whole roster (build notes, "Same-nation discount") |
-| Hull repair | Light: **10%** of the hull's base campaign price; Moderate: **25%**, at an enabled service window |
+| Hull repair | Light: **10%** of the hull's base campaign price; Moderate: **25%**, at an enabled service window (listed or discounted price: test card G.6) |
 | Heavy damage | Withdraw/decommission under the selected native rules; no instant full repair |
 | Dismiss an undamaged unit | 50% point return; it also leaves the owned force |
 | Decommission a heavily damaged unit | 25% point return; story calls this withdrawal from theatre, not necessarily scrapping the ship |
@@ -626,6 +626,8 @@ Do not offer Ford or another carrier for personal purchase in this first campaig
 
 ### A complete opening budget example
 
+*List prices.* The figures in this section and the next predate the 20% same-nation discount the campaign has carried since 28 Sep. Every unit on the roster is Australian, so each purchase now costs a fifth less, the same budget buys about a quarter more, and the trade-offs below are looser than written. Repairs are a fraction of a unit's price; whether the game takes that from the listed or the discounted price is test card G.6.
+
 No optional rewards, rescue credits, discounts or losses in SW01 are assumed in this example.
 
 | Step | Change | Available points |
@@ -670,7 +672,7 @@ Aircraft loadout selections and ship ammunition still need appropriate inventory
 
 ### Three opening force directions
 
-These examples show how a **1,000-point planning budget** could be distributed once SW02 opens the broader roster. They are package comparisons, not extra grants. They all include the opening Warramunga, one Seahawk and one P-8. The actual campaign may also have the SW01 reward available, as shown in section 13.
+These examples show how a **1,000-point planning budget** could be distributed once SW02 opens the broader roster, at list prices (see the note above: each package now costs a fifth less). They are package comparisons, not extra grants. They all include the opening Warramunga, one Seahawk and one P-8. The actual campaign may also have the SW01 reward available, as shown in section 13.
 
 | Direction | Example composition | Spent / reserve | What it gains and gives up |
 |---|---|---|---|
@@ -758,7 +760,7 @@ DamageToDisallowRepair=Heavy
 RepairPointsCost=Light,0.1|Moderate,0.25
 ```
 
-This is a settings excerpt, **not an installable campaign file**. It omits registration, difficulty sections, the implemented loadout allowlists, mission entries and assets. In commander settings use the native Australian commander configuration with `SameNationUnitDiscount=0`; do not invent a nation identifier or replace the historical nationality of allied units.
+This is a settings excerpt, **not an installable campaign file**. It omits registration, difficulty sections, the implemented loadout allowlists, mission entries and assets. In commander settings use the native Australian commander configuration with `SameNationUnitDiscount=0.2` (Pacific Strike's value; build notes, "Same-nation discount"); do not invent a nation identifier or replace the historical nationality of allied units.
 
 Examples of campaign-specific prices, drawn from the inspected native roster format and resolved campaign candidates:
 
@@ -784,8 +786,8 @@ Every story-critical support unit must declare one of three ownership states in 
 
 ### Minimum acceptance run
 
-1. Start with the intended mod order and Standard budget. Confirm displayed prices match the roster and that neither a missing price nor an included-airwing rule grants free assets.
-2. Buy the opening frigate, compatible helicopter and P-8. Confirm the planned 305-point spend, remaining 695 points and actual mission aircraft/deck/base assignment.
+1. Start with the intended mod order and Standard budget. Confirm displayed prices are the roster's less the 20% same-nation discount (test card G.6) and that neither a missing price nor an included-airwing rule grants free assets.
+2. Buy the opening frigate and a compatible helicopter (the SW01 window sells no P-8; it goes on sale before SW02). Confirm the spend - 208 points at the discounted prices, 240 + 20 listed - the remaining 792, and the actual mission aircraft/deck/base assignment.
 3. Complete a mission with ammunition expenditure and repairable damage, save and reload. Confirm the committed force state, 100-point allocation and crew progression once; verify hard defeat separately from a qualifying setback.
 4. Advance through a no-service transition, then a service transition. Confirm ship rearm and paid repair occur only where authorised; inspect limited native automatic damage recovery rather than assuming damage is perfectly frozen.
 5. Complete SW02 with three arrivals including the essential ship. Confirm normal progression, the saved secondary condition, C01 visibility, lost-cargo persistence and SW08's intended supply state. Complete the clean four-arrival variant separately to verify the branches differ.
