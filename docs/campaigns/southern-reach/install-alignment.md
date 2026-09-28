@@ -79,14 +79,20 @@ Then check what landed (game closed or open):
   if (-not (Test-Path -LiteralPath $open)) { throw 'No Open Allocation campaigns installed - the sync did not take this build' }
   $line = Select-String -LiteralPath $open -Pattern '^TaskForceModeAllowedRosterUnits=(.*)$' | Select-Object -First 1
   'Southern Watch Open Allocation, first window: {0} units on sale (want 10)' -f ($line.Matches[0].Groups[1].Value -split '\|').Count
+  $ts11a = Join-Path $c 'sest-southern-reach\missions\Tasman Shield 11A - The Twelve-Mile Line.ini'
+  if (-not (Test-Path -LiteralPath $ts11a)) { throw 'The Twelve-Mile Line is not installed - the sync did not take this build' }
+  'The Twelve-Mile Line: scripted salvo lines {0} (want 1)' -f @(Select-String -LiteralPath $ts11a -SimpleMatch -Pattern 'AttackAtWaypoint,plan_yj-83a,Taskforce1Vessel2').Count
+  $ts12 = Join-Path $c 'sest-southern-reach\missions\Tasman Shield 12 - Southern Cross.ini'
+  'Southern Cross reads its result: {0} (want True)' -f (Select-String -LiteralPath $ts12 -SimpleMatch -Pattern 'TS11ADefectorSafe' -Quiet)
 }
 ```
 
 It should print six campaign folders, each `own file: True  rules page:
-True`, then `Rig Seventeen ship home bases: 0` and `10 units on sale`. A
-folder missing, a `False`, a count of 2, or "No Open Allocation campaigns
-installed" means the sync did not install this build: read its output
-before playing.
+True`, then `Rig Seventeen ship home bases: 0`, `10 units on sale`,
+`scripted salvo lines 1` and `Southern Cross reads its result: True`. A
+folder missing, a `False`, a count of 2, "No Open Allocation campaigns
+installed" or "The Twelve-Mile Line is not installed" means the sync did not
+install this build: read its output before playing.
 
 ### This round (28 Sep): the Rig Seventeen fix, rules pages, Open Allocation, the discount, wider forces, The Twelve-Mile Line
 
