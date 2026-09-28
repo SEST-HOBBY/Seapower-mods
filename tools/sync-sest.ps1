@@ -203,6 +203,12 @@ if (-not $SkipOrder) {
     Write-Host "`n[3/3] mod order skipped (-SkipOrder)" -ForegroundColor DarkGray
 }
 
+# --- mods' own debug switches ------------------------------------------------
+# A mod update puts its author's file back, debug switch and all; see
+# quiet-mod-debug.ps1 for the one that froze Steel Highway.
+Write-Host "`nchecking mod debug switches..." -ForegroundColor Cyan
+& (Join-Path $scriptDir "quiet-mod-debug.ps1")
+
 # --- optional: re-run the mission tooling ------------------------------------
 if ($RefreshMissions) {
     Write-Host "`nre-running the mission tooling..." -ForegroundColor Cyan

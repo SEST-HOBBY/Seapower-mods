@@ -88,6 +88,12 @@ mod, so a file an author removed leaves `mods-source/` too: review its deletions
 `check_inventory.py` stays red: `docs/packaging-and-recovery.md` lists what it finds and
 the one campaign unit that had been resolving only through a leftover file.
 
+`tools\quiet-mod-debug.ps1` turns off debug switches that Workshop mods ship switched on -
+so far the PLA & PLAN & PLAAF AEP's `debug.ini`, whose logging on every physics tick froze
+Steel Highway once BepInEx was installed. A mod update puts the author's file back, so
+`sync-sest.ps1` runs it on every sync. `capture-context.ps1` now also takes the tail of
+BepInEx's own `LogOutput.log`, where the code mods write.
+
 `docs/setup-runbook.md` is the full walkthrough.
 
 ## The campaigns
