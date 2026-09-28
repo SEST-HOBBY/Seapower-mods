@@ -349,7 +349,21 @@ def open_slug(slug):
     return slug + OPEN_SUFFIX
 
 
-def open_allocation_ini(text, slug, roster):
+def allied_line(roster, commander):
+    """The campaign-list sentence naming the allied fleet on a twin's roster,
+    or "" when its roster is the commander's own navy alone."""
+    nation = re.search(r"^CommanderNations=(.+)$", commander, re.M).group(1).strip()
+    foreign = collections.Counter(nation_name(n) for n in roster_nations(roster).values()
+                                  if n.lower() != nation.lower())
+    if not foreign:
+        return ""
+    names = [n for n, _c in sorted(foreign.items(), key=lambda x: (-x[1], x[0]))]
+    return (f"The allied fleet is on sale beside it at full price: {sum(foreign.values())} "
+            f"ship, submarine and aircraft classes from {', '.join(names[:-1])} and "
+            f"{names[-1]}. ")
+
+
+def open_allocation_ini(text, slug, roster, allied=""):
     """The Open Allocation twin's campaign.ini, from the base campaign's text.
 
     Changed: `[File] Base` (the file's own location, which stock says every
@@ -375,7 +389,7 @@ def open_allocation_ini(text, slug, roster):
                              lambda m: f"Name={m.group(1)} - Open Allocation{m.group(2) or ''}",
                              sec, count=1, flags=re.M)
             counts["name"] += n
-            sec, n = re.subn(r"^Description=", lambda m: "Description=" + OPEN_BLURB,
+            sec, n = re.subn(r"^Description=", lambda m: "Description=" + OPEN_BLURB + allied,
                              sec, count=1, flags=re.M)
             counts["description"] += n
         elif re.search(r"^TaskForceModeEnableTaskForceBuilder=True$", sec, re.M):
@@ -5010,7 +5024,9 @@ def main():
         twin = OUT / "campaigns" / open_slug(SLUG)
         twin.mkdir(parents=True)
         (twin / "campaign.ini").write_text(
-            open_allocation_ini(c["campaign_text"], SLUG, c["twin_roster"]), encoding="utf-8")
+            open_allocation_ini(c["campaign_text"], SLUG, c["twin_roster"],
+                                allied_line(c["twin_roster"], spec["COMMANDER"])),
+            encoding="utf-8")
         (twin / "campaign_rules_en.xml").write_text(
             campaign_rules(dict(spec, ROSTER=c["twin_roster"]), open_allocation=True,
                            submarine_missions=submarine_missions(c["missions"],

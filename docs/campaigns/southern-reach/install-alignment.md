@@ -90,7 +90,7 @@ before playing.
 
 ### This round (28 Sep): the Rig Seventeen fix, rules pages, Open Allocation, the discount
 
-Four changes since the Red Line round, in play order:
+Five changes since the Red Line round, in play order:
 
 1. **Rig Seventeen** died twice on a force carried through White Water and
    Steel Highway. In a mission your force is inserted into, no player-side
@@ -114,6 +114,11 @@ Four changes since the Red Line round, in play order:
    Campaign Rules page gains a National Purchase Discount section. A
    campaign already under way may keep its old value - a new start will
    show it; test card G.6 checks both.
+5. **The allied fleet** - the Open Allocation versions of Southern Watch
+   and Southern Reach also sell the allied fleet at full price: 85 and 77
+   US, UK, NATO, Japanese, Korean and extra Australian ship, submarine and
+   aircraft classes, from the first force allocation. Aircraft are sold only
+   where a mission can launch and recover them. Test card G.7-G.9.
 
 The file count goes from 1171 to 1189: the three rules pages (1174) and the
 three Open Allocation folders of five files each.

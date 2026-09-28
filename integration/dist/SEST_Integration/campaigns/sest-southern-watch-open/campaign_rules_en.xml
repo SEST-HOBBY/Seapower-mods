@@ -45,7 +45,7 @@
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Commanders receive a "/><Run Text="{Binding SameNationDiscountPercentText}"/><Run Text="% point discount when purchasing units from their own nation."/>
             </TextBlock>
-            <TextBlock Text="- Every unit on this campaign's roster is registered to Australia by its squadron or hull variant, so the discount applies to all of it." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="- The discount covers the 14 classes registered to Australia. The 81 allied classes - from USA (26), France (10), Spain (9), Italy (7), South Korea (7), Japan (6), Germany (5), United Kingdom (5), Netherlands (3), Denmark (1), Norway (1), Poland (1) - cost their listed price." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="Awards and Promotions" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
@@ -145,7 +145,7 @@
               <Run Text="- Open "/><Hyperlink Command="{Binding OpenTaskForceBuilderCommand}">Task Force Builder</Hyperlink><Run Text=" from the task force bar to add ships, submarines, helicopters, and aircraft to your task force."/>
             </TextBlock>
             <TextBlock Text="- Selected units are not purchased until the task force is confirmed." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Open Allocation: every force allocation offers the whole campaign roster, from the first. Some operations still limit what sails." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Open Allocation: every force allocation offers the whole campaign roster, the allied fleet included, from the first. Some operations still limit what sails." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Use the task force bar to repair damage, inspect weapons, change loadouts, view proficiency, and manage aircraft assignments."/>
             </TextBlock>
@@ -292,11 +292,11 @@
             <TextBlock Text="Aircraft and Submarines" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock Text="- Ships purchased in Task Force Builder come without aircraft. Helicopters and aircraft are bought separately, and replacements must be bought if aircraft are lost." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Helicopters and fixed-wing aircraft are on sale from the first force allocation. Each ship shows its supported aircraft in Task Force Builder." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Fixed-wing aircraft are on sale from the first force allocation, before any mission can use them." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Fixed-wing aircraft are on sale from the first force allocation, before any mission can use them. Allied aircraft are sold only where some mission here can launch and recover them." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Purchased fixed-wing aircraft operate from airbases in missions that support them. If no airbase is available, fixed-wing aircraft do not deploy and are held in reserve." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Some missions include Air Tasking slots for aircraft that can begin the mission already airborne. Open Prepare Airbase from the selected mission and use the Air Tasking tab to assign eligible unassigned aircraft before launch." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- Each Air Tasking row represents one mission flight. Larger flights must use the same aircraft type, but may launch partially filled if too few aircraft are available." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Submarines cannot be bought in this campaign. A mission that gives you one provides it with the mission; it does not join your task force." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="- Submarines can be bought here. A submarine sails only in a mission that includes one - Southern Lifeline - and waits in reserve for the rest." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="Flagships" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>

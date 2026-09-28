@@ -1394,6 +1394,59 @@ in stock says it cannot - or that the twin's progress is saved apart from the
 standard campaign's, which it should be as a campaign file of its own. Test
 card 6G (G.1, G.3, G.4).
 
+## The allied fleet (28 September)
+
+What the player wanted from Open Allocation was the allied fleet - US, UK,
+NATO and Pacific allies - costed and in the Unit Catalog, not only the
+campaign's own roster sooner. The Open Allocation versions of Southern Watch
+and Southern Reach now sell it beside the campaign's roster, from the first
+force allocation; the standard campaigns keep their story roster, and Red
+Line's PLAN commander gets no allied fleet.
+
+The list (`integration/campaign/allied_fleet.py`, 107 classes before the
+aircraft filter) was curated from the enabled collection: every unit file
+whose variants or squadrons are registered to an allied nation, one entry per
+class per navy, the most modern and complete file where mods duplicate a
+class, picks in service in October 2028 (the files' own `ServiceDate` where
+they give one, a stated judgment where they do not) and registered to one
+nation. Prices are capability tiers on the campaign's own scale - Anzac 240,
+Hobart 480, Arafura 100, F-35A 45, P-8 55, Seahawk 20 - for example a Burke
+Flight III 520, a Type 45 460, a FREMM 360, a Virginia 460-500, a Ford 1,400,
+a Rafale M 50, a Typhoon 45. They are list prices: the same-nation discount
+covers only the four Australian additions (Canberra, Choules, Supply, Collins)
+and the campaign's own units. Ships come without aircraft here, so the big
+amphibians are priced as hulls (Wasp 550, Canberra and Juan Carlos 500,
+Mistral 450).
+
+Aircraft are sold only where they can fly: `usable_allied()` keeps one only
+if some air-tasking row with a cockpit in the campaign takes it and it
+recovers in every row that would, by the same deck and field test the build
+applies to the campaign roster. That leaves 16 allied aircraft types in
+Southern Watch's version and 8 in Southern Reach's; the rest - bombers, AEW,
+tankers and gunships (no row asks for them), the allied helicopters (the RAN
+decks in the missions list only the MH-60R), and several fighters in the
+Tasman (no field in reach of the CAP slots) - are listed by the build with
+the reason. Submarines are sold; one sails only in a mission that includes
+the owned submarine (Southern Lifeline; Great Australian Bight), and the
+rules page says so. Southern Watch's version sells 85 allied units, Southern
+Reach's 77.
+
+Left out on review: Dokdo (its file has no flight deck), the Pohang
+corvettes (2028 service unverified), and the Freedom LCS, which would show in
+game as "Wasp-class (Early)" because its mod's `vessel_names.ini` comments out
+the Wasp header. Not in the collection at all, so not for sale: Queen
+Elizabeth, Astute, Type 26 and 31, Cavour, the America-class LHA and San
+Antonio LPD, Izumo, Kongo, Soryu and Taigei, and any RNZN warship. Upstream
+problems found on the way: the K130 corvette's unit files say `Nation=GER`
+against `Germany` in its variants, so the build refuses it; the UK Poseidon
+squadrons inside `usn_p_8a` say `Nation=uk` in lower case.
+
+Not demonstrated: that the game reads a roster and allowlist of this length
+(about a hundred entries; allowlist lines of about 5,000 characters, where
+stock's run to about 1,000), that a bought carrier or LHD sails without an
+air group as expected, and that a bought submarine waits in reserve outside
+its one mission. Test card 6G, G.7-G.9.
+
 ## Same-nation discount (28 September)
 
 Asked for: the player noticed an Australian commander got no same-nation
