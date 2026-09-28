@@ -16,7 +16,7 @@ This campaign reaches 43 of the enabled mods and packs; the 121 it does not are 
 | `store` | supplies a round the placed unit's loadout hangs | 8 |
 | `asset` | supplies a model folder the placed unit's file draws from | 9 |
 
-Sea and land positions are snapped to points already used by a loading mission; the furthest any anchor had to move is 6.7 NM.
+Sea and land positions in 4 of the 6 missions are snapped to points already used by a loading mission (the furthest any anchor had to move is 6.7 NM); the other 2 use them as authored, checked against the coastline extract.
 
 | mod / pack | title | class | via | mission |
 |---|---|---|---|---|

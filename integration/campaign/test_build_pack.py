@@ -1361,5 +1361,36 @@ class BriefingChartSupport(unittest.TestCase):
         self.assertEqual(kept, planes)
 
 
+class CoverageGeography(unittest.TestCase):
+    """The coverage report says how positions were placed, per campaign.
+
+    It said every campaign snapped to points from a loading mission, "0.0 NM"
+    included, while Southern Reach places every position as authored against
+    the coastline extract and Red Line does so in two of its six."""
+
+    MISSIONS = [dict(units=[]), dict(units=[]), dict(units=[])]
+
+    def _sentence(self, pooled):
+        text = bp.report([], self.MISSIONS, 6.7, pooled=pooled)
+        return next(l for l in text.splitlines() if l.startswith("Sea and land"))
+
+    def test_all_pooled_keeps_the_snap_sentence(self):
+        line = self._sentence(3)
+        self.assertIn("snapped to points already used by a loading mission", line)
+        self.assertIn("6.7 NM", line)
+        self.assertEqual(line, self._sentence(None))    # the old default
+
+    def test_all_coast_says_nothing_was_snapped(self):
+        line = self._sentence(0)
+        self.assertIn("used as authored and checked against the coastline", line)
+        self.assertNotIn("NM", line)
+
+    def test_mixed_names_both_halves(self):
+        line = self._sentence(2)
+        self.assertIn("in 2 of the 3 missions are snapped", line)
+        self.assertIn("6.7 NM", line)
+        self.assertIn("the other 1 use them as authored", line)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
