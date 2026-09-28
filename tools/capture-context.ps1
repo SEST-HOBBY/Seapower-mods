@@ -147,6 +147,22 @@ foreach ($pair in @(@("Player.log", "player.log"), @("Player-prev.log", "player-
     } else { Write-Host ("  skipped {0,-30} not present" -f $pair[0]) }
 }
 
+# --- 3b. the code mods' log ----------------------------------------------------
+# BepInEx writes what the code mods say (Identify Expanded, Anchor Chain and the
+# mods it loads) to its own LogOutput.log beside the game, not to Player.log.
+# A mod logging on every physics tick froze Steel Highway on 28 Sep and showed
+# nowhere else. Only the tail is read: that file can grow without limit.
+if ($StreamingAssetsDir) {
+    $bep = Join-Path (Split-Path -Parent (Split-Path -Parent $StreamingAssetsDir)) "BepInEx\LogOutput.log"
+    if (Test-Path -LiteralPath $bep) {
+        $item = Get-Item -LiteralPath $bep
+        $tail = @(Get-Content -LiteralPath $bep -Tail 600 -ErrorAction SilentlyContinue)
+        Write-Snapshot "bepinex.log" (@("# BepInEx\LogOutput.log - last $($tail.Count) line(s) of a " +
+                                        ("{0:N1} MB" -f ($item.Length / 1MB)) +
+                                        " file, last written $($item.LastWriteTime.ToString('s')).", "") + $tail)
+    } else { Write-Host "  skipped bepinex.log                   no BepInEx\LogOutput.log (BepInEx not installed?)" }
+}
+
 # --- 4. game build ------------------------------------------------------------
 $lines = @("# Installed Sea Power build - what the packs' ApproximateVersion should track.", "")
 $exe = $null

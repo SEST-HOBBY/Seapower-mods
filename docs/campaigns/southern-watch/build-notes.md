@@ -1325,6 +1325,29 @@ price table, refund percentages and survivor reward are Bindings the game
 fills from each campaign's own files. If the stock page changes, the build
 stops rather than ship a half-edited one. English only, as stock.
 
+## Steel Highway froze (28 September)
+
+Restarted from the campaign map twice, Steel Highway ran and then stopped
+responding in the middle of the mission (Windows: not responding, nearly 8,000
+CPU seconds). Player.log ends mid-mission with the P-8 and a Seahawk sent to
+their recovery points, and nothing after. The cause was in BepInEx's own log,
+which Player.log does not carry: every line of its tail came from one code mod,
+the PLA & PLAN & PLAAF AEP (Workshop 3789188689), whose SubAmmunition code
+logged `SONO pos` / `SETGEO bomb` with a full stack trace every time a sonobuoy
+or bomb moved - every physics tick, for every one in the water. Its
+`debug.ini` ships `Enabled=1`; its own comment says to set 1 only while chasing
+a missile that self-destructs after launch. The switch had been on since the
+mod was first exported (20 Sep), and harmless until BepInEx and Anchor Chain
+were installed on 27 Sep and its code began to run. A mission full of
+sonobuoys - a P-8 and Seahawks hunting a submarine - is its worst case.
+
+`tools/quiet-mod-debug.ps1` sets it to 0, changing that one value and nothing
+else in the file (checked byte for byte against the exported copy), and
+`sync-sest.ps1` runs it on every sync because a mod update puts the author's
+file back. `capture-context.ps1` now takes the tail of BepInEx's
+`LogOutput.log` too, with its size. Not proven until Steel Highway runs its
+submarine hunt to the end with the switch off: test card 7.3b.
+
 ## Open Allocation (27 September)
 
 Asked for: a switch that puts assets on sale before the story releases them.
