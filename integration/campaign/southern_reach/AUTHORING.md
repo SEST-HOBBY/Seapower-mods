@@ -357,7 +357,7 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `plan_z-20f` | Helicopter | `modern-plan-systems` | the Type 052D's own ASW helicopter (its deck lists it); `loadout="ASW"`. Not `planaf_z-20j`: no stores, no radar or sonar, and the 052D's deck refuses it |
 | `rfn_cvt_20380_7-12` | Vessel | `russian-navy-21` | Project 20380 corvette; Variant3 Aldar Tsydenzhapov (Pacific Fleet); the unit file is SEST Replenishment's, the variant russian-navy-21's. Uran-U reaches 140 NM: `weapons="Hold"` (section 3 of the bible keeps the Bight's surface escort to 27 NM) |
 | `fr_ffg_lafayette_modernized`, `fr_as-565_sa` | Vessel, Helicopter | `cdg-modern-french-navy`, `french-helicopter-package` | La Fayette-class frigate (Variant1 La Fayette, 2 Courbet, 3 Aconit) and her Panther (`ASWHunter` is the fit with empty pylons) |
-| `usaf_kc-46a_boom` (`loadout="Tanker"`), `usaf_stratotanker` (no fits) | Aircraft | `kc-46a`, `kc-135` | USAF tankers on the Enhanced Air Cooperation rotation; Hold; keep the track outside the 052D's HHQ-9 (245 NM) |
+| `usaf_kc-46a_boom` | Aircraft | `kc-46a` | a USAF tanker on the Enhanced Air Cooperation rotation; `loadout="Tanker"`, Hold; keep the track outside the 052D's HHQ-9C (260 NM) for the whole clock, allowing for her closing. Not `usaf_stratotanker` (`kc-135`): it is a 1957 KC-135A, retired in the 1990s |
 | `usmc_kc-130j` | Aircraft | `us-naval-aviation` | stands in for an LC-130 of Operation Deep Freeze; neutral, `airway=` |
 | `airbase_raaf_*`, `airbase_rnzaf_*` | LandUnit | `SEST_RAAF_Bases` | capacity 200 |
 | `airfield_small_1` | LandUnit | `_vanilla` | capacity 48 |

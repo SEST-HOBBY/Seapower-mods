@@ -27,7 +27,7 @@ pack's root, is the union across every campaign in the pack.
   3503670861    a model a placed unit draws      General Atomics MQ-9 Reaper
   3384079999    a unit a mission places          Humpback Whale
   3717610332    a unit a mission places          IL-78 TANKER
-  3722749887    a unit a mission places          KC-135 STRATOTANKER
+  3722749887    a model a placed unit draws      KC-135 STRATOTANKER
   3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
   3430106996    a unit a mission places          Merchants Expanded
   3775128499    a unit a mission places          Modern PLAN Systems

@@ -323,7 +323,7 @@ campaign now draws on more of the enabled mods and packs (the count is in
 `coverage.md`; 41 before). Eight missions gained one or two units each, every
 one at a station of its own; no victory, fatal entry or existing station
 changed. Two objective texts widened to cover what was added: SR04's
-Restraint now spares the Bear's tanker, and TS10A's Traffic names a warship.
+Restraint now spares the Bear's tanker, and TS10A's Traffic names the French frigate.
 The forces paragraph and brief of each mission say what is new. Every choice
 had to be something the real navies and air forces would put in that water in
 early 2029, and had to fit the bible; what failed either test is listed after
@@ -334,15 +334,14 @@ the table.
 | SR04 Macquarie Passage | Il-78 Midas 41 (`il-78`), red, Hold, 75 NM behind the Bear | the bible has always said the Bears come south "with a tanker behind them"; now one is. Restraint spares it with the Bear |
 | SR07 Beneath the South | Il-78 Midas 42, red, Hold, 200 NM behind the Bear | the same; beyond every anti-air round the player can buy, since no objective covers it |
 | SR08 The Gateway | Skier 95, an LC-130 of Operation Deep Freeze climbing out of Christchurch for McMurdo at 9,000 ft (neutral `usmc_kc-130j`, `us-naval-aviation`) | Christchurch is the US Antarctic Program's gateway and late December is its season |
-| TS04 Tasman Crossing, TS11 Approaches | Texaco 71, a USAF KC-135 (`kc-135`) | a tanker for the F-35As, on the Enhanced Air Cooperation rotation; its track is 270+ NM from the Type 052D's HHQ-9 where there is one |
-| TS07 Southern Air Bridge, TS09 The Southern Convoy | Texaco 61, a USAF KC-46A (`kc-46a`) | the same |
+| TS07 Southern Air Bridge, TS09 The Southern Convoy, TS11 Approaches | Texaco 61 and Texaco 71, USAF KC-46As (`kc-46a`) | tankers for the F-35As, on the Enhanced Air Cooperation rotation; in TS09 and TS11 the track stays outside the Type 052D's HHQ-9C (260 NM) for the whole clock, even with the 052D closing at 24 kn |
 | TS08 Great Australian Bight | the Pacific Fleet corvette Aldar Tsydenzhapov (`rfn_cvt_20380_7-12` Variant3, `russian-navy-21`), with the Udaloy and the oiler, holding fire | Pacific Fleet Project 20380s deploy with the Udaloys. Hold, because her Uran-U reaches 140 NM and the bible keeps the Bight's surface escort to the Udaloy's 27 NM on purpose (section 3, now noting her) |
 | TS09, TS11 | the Type 052D's Z-20F (`plan_z-20f`) | the destroyer's own anti-submarine helicopter; the 052D's file lists it for its deck |
 | TS10A Northern Priority | FS Courbet, a French La Fayette-class frigate outbound from Devonport for Noumea, and her Panther (`cdg-modern-french-navy`, `french-helicopter-package`), both neutral | a warship that is not a threat: one more identification problem in the Gulf |
 
 Stand-in, which player-facing text never names: a USMC KC-130J for the
 ski-equipped LC-130 of the 109th Airlift Wing. The Il-78, the Project 20380,
-the Z-20F, the KC-46A, the KC-135 and FS Courbet are the real types.
+the Z-20F, the KC-46A and FS Courbet are the real types.
 
 Tried and taken out again:
 
@@ -359,6 +358,10 @@ Tried and taken out again:
   Forpost that shows a Soviet flag;
 - a Tu-214R electronic-intelligence aircraft over the Bight. It has no
   refuelling probe and no base within its range of that water;
+- a KC-135 tanker in TS04 and TS11. The collection's KC-135 (`kc-135`) is a
+  1957 KC-135A, a variant the USAF retired in the 1990s; TS11's tanker is a
+  KC-46A, and TS04 has none, because the sitrep before it says Williamtown's
+  fighters reach the middle of the crossing "and no further";
 - an A380 for TS07's Sydney-Auckland airliner. The only livery that fits the
   Tasman is the UAE one, and the game has no UAE nation key, so it would fly
   with no flag (`check_campaign_coverage.py` refuses that); the A330 stays;

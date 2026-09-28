@@ -50,8 +50,9 @@ MISSION = dict(
             "Russian boat they blame for the coaster torpedoed on the twenty-first, and their "
             "aircraft carry torpedoes. At forty-seven south, on a sonobuoy, one nuclear boat "
             "sounds much like another. The American Virginia-class boat on the Western "
-            "Australia rotation, designated HOTEL, left Stirling on the twenty-third and is "
-            "assessed to cross this line southbound this morning; there is no current contact, "
+            "Australia rotation, designated HOTEL, has been working west of Tasmania since "
+            "Christmas and is assessed to cross this line southbound this morning; there is no "
+            "current contact, "
             "and a class from her counts as one from the aircraft.\\n\\nTake HULL 419 through "
             "the barrier to the forward box. Nothing is fired. If the patrol puts a class on "
             "her, the boat is a named contact before the carrier arrives and the operation has "
@@ -68,7 +69,7 @@ MISSION = dict(
     objectives=[
         ("Passage", "Take Hull 419 through the barrier to the carrier's forward box",
          "40,-40,Fail,Main"),
-        ("Unseen", "Keep Hull 419 off their plot: do not let the patrol classify her",
+        ("Unseen", "Keep Hull 419 off their plot: do not let the patrol or HOTEL classify her",
          "25,-40,Complete"),
         ("Restraint", "Fire on nothing", "15,-40,Complete"),
         ("Boat", "Bring Hull 419 through intact", "10,-30,Complete"),
@@ -110,9 +111,11 @@ MISSION = dict(
         "red_air": S(-47.65, 139.85, "Barrier patrol", heading=20, alt=15000),
         "triton": S(-46.80, 140.50, "Triton", heading=230, alt=50000),
         # HOTEL, 30 NM north of the passage line, heading 201 - square across
-        # it - to cross 2.5 NM down the boat's track, behind anyone already
-        # under way. At 20 knots that is about minute 90.
-        "hotel": S(-46.85, 140.127, "Contact HOTEL", heading=201),
+        # it - to cross about 5 NM astern of the boat's start, at about minute
+        # 90 at 20 knots: closest approach about 12 NM to a boat making the
+        # planned 5 knots, 11 NM at 4. Heard coming, and a hazard to a boat
+        # that lingers, not a wall.
+        "hotel": S(-46.805, 139.949, "Contact HOTEL", heading=201),
         "longliner": S(-47.50, 140.00, "Longliner", heading=120),
         "cruise": S(-46.90, 140.80, "Expedition cruise ship", heading=165),
         "bulker": S(-47.00, 139.50, "Bulker", heading=85),
@@ -134,15 +137,16 @@ MISSION = dict(
         U("red", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "triton", weapons="Hold",
           route=[(-47.30, 140.20, 50000), (-46.80, 140.90, 50000)], loop=True,
           telegraph=3),
-        # The rotational force's Virginia (Variant3, Hawaii), southbound from
-        # Stirling at a transit twenty knots, dived, radars off, weapons Hold.
+        # The rotational force's Virginia (Variant3, Hawaii), working west of
+        # Tasmania since Christmas and crossing southbound at a transit twenty
+        # knots, dived, radars off, weapons Hold.
         # She crosses the passage rather than sitting on it: a contact to be
         # heard coming and kept clear of, because a class from her fails
         # Unseen as surely as one from the Poseidon. Spared like the aircraft:
         # a torpedo on her is the group firing first.
         U("red", "us-submarines", "usn_ssn_virginia", "hotel", variant="Variant3",
           name="Contact HOTEL", depth="belowlayer", weapons="Hold", radars="False",
-          route=[(-47.315, 139.857, "belowlayer"), (-47.75, 139.605, "belowlayer")],
+          route=[(-47.271, 139.685, "belowlayer"), (-47.707, 139.432, "belowlayer")],
           telegraph=4),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_c", "longliner",
           name="Longliner Tasman Harvest", route=[(-47.90, 141.00, 0)], telegraph=2),

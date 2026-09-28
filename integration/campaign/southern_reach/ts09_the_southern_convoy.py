@@ -47,7 +47,7 @@ MISSION = dict(
         "first time Super Hornets and Growlers tasked to strike, "
         "recovering at Edinburgh. TEXACO 61, a USAF KC-46A on the Enhanced "
         "Air Cooperation rotation, holds a tanker track south-east of "
-        "Edinburgh, outside the Type 052D's missile reach. A coastal "
+        "Edinburgh, outside the reach of the Type 052D's surface-to-air missiles. A coastal "
         "ro-ro, a bulker and the "
         "Melbourne-Perth service are in the box. Four of five to the "
         "split point."),
@@ -94,15 +94,16 @@ MISSION = dict(
         "cap": S(-38.40, 140.90, "Fighter cover", heading=240, alt=30000),
         "attack": S(-38.30, 140.20, "Strike", heading=240, alt=25000),
         "aew": S(-38.20, 140.60, "Wedgetail 05", heading=270, alt=32000),
-        # The tanker track south-east of Edinburgh, 270 NM and more from the
-        # Type 052D at the start: its HHQ-9B reaches 245.
-        "tanker": S(-35.25, 139.30, "Tanker track", heading=115, alt=26000),
+        # The tanker track south-east of Edinburgh, 263 NM and more from the
+        # Type 052D through the whole clock even at 24 kn: her HHQ-9C
+        # reaches 260.
+        "tanker": S(-34.85, 139.30, "Tanker track", heading=115, alt=26000),
         "red_cv": S(-40.00, 139.50, "Protection group", heading=40),
         "red_air": S(-39.60, 139.80, "Strike flight", heading=40, alt=25000),
         "red_helo": S(-39.90, 139.60, "Ka-31 orbit", heading=40, alt=9000),
         "red_dip": S(-39.40, 140.00, "Z-18F dip", heading=40, alt=1500),
         # The flagship's Z-20, 5 NM ahead of the group on its track.
-        "red_z20": S(-39.93, 139.55, "Z-20 screen", heading=30, alt=1500),
+        "red_z20": S(-39.93, 139.57, "Z-20 screen", heading=30, alt=1500),
         "red_romeo": S(-38.95, 139.90, "Contact ROMEO", heading=60),
         "red_sierra": S(-38.30, 139.80, "Contact SIERRA-TWO", heading=120),
         "roro": S(-39.10, 141.30, "Coastal ro-ro", heading=90),
@@ -130,7 +131,7 @@ MISSION = dict(
         # track for Edinburgh's F-35As out of the destroyer's reach.
         U("blue", "kc-46a", "usaf_kc-46a_boom", "tanker", name="Texaco 61",
           alt=26000, weapons="Hold", loadout="Tanker",
-          route=[(-35.25, 139.30, 26000), (-35.50, 140.00, 26000)], loop=True,
+          route=[(-34.85, 139.30, 26000), (-35.10, 140.00, 26000)], loop=True,
           telegraph=3),
         U("blue", "_vanilla", "civ_ms_ritina", "convoy", name="MT Portland Spirit"),
         U("blue", "auxilliary-merchant-pack", "anl_ms_bulk", "convoy",
@@ -169,10 +170,11 @@ MISSION = dict(
         U("red", "chinese-navy-plan", "plan_z-18f", "red_dip", name="Z-18F dip",
           alt=1500, loadout="ASW"),
         # The Type 052D's embarked Z-20, sweeping 5-20 NM ahead of the group
-        # on its track so the flagship steams up to and through it.
+        # on its track so the flagship steams up to and through it. It starts
+        # nearer the 052D than Liaoning, so it homes on the destroyer's deck.
         U("red", "modern-plan-systems", "plan_z-20f", "red_z20", name="Z-20 flight",
           alt=1500, loadout="ASW",
-          route=[(-39.93, 139.55, 1500), (-39.71, 139.72, 1500)], loop=True,
+          route=[(-39.93, 139.57, 1500), (-39.71, 139.72, 1500)], loop=True,
           telegraph=2),
         # Only if the chapter left them alive: the spawns read the flags
         # Under the Tasman and Great Australian Bight write.

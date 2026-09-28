@@ -263,25 +263,27 @@ test card G.6 there.
 ## Wider forces (28 September)
 
 The campaign now draws on more of the enabled mods and packs (the count is in
-`coverage.md`; 36 before). Four missions gained one to four units each, at stations of their own; no
-objective, victory or existing unit changed. Every coalition unit added is
-spared - added to the mission's Restraint objective and its fatal entry - as
-the campaign's first rule requires, and every aircraft of the player's added
-here flies at weapons Hold, so an AI fighter cannot fire first on the
-player's behalf.
+`coverage.md`; 36 before). Three missions gained units, at stations of their
+own; no victory or existing unit changed. Every coalition unit added is spared
+- added to the mission's Restraint objective and its fatal entry, and named in
+the objective's text - as the campaign's first rule requires.
 
 | Mission | Added | Why it is there |
 |---|---|---|
-| RL01 Trailing Contact | a RAAF E-7A Wedgetail (`e-7a-wedgetail`, its squadron from SEST RAAF Wedgetail), coalition, Hold, 114 NM south of the carrier; the Manado-Ambon airliner (`civ_a320`, an Indonesian regional livery), neutral | the coalition's air picture, which the brief says is watching; one more contact to identify before acting |
-| RL02 Routes They Can See | Enclave 21 and 22, a J-16 pair from the enclave field (`j-16-multirole`), the player's, Hold | Southern Watch calls the enclave's J-16s "Enclave nn"; the air-to-air fit, not the long-range one, so a released pair cannot reach the spared Poseidon from far off |
-| RL03 The Other Picture | Tanker 31, a YY-20A from the enclave field (`y-20-kj-3000`), the player's, Hold; a RAAF No. 6 Squadron EA-18G with the F-35As (`SEST_Growler_NGJ_MALICE`), coalition, Hold; the Port Moresby-Singapore airliner (`civ_a330`, a Singapore livery), neutral | fuel for fighters 400 NM from home; the escort the F-35As would have; the airway that crosses the box. Red combat is at the recon cap, 5. The lose text now covers "an aircraft that never fired" |
-| RL05 Under the Convergence | HOTEL, the US Navy Virginia-class boat of Submarine Rotational Force-West out of Stirling (`usn_ssn_virginia`, `us-submarines`), coalition, Hold, dived, crossing the passage line at about minute 90 | Southern Reach's TS08 already has her on the Western Australia rotation; she is a second pair of ears the player has to keep clear of, since a class from her fails Unseen as one from the aircraft does |
+| RL01 Trailing Contact | a RAAF E-7A Wedgetail (`e-7a-wedgetail`, its squadron from SEST RAAF Wedgetail), coalition, Hold, 114 NM south of the carrier; the Manado-Ambon airliner (`civ_a330` in Lion Air's livery), neutral | the coalition's air picture, which the brief says is watching; one more contact to identify before acting. Indonesia keeps domestic routes for its own airlines, and the A320 file has no Indonesian livery |
+| RL03 The Other Picture | a RAAF No. 6 Squadron EA-18G with the F-35As (`SEST_Growler_NGJ_MALICE`), coalition, Hold, emitters off; the Sydney-Hong Kong A330 (Qantas), neutral | the escort the F-35As would have, listening rather than jamming (Hold does not switch a jammer off; `radars="False"` does); the daily service whose great circle crosses the box. Red combat is at the recon cap, 5. The brief now warns that fighters left free will find the Growler, and the lose text covers "an aircraft that never fired" |
+| RL05 Under the Convergence | HOTEL, the US Navy Virginia-class boat of Submarine Rotational Force-West (`usn_ssn_virginia`, `us-submarines`), coalition, Hold, dived, crossing the passage line about 5 NM astern of the boat's start at about minute 90 | Southern Reach's TS08 already has her on the Western Australia rotation. Closest approach is about 12 NM to a boat making the planned 5 knots: heard coming, a hazard to a boat that lingers, not a wall. The Unseen objective names her |
 
 Not done, and why:
 
 - RL03's J-15s stay J-15s. They are the cockpits the player's purchased CAP
   flight takes; the roster sells J-15 and J-15D, so a J-20 there would never
   reach the game.
+- A J-16 pair from the enclave field in RL02, and a YY-20A tanker in RL03,
+  were built and taken out. RL02 is about the field being down to two days
+  of fuel: launching two fighters to orbit is the opposite of the mission.
+  Nothing in RL03 can take fuel from a tanker (no receiver in the J-15,
+  J-15D, KJ-500 or Y-9 files).
 - A Type 071 carrying the enclave detachment home in RL04 was built and
   taken out: this bible gives the Type 071 to the northern element, not to
   this commander's group.
@@ -291,5 +293,4 @@ Not done, and why:
   not there, and this bible's rule is that real ships appear only where the
   coalition campaigns put them.
 
-All the added units are the real types. The campaign's `REQUIRED-MODS.txt`
-now lists 36 hard-required mods (29 before).
+All the added units are the real types.

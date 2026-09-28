@@ -105,6 +105,7 @@ All four are signals on teleprinter stock, labelled from this side of the table:
 | MT Hai Yang 7 | The chartered tanker that fuels the enclave field | RL02, RL04 |
 | The enclave field (PLAAF detachment) | Biak's airfield, where the J-15s and the KJ-500 recover | RL02, RL03 |
 | Contact GOLF | An unclaimed submarine, the one assessed to have torpedoed the Russian auxiliary | RL02, RL04 unless sunk |
+| Contact HOTEL | The US Navy Virginia-class boat on the Western Australia rotation (Southern Reach TS08), crossing the passage line; spared | RL05 |
 | Dragon Eye 05 | The KJ-500 that builds the picture | RL03 |
 | MV Meridian Harmony | A Meridian armed coaster that joined the group on the 24th for protection | RL04 |
 | Hull 419 | The Type 093B Southern Reach calls ROMEO | RL05 |

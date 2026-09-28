@@ -35,9 +35,9 @@ MISSION = dict(
         "WEDGETAIL 05, and every aircraft it can task: the Seahawk, the "
         "Poseidon, East Sale's F-35As two hundred miles away, "
         "Williamtown's four hundred, and the Super Hornets and Growlers "
-        "tasked to strike. TEXACO 71, a USAF KC-135 on the Enhanced Air "
+        "tasked to strike. TEXACO 71, a USAF KC-46A on the Enhanced Air "
         "Cooperation rotation, holds a tanker track off the New South "
-        "Wales south coast, outside the Type 052D's missile reach.\\n\\n"
+        "Wales south coast, outside the reach of the Type 052D's surface-to-air missiles.\\n\\n"
         "The group is eighty miles south-east: LIAONING, the Type 052D "
         "that has commanded it since October, a frigate, three J-15s "
         "with anti-ship missiles and a J-15D, a Ka-31, a Z-18F and the "
@@ -52,7 +52,7 @@ MISSION = dict(
         "clock says."),
     forces=(
         "Your whole task group with its Seahawk, Poseidon, fighters and strike aircraft if "
-        "assigned; Wedgetail 05; Texaco 71, a USAF KC-135 tanker, off the New South Wales "
+        "assigned; Wedgetail 05; Texaco 71, a USAF KC-46A tanker, off the New South Wales "
         "south coast. Three transports. Neutral: a bulker, a trawler, an airliner. "
         "Opposing: Liaoning, a Type 052D with a Z-20 embarked, a Type 054A, three J-15 with "
         "anti-ship missiles, a "
@@ -94,15 +94,16 @@ MISSION = dict(
         "cap": S(-39.30, 150.70, "Fighter cover", heading=135, alt=30000),
         "attack": S(-39.40, 150.30, "Strike", heading=135, alt=25000),
         "aew": S(-39.20, 150.40, "Wedgetail 05", heading=90, alt=32000),
-        # The tanker track off the south coast on Williamtown's side, 275 NM
-        # and more from the Type 052D at the start: its HHQ-9B reaches 245.
-        "tanker": S(-35.60, 150.90, "Tanker track", heading=225, alt=26000),
+        # The tanker track off the south coast on Williamtown's side, 269 NM
+        # and more from the Type 052D through the whole clock even at 24 kn:
+        # her HHQ-9C reaches 260.
+        "tanker": S(-35.30, 150.90, "Tanker track", heading=225, alt=26000),
         "red_cv": S(-40.40, 152.30, "Protection group", heading=300),
         "red_air": S(-40.10, 152.00, "Strike flight", heading=300, alt=25000),
         "red_helo": S(-40.30, 152.20, "Ka-31 orbit", heading=300, alt=9000),
         "red_dip": S(-40.00, 151.60, "Z-18F dip", heading=300, alt=1500),
         # The flagship's Z-20, 5 NM ahead of the group on its track.
-        "red_z20": S(-40.36, 152.21, "Z-20 screen", heading=303, alt=1500),
+        "red_z20": S(-40.31, 152.21, "Z-20 screen", heading=303, alt=1500),
         "red_north": S(-40.10, 152.60, "Northern element", heading=300),
         "red_south": S(-40.60, 151.80, "Southern element", heading=20),
         "bulker": S(-39.30, 151.60, "Coastal bulker", heading=200),
@@ -128,12 +129,13 @@ MISSION = dict(
           squadron="Squadron6", slot="Attack", loadout="SEST_SEAD120D"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 05",
           alt=32000, weapons="Hold"),
-        # A USAF KC-135 on the Enhanced Air Cooperation rotation, looping a
-        # track for Williamtown's F-35As on their 400 NM run south. The file
-        # offers no fit, so no loadout=.
-        U("blue", "kc-135", "usaf_stratotanker", "tanker", name="Texaco 71",
-          alt=26000, weapons="Hold",
-          route=[(-35.60, 150.90, 26000), (-36.00, 150.40, 26000)], loop=True,
+        # A USAF KC-46A on the Enhanced Air Cooperation rotation, looping a
+        # track for Williamtown's F-35As on their 400 NM run south. Not the
+        # collection's KC-135: that file is a 1957 KC-135A, a variant the
+        # USAF retired in the 1990s.
+        U("blue", "kc-46a", "usaf_kc-46a_boom", "tanker", name="Texaco 71",
+          alt=26000, weapons="Hold", loadout="Tanker",
+          route=[(-35.30, 150.90, 26000), (-35.70, 150.40, 26000)], loop=True,
           telegraph=3),
         U("blue", "auxilliary-merchant-pack", "ran_ms_roro_a", "lift",
           name="MV Tasman Relief I (transport)", weapons="Hold"),
@@ -166,10 +168,11 @@ MISSION = dict(
           alt=1500, loadout="ASW"),
         # The Type 052D's embarked Z-20, sweeping 5-20 NM ahead of the group
         # on its track so the flagship steams up to and through it. Its own
-        # station, so red_cv#1 and red_cv#2 stay the carrier and the 052D.
+        # station, so red_cv#1 and red_cv#2 stay the carrier and the 052D;
+        # it starts nearer the 052D than Liaoning, so it homes on her deck.
         U("red", "modern-plan-systems", "plan_z-20f", "red_z20", name="Z-20 flight",
           alt=1500, loadout="ASW",
-          route=[(-40.36, 152.21, 1500), (-40.22, 151.93, 1500)], loop=True,
+          route=[(-40.31, 152.21, 1500), (-40.22, 151.93, 1500)], loop=True,
           telegraph=2),
         # The priorities: each element is here only if its approach was
         # not held. The spawns read the victory flags of TS10A and TS10B.
