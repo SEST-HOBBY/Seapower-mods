@@ -403,7 +403,10 @@ def open_twin(pack, slug):
                       and w.replace(" - Open Allocation", "", 1) == b)
             elif head == "[Language_en]" and key == "Description":
                 found["Description"] += 1
-                ok = w == f"Description={bp.OPEN_BLURB}{value}"
+                # the blurb, then an allied-fleet sentence where the twin sells
+                # one (build_pack.allied_line), then the base description
+                ok = (w.startswith(f"Description={bp.OPEN_BLURB}") and w.endswith(value)
+                      and len(w) >= len(f"Description={bp.OPEN_BLURB}{value}"))
             elif is_open and key == "TaskForceModeAllowedRosterUnits":
                 entries = [e.split(",") for e in w.partition("=")[2].split("|")]
                 got = {e[0]: e[1:] for e in entries}
