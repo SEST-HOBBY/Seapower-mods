@@ -37,13 +37,16 @@ MISSION = dict(
         "of Hobart with fuel for one field of buoys before she has to turn "
         "for home. The Wedgetail cannot hear a submarine and the Triton "
         "cannot drop a buoy: the Poseidon is the one that matters. A Bear-F "
-        "is coming to look at what you are doing.\\n\\n"
+        "is coming to look at what you are doing, with its Midas tanker behind "
+        "it again, two hundred miles back to the south-west. Neither is the "
+        "target.\\n\\n"
         "Sink VICTOR. Leave RV AKADEMIK FERSMAN alone whatever she does - "
         "she is a merchant hull under a state flag with forty scientists "
         "aboard, and she is not the boat. A factory trawler and a whale are "
         "in the same water."),
     forces="Your escort group with its Seahawk; your Poseidon out of Hobart. "
-           "Opposing: one Akula, her tender, a Bear-F with tanker support. "
+           "Opposing: one Akula, her tender, a Bear-F, and an Il-78 Midas "
+           "tanker well back to the south-west. "
            "Neutral: a factory trawler, a whale.",
     objectives=[
         ("Boat", "Sink VICTOR", "40,-35,Fail,Main"),
@@ -73,6 +76,11 @@ MISSION = dict(
         "red_sub": S(-57.85, 152.30, "Contact VICTOR", heading=320),
         "tender": S(-58.10, 151.20, "Research vessel", heading=60),
         "bear": S(-58.60, 150.80, "Bear-F", heading=40, alt=6000),
+        # The Bear's tanker, 200 NM back down its inbound axis (212 from the
+        # Bear). No objective covers it, so its whole track stays beyond the
+        # longest anti-air round the player can buy - a Hobart's SM-6, 260 NM:
+        # 270 NM from the Poseidon's cockpit, 277 from the escort.
+        "tanker": S(-61.42, 147.23, "Midas tanker", heading=120, alt=28000),
         "fleet": S(-57.20, 152.50, "Factory trawler", heading=250),
         "whale": S(-57.55, 152.15, "Biologic", heading=180),
         "home": S(-42.836, 147.510, "Hobart Airport"),
@@ -94,6 +102,12 @@ MISSION = dict(
         U("red", "_vanilla", "wp_tu-142m", "bear", name="Bear-F 24", alt=6000,
           weapons="Hold", loadout="ASW",
           route=[(-57.60, 152.00, 6000), (-56.90, 152.80, 6000)], telegraph=3),
+        # The Midas the Bear refuels from, on a looped track across the
+        # Bear's axis until the clock runs out. Unarmed (Role=Airliner), no
+        # field: the engine's unlimited fuel.
+        U("red", "il-78", "wp_il-78", "tanker", name="Midas 42", alt=28000,
+          weapons="Hold", loadout="Empty",
+          route=[(-61.60, 147.86, 28000), (-61.25, 146.68, 28000)], loop=True),
         U("neutral", "_vanilla", "civ_fv_okean", "fleet", name="Factory trawler Nan Hai 29",
           route=[(-57.50, 151.90, 0)], telegraph=2),
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic JULIET",

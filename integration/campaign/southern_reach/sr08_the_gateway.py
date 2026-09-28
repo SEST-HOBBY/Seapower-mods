@@ -40,14 +40,16 @@ MISSION = dict(
         "NAN HAI 27 is off Akaroa. KIWI 05 is overhead out of Christchurch "
         "and stays overhead; the Chatham freighter, the pilot launch, two "
         "trawlers and the afternoon Sydney flight are in the same water and "
-        "sky.\\n\\n"
+        "sky. SKIER 95, an American LC-130 on the Deep Freeze run, is climbing "
+        "out of Christchurch for McMurdo.\\n\\n"
         "Walk both ships into the Lyttelton approach. Classify the corvette. "
         "Weapons tight: nobody fires first in this bay, and if the corvette "
         "does, you answer it and Wellington answers everything else."),
     forces="Your escort group with its Seahawk; your Poseidon out of "
            "Christchurch. One RNZAF P-8A on a national allocation. Two "
            "gateway ships. Neutral: the Chatham freighter, the pilot launch, "
-           "two trawlers, an airliner. Opposing: a Type 056A corvette with "
+           "two trawlers, an airliner, a US LC-130 outbound for McMurdo. "
+           "Opposing: a Type 056A corvette with "
            "a Z-9, the research trawler Nan Hai 27.",
     objectives=[
         ("Gateway", "Bring POLAR GIANT and CANTERBURY SPIRIT into the "
@@ -90,6 +92,10 @@ MISSION = dict(
         "launch": S(-43.52, 173.12, "Pilot launch", heading=30),
         "trawlers": S(-43.50, 173.65, "Trawlers", heading=150),
         "airliner": S(-43.50, 173.00, "Sydney flight", heading=300, alt=20000),
+        # The US Antarctic Program's own traffic out of the gateway: an LC-130
+        # 19 NM south of Christchurch International, climbing out on the
+        # McMurdo track (185), 25 NM from the approach box.
+        "deepfreeze": S(-43.80, 172.45, "Deep Freeze LC-130", heading=185, alt=9000),
         "field": S(-43.489, 172.532, "Christchurch International"),
         "home": S(-40.206, 175.388, "RNZAF Base Ohakea"),
     },
@@ -123,6 +129,13 @@ MISSION = dict(
           name="Trawler Waimakariri", route=[(-43.65, 174.00, 0)], telegraph=2),
         U("neutral", "civil-aircraft-airbus", "civ_a320", "airliner",
           name="Christchurch-Sydney 731", airway=(-33.95, 151.18)),  # Sydney
+        # The gateway's reason for being: a ski-Hercules of Operation Deep
+        # Freeze outbound for the ice, one more aircraft in the sky the
+        # player must identify before shooting. A KC-130J stands in for the
+        # LC-130; neutral, no neutral field, so the engine's unlimited fuel.
+        U("neutral", "us-naval-aviation", "usmc_kc-130j", "deepfreeze",
+          name="Skier 95 (Christchurch-McMurdo)", alt=9000, weapons="Hold",
+          airway=(-77.85, 166.67)),  # McMurdo
         U("blue", "_vanilla", "airfield_small_1", "field",
           name="Christchurch International (Antarctic gateway, RNZAF/RAAF detachment)",
           nation="NewZealand", weapons="Hold"),

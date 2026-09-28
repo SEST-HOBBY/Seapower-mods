@@ -39,7 +39,9 @@ MISSION = dict(
             "and thirty miles from group B and closing. WEDGETAIL 05 is up out of Williamtown "
             "and, for the first time this far out, so are fighters that can reach you: "
             "Williamtown's F-35As are available for fighter cover, and the Super Hornets and "
-            "Growlers were released to the task group at Sydney.\\n\\nThree of four hulls into "
+            "Growlers were released to the task group at Sydney. TEXACO 71, a USAF KC-135 on "
+            "the Enhanced Air Cooperation rotation, holds a tanker track north-west of you for "
+            "the fighters.\\n\\nThree of four hulls into "
             "the box, north-east. The Sydney-Auckland service, a cruise ship and a bulker are "
             "crossing the same water. The carrier's aircraft are assessed as a threat to the "
             "crossing. Maintain identification and track the approach while covering both "
@@ -50,7 +52,8 @@ MISSION = dict(
         )),
     forces=(
         "Your task group with its Seahawk, Poseidon and fighters if assigned, Wedgetail 05 out "
-        "of Williamtown. Four merchant hulls in two groups. Neutral: an airliner, a cruise "
+        "of Williamtown; Texaco 71, a USAF KC-135 tanker, on a track north-west of the fight. "
+        "Four merchant hulls in two groups. Neutral: an airliner, a cruise "
         "ship, a bulker. Opposing: Liaoning with a Type 054A, a J-15 anti-ship pair and a J-15D"
         " routed onto group B, a Ka-31 up."
     ),
@@ -92,6 +95,9 @@ MISSION = dict(
         "mpa": S(-38.60, 158.90, "Maritime patrol", heading=120, alt=12000),
         "cap": S(-38.30, 158.10, "Fighter cover", heading=120, alt=30000),
         "aew": S(-38.70, 157.90, "Wedgetail 05", heading=90, alt=32000),
+        # The tanker track 60-110 NM behind the fighters on the Williamtown
+        # side, 200 NM and more from the strike flight at the start.
+        "tanker": S(-37.50, 157.20, "Tanker track", heading=310, alt=26000),
         "red_cv": S(-41.00, 161.20, "Carrier group", heading=320),
         "red_air": S(-40.00, 160.20, "Strike flight", heading=310, alt=25000),
         "red_helo": S(-40.80, 161.00, "Ka-31 orbit", heading=320, alt=9000),
@@ -112,6 +118,12 @@ MISSION = dict(
           slot="CAP"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 05",
           alt=32000, weapons="Hold"),
+        # A USAF KC-135 on the Enhanced Air Cooperation rotation, looping a
+        # track for the F-35As. The file offers no fit, so no loadout=.
+        U("blue", "kc-135", "usaf_stratotanker", "tanker", name="Texaco 71",
+          alt=26000, weapons="Hold",
+          route=[(-37.50, 157.20, 26000), (-37.00, 156.50, 26000)], loop=True,
+          telegraph=3),
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "group_a",
           name="MV Coral Pioneer"),
         U("blue", "auxilliary-merchant-pack", "anl_ms_bulk", "group_a",

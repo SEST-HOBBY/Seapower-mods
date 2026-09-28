@@ -43,11 +43,13 @@ MISSION = dict(
             " the Bight because MARSHAL SHAPOSHNIKOV, an Udaloy-class destroyer, and the oiler "
             "BORIS CHILIKIN are seventy miles south-west of you, stopped, with a Ka-27 up - a "
             "suspected support rendezvous and a useful search cue. It does not establish the "
-            "submarine's position or depth.\\n\\nFind the boat and sink her before she reaches "
-            "them. Two Port Lincoln tuna boats, a Bight bulker and a whale are in the sectors. "
-            "The Udaloy has not fired; classify the oiler and leave the Udaloy unless she gives"
-            " you no choice. The search window is eighty minutes. The submarine's arrival at "
-            "the suspected rendezvous is unconfirmed.\\n\\nASW PICTURE: Satellite imagery and "
+            "submarine's position or depth. The Pacific Fleet corvette ALDAR TSYDENZHAPOV is in "
+            "company with them, holding fire.\\n\\nFind the boat "
+            "and sink her before she reaches them. Two Port Lincoln tuna boats, a Bight bulker "
+            "and a whale are in the sectors. The Udaloy has not fired; classify the oiler and "
+            "leave the Udaloy and her corvette unless they give you no choice. The search "
+            "window is eighty minutes. The submarine's arrival at the suspected rendezvous is "
+            "unconfirmed.\\n\\nASW PICTURE: Satellite imagery and "
             "surface reports can locate the support ships. Collins, the escorts and maritime "
             "patrol aircraft must find SIERRA-TWO acoustically. Correlate acoustic reports "
             "independently of the surface rendezvous assessment."
@@ -56,7 +58,7 @@ MISSION = dict(
         "Your task group with its Seahawk and Poseidon if assigned, out of Edinburgh; HMAS "
         "Collins in the western sector. Neutral: two tuna boats, a bulker, a whale. Opposing: "
         "one Yasen, the destroyer Marshal Shaposhnikov with a Ka-27 up, the oiler Boris "
-        "Chilikin."
+        "Chilikin, the Project 20380 corvette Aldar Tsydenzhapov."
     ),
     objectives=[
         ("Boat", "Destroy SIERRA-TWO", "40,-40,Fail,Main"),
@@ -98,6 +100,9 @@ MISSION = dict(
         "bulker": S(-35.80, 133.20, "Bight bulker", heading=270),
         "whale": S(-35.40, 132.20, "Biologic", heading=180),
         "home": S(-34.703, 138.622, "RAAF Base Edinburgh"),
+        # The Pacific Fleet corvette screening the rendezvous five miles
+        # north-east of it, stopped with the group.
+        "red_cvt": S(-36.24, 131.38, "Project 20380", heading=0),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7"),
@@ -128,6 +133,13 @@ MISSION = dict(
           depth="shallow"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_edinburgh", "home",
           name="RAAF Base Edinburgh", nation="australia", weapons="Hold"),
+        # The Udaloy's escort from the Pacific Fleet, stopped with her. The
+        # fourth red combat unit: the cap. Hold, not Tight: her Uran-U reaches
+        # 140 NM, and the bible keeps the Bight's surface escort to the
+        # Udaloy's 27 NM on purpose - a Russian corvette that would open fire
+        # on an Australian task group by herself is not this detachment.
+        U("red", "russian-navy-21", "rfn_cvt_20380_7-12", "red_cvt", variant="Variant3",
+          name="Corvette Aldar Tsydenzhapov", weapons="Hold", telegraph=1),
     ],
     resolve={"Boat": "victory", "Neutrals": "neutral",
              "Oiler": ("classify", "red_rv#2", 1),

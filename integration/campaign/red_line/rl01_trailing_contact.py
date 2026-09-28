@@ -40,26 +40,28 @@ MISSION = dict(
             "Islands, matching the carrier's speed and keeping her distance. She is designated "
             "ALPHA.\\n\\nA RAAF Poseidon is over the group and a Triton is high to the "
             "south-west. They are recording everything it does, and anything it does to that "
-            "boat.\\n\\nPut a class on ALPHA, "
+            "boat. A Wedgetail, well to the south, holds the coalition's air picture of all of "
+            "it.\\n\\nPut a class on ALPHA, "
             "so the group knows what has been following it, then take FUJIAN to her morning "
             "station, twenty-two miles down the track. Your ships and helicopters start at "
             "weapons Hold. Set them free and"
             " the ship's flight may put a torpedo on the boat without being told, and that "
             "ends the operation.\\n\\nThe Ternate-Bitung ferry, two tuna boats and a coaster "
-            "bound north for the Sangihe islands are in the same water. Identify before you "
-            "act."
+            "bound north for the Sangihe islands are in the same water, and the Manado-Ambon "
+            "service is in the air to the south-west. Identify before you act."
         )),
     forces=(
         "Your screen, with the ship's flight if one is embarked. Allocated: FUJIAN and her "
-        "dipping Z-18F, Dipper 21. Watching: a RAAF P-8A and an MQ-4C Triton. Astern: one "
-        "diesel submarine, ALPHA. Neutral: a ferry, two tuna boats and a coaster."
+        "dipping Z-18F, Dipper 21. Watching: a RAAF P-8A, an MQ-4C Triton and, well to the "
+        "south, an E-7A Wedgetail. Astern: one diesel submarine, ALPHA. Neutral: a ferry, two "
+        "tuna boats, a coaster and the Manado-Ambon service."
     ),
     objectives=[
         ("Contact", "Classify ALPHA, then take Fujian south to her morning station",
          "35,-35,Fail,Main"),
         ("Restraint", "Fire on nothing: not the boat, not the aircraft", "15,-40,Complete"),
         ("Carrier", "Bring Fujian through intact", "10,-30,Complete"),
-        ("Traffic", "Harm no ferry, fishing boat or coaster", "0,-30,Complete"),
+        ("Traffic", "Harm no ferry, fishing boat, coaster or airliner", "0,-30,Complete"),
         ("Watchers", "Classify the patrol aircraft over the group", "10,0,None"),
     ],
     # Nothing counts until ALPHA has a class: the operation is called
@@ -77,10 +79,10 @@ MISSION = dict(
                                 "astern and has not changed speed. The classification is "
                                 "logged. It does not authorise an attack."
                             ))),
-    # The ROE is the mission's hard rule: sink the boat or down either
-    # aircraft and it is over, whoever gave the order. Fujian lost ends it
-    # too; her loss is the carrier objective's own.
-    fatal=[F("Restraint", ["red_sub", "red_air", "triton"]), F("Carrier")],
+    # The ROE is the mission's hard rule: sink the boat or down any of the
+    # three aircraft and it is over, whoever gave the order. Fujian lost ends
+    # it too; her loss is the carrier objective's own.
+    fatal=[F("Restraint", ["red_sub", "red_air", "triton", "wedgetail"]), F("Carrier")],
     neutral_objective="Traffic",
     win=(
         "FUJIAN is on her station and the boat astern has a class: Collins-class, "
@@ -109,6 +111,12 @@ MISSION = dict(
         # south-west, where its radar has the whole group.
         "red_air": S(0.90, 127.05, "Patrol aircraft", heading=330, alt=15000),
         "triton": S(0.60, 126.40, "Triton", heading=20, alt=50000),
+        # The Wedgetail's orbit, 110 NM south of the carrier over the southern
+        # Molucca Sea: far enough to be nobody's threat, near enough to hold
+        # the whole group on its radar.
+        "wedgetail": S(-0.30, 126.90, "Wedgetail orbit", heading=60, alt=30000),
+        # The Manado-Ambon airliner, climbed out and on the airway south-east.
+        "airliner": S(0.92, 125.31, "Manado-Ambon service", heading=150, alt=33000),
         "ferry": S(1.10, 126.90, "Ternate-Bitung ferry", heading=280),
         "fishing": S(1.25, 126.55, "Tuna boats", heading=60),
         "coaster": S(1.20, 126.75, "Coaster", heading=0),
@@ -134,6 +142,13 @@ MISSION = dict(
           route=[(1.90, 126.60, 15000), (0.90, 127.05, 15000)], loop=True,
           telegraph=3),
         U("red", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "triton", weapons="Hold"),
+        # The coalition's air picture: a RAAF Wedgetail on a long racetrack well
+        # south of the group, flown until the clock runs out. It records, like
+        # the Poseidon and the Triton, and is spared like them.
+        U("red", "e-7a-wedgetail", "E7A_Wedgetail", "wedgetail", squadron="Squadron1",
+          weapons="Hold",
+          route=[(-0.45, 126.55, 30000), (-0.10, 127.25, 30000)], loop=True,
+          telegraph=3),
         U("neutral", "_vanilla", "civ_ms_roro_b", "ferry",
           name="KM Tidore Express (Ternate-Bitung ferry)",
           route=[(1.30, 125.60, 0)], telegraph=3),
@@ -143,9 +158,16 @@ MISSION = dict(
           name="Tuna boat Bintang Laut", route=[(1.05, 126.45, 0)], telegraph=2),
         U("neutral", "re-power-resupply", "civ_ms_freighter_a", "coaster",
           name="KM Sangihe Jaya", route=[(2.40, 126.70, 0)], telegraph=3),
+        # Civil traffic over the Molucca Sea: a regional airliner out of
+        # Manado on its airway for Ambon - one more air contact the screen has
+        # to identify before it acts. The file's default livery is a Saudi
+        # one; Squadron61 is the regional low-cost livery, flagged Indonesian.
+        U("neutral", "civil-aircraft-airbus", "civ_a320", "airliner",
+          name="Manado-Ambon service", squadron="Squadron61", nation="Indonesia",
+          airway=(-3.71, 128.09)),  # Ambon
     ],
     resolve={"Contact": "victory", "Traffic": "neutral",
-             "Restraint": ("spare", "red_sub", "red_air", "triton"),
+             "Restraint": ("spare", "red_sub", "red_air", "triton", "wedgetail"),
              "Carrier": ("protect", "carrier"),
              "Watchers": ("classify", "red_air", 1)},
     declares=[],

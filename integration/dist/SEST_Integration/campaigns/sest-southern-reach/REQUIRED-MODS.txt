@@ -5,14 +5,16 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (32): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (40): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a squadron a flight comes from   1143.5 Kuznetsov
+  3781062859    a model a placed unit draws      <<E-3G>>
   3440622312    a hull variant in use            [DEPRECATED] Anzac Class Frigate
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
   3459682829    a model a placed unit draws      A-10C
   3432668460    a unit a mission places          Auxilliary Merchant Pack
   3602046770    a model a placed unit draws      Boeing P-8 Poseidon
+  3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
   3760871384    a model a placed unit draws      Dingtools Weapon Pack
@@ -21,8 +23,12 @@ pack's root, is the union across every campaign in the pack.
   3731208477    a model a placed unit draws      Euromod - Modern Spanish Navy
   3553116604    a model a placed unit draws      F-15E StrikeEagle
   3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
+  3567228449    a unit a mission places          French Helicopter Package
   3503670861    a model a placed unit draws      General Atomics MQ-9 Reaper
   3384079999    a unit a mission places          Humpback Whale
+  3717610332    a unit a mission places          IL-78 TANKER
+  3722749887    a unit a mission places          KC-135 STRATOTANKER
+  3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
   3430106996    a unit a mission places          Merchants Expanded
   3775128499    a unit a mission places          Modern PLAN Systems
   3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
@@ -32,13 +38,15 @@ pack's root, is the union across every campaign in the pack.
   3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
   3605013271    a unit a mission places          RE-power: the resupply mod
   3413868677    a model a placed unit draws      Red Storm Arsenal
+  3597650470    a hull variant in use            Russian Navy 21
   3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
   3436170138    a weapon a loadout hangs         Shenyang J-11
+  3524112296    a model a placed unit draws      Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
   3395022688    a weapon a loadout hangs         Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
   3663564190    a weapon a loadout hangs         Type 003 Aircraft Carrier - PLANS Fujian CV-18
   3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3606774881    a unit a mission places          U.S. Navy 2027 Capabilities mod
-  3737267013    a model a placed unit draws      United States Naval Aviation
+  3737267013    a unit a mission places          United States Naval Aviation
 
 2. SEST INTEGRATION PACKS (9): this project's own patches, inside the consolidated download.
 
@@ -56,11 +64,10 @@ pack's root, is the union across every campaign in the pack.
 is asked for; the map, salvo and rescue tools are conveniences).
 
 
-4. NOT USED BY THIS CAMPAIGN (123): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (115): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
-  3781062859    <<E-3G>>
   3673908868    <<Tu-16N>>
   3403661005    [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
   3414146266    A-10A Thunderbolt II
@@ -81,7 +88,6 @@ shared file wins for the mods above.
   3768036424    Better TacMap
   3600788156    Buildings and Targets for Missions
   3801363152    CH-53E Standalone v0.1.0
-  3567256221    Charles De Gaulle & Modern French Navy Pack (WIP)
   3481228992    ChengDu J-10C Vigorous Dragon
   3606134711    Custom Loadout Editor
   3504168760    Dassault Rafale
@@ -103,19 +109,15 @@ shared file wins for the mods above.
   3430135740    F/A-18 Murder Hornet with AIM-174B
   3373960386    Flight Deck Ops
   3736147136    French Army Vehicles
-  3567228449    French Helicopter Package
   3461044389    Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3508275114    Ground Upgrade: SPAA
   3790594162    Identify Expanded
-  3717610332    IL-78 TANKER
   3408662804    Iskander TBM
   3505420313    Italian Navy Mod
   3769142422    J-16 Multirole Fighter
   3591563716    J-20 (歼-20 威龙)
   3801549552    J-36 Tailless Fighter
   3776340577    Ka-27RLD
-  3722749887    KC-135 STRATOTANKER
-  3744475027    KC-46A Pegasus - Strategic Tanker
   3406985435    Kirov-class (Pyotr Velikiy Upgrade)
   3559495372    Lockheed AC-130 Pack
   3740293822    McDonnell Douglas KC-10A Extender - Strategic Tanker
@@ -141,7 +143,6 @@ shared file wins for the mods above.
   3378409795    Royal Navy Type 23 'Duke Class' Frigate [OLD]
   3373356293    Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
   3796113927    RQ-180 White Bat Airframe
-  3597650470    Russian Navy 21
   3392434750    SA-21/S-400 SAM
   3673250557    SAAB AEW&C PACK
   3437105712    SAM Pack
@@ -164,7 +165,6 @@ shared file wins for the mods above.
   3670643788    Shenyang J-50 (沈阳航空工业 歼-50)
   3433577445    Shenyang J-8
   3601891050    Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
-  3524112296    Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
   3451166840    Su-25 Frogfoot
   3762023575    Su-30SM2
   3503594612    SU-57 Felon (重刑犯)

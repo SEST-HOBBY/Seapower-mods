@@ -45,7 +45,10 @@ MISSION = dict(
         "outer Gulf inbound for the Rangitoto Channel. The Great Barrier "
         "ferry, the Tauranga container service outbound, two fishing "
         "boats and the Auckland-Sydney service are in the same water, "
-        "which is narrow.\\n\\n"
+        "which is narrow. The French frigate FS COURBET sailed from "
+        "Devonport this morning for Noumea and is going north past "
+        "Tiritiri with her Panther up. She is not part of this, and she "
+        "is not a target.\\n\\n"
         "Off the Colville Channel, eighteen miles north-east, a Type 056A, "
         "the research trawler NAN HAI 27 and MV AUSTRAL COMPLIANCE are "
         "steaming slow circles and broadcasting a 'compliance station' on "
@@ -59,14 +62,15 @@ MISSION = dict(
     forces=(
         "Your detachment with its Seahawk and Poseidon if assigned, Kiwi 05 out of Whenuapai, "
         "the container ship Hauraki Trader. Neutral: the Tauranga container service, the Great "
-        "Barrier ferry, two fishing boats, an airliner. Opposing: one Type 056A, the research "
-        "trawler Nan Hai 27, MV Austral Compliance."
+        "Barrier ferry, two fishing boats, an airliner, the French frigate FS Courbet outbound "
+        "for Noumea with her Panther. Opposing: one Type 056A, the research trawler Nan Hai "
+        "27, MV Austral Compliance."
     ),
     objectives=[
         ("Approaches", "MV Hauraki Trader reaches the Rangitoto Channel "
                        "approach", "30,-30,Fail,Main"),
         ("Station", "Classify MV Austral Compliance", "15,0,None"),
-        ("Traffic", "Harm no ferry, merchant, fishing boat or aircraft",
+        ("Traffic", "Harm no ferry, merchant, warship, fishing boat or aircraft",
          "0,-30,Complete"),
         ("Flagship", "Bring your flagship out intact", "10,-15,Complete"),
     ],
@@ -104,6 +108,11 @@ MISSION = dict(
         "fish2": S(-36.40, 175.20, "Fishing boat", heading=200),
         "airliner": S(-36.70, 174.70, "Auckland-Sydney", heading=270, alt=15000),
         "home": S(-36.788, 174.630, "RNZAF Base Auckland"),
+        # A French frigate out of Devonport for Noumea, north past Tiritiri
+        # and out through the Jellicoe Channel, across the container ship's
+        # track; her Panther working the channel ahead of her.
+        "french": S(-36.60, 174.95, "French frigate", heading=10),
+        "french_helo": S(-36.57, 174.96, "Panther", heading=0, alt=1500),
     },
     units=[
         U("blue", "_vanilla", "civ_ms_act_1", "trader", name="MV Hauraki Trader"),
@@ -138,6 +147,17 @@ MISSION = dict(
         U("blue", "SEST_RAAF_Bases", "airbase_rnzaf_auckland", "home",
           name="RNZAF Base Auckland (Whenuapai)", nation="NewZealand",
           weapons="Hold"),
+        # A warship that is not a threat: another radar picture among the
+        # traffic to tell from the corvette's. The neutral rule covers her.
+        U("neutral", "cdg-modern-french-navy", "fr_ffg_lafayette_modernized", "french",
+          variant="Variant2", name="FS Courbet", nation="France", weapons="Hold",
+          route=[(-36.45, 174.97, 0), (-36.30, 174.95, 0), (-36.10, 174.85, 0)],
+          telegraph=3),
+        # Courbet's flight, unarmed, sweeping the channel ahead of her.
+        U("neutral", "french-helicopter-package", "fr_as-565_sa", "french_helo",
+          name="Panther (FS Courbet)", nation="France", alt=1500, loadout="ASWHunter",
+          weapons="Hold",
+          route=[(-36.45, 174.97, 1500), (-36.25, 174.95, 1500)], loop=True),
     ],
     resolve={"Approaches": "victory", "Traffic": "neutral",
              "Station": ("classify", "tender", 1),

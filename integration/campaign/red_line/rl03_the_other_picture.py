@@ -41,19 +41,22 @@ MISSION = dict(
             "wants names: which merchant matters, and which escorts hunt submarines.\\n\\nDRAGON"
             " EYE 05, a KJ-500, has the long look from the north-west, and a J-15 pair keeps "
             "it company; a patrol aircraft from the enclave field can share the look if one is "
-            "allocated. Your frigate shadows from outside the escorts' reach and closes only "
-            "as far as a classification needs. Two Australian F-35s are covering the convoy at"
-            " weapons Tight. If they fire, you may reply against the aircraft that fired and "
-            "nothing else. Nothing in that convoy or its escort is a target.\\n\\nThe picture "
-            "you build goes to headquarters. What is done with it tomorrow will be done by "
-            "people this group does not command.\\n\\nA Kai fishing boat, a stern trawler and "
-            "the Tual-Ambon ferry are in the box."
+            "allocated. TANKER 31, a YY-20A out of the enclave field, holds a track to the "
+            "north for the fighters. Your frigate shadows from outside the escorts' reach and "
+            "closes only as far as a classification needs. Two Australian F-35s are covering "
+            "the convoy at weapons Tight, and a RAAF Growler flies with them. If they fire, you "
+            "may reply against the aircraft that fired and nothing else. Nothing in that convoy"
+            " or its escort is a target.\\n\\nThe picture you build goes to headquarters. What "
+            "is done with it tomorrow will be done by people this group does not command.\\n\\n"
+            "A Kai fishing boat, a stern trawler and the Tual-Ambon ferry are in the box, and "
+            "the Port Moresby-Singapore service crosses it at altitude."
         )),
     forces=(
         "Your screen with its flight, and a J-15 pair and a patrol aircraft if allocated. "
         "Allocated: Dragon Eye 05, "
-        "a KJ-500. Opposing: three merchants, JS Mogami and JS Maya, and two RAAF F-35As at "
-        "weapons Tight. Neutral: two Kai fishing hulls and a ferry. The enclave field, 400 "
+        "a KJ-500, and Tanker 31, a YY-20A. Opposing: three merchants, JS Mogami and JS Maya,"
+        " two RAAF F-35As at weapons Tight and a RAAF EA-18G Growler at weapons Hold. "
+        "Neutral: two Kai fishing hulls, a ferry and an airliner. The enclave field, 400 "
         "miles north-east, is where the aircraft recover."
     ),
     objectives=[
@@ -62,7 +65,7 @@ MISSION = dict(
         ("Restraint", "Fire on nothing in the convoy or its escort", "15,-40,Complete"),
         ("Eye", "Bring Dragon Eye 05 home", "10,-20,Complete"),
         ("Fighters", "Classify the covering fighters", "10,0,None"),
-        ("Traffic", "Harm no fishing boat or ferry", "0,-30,Complete"),
+        ("Traffic", "Harm no fishing boat, ferry or airliner", "0,-30,Complete"),
     ],
     # The three hulls headquarters asked about, by name, out of a formation of
     # five: Coral Pioneer (convoy#1) and both Japanese escorts. Then the
@@ -76,8 +79,9 @@ MISSION = dict(
                                 "withdraw to the group's line."
                             ))),
     # Every hull Common Sea sails the next day. The F-35s are unnamed and
-    # nothing tomorrow depends on them.
-    fatal=[F("Restraint", ["convoy", "jmsdf"])],
+    # nothing tomorrow depends on them. The Growler is weapons Hold, so it is
+    # never "the aircraft that fired", and it is spared with the hulls.
+    fatal=[F("Restraint", ["convoy", "jmsdf", "growler"])],
     neutral_objective="Traffic",
     win=(
         "Coral Pioneer, Mogami and Maya are classified and the frigate is back on the group's "
@@ -85,8 +89,9 @@ MISSION = dict(
         " will not be the one that meets it."
     ),
     lose=(
-        "The group has sunk a ship of the convoy or its escort, the day before a passage the "
-        "coalition has announced to the world. The picture no longer matters; the incident "
+        "The group has sunk a ship of the convoy or its escort, or downed an aircraft that "
+        "never fired, the day before a passage the coalition has announced to the world. "
+        "The picture no longer matters; the incident "
         "does."
     ),
     timeout="1145. The convoy has the names the coalition gave it and none this group "
@@ -106,6 +111,16 @@ MISSION = dict(
         # The enclave field on Biak, 400 NM north-east: where the J-15s and
         # the KJ-500 recover. Off the briefing chart.
         "field": S(-1.10, 136.20, "Enclave field"),
+        # The tanker's track on the group's side of the picture, 30 NM north
+        # of the fighter cockpits and 60 NM clear of the F-35s' racetrack.
+        "tanker": S(-4.20, 131.55, "Tanker 31", heading=60, alt=26000),
+        # The Growler's racetrack runs the F-35s', 8 NM behind them to the
+        # south-east, the side away from the KJ-500.
+        "growler": S(-6.50, 131.95, "Growler", heading=300, alt=24000),
+        # The Port Moresby-Singapore airliner, east of the box on the airway
+        # that takes it across the middle of it.
+        "airliner": S(-6.29, 133.24, "Port Moresby-Singapore service", heading=285,
+                      alt=37000),
         "convoy": S(-6.10, 132.00, "Convoy", heading=120),
         "jmsdf": S(-6.00, 131.95, "Japanese escort", heading=120),
         "red_air": S(-6.40, 131.80, "Covering fighters", heading=300, alt=25000),
@@ -133,6 +148,13 @@ MISSION = dict(
           loadout="AirToAir", weapons="Tight", slot="CAP"),
         U("blue", "modern-chinese-airbase", "pla_airbase_modern", "field",
           name="Enclave field (PLAAF detachment)", weapons="Hold"),
+        # Fuel for the fighters 400 NM from home: a YY-20A from the enclave
+        # field on a tanker track north of the escort, flown until the clock
+        # runs out. Unarmed and Hold; it recovers where it came from.
+        U("blue", "y-20-kj-3000", "plaaf_yy-20a", "tanker", name="Tanker 31",
+          loadout="Tanker", weapons="Hold",
+          route=[(-4.35, 131.35, 26000), (-4.00, 131.95, 26000)], loop=True,
+          telegraph=3),
         # Coral Pioneer first: the Picture stage names convoy#1.
         U("red", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer", route=[(-6.35, 132.45, 0)], telegraph=1),
@@ -155,15 +177,28 @@ MISSION = dict(
           loadout="AirToAir", weapons="Tight",
           route=[(-5.40, 131.30, 25000), (-6.40, 131.80, 25000)], loop=True,
           telegraph=3),
+        # A RAAF No. 6 Squadron Growler with the F-35s, on their racetrack a
+        # few miles behind them. Weapons Hold: it fires on nothing, so it is
+        # never the aircraft that fired, and it is spared with the convoy.
+        U("red", "SEST_Growler_NGJ_MALICE", "usn_ea-18g", "growler", squadron="Squadron6",
+          loadout="SEST_SEAD120D", weapons="Hold",
+          route=[(-5.50, 131.40, 24000), (-6.50, 131.95, 24000)], loop=True,
+          telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
           name="Kai fishing boat Harapan", route=[(-6.00, 131.60, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_b", "fishing",
           name="Trawler Sinar Tual", route=[(-5.95, 131.70, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_ms_roro_a", "ferry",
           name="KM Nuhu Evav (Tual-Ambon ferry)", route=[(-4.90, 130.40, 0)], telegraph=3),
+        # Civil traffic at altitude: an airliner on the Port Moresby-Singapore
+        # airway, which runs across the middle of the box. The file's default
+        # livery is Air China's; Squadron64 is a Singapore one.
+        U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner",
+          name="Port Moresby-Singapore service", squadron="Squadron64",
+          airway=(1.36, 103.99)),  # Singapore
     ],
     resolve={"Picture": "victory", "Traffic": "neutral",
-             "Restraint": ("spare", "convoy", "jmsdf"),
+             "Restraint": ("spare", "convoy", "jmsdf", "growler"),
              "Eye": ("protect", "eye"),
              "Fighters": ("classify", "red_air", 1)},
     declares=[],

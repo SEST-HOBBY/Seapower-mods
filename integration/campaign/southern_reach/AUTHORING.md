@@ -353,7 +353,12 @@ files on 24 September 2026. Range is the airframe's; radius 40% of it.
 | `wp_tu-142m` | Aircraft | `_vanilla` | Bear-F; `loadout="ASW"`, red, Hold |
 | `wp_tu-95rt` | Aircraft | `_vanilla` | Bear-D; no fits; red, Hold |
 | `wp_il-78` | Aircraft | `il-78` | Midas; `loadout="Empty"`, Hold |
-| `usn_ForpostR705` | Aircraft | `small-medium-uav-series` | a ship-launched UAV spotter, range 250 |
+| `usn_ForpostR705` | Aircraft | `small-medium-uav-series` | a Russian Forpost UAV, range 250; not for the protection group - no PLAN hull here can launch or recover it, and it flies a Soviet flag |
+| `plan_z-20f` | Helicopter | `modern-plan-systems` | the Type 052D's own ASW helicopter (its deck lists it); `loadout="ASW"`. Not `planaf_z-20j`: no stores, no radar or sonar, and the 052D's deck refuses it |
+| `rfn_cvt_20380_7-12` | Vessel | `russian-navy-21` | Project 20380 corvette; Variant3 Aldar Tsydenzhapov (Pacific Fleet); the unit file is SEST Replenishment's, the variant russian-navy-21's. Uran-U reaches 140 NM: `weapons="Hold"` (section 3 of the bible keeps the Bight's surface escort to 27 NM) |
+| `fr_ffg_lafayette_modernized`, `fr_as-565_sa` | Vessel, Helicopter | `cdg-modern-french-navy`, `french-helicopter-package` | La Fayette-class frigate (Variant1 La Fayette, 2 Courbet, 3 Aconit) and her Panther (`ASWHunter` is the fit with empty pylons) |
+| `usaf_kc-46a_boom` (`loadout="Tanker"`), `usaf_stratotanker` (no fits) | Aircraft | `kc-46a`, `kc-135` | USAF tankers on the Enhanced Air Cooperation rotation; Hold; keep the track outside the 052D's HHQ-9 (245 NM) |
+| `usmc_kc-130j` | Aircraft | `us-naval-aviation` | stands in for an LC-130 of Operation Deep Freeze; neutral, `airway=` |
 | `airbase_raaf_*`, `airbase_rnzaf_*` | LandUnit | `SEST_RAAF_Bases` | capacity 200 |
 | `airfield_small_1` | LandUnit | `_vanilla` | capacity 48 |
 | `civ_radiostation` | LandUnit | `_vanilla` | a station ashore (neutral) |
