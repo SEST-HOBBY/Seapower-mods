@@ -53,7 +53,8 @@ Enter once more to run it.
 It stops, before anything is pushed or installed, if the game is running, if
 the clone has changes of its own (report them rather than committing them),
 or if the fast-forward is refused (step 2). The sync's last lines should read
-`IN LINE: all 1189 installed files match this commit (3d5d5323)`.
+`IN LINE: all 1189 installed files match this commit (<hash>)`, the hash
+being the one the merge landed on (`git log --oneline -1`).
 `-RefreshMissions` on the sync is only for a round where the sync says it
 merged your own mission edits: it re-spreads the airliners in the missions
 you imported from the game.
