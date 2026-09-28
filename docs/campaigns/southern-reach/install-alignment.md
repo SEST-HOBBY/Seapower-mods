@@ -78,7 +78,7 @@ Then check what landed (game closed or open):
   $open = Join-Path $c 'sest-southern-watch-open\campaign.ini'
   if (-not (Test-Path -LiteralPath $open)) { throw 'No Open Allocation campaigns installed - the sync did not take this build' }
   $line = Select-String -LiteralPath $open -Pattern '^TaskForceModeAllowedRosterUnits=(.*)$' | Select-Object -First 1
-  'Southern Watch Open Allocation, first window: {0} units on sale (want 10)' -f ($line.Matches[0].Groups[1].Value -split '\|').Count
+  'Southern Watch Open Allocation, first window: {0} units on sale (want 93: its 10 and the 83-unit allied fleet)' -f ($line.Matches[0].Groups[1].Value -split '\|').Count
   $ts11a = Join-Path $c 'sest-southern-reach\missions\Tasman Shield 11A - The Twelve-Mile Line.ini'
   if (-not (Test-Path -LiteralPath $ts11a)) { throw 'The Twelve-Mile Line is not installed - the sync did not take this build' }
   'The Twelve-Mile Line: scripted salvo lines {0} (want 1)' -f @(Select-String -LiteralPath $ts11a -SimpleMatch -Pattern 'AttackAtWaypoint,plan_yj-83a,Taskforce1Vessel2').Count
@@ -88,8 +88,10 @@ Then check what landed (game closed or open):
 ```
 
 It should print six campaign folders, each `own file: True  rules page:
-True`, then `Rig Seventeen ship home bases: 0`, `10 units on sale`,
-`scripted salvo lines 1` and `Southern Cross reads its result: True`. A
+True`, then `Rig Seventeen ship home bases: 0`, `93 units on sale`,
+`scripted salvo lines 1` and `Southern Cross reads its result: True`. The 93
+is Southern Watch's own 10 units plus the 83-unit allied fleet; 10 means an
+install from before the allied fleet. A
 folder missing, a `False`, a count of 2, "No Open Allocation campaigns
 installed" or "The Twelve-Mile Line is not installed" means the sync did not
 install this build: read its output before playing.
