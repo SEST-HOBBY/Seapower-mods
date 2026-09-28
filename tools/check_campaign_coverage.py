@@ -332,7 +332,9 @@ def open_twin(pack, slug):
     campaign list that loads this campaign's missions and art by path and
     sells the whole roster at every open window. Read from the built bytes:
     the three files the game reads from the campaign's own folder are this
-    campaign's, byte for byte; its campaign.ini is this one line for line
+    campaign's - commander settings byte for byte, the roster with every line
+    of this campaign's roster in it (the allied fleet is added after them) -
+    and its campaign.ini is this one line for line
     except the file's own Base, the campaign's name and description, and in
     each window the allowlist (every roster entry, every priced pick) and the
     situation (the note first, then the base text unchanged). A twin that
@@ -344,13 +346,26 @@ def open_twin(pack, slug):
     if not (twin / "campaign.ini").is_file():
         return [f"campaigns/{name}: no Open Allocation twin for {slug}"]
     out = []
-    for fn in ("player_task_force_roster.ini", "commander_settings.ini", "REQUIRED-MODS.txt"):
-        if not (twin / fn).is_file() or (twin / fn).read_bytes() != (base / fn).read_bytes():
-            out.append(f"campaigns/{name}/{fn}: missing, or not the base campaign's file")
-    if not (twin / "campaign_rules_en.xml").is_file():
-        out.append(f"campaigns/{name}: no campaign_rules_en.xml")
+    if (not (twin / "commander_settings.ini").is_file()
+            or (twin / "commander_settings.ini").read_bytes()
+            != (base / "commander_settings.ini").read_bytes()):
+        out.append(f"campaigns/{name}/commander_settings.ini: missing, or not the base "
+                   "campaign's file")
+    for fn in ("campaign_rules_en.xml", "REQUIRED-MODS.txt", "player_task_force_roster.ini"):
+        if not (twin / fn).is_file():
+            out.append(f"campaigns/{name}: no {fn}")
+    if out:
+        return out
+    def entries(path):
+        return {l.strip() for l in path.read_text(encoding="utf-8").splitlines()
+                if re.match(r"^[\w.-]+=[^|]+\|\d+$", l.strip())}
+    lost = sorted(entries(base / "player_task_force_roster.ini")
+                  - entries(twin / "player_task_force_roster.ini"))
+    if lost:
+        out.append(f"campaigns/{name}/player_task_force_roster.ini: the base roster's "
+                   f"{', '.join(lost)} is not in it as priced")
     picks, section = {}, ""
-    for line in (base / "player_task_force_roster.ini").read_text(encoding="utf-8").splitlines():
+    for line in (twin / "player_task_force_roster.ini").read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if line.startswith("[") and line.endswith("]"):
             section = line[1:-1]
@@ -531,7 +546,7 @@ def main():
     # can buy is reached by the campaign, and a price naming a variant the hull
     # no longer offers is a purchase the game would refuse. One roster per
     # campaign.
-    for slug in slugs:
+    for slug in slugs + [bp.open_slug(s) for s in slugs]:
         roster = pack / "campaigns" / slug / "player_task_force_roster.ini"
         if not roster.exists():
             problems.append(f"no player_task_force_roster.ini under campaigns/{slug}")

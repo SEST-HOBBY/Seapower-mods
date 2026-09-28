@@ -938,7 +938,8 @@ class SameNationDiscount(unittest.TestCase):
         spec["ROSTER"] = spec["ROSTER"] + [
             dict(unit="plan_j-15", picks=["Squadron1"], points=40)]
         page = bp.campaign_rules(spec)
-        self.assertIn("cost their listed price: plan_j-15 (China)", page)
+        self.assertIn("The discount covers the 10 classes registered to Australia. The 1 "
+                      "allied class - from China (1) - cost their listed price.", page)
 
     def _squadrons(self, text):
         """pick_nation() over a squadrons file with this text."""
@@ -999,6 +1000,79 @@ class SameNationDiscount(unittest.TestCase):
             self.assertIn("usn_p8", str(caught.exception))
         finally:
             bp.pick_nation = saved
+
+
+class AlliedFleet(unittest.TestCase):
+    """The Open Allocation twin sells the allied fleet beside the campaign's
+    roster: ships always, aircraft only where a row launches and recovers them."""
+
+    @staticmethod
+    def _missions():
+        spec = bp.campaign_specs()[0]
+        bp.set_campaign(spec)
+        return spec, spec["MISSIONS"]
+
+    def test_ships_are_kept_and_an_aircraft_no_row_takes_is_dropped(self):
+        spec, missions = self._missions()
+        saved = bp.airframe_rows
+        bp.airframe_rows = lambda uid, m, placed: []
+        try:
+            kept, dropped = bp.usable_allied(
+                [dict(unit="ran_ddg_hobart", picks=["Variant1"], points=480),
+                 dict(unit="usn_p8", picks=["Squadron3"], points=55)],
+                missions, {m["key"]: {} for m in missions})
+        finally:
+            bp.airframe_rows = saved
+        self.assertEqual([e["unit"] for e in kept], ["ran_ddg_hobart"])
+        self.assertEqual(dropped[0][0]["unit"], "usn_p8")
+        self.assertIn("no air-tasking row", dropped[0][1])
+
+    def test_an_aircraft_is_kept_only_where_every_row_recovers_it(self):
+        spec, missions = self._missions()
+        saved = bp.airframe_rows
+        entry = [dict(unit="usn_p8", picks=["Squadron3"], points=55)]
+        places = {m["key"]: {} for m in missions}
+        try:
+            bp.airframe_rows = lambda uid, m, placed: [("Patrol", 400.0, True, 1)]
+            kept, _dropped = bp.usable_allied(entry, missions, places)
+            self.assertEqual(len(kept), 1)
+            bp.airframe_rows = lambda uid, m, placed: [("Patrol", 400.0, m is not missions[0], 1)]
+            kept, dropped = bp.usable_allied(entry, missions, places)
+            self.assertEqual(kept, [])
+            self.assertIn("no field or deck in reach", dropped[0][1])
+            # A row with no cockpit is never written, so it takes nothing.
+            bp.airframe_rows = lambda uid, m, placed: [("Patrol", 400.0, True, 0)]
+            kept, dropped = bp.usable_allied(entry, missions, places)
+            self.assertEqual(kept, [])
+        finally:
+            bp.airframe_rows = saved
+
+    def test_every_allied_entry_resolves_and_is_one_nation(self):
+        import allied_fleet
+        for nation, fleet in allied_fleet.FOR_NATION.items():
+            units = [e["unit"] for e in fleet]
+            self.assertEqual(len(units), len(set(units)), nation)
+            bp.roster_nations(fleet)                    # one declared nation each
+            self.assertTrue(all(isinstance(e["points"], int) and e["points"] > 0
+                                for e in fleet))
+
+    def test_the_twin_rules_page_names_the_submarine_missions(self):
+        spec = dict(bp.campaign_specs()[0])
+        spec["ROSTER"] = spec["ROSTER"] + [
+            dict(unit="plan_type_054a_p5", picks=["Variant1"], points=280)]
+        saved = bp.unit_type
+        bp.unit_type = lambda uid, depth=0: ("Submarine" if uid == "plan_type_054a_p5"
+                                             else saved(uid, depth))
+        try:
+            page = bp.campaign_rules(spec, open_allocation=True,
+                                     submarine_missions=["Southern Lifeline"], allied=1)
+            self.assertIn("A submarine sails only in a mission that includes one - "
+                          "Southern Lifeline - and waits in reserve", page)
+            self.assertIn("the allied fleet included", page)
+            with self.assertRaises(SystemExit):
+                bp.campaign_rules(spec, open_allocation=True, submarine_missions=[])
+        finally:
+            bp.unit_type = saved
 
 
 class RulesPage(unittest.TestCase):

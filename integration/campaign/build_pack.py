@@ -179,12 +179,14 @@ def _xml_text(s):
              .replace("<", "&lt;").replace(">", "&gt;"))
 
 
-def campaign_rules(spec, open_allocation=False):
+def campaign_rules(spec, open_allocation=False, submarine_missions=None, allied=0):
     """This campaign's campaign_rules_en.xml, built from the stock page.
 
     `open_allocation` is the Open Allocation twin's page: the same rules, with
-    the availability lines saying the whole roster is on sale from the first
-    force allocation."""
+    the availability lines saying the whole roster - its allied fleet included
+    - is on sale from the first force allocation. `submarine_missions` names
+    the missions a bought submarine sails in, for a roster that sells one;
+    `allied` is how many allied-fleet units the roster adds."""
     t = RULES_TEMPLATE.read_text(encoding="utf-8")
     navy = re.search(r"^NavyName\w+=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
 
@@ -232,8 +234,10 @@ def campaign_rules(spec, open_allocation=False):
                     "performance, aircraft performance, or combat capability.", 14),
     ]
     if discount:
-        foreign = sorted(f"{u} ({n})" for u, n in roster_nations(spec["ROSTER"]).items()
-                         if n.lower() != nation.lower())
+        nations = roster_nations(spec["ROSTER"])
+        own = sum(1 for n in nations.values() if n.lower() == nation.lower())
+        foreign = collections.Counter(nation_name(n) for n in nations.values()
+                                      if n.lower() != nation.lower())
         lines += [separator + "\n",
                   '<TextBlock Text="National Purchase Discount" FontSize="17" '
                   'FontWeight="Bold" Foreground="White" TextWrapping="Wrap" '
@@ -243,17 +247,21 @@ def campaign_rules(spec, open_allocation=False):
                       f"- Every unit on this campaign's roster is registered to {nation} "
                       "by its squadron or hull variant, so the discount applies to all "
                       "of it." if not foreign else
-                      f"- Units registered to another nation cost their listed price: "
-                      f"{', '.join(foreign)}."), 14)]
+                      f"- The discount covers the {own} class{'es' if own != 1 else ''} "
+                      f"registered to {nation}. The {sum(foreign.values())} allied "
+                      f"class{'es' if sum(foreign.values()) != 1 else ''} - from "
+                      + ", ".join(f"{n} ({c})" for n, c in sorted(
+                          foreign.items(), key=lambda x: (-x[1], x[0])))
+                      + " - cost their listed price."), 14)]
     else:
         lines.append(line.format("- No national purchase discount applies: every unit "
                                  "costs its listed price.", 14))
     t = t[:start] + indent.join(lines) + t[end:]
     swap('Text="- Unit availability can change between missions. Japanese units, for '
          'example, may not be available after leaving Japanese waters."',
-         ('Text="- Open Allocation: every force allocation offers the whole campaign '
-          'roster, from the first. Some operations still limit what sails, and prices '
-          'are the standard campaign\'s."' if open_allocation else
+         (f'Text="- Open Allocation: every force allocation offers the whole campaign '
+          f'roster{", the allied fleet included," if allied else ","} from the first. '
+          'Some operations still limit what sails."' if open_allocation else
           'Text="- Unit availability changes between missions: Task Force Builder offers '
           'only what the current force-allocation window allows."'), "availability line")
     swap('Text="- Ships purchased in Task Force Builder include their airwing for free, and '
@@ -276,13 +284,23 @@ def campaign_rules(spec, open_allocation=False):
         swap('Text="- Fixed-wing aircraft are not available for purchase at the start of '
              'the campaign, but become available later on."',
              'Text="- Fixed-wing aircraft are on sale from the first force allocation, '
-             'before any mission can use them."', "fixed-wing line")
-    # No roster sells a submarine, and there are no submarine side missions.
+             'before any mission can use them.'
+             + (' Allied aircraft are sold only where some mission here can launch and '
+                'recover them.' if allied else '') + '"', "fixed-wing line")
+    # The standard rosters sell no submarine, and there are no submarine side
+    # missions; an Open Allocation roster with the allied fleet does sell them,
+    # and a bought one sails only where a mission includes the owned submarine.
+    subs = [e["unit"] for e in spec["ROSTER"] if unit_type(e["unit"]) == "Submarine"]
+    if subs and not submarine_missions:
+        raise SystemExit(f"{spec['TITLE']}: the roster sells submarines and no mission "
+                         "here includes one - the purchase could never sail")
     swap('Text="- Submarines operate independently of your task force. They appear in '
          'separate (but connected) optional side missions, which offer benefits to '
          'complete, but do not advance the main campaign."',
-         'Text="- Submarines cannot be bought in this campaign. A mission that gives you '
-         'one provides it with the mission; it does not join your task force."',
+         (f'Text="{_xml_text("- Submarines can be bought here. A submarine sails only in a mission that includes one - " + ", ".join(submarine_missions) + " - and waits in reserve for the rest.")}"'
+          if subs else
+          'Text="- Submarines cannot be bought in this campaign. A mission that gives you '
+          'one provides it with the mission; it does not join your task force."'),
          "submarine line")
     # The table's Survived Missions column, from this campaign's own
     # CrewSkillThresholds (the stock page's numbers are its own campaign's).
@@ -403,6 +421,7 @@ def campaign_specs():
         ROSTER=sw.ROSTER, COMMANDER=sw.COMMANDER, EVENTS=sw.EVENTS,
         MISSIONS=sw.MISSIONS, EXCUSES=sw.EXCUSES)
     specs = [watch, sr.CAMPAIGN]
+    import allied_fleet                              # noqa: E402
     # Red Line is optional: a tree without its package builds the two
     # campaigns it always did. A package that is present and fails to import
     # is a broken campaign, not a missing one, so only the package's OWN
@@ -430,6 +449,13 @@ def campaign_specs():
                 raise SystemExit(f"{seen[value]} and {spec.get('TITLE')} both "
                                  f"set {key}={spec[key]} - each campaign needs its own")
             seen[value] = spec.get("TITLE")
+    # The Open Allocation twins also sell the allied fleet their commander's
+    # navy can call on (allied_fleet.py), chosen by the commander's nation.
+    for spec in specs:
+        nation = re.search(r"^CommanderNations=(.+)$", spec.get("COMMANDER", ""), re.M)
+        spec.setdefault("ALLIED_FLEET",
+                        allied_fleet.FOR_NATION.get(nation.group(1).strip(), [])
+                        if nation else [])
     return specs
 
 
@@ -1021,6 +1047,34 @@ def roster_nations(roster):
                              f"file but its picks are registered to {nation}; which one "
                              "the discount follows is not something this build can see")
         out[e["unit"]] = nation
+    return out
+
+
+def nation_name(key):
+    """The game's display name for a nation key (language_en/nations.ini)."""
+    global _NATION_NAMES
+    if _NATION_NAMES is None:
+        f = ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini"
+        _NATION_NAMES = {}
+        for raw in f.read_text(encoding="utf-8-sig").splitlines():
+            k, sep, v = raw.partition("=")
+            if sep:
+                _NATION_NAMES[k.strip().lower()] = v.strip()
+    return _NATION_NAMES.get(key.lower(), key)
+
+
+_NATION_NAMES = None
+
+
+def submarine_missions(missions, placements):
+    """The missions a bought submarine sails in: those that include the owned
+    submarine, by the same test as campaign_ini's IncludesSubmarine."""
+    out = []
+    for m in missions:
+        placed = placements.get(m["key"])
+        detached = not m.get("generation") or m.get("detached")
+        if placed and placed.get("Taskforce1Submarine") and not detached:
+            out.append(m["key"])
     return out
 
 
@@ -3504,7 +3558,7 @@ ROSTER_SECTION = {"Vessel": "AllowedVessels", "Submarine": "AllowedSubmarines",
                   "VTOL": "AllowedAircraft"}
 
 
-def roster_ini(roster):
+def roster_ini(roster, heading=None):
     """player_task_force_roster.ini, in the stock file's own syntax.
 
     Every pick is checked against the file that WINS the load order first: a
@@ -3540,7 +3594,7 @@ def roster_ini(roster):
     if problems:
         raise SystemExit("roster failed:\n  " + "\n  ".join(problems))
 
-    L = [f"; SEST {TITLE} requisition roster.",
+    L = [heading or f"; SEST {TITLE} requisition roster.",
          f"; Generated by integration/campaign/build_pack.py - edit {ROSTER_SOURCE}.",
          ";",
          "; Points are fictional balance values. The variant and squadron lists",
@@ -3745,21 +3799,8 @@ def tasking_rows(mission, placed):
     return rows, dropped
 
 
-def check_purchased_recovery(mission, placed, roster_types):
-    """Every aircraft the roster could put in a tasking slot can recover.
-
-    A slot is filled by whatever the player owns that matches the row, so
-    the placeholder's own basing proves nothing about the purchase. For
-    each row, every roster airframe whose [AI] Role matches it (and whose
-    fits, if it declares any, overlap the row's) must have a compatible
-    field or deck - deck_fit() 0, not merely undeclared - within its sortie
-    radius of the cockpit. The reviewed build sold four types at the finale
-    that no row could take and a tanker no field could receive.
-    """
-    problems = []
-    rows = mission.get("window", {}).get("flights", [])
-    if not rows:
-        return problems
+def _tasking_decks_and_slots(placed):
+    """(decks, slots) of one placed mission, as the recovery checks read them."""
     decks = []
     for kind_family in ("LandUnit", "Vessel"):
         for tag, keys, _n, _x in placed.get("Taskforce1" + kind_family, []):
@@ -3772,41 +3813,108 @@ def check_purchased_recovery(mission, placed, roster_types):
         for tag, keys, _n, _x in placed.get(family, []):
             if "TaskForceModeAirTaskingSlot" in keys:
                 slots.append((keys["TaskForceModeAirTaskingRole"], unit_spot(keys)))
+    return decks, slots
+
+
+def airframe_rows(uid, mission, placed):
+    """[(row label, radius, recovers, slots)] for every air-tasking row of
+    `mission` that a purchased `uid` could fill.
+
+    A row takes the airframe when its [AI] Role meets the row's roles and its
+    fits, if it declares any, overlap the row's. It recovers when every slot
+    of that row has a compatible field or deck - deck_fit() 0, not merely
+    undeclared - within its sortie radius of the cockpit.
+    """
+    rows = mission.get("window", {}).get("flights", [])
+    if not rows:
+        return []
+    decks, slots = _tasking_decks_and_slots(placed)
+    out = []
     for row in rows:
         label, _display, roles, _count, fits = row.split("|")
         want = frozenset(x for x in roles.split("/") if x)
         want_fits = frozenset(x for x in fits.split("/") if x)
+        if not (ai_roles(uid) & want):
+            continue
+        _k, path = unit_file(uid)
+        has = frozenset(loadouts(path)) if path else frozenset()
+        if has and not has & want_fits:
+            continue
+        kind = unit_type(uid)
+        radius = (airframe_range(uid) or 0.0) * SORTIE_FRACTION
+        recovers = True
         spots = [sp for r, sp in slots if r == label]
-        for uid in roster_types:
-            if not (ai_roles(uid) & want):
-                continue
-            _k, path = unit_file(uid)
-            has = frozenset(loadouts(path)) if path else frozenset()
-            if has and not has & want_fits:
-                continue
-            kind = unit_type(uid)
-            radius = (airframe_range(uid) or 0.0) * SORTIE_FRACTION
-            for sp in spots:
-                ok = False
-                for d in decks:
-                    if deck_fit(uid, kind, d[3], d[4]) != 0:
-                        continue
-                    needs = 1 if kind == "Helicopter" else 10
-                    if kind == "VTOL" and d[4]:
-                        needs = 1
-                    if d[1] < needs or not (sp and d[2]):
-                        continue
-                    if math.hypot(d[2][0] - sp[0], d[2][1] - sp[1]) <= radius:
-                        ok = True
-                        break
-                if not ok:
-                    problems.append(
-                        f"{mission['key']}: a purchased {uid} in the {label} "
-                        f"flight has no compatible field or deck within "
-                        f"{radius:.0f} NM of its cockpit - the row sells a "
-                        "sortie the aircraft cannot recover from")
+        for sp in spots:
+            ok = False
+            for d in decks:
+                if deck_fit(uid, kind, d[3], d[4]) != 0:
+                    continue
+                needs = 1 if kind == "Helicopter" else 10
+                if kind == "VTOL" and d[4]:
+                    needs = 1
+                if d[1] < needs or not (sp and d[2]):
+                    continue
+                if math.hypot(d[2][0] - sp[0], d[2][1] - sp[1]) <= radius:
+                    ok = True
                     break
+            if not ok:
+                recovers = False
+                break
+        out.append((label, radius, recovers, len(spots)))
+    return out
+
+
+def check_purchased_recovery(mission, placed, roster_types):
+    """Every aircraft the roster could put in a tasking slot can recover.
+
+    A slot is filled by whatever the player owns that matches the row, so
+    the placeholder's own basing proves nothing about the purchase. For
+    each row, every roster airframe whose [AI] Role matches it (and whose
+    fits, if it declares any, overlap the row's) must have a compatible
+    field or deck - deck_fit() 0, not merely undeclared - within its sortie
+    radius of the cockpit. The reviewed build sold four types at the finale
+    that no row could take and a tanker no field could receive.
+    """
+    problems = []
+    for uid in roster_types:
+        for label, radius, recovers, _slots in airframe_rows(uid, mission, placed):
+            if not recovers:
+                problems.append(
+                    f"{mission['key']}: a purchased {uid} in the {label} "
+                    f"flight has no compatible field or deck within "
+                    f"{radius:.0f} NM of its cockpit - the row sells a "
+                    "sortie the aircraft cannot recover from")
     return problems
+
+
+def usable_allied(entries, missions, placements):
+    """(kept, dropped) - the allied entries an Open Allocation twin may sell.
+
+    Ships and submarines are always kept: a ship sails in every mission that
+    includes the task force, a submarine in every mission that includes one.
+    An aircraft is kept only if at least one row in the campaign would take
+    it and it recovers in every row that would: the builder will not sell a
+    sortie it cannot fly, and would refuse the build if it did (see
+    check_purchased_recovery). `dropped` says why for each one left out.
+    """
+    kept, dropped = [], []
+    for e in entries:
+        uid = e["unit"]
+        if unit_type(uid) not in ("Aircraft", "Helicopter", "VTOL"):
+            kept.append(e)
+            continue
+        # A row with no cockpit is never written into the campaign (see
+        # tasking_rows), so it takes nothing.
+        rows = [(m["key"], r) for m in missions if m["key"] in placements
+                for r in airframe_rows(uid, m, placements[m["key"]]) if r[3]]
+        if not rows:
+            dropped.append((e, "no air-tasking row in this campaign takes it"))
+        elif not all(r[2] for _k, r in rows):
+            bad = sorted({f"{k} {r[0]}" for k, r in rows if not r[2]})
+            dropped.append((e, "no field or deck in reach in " + ", ".join(bad)))
+        else:
+            kept.append(e)
+    return kept, dropped
 
 
 def check_flights(rows, roster, authored=()):
@@ -4671,7 +4779,31 @@ def main():
         rows, missing = coverage(credits, spec.get("EXCUSES", {}))
         print(f"\n{TITLE}: reaches {len(rows)} mods and packs; "
               f"{len(missing)} enabled and not reached by this campaign")
+        # The Open Allocation twin's roster: this campaign's own, then the
+        # allied fleet its commander can call on (spec ALLIED_FLEET), aircraft
+        # only where a row here launches and recovers them (usable_allied).
+        repeat = sorted({e["unit"] for e in spec.get("ALLIED_FLEET", [])}
+                        & {e["unit"] for e in ROSTER})
+        if repeat:
+            sys.exit(f"{TITLE}: the allied fleet repeats roster units {repeat}")
+        allied, allied_dropped = usable_allied(spec.get("ALLIED_FLEET", []),
+                                               [m for _n, _t, m in built], placements)
+        twin_roster = list(ROSTER) + allied
+        twin_roster_text, twin_roster_credits = roster_ini(
+            twin_roster, heading=f"; SEST {TITLE} - Open Allocation requisition roster: "
+                                 "the campaign's own units, then the allied fleet.")
+        twin_credits = dict(credits)
+        for token, why in twin_roster_credits.items():
+            twin_credits.setdefault(token, (why[0], why[1], "requisition roster"))
+        twin_rows, twin_missing = coverage(twin_credits, spec.get("EXCUSES", {}))
+        if spec.get("ALLIED_FLEET"):
+            print(f"{TITLE} - Open Allocation: {len(allied)} allied unit(s) on sale, "
+                  f"{len(allied_dropped)} aircraft left out:")
+            for e, why in allied_dropped:
+                print(f"   {e['unit']:<28} {why}")
         campaigns.append(dict(spec=spec, built=built, placements=placements,
+                              twin_roster=twin_roster, twin_roster_text=twin_roster_text,
+                              twin_rows=twin_rows, twin_missing=twin_missing,
                               credits=credits, rows=rows, missing=missing,
                               worst=worst, roster_text=roster_text,
                               campaign_text=campaign_text, missions=missions,
@@ -4878,12 +5010,19 @@ def main():
         twin = OUT / "campaigns" / open_slug(SLUG)
         twin.mkdir(parents=True)
         (twin / "campaign.ini").write_text(
-            open_allocation_ini(c["campaign_text"], SLUG, spec["ROSTER"]), encoding="utf-8")
-        (twin / "campaign_rules_en.xml").write_text(campaign_rules(spec, open_allocation=True),
-                                                    encoding="utf-8")
-        for fn in ("player_task_force_roster.ini", "commander_settings.ini",
-                   "REQUIRED-MODS.txt"):
-            shutil.copy2(camp / fn, twin / fn)
+            open_allocation_ini(c["campaign_text"], SLUG, c["twin_roster"]), encoding="utf-8")
+        (twin / "campaign_rules_en.xml").write_text(
+            campaign_rules(dict(spec, ROSTER=c["twin_roster"]), open_allocation=True,
+                           submarine_missions=submarine_missions(c["missions"],
+                                                                 c["placements"]),
+                           allied=len(c["twin_roster"]) - len(spec["ROSTER"])),
+            encoding="utf-8")
+        (twin / "player_task_force_roster.ini").write_text(c["twin_roster_text"],
+                                                          encoding="utf-8")
+        (twin / "REQUIRED-MODS.txt").write_text(
+            campaign_requirements(c["twin_rows"], c["twin_missing"],
+                                  f"{TITLE} - Open Allocation"), encoding="utf-8")
+        shutil.copy2(camp / "commander_settings.ini", twin / "commander_settings.ini")
         COVERAGE_DOC.parent.mkdir(parents=True, exist_ok=True)
         COVERAGE_DOC.write_text(report(c["rows"], spec["MISSIONS"], c["worst"],
                                        unused=c["missing"], coast=c["coast"]),

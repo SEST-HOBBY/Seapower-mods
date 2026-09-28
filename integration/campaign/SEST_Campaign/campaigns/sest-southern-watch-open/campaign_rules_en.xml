@@ -145,7 +145,7 @@
               <Run Text="- Open "/><Hyperlink Command="{Binding OpenTaskForceBuilderCommand}">Task Force Builder</Hyperlink><Run Text=" from the task force bar to add ships, submarines, helicopters, and aircraft to your task force."/>
             </TextBlock>
             <TextBlock Text="- Selected units are not purchased until the task force is confirmed." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Open Allocation: every force allocation offers the whole campaign roster, from the first. Some operations still limit what sails, and prices are the standard campaign's." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Open Allocation: every force allocation offers the whole campaign roster, from the first. Some operations still limit what sails." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Use the task force bar to repair damage, inspect weapons, change loadouts, view proficiency, and manage aircraft assignments."/>
             </TextBlock>

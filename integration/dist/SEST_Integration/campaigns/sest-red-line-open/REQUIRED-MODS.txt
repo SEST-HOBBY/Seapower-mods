@@ -1,4 +1,4 @@
-RED LINE - what this campaign needs
+RED LINE - OPEN ALLOCATION - what this campaign needs
 
 Four lists. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack; this is
