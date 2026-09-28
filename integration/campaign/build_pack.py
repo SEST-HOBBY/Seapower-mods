@@ -248,11 +248,13 @@ def campaign_rules(spec, open_allocation=False, submarine_missions=None, allied=
                       "by its squadron or hull variant, so the discount applies to all "
                       "of it." if not foreign else
                       f"- The discount covers the {own} class{'es' if own != 1 else ''} "
-                      f"registered to {nation}. The {sum(foreign.values())} allied "
-                      f"class{'es' if sum(foreign.values()) != 1 else ''} - from "
+                      f"registered to {nation}. The {sum(foreign.values())} "
+                      f"class{'es' if sum(foreign.values()) != 1 else ''} registered to "
+                      "other nations - from "
                       + ", ".join(f"{n} ({c})" for n, c in sorted(
                           foreign.items(), key=lambda x: (-x[1], x[0])))
-                      + " - cost their listed price."), 14)]
+                      + (" - cost their listed price." if sum(foreign.values()) != 1
+                         else " - costs its listed price.")), 14)]
     else:
         lines.append(line.format("- No national purchase discount applies: every unit "
                                  "costs its listed price.", 14))
@@ -358,9 +360,10 @@ def allied_line(roster, commander):
     if not foreign:
         return ""
     names = [n for n, _c in sorted(foreign.items(), key=lambda x: (-x[1], x[0]))]
-    return (f"The allied fleet is on sale beside it at full price: {sum(foreign.values())} "
-            f"ship, submarine and aircraft classes from {', '.join(names[:-1])} and "
-            f"{names[-1]}. ")
+    count = sum(foreign.values())
+    where = names[0] if len(names) == 1 else f"{', '.join(names[:-1])} and {names[-1]}"
+    return (f"The allied fleet is on sale beside it at full price: {count} "
+            f"class{'es' if count != 1 else ''} from {where}. ")
 
 
 def open_allocation_ini(text, slug, roster, allied=""):
@@ -3588,6 +3591,12 @@ def roster_ini(roster, heading=None):
         if path is None:
             problems.append(f"roster: no enabled mod defines {uid}")
             continue
+        if Path(path).stem != uid:
+            # The lookup here is case-blind; the game's match of a roster key
+            # to a unit and its language section may not be.
+            problems.append(f"roster: {uid} is spelled {Path(path).stem} by its file - "
+                            "use the file's spelling")
+            continue
         utype = unit_type(uid)
         section = ROSTER_SECTION.get(utype)
         if section is None:
@@ -3901,7 +3910,7 @@ def check_purchased_recovery(mission, placed, roster_types):
     return problems
 
 
-def usable_allied(entries, missions, placements):
+def usable_allied(entries, missions, placements, rows=(), roster=(), authored=()):
     """(kept, dropped) - the allied entries an Open Allocation twin may sell.
 
     Ships and submarines are always kept: a ship sails in every mission that
@@ -3909,7 +3918,11 @@ def usable_allied(entries, missions, placements):
     An aircraft is kept only if at least one row in the campaign would take
     it and it recovers in every row that would: the builder will not sell a
     sortie it cannot fly, and would refuse the build if it did (see
-    check_purchased_recovery). `dropped` says why for each one left out.
+    check_purchased_recovery). With `rows` it must also pass check_flights
+    beside `roster`: a row whose roles match it has to offer one of its fits,
+    or the row advertises a job the aircraft cannot fly (review of 2e845dc9:
+    the F-16CM matched the Weapons Free strike row and had none of its fits).
+    `dropped` says why for each one left out.
     """
     kept, dropped = [], []
     for e in entries:
@@ -3917,14 +3930,22 @@ def usable_allied(entries, missions, placements):
         if unit_type(uid) not in ("Aircraft", "Helicopter", "VTOL"):
             kept.append(e)
             continue
+        if rows:
+            try:
+                check_flights(rows, list(roster) + [e], authored=authored)
+            except SystemExit as exc:
+                why = next((l.strip() for l in str(exc).splitlines() if uid in l),
+                           str(exc).splitlines()[-1].strip())
+                dropped.append((e, "a row takes its role but offers none of its fits: " + why))
+                continue
         # A row with no cockpit is never written into the campaign (see
         # tasking_rows), so it takes nothing.
-        rows = [(m["key"], r) for m in missions if m["key"] in placements
-                for r in airframe_rows(uid, m, placements[m["key"]]) if r[3]]
-        if not rows:
+        takes = [(m["key"], r) for m in missions if m["key"] in placements
+                 for r in airframe_rows(uid, m, placements[m["key"]]) if r[3]]
+        if not takes:
             dropped.append((e, "no air-tasking row in this campaign takes it"))
-        elif not all(r[2] for _k, r in rows):
-            bad = sorted({f"{k} {r[0]}" for k, r in rows if not r[2]})
+        elif not all(r[2] for _k, r in takes):
+            bad = sorted({f"{k} {r[0]}" for k, r in takes if not r[2]})
             dropped.append((e, "no field or deck in reach in " + ", ".join(bad)))
         else:
             kept.append(e)
@@ -4721,10 +4742,12 @@ def main():
         check_roster_on_sale(ROSTER, spec["MISSIONS"], TITLE)
         # ... and the air-tasking rows against that same roster, before any of
         # them is written into a campaign entry.
-        check_flights([r for m in spec["MISSIONS"]
-                       for r in m.get("window", {}).get("flights", [])], ROSTER,
-                      authored={u["type"] for m in spec["MISSIONS"] for u in m["units"]
-                                if u.get("slot")})
+        # Read once, here: rendering rewrites a mission's rows in place, and
+        # the Open Allocation twin checks its own roster against these same
+        # rows after the missions are built.
+        flight_rows = [r for m in spec["MISSIONS"] for r in m.get("window", {}).get("flights", [])]
+        authored = {u["type"] for m in spec["MISSIONS"] for u in m["units"] if u.get("slot")}
+        check_flights(flight_rows, ROSTER, authored=authored)
         built, credits, worst, placements = [], {}, 0.0, {}
         for token, why in roster_credits.items():
             credits[token] = (why[0], why[1], "requisition roster")
@@ -4801,8 +4824,21 @@ def main():
         if repeat:
             sys.exit(f"{TITLE}: the allied fleet repeats roster units {repeat}")
         allied, allied_dropped = usable_allied(spec.get("ALLIED_FLEET", []),
-                                               [m for _n, _t, m in built], placements)
+                                               [m for _n, _t, m in built], placements,
+                                               flight_rows, ROSTER, authored)
         twin_roster = list(ROSTER) + allied
+        # The twin's rows against the twin's roster, as the base build checks
+        # its own (above); usable_allied has already kept only what passes.
+        check_flights(flight_rows, twin_roster, authored=authored)
+        # Everything that can stop the build is decided here, before the dry
+        # run returns and before the pack folder is cleared: the rules pages
+        # (roster nations, the submarine missions) and the twin's spine.
+        subs = submarine_missions([m for _n, _t, m in built], placements)
+        foreign = allied_line(twin_roster, spec["COMMANDER"])
+        rules_text = campaign_rules(spec, submarine_missions=subs)
+        twin_rules_text = campaign_rules(dict(spec, ROSTER=twin_roster), open_allocation=True,
+                                         submarine_missions=subs, allied=bool(foreign))
+        twin_campaign_text = open_allocation_ini(campaign_text, SLUG, twin_roster, foreign)
         twin_roster_text, twin_roster_credits = roster_ini(
             twin_roster, heading=f"; SEST {TITLE} - Open Allocation requisition roster: "
                                  "the campaign's own units, then the allied fleet.")
@@ -4817,6 +4853,8 @@ def main():
                 print(f"   {e['unit']:<28} {why}")
         campaigns.append(dict(spec=spec, built=built, placements=placements,
                               twin_roster=twin_roster, twin_roster_text=twin_roster_text,
+                              rules_text=rules_text, twin_rules_text=twin_rules_text,
+                              twin_campaign_text=twin_campaign_text,
                               twin_rows=twin_rows, twin_missing=twin_missing,
                               credits=credits, rows=rows, missing=missing,
                               worst=worst, roster_text=roster_text,
@@ -5011,7 +5049,7 @@ def main():
         (camp / "player_task_force_roster.ini").write_text(c["roster_text"],
                                                            encoding="utf-8")
         (camp / "commander_settings.ini").write_text(spec["COMMANDER"], encoding="utf-8")
-        (camp / "campaign_rules_en.xml").write_text(campaign_rules(spec), encoding="utf-8")
+        (camp / "campaign_rules_en.xml").write_text(c["rules_text"], encoding="utf-8")
         for folder, desc in folders.items():
             (OUT / "missions" / folder / "_info.ini").write_text(info(folder, desc),
                                                                  encoding="utf-8")
@@ -5023,16 +5061,8 @@ def main():
         # missions and art stay here (see open_allocation_ini()).
         twin = OUT / "campaigns" / open_slug(SLUG)
         twin.mkdir(parents=True)
-        (twin / "campaign.ini").write_text(
-            open_allocation_ini(c["campaign_text"], SLUG, c["twin_roster"],
-                                allied_line(c["twin_roster"], spec["COMMANDER"])),
-            encoding="utf-8")
-        (twin / "campaign_rules_en.xml").write_text(
-            campaign_rules(dict(spec, ROSTER=c["twin_roster"]), open_allocation=True,
-                           submarine_missions=submarine_missions(c["missions"],
-                                                                 c["placements"]),
-                           allied=len(c["twin_roster"]) - len(spec["ROSTER"])),
-            encoding="utf-8")
+        (twin / "campaign.ini").write_text(c["twin_campaign_text"], encoding="utf-8")
+        (twin / "campaign_rules_en.xml").write_text(c["twin_rules_text"], encoding="utf-8")
         (twin / "player_task_force_roster.ini").write_text(c["twin_roster_text"],
                                                           encoding="utf-8")
         (twin / "REQUIRED-MODS.txt").write_text(

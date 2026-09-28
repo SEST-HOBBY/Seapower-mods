@@ -45,7 +45,7 @@
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Commanders receive a "/><Run Text="{Binding SameNationDiscountPercentText}"/><Run Text="% point discount when purchasing units from their own nation."/>
             </TextBlock>
-            <TextBlock Text="- The discount covers the 14 classes registered to Australia. The 81 allied classes - from USA (26), France (10), Spain (9), Italy (7), South Korea (7), Japan (6), Germany (5), United Kingdom (5), Netherlands (3), Denmark (1), Norway (1), Poland (1) - cost their listed price." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <TextBlock Text="- The discount covers the 14 classes registered to Australia. The 79 classes registered to other nations - from USA (24), France (10), Spain (9), Italy (7), South Korea (7), Japan (6), Germany (5), United Kingdom (5), Netherlands (3), Denmark (1), Norway (1), Poland (1) - cost their listed price." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="Awards and Promotions" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>

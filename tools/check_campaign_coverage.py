@@ -356,22 +356,31 @@ def open_twin(pack, slug):
             out.append(f"campaigns/{name}: no {fn}")
     if out:
         return out
-    def entries(path):
-        return {l.strip() for l in path.read_text(encoding="utf-8").splitlines()
-                if re.match(r"^[\w.-]+=[^|]+\|\d+$", l.strip())}
-    lost = sorted(entries(base / "player_task_force_roster.ini")
-                  - entries(twin / "player_task_force_roster.ini"))
+    def priced(path):
+        """[(section, uid, line)] - every priced line, parsed by section (a
+        uid may carry an apostrophe: fr_fdi_amiral_ronarc'h)."""
+        rows, section = [], ""
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("[") and line.endswith("]"):
+                section = line[1:-1]
+            elif line and not line.startswith(";") and "=" in line and section != "LoadoutPrices":
+                rows.append((section, line.partition("=")[0], line))
+        return rows
+    base_rows = priced(base / "player_task_force_roster.ini")
+    twin_rows = priced(twin / "player_task_force_roster.ini")
+    twin_where = {uid: (section, line) for section, uid, line in twin_rows}
+    if len(twin_where) != len(twin_rows):
+        out.append(f"campaigns/{name}/player_task_force_roster.ini: a unit is priced twice")
+    lost = sorted(uid for section, uid, line in base_rows
+                  if twin_where.get(uid) != (section, line))
     if lost:
         out.append(f"campaigns/{name}/player_task_force_roster.ini: the base roster's "
-                   f"{', '.join(lost)} is not in it as priced")
-    picks, section = {}, ""
-    for line in (twin / "player_task_force_roster.ini").read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if line.startswith("[") and line.endswith("]"):
-            section = line[1:-1]
-        elif line and not line.startswith(";") and "=" in line and section != "LoadoutPrices":
-            uid, _, spec = line.partition("=")
-            picks[uid] = spec.split("|")[0].split(",")
+                   f"{', '.join(lost)} is not in it as priced, in its section")
+    picks = {uid: line.partition("=")[2].split("|")[0].split(",")
+             for _section, uid, line in twin_rows}
+    commander = (twin / "commander_settings.ini").read_text(encoding="utf-8")
+    allied = bp.allied_line([dict(unit=u, picks=p) for u, p in picks.items()], commander)
     # Section by section, with every expected change REQUIRED rather than
     # merely allowed: a twin still naming the base's Base, a Name that did
     # not change, or an open window without its note is as wrong as a gate
@@ -403,14 +412,14 @@ def open_twin(pack, slug):
                       and w.replace(" - Open Allocation", "", 1) == b)
             elif head == "[Language_en]" and key == "Description":
                 found["Description"] += 1
-                # the blurb, then an allied-fleet sentence where the twin sells
-                # one (build_pack.allied_line), then the base description
-                ok = (w.startswith(f"Description={bp.OPEN_BLURB}") and w.endswith(value)
-                      and len(w) >= len(f"Description={bp.OPEN_BLURB}{value}"))
+                # the blurb, then the allied-fleet sentence its own roster
+                # calls for (build_pack.allied_line; "" with none), then the
+                # base description - exactly
+                ok = w == f"Description={bp.OPEN_BLURB}{allied}{value}"
             elif is_open and key == "TaskForceModeAllowedRosterUnits":
-                entries = [e.split(",") for e in w.partition("=")[2].split("|")]
-                got = {e[0]: e[1:] for e in entries}
-                ok = (w.startswith(key + "=") and len(entries) == len(got)
+                listed = [e.split(",") for e in w.partition("=")[2].split("|")]
+                got = {e[0]: e[1:] for e in listed}
+                ok = (w.startswith(key + "=") and len(listed) == len(got)
                       and got == picks)
             elif is_open and key == "TaskForceModeBuilderSituation_en":
                 ok = w == f"{key}={bp.OPEN_NOTE} {value}"
@@ -480,6 +489,7 @@ def main():
         problems += art_resolves(pack, spec["SLUG"])
         problems += loadout_names(pack, spec["SLUG"], spec["DISPATCHES"])
         problems += open_twin(pack, spec["SLUG"])
+        problems += loadout_names(pack, bp.open_slug(spec["SLUG"]), spec["DISPATCHES"])
 
     for f in files:
         rel = f.relative_to(ROOT)

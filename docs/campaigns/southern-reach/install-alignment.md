@@ -115,7 +115,7 @@ Five changes since the Red Line round, in play order:
    campaign already under way may keep its old value - a new start will
    show it; test card G.6 checks both.
 5. **The allied fleet** - the Open Allocation versions of Southern Watch
-   and Southern Reach also sell the allied fleet at full price: 85 and 77
+   and Southern Reach also sell the allied fleet at full price: 83 and 76
    US, UK, NATO, Japanese, Korean and extra Australian ship, submarine and
    aircraft classes, from the first force allocation. Aircraft are sold only
    where a mission can launch and recover them. Test card G.7-G.9.

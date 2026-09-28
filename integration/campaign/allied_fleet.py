@@ -1,5 +1,15 @@
 """The allied fleet an Open Allocation campaign sells beside its own roster.
 
+Review of 2e845dc9 (28 Sep): carriers priced as hulls, like the amphibians -
+ships come without aircraft and no row launches from a bought deck (Ford 650,
+Nimitz 600, Charles de Gaulle 550); the Ticonderogas out (every one retires
+by the end of FY2027), Eisenhower out of the Nimitz picks (hull life ends
+October 2027), the F-35C's disestablished VFA-101 and the Super Hornet's
+VFA-115 (now on the F-35C) out; the F124/F125 spelled as their files are
+(MLU); Zumwalt 480 (its CPS cannot strike ships), Jeongjo 520, Sejong 480,
+Iver Huitfeldt 400 (SM-2 and APAR, the F124's family), Galicia 250 (Choules
+is its copy).
+
 Curated on 28 Sep from the enabled collection (scratch inventory of every
 unit file whose variants or squadrons are registered to an allied nation):
 one entry per class per navy, the most modern and complete file where mods
@@ -20,16 +30,14 @@ def _e(unit, picks, points, note):
 
 ALLIED = [
     # --- USA ---------------------------------------------------------
-    _e('usn_cvn_gerald_r_ford', ['Variant1', 'Variant2'], 1400,
+    _e('usn_cvn_gerald_r_ford', ['Variant1', 'Variant2'], 650,
        'USA - Gerald R. Ford-class'),
-    _e('usn_cvn_nimitz_2027s_adou', ['Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6', 'Variant8', 'Variant10'], 1300,
+    _e('usn_cvn_nimitz_2027s_adou', ['Variant3', 'Variant4', 'Variant5', 'Variant6', 'Variant8', 'Variant10'], 600,
        'USA - Nimitz-class (2027s) ADOU'),
-    _e('usn_ddg-1000_cps', ['Variant1', 'Variant3'], 600,
+    _e('usn_ddg-1000_cps', ['Variant1', 'Variant3'], 480,
        'USA - Zumwalt-class (CPS)'),
     _e('usn_lhd_wasp', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant7', 'Variant8'], 550,
        'USA - Wasp-class'),
-    _e('usn_cg_ticonderoga_vls_2025', ['Variant2', 'Variant3', 'Variant4'], 520,
-       'USA - Ticonderoga-class (eu-VLS)'),
     _e('usn_ddg_arleigh_flt3_2027', ['Variant1', 'Variant2', 'Variant3'], 520,
        'USA - Arleigh Burke Flt.3'),
     _e('usn_ddg_arleigh_flt2A_119_2027', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6', 'Variant7'], 480,
@@ -76,13 +84,13 @@ ALLIED = [
        'USA - F-15EX Eagle II'),
     _e('usn_p8_2027', ['Squadron1'], 55,
        'USA - P-8A Poseidon (2027)'),
-    _e('usn_f-35c', ['Squadron1', 'Squadron2', 'Squadron3', 'Squadron4', 'Squadron5', 'Squadron6', 'Squadron7', 'Squadron8', 'Squadron9', 'Squadron10', 'Squadron11', 'Squadron12', 'Squadron13'], 50,
+    _e('usn_f-35c', ['Squadron1', 'Squadron2', 'Squadron3', 'Squadron4', 'Squadron5', 'Squadron6', 'Squadron7', 'Squadron8', 'Squadron9', 'Squadron10', 'Squadron12', 'Squadron13'], 50,
        'USA - F-35C'),
     _e('usaf_f-15e_SE', ['Squadron1', 'Squadron2', 'Squadron3', 'Squadron4', 'Squadron5'], 45,
        'USA - F-15E'),
     _e('usaf_ac-130j', ['Squadron1'], 40,
        'USA - AC-130J'),
-    _e('usn_fa-18e', ['Squadron1', 'Squadron2'], 35,
+    _e('usn_fa-18e', ['Squadron2'], 35,
        'USA - F/A-18E'),
     _e('usaf_f-16cm-bl52d', ['Squadron1', 'Squadron2', 'Squadron3', 'Squadron4', 'Squadron5', 'Squadron6', 'Squadron7', 'Squadron8'], 32,
        'USA - F-16CM block 50/52'),
@@ -106,7 +114,7 @@ ALLIED = [
     _e('rn_wildcat', ['Squadron1', 'Squadron2', 'Squadron3'], 18,
        'United Kingdom - AW159 Wildcat HMA2'),
     # --- France ------------------------------------------------------
-    _e('fr_cvn_charles-de-gaulle', ['Variant1'], 1000,
+    _e('fr_cvn_charles-de-gaulle', ['Variant1'], 550,
        'France - Charles de Gaulle (2018-2027)'),
     _e('fr_lhd_mistral', ['Variant1', 'Variant2', 'Variant3'], 450,
        'France - Mistral class'),
@@ -135,11 +143,11 @@ ALLIED = [
     _e('fr_as-565_sa', ['Squadron1'], 16,
        'France - AS-565 SA'),
     # --- Germany -----------------------------------------------------
-    _e('ger_ffg_f124_mlu', ['Variant1', 'Variant2', 'Variant3'], 400,
+    _e('ger_ffg_f124_MLU', ['Variant1', 'Variant2', 'Variant3'], 400,
        'Germany - F124 Sachsen-class MLU'),
     _e('ger_ffg_f123_2025_mlu', ['Variant2', 'Variant3', 'Variant4'], 300,
        'Germany - F123B Brandenburg-class'),
-    _e('ger_ffg_f125_mlu', ['Variant1', 'Variant2', 'Variant3', 'Variant4'], 300,
+    _e('ger_ffg_f125_MLU', ['Variant1', 'Variant2', 'Variant3', 'Variant4'], 300,
        'Germany - F125 Baden-Wuerttemberg-class MLU'),
     _e('ger_ssk_type_212a_batch1', ['Variant1', 'Variant2', 'Variant3', 'Variant4'], 280,
        'Germany - Type 212A-class (Batch 1)'),
@@ -173,7 +181,7 @@ ALLIED = [
        'Spain - Alvaro de Bazan-class (Early)'),
     _e('ae_ffg_bonifaz', ['Variant1'], 360,
        'Spain - Bonifaz-class'),
-    _e('ae_lpd_galicia', ['Variant1', 'Variant2'], 330,
+    _e('ae_lpd_galicia', ['Variant1', 'Variant2'], 250,
        'Spain - Galicia_L50-class L50'),
     _e('ae_ffg_santa_maria_late', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6'], 220,
        'Spain - Santa Maria-class Late'),
@@ -198,7 +206,7 @@ ALLIED = [
     _e('knm_cor_skjold', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6'], 130,
        'Norway - Skjold Class'),
     # --- Denmark -----------------------------------------------------
-    _e('hdms_iver_huitfeldt', ['Variant2', 'Variant3'], 360,
+    _e('hdms_iver_huitfeldt', ['Variant2', 'Variant3'], 400,
        'Denmark - Iver Huitfeldt-class'),
     # --- Poland ------------------------------------------------------
     _e('wp_ss_kilo', ['Variant12'], 200,
@@ -221,9 +229,9 @@ ALLIED = [
     _e('jmsdf_sh-60j', ['Squadron1', 'Squadron2'], 18,
        'Japan - SH-60J'),
     # --- South Korea -------------------------------------------------
-    _e('ko_ddg-995', ['Variant1', 'Variant2', 'Variant3'], 560,
+    _e('ko_ddg-995', ['Variant1', 'Variant2', 'Variant3'], 520,
        'South Korea - Jeongjo the Great Class'),
-    _e('ko_ddg-991', ['Variant1', 'Variant2', 'Variant3'], 520,
+    _e('ko_ddg-991', ['Variant1', 'Variant2', 'Variant3'], 480,
        'South Korea - Sejong the Great Class'),
     _e('ko_ddh-975_kvls', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6'], 320,
        'South Korea - Chungmugong Yi Sun-sin Class'),
