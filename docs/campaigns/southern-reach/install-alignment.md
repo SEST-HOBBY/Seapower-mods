@@ -53,7 +53,7 @@ Enter once more to run it.
 It stops, before anything is pushed or installed, if the game is running, if
 the clone has changes of its own (report them rather than committing them),
 or if the fast-forward is refused (step 2). The sync's last lines should read
-`IN LINE: all 1189 installed files match this commit (<hash>)`, the hash
+`IN LINE: all 1201 installed files match this commit (<hash>)`, the hash
 being the one the merge landed on (`git log --oneline -1`).
 `-RefreshMissions` on the sync is only for a round where the sync says it
 merged your own mission edits: it re-spreads the airliners in the missions
@@ -88,9 +88,9 @@ folder missing, a `False`, a count of 2, or "No Open Allocation campaigns
 installed" means the sync did not install this build: read its output
 before playing.
 
-### This round (28 Sep): the Rig Seventeen fix, rules pages, Open Allocation, the discount
+### This round (28 Sep): the Rig Seventeen fix, rules pages, Open Allocation, the discount, wider forces, The Twelve-Mile Line
 
-Five changes since the Red Line round, in play order:
+Seven changes since the Red Line round, in play order:
 
 1. **Rig Seventeen** died twice on a force carried through White Water and
    Steel Highway. In a mission your force is inserted into, no player-side
@@ -119,6 +119,22 @@ Five changes since the Red Line round, in play order:
    US, UK, NATO, Japanese, Korean and extra Australian ship, submarine and
    aircraft classes, from the first force allocation. Aircraft are sold only
    where a mission can launch and recover them. Test card G.7-G.9.
+6. **Wider forces** - Southern Reach and Red Line place units from more
+   of the collection (Il-78 tankers behind the Bears, USAF KC-46A tankers,
+   a Pacific Fleet corvette, the 052D's Z-20F, a neutral French frigate,
+   an Operation Deep Freeze LC-130; a RAAF Wedgetail and Growler and a US
+   Virginia on the coalition side in Red Line), each checked for realism.
+   Their `REQUIRED-MODS.txt` lists grow to 40 and 34. Each campaign's
+   build notes, "Wider forces"; test cards, "The wider forces".
+7. **The Twelve-Mile Line** (Tasman Shield 11A) - an optional mission
+   after Approaches: a Chinese Type 056A's crew asks for Australian
+   protection and runs for Eden with a frigate astern. Try it from the
+   mission browser first (Tasman Shield folder). It adds a campaign entry
+   after Approaches, so a Southern Reach campaign already past Approaches
+   should be started again; one before it is fine. Southern Reach test
+   card, section 6. The file count goes from 1189 to 1201 (the mission,
+   its briefing folder and chart in both copies, its card, and the
+   story page before it).
 
 The file count goes from 1171 to 1189: the three rules pages (1174) and the
 three Open Allocation folders of five files each.
@@ -269,7 +285,7 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1189** for this build |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1201** for this build |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |

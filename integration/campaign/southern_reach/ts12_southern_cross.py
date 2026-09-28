@@ -5,7 +5,8 @@ groups in it - the withdrawing group, neutral, complying with the
 ceasefire, and the spoiler that is not. ROMEO is under the convoy if
 Farncomb missed her, the strike flies if the carrier is afloat, and the
 collector is revealed as the spoiler's spotter if Search Datum's crew came
-home. Points zero; the epilogue reads the ledger.
+home, and the spoiler herself is identified if The Twelve-Mile Line brought
+the corvette in. Points zero; the epilogue reads the ledger.
 """
 from campaign_data import U, F, S, HELO, RECON, CAP
 
@@ -188,6 +189,19 @@ MISSION = dict(
                         "Intelligence assesses a possible "
                         "spotting role; the contents of its current transmissions remain "
                         "unknown."
+                    )),
+               # The Twelve-Mile Line's pay-off: what defectors carry is knowledge.
+               # It changes no order of battle, only whether the spoiler is told
+               # from the complying frigate before she fires.
+               dict(variable="TS11ADefectorSafe", units=["spoiler"], level="Identify",
+                    intel=(
+                        "DEBRIEF, TWOFOLD BAY, 1 MARCH: The corvette's officers named the "
+                        "Type 054A whose captain argued against the withdrawal, and gave "
+                        "her radar and datalink settings. This morning's emissions from the "
+                        "south-western frigate match them: she is identified on the plot as "
+                        "the spoiler. Their account is two days old and gives her orders, "
+                        "not her intent this morning; the ceasefire rules still decide when "
+                        "she is a target."
                     ))],
     window=dict(buy=True, repair=True,
                 allow=["ran_ffh_anzac", "ran_opv_arafura", "usn_mh-60r", "usn_p8",
@@ -197,7 +211,7 @@ MISSION = dict(
                 situation=(
                     "Sydney can provide repairs and replacement allocations before the final "
                     "relief passage. No ammunition resupply is available; plan around what "
-                    "remains after Approaches."
+                    "the force has left."
                 )),
     role="escort",
 )

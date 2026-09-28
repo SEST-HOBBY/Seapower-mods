@@ -16,7 +16,8 @@ MODULES = [
     "ts04_tasman_crossing", "ts05_under_the_tasman", "ts06_bass_strait",
     "ts07_southern_air_bridge", "ts08_great_australian_bight",
     "ts09_the_southern_convoy", "ts10a_northern_priority",
-    "ts10b_southern_priority", "ts11_approaches", "ts12_southern_cross",
+    "ts10b_southern_priority", "ts11_approaches", "ts11a_twelve_mile_line",
+    "ts12_southern_cross",
 ]
 
 # code: (date, completion points, generation, anchor station)
@@ -50,6 +51,7 @@ CALENDAR = {
     "TS10A": ((2029, 2, 22), 60, "Generated", "escort"),
     "TS10B": ((2029, 2, 22), 60, "Generated", "escort"),
     "TS11": ((2029, 2, 26), 180, "Generated", "escort"),
+    "TS11A": ((2029, 2, 27), 60, "Generated", "escort"),
     "TS12": ((2029, 3, 2), 0, "Generated", "escort"),
 }
 

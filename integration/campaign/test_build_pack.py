@@ -1156,6 +1156,169 @@ class RulesPage(unittest.TestCase):
         self.assertEqual(cells, ["0", "3", "6", "11", "23"])
 
 
+class DefectorEscortFeatures(unittest.TestCase):
+    """TS11A's three builder features: waypoint orders (a salvo at one named
+    ship), disable= (weapons off from the first second) and lift= (a
+    restraint that stops binding at hostile intent). Each emits only stock
+    keys; a mission without them renders byte-for-byte as before."""
+
+    CENTRE = (-37.28, 150.45)
+    STATIONS = {"escort": S(-37.12, 150.35, "Detachment", heading=140),
+                "defector": S(-37.36, 150.61, "The corvette", heading=295),
+                "frigate": S(-37.47, 150.91, "Type 054A", heading=295),
+                "helo": S(-37.41, 150.75, "Z-9", heading=295, alt=1000)}
+    ANZAC = dict(side="blue", mod="SEST_RAN_Fleet", type="ran_ffh_anzac",
+                 station="escort", variant="Variant7", weapons="Tight")
+    CORVETTE = dict(side="blue", mod="modern-plan-systems", type="plan_type_056a",
+                    station="defector", name="The corvette", weapons="Hold",
+                    route=[(-37.18, 150.12, 0)], telegraph=4, disable=("weapons",))
+    Z9 = dict(side="red", mod="modern-plan-systems", type="plan_z-9c", station="helo",
+              loadout="ASWHunter", weapons="Tight", alt=1000,
+              route=[(-37.38, 150.67, 1000), (-37.29, 150.42, 1000)], loop=True)
+
+    def setUp(self):
+        del bp.PLACEMENT_PROBLEMS[:]
+
+    def frigate(self, orders=None, **over):
+        orders = orders if orders is not None else [
+            ("AttackAtWaypoint", "plan_yj-83a", "defector", 2)]
+        return dict(dict(side="red", mod="modern-plan-systems", type="plan_type_054a_p5",
+                         station="frigate", weapons="Tight", telegraph=5,
+                         route=[(-37.42, 150.78, 0, orders), (-37.50, 150.62, 0)]),
+                    **over)
+
+    def mission(self, units, **over):
+        m = dict(key="Test Line", code="T11A", num="11A", group="optional",
+                 brief="Brief.", win="Won.", lose="Lost.", timeout="Out of time.",
+                 date=(2029, 2, 27), time=(4, 55), sea=3, clouds="Clear", wind="NE",
+                 centre=self.CENTRE, blue_nation="Australia", red_nation="China",
+                 minutes=80, role="escort", generation="Generated", anchor="escort",
+                 stations=self.STATIONS, units=units,
+                 objectives=[("Protection", "Bring her in", "30,-30,Fail,Main"),
+                             ("Restraint", "Do not fire first", "15,-30,Complete")],
+                 victory=dict(kind="arrive", station="defector", at=(-37.18, 150.12),
+                              radius=9, objective="Protection"),
+                 fatal=[F("Protection", ["defector"])],
+                 resolve={"Protection": "victory",
+                          "Restraint": ("spare", "frigate", "helo")})
+        m.update(over)
+        return m
+
+    def place(self, m):
+        return bp.place(m, bp.CoastPlacer(bp.coast_data(), m))
+
+    def sections(self, placed):
+        return {tag: keys for entries in placed.values() for tag, keys, _n, _x in entries}
+
+    def test_attack_names_the_corvettes_section_and_overrides_status(self):
+        m = self.mission([self.ANZAC, self.CORVETTE, self.frigate()])
+        placed, members, _c, _f = self.place(m)
+        frigate = self.sections(placed)["Taskforce2Vessel1"]
+        self.assertEqual(frigate["Waypoints"],
+                         "19.80,0,-8.40/AttackAtWaypoint,plan_yj-83a,Taskforce1Vessel2,2"
+                         "|10.20,0,-13.20")
+        self.assertEqual(frigate["OverrideWeaponStatus"], "Tight")
+
+    def test_telegraph_and_status_orders(self):
+        m = self.mission([self.ANZAC, self.CORVETTE, self.frigate(
+            [("SetTelegraph", 2), ("SetWeaponStatus", "Hold")])])
+        placed, _m, _c, _f = self.place(m)
+        frigate = self.sections(placed)["Taskforce2Vessel1"]
+        self.assertTrue(frigate["Waypoints"].startswith(
+            "19.80,0,-8.40/SetTelegraph,2/SetWeaponStatus,Hold|"))
+        self.assertNotIn("OverrideWeaponStatus", frigate)
+
+    def test_a_route_without_orders_is_unchanged(self):
+        plain = dict(self.frigate(), route=[(-37.42, 150.78, 0), (-37.50, 150.62, 0)])
+        m = self.mission([self.ANZAC, self.CORVETTE, plain])
+        placed, _m, _c, _f = self.place(m)
+        self.assertEqual(self.sections(placed)["Taskforce2Vessel1"]["Waypoints"],
+                         "19.80,0,-8.40|10.20,0,-13.20")
+
+    def test_orders_are_refused_when_they_cannot_be_carried_out(self):
+        bad = [
+            [("Ram", "defector")],                                    # unknown
+            [("SetTelegraph", 7)],                                    # out of range
+            [("SetWeaponStatus", "Weapons free")],                   # not a status
+            [("AttackAtWaypoint", "usn_rgm-84d", "defector", 2)],     # not carried
+            [("AttackAtWaypoint", "plan_yj-83a", "defector", 0)],     # no rounds
+            [("AttackAtWaypoint", "plan_yj-83a", "helo", 2)],         # own side
+        ]
+        for orders in bad:
+            del bp.PLACEMENT_PROBLEMS[:]
+            m = self.mission([self.ANZAC, self.CORVETTE, self.Z9, self.frigate(orders)])
+            with self.assertRaises(SystemExit, msg=repr(orders)):
+                self.place(m)
+
+    def test_disable_emits_north_borneos_trigger(self):
+        m = self.mission([self.ANZAC, self.CORVETTE, self.Z9, self.frigate()])
+        placed, members, _c, _f = self.place(m)
+        self.assertEqual(m["_disabled"], [("Taskforce1Vessel2", ("weapons",))])
+        triggers = rendered(m, placed, members)
+        self.assertEqual(triggers["Systems disabled at start"], [
+            "Condition_Condition1_Type=OnMissionStart",
+            "ConditionsCompleted=<Condition1>",
+            "Action_Units=Taskforce1Vessel2",
+            "Action_EnableDisableWeaponSystems=Disable"])
+
+    def test_a_disarmed_hull_is_not_her_own_escort(self):
+        # The detachment 150 NM away cannot reach her in 80 minutes. Counted
+        # as armed, the corvette would be her own escort at 0 NM and pass.
+        stations = dict(self.STATIONS, escort=S(-35.00, 152.50, "Far detachment"))
+        m = self.mission([self.ANZAC, self.CORVETTE, self.Z9, self.frigate()],
+                         stations=stations)
+        placed, members, _c, _f = self.place(m)
+        del bp.CLOSURE_PROBLEMS[:]
+        bp.check_closure(m, placed, members)
+        problems = list(bp.CLOSURE_PROBLEMS)
+        del bp.CLOSURE_PROBLEMS[:]
+        self.assertTrue(any("Taskforce1Vessel2" in p and "Taskforce1Vessel1" in p
+                            for p in problems), problems)
+
+    def test_disable_is_refused_on_the_anchor_and_unknown_systems(self):
+        for anchor in (dict(self.ANZAC, disable=("weapons",)),):
+            m = self.mission([anchor, self.CORVETTE, self.frigate()])
+            with self.assertRaises(SystemExit):
+                self.place(m)
+        m = self.mission([self.ANZAC, dict(self.CORVETTE, disable=("guns",)),
+                          self.frigate()])
+        with self.assertRaises(SystemExit):
+            self.place(m)
+
+    def test_lift_switches_off_exactly_the_restraint_trigger(self):
+        lift = [dict(objective="Restraint", units=["frigate"], at=(-37.42, 150.78),
+                     radius=2.5, intel="BLUEFIN 31: Hostile intent.")]
+        m = self.mission([self.ANZAC, self.CORVETTE, self.Z9, self.frigate()], lift=lift)
+        placed, members, _c, _f = self.place(m)
+        _name, text = bp.render(m, placed, members)
+        numbers = {}
+        for chunk in text.split("\n\n"):
+            rows = chunk.strip().splitlines()
+            if rows and rows[0].startswith("[Trigger"):
+                numbers[rows[1].partition("=")[2]] = (rows[0].split("]")[0][1:], rows[2:])
+        broken, _ = numbers["Restraint broken"]
+        _tag, lifted = numbers["Restraint lifted"]
+        self.assertIn(f"Action_DisableTriggers={broken}", lifted)
+        self.assertIn("Condition_Condition1_AreaDisplaySide=None", lifted)
+        self.assertIn("Action_Taskforce1_Intel=RestraintLiftIntel", lifted)
+        self.assertIn("RestraintLiftIntel=BLUEFIN 31: Hostile intent.", text)
+        rendered(m, placed, members)            # the pack checker's integrity pass
+
+    def test_lift_is_refused_when_it_could_never_fire_or_is_not_a_restraint(self):
+        units = [self.ANZAC, self.CORVETTE, self.Z9, self.frigate()]
+        cases = [
+            dict(objective="Protection", units=["frigate"], at=(-37.42, 150.78), radius=2.5),
+            dict(objective="Restraint", units=["defector"], at=(-37.42, 150.78), radius=2.5),
+            dict(objective="Restraint", units=["frigate"], at=(-37.00, 151.40), radius=2.5),
+        ]
+        for lift in cases:
+            del bp.PLACEMENT_PROBLEMS[:]
+            m = self.mission(units, lift=[dict(lift, intel="x")])
+            placed, members, _c, _f = self.place(m)
+            with self.assertRaises(SystemExit, msg=repr(lift)):
+                bp.render(m, placed, members)
+
+
 class BriefingChartSupport(unittest.TestCase):
     """An unarmed aircraft far from the ships is named, not charted.
 
