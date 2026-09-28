@@ -1,0 +1,400 @@
+﻿  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3032 lon=144.1025
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-671.11, -0.01, 8.46) geo=lat=-10.3032 lon=144.1025
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3014 lon=144.1043
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-668.09, 0.00, 11.50) geo=lat=-10.3014 lon=144.1043
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1077
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-662.44, 0.00, 13.87) geo=lat=-10.2999 lon=144.1077
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1053
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3032 lon=144.1025
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-671.11, -0.01, 8.46) geo=lat=-10.3032 lon=144.1025
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3014 lon=144.1043
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-668.09, 0.00, 11.50) geo=lat=-10.3014 lon=144.1043
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1077
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-662.44, 0.00, 13.87) geo=lat=-10.2999 lon=144.1077
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1053
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3032 lon=144.1025
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-671.11, -0.01, 8.46) geo=lat=-10.3032 lon=144.1025
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3014 lon=144.1043
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-668.09, 0.00, 11.50) geo=lat=-10.3014 lon=144.1043
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1077
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-662.44, 0.00, 13.87) geo=lat=-10.2999 lon=144.1077
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1053
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3032 lon=144.1025
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-671.11, -0.01, 8.46) geo=lat=-10.3032 lon=144.1025
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3014 lon=144.1043
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-668.09, 0.00, 11.50) geo=lat=-10.3014 lon=144.1043
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1077
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-662.44, 0.00, 13.87) geo=lat=-10.2999 lon=144.1077
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1053
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3032 lon=144.1025
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-671.11, -0.01, 8.46) geo=lat=-10.3032 lon=144.1025
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3014 lon=144.1043
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-668.09, 0.00, 11.50) geo=lat=-10.3014 lon=144.1043
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1077
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-662.44, 0.00, 13.87) geo=lat=-10.2999 lon=144.1077
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1053
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3032 lon=144.1025
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-671.11, -0.01, 8.46) geo=lat=-10.3032 lon=144.1025
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3014 lon=144.1043
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-668.09, 0.00, 11.50) geo=lat=-10.3014 lon=144.1043
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1077
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-662.44, 0.00, 13.87) geo=lat=-10.2999 lon=144.1077
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1053
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3032 lon=144.1025
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-671.11, -0.01, 8.46) geo=lat=-10.3032 lon=144.1025
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3014 lon=144.1043
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-668.09, 0.00, 11.50) geo=lat=-10.3014 lon=144.1043
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1077
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-662.44, 0.00, 13.87) geo=lat=-10.2999 lon=144.1077
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1053
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3032 lon=144.1025
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-671.11, -0.01, 8.46) geo=lat=-10.3032 lon=144.1025
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3014 lon=144.1043
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-668.09, 0.00, 11.50) geo=lat=-10.3014 lon=144.1043
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1077
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-662.44, 0.00, 13.87) geo=lat=-10.2999 lon=144.1077
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1053
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3032 lon=144.1025
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-671.11, 0.00, 8.46) geo=lat=-10.3032 lon=144.1025
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.3014 lon=144.1043
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-668.09, 0.00, 11.50) geo=lat=-10.3014 lon=144.1043
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1077
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-662.44, -0.01, 13.87) geo=lat=-10.2999 lon=144.1077
+[Info   :SubAmmunition] SETGEO bomb -> lat=-10.2999 lon=144.1053
+  at System.Environment.get_StackTrace () [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
+  at SubAmmunitionMod.SetGeoPositionPatch.Prefix (SeaPower.ObjectBase __instance, SeaPower.GeoPosition value) [0x00000] in <3dc1308bbaba4b1b82041d67c6c91849>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::set__geoPosition> (SeaPower.ObjectBase , SeaPower.GeoPosition ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.CalculateGeoPosition () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate> (SeaPower.ObjectBase ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.WeaponBase.OnFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.Bomb.DMD<SeaPower.Bomb::OnFixedUpdate> (SeaPower.Bomb ) [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.PerformFixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00000] in <a95041ea27024adfbb0775b9b13aeee7>:0 
+[Info   :SubAmmunition] SONO pos=(-666.47, 0.00, 13.98) geo=lat=-10.2999 lon=144.1053
