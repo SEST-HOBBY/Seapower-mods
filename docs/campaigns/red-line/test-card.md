@@ -22,7 +22,9 @@ that column, not the whole card.
 4. **The wider forces** (build notes, "Wider forces"). Pause each at T+0:
    RL01, the Wedgetail on its orbit to the south and the Manado-Ambon
    airliner flying off south-east, not circling; RL03, the Growler behind the
-   F-35As and the Sydney-Hong Kong airliner crossing the box; RL05, HOTEL
+   F-35As, the Rivet Joint on its east-west track sixty miles south of the
+   convoy (added 30 Sep) and the Sydney-Hong Kong airliner crossing the box;
+   RL05, HOTEL
    north of the passage line (open the unit list: she is there even though
    she is not on the plot). Then run RL03 at 8x for ten minutes: the Growler
    fires on nothing and puts no jamming strobe on the KJ-500's or the
@@ -82,6 +84,7 @@ player keeps or one the AI breaks for them is the question.
 | 4.3 | RL01, RL02 | Set the frigate to **Tight** with the Poseidon inside its missile envelope; in RL02 it starts Tight and the racetrack passes over it | It does not engage: the game's tooltip says Tight allows self-defence only | If Tight engages a Hold aircraft, RL02 is lost by its default setting and every brief that says "set them free and..." understates it |
 | 4.4 | RL04 | At **Hold**, order the frigate to fire on Meridian Harmony directly | The order is obeyed | If a Hold ship cannot be ordered to fire, the brief's "engage the coaster by direct order" is wrong: note what state it takes (Tight?) and whether that then touches the Poseidon |
 | 4.5 | RL03 | Fly the KJ-500's racetrack and let the F-35s (weapons **Tight**) close | They shadow and do not fire first | F-35s firing unprovoked = Tight is not honoured on red; the mission becomes a fighter fight |
+| 4.6 | RL03 | Find the Rivet Joint in the unit list: a USAF RC-135V/W at 31,000 ft, sixty miles south of the convoy | Weapons **Hold**, no weapons at all (three ESM sensors on an empty hardpoint), flying its east-west track and never firing; shooting it down ends the mission through Restraint | Missing = the RC-135V/W Rivet Joint mod is not enabled; a weapon on it = its fit is not empty, say which; MISSING TEXT on its fit = SEST Collection Fixes' loadout name did not merge |
 | 4.6 | RL02 | Let GOLF (weapons **Free**) come | She attacks Hai Yang 7 | A passive GOLF makes the escort trivial: say so |
 
 ## 5 — the unseen trigger (new)

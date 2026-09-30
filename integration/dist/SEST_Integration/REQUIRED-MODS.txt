@@ -7,7 +7,7 @@ dependencies", and it iterates, so a dependency's own dependencies
 come too. If that works you do not need the list below at all, and
 it is here to check against rather than to work through by hand.
 
-136 mods. Each supplies a file a mission names directly - by
+137 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -117,6 +117,7 @@ Workshop id   supplies                         mod
 3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
 3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
 3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
+3808882954    a unit a mission places          RC-135V/W Rivet Joint
 3605013271    a unit a mission places          RE-power: the resupply mod
 3413868677    a unit a mission places          Red Storm Arsenal
 3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
@@ -175,7 +176,7 @@ NOT IN THIS LIST AND STILL REQUIRED:
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (7), and left in the order
+Also enabled while this was built (8), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
@@ -183,6 +184,7 @@ by something above them. The campaign does not call for them.
 3789793270    library                          Auto Time-on-Target
 3774105087    library                          Automatic SAR
 3768036424    library                          Better TacMap
+3806686336    library                          Coordinated Strike Tool
 3784474738    library                          Euromod - Anchorchain Expansion Pack
 3790594162    library                          Identify Expanded
 3432592449    shadowed                         Nimitz Expanded

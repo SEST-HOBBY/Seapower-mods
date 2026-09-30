@@ -24,8 +24,8 @@ throws away a load-order change made while it is running.
 ## Already aligned once? The short version for later rounds
 
 Both `sest-dev/loving-bell-3cnvvw` and `feature/northern-front-iii-export`
-sit on `4693b635` (The Twelve-Mile Line's post-sync check), pushed from the
-PC on 29 Sep as the 28 Sep round's last step. Everything this session has
+sit on `60b89fe9`, the PC's own 30 Sep push (the mod export and the
+install snapshot). Everything this session has
 pushed since builds straight on that commit, so a later round is the same
 fast-forward and one sync. Close Sea Power, then paste this into PowerShell
 as one block. It has no blank lines on purpose: the console reads a paste
@@ -96,7 +96,46 @@ folder missing, a `False`, a count of 2, "No Open Allocation campaigns
 installed" or "The Twelve-Mile Line is not installed" means the sync did not
 install this build: read its output before playing.
 
-### This round (28 Sep): the Rig Seventeen fix, rules pages, Open Allocation, the discount, wider forces, The Twelve-Mile Line
+### This round (30 Sep): the Rivet Joint, Coordinated Strike Tool, the snapshot
+
+What the 30 Sep snapshot showed, and what this round does about it:
+
+1. **No mission was played.** Both logged sessions are the Mod Manager and
+   a quit; the play test of The Twelve-Mile Line and the wider forces is
+   still to do (Southern Reach test card, sections 5 and 6; Red Line 4).
+2. **Auto Time-on-Target is still there.** The snapshot has it subscribed,
+   enabled at position 7 and loaded (`bepinex.log`: `[AutoTOT] DOTS scan
+   hardening active`) beside Coordinated Strike Tool 1.3.1. Two salvo
+   timers at once: unsubscribe it in Steam (Workshop page, Unsubscribe) and
+   let the game drop it from its list; the canonical order keeps it until
+   your next export shows it gone.
+3. **Coordinated Strike Tool** (3806686336) is catalogued with the code
+   mods below Anchor Chain and excused from coverage, as Auto Time-on-Target
+   was; the sync moves it up from the bottom of your list. It is now the
+   code-mod check below (F8).
+4. **RC-135V/W Rivet Joint** (3808882954) is catalogued in Tier 5 above Red
+   Storm Arsenal - whose own RC-135W is a different file, so nothing
+   collides - and placed in two missions: Rivet 21, a USAF RC-135 off
+   Sydney in Tasman Shield 11 (Hold, named in the chart's corner), and a
+   coalition RC-135 south of the box in Red Line 03 (Hold, spared: shooting
+   it down ends the mission). Each campaign's build notes, "Rivet Joint";
+   test cards, Southern Reach item 5 and Red Line 4.6. The file count stays
+   1201.
+5. **The Rafale is gone from your subscriptions.** The Dassault Rafale mod
+   (3504168760) dropped off the 28 Sep snapshot's Steam list and the 30 Sep
+   export deleted its files. Southern Watch D3 and D6 place it, the Open
+   Allocation allied fleet sells it and SEST Rafale F5 patches it. Open its
+   Workshop page (`steamcommunity.com/sharedfiles/filedetails/?id=3504168760`):
+   if it is still there, subscribe again and run the export block below; if
+   it is not, say so and the Rafale is retired from the campaigns. Until
+   then the pack carries it as built from the last export that had it, and
+   four checks are red on the committed tree (step 3).
+6. **Mod updates absorbed.** The export also brought Russian Navy 21
+   (sensors, S-400 rounds, seven hulls), Euromod's MIM-23 Hawk family,
+   Modern US Navy's ES-3A, both Spanish packs and Flight Deck Ops' Kiev;
+   the SEST packs that patch those hulls were rebuilt on the new files.
+
+### The 28 Sep round: the Rig Seventeen fix, rules pages, Open Allocation, the discount, wider forces, The Twelve-Mile Line
 
 Seven changes since the Red Line round, in play order:
 
@@ -178,9 +217,9 @@ steps on the PC** that the ports need.
 
 | Branch | What it is | State |
 |---|---|---|
-| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `4693b635` after the 28 Sep round's push |
-| `claude/campaign-missions-lore-td653z` | this session: the three campaigns and their Open Allocation twins, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | `4693b635` plus documentation and builder-report fixes (the pack is unchanged); every pack rebuilt from scratch; the gates in step 3 pass |
-| `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `4693b635` with the deploy branch; do not deploy from it |
+| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `60b89fe9`, the PC's 30 Sep export and snapshot |
+| `claude/campaign-missions-lore-td653z` | this session: the three campaigns and their Open Allocation twins, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | `60b89fe9` plus the Rivet Joint in two missions, Coordinated Strike Tool, the docs audit and the coverage-report fix; every pack rebuilt from scratch on the 30 Sep export; the gates in step 3 pass but for the known reds |
+| `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `60b89fe9` with the deploy branch; do not deploy from it |
 | the other `sest-dev/*`, `fix/*`, `feature/*`, `chore/*` branches | earlier sessions | see §6: what was ported, and what was left and why |
 
 So "aligned to this session and the other sessions" means: the deploy branch
@@ -280,12 +319,18 @@ python tools\check_scenarios.py
 python tools\preflight.py "Tasman Shield 09 - The Southern Convoy"
 ```
 
-`check_inventory.py` is the one known red. The mirrored export (§6, step 2)
+`check_inventory.py` is a known red. The mirrored export (§6, step 2)
 ran on the PC on 27 Sep (`97eac5f7`) and cleared the ghost files; what stays
 red is four mods whose files differ from the manifest only by line endings
 (3775128499, 3776340577, 3780118683, 3781062859).
 `docs/packaging-and-recovery.md`, *Known red*, gives the
-`git add --renormalize` fix. Running the rest again on the PC proves the
+`git add --renormalize` fix. Since the 30 Sep export there is a second: the
+Dassault Rafale mod (3504168760) has left your Steam subscriptions and its
+files are gone, so `check_inventory` also lists it as an extra, and
+`check_campaign_coverage`, `check_dependencies` and `preflight --all` are
+red wherever they meet a Rafale (Southern Watch D3 and D6, the Open
+Allocation allied fleet, SEST Rafale F5). The pack was built with the last
+export that had the mod; *Known red* says how, and what clears it. Running the rest again on the PC proves the
 PC's Python sees the same tree; it does not change what gets installed. Skip
 it if you are short of time; do not skip step 2's checks.
 
@@ -470,12 +515,12 @@ Line's (`../red-line/test-card.md`) with its rules of engagement.
 | a Red Line unit is missing in a mission | `campaigns\sest-red-line\REQUIRED-MODS.txt` lists the hard-required Workshop mods for that campaign, with their count |
 | a ship is ashore or a route crosses land | the coastline extract disagrees with the game there; note the mission and the hull, that is the first row of the test card |
 | `check_inventory.py` red after the export | read `docs/packaging-and-recovery.md`, *Known red*, before deleting or restoring anything |
-| a code mod does nothing: Auto Time-on-Target's planner (Left Alt+G) does not open | Anchor Chain's preloader is not installed; subscribing is not enough. See below |
+| a code mod does nothing: Coordinated Strike Tool's planner (F8) does not open | Anchor Chain's preloader is not installed; subscribing is not enough. See below |
 
-### Code mods do not load (Auto Time-on-Target)
+### Code mods do not load (Coordinated Strike Tool)
 
-Sourced from the Anchor Chain docs and the Auto Time-on-Target README. Game
-closed.
+Sourced from the Anchor Chain docs and the Coordinated Strike Tool's Workshop
+page. Game closed.
 
 1. Download `ACPreloader.zip` from the latest release at
    <https://github.com/SeaPower-Modders/AnchorChain/releases>.
@@ -514,13 +559,12 @@ closed.
    more.
 3. Confirm `winhttp.dll`, `doorstop_config.ini` and `BepInEx\` are beside
    `Sea Power.exe`.
-4. Enable Anchor Chain and Auto Time-on-Target in the Mods menu, exit the
-   game fully and start it again.
-5. `BepInEx\LogOutput.log` should have a line `Auto Time-on-Target v...
-   loaded`. `BepInEx\config\com.seapowermods.autotot.cfg` holds `Enabled`,
-   `ShowIndicator` and `PanelKey`: check it is enabled and which key opens
-   the panel.
-6. Press Left Alt+G inside a running mission.
+4. Enable Anchor Chain and Coordinated Strike Tool in the Mods menu, exit
+   the game fully and start it again.
+5. `BepInEx\LogOutput.log` should have the line `Coordinated Strike Tool
+   1.3.1 loaded. Press the panel hotkey (default F8) in a mission to open
+   the planner.` (the 30 Sep snapshot has it, `data\install-snapshot\bepinex.log`).
+6. Press F8 inside a running mission.
 
 One BepInEx only: the multiplayer launcher installs its own. If `BepInEx` is
 already in the game folder, do not copy a second over it (the script above

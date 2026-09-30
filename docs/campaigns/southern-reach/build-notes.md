@@ -451,3 +451,31 @@ branch is left as it was.
 campaign entries after Approaches, which renumbers the three after them. A
 Southern Reach campaign already past Approaches should be started again; one
 before it is unaffected.
+
+## Rivet Joint (30 September)
+
+The RC-135V/W Rivet Joint mod joined the collection on 30 September, and
+TS11 Approaches places one: Rivet 21, a USAF 55th Wing RC-135V/W
+(`boeing-rc135`, Squadron2) on the same Enhanced Air Cooperation rotation as
+Texaco 71, weapons Hold, homed on Williamtown (110 NM), on an east-west
+track off Sydney at 31,000 ft. That is 348 NM from the Type 052D, outside
+her HHQ-9C for the whole clock, and more than 120 NM from the ships, so the
+briefing chart names it in the corner ("OFF CHART: RIVET 21") rather than
+drawing it. It carries nothing - one hardpoint with no stations - and three
+ESM suites, so there is no radar to switch off. The brief and the forces
+list name it; no objective changed. Its one fit, SIGINT, is that empty
+hardpoint; the mod ships no name string for it (the picker would show
+MISSING TEXT, and `check_campaign_coverage` reported it as dangling), so
+SEST Collection Fixes supplies one, as it did for the MH-60R's
+Anti-shipLate. The campaign now reaches 50 mods and packs (49 before) and
+its REQUIRED-MODS lists 41 hard-required (40).
+
+Coordinated Strike Tool, subscribed the same day, is a code mod with one
+`_info.ini` and no data files: a time-on-target planner on F8. It is excused
+in `campaign_data.py` as Auto Time-on-Target was; Approaches' briefing
+already says time-on-target is an advantage, never a requirement, and that
+still holds.
+
+The same export brought Russian Navy 21's update. TS08 places its Project
+20380 corvette (`rfn_cvt_20380_7-12`); the file changed in its launcher
+settings, not in what she carries, and every gate passes on the rebuilt pack.

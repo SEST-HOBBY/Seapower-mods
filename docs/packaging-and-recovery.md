@@ -213,7 +213,7 @@ manifest, the folders, the installed catalog entries and the load order all name
 the same Workshop ids. A folder holding more than its manifest row is a file the
 mod no longer ships; nothing else in the repo can see one.
 
-### Known red: `check_inventory` on four line-ending mods
+### Known red: `check_inventory` on four line-ending mods, and the missing Rafale
 
 `check_inventory.py` exits 1 on this branch. The mirrored export ran on the
 gaming PC on 27 Sep (`97eac5f7`) and cleared the ghost files; what stays red is
@@ -239,6 +239,20 @@ resolve again, and `check_weapon_employment.py` passes. The other ghosts that
 missions or packs reached (`usn_rim-162a`, `usn_rim-66m-2`, `usn_rim-66m-5`, the two sonobuoys,
 `usn_agm-65b`, `usn_agm-65d`, `fr_am-39_Block2`) still resolve now that they are
 deleted, through another mod's or the base game's copy of the same id.
+
+**The Rafale (since 30 Sep).** The Dassault Rafale mod (`3504168760`) left
+the PC's Steam subscriptions between the 27 and 28 Sep snapshots, and the 30
+Sep export pruned `mods-source/3504168760` once Steam had deleted the folder.
+The catalog and the canonical order still carry it, Southern Watch's D3 and
+D6 place it, the Open Allocation allied fleet sells it and SEST Rafale F5
+patches it, so `check_inventory` reports it as an extra in the catalog and
+the order, and `check_campaign_coverage`, `check_dependencies` and
+`preflight --all` fail wherever they meet its files. The pack is built with
+the last export that had the mod: `git archive e0d961d7~1
+mods-source/3504168760 | tar -x`, then `python3 tools/build_all.py
+--from-scratch`, then delete the folder again. Resubscribing and
+re-exporting clears all four; if the mod is gone from the Workshop, the
+Rafale is retired from the campaigns and the pack instead.
 
 **Line endings (4 mods: same file count, fewer bytes).** Modern PLAN Systems
 (`3775128499`), Ka-31 (`3776340577`), Tu-214R (`3780118683`) and E-3G

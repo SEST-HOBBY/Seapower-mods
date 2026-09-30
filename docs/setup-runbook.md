@@ -16,7 +16,7 @@ don't misdiagnose breakage later.
 
 1. **Anchor Chain** — subscribed ✔ but "will not function on its own": its documented manual
    preloader install must be done. Quick test: if the **B-2 Spirit** shows up and flies in-game,
-   both loaders are fine. The preloader steps, and the Auto Time-on-Target check that proves
+   both loaders are fine. The preloader steps, and the Coordinated Strike Tool check that proves
    them, are in `docs/campaigns/southern-reach/install-alignment.md`, *Code mods do not load*.
 2. **SeaLifter** — not in your subscription list, but required by A-10A/A-10C, Su-25, Mi-8 T/TV,
    B-2, and the Type 003/004 carriers. If any of those is missing from the unit list, install

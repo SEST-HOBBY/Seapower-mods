@@ -38,6 +38,7 @@ TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
     ("better-tacmap", "code mod — UI"),
     ("auto-time-on-target", "code mod — ships no game data at all, one _info.ini"),
+    ("coordinated-strike-tool", "code mod — time-on-target planner (F8); no game data, one _info.ini"),
     ("automatic-sar", "code mod — right-click SAR; the campaign pays for survivors"),
     ("identify-expanded", "code mod — identification and challenge orders; reads its own ini"),
 ]
@@ -112,6 +113,7 @@ NOTES = {
     "tu-95k-22": "watchlist: see Tu-95 row",
     "mh-60r-2154545636": "keep subscribed: ADO Nimitz 2000s draws its deck Seahawks from this mod's usn_sh-60b model folder. The MH-60R squadron table is SEST Collection Fixes' now (United States Naval Aviation's, written for the model that loads, plus 816 Squadron RAN), so its position above US Naval Aviation no longer decides it; unit file stays with U.S. Navy 2027",
     "sa-21-s400": "watchlist: land air-defense overlap",
+    "rc-135-rivet-joint": "above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges",
     "mig-29-family": "watchlist: MiG-29/R-series overlap",
 }
 

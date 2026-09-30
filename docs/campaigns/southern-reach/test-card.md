@@ -35,7 +35,10 @@ Watch card; fly those first. Three come back here:
    missing unit names its mod; a wrong flag names the unit. Run TS08 at 8x for ten minutes: the corvette fires on nothing -
    she is at Hold. The briefing charts for SR04 and SR07 (the Midas) and
    TS07, TS09 and TS11 (the tanker) name it in the top-left corner
-   ("OFF CHART") and keep the fight large.
+   ("OFF CHART") and keep the fight large. From 30 Sep, TS11 also names
+   Rivet 21 there, a USAF RC-135V/W off Sydney ("OFF CHART: RIVET 295 NM
+   N"): weapons Hold, no weapons, in the unit list at 31,000 ft; missing =
+   the RC-135V/W Rivet Joint mod is not enabled.
 
 6. **The Twelve-Mile Line** (TS11A, the defector escort) - section 6 below,
    from the mission browser first (Tasman Shield 11A), then in the campaign

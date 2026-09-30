@@ -22,7 +22,7 @@ MISSION = dict(
     group="core", num="03", key="The Other Picture", place="Eastern Banda Sea",
     intro=(
         "Name the convoy and its Japanese escort from outside their reach. Fire on nothing "
-        "afloat, nor on the Growler."
+        "afloat, nor on the Growler or the Rivet Joint."
     ),
     sender="Fleet headquarters",
     intent=((
@@ -46,7 +46,10 @@ MISSION = dict(
             "weapons Tight, and a RAAF Growler flies with them, listening. If they fire, you "
             "may reply against the aircraft that fired and nothing else - by direct order: "
             "fighters left free will find the Growler, which never fires, and that ends the "
-            "operation. Nothing in that convoy or its escort is a target.\\n\\nThe picture you build goes to headquarters. What "
+            "operation. A USAF RC-135 Rivet Joint out of Tindal holds a track south of the box at "
+            "thirty-one thousand feet with every radar in it on its screens, DRAGON EYE's "
+            "included; it carries nothing, and it is not a target either. Nothing in that convoy "
+            "or its escort is a target.\\n\\nThe picture you build goes to headquarters. What "
             "is done with it tomorrow will be done by people this group does not command.\\n\\n"
             "A Kai fishing boat, a stern trawler and the Tual-Ambon ferry are in the box, and "
             "the Sydney-Hong Kong service crosses it at altitude."
@@ -55,14 +58,16 @@ MISSION = dict(
         "Your screen with its flight, and a J-15 pair and a patrol aircraft if allocated. "
         "Allocated: Dragon Eye 05, "
         "a KJ-500. Opposing: three merchants, JS Mogami and JS Maya,"
-        " two RAAF F-35As at weapons Tight and a RAAF EA-18G Growler at weapons Hold. "
+        " two RAAF F-35As at weapons Tight, a RAAF EA-18G Growler at weapons Hold and a USAF "
+        "RC-135 Rivet Joint at weapons Hold south of the box. "
         "Neutral: two Kai fishing hulls, a ferry and an airliner. The enclave field, 400 "
         "miles north-east, is where the aircraft recover."
     ),
     objectives=[
         ("Picture", "Classify MV Coral Pioneer and both Japanese escorts, then take the "
                     "frigate back north-west", "35,-35,Fail,Main"),
-        ("Restraint", "Fire on nothing in the convoy or its escort, nor on the Growler",
+        ("Restraint", "Fire on nothing in the convoy or its escort, nor on the Growler or the "
+                      "Rivet Joint",
          "15,-40,Complete"),
         ("Eye", "Bring Dragon Eye 05 home", "10,-20,Complete"),
         ("Fighters", "Classify the covering fighters", "10,0,None"),
@@ -82,7 +87,7 @@ MISSION = dict(
     # Every hull Common Sea sails the next day. The F-35s are unnamed and
     # nothing tomorrow depends on them. The Growler is weapons Hold, so it is
     # never "the aircraft that fired", and it is spared with the hulls.
-    fatal=[F("Restraint", ["convoy", "jmsdf", "growler"])],
+    fatal=[F("Restraint", ["convoy", "jmsdf", "growler", "rivet"])],
     neutral_objective="Traffic",
     win=(
         "Coral Pioneer, Mogami and Maya are classified and the frigate is back on the group's "
@@ -115,6 +120,9 @@ MISSION = dict(
         # The Growler's racetrack runs the F-35s', 8 NM behind them to the
         # south-east, the side away from the KJ-500.
         "growler": S(-6.50, 131.95, "Growler", heading=300, alt=24000),
+        # The Rivet Joint's track runs east-west 60 NM south of the convoy,
+        # 100 NM from the frigate: the side away from everything that flies.
+        "rivet": S(-7.10, 131.30, "Rivet Joint", heading=90, alt=31000),
         # The Sydney-Hong Kong airliner south-east of the box, on the great
         # circle that takes it north-west across the middle of it.
         "airliner": S(-7.66, 132.40, "Sydney-Hong Kong service", heading=328,
@@ -178,6 +186,16 @@ MISSION = dict(
           loadout="SEST_SEAD120D", weapons="Hold", radars="False",
           route=[(-5.50, 131.40, 24000), (-6.50, 131.95, 24000)], loop=True,
           telegraph=3),
+        # A USAF 55th Wing RC-135V/W out of Tindal, listening from south of
+        # the box. Nothing to fire and no radar to switch off: three ESM
+        # suites and no stations. Weapons Hold like the Growler, and spared
+        # with it - the second aircraft that never fires. SIGINT is its one
+        # fit, an empty hardpoint; the mod ships no name string for it, so
+        # SEST Collection Fixes supplies one (build_missing_loadout_names).
+        U("red", "rc-135-rivet-joint", "boeing-rc135", "rivet", squadron="Squadron2",
+          loadout="SIGINT", weapons="Hold",
+          route=[(-7.10, 130.90, 31000), (-7.10, 131.70, 31000)], loop=True,
+          telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",
           name="Kai fishing boat Harapan", route=[(-6.00, 131.60, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_sterntrawler_b", "fishing",
@@ -192,7 +210,7 @@ MISSION = dict(
           airway=(22.31, 113.91)),  # Hong Kong
     ],
     resolve={"Picture": "victory", "Traffic": "neutral",
-             "Restraint": ("spare", "convoy", "jmsdf", "growler"),
+             "Restraint": ("spare", "convoy", "jmsdf", "growler", "rivet"),
              "Eye": ("protect", "eye"),
              "Fighters": ("classify", "red_air", 1)},
     declares=[],

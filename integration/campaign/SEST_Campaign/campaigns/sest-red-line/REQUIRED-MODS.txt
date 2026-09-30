@@ -5,7 +5,7 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (34): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (35): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
@@ -33,6 +33,7 @@ pack's root, is the union across every campaign in the pack.
   3594891803    a unit a mission places          PLAN Submarines
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
   3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
+  3808882954    a unit a mission places          RC-135V/W Rivet Joint
   3605013271    a unit a mission places          RE-power: the resupply mod
   3413868677    a model a placed unit draws      Red Storm Arsenal
   3436170138    a weapon a loadout hangs         Shenyang J-11
@@ -58,7 +59,7 @@ pack's root, is the union across every campaign in the pack.
 is asked for; the map, salvo and rescue tools are conveniences).
 
 
-4. NOT USED BY THIS CAMPAIGN (121): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (122): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -87,6 +88,7 @@ shared file wins for the mods above.
   3801363152    CH-53E Standalone v0.1.0
   3567256221    Charles De Gaulle & Modern French Navy Pack (WIP)
   3481228992    ChengDu J-10C Vigorous Dragon
+  3806686336    Coordinated Strike Tool
   3606134711    Custom Loadout Editor
   3504168760    Dassault Rafale
   3558173926    David's Sling
