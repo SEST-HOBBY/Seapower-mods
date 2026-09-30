@@ -25,13 +25,13 @@ This requires an existing Stage 2. Use `Stage=1` for a single-stage carrier. `Nu
 
 ## Launcher keys
 
-Replace `N` with `1` through `NumberOfSubmunitionLaunchers` (maximum 8). Each group carries 1–8 rounds: at most 64 daughters per carrier. At most four are created per fixed update; a zero interval can therefore span several updates.
+Replace `N` with `1` through `NumberOfSubmunitionLaunchers` (maximum 8). Each group carries 1–128 rounds: at most 1024 daughters per carrier. At most four are created per fixed update; a zero interval can therefore span several updates.
 
 | Key | Default / meaning |
 |---|---|
 | `SubmunitionNAmmunition` | Required ammunition INI name. Native Type=Missile, ordinary Type=Bomb, Type=Torpedo, and Type=Chaff are supported. |
 | `SubmunitionNChaffSystem` | US_AIR_CHAFF_DISP; for Chaff only, a section in systems/weapons.ini supplying the native Effect and EffectPosition. |
-| `SubmunitionNCount` | `1`; range 1–8. |
+| `SubmunitionNCount` | `1`; range 1–128. |
 | `SubmunitionNStage` | `1`; release at or after entering this existing visual stage. |
 | `SubmunitionNTime` | `0`; minimum seconds since carrier launch. |
 | `SubmunitionNDistance` | `-1` disables; otherwise maximum 3D distance to the carrier aimpoint, metres. |
@@ -124,3 +124,5 @@ IndependentEffectInstances=True
 The setting applies to every direct INI effect loaded by that ammunition, including booster, flight, trail, water-entry/exit, air, ground, ship, object and default hit effects. The normal `EffectsManager` setup still runs, so native lifetime handling and effect bookkeeping are retained. Effect classes selected by `...ExplosionClass` stay on the native path because they do not identify one direct prefab. Leave the setting absent for ordinary effects; independent instances use more memory than pooled instances, and effects are destroyed when their configured lifetime ends.
 
 Requires `MultiStageMissiles.dll` 1.6.0. API and offline lifecycle checks cover the installed release and stored beta assembly; native spawning, visual placement, interception, guidance and save/load in a running Unity scene still need in-game testing. No weapon-specific ammunition or meshes are supplied by this feature.
+
+For a long chaff salvo, use SubmunitionNCount=128 with SubmunitionNInterval=1 for one release per second. Existing launchers retain their configured counts; raising the limit does not increase ammunition automatically.
