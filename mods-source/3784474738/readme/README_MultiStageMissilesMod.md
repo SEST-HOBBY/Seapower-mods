@@ -1,4 +1,4 @@
-# Multi-Stage Missiles 1.7.1
+# Multi-Stage Missiles 1.7.2
 
 Optional sounds for native INI particle effects: [INI effect audio](README_IniEffectAudio.md). Configure per-effect volume, audible distance in metres, one-shots/loops, delay, pitch and fades. Custom WAVs use the installed CustomAudioLoader.
 
