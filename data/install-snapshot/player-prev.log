@@ -1,4 +1,4 @@
-# Player-prev.log - last 214 of 214 line(s), captured 2026-09-28T20:02:25.
+# Player-prev.log - last 247 of 247 line(s), captured 2026-10-01T00:58:49.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,8 +17,8 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1074
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.169 seconds
-- Finished resetting the current domain, in  0.001 seconds
+- Loaded All Assemblies, in  0.205 seconds
+- Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
 [Physics::Module] Id: 0xf2b8ea05
@@ -41,7 +41,7 @@ FileManager.Directories contains Mods
 [HighAltitudeSkyFix] DynamicSky.UpdateSky is absent in this game build; DynamicSky.OnLateUpdate/updateGraphics are the actual update path.
 [HighAltitudeSkyFix] Independent diagnostic controller started.
 [HighAltitudeSkyFix] Loaded. Above the game's atmosphere boundary, the finite Skybox mesh will follow the active camera at a geometry-derived safe vertical offset. Transition starts at 400.000 Unity units / 88189 ft; fallback offset=95000 ft; high-altitude far clip=10000 Unity units; cloud radius=8 chunks.
-[MissileControlMod] MultiStageMissiles v1.7.1.0 adapter enabled
+[MissileControlMod] MultiStageMissiles v1.7.2.0 adapter enabled
 [MissileControlMod] Enabled v0.1.14; Lo-Lo profiles and range labels; validated release steering API; clock=time:Single; launch=Single; booster=Single
 [MissileControlSurfaces] v1.1.1 loaded; automatic local fore/aft fin mixing and optional MultiStage support are ready.
 [MultiStageMissiles] Independent INI effect spawning is ready (opt-in per ammunition).
@@ -70,8 +70,9 @@ Harmony.Loadoutmanager active
 Using Windows.Gaming.Input
 <RI> Input initialized.
 
+dxgi: swapchain SetFullscreenState failed (887a0022).
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 2.061700 ms
+UnloadTime: 2.406400 ms
 FileManager.Directories contains Mods
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.67f1
@@ -96,6 +97,8 @@ FileManager.Directories contains Mods
 [IDX][Localization.cs:23 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
 [IDX][TensionConfig.cs:62 SetRaw] [IDX-Tension] set to TENSE -> Tense (DEFCON 3)
 [IDX][TensionConfig.cs:283 Load] [IDX-Tension] no config found, defaulting to TENSE DEFCON 3 (neutral)
+dxgi: swapchain SetFullscreenState failed (887a0022).
+Failed to change display to ExclusiveFullscreen...reverting to FullscreenWindow
 FileManager.CheckFileValidity(): Game passed file validity checks!
 FileManager.CheckForUpdates(): The following files require update []
 LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
@@ -165,11 +168,11 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_C2, {*}808080FF)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-5902
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-5908
 [MultiStageMissiles] usn_w76_mk4: independent spawning enabled for 6 direct INI effect prefab(s).
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-6014
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-6020
 [MultiStageMissiles] usn_w88_mk5: independent spawning enabled for 6 direct INI effect prefab(s).
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-6096
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-6102
 [MultiStageMissiles] wp_ss-n-12_350kt: independent spawning enabled for 7 direct INI effect prefab(s).
 [MultiStageMissiles] wp_ss-n-19_500kt: independent spawning enabled for 8 direct INI effect prefab(s).
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
@@ -208,7 +211,37 @@ LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material
 [MultiStageMissiles] KH-55: independent spawning enabled for 8 direct INI effect prefab(s).
 [MultiStageMissiles] KH-55SM: independent spawning enabled for 7 direct INI effect prefab(s).
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-[2101 - HTTPRequestCompleted] - 29 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3807
+[2101 - HTTPRequestCompleted] - 8 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3807
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+Unloading 9 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 11324.
+Total: 144.056500 ms (FindLiveObjects: 0.558700 ms CreateObjectMapping: 0.529400 ms MarkObjects: 142.861200 ms  DeleteObjects: 0.106900 ms)
+
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
+FileManager.Directories contains Mods
 [3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05

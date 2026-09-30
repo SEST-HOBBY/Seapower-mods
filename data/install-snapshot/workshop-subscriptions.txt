@@ -6,7 +6,7 @@
 3378409795   Type 23 Frigate                                      updated 2026-08-24
 3380210757   Anchor Chain                                         updated 2026-08-22
 3384079999   Humpback Whale                                       updated 2026-08-24
-3390330875   Euromod - Modern US Navy                             updated 2026-09-28
+3390330875   Euromod - Modern US Navy                             updated 2026-09-29
 3392434750   S-400 SAM                                            updated 2026-08-24
 3394781441   B-52G with AGM-86 ALCM(more realistic nuke)          updated 2026-08-16
 3395022688   Tu-95MS with AS-15 ALCM(more realistic nuke)         updated 2026-08-16
@@ -89,7 +89,7 @@
 3607989779   F-35C Lightning II Alt. Loadouts                     updated 2026-08-16
 3629144864   Euromod - Main Pack                                  updated 2026-09-28
 3629269283   Modern Russian Airbase                               updated 2026-08-16
-3630495619   Spanish Navy Mod (Cold War)                          updated 2026-09-19
+3630495619   Spanish Navy Mod (Cold War)                          updated 2026-09-29
 3631042692   Modern Chinese Airbase                               updated 2026-08-16
 3636386513   F-15EX                                               updated 2026-09-06
 3637954857   KJ-500                                               updated 2026-08-26
@@ -109,10 +109,10 @@
 3722749887   KC-135 Stratotanker                                  updated 2026-08-15
 3729578404   PLAAF J-11BS                                         updated 2026-08-15
 3729579342   PLAAF Su-27UBK                                       updated 2026-08-16
-3731208477   Spanish Navy Mod (Modern)                            updated 2026-09-17
+3731208477   Spanish Navy Mod (Modern)                            updated 2026-09-29
 3733719765   中国地面单位包                                              updated 2026-08-15
 3736147136   French army vehicule                                 updated 2026-09-19
-3737267013   US Naval Aviation                                    updated 2026-09-27
+3737267013   US Naval Aviation                                    updated 2026-09-29
 3740293822   KC-10A Extender by ZeroTwo                           updated 2026-08-15
 3741944366   B-52H                                                updated 2026-09-13
 3744475027   Boeing KC-46 Pegasus by ZeroTwo                      updated 2026-08-15
@@ -144,14 +144,16 @@
 3801549552   J-36 Tailless Fighter                                updated 2026-09-16
 3804868806   Anduril FQ-44 Fury US Navy Carrier Wingmen           updated 2026-09-27
 3806466625   MV-22B Osprey Tiltrotor / JGSDF V-22B                updated 2026-09-26
+3806686336   Coordinated Strike Tool                              updated 2026-09-30
+3808882954   RC-135V/W Rivet Joint                                updated 2026-09-30
 
-subscribed but UNPLACED (0): 
+subscribed but UNPLACED (2): 3806686336, 3808882954
 placed but NOT SUBSCRIBED (1): 3504168760
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
-folders on disk          : 143
-ids Steam tracks locally : 143
+folders on disk          : 145
+ids Steam tracks locally : 145
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
 on disk but NOT tracked (0): 
