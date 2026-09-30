@@ -182,8 +182,8 @@ load order, and hashes every deployed file back against the commit. The
 step-by-step, with what each line of its output means and how to bring another
 session's branch in first, is `docs/campaigns/southern-reach/install-alignment.md`.
 Its *When something is wrong* table covers the usual faults, including code mods
-that do not load (Auto Time-on-Target's planner not opening means Anchor Chain's
-preloader needs its manual install).
+that do not load (Coordinated Strike Tool's planner not opening on F8 means Anchor
+Chain's preloader needs its manual install).
 
 ## Why one pack
 

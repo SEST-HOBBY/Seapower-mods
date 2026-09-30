@@ -888,6 +888,9 @@ MISSING_LOADOUT_NAMES = {
     # _2 the reverse.
     "CASLight_1": "Close Air Support Light (20 mm)",
     "CASLight_2": "Close Air Support Light (.50 cal)",
+    # RC-135V/W Rivet Joint (3808882954): its one fit, an empty hardpoint
+    # with three ESM suites, named nowhere in the mod (30 Sep 2026).
+    "SIGINT": "SIGINT (Rivet Joint)",
     # Tu-95MA: an upstream typo for Default with no weapon section behind
     # it, so the fit carries nothing. Named for what it is rather than
     # disguised as the real Default.

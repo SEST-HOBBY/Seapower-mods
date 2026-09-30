@@ -37,7 +37,10 @@ MISSION = dict(
         "Williamtown's four hundred, and the Super Hornets and Growlers "
         "tasked to strike. TEXACO 71, a USAF KC-46A on the Enhanced Air "
         "Cooperation rotation, holds a tanker track off the New South "
-        "Wales south coast, outside the reach of the Type 052D's surface-to-air missiles.\\n\\n"
+        "Wales south coast, outside the reach of the Type 052D's surface-to-air missiles. "
+        "RIVET 21, a USAF RC-135V/W Rivet Joint on the same rotation, holds a track off "
+        "Sydney at thirty-one thousand feet with every radar in the group on its screens; "
+        "it carries nothing and stays well outside the destroyer's missiles.\\n\\n"
         "The group is eighty miles south-east: LIAONING, the Type 052D "
         "that has commanded it since October, a frigate, three J-15s "
         "with anti-ship missiles and a J-15D, a Ka-31, a Z-18F and the "
@@ -53,7 +56,7 @@ MISSION = dict(
     forces=(
         "Your whole task group with its Seahawk, Poseidon, fighters and strike aircraft if "
         "assigned; Wedgetail 05; Texaco 71, a USAF KC-46A tanker, off the New South Wales "
-        "south coast. Three transports. Neutral: a bulker, a trawler, an airliner. "
+        "south coast; Rivet 21, a USAF RC-135 Rivet Joint, off Sydney. Three transports. Neutral: a bulker, a trawler, an airliner. "
         "Opposing: Liaoning, a Type 052D with a Z-20 embarked, a Type 054A, three J-15 with "
         "anti-ship missiles, a "
         "J-15D, a Ka-31, a Z-18F - and a Type 056A with Nan Hai 27, or a second Type 054A, or "
@@ -98,6 +101,10 @@ MISSION = dict(
         # and more from the Type 052D through the whole clock even at 24 kn:
         # her HHQ-9C reaches 260.
         "tanker": S(-35.30, 150.90, "Tanker track", heading=225, alt=26000),
+        # The Rivet Joint's track off Sydney, north of the tanker's: 348 NM
+        # from the Type 052D, and named in the chart's corner rather than
+        # drawn (an unarmed aircraft more than 120 NM from the ships).
+        "rivet": S(-34.60, 151.60, "Rivet Joint", heading=270, alt=31000),
         "red_cv": S(-40.40, 152.30, "Protection group", heading=300),
         "red_air": S(-40.10, 152.00, "Strike flight", heading=300, alt=25000),
         "red_helo": S(-40.30, 152.20, "Ka-31 orbit", heading=300, alt=9000),
@@ -136,6 +143,15 @@ MISSION = dict(
         U("blue", "kc-46a", "usaf_kc-46a_boom", "tanker", name="Texaco 71",
           alt=26000, weapons="Hold", loadout="Tanker",
           route=[(-35.30, 150.90, 26000), (-35.70, 150.40, 26000)], loop=True,
+          telegraph=3),
+        # A USAF 55th Wing RC-135V/W on the same rotation, listening to the
+        # group's emitters for the strike. Three ESM suites, no stations,
+        # nothing to switch off; Hold, and homed on Williamtown. SIGINT is
+        # its one fit, an empty hardpoint; the mod ships no name string for
+        # it, so SEST Collection Fixes supplies one.
+        U("blue", "rc-135-rivet-joint", "boeing-rc135", "rivet", name="Rivet 21",
+          squadron="Squadron2", loadout="SIGINT", alt=31000, weapons="Hold",
+          route=[(-34.60, 151.20, 31000), (-34.60, 152.00, 31000)], loop=True,
           telegraph=3),
         U("blue", "auxilliary-merchant-pack", "ran_ms_roro_a", "lift",
           name="MV Tasman Relief I (transport)", weapons="Hold"),

@@ -297,3 +297,32 @@ Not done, and why:
   coalition campaigns put them.
 
 All the added units are the real types.
+
+## Rivet Joint (30 September)
+
+The RC-135V/W Rivet Joint mod joined the collection on 30 September, and
+RL03 places one: a USAF 55th Wing RC-135V/W out of Tindal (`boeing-rc135`,
+Squadron2), coalition, weapons Hold, on an east-west track 60 NM south of the
+convoy and 100 NM from the frigate at 31,000 ft. It carries nothing - one
+hardpoint with no stations - and three ESM suites (ELINT, COMINT, a radar
+warning receiver), so there is no radar to switch off; its role is EW and
+Recon, which the builder counts as passive, and red combat stays at the recon
+cap. It is spared with the Growler: the Restraint objective names it, the
+fatal entry covers it, and the intro, the brief and the forces list say it is
+not a target. Its one fit, SIGINT, is that empty hardpoint; the mod ships no
+name string for it (the picker would show MISSING TEXT, and
+`check_campaign_coverage` reported it as dangling), so SEST Collection Fixes
+supplies one, as it did for the MH-60R's Anti-shipLate. The campaign now
+reaches 44 mods and packs (43 before) and its REQUIRED-MODS lists 35
+hard-required (34).
+
+Coordinated Strike Tool, subscribed the same day, is a code mod with one
+`_info.ini` and no data files: a time-on-target planner on F8. It is excused
+in `campaign_data.py` as Auto Time-on-Target was, and no mission may depend
+on it. The 30 Sep snapshot still showed Auto Time-on-Target subscribed,
+enabled and loaded beside it.
+
+The same export brought Russian Navy 21's update (sensors, the 40N6/48N6
+rounds, the 20380/20385/21956/11356/22350/11780 hulls). Nothing this
+campaign places comes from it; the SEST Replenishment copies of its hulls
+were rebuilt on the new files and `check_pack_fidelity` passes.

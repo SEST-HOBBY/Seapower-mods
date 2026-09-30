@@ -124,6 +124,9 @@ EXCUSES = {
     "auto-time-on-target": (
         "library", "salvo-timing behaviour with no data files; it applies to "
         "every mission and no mission may depend on it"),
+    "coordinated-strike-tool": (
+        "library", "a time-on-target planner (F8) with no data files; it "
+        "applies to every mission and no mission may depend on it"),
     "identify-expanded": (
         "library", "identification and challenge orders (hail, warn, redirect, "
         "stop, surrender) run through Anchor Chain; its data is five IFF sensor "
