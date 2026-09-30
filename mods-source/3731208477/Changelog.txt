@@ -1,3 +1,10 @@
+v1.44 - 20260928
+
+	- AV-8B: Modified OpticalView and MaxG values, recalculated ReadyUpTime for various loadouts, added AI SEAD role.
+	- AV-8B+: Modified OpticalView, EjectChance, and MaxG values, recalculated ReadyUpTime for various loadouts, added AI SEAD role.
+	- EF2000 Typhoon: Modified OpticalView, recalculated ReadyUpTime for various loadouts.
+	- F/A-18A and F/A-18M Hornets: Modified OpticalView, recalculated ReadyUpTime for various loadouts.
+
 v1.43 - 20260917
 
 	- Changes have been added to the mod to prepare it for the game's new features, which are still in beta.

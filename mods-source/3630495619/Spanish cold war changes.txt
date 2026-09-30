@@ -1,5 +1,11 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.51 - 20260928
+
+	- Mk14 Torpedo - Adjusted position of cavitation bubble effect.
+	- R01 Dedalo (late) - Fixed issue with Harrier takeoffs.
+	- S31, S32, S33 - Adjusted position of bow waves, sail wash, and propeller cavitation.
+
 v3.50 - 20260917
 	NEW:
 	- S31 class submarine: USN Balao "Fleet snorkel" class, 1 unit (S31)
