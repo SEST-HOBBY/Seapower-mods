@@ -1,0 +1,43 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:SeapowerUI"
+  mc:Ignorable="d"
+  d:DesignWidth="1920"
+  d:DesignHeight="1080"
+  Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualWidth, FallbackValue=700}"
+  Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualHeight, FallbackValue=400}"
+  Padding="5,5,5,5">
+	<ScrollViewer>
+	<StackPanel Orientation="Vertical">
+		<TextBlock TextWrapping="Wrap" Margin="15" FontFamily="Roboto">
+			<TextBlock.Inlines>
+				<Run FontWeight="Bold" Text="Применение корабельного оружия — Противоракетная оборона" FontSize="16"/>
+				<LineBreak/>
+				<LineBreak/>
+				<Run Text="В дальнейшем вы можете сами оказаться под ударом такого оружия. У большинства кораблей есть несколько средств самообороны:" FontSize="12"/>
+				<LineBreak/>
+				<LineBreak/>
+				<Run FontWeight="Bold" FontSize="12" Text="• ЛТЦ:"/><Run Text=" создают ложную радиолокационную отметку и отвлекают ракеты с радиолокационным наведением" FontSize="12"/>
+				<LineBreak/>
+				<Run FontWeight="Bold" FontSize="12" Text="• Шумогенераторы:"/><Run Text=" создают ложную акустическую сигнатуру и отвлекают торпеды с пассивным наведением" FontSize="12"/>
+				<LineBreak/>
+				<Run FontWeight="Bold" FontSize="12" Text="• ЗАК:"/><Run Text=" сбивают приближающиеся ракеты и самолёты противника" FontSize="12"/>
+				<LineBreak/>
+				<Run FontWeight="Bold" FontSize="12" Text="• РЭБ:"/><Run Text=" ставит помехи системам наведения ракет противника, вынуждая их промахнуться" FontSize="12"/>
+				<LineBreak/>
+				<LineBreak/>
+				<Run Text="Примечание: ЛТЦ, ЗАК и РЭБ применяются автоматически. Шумогенераторы игрок должен запускать вручную." FontSize="12"/>
+			</TextBlock.Inlines>
+		</TextBlock>
+
+        <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center">
+			<Button Width="100" Height="50" Margin="0,0,15,0" FontSize="16" VerticalAlignment="Bottom" Content="Назад" Command="{Binding OpenFileCommand}" CommandParameter="missions/Tutorials/Officer_Training_1_briefing/t01_window_15a_ru.xml"/>
+			<Button Width="100" Height="50" Margin="0" FontSize="16" VerticalAlignment="Bottom" Content="Вперёд" Command="{Binding OpenFileCommand}" CommandParameter="missions/Tutorials/Officer_Training_1_briefing/t01_window_17_ru.xml"/>
+		</StackPanel>
+	</StackPanel>
+	</ScrollViewer>
+</Page>

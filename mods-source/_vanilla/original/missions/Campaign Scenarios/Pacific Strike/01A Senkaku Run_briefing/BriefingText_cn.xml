@@ -1,0 +1,66 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+		紧急
+		<LineBreak/>
+		1985年6月26日1055Z时
+		</TextBlock>
+		<TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+		<TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="夏威夷州珍珠港太平洋舰队总司令"/>
+		<TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+		<TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+		西太平洋所有太平洋舰队单位<LineBreak/>
+		夏威夷号巡洋舰舰长
+		</TextBlock>
+		<TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+		<TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+		夏威夷州珍珠港第七舰队司令<LineBreak/>
+		日本横须贺市第77特遣舰队指挥官<LineBreak/>
+		日本横田空军基地美国驻日本部队司令<LineBreak/>
+		海军设施工程系统司令部驻冲绳单位
+		</TextBlock>
+		<TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+		<TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="战争提示——撤离东海"/>
+		<TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+		机密
+		<LineBreak/>
+		<LineBreak/>
+		1.（机密）在欧洲和太平洋地区，对抗华约组织的战事已经开始，我们现在处于战时状态。
+		<LineBreak/>
+		<LineBreak/>
+		2.（机密）此命令立即生效，以最佳速度撤出东海。
+		<LineBreak/>
+		<LineBreak/>
+		3.（机密）威胁：敌方很可能已掌握你的大致位置。预计中国部队将在钓鱼岛以西海域活动，苏联重型水面将尝试从其北方靠近，苏联远程海上侦察和打击机也将从中国大陆起飞。撤退路线上的宫古岛以北存在潜艇威胁。
+		<LineBreak/>
+		<LineBreak/>
+		4.（机密）友方部队：VS-29将从嘉手纳派出1架S-3A为你执行搜索和攻击任务。海军设施工程系统司令部驻冲绳单位将在条件允许时发送声学基准点报告。盟军没有其他支援可以提供给你。
+		<LineBreak/>
+		<LineBreak/>
+		5.（机密）备注：行动区域内仍有平民和渔业船只活动。交战前请先识别目标。穿过琉球群岛后，向东进入菲律宾海并离开此区域，之后等待进一步命令。祝你好运，夏威夷号。
+		<LineBreak/>
+		<LineBreak/>
+		机密
+		<LineBreak/>
+		解密：由原始发布机构决定
+	</TextBlock>
+</Grid>

@@ -1,4 +1,4 @@
-# Multi-Stage Missiles 1.7.2
+# Multi-Stage Missiles 1.7.4
 
 Optional sounds for native INI particle effects: [INI effect audio](README_IniEffectAudio.md). Configure per-effect volume, audible distance in metres, one-shots/loops, delay, pitch and fades. Custom WAVs use the installed CustomAudioLoader.
 
@@ -10,7 +10,7 @@ Composite direct INI effects can opt out of native effect pooling per ammunition
 
 New in 1.5.2: set both thermal speed thresholds to `-1` for time-driven engine glow using stage burn windows and independent heat/cool response.
 
-Features: altitude/speed thermal glow with per-stage inheritance, save restoration and optional debris afterglow; up to eight independent jettison objects per stage. Existing INIs remain valid. See [Thermal glow and multiple jettison objects](README_StageGlowAndJettison.md) for keys and examples.
+Features: altitude/speed thermal glow with per-stage inheritance, save restoration and optional debris afterglow; up to 32 independent jettison objects per stage. Existing INIs remain valid. See [Thermal glow and multiple jettison objects](README_StageGlowAndJettison.md) for keys and examples.
 
 # Generic Multi-Stage Missile Visual System
 

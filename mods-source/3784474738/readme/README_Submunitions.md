@@ -23,9 +23,26 @@ Submunition1Aim=Parent
 
 This requires an existing Stage 2. Use `Stage=1` for a single-stage carrier. `NumberOfSubmunitionLaunchers` alone enables one implicit stage. Releases begin only after native airborne flight and the visual stage system have started. The carrier continues flying after release.
 
+## Flight-phase release
+
+SubmunitionNTime also accepts a flight-stage name instead of seconds. Names are case-insensitive and resolved against the running game's enum.
+
+~~~ini
+[Models]
+NumberOfSubmunitionLaunchers=1
+Submunition1Ammunition=wp_aircraft_chaff
+Submunition1ChaffSystem=WP_AIR_CHAFF_DISP
+Submunition1Time=Terminal
+Submunition1Count=128
+Submunition1Interval=1
+~~~
+
+No NumberOfStages is required. Terminal is an alias for TerminalApproach; SeaSkimming means MaintainSeaSkimming (already at sea-skimming altitude). Use MoveToSeaSkimming to trigger during the descent toward that altitude. Other exact native names, such as MaintainHeight or MaintainLoftAlt, are accepted if available in the current game build.
+
+The carrier must actually be in the named phase when the other Stage/Distance conditions are satisfied. A later enum value does not mean the phase was reached, and a skipped phase does not trigger a release. Once armed, the salvo continues at Interval even after leaving the phase, and its armed/progress state is saved. Changing the configured phase invalidates a saved launcher record to prevent duplicate releases. Unknown names disable that launcher with a warning. Numeric values still mean seconds, never enum ordinals.
 ## Launcher keys
 
-Replace `N` with `1` through `NumberOfSubmunitionLaunchers` (maximum 8). Each group carries 1–128 rounds: at most 1024 daughters per carrier. At most four are created per fixed update; a zero interval can therefore span several updates.
+Replace `N` with `1` through `NumberOfSubmunitionLaunchers` (maximum 128). Each group carries 1–128 rounds: at most 16384 daughters per carrier. At most four are created per fixed update; a zero interval can therefore span several updates.
 
 | Key | Default / meaning |
 |---|---|
@@ -33,7 +50,7 @@ Replace `N` with `1` through `NumberOfSubmunitionLaunchers` (maximum 8). Each gr
 | `SubmunitionNChaffSystem` | US_AIR_CHAFF_DISP; for Chaff only, a section in systems/weapons.ini supplying the native Effect and EffectPosition. |
 | `SubmunitionNCount` | `1`; range 1–128. |
 | `SubmunitionNStage` | `1`; release at or after entering this existing visual stage. |
-| `SubmunitionNTime` | `0`; minimum seconds since carrier launch. |
+| `SubmunitionNTime` | `0`; seconds since carrier launch (0..86400), or a native flight-stage name; see below. |
 | `SubmunitionNDistance` | `-1` disables; otherwise maximum 3D distance to the carrier aimpoint, metres. |
 | `SubmunitionNInterval` | `0`; seconds between rounds, maximum 3600. |
 | `SubmunitionNMount` | Empty = carrier root. Optional exact Transform path relative to that root; it must already exist when airborne flight starts. |

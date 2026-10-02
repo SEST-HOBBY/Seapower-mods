@@ -19,6 +19,11 @@
                                       Opacity="0.45"/>
                 </Border.Effect>
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <Canvas>
                         <Image Source="{Binding Assets[NDB_Logo]}"
 				Opacity="0.15"
@@ -31,11 +36,6 @@
                             </Image.RenderTransform>
                         </Image>
                     </Canvas>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Vertical">
                         <TextBlock Text="VS - VERTRAULICH" Foreground="Black" TextAlignment="Center" FontSize="24"/>
                         <TextBlock Text="25X1" Foreground="Black" TextAlignment="Right" FontSize="24"/>
@@ -96,6 +96,12 @@
                                       Opacity="0.45"/>
                 </Border.Effect>
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <Canvas>
                         <Image Source="{Binding Assets[NDB_Logo]}"
                      
@@ -109,12 +115,6 @@
                             </Image.RenderTransform>
                         </Image>
                     </Canvas>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Vertical">
                         <Border Background="Black" Margin="-45,0">
                             <TextBlock Text="LAGEBERICHT                 LAGEBERICHT" Foreground="White" TextAlignment="Center" FontSize="36"/>

@@ -1,0 +1,62 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+		紧急
+		<LineBreak/>
+		1985年7月12日0217Z时
+		</TextBlock>
+		<TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+		<TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="第77特遣舰队指挥官"/>
+		<TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+		<TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="马来西亚山打根{TaskForceName}指挥官"/>
+		<TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+		<TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+		夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+		横田空军基地美国驻日本部队司令
+		</TextBlock>
+		<TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+		<TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="重分配——龙目海峡行动"/>
+		<TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+		机密
+		<LineBreak/>
+		<LineBreak/>
+		1.（机密）敌方猛烈的海空攻势有效压制了新加坡和马来西亚，并且使印度尼西亚陷入了混乱。美军正在撤往澳大利亚达尔文以图重整旗鼓。
+		<LineBreak/>
+		<LineBreak/>
+		2.（机密）苏联海军部队正在从金兰湾南下，目标很可能是拦截盟军船只并封锁巽他海峡和龙目海峡，切断盟军通往印度洋的航道。龙目海峡是美军和盟军单位南下的指定航道。
+		<LineBreak/>
+		<LineBreak/>
+		3.（机密）马来西亚皇家空军报告称苏联的大型水面行动群正在正向东穿越爪哇海。此行动群由1艘1134型巡洋舰、1艘57A型驱逐舰和1艘1135M型护卫舰组成。
+		<LineBreak/>
+		<LineBreak/>
+		4.（机密）从驻扎山打根的{TaskForceName}中拆分出一个水面单位，以最佳速度前往巴厘岛。HSL-35中队将派出1架SH-2F直升机执行反潜巡逻任务，澳大利亚皇家空军的P-3C将从布鲁姆航空基地出发，执行海上打击和侦察任务。
+		<LineBreak/>
+		<LineBreak/>
+		5.（机密）消灭苏联突袭部队，掩护盟军撤退。祝你好运。
+		<LineBreak/>
+		<LineBreak/>
+		机密
+		<LineBreak/>
+		解密：由原始发布机构决定
+	</TextBlock>
+</Grid>
