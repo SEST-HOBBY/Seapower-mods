@@ -262,10 +262,10 @@ Write-Snapshot "workshop-subscriptions.txt" $lines
 # --- 5b. what the game ships now ----------------------------------------------
 # Everything this repo argues from - "native does X", the condition vocabulary,
 # the Task Force Mode keys - is read out of mods-source\_vanilla\original,
-# exported at 0.8.2 Build #358 on 20-Jul-2026. If the installed game has moved
+# exported at 0.8.3 Build 261001 on 01-Oct-2026. If the installed game has moved
 # on, some of those citations are stale and nothing here would say so.
 $lines = @("# The live install's own changelog head and campaign list, against the",
-           "# export this repo reasons from (0.8.2 Build #358, 20-Jul-2026).", "")
+           "# export this repo reasons from (0.8.3 Build 261001, 01-Oct-2026).", "")
 if ($StreamingAssetsDir) {
     $gameRoot = Split-Path -Parent $StreamingAssetsDir
     $chg = Join-Path $gameRoot "changelog.txt"

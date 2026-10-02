@@ -1322,7 +1322,8 @@ welcome, the commander section (one fixed nation, and the discount - see
 "Same-nation discount" below), ships sold without aircraft
 (`ShipIncludesAirwing=False`), helicopters from the first window, no
 submarines on sale, and the proficiency table's Survived Missions column read
-from `CrewSkillThresholds` (1/4/9/16, where stock's page says 1/2/4/7). The
+from `CrewSkillThresholds` (1/4/9/16, where stock's page said 1/2/4/7; since
+0.8.3 the game binds that column itself - "Sea Power 0.8.3" below). The
 price table, refund percentages and survivor reward are Bindings the game
 fills from each campaign's own files. If the stock page changes, the build
 stops rather than ship a half-edited one. English only, as stock.
@@ -1520,6 +1521,74 @@ the squadron and variant, as it does for the flag (test card G.6), how it
 rounds (Pacific Strike's changelog: the discount always takes at least a
 point off), whether repairs are charged on the discounted or the listed
 price, and whether a campaign already under way picks the new value up.
+
+## Sea Power 0.8.3 (2 October)
+
+The game updated to 0.8.3 Build 261001 (1 Oct; the repo had reasoned from
+0.8.2 Build #358 of 20 Jul). Between the two the game overhauled gunnery and
+fire control, tweaked CIWS and gave the Phalanx a sustained-fire cooldown,
+moved several ships' CIWS to APDS rounds, fixed bombing accuracy and
+campaign persistence, added SA-N-1D, SA-N-3B and SA-N-4C, the Type 021,
+the Spruance VLS, Bunker Hill, the Improved Victor III, three JMSDF
+destroyers, the RAAF Nomad and Searchmaster, a KC-10 and a Scud-B launcher,
+and gave the campaign rules page bindings for the Survived Missions column.
+The vanilla export is 4,051 text files (3,851 before): 200 added, 1,080
+changed. `tools/check_vanilla_drift.py --since a4d3c1c1` reads it: 32
+files SEST packs override, every one derived by a builder; no merged-key
+clash; 198 fielded units changed, none removed; 41 new unit files.
+
+Rebuilt from scratch, five builders stopped where their own checks said,
+and each was rebased (`docs/packaging-and-recovery.md`, *After a Sea Power
+update*, has the record):
+
+- `build_pack.py`, `campaign_rules()`: the stock page's Survived Missions
+  cells are now `{Binding <Level>CrewSkillSurvivalRequirement}`, which the
+  game fills from each campaign's `CrewSkillThresholds`. The build used to
+  write 1/4/9/16 into the page in place of stock's 1/2/4/7; now it only
+  proves the five bindings are there. The player sees the same numbers,
+  from the game rather than from us.
+- Collection Fixes, `MISSING_SENSORS`: the Side Globe jammer that Varyag
+  and the improved Kirov mount is now cloned from the game's own new
+  `[Gurzuf] # Side Globes` (S/C/X/Ku, JamChance 0.3, a big sensor with
+  noise-jamming power) instead of the Sovremenny's smaller `Start_ECM`. A
+  section header may now carry a comment, and the clone reads past it.
+- Intercept Model: the game's `damage.ini` gained
+  `InterceptChanceFloor=0.05`. The Tu-95 mod's copy predates it, so it is a
+  ninth key that copy lacks; `VANILLA_SINCE` pins it and the shipped file
+  carries it. The eight intercept keys and the VeryLarge decision are as
+  they were.
+- SEST Replenishment: the Sacramento, which the Type 901 is cloned from,
+  fires `usn_cal_20mm_apds` from its Phalanx since the 28 Sep build, so the
+  refit's magazine slot is keyed on that round and the Type 730s still get
+  their 30 mm. The nine vanilla-forked supplier hulls took the game's new
+  `[CombatSystems]` blocks and area values; `check_pack_fidelity` proves
+  every byte of difference is the intended insertion.
+- Allied Fixes: the Apache mod's 2 Oct update put the Sea Apache on
+  `usn_agr-20b_apache` like its Army airframes; the Redback fit it derives
+  is byte-identical to before.
+
+One more thing moved without a builder noticing, which `preflight --all`
+caught: the game's Tu-95RT no longer offers a Default fit, and four of them
+in the editor missions `01 Threads` and `02 Hot Gulf` named none - the
+editor's map panel crash this repo already had a fix for
+(`fix_loadout_variants.py --all --write`; they now name `Recon`).
+
+Two files joined the pack, so it is 1203: the early Wasp (Modern US Navy
+released it from a Pending folder, so Replenishment meters it like the other
+LHDs) and the SY-1 (the Type 021 the game added carries it, so it is now a
+ship-carried missile the metering tags). Nothing new is placed in any
+campaign: every unit 0.8.3 added is a 1960s-90s type, out of service in
+2028. Every pack now declares `ApproximateVersion=0.8.3`
+(`check_game_version.py --bump`); 23 Workshop mods declare 0.8.2, which the
+Mod Manager accepts as a lower patch, and Coordinated Strike Tool's range
+admits 0.8.3.
+
+The same export updated Euromod (433 files: 270 rounds re-tuned and a new
+`vessels_overwrite/` folder of 132 `_CombatSystems_OVWR` files - Euromod's
+own mechanism, not a game folder, and not a unit path), its Anchorchain
+expansion, Identify Expanded, Modern US Navy (the ES-3A moved to US Naval
+Aviation), US Naval Aviation, the German Navy, Flight Deck Ops, the F-22,
+the MiG-29 family, the Apache and the Fury. Every gate passes on them.
 
 ## What has NOT been demonstrated
 

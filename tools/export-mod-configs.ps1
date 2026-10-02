@@ -241,7 +241,7 @@ if ($IncludeVanilla) {
             # StreamingAssets, so the loop above never sees it. Copy it in as
             # mods-source\_vanilla\changelog.txt: its first "Build #" line is the
             # game version tools\check_vanilla_drift.py and check_game_version.py
-            # read, and the one the repo's baseline (0.8.2 Build #358) came from.
+            # read, and the one the repo's baseline (0.8.3 Build 261001) came from.
             $gameRoot = Split-Path -Parent $sa.FullName
             $chg = Join-Path $gameRoot "changelog.txt"
             if (-not (Test-Path -LiteralPath $chg)) { $chg = Join-Path (Split-Path -Parent $gameRoot) "changelog.txt" }

@@ -62,7 +62,9 @@ REBUILD = "run python3 tools/build_all.py --from-scratch"
 
 # Every day in the changelog so far is zero-padded; a "2-Oct-2026" line must
 # still be read as the newest, not skipped for the one below it.
-BUILD_LINE = re.compile(r"^(\d{1,2}-[A-Za-z]{3}-\d{4}):\s+(\d+(?:\.\d+)+)\s+Build\s+#(\d+)", re.M)
+# "20-Jul-2026: 0.8.2 Build #358 (23444) Public Release" until Sep 2026;
+# "01-Oct-2026: 0.8.3 Build 261001 Public Release" and "Build 260928b" since.
+BUILD_LINE = re.compile(r"^(\d{1,2}-[A-Za-z]{3}-\d{4}):\s+(\d+(?:\.\d+)+)\s+Build\s+#?(\w+)", re.M)
 # A version written out in full. consolidate_packs.py's "{version}" template
 # and its own regex over the component packs do not match, by design.
 LITERAL = re.compile(r"(ApproximateVersion=)(\d+(?:\.\d+)+)")

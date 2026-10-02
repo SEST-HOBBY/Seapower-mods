@@ -231,7 +231,7 @@ def main():
         "and upgrades every self-defence rail from AIM-9M to AIM-9X across all ten loadouts. No radar is added: the "
         "real A-10C has none and the Litening pod is the ground sensor. Requires the A-10C "
         "mod. Deploys inside the SEST Integration Pack.\n"
-        "\n[Compatibility]\nApproximateVersion=0.8.2\n", encoding="utf-8")
+        "\n[Compatibility]\nApproximateVersion=0.8.3\n", encoding="utf-8")
 
     print(f"built {OUT.relative_to(ROOT)}: {UNIT} - IR head registered, "
           f"{FLIR} + {LASER} at slots 4/5 (hardpoint ref now resolves), AIM-9X x{n}, squadrons {was}->{defined}")

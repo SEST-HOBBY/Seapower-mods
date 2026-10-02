@@ -1153,7 +1153,10 @@ class RulesPage(unittest.TestCase):
         table = page[page.index('Text="Survived Missions"'):]
         cells = re.findall(r'Grid\.Row="\d" Grid\.Column="1"[^>]*><TextBlock Text="([^"]*)"',
                            table)
-        self.assertEqual(cells, ["0", "3", "6", "11", "23"])
+        # Since 0.8.3 the game fills the column from CrewSkillThresholds
+        # itself: the page carries its bindings, not our numbers.
+        self.assertEqual(cells, [f"{{Binding {lvl}CrewSkillSurvivalRequirement}}" for lvl in
+                                 ("Green", "Trained", "Seasoned", "Veterans", "Ultra")])
 
 
 class DefectorEscortFeatures(unittest.TestCase):

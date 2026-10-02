@@ -342,6 +342,14 @@ class VanillaDriftTests(unittest.TestCase):
         self.assertIn("Game version: 0.8.2 Build #358 (20-Jul-2026) -> 0.8.3 Build #361 (02-Oct-2026)\n", out)
         self.assertNotIn("[unchanged]", out)
 
+    def test_the_changelog_shape_since_september_2026_is_read(self):
+        # The game dropped the "#" and the "(N)" on 28 Sep 2026 and suffixes
+        # a letter to a same-day build: these are the real 0.8.3 lines.
+        self.assertEqual(drift.game_version("01-Oct-2026: 0.8.3 Build 261001 Public Release\n"),
+                         dict(date="01-Oct-2026", version="0.8.3", build="261001", number=None,
+                              note="Public Release"))
+        self.assertEqual(drift.game_version("28-Sep-2026: 0.8.2 Build 260928b\n")["build"], "260928b")
+
 
 if __name__ == "__main__":
     unittest.main()

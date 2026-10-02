@@ -96,9 +96,11 @@ UNIT_REFS = (
     re.compile(r"^FlightDeck_ReadyUpTask\d+=([^,\s]+)", re.M),   # an aircraft readied on a deck
 )
 ROSTER_LINE = re.compile(r"^TaskForceModeAllowedRosterUnits=(.*)$", re.M)  # id,Variant..|id,Squadron..
-# "20-Jul-2026: 0.8.2 Build #358 (23444) Public Release"
+# "20-Jul-2026: 0.8.2 Build #358 (23444) Public Release" until Sep 2026;
+# "01-Oct-2026: 0.8.3 Build 261001 Public Release" and "Build 260928b" since
+# (no "#", no "(N)", a letter suffix): the build is whatever word follows.
 VERSION_LINE = re.compile(
-    r"^\s*(\d{1,2}-[A-Za-z]{3}-\d{4}):\s*(\d+(?:\.\d+)+)\s+Build\s+#(\d+)\s*\((\d+)\)\s*(.*?)\s*$", re.M)
+    r"^\s*(\d{1,2}-[A-Za-z]{3}-\d{4}):\s*(\d+(?:\.\d+)+)\s+Build\s+#?(\w+)\s*(?:\((\d+)\))?\s*(.*?)\s*$", re.M)
 BANNER = "=" * 70
 
 

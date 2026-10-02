@@ -53,7 +53,7 @@ line by line, and an empty line would end the block early. If it stops at a
 It stops, before anything is pushed or installed, if the game is running, if
 the clone has changes of its own (report them rather than committing them),
 or if the fast-forward is refused (step 2). The sync's last lines should read
-`IN LINE: all 1201 installed files match this commit (<hash>)`, the hash
+`IN LINE: all 1203 installed files match this commit (<hash>)`, the hash
 being the one the merge landed on (`git log --oneline -1`).
 `-RefreshMissions` on the sync is only for a round where the sync says it
 merged your own mission edits: it re-spreads the airliners in the missions
@@ -96,7 +96,57 @@ folder missing, a `False`, a count of 2, "No Open Allocation campaigns
 installed" or "The Twelve-Mile Line is not installed" means the sync did not
 install this build: read its output before playing.
 
-### This round (30 Sep): the Rivet Joint, Coordinated Strike Tool, the snapshot
+### This round (2 Oct): Sea Power 0.8.3
+
+Steam updated the game on 2 Oct: **0.8.3 Build 261001** of 1 Oct (the repo
+had reasoned from 0.8.2 Build #358 of 20 Jul). Your export brought the new
+game files - 4,051 text files, 200 of them new and 1,080 changed - and the
+day's mod updates (Euromod, its Anchorchain expansion, Identify Expanded,
+Modern US Navy, US Naval Aviation, the German Navy, Flight Deck Ops, the
+F-22, the MiG-29s, the Apache, the Fury). Everything was rebuilt on them;
+what it took and what it means for you:
+
+1. **The pack declares 0.8.3** in every component, so the Mod Manager shows
+   no version warning on `SEST Integration Pack`. Of your Workshop mods, 23
+   declare 0.8.2 (a lower patch number, which the Mod Manager accepts), and
+   the 54 that already showed as out of date still do. Coordinated Strike
+   Tool's own range (below 0.9.0) admits 0.8.3.
+2. **Five SEST builders stopped on the new files and were rebased**, each
+   where its own check said: the campaign rules page (the game now fills the
+   Survived Missions column itself, so the build no longer writes our
+   numbers in), Collection Fixes (the Side Globe jammer is now cloned from
+   the game's own new Side Globe, `Gurzuf`), the Intercept Model (the
+   game's damage table gained `InterceptChanceFloor`, carried), SEST
+   Replenishment (the Sacramento the Type 901 is cloned from fires APDS from
+   its Phalanx since the 28 Sep build, so the refit's magazine slot follows
+   it) and Allied Fixes (the Apache mod's update renamed the Sea Apache's
+   rocket). Each campaign's build notes, "Sea Power 0.8.3".
+3. **Two editor missions** - `01 Threads` and `02 Hot Gulf` - would have
+   crashed the editor's map panel: the game's Tu-95RT no longer offers a
+   Default fit, and four of them named none. They now name `Recon`
+   (`fix_loadout_variants.py`, the repo's existing fix for exactly this).
+4. **Two files join the pack**, so the count is **1203**: the early Wasp
+   (Modern US Navy released it from a Pending folder, so SEST Replenishment
+   now meters it like the other LHDs) and the SY-1 round (the Type 021
+   Huangfeng the game added carries it, so it is a ship-carried missile the
+   metering tags).
+5. **Nothing new is placed.** The units 0.8.3 added - the RAAF Nomad and
+   Searchmaster (1975-93), a 1971 KC-10 (your KC-10A mod is the 2028 one),
+   the Type 021 (1965), the Hatsuyuki, Takatsuki and Tachikaze, the
+   Spruance VLS (to 2005), Bunker Hill, the Improved Victor III, a Scud-B
+   launcher - are not in service in the campaigns' years.
+6. **Your saves.** The game's own 28 Sep build "fixed campaign persistence
+   for units sometimes not working"; nothing in this round touches a save.
+   A Southern Reach campaign already past Approaches should still be started
+   again, for the reason the 28 Sep round gave.
+
+What to do: the standard update block (*Already aligned once?*), expecting
+`IN LINE: all 1203 installed files match this commit (<hash>)`, then the play
+test the 30 Sep round asked for. Auto Time-on-Target was still subscribed
+and loaded in this snapshot, and the Rafale still absent: the 30 Sep round's
+items 2 and 5 stand.
+
+### The 30 Sep round: the Rivet Joint, Coordinated Strike Tool, the snapshot
 
 What the 30 Sep snapshot showed, and what this round does about it:
 
@@ -344,7 +394,7 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1201** for this build |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1203** for this build |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |
@@ -358,7 +408,9 @@ folder and the two RNZAF base files (691 in all); then this round's Red Line
 and ported files (1189; 1171 after the 27 Sep export; 1174 with the three Campaign Rules
 pages; 1189 with the three Open Allocation twins; 1201 with The Twelve-Mile Line - its
 mission, briefing folder and chart in both copies, its card and the story page before
-it - which takes Southern Reach to 26 missions and 69 art files).
+it - which takes Southern Reach to 26 missions and 69 art files; 1203 on the 0.8.3
+game files, SEST Replenishment metering two more hulls' rounds: the early Wasp Modern
+US Navy released from its Pending folder and the SY-1 the game repriced).
 
 ## 5 — confirm the campaigns arrived
 

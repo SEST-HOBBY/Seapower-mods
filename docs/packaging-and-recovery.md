@@ -286,7 +286,7 @@ PowerShell 5.1 has no `&&`. Chain with `;` or use separate lines.
 A game update moves the one thing every pack and mission here is built on
 and nobody exports on purpose: the game's own files. Three things in this
 repo track them. `mods-source/_vanilla/original` is the vanilla export: on 2
-Oct 2026, 3,851 text files from 0.8.2 Build #358 of 20 Jul 2026, the version
+Oct 2026, 4,051 text files from 0.8.3 Build 261001 of 1 Oct 2026, the version
 and build being the first `dd-Mon-yyyy: X.Y.Z Build #N` line of
 `data/install-snapshot/changelog.live.txt`, the game's own `changelog.txt`
 as the capture copied it (`data/install-snapshot/game-build.txt` holds
@@ -498,15 +498,15 @@ beside the repo (*Known red* above) is the other route.
    ```bash
    python3 tools/generate_load_order.py      # docs/load-order-full.md
    python3 tools/generate_catalog.py         # docs/mod-catalog.md
-   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1201 on 2 Oct 2026
+   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1203 on 2 Oct 2026
    ```
 
-   By hand: the install guide's count, if it moved - the `IN LINE: all 1201
-   installed files` line under *Already aligned once?*, `N is 1201` in
+   By hand: the install guide's count, if it moved - the `IN LINE: all 1203
+   installed files` line under *Already aligned once?*, `N is 1203` in
    step 4 of `docs/campaigns/southern-reach/install-alignment.md` and the
-   derivation under that table, which ends `1201 with The Twelve-Mile Line`
+   derivation under that table, which ends `1203 on the 0.8.3 game files`
    and gains a clause for what the update added or removed - and
-   `Consolidated, they are 1201 files` in `README.md`;
+   `Consolidated, they are 1203 files` in `README.md`;
    a dated section in each campaign's `build-notes.md`
    (`docs/campaigns/<campaign>/`, in the style of *Rivet Joint (30
    September)* in Southern Reach's and Red Line's) saying what the update
@@ -525,8 +525,29 @@ beside the repo (*Known red* above) is the other route.
 9. **Then the PC runs the standard update block** (*Already aligned once?*
    in `docs/campaigns/southern-reach/install-alignment.md`): it
    fast-forwards the deploy branch to the session's and syncs, and its last
-   line must read `IN LINE: all 1201 installed files match this commit`, or
+   line must read `IN LINE: all 1203 installed files match this commit`, or
    the new count from step 7.
+
+### The first run: 0.8.3, 2 October 2026
+
+The procedure above was written the day before its first use, and the use
+changed it in two places: the game's changelog dropped the `#` and the
+`(N)` from its build lines on 28 Sep (`0.8.3 Build 261001`, `0.8.2 Build
+260928b`), so both tools now read either shape; and the exporter had never
+copied `changelog.txt`, so it does now. What 0.8.3 needed, for the record
+and as the pattern for next time (Southern Watch build notes, "Sea Power
+0.8.3", has each in full): five builders stopped where their own checks
+said - the campaign rules page (the stock page now binds the Survived
+Missions column, so the swap went), Collection Fixes (a donor sensor
+section gone, and section headers that now carry comments), the Intercept
+Model (a key vanilla gained, pinned as `VANILLA_SINCE`), Replenishment (a
+donor hull's magazine round changed) and Allied Fixes (a mod update renamed
+a round) - and `preflight --all` caught the one silent change, a stock
+aircraft that lost its Default fit under four editor-mission entries. The
+drift tool found no static override, no key clash and no removed unit; the
+nine supplier hulls re-based silently and `check_pack_fidelity` proved them.
+Two files joined the pack (1203). Nothing new was placed: every unit the
+game added is out of service in 2028.
 
 ### What the update does to a Task Force Mode save
 
