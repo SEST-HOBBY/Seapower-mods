@@ -1,4 +1,5 @@
 # Lines from Player.log matching Exception/Error/not found/missing/failed.
-# 1 hit(s) - the first place to look when something did not load.
+# 2 hit(s) - the first place to look when something did not load.
 
-     93: [IDX][Localization.cs:23 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
+     92: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
+     95: dxgi: swapchain SetFullscreenState failed (887a0022).
