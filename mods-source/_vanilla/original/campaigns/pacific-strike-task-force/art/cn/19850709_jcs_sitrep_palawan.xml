@@ -1,0 +1,146 @@
+<!-- Campaign event template for JCS-style message traffic - header follows RichMissionMessages USAJCS format -->
+
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI">
+
+	<Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+		<Border.Effect>
+			<DropShadowEffect />
+		</Border.Effect>
+		<Border.Background>
+			<ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+		</Border.Background>
+		
+        <StackPanel Orientation="Vertical">
+
+		<Grid
+		  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			
+			<TextBlock Grid.Row="0" Grid.ColumnSpan="3" Margin="0" FontFamily="Roboto Mono" FontSize="14" TextAlignment="Center" HorizontalAlignment="Center">
+				国防部<LineBreak/>
+				参谋长联席会议消息中心
+			</TextBlock>
+			
+		</Grid>
+
+			<Grid
+			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+			<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="10"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="10"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" FontSize="16">
+					紧急<LineBreak/>
+					1985年7月9日1430Z时
+				</TextBlock>
+
+				<TextBlock Grid.Row="1" Grid.Column="3" FontSize="16" Text="ZYUW RUEKJCS4169 1901430"/>
+				
+				<TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="发件："/>
+				<TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="华盛顿特区参谋长联席会议"/>
+				<TextBlock Grid.Row="4" Grid.Column="0" FontSize="16" Text="收件："/>
+				<TextBlock Grid.Row="4" Grid.Column="2" FontSize="16" Text="华盛顿特区白宫//战情室//"/>
+				<TextBlock Grid.Row="11" Grid.Column="0" FontSize="16" Text="抄送："/>
+				<TextBlock Grid.Row="11" Grid.Column="2" FontSize="16" Text="华盛顿特区国防部长"/>
+				<TextBlock Grid.Row="12" Grid.Column="2" FontSize="16" Text="华盛顿特区国务卿"/>
+				<TextBlock Grid.Row="13" Grid.Column="2" FontSize="16" Text="华盛顿特区中央情报局局长"/>
+				<TextBlock Grid.Row="14" Grid.Column="0" FontSize="16" Text="主题："/>
+				<TextBlock Grid.Row="14" Grid.Column="2" FontSize="16" Text="参谋长联席会议态势报告001——敌方登陆巴拉望/战略影响"/>
+
+				<TextBlock Grid.Row="15" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					<LineBreak/>
+					机密
+					<LineBreak/>
+					正文分隔
+					<LineBreak/>
+					<LineBreak/>
+					1.（机密）概要：初步报告显示苏军已将一支庞大的中国突击部队送上菲律宾西部的巴拉望岛。当地守军迅速溃败。敌方地面部队目前已控制巴拉望岛南端，正向普林塞萨港附近的设施推进。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="16" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					2.（机密）敌方行动：苏联从金兰湾出动大量两栖运输单位和打击机支援了此次突击行动，并将大量中国部队护送上岸。后续梯队可能携带弹药、工程部队、燃料和防空装备以建立稳固的永久性阵地。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="17" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					3.（机密）海上威胁：
+				</TextBlock>	
+				<TextBlock Grid.Row="18" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">	
+					——报告显示尝试穿过巴拉巴克海峡的美国和菲律宾单位遭到了岸基反舰导弹的攻击。
+					<LineBreak/>
+					——根据评估，中国和苏联潜艇正在巴拉巴克海峡和邻近航道行动。
+					<LineBreak/>
+					——根据评估，敌方正在通往巴拉巴克海峡和巴拉望航道的路线上布雷。
+					<LineBreak/>
+				</TextBlock>	
+				<TextBlock Grid.Row="19" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					4.（机密）友方/地区状态：此区域内的盟军兵力不足以扭转巴拉望岛反登陆战的局势。敌方对马来西亚和菲律宾的猛烈空袭压制了地区内的部队，当地没有可靠的空中单位可以对抗登陆部队。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="21" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					5.（机密）政策/部队姿态：我们判定经南海向新加坡调动盟军海上兵力的行动已不再可行，除非无视孤军深入的巨大风险。参谋长联席会议建议在继续支援菲律宾抵抗力量的同时，立即将现有的美国和盟友兵力调集至澳大利亚达尔文。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="23" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					6.（机密）评估：敌方控制巴拉望后，美军在东南亚开展行动的复杂性将显著提高，进入南海的美军单位也面临着无路可退的风险。若瘫痪的印度尼西亚转向支持苏联，南方的撤退通道可能迅速关闭，我方大量部队也将失去后勤补给，同时处于从金兰湾起飞的苏联轰炸机打击范围内。后续态势报告将每隔12小时发布一次。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="25" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					国家军事指挥中心
+					<LineBreak/>
+					<LineBreak/>
+					正文分隔
+					<LineBreak/>
+					解密：由原始发布机构决定
+					<LineBreak/>
+				</TextBlock>
+			</Grid>
+        </StackPanel>
+    </Border>
+</ScrollViewer>

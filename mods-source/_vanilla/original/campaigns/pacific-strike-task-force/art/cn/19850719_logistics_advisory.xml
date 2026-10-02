@@ -1,0 +1,141 @@
+<!-- Pacific Strike classified logistics event: naval-message paper format. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="海军消息" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" Text="——————机————密——————" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="海军部" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" FontSize="16">
+          例行<LineBreak/>
+          1985年7月19日2200Z时
+        </TextBlock>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" FontSize="16" Text="ZYUW RAYOC0777 2002200"/>
+      </Grid>
+
+      <Grid Margin="0,18,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Text="发件："/>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" Text="澳大利亚北领地达尔文太平洋舰队勤务部队司令部分遣单位"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Text="收件："/>
+        <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" Text="夏威夷州珍珠港太平洋舰队总司令"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" Text="抄送："/>
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16">
+          澳大利亚北领地达尔文第77特遣舰队指挥官<LineBreak/>
+          <Run Text="澳大利亚北领地达尔文"/>
+          <Run Text="{Binding DataSource.PersistentData[PlayerTaskForceName], Converter={StaticResource UppercaseConverter}}"/>
+          <Run Text="指挥官"/><LineBreak/>
+          澳大利亚首都领地堪培拉澳大利亚舰队司令
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="主题："/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="后勤战备建议——达尔文的弹药"/>
+      </Grid>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" Margin="0,24,0,0">
+        机密
+        <LineBreak/>
+        正文分隔
+        <LineBreak/><LineBreak/>
+        1.（机密）概要：一支从菲律宾库存调拨关键弹药的护航队在成功南下穿越龙目海峡后，已于7月19日抵达达尔文。卸货工作正在太平洋舰队勤务部队司令部的管理下进行。
+        <LineBreak/><LineBreak/>
+        2.（机密）物资状态：
+      </TextBlock>
+
+      <Border Padding="8" Margin="0,4,0,8">
+        <Grid TextElement.FontSize="16">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+          <TextBlock Grid.Row="0" Grid.Column="0" Text="项目/系列"/>
+          <TextBlock Grid.Row="0" Grid.Column="1" Text="状态"/>
+
+          <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,6,12,0" Text="RIM-66E/RIM-67B标准"/>
+          <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,6,0,0" TextWrapping="Wrap" Text="可供Mk13/Mk26发射器使用的弹药"/>
+
+          <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,6,12,0" Text="RGM-84C/D鱼叉"/>
+          <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,6,0,0" TextWrapping="Wrap" Text="可供兼容舰船使用的筒装和单发弹药"/>
+
+          <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,6,12,0" Text="炮弹"/>
+          <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,6,0,0" TextWrapping="Wrap" Text="5英寸54倍径、5英寸38倍径、76毫米、40毫米和20毫米炮弹"/>
+
+          <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,6,12,0" Text="点防御"/>
+          <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,6,0,0" TextWrapping="Wrap" Text="20毫米近防系统炮弹、箔条、诱饵弹、噪声发生器"/>
+
+          <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,6,12,0" Text="反潜装备"/>
+          <TextBlock Grid.Row="5" Grid.Column="1" Margin="0,6,0,0" TextWrapping="Wrap" Text="Mk46舰载/空投鱼雷、RUR-5反潜火箭、声呐浮标和深水炸弹"/>
+        </Grid>
+      </Border>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16">
+        3.（机密）安排：全面配发将采取受控发放方式，根据舰艇优先级、弹药库兼容性和预期任务进行分配。目前尚未授权全面放宽弹药的消耗限制。
+        <LineBreak/><LineBreak/>
+        4.（机密）勤务部队司令部特别指出，补给船之所以能穿过龙目海峡，是因为一艘来自抄送方特遣舰队的军舰打通了航道。这艘军舰在敌方空中、水面、潜艇的威胁下坚守海峡，使苏联突袭部队无法完成封锁，为护航队争取了向南航行所需的数小时。
+        <LineBreak/><LineBreak/>
+        5.（机密）评论：建议太平洋舰队总司令通知第77特遣舰队指挥官，由于龙目海峡的行动取得成功，达尔文的后勤状况已得到直接改善。
+        <LineBreak/><LineBreak/>
+        署名：R·M·霍尔沃森
+        <LineBreak/>
+        美国海军供应军团上校
+        <LineBreak/>
+        达尔文太平洋舰队勤务部队司令部分遣单位/后勤
+        <LineBreak/><LineBreak/>
+        正文分隔
+        <LineBreak/>
+        解密：由原始发布机构决定
+      </TextBlock>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

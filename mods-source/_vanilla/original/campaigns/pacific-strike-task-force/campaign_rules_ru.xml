@@ -1,6 +1,7 @@
 <Page
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI"
   Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualWidth, FallbackValue=700}"
   Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualHeight, FallbackValue=600}">
   <Grid Margin="14">
@@ -223,8 +224,11 @@
                 </Border>
 
                 <Border Grid.Row="1" Grid.Column="0" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,1">
-                  <Border Width="84" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Green}" HorizontalAlignment="Center">
-                    <TextBlock Text="Новички" FontSize="13" Foreground="#18261B" TextAlignment="Center"/>
+                  <Border MinWidth="110" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Green}" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                      <ContentControl ContentTemplate="{StaticResource CrewSkillBadgeGlyphTemplate}"><ContentControl.Content><local:CrewSkillBadge CrewSkill="Green"/></ContentControl.Content></ContentControl>
+                      <TextBlock Text="Новички" FontSize="13" Foreground="#18261B" TextAlignment="Center" Margin="3,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
                   </Border>
                 </Border>
                 <Border Grid.Row="1" Grid.Column="1" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,1"><TextBlock Text="0" FontSize="14" Foreground="{StaticResource Brush.Foreground.Normal}" TextAlignment="Center"/></Border>
@@ -236,8 +240,11 @@
                 <Border Grid.Row="1" Grid.Column="7" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,0,1"><TextBlock Text="10%" FontSize="14" Foreground="{StaticResource Brush.Foreground.Normal}" TextAlignment="Center"/></Border>
 
                 <Border Grid.Row="2" Grid.Column="0" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,1">
-                  <Border Width="84" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Trained}" HorizontalAlignment="Center">
-                    <TextBlock Text="Специалисты" FontSize="13" Foreground="#18261B" TextAlignment="Center"/>
+                  <Border MinWidth="110" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Trained}" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                      <ContentControl ContentTemplate="{StaticResource CrewSkillBadgeGlyphTemplate}"><ContentControl.Content><local:CrewSkillBadge CrewSkill="Trained"/></ContentControl.Content></ContentControl>
+                      <TextBlock Text="Специалисты" FontSize="13" Foreground="#18261B" TextAlignment="Center" Margin="3,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
                   </Border>
                 </Border>
                 <Border Grid.Row="2" Grid.Column="1" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,1"><TextBlock Text="1" FontSize="14" Foreground="{StaticResource Brush.Foreground.Normal}" TextAlignment="Center"/></Border>
@@ -249,8 +256,11 @@
                 <Border Grid.Row="2" Grid.Column="7" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,0,1"><TextBlock Text="10%" FontSize="14" Foreground="{StaticResource Brush.Foreground.Normal}" TextAlignment="Center"/></Border>
 
                 <Border Grid.Row="3" Grid.Column="0" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,1">
-                  <Border Width="84" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Seasoned}" HorizontalAlignment="Center">
-                    <TextBlock Text="Опытные" FontSize="13" Foreground="#18261B" TextAlignment="Center"/>
+                  <Border MinWidth="110" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Seasoned}" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                      <ContentControl ContentTemplate="{StaticResource CrewSkillBadgeGlyphTemplate}"><ContentControl.Content><local:CrewSkillBadge CrewSkill="Seasoned"/></ContentControl.Content></ContentControl>
+                      <TextBlock Text="Опытные" FontSize="13" Foreground="#18261B" TextAlignment="Center" Margin="3,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
                   </Border>
                 </Border>
                 <Border Grid.Row="3" Grid.Column="1" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,1"><TextBlock Text="2" FontSize="14" Foreground="{StaticResource Brush.Foreground.Normal}" TextAlignment="Center"/></Border>
@@ -262,8 +272,11 @@
                 <Border Grid.Row="3" Grid.Column="7" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,0,1"><TextBlock Text="8%" FontSize="14" Foreground="{StaticResource Brush.Foreground.Normal}" TextAlignment="Center"/></Border>
 
                 <Border Grid.Row="4" Grid.Column="0" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,1">
-                  <Border Width="84" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Veterans}" HorizontalAlignment="Center">
-                    <TextBlock Text="Ветераны" FontSize="13" Foreground="#18261B" TextAlignment="Center"/>
+                  <Border MinWidth="110" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Veterans}" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                      <ContentControl ContentTemplate="{StaticResource CrewSkillBadgeGlyphTemplate}"><ContentControl.Content><local:CrewSkillBadge CrewSkill="Veterans"/></ContentControl.Content></ContentControl>
+                      <TextBlock Text="Ветераны" FontSize="13" Foreground="#18261B" TextAlignment="Center" Margin="3,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
                   </Border>
                 </Border>
                 <Border Grid.Row="4" Grid.Column="1" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,1"><TextBlock Text="4" FontSize="14" Foreground="{StaticResource Brush.Foreground.Normal}" TextAlignment="Center"/></Border>
@@ -275,8 +288,11 @@
                 <Border Grid.Row="4" Grid.Column="7" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,0,1"><TextBlock Text="6%" FontSize="14" Foreground="{StaticResource Brush.Foreground.Normal}" TextAlignment="Center"/></Border>
 
                 <Border Grid.Row="5" Grid.Column="0" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,0">
-                  <Border Width="84" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Ultra}" HorizontalAlignment="Center">
-                    <TextBlock Text="Элита" FontSize="13" Foreground="#18261B" TextAlignment="Center"/>
+                  <Border MinWidth="110" Padding="4,2" Background="{StaticResource Brush.CrewSkill.Ultra}" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                      <ContentControl ContentTemplate="{StaticResource CrewSkillBadgeGlyphTemplate}"><ContentControl.Content><local:CrewSkillBadge CrewSkill="Ultra"/></ContentControl.Content></ContentControl>
+                      <TextBlock Text="Элита" FontSize="13" Foreground="#18261B" TextAlignment="Center" Margin="3,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
                   </Border>
                 </Border>
                 <Border Grid.Row="5" Grid.Column="1" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,0"><TextBlock Text="7" FontSize="14" Foreground="{StaticResource Brush.Foreground.Normal}" TextAlignment="Center"/></Border>

@@ -1,0 +1,102 @@
+<!-- Pacific Strike classified coastwatcher event: naval-message paper format. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" MinHeight="1000" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="NAVAL MESSAGE" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" Text="*******S E C R E T*******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="NAVY DEPARTMENT" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" FontSize="16">
+          DRINGEND<LineBreak/>
+          O 192000Z AUG 85
+        </TextBlock>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" FontSize="16" Text="ZYUW RAYOC0777 2312000"/>
+      </Grid>
+
+      <Grid Margin="0,18,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Text="VON"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" Text="COASTWATCHER NET LOMBOK VIA RAN DARWIN NT AU"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Text="AN"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" Text="CTF 77 DARWIN NT AU"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" Text="INFO"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16">
+          CINCPACFLT PEARL HARBOR HI<LineBreak/>
+          HQ AIR COMMAND RAAF GLENBROOK NSW AU<LineBreak/>
+          INDONESIAN NAVAL LIAISON DARWIN NT AU
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="BETR"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="MELDUNG KÜSTENBEOBACHTER - RAUM BALI/LOMBOK"/>
+      </Grid>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" Margin="0,24,0,0">
+        GEHEIM
+        <LineBreak/>
+        BT
+        <LineBreak/><LineBreak/>
+        1. (S) ZUSAMMENFASSUNG: Alliierte Beobachter melden, dass sowjetische und verbündete Kräfte ihre Stellungen um den Flugplatz Denpasar und die Lombokstraße festigen. Feindliche Aktivitäten deuten auf Vorbereitungen hin, die Meerenge gegen das Eindringen von Seestreitkräften zu halten.
+        <LineBreak/><LineBreak/>
+        2. (S) SICHTUNGEN: Zwei zerstörergroße Kampfschiffe wurden in der Abenddämmerung des 19AUG nördlich der Lombokstraße beobachtet. Kleinere schnelle Patrouillenboote sollen paarweise innerhalb der Meerenge operieren. Mehrere bewaffnete Hilfsschiffe und Landungsfahrzeuge verbleiben nahe Bali.
+        <LineBreak/><LineBreak/>
+        3. (S) KÜSTENVERTEIDIGUNG: Beobachter melden Radarbetrieb und schwere Geschützstellungen nahe dem Flugplatz Denpasar. Mindestens eine wahrscheinliche Küstenflugkörperbatterie hat in den letzten 48 Stunden zweimal ihre Stellung verlegt. Auch Flakstellungen wurden nahe dem Flugplatz gemeldet.
+        <LineBreak/><LineBreak/>
+        4. (S) LUFTAKTIVITÄT: Kurzstart-Strahlflugzeuge wurden in begrenzter Zahl im Einsatz vom Flugplatz Bali beobachtet. Die Luftfahrzeuge blieben im örtlichen Bereich und verfolgten zivilen Verkehr nicht über Sichtweite hinaus. Drehflüglerpatrouillen entlang der Küste dauern an. Eingesetzt werden Tandemrotor-Hubschrauber mit Panzerabwehrwaffen und Bomben, vermutlich vom Typ Ka-29 von einem LST der IVAN-ROGOV- oder ROPUCHA-Klasse, der im Hafen fotografiert wurde.
+        <LineBreak/><LineBreak/>
+        5. (S) ZIVILER VERKEHR: Fischerboote verbleiben trotz wiederholter Warnungen in der Lombokstraße. Einige Fahrzeuge könnten unter feindlicher Beobachtung oder Zwang stehen. Vor einer Bekämpfung ist eine eindeutige Identifizierung erforderlich.
+        <LineBreak/><LineBreak/>
+        6. (S) BEURTEILUNG: Der Feind beabsichtigt, die alliierte Durchfahrt zu bestreiten, um eine Entlastung Indonesiens zu verzögern. Quellen melden keine bestätigte U-Boot-Aktivität im unmittelbaren Gebiet.
+        <LineBreak/><LineBreak/>
+        GEZEICHNET: CAPTAIN M. S. SULLIVAN, RAN
+		<LineBreak/>
+		ROYAL AUSTRALIAN NAVY LIAISON
+        <LineBreak/><LineBreak/>
+        BT
+        <LineBreak/>
+        GEHEIM
+      </TextBlock>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

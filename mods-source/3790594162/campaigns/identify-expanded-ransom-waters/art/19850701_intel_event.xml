@@ -1,0 +1,131 @@
+<!-- Waterfront report: destroyer patrol noted after the M2 hunting -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI">
+
+	<Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+		<Border.Effect>
+			<DropShadowEffect />
+		</Border.Effect>
+		<Border.Background>
+			<ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+		</Border.Background>
+		
+        <StackPanel Orientation="Vertical">
+
+		<Grid
+		  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="WORD ON THE" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+			<TextBlock Grid.Row="0" Grid.Column="1" Text="******* WATERFRONT *******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+			<TextBlock Grid.Row="0" Grid.Column="2" Text="WATERFRONT" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+			
+		</Grid>
+		
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+			<Grid
+			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+			<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="10"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="10"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="16">
+					ROUTINE<LineBreak/>
+					R 011200Z JUL 85
+				</TextBlock>
+				
+				<TextBlock Grid.Row="1" Grid.Column="3" FontSize="16" Text="ZYUW RUHGOAA0777 1821200"/>
+
+
+				<TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="FM"/>
+				<TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="FREE SEAS SYNDICATE"/>
+				<TextBlock Grid.Row="4" Grid.Column="0" FontSize="16" Text="TO"/>
+				<TextBlock Grid.Row="4" Grid.Column="2" FontSize="16">
+					<Run Text="RANSOM FLOTILLA"/>
+				</TextBlock>
+				<TextBlock Grid.Row="11" Grid.Column="0" FontSize="16" Text="INFO"/>
+				<TextBlock Grid.Row="11" Grid.Column="2" FontSize="16" Text="ALL CREWS"/>
+				<TextBlock Grid.Row="14" Grid.Column="0" FontSize="16" Text="SUBJ"/>
+				<TextBlock Grid.Row="14" Grid.Column="2" FontSize="16" Text="WATERFRONT REPORT 01 - A DESTROYER WALKS THE LANE"/>
+
+				<TextBlock Grid.Row="15" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					<LineBreak/>
+					BT
+					<LineBreak/>
+					<LineBreak/>
+					1. Our take off the Horn keeps growing, and so does the attention. A lone gun destroyer now walks the sea lane where our boats hunt.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="16" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					2. She is big guns and old sensors. Lessons paid for in paint: never meet her gun-to-gun. Work the merchants at distance, hail them early, and keep a torpedo boat between you and her.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="18" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">	
+					- Styx outranges her guns by miles. A single missile boat watching the lane is worth three gunboats in it.
+					<LineBreak/>
+					- She is fast for her age but our small craft are faster. If she turns toward you, run.
+					<LineBreak/>
+				</TextBlock>	
+				<TextBlock Grid.Row="21" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					3. The merchants have not learned yet. They still sail fat and alone. Take them before they learn.
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="25" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					SIGNED: THE SYNDICATE
+					<LineBreak/>
+					<LineBreak/>
+					BT
+					<LineBreak/>
+				</TextBlock>
+			</Grid>
+        </StackPanel>
+    </Border>
+</ScrollViewer>
