@@ -696,7 +696,9 @@ CLONES = {
             # magazine free to refill. wp_cal_30mm is vanilla's AK-630 round at
             # 1.06 a shell - the lineage the Type 730 descends from, and
             # already what plan_cg_type1164e fires in this very collection.
-            "@usn_cal_20mm": ["wp_cal_30mm", "rfn_cal_30mm", "usn_cal_20mm"],
+            # The donor's CIWS magazine has fired usn_cal_20mm_apds since the
+            # 28 Sep 2026 build (0.8.3); it was usn_cal_20mm before.
+            "@usn_cal_20mm_apds": ["wp_cal_30mm", "rfn_cal_30mm", "usn_cal_20mm_apds"],
         },
         "desc": ("People's Liberation Army Navy fast combat support ship, built to keep "
                  "station with the Type 003 carriers and the Type 055 cruisers."

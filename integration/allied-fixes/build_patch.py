@@ -72,7 +72,7 @@ head was never registered as a sensor module while its squadron file \
 declared seven squadrons against two defined liveries.
 
 [Compatibility]
-ApproximateVersion=0.8.2
+ApproximateVersion=0.8.3
 """
 
 
@@ -341,8 +341,10 @@ def main():
              [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 4)]),
             ("3425450153", "usa_ah-64e.ini", "Strike",
              [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 4)]),
+            # Its 2 Oct 2026 update put the Sea Apache on usn_agr-20b_apache
+            # like the Army airframes above; it hung usn_agr-20b before.
             ("3425450153", "usn_ah-64na.ini", None,
-             [(r"^(Station\d+=)usn_agr-20b\|", r"\1sest_agr-30_pod|", 3)]),
+             [(r"^(Station\d+=)usn_agr-20b_apache\|", r"\1sest_agr-30_pod|", 3)]),
             ("3459682829", "usa_a-10c.ini", "CAS1",
              [(r"^(Station\d+=)usn_agr-20b\|", r"\1sest_agr-30_pod|", 5)]),
             ("3503670861", "usaf_mq-9a.ini", "Strike",

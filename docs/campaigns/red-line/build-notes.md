@@ -16,7 +16,7 @@ are theirs and are not repeated.
 | Placed units | 68; RL05 and RL06's 12 positions proved against the coastline extract, RL01–RL04's 22 stations used as authored (below) |
 | Mods reached | 43 directly; the pack union with the other two campaigns still reaches all 164 enabled mods and SEST packs |
 | Points | 560 across six missions; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 (1,250 on Veteran) |
-| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 668 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6) and is 1201 now |
+| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 668 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line and 1203 on the 0.8.3 game files |
 | The other campaigns | every mission file, story page and `campaign.ini` of Southern Watch and Southern Reach is byte-identical. Nine of their mission cards changed, on purpose (below) |
 
 The code is `integration/campaign/red_line/`: `__init__.py` (the spec, the
@@ -326,3 +326,14 @@ The same export brought Russian Navy 21's update (sensors, the 40N6/48N6
 rounds, the 20380/20385/21956/11356/22350/11780 hulls). Nothing this
 campaign places comes from it; the SEST Replenishment copies of its hulls
 were rebuilt on the new files and `check_pack_fidelity` passes.
+
+## Sea Power 0.8.3 (2 October)
+
+The game updated to 0.8.3 (Southern Watch build notes, "Sea Power 0.8.3",
+has the whole record). For this campaign: the rules page's Survived
+Missions column is now filled by the game from `CrewSkillThresholds`
+(1/4/9/16 as before, from the game rather than written in by the build);
+the 198 stock units the pack fields that the update changed are all still
+there, none renamed or removed; and nothing new is placed, since every unit
+0.8.3 added is a 1960s-90s type. The pack is 1203 files and declares
+0.8.3.

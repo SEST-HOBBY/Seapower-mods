@@ -304,22 +304,19 @@ def campaign_rules(spec, open_allocation=False, submarine_missions=None, allied=
           'Text="- Submarines cannot be bought in this campaign. A mission that gives you '
           'one provides it with the mission; it does not join your task force."'),
          "submarine line")
-    # The table's Survived Missions column, from this campaign's own
-    # CrewSkillThresholds (the stock page's numbers are its own campaign's).
-    # Brush names give the level each row shows: Green = Novice, Trained =
-    # Regular, Seasoned, Veterans = Veteran, Ultra = Elite.
-    thresholds = dict(p.split(":") for p in
-                      spec["TASKFORCE"]["CrewSkillThresholds"].split("|"))
-    for row, (level, stock) in enumerate(
-            [("Trained", "1"), ("Seasoned", "2"), ("Veterans", "4"), ("Ultra", "7")],
-            start=2):
-        cell = re.search(rf'<Border Grid\.Row="{row}" Grid\.Column="1"[^>]*>'
-                         rf'<TextBlock Text="{stock}"', t)
-        if not cell or f"Brush.CrewSkill.{level}" not in t:
+    # The table's Survived Missions column is the game's own since 0.8.3
+    # (28 Sep 2026 build): each cell binds <Level>CrewSkillSurvivalRequirement,
+    # which the game fills from this campaign's CrewSkillThresholds. The stock
+    # page carried Pacific Strike's numbers as text before, and this swapped
+    # ours in; now it only proves the bindings are still there, since a page
+    # that lost them would show the stock campaign's numbers again. Brush
+    # names give the level each row shows: Green = Novice, Trained = Regular,
+    # Seasoned, Veterans = Veteran, Ultra = Elite.
+    for level in ("Green", "Trained", "Seasoned", "Veterans", "Ultra"):
+        if (f'Text="{{Binding {level}CrewSkillSurvivalRequirement}}"' not in t
+                or f"Brush.CrewSkill.{level}" not in t):
             raise SystemExit(f"campaign rules: the stock proficiency table's {level} row "
                              "has changed - rebase campaign_rules()")
-        t = (t[:cell.start()] + cell.group(0)[:-len(f'"{stock}"')]
-             + f'"{thresholds[level]}"' + t[cell.end():])
     return t
 
 
@@ -5345,7 +5342,7 @@ def main():
                "order it was built and tested against.")
     (OUT / "_info.ini").write_text(
         info(" - ".join(titles), blurb, general="",
-             tail="\n[Compatibility]\nApproximateVersion=0.8.2\n"),
+             tail="\n[Compatibility]\nApproximateVersion=0.8.3\n"),
         encoding="utf-8")
     # The pack-level lists, from the union of what every campaign reaches.
     set_campaign(dict(campaigns[0]["spec"], TITLE=" / ".join(titles)))

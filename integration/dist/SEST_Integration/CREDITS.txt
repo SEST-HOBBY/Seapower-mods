@@ -6,14 +6,14 @@ every one of those belongs to the Workshop mod it came from,
 which is why REQUIRED-MODS.txt lists them as required rather
 than suggested.
 
-462 of the unit files here are another author's file with
+465 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 462 below
+every file of its kind in the collection, and the 465 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
@@ -100,24 +100,26 @@ file is unchanged.
       100%  ammunition/mbda_aster_30_blk1.ini 
       100%  ammunition/mm_alfa.ini 
       100%  ammunition/usn_ircps.ini 
-       98%  ammunition/usn_pac3_mse.ini 
+       99%  ammunition/usn_pac3_mse.ini 
       100%  ammunition/usn_rgm-109b1.ini 
       100%  ammunition/usn_rgm-109c3.ini 
       100%  ammunition/usn_rgm-109e.ini 
       100%  ammunition/usn_rgm-109e5.ini 
       100%  ammunition/usn_rgm-109e5a.ini 
       100%  ammunition/usn_rgm-109m.ini 
+       94%  ammunition/usn_rgm-184a.ini 
       100%  ammunition/usn_rim-156a.ini 
        91%  ammunition/usn_rim-161b.ini 
-       90%  ammunition/usn_rim-161c.ini 
+       91%  ammunition/usn_rim-161c.ini 
        98%  ammunition/usn_rim-174a.ini 
        98%  ammunition/usn_rim-174c.ini 
-       92%  ammunition/usn_ugm-109b1.ini 
-       92%  ammunition/usn_ugm-109c3.ini 
-       92%  ammunition/usn_ugm-109e.ini 
-       92%  ammunition/usn_ugm-109e5.ini 
-       92%  ammunition/usn_ugm-109e5a.ini 
-       92%  ammunition/usn_ugm-109e5b.ini 
+       95%  ammunition/usn_trident.ini 
+       98%  ammunition/usn_ugm-109b1.ini 
+       98%  ammunition/usn_ugm-109c3.ini 
+       98%  ammunition/usn_ugm-109e.ini 
+       98%  ammunition/usn_ugm-109e5.ini 
+       98%  ammunition/usn_ugm-109e5a.ini 
+       98%  ammunition/usn_ugm-109e5b.ini 
       100%  ammunition/usn_ugm-96a.ini 
 
   Euromod - Modern British Navy  (workshop 3599752717)
@@ -222,21 +224,21 @@ file is unchanged.
        99%  ammunition/usn_agm-88.ini 
 
   F-22 Raptor  (workshop 3418252667)
-       98%  land_units/airbase_raaf_amberley.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_butterworth.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_curtin.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_darwin.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_amberley.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_butterworth.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_curtin.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_darwin.ini from airfield_us_large.ini
        98%  land_units/airbase_raaf_east_sale.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_edinburgh.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_edinburgh.ini from airfield_us_large.ini
        98%  land_units/airbase_raaf_gingin.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_learmonth.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_learmonth.ini from airfield_us_large.ini
        98%  land_units/airbase_raaf_pearce.ini from airfield_us_large.ini
        98%  land_units/airbase_raaf_richmond.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_scherger.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_scherger.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_tindal.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_townsville.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_williamtown.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_woomera.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_townsville.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_williamtown.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_woomera.ini from airfield_us_large.ini
        98%  land_units/airbase_rnzaf_auckland.ini from airfield_us_large.ini
        98%  land_units/airbase_rnzaf_ohakea.ini from airfield_us_large.ini
 
@@ -329,6 +331,7 @@ file is unchanged.
       100%  vessels/usn_lcs_freedom_suw_early.ini 
       100%  vessels/usn_lcs_freedom_suw_late.ini 
       100%  vessels/usn_lhd_wasp.ini 
+      100%  vessels/usn_lhd_wasp_early.ini 
       100%  vessels/usn_ssgn_virginia_blk5_vpm.ini 
       100%  vessels/usn_ssn_los_angeles_flt2_90.ini 
       100%  vessels/usn_ssn_los_angeles_flt3_2026.ini 
@@ -359,22 +362,22 @@ file is unchanged.
        93%  aircraft/raaf_f-35a.ini 
 
   RE-power: the resupply mod  (workshop 3605013271)
-       96%  vessels/civ_ms_sealift_pacific.ini 
+       95%  vessels/civ_ms_sealift_pacific.ini 
        97%  vessels/ir_aor_delvar.ini 
-       95%  vessels/jmsdf_aoe_mashuu.ini from usn_aoe_sacramento.ini
+       94%  vessels/jmsdf_aoe_mashuu.ini from usn_aoe_sacramento.ini
        94%  vessels/plan_aor_type901.ini from usn_aoe_sacramento.ini
-       96%  vessels/plan_aor_type903a.ini from wp_vt_boris_chilikin.ini
-       95%  vessels/rfn_aor_pashin.ini from wp_vt_kazbek.ini
-       95%  vessels/rn_aor_tide.ini from usn_aoe_sacramento.ini
-       97%  vessels/usn_ae_kilauea.ini 
-       97%  vessels/usn_ao_t2.ini 
-       96%  vessels/usn_aoe_sacramento.ini 
-       96%  vessels/usn_take_lewis_clark.ini from usn_ae_kilauea.ini
-       97%  vessels/usn_takr_algol.ini 
-       95%  vessels/usn_taoe_supply.ini from usn_aoe_sacramento.ini
-       98%  vessels/wp_pb_don.ini 
-       96%  vessels/wp_vt_boris_chilikin.ini 
-       95%  vessels/wp_vt_kazbek.ini 
+       95%  vessels/plan_aor_type903a.ini from wp_vt_boris_chilikin.ini
+       94%  vessels/rfn_aor_pashin.ini from wp_vt_kazbek.ini
+       94%  vessels/rn_aor_tide.ini from usn_aoe_sacramento.ini
+       96%  vessels/usn_ae_kilauea.ini 
+       96%  vessels/usn_ao_t2.ini 
+       95%  vessels/usn_aoe_sacramento.ini 
+       95%  vessels/usn_take_lewis_clark.ini from usn_ae_kilauea.ini
+       96%  vessels/usn_takr_algol.ini 
+       94%  vessels/usn_taoe_supply.ini from usn_aoe_sacramento.ini
+       97%  vessels/wp_pb_don.ini 
+       95%  vessels/wp_vt_boris_chilikin.ini 
+       94%  vessels/wp_vt_kazbek.ini 
 
   Red Storm Arsenal  (workshop 3413868677)
        96%  aircraft/usaf_b-52o.ini 
@@ -398,7 +401,7 @@ file is unchanged.
       100%  ammunition/usn_ugm_109c3.ini 
       100%  ammunition/usn_ugm_109e.ini 
       100%  ammunition/usn_ugm_109e_tactical.ini 
-      100%  ammunition/wp_ss-n-14b.ini from wp_ss_n_14b.ini
+       95%  ammunition/wp_ss-n-14b.ini from wp_ss_n_14b.ini
       100%  ammunition/wp_ss_n_14c.ini 
       100%  vessels/ir_ffg_alvand_95.ini 
       100%  vessels/ir_ptg_peykaap_2.ini 
@@ -537,7 +540,7 @@ file is unchanged.
        99%  ammunition/plaaf_akf-98a.ini 
 
   Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)  (workshop 3395022688)
-       92%  ammunition/damage.ini 
+       91%  ammunition/damage.ini 
        99%  ammunition/wp_ss-n-12.ini 
       100%  ammunition/wp_ss-n-19.ini 
 

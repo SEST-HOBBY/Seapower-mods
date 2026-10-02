@@ -58,7 +58,7 @@ Name=SEST F-16CM JATM
 Description=AIM-260 JATM and AIM-424 MALICE fits for the USAF F-16CM Block 52: a very-long-range intercept with four AIM-260 on the AMRAAM stations, and a MALICE fit with two AIM-424 on the HARM stations (at 4.11 m the 424 matches the HARM for length, so the HARM stations are its natural seat) plus AIM-260 self-escort, keeping the Sniper and HTS pods. Requires the F-16C Fighting Falcon mod and the Dingtools Weapon Pack; US Naval Aviation provides the model the MALICE borrows as a rendering stand-in. Deploys inside the SEST Integration Pack.
 
 [Compatibility]
-ApproximateVersion=0.8.2
+ApproximateVersion=0.8.3
 """
 
 

@@ -88,6 +88,15 @@ class GameVersionTests(unittest.TestCase):
         self.assertNotIn("FALLBACK", source)
         self.assertEqual(read_game_version(self.root, "0.9.0"), ("0.9.0", "from --version (changelog says 0.8.2)"))
 
+    def test_the_changelog_shape_since_september_2026_is_read(self):
+        # The real 0.8.3 head: no "#", no "(N)", and a letter-suffixed build
+        # on a same-day line beneath it.
+        self.write(self.live, "01-Oct-2026: 0.8.3 Build 261001 Public Release\n"
+                              "28-Sep-2026: 0.8.2 Build 260928b\n" + CHANGELOG)
+        version, source = read_game_version(self.root)
+        self.assertEqual(version, "0.8.3")
+        self.assertTrue(source.startswith("Build #261001 (01-Oct-2026)"), source)
+
     def test_vanilla_changelog_is_the_fallback_and_says_so(self):
         self.write(self.root / "mods-source/_vanilla/changelog.txt", CHANGELOG.replace("0.8.2 Build #358", "0.8.3 Build #360"))
         self.live.unlink()

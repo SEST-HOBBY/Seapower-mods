@@ -191,7 +191,7 @@ Name=SEST RAAF Bases
 Description={n_bases} Australian and New Zealand airbases populated from the mod collection: {base_list} - {n_aircraft} aircraft in total, covering F-35A, F-15EX, B-52H, B-1B, B-2, E-7A, E-3G, P-8A (RAAF and RNZAF), MQ-9, KC-135, KC-46A, KC-10A and MH-60R. The F-15EX presence is a full two-squadron wing at Amberley plus single-squadron dets at Tindal, Darwin, Scherger, Townsville, Curtin and Williamtown - eight distinct squadrons, which needs SEST F-15EX Revamp above the F-15EX mod to define them. Other aircraft come from their own mods - see the repo README for the dependency list. Place BELOW the aircraft mods in the Mod Manager.
 
 [Compatibility]
-ApproximateVersion=0.8.2
+ApproximateVersion=0.8.3
 """
 
 VARIANTS_INI = """[General]

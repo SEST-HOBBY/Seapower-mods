@@ -479,3 +479,15 @@ still holds.
 The same export brought Russian Navy 21's update. TS08 places its Project
 20380 corvette (`rfn_cvt_20380_7-12`); the file changed in its launcher
 settings, not in what she carries, and every gate passes on the rebuilt pack.
+
+## Sea Power 0.8.3 (2 October)
+
+The game updated to 0.8.3 (Southern Watch build notes, "Sea Power 0.8.3",
+has the whole record). For this campaign: the rules page's Survived
+Missions column is now filled by the game from `CrewSkillThresholds`
+(1/4/9/16 as before, from the game rather than written in by the build);
+the 198 stock units the pack fields that the update changed are all still
+there, none renamed or removed; and nothing new is placed, since every unit
+0.8.3 added is a 1960s-90s type. The Side Globe jammer Varyag mounts is now
+cloned from the game's own Side Globe. The pack is 1203 files and declares
+0.8.3.
