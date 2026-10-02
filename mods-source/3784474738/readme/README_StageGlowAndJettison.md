@@ -128,9 +128,9 @@ One material/overlay channel is active per missile. This mode does not add a
 second simultaneous atmospheric overlay. Existing atmospheric ammunition INIs
 need no changes. No engine meshes are bundled.
 
-## Up to eight jettison objects per stage
+## Up to 32 jettison objects per stage
 
-The original unnumbered keys configure object 1. Add suffixes `2` through `8` for
+The original unnumbered keys configure object 1. Add suffixes `2` through `32` for
 additional objects. Slots may have gaps. Each configured object is emitted once
 when its stage is left; the final stage needs a following transition to jettison.
 

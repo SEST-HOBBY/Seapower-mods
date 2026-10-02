@@ -1,0 +1,161 @@
+<!-- Campaign event template for standard USN-style "daily intentions message" (DIM) - formatting taken from real world examples -->
+
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI">
+
+	<Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+		<Border.Effect>
+			<DropShadowEffect />
+		</Border.Effect>
+		<Border.Background>
+			<ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+		</Border.Background>
+		
+        <StackPanel Orientation="Vertical">
+
+		<Grid
+		  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="海军消息" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+			<TextBlock Grid.Row="0" Grid.Column="1" Text="——————机————密——————" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+			<TextBlock Grid.Row="0" Grid.Column="2" Text="海军部" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+			
+		</Grid>
+		
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+			<Grid
+			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+			<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="10"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="10"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="16">
+					立即<LineBreak/>
+					1985年8月8日2100Z时
+				</TextBlock>
+				
+				<TextBlock Grid.Row="1" Grid.Column="3" FontSize="16" Text="ZYUW RUHGOAA0777 2202100"/>
+
+				<TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="发件："/>
+				<TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="第77特遣舰队指挥官"/>
+				<TextBlock Grid.Row="4" Grid.Column="0" FontSize="16" Text="收件："/>
+				<TextBlock Grid.Row="4" Grid.Column="2" FontSize="16" Text="第77特遣舰队、CVW-9、海军设施工程系统司令部驻达尔文单位、澳大利亚皇家空军第10中队"/>
+				<TextBlock Grid.Row="11" Grid.Column="0" FontSize="16" Text="抄送："/>
+				<TextBlock Grid.Row="11" Grid.Column="2" FontSize="16" Text="太平洋舰队总司令"/>
+				<TextBlock Grid.Row="13" Grid.Column="0" FontSize="16" Text="主题："/>
+				<TextBlock Grid.Row="13" Grid.Column="2" FontSize="16" Text="情况报告：9日1200Z时至10日1200Z时——消息编号047/85"/>
+
+				<TextBlock Grid.Row="15" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					<LineBreak/>
+					机密
+					<LineBreak/>
+					<LineBreak/>
+					1.（机密）战略态势：新加坡和马来西亚战败后，美国和盟友的部队已在达尔文集结。敌军继续向东南方推进，情报部门怀疑其目标是彻底孤立在吕宋岛苦战的盟军，迫使我方和谈。敌方占领苏门答腊和爪哇后即可随意进入印度洋，苏联军队可由此威胁波斯湾、澳大利亚西部和南非。苏联海军航空兵可在符拉迪沃斯托克至金兰湾一线自由行动，报告显示其潜艇已进入帝汶海。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="16" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					2.（机密）任务：第77特遣舰队将与驻扎在达尔文的盟军协同执行保卫澳大利亚的任务，第77特遣舰队指挥官负责全局指挥。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="17" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					3.（机密）第77特遣舰队状态：
+				</TextBlock>	
+				<TextBlock Grid.Row="18" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">	
+					——小鹰号在横须贺附近触雷后前往普吉特湾维修。
+					<LineBreak/>
+					——CVW-9的舰载机以达尔文的机场为基地开展行动。
+					<LineBreak/>
+					——应澳大利亚政府要求，穆斯布鲁格号前往库克敦执行紧急任务。
+					<LineBreak/>
+					——VAW-114的鹰眼预警机于8月7日在东帝汶上空失联，CVW-14的替换飞机将于8月14日抵达。
+					<LineBreak/>
+				</TextBlock>				
+				<TextBlock Grid.Row="19" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					4.（机密）盟友部队：
+				</TextBlock>
+				<TextBlock Grid.Row="20" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">
+					——澳大利亚：澳大利亚皇家空军的F-111机队在对驻扎在印度尼西亚的敌军进行阻断打击时损失惨重。澳大利亚皇家空军金达利作战雷达网的后向散射超视距搜索雷达于8月3日被敌方特工破坏。
+					<LineBreak/>
+					——马来西亚/印度尼西亚：友方部队已被打散或投降。预计这些部队不会进行有组织的抵抗。
+					<LineBreak/>
+					——新加坡：已彻底溃败并导致英国皇家海军F舰队全军覆没。其他英国部队已完全投入大西洋和地中海的任务。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="21" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					5.（机密）情报/威胁：
+				</TextBlock>
+				<TextBlock Grid.Row="22" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">
+					——澳大利亚海岸观察员已潜入印度尼西亚以监视咽喉要道（巽他海峡、龙目海峡和翁拜-韦塔海峡）上的部队调动。
+					<LineBreak/>
+					——帝汶海和阿拉弗拉海上空的图-95RT活动增多，表明敌方可能在未来48至72小时内向我方发动攻击。VF-111中队于8月8日报告击落一架图-95RT，另有一架逃脱。
+					<LineBreak/>
+					——信号情报显示敌方潜艇开始向南航行。
+					<LineBreak/>
+				</TextBlock>	
+				<TextBlock Grid.Row="23" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					6.（机密）备注：这场战役的转折点就在前方。我们的处境比战前的任何预期都恶劣，但只要协调得当，我们就能在此彻底阻挡敌人。祝你好运，猎杀愉快。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="24" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					署名：C·F·罗宾逊上校
+					<LineBreak/>
+					第77特遣舰队指挥官
+					<LineBreak/>
+					<LineBreak/>
+					机密
+					<LineBreak/>
+					未经收件人许可不得解密
+				</TextBlock>
+			</Grid>
+        </StackPanel>
+    </Border>
+</ScrollViewer>

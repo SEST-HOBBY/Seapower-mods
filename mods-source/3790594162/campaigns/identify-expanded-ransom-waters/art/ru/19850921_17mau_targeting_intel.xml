@@ -1,0 +1,187 @@
+<!-- Pacific Strike 17 MAU targeting intelligence event: naval-message paper format. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="СООБЩЕНИЕ ПО ФЛОТУ" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" Text="****С Е К Р Е Т Н О****" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="МИНИСТЕРСТВО ВМФ" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" FontSize="16">
+          СРОЧНОЕ СООБЩЕНИЕ<LineBreak/>
+          23:00UTC 21 Сен 85
+        </TextBlock>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" FontSize="16" Text="ZYUW RUHQHQA0777 2642300"/>
+      </Grid>
+
+      <Grid Margin="0,18,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Text="От"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" Text="Главнокомандующий силами США на Тихом океане, Гонолулу, Гавайи"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Text="Кому"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" Text="Командиру 17-го экспедиционного отряда морской пехоты на плаву"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" Text="Копия"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16">
+          Ком. ТГ 77, Сандакан, Малайзия<LineBreak/>
+          Ком. Тихоокеанским флотом США, Пёрл-Харбор<LineBreak/>
+          Ком. подв. силами США на Тихом Океане, Пёрл-Харбор<LineBreak/>
+          Морской штаб, Дарвин, Северная территория, Австралия
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="Тема"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="Разведданные по целям - объекты в районе Пуэрто-ПРИНСЕСЫ"/>
+      </Grid>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" Margin="0,24,0,0">
+        СЕКРЕТНО
+        <LineBreak/><LineBreak/>
+        ИСТОЧНИКИ:
+        <LineBreak/>
+        A. Разведсводка HMAS «Орион» 20-85/ПП, Фото через перископ и пеленгация РТР.
+        <LineBreak/>
+        B. Список целей ОРЦ Ком. ТФ ПП-«Челленджер»-17.
+        <LineBreak/>
+        C. Заметки ТГ 77 по авиационной/огневой поддержке 21 сен 85/«Челленджер».
+        <LineBreak/><LineBreak/>
+        1. (S) КРАТКАЯ СВОДКА: Разведка HMAS «Орион» выявила девять объектов противника в районе высадки у Пуэрто-Принсесы. Приведенные ниже данные передаются штабу 17-го экспедиционного отряда морской пехоты для планирования ударов и снижения рисков на подходах к пляжам высадки.
+        <LineBreak/><LineBreak/>
+        2. (S) ДАННЫЕ ПО ЦЕЛЯМ:
+      </TextBlock>
+
+      <Border Padding="8" Margin="0,4,0,12">
+        <Grid TextElement.FontSize="16">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="235"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+          <TextBlock Grid.Row="0" Grid.Column="0" Text="РАЙОН"/>
+          <TextBlock Grid.Row="0" Grid.Column="1" Text="КОЛ-ВО"/>
+          <TextBlock Grid.Row="0" Grid.Column="2" Text="ОБЪЕКТ"/>
+          <TextBlock Grid.Row="0" Grid.Column="3" Text="КООРДИНАТЫ ШИР./ДОЛГ."/>
+
+          <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,6,12,0" Text="АВИАБАЗА/RPVP"/>
+          <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,6,12,0" Text="4"/>
+          <TextBlock Grid.Row="1" Grid.Column="2" Margin="0,6,12,0" Text="АЭРОДРОМ/ВПП"/>
+          <TextBlock Grid.Row="1" Grid.Column="3" Margin="0,6,0,0" Text="09-44-21.6N / 118-44-57.0E"/>
+
+          <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4,12,0" Text="АВИАБАЗА/RPVP"/>
+          <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,4,12,0" Text="4"/>
+          <TextBlock Grid.Row="2" Grid.Column="2" Margin="0,4,12,0" Text="ПОЗИЦИЯ ЗА A"/>
+          <TextBlock Grid.Row="2" Grid.Column="3" Margin="0,4,0,0" Text="09-44-01.8N / 118-45-09.6E"/>
+
+          <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4,12,0" Text="АВИАБАЗА/RPVP"/>
+          <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,4,12,0" Text="4"/>
+          <TextBlock Grid.Row="3" Grid.Column="2" Margin="0,4,12,0" Text="ПОЗИЦИЯ ЗА B"/>
+          <TextBlock Grid.Row="3" Grid.Column="3" Margin="0,4,0,0" Text="09-44-03.6N / 118-45-02.4E"/>
+
+          <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,4,12,0" Text="АВИАБАЗА/RPVP"/>
+          <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,4,12,0" Text="4"/>
+          <TextBlock Grid.Row="4" Grid.Column="2" Margin="0,4,12,0" Text="ПОЗИЦИЯ ЗРК С-300"/>
+          <TextBlock Grid.Row="4" Grid.Column="3" Margin="0,4,0,0" Text="09-45-14.4N / 118-45-28.2E"/>
+
+          <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,4,12,0" Text="ЮЖНЫЙ ПОДХОД"/>
+          <TextBlock Grid.Row="5" Grid.Column="1" Margin="0,4,12,0" Text="5"/>
+          <TextBlock Grid.Row="5" Grid.Column="2" Margin="0,4,12,0" Text="ПУ ПКР SY-1A A"/>
+          <TextBlock Grid.Row="5" Grid.Column="3" Margin="0,4,0,0" Text="09-40-34.8N / 118-44-21.6E"/>
+
+          <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,4,12,0" Text="ЮЖНЫЙ ПОДХОД"/>
+          <TextBlock Grid.Row="6" Grid.Column="1" Margin="0,4,12,0" Text="5"/>
+          <TextBlock Grid.Row="6" Grid.Column="2" Margin="0,4,12,0" Text="ПУ ПКР SY-1A B"/>
+          <TextBlock Grid.Row="6" Grid.Column="3" Margin="0,4,0,0" Text="09-40-36.0N / 118-44-25.8E"/>
+<!--
+          <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4,12,0" Text="ЮЖНЫЙ ПОДХОД"/>
+          <TextBlock Grid.Row="7" Grid.Column="1" Margin="0,4,12,0" Text="5"/>
+          <TextBlock Grid.Row="7" Grid.Column="2" Margin="0,4,12,0" Text="ПУ ОСА A"/>
+          <TextBlock Grid.Row="7" Grid.Column="3" Margin="0,4,0,0" Text="09-40-32.4N / 118-44-18.6E"/>
+
+          <TextBlock Grid.Row="8" Grid.Column="0" Margin="0,4,12,0" Text="ЮЖНЫЙ ПОДХОД"/>
+          <TextBlock Grid.Row="8" Grid.Column="1" Margin="0,4,12,0" Text="5"/>
+          <TextBlock Grid.Row="8" Grid.Column="2" Margin="0,4,12,0" Text="ЗРК ОСА B"/>
+          <TextBlock Grid.Row="8" Grid.Column="3" Margin="0,4,0,0" Text="09-40-39.6N / 118-44-24.0E"/>
+-->
+          <TextBlock Grid.Row="9" Grid.Column="0" Margin="0,4,12,0" Text="ЮЖНЫЙ ПОДХОД"/>
+          <TextBlock Grid.Row="9" Grid.Column="1" Margin="0,4,12,0" Text="5"/>
+          <TextBlock Grid.Row="9" Grid.Column="2" Margin="0,4,12,0" Text="СУО СОН-9(«Гром-2»)"/>
+          <TextBlock Grid.Row="9" Grid.Column="3" Margin="0,4,0,0" Text="09-40-36.6N / 118-44-22.2E"/>
+
+          <TextBlock Grid.Row="10" Grid.Column="0" Margin="0,4,12,0" Text="СЕВ. ПОДХОД"/>
+          <TextBlock Grid.Row="10" Grid.Column="1" Margin="0,4,12,0" Text="2"/>
+          <TextBlock Grid.Row="10" Grid.Column="2" Margin="0,4,12,0" Text="ПУ ПКР HY-1 A"/>
+          <TextBlock Grid.Row="10" Grid.Column="3" Margin="0,4,0,0" Text="09-45-25.8N / 118-45-51.6E"/>
+
+          <TextBlock Grid.Row="11" Grid.Column="0" Margin="0,4,12,0" Text="СЕВ. ПОДХОД"/>
+          <TextBlock Grid.Row="11" Grid.Column="1" Margin="0,4,12,0" Text="2"/>
+          <TextBlock Grid.Row="11" Grid.Column="2" Margin="0,4,12,0" Text="ПУ ПКР HY-1 B"/>
+          <TextBlock Grid.Row="11" Grid.Column="3" Margin="0,4,0,0" Text="09-45-28.8N / 118-45-58.2E"/>
+        </Grid>
+      </Border>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16">
+        3. (S) СВОДКА ПО РАЙОНАМ: В секторе авиабазы Антонио Баутиста (RPVP) выявлены четыре объекта. На южном подходе выявлены три объекта. На северном подходе выявлены два объекта. Всего выявлено девять объектов.
+        <LineBreak/><LineBreak/>
+        4. (S) ЗНАЧЕНИЕ ДЛЯ ПЛАНИРОВАНИЯ: средства управления огнем ЗРК С-300, береговые ракетные пусковые установки и связанные с ними РЛС следует считать первоочередными целями подавления до входа десантных средств на подходы к гавани. Средства ЗА и объекты ВПП остаются целями для последующих ударов по изоляции района высадки.
+        <LineBreak/><LineBreak/>
+        5. (S) ПЕРЕДАЧА ДАННЫХ: координаты получены из источников A и B, затем приведены к формату планирования ударов по источнику C. Передать батальонной десантной группе, группе связи с корабельной артиллерией, авиационным офицерам связи и планировщикам поддерживающей авиации.
+        <LineBreak/><LineBreak/>
+      </TextBlock>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

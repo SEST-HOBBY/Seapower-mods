@@ -1,0 +1,78 @@
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="820" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="54">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid Margin="0,0,0,22">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Text="机密" FontWeight="Bold"/>
+        <TextBlock Grid.Column="1" Text="执行秘书处8528428" FontWeight="Bold"/>
+      </Grid>
+
+      <TextBlock TextAlignment="Center" FontFamily="Times New Roman" FontSize="23" FontWeight="Bold" Text="美国国务院"/>
+      <TextBlock TextAlignment="Center" FontFamily="Times New Roman" FontSize="18" Text="华盛顿特区20520"/>
+      <TextBlock TextAlignment="Right" Margin="0,15,0,0" Text="1985年8月28日"/>
+
+      <Grid Margin="0,15,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="200"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="存备忘录："/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="罗伯特·C·麦克法兰先生"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="白宫"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,18,0,0" Text="发件："/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,18,0,0" Text="乔治·P·舒尔茨"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,18,0,0" Text="主题："/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,18,0,0" Text="印度尼西亚重返战争"/>
+      </Grid>
+      <TextBlock TextWrapping="Wrap" FontSize="16">
+		<LineBreak/>
+		印度尼西亚已作为盟军的积极伙伴重返战争。此前，盟军水面特遣舰队于8月26日在爪哇海消除了雅加达以北海域的重大威胁，印度尼西亚政府遂决定再次参战。苏哈托总统已重返雅加达，并且正在恢复对印度尼西亚政府的控制。
+		<LineBreak/>
+		<LineBreak/>
+		敌军趁盟军在西太平洋地区兵力分散之时大胆出击，攻占了巴拉望岛。中国军队目前占据着一个前沿哨站，威胁着菲律宾西部的交通，并且封锁了我方进入南海的通道。
+		<LineBreak/>
+		<LineBreak/>
+		自7月初以来，在东南亚重新集结的任务降低了盟军的灵活性。华约的激进行动迫使我们将稀缺的运力、燃料储备和军械投入原本计划之外的战区。
+		<LineBreak/>
+		<LineBreak/>
+		印度尼西亚重返战争之后，美军可以开始向北推进。下一阶段的攻势将以中国在巴拉望岛的据点为目标。马来西亚提议将北婆罗洲的山打根作为盟军对巴拉望岛攻势的几个集结地之一。
+		<LineBreak/>
+		<LineBreak/>
+		盟军最高指挥部已命令作战部队最迟于1985年11月1日夺回巴拉望岛。关于印度尼西亚，国务院建议总统私下对其决定表示欢迎。公开表态应强调地区主权，不应暗示华盛顿要求雅加达重返战争。
+		<LineBreak/>
+		<LineBreak/>
+		联合国渠道报告称印度尼西亚中央政府恢复运行后，该国出现了侵犯人权的事件，尤其针对华裔人口。鉴于当前的战略背景，国务院建议将此事务推迟到战后处理。
+      </TextBlock>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" LineHeight="26" Margin="0,34,0,0">
+        乔治·P·舒尔茨
+		<LineBreak/>
+		<LineBreak/>
+		抄送：副总统、国防部长、参谋长联席会议主席
+		<LineBreak/>
+		<LineBreak/>
+		解密：由原始发布机构决定
+	  </TextBlock>
+      <TextBlock TextAlignment="Center" Margin="0,22,0,0" FontWeight="Bold" Text="机密"/>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

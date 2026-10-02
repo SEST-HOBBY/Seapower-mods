@@ -1,0 +1,58 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+		紧急
+		<LineBreak/>
+		1985年7月8日0115Z时
+		</TextBlock>
+		<TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+		<TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="太平洋潜艇部队司令"/>
+		<TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+		<TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="休斯顿号潜艇艇长"/>
+		<TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+		<TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="重分配——接触报告"/>
+		<TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+		机密
+		<LineBreak/>
+		<LineBreak/>
+		1.（机密）国家技术手段已在南沙的五方礁附近发现一艘苏联的310型潜艇补给舰。此补给舰正在为此区域内的877型、633型和641B型潜艇提供补给，这些潜艇正在支援敌军对巴拉望岛的攻势。
+		<LineBreak/>
+		<LineBreak/>
+		2.（机密）停止在金兰湾附近的侦察并以最佳速度开往五方礁。
+		<LineBreak/>
+		<LineBreak/>
+		3.（机密）此补给舰由少量护航舰艇保护，其中包括中国猎潜艇。上次卫星飞越时发现一艘1155型驱逐舰，但可能已离开此区域。注意：由于海床较浅，此区域相当危险，菲律宾海军已警告称布雷行动正在进行中。雷区位置将尽快发送给你。
+		<LineBreak/>
+		<LineBreak/>
+		4.（机密）使用鱼雷和导弹击沉潜艇补给舰和遭遇的所有敌方潜艇。若遭遇1155型驱逐舰，则优先将其摧毁（但不优先于潜艇补给舰）。
+		<LineBreak/>
+		<LineBreak/>
+		5.（机密）如果战术态势允许，报告击沉位置，之后经巴拉望海峡撤往澳大利亚达尔文。祝你好运，猎杀愉快。
+		<LineBreak/>
+		<LineBreak/>
+		机密
+		<LineBreak/>
+		解密：由原始发布机构决定
+	</TextBlock>
+</Grid>
+
+

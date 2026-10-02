@@ -1,6 +1,6 @@
 # Missile Control Surfaces
 
-Version 1.1.1 is a standalone AnchorChain submod that animates existing ammunition
+Version 1.1.2 is a standalone AnchorChain submod that animates existing ammunition
 SubModels. Only missiles with marked control surfaces receive a lightweight
 LateUpdate controller. Guidance, flight physics, drag and damage are unchanged.
 
@@ -143,6 +143,33 @@ and three global rate-axis keys from all 31 currently configured AC Pack
 OVWR files. Meshes (including B1/B2 variants), positions, rotations, materials,
 stage restrictions and the existing angle/rate/response settings are preserved.
 
+
+## Per-fin stage interval (1.1.2)
+
+Add these keys directly to a marked fin's existing SubModel section:
+
+~~~ini
+[ControlFinPair1]
+Type=None
+Mesh=fin_pair
+ControlSurface=True
+StartStage=3
+EndStage=4
+~~~
+
+This fin is visible in MultiStage stages 3 and 4, including both boundaries.
+Keep your existing Position, Rotation, material and control settings.
+Omit EndStage to keep it visible through all later stages; omit StartStage
+to start at stage 1. Omit both to preserve the previous behavior.
+Values must be integers from 1 to 16, with StartStage <= EndStage.
+
+If ControlStages or ControlStage is also present, BOTH restrictions apply
+(the intersection). Remove the old selection if the interval should replace it.
+An empty intersection keeps the fin hidden and logs one warning. Invalid bounds
+log one warning and are ignored together, preserving the old stage selection.
+The launch-mesh gate still applies: a permitted stage does not reveal fins
+before the normal flight mesh is released. Guidance/flight physics are unchanged.
+Save restoration and relaunch reevaluate the stage selection.
 ## MultiStage and launch meshes
 
 The mod reads MultiStageMissiles' public CurrentStageNumber through a cached
@@ -159,3 +186,19 @@ independent of ControlStages. The original SubModel active state is respected.
 
 The ammunition INI is reopened on container launch/respawn and save restoration.
 No global Missile.OnFixedUpdate patch or per-frame INI/component scan is added.
+
+## Build and install
+
+Run build.ps1. Pass -BetaScriptsPath to compile against an available beta
+Seapower-Scripts.dll as well as the installed release.
+-PolicyIniDirectory optionally runs parser tests against the 31 migrated OVWRs.
+Policy tests cover defaults, overrides, X/plus and opposing fore/aft mixing,
+transformed mesh bounds, shifted asset origins, small turns, limits,
+launch gating and same-frame stage transitions. Integration checks inspect
+the game/Harmony surface and cached neutral-hierarchy binding. Version 1.1.1
+requires no OVWR changes; existing rear-only configurations retain their response.
+
+Output: bin\MissileControlSurfaces.dll_ (inactive). Install as
+AC Pack\MissileControlSurfaces.dll with the game closed. Keep backups in this
+source project's backups folder, never beside the active DLL.
+Compilation and standalone checks do not substitute for an in-game visual test.

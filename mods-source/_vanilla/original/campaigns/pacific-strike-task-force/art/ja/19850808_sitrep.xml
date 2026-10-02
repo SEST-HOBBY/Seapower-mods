@@ -4,7 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local="clr-namespace:SeapowerUI">
 
-    <Border HorizontalAlignment="Center" VerticalAlignment="Center" Height="UniformToFill" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+    <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
         <Border.Effect>
             <DropShadowEffect />
         </Border.Effect>

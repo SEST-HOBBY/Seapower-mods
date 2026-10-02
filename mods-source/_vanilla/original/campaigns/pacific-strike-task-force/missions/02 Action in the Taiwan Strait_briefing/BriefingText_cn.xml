@@ -1,0 +1,64 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+		紧急
+		<LineBreak/>
+		1985年6月30日0200Z时
+		</TextBlock>
+		<TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+		<TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="日本横须贺市第77特遣舰队指挥官"/>
+		<TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+		<TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="日本冲绳县那霸市{TaskForceName}指挥官"/>
+		<TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+		<TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+		夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+		横田空军基地美国驻日本部队司令
+		</TextBlock>
+		<TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+		<TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="行动计划——魔法雷霆"/>
+		<TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+		机密
+		<LineBreak/>
+		<LineBreak/>
+		1.（机密）态势：美国和盟友的军队正在西太平洋激战，中国军队顺势发动了对台攻势，首当其冲的是国民党控制的台湾海峡岛屿。联络报告显示中国军队即将对北部的东引岛和南部的金门岛发起两栖行动。
+		<LineBreak/>
+		<LineBreak/>
+		2.（机密）任务：{TaskForceName}打击并消灭开往东引岛的中国登陆部队。
+		<LineBreak/>
+		<LineBreak/>
+		3.（机密）执行：以最佳速度从宫古岛向西航行，协调战区内的盟军资产，摧毁开往东引岛的敌方两栖单位及其护航舰艇。首要目标是摧毁搭载突击部队的072型登陆舰，其次是护航驱逐舰。
+		<LineBreak/>
+		<LineBreak/>
+		4.（机密）威胁：敌方两栖部队将得到两支中国海军驱逐舰和海岸舰艇打击部队的支援。预计中国空军轰炸机和战斗机将出动，中国海军潜艇也可能在东引岛附近活动。
+		<LineBreak/>
+		<LineBreak/>
+		5.（机密）盟军部队：美国空军的E-3A“暗星”已在台北上空执行对空和对面态势感知任务。嘉手纳空军基地的美国空军F-15C将前来执行战斗空中巡逻任务。
+		<LineBreak/>
+		<LineBreak/>
+		6.（机密）备注：击沉所有敌方两栖舰艇，在弹药耗尽后撤往台北以北。尽快返回冲绳进行全面补给，以备后续行动。祝你好运，猎杀愉快。
+		<LineBreak/>
+		<LineBreak/>
+		机密
+		<LineBreak/>
+		解密：由原始发布机构决定
+	</TextBlock>
+</Grid>

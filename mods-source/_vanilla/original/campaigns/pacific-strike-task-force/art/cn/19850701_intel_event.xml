@@ -1,0 +1,155 @@
+<!-- Campaign event template for standard USN-style "daily intentions message" (DIM) - formatting taken from real world examples -->
+
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI">
+
+	<Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+		<Border.Effect>
+			<DropShadowEffect />
+		</Border.Effect>
+		<Border.Background>
+			<ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+		</Border.Background>
+		
+        <StackPanel Orientation="Vertical">
+
+		<Grid
+		  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="海军消息" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+			<TextBlock Grid.Row="0" Grid.Column="1" Text="——————机————密——————" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+			<TextBlock Grid.Row="0" Grid.Column="2" Text="海军部" Margin="0" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+			
+		</Grid>
+		
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+		<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+			<Grid
+			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+			<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="10"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="10"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="16">
+					例行<LineBreak/>
+					1985年7月1日1200Z时
+				</TextBlock>
+				
+				<TextBlock Grid.Row="1" Grid.Column="3" FontSize="16" Text="ZYUW RUHGOAA0777 1821200"/>
+
+
+				<TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="发件："/>
+				<TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="日本横须贺第77特遣舰队指挥官"/>
+				<TextBlock Grid.Row="4" Grid.Column="0" FontSize="16" Text="收件："/>
+				<TextBlock Grid.Row="4" Grid.Column="2" FontSize="16">
+					<Run Text="日本冲绳那霸"/>
+					<Run Text="{Binding DataSource.PersistentData[PlayerTaskForceName], Converter={StaticResource UppercaseConverter}}"/>
+					<Run Text="指挥官"/>
+				</TextBlock>
+				<TextBlock Grid.Row="11" Grid.Column="0" FontSize="16" Text="抄送："/>
+				<TextBlock Grid.Row="11" Grid.Column="2" FontSize="16" Text="夏威夷州珍珠港太平洋舰队总司令"/>
+				<TextBlock Grid.Row="12" Grid.Column="2" FontSize="16" Text="日本横田空军基地美国驻日本部队司令"/>
+				<TextBlock Grid.Row="13" Grid.Column="2" FontSize="16" Text="华盛顿特区海军作战部长"/>
+				<TextBlock Grid.Row="14" Grid.Column="0" FontSize="16" Text="主题："/>
+				<TextBlock Grid.Row="14" Grid.Column="2" FontSize="16" Text="情报概要：1日1200Z时至2日1200Z时——西太平洋"/>
+
+				<TextBlock Grid.Row="15" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					<LineBreak/>
+					机密
+					<LineBreak/>
+					正文分隔
+					<LineBreak/>
+					<LineBreak/>
+					1.（机密）概要：敌方在西太平洋的攻势仍在继续。苏联和中国军队正利用开战初期盟军在日本、朝鲜半岛、菲律宾和东南亚等地的混乱状态扩大战果。目前的敌方动向显示其行动重心正向南转移至南海，意图可能是孤立新加坡并切断盟军通往印度洋的海上交通线。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="16" Grid.ColumnSpan="4" FontSize="16" TextWrapping="Wrap">
+					2.（机密）敌方态势：在摧毁尝试拦截的韩国水面部队后，基辅号航母战斗群已于6月30日通过对马海峡，目前行踪不明。基洛夫号和光荣号水面战斗群同样行踪不明——根据当前评估，其中一或两个战斗群正在向南航行，任务是支援敌方更大规模的攻势。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="17" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					3.（机密）友方状态：
+				</TextBlock>	
+				<TextBlock Grid.Row="18" Grid.ColumnSpan="4" TextWrapping="Wrap" Margin="20,0,0,0">	
+					——小鹰号在横须贺附近触雷后仍无法作战。CVW-9的舰载机已全部撤离并分散到岸上，等待重新部署。
+					<LineBreak/>
+					——星座号和D战斗群正在执行防御日本的任务。
+					<LineBreak/>
+					——第77特遣舰队的水面打击部队在参与台湾海峡的魔法雷霆行动后已返回冲绳的港口。
+					<LineBreak/>
+				</TextBlock>	
+				<TextBlock Grid.Row="19" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					4.（机密）盟友/地区状态：日本和韩国正遭受苏联猛烈的空中、导弹和海上攻击；幸存部队正在全力防御本土。马来西亚和新加坡报告称遭到苏联和越南空军的攻击。印度尼西亚中央政府瘫痪，总统苏哈托下落不明。印度已宣布中立，但当前报告显示苏联军队正在使用印度的港口和机场进行补给。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="21" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					5.（机密）评估：我们评估敌方的意图是在美国航母和后勤部队做出反应之前迅速扩大战果。印度尼西亚的瘫痪状态以及印度和苏联的暗通款曲极大限制了盟军在南翼的行动选择。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="23" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					6.（机密）指挥官评论：华约部队展现出了惊人的进攻势头，这超出了任何战前计划的预料。新加坡的安危取决于我们能否在苏联和越南着手封锁南海航道前迅速集结现有的海军部队。后续命令将通过单独的渠道发送。祝你好运，一路顺风。
+					<LineBreak/>
+				</TextBlock>
+				<TextBlock Grid.Row="25" Grid.ColumnSpan="4" TextWrapping="Wrap">
+					署名：爱德华兹
+					<LineBreak/>
+					第77特遣舰队指挥官
+					<LineBreak/>
+					<LineBreak/>
+					正文分隔
+					<LineBreak/>
+					解密：由原始发布机构决定
+					<LineBreak/>
+				</TextBlock>
+			</Grid>
+        </StackPanel>
+    </Border>
+</ScrollViewer>

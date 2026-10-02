@@ -90,7 +90,7 @@
           <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,24,0,0"/>
 
           <TextBlock Text="SPECIAL THANK YOU TO THE SEA POWER CLOSED BETA TEAM" FontWeight="Bold" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" Margin="15,22,15,0"/>
-          <TextBlock Text="Paolo Capilli, James Parker, alex6511, OneiraNautica, Fake Nate, moloti, Cyclic, Pepe Silvia, Neu, Phil (pogfrog), Angus Henderson, darthmac, Bernardo Scheliga, SqnLdrMartin, valoda, that_person, Cassiopeia Knox, Michael Durao, Felocity787, Argent Usher, Jedigamer723, Rooster, Kraznova, iblank, Minf, Ewok Pilot, Christian Thomé, MatiasTorres8492, reis.the.best, Duudze, TunderTunder, L963 - and others, you know who you are!" FontSize="13" TextWrapping="Wrap" TextAlignment="Left" Margin="0,10,0,0"/>
+          <TextBlock Text="James Parker, alex6511, OneiraNautica, Fake Nate, moloti, Cyclic, Pepe Silvia, Neu, Phil (pogfrog), Angus Henderson, darthmac, Bernardo Scheliga, SqnLdrMartin, valoda, that_person, Cassiopeia Knox, Michael Durao, Felocity787, Argent Usher, Jedigamer723, Rooster, Kraznova, iblank, Minf, Ewok Pilot, Christian Thomé, MatiasTorres8492, reis.the.best, Duudze, TunderTunder, L963 - and others, you know who you are!" FontSize="13" TextWrapping="Wrap" TextAlignment="Left" Margin="0,10,0,0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,24,0,0">
