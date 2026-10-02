@@ -70,6 +70,9 @@ Apache AH1 her sister hulls already support, the RNZAF and ROKN P-8 \
 squadrons named nations the game has no flag for, and the A-10C's infrared \
 head was never registered as a sensor module while its squadron file \
 declared seven squadrons against two defined liveries.
+
+[Compatibility]
+ApproximateVersion=0.8.2
 """
 
 
