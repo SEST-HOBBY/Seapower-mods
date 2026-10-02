@@ -1,4 +1,28 @@
-# MissileControlMod 0.1.14
+# MissileControlMod 0.1.15
+
+## Optional ejection before powered turnover
+
+Set `EjectBeforeTurnover=True` in `[MissileLaunchControl]` for `PoweredTurnover` or `BoostedTurnover`. Default: `False`; existing configurations keep their behavior.
+
+```ini
+[MissileLaunchControl]
+Enabled=True
+Profile=PoweredTurnover
+EjectBeforeTurnover=True
+EjectionSpeed=25
+ClearanceDistance=10
+ReplaceInitialFlightPhase=True
+TurnoverAim=NativeFlightPath
+TurnoverRate=150
+DelayStage1EffectsUntilTurnoverComplete=False
+```
+
+The missile receives `EjectionSpeed` in m/s along the launch axis plus launcher velocity once. Gravity acts during the unpowered clearance phase. At `ClearanceDistance` metres from its launch position, it releases native motor scheduling and Stage-1 effects and begins turnover. PoweredTurnover follows the nose; BoostedTurnover retains movement inertia. Existing `Stage1BurnTimeDelay` still delays stage ignition after motor readiness. These example distance/rate values are tuning choices, not measured SA-N-20 data.
+
+Stage thrust still requires positive `StageNAcceleration` and `StageNBurnTime` if `UseBaseGameThrust=False`. The option does not add thrust or override stage durations. Numeric separation deadlines remain measured from launch; automatic burn-based transitions accommodate delayed ignition. Use `DelayStage1EffectsUntilTurnoverComplete=False` for motor effects during turnover.
+
+SoftLaunchTurnover retains its existing ejection and ignition after turnover. Aircraft and underwater launches receive no extra ejection impulse; native water-exit speed is retained. If clearance is not reached, the existing launch timeout/handoff releases the motor. Saves retain clearance progress and current velocity; older saves do not acquire the optional ejection retroactively.
+
 
 ## Optional Lo-Lo flight profile and map range
 
@@ -54,7 +78,7 @@ The sound follows the missile, pauses with the game and stops when the missile i
 
 The package ammunition files are regression examples from earlier releases. Live AC Pack tuning may differ. The joint 0.1.6 / MultiStage 1.2.27 update installs both DLLs and documentation without replacing live ammunition overrides. See `example_boosted_tipover.ini` for commented configuration keys; its mesh/effect placeholders must be replaced before use.
 
-Version 0.1.6 adds the third launch profile `BoostedTurnover`. The native motor and Stage-1 effects start normally. During clearance and tip-over, the movement direction retains its previous momentum and bends toward the nose when native speed increases. Native thrust, drag, speed limits, effect scheduling and collision checks still execute. HandoffTime then blends into normal nose-aligned movement. This is a short gameplay approximation, not a separate full-flight physics model. Stage burn and separation timers keep their configured durations; the profile does not extend them. Keep `DelayStage1EffectsUntilTurnoverComplete=False` (True is rejected for this profile). EjectionSpeed is used only by SoftLaunchTurnover. Optional TurnoverBraking also works with BoostedTurnover. The reviewed MultiStage 1.2.27 adapter supports its debris extension; 1.2.26 remains compatible.
+Version 0.1.6 adds the third launch profile `BoostedTurnover`. The native motor and Stage-1 effects start normally. During clearance and tip-over, the movement direction retains its previous momentum and bends toward the nose when native speed increases. Native thrust, drag, speed limits, effect scheduling and collision checks still execute. HandoffTime then blends into normal nose-aligned movement. This is a short gameplay approximation, not a separate full-flight physics model. Stage burn and separation timers keep their configured durations; the profile does not extend them. Keep `DelayStage1EffectsUntilTurnoverComplete=False` (True is rejected for this profile). EjectionSpeed is used by SoftLaunchTurnover and optional EjectBeforeTurnover. Optional TurnoverBraking also works with BoostedTurnover. The reviewed MultiStage 1.2.27 adapter supports its debris extension; 1.2.26 remains compatible.
 
 - `ammunition_overwrite/usn_pac3_mse_OVWR.ini`: PoweredTurnover follows the configured clearance distance and TurnoverRate toward the native flight path. Launch ControlEffects=All reuses the Maneuver_Nose definitions, including the four added diagonal mounts; they are eligible once visual Stage 2 begins. Only the nose jets visualize launch control. The existing motor thrust and plume timing remain active, with no StageExhaust deflection controller. Terminal control adds 10 G while its configured ActiveDuration allows it; -1 removes the time limit. The existing fins and stage settings are retained.
 - `ammunition_overwrite/wp_sa-n-9_OVWR.ini`: retains the user's custom model, fins and tuning. Ejects at the configured EjectionSpeed, travels the configured clearance distance along the launch axis, tips toward the native flight path, brakes the turn with opposite jets within the configured angle window, then ignites and blends into normal flight. Keeps native TerminalLoft. Adds 5 G during the first 2 seconds of TerminalApproach while the motor burns.
@@ -76,7 +100,7 @@ Place these keys in `[MissileLaunchControl]`. Unconfigured ammunition keeps nati
 | `Profile` | `SoftLaunchTurnover` | `SoftLaunchTurnover`: unpowered ejection, body tip-over, ignition, handoff. `PoweredTurnover`: powered, nose-aligned movement throughout. `BoostedTurnover`: powered, retains movement inertia during tip-over, then blends to native movement. |
 | `ReplaceInitialFlightPhase` | `True` | Replace the native straight-flight delay for this missile instance. Native launch initialization and the configured launch-mesh switch still run. Set False to retain the native delay as well. |
 | `ClearanceDistance` | `8` | Metres traveled along the original launch axis before turning. |
-| `EjectionSpeed` | `35` | Metres/second relative to the launcher; used only for soft launch. Inherited platform velocity and gravity are included. |
+| `EjectionSpeed` | `35` | Metres/second relative to the launcher; used for soft launch or EjectBeforeTurnover=True. Inherited platform velocity and gravity are included. |
 | `TurnoverAim` | `NativeFlightPath` | Native steering goal after waypoint/loft/FOV corrections; or `FixedPitch`; or `RelativePitch`. Horizontal direction always follows the native steering goal. |
 | `TurnoverPitch` | `0` | Degrees. Positive means nose up; negative means nose down. FixedPitch is horizon-relative, -90..90. RelativePitch adds to the launch elevation, then clamps to -90..90. Ignored by NativeFlightPath. |
 | `TurnoverRate` | `180` | Maximum body rotation in degrees/second during launch. Independent of later MaxTurnGBonus. |

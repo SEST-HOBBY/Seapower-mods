@@ -1,0 +1,31 @@
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:SeapowerUI">
+
+	<Border Background="#2b2d31" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto" Width="900" TextElement.Foreground="#949aa1" TextElement.FontWeight="Bold" TextElement.FontSize="16" Padding="20">
+
+        <StackPanel Orientation="Vertical">
+			<TextBlock HorizontalAlignment="Center" FontSize="36">
+				序言
+			</TextBlock>
+			
+			<Rectangle HorizontalAlignment="Stretch" Height="1" Fill="#949aa1" Margin="0,0,0,10"/>
+			
+			<Image Source="{Binding Assets[s01_sunset]}" Margin="0,0,0,15"/>
+			
+			<TextBlock TextWrapping="Wrap">
+				<Run Text="浪潮" FontWeight="Bold" FontFamily="Roboto"/>
+				<LineBreak/>
+				<LineBreak/>
+				太平洋战场的核心是距离。
+				<LineBreak/>
+				<LineBreak/>
+				控制权属于能调动、补给和保护自身部队穿越这片广袤海域的一方。对于太平洋盟友而言，美国海军第七舰队承担着这项重任。
+			</TextBlock>	
+			
+			<StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center">
+				<Button Width="100" Height="50" Margin="15" FontSize="16" VerticalAlignment="Bottom" Content="下一页" Command="{Binding OpenFileCommand}" CommandParameter="campaigns/pacific-strike-task-force/art/cn/s01_window_1.xml"/>
+			</StackPanel>
+        </StackPanel>
+    </Border>
+</ScrollViewer>

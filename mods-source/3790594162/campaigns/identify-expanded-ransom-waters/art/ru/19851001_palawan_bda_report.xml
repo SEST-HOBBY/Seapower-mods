@@ -1,0 +1,103 @@
+<!-- Pacific Strike battle damage assessment event: naval-message paper format. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="16" Padding="45">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <Border.Background>
+      <ImageBrush ImageSource="{Binding Assets[bkg_paper]}" Stretch="UniformToFill"/>
+    </Border.Background>
+
+    <StackPanel Orientation="Vertical">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="СООБЩЕНИЕ ПО ФЛОТУ" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" Text="*******С Е К Р Е Т Н О*******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="МИНИСТЕРСТВО ВМФ" FontFamily="Arial Narrow Bold" FontSize="26" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,1"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,10"/>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" FontSize="16">
+          СРОЧНОЕ<LineBreak/>
+          12:00UTC 01 ОКТ 85
+        </TextBlock>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" FontSize="16" Text="ZYUW RUHGOAA0777 2741200"/>
+      </Grid>
+
+      <Grid Margin="0,18,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Text="От:"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" Text="Ком. ТГ 77 Пуэрто-Принсесса"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Text="Кому:"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" Text="Ком. Тихоокеанским флотом США, Пёрл-Харбор"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" Text="Копия:"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16">
+          Ком. 17 Эксп. ОМП<LineBreak/>
+          Ком. ВМС США на Филиппинах, Манила<LineBreak/>
+          Ком. нач. штабов, Вашингтон ОК
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="Тема:"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="16" Text="Оценка ущерба от б/д / Дальнейшие операции на Палаване"/>
+      </Grid>
+
+      <TextBlock TextWrapping="Wrap" FontSize="16" Margin="0,24,0,0">
+        СЕКРЕТНО
+        <LineBreak/><LineBreak/>
+        Источники:
+        <LineBreak/><LineBreak/>
+        A. Разбор полетов летных экипажей ТГ 77 и дешифровка фотоснимков, полученных после нанесения удара.
+        <LineBreak/>
+        Б. Оперативная сводка 17-го экспедиционного отряда морской пехоты, 10:30UTC 01 октября 85.
+        <LineBreak/>
+        В. Отчёт Ком. ВС США на Филиппинах о ситуации на Палаване 10:45UTC 01 октября 85.
+        <LineBreak/><LineBreak/>
+        1. (S) КРАТКАЯ СВОДКА: В ходе операции «Челленджер» 17-й экспедиционный отряд морской пехоты и филиппинские подразделения высажены на берег в Пуэрто-Принсесе. Пляжи высадки находятся под контролем. Дружественные силы удерживают часть города и зачищают маршруты вглубь острова. Настоящий доклад является предварительным и основан на источниках A-В.
+        <LineBreak/><LineBreak/>
+        2. (S) ОЦЕНКА УЩЕРБА - ПУЭРТО-ПРИНСЕСА: взлётно-посадочные полосы авиабазы Антонио Баутиста покрыты воронками. Районы хранения топлива и складские зоны повреждены. Известные позиции РЛС, зенитной артиллерии и береговых ракетных комплексов на ближайших подходах уничтожены или серъёзно повреждены. Портовые сооружения повреждены, но после проверки инженерными подразделениями и водолазами могут обеспечить ограниченную логистику.
+        <LineBreak/><LineBreak/>
+        3. (S) ПОСЛЕДУЮЩИЕ ОПЕРАЦИИ: 17-й экспедиционный отряд морской пехоты расширяет плацдарм и ликвидирует очаги сопротивления противника на окраинах города. Ожидаются мины, мины-ловушки и оставленные в тылу диверсионные группы. Полёты самолётов союзников с Палавана невозможны до ремонта ВПП и топливных систем.
+        <LineBreak/><LineBreak/>
+        4. (S) КЕСОН / ЗАПАДНЫЙ ПАЛАВАН: силы противника сохраняют активность в районе Кесона на западной оконечности Палавана. Этот объект не был подавлен в ходе операции «Челленджер». По текущей оценке, это командно-снабженческий узел с вероятной возможностью приёма подкреплений.
+        <LineBreak/><LineBreak/>
+        5. (S) ОЦЕНКА: Пуэрто-Принсеса захвачена, но Палаван ещё не полностью под нашем контролем. Командование противника всё ещё может перебрасывать подкрепления морем, если Кесон остаётся открытым. ТГ 77 следует планировать последующие действия с учётом ограничения возможности пополнения боезапаса и рассматривать любой конвой, движущийся к западному Палавану, как срочную угрозу.
+        <LineBreak/><LineBreak/>
+        ПОДПИСАНО: ОФИЦЕР РАЗВЕДКИ ШТАБА
+        <LineBreak/>
+        Ком. ТГ 77
+        <LineBreak/><LineBreak/>
+      </TextBlock>
+    </StackPanel>
+  </Border>
+</ScrollViewer>

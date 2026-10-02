@@ -1,0 +1,65 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+		立即
+		<LineBreak/>
+		1985年8月11日0000Z时
+		</TextBlock>
+		<TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+		<TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="第77特遣舰队指挥官"/>
+		<TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+		<TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="澳大利亚北领地达尔文{TaskForceName}指挥官"/>
+		<TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+		<TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+		夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+		澳大利亚新南威尔士州格伦布鲁克皇家空军司令部
+		</TextBlock>
+		<TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+		<TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="行动计划——优秀闪电"/>
+		<TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">		机密
+		<LineBreak/>
+		<LineBreak/>
+		1.（机密）态势：盟军已在达尔文重新集结。印度尼西亚军队因敌军行动而损失惨重，苏联远征军已占领巴厘岛机场。昨日，澳大利亚海岸观察员报告称基洛夫号水面行动群已向南穿越龙目海峡，后续图像显示基洛夫号正在向东开往澳大利亚。
+		<LineBreak/>
+		<LineBreak/>
+		2.（机密）任务：{TaskForceName}指挥官指挥达尔文的所有可用盟军单位，找到并摧毁基洛夫号水面行动群。
+		<LineBreak/>
+		<LineBreak/>
+		3.（机密）执行：从达尔文向西航行，水面部队分散部署并进行辐射控制，防止被敌方识别。找到基洛夫号，之后指挥船只和空中单位协同打击。利用战斗空中巡逻小队防止敌方空中侦察单位发现我方部队。
+		<LineBreak/>
+		<LineBreak/>
+		4.（机密）敌方作战序列：基洛夫水面行动群包含2艘1135或1135M型护卫舰、1艘58型巡洋舰、1艘1155型驱逐舰。注意：1155型驱逐舰携带了性能强大的3K95面对空导弹，对抗鱼叉导弹时相当有效。预计敌方战斗空中巡逻和侦察小队将从巴厘岛的简易战斗机跑道起飞。澳大利亚方面报告称苏联军队使用图-16轰炸机进行远程低空侦察。
+		<LineBreak/>
+		<LineBreak/>
+		5.（机密）盟军部队：少量盟军空中部队将从西澳大利亚的布鲁姆机场出击。注意：我方最后一架鹰眼于8月8日在东帝汶上空失踪，目前无法提供预警机支援。我方战斗机必须积极搜索并识别敌方空中侦察单位。
+		<LineBreak/>
+		<LineBreak/>
+		6.（机密）备注：太平洋司令部总司令理解这是一项艰巨的任务，对水面舰艇而言风险极高。如果行动成功，苏联太平洋舰队的一艘主力水面作战舰艇将不复存在，我方在达尔文的堡垒也能免受导弹攻击。祝你好运，猎杀愉快。
+		<LineBreak/>
+		<LineBreak/>
+		机密
+		<LineBreak/>
+		解密：由原始发布机构决定
+		</TextBlock>
+
+</Grid>

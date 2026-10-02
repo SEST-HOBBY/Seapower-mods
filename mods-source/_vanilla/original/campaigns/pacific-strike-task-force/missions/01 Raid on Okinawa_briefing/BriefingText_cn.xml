@@ -1,0 +1,65 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	<!--TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" Text="1985-8-18" FontSize="{StaticResource Font.Size.Header}"/-->
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+		紧急
+		<LineBreak/>
+		1985年6月27日0010Z时
+	</TextBlock>
+    <!--TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Right" Text="05:00Z (06:00L)" FontSize="{StaticResource Font.Size.Header}"/-->
+
+    <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+    <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="日本横须贺市第77特遣舰队指挥官"/>
+    <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+    <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="日本冲绳县那霸市{TaskForceName}指挥官"/>
+	<TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+		夏威夷州珍珠港第七舰队司令<LineBreak/>
+		夏威夷州珍珠港太平洋舰队总司令<LineBreak/>
+		横田空军基地美国驻日本部队司令
+	</TextBlock>
+    <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+    <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="紧急重分配——冲绳遭到攻击"/>
+    <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+		机密
+		<LineBreak/>
+		<LineBreak/>
+		1.（机密）整个西太平洋地区的美国和盟友部队正遭到苏联、中国和朝鲜的攻击。总统已命令我们立即反击。
+		<LineBreak/>
+		<LineBreak/>
+		2.（机密）国家技术情报来源显示多个敌方水面舰艇群正在开往冲绳方向。情报部门认为一艘悬挂日本国旗的汽车运输船（见参考资料A）载有苏联轻装甲突击队。另有一个舰艇群是中国海军的打击部队，其中包含一艘苏联的57A型驱逐舰，明显为防空用途。
+		<LineBreak/>
+		<LineBreak/>
+		3.（机密）指挥驻扎在那霸的盟军部队。美国空军的E-3A“暗星”将在嘉手纳空军基地上空执行对空和对面态势感知任务。日本海上自卫队的P-3C将执行目标搜寻和海上打击任务。
+		<LineBreak/>
+		<LineBreak/>
+		4.（机密）信号情报显示敌方间谍渔船正在此区域内的某处活动。中国空军单位可能出动以掩护登陆的突击部队，但预计不会有潜艇威胁。
+		<LineBreak/>
+		<LineBreak/>
+		5.（机密）消灭汽车运输船上的苏联突击部队和中国海军的水面打击群。祝你好运，猎杀愉快。
+		<LineBreak/>
+		<LineBreak/>
+		机密
+		<LineBreak/>
+		解密：由原始发布机构决定
+	  </TextBlock>
+</Grid>

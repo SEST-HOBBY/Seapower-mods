@@ -1,0 +1,66 @@
+<Grid
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+	
+	<TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
+        紧急
+        <LineBreak/>
+        1985年9月18日0600Z时
+    </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="发件："/>
+        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="海军总部"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="收件："/>
+        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="俄里翁号潜艇"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="抄送："/>
+    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
+        鸭嘴兽基地<LineBreak/>
+        澳大利亚舰队司令<LineBreak/>
+        太平洋舰队总司令<LineBreak/>
+        太平洋潜艇部队司令
+        </TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="主题："/>
+        <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="任务——普林塞萨港侦察"/>
+    <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
+		机密——可透露：美国、日本
+		<LineBreak/>
+		<LineBreak/>
+		1.（机密）我方即将发动对巴拉望岛的两栖行动。敌军已在普林塞萨港建立大型据点，我方评估岸上设施包含指挥部、防空导弹和反舰导弹发射器。
+		<LineBreak/>
+		<LineBreak/>
+		2.（机密）我方必须在登陆部队进入突击区域之前削弱此据点。推进登陆任务前，我方需要进行视觉侦察。
+		<LineBreak/>
+		<LineBreak/>
+		3.（机密）从山打根向北航行，对普林塞萨港航道进行隐蔽侦察。渗透此区域，使用潜望镜视觉识别敌方岸上设施，并报告确认的目标。你必须识别普林塞萨港市内疑似存在的以下单位：
+		<LineBreak/>
+		——安东尼奥·包蒂斯塔航空基地的S-300导弹发射器
+		<LineBreak/>
+		——港口入口南北两侧的反舰导弹阵地
+		<LineBreak/>
+		<LineBreak/>
+		4.（机密）避免被敌方水面和空中巡逻队发现。仅在自保或完成任务所必需的情况下允许交战。
+		<LineBreak/>
+		<LineBreak/>
+		5.（机密）侦察完成后不要停留，向东撤离此区域。祝你好运，一路顺风。
+		<LineBreak/>
+		<LineBreak/>
+		机密——可透露：美国、日本
+	</TextBlock>
+</Grid>

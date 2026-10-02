@@ -1,0 +1,37 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:SeapowerUI"
+  mc:Ignorable="d"
+  d:DesignWidth="1920"
+  d:DesignHeight="1080"
+  Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualWidth, FallbackValue=700}"
+  Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualHeight, FallbackValue=400}"
+  Padding="5,5,5,5">
+	<ScrollViewer>
+	<StackPanel Orientation="Vertical">
+		<TextBlock TextWrapping="Wrap" Margin="15" FontFamily="Roboto">
+			<TextBlock.Inlines>
+				<Run FontWeight="Bold" Text="Вертолёты — Ограниченный запас топлива" FontSize="16"/>
+				<LineBreak/>
+				<LineBreak/>
+				<Run Text="Все летательные аппараты, включая вертолёты, имеют ограниченный запас топлива, который определяет дальность полёта. Разные варианты вооружения по-разному влияют на дальность." FontSize="12"/>
+				<LineBreak/>
+				<LineBreak/>
+				<Run Text="Например, с вариантом вооружения ПЛО SH-2F несёт две торпеды и 15 РГБ, что сокращает дальность полёта. В перегоночном варианте всё оружие остаётся на корабле, а вертолёт получает два подвесных топливных бака. Этот вариант полезен, если вертолёт нужен только как радиолокационная платформа, а не для поиска подводных лодок." FontSize="12"/>
+				<LineBreak/>
+				<LineBreak/>
+				<Run Text="После взлёта вертолёта его максимальная дальность отображается на карте " FontSize="12"/><Run Text="синим" FontSize="12" FontWeight="Bold" Foreground="#00AEEF"/><Run Text=" кругом. Возможно, для этого придётся значительно уменьшить масштаб карты. Точный остаток топлива можно увидеть, наведя указатель на область «Состояние» на нижней панели." FontSize="12"/>
+			</TextBlock.Inlines>
+		</TextBlock>
+
+        <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center">
+			<Button Width="100" Height="50" Margin="0,0,15,0" FontSize="16" VerticalAlignment="Bottom" Content="Назад" Command="{Binding OpenFileCommand}" CommandParameter="missions/Tutorials/Officer_Training_1_briefing/t01_window_22_ru.xml"/>
+			<Button Width="100" Height="50" Margin="0" FontSize="16" VerticalAlignment="Bottom" Content="Вперёд" Command="{Binding OpenFileCommand}" CommandParameter="missions/Tutorials/Officer_Training_1_briefing/t01_window_24_ru.xml"/>
+		</StackPanel>
+	</StackPanel>
+	</ScrollViewer>
+</Page>

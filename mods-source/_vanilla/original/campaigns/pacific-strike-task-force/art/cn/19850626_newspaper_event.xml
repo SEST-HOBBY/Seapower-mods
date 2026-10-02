@@ -1,0 +1,90 @@
+<!-- Standard Sea Power linear campaign newspaper event setup in XAML - translators should use this file to translate the Pacific Strike newspapers into their language! 
+
+Link these from campaign.ini for each language: 19850626_newspaper_event_de.xml, etc
+
+Images from the flat image file English language newspapers are included as separate image files in the /art directory for each newspaper
+-->
+
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  d:DesignWidth="1920"
+  d:DesignHeight="1080">
+  <Viewbox>
+    <Border Background="AntiqueWhite" HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" Height="1272" Padding="45" 
+            TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black" TextElement.FontSize="16">
+		<Border.Effect>
+			<DropShadowEffect />
+		</Border.Effect>
+		<Border.Background>
+			<ImageBrush ImageSource="{Binding Assets[bkg_newsprint]}"/>
+		</Border.Background>
+        <StackPanel Orientation="Vertical">
+            <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+            <TextBlock FontFamily="Helvetica" Text="1985年6月26日星期三|第84卷第256号|25美分" Margin="0,5,0,5" FontSize="16"/>
+            <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+			<StackPanel Orientation="Vertical">
+				<TextBlock Text="博览新闻" TextAlignment="Center" FontSize="106" FontWeight="Bold" Margin="0,5,0,5"/>
+				<Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+			</StackPanel>
+            <Grid Margin="0,15,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.Row="0" Grid.ColumnSpan="3" FontFamily="Impact" FontWeight="Bold" FontSize="124" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,0">
+					苏联进攻！<LineBreak/>
+					<Run Text="欧洲和太平洋战事爆发" FontSize="72"/>
+				</TextBlock>
+                <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical">
+                    <TextBlock Text="苏联攻势令北约措手不及" FontSize="24" TextWrapping="Wrap" FontFamily="Helvetica" TextAlignment="Left" Margin="0,0,0,15"/>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Justify">
+						法兰克福/东京——格林尼治标准时间昨日上午9时，苏联和华约部队发动了大规模全球攻势，向西进攻欧洲，并且攻击了美国和日本在太平洋地区的阵地。
+						<LineBreak/>
+						在欧洲，苏联装甲师突破富尔达缺口进入西德，威胁北约的防御据点。北约部队在调集增援的同时也在多条战线上陷入激战，伤亡惨重，美军则首当其冲。
+						<LineBreak/>
+						在太平洋地区，苏联海空部队在中国和朝鲜的协同下攻击了位于韩国和冲绳的美国基地。日本本土也多次遭受苏联常规弹道导弹的轰炸。
+						<LineBreak/>
+						战况见第2页。
+					</TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Top">
+                    <Image Source="{Binding Assets[19850626_newspaper_event_tanks]}" Stretch="Uniform"/>
+                    <TextBlock Text="美军坦克于周三上午向东开往前线。美国、英国、法国和西德军队在东德边境地区陷入激战。双方尚未动用核武器，但北约指挥官并未排除这种可能性。德国平民正从战区撤离。美国官员呼吁国内保持冷静。（美联社照片）" TextWrapping="Wrap" TextAlignment="Left" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
+            <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+            <Grid Margin="0,15,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <TextBlock Text="全球市场关闭" FontSize="24" FontFamily="Helvetica" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,15"/>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Justify">
+						纽约——欧洲和太平洋地区的战事引发恐慌性抛售，导致全球股市被迫关闭，金融市场暴跌。
+						<LineBreak/>纽约、伦敦和东京的主要交易所暂停交易，指数跌幅创历史新高，数小时内即蒸发数万亿美元。面对前所未有的地缘政治动荡，投资者信心全无，对冲突长期化的担忧加剧了抛售。此次突然性交易中断是全球金融体系数十年来遭遇的最严重冲击之一。
+						<LineBreak/>
+						市场见第3页。
+					</TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Vertical">
+                    <Image Source="{Binding Assets[19850626_newspaper_event_stockmarket]}"/>
+                    <TextBlock Text="纽约证券交易所已于美国东部时间昨日下午12时暂停交易。" TextWrapping="Wrap" TextAlignment="Left" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
+			<TextBlock Text="-1-" TextAlignment="Center"/>
+        </StackPanel>
+    </Border>
+  </Viewbox>
+</Page>

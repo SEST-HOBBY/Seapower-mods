@@ -7,10 +7,10 @@ changelog copied to changelog.live.txt; head:
     
     ===============================================================================
     
-    20-Jul-2026: 0.8.2 Build #358 (23444) Public Release
-    ----------------------------------------------------
-    [FIX] S-300 battery targeting points
-    
-    [NEW] Please see changes below
+    01-Oct-2026: 0.8.3 Build 261001 Public Release
+    ----------------------------------------------
+    [UPD] Translations
+    [UPD] Weapons: added sustained fire cooldown after firing 500/1000 (blk0/blk1) rounds for Mk15 Phalanx
     
     ===============================================================================
+    
