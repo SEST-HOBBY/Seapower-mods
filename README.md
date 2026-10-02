@@ -52,6 +52,8 @@ python3 integration/missions/restore_roe.py --mission "<name>" --write  # put ba
 python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the mission and inventory tools' regression tests
 python3 tools/check_inventory.py            # mods-source agrees with its export manifest (red on four line-ending mods until renormalised)
 python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
+python3 tools/check_vanilla_drift.py        # what changed in the game's own files since the last export, and what here depends on it
+python3 tools/check_game_version.py         # every SEST pack declares the installed game's version; which mods' ranges exclude it
 python3 tools/check_load_order.py           # every SEST override still outranks its target
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered (stores, rosters, system names)
 python3 tools/check_scenarios.py            # the carved NF3 scenarios' counts, formations and section numbers
@@ -219,4 +221,7 @@ every `export-mod-configs.ps1` run, rebuild (`build_all.py --from-scratch`),
 commit the output with the export, and redeploy; a stale pack puts last
 month's hull above this month's mod. `check_pack_fidelity.py` proves the
 rebuilt forks differ from their upstream only by the lines the pack inserts.
-`docs/packaging-and-recovery.md` has the details.
+`docs/packaging-and-recovery.md` has the details. A game update is the same loop
+with the game's own files as the export that moved, and two more gates in front of
+the rebuild (`check_vanilla_drift.py`, `check_game_version.py`); *After a Sea Power
+update* in the same file is the checklist.

@@ -516,6 +516,7 @@ Line's (`../red-line/test-card.md`) with its rules of engagement.
 | a ship is ashore or a route crosses land | the coastline extract disagrees with the game there; note the mission and the hull, that is the first row of the test card |
 | `check_inventory.py` red after the export | read `docs/packaging-and-recovery.md`, *Known red*, before deleting or restoring anything |
 | a code mod does nothing: Coordinated Strike Tool's planner (F8) does not open | Anchor Chain's preloader is not installed; subscribing is not enough. See below |
+| Sea Power itself updated (Steam fetched a new build; the Mod Manager flags the SEST pack or a mod as version-incompatible, or a stock unit a mission fields is gone) | `docs/packaging-and-recovery.md`, *After a Sea Power update*: its PC block exports the new game files with `-IncludeVanilla`, captures the snapshot and pushes the deploy branch, game closed after one launch; a session then reads the drift (`check_vanilla_drift.py`), bumps the packs' version (`check_game_version.py --bump`), rebuilds, runs every gate and hands back the update block at the top of this page, whose `IN LINE` count may have moved |
 
 ### Code mods do not load (Coordinated Strike Tool)
 

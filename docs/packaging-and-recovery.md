@@ -281,6 +281,308 @@ by it (keep `_vanilla`). If it passes there, it is the export to commit.
 
 PowerShell 5.1 has no `&&`. Chain with `;` or use separate lines.
 
+## After a Sea Power update
+
+A game update moves the one thing every pack and mission here is built on
+and nobody exports on purpose: the game's own files. Three things in this
+repo track them. `mods-source/_vanilla/original` is the vanilla export: on 2
+Oct 2026, 3,851 text files from 0.8.2 Build #358 of 20 Jul 2026, the version
+and build being the first `dd-Mon-yyyy: X.Y.Z Build #N` line of
+`data/install-snapshot/changelog.live.txt`, the game's own `changelog.txt`
+as the capture copied it (`data/install-snapshot/game-build.txt` holds
+Steam's build id and the executable's date, not that number). The builders
+fork vanilla files, the `language_*` and `systems` files merge with
+vanilla's key by key, and the missions field stock units by id
+(`campaign_data.py` names a unit's mod `_vanilla` when it is stock), so a
+changed vanilla file matters through whatever here depends on it. Each SEST
+pack declares the game's version in its `_info.ini` (`[Compatibility]`
+`ApproximateVersion`) from a literal in its builder;
+`tools/consolidate_packs.py` holds no literal and gives the consolidated
+pack the highest version among its components, so a stale component shows
+only in its own `_info.ini`. And the Workshop mods declare their own. Two
+tools read all of that: `tools/check_vanilla_drift.py` says
+what the update changed and what depends on each change, and
+`tools/check_game_version.py` says which declarations the new version fails.
+The order of work is the PC exporting the new game, then a session reading
+the drift, bumping, rebuilding and gating, then the usual sync.
+
+### On the PC: export the new game, snapshot it, push
+
+Game closed, after launching it once: Steam finishes the update at launch,
+and the game writes the new build's `player.log` and, on exit, its
+`usersettings.ini`, which the capture reads. Paste this into PowerShell as
+one block. It has no blank lines on purpose; if it stops at a `>>` prompt,
+press Enter once more.
+
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
+  git checkout sest-dev/loving-bell-3cnvvw
+  if ($LASTEXITCODE) { throw 'checkout failed' }
+  git pull --ff-only origin sest-dev/loving-bell-3cnvvw
+  if ($LASTEXITCODE) { throw 'pull refused - stop and report it' }
+  powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla
+  if ($LASTEXITCODE) { throw 'export failed - read its last lines; nothing has been committed' }
+  git add -A mods-source
+  git commit -m 'Mod export after the Sea Power update'
+  if ($LASTEXITCODE) { throw 'nothing to commit - not even the changelog moved, so the game has not updated or the export did not read it; read its output' }
+  powershell -ExecutionPolicy Bypass -File .\tools\capture-context.ps1 -Redact
+  if ($LASTEXITCODE) { throw 'capture failed - read its last lines' }
+  git add -A data\install-snapshot
+  git commit -m 'Install snapshot after the Sea Power update'
+  if ($LASTEXITCODE) { throw 'nothing to commit - the capture wrote nothing new' }
+  git push origin sest-dev/loving-bell-3cnvvw
+  if ($LASTEXITCODE) { throw 'push failed' }
+  Get-Content -LiteralPath data\install-snapshot\changelog.live.txt -TotalCount 8
+  Get-Content -LiteralPath data\install-snapshot\game-build.txt
+}
+```
+
+It stops before anything is committed if the game is running, if the clone
+has changes of its own, or if the export fails, and at the first commit if
+nothing changed. An update always rewrites the game's `changelog.txt`, which
+the game ships outside `StreamingAssets` (in `Sea Power_Data` or beside `Sea
+Power.exe`); since 2 Oct the exporter's `-IncludeVanilla` copies it in as
+`mods-source/_vanilla/changelog.txt` (before that the file had been placed
+by hand with the first export), the drift tool reads the old and new game
+version from it, and `check_game_version.py` compares it with the
+snapshot's copy. An unchanged tree therefore means the game has not
+updated, or the export did not read it (its output says `vanilla export
+skipped` when it could not find the install, and warns when it could not
+find the changelog). The last
+lines it prints are the new changelog head, whose `dd-Mon-yyyy: X.Y.Z Build
+#N` line is the version everything below works from, and Steam's build
+record. Report both. If a campaign is under way, add `-IncludeSaves` to the
+capture line before running it; the save paragraph below says why.
+
+**What the export cannot tell you: files the game removed.** The per-mod
+export mirrors deletions; the vanilla export does not.
+`export-mod-configs.ps1` copies each StreamingAssets text file over
+`mods-source/_vanilla` with `-Force` and removes nothing (its
+`-IncludeVanilla` block, beside the per-mod mirror above it), so a file the
+update dropped stays
+in `_vanilla/original`, keeps resolving for every checker, and looks the
+same as a file the game still ships. The proof is already in the tree: six
+`SEST_*` folders under `mods-source/_vanilla/`, exported before the script
+learned to skip installed packs (`fe24f0c0`, 26 Aug), still there, still
+declaring `ApproximateVersion=0.6.8`. The drift tool compares the working
+tree against git, so its *removed* list names what is gone from the tree,
+not what the game dropped while the export left the file in place. Finding
+those needs the game on disk, so it is a PC step, game closed or open:
+
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  . .\tools\lib\common.ps1
+  $sa = Find-StreamingAssets
+  if (-not $sa) { throw 'Sea Power StreamingAssets not found' }
+  $live = Join-Path $sa 'original'
+  $repo = (Resolve-Path -LiteralPath 'mods-source\_vanilla\original').Path
+  $gone = @(Get-ChildItem -LiteralPath $repo -Recurse -File | Where-Object { -not (Test-Path -LiteralPath (Join-Path $live $_.FullName.Substring($repo.Length + 1))) })
+  'Files in mods-source\_vanilla\original the game no longer ships: {0}' -f $gone.Count
+  $gone | ForEach-Object { $_.FullName.Substring($repo.Length + 1) }
+}
+```
+
+It lists every file in the repo's vanilla export that the installed game no
+longer has. Delete what it lists, commit the deletions with the export
+(`git add -A mods-source\_vanilla`), and the drift tool reports each as
+removed with what here forks or fields it, which is what its exit code is
+for. The exporter's `-DestDir` applies to vanilla too, so a clean export
+beside the repo (*Known red* above) is the other route.
+
+### In the repo: read the drift, bump the version, rebuild, gate, document, push
+
+1. **Note the baseline, then merge the deploy branch.** The drift tool's
+   default baseline is the last commit that touched the export, which after
+   the merge is the PC's own, so record the one before it first:
+
+   ```bash
+   git log -1 --format=%h -- mods-source/_vanilla/original   # the drift baseline: a4d3c1c1 on 2 Oct 2026
+   git fetch origin
+   git merge origin/sest-dev/loving-bell-3cnvvw
+   ```
+
+   The PC's two commits touch `mods-source/` and `data/install-snapshot/`,
+   which no session edits by hand, so the merge should have nothing to
+   resolve.
+
+2. **Read what moved.**
+
+   ```bash
+   python3 tools/check_vanilla_drift.py --since <baseline>
+   ```
+
+   It lists what the update added, removed and changed in
+   `_vanilla/original` and, for each, what depends on it. Read it in this
+   order. An **overridden** file that a pack carries as a static copy, and a
+   **merged-key clash** (a key vanilla now defines that a pack's
+   `language_*` or `systems` file also defines - the builders refuse to
+   shadow a vanilla key, so the build stops on it), are hand fixes: re-fork
+   the copy from the new file, or rename or drop the pack's key. An
+   overridden file whose builder names it is rebased by the rebuild in
+   step 4; `check_pack_fidelity.py` proves the result for
+   SEST_Replenishment's forks, which are most of them, and the other packs'
+   forks have no such gate, so read the rebuild's diff. A **removed**
+   unit that a mission fields is a mission edit: re-type it, as Southern
+   Watch 11's Burke was re-typed when its Flight IIA file went. **New
+   content** is an opportunity, not a fault: vanilla is a source the
+   coverage reads, not a row it must reach, so a new stock unit fails
+   nothing by being left alone. The test to apply is the one the coverage
+   rule applies to a mod (`EXCUSES` in `integration/campaign/campaign_data.py`,
+   whose builder rejects an excuse that has become untrue): either a mission
+   can field it with realism, or there is a reason it cannot. The tool exits
+   1 on the static copy, the clash and the removed fielded unit, and 0 on
+   the rest.
+
+3. **Check the version, then bump it.**
+
+   ```bash
+   python3 tools/check_game_version.py                 # reads data/install-snapshot/changelog.live.txt
+   python3 tools/check_game_version.py --bump X.Y.Z    # X.Y.Z: the version the PC block printed
+   ```
+
+   The first run names every pack and builder whose `ApproximateVersion`
+   differs from the game's, and every Workshop mod whose declared range
+   excludes it, and exits 1 on either. On 2 Oct 2026, against 0.8.2, it
+   already fails four packs: `SEST_ADF_Persistent_ISR` declares 0.6.8,
+   `SEST_Rafale_F5` 0.8.1, and `SEST_Allied_Fixes` and `SEST_B52_ARRW`
+   declare nothing. `--bump` rewrites the literal in every builder and
+   every static `_info.ini` and prints each file it changes; it cannot
+   rewrite a literal that is not there, so the two builders that write
+   `_info.ini` without one (`integration/allied-fixes/build_patch.py`,
+   `integration/b52-arrw/build_patch.py`) get their `[Compatibility]`
+   section by hand. The builder-written `_info.ini` files stay stale until
+   the rebuild.
+
+4. **Rebuild everything.**
+
+   ```bash
+   python3 tools/build_all.py --from-scratch           # about 90 s; 20 packs, then the consolidated dist
+   ```
+
+5. **Every gate.** Known red on this branch: `check_inventory.py` on the
+   four line-ending mods (3775128499, 3776340577, 3780118683, 3781062859)
+   and, until it is resolved, the Rafale (3504168760), which also reddens
+   `check_campaign_coverage`, `check_dependencies` and `preflight --all`
+   wherever they meet its files, and one test in `test_build_pack.py`
+   (`AlliedFleet`, on `fr_rafale_m_l`). *Known red* above has both stories.
+   Anything else red is the update's, and step 2's report says where.
+
+   ```bash
+   python3 tools/check_pack_fidelity.py
+   python3 tools/check_campaign_coverage.py
+   python3 tools/check_dependencies.py
+   python3 tools/check_load_order.py
+   python3 tools/preflight.py --all
+   python3 tools/check_weapon_employment.py
+   python3 tools/check_alias_bases.py
+   python3 tools/check_scenarios.py
+   python3 tools/check_stale_phrases.py
+   python3 tools/check_inventory.py
+   python3 tools/check_game_version.py                 # green now, but for Workshop ranges no bump can fix
+   python3 tools/check_vanilla_drift.py --since <baseline>   # green once the hand fixes are in
+   ```
+
+6. **Both test suites.**
+
+   ```bash
+   python3 -m unittest discover -s tools/tests -p 'test_*.py'
+   python3 -m unittest integration/campaign/test_build_pack.py
+   ```
+
+7. **Regenerate the derived docs, then update the hand-written ones.**
+
+   ```bash
+   python3 tools/generate_load_order.py      # docs/load-order-full.md
+   python3 tools/generate_catalog.py         # docs/mod-catalog.md
+   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1201 on 2 Oct 2026
+   ```
+
+   By hand: the install guide's count, if it moved - the `IN LINE: all 1201
+   installed files` line under *Already aligned once?*, `N is 1201` in
+   step 4 of `docs/campaigns/southern-reach/install-alignment.md` and the
+   derivation under that table, which ends `1201 with The Twelve-Mile Line`
+   and gains a clause for what the update added or removed - and
+   `Consolidated, they are 1201 files` in `README.md`;
+   a dated section in each campaign's `build-notes.md`
+   (`docs/campaigns/<campaign>/`, in the style of *Rivet Joint (30
+   September)* in Southern Reach's and Red Line's) saying what the update
+   changed under that campaign, what
+   was re-typed or placed, and what is not demonstrated; and the version
+   and file count at the top of this section.
+
+8. **Commit and push the session's branch.**
+
+   ```bash
+   git add -A
+   git commit -m "Rebuild on the X.Y.Z export: <what the drift report named>"
+   git push origin claude/campaign-missions-lore-td653z     # or the session's branch
+   ```
+
+9. **Then the PC runs the standard update block** (*Already aligned once?*
+   in `docs/campaigns/southern-reach/install-alignment.md`): it
+   fast-forwards the deploy branch to the session's and syncs, and its last
+   line must read `IN LINE: all 1201 installed files match this commit`, or
+   the new count from step 7.
+
+### What the update does to a Task Force Mode save
+
+Not known. The repo has no record of a Task Force Mode save carried across
+a game update: the campaigns were built against 0.8.2, and the snapshot's
+`campaign-saves.txt` lists two stock campaign saves beside that game, one
+from 24 Apr 2026, before 0.8.0, and one from 15 Aug, without recording
+whether the April one still opens. The changelog's other `Save/Load` lines
+are fixes and additions to what a save carries (reloaded aircraft losing
+livery, callsign and loadouts; sonobuoy timers; sensors re-enabled after a
+load and breaking EMCON; survivor rescue), not a statement about saves
+across versions. The
+one line that speaks to it, in 0.7.9 Build #321 of 25 Mar 2026, is
+`Save/Load of formation control mode (will not work for old saves)`: the old
+save loaded, without the new behaviour, for that one feature. What the repo
+does say is about its own changes, not the game's: a mission-file change
+needs nothing (continue the campaign, as after the Rig Seventeen fix); a
+new campaign entry (The Twelve-Mile Line) means a campaign already past
+that point should be started again; a `campaign.ini` value changed under a
+running campaign may not reach it (the same-nation discount, test card G.6).
+A game update that changes a stock unit a saved force holds is the case
+none of those cover.
+
+So before anything plays on the new build, capture with `-IncludeSaves`
+(`capture-context.ps1 -Redact -IncludeSaves`, game closed): it copies the
+campaign saves first, then the newest mission saves, up to six files, into
+`data\install-snapshot\saves\`, the only copy outside the game's folder and
+Steam Cloud. Then continue the campaign and report what happens; Southern
+Watch test card 6.4 (save mid-campaign, quit, reload) is the check, and
+*When something is wrong* in the install guide has the capture command for
+a mission that dies loading.
+
+### The Workshop mods' own declarations
+
+The Mod Manager reads `[Compatibility]` from every mod's `_info.ini`. The
+rule, as the stock comment carried in 102 of the exported manifests states
+it, is that `ApproximateVersion` "checks MAJOR and MINOR match but will
+accept higher PATCH", and overrides the range keys when both are present.
+Of the 144 exported mods, 118 declare an `ApproximateVersion`, so on a
+0.9.x game every one of them fails that check, as the SEST packs did when
+they declared 0.6.8 against a 0.8.x game
+(`docs/interoperability-report.md` records the flag the Mod Manager
+showed; what a flag costs beyond the mark is not recorded here). Eight
+declare a range instead, two of them with an upper bound: Anchor Chain
+(3380210757) admits `0.4.0 <= v < 1.0.0`, and Coordinated Strike Tool
+(3806686336) admits `0.8.2 <= v < 0.9.0`, so a 0.9.x game marks it
+incompatible until its author widens the range and the next export brings
+the new manifest; nothing in this repo can change that, and
+`check_game_version.py` exits 1 on it until then. The other 18 have no
+`[Compatibility]` section at all, so there is nothing for the check to fail
+them on; what the Mod Manager shows for them is not recorded here
+(`grep -L '\[Compatibility\]' mods-source/*/_info.ini` lists them).
+The export is what brings an author's new declaration here, so a Workshop
+exclusion that persists after an update is a reason to re-export, not a
+reason to edit `mods-source`.
+
 ## Pre-flight
 
 Six checks, all offline, all exit non-zero on failure. Run them after any

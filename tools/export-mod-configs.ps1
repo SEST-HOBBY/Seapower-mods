@@ -237,6 +237,18 @@ if ($IncludeVanilla) {
                 Copy-Item -LiteralPath $f.FullName -Destination $target -Force
             }
             Write-Host "Vanilla definitions exported to $vanillaDest ($($files.Count) files)"
+            # The game's own changelog lives beside the executable, not under
+            # StreamingAssets, so the loop above never sees it. Copy it in as
+            # mods-source\_vanilla\changelog.txt: its first "Build #" line is the
+            # game version tools\check_vanilla_drift.py and check_game_version.py
+            # read, and the one the repo's baseline (0.8.2 Build #358) came from.
+            $gameRoot = Split-Path -Parent $sa.FullName
+            $chg = Join-Path $gameRoot "changelog.txt"
+            if (-not (Test-Path -LiteralPath $chg)) { $chg = Join-Path (Split-Path -Parent $gameRoot) "changelog.txt" }
+            if (Test-Path -LiteralPath $chg) {
+                Copy-Item -LiteralPath $chg -Destination (Join-Path $vanillaDest "changelog.txt") -Force
+                Write-Host "Game changelog copied to _vanilla\changelog.txt ($((Get-Content -LiteralPath $chg -TotalCount 12 | Where-Object { $_ -match 'Build #' } | Select-Object -First 1).Trim()))"
+            } else { Write-Warning "changelog.txt not found beside the install; _vanilla\changelog.txt left as it was." }
         } else { Write-Warning "StreamingAssets not found under $($game.GameDir); vanilla export skipped." }
     }
 }
