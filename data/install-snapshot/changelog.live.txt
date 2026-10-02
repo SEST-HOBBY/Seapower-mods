@@ -3,6 +3,525 @@ Change log
 
 ===============================================================================
 
+01-Oct-2026: 0.8.3 Build 261001 Public Release
+----------------------------------------------
+[UPD] Translations
+[UPD] Weapons: added sustained fire cooldown after firing 500/1000 (blk0/blk1) rounds for Mk15 Phalanx
+
+===============================================================================
+
+30-Sep-2026: 0.8.2 Build 260930
+-------------------------------
+[FIX] Fix baked data for alias/copy files, and fix timed rounds airbursting vs surface targets
+[FIX] Units: Jianghu 1-3, Jiangdong, ammo type issue
+[FIX] Units: Yukan LST visual sensor (AdvancedOptics -> Optics)
+[FIX] Units: removed LoadoutVariant entries from Udaloy to maintain existing mission compatibility
+[FIX] Breakthrough ship variants and loadouts
+[FIX] Null ref and exceptions
+
+[UPD] Units: adjusted DateBased year switches of AGM-84D to 1988 for A-6E, F/A-18A, B-52G (based upon SWIP and B-52G ASuW upd. IOCs)
+[UPD] Units: added AGM-88 HARM via DateBased loadout to A-6E after 1988
+[UPD] EXPERIMENTAL: Weapons: new volumetric rocket motor effects for AAMs and some SAMs (WIP)
+
+===============================================================================
+
+29-Sep-2026: 0.8.2 Build 260929
+-------------------------------
+[UPD] cosmetic change
+
+===============================================================================
+
+28-Sep-2026: 0.8.2 Build 260928b
+--------------------------------
+[FIX] Fix bombs not being dropped at times when at very low altitude
+[FIX] Fixed campaign persistence for units sometimes not working
+[FIX] Fix bombing accuracy
+[FIX] Gate night ground attack on vision requirements
+[FIX] Tweak points cost calculator to take into account bomb accuracy and night bombing capability
+[FIX] MoveToEngage state does not display what is engaged and with what
+[FIX] AI CAP planes excluded from CAP after save/load
+[FIX] Units: Virginia, California - restricted gun angles to prevent superstructure clipping
+[FIX] Units: Luda 1, Jianghu 1-3 - AdvancedOptics -> Optics (was holdover from original setup)
+[FIX] Units: gun AssociatedSensor arrangement updated or fixed for most ships
+[FIX] Units: missing FCR on Beir Grassa, Tiger
+[FIX] Units: Oberon (RCN, RAN) - added wire limit of 2
+[FIX] Units: typo with Long Beach service date
+[FIX] Spruance (VLS), Hatsuyuki - CIWS ammo type changed to APDS
+[FIX] Some memory leaks
+
+[UPD] Gunnery overhaul: continued refinement of FCR stats and new gunnery accuracy, better surface accuracy (depending on FCR) and lower missile hit rates
+[UPD] Units: added LoadoutDate values to: B-52G, F-5E, AH-1T, AV-8C, A-6E, A-7E, EA-6B, F/A-18, P-3C
+[UPD] Units: La Combattante, Pegasus - now  has Mk92 search radar
+[UPD] Units: expanded missile firing arcs for: Adams (all), Virginia, California
+[UPD] Weapons: added 'Timed' fuze property to some rounds, instead of the default proximity fuze
+[UPD] Weapons: small tweaks to CIWS hit rates, slightly lower
+[UPD] Performance: changed wake bubble object type to reduce clutter in objects list
+[UPD] Performance: cleaned up incoming threat and weapons tracker
+[UPD] Performance: moving wave sample code into burst job
+[UPD] Translations
+
+[NEW] Added warning display & mouseover for daylight-only loadouts (e.g. Walleye 2) and aircraft (e.g. Yak-38) when used at night
+[NEW] Weapons: SA-N-4C (Osa-MA2)
+[NEW] Weapons: SA-N-3B (Shtorm-N)
+[NEW] Weapons: SA-N-1D (Volna-N)
+
+===============================================================================
+
+23-Sep-2026: 0.8.2 Build #370 (23970)
+-------------------------------------
+[FIX] Fix date based pricing and campaign pricing bugs for duplicating points with buying/selling empty units
+[FIX] Fix aircraft diving when they aren't supposed to for weapon drops
+[FIX] Fix some alignment bugs, and add an alignment debug overlay
+[FIX] Null refs and memory leaks
+[FIX] Incorrect material loading in Encyclopedia
+[FIX] Weapons: ASM-1 service dates
+[FIX] Scenario: Fixed Udaloy loadouts in "Narvik Counterattack 1985"
+
+===============================================================================
+
+17-Sep-2026: 0.8.2 Build #369 (23931)
+-------------------------------------
+[FIX] Fixed potential crash in linear campaign
+
+===============================================================================
+
+17-Sep-2026: 0.8.2 Build #368 (23928)
+-------------------------------------
+[FIX] Torpedo could try to dive to bigger depth than it can handle during transition
+[FIX] 53-61 wake trajectory
+[FIX] Unit reference tree view filter buttons text wrapping
+[FIX] Torpedo salvo launch leads to sub stuck in alignment
+[FIX] Random loadouts were lost
+[FIX] Altitude correction for low level attack
+[FIX] Fix shaddock sometimes popping up away from a target
+[FIX] Null refs and errors
+
+[UPD] Unit/Weapon/Sensor reference windows sizzes reduced to previous values and layout improved to fit all contents with different UI scales
+[UPD] Translations
+[UPD] Weapons: reduced minimum range of Soviet AAMs (by about half)
+[UPD] Weapons: slightly increased base seeker range of AA-6D and AA-7D (6nmi -> 7nmi)
+[UPD] Weapons: slightly reduce drag on AA-8 to correspond with R-60MK's performance
+[UPD] Clarify bombing accuracy info and add debug info
+
+===============================================================================
+
+14-Sep-2026: 0.8.2 Build #367 (23894)
+-------------------------------------
+[FIX] Task Force Mode: Opening Encyclopedia from TF mode UI will now show full Encyclopedia, vs single unit pages
+[FIX] Modding: Added flag for correct OBJ import orientation (opt-in only): add CORRECT_OBJ_ORIENTATION to the end if your .obj RootMesh reference to use this
+[FIX] Aircraft: Added failsafe for manually tampering with holding queue
+[FIX] Aircraft: Formation aircraft accelerating differently on an attack run
+[FIX] Aircraft: Aircraft leader slows down after launch so wingmen can easier catch up with formation
+[FIX] Aircraft: Fixed altitude jump on joining formation
+[FIX] Campaign: Pacific Strike: fixed victory trigger for mission 08
+[FIX] Campaign: Pacific Strike: removing Grisha spam from 06
+[FIX] Fixed some issues with CIWS working incorrectly after overhaul
+[FIX] Bombing dispersion bugs
+[FIX] Reduced the chance of guns to kill aircraft and missiles
+[FIX] Units: on-load error with Improved Victor-III
+[FIX] Units: issues with variants of N22 Nomad
+[FIX] Units: F-111C crew type no longer Soviet
+[FIX] Units: Mairangi Bay length and beam added
+[FIX] Units: 100mm 56 TK coastal artillery - corrected armor, firing range and sensor setup
+[FIX] Units: 100mm 56 TK coastal artillery - muzzle flash offset
+[FIX] Units: Galerna SSK - fixed erroneous sensor setup
+[FIX] Units: Aliya PTG - removed duplicate lines
+[FIX] Units: CH-46 - removed extraneous position value
+[FIX] Units: added bespoke launcher type to 'Late' Echo-II SSGN, preventing SS-N-3 ships from carrying SS-N-12
+[FIX] Units: LOD distances on Iowa BB
+[FIX] Sensors: sonobuoy underperformance (still much lower than 0.8.0 however, as is expected)
+[FIX] Weapons: motor effect on AA-10
+[FIX] Weapons: RIM-66H weapon report image
+[FIX] Weapons: AShMs with rocket sustainers now all have in-flight SFX
+[FIX] Weapons: AIM-9L/M - removed duplicate lines
+[FIX] Weapons: SLQ-25 Nixie - removed duplicate lines
+[FIX] Voiceovers: Fixed radio effect on US_Male_2 "Bloodhound Loose" VO
+[FIX] Null refs
+
+[UPD] Helicopter audio is now quieter; helicopters can now have custom engine volume set in INI files, like jets and ships
+[UPD] Encyclopedia: Changed Unit Reference layout to improve UX
+[UPD] Mission Editor: Improved aircraft selection when placing aircraft groups; fixed double-click required to place them
+[UPD] Units: Improved Victor-III SSN now has updated textures
+[UPD] Units: added TEST-71 to default Victor-II SSN loadout
+[UPD] Units: added peace signing plaque to BB-63 Missouri
+[UPD] Weapons: RIM-2, RIM-24, RIM-66, RIM-67 - marginal (5%) reduction to out-of-alt penalty value
+[UPD] Weapons: SA-3, SA-N-1C, SA-N-4B, SA-N-3 - adjusted ECCM, max attack speed, and out-of-alt penalty modifier
+[UPD] Weapons: SET-65, 53-65K, USET-80 - allow use from all soviet 533mm tubes, including shipboard ones
+[UPD] Clean up and improve the INI and asset loading
+[UPD] Sentry crash reporting to 4.10.0
+[UPD] Translations
+
+[NEW] Added Picture in Picture mode - hitting Tab now maximizes the Map and moves the 3D view into a smaller PIP window; old behavior of only maximizing map is still available as a 
+[NEW] 3D view window can be moved to 2nd monitor, leaving game UI on first monitor
+[NEW] Voiceovers: Added Argentine-accented Spanish voiceovers for Argentina & Chile, and as placeholder for Cuba and Spain
+[NEW] Voiceovers: Added capability for units to speak over each other, enabled via Options menu setting under Audio options, off by default
+[NEW] Mission Editor: Added new "Retreat" trigger action; specified units will automatically retreat to the retreat zone when activated
+[NEW] Mission Editor: added button to duplicate a trigger
+[NEW] Added Encyclopedia profiles for all air-to-air and air-to-surface missiles
+[NEW] Added info on fire control to the Encyclopedia
+[NEW] Units: Type 021 PTG (Huangfeng-class)
+[NEW] Weapons: SAET-50M passive-homing antiship torpedo
+[NEW] Weapons: SET-53M passive-homing anti-submarine torpedo
+[NEW] Weapons: 53-61 wake-homing torpedo
+
+===============================================================================
+
+06-Sep-2026: 0.8.2 Build #366 (23810)
+-------------------------------------
+[FIX] Mission Editor: Civilian ships can once again be added properly
+[FIX] Mission Editor: Aircraft can be added to groups properly with single click; aircraft update properly when new aircraft is selected
+[FIX] Fixed OODA panel getting stuck on second mission launch
+[FIX] Task Force Mode: fixed some pricing errors for stores editor
+[FIX] CIWS and machinegun audio persistent loop bug
+[FIX] Aerial Refueling: Formation leaders would ignore refuel orders and halt the entire process
+[FIX] Units: Spruance DD (VLS), Bunker Hill CG - corrected loadouts and fixed launcher setup
+[FIX] Units: Ticonderoga CG, Alaska CGN, Spruance DD (ASROC) - re-added loadouts erroneously excluded
+[FIX] Fixed slow carrier action
+[FIX] Adjusted brightness of LLLTV and night vision optical views to be useable at night
+
+[UPD] Weapons: D-704 refuel pod fuel changed to 908kg
+[UPD] Orders Panel: "Player units auto attack surface" removed from Options and relocated into Standing Orders panel where it belongs
+[UPD] Formation Manager: selecting formation members no longer auto-expands the formation dropdowns
+[UPD] Formation Manager: removed the unit role descriptor from FM as this serves no purpose currently
+[UPD] Corrected ammunition_names file (fixed AAM seeker type, metel designation, soviet SAM brevity)
+[UPD] Improve air dropped torpedo logic(no more torpedo bomber SH-2s)
+[UPD] Added new optical views, removed stabilized LLLTV on many ships in favor of more historical optical/ROS/EOSS sights or GFCS optics
+[UPD] Units: added new optical views for gunship helicopters
+[UPD] Units: increased reaction time of american FF/FFG combat systems (temporary measure)
+[UPD] Weapons: added Home On Jam to: SS-N-3B, SS-N-9, SS-N-12, SS-N-19, SS-N-22
+[UPD] Weapons: adjusted characteristics of SS-N-19: seeker band X -> Ka, TerminalAlt 40ft -> 32ft, MaxVelocity 970kt -> 1100kt
+[UPD] Weapons: marginal improvement in maneuverability and low-alt capability of SA-N-1C, SA-N-3, SA-N-4B
+[UPD] Weapons: adjusted parameters of AK-230, AK-630 CIWS
+[UPD] Weapons: added Phalanx Block 1 (more ammo, fast reload, faster fire rate) to Bunker Hill, Spruance VLS, Perry Long-hull (Late), Iowa BB
+[UPD] Weapons: added new 'late' texture for SA-N-1C
+[UPD] Sensors: SPY-1A minimum altitude 10m -> 0m
+
+[NEW] Mission Editor: New "Air Operations" tab for setting up the legacy CivilianRoutes as fully supported feature, with route visualization and scheduling
+- Managed from new Air Operations tab from tab dropdown expander in Mission Editor
+- Allows all previous CivilianRoute editing through UI
+- Allows full waypoint editing via UI including speed/altitude/sensor/ROE changes, attack waypoints, refuel orders, RTB
+- Waypoints can now be set as relative to specific units to enable auto-moving CAP/AEW stations, etc
+- Works for player, neutral, red and will work for future multi-sides
+- Legacy CivilianRoutes are supported
+- Waypoints will calculate each aircraft's fuel range based on loadout, speed, altitude and warn if the next WP is unreachable due to max range
+- Routes can be disabled at start and then enabled/disabled/reactivated via new trigger actions
+[NEW] Orders Panel: New "Ships use anti-ship missiles on Weapons Free" toggle
+[NEW] Split "Use NATO names" for weapons/units
+
+===============================================================================
+
+03-Sep-2026: 0.8.2 Build #365 (23795)
+-------------------------------------
+[FIX] Task Force Mode: Restored option for picking commander of any nation when Unrestricted Mode is enabled
+[FIX] Formation Manager: Disbanding formations no longer removes the lead ship from formation manager
+[FIX] Mission Editor: Nation selection for adding groups shows Civilian option again
+[FIX] Voiceovers: Fixed unimplemented Magnum and Bloodhound Loose VOs for US_Male_2
+[FIX] Voiceovers: Australian voiceover no longer repeats "multiple" in contact detection reports
+[FIX] Null refs and crashes
+[FIX] Units: Added California date based Harpoons
+[FIX] Fixed low altitude FCR issues
+[FIX] Fixed "ships on weapons tight engage aircraft" turning on radars and breaking EMCON unnecessarily
+[FIX] RGM-84D was erroneously designated as C in the RU locale
+
+[UPD] Loadouts: reverted removal of loadouts, all ship loadouts removed in previous update are restored
+[UPD] Task Force Mode: Campaign difficulty settings are now sliders
+[UPD] Campaign: Pacific Strike: removed Yak-38 from mission 02 roster
+[UPD] Campaign: Pacific Strike: removed Heku variants from enemy ORBAT
+[UPD] Doctrine Panel: Doctrine Panel is now "Standing Orders" to better reflect its purpose
+[UPD] Doctrine Panel: "Ships on Weapons Tight engage hostile aircraft" flipped to off by default - added tooltip explaining this change can cause ships to turn on radar to engage
+[UPD] Doctrine Panel: Ship auto-align toggle moved to Surface Vessel group and defaults to On
+[UPD] Formation Manager: double clicking a formation no longer auto-expands it
+[UPD] Mod Manager: various overhauls to improve usability of mod manager
+[UPD] Units: All aircraft now have proper configs for aerial refueling
+[UPD] Units: Removed stub KC-135 and replaced with proper KC-10
+[UPD] Units: Removed stub Tu-16N; will backfill with proper USSR refueler when art assets ready
+[UPD] Units: Changed Tu-22M2 to probe and drogue refueling type
+[UPD] Updated Noesis UI framework to 4.0
+
+[NEW] Unit Status: Added Unit Status panel which consolidates the OODA "Engagement", sensor test panel, flight deck, and damage control UIs into one window, invoked with Shift+Y hotkey
+[NEW] Doctrine Panel: added new hotkey LeftShift+O to open Standing Orders panel
+[NEW] Voiceovers: multiple speakers per country are now possible, with different speakers randomly assigned to each unit
+[NEW] Voiceovers: Added second US English speaker (thanks to Brian Watts!)
+[NEW] Ability to select default color for drawing
+
+===============================================================================
+
+31-Aug-2026: 0.8.2 Build #364 (23746)
+-------------------------------------
+[FIX] Missing checkmarks in rally point altitude
+[FIX] SARH and radio-command missiles no longer track targets beyond guidance range
+[FIX] Incorrect terminal handoff for seeker-guided missiles after MCC loss
+[FIX] Snow during summer on Falklands
+[FIX] Fixes for DM Sonar tool
+[FIX] Fix scroll wheel causing freeze on weapon hover
+[FIX] Fix point calculator missing default weapons if they are optional
+[FIX] Fix some issues with CIWS info
+[FIX] Fix bad band warning for ARM
+[FIX] FIx FCR altitude weirdness
+[FIX] Fix encyclopedia not searching when paused and lagging on search
+[FIX] Fix kinematic quaternion degenerecy (missiles stopped turning sometimes if turn rate was really low)
+[FIX] Enemy jamming and under fire VOs no longer repeat at such high interval
+[FIX] Fixed incorrect minimum drag coefficient selection, restoring proper aircraft acceleration
+[FIX] Save/Load: Campaign save could be loaded only once per session
+[FIX] Save/Load: Incorrect loading of mission score
+[FIX] Save/Load: Loading save with landing aircraft could get that aircraft destroyed
+[FIX] Save/Load: No magazine system ammunition incorrectly displayed after save reload
+[FIX] Save/Load: Player victory state was not saved in game save
+[FIX] Save/Load: survivors onboard aircraft are now properly saved/loaded
+[FIX] Save/Load: map layers were not always saved/loaded
+[FIX] Save/Load: Wake bubbles are now properly saved
+[FIX] Task Force Mode: Crew skill rules for mission survival promotion are properly reflected in campaign rules for all difficulty modes
+[FIX] Task Force Mode: Fix point values for weapon swaps
+[FIX] Task Force Mode: fixed points scaling on manually set prices
+[FIX] Task Force Mode: fixed lag in some TF Mode menus
+[FIX] Mission Editor: Mission briefing previews are now unified across both legacy format and the new generated briefing map format
+[FIX] Mission Editor: briefing folder was not being properly created from the UI when new briefing text was entered and saved
+[FIX] Units: Tachikaze 1984 livery issue
+[FIX] Units: Udaloy FCR RestAngles
+[FIX] Units: Kashin Mod now has launcher elevation
+[FIX] Units: F-111 range is now twice its original value
+[FIX] Units: Los Angeles SSN now has corrected ammo loads (four less torpedoes)
+[FIX] Units: Sturgeon SSN (80s) - corrected service dates
+[FIX] Units: Slava RKR - corrected FCR rest angle
+[FIX] Sensors: RTN-10X MaxAltitude value (broke Gabriel missile targeting)
+[FIX] Weapons: AS-12 ARM (Kh-25MP) fixed trajectory
+[FIX] Weapons: Implemented proper shoot-look-shoot method for 2-missile and saturation salvos
+[FIX] Weapons: SearchMode "None" was selected instead of default SearchMode
+[FIX] Weapons: Inconsistent in-wake speeds for WH. Now set to terminal-5kts
+[FIX] Weapons: GuidancePodNoAlignment cuts connection with weapon after launch
+[FIX] Weapons: "New cool way" for TV seeker
+[FIX] Weapons: Shmatalink MCC was invisible to RWR
+[FIX] Weapons: NoseUp for missiles rotated only main mesh
+[FIX] Weapons: AS-14B forces pop-up
+[FIX] Threats: 3D->2D calculation
+[FIX] Null refs and crashes
+
+[UPD] Sonar shadow zone and bottom reverb updates
+[UPD] Player aircraft now RTB on weapons hold
+[UPD] Weapon aim tool on hover over contact shows only for localized contacts
+[UPD] Task Force Mode: Moved all commander setup into campaign pre-launch setup window; added ability to customize all difficulty options
+[UPD] Encyclopedia: updated encyclopedia formatting and added more info to units
+[UPD] Scenario: Updated Perry in Narvik Counterattack to remove RIM-66E
+[UPD] Units: Knox FF now has ASROC launcher split into two weapon systems, one for ASROC and one for AShMs
+[UPD] Units: Los Angeles maximum speed 35kt -> 32kt (data now accurate for D1G core @150MWt)
+[UPD] Units: T2 Tanker - added loadout specifically for the gun, by default does not have a gun
+[UPD] Units: removed extraneous loadouts from ships: Tachikaze (pre-FRAM), Yushio SSK, Belknap 72, Leahy 68, Long Beach 73, Virginia, Spruance, Adams (Mk-13, 1980), Perry (short and long hull), Knox (BPDMS, 1980), Udaloy, Sovremenny
+[UPD] Units: Alaska CGN ArmorType Heavy -> Moderate
+[UPD] Units: removed extraneous loadouts from: Gal SS, Kobben SS, Hangor SSK, Hashmat SSK, Iowa BB, California CGN, Spruance ABL, Coontz DDG, Kidd DDG, all american SSBN/SSNs, all soviet submarines, Kanin BPK, Kashin BKP, Osa 2 PTG, Kresta 1 RKR
+[UPD] Units: CV Forrestal - added phoenix in default flightdeck loadout
+[UPD] Units: Diesel-electric subs stats, mostly underwater endurance
+[UPD] Sensors: APY-1 no longer capable of detecting surface targets
+[UPD] Sensors: sonobuoys now have reduced gain, specified frequencies
+[UPD] Sensors: All sensors now have a unified sensor position that can be offsetted via ini
+[UPD] Sensors: USN submarine ESM sets have slightly increased range
+[UPD] Weapons: RGM-109 name now 'TLAM-C' or 'TASM' instead of just 'Tomahawk'
+[UPD] Weapons: MG-74, TEST-71, USET-80 - very slight tweaks to speeds and max depth
+[UPD] Weapons: SST-4 Torpedo - added wire parameters
+[UPD] Campaign: Pacific Strike: added Tachikaze (FRAM), Takatsuki (FRAM), and Hatsuyuki DDs to Pacific Strike
+[UPD] Campaign: Pacific Strike: updated all missions to use new dynamic unit generation; added Situation panel tracking enemy theater ORBAT
+[UPD] Improvements to Task Force Mode and custom ship loadouts
+[UPD] Steamworks to latest 2025.164.1 (SDK: 1.64)
+[UPD] Sentry to latest 4.8.0
+[UPD] Translations
+
+[NEW] Doctrine Panel
+- Allows setup of doctrine at Global, Formation, and Unit level
+- Formation and Unit doctrine can be setup to override Global doctrine
+- Formation and Unit doctrine is saved/loaded inside missions
+- Global doctrine can be saved to your profile by hitting the Save Doctrine button (writes into usersettings.ini)
+[NEW] Formation Manager
+- Added tabs for each unit category (Ship, Air, Sub, etc)
+- Groups can now be reordered
+- Group order is saved/loaded
+[NEW] Dynamic Unit Generation
+- Linear campaign now has a Situation button at bottom right that opens the Enemy Theater ORBAT UI - this UI tracks all known enemy forces in the theater and their status
+- Situation updates as units are destroyed or encountered
+- Encountered (but not destroyed) units have a higher chance of being spawned in the next missions
+- Specific enemy named story units (Kirov, Kiev, Slava, Adm Senyavin etc) are retained - escorts, coastal forces, aircraft are mostly affected
+- On starting a mission, dynamic generator rolls the enemy forces based on the criteria specified in the mission file for each dynamic unit - this is then seeded in the save, so replays (and quit->replay) is the same - reload a save prior to launch to get a new roll
+[NEW] Option for NATO naming or native naming scheme, requires restart when selected
+[NEW] Added native names (GRAU index) to all Soviet weapons and ships, available in options
+[NEW] Added introduction (IOC) and full service (FOC) dates to most weapons, WIP on Soviet weapon
+[NEW] Added one-sided depth rudder system for German subs
+[NEW] Added Seeker type switch for torpedoes
+[NEW] Map: Added visualization for weapon seeker stripe/cone etc to hover over target mode
+[NEW] Map: Aim tool for circle search and spiral search
+[NEW] Map: Added position projection tool and protractor tool
+[NEW] Map: Wakes display when shooting wakehomer
+[NEW] Map: Added text description of range and horizon rings when weapons are selected
+[NEW] Mission Editor: Mission briefings now have rich text editing capability; editing creates the BriefingText_xy.xml and folder automatically
+[NEW] Mission Editor: Force EMCON toggle for ships; if enabled, ships will only radiate if a directly inbound dangerous weapon is detected
+[NEW] Mission Editor: Added Force EMCON settings to the Enable/Disable Systems trigger action section
+[NEW] Add ship revert option to stores menu
+[NEW] Option to launch player's aircraft on weapons hold
+[NEW] Option to turn off missile evasion
+[NEW] BallisticLaunch and OptimizeLoftAlt settings for missiles
+[NEW] Supply systems draws from flight deck magazine on plane launch
+[NEW] Added additional search modes to torpedoes
+[NEW] Units: JMSDF Hatsuyuki-class DDs
+[NEW] Units: JMSDF FRAM variants of Takatsuki and Tachikaze
+[NEW] Units: Improved Victor-III SSN
+[NEW] Units: added Argentina mast flag
+[NEW] Units: N22 Nomad light transport aircraft and Searchmaster MPA derivatives
+[NEW] Units: Added SS-1C Scud-B TBM (R-17 Elbrus)
+[NEW] Units: Add date based California loadout example
+[NEW] Units: Add date switches for ships and mission editor. Add empty option for taskforce mode.
+[NEW] Units: Add flag to allow radars to see air to air missiles(CanDetectAirToAirMissiles)
+[NEW] Units: Bunker Hill CG
+[NEW] Units: Spruance (VLS) DD
+[NEW] Weapons: Mark XI Depth Bomb
+[NEW] Weapons: Added RIM-66H SM-2MR
+[NEW] Weapons: Added RUM-139A VL-ASROC
+[NEW] Weapons: Added Mark 81 250lb bomb
+
+===============================================================================
+
+04-Aug-2026: 0.8.2 Build #363 (23607)
+-------------------------------------
+[FIX] "No layer" is displayed instead of NaN ft if there is no layer
+[FIX] Mission briefing was not displayed for "Generated" mission types
+[FIX] Precaution against RBU colliding with own ship
+[FIX] Units: Delta III loadout issue
+[FIX] Units: added missing Krivak I units
+[FIX] Units: ERSTA 120mm battery now only capable of firing at surface targets
+[FIX] Weapons: fixed seeker deafness issues with some torpedoes
+[FIX] Weapons: SA-N-4 trajectory
+[FIX] Sensors: ALT-28 max range
+[FIX] Units: NumberOfSensorSystems typo with FRAM Takatsuki
+[FIX] Units: Udaloy aft FCR RestAngle
+[FIX] Map tools tooltips
+[FIX] Fix missiles winding up short
+[FIX] Dive and pull-up maneuvers of aircraft
+[FIX] Harpoon popup
+[FIX] Null refs
+
+[UPD] Weapons: adjusted flight profile of SA-N-1, SA-N-3
+[UPD] Sensors: total overhaul of OECM system, jamming range extends to 1000km and is dependent on burn-through
+[UPD] Sensors: increased performance of some soviet sonars (VDSs especially) and SQS-23
+[UPD] Sensors: US missile fire control radars (SPG-55, SPG-51) now have 4 weapon channels (previously 1)
+[UPD] Sensors: add limited AirSearch capability to Mk92_Search, Pot_Drum, Peel_Pair
+[UPD] Units: added SQQ-23 PAIR (upgraded SQS-23) to 80s versions of: Leahy, Long Beach, Adams, Coontz
+[UPD] Units: OQS-4 sonar for FRAM Tachikaze
+[UPD] Units: F/A-18 AirToAir tank configuration
+[UPD] Units: Udaloy-class - now has three loadouts with varying SAM and radar capabilities
+[UPD] Units: Sovremenny-class - now has 'Late' loadout with Top Plate and SS-N-22B/SA-N-12
+[UPD] Units: added SA-N-10 to Ivan Rogov BDK, RO-RO CVL, Tarantul PTG
+[UPD] Translations
+
+[NEW] Added nation flag in ME/FlightDeck/Airgroup setup
+[NEW] Difficulty setting affects chaff, ECM
+[NEW] Added more weapon profiles
+[NEW] Added stub for sensor names so they do not produce errors in signature window
+[NEW] Ability to turn off jammer vo
+[NEW] Ability to default old units to a specific loadout
+[NEW] Weapons: SA-N-10 Grouse (9K38 Igla)
+[NEW] Weapons: SA-N-12 Grizzly (9M317 Ezh)
+[NEW] Weapons: SS-N-22B Sunburn-B (3M82 Moskit-M)
+
+===============================================================================
+
+01-Aug-2026: 0.8.2 Build #362 (23559)
+-------------------------------------
+[FIX] Units: typo in Spruance (ASROC) loadout segment
+[FIX] Civilian penalty not tied to campaign prices
+[FIX] Overflow on load/save
+[FIX] Angle tool tooltip fix
+
+===============================================================================
+
+31-Jul-2026: 0.8.2 Build #361 (23553)
+-------------------------------------
+[FIX] Null refs
+[FIX] Campaign: Pacific Strike: Fixed Kirov waypoints in 05; added variability to enemy air recon patrol paths
+[FIX] Campaign: Pacific Strike: added retreat zone to 01 for enemy units; altered victory conditions
+[FIX] Campaign: Pacific Strike: Fixed A-4K in 04 to properly join the player's TF at end of mission
+[FIX] Campaign: Pacific Strike: removed duplicate medals awarded by 09 and 10
+[FIX] Possible fix: Harpoon requires sensors to fire
+[FIX] Target prioritization for air units
+[FIX] Search sensor logic
+[FIX] Search sensors issue killing radio command
+[FIX] TMA fixes: don't expand uncertainty for land units and ensure that PMF is on the right side
+[FIX] Point scoring for FCRs
+[FIX] Task Force Mode: Awarded units would sometimes incorrectly appear as part of the task force in the debrief
+[FIX] Torpedo wire not blocking tubes, and allow manual wire breaks
+[FIX] Vertically launched ASROC weapons going straight up
+[FIX] VLS cell menu display
+[FIX] Units: Kynda-class cavitation position error
+[FIX] Units: HMAS Ovens name typo
+[FIX] Weapons: SA-N-1, SA-N-1C, SA-3 kinematics
+[FIX] Aircraft no diving to engage low targets
+[FIX] Missile display graphs
+[FIX] Asroc launches
+[FIX] Missile guidance breaks
+[FIX] Default loadouts being ignored if a custom default loadout was set for a ship
+[FIX] Missile datalink break issues
+[FIX] Kirov/Kiev/Slava/Orel and Kara had 100x time for classifying targets via ESM
+[FIX] Range graphs
+[FIX] Jamming display weirdness and fighters not attacking ground units
+[FIX] Search radars being jammed by defensive noise jammers
+[FIX] Double reward for missions in certain cases
+
+[UPD] Improved automatic aircraft handling
+[UPD] Improve map and sonar performance
+[UPD] Improve missile simulation
+[UPD] Improve bomb guidance logic
+[UPD] Weapons: increased fire rate of SA-N-9 launcher from 20rpm (3s reload) to 30rpm (2s reload)
+[UPD] Weapons: increased speed of SS-N-16 (600kt -> 1000kt)
+[UPD] Weapons: various changes to soviet SAMs: SA-3, SA-11, SA-N-6, SA-N-7, SA-N-9
+[UPD] Weapons: various changes to US SAMs: RIM-7E/H, RIM-7M, RIM-66E, RIM-66G, RIM-67C
+[UPD] Weapons: adjusted Mk44 diving depth 3000ft -> 1000ft
+[UPD] Weapons: all missiles now have revised ECCM stats
+[UPD] Weapons: revised low-altitude performance of SA-N-4
+[UPD] Weapons: revised hit chances and penalty modifiers for many US and USSR SAMs and AAMs
+[UPD] Weapons: removed Home-On-Jam from all AAMs other than AIM-54A (AA-7C, AA-6C, AIM-7M, Super 530F)
+[UPD] Weapons: adjusted radar-cross-section of many larger AShMs
+[UPD] Units: Delta III SSBN now has a 'Late' loadout with a towed array
+[UPD] Units: MiG-23A now has N019K radar, AA-10 capability
+[UPD] Units: Spruance DD (ASROC) now has an 'Early' loadout without Mk-23 TAS, and RIM-7H
+[UPD] Units: Spruance DD (ASROC, ABL) no longer has SQR-18 towed array as they did not ever have these in service
+[UPD] Units: Virginia CGN now has SQS-53A hull sonar in all loadouts
+[UPD] Units: all aircraft now have unique RCS values, generally somewhat larger
+[UPD] differentiated chaff types for units, earlier units have less effective countermeasures
+[UPD] Units: removed chaff on SKR Petya 2/3
+[UPD] Units: added chaff on Sa'ar 1 PTG
+[UPD] Sensors: reduced SPY-1A's RangeResolution 93m -> 4m
+[UPD] Sensors: all ECM sets now have revised stats
+[UPD] Sensors: all air search radars lowered gain accordingly (as aircraft are larger targets now)
+[UPD] Sensors: removed IdentificationRate from all ESM sensors as it was causing issues
+[UPD] Task Force Mode:
+      - Task Force Mode: UI now uses the new crew skill colors and symbols
+      - Campaign: Pacific Strike: Removed unused units from the player TF roster (Alaska, Kitty Hawk, etc)
+[UPD] Scenarios: Replaced Philippine LSM-1 name overrides with vessel variants
+[UPD] Campaign: Pacific Strike: reduced timer required to clear 08
+[UPD] Aerial Refueling: Aircraft on bingo will now RTB to closest available tanker instead of to base; if no compatible tanker is available, RTB to base
+[UPD] Add back in some minimal amount of loft for missiles at shorter ranges
+[UPD] Hiding UI hides cursor only for Steam builds. In Unity it is still visible
+[UPD] Translations
+
+[NEW] Task Force Mode:
+      - Mission Editor: Added new Line map label type
+      - Mod Manager: new Task Force Mode workshop tag
+[NEW] Mission Editor: Trigger condition zones can now be attached to units
+[NEW] Doctrine Panel: Added Doctrine Panel for closed beta testers; added save of doctrine to user_settings.ini; added reload of doctrine on mission start (enables saving of global doctrine only)
+[NEW] Units: Huangfeng class PTG (Osa variant); Type 6602 PT (P-6 variant) for China/PLAN
+[NEW] Units: Philippine LSM-1 variants for Isabela, Batanes, Western Samar, and Oriental Mindoro
+[NEW] Weapons: AA-10 Alamo
+[NEW] Defensive noise jamming and counter HOJ
+[NEW] Takatsuki FRAM mod
+[NEW] Tachikaze FRAM
+[NEW] Add NEZ for missiles
+[NEW] WIP on Patrol Zone
+[NEW] Add home on jam for offensive jamming
+[NEW] Angle measurement tool
+
+===============================================================================
+
+20-Jul-2026: 0.8.2 Build #359 (23450)
+-------------------------------------
+[UPD] Added some debug logging
+
+===============================================================================
+
 20-Jul-2026: 0.8.2 Build #358 (23444) Public Release
 ----------------------------------------------------
 [FIX] S-300 battery targeting points

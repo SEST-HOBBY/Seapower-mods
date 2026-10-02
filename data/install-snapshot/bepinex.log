@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - last 348 line(s) of a 0.0 MB file, last written 2026-10-01T00:55:42. 
+# BepInEx\LogOutput.log - last 373 line(s) of a 0.0 MB file, last written 2026-10-02T23:32:23. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (24/02/2026 10:31:59 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.67.7905730
@@ -18,13 +18,13 @@
 [Info   :AnchorChain Preloader] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly CustomAudioLoader, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly EnhancedDecoyMod, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EnhancedDecoyMod, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EnhancedUIMod, Version=0.1.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Euromod-Welldeck, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly HighAltitudeSkyFix, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly MissileControlMod, Version=0.1.14.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly MissileControlSurfaces, Version=1.1.1.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MissileControlMod, Version=0.1.15.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MissileControlSurfaces, Version=1.1.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.4.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OptimalTargetDist, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ProfileImage1024, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly SATCOM, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -42,22 +42,18 @@
 [Info   :AnchorChain] Loaded assembly IdentifyExpanded, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ACC.CV16.SkiJumpFix, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Z20RotorVisualSync, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.3.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly J16AfterburnerNozzle_v1.2.0, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly J36AfterburnerNozzle, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OspreyDeckOps, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OspreyMechanics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Z21GunMoveFire, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponSystem and name _containerBaseObject
-[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null
 [Warning:AnchorChain] Attempted to load a duplicate plugin: Sea Power scoped runtime fixes (alpine.seapower.runtime)
 [Info   :AnchorChain] Loaded assembly CoordinatedStrikeTool, Version=1.3.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded plugin Sonar Audio Loader (io.github.euromod.sonar-audio-loader)
-[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeapowerUI.ViewModels.UnitSelectedState and name MouseDown and parameters (Noesis.MouseButtonEventArgs, SeaPower.GeoPosition, object, Boolean&)
-[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeapowerUI.ViewModels.UnitSelectedState and name MouseDown and parameters (Noesis.MouseButtonEventArgs, SeaPower.GeoPosition, object, Boolean&)
-[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeapowerUI.ViewModels.UnitSelectedState and name MouseDown and parameters (Noesis.MouseButtonEventArgs, SeaPower.GeoPosition, object, Boolean&)
-[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeapowerUI.ViewModels.UnitSelectedState and name MouseDown and parameters (Noesis.MouseButtonEventArgs, SeaPower.GeoPosition, object, Boolean&)
 [Info   :AnchorChain] Loaded plugin EnhancedDecoyMod (io.github.euromod.enhanceddecoymod)
 [Info   :AnchorChain] Loaded plugin EnhancedUIMod (local.seapower.enhanceduimod)
 [Info   :Euromod Well Deck] Euromod Well Deck 1.0.2 loaded through AnchorChain.
@@ -74,18 +70,49 @@
 [Info   :AnchorChain] Loaded plugin SATCOM Mid-Course Correction (io.github.euromod.satcom)
 [Info   :AnchorChain] Loaded plugin Vessel SubModel Stabilization (io.github.euromod.submodel-stabilization)
 [Info   :Euromod V-22 Tiltrotor + Pivot BFWS] V-22 time compatibility: using SeaPower.GameTime.deltaTime for BFWS/nacelle animation timing.
-[Info   :Euromod V-22 Tiltrotor + Pivot BFWS] Euromod V-22 Tiltrotor + Pivot BFWS 2.8.10 loaded. 2 rotor-index pivots + 6 pitch pivots + 6 hinge pivots; MirrorObjX=False, PreventStartupRefold=True, HoldStaticBladesOffAfterShutdown=True. TimeSource=SeaPower.GameTime.deltaTime. CFG=C:\Program Files (x86)\Steam\steamapps\common\Sea Power\BepInEx\config\euromod.v22tiltrotor.cfg
+[Info   :Euromod V-22 Tiltrotor + Pivot BFWS] Euromod V-22 Tiltrotor + Pivot BFWS 2.8.13 loaded. Aircraft name detection: v-22 (case-insensitive). Navigation lights resolved by INI submodel keys; night-only rotor lights. 2 rotor-index pivots + 6 pitch pivots + 6 hinge pivots; MirrorObjX=False, PreventStartupRefold=True, HoldStaticBladesOffAfterShutdown=True. TimeSource=SeaPower.GameTime.deltaTime. CFG=C:\Program Files (x86)\Steam\steamapps\common\Sea Power\BepInEx\config\euromod.v22tiltrotor.cfg
 [Info   :AnchorChain] Loaded plugin Euromod V-22 Tiltrotor + Pivot BFWS (euromod.v22tiltrotor)
 [Info   :WeaponLauncherEffects] [WeaponLauncherEffects] Loaded; mapped launcher effects are active.
 [Info   :AnchorChain] Loaded plugin Weapon Launcher Effects (io.github.euromod.weaponlaunchereffects)
 [Info   :SecondThrust] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
-[Warning:  HarmonyX] AccessTools.TypeByName: Could not find type named SeaPower.MissileSimulator
 [Info   :AnchorChain] Loaded plugin Second Thrust (io.github.yourname.second-thrust)
 [Info   :SubAmmunition] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
 [Info   :SubAmmunition] SubAmmunitionPatches applied
 [Info   :SubAmmunition] PatchAll + Apply done
 [Info   :SubAmmunition] Driver GameObject created
 [Info   :AnchorChain] Loaded plugin Sub Ammunition (io.github.yourname.sub-ammunition)
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
@@ -335,7 +362,7 @@
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FixedWingFlightPhysics and name _aircraftParameters
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FixedWingFlightPhysics and name _aircraftParameters
 [Info   :AnchorChain] Loaded plugin J-36 Systems (meltemi.seapower.j36.afterburner-nozzle)
-[Info   :OspreyMechanics] Compatible game clock: time (float)
+[Info   :OspreyMechanics] Compatible game clock: missionElapsedTime (double)
 [Info   :OspreyMechanics] V-22 rig 1.1.30 ready; 20-ft minimum, 10-kt rescue and hover, terminal hover handoff and deck audio gates active.
 [Info   :AnchorChain] Loaded plugin MV-22 Source Mechanics (local.mv22.source.mechanics)
 [Info   :AnchorChain] Loaded plugin Z-21 Gun and EOTS Synchronization (meltemi.seapower.z21.gun-move-fire)
@@ -345,5 +372,3 @@
 [Info   :AnchorChain] Loaded AnchorChain V1.1.0!
 [Message:   BepInEx] Chainloader startup complete
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _nation
-[Info   :SubAmmunition] CONFIG CACHE invalidated (game ini cache reload)
-[Info   :SubAmmunition] CONFIG CACHE invalidated (game ini cache reload)
