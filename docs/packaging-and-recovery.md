@@ -547,7 +547,13 @@ aircraft that lost its Default fit under four editor-mission entries. The
 drift tool found no static override, no key clash and no removed unit; the
 nine supplier hulls re-based silently and `check_pack_fidelity` proved them.
 Two files joined the pack (1203). Nothing new was placed: every unit the
-game added is out of service in 2028.
+game added is out of service in 2028. The day after, the Steam
+announcement named two units the game had dropped (its KC-135A and Tu-16N
+stubs) that the overlaying export had left in `_vanilla/original`; deleted
+by hand, the drift tool found the three RAAF bases that generated the
+KC-135A, and the Tu-16N standing because a Workshop mod ships it - which
+is why a removed vanilla unit another mod still ships is reported, not a
+finding.
 
 ### What the update does to a Task Force Mode save
 

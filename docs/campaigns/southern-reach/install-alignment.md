@@ -140,6 +140,32 @@ what it took and what it means for you:
    A Southern Reach campaign already past Approaches should still be started
    again, for the reason the 28 Sep round gave.
 
+7. **The announcement** (read after the first sync) adds what the game's
+   changelog had not said, and three of its items touch the pack: the
+   game dropped its KC-135A and Tu-16N stubs, so the three RAAF bases
+   that listed a KC-135A detachment now list the KC-135 Stratotanker
+   mod's airframe (the Tu-16N in Southern Watch D7 comes from its own mod
+   and stands); *player aircraft now return to base on Weapons Hold*,
+   which 21 campaign missions start a Wedgetail, Triton, tanker or Rivet
+   Joint in; and the new OODA model reads a `[CombatSystems]` block the
+   Hobart, Arafura, Canberra and Choules inherited from their donors but
+   the Anzac, Collins and Mogami have not got (Southern Watch build notes,
+   "Sea Power 0.8.3", *What the announcement adds*). Watch, in order:
+   - **Wedgetail 05, Texaco 71 and Rivet 21 in Approaches**: on station
+     through the clock, or turning for East Sale at the start. If they go
+     home, every Hold aircraft moves to Tight (the same thing for an
+     unarmed aircraft) in the next build.
+   - **Standing Orders** (Left Shift+O): "Ships on Weapons Tight engage
+     hostile aircraft" is now off by default, and "Ships use anti-ship
+     missiles on Weapons Free" is a new toggle. Note both states before
+     the first fleet action; a frigate that watches a Z-9 at Tight, or an
+     Anzac that holds its NSMs at Free, is the game's default, not a
+     mission fault.
+   - **Unit Status** (Shift+Y) on the Anzac and the Hobart, Engagement
+     tab: the Hobart's combat system reads AEGIS Mk 7; what the Anzac
+     reads is the game's default for a hull that declares none.
+   - any **daylight-only** warning on an aircraft or a fit at night.
+
 What to do: the standard update block (*Already aligned once?*), expecting
 `IN LINE: all 1203 installed files match this commit (<hash>)`, then the play
 test the 30 Sep round asked for. Auto Time-on-Target was still subscribed

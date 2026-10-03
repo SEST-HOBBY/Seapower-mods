@@ -44,6 +44,10 @@ Watch card; fly those first. Three come back here:
    from the mission browser first (Tasman Shield 11A), then in the campaign
    after Approaches.
 
+7. **Sea Power 0.8.3** (2 Oct): the game now returns player aircraft to
+   base on Weapons Hold, reads a combat-system profile per hull, and has
+   Standing Orders defaults that changed. Section 7 below, first.
+
 Red Line's Hold/Tight and unseen triggers are on its own card
 (`../red-line/test-card.md`, 4 and 5).
 
@@ -186,3 +190,13 @@ browser copy is the same file.
 | 6.8 | Bring her into the box off Green Cape | Victory; the frigate turned away at wpC and never followed her in | The frigate follows her into the box = her route; report it |
 | 6.9 | Win it, then fly Southern Cross | The spoiler is identified at start with the Twofold Bay debrief intel | Not identified = `TS11ADefectorSafe` not set or not read |
 | 6.10 | Campaign map | The Twelve-Mile Line offered after the channel-sixteen page that follows Approaches, beside the Master's log page (MV Coral Pioneer, 28 February); gone once Southern Cross is complete; pays 60 once | Offered before Approaches, or still offered after Southern Cross = the expiry index |
+
+## 7 — Sea Power 0.8.3
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 7.1 | TS11 Approaches, pause at T+0, then run ten minutes at 8x watching Wedgetail 05, Texaco 71 and Rivet 21 (all weapons Hold) | On their tracks through the ten minutes | Turning for East Sale or Williamtown at the start = the game returns pre-placed Hold aircraft to base; say which, and every Hold aircraft in the pack moves to Tight |
+| 7.2 | Any mission, Left Shift+O (Standing Orders), before the first fleet action | Note the state of "Ships on Weapons Tight engage hostile aircraft" (off since 0.8.3) and "Ships use anti-ship missiles on Weapons Free" (new) | A frigate at Tight watching a Z-9, or an Anzac holding its NSMs at Free, is the default, not a mission fault: set them and say which |
+| 7.3 | TS09 or TS11, Shift+Y on the Hobart and on the Anzac, Engagement tab | The Hobart reads combat system AEGIS Mk 7; the Anzac reads what the game gives a hull that declares none | Record both: the Anzac's assignment (9LV) is a build decision waiting on this |
+| 7.4 | Any night or dusk mission (TS11A starts 04:55), hover each aircraft and fit | No daylight-only warning | A warning names the aircraft or fit: say which |
+| 7.5 | TS09, let a YJ-83 salvo reach the Hobart and the Anzac | The Phalanx fires bursts with pauses (volleys of 500 rounds, 3 s cooldown); the PLAN ships' Type 730s fire as before | A Phalanx that never fires, or fires without pause = the new CIWS keys are not read on the Hobart's Phalanx: say which hull |
