@@ -260,6 +260,18 @@ class VanillaDriftTests(unittest.TestCase):
                       "dist/SEST_Integration/campaigns/sest-x/missions/X 01.ini, missions/01 Threads.ini", placed)
         self.assertIn("NEEDS A HUMAN: aircraft/usn_f-14a.ini: removed, but 2 file(s) field usn_f-14a", out)
 
+    def test_a_removed_unit_a_workshop_mod_still_ships_is_not_a_finding(self):
+        # 0.8.3 dropped the game's Tu-16N stub; the Tu-16N mod's copy is what
+        # Southern Watch D7 fields, so the unit stands.
+        self.write("mods-source/3673908868/aircraft/usn_f-14a.ini", "[General]\nUnitType=Aircraft\n")
+        (self.root / VANILLA / "aircraft/usn_f-14a.ini").unlink()
+        code, out = self.run_tool("--since", self.baseline)
+        self.assertEqual(code, 0, out)
+        placed = self.section(out, 3)
+        self.assertIn("aircraft/usn_f-14a.ini  removed - usn_f-14a fielded by 2 file(s): ", placed)
+        self.assertIn("; still shipped by 3673908868", placed)
+        self.assertNotIn("NEEDS A HUMAN", out)
+
     def test_a_roster_or_flight_deck_unit_is_fielded_too(self):
         (self.root / VANILLA / "vessels/wp_ss_kilo.ini").unlink()
         (self.root / VANILLA / "aircraft/usn_e-2c.ini").unlink()

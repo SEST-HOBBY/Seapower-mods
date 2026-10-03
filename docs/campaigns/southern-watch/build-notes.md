@@ -1584,11 +1584,79 @@ Mod Manager accepts as a lower patch, and Coordinated Strike Tool's range
 admits 0.8.3.
 
 The same export updated Euromod (433 files: 270 rounds re-tuned and a new
-`vessels_overwrite/` folder of 132 `_CombatSystems_OVWR` files - Euromod's
-own mechanism, not a game folder, and not a unit path), its Anchorchain
-expansion, Identify Expanded, Modern US Navy (the ES-3A moved to US Naval
-Aviation), US Naval Aviation, the German Navy, Flight Deck Ops, the F-22,
-the MiG-29 family, the Apache and the Fury. Every gate passes on them.
+`vessels_overwrite/` folder of 132 `#!extend` files, one per hull, each
+assigning a combat system - see below), its Anchorchain expansion,
+Identify Expanded, Modern US Navy (the ES-3A moved to US Naval Aviation),
+US Naval Aviation, the German Navy, Flight Deck Ops, the F-22, the MiG-29
+family, the Apache and the Fury. Every gate passes on them.
+
+**What the announcement adds (3 October).** The Steam post for 0.8.3 names
+the systems behind the file changes, and five of them bear on this pack:
+
+- *OODA and combat systems.* A ship's `[CombatSystems]` block names a
+  profile in `systems/combatsystems.ini` (new; 55 vanilla profiles) that
+  sets reaction time, datalink tier and the number of contacts its CIC
+  works and evaluates at once; 126 vanilla hulls declare one, Euromod
+  assigns 162 by `#!extend`, and the game derives a hull that declares
+  nothing from its service year, with default slots. The pack's hulls
+  inherited whatever their donors had: the Hobart `AEGIS_Mk7` (vanilla's;
+  reaction VeryFast, 100 contacts, 4 evaluated), the Arafura, Canberra and
+  Choules `NTDS` (Medium, 10, 2 - a 1960s profile their Spanish donors
+  chose), Supply `None` (VerySlow, 2, 1), and the Anzac, Collins and Mogami
+  nothing. Not yet assigned: the Anzac's 9LV/CEAFAR fit, the Collins and
+  the Mogami's OYQ-1 all have Euromod profiles of the right shape
+  (`9LV_Multirole_MLU`, `Submarine_Integrated`, `OYQ_Integrated`: VeryFast,
+  96, 5), and SEST Collection Fixes can ship clones of them under SEST
+  names as it does for sensors, so the pack does not depend on Euromod's
+  ids. That is a balance decision - the Anzac is the campaigns' workhorse -
+  and waits on the player's word and the first play under the new model.
+- *CIWS.* Bursts are now simulated as projectiles: the Phalanx section
+  gained `FireControlMode`, `ReactionTime`, `BurstTime`, `VolleyMaxRounds`
+  and `VolleyCooldown`, and its `MissileInterceptChance` fell from 65 to 40
+  as a "calibration anchor". The PLAN Pack's six CIWS sections (Type 730
+  and 1130, last updated 15 Aug) keep the old keys and an anchor of 85;
+  under the new model that is a strong Chinese CIWS until its author
+  retunes it. Red Storm's seven carry no old key. Nothing SEST ships
+  defines a gun system; a `systems/weapons.ini` with retuned `[Type_730]`
+  and `[Type_1130]` sections would win the merge from the top of the order,
+  and is the same decision as above.
+- *Night.* "Ground attacks at night now require suitable vision
+  capability": vanilla's visual sensors carry `NightVisionLevel` (0 for
+  eyes, 0.25 for a modern sight, 0.3 for the B-52's AVQ-22). The F-15EX
+  mod's Sniper and LANTIRN pods already declare `NightCapable=True` and
+  `NightVisionLevel=1`, so The Open Door (04:50) and Long Reach (01:20)
+  strike as before. The game's own tooltip now flags a daylight-only
+  aircraft or fit at night; none is expected.
+- *Player aircraft return to base on Weapons Hold.* 21 campaign missions
+  start a player aircraft at Hold - every Wedgetail, Triton, tanker, the
+  E-2D, Rivet 21, Red Line's KJ-500, Y-9 and Z-9s - because Hold was the
+  state that never fires. Whether the game now sends a pre-placed Hold
+  aircraft home, or only one the player switches to Hold in flight, the
+  first play of Approaches shows; if it is the former, every one of them
+  moves to Tight, which for an unarmed aircraft is the same thing.
+- *Standing Orders.* "Ships on Weapons Tight engage hostile aircraft" is
+  off by default now (the tooltip says it made ships radiate), and "Ships
+  use anti-ship missiles on Weapons Free" is a new toggle whose default
+  the files do not show. Both are the player's to set, and the test cards
+  say so.
+
+Smaller: the game dropped its KC-135A and Tu-16N stubs (the KC-135 was
+"replaced with proper KC-10", a 1971 airframe the USAF retired in 2024).
+The export cannot delete, so both were removed from `_vanilla/original` by
+hand on the announcement's word, and the drift tool then found what
+depended on them: the three RAAF bases that generated a KC-135A detachment
+(Tindal, Learmonth, Butterworth) now generate the KC-135 Stratotanker mod's
+airframe, which Long Way Home already fields; Southern Watch D7's Badger
+tanker comes from the Tu-16N mod, not the stub, and stands. The game also
+removed `IdentificationRate` from every ESM set "as it was causing issues";
+the Rivet Joint mod's four sets still carry it. Aircraft radar cross
+sections and air-search radar gains were rebalanced together in vanilla,
+and modded aircraft keep their old, smaller values. Task Force Mode gained
+Workshop authoring support and a Workshop tag, and the stock campaign's
+missions now carry `DynamicGeneration*` keys for a persistent theater
+roster, which an authored campaign may adopt later. "Fixed missing
+briefings for generated missions" is the bug that left the briefing pane
+blank in these campaigns before the charts were drawn.
 
 ## What has NOT been demonstrated
 

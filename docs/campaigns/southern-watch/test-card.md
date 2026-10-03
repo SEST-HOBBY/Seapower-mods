@@ -347,3 +347,13 @@ can replace. Each is a counterexample to try, not a feature to admire.
 
 Any of those is a design answer, not a bug report — send what you saw and I
 will change the model rather than patch the symptom.
+
+## 6H — Sea Power 0.8.3
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| H.1 | SW02 Steel Highway, pause at T+0, then ten minutes at 8x watching the Wedgetail and the KC-46A (both weapons Hold) | On station through the ten minutes | Turning for base at the start = the game returns pre-placed Hold aircraft to base: say so, and every Hold aircraft in the pack moves to Tight (Southern Reach card 7.1) |
+| H.2 | SW08 The Open Door (04:50): hover the F-15EX's StrikePrecision fit and the B-52's | No daylight-only warning; the GBU-10s and JDAMs release | A warning on the F-15EX = its Sniper pod's night keys are not read; a warning on the B-52 = the AVQ-22's 0.3 is below the game's bar: say which |
+| H.3 | Any mission, Left Shift+O before the first engagement | Note "Ships on Weapons Tight engage hostile aircraft" (off since 0.8.3) and "Ships use anti-ship missiles on Weapons Free" (new) | A Hobart holding its Harpoons at Free is the default, not a mission fault: set and say |
+| H.4 | SW05 or SW07, Shift+Y on the Hobart and the Anzac, Engagement tab | The Hobart reads AEGIS Mk 7; the Anzac reads the game's default for a hull that declares none | Record both |
+| H.5 | Tindal, Learmonth or Butterworth in any mission that places them: the air group panel | A KC-135 Stratotanker detachment (two aircraft) where the KC-135A was | No tanker = the Stratotanker mod is not enabled |

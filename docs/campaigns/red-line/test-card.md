@@ -133,6 +133,14 @@ behaviour of the engine that no file states.
 | 8.6 | RL02 | Let the tanker run at GOLF with the frigate on her bow, doing nothing | GOLF attacks Hai Yang 7 somewhere in the first half hour; the frigate, 3.5 NM on the threat bow, is where the escort should be | GOLF firing from beyond 20 NM, before any escort could act = the boat is too good at weapons Free; bring back the range she fired from |
 | 8.7 | RL04 | Sink Meridian Harmony with a mobility kill first (engines, not hull) | The win waits for her to be destroyed | If the player can only stop her, never sink her, the win never comes: say which weapons finished her |
 
+## 8A — Sea Power 0.8.3
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| 8A.1 | RL03, pause at T+0, then ten minutes at 8x watching Dragon Eye 05 (weapons Hold) and the Z-9 | On the racetrack through the ten minutes | Turning for the enclave field at the start = the game returns pre-placed Hold aircraft to base: say so, and every Hold aircraft in the pack moves to Tight (Southern Reach card 7.1) |
+| 8A.2 | Any mission, Left Shift+O before the first engagement | Note "Ships on Weapons Tight engage hostile aircraft" (off since 0.8.3) and "Ships use anti-ship missiles on Weapons Free" (new) | The frigate at Tight watching the Poseidon is the default; set and say |
+| 8A.3 | RL01 or RL06, Shift+Y on the 054A, Engagement tab | What the game gives a hull that declares no combat system (the PLAN Pack declares none) | Record it |
+
 ## 9 — the numbers to bring back
 
 For each mission played: the result (win / lose / timeout), the objective

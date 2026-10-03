@@ -260,6 +260,18 @@ def visible(value):
     return value.split("//")[0].strip()
 
 
+def shipped_by(root, rel):
+    """Workshop mods (mods-source/<id>) that ship the same relative path as a
+    vanilla file: a removed vanilla unit one of them ships is still a unit."""
+    found = []
+    for mod in sorted((root / "mods-source").iterdir()):
+        if mod.name.startswith("_") or not mod.is_dir():
+            continue
+        if (mod / rel).is_file():
+            found.append(mod.name)
+    return found
+
+
 def unit_of(rel):
     """(unit id, companion kind or None) for a file in a unit folder, else None."""
     p = Path(rel)
@@ -519,9 +531,13 @@ def classify(root, drift):
             uid, via = unit
             places = fielded.get(uid.casefold())
             if places:
-                report.placed.append((rel, change, uid, via, places))
+                # A unit the game dropped is still a unit if a Workshop mod
+                # ships the same file (0.8.3 dropped its Tu-16N stub; the
+                # Tu-16N mod's copy is what D7 fields): reported, not a finding.
+                still = shipped_by(root, rel) if change == "removed" and via is None else []
+                report.placed.append((rel, change, uid, via, places, still))
                 seen = True
-                if change == "removed" and via is None:
+                if change == "removed" and via is None and not still:
                     report.findings.append(f"{rel}: removed, but {len(places)} file(s) field {uid}")
             if change == "added" and via is None:
                 general = parse_ini(decode(drift.new[rel])).get("General", {})
@@ -603,11 +619,12 @@ def render(root, since, since_rev, drift, report, old_version, new_version, defa
         print("   none")
 
     heading(3, "PLACED - units a mission, flight deck or campaign roster fields", len(report.placed))
-    for rel, change, uid, via, places in report.placed:
+    for rel, change, uid, via, places, still in report.placed:
         how = f" (via its {via} file)" if via else ""
-        flag = "REMOVED" if change == "removed" and not via else change
+        flag = "REMOVED" if change == "removed" and not via and not still else change
         shown = ", ".join(places[:3]) + (f", ... and {len(places) - 3} more" if len(places) > 3 else "")
-        print(f"   {rel}  {flag}{how} - {uid} fielded by {len(places)} file(s): {shown}")
+        standing = f"; still shipped by {', '.join(still)}" if still else ""
+        print(f"   {rel}  {flag}{how} - {uid} fielded by {len(places)} file(s): {shown}{standing}")
     if not report.placed:
         print("   none")
 

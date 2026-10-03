@@ -37,7 +37,9 @@ BASES = {
             ("usaf_f-15ex_SEII", "Squadron5,8"),
             ("dts_b-52h", "Squadron1,4"),
             ("usaf_b-2_spirit", "Squadron1,2"),
-            ("usaf_kc-135a", "Squadron1,2"),
+            # The KC-135 Stratotanker mod's airframe: the game's own KC-135A stub
+            # went in 0.8.3 (replaced by a 1971 KC-10 the USAF retired in 2024).
+            ("usaf_stratotanker", "Squadron1,2"),
             ("usaf_mq-9a", "Squadron1,4"),
             ("raaf_mq-4c_triton", "Squadron2,2"),
         ],
@@ -122,7 +124,7 @@ BASES = {
         "airgroup": [
             ("usn_p8", "Squadron3,4"),
             ("usaf_u-2", "Squadron1,2"),
-            ("usaf_kc-135a", "Squadron2,2"),
+            ("usaf_stratotanker", "Squadron2,2"),
         ],
     },
     "airbase_raaf_curtin": {
@@ -181,7 +183,7 @@ BASES = {
         "airgroup": [
             ("raaf_f-35a", "Squadron1,6"),
             ("usn_p8", "Squadron3,3"),
-            ("usaf_kc-135a", "Squadron3,2"),
+            ("usaf_stratotanker", "Squadron1,2"),   # the mod has two squadrons
         ],
     },
 }
