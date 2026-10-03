@@ -93,7 +93,7 @@ pack's root, is the union across every campaign in the pack.
   3380210757    required by another mod          Anchor Chain
                                                    asked for by: MV-22B Osprey Tiltrotor / JGSDF V-22B
 
-1b. ONLY FOR THE DISPATCHES (53): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
+1b. ONLY FOR THE DISPATCHES (52): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
 itself never loads them. Leave them out if you only play the campaign.
 
   3587091564    a unit a mission places          3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -111,7 +111,6 @@ itself never loads them. Leave them out if you only play the campaign.
   3394781441    a unit a mission places          B-52G with AGM-86 (realistic nuke)
   3741944366    a squadron a flight comes from   B-52H Stratofortress
   3606134711    a weapon a loadout hangs         Custom Loadout Editor
-  3504168760    a unit a mission places          Dassault Rafale
   3558173926    a unit a mission places          David's Sling
   3642656500    a hull variant in use            Euromod - Modern Nordic Navy
   3448845252    a unit a mission places          F-117 Nighthawk
@@ -150,7 +149,7 @@ itself never loads them. Leave them out if you only play the campaign.
   3433957933    a unit a mission places          Virginia-, Seawolf-, and Ohio-class Submarines
   3796349767    a unit a mission places          YF-23 Black Widow II
 
-2. SEST INTEGRATION PACKS (14): this project's own patches, inside the consolidated download.
+2. SEST INTEGRATION PACKS (13): this project's own patches, inside the consolidated download.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
   (local)       a unit a mission places          SEST Allied Fixes
@@ -162,7 +161,6 @@ itself never loads them. Leave them out if you only play the campaign.
   (local)       a unit a mission places          SEST RAAF Bases
   (local)       a unit a mission places          SEST RAAF F-35A JATM
   (local)       a squadron a flight comes from   SEST RAAF Wedgetail
-  (local)       a unit the player can buy        SEST Rafale F5
   (local)       a unit a mission places          SEST RAN Fleet
   (local)       a squadron a flight comes from   SEST Raptor Squadrons
   (local)       a unit a mission places          SEST Replenishment At Sea

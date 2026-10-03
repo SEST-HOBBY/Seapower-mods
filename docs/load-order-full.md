@@ -1,6 +1,6 @@
 # Full Load Order — every active mod, top to bottom
 
-Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 145 active subscriptions plus the SEST Integration Pack (20 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
+Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 144 active subscriptions plus the SEST Integration Pack (19 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
 
 Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are alphabetical — within them, order only matters between mods flagged in the conflict watchlist (`docs/conflicts-and-load-order.md`).
 
@@ -97,83 +97,82 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 71. CH-53E Standalone v0.1.0
 72. ChengDu J-10C Vigorous Dragon
 73. Civil Aircraft Mod (Airbus Family)
-74. Dassault Rafale
-75. David's Sling
-76. Eurofighter Typhoon
-77. Euromod - Anchorchain Expansion Pack
-78. F-117 Nighthawk
-79. F-15 EX Eagle II
-80. F-15E StrikeEagle
-81. F-16C Fighting Falcon (modern)
-82. F-22 Raptor
-83. F-2A 'Viper Zero'
-84. French Army Vehicles
-85. French Helicopter Package
-86. General Atomics MQ-9 Reaper
-87. Humpback Whale
-88. IL-78 TANKER
-89. Iskander TBM
-90. J-20 (歼-20 威龙)
-91. J-36 Tailless Fighter
-92. Ka-27RLD
-93. KC-135 STRATOTANKER
-94. KC-46A Pegasus - Strategic Tanker
-95. Lockheed AC-130 Pack
-96. McDonnell Douglas KC-10A Extender - Strategic Tanker
-97. MH-60R Seahawk — *keep subscribed: ADO Nimitz 2000s draws its deck Seahawks from this mod's usn_sh-60b model folder. The MH-60R squadron table is SEST Collection Fixes' now (United States Naval Aviation's, written for the model that loads, plus 816 Squadron RAN), so its position above US Naval Aviation no longer decides it; unit file stays with U.S. Navy 2027*
-98. Mi-8 T/TV
-99. Mi-8EW
-100. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
-101. MiG-31 Foxhound
-102. MiG-35 Fulcrum-F (米格-35 支点-F)
-103. Mil Mi-24 Hind
-104. MORE SU-24M VARIANTS
-105. MV-22B Osprey Tiltrotor / JGSDF V-22B
-106. Pickup truck extension
-107. PLA & PLAN & PLAAF AEP — *Anchorchain expansion — below the loader, with the Euromod one*
-108. PLA Shenyang J-11BS
-109. PLA Sukhoi Su-27UBK
-110. RAAF F-35A Lighting II
-111. RC-135V/W Rivet Joint — *above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges*
-112. Rebuilt J-16 / J-16D — *duplicate platform with Shenyang J-16A — different unit ids, both load*
-113. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
-114. RQ-180 White Bat Airframe
-115. SA-21/S-400 SAM — *watchlist: land air-defense overlap*
-116. SAAB AEW&C PACK
-117. SCUD-B
-118. Sea Lynx
-119. SEJJIL (Iran Ballistic Missiles)
-120. Shahed-136 Kamikaze Drone (Geran-2)
-121. Shenyang J-11
-122. Shenyang J-16A (歼-16A 潜龙)
-123. Shenyang J-50 (沈阳航空工业 歼-50)
-124. Shenyang J-8
-125. Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
-126. Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
-127. Su-25 Frogfoot
-128. Su-30SM2
-129. SU-57 Felon (重刑犯)
-130. Sukhoi Flanker Family (苏霍伊侧卫家族)
-131. Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
-132. TU-160 Blackjack
-133. Tu-214R Family (图-214R家族)
-134. Tu-95K-22 Bear G MOD — *watchlist: see Tu-95 row*
-135. Tu-95MS (X-101) — *watchlist: order vs the other Tu-95 mods decides shared files*
-136. Type 12 SSM-ER Anti-Ship Missile System
-137. U-2 "Dragon Lady"
-138. VH-3D Marine One MOD
-139. XIAN JH-7A (歼轰-7A 飞豹)
-140. Y-20 / KJ-3000
-141. Y-8/Y-9 Special Mission Aircraft Family
-142. YF-23 Black Widow II
+74. David's Sling
+75. Eurofighter Typhoon
+76. Euromod - Anchorchain Expansion Pack
+77. F-117 Nighthawk
+78. F-15 EX Eagle II
+79. F-15E StrikeEagle
+80. F-16C Fighting Falcon (modern)
+81. F-22 Raptor
+82. F-2A 'Viper Zero'
+83. French Army Vehicles
+84. French Helicopter Package
+85. General Atomics MQ-9 Reaper
+86. Humpback Whale
+87. IL-78 TANKER
+88. Iskander TBM
+89. J-20 (歼-20 威龙)
+90. J-36 Tailless Fighter
+91. Ka-27RLD
+92. KC-135 STRATOTANKER
+93. KC-46A Pegasus - Strategic Tanker
+94. Lockheed AC-130 Pack
+95. McDonnell Douglas KC-10A Extender - Strategic Tanker
+96. MH-60R Seahawk — *keep subscribed: ADO Nimitz 2000s draws its deck Seahawks from this mod's usn_sh-60b model folder. The MH-60R squadron table is SEST Collection Fixes' now (United States Naval Aviation's, written for the model that loads, plus 816 Squadron RAN), so its position above US Naval Aviation no longer decides it; unit file stays with U.S. Navy 2027*
+97. Mi-8 T/TV
+98. Mi-8EW
+99. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
+100. MiG-31 Foxhound
+101. MiG-35 Fulcrum-F (米格-35 支点-F)
+102. Mil Mi-24 Hind
+103. MORE SU-24M VARIANTS
+104. MV-22B Osprey Tiltrotor / JGSDF V-22B
+105. Pickup truck extension
+106. PLA & PLAN & PLAAF AEP — *Anchorchain expansion — below the loader, with the Euromod one*
+107. PLA Shenyang J-11BS
+108. PLA Sukhoi Su-27UBK
+109. RAAF F-35A Lighting II
+110. RC-135V/W Rivet Joint — *above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges*
+111. Rebuilt J-16 / J-16D — *duplicate platform with Shenyang J-16A — different unit ids, both load*
+112. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
+113. RQ-180 White Bat Airframe
+114. SA-21/S-400 SAM — *watchlist: land air-defense overlap*
+115. SAAB AEW&C PACK
+116. SCUD-B
+117. Sea Lynx
+118. SEJJIL (Iran Ballistic Missiles)
+119. Shahed-136 Kamikaze Drone (Geran-2)
+120. Shenyang J-11
+121. Shenyang J-16A (歼-16A 潜龙)
+122. Shenyang J-50 (沈阳航空工业 歼-50)
+123. Shenyang J-8
+124. Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
+125. Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+126. Su-25 Frogfoot
+127. Su-30SM2
+128. SU-57 Felon (重刑犯)
+129. Sukhoi Flanker Family (苏霍伊侧卫家族)
+130. Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
+131. TU-160 Blackjack
+132. Tu-214R Family (图-214R家族)
+133. Tu-95K-22 Bear G MOD — *watchlist: see Tu-95 row*
+134. Tu-95MS (X-101) — *watchlist: order vs the other Tu-95 mods decides shared files*
+135. Type 12 SSM-ER Anti-Ship Missile System
+136. U-2 "Dragon Lady"
+137. VH-3D Marine One MOD
+138. XIAN JH-7A (歼轰-7A 飞豹)
+139. Y-20 / KJ-3000
+140. Y-8/Y-9 Special Mission Aircraft Family
+141. YF-23 Black Widow II
 
 ## Tier 6 — airbases last
 
-143. Modern Chinese Airbase (Large)
-144. Modern Russian Airbase (Large)
-145. Modern US Airbase
+142. Modern Chinese Airbase (Large)
+143. Modern Russian Airbase (Large)
+144. Modern US Airbase
 
 ## Tier 7 — bulk arsenals, below everything they duplicate
 
-146. **Red Storm Arsenal** — LAST - 638 unique files kept, 13 duplicated ones all lose
+145. **Red Storm Arsenal** — LAST - 638 unique files kept, 13 duplicated ones all lose
 

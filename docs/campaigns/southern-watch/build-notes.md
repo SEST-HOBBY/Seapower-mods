@@ -1871,6 +1871,83 @@ Southern Watch (Open Allocation), mission 2 done
 (`docs/packaging-and-recovery.md`, *What the update does to a Task Force
 Mode save*).
 
+## The first play test: the Situation button, a datum, four-digit years, and the Rafale (3 October, evening)
+
+The player's first Task Force Mode run - Southern Watch, four entries deep
+(White Water, The Missing Beacon, Steel Highway, After the Wake), the save
+reopening and continuing after the day's two rebuilds - came back with three
+notes and a decision. Each is in the build now.
+
+**Steel Highway's submarine was on the plot from the first minute.** By
+design, as it turned out: the save shows The Missing Beacon completed, and
+finding Torres Light's recorder sets `O1BeaconFound`, which Steel Highway
+answered with a `Classify`-level reveal held for the whole mission - "the
+contact is classified on the plot and held there for the operation". That is
+too generous for a mission whose premise is the time it takes to classify
+that contact. The model now is the stock Sub Duel's "Initial contact": a bare
+reveal (a detection, no class) that holds fifteen minutes and ages off. The
+bridge record puts a datum on the plot and classification stays the
+player's; the intel line says so. The Quiet Passenger's Kiwi 01 reward, the
+same shape, is treated the same way. `reveal_if` entries take a `level` ("" for
+the bare reveal) and a `time` now; the two other reveals (Fujian's Shadow's
+escorts, Identify, held) are as they were. The report also said "two
+submarines"; the mission places one, the briefing says one, and what the
+second symbol was - the revealed track beside a sonar contact on the same
+boat, most likely - is on the test card to look at again.
+
+**The Situation button.** Since 0.8.3 a linear campaign may name an enemy
+roster file, and the Situation button at the bottom right of the campaign
+screen then shows the enemy theatre ORBAT and tracks it as units are
+encountered or destroyed; the stock Pacific Strike's file also feeds its
+dynamic unit generator, which these campaigns do not use. Every campaign and
+twin now ships `enemy_theater_roster.ini`, generated from the units its
+missions place (`enemy_roster_ini` in `build_pack.py`): every Taskforce2
+vessel, submarine, aircraft and helicopter, in the stock file's sections -
+`SurfaceMajorFlagships` for the big hulls with a flight deck (the carriers,
+the Type 071, a Kirov), `SurfacePersistent` with exactly the variants the
+missions use, `SubmarinesPersistent`, `AircraftReusable` with the squadron
+and the largest flight a mission flies - filed under the nation the unit's
+own variant or squadron registers it to, so Red Line's coalition sorts into
+RAN, USN, JMSDF and RNZN. An unarmed hull (the merchants and fishing boats a
+mission places on the enemy side as traffic) is not order of battle and is
+left out. The PLAN block carries the stock `ShowOnlyClassName=True`, class
+and hull number rather than names. Nothing is hidden. `campaign.ini` names
+the file in `[DynamicUnitGeneration]`, the stock key. Whether the panel
+tracks a pre-placed unit's loss (the stock notes say story units are
+tracked; ours are all story units in that sense) is the test card's to
+settle: sink Steel Highway's Type 039C and look.
+
+**Four-digit years.** The Port Moresby cable read `DTG: 210600Z OCT 28`, the
+military form, and read to the player as the 28th of October on a letter
+shown before the 22nd. Every date-time group in the three campaigns' pages
+now carries the year in full (`210600Z OCT 2028`); the cable renders the
+same.
+
+**The Rafale is retired.** The Dassault Rafale mod left the player's
+subscriptions on 28 Sep, and on 3 Oct the player retired it rather than
+resubscribe. No other mod in the collection ships a Rafale (the French Navy
+pack's Charles de Gaulle names the Rafale mod's `fr_rafale_m_l` and tanker in
+its air group, and sails without fighters until one returns). Gone with it:
+D3 The Relief Ship's Rafale CAP pair and its station (the group's Harriers
+and air defence cover the window), D6 Long Reach's Rafale 41 escort (four
+escorts remain), the allied fleet's Rafale M and B, the Banda vignette
+*Rafale, Timor Gap*, and the SEST Rafale F5 pack, which existed to give the
+late Rafales JATM, MALICE and LRASM fits (`docs/packaging-and-recovery.md`,
+*Retired packs*; git holds everything). The pack is 19 packs and 1260 files,
+and the four checks that were red on the committed tree for the Rafale are
+green; no rebuild needs the archive any more.
+
+**The Ford's Seahawks.** Found on the way: Modern US Navy's 3 Oct update
+dropped `usn_mh-60r_26`, its Seahawk under the 2026 fit, and the Ford mod's
+air group embarks ten of them - so the carrier Fujian's Shadow fields, and
+the NF3 scenarios, would have sailed with no helicopter. The Replenishment
+copy of the Ford, which is the file the game reads, now embarks ten
+`usn_mh-60r` instead (`AIRGROUP_FIXES` in `common/ras.py`, applied and
+proved the way `STORE_FIXES` repairs a broken round id); the Banda vignette
+that gives the Ford its own air group names the same. Your NORTHERN FRONT
+and Banda Front editor missions carry the old id in their Ford air groups
+and place no such helicopter themselves, so the game drops the line.
+
 ## What has NOT been demonstrated
 
 Static resolution is not a play test. None of the following is established by

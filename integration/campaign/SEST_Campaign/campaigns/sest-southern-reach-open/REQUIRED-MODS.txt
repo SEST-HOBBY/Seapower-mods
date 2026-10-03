@@ -74,7 +74,7 @@ pack's root, is the union across every campaign in the pack.
 is asked for; the map, salvo and rescue tools are conveniences).
 
 
-4. NOT USED BY THIS CAMPAIGN (106): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (104): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -100,7 +100,6 @@ shared file wins for the mods above.
   3481228992    ChengDu J-10C Vigorous Dragon
   3806686336    Coordinated Strike Tool
   3606134711    Custom Loadout Editor
-  3504168760    Dassault Rafale
   3558173926    David's Sling
   3784474738    Euromod - Anchorchain Expansion Pack
   3599752717    Euromod - Modern British Navy
@@ -157,7 +156,6 @@ shared file wins for the mods above.
   (local)       SEST F-15EX Revamp
   (local)       SEST F-16CM JATM
   (local)       SEST Intercept Model
-  (local)       SEST Rafale F5
   (local)       SEST Raptor Squadrons
   (local)       SEST Southern Watch Campaign
   (local)       SEST TacMap Colors

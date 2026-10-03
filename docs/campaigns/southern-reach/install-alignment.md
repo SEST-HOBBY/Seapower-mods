@@ -53,7 +53,7 @@ line by line, and an empty line would end the block early. If it stops at a
 It stops, before anything is pushed or installed, if the game is running, if
 the clone has changes of its own (report them rather than committing them),
 or if the fast-forward is refused (step 2). The sync's last lines should read
-`IN LINE: all 1257 installed files match this commit (<hash>)`, the hash
+`IN LINE: all 1260 installed files match this commit (<hash>)`, the hash
 being the one the merge landed on (`git log --oneline -1`).
 `-RefreshMissions` on the sync is only for a round where the sync says it
 merged your own mission edits: it re-spreads the airliners in the missions
@@ -96,7 +96,51 @@ folder missing, a `False`, a count of 2, "No Open Allocation campaigns
 installed" or "The Twelve-Mile Line is not installed" means the sync did not
 install this build: read its output before playing.
 
-### This round (3 Oct, afternoon): seven mod updates, 0.8.4, the PLAN Pack takes its own
+### This round (3 Oct, evening): your play-test notes, the Situation button, the Rafale retired
+
+Your first Task Force Mode run came back with three notes; each is in this
+build, and your decision on the Rafale with them (Southern Watch build notes,
+*The first play test*):
+
+1. **The Port Moresby cable's date.** `DTG: 210600Z OCT 28` was the military
+   form (21 Oct, 06:00Z, 2028) and read as the 28th. Every date-time group
+   in the three campaigns now carries the year in full: `210600Z OCT 2028`.
+2. **Steel Highway's submarine.** It was on the plot from the first minute
+   because you found the beacon in The Missing Beacon, and that reward handed
+   the contact over classified for the whole mission - too much for a
+   mission about classifying it. The reward is now a datum: a detected,
+   unclassified contact where the bridge record put the boat, which ages off
+   after fifteen minutes unless your sensors hold it. The Quiet Passenger's
+   Kiwi 01 reward is treated the same way. "Two subs": the mission places
+   one and the briefing says one; the Southern Watch card (H.8) asks you to
+   count again, because the likeliest second symbol is the revealed datum
+   beside a sonar contact on the same boat.
+3. **The Situation button.** Every campaign and twin now ships an enemy
+   theatre roster, so the button at the bottom right of the campaign screen
+   lists the forces the missions place - by nation, flagships, persistent
+   units with their variants, boats, aircraft with flight sizes. Whether it
+   tracks a sunk unit is yours to see (Southern Reach card 7.8).
+4. **The Rafale is retired.** No other mod in the collection ships one; the
+   French Navy pack's Charles de Gaulle names the Rafale mod's fighters in
+   its air group and sails without them. D3's Rafale CAP pair, D6's Rafale
+   41, the allied fleet's Rafale M and B, the Banda vignette *Rafale, Timor
+   Gap* and the SEST Rafale F5 pack are gone; 19 packs now, and the four
+   checks that were red for it are green. The sync will delete the vignette
+   and its briefing from your missions folder if it mirrors, or leave two
+   stale files there if it only copies: either is harmless.
+5. **The Ford has its Seahawks back.** Modern US Navy's update dropped the
+   `usn_mh-60r_26` the Ford mod's air group embarks ten of; the copy of the
+   Ford the pack ships embarks ten `usn_mh-60r` instead.
+6. **The count is 1260**: 1257 plus the six roster files, less the Rafale
+   pack's three.
+
+What to do: the standard update block (*Already aligned once?*), expecting
+`IN LINE: all 1260 installed files match this commit (<hash>)`. If you have
+subscribed to the two new mods you mentioned (a French air force mod, a PLAAF
+systems mod), run the export block instead - it syncs first, then exports
+and pushes them, and the next build catalogues and places them.
+
+### The 3 Oct afternoon round: seven mod updates, 0.8.4, the PLAN Pack takes its own
 
 Your export brought seven updated mods, not two, and the game had quietly
 moved to **0.8.4 Build 261002** on 2 Oct (two fixes: the mod menu's folder
@@ -465,7 +509,7 @@ this tree in this session with a clean `git status` afterwards, and the gates
 were run on it:
 
 ```
-python tools\build_all.py --from-scratch      # 20 packs, clean git status after
+python tools\build_all.py --from-scratch      # 19 packs, clean git status after
 python tools\check_campaign_coverage.py       # three campaigns, 1580 placed references, 164/164 mods and packs
 python tools\check_load_order.py
 python tools\check_dependencies.py
@@ -479,13 +523,9 @@ ran on the PC on 27 Sep (`97eac5f7`) and cleared the ghost files; what stays
 red is four mods whose files differ from the manifest only by line endings
 (3775128499, 3776340577, 3780118683, 3781062859).
 `docs/packaging-and-recovery.md`, *Known red*, gives the
-`git add --renormalize` fix. Since the 30 Sep export there is a second: the
-Dassault Rafale mod (3504168760) has left your Steam subscriptions and its
-files are gone, so `check_inventory` also lists it as an extra, and
-`check_campaign_coverage`, `check_dependencies` and `preflight --all` are
-red wherever they meet a Rafale (Southern Watch D3 and D6, the Open
-Allocation allied fleet, SEST Rafale F5). The pack was built with the last
-export that had the mod; *Known red* says how, and what clears it. Running the rest again on the PC proves the
+`git add --renormalize` fix. The second red the 30 Sep export added, the missing
+Rafale, cleared on 3 Oct when the Rafale was retired from the campaigns and the pack
+(*Known red* has the story). Running the rest again on the PC proves the
 PC's Python sees the same tree; it does not change what gets installed. Skip
 it if you are short of time; do not skip step 2's checks.
 
@@ -499,7 +539,7 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1257** for this build |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1260** for this build |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |
@@ -518,7 +558,9 @@ game files, SEST Replenishment metering two more hulls' rounds: the early Wasp M
 US Navy released from its Pending folder and the SY-1 the game repriced; 1265 with
 the combat systems - 60 `#!extend` files, one per mod hull given a profile, and the
 `combatsystems.ini` and `weapons.ini` Collection Fixes now ships; 1257 the same
-afternoon, the PLAN Pack's update having given its own eight hulls their systems).
+afternoon, the PLAN Pack's update having given its own eight hulls their systems; 1260
+that evening, the three campaigns' enemy theatre rosters and their twins' copies added and the
+retired Rafale F5 pack's three files gone).
 
 ## 5 — confirm the campaigns arrived
 

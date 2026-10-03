@@ -518,3 +518,9 @@ SEST assignments and retunes for that pack were retired by their guards. The
 Liaoning (TS09), the Type 071 and the Luda and Sovremenny keep theirs. The
 game is 0.8.4; the pack declares it and is 1257 files. Test card 7.3a, 7.3c
 and 7.6 are reworded for it.
+
+*Evening* (Southern Watch build notes, *The first play test*): both
+campaigns here ship `enemy_theater_roster.ini`, so the Situation button
+shows the PLAN and Russian forces the missions place; every cable's
+date-time group carries a four-digit year; the Rafale is retired from the
+collection (nothing here placed it). 1260 files.

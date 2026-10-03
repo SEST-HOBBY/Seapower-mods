@@ -2579,7 +2579,6 @@ MISSIONS.append(dict(
     stations={
         "group": S(1.0, 126.5, "French group", heading=100),
         "lift": S(0.4, 127.0, "Relief lift", heading=110, alt=2000),
-        "cap": S(0.6, 126.8, "Rafale pair", heading=90, alt=28000),
         "shore": S(-0.5, 128.0, "Distribution point", heading=0),
         # The column starts twenty miles up the road; the roadblock sits
         # between it and the point, not beside the tents.
@@ -2599,8 +2598,9 @@ MISSIONS.append(dict(
           name="SPS Juan Carlos I"),
         U("blue", "sea-lynx", "fr_sea_lynx", "lift", name="Group Flight",
           alt=2000),
-        U("blue", "rafale", "fr_rafale_m", "cap", name="Rafale 11"),
-        U("blue", "rafale", "fr_rafale_m", "cap", name="Rafale 12"),
+        # The Rafale pair that flew CAP here left with the Dassault Rafale mod
+        # (unsubscribed 28 Sep, retired from the campaigns 3 Oct); the group's
+        # Harriers and its own air defence cover the window.
         U("blue", "french-helicopter-package", "fr_as-565_sa", "lift",
           name="Panther 21"),
         U("blue", "french-helicopter-package", "fr_as_332M", "lift",
@@ -2948,7 +2948,7 @@ MISSIONS.append(dict(
           loadout="StrikePrecision"),
         U("blue", "SEST_F16CM_JATM", "usaf_f-16cm-bl52d", "escort",
           name="Viper 31", loadout="AirToAirVLongRange"),
-        U("blue", "SEST_Rafale_F5", "fr_rafale_m_l", "escort", name="Rafale 41"),
+        # Rafale 41 (SEST Rafale F5's LRASM fit) left with the Rafale mod, 3 Oct.
         U("blue", "rq-180-white-bat", "usaf_rq-180", "sensor",
           name="White Bat 01", weapons="Hold"),
         # FQ-44 Fury carrier wingmen (Workshop 3804868806, fictional naval
@@ -3786,7 +3786,7 @@ DOCUMENTS = [
          sub="Signal from the PNG Defence Force maritime liaison",
          header=[("FROM:", "CDR M. KILA, PNGDF MARITIME ELEMENT, PORT MORESBY"),
                  ("TO:", "COMAUSMARTG (CDRE MERCER)"),
-                 ("DTG:", "210600Z OCT 28"), ("PREC:", "PRIORITY"),
+                 ("DTG:", "210600Z OCT 2028"), ("PREC:", "PRIORITY"),
                  ("SUBJ:", "PROTECTED DELIVERY, MORESBY")],
          body=[
              "1. PORT MORESBY GENERAL HOSPITAL IS ON GENERATOR. THE POWER "
@@ -3807,7 +3807,7 @@ DOCUMENTS = [
          title="Terms of assistance\\n25 October 2028",
          sub="Signal from the Indonesian naval liaison",
          header=[("FROM:", "CAPT R. PRASETYO, TNI-AL, LIAISON TO COMAUSMARTG"),
-                 ("TO:", "COMAUSMARTG"), ("DTG:", "250400Z OCT 28"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "250400Z OCT 2028"),
                  ("PREC:", "IMMEDIATE"),
                  ("SUBJ:", "RIG SEVENTEEN - TERMS OF ASSISTANCE")],
          body=[
@@ -3831,7 +3831,7 @@ DOCUMENTS = [
          form="signal", strap="INTERCEPT",
          title="Intercept: Meridian net\\n1 November 2028",
          sub="Commercial HF, transcribed",
-         header=[("NET:", "COMMERCIAL HF, 8291 KHZ"), ("DTG:", "010340Z NOV 28"),
+         header=[("NET:", "COMMERCIAL HF, 8291 KHZ"), ("DTG:", "010340Z NOV 2028"),
                  ("NOTE:", "TRANSLATED / TRANSCRIBED. A: \"MERIDIAN CONTROL\". "
                            "B: \"ESCORT SEVEN\". PARTIAL.")],
          body=[
@@ -3857,7 +3857,7 @@ DOCUMENTS = [
          title="Air component note\\n8 November 2028",
          sub="What tomorrow's flying programme actually costs",
          header=[("FROM:", "WGCDR D. WARD, AIR COMPONENT, RAAF TINDAL"),
-                 ("TO:", "COMAUSMARTG"), ("DTG:", "080500Z NOV 28"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "080500Z NOV 2028"),
                  ("SUBJ:", "TOMORROW'S FLYING PROGRAMME - WHAT IT COSTS")],
          body=[
              "1. YOU HAVE ONE TANKER IN THE NORTH. NOT ONE TANKER TYPE. ONE "
@@ -3890,7 +3890,7 @@ DOCUMENTS = [
          title="Intercept: the Fujian group\\n22 November 2028",
          sub="Naval HF, partial decrypt, released to the force",
          header=[("NET:", "NAVAL HF, ENCRYPTED, PARTIAL DECRYPT"),
-                 ("DTG:", "220110Z NOV 28"),
+                 ("DTG:", "220110Z NOV 2028"),
                  ("NOTE:", "TRANSLATED. SPEAKER: FUJIAN CARRIER GROUP COMMANDER, "
                            "TO FLEET HQ. ASSESSED AUTHENTIC.")],
          body=[
@@ -4613,12 +4613,19 @@ for _m in MISSIONS:
         # The Missing Beacon's promise, kept: get alongside Torres Light
         # before Meridian does and her bridge recorder puts the boat on this
         # plot as a classified contact from the first minute.
+        # A datum, not a classified track: the mission's whole premise is the
+        # time it takes to classify this contact, and the first play (3 Oct)
+        # found the beacon reward handing it over classified from the first
+        # minute. The stock Sub Duel's "Initial contact" is the model - a bare
+        # reveal that holds briefly - so the record now puts a detection on the
+        # plot for fifteen minutes and classification stays the player's.
         _m["reveal_if"] = [dict(
-            variable="O1BeaconFound", units=["sub"], level="Classify",
+            variable="O1BeaconFound", units=["sub"], level="", time=900,
             intel=(
                 "ASW CELL: Torres Light's recovered bridge record matches the submarine report "
-                "on this route. The contact is classified on the plot and held there for the "
-                "operation. Engage it under the current orders."
+                "on this route. Her last plot of the contact is on your display as a datum and "
+                "will age off in fifteen minutes. Classification is yours; engage under the "
+                "current orders."
             ))]
     if _m["num"] == "06":
         # ("classify", ref, minimum, variable-to-set)
@@ -4639,12 +4646,15 @@ for _m in MISSIONS:
             ))]
     if _m["num"] == "04":
         # Southern Cross, kept: Kiwi 01's picture puts the boat on this plot.
+        # The same datum treatment as Steel Highway's beacon reward: telling
+        # the boat from the passenger is this mission's puzzle.
         _m["reveal_if"] = [dict(
-            variable="O2KiwiPicture", units=["sub"], level="Classify",
+            variable="O2KiwiPicture", units=["sub"], level="", time=900,
             intel=(
                 "ASW CELL: Kiwi 01's earlier report links MV Harbour Light to a submarine "
-                "working this route. That contact, the Type 039, is classified on the plot and "
-                "held there for the operation. It is not the passenger."
+                "working this route. Its last reported position is on your display as a datum "
+                "and will age off in fifteen minutes. That contact is not the passenger; "
+                "classify before you act."
             ))]
     if _m["num"] == "06":
         # Borrowed Shield, kept: the Korean destroyer stands in the screen.
