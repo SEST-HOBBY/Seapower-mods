@@ -67,7 +67,7 @@ EVENTS = [
          title="Wellington's allocation\\n8 December 2028",
          sub="Signal from No. 5 Squadron RNZAF",
          header=[("FROM:", "SQNLDR T. REWI, NO. 5 SQN RNZAF, OHAKEA"),
-                 ("TO:", "COMAUSMARTG (CDRE MERCER)"), ("DTG:", "080410Z DEC 2028"),
+                 ("TO:", "COMAUSMARTG (CDRE MERCER)"), ("DTG:", "080410Z DEC 28"),
                  ("PREC:", "PRIORITY"), ("SUBJ:", "MACQUARIE RIDGE - AIRCRAFT AND TERMS")],
          body=[
              "1. WELLINGTON HAS ALLOCATED ONE POSEIDON, ONE CREW, ONE SORTIE A "
@@ -125,7 +125,7 @@ EVENTS = [
          title="Intercept: the Austral Meridian net\\n17 December 2028",
          sub="Commercial HF, transcribed",
          header=[("NET:", "COMMERCIAL HF, 8291 KHZ - THE MERIDIAN NET'S FREQUENCY IN THE NORTH"),
-                 ("DTG:", "170220Z DEC 2028"),
+                 ("DTG:", "170220Z DEC 28"),
                  ("NOTE:", "TRANSLATED / TRANSCRIBED. A: \"AUSTRAL CONTROL\". "
                            "B: \"PROTECTION ONE\", ASSESSED AS THE GROUP'S FRIGATE. PARTIAL.")],
          body=[
@@ -155,7 +155,7 @@ EVENTS = [
          title="Where the ships are\\n21 December 2028",
          sub="Signal from the New Zealand maritime liaison",
          header=[("FROM:", "CDR T. BRAND RNZN, HQ JOINT FORCES NEW ZEALAND"),
-                 ("TO:", "COMAUSMARTG"), ("DTG:", "201500Z DEC 2028"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "201500Z DEC 28"),
                  ("PREC:", "PRIORITY"), ("SUBJ:", "BLUFF, INVERCARGILL AND OUR FRIGATES")],
          body=[
              "1. BLUFF IS OPEN TO YOUR SHIPS FOR REPAIR AND STORES. THE SLIPWAY "
@@ -211,7 +211,7 @@ EVENTS = [
          title="Air component note\\n27 December 2028",
          sub="What flying at the bottom of the world costs",
          header=[("FROM:", "WGCDR D. WARD, AIR COMPONENT, RAAF EDINBURGH"),
-                 ("TO:", "COMAUSMARTG"), ("DTG:", "270500Z DEC 2028"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "270500Z DEC 28"),
                  ("SUBJ:", "THE SOUTH - WHAT A SORTIE COSTS")],
          body=[
              (
@@ -309,7 +309,7 @@ EVENTS = [
          sub="A message from RSV Southern Endeavour",
          header=[("FROM:", "DR H. MARSH, VOYAGE LEADER, RSV SOUTHERN ENDEAVOUR"),
                  ("TO:", "CDRE MERCER, FOR THE ESCORT COMMANDER"),
-                 ("DTG:", "090710Z JAN 2029"), ("SUBJ:", "THE LAST VOYAGE SOUTH")],
+                 ("DTG:", "090710Z JAN 29"), ("SUBJ:", "THE LAST VOYAGE SOUTH")],
          body=[
              "1. CASEY HAS ITS PEOPLE, ITS FOOD AND MOST OF ITS SPARES. IT DOES "
              "NOT HAVE ITS WINTER FUEL, BECAUSE THE FUEL COASTER'S DECEMBER VOYAGE "
@@ -387,7 +387,7 @@ EVENTS = [
          title="Two air forces\\n27 January 2029",
          sub="Signal from No. 5 Squadron RNZAF",
          header=[("FROM:", "SQNLDR T. REWI, NO. 5 SQN RNZAF, OHAKEA"),
-                 ("TO:", "COMAUSMARTG"), ("DTG:", "270300Z JAN 2029"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "270300Z JAN 29"),
                  ("PREC:", "IMMEDIATE"), ("SUBJ:", "WEST OF THE CHATHAMS - THE RENDEZVOUS")],
          body=[
              (
@@ -476,7 +476,7 @@ EVENTS = [
          title="Intercept: the group commander\\n25 February 2029",
          sub="Naval HF, partial decrypt, released to the force",
          header=[("NET:", "NAVAL HF, ENCRYPTED, PARTIAL DECRYPT"),
-                 ("DTG:", "250140Z FEB 2029"),
+                 ("DTG:", "250140Z FEB 29"),
                  ("NOTE:", "TRANSLATED. SPEAKER: THE PROTECTION GROUP COMMANDER, "
                            "TO HIGHER. ASSESSED AUTHENTIC.")],
          body=[
@@ -510,7 +510,7 @@ EVENTS = [
          title="Channel sixteen\\n27 February 2029",
          sub="Relay from Bluefin 31, with the Commodore's note",
          header=[("FROM:", "BLUEFIN 31, RAAF P-8A"),
-                 ("TO:", "MBC SYDNEY / COMAUSMARTG"), ("DTG:", "261425Z FEB 2029"),
+                 ("TO:", "MBC SYDNEY / COMAUSMARTG"), ("DTG:", "261425Z FEB 29"),
                  ("PREC:", "FLASH"),
                  ("SUBJ:", "REQUEST FOR PROTECTION - TYPE 056A OF THE PROTECTION GROUP")],
          body=[

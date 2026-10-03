@@ -521,6 +521,5 @@ and 7.6 are reworded for it.
 
 *Evening* (Southern Watch build notes, *The first play test*): both
 campaigns here ship `enemy_theater_roster.ini`, so the Situation button
-shows the PLAN and Russian forces the missions place; every cable's
-date-time group carries a four-digit year; the Rafale is retired from the
-collection (nothing here placed it). 1260 files.
+shows the PLAN and Russian forces the missions place; the Rafale is retired
+from the collection (nothing here placed it). 1260 files.

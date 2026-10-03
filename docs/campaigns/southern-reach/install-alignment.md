@@ -102,9 +102,9 @@ Your first Task Force Mode run came back with three notes; each is in this
 build, and your decision on the Rafale with them (Southern Watch build notes,
 *The first play test*):
 
-1. **The Port Moresby cable's date.** `DTG: 210600Z OCT 28` was the military
-   form (21 Oct, 06:00Z, 2028) and read as the 28th. Every date-time group
-   in the three campaigns now carries the year in full: `210600Z OCT 2028`.
+1. **The Port Moresby cable's date** stays as it was, on your word:
+   `DTG: 210600Z OCT 28` is the military form, day 21, 0600 Zulu, October
+   2028. (The build wrote the year in full for one commit; reverted.)
 2. **Steel Highway's submarine.** It was on the plot from the first minute
    because you found the beacon in The Missing Beacon, and that reward handed
    the contact over classified for the whole mission - too much for a
