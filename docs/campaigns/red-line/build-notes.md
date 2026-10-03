@@ -371,5 +371,4 @@ it so. The game is 0.8.4; the pack declares it and is 1257 files. Test card
 *Evening* (Southern Watch build notes, *The first play test*): Red Line
 ships `enemy_theater_roster.ini`, so the Situation button shows the
 coalition the player faces - RAN, USN, JMSDF and RNZN blocks, the Maya as a
-flagship, the Collins and Virginias as persistent boats; every signal's
-date-time group carries a four-digit year. 1260 files.
+flagship, the Collins and Virginias as persistent boats. 1260 files.

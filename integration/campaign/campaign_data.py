@@ -3786,7 +3786,7 @@ DOCUMENTS = [
          sub="Signal from the PNG Defence Force maritime liaison",
          header=[("FROM:", "CDR M. KILA, PNGDF MARITIME ELEMENT, PORT MORESBY"),
                  ("TO:", "COMAUSMARTG (CDRE MERCER)"),
-                 ("DTG:", "210600Z OCT 2028"), ("PREC:", "PRIORITY"),
+                 ("DTG:", "210600Z OCT 28"), ("PREC:", "PRIORITY"),
                  ("SUBJ:", "PROTECTED DELIVERY, MORESBY")],
          body=[
              "1. PORT MORESBY GENERAL HOSPITAL IS ON GENERATOR. THE POWER "
@@ -3807,7 +3807,7 @@ DOCUMENTS = [
          title="Terms of assistance\\n25 October 2028",
          sub="Signal from the Indonesian naval liaison",
          header=[("FROM:", "CAPT R. PRASETYO, TNI-AL, LIAISON TO COMAUSMARTG"),
-                 ("TO:", "COMAUSMARTG"), ("DTG:", "250400Z OCT 2028"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "250400Z OCT 28"),
                  ("PREC:", "IMMEDIATE"),
                  ("SUBJ:", "RIG SEVENTEEN - TERMS OF ASSISTANCE")],
          body=[
@@ -3831,7 +3831,7 @@ DOCUMENTS = [
          form="signal", strap="INTERCEPT",
          title="Intercept: Meridian net\\n1 November 2028",
          sub="Commercial HF, transcribed",
-         header=[("NET:", "COMMERCIAL HF, 8291 KHZ"), ("DTG:", "010340Z NOV 2028"),
+         header=[("NET:", "COMMERCIAL HF, 8291 KHZ"), ("DTG:", "010340Z NOV 28"),
                  ("NOTE:", "TRANSLATED / TRANSCRIBED. A: \"MERIDIAN CONTROL\". "
                            "B: \"ESCORT SEVEN\". PARTIAL.")],
          body=[
@@ -3857,7 +3857,7 @@ DOCUMENTS = [
          title="Air component note\\n8 November 2028",
          sub="What tomorrow's flying programme actually costs",
          header=[("FROM:", "WGCDR D. WARD, AIR COMPONENT, RAAF TINDAL"),
-                 ("TO:", "COMAUSMARTG"), ("DTG:", "080500Z NOV 2028"),
+                 ("TO:", "COMAUSMARTG"), ("DTG:", "080500Z NOV 28"),
                  ("SUBJ:", "TOMORROW'S FLYING PROGRAMME - WHAT IT COSTS")],
          body=[
              "1. YOU HAVE ONE TANKER IN THE NORTH. NOT ONE TANKER TYPE. ONE "
@@ -3890,7 +3890,7 @@ DOCUMENTS = [
          title="Intercept: the Fujian group\\n22 November 2028",
          sub="Naval HF, partial decrypt, released to the force",
          header=[("NET:", "NAVAL HF, ENCRYPTED, PARTIAL DECRYPT"),
-                 ("DTG:", "220110Z NOV 2028"),
+                 ("DTG:", "220110Z NOV 28"),
                  ("NOTE:", "TRANSLATED. SPEAKER: FUJIAN CARRIER GROUP COMMANDER, "
                            "TO FLEET HQ. ASSESSED AUTHENTIC.")],
          body=[

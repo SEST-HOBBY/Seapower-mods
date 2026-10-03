@@ -1871,7 +1871,7 @@ Southern Watch (Open Allocation), mission 2 done
 (`docs/packaging-and-recovery.md`, *What the update does to a Task Force
 Mode save*).
 
-## The first play test: the Situation button, a datum, four-digit years, and the Rafale (3 October, evening)
+## The first play test: the Situation button, a datum, the cable dates, and the Rafale (3 October, evening)
 
 The player's first Task Force Mode run - Southern Watch, four entries deep
 (White Water, The Missing Beacon, Steel Highway, After the Wake), the save
@@ -1917,11 +1917,12 @@ tracks a pre-placed unit's loss (the stock notes say story units are
 tracked; ours are all story units in that sense) is the test card's to
 settle: sink Steel Highway's Type 039C and look.
 
-**Four-digit years.** The Port Moresby cable read `DTG: 210600Z OCT 28`, the
-military form, and read to the player as the 28th of October on a letter
-shown before the 22nd. Every date-time group in the three campaigns' pages
-now carries the year in full (`210600Z OCT 2028`); the cable renders the
-same.
+**The date-time groups stay military.** The Port Moresby cable reads
+`DTG: 210600Z OCT 28` - day 21, 0600 Zulu, October 2028, the form a signal
+carries - and the first play read it as the 28th. The build briefly wrote the
+year in full; the player chose the realism, so every date-time group in the
+three campaigns is back to the military form, and this note is where a
+reader who meets `OCT 28` can look it up.
 
 **The Rafale is retired.** The Dassault Rafale mod left the player's
 subscriptions on 28 Sep, and on 3 Oct the player retired it rather than
