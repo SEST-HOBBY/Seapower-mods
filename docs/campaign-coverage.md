@@ -8,10 +8,10 @@ This campaign reaches 164 of the enabled mods and packs; the 1 it does not are l
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 126 |
+| `unit` | places the unit; this mod wins its file | 125 |
 | `variant` | supplies the hull variant the placed unit uses | 11 |
 | `squadron` | supplies the squadron the placed airframe flies from | 7 |
-| `store` | supplies a round the placed unit's loadout hangs | 8 |
+| `store` | supplies a round the placed unit's loadout hangs | 9 |
 | `asset` | supplies a model folder the placed unit's file draws from | 2 |
 | `library` | ships no file a mission can name — systems, effects, UI or a bare dependency marker — and applies install-wide | 7 |
 | `shadowed` | every file it ships is outranked by something above it; nothing it contains can load | 2 |
@@ -76,7 +76,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `fq-44-fury-carrier-wingmen` | Anduril FQ-44 Fury US Navy Carrier Wingmen | `unit` | usn_fury_escort | Long Reach |
 | `french-army-vehicles` | French Army Vehicles | `unit` | fr_apc_vab_top | The Relief Ship |
 | `french-helicopter-package` | French Helicopter Package | `unit` | nl_nh90 | Western Passage |
-| `fujian-cv-18` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 | `unit` | plan_cv_type_003 | Fujian's Shadow |
+| `fujian-cv-18` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 | `store` | plaaf_jh7a / plaaf_yj-91 | Weapons Free |
 | `ground-upgrade-spaa` | Ground Upgrade: SPAA | `unit` | ru_spaa_mt-lb_sosna | Rig Seventeen |
 | `humpback-whale` | Humpback Whale | `unit` | civ_humpback | The Quiet Passenger |
 | `identify-expanded` | Identify Expanded | `library` | identification and challenge orders (hail, warn, redirect, stop, surrender) run through Anchor Chain; its data is five IFF sensor sections and its own strings - nothing a mission can name. It acts on every contact in every mission and no mission may depend on it | - |
@@ -86,7 +86,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `j-10c` | ChengDu J-10C Vigorous Dragon | `unit` | plaaf_j10c | Common Sea |
 | `j-11` | Shenyang J-11 | `unit` | plaaf_j-11bg | Common Sea |
 | `j-11bs` | PLA Shenyang J-11BS | `unit` | plaaf_j-11bs | Common Sea |
-| `j-16-multirole` | J-16 Multirole Fighter | `unit` | plaaf_j16 | Blind Horizon |
+| `j-16-multirole` | Rebuilt J-16 / J-16D | `unit` | plaaf_j16 | Blind Horizon |
 | `j-16a` | Shenyang J-16A (歼-16A 潜龙) | `unit` | plaf_j16d | Return Passage |
 | `j-20` | J-20 (歼-20 威龙) | `unit` | plaaf_j-20a | Fujian's Shadow |
 | `j-36-tailless` | J-36 Tailless Fighter | `unit` | plaaf_j36 | Long Reach |
@@ -122,7 +122,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `p-8-poseidon` | Boeing P-8 Poseidon | `asset` | usn_p8 / aircraft/P8_Poseidon/Upgrade | White Water |
 | `pickup-truck-extension` | Pickup truck extension | `unit` | civ_car_pickup_1983_assault_civ | Rig Seventeen |
 | `pla-land-unit-pack` | PLA Land Unit Pack | `unit` | pla_df-21c_tel | The Open Door |
-| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plaaf_j16 / plaaf_pl-15 | Blind Horizon |
+| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | pla_df-21c_tel / pla_df-21c | The Open Door |
 | `plan-submarines` | PLAN Submarines | `unit` | plan_ss_type_039c | Steel Highway |
 | `raaf-f-35a` | RAAF F-35A Lighting II | `squadron` | raaf_f-35a | Weapons Free |
 | `rafale` | Dassault Rafale | `unit` | fr_rafale_m | The Relief Ship |

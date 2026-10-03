@@ -72,7 +72,7 @@ head was never registered as a sensor module while its squadron file \
 declared seven squadrons against two defined liveries.
 
 [Compatibility]
-ApproximateVersion=0.8.3
+ApproximateVersion=0.8.4
 """
 
 

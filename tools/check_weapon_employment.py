@@ -94,9 +94,13 @@ ALLOW = {
         "upstream writes |KH-31 against its own Kh-31Positions key - a case "
         "mismatch worth at most a ~17 cm seat offset on two YJ-91s; not worth "
         "overriding a 3000-line workshop aircraft file",
-    "plan_cv_type_003 (3663564190/vessels) WeaponMagazine_FQF2500":
-        "dead data: the FQF-2500 magazines hold Ammunition1_Count=0 and no "
-        "weapon system references them",
+    # Keyed on the unit and the magazine, not the mod path: the Fujian mod's
+    # file carried this, and since 3 Oct 2026 the PLAN Pack's own Fujian,
+    # which outranks it, carries the same two magazines byte for byte.
+    ("plan_cv_type_003", "WeaponMagazine_FQF2500"):
+        "dead data: the FQF-2500 magazines hold Ammunition1_Count=0 of a round "
+        "no mod ships (plan_f3200a), and no weapon system references them - in "
+        "the Fujian mod's file and in the PLAN Pack's Fujian alike",
     "plan_z-9d (3775128499/aircraft) loadout 'Transport'":
         "a transport fit carries no weapons by design",
 }

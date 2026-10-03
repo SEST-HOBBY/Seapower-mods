@@ -1326,7 +1326,7 @@
         "type-003-004-maneuverwarfare (Fujian)",
         "chinese-navy-plan (Fujian)"
       ],
-      "notes": "Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it.",
+      "notes": "SUPERSEDED FOR ITS HULL 2026-10-03: Modern PLAN Systems (same author) now ships plan_cv_type_003 and the whole air wing above this mod in the order, so the game reads the PLAN Pack's Fujian; the campaigns credit the carrier to the PLAN Pack since then. Still the only source of 25 PLAAF/PLAN rounds (PL-10/12A/15/17, KD-88, LD-8A, LS-6 family, YJ-15, YJ-83KH, YJ-91...), which is what keeps it in the load order. Unsubscribe candidate once those rounds appear elsewhere. Previously: Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it.",
       "load_order": "Moved above Type 003/004 CVN (collection audit): its PL-10 (AntiCountermeasuresBonus 0.95 vs 0.05, 12 nm seeker), PL-15, YJ-91 and KD-88 are the modern-schema versions; the mission's 28 fielded PL-10s were flying the flare-bait copy."
     },
     {
@@ -1489,7 +1489,7 @@
       "faction": "china",
       "type": "framework",
       "status": "active",
-      "notes": "2020s-era PLAN sensors and armaments database; same author as Fujian CV-18. Analogue of Euromod Main for the Chinese fleet. No author placement instruction; recommendation: keep above PLAN ship mods if it acts as a shared systems database (this framework role is itself inferred)."
+      "notes": "Updated 2026-10-03, a large one: ships its own systems/combatsystems.ini (ZKJ-4/5 and ZBJ-1 families, two datalink profiles, KJ-500/KJ-600 AEW profiles) and every hull now declares a [CombatSystems] block, so SEST Collection Fixes retired the eight extend files it had given this pack's hulls that morning; its Type 730 and 1130 are on the 0.8.3 CIWS keys (anchors 65 and 90), so the SEST retune of them was retired the same way. Now also ships a Fujian (plan_cv_type_003, with the same air wing the Fujian mod gives it) that outranks the Fujian mod's, plus J-15T, J-15DT, J-35, KJ-600, Z-18 and Z-8J, and rewrote its Y-8/Y-9, KJ-500, Ka-28/31 and Z-9 files, its sensors and most of its rounds. Previously: 2020s-era PLAN sensors and armaments database; same author as Fujian CV-18. Analogue of Euromod Main for the Chinese fleet. No author placement instruction; recommendation: keep above PLAN ship mods if it acts as a shared systems database (this framework role is itself inferred)."
     },
     {
       "id": "kc-10a",
@@ -1853,7 +1853,7 @@
     {
       "id": "j-16-multirole",
       "workshop_id": "3769142422",
-      "title": "J-16 Multirole Fighter",
+      "title": "Rebuilt J-16 / J-16D",
       "author": "unknown",
       "faction": "china",
       "type": "fixed-wing",
@@ -1861,7 +1861,7 @@
       "overlaps": [
         "j-16a (3506979898) - same platform, DIFFERENT unit ids (plaaf_j16 vs plaf_j16a), so both coexist"
       ],
-      "notes": "Second J-16 in the collection. Verified additive: no shared files with 3506979898, so this is a duplicate platform rather than a conflict - two J-16 entries will appear in the editor."
+      "notes": "Retitled and rebuilt 2026-10-03: the J-16 rewritten and a J-16D electronic-attack variant added (plaaf_j16d), with its own PL-10/15/17, YJ-91, LD-8A and LS-6 rounds under j16_/plaaf_j16_ ids and its own sensors and weapons sections. Red Line fields plaaf_j16 (Enclave 11/12); the Banda vignettes fly it AirToAirLongRange. Previously: Second J-16 in the collection. Verified additive: no shared files with 3506979898, so this is a duplicate platform rather than a conflict - two J-16 entries will appear in the editor."
     },
     {
       "id": "pla-plan-plaaf-aep",

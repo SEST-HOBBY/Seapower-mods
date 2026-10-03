@@ -113,29 +113,29 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 87. Humpback Whale
 88. IL-78 TANKER
 89. Iskander TBM
-90. J-16 Multirole Fighter — *duplicate platform with Shenyang J-16A — different unit ids, both load*
-91. J-20 (歼-20 威龙)
-92. J-36 Tailless Fighter
-93. Ka-27RLD
-94. KC-135 STRATOTANKER
-95. KC-46A Pegasus - Strategic Tanker
-96. Lockheed AC-130 Pack
-97. McDonnell Douglas KC-10A Extender - Strategic Tanker
-98. MH-60R Seahawk — *keep subscribed: ADO Nimitz 2000s draws its deck Seahawks from this mod's usn_sh-60b model folder. The MH-60R squadron table is SEST Collection Fixes' now (United States Naval Aviation's, written for the model that loads, plus 816 Squadron RAN), so its position above US Naval Aviation no longer decides it; unit file stays with U.S. Navy 2027*
-99. Mi-8 T/TV
-100. Mi-8EW
-101. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
-102. MiG-31 Foxhound
-103. MiG-35 Fulcrum-F (米格-35 支点-F)
-104. Mil Mi-24 Hind
-105. MORE SU-24M VARIANTS
-106. MV-22B Osprey Tiltrotor / JGSDF V-22B
-107. Pickup truck extension
-108. PLA & PLAN & PLAAF AEP — *Anchorchain expansion — below the loader, with the Euromod one*
-109. PLA Shenyang J-11BS
-110. PLA Sukhoi Su-27UBK
-111. RAAF F-35A Lighting II
-112. RC-135V/W Rivet Joint — *above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges*
+90. J-20 (歼-20 威龙)
+91. J-36 Tailless Fighter
+92. Ka-27RLD
+93. KC-135 STRATOTANKER
+94. KC-46A Pegasus - Strategic Tanker
+95. Lockheed AC-130 Pack
+96. McDonnell Douglas KC-10A Extender - Strategic Tanker
+97. MH-60R Seahawk — *keep subscribed: ADO Nimitz 2000s draws its deck Seahawks from this mod's usn_sh-60b model folder. The MH-60R squadron table is SEST Collection Fixes' now (United States Naval Aviation's, written for the model that loads, plus 816 Squadron RAN), so its position above US Naval Aviation no longer decides it; unit file stays with U.S. Navy 2027*
+98. Mi-8 T/TV
+99. Mi-8EW
+100. MIG-29 Family — *watchlist: MiG-29/R-series overlap*
+101. MiG-31 Foxhound
+102. MiG-35 Fulcrum-F (米格-35 支点-F)
+103. Mil Mi-24 Hind
+104. MORE SU-24M VARIANTS
+105. MV-22B Osprey Tiltrotor / JGSDF V-22B
+106. Pickup truck extension
+107. PLA & PLAN & PLAAF AEP — *Anchorchain expansion — below the loader, with the Euromod one*
+108. PLA Shenyang J-11BS
+109. PLA Sukhoi Su-27UBK
+110. RAAF F-35A Lighting II
+111. RC-135V/W Rivet Joint — *above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges*
+112. Rebuilt J-16 / J-16D — *duplicate platform with Shenyang J-16A — different unit ids, both load*
 113. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
 114. RQ-180 White Bat Airframe
 115. SA-21/S-400 SAM — *watchlist: land air-defense overlap*

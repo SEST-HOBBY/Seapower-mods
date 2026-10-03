@@ -118,7 +118,6 @@ shared file wins for the mods above.
   3508275114    Ground Upgrade: SPAA
   3790594162    Identify Expanded
   3408662804    Iskander TBM
-  3769142422    J-16 Multirole Fighter
   3591563716    J-20 (歼-20 威龙)
   3801549552    J-36 Tailless Fighter
   3776340577    Ka-27RLD
@@ -143,6 +142,7 @@ shared file wins for the mods above.
   3729578404    PLA Shenyang J-11BS
   3729579342    PLA Sukhoi Su-27UBK
   3774572038    PLAN Type 071 Amphibious Transport Dock
+  3769142422    Rebuilt J-16 / J-16D
   3378409795    Royal Navy Type 23 'Duke Class' Frigate [OLD]
   3373356293    Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
   3796113927    RQ-180 White Bat Airframe

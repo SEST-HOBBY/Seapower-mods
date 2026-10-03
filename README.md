@@ -34,7 +34,7 @@ The 20 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persisten
 `SEST_RAN_Fleet`, `SEST_Rafale_F5`, `SEST_Raptor_Squadrons`, `SEST_Replenishment`,
 `SEST_TacMap_Colors` and `SEST_Campaign` (the three campaigns, each also listed as an Open
 Allocation twin that sells its whole roster from the first window - and, for the two RAN
-campaigns, the allied fleet). Consolidated, they are 1265
+campaigns, the allied fleet). Consolidated, they are 1257
 files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
 when Modern US Navy fixed what it patched (`docs/packaging-and-recovery.md`).
 

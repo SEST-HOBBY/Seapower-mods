@@ -37,7 +37,7 @@ pack's root, is the union across every campaign in the pack.
   3605013271    a unit a mission places          RE-power: the resupply mod
   3413868677    a model a placed unit draws      Red Storm Arsenal
   3436170138    a weapon a loadout hangs         Shenyang J-11
-  3663564190    a unit a mission places          Type 003 Aircraft Carrier - PLANS Fujian CV-18
+  3663564190    a weapon a loadout hangs         Type 003 Aircraft Carrier - PLANS Fujian CV-18
   3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
   3737267013    a model a placed unit draws      United States Naval Aviation
@@ -113,7 +113,6 @@ shared file wins for the mods above.
   3717610332    IL-78 TANKER
   3408662804    Iskander TBM
   3505420313    Italian Navy Mod
-  3769142422    J-16 Multirole Fighter
   3591563716    J-20 (歼-20 威龙)
   3801549552    J-36 Tailless Fighter
   3776340577    Ka-27RLD
@@ -138,6 +137,7 @@ shared file wins for the mods above.
   3729578404    PLA Shenyang J-11BS
   3729579342    PLA Sukhoi Su-27UBK
   3774572038    PLAN Type 071 Amphibious Transport Dock
+  3769142422    Rebuilt J-16 / J-16D
   3378409795    Royal Navy Type 23 'Duke Class' Frigate [OLD]
   3373356293    Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
   3796113927    RQ-180 White Bat Airframe

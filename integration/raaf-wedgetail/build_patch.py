@@ -105,7 +105,7 @@ def main():
         "so any mission asking for SquadronReference=Squadron1 fails to resolve. "
         "Squadrons differ by nation rather than livery because the mod carries no "
         "alternative skin textures. Requires the E-7A Wedgetail mod and must sit ABOVE it.\n\n"
-        "[Compatibility]\nApproximateVersion=0.8.3\n", encoding="utf-8")
+        "[Compatibility]\nApproximateVersion=0.8.4\n", encoding="utf-8")
 
     print(f"built {OUT.relative_to(ROOT)}: {len(SQUADRONS)} squadrons "
           f"({', '.join(sorted(used))}), nations validated")

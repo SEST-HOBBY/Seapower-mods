@@ -42,7 +42,6 @@ pack's root, is the union across every campaign in the pack.
   3384079999    a unit a mission places          Humpback Whale
   3717610332    a unit a mission places          IL-78 TANKER
   3505420313    a unit the player can buy        Italian Navy Mod
-  3769142422    a unit a mission places          J-16 Multirole Fighter
   3591563716    a unit a mission places          J-20 (歼-20 威龙)
   3776340577    a unit a mission places          Ka-27RLD
   3722749887    a unit a mission places          KC-135 STRATOTANKER
@@ -70,6 +69,7 @@ pack's root, is the union across every campaign in the pack.
   3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
   3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
   3605013271    a unit a mission places          RE-power: the resupply mod
+  3769142422    a unit a mission places          Rebuilt J-16 / J-16D
   3413868677    a unit a mission places          Red Storm Arsenal
   3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
   3392434750    a unit a mission places          SA-21/S-400 SAM
@@ -84,7 +84,7 @@ pack's root, is the union across every campaign in the pack.
   3434072450    a unit a mission places          Sukhoi Flanker Family (苏霍伊侧卫家族)
   3780118683    a unit a mission places          Tu-214R Family (图-214R家族)
   3395022688    a weapon a loadout hangs         Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
-  3663564190    a unit a mission places          Type 003 Aircraft Carrier - PLANS Fujian CV-18
+  3663564190    a weapon a loadout hangs         Type 003 Aircraft Carrier - PLANS Fujian CV-18
   3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3606774881    a unit a mission places          U.S. Navy 2027 Capabilities mod
   3737267013    a unit a mission places          United States Naval Aviation

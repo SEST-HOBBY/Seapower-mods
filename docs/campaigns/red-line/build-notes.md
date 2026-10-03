@@ -16,7 +16,7 @@ are theirs and are not repeated.
 | Placed units | 68; RL05 and RL06's 12 positions proved against the coastline extract, RL01–RL04's 22 stations used as authored (below) |
 | Mods reached | 43 directly; the pack union with the other two campaigns still reaches all 164 enabled mods and SEST packs |
 | Points | 560 across six missions; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 (1,250 on Veteran) |
-| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 668 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line, 1203 on the 0.8.3 game files and 1265 with the combat systems (60 extend files, two systems files) |
+| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 668 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line, 1203 on the 0.8.3 game files, 1265 with the combat systems (60 extend files, two systems files) and 1257 once the PLAN Pack's own update took over its eight hulls |
 | The other campaigns | every mission file, story page and `campaign.ini` of Southern Watch and Southern Reach is byte-identical. Nine of their mission cards changed, on purpose (below) |
 
 The code is `integration/campaign/red_line/`: `__init__.py` (the spec, the
@@ -356,3 +356,14 @@ model (anchors 55 and 60, were 85 and 102; the 1130 keeps its eleven
 barrels' 11,000 rounds a minute), and the vanilla AK-630 the Luda and
 Sovremenny mount reads the game's own retune again instead of a stale copy
 four aircraft mods carried. The pack is 1265 files. Test card, 8A.
+
+*The same afternoon* (Southern Watch build notes, *Seven mod updates and
+0.8.4*): the PLAN Pack's own update gave every one of its hulls its own
+combat system - the player's 054A reads ZKJ-5A (Fast, 64 contacts), the
+052D ZBJ-1A, the 055 ZBJ-1B, the 056A ZKJ-5B - and retuned its Type 730 and
+1130 itself (anchors 65 and 90, the 1130 with 2800-round volleys), so the
+SEST profiles and retunes for that pack were retired by their guards; the
+Type 071 (RL04) and the coalition hulls keep theirs. The Fujian in RL01 is
+now the PLAN Pack's own hull, with the same air wing, and the roster credits
+it so. The game is 0.8.4; the pack declares it and is 1257 files. Test card
+8A.3, 8A.3a and 8A.4 are reworded for it.

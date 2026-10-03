@@ -139,8 +139,9 @@ behaviour of the engine that no file states.
 |---|---|---|---|
 | 8A.1 | RL03, pause at T+0, then ten minutes at 8x watching Dragon Eye 05 (weapons Hold) and the Z-9 | On the racetrack through the ten minutes | Turning for the enclave field at the start = the game returns pre-placed Hold aircraft to base: say so, and every Hold aircraft in the pack moves to Tight (Southern Reach card 7.1) |
 | 8A.2 | Any mission, Left Shift+O before the first engagement | Note "Ships on Weapons Tight engage hostile aircraft" (off since 0.8.3) and "Ships use anti-ship missiles on Weapons Free" (new) | The frigate at Tight watching the Poseidon is the default; set and say |
-| 8A.3 | RL01 or RL06, Shift+Y on the 054A, Engagement tab | Reads SEST PLAN Multirole (Fast, 48 contacts, 3 worked): the pack's `#!extend` landed on the PLAN Pack's hull | The game's default = an extend from the SEST pack does not reach another mod's hull; say so (Southern Reach card 7.3a) |
-| 8A.4 | RL01, let the coalition's first anti-ship salvo reach the 054A | Her Type 1130 fires volleys with pauses and stops some missiles, not all (anchor 60, was 102) | Every missile stopped = the PLAN Pack's own section still wins; none and no fire = the retuned section is not read: say which |
+| 8A.3 | RL01 or RL06, Shift+Y on the 054A, Engagement tab | ZKJ-5A: the PLAN Pack's own system since its 3 Oct update (the Fujian reads ZBJ-1B) | Anything else = the PLAN Pack's block is not read: say which |
+| 8A.3a | RL04 The Order to Withdraw, Shift+Y on the Type 071 | SEST PLAN Amphibious (Fast, 80 contacts): the pack's `#!extend` landed on another mod's hull | The game's default = the extend does not reach it; say so (Southern Reach card 7.3a) |
+| 8A.4 | RL01, let the coalition's first anti-ship salvo reach the 054A | Her Type 1130 fires long volleys (2800 rounds, 7 s pauses) and stops most of a small salvo: the PLAN Pack's own 3 Oct tune, anchor 90 | Fire without pause = the 0.8.3 keys are not read; count what a four-missile salvo loses |
 
 ## 9 — the numbers to bring back
 

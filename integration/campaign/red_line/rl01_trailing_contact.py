@@ -128,7 +128,7 @@ MISSION = dict(
         # name, no objective - slot-tagged aircraft keep the player's own.
         U("blue", "modern-plan-systems", "plan_z-9c", "flight", alt=500, weapons="Hold",
           loadout="ASWHunter", slot="HeloRecon"),
-        U("blue", "fujian-cv-18", "plan_cv_type_003", "carrier", name="Fujian",
+        U("blue", "modern-plan-systems", "plan_cv_type_003", "carrier", name="Fujian",
           weapons="Hold", route=[(1.24, 126.74, 0)], telegraph=3),
         U("blue", "chinese-navy-plan", "plan_z-18f", "dipper", name="Dipper 21",
           loadout="ASW", weapons="Hold"),

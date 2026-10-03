@@ -122,7 +122,7 @@ Left in the load order because removing one changes which file wins for the mods
 | `italian-navy-cold-war` | Italian Navy Mod |
 | `j-10c` | ChengDu J-10C Vigorous Dragon |
 | `j-11bs` | PLA Shenyang J-11BS |
-| `j-16-multirole` | J-16 Multirole Fighter |
+| `j-16-multirole` | Rebuilt J-16 / J-16D |
 | `j-16a` | Shenyang J-16A (歼-16A 潜龙) |
 | `j-20` | J-20 (歼-20 威龙) |
 | `j-36-tailless` | J-36 Tailless Fighter |

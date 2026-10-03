@@ -92,17 +92,17 @@ PROFILES = {
                                   "Daegu."),
     # --- PLAN ----------------------------------------------------------
     "SEST_PLAN_AAW": (EUROMOD, "CMS_AAW_APAR", {},
-                      "ZKJ-5 behind a four-face phased array: the Type 052C and 052D."),
+                      "ZKJ-5 behind a four-face phased array: Red Storm's Type 052C and 052D."),
     "SEST_PLAN_Cruiser": (EUROMOD, "CMS_AAW_APAR_MLU", {},
-                          "the Type 055's integrated combat system; the Euromod MLU APAR "
-                          "profile is the nearest shape (VeryFast, 144 contacts, 6 worked)."),
+                          "the Type 055's integrated combat system on Red Storm's two and its "
+                          "Type 045; the Euromod MLU APAR profile is the nearest shape "
+                          "(VeryFast, 144 contacts, 6 worked)."),
     "SEST_PLAN_Multirole": (EUROMOD, "CMS_Multirole_MLU", {},
-                            "ZKJ-5 on a frigate: the Type 054 and 054A, the 2017 Shenzhen, "
-                            "the Type 051M."),
-    "SEST_PLAN_Compact": (EUROMOD, "9LV_Compact", {},
-                          "a corvette's CMS: the Type 056A."),
+                            "ZKJ-5 on a frigate: Red Storm's Type 054 and 054A, its Type 051M. "
+                            "(The PLAN Pack's own hulls declare their own since 3 Oct.)"),
     "SEST_PLAN_Carrier": (EUROMOD, "SSDS_Carrier", {},
-                          "Liaoning, Shandong, Fujian, the Type 004, the export 1143."),
+                          "Liaoning, the Type 004, Red Storm's export 1143 (the PLAN Pack's "
+                          "Fujian declares its own)."),
     "SEST_PLAN_Amphibious": (EUROMOD, "NTDS_Amphibious", {},
                              "the Type 071."),
     # --- Russia ---------------------------------------------------------

@@ -503,15 +503,15 @@ beside the repo (*Known red* above) is the other route.
    ```bash
    python3 tools/generate_load_order.py      # docs/load-order-full.md
    python3 tools/generate_catalog.py         # docs/mod-catalog.md
-   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1265 on 3 Oct 2026
+   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1257 on 3 Oct 2026
    ```
 
-   By hand: the install guide's count, if it moved - the `IN LINE: all 1265
-   installed files` line under *Already aligned once?*, `N is 1265` in
+   By hand: the install guide's count, if it moved - the `IN LINE: all 1257
+   installed files` line under *Already aligned once?*, `N is 1257` in
    step 4 of `docs/campaigns/southern-reach/install-alignment.md` and the
-   derivation under that table, which ends `1265 with the combat systems`
-   and gains a clause for what the update added or removed - and
-   `Consolidated, they are 1265 files` in `README.md`;
+   derivation under that table, which ends `1257 the same afternoon` and
+   gains a clause for what the update added or removed - and
+   `Consolidated, they are 1257 files` in `README.md`;
    a dated section in each campaign's `build-notes.md`
    (`docs/campaigns/<campaign>/`, in the style of *Rivet Joint (30
    September)* in Southern Reach's and Red Line's) saying what the update
@@ -530,7 +530,7 @@ beside the repo (*Known red* above) is the other route.
 9. **Then the PC runs the standard update block** (*Already aligned once?*
    in `docs/campaigns/southern-reach/install-alignment.md`): it
    fast-forwards the deploy branch to the session's and syncs, and its last
-   line must read `IN LINE: all 1265 installed files match this commit`, or
+   line must read `IN LINE: all 1257 installed files match this commit`, or
    the new count from step 7.
 
 ### The first run: 0.8.3, 2 October 2026
@@ -577,13 +577,29 @@ restores the game's 66 affected sections. The pattern for the next update:
 when the drift tool reports a MERGED change in `systems/weapons.ini`, look
 at who else defines the section, because a stale whole-file copy in an
 unrelated mod outranks the game. A pack section that carries vanilla's new
-value is a MIRROR in that report, not a clash. 1265 files.
+value is a MIRROR in that report, not a clash. 1265 files; 1257 by the
+afternoon, when the PLAN Pack's own update declared systems on its eight
+hulls and the extend guard retired ours - the second pattern for next time:
+a mod that takes up a game feature itself retires the SEST stand-in, and the
+guards are what make that a build stop rather than a doubled block. The game
+was 0.8.4 Build 261002 by then (2 Oct, two fixes), caught by
+`check_game_version` on the export and bumped.
 
 ### What the update does to a Task Force Mode save
 
-Not known. The repo has no record of a Task Force Mode save carried across
-a game update: the campaigns were built against 0.8.2, and the snapshot's
-`campaign-saves.txt` lists two stock campaign saves beside that game, one
+Not known yet, but since 3 Oct there is a save to find out with. The 3 Oct
+snapshot (`-IncludeSaves`) carries `saves/NEW TEST 1.sav`, 51 KB, written at
+01:55 that morning: a Task Force Mode save of **Southern Watch (Open
+Allocation)** (`#!alias campaigns/sest-southern-watch-open/campaign.ini`)
+holding the post-state of mission 2 - per-ship sections with every
+magazine's remaining count and the in-game clock at 18 Oct 2028. It was
+written under 0.8.3 or 0.8.4 (the game moved to 0.8.4 Build 261002 on 2
+Oct) and is the first evidence that an authored campaign carries state
+between missions as the stock one does. Whether it reopens after the 3 Oct
+rebuild - the PLAN Pack's hulls gained combat systems and the SEST pack
+changed under it - is the player's to report. Before that the repo had no
+record of one: the campaigns were built against 0.8.2, and the snapshot's
+`campaign-saves.txt` listed two stock campaign saves beside that game, one
 from 24 Apr 2026, before 0.8.0, and one from 15 Aug, without recording
 whether the April one still opens. The changelog's other `Save/Load` lines
 are fixes and additions to what a save carries (reloaded aircraft losing

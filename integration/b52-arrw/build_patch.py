@@ -630,7 +630,7 @@ def main():
         "on the B-52O (replacing a 16-round one) and on the 419th FLTS testbed, "
         "and the testbed's own usn_arrw fit flies on both B-52s and on the "
         "B-1B.\n"
-        "\n[Compatibility]\nApproximateVersion=0.8.3\n",
+        "\n[Compatibility]\nApproximateVersion=0.8.4\n",
         encoding="utf-8")
     print("SEST_B52_ARRW")
 

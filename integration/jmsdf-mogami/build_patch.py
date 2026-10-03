@@ -35,7 +35,7 @@ Name=SEST JMSDF Mogami
 Description=Gives the Mogami-class frigate its real JMSDF air group: embarks an SH-60K and supports both JMSDF Seahawks from the Euromod JMSDF pack (SH-2F kept for compatibility). Also flags its Mk141 and chaff launchers ReloadableWithoutMagazine=True so SEST Replenishment At Sea can refill them, and for Sea Power 0.8.3 names her OYQ-1 combat system (profile in SEST Collection Fixes). Requires the Mogami-class Frigate mod and Euromod JMSDF. Place ABOVE the Mogami mod in the Mod Manager.
 
 [Compatibility]
-ApproximateVersion=0.8.3
+ApproximateVersion=0.8.4
 """
 
 

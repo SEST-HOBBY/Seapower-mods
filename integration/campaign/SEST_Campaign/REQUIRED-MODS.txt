@@ -83,7 +83,6 @@ Workshop id   supplies                         mod
 3717610332    a unit a mission places          IL-78 TANKER
 3408662804    a unit a mission places          Iskander TBM
 3505420313    a unit a mission places          Italian Navy Mod
-3769142422    a unit a mission places          J-16 Multirole Fighter
 3591563716    a unit a mission places          J-20 (歼-20 威龙)
 3801549552    a unit a mission places          J-36 Tailless Fighter
 3776340577    a unit a mission places          Ka-27RLD
@@ -119,6 +118,7 @@ Workshop id   supplies                         mod
 3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
 3808882954    a unit a mission places          RC-135V/W Rivet Joint
 3605013271    a unit a mission places          RE-power: the resupply mod
+3769142422    a unit a mission places          Rebuilt J-16 / J-16D
 3413868677    a unit a mission places          Red Storm Arsenal
 3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
 3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
@@ -148,7 +148,7 @@ Workshop id   supplies                         mod
 3395022688    a unit a mission places          Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
 3411341227    a unit a mission places          Tu-95K-22 Bear G MOD
 3715323261    a unit a mission places          Tu-95MS (X-101)
-3663564190    a unit a mission places          Type 003 Aircraft Carrier - PLANS Fujian CV-18
+3663564190    a weapon a loadout hangs         Type 003 Aircraft Carrier - PLANS Fujian CV-18
 3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
 3470643173    a unit a mission places          Type 12 SSM-ER Anti-Ship Missile System
 3468959181    a unit a mission places          U-2 "Dragon Lady"
