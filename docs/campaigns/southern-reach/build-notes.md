@@ -509,3 +509,12 @@ Type 730 and 1130 the PLAN ships defend themselves with are on the 0.8.3
 burst model at anchors 55 and 60 (were 85 and 102), and the vanilla AK-630
 and Phalanx the game retuned are read again on every hull that mounts them.
 The pack is 1265 files. Test card, section 7.
+
+*The same afternoon* (Southern Watch build notes, *Seven mod updates and
+0.8.4*): the PLAN Pack's own update gave its hulls their own combat systems
+(the 054A reads ZKJ-5A, the 052D ZBJ-1A, the 056A ZKJ-5B) and moved its
+Type 730 and 1130 onto the 0.8.3 keys itself, at anchors 65 and 90, so the
+SEST assignments and retunes for that pack were retired by their guards. The
+Liaoning (TS09), the Type 071 and the Luda and Sovremenny keep theirs. The
+game is 0.8.4; the pack declares it and is 1257 files. Test card 7.3a, 7.3c
+and 7.6 are reworded for it.

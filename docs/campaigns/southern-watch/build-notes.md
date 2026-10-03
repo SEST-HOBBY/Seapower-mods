@@ -1795,6 +1795,82 @@ order, the catalogue's active set, the code-mod tier and the campaign
 excuses, so the sync stops re-adding it. `check_inventory` is red on it
 until the next export prunes its folder.
 
+## Seven mod updates and 0.8.4, the same afternoon (3 October)
+
+The export that followed the morning's build brought more than the two
+updates Steam had shown: Euromod Main, Modern US Navy, US Naval Aviation,
+the PLAN Pack, the PLA Land Unit Pack, the J-16 (retitled *Rebuilt J-16 /
+J-16D*) and Buildings and Objectives, and the game itself had moved to
+**0.8.4 Build 261002** on 2 Oct (two fixes: the mod menu's folder picker,
+null references). Every pack declares 0.8.4 (`check_game_version.py --bump
+0.8.4`). The one that mattered was the PLAN Pack, and it mattered because it
+did, on its own, most of what the morning's section did for its hulls:
+
+- **It ships its own `systems/combatsystems.ini`** - the ZKJ-4/5 and ZBJ-1
+  families (ZKJ-5A on the 054A: Fast, tier 5, 64 contacts; ZBJ-1A on the
+  052D: VeryFast, 100; ZBJ-1B on the 055 and its Fujian: VeryFast, 180;
+  ZKJ-5B on the 056A: Fast, tier 4, 24), two datalink-only profiles for
+  small units and AEW profiles for the KJ-500 and KJ-600 - and **every hull
+  now declares a `[CombatSystems]` block**. The eight `#!extend` files the
+  morning gave its hulls would have doubled the block, and the guard written
+  for exactly this stopped the build and named them; they are gone (the
+  052D, 055, 054A, Shenzhen, 056A and Fujian entries, with the
+  `SEST_PLAN_Compact` profile only the 056A took). The SEST PLAN profiles
+  remain on the hulls that still declare none: Red Storm's twelve, the
+  Liaoning and Type 004, the Type 071, the Chinese Navy mod's Luda and
+  Sovremenny. For comparison the PLAN Pack's author rates the 054A one
+  grade below the Euromod-shaped `SEST_PLAN_Multirole` (64 contacts against
+  48, but Fast either way) and the 052D the same as `SEST_PLAN_AAW` in band
+  and a little under in contacts; a PLAN frigate and a Red Storm one now
+  carry systems from two authors, which is the collection as it is.
+- **It moved its Type 730 and 1130 onto the 0.8.3 keys itself**: the 730 at
+  anchor 65 (closed loop, 1000-round volleys, 5 s), the 1130 at **90** with
+  `ReactionTime=1.5`, 2800-round volleys, 7 s cooldowns, a 5500-round
+  magazine and a 20-minute reload - a strong CIWS by the vanilla ladder
+  (Phalanx Block 1 is 50), and the author's call under the new model. The
+  morning's entries for the four sections (55 and 60) went the way the
+  policy says: the guard stopped on the first and they were deleted rather
+  than retuning the author's retune. The Type 071 mod's own copy of the 730
+  is a different mod, still on the old keys, and keeps its SEST retune.
+  Eighteen mod CIWS stay retuned, 66 vanilla sections stay restored.
+- **It ships a Fujian** (`plan_cv_type_003`, 2309 lines, with animations and
+  the same air wing of its own new J-15T, J-15DT, J-35, KJ-600 and Z-18s
+  that the Fujian mod gives it) above the Fujian mod in the order, so the
+  carrier the game reads in SW11, TS09 and RL01 is the PLAN Pack's. The
+  campaign builder's roster rule caught it twice ("rostered for
+  fujian-cv-18, but the game reads nothing of its from this unit") and both
+  roster lines now credit the PLAN Pack. The Fujian mod stays subscribed:
+  it is still the only source of 25 PLAAF rounds (PL-10/15/17, KD-88, the
+  LS-6 family, YJ-91...) that the J-35 and others fire, which is what keeps
+  it reached. One thing the new hull carries that the gates see: its two
+  FQF-2500 decoy magazines name a round (`plan_f3200a`) no enabled mod
+  defines, at a count of zero. Nothing to fire and nothing lost; waived in
+  `check_weapon_employment.py` against that unit and that defect only.
+- Also in the PLAN Pack: the KJ-500, Y-8/Y-9 family, Ka-28/31 and Z-9 files
+  rewritten, its sensors file rewritten, most rounds re-tuned, new Z-8J.
+  Red Line's KJ-500 and Y-9s and the Z-9s the missions place all still
+  resolve (`preflight --all`, `check_weapon_employment`).
+
+The others, smaller: US Naval Aviation added a P-8A with HAAWC (its own
+`usn_p-8a`; the campaigns' Poseidon is the stock `usn_p8`), renamed its
+Osprey `usn_v-22` to `usmc_mv-22b` (nothing SEST ships named the old id;
+Modern US Navy's Wasp now embarks the new one, and the Replenishment copy of
+the early Wasp follows it) and touched the F-35B. Euromod turned its SM-2
+Block II stub into a full file. The J-16 was rebuilt with a J-16D beside it
+and its own PL-10/15/17 and YJ-91 under `plaaf_j16_` ids; Red Line's Enclave
+11 and 12 and the Banda vignettes still fly it, AirToAirLongRange intact.
+The PLA Land Unit Pack re-tuned its rounds and the HQ-19 the land-defence
+builder reads through the extend chain; the Spratly layers rebuilt the same.
+Modern US Navy's Wasp gained two accountable categories for its flight deck.
+
+The pack is 1257 files (1265 less the eight PLAN Pack extend files). Every
+gate is green with the inventory's known reds; the catalogue carries the
+J-16's new title, the PLAN Pack's takeover and the Fujian mod's supersession.
+Separately, the snapshot carries the first Task Force Mode save on record -
+Southern Watch (Open Allocation), mission 2 done
+(`docs/packaging-and-recovery.md`, *What the update does to a Task Force
+Mode save*).
+
 ## What has NOT been demonstrated
 
 Static resolution is not a play test. None of the following is established by

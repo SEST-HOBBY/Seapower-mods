@@ -24,10 +24,10 @@ throws away a load-order change made while it is running.
 ## Already aligned once? The short version for later rounds
 
 Both `sest-dev/loving-bell-3cnvvw` and `feature/northern-front-iii-export`
-last moved to `83809295` (the 2 Oct round) by this block, after the PC's own
-30 Sep push `60b89fe9` (the mod export and the install snapshot).
-Everything this session has pushed since builds straight on those commits,
-so a later round is the same fast-forward and one sync. Close Sea Power, then paste this into PowerShell
+sit on `fab189dd`, the PC's own 3 Oct push (the mod export and the install
+snapshot), which itself sits on this session's `4d7c4e5c`. Everything this
+session has pushed since builds straight on that commit, so a later round is
+the same fast-forward and one sync. Close Sea Power, then paste this into PowerShell
 as one block. It has no blank lines on purpose: the console reads a paste
 line by line, and an empty line would end the block early. If it stops at a
 `>>` prompt, press Enter once more to run it.
@@ -53,10 +53,8 @@ line by line, and an empty line would end the block early. If it stops at a
 It stops, before anything is pushed or installed, if the game is running, if
 the clone has changes of its own (report them rather than committing them),
 or if the fast-forward is refused (step 2). The sync's last lines should read
-`IN LINE: all 1265 installed files match this commit (<hash>)`, the hash
-being the one the merge landed on (`git log --oneline -1`). This round the
-sync also prints `dropped stale workshop entry` for `3789793270`, Auto
-Time-on-Target: expected, that is the retirement below.
+`IN LINE: all 1257 installed files match this commit (<hash>)`, the hash
+being the one the merge landed on (`git log --oneline -1`).
 `-RefreshMissions` on the sync is only for a round where the sync says it
 merged your own mission edits: it re-spreads the airliners in the missions
 you imported from the game.
@@ -98,7 +96,45 @@ folder missing, a `False`, a count of 2, "No Open Allocation campaigns
 installed" or "The Twelve-Mile Line is not installed" means the sync did not
 install this build: read its output before playing.
 
-### This round (3 Oct): combat systems, the CIWS model, Auto Time-on-Target retired
+### This round (3 Oct, afternoon): seven mod updates, 0.8.4, the PLAN Pack takes its own
+
+Your export brought seven updated mods, not two, and the game had quietly
+moved to **0.8.4 Build 261002** on 2 Oct (two fixes: the mod menu's folder
+picker, null references). Everything was rebuilt on them; Southern Watch
+build notes, *Seven mod updates and 0.8.4*, has the record. For you:
+
+1. **The PLAN Pack did the morning's work for its own hulls.** Its update
+   gives every one of its ships a combat system of its own (the 054A reads
+   ZKJ-5A, the 052D ZBJ-1A, the 055 and its Fujian ZBJ-1B, the 056A
+   ZKJ-5B) and puts its Type 730 and 1130 on the 0.8.3 CIWS keys itself, at
+   anchors 65 and 90 - the 1130 with 2800-round volleys, a strong CIWS by
+   the game's ladder and the author's call. The pack's eight extend files
+   and four retunes for that mod were retired by the guards built for
+   exactly this; the Liaoning, Type 071, Red Storm's PLAN hulls and the
+   Luda/Sovremenny keep their SEST profiles. Shift+Y on a 054A now reads
+   ZKJ-5A, so the test of our extend moved to the Type 071 and the Liaoning
+   (Southern Reach card 7.3a, Red Line 8A.3a, Southern Watch H.4a).
+2. **The Fujian is the PLAN Pack's now.** It ships its own `plan_cv_type_003`
+   above the Fujian mod's, with the same air wing of its new J-15T, J-35,
+   KJ-600 and Z-18s. The campaigns credit it so. Keep the Fujian mod
+   subscribed: it is still the only source of 25 PLAAF rounds the J-35 and
+   others fire.
+3. **Every pack declares 0.8.4.** No version warning in the Mod Manager.
+4. **The exporter bug is fixed** (its `Build #` match; the block below the
+   fold has the right one), and Auto Time-on-Target's folder is pruned, so
+   `check_inventory` is back to its two known reds.
+5. **Your save is on record.** `NEW TEST 1.sav` - Southern Watch (Open
+   Allocation), mission 2 done - came in with the snapshot. Whether it
+   reopens after this round's rebuild is worth one line when you next load
+   it: it is the first Task Force Mode save the repo has.
+6. **The count is 1257** (1265 less the eight PLAN Pack extend files).
+
+What to do: the standard update block (*Already aligned once?*), expecting
+`IN LINE: all 1257 installed files match this commit (<hash>)`, then the
+play test: the 2 Oct watch list (Hold aircraft, Standing Orders) plus
+Shift+Y on the Anzac and on a Type 071 or the Liaoning.
+
+### The 3 Oct morning round: combat systems, the CIWS model, Auto Time-on-Target retired
 
 The two 0.8.3 decisions the 2 Oct round left to you are taken, and the look
 at the CIWS data found something larger. Southern Watch build notes,
@@ -463,7 +499,7 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1265** for this build |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1257** for this build |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |
@@ -481,7 +517,8 @@ it - which takes Southern Reach to 26 missions and 69 art files; 1203 on the 0.8
 game files, SEST Replenishment metering two more hulls' rounds: the early Wasp Modern
 US Navy released from its Pending folder and the SY-1 the game repriced; 1265 with
 the combat systems - 60 `#!extend` files, one per mod hull given a profile, and the
-`combatsystems.ini` and `weapons.ini` Collection Fixes now ships).
+`combatsystems.ini` and `weapons.ini` Collection Fixes now ships; 1257 the same
+afternoon, the PLAN Pack's update having given its own eight hulls their systems).
 
 ## 5 — confirm the campaigns arrived
 

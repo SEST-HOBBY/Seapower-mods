@@ -10,10 +10,10 @@ This campaign reaches 44 of the enabled mods and packs; the 121 it does not are 
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 21 |
+| `unit` | places the unit; this mod wins its file | 20 |
 | `variant` | supplies the hull variant the placed unit uses | 4 |
 | `squadron` | supplies the squadron the placed airframe flies from | 2 |
-| `store` | supplies a round the placed unit's loadout hangs | 8 |
+| `store` | supplies a round the placed unit's loadout hangs | 9 |
 | `asset` | supplies a model folder the placed unit's file draws from | 9 |
 
 Sea and land positions in 4 of the 6 missions are snapped to points already used by a loading mission (the furthest any anchor had to move is 6.7 NM); the other 2 use them as authored, checked against the coastline extract.
@@ -32,7 +32,7 @@ Sea and land positions in 4 of the 6 missions are snapped to points already used
 | `f-15e-strike-eagle` | F-15E StrikeEagle | `asset` | raaf_f-35a / assets/models/weapon/ammunition/gbu-39 | The Other Picture |
 | `f-35c-alt-loadouts` | F-35C Lightning II Alt. Loadouts | `store` | usn_ea-18g / usn_agm-88g | The Other Picture |
 | `ford-cvn` | Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies) | `store` | js_ffg_mogami / usn_rim-116 | The Other Picture |
-| `fujian-cv-18` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 | `unit` | plan_cv_type_003 | Trailing Contact |
+| `fujian-cv-18` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 | `store` | plan_j-15 / plaaf_pl-10 | The Other Picture |
 | `humpback-whale` | Humpback Whale | `unit` | civ_humpback | Under the Convergence |
 | `j-11` | Shenyang J-11 | `store` | plan_j-15 / plaaf_pl-12 | The Other Picture |
 | `kuznetsov-1143-5` | 1143.5 Kuznetsov | `store` | plan_type_001 / su_rgb-12 | The Order to Withdraw |
@@ -121,7 +121,7 @@ Left in the load order because removing one changes which file wins for the mods
 | `italian-navy-cold-war` | Italian Navy Mod |
 | `j-10c` | ChengDu J-10C Vigorous Dragon |
 | `j-11bs` | PLA Shenyang J-11BS |
-| `j-16-multirole` | J-16 Multirole Fighter |
+| `j-16-multirole` | Rebuilt J-16 / J-16D |
 | `j-16a` | Shenyang J-16A (歼-16A 潜龙) |
 | `j-20` | J-20 (歼-20 威龙) |
 | `j-36-tailless` | J-36 Tailless Fighter |

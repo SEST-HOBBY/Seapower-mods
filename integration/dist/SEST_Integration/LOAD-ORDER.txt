@@ -104,7 +104,7 @@ the bottom is where it cannot outrank something that is named.
   87. 3503670861    General Atomics MQ-9 Reaper
   88. 3717610332    IL-78 TANKER
   89. 3506979898    Shenyang J-16A (歼-16A 潜龙)
-  90. 3769142422    J-16 Multirole Fighter
+  90. 3769142422    Rebuilt J-16 / J-16D
   91. 3591563716    J-20 (歼-20 威龙)
   92. 3801549552    J-36 Tailless Fighter
   93. 3670643788    Shenyang J-50 (沈阳航空工业 歼-50)

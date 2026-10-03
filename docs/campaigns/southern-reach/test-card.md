@@ -48,8 +48,9 @@ Watch card; fly those first. Three come back here:
    base on Weapons Hold, reads a combat-system profile per hull, and has
    Standing Orders defaults that changed. Section 7 below, first. Since 3
    Oct the pack assigns the profiles (Anzac SEST 9LV MLU, Hobart SEST AEGIS
-   BL9, the PLAN hulls by extend) and retunes the PLAN CIWS: 7.3, 7.3a and
-   7.6 say whether the game read them.
+   BL9, the Liaoning and Type 071 by extend; the PLAN Pack's own hulls and
+   CIWS carry the PLAN Pack's own 3 Oct values): 7.3, 7.3a, 7.3c and 7.6
+   say whether the game read them.
 
 Red Line's Hold/Tight and unseen triggers are on its own card
 (`../red-line/test-card.md`, 4 and 5).
@@ -201,8 +202,9 @@ browser copy is the same file.
 | 7.1 | TS11 Approaches, pause at T+0, then run ten minutes at 8x watching Wedgetail 05, Texaco 71 and Rivet 21 (all weapons Hold) | On their tracks through the ten minutes | Turning for East Sale or Williamtown at the start = the game returns pre-placed Hold aircraft to base; say which, and every Hold aircraft in the pack moves to Tight |
 | 7.2 | Any mission, Left Shift+O (Standing Orders), before the first fleet action | Note the state of "Ships on Weapons Tight engage hostile aircraft" (off since 0.8.3) and "Ships use anti-ship missiles on Weapons Free" (new) | A frigate at Tight watching a Z-9, or an Anzac holding its NSMs at Free, is the default, not a mission fault: set them and say which |
 | 7.3 | TS09 or TS11, Shift+Y on the Hobart and on the Anzac, Engagement tab | The Hobart reads SEST AEGIS BL9 (VeryFast, 160 contacts); the Anzac SEST 9LV MLU (VeryFast, 96) | The old AEGIS Mk 7, or a default on the Anzac = the RAN Fleet hull did not install: check the sync's IN LINE |
-| 7.3a | Same mission, Shift+Y on a PLAN 054A (SR01's, or any in TS09) | Reads SEST PLAN Multirole (Fast, 48 contacts) | The game's default = an `#!extend` shipped by the SEST pack does not land on a hull another mod ships; say so, and the sixty files move into the hull copies SEST Replenishment already ships |
+| 7.3a | TS09 The Southern Convoy, Shift+Y on the Liaoning; or TS04 / SR09 / SR10, Shift+Y on the Type 071 | Liaoning reads SEST PLAN Carrier (Fast, 180 contacts); the 071 SEST PLAN Amphibious (Fast, 80) | The game's default = an `#!extend` shipped by the SEST pack does not land on a hull another mod ships; say so, and the files move into the hull copies SEST Replenishment already ships |
+| 7.3c | Same missions, Shift+Y on a PLAN 054A, 052D or 056A | ZKJ-5A, ZBJ-1A, ZKJ-5B: the PLAN Pack's own systems (its 3 Oct update), not SEST ones | Anything else = the PLAN Pack's own block is not read: say which |
 | 7.3b | Shift+Y on a Collins (SR02 Silent Track, TS05) | Whatever the game gives a submarine that declares none; note the band | Record it: no submarine in the pack declares a system, like no vanilla boat |
 | 7.4 | Any night or dusk mission (TS11A starts 04:55), hover each aircraft and fit | No daylight-only warning | A warning names the aircraft or fit: say which |
 | 7.5 | TS09, let a YJ-83 salvo reach the Anzac | The Anzac's Phalanx (now vanilla's Block 1: 4500 rounds a minute) fires volleys with pauses (1000 rounds, 6 s cooldown) | A Phalanx that never fires, or fires without pause = the new CIWS keys are not read: say so. (The Hobart has no Phalanx: Oerlikons only) |
-| 7.6 | TS09, let an NSM or Harpoon salvo reach a 054A or 052D | The Type 1130 fires volleys with pauses and stops some of them, not all (anchor 60; was 102) | Every missile stopped = the PLAN Pack's own 1130 is still winning the merge; none stopped and no fire = the retuned section is not read: say which |
+| 7.6 | TS09, let an NSM or Harpoon salvo reach a 054A or 052D | The Type 1130 fires long volleys (2800 rounds, 7 s pauses) and stops most of a small salvo: the PLAN Pack's own 3 Oct tune, anchor 90 against the Phalanx's 50 | Fire without pause = the 0.8.3 keys are not read; count what a four-missile salvo loses, it decides whether the campaigns' salvo sizes still work |

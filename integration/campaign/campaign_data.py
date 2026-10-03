@@ -1799,7 +1799,9 @@ MISSIONS.append(dict(
           name="MV Moresby Star"),
         U("blue", "_vanilla", "airfield_small_1", "strip",
           name="Langgur forward strip", weapons="Hold"),
-        U("red", "fujian-cv-18", "plan_cv_type_003", "red_cv", name="PLANS Fujian"),
+        # The PLAN Pack ships its own Fujian since 3 Oct, above the Fujian mod's
+        # in the order, so the hull the game reads is the PLAN Pack's.
+        U("red", "modern-plan-systems", "plan_cv_type_003", "red_cv", name="PLANS Fujian"),
         U("red", "liaoning-type-001", "plan_type_001", "red_cv",
           name="PLANS Liaoning"),
         # No Type 055 or 052D: their files load YJ-17/YJ-20 hypersonics of
