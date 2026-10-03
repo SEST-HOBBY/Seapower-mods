@@ -121,9 +121,6 @@ EXCUSES = {
     "anchor-chain": (
         "library", "ships one file, `_info.ini` - the dependency marker other "
         "mods list; there is nothing to place"),
-    "auto-time-on-target": (
-        "library", "salvo-timing behaviour with no data files; it applies to "
-        "every mission and no mission may depend on it"),
     "coordinated-strike-tool": (
         "library", "a time-on-target planner (F8) with no data files; it "
         "applies to every mission and no mission may depend on it"),

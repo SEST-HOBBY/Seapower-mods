@@ -28,7 +28,10 @@ dependants:
                    builders refuse to shadow a vanilla key (see
                    build_missing_loadout_names() in
                    integration/collection-fixes/build_patch.py), so the next
-                   build stops on it.
+                   build stops on it. In systems/ files a key the pack
+                   carries at vanilla's own new value is a MIRROR instead:
+                   Collection Fixes restores the game's weapons.ini sections
+                   over stale mod copies, and must agree with the game.
   3. PLACED        unit files whose id a mission fields (Type=<id>), a flight
                    deck readies (FlightDeck_ReadyUpTaskN=<id>,...) or a
                    campaign roster sells (TaskForceModeAllowedRosterUnits= in
@@ -472,9 +475,20 @@ class Report:
 
 
 def shared_keys(rel, pack_text, old_text, new_text):
-    """(clashes, changed, unchanged) between a pack's merge file and vanilla's old and new copies."""
+    """(clashes, changed, unchanged, mirrored) between a pack's merge file and
+    vanilla's old and new copies.
+
+    A key vanilla newly defines that the pack also defines is a CLASH - the
+    builders refuse to shadow a vanilla key, so the next build stops on it.
+    In systems/ files only, a pack key whose value IS vanilla's new value is
+    the pack carrying the game's own definition forward (SEST Collection
+    Fixes does this on purpose for the weapons.ini sections four aircraft
+    mods' stale copies shadow), and is MIRRORED: listed, not a finding. A
+    whole systems/ section vanilla now supplies stays a clash whatever its
+    values, and so does any language_*/ key: build_missing_sensors() and
+    build_missing_loadout_names() stop on the NAME, so the next build does."""
     pack_ini, old_ini, new_ini = parse_ini(pack_text), parse_ini(old_text), parse_ini(new_text)
-    clashes, changed, unchanged = [], [], 0
+    clashes, changed, unchanged, mirrored = [], [], 0, []
     for section, keys in pack_ini.items():
         was = old_ini.get(section)
         if rel.startswith("systems/") and section and section in new_ini and was is None:
@@ -484,12 +498,15 @@ def shared_keys(rel, pack_text, old_text, new_text):
             if section not in new_ini or key not in new_ini[section]:
                 continue
             if was is None or key not in was:
-                clashes.append((section, key))
+                if rel.startswith("systems/") and visible(keys[key]) == visible(new_ini[section][key]):
+                    mirrored.append((section, key))
+                else:
+                    clashes.append((section, key))
             elif visible(was[key]) != visible(new_ini[section][key]):
                 changed.append((section, key, visible(was[key]), visible(new_ini[section][key])))
             else:
                 unchanged += 1
-    return clashes, changed, unchanged
+    return clashes, changed, unchanged, mirrored
 
 
 def classify(root, drift):
@@ -505,12 +522,12 @@ def classify(root, drift):
             entries = []
             for name, pack, own_file in owners:
                 if change == "removed":
-                    entries.append((name, [], [], 0))
+                    entries.append((name, [], [], 0, []))
                     continue
-                clashes, changed, unchanged = shared_keys(
+                clashes, changed, unchanged, mirrored = shared_keys(
                     rel, own_file.read_text(encoding="utf-8-sig", errors="replace"),
                     decode(drift.old.get(rel, b"")), decode(drift.new[rel]))
-                entries.append((name, clashes, changed, unchanged))
+                entries.append((name, clashes, changed, unchanged, mirrored))
                 for section, key in clashes:
                     what = f"[{section}]" if key is None else f"[{section}] {key}"
                     report.findings.append(f"{rel}: vanilla now defines {what}, which {name} also defines")
@@ -599,14 +616,19 @@ def render(root, since, since_rev, drift, report, old_version, new_version, defa
     for rel, change, entries in report.merged:
         print(f"   {rel}  {change}  (also shipped by {len(entries)} pack(s))")
         quiet = []
-        for name, clashes, changed, unchanged in entries:
-            if not (clashes or changed or unchanged):
+        for name, clashes, changed, unchanged, mirrored in entries:
+            if not (clashes or changed or unchanged or mirrored):
                 quiet.append(name)
                 continue
             print(f"      {name}:")
             for section, key in clashes:
                 what = f"[{section}]" if key is None else f"[{section}] {key}"
                 print(f"         CLASH {what} is new in vanilla; the next build stops on it")
+            if mirrored:
+                shown = ", ".join(f"[{s}]" if k is None else f"[{s}] {k}" for s, k in mirrored[:6])
+                more = f" and {len(mirrored) - 6} more" if len(mirrored) > 6 else ""
+                print(f"         MIRROR {len(mirrored)} new vanilla key(s) the pack carries at "
+                      f"vanilla's own value: {shown}{more}")
             for section, key, old, new in changed:
                 print(f"         [{section}] {key}: vanilla value {old!r} -> {new!r}; the pack's copy masks it")
             if unchanged:

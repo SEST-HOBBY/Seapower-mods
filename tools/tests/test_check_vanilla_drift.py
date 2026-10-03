@@ -227,6 +227,30 @@ class VanillaDriftTests(unittest.TestCase):
         self.assertIn("NEEDS A HUMAN: language_en/loadout_names.ini: vanilla now defines [LoadoutNames] SIGINT, "
                       "which SEST_Collection_Fixes also defines", out)
 
+    def test_a_systems_key_the_pack_carries_at_vanilla_s_value_is_a_mirror(self):
+        # Collection Fixes restores the game's own weapons/sensors sections over
+        # stale mod copies; agreeing with a key vanilla added is the point.
+        self.write(f"{VANILLA}/systems/sensors.ini",
+                   "[General]\nDataLinkUpdateRate=1\n\n[Start_ECM]\nType=ECM\nPower=5   // new\n")
+        self.write(f"{FIXES}/systems/sensors.ini", "[Side_Globe]\nType=ECM\n\n[Start_ECM]\nType=ECM\nPower=5\n")
+        code, out = self.run_tool("--since", self.baseline)
+        self.assertEqual(code, 0)
+        self.assertIn("systems/sensors.ini  modified  (also shipped by 1 pack(s))\n"
+                      "      SEST_Collection_Fixes:\n"
+                      "         MIRROR 1 new vanilla key(s) the pack carries at vanilla's own value: [Start_ECM] Power\n"
+                      "         1 other shared key(s) unchanged in vanilla", self.section(out, 2))
+        self.assertNotIn("NEEDS A HUMAN", out)
+
+    def test_a_systems_key_the_pack_carries_at_another_value_is_still_a_clash(self):
+        self.write(f"{VANILLA}/systems/sensors.ini",
+                   "[General]\nDataLinkUpdateRate=1\n\n[Start_ECM]\nType=ECM\nPower=5\n")
+        self.write(f"{FIXES}/systems/sensors.ini", "[Side_Globe]\nType=ECM\n\n[Start_ECM]\nType=ECM\nPower=9\n")
+        code, out = self.run_tool("--since", self.baseline)
+        self.assertEqual(code, 1)
+        self.assertIn("CLASH [Start_ECM] Power is new in vanilla; the next build stops on it", self.section(out, 2))
+        self.assertIn("NEEDS A HUMAN: systems/sensors.ini: vanilla now defines [Start_ECM] Power, "
+                      "which SEST_Collection_Fixes also defines", out)
+
     def test_a_merge_file_change_sharing_no_keys_is_only_listed(self):
         self.write(f"{VANILLA}/systems/sensors.ini", "[General]\nDataLinkUpdateRate=2\n\n[Start_ECM]\nType=ECM\n")
         code, out = self.run_tool("--since", self.baseline)

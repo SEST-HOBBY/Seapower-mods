@@ -491,3 +491,21 @@ there, none renamed or removed; and nothing new is placed, since every unit
 0.8.3 added is a 1960s-90s type. The Side Globe jammer Varyag mounts is now
 cloned from the game's own Side Globe. The pack is 1203 files and declares
 0.8.3.
+
+## Combat systems and the CIWS model (3 October)
+
+Southern Watch's build notes, *Combat systems and the CIWS model*, have the
+whole record; what it means here. The player's hulls now name the systems
+the real ships carry - Anzac Saab 9LV with CEAFAR (`SEST_9LV_MLU`, VeryFast,
+96 contacts), Hobart Aegis Baseline 9, Canberra, Arafura and Supply 9LV -
+where the Anzac declared none and Supply declared None; the Anzac's Phalanx
+is now vanilla's Block 1 definition. The PLAN hulls these missions field
+get theirs by `#!extend`: the 054A `SEST_PLAN_Multirole`, the 056A
+`SEST_PLAN_Compact`, the 052D `SEST_PLAN_AAW`, the 055 `SEST_PLAN_Cruiser`,
+Liaoning, Shandong and Fujian `SEST_PLAN_Carrier`, the Type 071
+`SEST_PLAN_Amphibious`, the Luda and Sovremenny vanilla's own; the
+submarines (Kilo, Song, Yuan, 093B) none, like every vanilla boat. The
+Type 730 and 1130 the PLAN ships defend themselves with are on the 0.8.3
+burst model at anchors 55 and 60 (were 85 and 102), and the vanilla AK-630
+and Phalanx the game retuned are read again on every hull that mounts them.
+The pack is 1265 files. Test card, section 7.

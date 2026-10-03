@@ -139,7 +139,8 @@ behaviour of the engine that no file states.
 |---|---|---|---|
 | 8A.1 | RL03, pause at T+0, then ten minutes at 8x watching Dragon Eye 05 (weapons Hold) and the Z-9 | On the racetrack through the ten minutes | Turning for the enclave field at the start = the game returns pre-placed Hold aircraft to base: say so, and every Hold aircraft in the pack moves to Tight (Southern Reach card 7.1) |
 | 8A.2 | Any mission, Left Shift+O before the first engagement | Note "Ships on Weapons Tight engage hostile aircraft" (off since 0.8.3) and "Ships use anti-ship missiles on Weapons Free" (new) | The frigate at Tight watching the Poseidon is the default; set and say |
-| 8A.3 | RL01 or RL06, Shift+Y on the 054A, Engagement tab | What the game gives a hull that declares no combat system (the PLAN Pack declares none) | Record it |
+| 8A.3 | RL01 or RL06, Shift+Y on the 054A, Engagement tab | Reads SEST PLAN Multirole (Fast, 48 contacts, 3 worked): the pack's `#!extend` landed on the PLAN Pack's hull | The game's default = an extend from the SEST pack does not reach another mod's hull; say so (Southern Reach card 7.3a) |
+| 8A.4 | RL01, let the coalition's first anti-ship salvo reach the 054A | Her Type 1130 fires volleys with pauses and stops some missiles, not all (anchor 60, was 102) | Every missile stopped = the PLAN Pack's own section still wins; none and no fire = the retuned section is not read: say which |
 
 ## 9 — the numbers to bring back
 

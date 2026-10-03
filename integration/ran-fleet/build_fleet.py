@@ -41,6 +41,7 @@ OUT = Path(__file__).resolve().parent / "SEST_RAN_Fleet"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.ras import SUPPLIERS, insert_supply_block, make_reloadable  # noqa: E402
+from common.combat import set_combat_system, swap_systems  # noqa: E402
 
 SPA_MODERN = "3731208477"   # Spanish Navy Mod (Modern)
 RSA = "3413868677"          # Red Storm Arsenal - sole source of usn_rgm_184a (NSM)
@@ -495,9 +496,43 @@ FLEET = {
     },
 }
 
+# --- Sea Power 0.8.3: combat systems and the CIWS model -------------------
+# Since 0.8.3 a hull names an OODA profile in a [CombatSystems] block, and a
+# hull that names none is given a band from its service year. The clones
+# inherited their donors' choices - the Hobart vanilla's AEGIS_Mk7, the
+# Arafura, Canberra and Choules a 1960s NTDS, Supply None (VerySlow, no
+# datalink) - and the Anzac none at all. Each now names the system the real
+# ship carries, as a SEST clone of the matching Euromod profile
+# (integration/common/combat.py; the profiles ship in SEST Collection Fixes):
+#
+#   Hobart   SEST_AEGIS_BL9      the RAN's Aegis refresh (VeryFast, 160 contacts)
+#   Anzac    SEST_9LV_MLU        Saab 9LV Mk3E with CEAFAR (VeryFast, 96)
+#   Canberra SEST_9LV_Compact    9LV on the LHD (Fast, 32)
+#   Arafura  SEST_9LV_Compact    9LV on the OPV
+#   Supply   SEST_9LV_Compact    the Supply class's 9LV, which the Teide's None
+#                                undersold to no datalink at all
+#
+# Choules keeps the Galicia's NTDS: datalinked and slow is what a dock landing
+# ship without a modern CMS gets, and the real ship's fit is not on record.
+# Collins takes none, like all 46 vanilla submarines.
+COMBAT = {
+    "ran_ddg_hobart": "SEST_AEGIS_BL9",
+    "ran_ffh_anzac": "SEST_9LV_MLU",
+    "ran_lhd_canberra": "SEST_9LV_Compact",
+    "ran_opv_arafura": "SEST_9LV_Compact",
+    "ran_aor_supply": "SEST_9LV_Compact",
+}
+# The Anzac mod's Phalanx is vanilla's [MK15], Block 0 (anchor 40, 3000 rounds
+# a minute, 989 loaded). The ASMD Anzacs carry Block 1B; vanilla's nearest is
+# [MK15_Blk1] (Block 1, APDS: anchor 50, 4500 rpm, 1550 rounds), on the 0.8.3
+# burst model like the Block 0. The mount, magazine and arcs are the hull's.
+CIWS = {
+    "ran_ffh_anzac": {"MK15": "MK15_Blk1"},
+}
+
 INFO_INI = """[Language_en]
 Name=SEST RAN Fleet
-Description=Royal Australian Navy fleet cloned from its real European design donors: Hobart-class DDG (F-100), Canberra-class LHD (Juan Carlos I), Collins stand-in (S-80), HMAS Choules (Galicia), Supply-class (Teide), Arafura OPV (Meteoro) - new unit ids, donors untouched. The Anzac is different: it patches the real Anzac Class Frigate mod rather than cloning anything, giving it the fleet-standard NSM, repairing a Mk41 magazine that silently held 16 ESSM instead of 32, re-shipping that ESSM under an id without a space in it so it resolves, and letting the deck operate the MH-60R. HMAS Supply and Stalwart carry a working Replenishment At Sea system and every hull's magazine-less launchers are flagged reloadable, in step with SEST Replenishment At Sea. Requires Euromod Main, the Modern + Cold War Spanish Navy packs, the Anzac Class Frigate mod, and an MH-60R / S-70B-2 source. Place ABOVE the Anzac mod and below the Euromod packs.
+Description=Royal Australian Navy fleet cloned from its real European design donors: Hobart-class DDG (F-100), Canberra-class LHD (Juan Carlos I), Collins stand-in (S-80), HMAS Choules (Galicia), Supply-class (Teide), Arafura OPV (Meteoro) - new unit ids, donors untouched. The Anzac is different: it patches the real Anzac Class Frigate mod rather than cloning anything, giving it the fleet-standard NSM, repairing a Mk41 magazine that silently held 16 ESSM instead of 32, re-shipping that ESSM under an id without a space in it so it resolves, and letting the deck operate the MH-60R. HMAS Supply and Stalwart carry a working Replenishment At Sea system and every hull's magazine-less launchers are flagged reloadable, in step with SEST Replenishment At Sea. For Sea Power 0.8.3 each combatant names the combat system the real ship carries (Aegis Baseline 9 on the Hobart, Saab 9LV on the Anzac, Canberra, Arafura and Supply; profiles in SEST Collection Fixes) and the Anzac's Phalanx is the Block 1 definition. Requires Euromod Main, the Modern + Cold War Spanish Navy packs, the Anzac Class Frigate mod, and an MH-60R / S-70B-2 source. Place ABOVE the Anzac mod and below the Euromod packs.
 
 [Compatibility]
 ApproximateVersion=0.8.3
@@ -535,7 +570,7 @@ def main():
 
     (OUT / "vessels").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en").mkdir(exist_ok=True)
-    suppliers, reloadable = [], 0
+    suppliers, reloadable, systems = [], 0, []
     # Section headers stay ASCII, as every vanilla language_en file's are.
     # This one carried an em dash when the editor listed the SEST ships as
     # "Missing Type / Missing Class" (16 Sep 2026). Not confirmed as the
@@ -611,6 +646,16 @@ def main():
         text, n = make_reloadable(text)
         reloadable += n
 
+        # 0.8.3: the combat system the real ship carries, and the Anzac's
+        # Phalanx on the Block 1 definition (COMBAT and CIWS above).
+        if ship_id in COMBAT:
+            text = set_combat_system(text, COMBAT[ship_id], ship_id,
+                                     note="SEST RAN Fleet: the real ship's system")
+            systems.append(f"{ship['short']} {COMBAT[ship_id]}")
+        if ship_id in CIWS:
+            text, n = swap_systems(text, CIWS[ship_id], ship_id)
+            systems.append(f"{ship['short']} CIWS {' '.join(CIWS[ship_id].values())} x{n}")
+
         (OUT / "vessels" / f"{ship_id}.ini").write_text(text, encoding="utf-8")
 
         if ship.get("patch"):
@@ -655,7 +700,8 @@ def main():
     n_hulls = sum(len(s["hulls"]) for s in FLEET.values())
     print(f"built {OUT.relative_to(ROOT)}: {len(FLEET)} classes, {n_hulls} named hulls, "
           f"all donors and helos validated; RAS: {len(suppliers)} supplier "
-          f"({', '.join(suppliers)}), {reloadable} launchers made reloadable")
+          f"({', '.join(suppliers)}), {reloadable} launchers made reloadable; "
+          f"0.8.3 combat systems: {', '.join(systems)}")
 
 
 if __name__ == "__main__":

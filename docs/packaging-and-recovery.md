@@ -213,9 +213,14 @@ manifest, the folders, the installed catalog entries and the load order all name
 the same Workshop ids. A folder holding more than its manifest row is a file the
 mod no longer ships; nothing else in the repo can see one.
 
-### Known red: `check_inventory` on four line-ending mods, and the missing Rafale
+### Known red: `check_inventory` on four line-ending mods, the missing Rafale, and Auto Time-on-Target
 
-`check_inventory.py` exits 1 on this branch. The mirrored export ran on the
+`check_inventory.py` exits 1 on this branch. Since 3 Oct it also names
+`3789793270`, Auto Time-on-Target, as missing from the catalogue's active set
+and from the order while its folder is still on disk: the player unsubscribed
+it that day and the repo retired it the same day, ahead of the export that
+will prune the folder. That red clears on the next `export-mod-configs.ps1`
+push and needs no other action. The mirrored export ran on the
 gaming PC on 27 Sep (`97eac5f7`) and cleared the ghost files; what stays red is
 four mods whose files differ from their manifests only by line endings. On the
 24 Sep 2026 export it failed 17 mods, for two reasons: ghost files and line
@@ -498,15 +503,15 @@ beside the repo (*Known red* above) is the other route.
    ```bash
    python3 tools/generate_load_order.py      # docs/load-order-full.md
    python3 tools/generate_catalog.py         # docs/mod-catalog.md
-   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1203 on 2 Oct 2026
+   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1265 on 3 Oct 2026
    ```
 
-   By hand: the install guide's count, if it moved - the `IN LINE: all 1203
-   installed files` line under *Already aligned once?*, `N is 1203` in
+   By hand: the install guide's count, if it moved - the `IN LINE: all 1265
+   installed files` line under *Already aligned once?*, `N is 1265` in
    step 4 of `docs/campaigns/southern-reach/install-alignment.md` and the
-   derivation under that table, which ends `1203 on the 0.8.3 game files`
+   derivation under that table, which ends `1265 with the combat systems`
    and gains a clause for what the update added or removed - and
-   `Consolidated, they are 1203 files` in `README.md`;
+   `Consolidated, they are 1265 files` in `README.md`;
    a dated section in each campaign's `build-notes.md`
    (`docs/campaigns/<campaign>/`, in the style of *Rivet Joint (30
    September)* in Southern Reach's and Red Line's) saying what the update
@@ -525,7 +530,7 @@ beside the repo (*Known red* above) is the other route.
 9. **Then the PC runs the standard update block** (*Already aligned once?*
    in `docs/campaigns/southern-reach/install-alignment.md`): it
    fast-forwards the deploy branch to the session's and syncs, and its last
-   line must read `IN LINE: all 1203 installed files match this commit`, or
+   line must read `IN LINE: all 1265 installed files match this commit`, or
    the new count from step 7.
 
 ### The first run: 0.8.3, 2 October 2026
@@ -554,6 +559,18 @@ by hand, the drift tool found the three RAAF bases that generated the
 KC-135A, and the Tu-16N standing because a Workshop mod ships it - which
 is why a removed vanilla unit another mod still ships is reported, not a
 finding.
+
+The day after that, the announcement's two system changes were taken up
+(Southern Watch build notes, *Combat systems and the CIWS model*): SEST
+profiles for every hull the campaigns field that declared none, the fielded
+mod CIWS retuned onto the new keys, and - found on the way - four aircraft
+mods' stale copies of the game's whole `weapons.ini`, which had been hiding
+the 0.8.3 model on every vanilla AK-630 and Phalanx; Collection Fixes now
+restores the game's 66 affected sections. The pattern for the next update:
+when the drift tool reports a MERGED change in `systems/weapons.ini`, look
+at who else defines the section, because a stale whole-file copy in an
+unrelated mod outranks the game. A pack section that carries vanilla's new
+value is a MIRROR in that report, not a clash. 1265 files.
 
 ### What the update does to a Task Force Mode save
 

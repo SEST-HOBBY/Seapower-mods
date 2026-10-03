@@ -1608,8 +1608,7 @@ the systems behind the file changes, and five of them bear on this pack:
   (`9LV_Multirole_MLU`, `Submarine_Integrated`, `OYQ_Integrated`: VeryFast,
   96, 5), and SEST Collection Fixes can ship clones of them under SEST
   names as it does for sensors, so the pack does not depend on Euromod's
-  ids. That is a balance decision - the Anzac is the campaigns' workhorse -
-  and waits on the player's word and the first play under the new model.
+  ids. Done on 3 October - *Combat systems and the CIWS model*, below.
 - *CIWS.* Bursts are now simulated as projectiles: the Phalanx section
   gained `FireControlMode`, `ReactionTime`, `BurstTime`, `VolleyMaxRounds`
   and `VolleyCooldown`, and its `MissileInterceptChance` fell from 65 to 40
@@ -1618,8 +1617,8 @@ the systems behind the file changes, and five of them bear on this pack:
   under the new model that is a strong Chinese CIWS until its author
   retunes it. Red Storm's seven carry no old key. Nothing SEST ships
   defines a gun system; a `systems/weapons.ini` with retuned `[Type_730]`
-  and `[Type_1130]` sections would win the merge from the top of the order,
-  and is the same decision as above.
+  and `[Type_1130]` sections would win the merge from the top of the order.
+  Done on 3 October, and the same look found something larger - below.
 - *Night.* "Ground attacks at night now require suitable vision
   capability": vanilla's visual sensors carry `NightVisionLevel` (0 for
   eyes, 0.25 for a modern sight, 0.3 for the B-52's AVQ-22). The F-15EX
@@ -1657,6 +1656,144 @@ missions now carry `DynamicGeneration*` keys for a persistent theater
 roster, which an authored campaign may adopt later. "Fixed missing
 briefings for generated missions" is the bug that left the briefing pane
 blank in these campaigns before the charts were drawn.
+
+## Combat systems and the CIWS model (3 October)
+
+The two decisions the section above left open are taken, and one thing the
+CIWS data turned up on the way is fixed. The rule throughout is the one
+Collection Fixes has always run on: nothing invented. Every profile is a
+clone of a Euromod one; every CIWS keeps its author's numbers wherever the
+model did not change them; and where a mod's stale copy hides the game's own
+text, the game's text is restored. The shared tables and helpers are
+`integration/common/combat.py`; the collection-wide part is in
+`integration/collection-fixes/build_patch.py` (`STALE_VANILLA_COPIES`,
+`CIWS_RETUNE`, `EXTENDS`). The pack grows from 1203 to 1265 files: 60
+extend files, a `combatsystems.ini` and a `weapons.ini`.
+
+**Combat systems.** SEST Collection Fixes ships `systems/combatsystems.ini`
+with 23 profiles under SEST names, each cloned from the Euromod profile of
+the matching shape, so nothing depends on Euromod's ids and a build stops if
+anyone starts defining a `SEST_` name. One key is edited, and it is marked
+on each clone that carries it: the three Russian profiles sit one datalink
+tier below the NATO body they borrow, which is where vanilla's own
+calibration puts every Soviet profile against its NATO contemporary
+(Alleya_2M, Lesorub and Sapfir_U are tier 4 against AEGIS_Mk7 and NTDS's 5;
+Koren 4 against ADAWS's 5). Vanilla names are used directly where vanilla
+models the ship or its generation.
+
+Who gets what:
+
+- *RAN Fleet*, set by its builder on the hull: Hobart `SEST_AEGIS_BL9`
+  (was vanilla's AEGIS_Mk7; the RAN's Aegis refresh), Anzac `SEST_9LV_MLU`
+  (declared none; Saab 9LV Mk3E with CEAFAR), Canberra and Arafura
+  `SEST_9LV_Compact` (were NTDS, the 1960s profile their Spanish donors
+  chose), Supply `SEST_9LV_Compact` (was None - VerySlow, no datalink; the
+  Supply class carries 9LV). Choules keeps the Galicia's NTDS: datalinked
+  and slow is what a dock landing ship without a modern CMS gets, and the
+  real ship's fit is not on record. Collins takes none - see submarines.
+- *Mogami*: `SEST_OYQ_Integrated`, her OYQ-1.
+- *Sixty mod hulls the campaigns field that declare none* get one by
+  `#!extend`: a `vessels_overwrite/<id>_CombatSystems_SEST.ini` per hull,
+  carrying only the block. This is the mechanism Euromod uses on 162 hulls,
+  132 of them other mods' (Modern US Navy's 75, the German, British, Dutch,
+  Italian, Danish and JMSDF packs), from higher in the order than the hull -
+  which is the SEST position. The sixty were computed, not chosen: every
+  vessel the built missions place whose winning file declares no
+  `[CombatSystems]`, is not already extended by a mod, is not an alias and
+  is not a submarine. Red: the PLAN Pack's 052D (`SEST_PLAN_AAW`), 055
+  (`SEST_PLAN_Cruiser`), 054A and the 2017 Shenzhen (`SEST_PLAN_Multirole`),
+  056A (`SEST_PLAN_Compact`); Liaoning, Shandong, Fujian and the Type 004
+  (`SEST_PLAN_Carrier`); the Type 071 (`SEST_PLAN_Amphibious`); Red Storm's
+  twelve PLAN hulls likewise; the Luda and Sovremenny take vanilla's own
+  `ZKJ-3` and `Sapfir_U`; Russian Navy 21's Gorshkovs and Project 21956
+  `SEST_RU_AAW`, the Grigorovich `SEST_RU_Multirole`, the Steregushchiy and
+  Gremyashchiy `SEST_RU_Compact`; the Kuznetsov and Varyag `Lesorub_55`, the
+  improved Kirov `Alleya_2M`, the Slavas `Lesorub_1164`, the Nakhimov refit
+  `SEST_RU_AAW`; Iran's Peykaap vanilla's `Titanit`. Blue: the Ford and the
+  2000s Nimitz (`SEST_SSDS_Carrier`), the 2027 Ticonderoga, Red Storm's
+  Hobart and Korea's KDX-III (`SEST_AEGIS_BL9`), the 2030 Flight III
+  (`SEST_AEGIS_BL10`), the FFG Upgrade Adelaide (`SEST_9LV_Compact_MLU`),
+  the French carrier, Horizon, FDI, Aquitaines and La Fayettes (SENIT,
+  PAAMS, SETIS and compact clones), the Daegu, the old Type 23
+  (`SEST_CMS_SeaCeptor`), and the deprecated Seahawk mod's Spruance and
+  Perry, which get back the `NTDS_TAS` and `Mk92_CAS_Link14` vanilla gives
+  the same hulls. The 2027 Burkes are aliases of Modern US Navy hulls
+  Euromod already extends, and take nothing of their own.
+- *Submarines: none.* Vanilla assigns none of its 46 a profile, and
+  neither does this pack, for the RAN's Collins or anyone's. Euromod does
+  assign its Type 212As one; the test card asks what the game shows for a
+  boat that declares none before that is reconsidered.
+
+The guards: a hull that starts declaring its own system, that another mod
+starts extending, that becomes an alias or a submarine, or a donor profile
+that changes shape, stops the build and names itself.
+
+**CIWS: what the data turned up first.** Four aircraft mods - Tu-95MS, MORE
+SU24M VARIANTS, KC-135 Stratotanker and Su-30SM2 - each ship a 213-section
+copy of the game's `systems/weapons.ini` whose only addition is one
+section, `[SA-26]`. The four copies are identical to one another on every
+shared section, and the copy predates 0.8.3: 67 of its sections differ from
+the current game, every one by keys the game *added* (the burst model on
+`AK630`, `MK15` and `AK230`; `ForceMoveToLoadPosition` on the Mk 10, 11,
+13, 22 and 26 and the SA-N-1, 3 and 4; `FireRate` on ASROC and the Mk 13),
+none by a key removed or a value changed. `systems/` merges section by
+section and the copies outrank vanilla, so on every vanilla AK-630 (76
+fielded mounts), Phalanx Block 0 (39) and AK-230 (10), and on every stock
+gun and launcher among those 67, the 0.8.3 model was not being read at all.
+Collection Fixes now ships the game's own text for 66 of them (the 67th,
+SA-N-9, the Kuznetsov mod redefines above the copies and keeps). The build
+checks the four copies still agree with one another, so a real edit by one
+of those authors stops it rather than being overwritten, and a section some
+other mod deliberately redefines above the copies is left to that mod.
+
+**CIWS: the retune.** The 22 mod CIWS the campaigns field are moved onto the
+0.8.3 keys - `FireControlMode`, `ReactionTime`, `BurstTime`,
+`VolleyMaxRounds`, `VolleyCooldown`; `MinimumMissileInterceptTime`, which
+the game dropped, removed - with their own rotation rates, fire rate,
+magazine, reload, effects and audio kept. A self-contained mount (dome radar
+or EO on the gun) takes the Phalanx pattern, closed-loop; an off-mount
+director takes the AK-630 pattern. The anchors sit on vanilla's own ladder:
+Phalanx Block 0 40, Block 1 (APDS) 50, AK-630 20, AK-230 10, a hand-aimed
+20 mm 2.
+
+| Section | Was | Now |
+|---|---|---|
+| Type 730 (PLAN Pack's two; the Type 071's own) | 85 / 85 / 75 | 55; the PLAN Pack's 15 s "reload" of 2900 rounds becomes 180 |
+| Type 1130 (PLAN Pack's two) | 102 | 60; the 25 s reload becomes 240 |
+| Phalanx Block 1A (`MK15B`, `eu_MK15B`) | 85 | 50, vanilla's Block 1 |
+| Phalanx Block 1B (`MK15C`, `eu_MK15C`) | 90 | 55, one step above |
+| Goalkeeper (Euromod) | 80 | 55 |
+| Kashtan (the Kuznetsov mod's; 32 fielded mounts name it), Red Storm's CADS-N-1, the improved Kirov's Kortik gun, Russian Navy 21's Kortik-M | 95 / 60 / 50 / 95 | 45 |
+| Palash | 95 | 50 |
+| AK-630M | 80 | 25, the AK-630 pattern with a better director |
+| Millennium Gun (35 mm AHEAD) | 90 | 35 |
+| MLG 27 | 25 | 15 |
+| Narwhal and F2 20 mm, DS30M Mk 2, Mk 38 Mod 4 (remote autocannon in CIWS slots) | 50 / 50 / 70 / 70 | 5; the two Euromod guns declare no CIWS module, so only their anchors move |
+
+The build stops the day a mod adopts the new keys itself, so each entry is
+deleted then rather than retuning the author's retune. Vanilla's Phalanx
+Block 0 is what the Anzac mod names (`MK15`: anchor 40, 3000 rounds a
+minute, 989 loaded); the ASMD Anzacs carry Block 1B, so the RAN Fleet
+builder points the mount at vanilla's `MK15_Blk1` (Block 1, APDS: 50, 4500,
+1550), on the same burst model. Left on the old keys, deliberately: the
+light guns whose anchor is already -1 or under 10 (DS30B, DS30M, the 25 mm
+KBA, the machine guns), which the model barely touches.
+
+**Not settled here**, and on the test cards: that an extend shipped by the
+SEST pack lands on a hull another mod ships (Shift+Y on a 054A reading SEST
+PLAN Multirole proves it; the game's default disproves it, and the sixty
+files then move into the hull copies SEST Replenishment already ships);
+how the retuned Type 1130 and Kashtan behave against a salvo; what the
+game shows for a submarine. The sensors file has the same shape of problem
+on a smaller scale - two of the four aircraft mods also carry a stale
+`sensors.ini`, and a sensor-overhaul mod redefines 202 vanilla sensors on
+purpose - and is left for a round of its own.
+
+**Auto Time-on-Target retired.** Unsubscribed on 3 October (Coordinated
+Strike Tool is the one salvo planner kept); removed from the canonical
+order, the catalogue's active set, the code-mod tier and the campaign
+excuses, so the sync stops re-adding it. `check_inventory` is red on it
+until the next export prunes its folder.
 
 ## What has NOT been demonstrated
 
