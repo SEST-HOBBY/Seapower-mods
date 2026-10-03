@@ -102,7 +102,7 @@
 3673908868   TU-16N AIR TANKER                                    updated 2026-08-16
 3681873198   Pickup                                               updated 2026-08-24
 3683253079   THAAD & AN/TPY-2                                     updated 2026-08-15
-3695809489   Euromod-(Japan)JMSDF Modern navy                     updated 2026-09-21
+3695809489   Euromod-(Japan)JMSDF Modern navy                     updated 2026-10-03
 3715323261   Tu-95MS                                              updated 2026-09-25
 3716049886   MORE SU24M VARIANTS                                  updated 2026-08-16
 3717610332   IL-78 TANKER                                         updated 2026-08-16
@@ -137,11 +137,11 @@
 3789208859   Euromod-South Korea Navy                             updated 2026-09-21
 3790594162   Identify Expanded                                    updated 2026-10-02
 3796113927   RQ-180 White Bat Airframe                            updated 2026-09-16
-3796349767   YF-23 Black Widow II                                 updated 2026-10-02
+3796349767   YF-23 Black Widow II                                 updated 2026-10-03
 3799742828   MiG-31 Foxhound                                      updated 2026-09-16
 3801363152   CH-53E Standalone v0.1.0                             updated 2026-09-16
 3801549552   J-36 Tailless Fighter                                updated 2026-09-16
-3804868806   Anduril FQ-44 Fury US Navy Carrier Wingmen           updated 2026-10-02
+3804868806   Anduril FQ-44 Fury US Navy Carrier Wingmen           updated 2026-10-03
 3806466625   MV-22B Osprey Tiltrotor / JGSDF V-22B                updated 2026-09-26
 3806686336   Coordinated Strike Tool                              updated 2026-09-30
 3808882954   RC-135V/W Rivet Joint                                updated 2026-09-30
