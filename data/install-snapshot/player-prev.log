@@ -1,4 +1,4 @@
-# Player-prev.log - last 221 of 221 line(s), captured 2026-10-03T16:19:34.
+# Player-prev.log - last 2701 of 2701 line(s), captured 2026-10-03T17:15:47.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,7 +17,7 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1074
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.209 seconds
+- Loaded All Assemblies, in  0.182 seconds
 - Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -71,9 +71,8 @@ Sentry: Mapped native library to 'C:\Program Files (x86)\Steam\steamapps\common\
 Using Windows.Gaming.Input
 <RI> Input initialized.
 
-dxgi: swapchain SetFullscreenState failed (887a0022).
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 3.500600 ms
+UnloadTime: 2.368600 ms
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.67f1
 Development build: False
@@ -215,7 +214,2488 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_al
 [MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
 [MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-[2101 - HTTPRequestCompleted] - 4 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3894
+[2101 - HTTPRequestCompleted] - 9 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3894
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[SkyDebug] RenderPosition.updateCameraAndSkyPosition hit.
+[HighAltitudeSkyFix] Cloud culling radius extended from 4 to 8 chunks (maximum pool 289 chunks). Mission cloud type and density are unchanged.
+[SkyDebug] Active DynamicSky found independently; runtime type=SeaPower.DynamicSky, name=Environment.
+[SkyDebug] Skybox found independently: runtime type=UnityEngine.GameObject, name=Skybox, activeSelf=True, position=(0.00, 0.00, 0.00), localPosition=(0.00, 0.00, 0.00), localScale=(2.00, 2.00, 2.00), rendererType=UnityEngine.MeshRenderer, rendererEnabled=True, rendererBounds=Center: (0.00, 239.73, 0.00), Extents: (1085.17, 239.73, 1085.17), material=skysphere_mat (Instance), shader=Nils/Environment/Sky_Animated, mesh=SkySpereGeo, meshBounds=Center: (0.00, 119.86, 0.00), Extents: (542.58, 119.86, 542.58), vertices=1427, star/celestial children=<none>.
+[SkyDebug] Altitude snapshot (sea/normal altitude): camera=Main Camera, cameraPosition=(0.01, 0.87, -4.93), altitude=191 ft, cameraClearFlags=SolidColor, skyboxPosition=(0.00, 0.00, 0.00), cameraToSkyboxTransform=5.003, cameraAboveSkybox=191 ft, rendererBounds=Center: (0.00, 239.73, 0.00), Extents: (1085.17, 239.73, 1085.17), cameraInsideAabb=True, cameraToBoundsCenter=238.910, RenderSettings.skybox=<null>.
+[IDX][BottomBarInjector.cs:399 DumpVanillaButtons] [IDX-BottomBar][dump] tb_FormationManagerWindow: type=ToggleButton Content='Noesis.StackPanel' Parent=Grid (Noesis.Grid) Margin=0 Padding=0 Style=Noesis.Style FontSize=12
+[IDX][BottomBarInjector.cs:405 DumpVanillaButtons] [IDX-BottomBar][dump]  Background= BorderBrush= Foreground=#FF000000
+[IDX][BottomBarInjector.cs:399 DumpVanillaButtons] [IDX-BottomBar][dump] tb_EventLogWindow: type=ToggleButton Content='Noesis.StackPanel' Parent=Grid (Noesis.Grid) Margin=0 Padding=0 Style=Noesis.Style FontSize=12
+[IDX][BottomBarInjector.cs:405 DumpVanillaButtons] [IDX-BottomBar][dump]  Background= BorderBrush= Foreground=#FF000000
+[IDX][BottomBarInjector.cs:399 DumpVanillaButtons] [IDX-BottomBar][dump] tb_CameraControlsWindow: type=ToggleButton Content='Noesis.StackPanel' Parent=Grid (Noesis.Grid) Margin=0 Padding=0 Style=Noesis.Style FontSize=12
+[IDX][BottomBarInjector.cs:405 DumpVanillaButtons] [IDX-BottomBar][dump]  Background= BorderBrush= Foreground=#FF000000
+[IDX][BottomBarInjector.cs:389 DumpVanillaButtons] [IDX-BottomBar][dump] rb_MessageLog=null
+[IDX][BottomBarInjector.cs:389 DumpVanillaButtons] [IDX-BottomBar][dump] rb_Tasking=null
+[IDX][BottomBarInjector.cs:389 DumpVanillaButtons] [IDX-BottomBar][dump] rb_Intel=null
+[IDX][BottomBarInjector.cs:414 DumpVanillaButtons] [IDX-BottomBar][dump] parent Grid children=12 type=Noesis.Grid
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[0] Grid Name='OverlayCanvasNew' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[1] Canvas Name='ContextMenuCanvas' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[2] ItemsControl Name='' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[3] ContentControl Name='' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[4] Canvas Name='' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[5] Rectangle Name='BackgroundRectangle' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[6] ContentControl Name='' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[7] ToggleButton Name='FormationManagerWindow' Content='Noesis.StackPanel'
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[8] ToggleButton Name='EventLogWindow' Content='Noesis.StackPanel'
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[9] ToggleButton Name='MapWindow' Content='Noesis.Image'
+[IDX][BottomBarInjector.cs:430 DumpVanillaButtons] [IDX-BottomBar][dump] MainGameViewModel.uiSprites count=11
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_messagelog 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_messagelog_lit 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_damage_control 32x33 format=RGB24
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_damage_control_p 32x33 format=RGB24
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_airops 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_airops_lit 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite pointer_select 32x32 format=RGBA32
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_maximize_map 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_maximize_map_lit 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_formationmanager 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_formationmanager_lit 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Border Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Canvas Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=T Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Image Source=Noesis.BitmapImage 24x24 Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Grid Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:91 TryInject] [IDX-BottomBar] AlliedCommand detected â€” compat mode on (allied side respected)
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_Shininess, 2.5)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/usn_ssn_virginia_block3/usn_ssn_virginia_block4_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_ssn_virginia_block3/usn_ssn_virginia_block4_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_ssn_virginia_block3/usn_ssn_virginia_block4_mat.ini): SetColor(_EmissionColor, {*}000000ff)
+LoadMaterialFromFile(ships/usn_ssn_virginia_block3/usn_ssn_virginia_block4_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_ssn_virginia_block3/usn_ssn_virginia_block4_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_ssn_virginia_block3/usn_ssn_virginia_block4_mat.ini): SetFloat(_Fresnel, 0.75)
+[HighAltitudeSkyFix] Skybox vertical geometry measured: top=105707 ft, atmosphere boundary=88189 ft, retained camera-above-skybox offset=96948 ft.
+[WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-1005.9230, 0.0895, 179.7236)), container='AmmunitionParent' (world (-1005.9280, 0.0395, 179.7314)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9690, 0.0895, 179.7236)), container='AmmunitionParent' (world (-1005.9640, 0.0395, 179.7158)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9230, 0.0895, 179.6941)), container='AmmunitionParent' (world (-1005.9280, 0.0395, 179.7019)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9690, 0.0895, 179.6941)), container='AmmunitionParent' (world (-1005.9640, 0.0395, 179.6862)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9230, 0.0895, 179.6645)), container='AmmunitionParent' (world (-1005.9280, 0.0395, 179.6723)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9690, 0.0895, 179.6645)), container='AmmunitionParent' (world (-1005.9640, 0.0395, 179.6567)), shipRoot='1-ran_ddg_hobart'.
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+[SkyDebug] DynamicSky.updateSkyParameters hit; runtime type=SeaPower.DynamicSky.
+[SkyDebug] DynamicSky.updateLightParameters hit; runtime type=SeaPower.DynamicSky.
+[SkyDebug] DynamicSky.updateGraphics hit; runtime type=SeaPower.DynamicSky.
+[SkyDebug] DynamicSky.OnLateUpdate hit; runtime type=SeaPower.DynamicSky.
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 8 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 164 unused Assets to reduce memory usage. Loaded Objects now: 94472.
+Total: 183.671400 ms (FindLiveObjects: 5.985800 ms CreateObjectMapping: 1.713100 ms MarkObjects: 175.304600 ms  DeleteObjects: 0.667200 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94524.
+Total: 161.710600 ms (FindLiveObjects: 5.177500 ms CreateObjectMapping: 1.357500 ms MarkObjects: 155.070600 ms  DeleteObjects: 0.104500 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94540.
+Total: 167.171200 ms (FindLiveObjects: 4.431500 ms CreateObjectMapping: 1.593800 ms MarkObjects: 161.046000 ms  DeleteObjects: 0.099500 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94547.
+Total: 163.718700 ms (FindLiveObjects: 4.340900 ms CreateObjectMapping: 1.402200 ms MarkObjects: 157.875900 ms  DeleteObjects: 0.099000 ms)
+
+[IDX][TaskforceUtil.cs:31 Resolve] [IDX] taskforce access: property=True field=False inner=True
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 95 unused Assets to reduce memory usage. Loaded Objects now: 94666.
+Total: 225.630800 ms (FindLiveObjects: 8.333800 ms CreateObjectMapping: 3.324000 ms MarkObjects: 213.643300 ms  DeleteObjects: 0.329100 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94663.
+Total: 237.280600 ms (FindLiveObjects: 7.760100 ms CreateObjectMapping: 1.979500 ms MarkObjects: 227.424200 ms  DeleteObjects: 0.116100 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94663.
+Total: 297.650200 ms (FindLiveObjects: 6.159600 ms CreateObjectMapping: 3.598500 ms MarkObjects: 287.807600 ms  DeleteObjects: 0.084000 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94663.
+Total: 226.660200 ms (FindLiveObjects: 7.553600 ms CreateObjectMapping: 2.323700 ms MarkObjects: 216.693900 ms  DeleteObjects: 0.088600 ms)
+
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+[3D WebView] Unable to deliver a message from the native plugin to a webview GameObject because there is no longer a GameObject named 'WebView-3aa60af2-1e06-403c-9211-2616ac55f7a0'. This can sometimes happen directly after destroying a webview. In that case, it is benign and this message can be ignored.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 96 unused Assets to reduce memory usage. Loaded Objects now: 94636.
+Total: 172.880000 ms (FindLiveObjects: 5.289200 ms CreateObjectMapping: 1.832200 ms MarkObjects: 165.454900 ms  DeleteObjects: 0.303300 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94639.
+Total: 184.062800 ms (FindLiveObjects: 5.269200 ms CreateObjectMapping: 1.396000 ms MarkObjects: 177.277000 ms  DeleteObjects: 0.120100 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94639.
+Total: 198.027600 ms (FindLiveObjects: 7.304500 ms CreateObjectMapping: 1.734700 ms MarkObjects: 188.870500 ms  DeleteObjects: 0.117500 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94639.
+Total: 208.104400 ms (FindLiveObjects: 4.933600 ms CreateObjectMapping: 1.574500 ms MarkObjects: 201.406600 ms  DeleteObjects: 0.188900 ms)
+
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 94 unused Assets to reduce memory usage. Loaded Objects now: 94833.
+Total: 175.349400 ms (FindLiveObjects: 6.183900 ms CreateObjectMapping: 1.818600 ms MarkObjects: 167.038400 ms  DeleteObjects: 0.308200 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94835.
+Total: 155.519800 ms (FindLiveObjects: 4.556900 ms CreateObjectMapping: 1.417800 ms MarkObjects: 149.459300 ms  DeleteObjects: 0.085400 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94835.
+Total: 161.383200 ms (FindLiveObjects: 4.676600 ms CreateObjectMapping: 1.283100 ms MarkObjects: 155.281100 ms  DeleteObjects: 0.141700 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 94835.
+Total: 166.619900 ms (FindLiveObjects: 5.088100 ms CreateObjectMapping: 1.505100 ms MarkObjects: 159.919100 ms  DeleteObjects: 0.107000 ms)
+
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[EnhancedUIMod] Attached to main HUD weapon list.
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+SeaPower.LinearCampaign.InstanceExists() = True
+[DynamicUnitGeneration] debrief-kills mission=7 named-destroyed=0 reusable-destroyed=0
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 3882 unused Assets to reduce memory usage. Loaded Objects now: 22185.
+Total: 219.347500 ms (FindLiveObjects: 1.481400 ms CreateObjectMapping: 1.006400 ms MarkObjects: 178.691400 ms  DeleteObjects: 38.167800 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 22081.
+Total: 187.460800 ms (FindLiveObjects: 1.414600 ms CreateObjectMapping: 1.381800 ms MarkObjects: 184.512500 ms  DeleteObjects: 0.151500 ms)
+
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[IDX][BottomBarInjector.cs:82 TryInject] [IDX-BottomBar] host changed (mission reload?) â€” re-injecting IDX button
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
+LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 7 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 259 unused Assets to reduce memory usage. Loaded Objects now: 72670.
+Total: 230.199400 ms (FindLiveObjects: 4.234500 ms CreateObjectMapping: 2.583100 ms MarkObjects: 222.813800 ms  DeleteObjects: 0.567600 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 72723.
+Total: 188.324000 ms (FindLiveObjects: 3.362700 ms CreateObjectMapping: 2.373600 ms MarkObjects: 182.501800 ms  DeleteObjects: 0.085500 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 72739.
+Total: 178.288600 ms (FindLiveObjects: 3.026600 ms CreateObjectMapping: 1.255100 ms MarkObjects: 173.935100 ms  DeleteObjects: 0.071400 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 72746.
+Total: 186.161200 ms (FindLiveObjects: 3.103600 ms CreateObjectMapping: 1.331000 ms MarkObjects: 181.648600 ms  DeleteObjects: 0.077600 ms)
+
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[RangeChartDebug] usn_rim-162h f=2.200 speed=0kt tgt=0kt maxAlt=100000ft
+  alt=      0ft range=  43.13nm maxRange=  44.96 distPct=1.043 iSpd=937 iT=65
+  alt=   1250ft range=  44.59nm maxRange=  46.15 distPct=1.035 iSpd=895 iT=65
+  alt=   2500ft range=  43.39nm maxRange=  45.47 distPct=1.048 iSpd=962 iT=65
+  alt=   3750ft range=  43.52nm maxRange=  45.72 distPct=1.051 iSpd=973 iT=65
+  alt=   5000ft range=  43.63nm maxRange=  45.95 distPct=1.053 iSpd=983 iT=65
+  alt=   6250ft range=  43.75nm maxRange=  46.20 distPct=1.056 iSpd=995 iT=65
+  alt=   7500ft range=  43.86nm maxRange=  46.44 distPct=1.059 iSpd=1005 iT=65
+  alt=   8750ft range=  43.96nm maxRange=  46.67 distPct=1.062 iSpd=1015 iT=65
+  alt=  10000ft range=  44.05nm maxRange=  46.89 distPct=1.065 iSpd=1024 iT=64
+  alt=  11250ft range=  44.16nm maxRange=  47.13 distPct=1.067 iSpd=1033 iT=64
+  alt=  12500ft range=  44.23nm maxRange=  47.34 distPct=1.070 iSpd=1042 iT=64
+  alt=  13750ft range=  44.31nm maxRange=  47.56 distPct=1.073 iSpd=1050 iT=64
+  alt=  15000ft range=  44.38nm maxRange=  47.77 distPct=1.076 iSpd=1058 iT=64
+  alt=  16250ft range=  44.48nm maxRange=  47.93 distPct=1.078 iSpd=1066 iT=64
+  alt=  17500ft range=  44.54nm maxRange=  48.05 distPct=1.079 iSpd=1073 iT=64
+  alt=  18750ft range=  44.59nm maxRange=  48.16 distPct=1.080 iSpd=1080 iT=64
+  alt=  20000ft range=  44.65nm maxRange=  48.26 distPct=1.081 iSpd=1086 iT=64
+  alt=  21250ft range=  44.69nm maxRange=  48.36 distPct=1.082 iSpd=1092 iT=63
+  alt=  22500ft range=  44.75nm maxRange=  48.46 distPct=1.083 iSpd=1097 iT=62
+  alt=  23750ft range=  44.78nm maxRange=  48.54 distPct=1.084 iSpd=1102 iT=62
+  alt=  25000ft range=  44.82nm maxRange=  48.62 distPct=1.085 iSpd=1106 iT=61
+  alt=  26250ft range=  44.84nm maxRange=  48.68 distPct=1.086 iSpd=1110 iT=61
+  alt=  27500ft range=  44.86nm maxRange=  48.75 distPct=1.087 iSpd=1113 iT=60
+  alt=  28750ft range=  44.82nm maxRange=  48.79 distPct=1.088 iSpd=1118 iT=60
+  alt=  30000ft range=  44.93nm maxRange=  48.88 distPct=1.088 iSpd=1120 iT=60
+  alt=  31250ft range=  44.93nm maxRange=  48.93 distPct=1.089 iSpd=1126 iT=60
+  alt=  32500ft range=  44.95nm maxRange=  48.96 distPct=1.089 iSpd=1123 iT=59
+  alt=  33750ft range=  44.93nm maxRange=  48.97 distPct=1.090 iSpd=1124 iT=59
+  alt=  35000ft range=  44.92nm maxRange=  49.00 distPct=1.091 iSpd=1129 iT=59
+  alt=  36250ft range=  44.89nm maxRange=  49.00 distPct=1.091 iSpd=1129 iT=59
+  alt=  37500ft range=  44.85nm maxRange=  48.98 distPct=1.092 iSpd=1128 iT=59
+  alt=  38750ft range=  44.84nm maxRange=  48.99 distPct=1.092 iSpd=1128 iT=59
+  alt=  40000ft range=  44.79nm maxRange=  48.95 distPct=1.093 iSpd=1125 iT=59
+  alt=  41250ft range=  44.73nm maxRange=  48.90 distPct=1.093 iSpd=1122 iT=59
+  alt=  42500ft range=  44.68nm maxRange=  48.92 distPct=1.095 iSpd=1127 iT=59
+  alt=  43750ft range=  44.62nm maxRange=  48.85 distPct=1.095 iSpd=1121 iT=59
+  alt=  45000ft range=  44.51nm maxRange=  48.76 distPct=1.096 iSpd=1116 iT=59
+  alt=  46250ft range=  44.40nm maxRange=  48.65 distPct=1.096 iSpd=1110 iT=59
+  alt=  47500ft range=  44.25nm maxRange=  48.52 distPct=1.097 iSpd=1104 iT=59
+  alt=  48750ft range=  44.11nm maxRange=  48.38 distPct=1.097 iSpd=1096 iT=59
+  alt=  50000ft range=  43.87nm maxRange=  48.17 distPct=1.098 iSpd=1086 iT=59
+  alt=  51250ft range=  43.69nm maxRange=  47.99 distPct=1.098 iSpd=1077 iT=59
+  alt=  52500ft range=  43.46nm maxRange=  47.74 distPct=1.098 iSpd=1067 iT=59
+  alt=  53750ft range=  43.24nm maxRange=  47.50 distPct=1.099 iSpd=1055 iT=59
+  alt=  55000ft range=  42.98nm maxRange=  47.23 distPct=1.099 iSpd=1044 iT=60
+  alt=  56250ft range=  42.46nm maxRange=  46.89 distPct=1.104 iSpd=1045 iT=60
+  alt=  57500ft range=  41.91nm maxRange=  46.33 distPct=1.106 iSpd=1045 iT=60
+  alt=  58750ft range=  41.33nm maxRange=  45.73 distPct=1.106 iSpd=1044 iT=60
+  alt=  60000ft range=  40.69nm maxRange=  45.07 distPct=1.107 iSpd=1044 iT=60
+  alt=  61250ft range=  40.78nm maxRange=  45.16 distPct=1.107 iSpd=1045 iT=60
+  alt=  62500ft range=  40.83nm maxRange=  45.22 distPct=1.108 iSpd=1048 iT=61
+  alt=  63750ft range=  40.67nm maxRange=  45.05 distPct=1.108 iSpd=1049 iT=61
+  alt=  65000ft range=  40.37nm maxRange=  44.72 distPct=1.108 iSpd=1050 iT=61
+  alt=  66250ft range=  39.95nm maxRange=  44.24 distPct=1.107 iSpd=1048 iT=62
+  alt=  67500ft range=  39.37nm maxRange=  43.59 distPct=1.107 iSpd=1048 iT=62
+  alt=  68750ft range=  38.67nm maxRange=  42.79 distPct=1.106 iSpd=1045 iT=63
+  alt=  70000ft range=  37.81nm maxRange=  41.83 distPct=1.106 iSpd=1043 iT=63
+  alt=  71250ft range=  36.82nm maxRange=  40.72 distPct=1.106 iSpd=1041 iT=64
+  alt=  72500ft range=  35.70nm maxRange=  39.47 distPct=1.106 iSpd=1037 iT=65
+  alt=  73750ft range=  34.44nm maxRange=  38.08 distPct=1.106 iSpd=1033 iT=66
+  alt=  75000ft range=  33.08nm maxRange=  36.57 distPct=1.105 iSpd=1029 iT=67
+  alt=  76250ft range=  31.62nm maxRange=  34.96 distPct=1.106 iSpd=1024 iT=68
+  alt=  77500ft range=  30.07nm maxRange=  33.26 distPct=1.106 iSpd=1019 iT=69
+  alt=  78750ft range=  28.46nm maxRange=  31.49 distPct=1.106 iSpd=1013 iT=71
+  alt=  80000ft range=  26.80nm maxRange=  29.67 distPct=1.107 iSpd=1008 iT=85
+  alt=  81250ft range=  25.10nm maxRange=  27.82 distPct=1.108 iSpd=1002 iT=82
+  alt=  82500ft range=  23.41nm maxRange=  25.96 distPct=1.109 iSpd=995 iT=78
+  alt=  83750ft range=  21.72nm maxRange=  24.11 distPct=1.110 iSpd=989 iT=73
+  alt=  85000ft range=  20.06nm maxRange=  22.28 distPct=1.110 iSpd=982 iT=69
+  alt=  86250ft range=  18.43nm maxRange=  20.48 distPct=1.111 iSpd=977 iT=65
+  alt=  87500ft range=  16.86nm maxRange=  18.73 distPct=1.111 iSpd=969 iT=62
+  alt=  88750ft range=  15.34nm maxRange=  17.04 distPct=1.111 iSpd=960 iT=58
+  alt=  90000ft range=  13.86nm maxRange=  15.42 distPct=1.113 iSpd=953 iT=54
+  alt=  91250ft range=  12.47nm maxRange=  13.88 distPct=1.113 iSpd=943 iT=51
+  alt=  92500ft range=  11.16nm maxRange=  12.44 distPct=1.114 iSpd=937 iT=48
+  alt=  93750ft range=   9.95nm maxRange=  11.08 distPct=1.114 iSpd=930 iT=45
+  alt=  95000ft range=   8.82nm maxRange=   9.83 distPct=1.115 iSpd=923 iT=42
+  alt=  96250ft range=   7.73nm maxRange=   8.51 distPct=1.101 iSpd=884 iT=40
+  alt=  97500ft range=   6.54nm maxRange=   7.18 distPct=1.098 iSpd=863 iT=38
+  alt=  98750ft range=   5.38nm maxRange=   5.90 distPct=1.097 iSpd=842 iT=36
+  alt= 100000ft range=   4.26nm maxRange=   4.70 distPct=1.101 iSpd=827 iT=33
+[ProfileDebug] 65000ft/900kt/80nm: EndTime=116.9s EndFlat=81.4nm stalled=True
+  t=   0.0s flat=   0.0nm alt=  65000ft v=   900kt
+  t=   3.0s flat=   1.6nm alt=  64991ft v=  2970kt
+  t=   8.0s flat=   6.6nm alt=  64963ft v=  4238kt
+  t=   8.0s flat=   6.7nm alt=  64962ft v=  4237kt
+  t=  13.8s flat=  13.3nm alt=  64699ft v=  4072kt
+  t=  19.8s flat=  20.0nm alt=  63984ft v=  3909kt
+  t=  26.1s flat=  26.7nm alt=  62593ft v=  3743kt
+  t=  32.7s flat=  33.3nm alt=  60298ft v=  3570kt
+  t=  39.6s flat=  40.0nm alt=  56875ft v=  3378kt
+  t=  47.0s flat=  46.7nm alt=  52098ft v=  3157kt
+  t=  51.0s flat=  50.0nm alt=  48919ft v=  3029kt
+  t=  55.1s flat=  53.3nm alt=  45741ft v=  2885kt
+  t=  59.4s flat=  56.7nm alt=  41659ft v=  2725kt
+  t=  64.1s flat=  60.0nm alt=  37578ft v=  2542kt
+  t=  69.2s flat=  63.3nm alt=  32481ft v=  2336kt
+  t=  74.7s flat=  66.7nm alt=  27384ft v=  2103kt
+  t=  78.9s flat=  68.9nm alt=  23234ft v=  1932kt
+  t=  83.5s flat=  71.1nm alt=  19084ft v=  1747kt
+  t=  88.5s flat=  73.3nm alt=  14933ft v=  1551kt
+  t=  94.5s flat=  75.6nm alt=   9956ft v=  1345kt
+  t= 100.0s flat=  77.4nm alt=   5928ft v=  1165kt
+  t= 101.4s flat=  77.8nm alt=   4978ft v=  1123kt
+  t= 106.4s flat=  79.1nm alt=   1935ft v=   972kt
+  t= 110.0s flat=  80.0nm alt=      0ft v=   872kt
+  t= 113.1s flat=  80.7nm alt=      0ft v=   755kt
+  t= 115.7s flat=  81.2nm alt=      0ft v=   654kt
+  t= 116.9s flat=  81.4nm alt=      0ft v=   600kt
+[MissileControlMod] Configuration: usn_rim-162h; launch=True; TVC=False; effect definitions=1
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[EnhancedUIMod] Attached to main HUD weapon list.
+AllowLaunchFunc!
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+AllowLaunchFunc!
+AllowLaunchFunc!
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[EnhancedUIMod] Attached to main HUD weapon list.
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+SeaPower.LinearCampaign.InstanceExists() = True
+[DynamicUnitGeneration] debrief-kills mission=2 named-destroyed=0 reusable-destroyed=0
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 3165 unused Assets to reduce memory usage. Loaded Objects now: 24698.
+Total: 343.040500 ms (FindLiveObjects: 2.029700 ms CreateObjectMapping: 1.123500 ms MarkObjects: 276.598000 ms  DeleteObjects: 63.288900 ms)
+
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[IDX][BottomBarInjector.cs:82 TryInject] [IDX-BottomBar] host changed (mission reload?) â€” re-injecting IDX button
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 6 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 213 unused Assets to reduce memory usage. Loaded Objects now: 81548.
+Total: 239.335900 ms (FindLiveObjects: 3.814300 ms CreateObjectMapping: 2.433000 ms MarkObjects: 232.691000 ms  DeleteObjects: 0.397200 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 81571.
+Total: 237.401600 ms (FindLiveObjects: 5.874600 ms CreateObjectMapping: 2.699900 ms MarkObjects: 228.678000 ms  DeleteObjects: 0.148000 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 81585.
+Total: 266.050400 ms (FindLiveObjects: 4.732500 ms CreateObjectMapping: 1.272600 ms MarkObjects: 259.967100 ms  DeleteObjects: 0.077800 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 81594.
+Total: 234.500400 ms (FindLiveObjects: 4.870900 ms CreateObjectMapping: 2.185100 ms MarkObjects: 227.357700 ms  DeleteObjects: 0.085700 ms)
+
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=MV Meridian Salvor, phrase=warning, tone=polite
+[IDX][BroadcastService.cs:2328 FindSender] [IDX] selected sender unusable: MV Meridian Salvor player=False
+[IDX][ContactRegistry.cs:65 Register] [IDX-Panel] Registered contact 47 MV Meridian Salvor kind=Surface
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] MH-60R 816 Squadron RAN -> MV Meridian Salvor 'warning' 19.4 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission warning [polite] -> IdentWarning (Australia)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=MV Meridian Salvor, phrase=surrender, tone=polite
+[IDX][BroadcastService.cs:2328 FindSender] [IDX] selected sender unusable: MV Meridian Salvor player=False
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] MH-60R 816 Squadron RAN -> MV Meridian Salvor 'surrender' 18.0 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission surrender [polite] -> ChallengesSurrender (Australia)
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply surrender|Partial -> RespSurrenderPartial
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=MV Meridian Salvor, phrase=redirect, tone=neutral
+[IDX][BroadcastService.cs:2328 FindSender] [IDX] selected sender unusable: MV Meridian Salvor player=False
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] MH-60R 816 Squadron RAN -> MV Meridian Salvor 'redirect' 16.9 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission redirect [neutral] -> IdentRedirect (Australia)
+[IDX][BroadcastService.cs:2476 SetWaypointViaReflection] [IDX] setWaypointTask invoked on MV Meridian Salvor
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply redirect|Comply -> RespRedirectComplyNow
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+SeaPower.LinearCampaign.InstanceExists() = True
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 2396 unused Assets to reduce memory usage. Loaded Objects now: 25390.
+Total: 306.977300 ms (FindLiveObjects: 1.756500 ms CreateObjectMapping: 1.644600 ms MarkObjects: 263.172700 ms  DeleteObjects: 40.402900 ms)
+
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[IDX][BottomBarInjector.cs:82 TryInject] [IDX-BottomBar] host changed (mission reload?) â€” re-injecting IDX button
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_Shininess, 2.5)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Liberty\Statueofliberty_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
+[WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-988.5137, 0.0895, 217.2050)), container='AmmunitionParent' (world (-988.5187, 0.0395, 217.2128)), shipRoot='10-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5597, 0.0895, 217.2050)), container='AmmunitionParent' (world (-988.5547, 0.0395, 217.1972)), shipRoot='10-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5137, 0.0895, 217.1754)), container='AmmunitionParent' (world (-988.5187, 0.0395, 217.1832)), shipRoot='10-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5597, 0.0895, 217.1754)), container='AmmunitionParent' (world (-988.5547, 0.0395, 217.1676)), shipRoot='10-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5137, 0.0895, 217.1458)), container='AmmunitionParent' (world (-988.5187, 0.0395, 217.1536)), shipRoot='10-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5597, 0.0895, 217.1458)), container='AmmunitionParent' (world (-988.5547, 0.0395, 217.1380)), shipRoot='10-ran_ddg_hobart'.
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 6 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 208 unused Assets to reduce memory usage. Loaded Objects now: 96463.
+Total: 275.952000 ms (FindLiveObjects: 10.627500 ms CreateObjectMapping: 1.778500 ms MarkObjects: 263.107700 ms  DeleteObjects: 0.437800 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 96516.
+Total: 259.036800 ms (FindLiveObjects: 7.137500 ms CreateObjectMapping: 2.340600 ms MarkObjects: 249.443000 ms  DeleteObjects: 0.115200 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 96532.
+Total: 234.971400 ms (FindLiveObjects: 4.878600 ms CreateObjectMapping: 1.452700 ms MarkObjects: 228.540500 ms  DeleteObjects: 0.099200 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 96539.
+Total: 258.309000 ms (FindLiveObjects: 5.921100 ms CreateObjectMapping: 1.510300 ms MarkObjects: 250.788400 ms  DeleteObjects: 0.088700 ms)
+
+AllowLaunchFunc!
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+1-usn_mh-60r recieving 1 waypoints from RecoveryPoint1
+SeaPower.LinearCampaign.InstanceExists() = True
+[DynamicUnitGeneration] debrief-kills mission=7 named-destroyed=0 reusable-destroyed=0
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 3647 unused Assets to reduce memory usage. Loaded Objects now: 25762.
+Total: 337.836900 ms (FindLiveObjects: 2.512900 ms CreateObjectMapping: 2.036700 ms MarkObjects: 282.165400 ms  DeleteObjects: 51.121500 ms)
+
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[IDX][BottomBarInjector.cs:82 TryInject] [IDX-BottomBar] host changed (mission reload?) â€” re-injecting IDX button
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_Shininess, 2.5)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
+[WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.6423)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6346)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.6423)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.6501)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.6719)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6641)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.6719)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.6797)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.7015)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6937)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.7015)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.7093)), shipRoot='4-ran_ddg_hobart'.
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 6 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 227 unused Assets to reduce memory usage. Loaded Objects now: 45748.
+Total: 323.375100 ms (FindLiveObjects: 3.980700 ms CreateObjectMapping: 1.718000 ms MarkObjects: 317.266900 ms  DeleteObjects: 0.408800 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 45771.
+Total: 297.202700 ms (FindLiveObjects: 2.367300 ms CreateObjectMapping: 1.338000 ms MarkObjects: 293.422400 ms  DeleteObjects: 0.074400 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 45785.
+Total: 267.738500 ms (FindLiveObjects: 2.123300 ms CreateObjectMapping: 1.062800 ms MarkObjects: 264.490400 ms  DeleteObjects: 0.061600 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 45794.
+Total: 261.071500 ms (FindLiveObjects: 1.979400 ms CreateObjectMapping: 1.009200 ms MarkObjects: 258.007800 ms  DeleteObjects: 0.074700 ms)
+
+LoadMaterialFromFile(weapons/usn_mk48/pla_yu-6_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_mk48/pla_yu-6_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_mk48/pla_yu-6_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_mk48/pla_yu-6_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(weapons/usn_mk48/pla_yu-6_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+[EnhancedUIMod] Attached to main HUD weapon list.
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+[EnhancedUIMod] Attached to main HUD weapon list.
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[EnhancedUIMod] Attached to main HUD weapon list.
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+Can not play a disabled audio source
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+Can not play a disabled audio source
+Can not play a disabled audio source
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+[MissileControlMod] Configuration: usn_rim-162a; launch=True; TVC=False; effect definitions=1
+Can not play a disabled audio source
+Can not play a disabled audio source
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+[EnhancedUIMod] Attached to main HUD weapon list.
+[MissileControlMod] Configuration: usn_rim-162h; launch=True; TVC=False; effect definitions=1
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 4608 unused Assets to reduce memory usage. Loaded Objects now: 24674.
+Total: 323.030400 ms (FindLiveObjects: 1.847100 ms CreateObjectMapping: 1.653700 ms MarkObjects: 262.137900 ms  DeleteObjects: 57.391400 ms)
+
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[IDX][BottomBarInjector.cs:82 TryInject] [IDX-BottomBar] host changed (mission reload?) â€” re-injecting IDX button
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_093_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ss_039a_sail_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_Shininess, 2.5)
+LoadMaterialFromFile(ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/wp_ssn_victor1/plan_ssn_039_other_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
+[WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.6423)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6346)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.6423)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.6501)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.6719)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6641)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.6719)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.6797)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.7015)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6937)), shipRoot='4-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.7015)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.7093)), shipRoot='4-ran_ddg_hobart'.
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 6 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 220 unused Assets to reduce memory usage. Loaded Objects now: 46024.
+Total: 301.189000 ms (FindLiveObjects: 2.797800 ms CreateObjectMapping: 1.346000 ms MarkObjects: 296.640700 ms  DeleteObjects: 0.404000 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 46047.
+Total: 276.316000 ms (FindLiveObjects: 2.191700 ms CreateObjectMapping: 1.176100 ms MarkObjects: 272.842000 ms  DeleteObjects: 0.105500 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 46061.
+Total: 264.322300 ms (FindLiveObjects: 2.001000 ms CreateObjectMapping: 1.085500 ms MarkObjects: 261.181100 ms  DeleteObjects: 0.054200 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 46070.
+Total: 250.856700 ms (FindLiveObjects: 2.126700 ms CreateObjectMapping: 1.262200 ms MarkObjects: 247.409900 ms  DeleteObjects: 0.057200 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 92 unused Assets to reduce memory usage. Loaded Objects now: 46730.
+Total: 290.495400 ms (FindLiveObjects: 3.277700 ms CreateObjectMapping: 1.193300 ms MarkObjects: 285.673000 ms  DeleteObjects: 0.351000 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 46732.
+Total: 270.110900 ms (FindLiveObjects: 2.256600 ms CreateObjectMapping: 1.276500 ms MarkObjects: 266.512900 ms  DeleteObjects: 0.064400 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 46732.
+Total: 251.676600 ms (FindLiveObjects: 2.372700 ms CreateObjectMapping: 1.224600 ms MarkObjects: 248.019500 ms  DeleteObjects: 0.059300 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 46732.
+Total: 250.618000 ms (FindLiveObjects: 2.137200 ms CreateObjectMapping: 1.106600 ms MarkObjects: 247.317600 ms  DeleteObjects: 0.056400 ms)
+
+[EnhancedUIMod] Attached to main HUD weapon list.
+SeaPower.LinearCampaign.InstanceExists() = True
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 2843 unused Assets to reduce memory usage. Loaded Objects now: 26423.
+Total: 328.999600 ms (FindLiveObjects: 1.079000 ms CreateObjectMapping: 1.098100 ms MarkObjects: 284.078900 ms  DeleteObjects: 42.743100 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 26346.
+Total: 286.679400 ms (FindLiveObjects: 1.448100 ms CreateObjectMapping: 1.647700 ms MarkObjects: 283.420600 ms  DeleteObjects: 0.162500 ms)
+
 [3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05

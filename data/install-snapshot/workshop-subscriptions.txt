@@ -50,14 +50,15 @@
 3478767194   VH-3D Marine One Mod                                 updated 2026-08-16
 3480965706   B-2 Spirit                                           updated 2026-08-15
 3481228992   J10C                                                 updated 2026-08-16
+3485917612   Moloti's Armed Merchantmen                           updated 2026-10-03
 3486502935   Type 003 CV / future Type 004 CVN aircraft carriers  updated 2026-08-16
-3488139470   Modern Italian Navy - Euromod                        updated 2026-09-23
+3488139470   Modern Italian Navy - Euromod                        updated 2026-10-03
 3497601759   Shahed 136                                           updated 2026-08-17
 3499239964   E-7A Wedgetail                                       updated 2026-08-19
 3502273861   arrw                                                 updated 2026-08-25
 3503594612   SU-57                                                updated 2026-08-15
 3503670861   General Atomics MQ-9 Reaper                          updated 2026-08-15
-3505420313   Italian Navy mod                                     updated 2026-09-21
+3505420313   Italian Navy mod                                     updated 2026-10-03
 3506979898   J-16                                                 updated 2026-08-16
 3508275114   Ground upgrade: SPAA                                 updated 2026-08-16
 3509329205   TU-160                                               updated 2026-08-15
@@ -79,7 +80,7 @@
 3592460366   Modern US Airbase                                    updated 2026-08-16
 3594891803   PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A) updated 2026-08-15
 3597650470   Russian Navy 21                                      updated 2026-08-31
-3599752717   Modern British Navy - Euromod                        updated 2026-09-23
+3599752717   Modern British Navy - Euromod                        updated 2026-10-03
 3600788156   Buildings and Objectives                             updated 2026-10-03
 3601891050   中小型无人机系列                                             updated 2026-08-15
 3602046770                                                        updated 2026-08-16
@@ -94,7 +95,7 @@
 3636386513   F-15EX                                               updated 2026-09-06
 3637954857   KJ-500                                               updated 2026-08-26
 3642656500   Euromod-Scandinavian Navy                            updated 2026-08-16
-3652097318   B-1B Lancer                                          updated 2026-09-13
+3652097318   B-1B Lancer                                          updated 2026-10-03
 3659742367   Mig-35                                               updated 2026-08-16
 3663564190   Type003.CV-18.fujian.v0.02                           updated 2026-09-13
 3670643788   J-50                                                 updated 2026-08-15
@@ -119,6 +120,7 @@
 3746453639   Civil Aircraft Mod                                   updated 2026-08-15
 3755769170   F-2A 'Viper Zero'                                    updated 2026-09-16
 3758320372   F-16C Fighting Falcon (by ZeroTwo)                   updated 2026-08-15
+3758943352   French Air Force                                     updated 2026-10-03
 3760871384   Dingtools Weapon Pack                                updated 2026-08-15
 3762023575   Su-30SM2                                             updated 2026-08-16
 3768036424   BetterTacMap                                         updated 2026-08-24
@@ -145,14 +147,16 @@
 3806466625   MV-22B Osprey Tiltrotor / JGSDF V-22B                updated 2026-09-26
 3806686336   Coordinated Strike Tool                              updated 2026-09-30
 3808882954   RC-135V/W Rivet Joint                                updated 2026-09-30
+3810611344   MV-75 Cheyenne II                                    updated 2026-10-03
+3812111085   PLAAF Aircraft Pack                                  updated 2026-10-03
 
-subscribed but UNPLACED (0): 
-placed but NOT SUBSCRIBED (1): 3504168760
+subscribed but UNPLACED (4): 3485917612, 3758943352, 3810611344, 3812111085
+placed but NOT SUBSCRIBED (0): 
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
-folders on disk          : 144
-ids Steam tracks locally : 144
+folders on disk          : 148
+ids Steam tracks locally : 148
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
 on disk but NOT tracked (0): 
