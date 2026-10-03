@@ -8,7 +8,7 @@ Everything here is built around interoperability: a mod is known by three names 
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
 `mods-source/` export and its load-order token), and the display name the Mod Manager
 shows — and `data/mod-catalog.json` is the table that joins them, including the
-`local_packs` registry of the 19 SEST source packs.
+`local_packs` registry of the 20 SEST source packs.
 
 ## Layout
 
@@ -27,24 +27,25 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
-The 19 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persistent_ISR`,
+The 20 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persistent_ISR`,
 `SEST_Allied_Fixes`, `SEST_B52_ARRW`, `SEST_Collection_Fixes`, `SEST_F-15EX_Revamp`,
 `SEST_F-35C_JATM`, `SEST_F16CM_JATM`, `SEST_Growler_NGJ_MALICE`, `SEST_Intercept_Model`,
 `SEST_JMSDF_Mogami`, `SEST_RAAF_Bases`, `SEST_RAAF_F-35A_JATM`, `SEST_RAAF_Wedgetail`,
-`SEST_RAN_Fleet`, `SEST_Raptor_Squadrons`, `SEST_Replenishment`,
+`SEST_RAN_Fleet`, `SEST_Rafale_F5`, `SEST_Raptor_Squadrons`, `SEST_Replenishment`,
 `SEST_TacMap_Colors` and `SEST_Campaign` (the three campaigns, each also listed as an Open
 Allocation twin that sells its whole roster from the first window - and, for the two RAN
-campaigns, the allied fleet). Consolidated, they are 1260
+campaigns, the allied fleet). Consolidated, they are 1264
 files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
-when Modern US Navy fixed what it patched, and `SEST_Rafale_F5` on 3 Oct 2026, when the
-Rafale mod it patched left the collection (`docs/packaging-and-recovery.md`).
+when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
+3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
+evening on the French Air Force mod, which ships the same Rafales (`docs/packaging-and-recovery.md`).
 
 ## Commands
 
 Linux / repo side:
 
 ```bash
-python3 tools/build_all.py --from-scratch   # rebuild all 19 packs + the consolidated dist;
+python3 tools/build_all.py --from-scratch   # rebuild all 20 packs + the consolidated dist;
                                             # a clean `git status` after = the regression gate
 python3 tools/preflight.py                  # resolve every reference the active mission makes
 python3 tools/preflight.py --all            # every deployed mission: fails on the editor crash, lists the rest

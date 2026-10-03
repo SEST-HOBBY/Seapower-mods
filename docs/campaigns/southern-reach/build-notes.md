@@ -523,3 +523,9 @@ and 7.6 are reworded for it.
 campaigns here ship `enemy_theater_roster.ini`, so the Situation button
 shows the PLAN and Russian forces the missions place; the Rafale is retired
 from the collection (nothing here placed it). 1260 files.
+
+*Late evening* (Southern Watch build notes, *Four new mods, the Chinese
+loading tips, and the Rafale back*): four new mods catalogued and ordered,
+none placed here (Southern Watch carries the one placement each needs); the
+loading-screen tips the PLAAF Aircraft Pack had turned Chinese are English
+again for every campaign, from SEST Collection Fixes. 1264 files.

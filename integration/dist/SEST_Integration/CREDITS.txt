@@ -6,14 +6,14 @@ every one of those belongs to the Workshop mod it came from,
 which is why REQUIRED-MODS.txt lists them as required rather
 than suggested.
 
-462 of the unit files here are another author's file with
+465 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 462 below
+every file of its kind in the collection, and the 465 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
@@ -246,6 +246,11 @@ file is unchanged.
        97%  aircraft/usn_fa-18f_blk3_squadrons.ini 
        95%  aircraft/usn_fa-18f_squadrons.ini 
        99%  ammunition/usn_agm-84d.ini 
+
+  French Air Force  (workshop 3758943352)
+       95%  aircraft/fr_rafale_b_l.ini 
+       95%  aircraft/fr_rafale_c_l.ini 
+       97%  aircraft/fr_rafale_m_l.ini 
 
   French Helicopter Package  (workshop 3567228449)
        98%  ammunition/usa_agm-114k.ini 

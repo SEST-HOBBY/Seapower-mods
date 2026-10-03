@@ -1936,7 +1936,9 @@ escorts remain), the allied fleet's Rafale M and B, the Banda vignette
 late Rafales JATM, MALICE and LRASM fits (`docs/packaging-and-recovery.md`,
 *Retired packs*; git holds everything). The pack is 19 packs and 1260 files,
 and the four checks that were red on the committed tree for the Rafale are
-green; no rebuild needs the archive any more.
+green; no rebuild needs the archive any more. (For one build: the evening's
+export brought a mod that ships the same Rafales, and the next section has
+them back.)
 
 **The Ford's Seahawks.** Found on the way: Modern US Navy's 3 Oct update
 dropped `usn_mh-60r_26`, its Seahawk under the 2026 fit, and the Ford mod's
@@ -1948,6 +1950,88 @@ proved the way `STORE_FIXES` repairs a broken round id); the Banda vignette
 that gives the Ford its own air group names the same. Your NORTHERN FRONT
 and Banda Front editor missions carry the old id in their Ford air groups
 and place no such helicopter themselves, so the game drops the line.
+
+## Four new mods, the Chinese loading tips, and the Rafale back (3 October, late evening)
+
+The player's evening export (`bb2316d4`) carried four new subscriptions -
+Moloti's Armed Merchantmen (3485917612), French Air Force (3758943352), the
+MV-75 Cheyenne II (3810611344) and the PLAAF Aircraft Pack (3812111085) - and
+updates to Euromod (fifteen Italian rounds), both Italian navy mods and Modern
+British Navy (combat-system blocks on their own hulls, which Euromod also
+extends; their problem, noted), JMSDF and the B-1B. Every guard held through
+the rebuild; this section is the four new mods, and one fault the first screen
+after subscribing showed.
+
+**Every loading-screen tip was in Chinese.** The player's report, and the
+cause is small: the PLAAF Aircraft Pack ships
+`language_en/loading_tips_plaaf.ini`, a `[LoadingTips]` section of eleven
+tips and a header written in Chinese and filed under the English folder. The
+game merges language files key by key across the load order whatever the file
+is called, and the section's keys are positional - `Count`, `Header`,
+`Tip001`... - so the mod's eleven keys landed on vanilla's and the game read
+them. (The same author's PLAN Pack files its tips under `language_cn/`, where
+they belong.) The fix follows the merge rule the other way: SEST Collection
+Fixes now ships vanilla's own `language_en/loading_tips.ini` word for word,
+from the top of the order, so every key the mod overwrote has its vanilla
+value again (`build_vanilla_tips()`). The copy is written only while some
+mod other than vanilla ships a `[LoadingTips]` section under `language_en/`,
+names that mod in its header, and retires itself when the offender is fixed
+or leaves. The drift tool learnt the shape: a language section a pack carries
+verbatim - vanilla's keys, vanilla's values, not one more - is a MIRROR when
+vanilla adds a key, not a clash; a section that adds names is still a clash on
+every new key, because those builders stop on the name. The one Chinese line
+in the mod's `ammunition_names.ini`, the H-6J's RKL-600 ESM pod, gets an
+English name from the same pack (`ENGLISH_STORE_NAMES`), and that writer too
+stops the build the day the mod names it in English itself.
+
+**The Rafale is back.** The morning's retirement lasted one build. The French
+Air Force mod ships the whole Rafale family under the ids the Dassault Rafale
+mod used - `fr_rafale_b/c/m`, the `_l` late standards, the `_l_nuclear` pair,
+the M tanker, `exp_rafale_*` export versions - with the Mirage 2000 family,
+the A330 MRTT for several nations, the A400M and a French MQ-9A: 160 aircraft
+files and 39 rounds. Everything retired at 06:56 came back on it: D3 The Relief
+Ship's CAP pair and station (on this mod's `fr_rafale_m`), D6 Long Reach's
+Rafale 41 (SEST Rafale F5's `fr_rafale_m_l`, flying the AIM-260 fit - it is an
+escort, and the Enterprise is there for its deck), the allied fleet's Rafale M
+and B Late (three and nineteen squadrons, as before), the Banda vignette
+*Rafale, Timor Gap*, and the SEST Rafale F5 pack, whose builder reads
+`3758943352` now. The French Navy pack's Charles de Gaulle has her
+`fr_rafale_m_l` and `fr_rafale_m_tanker` air group again. One thing changed
+under the pack: the new mod's Rafale M Late hangs ONE SCALP or ONE Exocet on
+the centreline (station 11, seat `AM39Center`) with wing tanks on 7/8 and the
+outer MICA rails empty, where the old mod hung two under the wings. The pack
+follows the author's geometry, so the M's `SEST_MALICE` and
+`SEST_AntiShipLRASM` carry one round each on that seat, already with two
+tanks, and have no three-tank `_ER` twin; the land-based B and C Late keep
+two under the wings and all six fits. The vignette's four Rafale M fly
+`SEST_AntiShipLRASM` (one LRASM, two tanks) and its brief says so. The
+derivations are per airframe now and the builder stops if a donor carries
+none of the rounds a fit swaps; the M's AntiShip fit still hangs the legacy
+`fr_mica-em`, which is swapped like the NG. The old mod's catalogue entry
+stays, `unsubscribed`, as the record; the pack is 20 packs.
+
+**Where the four sit, and what each places.** The two aircraft packs go to
+the bottom of the order, above Red Storm Arsenal only. The French Air Force
+contests twelve files and every one is an identical or older copy of a round
+a specialist mod already wins (seven of the MQ-9 Reaper's `uav_*`, the French
+Navy pack's `fr_am-39_B2` identical and its `fr_gbu-12` the weaker warhead,
+two paratrooper rounds typed Bomb where the Soviet AEW&C pack types them
+Paratrooper); the PLAAF Aircraft Pack contests 56 and loses all of them to the
+J-11, J-8, Fujian, Type 003 and the other PLAAF mods, so what loads is its
+H-6J/K/N bombers, J-7s, J-10A and 39 rounds, the YJ-12 and YJ-21 among them.
+The merchantmen sit beside Merchants Expanded, the MV-75 beside the MV-22B;
+neither collides with anything. Each is placed once, which is what coverage
+asks: Southern Lifeline (SW09) has an Okean-class intelligence trawler with a
+ZU-23 and a Bofors keeping station twelve miles off the support group, weapons
+held - the eyes the Tu-214R and the Flankers work from, and an armed hull, so
+the Situation roster lists it under Russia; Fujian's Shadow (SW11) has an
+H-6K Late with four YJ-12 on the J-15D's run at the transports, a minute
+behind it (the Strike objective still names the J-15D; the Badger is the
+second salvo the screen has to be ready for); The Long Perimeter (D8) has an
+Army MV-75 as the third lifter in the Osprey stream, Transport fit. The MV-75's
+squadron table declares no squadrons, which the builder already allowed for;
+its `_info.ini` puts its name under `[General]`, which is why the Mod Manager
+shows it by number with an (A) badge. 1264 files; 106 + 67 tests.
 
 ## What has NOT been demonstrated
 

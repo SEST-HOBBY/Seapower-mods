@@ -372,3 +372,8 @@ it so. The game is 0.8.4; the pack declares it and is 1257 files. Test card
 ships `enemy_theater_roster.ini`, so the Situation button shows the
 coalition the player faces - RAN, USN, JMSDF and RNZN blocks, the Maya as a
 flagship, the Collins and Virginias as persistent boats. 1260 files.
+
+*Late evening* (Southern Watch build notes, *Four new mods, the Chinese
+loading tips, and the Rafale back*): nothing placed here from the four new
+mods; the loading-screen tips are English again for every campaign. 1264
+files.

@@ -24,8 +24,8 @@ throws away a load-order change made while it is running.
 ## Already aligned once? The short version for later rounds
 
 Both `sest-dev/loving-bell-3cnvvw` and `feature/northern-front-iii-export`
-sit on `fab189dd`, the PC's own 3 Oct push (the mod export and the install
-snapshot), which itself sits on this session's `4d7c4e5c`. Everything this
+sit on `9ad799c0`, the PC's own 3 Oct evening push (the mod export with the four
+new mods and the install snapshot), which itself sits on this session's `6aed3f50`. Everything this
 session has pushed since builds straight on that commit, so a later round is
 the same fast-forward and one sync. Close Sea Power, then paste this into PowerShell
 as one block. It has no blank lines on purpose: the console reads a paste
@@ -53,8 +53,11 @@ line by line, and an empty line would end the block early. If it stops at a
 It stops, before anything is pushed or installed, if the game is running, if
 the clone has changes of its own (report them rather than committing them),
 or if the fast-forward is refused (step 2). The sync's last lines should read
-`IN LINE: all 1260 installed files match this commit (<hash>)`, the hash
-being the one the merge landed on (`git log --oneline -1`).
+`IN LINE: all 1264 installed files match this commit (<hash>)`, the hash
+being the one the merge landed on (`git log --oneline -1`). The four mods you
+added this evening are in the canonical order now, so the sync's `appended at
+end` lines for them stop; if it still prints one, the id it names is a
+subscription the repo has not seen - export it.
 `-RefreshMissions` on the sync is only for a round where the sync says it
 merged your own mission edits: it re-spreads the airliners in the missions
 you imported from the game.
@@ -96,7 +99,49 @@ folder missing, a `False`, a count of 2, "No Open Allocation campaigns
 installed" or "The Twelve-Mile Line is not installed" means the sync did not
 install this build: read its output before playing.
 
-### This round (3 Oct, evening): your play-test notes, the Situation button, the Rafale retired
+### This round (3 Oct, late evening): four new mods, the Chinese loading tips, the Rafale back
+
+Your export (`bb2316d4`) brought Moloti's Armed Merchantmen, French Air Force,
+the MV-75 Cheyenne II (the one the Mod Manager shows as `3810611344` with an
+(A) badge - its `_info.ini` files its name under the wrong heading) and the
+PLAAF Aircraft Pack, plus updates to Euromod, both Italian navy mods, Modern
+British Navy, JMSDF and the B-1B. Each is in this build (Southern Watch build
+notes, *Four new mods, the Chinese loading tips, and the Rafale back*):
+
+1. **The Chinese loading tips.** The PLAAF Aircraft Pack files a
+   `[LoadingTips]` section in Chinese under its `language_en/` folder, and
+   because language files merge key by key under the game's own key names,
+   it replaced every loading-screen tip. SEST Collection Fixes now ships the
+   game's English `loading_tips.ini` word for word from the top of the
+   order, so the tips are English again; the pack also names the H-6J's
+   ESM pod in English, the one Chinese line in that mod's weapon names.
+2. **The Rafale is back.** The French Air Force mod ships the whole Rafale
+   family under the ids the old mod used, so everything retired this
+   morning returned this evening: D3's CAP pair (on this mod), D6's Rafale
+   41 (SEST Rafale F5's AIM-260 fit), the allied fleet's Rafale M and B
+   Late, the Banda vignette *Rafale, Timor Gap*, and the SEST Rafale F5
+   pack, rebuilt on the new files. One difference you will see: this mod's
+   Rafale M Late carries ONE heavy store on the centreline with two wing
+   tanks, so its SEST MALICE and LRASM fits carry one round and have no
+   three-tank twin; the land-based B and C Late keep two under the wings
+   and their three-tank fits. 20 packs.
+3. **The four mods are catalogued, ordered and placed.** The two aircraft
+   packs sit at the bottom of the order, above Red Storm Arsenal only, so
+   the specialist mods keep every file they share; the merchantmen sit by
+   Merchants Expanded and the MV-75 by the MV-22B. Southern Lifeline (SW09)
+   gains an armed Okean intelligence trawler keeping station on the support
+   group (it shows on the Situation roster under Russia); Fujian's Shadow
+   (SW11) an H-6K with four YJ-12 a minute behind the J-15D; The Long
+   Perimeter (D8) an Army MV-75 beside the Ospreys.
+4. **The six updated mods** rebuilt clean; every guard held.
+5. **The count is 1264**: 1260 plus the Rafale F5 pack's three airframes and
+   the restored tips file.
+
+What to do: the standard update block (*Already aligned once?*), expecting
+`IN LINE: all 1264 installed files match this commit (<hash>)`. Then start
+the game and look at the loading screen: the tips should read in English.
+
+### The 3 Oct evening round: your play-test notes, the Situation button, the Rafale retired (and back, above)
 
 Your first Task Force Mode run came back with three notes; each is in this
 build, and your decision on the Rafale with them (Southern Watch build notes,
@@ -524,8 +569,8 @@ red is four mods whose files differ from the manifest only by line endings
 (3775128499, 3776340577, 3780118683, 3781062859).
 `docs/packaging-and-recovery.md`, *Known red*, gives the
 `git add --renormalize` fix. The second red the 30 Sep export added, the missing
-Rafale, cleared on 3 Oct when the Rafale was retired from the campaigns and the pack
-(*Known red* has the story). Running the rest again on the PC proves the
+Rafale, cleared on 3 Oct, first by retiring the Rafale and then, that evening, by the
+French Air Force mod bringing it back (*Known red* has the story). Running the rest again on the PC proves the
 PC's Python sees the same tree; it does not change what gets installed. Skip
 it if you are short of time; do not skip step 2's checks.
 
@@ -539,7 +584,7 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1260** for this build |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1264** for this build |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |
@@ -560,7 +605,9 @@ the combat systems - 60 `#!extend` files, one per mod hull given a profile, and 
 `combatsystems.ini` and `weapons.ini` Collection Fixes now ships; 1257 the same
 afternoon, the PLAN Pack's update having given its own eight hulls their systems; 1260
 that evening, the three campaigns' enemy theatre rosters and their twins' copies added and the
-retired Rafale F5 pack's three files gone).
+retired Rafale F5 pack's three files gone; 1264
+late that evening, the Rafale F5 pack's three airframes back on the French Air Force mod and
+the game's `loading_tips.ini` Collection Fixes restores over the PLAAF Aircraft Pack's Chinese copy).
 
 ## 5 — confirm the campaigns arrived
 

@@ -791,6 +791,8 @@ def main():
     added = build_missing_sensors()
     named = build_missing_loadout_names()
     carried = build_carried_vessel_names()
+    tips = build_vanilla_tips()
+    renamed = build_english_store_names()
     profiles = build_combat_systems()
     restored, tuned, skipped = build_ciws()
     extended = build_extends()
@@ -800,6 +802,9 @@ def main():
     print(f"  + {len(added)} sensor definitions no mod supplied: {', '.join(added)}")
     print(f"  + {len(named)} loadout display names: {', '.join(named)}")
     print(f"  + {len(carried)} vessel name section(s) carried: {', '.join(carried)}")
+    print(f"  + loading tips: vanilla's English file restored over "
+          + (', '.join(tips) if tips else "nothing (no mod overrides them)"))
+    print(f"  + {len(renamed)} store name(s) given in English: {', '.join(renamed)}")
     print(f"  + {len(profiles)} combat-system profiles cloned under SEST names")
     print(f"  + weapons.ini: {len(restored)} vanilla 0.8.3 sections restored over the stale "
           f"copies, {len(tuned)} mod CIWS retuned"
@@ -955,6 +960,79 @@ def build_missing_loadout_names():
     (OUT / "language_en").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en" / "loadout_names.ini").write_text(body, encoding="utf-8")
     return list(MISSING_LOADOUT_NAMES)
+
+
+# The game's loading-screen tips. language_*/ merges key-by-key across the
+# load order, and the keys are positional (Count, Header, Tip001...), so ANY
+# mod that puts a [LoadingTips] section in language_en/ overwrites vanilla's
+# tips one for one, whatever its file is called. The PLAAF Aircraft Pack
+# (3812111085) does exactly that from language_en/loading_tips_plaaf.ini -
+# eleven tips and a header in Chinese, filed under the English folder - and
+# the player's first screen after subscribing read entirely in Chinese
+# (3 Oct 2026). Shipping vanilla's own English file verbatim from the top of
+# the order gives every key back its vanilla value. The copy is written only
+# while some mod other than vanilla ships such a section, so it retires itself
+# when the offender is fixed or leaves.
+def build_vanilla_tips():
+    vanilla = MODS / "_vanilla/original" / "language_en" / "loading_tips.ini"
+    src = read_file(vanilla).replace("\r\n", "\n")
+    if "[LoadingTips]" not in src or not re.search(r"^Count=\d+", src, re.M):
+        sys.exit("vanilla loading_tips.ini no longer has the [LoadingTips] shape - re-check")
+    offenders = []
+    for f in sorted(MODS.glob("*/language_en/*.ini")):
+        if f.parts[-3].startswith("_"):
+            continue
+        if re.search(r"^\[LoadingTips\]", read_file(f), re.M):
+            offenders.append(f"{f.parts[-3]}/{f.name}")
+    if not offenders:
+        return []
+    body = ("# SEST Collection Fixes - vanilla's loading-screen tips, verbatim.\n"
+            "# Another mod files a [LoadingTips] section under language_en/ ("
+            + ", ".join(offenders) + "),\n"
+            "# and the key-by-key merge would otherwise hand the game that mod's tips\n"
+            "# under the English folder. Nothing here is SEST's own text.\n"
+            + src.lstrip("\ufeff"))
+    (OUT / "language_en").mkdir(parents=True, exist_ok=True)
+    (OUT / "language_en" / "loading_tips.ini").write_text(body, encoding="utf-8")
+    return offenders
+
+
+# English display names for rounds whose only provider names them in another
+# language under language_en/. The PLAAF Aircraft Pack's ammunition_names.ini is
+# English throughout except its H-6J ESM pod, which it names in Chinese; the
+# bottom bar shows that line as the mod wrote it. language_*/ merges
+# key-by-key, so one key here renames one store and touches nothing else.
+#   store id -> (owning mod, English line in the game's own name,,type,blurb form)
+ENGLISH_STORE_NAMES = {
+    "plaaf_h-6j_esm_pod": ("3812111085",
+        "RKL-600 ELINT pod,,ELINT pod,The RKL-600 is the H-6J's long-range passive "
+        "electronic-reconnaissance pod. It detects and tracks the radar emissions of "
+        "hostile warships at long range and passes fire-control data to the "
+        "bomber's anti-ship missiles."),
+}
+
+
+def build_english_store_names():
+    named = []
+    for sid, (mod, line) in ENGLISH_STORE_NAMES.items():
+        donor = MODS / mod / "language_en" / "ammunition_names.ini"
+        if not donor.exists():
+            continue
+        m = re.search(rf"^{re.escape(sid)}=(.*)$", read_file(donor), re.M)
+        if not m:
+            continue
+        if not re.search(r"[\u4e00-\u9fff]", m.group(1)):
+            sys.exit(f"{sid}: {mod} now names it in English - drop it from ENGLISH_STORE_NAMES")
+        named.append(f"{sid}={line}\n")
+    if not named:
+        return []
+    body = ("# SEST Collection Fixes - English names for stores whose only provider\n"
+            "# names them in another language under language_en/. Key-by-key merge:\n"
+            "# one key renames one store, nothing else is touched.\n"
+            "[AmmunitionNames]\n" + "".join(named))
+    (OUT / "language_en").mkdir(parents=True, exist_ok=True)
+    (OUT / "language_en" / "ammunition_names.ini").write_text(body, encoding="utf-8")
+    return [n.split("=", 1)[0] for n in named]
 
 
 # Vessel name sections whose ONLY provider is a mod the collection is shedding.

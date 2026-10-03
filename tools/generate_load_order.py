@@ -114,6 +114,10 @@ NOTES = {
     "sa-21-s400": "watchlist: land air-defense overlap",
     "rc-135-rivet-joint": "above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges",
     "mig-29-family": "watchlist: MiG-29/R-series overlap",
+    "french-air-force": "canonical order puts it at the bottom, above the PLAAF Aircraft Pack and Red Storm Arsenal: its 12 shared rounds are identical or older copies of the MQ-9 Reaper's, the French Navy pack's and the Soviet AEW&C pack's, and it loses every one; the Rafale and Mirage 2000 families load from it alone",
+    "plaaf-aircraft-pack": "canonical order puts it second to last, above Red Storm Arsenal only: 56 shared files all lost to the specialist PLAAF mods above it, so only its H-6 family, J-7s, J-10A and 39 rounds load; SEST Collection Fixes restores the English loading tips its language_en folder overwrites",
+    "armed-merchantmen": "beside Merchants Expanded; no collision with anything, position free",
+    "mv-75-cheyenne-ii": "beside the MV-22B; no collision with anything, position free",
 }
 
 lines = [
