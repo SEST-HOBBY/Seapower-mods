@@ -241,13 +241,13 @@ class VanillaDriftTests(unittest.TestCase):
                       "         1 other shared key(s) unchanged in vanilla", self.section(out, 2))
         self.assertNotIn("NEEDS A HUMAN", out)
 
-    def test_a_language_section_the_pack_carries_verbatim_is_a_mirror(self):
-        # Collection Fixes ships vanilla's loading_tips.ini word for word over a
-        # mod's Chinese copy; when vanilla adds a tip, the pack's copy follows it.
+    def test_a_language_section_the_pack_carries_in_full_is_a_mirror(self):
+        # Collection Fixes ships vanilla's loading_tips.ini text over a mod's
+        # Chinese copy; when vanilla adds a tip, the pack's copy follows it.
         self.write(f"{VANILLA}/language_en/loading_tips.ini",
                    "[LoadingTips]\nCount=2\nHeader=TIP\nTip001=Harpoon does not avoid terrain.\nTip002=Press Tab.\n")
         self.write(f"{FIXES}/language_en/loading_tips.ini",
-                   "# SEST Collection Fixes - vanilla's tips, verbatim\n"
+                   "# SEST Collection Fixes - vanilla's tips\n"
                    "[LoadingTips]\nCount=2\nHeader=TIP\nTip001=Harpoon does not avoid terrain.\nTip002=Press Tab.\n")
         code, out = self.run_tool("--since", self.baseline)
         self.assertEqual(code, 0)
@@ -258,16 +258,45 @@ class VanillaDriftTests(unittest.TestCase):
                       self.section(out, 2))
         self.assertNotIn("NEEDS A HUMAN", out)
 
-    def test_a_language_section_the_pack_carries_with_an_extra_key_is_a_clash(self):
-        # One key vanilla lacks and it is an additions file, not a restoration:
-        # the builder stops on the name, so the new vanilla key is a clash.
+    def test_a_language_section_with_the_pack_s_own_keys_behind_vanilla_s_still_mirrors(self):
+        # SEST's own tips are numbered behind vanilla's. Vanilla added a tip and
+        # the pack was rebuilt on it: every vanilla key is present at vanilla's
+        # value, the pack's extra key is its own business, Count masks by design.
+        self.write(f"{VANILLA}/language_en/loading_tips.ini", "[LoadingTips]\nCount=1\nTip001=Press Tab.\n")
+        self.git("add", "-A")
+        self.git("commit", "-q", "-m", "tips baseline")
+        since = self.git("rev-parse", "HEAD").strip()
         self.write(f"{VANILLA}/language_en/loading_tips.ini",
-                   "[LoadingTips]\nCount=1\nTip001=Press Tab.\n")
+                   "[LoadingTips]\nCount=2\nTip001=Press Tab.\nTip002=Press Z.\n")
         self.write(f"{FIXES}/language_en/loading_tips.ini",
-                   "[LoadingTips]\nCount=1\nTip001=Press Tab.\nTip002=SEST's own tip.\n")
-        code, out = self.run_tool("--since", self.baseline)
+                   "[LoadingTips]\nCount=3\nTip001=Press Tab.\nTip002=Press Z.\nTip003=SEST: a tip of its own.\n")
+        code, out = self.run_tool("--since", since)
+        self.assertEqual(code, 0)
+        self.assertIn("language_en/loading_tips.ini  modified  (also shipped by 1 pack(s))\n"
+                      "      SEST_Collection_Fixes:\n"
+                      "         MIRROR 1 new vanilla key(s) the pack carries at vanilla's own value: [LoadingTips] Tip002\n"
+                      "         [LoadingTips] Count: vanilla value '1' -> '2'; the pack's copy masks it\n"
+                      "         1 other shared key(s) unchanged in vanilla", self.section(out, 2))
+        self.assertNotIn("NEEDS A HUMAN", out)
+
+    def test_a_vanilla_key_landing_on_the_pack_s_own_key_is_masked(self):
+        # Vanilla added Tip002 where the committed pack file has SEST's own tip:
+        # a rebuild renumbers SEST's behind it, and until then the pack masks it.
+        self.write(f"{VANILLA}/language_en/loading_tips.ini", "[LoadingTips]\nCount=1\nTip001=Press Tab.\n")
+        self.git("add", "-A")
+        self.git("commit", "-q", "-m", "tips baseline")
+        since = self.git("rev-parse", "HEAD").strip()
+        self.write(f"{VANILLA}/language_en/loading_tips.ini",
+                   "[LoadingTips]\nCount=2\nTip001=Press Tab.\nTip002=Press Z.\n")
+        self.write(f"{FIXES}/language_en/loading_tips.ini",
+                   "[LoadingTips]\nCount=2\nTip001=Press Tab.\nTip002=SEST: a tip of its own.\n")
+        code, out = self.run_tool("--since", since)
         self.assertEqual(code, 1)
-        self.assertIn("CLASH [LoadingTips] Count is new in vanilla; the next build stops on it", self.section(out, 2))
+        self.assertIn("MASKED [LoadingTips] Tip002 is new in vanilla and the pack's copy carries another value; "
+                      "rebuild - the builder renumbers its own keys behind vanilla's", self.section(out, 2))
+        self.assertIn("NEEDS A HUMAN: language_en/loading_tips.ini: vanilla now defines [LoadingTips] Tip002 "
+                      "over a key of SEST_Collection_Fixes's own; rebuild", out)
+        self.assertNotIn("CLASH [LoadingTips]", out)
 
     def test_a_systems_key_the_pack_carries_at_another_value_is_still_a_clash(self):
         self.write(f"{VANILLA}/systems/sensors.ini",
