@@ -1,0 +1,5 @@
+Every ship in this mod is balanced around Vanilla units only (no considerations for mods such as NTU/PELT, RSA, TOE, etc. were made when making this mod), with a focus on the 1985 timeframe the game gravitates around.
+
+To that end, every system would have to be readily available for export for Third World/Unaligned parties, which would exclude advanced ASMs. Also, I focus on choosing systems that would be readily adaptable to cargo ships. 
+
+[u]I'm also explicitly banning those recent (as of writing this, December 29th 2025) Chinese missile container ship things. Do not ask for it. This goes for anything that is notionally post-1990 beyond reasonable doubt.[/u]

@@ -1,0 +1,7 @@
+[6/26/2026]
+-Refactored the Shrimp Boat (Fishing Boat), Medium Seiner (old Side Trawler), and Side Trawler (old Civ Okean), in particular the variants. Missions with the Shrimp Boat in particular will need to be checked, as the old national variants no longer exist.
+
+[7/4/2026]
+Updated the Compatibility tag to Version 0.8.0. Also, added Task Force Costs to the ships in this pack for giggles. You'll have to add them into something like Pacific Strike '85 yourself.
+
+See this guide for help: https://steamcommunity.com/sharedfiles/filedetails/?id=3756769210
