@@ -3,9 +3,9 @@
 # only evidence of what survives between missions.
 
 root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\Saves
+    steam_autocloud.vdf                                                52 bytes  2026-10-03 17:09
     campaigns\NEW TEST 2.sav                                       84,351 bytes  2026-10-03 16:18
     campaigns\NEW TEST 1.sav                                       71,575 bytes  2026-10-03 14:36
-    steam_autocloud.vdf                                                52 bytes  2026-10-03 13:41
     missions\Carrier 1v1 Coby Before I sped Up 20x.sav          5,710,439 bytes  2026-08-31 20:57
     missions\New midgame.sav                                   22,847,208 bytes  2026-08-26 01:32
     missions\NORTHERN FRONT MIDGAME III.sav                    14,033,660 bytes  2026-08-24 15:57
@@ -26,9 +26,9 @@ root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\Saves
     copied: linear_campaign.tmp  (0 bytes)
     copied: steam_autocloud.vdf  (52 bytes)
 root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\saves
+    steam_autocloud.vdf                                                52 bytes  2026-10-03 17:09
     campaigns\NEW TEST 2.sav                                       84,351 bytes  2026-10-03 16:18
     campaigns\NEW TEST 1.sav                                       71,575 bytes  2026-10-03 14:36
-    steam_autocloud.vdf                                                52 bytes  2026-10-03 13:41
     missions\Carrier 1v1 Coby Before I sped Up 20x.sav          5,710,439 bytes  2026-08-31 20:57
     missions\New midgame.sav                                   22,847,208 bytes  2026-08-26 01:32
     missions\NORTHERN FRONT MIDGAME III.sav                    14,033,660 bytes  2026-08-24 15:57
