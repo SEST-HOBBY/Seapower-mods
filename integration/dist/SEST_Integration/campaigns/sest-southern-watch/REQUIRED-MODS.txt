@@ -5,7 +5,7 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (78): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (80): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3781062859    a model a placed unit draws      <<E-3G>>
@@ -52,12 +52,14 @@ pack's root, is the union across every campaign in the pack.
   3592460366    a unit a mission places          Modern US Airbase
   3390330875    a unit a mission places          Modern US Navy
   3456859157    a hull variant in use            Mogami-class Frigate
+  3485917612    a unit a mission places          Moloti's Armed Merchantmen
   3806466625    a unit a mission places          MV-22B Osprey Tiltrotor / JGSDF V-22B
   3681873198    a unit a mission places          Pickup truck extension
   3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
   3733719765    a unit a mission places          PLA Land Unit Pack
   3729578404    a unit a mission places          PLA Shenyang J-11BS
   3729579342    a unit a mission places          PLA Sukhoi Su-27UBK
+  3812111085    a unit a mission places          PLAAF Aircraft Pack
   3594891803    a unit a mission places          PLAN Submarines
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
   3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
@@ -87,7 +89,7 @@ pack's root, is the union across every campaign in the pack.
   3380210757    required by another mod          Anchor Chain
                                                    asked for by: MV-22B Osprey Tiltrotor / JGSDF V-22B
 
-1b. ONLY FOR THE DISPATCHES (58): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
+1b. ONLY FOR THE DISPATCHES (60): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
 itself never loads them. Leave them out if you only play the campaign.
 
   3587091564    a unit a mission places          3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -117,6 +119,7 @@ itself never loads them. Leave them out if you only play the campaign.
   3758320372    a unit a mission places          F-16C Fighting Falcon (modern)
   3430135740    a unit a mission places          F/A-18 Murder Hornet with AIM-174B
   3373960386    a unit a mission places          Flight Deck Ops
+  3758943352    a unit a mission places          French Air Force
   3736147136    a unit a mission places          French Army Vehicles
   3567228449    a unit a mission places          French Helicopter Package
   3408662804    a unit a mission places          Iskander TBM
@@ -128,6 +131,7 @@ itself never loads them. Leave them out if you only play the campaign.
   3590477166    a model a placed unit draws      MH-60R Seahawk
   3659742367    a unit a mission places          MiG-35 Fulcrum-F (米格-35 支点-F)
   3716049886    a unit a mission places          MORE SU-24M VARIANTS
+  3810611344    a unit a mission places          MV-75 Cheyenne II
   3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
   3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
   3796113927    a unit a mission places          RQ-180 White Bat Airframe

@@ -241,6 +241,34 @@ class VanillaDriftTests(unittest.TestCase):
                       "         1 other shared key(s) unchanged in vanilla", self.section(out, 2))
         self.assertNotIn("NEEDS A HUMAN", out)
 
+    def test_a_language_section_the_pack_carries_verbatim_is_a_mirror(self):
+        # Collection Fixes ships vanilla's loading_tips.ini word for word over a
+        # mod's Chinese copy; when vanilla adds a tip, the pack's copy follows it.
+        self.write(f"{VANILLA}/language_en/loading_tips.ini",
+                   "[LoadingTips]\nCount=2\nHeader=TIP\nTip001=Harpoon does not avoid terrain.\nTip002=Press Tab.\n")
+        self.write(f"{FIXES}/language_en/loading_tips.ini",
+                   "# SEST Collection Fixes - vanilla's tips, verbatim\n"
+                   "[LoadingTips]\nCount=2\nHeader=TIP\nTip001=Harpoon does not avoid terrain.\nTip002=Press Tab.\n")
+        code, out = self.run_tool("--since", self.baseline)
+        self.assertEqual(code, 0)
+        self.assertIn("language_en/loading_tips.ini  added  (also shipped by 1 pack(s))\n"
+                      "      SEST_Collection_Fixes:\n"
+                      "         MIRROR 4 new vanilla key(s) the pack carries at vanilla's own value: "
+                      "[LoadingTips] Count, [LoadingTips] Header, [LoadingTips] Tip001, [LoadingTips] Tip002",
+                      self.section(out, 2))
+        self.assertNotIn("NEEDS A HUMAN", out)
+
+    def test_a_language_section_the_pack_carries_with_an_extra_key_is_a_clash(self):
+        # One key vanilla lacks and it is an additions file, not a restoration:
+        # the builder stops on the name, so the new vanilla key is a clash.
+        self.write(f"{VANILLA}/language_en/loading_tips.ini",
+                   "[LoadingTips]\nCount=1\nTip001=Press Tab.\n")
+        self.write(f"{FIXES}/language_en/loading_tips.ini",
+                   "[LoadingTips]\nCount=1\nTip001=Press Tab.\nTip002=SEST's own tip.\n")
+        code, out = self.run_tool("--since", self.baseline)
+        self.assertEqual(code, 1)
+        self.assertIn("CLASH [LoadingTips] Count is new in vanilla; the next build stops on it", self.section(out, 2))
+
     def test_a_systems_key_the_pack_carries_at_another_value_is_still_a_clash(self):
         self.write(f"{VANILLA}/systems/sensors.ini",
                    "[General]\nDataLinkUpdateRate=1\n\n[Start_ECM]\nType=ECM\nPower=5\n")

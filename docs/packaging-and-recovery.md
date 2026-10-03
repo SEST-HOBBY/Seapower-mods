@@ -99,7 +99,7 @@ implementation if upstream ever regresses.
 
 | Pack | Retired | Why |
 |---|---|---|
-| `SEST_Rafale_F5` | 2026-10-03 | The Dassault Rafale mod it patched (JATM, MALICE and LRASM fits on the three late airframes) left the player's subscriptions on 28 Sep and the Workshop export on 30 Sep, and on 3 Oct the player retired the Rafale from the campaigns rather than resubscribe. No other mod in the collection ships a Rafale. Git holds the builder (`47bb7000` and before, `integration/rafale-f5/`) for the day one returns. |
+| `SEST_Rafale_F5` | 2026-10-03, for one build | The Dassault Rafale mod it patched (JATM, MALICE and LRASM fits on the three late airframes) left the player's subscriptions on 28 Sep and the Workshop export on 30 Sep, and on the morning of 3 Oct the player retired the Rafale from the campaigns rather than resubscribe. That evening's export brought the French Air Force mod (`3758943352`), which ships the whole Rafale family under the same ids, and the pack was rebuilt on it the same evening - `integration/rafale-f5/build_patch.py` reads `3758943352` now, with the Rafale M Late's fits following that mod's one-store centreline geometry. Listed here because it was retired and came back; it is active. |
 | `SEST_Zumwalt_CPS` | 2026-09-20 | Modern US Navy fixed both defects it existed for. The duplicate `[WeaponSystem1]` is gone (the CPS hull now declares 1–23, each once, with a real `[WeaponSystem2]`), and the dangling `SensorSystem12` reference is gone with it. The LMVLS now carries no `AssociatedSensors` at all, which is correct here rather than a new bug: `usn_ircps` is `GuidanceType=0, MidCourseCorrection=0`, so it draws no guidance channel — the rule in `tools/check_weapon_employment.py` applies to MCC 1 and 3, not 0. |
 
 ## The frozen hulls, and rebuilding after an export
@@ -216,12 +216,12 @@ mod no longer ships; nothing else in the repo can see one.
 
 ### Known red: `check_inventory` on four line-ending mods (the Rafale and Auto Time-on-Target cleared 3 Oct)
 
-`check_inventory.py` exits 1 on this branch. Since 3 Oct it also names
+`check_inventory.py` exits 1 on this branch. For most of 3 Oct it also named
 `3789793270`, Auto Time-on-Target, as missing from the catalogue's active set
-and from the order while its folder is still on disk: the player unsubscribed
+and from the order while its folder was still on disk: the player unsubscribed
 it that day and the repo retired it the same day, ahead of the export that
-will prune the folder. That red clears on the next `export-mod-configs.ps1`
-push and needs no other action. The mirrored export ran on the
+prunes the folder; the evening export (`bb2316d4`) pruned it and that red is
+gone. The mirrored export ran on the
 gaming PC on 27 Sep (`97eac5f7`) and cleared the ghost files; what stays red is
 four mods whose files differ from their manifests only by line endings. On the
 24 Sep 2026 export it failed 17 mods, for two reasons: ghost files and line
@@ -246,16 +246,19 @@ missions or packs reached (`usn_rim-162a`, `usn_rim-66m-2`, `usn_rim-66m-5`, the
 `usn_agm-65b`, `usn_agm-65d`, `fr_am-39_Block2`) still resolve now that they are
 deleted, through another mod's or the base game's copy of the same id.
 
-**The Rafale (30 Sep to 3 Oct, cleared).** The Dassault Rafale mod (`3504168760`) left
-the PC's Steam subscriptions between the 27 and 28 Sep snapshots and the 30 Sep export
-pruned its folder. For four days the pack was built with the last export that had the
-mod (`git archive e0d961d7~1 mods-source/3504168760 | tar -x` before a rebuild, the
-folder deleted again before the commit) and four checks were red on the committed
-tree. On 3 Oct the player retired the Rafale from the campaigns instead: D3's CAP pair
-and D6's escort are gone, the allied fleet no longer sells it, the Banda vignette
-that flew it and the SEST Rafale F5 pack are retired (table above), and the catalog
-and order no longer carry the mod. Nothing is red for it now, and no rebuild needs the
-archive.
+**The Rafale (30 Sep to 3 Oct, cleared; back the same evening).** The Dassault Rafale
+mod (`3504168760`) left the PC's Steam subscriptions between the 27 and 28 Sep snapshots
+and the 30 Sep export pruned its folder. For four days the pack was built with the last
+export that had the mod (`git archive e0d961d7~1 mods-source/3504168760 | tar -x` before
+a rebuild, the folder deleted again before the commit) and four checks were red on the
+committed tree. On the morning of 3 Oct the player retired the Rafale from the campaigns
+instead: D3's CAP pair and D6's escort went, the allied fleet stopped selling it, the
+Banda vignette that flew it and the SEST Rafale F5 pack were retired, and the catalog
+and order dropped the mod. That evening's export brought the French Air Force mod
+(`3758943352`), which ships the whole Rafale family under the SAME unit ids, and
+everything came back on it: the pair, the escort, the two allied-fleet entries, the
+vignette and the pack, now built from `3758943352`. The old mod's catalogue entry stays
+as the record, `unsubscribed`. Nothing is red for it, and no rebuild needs the archive.
 
 **Line endings (4 mods: same file count, fewer bytes).** Modern PLAN Systems
 (`3775128499`), Ka-31 (`3776340577`), Tu-214R (`3780118683`) and E-3G
@@ -463,16 +466,13 @@ beside the repo (*Known red* above) is the other route.
 4. **Rebuild everything.**
 
    ```bash
-   python3 tools/build_all.py --from-scratch           # about 90 s; 19 packs, then the consolidated dist
+   python3 tools/build_all.py --from-scratch           # about 90 s; 20 packs, then the consolidated dist
    ```
 
 5. **Every gate.** Known red on this branch: `check_inventory.py` on the
-   four line-ending mods (3775128499, 3776340577, 3780118683, 3781062859)
-   and, until it is resolved, the Rafale (3504168760), which also reddens
-   `check_campaign_coverage`, `check_dependencies` and `preflight --all`
-   wherever they meet its files, and one test in `test_build_pack.py`
-   (`AlliedFleet`, on `fr_rafale_m_l`). *Known red* above has both stories.
-   Anything else red is the update's, and step 2's report says where.
+   four line-ending mods (3775128499, 3776340577, 3780118683, 3781062859);
+   *Known red* above has the story. Anything else red is the update's, and
+   step 2's report says where.
 
    ```bash
    python3 tools/check_pack_fidelity.py
@@ -501,16 +501,16 @@ beside the repo (*Known red* above) is the other route.
    ```bash
    python3 tools/generate_load_order.py      # docs/load-order-full.md
    python3 tools/generate_catalog.py         # docs/mod-catalog.md
-   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1260 on 3 Oct 2026
+   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1264 on 3 Oct 2026
    ```
 
-   By hand: the install guide's count, if it moved - the `IN LINE: all 1260
-   installed files` line under *Already aligned once?*, `N is 1260` in
+   By hand: the install guide's count, if it moved - the `IN LINE: all 1264
+   installed files` line under *Already aligned once?*, `N is 1264` in
    step 4 of `docs/campaigns/southern-reach/install-alignment.md` and the
-   derivation under that table, which ends `1260
-   that evening` and
+   derivation under that table, which ends `1264
+   late that evening` and
    gains a clause for what the update added or removed - and
-   `Consolidated, they are 1260 files` in `README.md`;
+   `Consolidated, they are 1264 files` in `README.md`;
    a dated section in each campaign's `build-notes.md`
    (`docs/campaigns/<campaign>/`, in the style of *Rivet Joint (30
    September)* in Southern Reach's and Red Line's) saying what the update
@@ -529,7 +529,7 @@ beside the repo (*Known red* above) is the other route.
 9. **Then the PC runs the standard update block** (*Already aligned once?*
    in `docs/campaigns/southern-reach/install-alignment.md`): it
    fast-forwards the deploy branch to the session's and syncs, and its last
-   line must read `IN LINE: all 1260 installed files match this commit`, or
+   line must read `IN LINE: all 1264 installed files match this commit`, or
    the new count from step 7.
 
 ### The first run: 0.8.3, 2 October 2026

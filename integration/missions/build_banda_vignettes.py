@@ -601,9 +601,52 @@ V.append(dict(
     lose_text="Both Widows lost and the orbit never broke.",
 ))
 
-# "Rafale, Timor Gap" - the four-Rafale LRASM strike off the Charles de Gaulle -
-# was retired on 3 Oct 2026 with the Dassault Rafale mod it flew; git holds it
-# (e0d961d7 and before) for the day a Rafale returns to the collection.
+# "Rafale, Timor Gap" was retired on the morning of 3 Oct 2026 with the
+# Dassault Rafale mod it flew, and came back that evening on the French Air
+# Force mod (3758943352), which ships the same fr_rafale_m_l. That mod's Rafale
+# M Late carries ONE heavy store on the centreline with two wing tanks, so the
+# SEST F5 fit here is SEST_AntiShipLRASM (one LRASM, two tanks) on all four;
+# the three-tank _ER twin exists only for the land-based B and C Late now.
+V.append(dict(
+    key="Rafale, Timor Gap",
+    time=(16, 20),
+    sea=4, clouds="Overcast",
+    blue_nation="France", red_nation="Russia",
+    brief=(
+        "TIMOR GAP, late afternoon, weather closing. Two Russian frigates "
+        "have been shadowing the southern lane for a week and have now "
+        "turned toward the Darwin approaches. The 22350 is a small ship with "
+        "a serious air-defence suite and no reason to be here.\n\n"
+        "Four Rafale M of the French battle group, an LRASM on the centreline "
+        "and two wing tanks for the reach. The F5 fit trades the Exocet's "
+        "short legs for a missile that can be launched from outside anything "
+        "they carry - the point of the sortie is to prove that, not to close "
+        "the range. Sea state four, and the weather is on your side for once."),
+    objectives=[
+        ("Frigates", "Sink both frigates", "25,-20,Fail,Main"),
+        ("Flight", "Bring the flight home", "15,-15,Complete"),
+    ],
+    blue=[],
+    blue_names=[],
+    blue_air=[
+        ("fr_rafale_m_l", "250,26000,180", 45, {"LoadoutVariant": "SEST_AntiShipLRASM"}),
+        ("fr_rafale_m_l", "254,26000,176", 45, {"LoadoutVariant": "SEST_AntiShipLRASM"}),
+        ("fr_rafale_m_l", "258,25000,172", 45, {"LoadoutVariant": "SEST_AntiShipLRASM"}),
+        ("fr_rafale_m_l", "262,25000,168", 45, {"LoadoutVariant": "SEST_AntiShipLRASM"}),
+    ],
+    blue_air_names=["Rafale 11", "Rafale 12", "Rafale 13", "Rafale 14"],
+    red=[
+        ("rfn_ffg_22350_1-4", "355.9,0,323.86", 225, {}),
+        ("rfn_ffg_22350_5-8", "363.1,0,328.66", 225, {}),
+    ],
+    red_names=["Admiral Gorshkov", "Admiral Golovko"],
+    neutral=[],
+    neutral_names=[],
+    win_units="Taskforce2Vessel1,Taskforce2Vessel2",
+    win_min=2,
+    win_text="Both frigates down, launched from outside their envelope. The F5 fit works.",
+    lose_text="The flight is scattered and the frigates are still closing Darwin.",
+))
 
 # The FQ-44 Fury carrier wingmen (Workshop 3804868806, added 27 Sep). The
 # mod's own README says how they fly: a crewed fighter leads, the Furys

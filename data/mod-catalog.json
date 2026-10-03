@@ -1,8 +1,8 @@
 {
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
-    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept).",
-    "count": 150,
+    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack.",
+    "count": 154,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
@@ -118,6 +118,12 @@
       "title": "SEST RAN Fleet"
     },
     {
+      "folder": "SEST_Rafale_F5",
+      "source": "integration/rafale-f5",
+      "builder": "build_patch.py",
+      "title": "SEST Rafale F5"
+    },
+    {
       "folder": "SEST_Raptor_Squadrons",
       "source": "integration/raptor-squadrons",
       "builder": "build_patch.py",
@@ -163,6 +169,7 @@
         "SEST_RAAF_F-35A_JATM",
         "SEST_RAAF_Wedgetail",
         "SEST_RAN_Fleet",
+        "SEST_Rafale_F5",
         "SEST_Raptor_Squadrons",
         "SEST_Replenishment",
         "SEST_TacMap_Colors"
@@ -787,7 +794,7 @@
       "faction": "france",
       "type": "fixed-wing",
       "status": "unsubscribed",
-      "notes": "UNSUBSCRIBED (gone from the PC's Steam list between the 27 and 28 Sep 2026 snapshots; the 30 Sep export pruned its folder) and RETIRED FROM THE CAMPAIGNS 2026-10-03 on the player's word: Southern Watch D3's Rafale CAP pair and D6's Rafale 41 escort are gone, the Open Allocation allied fleet no longer sells the Rafale M or B, the Banda vignette 'Rafale, Timor Gap' and the SEST Rafale F5 pack (JATM, MALICE and LRASM fits on the late Rafales) are retired with it. No other mod in the collection ships a Rafale; the Charles de Gaulle & Modern French Navy pack's carrier names this mod's fr_rafale_m_l and fr_rafale_m_tanker in its air group, so the carrier sails without fighters until a Rafale returns. Previously: French multirole carrier and land-based fighter."
+      "notes": "UNSUBSCRIBED (gone from the PC's Steam list between the 27 and 28 Sep 2026 snapshots; the 30 Sep export pruned its folder) and SUPERSEDED 2026-10-03 (evening) by the French Air Force mod (3758943352), which ships the whole Rafale family under the same unit ids - so the Rafale, retired from the campaigns that morning on the player's word, is back that evening on the new mod: D3's CAP pair, D6's Rafale 41, the allied fleet's Rafale M and B, the Banda vignette 'Rafale, Timor Gap' and the SEST Rafale F5 pack (rebuilt on the new files). This entry stays as the record of the old mod. Previously: French multirole carrier and land-based fighter."
     },
     {
       "id": "cdg-modern-french-navy",
@@ -797,7 +804,7 @@
       "faction": "france",
       "type": "ship",
       "status": "wip",
-      "notes": "CVN Charles de Gaulle and modern French Navy vessels; marked WIP."
+      "notes": "CVN Charles de Gaulle and modern French Navy vessels; marked WIP. Her air group names fr_rafale_m_l and fr_rafale_m_tanker, which the French Air Force mod (3758943352) ships since 3 Oct 2026 - between the Rafale mod's departure (28 Sep) and that, she sailed without fighters."
     },
     {
       "id": "il-78",
@@ -1994,6 +2001,58 @@
         "anchor-chain (stated: 'Requires BepInEx and AnchorChain')"
       ],
       "notes": "Pure code mod - its export is a single _info.ini. A time-on-target planner: pick a target track, add shooters and weapons, and the panel counts down when each must launch so the weapons arrive together; F8 in a mission. The BepInEx log says 'Coordinated Strike Tool 1.3.1 loaded' when it runs (30 Sep snapshot). Subscribed 30 Sep in place of Auto Time-on-Target, which the same snapshot still showed subscribed, enabled and loaded beside it. Position not order-sensitive; sits in the Anchor Chain code-mod tier."
+    },
+    {
+      "id": "armed-merchantmen",
+      "workshop_id": "3485917612",
+      "title": "Moloti's Armed Merchantmen",
+      "author": "Moloti",
+      "faction": "civilian",
+      "type": "ship",
+      "status": "active",
+      "notes": "Twelve merchant and fishing hulls with a light gun or two bolted on - the author's own description calls it 'fundamentally not a serious add-on': civ_fv_okean_armed (the Soviet Okean-class intelligence trawler with a ZU-23 and a Bofors, flagged Soviet or Cuban by variant), an ASW trawler, three armed fishing boats, an armed side trawler, two armed merchants (ACT-1, RoRo B), an Iranian armed fishing boat, an American armed C4, a Polish armed Poltava and the Partizan patrol conversion. Every hull is unique content; one ammunition file; its sensors.ini merges. Southern Watch's Southern Lifeline places the armed Okean as a Russian picket shadowing the support group, which puts it on the Situation roster as an armed hull. Catalogued 3 Oct 2026 from the export (ApproximateVersion 0.8.0)."
+    },
+    {
+      "id": "french-air-force",
+      "workshop_id": "3758943352",
+      "title": "French Air Force",
+      "author": "unknown (Workshop 3758943352)",
+      "faction": "france",
+      "type": "fixed-wing",
+      "status": "active",
+      "overlaps": [
+        "rafale (3504168760, unsubscribed) - this mod ships the whole Rafale family under the SAME unit ids (fr_rafale_b/c/m, the _l late standards, the _l_nuclear pair, fr_rafale_m_tanker, and exp_rafale_* export versions), so everything that named the old mod's Rafales resolves again",
+        "mq-9-reaper, cdg-modern-french-navy, soviet-aewc-transport, french-helicopter-package - 12 shared rounds, every one an identical or older copy, all lost at the bottom of the order"
+      ],
+      "notes": "160 aircraft files: the Rafale family (the Rafale M Late's StrikeLongRange and AntiShip fits now carry ONE SCALP or ONE Exocet on the centreline with wing tanks, where the old mod hung two under the wings; the B and C Late keep the two-under-the-wings geometry), the Mirage 2000 family (fr_m2k*, with many export users), the A330 MRTT for several nations, the A400M and a French MQ-9A; 39 rounds; language_en, _fr and _cn. BOTTOM OF THE ORDER by choice: it contests 12 files - seven of the MQ-9 Reaper's uav_* rounds (identical), the French Navy pack's fr_am-39_B2 (identical) and fr_gbu-12 (its copy is the weaker warhead), two nato_paratrooper rounds (its copies are typed Bomb where the Soviet AEW&C pack's are Paratrooper) and one of the French Helicopter Package's - and loses every one, so only its 199 unique files load. It brings the Rafale back to the campaigns: the French Navy pack's Charles de Gaulle has its fr_rafale_m_l and fr_rafale_m_tanker air group again, D3 The Relief Ship flies its Rafale M CAP pair, D6 Long Reach its Rafale 41 (SEST Rafale F5), the allied fleet sells the Rafale M and B Late, the Banda vignette 'Rafale, Timor Gap' is back, and SEST Rafale F5 is rebuilt on these files (its M Late fits follow the new centreline geometry). Catalogued 3 Oct 2026 from the export (ApproximateVersion 0.8.0)."
+    },
+    {
+      "id": "mv-75-cheyenne-ii",
+      "workshop_id": "3810611344",
+      "title": "MV-75 Cheyenne II",
+      "author": "unknown (Workshop 3810611344)",
+      "faction": "usa",
+      "type": "rotary",
+      "status": "active",
+      "requires": [
+        "anchor-chain (its README: 'Requires the existing compatible Anchor Chain and Harmony loading arrangement')"
+      ],
+      "notes": "US Army tiltrotor (the Bell V-280 Valor as fielded, usa_mv75_army) with Transport, Strike and ASW loadouts, occupied cabins, retractable gear and rotary miniguns, plus a systems fixture unit (usa_v280_systems_fixture) and eight trial missions in its own missions/ folder (the game lists them under Bell Systems Test). UnitType=Helicopter, CarrierCapable=True, Role=Attack,ASW,MPA,Transport,SAR; no squadron table (NumberOfSquadrons=0, Nation=US by default). Two unique rounds; its weapons.ini merges; no collision with anything, position forgiving - placed beside the MV-22B. The Mod Manager shows it by its Workshop number with an (A) badge because its _info.ini puts Name under [General] rather than [Language_en]. Southern Watch's The Long Perimeter flies one as the Army lift beside the Marine Ospreys. Catalogued 3 Oct 2026 from the export (ApproximateVersion 0.8.1)."
+    },
+    {
+      "id": "plaaf-aircraft-pack",
+      "workshop_id": "3812111085",
+      "title": "PLAAF Aircraft Pack",
+      "author": "unknown (Workshop 3812111085; Chinese title 中国人民解放军空军整合包)",
+      "faction": "china",
+      "type": "fixed-wing",
+      "status": "active",
+      "overlaps": [
+        "j-11 (3436170138) - the same plaaf_j-11/a/b/bg unit and squadron files, 16 of them, which the specialist mod keeps",
+        "j-8 (3433577445) - the same J-8B/E/F and JZ-8F files, 13, kept by the specialist mod",
+        "fujian-cv-18, type-003-004-maneuverwarfare, pla-plan-plaaf-aep, j-10c, j-16a, jh-7a, mig-29-family, su-25 - 27 shared PL-, LS-, KD- and tank rounds, all kept by the mods above it"
+      ],
+      "notes": "An integration pack of PLAAF airframes - the H-6J, H-6K early and late, H-6N bombers, the J-10A and J-10C, the J-11 family with the J-11BG/BGH/BH, the J-16 and J-16D, the J-7E/II/IIIA and J-8B/E/F with the JZ-8F - 79 rounds, and its own sensors and weapons sections. BOTTOM OF THE ORDER (above Red Storm Arsenal only): it contests 56 files and loses every one to the specialist mods, so what loads is its 67 unique files - the H-6 family, the J-7s, the J-10A, the J-11BGH/BH, 39 rounds (the YJ-12, YJ-21, CJ-20, KD-20 class) - and its merged systems sections. TWO LANGUAGE FAULTS, both met in the first session with it (3 Oct 2026): language_en/loading_tips_plaaf.ini is a [LoadingTips] section in Chinese filed under the English folder, and because the merge is key-by-key under vanilla's own key names (Count, Header, Tip001...) it replaced every loading-screen tip in the game with Chinese text; SEST Collection Fixes now ships vanilla's English loading_tips.ini verbatim from the top of the order, which gives every key back. Its language_en/ammunition_names.ini names the H-6J's RKL-600 ESM pod in Chinese; Collection Fixes names it in English. ApproximateVersion 0.7.10, so the Mod Manager marks it for the game version. Southern Watch's Fujian's Shadow flies an H-6K Late with four YJ-12 as the enclave's land-based anti-ship shooter."
     }
   ]
 }

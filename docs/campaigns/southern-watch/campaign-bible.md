@@ -272,7 +272,7 @@ The convoy crosses a patrol area where a Type 039C and a Type 054A frigate overl
 
 **Win:** two of the three priority merchants reach the handover point (the box is solved 25 NM down the track; the boat sits across it, 38 NM from the convoy). **Fail:** two of the three are lost, or the clock. **Optional:** keep both Japanese escorts afloat (scored at mission end, not re-completed by the win); locate and classify the submarine (`UnitClassified`; fails at mission end if never done). **Carry-over:** none scored yet; the SW11 detachment branch remains a design intent.
 
-Mogami's Corner and Viper Zero are the seeds. Rafale, Timor Gap belonged elsewhere as an optional mission using a verified conventional fit; it was retired on 3 October 2028-build day (3 Oct 2026) with the Rafale mod.
+Mogami's Corner and Viper Zero are the seeds. Rafale, Timor Gap belonged elsewhere as an optional mission using a verified conventional fit; it was retired on the morning of 3 Oct 2026 with the Rafale mod and restored that evening on the French Air Force mod, which ships the same Rafales.
 
 ### SW11 — Fujian's Shadow
 
@@ -343,7 +343,7 @@ The identifiers below were resolved from the pinned snapshot. Re-resolve them af
 | Mogami's Corner | SW10 | Protect passage; retain fishing traffic and use a supported helicopter |
 | Triton's Picture | SW06 | Make surveillance/survival the central objective; test contact sharing |
 | Black Widow Debut | Future Front | Clearly alternate history; production YF-23 and J-36 capability assumptions are part of the fiction |
-| Rafale, Timor Gap | Retired 3 Oct 2026 | Flew the Dassault Rafale mod, which left the collection; the vignette and the SEST F5 fits went with it (git holds both) |
+| Rafale, Timor Gap | Retired and restored 3 Oct 2026 | Flew the Dassault Rafale mod, which left the collection; back the same evening on the French Air Force mod (same unit ids), the four Rafale M Late on the SEST F5 LRASM fit - one round on the centreline now, two wing tanks |
 
 Additional optional episodes give the wider collection purposeful roles:
 
@@ -498,7 +498,7 @@ Points are completion allocations on the proposed Standard setting. Information,
 | O07 · 10 Nov | **Weather Alternate** | Escort an allied tanker and survey the approach to a partner-approved diversion airfield. | **60 points**; unlocks the shorter recovery route in SW08, subject to the access conditions. |
 | O08 · 12 Nov | **Tigers over Papua** | Protect a relief approach and suppress one confirmed military threat, using the existing vignette as an encounter seed. | **70 points**; temporary allied support reduces pressure on SW08. Any A-10 addition is a separately staged allied detachment; `usa_a-10c` and, since the 26 Sep 2026 port, `usaf_a-10c_plus` both resolve. |
 | O09 · 17 Nov | **Viper Zero** | Fly the Japanese anti-ship escort episode associated with the incoming Mogami detachment. | **70 points**; F-2A support becomes the Japanese option for SW10. |
-| O10 · 19 Nov | **Rafale, Timor Gap** (retired 3 Oct 2026 with the Rafale mod) | Protect an allied maritime-strike package with a verified conventional Rafale fit. | **70 points**; French support becomes the alternative SW10 air allocation. The F5/LRASM fiction remains in Future Front. |
+| O10 · 19 Nov | **Rafale, Timor Gap** (retired 3 Oct 2026 with the Rafale mod; back that evening on the French Air Force mod) | Protect an allied maritime-strike package with a verified conventional Rafale fit. | **70 points**; French support becomes the alternative SW10 air allocation. The F5/LRASM fiction remains in Future Front. |
 | O11 · 24 Nov | **The Listening Line** | Protect a final reconnaissance effort among neutral traffic following the carrier encounter. | **60 points**; a better spoiler warning in SW12, at the cost of exposing already worn aircraft and escorts. |
 | O12 · 26 Nov | **Last Light** | Recover scattered civilian survivors and escort a small relief shipment before the ceasefire convoy forms. | **50 points**; strengthens the humanitarian debrief. It does not erase earlier civilian casualties. |
 
@@ -834,111 +834,115 @@ Every enabled Workshop token is listed below in canonical load order. Position i
 | 31 | `3505420313` | Italian Navy Mod — active | Support / Cold Sea: older Italian fleet and cross-pack shared systems. |
 | 32 | `3406985435` | Kirov-class (Pyotr Velikiy Upgrade) — active | Red Line / Cold Sea alternate: rare capital-ship episode; do not add simply for scale. |
 | 33 | `3430106996` | Merchants Expanded — active | Core civilian world: merchant variety, route-based traffic and convoy hulls. |
-| 34 | `3417446309` | MIG-29 Family — active | Red Line / Cold Sea: fighter family; Orel carrier belongs in an alternate-history episode. |
-| 35 | `3599752717` | Euromod - Modern British Navy — active | Allied Dispatch / Support: British escort rotation and shared systems. |
-| 36 | `3488139470` | Euromod - Modern Italian Navy — active | Allied Dispatch: Italian escort rotation; retain shared dependencies. |
-| 37 | `3390330875` | Modern US Navy — active | Core late act / Allied Dispatch: modern US escorts, aircraft and submarine options. |
-| 38 | `3456859157` | Mogami-class Frigate — active | Core allied partner: Japanese ASW escort in SW10; source for SEST patch. |
-| 39 | `3432592449` | Nimitz Expanded — active | Support / Allied Dispatch / Cold Sea: carrier variants and deck mechanics; no extra carrier required in core. |
-| 40 | `3594891803` | PLAN Submarines — active | Opposition: submarine threat for SW02, SW04 and SW10. |
-| 41 | `3774859959` | PLAN Type 001 Aircraft Carrier Liaoning — active | Opposition alternate: swap the carrier group for replay, rather than adding a second major fleet. |
-| 42 | `3774572038` | PLAN Type 071 Amphibious Transport Dock — active | Opposition / Red Line: support and amphibious transport objective, including Viper Zero seed. |
-| 43 | `3663564190` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 — active | Core opposing carrier: current owner of plan_cv_type_003; SW11. |
-| 44 | `3436170138` | Shenyang J-11 — active | Opposition: distinct Flanker variants; avoid flooding the map with every subtype. |
-| 45 | `3486502935` | Type 003 Fujian / Type 004 CVN Aircraft Carriers — active | Support / Future Front: alternative carrier content and speculative Type 004; resolve actual winners. |
-| 46 | `3417801942` | Chinese Navy (PLAN) — active | Opposition / Support: PLAN and legacy hulls; overlapping carrier files require winner resolution. |
-| 47 | `3597650470` | Russian Navy 21 — active | Opposition / Red Line: frigate and corvette detachment; paper designs in Future Front. |
-| 48 | `3468260539` | Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes) — active | Red Line / optional opposition: limited Russian submarine presence. |
-| 49 | `3403661005` | [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles — deprecated | Support / Cold Sea: legacy helicopter and existing pack dependency; modern core prefers MH-60R. |
-| 50 | `3630495619` | Euromod - Cold War Spanish Navy — active | Support / Cold Sea: Teide donor for Supply representation and historical fleet. |
-| 51 | `3731208477` | Euromod - Modern Spanish Navy — active | Support / Allied Dispatch: RAN design/stand-in donors and optional Spanish deployment. |
-| 52 | `3378409795` | Royal Navy Type 23 'Duke Class' Frigate [OLD] — deprecated | Cold Sea / Allied Dispatch alternate: separate hull IDs; use intentionally, not as duplicate escorts. |
-| 53 | `3590477166` | MH-60R Seahawk — active | Core / Support: Seahawk source; reconcile unit and squadron ownership. |
-| 54 | `3737267013` | United States Naval Aviation — active | Core / Support: source for allied and Australian-representative aviation and weapons. |
-| 55 | `3433957933` | Virginia-, Seawolf-, and Ohio-class Submarines — active | Allied Dispatch: US SSN reinforcement, retaining US identity in 2028. |
-| 56 | `3602046770` | Boeing P-8 Poseidon — active | Core: maritime patrol, ASW and surveillance using Australian Squadron3. |
-| 57 | `3414146266` | A-10A Thunderbolt II — active | Support / Cold Sea: A-10 model dependency and historical aircraft. |
-| 58 | `3459682829` | A-10C — active | Allied Dispatch: current usa_a-10c upgrade, and the donor of the SEST A-10C+; forward assignment is a fictional campaign allocation. |
-| 59 | `3425450153` | AH-64 Apache — active | Allied Dispatch / relief-perimeter episode: verified operator/livery and bounded allocation. |
-| 60 | `3403993583` | Armed Oil Rig with Helo MOD — active | World / SW03: platform objective; armed version needs explicit hostile military role. |
-| 61 | `3652097318` | B-1B Lancer — active | Allied Dispatch: finite US maritime/stand-off strike support; custom fits labelled. |
-| 62 | `3480965706` | B-2 Spirit — active | Allied Dispatch: rare US strike allocation; conventional fit and limited availability. |
-| 63 | `3741944366` | B-52H Stratofortress — active | Allied Dispatch: bounded US bomber contribution; advanced/custom fits in Future Front. |
-| 64 | `3524112296` | Soviet AEW&C + Transport Aircraft (A-50 / Il-76) — active | Opposition / Red Line: tanker, transport and AEW support with finite availability. |
-| 65 | `3744475027` | KC-46A Pegasus - Strategic Tanker — active | Allied support: tanker availability and recovery problems; verify receiver compatibility. |
-| 66 | `3600788156` | Buildings and Targets for Missions — active | World / Support: scenery and defined military objectives with restrained land-unit counts. |
-| 67 | `3801363152` | CH-53E Standalone v0.1.0 — active | Allied Dispatch / SW03 option: helicopter lift; verify deck support, livery and early-release reliability. |
-| 68 | `3746453639` | Civil Aircraft Mod (Airbus Family) — active | Civilian world: scheduled air traffic, diversions and evacuation context. |
-| 69 | `3781062859` | <<E-3G>> — active | Allied Dispatch: US command-and-surveillance reinforcement. |
-| 70 | `3499239964` | [DEPRECATED] E-7A Wedgetail — deprecated | Core: Wedgetail source for SW06–07; deprecated but required by current SEST work. |
-| 71 | `3587877691` | Eurofighter Typhoon — active | Allied Dispatch / exercise: a defined European air detachment. |
-| 72 | `3448845252` | F-117 Nighthawk — active | Cold Sea / exercise: specialist legacy stealth strike; no routine 2028 fleet claim. |
-| 73 | `3636386513` | F-15 EX Eagle II — active | Allied Dispatch: USAF aircraft and SEST donor; not RAAF-owned. |
-| 74 | `3553116604` | F-15E StrikeEagle — active | Allied Dispatch: conventional USAF strike reinforcement and shared donor content. |
-| 75 | `3758320372` | F-16C Fighting Falcon (modern) — active | Allied Dispatch: US fighter detachment and separate optional upgraded fit. |
-| 76 | `3418252667` | F-22 Raptor — active | Allied Dispatch: limited protective fighter element, especially SW07. |
-| 77 | `3755769170` | F-2A 'Viper Zero' — active | Core allied branch / SW10: Japanese maritime-strike detachment, not Australian-owned. |
-| 78 | `3736147136` | French Army Vehicles — active | Allied Dispatch: relief perimeter, liaison or limited land-support set dressing. |
-| 79 | `3567228449` | French Helicopter Package — active | Allied Dispatch: evacuation and shipborne helicopter activity; prove supported mechanics. |
-| 80 | `3503670861` | General Atomics MQ-9 Reaper — active | Support / Allied Dispatch: Triton mesh dependency and US UAV detachment; not an assumed RAAF fleet. |
-| 81 | `3717610332` | IL-78 TANKER — active | Opposition / Red Line: tanker, transport and AEW support with finite availability. |
-| 82 | `3506979898` | Shenyang J-16A (歼-16A 潜龙) — active | Opposition: one J-16 implementation; avoid accidental duplication with the other pack. |
-| 83 | `3769142422` | J-16 Multirole Fighter — active | Opposition: second J-16 implementation with separate IDs; choose deliberately. |
-| 84 | `3591563716` | J-20 (歼-20 威龙) — active | Opposition: bounded advanced fighter element in later missions. |
-| 85 | `3801549552` | J-36 Tailless Fighter — active | Future Front: speculative tailless aircraft and Black Widow Debut opponent. |
-| 86 | `3670643788` | Shenyang J-50 (沈阳航空工业 歼-50) — active | Future Front: speculative advanced-aircraft episode. |
-| 87 | `3481228992` | ChengDu J-10C Vigorous Dragon — active | Opposition: modern land-based fighter encounter. |
-| 88 | `3526982088` | XIAN JH-7A (歼轰-7A 飞豹) — active | Opposition: limited maritime-strike element. |
-| 89 | `3776340577` | Ka-27RLD — active | Red Line: shipborne AEW option; validate the mod identity and deck compatibility. |
-| 90 | `3740293822` | McDonnell Douglas KC-10A Extender - Strategic Tanker — active | Support / Cold Sea: existing base references and historical tanker; any 2028 return is explicit fiction. |
-| 91 | `3722749887` | KC-135 STRATOTANKER — active | Allied support: tanker availability and recovery problems; verify receiver compatibility. |
-| 92 | `3559495372` | Lockheed AC-130 Pack — active | Allied Dispatch / exercise: permissive support episode; not routine entry into intact modern air defence. |
-| 93 | `3458148344` | Mi-8EW — active | Red Line / Cold Sea: utility lift and EW support in a defined fictional enclave. |
-| 94 | `3465256032` | Mi-8 T/TV — active | Red Line / Cold Sea: utility lift and EW support in a defined fictional enclave. |
-| 95 | `3416372890` | Apex Predators MIG-29A & F-16A — active | Cold Sea / exercise: earlier-generation adversary and allied aircraft. |
-| 96 | `3799742828` | MiG-31 Foxhound — active | Red Line / SW07 alternate: explained expeditionary interceptors; advanced strike variant separate. |
-| 97 | `3659742367` | MiG-35 Fulcrum-F (米格-35 支点-F) — active | Red Line / exercise: Russian or explicitly fictional export detachment; no unexplained mass deployment. |
-| 98 | `3513571010` | Mil Mi-24 Hind — active | Red Line / Cold Sea: armed rotary-wing support in a finite local encounter. |
-| 99 | `3716049886` | MORE SU-24M VARIANTS — active | Red Line / exercise: Russian or explicitly fictional export detachment; no unexplained mass deployment. |
-| 100 | `3587091564` | 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala) — active | Cold Sea / Future Front: experimental weapon; not a documented modern operational baseline. |
-| 101 | `3681873198` | Pickup truck extension — active | World / local crisis: separate civilians, medical vehicles and identified armed technicals. |
-| 102 | `3774746803` | AVIC HARBIN Z-21 — active | Future Front / exercise: advanced helicopter representation with declared assumptions. |
-| 103 | `3729578404` | PLA Shenyang J-11BS — active | Opposition: distinct Flanker variants; avoid flooding the map with every subtype. |
-| 104 | `3433577445` | Shenyang J-8 — active | Cold Sea / exercise: older interceptor; core uses newer threats. |
-| 105 | `3729579342` | PLA Sukhoi Su-27UBK — active | Opposition / exercise: second-line aircraft and training detachment. |
-| 106 | `3514484654` | RAAF F-35A Lighting II — active | Core: Australian fighter detachment; use checked conventional fits. |
-| 107 | `3796113927` | RQ-180 White Bat Airframe — active | Future Front: speculative aircraft and especially speculative armed loadouts. |
-| 108 | `3392434750` | SA-21/S-400 SAM — active | Opposition / Range Week: defined fictional enclave battery and SW08 seed. |
-| 109 | `3673250557` | SAAB AEW&C PACK — active | Allied Dispatch / exercise: alternative command-aircraft episode, not another national RAAF type. |
-| 110 | `3461519690` | SCUD-B — active | Range Week / Red Line alternate: missile-system episode with explicit fictional location and ownership. |
-| 111 | `3455931957` | Sea Lynx — active | Allied Dispatch / Cold Sea: helicopter variants with exact deck and livery checks. |
-| 112 | `3551676319` | SEJJIL (Iran Ballistic Missiles) — active | Range Week / Red Line alternate: missile-system episode with explicit fictional location and ownership. |
-| 113 | `3497601759` | Shahed-136 Kamikaze Drone (Geran-2) — active | Opposition / Range Week: one-way drone threat; any local operator is campaign fiction. |
-| 114 | `3451166840` | Su-25 Frogfoot — active | Red Line / exercise: Russian or explicitly fictional export detachment; no unexplained mass deployment. |
-| 115 | `3762023575` | Su-30SM2 — active | Red Line: modern Russian detachment; ownership remains explicit. |
-| 116 | `3503594612` | SU-57 Felon (重刑犯) — active | Red Line: optional small advanced detachment; not a ubiquitous regional adversary. |
-| 117 | `3434072450` | Sukhoi Flanker Family (苏霍伊侧卫家族) — active | Opposition / Red Line / Cold Sea: choose exact generation, operator and weapons. |
-| 118 | `3683253079` | Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included) — active | Range Week / optional missile-defence variant: explicit allied deployment and tested interception. |
-| 119 | `3558173926` | David's Sling — active | Range Week: defence-system trial; no unexplained Australian operational battery. |
-| 120 | `3502273861` | ARRW (AGM-183) — active | Support / Future Front: experimental strike missile, distinct from Dingtools ammunition IDs. |
-| 121 | `3509329205` | TU-160 Blackjack — active | Red Line: rare conventional bomber episode; no endless strategic-bomber waves. |
-| 122 | `3673908868` | <<Tu-16N>> — active | Cold Sea: historical tanker, not a default modern support aircraft. |
-| 123 | `3780118683` | Tu-214R Family (图-214R家族) — active | Red Line: bounded reconnaissance/EW support; speculative family variants require disclosure. |
-| 124 | `3411341227` | Tu-95K-22 Bear G MOD — active | Cold Sea / Red Line alternate: older maritime bomber threat, with conventional weapons. |
-| 125 | `3715323261` | Tu-95MS (X-101) — active | Red Line: limited long-range conventional strike episode. |
-| 126 | `3468959181` | U-2 "Dragon Lady" — active | Allied Dispatch: specialist reconnaissance; historical and balloon variants in optional episodes. |
-| 127 | `3478767194` | VH-3D Marine One MOD — active | Exercise / Cold Sea: protected transport vignette; no forced presidential visit to the war zone. |
-| 128 | `3373356293` | Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — deprecated | Support / Cold Sea: legacy helicopter and unique Wildcat content; deprecated does not mean disabled. |
-| 129 | `3782020901` | Y-20 / KJ-3000 — active | Opposition / Future Front: transport support; advanced special-mission variant is a declared assumption. |
-| 130 | `3796349767` | YF-23 Black Widow II — active | Future Front: fictional production aircraft and Black Widow Debut. |
-| 131 | `3601891050` | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) — wip | Opposition / Range Week: small-UAV episode; WIP assets must be individually tested. |
-| 132 | `3408662804` | Iskander TBM — active | Range Week / Red Line alternate: missile-system episode with explicit fictional location and ownership. |
-| 133 | `3470643173` | Type 12 SSM-ER Anti-Ship Missile System — active | Allied Dispatch / Range Week: Japanese coastal-defence episode; forward deployment needs explicit fiction. |
-| 134 | `3631042692` | Modern Chinese Airbase (Large) — active | Support / Opposition: airfield source for a finite detachment with an explained location. |
-| 135 | `3629269283` | Modern Russian Airbase (Large) — active | Support / Red Line: source for a small fictional detachment; replace default aircraft inventory. |
-| 136 | `3592460366` | Modern US Airbase — active | Support: RAAF base donor and allied airfield template; replace oversized default air groups. |
-| 137 | `3413868677` | Red Storm Arsenal — active | Support / optional anthology: broad unique content and shared definitions; preserve lower-priority winners. |
-| 138 | `3605013271` | RE-power: the resupply mod — active | Core logistics / SW09: validate exact donor, resource, receiver and transfer limits. |
+| 34 | `3485917612` | Moloti's Armed Merchantmen — active | Civilian world / SW09: armed trawlers and merchants; the Okean intelligence trawler is the Russian picket in Southern Lifeline. |
+| 35 | `3417446309` | MIG-29 Family — active | Red Line / Cold Sea: fighter family; Orel carrier belongs in an alternate-history episode. |
+| 36 | `3599752717` | Euromod - Modern British Navy — active | Allied Dispatch / Support: British escort rotation and shared systems. |
+| 37 | `3488139470` | Euromod - Modern Italian Navy — active | Allied Dispatch: Italian escort rotation; retain shared dependencies. |
+| 38 | `3390330875` | Modern US Navy — active | Core late act / Allied Dispatch: modern US escorts, aircraft and submarine options. |
+| 39 | `3456859157` | Mogami-class Frigate — active | Core allied partner: Japanese ASW escort in SW10; source for SEST patch. |
+| 40 | `3432592449` | Nimitz Expanded — active | Support / Allied Dispatch / Cold Sea: carrier variants and deck mechanics; no extra carrier required in core. |
+| 41 | `3594891803` | PLAN Submarines — active | Opposition: submarine threat for SW02, SW04 and SW10. |
+| 42 | `3774859959` | PLAN Type 001 Aircraft Carrier Liaoning — active | Opposition alternate: swap the carrier group for replay, rather than adding a second major fleet. |
+| 43 | `3774572038` | PLAN Type 071 Amphibious Transport Dock — active | Opposition / Red Line: support and amphibious transport objective, including Viper Zero seed. |
+| 44 | `3663564190` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 — active | Core opposing carrier: current owner of plan_cv_type_003; SW11. |
+| 45 | `3436170138` | Shenyang J-11 — active | Opposition: distinct Flanker variants; avoid flooding the map with every subtype. |
+| 46 | `3486502935` | Type 003 Fujian / Type 004 CVN Aircraft Carriers — active | Support / Future Front: alternative carrier content and speculative Type 004; resolve actual winners. |
+| 47 | `3417801942` | Chinese Navy (PLAN) — active | Opposition / Support: PLAN and legacy hulls; overlapping carrier files require winner resolution. |
+| 48 | `3597650470` | Russian Navy 21 — active | Opposition / Red Line: frigate and corvette detachment; paper designs in Future Front. |
+| 49 | `3468260539` | Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes) — active | Red Line / optional opposition: limited Russian submarine presence. |
+| 50 | `3403661005` | [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles — deprecated | Support / Cold Sea: legacy helicopter and existing pack dependency; modern core prefers MH-60R. |
+| 51 | `3630495619` | Euromod - Cold War Spanish Navy — active | Support / Cold Sea: Teide donor for Supply representation and historical fleet. |
+| 52 | `3731208477` | Euromod - Modern Spanish Navy — active | Support / Allied Dispatch: RAN design/stand-in donors and optional Spanish deployment. |
+| 53 | `3378409795` | Royal Navy Type 23 'Duke Class' Frigate [OLD] — deprecated | Cold Sea / Allied Dispatch alternate: separate hull IDs; use intentionally, not as duplicate escorts. |
+| 54 | `3590477166` | MH-60R Seahawk — active | Core / Support: Seahawk source; reconcile unit and squadron ownership. |
+| 55 | `3737267013` | United States Naval Aviation — active | Core / Support: source for allied and Australian-representative aviation and weapons. |
+| 56 | `3433957933` | Virginia-, Seawolf-, and Ohio-class Submarines — active | Allied Dispatch: US SSN reinforcement, retaining US identity in 2028. |
+| 57 | `3602046770` | Boeing P-8 Poseidon — active | Core: maritime patrol, ASW and surveillance using Australian Squadron3. |
+| 58 | `3414146266` | A-10A Thunderbolt II — active | Support / Cold Sea: A-10 model dependency and historical aircraft. |
+| 59 | `3459682829` | A-10C — active | Allied Dispatch: current usa_a-10c upgrade, and the donor of the SEST A-10C+; forward assignment is a fictional campaign allocation. |
+| 60 | `3425450153` | AH-64 Apache — active | Allied Dispatch / relief-perimeter episode: verified operator/livery and bounded allocation. |
+| 61 | `3403993583` | Armed Oil Rig with Helo MOD — active | World / SW03: platform objective; armed version needs explicit hostile military role. |
+| 62 | `3652097318` | B-1B Lancer — active | Allied Dispatch: finite US maritime/stand-off strike support; custom fits labelled. |
+| 63 | `3480965706` | B-2 Spirit — active | Allied Dispatch: rare US strike allocation; conventional fit and limited availability. |
+| 64 | `3741944366` | B-52H Stratofortress — active | Allied Dispatch: bounded US bomber contribution; advanced/custom fits in Future Front. |
+| 65 | `3524112296` | Soviet AEW&C + Transport Aircraft (A-50 / Il-76) — active | Opposition / Red Line: tanker, transport and AEW support with finite availability. |
+| 66 | `3744475027` | KC-46A Pegasus - Strategic Tanker — active | Allied support: tanker availability and recovery problems; verify receiver compatibility. |
+| 67 | `3600788156` | Buildings and Targets for Missions — active | World / Support: scenery and defined military objectives with restrained land-unit counts. |
+| 68 | `3801363152` | CH-53E Standalone v0.1.0 — active | Allied Dispatch / SW03 option: helicopter lift; verify deck support, livery and early-release reliability. |
+| 69 | `3746453639` | Civil Aircraft Mod (Airbus Family) — active | Civilian world: scheduled air traffic, diversions and evacuation context. |
+| 70 | `3781062859` | <<E-3G>> — active | Allied Dispatch: US command-and-surveillance reinforcement. |
+| 71 | `3499239964` | [DEPRECATED] E-7A Wedgetail — deprecated | Core: Wedgetail source for SW06–07; deprecated but required by current SEST work. |
+| 72 | `3587877691` | Eurofighter Typhoon — active | Allied Dispatch / exercise: a defined European air detachment. |
+| 73 | `3448845252` | F-117 Nighthawk — active | Cold Sea / exercise: specialist legacy stealth strike; no routine 2028 fleet claim. |
+| 74 | `3636386513` | F-15 EX Eagle II — active | Allied Dispatch: USAF aircraft and SEST donor; not RAAF-owned. |
+| 75 | `3553116604` | F-15E StrikeEagle — active | Allied Dispatch: conventional USAF strike reinforcement and shared donor content. |
+| 76 | `3758320372` | F-16C Fighting Falcon (modern) — active | Allied Dispatch: US fighter detachment and separate optional upgraded fit. |
+| 77 | `3418252667` | F-22 Raptor — active | Allied Dispatch: limited protective fighter element, especially SW07. |
+| 78 | `3755769170` | F-2A 'Viper Zero' — active | Core allied branch / SW10: Japanese maritime-strike detachment, not Australian-owned. |
+| 79 | `3736147136` | French Army Vehicles — active | Allied Dispatch: relief perimeter, liaison or limited land-support set dressing. |
+| 80 | `3567228449` | French Helicopter Package — active | Allied Dispatch: evacuation and shipborne helicopter activity; prove supported mechanics. |
+| 81 | `3503670861` | General Atomics MQ-9 Reaper — active | Support / Allied Dispatch: Triton mesh dependency and US UAV detachment; not an assumed RAAF fleet. |
+| 82 | `3717610332` | IL-78 TANKER — active | Opposition / Red Line: tanker, transport and AEW support with finite availability. |
+| 83 | `3506979898` | Shenyang J-16A (歼-16A 潜龙) — active | Opposition: one J-16 implementation; avoid accidental duplication with the other pack. |
+| 84 | `3769142422` | J-16 Multirole Fighter — active | Opposition: second J-16 implementation with separate IDs; choose deliberately. |
+| 85 | `3591563716` | J-20 (歼-20 威龙) — active | Opposition: bounded advanced fighter element in later missions. |
+| 86 | `3801549552` | J-36 Tailless Fighter — active | Future Front: speculative tailless aircraft and Black Widow Debut opponent. |
+| 87 | `3670643788` | Shenyang J-50 (沈阳航空工业 歼-50) — active | Future Front: speculative advanced-aircraft episode. |
+| 88 | `3481228992` | ChengDu J-10C Vigorous Dragon — active | Opposition: modern land-based fighter encounter. |
+| 89 | `3526982088` | XIAN JH-7A (歼轰-7A 飞豹) — active | Opposition: limited maritime-strike element. |
+| 90 | `3776340577` | Ka-27RLD — active | Red Line: shipborne AEW option; validate the mod identity and deck compatibility. |
+| 91 | `3740293822` | McDonnell Douglas KC-10A Extender - Strategic Tanker — active | Support / Cold Sea: existing base references and historical tanker; any 2028 return is explicit fiction. |
+| 92 | `3722749887` | KC-135 STRATOTANKER — active | Allied support: tanker availability and recovery problems; verify receiver compatibility. |
+| 93 | `3559495372` | Lockheed AC-130 Pack — active | Allied Dispatch / exercise: permissive support episode; not routine entry into intact modern air defence. |
+| 94 | `3458148344` | Mi-8EW — active | Red Line / Cold Sea: utility lift and EW support in a defined fictional enclave. |
+| 95 | `3465256032` | Mi-8 T/TV — active | Red Line / Cold Sea: utility lift and EW support in a defined fictional enclave. |
+| 96 | `3416372890` | Apex Predators MIG-29A & F-16A — active | Cold Sea / exercise: earlier-generation adversary and allied aircraft. |
+| 97 | `3799742828` | MiG-31 Foxhound — active | Red Line / SW07 alternate: explained expeditionary interceptors; advanced strike variant separate. |
+| 98 | `3659742367` | MiG-35 Fulcrum-F (米格-35 支点-F) — active | Red Line / exercise: Russian or explicitly fictional export detachment; no unexplained mass deployment. |
+| 99 | `3513571010` | Mil Mi-24 Hind — active | Red Line / Cold Sea: armed rotary-wing support in a finite local encounter. |
+| 100 | `3716049886` | MORE SU-24M VARIANTS — active | Red Line / exercise: Russian or explicitly fictional export detachment; no unexplained mass deployment. |
+| 101 | `3810611344` | MV-75 Cheyenne II — active | Allied Dispatch: US Army tiltrotor lift beside the Marine Ospreys in The Long Perimeter. |
+| 102 | `3587091564` | 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala) — active | Cold Sea / Future Front: experimental weapon; not a documented modern operational baseline. |
+| 103 | `3681873198` | Pickup truck extension — active | World / local crisis: separate civilians, medical vehicles and identified armed technicals. |
+| 104 | `3774746803` | AVIC HARBIN Z-21 — active | Future Front / exercise: advanced helicopter representation with declared assumptions. |
+| 105 | `3729578404` | PLA Shenyang J-11BS — active | Opposition: distinct Flanker variants; avoid flooding the map with every subtype. |
+| 106 | `3433577445` | Shenyang J-8 — active | Cold Sea / exercise: older interceptor; core uses newer threats. |
+| 107 | `3729579342` | PLA Sukhoi Su-27UBK — active | Opposition / exercise: second-line aircraft and training detachment. |
+| 108 | `3514484654` | RAAF F-35A Lighting II — active | Core: Australian fighter detachment; use checked conventional fits. |
+| 109 | `3796113927` | RQ-180 White Bat Airframe — active | Future Front: speculative aircraft and especially speculative armed loadouts. |
+| 110 | `3392434750` | SA-21/S-400 SAM — active | Opposition / Range Week: defined fictional enclave battery and SW08 seed. |
+| 111 | `3673250557` | SAAB AEW&C PACK — active | Allied Dispatch / exercise: alternative command-aircraft episode, not another national RAAF type. |
+| 112 | `3461519690` | SCUD-B — active | Range Week / Red Line alternate: missile-system episode with explicit fictional location and ownership. |
+| 113 | `3455931957` | Sea Lynx — active | Allied Dispatch / Cold Sea: helicopter variants with exact deck and livery checks. |
+| 114 | `3551676319` | SEJJIL (Iran Ballistic Missiles) — active | Range Week / Red Line alternate: missile-system episode with explicit fictional location and ownership. |
+| 115 | `3497601759` | Shahed-136 Kamikaze Drone (Geran-2) — active | Opposition / Range Week: one-way drone threat; any local operator is campaign fiction. |
+| 116 | `3451166840` | Su-25 Frogfoot — active | Red Line / exercise: Russian or explicitly fictional export detachment; no unexplained mass deployment. |
+| 117 | `3762023575` | Su-30SM2 — active | Red Line: modern Russian detachment; ownership remains explicit. |
+| 118 | `3503594612` | SU-57 Felon (重刑犯) — active | Red Line: optional small advanced detachment; not a ubiquitous regional adversary. |
+| 119 | `3434072450` | Sukhoi Flanker Family (苏霍伊侧卫家族) — active | Opposition / Red Line / Cold Sea: choose exact generation, operator and weapons. |
+| 120 | `3683253079` | Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included) — active | Range Week / optional missile-defence variant: explicit allied deployment and tested interception. |
+| 121 | `3558173926` | David's Sling — active | Range Week: defence-system trial; no unexplained Australian operational battery. |
+| 122 | `3502273861` | ARRW (AGM-183) — active | Support / Future Front: experimental strike missile, distinct from Dingtools ammunition IDs. |
+| 123 | `3509329205` | TU-160 Blackjack — active | Red Line: rare conventional bomber episode; no endless strategic-bomber waves. |
+| 124 | `3673908868` | <<Tu-16N>> — active | Cold Sea: historical tanker, not a default modern support aircraft. |
+| 125 | `3780118683` | Tu-214R Family (图-214R家族) — active | Red Line: bounded reconnaissance/EW support; speculative family variants require disclosure. |
+| 126 | `3411341227` | Tu-95K-22 Bear G MOD — active | Cold Sea / Red Line alternate: older maritime bomber threat, with conventional weapons. |
+| 127 | `3715323261` | Tu-95MS (X-101) — active | Red Line: limited long-range conventional strike episode. |
+| 128 | `3468959181` | U-2 "Dragon Lady" — active | Allied Dispatch: specialist reconnaissance; historical and balloon variants in optional episodes. |
+| 129 | `3478767194` | VH-3D Marine One MOD — active | Exercise / Cold Sea: protected transport vignette; no forced presidential visit to the war zone. |
+| 130 | `3373356293` | Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — deprecated | Support / Cold Sea: legacy helicopter and unique Wildcat content; deprecated does not mean disabled. |
+| 131 | `3782020901` | Y-20 / KJ-3000 — active | Opposition / Future Front: transport support; advanced special-mission variant is a declared assumption. |
+| 132 | `3796349767` | YF-23 Black Widow II — active | Future Front: fictional production aircraft and Black Widow Debut. |
+| 133 | `3601891050` | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) — wip | Opposition / Range Week: small-UAV episode; WIP assets must be individually tested. |
+| 134 | `3408662804` | Iskander TBM — active | Range Week / Red Line alternate: missile-system episode with explicit fictional location and ownership. |
+| 135 | `3470643173` | Type 12 SSM-ER Anti-Ship Missile System — active | Allied Dispatch / Range Week: Japanese coastal-defence episode; forward deployment needs explicit fiction. |
+| 136 | `3631042692` | Modern Chinese Airbase (Large) — active | Support / Opposition: airfield source for a finite detachment with an explained location. |
+| 137 | `3629269283` | Modern Russian Airbase (Large) — active | Support / Red Line: source for a small fictional detachment; replace default aircraft inventory. |
+| 138 | `3592460366` | Modern US Airbase — active | Support: RAAF base donor and allied airfield template; replace oversized default air groups. |
+| 139 | `3758943352` | French Air Force — active | Allied Dispatch / Future Front: the Rafale family (back on this mod since 3 Oct 2026) and Mirage 2000s; bottom of the order, loses its 12 shared rounds. |
+| 140 | `3812111085` | PLAAF Aircraft Pack — active | Opposition: H-6 bombers (the H-6K in Fujian's Shadow), J-7s and J-10A; second to last so the specialist PLAAF mods keep their files; Collection Fixes restores the English loading tips it overwrites. |
+| 141 | `3413868677` | Red Storm Arsenal — active | Support / optional anthology: broad unique content and shared definitions; preserve lower-priority winners. |
+| 142 | `3605013271` | RE-power: the resupply mod — active | Core logistics / SW09: validate exact donor, resource, receiver and transfer limits. |
 
 ### Excluded catalog entries
 

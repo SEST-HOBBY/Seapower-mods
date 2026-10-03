@@ -1435,7 +1435,8 @@ MISSIONS.append(dict(
         )),
     forces="HMAS Stalwart, HMAS Collins surfaced for service, your escort and "
            "her flight; one P-8 from Scherger if tasked. Opposing, all Russian: one Akula, "
-           "one Tu-214R, a Flanker pair with a Ka-27RLD spotting for them.",
+           "one Tu-214R, a Flanker pair with a Ka-27RLD spotting for them, and an "
+           "armed intelligence trawler keeping station on the group.",
     objectives=[
         ("Service", (
             "Have STALWART and COLLINS inside the service area at 35 minutes, then bring both "
@@ -1495,6 +1496,9 @@ MISSIONS.append(dict(
         # Seahawk's reach from the first minute. She used to be 204 NM away,
         # pointed elsewhere, with no route - set dressing with torpedoes.
         "red_sub": S(-14.0, 149.1, "Akula datum", heading=290),
+        # Twelve miles north-east of the support group and keeping station on
+        # it: the trawler that has been "fishing" beside the RAS box all week.
+        "picket": S(-13.35, 148.6, "Trawler picket", heading=200),
         # Now only the Ka-27RLD, on the seat it held beside the scout and
         # the Flankers before they were split off.
         "red_air": S(-11.05, 148.0, "Opposing aviation", heading=180, alt=30000),
@@ -1523,6 +1527,12 @@ MISSIONS.append(dict(
         U("red", "russian-submarines", "wp_ssn_akula", "red_sub",
           name="Contact VICTOR", depth="belowlayer",
           route=[(-13.75, 148.5, "belowlayer")], telegraph=5),
+        # An Okean-class intelligence trawler with a ZU-23 and a Bofors
+        # (Moloti's Armed Merchantmen), holding its distance and its fire:
+        # the eyes the scout and the Flankers are working from. It is armed,
+        # so the Situation roster carries it; it is not the mission's fight.
+        U("red", "armed-merchantmen", "civ_fv_okean_armed", "picket",
+          name="Trawler ZVEZDA", weapons="Hold"),
         # "A scout is coming to look at it and a raid may follow it." The
         # scout looks from 33 NM west of the box, then leaves (the stage
         # intel speaks of where it WAS looking). Its own station, so it no
@@ -1719,7 +1729,7 @@ MISSIONS.append(dict(
     forces="USS Gerald R. Ford with F-35Cs, a Growler and a Hawkeye, two "
            "Arleigh Burkes, your own escort group, three protected transports. "
            "Opposing: Fujian with J-35 and J-15D, Liaoning, a J-20 and a "
-           "KJ-600, three escorts and a submarine.",
+           "KJ-600, an H-6K out of the enclave, three escorts and a submarine.",
     objectives=[
         ("Transports", "Two of the three transports, Coral Pioneer among "
                        "them, pass to the south-east",
@@ -1828,6 +1838,13 @@ MISSIONS.append(dict(
         # index would have been the KJ-600.
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_strike",
           name="Flying Shark 21", loadout="AntiShip",
+          route=[(-5.0, 128.2, 20000)], telegraph=3),
+        # The enclave's land-based shooter (PLAAF Aircraft Pack, 3 Oct): an
+        # H-6K Late with four YJ-12 on the same run at the transports, a
+        # minute behind the J-15D. The Strike objective still names the
+        # J-15D; the Badger is the second salvo the screen has to be ready for.
+        U("red", "plaaf-aircraft-pack", "plaaf_h-6k_late", "red_strike",
+          name="Badger 31", loadout="AntiShip",
           route=[(-5.0, 128.2, 20000)], telegraph=3),
         # Their own stations, on the seats they held before the J-15D left
         # red_air: re-seated, the KJ-600 moved 3 NM and the J-20A 6.7 NM,
@@ -2579,6 +2596,7 @@ MISSIONS.append(dict(
     stations={
         "group": S(1.0, 126.5, "French group", heading=100),
         "lift": S(0.4, 127.0, "Relief lift", heading=110, alt=2000),
+        "cap": S(0.6, 126.8, "Rafale pair", heading=90, alt=28000),
         "shore": S(-0.5, 128.0, "Distribution point", heading=0),
         # The column starts twenty miles up the road; the roadblock sits
         # between it and the point, not beside the tents.
@@ -2598,9 +2616,11 @@ MISSIONS.append(dict(
           name="SPS Juan Carlos I"),
         U("blue", "sea-lynx", "fr_sea_lynx", "lift", name="Group Flight",
           alt=2000),
-        # The Rafale pair that flew CAP here left with the Dassault Rafale mod
-        # (unsubscribed 28 Sep, retired from the campaigns 3 Oct); the group's
-        # Harriers and its own air defence cover the window.
+        # The CAP pair is back on the French Air Force mod (3 Oct, evening),
+        # which ships the Rafale family under the ids the retired Dassault
+        # Rafale mod used; it was gone for one build that morning.
+        U("blue", "french-air-force", "fr_rafale_m", "cap", name="Rafale 11"),
+        U("blue", "french-air-force", "fr_rafale_m", "cap", name="Rafale 12"),
         U("blue", "french-helicopter-package", "fr_as-565_sa", "lift",
           name="Panther 21"),
         U("blue", "french-helicopter-package", "fr_as_332M", "lift",
@@ -2948,7 +2968,10 @@ MISSIONS.append(dict(
           loadout="StrikePrecision"),
         U("blue", "SEST_F16CM_JATM", "usaf_f-16cm-bl52d", "escort",
           name="Viper 31", loadout="AirToAirVLongRange"),
-        # Rafale 41 (SEST Rafale F5's LRASM fit) left with the Rafale mod, 3 Oct.
+        # The escort's one carrier aeroplane; the AIM-260 fit is SEST Rafale
+        # F5's, rebuilt on the French Air Force mod's Rafale M Late (3 Oct).
+        U("blue", "SEST_Rafale_F5", "fr_rafale_m_l", "escort", name="Rafale 41",
+          loadout="SEST_Intercept260F5"),
         U("blue", "rq-180-white-bat", "usaf_rq-180", "sensor",
           name="White Bat 01", weapons="Hold"),
         # FQ-44 Fury carrier wingmen (Workshop 3804868806, fictional naval
@@ -3153,7 +3176,7 @@ MISSIONS.append(dict(
         "does. Losing the gunship ends the operation."),
     forces="An AH-64E and an AH-64D, two A-10Cs, an AC-130J, an F-15E, a "
            "Polish F-16C, a "
-           "B-2 on a single allocated pass, and two MV-22B with the airhead's "
+           "B-2 on a single allocated pass, two MV-22B and an Army MV-75 with the airhead's "
            "first lift. Opposing: a J-16, an attack "
            "helicopter, a PLA road "
            "detachment and a mobile SAM on the ridge.",
@@ -3235,6 +3258,10 @@ MISSIONS.append(dict(
         U("blue", "mv-22b-osprey", "mv22b_osprey", "lift", name="Dragon 71",
           weapons="Hold", loadout="Transport"),
         U("blue", "mv-22b-osprey", "mv22b_osprey", "lift", name="Dragon 72",
+          weapons="Hold", loadout="Transport"),
+        # The Army's tiltrotor (MV-75 Cheyenne II, 3 Oct), the third lifter
+        # in the same stream: Transport is its seated fit.
+        U("blue", "mv-75-cheyenne-ii", "usa_mv75_army", "lift", name="Valor 73",
           weapons="Hold", loadout="Transport"),
     ],
 ))

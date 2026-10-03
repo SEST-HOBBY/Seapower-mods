@@ -31,7 +31,11 @@ dependants:
                    build stops on it. In systems/ files a key the pack
                    carries at vanilla's own new value is a MIRROR instead:
                    Collection Fixes restores the game's weapons.ini sections
-                   over stale mod copies, and must agree with the game.
+                   over stale mod copies, and must agree with the game. In
+                   language_*/ files only a section the pack carries VERBATIM
+                   (vanilla's keys, vanilla's values, nothing else) mirrors:
+                   Collection Fixes ships the game's loading_tips.ini that
+                   way over a mod's Chinese copy, and must follow the game.
   3. PLACED        unit files whose id a mission fields (Type=<id>), a flight
                    deck readies (FlightDeck_ReadyUpTaskN=<id>,...) or a
                    campaign roster sells (TaskForceModeAllowedRosterUnits= in
@@ -485,8 +489,11 @@ def shared_keys(rel, pack_text, old_text, new_text):
     Fixes does this on purpose for the weapons.ini sections four aircraft
     mods' stale copies shadow), and is MIRRORED: listed, not a finding. A
     whole systems/ section vanilla now supplies stays a clash whatever its
-    values, and so does any language_*/ key: build_missing_sensors() and
-    build_missing_loadout_names() stop on the NAME, so the next build does."""
+    values. A language_*/ key mirrors only when the pack carries the whole
+    section VERBATIM - vanilla's keys, vanilla's values, not one more - which
+    is what build_vanilla_tips() does with loading_tips.ini; a section that
+    adds names stays a clash on every new key, because build_missing_sensors()
+    and build_missing_loadout_names() stop on the NAME, so the next build does."""
     pack_ini, old_ini, new_ini = parse_ini(pack_text), parse_ini(old_text), parse_ini(new_text)
     clashes, changed, unchanged, mirrored = [], [], 0, []
     for section, keys in pack_ini.items():
@@ -494,11 +501,15 @@ def shared_keys(rel, pack_text, old_text, new_text):
         if rel.startswith("systems/") and section and section in new_ini and was is None:
             clashes.append((section, None))      # a whole definition vanilla now supplies
             continue
+        verbatim = (rel.startswith("language_") and section in new_ini
+                    and {k: visible(v) for k, v in keys.items()}
+                    == {k: visible(v) for k, v in new_ini[section].items()})
         for key in keys:
             if section not in new_ini or key not in new_ini[section]:
                 continue
             if was is None or key not in was:
-                if rel.startswith("systems/") and visible(keys[key]) == visible(new_ini[section][key]):
+                same = visible(keys[key]) == visible(new_ini[section][key])
+                if (rel.startswith("systems/") and same) or verbatim:
                     mirrored.append((section, key))
                 else:
                     clashes.append((section, key))
