@@ -1,5 +1,5 @@
 # The live install's own changelog head and campaign list, against the
-# export this repo reasons from (0.8.2 Build #358, 20-Jul-2026).
+# export this repo reasons from (0.8.3 Build 261001, 01-Oct-2026).
 
 changelog copied to changelog.live.txt; head:
     Change log
@@ -7,10 +7,10 @@ changelog copied to changelog.live.txt; head:
     
     ===============================================================================
     
-    01-Oct-2026: 0.8.3 Build 261001 Public Release
+    02-Oct-2026: 0.8.4 Build 261002 Public Release
     ----------------------------------------------
-    [UPD] Translations
-    [UPD] Weapons: added sustained fire cooldown after firing 500/1000 (blk0/blk1) rounds for Mk15 Phalanx
+    [FIX] Mod menu folder picker not selecting directory
+    [FIX] Null refs and exceptions
     
     ===============================================================================
     

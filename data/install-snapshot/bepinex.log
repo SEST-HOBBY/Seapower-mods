@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - last 373 line(s) of a 0.0 MB file, last written 2026-10-02T23:32:23. 
+# BepInEx\LogOutput.log - last 366 line(s) of a 0.0 MB file, last written 2026-10-03T12:17:13. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (24/02/2026 10:31:59 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.67.7905730
@@ -37,14 +37,14 @@
 [Warning:AnchorChain] Attempted to load a duplicate plugin: Sub Ammunition (io.github.yourname.sub-ammunition)
 [Info   :AnchorChain] Loaded assembly LoadoutManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly BetterTacMap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly AutoTOT, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly CoordinatedStrikeTool, Version=1.3.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly AutomaticSAR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly IdentifyExpanded, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ACC.CV16.SkiJumpFix, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Z20RotorVisualSync, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly J16AfterburnerNozzle_v1.2.0, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly J16Systems, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly J36AfterburnerNozzle, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OspreyDeckOps, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OspreyMechanics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -52,7 +52,6 @@
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponSystem and name _containerBaseObject
 [Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null
 [Warning:AnchorChain] Attempted to load a duplicate plugin: Sea Power scoped runtime fixes (alpine.seapower.runtime)
-[Info   :AnchorChain] Loaded assembly CoordinatedStrikeTool, Version=1.3.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded plugin Sonar Audio Loader (io.github.euromod.sonar-audio-loader)
 [Info   :AnchorChain] Loaded plugin EnhancedDecoyMod (io.github.euromod.enhanceddecoymod)
 [Info   :AnchorChain] Loaded plugin EnhancedUIMod (local.seapower.enhanceduimod)
@@ -341,14 +340,8 @@
 [Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.WeaponBase and name ActivateRadarGuidanceSystem and parameters 
 [Info   :AnchorChain] Loaded plugin CustomLoadoutManager (l963.seapower.loadoutmanager)
 [Info   :AnchorChain] Loaded plugin BetterTacMap (toemel.bettertacmap)
-[Info   :   AutoTOT] [AutoTOT] estimator: ASYNC, 3 solve worker(s) started (12 logical cores)
-[Info   :   AutoTOT] [AutoTOT] patch target resolved: SeaPower.ObjectBase.InsertEngageTask
-[Info   :   AutoTOT] [AutoTOT] DOTS scan hardening target resolved: Unity.Entities.TypeManager.IsAssemblyReferencingEntities(Assembly)
-[Info   :   AutoTOT] [AutoTOT] DOTS scan hardening target resolved: Unity.Entities.TypeManager.IsAssemblyReferencingEntitiesOrUnityEngine(Assembly, Boolean&, Boolean&)
-[Info   :   AutoTOT] [AutoTOT] DOTS scan hardening active: 2 scan method(s) shielded, multiplayer mission-load crash shield enabled.
-[Info   :   AutoTOT] [AutoTOT] AppDomain assembly-name sweep: all assemblies name cleanly at load time.
-[Info   :   AutoTOT] Auto Time-on-Target v0.2.1 loaded (Enabled=True, Armed=False, Unity=6000.0.67f1).
-[Info   :AnchorChain] Loaded plugin Auto Time-on-Target (com.seapowermods.autotot)
+[Info   :Coordinated Strike Tool] Coordinated Strike Tool 1.3.1 loaded. Press the panel hotkey (default F8) in a mission to open the planner.
+[Info   :AnchorChain] Loaded plugin Coordinated Strike Tool (coordinatedstriketool)
 [Info   :AnchorChain] Loaded plugin Automatic SAR (local.automatic-sar)
 [Info   :AnchorChain] Loaded plugin IdentifyExpanded (com.fmsv.identifyexpanded)
 [Warning:  HarmonyX] meltemi.acc.cv16.skijumpfix: You should only patch implemented methods/constructors to avoid issues. Patch the declared method void SeaPower.FlightDeckPoint::Release(SeaPower.ObjectBase occupyingObject) instead of void SeaPower.FlightDeckPoint::Release(SeaPower.ObjectBase occupyingObject).
@@ -358,7 +351,9 @@
 [Info   :AnchorChain] Loaded plugin Sea Power scoped runtime fixes (alpine.seapower.runtime)
 [Info   :AnchorChain] Loaded plugin Fury voice routing (alpine.seapower.furyvoice)
 [Info   :AnchorChain] Loaded plugin Fury Friendly Loss Voice (fury.voice.friendlyloss)
-[Info   :AnchorChain] Loaded plugin J-16 Afterburner Nozzle (meltemi.seapower.j16.afterburner-nozzle)
+[Info   :J-16 Systems] features from J16Systems.ini: lights=True afterburner=True chute=True
+[Info   :J-16 Systems] J-16 Systems 1.1.0 patched (afterburner + landing/formation/navigation lights + brake parachute).
+[Info   :AnchorChain] Loaded plugin J-16 Systems (meltemi.seapower.j16.systems)
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FixedWingFlightPhysics and name _aircraftParameters
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FixedWingFlightPhysics and name _aircraftParameters
 [Info   :AnchorChain] Loaded plugin J-36 Systems (meltemi.seapower.j36.afterburner-nozzle)
@@ -366,8 +361,6 @@
 [Info   :OspreyMechanics] V-22 rig 1.1.30 ready; 20-ft minimum, 10-kt rescue and hover, terminal hover handoff and deck audio gates active.
 [Info   :AnchorChain] Loaded plugin MV-22 Source Mechanics (local.mv22.source.mechanics)
 [Info   :AnchorChain] Loaded plugin Z-21 Gun and EOTS Synchronization (meltemi.seapower.z21.gun-move-fire)
-[Info   :Coordinated Strike Tool] Coordinated Strike Tool 1.3.1 loaded. Press the panel hotkey (default F8) in a mission to open the planner.
-[Info   :AnchorChain] Loaded plugin Coordinated Strike Tool (coordinatedstriketool)
 [Info   :AnchorChain] Loaded plugin MV-22 Deck Operations (local.mv22.deckops)
 [Info   :AnchorChain] Loaded AnchorChain V1.1.0!
 [Message:   BepInEx] Chainloader startup complete
