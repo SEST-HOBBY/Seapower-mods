@@ -37,7 +37,6 @@ TIER1 = [("anchor-chain", "loader — SeaLifter loads via its preloader alongsid
 TIER1B = [
     ("custom-loadout-editor", "code mod — position not order-sensitive"),
     ("better-tacmap", "code mod — UI"),
-    ("auto-time-on-target", "code mod — ships no game data at all, one _info.ini"),
     ("coordinated-strike-tool", "code mod — time-on-target planner (F8); no game data, one _info.ini"),
     ("automatic-sar", "code mod — right-click SAR; the campaign pays for survivors"),
     ("identify-expanded", "code mod — identification and challenge orders; reads its own ini"),

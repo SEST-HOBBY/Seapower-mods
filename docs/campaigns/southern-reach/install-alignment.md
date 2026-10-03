@@ -24,10 +24,10 @@ throws away a load-order change made while it is running.
 ## Already aligned once? The short version for later rounds
 
 Both `sest-dev/loving-bell-3cnvvw` and `feature/northern-front-iii-export`
-sit on `60b89fe9`, the PC's own 30 Sep push (the mod export and the
-install snapshot). Everything this session has
-pushed since builds straight on that commit, so a later round is the same
-fast-forward and one sync. Close Sea Power, then paste this into PowerShell
+last moved to `83809295` (the 2 Oct round) by this block, after the PC's own
+30 Sep push `60b89fe9` (the mod export and the install snapshot).
+Everything this session has pushed since builds straight on those commits,
+so a later round is the same fast-forward and one sync. Close Sea Power, then paste this into PowerShell
 as one block. It has no blank lines on purpose: the console reads a paste
 line by line, and an empty line would end the block early. If it stops at a
 `>>` prompt, press Enter once more to run it.
@@ -53,8 +53,10 @@ line by line, and an empty line would end the block early. If it stops at a
 It stops, before anything is pushed or installed, if the game is running, if
 the clone has changes of its own (report them rather than committing them),
 or if the fast-forward is refused (step 2). The sync's last lines should read
-`IN LINE: all 1203 installed files match this commit (<hash>)`, the hash
-being the one the merge landed on (`git log --oneline -1`).
+`IN LINE: all 1265 installed files match this commit (<hash>)`, the hash
+being the one the merge landed on (`git log --oneline -1`). This round the
+sync also prints `dropped stale workshop entry` for `3789793270`, Auto
+Time-on-Target: expected, that is the retirement below.
 `-RefreshMissions` on the sync is only for a round where the sync says it
 merged your own mission edits: it re-spreads the airliners in the missions
 you imported from the game.
@@ -96,7 +98,48 @@ folder missing, a `False`, a count of 2, "No Open Allocation campaigns
 installed" or "The Twelve-Mile Line is not installed" means the sync did not
 install this build: read its output before playing.
 
-### This round (2 Oct): Sea Power 0.8.3
+### This round (3 Oct): combat systems, the CIWS model, Auto Time-on-Target retired
+
+The two 0.8.3 decisions the 2 Oct round left to you are taken, and the look
+at the CIWS data found something larger. Southern Watch build notes,
+*Combat systems and the CIWS model*, has the whole record; what changes for
+you:
+
+1. **Your ships name their combat systems.** The Anzac reads Saab 9LV with
+   CEAFAR (`SEST 9LV MLU`), the Hobart Aegis Baseline 9, Canberra, Arafura
+   and Supply 9LV, the Mogami her OYQ-1 - where the Anzac and Mogami
+   declared none and Supply declared None. Every PLAN surface hull the
+   campaigns field, and every coalition hull that lacked one, gets a profile
+   too, by `#!extend` from the SEST pack (60 files). Submarines take none,
+   like every vanilla boat. Shift+Y on an Anzac and on a 054A is the test
+   (Southern Reach card 7.3 and 7.3a): the 054A reading `SEST PLAN
+   Multirole` proves an extend from our pack reaches another mod's hull,
+   which Euromod relies on but we have not seen.
+2. **The CIWS are on the 0.8.3 model.** The PLAN's Type 730 and 1130 fall
+   from anchors 85 and 102 to 55 and 60 (vanilla's Phalanx Block 1 is 50),
+   the Kashtan from 95 to 45, the Phalanx Block 1A/1B copies in three packs
+   from 85/90 to 50/55, and 22 sections in all; the Anzac's Phalanx is
+   vanilla's Block 1 definition. And four aircraft mods you run (Tu-95MS,
+   MORE SU24M VARIANTS, KC-135 Stratotanker, Su-30SM2) each carry a stale
+   copy of the game's whole `weapons.ini`, so the game's own 0.8.3 AK-630,
+   Phalanx and AK-230 - and 63 stock guns and launchers - were not being
+   read on any hull; the pack restores the game's text for 66 sections.
+   Those four mods are fine to keep: the pack now overrides the copies.
+3. **Auto Time-on-Target is retired.** You unsubscribed it on 3 Oct;
+   it is out of the canonical order, the catalogue's active set, the code
+   tier and the campaign excuses, so the sync stops re-adding it and this
+   round prints `dropped stale workshop entry` for it once. Coordinated
+   Strike Tool (F8) stays. `check_inventory` is red on its folder until
+   your next export prunes it.
+4. **The count is 1265** (1203, plus 60 extend files and the two systems
+   files).
+
+What to do: the standard update block (*Already aligned once?*), expecting
+`IN LINE: all 1265 installed files match this commit (<hash>)`, then the
+play test - the 2 Oct round's watch list still stands (Hold aircraft,
+Standing Orders), with Shift+Y on the Anzac and a 054A added to it.
+
+### The 2 Oct round: Sea Power 0.8.3
 
 Steam updated the game on 2 Oct: **0.8.3 Build 261001** of 1 Oct (the repo
 had reasoned from 0.8.2 Build #358 of 20 Jul). Your export brought the new
@@ -420,7 +463,7 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1203** for this build |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1265** for this build |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |
@@ -436,7 +479,9 @@ pages; 1189 with the three Open Allocation twins; 1201 with The Twelve-Mile Line
 mission, briefing folder and chart in both copies, its card and the story page before
 it - which takes Southern Reach to 26 missions and 69 art files; 1203 on the 0.8.3
 game files, SEST Replenishment metering two more hulls' rounds: the early Wasp Modern
-US Navy released from its Pending folder and the SY-1 the game repriced).
+US Navy released from its Pending folder and the SY-1 the game repriced; 1265 with
+the combat systems - 60 `#!extend` files, one per mod hull given a profile, and the
+`combatsystems.ini` and `weapons.ini` Collection Fixes now ships).
 
 ## 5 — confirm the campaigns arrived
 

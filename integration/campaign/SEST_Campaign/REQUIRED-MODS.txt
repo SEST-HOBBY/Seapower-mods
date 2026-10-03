@@ -176,12 +176,11 @@ NOT IN THIS LIST AND STILL REQUIRED:
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (8), and left in the order
+Also enabled while this was built (7), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
 
-3789793270    library                          Auto Time-on-Target
 3774105087    library                          Automatic SAR
 3768036424    library                          Better TacMap
 3806686336    library                          Coordinated Strike Tool

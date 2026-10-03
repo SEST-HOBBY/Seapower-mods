@@ -65,7 +65,7 @@ pack's root, is the union across every campaign in the pack.
 is asked for; the map, salvo and rescue tools are conveniences).
 
 
-4. NOT USED BY THIS CAMPAIGN (116): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (115): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -79,7 +79,6 @@ shared file wins for the mods above.
   3416372890    Apex Predators MIG-29A & F-16A
   3403993583    Armed Oil Rig with Helo MOD
   3502273861    ARRW (AGM-183)
-  3789793270    Auto Time-on-Target
   3774105087    Automatic SAR
   3774746803    AVIC HARBIN Z-21
   3652097318    B-1B Lancer

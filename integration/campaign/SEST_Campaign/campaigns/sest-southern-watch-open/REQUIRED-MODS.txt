@@ -167,11 +167,10 @@ itself never loads them. Leave them out if you only play the campaign.
   (local)       a squadron a flight comes from   SEST Raptor Squadrons
   (local)       a unit a mission places          SEST Replenishment At Sea
 
-3. INSTALL-WIDE LIBRARIES AND UI (7): ship no file a mission names. Optional unless a mod in list 1 asks for them (Anchor Chain
+3. INSTALL-WIDE LIBRARIES AND UI (6): ship no file a mission names. Optional unless a mod in list 1 asks for them (Anchor Chain
 is asked for; the map, salvo and rescue tools are conveniences).
 
   3380210757    library                          Anchor Chain
-  3789793270    library                          Auto Time-on-Target
   3774105087    library                          Automatic SAR
   3768036424    library                          Better TacMap
   3806686336    library                          Coordinated Strike Tool

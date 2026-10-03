@@ -28,10 +28,11 @@ OUT = Path(__file__).resolve().parent / "SEST_JMSDF_Mogami"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.ras import make_reloadable  # noqa: E402
+from common.combat import set_combat_system  # noqa: E402
 
 INFO_INI = """[Language_en]
 Name=SEST JMSDF Mogami
-Description=Gives the Mogami-class frigate its real JMSDF air group: embarks an SH-60K and supports both JMSDF Seahawks from the Euromod JMSDF pack (SH-2F kept for compatibility). Also flags its Mk141 and chaff launchers ReloadableWithoutMagazine=True so SEST Replenishment At Sea can refill them. Requires the Mogami-class Frigate mod and Euromod JMSDF. Place ABOVE the Mogami mod in the Mod Manager.
+Description=Gives the Mogami-class frigate its real JMSDF air group: embarks an SH-60K and supports both JMSDF Seahawks from the Euromod JMSDF pack (SH-2F kept for compatibility). Also flags its Mk141 and chaff launchers ReloadableWithoutMagazine=True so SEST Replenishment At Sea can refill them, and for Sea Power 0.8.3 names her OYQ-1 combat system (profile in SEST Collection Fixes). Requires the Mogami-class Frigate mod and Euromod JMSDF. Place ABOVE the Mogami mod in the Mod Manager.
 
 [Compatibility]
 ApproximateVersion=0.8.3
@@ -63,12 +64,21 @@ def main():
         sys.exit("no bare launchers left to flag on the Mogami — upstream may have "
                  "added magazines or the flag itself; re-check before shipping")
 
+    # Sea Power 0.8.3: the Mogami mod declares no combat system, so the game
+    # would derive one from her service year. The FFM's OYQ-1 is modelled by
+    # Euromod's OYQ_Integrated profile (VeryFast, 96 contacts, 5 worked); the
+    # SEST clone of it ships in SEST Collection Fixes (common/combat.py).
+    if re.search(r"^\[CombatSystems\]", text, re.M):
+        sys.exit("the Mogami mod now declares its own [CombatSystems] - drop ours")
+    text = set_combat_system(text, "SEST_OYQ_Integrated", "js_ffg_mogami",
+                             note="SEST JMSDF Mogami: OYQ-1")
+
     (OUT / "vessels").mkdir(parents=True, exist_ok=True)
     (OUT / "vessels" / "js_ffg_mogami.ini").write_text(text, encoding="utf-8")
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     print(f"built {OUT.relative_to(ROOT)}: Mogami now embarks jmsdf_sh-60k, "
           f"supports jmsdf_sh-60k/jmsdf_sh-60j/usn_sh-2f, {reloadable} launchers "
-          "made reloadable for RAS")
+          "made reloadable for RAS, combat system SEST_OYQ_Integrated")
 
 
 if __name__ == "__main__":

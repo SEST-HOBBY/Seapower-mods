@@ -16,7 +16,7 @@ are theirs and are not repeated.
 | Placed units | 68; RL05 and RL06's 12 positions proved against the coastline extract, RL01–RL04's 22 stations used as authored (below) |
 | Mods reached | 43 directly; the pack union with the other two campaigns still reaches all 164 enabled mods and SEST packs |
 | Points | 560 across six missions; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 (1,250 on Veteran) |
-| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 668 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line and 1203 on the 0.8.3 game files |
+| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 668 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line, 1203 on the 0.8.3 game files and 1265 with the combat systems (60 extend files, two systems files) |
 | The other campaigns | every mission file, story page and `campaign.ini` of Southern Watch and Southern Reach is byte-identical. Nine of their mission cards changed, on purpose (below) |
 
 The code is `integration/campaign/red_line/`: `__init__.py` (the spec, the
@@ -337,3 +337,22 @@ the 198 stock units the pack fields that the update changed are all still
 there, none renamed or removed; and nothing new is placed, since every unit
 0.8.3 added is a 1960s-90s type. The pack is 1203 files and declares
 0.8.3.
+
+## Combat systems and the CIWS model (3 October)
+
+Southern Watch's build notes, *Combat systems and the CIWS model*, have the
+whole record; what it means for the red side. Every PLAN surface hull Red
+Line puts the player in or against now names a combat system where it
+declared none: the 054A `SEST_PLAN_Multirole` (Fast, 48 contacts, 3
+worked), the 056A `SEST_PLAN_Compact`, the 052D `SEST_PLAN_AAW` (VeryFast,
+120, 5), the 055 `SEST_PLAN_Cruiser`, the carriers `SEST_PLAN_Carrier`, the
+Type 071 `SEST_PLAN_Amphibious` - clones of Euromod profiles under SEST
+names, assigned by `#!extend` from the top of the order. The coalition
+hulls facing them get theirs the same way (Ford, the 2027 Ticonderoga, the
+Daegu and KDX-III, the French and the old Type 23), and the Hobart, Anzac
+and Mogami name theirs on the hull. Submarines on both sides take none,
+like every vanilla boat. The Type 730 and Type 1130 are on the 0.8.3 burst
+model (anchors 55 and 60, were 85 and 102; the 1130 keeps its eleven
+barrels' 11,000 rounds a minute), and the vanilla AK-630 the Luda and
+Sovremenny mount reads the game's own retune again instead of a stale copy
+four aircraft mods carried. The pack is 1265 files. Test card, 8A.
