@@ -43,7 +43,8 @@ sys.path.insert(0, str(ROOT / "integration" / "missions"))
 sys.path.insert(0, str(ROOT / "integration" / "replenishment"))
 import build_patch as builder  # noqa: E402
 from common.ras import (CLONES, RESTORE_ROUNDS, SUPPLIERS,  # noqa: E402
-                        apply_refit, apply_store_fix, render_supply_block)
+                        apply_airgroup_fix, apply_refit, apply_store_fix,
+                        render_supply_block)
 
 # The emitted supply block is not matched by pattern, it is RE-RENDERED from
 # the tuning table and removed literally. A regex that ran "to the next line
@@ -188,7 +189,10 @@ def main():
             want = apply_store_fix(
                 want.decode("utf-8", "surrogateescape"),
                 lambda prefs, *_: builder.resolve_system(prefs, "fidelity", "@x"),
-                Path(rel).stem)[0].encode("utf-8", "surrogateescape")
+                Path(rel).stem)[0]
+            # The same forward application for an air group a mod update
+            # broke (AIRGROUP_FIXES).
+            want = apply_airgroup_fix(want, Path(rel).stem)[0].encode("utf-8", "surrogateescape")
         got = strip_insertions(rel, f.read_bytes())
         if Path(rel).stem in RESTORE_ROUNDS:
             # the upstream lacks the restored keys by definition; nothing to strip there

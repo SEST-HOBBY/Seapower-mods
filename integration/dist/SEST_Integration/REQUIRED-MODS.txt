@@ -7,7 +7,7 @@ dependencies", and it iterates, so a dependency's own dependencies
 come too. If that works you do not need the list below at all, and
 it is here to check against rather than to work through by hand.
 
-137 mods. Each supplies a file a mission names directly - by
+136 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -51,7 +51,6 @@ Workshop id   supplies                         mod
 3417801942    a unit a mission places          Chinese Navy (PLAN)
 3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
 3606134711    a weapon a loadout hangs         Custom Loadout Editor
-3504168760    a unit a mission places          Dassault Rafale
 3558173926    a unit a mission places          David's Sling
 3760871384    a weapon a loadout hangs         Dingtools Weapon Pack
 3587877691    a unit a mission places          Eurofighter Typhoon
@@ -210,7 +209,6 @@ the repository also builds each of them on its own.
 (local)       unit                             SEST RAAF Bases
 (local)       unit                             SEST RAAF F-35A JATM
 (local)       squadron                         SEST RAAF Wedgetail
-(local)       unit                             SEST Rafale F5
 (local)       unit                             SEST RAN Fleet
 (local)       squadron                         SEST Raptor Squadrons
 (local)       unit                             SEST Replenishment At Sea

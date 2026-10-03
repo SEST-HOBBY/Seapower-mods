@@ -936,6 +936,38 @@ FREE_ROUND_ACCEPTED = {
         "bounded exposure; a free 20000-round CIWS magazine was not.",
 }
 
+# An air-group line that embarks a unit no mod ships any more. Modern US
+# Navy's 3 Oct 2026 update dropped usn_mh-60r_26, its Seahawk under the 2026
+# fit, and the Ford mod's air group still embarks ten of them - so the
+# carrier the campaigns field (Fujian's Shadow, the NF3 scenarios) would sail
+# without a helicopter. The line is repointed to the Seahawk the collection
+# does ship, on its first squadron; the count is kept. Applied to the copies
+# this pack ships, the way STORE_FIXES repairs a broken round id, and proved
+# the same way by check_pack_fidelity.
+AIRGROUP_FIXES = {"usn_mh-60r_26": ("usn_mh-60r", "Squadron1")}
+_AIRGROUP_LINE = re.compile(r"^([A-Za-z0-9_.()'-]+)=(Squadron\d+),(\d+)[ \t]*$", re.M)
+
+
+def apply_airgroup_fix(text, unit_id):
+    """Repoint this hull's air-group lines that embark a dropped unit.
+    Returns (text, {old id: new line}); only the [AirGroup] section is touched."""
+    m = re.search(r"^\[AirGroup\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+    if not m:
+        return text, {}
+    applied = {}
+
+    def one(line):
+        old, _squadron, count = line.group(1), line.group(2), line.group(3)
+        if old not in AIRGROUP_FIXES:
+            return line.group(0)
+        new, squadron = AIRGROUP_FIXES[old]
+        applied[old] = f"{new}={squadron},{count}"
+        return applied[old]
+
+    body = _AIRGROUP_LINE.sub(one, m.group(1))
+    return text[:m.start(1)] + body + text[m.end(1):], applied
+
+
 _STORE_LINE = re.compile(r"^(Ammunition\d*|Station\d+)=([^\n]*)$", re.M)
 
 

@@ -20,7 +20,7 @@ EVENTS = [
          sub="Tasking signal from Fleet headquarters",
          header=[("FROM:", "FLEET HEADQUARTERS"),
                  ("TO:", "COMMANDER, CARRIER TASK GROUP"),
-                 ("DTG:", "022200Z NOV 28"), ("PREC:", "IMMEDIATE"),
+                 ("DTG:", "022200Z NOV 2028"), ("PREC:", "IMMEDIATE"),
                  ("SUBJ:", "PROTECTION AND EVACUATION - TASKING")],
          body=[
              "1. THE GROUP WILL ENTER THE MOLUCCA SEA AND TAKE STATION IN THE "
@@ -44,7 +44,7 @@ EVENTS = [
          title="Guidance requested\\n22 November 2028",
          sub="The group's signal as sent, the reply, and the order of the 26th",
          header=[("FROM:", "COMMANDER, CARRIER TASK GROUP"),
-                 ("TO:", "FLEET HEADQUARTERS"), ("DTG:", "220110Z NOV 28"),
+                 ("TO:", "FLEET HEADQUARTERS"), ("DTG:", "220110Z NOV 2028"),
                  ("PREC:", "IMMEDIATE"), ("SUBJ:", "GROUP STATE - GUIDANCE REQUESTED")],
          body=[
              "Group state follows. The escorts are worn and the air wing has "
@@ -76,7 +76,7 @@ EVENTS = [
          sub="Signal from Fleet headquarters, received at sea: the southern tasking",
          header=[("FROM:", "FLEET HEADQUARTERS"),
                  ("TO:", "COMMANDER, CARRIER TASK GROUP"),
-                 ("DTG:", "220300Z DEC 28"), ("PREC:", "IMMEDIATE"),
+                 ("DTG:", "220300Z DEC 2028"), ("PREC:", "IMMEDIATE"),
                  ("SUBJ:", "SOUTHERN TASKING")],
          body=[
              "1. ON ARRIVAL YOU ASSUME COMMAND OF THE SOUTHERN OCEAN FISHERIES "
@@ -103,7 +103,7 @@ EVENTS = [
          title="The last signal\\n25 February 2029",
          sub="The protection group commander to Fleet headquarters, as sent",
          header=[("FROM:", "COMMANDER, PROTECTION GROUP"),
-                 ("TO:", "FLEET HEADQUARTERS"), ("DTG:", "250140Z FEB 29"),
+                 ("TO:", "FLEET HEADQUARTERS"), ("DTG:", "250140Z FEB 2029"),
                  ("PREC:", "IMMEDIATE"), ("SUBJ:", "THE MOVEMENT OF THE 26TH - GUIDANCE REQUESTED")],
          body=[
              "Estimate of the group for the headquarters' decision. The group "

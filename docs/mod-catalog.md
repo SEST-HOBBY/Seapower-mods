@@ -1,6 +1,6 @@
 # Sea Power Mod Catalog
 
-150 Workshop mods catalogued — 145 in the local inventory, 5 historical entries kept for reference, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
+150 Workshop mods catalogued — 144 in the local inventory, 6 historical entries kept for reference, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
 
 See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency audit, and recommended mod order.
 
@@ -135,7 +135,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
-| Dassault Rafale | misaka | fixed-wing | French multirole carrier and land-based fighter. |
+| Dassault Rafale — historical / unsubscribed | misaka | fixed-wing | UNSUBSCRIBED (gone from the PC's Steam list between the 27 and 28 Sep 2026 snapshots; the 30 Sep export pruned its folder) and RETIRED FROM THE CAMPAIGNS 2026-10-03 on the player's word: Southern Watch D3's Rafale CAP pair and D6's Rafale 41 escort are gone, the Open Allocation allied fleet no longer sells the Rafale M or B, the Banda vignette 'Rafale, Timor Gap' and the SEST Rafale F5 pack (JATM, MALICE and LRASM fits on the late Rafales) are retired with it. No other mod in the collection ships a Rafale; the Charles de Gaulle & Modern French Navy pack's carrier names this mod's fr_rafale_m_l and fr_rafale_m_tanker in its air group, so the carrier sails without fighters until a Rafale returns. Previously: French multirole carrier and land-based fighter. |
 | French Army Vehicles | LLinqs | land | Leclerc XLR, VBCI, Jaguar, AMX-10, Griffon, Serval, VBL, VAB, M270 LRU, CAESAR, SAMP/T NG, VLFS. **Overlaps:** sam-pack and ground-upgrade-spaa (SAMP/T NG is a land SAM inside the air-defense overlap watch) |
 | French Helicopter Package | misaka | rotary | French Air Force / Navy / ALAT helicopters for assault, fire support, ASW, anti-surface roles. **Overlaps:** sea-lynx (Lynx variants) |
 | Charles De Gaulle & Modern French Navy Pack (WIP) 🚧 WIP | LLinqs | ship | CVN Charles de Gaulle and modern French Navy vessels; marked WIP. |

@@ -87,7 +87,7 @@ pack's root, is the union across every campaign in the pack.
   3380210757    required by another mod          Anchor Chain
                                                    asked for by: MV-22B Osprey Tiltrotor / JGSDF V-22B
 
-1b. ONLY FOR THE DISPATCHES (59): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
+1b. ONLY FOR THE DISPATCHES (58): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
 itself never loads them. Leave them out if you only play the campaign.
 
   3587091564    a unit a mission places          3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -106,7 +106,6 @@ itself never loads them. Leave them out if you only play the campaign.
   3741944366    a squadron a flight comes from   B-52H Stratofortress
   3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
   3606134711    a weapon a loadout hangs         Custom Loadout Editor
-  3504168760    a unit a mission places          Dassault Rafale
   3558173926    a unit a mission places          David's Sling
   3587877691    a unit a mission places          Eurofighter Typhoon
   3444379330    a hull variant in use            Euromod - Modern Dutch navy

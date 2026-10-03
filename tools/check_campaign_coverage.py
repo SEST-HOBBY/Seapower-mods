@@ -42,6 +42,7 @@ def missions():
     found = sorted(f for f in pack.rglob("*.ini")
                    if f.name not in ("_info.ini", "campaign.ini",
                                      "player_task_force_roster.ini",
+                                     "enemy_theater_roster.ini",
                                      "commander_settings.ini")
                    and not f.parent.name.endswith("_briefing"))
     # A campaign mission ships twice - once for the campaign, once for the
@@ -366,7 +367,8 @@ def open_twin(pack, slug):
             != (base / "commander_settings.ini").read_bytes()):
         out.append(f"campaigns/{name}/commander_settings.ini: missing, or not the base "
                    "campaign's file")
-    for fn in ("campaign_rules_en.xml", "REQUIRED-MODS.txt", "player_task_force_roster.ini"):
+    for fn in ("campaign_rules_en.xml", "REQUIRED-MODS.txt", "player_task_force_roster.ini",
+               "enemy_theater_roster.ini"):
         if not (twin / fn).is_file():
             out.append(f"campaigns/{name}: no {fn}")
     if out:

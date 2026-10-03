@@ -81,7 +81,7 @@ sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from common.ras import (                                          # noqa: E402
     CLONES, METER_CATEGORIES, METER_EXEMPT, METER_THRESHOLD,
     FREE_ROUND_ACCEPTED, RELOAD_LINE, RESTORE_ROUNDS, STORE_FIXES, SUPPLIERS,
-    _WEAPON_BLOCK, apply_refit, apply_store_fix, insert_supply_block,
+    _WEAPON_BLOCK, apply_airgroup_fix, apply_refit, apply_store_fix, insert_supply_block,
     make_reloadable, tag_ammunition)
 from refine_civ_traffic import winning_file                       # noqa: E402
 
@@ -989,6 +989,11 @@ def stage_launchers(owned, already_written):
         text, repaired = apply_store_fix(text, resolve_system, Path(rel).stem)
         if repaired:
             fixed.append((rel, title, repaired))
+        # ... and an air group that embarks a unit a mod update dropped
+        # (AIRGROUP_FIXES: the Ford's ten usn_mh-60r_26 since 3 Oct 2026).
+        text, re_embarked = apply_airgroup_fix(text, Path(rel).stem)
+        if re_embarked:
+            fixed.append((rel, title, re_embarked))
         broken = dangling_stores(text)
         if broken:
             unfixable.append((rel, title, broken))

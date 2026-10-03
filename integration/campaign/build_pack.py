@@ -3572,16 +3572,20 @@ def render(mission, placed, members):
 
     # A saved result from an earlier operation, read here. 09 Shadows off
     # Palawan reveals the missile sites this way when 08A's recon completed.
+    # `level` is Identify or Classify, or "" for the bare reveal the stock
+    # Sub Duel uses for its "Initial contact" - a detection, no class. `time`
+    # is how long the reveal holds (seconds; -1 for the whole mission): the
+    # stock initial contact holds 60 s, a datum rather than a gift.
     for reveal in mission.get("reveal_if", []):
         revealed = [t for r in reveal["units"] for t in refs(members, r)]
+        level = reveal.get("level", "Identify")
         trigger(f"Reveal from {reveal['variable']}", [
             "Condition_Condition1_Type=VariableCheck",
             f"Condition_Condition1_Variable={reveal['variable']}",
             "ConditionsCompleted=<Condition1>",
             f"Action_Taskforce1_Intel={reveal['variable']}Intel",
-            "Action_UnitRevealToTaskforce=Taskforce1|"
-            + reveal.get("level", "Identify"),
-            "Action_UnitRevealTime=-1",
+            "Action_UnitRevealToTaskforce=Taskforce1" + (f"|{level}" if level else ""),
+            f"Action_UnitRevealTime={reveal.get('time', -1)}",
             f"Action_Units={','.join(revealed)}"])
 
     # A unit sitting in an air-tasking slot is a placeholder the player fills
@@ -3753,6 +3757,139 @@ def briefing_page(mission):
 ROSTER_SECTION = {"Vessel": "AllowedVessels", "Submarine": "AllowedSubmarines",
                   "Aircraft": "AllowedAircraft", "Helicopter": "AllowedHelicopters",
                   "VTOL": "AllowedAircraft"}
+
+
+# --- the enemy theatre roster: the Situation button -------------------------
+# Since 0.8.3 a linear campaign may name a Taskforce2 roster file
+# ([DynamicUnitGeneration] Taskforce2RosterFile=), and the Situation button at
+# the bottom right of the campaign screen then shows the enemy theatre ORBAT
+# and tracks it as units are encountered or destroyed. In the stock Pacific
+# Strike the same file also feeds the dynamic unit generator, which rolls
+# escorts and coastal forces from it; these campaigns generate nothing (every
+# unit is authored and placed), so the file here is the ORBAT alone - every
+# enemy unit the campaign's missions place, in the stock file's own sections.
+# The split follows the stock comments: flagships are the big hulls with a
+# flight deck (9,000 t and up: the carriers, the Type 071 and 055, a Kirov,
+# a Slava; an armed merchant stays a persistent unit), persistent units carry
+# exactly the variants the missions use, reusable units the Default, aircraft
+# their squadron and the largest flight a mission flies. A hull with no weapon
+# system - the merchants and fishing boats a mission places on the enemy side
+# as traffic or as a decoy's cover - is not order of battle and is left out.
+# Each unit files under the nation its own variant or squadron registers it to
+# (pick_nation), the mission's enemy nation only when it registers none, so
+# Red Line's coalition sorts into RAN, USN, JMSDF and RNZN rather than one
+# label. Nothing is hidden: what intelligence knows is in theatre is what the
+# player sees.
+ROSTER_NATION = {"china": "PLAN", "russia": "Russia", "ussr": "Russia", "soviet": "Russia", "iran": "Iran",
+                 "australia": "RAN", "newzealand": "RNZN", "new zealand": "RNZN",
+                 "usa": "USN", "us": "USN", "united states": "USN", "japan": "JMSDF",
+                 "korea": "ROKN", "south korea": "ROKN", "france": "France",
+                 "panama": "Panama"}
+FLAGSHIP_TONS = 9000
+ROSTER_ORDER = ("SurfaceMajorFlagships", "SurfacePersistent", "SurfaceReusable",
+                "SubmarinesPersistent", "AircraftReusable", "HelicoptersReusable")
+
+
+def displacement(uid):
+    """Displacement= of the winning hull file, tons; 0 when it declares none."""
+    kind, f = unit_file(uid)
+    if f is None:
+        return 0
+    m = re.search(r"^\s*Displacement=(\d+)", read(f), re.M)
+    return int(m.group(1)) if m else 0
+
+
+def armed(uid):
+    """Does the winning unit file mount any weapon system at all?"""
+    kind, f = unit_file(uid)
+    return bool(f) and bool(re.search(r"^\[WeaponSystem\d+", read(f), re.M))
+
+
+def flagship(uid):
+    """A big hull with a flight deck: the carriers, the Type 071 and 055, a
+    Kirov or a Slava - not an armed merchant that happens to be large."""
+    kind, f = unit_file(uid)
+    return (displacement(uid) >= FLAGSHIP_TONS and bool(f)
+            and bool(re.search(r"^\[FlightDeck\]", read(f), re.M)))
+
+
+def enemy_roster_ini(missions, placements):
+    """enemy_theater_roster.ini: every Taskforce2 unit the campaign places."""
+    picks = collections.defaultdict(lambda: collections.defaultdict(set))
+    flights = collections.defaultdict(dict)   # (nation, section) -> uid -> squadron -> flight
+    order, problems = [], []
+    for m in missions:
+        if m["group"] == "dispatch":          # browser missions the campaign never loads
+            continue
+        counts = collections.Counter()
+        for family, rows in placements[m["key"]].items():
+            if not family.startswith("Taskforce2"):
+                continue
+            for _tag, keys, _name, _flag in rows:
+                uid = keys["Type"]
+                utype = unit_type(uid)
+                if utype is None:
+                    problems.append(f"{m['key']}: {uid} resolves to no unit file")
+                    continue
+                if utype == "Vessel" and not armed(uid):
+                    continue                      # traffic, not order of battle
+                pick = keys.get("VariantReference") or keys.get("SquadronReference") or "Default"
+                nation = keys.get("Nation") or pick_nation(uid, pick) or m.get("red_nation") or ""
+                label = ROSTER_NATION.get(nation.lower(), nation.replace(" ", "") or "Enemy")
+                if label not in order:
+                    order.append(label)
+                if utype == "Vessel":
+                    variant = keys.get("VariantReference")
+                    section = ("SurfaceMajorFlagships" if flagship(uid)
+                               else "SurfacePersistent" if variant else "SurfaceReusable")
+                    picks[(label, section)][uid].add(variant or "Default")
+                elif utype == "Submarine":
+                    picks[(label, "SubmarinesPersistent")][uid].add(
+                        keys.get("VariantReference") or "Default")
+                elif utype in ("Aircraft", "VTOL", "Helicopter"):
+                    section = "HelicoptersReusable" if utype == "Helicopter" else "AircraftReusable"
+                    counts[(label, section, uid, keys.get("SquadronReference") or "Squadron1")] += 1
+                # land units: the stock roster carries none
+        for (label, section, uid, squadron), n in counts.items():
+            group = flights[(label, section)].setdefault(uid, {})
+            group[squadron] = max(group.get(squadron, 0), n)
+    if problems:
+        raise SystemExit("enemy roster failed:\n  " + "\n  ".join(problems))
+
+    def variant_key(v):
+        m = re.match(r"(\D*)(\d+)$", v)
+        return (0, int(m.group(2))) if m else (1, v)
+
+    L = [f"; SEST {TITLE} - enemy theatre roster, the order of battle the campaign's",
+         "; Situation button shows and tracks. Generated by integration/campaign/build_pack.py",
+         "; from the units the missions place: every section, variant and flight size here",
+         "; is one a mission uses. The campaign generates no units from this file - its",
+         "; missions are authored - so it carries no formations and hides nothing.", ""]
+    for label in order:
+        L.append(f"; {label}")
+        if label == "PLAN":
+            # As the stock roster does for the PLAN: class and hull number in the
+            # Situation display rather than individual ship names.
+            L += [f"[NationalForces_{label}]", "ShowOnlyClassName=True", ""]
+        for section in ROSTER_ORDER:
+            if section.endswith("Reusable") and not section.startswith("Surface"):
+                rows = flights.get((label, section), {})
+                if not rows:
+                    continue
+                L.append(f"[{section}_{label}]")
+                for uid in sorted(rows):
+                    L.append(uid + "=" + "|".join(f"{sq},{n}" for sq, n in
+                                                  sorted(rows[uid].items(), key=lambda kv: variant_key(kv[0]))))
+                L.append("")
+                continue
+            rows = picks.get((label, section), {})
+            if not rows:
+                continue
+            L.append(f"[{section}_{label}]")
+            for uid in sorted(rows):
+                L.append(uid + "=" + ",".join(sorted(rows[uid], key=variant_key)))
+            L.append("")
+    return "\n".join(L)
 
 
 def roster_ini(roster, heading=None):
@@ -4256,6 +4393,9 @@ def campaign_ini(missions, events, placements):
               "ShipIncludesAirwing=False", "PurchaseLoadouts=True",
               f"RepairCostModifier={repair}",
               f"CrewSkillInitial={TASKFORCE['CrewSkillInitial']}", ""]
+    # The Situation button's order of battle (enemy_roster_ini); the section
+    # and key are the stock campaign's, campaign.ini lines 89-90.
+    L += ["[DynamicUnitGeneration]", "Taskforce2RosterFile=enemy_theater_roster.ini", ""]
     # English only, and deliberately. See LANGS: the evidence for mirroring
     # covers SUFFIX keys, not [Language_xx] SECTIONS. The base game ships
     # `missions/Demo/_info.ini` with ja, en and ko and nothing else, and
@@ -5040,6 +5180,7 @@ def main():
         # nothing.
         campaign_text = campaign_ini([m for _n, _t, m in built], spec["EVENTS"],
                                      placements) + "\n"
+        enemy_text = enemy_roster_ini([m for _n, _t, m in built], placements) + "\n"
         rows, missing = coverage(credits, spec.get("EXCUSES", {}))
         print(f"\n{TITLE}: reaches {len(rows)} mods and packs; "
               f"{len(missing)} enabled and not reached by this campaign")
@@ -5087,6 +5228,7 @@ def main():
                               play_rows=play_rows, play_missing=play_missing,
                               credits=credits, rows=rows, missing=missing,
                               worst=worst, roster_text=roster_text,
+                              enemy_text=enemy_text,
                               campaign_text=campaign_text, missions=missions,
                               coast=list(COAST_CHECKED),
                               pooled=sum((m.get("geography") or GEOGRAPHY) != "coast"
@@ -5280,6 +5422,7 @@ def main():
         (camp / "campaign.ini").write_text(c["campaign_text"], encoding="utf-8")
         (camp / "player_task_force_roster.ini").write_text(c["roster_text"],
                                                            encoding="utf-8")
+        (camp / "enemy_theater_roster.ini").write_text(c["enemy_text"], encoding="utf-8")
         (camp / "commander_settings.ini").write_text(spec["COMMANDER"], encoding="utf-8")
         (camp / "campaign_rules_en.xml").write_text(c["rules_text"], encoding="utf-8")
         for folder, desc in folders.items():
@@ -5306,6 +5449,7 @@ def main():
                                   dispatch_only(c["rows"], c["twin_rows"]),
                                   spec["DISPATCHES"]), encoding="utf-8")
         shutil.copy2(camp / "commander_settings.ini", twin / "commander_settings.ini")
+        shutil.copy2(camp / "enemy_theater_roster.ini", twin / "enemy_theater_roster.ini")
         COVERAGE_DOC.parent.mkdir(parents=True, exist_ok=True)
         COVERAGE_DOC.write_text(report(c["rows"], spec["MISSIONS"], c["worst"],
                                        unused=c["missing"], coast=c["coast"],

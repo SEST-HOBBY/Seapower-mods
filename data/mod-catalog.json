@@ -118,12 +118,6 @@
       "title": "SEST RAN Fleet"
     },
     {
-      "folder": "SEST_Rafale_F5",
-      "source": "integration/rafale-f5",
-      "builder": "build_patch.py",
-      "title": "SEST Rafale F5"
-    },
-    {
       "folder": "SEST_Raptor_Squadrons",
       "source": "integration/raptor-squadrons",
       "builder": "build_patch.py",
@@ -169,7 +163,6 @@
         "SEST_RAAF_F-35A_JATM",
         "SEST_RAAF_Wedgetail",
         "SEST_RAN_Fleet",
-        "SEST_Rafale_F5",
         "SEST_Raptor_Squadrons",
         "SEST_Replenishment",
         "SEST_TacMap_Colors"
@@ -793,8 +786,8 @@
       "author": "misaka",
       "faction": "france",
       "type": "fixed-wing",
-      "status": "active",
-      "notes": "French multirole carrier and land-based fighter."
+      "status": "unsubscribed",
+      "notes": "UNSUBSCRIBED (gone from the PC's Steam list between the 27 and 28 Sep 2026 snapshots; the 30 Sep export pruned its folder) and RETIRED FROM THE CAMPAIGNS 2026-10-03 on the player's word: Southern Watch D3's Rafale CAP pair and D6's Rafale 41 escort are gone, the Open Allocation allied fleet no longer sells the Rafale M or B, the Banda vignette 'Rafale, Timor Gap' and the SEST Rafale F5 pack (JATM, MALICE and LRASM fits on the late Rafales) are retired with it. No other mod in the collection ships a Rafale; the Charles de Gaulle & Modern French Navy pack's carrier names this mod's fr_rafale_m_l and fr_rafale_m_tanker in its air group, so the carrier sails without fighters until a Rafale returns. Previously: French multirole carrier and land-based fighter."
     },
     {
       "id": "cdg-modern-french-navy",

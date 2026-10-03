@@ -906,6 +906,74 @@ class SameNationDiscount(unittest.TestCase):
     """The discount is the game's own rule; the page says what it covers,
     read from the squadron and hull-variant files the game takes nations from."""
 
+    def test_the_enemy_roster_sorts_units_the_way_the_stock_file_does(self):
+        # A 22,000 t LPD is a flagship, a frigate with a variant is persistent,
+        # a boat with none is reusable, a submarine is persistent, two fighters
+        # of one squadron are a flight of two, a helicopter is a helicopter.
+        missions = [dict(key="m", group="core", red_nation="China")]
+        placed = {
+            "Taskforce2Vessel": [
+                ("Taskforce2Vessel1", {"Type": "plan_lpd_type_071", "VariantReference": "Variant1"}, None, False),
+                ("Taskforce2Vessel2", {"Type": "plan_type_054a_p5", "VariantReference": "Variant1"}, None, False),
+                ("Taskforce2Vessel3", {"Type": "ir_ptg_peykaap_3", "Nation": "Iran"}, None, False)],
+            "Taskforce2Submarine": [
+                ("Taskforce2Submarine1", {"Type": "plan_ss_type_039c", "VariantReference": "Variant1"}, None, False)],
+            "Taskforce2Aircraft": [
+                ("Taskforce2Aircraft1", {"Type": "plan_j-15d", "SquadronReference": "Squadron1"}, None, False),
+                ("Taskforce2Aircraft2", {"Type": "plan_j-15d", "SquadronReference": "Squadron1"}, None, False)],
+            "Taskforce2Helicopter": [
+                ("Taskforce2Helicopter1", {"Type": "plan_z-9d", "SquadronReference": "Squadron1"}, None, False)],
+            "Taskforce1Vessel": [
+                ("Taskforce1Vessel1", {"Type": "ran_ffh_anzac", "VariantReference": "Variant1"}, None, False)],
+        }
+        placed["Taskforce2Vessel"].append(
+            ("Taskforce2Vessel4", {"Type": "civ_ms_encounter", "VariantReference": "Variant1"}, None, False))
+        text = bp.enemy_roster_ini(missions, {"m": placed})
+        self.assertNotIn("civ_ms_encounter", text, "an unarmed merchant is traffic, not ORBAT")
+        self.assertIn("[NationalForces_PLAN]\nShowOnlyClassName=True", text)
+        self.assertIn("[SurfaceMajorFlagships_PLAN]\nplan_lpd_type_071=Variant1", text)
+        self.assertIn("[SurfacePersistent_PLAN]\nplan_type_054a_p5=Variant1", text)
+        self.assertIn("[SurfaceReusable_Iran]\nir_ptg_peykaap_3=Default", text)
+        self.assertIn("[SubmarinesPersistent_PLAN]\nplan_ss_type_039c=Variant1", text)
+        self.assertIn("[AircraftReusable_PLAN]\nplan_j-15d=Squadron1,2", text)
+        self.assertIn("[HelicoptersReusable_PLAN]\nplan_z-9d=Squadron1,1", text)
+        self.assertNotIn("ran_ffh_anzac", text, "the player's own ships are not enemy ORBAT")
+
+    def test_the_enemy_roster_is_what_the_missions_place(self):
+        # The built pack: every Taskforce2 unit a campaign's missions place is
+        # in its roster, the twin carries the same file, and the spine names it.
+        root = Path(bp.__file__).resolve().parent / "SEST_Campaign" / "campaigns"
+        checked = 0
+        for camp in sorted(root.iterdir()):
+            missions = camp / "missions"
+            roster = camp / "enemy_theater_roster.ini"
+            self.assertTrue(roster.exists(), camp.name)
+            spine = (camp / "campaign.ini").read_text(encoding="utf-8")
+            self.assertIn("[DynamicUnitGeneration]\nTaskforce2RosterFile=enemy_theater_roster.ini", spine, camp.name)
+            if not missions.exists():
+                twin_of = root / camp.name.replace("-open", "")
+                self.assertEqual(roster.read_bytes(), (twin_of / "enemy_theater_roster.ini").read_bytes(),
+                                 f"{camp.name} must carry its campaign's roster")
+                continue
+            listed = set(re.findall(r"^([A-Za-z0-9_.()'-]+)=", roster.read_text(encoding="utf-8"), re.M))
+            for ini in missions.glob("*.ini"):
+                text = ini.read_text(encoding="utf-8")
+                for m in re.finditer(r"^\[Taskforce2(Vessel|Submarine|Aircraft|Helicopter)\d+\][^\n]*\n(.*?)(?=^\[)",
+                                     text, re.M | re.S):
+                    uid = re.search(r"^Type=(\S+)", m.group(2), re.M).group(1)
+                    if m.group(1) == "Vessel" and not bp.armed(uid):
+                        continue
+                    self.assertIn(uid, listed, f"{ini.name}: {uid} is placed but not in the roster")
+                    checked += 1
+        self.assertGreater(checked, 100)
+
+    def test_the_beacon_reward_is_a_datum_that_ages_off(self):
+        ini = (Path(bp.__file__).resolve().parent / "SEST_Campaign" / "campaigns" /
+               "sest-southern-watch" / "missions" / "Southern Watch 02 - Steel Highway.ini")
+        text = ini.read_text(encoding="utf-8")
+        self.assertIn("Action_UnitRevealToTaskforce=Taskforce1\nAction_UnitRevealTime=900\n", text)
+        self.assertNotIn("Taskforce1|Classify", text)
+
     def test_every_shipped_roster_is_the_commanders_own(self):
         for spec in bp.campaign_specs():
             nation = re.search(r"^CommanderNations=(.+)$", spec["COMMANDER"], re.M).group(1)

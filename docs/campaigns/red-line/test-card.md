@@ -142,6 +142,7 @@ behaviour of the engine that no file states.
 | 8A.3 | RL01 or RL06, Shift+Y on the 054A, Engagement tab | ZKJ-5A: the PLAN Pack's own system since its 3 Oct update (the Fujian reads ZBJ-1B) | Anything else = the PLAN Pack's block is not read: say which |
 | 8A.3a | RL04 The Order to Withdraw, Shift+Y on the Type 071 | SEST PLAN Amphibious (Fast, 80 contacts): the pack's `#!extend` landed on another mod's hull | The game's default = the extend does not reach it; say so (Southern Reach card 7.3a) |
 | 8A.4 | RL01, let the coalition's first anti-ship salvo reach the 054A | Her Type 1130 fires long volleys (2800 rounds, 7 s pauses) and stops most of a small salvo: the PLAN Pack's own 3 Oct tune, anchor 90 | Fire without pause = the 0.8.3 keys are not read; count what a four-missile salvo loses |
+| 8A.5 | Campaign screen, the Situation button | The coalition by nation - RAN, USN, JMSDF, RNZN - with the Maya as a flagship and the Collins and Virginias as persistent boats | No button or an empty panel = `enemy_theater_roster.ini` was not read: say which |
 
 ## 9 — the numbers to bring back
 
