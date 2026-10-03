@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - last 366 line(s) of a 0.0 MB file, last written 2026-10-03T12:17:13. 
+# BepInEx\LogOutput.log - last 458 line(s) of a 0.0 MB file, last written 2026-10-03T16:16:50. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (24/02/2026 10:31:59 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.67.7905730
@@ -365,3 +365,95 @@
 [Info   :AnchorChain] Loaded AnchorChain V1.1.0!
 [Message:   BepInEx] Chainloader startup complete
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _nation
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-1005.9230, 0.0895, 179.7236)), container='AmmunitionParent' (world (-1005.9280, 0.0395, 179.7314)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9690, 0.0895, 179.7236)), container='AmmunitionParent' (world (-1005.9640, 0.0395, 179.7158)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9230, 0.0895, 179.6941)), container='AmmunitionParent' (world (-1005.9280, 0.0395, 179.7019)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9690, 0.0895, 179.6941)), container='AmmunitionParent' (world (-1005.9640, 0.0395, 179.6862)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9230, 0.0895, 179.6645)), container='AmmunitionParent' (world (-1005.9280, 0.0395, 179.6723)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-1005.9690, 0.0895, 179.6645)), container='AmmunitionParent' (world (-1005.9640, 0.0395, 179.6567)), shipRoot='1-ran_ddg_hobart'.
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Info   :Coordinated Strike Tool] [t=1015.71s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=1082.89s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=1413.38s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=1459.51s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=1580.67s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=1613.88s] in mission: True, game menu open: False, HUD visible: True
+[Warning:  HarmonyX] AccessTools.TypeByName: Could not find type named IFFTransponder.IFFUtil
+[Info   :Coordinated Strike Tool] [t=1795.35s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=1849.49s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=3163.79s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=3168.58s] in mission: False, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=4127.11s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=4208.75s] in mission: True, game menu open: False, HUD visible: True
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Info   :Coordinated Strike Tool] [t=5481.74s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=5494.65s] in mission: False, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=5570.72s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=5579.52s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=6115.38s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=6124.00s] in mission: False, game menu open: False, HUD visible: True
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-988.5137, 0.0895, 217.2050)), container='AmmunitionParent' (world (-988.5187, 0.0395, 217.2128)), shipRoot='10-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5597, 0.0895, 217.2050)), container='AmmunitionParent' (world (-988.5547, 0.0395, 217.1972)), shipRoot='10-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5137, 0.0895, 217.1754)), container='AmmunitionParent' (world (-988.5187, 0.0395, 217.1832)), shipRoot='10-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5597, 0.0895, 217.1754)), container='AmmunitionParent' (world (-988.5547, 0.0395, 217.1676)), shipRoot='10-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5137, 0.0895, 217.1458)), container='AmmunitionParent' (world (-988.5187, 0.0395, 217.1536)), shipRoot='10-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-988.5597, 0.0895, 217.1458)), container='AmmunitionParent' (world (-988.5547, 0.0395, 217.1380)), shipRoot='10-ran_ddg_hobart'.
+[Info   :Coordinated Strike Tool] [t=6813.76s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=6821.90s] in mission: True, game menu open: False, HUD visible: True
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Info   :SubAmmunition] DEPLOY bomb pos=(-343.32, -0.02, -317.61) geo=lat=-10.3004 lon=144.1007
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Info   :Coordinated Strike Tool] [t=7987.92s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=7995.50s] in mission: False, game menu open: False, HUD visible: True
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.6423)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6346)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.6423)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.6501)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.6719)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6641)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.6719)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.6797)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.7015)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6937)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.7015)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.7093)), shipRoot='4-ran_ddg_hobart'.
+[Info   :Coordinated Strike Tool] [t=8382.96s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=8397.23s] in mission: True, game menu open: False, HUD visible: True
+[Info   :SubAmmunition] DEPLOY bomb pos=(-55.33, -0.03, 371.79) geo=lat=-10.4835 lon=144.6749
+[Info   :SubAmmunition] DEPLOY bomb pos=(-26.85, -0.03, 392.03) geo=lat=-10.4713 lon=144.6921
+[Info   :SubAmmunition] DEPLOY bomb pos=(-22.37, -0.02, 396.41) geo=lat=-10.4686 lon=144.6948
+[Info   :SubAmmunition] DEPLOY bomb pos=(-19.37, -0.02, 401.74) geo=lat=-10.4654 lon=144.6966
+[Info   :Coordinated Strike Tool] [t=9044.05s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=9052.54s] in mission: False, game menu open: False, HUD visible: True
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.6423)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6346)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.6423)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.6501)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.6719)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6641)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.6719)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.6797)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.9047, 0.0895, -292.7015)), container='AmmunitionParent' (world (216.8997, 0.0395, -292.6937)), shipRoot='4-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (216.8587, 0.0895, -292.7015)), container='AmmunitionParent' (world (216.8637, 0.0395, -292.7093)), shipRoot='4-ran_ddg_hobart'.
+[Info   :Coordinated Strike Tool] [t=9062.15s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=9188.32s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=9201.65s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=9202.78s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=9203.25s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=9248.70s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=9274.24s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=9280.86s] in mission: False, game menu open: False, HUD visible: True

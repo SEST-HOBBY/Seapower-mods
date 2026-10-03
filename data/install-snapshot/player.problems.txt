@@ -1,5 +1,19 @@
 # Lines from Player.log matching Exception/Error/not found/missing/failed.
-# 2 hit(s) - the first place to look when something did not load.
+# 16 hit(s) - the first place to look when something did not load.
 
-     71: dxgi: swapchain SetFullscreenState failed (887a0022).
-     91: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
+     90: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
+    397: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    399: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    405: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    592: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    593: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    617: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    800: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    802: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+    806: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1424: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1426: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1428: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1532: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   1853: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+   2141: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
