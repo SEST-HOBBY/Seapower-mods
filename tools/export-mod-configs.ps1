@@ -247,7 +247,12 @@ if ($IncludeVanilla) {
             if (-not (Test-Path -LiteralPath $chg)) { $chg = Join-Path (Split-Path -Parent $gameRoot) "changelog.txt" }
             if (Test-Path -LiteralPath $chg) {
                 Copy-Item -LiteralPath $chg -Destination (Join-Path $vanillaDest "changelog.txt") -Force
-                Write-Host "Game changelog copied to _vanilla\changelog.txt ($((Get-Content -LiteralPath $chg -TotalCount 12 | Where-Object { $_ -match 'Build #' } | Select-Object -First 1).Trim()))"
+                # The build line read "0.8.2 Build #358 (23444)" until 28 Sep 2026 and
+                # "0.8.3 Build 261001" since; match either, and never call a method
+                # on a line that was not found (the 3 Oct export died on exactly that).
+                $buildLine = Get-Content -LiteralPath $chg -TotalCount 12 | Where-Object { $_ -match 'Build\s+#?\w+' } | Select-Object -First 1
+                if ($buildLine) { Write-Host "Game changelog copied to _vanilla\changelog.txt ($($buildLine.Trim()))" }
+                else { Write-Host "Game changelog copied to _vanilla\changelog.txt (no Build line in its first 12 lines)" }
             } else { Write-Warning "changelog.txt not found beside the install; _vanilla\changelog.txt left as it was." }
         } else { Write-Warning "StreamingAssets not found under $($game.GameDir); vanilla export skipped." }
     }

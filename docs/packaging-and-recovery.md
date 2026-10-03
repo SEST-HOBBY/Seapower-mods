@@ -539,7 +539,14 @@ The procedure above was written the day before its first use, and the use
 changed it in two places: the game's changelog dropped the `#` and the
 `(N)` from its build lines on 28 Sep (`0.8.3 Build 261001`, `0.8.2 Build
 260928b`), so both tools now read either shape; and the exporter had never
-copied `changelog.txt`, so it does now. What 0.8.3 needed, for the record
+copied `changelog.txt`, so it does now. The exporter's own one-line report of
+that copy still matched `Build #`, and on 3 Oct it died on the null that
+returned - after every file was copied, before the prune and the manifest -
+so the PC's first export after a mod update stopped with the tree dirty and
+nothing committed. It matches either shape now and reports the copy whether
+or not it finds a build line. An export that dies that way is re-run, not
+repaired: every step is idempotent, and the manifest is written last for
+that reason. What 0.8.3 needed, for the record
 and as the pattern for next time (Southern Watch build notes, "Sea Power
 0.8.3", has each in full): five builders stopped where their own checks
 said - the campaign rules page (the stock page now binds the Survived
