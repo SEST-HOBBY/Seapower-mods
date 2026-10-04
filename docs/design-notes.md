@@ -4,7 +4,7 @@ Every rule here was earned by something breaking, being measured, or being
 verified in game. When a rule and a screenshot disagree, the screenshot wins
 and the rule gets a new revision — that has happened three times already.
 
-## How the game composes 144 mods
+## How the game composes 148 mods
 
 - **Unit files are whole-file overrides.** For `aircraft/`, `vessels/`,
   `submarines/`, `land_units/`, `ammunition/`, `biologic/`, `ui/`, the highest
@@ -44,8 +44,8 @@ and the rule gets a new revision — that has happened three times already.
   yet still run it against a defaulted other side. Untested; fire an AMRAAM
   (floor only) and a Roland or Crotale VT-1 (ceiling only) and read the
   percentage.
-- **`systems/` and `language_*/` merge key-by-key.** Proof: 89 mods ship a
-  `systems/sensors.ini` from 8 to 8,141 lines and none deletes the others.
+- **`systems/` and `language_*/` merge key-by-key.** Proof: 107 mods ship a
+  `systems/sensors.ini` from 8 to 9,012 lines and none deletes the others.
   Language merging is how packs rename other mods' units without owning the file.
 - **Paths are case-insensitive** (NTFS). Two mods shipping `Shahed_136_white.ini`
   and `shahed_136_white.ini` are fighting over one file. Every checker case-folds.

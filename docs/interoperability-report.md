@@ -9,6 +9,8 @@ marked **UNSTATED** rather than given a plausible-sounding one.
 
 **16 packs · 339 decisions · 121 files touched · 130 recorded limits**
 
+**Update, 2026-10-04** — these counts are the report's, written on 26 Aug 2026 and last revised on 26 Sep. Of its 16 packs, `SEST_Zumwalt_CPS` was retired on 20 Sep 2026, and five packs added since 26 Aug are not covered: `SEST_A10C_Plus`, `SEST_Collection_Fixes`, `SEST_Intercept_Model`, `SEST_Replenishment` and `SEST_Campaign`. All twenty current source packs ship as the one `SEST_Integration` folder, published as Workshop item 3812461539. Three mods the report names have left the collection (3426791311, 3508978375, 3504168760); the *Must stay subscribed* lists that count them as dependencies carry a note. Load-order line numbers quoted below are the report's too (U.S. Navy 2027 Capabilities, 3606774881, is line 20 of `data/load-order.tokens.txt` now).
+
 
 ## What the decisions rest on
 
@@ -514,6 +516,8 @@ Three EA-18G identifiers and three APG-79 Super Hornets are shipped by four diff
 
 **Must stay subscribed**
 
+**Update, 2026-10-04** — 3426791311 below is no longer a dependency. It was unsubscribed and pruned on 20 Sep 2026 and is not in the load order. `build_patch.py` retired `usn_ea-18g_2020s`, which only it supplied, and rebased the `usn_tank_610_f-18` override onto United States Naval Aviation (3737267013); the NGJ pod folder `assets/models/vechicle/aircraft/ea-18g/` is shipped in the export by Red Storm Arsenal (3413868677).
+
 - 3606774881 — U.S. Navy 2027 Capabilities mod (Prof_CH4OS): donor for usn_ea-18g, usn_fa-18f_blk3, usn_fa-18f, usn_fa-18e, and the usn_aim-174b card the AIM-424 is balanced against. Must stay subscribed AND below this pack; docs/s…
 - 3426791311 — [DEPRECATED] Boeing F/A-18E/F Super Hornet (MyGo): sole donor for usn_ea-18g_2020s, source of the NGJ pod meshes (assets/models/vechicle/aircraft/ea-18g/: ngllb, alq249_open) that the legacy Growler upgrade points at…
 - 3737267013 — United States Naval Aviation (misaka): sole donor for usn_ea-18g_2020; ships usn_agm-88g whose mesh the AIM-424 renders with (fallback is the usn_rim-7 Sea Sparrow stand-in); sole source in mods-source of usn_aim-120…
@@ -738,6 +742,8 @@ Three mods (deprecated MyGo F-35C, F-35C Alt. Loadouts, US Naval Aviation) all s
   If the donor changes: The dependency comes from the donors, not from this pack; it survives any rebuild and is not covered by any builder guard.
 
 **Must stay subscribed**
+
+**Update, 2026-10-04** — 3508978375 below is no longer a dependency. It was unsubscribed and pruned on 20 Sep 2026 and is not in the load order. Since that day's rebase (`1233fd41`) the pack's `usn_f-35c.ini` takes its model from `assets/models/aircraft/usn_f-35c/`, a folder only United States Naval Aviation (3737267013) ships in the export.
 
 - 3607989779 — F-35C Lightning II Alt. Loadouts (Prof_CH4OS): the base file's donor. Must stay subscribed for the ~14 base loadouts that fire its own ammunition (usn_aim-260a, usn_aim-9xb2+, usn_aim-120d-3, usn_gbu-53, usn_gbu-31v4…
 - 3737267013 — United States Naval Aviation (misaka): supplies the AGM-88G mesh path (assets/models/ammunition/agm-88/usn_agm-88g_mat.ini) the AIM-424 MALICE renders through — without it the missile falls back to the usn_rim-7 Sea …
@@ -1342,6 +1348,8 @@ Repairs two allied units that were broken by cross-mod data defects (the P-8's a
 
 **Must stay subscribed**
 
+**Update, 2026-10-04** — 3426791311 in the last entry was unsubscribed and pruned on 20 Sep 2026 and is not in the load order; on 4 Oct 2026 `tools/check_dependencies.py` no longer reports it for this pack.
+
 - 3606774881 U.S. Navy 2027 Capabilities mod (Prof_CH4OS) — REQUIRED. Supplies the P-8 airframe/model for usn_p8_2027.ini AND the replacement round usn_agm-84n. Without it both Poseidons' AntiShip fit points at an undefined store a…
 - 3602046770 Boeing P-8 Poseidon (Kirameki) — REQUIRED for the second P-8; the pack ships only the .ini, the custom model lives in the mod.
 - 3599752717 Euromod - Modern British Navy (5_12) — REQUIRED for HMS Ocean's hull and model; the pack ships only the patched rn_lph_ocean.ini. Its own catalog entry records the author's requirement: 'requires Euromod to work as int…
@@ -1735,6 +1743,8 @@ Makes the AGM-183A ARRW behave like a boost-glide weapon and be carriable across
   If the donor changes: The guards are what make a donor update recoverable — but they also mean any donor change blocks the whole consolidated build until a human re-checks.
 
 **Must stay subscribed**
+
+**Update, 2026-10-04** — 3426791311 in the inherited-references entry was unsubscribed and pruned on 20 Sep 2026 and is not in the load order; on 4 Oct 2026 `tools/check_dependencies.py` no longer reports it for this pack (it still reports 3395022688).
 
 - 3760871384 — Dingtools Weapon Pack: the donor for both AGM-183A ammunition files and the winning owner of dts_agm-158b-2 / dts_agm-158c-3. Must stay subscribed AND stay above the other dingtools mods (author: "Put this mod ABOVE …
 - 3741944366 — B-52H Stratofortress (dingtools): sole owner of dts_b-52h.ini and the B-52H mesh. The pack overrides that file whole; no skip/drop_stale branch exists for it, so unsubscribing leaves a stale aircraft definition until…
@@ -2766,6 +2776,8 @@ Gives the three late-standard Dassault Rafales (fr_rafale_b_l / c_l / m_l) six J
   If the donor changes: n/a
 
 **Must stay subscribed**
+
+**Update, 2026-10-04** — 3504168760 below is no longer subscribed or in the load order: it left the PC's subscriptions between 27 and 28 Sep 2026, and the 30 Sep export pruned it. Since 3 Oct the pack is built on the French Air Force mod (3758943352), which ships the whole Rafale family under the same unit ids (`RAFALE` in `integration/rafale-f5/build_patch.py`); that is the mod that must stay subscribed. This section was written against the old mod and has not been revised since, so what it says of that mod's files, and its load-order line (73), describes 3504168760, not 3758943352.
 
 - 3504168760 — Dassault Rafale (misaka). HARD. Supplies the meshes, animations, assets/ and the fr_mica-ir / fr_meteor(now unused) / fr_tank_1200 / fr_scalp-eg ammunition, plus the SCALPPositions seat key the LRASM rides. The pack …
 - 3760871384 — Dingtools Weapon Pack (dingtools). HARD, and specifically this copy: all six fits hang dts_aim-260 and the two anti-ship fits hang dts_agm-158c-3, neither of which the pack ships. Unsubscribed, every SEST Rafale fit …

@@ -195,10 +195,10 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-Not from the Workshop. These are this project's own packs. If you
-have the consolidated download - one mod folder carrying everything
-- they are already inside it and there is nothing to subscribe to;
-the repository also builds each of them on its own.
+Not separate Workshop items. These are this project's own packs, and
+every one of them is already inside this folder (the SEST Integration
+Pack, Workshop item 3812461539) - there is nothing more to subscribe
+to; the repository also builds each of them on its own.
 
 (local)       unit                             SEST A-10C+
 (local)       unit                             SEST ADF Persistent ISR

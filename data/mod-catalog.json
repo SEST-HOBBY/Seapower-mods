@@ -185,7 +185,7 @@
       "faction": "australia",
       "type": "fixed-wing",
       "status": "deprecated",
-      "notes": "RAAF AEW&C, Boeing 737 NG with MESA radar. Marked deprecated by author — unsubscribe candidate."
+      "notes": "RAAF AEW&C, Boeing 737 NG with MESA radar. Marked deprecated by its author, but KEEP: it is the only source of E7A_Wedgetail, which missions in all three campaigns place (Southern Watch from Steel Highway on, Southern Reach/Tasman Shield, Red Line), the Southern Watch and Southern Reach rosters sell, and SEST RAAF Wedgetail patches. It stays in the load order and in the published collection on purpose - do not unsubscribe it."
     },
     {
       "id": "raaf-f-35a",
@@ -278,7 +278,7 @@
       "faction": "australia",
       "type": "rotary",
       "status": "deprecated",
-      "notes": "RAN ASW/ASST Seahawk. Marked deprecated by author — unsubscribe candidate. Description body still says 'currently WIP' — the text may predate the [DEPRECATED] title; confirm current state before unsubscribing."
+      "notes": "RAN ASW/ASST Seahawk. Marked deprecated by its author, but KEEP: it is the only source of S-70B-2_Seahawk, which the campaigns place (Before the Lifeline). SEST RAN Fleet's decks and air groups and SEST Collection Fixes' squadron table build on it. It stays in the load order and in the published collection on purpose - do not unsubscribe it. (Its description body still says 'currently WIP'.)"
     },
     {
       "id": "b-52g-agm-86",
@@ -1653,7 +1653,7 @@
       "overlaps": [
         "euromod-british (redundant Type 23 hulls under different unit ids — clutter, not conflict)"
       ],
-      "notes": "Tagged [OLD] by its author. VERIFIED 2026-08-24: uses its OWN unit ids (rn_type23, rn_type23_refit) and shares no asset paths with the Euromod British pack — it is additive, NOT a conflict, and no threat to the SEST RAN Anzac clone. Keep or drop purely for menu tidiness."
+      "notes": "Tagged [OLD] by its author. VERIFIED 2026-08-24: uses its OWN unit ids (rn_type23, rn_type23_refit) and shares no asset paths with the Euromod British pack — it is additive, NOT a conflict. Not optional: Western Passage places its rn_type23_refit, so keep it subscribed and in the collection."
     },
     {
       "id": "auxilliary-merchant-pack",
@@ -1760,7 +1760,7 @@
       "faction": "multi",
       "type": "weapons",
       "status": "active",
-      "notes": "Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed last so it loses all 13 and keeps only its unique content."
+      "notes": "Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed at the bottom (only RE-power, which shares none of its files, sits below it) so it loses all 13 and keeps only its unique content."
     },
     {
       "id": "euromod-anchorchain-expansion",
@@ -2052,7 +2052,7 @@
         "j-8 (3433577445) - the same J-8B/E/F and JZ-8F files, 13, kept by the specialist mod",
         "fujian-cv-18, type-003-004-maneuverwarfare, pla-plan-plaaf-aep, j-10c, j-16a, jh-7a, mig-29-family, su-25 - 27 shared PL-, LS-, KD- and tank rounds, all kept by the mods above it"
       ],
-      "notes": "An integration pack of PLAAF airframes - the H-6J, H-6K early and late, H-6N bombers, the J-10A and J-10C, the J-11 family with the J-11BG/BGH/BH, the J-16 and J-16D, the J-7E/II/IIIA and J-8B/E/F with the JZ-8F - 79 rounds, and its own sensors and weapons sections. BOTTOM OF THE ORDER (above Red Storm Arsenal only): it contests 56 files and loses every one to the specialist mods, so what loads is its 67 unique files - the H-6 family, the J-7s, the J-10A, the J-11BGH/BH, 39 rounds (the YJ-12, YJ-21, CJ-20, KD-20 class) - and its merged systems sections. TWO LANGUAGE FAULTS, both met in the first session with it (3 Oct 2026): language_en/loading_tips_plaaf.ini is a [LoadingTips] section in Chinese filed under the English folder, and because the merge is key-by-key under vanilla's own key names (Count, Header, Tip001...) it replaced every loading-screen tip in the game with Chinese text; SEST Collection Fixes now ships vanilla's English loading_tips.ini verbatim from the top of the order, which gives every key back. Its language_en/ammunition_names.ini names the H-6J's RKL-600 ESM pod in Chinese; Collection Fixes names it in English. ApproximateVersion 0.7.10, so the Mod Manager marks it for the game version. Southern Watch's Fujian's Shadow flies an H-6K Late with four YJ-12 as the enclave's land-based anti-ship shooter."
+      "notes": "An integration pack of PLAAF airframes - the H-6J, H-6K early and late, H-6N bombers, the J-10A and J-10C, the J-11 family with the J-11BG/BGH/BH, the J-16 and J-16D, the J-7E/II/IIIA and J-8B/E/F with the JZ-8F - 79 rounds, and its own sensors and weapons sections. BOTTOM OF THE ORDER (above only Red Storm Arsenal and RE-power): it contests 56 files and loses every one to the specialist mods, so what loads is its 67 unique files - the H-6 family, the J-7s, the J-10A, the J-11BGH/BH, 39 rounds (the YJ-12, YJ-21, CJ-20, KD-20 class) - and its merged systems sections. TWO LANGUAGE FAULTS, both met in the first session with it (3 Oct 2026): language_en/loading_tips_plaaf.ini is a [LoadingTips] section in Chinese filed under the English folder, and because the merge is key-by-key under vanilla's own key names (Count, Header, Tip001...) it replaced every loading-screen tip in the game with Chinese text; SEST Collection Fixes now ships vanilla's English loading_tips.ini verbatim from the top of the order, which gives every key back. Its language_en/ammunition_names.ini names the H-6J's RKL-600 ESM pod in Chinese; Collection Fixes names it in English. ApproximateVersion 0.7.10, so the Mod Manager marks it for the game version. Southern Watch's Fujian's Shadow flies an H-6K Late with four YJ-12 as the enclave's land-based anti-ship shooter."
     }
   ]
 }
