@@ -445,15 +445,23 @@ MISSIONS.append(dict(
         # escort is 8 NM astern, the trawlers and the Meridian hull sit ON
         # the track to the handover box 12-16 NM ahead, and the airliner
         # crosses overhead - so the picture has pieces in it.
-        "warramunga": S(-10.42, 131.77, "Escort", heading=80),
+        # The first public report (October 2026) found that too close the
+        # other way: the armed boat 16 NM from the merchants, inside its own
+        # radar from the first second, with Warramunga 8 NM on the wrong side
+        # of them, so the opening was a race to get the ESSM between a
+        # sea-skimmer and the convoy. Now Warramunga is 3 NM ahead on the
+        # threat axis with the Seahawk beside her, and the Meridian pair is
+        # 25 NM out (22 from the frigate), past the trawlers and outside its
+        # 17 NM radar: the picture has time to be classified before it shoots.
+        "warramunga": S(-10.37, 131.94, "Escort", heading=70),
         "convoy": S(-10.4, 131.9, "Coral Pioneer group", heading=80),
         "neutrals": S(-10.20, 132.00, "Arafura traffic", heading=230),
-        "meridian": S(-10.23, 132.11, "Meridian escort", heading=230),
+        "meridian": S(-10.27, 132.30, "Meridian escort", heading=250),
         "air": S(-10.6, 131.6, "Southern Watch air", heading=70, alt=22000),
         # The brief says a Seahawk on the deck. It spawned 21 NM away at
         # 3,000 ft in the same Vic as a P-8 doing three times its speed at six
         # times its height. Beside the ship, low, on the ship's heading.
-        "flight": S(-10.44, 131.76, "Ship's flight", heading=80, alt=500),
+        "flight": S(-10.38, 131.93, "Ship's flight", heading=70, alt=500),
         "high": S(-9.9, 131.9, "Triton orbit", heading=90, alt=50000),
         # Pointed down the Darwin-Denpasar track (bearing 275 from here).
         "liner": S(-10.3, 132.32, "Denpasar service", heading=275, alt=34000),
@@ -486,13 +494,13 @@ MISSIONS.append(dict(
         # 500 NM toward Denpasar, further than 50 minutes at cruise.
         U("neutral", "civil-aircraft-airbus", "civ_a320", "liner",
           name="Denpasar 214", route=[(-9.57, 123.9, 34000)], telegraph=3),
-        # The escort CLOSES: to the convoy's starting position, then on toward
-        # the handover box - so it is the thing the player has to identify
-        # before it is inside gun range of a merchant, not a hull parked
-        # facing the wrong way 20 NM outside its own radar.
+        # The escort CLOSES: down the convoy's track toward where the
+        # merchants will be, then on toward the handover box - so it is the
+        # thing the player has to identify before it is inside gun range of a
+        # merchant, not a hull parked facing the wrong way.
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "meridian",
           name="Meridian Escort 7",
-          route=[(-10.4, 131.9, 0), (-10.15, 132.25, 0)]),
+          route=[(-10.34, 132.05, 0), (-10.15, 132.25, 0)]),
         U("red", "_vanilla", "wp_ms_mercur_decoy", "meridian",
           name="MV Meridian Assurance"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",
@@ -522,7 +530,9 @@ MISSIONS.append(dict(
         "patrol vessel EYRE and the replenishment ship SUPPLY, "
         "and a Wedgetail is up with a tanker behind it.\\n\\n"
         "Ninety minutes ago a Poseidon laid a sonobuoy field on a diesel-electric "
-        "contact across the planned track. The masters want to press on at "
+        "contact across the planned track, thirty miles ahead at the far edge "
+        "of the approach box. The field is still live, and a Poseidon "
+        "assigned to you starts over it. The masters want to press on at "
         "twelve knots. We want time to classify it. You will not get both.\\n\\n"
         "Three of four must reach the Moresby approach box, and two of the "
         "three are fixed: Kokoda Star, the medical and engineering ship, and "
@@ -566,16 +576,26 @@ MISSIONS.append(dict(
         # be here on the twenty-second and could not be 230 NM south-east of
         # Moresby. The box is the Gulf entrance where Moresby's pilots take
         # over, 150 NM short of the wharf.
-        "escort": S(-10.2, 144.3, "Escort group", heading=70),
+        # The first public report (October 2026): the escort group started
+        # 17 NM from the convoy it is "in company with", 13 NM from a 039C
+        # with its weapons free, and that boat was ASTERN of everybody - not
+        # across the planned track the briefing puts it on - while the P-8
+        # slot sat 48 NM away at 30,000 ft with the Wedgetail. Now the escorts
+        # sail 2 NM ahead of the merchants, the datum is 30 NM up the track
+        # just north of it, at the far edge of the approach box, the boat
+        # creeping in toward the track, and the Poseidon is on the sonobuoy
+        # field at 6,000 ft, 10 NM from the datum.
+        "escort": S(-10.37, 144.55, "Escort group", heading=70),
         "convoy": S(-10.4, 144.5, "Priority convoy", heading=70),
-        "traffic": S(-10.21, 144.33, "Gulf traffic", heading=250),
+        "traffic": S(-10.25, 144.75, "Gulf traffic", heading=250),
         "moresby": S(-9.5, 147.0, "Port Moresby", heading=0),
-        "sub": S(-10.3, 144.1, "Submarine datum", heading=90),
+        "sub": S(-10.15, 145.0, "Submarine datum", heading=230),
         "air": S(-10.0, 145.0, "Air support", heading=70, alt=30000),
+        "mpa": S(-10.22, 144.85, "Sonobuoy field", heading=70, alt=6000),
         # The ship's helicopter spawned at 30,000 ft 86 NM from the ship it
         # is homed on, in a mission the submarine can decide in twenty
         # minutes. Beside the escorts, low.
-        "flight": S(-10.22, 144.32, "Ship's flight", heading=70, alt=500),
+        "flight": S(-10.36, 144.54, "Ship's flight", heading=70, alt=500),
     },
     units=[
         # The anchor: at launch this is the player's first ship (the guide -
@@ -616,7 +636,8 @@ MISSIONS.append(dict(
         U("blue", "buildings-targets-missions", "Liberty", "moresby",
           name="Moresby wharf", weapons="Hold"),
         U("red", "plan-submarines", "plan_ss_type_039c", "sub",
-          name="Contact BRAVO"),
+          name="Contact BRAVO", depth="belowlayer",
+          route=[(-10.24, 144.85, "belowlayer")], telegraph=1),
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
@@ -625,7 +646,8 @@ MISSIONS.append(dict(
         # selling here. The two F-35A cockpits and their CAP row are gone -
         # this mission declares no air threat and sells no fighter.
         U("blue", "us-navy-2027", "usn_mh-60r", "flight"),
-        U("blue", "p-8-poseidon", "usn_p8", "air", squadron="Squadron3"),
+        U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3",
+          alt=6000),
     ],
 ))
 
