@@ -1,0 +1,46 @@
+{
+  "format": "independent ordinary ZIP parts; extract all to one empty destination",
+  "root_folder": "SEST_Modernised_Collection_Gallery",
+  "file_count": 1215,
+  "canonical_zip_sha256": "92e895eb84d090e9abbeccdeaa09b690e9f116387e6b6727e82a65743d43bafa",
+  "counts": {
+    "photos": 450,
+    "flags": 88,
+    "loading_backgrounds": 12,
+    "collection_mods": 149,
+    "P1_tasks": 17,
+    "P2_tasks": 86
+  },
+  "parts": [
+    {
+      "file": "SEST_Gallery_Part_01_of_05.zip",
+      "bytes": 21930471,
+      "sha256": "bd9261716ced498f397992bf33754d5738ab60634be76fee571335c775f7d0d7",
+      "file_count": 145
+    },
+    {
+      "file": "SEST_Gallery_Part_02_of_05.zip",
+      "bytes": 21949408,
+      "sha256": "281d32cffb3f4fac922d95c463a6fd17c83c2bf1a1d33aabe160293aff99480a",
+      "file_count": 94
+    },
+    {
+      "file": "SEST_Gallery_Part_03_of_05.zip",
+      "bytes": 21833799,
+      "sha256": "cab0c2658eae2617e86370b24cf362808750461b88bd5f62f78835a81d989cd9",
+      "file_count": 100
+    },
+    {
+      "file": "SEST_Gallery_Part_04_of_05.zip",
+      "bytes": 21848691,
+      "sha256": "ac82f59615d3b43ff82e8c0a427a782837a6089bb35b2458d52f7dd7a4109bce",
+      "file_count": 114
+    },
+    {
+      "file": "SEST_Gallery_Part_05_of_05.zip",
+      "bytes": 14271627,
+      "sha256": "5cf27b6901b40c6090ac38dded14a7a4a3ee4cec81914455f3da71448dc654e5",
+      "file_count": 762
+    }
+  ]
+}
