@@ -14,7 +14,7 @@ Everything below is for the Steam Workshop page. The mod's own
 page a subscriber reads before they click. Nothing here is generated, so if
 the campaigns change, this changes by hand.
 
-A note before the copy: this pack **depends on 148 other Workshop mods** (the
+A note before the copy: this pack **depends on 180 other Workshop mods** (the
 collection 'SEST - Modernised Campaign Collection', 3812390790). That
 is not a footnote, it is the headline risk of publishing it. A subscriber who
 skims the description, subscribes, and starts a campaign with forty of them
@@ -43,7 +43,7 @@ SEST Integration Pack - Modernised Campaigns
 ```
 Three Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman
 Shield, Red Line) and every SEST fix in one Mod Manager entry. Needs the
-148 Workshop mods in the 'SEST - Modernised Campaign Collection'
+180 Workshop mods in the 'SEST - Modernised Campaign Collection'
 (3812390790): subscribe to it, then run SETUP.
 ```
 
@@ -110,9 +110,10 @@ in it.
 WHAT IT NEEDS — READ THIS PART
 
 These campaigns are built on a large mod collection. They name units from
-**140 Steam Workshop mods**; the collection built for them,
-'SEST - Modernised Campaign Collection', holds 148 Workshop mods (those 140
-and eight more that those mods or the load order depends on) plus this
+**143 Steam Workshop mods**; the collection built for them,
+'SEST - Modernised Campaign Collection', holds 180 Workshop mods (those 143,
+the mods they or the load order depend on, and the third-party campaigns and
+other content added in October 2026) plus this
 pack. That is the point of it — the campaigns exist to give a very large
 collection somewhere purposeful to be used — but it means subscribing to
 this alone is not enough.
@@ -130,7 +131,7 @@ check against):
 
   SETUP - double-click me.cmd — the installer above; run it with the game closed
   REQUIRED-MODS.txt — every Workshop mod the campaigns name, with its ID
-  LOAD-ORDER.txt    — the 149-entry Mod Manager order it was built against
+  LOAD-ORDER.txt    — the 181-entry Mod Manager order it was built against
   CREDITS.txt       — whose work this is built on
 
 Put this pack at the TOP of your load order. It contains whole-file

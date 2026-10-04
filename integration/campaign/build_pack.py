@@ -7,7 +7,7 @@ from the whole collection.
 
 WHY THIS EXISTS
 
-148 Workshop mods and 20 local packs are a lot of content to own and
+180 Workshop mods and 20 local packs are a lot of content to own and
 never see. The Banda vignettes reached for the mods the sandbox left idle, one
 family per scenario; this goes the rest of the way: campaigns that between them
 place something from EVERY active mod that can put something on the map, and
@@ -4985,8 +4985,11 @@ def report(rows, missions, worst, unused=(), coast=(), pooled=None):
     meaning["shadowed"] = ("every file it ships is outranked by something above "
                            "it; nothing it contains can load")
     meaning["campaign"] = "this pack - the campaign being measured"
+    meaning["external"] = ("in the collection for a third-party campaign or "
+                           "scenario, or as content none of these campaigns places; "
+                           "required all the same (SETUP checks every mod in the order)")
     for how in ("unit", "variant", "squadron", "roster", "store", "asset",
-                "library", "shadowed", "campaign"):
+                "library", "shadowed", "external", "campaign"):
         if counts.get(how):
             L.append(f"| `{how}` | {meaning[how]} | {counts[how]} |")
     # Only a "pool" mission snaps to proven points; a "coast" one keeps its
@@ -5049,6 +5052,7 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     packs = [r for r in rows if r[2] in NEEDED and not r[5].isdigit()]
     libs = [r for r in rows if r[2] in ("library",) and r[5].isdigit()]
     shadowed = [r for r in rows if r[2] == "shadowed"]
+    external = [r for r in rows if r[2] == "external" and r[5].isdigit()]
     promoted, elsewhere = prerequisites(
         need, [r for r in rows if r[2] not in NEEDED and r[5].isdigit()])
     key = lambda r: r[1].lower()
@@ -5086,6 +5090,13 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
           "for; the map, salvo and rescue tools are conveniences.)", ""]
     for _mid, t, how, _d, _m, token in sorted(libs, key=key):
         L.append(f"  {token:<13} {'library':<32} {t}")
+    if external:
+        L += ["", f"3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT ({len(external)}): "
+              "in the collection for", "campaigns and scenarios this one does not "
+              "include. Keep them installed anyway: SETUP", "stops if any mod in "
+              "LOAD-ORDER.txt is missing.", ""]
+        for _mid, t, how, _d, _m, token in sorted(external, key=key):
+            L.append(f"  {token:<13} {'other campaigns':<32} {t}")
     dispatch_tokens = {r[5] for r in dispatches}
     unused = [(mid, token, t) for _w, mid, token, t in missing
               if token not in dispatch_tokens] + \
@@ -5175,6 +5186,8 @@ def requirements(rows):
     packs = [r for r in rows if not r[5].isdigit()]
     promoted, elsewhere = prerequisites(need, rest)
     rest = [r for r in rest if r not in promoted]
+    external = [r for r in rest if r[2] == "external"]
+    rest = [r for r in rest if r[2] != "external"]
     key = lambda r: r[1].lower()
     L = [f"{TITLE.upper()} - required Steam Workshop mods", "",
          "TRY SETUP FIRST. \"SETUP - double-click me.cmd\" in this folder checks",
@@ -5224,6 +5237,14 @@ def requirements(rows):
           "by something above them. The campaign does not call for them.", ""]
     for _mid, title, how, _detail, _mission, token in sorted(rest, key=key):
         L.append(f"{token:<13} {how:<32} {title}")
+    if external:
+        L += ["", "-" * 74, "",
+              f"In the collection for other campaigns and scenarios ({len(external)}):",
+              "the third-party campaigns the collection carries, the mods they",
+              "place, and content none of these three campaigns uses. They are in",
+              "LOAD-ORDER.txt, so SETUP still requires them.", ""]
+        for _mid, title, how, _detail, _mission, token in sorted(external, key=key):
+            L.append(f"{token:<13} {'other campaigns':<32} {title}")
     L += ["", "-" * 74, "",
           "Not separate Workshop items. These are this project's own packs, and",
           "every one of them is already inside this folder (the SEST Integration",
@@ -5293,7 +5314,7 @@ def load_order_text():
 
     With TITLES. The order is stored as workshop ids because that is what
     usersettings.ini stores, but the Mod Manager shows a player names - and a
-    list of 148 bare numbers is not something a human can check an install
+    list of 180 bare numbers is not something a human can check an install
     against, which is the only reason this file ships.
     """
     data = catalog()

@@ -13,10 +13,13 @@ before the patch does.
   carries the 4 Oct 2026 build (`d4fd1668` and `fa692245`), with SETUP in the
   pack. Every upload is an update to this item; there is no second item.
 - **The collection.** *SEST - Modernised Campaign Collection*, Workshop id
-  **3812390790**, 149 items: the 148 Workshop mods in
-  `data/load-order.tokens.txt` plus the pack. This is how a subscriber gets
-  the dependencies. Its banner reads "149 Workshop items, 3 campaigns, 19 fix
-  packs".
+  **3812390790**. Published with 149 items: the 148 Workshop mods the load
+  order then held, plus the pack. This is how a subscriber gets the
+  dependencies. Its banner reads "149 Workshop items, 3 campaigns, 19 fix
+  packs". **Behind the repo since the October 2026 additions:** the load
+  order now holds 180 Workshop mods, so the collection needs the 32 new ones
+  (and its banner and counts redone) before the next upload of the pack -
+  SETUP refuses to run while any mod in the pack's LOAD-ORDER.txt is missing.
 - **Required Items: empty, on purpose.** The item's *Required Items* (the
   Create Mod form's *Required Workshop IDs*) holds nothing. The section after
   next says why. Do not fill it.
@@ -26,8 +29,9 @@ before the patch does.
   2028 to February 2029 dates), and the collection banner and pack images
   were redone.
 
-The counts come from the repo: `data/load-order.tokens.txt` has 149
-non-comment entries, 148 Workshop ids and `SEST_Integration`. The "135 mods"
+The counts come from the repo: `data/load-order.tokens.txt` has 181
+non-comment entries, 180 Workshop ids and `SEST_Integration` (149 and 148
+when the collection was published). The "135 mods"
 and "133-mod" figures in older notes are out of date.
 
 ## What the game actually provides
@@ -72,7 +76,7 @@ about to be published, and the tag dimensions the game sorts by:
 
 ## Dependencies come from the collection, not from Required Items
 
-This is the important part, and it is why a pack that depends on 148 Workshop
+This is the important part, and it is why a pack that depends on 180 Workshop
 mods is a publishable thing at all — and why the obvious way of doing it would
 break the pack.
 
@@ -98,7 +102,7 @@ version bounds. So the dependency list does not live in the mod. For an
 ordinary mod it lives on the **Steam Workshop item**, in Steam's own
 *Required Items* field (the Create Mod form's *Required Workshop IDs*), and
 Sync walks it. For this pack it lives in the Steam collection *SEST -
-Modernised Campaign Collection* (3812390790: the 148 Workshop mods of the load
+Modernised Campaign Collection* (3812390790: the Workshop mods of the load
 order plus the pack). The item's own *Required Items* field is empty on
 purpose.
 
@@ -123,7 +127,7 @@ and let Sync do the rest; that plan was dropped for this reason.
 
 **Do not set Required Items (Required Workshop IDs) on item 3812461539, and do
 not tell anyone to press Sync for it.** Subscribers get the mods from the
-collection 3812390790 (the 148 Workshop mods and the pack), then run `SETUP -
+collection 3812390790 (the load order's Workshop mods and the pack), then run `SETUP -
 double-click me.cmd` with the game closed.
 
 ### SETUP, in the pack
@@ -136,7 +140,7 @@ a shared file the game reads. `SETUP - double-click me.cmd` and
 is downloaded and names any that are not, with links; installs the Anchor
 Chain preloader if it is missing (a UAC prompt only when neither `winhttp.dll`
 nor BepInEx is in the game folder); turns off one mod's debug logging that can
-freeze a mission; and writes the Mod Manager order: the pack first, the 148 in
+freeze a mission; and writes the Mod Manager order: the pack first, the 180 in
 `LOAD-ORDER.txt` order, the player's other mods at the bottom as they were. It
 backs up the game's settings first and is safe to run again.
 
@@ -203,7 +207,7 @@ it is the one dependency most likely to break a subscriber's install.
    commenter reported against it.
 3. **A fresh-install check, when SETUP, the load order or the collection
    changed.** Everything verified on the machine that built it is verified
-   where all 148 Workshop mods of the load order happen to be present. The
+   where all 180 Workshop mods of the load order happen to be present. The
    check that matters is to subscribe to the collection 3812390790 on a clean
    profile, run SETUP, and see whether the campaigns run. One friend's PC has
    done part of this (see *What has been verified so far*). If a second
@@ -308,13 +312,13 @@ steps, counts, dates, the clock), change them in the same sitting.
   that the game was closed when it updated. His `Steam\logs\workshop_log.txt`
   lines for 3812461539, with his launch and quit times, would settle it. Not
   yet reported from that PC: whether the UAC elevation ran, whether the pack
-  sits first with 149 entries, whether the campaigns are listed, and the
+  sits first with 181 entries, whether the campaigns are listed, and the
   yellow "Behind schedule" card in The Quiet Passenger at 45:00 — test card
   H.15-H.18.
 - **Not yet shown in game.** The "Behind schedule" message has not been seen.
   `SEA_SPEED` is calibrated on one data point (H.18 re-checks it). The Task
   Force economy, helicopter recovery and replenishment are not proven in game.
-  Trimming the 148-mod list is still to do; each mod it removes is a
+  Trimming the 180-mod list is still to do; each mod it removes is a
   collection change.
 
 ## What to expect in the comments

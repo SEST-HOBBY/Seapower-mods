@@ -45,6 +45,9 @@ TIER1B = [
     ("coordinated-strike-tool", "code mod — time-on-target planner (F8); no game data, one _info.ini"),
     ("automatic-sar", "code mod — right-click SAR; the campaign pays for survivors"),
     ("identify-expanded", "code mod — identification and challenge orders; reads its own ini"),
+    ("operation-steadfast-lantern", "third-party campaign; its nation-flag table "
+     "(ui/Default/Settings_UI_General.ini) must outrank every other copy, and it is a "
+     "strict superset of the previous winner's"),
 ]
 TIER2 = [
     ("sam-pack", 'author: "top of TOE"'),
@@ -74,7 +77,14 @@ TIER6_EXTRA = []   # SEST RAAF Bases moved to TIER0
 # none of its files, sits below it) it keeps its unique content and loses every
 # duplicate.
 TIER7 = [
-    ("red-storm-arsenal", "bottom of the order, above only RE-power (no shared files) - 638 unique files kept, 13 duplicated ones all lose"),
+    ("the-redfor-mod", "consolidation pack below the specialists it copied (S-300PMU2, "
+     "ISKANDER-M, Su-27, TU-16N, P-750, Russian Navy 21, Euromod): loses every shared file"),
+    ("wp-sattelite-center", "below THE REDFOR MOD, whose byte-identical copies win"),
+    ("ultimate-missile-workshop", "below everything it duplicates, on the player's call: "
+     "its author's 'above all' would take 91 rounds and break the Gripen's AIM-120C-7"),
+    ("red-storm-arsenal", "near the bottom - 638 unique files kept, 13 duplicated ones all "
+     "lose; only the Pakistani Pack, the two Commonwealth packs, the Cold War rocket "
+     "carriers, Chile, the Luzon Line and RE-power sit below it"),
 ]
 
 explicit = {mid for mid, _ in TIER0 + TIER1 + TIER1B + TIER2 + TIER3 + TIER7}
@@ -118,11 +128,25 @@ NOTES = {
     "sa-21-s400": "watchlist: land air-defense overlap",
     "rc-135-rivet-joint": "above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges",
     "mig-29-family": "watchlist: MiG-29/R-series overlap",
-    "french-air-force": "canonical order puts it at the bottom, above only the PLAAF Aircraft Pack, Red Storm Arsenal and RE-power: its 12 shared rounds are identical or older copies of the MQ-9 Reaper's, the French Navy pack's and the Soviet AEW&C pack's, and it loses every one; the Rafale and Mirage 2000 families load from it alone",
-    "plaaf-aircraft-pack": "canonical order puts it third from last, above only Red Storm Arsenal and RE-power: 56 shared files all lost to the specialist PLAAF mods above it, so only its H-6 family, J-7s, J-10A and 39 rounds load; SEST Collection Fixes restores the English loading tips its language_en folder overwrites",
+    "french-air-force": "canonical order puts it in the bottom block, below THE REDFOR MOD and above the Etendard, F-8 and Gripen packs: its 12 shared rounds are identical or older copies of the MQ-9 Reaper's, the French Navy pack's and the Soviet AEW&C pack's, and it loses every one; the Rafale and Mirage 2000 families load from it alone",
+    "plaaf-aircraft-pack": "canonical order puts it in the bottom block, below the Gripen and above Ultimate Missile Workshop and Red Storm Arsenal: 56 shared files all lost to the specialist PLAAF mods above it, so only its H-6 family, J-7s, J-10A and 39 rounds load; SEST Collection Fixes restores the English loading tips its language_en folder overwrites",
     "armed-merchantmen": "beside Merchants Expanded; no collision with anything, position free",
     "mv-75-cheyenne-ii": "beside the MV-22B; no collision with anything, position free",
-    "re-power-resupply": "canonical order puts it last, below Red Storm Arsenal, with which it shares no files",
+    "re-power-resupply": "canonical order puts it last, below the Luzon Line, with which it shares no files",
+    "etendard-family": "canonical order puts it below French Air Force, whose Magic 2 the Mirage 2000s keep",
+    "f-8-crusader": "canonical order puts it below French Air Force and the Etendards: its Magic 2 is an outlier",
+    "jas-39-gripen": "canonical order puts it below French Air Force ([Damoncles]) and above Ultimate Missile Workshop (its AIM-120C-7)",
+    "pakistani-pack": "canonical order puts it below Red Storm Arsenal, whose [KLC-7] the SEST-fielded KJ-600 uses",
+    "royal-australian-defence-forces": "canonical order puts it in the bottom block above The Royal Navy: it loses every duplicate",
+    "the-royal-navy": "canonical order puts it in the bottom block below RADF; SEST Collection Fixes restores the game files it ships stale",
+    "alize-br1050": "canonical order puts it below The Royal Navy and RADF, above Aquilon",
+    "sea-venom-aquilon": "canonical order puts it below The Royal Navy and RADF (shared rack ids)",
+    "euromod-chile": "canonical order puts it below RADF and far below <<E-3G>> ([AN/APY-2])",
+    "philippines-luzon-line": "canonical order puts it below RADF and below KC-135 ([MK22])",
+    "ground-upgrade-ifv": "below KC-135 so the game's [TOW_M2] holds",
+    "s-500": "below S-400 SAM (the Flap Lid SEST places)",
+    "s-300pmu2": "above S-400, S-500 and THE REDFOR MOD",
+    "iskander-m": "above THE REDFOR MOD (ss-26 mesh)",
 }
 
 # The canonical order this page explains but does not reproduce.
