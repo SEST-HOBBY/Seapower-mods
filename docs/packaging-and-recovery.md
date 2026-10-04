@@ -1,13 +1,15 @@
 # Packaging, dependencies and recovery
 
-Two questions this answers: how the SEST packs coexist with 144 workshop mods,
-and what you actually need to be able to recover if the game install goes bad.
+Two questions this answers: how the SEST packs coexist with 148 workshop mods
+(149 Mod Manager entries with `SEST_Integration`), and what you actually need
+to be able to recover if the game install goes bad.
 
 ## A SEST pack is a patch, not a mod
 
 The patch packs ship **nothing but `.ini` files** — not a single model,
 texture or asset bundle among them. Only the campaign pack adds anything else:
-its campaign pages, briefing maps, art and mod lists. Check it yourself (the
+its campaign pages, briefing maps, art, mod lists and the player's SETUP
+(`SETUP - double-click me.cmd` and `sest-setup.ps1`). Check it yourself (the
 filter leaves out the campaign pack and the built `dist` copy):
 
 ```powershell
@@ -18,12 +20,20 @@ Get-ChildItem integration\*\SEST_* -Recurse -File |
 
 That is deliberate: the repo stays small and every change is readable as a
 diff. The consequence is that **no pack is standalone**. `SEST_F-15EX_Revamp`
-ships `aircraft/usaf_f-15ex_SEII.ini` and nothing else — the geometry that file
-describes lives in workshop mod 3636386513. Install the pack without the mod
-and the game has a unit definition pointing at a mesh that is not there.
+ships `aircraft/usaf_f-15ex_SEII.ini` and a few more `.ini` files but no
+mesh — the geometry that file describes lives in workshop mod 3636386513.
+Install the pack without the mod and the game has a unit definition pointing
+at a mesh that is not there.
 
-So there is no "package it up and hand it to someone" build. What there is
-instead is a derived dependency list.
+So no pack can be handed on by itself. What players get is the published
+pair: the Workshop item 'SEST Integration Pack - Modernised Campaigns'
+(3812461539, Public; the consolidated pack, all three campaigns included) and
+the collection 'SEST - Modernised Campaign Collection' (3812390790), 149 items:
+the 148 Workshop mods in `data/load-order.tokens.txt` plus the pack. The
+collection is where a player's dependencies come from; the item's own
+Required Items stay empty on purpose (*Publishing the pack*, below, says why
+and how an update goes up). Inside the repo, what each pack needs is a
+derived dependency list.
 
 ## What each pack needs
 
@@ -31,7 +41,7 @@ instead is a derived dependency list.
 python tools\check_dependencies.py
 ```
 
-Two kinds, both computed from the files rather than hand-declared, so they
+Three kinds, all computed from the files rather than hand-declared, so they
 cannot drift:
 
 | Kind | Meaning |
@@ -64,9 +74,13 @@ Choules' `Aldebaran`, which came with the Galicia it is cloned from.
 
 The packs install as **one folder**, `SEST_Integration`, under
 `StreamingAssets`, exactly like a workshop mod, and never write into the game's
-own files. `tools/consolidate_packs.py` builds it from every source pack; Sea
-Power's Mod Manager lists it as one entry, SEST Integration Pack, beside the
-workshop entries, and it takes part in the same load order.
+own files; only the player's SETUP the pack carries adds anything beside them,
+the Anchor Chain preloader next to `Sea Power.exe` when it is missing. SETUP
+also switches off one mod's debug logging and, like `set-mod-order.ps1`,
+rewrites `[LoadOrder]` after a backup. `tools/consolidate_packs.py` builds it from
+every source pack; Sea Power's Mod Manager lists it as one entry, SEST
+Integration Pack, beside the workshop entries, and it takes part in the same
+load order.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1 -WhatIfOnly   # dry run
@@ -181,12 +195,18 @@ install you can re-download.
 
 The repo is the source of truth for everything except Steam's own downloads.
 
-**After a session pushes work:**
+**After a session pushes work** (on the PC, game closed, on the deploy branch
+`data/deploy-branch.txt` names, `sest-dev/loving-bell-3cnvvw`):
 ```powershell
-git pull
-powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1
-powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing
+powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 ```
+It refuses to run from any other branch, pulls, installs, sets the order with
+`-AddMissing`, and ends with `IN LINE: all N installed files match this commit`.
+The standard update block (*Already aligned once?* in
+`docs/campaigns/southern-reach/install-alignment.md`) is this script behind two
+checks: it checks out the deploy branch and runs it. A session's work reaches
+the deploy branch by a fast-forward first; the four commits up to `fa692245`
+(4 Oct) came in that way from `sest-dev/inspiring-wozniak-8vuckh`.
 
 **After subscribing to or unsubscribing from anything:**
 ```powershell
@@ -287,14 +307,58 @@ by it (keep `_vanilla`). If it passes there, it is the export to commit.
 
 PowerShell 5.1 has no `&&`. Chain with `;` or use separate lines.
 
+## Publishing the pack
+
+Players get the SEST pack from one Workshop item and its dependencies from one
+collection:
+
+- **The item**: 'SEST Integration Pack - Modernised Campaigns', Workshop id
+  3812461539, Public. It is the `SEST_Integration` folder, all three
+  campaigns included. Every upload is an update to it, never a new item.
+- **The collection**: 'SEST - Modernised Campaign Collection', 3812390790,
+  149 items: the 148 Workshop mods in `data/load-order.tokens.txt` plus the
+  pack. A mod added to or dropped from the load order means the same change
+  to the collection.
+
+**Required Items stay empty.** The item's Required Workshop IDs / Required
+Items are empty on purpose. The Mod Manager's dependency check ('Must load
+above this mod') offers to move the required items above the pack, which
+undoes every fix in it (the one rule under *Installing alongside other
+mods*). Do not set them, and do not rely on Sync for this
+pack: the dependencies come from the collection.
+
+**The update**, from the PC once the sync reads IN LINE with the commit to
+publish, since the folder it picks is the installed copy of
+`integration/dist/SEST_Integration`: Mod Manager > Create Mod > Update
+Existing > Pick Folder `StreamingAssets\SEST_Integration` > Submit, then
+confirm `m_eResult: k_EResultOK` in `Player.log`. The Create Mod image picker
+only browses `StreamingAssets`, so the preview image is
+`StreamingAssets\SEST-preview.jpg` (124 KB), outside the pack folder; it is
+not in the repo.
+
+**If the upload fails with `k_EResultLimitExceeded`.** Sea Power's Steam Cloud
+has a 1,000-file cap, and files under `StreamingAssets\user\missions` count
+toward it. Over the cap the upload fails with `k_EResultLimitExceeded` and
+leaves 0 B on the item. That is how the first uploads failed: 804 of the
+files were one folder, `StreamingAssets\user\missions\NEW MISSIONS CLEAN`,
+which was moved to `%USERPROFILE%\Documents\SeaPower-moved-out-of-cloud`, and
+the cloud is now about 180 files. The recovery is to move files out until the
+cloud is under the cap and upload again; do not move that folder back.
+
+The whole procedure, with the change log and what to check before Submit, is
+in `docs/campaigns/southern-watch/publishing.md`; the listing text is in
+`workshop-listing.md` beside it.
+
 ## After a Sea Power update
 
 A game update moves the one thing every pack and mission here is built on
 and nobody exports on purpose: the game's own files. Three things in this
-repo track them. `mods-source/_vanilla/original` is the vanilla export: on 2
-Oct 2026, 4,051 text files from 0.8.3 Build 261001 of 1 Oct 2026, the version
-and build being the first `dd-Mon-yyyy: X.Y.Z Build #N` line of
-`data/install-snapshot/changelog.live.txt`, the game's own `changelog.txt`
+repo track them. `mods-source/_vanilla/original` is the vanilla export: on 3
+Oct 2026, 4,047 text files under 0.8.4 Build 261002 of 2 Oct 2026 (the 2 Oct
+export's 4,051, taken under 0.8.3, less the KC-135A and Tu-16N stubs the game
+no longer ships, deleted by hand on 3 Oct; the 3 Oct export changed none of
+them), the version and build being the first `dd-Mon-yyyy: X.Y.Z Build #N`
+line of `data/install-snapshot/changelog.live.txt`, the game's own `changelog.txt`
 as the capture copied it (`data/install-snapshot/game-build.txt` holds
 Steam's build id and the executable's date, not that number). The builders
 fork vanilla files, the `language_*` and `systems` files merge with
@@ -310,7 +374,8 @@ tools read all of that: `tools/check_vanilla_drift.py` says
 what the update changed and what depends on each change, and
 `tools/check_game_version.py` says which declarations the new version fails.
 The order of work is the PC exporting the new game, then a session reading
-the drift, bumping, rebuilding and gating, then the usual sync.
+the drift, bumping, rebuilding and gating, then the usual sync, then the
+Workshop update of item 3812461539.
 
 ### On the PC: export the new game, snapshot it, push
 
@@ -501,16 +566,15 @@ beside the repo (*Known red* above) is the other route.
    ```bash
    python3 tools/generate_load_order.py      # docs/load-order-full.md
    python3 tools/generate_catalog.py         # docs/mod-catalog.md
-   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1264 on 3 Oct 2026
+   find integration/dist/SEST_Integration -type f | wc -l   # the installed file count: 1266 on 4 Oct 2026
    ```
 
-   By hand: the install guide's count, if it moved - the `IN LINE: all 1264
-   installed files` line under *Already aligned once?*, `N is 1264` in
+   By hand: the install guide's count, if it moved - the `IN LINE: all N
+   installed files` line under *Already aligned once?*, `N is` in
    step 4 of `docs/campaigns/southern-reach/install-alignment.md` and the
-   derivation under that table, which ends `1264
-   late that evening` and
+   derivation under that table, which ends at the current count and
    gains a clause for what the update added or removed - and
-   `Consolidated, they are 1264 files` in `README.md`;
+   `Consolidated, they are N files` in `README.md`;
    a dated section in each campaign's `build-notes.md`
    (`docs/campaigns/<campaign>/`, in the style of *Rivet Joint (30
    September)* in Southern Reach's and Red Line's) saying what the update
@@ -523,14 +587,25 @@ beside the repo (*Known red* above) is the other route.
    ```bash
    git add -A
    git commit -m "Rebuild on the X.Y.Z export: <what the drift report named>"
-   git push origin claude/campaign-missions-lore-td653z     # or the session's branch
+   git push origin <the session's branch>
    ```
 
 9. **Then the PC runs the standard update block** (*Already aligned once?*
-   in `docs/campaigns/southern-reach/install-alignment.md`): it
-   fast-forwards the deploy branch to the session's and syncs, and its last
-   line must read `IN LINE: all 1264 installed files match this commit`, or
+   in `docs/campaigns/southern-reach/install-alignment.md`): once the
+   session's commits are on the deploy branch (a fast-forward), it checks out
+   that branch and syncs, and its last
+   line must read `IN LINE: all 1266 installed files match this commit`, or
    the new count from step 7.
+
+10. **Then update the published item, never a new one.** With the PC IN LINE
+    and Sea Power's Steam Cloud under its 1,000-file cap: Mod Manager >
+    Create Mod > Update Existing (item 3812461539) > Pick Folder
+    `StreamingAssets\SEST_Integration` > Submit, then confirm
+    `m_eResult: k_EResultOK` in `Player.log`. Leave Required Workshop IDs /
+    Required Items empty and do not use Sync for this pack. If the export
+    added or dropped a Workshop mod, change the collection (3812390790) to
+    match `data/load-order.tokens.txt`. *Publishing the pack* above has the
+    reasons and the failure to expect.
 
 ### The first run: 0.8.3, 2 October 2026
 
@@ -628,10 +703,10 @@ a mission that dies loading.
 ### The Workshop mods' own declarations
 
 The Mod Manager reads `[Compatibility]` from every mod's `_info.ini`. The
-rule, as the stock comment carried in 102 of the exported manifests states
+rule, as the stock comment carried in 105 of the exported manifests states
 it, is that `ApproximateVersion` "checks MAJOR and MINOR match but will
 accept higher PATCH", and overrides the range keys when both are present.
-Of the 144 exported mods, 118 declare an `ApproximateVersion`, so on a
+Of the 148 exported mods, 121 declare an `ApproximateVersion`, so on a
 0.9.x game every one of them fails that check, as the SEST packs did when
 they declared 0.6.8 against a 0.8.x game
 (`docs/interoperability-report.md` records the flag the Mod Manager
@@ -641,10 +716,11 @@ declare a range instead, two of them with an upper bound: Anchor Chain
 (3806686336) admits `0.8.2 <= v < 0.9.0`, so a 0.9.x game marks it
 incompatible until its author widens the range and the next export brings
 the new manifest; nothing in this repo can change that, and
-`check_game_version.py` exits 1 on it until then. The other 18 have no
-`[Compatibility]` section at all, so there is nothing for the check to fail
+`check_game_version.py` exits 1 on it until then. Another 18 have no
+`[Compatibility]` section at all, and one, Boeing P-8 Poseidon
+(3602046770), ships no `_info.ini`, so there is nothing for the check to fail
 them on; what the Mod Manager shows for them is not recorded here
-(`grep -L '\[Compatibility\]' mods-source/*/_info.ini` lists them).
+(`grep -L '\[Compatibility\]' mods-source/*/_info.ini` lists the 18).
 The export is what brings an author's new declaration here, so a Workshop
 exclusion that persists after an update is a reason to re-export, not a
 reason to edit `mods-source`.

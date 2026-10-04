@@ -1,22 +1,24 @@
 # SEST Growler NGJ + MALICE
 
-Additive compatibility patch for the modern EA-18G Growlers and the F/A-18F
-Block III Super Hornet in this collection. It does not edit Workshop folders.
+Compatibility patch for the modern EA-18G Growlers and the F/A-18E/F Super
+Hornets in this collection. It does not edit Workshop folders.
 
 ## What it changes
 
 | Aircraft ID | Source used by the patch | Result |
 |---|---|---|
-| `usn_ea-18g` | U.S. Navy 2027 Capabilities (`3606774881`) | Replaces the active ALQ-99 systems and meshes with AN/ALQ-249 NGJ plus NGL-LB/ALQ-249 pod meshes; adds both MALICE fits |
-| `usn_ea-18g_2020s` | F/A-18E/F (`3426791311`) | Preserves its native NGJ implementation and adds both MALICE fits |
-| `usn_ea-18g_2020` | US Naval Aviation (`3737267013`) | Preserves its native NGJ implementation and adds both MALICE fits |
+| `usn_ea-18g` | U.S. Navy 2027 Capabilities (`3606774881`) | Replaces the active ALQ-99 systems and meshes with AN/ALQ-249 NGJ plus NGL-LB/ALQ-249 pod meshes; adds the NGJ MALICE fit |
+| `usn_ea-18g_2020` | US Naval Aviation (`3737267013`) | Preserves its native NGJ implementation and adds the NGJ MALICE fit |
 | `usn_fa-18f_blk3` | U.S. Navy 2027 Capabilities (`3606774881`) | Adds the four-MALICE Block III fit |
+| `usn_fa-18f`, `usn_fa-18e` | U.S. Navy 2027 Capabilities (`3606774881`) | Adds the same Block III fit (same APG-79 radar class and station layout) |
+
+`usn_ea-18g_2020s` is no longer patched: its only provider, F/A-18E/F (`3426791311`), was
+unsubscribed on 20 Sep 2026, and the id left the collection with it.
 
 New selectable loadouts:
 
-- **NGJ MALICE** — 2x AIM-424 MALICE, 2x AIM-120D3, 2x 610-gallon tanks, NGJ pods retained.
-- **NGJ MALICE Heavy** — 4x AIM-424 MALICE, 2x AIM-120D3, 2x 610-gallon tanks, NGJ pods retained.
-- **Block III MALICE** — 4x AIM-424 MALICE, 4x AIM-120D3, 2x AIM-9X, centerline tank.
+- **NGJ MALICE** — 2x AIM-424 MALICE, 2x AIM-260, 2x 610-gallon tanks, NGJ pods retained.
+- **Block III MALICE** — 4x AIM-424 MALICE, 2x AIM-120D3, 2x AIM-260, 2x AIM-9X, centerline tank.
 - **SEAD120D** (`SEST_SEAD120D`, `usn_ea-18g` only) — the conventional EW/SEAD fit:
   2x AGM-88G outboard, 2x AIM-120D (`usn_aim-120d-3`, the round U.S. Navy 2027 hangs
   on stations 11/12), 2x wing tanks, NGJ pods retained. No AIM-260, no AIM-424. The
@@ -45,18 +47,27 @@ has changed.
 
 ## Install and order
 
-Run `tools\install-sest-packs.ps1`, enable **SEST Growler NGJ + MALICE**, and
-place it **above** all three dependencies in Sea Power's Mod Manager:
-
-1. SEST Growler NGJ + MALICE
-2. U.S. Navy 2027 Capabilities
-3. F/A-18E/F
-4. US Naval Aviation
-
-Top of the Mod Manager list wins file conflicts.
+This pack has no Mod Manager entry of its own. `tools/build_all.py` consolidates it into
+`SEST_Integration`, the one SEST entry, which stays first, above every Workshop mod
+(`data/load-order.tokens.txt`). On the gaming PC `tools\sync-sest.ps1` deploys it and
+writes that order; a Workshop subscriber gets it inside the SEST Integration Pack and runs
+`SETUP - double-click me.cmd` in the pack folder, with the game closed, to write the same
+order. Top of the Mod Manager list wins file conflicts, and this pack replaces files that
+U.S. Navy 2027 Capabilities, US Naval Aviation, Murder Hornet with AIM-174B and Red Storm
+Arsenal also ship. In today's order its stores and systems resolve from the first two of
+those and from F-35C Lightning II Alt. Loadouts, the Dingtools Weapon Pack, the Italian Navy
+mod and Custom Loadout Editor (`python3 tools/check_dependencies.py` names the winning
+provider of each).
 
 
 ## Fuel tanks: the mesh is coupled to the station geometry
+
+Superseded in part (see TANK MESH HISTORY in `build_patch.py`): `f-18_fuletank` rides low at
+any station, because its origin comes from a whole-aircraft root, so the pack now also
+overrides `ammunition/usn_tank_610_f-18.ini` to render the F-15C 610 tank mesh. Tank ids still
+never swap, and `Fuel` stays 1800. In today's sources all five airframes' own fits hang
+`usn_tank_610_f-18`, so that is the id the SEST fits copy. The coupling argument and the table
+below are the record of round 1; the fuel fix after them still stands.
 
 `usn_tank_1200_f-18` is Murder Hornet's tank and its mesh really is the vanilla **F-15C** tank
 (`ResourcesMesh=usaf_f-15c_tank_610` from `aircraft/usaf_f-15c/`) with `Fuel` raised 1800 → 4500.
@@ -74,12 +85,12 @@ SEST fits now copy whatever the airframe already flies:
 | Airframe | Wing tank | Why |
 |---|---|---|
 | `usn_ea-18g` | `usaf_tank_610_f-15` | its own fits use it |
-| `usn_ea-18g_2020` / `_2020s` | `usn_tank_610_f-18` | theirs use it |
+| `usn_ea-18g_2020` | `usn_tank_610_f-18` | its own fits use it |
 | `usn_fa-18e/f/f_blk3` | `usn_tank_1200_f-18` | theirs use it |
 
 What *was* genuinely wrong is the fuel, and that needs no geometry change. The pack ships an
 override of `ammunition/usn_tank_1200_f-18.ini` — byte-identical mesh block, `Fuel` back to **1800**
-— so every tank across all six airframes now carries the same 1800 the vanilla F-15 tank and the
+— so every tank across all five airframes now carries the same 1800 the vanilla F-15 tank and the
 real Hornet tank both use. That closes the range gap without moving anything: NGJ MALICE showed
 ~1433 nm against the SEAD fits' ~860 purely because 4500 is 2.5× 1800.
 
@@ -133,16 +144,16 @@ flags about 20 per airframe, because SDBs (93 kg) and AMRAAM (162 kg) sit beside
 and are fine. On the Super Hornets it names LRASM, AIM-174B, GBU-31 and JSOW fits. Those are
 upstream's and are **not** changed — they are flagged for a human to look at.
 
-## NGJ Long Range (3 tanks)
+## NGJ Long Range (2 tanks)
 
-A maximum-persistence jamming fit: no anti-radiation missiles, three tanks, two AMRAAM for
-self-defence. The NGJ pods do the work.
+A maximum-persistence escort jamming fit: no anti-radiation missiles, both wing tanks, four
+AIM-260 (outboard and fuselage) for self-defence. The NGJ pods do the work.
 
-Three is the ceiling, not a choice. The Growler model carries exactly **one** pair of wing tank
-pylons — the `fule_tank_point` mesh at stations 27/28 — plus the centreline. Stations 13/14 look
-like outboard pylons but carry `sead_point`/`aam_point` racks, so a tank there would hang in mid-air
-with nothing under it. Four wing tanks is not possible on this airframe.
+Two is the ceiling, not a choice. The Growler model carries exactly **one** pair of wing tank
+pylons — the `fule_tank_point` mesh at stations 27/28. Stations 13/14 look like outboard pylons
+but carry `sead_point`/`aam_point` racks, so a tank there would hang in mid-air with nothing under
+it, and the centreline is the EW station: an earlier three-tank version put its third tank there,
+inside the Growler's centre jamming equipment. Four wing tanks is not possible on this airframe.
 
-The fit is added **only where a centreline station exists**. `usn_ea-18g` has Station29; the 2020
-and 2020s Growlers do not, and the build skips them with a note rather than emitting a reference to
-a station that isn't there.
+Because the fit no longer needs a centreline station, both Growlers, `usn_ea-18g` and
+`usn_ea-18g_2020`, carry it.

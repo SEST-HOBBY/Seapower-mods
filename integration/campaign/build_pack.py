@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""Build SEST Total Force 2026 - a twelve-mission linear campaign whose order
-of battle is drawn from the whole collection.
+"""Build the SEST campaign pack: Southern Watch, Southern Reach, Red Line.
+
+Southern Reach carries Tasman Shield as its second chapter, and each of the
+three also ships an Open Allocation twin. Their orders of battle are drawn
+from the whole collection.
 
 WHY THIS EXISTS
 
-128 Workshop subscriptions and 16 local packs are a lot of content to own and
+148 Workshop mods and 20 local packs are a lot of content to own and
 never see. The Banda vignettes reached for the mods the sandbox left idle, one
-family per scenario; this goes the rest of the way: a single campaign in which
-EVERY active mod that can put something on the map does, and the ones that
-cannot are named, with the reason, in docs/campaign-coverage.md.
+family per scenario; this goes the rest of the way: campaigns that between them
+place something from EVERY active mod that can put something on the map, and
+name the ones that cannot, with the reason, in their coverage reports
+(docs/campaign-coverage.md and docs/campaigns/*/coverage.md).
 
 "Incorporates all mods" is a claim about the load order, not about the folder
 list, so it is computed the way the game resolves files. A mod is credited
@@ -24,7 +28,7 @@ only when the campaign places a unit that actually reads one of its files:
 
 A mod placed in a mission but whose unit file is won by something else is
 credited to the winner, never to the loser. That distinction is the whole
-point: five mods here are invisible in game precisely because something above
+point: some mods here are invisible in game precisely because something above
 them replaces their files, and the report says so instead of counting them.
 
 WHY THE POSITIONS ARE HARVESTED, NOT INVENTED
@@ -5033,8 +5037,9 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
 
     `rows` and `missing` are what the campaign itself plays - its missions
     and its roster; `dispatches` are the rows only its browser Dispatches
-    need (dispatch_only), listed apart so a player of the campaign alone
-    knows what they can leave out.
+    need (dispatch_only), listed apart so a player can see which mods only
+    the Dispatches use. They stay installed all the same: every one is in
+    LOAD-ORDER.txt, and SETUP stops if any mod there is missing.
 
     Computed from the same coverage rows as the pack-level file, so it cannot
     name a mod the campaign's missions do not reach; the pack-level
@@ -5066,16 +5071,19 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     if disp:
         L += ["", f"1b. ONLY FOR THE DISPATCHES ({len(disp)}): the optional browser "
               f"missions in missions/{dispatch_folder} place these; the campaign",
-              "itself never loads them. Leave them out if you only play the campaign.", ""]
+              "itself never loads them. Keep them installed anyway: SETUP checks every",
+              "mod in LOAD-ORDER.txt and stops if one is missing.", ""]
         for _mid, t, how, _d, _m, token in sorted(disp, key=key):
             L.append(f"  {token:<13} {NEEDED[how]:<32} {t}")
     L += ["", f"2. SEST INTEGRATION PACKS ({len(packs)}): this project's own patches, "
-          "inside the consolidated download.", ""]
+          "already inside this pack (SEST Integration Pack, Workshop 3812461539);",
+          "there is nothing more to subscribe to.", ""]
     for _mid, t, how, _d, _m, token in sorted(packs, key=key):
         L.append(f"  {'(local)':<13} {NEEDED[how]:<32} {t}")
     L += ["", f"3. INSTALL-WIDE LIBRARIES AND UI ({len(libs)}): ship no file a mission "
-          "names. Optional unless a mod in list 1 asks for them (Anchor Chain",
-          "is asked for; the map, salvo and rescue tools are conveniences).", ""]
+          "names. Keep them installed anyway: SETUP stops if any mod in",
+          "LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks",
+          "for; the map, salvo and rescue tools are conveniences.)", ""]
     for _mid, t, how, _d, _m, token in sorted(libs, key=key):
         L.append(f"  {token:<13} {'library':<32} {t}")
     dispatch_tokens = {r[5] for r in dispatches}
@@ -5217,10 +5225,10 @@ def requirements(rows):
     for _mid, title, how, _detail, _mission, token in sorted(rest, key=key):
         L.append(f"{token:<13} {how:<32} {title}")
     L += ["", "-" * 74, "",
-          "Not from the Workshop. These are this project's own packs. If you",
-          "have the consolidated download - one mod folder carrying everything",
-          "- they are already inside it and there is nothing to subscribe to;",
-          "the repository also builds each of them on its own.", ""]
+          "Not separate Workshop items. These are this project's own packs, and",
+          "every one of them is already inside this folder (the SEST Integration",
+          "Pack, Workshop item 3812461539) - there is nothing more to subscribe",
+          "to; the repository also builds each of them on its own.", ""]
     for _mid, title, how, _detail, _mission, token in sorted(packs, key=key):
         L.append(f"{'(local)':<13} {how:<32} {title}")
     L += ["", "-" * 74, "",
@@ -5237,12 +5245,19 @@ def requirements(rows):
 
 
 def required_urls(rows):
-    """Every required mod as a Workshop URL, in load-order sequence.
+    """Every mod one campaign reaches (its Dispatches included), as a Workshop
+    URL, in load-order sequence: the ones its missions reach, plus any a
+    reached mod says it cannot run without.
 
-    For setting the published item's Required Items. Steam resolves
-    dependencies itself once they are set, and the game's Mod Manager Sync
-    walks them - which is the only reason a 133-mod campaign is a reasonable
-    thing to publish at all.
+    A reference list for the publisher - NOT input for the Workshop item's
+    Required Items. The pack is published as ONE item (SEST Integration Pack -
+    Modernised Campaigns, 3812461539) whose Required Items are left EMPTY on
+    purpose: the Mod Manager's dependency check ('Must load above this mod')
+    offers to move every required item above the pack, which undoes every fix
+    in it. Players get the mods from the collection 'SEST - Modernised
+    Campaign Collection' (3812390790: every Workshop mod in
+    data/load-order.tokens.txt, plus the pack). Do not rely on the Mod
+    Manager's Sync for this pack.
     """
     need = [r for r in rows if r[2] in NEEDED and r[5].isdigit()]
     promoted, elsewhere = prerequisites(need, [r for r in rows
@@ -5251,17 +5266,22 @@ def required_urls(rows):
     rank = {t: i for i, t in enumerate(load_order())}
     both = need + list(promoted)
     both.sort(key=lambda r: rank.get(r[5], 10**6))
-    L = [f"{TITLE} - Required Items for the Workshop listing", "",
-         f"{len(both)} items, in canonical load order. Paste each into the",
-         "published item's Required Items box. Generated by build_pack.py from",
+    L = [f"{TITLE} - Workshop mods this campaign reaches (reference only)", "",
+         f"{len(both)} items, in canonical load order. NOT for the Workshop",
+         "item's Required Items box. All three campaigns ship in one item, the SEST",
+         "Integration Pack (3812461539), which keeps that box empty on purpose:",
+         "the Mod Manager's dependency check ('Must load above this mod') offers",
+         "to move required items above the pack, which undoes every fix in it.",
+         "Players get these mods from the collection 'SEST - Modernised",
+         "Campaign Collection' (3812390790). Generated by build_pack.py from",
          "the same coverage rows REQUIRED-MODS.txt uses, so it cannot name a",
          "mod the campaign does not reach.", ""]
     for row in both:
         L.append(f"https://steamcommunity.com/sharedfiles/filedetails/?id={row[5]}"
                  f"    # {row[1]}")
     if elsewhere:
-        L += ["", "NOT IN THE COLLECTION - find the id yourself before "
-                  "publishing:"]
+        L += ["", "NOT IN THE COLLECTION - players install these by hand, as the",
+              "pack-level REQUIRED-MODS.txt tells them; never add one to Required Items:"]
         for name, askers in sorted(elsewhere.items()):
             L.append(f"  {name}  (required by {', '.join(sorted(set(askers)))})")
     L.append("")
@@ -5273,7 +5293,7 @@ def load_order_text():
 
     With TITLES. The order is stored as workshop ids because that is what
     usersettings.ini stores, but the Mod Manager shows a player names - and a
-    list of 140 bare numbers is not something a human can check an install
+    list of 148 bare numbers is not something a human can check an install
     against, which is the only reason this file ships.
     """
     data = catalog()
@@ -5508,8 +5528,9 @@ def main():
 
     # The pack's coverage rule: every enabled mod is placed by SOME campaign
     # in the pack, or excused in writing. A second campaign does not have to
-    # reach all 135 mods on its own - the spec for Southern Reach says it must
-    # not - but nothing in the load order may go unaccounted for.
+    # reach every mod in the load order on its own - the spec for Southern
+    # Reach says it must not - but nothing in the load order may go
+    # unaccounted for.
     rows, missing = coverage(pack_credits, excuses)
     if missing and not (args.only or args.campaign):
         print("\nNOT INCORPORATED — every active mod must be placed or excused:")
@@ -5723,9 +5744,11 @@ def main():
                                        unused=c["missing"], coast=c["coast"],
                                        pooled=c["pooled"]),
                                 encoding="utf-8")
-        # Publisher-facing, so it stays in docs/ rather than in the download:
-        # the Workshop's Required Items box takes one item at a time, and 133
-        # of them typed by hand is 133 chances to fat-finger an id.
+        # A reference list for the publisher, kept in docs/ rather than the
+        # download. It is NOT for the Workshop item's Required Items, which
+        # stay empty on purpose (the Mod Manager's dependency check offers to
+        # move every required item above the pack, which undoes its fixes);
+        # players get the mods from the collection 3812390790.
         DOCS_DIR.mkdir(parents=True, exist_ok=True)
         (DOCS_DIR / "required-mods-urls.txt").write_text(required_urls(c["rows"]),
                                                          encoding="utf-8")

@@ -1,8 +1,10 @@
-# Full Load Order — every active mod, top to bottom
+# Mod tiers — every active mod by tier
 
 Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 148 active subscriptions plus the SEST Integration Pack (20 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
 
-Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are alphabetical — within them, order only matters between mods flagged in the conflict watchlist (`docs/conflicts-and-load-order.md`).
+This is a tier grouping, NOT the load order. The canonical Mod Manager order is `data/load-order.tokens.txt` (149 entries: SEST_Integration plus the 148 Workshop mods); the pack ships it as LOAD-ORDER.txt and SETUP writes it. Where the numbering below differs, the canonical order wins (for example, its last four are **French Air Force**, **PLAAF Aircraft Pack**, **Red Storm Arsenal** and **RE-power: the resupply mod**).
+
+Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are listed alphabetically here — within them, order only matters between mods flagged in the conflict watchlist (`docs/conflicts-and-load-order.md`).
 
 ## Tier 0 — the consolidated SEST pack (must stay above everything)
 
@@ -31,18 +33,18 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 
 ## Tier 3 — patches, each above what it modifies (this exact order)
 
-14. **F-35C Lightning II Alt. Loadouts** — kept for now — MUST stay below SEST F-35C JATM
+14. **F-35C Lightning II Alt. Loadouts** — KEEP — SEST F-35C JATM is built from it and loadouts hang a round it ships; must stay below the SEST pack
 15. **F/A-18 Murder Hornet with AIM-174B** — above other F/A-18E/F sources
 16. **B-52G with AGM-86 (realistic nuke)** — patches the vanilla B-52G
 17. **Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)** — global munition edits — treat as a patch, not an aircraft
 18. **Flight Deck Ops** — above carriers
-19. **Air Deck Operations Upgrade - Nimitz (2000s)** — if kept after the FDO test
+19. **Air Deck Operations Upgrade - Nimitz (2000s)** — KEEP — the campaigns place its carrier (Flight Deck Day)
 20. **Ground Upgrade: SPAA** — edits ground-unit values
 
 ## Tier 4 — fleets, ships, submarines
 
 21. 1143.5 Kuznetsov
-22. [DEPRECATED] Anzac Class Frigate — *KEEP — SEST RAN Fleet dependency; SEST wins both ran_ffh_anzac files, so this mod's hull is masked until the pack is rebased onto it*
+22. [DEPRECATED] Anzac Class Frigate — *KEEP — the only source of the RAN Anzac hull the campaigns use; since 20 Sep 2026 SEST RAN Fleet patches this mod's own vessels/ran_ffh_anzac.ini, so its real ASMD hull is what loads*
 23. Auxilliary Merchant Pack
 24. Charles De Gaulle & Modern French Navy Pack (WIP)
 25. Chinese Navy (PLAN)
@@ -66,7 +68,7 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 43. PLAN Submarines
 44. PLAN Type 001 Aircraft Carrier Liaoning
 45. PLAN Type 071 Amphibious Transport Dock
-46. RE-power: the resupply mod
+46. RE-power: the resupply mod — *canonical order puts it last, below Red Storm Arsenal, with which it shares no files*
 47. Royal Navy Type 23 'Duke Class' Frigate [OLD] — *verified additive — position free*
 48. Russian Navy 21
 49. Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
@@ -80,8 +82,8 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 54. 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
 55. <<E-3G>>
 56. <<Tu-16N>>
-57. [DEPRECATED] E-7A Wedgetail — *KEEP — SEST RAAF Bases dependency*
-58. [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles — *KEEP — SEST RAN Fleet / RAAF Bases dependency*
+57. [DEPRECATED] E-7A Wedgetail — *KEEP — the only source of E7A_Wedgetail, which the campaigns place; SEST RAAF Wedgetail and SEST RAAF Bases depend on it*
+58. [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles — *KEEP — the only source of S-70B-2_Seahawk, which the campaigns place; SEST RAN Fleet and SEST RAAF Bases depend on it*
 59. A-10A Thunderbolt II
 60. A-10C
 61. AH-64 Apache
@@ -107,7 +109,7 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 81. F-16C Fighting Falcon (modern)
 82. F-22 Raptor
 83. F-2A 'Viper Zero'
-84. French Air Force — *canonical order puts it at the bottom, above the PLAAF Aircraft Pack and Red Storm Arsenal: its 12 shared rounds are identical or older copies of the MQ-9 Reaper's, the French Navy pack's and the Soviet AEW&C pack's, and it loses every one; the Rafale and Mirage 2000 families load from it alone*
+84. French Air Force — *canonical order puts it at the bottom, above only the PLAAF Aircraft Pack, Red Storm Arsenal and RE-power: its 12 shared rounds are identical or older copies of the MQ-9 Reaper's, the French Navy pack's and the Soviet AEW&C pack's, and it loses every one; the Rafale and Mirage 2000 families load from it alone*
 85. French Army Vehicles
 86. French Helicopter Package
 87. General Atomics MQ-9 Reaper
@@ -135,7 +137,7 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 109. PLA & PLAN & PLAAF AEP — *Anchorchain expansion — below the loader, with the Euromod one*
 110. PLA Shenyang J-11BS
 111. PLA Sukhoi Su-27UBK
-112. PLAAF Aircraft Pack — *canonical order puts it second to last, above Red Storm Arsenal only: 56 shared files all lost to the specialist PLAAF mods above it, so only its H-6 family, J-7s, J-10A and 39 rounds load; SEST Collection Fixes restores the English loading tips its language_en folder overwrites*
+112. PLAAF Aircraft Pack — *canonical order puts it third from last, above only Red Storm Arsenal and RE-power: 56 shared files all lost to the specialist PLAAF mods above it, so only its H-6 family, J-7s, J-10A and 39 rounds load; SEST Collection Fixes restores the English loading tips its language_en folder overwrites*
 113. RAAF F-35A Lighting II
 114. RC-135V/W Rivet Joint — *above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges*
 115. Rebuilt J-16 / J-16D — *duplicate platform with Shenyang J-16A — different unit ids, both load*
@@ -178,5 +180,5 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 
 ## Tier 7 — bulk arsenals, below everything they duplicate
 
-149. **Red Storm Arsenal** — LAST - 638 unique files kept, 13 duplicated ones all lose
+149. **Red Storm Arsenal** — bottom of the order, above only RE-power (no shared files) - 638 unique files kept, 13 duplicated ones all lose
 

@@ -1,8 +1,18 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **144 Workshop
+**Sea Power: Naval Combat in the Missile Age** install with **148 Workshop
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
+
+The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
+Campaigns* (item 3812461539, public), carrying all three campaigns. Players subscribe to
+the collection *SEST - Modernised Campaign Collection* (3812390790: the 148 Workshop mods
+in `data/load-order.tokens.txt` plus the pack), which is where the dependencies come from,
+then run `SETUP - double-click me.cmd` in the pack folder with the game closed. The pack's
+Required Items are empty on purpose: the Mod Manager's dependency check offers to move
+required items above the pack, which undoes every fix in it, so do not fill them and do
+not rely on the Mod Manager's Sync for this pack. Every upload is an update to the same
+item; `docs/campaigns/southern-watch/publishing.md` is the procedure.
 
 Everything here is built around interoperability: a mod is known by three names — a
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
@@ -17,9 +27,9 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `data/mod-catalog.json` | **The registry.** Per mod: slug, `workshop_id`, faction, type, status, dependencies, overlap facts. Plus `local_packs`, the SEST pack roster with build order |
 | `data/load-order.tokens.txt` | **The load order.** One token per line; what `set-mod-order.ps1` writes into `usersettings.ini`. The consolidated pack is the single tier-0 entry |
 | `data/active-mission.txt` | The mission the tooling works on when you do not name one |
-| `data/raw-workshop-list.txt` | The raw subscription list (source of record) |
+| `data/raw-workshop-list.txt` | The raw subscription list as pasted on 23 Aug 2026 (109 items); the catalog and the load order are current |
 | `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook |
-| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and the procedure that lines the gaming PC up with the branch |
+| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and, for `southern-watch/` and `southern-reach/`, the procedure that lines the gaming PC up with the branch; `southern-watch/` also holds the Workshop publishing procedure |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
@@ -34,7 +44,7 @@ The 20 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persisten
 `SEST_RAN_Fleet`, `SEST_Rafale_F5`, `SEST_Raptor_Squadrons`, `SEST_Replenishment`,
 `SEST_TacMap_Colors` and `SEST_Campaign` (the three campaigns, each also listed as an Open
 Allocation twin that sells its whole roster from the first window - and, for the two RAN
-campaigns, the allied fleet). Consolidated, they are 1264
+campaigns, the allied fleet). Consolidated, they are 1266
 files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
 when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
@@ -147,7 +157,7 @@ squadron the winning file actually offers — a price naming a fit the hull no
 longer has fails the build. None of the economy has been exercised in game;
 each campaign's `build-notes.md` says so in detail.
 
-Its point is coverage. 144 subscriptions are a lot of content to own and never
+Its point is coverage. 148 Workshop mods are a lot of content to own and never
 see, so the campaigns are built so that **every mod in the canonical load
 order, and every SEST pack, is reached by something one of them places** — and
 "reached" is

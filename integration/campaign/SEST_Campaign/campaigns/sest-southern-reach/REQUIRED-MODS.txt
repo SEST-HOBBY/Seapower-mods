@@ -49,7 +49,8 @@ pack's root, is the union across every campaign in the pack.
   3606774881    a unit a mission places          U.S. Navy 2027 Capabilities mod
   3737267013    a unit a mission places          United States Naval Aviation
 
-2. SEST INTEGRATION PACKS (9): this project's own patches, inside the consolidated download.
+2. SEST INTEGRATION PACKS (9): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
   (local)       a unit a mission places          SEST Allied Fixes
@@ -61,8 +62,9 @@ pack's root, is the union across every campaign in the pack.
   (local)       a unit a mission places          SEST RAN Fleet
   (local)       a unit a mission places          SEST Replenishment At Sea
 
-3. INSTALL-WIDE LIBRARIES AND UI (0): ship no file a mission names. Optional unless a mod in list 1 asks for them (Anchor Chain
-is asked for; the map, salvo and rescue tools are conveniences).
+3. INSTALL-WIDE LIBRARIES AND UI (0): ship no file a mission names. Keep them installed anyway: SETUP stops if any mod in
+LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
+for; the map, salvo and rescue tools are conveniences.)
 
 
 4. NOT USED BY THIS CAMPAIGN (118): enabled while it was built, and left in the order because removing one changes which copy of a

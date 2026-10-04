@@ -13,21 +13,26 @@ Two facts shape it:
   `sest-dev/loving-bell-3cnvvw`. `sync-sest.ps1` refuses to run from any
   other branch, on purpose — the last time it ran on the wrong one it reported
   `IN LINE` against a build with none of the campaign in it.
-- **Sessions work on their own branches.** This session's work is on
-  `claude/campaign-missions-lore-td653z`. That branch is built on the deploy
-  branch's latest commit, so bringing it into the deploy branch is a
-  fast-forward: nothing to resolve.
+- **Sessions work on their own branches.** This session's work was on
+  `claude/campaign-missions-lore-td653z` (`694db53e`, 3 Oct). It is no longer
+  the source. The deploy branch has since taken `10b6b48b` and `7d670392`
+  (3 Oct) and `d4fd1668` and `fa692245` (4 Oct), fast-forwarded in from
+  `sest-dev/inspiring-wozniak-8vuckh`, and this session's branch contains
+  none of them: the two have diverged, and a fast-forward to it is refused.
+  Do not merge it on the PC: the PC checks out the deploy branch and syncs,
+  and the sync pulls the deploy branch.
 
 Close Sea Power before any of it. It rewrites `usersettings.ini` on exit and
 throws away a load-order change made while it is running.
 
 ## Already aligned once? The short version for later rounds
 
-Both `sest-dev/loving-bell-3cnvvw` and `feature/northern-front-iii-export`
-sit on `9ad799c0`, the PC's own 3 Oct evening push (the mod export with the four
-new mods and the install snapshot), which itself sits on this session's `6aed3f50`. Everything this
-session has pushed since builds straight on that commit, so a later round is
-the same fast-forward and one sync. Close Sea Power, then paste this into PowerShell
+`sest-dev/loving-bell-3cnvvw` is at `fa692245` (4 Oct) or later; `fa692245`
+is the build published as Workshop item 3812461539.
+`feature/northern-front-iii-export` is behind it at `3b040cc0` (3 Oct). A
+later round lands on the deploy branch itself, so an update is: check out the
+deploy branch, then sync (`sync-sest.ps1` pulls it). The block no longer
+merges or pushes anything. Close Sea Power, then paste this into PowerShell
 as one block. It has no blank lines on purpose: the console reads a paste
 line by line, and an empty line would end the block early. If it stops at a
 `>>` prompt, press Enter once more to run it.
@@ -39,24 +44,20 @@ line by line, and an empty line would end the block early. If it stops at a
   if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
   git checkout sest-dev/loving-bell-3cnvvw
   if ($LASTEXITCODE) { throw 'checkout failed' }
-  git fetch origin
-  if ($LASTEXITCODE) { throw 'fetch failed' }
-  git merge --ff-only origin/claude/campaign-missions-lore-td653z
-  if ($LASTEXITCODE) { throw 'merge refused - stop and report it' }
-  git push origin sest-dev/loving-bell-3cnvvw sest-dev/loving-bell-3cnvvw:feature/northern-front-iii-export
-  if ($LASTEXITCODE) { throw 'push failed' }
   powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
   if ($LASTEXITCODE) { throw 'sync failed - read its last lines' }
 }
 ```
 
-It stops, before anything is pushed or installed, if the game is running, if
-the clone has changes of its own (report them rather than committing them),
-or if the fast-forward is refused (step 2). The sync's last lines should read
-`IN LINE: all 1264 installed files match this commit (<hash>)`, the hash
-being the one the merge landed on (`git log --oneline -1`). The four mods you
-added this evening are in the canonical order now, so the sync's `appended at
-end` lines for them stop; if it still prints one, the id it names is a
+It stops, before anything is installed, if the game is running or if the
+clone has changes of its own (report them rather than committing them). The
+sync's last lines should read
+`IN LINE: all 1266 installed files match this commit (<hash>)`, the hash
+being the deploy branch's head after the sync's pull (`git log --oneline -1`).
+Merge a session branch on the PC only when a round names one that already
+contains `fa692245` (step 2). The four mods you added on the evening of 3 Oct
+are in the canonical order now, so the sync's `dropped stale workshop entry`
+lines for them stop; if it still prints one, the id it names is a
 subscription the repo has not seen - export it.
 `-RefreshMissions` on the sync is only for a round where the sync says it
 merged your own mission edits: it re-spreads the airliners in the missions
@@ -100,6 +101,15 @@ installed" or "The Twelve-Mile Line is not installed" means the sync did not
 install this build: read its output before playing.
 
 ### This round (3 Oct, late evening): four new mods, the Chinese loading tips, the Rafale back
+
+> Addendum, 4 Oct: this is no longer the latest round. The deploy branch has
+> since taken `10b6b48b` and `7d670392` (3 Oct: bare mission numbers on the
+> Southern Reach and Red Line backdrops; Red Line runs to February 2029),
+> then `d4fd1668` (the planned window plus a 1.5x deadline, sea-state ship
+> speeds, `SETUP - double-click me.cmd` and `sest-setup.ps1` at the pack
+> root) and `fa692245` (timeout texts follow the deadline, SETUP relaunch
+> hardened). Expect `IN LINE: all 1266 installed files`, not the 1264 below.
+> That build is published as Workshop item 3812461539.
 
 Your export (`bb2316d4`) brought Moloti's Armed Merchantmen, French Air Force,
 the MV-75 Cheyenne II (the one the Mod Manager shows as `3810611344` with an
@@ -461,13 +471,13 @@ steps on the PC** that the ports need.
 
 | Branch | What it is | State |
 |---|---|---|
-| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `60b89fe9`, the PC's 30 Sep export and snapshot |
-| `claude/campaign-missions-lore-td653z` | this session: the three campaigns and their Open Allocation twins, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | `60b89fe9` plus the Rivet Joint in two missions, Coordinated Strike Tool, the docs audit and the coverage-report fix; every pack rebuilt from scratch on the 30 Sep export; the gates in step 3 pass but for the known reds |
-| `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `60b89fe9` with the deploy branch; do not deploy from it |
+| `sest-dev/loving-bell-3cnvvw` | the deploy branch the PC tracks | at `fa692245` (4 Oct) or later; `fa692245` is the build published as Workshop item 3812461539 |
+| `claude/campaign-missions-lore-td653z` | this session: the three campaigns and their Open Allocation twins, the multi-campaign builder, the coastline proof, the RNZAF bases, and the ported work | at `694db53e` (3 Oct), diverged from the deploy branch: it lacks `10b6b48b`, `7d670392`, `d4fd1668` and `fa692245`; do not merge it on the PC |
+| `feature/northern-front-iii-export` | the repo's default branch on GitHub | at `3b040cc0`, behind the deploy branch; do not deploy from it |
 | the other `sest-dev/*`, `fix/*`, `feature/*`, `chore/*` branches | earlier sessions | see §6: what was ported, and what was left and why |
 
 So "aligned to this session and the other sessions" means: the deploy branch
-fast-forwarded to this session's branch, then the normal sync, then §6's
+at `fa692245` or later, then the normal sync (which pulls it), then §6's
 one-time steps.
 
 ## 1 — on the PC: find the clone and get on the deploy branch
@@ -498,17 +508,23 @@ for everything below.
 
 ## 2 — bring this session's branch into the deploy branch
 
+Not needed today: read the paragraph under this block before running it.
+
 ```powershell
 git fetch origin claude/campaign-missions-lore-td653z
 git merge --ff-only origin/claude/campaign-missions-lore-td653z
 ```
 
 `--ff-only` is the check. It succeeds silently if, and only if, this session's
-branch already contains everything on the deploy branch — which it does as of
-its last push. If it refuses (`Not possible to fast-forward`), somebody pushed
-to the deploy branch after this session merged it; stop and say so rather than
-doing a real merge on the PC. The fix is one more merge in a session, not a
-hand merge on the gaming machine.
+branch already contains everything on the deploy branch. It no longer does:
+`10b6b48b` and `7d670392` (3 Oct) and `d4fd1668` and `fa692245` (4 Oct) are
+on the deploy branch and not on it, so the merge is refused. Skip this step's
+merge and pushes unless a round hands you a branch that contains `fa692245`;
+step 1's pull already brings the deploy branch. If the merge of such a branch
+refuses (`Not possible to fast-forward`), somebody pushed to the deploy branch
+after that branch was cut; stop and say so rather than doing a real merge on
+the PC. The fix is one more merge in a session, not a hand merge on the gaming
+machine. Run the checks below either way.
 
 Then push the deploy branch so the PC and GitHub agree:
 
@@ -539,13 +555,13 @@ Check, and do not skip:
 git branch --show-current            # sest-dev/loving-bell-3cnvvw
 git log --oneline -1                 # note the short hash: the IN LINE line must name it
 Get-Content data\deploy-branch.txt   # sest-dev/loving-bell-3cnvvw
-git merge-base --is-ancestor origin/claude/campaign-missions-lore-td653z HEAD; $?   # True
+git merge-base --is-ancestor fa692245 HEAD; $?   # True: the 4 Oct build (the one on Workshop item 3812461539) or later
 ```
 
-The last line is the one that says the merge brought this round: it asks git
-whether this session's branch is now inside the deploy branch. (A file check
+The last line is the one that says the pull brought the published build: it
+asks git whether `fa692245` is inside the branch you are on. (A file check
 would need a file only this round brings, and a round of fixes may bring
-none.) `False` means step 2 did not take.
+none.) `False` means step 1's pull did not take.
 
 ## 3 — let the build check itself (optional on the PC, done here)
 
@@ -554,8 +570,8 @@ this tree in this session with a clean `git status` afterwards, and the gates
 were run on it:
 
 ```
-python tools\build_all.py --from-scratch      # 19 packs, clean git status after
-python tools\check_campaign_coverage.py       # three campaigns, 1580 placed references, 164/164 mods and packs
+python tools\build_all.py --from-scratch      # 20 packs, clean git status after
+python tools\check_campaign_coverage.py       # three campaigns, 1589 placed references, all 168 enabled mods and SEST packs (148 Workshop mods + 20 packs)
 python tools\check_load_order.py
 python tools\check_dependencies.py
 python tools\check_weapon_employment.py
@@ -584,7 +600,7 @@ What to read in its output:
 
 | Line | Means | If it is wrong |
 |---|---|---|
-| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1264** for this build |
+| `IN LINE: all N installed files match this commit (hash)` | the deployed bytes equal the commit | the hash must be step 2's; a different one means the pull did not take. **N is 1266** for this build |
 | `1 of 1` installed | the consolidated pack copied | `canonical pack not installed` means the copy failed; nothing below matters |
 | `dropped stale workshop entry` | a subscription the repo has not catalogued | none expected. An id it names is a new subscription: export it (`export-mod-configs.ps1`) and push, as the Southern Watch procedure describes |
 | `purged SEST_…` | an old per-pack folder removed | only on a machine that still had the per-pack layout |
@@ -607,7 +623,7 @@ afternoon, the PLAN Pack's update having given its own eight hulls their systems
 that evening, the three campaigns' enemy theatre rosters and their twins' copies added and the
 retired Rafale F5 pack's three files gone; 1264
 late that evening, the Rafale F5 pack's three airframes back on the French Air Force mod and
-the game's `loading_tips.ini` Collection Fixes restores over the PLAAF Aircraft Pack's Chinese copy).
+the game's `loading_tips.ini` Collection Fixes restores over the PLAAF Aircraft Pack's Chinese copy; 1266 on 4 Oct, with `SETUP - double-click me.cmd` and `sest-setup.ps1` at the pack root).
 
 ## 5 — confirm the campaigns arrived
 
@@ -754,7 +770,7 @@ Line's (`../red-line/test-card.md`) with its rules of engagement.
 
 | Symptom | The command that answers it |
 |---|---|
-| `git merge --ff-only` refuses | `git log --oneline origin/sest-dev/loving-bell-3cnvvw -5` — whatever is there and not on this session's branch was pushed after the merge here; report it |
+| `git merge --ff-only` refuses | expected for `claude/campaign-missions-lore-td653z`, which lacks `10b6b48b`, `7d670392`, `d4fd1668` and `fa692245` (skip step 2's merge); for a branch a round hands you, `git log --oneline origin/sest-dev/loving-bell-3cnvvw -5` — whatever is there and not on that branch was pushed after it was cut; report it |
 | sync refuses on the branch guard | you are not on `sest-dev/loving-bell-3cnvvw`; go back to step 1 rather than passing `-AnyBranch` |
 | an Open Allocation entry is missing from the campaign list, or will not load its first mission | the twin loads its missions from the standard campaign's folder, which stock never does: Southern Watch test card 6G, G.1 and G.3 say what to bring back. The standard entries are unaffected either way |
 | the game stops responding in the middle of a mission, above all one with sonobuoys in the water | a mod's debug logging: `powershell -ExecutionPolicy Bypass -File .\tools\quiet-mod-debug.ps1` (the sync runs it too), then capture with `-IncludeSaves` if it happens again - the capture now includes BepInEx's log, where code mods write |

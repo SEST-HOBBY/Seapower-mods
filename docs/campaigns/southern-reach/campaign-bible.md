@@ -222,7 +222,7 @@ Produced by the builder from the winning files (24 September 2026). Range is the
 ### New Zealand dependency findings
 
 1. **RNZAF P-8A resolves today** with no new dependency: `usn_p8` Squadron6 in the winning `usn_p8_squadrons.ini` (Workshop 3602046770) is `Nation=New Zealand`, RNZAF livery. It is the campaign's New Zealand aircraft. A second, Red Storm Arsenal implementation (`usn_p_8a` Squadron23) exists and is not used, to keep one airframe family.
-2. **Publication risk:** 3602046770 is marked removed/incompatible on the public Workshop page. It is a Southern Watch dependency already (the RAAF Poseidon is the same file), so this campaign adds no new exposure; before publication the note in Southern Watch's publishing.md applies to both.
+2. **Publication risk:** 3602046770 is marked removed/incompatible on the public Workshop page. It is a Southern Watch dependency already (the RAAF Poseidon is the same file), so this campaign adds no new exposure. Southern Reach ships inside the one published item, "SEST Integration Pack - Modernised Campaigns" (Workshop 3812461539). Its dependencies, 3602046770 included, come from the collection "SEST - Modernised Campaign Collection" (3812390790), not from the item's Required Items, which stay empty on purpose (Southern Watch's `publishing.md` says why).
 3. **No RNZN surface fleet** is in the enabled collection. *A Force for New Zealand* (3405821509) is not added. Te Kaha and Te Mana are where Commander Brand says they are, and no mission places them.
 4. **No HMNZS Aotearoa.** Removed from the roster as the specification requires; the NZ logistics contribution is Lyttelton, Bluff and Ohakea.
 5. **NZ helicopters:** none exist in the collection; none are placed.
