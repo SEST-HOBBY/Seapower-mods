@@ -11,9 +11,12 @@ For how it works under the hood, see `integration/replenishment/README.md`.
 
 Before this pack, they did not. Guns and short-range point defence topped up fine, but
 anti-ship missiles, torpedoes and every VLS strike round were one-shot for the whole mission:
-when a Burke emptied its cells, that was the end of that Burke's war. **2,240 launchers across
-315 ships** receive the reload fix on the 24 Sep 2026 export: 2,217 on 308 from this pack, and
-the rest on the RAN ships, the Mogami and HMS Ocean, whose own packs apply the same fix.
+when a Burke emptied its cells, that was the end of that Burke's war. In the shipped pack
+(October 2026) **2,144 launchers across 295 ship files** receive the reload fix: about 1,550 of
+them missile cells, canisters, ASROC and torpedo tubes, the rest chaff launchers and gun mounts.
+Most come from this pack; the RAN ships, the Mogami and HMS Ocean get the same fix from their
+own packs. (It was 2,240 on 315 at the 24 Sep export, before 21 Burke and Spruance overrides
+left with the hulls their mods deleted.)
 
 ---
 
