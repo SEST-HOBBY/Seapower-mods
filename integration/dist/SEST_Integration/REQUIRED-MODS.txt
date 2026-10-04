@@ -1,11 +1,12 @@
 SOUTHERN WATCH / SOUTHERN REACH / RED LINE - required Steam Workshop mods
 
-TRY THE MOD MANAGER FIRST. Its Sync button asks Steam for this mod's
-required items and subscribes you to them - the game reports back
-"Subscribed to N new dependencies. Enabled N installed
-dependencies", and it iterates, so a dependency's own dependencies
-come too. If that works you do not need the list below at all, and
-it is here to check against rather than to work through by hand.
+TRY SETUP FIRST. "SETUP - double-click me.cmd" in this folder checks
+that every mod below is downloaded (and names the ones that are
+not, with links), installs the Anchor Chain preloader, and writes
+the whole Mod Manager order. The Steam collection this pack is
+listed in subscribes you to all of them in one press. If that
+works you do not need the list below at all, and it is here to
+check against rather than to work through by hand.
 
 140 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,

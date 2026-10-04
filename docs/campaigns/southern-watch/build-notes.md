@@ -2033,6 +2033,116 @@ squadron table declares no squadrons, which the builder already allowed for;
 its `_info.ini` puts its name under `[General]`, which is why the Mod Manager
 shows it by number with an (A) badge. 1264 files; 106 + 67 tests.
 
+## The planned window, the sea's price, and SETUP in the pack (4 October)
+
+The first public comments on the Workshop item, within a day of it going
+up. MattS, twice: *Macquarie Passage* cannot be finished - HMAS Supply makes
+seven knots at flank in its sea state 5, and his second attempt failed on
+time a quarter of a mile short of the withdrawal line. Dat Guy: every
+mission is on a clock, the opposing forces in *White Water* and *Steel
+Highway* start too close, *Southern Cross* cannot be won. Both were right
+about the clock, and the repo's own numbers say why.
+
+What the files said. All 58 missions ended on a `Condition_Type=Time`
+trigger that failed the main task; the planned `minutes` (45 to 120) was
+also the failure time. Stock Pacific Strike has no Time condition in any of
+its fourteen missions - they end when their objectives resolve. No SEST
+victory is clock-based: 50 are `arrive`, 8 `destroy`, and only four
+missions have an in-mission timed check. So the clock was never the win,
+only the loss, and it was sized by a planner that assumed every ship makes
+her class speed in any sea.
+
+Four changes in the builder, and the missions it moved:
+
+1. **The window and the deadline are two numbers.** `minutes` stays the
+   planned window and still sizes every placement and reach check. At that
+   minute a new trigger ("Window closed") sends `BehindScheduleMessage`:
+   the window has closed, command holds the line for about N minutes more,
+   finish the task. The mission is lost at `DEADLINE_FACTOR` (1.5) times
+   the window - a 60-minute plan fails at 90, a 90 at 135. Stock runs no
+   clock at all; this keeps the pressure the design wanted and stops a
+   plan that was right on paper from being a replay a cable short.
+2. **Ships pay for the sea.** `SEA_SPEED` scales a Vessel's planning speed
+   by the mission's sea state: 1.0 to state 2, then 0.9, 0.7, 0.45 (state
+   5), 0.35, 0.3, 0.25. Submarines dive under it and aircraft fly over it.
+   It is calibrated on the one measurement in hand (Supply, state 5, seven
+   knots, 0.4 of the 18 the table assumes) and shaded conservative either
+   side; the game's own curve is not in any file this repo reads. It feeds
+   the arrival solver (`ship_speed`), the authored-box reach check, an
+   authored convoy speed (`transit`), and the escort closure check.
+3. **A held stage comes off the window.** An arrival whose stage keeps the
+   units inside an area around one of their own starts until a minute
+   (Macquarie Passage's service check, Southern Lifeline's rendezvous) is
+   time at anchor: `hold_minutes()` takes it off both the solver's budget
+   and the reach check. The comment in SR04 that said "the solver does not
+   know the first thirty minutes are spent at anchor" is no longer true.
+4. **One build names every short box.** The authored-box reach check used
+   to raise on the first failure; it now reports through `REACH_PROBLEMS`
+   with the rest of the geometry, so a pass over the speed table does not
+   cost a rebuild per mission to read.
+
+With the sea priced, seven missions no longer reached their own boxes
+inside the plan, and each was moved or lengthened rather than given more
+clock everywhere:
+
+| mission | sea | was | now |
+|---|---|---|---|
+| SR04 Macquarie Passage | 5 | withdrawal line 20 NM north of Buckles Bay | 16 NM (`at=(-54.24, 159.05)`), 45 minutes under way after the check |
+| SW09 Southern Lifeline | 2 | box 18 NM from Collins, 50 minutes after the rendezvous | a mile nearer (`at=(-13.78, 148.35)`) |
+| SW C1 After the Wake | 4 | survivors' datum 18 NM from the frigate | 13.5 NM (`at=(-10.48, 144.62)`) |
+| SR03 Search Datum | 5 | datum 18 NM from the escort | 8 NM (`at=(-52.12, 139.75)`) |
+| TS08 Great Australian Bight | 4 | Collins 25 NM west of the escorts (31 on the plot) | 20 NM (`S(-35.62, 132.15)`): the escort's 80 minutes reach 24 |
+| TS11A The Twelve-Mile Line | 3 | 80 minutes, the circle a cable past reach | 85 minutes; the circle stays on the twelve-mile line |
+| RL06 The Quiet Side | 5 | 80 minutes, the tender a mile short of the holding position | 95 minutes; the position stays thirty miles west of the decoy station |
+
+Not touched, on purpose: the four in-mission timed checks (they are story
+beats), and the opening ranges in *White Water*, *Steel Highway* and
+*Southern Cross*, which want a play-test with the new clock before anything
+moves.
+
+**SETUP in the pack.** Ordering 148 mods by hand from LOAD-ORDER.txt is
+the step a stranger fails at, and the script written for the friend's
+install now ships at the pack root: `SETUP - double-click me.cmd` and
+`sest-setup.ps1`, copied byte for byte from `integration/campaign/setup/`
+(CRLF; `.gitattributes` marks source and both outputs `-text` so the
+install's SHA-256 matches the commit on either OS). Mod Manager > Open
+Folder on the pack, quit the game, double-click SETUP. It finds the pack
+from its own location (a Workshop download under `workshop/content/
+1286220/<id>`, or a copy placed in StreamingAssets by hand; run from
+anywhere else it looks for the one Workshop copy), refuses to run while
+the game is up or while both a Workshop and a local copy exist, checks
+that every id in LOAD-ORDER.txt is downloaded and names the missing ones
+with links, installs Anchor Chain's preloader from the project's latest
+GitHub release when neither `winhttp.dll` nor `BepInEx` is in the game
+folder - relaunching itself elevated through UAC when the folder is not
+writable, so nobody is told to "run as administrator" - sets the PLA &
+PLAN & PLAAF AEP `debug.ini` switch off, and writes `[LoadOrder]`: the
+pack's folder token first, the ids in LOAD-ORDER.txt's order, all on, the
+player's other mods after them with their flags kept, stale and
+undownloaded entries dropped, the file's other sections and line endings
+untouched, a timestamped backup beside it. The `-Pause` the .cmd passes
+keeps the window open; a console run without it does not pause. Exercised
+on a fake Steam layout (two libraries, one on a drive that is not there;
+148 downloaded ids; a settings file with a shuffled order, disabled
+entries, a stale tail and `[LoadOrder]` first and last, CRLF and LF):
+Workshop mode, local mode, standalone, both conflicts, a missing mod,
+a missing settings file, the forced non-admin path (elevation refused ->
+nothing changed) and the forced elevated-but-unwritable path; re-running is
+byte-identical. `REQUIRED-MODS.txt` no longer opens with "try the Mod
+Manager's Sync button": the item's Required Workshop IDs are left empty on
+purpose, because the Mod Manager answers a required item below its
+dependant by offering to move all of them above the pack, which would
+undo every fix in it. The pack's `_info.ini` and `LOAD-ORDER.txt` say
+where SETUP is. 1266 files.
+
+Not demonstrated: the game's actual speed curve against sea state (one
+point, one hull); that `BehindScheduleMessage` displays (it uses the same
+`Action_Taskforce1_Message` as the start message); that the game is
+indifferent to a `.cmd` and a `.ps1` in a Workshop folder (mods ship
+`.md` and `.txt`; no mod in the collection ships a script); the UAC
+relaunch on a real Windows desktop; and SETUP on a PC where Steam lives
+somewhere other than the registry's default. Test card H.15-H.18.
+
 ## What has NOT been demonstrated
 
 Static resolution is not a play test. None of the following is established by

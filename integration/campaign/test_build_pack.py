@@ -1465,3 +1465,36 @@ class CoverageGeography(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class ClockAndSea(unittest.TestCase):
+    """The planned window, the deadline behind it, and the sea's price."""
+
+    def test_window_closes_with_a_message_and_the_mission_is_lost_later(self):
+        t = rendered(small_mission())          # small_mission plans 80 minutes
+        self.assertIn("Condition_Time=4800", t["Window closed"])
+        self.assertIn("Action_Taskforce1_Message=BehindScheduleMessage", t["Window closed"])
+        self.assertIn("Condition_Time=7200", t["Deadline"])       # 80 x 1.5
+        self.assertIn("Action_Victory=Taskforce2", t["Deadline"])
+        self.assertNotIn("Action_Victory=Taskforce2", t["Window closed"])
+
+    def test_deadline_is_half_as_long_again(self):
+        self.assertEqual(bp.deadline_minutes({"minutes": 60}), 90)
+        self.assertEqual(bp.deadline_minutes({"minutes": 45}), 68)
+
+    def test_only_ships_pay_for_the_sea(self):
+        calm, rough = {"sea": 2}, {"sea": 5}
+        self.assertEqual(bp.ship_speed("Vessel", calm), 18.0)
+        self.assertAlmostEqual(bp.ship_speed("Vessel", rough), 18.0 * 0.45)
+        self.assertAlmostEqual(bp.ship_speed("Vessel", rough, calm=9.0), 9.0 * 0.45)
+        self.assertEqual(bp.ship_speed("Submarine", rough), 10.0)
+        self.assertEqual(bp.ship_speed("Aircraft", rough), 300.0)
+        self.assertEqual(bp.sea_factor({"sea": 9}), 0.25)       # off the table: the worst row
+        self.assertEqual(bp.sea_factor({}), 1.0)
+
+    def test_a_held_stage_comes_off_the_window(self):
+        held = {"after": dict(kind="area", units=["a"], at_unit="a", radius=5,
+                              after_minutes=30)}
+        self.assertEqual(bp.hold_minutes(held), 30)
+        self.assertEqual(bp.hold_minutes({"after": dict(kind="classify", units="x")}), 0)
+        self.assertEqual(bp.hold_minutes({}), 0)

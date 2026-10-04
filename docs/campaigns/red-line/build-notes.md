@@ -377,3 +377,13 @@ flagship, the Collins and Virginias as persistent boats. 1260 files.
 loading tips, and the Rafale back*): nothing placed here from the four new
 mods; the loading-screen tips are English again for every campaign. 1264
 files.
+
+## The Quiet Side at 95 minutes (4 October)
+
+The tender is a surfaced merchant in a sea state 5, and with ships priced
+for the sea (Southern Watch build notes, 4 October) the holding position
+thirty miles west of the decoy station sat a mile past what 80 minutes
+bought. The window is 95 minutes; the position, the half-hour decoy hold
+and the boat's rules are as they were. Every Red Line mission now closes
+its window with a message and is lost at 1.5 times the plan, as the other
+two campaigns do.

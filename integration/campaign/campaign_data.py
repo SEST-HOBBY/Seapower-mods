@@ -1455,7 +1455,10 @@ MISSIONS.append(dict(
     # not know that the first thirty-five minutes are spent standing still.
     victory=dict(kind="arrive", units=["support#1", "support#2"], min_units=2,
                  station="support", objective="Service",
-                 at=(-13.8, 148.35), radius=12,
+                 # A mile nearer than it was: the reach check now takes the
+                 # 35-minute rendezvous off Collins's window, and at ten
+                 # knots the old line was a cable past what that bought.
+                 at=(-13.78, 148.35), radius=12,
                  after=dict(kind="area", units=["support#1", "support#2"],
                             at_unit="support#1", radius=5, min_units=2,
                             after_minutes=35, sets="SW09ServiceHeld",
@@ -3495,7 +3498,10 @@ MISSIONS.append(dict(
     # - one reading made "past the half hour" a no-op, the other put the win
     # after the deadline at 18 kn. The helicopter the first build scored is a
     # Ship's Flight slot now, and no trigger may name a slot.
-    victory=dict(kind="arrive", station="hobart", at=(-10.4, 144.6), radius=3,
+    # The datum sits 13.5 NM from the frigate's start, down from 18: at the
+    # sea state 4 planning speed the old one was three miles past what 75
+    # minutes buys, and the point of the mission is the search, not the run.
+    victory=dict(kind="arrive", station="hobart", at=(-10.48, 144.62), radius=3,
                  min_units=1, objective="Survivors"),
     # The win names the lead ship alone, so losing her ends it (stock's
     # "Flagship must survive"). The Type 039C is weapons free on her track.
