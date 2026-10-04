@@ -1,0 +1,3 @@
+<Grid>
+    <Image Source="{Binding Assets[Mission_Briefing_1]}" Stretch="Uniform"/>
+</Grid>

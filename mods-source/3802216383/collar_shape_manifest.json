@@ -1,0 +1,106 @@
+{
+  "outlets": [
+    {
+      "center": [
+        -0.095,
+        0.0195,
+        -0.9484381741453117
+      ],
+      "attachment": [
+        -0.095,
+        0.0195,
+        -0.9543381741453117
+      ],
+      "outer_diameter_metres": 1.008,
+      "mouth_inner_diameter_metres": 0.9,
+      "projection_metres": 0.576
+    },
+    {
+      "center": [
+        -0.0841,
+        0.0195,
+        -0.9484381856562506
+      ],
+      "attachment": [
+        -0.0841,
+        0.0195,
+        -0.9543381856562506
+      ],
+      "outer_diameter_metres": 1.008,
+      "mouth_inner_diameter_metres": 0.9,
+      "projection_metres": 0.576
+    }
+  ],
+  "profile": [
+    [
+      0.0039,
+      -0.00015
+    ],
+    [
+      0.004,
+      0.0001
+    ],
+    [
+      0.00376,
+      0.00038
+    ],
+    [
+      0.00366,
+      0.0007
+    ],
+    [
+      0.00366,
+      0.0023
+    ],
+    [
+      0.00382,
+      0.0033
+    ],
+    [
+      0.00425,
+      0.0043
+    ],
+    [
+      0.00483,
+      0.0051
+    ],
+    [
+      0.00502,
+      0.0054
+    ],
+    [
+      0.00504,
+      0.00558
+    ],
+    [
+      0.00496,
+      0.00572
+    ],
+    [
+      0.00478,
+      0.00576
+    ],
+    [
+      0.00461,
+      0.00566
+    ],
+    [
+      0.0045,
+      0.00544
+    ],
+    [
+      0.00408,
+      0.00432
+    ],
+    [
+      0.00352,
+      0.0033
+    ],
+    [
+      0.0033,
+      0.0023
+    ]
+  ],
+  "reference": "https://wporep.com/wp-content/uploads/20120603-093341.jpg",
+  "accuracy": "Photo-guided proportions; no measured real-world dimensions. Existing outlet centers and throat size retained."
+}

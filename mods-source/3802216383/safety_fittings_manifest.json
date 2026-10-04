@@ -1,0 +1,108 @@
+{
+  "build": "R10.40 safety fittings",
+  "net_original_triangles": 174,
+  "net_back_triangles": 174,
+  "new_raft_triangles": {
+    "Hyuga_Raft_Shields": 928,
+    "Hyuga_Raft_Canisters": 2304,
+    "Hyuga_Raft_Straps": 768
+  },
+  "rafts": [
+    {
+      "center": [
+        0.1645,
+        0.1451,
+        -0.644
+      ],
+      "shield_x": 0.1757,
+      "station": "starboard aft, between existing galleries above boat bay"
+    },
+    {
+      "center": [
+        0.1645,
+        0.1451,
+        -0.65425
+      ],
+      "shield_x": 0.1757,
+      "station": "starboard aft, between existing galleries above boat bay"
+    },
+    {
+      "center": [
+        0.1645,
+        0.1451,
+        -0.6645
+      ],
+      "shield_x": 0.1757,
+      "station": "starboard aft, between existing galleries above boat bay"
+    },
+    {
+      "center": [
+        0.1645,
+        0.1451,
+        -0.67475
+      ],
+      "shield_x": 0.1757,
+      "station": "starboard aft, between existing galleries above boat bay"
+    },
+    {
+      "center": [
+        0.1645,
+        0.1451,
+        -0.685
+      ],
+      "shield_x": 0.1757,
+      "station": "starboard aft, between existing galleries above boat bay"
+    },
+    {
+      "center": [
+        0.1645,
+        0.1451,
+        -0.69525
+      ],
+      "shield_x": 0.1757,
+      "station": "starboard aft, between existing galleries above boat bay"
+    },
+    {
+      "center": [
+        0.1645,
+        0.1451,
+        -0.7055
+      ],
+      "shield_x": 0.1757,
+      "station": "starboard aft, between existing galleries above boat bay"
+    },
+    {
+      "center": [
+        0.1645,
+        0.1451,
+        -0.71575
+      ],
+      "shield_x": 0.1757,
+      "station": "starboard aft, between existing galleries above boat bay"
+    }
+  ],
+  "accuracy": "Photo-guided shielded starboard aft row; 8 modeled canisters; row shortened to clear the existing stair landing, approximate size and spacing. Not a verified shipwide inventory. Existing rails/frames/openings retained. Netting uses original UV/alpha texture. No new deployment animation.",
+  "checks": {
+    "original_geometry_preserved": true,
+    "original_textures_preserved": true,
+    "gameplay_and_animation_configs_preserved": true,
+    "obj_indices_valid": true,
+    "raft_count": 8,
+    "net_front_triangles": 174,
+    "net_back_triangles": 174,
+    "raft_bounds": [
+      [
+        0.1534,
+        0.1339,
+        -0.7206
+      ],
+      [
+        0.1757,
+        0.1512,
+        -0.63915
+      ]
+    ],
+    "native_cutout_shader_verified": true,
+    "in_game_tested": false
+  }
+}

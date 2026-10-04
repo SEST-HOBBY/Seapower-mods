@@ -1,0 +1,57 @@
+{
+  "coordinate_system": "Ship model X/Y/Z; +Z forward, Y up; approximately 100 m per model unit",
+  "deck_equipment": [
+    {
+      "name": "starboard_deck_tractor",
+      "position": [
+        0.13,
+        0.152551,
+        0.555
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "static": true
+    }
+  ],
+  "hangar_equipment": [
+    {
+      "name": "aft_hangar_tractor",
+      "position": [
+        0,
+        0.05,
+        -0.805
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "forward_port_cart",
+      "position": [
+        -0.062,
+        0.05,
+        0.544
+      ]
+    },
+    {
+      "name": "forward_starboard_cart",
+      "position": [
+        0.062,
+        0.05,
+        0.544
+      ]
+    }
+  ],
+  "future_constraints": [
+    "Preserve both elevator openings and lift travel.",
+    "Keep equipment outside the 18 planning envelopes in model_transition_manifest.json.",
+    "Clear the six centre spots for through handling; 18 is maximum packing, not independent access.",
+    "Do not add static helicopters on top of gameplay aircraft.",
+    "Verify new assets at their actual folded dimensions; current installed SH-60 offline bounds exceed the planning envelope."
+  ]
+}

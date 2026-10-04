@@ -1,0 +1,108 @@
+{
+  "outlets": [
+    {
+      "center": [
+        0.099304049,
+        0.2804,
+        -0.1688191641
+      ],
+      "radius": 0.0039048671216108037,
+      "large": false,
+      "original_faces": 70
+    },
+    {
+      "center": [
+        0.10576992745,
+        0.2838,
+        -0.0181700464
+      ],
+      "radius": 0.012826392094300629,
+      "large": true,
+      "original_faces": 70
+    },
+    {
+      "center": [
+        0.12707517925,
+        0.2838,
+        0.0155746591
+      ],
+      "radius": 0.012826397550257397,
+      "large": true,
+      "original_faces": 70
+    },
+    {
+      "center": [
+        0.1008183698,
+        0.2804,
+        0.0162876948
+      ],
+      "radius": 0.006625422649471954,
+      "large": false,
+      "original_faces": 70
+    },
+    {
+      "center": [
+        0.1303531165,
+        0.2804,
+        -0.01966905115
+      ],
+      "radius": 0.00662541831960665,
+      "large": false,
+      "original_faces": 70
+    },
+    {
+      "center": [
+        0.12646323874999998,
+        0.2838,
+        -0.2220971966
+      ],
+      "radius": 0.012826389262419044,
+      "large": true,
+      "original_faces": 140
+    },
+    {
+      "center": [
+        0.1026590114,
+        0.2804,
+        -0.22900899835
+      ],
+      "radius": 0.006625417769773002,
+      "large": false,
+      "original_faces": 140
+    },
+    {
+      "center": [
+        0.10606300585,
+        0.2838,
+        -0.1928119888
+      ],
+      "radius": 0.012826389262419054,
+      "large": true,
+      "original_faces": 91
+    },
+    {
+      "center": [
+        0.12977343154999998,
+        0.2804,
+        -0.18511899005
+      ],
+      "radius": 0.006625424967937151,
+      "large": false,
+      "original_faces": 70
+    },
+    {
+      "center": [
+        0.1111051206,
+        0.2804,
+        -0.16881916954999998
+      ],
+      "radius": 0.003904865640707018,
+      "large": false,
+      "original_faces": 70
+    }
+  ],
+  "removed_faces": 861,
+  "added_faces": 9600,
+  "reference": "https://aobamil.sakura.ne.jp/shasin/hyuga/hyuga2.html",
+  "accuracy": "Photo-guided heights, rounded main outlets and thin rims; existing outlet centers/layout retained. Small auxiliary outlet details are model-derived."
+}

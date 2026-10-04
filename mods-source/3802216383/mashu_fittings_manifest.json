@@ -1,0 +1,78 @@
+[
+  {
+    "name": "maintenance_dolly",
+    "source": "work\\mashu_hangar_source\\mashu_hanger.fbx",
+    "scale": 0.065,
+    "position": [
+      -0.065,
+      0.05,
+      -0.32
+    ],
+    "size": [
+      0.015544941159896554,
+      0.010919141694903375,
+      0.03193607211112976
+    ],
+    "triangles_before": 17692,
+    "triangles_after": 6722,
+    "groups": [
+      "maintenance_dolly_maintenance_dolly_589c2233",
+      "maintenance_dolly_maintenance_dolly_63f72cc7",
+      "maintenance_dolly_maintenance_dolly_82ccb028",
+      "maintenance_dolly_maintenance_dolly_51da2df9",
+      "maintenance_dolly_maintenance_dolly_c4bd7973",
+      "maintenance_dolly_maintenance_dolly_efebdfc7",
+      "maintenance_dolly_maintenance_dolly_16532014",
+      "maintenance_dolly_maintenance_dolly_f55fb781",
+      "maintenance_dolly_maintenance_dolly_7a6a2d2d",
+      "maintenance_dolly_maintenance_dolly_648769d4",
+      "maintenance_dolly_maintenance_dolly_a3ce2e37",
+      "maintenance_dolly_maintenance_dolly_f91421de",
+      "maintenance_dolly_maintenance_dolly_68678ddc",
+      "maintenance_dolly_maintenance_dolly_d764022e",
+      "maintenance_dolly_maintenance_dolly_4a84419f"
+    ],
+    "materials": [
+      "maintenance_dolly_589c2233",
+      "maintenance_dolly_63f72cc7",
+      "maintenance_dolly_82ccb028",
+      "maintenance_dolly_51da2df9",
+      "maintenance_dolly_c4bd7973",
+      "maintenance_dolly_efebdfc7",
+      "maintenance_dolly_16532014",
+      "maintenance_dolly_f55fb781",
+      "maintenance_dolly_7a6a2d2d",
+      "maintenance_dolly_648769d4",
+      "maintenance_dolly_a3ce2e37",
+      "maintenance_dolly_f91421de",
+      "maintenance_dolly_68678ddc",
+      "maintenance_dolly_d764022e",
+      "maintenance_dolly_4a84419f"
+    ]
+  },
+  {
+    "name": "extinguishers",
+    "source": "work\\mashu_hangar_source\\mashu_hanger.fbx",
+    "scale": 0.12,
+    "position": [
+      0.073,
+      0.05,
+      0.31
+    ],
+    "size": [
+      0.005950405597686767,
+      0.006969961747527122,
+      0.0029573965072631834
+    ],
+    "triangles_before": 1432,
+    "triangles_after": 1432,
+    "groups": [
+      "extinguishers_extinguishers_972afe47",
+      "extinguishers_extinguishers_68678ddc"
+    ],
+    "materials": [
+      "extinguishers_972afe47",
+      "extinguishers_68678ddc"
+    ]
+  }
+]

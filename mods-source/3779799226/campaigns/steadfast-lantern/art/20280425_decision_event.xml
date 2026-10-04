@@ -1,0 +1,90 @@
+<!-- STEADFAST LANTERN - narrative card before the finale.
+     Two documents on one page: the decision that came six weeks late,
+     and the order that follows from it. Self-contained. -->
+
+<ScrollViewer
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="#E8E4D8" HorizontalAlignment="Center" VerticalAlignment="Center"
+          Width="900" Padding="45"
+          TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="15">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <StackPanel Orientation="Vertical">
+
+      <TextBlock Text="NORTH ATLANTIC COUNCIL" FontFamily="Arial Narrow" FontSize="26" FontWeight="Bold"
+                 TextAlignment="Center"/>
+      <TextBlock Text="EXTRACT - DECISION SHEET NAC/2028/117" FontFamily="Arial Narrow" FontSize="17"
+                 TextAlignment="Center" Margin="0,2,0,0"/>
+      <TextBlock Text="Adopted 0407 hours, 25 April 2028" FontFamily="Arial Narrow" FontSize="15"
+                 TextAlignment="Center" Margin="0,2,0,10"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,2"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,16"/>
+
+      <TextBlock TextWrapping="Wrap" TextAlignment="Justify" LineHeight="23">
+        1. The Council determines that the attacks of 9 March against undersea infrastructure in
+        the eastern Baltic constituted a deliberate act against the security of the Alliance.
+        <LineBreak/><LineBreak/>
+        2. The Council authorises the measures set out in Annex A, with immediate effect.
+        <LineBreak/><LineBreak/>
+        3. The Council records that this determination was reached after eleven sessions, over
+        forty-seven days, and that it was reached at last under conditions of duress created by
+        the actions of a serving officer of one of its member states.
+        <LineBreak/><LineBreak/>
+        4. That officer&#8217;s conduct is not thereby excused, mitigated or in any way approved.
+        <LineBreak/><LineBreak/>
+        5. The Council does not consider it necessary to record anything further on the subject.
+      </TextBlock>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,20,0,20"/>
+
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Text="NAVAL MESSAGE" FontFamily="Arial Narrow" FontSize="24" FontWeight="Bold"/>
+        <TextBlock Grid.Column="1" Text="*******S E C R E T*******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="ALLIED MARITIME COMMAND" FontFamily="Arial Narrow" FontSize="24" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,2,0,14"/>
+
+      <TextBlock TextWrapping="Wrap" LineHeight="22">
+        FM: ALLIED MARITIME COMMAND<LineBreak/>
+        TO: COMMANDER, TG NORTHWIND<LineBreak/>
+        DTG: 250415Z APR 28<LineBreak/>
+        SUBJ: OPERATION STEADFAST LANTERN - FINAL PHASE
+      </TextBlock>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,14,0,14"/>
+
+      <TextBlock TextWrapping="Wrap" TextAlignment="Justify" LineHeight="23">
+        1. (S) The Council has decided. The determination Vahl closed a strait to force was signed
+        at 0407 this morning, six weeks and two days after he first asked for it.
+        <LineBreak/><LineBreak/>
+        2. (S) He has been informed. He has not opened the approaches.
+        <LineBreak/><LineBreak/>
+        3. (S) Remaining Nordverband strength is assessed at two air-defence destroyers, one Type
+        212A boat and the flagship, concentrated in the Bornholm Basin. Open water, with nothing
+        left out there to complicate the problem.
+        <LineBreak/><LineBreak/>
+        4. (S) You are to bring the operation to an end.
+        <LineBreak/><LineBreak/>
+        5. (S) The following is not an instruction and will not appear in the operational record.
+        The political staff would prefer this concluded with Konteradmiral Vahl alive and in
+        custody rather than on the bottom of the Baltic, for reasons that are entirely to do with
+        the inquiry and not at all to do with sentiment. Nobody will order you to arrange that.
+        Nobody will criticise you if you do not.
+        <LineBreak/><LineBreak/>
+        6. (S) It will be decided by what you choose to shoot at, and by nothing else.
+        <LineBreak/><LineBreak/>
+        7. (S) Good hunting, Commander.
+      </TextBlock>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,18,0,4"/>
+      <TextBlock Text="*******S E C R E T*******" FontWeight="Bold" TextAlignment="Center"/>
+
+    </StackPanel>
+  </Border>
+</ScrollViewer>

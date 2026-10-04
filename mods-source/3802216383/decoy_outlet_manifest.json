@@ -1,0 +1,34 @@
+{
+  "outlets": [
+    {
+      "attachment": [
+        -0.095,
+        0.0195,
+        -0.9543381741453117
+      ],
+      "stowed": [
+        -0.095,
+        0.0195,
+        -0.91843817415625
+      ],
+      "surface_z": -0.94843817415625,
+      "bore_radius": 0.0033
+    },
+    {
+      "attachment": [
+        -0.0841,
+        0.0195,
+        -0.9543381856562506
+      ],
+      "stowed": [
+        -0.0841,
+        0.0195,
+        -0.918438185703125
+      ],
+      "surface_z": -0.948438185703125,
+      "bore_radius": 0.0033
+    }
+  ],
+  "geometry_changed": true,
+  "animation": "Native DecoySystems deployment and cable simulation; runtime verification pending"
+}

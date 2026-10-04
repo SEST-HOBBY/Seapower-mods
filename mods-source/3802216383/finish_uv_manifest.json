@@ -1,0 +1,72 @@
+{
+  "uv_faces": {
+    "Bow_Plinth": 12,
+    "Aft_CIWS_Sponson": 68,
+    "Aft_CIWS_InnerShell": 20,
+    "Stern_Repair": 12
+  },
+  "texture_tile_metres": 8,
+  "material_palette": {
+    "hull": [
+      "cdd2d0ff",
+      0.06
+    ],
+    "hull_ise": [
+      "cdd2d0ff",
+      0.06
+    ],
+    "hull_small": [
+      "cdd2d0ff",
+      0.06
+    ],
+    "grey": [
+      "fcfff7ff",
+      0.045
+    ],
+    "door": [
+      "f4f7efff",
+      0.045
+    ],
+    "blue": [
+      "e3e9e7ff",
+      0.04
+    ],
+    "deck": [
+      "f3f5f4ff",
+      0.025
+    ],
+    "deck_ise": [
+      "f3f5f4ff",
+      0.025
+    ],
+    "vents": [
+      "f4f8eeff",
+      0.025
+    ],
+    "deep_gray": [
+      "edf0eeff",
+      0.035
+    ],
+    "bottom": [
+      "f0e8e4ff",
+      0.035
+    ],
+    "white": [
+      "fffdf6ff",
+      0.07
+    ],
+    "red": [
+      "fff7f3ff",
+      0.045
+    ],
+    "elevator_box": [
+      "e5e9e6ff",
+      0.035
+    ]
+  },
+  "approach": "Non-destructive shader tint and matte response; original raster textures retained unchanged. Only added hull pieces receive projected paint UVs.",
+  "duplicate_faces_removed": 918,
+  "original_normals_retained": true,
+  "unchanged_texture_files": 86,
+  "validation": "Offline geometry, texture, configuration and rendered preview checks passed; in-game daylight test pending"
+}

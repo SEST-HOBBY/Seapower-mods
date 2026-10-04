@@ -1,0 +1,10 @@
+--- Model provided by IcEm4n;
+--- Textures and config by Berdo;
+--- Sensor data and Specs by Frenchy and Moussticot
+--- Serial Modex by Frenchy
+
+--- Special thanks to:
+	-Misaka for the nose variants;
+	-Frenchy for reference info on variants, loadouts, serial modex and sensors data
+	-Moussticot for sensors data and loadouts
+	-Skyblazer, Petrouvis Cellinia_Texas for modeling support.

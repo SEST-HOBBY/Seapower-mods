@@ -1,0 +1,45 @@
+<TextBlock TextAlignment="Justify" FontSize="14" FontFamily="Segoe UI" Foreground="White">
+    <Run FontSize="20" FontWeight="Bold">Operation Paraquet</Run>
+    <LineBreak/>
+    <Run FontWeight="Bold">South Georgia, South Atlantic</Run>
+    <LineBreak/>
+   25th April 1982 0600 Local
+    <LineBreak/>
+	Captain Brian Young, HMS Antrim, Task Force 317.9
+    <LineBreak/>
+	From Northwood
+	<LineBreak/><LineBreak/>
+    Argentinian forces occupy <Run FontWeight="Bold">Grytviken</Run> the main settlement on 
+    <Run FontWeight="Bold">South Georgia</Run>. <LineBreak/> SBS has confirmed the presence of 
+     the <Run FontWeight="Bold">ARA Santa Fe</Run>, a Balao class submarine.
+    <LineBreak/>
+    <LineBreak/>
+    The <Run FontWeight="Bold">ARA Santa Fe</Run> has dropped off supplies during the night and is likely heading <LineBreak/>out to sea 
+   in an attempt to return to the Falklands.
+    <LineBreak/>
+    <LineBreak/>
+    The cabinet has approved <Run FontWeight="Bold">Operation Paraquet</Run>.
+    <LineBreak/> It is vital to show the world Britian intends to fight 
+    <LineBreak/> and recover the Falklands through military force if necessary.
+    <LineBreak/>
+   <LineBreak/>
+ 
+    <Run FontSize="16" Foreground="Yellow" FontWeight="Bold">Objectives:</Run>
+    <LineBreak/>  <LineBreak/>
+     <Run FontWeight="Bold">OBJ ALPHA CAPTURE</Run>   <LineBreak/>Bring the task force to within bombardment range of <Run FontWeight="Bold">Grytviken</Run>.
+    <LineBreak/> It is expected the Argentinian garrison will surrender under this threat.<LineBreak/>
+	If necessary provide naval gunfire support and capture <Run FontWeight="Bold">Grytviken</Run> with your  <LineBreak/>embarked marines.
+    <LineBreak/>  <LineBreak/>
+     <Run FontWeight="Bold">OBJ BETA NEUTRALISE</Run>   <LineBreak/>Use the helicopters of the task force to locate and neutralise the  <Run FontWeight="Bold">ARA Santa Fe</Run>.<LineBreak/>
+   This will be the first time a navy conducts ASW operations in this manner. <LineBreak/> 
+    Trust in your training and crews.<LineBreak/> <LineBreak/> 
+    <Run FontSize="16" Foreground="Red" FontWeight="Bold">Imperative:</Run><LineBreak/> 
+ 
+    Ensure no damage to the task force.   <LineBreak/><LineBreak/>
+    <Run FontSize="16" Foreground="Brown" FontWeight="Bold">Advisory:</Run><LineBreak/> 
+ 
+    South Georgia is extremely inhospitable.   <LineBreak/> Cold weather gear must be issued. <LineBreak/>
+    Expect issues operating rotary wing aircraft in extreme conditions.
+    <LineBreak/> <LineBreak/>  
+    <Run FontWeight="Bold" FontSize="16">For the Service.</Run>
+</TextBlock>
