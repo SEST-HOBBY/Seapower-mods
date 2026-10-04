@@ -1467,6 +1467,7 @@ def place(mission, snapper):
     station_snap = {}                          # station -> ((lat, lon), drift)
     worst = 0.0
     alone = set()                              # independent=True, by tag
+    contact = set()                            # contact="why", by tag
     pending = []                               # AttackAtWaypoint targets
     disabled = []                              # (tag, systems) off at start
 
@@ -1708,6 +1709,15 @@ def place(mission, snapper):
         # in while the frigate draws the patrol off - is exempt from the
         # closure gate's escort distance. It is not a key the game reads, so
         # it rides on the mission, the way the anchor's tag does.
+        # A red unit authored to open in contact - a shadower already on the
+        # player, a boat the briefing puts inside the search box - says why
+        # in contact="...", and check_opening() reads the reason instead of
+        # refusing the range. Like independent=, not a key the game reads.
+        if spec.get("contact"):
+            if spec["side"] != "red" or not isinstance(spec["contact"], str):
+                sys.exit(f"{mission['key']}: contact= is a reason, on a red unit; "
+                         f"{spec['type']} is {spec['side']}")
+            contact.add(tag)
         if spec.get("independent"):
             if spec["side"] != "blue":
                 sys.exit(f"{mission['key']}: independent=True is for the "
@@ -1784,6 +1794,7 @@ def place(mission, snapper):
     if stranded:
         raise SystemExit(f"{mission['key']}: " + "; ".join(stranded))
     mission["_independent"] = alone
+    mission["_contact"] = contact
     mission["_disabled"] = disabled
     return placed, members, credits, worst
 
@@ -2565,6 +2576,133 @@ def check_closure(mission, placed, members):
                 f"{mission['key']}: red {r['tag']} ({r['uid']}) is {d:.0f} NM from "
                 f"{pr['tag']}, pointed away, with no waypoints and "
                 f"{armed_reach(r):.0f} NM of reach - set dressing unless it moves")
+
+
+# The opening, in nautical miles. Two surface ships' radars see each other's
+# hulls out to about twenty miles (a Peykaap's set reads 17); a boat dived
+# inside twenty-five is inside her own torpedo reach of the first ship she
+# hears. Inside those, the first minute of the mission is the engagement.
+OPENING_SURFACE_NM = 25.0
+OPENING_SUB_NM = 25.0
+# An armed aircraft needs this much flying between its spawn and its own
+# launch range, so a raid is something the player sees coming. A standoff
+# round (a YJ-12 at 270, a Kh-22 in four figures) is launched from far out
+# in life too; past OPENING_AIR_STANDOFF_NM the question is only whether
+# the bomber starts on the player's plot, which is where the AEW will see it.
+OPENING_AIR_LEAD_NM = 20.0
+OPENING_AIR_STANDOFF_NM = 100.0
+# A spotter this close to a ship already has her track.
+OPENING_SPOTTER_NM = 25.0
+OPENING_PROBLEMS = []
+
+_SHIP_REACH = {}
+
+
+def ship_reach(uid, fit):
+    """How far this unit can hit a SHIP, in NM: its anti-ship missiles and
+    its torpedoes, not its SAMs, its air-to-air rounds or its sonobuoys -
+    the three that made reach() read a Ka-28 as a 100 NM threat."""
+    key = (uid, fit)
+    if key in _SHIP_REACH:
+        return _SHIP_REACH[key]
+    kind_dir, path = unit_file(uid)
+    best = 0.0
+    if path is not None:
+        if fit is None:
+            fit, _why = pick_loadout(uid, path, None)
+        for store in stores(uid, kind_dir, path, fit):
+            text = "".join(read(f) for f in all_copies(f"ammunition/{store}.ini"))
+            kind = re.search(r"^Type=(\w+)", text, re.M)
+            aim = re.search(r"^TargetType=(\w+)", text, re.M)
+            if kind and (kind.group(1) == "Torpedo" or
+                         (kind.group(1) == "Missile" and aim
+                          and aim.group(1) == "ASuW")):
+                best = max(best, ammo_range(store))
+    _SHIP_REACH[key] = best
+    return best
+
+
+def check_opening(mission, placed):
+    """Does the mission open with a fight already in progress?
+
+    The first public report (October 2026) said it of White Water, Steel
+    Highway and Southern Cross, and the files agreed: a Peykaap inside its
+    own radar of the merchants, a 039C thirteen miles from the escorts with
+    its weapons free, a boat with a drone over the patrol ship and Nasir in
+    reach of her from the first second. A player cannot classify, position
+    or decide anything in a mission whose opening is the attack.
+
+    Three questions, about every red unit whose weapons are FREE at the
+    start (Tight and Hold do not fire first):
+      - a surface ship or a boat inside OPENING_SURFACE_NM / OPENING_SUB_NM
+        of the nearest player hull;
+      - an armed aircraft with less than OPENING_AIR_LEAD_NM of flying
+        between it and its own anti-ship launch range (that range counted
+        to OPENING_AIR_STANDOFF_NM at most);
+      - a ship already holding a player hull in anti-ship reach while a red
+        aircraft is within OPENING_SPOTTER_NM of that hull, giving her the
+        track.
+    A unit the story puts in contact on purpose says so with contact="why".
+    """
+    def rows(prefix):
+        out = []
+        for family, entries in placed.items():
+            if not family.startswith(prefix) or family.endswith("LandUnit"):
+                continue
+            kind = ("air" if family.endswith(("Aircraft", "Helicopter")) else
+                    "sub" if family.endswith("Submarine") else "sea")
+            for tag, keys, name, _x in entries:
+                bits = keys.get("RelativePositionInNM", "").split(",")
+                try:
+                    x, z = float(bits[0]), float(bits[2])
+                except (ValueError, IndexError):
+                    continue
+                out.append(dict(tag=tag, uid=keys["Type"], x=x, z=z, kind=kind,
+                                name=name, free=keys.get("WeaponStatus") == "Free",
+                                fit=keys.get("LoadoutVariant")))
+        return out
+
+    player, red = rows("Taskforce1"), rows("Taskforce2")
+    hulls = [b for b in player if b["kind"] in ("sea", "sub")]
+    if not hulls:
+        return
+    excused = mission.get("_contact", set())
+
+    def nearest(u):
+        h = min(hulls, key=lambda b: math.hypot(b["x"] - u["x"], b["z"] - u["z"]))
+        return h, math.hypot(h["x"] - u["x"], h["z"] - u["z"])
+
+    def who(u):
+        return f"{u['tag']} ({u['uid']}{', ' + u['name'] if u['name'] else ''})"
+
+    spotters = [r for r in red if r["kind"] == "air"]
+    for r in red:
+        if not r["free"] or r["tag"] in excused:
+            continue
+        hits = ship_reach(r["uid"], r["fit"])
+        if not hits:
+            continue
+        hull, d = nearest(r)
+        where = f"{mission['key']}: {who(r)} starts weapons free {d:.0f} NM from {hull['tag']} ({hull['uid']})"
+        if r["kind"] == "sea" and d < OPENING_SURFACE_NM:
+            OPENING_PROBLEMS.append(f"{where} - inside {OPENING_SURFACE_NM:.0f} NM, "
+                                    "each on the other's radar from the first second")
+        elif r["kind"] == "sub" and d < OPENING_SUB_NM:
+            OPENING_PROBLEMS.append(f"{where} - inside {OPENING_SUB_NM:.0f} NM, with "
+                                    f"{hits:.0f} NM of torpedo or missile")
+        elif (r["kind"] == "air"
+              and d < min(hits, OPENING_AIR_STANDOFF_NM) + OPENING_AIR_LEAD_NM):
+            OPENING_PROBLEMS.append(
+                f"{where} - its anti-ship reach is {hits:.0f} NM; it needs "
+                f"{min(hits, OPENING_AIR_STANDOFF_NM) + OPENING_AIR_LEAD_NM:.0f} NM "
+                "so the raid is seen coming")
+        elif r["kind"] == "sea" and hull["kind"] == "sea" and d <= hits:
+            eyes = [s for s in spotters
+                    if math.hypot(s["x"] - hull["x"], s["z"] - hull["z"]) < OPENING_SPOTTER_NM]
+            if eyes:
+                OPENING_PROBLEMS.append(
+                    f"{where} - inside its {hits:.0f} NM anti-ship reach, with "
+                    f"{who(eyes[0])} over her giving the track from the first second")
 
 
 def deck_size(uid):
@@ -5213,7 +5351,8 @@ def main():
                             + "; ".join(f"{k}: {v}" for k, v in broken.items())
                             if broken else ""))
         for lst in (UNPROVEN, RECOVERY_NOTES, CLOSURE_NOTES, REACH_PROBLEMS,
-                    CLOSURE_PROBLEMS, PLACEMENT_PROBLEMS, COAST_CHECKED):
+                    CLOSURE_PROBLEMS, PLACEMENT_PROBLEMS, COAST_CHECKED,
+                    OPENING_PROBLEMS):
             del lst[:]
         print(f"\n== {TITLE}")
 
@@ -5257,6 +5396,7 @@ def main():
             weight = check_pacing(mission, placed)
             picture = check_reach(mission, placed, members)
             check_closure(mission, placed, members)
+            check_opening(mission, placed)
             solve_arrival(mission, placed, members)
             check_coast_geometry(mission, placer)
             check_geometry(mission, placed, members)
@@ -5294,9 +5434,10 @@ def main():
             print(f"\n{len(CLOSURE_NOTES)} unit(s) placed where they cannot take part:")
             for note in CLOSURE_NOTES:
                 print(f"  {note}")
-        if REACH_PROBLEMS or CLOSURE_PROBLEMS or PLACEMENT_PROBLEMS:
+        if REACH_PROBLEMS or CLOSURE_PROBLEMS or PLACEMENT_PROBLEMS or OPENING_PROBLEMS:
             sys.exit("geometry failed:\n  " + "\n  ".join(
-                PLACEMENT_PROBLEMS + REACH_PROBLEMS + CLOSURE_PROBLEMS))
+                PLACEMENT_PROBLEMS + REACH_PROBLEMS + CLOSURE_PROBLEMS
+                + OPENING_PROBLEMS))
 
         # Built BEFORE the dry-run exit, because every air-tasking gate lives
         # in here - the row/section pairing, the role and fit checks, the

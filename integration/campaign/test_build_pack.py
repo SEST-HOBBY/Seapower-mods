@@ -453,6 +453,65 @@ class StandoffAndClosure(unittest.TestCase):
                 station="spoiler", weapons="Hold", independent=True)])
 
 
+class OpeningRanges(StandoffAndClosure):
+    """check_opening: a red unit weapons free at the start must not already
+    be inside the fight - a boat or a ship inside 25 NM of the player's
+    nearest hull, a ship in anti-ship reach with a drone over her target.
+    Tight, a contact= reason and range each clear it."""
+
+    STATIONS = dict(StandoffAndClosure.STATIONS,
+                    eye=S(-47.52, 140.52, "Drone", alt=10000))
+    SUB = dict(side="red", mod="plan-submarines", type="plan_ss_type_039c",
+               station="boat", depth="belowlayer")
+    PEYKAAP = dict(side="red", mod="red-storm-arsenal", type="ir_ptg_peykaap_3",
+                   station="far_boat")
+    DRONE = dict(side="red", mod="small-medium-uav-series", type="usn_ForpostR705",
+                 station="eye", alt=10000)
+
+    def setUp(self):
+        super().setUp()
+        del bp.OPENING_PROBLEMS[:]
+
+    def opening(self, units):
+        m, placed, _members = self.placed([self.TENDER] + units)
+        bp.check_opening(m, placed)
+        return bp.OPENING_PROBLEMS
+
+    def test_a_free_boat_inside_25_nm_is_refused(self):
+        problems = self.opening([self.SUB])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("inside 25 NM", problems[0])
+
+    def test_the_same_boat_tight_is_not(self):
+        self.assertEqual(self.opening([dict(self.SUB, weapons="Tight")]), [])
+
+    def test_a_stated_contact_is_not(self):
+        self.assertEqual(self.opening([dict(
+            self.SUB, contact="the briefing puts her in the box")]), [])
+
+    def test_the_same_boat_42_nm_out_is_not(self):
+        self.assertEqual(self.opening([dict(self.SUB, station="far_boat")]), [])
+
+    def test_a_ship_in_reach_with_a_drone_over_her_target_is_refused(self):
+        self.assertEqual(self.opening([self.PEYKAAP]), [])
+        problems = self.opening([self.PEYKAAP, self.DRONE])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("giving the track", problems[0])
+
+    def test_only_red_units_take_a_contact_reason(self):
+        with self.assertRaises(SystemExit):
+            self.placed([dict(self.TENDER, contact="why")])
+
+    def test_ship_reach_ignores_sonobuoys(self):
+        # The Ka-28's sonobuoys read 100 NM in reach(); its torpedo is what
+        # can hit a ship.
+        kind_dir, path = bp.unit_file("plan_ka-28")
+        fit, _why = bp.pick_loadout("plan_ka-28", path, None)
+        self.assertGreaterEqual(bp.reach("plan_ka-28", kind_dir, path, fit), 100)
+        self.assertGreater(bp.ship_reach("plan_ka-28", fit), 0)
+        self.assertLess(bp.ship_reach("plan_ka-28", fit), 10)
+
+
 class RacetrackLoop(unittest.TestCase):
     """loop=True flies a patrol aircraft's route until the clock runs out,
     in stock's own form; nothing else may loop."""

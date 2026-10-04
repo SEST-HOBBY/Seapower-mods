@@ -76,10 +76,15 @@ MISSION = dict(
         # over both; the Z-9 dipping 9 NM ahead of them; the bulker on the
         # Sydney-Auckland track, the whale on the layer.
         "farncomb": S(-36.50, 160.50, "HMAS Farncomb", heading=240),
-        "red_sub": S(-36.70, 160.20, "Contact ROMEO", heading=60),
-        "survey": S(-36.72, 160.18, "Austral Survey", heading=60),
-        "red_frig": S(-36.78, 160.08, "Type 054A", heading=60),
-        "red_dip": S(-36.60, 160.35, "Z-9 dip", heading=60, alt=1500),
+        # ROMEO starts 26 NM down the corridor (the furthest the destroy
+        # gate lets Collins still reach her), the frigate 42 and the Z-9
+        # dipping over the group 31. The Z-9 started 11 NM from Farncomb with
+        # a torpedo and ROMEO 22 NM away, weapons free - the hunt over before
+        # the periscope went up (first public report, Oct 2026).
+        "red_sub": S(-36.74, 160.14, "Contact ROMEO", heading=60),
+        "survey": S(-36.76, 160.12, "Austral Survey", heading=60),
+        "red_frig": S(-36.90, 159.93, "Type 054A", heading=60),
+        "red_dip": S(-36.78, 160.06, "Z-9 dip", heading=60, alt=1500),
         "bulker": S(-36.20, 160.90, "Bulker", heading=250),
         "whale": S(-36.45, 160.70, "Biologic", heading=180),
     },

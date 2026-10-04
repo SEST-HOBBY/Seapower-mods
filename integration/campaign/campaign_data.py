@@ -451,12 +451,12 @@ MISSIONS.append(dict(
         # of them, so the opening was a race to get the ESSM between a
         # sea-skimmer and the convoy. Now Warramunga is 3 NM ahead on the
         # threat axis with the Seahawk beside her, and the Meridian pair is
-        # 25 NM out (22 from the frigate), past the trawlers and outside its
+        # 29 NM out (26 from the frigate), past the trawlers and outside its
         # 17 NM radar: the picture has time to be classified before it shoots.
         "warramunga": S(-10.37, 131.94, "Escort", heading=70),
         "convoy": S(-10.4, 131.9, "Coral Pioneer group", heading=80),
         "neutrals": S(-10.20, 132.00, "Arafura traffic", heading=230),
-        "meridian": S(-10.27, 132.30, "Meridian escort", heading=250),
+        "meridian": S(-10.24, 132.36, "Meridian escort", heading=250),
         "air": S(-10.6, 131.6, "Southern Watch air", heading=70, alt=22000),
         # The brief says a Seahawk on the deck. It spawned 21 NM away at
         # 3,000 ft in the same Vic as a P-8 doing three times its speed at six
@@ -871,7 +871,12 @@ MISSIONS.append(dict(
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=15000, weapons="Tight"),
         U("red", "red-storm-arsenal", "_narco_narcosub_adv", "passenger",
           name="Contact WHISKEY"),
-        U("red", "plan-submarines", "plan_ss_type_039", "sub",
+        # Tight, not free: this is the week before Weapons Free, and a boat
+        # that has been quiet for eleven hours is watching, not hunting. She
+        # fires on what she has identified as hostile; she started 18 NM from
+        # a lone patrol ship with YJ-18 and torpedoes free, and the first
+        # public report named the result.
+        U("red", "plan-submarines", "plan_ss_type_039", "sub", weapons="Tight",
           name="Contact SIERRA", depth="belowlayer",
           route=[(-6.3, 130.3, "belowlayer")], telegraph=2),
         U("red", "modern-plan-systems", "plaaf_kj-500", "red_air",
@@ -957,7 +962,10 @@ MISSIONS.append(dict(
         # Escort Seven holds the convoy at its inspection point, as the
         # 1 November intercept says she will; the surface group is the
         # "northern element" the same intercept names.
-        "inspection": S(-10.22, 132.0, "Inspection point", heading=250),
+        # Ahead on the merchants' track, 28 NM out and closing at speed. It
+        # started 10 NM from them, inside its own radar and Nasir reach of
+        # four ships from the first second (first public report, Oct 2026).
+        "inspection": S(-10.05, 132.25, "Inspection point", heading=240),
         "air": S(-10.35, 131.85, "Warramunga Flight", heading=320, alt=3000),
         "home": S(-14.5212, 132.3778, "RAAF Base Tindal"),
     },
@@ -1655,7 +1663,9 @@ MISSIONS.append(dict(
         # Yu-6 range of it before the cargo is halfway. She used to sit 144
         # NM away, pointed elsewhere, with no route, six miles from a
         # handover point the solver had long since moved.
-        "red_sub": S(-7.05, 133.25, "Submarine datum", heading=320),
+        # Across the convoy's track, 32-35 NM ahead of the screen. It started
+        # 15 NM from the Anzac with YJ-18 and torpedoes free.
+        "red_sub": S(-7.35, 133.4, "Submarine datum", heading=320),
         # A hundred miles out, so the fighters arrive over a quarter of an
         # hour instead of at spawn.
         "red_air": S(-4.7, 133.4, "Enclave fighters", heading=180, alt=32000),
@@ -1785,7 +1795,7 @@ MISSIONS.append(dict(
         "cvw": S(-4.2, 130.4, "Carrier air wing", heading=320, alt=28000),
         "red_cv": S(-2.5, 129.0, "Opposing carrier group", heading=140),
         "red_air": S(-2.7, 129.2, "Opposing air wing", heading=205, alt=30000),
-        "red_strike": S(-2.7, 129.25, "Anti-ship shooter", heading=205, alt=30000),
+        "red_strike": S(-2.54, 129.19, "Anti-ship shooter", heading=205, alt=30000),
         "red_aew": S(-2.7, 129.3, "KJ-600", heading=205, alt=30000),
         "red_j20": S(-2.75, 129.2, "J-20A", heading=205, alt=30000),
         "red_sub": S(-4.9, 129.2, "Submarine screen", heading=140),
@@ -1944,8 +1954,11 @@ MISSIONS.append(dict(
         # The boat ahead of the convoy's track, twenty miles down it, so the
         # Seahawk and the P-8 have a reason to exist; it used to sit 78 NM
         # away with no route.
-        "spoiler_sub": S(-10.7, 131.65, "Unacknowledged submarine", heading=20),
-        "spoiler_air": S(-9.2, 132.0, "Strike flight", heading=180, alt=24000),
+        # 27 NM down the convoy's track; it started 15 NM from Eyre, inside its
+        # own torpedo reach (first public report, Oct 2026).
+        "spoiler_sub": S(-10.80, 131.45, "Unacknowledged submarine", heading=20),
+        # 85 NM out: 20 NM of flying before its 59 NM round reaches the convoy.
+        "spoiler_air": S(-9.0, 132.03, "Strike flight", heading=180, alt=24000),
         "darwin": S(-12.4, 130.9, "Darwin", heading=0),
     },
     units=[
@@ -1980,7 +1993,7 @@ MISSIONS.append(dict(
           name="Unacknowledged escort", route=[(-10.1, 131.6, 0)], telegraph=4),
         U("red", "chinese-navy-plan", "plan_ss_kilo", "spoiler_sub",
           name="Unacknowledged submarine", depth="belowlayer",
-          route=[(-10.6, 131.55, "belowlayer")], telegraph=2),
+          route=[(-10.62, 131.55, "belowlayer")], telegraph=2),
         # Loaded for ships, as the brief says it is.
         # It orbited 73 NM out with a 59-NM YJ-91. Now it opens east first
         # (no shot for ~20 minutes), comes in over the convoy and goes home.
@@ -2084,8 +2097,16 @@ MISSIONS.append(dict(
         "kiwi": S(-10.95, 131.0, "Kiwi 01", heading=20, alt=12000),
         "coaster": S(-10.2, 131.5, "Coaster, transponder off", heading=110),
         "lane": S(-10.45, 131.35, "Lane traffic", heading=90),
-        "raider": S(-10.05, 131.65, "Meridian escort boat", heading=200),
-        "spotter": S(-10.4, 131.1, "Spotter drone", heading=90, alt=10000),
+        # The first public report (Oct 2026): unwinnable. The boat started
+        # 43 NM from Pilbara with Nasir (49 NM) free and the drone 8 NM over
+        # her, so the opening was a salvo at a patrol ship whose only air
+        # defence is a 4 NM Mistral - and Pilbara is the player's only hull,
+        # so losing her ended the mission. Now the boat and its drone keep
+        # company with the coaster, 34-38 NM from Pilbara, and the boat is
+        # weapons tight: this is the week before Weapons Free, and it
+        # shadows the lane, it does not open the war on it.
+        "raider": S(-10.12, 131.6, "Meridian escort boat", heading=110),
+        "spotter": S(-10.15, 131.55, "Spotter drone", heading=110, alt=10000),
         "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
     },
     units=[
@@ -2099,7 +2120,8 @@ MISSIONS.append(dict(
         U("red", "_vanilla", "civ_ms_encounter", "coaster", name="MV Harbour Light",
           weapons="Hold", route=[(-10.35, 131.95, 0)], telegraph=2),
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raider",
-          name="Meridian Escort 3", route=[(-10.4, 131.4, 0)], telegraph=4),
+          name="Meridian Escort 3", weapons="Tight",
+          route=[(-10.3, 131.98, 0)], telegraph=2),
         U("red", "small-medium-uav-series", "usn_ForpostR705", "spotter",
           name="Spotter drone", alt=10000),
         U("neutral", "_vanilla", "civ_ms_roro_b", "lane", name="MV Wessel Trader",
@@ -2181,7 +2203,10 @@ MISSIONS.append(dict(
         # meet them.
         "escort": S(-11.6, 126.6, "Detachment", heading=270),
         "lane": S(-11.35, 126.2, "Approach traffic", heading=90),
-        "red_sub": S(-11.5, 126.35, "Kilo datum", heading=300),
+        # South of the Korean approach, 27-28 NM from both groups and
+        # working north onto the Korean track. It started 16 NM from the
+        # Anzac, inside its own torpedo reach (first public report, Oct 2026).
+        "red_sub": S(-11.55, 126.13, "Kilo datum", heading=330),
         "red_air": S(-9.6, 126.8, "Strike pair", heading=200, alt=30000),
     },
     units=[
@@ -2200,7 +2225,7 @@ MISSIONS.append(dict(
         U("neutral", "re-power-resupply", "civ_ms_andizhan", "lane",
           name="MV Sumba Trader", route=[(-11.4, 127.0, 0)], telegraph=3),
         U("red", "chinese-navy-plan", "plan_ss_kilo", "red_sub", name="Contact KILO",
-          depth="belowlayer", route=[(-11.25, 125.95, "belowlayer")], telegraph=2),
+          depth="belowlayer", route=[(-11.25, 126.0, "belowlayer")], telegraph=2),
         U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike 21",
           loadout="AntiShip", route=[(-11.2, 125.8, 20000)], telegraph=3),
         U("red", "jh-7a", "plaaf_jh7a", "red_air", name="Strike 22",
@@ -2342,8 +2367,12 @@ MISSIONS.append(dict(
         "straggler": S(-5.9, 130.1, "HMAS Stuart", heading=160),
         "escort": S(-5.95, 130.2, "Detachment", heading=160),
         "lane": S(-5.7, 130.0, "Approach traffic", heading=160),
-        "red_sub": S(-6.2, 130.0, "Kilo datum", heading=330),
-        "red_air": S(-4.6, 129.9, "Strike pair", heading=160, alt=30000),
+        # Ahead of Stuart's track, 33-34 NM out; it started 19 NM from the
+        # escort, inside its own torpedo reach (first public report).
+        "red_sub": S(-6.45, 129.95, "Kilo datum", heading=40),
+        # 125 NM out, so the pair is a raid the screen sees coming, not one
+        # already inside its own standoff range at the start.
+        "red_air": S(-3.85, 129.78, "Strike pair", heading=160, alt=30000),
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant3",
@@ -2360,7 +2389,7 @@ MISSIONS.append(dict(
         U("neutral", "merchants-expanded", "civ_ms_mairangi_bay", "lane",
           name="MV Tanimbar Trader", route=[(-6.65, 130.25, 0)], telegraph=3),
         U("red", "chinese-navy-plan", "plan_ss_kilo", "red_sub", name="Contact TANGO",
-          depth="belowlayer", route=[(-5.95, 130.15, "belowlayer")], telegraph=2),
+          depth="belowlayer", route=[(-6.2, 130.15, "belowlayer")], telegraph=2),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
           name="Flying Shark 31", loadout="AntiShip",
           route=[(-5.9, 130.1, 20000)], telegraph=3),
@@ -2427,7 +2456,7 @@ MISSIONS.append(dict(
         "helo": S(-12.1, 125.1, "Escort flights", heading=80, alt=3000),
         "cap": S(-12.6, 125.4, "Typhoon pair", heading=20, alt=33000),
         "aew": S(-13.0, 125.2, "AEW orbit", heading=90, alt=30000),
-        "red_air": S(-10.7, 125.05, "Shadowers", heading=200, alt=28000),
+        "red_air": S(-10.52, 125.12, "Shadowers", heading=200, alt=28000),
         "home": S(-17.5813, 123.8283, "RAAF Base Curtin"),
     },
     units=[
@@ -2734,7 +2763,7 @@ MISSIONS.append(dict(
         "cap": S(-4.3, 130.5, "Felon pair", heading=140, alt=36000),
         "bomber": S(-2.6, 129.0, "Bomber track", heading=160, alt=34000),
         "red_sag": S(-5.2, 128.2, "Coalition patrol", heading=60),
-        "red_air": S(-5.4, 128.4, "Coalition CAP", heading=60, alt=30000),
+        "red_air": S(-5.49, 128.2, "Coalition CAP", heading=60, alt=30000),
         # The passage is "among neutral shipping": three merchants on the
         # same track through the box.
         "lane": S(-4.85, 130.45, "Corridor traffic", heading=130),
@@ -3543,7 +3572,10 @@ MISSIONS.append(dict(
         "hobart": S(-10.7, 144.66, "Detachment", heading=350),
         "flight": S(-10.71, 144.64, "Ship's flight", heading=350, alt=500),
         "assist": S(-10.55, 144.55, "Assisting merchants", heading=20),
-        "sub": S(-10.47, 144.7, "Submarine datum", heading=200),
+        # North of the box, 26 NM from the detachment and still inside torpedo
+        # range of the search; it started 14 NM from the Anzac with YJ-18 and
+        # torpedoes free (first public report, Oct 2026).
+        "sub": S(-10.27, 144.74, "Submarine datum", heading=200),
     },
     units=[
         # The anchor: replaced by the player's first ship. Unnamed - the
