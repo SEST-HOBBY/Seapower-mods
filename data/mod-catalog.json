@@ -1,10 +1,10 @@
 {
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
-    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack.",
-    "count": 186,
+    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield).",
+    "count": 196,
     "field_notes": {
-      "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
+      "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, thailand, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian | campaign (a third-party mission or campaign pack that ships no units of its own)",
       "status": "active | deprecated | wip | unsubscribed",
       "requires": "Dependencies from the mod description; entries marked (inferred) are this repo's inference, not an author statement",
@@ -2536,6 +2536,116 @@
       ],
       "load_order": "Directly below Identify Expanded, above SAM Pack: end of the Anchor Chain code-mod block, above every other mod that ships the nation-flag table (ui/Default/Settings_UI_General.ini), as its author asks; its table is a strict superset of the previous winner's.",
       "notes": "Task Force Mode campaign, April 2028: TG NORTHWIND (German and Dutch hulls, a US destroyer from mission 2) against a NATO standing group whose staff has seized it and closed the Baltic approaches. 4 missions in 8 campaign nodes: the Skagerrak, the northern Kattegat, a detached Type 212A operation at night and Bornholm. Besides the campaign it ships a whole-file nation-flag table, ui/Default/Settings_UI_General.ini (172 NationFlags, 160 MastFlags, adding the renegades' nordverband flag), and a complete language section for the Saab GlobalEye that changes Squadron2's callsign from Uranus to Argus. The author asks for it to load first because only the highest copy of the flag table is read. It sits directly below the SEST Integration Pack, which ships no copy of that file; the table it replaces, 1143.5 Kuznetsov's (83/57 entries), is a subset of it. States seven requirements, all in the order. All four missions resolve. The purchasable US detachment does not: usn_ddg_burke_f2a_g4_2022 and usn_mh-60r_26 left Euromod - Modern US Navy in the 27 Sep and 2 Oct 2026 exports. Author not named in its files."
+    },
+    {
+      "id": "jmsdf-hyuga-class",
+      "workshop_id": "3802216383",
+      "title": "JMSDF Hyūga Class — Hyūga & Ise",
+      "author": "unknown",
+      "faction": "japan",
+      "type": "ship",
+      "status": "active",
+      "load_order": "Directly below Mogami-class Frigate; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "JMSDF Hyūga-class helicopter destroyers DDH-181 Hyūga and DDH-182 Ise as one class (jmsdf_ddh_hyuga, jmsdf_ddh_ise). New ids only; its systems/sensors.ini and weapons.ini merge. The folder also carries ~60 build notes and manifests (.md/.json/.txt) the game ignores. Its CREDITS file says the hull is a purchased model whose redistribution licence was not confirmed in the files; that is the author's matter, but it is why the catalog records it."
+    },
+    {
+      "id": "civilian-as350",
+      "workshop_id": "3806197116",
+      "title": "Civilian AS350 Ecureuil/AStar MOD",
+      "author": "unknown",
+      "faction": "civilian",
+      "type": "civilian",
+      "status": "active",
+      "load_order": "Directly below Civil Aircraft Mod (Airbus Family); it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Civilian AS350 Ecureuil/AStar helicopter (civ_as-350) with its squadron table; English, French, Spanish and German names. ApproximateVersion 0.8.2."
+    },
+    {
+      "id": "s-350-vityaz",
+      "workshop_id": "3524446392",
+      "title": "S-350 Vityaz",
+      "author": "unknown",
+      "faction": "russia",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below S-500; it contests 2 files with Euromod - Main Pack and loses both, so only its own 9 load.",
+      "notes": "Kitbashed S-350 Vityaz SHORAD/MRAD: short-, medium- and long-range TELs (ru_vityaz-sr/mr/lr_tel), the 50N6 radar and the 9M96E, 9M96E2 and 9M100 rounds. Its systems files merge."
+    },
+    {
+      "id": "iran-shahed-238",
+      "workshop_id": "3686449681",
+      "title": "Iran UAV Shahed 238",
+      "author": "unknown",
+      "faction": "iran",
+      "type": "uav",
+      "status": "active",
+      "load_order": "Directly below Shahed-136 Kamikaze Drone (Geran-2); it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Jet-powered Shahed 238 one-way attack drone as a land launcher (wp_shahed238_launcher) and its round (ods_shahed238). ApproximateVersion 0.7.9."
+    },
+    {
+      "id": "emad-iran-bm",
+      "workshop_id": "3493115616",
+      "title": "EMAD",
+      "author": "unknown",
+      "faction": "iran",
+      "type": "land",
+      "status": "active",
+      "load_order": "Below Shahed 238 with the other Iranian land launchers; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Iranian Emad ballistic missile: TEL (wp_emad_tel) and round (ods_emad). Companion to SEJJIL. ApproximateVersion 0.8.0."
+    },
+    {
+      "id": "fattah-1",
+      "workshop_id": "3673703427",
+      "title": "Fattah-1",
+      "author": "unknown",
+      "faction": "iran",
+      "type": "land",
+      "status": "active",
+      "load_order": "Below EMAD with the other Iranian land launchers; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Iranian Fattah-1 hypersonic ballistic missile: TEL (wp_fattah1_tel) and round (ods_fattah_1). ApproximateVersion 0.4.0, which is behind the game; it still loads."
+    },
+    {
+      "id": "fattah-2",
+      "workshop_id": "3672497668",
+      "title": "Fattah-2",
+      "author": "unknown",
+      "faction": "iran",
+      "type": "land",
+      "status": "active",
+      "load_order": "Below Fattah-1; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Iranian Fattah-2 hypersonic glide-vehicle missile: TEL (wp_fattah2_tel) and round (ods_fattah_2). ApproximateVersion 0.4.0, as Fattah-1."
+    },
+    {
+      "id": "iran-bell-212",
+      "workshop_id": "3549377308",
+      "title": "Iran Bell-212",
+      "author": "Zero-Two",
+      "faction": "iran",
+      "type": "rotary",
+      "status": "active",
+      "load_order": "Below Fattah-2, closing the Iranian group; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Bell 212 in three Iranian services, each with a squadron table: Army aviation (irh_bell-212), the Navy (irinavy_bell-212) and IRIAA (iriaa_bell-212). By Zero-Two. ApproximateVersion 0.8.0."
+    },
+    {
+      "id": "project-2498-zyetseth",
+      "workshop_id": "3399699218",
+      "title": "Project 2498 Zyetseth Class Assault Vessel",
+      "author": "unknown",
+      "faction": "russia",
+      "type": "ship",
+      "status": "active",
+      "load_order": "Directly below Russian Navy 21; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "A heavily converted East German Mercur-class freighter armed as a Soviet assault ship: SS-N-19, SA-N-9, SA-N-6, MG-44 decoy torpedoes, CIWS and Ka-27s, with custom animations. Two hulls: civ_fv_okean_surprise and a unit whose id is its file name with spaces, 'Project 2498 Zyetseth Class Assault Vessel'. Every weapon it carries resolves without another mod."
+    },
+    {
+      "id": "thailand-siam-shield",
+      "workshop_id": "3711297532",
+      "title": "Thailand: The Siam Shield",
+      "author": "unknown",
+      "faction": "thailand",
+      "type": "ship",
+      "status": "active",
+      "load_order": "Directly below Philippines: The Luzon Line, above RE-power. It loses 14 shared files, 11 of them to the Luzon Line by the same author (common rounds and textures) and one each to Euromod - Main Pack, PLAN Pack and MIG-29A & F-16A, so only its 50 own files load.",
+      "notes": "Royal Thai Navy and Air Force from the 1950s to today, by the author of the Luzon Line: 19 hulls from the Chakri Naruebet carrier and the Naresuan frigates to the Knox, Type 053HT, patrol craft and the Sichang LST, plus the RTAF F-16C, F-5, the T-50TH, the S-70B-7 Seahawk and the AB 212. ApproximateVersion 0.8.3. Its sensors and weapons files merge."
     }
   ]
 }

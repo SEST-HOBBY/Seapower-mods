@@ -1,6 +1,6 @@
 # Sea Power Mod Catalog
 
-186 Workshop mods catalogued — 180 in the local inventory, 6 historical entries kept for reference, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
+196 Workshop mods catalogued — 190 in the local inventory, 6 historical entries kept for reference, grouped by faction. Generated from `data/mod-catalog.json` by `tools/generate_catalog.py` — edit the JSON, not this file.
 
 See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency audit, and recommended mod order.
 
@@ -54,7 +54,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | ARRW (AGM-183) |  | weapons | Workshop 3502273861. Adds its OWN AGM-183 ammunition - it does NOT collide with the Dingtools Weapon Pack's dts_agm-183a that the F-15EX Strike183 fits use. Verified with tools/check_mod_conflicts.py: zero whole-file collisions. |
 | Dingtools Weapon Pack | dingtools | weapons | Standalone weapon data pack: AIM-9X, AIM-120B/C/C-7/D-3, AIM-260A, GBU series and more. **Load order:** Author: 'Put this mod ABOVE any of my mod' (B-52H, F-15EX, B-1B, SAAB AEW&C) **Overlaps:** us-navy-2027; murder-hornet (all define modern US missiles like AIM-9X / AIM-120D — duplicate weapon-ID watch) |
 
-## Russia / USSR (37)
+## Russia / USSR (39)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
@@ -81,6 +81,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | NEBO-U | SKIBIDI_RIZZLER123 | land | Workshop 3551621846, by SKIBIDI RIZZLER. A single unit, wp_nebou: a VHF 3D early-warning radar (Nebo-U: 600 km, 100 target channels, floor 500 m) with an ESM fit, Soviet variant only, on the vanilla P-14 trailer mesh. It has no whole-file collisions, and the [General] sensor keys it sets match the 17 mods above it. **Load order:** Directly below MV-75 Cheyenne II, above 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala); it collides with nothing that changes hands, so the slot is a grouping choice. |
 | Russian Ground Enhancement Series 1: Artillery | FallschimJager705 | land | By FallschimJager705, author of the Type 12 SSM-ER. Two Russian self-propelled howitzers, the 2S19 Msta-S and the wheeled 2S43 Malva. Each fires an unguided 152 mm shell (27.5 km and 25 km) and a laser-homing one (GuidanceType=5; 14.8 and 13.5 NM). All four rounds are priced (AmmoPoints 43.2 and 73.2). It ships eight files nothing else ships and four weapon sections no other mod defines. Both units fly the Soviet flag. It was subscribed alongside The Second Northern War, none of whose six missions places it. **Load order:** Directly below Type 12 SSM-ER Anti-Ship Missile System, above NATO Ground Enhancement Series 2: Artillery; it collides with nothing that changes hands, so the slot is a grouping choice. |
 | S-300PMU2 | SKIBIDI_RIZZLER123 | land | Workshop 3652906664, by SKIBIDI RIZZLER (ApproximateVersion 0.6.8). An S-300PMU2 battery: 96L6E search radar, 64N6E Big Bird, 30N6E2 Tomb Stone, a 5P85TE TEL (16 x wp_48n6e2) and a composite wp_s-300pmu2_site, with Soviet, DDR, Czech, Libyan, Iraqi, Egyptian and Syrian variants. THE REDFOR MOD ships the same eight unit files. Their gameplay sections match except wp_kraz_tel's ExternalGuidingSystemSearchRadius (1 nm here, 0.5 nm there), and this mod's copies win. Its wp_48n6e2 loses to Euromod's #!alias copy, which resolves through SEST's metered wp_sa-n-20 (AmmoPoints 5400). **Load order:** Directly below RQ-180 White Bat Airframe, above SA-21/S-400 SAM: above S-400, S-500 and THE REDFOR MOD, so its eight files shared with REDFOR and its [96L6] win. |
+| S-350 Vityaz | unknown | land | Kitbashed S-350 Vityaz SHORAD/MRAD: short-, medium- and long-range TELs (ru_vityaz-sr/mr/lr_tel), the 50N6 radar and the 9M96E, 9M96E2 and 9M100 rounds. Its systems files merge. **Load order:** Directly below S-500; it contests 2 files with Euromod - Main Pack and loses both, so only its own 9 load. |
 | S-500 | SKIBIDI_RIZZLER123 | land | Workshop 3496055699, by SKIBIDI RIZZLER. An S-500 battery: 40N6 and 77N6 TELs (2 rounds each), a 91N6 search radar and a 96L6 radar, plus wp_77n6 (323 nm, 5053 kt, no AmmoPoints or Mass). It also ships a byte-identical copy of S-400 SAM's wp_sa-21_flaplid and a [36H6] sensor with TargetChannels=48 against S-400 SAM's 85. It sits DIRECTLY BELOW S-400 SAM and loses both, so the Flap Lid the SEST missions place is untouched. Its own wp_40n6 (no AmmoPoints, no kinematics) loses to Euromod's alias of wp_sa-21b. Its [96l6] radar declares Type=Direct Search, a value nothing else in vanilla or the collection uses (vanilla uses DirectedSearch or Search). **Load order:** Directly below SA-21/S-400 SAM, above SAAB AEW&C PACK: below S-400 SAM, whose Flap Lid and [36H6] SEST missions place. |
 | SA-21/S-400 SAM | unknown (added 2026-08-24) | land | Russian strategic SAM system; joins the land air-defense watchlist. VERIFIED: adds wp_sa-21_* TELs (9M96E/E2 and more). **Overlaps:** sam-pack and ground-upgrade-spaa (land air-defense overlap watch) |
 | SCUD-B | unknown (added 2026-08-24) | land | R-17 Elbrus TBM launcher (Cold War era). VERIFIED: adds wp_scud_9k72. |
@@ -92,6 +93,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Mil Mi-24 Hind | MyGo!!!!!鼓手椎名立希 | rotary | Helicopter gunship / assault transport. |
 | 1143.5 Kuznetsov | MyGo!!!!!鼓手椎名立希 | ship | Admiral Kuznetsov carrier; ski jump still in testing per author. Sister design of the Liaoning (Project 1143.5/6 family) — different navy, different author, no conflict expected. |
 | Kirov-class (Pyotr Velikiy Upgrade) | unknown (added 2026-08-24) | ship | Modernized Pyotr Velikiy battlecruiser refit. VERIFIED 2026-08-24: adds new unit wp_rkr_kirov_improved — additive, no vanilla collision. **Overlaps:** vanilla Kirov-class variants (check for shared unit ids/files) |
+| Project 2498 Zyetseth Class Assault Vessel | unknown | ship | A heavily converted East German Mercur-class freighter armed as a Soviet assault ship: SS-N-19, SA-N-9, SA-N-6, MG-44 decoy torpedoes, CIWS and Ka-27s, with custom animations. Two hulls: civ_fv_okean_surprise and a unit whose id is its file name with spaces, 'Project 2498 Zyetseth Class Assault Vessel'. Every weapon it carries resolves without another mod. **Load order:** Directly below Russian Navy 21; it collides with nothing that changes hands, so the slot is a grouping choice. |
 | Russian Navy 21 | Pointinthevoid | ship | Projects 20380/20385/21631 corvettes, 11356/22350 frigates, 21956 destroyer, 11780 LHA. |
 | Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes) | ManeuverWarfare | submarine | Yasen, Akula, Borei, Oscar II, Belgorod, Sierra I/II, Typhoon, Delta IV kitbashes. |
 | 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala) | SKIBIDI_RIZZLER123 | weapons | Soviet experimental long-range strategic cruise missile (Meteorit program, authorized 1976). |
@@ -175,7 +177,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Euromod - Cold War Spanish Navy | zzocalu | ship | Cold War Spanish Navy addon; author: 'you must have Euromod downloaded and activated'. **Requires:** euromod-main |
 | Euromod - Modern Spanish Navy | jabeitor | ship | Modern Spanish Navy addon for Euromod. **Requires:** euromod-main (inferred from Euromod addon naming; not stated in the truncated description) |
 
-## Japan (6)
+## Japan (7)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
@@ -184,6 +186,7 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | F-2A 'Viper Zero' | unknown | fixed-wing | JASDF F-2A, plus an 'ace' variant and a late model. Zero whole-file collisions - pure new content. |
 | Type 12 SSM-ER Anti-Ship Missile System | FallschimJager705 | land | JGSDF mobile shore-based anti-ship missile system; base and ER (900 km) variants. |
 | Euromod - Modern Japanese Maritime Self Defence Force | Mitchell600 | ship | Modern JMSDF addon for Euromod. **Requires:** euromod-main (inferred from Euromod addon naming; not stated in the truncated description) |
+| JMSDF Hyūga Class — Hyūga & Ise | unknown | ship | JMSDF Hyūga-class helicopter destroyers DDH-181 Hyūga and DDH-182 Ise as one class (jmsdf_ddh_hyuga, jmsdf_ddh_ise). New ids only; its systems/sensors.ini and weapons.ini merge. The folder also carries ~60 build notes and manifests (.md/.json/.txt) the game ignores. Its CREDITS file says the hull is a purchased model whose redistribution licence was not confirmed in the files; that is the author's matter, but it is why the catalog records it. **Load order:** Directly below Mogami-class Frigate; it collides with nothing that changes hands, so the slot is a grouping choice. |
 | Mogami-class Frigate | unknown (added 2026-08-24) | ship | JMSDF stealth multirole frigate; natural companion to Euromod JMSDF. VERIFIED: adds js_ffg_mogami. **Overlaps:** euromod-jmsdf (complementary — check for shared JMSDF weapon/sensor definitions) |
 
 ## South Korea (1)
@@ -234,11 +237,22 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Auxilliary Merchant Pack | unknown (added 2026-08-24) | ship | VERIFIED: AUSTRALIAN auxiliary shipping — ran_ms_bulk, ran_msa_act_1, anl_ms_bulk (ANL = Australian National Line). Direct fit for RAN convoy/escort scenarios alongside SEST_RAN_Fleet. **Overlaps:** merchants-expanded (two merchant packs — check for duplicate hulls) |
 | Royal Australian Defence Forces | unknown | ship | Cold War Australian and New Zealand forces with Indonesian opponents: 38 hulls (Majestic and Melbourne, Centaur and Invincible what-ifs, Daring and Battle-class destroyers, Perth DDG, three Adelaide fits up to the FFG Upgrade, River DE, Type 15, Oberon, patrol boats, Tobruk; RNZN Leanders and Rothesay; Indonesian Skory, Riga, Van Speijk, Sverdlov, Tjakra and Uda), 30 aircraft (A-4G, Sea Venom, Gannet, Sea King, Wessex, S-2, F-4E, Canberra, Winjeel, AS350 and an ran_S-70B-2_Seahawk under its own id) and 11 land units. None of its ids is one SEST builds on: ran_dd_anzac is the 1960s Battle-class HMAS Anzac, not the Anzac frigate SEST RAN Fleet patches. Its one same-id ship, ran_ms_jeparit, is a different vessel (1966-72, no Containers fit) from the Auxilliary Merchant Pack's, which the campaigns place. Placed below Red Storm Arsenal and above The Royal Navy, so it loses every duplicate: Jeparit to the Merchant Pack, the S-70B-2 material (missing its ResourcesFolder line) to the S-70B-2 Seahawk mod, an unpriced SNEB to the French Helicopter Package, and ESSM, sonobuoys and the Mk 11 depth charge to Euromod and the South Korea pack. Above Red Storm, a byte-identical material file would make the campaigns list it as required. It overrides 11 vanilla files. Nine append variants or squadrons and keep vanilla's. fr_mirage_iii.ini and wp_pt_p6_variants.ini are built on the 0.8.2 game and undo 0.8.3: the Mirage goes back to RCS=SemiSmall and the old chaff, and the P-6 file loses the PLAN Type 6602 variant and AllVariantsAreOfSameNation=False. It needs The Royal Navy for the Type 184M and Type 177 sonars and EUROMOD-Armada de Chile for STIR, and does not use Anchor Chain. Not fielded by the campaigns (excused); kept for its own 1968 showcase and period scenarios. **Requires:** 3491248180; 3776730617; 3606134711 **Load order:** Directly below Pakistani Pack, above The Royal Navy: bottom block: loses every duplicate (Auxiliary Merchant Pack's Jeparit, S-70B-2's material, Euromod's rounds); above The Royal Navy for the ASW Ikara and the Search-class Type 277Q. |
 
-## Iran (3)
+## Thailand (1)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
+| Thailand: The Siam Shield | unknown | ship | Royal Thai Navy and Air Force from the 1950s to today, by the author of the Luzon Line: 19 hulls from the Chakri Naruebet carrier and the Naresuan frigates to the Knox, Type 053HT, patrol craft and the Sichang LST, plus the RTAF F-16C, F-5, the T-50TH, the S-70B-7 Seahawk and the AB 212. ApproximateVersion 0.8.3. Its sensors and weapons files merge. **Load order:** Directly below Philippines: The Luzon Line, above RE-power. It loses 14 shared files, 11 of them to the Luzon Line by the same author (common rounds and textures) and one each to Euromod - Main Pack, PLAN Pack and MIG-29A & F-16A, so only its 50 own files load. |
+
+## Iran (8)
+
+| Mod | Author | Type | Notes |
+|---|---|---|---|
+| EMAD | unknown | land | Iranian Emad ballistic missile: TEL (wp_emad_tel) and round (ods_emad). Companion to SEJJIL. ApproximateVersion 0.8.0. **Load order:** Below Shahed 238 with the other Iranian land launchers; it collides with nothing that changes hands, so the slot is a grouping choice. |
+| Fattah-1 | unknown | land | Iranian Fattah-1 hypersonic ballistic missile: TEL (wp_fattah1_tel) and round (ods_fattah_1). ApproximateVersion 0.4.0, which is behind the game; it still loads. **Load order:** Below EMAD with the other Iranian land launchers; it collides with nothing that changes hands, so the slot is a grouping choice. |
+| Fattah-2 | unknown | land | Iranian Fattah-2 hypersonic glide-vehicle missile: TEL (wp_fattah2_tel) and round (ods_fattah_2). ApproximateVersion 0.4.0, as Fattah-1. **Load order:** Below Fattah-1; it collides with nothing that changes hands, so the slot is a grouping choice. |
 | SEJJIL (Iran Ballistic Missiles) | unknown (added 2026-08-24) | land | Iranian MRBM systems. VERIFIED: adds wp_sejjil_tel. |
+| Iran Bell-212 | Zero-Two | rotary | Bell 212 in three Iranian services, each with a squadron table: Army aviation (irh_bell-212), the Navy (irinavy_bell-212) and IRIAA (iriaa_bell-212). By Zero-Two. ApproximateVersion 0.8.0. **Load order:** Below Fattah-2, closing the Iranian group; it collides with nothing that changes hands, so the slot is a grouping choice. |
+| Iran UAV Shahed 238 | unknown | uav | Jet-powered Shahed 238 one-way attack drone as a land launcher (wp_shahed238_launcher) and its round (ods_shahed238). ApproximateVersion 0.7.9. **Load order:** Directly below Shahed-136 Kamikaze Drone (Geran-2); it collides with nothing that changes hands, so the slot is a grouping choice. |
 | Shahed-136 Drone — historical / unsubscribed | Obiwonkanblomi | uav | Second Shahed-136 mod; speed fixed at 120 mph; borrows the launcher truck from Zero Two's mod. Redundant with the Zero Two version — pick one. UNSUBSCRIBED by user 2026-08-24 (runbook Phase 2). **Overlaps:** shahed-136-zero-two |
 | Shahed-136 Kamikaze Drone (Geran-2) | Zero Two | uav | Land-launched one-way attack drone; black and white variants, two launcher land units. Richer of the two Shahed mods. **Overlaps:** shahed-136-obiwonkanblomi |
 
@@ -262,11 +276,12 @@ See `docs/conflicts-and-load-order.md` for the conflict watchlist, dependency au
 | Small and Medium-Sized UAV Series [WIP] (中小型无人机系列) 🚧 WIP | FallschimJager705 | uav | Recon quadcopter (China), Forpost-R, Mugin5, Orlan-10 (Russia), RQ-7 (USA); ongoing updates. |
 | Red Storm Arsenal |  | weapons | Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed at the bottom (only RE-power, which shares none of its files, sits below it) so it loses all 13 and keeps only its unique content. |
 
-## Civilian (4)
+## Civilian (5)
 
 | Mod | Author | Type | Notes |
 |---|---|---|---|
 | Civil Aircraft Mod (Airbus Family) | Zero Two | civilian | Commercial Airbus air traffic for scenario building. |
+| Civilian AS350 Ecureuil/AStar MOD | unknown | civilian | Civilian AS350 Ecureuil/AStar helicopter (civ_as-350) with its squadron table; English, French, Spanish and German names. ApproximateVersion 0.8.2. **Load order:** Directly below Civil Aircraft Mod (Airbus Family); it collides with nothing that changes hands, so the slot is a grouping choice. |
 | Humpback Whale | unknown (added 2026-08-24) | civilian | Ambience / biologic sonar contact. VERIFIED: adds civ_humpback. |
 | Merchants Expanded | unknown (added 2026-08-24) | ship | Expanded civilian merchant traffic. VERIFIED: civilian merchant hulls (civ_ms_*). **Overlaps:** auxilliary-merchant-pack (two merchant packs — check for duplicate hulls) |
 | Moloti's Armed Merchantmen | Moloti | ship | Twelve merchant and fishing hulls with a light gun or two bolted on - the author's own description calls it 'fundamentally not a serious add-on': civ_fv_okean_armed (the Soviet Okean-class intelligence trawler with a ZU-23 and a Bofors, flagged Soviet or Cuban by variant), an ASW trawler, three armed fishing boats, an armed side trawler, two armed merchants (ACT-1, RoRo B), an Iranian armed fishing boat, an American armed C4, a Polish armed Poltava and the Partizan patrol conversion. Every hull is unique content; one ammunition file; its sensors.ini merges. Southern Watch's Southern Lifeline places the armed Okean as a Russian picket shadowing the support group, which puts it on the Situation roster as an armed hull. Catalogued 3 Oct 2026 from the export (ApproximateVersion 0.8.0). |

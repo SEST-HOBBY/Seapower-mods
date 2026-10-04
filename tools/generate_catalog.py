@@ -25,6 +25,7 @@ FACTION_ORDER = [
     ("brazil", "Brazil"),
     ("chile", "Chile"),
     ("australia", "Australia"),
+    ("thailand", "Thailand"),
     ("iran", "Iran"),
     ("multi", "Multi-nation packs"),
     ("civilian", "Civilian"),

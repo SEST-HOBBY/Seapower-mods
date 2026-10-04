@@ -62,7 +62,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (155): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (165): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -91,11 +91,13 @@ shared file wins for the mods above.
   3801363152    CH-53E Standalone v0.1.0
   3567256221    Charles De Gaulle & Modern French Navy Pack (WIP)
   3481228992    ChengDu J-10C Vigorous Dragon
+  3806197116    Civilian AS350 Ecureuil/AStar MOD
   3628201887    Clemenceau-class Aircraft Carrier
   3806686336    Coordinated Strike Tool
   3606134711    Custom Loadout Editor
   3558173926    David's Sling
   3813033771    EC-2 Stand Off Jammer
+  3493115616    EMAD
   3555361900    Etendard Family Jets
   3587877691    Eurofighter Typhoon
   3784474738    Euromod - Anchorchain Expansion Pack
@@ -117,6 +119,8 @@ shared file wins for the mods above.
   3755769170    F-2A 'Viper Zero'
   3591820675    F-8 Crusader
   3430135740    F/A-18 Murder Hornet with AIM-174B
+  3673703427    Fattah-1
+  3672497668    Fattah-2
   3373960386    Flight Deck Ops
   3758943352    French Air Force
   3736147136    French Army Vehicles
@@ -126,12 +130,15 @@ shared file wins for the mods above.
   3508275114    Ground Upgrade: SPAA
   3790594162    Identify Expanded
   3717610332    IL-78 TANKER
+  3549377308    Iran Bell-212
+  3686449681    Iran UAV Shahed 238
   3408662804    Iskander TBM
   3681748718    ISKANDER-M
   3505420313    Italian Navy Mod
   3591563716    J-20 (歼-20 威龙)
   3801549552    J-36 Tailless Fighter
   3520352434    JAS-39 Gripen
+  3802216383    JMSDF Hyūga Class — Hyūga & Ise
   3776340577    Ka-27RLD
   3722749887    KC-135 STRATOTANKER
   3744475027    KC-46A Pegasus - Strategic Tanker
@@ -163,6 +170,7 @@ shared file wins for the mods above.
   3729579342    PLA Sukhoi Su-27UBK
   3812111085    PLAAF Aircraft Pack
   3774572038    PLAN Type 071 Amphibious Transport Dock
+  3399699218    Project 2498 Zyetseth Class Assault Vessel
   3769142422    Rebuilt J-16 / J-16D
   3455404959    Royal Australian Defence Forces
   3378409795    Royal Navy Type 23 'Duke Class' Frigate [OLD]
@@ -172,6 +180,7 @@ shared file wins for the mods above.
   3597650470    Russian Navy 21
   3468260539    Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
   3652906664    S-300PMU2
+  3524446392    S-350 Vityaz
   3496055699    S-500
   3392434750    SA-21/S-400 SAM
   3673250557    SAAB AEW&C PACK
@@ -203,6 +212,7 @@ shared file wins for the mods above.
   3503594612    SU-57 Felon (重刑犯)
   3434072450    Sukhoi Flanker Family (苏霍伊侧卫家族)
   3683253079    Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
+  3711297532    Thailand: The Siam Shield
   3732654992    THE REDFOR MOD
   3491248180    The Royal Navy
   3709961172    The Second Northern War

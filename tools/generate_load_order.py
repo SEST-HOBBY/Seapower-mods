@@ -84,7 +84,7 @@ TIER7 = [
      "its author's 'above all' would take 91 rounds and break the Gripen's AIM-120C-7"),
     ("red-storm-arsenal", "near the bottom - 638 unique files kept, 13 duplicated ones all "
      "lose; only the Pakistani Pack, the two Commonwealth packs, the Cold War rocket "
-     "carriers, Chile, the Luzon Line and RE-power sit below it"),
+     "carriers, Chile, the Luzon Line, the Siam Shield and RE-power sit below it"),
 ]
 
 explicit = {mid for mid, _ in TIER0 + TIER1 + TIER1B + TIER2 + TIER3 + TIER7}
@@ -132,7 +132,7 @@ NOTES = {
     "plaaf-aircraft-pack": "canonical order puts it in the bottom block, below the Gripen and above Ultimate Missile Workshop and Red Storm Arsenal: 56 shared files all lost to the specialist PLAAF mods above it, so only its H-6 family, J-7s, J-10A and 39 rounds load; SEST Collection Fixes restores the English loading tips its language_en folder overwrites",
     "armed-merchantmen": "beside Merchants Expanded; no collision with anything, position free",
     "mv-75-cheyenne-ii": "beside the MV-22B; no collision with anything, position free",
-    "re-power-resupply": "canonical order puts it last, below the Luzon Line, with which it shares no files",
+    "re-power-resupply": "canonical order puts it last, below the Luzon Line and the Siam Shield, with which it shares no files",
     "etendard-family": "canonical order puts it below French Air Force, whose Magic 2 the Mirage 2000s keep",
     "f-8-crusader": "canonical order puts it below French Air Force and the Etendards: its Magic 2 is an outlier",
     "jas-39-gripen": "canonical order puts it below French Air Force ([Damoncles]) and above Ultimate Missile Workshop (its AIM-120C-7)",
@@ -143,6 +143,8 @@ NOTES = {
     "sea-venom-aquilon": "canonical order puts it below The Royal Navy and RADF (shared rack ids)",
     "euromod-chile": "canonical order puts it below RADF and far below <<E-3G>> ([AN/APY-2])",
     "philippines-luzon-line": "canonical order puts it below RADF and below KC-135 ([MK22])",
+    "thailand-siam-shield": "canonical order puts it below the Luzon Line (same author), which keeps the 11 rounds and textures both ship",
+    "s-350-vityaz": "below S-500; loses its 2 shared files to Euromod",
     "ground-upgrade-ifv": "below KC-135 so the game's [TOW_M2] holds",
     "s-500": "below S-400 SAM (the Flap Lid SEST places)",
     "s-300pmu2": "above S-400, S-500 and THE REDFOR MOD",
