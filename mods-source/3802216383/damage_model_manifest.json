@@ -1,0 +1,533 @@
+{
+  "build": "R10.41 damage fit test",
+  "changes": [
+    [
+      "coll_prop_port",
+      "Position",
+      "-0.048,-0.056,-0.803",
+      "-0.0536197700,-0.0499578200,-0.8480313799"
+    ],
+    [
+      "coll_prop_port",
+      "Scale",
+      "0.035,0.035,0.10",
+      "0.0561848307,0.0561848307,0.0208589059"
+    ],
+    [
+      "coll_prop_stbd",
+      "Position",
+      "0.048,-0.056,-0.803",
+      "0.0574283200,-0.0508739900,-0.8480747080"
+    ],
+    [
+      "coll_prop_stbd",
+      "Scale",
+      "0.035,0.035,0.10",
+      "0.0555146984,0.0555146984,0.0206424142"
+    ],
+    [
+      "coll_ciws_fwd",
+      "Position",
+      "0.055,0.153,0.925",
+      "0.0627428300,0.1770925700,0.9538550500"
+    ],
+    [
+      "coll_ciws_fwd",
+      "Scale",
+      "0.05,0.06,0.05",
+      "0.0400000000,0.0390000000,0.0400000000"
+    ],
+    [
+      "coll_mag_ciws_fwd",
+      "Position",
+      "0.055,0.125,0.925",
+      "0.0627428300,0.1485925700,0.9538550500"
+    ],
+    [
+      "coll_mag_ciws_fwd",
+      "Scale",
+      "0.05,0.05,0.05",
+      "0.0240000000,0.0160000000,0.0240000000"
+    ],
+    [
+      "coll_ciws_aft",
+      "Position",
+      "-0.145,0.096,-0.952",
+      "-0.1375550800,0.1223371400,-0.9649007000"
+    ],
+    [
+      "coll_ciws_aft",
+      "Scale",
+      "0.05,0.06,0.05",
+      "0.0400000000,0.0390000000,0.0400000000"
+    ],
+    [
+      "coll_mag_ciws_aft",
+      "Position",
+      "-0.145,0.070,-0.952",
+      "-0.1375550800,0.0938371400,-0.9649007000"
+    ],
+    [
+      "coll_mag_ciws_aft",
+      "Scale",
+      "0.05,0.05,0.05",
+      "0.0240000000,0.0160000000,0.0240000000"
+    ],
+    [
+      "coll_ops20",
+      "Position",
+      null,
+      "0.1150355800,0.3445359000,0.1602352100"
+    ],
+    [
+      "coll_ops20",
+      "Scale",
+      null,
+      "0.0304000000,0.0050000000,0.0304000000"
+    ],
+    [
+      "SensorSystem4",
+      "Collider",
+      "coll_sensors",
+      "coll_ops20"
+    ],
+    [
+      "coll_navigation",
+      "Position",
+      null,
+      "0.0945760900,0.3232520800,0.1354535900"
+    ],
+    [
+      "coll_navigation",
+      "Scale",
+      null,
+      "0.0212800000,0.0050000000,0.0212800000"
+    ],
+    [
+      "SensorSystem9",
+      "Collider",
+      "coll_sensors",
+      "coll_navigation"
+    ],
+    [
+      "coll_sensors",
+      "Position",
+      "0.09,0.36,0.05",
+      "0.1100000000,0.2420000000,0.1525000000"
+    ],
+    [
+      "coll_sensors",
+      "Scale",
+      "0.12,0.18,0.18",
+      "0.0900000000,0.0600000000,0.1250000000"
+    ],
+    [
+      "SensorSystem3",
+      "MountPosition",
+      "0.09,0.36,0.05",
+      "0.1100000000,0.2420000000,0.1525000000"
+    ],
+    [
+      "coll_datalink",
+      "Position",
+      null,
+      "0.0900000000,0.3400000000,0.1000000000"
+    ],
+    [
+      "coll_datalink",
+      "Scale",
+      null,
+      "0.0360000000,0.0340000000,0.0360000000"
+    ],
+    [
+      "SensorSystem8",
+      "Collider",
+      "coll_sensors",
+      "coll_datalink"
+    ],
+    [
+      "coll_cic",
+      "Position",
+      "0.10,0.25,0.08",
+      "0.1140000000,0.2060000000,0.1450000000"
+    ],
+    [
+      "coll_cic",
+      "Scale",
+      "0.16,0.12,0.24",
+      "0.0600000000,0.0380000000,0.1100000000"
+    ],
+    [
+      "General",
+      "CompartmentsHeight",
+      "0.25",
+      "0.15255"
+    ],
+    [
+      "coll_hull_section_01",
+      "Position",
+      null,
+      "-0.0099999802,0.0423140906,-0.8940000000"
+    ],
+    [
+      "coll_hull_section_01",
+      "Scale",
+      null,
+      "0.3299999204,0.2204738188,0.1480000000"
+    ],
+    [
+      "coll_hull_section_02",
+      "Position",
+      null,
+      "-0.0204065014,0.0425092037,-0.7350000000"
+    ],
+    [
+      "coll_hull_section_02",
+      "Scale",
+      null,
+      "0.3508129516,0.2200835925,0.1700000000"
+    ],
+    [
+      "coll_hull_section_03",
+      "Position",
+      null,
+      "-0.0201367523,0.0425092045,-0.5550000000"
+    ],
+    [
+      "coll_hull_section_03",
+      "Scale",
+      null,
+      "0.3512426540,0.2200835909,0.1900000000"
+    ],
+    [
+      "coll_hull_section_04",
+      "Position",
+      null,
+      "-0.0201642111,0.0412506016,-0.3550000000"
+    ],
+    [
+      "coll_hull_section_04",
+      "Scale",
+      null,
+      "0.3512975771,0.2226007968,0.2100000000"
+    ],
+    [
+      "coll_hull_section_05",
+      "Position",
+      null,
+      "-0.0201925725,0.0400079126,-0.1250000000"
+    ],
+    [
+      "coll_hull_section_05",
+      "Scale",
+      null,
+      "0.3511845328,0.2250861747,0.2500000000"
+    ],
+    [
+      "coll_hull_section_06",
+      "Position",
+      null,
+      "-0.0203830426,0.0405699625,0.1250000000"
+    ],
+    [
+      "coll_hull_section_06",
+      "Scale",
+      null,
+      "0.3508599884,0.2239620750,0.2500000000"
+    ],
+    [
+      "coll_hull_section_07",
+      "Position",
+      null,
+      "-0.0145997473,0.0412505764,0.3550000000"
+    ],
+    [
+      "coll_hull_section_07",
+      "Scale",
+      null,
+      "0.3763539063,0.2226008472,0.2100000000"
+    ],
+    [
+      "coll_hull_section_08",
+      "Position",
+      null,
+      "-0.0111179189,0.0396690962,0.5550000000"
+    ],
+    [
+      "coll_hull_section_08",
+      "Scale",
+      null,
+      "0.3693902438,0.2257637772,0.1900000000"
+    ],
+    [
+      "coll_hull_section_09",
+      "Position",
+      null,
+      "-0.0100000421,0.0369567767,0.7250000000"
+    ],
+    [
+      "coll_hull_section_09",
+      "Scale",
+      null,
+      "0.3299999149,0.2311883798,0.1500000000"
+    ],
+    [
+      "coll_hull_section_10",
+      "Position",
+      null,
+      "0.0101416795,0.0369965051,0.8500000000"
+    ],
+    [
+      "coll_hull_section_10",
+      "Scale",
+      null,
+      "0.2512337878,0.2311088982,0.1000000000"
+    ],
+    [
+      "coll_hull_section_11",
+      "Position",
+      null,
+      "0.0089137575,0.0402098233,0.9415000000"
+    ],
+    [
+      "coll_hull_section_11",
+      "Scale",
+      null,
+      "0.2003758284,0.2246822536,0.0830000000"
+    ],
+    [
+      "Models",
+      "ResourcesRoot",
+      "jmsdf_ddh_hyuga_r10_40.obj",
+      "jmsdf_ddh_hyuga_r10_41.obj"
+    ],
+    [
+      "Models",
+      "ResourcesDamagedMesh",
+      "Hull",
+      "Hull_Damaged"
+    ],
+    [
+      "Hull",
+      "DamagedMesh",
+      null,
+      "Hull_Damaged"
+    ],
+    [
+      "New_HullTexture",
+      "DamagedMesh",
+      null,
+      "New_HullTexture_Damaged"
+    ],
+    [
+      "Hull_RedDark",
+      "DamagedMesh",
+      null,
+      "Hull_RedDark_Damaged"
+    ],
+    [
+      "New_HullSmall",
+      "DamagedMesh",
+      null,
+      "New_HullSmall_Damaged"
+    ],
+    [
+      "New_Black",
+      "DamagedMesh",
+      null,
+      "New_Black_Damaged"
+    ]
+  ],
+  "hull_sections": [
+    {
+      "name": "coll_hull_section_01",
+      "min": [
+        -0.17499994040448918,
+        -0.0679228188,
+        -0.968
+      ],
+      "max": [
+        0.15499998,
+        0.152551,
+        -0.82
+      ]
+    },
+    {
+      "name": "coll_hull_section_02",
+      "min": [
+        -0.1958129772,
+        -0.0675325925,
+        -0.82
+      ],
+      "max": [
+        0.1549999743955142,
+        0.152551,
+        -0.65
+      ]
+    },
+    {
+      "name": "coll_hull_section_03",
+      "min": [
+        -0.1957580792631608,
+        -0.06753259092600142,
+        -0.65
+      ],
+      "max": [
+        0.1554845747,
+        0.152551,
+        -0.46
+      ]
+    },
+    {
+      "name": "coll_hull_section_04",
+      "min": [
+        -0.1958129997,
+        -0.0700497967601814,
+        -0.46
+      ],
+      "max": [
+        0.1554845774,
+        0.152551,
+        -0.25
+      ]
+    },
+    {
+      "name": "coll_hull_section_05",
+      "min": [
+        -0.19578483886386197,
+        -0.0725351747,
+        -0.25
+      ],
+      "max": [
+        0.1553996938976773,
+        0.152551,
+        0.0
+      ]
+    },
+    {
+      "name": "coll_hull_section_06",
+      "min": [
+        -0.19581303684096138,
+        -0.07141107501164264,
+        0.0
+      ],
+      "max": [
+        0.1550469516083361,
+        0.152551,
+        0.25
+      ]
+    },
+    {
+      "name": "coll_hull_section_07",
+      "min": [
+        -0.2027767005,
+        -0.07004984721433104,
+        0.25
+      ],
+      "max": [
+        0.1735772058,
+        0.152551,
+        0.46
+      ]
+    },
+    {
+      "name": "coll_hull_section_08",
+      "min": [
+        -0.1958130408,
+        -0.0732127923955397,
+        0.46
+      ],
+      "max": [
+        0.173577203,
+        0.15255098478263823,
+        0.65
+      ]
+    },
+    {
+      "name": "coll_hull_section_09",
+      "min": [
+        -0.17499999952372247,
+        -0.0786374132,
+        0.65
+      ],
+      "max": [
+        0.1549999154,
+        0.15255096656532316,
+        0.8
+      ]
+    },
+    {
+      "name": "coll_hull_section_10",
+      "min": [
+        -0.11547521433599015,
+        -0.078557943936668,
+        0.8
+      ],
+      "max": [
+        0.13575857342364506,
+        0.15255095422689122,
+        0.9
+      ]
+    },
+    {
+      "name": "coll_hull_section_11",
+      "min": [
+        -0.09127415671708826,
+        -0.07213130355309766,
+        0.9
+      ],
+      "max": [
+        0.10910167172188516,
+        0.15255095007132666,
+        0.983
+      ]
+    }
+  ],
+  "collider_count": 33,
+  "damage_zones": [
+    {
+      "side": -1,
+      "z": 0.28,
+      "y": -0.012,
+      "rz": 0.09,
+      "ry": 0.05,
+      "depth": 0.012
+    },
+    {
+      "side": 1,
+      "z": -0.26,
+      "y": -0.018,
+      "rz": 0.08,
+      "ry": 0.055,
+      "depth": 0.01
+    }
+  ],
+  "damage_meshes": {
+    "Hull": {
+      "total_faces": 123434,
+      "resampled_faces": 72
+    },
+    "New_HullTexture": {
+      "total_faces": 10946,
+      "resampled_faces": 3825
+    },
+    "Hull_RedDark": {
+      "total_faces": 17096,
+      "resampled_faces": 10009
+    },
+    "New_HullSmall": {
+      "total_faces": 74244,
+      "resampled_faces": 946
+    },
+    "New_Black": {
+      "total_faces": 13497,
+      "resampled_faces": 1224
+    }
+  },
+  "notes": [
+    "CIC and fixed-array volume positions are model-based approximations, not a verified internal arrangement.",
+    "Existing hangar remains one logical flight-deck system, matching the native single Collider binding; no unsupported compartment keys added.",
+    "Armor, displacement, DC teams, engine volume, rudders, weapons, ranges and animations retained.",
+    "Generic damaged-state buckling is not hit-location-specific deformation; game impact effects remain responsible for local damage."
+  ]
+}

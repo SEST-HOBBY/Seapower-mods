@@ -1,0 +1,16 @@
+{
+  "build": "R10.50 VLS loadout correction",
+  "essm": {
+    "id": "usn_rim-162b",
+    "cells": 4,
+    "rounds": 16
+  },
+  "asroc": {
+    "id": "usn_rum-139c",
+    "cells": 12,
+    "rounds": 12
+  },
+  "physical_cell_bindings_unchanged": true,
+  "game_tested": false,
+  "subvariants": "Asahi-derived gameplay choices; not certified Japanese service suffixes"
+}

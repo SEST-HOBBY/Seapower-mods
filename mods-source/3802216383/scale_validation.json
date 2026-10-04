@@ -1,0 +1,160 @@
+{
+  "obj_files": [
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\hyuga_rigging.obj",
+      "vertices": 1884,
+      "faces": 1256,
+      "size": [
+        0.03971326549999998,
+        0.1904520234,
+        0.044877500000000015
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\hyuga_torpedo_bores.obj",
+      "vertices": 384,
+      "faces": 192,
+      "size": [
+        0.4229925831,
+        0.009877704099999995,
+        0.014912885800000053
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\hyuga_torpedo_covers.obj",
+      "vertices": 960,
+      "faces": 1716,
+      "size": [
+        0.005486709,
+        0.0112685362,
+        0.0007244039
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\hyuga_vls_wells.obj",
+      "vertices": 64,
+      "faces": 16,
+      "size": [
+        0.0706847605,
+        0.0,
+        0.04102221939999984
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\jmsdf_ddh_hyuga_r10_51.obj",
+      "vertices": 355858,
+      "faces": 619342,
+      "size": [
+        0.5576491174,
+        0.8184773558999999,
+        2.8720311452
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\equipment\\crash_crane.obj",
+      "vertices": 633939,
+      "faces": 211313,
+      "size": [
+        0.040459270199999994,
+        0.0507682062,
+        0.1252180516
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\equipment\\drum.obj",
+      "vertices": 5838,
+      "faces": 1946,
+      "size": [
+        0.0108052057,
+        0.0120018834,
+        0.0071396579000000005
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\equipment\\fire.obj",
+      "vertices": 187155,
+      "faces": 62385,
+      "size": [
+        0.0281601919,
+        0.0261241933,
+        0.073509725
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\equipment\\forklift.obj",
+      "vertices": 91410,
+      "faces": 30470,
+      "size": [
+        0.0189175846,
+        0.0338335663,
+        0.0497970136
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\equipment\\handler.obj",
+      "vertices": 13572,
+      "faces": 4524,
+      "size": [
+        0.0291797942,
+        0.0030216101,
+        0.021928914100000002
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\equipment\\service.obj",
+      "vertices": 12822,
+      "faces": 4274,
+      "size": [
+        0.022875192699999998,
+        0.0214193782,
+        0.0383774647
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\equipment\\tow.obj",
+      "vertices": 103485,
+      "faces": 34495,
+      "size": [
+        0.033859499599999995,
+        0.0305510012,
+        0.0670707824
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\mashu_fittings\\extinguishers.obj",
+      "vertices": 4296,
+      "faces": 1432,
+      "size": [
+        0.008628087199999999,
+        0.0101064435,
+        0.0042882241
+      ]
+    },
+    {
+      "file": "ships\\jmsdf_ddh_hyuga\\mashu_fittings\\maintenance_dolly.obj",
+      "vertices": 20166,
+      "faces": 6722,
+      "size": [
+        0.022540163,
+        0.0158327559,
+        0.0463073029
+      ]
+    }
+  ],
+  "game_tested": false,
+  "assembled_models_verified": 212,
+  "result": "PASS",
+  "total_faces": 980083,
+  "configuration_edits": 315,
+  "hatch_bindings_verified": 22,
+  "textures_uv_normals_and_topology_preserved": true,
+  "weapon_sensor_performance_preserved": true,
+  "torpedo_projectile_setback_preserved": true,
+  "runtime_checks": [
+    "Long Beach size comparison",
+    "waterline and wake",
+    "elevators and helicopter contact",
+    "VLS and torpedo launches",
+    "CIWS"
+  ]
+}

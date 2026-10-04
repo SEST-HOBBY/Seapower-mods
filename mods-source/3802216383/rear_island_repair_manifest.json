@@ -1,0 +1,10 @@
+{
+  "build": "R10.48 rear island wall back-face repair",
+  "added_reverse_faces": {
+    "New_HullTexture": 674,
+    "New_HullTexture_Damaged": 674
+  },
+  "original_positions_uvs_and_materials_preserved": true,
+  "base": "R10.44 (matte dark finish, flag removed, recessed torpedo launch origins)",
+  "game_tested": false
+}

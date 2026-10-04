@@ -1,0 +1,3 @@
+jmsdf_ddh_hyuga.ini: OPS-20 on lower gearbox; no mast-tip scanner; navigation retained on Dummy mount.
+jmsdf_ddh_ise.ini: OPS-20 on lower gearbox; no mast-tip scanner; navigation retained on Dummy mount.
+20 static scanner plate faces removed; existing gearbox retained. Placement sits at the gearbox top with approximately 0.0174 m overlap.

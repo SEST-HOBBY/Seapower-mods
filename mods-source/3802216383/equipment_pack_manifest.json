@@ -1,0 +1,276 @@
+[
+  {
+    "name": "tow",
+    "source": "work\\jmsdf_equipment_sources\\jmsdf_vehicle_set\\3t_towing\\sdf_towing.fbx",
+    "scale": 0.01,
+    "position": [
+      0.128,
+      0.152551,
+      0.555
+    ],
+    "size": [
+      0.02335130572319031,
+      0.021064895000308753,
+      0.046255714893341064
+    ],
+    "triangles_before": 90791,
+    "triangles_after": 34495,
+    "groups": [
+      "tow_tow_b28b7af6",
+      "tow_tow_ac814ccc",
+      "tow_tow_cde782be",
+      "tow_tow_abccf54b",
+      "tow_tow_a3ce2e37",
+      "tow_tow_050522dd",
+      "tow_tow_db451726",
+      "tow_tow_1a954628",
+      "tow_tow_febdd4de",
+      "tow_tow_ef0ebbb7",
+      "tow_tow_78988010",
+      "tow_tow_b58af3e6",
+      "tow_tow_141a29d5",
+      "tow_tow_a7e5f805",
+      "tow_tow_d8134dbe",
+      "tow_tow_7ffe1ba4",
+      "tow_tow_d764022e",
+      "tow_tow_f91421de",
+      "tow_tow_bc74f4f0",
+      "tow_tow_83655a55",
+      "tow_tow_dcba8e64",
+      "tow_tow_7e51aa7f"
+    ],
+    "materials": [
+      "tow_b28b7af6",
+      "tow_ac814ccc",
+      "tow_cde782be",
+      "tow_abccf54b",
+      "tow_a3ce2e37",
+      "tow_050522dd",
+      "tow_db451726",
+      "tow_1a954628",
+      "tow_febdd4de",
+      "tow_ef0ebbb7",
+      "tow_78988010",
+      "tow_b58af3e6",
+      "tow_141a29d5",
+      "tow_a7e5f805",
+      "tow_d8134dbe",
+      "tow_7ffe1ba4",
+      "tow_d764022e",
+      "tow_f91421de",
+      "tow_bc74f4f0",
+      "tow_83655a55",
+      "tow_dcba8e64",
+      "tow_7e51aa7f"
+    ]
+  },
+  {
+    "name": "fire",
+    "source": "work\\jmsdf_equipment_sources\\jmsdf_vehicle_set\\fire\\fire.fbx",
+    "scale": 0.01,
+    "position": [
+      0.12,
+      0.152551,
+      -0.81
+    ],
+    "size": [
+      0.019420828223228454,
+      0.01801655476912856,
+      0.05069636106491089
+    ],
+    "triangles_before": 152445,
+    "triangles_after": 62385,
+    "groups": [
+      "fire_fire_d764022e",
+      "fire_fire_db451726",
+      "fire_fire_78988010",
+      "fire_fire_0ae2f41c",
+      "fire_fire_d5658db4",
+      "fire_fire_f8248e12",
+      "fire_fire_ef0ebbb7",
+      "fire_fire_61e2f51c",
+      "fire_fire_51da2df9",
+      "fire_fire_1b78eb3b",
+      "fire_fire_61bb8d29",
+      "fire_fire_2e7fea56",
+      "fire_fire_610c5907",
+      "fire_fire_d64d112f",
+      "fire_fire_80c48f98",
+      "fire_fire_178c040f",
+      "fire_fire_1a954628",
+      "fire_fire_7f0edb49",
+      "fire_fire_ca9a5461"
+    ],
+    "materials": [
+      "fire_d764022e",
+      "fire_db451726",
+      "fire_78988010",
+      "fire_0ae2f41c",
+      "fire_d5658db4",
+      "fire_f8248e12",
+      "fire_ef0ebbb7",
+      "fire_61e2f51c",
+      "fire_51da2df9",
+      "fire_1b78eb3b",
+      "fire_61bb8d29",
+      "fire_2e7fea56",
+      "fire_610c5907",
+      "fire_d64d112f",
+      "fire_80c48f98",
+      "fire_178c040f",
+      "fire_1a954628",
+      "fire_7f0edb49",
+      "fire_ca9a5461"
+    ]
+  },
+  {
+    "name": "forklift",
+    "source": "work\\jmsdf_equipment_sources\\jmsdf_vehicle_set\\toyota2.5tfork\\toyota2.5tfork.fbx",
+    "scale": 0.01,
+    "position": [
+      0.065,
+      0.05,
+      0.395
+    ],
+    "size": [
+      0.013046609163284302,
+      0.02333349311258644,
+      0.03434283852577209
+    ],
+    "triangles_before": 73077,
+    "triangles_after": 30470,
+    "groups": [
+      "forklift_forklift_4a84419f",
+      "forklift_forklift_d5658db4",
+      "forklift_forklift_a3ce2e37",
+      "forklift_forklift_f55fb781",
+      "forklift_forklift_3d5353a8",
+      "forklift_forklift_648769d4",
+      "forklift_forklift_2cacd020",
+      "forklift_forklift_b90d9457",
+      "forklift_forklift_050522dd",
+      "forklift_forklift_1a954628",
+      "forklift_forklift_f91421de",
+      "forklift_forklift_78988010",
+      "forklift_forklift_61bb8d29",
+      "forklift_forklift_ba0520e5",
+      "forklift_forklift_f43814b1",
+      "forklift_forklift_ce9d1aff",
+      "forklift_forklift_9c8bd377",
+      "forklift_forklift_80c48f98"
+    ],
+    "materials": [
+      "forklift_4a84419f",
+      "forklift_d5658db4",
+      "forklift_a3ce2e37",
+      "forklift_f55fb781",
+      "forklift_3d5353a8",
+      "forklift_648769d4",
+      "forklift_2cacd020",
+      "forklift_b90d9457",
+      "forklift_050522dd",
+      "forklift_1a954628",
+      "forklift_f91421de",
+      "forklift_78988010",
+      "forklift_61bb8d29",
+      "forklift_ba0520e5",
+      "forklift_f43814b1",
+      "forklift_ce9d1aff",
+      "forklift_9c8bd377",
+      "forklift_80c48f98"
+    ]
+  },
+  {
+    "name": "handler",
+    "source": "work\\jmsdf_equipment_sources\\jmsdf_vehicle_set\\handler\\handler.fbx",
+    "scale": 0.01,
+    "position": [
+      0.127,
+      0.152551,
+      -0.68
+    ],
+    "size": [
+      0.02012399673461914,
+      0.0020816783607006074,
+      0.015122770071029664
+    ],
+    "triangles_before": 11910,
+    "triangles_after": 4524,
+    "groups": [
+      "handler_handler_b28b7af6",
+      "handler_handler_648769d4",
+      "handler_handler_f55fb781",
+      "handler_handler_78988010",
+      "handler_handler_d764022e",
+      "handler_handler_07c342be",
+      "handler_handler_61bb8d29",
+      "handler_handler_f91421de",
+      "handler_handler_4dc7c9ec"
+    ],
+    "materials": [
+      "handler_b28b7af6",
+      "handler_648769d4",
+      "handler_f55fb781",
+      "handler_78988010",
+      "handler_d764022e",
+      "handler_07c342be",
+      "handler_61bb8d29",
+      "handler_f91421de",
+      "handler_4dc7c9ec"
+    ]
+  },
+  {
+    "name": "service",
+    "source": "work\\jmsdf_equipment_sources\\jmsdf_vehicle_set\\3omake\\sarvice.fbx",
+    "scale": 0.01,
+    "position": [
+      -0.065,
+      0.05,
+      0.475
+    ],
+    "size": [
+      0.015815488696098327,
+      0.01477198202162981,
+      0.02646721601486206
+    ],
+    "triangles_before": 11248,
+    "triangles_after": 4274,
+    "groups": [
+      "service_service_02083f45",
+      "service_service_383fd7bf",
+      "service_service_db451726"
+    ],
+    "materials": [
+      "service_02083f45",
+      "service_383fd7bf",
+      "service_db451726"
+    ]
+  },
+  {
+    "name": "drum",
+    "source": "work\\jmsdf_equipment_sources\\52jmsdf_equipment2\\52jmsdf equipment2\\jmsdf equipment2.fbx",
+    "scale": 0.1,
+    "position": [
+      0.068,
+      0.05,
+      0.49
+    ],
+    "size": [
+      0.007453806698322296,
+      0.008279752731323243,
+      0.004916565120220185
+    ],
+    "triangles_before": 5122,
+    "triangles_after": 1946,
+    "groups": [
+      "drum_drum_c2687f64",
+      "drum_drum_2d5128d7",
+      "drum_drum_c74fdff9"
+    ],
+    "materials": [
+      "drum_c2687f64",
+      "drum_2d5128d7",
+      "drum_c74fdff9"
+    ]
+  }
+]

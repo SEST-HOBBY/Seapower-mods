@@ -1,0 +1,12 @@
+{
+  "collider_count": 33,
+  "all_collision_bindings_resolve": true,
+  "all_damage_mesh_bindings_resolve": true,
+  "obj_indices_valid": true,
+  "intact_mesh_exactly_preserved": true,
+  "original_assets_and_gameplay_systems_preserved": true,
+  "propeller_sweep_samples": 37,
+  "radar_full_sweep_containment": true,
+  "compartments_height": 0.15255,
+  "game_tested": false
+}
