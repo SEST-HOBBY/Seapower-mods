@@ -1,0 +1,3 @@
+<Grid>
+    <Image Source="{Binding Assets[High_North_Briefing_Map]}" Stretch="Uniform"/>
+</Grid>

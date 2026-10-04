@@ -1,0 +1,70 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  Stretch="Uniform"
+  StretchDirection="Both">
+  <Grid Width="1560" Height="920" TextElement.Foreground="#D8DCE0" TextElement.FontFamily="Roboto">
+    <Grid.Resources>
+      <Style x:Key="SlideArrowButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#8E969E"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="58"/>
+        <Setter Property="FontWeight" Value="Light"/>
+        <Setter Property="Opacity" Value="0.58"/>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Border Background="{TemplateBinding Background}">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter Property="Background" Value="#28383B3F"/>
+                  <Setter Property="Opacity" Value="0.82"/>
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+    </Grid.Resources>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="76"/>
+      <RowDefinition Height="1"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Grid.Row="0" Text="INTRODUCTION" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Border Grid.Row="0" Width="76" Height="38" BorderBrush="#3E454B" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,24,0">
+      <TextBlock Text="3 / 3" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Border>
+    <Rectangle Grid.Row="1" Fill="#3E454B" Margin="22,0"/>
+
+    <Grid Grid.Row="2" Margin="0,10,0,0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="122"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="122"/>
+      </Grid.ColumnDefinitions>
+
+      <Button Grid.Column="0" Width="96" Height="190" Style="{StaticResource SlideArrowButton}" Content="&lt;" Command="{Binding OpenFileCommand}" CommandParameter="campaigns/mare-nostrum-28/art/prologo2_en.xml"/>
+      <TextBlock Grid.Column="2" Text="&gt;" FontSize="58" Foreground="#5F676E" Opacity="0.3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+      <StackPanel Grid.Column="1" Orientation="Vertical">
+        <Image Source="{Binding Assets[mn28_command]}" Height="410" Stretch="Uniform" HorizontalAlignment="Center"/>
+        <TextBlock Text="The bridge: Europe's first combined naval force sails under your flag." FontStyle="Italic" FontSize="11" Foreground="#99A1A8" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+        <TextBlock Text="The Command" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,20,0,12"/>
+        <TextBlock TextWrapping="Wrap" FontSize="16" LineHeight="25" Foreground="#D0D4D8" Margin="150,0,150,0">
+          The order arrives sealed by five foreign ministries - though for now only one has put ships on the table. To you is entrusted command of the <Span FontWeight="SemiBold" Foreground="#8FBF7F">European Combined Naval Force</Span>: the continent's first multinational fleet conceived without - and perhaps against - the United States.
+          <LineBreak/><LineBreak/>
+          Today it is no more than a handful of hulls under the Spanish flag. Tomorrow, if the continent outlasts its own doubts, France, Italy, Germany and the Netherlands will join. But that tomorrow must be earned, sea by sea, mission by mission.
+          <LineBreak/><LineBreak/>
+          And there is already news. Intelligence has just filed the <Span FontWeight="SemiBold" Foreground="#C98A6A">first report</Span>: hostile contacts in the Alboran Sea, a threat bound for Spanish waters. Your first mission will not wait.
+          <LineBreak/><LineBreak/>
+          The future of Europe sails with you, Commander. Good luck. You are going to need it.
+        </TextBlock>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</Viewbox>

@@ -1,0 +1,53 @@
+[h1]THE REDFOR MOD: OTHER SIDE OF IRON CURTAIN[/h1]
+[h1]Description[/h1]
+[quote]This mod aim at bringing lesser known variants of vanilla units or new obscure units, and prototypes that almost entered serivice from 1980s to 2020s using extensive research in bid to make them as close to real life performance as possbile, this will include ships, submarines and ground units mainly from Russia and China. Biggest highlight of this mod right now is high fidelity S-300,S-400 SAM units with its dedicated radars and missiles and Iskander complex. But its containe many other interesting units for you to try too![/quote] 
+[b]Big thanks to @ManeuverWarfare for allowing me to use some of his assets![/b]
+[b]Big thanks to @NuclearStonk for allowing me to use some of her assets![/b]
+[b]Big thanks to RU NAVY21 team @Veronica Anatolia and @Pointinthevoid  for allowing me to use some of their assets![/b]
+[b]Unit list:[/b]
+[list]
+    [*]Tu-16N air tanker
+    [*]TU-95MA strategic bomber
+    [*]1L269 jammer
+    [*]S-300PMU2 complex 
+    [*]S-400 complex
+    [*]Iskander-K
+    [*]Iskander-M
+    [*]D-20 howitzer 
+    [*]NEWA-SC sam
+    [*]Tochka SRBM
+    [*]Big Bird family radar 
+    [*]Kilo-887V class submarine
+    [*]Projekt61 destroyer class Smetlivy variant
+    [*]Igla MANPADS
+    [*]S-300PS SAM site
+    [*]Projekt 61E destroyer class
+    [*]RS-26 ORESHNIK IRBM
+    [*]1L269 KRASUKHA-2 JAMMER
+    [*]Late Slava Class cruisers
+    [*]Late Kara Class cruiser 
+    [*]Delta-IV SSBN
+    [*]R-60 Tarantul missile boat variant 
+    [*]R-71 Tarantul missile boat variant 
+    [*]3K60 BAL coastal defense missile system
+    [*]Projekt 1241.1M missile boat
+    [*]Projekt 1124MU Albatros anti-submarine corvette 
+[/list] 
+[h3]S-400[/h3]
+[img]https://i.imgur.com/ALjyWzq.jpeg[/img]
+
+[h3]S-300[/h3]
+[img]https://i.imgur.com/SgwbqKd.jpeg[/img]
+
+[h3]Iskander Complex[/h3]
+[img]https://i.imgur.com/uEakruh.jpeg[/img]
+
+[h3]RS-26[/h3]
+[img]https://i.imgur.com/LnqiXKg.png[/img]
+
+[h3]1L269 Krasukha-2[/h3]
+[img]https://i.imgur.com/E4cay6P.png[/img]
+
+[b]UPDATE 0.1 "TOP PLATING"[/b]
+[b]UPDATE 0.2 "COASTLINE SENTINEL"[/b]
+[b]!!!!!BETA ONLY!!!!![/b] 

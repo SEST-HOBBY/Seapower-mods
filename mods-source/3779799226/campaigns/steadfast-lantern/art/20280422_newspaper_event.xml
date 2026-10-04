@@ -1,0 +1,101 @@
+<!-- STEADFAST LANTERN - narrative card between mission 02 and 03.
+     The point of no return: the colours come down. Self-contained. -->
+
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080">
+  <Viewbox>
+    <Border Background="#EFE7D6" HorizontalAlignment="Center" VerticalAlignment="Center"
+            Width="900" Height="1272" Padding="45"
+            TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black" TextElement.FontSize="16">
+      <Border.Effect>
+        <DropShadowEffect />
+      </Border.Effect>
+      <StackPanel Orientation="Vertical">
+
+        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+        <TextBlock FontFamily="Helvetica" Text="Saturday, 22 April 2028  |  European Edition  |  No. 21,890  |  2.80 EUR"
+                   Margin="0,5,0,5" FontSize="15"/>
+        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+
+        <TextBlock Text="The European Herald" TextAlignment="Center" FontSize="88" FontWeight="Bold" Margin="0,6,0,6"/>
+        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+
+        <TextBlock FontFamily="Impact" FontWeight="Bold" FontSize="120" TextWrapping="Wrap"
+                   TextAlignment="Center" Margin="0,14,0,0">
+          COLOURS STRUCK<LineBreak/>
+          <Run Text="RENEGADE ADMIRAL HAULS DOWN THE ALLIANCE ENSIGN" FontSize="32"/>
+        </TextBlock>
+
+        <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,14,0,14"/>
+
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="28"/>
+            <ColumnDefinition Width="2*"/>
+          </Grid.ColumnDefinitions>
+
+          <StackPanel Grid.Column="0" Orientation="Vertical">
+            <TextBlock Text="&#8216;We are no longer asking&#8217;" FontSize="24" TextWrapping="Wrap"
+                       FontFamily="Helvetica" Margin="0,0,0,12"/>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Justify" LineHeight="21">
+              KATTEGAT &#8212; At 2140 last night, aboard a frigate somewhere between Jutland and
+              Sweden, a signalman hauled down a flag that had flown from that mast for four years,
+              and ran up one that nobody had ever seen before.
+              <LineBreak/><LineBreak/>
+              The transmission that followed lasted forty seconds and was made in clear, so that
+              every merchant ship, every coastguard station and every newsroom on the Baltic could
+              hear it. &#8220;We are no longer asking,&#8221; Konteradmiral Reimar Vahl said.
+              &#8220;We are no longer subject to any authority that will not exercise itself.&#8221;
+              <LineBreak/><LineBreak/>
+              Until last night the legal position had been, at worst, ambiguous. A commander in
+              disobedience of orders is a matter for a court martial. A commander under his own
+              ensign is something for which nobody in Brussels has a word ready.
+              <LineBreak/><LineBreak/>
+              What happened after the transmission was less symbolic. Three submarines of the
+              Type 212A class, which had been unaccounted for since 11 April, were reported by
+              coastal sonar arrays moving south into the central Kattegat: forty metres of
+              water, heavy bottom clutter, and the worst hunting ground in Europe for the people
+              who will have to go and find them.
+              <LineBreak/><LineBreak/>
+              A NATO spokesperson confirmed that Task Group NORTHWIND has been ordered into the
+              Kattegat and declined all further comment.
+            </TextBlock>
+          </StackPanel>
+
+          <StackPanel Grid.Column="2" Orientation="Vertical">
+            <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,8"/>
+            <TextBlock Text="THE CONVOY IS OUT" FontFamily="Helvetica" FontWeight="Bold" FontSize="19"
+                       TextWrapping="Wrap" Margin="0,0,0,8"/>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Justify" FontSize="15" LineHeight="19">
+              The three merchant ships detained in the northern Kattegat since 18 April are clear
+              and proceeding north. All 410 people aboard are accounted for.
+              <LineBreak/><LineBreak/>
+              The master of the NORDLAND, asked what the last four days had been like, said only
+              that the weather had been fine.
+            </TextBlock>
+
+            <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,14,0,8"/>
+            <TextBlock Text="AND STILL NO DECISION" FontFamily="Helvetica" FontWeight="Bold" FontSize="19"
+                       TextWrapping="Wrap" Margin="0,0,0,8"/>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Justify" FontSize="15" LineHeight="19">
+              The North Atlantic Council has now met eleven times since the sabotage of the eastern
+              Baltic interconnectors on 9 March.
+              <LineBreak/><LineBreak/>
+              It has agreed on the wording of four communiques.
+            </TextBlock>
+          </StackPanel>
+        </Grid>
+
+        <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,16,0,6"/>
+        <TextBlock FontFamily="Helvetica" FontSize="13" TextAlignment="Center" Foreground="#333333"
+                   Text="Shipping 4  &#183;  Markets 9  &#183;  Comment 18: &#8216;He was right about the paralysis. That is the worst part&#8217;"/>
+
+      </StackPanel>
+    </Border>
+  </Viewbox>
+</Page>
