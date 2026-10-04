@@ -4,9 +4,11 @@
 The gallery is a set of web pages (gallery.html, visual_overhaul.html) with
 the real photographs, flags and loading backgrounds they show, plus the
 credits that have to travel with them. It is copied into the pack under
-Gallery/ so a subscriber can open it from the pack's folder. Nothing in it is
-read by the game: no unit file has an image key, so there is no in-game
-place for these photos, and none is invented here.
+Gallery/ so a subscriber can open it from the pack's folder. The game reads
+nothing here: no unit file has an image key, and none is invented. The one
+in-game place for photos is the mission briefing, and the campaign builder
+puts them there itself (recognition() in integration/campaign/build_pack.py,
+reading source/ directly).
 
 source/ is the player-facing part of the gallery handoff, aligned to the
 build's load order by tools/align_gallery.py. The developer files (quality
@@ -25,7 +27,7 @@ OUT = HERE / "SEST_Gallery"
 
 INFO = """[Language_en]
 Name=SEST Gallery
-Description=An offline photo gallery of the collection's units: open Gallery/gallery.html in a web browser. It does not change the game.
+Description=An offline photo gallery of the collection's units: open Gallery/gallery.html in a web browser. The same photos appear in the SEST mission briefings.
 
 [Compatibility]
 ApproximateVersion=0.8.4

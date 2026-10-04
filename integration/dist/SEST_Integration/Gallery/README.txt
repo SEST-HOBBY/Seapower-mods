@@ -10,8 +10,12 @@ HOW TO OPEN IT
 2. Open the Gallery folder.
 3. Double-click gallery.html. It opens in your web browser and works offline.
 
-It is a separate page, not part of the game. It does not change anything in
-Sea Power, and the game has no place to show these photos.
+IN THE GAME
+The same photos appear in the game itself, in every SEST mission briefing:
+a RECOGNITION section at the end of the briefing text shows the classes of
+your own forces and the expected opposition, with credits. The game has no
+other place for photos (no unit file has an image slot, and the encyclopedia
+shows 3D models), so the full collection lives in this gallery.
 
 WHAT IS IN IT
 gallery.html          Photos, unit index, collection and systems.

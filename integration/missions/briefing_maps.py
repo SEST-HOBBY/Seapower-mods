@@ -489,7 +489,9 @@ def render(ini, folder, title, geo, series="SEST SOUTHERN WATCH", focus_nm=None,
     m = parse(ini)
     m["title"] = title
     stem = stem_for(title)
-    for old in folder.glob("*.png"):
+    # Only earlier maps: the folder also holds the briefing's recognition
+    # photos (sest_rec_*.png), which the campaign builder writes first.
+    for old in folder.glob("sest_*_map.png"):
         old.unlink()
     draw(m, folder / f"{stem}.png", geo, series=series, focus_nm=focus_nm,
          inset_box=inset_box)
