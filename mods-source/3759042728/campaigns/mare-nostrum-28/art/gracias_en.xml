@@ -1,0 +1,28 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  Stretch="Uniform"
+  StretchDirection="Both">
+  <Grid Width="1560" Height="920" TextElement.Foreground="#D8DCE0" TextElement.FontFamily="Roboto">
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="76"/>
+      <RowDefinition Height="1"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Grid.Row="0" Text="END OF THE CAMPAIGN" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Rectangle Grid.Row="1" Fill="#3E454B" Margin="22,0"/>
+
+    <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,10,0,0">
+      <Image Source="{Binding Assets[warwidens]}" Height="380" Stretch="Uniform" HorizontalAlignment="Center"/>
+      <TextBlock Text="Thank You, Commander" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,24,0,14"/>
+      <TextBlock TextWrapping="Wrap" FontSize="17" LineHeight="27" Foreground="#D0D4D8" Margin="260,0,260,0" TextAlignment="Center">
+        You started with a patrol off Alboran and end in command of a five-flag force that carried the war to Russia's doorstep. Every decision, every fleet you built, every loss you carried was yours. This was your war, and you saw it through to the end.
+        <LineBreak/><LineBreak/>
+        <Span FontWeight="SemiBold" Foreground="#8FBF7F">Thank you for playing Mare Nostrum '28 all the way through.</Span> This mod has been a long build, made mission by mission, and it means a lot that you made it here.
+        <LineBreak/><LineBreak/>
+        If you enjoyed the campaign, <Span FontWeight="SemiBold" Foreground="#C98A6A">please leave a rating and a comment on the Workshop page</Span>. What worked, which mission you liked best, what you'd change - all of it helps shape whatever comes next.
+      </TextBlock>
+    </StackPanel>
+  </Grid>
+</Viewbox>

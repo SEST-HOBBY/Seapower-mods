@@ -1,0 +1,378 @@
+25/12/25
+
+- Added R.550-2 Magic 2 missile from the Mirage 2000 mod to F-8P (thanks to misaka!)
+
+29/11/25 (Frenchy)
+
+- Updated compatibility to game version 0.6.0
+
+- Updated loadouts to have prep and cooldown times
+
+- Removed custom AGM-12 model and updated positioning on pylon to adapt it to the new base game version
+
+- Fixed RF-8G not having a Recon loadout
+
+-------------------------------------------------------------------------------------------------------------------------------
+11/11/25 (Frenchy)
+
+- Added LAU-33 dual Zuni rocket pod and added it to Strike and AntiArmor loadouts
+
+- Added the following squadrons for F-8E:
+
+	- VMF(AW)-232
+	- VMF(AW)-235
+	- VMF(AW)-312
+	
+- Added the following squadrons for RF-8A:
+
+	- VMCJ-1
+	- VMCJ-2
+
+- Adjusted all skins:
+
+	- Corrected the size of the underwing US roundel
+	
+- Adjusted F8D_VMF451_1.png (corrected tail stripe color)
+
+- Removed CAS loadout (redundant with the various Strike loadout variants)
+- Adjusted bomb loadouts according to photographic references
+- Renamed StrikePrecision to StrikePrecisionFictional (While the F-8 got the ability to fire AGM-12 missiles, the pilots were never required to be trained in its use and it was never used operationally)
+
+-------------------------------------------------------------------------------------------------------------------------------
+26/10/25 (Frenchy)
+
+- Added Variants:
+
+	- F-8H (Philippines)
+	- F-8L
+
+- Added new ammunition :
+
+	- usn_aim-9g (from NTU)
+	
+- F-8H, F-8J, F-8K and RF-8G can now use their chaff.
+	
+- Adjusted weapon loadouts :
+
+	- Only 2x AIM-9 missiles are carried on ground attack variants instead of 4x
+	- Late variants (F-8J, F-8K) are equipped with AIM-9G on some air-to-air loadouts
+	- Gave AGM-12 capability to F-8K
+	- Fixed AIM-9 positions on their pylons, bomb positions and rotation on MER and TER racks, and AGM-12 position (it now uses the LAU-118 rack).
+	- Reduced rocket pod numbers to 2x instead of 4x (these are placeholders until the twin Zuni rocket pods are ready)
+
+- Added Squadrons (most existed only as the base aircraft). :
+
+	- F-8H :
+		- VF-111 "Sundowners"
+	
+	- F-8J :
+		- VF-103 "Hunters"
+	
+	- F-8K :
+		- VMF-321 "Hell's Angels"
+		- VMF-351
+	
+	- F-8L :
+	
+		- VMF-321 "Hell's Angels"
+	
+	- RF-8G :
+		
+		- VFP-206 "Hawkeyes"
+		- VFP-306 "Peeping Toms"
+	
+- Liveries :
+
+	Added :
+	- RF-8G_VFP206_1.png
+	- RF-8G_VFP206_LowVis_1.png
+	- RF-8G_VFP306_LowVis_1.png
+	- F-8K_VMF351_1.png
+	- F-8K_VMF351_late_1.png
+	- F-8L_VMF321_1.png
+	
+	Adjusted :
+	- RF-8G_VFP306_1.png
+	
+- Added Modex / Serial Numbers for :
+
+	- F-8H VF-111
+	- F-8J VF-162
+	- F-8K VMF-321
+	- F-8K VMF-351
+	- F-8L VMF-351
+	- RF-8G VFP206
+	- RF-8G VFP306
+	
+- Adjusted AI: 
+
+	- Removed "Bomber" role from variants which do not carry anti-surface ordnance.
+
+- Adjusted empty weights on a few variants (some were using weight without the guns mounted).
+- Fixed military power on F-8C's engine (was at 475 kN instead of 47 kN)
+
+- Edited language_en :
+	- Added more details about variants
+	- Added entries for F-8H (Philippines) and F-8L
+
+- Edited language_fr :
+	- Same as above
+	
+- Aircraft profiles :
+
+	- Added usn_f-8l.png
+	- Added ph_f-8h.png
+	- Adjusted fr_f-8efn and fr_f-8efn_early
+
+24/10/25
+- Added language_cn
+- Added language_fr
+- Edited some english strings
+- Aircraft.ini changes:
+	- On deck offset: 0,0,-0.06 --> 0,0,0
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+22/10/25 (Frenchy)
+- Added New aircraft
+    - fr_f-8efn_early
+
+- Reworked some loadouts
+- Added/Revised text strings
+- Fixed Rudder and Elevator
+- Fixed "Shangri-la"
+- Fixed VFP-63
+- Added AIM-9C to F-8e
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+19/10/25
+- Model changes:
+    - New Modex meshes
+    - Added fuse_e, fuse_b, fuse_rf, wing_e, wing_b, wing_rf, Nozzle_detail, dorsal_fins, irst, tail_k, tail_J, tail_RF
+    - Added new materiasl and textures:
+        - usn_f-8a_mat
+        - usn_f-8b_mat
+        - usn_f-8c_mat
+        - usn_f-8d_mat
+        - usn_f-8k_mat
+        - usn_f-8h_mat
+        - usn_f-8j_mat
+        - usn_rf-8a_mat
+        - usn_rf-8g_mat
+    
+    - Added new sensors:
+        - AN/APG-30
+        - AN/APS-67
+        - AN/APQ-83
+        - AN/APQ-149 (Copy of AN/APQ-83)
+        - AN/APQ-124A (Copy of AN/APQ-94)
+
+    - Added New aircrafts:
+        - usn_f-8a      (fuse_b + wing_b)
+        - usn_f-8b      (fuse_b + wing_b)
+        - usn_f-8c      (fuse_b + wing_b + Nozzle_detail + dorsal_fins)
+        - usn_f-8d      (fuse_b + wing_b + Nozzle_detail + dorsal_fins + irst)
+        - usn_f-8k      (fuse_b + wing_b + Nozzle_detail + dorsal_fins + tail_k)
+        - usn_f-8h      (fuse_e + wing_e + Nozzle_detail + dorsal_fins + irst + tail_k)
+        - usn_f-8j      (fuse_e + wing_e + Nozzle_detail + dorsal_fins + irst + tail_J)
+        - usn_rf-8a     (fuse_rf + wing_rf)
+        - usn_rf-8g     (fuse_rd + wing_rd + Nozzle_detail + dorsal_fins + tail_RF)
+
+    - Aircraft Changes:
+        - usn_f-8e:
+            - Removed Countermeasures
+            - Removed RWR and ECM
+            - Performance changes
+
+        - fr_f-8efn, fr_f-8p:
+            - Performance changes
+
+-------------------------------------------------------------------------------------------------------------------------------
+9/6/25
+- Model file changes:
+    - Model mirroed
+    - New Liveries
+    - Added fr_f-8p_SpecMap for the fr_f-8p_mat.ini
+
+- AN/APR-27 RWR:
+    - Frequencies: E,G,I --> S,C,X
+
+- AN/ALQ-51 ECM:
+    - Frequencies: S,E,F --> S
+
+- Language_en:
+    - Added F-8E Squadrons
+    - Added F-8E(FN) Squadrons
+    - Added F-8P Squadrons
+
+- F-8E/(FN)/P Flight Performance Changes:
+    - MaxSpeedAtSeaLevel=410 --> 660    https://old-forum.warthunder.com/index.php?/topic/521052-f8u-2-crusader/
+    - RangeUnits=Miles --> Km
+    - SpeedAndRange_Landing=0.21,0.4 --> 155,0.4 
+    - SpeedAndRange_Loiter=0.4,0.6 --> 268,0.6
+    - SpeedAndRange_Cruise=0.8,1734 --> 0.65,730    https://en.wikipedia.org/wiki/Vought_F-8_Crusader#Development
+    - SpeedAndRange_Max=1.05,0.6 --> 0.98,0.6
+
+- USN F-8E aircraft.ini:
+    - Elevator Axis Y --> X
+    - Added SoundShockWave Effect
+    - Station5= 0.016464,-0.001385,0.020291 --> 0.017747,-0.000471,0.020291
+    - Station5Rotation=0,0,30
+- Squadron.ini:
+    - Added Squadrons:
+        - VF-103
+        - VF-162
+        - VMF-321
+
+- FRA F-8E(FN) aircraft.ini:
+    - Elevator Axis Y --> X
+    - Added SoundShockWave Effect
+    - Station5= 0.016464,-0.001385,0.020291 --> 0.017747,-0.000471,0.020291
+    - Station5Rotation=0,0,30
+    - WeaponSystem1AirToAirIntercept_2:
+        - SubModelsToHide=lau-9_o_r,lau-9_i_l,wing_pylons,TER,MER --> lau-9_o_l,lau-9_i_l,wing_pylons,TER,MER
+- Squadron.ini:
+    - Added Squadrons:
+        - 12F No Marine
+        - 12F 
+        - 14F No Marine
+        - 14F
+
+- FRA F-8P aircraft.ini:
+    - Elevator Axis Y --> X
+    - Added SoundShockWave Effect
+    - Station5= 0.016464,-0.001385,0.020291 --> 0.017747,-0.000471,0.020291
+    - Station5Rotation=0,0,30
+    - WeaponSystem1AirToAirIntercept_2:
+        - SubModelsToHide=lau-9_o_r,lau-9_i_l,wing_pylons,TER,MER --> lau-9_o_l,lau-9_i_l,wing_pylons,TER,MER
+- Squadron.ini:
+    - Added Squadrons:
+        - 12F New Livery
+        - 14F New Livery
+
+
+        
+-------------------------------------------------------------------------------------------------------------------------------
+9/5/25 - Update 1
+
+- Model changes:
+    - Added Cokpit
+    - Added Canopy animations
+    - Reworked UV map
+    - Reworked skins
+    - Separated Fuselage Pylons
+    - Added Damage model
+    - Added Lau-118 Mesh
+    - New material fr_f-8p_mat
+    - New material fr_f-8efn_late_mat  (For static purposes)
+    - New material usn_f-8e_mat
+    
+- New weapons added:
+    - R.530
+    - R.530E
+    - AGM-12B
+
+- Added Sherlock RWR
+- Added Sherlock RWR description
+- Added AN/APR-27 RWR
+- Added AN/APR-27 RWR description
+
+
+- Added r530 description
+- Added r530e description
+
+- Added loadout names:
+    - AirToAir_2 = Air to Air
+    - AirToAirIntercept_2 = Air to Air Intercept
+    - Strike_2 = Strike
+    - Strike_3 = Strike
+    - StrikeHeavy_2 = Strike Heavy
+    - StrikeHeavy_3 = Strike Heavy
+
+
+
+- Added Colt Mk12 description
+- Colt Mk12:
+    - Removed Colt Mk12 Max Rounds
+    - Colt Mk12 loaded rounds 0 --> 125
+
+
+- AN/APQ-104: https://www.radartutorial.eu/19.kartei/11.ancient7/karte074.en.html
+    - Range         110.0 --> 111.0
+    - BeamWidth     1.1 --> 4.5
+    - Gain          50.0 --> 31.0
+    - PeakPower     10.0 --> 150.0    
+- Added AN/APQ-104 description
+
+- Added AN/APQ-94 (Copy of AN/APQ-104): https://www.radartutorial.eu/19.kartei/11.ancient7/karte080.en.html
+    - PeakPower     10.0 --> 160.0 
+- Added AN/APQ-94 description
+
+- Added AN/ALQ-51 ECM: https://phantomphacts.blogspot.com/p/sanders-analq-51-51a-100.html
+- Added AN/ALQ-51 description
+
+
+
+- F-8E(FN):
+    - Changed Magazine name: WeaponsMagazineColt_Mk12 --> WeaponsMagazineCOLT
+    - Added 4 individual magazines with 125 rounds
+    - Removed Loadouts: Strike, StrikeHeavy, StrikePrecision, CAS, AntiArmor
+    - Added Loadouts:
+        - AirToAir_2: 
+            - 4x Aim-9B
+        - AirToAirIntercept_2:
+            - 2x Aim-9B
+            - 1x R.530
+
+- Added F-8P: fr_f-8p
+    - Copy of F-8E(FN)
+    - Material changed: fr_f-8efn_mat --> fr_f-8p_mat
+    - Addded Sherlock RWR/ESM
+    - Added Countermeasures
+- Added F-8P variants.ini
+
+- Added F-8E: usn_f-8e
+    - Added Radar AN/APQ-94
+    - Added AN/APR-27 RWR
+    - Added AN/ALQ-51 ECM
+    - Added Loadouts:
+        - AirToAir:
+            - 2x Aim-9D
+        - AirToAirIntercept:
+            - 4x Aim-9D
+        - Strike:
+            - 4x Aim-9D
+            - 6x Mk82 (2x TER)
+        - Strike_2:
+            - 4x Aim-9D
+            - 2x Mk83
+        - StrikeHeavy:
+            - 4x Aim-9D
+            - 12x Mk82 (2x MER)
+        - StrikeHeavy_2:
+            - 4x Aim-9D
+            - 4x Mk83 (2x TER)
+        - StrikeHeavy_3:
+            - 4x Aim-9D
+            - 2x Mk84
+        - StrikePrecision:
+            - 4x Aim-9D
+            - 2x AGM-12B
+        - CAS:
+            - 4x Aim-9D
+            - 4x LAU-3A
+        - AntiArmor:
+            - 4x Aim-9D
+            - 4x LAU-10
+
+- Bugs/To-do-list:
+    - The AI cant fire the R530
+    - R530/530e needs model improvment
+    - Squadrons Liveries
+    - Modex and Serial textures
+-------------------------------------------------------------------------------------------------------------------------------
+
+8/23/25 - Update 1
+
+-First WIP release
