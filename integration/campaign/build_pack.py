@@ -2898,7 +2898,60 @@ def message_texts(mission):
     return out
 
 
+_ONES = ("", "one", "two", "three", "four", "five", "six", "seven", "eight",
+         "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+         "sixteen", "seventeen", "eighteen", "nineteen")
+_TENS = ("", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy",
+         "eighty", "ninety")
+
+
+def number_words(n):
+    """1..999 in the texts' own style: 'seventy-five', 'one hundred and twelve'."""
+    n = int(n)
+    if n < 20:
+        return _ONES[n] or "zero"
+    if n < 100:
+        return _TENS[n // 10] + ("-" + _ONES[n % 10] if n % 10 else "")
+    rest = n % 100
+    return (_ONES[n // 100] + " hundred"
+            + (" and " + number_words(rest) if rest else ""))
+
+
+def clock_text(mission, text):
+    """Fill a message's clock placeholders from the mission, so a text that
+    names the minute it is shown at cannot drift from the trigger that shows
+    it: {deadline} / {Deadline} is the deadline in minutes, spelled out, and
+    {deadline_clock} the HHMM it falls on (the mission's start plus the
+    deadline, modulo a day)."""
+    dl = deadline_minutes(mission)
+    h, m = mission.get("time", (0, 0))
+    clock = (h * 60 + m + dl) % (24 * 60)
+    words = number_words(dl)
+    return (text.replace("{Deadline}", words[:1].upper() + words[1:])
+                .replace("{deadline}", words)
+                .replace("{deadline_clock}", f"{clock // 60:02d}{clock % 60:02d}"))
+
+
+# A timeout body that names its own minute - "Seventy-five minutes and...",
+# "within ninety minutes", "0820, and..." - was right when the Deadline was
+# the planned window and wrong the day the Deadline moved. The figure is the
+# builder's to write (clock_text); an authored one stops the build.
+_TIMEOUT_FIGURE = re.compile(
+    r"\b(?:\d{2,3}|(?:twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|"
+    r"one hundred(?: and)?)(?:[- ](?:one|two|three|four|five|six|seven|eight|"
+    r"nine))?)\s+minutes\b"
+    r"|(?<![\d{\w])[0-2]\d[0-5]\d(?![\d}])", re.I)
+
+
 def check_message_texts(mission):
+    hit = _TIMEOUT_FIGURE.search(mission.get("timeout", ""))
+    if hit:
+        raise SystemExit(
+            f"{mission.get('code', mission['num'])} {mission['key']}: the timeout "
+            f"text names a time ({hit.group(0)!r}), and the Deadline that shows it "
+            "is not the planned window. Write {Deadline} / {deadline} for the "
+            "deadline in minutes or {deadline_clock} for its HHMM; the builder "
+            "fills them from the mission.")
     # The mission's name is the title of its start message, so a '|' there
     # shifts the brief into the button field just as one in a body would.
     if "|" in mission["key"]:
@@ -2937,7 +2990,7 @@ def render(mission, placed, members):
     L.append("Taskforce2DefeatMessage=<color=red>Opposing force defeated.</color>|"
              f"{ini_text(mission['win'])}")
     L.append("TimeoutMessage=<color=red>Operational window closed.</color>|"
-             f"{ini_text(mission['timeout'])}")
+             f"{ini_text(clock_text(mission, mission['timeout']))}")
     L.append("BehindScheduleMessage=<color=yellow>Behind schedule.</color>|"
              f"The planned {mission['minutes']}-minute window has closed. Command "
              f"will hold the line for about {deadline_minutes(mission) - mission['minutes']}"
@@ -3808,9 +3861,11 @@ def briefing_page(mission):
     section("TASK", "\n\n".join(f"• {text}"
                                 for _oid, text, _s in mission["objectives"]))
     section("FORCES", mission["forces"])
-    section("TIME", f"Complete the assigned task within {mission['minutes']} "
-                    "minutes. Command will close the operation at that deadline "
-                    "and the main task will be recorded as failed.")
+    section("TIME", f"The planned window is {mission['minutes']} minutes. At that "
+                    "minute Command signals that you are behind schedule and holds "
+                    f"the line for about {deadline_minutes(mission) - mission['minutes']} "
+                    f"minutes more; the operation is closed at {deadline_minutes(mission)} "
+                    "minutes and the main task will be recorded as failed.")
     if any(not u.get("no_neutral_penalty") for u in mission["units"]
            if u["side"] == "neutral"):
         section("RULES OF ENGAGEMENT",

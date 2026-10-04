@@ -62,7 +62,7 @@ MISSION = dict(
         "Canberra wanted to be able to say on Boxing Day.",
     lose="The escort is gone and the boat is not. The route south is hers "
          "for the rest of the season.",
-    timeout="Eighty minutes and VICTOR is still a contact. She has her "
+    timeout="{Deadline} minutes and VICTOR is still a contact. She has her "
             "tender and the ice edge to hide in, and the January voyage "
             "sails through her.",
     stations={

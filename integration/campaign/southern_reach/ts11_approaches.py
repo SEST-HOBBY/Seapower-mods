@@ -82,7 +82,7 @@ MISSION = dict(
     lose="Two transports lost in the western Tasman with the relief in "
          "them. The group holds the water and the relief convoy "
          "sails into it anyway.",
-    timeout="Ninety minutes and the transports are still short of the box "
+    timeout="{Deadline} minutes and the transports are still short of the box "
             "with the group between them and New Zealand. The movement "
             "turns back for Sydney and the relief waits.",
     stations={

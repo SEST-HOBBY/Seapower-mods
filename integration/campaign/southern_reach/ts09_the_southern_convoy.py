@@ -78,7 +78,7 @@ MISSION = dict(
     lose="Two hulls lost south of Portland with a month of two cities' "
          "cargo in them. The group broke the convoy where it said it "
          "would.",
-    timeout="Ninety minutes and the convoy is still short of the split "
+    timeout="{Deadline} minutes and the convoy is still short of the split "
             "point with the carrier's second strike forming. Portland's "
             "pilot boat waits for a convoy that turned back.",
     stations={

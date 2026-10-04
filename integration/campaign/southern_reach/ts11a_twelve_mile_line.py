@@ -128,7 +128,7 @@ MISSION = dict(
         "a story about who stopped her."
     ),
     timeout=(
-        "Eighty minutes, and the corvette is still outside the twelve-mile line, crippled "
+        "{Deadline} minutes, and the corvette is still outside the twelve-mile line, crippled "
         "or stopped, with the frigate standing off. What happens to her now is not in your "
         "report."
     ),

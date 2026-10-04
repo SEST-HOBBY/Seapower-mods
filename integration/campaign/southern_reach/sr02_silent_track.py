@@ -81,7 +81,7 @@ MISSION = dict(
     ),
     lose="Collins is lost on a ridge nobody was fighting over, and the "
          "ceasefire in the south is now a question.",
-    timeout="Seventy minutes and the contact is still a contact. She is off "
+    timeout="{Deadline} minutes and the contact is still a contact. She is off "
             "the ridge and so is the picture, and the next convoy crosses "
             "it blind.",
     stations={

@@ -4212,7 +4212,7 @@ WINDOWS = {
 }
 
 TIMEOUTS = {
-    "01": "0630, half an hour after sunrise, and the merchants are still short "
+    "01": "{deadline_clock}, well after sunrise, and the merchants are still short "
           "of the Arafura. Whatever this was, it worked.",
     # Reached only once Meridian is out of the race: she is at the coaster
     # by 71 minutes otherwise.
@@ -4245,7 +4245,7 @@ TIMEOUTS = {
           "tomorrow gets shorter.",
     "08": "The relief window expired. The next negotiation starts from a worse "
           "place than this one did.",
-    "09": "Eighty-five minutes and the group is still in the area. Whatever "
+    "09": "{Deadline} minutes and the group is still in the area. Whatever "
           "crossed the hose, COLLINS goes home the long way on what she has, "
           "and STALWART is still up here when the next Flanker pair comes.",
     "10": "The handover time passed. The cargo is still in the corridor and the "

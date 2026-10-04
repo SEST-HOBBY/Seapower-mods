@@ -87,7 +87,7 @@ MISSION = dict(
          "first morning of the ceasefire, or the ceasefire is broken by "
          "us. Either way the ledger closes in the red.",
     timeout=(
-        "The convoy has not met the handover requirement within seventy-five minutes. Suspend "
+        "The convoy has not met the handover requirement within {deadline} minutes. Suspend "
         "the passage and report the ships' positions. Their eventual arrival and the spoiler's "
         "next move remain unconfirmed."
     ),

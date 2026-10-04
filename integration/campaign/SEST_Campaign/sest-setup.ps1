@@ -10,7 +10,12 @@
 # changes anything, and it backs up the game's settings first.
 #
 # From a console:  powershell -ExecutionPolicy Bypass -File .\sest-setup.ps1
-param([switch]$Pause, [switch]$Elevated)
+param([switch]$Pause, [switch]$FromCmd, [switch]$Elevated, [string]$SteamRoot, [string]$Settings)
+# -FromCmd: the launcher passes it; the window stays open at the end (the
+#   launcher itself pauses after a failure, so Fail does not pause twice).
+# -Elevated, -SteamRoot, -Settings: the administrator relaunch passes its own
+#   paths down, so a UAC prompt answered with another account's password
+#   still works on the player's Steam and the player's settings file.
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 function J { $p = [string]$args[0]; for ($k = 1; $k -lt $args.Count; $k++) { $p = [IO.Path]::Combine($p, [string]$args[$k]) }; $p }
@@ -19,7 +24,7 @@ function Same([string]$a, [string]$b) {
     if (-not $a -or -not $b) { return $false }
     return [IO.Path]::GetFullPath($a).TrimEnd('\', '/') -ieq [IO.Path]::GetFullPath($b).TrimEnd('\', '/')
 }
-function Hold { if ($Pause) { Write-Host ''; [void](Read-Host 'Press Enter to close this window') } }
+function Hold { if ($Pause -or $FromCmd) { Write-Host ''; [void](Read-Host 'Press Enter to close this window') } }
 $changed = $false
 $warnings = 0
 function Fail([string]$t) {
@@ -27,7 +32,8 @@ function Fail([string]$t) {
     Write-Host ('STOPPED: ' + $t) -ForegroundColor Red
     if ($changed) { Write-Host 'Some changes above were already made. Sort this out, then run SETUP again.' -ForegroundColor Red }
     else { Write-Host 'Nothing was changed. Sort that out, then run SETUP again.' -ForegroundColor Red }
-    Hold
+    if ($Pause -and -not $FromCmd) { Hold }
+    exit 1
 }
 function ReadText([string]$path) {
     $b = [IO.File]::ReadAllBytes($path)
@@ -50,7 +56,8 @@ try {
     }
 
     # --- Steam, the game and its Workshop folder ---------------------------
-    $steam = $env:SEST_STEAM_ROOT
+    $steam = $SteamRoot
+    if (-not $steam) { $steam = $env:SEST_STEAM_ROOT }
     if (-not $steam) {
         foreach ($k in 'HKCU:\Software\Valve\Steam', 'HKLM:\SOFTWARE\WOW6432Node\Valve\Steam', 'HKLM:\SOFTWARE\Valve\Steam') {
             $p = Get-ItemProperty -Path $k -ErrorAction SilentlyContinue
@@ -140,7 +147,8 @@ try {
     Say ('  all ' + $ids.Count + ' mods are downloaded') 'Green'
 
     # --- the game's settings file ------------------------------------------
-    $settings = $env:SEST_SETTINGS
+    $settings = $Settings
+    if (-not $settings) { $settings = $env:SEST_SETTINGS }
     if (-not $settings) { $settings = J $env:USERPROFILE 'AppData' 'LocalLow' 'Triassic Games' 'Sea Power' 'usersettings.ini' }
     if (-not (Test-Path -LiteralPath $settings)) {
         Fail ('No game settings yet (' + $settings + '). Start Sea Power once, wait for the main menu, quit, then run SETUP again. If Windows asked you for a different account''s password a moment ago, run SETUP from your own account instead.'); return
@@ -174,11 +182,16 @@ try {
             Say ''
             Say 'The Anchor Chain preloader needs installing in the game folder, which needs administrator rights.' 'Yellow'
             Say 'Windows will ask for permission; click Yes. The rest of the setup continues in that window.' 'Yellow'
-            $exe = (Get-Process -Id $PID).Path
-            $argv = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', ('"' + $PSCommandPath + '"'), '-Elevated', '-Pause')
-            try { Start-Process -FilePath $exe -ArgumentList $argv -Verb RunAs -Wait }
+            # Relaunch a console host, not whatever is running this script:
+            # powershell_ise.exe -File only opens the file in the editor.
+            $exe = Join-Path $PSHOME $(if ($PSVersionTable.PSEdition -eq 'Core') { 'pwsh.exe' } else { 'powershell.exe' })
+            if (-not (Test-Path -LiteralPath $exe)) { $exe = (Get-Process -Id $PID).Path }
+            $argv = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', ('"' + $PSCommandPath + '"'),
+                      '-Elevated', '-Pause', '-SteamRoot', ('"' + $steam + '"'), '-Settings', ('"' + $settings + '"'))
+            try { $child = Start-Process -FilePath $exe -ArgumentList $argv -Verb RunAs -Wait -PassThru }
             catch { Fail 'Administrator permission was not given, so the preloader was not installed and nothing else was changed. Run SETUP again and click Yes, or install the preloader by hand from Anchor Chain''s Workshop page and run SETUP again.'; return }
-            Say 'Finished in the administrator window.'
+            if ($child -and $child.ExitCode -ne 0) { Fail 'The administrator window stopped with a problem; its last lines say what. Sort that out and run SETUP again.'; return }
+            Say 'Finished in the administrator window.' 'Green'
             Hold; return
         }
     }
