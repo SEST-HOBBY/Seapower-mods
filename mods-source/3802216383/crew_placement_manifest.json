@@ -1,0 +1,199 @@
+{
+  "crew": [
+    {
+      "name": "Hyuga_Crew_01",
+      "model": "nato_sailor_a",
+      "position": [
+        0.086,
+        0.17816394538066707,
+        0.235
+      ],
+      "deck_y": 0.178172,
+      "yaw": 0,
+      "scale": 0.0068036077687464,
+      "zone": "forward service platform"
+    },
+    {
+      "name": "Hyuga_Crew_02",
+      "model": "nato_sailor_b",
+      "position": [
+        0.15,
+        0.17816394538066707,
+        0.235
+      ],
+      "deck_y": 0.178172,
+      "yaw": 20,
+      "scale": 0.0068036077687464,
+      "zone": "forward service platform"
+    },
+    {
+      "name": "Hyuga_Crew_03",
+      "model": "nato_sailor_a",
+      "position": [
+        0.158,
+        0.22480894538066706,
+        0.18
+      ],
+      "deck_y": 0.224817,
+      "yaw": 90,
+      "scale": 0.0068036077687464,
+      "zone": "starboard bridge walkway"
+    },
+    {
+      "name": "Hyuga_Crew_04",
+      "model": "nato_sailor_b",
+      "position": [
+        0.158,
+        0.22480894538066706,
+        0.12
+      ],
+      "deck_y": 0.224817,
+      "yaw": 90,
+      "scale": 0.0068036077687464,
+      "zone": "starboard bridge walkway"
+    },
+    {
+      "name": "Hyuga_Crew_05",
+      "model": "nato_sailor_a",
+      "position": [
+        0.086,
+        0.19811494538066707,
+        -0.1
+      ],
+      "deck_y": 0.198123,
+      "yaw": -90,
+      "scale": 0.0068036077687464,
+      "zone": "middle service platform"
+    },
+    {
+      "name": "Hyuga_Crew_06",
+      "model": "nato_sailor_b",
+      "position": [
+        0.14,
+        0.19811494538066707,
+        -0.1
+      ],
+      "deck_y": 0.198123,
+      "yaw": 90,
+      "scale": 0.0068036077687464,
+      "zone": "middle service platform"
+    },
+    {
+      "name": "Hyuga_Crew_07",
+      "model": "nato_sailor_a",
+      "position": [
+        0.086,
+        0.17816394538066707,
+        -0.35
+      ],
+      "deck_y": 0.178172,
+      "yaw": 180,
+      "scale": 0.0068036077687464,
+      "zone": "aft service platform"
+    },
+    {
+      "name": "Hyuga_Crew_08",
+      "model": "nato_sailor_b",
+      "position": [
+        0.15,
+        0.17816394538066707,
+        -0.35
+      ],
+      "deck_y": 0.178172,
+      "yaw": 170,
+      "scale": 0.0068036077687464,
+      "zone": "aft service platform"
+    }
+  ],
+  "type": "Static native standing crew; 1.8m height; no crew on flight deck, elevators or VLS.",
+  "clearance": [
+    {
+      "name": "Hyuga_Crew_01",
+      "foot_errors": [
+        -5.143375396698957e-07,
+        -5.143375396698957e-07,
+        -5.143375396698957e-07,
+        -5.143375396698957e-07,
+        -5.143375396698957e-07
+      ],
+      "body_obstructions": []
+    },
+    {
+      "name": "Hyuga_Crew_02",
+      "foot_errors": [
+        -4.99436378476048e-07,
+        -4.99436378476048e-07,
+        -4.99436378476048e-07,
+        -4.99436378476048e-07,
+        -4.99436378476048e-07
+      ],
+      "body_obstructions": []
+    },
+    {
+      "name": "Hyuga_Crew_03",
+      "foot_errors": [
+        4.101114273180606e-07,
+        4.101114273180606e-07,
+        4.101114273180606e-07,
+        4.101114273180606e-07,
+        4.101114273180606e-07
+      ],
+      "body_obstructions": []
+    },
+    {
+      "name": "Hyuga_Crew_04",
+      "foot_errors": [
+        4.2501258851190826e-07,
+        4.2501258851190826e-07,
+        4.2501258851190826e-07,
+        4.2501258851190826e-07,
+        4.2501258851190826e-07
+      ],
+      "body_obstructions": []
+    },
+    {
+      "name": "Hyuga_Crew_05",
+      "foot_errors": [
+        -6.888389580961274e-09,
+        -6.888389580961274e-09,
+        -6.888389580961274e-09,
+        -6.888389580961274e-09,
+        -6.888389580961274e-09
+      ],
+      "body_obstructions": []
+    },
+    {
+      "name": "Hyuga_Crew_06",
+      "foot_errors": [
+        -6.888389580961274e-09,
+        -6.888389580961274e-09,
+        -6.888389580961274e-09,
+        -6.888389580961274e-09,
+        -6.888389580961274e-09
+      ],
+      "body_obstructions": []
+    },
+    {
+      "name": "Hyuga_Crew_07",
+      "foot_errors": [
+        -5.143375396698957e-07,
+        -5.143375396698957e-07,
+        -5.143375396698957e-07,
+        -5.143375396698957e-07,
+        -5.143375396698957e-07
+      ],
+      "body_obstructions": []
+    },
+    {
+      "name": "Hyuga_Crew_08",
+      "foot_errors": [
+        -4.99436378476048e-07,
+        -4.99436378476048e-07,
+        -4.99436378476048e-07,
+        -4.99436378476048e-07,
+        -4.99436378476048e-07
+      ],
+      "body_obstructions": []
+    }
+  ]
+}
