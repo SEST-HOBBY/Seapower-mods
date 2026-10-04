@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Report what a newly-added mod would collide with, before you enable it.
 
-Adding a large mod to a 137-entry load order is not a question of whether it
-works on its own - it is a question of which files it takes over and which it
-loses, and whether any of those are files a SEST pack depends on winning.
+Adding a large mod to a load order of well over a hundred entries is not a
+question of whether it works on its own - it is a question of which files it
+takes over and which it loses, and whether any of those are files a SEST pack
+depends on winning.
 
 Run it AFTER subscribing and re-exporting, so the mod is in mods-source:
 

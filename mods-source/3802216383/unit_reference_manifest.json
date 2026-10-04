@@ -1,0 +1,8 @@
+{
+  "build": "R10.49 Unit Reference",
+  "root_cause": "obsolete standalone Ise files in installed folder",
+  "clean_replacement_required": true,
+  "model_and_gameplay_match_r10_48": true,
+  "r10_48_wall_fix_user_confirmed": true,
+  "reference_ui_game_tested": false
+}

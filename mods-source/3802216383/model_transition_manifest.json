@@ -1,0 +1,2269 @@
+{
+  "build": "R10.54 island hatch proportions",
+  "hangar_bounds": [
+    [
+      -0.085,
+      0.041,
+      -0.845
+    ],
+    [
+      0.085,
+      0.145,
+      0.555
+    ]
+  ],
+  "clear_width_m": 16.4,
+  "clear_height_m": 9.3,
+  "beam_clear_height_m": 8.9,
+  "approximate_length_m": 139.4,
+  "floor_y": 0.05,
+  "ceiling_y": 0.143,
+  "elevator_translation_y": -0.102551,
+  "elevator_openings": [
+    [
+      -0.051,
+      0.06,
+      0.031453886635,
+      0.239805908365
+    ],
+    [
+      -0.05,
+      0.063,
+      -0.76829858944,
+      -0.5598409105600001
+    ]
+  ],
+  "stowage_slots": [
+    {
+      "id": 1,
+      "center": [
+        -0.052,
+        0.05,
+        -0.493
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 2,
+      "center": [
+        0,
+        0.05,
+        -0.493
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 3,
+      "center": [
+        0.052,
+        0.05,
+        -0.493
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 4,
+      "center": [
+        -0.052,
+        0.05,
+        -0.351
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 5,
+      "center": [
+        0,
+        0.05,
+        -0.351
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 6,
+      "center": [
+        0.052,
+        0.05,
+        -0.351
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 7,
+      "center": [
+        -0.052,
+        0.05,
+        -0.209
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 8,
+      "center": [
+        0,
+        0.05,
+        -0.209
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 9,
+      "center": [
+        0.052,
+        0.05,
+        -0.209
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 10,
+      "center": [
+        -0.052,
+        0.05,
+        -0.067
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 11,
+      "center": [
+        0,
+        0.05,
+        -0.067
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 12,
+      "center": [
+        0.052,
+        0.05,
+        -0.067
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 13,
+      "center": [
+        -0.052,
+        0.05,
+        0.32
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 14,
+      "center": [
+        0,
+        0.05,
+        0.32
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 15,
+      "center": [
+        0.052,
+        0.05,
+        0.32
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 16,
+      "center": [
+        -0.052,
+        0.05,
+        0.462
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 17,
+      "center": [
+        0,
+        0.05,
+        0.462
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    },
+    {
+      "id": 18,
+      "center": [
+        0.052,
+        0.05,
+        0.462
+      ],
+      "envelope_m": [
+        4.2,
+        5.4,
+        13.5
+      ],
+      "use": "maximum folded stowage; centre row must be cleared for through handling"
+    }
+  ],
+  "capacity_limit": "18 remains a planning target. The measured installed aircraft is larger than each stowage spot; no claim of 18-aircraft physical fit.",
+  "default_airgroup": {
+    "SH-60J": 9,
+    "SH-60K": 9
+  },
+  "equipment": "Six static supplied models; placeholder deck tractor removed",
+  "cavitation": {
+    "asset": "ships/particles/wp_kr_sverdlov_cavitation",
+    "position": [
+      0.00190823,
+      0.00971534,
+      0.38825643
+    ],
+    "basis": "Read built-in twin-lobe mesh positions and offset their midpoint to the Hyuga screw positions, 0.004 units aft of their axes.",
+    "runtime": "Not tested in game"
+  },
+  "preserved": "R10.5 hatch repairs; accepted R16 island; CIWS scale and position; exterior hull; static radars",
+  "sources": [
+    "https://www.mod.go.jp/msdf/ccf3/gre/hyg/pamphlet.pdf",
+    "Installed Sea Power resources.assets cavitation mesh",
+    "Installed Euromod SH-60J/K configuration"
+  ],
+  "validation": "Native fixed-edge and transform inspection; static placement preview; runtime wind pending",
+  "aircraft_fit_limit": "Measured folded aircraft now fits the revised individual lift outlines offline. The 18 hangar stowage layout still does not fit those measured aircraft bounds and remains unverified.",
+  "root_mesh": "jmsdf_ddh_hyuga_r10_29.obj",
+  "ride_positions": [
+    [
+      0.00396922,
+      0.05,
+      0.14543207000000002
+    ],
+    [
+      0.0060056,
+      0.05,
+      -0.65426758
+    ]
+  ],
+  "matched_flightdeck_hole_vertices": {
+    "Elevator_Forward": 12,
+    "Elevator_Aft": 12
+  },
+  "deck_material": "Original charcoal texture and markings; explicit low specular, low shininess, zero Fresnel. No raster edits.",
+  "hatch_fix": "Backing panels moved inboard of native hatch skins; includes forwardmost port catwalk hatch at Z about 0.628.",
+  "flag": {
+    "native_mesh": "jmsdf_ddg_tachikaze_animatedflag",
+    "native_material_reference": "flag_japan; native wind settings preserved, texture replaced with JMSDF ensign",
+    "position": [
+      0.1065881786302072,
+      0.08676275907283887,
+      0.049553720338026006
+    ],
+    "rotation": [
+      -79.99335215327979,
+      -41.90890810140343,
+      132.3458493485415
+    ],
+    "matrix": [
+      [
+        -0.015135978195684378,
+        -0.9931263642796198,
+        -0.11606432154974972
+      ],
+      [
+        0.1284264816603524,
+        -0.11704710407670858,
+        0.9847875985386897
+      ],
+      [
+        -0.9916035200484127,
+        -8.844068187180715e-09,
+        0.1293153472237421
+      ]
+    ],
+    "scale": 0.65,
+    "halyard": {
+      "name": "lower_41",
+      "top": [
+        0.0728,
+        0.374,
+        0.13417
+      ],
+      "bottom": [
+        0.086,
+        0.262,
+        0.12217
+      ]
+    },
+    "hoist_center_world": [
+      0.0740552,
+      0.3628,
+      0.13297
+    ],
+    "max_hoist_deviation_m": 0.0658056595318547,
+    "pinned_vertices": 7
+  },
+  "stern_surface_z": -0.9484381734385919,
+  "decoy_projection_m": 0.355,
+  "decoy_diameter_m": 1.09,
+  "wake": "Stern foam footprint doubled to 0.70 and moved forward to -0.935 to overlap both waterline corners. Cavitation retained.",
+  "ventilation": "Two side duct runs, 14 overhead louvred grilles and four wall return trunks. Lowest overhead blade at Y=.1334, beside the lift paths.",
+  "mashu_fittings": "Maintenance dolly plus three extinguisher pairs",
+  "paint_materials": [
+    "mat_new_hull.ini",
+    "mat_new_hull_ise.ini",
+    "mat_new_grey.ini",
+    "mat_new_white.ini",
+    "mat_new_deep_gray.ini",
+    "mat_new_hull_small.ini",
+    "mat_new_door.ini",
+    "mat_new_elevator_box.ini",
+    "mat_new_red.ini",
+    "mat_new_blue.ini",
+    "mat_new_vents.ini"
+  ],
+  "bow_adjustment": "Raised gun parent, upper plinth and cap 0.0015 above R10.12 per user correction; scale unchanged",
+  "roof": "Ceiling slab top extended to 0.15245; octagonal shaft reveals and roof corner infill added",
+  "decoy": "Both outlets shifted 0.006 port and 0.0035 down; old openings restored and new bores cut",
+  "ride_adjustment": "Both ride anchors moved 0.015 model units aft (about 1.5m) in response to in-game nose overhang screenshots. Height, lateral offset, spawn and taxi positions unchanged.",
+  "deck_uv": "Unified top-surface planar mapping for deck and both moving lift tops; original images unchanged",
+  "radars": {
+    "eu_OPY-1": "hyuga_FCS3_Search",
+    "eu_OPS-20": "hyuga_OPS20C_Main",
+    "Nav_Radar": "hyuga_OPS20C_Aux"
+  },
+  "r10_17": {
+    "radars": "Centered parent sensor pivots, scanner child offsets zero",
+    "flag": "MADFINGER wind materials, shared continuous UV mapping",
+    "runtime_verified": false
+  },
+  "radar_reference": "https://www.youtube.com/watch?v=XCrMHDw4AaA&t=460s",
+  "radar_position": "0.11503558,0.34453590,0.16023521",
+  "aft_ciws": "Rotating base initial yaw 180; support yaw 0; rest bearing 180",
+  "crash_crane": {
+    "name": "crash_crane",
+    "source": "work\\jmsdf_equipment_sources\\jmsdf_vehicle_set\\lafter crane\\crane.fbx",
+    "scale": 0.01,
+    "position": [
+      0.09,
+      0.152551,
+      0.58
+    ],
+    "size": [
+      0.027220304012298583,
+      0.035445320829749105,
+      0.08731963634490968
+    ],
+    "triangles_before": 375162,
+    "triangles_after": 211313,
+    "groups": [
+      "crash_crane_crash_crane_02083f45",
+      "crash_crane_crash_crane_6e1c6849",
+      "crash_crane_crash_crane_ea36e25c",
+      "crash_crane_crash_crane_f91421de",
+      "crash_crane_crash_crane_b90d9457",
+      "crash_crane_crash_crane_db451726",
+      "crash_crane_crash_crane_34047dfe",
+      "crash_crane_crash_crane_c53d2f1a",
+      "crash_crane_crash_crane_bbc29b76",
+      "crash_crane_crash_crane_56e8140e",
+      "crash_crane_crash_crane_528cef87",
+      "crash_crane_crash_crane_5573e39b"
+    ],
+    "materials": [
+      "crash_crane_02083f45",
+      "crash_crane_6e1c6849",
+      "crash_crane_ea36e25c",
+      "crash_crane_f91421de",
+      "crash_crane_b90d9457",
+      "crash_crane_db451726",
+      "crash_crane_34047dfe",
+      "crash_crane_c53d2f1a",
+      "crash_crane_bbc29b76",
+      "crash_crane_56e8140e",
+      "crash_crane_528cef87",
+      "crash_crane_5573e39b"
+    ]
+  },
+  "sonar": "Sonar-MF stock audio clip; underwater only; detection definition unchanged",
+  "vls": "16 original hinged lids; 32 launch-triggered animations; 12 ESSM / 4 ASROC aligned containers",
+  "sensor_ranges": [
+    "hyuga_FCS3_Search: MinRange=0.5 km, MaxRange=347.0 km",
+    "hyuga_OPS20C_Main: MinRange=0.3 km, MaxRange=46.3 km",
+    "hyuga_OPS20C_Aux: MinRange=0.3 km, MaxRange=46.3 km",
+    "hyuga_OQQ21_Hull: ActiveRange=60 km, PassiveRange=70 km"
+  ],
+  "rigging": {
+    "routes": [
+      {
+        "name": "upper_0-1",
+        "top": [
+          0.091,
+          0.3926,
+          0.11383
+        ],
+        "bottom": [
+          0.0815,
+          0.3756,
+          0.11283
+        ]
+      },
+      {
+        "name": "upper_01",
+        "top": [
+          0.091,
+          0.3926,
+          0.11417000000000001
+        ],
+        "bottom": [
+          0.0815,
+          0.3756,
+          0.11317
+        ]
+      },
+      {
+        "name": "upper_1-1",
+        "top": [
+          0.091,
+          0.3926,
+          0.11982999999999999
+        ],
+        "bottom": [
+          0.0815,
+          0.3756,
+          0.11882999999999999
+        ]
+      },
+      {
+        "name": "upper_11",
+        "top": [
+          0.091,
+          0.3926,
+          0.12017
+        ],
+        "bottom": [
+          0.0815,
+          0.3756,
+          0.11917
+        ]
+      },
+      {
+        "name": "upper_2-1",
+        "top": [
+          0.091,
+          0.3926,
+          0.12583
+        ],
+        "bottom": [
+          0.0815,
+          0.3756,
+          0.12483
+        ]
+      },
+      {
+        "name": "upper_21",
+        "top": [
+          0.091,
+          0.3926,
+          0.12617
+        ],
+        "bottom": [
+          0.0815,
+          0.3756,
+          0.12517
+        ]
+      },
+      {
+        "name": "lower_0-1",
+        "top": [
+          0.0728,
+          0.374,
+          0.11383
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.10382999999999999
+        ]
+      },
+      {
+        "name": "lower_01",
+        "top": [
+          0.0728,
+          0.374,
+          0.11417000000000001
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.10417
+        ]
+      },
+      {
+        "name": "lower_1-1",
+        "top": [
+          0.0728,
+          0.374,
+          0.11882999999999999
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.10833
+        ]
+      },
+      {
+        "name": "lower_11",
+        "top": [
+          0.0728,
+          0.374,
+          0.11917
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.10867
+        ]
+      },
+      {
+        "name": "lower_2-1",
+        "top": [
+          0.0728,
+          0.374,
+          0.12383
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.11282999999999999
+        ]
+      },
+      {
+        "name": "lower_21",
+        "top": [
+          0.0728,
+          0.374,
+          0.12417
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.11316999999999999
+        ]
+      },
+      {
+        "name": "lower_3-1",
+        "top": [
+          0.0728,
+          0.374,
+          0.12883
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.11732999999999999
+        ]
+      },
+      {
+        "name": "lower_31",
+        "top": [
+          0.0728,
+          0.374,
+          0.12917
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.11767
+        ]
+      },
+      {
+        "name": "lower_4-1",
+        "top": [
+          0.0728,
+          0.374,
+          0.13383
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.12183
+        ]
+      },
+      {
+        "name": "lower_41",
+        "top": [
+          0.0728,
+          0.374,
+          0.13417
+        ],
+        "bottom": [
+          0.086,
+          0.262,
+          0.12217
+        ]
+      }
+    ],
+    "reference": "https://commons.wikimedia.org/wiki/File:JS_Hyuga(DDH-181)_mast_at_JMSDF_Maizuru_Naval_Base_January_21,_2017_03.jpg",
+    "accuracy": "Photo-informed arrangement adapted to current mast geometry; exact attachment dimensions not verified",
+    "vertices": 1884,
+    "faces": 1256
+  },
+  "finish": {
+    "uv_faces": {
+      "Bow_Plinth": 12,
+      "Aft_CIWS_Sponson": 68,
+      "Aft_CIWS_InnerShell": 20,
+      "Stern_Repair": 12
+    },
+    "texture_tile_metres": 8,
+    "material_palette": {
+      "hull": [
+        "cdd2d0ff",
+        0.06
+      ],
+      "hull_ise": [
+        "cdd2d0ff",
+        0.06
+      ],
+      "hull_small": [
+        "cdd2d0ff",
+        0.06
+      ],
+      "grey": [
+        "fcfff7ff",
+        0.045
+      ],
+      "door": [
+        "f4f7efff",
+        0.045
+      ],
+      "blue": [
+        "e3e9e7ff",
+        0.04
+      ],
+      "deck": [
+        "f3f5f4ff",
+        0.025
+      ],
+      "deck_ise": [
+        "f3f5f4ff",
+        0.025
+      ],
+      "vents": [
+        "f4f8eeff",
+        0.025
+      ],
+      "deep_gray": [
+        "edf0eeff",
+        0.035
+      ],
+      "bottom": [
+        "f0e8e4ff",
+        0.035
+      ],
+      "white": [
+        "fffdf6ff",
+        0.07
+      ],
+      "red": [
+        "fff7f3ff",
+        0.045
+      ],
+      "elevator_box": [
+        "e5e9e6ff",
+        0.035
+      ]
+    },
+    "approach": "Non-destructive shader tint and matte response; original raster textures retained unchanged. Only added hull pieces receive projected paint UVs.",
+    "duplicate_faces_removed": 918,
+    "original_normals_retained": true,
+    "unchanged_texture_files": 86,
+    "validation": "Offline geometry, texture, configuration and rendered preview checks passed; in-game daylight test pending"
+  },
+  "unit_type": "Hy\u016bga Class",
+  "named_variants": [
+    "Hy\u016bga DDH-181",
+    "Ise DDH-182"
+  ],
+  "torpedo_tubes": {
+    "tubes": [
+      {
+        "name": "Hyuga_Torpedo_Starboard_1_Cover",
+        "side": "Starboard",
+        "index": 1,
+        "axis": [
+          0.6569777399974706,
+          0.0,
+          0.7539099741665551
+        ],
+        "yaw": 41.06978334150727,
+        "muzzle": [
+          0.14424540697372706,
+          0.06908872095312499,
+          -0.8007047348736183
+        ],
+        "hinge": [
+          0.14391691810372834,
+          0.06714587140312499,
+          -0.8010816898607015
+        ],
+        "angle": 105,
+        "faces": 286,
+        "radius": 0.0019428495500000004,
+        "cut": -0.5094032645049933
+      },
+      {
+        "name": "Hyuga_Torpedo_Starboard_2_Cover",
+        "side": "Starboard",
+        "index": 2,
+        "axis": [
+          0.6569647390941679,
+          0.0,
+          0.7539213033115141
+        ],
+        "yaw": 41.06879530405213,
+        "muzzle": [
+          0.14769712815686667,
+          0.06908871708125,
+          -0.8037126112767596
+        ],
+        "hinge": [
+          0.1473686457873196,
+          0.06714586573125,
+          -0.8040895719284153
+        ],
+        "angle": 105,
+        "faces": 286,
+        "radius": 0.0019428513500000036,
+        "cut": -0.5094142541171411
+      },
+      {
+        "name": "Hyuga_Torpedo_Starboard_3_Cover",
+        "side": "Starboard",
+        "index": 3,
+        "axis": [
+          0.6569722008848874,
+          0.0,
+          0.7539148010647272
+        ],
+        "yaw": 41.0693623804268,
+        "muzzle": [
+          0.14591304543768224,
+          0.072580925259375,
+          -0.8021579522565825
+        ],
+        "hinge": [
+          0.1455845593372398,
+          0.074523776159375,
+          -0.8025349096571148
+        ],
+        "angle": -105,
+        "faces": 286,
+        "radius": 0.001942850900000001,
+        "cut": -0.5094079383989997
+      },
+      {
+        "name": "Hyuga_Torpedo_Port_1_Cover",
+        "side": "Port",
+        "index": 1,
+        "axis": [
+          -0.6569674130960006,
+          0.0,
+          0.753918973186077
+        ],
+        "yaw": -41.06899852056228,
+        "muzzle": [
+          -0.14220212443199348,
+          0.06908872219375,
+          -0.8027483596487557
+        ],
+        "hinge": [
+          -0.14187364072544548,
+          0.06714587084375,
+          -0.8031253191353487
+        ],
+        "angle": 105,
+        "faces": 286,
+        "radius": 0.0019428513499999966,
+        "cut": -0.5122950572083552
+      },
+      {
+        "name": "Hyuga_Torpedo_Port_2_Cover",
+        "side": "Port",
+        "index": 2,
+        "axis": [
+          -0.656963822225591,
+          0.0,
+          0.7539221022670326
+        ],
+        "yaw": -41.06872562480079,
+        "muzzle": [
+          -0.13875041835581484,
+          0.06908871821250002,
+          -0.7997404722055331
+        ],
+        "hinge": [
+          -0.13842193644470205,
+          0.06714586681250002,
+          -0.8001174332566666
+        ],
+        "angle": 105,
+        "faces": 286,
+        "radius": 0.0019428514000000008,
+        "cut": -0.5122980128947889
+      },
+      {
+        "name": "Hyuga_Torpedo_Port_3_Cover",
+        "side": "Port",
+        "index": 3,
+        "axis": [
+          -0.6569742636678723,
+          0.0,
+          0.7539130035210012
+        ],
+        "yaw": -41.06951914734505,
+        "muzzle": [
+          -0.14053447902762198,
+          0.07258092684999998,
+          -0.8012951645589272
+        ],
+        "hinge": [
+          -0.14020599189578803,
+          0.07452377529999998,
+          -0.8016721210606877
+        ],
+        "angle": -105,
+        "faces": 286,
+        "radius": 0.0019428484499999996,
+        "cut": -0.5122893083403558
+      }
+    ],
+    "separated_cover_faces": 1716,
+    "basis": "Existing modeled tube end faces; native torpedo hatch/container configuration and MK32 timing. Cover hinge motion is a model-informed approximation, not a surveyed HOS-303 mechanism.",
+    "cluster_translation_metres": [
+      0,
+      0,
+      -0.25
+    ],
+    "closed_cover_reconstruction_max_error_game_units": 7.849458207841027e-11,
+    "clearance": [
+      {
+        "tube": "Hyuga_Torpedo_Starboard_1_Cover",
+        "blocked_rays": []
+      },
+      {
+        "tube": "Hyuga_Torpedo_Starboard_2_Cover",
+        "blocked_rays": []
+      },
+      {
+        "tube": "Hyuga_Torpedo_Starboard_3_Cover",
+        "blocked_rays": []
+      },
+      {
+        "tube": "Hyuga_Torpedo_Port_1_Cover",
+        "blocked_rays": []
+      },
+      {
+        "tube": "Hyuga_Torpedo_Port_2_Cover",
+        "blocked_rays": []
+      },
+      {
+        "tube": "Hyuga_Torpedo_Port_3_Cover",
+        "blocked_rays": []
+      }
+    ],
+    "validation": "17 sampled rays per tube at 324mm diameter, over 20 metres along the fixed launch axis with covers open; no hull intersections. Offline check only."
+  },
+  "decoy_outlets": [
+    {
+      "attachment": [
+        -0.095,
+        0.0195,
+        -0.95208817415625
+      ],
+      "stowed": [
+        -0.095,
+        0.0195,
+        -0.91843817415625
+      ],
+      "surface_z": -0.94843817415625,
+      "bore_radius": 0.0033
+    },
+    {
+      "attachment": [
+        -0.0841,
+        0.0195,
+        -0.952088185703125
+      ],
+      "stowed": [
+        -0.0841,
+        0.0195,
+        -0.918438185703125
+      ],
+      "surface_z": -0.948438185703125,
+      "bore_radius": 0.0033
+    }
+  ],
+  "collars": {
+    "outlets": [
+      {
+        "center": [
+          -0.095,
+          0.0195,
+          -0.9484381741453117
+        ],
+        "attachment": [
+          -0.095,
+          0.0195,
+          -0.9543381741453117
+        ],
+        "outer_diameter_metres": 1.008,
+        "mouth_inner_diameter_metres": 0.9,
+        "projection_metres": 0.576
+      },
+      {
+        "center": [
+          -0.0841,
+          0.0195,
+          -0.9484381856562506
+        ],
+        "attachment": [
+          -0.0841,
+          0.0195,
+          -0.9543381856562506
+        ],
+        "outer_diameter_metres": 1.008,
+        "mouth_inner_diameter_metres": 0.9,
+        "projection_metres": 0.576
+      }
+    ],
+    "profile": [
+      [
+        0.0039,
+        -0.00015
+      ],
+      [
+        0.004,
+        0.0001
+      ],
+      [
+        0.00376,
+        0.00038
+      ],
+      [
+        0.00366,
+        0.0007
+      ],
+      [
+        0.00366,
+        0.0023
+      ],
+      [
+        0.00382,
+        0.0033
+      ],
+      [
+        0.00425,
+        0.0043
+      ],
+      [
+        0.00483,
+        0.0051
+      ],
+      [
+        0.00502,
+        0.0054
+      ],
+      [
+        0.00504,
+        0.00558
+      ],
+      [
+        0.00496,
+        0.00572
+      ],
+      [
+        0.00478,
+        0.00576
+      ],
+      [
+        0.00461,
+        0.00566
+      ],
+      [
+        0.0045,
+        0.00544
+      ],
+      [
+        0.00408,
+        0.00432
+      ],
+      [
+        0.00352,
+        0.0033
+      ],
+      [
+        0.0033,
+        0.0023
+      ]
+    ],
+    "reference": "https://wporep.com/wp-content/uploads/20120603-093341.jpg",
+    "accuracy": "Photo-guided proportions; no measured real-world dimensions. Existing outlet centers and throat size retained."
+  },
+  "funnels": {
+    "outlets": [
+      {
+        "center": [
+          0.099304049,
+          0.2804,
+          -0.1688191641
+        ],
+        "radius": 0.0039048671216108037,
+        "large": false,
+        "original_faces": 70
+      },
+      {
+        "center": [
+          0.10576992745,
+          0.2838,
+          -0.0181700464
+        ],
+        "radius": 0.012826392094300629,
+        "large": true,
+        "original_faces": 70
+      },
+      {
+        "center": [
+          0.12707517925,
+          0.2838,
+          0.0155746591
+        ],
+        "radius": 0.012826397550257397,
+        "large": true,
+        "original_faces": 70
+      },
+      {
+        "center": [
+          0.1008183698,
+          0.2804,
+          0.0162876948
+        ],
+        "radius": 0.006625422649471954,
+        "large": false,
+        "original_faces": 70
+      },
+      {
+        "center": [
+          0.1303531165,
+          0.2804,
+          -0.01966905115
+        ],
+        "radius": 0.00662541831960665,
+        "large": false,
+        "original_faces": 70
+      },
+      {
+        "center": [
+          0.12646323874999998,
+          0.2838,
+          -0.2220971966
+        ],
+        "radius": 0.012826389262419044,
+        "large": true,
+        "original_faces": 140
+      },
+      {
+        "center": [
+          0.1026590114,
+          0.2804,
+          -0.22900899835
+        ],
+        "radius": 0.006625417769773002,
+        "large": false,
+        "original_faces": 140
+      },
+      {
+        "center": [
+          0.10606300585,
+          0.2838,
+          -0.1928119888
+        ],
+        "radius": 0.012826389262419054,
+        "large": true,
+        "original_faces": 91
+      },
+      {
+        "center": [
+          0.12977343154999998,
+          0.2804,
+          -0.18511899005
+        ],
+        "radius": 0.006625424967937151,
+        "large": false,
+        "original_faces": 70
+      },
+      {
+        "center": [
+          0.1111051206,
+          0.2804,
+          -0.16881916954999998
+        ],
+        "radius": 0.003904865640707018,
+        "large": false,
+        "original_faces": 70
+      }
+    ],
+    "removed_faces": 861,
+    "added_faces": 9600,
+    "reference": "https://aobamil.sakura.ne.jp/shasin/hyuga/hyuga2.html",
+    "accuracy": "Photo-guided heights, rounded main outlets and thin rims; existing outlet centers/layout retained. Small auxiliary outlet details are model-derived."
+  },
+  "crew": {
+    "crew": [
+      {
+        "name": "Hyuga_Crew_01",
+        "model": "nato_sailor_a",
+        "position": [
+          0.086,
+          0.17816394538066707,
+          0.235
+        ],
+        "deck_y": 0.178172,
+        "yaw": 0,
+        "scale": 0.0068036077687464,
+        "zone": "forward service platform"
+      },
+      {
+        "name": "Hyuga_Crew_02",
+        "model": "nato_sailor_b",
+        "position": [
+          0.15,
+          0.17816394538066707,
+          0.235
+        ],
+        "deck_y": 0.178172,
+        "yaw": 20,
+        "scale": 0.0068036077687464,
+        "zone": "forward service platform"
+      },
+      {
+        "name": "Hyuga_Crew_03",
+        "model": "nato_sailor_a",
+        "position": [
+          0.158,
+          0.22480894538066706,
+          0.18
+        ],
+        "deck_y": 0.224817,
+        "yaw": 90,
+        "scale": 0.0068036077687464,
+        "zone": "starboard bridge walkway"
+      },
+      {
+        "name": "Hyuga_Crew_04",
+        "model": "nato_sailor_b",
+        "position": [
+          0.158,
+          0.22480894538066706,
+          0.12
+        ],
+        "deck_y": 0.224817,
+        "yaw": 90,
+        "scale": 0.0068036077687464,
+        "zone": "starboard bridge walkway"
+      },
+      {
+        "name": "Hyuga_Crew_05",
+        "model": "nato_sailor_a",
+        "position": [
+          0.086,
+          0.19811494538066707,
+          -0.1
+        ],
+        "deck_y": 0.198123,
+        "yaw": -90,
+        "scale": 0.0068036077687464,
+        "zone": "middle service platform"
+      },
+      {
+        "name": "Hyuga_Crew_06",
+        "model": "nato_sailor_b",
+        "position": [
+          0.14,
+          0.19811494538066707,
+          -0.1
+        ],
+        "deck_y": 0.198123,
+        "yaw": 90,
+        "scale": 0.0068036077687464,
+        "zone": "middle service platform"
+      },
+      {
+        "name": "Hyuga_Crew_07",
+        "model": "nato_sailor_a",
+        "position": [
+          0.086,
+          0.17816394538066707,
+          -0.35
+        ],
+        "deck_y": 0.178172,
+        "yaw": 180,
+        "scale": 0.0068036077687464,
+        "zone": "aft service platform"
+      },
+      {
+        "name": "Hyuga_Crew_08",
+        "model": "nato_sailor_b",
+        "position": [
+          0.15,
+          0.17816394538066707,
+          -0.35
+        ],
+        "deck_y": 0.178172,
+        "yaw": 170,
+        "scale": 0.0068036077687464,
+        "zone": "aft service platform"
+      }
+    ],
+    "type": "Static native standing crew; 1.8m height; no crew on flight deck, elevators or VLS.",
+    "clearance": [
+      {
+        "name": "Hyuga_Crew_01",
+        "foot_errors": [
+          -5.143375396698957e-07,
+          -5.143375396698957e-07,
+          -5.143375396698957e-07,
+          -5.143375396698957e-07,
+          -5.143375396698957e-07
+        ],
+        "body_obstructions": []
+      },
+      {
+        "name": "Hyuga_Crew_02",
+        "foot_errors": [
+          -4.99436378476048e-07,
+          -4.99436378476048e-07,
+          -4.99436378476048e-07,
+          -4.99436378476048e-07,
+          -4.99436378476048e-07
+        ],
+        "body_obstructions": []
+      },
+      {
+        "name": "Hyuga_Crew_03",
+        "foot_errors": [
+          4.101114273180606e-07,
+          4.101114273180606e-07,
+          4.101114273180606e-07,
+          4.101114273180606e-07,
+          4.101114273180606e-07
+        ],
+        "body_obstructions": []
+      },
+      {
+        "name": "Hyuga_Crew_04",
+        "foot_errors": [
+          4.2501258851190826e-07,
+          4.2501258851190826e-07,
+          4.2501258851190826e-07,
+          4.2501258851190826e-07,
+          4.2501258851190826e-07
+        ],
+        "body_obstructions": []
+      },
+      {
+        "name": "Hyuga_Crew_05",
+        "foot_errors": [
+          -6.888389580961274e-09,
+          -6.888389580961274e-09,
+          -6.888389580961274e-09,
+          -6.888389580961274e-09,
+          -6.888389580961274e-09
+        ],
+        "body_obstructions": []
+      },
+      {
+        "name": "Hyuga_Crew_06",
+        "foot_errors": [
+          -6.888389580961274e-09,
+          -6.888389580961274e-09,
+          -6.888389580961274e-09,
+          -6.888389580961274e-09,
+          -6.888389580961274e-09
+        ],
+        "body_obstructions": []
+      },
+      {
+        "name": "Hyuga_Crew_07",
+        "foot_errors": [
+          -5.143375396698957e-07,
+          -5.143375396698957e-07,
+          -5.143375396698957e-07,
+          -5.143375396698957e-07,
+          -5.143375396698957e-07
+        ],
+        "body_obstructions": []
+      },
+      {
+        "name": "Hyuga_Crew_08",
+        "foot_errors": [
+          -4.99436378476048e-07,
+          -4.99436378476048e-07,
+          -4.99436378476048e-07,
+          -4.99436378476048e-07,
+          -4.99436378476048e-07
+        ],
+        "body_obstructions": []
+      }
+    ]
+  },
+  "safety_fittings": {
+    "build": "R10.40 safety fittings",
+    "net_original_triangles": 174,
+    "net_back_triangles": 174,
+    "new_raft_triangles": {
+      "Hyuga_Raft_Shields": 928,
+      "Hyuga_Raft_Canisters": 2304,
+      "Hyuga_Raft_Straps": 768
+    },
+    "rafts": [
+      {
+        "center": [
+          0.1645,
+          0.1451,
+          -0.644
+        ],
+        "shield_x": 0.1757,
+        "station": "starboard aft, between existing galleries above boat bay"
+      },
+      {
+        "center": [
+          0.1645,
+          0.1451,
+          -0.65425
+        ],
+        "shield_x": 0.1757,
+        "station": "starboard aft, between existing galleries above boat bay"
+      },
+      {
+        "center": [
+          0.1645,
+          0.1451,
+          -0.6645
+        ],
+        "shield_x": 0.1757,
+        "station": "starboard aft, between existing galleries above boat bay"
+      },
+      {
+        "center": [
+          0.1645,
+          0.1451,
+          -0.67475
+        ],
+        "shield_x": 0.1757,
+        "station": "starboard aft, between existing galleries above boat bay"
+      },
+      {
+        "center": [
+          0.1645,
+          0.1451,
+          -0.685
+        ],
+        "shield_x": 0.1757,
+        "station": "starboard aft, between existing galleries above boat bay"
+      },
+      {
+        "center": [
+          0.1645,
+          0.1451,
+          -0.69525
+        ],
+        "shield_x": 0.1757,
+        "station": "starboard aft, between existing galleries above boat bay"
+      },
+      {
+        "center": [
+          0.1645,
+          0.1451,
+          -0.7055
+        ],
+        "shield_x": 0.1757,
+        "station": "starboard aft, between existing galleries above boat bay"
+      },
+      {
+        "center": [
+          0.1645,
+          0.1451,
+          -0.71575
+        ],
+        "shield_x": 0.1757,
+        "station": "starboard aft, between existing galleries above boat bay"
+      }
+    ],
+    "accuracy": "Photo-guided shielded starboard aft row; 8 modeled canisters; row shortened to clear the existing stair landing, approximate size and spacing. Not a verified shipwide inventory. Existing rails/frames/openings retained. Netting uses original UV/alpha texture. No new deployment animation.",
+    "checks": {
+      "original_geometry_preserved": true,
+      "original_textures_preserved": true,
+      "gameplay_and_animation_configs_preserved": true,
+      "obj_indices_valid": true,
+      "raft_count": 8,
+      "net_front_triangles": 174,
+      "net_back_triangles": 174,
+      "raft_bounds": [
+        [
+          0.1534,
+          0.1339,
+          -0.7206
+        ],
+        [
+          0.1757,
+          0.1512,
+          -0.63915
+        ]
+      ],
+      "native_cutout_shader_verified": true,
+      "in_game_tested": false
+    }
+  },
+  "damage_model": {
+    "build": "R10.41 damage fit test",
+    "changes": [
+      [
+        "coll_prop_port",
+        "Position",
+        "-0.048,-0.056,-0.803",
+        "-0.0536197700,-0.0499578200,-0.8480313799"
+      ],
+      [
+        "coll_prop_port",
+        "Scale",
+        "0.035,0.035,0.10",
+        "0.0561848307,0.0561848307,0.0208589059"
+      ],
+      [
+        "coll_prop_stbd",
+        "Position",
+        "0.048,-0.056,-0.803",
+        "0.0574283200,-0.0508739900,-0.8480747080"
+      ],
+      [
+        "coll_prop_stbd",
+        "Scale",
+        "0.035,0.035,0.10",
+        "0.0555146984,0.0555146984,0.0206424142"
+      ],
+      [
+        "coll_ciws_fwd",
+        "Position",
+        "0.055,0.153,0.925",
+        "0.0627428300,0.1770925700,0.9538550500"
+      ],
+      [
+        "coll_ciws_fwd",
+        "Scale",
+        "0.05,0.06,0.05",
+        "0.0400000000,0.0390000000,0.0400000000"
+      ],
+      [
+        "coll_mag_ciws_fwd",
+        "Position",
+        "0.055,0.125,0.925",
+        "0.0627428300,0.1485925700,0.9538550500"
+      ],
+      [
+        "coll_mag_ciws_fwd",
+        "Scale",
+        "0.05,0.05,0.05",
+        "0.0240000000,0.0160000000,0.0240000000"
+      ],
+      [
+        "coll_ciws_aft",
+        "Position",
+        "-0.145,0.096,-0.952",
+        "-0.1375550800,0.1223371400,-0.9649007000"
+      ],
+      [
+        "coll_ciws_aft",
+        "Scale",
+        "0.05,0.06,0.05",
+        "0.0400000000,0.0390000000,0.0400000000"
+      ],
+      [
+        "coll_mag_ciws_aft",
+        "Position",
+        "-0.145,0.070,-0.952",
+        "-0.1375550800,0.0938371400,-0.9649007000"
+      ],
+      [
+        "coll_mag_ciws_aft",
+        "Scale",
+        "0.05,0.05,0.05",
+        "0.0240000000,0.0160000000,0.0240000000"
+      ],
+      [
+        "coll_ops20",
+        "Position",
+        null,
+        "0.1150355800,0.3445359000,0.1602352100"
+      ],
+      [
+        "coll_ops20",
+        "Scale",
+        null,
+        "0.0304000000,0.0050000000,0.0304000000"
+      ],
+      [
+        "SensorSystem4",
+        "Collider",
+        "coll_sensors",
+        "coll_ops20"
+      ],
+      [
+        "coll_navigation",
+        "Position",
+        null,
+        "0.0945760900,0.3232520800,0.1354535900"
+      ],
+      [
+        "coll_navigation",
+        "Scale",
+        null,
+        "0.0212800000,0.0050000000,0.0212800000"
+      ],
+      [
+        "SensorSystem9",
+        "Collider",
+        "coll_sensors",
+        "coll_navigation"
+      ],
+      [
+        "coll_sensors",
+        "Position",
+        "0.09,0.36,0.05",
+        "0.1100000000,0.2420000000,0.1525000000"
+      ],
+      [
+        "coll_sensors",
+        "Scale",
+        "0.12,0.18,0.18",
+        "0.0900000000,0.0600000000,0.1250000000"
+      ],
+      [
+        "SensorSystem3",
+        "MountPosition",
+        "0.09,0.36,0.05",
+        "0.1100000000,0.2420000000,0.1525000000"
+      ],
+      [
+        "coll_datalink",
+        "Position",
+        null,
+        "0.0900000000,0.3400000000,0.1000000000"
+      ],
+      [
+        "coll_datalink",
+        "Scale",
+        null,
+        "0.0360000000,0.0340000000,0.0360000000"
+      ],
+      [
+        "SensorSystem8",
+        "Collider",
+        "coll_sensors",
+        "coll_datalink"
+      ],
+      [
+        "coll_cic",
+        "Position",
+        "0.10,0.25,0.08",
+        "0.1140000000,0.2060000000,0.1450000000"
+      ],
+      [
+        "coll_cic",
+        "Scale",
+        "0.16,0.12,0.24",
+        "0.0600000000,0.0380000000,0.1100000000"
+      ],
+      [
+        "General",
+        "CompartmentsHeight",
+        "0.25",
+        "0.15255"
+      ],
+      [
+        "coll_hull_section_01",
+        "Position",
+        null,
+        "-0.0099999802,0.0423140906,-0.8940000000"
+      ],
+      [
+        "coll_hull_section_01",
+        "Scale",
+        null,
+        "0.3299999204,0.2204738188,0.1480000000"
+      ],
+      [
+        "coll_hull_section_02",
+        "Position",
+        null,
+        "-0.0204065014,0.0425092037,-0.7350000000"
+      ],
+      [
+        "coll_hull_section_02",
+        "Scale",
+        null,
+        "0.3508129516,0.2200835925,0.1700000000"
+      ],
+      [
+        "coll_hull_section_03",
+        "Position",
+        null,
+        "-0.0201367523,0.0425092045,-0.5550000000"
+      ],
+      [
+        "coll_hull_section_03",
+        "Scale",
+        null,
+        "0.3512426540,0.2200835909,0.1900000000"
+      ],
+      [
+        "coll_hull_section_04",
+        "Position",
+        null,
+        "-0.0201642111,0.0412506016,-0.3550000000"
+      ],
+      [
+        "coll_hull_section_04",
+        "Scale",
+        null,
+        "0.3512975771,0.2226007968,0.2100000000"
+      ],
+      [
+        "coll_hull_section_05",
+        "Position",
+        null,
+        "-0.0201925725,0.0400079126,-0.1250000000"
+      ],
+      [
+        "coll_hull_section_05",
+        "Scale",
+        null,
+        "0.3511845328,0.2250861747,0.2500000000"
+      ],
+      [
+        "coll_hull_section_06",
+        "Position",
+        null,
+        "-0.0203830426,0.0405699625,0.1250000000"
+      ],
+      [
+        "coll_hull_section_06",
+        "Scale",
+        null,
+        "0.3508599884,0.2239620750,0.2500000000"
+      ],
+      [
+        "coll_hull_section_07",
+        "Position",
+        null,
+        "-0.0145997473,0.0412505764,0.3550000000"
+      ],
+      [
+        "coll_hull_section_07",
+        "Scale",
+        null,
+        "0.3763539063,0.2226008472,0.2100000000"
+      ],
+      [
+        "coll_hull_section_08",
+        "Position",
+        null,
+        "-0.0111179189,0.0396690962,0.5550000000"
+      ],
+      [
+        "coll_hull_section_08",
+        "Scale",
+        null,
+        "0.3693902438,0.2257637772,0.1900000000"
+      ],
+      [
+        "coll_hull_section_09",
+        "Position",
+        null,
+        "-0.0100000421,0.0369567767,0.7250000000"
+      ],
+      [
+        "coll_hull_section_09",
+        "Scale",
+        null,
+        "0.3299999149,0.2311883798,0.1500000000"
+      ],
+      [
+        "coll_hull_section_10",
+        "Position",
+        null,
+        "0.0101416795,0.0369965051,0.8500000000"
+      ],
+      [
+        "coll_hull_section_10",
+        "Scale",
+        null,
+        "0.2512337878,0.2311088982,0.1000000000"
+      ],
+      [
+        "coll_hull_section_11",
+        "Position",
+        null,
+        "0.0089137575,0.0402098233,0.9415000000"
+      ],
+      [
+        "coll_hull_section_11",
+        "Scale",
+        null,
+        "0.2003758284,0.2246822536,0.0830000000"
+      ],
+      [
+        "Models",
+        "ResourcesRoot",
+        "jmsdf_ddh_hyuga_r10_40.obj",
+        "jmsdf_ddh_hyuga_r10_41.obj"
+      ],
+      [
+        "Models",
+        "ResourcesDamagedMesh",
+        "Hull",
+        "Hull_Damaged"
+      ],
+      [
+        "Hull",
+        "DamagedMesh",
+        null,
+        "Hull_Damaged"
+      ],
+      [
+        "New_HullTexture",
+        "DamagedMesh",
+        null,
+        "New_HullTexture_Damaged"
+      ],
+      [
+        "Hull_RedDark",
+        "DamagedMesh",
+        null,
+        "Hull_RedDark_Damaged"
+      ],
+      [
+        "New_HullSmall",
+        "DamagedMesh",
+        null,
+        "New_HullSmall_Damaged"
+      ],
+      [
+        "New_Black",
+        "DamagedMesh",
+        null,
+        "New_Black_Damaged"
+      ]
+    ],
+    "hull_sections": [
+      {
+        "name": "coll_hull_section_01",
+        "min": [
+          -0.17499994040448918,
+          -0.0679228188,
+          -0.968
+        ],
+        "max": [
+          0.15499998,
+          0.152551,
+          -0.82
+        ]
+      },
+      {
+        "name": "coll_hull_section_02",
+        "min": [
+          -0.1958129772,
+          -0.0675325925,
+          -0.82
+        ],
+        "max": [
+          0.1549999743955142,
+          0.152551,
+          -0.65
+        ]
+      },
+      {
+        "name": "coll_hull_section_03",
+        "min": [
+          -0.1957580792631608,
+          -0.06753259092600142,
+          -0.65
+        ],
+        "max": [
+          0.1554845747,
+          0.152551,
+          -0.46
+        ]
+      },
+      {
+        "name": "coll_hull_section_04",
+        "min": [
+          -0.1958129997,
+          -0.0700497967601814,
+          -0.46
+        ],
+        "max": [
+          0.1554845774,
+          0.152551,
+          -0.25
+        ]
+      },
+      {
+        "name": "coll_hull_section_05",
+        "min": [
+          -0.19578483886386197,
+          -0.0725351747,
+          -0.25
+        ],
+        "max": [
+          0.1553996938976773,
+          0.152551,
+          0.0
+        ]
+      },
+      {
+        "name": "coll_hull_section_06",
+        "min": [
+          -0.19581303684096138,
+          -0.07141107501164264,
+          0.0
+        ],
+        "max": [
+          0.1550469516083361,
+          0.152551,
+          0.25
+        ]
+      },
+      {
+        "name": "coll_hull_section_07",
+        "min": [
+          -0.2027767005,
+          -0.07004984721433104,
+          0.25
+        ],
+        "max": [
+          0.1735772058,
+          0.152551,
+          0.46
+        ]
+      },
+      {
+        "name": "coll_hull_section_08",
+        "min": [
+          -0.1958130408,
+          -0.0732127923955397,
+          0.46
+        ],
+        "max": [
+          0.173577203,
+          0.15255098478263823,
+          0.65
+        ]
+      },
+      {
+        "name": "coll_hull_section_09",
+        "min": [
+          -0.17499999952372247,
+          -0.0786374132,
+          0.65
+        ],
+        "max": [
+          0.1549999154,
+          0.15255096656532316,
+          0.8
+        ]
+      },
+      {
+        "name": "coll_hull_section_10",
+        "min": [
+          -0.11547521433599015,
+          -0.078557943936668,
+          0.8
+        ],
+        "max": [
+          0.13575857342364506,
+          0.15255095422689122,
+          0.9
+        ]
+      },
+      {
+        "name": "coll_hull_section_11",
+        "min": [
+          -0.09127415671708826,
+          -0.07213130355309766,
+          0.9
+        ],
+        "max": [
+          0.10910167172188516,
+          0.15255095007132666,
+          0.983
+        ]
+      }
+    ],
+    "collider_count": 33,
+    "damage_zones": [
+      {
+        "side": -1,
+        "z": 0.28,
+        "y": -0.012,
+        "rz": 0.09,
+        "ry": 0.05,
+        "depth": 0.012
+      },
+      {
+        "side": 1,
+        "z": -0.26,
+        "y": -0.018,
+        "rz": 0.08,
+        "ry": 0.055,
+        "depth": 0.01
+      }
+    ],
+    "damage_meshes": {
+      "Hull": {
+        "total_faces": 123434,
+        "resampled_faces": 72
+      },
+      "New_HullTexture": {
+        "total_faces": 10946,
+        "resampled_faces": 3825
+      },
+      "Hull_RedDark": {
+        "total_faces": 17096,
+        "resampled_faces": 10009
+      },
+      "New_HullSmall": {
+        "total_faces": 74244,
+        "resampled_faces": 946
+      },
+      "New_Black": {
+        "total_faces": 13497,
+        "resampled_faces": 1224
+      }
+    },
+    "notes": [
+      "CIC and fixed-array volume positions are model-based approximations, not a verified internal arrangement.",
+      "Existing hangar remains one logical flight-deck system, matching the native single Collider binding; no unsupported compartment keys added.",
+      "Armor, displacement, DC teams, engine volume, rudders, weapons, ranges and animations retained.",
+      "Generic damaged-state buckling is not hit-location-specific deformation; game impact effects remain responsible for local damage."
+    ]
+  },
+  "damage_validation": {
+    "collider_count": 33,
+    "all_collision_bindings_resolve": true,
+    "all_damage_mesh_bindings_resolve": true,
+    "obj_indices_valid": true,
+    "intact_mesh_exactly_preserved": true,
+    "original_assets_and_gameplay_systems_preserved": true,
+    "propeller_sweep_samples": 37,
+    "radar_full_sweep_containment": true,
+    "compartments_height": 0.15255,
+    "game_tested": false
+  },
+  "launch_and_finish": {
+    "build": "R10.44 flag removal, torpedo spawn and matte dark finish",
+    "launch_mesh_bounds": {
+      "usn_mk46_dummy": {
+        "m_Center": {
+          "x": -8.534407243132591e-07,
+          "y": -4.520523361861706e-06,
+          "z": -0.0019567031413316727
+        },
+        "m_Extent": {
+          "x": 0.002431502565741539,
+          "y": 0.002394366543740034,
+          "z": 0.02025781385600567
+        }
+      },
+      "usn_mk46": {
+        "m_Center": {
+          "x": 3.3818650990724564e-07,
+          "y": 7.1731628850102425e-06,
+          "z": -0.0005899462848901749
+        },
+        "m_Extent": {
+          "x": 0.0023951702751219273,
+          "y": 0.002374329138547182,
+          "z": 0.01889105699956417
+        }
+      }
+    },
+    "local_attachment_setback": 0.018501110714673995,
+    "launches": [
+      {
+        "system": 5,
+        "tube": 1,
+        "muzzle": [
+          -0.1422021244,
+          0.0690887222,
+          -0.8027483596
+        ],
+        "spawn": [
+          -0.1300474975545148,
+          0.0690887222,
+          -0.8166966979929282
+        ],
+        "axis": [
+          -0.6569674130886018,
+          0,
+          0.7539189731925244
+        ],
+        "nose_behind_muzzle_m": 0.01999999999999988
+      },
+      {
+        "system": 5,
+        "tube": 2,
+        "muzzle": [
+          -0.1387504184,
+          0.0690887182,
+          -0.7997404722
+        ],
+        "spawn": [
+          -0.12659585799063766,
+          0.0690887182,
+          -0.8136888684853005
+        ],
+        "axis": [
+          -0.6569638221624202,
+          0,
+          0.7539221023220793
+        ],
+        "nose_behind_muzzle_m": 0.01999999999999988
+      },
+      {
+        "system": 5,
+        "tube": 3,
+        "muzzle": [
+          -0.140534479,
+          0.0725809268,
+          -0.8012951646
+        ],
+        "spawn": [
+          -0.12837972541054293,
+          0.0725809268,
+          -0.8152433925468113
+        ],
+        "axis": [
+          -0.6569742637028068,
+          0,
+          0.7539130034905586
+        ],
+        "nose_behind_muzzle_m": 0.01999999999999988
+      },
+      {
+        "system": 6,
+        "tube": 1,
+        "muzzle": [
+          0.144245407,
+          0.069088721,
+          -0.8007047349
+        ],
+        "spawn": [
+          0.13209058909559743,
+          0.069088721,
+          -0.8146529068012722
+        ],
+        "axis": [
+          0.6569777399776376,
+          0,
+          0.7539099741838382
+        ],
+        "nose_behind_muzzle_m": 0.01999999999999988
+      },
+      {
+        "system": 6,
+        "tube": 2,
+        "muzzle": [
+          0.1476971282,
+          0.0690887171,
+          -0.8037126113
+        ],
+        "spawn": [
+          0.13554255082736835,
+          0.0690887171,
+          -0.8176609928035773
+        ],
+        "axis": [
+          0.6569647390408482,
+          0,
+          0.7539213033579766
+        ],
+        "nose_behind_muzzle_m": 0.01999999999999988
+      },
+      {
+        "system": 6,
+        "tube": 3,
+        "muzzle": [
+          0.1459130454,
+          0.0725809253,
+          -0.8021579523
+        ],
+        "spawn": [
+          0.13375832997506956,
+          0.0725809253,
+          -0.8161062135040205
+        ],
+        "axis": [
+          0.6569722008792713,
+          0,
+          0.753914801069621
+        ],
+        "nose_behind_muzzle_m": 0.01999999999999988
+      }
+    ],
+    "matte_materials": [
+      "mat_new_black.ini",
+      "mat_new_black_plain.ini",
+      "mat_new_deep_gray.ini",
+      "mat_new_vents.ini",
+      "mat_hyuga_funnel_outlets.ini",
+      "mat_new_deck.ini",
+      "mat_new_deck_ise.ini",
+      "mat_new_elevator_box.ini",
+      "mat_hyuga_rigging.ini"
+    ],
+    "flag_binding_removed": true,
+    "game_tested": false
+  },
+  "rear_island_repair": {
+    "build": "R10.48 rear island wall back-face repair",
+    "added_reverse_faces": {
+      "New_HullTexture": 674,
+      "New_HullTexture_Damaged": 674
+    },
+    "original_positions_uvs_and_materials_preserved": true,
+    "base": "R10.44 (matte dark finish, flag removed, recessed torpedo launch origins)",
+    "game_tested": false
+  },
+  "unit_reference": {
+    "build": "R10.49 Unit Reference",
+    "root_cause": "obsolete standalone Ise files in installed folder",
+    "clean_replacement_required": true,
+    "model_and_gameplay_match_r10_48": true,
+    "r10_48_wall_fix_user_confirmed": true,
+    "reference_ui_game_tested": false
+  },
+  "vls_loadout": {
+    "build": "R10.50 VLS loadout correction",
+    "essm": {
+      "id": "usn_rim-162b",
+      "cells": 4,
+      "rounds": 16
+    },
+    "asroc": {
+      "id": "usn_rum-139c",
+      "cells": 12,
+      "rounds": 12
+    },
+    "physical_cell_bindings_unchanged": true,
+    "game_tested": false,
+    "subvariants": "Asahi-derived gameplay choices; not certified Japanese service suffixes"
+  },
+  "scale_correction": {
+    "factor": 1.45,
+    "report": "scale_correction_manifest.json",
+    "game_tested": false
+  },
+  "historical_coordinates_superseded": true,
+  "class_registration": {
+    "unit_type": "Hy\u016bga Class",
+    "vessel_id": "jmsdf_ddh_hyuga",
+    "variants": [
+      "Hy\u016bga DDH-181",
+      "Ise DDH-182"
+    ],
+    "legacy_entry": false,
+    "game_tested": false
+  },
+  "hatch_correction": "hatch_correction_manifest.json"
+}

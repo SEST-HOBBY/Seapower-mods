@@ -1,0 +1,74 @@
+<!-- STEADFAST LANTERN - narrative card between mission 01 and 02.
+     Typewritten naval intelligence summary. Self-contained: no
+     {Binding Assets[...]} brushes, so it cannot break on a missing PNG. -->
+
+<ScrollViewer
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="#E8E4D8" HorizontalAlignment="Center" VerticalAlignment="Center"
+          Width="900" Padding="45"
+          TextElement.FontFamily="Courier New" TextElement.Foreground="Black" TextElement.FontSize="15">
+    <Border.Effect>
+      <DropShadowEffect />
+    </Border.Effect>
+    <StackPanel Orientation="Vertical">
+
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Text="NAVAL MESSAGE" FontFamily="Arial Narrow" FontSize="24" FontWeight="Bold"/>
+        <TextBlock Grid.Column="1" Text="*******S E C R E T*******" Margin="40,0,40,0" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="ALLIED MARITIME COMMAND" FontFamily="Arial Narrow" FontSize="24" FontWeight="Bold" TextAlignment="Right"/>
+      </Grid>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,2,0,2"/>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,14"/>
+
+      <TextBlock TextWrapping="Wrap" LineHeight="22">
+        FM: NAVAL INTELLIGENCE, NORTHWOOD<LineBreak/>
+        TO: COMMANDER, TG NORTHWIND<LineBreak/>
+        INFO: OPERATION STEADFAST LANTERN<LineBreak/>
+        DTG: 181200Z APR 28<LineBreak/>
+        SUBJ: INTSUM 04/28 - SKAGERRAK ENGAGEMENT
+      </TextBlock>
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,14,0,14"/>
+
+      <TextBlock TextWrapping="Wrap" TextAlignment="Left" LineHeight="23">
+        1. (S) Three renegade units were destroyed in the Skagerrak box on 17 April. Assessed
+        composition of the Nordverband is now four surface combatants, three Type 212A boats and
+        the flagship. The force is finite and losses are not being made good.
+        <LineBreak/><LineBreak/>
+        2. (S) NORDVERBAND CONDUCT. The renegade group has fired on no neutral vessel in three
+        weeks of blockade. Boarding parties have been correct to the point of formality. Assessment
+        is that Konteradmiral Vahl is holding his people to alliance rules of engagement while
+        refusing alliance orders, and that he understands exactly how difficult this makes him
+        to fight.
+        <LineBreak/><LineBreak/>
+        3. (S) INTENTIONS. The group has moved south into the northern Kattegat and has detained
+        a three-ship merchant convoy inside its barrier line. The convoy carries approximately
+        410 persons including passengers. It has not been harmed and it has not been released.
+        <LineBreak/><LineBreak/>
+        4. (S) Assessment: the convoy is not being held for ransom. Its detention appears intended
+        to force a decision the alliance has so far declined to make.
+        <LineBreak/><LineBreak/>
+        5. (S) UNRESOLVED - FISHING VESSEL. A side trawler under Panamanian registry held station
+        within the traffic separation scheme for the duration of the 17 April engagement,
+        approximately three nautical miles outside the engagement area, and put no gear over the
+        side at any point.
+        <LineBreak/><LineBreak/>
+        6. (S) The registered owner is a holding company incorporated eleven weeks ago. The vessel
+        was not in the Skagerrak before 2 April. She has since been observed twice more, on both
+        occasions within visual range of a Nordverband unit and on neither occasion fishing.
+        <LineBreak/><LineBreak/>
+        7. (S) Somebody is watching this operation who is not a party to it. Nothing further is
+        assessed at this time. Request all units report sightings.
+      </TextBlock>
+
+      <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,18,0,4"/>
+      <TextBlock Text="*******S E C R E T*******" FontWeight="Bold" TextAlignment="Center"/>
+
+    </StackPanel>
+  </Border>
+</ScrollViewer>

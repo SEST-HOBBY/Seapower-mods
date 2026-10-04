@@ -796,6 +796,8 @@ def main():
     profiles = build_combat_systems()
     restored, tuned, skipped = build_ciws()
     extended = build_extends()
+    returned = build_stale_vanilla_files()
+    returned += restore_vanilla_sensor_sections()
 
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     print(f"built {OUT.relative_to(ROOT)}: {len(built)} overrides - {', '.join(built)}")
@@ -810,6 +812,140 @@ def main():
           f"copies, {len(tuned)} mod CIWS retuned"
           + (f"; left to their winner: {', '.join(skipped)}" if skipped else ""))
     print(f"  + {len(extended)} hulls given a combat system by #!extend")
+    print(f"  + {len(returned)} game file(s)/section(s) restored over stale mod copies: "
+          f"{', '.join(returned)}")
+
+
+# Game files that a mod overrides with a stale copy of its own, where the game's
+# copy is the better one and the units that read it are not that mod's alone.
+# Load order cannot fix any of these: nothing else ships the path, so the mod
+# wins at every position. Each is shipped here verbatim from the game export,
+# the usn_gbu-24 pattern above, under three guards: the stale shippers are
+# still exactly the ones named (a new shipper means a new decision), the
+# game's copy still has what makes it better, and the stale copy still lacks
+# it (when it catches up, the restore retires). Added with the October 2026
+# subscriptions, on the player's decision to restore the game's versions.
+#
+#   path                          stale shipper(s)         what the game's copy has
+STALE_VANILLA_FILES = {
+    "ammunition/usn_cal_40mm.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's copy predates the supply system: no Mass, AmmoPoints,\n"
+        "area keys or MaxAARange, MaxRange 4500 for 10500. Every 40 mm Bofors in\n"
+        "the game reads it, three SEST replenishment ships among them - unpriced,\n"
+        "they would rearm for free."),
+    "ammunition/usn_cal_25mm_m2.ini": (
+        ("3412480633",), "AmmoPoints",
+        "Ground Upgrade: IFV's copy has no AmmoPoints or Mass and adds an AAW role.\n"
+        "The Mk 38 on forty SEST-forked destroyers and frigates fires this round."),
+    "ammunition/usa_bgm-71a.ini": (
+        ("3412480633",), "AmmoPoints",
+        "Ground Upgrade: IFV's TOW-1 has no AmmoPoints, no IOC/FOC dates and no\n"
+        "air-launch keys; the AH-1W, the Lynx AH.7 and the TOW pickup fire it."),
+    "ammunition/usn_cal_105mm.ini": (
+        ("3410473695",), "AmmoPoints",
+        "Ground Upgrade: MBT's copy has no AmmoPoints, Mass, area keys or\n"
+        "RequiresLOS, and MaxRange 2400 for 4100."),
+    "ammunition/wp_cal_100mm_d10.ini": (
+        ("3410473695",), "AmmoPoints",
+        "Ground Upgrade: MBT's copy has no AmmoPoints, Mass, area keys or\n"
+        "RequiresLOS; the T-55 family and an armed merchant's alias read it."),
+    "ammunition/wp_cal_125mm.ini": (
+        ("3410473695",), "AmmoPoints",
+        "Ground Upgrade: MBT's copy has no AmmoPoints, Mass, area keys or\n"
+        "RequiresLOS; every vanilla T-72/T-80 reads it."),
+    "ammunition/usn_ssq-47.ini": (
+        ("3628203171",), "FOCDate",
+        "The Alize's copy is headed 'REQUIRES STATS REVISION': Mass 10 for 16.3,\n"
+        "AmmoPoints 5 for 20.375, no FOCDate or area keys. The P-3Cs in SEST\n"
+        "missions hang it."),
+    "ammunition/knm_terne_shell.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's copy has no AmmoPoints or Mass; no Royal Navy unit uses\n"
+        "it, the vanilla Oslo and Sleipner in SEST missions do."),
+    "ammunition/rn_squid_shell.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's copy has no AmmoPoints or Mass."),
+    "ammunition/usn_agm-12b.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's Bullpup drops AmmoPoints, FOCDate, the AN/ARW-77 guidance\n"
+        "link and the kinematics block."),
+    "ammunition/rn_cal_113mm.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's 4.5 inch has no AmmoPoints or Mass; every vanilla\n"
+        "Royal Navy hull with the Mk 6 or Mk 8 reads it."),
+    "vessels/usn_avp_barnegat_mod.ini": (
+        ("3752415457",), "[CombatSystems]",
+        "The Luzon Line's copy is a pre-0.8.3 fork that drops the game's\n"
+        "[CombatSystems] block; it is a player hull in the stock Pacific Strike\n"
+        "campaign. The Luzon Line's own _variants file still wins and is kept."),
+}
+
+
+def build_stale_vanilla_files():
+    """Ship the game's copy of each STALE_VANILLA_FILES path, guarded."""
+    out = []
+    for rel, (shippers, marker, why) in STALE_VANILLA_FILES.items():
+        found = sorted(p.parts[-3] for p in MODS.glob(f"*/{rel}")
+                       if p.parts[-3] != "_vanilla")
+        if found != sorted(shippers):
+            sys.exit(f"{rel}: now shipped by {found}, not {list(shippers)} - "
+                     "re-decide which copy should load before restoring the game's")
+        t = read("_vanilla/original", rel)
+        has = (lambda text: marker in text) if marker.startswith("[") else \
+              (lambda text: re.search(rf"^{marker}\s*=\s*\S", text, re.M) is not None)
+        if not has(t):
+            sys.exit(f"{rel}: the game's copy no longer has {marker} - re-verify")
+        if all(has(read(m, rel)) for m in shippers):
+            sys.exit(f"{rel}: the stale copy now has {marker} too - compare again and "
+                     "retire the restore if it caught up")
+        write(rel, t,
+              f"SEST Collection Fixes - the game's own {rel}, verbatim, over the\n"
+              f"stale copy in {', '.join(shippers)}.\n{why}")
+        out.append(Path(rel).stem)
+    return out
+
+
+# The same for systems sections: a mod redefines a game section with values
+# that change units other than its own. systems/ merges key by key, and SEST
+# sits above every mod, so the game's whole body restated here wins every key.
+STALE_VANILLA_SENSORS = {
+    "Type2031": (("3491248180",),
+                 "The Royal Navy's [Type2031] cuts the towed array's PassiveRange from\n"
+                 "90 km to 23 km and its Gain from 56 to 50 dB; the Type 23s SEST\n"
+                 "fields tow it."),
+}
+
+
+def restore_vanilla_sensor_sections():
+    out, blocks = [], []
+    vanilla = read_file(MODS / "_vanilla" / "original" / "systems" / "sensors.ini")
+    for name, (shippers, why) in STALE_VANILLA_SENSORS.items():
+        pat = re.compile(rf"^\[{re.escape(name)}\][^\n]*\n(.*?)(?=^\[|\Z)", re.S | re.M)
+        definers = sorted(f.parts[-3] for f in MODS.glob("*/systems/sensors.ini")
+                          if f.parts[-3] != "_vanilla" and pat.search(read_file(f)))
+        if definers != sorted(shippers):
+            sys.exit(f"[{name}]: now defined by {definers}, not {list(shippers)} - re-decide")
+        m = pat.search(vanilla)
+        if not m:
+            sys.exit(f"[{name}]: gone from the game's sensors.ini - re-verify")
+        body = m.group(1).strip()
+        for mod in shippers:
+            theirs = pat.search(read_file(MODS / mod / "systems" / "sensors.ini")).group(1).strip()
+            if theirs == body:
+                sys.exit(f"[{name}]: {mod}'s copy now matches the game's - retire the restore")
+        blocks.append("".join(f"# {l}\n" for l in why.splitlines())
+                      + f"# The game's own definition, restored over {', '.join(shippers)}.\n"
+                      + f"[{name}]\n{body}\n")
+        out.append(f"[{name}]")
+    if blocks:
+        path = OUT / "systems" / "sensors.ini"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        prior = path.read_text(encoding="utf-8") if path.exists() else ""
+        path.write_text(prior + ("\n" if prior else "")
+                        + "# Game sensor sections restored over a mod's stale redefinition.\n\n"
+                        + "\n".join(blocks), encoding="utf-8")
+    return out
 
 
 # Sensor types that units mount but NO mod defines, so the sensor is inert.

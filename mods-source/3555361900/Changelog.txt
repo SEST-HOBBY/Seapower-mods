@@ -1,0 +1,306 @@
+23/02/26
+
+- Added kinematics to R.550-2 Magic II missile
+- Updated version compatibility
+
+25/12/25
+
+- Added loadout prep times
+- Added R.550-2 Magic 2 missile and AS-30L from the Mirage 2000 mod to SEM (thanks to misaka!)
+- Streamlined loadouts so there are less of them while maintaining historical authenticity
+- Divided the pylon submodels so they can be used more flexibly
+- Added description to AS-30
+
+24/10/25
+- Added language_cn
+- Added language_fr
+- Edited some english strings
+- Aircraft.ini changes:
+	- On deck offset: 0,0,-0.06 --> 0,0,-0.008945
+	- ElevonX --> ElevatorX
+
+
+
+10/09/25 :
+- Updated Modex
+- Added Emblems
+- Added fr_etendard_IVM_early_mat
+- Added fr_etendard_IVP_early_mat
+
+- Model OBJ Changes:
+	- Added Emblems mesh
+	- Upgraded Cockpit
+	- Separated HSatb from the main fuse
+
+- IVM/IVP/IVPM/SUE/SEM4:
+	- Upgraded textures, Spec and Normal
+	- Aircraft.ini:
+		- Added Emblem mesh
+		- Added HStab as main elevator
+		- Elevators systems right and left ----> Elevator
+	- Squadron.ini:
+		- Added emblems
+		- No more individual squadron liveries, apart from fuel tanks
+		- Fuel tanks textures changes
+
+
+06/09/25 :
+
+- Model OBJ Changes:
+	- Added Modex_3 and Modex_4 (front gear door serials for IVM/IVP/IVPM and SUE/SEM4)
+	- Added texture Details to all versions
+	
+- IVM/IVP/IVPM:
+	- Aircraft.ini:
+		- Added Modex_3 mesh to .ini
+		- Changed variables order:
+			- From (Left):
+					LeftWing_4=WingLeft
+					LeftWing_5=SlatWingLeft
+					LeftWing_6=SlatLeft		
+			- To (Left):
+					LeftWing_4=WingLeft
+					LeftWing_7=DummyFoldLeft
+					LeftWing_8=DummySlatTipLeft
+					LeftWing_5=SlatWingLeft
+					LeftWing_6=SlatLeft	
+			- From (Right):
+					RightWing_4=WingRight
+					RightWing_5=SlatWingRight
+					RightWing_6=SlatRight
+			- To (Right):
+					RightWing_4=WingRight
+					RightWing_7=DummyFoldRight
+					RightWing_8=DummySlatTipRight
+					RightWing_5=SlatWingRight
+					RightWing_6=SlatRight
+		- Mesh Changes:
+			- DummyFoldLeft:
+				- Position= 0,0,0 --> 0.000441  ,0.000011  , -0.000204 
+			- DummySlatTipLeft:
+				- Parent= WingLeft --> DummyFoldLeft
+				- Position= -0.054575 ,-0.005289 , -0.019619 --> 0,0,0
+			- DummyFoldRight:
+				- Position= 0,0,0 --> -0.000441  ,0.000011  , -0.000204 
+			- DummySlatTipRight:
+				- Parent= WingRight --> DummyFoldRight
+				- Position= 0.054575 ,-0.005289 , -0.019619 --> 0,0,0
+	- Squadron.ini:
+		- Added Modex_3 to squadron
+		- (IVPM) Added default 1100L Fuel tank texture path.
+
+- SUE/SEM4:
+	- Aircraft.ini:
+		- Added Modex_4 mesh to .ini
+		- Changed variables order:
+			- From (Left):
+					LeftWing_4=WingLeft
+					LeftWing_5=SlatWingLeft
+					LeftWing_6=SlatLeft		
+			- To (Left):
+					LeftWing_4=WingLeft
+					LeftWing_7=DummyFoldLeft
+					LeftWing_8=DummySlatTipLeft
+					LeftWing_5=SlatWingLeft
+					LeftWing_6=SlatLeft	
+			- From (Right):
+					RightWing_4=WingRight
+					RightWing_5=SlatWingRight
+					RightWing_6=SlatRight
+			- To (Right):
+					RightWing_4=WingRight
+					RightWing_7=DummyFoldRight
+					RightWing_8=DummySlatTipRight
+					RightWing_5=SlatWingRight
+					RightWing_6=SlatRight
+		- Mesh Changes:
+			- DummyFoldLeft:
+				- Position= 0,0,0 --> 0.000441  ,0.000011  , -0.000204 
+			- DummySlatTipLeft:
+				- Parent= WingLeft --> DummyFoldLeft
+				- Position= -0.054575 ,-0.005289 , -0.019619 --> 0,0,0
+			- DummyFoldRight:
+				- Position= 0,0,0 --> -0.000441  ,0.000011  , -0.000204 
+			- DummySlatTipRight:
+				- Parent= WingRight --> DummyFoldRight
+				- Position= 0.054575 ,-0.005289 , -0.019619 --> 0,0,0
+	- Squadrons.ini:
+		- Added Modex_4 to squadron
+		- (SEM4) Added default 1100L Fuel tank texture path to all variants.
+
+- Etendard/Super Animations:
+	- Wings Fold/Extend:
+		- Number of Sequences 4-->2
+
+	- WingDummySlats_extend/WingDummySlats_retract:
+		- Step -0.019619 --> 0
+		- Step -0.017119 --> 0.0025
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+05/09/2025 : 
+
+- US bombs replaced by French ones
+- A couple of loadout fixes
+-------------------------------------------------------------------------------------------------------------------------------
+05/09/2025 : 
+
+- Agave and Anemone radar tweaks by frenchy.
+- Aida Desc change
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+04/09/2025 : 
+
+- Added Barracuda and Barracuda NG ECM pods in sensors.ini (universal jammers to reflect their performance against aircraft radars/fire controle radars, narrow cone and low range 80km and 120km respectively, very limited area coverage as it's DECM).
+- Added new loadouts to SUE and SEM :
+
+- SUE
+	- AirToAirECM (1x Magic1, 2 600L fuel tanks, 1 Barracuda) 
+	- StrikePrecisionECM (1x Magic1, 2 AS30, 1 Barracuda)
+	- StrikePrecisionLightECM (2 Magic 1, 1 AS30, 1 Barracuda)
+	- AntishipECM (2 exocet AM-39, 1 Barracuda)
+	- AntiShipLongRangeECM (1 exocet Am-39, 2 fuels tanks, 1 barracuda)
+
+ - SEM
+	- AirToAirECM (1x Magic1, 1 Barracuda NG, 2 600L fuel tanks, 2 Alkan) 
+	- StrikePrecisionECM (1x Magic1, 2 GBU 12, targeting pod, 1 Barracuda NG, 2 Alkan)
+	- AntishipECM (2 exocet AM-39, 1 BarracudaNG, 2 Alkan)
+	- AntiShipLongRangeECM (1 exocet AM-39, 2 600L fuels tanks, 1 barracuda NG, 2 alkan)
+
+ - Updated corresponding DESC for Barracuda, Type BF, Sherloc and new loadouts.
+ - Fixed systemnames in ammunation_names.ini
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+02/09/25
+
+ - Added Thomson CSF type BF RWR to etendard IVP, Super Etendard.
+ - Added Thomson CSF TMV-011 Sherloc RWR to Super Etendard Modernisé.
+
+IoT reflect the advanced nature of Sherloc for its time (digital RWR with wide frequency range, threat range and azimuth capabilities with threat library and type classification with discrimination between search radars and FCRs -  state of the art for the 80s), it was added in two flavours : RWR to warn of activated FCRs and ESM to reflect its capabilities in threat classification and range/azimuth.
+The info on BF and Sherlock comes from two books on etendard and mirage F1 (iraqi mirages and handbrake! on super etendard in argentinian service).
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+01/09/25
+
+- Added sensor modeling from Moussticot's France Tweaks mod (https://steamcommunity.com/sharedfiles/filedetails/?id=3388634083)
+- Removed Empty and some Default loadouts because they were redundant/useless
+- Added Anti-Ship Long Range loadout to Etendard IVM
+- Added Armed Recon loadouts to IVP (rocket pods) and IVMP (Mica 1 missiles)
+- Added 1100 l tanks to Ferry loadouts on SUE, SEM and IVPM
+- Reordered loadouts (Ferry used to be first in the list)
+- Removed radar from IVP and IVPM
+- Fixed some missing strings
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+08/25/25   -  Update 1
+
+-Corrected Serials
+-Corrected Flags for Argentina and Iraq Versions
+-Argentina Livery adjusted
+
+Bugs:
+-Low Res bug on liveries
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+08/24/25   -  Update 2
+
+-First Release
+
+Bugs:
+-Low Res bug on liveries
+-Serials 01-09 were prototypes, should be 1-9
+-Argentina and Iraq Versions needs specifc flag
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+08/24/25   -  Update 1
+
+-Front Gear Animations fixed
+
+Bugs:
+-Low Res bug on liveries
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+08/23/25   -  Update 2
+
+-Rudder Animation fixed
+-Profile pictures added
+
+Bugs:
+-Low Res bug on liveries
+-Front Gear animations are inconsistent.
+-------------------------------------------------------------------------------------------------------------------------------
+
+08/23/25   -  Update 1
+
+-Aircraft Serials Ready
+-Countermeasures pods rework
+	-Phimat 25-->10
+	-Alkan 25-->5
+-IVM loadout changes:
+	-CAS removed bombs --> added more rocket pods
+-SUE, SEM4 loadout changes:
+	-Strike Heavy Mk82 --> Mk83
+	-Strike Long Range Mk82 --> Mk83
+	
+-Argentina SEM4 added
+-Iraq SUE added
+
+
+
+
+Bugs:
+-Low Res bug on liveries
+-Front Gear and Rudder animations are inconsistent.
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+08/21/25   -  Update 2
+
+-IVM Model and loadout ready
+-IVP Model and loadout ready
+-IVPM Model and loadout ready
+-SUE Model and loadout ready
+-SEM Model and Loadout ready
+
+-Aircraft Serials WIP
+
+
+Bugs:
+-Low Res bug on liveries
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+08/21/25   -  Update 1
+
+-IVM Model and loadout ready
+-IVP Model and loadout ready
+-IVPM Model and loadout ready
+-SUE Model and loadout ready
+
+-Aircraft Serials WIP
+
+
+Bugs:
+-SEM4 Broken WIP
+-Low Res bug on liveries
+
+-------------------------------------------------------------------------------------------------------------------------------

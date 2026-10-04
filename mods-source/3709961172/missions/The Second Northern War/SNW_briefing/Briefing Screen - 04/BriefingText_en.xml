@@ -1,0 +1,83 @@
+<!-- Created by Fre3dysbro. This template is a basic structure for creating XAML layouts for the Mission Briefings in the Sea Power Mission Editor. -->
+
+<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d" d:DesignWidth="1360" d:DesignHeight="768">
+
+<!-- Only "xmlns" and "xmlns:x" are required for standard XAML. The rest were added for design-time and are not necessary for runtime. You can Google what they do and try them out. -->
+
+	<Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="15"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="30"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="20"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="20"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="20"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+	</Grid.RowDefinitions>
+
+<!-- GRID.RowDefinitions defines the number of rows and their height. If TextBlocks overlap in the preview, add more rows as needed. -->
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="20"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+
+<!-- GRID.ColumnDefinitions defines the number of columns and their width. -->
+
+    <TextBlock Grid.Row="0" Grid.Column="0" FontSize="14" FontFamily="Consolas" Text="Sender: Naval High Command"/>
+    <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" FontFamily="Consolas" Text="To: Operational Strike Group Kronshtadt"/>
+    <TextBlock Grid.Row="5" Grid.Column="0" FontSize="18" FontFamily="Consolas" FontWeight="Bold" Text="Combat mission: Operation “Breakthrough to Kaliningrad”"/>
+
+<!-- Don't write all your text into a single TextBlock. XAML is very picky and doesn't like a lot of <LineBreak/> tags within one TextBlock. Splitting your text allows for more customization. -->
+<!-- GRID.Row & GRID.Column define which row or column the TextBlock is placed in. -->
+
+    <TextBlock Grid.Row="7" Grid.Column="0" FontSize="16" FontFamily="Consolas" Text="1. OPERATIONAL SUMMARY"/>
+	<TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="14" TextWrapping="Wrap" FontFamily="Consolas">
+		Having neutralized the threat in the Gulf of Riga, we can finally send convoys to besieged Kaliningrad, whose garrison has been heroically holding the line for several days.
+        <LineBreak/>
+        This will not be an easy walk, as NATO forces in the region, despite the fact that they have not yet fully mobilized, remain extremely numerous. Especially beware
+        <LineBreak/>
+        their aircraft. The further away from our shores, the sooner the Grippens or Eurofighters appear, pelting us with cruise missiles.
+        <LineBreak/>
+        Also, do not discount the Poles, they still have several ships in the area of the Curonian Spit.
+        <LineBreak/>
+        Save your air defense systems, the way to Baltiysk is not close, and the enemy's territory is around. Good luck. 
+		<LineBreak/>
+	</TextBlock>
+
+    <TextBlock Grid.Row="11" Grid.Column="0" FontSize="16" FontFamily="Consolas" Text="2. SUBORDINATE FORCES"/>
+	<TextBlock Grid.Row="13" Grid.ColumnSpan="4" FontSize="14" TextWrapping="Wrap" FontFamily="Consolas">
+		- 1. An operational strike group consisting of the ships pr. 20380 "Boiky" and "Perfect", pr. 1135M "Burevestnik" and a cargo convoy consisting of six vessels
+        <LineBreak/>
+        - 2. Fighter aircraft of the Baltic Fleet, based near Kaliningrad
+        <LineBreak/>
+        - 3. S-300 Division
+		<LineBreak/>		
+	</TextBlock>
+
+</Grid>

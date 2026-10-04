@@ -493,8 +493,29 @@ def provider_of(path):
 
 
 # Anchor Chain's layering directives: a file that starts with one is a patch
-# whose keys win over the base it names.
-LAYER_DIRECTIVE = re.compile(r"^\ufeff?#!(?:alias|extend)\s+(\S+)")
+# whose keys win over the base it names. "Starts with" allows a leading
+# comment banner: Euromod's October 2026 SAM stubs (wp_40n6, wp_48n6e2 and 37
+# more) open with three '#=====' lines and put the directive on line 5, and
+# reading only line 1 turned the 40N6 into a round with no range, so the
+# trimmer dropped a working S-400 TEL. Whether Anchor Chain itself honours a
+# directive below a banner is an in-game question; the campaign builder
+# already reads one anywhere in the file.
+_LAYER_LINE = re.compile(r"^\ufeff?#!(?:alias|extend)\s+(\S+)")
+
+
+class _LayerDirective:
+    def match(self, text):
+        for line in text.splitlines():
+            stripped = line.strip().lstrip("\ufeff")
+            if not stripped:
+                continue
+            m = _LAYER_LINE.match(stripped)
+            if m or not stripped.startswith("#"):
+                return m
+        return None
+
+
+LAYER_DIRECTIVE = _LayerDirective()
 
 
 def layered_text(relpath):
