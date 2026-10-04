@@ -1,0 +1,83 @@
+25/9/2026
+- Changed name bra_a4m : A-4M --> AF-1A Skyhawk
+- Changed bra_a4m loadout: usaf_aim-9b --> usn_aim-9h
+- Niterói (2005): updated Exocet missile fr_mm-38 --> fr_mm-40_block1
+
+12/9/2026
+- Removed [REDACTED]
+
+7/9/2026
+- Niterói 2005 class: Fixed missing Aspide missile
+
+1/9/2026
+- Fixed white crew (Updated rn_crew path)
+- Fixed Riachuelo's missing systems
+
+26/7/2026
+- Deleted multiple copied sensors(They are included in Euromod)
+- Added UH-12
+- Added SH-16
+- Added NDCC Mattoso Maia G28
+- Deleted unused A4 variants
+- Updated UI profiles: Niterói(Both), Tamandaré, AH11, AH11B
+
+-Niterói(2005) class:
+	-Changed SAM SystemName: MK29 --> eu_Aspide
+	-Changed SAM Magazine ammunition: usn_rim-7m --> eu_mm_aspide
+
+-Niterói,Garcia,Type22 class:
+	- Changed torpedo: Mk46 --> Mk44
+
+-Clemenceau class:
+	- Added Torpedo Magazine (Mk44)
+
+-Ocean Class:
+	- Changed MH-60R (Standalone mod) --> SH-16 (US Navy Aircraft mod)
+	- Added new UH-12
+	- Removed AH-11
+
+-Garcia class:
+	- Added bra_ah11 and supported aircrafts (bra_ah11,bra_ah11b,bra_uh12)
+
+-Niteroi class:
+	- Changed custom Ikara models to Game's ones.
+	- Added Landing lights
+
+-Tamandaré class:
+	- Added Colliders
+	- UV and Textures revamped
+	- Added F201,F202,F203 variants
+
+-Riachuelo class:
+	-Added extra sensors: Flank arrays L and R
+
+
+
+
+
+-----------------------------------------------------------------------------------
+- Added Riachuelo Class Submarine
+- Fixed Niteroi Colliders
+- Added Pará class frigate
+
+
+
+- Added HMS Ocean/ NAM Atlantico
+
+- Added bra_ah11,bra_ah11b,bra_uh14,bra_uh15,bra_ah15 names to language_en
+
+- Fixed bra_ffg_tamandare CAMM sytems:
+    - WeaponMagazine_camm:
+        - Ammunition1=rn_camm --> mbda_camm
+
+- Added effects/weapons/emitters/MANSUP_launcher_effect.ini
+
+- Added missing some profile pictures
+
+- Systems weapons.ini:
+    -   [MK141_MANSUP]: 
+        SmokeEffect=effects/weapons/emitters/MANSUP_launcher_effect.ini
+        SmokeEffectPosition=0,0.0,0.065
+        SmokeEffectDirectional=True
+
+

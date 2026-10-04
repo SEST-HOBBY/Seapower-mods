@@ -1,0 +1,27 @@
+<TextBlock TextAlignment="Justify" FontSize="14" FontFamily="Segoe UI" Foreground="White">
+    <Run FontSize="20" FontWeight="Bold">FLASH</Run>
+    <LineBreak/>
+    <Run FontWeight="Bold">South Georgia, South Atlantic</Run>
+    <LineBreak/>
+   13th October 1985 0600 Local
+    <LineBreak/>
+	Officer Commanding, HMS Invincible
+    <LineBreak/>
+	From Northwood
+	<LineBreak/><LineBreak/>
+    Soviet Fleet attempting breakout. <LineBreak/> Engage and neutralise.
+    <LineBreak/>
+    Submarine and air assets availible.<LineBreak/>
+   
+    <LineBreak/>
+   
+ 
+    <Run FontSize="16" Foreground="Yellow" FontWeight="Bold">Objectives:</Run>
+    <LineBreak/>  <LineBreak/>
+     <Run FontWeight="Bold">OBJ ALPHA DEFEND</Run>   <LineBreak/>Loss of both carriers unacceptable.
+     <LineBreak/>  <LineBreak/>
+     <Run FontWeight="Bold">OBJ BETA NEUTRALISE</Run>   <LineBreak/>Use any and all assets to sink key Soviet units. <LineBreak/> 
+    One Kirvo class, one Slava class, and one Kiev class identified via satellite.<LineBreak/> <LineBreak/> 
+    
+ For the Service
+</TextBlock>

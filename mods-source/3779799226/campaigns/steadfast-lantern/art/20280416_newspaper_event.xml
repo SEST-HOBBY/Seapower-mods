@@ -1,0 +1,113 @@
+<!-- STEADFAST LANTERN - campaign map narrative card, shown before Mission 01.
+     Self-contained: no {Binding Assets[...]} image brushes, so this file needs
+     no companion PNG and cannot break on a missing asset. -->
+
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  d:DesignWidth="1920"
+  d:DesignHeight="1080">
+  <Viewbox>
+    <Border Background="#EFE7D6" HorizontalAlignment="Center" VerticalAlignment="Center"
+            Width="900" Height="1272" Padding="45"
+            TextElement.FontFamily="Times New Roman" TextElement.Foreground="Black" TextElement.FontSize="16">
+      <Border.Effect>
+        <DropShadowEffect />
+      </Border.Effect>
+      <StackPanel Orientation="Vertical">
+
+        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+        <TextBlock FontFamily="Helvetica" Text="Sunday, 16 April 2028  |  European Edition  |  No. 21,884  |  2.80 EUR"
+                   Margin="0,5,0,5" FontSize="15"/>
+        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+
+        <TextBlock Text="The European Herald" TextAlignment="Center" FontSize="88" FontWeight="Bold" Margin="0,6,0,6"/>
+        <Rectangle HorizontalAlignment="Stretch" Height="2" Fill="Black"/>
+
+        <TextBlock FontFamily="Impact" FontWeight="Bold" FontSize="112" TextWrapping="Wrap"
+                   TextAlignment="Center" Margin="0,14,0,0">
+          THE APPROACHES CLOSE<LineBreak/>
+          <Run Text="NATO SQUADRON REFUSES ORDERS, SHUTS THE DANISH STRAITS" FontSize="34"/>
+        </TextBlock>
+
+        <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,14,0,14"/>
+
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="28"/>
+            <ColumnDefinition Width="2*"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+          <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical">
+            <TextBlock Text="Alliance cannot agree what to call it" FontSize="24" TextWrapping="Wrap"
+                       FontFamily="Helvetica" TextAlignment="Left" Margin="0,0,0,12"/>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Justify" LineHeight="21">
+              COPENHAGEN / BRUSSELS &#8212; The standing maritime group that has patrolled the North Sea
+              for the past four years has stopped answering its own headquarters.
+              <LineBreak/><LineBreak/>
+              In a signal transmitted in clear at 0400 on Saturday and picked up by every merchant in
+              the Kattegat, the group&#8217;s commander, Konteradmiral Reimar Vahl, announced that the
+              Baltic approaches were closed to naval traffic and would remain closed &#8220;until the
+              alliance is prepared to decide something.&#8221;
+              <LineBreak/><LineBreak/>
+              The declaration follows five weeks of consultations that produced no agreed response to
+              the sabotage of three undersea cables and a gas interconnector in the eastern Baltic.
+              A communique described the attacks as &#8220;a matter of grave concern.&#8221; No further
+              measures were announced.
+              <LineBreak/><LineBreak/>
+              Vahl&#8217;s squadron consists of ships contributed by several member states and remains,
+              on paper, an allied formation. Officials in three capitals spent Saturday disagreeing
+              over whether the correct word is mutiny, and one senior officer, speaking on condition of
+              anonymity, said the more difficult question was whether the admiral was wrong.
+              <LineBreak/><LineBreak/>
+              &#8220;He has not fired on anyone,&#8221; the officer said. &#8220;He has done in one morning
+              what we failed to do in five weeks, which is force a decision. That is exactly the problem.&#8221;
+              <LineBreak/><LineBreak/>
+              A second allied formation, reported as Task Group NORTHWIND, was ordered to sea from
+              Wilhelmshaven late on Saturday. Its orders have not been made public.
+            </TextBlock>
+          </StackPanel>
+
+          <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Vertical">
+            <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,0,0,8"/>
+            <TextBlock Text="INSURERS SUSPEND COVER" FontFamily="Helvetica" FontWeight="Bold"
+                       FontSize="19" TextWrapping="Wrap" Margin="0,0,0,8"/>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Justify" FontSize="15" LineHeight="19">
+              War-risk cover for hulls transiting the Skagerrak and the Belts was withdrawn within
+              nine hours of the signal. Rates for the few underwriters still quoting have risen
+              roughly elevenfold.
+              <LineBreak/><LineBreak/>
+              Two hundred and forty ships were in the approaches at the time of the announcement.
+              Most are still there. Masters have been advised to hold position and keep their
+              transponders on.
+            </TextBlock>
+
+            <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,14,0,8"/>
+            <TextBlock Text="&#8216;THEY KNOW OUR PROCEDURES&#8217;" FontFamily="Helvetica" FontWeight="Bold"
+                       FontSize="19" TextWrapping="Wrap" Margin="0,0,0,8"/>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Justify" FontSize="15" LineHeight="19">
+              Naval analysts note that both formations operate the same classes of ship, the same
+              sensors and the same recognition procedures.
+              <LineBreak/><LineBreak/>
+              &#8220;There is no technical way to tell them apart at sea,&#8221; one former staff officer
+              said. &#8220;Whoever is sent up there will be looking at his own fleet through his own
+              radar and guessing.&#8221;
+            </TextBlock>
+          </StackPanel>
+        </Grid>
+
+        <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Black" Margin="0,16,0,6"/>
+        <TextBlock FontFamily="Helvetica" FontSize="13" TextAlignment="Center" Foreground="#333333"
+                   Text="Shipping 4  &#183;  Markets 11  &#183;  Comment 18: &#8216;An alliance that cannot decide has decided anyway&#8217;"/>
+
+      </StackPanel>
+    </Border>
+  </Viewbox>
+</Page>

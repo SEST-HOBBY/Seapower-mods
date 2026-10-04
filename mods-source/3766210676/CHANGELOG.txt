@@ -1,0 +1,15 @@
+Saronic Corsair ASV
+October 3, 2026
+Corsair model and preview update
+
+New Corsair model and textures for all seven configurations, with sloped upper hull sides and U.S. Navy markings.
+
+Fixed backwards hull lettering and added 001 to both sides of the bow.
+
+Three smaller stern drives with steering and spinning propellers.
+
+Updated gun and launcher models. The combined loadout keeps the gun forward and the launcher aft.
+
+Radar rotation and optical-head tracking use their moving mounts.
+
+New preview from an in-game screenshot, with "COMMAND OF THE SEAS".

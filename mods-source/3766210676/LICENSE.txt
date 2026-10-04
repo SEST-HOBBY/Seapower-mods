@@ -1,0 +1,60 @@
+Saronic Corsair ASV FOR SEA POWER
+PROPRIETARY LICENSE - ALL RIGHTS RESERVED
+
+Copyright (c) 2026 RSG
+Official maintainer and release authority: AlpineStatic (Alpine)
+
+SCOPE
+
+This license applies only to original code, compiled assemblies, INI
+definitions, 3D models, textures, missions, writing, configuration, and other
+original material created for this mod ("Original Project Material").
+
+Sea Power and all third-party software, dependencies, trademarks, artwork, and
+other third-party material remain the property of their respective rights
+holders. Their licenses and notices remain in effect. This license does not
+grant ownership of or change the terms for any third-party material. Anchor
+Chain and Harmony are separate works with their own licenses and are not
+included in this mod.
+
+PERMISSIONS
+
+You may install and use the official mod for personal, non-commercial gameplay.
+You may create compatibility patches that add content alongside this mod,
+provided they do not copy, replace, override, or redistribute Original Project
+Material. No other permission is granted without prior written authorization
+from RSG or AlpineStatic.
+
+RESTRICTIONS
+
+Without prior written permission, you may not copy, mirror, repackage, re-upload,
+sell, sublicense, or redistribute Original Project Material in whole or in part.
+You may not extract assets, decompile or reverse engineer the mod for reuse,
+or use Original Project Material in another mod, game, product, or project.
+You may not create or distribute retextures, replacement assets, modified builds,
+ports, forks, or derivative works that copy, modify, override, or replace
+Original Project Material.
+
+Do not use the plugin ID "alpine.seapower.corsair", the mod's name, or its
+branding to present an unofficial release as official, approved, or a
+successor.
+
+These restrictions apply to the maximum extent permitted by law. They do not
+limit rights that applicable law expressly grants and does not allow waived.
+
+DISCLAIMER
+
+Sea Power is developed by Triassic Games and published by MicroProse. This mod
+is an unofficial project and is not affiliated with or endorsed by Triassic
+Games, MicroProse, the makers or operators of the real equipment it depicts, or
+any third-party rights holder whose material it references.
+
+The mod is provided "as is," without warranty of any kind. To the maximum extent
+permitted by law, the authors and maintainers are not liable for claims,
+damages, or other liability arising from its use.
+
+Unauthorized use may result in platform reports, copyright complaints, and
+other remedies available under applicable law.
+
+For permissions or licensing inquiries, contact AlpineStatic through the
+official Steam Workshop page.

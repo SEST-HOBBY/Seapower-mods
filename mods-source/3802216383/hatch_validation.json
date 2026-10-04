@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "hatches": [
+    {
+      "height_m": 1.7999999981737704,
+      "width_m": 0.6499999995442699,
+      "maximum_wall_depth_change_m": 3.584418775104113e-09
+    },
+    {
+      "height_m": 1.7999999981737704,
+      "width_m": 0.6499999974856706,
+      "maximum_wall_depth_change_m": 3.484742405353322e-09
+    },
+    {
+      "height_m": 1.7999999981737704,
+      "width_m": 0.6500000043993566,
+      "maximum_wall_depth_change_m": 3.3267337957571563e-09
+    },
+    {
+      "height_m": 1.7999999981737704,
+      "width_m": 0.6499999988269497,
+      "maximum_wall_depth_change_m": 3.782522955701861e-09
+    },
+    {
+      "height_m": 1.7999999981737704,
+      "width_m": 0.6499999936312834,
+      "maximum_wall_depth_change_m": 3.5083623240194216e-09
+    },
+    {
+      "height_m": 1.7999999981737704,
+      "width_m": 0.649999998059156,
+      "maximum_wall_depth_change_m": 3.6537562815744187e-09
+    }
+  ],
+  "changed_vertices": 1128,
+  "faces_preserved": 619342,
+  "changed_files": [
+    "BUILD_R10_53_VERIFY.txt",
+    "INSTALL_STATUS.txt",
+    "model_transition_manifest.json",
+    "README_MODEL_TRANSITION.md",
+    "VALIDATION.md",
+    "WORKSHOP_CHANGELOG.txt",
+    "_info.ini",
+    "vessels\\jmsdf_ddh_hyuga.ini",
+    "ships\\jmsdf_ddh_hyuga\\jmsdf_ddh_hyuga_r10_51.obj"
+  ],
+  "game_tested": false
+}

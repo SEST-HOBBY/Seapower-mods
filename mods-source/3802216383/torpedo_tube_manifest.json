@@ -1,0 +1,189 @@
+{
+  "tubes": [
+    {
+      "name": "Hyuga_Torpedo_Starboard_1_Cover",
+      "side": "Starboard",
+      "index": 1,
+      "axis": [
+        0.6569777399974706,
+        0.0,
+        0.7539099741665551
+      ],
+      "yaw": 41.06978334150727,
+      "muzzle": [
+        0.14424540697372706,
+        0.06908872095312499,
+        -0.8007047348736183
+      ],
+      "hinge": [
+        0.14391691810372834,
+        0.06714587140312499,
+        -0.8010816898607015
+      ],
+      "angle": 105,
+      "faces": 286,
+      "radius": 0.0019428495500000004,
+      "cut": -0.5094032645049933
+    },
+    {
+      "name": "Hyuga_Torpedo_Starboard_2_Cover",
+      "side": "Starboard",
+      "index": 2,
+      "axis": [
+        0.6569647390941679,
+        0.0,
+        0.7539213033115141
+      ],
+      "yaw": 41.06879530405213,
+      "muzzle": [
+        0.14769712815686667,
+        0.06908871708125,
+        -0.8037126112767596
+      ],
+      "hinge": [
+        0.1473686457873196,
+        0.06714586573125,
+        -0.8040895719284153
+      ],
+      "angle": 105,
+      "faces": 286,
+      "radius": 0.0019428513500000036,
+      "cut": -0.5094142541171411
+    },
+    {
+      "name": "Hyuga_Torpedo_Starboard_3_Cover",
+      "side": "Starboard",
+      "index": 3,
+      "axis": [
+        0.6569722008848874,
+        0.0,
+        0.7539148010647272
+      ],
+      "yaw": 41.0693623804268,
+      "muzzle": [
+        0.14591304543768224,
+        0.072580925259375,
+        -0.8021579522565825
+      ],
+      "hinge": [
+        0.1455845593372398,
+        0.074523776159375,
+        -0.8025349096571148
+      ],
+      "angle": -105,
+      "faces": 286,
+      "radius": 0.001942850900000001,
+      "cut": -0.5094079383989997
+    },
+    {
+      "name": "Hyuga_Torpedo_Port_1_Cover",
+      "side": "Port",
+      "index": 1,
+      "axis": [
+        -0.6569674130960006,
+        0.0,
+        0.753918973186077
+      ],
+      "yaw": -41.06899852056228,
+      "muzzle": [
+        -0.14220212443199348,
+        0.06908872219375,
+        -0.8027483596487557
+      ],
+      "hinge": [
+        -0.14187364072544548,
+        0.06714587084375,
+        -0.8031253191353487
+      ],
+      "angle": 105,
+      "faces": 286,
+      "radius": 0.0019428513499999966,
+      "cut": -0.5122950572083552
+    },
+    {
+      "name": "Hyuga_Torpedo_Port_2_Cover",
+      "side": "Port",
+      "index": 2,
+      "axis": [
+        -0.656963822225591,
+        0.0,
+        0.7539221022670326
+      ],
+      "yaw": -41.06872562480079,
+      "muzzle": [
+        -0.13875041835581484,
+        0.06908871821250002,
+        -0.7997404722055331
+      ],
+      "hinge": [
+        -0.13842193644470205,
+        0.06714586681250002,
+        -0.8001174332566666
+      ],
+      "angle": 105,
+      "faces": 286,
+      "radius": 0.0019428514000000008,
+      "cut": -0.5122980128947889
+    },
+    {
+      "name": "Hyuga_Torpedo_Port_3_Cover",
+      "side": "Port",
+      "index": 3,
+      "axis": [
+        -0.6569742636678723,
+        0.0,
+        0.7539130035210012
+      ],
+      "yaw": -41.06951914734505,
+      "muzzle": [
+        -0.14053447902762198,
+        0.07258092684999998,
+        -0.8012951645589272
+      ],
+      "hinge": [
+        -0.14020599189578803,
+        0.07452377529999998,
+        -0.8016721210606877
+      ],
+      "angle": -105,
+      "faces": 286,
+      "radius": 0.0019428484499999996,
+      "cut": -0.5122893083403558
+    }
+  ],
+  "separated_cover_faces": 1716,
+  "basis": "Existing modeled tube end faces; native torpedo hatch/container configuration and MK32 timing. Cover hinge motion is a model-informed approximation, not a surveyed HOS-303 mechanism.",
+  "cluster_translation_metres": [
+    0,
+    0,
+    -0.25
+  ],
+  "closed_cover_reconstruction_max_error_game_units": 7.849458207841027e-11,
+  "clearance": [
+    {
+      "tube": "Hyuga_Torpedo_Starboard_1_Cover",
+      "blocked_rays": []
+    },
+    {
+      "tube": "Hyuga_Torpedo_Starboard_2_Cover",
+      "blocked_rays": []
+    },
+    {
+      "tube": "Hyuga_Torpedo_Starboard_3_Cover",
+      "blocked_rays": []
+    },
+    {
+      "tube": "Hyuga_Torpedo_Port_1_Cover",
+      "blocked_rays": []
+    },
+    {
+      "tube": "Hyuga_Torpedo_Port_2_Cover",
+      "blocked_rays": []
+    },
+    {
+      "tube": "Hyuga_Torpedo_Port_3_Cover",
+      "blocked_rays": []
+    }
+  ],
+  "validation": "17 sampled rays per tube at 324mm diameter, over 20 metres along the fixed launch axis with covers open; no hull intersections. Offline check only."
+}

@@ -1,0 +1,36 @@
+07/12/25 (Frenchy)
+
+- Added Indian Navy variant with skins and British ordnance (thanks to the Royal Navy mod devs)
+
+- Added AS-12 missile to Alizé and ALM (thanks to petrouvis)
+
+- Added serials for all variants
+
+- Added profiles for all variants
+
+- Made the canopy antenna into a separate submodel and hid it on base Alizé
+
+- Replaced the crew models
+
+- Reclassified Alizé and ALM as ASW Planes
+
+- Reclassified ALH as AEW&C
+
+- Redid descriptions for each variant.
+
+- Removed MAD from all variants (it never had one)
+
+- Removed chaff from Alizé base variant
+
+--------------------------------------------------------------------------------
+
+15/09/25
+
+-Added br1050m_mat.ini
+
+
+--------------------------------------------------------------------------------
+
+8/23/25 - Update 1
+
+-First WIP release

@@ -1,0 +1,123 @@
+{
+  "build": "R10.54",
+  "hatches": [
+    {
+      "hatch": 1,
+      "old_height_m": 1.4342451875855826,
+      "target_height_m": 1.8,
+      "target_width_m": 0.65,
+      "sill_y": 0.3052223651,
+      "wall_normal": [
+        0.9981678912903336,
+        -0.060157840086800245,
+        0.0064726403499729655
+      ],
+      "vertex_count": 188,
+      "groups": [
+        "Hull",
+        "New_HullSmall",
+        "Hull_Damaged",
+        "New_HullSmall_Damaged"
+      ]
+    },
+    {
+      "hatch": 2,
+      "old_height_m": 1.4312335402670906,
+      "target_height_m": 1.8,
+      "target_width_m": 0.65,
+      "sill_y": 0.3217558255,
+      "wall_normal": [
+        -0.004178398861698578,
+        -0.0147062838036644,
+        0.9998831262700851
+      ],
+      "vertex_count": 188,
+      "groups": [
+        "Hull",
+        "New_HullSmall",
+        "Hull_Damaged",
+        "New_HullSmall_Damaged"
+      ]
+    },
+    {
+      "hatch": 3,
+      "old_height_m": 1.4295381690142002,
+      "target_height_m": 1.8,
+      "target_width_m": 0.65,
+      "sill_y": 0.3217688672,
+      "wall_normal": [
+        -0.0009768222257235974,
+        -0.005138663780338212,
+        0.9999863198828731
+      ],
+      "vertex_count": 188,
+      "groups": [
+        "Hull",
+        "New_HullSmall",
+        "Hull_Damaged",
+        "New_HullSmall_Damaged"
+      ]
+    },
+    {
+      "hatch": 4,
+      "old_height_m": 1.4330871193717467,
+      "target_height_m": 1.8,
+      "target_width_m": 0.65,
+      "sill_y": 0.2584727699,
+      "wall_normal": [
+        0.00707635714974979,
+        0.1271394758645117,
+        -0.9918596064193697
+      ],
+      "vertex_count": 188,
+      "groups": [
+        "Hull",
+        "New_HullSmall",
+        "Hull_Damaged",
+        "New_HullSmall_Damaged"
+      ]
+    },
+    {
+      "hatch": 5,
+      "old_height_m": 1.4291714163324145,
+      "target_height_m": 1.8,
+      "target_width_m": 0.65,
+      "sill_y": 0.2585822587,
+      "wall_normal": [
+        -0.006821050105056974,
+        0.16944907376576024,
+        0.9855153396448937
+      ],
+      "vertex_count": 188,
+      "groups": [
+        "Hull",
+        "New_HullSmall",
+        "Hull_Damaged",
+        "New_HullSmall_Damaged"
+      ]
+    },
+    {
+      "hatch": 6,
+      "old_height_m": 1.4291714232392452,
+      "target_height_m": 1.8,
+      "target_width_m": 0.65,
+      "sill_y": 0.2585822513,
+      "wall_normal": [
+        -0.0068203453094134074,
+        0.16944917172308183,
+        0.9855153276800019
+      ],
+      "vertex_count": 188,
+      "groups": [
+        "Hull",
+        "New_HullSmall",
+        "Hull_Damaged",
+        "New_HullSmall_Damaged"
+      ]
+    }
+  ],
+  "changed_vertices": 1128,
+  "changed_faces": 4704,
+  "extra_normals": 1838,
+  "game_tested": false
+}

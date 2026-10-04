@@ -1,0 +1,10 @@
+--- Model and textures by Berdo;
+
+--- Radars models and textures by Petrouvis;
+--- Crotale textures by Petrouvis;
+--- Misaka for the R440
+
+--- Special thanks to:
+	-MitcheLL600 for the blueprints;
+	-Frenchy for reference info on variants;
+	-Skyblazer, Miska and Cellinia_Texas for modeling support.
