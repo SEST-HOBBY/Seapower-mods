@@ -12,9 +12,9 @@ new models are needed.
 | Base | Air group |
 |---|---|
 | **RAAF Base Williamtown** | 24× F-35A (3 SQN / 77 SQN liveries) · 6× F-15EX (114th FS) · 3× E-7A Wedgetail |
-| **RAAF Base Tindal** | 12× F-35A (75 SQN) · 8× F-15EX (123rd FS) · 4× B-52H · 2× B-2 Spirit · 2× KC-135 · 4× MQ-9 |
+| **RAAF Base Tindal** | 12× F-35A (75 SQN) · 8× F-15EX (123rd FS) · 4× B-52H · 2× B-2 Spirit · 2× KC-135 · 4× MQ-9 · 2× MQ-4C Triton (det) |
 | **RAAF Base Amberley** | **24× F-15EX Eagle II** — full two-squadron wing (44th / 67th FS) · 2× B-1B · 3× KC-46A (boom) · 2× KC-10A · 2× E-3G |
-| **RAAF Base Edinburgh** | 8× P-8A (**No.12 SQN RAAF livery**) · 4× MQ-9 |
+| **RAAF Base Edinburgh** | 8× P-8A (**No.12 SQN RAAF livery**) · 4× MQ-9 · 3× MQ-4C Triton (9 SQN) |
 | **RAAF Base Darwin** | 8× F-35A · 8× F-15EX (85th TES) · 2× KC-46A (drogue) · 2× P-8A · 4× MH-60R |
 | **RAAF Base East Sale** | 4× F-35A (lead-in det) · 4× MQ-9 (training) |
 | **RAAF Base Pearce** | 8× F-35A (conversion unit) · 2× KC-46A |
@@ -43,19 +43,31 @@ crisis posture, since an empty airfield already exists as vanilla scenery.)
 
 ## Dependencies (aircraft resolve from their own mods)
 
-RAAF F-35A (Greene) · E-7A Wedgetail (Pog Frog — deprecated but functional) · Boeing P-8
-Poseidon (Kirameki) · F-15EX + B-52H + B-1B (dingtools, keep Weapon Pack above them) ·
-B-2 Spirit (needs Anchor Chain + SeaLifter) · E-3G · KC-46A · KC-10A Extender · MQ-9 Reaper ·
-U-2 Dragon Lady · AH-64E (misaka AH-64 pack) · KC-130T + an MH-60R source (US Naval Aviation) ·
-S-70B-2 Seahawk (Pog Frog) · KC-135A is vanilla.
+RAAF F-35A (Greene) · E-7A Wedgetail (Pog Frog, 3499239964 — tagged deprecated by its author,
+kept on purpose as the only E-7A) · Boeing P-8 Poseidon (Kirameki) · F-15EX + B-52H + B-1B
+(dingtools, keep Weapon Pack above them) · B-2 Spirit (needs Anchor Chain + SeaLifter) ·
+E-3G · KC-46A · KC-10A Extender · KC-135 Stratotanker (the game's own KC-135A stub went in
+0.8.3) · MQ-9 Reaper · U-2 Dragon Lady · AH-64E (misaka AH-64 pack) · KC-130T (US Naval
+Aviation) · an MH-60R source (U.S. Navy 2027 Capabilities, whose copy outranks US Naval
+Aviation's and the MH-60R mod's) · S-70B-2 Seahawk (Pog Frog, 3403661005 — also tagged
+deprecated and kept as the only source) · MQ-4C Triton (SEST ADF Persistent ISR, in the same
+consolidated pack). `python3 tools/check_dependencies.py` derives the list from the files;
+the types a SEST pack also ships it reports under `SEST_Integration`.
 
 A squadron whose source mod is missing simply won't spawn — the base itself still works.
 
 ## Install
 
-1. Copy `SEST_RAAF_Bases/` into `Sea Power_Data\StreamingAssets\`.
-2. Place it **below** the aircraft mods in the Mod Manager (bases last, per the repo's load-order doc).
-3. The fifteen bases appear in the mission editor as Australian airbase land units.
+1. Nothing to copy or place by hand. `tools/build_all.py` consolidates this pack into
+   `SEST_Integration`, the one SEST entry in the Mod Manager, which stays first, above every
+   Workshop mod (`data/load-order.tokens.txt`). On the gaming PC `tools\sync-sest.ps1`
+   deploys it and writes that order; a Workshop subscriber gets it inside the SEST
+   Integration Pack and runs `SETUP - double-click me.cmd` in the pack folder, with the game
+   closed, to write the same order.
+2. Never move that pack below the aircraft mods, as the per-pack install once said: every
+   override in it would stop applying.
+3. The seventeen bases (15 Australian, two New Zealand) appear in the mission editor as
+   airbase land units.
 
 ## First-flight checks
 
@@ -72,7 +84,7 @@ A squadron whose source mod is missing simply won't spawn — the base itself st
 python3 integration/raaf-bases/build_pack.py
 ```
 
-Regenerates all fifteen bases from the template and re-validates every aircraft id and squadron
+Regenerates all seventeen bases from the template and re-validates every aircraft id and squadron
 index — searching the SEST packs as well as `mods-source/` and vanilla, since several types only get
 their full squadron list from a SEST pack. It counts real `[SquadronN]` sections rather than trusting
 `NumberOfSquadrons`, because mods do lie about that (the F-22 mod declares 7 and defines 1). It fails

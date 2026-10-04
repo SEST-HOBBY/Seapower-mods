@@ -162,7 +162,11 @@ class BandaFrontHandoverTests(unittest.TestCase):
             original = Mission(source)
             lean = Mission(temp / "SEST Banda Front Lean.ini")
             self.assertEqual([], lean.verify())
-            self.assertEqual(414, sum(len(lean.units(side, "LandUnit")) for side in trim.SIDES))
+            # 413 since the 4 Oct 2026 export: Euromod's update ships its own
+            # wp_40n6 (an alias of its S-400 round, 216 nm with a 33 ft floor),
+            # which outranks S-400 SAM's 250 nm / 21000 ft copy, and with it one
+            # wp_sa-21_40n6_tel no longer earns its place. It was 414 before.
+            self.assertEqual(413, sum(len(lean.units(side, "LandUnit")) for side in trim.SIDES))
             for side in trim.SIDES:
                 original_forms = [(key, tail) for _, key, _, tail in original.formation_specs(side)]
                 lean_forms = [(key, tail) for _, key, _, tail in lean.formation_specs(side)]

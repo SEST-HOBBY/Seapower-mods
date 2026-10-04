@@ -429,6 +429,25 @@ def edit(text, pattern, repl, expect, ctx):
     return out
 
 
+# A second shipper this pack has looked at and accepted, on one condition: it
+# ranks BELOW the donor in data/load-order.tokens.txt, so its copy never loads
+# whether this pack ships the file or not. Checked on every build; the moment
+# the order puts it above the donor, the guard stops again.
+OUTRANKED_PROVIDERS = {
+    # Ultimate Missile Workshop (October 2026) ships its own Stunner, a
+    # different file rather than David's Sling's with the separator fixed. It
+    # is kept at the bottom of the order, below every mod it duplicates.
+    "ammunition/idf_stunner.ini": {"3672072359"},
+}
+
+
+def _rank():
+    tokens = [t.strip() for t in (ROOT / "data" / "load-order.tokens.txt")
+              .read_text(encoding="utf-8").splitlines()
+              if t.strip() and not t.startswith("#")]
+    return {t: i for i, t in enumerate(tokens)}
+
+
 def sole_provider(rel, expected_mod):
     """Every file here is a whole-file override of ONE mod's copy. If a
     re-export brings a second provider, shipping ours would silently delete
@@ -438,6 +457,14 @@ def sole_provider(rel, expected_mod):
         p.parts[-3] for p in MODS.glob(f"*/{rel}")
         if p.parts[-3] not in (expected_mod, "_vanilla")
     )
+    accepted = OUTRANKED_PROVIDERS.get(rel, set())
+    if accepted & set(others):
+        rank = _rank()
+        for mod in sorted(accepted & set(others)):
+            if mod not in rank or expected_mod not in rank or rank[mod] < rank[expected_mod]:
+                sys.exit(f"{rel}: {mod} is accepted only while it ranks below "
+                         f"{expected_mod} in data/load-order.tokens.txt, and it does not")
+        others = [o for o in others if o not in accepted]
     if others:
         sys.exit(f"{rel}: now also shipped by {others}, not just {expected_mod}. "
                  "Overriding it would silently delete their copy - re-verify which "
@@ -515,11 +542,25 @@ def build_damage_ini():
 
 
 # ------------------------------------------- the rounds the table would break
-def lower_floor(donor, name, header):
+def lower_floor(donor, name, header, upstream_fixed=None):
     """One area SAM's 70,000 ft floor down to SM6_FLOOR. The only other line
-    it adds is the SEST Replenishment metering tag, explained below."""
+    it adds is the SEST Replenishment metering tag, explained below.
+
+    upstream_fixed: the header to use instead when the donor has already
+    lowered the floor itself. Red Storm Arsenal did that for usn_rim_174a and
+    usn_rim_174c in its October 2026 update (both now floor at 10 ft) but not
+    for usn_rim_174b. The file still ships, unchanged but for the tag, because
+    SEST Replenishment meters the round and reads the tag from this copy."""
     sole_provider(f"ammunition/{name}.ini", donor)
     t = read(donor, f"ammunition/{name}.ini")
+    floor = re.search(r"^MinAttackAltitude=(\d+)(\s|$)", t, re.M)
+    if not floor:
+        sys.exit(f"{name}: no MinAttackAltitude line - re-read the donor")
+    fixed_upstream = int(floor.group(1)) <= int(SM6_FLOOR)
+    if fixed_upstream and upstream_fixed is None:
+        sys.exit(f"{name}: the donor's floor is already {floor.group(1)} ft - this "
+                 "override no longer has a floor to fix; give it an upstream_fixed "
+                 "header or retire it")
 
     # If this stops being a general-purpose round with surface and shore
     # roles, the contradiction that proves the floor wrong is gone.
@@ -528,8 +569,11 @@ def lower_floor(donor, name, header):
         if not re.search(rf"^{key}={value}(\s|$)", t, re.M):
             sys.exit(f"{name}: no longer {key}={value} - re-verify that the "
                      "70000 ft floor is still wrong before overriding it")
-    t = edit(t, r"^MinAttackAltitude=70000(\s)", rf"MinAttackAltitude={SM6_FLOOR}\1",
-             1, name)
+    if fixed_upstream:
+        header = upstream_fixed
+    else:
+        t = edit(t, r"^MinAttackAltitude=70000(\s)", rf"MinAttackAltitude={SM6_FLOOR}\1",
+                 1, name)
     # Not a fix, and nothing to do with the clamp. SEST Replenishment At Sea
     # meters every heavy ship-launched area SAM under this category (the rule
     # is in integration/common/ras.py), and all four rounds this function
@@ -562,7 +606,13 @@ def build_sm6():
             "the round's anti-ship and shore roles: 24 of the 25 distinct floors among\n"
             "the 138 such rounds are above zero, so a non-zero floor there is normal,\n"
             "and 15 is above a ship's 0 ft too. Matters because this pack restores the\n"
-            "5% clamp; whether that clamp reaches surface engagements is untested."))
+            "5% clamp; whether that clamp reaches surface engagements is untested.",
+            upstream_fixed=(
+                f"SEST Intercept Model - base: {REDSTORM}'s {name}.ini, unchanged but for\n"
+                "the SEST Replenishment tag below. Red Storm Arsenal lowered this round's\n"
+                "floor itself in its October 2026 update, so the 70000 ft fix this pack\n"
+                "used to carry is no longer needed; the file still ships because SEST\n"
+                "Replenishment meters the round and reads the tag from this copy.")))
     return built
 
 

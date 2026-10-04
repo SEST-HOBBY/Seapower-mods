@@ -9,13 +9,15 @@ a set of edits to files whose geometry lives in somebody else's mod, so
 installing a pack without its upstream leaves the game with a unit definition
 pointing at a mesh that is not there.
 
-Two kinds of dependency, both derived rather than declared:
+Three kinds of dependency, all derived rather than declared:
 
   OVERRIDE  - the pack ships its own copy of a file a workshop mod provides.
               That mod supplies the model the .ini refers to.
   REFERENCE - a loadout hangs a store, a roster names a unit, or a sensor or
               weapon entry names a system, that is defined in another mod
               entirely.
+  SEST PACK - a roster names a unit whose winning file another SEST pack
+              ships.
 
 Anything vanilla already provides is not a dependency and is not listed.
 
