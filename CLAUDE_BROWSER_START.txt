@@ -1,0 +1,50 @@
+SEST BROWSER UPLOAD — START HERE
+
+FOR ROLY (BROWSER ONLY)
+
+1. Extract SEST_Claude_Browser_Handoff.zip once with Windows Extract All.
+2. Open https://github.com/SEST-HOBBY/Seapower-mods in your browser.
+3. Select Claude's current working branch. From its branch dropdown create:
+   chore/gallery-handoff-20261005
+4. On the new branch select Add file > Upload files. Drag the whole
+   SEST_BROWSER_UPLOAD folder into the upload area: five ZIP parts and the
+   three support files. Do not extract the five inner ZIPs on your PC.
+5. Commit on the selected handoff branch. Leave main unchanged. You do not
+   need to merge or open a PR to make the files readable to Claude.
+6. Send Claude the instruction below in your existing browser conversation.
+
+MESSAGE TO CLAUDE
+
+I only use Claude in a browser. The complete SEST visual asset pack is on
+branch chore/gallery-handoff-20261005 in SEST-HOBBY/Seapower-mods.
+Fetch that branch and read SEST_BROWSER_UPLOAD/CLAUDE_BROWSER_START.txt.
+Retrieve that folder only; preserve your current work and do not merge the
+handoff branch. The folder contains all source assets in five ZIP parts.
+Verify SEST_BROWSER_PARTS.json, then run extract_sest_gallery.py in your
+cloud workspace against a new empty scratch directory. Read the extracted
+CLAUDE_START_HERE.txt, CLAUDE_HANDOFF.md, VISUAL_OVERHAUL_HANDOFF.md and
+QUALITY_REVIEW_GUIDE.txt. Use data/manual_replacement_queue.json to prioritise
+image upgrades, with bases first. Confirm 450 photos, 88 flags, 12 loading
+backgrounds and 149 collection-mod records. No AI imagery or enhancement.
+Follow the integration handoffs, preserve gameplay and the existing English
+loading-tip fix, and keep historical flags distinct. Keep main unchanged.
+
+FOR CLAUDE
+
+This is a source asset pack, not an installed or game-tested mod. Every file
+from the corrected gallery ZIP is included exactly once across the five parts.
+Each ZIP has the root SEST_Modernised_Collection_Gallery. Extract all parts
+into ONE destination, not five separate destinations. The included extractor
+verifies SHA-256, rejects duplicate/unsafe paths, then runs both validators.
+Do not commit this temporary source bundle to main or merge the whole handoff
+branch. The upload branch is a transport branch. Keep integration work on an
+appropriate feature/, fix/ or chore/ branch; no new claude/* branches or AI
+commit attribution. Publication and merging need separate user instruction.
+
+If the folder was uploaded at repository root instead, locate
+SEST_BROWSER_PARTS.json and use its containing directory. If access fails,
+report the exact missing branch, path or permission; do not invent a local
+Windows path or claim that the archive was read.
+
+This package has not been uploaded to GitHub by ChatGPT. The user performs
+the browser upload. It retains all original source records and credits.
