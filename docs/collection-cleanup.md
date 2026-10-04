@@ -7,12 +7,17 @@ file.
 
 **137 entries in the load order. 68 workshop mods are required. The rest are listed below.**
 
+*(4 Oct 2026: out of date. This audit was committed on 25 Aug 2026 and measured the four missions
+of the time, before any campaign existed. The load order is now 149 entries (148 Workshop mods
+plus `SEST_Integration`), the campaigns name files from 140 mods directly (`REQUIRED-MODS.txt` in
+the pack), and the published collection 3812390790 carries all 148. Its unsubscribe list is
+superseded: see the note under Unsubscribe candidates below.)*
+
 Your stated keepers are all safe — and note every one of them is currently won by a SEST pack,
 which overrides the base mod rather than replacing it, so the base mods must stay:
 
 | You fly | Won by | Base mod that must stay |
 |---|---|---|
-| E/A-18G Growler (2020s) | `SEST_Growler_NGJ_MALICE` | F/A-18E/F (3426791311) |
 | E/A-18G Growler (2020) | `SEST_Growler_NGJ_MALICE` | US Naval Aviation (3737267013) |
 | Super Hornets E / F / F Blk III | `SEST_Growler_NGJ_MALICE` | U.S. Navy 2027 (3606774881) |
 | F-35C | `SEST_F-35C_JATM` | F-35C Alt. Loadouts (3607989779) |
@@ -23,6 +28,12 @@ The Zumwalt (CPS) was on this list while `SEST_Zumwalt_CPS` won it. That pack wa
 (3390330875) now wins the hull itself; it and Euromod (3629144864, which supplies the CPS
 round `usn_ircps`) must still stay.
 
+The E/A-18G Growler (2020s) was on this list too. Its only provider, the MyGo F/A-18E/F
+(3426791311), was unsubscribed on 20 Sep 2026 and no other mod ships `usn_ea-18g_2020s`, so that
+aircraft no longer exists and `SEST_Growler_NGJ_MALICE` no longer patches it
+(`integration/growler-ngj-malice/build_patch.py`). The Growler (2020) above, built on US Naval
+Aviation, is the one it carries.
+
 ## Keep despite looking unused
 
 - **Mogami-class frigate** (`3456859157`) — **SEST JMSDF Mogami is built from it** - integration/jmsdf-mogami/build_patch.py reads this mod. Dropping it breaks that pack.
@@ -30,6 +41,18 @@ round `usn_ircps`) must still stay.
 - **Tu-95 With AS-15** (`3395022688`), **Red Storm Arsenal** (`3413868677`), **David's Sling** (`3558173926`), **Euromod-South Korea Navy** (`3789208859`) — **SEST Intercept Model is built from them** - integration/intercept-model/build_patch.py reads the Tu-95 mod's `damage.ini` (the file that pack exists to replace), the Red Storm SM-6s, the Korean K-SAM II and the David's Sling Stunner. Dropping one stops that build. Dropping the Tu-95 mod also removes the defect; retire the pack's `damage.ini` half then rather than rebasing it.
 
 ## Unsubscribe candidates
+
+**Superseded (4 Oct 2026): do not act on this list.** It was generated in August 2026 against
+the four missions of the time, before any campaign existed. The Southern Watch, Southern Reach
+and Red Line campaigns have since been built to reach every mod in the load order, and 54 of
+these 56 mods are now placed or used by them (`docs/campaign-coverage.md`: 50 as `unit`, 2 as
+`variant`, 1 as `store`, 1 as `asset`). The other two are `shadowed` overlaps the coverage table
+records as intentional: Nimitz Expanded ships one file, which SEST Collection Fixes replaces, and
+`3637954857` (listed below as KJ-500) is the Y-8/Y-9 family, outranked by Modern PLAN Systems.
+All 56 are among the 148 Workshop mods in the published collection *SEST - Modernised Campaign
+Collection* (3812390790). Removing any of the 54 takes away, or changes, something a campaign
+mission places or uses, and removing any of the 56 splits this PC from that collection. Run
+`python3 tools/check_campaign_coverage.py` before considering any removal.
 
 ### Carrier patches for carriers you don't field
 
@@ -119,8 +142,14 @@ round `usn_ircps`) must still stay.
 
 
 **56 mods.** Each supplies nothing your missions, bases or loadouts reference, and nothing depends on it.
+*(4 Oct 2026: no longer true; 54 of them are used by the campaigns. See the note at the top of this
+section.)*
 
 ## How to do it safely
+
+*(4 Oct 2026: not for the list above. A mod removed from the load order also has to leave the
+published collection 3812390790, and the pack, rebuilt after step 4 so its `LOAD-ORDER.txt` no
+longer lists the removed id, has to go up to Workshop item 3812461539.)*
 
 1. Unsubscribe in Steam, a group at a time — not all at once.
 2. Re-run the tooling, which will tell you immediately if something broke:
@@ -136,7 +165,7 @@ powershell -ExecutionPolicy Bypass -File .\tools\show-load-order.ps1 -DiffOnly
    emitting something broken, so a missing dependency surfaces here rather than in game:
 
 ```bash
-for b in integration/*/build_patch.py integration/*/build_pack.py; do python3 "$b"; done
+python3 tools/build_all.py --from-scratch
 ```
 
 4. Prune `data/load-order.tokens.txt` of the removed ids and re-run `set-mod-order.ps1`.

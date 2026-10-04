@@ -28,19 +28,24 @@ the pack ships its own `AN/ZPY-3` sensor definition.
 
 ## Install
 
-1. Copy `SEST_ADF_Persistent_ISR/` into `Sea Power_Data\StreamingAssets\`
-   (or rerun `tools\install-sest-packs.ps1`).
-2. Place it **below** the MQ-9 Reaper mod in the Mod Manager (additive — it
-   only adds a new unit, so ordering is forgiving).
-3. It appears under Australia in the mission editor as a UAV, and the SEST RAAF
-   Bases rebuild stations it at Edinburgh, Tindal, Woomera and Learmonth.
+1. Nothing to copy or place by hand. `tools/build_all.py` consolidates this pack
+   into `SEST_Integration`, the one SEST entry in the Mod Manager, which stays
+   first, above every Workshop mod (`data/load-order.tokens.txt`). On the gaming
+   PC `tools\sync-sest.ps1` deploys it and writes that order; a Workshop
+   subscriber gets it inside the SEST Integration Pack and runs
+   `SETUP - double-click me.cmd` in the pack folder, with the game closed, to
+   write the same order. The MQ-9 Reaper mod only has to stay subscribed and
+   enabled.
+2. It appears under Australia in the mission editor as a UAV, and SEST RAAF
+   Bases stations it at Edinburgh (No. 9 SQN) and Tindal (the forward det).
 
 ## First-flight checks
 
 - The Triton hides the donor's pusher prop and flies as a clean jet, but is visually
   undersized (20 m mesh vs 39.9 m real span). It uses the donor's 42nd ATKS gray livery
   with the Australian flag.
-- Confirm the AI holds a stable orbit and that the landing pattern works at Woomera.
+- Confirm the AI holds a stable orbit and that the landing pattern works at Edinburgh and
+  Tindal.
 - The radar is the only emitter: the optics, ELINT and RWR are all passive. If the MTS-B
   or the ELINT fit ever shows as an emitter, that's a bug in this pack, not the game.
 

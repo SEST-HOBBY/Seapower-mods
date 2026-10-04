@@ -7,9 +7,9 @@ AIM-260 loadout options for the F-35C that the **Gerald R. Ford JSF air wing** f
 
 | Loadout | In-game name | Stores |
 |---|---|---|
-| `Intercept260` | Intercept (AIM-260, stealth) | 6× AIM-260 internal (sidekick bay fit) + 2× AIM-9X wingtip — pylons stay off, signature stays clean |
-| `Intercept260Beast` | Intercept Beast (10× AIM-260) | 6× internal + 4× AIM-260 on wing pylons + 2× AIM-9X |
-| `Malice424` | Intercept MALICE (2× AIM-424 int) | 2× **AIM-424 MALICE** on the big bay stations + 2× AIM-260 on the bay door rails — full stealth |
+| `Intercept260` | SEST Intercept (6x AIM-260 int) | 6× AIM-260 internal (sidekick bay fit) + 2× AIM-9X wingtip — pylons stay off, signature stays clean |
+| `Intercept260Beast` | SEST Intercept Beast (10x AIM-260) | 6× internal + 4× AIM-260 on wing pylons + 2× AIM-9X |
+| `Malice424` | SEST Intercept MALICE (2x AIM-424 int) | 2× **AIM-424 MALICE** on the big bay stations + 2× AIM-260 on the bay door rails — full stealth |
 
 The AIM-260 comes from the **Dingtools Weapon Pack** (`dts_aim-260` internal, `dts_aim-260_w`
 external, matching dingtools' own internal/external carriage convention on the F-15EX).
@@ -30,23 +30,34 @@ that mod's own AIM-424 mesh is untested in this round. The seeker figures are th
 estimates; the Navy disclosed none. See `integration/common/aim424.py` for the source or the
 reasoning behind each key.
 
-## Why the base is US Naval Aviation's F-35C
+## Why the base is F-35C Alt. Loadouts' F-35C
 
-`aircraft/usn_f-35c.ini` is defined by THREE subscribed mods — the deprecated MyGo standalone,
-F-35C Alt. Loadouts (which has its own JATM fits but is built on the deprecated airframe), and
-**US Naval Aviation** (the maintained one). Only the highest-listed file wins. This patch is a
-fourth override based on USNA's file, so the Ford's wing gets the maintained airframe *and*
-JATM options.
+`aircraft/usn_f-35c.ini` is defined by two subscribed mods — **F-35C Lightning II Alt.
+Loadouts** (3607989779, the richest F-35C in the collection: its own JATM, SEAD, JSOW and
+AGM-158C/D fits, on the MyGo airframe) and **US Naval Aviation** (3737267013). The deprecated
+MyGo standalone (3508978375) was the third until it was unsubscribed on 20 Sep 2026. Only the
+highest-listed file wins, and a whole-file override replaces every loadout the player had, so
+this patch is based on the Alt. Loadouts file, carries over the loadouts only USNA defines
+(AirToAir, AntiShip, Ferry, CAS, Strike and the rest), and adds the three above. It also ships
+USNA's 13-squadron `usn_f-35c_squadrons.ini`, trimmed to the one serial-number node the MyGo
+airframe has.
 
-Bonus fix: USNA's file declares `[WeaponSystem1AntiShip]` twice (exact duplicate); the patch
-removes the second copy.
+Bonus fix: USNA's file declares `[WeaponSystem1AntiShip]` twice (the second copy lacks
+`ReadyUpTime`); the merge carries only the first, more complete one.
 
 ## Install
 
-1. Copy `SEST_F-35C_JATM/` into `Sea Power_Data\StreamingAssets\`.
-2. In the Mod Manager, place it **above** US Naval Aviation, F-35C Alt. Loadouts, the
-   deprecated MyGo F-35C, and Modern US Navy. Keep Dingtools Weapon Pack installed.
-3. Ford JSF variant → F-35C flights → the two Intercept loadouts appear in the picker.
+1. Nothing to copy or place by hand. `tools/build_all.py` consolidates this pack into
+   `SEST_Integration`, the one SEST entry in the Mod Manager, which stays first, above every
+   Workshop mod (`data/load-order.tokens.txt`), and so above F-35C Alt. Loadouts and US Naval
+   Aviation, whose files it replaces. On the gaming PC `tools\sync-sest.ps1` deploys it and
+   writes that order; a Workshop subscriber gets it inside the SEST Integration Pack and runs
+   `SETUP - double-click me.cmd` in the pack folder, with the game closed, to write the same
+   order.
+2. Keep Dingtools Weapon Pack (the AIM-260) installed. In today's order a store and a
+   system also resolve from U.S. Navy 2027 Capabilities and one system from the MH-60R mod
+   (`python3 tools/check_dependencies.py` names the winning provider of each).
+3. Ford JSF variant → F-35C flights → the three SEST loadouts appear in the picker.
 
 ## Rebuilding after an upstream update
 
@@ -54,5 +65,6 @@ removes the second copy.
 python3 integration/f-35c-jatm/build_patch.py
 ```
 
-Regenerates from `mods-source/3737267013` and fails loudly if upstream changed its layout,
-already took the AntiShip fix, or claimed the loadout keys.
+Regenerates from `mods-source/3607989779` (F-35C Alt. Loadouts), carrying over the loadouts
+only `mods-source/3737267013` (US Naval Aviation) defines, and fails loudly if either upstream
+changed its layout or if Alt. Loadouts claimed the loadout keys.

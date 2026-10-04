@@ -6,14 +6,14 @@ every one of those belongs to the Workshop mod it came from,
 which is why REQUIRED-MODS.txt lists them as required rather
 than suggested.
 
-465 of the unit files here are another author's file with
+481 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 465 below
+every file of its kind in the collection, and the 481 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 
@@ -57,6 +57,9 @@ file is unchanged.
   Boeing P-8 Poseidon  (workshop 3602046770)
        99%  aircraft/usn_p8.ini 
        97%  aircraft/usn_p8_squadrons.ini 
+
+  Bréguet Br.1050 Alizé  (workshop 3628203171)
+       93%  ammunition/usn_ssq-47.ini 
 
   Charles De Gaulle & Modern French Navy Pack (WIP)  (workshop 3567256221)
       100%  ammunition/fr__mdcn_sub.ini 
@@ -265,7 +268,6 @@ file is unchanged.
       100%  vessels/usn_cvn_ford_legacy.ini 
 
   Kirov-class (Pyotr Velikiy Upgrade)  (workshop 3406985435)
-      100%  ammunition/wp_sa-n-20.ini 
       100%  vessels/wp_rkr_kirov_improved.ini 
 
   Modern PLAN Systems  (workshop 3775128499)
@@ -355,6 +357,9 @@ file is unchanged.
   Nimitz Expanded  (workshop 3432592449)
        99%  vessels/usn_cvn_nimitz_variants.ini 
 
+  Pakistani Pack  (workshop 3812140001)
+      100%  ammunition/plan_cm-302.ini 
+
   PLAN Type 071 Amphibious Transport Dock  (workshop 3774572038)
       100%  vessels/plan_lpd_type_071.ini 
 
@@ -367,7 +372,6 @@ file is unchanged.
        94%  vessels/jmsdf_aoe_mashuu.ini from usn_aoe_sacramento.ini
        94%  vessels/plan_aor_type901.ini from usn_aoe_sacramento.ini
        95%  vessels/plan_aor_type903a.ini from wp_vt_boris_chilikin.ini
-       94%  vessels/rfn_aor_pashin.ini from wp_vt_kazbek.ini
        94%  vessels/rn_aor_tide.ini from usn_aoe_sacramento.ini
        96%  vessels/usn_ae_kilauea.ini 
        96%  vessels/usn_ao_t2.ini 
@@ -395,13 +399,13 @@ file is unchanged.
       100%  ammunition/usn_rgm_109e_tactical.ini 
        98%  ammunition/usn_rgm_184a.ini 
       100%  ammunition/usn_rim_156a.ini 
-       97%  ammunition/usn_rim_174a.ini 
+       98%  ammunition/usn_rim_174a.ini 
        97%  ammunition/usn_rim_174b.ini 
-       97%  ammunition/usn_rim_174c.ini 
+       98%  ammunition/usn_rim_174c.ini 
       100%  ammunition/usn_ugm_109c3.ini 
       100%  ammunition/usn_ugm_109e.ini 
       100%  ammunition/usn_ugm_109e_tactical.ini 
-       95%  ammunition/wp_ss-n-14b.ini from wp_ss_n_14b.ini
+       96%  ammunition/wp_ss-n-14b.ini from wp_ss_n_14b.ini
       100%  ammunition/wp_ss_n_14c.ini 
       100%  vessels/ir_ffg_alvand_95.ini 
       100%  vessels/ir_ptg_peykaap_2.ini 
@@ -507,6 +511,24 @@ file is unchanged.
       100%  vessels/wp_tavkr_leningrad_98.ini 
       100%  vessels/wp_tavkr_ulyanovsk.ini 
 
+  Royal Australian Defence Forces  (workshop 3455404959)
+       90%  land_units/airbase_raaf_amberley_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_butterworth_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_curtin_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_darwin_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_east_sale_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_edinburgh_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_gingin_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_learmonth_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_pearce_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_richmond_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_scherger_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_tindal_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_townsville_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_williamtown_variants.ini from raaf_small_base_late_variants.ini
+       90%  land_units/airbase_raaf_woomera_variants.ini from raaf_small_base_late_variants.ini
+       97%  vessels/rfn_aor_pashin.ini from idn_vt_uda.ini
+
   Royal Navy Type 23 'Duke Class' Frigate [OLD]  (workshop 3378409795)
       100%  vessels/rn_type23.ini 
       100%  vessels/rn_type23_refit.ini 
@@ -515,8 +537,6 @@ file is unchanged.
       100%  ammunition/rfn_3m14.ini 
       100%  ammunition/rfn_3m22.ini 
       100%  ammunition/rfn_3m54.ini 
-      100%  ammunition/rfn_40n6.ini 
-      100%  ammunition/rfn_48n6m.ini 
       100%  vessels/rfn_cvt_20380_3-6.ini 
       100%  vessels/rfn_cvt_20380_531.ini 
       100%  vessels/rfn_cvt_20380_550.ini 
@@ -539,6 +559,10 @@ file is unchanged.
   Shenyang J-16A (歼-16A 潜龙)  (workshop 3506979898)
        99%  ammunition/plaaf_akf-98a.ini 
 
+  The Royal Navy  (workshop 3491248180)
+       94%  ammunition/knm_terne_shell.ini 
+       92%  ammunition/rn_squid_shell.ini 
+
   Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)  (workshop 3395022688)
        91%  ammunition/damage.ini 
        99%  ammunition/wp_ss-n-12.ini 
@@ -552,7 +576,6 @@ file is unchanged.
       100%  vessels/plan_cvn_004.ini 
 
   U.S. Navy 2027 Capabilities mod  (workshop 3606774881)
-       92%  aircraft/usn_ea-18g.ini 
        97%  aircraft/usn_fa-18e.ini 
        97%  aircraft/usn_fa-18f.ini 
        97%  aircraft/usn_fa-18f_blk3.ini 
@@ -573,6 +596,7 @@ file is unchanged.
       100%  vessels/usn_ssn_virginia_seal_2027.ini 
 
   United States Naval Aviation  (workshop 3737267013)
+       92%  aircraft/usn_ea-18g.ini 
        97%  aircraft/usn_ea-18g_2020.ini 
        96%  aircraft/usn_f-35c_squadrons.ini 
        97%  aircraft/usn_mh-60r_squadrons.ini 

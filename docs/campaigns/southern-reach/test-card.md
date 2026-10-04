@@ -1,8 +1,10 @@
 # Southern Reach — first play test
 
-Nothing in this campaign has been run in the game. Everything below is a claim
-the build makes about files it wrote; this card is the order to falsify them
-in, riskiest first, and what "wrong" looks like for each. It assumes the
+Little in this campaign has been watched in the game: the first install
+(section 1C) and one Workshop player's report of SR04 Macquarie Passage in sea
+state 5 (Southern Watch card H.18 re-checks it). Everything else below is a
+claim the build makes about files it wrote; this card is the order to falsify
+them in, riskiest first, and what "wrong" looks like for each. It assumes the
 Southern Watch card (`../southern-watch/test-card.md`) has been run once, so
 the questions that campaign already answers — does a mod-supplied campaign
 appear, does its art load, does Task Force Mode buy and rearm — are not
@@ -57,11 +59,16 @@ Red Line's Hold/Tight and unseen triggers are on its own card
 
 ## Install
 
-Same procedure as Southern Watch (`../southern-watch/install-alignment.md`).
-The pack is the same `SEST_Campaign` folder; both campaigns are in it. After
-the sync the Mod Manager should show the two RNZAF bases' names in the land
-unit list (Ohakea, Auckland/Whenuapai) — they are new files in
-`SEST_RAAF_Bases`, and if they are missing nothing New Zealand will place.
+The procedure is `install-alignment.md` in this folder (it covers all three
+campaigns). `../southern-watch/install-alignment.md` keeps the wrong-branch
+failure story and its checks. The pack is the one `SEST_Integration` folder
+(on a subscriber's PC, the Workshop item 3812461539), and all three campaigns
+are in it. After `tools\sync-sest.ps1` (or SETUP on a Workshop copy, Southern
+Watch card H.15; not the Mod Manager's own Sync button), the Mod Manager
+should show the two RNZAF bases' names in the land unit list (Ohakea,
+Auckland/Whenuapai). They ship in the pack's `land_units` folder (built from
+the `SEST_RAAF_Bases` source pack), and if they are missing nothing New
+Zealand will place.
 
 The campaign ships twice: as `campaigns/sest-southern-reach/` and again as
 `missions/Southern Reach/` and `missions/Tasman Shield/` for the mission
