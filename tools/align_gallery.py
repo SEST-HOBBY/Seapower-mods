@@ -89,6 +89,9 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--gallery", type=Path, required=True)
     ap.add_argument("--ref", default="HEAD")
+    ap.add_argument("--restore-from", type=Path,
+                    help="the earlier gallery's manifest.json: SEST pack units the current index "
+                         "dropped come back with their reviewed photo mapping")
     a = ap.parse_args()
     g, ref = a.gallery, a.ref
     commit = git("rev-parse", ref).decode().strip()
@@ -128,10 +131,45 @@ def main():
     titles = {x["id"]: x["title"] for x in m["mods"]}
     titles.update({"SEST_Integration": "SEST Integration Pack", "vanilla": "Sea Power (base game)"})
 
+    # The 190 update re-keyed the index one record per providing Workshop mod
+    # and so dropped every file only the SEST pack ships - the RAN hulls, the
+    # RAAF bases, the Triton, the pack's own rounds - with the photo mappings
+    # the earlier gallery had already reviewed for them. Put them back as
+    # SEST_Integration records, carrying that review unchanged.
+    restored = 0
+    if a.restore_from:
+        old_m = json.loads(a.restore_from.read_text(encoding="utf-8"))
+        prior = {e["entry_id"].lower(): e for e in old_m["entries"]}
+        have = {e["unit_id"].lower() for e in m["entries"]}
+        pack = sest_dirs.get("SEST_Integration", "integration/dist/SEST_Integration/")
+        for rel, real in sorted(index["SEST_Integration"].items()):
+            kind = rel.split("/")[0]
+            if kind not in ("aircraft", "vessels", "submarines", "land_units", "ammunition") \
+                    or rel.count("/") != 1 or not rel.endswith(".ini"):
+                continue
+            uid = PurePosixPath(real).stem
+            if uid.lower().endswith(("_squadrons", "_variants")) or uid.startswith("_") or uid.lower() in have:
+                continue
+            old_e = prior.get(f"{kind}/{uid}".lower(), {})
+            e = {k: old_e.get(k, "") for k in m["entries"][0]} if old_e else {k: "" for k in m["entries"][0]}
+            e.update(entry_id=f"SEST_Integration:{kind}/{uid}", unit_id=uid, kind=kind,
+                     source_config=f"{pack}{kind}/{PurePosixPath(real).name}", providers=["SEST_Integration"],
+                     mod_title="SEST Integration Pack")
+            if old_e:
+                e["mapping_note"] = ((old_e.get("mapping_note") or "") +
+                                     " [Restored from the earlier gallery's reviewed mapping; the 190 update had dropped this SEST pack record.]").strip()
+            else:
+                e.update(label=uid, mapping_status="photo_gap", asset_id="", image_file="",
+                         integration_review="pending",
+                         mapping_note="SEST pack record added at alignment; no photo assigned.")
+            m["entries"].append(e)
+            have.add(uid.lower())
+            restored += 1
+
     # Every unit-file copy any record can reach, fetched once.
     want = set()
     for e in m["entries"]:
-        rel = re.sub(r"^mods-source/[^/]+/", "", e["source_config"]).lower()
+        rel = re.sub(r"^(mods-source/[^/]+|integration/[^/]+/SEST_[^/]+)/", "", e["source_config"]).lower()
         for t in providers(rel):
             want.add(index[t][rel])
     text = cat_files(ref, sorted(want))
@@ -214,8 +252,9 @@ def main():
 
     rows, win_count, data_count = [], defaultdict(int), defaultdict(int)
     for e in m["entries"]:
-        rel = re.sub(r"^mods-source/[^/]+/", "", e["source_config"])
-        mine = e["source_config"].split("/")[1]
+        rel = re.sub(r"^(mods-source/[^/]+|integration/[^/]+/SEST_[^/]+)/", "", e["source_config"])
+        mine = (e["source_config"].split("/")[2] if e["source_config"].startswith("integration/")
+                else e["source_config"].split("/")[1])
         provs = providers(rel)
         win = provs[0] if provs else ""
         ch = chain(rel) if win else []
@@ -304,6 +343,7 @@ def main():
         "records_with_overwrites": sum(1 for r in rows if r["overwrites"]),
         "records_used_in_missions": sum(1 for r in rows if r["missions_using_unit"]),
         "records_in_rosters": sum(1 for r in rows if r["in_rosters"]),
+        "sest_pack_records_restored": restored,
         "sest_pack_units_not_indexed": len(sest_only),
         "method": "tools/align_gallery.py at the build: first provider in data/load-order.tokens.txt "
                   "wins; #!alias/#!extend followed to data_from; *_overwrite extends, variants, "
@@ -324,6 +364,10 @@ def main():
     byid = {e["entry_id"]: e for e in m["entries"]}
     for row in r:
         row["winning_source"] = byid[row["entry_id"]]["winning_source"]
+    listed = {row["entry_id"] for row in r}
+    for e in m["entries"]:                      # restored SEST pack records
+        if e["entry_id"] not in listed:
+            r.append({k: (json.dumps(e.get(k)) if isinstance(e.get(k), list) else e.get(k, "")) for k in r[0]})
     with mp.open("w", newline="", encoding="utf-8-sig") as fh:
         w = csv.DictWriter(fh, fieldnames=list(r[0]))
         w.writeheader(); w.writerows(r)
