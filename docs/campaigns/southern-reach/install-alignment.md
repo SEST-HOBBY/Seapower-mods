@@ -123,8 +123,12 @@ notes, *Four new mods, the Chinese loading tips, and the Rafale back*):
    because language files merge key by key under the game's own key names,
    it replaced every loading-screen tip. SEST Collection Fixes now ships the
    game's English `loading_tips.ini` word for word from the top of the
-   order, so the tips are English again; the pack also names the H-6J's
-   ESM pod in English, the one Chinese line in that mod's weapon names.
+   order, so the tips are English again, and eight tips of SEST's own
+   (they begin `SEST:` - the Situation button, how a date-time group reads,
+   what a datum is, what a SEST fit is, Open Allocation, side operations,
+   the survivor reward, the two files beside each campaign) are numbered
+   behind the game's nineteen; the pack also names the H-6J's ESM pod in
+   English, the one Chinese line in that mod's weapon names.
 2. **The Rafale is back.** The French Air Force mod ships the whole Rafale
    family under the ids the old mod used, so everything retired this
    morning returned this evening: D3's CAP pair (on this mod), D6's Rafale

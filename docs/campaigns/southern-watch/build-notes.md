@@ -1971,15 +1971,22 @@ is called, and the section's keys are positional - `Count`, `Header`,
 `Tip001`... - so the mod's eleven keys landed on vanilla's and the game read
 them. (The same author's PLAN Pack files its tips under `language_cn/`, where
 they belong.) The fix follows the merge rule the other way: SEST Collection
-Fixes now ships vanilla's own `language_en/loading_tips.ini` word for word,
-from the top of the order, so every key the mod overwrote has its vanilla
-value again (`build_vanilla_tips()`). The copy is written only while some
-mod other than vanilla ships a `[LoadingTips]` section under `language_en/`,
-names that mod in its header, and retires itself when the offender is fixed
-or leaves. The drift tool learnt the shape: a language section a pack carries
-verbatim - vanilla's keys, vanilla's values, not one more - is a MIRROR when
-vanilla adds a key, not a clash; a section that adds names is still a clash on
-every new key, because those builders stop on the name. The one Chinese line
+Fixes now ships vanilla's own `language_en/loading_tips.ini` text word for
+word, from the top of the order, so every key the mod overwrote has its
+vanilla value again (`build_loading_tips()`); the header names the offender
+while one exists. The same positional rule is what lets SEST have tips of its
+own, which the player asked for: eight `SEST:` tips (the Situation button,
+how to read a date-time group, what a datum is, what a SEST fit is, Open
+Allocation and the discount, side operations and losses, the survivor
+reward, the two files beside each campaign) are numbered from vanilla's
+Count upward at build time - Tip020 to Tip027 behind the game's nineteen,
+Count raised to 27 - so a vanilla update that adds tips pushes them along
+instead of colliding, and the build stops if vanilla's numbering is ever
+not 1..Count. The drift tool learnt the shape: a language section a pack
+carries in full (every vanilla key present) MIRRORS a key vanilla adds at
+vanilla's value, and reports a key vanilla adds over one of the pack's own
+as MASKED - a rebuild renumbers; a section that only adds names is still a
+clash on every new key, because those builders stop on the name. The one Chinese line
 in the mod's `ammunition_names.ini`, the H-6J's RKL-600 ESM pod, gets an
 English name from the same pack (`ENGLISH_STORE_NAMES`), and that writer too
 stops the build the day the mod names it in English itself.
@@ -2031,7 +2038,7 @@ second salvo the screen has to be ready for); The Long Perimeter (D8) has an
 Army MV-75 as the third lifter in the Osprey stream, Transport fit. The MV-75's
 squadron table declares no squadrons, which the builder already allowed for;
 its `_info.ini` puts its name under `[General]`, which is why the Mod Manager
-shows it by number with an (A) badge. 1264 files; 106 + 67 tests.
+shows it by number with an (A) badge. 1264 files; 106 + 68 tests.
 
 ## The planned window, the sea's price, and SETUP in the pack (4 October)
 
