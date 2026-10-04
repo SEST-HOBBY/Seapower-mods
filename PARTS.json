@@ -1,0 +1,30 @@
+{
+  "parts": [
+    {
+      "file": "SEST_Update_190_Part01_of04.zip",
+      "bytes": 23066794,
+      "sha256": "5e75eb163bca7b9f0c7d28c77e12e5ce91e08b5be0249b29e96ce967107f206d",
+      "files": 6
+    },
+    {
+      "file": "SEST_Update_190_Part02_of04.zip",
+      "bytes": 23058064,
+      "sha256": "9e2c20caf964f12861d4a964588b3b2f7e7e2588f873ca0aca8fddd3c1c418d4",
+      "files": 35
+    },
+    {
+      "file": "SEST_Update_190_Part03_of04.zip",
+      "bytes": 23051687,
+      "sha256": "79e24b89415a2c67c630c6d47d7eb166031b00fc44b723d9599d4eb22c082533",
+      "files": 56
+    },
+    {
+      "file": "SEST_Update_190_Part04_of04.zip",
+      "bytes": 5459491,
+      "sha256": "00ab8bcb96237780879336e386fbe27f0d5905dae52a2f81c1f2d6ef0dd5eb2f",
+      "files": 153
+    }
+  ],
+  "instructions": "Upload one ZIP at a time. Keep support files alongside the parts.",
+  "total_parts": 4
+}

@@ -1,0 +1,11 @@
+Use this SEST real-photo gallery update with the earlier gallery already uploaded to the repository. I use Claude in the browser only.
+
+Find the update parts, PARTS.json and assemble_update.py. Read 01_READ_FIRST.txt. Locate the earlier SEST_Modernised_Collection_Gallery, extracting the previous ordinary ZIP parts if necessary. Do not ask me to install local Claude Code or run SteamCMD.
+
+In your cloud workspace, verify/assemble the new parts with assemble_update.py into a fresh staging directory. Read SEST_Gallery_Update_190/CHANGES.json and PAYLOAD_MANIFEST.json. Run its apply_update.py with --base pointing at the earlier extracted gallery and --output pointing at another new staging directory. If the baseline checks fail, reconcile the newer edits carefully; do not force an overwrite or discard work.
+
+Read the resulting CLAUDE_UPDATE_190.txt and IMAGE_QUALITY_REVIEW.html. Run tools/validate_pack.py and tools/validate_quality_review.py against that staged gallery. Review data/image_substitutions_190.json, data/installed_inventory_190.json and data/remaining_image_research_190.json. Keep originals and all source credits. No AI generation, AI upscaling, generative fill or invented photographs.
+
+Use the 190-mod export at b3d14e995a633787913204efd90367779f66b4c5 as the index baseline; check for later repo changes. Distinguish indexed mods from photographed units and candidate family references from exact variant matches. Verify unit model, era, operator and visible fit before any game-image assignment. Do not infer load-order winners from the older live snapshot. Preserve the English loading-tips fix.
+
+Prepare the gallery update on the existing appropriate handoff branch or a chore/ or feature/ branch, following the repository instructions. Preserve main and unrelated files. This handoff authorizes the offline gallery work; do not silently convert it into gameplay, load-order or deployment changes. No AI attribution lines. Show the approved replacement list and remaining P1/P2 and new-unit gaps when reporting completion.

@@ -1,0 +1,26 @@
+SEST GALLERY UPDATE — BROWSER UPLOAD
+
+45 existing photographs replaced; 63 new photographs added.
+516 active photo assets, including three retained context photographs.
+190 installed mods indexed from export b3d14e995a633787913204efd90367779f66b4c5.
+This is an UPDATE to the gallery already uploaded, not a new full-gallery download.
+No AI imagery or generative enhancement. Photo sources, licences and credits accompany every approved image.
+
+FOR YOU — BROWSER ONLY
+1. Extract this outer download using the file manager.
+2. In the same GitHub gallery-handoff branch/folder used for the earlier pack, upload and commit ONE contained ZIP at a time. Wait for each successful commit before the next upload.
+3. Upload the four small support files, also one at a time if necessary: this file, 02_CLAUDE_MESSAGE.txt, assemble_update.py and PARTS.json.
+4. Paste 02_CLAUDE_MESSAGE.txt into your browser-based Claude repository session.
+You do not need local Claude Code, SteamCMD, or a terminal on your computer.
+If Claude sees only chat attachments rather than a repository workspace, it can review the files; applying the update requires its connected cloud workspace with the earlier gallery files available.
+
+The ZIPs are ordinary independent archives under 25 MiB each. All parts are required for the update, but uploading each one separately is supported.
+
+REVIEW
+SEST_Gallery_190_Image_Review.html is a separate self-contained report you can open in a browser. The updated gallery also contains IMAGE_QUALITY_REVIEW.html. Filter Before/after substitutions or Remaining P1 + P2.
+Quality grades: A strong; B usable with limits; C weak; D poor. Subject visibility is graded separately. A sharper photograph can still show the wrong component, so both ratings matter.
+
+COVERAGE LIMITS
+All 42 newly exported mod folders now have index records. Among their 773 per-provider unit/config records, 285 have candidate family/component photo references across 28 mods; three new mods contain no unit/config records. These are not 285 verified exact variant images. 58 existing priority tasks remain (56 photos and two loading images). New-unit gaps are listed separately in data/remaining_image_research_190.json. One new photograph can support a family, but source, era, operator and fit still require review.
+The flag set and 12 loading backgrounds are carried forward from the earlier gallery. This batch does not implement game image hooks, flags, UI changes or loading-screen integration.
+The earlier load-order snapshot is older than this export; no winning provider has been guessed.
