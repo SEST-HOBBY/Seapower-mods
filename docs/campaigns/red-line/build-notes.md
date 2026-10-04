@@ -146,7 +146,7 @@ about 265.
 | RL05's clock | 80 minutes: only ten knots reached the box in time, and a boat keeping off the plot at five timed out under the barrier | 120 minutes (timeout 0630) |
 | Hull 419, Hull 334, the tender; ALPHA and GOLF | `RadarsActive=True`: a mast raised at periscope depth radiates, and ESM classifies an emitter | `False`, as every submarine in the stock missions starts. The screen is the one that radiates |
 | RL04's GOLF | In the Restraint fatal. She spawns only if RL02 left her afloat, and whether the engine counts a unit that never spawned as destroyed is unproven: if it does, every player who sank her lost RL04 at its first second on every replay | Her own objective, *Boat*, scored 0/-40 and never fatal - the shape Southern Reach's *Last Ship South* gives its tanker "if she sailed". Restraint and its fatal are the Poseidon's |
-| RL02's escort | 12.5 NM astern of the tanker with the threat ahead: a tanker at cruise running at GOLF opens that gap faster than a frigate at 30 knots closes it, and the brief has the tanker "in company" | 3.5 NM on the tanker's port bow, between her and GOLF, 21 NM from the boat |
+| RL02's escort | 12.5 NM astern of the tanker with the threat ahead: a tanker at cruise running at GOLF opens that gap faster than a frigate at 30 knots closes it, and the brief has the tanker "in company" | 3.5 NM on the tanker's port bow, between her and GOLF, 21 NM from the boat (28 NM since October 2026) |
 | RL03's air tasking | The Y-9 and the KJ-500 were on sale and no row in RL03 or after could fly them | A Recon row and cockpit: a Y-9 bought in RL02 or RL03, or a KJ-500, flies it. The brief, forces and builder text say so |
 | RL01's brief | "A RAAF Poseidon and a Triton are over the group" | The Triton circles 44 NM south-west; the brief puts it there |
 | The roster note on the Sovremenny | "north only; the windows enforce it" | "on sale in the north only; one already owned still sails": `TaskForceModeRequireEntireTaskForce` takes every owned hull south |
@@ -387,3 +387,12 @@ bought. The window is 95 minutes; the position, the half-hour decoy hold
 and the boat's rules are as they were. Every Red Line mission now closes
 its window with a message and is lost at 1.5 times the plan, as the other
 two campaigns do.
+
+## Routes They Can See: GOLF moved out (October 2026)
+
+GOLF started 21 NM from the escort with her Mk 48s (27 NM) free. The
+campaign-wide opening gate (`check_opening`, see the Southern Watch build
+notes) missed her because her torpedoes sit only in `[TorpedoRoom]`; with
+that read, she was the one boat in all three campaigns inside 25 NM. She now
+starts 28 NM east of the frigate and still closes across Hai Yang 7's track.
+

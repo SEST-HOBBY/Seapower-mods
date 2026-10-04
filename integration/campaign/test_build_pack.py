@@ -502,6 +502,12 @@ class OpeningRanges(StandoffAndClosure):
         with self.assertRaises(SystemExit):
             self.placed([dict(self.TENDER, contact="why")])
 
+    def test_ship_reach_reads_the_torpedo_room(self):
+        # The Virginia's tubes name no round; her Mk 48s are listed only in
+        # the [TorpedoRoom] the tubes feed from. Read as unarmed, RL02's boat
+        # passed the gate 21 NM from the escort.
+        self.assertGreaterEqual(bp.ship_reach("usn_ssn_virginia_2027", None), 20)
+
     def test_ship_reach_ignores_sonobuoys(self):
         # The Ka-28's sonobuoys read 100 NM in reach(); its torpedo is what
         # can hit a ship.

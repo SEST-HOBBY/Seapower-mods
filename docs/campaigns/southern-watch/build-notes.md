@@ -2332,7 +2332,7 @@ cut put it at 25 and 22; the opening gate below moved it out.)
 **Steel Highway.** The escort group started 17 NM from the convoy the
 briefing says it is in company with, and 13 NM from a 039C (YJ-18, Yu-6)
 with weapons free - astern of everybody, not across the planned track - and
-the P-8 slot shared the Wedgetail's station, 48 NM from the boat at
+the P-8 slot shared the Wedgetail's station, about 60 NM from the boat at
 30,000 ft. Now the escorts start 2 NM ahead of the merchants, the boat starts
 30 NM up the track just north of it, at the far edge of the approach box,
 creeping in toward the track below the layer, and the P-8 slot has its own
@@ -2397,6 +2397,7 @@ What it found, and what moved:
 | TS08 Great Australian Bight | Yasen 22 NM from Collins | 28 NM west, the same 26 NM from the rendezvous |
 | TS09 The Southern Convoy | J-15 strike 58-64 NM from the convoy | forming up beyond its carrier, 125 NM |
 | TS11 Approaches | J-15 strike 75-81 NM from the escorts | forming up beyond its carrier, 125 NM |
+| RL02 Routes They Can See (Red Line) | Virginia 21 NM from the escort, Mk 48s free | 28 NM east, closing across the track (found later, below) |
 
 Not changed, on purpose: warships with long-range anti-ship missiles that
 start 30-100 NM away (an over-the-horizon shot is the realistic one, and they
@@ -2407,4 +2408,21 @@ the game's model and not something a mission file sets.
 
 What this does not establish is how the AI plays at the new ranges; test
 card rows H.21 and H.22 ask for it.
+
+**What the gate missed, and why.** A second fact-check of the Steam text
+found one weapons-free boat still inside 25 NM: Red Line's GOLF, a Virginia,
+21 NM from the 054A in Routes They Can See. `ship_reach` read her as
+unarmed, because her four Mk63 tubes name no round - they say
+`AssociatedMagazine=TorpedoRoom`, and her 22 Mk 48s are listed only in that
+`[TorpedoRoom]` section, which `stores()` never reads. `ship_reach` now also
+reads every magazine a launcher names; with it, the gate flags GOLF and
+nothing else across the three campaigns. GOLF now starts 28 NM east of the
+frigate, still closing across the tanker's track (her purpose in the
+mission). A test pins the torpedo-room case.
+
+Also corrected here: the Steel Highway P-8 slot started about 60 NM from
+the boat, not 48 as first written (48 was its distance from the escorts).
+And the air rule's standoff cap means a bomber whose missile reaches past
+120 NM can still start inside its own launch range, 120-130 NM out; the
+Steam text says so rather than claiming no strike starts in range.
 
