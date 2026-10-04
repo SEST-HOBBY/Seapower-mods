@@ -544,3 +544,15 @@ escort (sea state 5 again); TS08's Collins from 25 to 20 NM west of the
 escorts, inside what they can steam in sea state 4; TS11A from 80 to 85
 minutes, its circle staying on the twelve-mile line. The bible's entries
 carry the new figures. Test card H.18 is the Macquarie re-run.
+
+## The opening gate (October 2026)
+
+A public report on Southern Watch said its missions open with the enemy
+already detected, identified and in range. The builder now refuses that in
+every campaign (`check_opening`; the rules and the full table are in the
+Southern Watch build notes). Here it moved four Tasman Shield missions:
+TS05's Z-9 from 11 NM off Farncomb to 31 and ROMEO from 22 to 26, TS06's
+Z-9 from 27 NM to 30, TS08's Yasen from 22 NM off Collins to 28 (the same
+distance from the rendezvous), and the J-15 strike flights in TS09 and TS11
+from 58-81 NM to a form-up point beyond their carriers, 125 NM out. No
+Southern Reach mission tripped it.

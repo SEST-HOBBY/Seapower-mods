@@ -88,7 +88,7 @@ MISSION = dict(
         "red_decoy": S(-39.55, 147.30, "Southern Compliance", heading=270),
         "red_sub": S(-39.45, 146.75, "Contact KILO", heading=90),
         "red_056": S(-39.20, 147.70, "Type 056A", heading=270),
-        "red_dip": S(-39.25, 147.55, "Z-9 dip", heading=270, alt=1500),
+        "red_dip": S(-39.25, 147.60, "Z-9 dip", heading=270, alt=1500),
         "ferry1": S(-39.60, 146.60, "Spirit of the Strait (Devonport-Geelong)", heading=340),
         "ferry2": S(-39.00, 146.20, "Spirit of the Strait (Geelong-Devonport)", heading=160),
         "bulker": S(-39.60, 147.55, "Bulker", heading=270),

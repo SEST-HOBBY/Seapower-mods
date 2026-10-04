@@ -2324,9 +2324,10 @@ ASW aircraft spawns far away. The built files agreed.
 Peykaap-III (Nasir, 49 NM) and its decoy 16 NM ahead of them - inside the
 boat's own 17 NM radar from the first second, with the merchants between it
 and the only SAM. Now Warramunga starts 3 NM ahead on the threat axis with
-her Seahawk beside her, and the Meridian pair starts 25 NM from the merchants
-(22 from the frigate), east-north-east, beyond the trawlers and its own radar,
-routed down the convoy's track. The handover box is unchanged.
+her Seahawk beside her, and the Meridian pair starts 29 NM from the merchants
+(26 from the frigate), east-north-east, beyond the trawlers and its own radar,
+routed down the convoy's track. The handover box is unchanged. (The first
+cut put it at 25 and 22; the opening gate below moved it out.)
 
 **Steel Highway.** The escort group started 17 NM from the convoy the
 briefing says it is in company with, and 13 NM from a 039C (YJ-18, Yu-6)
@@ -2342,4 +2343,68 @@ of the picture.
 
 Every gate passes. What this does not establish is how the AI behaves at
 the new ranges; test card rows H.19 and H.20 ask for it.
+
+## Southern Cross, and the opening gate (October 2026)
+
+**Southern Cross could not be won.** Meridian Escort 3 started 43 NM from
+HMAS Pilbara with weapons free and Nasir (49 NM), and its Forpost drone
+started 8 NM from Pilbara, so the boat had a track on her from the first
+second. Pilbara (Arafura, Variant3) carries a 4 NM Mistral and nothing else
+that stops a sea-skimmer, and she is the player's only hull, so the
+mission's "player force gone" trigger ended it when she sank. Now the boat
+and its drone keep company with the coaster, 34-38 NM from Pilbara, and the
+boat is weapons tight: 24 October is the week before Weapons Free, and it
+shadows the lane rather than opening the war on it. Kiwi 01 still has to
+go to them to name the coaster.
+
+**The same thing, campaign-wide.** The report called it a common theme, and
+it was. A new gate, `check_opening`, now runs on every mission in all three
+campaigns and fails the build when a red unit with weapons FREE at the start:
+
+- is a surface ship inside 25 NM of the player's nearest hull (each on the
+  other's radar from the first second);
+- is a submarine inside 25 NM (inside its own torpedo reach of the first
+  ship it hears);
+- is an armed aircraft with less than 20 NM of flying before its own
+  anti-ship launch range (that range counted to 100 NM at most, so a
+  standoff bomber needs to start 120 NM out, where the AEW sees it); or
+- holds a player ship in anti-ship reach with a red aircraft already within
+  25 NM of her giving the track (Southern Cross).
+
+Only anti-ship missiles and torpedoes count as reach (`ship_reach`); the
+old `reach()` read a Ka-28's sonobuoys as a 100 NM threat. Tight and Hold
+units do not fire first and are not measured. A unit the story puts in
+contact on purpose can say why with `contact="..."`; none does yet.
+
+What it found, and what moved:
+
+| Mission | Was | Now |
+|---|---|---|
+| SW01 White Water | Peykaap 22 NM from Warramunga | 26 NM (29 from the merchants) |
+| SW04 The Quiet Passenger | Type 039 18 NM from the lone OPV, free | Tight: the week before Weapons Free, a boat that has been quiet eleven hours |
+| SW05 Weapons Free | Peykaap 10 NM from the merchants | 28 NM ahead on their track, closing |
+| SW10 Common Sea | 039C 15 NM from the Anzac | 32-35 NM, across the convoy's track |
+| SW11 Fujian's Shadow | J-15D and H-6K 116-117 NM from Ford | 126 NM |
+| SW12 The First Ship Through | Kilo 15 NM from Eyre; JH-7A pair 73 NM | Kilo 27 NM down the track; JH-7A 85 NM |
+| O2 Southern Cross | as above | as above |
+| O3 Borrowed Shield | Kilo 16 NM from the Anzac | 27-28 NM from both groups, working onto the Korean track |
+| C1 After the Wake | 039C 14 NM from the Anzac | 26 NM, north of the box, still in torpedo range of the search |
+| C2 Broken Wake | Kilo 19 NM; J-15D pair 79 NM | Kilo 33-34 NM ahead of Stuart's track; pair 124 NM |
+| D1 Western Passage | MiG-35 pair 84 NM | 95 NM |
+| D4 Return Passage | F-35A and P-8 110-113 NM | 120+ NM |
+| TS05 Under the Tasman | Z-9 11 NM from Farncomb, ROMEO 22 | Z-9 31, ROMEO 26 (the furthest the destroy gate lets Collins still reach), frigate 42 |
+| TS06 Bass Strait | Z-9 27 NM from the tanker | 30 NM |
+| TS08 Great Australian Bight | Yasen 22 NM from Collins | 28 NM west, the same 26 NM from the rendezvous |
+| TS09 The Southern Convoy | J-15 strike 58-64 NM from the convoy | forming up beyond its carrier, 125 NM |
+| TS11 Approaches | J-15 strike 75-81 NM from the escorts | forming up beyond its carrier, 125 NM |
+
+Not changed, on purpose: warships with long-range anti-ship missiles that
+start 30-100 NM away (an over-the-horizon shot is the realistic one, and they
+need a track to take it), and the player's own AEW and patrol aircraft,
+which see a lot from the first second because that is what a Wedgetail at
+32,000 ft does. Whether the AI classifies faster than a real crew would is
+the game's model and not something a mission file sets.
+
+What this does not establish is how the AI plays at the new ranges; test
+card rows H.21 and H.22 ask for it.
 

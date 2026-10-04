@@ -106,7 +106,10 @@ MISSION = dict(
         # drawn (an unarmed aircraft more than 120 NM from the ships).
         "rivet": S(-34.60, 151.60, "Rivet Joint", heading=270, alt=31000),
         "red_cv": S(-40.40, 152.30, "Protection group", heading=300),
-        "red_air": S(-40.10, 152.00, "Strike flight", heading=300, alt=25000),
+        # Forming up beyond its carrier, 125 NM from the escorts: it started
+        # 75-81 NM out, inside its own launch range within a minute or two
+        # (first public report, Oct 2026).
+        "red_air": S(-40.61, 152.67, "Strike flight", heading=300, alt=25000),
         "red_helo": S(-40.30, 152.20, "Ka-31 orbit", heading=300, alt=9000),
         "red_dip": S(-40.00, 151.60, "Z-18F dip", heading=300, alt=1500),
         # The flagship's Z-20, 5 NM ahead of the group on its track.
