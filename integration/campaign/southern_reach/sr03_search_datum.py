@@ -64,7 +64,10 @@ MISSION = dict(
     # has to reach her. A slot-tagged Seahawk cannot be named by a trigger,
     # so it is the ship that goes alongside.
     victory=dict(kind="arrive", station="escort", min_units=1, objective="Datum",
-                 at=(-52.25, 139.65), radius=3, sets="SR03CrewRecovered",
+                 # Eight miles from the escort's start, down from eighteen:
+                 # sea state 5 prices the Anzac at eight knots, and the
+                 # mission is the classification, not the transit.
+                 at=(-52.12, 139.75), radius=3, sets="SR03CrewRecovered",
                  after=dict(kind="classify", units="datum", min_units=1,
                             intel=(
                                 "SEARCH CONTROL: NAN HAI 24 classified. The contact report "

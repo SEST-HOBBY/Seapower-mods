@@ -25,6 +25,15 @@
 # so a Windows editor saving CRLF produces no diff.
 *.ps1    text eol=crlf
 
+# The setup script and its .cmd launcher ship inside the campaign pack and
+# are copied byte for byte: CRLF at the source, CRLF in every checkout, so
+# the pack's SHA-256 on the gaming PC matches the commit.
+integration/campaign/setup/**       -text
+integration/*/SEST_*/*.ps1          -text
+integration/*/SEST_*/*.cmd          -text
+integration/dist/SEST_Integration/*.ps1  -text
+integration/dist/SEST_Integration/*.cmd  -text
+
 # --- Build output -------------------------------------------------------------
 # Reproduced byte-for-byte by the builders; collapsed by default in reviews.
 integration/*/SEST_*/**     linguist-generated=true

@@ -2062,9 +2062,9 @@ def also_condition(mission, n, extra, members):
                 or not 0 < after < mission["minutes"]):
             raise SystemExit(
                 f"{mission['key']}: a victory also-term waits for minute "
-                f"{after!r}, and the Deadline fails the mission at minute "
+                f"{after!r}, and the planned window closes at minute "
                 f"{mission['minutes']} - a time term is whole minutes inside "
-                "the clock")
+                "the window")
         return [f"Condition_Condition{n}_Type=Time",
                 f"Condition_Condition{n}_Time={after * 60}"]
     wanted = [extra["units"]] if isinstance(extra["units"], str) else extra["units"]
@@ -2099,13 +2099,54 @@ TRANSIT = {"Vessel": 18.0, "Submarine": 10.0, "LandUnit": 12.0,
            "Aircraft": 300.0, "VTOL": 250.0, "Helicopter": 120.0,
            "Biologic": 6.0}
 
+# A surface ship in a seaway does not make her class speed. The game's own
+# penalty is not in any file this repo can read, so this is calibrated on
+# the one measurement in hand - HMAS Supply at flank in Macquarie Passage's
+# sea state 5 made about 7 knots, 0.4 of the 18 the table assumes - and
+# shaded conservative on either side of it. Submarines dive under it and
+# aircraft fly over it; only Vessel speeds are scaled.
+SEA_SPEED = {0: 1.0, 1: 1.0, 2: 1.0, 3: 0.9, 4: 0.7, 5: 0.45, 6: 0.35,
+             7: 0.3, 8: 0.25}
 
-def transit_of(tag, placed):
+# `minutes` is the planned window: it sizes every placement and reach check,
+# and at that minute the player is told the window has closed. The mission
+# itself is lost half as long again later. Stock's own campaigns run no
+# clock at all; the first play tests lost missions a quarter-mile short of
+# the box, and a plan that was right on paper is still a plan.
+DEADLINE_FACTOR = 1.5
+
+
+def sea_factor(mission):
+    return SEA_SPEED.get(int(mission.get("sea", 0)), 0.25)
+
+
+def ship_speed(kind, mission, calm=None):
+    """The planning speed of a unit of UnitType `kind` in this mission's sea."""
+    base = TRANSIT.get(kind, 18.0) if calm is None else calm
+    return base * sea_factor(mission) if kind == "Vessel" else base
+
+
+def deadline_minutes(mission):
+    return int(round(mission["minutes"] * DEADLINE_FACTOR))
+
+
+def hold_minutes(victory):
+    """Minutes an arrival's units spend held before they may move: a stage
+    that keeps them inside an area around one of their own starts until a
+    minute (Macquarie Passage's service check, Southern Lifeline's
+    rendezvous) is time at anchor, not time on the way."""
+    stage = victory.get("after") or {}
+    if isinstance(stage, dict) and stage.get("at_unit") and stage.get("after_minutes"):
+        return int(stage["after_minutes"])
+    return 0
+
+
+def transit_of(tag, placed, mission):
     for family, entries in placed.items():
         for t, keys, _n, _x in entries:
             if t == tag:
-                return TRANSIT.get(unit_type(keys["Type"]), 18.0)
-    return 18.0
+                return ship_speed(unit_type(keys["Type"]), mission)
+    return ship_speed("Vessel", mission)
 
 
 def solve_arrival(mission, placed, members):
@@ -2136,7 +2177,7 @@ def solve_arrival(mission, placed, members):
                 x, _alt, z = keys["RelativePositionInNM"].split(",")
                 spots.append(((centre[0] + float(z) / 60.0,
                                centre[1] + float(x) / 60.0),
-                              TRANSIT.get(unit_type(keys["Type"]), 18.0)))
+                              ship_speed(unit_type(keys["Type"]), mission)))
     if not spots:
         raise SystemExit(f"{mission['key']}: the arrival condition names no unit")
     minimum = victory.get("min_units", len(spots))
@@ -2152,8 +2193,12 @@ def solve_arrival(mission, placed, members):
     # A mission may state its own convoy speed - SW12's Coral Pioneer makes
     # nine knots on one shaft, and a box solved at the class default of 18
     # was a box she could not reach.
-    slowest = victory.get("transit") or min(f for _p, f in spots)
-    cap = int(radius + mission["minutes"] / 60.0 * slowest * 0.6)
+    # An authored convoy speed is a calm-water figure too, and takes the
+    # same sea.
+    slowest = (ship_speed("Vessel", mission, calm=victory["transit"])
+               if victory.get("transit") else min(f for _p, f in spots))
+    window = mission["minutes"] - hold_minutes(victory)
+    cap = int(radius + window / 60.0 * slowest * 0.6)
     best = None
     for step in range(max(cap, radius + 4), radius + 2, -1):
         at = (lat0 + step * math.cos(brg) / 60.0,
@@ -2161,7 +2206,7 @@ def solve_arrival(mission, placed, members):
         d = sorted((nm_between(p, at), f) for p, f in spots)
         if sum(1 for x, _f in d if x < radius) >= minimum:
             continue
-        if all(x - radius <= mission["minutes"] / 60.0 * f * 0.75
+        if all(x - radius <= window / 60.0 * f * 0.75
                for x, f in d[:minimum]):
             best = at
             break
@@ -2465,7 +2510,8 @@ def check_closure(mission, placed, members):
     # as unescorted. The one that gets closest in the clock is the escort.
     # A hull marked independent=True sails alone on purpose (place() records
     # it) and is not measured at all.
-    knots = {"sea": 24.0, "sub": TRANSIT["Submarine"]}
+    knots = {"sea": ship_speed("Vessel", mission, calm=24.0),
+             "sub": TRANSIT["Submarine"]}
     # A hull whose weapons are switched off at the start (disable=) carries
     # them and cannot fire them: TS11A's corvette is not her own escort.
     disarmed = {tag for tag, systems in mission.get("_disabled", [])
@@ -2631,7 +2677,7 @@ def check_reach(mission, placed, members):
 
     blue = positions("Taskforce1")
     red = positions("Taskforce2")
-    steam = mission["minutes"] / 60.0 * 24.0
+    steam = mission["minutes"] / 60.0 * ship_speed("Vessel", mission, calm=24.0)
 
     problems = []
     if mission["victory"]["kind"] == "destroy" and blue and red:
@@ -2797,15 +2843,26 @@ def check_geometry(mission, placed, members):
             f"{mission['key']}: {len(inside)} of the {minimum} units the "
             f"arrival condition needs start inside its {radius} NM circle "
             f"({', '.join(inside)}) - the objective is met at spawn")
+    # A stage that holds the units inside an area until a minute (Macquarie
+    # Passage's service check: both ships within five miles of Supply's
+    # start at minute 30) is time they spend at anchor, not on the way.
+    hold = hold_minutes(victory)
+    window = mission["minutes"] - hold
     for d, tag, family in found[:minimum]:
-        speed = transit_of(tag, placed)
-        reach = mission["minutes"] / 60.0 * speed * 0.75
+        speed = transit_of(tag, placed, mission)
+        reach = window / 60.0 * speed * 0.75
         if d - radius > reach:
-            raise SystemExit(
+            # Reported, not raised: one build names every short box, so a
+            # pass over the sea-state table does not take a rebuild per
+            # mission to read.
+            REACH_PROBLEMS.append(
                 f"{mission['key']}: {tag} is one of the {minimum} units the "
-                f"arrival condition needs and must cover {d - radius:.0f} NM; "
-                f"{mission['minutes']} minutes at a conservative {speed:.0f} kn "
-                f"buys {reach:.0f} NM. Move the box or lengthen the mission.")
+                f"arrival condition needs and must cover {d - radius:.1f} NM; "
+                f"{window} minutes under way"
+                + (f" (the {hold}-minute hold taken off)" if hold else "")
+                + f" at a conservative {speed:.1f} kn in sea state "
+                f"{mission.get('sea', 0)} buys {reach:.1f} NM. Move the box "
+                "or lengthen the mission.")
 
 
 def message_texts(mission):
@@ -2881,6 +2938,10 @@ def render(mission, placed, members):
              f"{ini_text(mission['win'])}")
     L.append("TimeoutMessage=<color=red>Operational window closed.</color>|"
              f"{ini_text(mission['timeout'])}")
+    L.append("BehindScheduleMessage=<color=yellow>Behind schedule.</color>|"
+             f"The planned {mission['minutes']}-minute window has closed. Command "
+             f"will hold the line for about {deadline_minutes(mission) - mission['minutes']}"
+             " minutes more. Finish the task now.")
     # Authorised range targets are exempt: a gunnery serial's own target is not
     # a civilian casualty.
     neutral_tags = [tag for family in placed if family.startswith("Neutral")
@@ -3019,17 +3080,23 @@ def render(mission, placed, members):
             if isinstance(how, tuple) and how[0] in ("protect", "survive")
             and oid in ends]
 
-    deadline = mission["minutes"] * 60          # Condition_Time is SECONDS
-    # The clock running out fails the main task and leaves the survival
-    # objectives to their own end-status: a carrier that survived the window
-    # survived it, whether or not the transports made the box. Cancelling
-    # them was telling the player the file contradicts its own rule.
+    # Condition_Time is SECONDS. The planned window closes at `minutes` with
+    # a message and nothing else; the mission is lost at DEADLINE_FACTOR
+    # times that. The clock running out fails the main task and leaves the
+    # survival objectives to their own end-status: a carrier that survived
+    # the window survived it, whether or not the transports made the box.
+    # Cancelling them was telling the player the file contradicts its own
+    # rule.
+    deadline = deadline_minutes(mission) * 60
     survivals = [oid for oid, how in mission.get("resolve", {}).items()
                  if isinstance(how, tuple) and how[0] in ("protect", "survive")]
     terminal("Deadline",
              ["Condition_Type=Time", f"Condition_Time={deadline}"],
              failed=[main], message="TimeoutMessage", victor="Taskforce2",
              keep=survivals)
+    trigger("Window closed", [
+        "Condition_Type=Time", f"Condition_Time={mission['minutes'] * 60}",
+        "Action_Taskforce1_Message=BehindScheduleMessage"])
     trigger("Start message", [
         "Condition_Type=Time", "Condition_Time=1",
         "Action_Taskforce1_Message=Taskforce1StartMessage"])
@@ -4909,12 +4976,13 @@ def requirements(rows):
     rest = [r for r in rest if r not in promoted]
     key = lambda r: r[1].lower()
     L = [f"{TITLE.upper()} - required Steam Workshop mods", "",
-         "TRY THE MOD MANAGER FIRST. Its Sync button asks Steam for this mod's",
-         "required items and subscribes you to them - the game reports back",
-         "\"Subscribed to N new dependencies. Enabled N installed",
-         "dependencies\", and it iterates, so a dependency's own dependencies",
-         "come too. If that works you do not need the list below at all, and",
-         "it is here to check against rather than to work through by hand.",
+         "TRY SETUP FIRST. \"SETUP - double-click me.cmd\" in this folder checks",
+         "that every mod below is downloaded (and names the ones that are",
+         "not, with links), installs the Anchor Chain preloader, and writes",
+         "the whole Mod Manager order. The Steam collection this pack is",
+         "listed in subscribes you to all of them in one press. If that",
+         "works you do not need the list below at all, and it is here to",
+         "check against rather than to work through by hand.",
          "",
          f"{len(need)} mods. Each supplies a file a mission names directly - by",
          "Type=, SquadronReference=, VariantReference=, a loadout's store,",
@@ -5030,6 +5098,10 @@ def load_order_text():
          "A mod you have subscribed to that is not on this list is not a",
          "problem: put it at the bottom. Nothing in the campaign names it, and",
          "the bottom is where it cannot outrank something that is named.", "",
+         "You do not have to do this by hand: with the game closed, double-",
+         "click \"SETUP - double-click me.cmd\" in this folder and it writes",
+         "exactly this order into the game's settings, your other mods at the",
+         "bottom as you had them.", "",
          f"{'#':>4}  {'workshop id':<13} mod", ""]
     for i, token in enumerate(order, 1):
         if token.startswith("SEST_"):
@@ -5483,7 +5555,10 @@ def main():
                "as the story releases it."
              + " Needs the Steam Workshop mods listed in REQUIRED-MODS.txt in "
                "this mod's folder; LOAD-ORDER.txt beside it is the Mod Manager "
-               "order it was built and tested against.")
+               "order it was built and tested against. SETUP: Open Folder on "
+               "this entry, quit the game, double-click \"SETUP - double-click "
+               "me.cmd\" - it checks the subscriptions, installs the Anchor "
+               "Chain preloader and sets the whole order for you.")
     (OUT / "_info.ini").write_text(
         info(" - ".join(titles), blurb, general="",
              tail="\n[Compatibility]\nApproximateVersion=0.8.4\n"),
@@ -5492,6 +5567,12 @@ def main():
     set_campaign(dict(campaigns[0]["spec"], TITLE=" / ".join(titles)))
     (OUT / "REQUIRED-MODS.txt").write_text(requirements(rows), encoding="utf-8")
     (OUT / "LOAD-ORDER.txt").write_text(load_order_text(), encoding="utf-8")
+    # The setup script and its double-click launcher ship at the pack root,
+    # byte for byte from integration/campaign/setup/ (CRLF, as Windows
+    # expects a .cmd to be; .gitattributes marks both ends -text).
+    for src in sorted((HERE / "setup").iterdir()):
+        if src.is_file() and not src.name.startswith("."):
+            (OUT / src.name).write_bytes(src.read_bytes())
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())
     print("wrote REQUIRED-MODS.txt and LOAD-ORDER.txt into the pack")

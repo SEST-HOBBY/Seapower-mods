@@ -150,7 +150,10 @@ def build_info(packs):
             "replacements, and anything that outranks them wins instead. "
             "REQUIRED-MODS.txt and LOAD-ORDER.txt inside this folder list the "
             "Workshop mods the campaigns need and the order they were tested "
-            "in. Includes: " + ", ".join(sorted(names)) + ".")
+            "in. SETUP: Open Folder on this entry, quit the game and double-"
+            "click \"SETUP - double-click me.cmd\" - it checks the "
+            "subscriptions, installs the Anchor Chain preloader and sets the "
+            "whole order for you. Includes: " + ", ".join(sorted(names)) + ".")
     return INFO_HEADER.format(desc=desc, version=version)
 
 
