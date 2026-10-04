@@ -73,7 +73,7 @@ MISSION = dict(
     lose="The charter is down in the Tasman with the advance party in it, "
          "or the Wedgetail is. The air bridge closes and the relief "
          "detachment comes by sea, late.",
-    timeout="Sixty minutes and Relief 21 is still short of the Heads with "
+    timeout="{Deadline} minutes and Relief 21 is still short of the Heads with "
             "the carrier's flight between her and Sydney. She diverts to "
             "Williamtown, which is not what the bridge was for.",
     stations={

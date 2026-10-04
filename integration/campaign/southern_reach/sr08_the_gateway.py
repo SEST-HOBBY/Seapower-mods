@@ -72,7 +72,7 @@ MISSION = dict(
     lose="A gateway ship is lost in New Zealand's front yard and the "
          "US Antarctic Program's summer goes to Hobart. Wellington will say "
          "what it says.",
-    timeout="Sixty-five minutes and the ships are still short of the Heads "
+    timeout="{Deadline} minutes and the ships are still short of the Heads "
             "with the corvette between them and the pilot. The gateway is "
             "a question again.",
     stations={

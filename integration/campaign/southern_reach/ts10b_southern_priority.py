@@ -77,7 +77,7 @@ MISSION = dict(
     ),
     lose="The tanker is lost in Adelaide's front door, or the flagship "
          "is, and the southern element goes east to join the group.",
-    timeout="Sixty minutes and Osborne Spirit is still short of Outer Harbor "
+    timeout="{Deadline} minutes and Osborne Spirit is still short of Outer Harbor "
             "with the frigate alongside her offering an escort. The "
             "southern element leaves for the Tasman tonight.",
     stations={

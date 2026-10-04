@@ -100,7 +100,7 @@ MISSION = dict(
         "The picture no longer matters; the incident "
         "does."
     ),
-    timeout="1145. The convoy has the names the coalition gave it and none this group "
+    timeout="{deadline_clock}. The convoy has the names the coalition gave it and none this group "
             "confirmed. Headquarters will send what it has, which is a guess.",
     stations={
         # The frigate 70 NM north-west of the convoy, outside the escorts' reach; the

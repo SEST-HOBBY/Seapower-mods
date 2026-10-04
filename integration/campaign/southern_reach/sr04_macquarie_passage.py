@@ -81,11 +81,14 @@ MISSION = dict(
     ],
     # Supply AND Coral Pioneer, still inside five miles of Supply's start
     # when the clock reaches thirty minutes (the 03 Lifeline Trigger8 shape),
-    # then both to the line twenty miles north. The line is authored: the
-    # solver does not know the first thirty minutes are spent at anchor.
+    # then both to the line sixteen miles north. The line is authored; the
+    # reach check takes the thirty minutes at anchor off the window and
+    # prices the sea (state 5: Supply made seven knots at flank in the first
+    # play test, and the line twenty miles out was a quarter-mile short at
+    # the buzzer).
     victory=dict(kind="arrive", units=["support#1", "support#2"], min_units=2,
                  station="support", objective="Service",
-                 at=(-54.17, 159.05), radius=12,
+                 at=(-54.24, 159.05), radius=12,
                  after=dict(kind="area", units=["support#1", "support#2"],
                             at_unit="support#1", radius=5, min_units=2,
                             after_minutes=30, sets="SR04ServiceHeld",
@@ -105,7 +108,7 @@ MISSION = dict(
     ),
     lose="The anchorage is broken. The island gets what was ashore before "
          "the window closed and nothing more until next summer.",
-    timeout="Seventy-five minutes and the ships are still south of the "
+    timeout="{Deadline} minutes and the ships are still south of the "
             "line with a boat somewhere in the bay. Whatever crossed the "
             "beach, the group is not out of the anchorage, and the Bear has "
             "the photographs.",

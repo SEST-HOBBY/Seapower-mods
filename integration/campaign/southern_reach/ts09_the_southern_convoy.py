@@ -78,7 +78,7 @@ MISSION = dict(
     lose="Two hulls lost south of Portland with a month of two cities' "
          "cargo in them. The group broke the convoy where it said it "
          "would.",
-    timeout="Ninety minutes and the convoy is still short of the split "
+    timeout="{Deadline} minutes and the convoy is still short of the split "
             "point with the carrier's second strike forming. Portland's "
             "pilot boat waits for a convoy that turned back.",
     stations={
@@ -99,7 +99,11 @@ MISSION = dict(
         # reaches 260.
         "tanker": S(-34.85, 139.30, "Tanker track", heading=115, alt=26000),
         "red_cv": S(-40.00, 139.50, "Protection group", heading=40),
-        "red_air": S(-39.60, 139.80, "Strike flight", heading=40, alt=25000),
+        # Forming up 33 NM beyond its carrier, 125 NM from the convoy: it
+        # started 58-64 NM out, inside its own launch range of the convoy
+        # within a minute or two of the start (first public report, Oct
+        # 2026). The Wedgetail sees it form up; that is the warning.
+        "red_air": S(-40.47, 139.21, "Strike flight", heading=40, alt=25000),
         "red_helo": S(-39.90, 139.60, "Ka-31 orbit", heading=40, alt=9000),
         "red_dip": S(-39.40, 140.00, "Z-18F dip", heading=40, alt=1500),
         # The flagship's Z-20, 5 NM ahead of the group on its track.

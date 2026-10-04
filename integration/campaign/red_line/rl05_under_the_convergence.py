@@ -100,7 +100,7 @@ MISSION = dict(
         "Any of them makes the group's screen boat a named contact before the carrier arrives, "
         "and the southern task starts from that."
     ),
-    timeout="0630, and HULL 419 is short of the box. She will be in it by nightfall, half "
+    timeout="{deadline_clock}, and HULL 419 is short of the box. She will be in it by nightfall, half "
             "a day behind the plan the carrier is sailing to.",
     stations={
         # The boat west of the barrier, heading 110 for the box beyond it.

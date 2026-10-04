@@ -53,7 +53,10 @@ MISSION = dict(
             "miles. You do not fire first; if the frigate shows hostile intent "
             "against her, defend her."),
     date=(2029, 2, 27), time=(4, 55), sea=3, clouds="Scattered_1", wind="NE",
-    difficulty=3, minutes=80, centre=(-37.28, 150.45),
+    # 85, not 80: the defector's corvette makes the twelve-mile circle with
+    # a mile to spare at the sea state 3 planning speed; at 80 it was a
+    # cable short, and the circle is where the story says it is.
+    difficulty=3, minutes=85, centre=(-37.28, 150.45),
     blue_nation="Australia", red_nation="China",
     brief=(
         "OFF GREEN CAPE, 0455, dark; first light about 0620. Your detachment is off "
@@ -125,7 +128,7 @@ MISSION = dict(
         "a story about who stopped her."
     ),
     timeout=(
-        "Eighty minutes, and the corvette is still outside the twelve-mile line, crippled "
+        "{Deadline} minutes, and the corvette is still outside the twelve-mile line, crippled "
         "or stopped, with the frigate standing off. What happens to her now is not in your "
         "report."
     ),

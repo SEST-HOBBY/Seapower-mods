@@ -94,7 +94,7 @@ MISSION = dict(
         "orders protected is lost. Fleet headquarters has asked for the log, and the "
         "coalition already has the recording."
     ),
-    timeout="0820, and FUJIAN is short of her station with a boat astern that still has "
+    timeout="{deadline_clock}, and FUJIAN is short of her station with a boat astern that still has "
             "no class. The group arrives late, and followed.",
     stations={
         # The group on its southbound track through the Molucca Sea: the

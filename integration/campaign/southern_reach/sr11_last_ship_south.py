@@ -67,7 +67,7 @@ MISSION = dict(
     lose="The last ship south is lost with the winter in her. The stations "
          "close early, and the season the task group sailed to keep is "
          "over.",
-    timeout="Eighty minutes and the Endeavour is short of the line with a "
+    timeout="{Deadline} minutes and the Endeavour is short of the line with a "
             "frigate closing and a boat under her. The voyage turns back "
             "for Hobart, and Casey winters on what it has.",
     stations={
