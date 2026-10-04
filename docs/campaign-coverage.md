@@ -220,7 +220,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `SEST_F-15EX_Revamp` | SEST F-15EX Revamp | `unit` | usaf_f-15ex_SEII | Long Reach |
 | `SEST_F-35C_JATM` | SEST F-35C JATM | `unit` | usn_f-35c | Fujian's Shadow |
 | `SEST_F16CM_JATM` | SEST F-16CM JATM | `unit` | usaf_f-16cm-bl52d | Long Reach |
-| `SEST_Gallery` | SEST Gallery | `library` | an offline photo gallery under `Gallery/` that the player opens in a web browser; the game reads none of it | - |
+| `SEST_Gallery` | SEST Gallery | `library` | an offline photo gallery under `Gallery/` that the player opens in a web browser; the briefings' recognition photos are read from its source by the campaign builder, not from this pack | - |
 | `SEST_Growler_NGJ_MALICE` | SEST Growler NGJ + MALICE | `unit` | usn_ea-18g | Long Way Home |
 | `SEST_Intercept_Model` | SEST Intercept Model | `store` | idf_dsws / idf_stunner | Range Week |
 | `SEST_JMSDF_Mogami` | SEST JMSDF Mogami | `unit` | js_ffg_mogami | Common Sea |
