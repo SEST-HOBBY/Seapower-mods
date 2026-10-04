@@ -2312,3 +2312,34 @@ python3 tools/build_all.py --from-scratch                               # the re
 `check_campaign_coverage.py` deliberately re-derives everything from the built
 mission files rather than from `campaign_data.py`, so it still tells the truth
 after a mod update that the builder's roster has not caught up with.
+
+## Opening ranges in White Water and Steel Highway (October 2026)
+
+The first public report said both openings start too close: the AI sees the
+convoy at once, the escort has to race to get its SAMs between a sea-skimmer
+and the merchants, Steel Highway's submarine is right there, and a bought
+ASW aircraft spawns far away. The built files agreed.
+
+**White Water.** Warramunga started 8 NM astern of the merchants, with the
+Peykaap-III (Nasir, 49 NM) and its decoy 16 NM ahead of them - inside the
+boat's own 17 NM radar from the first second, with the merchants between it
+and the only SAM. Now Warramunga starts 3 NM ahead on the threat axis with
+her Seahawk beside her, and the Meridian pair starts 25 NM from the merchants
+(22 from the frigate), east-north-east, beyond the trawlers and its own radar,
+routed down the convoy's track. The handover box is unchanged.
+
+**Steel Highway.** The escort group started 17 NM from the convoy the
+briefing says it is in company with, and 13 NM from a 039C (YJ-18, Yu-6)
+with weapons free - astern of everybody, not across the planned track - and
+the P-8 slot shared the Wedgetail's station, 48 NM from the boat at
+30,000 ft. Now the escorts start 2 NM ahead of the merchants, the boat starts
+30 NM up the track just north of it, at the far edge of the approach box,
+creeping in toward the track below the layer, and the P-8 slot has its own
+station over the sonobuoy field at 6,000 ft, 10 NM from the datum. The
+briefing says where the datum is and that an assigned Poseidon starts over
+it. Gulf traffic moves up to 15 NM ahead of the merchants, where it is part
+of the picture.
+
+Every gate passes. What this does not establish is how the AI behaves at
+the new ranges; test card rows H.19 and H.20 ask for it.
+
