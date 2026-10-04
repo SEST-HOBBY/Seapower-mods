@@ -174,6 +174,12 @@
         "SEST_Replenishment",
         "SEST_TacMap_Colors"
       ]
+    },
+    {
+      "folder": "SEST_Gallery",
+      "source": "integration/gallery",
+      "builder": "build_patch.py",
+      "title": "SEST Gallery"
     }
   ],
   "mods": [
