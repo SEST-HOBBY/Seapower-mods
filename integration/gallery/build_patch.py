@@ -63,6 +63,19 @@ def main():
     if missing:
         sys.exit(f"{len(missing)} photos the gallery shows are missing, e.g. {missing[0]}")
 
+    # The author-supplied photos: every row of the credits sheet must already
+    # be in the catalogue, with the same credit and the same bytes.
+    sys.path.insert(0, str(HERE))
+    import apply_added_photos as added
+    by_id = {a["asset_id"]: a for a in cat["assets"]}
+    for row in added.rows():
+        a = by_id.get(row["asset_id"].strip())
+        want = added.credit_fields(row)
+        if (not a or any(a.get(k) != v for k, v in want.items())
+                or a["sha256"] != digest(added.ADDED / row["file"])):
+            sys.exit(f"{row['file']}: added-photo-credits.csv is not applied - run "
+                     "python3 integration/gallery/apply_added_photos.py, then rebuild")
+
     print(f"built {OUT.name}: {len(src)} files, {len(cat['assets'])} photos")
 
 

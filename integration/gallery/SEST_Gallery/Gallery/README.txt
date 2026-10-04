@@ -25,10 +25,12 @@ VISUAL_CREDITS.txt    The same for the flags and backgrounds.
 data/                 The indexes as spreadsheets (CSV).
 
 ABOUT THE PHOTOS
-Only sourced real photographs are used. No AI imagery. Each photo keeps its
-own licence (public domain, CC0, CC BY, CC BY-SA or OGL); the credits files
-give the creator, licence and source page for each one, and they must stay
-with the photos if you pass them on.
+Only real photographs are used. No AI imagery. Each photo keeps its own
+licence (public domain, CC0, CC BY, CC BY-SA or OGL); the credits files give
+the creator, licence and source page for each one, and they must stay with
+the photos if you pass them on. 22 photos were supplied by the SEST author in
+October 2026; their credits are as the author recorded them, and a photo
+marked "Credit to be added" has not been credited yet.
 
 Not every unit has an exact photo. Many use a photo of the same family, an
 earlier variant or a related system, and each one says which. Units with no

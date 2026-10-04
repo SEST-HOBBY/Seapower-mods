@@ -73,13 +73,12 @@ photo essay  http://www.defense.gov/photoessays/photoessayss.aspx?id=2638
 Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
 Reference limits: USAF F-16 photograph. Exact block and SEST JATM fit are not established by the photo.
 
-f16a — F-16A Fighting Falcon
-Creator: 玄史生
-Licence: CC0 http://creativecommons.org/publicdomain/zero/1.0/deed.en
-Source: https://commons.wikimedia.org/wiki/File:ROCAF_F-16A_6609_Demonstration_Flight_at_Gangshan_AFB_20170812c.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/9/93/ROCAF_F-16A_6609_Demonstration_Flight_at_Gangshan_AFB_20170812c.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Own work
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+f16a — F-16C Fighting Falcon (93rd Fighter Squadron)
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: ROCAF F-16A. Correct airframe family, different operator and livery from USAF or Israeli mod variants.
 
 f22 — F-22A Raptor
@@ -542,12 +541,11 @@ Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downl
 Reference limits: French Atlantique 2. The older Br.1150 Atlantic is related but is not an exact subtype match.
 
 c130j — KC-130J Hercules
-Creator: Balon Greyjoy
-Licence: CC0 http://creativecommons.org/publicdomain/zero/1.0/deed.en
-Source: https://commons.wikimedia.org/wiki/File:20190327_KC-130J_Tail_167111_Kadena_AB-11.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/b/bb/20190327_KC-130J_Tail_167111_Kadena_AB-11.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Own work
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
 a320 — Airbus A320
@@ -788,12 +786,11 @@ Changes: Downloaded photograph/video-still bytes preserved. Wikimedia standard t
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit. Full Australian Army Tiger ARH exhibition view with readable airframe shape; static display and barriers remain visible.
 
 caracal — H225M / EC725 Caracal
-Creator: Marinha do Brasil
-Licence: CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0
-Source: https://commons.wikimedia.org/wiki/File:Lan%C3%A7amento_de_Armas_2021_Exocet_11_(51279148576).png
-Original: https://upload.wikimedia.org/wikipedia/commons/5/55/Lan%C3%A7amento_de_Armas_2021_Exocet_11_%2851279148576%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Exocet 11
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
 cougar — AS532 Cougar
@@ -913,29 +910,20 @@ Credit: http://www.airliners.net/photo/China-Air-Force/Chengdu-J-10A/1448582
 Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
-j11 — J-11 family
-Creator: U.S. Navy
-Licence: Public domain 
-Source: https://commons.wikimedia.org/wiki/File:Chinese_Shenyang_J-11_from_below_in_August_2014.JPG
-Original: https://upload.wikimedia.org/wikipedia/commons/1/10/Chinese_Shenyang_J-11_from_below_in_August_2014.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: This image was released by the United States Navy with the  ID   140819-N-ZZ999-111    (next)  . 
- This tag does not indicate the copyright status of the attached work.  A normal  copyright tag  is still required.   See  Commons:Licensing .  
- 
- 
-    العربية    ∙    বাংলা    ∙  
-  Bahasa Indonesia    ∙  
-  Bahaso Jambi    ∙  
-  Deutsch    ∙    Deutsch (Sie-Form)    ∙    English    ∙    español    ∙    euskara    ∙    فارسی    ∙    français    ∙    italiano    ∙    日本語    ∙    한국어    ∙    македонски    ∙    മലയാളം    ∙    Plattdüütsch    ∙    Nederlands    ∙    polski    ∙    پښتو    ∙    português    ∙    русский    ∙    slovenščina    ∙    svenska    ∙    Türkçe    ∙    українська    ∙    简体中文    ∙    繁體中文    ∙    +/−
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+j11 — J-11B
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: J-11 family photograph. It does not establish J-11BG/BGH/BS or any specific radar/avionics upgrade.
 
 j15 — J-15 carrier fighter
-Creator: 日本防衛省・統合幕僚監部
-Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
-Source: https://commons.wikimedia.org/wiki/File:PLAN_Shenyang_J-15_carrier-based_fighter_aircraft_20211221_-_1.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/4/40/PLAN_Shenyang_J-15_carrier-based_fighter_aircraft_20211221_-_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: https://www.mod.go.jp/js/Press/press2021/press_pdf/p20211221_01.pdf
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: J-15 base airframe reference. J-15T catapult and J-15D/DT electronic-warfare variants have visible differences.
 
 j16 — J-16
@@ -1029,12 +1017,11 @@ Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downl
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
 kj2000 — KJ-2000
-Creator: Otherjoke  at  English Wikipedia
-Licence: Public domain 
-Source: https://commons.wikimedia.org/wiki/File:Kongyu_2000,_People%27s_Liberation_Army_Air_Force,_China.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/a/a5/Kongyu_2000%2C_People%27s_Liberation_Army_Air_Force%2C_China.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Own work  (Self-made & self-processed)
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
 y20 — Y-20 transport
@@ -1398,12 +1385,11 @@ Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downl
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
 shahed136 — Shahed-136
-Creator: Meghdad Madadi
-Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
-Source: https://commons.wikimedia.org/wiki/File:Military_equipment_displayed_for_the_44th_Iranian_revolution_anniversary_rally_-_Shahed_136.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/c/c4/Military_equipment_displayed_for_the_44th_Iranian_revolution_anniversary_rally_-_Shahed_136.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: tasnimnews.ir  (Direct URL:  https://newsmedia.tasnimnews.ir/Tasnim/Uploaded/Image/1401/11/22/1401112216083048727040754.jpg )
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Shahed-136 on a public display. Static photograph; do not treat it as proof of a particular Geran-2 variant.
 
 ec2 — Kawasaki RC-2 — related reference
@@ -1416,12 +1402,11 @@ Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downl
 Reference limits: This photograph depicts the RC-2 signals-intelligence aircraft, not the EC-2 stand-off jammer. Related airframe reference only; no automatic EC-2 assignment.
 
 b52g — B-52G Stratofortress
-Creator: Andrew Thomas  from Shrewsbury, UK
-Licence: CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0
-Source: https://commons.wikimedia.org/wiki/File:Boeing_B-52G_Stratofortress_58-0195_LZ_US_Air_Force,_IAT_Fairford_-_UK,_July_22_1989._(5601189569).jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/9/9b/Boeing_B-52G_Stratofortress_58-0195_LZ_US_Air_Force%2C_IAT_Fairford_-_UK%2C_July_22_1989._%285601189569%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Boeing B-52G Stratofortress 58-0195 / LZ US Air Force, IAT Fairford - UK, July 22 1989.
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+Creator: U.S. Air Force
+Licence: Public domain
+Source: https://www.af.mil/News/Photos/igphoto/2000595089/
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
 a10a — A-10A Thunderbolt II
@@ -1450,19 +1435,11 @@ Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downl
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
 s3b — S-3B Viking
-Creator: U.S. Navy photo by Photographer’s Mate 3rd Class Todd Frantom.
-Licence: Public domain 
-Source: https://commons.wikimedia.org/wiki/File:US_Navy_030328-N-1810F-013_An_S-3B_Viking_assigned_to_the_%22Red_Tails%22_of_Sea_Control_Squadron_Twenty_One_(VS-21).jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/7/7e/US_Navy_030328-N-1810F-013_An_S-3B_Viking_assigned_to_the_%22Red_Tails%22_of_Sea_Control_Squadron_Twenty_One_%28VS-21%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: This image was released by the United States Navy with the  ID   030328-N-1810F-013    (next)  . 
- This tag does not indicate the copyright status of the attached work.  A normal  copyright tag  is still required.   See  Commons:Licensing .  
- 
- 
-    العربية    ∙    বাংলা    ∙  
-  Bahasa Indonesia    ∙  
-  Bahaso Jambi    ∙  
-  Deutsch    ∙    Deutsch (Sie-Form)    ∙    English    ∙    español    ∙    euskara    ∙    فارسی    ∙    français    ∙    italiano    ∙    日本語    ∙    한국어    ∙    македонски    ∙    മലയാളം    ∙    Plattdüütsch    ∙    Nederlands    ∙    polski    ∙    پښتو    ∙    português    ∙    русский    ∙    slovenščina    ∙    svenska    ∙    Türkçe    ∙    українська    ∙    简体中文    ∙    繁體中文    ∙    +/−
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
 es3a — ES-3A Shadow
@@ -1509,12 +1486,11 @@ Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downl
 Reference limits: Airframe reference. Match the operator, subtype and visible equipment before assigning to a unit.
 
 j35 — J-35 naval fighter
-Creator: 中国新闻社
-Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
-Source: https://commons.wikimedia.org/wiki/File:PLAN_J-35_on_Type_003_Fujian.png
-Original: https://upload.wikimedia.org/wikipedia/commons/f/fb/PLAN_J-35_on_Type_003_Fujian.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: YouTube :   https://www.youtube.com/watch?v=lABJK0FVNQE   – View/save archived versions on  archive.org
-Changes: Compilation changes: Wikimedia thumbnail resize where applicable; downloaded bytes preserved. Existing source edits and overlays are retained. No additional crop, recolour or AI alteration was applied.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Photographic frame of naval J-35 on Fujian. Verify the exact test/production configuration; source image quality is limited.
 
 kj600 — KJ-600 AEW&C
@@ -3095,13 +3071,12 @@ Credit: Own work
 Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
-hq7 — HHQ-7 naval launcher — land HQ-7 photo still needed
-Creator: Megapixie
-Licence: Public domain https://commons.wikimedia.org/wiki/File:Chinese_HQ-7_and_Type_79A_100mm_turret.jpg#Licensing
-Source: https://commons.wikimedia.org/wiki/File:Chinese_HQ-7_and_Type_79A_100mm_turret.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/2/21/Chinese_HQ-7_and_Type_79A_100mm_turret.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Own work
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+hq7 — HQ-7 / FM-90 land launcher
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Existing source identifies a naval HHQ-7 launcher. Do not assign it as a photograph of the land HQ-7/HQ-7B vehicle.
 
 hq11 — HQ-11 air-defence system
@@ -3132,21 +3107,19 @@ Changes: Wikimedia thumbnail resize where applicable; downloaded photographic by
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
 df21 — DF-21 ballistic missile system
-Creator: IceUnshattered
-Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
-Source: https://commons.wikimedia.org/wiki/File:Dongfeng-21D.JPG
-Original: https://upload.wikimedia.org/wikipedia/commons/5/5f/Dongfeng-21D.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Own work
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
 df26 — DF-26 ballistic missile system
-Creator: IceUnshattered
-Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
-Source: https://commons.wikimedia.org/wiki/File:Dong-Feng_26.JPG
-Original: https://upload.wikimedia.org/wikipedia/commons/9/9c/Dong-Feng_26.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Own work
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
 cj10 — CJ-10 cruise missile system
@@ -3177,12 +3150,11 @@ Changes: Wikimedia thumbnail resize where applicable; downloaded photographic by
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
 mpq65 — AN/MPQ-65 Patriot radar
-Creator: Capt. William Leasure
-Licence: Public domain https://commons.wikimedia.org/wiki/File:Patriot_Radar_integrates_into_Max_Thunder_%2716_160420-A-DY706-001.jpg#Licensing
-Source: https://commons.wikimedia.org/wiki/File:Patriot_Radar_integrates_into_Max_Thunder_%2716_160420-A-DY706-001.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/e/e7/Patriot_Radar_integrates_into_Max_Thunder_%2716_160420-A-DY706-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: https://www.dvidshub.net/image/2548144/patriot-radar-integrates-into-max-thunder-16
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
 thaad — THAAD missile defence system
@@ -3204,12 +3176,11 @@ Changes: Wikimedia thumbnail resize where applicable; downloaded photographic by
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
 hmmwv — HMMWV — vehicle reference
-Creator: U.S. Army Air Defense Artillery School
-Licence: Public domain https://commons.wikimedia.org/wiki/File:Defender_II_HMMWV_mounted.png#Licensing
-Source: https://commons.wikimedia.org/wiki/File:Defender_II_HMMWV_mounted.png
-Original: https://upload.wikimedia.org/wikipedia/commons/9/91/Defender_II_HMMWV_mounted.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Air Defense Prototypes Displayed . //  Air Defense Artillery , Winter 1986, p. 58, ISSN 0740-803X.
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Historical Defender II prototype on an HMMWV chassis. Chassis and mounted-system context only; not the mod’s specific launcher.
 
 adats — ADATS system
@@ -3258,12 +3229,11 @@ Changes: Wikimedia thumbnail resize where applicable; downloaded photographic by
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
 scud — Scud missile system
-Creator: SRA Chris Flahive, U.S. Air Force
-Licence: Public domain https://commons.wikimedia.org/wiki/File:SCUD_missle_launcher_with_support_vehicles_(2000).JPEG#Licensing
-Source: https://commons.wikimedia.org/wiki/File:SCUD_missle_launcher_with_support_vehicles_(2000).JPEG
-Original: https://upload.wikimedia.org/wikipedia/commons/d/d5/SCUD_missle_launcher_with_support_vehicles_%282000%29.JPEG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: http://www.defenseimagery.mil ;  VIRIN:  000616-F-0502F-065
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
 tunguska — Tunguska air-defence system
@@ -3339,21 +3309,19 @@ Changes: Wikimedia thumbnail resize where applicable; downloaded photographic by
 Reference limits: Representative real-world subject only. This photo does not establish the exact mod asset, operator, armament or layout.
 
 fob — Forward operating base — reference
-Creator: Staff Sgt. James Selesnick
-Licence: Public domain https://commons.wikimedia.org/wiki/File:Air_assault_training_at_Forward_Operating_Base_Loyalty_DVIDS153976.jpg#Licensing
-Source: https://commons.wikimedia.org/wiki/File:Air_assault_training_at_Forward_Operating_Base_Loyalty_DVIDS153976.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/b/bf/Air_assault_training_at_Forward_Operating_Base_Loyalty_DVIDS153976.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: https://www.dvidshub.net/image/153976
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Representative real-world subject only. This photo does not establish the exact mod asset, operator, armament or layout.
 
 drydock — Floating dry dock — reference
-Creator: Pline
-Licence: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
-Source: https://commons.wikimedia.org/wiki/File:River_floating_dry_dock_P1050226.JPG
-Original: https://upload.wikimedia.org/wikipedia/commons/1/1f/River_floating_dry_dock_P1050226.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Own work
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Representative real-world subject only. This photo does not establish the exact mod asset, operator, armament or layout.
 
 liberty — Statue of Liberty
@@ -3366,12 +3334,11 @@ Changes: Wikimedia thumbnail resize where applicable; downloaded photographic by
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant.
 
 east_sale — RAAF Base East Sale
-Creator: Goatindex
-Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
-Source: https://commons.wikimedia.org/wiki/File:RAAF_Base_East_Sale_Winjeel.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/7/79/RAAF_Base_East_Sale_Winjeel.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: Own work
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: RAAF East Sale gate guardian and entrance sign; no aerial view or base layout is shown.
 
 williamtown — RAAF Base Williamtown
@@ -4370,19 +4337,11 @@ Changes: Downloaded photograph/video-still bytes preserved. Wikimedia standard t
 Reference limits: Photographed equipment is a family reference. Check the caption, date, operator and visible configuration before assigning it to a mod variant. Larger direct view of the 76 mm mount and barrel; visitors and harbour remain in frame. Compact mount reference only.
 
 oto127 — OTO 127 mm naval gun
-Creator: Petty Officer 2nd Class Larissa Dougherty
-Licence: Public domain https://commons.wikimedia.org/wiki/File:German_frigate_Baden-W%C3%BCrtemberg_(F222)_fires_an_Otobreda_127_64_LW_5-inch_gun_in_the_Pacific_Ocean_during_RIMPAC_2024_on_14_July_2024.jpg#Licensing
-Source: https://commons.wikimedia.org/wiki/File:German_frigate_Baden-W%C3%BCrtemberg_(F222)_fires_an_Otobreda_127_64_LW_5-inch_gun_in_the_Pacific_Ocean_during_RIMPAC_2024_on_14_July_2024.jpg
-Original: https://upload.wikimedia.org/wikipedia/commons/8/85/German_frigate_Baden-W%C3%BCrtemberg_%28F222%29_fires_an_Otobreda_127_64_LW_5-inch_gun_in_the_Pacific_Ocean_during_RIMPAC_2024_on_14_July_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: This image was released by the United States Navy with the  ID  240714-N-PQ495-1972   (next)  . 
- This tag does not indicate the copyright status of the attached work.  A normal  copyright tag  is still required.   See  Commons:Licensing .  
- 
- 
-    العربية    ∙    বাংলা    ∙  
-  Bahasa Indonesia    ∙  
-  Bahaso Jambi    ∙  
-  Deutsch    ∙    Deutsch (Sie-Form)    ∙    English    ∙    español    ∙    euskara    ∙    فارسی    ∙    français    ∙    italiano    ∙    日本語    ∙    한국어    ∙    македонски    ∙    മലയാളം    ∙    Plattdüütsch    ∙    Nederlands    ∙    polski    ∙    پښتو    ∙    português    ∙    русский    ∙    slovenščina    ∙    svenska    ∙    Türkçe    ∙    українська    ∙    简体中文    ∙    繁體中文    ∙    +/−
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: Baden-Württemberg firing its 127 mm gun; whole-ship firing context rather than a close weapon-identification photograph.
 
 bofors57 — Bofors 57 mm gun
@@ -4515,12 +4474,11 @@ Changes: Wikimedia thumbnail resize where applicable; downloaded photographic by
 Reference limits: EA-18G carrying ALQ-99 pods; aircraft and mounted-equipment context rather than an isolated jammer photograph.
 
 sewip — SEWIP electronic warfare system
-Creator: San Diego Webcam
-Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
-Source: https://commons.wikimedia.org/wiki/File:USS_Pinckney_(DDG_91)_SEWIP_Block_III.webp
-Original: https://upload.wikimedia.org/wikipedia/commons/8/84/USS_Pinckney_%28DDG_91%29_SEWIP_Block_III.webp?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
-Credit: https://www.youtube.com/c/sandiegowebcam
-Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
 Reference limits: USS Pinckney with SEWIP Block III equipment visible; ship-installation context, not an isolated system image.
 
 96l6 — 96L6 radar
@@ -5143,3 +5101,12 @@ Original: https://upload.wikimedia.org/wikipedia/commons/3/3a/F-15E_LANTIRN_IR_H
 Credit: ID:DFST9103335
 Changes: Wikimedia thumbnail resize where applicable; downloaded photographic bytes preserved. No added labels, recolouring or AI alteration. Existing source crops, overlays and edits remain.
 Reference limits: The earlier photograph shows sensor output in a cockpit rather than pod hardware.
+
+alconbury — RAF Alconbury
+Creator: Credit to be added
+Licence: Not recorded
+Source: not recorded
+Supplied by: the SEST author (October 2026)
+Changes: As supplied by the SEST author; no edits.
+Reference limits: Supplied by the SEST author; not mapped to a unit.
+

@@ -4029,11 +4029,15 @@ def gallery_catalogue():
 
 
 def photo_credit(asset):
+    # photos the SEST author supplied before writing their credit
+    if asset.get("origin") == "sest_author_supplied" and asset.get("creator") == "Credit to be added":
+        return "Photo supplied by the SEST author"
     who = re.sub(r"https?://\S+", "", asset.get("creator") or "")
     who = re.sub(r"\s+", " ", who).strip(" ,;") or "see PHOTO_CREDITS.txt"
     if len(who) > 70:
         who = who[:67].rstrip() + "..."
-    return f"Photo: {who} · {(asset.get('license') or '').strip()} · resized"
+    lic = (asset.get("license") or "").strip()
+    return f"Photo: {who}" + (f" · {lic}" if lic and lic != "Not recorded" else "") + " · resized"
 
 
 def recognition(mission):
