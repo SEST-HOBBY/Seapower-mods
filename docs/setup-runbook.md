@@ -30,7 +30,7 @@ don't misdiagnose breakage later.
 ## Phase 2 — unsubscribe list (done — read the KEEPs)
 
 Done: Shahed-136 (Obiwonkanblomi), the MyGo F-35C and the MyGo F/A-18E/F were unsubscribed by
-20 Sep 2026. The current set is the 180 Workshop mods in `data/load-order.tokens.txt`; with the
+20 Sep 2026. The current set is the 190 Workshop mods in `data/load-order.tokens.txt`; with the
 pack, that set is the published collection 3812390790. Do not unsubscribe anything in it.
 
 | Mod | Action | Why |

@@ -7,7 +7,7 @@ from the whole collection.
 
 WHY THIS EXISTS
 
-180 Workshop mods and 20 local packs are a lot of content to own and
+190 Workshop mods and 20 local packs are a lot of content to own and
 never see. The Banda vignettes reached for the mods the sandbox left idle, one
 family per scenario; this goes the rest of the way: campaigns that between them
 place something from EVERY active mod that can put something on the map, and
@@ -5314,7 +5314,7 @@ def load_order_text():
 
     With TITLES. The order is stored as workshop ids because that is what
     usersettings.ini stores, but the Mod Manager shows a player names - and a
-    list of 180 bare numbers is not something a human can check an install
+    list of 190 bare numbers is not something a human can check an install
     against, which is the only reason this file ships.
     """
     data = catalog()

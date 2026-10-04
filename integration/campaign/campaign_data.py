@@ -262,6 +262,37 @@ EXCUSES = {
         "external", "a USN autonomous-boat family with its own four test scenarios; its "
         "contact detonation runs in its Anchor Chain DLL, and no 2028 SEST "
         "mission has an unmanned-boat role"),
+    # The ten further October subscriptions (4 Oct export). In the collection
+    # and the order; no SEST mission places them yet.
+    "jmsdf-hyuga-class": (
+        "external", "Hyuga and Ise helicopter destroyers not yet written into a SEST "
+        "mission; the JMSDF detachment the campaigns field is Mogami and Maya"),
+    "civilian-as350": (
+        "external", "a civilian AS350 helicopter for scenarios; SEST's civilian "
+        "traffic is shipping, not light helicopters"),
+    "s-350-vityaz": (
+        "external", "S-350 Vityaz batteries kept for scenarios; no SEST theatre has "
+        "a Russian-supplied medium-range SAM belt, and its two shared "
+        "files lose to Euromod's"),
+    "iran-shahed-238": (
+        "external", "Shahed 238 launchers kept for scenarios; SEST's Range Week and "
+        "shore sites field the Shahed-136"),
+    "emad-iran-bm": (
+        "external", "Emad ballistic-missile TELs kept for scenarios; Range Week's "
+        "Iranian pad is the SEJJIL"),
+    "fattah-1": (
+        "external", "Fattah-1 TELs kept for scenarios; no SEST mission places them"),
+    "fattah-2": (
+        "external", "Fattah-2 TELs kept for scenarios; no SEST mission places them"),
+    "iran-bell-212": (
+        "external", "Iranian Army, Navy and IRIAA Bell 212s; no SEST mission is set "
+        "in Iranian waters"),
+    "project-2498-zyetseth": (
+        "external", "a Cold War Soviet converted assault freighter for scenarios; "
+        "no 2028 SEST mission fields it"),
+    "thailand-siam-shield": (
+        "external", "Royal Thai Navy and Air Force from the 1950s on; no SEST "
+        "mission is set in the Gulf of Thailand"),
 }
 
 EVENTS = [

@@ -17,7 +17,7 @@ before the patch does.
   order then held, plus the pack. This is how a subscriber gets the
   dependencies. Its banner reads "149 Workshop items, 3 campaigns, 19 fix
   packs". **Behind the repo since the October 2026 additions:** the load
-  order now holds 180 Workshop mods, so the collection needs the 32 new ones
+  order now holds 190 Workshop mods, so the collection needs the 42 new ones
   (and its banner and counts redone) before the next upload of the pack -
   SETUP refuses to run while any mod in the pack's LOAD-ORDER.txt is missing.
 - **Required Items: empty, on purpose.** The item's *Required Items* (the
@@ -29,8 +29,8 @@ before the patch does.
   2028 to February 2029 dates), and the collection banner and pack images
   were redone.
 
-The counts come from the repo: `data/load-order.tokens.txt` has 181
-non-comment entries, 180 Workshop ids and `SEST_Integration` (149 and 148
+The counts come from the repo: `data/load-order.tokens.txt` has 191
+non-comment entries, 190 Workshop ids and `SEST_Integration` (149 and 148
 when the collection was published). The "135 mods"
 and "133-mod" figures in older notes are out of date.
 
@@ -76,7 +76,7 @@ about to be published, and the tag dimensions the game sorts by:
 
 ## Dependencies come from the collection, not from Required Items
 
-This is the important part, and it is why a pack that depends on 180 Workshop
+This is the important part, and it is why a pack that depends on 190 Workshop
 mods is a publishable thing at all — and why the obvious way of doing it would
 break the pack.
 
@@ -207,7 +207,7 @@ it is the one dependency most likely to break a subscriber's install.
    commenter reported against it.
 3. **A fresh-install check, when SETUP, the load order or the collection
    changed.** Everything verified on the machine that built it is verified
-   where all 180 Workshop mods of the load order happen to be present. The
+   where all 190 Workshop mods of the load order happen to be present. The
    check that matters is to subscribe to the collection 3812390790 on a clean
    profile, run SETUP, and see whether the campaigns run. One friend's PC has
    done part of this (see *What has been verified so far*). If a second
@@ -312,7 +312,7 @@ steps, counts, dates, the clock), change them in the same sitting.
   that the game was closed when it updated. His `Steam\logs\workshop_log.txt`
   lines for 3812461539, with his launch and quit times, would settle it. Not
   yet reported from that PC: whether the UAC elevation ran, whether the pack
-  sits first with 181 entries, whether the campaigns are listed, and the
+  sits first with 191 entries, whether the campaigns are listed, and the
   yellow "Behind schedule" card in The Quiet Passenger at 45:00 — test card
   H.15-H.18.
 - **Not yet shown in game.** The "Behind schedule" message has not been seen.

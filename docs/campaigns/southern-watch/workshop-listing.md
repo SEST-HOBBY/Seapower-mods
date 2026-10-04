@@ -14,7 +14,7 @@ Everything below is for the Steam Workshop page. The mod's own
 page a subscriber reads before they click. Nothing here is generated, so if
 the campaigns change, this changes by hand.
 
-A note before the copy: this pack **depends on 180 other Workshop mods** (the
+A note before the copy: this pack **depends on 190 other Workshop mods** (the
 collection 'SEST - Modernised Campaign Collection', 3812390790). That
 is not a footnote, it is the headline risk of publishing it. A subscriber who
 skims the description, subscribes, and starts a campaign with forty of them
@@ -43,7 +43,7 @@ SEST Integration Pack - Modernised Campaigns
 ```
 Three Task Force Mode campaigns (Southern Watch, Southern Reach / Tasman
 Shield, Red Line) and every SEST fix in one Mod Manager entry. Needs the
-180 Workshop mods in the 'SEST - Modernised Campaign Collection'
+190 Workshop mods in the 'SEST - Modernised Campaign Collection'
 (3812390790): subscribe to it, then run SETUP.
 ```
 
@@ -111,7 +111,7 @@ WHAT IT NEEDS — READ THIS PART
 
 These campaigns are built on a large mod collection. They name units from
 **143 Steam Workshop mods**; the collection built for them,
-'SEST - Modernised Campaign Collection', holds 180 Workshop mods (those 143,
+'SEST - Modernised Campaign Collection', holds 190 Workshop mods (those 143,
 the mods they or the load order depend on, and the third-party campaigns and
 other content added in October 2026) plus this
 pack. That is the point of it — the campaigns exist to give a very large
