@@ -1,0 +1,68 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  Stretch="Uniform"
+  StretchDirection="Both">
+  <Grid Width="1560" Height="920" TextElement.Foreground="#D8DCE0" TextElement.FontFamily="Roboto">
+    <Grid.Resources>
+      <Style x:Key="SlideArrowButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#8E969E"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="58"/>
+        <Setter Property="FontWeight" Value="Light"/>
+        <Setter Property="Opacity" Value="0.58"/>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Border Background="{TemplateBinding Background}">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter Property="Background" Value="#28383B3F"/>
+                  <Setter Property="Opacity" Value="0.82"/>
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+    </Grid.Resources>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="76"/>
+      <RowDefinition Height="1"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Grid.Row="0" Text="ACT II - THE COALITION WIDENS" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Border Grid.Row="0" Width="76" Height="38" BorderBrush="#3E454B" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,24,0">
+      <TextBlock Text="2 / 2" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Border>
+    <Rectangle Grid.Row="1" Fill="#3E454B" Margin="22,0"/>
+
+    <Grid Grid.Row="2" Margin="0,10,0,0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="122"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="122"/>
+      </Grid.ColumnDefinitions>
+
+      <Button Grid.Column="0" Width="96" Height="190" Style="{StaticResource SlideArrowButton}" Content="&lt;" Command="{Binding OpenFileCommand}" CommandParameter="campaigns/mare-nostrum-28/art/acto2_en.xml"/>
+      <TextBlock Grid.Column="2" Text="&gt;" FontSize="58" Foreground="#5F676E" Opacity="0.3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+      <StackPanel Grid.Column="1" Orientation="Vertical">
+        <Image Source="{Binding Assets[warwidens]}" Height="410" Stretch="Uniform" HorizontalAlignment="Center"/>
+        <TextBlock Text="The theater shifts east: the central Mediterranean, and a shadow growing behind the Maghreb." FontStyle="Italic" FontSize="11" Foreground="#99A1A8" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+        <TextBlock Text="The war widens" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,20,0,12"/>
+        <TextBlock TextWrapping="Wrap" FontSize="16" LineHeight="25" Foreground="#D0D4D8" Margin="150,0,150,0">
+          With the combined coalition operating out of Sicily, the front shifts to the <Span FontWeight="SemiBold" Foreground="#D0D4D8">central Mediterranean</Span>. This is no longer only about defending shipping: Europe goes on the offensive against the bases arming the Maghreb.
+          <LineBreak/><LineBreak/>
+          But every European blow pulls the rope tighter. The cargoes that supply the enemy do not come from the desert - they come from the <Span FontWeight="SemiBold" Foreground="#C98A6A">east</Span>. And in Washington, every move of the European fleet is watched with growing hostility.
+          <LineBreak/><LineBreak/>
+          Gather your allies. Act II will decide whether Europe masters its own sea before the great powers decide for it.
+        </TextBlock>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</Viewbox>

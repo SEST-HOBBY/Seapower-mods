@@ -1,0 +1,47 @@
+[
+  {
+    "name": "crash_crane",
+    "source": "work\\jmsdf_equipment_sources\\jmsdf_vehicle_set\\lafter crane\\crane.fbx",
+    "scale": 0.01,
+    "position": [
+      0.09,
+      0.152551,
+      0.58
+    ],
+    "size": [
+      0.027220304012298583,
+      0.035445320829749105,
+      0.08731963634490968
+    ],
+    "triangles_before": 375162,
+    "triangles_after": 211313,
+    "groups": [
+      "crash_crane_crash_crane_02083f45",
+      "crash_crane_crash_crane_6e1c6849",
+      "crash_crane_crash_crane_ea36e25c",
+      "crash_crane_crash_crane_f91421de",
+      "crash_crane_crash_crane_b90d9457",
+      "crash_crane_crash_crane_db451726",
+      "crash_crane_crash_crane_34047dfe",
+      "crash_crane_crash_crane_c53d2f1a",
+      "crash_crane_crash_crane_bbc29b76",
+      "crash_crane_crash_crane_56e8140e",
+      "crash_crane_crash_crane_528cef87",
+      "crash_crane_crash_crane_5573e39b"
+    ],
+    "materials": [
+      "crash_crane_02083f45",
+      "crash_crane_6e1c6849",
+      "crash_crane_ea36e25c",
+      "crash_crane_f91421de",
+      "crash_crane_b90d9457",
+      "crash_crane_db451726",
+      "crash_crane_34047dfe",
+      "crash_crane_c53d2f1a",
+      "crash_crane_bbc29b76",
+      "crash_crane_56e8140e",
+      "crash_crane_528cef87",
+      "crash_crane_5573e39b"
+    ]
+  }
+]

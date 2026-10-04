@@ -1,0 +1,38 @@
+<TextBlock TextAlignment="Justify" FontSize="14" FontFamily="Segoe UI" Foreground="White">
+    <Run FontSize="20" FontWeight="Bold">Operation Corporate</Run>
+    <LineBreak/>
+    <Run FontWeight="Bold">Falkland Islands, South Atlantic</Run>
+    <LineBreak/>
+   1st May 1982 0600 Local
+    <LineBreak/>
+	Rear Admiral J.F. Woodward, HMS Hermes, Task Force 317.8
+    <LineBreak/>
+	From Northwood
+	<LineBreak/><LineBreak/>
+   
+    The cabinet has approved <Run FontWeight="Bold">Operation Corporate</Run>.
+    <LineBreak/> You are to commence operations to retake the Falklands.
+    <LineBreak/> A negotiated settlement is no longer likely.
+    <LineBreak/>
+   <LineBreak/>
+ 
+    <Run FontSize="16" Foreground="Yellow" FontWeight="Bold">Objectives:</Run>
+    <LineBreak/>  <LineBreak/>
+     <Run FontWeight="Bold">OBJ ALPHA DEFEND</Run>   <LineBreak/> Ensure the fleet remains intact and undamaged.
+    <LineBreak/> Argentine air attacks likely.<LineBreak/>
+	Argentine naval forces not expected in theatre until tomorrow.
+    <LineBreak/>  <LineBreak/>
+     <Run FontWeight="Bold">OBJ BETA NEUTRALISE</Run>   <LineBreak/>Use the air wing of HMS Hermes and Task Force 317.6 to neutralise <LineBreak/><Run FontWeight="Bold">Stanley Airfield</Run>.<LineBreak/>
+   Black Buck 1 will assist with this objective. <LineBreak/> 
+    Expect ground based AAA and SAM fire. Losses expected.<LineBreak/> <LineBreak/> 
+    
+     <Run FontWeight="Bold">OBJ GAMMA NEUTRALISE</Run>   <LineBreak/>Use the air wing of HMS Invincible to neutralise <Run FontWeight="Bold">Goose Green Airfield</Run>.<LineBreak/>
+   
+    Expect ground based AAA fire.<LineBreak/> <LineBreak/> 
+    
+    <Run FontSize="16" Foreground="Brown" FontWeight="Bold">Advisory:</Run><LineBreak/> 
+    Civilian ships present in Stanley harbour.<LineBreak/> Do not engage these vessels.<LineBreak/>
+  
+    <LineBreak/>  
+    <Run FontWeight="Bold" FontSize="16">For the Service.</Run>
+</TextBlock>

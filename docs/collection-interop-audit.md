@@ -4,6 +4,8 @@ Every file conflict *between workshop mods* in the collection — what differs, 
 and what is silently lost. 133 mods load together; unit and ammunition files are whole-file
 overrides, so for each of these the loser's version is discarded with no error anywhere.
 
+**Update, 2026-10-04** — the 133 and the counts below are the audit's, taken on 27 Aug 2026; the cohorts have not been re-run since. The load order is now 148 Workshop mods plus `SEST_Integration` (149 entries). Three mods named below have left the collection: the MyGo F/A-18E/F (3426791311) and F-35C (3508978375), unsubscribed on 20 Sep 2026, and the Dassault Rafale (3504168760), whose Rafales the French Air Force mod (3758943352) supplies now. Load-order line numbers quoted below are the audit's too (U.S. Navy 2027 Capabilities, 3606774881, is line 20 of `data/load-order.tokens.txt` now).
+
 
 **113 conflict cohorts · 263 contested files · 68 mods involved**
 

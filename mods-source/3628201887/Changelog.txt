@@ -1,0 +1,46 @@
+03/03/26
+
+- Updated info to 0.7.3
+- 60s variants:
+	- Fixed elevator compatibilty with Aquilon
+- ALL Low variants:
+	- Aircraft parked : Super Frelon --> Alouette 3
+- 60s,70s variants:
+	- Deleted landing lights
+- 80s Low:
+	- Fixed missing "CrotaleCrewFront"
+
+- R440:
+	- Added kinematics:
+		ApplyKinematics=True
+		MaxVelocity=1459.2                     
+		MaxTurnRate=30.0         
+		AccelerationTime=3.5                 
+		Acceleration=22 --> 17                      
+		#SustainerAccelerationTime=-1            
+		#SustainerAcceleration=-1               
+		TypicalTargetAlt=10000					
+		TypicalFiringAlt=0				
+		TypicalLaunchVelocity=0				
+		DragCoefficient=-1               
+		VelocityBleed=0.8                     
+		MaxFlightTime=35
+—-------------------------------------------------------------------------------------------------------
+10/09/25
+
+- Added 60s,70s,80s,90s,2000s,Brazil variants.
+- Refined deck textures for these variants.
+- Added Crotale EDIR and its sensors.
+
+
+
+—-------------------------------------------------------------------------------------------------------
+8/23/25 - Update 2
+
+-Added Deck Props
+
+—-------------------------------------------------------------------------------------------------------
+
+8/23/25 - Update 1
+
+-First WIP release
