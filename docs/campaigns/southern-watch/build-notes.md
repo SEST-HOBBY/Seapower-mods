@@ -2033,6 +2033,144 @@ squadron table declares no squadrons, which the builder already allowed for;
 its `_info.ini` puts its name under `[General]`, which is why the Mod Manager
 shows it by number with an (A) badge. 1264 files; 106 + 67 tests.
 
+## The planned window, the sea's price, and SETUP in the pack (4 October)
+
+The first public comments on the Workshop item, within a day of it going
+up. MattS, twice: *Macquarie Passage* cannot be finished - HMAS Supply makes
+seven knots at flank in its sea state 5, and his second attempt failed on
+time a quarter of a mile short of the withdrawal line. Dat Guy: every
+mission is on a clock, the opposing forces in *White Water* and *Steel
+Highway* start too close, *Southern Cross* cannot be won. Both were right
+about the clock, and the repo's own numbers say why.
+
+What the files said. All 58 missions ended on a `Condition_Type=Time`
+trigger that failed the main task; the planned `minutes` (45 to 120) was
+also the failure time. Stock Pacific Strike has no Time condition in any of
+its fourteen missions - they end when their objectives resolve. No SEST
+victory is clock-based: 50 are `arrive`, 8 `destroy`, and only four
+missions have an in-mission timed check. So the clock was never the win,
+only the loss, and it was sized by a planner that assumed every ship makes
+her class speed in any sea.
+
+Four changes in the builder, and the missions it moved:
+
+1. **The window and the deadline are two numbers.** `minutes` stays the
+   planned window and still sizes every placement and reach check. At that
+   minute a new trigger ("Window closed") sends `BehindScheduleMessage`:
+   the window has closed, command holds the line for about N minutes more,
+   finish the task. The mission is lost at `DEADLINE_FACTOR` (1.5) times
+   the window - a 60-minute plan fails at 90, a 90 at 135. Stock runs no
+   clock at all; this keeps the pressure the design wanted and stops a
+   plan that was right on paper from being a replay a cable short.
+2. **Ships pay for the sea.** `SEA_SPEED` scales a Vessel's planning speed
+   by the mission's sea state: 1.0 to state 2, then 0.9, 0.7, 0.45 (state
+   5), 0.35, 0.3, 0.25. Submarines dive under it and aircraft fly over it.
+   It is calibrated on the one measurement in hand (Supply, state 5, seven
+   knots, 0.4 of the 18 the table assumes) and shaded conservative either
+   side; the game's own curve is not in any file this repo reads. It feeds
+   the arrival solver (`ship_speed`), the authored-box reach check, an
+   authored convoy speed (`transit`), and the escort closure check.
+3. **A held stage comes off the window.** An arrival whose stage keeps the
+   units inside an area around one of their own starts until a minute
+   (Macquarie Passage's service check, Southern Lifeline's rendezvous) is
+   time at anchor: `hold_minutes()` takes it off both the solver's budget
+   and the reach check. The comment in SR04 that said "the solver does not
+   know the first thirty minutes are spent at anchor" is no longer true.
+4. **One build names every short box.** The authored-box reach check used
+   to raise on the first failure; it now reports through `REACH_PROBLEMS`
+   with the rest of the geometry, so a pass over the speed table does not
+   cost a rebuild per mission to read.
+
+With the sea priced, seven missions no longer reached their own boxes
+inside the plan, and each was moved or lengthened rather than given more
+clock everywhere:
+
+| mission | sea | was | now |
+|---|---|---|---|
+| SR04 Macquarie Passage | 5 | withdrawal line 20 NM north of Buckles Bay | 16 NM (`at=(-54.24, 159.05)`), 45 minutes under way after the check |
+| SW09 Southern Lifeline | 2 | box 18 NM from Collins, 50 minutes after the rendezvous | a mile nearer (`at=(-13.78, 148.35)`) |
+| SW C1 After the Wake | 4 | survivors' datum 18 NM from the frigate | 13.5 NM (`at=(-10.48, 144.62)`) |
+| SR03 Search Datum | 5 | datum 18 NM from the escort | 8 NM (`at=(-52.12, 139.75)`) |
+| TS08 Great Australian Bight | 4 | Collins 25 NM west of the escorts (31 on the plot) | 20 NM (`S(-35.62, 132.15)`): the escort's 80 minutes reach 24 |
+| TS11A The Twelve-Mile Line | 3 | 80 minutes, the circle a cable past reach | 85 minutes; the circle stays on the twelve-mile line |
+| RL06 The Quiet Side | 5 | 80 minutes, the tender a mile short of the holding position | 95 minutes; the position stays thirty miles west of the decoy station |
+
+Not touched, on purpose: the four in-mission timed checks (they are story
+beats), and the opening ranges in *White Water*, *Steel Highway* and
+*Southern Cross*, which want a play-test with the new clock before anything
+moves.
+
+**SETUP in the pack.** Ordering 148 mods by hand from LOAD-ORDER.txt is
+the step a stranger fails at, and the script written for the friend's
+install now ships at the pack root: `SETUP - double-click me.cmd` and
+`sest-setup.ps1`, copied byte for byte from `integration/campaign/setup/`
+(CRLF; `.gitattributes` marks source and both outputs `-text` so the
+install's SHA-256 matches the commit on either OS). Mod Manager > Open
+Folder on the pack, quit the game, double-click SETUP. It finds the pack
+from its own location (a Workshop download under `workshop/content/
+1286220/<id>`, or a copy placed in StreamingAssets by hand; run from
+anywhere else it looks for the one Workshop copy), refuses to run while
+the game is up or while both a Workshop and a local copy exist, checks
+that every id in LOAD-ORDER.txt is downloaded and names the missing ones
+with links, installs Anchor Chain's preloader from the project's latest
+GitHub release when neither `winhttp.dll` nor `BepInEx` is in the game
+folder - relaunching itself elevated through UAC when the folder is not
+writable, so nobody is told to "run as administrator" - sets the PLA &
+PLAN & PLAAF AEP `debug.ini` switch off, and writes `[LoadOrder]`: the
+pack's folder token first, the ids in LOAD-ORDER.txt's order, all on, the
+player's other mods after them with their flags kept, stale and
+undownloaded entries dropped, the file's other sections and line endings
+untouched, a timestamped backup beside it. The `-Pause` the .cmd passes
+keeps the window open; a console run without it does not pause. Exercised
+on a fake Steam layout (two libraries, one on a drive that is not there;
+148 downloaded ids; a settings file with a shuffled order, disabled
+entries, a stale tail and `[LoadOrder]` first and last, CRLF and LF):
+Workshop mode, local mode, standalone, both conflicts, a missing mod,
+a missing settings file, the forced non-admin path (elevation refused ->
+nothing changed) and the forced elevated-but-unwritable path; re-running is
+byte-identical. `REQUIRED-MODS.txt` no longer opens with "try the Mod
+Manager's Sync button": the item's Required Workshop IDs are left empty on
+purpose, because the Mod Manager answers a required item below its
+dependant by offering to move all of them above the pack, which would
+undo every fix in it. The pack's `_info.ini` and `LOAD-ORDER.txt` say
+where SETUP is. 1266 files.
+
+**Read against itself before it shipped.** A review of the change found
+the texts had not moved with the trigger. Thirty of the 58 timeout bodies
+named the minute they were written for - "Seventy-five minutes and the
+ships are still south of the line", "0820, and FUJIAN is short of her
+station", "within ninety minutes" - and the Deadline that shows them is now
+half as long again later, so the red card would have quoted a time the
+yellow one had already explained away. The figure is the builder's now:
+`{Deadline}` / `{deadline}` is the deadline in minutes spelled out in the
+texts' own style ("One hundred and twelve minutes and..."), `{deadline_clock}`
+its HHMM from the mission's start, both filled by `clock_text()` at render,
+and `check_message_texts` stops the build on a timeout body that names a
+minute or a clock time itself, so the next `minutes=` change cannot strand
+one. All thirty were rewritten to the placeholders (SW01's "half an hour
+after sunrise" became "well after sunrise"; the SW texts live in
+`TIMEOUTS`, the rest in their modules). Every briefing's TIME section said
+the task failed at the planned minute; it now gives both numbers from the
+same source as the triggers. The setup script took three hardenings from
+the same review: the administrator relaunch passes the Steam root and the
+settings path it already resolved (a UAC prompt answered with a parent's
+password otherwise ran against the parent's profile and told the child to
+"use your own account"), launches `$PSHOME`'s console host rather than
+whatever host ran the script (from the ISE, `-File` only opens the file),
+and reads the child's exit code before saying it finished - `Fail` now
+exits 1, which is also what lets the launcher pause on a failure without
+pausing twice. `test_build_pack.py`'s new tests had been written below its
+`unittest.main()` line and ran only under `-m unittest`; the block is at
+the end of the file again.
+
+Not demonstrated: the game's actual speed curve against sea state (one
+point, one hull); that `BehindScheduleMessage` displays (it uses the same
+`Action_Taskforce1_Message` as the start message); that the game is
+indifferent to a `.cmd` and a `.ps1` in a Workshop folder (mods ship
+`.md` and `.txt`; no mod in the collection ships a script); the UAC
+relaunch on a real Windows desktop; and SETUP on a PC where Steam lives
+somewhere other than the registry's default. Test card H.15-H.18.
+
 ## What has NOT been demonstrated
 
 Static resolution is not a play test. None of the following is established by
@@ -2174,3 +2312,117 @@ python3 tools/build_all.py --from-scratch                               # the re
 `check_campaign_coverage.py` deliberately re-derives everything from the built
 mission files rather than from `campaign_data.py`, so it still tells the truth
 after a mod update that the builder's roster has not caught up with.
+
+## Opening ranges in White Water and Steel Highway (October 2026)
+
+The first public report said both openings start too close: the AI sees the
+convoy at once, the escort has to race to get its SAMs between a sea-skimmer
+and the merchants, Steel Highway's submarine is right there, and a bought
+ASW aircraft spawns far away. The built files agreed.
+
+**White Water.** Warramunga started 8 NM astern of the merchants, with the
+Peykaap-III (Nasir, 49 NM) and its decoy 16 NM ahead of them - inside the
+boat's own 17 NM radar from the first second, with the merchants between it
+and the only SAM. Now Warramunga starts 3 NM ahead on the threat axis with
+her Seahawk beside her, and the Meridian pair starts 29 NM from the merchants
+(26 from the frigate), east-north-east, beyond the trawlers and its own radar,
+routed down the convoy's track. The handover box is unchanged. (The first
+cut put it at 25 and 22; the opening gate below moved it out.)
+
+**Steel Highway.** The escort group started 17 NM from the convoy the
+briefing says it is in company with, and 13 NM from a 039C (YJ-18, Yu-6)
+with weapons free - astern of everybody, not across the planned track - and
+the P-8 slot shared the Wedgetail's station, about 60 NM from the boat at
+30,000 ft. Now the escorts start 2 NM ahead of the merchants, the boat starts
+30 NM up the track just north of it, at the far edge of the approach box,
+creeping in toward the track below the layer, and the P-8 slot has its own
+station over the sonobuoy field at 6,000 ft, 10 NM from the datum. The
+briefing says where the datum is and that an assigned Poseidon starts over
+it. Gulf traffic moves up to 15 NM ahead of the merchants, where it is part
+of the picture.
+
+Every gate passes. What this does not establish is how the AI behaves at
+the new ranges; test card rows H.19 and H.20 ask for it.
+
+## Southern Cross, and the opening gate (October 2026)
+
+**Southern Cross could not be won.** Meridian Escort 3 started 43 NM from
+HMAS Pilbara with weapons free and Nasir (49 NM), and its Forpost drone
+started 8 NM from Pilbara, so the boat had a track on her from the first
+second. Pilbara (Arafura, Variant3) carries a 4 NM Mistral and nothing else
+that stops a sea-skimmer, and she is the player's only hull, so the
+mission's "player force gone" trigger ended it when she sank. Now the boat
+and its drone keep company with the coaster, 34-38 NM from Pilbara, and the
+boat is weapons tight: 24 October is the week before Weapons Free, and it
+shadows the lane rather than opening the war on it. Kiwi 01 still has to
+go to them to name the coaster.
+
+**The same thing, campaign-wide.** The report called it a common theme, and
+it was. A new gate, `check_opening`, now runs on every mission in all three
+campaigns and fails the build when a red unit with weapons FREE at the start:
+
+- is a surface ship inside 25 NM of the player's nearest hull (each on the
+  other's radar from the first second);
+- is a submarine inside 25 NM (inside its own torpedo reach of the first
+  ship it hears);
+- is an armed aircraft with less than 20 NM of flying before its own
+  anti-ship launch range (that range counted to 100 NM at most, so a
+  standoff bomber needs to start 120 NM out, where the AEW sees it); or
+- holds a player ship in anti-ship reach with a red aircraft already within
+  25 NM of her giving the track (Southern Cross).
+
+Only anti-ship missiles and torpedoes count as reach (`ship_reach`); the
+old `reach()` read a Ka-28's sonobuoys as a 100 NM threat. Tight and Hold
+units do not fire first and are not measured. A unit the story puts in
+contact on purpose can say why with `contact="..."`; none does yet.
+
+What it found, and what moved:
+
+| Mission | Was | Now |
+|---|---|---|
+| SW01 White Water | Peykaap 22 NM from Warramunga | 26 NM (29 from the merchants) |
+| SW04 The Quiet Passenger | Type 039 18 NM from the lone OPV, free | Tight: the week before Weapons Free, a boat that has been quiet eleven hours |
+| SW05 Weapons Free | Peykaap 10 NM from the merchants | 28 NM ahead on their track, closing |
+| SW10 Common Sea | 039C 15 NM from the Anzac | 32-35 NM, across the convoy's track |
+| SW11 Fujian's Shadow | J-15D and H-6K 116-117 NM from Ford | 126 NM |
+| SW12 The First Ship Through | Kilo 15 NM from Eyre; JH-7A pair 73 NM | Kilo 27 NM down the track; JH-7A 85 NM |
+| O2 Southern Cross | as above | as above |
+| O3 Borrowed Shield | Kilo 16 NM from the Anzac | 27-28 NM from both groups, working onto the Korean track |
+| C1 After the Wake | 039C 14 NM from the Anzac | 26 NM, north of the box, still in torpedo range of the search |
+| C2 Broken Wake | Kilo 19 NM; J-15D pair 79 NM | Kilo 33-34 NM ahead of Stuart's track; pair 124 NM |
+| D1 Western Passage | MiG-35 pair 84 NM | 95 NM |
+| D4 Return Passage | F-35A and P-8 110-113 NM | 120+ NM |
+| TS05 Under the Tasman | Z-9 11 NM from Farncomb, ROMEO 22 | Z-9 31, ROMEO 26 (the furthest the destroy gate lets Collins still reach), frigate 42 |
+| TS06 Bass Strait | Z-9 27 NM from the tanker | 30 NM |
+| TS08 Great Australian Bight | Yasen 22 NM from Collins | 28 NM west, the same 26 NM from the rendezvous |
+| TS09 The Southern Convoy | J-15 strike 58-64 NM from the convoy | forming up beyond its carrier, 125 NM |
+| TS11 Approaches | J-15 strike 75-81 NM from the escorts | forming up beyond its carrier, 125 NM |
+| RL02 Routes They Can See (Red Line) | Virginia 21 NM from the escort, Mk 48s free | 28 NM east, closing across the track (found later, below) |
+
+Not changed, on purpose: warships with long-range anti-ship missiles that
+start 30-100 NM away (an over-the-horizon shot is the realistic one, and they
+need a track to take it), and the player's own AEW and patrol aircraft,
+which see a lot from the first second because that is what a Wedgetail at
+32,000 ft does. Whether the AI classifies faster than a real crew would is
+the game's model and not something a mission file sets.
+
+What this does not establish is how the AI plays at the new ranges; test
+card rows H.21 and H.22 ask for it.
+
+**What the gate missed, and why.** A second fact-check of the Steam text
+found one weapons-free boat still inside 25 NM: Red Line's GOLF, a Virginia,
+21 NM from the 054A in Routes They Can See. `ship_reach` read her as
+unarmed, because her four Mk63 tubes name no round - they say
+`AssociatedMagazine=TorpedoRoom`, and her 22 Mk 48s are listed only in that
+`[TorpedoRoom]` section, which `stores()` never reads. `ship_reach` now also
+reads every magazine a launcher names; with it, the gate flags GOLF and
+nothing else across the three campaigns. GOLF now starts 28 NM east of the
+frigate, still closing across the tanker's track (her purpose in the
+mission). A test pins the torpedo-room case.
+
+Also corrected here: the Steel Highway P-8 slot started about 60 NM from
+the boat, not 48 as first written (48 was its distance from the escorts).
+And the air rule's standoff cap means a bomber whose missile reaches past
+120 NM can still start inside its own launch range, 120-130 NM out; the
+Steam text says so rather than claiming no strike starts in range.
+

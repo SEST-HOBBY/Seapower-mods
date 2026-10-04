@@ -86,7 +86,7 @@ MISSION = dict(
     lose="The container ship is lost in the Gulf, or the flagship is, "
          "and the northern element goes south to join the group with "
          "Auckland's week on the bottom behind it.",
-    timeout="Sixty minutes and Hauraki Trader is still in the outer Gulf "
+    timeout="{Deadline} minutes and Hauraki Trader is still in the outer Gulf "
             "with the corvette between her and the channel. The northern "
             "element leaves for the Tasman with a story to tell.",
     stations={

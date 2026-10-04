@@ -84,7 +84,7 @@ MISSION = dict(
         "The Fiordland patrol has failed. Report the losses and last confirmed contacts to "
         "Wellington before another patrol is assigned."
     ),
-    timeout="Sixty-five minutes and the tender is still a shape on the "
+    timeout="{Deadline} minutes and the tender is still a shape on the "
             "horizon with the cray fleet between you. She keeps her "
             "anonymity for whatever she is here to meet.",
     stations={

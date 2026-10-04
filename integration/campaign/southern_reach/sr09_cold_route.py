@@ -66,7 +66,7 @@ MISSION = dict(
     lose="The voyage is broken south of Australia with the stations' "
          "winter in it. Casey gets what the first lift left.",
     timeout=(
-        "The convoy has not met the handover requirement within ninety minutes. Suspend this "
+        "The convoy has not met the handover requirement within {deadline} minutes. Suspend this "
         "passage and regroup under escort; the carrier and submarine threats have not been "
         "resolved."
     ),

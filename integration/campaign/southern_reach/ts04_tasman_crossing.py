@@ -77,7 +77,7 @@ MISSION = dict(
     ),
     lose="Two hulls lost in the middle of the Tasman with Auckland's "
          "cargo in them. The charterers were right not to wait.",
-    timeout="Eighty minutes and the groups are still short of the box "
+    timeout="{Deadline} minutes and the groups are still short of the box "
             "with the carrier's second flight forming. The crossing is "
             "made tomorrow, or not.",
     stations={

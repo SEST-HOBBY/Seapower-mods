@@ -92,8 +92,12 @@ MISSION = dict(
         "escort": S(-35.50, 132.50, "Escort group", heading=240),
         "flight": S(-35.52, 132.48, "Ship's flight", heading=240, alt=500),
         "mpa": S(-35.30, 132.10, "Maritime patrol", heading=240, alt=10000),
-        "collins": S(-35.65, 132.00, "HMAS Collins", heading=240),
-        "red_sub": S(-35.90, 131.90, "Contact SIERRA-TWO", heading=230),
+        # 20 NM west of the escorts, not 25: in sea state 4 an escort plans
+        # on 17 kn, and 80 minutes of that reaches 24 NM.
+        "collins": S(-35.62, 132.15, "HMAS Collins", heading=240),
+        # 28 NM west of Collins and the same 26 NM from the rendezvous as
+        # before; it started 22 NM from her, weapons free.
+        "red_sub": S(-35.75, 131.70, "Contact SIERRA-TWO", heading=200),
         "red_rv": S(-36.30, 131.30, "Rendezvous", heading=0),
         "red_helo": S(-36.15, 131.45, "Ka-27 search", heading=60, alt=1500),
         "tuna": S(-35.30, 133.00, "Tuna boats", heading=80),

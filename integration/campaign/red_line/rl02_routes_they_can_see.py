@@ -89,7 +89,7 @@ MISSION = dict(
         "HAI YANG 7 is lost, or the patrol aircraft is down. Either way the enclave's week has "
         "started badly, and the group's name is on it."
     ),
-    timeout="0045, and HAI YANG 7 is still outside the roads with no time left to "
+    timeout="{deadline_clock}, and HAI YANG 7 is still outside the roads with no time left to "
             "discharge before the relief window opens. She turns back; the detachment "
             "flies on what it has.",
     stations={
@@ -107,7 +107,10 @@ MISSION = dict(
         # The enclave field, on the airfield The Open Door strikes the next
         # morning; it snaps to proven land.
         "field": S(-1.10, 136.20, "Enclave field"),
-        "red_sub": S(-0.40, 136.10, "Contact GOLF", heading=250),
+        # GOLF 28 NM east of the frigate, closing across the track. She
+        # started 21 NM out with Mk 48s free (27 NM): the opening gate missed
+        # her because her torpedoes are listed only in her [TorpedoRoom].
+        "red_sub": S(-0.38, 136.22, "Contact GOLF", heading=250),
         "red_air": S(0.00, 136.20, "Patrol aircraft", heading=240, alt=12000),
         "fishing": S(-0.30, 135.45, "Numfor fishing boats", heading=90),
         "coaster": S(-0.30, 136.40, "Coaster", heading=80),

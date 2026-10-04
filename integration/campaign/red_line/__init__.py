@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """SEST RED LINE - The Other Watch.
 
-Six Task Force Mode missions, November 2028 to January 2029, played by the
+Six Task Force Mode missions, November 2028 to February 2029, played by the
 officer on the other side of Southern Watch and Southern Reach: the carrier
 group commander whose signal the coalition intercepted on 22 November, "a
 commander who would rather withdraw intact", and whose second signal it
@@ -88,7 +88,7 @@ if MISSING:
           + ", ".join(MISSING))
 
 INFO_DESC = (
-    "RED LINE - The Other Watch. November 2028 to January 2029, from the other bridge. "
+    "RED LINE - The Other Watch. November 2028 to February 2029, from the other bridge. "
     "A Chinese carrier group commander is sent into the Banda approaches under a "
     "protection-and-evacuation mandate and an order that says the group will not fire first."
     " He puts a class on the Australian submarine trailing his carrier, gets fuel into the "
@@ -105,7 +105,7 @@ BROWSE = {"Red Line": "Red Line"}
 BROWSE_DESC = {
     "Red Line": (
         "The carrier group commander's side of the northern crisis and the southern summer, "
-        "November 2028 to January 2029. Escort, identification and evasion under orders "
+        "November 2028 to February 2029. Escort, identification and evasion under orders "
         "that say the group does not fire first."
     ),
 }

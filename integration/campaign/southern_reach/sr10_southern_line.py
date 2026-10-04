@@ -82,7 +82,7 @@ MISSION = dict(
     ),
     lose="The escort is gone at the ice edge, or the incident happened. "
          "Either way the group has what it came south for.",
-    timeout="Sixty minutes and the escort is still at the ice edge with the "
+    timeout="{Deadline} minutes and the escort is still at the ice edge with the "
             "carrier a contact and no name. The group will be there "
             "tomorrow; the last voyage will not.",
     stations={

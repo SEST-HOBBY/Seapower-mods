@@ -453,6 +453,71 @@ class StandoffAndClosure(unittest.TestCase):
                 station="spoiler", weapons="Hold", independent=True)])
 
 
+class OpeningRanges(StandoffAndClosure):
+    """check_opening: a red unit weapons free at the start must not already
+    be inside the fight - a boat or a ship inside 25 NM of the player's
+    nearest hull, a ship in anti-ship reach with a drone over her target.
+    Tight, a contact= reason and range each clear it."""
+
+    STATIONS = dict(StandoffAndClosure.STATIONS,
+                    eye=S(-47.52, 140.52, "Drone", alt=10000))
+    SUB = dict(side="red", mod="plan-submarines", type="plan_ss_type_039c",
+               station="boat", depth="belowlayer")
+    PEYKAAP = dict(side="red", mod="red-storm-arsenal", type="ir_ptg_peykaap_3",
+                   station="far_boat")
+    DRONE = dict(side="red", mod="small-medium-uav-series", type="usn_ForpostR705",
+                 station="eye", alt=10000)
+
+    def setUp(self):
+        super().setUp()
+        del bp.OPENING_PROBLEMS[:]
+
+    def opening(self, units):
+        m, placed, _members = self.placed([self.TENDER] + units)
+        bp.check_opening(m, placed)
+        return bp.OPENING_PROBLEMS
+
+    def test_a_free_boat_inside_25_nm_is_refused(self):
+        problems = self.opening([self.SUB])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("inside 25 NM", problems[0])
+
+    def test_the_same_boat_tight_is_not(self):
+        self.assertEqual(self.opening([dict(self.SUB, weapons="Tight")]), [])
+
+    def test_a_stated_contact_is_not(self):
+        self.assertEqual(self.opening([dict(
+            self.SUB, contact="the briefing puts her in the box")]), [])
+
+    def test_the_same_boat_42_nm_out_is_not(self):
+        self.assertEqual(self.opening([dict(self.SUB, station="far_boat")]), [])
+
+    def test_a_ship_in_reach_with_a_drone_over_her_target_is_refused(self):
+        self.assertEqual(self.opening([self.PEYKAAP]), [])
+        problems = self.opening([self.PEYKAAP, self.DRONE])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("giving the track", problems[0])
+
+    def test_only_red_units_take_a_contact_reason(self):
+        with self.assertRaises(SystemExit):
+            self.placed([dict(self.TENDER, contact="why")])
+
+    def test_ship_reach_reads_the_torpedo_room(self):
+        # The Virginia's tubes name no round; her Mk 48s are listed only in
+        # the [TorpedoRoom] the tubes feed from. Read as unarmed, RL02's boat
+        # passed the gate 21 NM from the escort.
+        self.assertGreaterEqual(bp.ship_reach("usn_ssn_virginia_2027", None), 20)
+
+    def test_ship_reach_ignores_sonobuoys(self):
+        # The Ka-28's sonobuoys read 100 NM in reach(); its torpedo is what
+        # can hit a ship.
+        kind_dir, path = bp.unit_file("plan_ka-28")
+        fit, _why = bp.pick_loadout("plan_ka-28", path, None)
+        self.assertGreaterEqual(bp.reach("plan_ka-28", kind_dir, path, fit), 100)
+        self.assertGreater(bp.ship_reach("plan_ka-28", fit), 0)
+        self.assertLess(bp.ship_reach("plan_ka-28", fit), 10)
+
+
 class RacetrackLoop(unittest.TestCase):
     """loop=True flies a patrol aircraft's route until the clock runs out,
     in stock's own form; nothing else may loop."""
@@ -1461,6 +1526,56 @@ class CoverageGeography(unittest.TestCase):
         self.assertIn("in 2 of the 3 missions are snapped", line)
         self.assertIn("6.7 NM", line)
         self.assertIn("the other 1 use them as authored", line)
+
+
+
+class ClockAndSea(unittest.TestCase):
+    """The planned window, the deadline behind it, and the sea's price."""
+
+    def test_window_closes_with_a_message_and_the_mission_is_lost_later(self):
+        t = rendered(small_mission())          # small_mission plans 80 minutes
+        self.assertIn("Condition_Time=4800", t["Window closed"])
+        self.assertIn("Action_Taskforce1_Message=BehindScheduleMessage", t["Window closed"])
+        self.assertIn("Condition_Time=7200", t["Deadline"])       # 80 x 1.5
+        self.assertIn("Action_Victory=Taskforce2", t["Deadline"])
+        self.assertNotIn("Action_Victory=Taskforce2", t["Window closed"])
+
+    def test_deadline_is_half_as_long_again(self):
+        self.assertEqual(bp.deadline_minutes({"minutes": 60}), 90)
+        self.assertEqual(bp.deadline_minutes({"minutes": 45}), 68)
+
+    def test_only_ships_pay_for_the_sea(self):
+        calm, rough = {"sea": 2}, {"sea": 5}
+        self.assertEqual(bp.ship_speed("Vessel", calm), 18.0)
+        self.assertAlmostEqual(bp.ship_speed("Vessel", rough), 18.0 * 0.45)
+        self.assertAlmostEqual(bp.ship_speed("Vessel", rough, calm=9.0), 9.0 * 0.45)
+        self.assertEqual(bp.ship_speed("Submarine", rough), 10.0)
+        self.assertEqual(bp.ship_speed("Aircraft", rough), 300.0)
+        self.assertEqual(bp.sea_factor({"sea": 9}), 0.25)       # off the table: the worst row
+        self.assertEqual(bp.sea_factor({}), 1.0)
+
+    def test_a_held_stage_comes_off_the_window(self):
+        held = {"after": dict(kind="area", units=["a"], at_unit="a", radius=5,
+                              after_minutes=30)}
+        self.assertEqual(bp.hold_minutes(held), 30)
+        self.assertEqual(bp.hold_minutes({"after": dict(kind="classify", units="x")}), 0)
+        self.assertEqual(bp.hold_minutes({}), 0)
+
+    def test_timeout_figures_are_the_builders(self):
+        m = dict(small_mission(), time=(7, 10), minutes=75)
+        self.assertEqual(bp.clock_text(m, "{Deadline} minutes; {deadline}; {deadline_clock}."),
+                         "One hundred and twelve minutes; one hundred and twelve; 0902.")
+        self.assertEqual(bp.number_words(68), "sixty-eight")
+        self.assertEqual(bp.number_words(100), "one hundred")
+        self.assertEqual(bp.number_words(135), "one hundred and thirty-five")
+        for bad in ("Seventy-five minutes and the ships are still south.",
+                    "0820, and FUJIAN is short of her station.",
+                    "has not met the requirement within ninety minutes.",
+                    "No more than 90 minutes."):
+            with self.assertRaisesRegex(SystemExit, "names a time", msg=bad):
+                bp.check_message_texts(dict(small_mission(), timeout=bad))
+        bp.check_message_texts(dict(small_mission(),
+                                    timeout="{Deadline} minutes and HULL 419 is short of the box."))
 
 
 if __name__ == "__main__":

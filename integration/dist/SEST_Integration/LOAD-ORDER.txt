@@ -13,6 +13,11 @@ A mod you have subscribed to that is not on this list is not a
 problem: put it at the bottom. Nothing in the campaign names it, and
 the bottom is where it cannot outrank something that is named.
 
+You do not have to do this by hand: with the game closed, double-
+click "SETUP - double-click me.cmd" in this folder and it writes
+exactly this order into the game's settings, your other mods at the
+bottom as you had them.
+
    #  workshop id   mod
 
    1. (this pack)   SEST_Integration

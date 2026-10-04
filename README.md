@@ -127,8 +127,8 @@ Earth coastline (`integration/campaign/geo/`), because nothing in this repo had
 sailed that water before. `docs/campaigns/southern-reach/` holds its bible,
 build notes, test card and the review that was run on it before it was committed.
 
-The third is **SEST Red Line — The Other Watch**: six missions, November 2028 to
-January 2029, played by the Chinese carrier group commander both of the others
+The third is **SEST Red Line — The Other Watch**: six missions and an epilogue, November
+2028 to February 2029, played by the Chinese carrier group commander both of the others
 only hear on the radio. He puts a class on the submarine trailing his carrier,
 escorts fuel into the Biak enclave, builds the picture of a convoy, stops the
 one ship in his company that wants the war back in the first hours of the

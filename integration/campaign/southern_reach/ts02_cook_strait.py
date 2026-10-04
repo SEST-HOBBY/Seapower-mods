@@ -91,7 +91,7 @@ MISSION = dict(
     ),
     lose="The cable ship is lost in the strait, or a ferry is, and the "
          "Tasman war has its first hull.",
-    timeout="Sixty minutes and the cable ship is still short of "
+    timeout="{Deadline} minutes and the cable ship is still short of "
             "Wellington's approach with the corvette closing. The strait "
             "belongs to whoever is left in it.",
     stations={

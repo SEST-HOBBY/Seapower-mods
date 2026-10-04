@@ -117,7 +117,7 @@ MISSION = dict(
         "The withdrawal has become an incident: LIAONING is lost, or the Poseidon is down. "
         "The ceasefire is hours old, and the group is in its first violation report."
     ),
-    timeout="0430, and the group is still south of the line. The withdrawal order had a "
+    timeout="{deadline_clock}, and the group is still south of the line. The withdrawal order had a "
             "time on it, and the coalition's aircraft has recorded the group missing it.",
     stations={
         # The group on its withdrawal course, 300, for the Manipa approaches;

@@ -79,7 +79,7 @@ MISSION = dict(
     ),
     lose="SOUTHERN ENDEAVOUR is not going south this week, and the stations "
          "start the season on what the winter left them.",
-    timeout="0720 and the convoy is still in the bay. The frigate has its "
+    timeout="{deadline_clock} and the convoy is still in the bay. The frigate has its "
             "paperwork question answered: nothing sailed.",
     stations={
         # Storm Bay: the Derwent's mouth is 6 NM north of the escort, Bruny

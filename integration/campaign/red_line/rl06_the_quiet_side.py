@@ -39,7 +39,10 @@ MISSION = dict(
         "this morning gives Wellington a reason to say otherwise."
     )),
     date=(2029, 1, 19), time=(5, 20), sea=5, clouds="Broken_3", wind="SW",
-    difficulty=4, minutes=80, centre=(-46.3, 166.0),
+    # 95, not 80: the tender is a surfaced merchant in a sea state 5 that
+    # prices her at eight knots, and the holding position is where the
+    # story puts it, a mile past what 80 minutes bought.
+    difficulty=4, minutes=95, centre=(-46.3, 166.0),
     blue_nation="China", red_nation="NewZealand",
     geography="coast",
     brief=(
@@ -95,7 +98,7 @@ MISSION = dict(
         "HULL 334 is on the New Zealanders' plot, or their aircraft is down. The rendezvous "
         "is known either way, and the boat goes without."
     ),
-    timeout="0640, and the tender is short of the holding position. The patrol will be "
+    timeout="{deadline_clock}, and the tender is short of the holding position. The patrol will be "
             "back over the approach at first light tomorrow, and so will the decoy.",
     stations={
         # West of Puysegur: the decoy station 22 NM off the coast towards the

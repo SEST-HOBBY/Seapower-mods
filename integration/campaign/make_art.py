@@ -363,7 +363,18 @@ def render_all(camp_dir, missions, events, slug, title, subtitle,
     art = Path(camp_dir) / "art"
     art.mkdir(parents=True, exist_ok=True)
     sheets, assets, marks = {}, {}, []
+    # The backdrop labels a mission with its bare number, as Southern Watch's
+    # 01-12 always were, not a series code (SR01, TS08) in a smaller font.
+    # Two series both start at 01, so where the core numbers repeat the
+    # chart counts the core missions in campaign order instead: Tasman
+    # Shield's 01 is the campaign's 13th.
+    core_nums = [m["num"] for m in missions if m["group"] == "core"]
+    sequential = len(set(core_nums)) < len(core_nums)
+    seq = 0
     for m in missions:
+        if m["group"] == "core":
+            seq += 1
+        label_num = f"{seq:02d}" if sequential and m["group"] == "core" else m["num"]
         # Every mission contributes a mark to the backdrop. Only the ones the
         # CAMPAIGN lists get a card: MissionImage_/TileImagePath_ are
         # campaign.ini keys, and no key in the vanilla export gives a mission
@@ -371,7 +382,7 @@ def render_all(camp_dir, missions, events, slug, title, subtitle,
         # for one is 60 KB the download carries and nothing can display.
         ll = _ll(m["ini"])
         if ll:
-            marks.append((m.get("code", m["num"]), ll[0], ll[1], m["group"] == "core"))
+            marks.append((label_num, ll[0], ll[1], m["group"] == "core"))
         if m["group"] == "dispatch":
             continue
         name = f"{prefix}_{m.get('code', m['num']).lower()}_sheet.png"
