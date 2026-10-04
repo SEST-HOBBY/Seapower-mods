@@ -1463,9 +1463,6 @@ class CoverageGeography(unittest.TestCase):
         self.assertIn("the other 1 use them as authored", line)
 
 
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
-
 
 class ClockAndSea(unittest.TestCase):
     """The planned window, the deadline behind it, and the sea's price."""
@@ -1498,3 +1495,23 @@ class ClockAndSea(unittest.TestCase):
         self.assertEqual(bp.hold_minutes(held), 30)
         self.assertEqual(bp.hold_minutes({"after": dict(kind="classify", units="x")}), 0)
         self.assertEqual(bp.hold_minutes({}), 0)
+
+    def test_timeout_figures_are_the_builders(self):
+        m = dict(small_mission(), time=(7, 10), minutes=75)
+        self.assertEqual(bp.clock_text(m, "{Deadline} minutes; {deadline}; {deadline_clock}."),
+                         "One hundred and twelve minutes; one hundred and twelve; 0902.")
+        self.assertEqual(bp.number_words(68), "sixty-eight")
+        self.assertEqual(bp.number_words(100), "one hundred")
+        self.assertEqual(bp.number_words(135), "one hundred and thirty-five")
+        for bad in ("Seventy-five minutes and the ships are still south.",
+                    "0820, and FUJIAN is short of her station.",
+                    "has not met the requirement within ninety minutes.",
+                    "No more than 90 minutes."):
+            with self.assertRaisesRegex(SystemExit, "names a time", msg=bad):
+                bp.check_message_texts(dict(small_mission(), timeout=bad))
+        bp.check_message_texts(dict(small_mission(),
+                                    timeout="{Deadline} minutes and HULL 419 is short of the box."))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

@@ -71,7 +71,7 @@ MISSION = dict(
     ),
     lose="The tanker is lost in Bass Strait, or a platform is, and "
          "Melbourne's fortnight becomes a month.",
-    timeout="Seventy minutes and the tanker is still east of the line "
+    timeout="{Deadline} minutes and the tanker is still east of the line "
             "with a Kilo somewhere under her track. She anchors off "
             "Wilsons Promontory and waits for tomorrow.",
     stations={

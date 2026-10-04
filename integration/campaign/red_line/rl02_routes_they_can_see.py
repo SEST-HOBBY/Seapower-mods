@@ -89,7 +89,7 @@ MISSION = dict(
         "HAI YANG 7 is lost, or the patrol aircraft is down. Either way the enclave's week has "
         "started badly, and the group's name is on it."
     ),
-    timeout="0045, and HAI YANG 7 is still outside the roads with no time left to "
+    timeout="{deadline_clock}, and HAI YANG 7 is still outside the roads with no time left to "
             "discharge before the relief window opens. She turns back; the detachment "
             "flies on what it has.",
     stations={

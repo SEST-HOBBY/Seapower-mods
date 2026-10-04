@@ -81,7 +81,7 @@ MISSION = dict(
         "The shadowing operation has failed. Sydney and Wellington require the surviving "
         "force's report before they can meet the formation in the Tasman."
     ),
-    timeout="Seventy minutes and the group is over the horizon with half "
+    timeout="{Deadline} minutes and the group is over the horizon with half "
             "its network unnamed. Sydney meets it without a picture.",
     stations={
         # The escort 50 NM south-west of the network; the network on 040 at

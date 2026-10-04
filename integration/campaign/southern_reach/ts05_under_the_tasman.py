@@ -67,7 +67,7 @@ MISSION = dict(
     ),
     lose="Farncomb is lost under the Tasman, and ROMEO, which has screened "
          "the group since January, is still down there.",
-    timeout="Seventy-five minutes and ROMEO has passed up the corridor "
+    timeout="{Deadline} minutes and ROMEO has passed up the corridor "
             "with the survey ship over her. She is in the Southern Convoy's "
             "water by the nineteenth.",
     stations={

@@ -2135,6 +2135,34 @@ dependant by offering to move all of them above the pack, which would
 undo every fix in it. The pack's `_info.ini` and `LOAD-ORDER.txt` say
 where SETUP is. 1266 files.
 
+**Read against itself before it shipped.** A review of the change found
+the texts had not moved with the trigger. Thirty of the 58 timeout bodies
+named the minute they were written for - "Seventy-five minutes and the
+ships are still south of the line", "0820, and FUJIAN is short of her
+station", "within ninety minutes" - and the Deadline that shows them is now
+half as long again later, so the red card would have quoted a time the
+yellow one had already explained away. The figure is the builder's now:
+`{Deadline}` / `{deadline}` is the deadline in minutes spelled out in the
+texts' own style ("One hundred and twelve minutes and..."), `{deadline_clock}`
+its HHMM from the mission's start, both filled by `clock_text()` at render,
+and `check_message_texts` stops the build on a timeout body that names a
+minute or a clock time itself, so the next `minutes=` change cannot strand
+one. All thirty were rewritten to the placeholders (SW01's "half an hour
+after sunrise" became "well after sunrise"; the SW texts live in
+`TIMEOUTS`, the rest in their modules). Every briefing's TIME section said
+the task failed at the planned minute; it now gives both numbers from the
+same source as the triggers. The setup script took three hardenings from
+the same review: the administrator relaunch passes the Steam root and the
+settings path it already resolved (a UAC prompt answered with a parent's
+password otherwise ran against the parent's profile and told the child to
+"use your own account"), launches `$PSHOME`'s console host rather than
+whatever host ran the script (from the ISE, `-File` only opens the file),
+and reads the child's exit code before saying it finished - `Fail` now
+exits 1, which is also what lets the launcher pause on a failure without
+pausing twice. `test_build_pack.py`'s new tests had been written below its
+`unittest.main()` line and ran only under `-m unittest`; the block is at
+the end of the file again.
+
 Not demonstrated: the game's actual speed curve against sea state (one
 point, one hull); that `BehindScheduleMessage` displays (it uses the same
 `Action_Taskforce1_Message` as the start message); that the game is

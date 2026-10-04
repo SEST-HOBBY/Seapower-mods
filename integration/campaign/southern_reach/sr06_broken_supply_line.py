@@ -73,7 +73,7 @@ MISSION = dict(
         "is in our hands now. Nobody touches her.'",
     lose="The coaster is gone with the winter's fuel in her, three hundred "
          "miles from a slipway. Casey's January is a different problem now.",
-    timeout="Seventy-five minutes and the coaster is still short of the line "
+    timeout="{Deadline} minutes and the coaster is still short of the line "
             "with a boat somewhere ahead of her. The tug from Bluff has "
             "nothing to meet yet.",
     stations={

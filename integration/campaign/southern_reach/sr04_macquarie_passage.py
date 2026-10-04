@@ -108,7 +108,7 @@ MISSION = dict(
     ),
     lose="The anchorage is broken. The island gets what was ashore before "
          "the window closed and nothing more until next summer.",
-    timeout="Seventy-five minutes and the ships are still south of the "
+    timeout="{Deadline} minutes and the ships are still south of the "
             "line with a boat somewhere in the bay. Whatever crossed the "
             "beach, the group is not out of the anchorage, and the Bear has "
             "the photographs.",

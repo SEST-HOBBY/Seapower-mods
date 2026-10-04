@@ -98,7 +98,7 @@ MISSION = dict(
         "HULL 334 is on the New Zealanders' plot, or their aircraft is down. The rendezvous "
         "is known either way, and the boat goes without."
     ),
-    timeout="0640, and the tender is short of the holding position. The patrol will be "
+    timeout="{deadline_clock}, and the tender is short of the holding position. The patrol will be "
             "back over the approach at first light tomorrow, and so will the decoy.",
     stations={
         # West of Puysegur: the decoy station 22 NM off the coast towards the
