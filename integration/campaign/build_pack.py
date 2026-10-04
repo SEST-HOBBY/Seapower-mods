@@ -2610,7 +2610,17 @@ def ship_reach(uid, fit):
     if path is not None:
         if fit is None:
             fit, _why = pick_loadout(uid, path, None)
-        for store in stores(uid, kind_dir, path, fit):
+        # A tube fed from a magazine names no round itself: the Virginia's
+        # four Mk63s say AssociatedMagazine=TorpedoRoom and her 22 Mk 48s
+        # are listed only there, so stores() alone read her as unarmed and
+        # RL02's boat passed this gate 21 NM from the escort.
+        held = set(stores(uid, kind_dir, path, fit))
+        body = read(path)
+        for mag in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
+            sec = re.search(r"^\[" + re.escape(mag) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+            if sec:
+                held |= set(re.findall(r"^Ammunition\d*=([^\s#/|]+)", sec.group(1), re.M))
+        for store in sorted(held):
             text = "".join(read(f) for f in all_copies(f"ammunition/{store}.ini"))
             kind = re.search(r"^Type=(\w+)", text, re.M)
             aim = re.search(r"^TargetType=(\w+)", text, re.M)

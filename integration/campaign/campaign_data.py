@@ -580,7 +580,7 @@ MISSIONS.append(dict(
         # 17 NM from the convoy it is "in company with", 13 NM from a 039C
         # with its weapons free, and that boat was ASTERN of everybody - not
         # across the planned track the briefing puts it on - while the P-8
-        # slot sat 48 NM away at 30,000 ft with the Wedgetail. Now the escorts
+        # slot sat about 60 NM from the boat at 30,000 ft with the Wedgetail. Now the escorts
         # sail 2 NM ahead of the merchants, the datum is 30 NM up the track
         # just north of it, at the far edge of the approach box, the boat
         # creeping in toward the track, and the Poseidon is on the sonobuoy
