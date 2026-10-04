@@ -429,6 +429,25 @@ def edit(text, pattern, repl, expect, ctx):
     return out
 
 
+# A second shipper this pack has looked at and accepted, on one condition: it
+# ranks BELOW the donor in data/load-order.tokens.txt, so its copy never loads
+# whether this pack ships the file or not. Checked on every build; the moment
+# the order puts it above the donor, the guard stops again.
+OUTRANKED_PROVIDERS = {
+    # Ultimate Missile Workshop (October 2026) ships its own Stunner, a
+    # different file rather than David's Sling's with the separator fixed. It
+    # is kept at the bottom of the order, below every mod it duplicates.
+    "ammunition/idf_stunner.ini": {"3672072359"},
+}
+
+
+def _rank():
+    tokens = [t.strip() for t in (ROOT / "data" / "load-order.tokens.txt")
+              .read_text(encoding="utf-8").splitlines()
+              if t.strip() and not t.startswith("#")]
+    return {t: i for i, t in enumerate(tokens)}
+
+
 def sole_provider(rel, expected_mod):
     """Every file here is a whole-file override of ONE mod's copy. If a
     re-export brings a second provider, shipping ours would silently delete
@@ -438,6 +457,14 @@ def sole_provider(rel, expected_mod):
         p.parts[-3] for p in MODS.glob(f"*/{rel}")
         if p.parts[-3] not in (expected_mod, "_vanilla")
     )
+    accepted = OUTRANKED_PROVIDERS.get(rel, set())
+    if accepted & set(others):
+        rank = _rank()
+        for mod in sorted(accepted & set(others)):
+            if mod not in rank or expected_mod not in rank or rank[mod] < rank[expected_mod]:
+                sys.exit(f"{rel}: {mod} is accepted only while it ranks below "
+                         f"{expected_mod} in data/load-order.tokens.txt, and it does not")
+        others = [o for o in others if o not in accepted]
     if others:
         sys.exit(f"{rel}: now also shipped by {others}, not just {expected_mod}. "
                  "Overriding it would silently delete their copy - re-verify which "

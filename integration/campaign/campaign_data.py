@@ -153,6 +153,115 @@ EXCUSES = {
     "nimitz-expanded": (
         "shadowed", "ships one file, `vessels/usn_cvn_nimitz_variants.ini`, "
         "which SEST Collection Fixes replaces - that patch is why it exists"),
+    # October 2026 subscriptions. "external": in the collection for a third-party
+    # campaign or scenario, or content no SEST campaign places; still required,
+    # because SETUP checks every mod in the order.
+    "second-northern-war": (
+        "external", "a third-party campaign: six Baltic missions from the Russian side "
+        "and a Russian name set, no unit, round or system of its own; it "
+        "plays from its own missions folder and needs its dependencies "
+        "present, not placed by SEST"),
+    "mare-nostrum-28": (
+        "external", "a third-party Task Force Mode campaign (11 missions, Mediterranean "
+        "2028) that ships no unit, round or system; its missions place "
+        "other mods' units, all of them in the order"),
+    "operation-steadfast-lantern": (
+        "external", "a third-party Task Force Mode campaign (4 missions) plus a nation- "
+        "flag table and one callsign key; nothing a SEST mission can name"),
+    "ground-upgrade-mbt": (
+        "external", "MBT pack the Second Northern War places (Leopard 2A4, T-72B in "
+        "Tallinn Gate); the three game tank rounds it ships stale are "
+        "restored by SEST Collection Fixes"),
+    "ground-upgrade-ifv": (
+        "external", "IFV pack the Second Northern War places (Marder, BMP-2 in Tallinn "
+        "Gate); its stale 25 mm and TOW-1 game rounds are restored by SEST "
+        "Collection Fixes"),
+    "russian-ground-artillery": (
+        "external", "standalone Russian artillery (2S19, 2S43) subscribed with the "
+        "Second Northern War, which places neither; no SEST campaign fields "
+        "Russian artillery"),
+    "nato-ground-artillery": (
+        "external", "standalone NATO artillery (PzH 2000, K9) subscribed with the "
+        "Second Northern War, which places neither; no SEST campaign fields "
+        "it"),
+    "jas-39-gripen": (
+        "external", "the Second Northern War's Swedish fighters (Red Sky, Reckoning for "
+        "Moonsund); no SEST theatre has a Swedish air arm"),
+    "iskander-m": (
+        "external", "the Second Northern War's twelve Iskander-M launchers (Dawn of "
+        "Narva); SEST's own Range Week uses the separate Iskander TBM mod"),
+    "s-500": (
+        "external", "S-500 battery kept for scenarios; no mission places it, and the "
+        "Flap Lid it shares with S-400 SAM loses to S-400's identical copy"),
+    "s-300pmu2": (
+        "external", "S-300PMU2 battery kept for scenarios; no mission places it, and it "
+        "supplies the eight files it shares with THE REDFOR MOD"),
+    "nebo-u": (
+        "external", "Nebo-U early-warning radar kept for scenarios; no mission places "
+        "it and it shares no file with any other mod"),
+    "wp-sattelite-center": (
+        "shadowed", "both files it ships are byte-identical to THE REDFOR MOD's, which "
+        "sits directly above it, so nothing it contains loads"),
+    "ultimate-missile-workshop": (
+        "external", "a missile rebalance placed below every mod it duplicates on the "
+        "player's call: its 95 contested rounds load from the mods that "
+        "field them, and no unit in the collection hangs the 16 rounds only "
+        "it ships"),
+    "clemenceau-class-carrier": (
+        "external", "Clemenceau and Foch in their 1960-1990 fits, retired by 2000, so "
+        "no 2028 mission fields them; the Brazilian pack's Sao Paulo draws "
+        "on its hull and deck"),
+    "alize-br1050": (
+        "external", "the Alize left French service in 2000 and Indian service in 1991, "
+        "so no 2028 mission fields it; the Clemenceau's air groups embark "
+        "it"),
+    "sea-venom-aquilon": (
+        "external", "a 1950s-60s Aeronavale night fighter no 2028 mission fields; the "
+        "Clemenceau's 1960 hulls embark it, and RADF's Sea Venom rocket "
+        "racks draw their mesh from its folder"),
+    "etendard-family": (
+        "external", "Etendard IV and Super Etendard, retired by France in 2016, which "
+        "no 2028 mission fields; the Clemenceau's air groups embark them"),
+    "f-8-crusader": (
+        "external", "US, Philippine and Aeronavale Crusaders, the last retired in 1999, "
+        "which no 2028 mission fields; the Clemenceau's 1970-1990 air "
+        "groups embark them"),
+    "royal-australian-defence-forces": (
+        "external", "Cold War to 2010s RAN, RAAF, RNZN and Indonesian forces for its "
+        "own showcase mission and for scenarios; the 2028 campaigns field "
+        "the modern RAN from SEST RAN Fleet"),
+    "the-royal-navy": (
+        "external", "Cold War Royal Navy (County, Leander, Type 42, Invincible, "
+        "Buccaneer, Sea Vixen, Nimrod) for its own Falklands missions; SEST "
+        "Collection Fixes restores the game files it ships stale"),
+    "euromod-brazil": (
+        "external", "Brazilian Navy and naval air arm (service 1976-2029) outside every "
+        "SEST theatre; placed by no installed campaign"),
+    "euromod-chile": (
+        "external", "Chilean Navy and Air Force of 2005-2021 outside every SEST "
+        "theatre; it defines systems RADF and The Royal Navy name ([STIR], "
+        "[IPS CSU 3], [AR-700S5])"),
+    "euromod-india": (
+        "external", "two Indian Navy destroyers (2006-2025) that no SEST mission or "
+        "installed campaign places"),
+    "euromod-philippines": (
+        "external", "three Philippine Navy frigates of 2020-2021; no SEST mission is "
+        "set in Philippine waters"),
+    "philippines-luzon-line": (
+        "external", "Philippine forces that Identify Expanded's Ransom Waters campaign "
+        "places (06A Stay Hungry); no SEST mission is set in Philippine "
+        "waters"),
+    "f-15j-peace-eagle": (
+        "external", "a 1981-fit JASDF F-15J with Sparrow and Sidewinder loads only; "
+        "SEST's 2028 JASDF presence is the F-2A"),
+    "ec-2-stand-off-jammer": (
+        "external", "JASDF stand-off jammer (2027 squadron dates) not yet written into "
+        "a SEST mission; its licence forbids forking its files, and its "
+        "comms jamming needs Anchor Chain in game"),
+    "saronic-corsair-asv": (
+        "external", "a USN autonomous-boat family with its own four test scenarios; its "
+        "contact detonation runs in its Anchor Chain DLL, and no 2028 SEST "
+        "mission has an unmanned-boat role"),
 }
 
 EVENTS = [

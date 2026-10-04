@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches (reference only)
 
-140 items, in canonical load order. NOT for the Workshop
+143 items, in canonical load order. NOT for the Workshop
 item's Required Items box. All three campaigns ship in one item, the SEST
 Integration Pack (3812461539), which keeps that box empty on purpose:
 the Mod Manager's dependency check ('Must load above this mod') offers
@@ -77,6 +77,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3600788156    # Buildings
 https://steamcommunity.com/sharedfiles/filedetails/?id=3801363152    # CH-53E Standalone v0.1.0
 https://steamcommunity.com/sharedfiles/filedetails/?id=3746453639    # Civil Aircraft Mod (Airbus Family)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3781062859    # <<E-3G>>
+https://steamcommunity.com/sharedfiles/filedetails/?id=3595014060    # NATO E-3A Sentry
 https://steamcommunity.com/sharedfiles/filedetails/?id=3499239964    # [DEPRECATED] E-7A Wedgetail
 https://steamcommunity.com/sharedfiles/filedetails/?id=3587877691    # Eurofighter Typhoon
 https://steamcommunity.com/sharedfiles/filedetails/?id=3448845252    # F-117 Nighthawk
@@ -146,9 +147,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3470643173    # Type 12 S
 https://steamcommunity.com/sharedfiles/filedetails/?id=3631042692    # Modern Chinese Airbase (Large)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3629269283    # Modern Russian Airbase (Large)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3592460366    # Modern US Airbase
+https://steamcommunity.com/sharedfiles/filedetails/?id=3732654992    # THE REDFOR MOD
 https://steamcommunity.com/sharedfiles/filedetails/?id=3758943352    # French Air Force
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812111085    # PLAAF Aircraft Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
+https://steamcommunity.com/sharedfiles/filedetails/?id=3812140001    # Pakistani Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod
 
 NOT IN THE COLLECTION - players install these by hand, as the

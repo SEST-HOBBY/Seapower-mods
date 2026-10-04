@@ -571,7 +571,7 @@ were run on it:
 
 ```
 python tools\build_all.py --from-scratch      # 20 packs, clean git status after
-python tools\check_campaign_coverage.py       # three campaigns, 1589 placed references, all 168 enabled mods and SEST packs (148 Workshop mods + 20 packs)
+python tools\check_campaign_coverage.py       # three campaigns, 1589 placed references, all 200 enabled mods and SEST packs (180 Workshop mods + 20 packs)
 python tools\check_load_order.py
 python tools\check_dependencies.py
 python tools\check_weapon_employment.py

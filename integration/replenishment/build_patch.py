@@ -357,8 +357,19 @@ def write(rel, text):
 # Which rounds get metered. See METER_THRESHOLD in common/ras.py for the rule.
 
 def _alias_target(text):
-    m = re.match(r"#!alias\s+(\S+)", text.lstrip())
-    return m.group(1) if m else None
+    # The directive may sit below a comment banner: Euromod's October 2026
+    # Russian SAM stubs (rfn_40n6, rfn_48n6m and more) open with three '#====='
+    # lines and put '#!alias' on line 5. Reading only the first line made them
+    # rounds with no price, type or role, and the metering silently dropped
+    # them. The same rule as integration/missions/build_land_defence.py.
+    for line in text.splitlines():
+        stripped = line.strip().lstrip("\ufeff")
+        if not stripped:
+            continue
+        m = re.match(r"#!alias\s+(\S+)", stripped)
+        if m or not stripped.startswith("#"):
+            return m.group(1) if m else None
+    return None
 
 
 def ammo_facts(ammo_id, _seen=None):
@@ -614,6 +625,12 @@ def free_round_check():
     exactly that.
     """
     problems = []
+    # A round a sibling SEST pack ships is the copy the game loads - every
+    # SEST pack sits above every mod - so its price is the one that counts.
+    # winning_ammo() reads mods-source only; without this, SEST Collection
+    # Fixes restoring vanilla's priced usn_cal_40mm over The Royal Navy's
+    # unpriced copy would still read as a free round here.
+    owned = foreign_paths()
     for unit in list(SUPPLIERS) + list(CLONES):
         if unit in FOREIGN_SUPPLIERS:
             continue
@@ -630,6 +647,9 @@ def free_round_check():
         # live_ammunition already walks every section and honours
         # NumberOfAmmunitionTypes, so it costs nothing to be exhaustive.
         for rid in sorted(live_ammunition(read(path))):
+            sibling = owned.get(f"ammunition/{rid}.ini".lower())
+            if sibling and re.search(r"^AmmoPoints\s*=\s*[\d.]*[1-9]", read(sibling), re.M):
+                continue
             facts = ammo_facts(rid)
             if facts is None:
                 # resolves to no file at all - a dangling store, which

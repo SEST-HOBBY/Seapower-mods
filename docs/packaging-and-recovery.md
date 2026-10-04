@@ -1,7 +1,7 @@
 # Packaging, dependencies and recovery
 
-Two questions this answers: how the SEST packs coexist with 148 workshop mods
-(149 Mod Manager entries with `SEST_Integration`), and what you actually need
+Two questions this answers: how the SEST packs coexist with 180 workshop mods
+(181 Mod Manager entries with `SEST_Integration`), and what you actually need
 to be able to recover if the game install goes bad.
 
 ## A SEST pack is a patch, not a mod
@@ -28,8 +28,9 @@ at a mesh that is not there.
 So no pack can be handed on by itself. What players get is the published
 pair: the Workshop item 'SEST Integration Pack - Modernised Campaigns'
 (3812461539, Public; the consolidated pack, all three campaigns included) and
-the collection 'SEST - Modernised Campaign Collection' (3812390790), 149 items:
-the 148 Workshop mods in `data/load-order.tokens.txt` plus the pack. The
+the collection 'SEST - Modernised Campaign Collection' (3812390790): the Workshop mods in
+`data/load-order.tokens.txt` plus the pack (published with 149 items; 181 once the October
+2026 additions are added to it). The
 collection is where a player's dependencies come from; the item's own
 Required Items stay empty on purpose (*Publishing the pack*, below, says why
 and how an update goes up). Inside the repo, what each pack needs is a
@@ -316,8 +317,8 @@ collection:
   3812461539, Public. It is the `SEST_Integration` folder, all three
   campaigns included. Every upload is an update to it, never a new item.
 - **The collection**: 'SEST - Modernised Campaign Collection', 3812390790,
-  149 items: the 148 Workshop mods in `data/load-order.tokens.txt` plus the
-  pack. A mod added to or dropped from the load order means the same change
+  the Workshop mods in `data/load-order.tokens.txt` plus the pack (181 items
+  once the October 2026 additions are in it; it was published with 149). A mod added to or dropped from the load order means the same change
   to the collection.
 
 **Required Items stay empty.** The item's Required Workshop IDs / Required

@@ -1,12 +1,12 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **148 Workshop
+**Sea Power: Naval Combat in the Missile Age** install with **180 Workshop
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
 Campaigns* (item 3812461539, public), carrying all three campaigns. Players subscribe to
-the collection *SEST - Modernised Campaign Collection* (3812390790: the 148 Workshop mods
+the collection *SEST - Modernised Campaign Collection* (3812390790: the Workshop mods
 in `data/load-order.tokens.txt` plus the pack), which is where the dependencies come from,
 then run `SETUP - double-click me.cmd` in the pack folder with the game closed. The pack's
 Required Items are empty on purpose: the Mod Manager's dependency check offers to move
@@ -157,7 +157,7 @@ squadron the winning file actually offers — a price naming a fit the hull no
 longer has fails the build. None of the economy has been exercised in game;
 each campaign's `build-notes.md` says so in detail.
 
-Its point is coverage. 148 Workshop mods are a lot of content to own and never
+Its point is coverage. 180 Workshop mods are a lot of content to own and never
 see, so the campaigns are built so that **every mod in the canonical load
 order, and every SEST pack, is reached by something one of them places** — and
 "reached" is
