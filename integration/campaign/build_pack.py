@@ -4284,6 +4284,30 @@ def flagship(uid):
             and bool(re.search(r"^\[FlightDeck\]", read(f), re.M)))
 
 
+# Navy emblems the base game does not ship, drawn from the gallery's flag set
+# (integration/gallery/source/visuals/flags, credited in its
+# VISUAL_CREDITS.txt). A commander_settings.ini path under
+# ui/campaign/navy_emblems/sest_* must have an entry here.
+SEST_EMBLEMS = {"sest_plan_emblem.png": "china_naval.png"}
+
+
+def write_emblems(commander):
+    from PIL import Image
+    for path in re.findall(r"^NavyEmblem\w+=(ui/campaign/navy_emblems/sest_[^\s]+)$", commander, re.M):
+        name = path.rsplit("/", 1)[1]
+        if name not in SEST_EMBLEMS:
+            raise SystemExit(f"commander settings name {path}, which SEST_EMBLEMS cannot draw")
+        src = ROOT / "integration" / "gallery" / "source" / "visuals" / "flags" / "png" / SEST_EMBLEMS[name]
+        with Image.open(src) as im:
+            im = im.convert("RGBA")
+            im.thumbnail((256, 256), Image.LANCZOS)
+            canvas = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
+            canvas.paste(im, ((256 - im.width) // 2, (256 - im.height) // 2), im)
+        out = OUT / path
+        out.parent.mkdir(parents=True, exist_ok=True)
+        canvas.save(out, "PNG", optimize=True)
+
+
 def enemy_roster_ini(missions, placements):
     """enemy_theater_roster.ini: every Taskforce2 unit the campaign places."""
     picks = collections.defaultdict(lambda: collections.defaultdict(set))
@@ -5951,6 +5975,7 @@ def main():
                                                            encoding="utf-8")
         (camp / "enemy_theater_roster.ini").write_text(c["enemy_text"], encoding="utf-8")
         (camp / "commander_settings.ini").write_text(spec["COMMANDER"], encoding="utf-8")
+        write_emblems(spec["COMMANDER"])
         (camp / "campaign_rules_en.xml").write_text(c["rules_text"], encoding="utf-8")
         for folder, desc in folders.items():
             (OUT / "missions" / folder / "_info.ini").write_text(info(folder, desc),

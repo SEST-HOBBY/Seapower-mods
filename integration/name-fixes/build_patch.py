@@ -39,7 +39,7 @@ ROOT = Path(__file__).resolve().parents[2]
 MODS = ROOT / "mods-source"
 OUT = Path(__file__).resolve().parent / "SEST_Name_Fixes"
 FILES = ("aircraft_names.ini", "vessel_names.ini", "land_units_names.ini")
-NAME_KEY = re.compile(r"^(Default|Variant\d+|Squadron\d+|Callsigns)$")
+NAME_KEY = re.compile(r"^(Type|Default|Variant\d+|Squadron\d+|Callsigns)$")
 
 # (file, section, key): (the winning text today, the correction)
 EXPLICIT = {
@@ -143,9 +143,45 @@ MISSING_NAMES = {
 }
 FULLWIDTH = [(" （", " ("), ("（", " ("), ("）", ")"), ("，", ","), ("“", '"'), ("”", '"')]
 
+# Cyrillic in English name lines: THE REDFOR MOD (3732654992) names its
+# Tarantul and Grisha hulls in Russian ("МПК-221 «Приморский комсомолец»")
+# and two Iskander mods spell the class "ИСКАНДЕР-M". English players cannot
+# read them, so they are transliterated (BGN/PCGN, simplified: no
+# apostrophes for the soft and hard signs) and the guillemets become plain
+# quotes: "MPK-221 \"Primorskiy komsomolets\"". A word in capitals stays in
+# capitals. Language files other than language_en are never touched.
+CYRILLIC = dict(zip("абвгдеёжзийклмнопрстуфхцчшщъыьэюя",
+                    ["a", "b", "v", "g", "d", "e", "yo", "zh", "z", "i", "y", "k", "l", "m", "n",
+                     "o", "p", "r", "s", "t", "u", "f", "kh", "ts", "ch", "sh", "shch", "", "y",
+                     "", "e", "yu", "ya"]))
+# Words better given their usual English spelling than a transliteration.
+CYRILLIC_WORDS = {"ИСКАНДЕР": "Iskander", "Точка": "Tochka"}
+# Two Chinese characters in English squadron lines (3438479626's 'Razgriz'
+# squadron, 3436170138's J-11 short name).
+CJK = [("队)", " Squadron)"), ("歼-", "J-")]
+OTHER = [("«", '"'), ("»", '"'), ("№", "No. ")]
+
+
+def transliterate(value):
+    for a, b in CYRILLIC_WORDS.items():
+        value = value.replace(a, b)
+    out = []
+    for i, c in enumerate(value):
+        low = c.lower()
+        if low not in CYRILLIC:
+            out.append(c)
+            continue
+        t = CYRILLIC[low]
+        if c != low:
+            neighbours = value[max(0, i - 1):i] + value[i + 1:i + 2]
+            caps = any(n.isalpha() and n.isupper() for n in neighbours)
+            t = t.upper() if caps else t.capitalize()
+        out.append(t)
+    return "".join(out)
+
 INFO = """[Language_en]
 Name=SEST Name Fixes
-Description=Corrects unit and squadron display names one key at a time: typos (Rocketeers, Mikuma, Desert, David's Sling), the Anzac's short name, and full-width brackets and commas the game's font cannot show.
+Description=Corrects unit and squadron display names one key at a time: typos (Rocketeers, Mikuma, Desert, David's Sling), the Anzac's short name, full-width brackets and commas the game's font cannot show, and Russian names written in Cyrillic in English text (transliterated).
 
 [Compatibility]
 ApproximateVersion=0.8.4
@@ -201,8 +237,10 @@ def sest_keys(name):
 
 def fixed(value):
     v = value
-    for a, b in FULLWIDTH:
+    for a, b in FULLWIDTH + CJK + OTHER:
         v = v.replace(a, b)
+    if any(c.lower() in CYRILLIC and c.isalpha() and not c.isascii() for c in v):
+        v = transliterate(v)
     return v
 
 
