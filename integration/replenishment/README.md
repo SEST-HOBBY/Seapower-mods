@@ -147,7 +147,7 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 
 | Stage | Result |
 |---|---|
-| **Suppliers** | 10 upstream auxiliaries and 5 merchant ships (C8 and Seabee barge carriers, Ro-Ro A and B, Mercur) get a tuned `[SupplySystem1]` |
+| **Suppliers** | 10 upstream auxiliaries, 5 merchant ships (C8 and Seabee barge carriers, Ro-Ro A and B, Mercur) and 2 Philippine/Thai hulls (BRP Tarlac LPD, HTMS Chula) get a tuned `[SupplySystem1]` |
 | **New hulls** | 8 modern replenishment ships — 5 BLUE, 3 RED — 25 named ships, as **new unit ids** |
 | **Metering** | 87 heavy rounds get a counted `SEST_` supply category (77 shipped here, 10 tagged in the sibling pack that owns the file); 4 rounds repaired |
 | **Refit** | every clone's donor-era radars, EW and guns retuned to its own navy and decade |
@@ -173,6 +173,8 @@ Onyx 5000 · SM-3 9000 · Zircon 10000 · SS-N-22 12300 · SS-N-19 Granit 21000.
 | **HMAS Supply AOR** *(SEST RAN Fleet)* | Australia | 160 000 | 8 000 | 0.5 nmi | 12/16 kn | Harpoon 16 · AirTorpedo 24 · LandAttack 8 · LongRangeSAM 16 |
 | Teide oiler | Spain | 120 000 | 2 000 | 0.5 nmi | 12/16 kn | Harpoon 16 · AirTorpedo 24 · ALWT 8 |
 | T2 oiler | US | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | Harpoon 8 · AirTorpedo 16 |
+| **Tarlac LPD** *(Luzon Line, Oct 2026)* | Philippines | 60 000 | 2 000 | 0.5 nmi | **8/12 kn** | Harpoon 8 · AirTorpedo 12 |
+| **Chula AOR** *(Siam Shield, Oct 2026)* | Thailand | 15 000 | 2 000 | 0.3 nmi | **8/12 kn** | Harpoon 4 · AirTorpedo 6 |
 | Kazbek tanker | Soviet | 60 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 16 |
 | Sealift Pacific T-AOT | US (MSC) | 40 000 | 2 000 | 0.5 nmi | 13/16 kn | AirTorpedo 8 |
 | Delvar | Iran | 15 000 | 2 000 | 0.3 nmi | 8/12 kn | AirTorpedo 4 · Harpoon 2 |

@@ -5,7 +5,7 @@ Custom loadouts, upgrade variants, cross-mod fixes and missions for a
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
-Campaigns* (item 3812461539, public), carrying all three campaigns. Players subscribe to
+Campaigns* (item 3812461539, public), carrying all four campaigns. Players subscribe to
 the collection *SEST - Modernised Campaign Collection* (3812390790: the Workshop mods
 in `data/load-order.tokens.txt` plus the pack), which is where the dependencies come from,
 then run `SETUP - double-click me.cmd` in the pack folder with the game closed. The pack's
@@ -29,11 +29,11 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `data/active-mission.txt` | The mission the tooling works on when you do not name one |
 | `data/raw-workshop-list.txt` | The raw subscription list as pasted on 23 Aug 2026 (109 items); the catalog and the load order are current |
 | `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook |
-| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and, for `southern-watch/` and `southern-reach/`, the procedure that lines the gaming PC up with the branch; `southern-watch/` also holds the Workshop publishing procedure |
+| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`, `sulu-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and, for `southern-watch/` and `southern-reach/`, the procedure that lines the gaming PC up with the branch; `southern-watch/` also holds the Workshop publishing procedure |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/missions/` | Playable missions and the scripts that refine them |
-| `integration/campaign/` | **Three native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) and *SEST Red Line* (six missions from the other side; `red_line/`), built so that every enabled mod is reached by something one of them places or prices |
+| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, four optional operations, two contingencies, eight dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -42,7 +42,7 @@ The 20 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persisten
 `SEST_F-35C_JATM`, `SEST_F16CM_JATM`, `SEST_Growler_NGJ_MALICE`, `SEST_Intercept_Model`,
 `SEST_JMSDF_Mogami`, `SEST_RAAF_Bases`, `SEST_RAAF_F-35A_JATM`, `SEST_RAAF_Wedgetail`,
 `SEST_RAN_Fleet`, `SEST_Rafale_F5`, `SEST_Raptor_Squadrons`, `SEST_Replenishment`,
-`SEST_TacMap_Colors` and `SEST_Campaign` (the three campaigns, each also listed as an Open
+`SEST_TacMap_Colors` and `SEST_Campaign` (the four campaigns, each also listed as an Open
 Allocation twin that sells its whole roster from the first window - and, for the two RAN
 campaigns, the allied fleet). Consolidated, they are 1266
 files in `integration/dist/SEST_Integration/`. `SEST_Zumwalt_CPS` was retired on 20 Sep 2026,
@@ -115,7 +115,7 @@ BepInEx's own `LogOutput.log`, where the code mods write.
 
 ## The campaigns
 
-`integration/campaign/` builds three campaigns into one `SEST_Campaign` pack. The
+`integration/campaign/` builds four campaigns into one `SEST_Campaign` pack. The
 first is **SEST Southern Watch — The Northern Lifeline**:
 twelve connected missions in October–November 2028 in which Australia and its
 regional partners keep the northern sea routes open, four optional operations
@@ -148,7 +148,21 @@ escort or evasion, and each victory is written to fit the other two
 campaigns' story whatever happens in it. `docs/campaigns/red-line/` holds its
 bible (with the timeline against both), build notes and test card.
 
-All three run on the game's **native Task Force Mode**, the same system the stock
+The fourth is **SEST Sulu Line — The Island Road**: seven missions, October to
+November 2028, the same six weeks as Southern Watch at the other end of the
+archipelago. A Philippine-led task group, with a Royal Thai Navy detachment and
+later one RAN frigate, escorts convoys down the Sulu side of Palawan, fires for
+the Marines on Jolo, runs the resupply boat into Ayungin Shoal without a shot,
+hunts a gun-runner in the Celebes Sea, silences a Silkworm battery on the
+Aborlan coast and holds the Balabac Strait against the PLAN southern surface
+group on 23 November. **There is no free rearm**: what a ship fires comes back
+only from a supply ship the player bought and kept afloat (BRP Tarlac or Davao
+del Sur, HTMS Chula, or an MSC C8 charter, all working suppliers in SEST
+Replenishment At Sea), alongside at sea, or from the escorted charter in
+Service at Sea. Supply ships are sold in three windows only.
+`docs/campaigns/sulu-line/` holds its notes and test card.
+
+All four run on the game's **native Task Force Mode**, the same system the stock
 Pacific Strike campaign uses: you requisition a task force from a priced
 roster (`player_task_force_roster.ini`), and losses, damage, magazines and
 crew experience carry forward. Every key was read out of the exported stock

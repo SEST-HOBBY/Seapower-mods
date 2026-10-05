@@ -186,7 +186,7 @@ for; the map, salvo and rescue tools are conveniences.)
   3790594162    library                          Identify Expanded
   3796706214    library                          Real photos of airplanes and helicopters
 
-3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (38): in the collection for
+3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (35): in the collection for
 campaigns and scenarios this one does not include. Keep them installed anyway: SETUP
 stops if any mod in LOAD-ORDER.txt is missing.
 
@@ -199,7 +199,6 @@ stops if any mod in LOAD-ORDER.txt is missing.
   3776730617    other campaigns                  EUROMOD-Armada de Chile
   3678767059    other campaigns                  Euromod-Brazilian Armed Forces(2000)
   3807164392    other campaigns                  Euromod-India-Navy
-  3812454152    other campaigns                  Euromod-Philippine-Navy
   3434693420    other campaigns                  F-15J Peace Eagle
   3591820675    other campaigns                  F-8 Crusader
   3673703427    other campaigns                  Fattah-1
@@ -215,7 +214,6 @@ stops if any mod in LOAD-ORDER.txt is missing.
   3603367264    other campaigns                  NATO Ground Enhancement Series 2: Artillery
   3551621846    other campaigns                  NEBO-U
   3779799226    other campaigns                  Operation STEADFAST LANTERN
-  3752415457    other campaigns                  Philippines: The Luzon Line
   3399699218    other campaigns                  Project 2498 Zyetseth Class Assault Vessel
   3455404959    other campaigns                  Royal Australian Defence Forces
   3603306548    other campaigns                  Russian Ground Enhancement Series 1: Artillery
@@ -224,16 +222,18 @@ stops if any mod in LOAD-ORDER.txt is missing.
   3496055699    other campaigns                  S-500
   3766210676    other campaigns                  Saronic Corsair ASV
   3628247436    other campaigns                  Sea Venom - Aquilon
-  3711297532    other campaigns                  Thailand: The Siam Shield
   3491248180    other campaigns                  The Royal Navy
   3709961172    other campaigns                  The Second Northern War
   3672072359    other campaigns                  Ultimate Missile Workshop
 
-4. NOT USED BY THIS CAMPAIGN (4): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (7): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
+  3812454152    Euromod-Philippine-Navy
   3432592449    Nimitz Expanded
+  3752415457    Philippines: The Luzon Line
   3808882954    RC-135V/W Rivet Joint
+  3711297532    Thailand: The Siam Shield
   3636213685    wp_sattelite_center
   3637954857    Y-8/Y-9 Special Mission Aircraft Family
 

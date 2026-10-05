@@ -132,6 +132,12 @@ MODERN_SOURCES = {
     "3774572038": "PLAN Type 071 LPD",
     "3774859959": "PLAN Type 001 Liaoning",
     "3438479626": "1143.5 Kuznetsov",
+    # The Philippine and Thai navies (October 2026, for SEST Sulu Line):
+    # without these their canister launchers never reload, and that
+    # campaign's resupply is its whole point.
+    "3812454152": "Euromod - Philippine Navy",
+    "3752415457": "Philippines: The Luzon Line",
+    "3711297532": "Thailand: The Siam Shield",
     # Not here, each deliberately: the Charles de Gaulle & Modern French Navy
     # pack (3567256221) is catalogued "wip", and forking a work-in-progress
     # mod's hulls at tier 0 would freeze whatever state its author left them

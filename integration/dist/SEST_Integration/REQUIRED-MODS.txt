@@ -1,4 +1,4 @@
-SOUTHERN WATCH / SOUTHERN REACH / RED LINE - required Steam Workshop mods
+SOUTHERN WATCH / SOUTHERN REACH / RED LINE / SULU LINE - required Steam Workshop mods
 
 TRY SETUP FIRST. "SETUP - double-click me.cmd" in this folder checks
 that every mod below is downloaded (and names the ones that are
@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-142 mods. Each supplies a file a mission names directly - by
+145 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -64,6 +64,7 @@ Workshop id   supplies                         mod
 3695809489    a unit a mission places          Euromod - Modern Japanese Maritime Self Defence Force
 3642656500    a hull variant in use            Euromod - Modern Nordic Navy
 3731208477    a unit a mission places          Euromod - Modern Spanish Navy
+3812454152    a hull variant in use            Euromod-Philippine-Navy
 3789208859    a unit a mission places          Euromod-South Korea Navy
 3448845252    a unit a mission places          F-117 Nighthawk
 3636386513    a weapon a loadout hangs         F-15 EX Eagle II
@@ -112,6 +113,7 @@ Workshop id   supplies                         mod
 3810611344    a unit a mission places          MV-75 Cheyenne II
 3595014060    a model a placed unit draws      NATO E-3A Sentry
 3812140001    a model a placed unit draws      Pakistani Pack
+3752415457    a unit a mission places          Philippines: The Luzon Line
 3681873198    a unit a mission places          Pickup truck extension
 3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
 3733719765    a unit a mission places          PLA Land Unit Pack
@@ -148,6 +150,7 @@ Workshop id   supplies                         mod
 3503594612    a unit a mission places          SU-57 Felon (重刑犯)
 3434072450    a unit a mission places          Sukhoi Flanker Family (苏霍伊侧卫家族)
 3683253079    a unit a mission places          Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
+3711297532    a unit the player can buy        Thailand: The Siam Shield
 3732654992    a model a placed unit draws      THE REDFOR MOD
 3509329205    a unit a mission places          TU-160 Blackjack
 3780118683    a unit a mission places          Tu-214R Family (图-214R家族)
@@ -199,9 +202,9 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (38):
+In the collection for other campaigns and scenarios (35):
 the third-party campaigns the collection carries, the mods they
-place, and content none of these three campaigns uses. They are in
+place, and content none of these four campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
 
 3628203171    other campaigns                  Bréguet Br.1050 Alizé
@@ -213,7 +216,6 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3776730617    other campaigns                  EUROMOD-Armada de Chile
 3678767059    other campaigns                  Euromod-Brazilian Armed Forces(2000)
 3807164392    other campaigns                  Euromod-India-Navy
-3812454152    other campaigns                  Euromod-Philippine-Navy
 3434693420    other campaigns                  F-15J Peace Eagle
 3591820675    other campaigns                  F-8 Crusader
 3673703427    other campaigns                  Fattah-1
@@ -229,7 +231,6 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3603367264    other campaigns                  NATO Ground Enhancement Series 2: Artillery
 3551621846    other campaigns                  NEBO-U
 3779799226    other campaigns                  Operation STEADFAST LANTERN
-3752415457    other campaigns                  Philippines: The Luzon Line
 3399699218    other campaigns                  Project 2498 Zyetseth Class Assault Vessel
 3455404959    other campaigns                  Royal Australian Defence Forces
 3603306548    other campaigns                  Russian Ground Enhancement Series 1: Artillery
@@ -238,7 +239,6 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3496055699    other campaigns                  S-500
 3766210676    other campaigns                  Saronic Corsair ASV
 3628247436    other campaigns                  Sea Venom - Aquilon
-3711297532    other campaigns                  Thailand: The Siam Shield
 3491248180    other campaigns                  The Royal Navy
 3709961172    other campaigns                  The Second Northern War
 3672072359    other campaigns                  Ultimate Missile Workshop

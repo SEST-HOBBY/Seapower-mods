@@ -305,7 +305,7 @@ try {
     if ($warnings) { Say ('Done, but read the ' + $warnings + ' [!!] warning(s) above first. Then start Sea Power:') 'Yellow' }
     else { Say 'All done. Start Sea Power:' 'Cyan' }
     Say '  - Mod Manager: the SEST Integration Pack is at the top and ticked. If it offers to move or fix dependencies, say no.'
-    Say '  - Campaigns: Southern Watch, Southern Reach - Tasman Shield, or Red Line - The Other Watch.'
+    Say '  - Campaigns: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, or Sulu Line - The Island Road.'
     Say '    The "Open Allocation" versions sell the whole roster from the first mission; the others release it as the story goes.'
     Say 'Run SETUP again (game closed) whenever the pack updates, or if a mission freezes after Steam updates your mods.'
     Hold

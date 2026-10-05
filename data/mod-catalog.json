@@ -219,7 +219,7 @@
       "faction": "australia",
       "type": "fixed-wing",
       "status": "deprecated",
-      "notes": "RAAF AEW&C, Boeing 737 NG with MESA radar. Marked deprecated by its author, but KEEP: it is the only source of E7A_Wedgetail, which missions in all three campaigns place (Southern Watch from Steel Highway on, Southern Reach/Tasman Shield, Red Line), the Southern Watch and Southern Reach rosters sell, and SEST RAAF Wedgetail patches. It stays in the load order and in the published collection on purpose - do not unsubscribe it."
+      "notes": "RAAF AEW&C, Boeing 737 NG with MESA radar. Marked deprecated by its author, but KEEP: it is the only source of E7A_Wedgetail, which missions in three of the four campaigns place (Southern Watch from Steel Highway on, Southern Reach/Tasman Shield, Red Line), the Southern Watch and Southern Reach rosters sell, and SEST RAAF Wedgetail patches. It stays in the load order and in the published collection on purpose - do not unsubscribe it."
     },
     {
       "id": "raaf-f-35a",

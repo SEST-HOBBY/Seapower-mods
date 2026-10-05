@@ -429,6 +429,28 @@ SUPPLIERS = {
         cats=[("Harpoon", 16), ("AirTorpedo", 24), ("ALWT", 8)],
         note="hull tops out at 12.0 kn, so the speed gate is the hull itself"),
 
+    # ---- Philippine and Thai hulls, October 2026 (SEST Sulu Line) ------------
+    # The campaign's own logistics: a Philippine commander buys these and
+    # keeps them alive, because nothing else in his theatre rearms him.
+    "tha_aor_chula": _supplier(
+        "3711297532", "HTMS Chula (Chula-class fleet replenishment ship)",
+        "Thailand", "AOR",
+        load=25, pool=15000, rng=0.3, targets=1, own=8, target_vel=12, cap=2000,
+        cats=[("Harpoon", 4), ("AirTorpedo", 6)],
+        note="67 m, 1200 t coastal replenishment ship: the Delvar's tuning, "
+             "which is the same size of hull. Pool is about nine Harpoon "
+             "reloads; guns and light SAMs for longer"),
+
+    "phl_lpd_tarlac": _supplier(
+        "3752415457", "Tarlac-class landing platform dock (BRP Tarlac, BRP Davao del Sur)",
+        "Philippines", "LPD",
+        load=40, pool=60000, rng=0.5, targets=1, own=8, target_vel=12, cap=2000,
+        cats=[("Harpoon", 8), ("AirTorpedo", 12)],
+        note="the Philippine Navy's sealift and logistics ship: 123 m and "
+             "11,583 t with a well deck and a vehicle deck, but no "
+             "replenishment rig, so a merchant's slow transfer and near-stop, "
+             "and the 2000 ceiling (Harpoon, light torpedoes, guns, MICA)"),
+
     # ---- owned by integration/ran-fleet, patched by that builder -------------
     "ran_aor_supply": _supplier(
         "SEST_RAN_Fleet", "Supply-class AOR (A195 Supply, A304 Stalwart)",
