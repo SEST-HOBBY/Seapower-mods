@@ -1,8 +1,8 @@
 # Mod tiers — every active mod by tier
 
-Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 190 active subscriptions plus the SEST Integration Pack (20 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
+Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 190 active subscriptions plus the SEST Integration Pack (22 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
 
-This is a tier grouping, NOT the load order. The canonical Mod Manager order is `data/load-order.tokens.txt` (191 entries: SEST_Integration plus the 190 Workshop mods); the pack ships it as LOAD-ORDER.txt and SETUP writes it. Where the numbering below differs, the canonical order wins (for example, its last four are **EUROMOD-Armada de Chile**, **Philippines: The Luzon Line**, **Thailand: The Siam Shield** and **RE-power: the resupply mod**).
+This is a tier grouping, NOT the load order. The canonical Mod Manager order is `data/load-order.tokens.txt` (191 entries: SEST_Integration plus the 190 Workshop mods); the pack ships it as LOAD-ORDER.txt and SETUP writes it. Where the numbering below differs, the canonical order wins (for example, its last four are **Philippines: The Luzon Line**, **Thailand: The Siam Shield**, **RE-power: the resupply mod** and **Real photos of airplanes and helicopters**).
 
 Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are listed alphabetically here — within them, order only matters between mods flagged in the conflict watchlist (`docs/conflicts-and-load-order.md`).
 
@@ -171,8 +171,8 @@ Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are orde
 143. PLA Shenyang J-11BS
 144. PLA Sukhoi Su-27UBK
 145. PLAAF Aircraft Pack — *canonical order puts it in the bottom block, below the Gripen and above Ultimate Missile Workshop and Red Storm Arsenal: 56 shared files all lost to the specialist PLAAF mods above it, so only its H-6 family, J-7s, J-10A and 39 rounds load; SEST Collection Fixes restores the English loading tips its language_en folder overwrites*
-146. RAAF F-35A Lighting II
-147. RC-135V/W Rivet Joint — *above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges*
+146. RC-135V/W Rivet Joint — *above Red Storm Arsenal, whose RC-135W is a different file (usaf_rc_135) — no collision; its sensors.ini merges*
+147. Real photos of airplanes and helicopters
 148. Rebuilt J-16 / J-16D — *duplicate platform with Shenyang J-16A — different unit ids, both load*
 149. Royal Navy Westland Lynx HAS.3 Kitbash [OLD] — *verified additive — position free*
 150. RQ-180 White Bat Airframe

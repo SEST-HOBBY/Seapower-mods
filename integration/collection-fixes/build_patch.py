@@ -1130,6 +1130,25 @@ SEST_TIPS = [
     "SEST: REQUIRED-MODS.txt beside each campaign lists every mod its missions reach, and "
     "LOAD-ORDER.txt the order they were built against. A unit that spawns with a stock fit "
     "is a mod that has moved.",
+    # Second set (inspiring-wozniak): what the pack itself does, checked against
+    # docs/replenishment-in-play.md, the briefing ROE and TIME sections and SETUP.
+    "SEST: To reload missiles and torpedoes at sea, bring a supply ship within "
+    "about a mile and slow down. Most auxiliaries stop supplying above 13 knots.",
+    "SEST: An oiler such as the Henry J. Kaiser passes guns, ESSM, Harpoon and "
+    "torpedoes but no strike missiles. Tomahawks need a Supply-class, Sacramento "
+    "or Lewis and Clark.",
+    "SEST: Surface your submarines before you replenish them. The game will "
+    "rearm a boat underwater; the SEST campaigns treat that as off limits.",
+    "SEST: Reaching a SEST mission's planned time brings a Behind Schedule "
+    "signal, not a loss. The operation closes at one and a half times the plan.",
+    "SEST: Identify before you shoot. In the SEST campaigns, losing a protected "
+    "neutral cancels the operation.",
+    "SEST: Every SEST briefing ends with a Recognition section: real photographs "
+    "of your own forces and the expected opposition.",
+    "SEST: After Steam updates the SEST pack or a collection mod, close the game "
+    "and run SETUP again from the pack's folder.",
+    "SEST: The SEST pack's Gallery folder holds real photographs of the "
+    "collection's units. Open gallery.html in your web browser.",
 ]
 
 

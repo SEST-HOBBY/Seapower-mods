@@ -5,7 +5,7 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (50): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (48): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a squadron a flight comes from   1143.5 Kuznetsov
   3781062859    a model a placed unit draws      <<E-3G>>
@@ -17,7 +17,6 @@ pack's root, is the union across every campaign in the pack.
   3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
-  3760871384    a model a placed unit draws      Dingtools Weapon Pack
   3587877691    a unit the player can buy        Eurofighter Typhoon
   3630495619    a model a placed unit draws      Euromod - Cold War Spanish Navy
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
@@ -25,7 +24,7 @@ pack's root, is the union across every campaign in the pack.
   3575847216    a unit the player can buy        Euromod - Modern German Navy
   3488139470    a unit the player can buy        Euromod - Modern Italian Navy
   3731208477    a model a placed unit draws      Euromod - Modern Spanish Navy
-  3553116604    a model a placed unit draws      F-15E StrikeEagle
+  3553116604    a unit the player can buy        F-15E StrikeEagle
   3418252667    a unit the player can buy        F-22 Raptor
   3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
   3567228449    a unit a mission places          French Helicopter Package
@@ -43,7 +42,6 @@ pack's root, is the union across every campaign in the pack.
   3733719765    a weapon a loadout hangs         PLA Land Unit Pack
   3594891803    a unit a mission places          PLAN Submarines
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
-  3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
   3808882954    a unit a mission places          RC-135V/W Rivet Joint
   3605013271    a unit a mission places          RE-power: the resupply mod
   3413868677    a model a placed unit draws      Red Storm Arsenal
@@ -78,7 +76,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (150): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (153): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -108,6 +106,7 @@ shared file wins for the mods above.
   3806686336    Coordinated Strike Tool
   3606134711    Custom Loadout Editor
   3558173926    David's Sling
+  3760871384    Dingtools Weapon Pack
   3813033771    EC-2 Stand Off Jammer
   3493115616    EMAD
   3555361900    Etendard Family Jets
@@ -177,6 +176,7 @@ shared file wins for the mods above.
   3812111085    PLAAF Aircraft Pack
   3774572038    PLAN Type 071 Amphibious Transport Dock
   3399699218    Project 2498 Zyetseth Class Assault Vessel
+  3796706214    Real photos of airplanes and helicopters
   3769142422    Rebuilt J-16 / J-16D
   3455404959    Royal Australian Defence Forces
   3378409795    Royal Navy Type 23 'Duke Class' Frigate [OLD]
@@ -200,6 +200,7 @@ shared file wins for the mods above.
   (local)       SEST F-16CM JATM
   (local)       SEST Gallery
   (local)       SEST Intercept Model
+  (local)       SEST Name Fixes
   (local)       SEST Rafale F5
   (local)       SEST Raptor Squadrons
   (local)       SEST Southern Watch Campaign

@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-143 mods. Each supplies a file a mission names directly - by
+142 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -121,7 +121,6 @@ Workshop id   supplies                         mod
 3594891803    a unit a mission places          PLAN Submarines
 3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
 3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
-3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
 3808882954    a unit a mission places          RC-135V/W Rivet Joint
 3605013271    a unit a mission places          RE-power: the resupply mod
 3769142422    a unit a mission places          Rebuilt J-16 / J-16D
@@ -183,7 +182,7 @@ NOT IN THIS LIST AND STILL REQUIRED:
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (8), and left in the order
+Also enabled while this was built (9), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
@@ -194,6 +193,7 @@ by something above them. The campaign does not call for them.
 3784474738    library                          Euromod - Anchorchain Expansion Pack
 3790594162    library                          Identify Expanded
 3432592449    shadowed                         Nimitz Expanded
+3796706214    library                          Real photos of airplanes and helicopters
 3636213685    shadowed                         wp_sattelite_center
 3637954857    shadowed                         Y-8/Y-9 Special Mission Aircraft Family
 
@@ -262,6 +262,7 @@ to; the repository also builds each of them on its own.
 (local)       unit                             SEST Growler NGJ + MALICE
 (local)       store                            SEST Intercept Model
 (local)       unit                             SEST JMSDF Mogami
+(local)       library                          SEST Name Fixes
 (local)       unit                             SEST RAAF Bases
 (local)       unit                             SEST RAAF F-35A JATM
 (local)       squadron                         SEST RAAF Wedgetail

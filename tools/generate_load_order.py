@@ -14,6 +14,7 @@ only matters between watchlist entries).
 Run from the repo root:  python3 tools/generate_load_order.py
 """
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -228,7 +229,14 @@ def info_name(token):
     for d in (ROOT / "mods-source" / token, ROOT / "integration" / "dist" / token):
         f = d / "_info.ini"
         if f.exists():
-            for line in f.read_text(encoding="utf-8-sig", errors="replace").splitlines():
+            # The English section's name when there is one: a mod that lists
+            # [Language_cn] first would otherwise show here in Chinese, which
+            # is not what an English Mod Manager shows.
+            text = f.read_text(encoding="utf-8-sig", errors="replace")
+            m = re.search(r"(?ms)^\[Language_en\][^\[]*?^Name=(.+?)\s*$", text)
+            if m:
+                return m.group(1).strip()
+            for line in text.splitlines():
                 if line.startswith("Name="):
                     return line[5:].strip()
     # A mod with no _info.ini of its own (the P-8 Poseidon ships none): the
