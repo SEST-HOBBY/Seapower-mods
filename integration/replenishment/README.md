@@ -147,7 +147,7 @@ hulls and all but two are Cold War. A 2025 task force had nothing to replenish *
 
 | Stage | Result |
 |---|---|
-| **Suppliers** | 10 upstream auxiliaries get a tuned `[SupplySystem1]` |
+| **Suppliers** | 10 upstream auxiliaries and 5 merchant ships (C8 and Seabee barge carriers, Ro-Ro A and B, Mercur) get a tuned `[SupplySystem1]` |
 | **New hulls** | 8 modern replenishment ships — 5 BLUE, 3 RED — 25 named ships, as **new unit ids** |
 | **Metering** | 87 heavy rounds get a counted `SEST_` supply category (77 shipped here, 10 tagged in the sibling pack that owns the file); 4 rounds repaired |
 | **Refit** | every clone's donor-era radars, EW and guns retuned to its own navy and decade |

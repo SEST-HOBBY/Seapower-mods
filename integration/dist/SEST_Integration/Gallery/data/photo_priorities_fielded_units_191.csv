@@ -93,7 +93,7 @@ usn_mh-60r,aircraft,usn_mh-60r,30,sest-southern-reach; sest-southern-reach-open;
 ran_ffh_anzac,vessels,Anzac-class FFH,29,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,anzac,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3440622312,
 plan_type_054a_p5,vessels,Type 054A Phase 5,23,sest-red-line; sest-red-line-open,type054a,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3775128499,
 civ_ms_mairangi_bay,vessels,civ_ms_mairangi_bay,18,,container,family_or_component_reference,AA,P4,,3430106996,3430106996,,
-raaf_f-35a,aircraft,F-35A,13,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,f35a_raaf,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3514484654,3514484654
+raaf_f-35a,aircraft,F-35A,13,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,f35a_raaf,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,SEST_Integration,SEST_Integration
 plan_type_056a,vessels,Type 056A,12,sest-red-line; sest-red-line-open,type056a,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3775128499,
 plan_z-9c,aircraft,Z-9C,12,sest-red-line; sest-red-line-open,z9,family_or_component_reference,BB,P3,,3775128499,3775128499,3775128499,3775128499
 ran_ddg_hobart,vessels,Hobart-class DDG,11,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,hobart,family_reference,AA,P4,,SEST_Integration,SEST_Integration,3731208477,
