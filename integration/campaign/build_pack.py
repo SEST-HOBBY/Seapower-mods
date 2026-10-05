@@ -4028,11 +4028,22 @@ def gallery_catalogue():
     return out
 
 
+# English names for creators the gallery records in another script: the
+# game's font (and make_art's) has no CJK glyphs, so 海上自衛隊 would draw as
+# boxes. PHOTO_CREDITS.txt keeps the original.
+CREDIT_NAMES = {"hobart": "Japan Maritime Self-Defense Force",
+                "type003": "China News Service"}
+
+
 def photo_credit(asset):
+    if asset.get("asset_id") in CREDIT_NAMES:
+        return (f"Photo: {CREDIT_NAMES[asset['asset_id']]} · "
+                f"{(asset.get('license') or '').strip()} · resized")
     # photos the SEST author supplied before writing their credit
     if asset.get("origin") == "sest_author_supplied" and asset.get("creator") == "Credit to be added":
         return "Photo supplied by the SEST author"
     who = re.sub(r"https?://\S+", "", asset.get("creator") or "")
+    who = re.sub(r"[\u2e80-\u9fff\uac00-\ud7af\uff00-\uffef]+", "", who)   # no CJK glyphs in game
     who = re.sub(r"\s+", " ", who).strip(" ,;") or "see PHOTO_CREDITS.txt"
     if len(who) > 70:
         who = who[:67].rstrip() + "..."
@@ -4150,6 +4161,9 @@ def recognition_xml(picked):
         label = entry["label"]
         if "_" in label or label.lower() == entry["unit_id"].lower():
             label = asset["label"]
+        # full-width brackets and commas have no glyph in the game's font
+        for fw, ascii_ in ((" （", " ("), ("（", " ("), ("）", ")"), ("，", ", ")):
+            label = label.replace(fw, ascii_)
         who = "Your forces" if side == "blue" else "Expected opposition"
         cells.append(
             '<StackPanel Width="420" Margin="0,0,16,16">'
@@ -5892,9 +5906,14 @@ def main():
                           ini=(camp / "missions" if m["group"] != "dispatch"
                                else OUT / "missions" / browse_folder(m)) / f"{name}.ini")
                      for name, _t, m in built]
+            # The campaign's photograph on its opening front page (the page
+            # the campaign opens on), credited on the page.
+            ca = gallery_assets().get(CAMPAIGN_BANNER.get(SLUG.removesuffix("-open"), ""))
+            cover = ((GALLERY / ca["file"], f"{ca['label']}. "
+                      + photo_credit(ca).replace(" · resized", " · cropped")) if ca else None)
             make_art.render_all(camp, cards, spec["EVENTS"], SLUG, TITLE, SUBTITLE,
                                 prefix=ART_PREFIX, label=SERIES_LABEL,
-                                tiles={event_tile(e) for e in spec["EVENTS"]})
+                                tiles={event_tile(e) for e in spec["EVENTS"]}, cover=cover)
 
         # The briefing map beside every mission - the right-hand pane of the
         # briefing screen, drawn from <mission>_briefing/BriefingMap_en.xml
