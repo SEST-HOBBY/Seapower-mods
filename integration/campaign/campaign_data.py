@@ -146,6 +146,10 @@ EXCUSES = {
         "is measured on, so it cannot place a unit to reach itself"),
     "SEST_TacMap_Colors": (
         "library", "recolours the tactical map (`ui/`); no unit, no round"),
+    "SEST_Gallery": (
+        "library", "an offline photo gallery under `Gallery/` that the player "
+        "opens in a web browser; the briefings' recognition photos are read "
+        "from its source by the campaign builder, not from this pack"),
     "y-8-y-9-family": (
         "shadowed", "all twelve airframes are outranked by Modern PLAN "
         "Systems, which ships the same ids higher in the order - it is an "

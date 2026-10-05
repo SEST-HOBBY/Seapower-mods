@@ -258,6 +258,7 @@ to; the repository also builds each of them on its own.
 (local)       unit                             SEST F-15EX Revamp
 (local)       unit                             SEST F-16CM JATM
 (local)       unit                             SEST F-35C JATM
+(local)       library                          SEST Gallery
 (local)       unit                             SEST Growler NGJ + MALICE
 (local)       store                            SEST Intercept Model
 (local)       unit                             SEST JMSDF Mogami
