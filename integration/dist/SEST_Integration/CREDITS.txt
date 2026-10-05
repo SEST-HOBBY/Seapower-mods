@@ -51,7 +51,7 @@ listed whatever the percentage: they are still that author's.
        97%  aircraft/usaf_a-10c_plus.ini from usa_a-10c.ini
 
   AH-64 Apache  (workshop 3425450153)
-       99%  aircraft/uk_ah_mk_1.ini 
+       98%  aircraft/uk_ah_mk_1.ini 
        99%  aircraft/usa_ah-64a.ini 
        99%  aircraft/usa_ah-64d.ini 
        99%  aircraft/usa_ah-64e.ini 
