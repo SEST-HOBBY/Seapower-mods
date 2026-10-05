@@ -228,6 +228,19 @@ def main():
             encoding="utf-8")
 
         heli = heli_src.read_text(encoding="utf-8-sig", errors="replace")
+        # Upstream's Default fit names Station3 and Station4 twice - a LAU-3
+        # rocket pod AND a Brimstone on each inner pylon - so the encyclopedia
+        # and the default loadout draw the pod and the missiles on top of each
+        # other. Every other fit puts the rocket pods on the outer pylons
+        # (Stations 1/2), and this one already hides the outer missile rails
+        # for them, so the pods move there.
+        heli, n = re.subn(r"(\[WeaponSystem1Default\][^\[]*?)"
+                          r"^Station3=usa_lau-3a_apache\|LAU-3\n^Station4=usa_lau-3a_apache\|LAU-3\n",
+                          r"\1Station1=usa_lau-3a_apache|LAU-3\nStation2=usa_lau-3a_apache|LAU-3\n",
+                          heli, count=1, flags=re.M | re.S)
+        if n != 1:
+            sys.exit("uk_ah_mk_1: Default fit's doubled inner-pylon rocket pods not found - "
+                     "upstream changed, re-check the overlap fix")
         if "SEST_APKWS_ER" in heli:
             sys.exit("uk_ah_mk_1: upstream already defines SEST_APKWS_ER - re-check")
         heli, n = re.subn(r"^(AvailableLoadouts=[^\n]*)$", r"\1,SEST_APKWS_ER",
