@@ -3985,6 +3985,116 @@ def event_page(event):
         '</Viewbox>\n')
 
 
+# --- recognition photos in the briefing ------------------------------------
+# The briefing screen already shows images: BriefingMap_en.xml binds the map
+# PNG in the mission's _briefing folder by its file stem
+# (Source="{Binding Assets[<stem>]}"), and the stock Sub Duel briefing puts an
+# <Image> inside BriefingText_en.xml the same way. So the real photographs in
+# the SEST gallery (integration/gallery/source) can reach the game here, and
+# only here: no unit file has an image key, and the encyclopedia is a 3D
+# model viewer.
+#
+# Each mission lists the classes it places on the player's side and the enemy
+# side, one photo per class, from the gallery's load-order-aligned catalogue.
+# Only photos the gallery maps to the class itself or its family are used
+# (not context or concept stand-ins, not the ones graded P1), and units that
+# appear only on a condition (spawn_if) are left out so a carried-over choice
+# is not given away. Neutral traffic is mostly stock hulls with no photo.
+GALLERY = ROOT / "integration" / "gallery" / "source"
+REC_STATUSES = {"exact", "family_reference", "family_or_component_reference",
+                "upgrade_base_reference"}
+REC_MAX = 8
+REC_WIDTH = 400
+
+
+@functools.lru_cache(maxsize=None)
+def gallery_catalogue():
+    """{unit id (lower case): (entry, asset)} for the copy the game loads."""
+    js = GALLERY / "catalogue.js"
+    if not js.is_file():
+        return {}
+    import json
+    cat = json.loads(re.match(r"window\.CATALOGUE=(.*);\s*$",
+                              js.read_text(encoding="utf-8"), re.S).group(1))
+    assets = {a["asset_id"]: a for a in cat["assets"]}
+    out = {}
+    for e in cat["entries"]:
+        a = assets.get(e.get("asset_id") or "")
+        if (not e.get("is_winning_copy") or not a
+                or e.get("mapping_status") not in REC_STATUSES
+                or (a.get("quality_review") or {}).get("priority") == "P1"):
+            continue
+        out[e["unit_id"].lower()] = (e, a)
+    return out
+
+
+def photo_credit(asset):
+    # photos the SEST author supplied before writing their credit
+    if asset.get("origin") == "sest_author_supplied" and asset.get("creator") == "Credit to be added":
+        return "Photo supplied by the SEST author"
+    who = re.sub(r"https?://\S+", "", asset.get("creator") or "")
+    who = re.sub(r"\s+", " ", who).strip(" ,;") or "see PHOTO_CREDITS.txt"
+    if len(who) > 70:
+        who = who[:67].rstrip() + "..."
+    lic = (asset.get("license") or "").strip()
+    return f"Photo: {who}" + (f" · {lic}" if lic and lic != "Not recorded" else "") + " · resized"
+
+
+def recognition(mission):
+    """[(stem, entry, asset)] for the briefing, the player's side first."""
+    cat = gallery_catalogue()
+    picked, seen = [], set()
+    for side in ("blue", "red"):
+        for u in mission["units"]:
+            if u["side"] != side or u.get("spawn_if"):
+                continue
+            hit = cat.get(u["type"].lower())
+            if not hit or hit[1]["asset_id"] in seen:
+                continue
+            seen.add(hit[1]["asset_id"])
+            picked.append((f"sest_rec_{hit[1]['asset_id']}", hit[0], hit[1], side))
+    return picked[:REC_MAX]
+
+
+@functools.lru_cache(maxsize=None)
+def recognition_png(asset_file):
+    """The gallery photo scaled to the briefing column, as PNG bytes."""
+    import io
+    from PIL import Image
+    im = Image.open(GALLERY / asset_file).convert("RGB")
+    h = round(im.height * REC_WIDTH / im.width)
+    im = im.resize((REC_WIDTH, h), Image.LANCZOS)
+    buf = io.BytesIO()
+    im.save(buf, "PNG", optimize=True)
+    return buf.getvalue()
+
+
+def recognition_xml(picked):
+    if not picked:
+        return ""
+    cells = []
+    for stem, entry, asset, side in picked:
+        note = "" if entry["mapping_status"] == "exact" else " (class photo)"
+        # some units carry their file id as their name; the photo's subject reads better
+        label = entry["label"]
+        if "_" in label or label.lower() == entry["unit_id"].lower():
+            label = asset["label"]
+        who = "Your forces" if side == "blue" else "Expected opposition"
+        cells.append(
+            '<StackPanel Width="420" Margin="0,0,16,16">'
+            f'<Image Source="{{Binding Assets[{stem}]}}" Width="{REC_WIDTH}" HorizontalAlignment="Left"/>'
+            f'<TextBlock FontSize="15" Margin="0,6,0,0" TextWrapping="Wrap" '
+            f'Text="{xml_escape(label + note)}"/>'
+            f'<TextBlock FontSize="12" TextWrapping="Wrap" Opacity="0.7" '
+            f'Text="{xml_escape(who + ". " + photo_credit(asset))}"/>'
+            '</StackPanel>')
+    return ('<TextBlock FontSize="20" Margin="0,14,0,6" Text="RECOGNITION"/>'
+            '<TextBlock FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" Opacity="0.8" '
+            'Text="Real photographs of the classes in this operation. Full credits: '
+            'Gallery\\PHOTO_CREDITS.txt in the SEST Integration Pack folder."/>'
+            '<WrapPanel>' + "".join(cells) + '</WrapPanel>')
+
+
 def briefing_page(mission):
     parts = []
 
@@ -4023,6 +4133,7 @@ def briefing_page(mission):
         section("RULES OF ENGAGEMENT",
                 "All designated neutral contacts are protected. A protected "
                 "neutral loss cancels the operation. Identify before you shoot.")
+    parts.append(recognition_xml(recognition(mission)))
     # Installation and provider details remain in REQUIRED-MODS.txt and the
     # coverage report; the operational briefing contains only the orders.
     return BRIEF_XML.format(body="".join(parts))
@@ -5641,6 +5752,8 @@ def main():
                 encoding="utf-8")
         (brief / "BriefingText_en.xml").write_text(briefing_page(mission),
                                                    encoding="utf-8")
+        for stem, _entry, asset, _side in recognition(mission):
+            (brief / f"{stem}.png").write_bytes(recognition_png(asset["file"]))
 
     def info(name, desc, general="[General]\nType=Scenario\n\n", tail=""):
         """A folder's _info.ini.
