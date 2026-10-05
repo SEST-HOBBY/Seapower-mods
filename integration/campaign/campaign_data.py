@@ -1149,7 +1149,7 @@ MISSIONS.append(dict(
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "air"),
-        U("blue", "raaf-f-35a", "raaf_f-35a", "air"),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "air"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "home",
           name="RAAF Base Tindal", nation="australia", weapons="Hold"),
     ],
@@ -1272,7 +1272,7 @@ MISSIONS.append(dict(
           name="Sentry 06", weapons="Hold"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap",
           squadron="Squadron3"),
-        U("blue", "raaf-f-35a", "raaf_f-35a", "cap", squadron="Squadron3"),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew",
           weapons="Hold"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "tindal",
@@ -2149,7 +2149,7 @@ MISSIONS.append(dict(
         # take, the way every slot-tagged section in the shipped campaign is.
         U("blue", "us-navy-2027", "usn_mh-60r", "air"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap"),
-        U("blue", "raaf-f-35a", "raaf_f-35a", "cap", squadron="Squadron3"),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3"),
     ],
 ))
 

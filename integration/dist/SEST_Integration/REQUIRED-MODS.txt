@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-143 mods. Each supplies a file a mission names directly - by
+142 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -121,7 +121,6 @@ Workshop id   supplies                         mod
 3594891803    a unit a mission places          PLAN Submarines
 3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
 3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
-3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
 3808882954    a unit a mission places          RC-135V/W Rivet Joint
 3605013271    a unit a mission places          RE-power: the resupply mod
 3769142422    a unit a mission places          Rebuilt J-16 / J-16D

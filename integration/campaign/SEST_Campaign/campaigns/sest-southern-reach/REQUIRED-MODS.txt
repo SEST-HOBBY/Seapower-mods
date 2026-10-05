@@ -5,7 +5,7 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (43): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (40): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a squadron a flight comes from   1143.5 Kuznetsov
   3781062859    a model a placed unit draws      <<E-3G>>
@@ -17,11 +17,9 @@ pack's root, is the union across every campaign in the pack.
   3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
-  3760871384    a model a placed unit draws      Dingtools Weapon Pack
   3630495619    a model a placed unit draws      Euromod - Cold War Spanish Navy
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
   3731208477    a model a placed unit draws      Euromod - Modern Spanish Navy
-  3553116604    a model a placed unit draws      F-15E StrikeEagle
   3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
   3567228449    a unit a mission places          French Helicopter Package
   3503670861    a model a placed unit draws      General Atomics MQ-9 Reaper
@@ -36,7 +34,6 @@ pack's root, is the union across every campaign in the pack.
   3733719765    a weapon a loadout hangs         PLA Land Unit Pack
   3594891803    a unit a mission places          PLAN Submarines
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
-  3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
   3808882954    a unit a mission places          RC-135V/W Rivet Joint
   3605013271    a unit a mission places          RE-power: the resupply mod
   3413868677    a model a placed unit draws      Red Storm Arsenal
@@ -69,7 +66,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (159): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (161): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -99,6 +96,7 @@ shared file wins for the mods above.
   3806686336    Coordinated Strike Tool
   3606134711    Custom Loadout Editor
   3558173926    David's Sling
+  3760871384    Dingtools Weapon Pack
   3813033771    EC-2 Stand Off Jammer
   3493115616    EMAD
   3555361900    Etendard Family Jets
@@ -117,6 +115,7 @@ shared file wins for the mods above.
   3789208859    Euromod-South Korea Navy
   3448845252    F-117 Nighthawk
   3636386513    F-15 EX Eagle II
+  3553116604    F-15E StrikeEagle
   3434693420    F-15J Peace Eagle
   3758320372    F-16C Fighting Falcon (modern)
   3418252667    F-22 Raptor
