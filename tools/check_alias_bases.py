@@ -22,6 +22,14 @@ across chains (an alias whose base is itself an alias), and reports:
   MISSING AMMO   an Ammunition= id the resolved hull fires has no file
                  (the "Could not find ini file path" spam in Player.log;
                  not fatal, the launcher just spawns empty)
+  STALE OVERWRITE  a file in a <kind>_overwrite/ folder (Euromod's patch
+                 folders) names a unit no enabled mod ships. The game then
+                 builds a ghost unit from the patch alone: no names, so the
+                 encyclopedia lists it under Missing Type / Missing Class, and
+                 no proper hull, which threw a NullReferenceException in the
+                 map UI when Modern US Navy v597 (5 Oct 2026) renamed
+                 usn_dd_spruance_eu_vls to usn_dd_spruance_vls_lamps3 under
+                 Euromod Main Pack's CombatSystems patch for it.
 
     python3 tools/check_alias_bases.py          # exit 1 on MISSING BASE / NO AIRGROUP
 
@@ -86,6 +94,36 @@ def resolve(path, depth=0):
     return text + "\n" + bt, names + bnames, missing
 
 
+def stale_overwrites():
+    """[(message, fatal)] for overwrite-folder files whose targets are gone.
+
+    The winning copy of each overwrite file is checked, so a SEST file of the
+    same name (SEST Collection Fixes retargets the stale ones) clears it. One
+    file may name several targets, comma-separated; a patch onto a missing
+    round only never fires, so those stay soft like MISSING BASE rounds.
+    """
+    out, seen = [], set()
+    roots = list((ROOT / "mods-source").glob("*/*_overwrite")) + \
+        list((ROOT / "integration").glob("*/SEST_*/*_overwrite"))
+    for d in sorted(roots):
+        for f in sorted(d.glob("*.ini")):
+            key = f"{d.name}/{f.name}".lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            win = winning_file(f"{d.name}/{f.name}") or f
+            m = ALIAS.match(win.read_text(encoding="utf-8", errors="replace"))
+            if not m:
+                continue
+            for target in filter(None, (t.strip() for t in m.group(2).replace("\\", "/").split(","))):
+                kind = target.split("/", 1)[0].lower()
+                if kind not in UNIT_DIRS or winning_file(target) is not None:
+                    continue
+                out.append((f"STALE OVERWRITE  {provider(win)}/{d.name}/{f.name}: "
+                            f"{m.group(1)}s {target}, which no enabled mod ships", kind != "ammunition"))
+    return out
+
+
 def main():
     fatal, soft, checked = [], [], 0
     seen = set()
@@ -122,6 +160,8 @@ def main():
             for ammo in sorted(set(AMMO.findall(text))):
                 if winning_file(f"ammunition/{ammo}.ini") is None:
                     soft.append(f"MISSING AMMO  {where}: fires {ammo} and no enabled mod defines it")
+    for msg, is_fatal in stale_overwrites():
+        (fatal if is_fatal else soft).append(msg)
     print(f"checked {checked} alias/extend file(s)")
     for line in soft:
         print("   " + line)

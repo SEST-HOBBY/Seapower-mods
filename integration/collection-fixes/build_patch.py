@@ -796,6 +796,7 @@ def main():
     profiles = build_combat_systems()
     restored, tuned, skipped = build_ciws()
     extended = build_extends()
+    retargeted = build_stale_overwrites()
     returned = build_stale_vanilla_files()
     returned += restore_vanilla_sensor_sections()
 
@@ -812,6 +813,8 @@ def main():
           f"copies, {len(tuned)} mod CIWS retuned"
           + (f"; left to their winner: {', '.join(skipped)}" if skipped else ""))
     print(f"  + {len(extended)} hulls given a combat system by #!extend")
+    print(f"  + {len(retargeted)} stale Euromod overwrite(s) pointed off a unit no mod ships: "
+          f"{', '.join(retargeted)}")
     print(f"  + {len(returned)} game file(s)/section(s) restored over stale mod copies: "
           f"{', '.join(returned)}")
 
@@ -1668,6 +1671,65 @@ def extended_by_mods():
         if m:
             out.setdefault(m.group(1).lower(), []).append(p.parts[-3])
     return out
+
+
+# Euromod Main Pack's vessels_overwrite/ files that #!extend a hull no mod
+# ships any more. A same-named file here wins over Euromod's (the pack loads
+# first), so the patch stops naming the dead id; the replacement extends a hull
+# that exists and sets no keys, so it changes nothing.
+#   file -> (Euromod's target, the id it now points at, why)
+# usn_dd_spruance_eu_vls: Modern US Navy v597 (5 Oct 2026) renamed the hull to
+#   usn_dd_spruance_vls_lamps3, an #!alias of the game's usn_dd_spruance_vls,
+#   which already runs NTDS_TAS - the profile Euromod's patch set - so nothing
+#   is lost. Until the rebuild, SEST Replenishment still shipped the 596 hull
+#   under the old id: the game built it with no names (the encyclopedia's
+#   Missing Type / Missing Class) and the map UI threw a NullReferenceException
+#   in MapUnitViewModel.UpdateContactDisplay on it.
+# rnn_ss_dolfijn: Euromod-Dutch Navy (3444379330) ships names for the Dolfijn
+#   but no hull; it is not in any SEST roster.
+STALE_OVERWRITES = {
+    "usn_dd_spruance_eu_vls_CombatSystems_OVWR.ini":
+        ("vessels/usn_dd_spruance_eu_vls.ini", "vessels/usn_dd_spruance_vls_lamps3.ini",
+         "Modern US Navy v597 renamed the hull to usn_dd_spruance_vls_lamps3, which already "
+         "runs NTDS_TAS through the game's VLS Spruance"),
+    "rnn_ss_dolfijn_CombatSystems_OVWR.ini":
+        ("vessels/rnn_ss_dolfijn.ini", "vessels/rnn_ddg_zeven.ini",
+         "Euromod-Dutch Navy ships no Dolfijn hull; this file now extends a Dutch hull "
+         "with no keys, so it changes nothing"),
+}
+EUROMOD_MAIN = "3629144864"
+
+
+def build_stale_overwrites():
+    """vessels_overwrite/<Euromod's file name>, retargeted - see STALE_OVERWRITES.
+    Stops the build when Euromod fixes or drops a file, or the dead hull comes
+    back, so an entry is deleted the day it is no longer needed."""
+    out_dir = OUT / "vessels_overwrite"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for stale in out_dir.glob("*_OVWR.ini"):
+        stale.unlink()
+    idx = hull_index()
+    done = []
+    for name, (old, new, why) in sorted(STALE_OVERWRITES.items()):
+        src = MODS / EUROMOD_MAIN / "vessels_overwrite" / name
+        if not src.is_file():
+            sys.exit(f"{name}: Euromod Main Pack no longer ships it - drop it from STALE_OVERWRITES")
+        text = read_file(src)
+        if not text.lstrip("\ufeff").startswith(f"#!extend {old}"):
+            sys.exit(f"{name}: Euromod changed its target - re-check, then drop or update the entry")
+        old_id, new_id = (Path(t).stem for t in (old, new))
+        if [c for c in idx.get(old_id, []) if c[1] != "_vanilla"]:
+            sys.exit(f"{name}: a mod ships {old_id} again - drop it from STALE_OVERWRITES")
+        if not idx.get(new_id):
+            sys.exit(f"{name}: {new_id} is not shipped by any mod - pick another target")
+        (out_dir / name).write_text(
+            f"#!extend {new}\n\n"
+            f"# SEST Collection Fixes: replaces Euromod Main Pack's {name}, which extends\n"
+            f"# {old} - a hull no enabled mod ships, so the game built a unit with no\n"
+            f"# names from the patch. {why}.\n"
+            f"# No keys are set here.\n", encoding="utf-8")
+        done.append(old_id)
+    return done
 
 
 def build_extends():
