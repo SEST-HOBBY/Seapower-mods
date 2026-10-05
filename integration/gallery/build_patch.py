@@ -17,9 +17,10 @@ family - labelled "class photo" on the picture). A checked SEST photo
 replaces whatever picture the unit had (the base game's, a mod's render),
 with one exception: where the unit's picture comes from the real-photos mod
 (existing-profiles.tsv, listed on the gaming PC by tools/list-profiles.ps1)
-and SEST only has a class photo, that mod's exact photo stays. Each is 1024x310, the
-3.3:1 strip the collection's aircraft and ship profiles use: the whole photo
-centred over a darkened, blurred copy of itself, with its credit.
+and SEST only has a class photo, that mod's exact photo stays. Each is a 768x232
+PNG, the 3.3:1 strip the collection's aircraft and ship profiles use (most
+are 512 wide): the photo trimmed of sky and sea, centred over a darkened,
+blurred copy of itself, with its credit.
 
 source/ is the player-facing part of the gallery handoff, aligned to the
 build's load order by tools/align_gallery.py. The developer files (quality
@@ -95,7 +96,7 @@ def main():
 
 PROFILES = HERE / "profiles.tsv"
 EXISTING = HERE / "existing-profiles.tsv"
-PROFILE_SIZE = (1024, 310)
+PROFILE_SIZE = (768, 232)
 REAL_PHOTOS = "3796706214"
 CREDIT_NAMES = {"hobart": "Japan Maritime Self-Defense Force", "type003": "China News Service"}
 
@@ -144,12 +145,12 @@ def profile_png(path, credit):
     bg.paste(fg, ((W - fg.width) // 2, (H - fg.height) // 2))
     d = ImageDraw.Draw(bg, "RGBA")
     try:
-        fnt = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 15)
+        fnt = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 13)
     except OSError:
         fnt = ImageFont.load_default()
     tw = d.textlength(credit, font=fnt)
-    d.rectangle([W - tw - 16, H - 24, W, H], fill=(0, 0, 0, 170))
-    d.text((W - 8, H - 4), credit, font=fnt, fill=(225, 230, 235), anchor="rd")
+    d.rectangle([W - tw - 14, H - 20, W, H], fill=(0, 0, 0, 170))
+    d.text((W - 7, H - 4), credit, font=fnt, fill=(225, 230, 235), anchor="rd")
     buf = io.BytesIO()
     bg.save(buf, "PNG", optimize=True)
     return buf.getvalue()

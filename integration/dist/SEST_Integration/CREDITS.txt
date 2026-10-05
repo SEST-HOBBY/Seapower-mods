@@ -16,6 +16,11 @@ RAAF F-35A Lighting II by Greene (workshop 3514484654):
       assets/models/vehicle/aircraft/f-35/textures/f-35a_tex.png
       assets/textures/f-35/raaf_f-35a.png
 
+The 601 encyclopedia pictures in ui/profiles/ are real
+photographs from the SEST gallery. Each carries its photographer
+and licence on the picture; the full credits, with sources, are
+in Gallery/PHOTO_CREDITS.txt.
+
 488 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's

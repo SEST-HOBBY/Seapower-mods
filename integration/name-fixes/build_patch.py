@@ -21,6 +21,12 @@ pack writes only keys whose winning value is wrong:
   unit of the same mod where there is one. A section is written only while
   no mod defines one, so it retires itself when the author adds names.
 
+- MISFILED: a mod that writes its names into a file the game does not read
+  for names (3678767059's land_unit_names.ini, for land_units_names.ini) -
+  its units show as MISSING too. Any unit's section found in such a file is
+  copied, verbatim, into the file the game reads, while no correctly named
+  file defines it.
+
 A key another SEST pack already writes is left to that pack.
 
     python3 integration/name-fixes/build_patch.py
@@ -146,6 +152,24 @@ ApproximateVersion=0.8.4
 """
 
 
+# The language files the game reads unit names from (and the others it reads),
+# taken from the base game's own language_en folder.
+READ_FILES = {f.name.lower() for f in (MODS / "_vanilla" / "original" / "language_en").glob("*.ini")}
+KIND_FILE = {"aircraft": "aircraft_names.ini", "vessels": "vessel_names.ini",
+             "submarines": "vessel_names.ini", "land_units": "land_units_names.ini"}
+
+
+def unit_kinds():
+    out = {}
+    for tok in load_order():
+        for kind, fn in KIND_FILE.items():
+            d = MODS / tok / kind
+            if d.is_dir():
+                for f in d.glob("*.ini"):
+                    out.setdefault(f.stem.lower(), fn)
+    return out
+
+
 def load_order():
     toks = [l.strip() for l in (ROOT / "data" / "load-order.tokens.txt").read_text().splitlines()
             if l.strip() and not l.startswith("#")]
@@ -183,7 +207,9 @@ def fixed(value):
 
 
 def main():
+    global UNIT_KIND
     order = load_order()
+    UNIT_KIND = unit_kinds()
     if OUT.exists():
         import shutil
         shutil.rmtree(OUT)
@@ -214,8 +240,25 @@ def main():
             if fn == name and (s, k) not in winners:
                 stale.append(f"{name} {s} {k}: no longer defined by any mod")
         defined = {s.lower() for (s, k) in winners if k == "Default"}
-        added = [(uid, body) for uid, (fn, body) in MISSING_NAMES.items()
-                 if fn == name and f"[{uid}]".lower() not in defined]
+        misfiled = []
+        for tok in order[:-1]:          # Workshop mods, top of the order first
+            d = MODS / tok / "language_en"
+            if not d.is_dir():
+                continue
+            for f in sorted(d.glob("*.ini")):
+                if f.name.lower() in READ_FILES:
+                    continue
+                text = f.read_text(encoding="utf-8-sig", errors="replace").replace("\r\n", "\n")
+                for m in re.finditer(r"(?ms)^\[([^\]\s]+)\]\n(.*?)(?=^\[|\Z)", text):
+                    uid, body = m.group(1), m.group(2).strip()
+                    if (UNIT_KIND.get(uid.lower()) == name and f"[{uid}]".lower() not in defined
+                            and re.search(r"^Default=", body, re.M)
+                            and uid.lower() not in {u.lower() for u, _ in misfiled}):
+                        misfiled.append((uid, [f"# copied from {tok}/language_en/{f.name}"]
+                                         + body.splitlines()))
+                        defined.add(f"[{uid}]".lower())
+        added = misfiled + [(uid, body) for uid, (fn, body) in MISSING_NAMES.items()
+                            if fn == name and f"[{uid}]".lower() not in defined]
         if out or added:
             lines = [f"# SEST Name Fixes - {sum(len(v) for v in out.values())} corrected name(s);"
                      " each key replaces exactly one winning line (mod id in the comment)."]
