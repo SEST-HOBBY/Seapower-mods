@@ -175,6 +175,10 @@ RULES_WELCOME = {
         "November 2028, from the other bridge. You command a People's Liberation Army Navy "
         "carrier group in the Banda approaches, under an order that says it will not fire "
         "first."),
+    "sest-sulu-line": (
+        "October 2028. With the Seventh Fleet drawn north, the Philippine Navy holds the "
+        "island supply road alone. You command its Sulu Sea task group, and nothing it "
+        "fires is replaced except by the supply ships you buy and keep afloat."),
 }
 
 
@@ -209,6 +213,15 @@ def campaign_rules(spec, open_allocation=False, submarine_missions=None, allied=
     swap('Text="War has broken out in Europe and the Pacific. You are the Allies\' first '
          'line of defense, stationed in Japan at the outbreak of hostilities."',
          f'Text="{_xml_text(RULES_WELCOME[spec["SLUG"]])}"', "welcome")
+    # A campaign with its own rearm rule (Sulu Line: no free rearm at all)
+    # says so where the stock page says rearming is free.
+    if spec.get("REARM_RULES"):
+        short, long = spec["REARM_RULES"]
+        swap('Text="- Rearm: available before certain missions, for free."',
+             f'Text="{_xml_text(short)}"', "rearm line")
+        swap('Text="- Rearming is only available between certain missions. Task Force '
+             'Manager will show a green \'Rearmed\' icon when your ships have been rearmed '
+             'before the mission."', f'Text="{_xml_text(long)}"', "rearming paragraph")
     start = t.find('<TextBlock Text="Coalition Command"')
     end_marker = ('<TextBlock Text="- Japanese or Australian commanders increase the '
                   'challenge without changing the missions themselves."')
@@ -276,7 +289,7 @@ def campaign_rules(spec, open_allocation=False, submarine_missions=None, allied=
          'Text="- Ships purchased in Task Force Builder come without aircraft. Helicopters '
          'and aircraft are bought separately, and replacements must be bought if aircraft '
          'are lost."', "airwing line")
-    # All three campaigns sell a helicopter in their first window and add
+    # All four campaigns sell a helicopter in their first window and add
     # fixed-wing types from the second (checked 27 Sep), so the stock
     # helicopter and fixed-wing lines stand as written.
     swap('Text="- Helicopters are available immediately at campaign start. Each ship will '
@@ -454,6 +467,15 @@ def campaign_specs():
     else:
         if getattr(rl, "__file__", None):
             specs.append(rl.CAMPAIGN)
+    # Sulu Line, the same way: optional, appended after Red Line.
+    try:
+        import sulu_line as sl                      # noqa: E402
+    except ModuleNotFoundError as exc:
+        if exc.name != "sulu_line":
+            raise
+    else:
+        if getattr(sl, "__file__", None):
+            specs.append(sl.CAMPAIGN)
     # Two campaigns sharing a pack folder or a report overwrite each other in
     # build order, silently. Southern Watch's own paths are set_campaign()'s
     # to guard; this is every other pair.
@@ -4088,9 +4110,10 @@ def recognition_png(asset_file):
 # Recognition list. Pre-cropped to a fixed strip so the StackPanel never has
 # to clip it.
 CAMPAIGN_BANNER = {"sest-southern-watch": "hobart", "sest-southern-reach": "canberra",
-                   "sest-red-line": "type054a"}
+                   "sest-red-line": "type054a", "sest-sulu-line": "tarlac"}
 BANNER_SIZE = (900, 270)
-SERVICE = {"Australia": "Royal Australian Navy", "China": "People's Liberation Army Navy"}
+SERVICE = {"Australia": "Royal Australian Navy", "China": "People's Liberation Army Navy",
+           "Philippines": "Philippine Navy"}
 
 
 @functools.lru_cache(maxsize=None)
@@ -4255,7 +4278,8 @@ ROSTER_NATION = {"china": "PLAN", "russia": "Russia", "ussr": "Russia", "soviet"
                  "australia": "RAN", "newzealand": "RNZN", "new zealand": "RNZN",
                  "usa": "USN", "us": "USN", "united states": "USN", "japan": "JMSDF",
                  "korea": "ROKN", "south korea": "ROKN", "france": "France",
-                 "panama": "Panama"}
+                 "panama": "Panama", "philippines": "Philippine Navy",
+                 "thailand": "Royal Thai Navy"}
 FLAGSHIP_TONS = 9000
 ROSTER_ORDER = ("SurfaceMajorFlagships", "SurfacePersistent", "SurfaceReusable",
                 "SubmarinesPersistent", "AircraftReusable", "HelicoptersReusable")
@@ -4288,7 +4312,8 @@ def flagship(uid):
 # (integration/gallery/source/visuals/flags, credited in its
 # VISUAL_CREDITS.txt). A commander_settings.ini path under
 # ui/campaign/navy_emblems/sest_* must have an entry here.
-SEST_EMBLEMS = {"sest_plan_emblem.png": "china_naval.png"}
+SEST_EMBLEMS = {"sest_plan_emblem.png": "china_naval.png",
+                "sest_pn_emblem.png": "philippines.png"}
 
 
 def write_emblems(commander):
@@ -5472,7 +5497,7 @@ def requirements(rows):
         L += ["", "-" * 74, "",
               f"In the collection for other campaigns and scenarios ({len(external)}):",
               "the third-party campaigns the collection carries, the mods they",
-              "place, and content none of these three campaigns uses. They are in",
+              "place, and content none of these four campaigns uses. They are in",
               "LOAD-ORDER.txt, so SETUP still requires them.", ""]
         for _mid, title, how, _detail, _mission, token in sorted(external, key=key):
             L.append(f"{token:<13} {'other campaigns':<32} {title}")
@@ -5520,7 +5545,7 @@ def required_urls(rows):
     both.sort(key=lambda r: rank.get(r[5], 10**6))
     L = [f"{TITLE} - Workshop mods this campaign reaches (reference only)", "",
          f"{len(both)} items, in canonical load order. NOT for the Workshop",
-         "item's Required Items box. All three campaigns ship in one item, the SEST",
+         "item's Required Items box. All four campaigns ship in one item, the SEST",
          "Integration Pack (3812461539), which keeps that box empty on purpose:",
          "the Mod Manager's dependency check ('Must load above this mod') offers",
          "to move required items above the pack, which undoes every fix in it.",

@@ -253,13 +253,6 @@ EXCUSES = {
     "euromod-india": (
         "external", "two Indian Navy destroyers (2006-2025) that no SEST mission or "
         "installed campaign places"),
-    "euromod-philippines": (
-        "external", "three Philippine Navy frigates of 2020-2021; no SEST mission is "
-        "set in Philippine waters"),
-    "philippines-luzon-line": (
-        "external", "Philippine forces that Identify Expanded's Ransom Waters campaign "
-        "places (06A Stay Hungry); no SEST mission is set in Philippine "
-        "waters"),
     "f-15j-peace-eagle": (
         "external", "a 1981-fit JASDF F-15J with Sparrow and Sidewinder loads only; "
         "SEST's 2028 JASDF presence is the F-2A"),
@@ -299,9 +292,6 @@ EXCUSES = {
     "project-2498-zyetseth": (
         "external", "a Cold War Soviet converted assault freighter for scenarios; "
         "no 2028 SEST mission fields it"),
-    "thailand-siam-shield": (
-        "external", "Royal Thai Navy and Air Force from the 1950s on; no SEST "
-        "mission is set in the Gulf of Thailand"),
 }
 
 EVENTS = [

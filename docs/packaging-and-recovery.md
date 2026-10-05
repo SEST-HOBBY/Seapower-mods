@@ -29,7 +29,7 @@ at a mesh that is not there.
 
 So no pack can be handed on by itself. What players get is the published
 pair: the Workshop item 'SEST Integration Pack - Modernised Campaigns'
-(3812461539, Public; the consolidated pack, all three campaigns included) and
+(3812461539, Public; the consolidated pack, all four campaigns included) and
 the collection 'SEST - Modernised Campaign Collection' (3812390790): the Workshop mods in
 `data/load-order.tokens.txt` plus the pack (published with 149 items; 191 once the October
 2026 additions are added to it). The

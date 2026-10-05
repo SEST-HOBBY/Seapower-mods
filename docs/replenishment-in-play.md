@@ -163,8 +163,10 @@ Behind them sit the ten upstream auxiliaries — Sacramento, Kilauea, Boris Chil
 Don, Teide, T2, Kazbek, Sealift Pacific, Delvar — plus HMAS Supply from the RAN pack, and
 five merchant ships added in October 2026: the C8 and Seabee barge carriers (Seabee has a
 Soviet variant too), Ro-Ro A, the Soviet Ro-Ro B and the Mercur container ship. They pass
-cargo slowly and nearly stopped, like the Algol. **Twenty-four supply-capable hulls in all**,
-before RE-power's own eight Soviet merchant suppliers.
+cargo slowly and nearly stopped, like the Algol. Two more came with Sulu Line: BRP Tarlac
+(the Philippine LPD) and HTMS Chula (the Thai oiler), and the Philippine and Thai warships'
+launchers now reload from any of them. **Twenty-six supply-capable hulls in all**, before
+RE-power's own eight Soviet merchant suppliers.
 
 ---
 

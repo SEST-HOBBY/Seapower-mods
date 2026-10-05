@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-487 of the unit files here are another author's file with
+509 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 487 below
+every file of its kind in the collection, and the 509 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -212,6 +212,11 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/ran_opv_arafura.ini from ae_opv_meteoro.ini
       100%  vessels/ran_ssg_collins.ini from ae_ssk_s80.ini
 
+  Euromod-Philippine-Navy  (workshop 3812454152)
+      100%  vessels/pn_ffg-06.ini 
+      100%  vessels/pn_ffg-150.ini 
+      100%  vessels/pn_ffg-150_2.ini 
+
   Euromod-South Korea Navy  (workshop 3789208859)
       100%  ammunition/ko_Antiship_2.ini 
       100%  ammunition/ko_Antiship_2_ship.ini 
@@ -375,6 +380,12 @@ listed whatever the percentage: they are still that author's.
 
   Pakistani Pack  (workshop 3812140001)
       100%  ammunition/plan_cm-302.ini 
+
+  Philippines: The Luzon Line  (workshop 3752415457)
+      100%  vessels/phl_ff_hamilton.ini 
+      100%  vessels/phl_fs_pohang.ini 
+       99%  vessels/phl_lpd_tarlac.ini 
+      100%  vessels/phl_pt_jacinto.ini 
 
   PLAN Type 071 Amphibious Transport Dock  (workshop 3774572038)
       100%  vessels/plan_lpd_type_071.ini 
@@ -581,6 +592,23 @@ listed whatever the percentage: they are still that author's.
 
   Shenyang J-16A (歼-16A 潜龙)  (workshop 3506979898)
        99%  ammunition/plaaf_akf-98a.ini 
+
+  Thailand: The Siam Shield  (workshop 3711297532)
+       98%  vessels/tha_aor_chula.ini 
+      100%  vessels/tha_cvl_chakri_naruebet.ini 
+      100%  vessels/tha_ff_053HT.ini 
+      100%  vessels/tha_ff_053HT_H.ini 
+      100%  vessels/tha_ff_knox_84.ini 
+      100%  vessels/tha_ff_makut_rajakumarn.ini 
+      100%  vessels/tha_ff_makut_rajakumarn_88.ini 
+      100%  vessels/tha_ffg_naresuan.ini 
+      100%  vessels/tha_fs_khamronsin.ini 
+      100%  vessels/tha_fs_ratanakosin.ini 
+      100%  vessels/tha_fs_tapi.ini 
+      100%  vessels/tha_pt_chonburi.ini 
+      100%  vessels/tha_pt_hua_hin.ini 
+      100%  vessels/tha_ptg_prabrarapak.ini 
+      100%  vessels/tha_ptg_ratcharit.ini 
 
   The Royal Navy  (workshop 3491248180)
        94%  ammunition/knm_terne_shell.ini 

@@ -1,7 +1,7 @@
 Southern Reach - Workshop mods this campaign reaches (reference only)
 
 40 items, in canonical load order. NOT for the Workshop
-item's Required Items box. All three campaigns ship in one item, the SEST
+item's Required Items box. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), which keeps that box empty on purpose:
 the Mod Manager's dependency check ('Must load above this mod') offers
 to move required items above the pack, which undoes every fix in it.

@@ -116,12 +116,28 @@ class CampaignRegistry(unittest.TestCase):
 
     def setUp(self):
         self.saved = sys.modules.get("red_line", _ABSENT)
+        # Sulu Line registers the same way, after Red Line. These tests are
+        # about the red_line slot, so the fourth package is held absent
+        # unless a test puts it back.
+        self.saved_sl = sys.modules.get("sulu_line", _ABSENT)
+        sys.modules["sulu_line"] = None
 
     def tearDown(self):
-        if self.saved is _ABSENT:
-            sys.modules.pop("red_line", None)
+        for name, saved in (("red_line", self.saved), ("sulu_line", self.saved_sl)):
+            if saved is _ABSENT:
+                sys.modules.pop(name, None)
+            else:
+                sys.modules[name] = saved
+
+    def test_sulu_line_is_appended_after_red_line(self):
+        if self.saved_sl is _ABSENT:
+            sys.modules.pop("sulu_line", None)
         else:
-            sys.modules["red_line"] = self.saved
+            sys.modules["sulu_line"] = self.saved_sl
+        sys.modules["red_line"] = self.fake_red_line()
+        self.assertEqual([s["SLUG"] for s in bp.campaign_specs()],
+                         ["sest-southern-watch", "sest-southern-reach", "sest-red-line",
+                          "sest-sulu-line"])
 
     @staticmethod
     def fake_red_line(**spec):
@@ -1039,12 +1055,27 @@ class SameNationDiscount(unittest.TestCase):
         self.assertIn("Action_UnitRevealToTaskforce=Taskforce1\nAction_UnitRevealTime=900\n", text)
         self.assertNotIn("Taskforce1|Classify", text)
 
+    # Sulu Line is the one campaign whose roster is a coalition on purpose:
+    # the Thai detachment, one RAN frigate and the MSC charter are sold at
+    # their listed price, and the rules page says so.
+    PARTNER_NATIONS = {"sest-sulu-line": {"thailand", "australia", "us"}}
+
     def test_every_shipped_roster_is_the_commanders_own(self):
         for spec in bp.campaign_specs():
             nation = re.search(r"^CommanderNations=(.+)$", spec["COMMANDER"], re.M).group(1)
             self.assertEqual(bp.same_nation_discount(spec["COMMANDER"]), 0.2, spec["SLUG"])
-            self.assertEqual(set(bp.roster_nations(spec["ROSTER"]).values()), {nation},
-                             spec["SLUG"])
+            found = {n.lower() for n in bp.roster_nations(spec["ROSTER"]).values()}
+            self.assertIn(nation.lower(), found, spec["SLUG"])
+            self.assertEqual(found - {nation.lower()},
+                             self.PARTNER_NATIONS.get(spec["SLUG"], set()), spec["SLUG"])
+
+    def test_sulu_line_never_rearms_for_free(self):
+        spec = next(s for s in bp.campaign_specs() if s["SLUG"] == "sest-sulu-line")
+        for m in spec["MISSIONS"][1:]:
+            self.assertFalse(m["window"].get("rearm"), m["code"])
+        page = bp.campaign_rules(spec)
+        self.assertNotIn("for free", page)
+        self.assertIn("There is no free rearm in this campaign", page)
 
     def test_the_us_built_airframes_fly_australian_squadrons(self):
         for uid, pick in (("usn_fa-18f_blk3", "Squadron8"), ("usn_ea-18g", "Squadron6"),
