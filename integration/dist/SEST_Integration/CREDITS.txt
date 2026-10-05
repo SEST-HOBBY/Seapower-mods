@@ -6,16 +6,33 @@ every one of those belongs to the Workshop mod it came from,
 which is why REQUIRED-MODS.txt lists them as required rather
 than suggested.
 
-481 of the unit files here are another author's file with
+The one exception is a mod that was removed from the Workshop
+and that the campaigns need: its own model and textures are
+carried here so it still looks as its author made it.
+RAAF F-35A Lighting II by Greene (workshop 3514484654):
+      assets/models/vehicle/aircraft/f-35/f-35a.obj
+      assets/models/vehicle/aircraft/f-35/textures/f-35a_nm.png
+      assets/models/vehicle/aircraft/f-35/textures/f-35a_spec.png
+      assets/models/vehicle/aircraft/f-35/textures/f-35a_tex.png
+      assets/textures/f-35/raaf_f-35a.png
+
+The 601 encyclopedia pictures in ui/profiles/ are real
+photographs from the SEST gallery. Each carries its photographer
+and licence on the picture; the full credits, with sources, are
+in Gallery/PHOTO_CREDITS.txt.
+
+488 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 481 below
+every file of its kind in the collection, and the 488 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
+Files carried for a mod that was removed from the Workshop are
+listed whatever the percentage: they are still that author's.
 
   1143.5 Kuznetsov  (workshop 3438479626)
       100%  vessels/ru_cv_kuznetsov.ini 
@@ -245,8 +262,8 @@ file is unchanged.
        98%  ammunition/usn_gbu-53.ini 
 
   F/A-18 Murder Hornet with AIM-174B  (workshop 3430135740)
-       95%  aircraft/usn_ea-18g_squadrons.ini 
-       97%  aircraft/usn_fa-18f_blk3_squadrons.ini 
+       94%  aircraft/usn_ea-18g_squadrons.ini 
+       96%  aircraft/usn_fa-18f_blk3_squadrons.ini 
        95%  aircraft/usn_fa-18f_squadrons.ini 
        99%  ammunition/usn_agm-84d.ini 
 
@@ -363,8 +380,15 @@ file is unchanged.
   PLAN Type 071 Amphibious Transport Dock  (workshop 3774572038)
       100%  vessels/plan_lpd_type_071.ini 
 
-  RAAF F-35A Lighting II  (workshop 3514484654)
+  RAAF F-35A Lighting II  (workshop 3514484654, removed from the Workshop - this pack carries it)
        93%  aircraft/raaf_f-35a.ini 
+      100%  aircraft/raaf_f-35a_squadrons.ini 
+      100%  ammunition/raaf_f-35_gun_pod.ini 
+      100%  ammunition/usaf_aim-120c7.ini 
+       97%  ammunition/usaf_gbu-31_v1.ini 
+       99%  ammunition/usaf_gbu-53.ini 
+       99%  ammunition/usaf_jsm.ini 
+       99%  ammunition/usaf_jsm_land.ini 
 
   RE-power: the resupply mod  (workshop 3605013271)
        95%  vessels/civ_ms_sealift_pacific.ini 

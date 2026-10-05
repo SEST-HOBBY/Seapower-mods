@@ -1,5 +1,16 @@
 # SEST RAAF F-35A JATM
 
+**This pack now carries the RAAF F-35A itself.** Greene's mod (Workshop 3514484654)
+was removed from the Workshop in October 2026. The pack ships the files of it that
+won the load order - the aircraft, its RAAF squadrons, animations, gun pod, AIM-120C-7,
+GBU-31(V)1, GBU-53, JSM and JSM land-attack, and the names only it defined - from the
+last export (`mods-source/_retired/3514484654`). The aircraft keeps its own model,
+textures and RAAF livery: `recovered/` holds them (from a copy of the mod recovered on
+5 Oct 2026, pinned by `recovered/SHA256SUMS`) and they ship at the mod's own paths. The
+mod's weapon meshes were not recovered, so JSM, GBU-53 and GBU-31(V)1 use models still in
+the collection (US Naval Aviation's JSM and GBU-53, and the GBU-31 model a live round
+uses). Stats, loadouts, squadrons and callsigns are Greene's.
+
 AIM-260 loadout options for Greene's **RAAF F-35A**, which ships with today's AIM-120C-7 and
 already has JSM anti-ship fits — this patch adds the future air-to-air arsenal, following the
 mod's own Stealth / non-Stealth loadout convention.
@@ -24,7 +35,7 @@ to load.
 ## Install
 
 1. Copy `SEST_RAAF_F-35A_JATM/` into `Sea Power_Data\StreamingAssets\`.
-2. In the Mod Manager, place it **above** the RAAF F-35A mod. Keep Dingtools Weapon Pack installed.
+2. Keep US Naval Aviation and the Dingtools Weapon Pack installed. The RAAF F-35A mod itself is no longer needed (or available).
 
 ## Rebuilding after an upstream update
 
@@ -32,5 +43,5 @@ to load.
 python3 integration/raaf-f-35a-jatm/build_patch.py
 ```
 
-Regenerates from `mods-source/3514484654`, inserting the new keys ahead of the upstream
+Regenerates from `mods-source/_retired/3514484654`, inserting the new keys ahead of the upstream
 `AvailableLoadouts` line's trailing comment, and validates every ammunition reference.

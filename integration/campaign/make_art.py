@@ -336,7 +336,7 @@ def _optional(event, **params):
 
 def render_all(camp_dir, missions, events, slug, title, subtitle,
                prefix="southern_watch", label="SOUTHERN WATCH",
-               tiles=("newspaper", "message")):
+               tiles=("newspaper", "message"), cover=None):
     """Write every card and dispatch into the campaign's art folder.
 
     Returns {mission key: relative image path} and {event file: asset key} so
@@ -391,7 +391,7 @@ def render_all(camp_dir, missions, events, slug, title, subtitle,
         dated = f"{m['series'].upper()}  ·  {m['date']}" if m.get("series") else m["date"]
         card(m["ini"], art / name, m["num"], m["key"], dated, m["place"], "", label=label)
         sheets[m["key"]] = f"campaigns/{slug}/art/{name}"
-    backdrop(art / "00_campaign_background.png", marks, title, subtitle)
+    backdrop(art / "00_campaign_background.png", marks, title, subtitle, photo=cover)
     for kind in ("newspaper", "message"):
         if kind in tiles:
             tile(art / f"bkg_tile_{kind}.png", kind)
@@ -499,8 +499,12 @@ def backdrop_frame(marks):
     return la0, la1, lo0, lo1
 
 
-def backdrop(out_png, marks, title, subtitle):
-    """marks: [(number, lat, lon, is_core)] in campaign order."""
+def backdrop(out_png, marks, title, subtitle, photo=None):
+    """marks: [(number, lat, lon, is_core)] in campaign order.
+
+    photo=(path, credit): the campaign's photograph under the chart - darkened
+    and mostly desaturated so it stays behind the campaign UI, as the rule
+    above asks - with its credit in the bottom corner."""
     img = Image.new("RGB", (W, H), DEEP)
     d = ImageDraw.Draw(img, "RGBA")
     la0, la1, lo0, lo1 = backdrop_frame(marks)
@@ -512,6 +516,18 @@ def backdrop(out_png, marks, title, subtitle):
         t = y / H
         d.rectangle([0, y, W, y + 4], fill=tuple(
             int(a + (b - a) * t) for a, b in zip(SEA, DEEP)))
+    if photo:
+        from PIL import ImageEnhance
+        src = Image.open(photo[0]).convert("RGB")
+        scale = max(W / src.width, H / src.height)
+        src = src.resize((max(W, round(src.width * scale)), max(H, round(src.height * scale))),
+                         Image.LANCZOS)
+        x0, y0 = (src.width - W) // 2, (src.height - H) // 2
+        src = src.crop((x0, y0, x0 + W, y0 + H))
+        src = ImageEnhance.Color(src).enhance(0.35)
+        src = ImageEnhance.Brightness(src).enhance(0.42)
+        img.paste(Image.blend(img, src, 0.55))
+        d = ImageDraw.Draw(img, "RGBA")
 
     lo = math.ceil(lo0)
     lon_labels = []                     # x of each meridian label on the bottom row
@@ -614,6 +630,8 @@ def backdrop(out_png, marks, title, subtitle):
     d.text((92, H - 232), title.upper(), font=font(104, True), fill=TITLE_INK)
     d.line([(96, H - 118), (96 + 260, H - 118)], fill=(52, 110, 152), width=5)
     d.text((96, H - 100), subtitle.upper(), font=mono(28), fill=(72, 84, 96))
+    if photo:
+        d.text((W - 40, H - 52), photo[1], font=font(16), fill=CHART, anchor="ra")
     img.save(out_png)
     print(f"wrote {Path(out_png).name}  {W}x{H}  "
           f"{len(core)} core marks, {len(marks)-len(core)} optional, "

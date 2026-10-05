@@ -146,6 +146,8 @@ EXCUSES = {
         "is measured on, so it cannot place a unit to reach itself"),
     "SEST_TacMap_Colors": (
         "library", "recolours the tactical map (`ui/`); no unit, no round"),
+    "SEST_Name_Fixes": (
+        "library", "display-name corrections, one language key each; no unit, no round"),
     "SEST_Gallery": (
         "library", "an offline photo gallery under `Gallery/` that the player "
         "opens in a web browser; the briefings' recognition photos are read "
@@ -157,6 +159,9 @@ EXCUSES = {
     "nimitz-expanded": (
         "shadowed", "ships one file, `vessels/usn_cvn_nimitz_variants.ini`, "
         "which SEST Collection Fixes replaces - that patch is why it exists"),
+    "real-photos-aircraft": (
+        "library", "encyclopedia profile pictures only (ui/profiles/), no unit, round "
+        "or text file; nothing a mission can place"),
     # October 2026 subscriptions. "external": in the collection for a third-party
     # campaign or scenario, or content no SEST campaign places; still required,
     # because SETUP checks every mod in the order.
@@ -1149,7 +1154,7 @@ MISSIONS.append(dict(
         # briefing. Its only job is to be a cockpit a purchased aircraft can
         # take, the way every slot-tagged section in the shipped campaign is.
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "air"),
-        U("blue", "raaf-f-35a", "raaf_f-35a", "air"),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "air"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "home",
           name="RAAF Base Tindal", nation="australia", weapons="Hold"),
     ],
@@ -1272,7 +1277,7 @@ MISSIONS.append(dict(
           name="Sentry 06", weapons="Hold"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap",
           squadron="Squadron3"),
-        U("blue", "raaf-f-35a", "raaf_f-35a", "cap", squadron="Squadron3"),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew",
           weapons="Hold"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_tindal", "tindal",
@@ -2149,7 +2154,7 @@ MISSIONS.append(dict(
         # take, the way every slot-tagged section in the shipped campaign is.
         U("blue", "us-navy-2027", "usn_mh-60r", "air"),
         U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap"),
-        U("blue", "raaf-f-35a", "raaf_f-35a", "cap", squadron="Squadron3"),
+        U("blue", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "cap", squadron="Squadron3"),
     ],
 ))
 

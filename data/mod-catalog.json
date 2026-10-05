@@ -95,6 +95,7 @@
         "SEST_ADF_Persistent_ISR",
         "SEST_Collection_Fixes",
         "SEST_F-15EX_Revamp",
+        "SEST_RAAF_F-35A_JATM",
         "SEST_RAAF_Wedgetail",
         "SEST_Raptor_Squadrons"
       ]
@@ -180,6 +181,33 @@
       "source": "integration/gallery",
       "builder": "build_patch.py",
       "title": "SEST Gallery"
+    },
+    {
+      "folder": "SEST_Name_Fixes",
+      "source": "integration/name-fixes",
+      "builder": "build_patch.py",
+      "title": "SEST Name Fixes",
+      "build_after": [
+        "SEST_A10C_Plus",
+        "SEST_ADF_Persistent_ISR",
+        "SEST_Allied_Fixes",
+        "SEST_B52_ARRW",
+        "SEST_Collection_Fixes",
+        "SEST_F-15EX_Revamp",
+        "SEST_F-35C_JATM",
+        "SEST_F16CM_JATM",
+        "SEST_Growler_NGJ_MALICE",
+        "SEST_Intercept_Model",
+        "SEST_JMSDF_Mogami",
+        "SEST_RAAF_Bases",
+        "SEST_RAAF_F-35A_JATM",
+        "SEST_RAAF_Wedgetail",
+        "SEST_RAN_Fleet",
+        "SEST_Rafale_F5",
+        "SEST_Raptor_Squadrons",
+        "SEST_Replenishment",
+        "SEST_TacMap_Colors"
+      ]
     }
   ],
   "mods": [
@@ -200,11 +228,11 @@
       "author": "Greene",
       "faction": "australia",
       "type": "fixed-wing",
-      "status": "active",
+      "status": "unsubscribed",
       "overlaps": [
         "modern-us-navy (F-35C — different variant, complementary; possible shared weapon data only)"
       ],
-      "notes": "RAAF fifth-generation multirole stealth fighter."
+      "notes": "REMOVED FROM THE WORKSHOP (found 5 Oct 2026: the item page says it cannot be found; Subscribe to all no longer delivers it). Taken in by SEST_RAAF_F-35A_JATM (integration/raaf-f-35a-jatm): every file that won the load order - the aircraft, squadrons, animations, gun pod, AIM-120C-7, GBU-31(V)1, GBU-53, JSM and JSM land-attack, and the names only it defined - built from the 4 Oct export in mods-source/3514484654, with each model reference moved to a model still in the collection (US Naval Aviation's F-35C, JSM and GBU-53; the GBU-31 model a live round uses). The RAAF livery texture went with the mod. Previously: RAAF fifth-generation multirole stealth fighter."
     },
     {
       "id": "b-52h",
@@ -2652,6 +2680,17 @@
       "status": "active",
       "load_order": "Directly below Philippines: The Luzon Line, above RE-power. It loses 14 shared files, 11 of them to the Luzon Line by the same author (common rounds and textures) and one each to Euromod - Main Pack, PLAN Pack and MIG-29A & F-16A, so only its 50 own files load.",
       "notes": "Royal Thai Navy and Air Force from the 1950s to today, by the author of the Luzon Line: 19 hulls from the Chakri Naruebet carrier and the Naresuan frigates to the Knox, Type 053HT, patrol craft and the Sichang LST, plus the RTAF F-16C, F-5, the T-50TH, the S-70B-7 Seahawk and the AB 212. ApproximateVersion 0.8.3. Its sensors and weapons files merge."
+    },
+    {
+      "id": "real-photos-aircraft",
+      "workshop_id": "3796706214",
+      "title": "Real photos of airplanes and helicopters",
+      "author": "unknown",
+      "faction": "all",
+      "type": "ui",
+      "status": "active",
+      "load_order": "Last in the order, below every other mod. It ships nothing but encyclopedia profile pictures (ui/profiles/<unit id>.png, 463 images) and a profile picture is a whole file, so whichever mod is highest supplies it: at the bottom, every mod author's own picture still wins and this one only fills units nobody else pictures, and replaces the base game's aircraft pictures, which is its purpose.",
+      "notes": "Encyclopedia profile pictures only: real photographs for 463 aircraft and helicopter ids, no unit, round or text file (its export is the one _info.ini). Against the 5 Oct 2026 listing of the profile pictures already in the collection (integration/gallery/existing-profiles.tsv): 228 of its ids already have a picture from another mod and keep it; 76 mod units with no picture at all get one (13 the campaigns field: Atlantique 2, Sea Lynx Mk88, NH90, Z-21, B-2, B-52G, YF-23, Il-78, Mi-8, Su-30SM2, Tu-16N, Tu-95 and the Forpost); 101 base-game aircraft get a photo in place of the stock picture; 58 ids are units this collection does not have. Added 5 Oct 2026 at the user's call, as a subscription rather than copied into SEST, so its images stay its author's. ApproximateVersion=0.8.0 (minor version matches 0.8.4)."
     }
   ]
 }

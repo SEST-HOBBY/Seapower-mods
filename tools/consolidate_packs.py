@@ -191,10 +191,18 @@ def credits_text(staged):
     import difflib
     mods = ROOT / "mods-source"
     by_name, by_kind = {}, {}
+    retired = set()
     for f in sorted(mods.rglob("*.ini")):
         rel = f.relative_to(mods)
         if len(rel.parts) < 2 or rel.parts[0] == "_vanilla":
             continue
+        # mods-source/_retired/<id>/: a mod removed from the Workshop whose
+        # content a pack now carries - credited like any other
+        if rel.parts[0] == "_retired":
+            if len(rel.parts) < 3:
+                continue
+            retired.add(rel.parts[1])
+            rel = Path(*rel.parts[1:])
         if rel.parts[1] not in UNIT_KINDS:
             continue
         by_name.setdefault((rel.parts[1], f.name), []).append((rel.parts[0], f))
@@ -230,7 +238,18 @@ def credits_text(staged):
             r = sm.ratio()
             if r > best[0]:
                 best = (r, token, cand.name)
-        if best[0] >= 0.90:
+        if best[0] < 0.90:
+            # A file a pack carries for a mod removed from the Workshop is
+            # that author's however much the pack has had to change it (the
+            # RAAF F-35A's model references, for one), so it is credited
+            # whatever the ratio.
+            for token, cand in by_name.get((parts[0], name), []):
+                if token in retired:
+                    r = difflib.SequenceMatcher(None, mine, _lines(cand.read_bytes())).ratio()
+                    best = (max(r, 0.0), token, cand.name)
+                    rows.append((rel, best[0], best[1], best[2]))
+                    break
+        elif best[0] >= 0.90:
             rows.append((rel, best[0], best[1], best[2]))
 
     L = ["CREDITS", "",
@@ -238,7 +257,22 @@ def credits_text(staged):
          "pages and art. It ships no models, no textures and no audio -",
          "every one of those belongs to the Workshop mod it came from,",
          "which is why REQUIRED-MODS.txt lists them as required rather",
-         "than suggested.", ""]
+         "than suggested."]
+    carried = sorted(rel for rel in staged if rel.startswith("assets/")
+                     and rel.rsplit(".", 1)[-1].lower() in ("obj", "png", "dds", "jpg"))
+    if carried:
+        L += ["", "The one exception is a mod that was removed from the Workshop",
+              "and that the campaigns need: its own model and textures are",
+              "carried here so it still looks as its author made it.",
+              "RAAF F-35A Lighting II by Greene (workshop 3514484654):"]
+        L += [f"      {rel}" for rel in carried]
+    profiles = sum(1 for rel in staged if rel.startswith("ui/profiles/"))
+    if profiles:
+        L += ["", f"The {profiles} encyclopedia pictures in ui/profiles/ are real",
+              "photographs from the SEST gallery. Each carries its photographer",
+              "and licence on the picture; the full credits, with sources, are",
+              "in Gallery/PHOTO_CREDITS.txt."]
+    L += [""]
     if rows:
         by_mod = {}
         for rel, ratio, token, origin in rows:
@@ -252,10 +286,15 @@ def credits_text(staged):
               "Measured, not declared: every shipped unit file is diffed against",
               f"every file of its kind in the collection, and the {len(rows)} below",
               "came back 90% or more alike. The percentage is how much of the",
-              "file is unchanged.", ""]
+              "file is unchanged."]
+        if any(token in retired for _r, _x, token, _o in rows):
+            L += ["Files carried for a mod that was removed from the Workshop are",
+                  "listed whatever the percentage: they are still that author's."]
+        L += [""]
         for (token, title), items in sorted(by_mod.items(),
                                             key=lambda kv: kv[0][1].lower()):
-            L.append(f"  {title}  (workshop {token})")
+            gone = ", removed from the Workshop - this pack carries it" if token in retired else ""
+            L.append(f"  {title}  (workshop {token}{gone})")
             for rel, ratio, origin in sorted(items):
                 same = " " if origin == rel.split("/")[-1] else f" from {origin}"
                 L.append(f"      {ratio:>4.0%}  {rel}{same}")
