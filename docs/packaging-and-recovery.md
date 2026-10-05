@@ -7,7 +7,9 @@ to be able to recover if the game install goes bad.
 ## A SEST pack is a patch, not a mod
 
 The patch packs ship **nothing but `.ini` files** — not a single model,
-texture or asset bundle among them. Only the campaign pack adds anything else:
+texture or asset bundle among them — with one exception: SEST RAAF F-35A JATM
+carries the RAAF F-35A's own model, textures and livery, because its Workshop
+mod was removed and the campaigns fly it (see `mods-source/_retired/README.md`). Only the campaign pack adds anything else:
 its campaign pages, briefing maps, art, mod lists and the player's SETUP
 (`SETUP - double-click me.cmd` and `sest-setup.ps1`). Check it yourself (the
 filter leaves out the campaign pack and the built `dist` copy):

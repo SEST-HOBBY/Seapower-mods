@@ -51,7 +51,7 @@ Sea and land positions in 4 of the 6 missions are snapped to points already used
 | `re-power-resupply` | RE-power: the resupply mod | `unit` | civ_ms_freighter_a | Trailing Contact |
 | `red-storm-arsenal` | Red Storm Arsenal | `asset` | jmsdf_ddg_maya / ships/materials/shared | The Other Picture |
 | `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `unit` | plan_j-15 | The Other Picture |
-| `us-naval-aviation` | United States Naval Aviation | `asset` | raaf_f-35a / assets/models/aircraft/usn_f-35c | The Other Picture |
+| `us-naval-aviation` | United States Naval Aviation | `asset` | raaf_f-35a / assets/models/ammunition/gbu-39 | The Other Picture |
 | `us-navy-2027` | U.S. Navy 2027 Capabilities mod | `variant` | usn_ssn_virginia_2027 | Routes They Can See |
 | `us-submarines` | Virginia-, Seawolf-, and Ohio-class Submarines | `variant` | usn_ssn_virginia | Under the Convergence |
 | `SEST_ADF_Persistent_ISR` | SEST ADF Persistent ISR | `unit` | raaf_mq-4c_triton | Trailing Contact |

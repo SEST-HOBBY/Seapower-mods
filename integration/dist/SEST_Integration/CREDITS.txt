@@ -6,6 +6,16 @@ every one of those belongs to the Workshop mod it came from,
 which is why REQUIRED-MODS.txt lists them as required rather
 than suggested.
 
+The one exception is a mod that was removed from the Workshop
+and that the campaigns need: its own model and textures are
+carried here so it still looks as its author made it.
+RAAF F-35A Lighting II by Greene (workshop 3514484654):
+      assets/models/vehicle/aircraft/f-35/f-35a.obj
+      assets/models/vehicle/aircraft/f-35/textures/f-35a_nm.png
+      assets/models/vehicle/aircraft/f-35/textures/f-35a_spec.png
+      assets/models/vehicle/aircraft/f-35/textures/f-35a_tex.png
+      assets/textures/f-35/raaf_f-35a.png
+
 488 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
@@ -366,9 +376,9 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/plan_lpd_type_071.ini 
 
   RAAF F-35A Lighting II  (workshop 3514484654, removed from the Workshop - this pack carries it)
-       89%  aircraft/raaf_f-35a.ini 
-       78%  aircraft/raaf_f-35a_squadrons.ini 
-       95%  ammunition/raaf_f-35_gun_pod.ini 
+       93%  aircraft/raaf_f-35a.ini 
+      100%  aircraft/raaf_f-35a_squadrons.ini 
+      100%  ammunition/raaf_f-35_gun_pod.ini 
       100%  ammunition/usaf_aim-120c7.ini 
        97%  ammunition/usaf_gbu-31_v1.ini 
        99%  ammunition/usaf_gbu-53.ini 
