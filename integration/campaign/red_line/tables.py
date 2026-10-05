@@ -117,8 +117,9 @@ SOUTH_HULLS = ["plan_type_054a_p5", "plan_type_056a", "plan_z-9c"]
 # The ladder is the Chinese navy's officer ranks with their NATO grades.
 # The game ships rank insignia and navy emblems for the United States,
 # Japan and Australia only (Pacific Strike's commander_settings.ini), so the
-# image field of every rank is empty and no emblem is referenced: a path to
-# a picture this repo cannot produce would be worse than none. How the
+# image field of every rank is empty. The navy emblem is the PLAN naval
+# ensign (public domain, from the SEST gallery's flag set), which
+# build_pack.py writes to the path below - SEST_EMBLEMS there. How the
 # commander screen draws an empty insignia is on the test card. Level 8 is
 # Rear Admiral, the rank a two-carrier group is given.
 COMMANDER = """[CommanderSettings]
@@ -130,6 +131,7 @@ CommanderStartingRankLevel=8
 SameNationUnitDiscount=0.2
 
 NavyNameChina=People's Liberation Army Navy
+NavyEmblemChina=ui/campaign/navy_emblems/sest_plan_emblem.png
 
 [OfficerRanks]
 China=Ensign,ENS,OF-1,1,|Lieutenant Junior Grade,LTJG,OF-1,2,|Lieutenant,LT,OF-2,3,|Lieutenant Commander,LCDR,OF-3,4,|Commander,CDR,OF-4,5,|Captain,CAPT,OF-5,6,|Senior Captain,SCAPT,OF-6,7,|Rear Admiral,RADM,OF-7,8,|Vice Admiral,VADM,OF-8,9,|Admiral,ADM,OF-9,10,

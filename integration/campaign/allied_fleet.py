@@ -256,6 +256,22 @@ ALLIED = [
        'Australia - AH-64E'),
 ]
 
+# Red Line's PLAN commander calls on no allied fleet, but its Open
+# Allocation twin sold no replenishment ship at all until October 2026,
+# although the pack builds two modern PLAN ones (SEST Replenishment's Type
+# 901 Fuyu and Type 903A Fuchi clones, every variant registered to China)
+# and the carrier group sails with a 901 in The Order to Withdraw. Story
+# Red Line still sells none: it rearms at its windows, and a bought hull
+# needs a row to sail in. Prices on Red Line's own scale - 054A 280, Luda
+# 160, 056A 120: the 901 is the carrier group's 48,000-tonne station ship,
+# the 903A a 23,000-tonne replenishment oiler.
+PLAN_SUPPORT = [
+    _e('plan_aor_type901', ['Variant1', 'Variant2'], 200,
+       'China - Type 901 Fuyu fast combat support ship'),
+    _e('plan_aor_type903a', ['Variant1', 'Variant2', 'Variant3', 'Variant4'], 150,
+       'China - Type 903A Fuchi replenishment oiler'),
+]
+
 # Keyed by commander nation: the RAN campaigns call on the allied fleet;
-# Red Line's PLAN commander does not.
-FOR_NATION = {"Australia": ALLIED}
+# Red Line's PLAN commander gets its own navy's support ships.
+FOR_NATION = {"Australia": ALLIED, "China": PLAN_SUPPORT}

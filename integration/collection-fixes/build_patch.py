@@ -797,6 +797,7 @@ def main():
     restored, tuned, skipped = build_ciws()
     extended = build_extends()
     retargeted = build_stale_overwrites()
+    flags = build_nation_flags()
     returned = build_stale_vanilla_files()
     returned += restore_vanilla_sensor_sections()
 
@@ -813,6 +814,7 @@ def main():
           f"copies, {len(tuned)} mod CIWS retuned"
           + (f"; left to their winner: {', '.join(skipped)}" if skipped else ""))
     print(f"  + {len(extended)} hulls given a combat system by #!extend")
+    print(f"  + nation flags: {', '.join(flags)}")
     print(f"  + {len(retargeted)} stale Euromod overwrite(s) pointed off a unit no mod ships: "
           f"{', '.join(retargeted)}")
     print(f"  + {len(returned)} game file(s)/section(s) restored over stale mod copies: "
@@ -1473,6 +1475,77 @@ EXTENDS = {
 # own profile, read from vanilla's file (the deprecated Seahawk mod ships a
 # Spruance and a Perry).
 VANILLA_SAME = ("usn_dd_spruance", "usn_ffg_oliver_hazard_perry")
+
+
+# Nation flags. ui/Default/Settings_UI_General.ini is a whole file: the
+# highest copy wins, and today that is Operation STEADFAST LANTERN's
+# (3779799226), itself a union of every flag-carrying mod's copy. A unit
+# whose Nation= is not a key in its [NationFlags] shows the built-in
+# "flag missing" icon (that file's own header says so). Eleven nations that
+# units in the collection use have no entry, and four keys are misspellings
+# in mods' variant files of nations that do. SEST ships the winner's file
+# with those lines added, and the eleven flags as PNGs from the gallery
+# (integration/gallery/source/visuals/flags/png, credited in that gallery's
+# VISUAL_CREDITS.txt). Mast flags are left alone.
+#   key -> gallery flag file to ship, or ("alias", an existing entry's path)
+FLAG_ADDITIONS = {
+    "Peru": "peru", "Kazakhstan": "kazakhstan", "Serbia": "serbia",
+    "Luxemburg": "luxembourg", "Ireland": "ireland", "Hong_Kong": "hong_kong",
+    "Bahrain": "bahrain", "Lebanon": "lebanon", "Greenland": "greenland",
+    "Tahiti": "french_polynesia", "Uzbekistan": "uzbekistan",
+    "Grecee": ("alias", "Greece"), "KSA": ("alias", "Saudi"),
+    "AUS": ("alias", "Australia"), "RU": ("alias", "Russia"),
+}
+FLAG_DIR = "ui/flag/sest"
+FLAG_SIZE_W = 128
+
+
+def build_nation_flags():
+    rel = Path("ui/Default/Settings_UI_General.ini")
+    rank = load_rank()
+    copies = sorted((rank.get(p.parts[-4], 10**5), p) for p in MODS.glob("*/ui/Default/Settings_UI_General.ini")
+                    if p.parts[-4] in rank)
+    if not copies:
+        sys.exit("no Workshop mod ships Settings_UI_General.ini any more - re-check the flag table")
+    src = copies[0][1]
+    text = read_file(src).replace("\r\n", "\n")
+    m = re.search(r"^\[NationFlags\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+    if not m:
+        sys.exit(f"{src}: no [NationFlags] section")
+    have = {}
+    for line in m.group(1).splitlines():
+        k = line.split("//")[0].split(";")[0]
+        if "=" in k:
+            have[k.split("=", 1)[0].strip().lower()] = k.split("=", 1)[1].strip()
+    from PIL import Image
+    gallery = ROOT / "integration" / "gallery" / "source" / "visuals" / "flags" / "png"
+    lines, added = [], []
+    for key, val in FLAG_ADDITIONS.items():
+        if key.lower() in have:
+            continue                    # the winner has it now: its entry stands
+        if isinstance(val, tuple):
+            target = have.get(val[1].lower())
+            if not target:
+                sys.exit(f"flag alias {key}: {val[1]} has no entry in {src.parts[-4]}'s file")
+            lines.append(f"{key}={target}")
+        else:
+            png = gallery / f"{val}.png"
+            if not png.is_file():
+                sys.exit(f"flag {key}: {png} missing from the gallery")
+            out = OUT / FLAG_DIR / f"{val}.png"
+            out.parent.mkdir(parents=True, exist_ok=True)
+            with Image.open(png) as im:
+                h = round(im.height * FLAG_SIZE_W / im.width)
+                im.convert("RGBA").resize((FLAG_SIZE_W, h), Image.LANCZOS).save(out)
+            lines.append(f"{key}={FLAG_DIR}/{val}.png")
+        added.append(key)
+    body = m.group(1).rstrip("\n") + "\n; SEST Collection Fixes: nations used by units in the collection that had no flag,\n" \
+        "; and four misspelt nation keys pointed at the flag they mean.\n" + "\n".join(lines) + "\n\n"
+    header = (f"; SEST Collection Fixes: {src.parts[-4]}'s copy (the load-order winner) with\n"
+              f"; {len(added)} [NationFlags] entries added at the end of that section.\n")
+    (OUT / rel).parent.mkdir(parents=True, exist_ok=True)
+    (OUT / rel).write_text(header + text[:m.start(1)] + body + text[m.end(1):], encoding="utf-8")
+    return added
 
 
 def load_rank():
