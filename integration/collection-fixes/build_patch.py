@@ -791,25 +791,161 @@ def main():
     added = build_missing_sensors()
     named = build_missing_loadout_names()
     carried = build_carried_vessel_names()
-    tips = build_vanilla_tips()
+    tips, own = build_loading_tips()
     renamed = build_english_store_names()
     profiles = build_combat_systems()
     restored, tuned, skipped = build_ciws()
     extended = build_extends()
+    returned = build_stale_vanilla_files()
+    returned += restore_vanilla_sensor_sections()
 
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     print(f"built {OUT.relative_to(ROOT)}: {len(built)} overrides - {', '.join(built)}")
     print(f"  + {len(added)} sensor definitions no mod supplied: {', '.join(added)}")
     print(f"  + {len(named)} loadout display names: {', '.join(named)}")
     print(f"  + {len(carried)} vessel name section(s) carried: {', '.join(carried)}")
-    print(f"  + loading tips: vanilla's English file restored over "
-          + (', '.join(tips) if tips else "nothing (no mod overrides them)"))
+    print(f"  + loading tips: vanilla's English set restored" + (f" over {', '.join(tips)}" if tips else "")
+          + f", {own} SEST tips numbered behind it")
     print(f"  + {len(renamed)} store name(s) given in English: {', '.join(renamed)}")
     print(f"  + {len(profiles)} combat-system profiles cloned under SEST names")
     print(f"  + weapons.ini: {len(restored)} vanilla 0.8.3 sections restored over the stale "
           f"copies, {len(tuned)} mod CIWS retuned"
           + (f"; left to their winner: {', '.join(skipped)}" if skipped else ""))
     print(f"  + {len(extended)} hulls given a combat system by #!extend")
+    print(f"  + {len(returned)} game file(s)/section(s) restored over stale mod copies: "
+          f"{', '.join(returned)}")
+
+
+# Game files that a mod overrides with a stale copy of its own, where the game's
+# copy is the better one and the units that read it are not that mod's alone.
+# Load order cannot fix any of these: nothing else ships the path, so the mod
+# wins at every position. Each is shipped here verbatim from the game export,
+# the usn_gbu-24 pattern above, under three guards: the stale shippers are
+# still exactly the ones named (a new shipper means a new decision), the
+# game's copy still has what makes it better, and the stale copy still lacks
+# it (when it catches up, the restore retires). Added with the October 2026
+# subscriptions, on the player's decision to restore the game's versions.
+#
+#   path                          stale shipper(s)         what the game's copy has
+STALE_VANILLA_FILES = {
+    "ammunition/usn_cal_40mm.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's copy predates the supply system: no Mass, AmmoPoints,\n"
+        "area keys or MaxAARange, MaxRange 4500 for 10500. Every 40 mm Bofors in\n"
+        "the game reads it, three SEST replenishment ships among them - unpriced,\n"
+        "they would rearm for free."),
+    "ammunition/usn_cal_25mm_m2.ini": (
+        ("3412480633",), "AmmoPoints",
+        "Ground Upgrade: IFV's copy has no AmmoPoints or Mass and adds an AAW role.\n"
+        "The Mk 38 on forty SEST-forked destroyers and frigates fires this round."),
+    "ammunition/usa_bgm-71a.ini": (
+        ("3412480633",), "AmmoPoints",
+        "Ground Upgrade: IFV's TOW-1 has no AmmoPoints, no IOC/FOC dates and no\n"
+        "air-launch keys; the AH-1W, the Lynx AH.7 and the TOW pickup fire it."),
+    "ammunition/usn_cal_105mm.ini": (
+        ("3410473695",), "AmmoPoints",
+        "Ground Upgrade: MBT's copy has no AmmoPoints, Mass, area keys or\n"
+        "RequiresLOS, and MaxRange 2400 for 4100."),
+    "ammunition/wp_cal_100mm_d10.ini": (
+        ("3410473695",), "AmmoPoints",
+        "Ground Upgrade: MBT's copy has no AmmoPoints, Mass, area keys or\n"
+        "RequiresLOS; the T-55 family and an armed merchant's alias read it."),
+    "ammunition/wp_cal_125mm.ini": (
+        ("3410473695",), "AmmoPoints",
+        "Ground Upgrade: MBT's copy has no AmmoPoints, Mass, area keys or\n"
+        "RequiresLOS; every vanilla T-72/T-80 reads it."),
+    "ammunition/usn_ssq-47.ini": (
+        ("3628203171",), "FOCDate",
+        "The Alize's copy is headed 'REQUIRES STATS REVISION': Mass 10 for 16.3,\n"
+        "AmmoPoints 5 for 20.375, no FOCDate or area keys. The P-3Cs in SEST\n"
+        "missions hang it."),
+    "ammunition/knm_terne_shell.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's copy has no AmmoPoints or Mass; no Royal Navy unit uses\n"
+        "it, the vanilla Oslo and Sleipner in SEST missions do."),
+    "ammunition/rn_squid_shell.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's copy has no AmmoPoints or Mass."),
+    "ammunition/usn_agm-12b.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's Bullpup drops AmmoPoints, FOCDate, the AN/ARW-77 guidance\n"
+        "link and the kinematics block."),
+    "ammunition/rn_cal_113mm.ini": (
+        ("3491248180",), "AmmoPoints",
+        "The Royal Navy's 4.5 inch has no AmmoPoints or Mass; every vanilla\n"
+        "Royal Navy hull with the Mk 6 or Mk 8 reads it."),
+    "vessels/usn_avp_barnegat_mod.ini": (
+        ("3752415457",), "[CombatSystems]",
+        "The Luzon Line's copy is a pre-0.8.3 fork that drops the game's\n"
+        "[CombatSystems] block; it is a player hull in the stock Pacific Strike\n"
+        "campaign. The Luzon Line's own _variants file still wins and is kept."),
+}
+
+
+def build_stale_vanilla_files():
+    """Ship the game's copy of each STALE_VANILLA_FILES path, guarded."""
+    out = []
+    for rel, (shippers, marker, why) in STALE_VANILLA_FILES.items():
+        found = sorted(p.parts[-3] for p in MODS.glob(f"*/{rel}")
+                       if p.parts[-3] != "_vanilla")
+        if found != sorted(shippers):
+            sys.exit(f"{rel}: now shipped by {found}, not {list(shippers)} - "
+                     "re-decide which copy should load before restoring the game's")
+        t = read("_vanilla/original", rel)
+        has = (lambda text: marker in text) if marker.startswith("[") else \
+              (lambda text: re.search(rf"^{marker}\s*=\s*\S", text, re.M) is not None)
+        if not has(t):
+            sys.exit(f"{rel}: the game's copy no longer has {marker} - re-verify")
+        if all(has(read(m, rel)) for m in shippers):
+            sys.exit(f"{rel}: the stale copy now has {marker} too - compare again and "
+                     "retire the restore if it caught up")
+        write(rel, t,
+              f"SEST Collection Fixes - the game's own {rel}, verbatim, over the\n"
+              f"stale copy in {', '.join(shippers)}.\n{why}")
+        out.append(Path(rel).stem)
+    return out
+
+
+# The same for systems sections: a mod redefines a game section with values
+# that change units other than its own. systems/ merges key by key, and SEST
+# sits above every mod, so the game's whole body restated here wins every key.
+STALE_VANILLA_SENSORS = {
+    "Type2031": (("3491248180",),
+                 "The Royal Navy's [Type2031] cuts the towed array's PassiveRange from\n"
+                 "90 km to 23 km and its Gain from 56 to 50 dB; the Type 23s SEST\n"
+                 "fields tow it."),
+}
+
+
+def restore_vanilla_sensor_sections():
+    out, blocks = [], []
+    vanilla = read_file(MODS / "_vanilla" / "original" / "systems" / "sensors.ini")
+    for name, (shippers, why) in STALE_VANILLA_SENSORS.items():
+        pat = re.compile(rf"^\[{re.escape(name)}\][^\n]*\n(.*?)(?=^\[|\Z)", re.S | re.M)
+        definers = sorted(f.parts[-3] for f in MODS.glob("*/systems/sensors.ini")
+                          if f.parts[-3] != "_vanilla" and pat.search(read_file(f)))
+        if definers != sorted(shippers):
+            sys.exit(f"[{name}]: now defined by {definers}, not {list(shippers)} - re-decide")
+        m = pat.search(vanilla)
+        if not m:
+            sys.exit(f"[{name}]: gone from the game's sensors.ini - re-verify")
+        body = m.group(1).strip()
+        for mod in shippers:
+            theirs = pat.search(read_file(MODS / mod / "systems" / "sensors.ini")).group(1).strip()
+            if theirs == body:
+                sys.exit(f"[{name}]: {mod}'s copy now matches the game's - retire the restore")
+        blocks.append("".join(f"# {l}\n" for l in why.splitlines())
+                      + f"# The game's own definition, restored over {', '.join(shippers)}.\n"
+                      + f"[{name}]\n{body}\n")
+        out.append(f"[{name}]")
+    if blocks:
+        path = OUT / "systems" / "sensors.ini"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        prior = path.read_text(encoding="utf-8") if path.exists() else ""
+        path.write_text(prior + ("\n" if prior else "")
+                        + "# Game sensor sections restored over a mod's stale redefinition.\n\n"
+                        + "\n".join(blocks), encoding="utf-8")
+    return out
 
 
 # Sensor types that units mount but NO mod defines, so the sensor is inert.
@@ -962,39 +1098,74 @@ def build_missing_loadout_names():
     return list(MISSING_LOADOUT_NAMES)
 
 
-# The game's loading-screen tips. language_*/ merges key-by-key across the
-# load order, and the keys are positional (Count, Header, Tip001...), so ANY
-# mod that puts a [LoadingTips] section in language_en/ overwrites vanilla's
-# tips one for one, whatever its file is called. The PLAAF Aircraft Pack
-# (3812111085) does exactly that from language_en/loading_tips_plaaf.ini -
-# eleven tips and a header in Chinese, filed under the English folder - and
-# the player's first screen after subscribing read entirely in Chinese
-# (3 Oct 2026). Shipping vanilla's own English file verbatim from the top of
-# the order gives every key back its vanilla value. The copy is written only
-# while some mod other than vanilla ships such a section, so it retires itself
-# when the offender is fixed or leaves.
-def build_vanilla_tips():
+# The game's loading-screen tips, with SEST's own appended. language_*/ merges
+# key-by-key across the load order, and the keys are positional (Count,
+# Header, Tip001...), so ANY mod that puts a [LoadingTips] section in
+# language_en/ overwrites vanilla's tips one for one, whatever its file is
+# called. The PLAAF Aircraft Pack (3812111085) does exactly that from
+# language_en/loading_tips_plaaf.ini - eleven tips and a header in Chinese,
+# filed under the English folder - and the player's first screen after
+# subscribing read entirely in Chinese (3 Oct 2026). Shipping vanilla's own
+# English keys from the top of the order gives every one of them back its
+# vanilla value. The same positional rule is what lets SEST add tips of its
+# own: they are numbered from vanilla's Count upward at build time, so a
+# vanilla update that adds tips pushes them along rather than colliding, and
+# the build stops if vanilla's numbering is ever not 1..Count.
+SEST_TIPS = [
+    "SEST: the Situation button at the bottom right of the campaign screen lists the "
+    "enemy forces the campaign's missions place, nation by nation.",
+    "SEST: a date-time group on a signal reads day, time Zulu, month, year. 210600Z OCT 28 "
+    "is 21 October 2028 at 0600 Zulu.",
+    "SEST: a contact handed to you as a datum ages off the plot in minutes unless your own "
+    "sensors hold it. Classification is yours.",
+    "SEST: loadouts whose names begin SEST are this collection's own fits - AIM-260 JATM, "
+    "AIM-424 MALICE and LRASM on allied airframes. Their figures follow public sources and "
+    "are fiction where the sources stop.",
+    "SEST: in an Open Allocation campaign every buy window sells the whole roster, and a unit "
+    "of your own nation costs a fifth less.",
+    "SEST: the side operations - the Dispatches, the optional and contingency missions - sail "
+    "your own ships, and what you lose there stays lost.",
+    "SEST: survivors your helicopters and ships pick up are paid for at the debrief. A "
+    "liferaft beacon is worth the detour.",
+    "SEST: REQUIRED-MODS.txt beside each campaign lists every mod its missions reach, and "
+    "LOAD-ORDER.txt the order they were built against. A unit that spawns with a stock fit "
+    "is a mod that has moved.",
+]
+
+
+def build_loading_tips():
     vanilla = MODS / "_vanilla/original" / "language_en" / "loading_tips.ini"
-    src = read_file(vanilla).replace("\r\n", "\n")
-    if "[LoadingTips]" not in src or not re.search(r"^Count=\d+", src, re.M):
+    src = read_file(vanilla).replace("\r\n", "\n").lstrip("\ufeff")
+    count = re.search(r"^Count=(\d+)\s*$", src, re.M)
+    tips = [int(n) for n in re.findall(r"^Tip(\d+)=", src, re.M)]
+    if "[LoadingTips]" not in src or not count or not re.search(r"^Header=", src, re.M):
         sys.exit("vanilla loading_tips.ini no longer has the [LoadingTips] shape - re-check")
+    n = int(count.group(1))
+    if tips != list(range(1, n + 1)):
+        sys.exit(f"vanilla loading_tips.ini: Count={n} but the tips run {tips[:3]}..{tips[-3:]} - "
+                 "re-check before numbering SEST's behind them")
+    for t in SEST_TIPS:
+        if "=" in t or "\n" in t or not t.startswith("SEST: "):
+            sys.exit(f"SEST tip must be one line, no '=', and begin 'SEST: ': {t[:50]}")
     offenders = []
     for f in sorted(MODS.glob("*/language_en/*.ini")):
         if f.parts[-3].startswith("_"):
             continue
         if re.search(r"^\[LoadingTips\]", read_file(f), re.M):
             offenders.append(f"{f.parts[-3]}/{f.name}")
-    if not offenders:
-        return []
-    body = ("# SEST Collection Fixes - vanilla's loading-screen tips, verbatim.\n"
-            "# Another mod files a [LoadingTips] section under language_en/ ("
-            + ", ".join(offenders) + "),\n"
-            "# and the key-by-key merge would otherwise hand the game that mod's tips\n"
-            "# under the English folder. Nothing here is SEST's own text.\n"
-            + src.lstrip("\ufeff"))
+    body = src.replace(count.group(0), f"Count={n + len(SEST_TIPS)}", 1).rstrip("\n") + "\n"
+    body += "".join(f"Tip{n + i:03d}={t}\n" for i, t in enumerate(SEST_TIPS, 1))
+    head = ("# SEST Collection Fixes - the game's loading-screen tips, vanilla's text word for\n"
+            f"# word, with {len(SEST_TIPS)} SEST tips numbered behind them (Count raised to match).\n"
+            "# language_en/ merges key-by-key, so vanilla's keys win back their values from here")
+    if offenders:
+        head += ("\n# over the [LoadingTips] section another mod files under language_en/ ("
+                 + ", ".join(offenders) + ").\n")
+    else:
+        head += ".\n"
     (OUT / "language_en").mkdir(parents=True, exist_ok=True)
-    (OUT / "language_en" / "loading_tips.ini").write_text(body, encoding="utf-8")
-    return offenders
+    (OUT / "language_en" / "loading_tips.ini").write_text(head + body, encoding="utf-8")
+    return offenders, len(SEST_TIPS)
 
 
 # English display names for rounds whose only provider names them in another

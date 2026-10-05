@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-140 mods. Each supplies a file a mission names directly - by
+143 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -110,6 +110,8 @@ Workshop id   supplies                         mod
 3716049886    a unit a mission places          MORE SU-24M VARIANTS
 3806466625    a unit a mission places          MV-22B Osprey Tiltrotor / JGSDF V-22B
 3810611344    a unit a mission places          MV-75 Cheyenne II
+3595014060    a model a placed unit draws      NATO E-3A Sentry
+3812140001    a model a placed unit draws      Pakistani Pack
 3681873198    a unit a mission places          Pickup truck extension
 3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
 3733719765    a unit a mission places          PLA Land Unit Pack
@@ -147,6 +149,7 @@ Workshop id   supplies                         mod
 3503594612    a unit a mission places          SU-57 Felon (重刑犯)
 3434072450    a unit a mission places          Sukhoi Flanker Family (苏霍伊侧卫家族)
 3683253079    a unit a mission places          Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
+3732654992    a model a placed unit draws      THE REDFOR MOD
 3509329205    a unit a mission places          TU-160 Blackjack
 3780118683    a unit a mission places          Tu-214R Family (图-214R家族)
 3395022688    a unit a mission places          Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
@@ -180,7 +183,7 @@ NOT IN THIS LIST AND STILL REQUIRED:
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (7), and left in the order
+Also enabled while this was built (8), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
@@ -191,14 +194,61 @@ by something above them. The campaign does not call for them.
 3784474738    library                          Euromod - Anchorchain Expansion Pack
 3790594162    library                          Identify Expanded
 3432592449    shadowed                         Nimitz Expanded
+3636213685    shadowed                         wp_sattelite_center
 3637954857    shadowed                         Y-8/Y-9 Special Mission Aircraft Family
 
 --------------------------------------------------------------------------
 
-Not from the Workshop. These are this project's own packs. If you
-have the consolidated download - one mod folder carrying everything
-- they are already inside it and there is nothing to subscribe to;
-the repository also builds each of them on its own.
+In the collection for other campaigns and scenarios (38):
+the third-party campaigns the collection carries, the mods they
+place, and content none of these three campaigns uses. They are in
+LOAD-ORDER.txt, so SETUP still requires them.
+
+3628203171    other campaigns                  Bréguet Br.1050 Alizé
+3806197116    other campaigns                  Civilian AS350 Ecureuil/AStar MOD
+3628201887    other campaigns                  Clemenceau-class Aircraft Carrier
+3813033771    other campaigns                  EC-2 Stand Off Jammer
+3493115616    other campaigns                  EMAD
+3555361900    other campaigns                  Etendard Family Jets
+3776730617    other campaigns                  EUROMOD-Armada de Chile
+3678767059    other campaigns                  Euromod-Brazilian Armed Forces(2000)
+3807164392    other campaigns                  Euromod-India-Navy
+3812454152    other campaigns                  Euromod-Philippine-Navy
+3434693420    other campaigns                  F-15J Peace Eagle
+3591820675    other campaigns                  F-8 Crusader
+3673703427    other campaigns                  Fattah-1
+3672497668    other campaigns                  Fattah-2
+3412480633    other campaigns                  Ground Upgrade: IFV
+3410473695    other campaigns                  Ground Upgrade: MBT
+3549377308    other campaigns                  Iran Bell-212
+3686449681    other campaigns                  Iran UAV Shahed 238
+3681748718    other campaigns                  ISKANDER-M
+3520352434    other campaigns                  JAS-39 Gripen
+3802216383    other campaigns                  JMSDF Hyūga Class — Hyūga & Ise
+3759042728    other campaigns                  Mare Nostrum '28
+3603367264    other campaigns                  NATO Ground Enhancement Series 2: Artillery
+3551621846    other campaigns                  NEBO-U
+3779799226    other campaigns                  Operation STEADFAST LANTERN
+3752415457    other campaigns                  Philippines: The Luzon Line
+3399699218    other campaigns                  Project 2498 Zyetseth Class Assault Vessel
+3455404959    other campaigns                  Royal Australian Defence Forces
+3603306548    other campaigns                  Russian Ground Enhancement Series 1: Artillery
+3652906664    other campaigns                  S-300PMU2
+3524446392    other campaigns                  S-350 Vityaz
+3496055699    other campaigns                  S-500
+3766210676    other campaigns                  Saronic Corsair ASV
+3628247436    other campaigns                  Sea Venom - Aquilon
+3711297532    other campaigns                  Thailand: The Siam Shield
+3491248180    other campaigns                  The Royal Navy
+3709961172    other campaigns                  The Second Northern War
+3672072359    other campaigns                  Ultimate Missile Workshop
+
+--------------------------------------------------------------------------
+
+Not separate Workshop items. These are this project's own packs, and
+every one of them is already inside this folder (the SEST Integration
+Pack, Workshop item 3812461539) - there is nothing more to subscribe
+to; the repository also builds each of them on its own.
 
 (local)       unit                             SEST A-10C+
 (local)       unit                             SEST ADF Persistent ISR
@@ -208,6 +258,7 @@ the repository also builds each of them on its own.
 (local)       unit                             SEST F-15EX Revamp
 (local)       unit                             SEST F-16CM JATM
 (local)       unit                             SEST F-35C JATM
+(local)       library                          SEST Gallery
 (local)       unit                             SEST Growler NGJ + MALICE
 (local)       store                            SEST Intercept Model
 (local)       unit                             SEST JMSDF Mogami

@@ -144,8 +144,19 @@ def strip_insertions(rel, blob):
         # category to. A plain file with "[General]" followed by blank lines
         # must keep them - stripping unconditionally once ate plan_yj-18c's
         # real section header.
-        if blob.lstrip().startswith(b"#!alias"):
-            return blob.replace(b"\n[General]\n\n", b"\n", 1)
+        # The directive may sit below a comment banner (Euromod's October 2026
+        # SAM stubs put it on line 5), as the builder's _alias_target allows.
+        first = next((l.strip() for l in blob.split(b"\n")
+                      if l.strip() and not (l.strip().startswith(b"#")
+                                            and not l.strip().startswith(b"#!"))), b"")
+        if first.startswith(b"#!alias"):
+            # ras.tag_ammunition inserts "\n[General]\n" + the category right
+            # under the alias line; what follows is the stub's own next line,
+            # blank or not.
+            if blob.lstrip().startswith(b"#!alias"):
+                return blob.replace(b"\n[General]\n\n", b"\n", 1)
+            # Below a banner the stub's own text follows the insertion directly.
+            return re.sub(rb"(#!alias[^\n]*\n)\n\[General\]\n", rb"\1", blob, count=1)
         return blob
     return blob
 

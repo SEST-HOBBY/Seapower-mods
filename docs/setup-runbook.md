@@ -1,7 +1,12 @@
-# Setup Runbook — cleaning the 109 and installing the SEST packs
+# Setup Runbook — installing and ordering the SEST pack on the gaming PC
 
 Follow top to bottom on the gaming PC. Everything here reflects the file-level findings from
 `mods-source/` and the twenty SEST packs on this branch.
+
+This runbook is for the gaming PC that deploys from the branch `data/deploy-branch.txt` names.
+A player who installs from the Workshop does not need it: they subscribe to the collection
+*SEST - Modernised Campaign Collection* (3812390790) and run `SETUP - double-click me.cmd` in the
+pack folder (item 3812461539) with the game closed.
 
 ## Phase 0 — before touching anything
 
@@ -22,15 +27,19 @@ don't misdiagnose breakage later.
    B-2, and the Type 003/004 carriers. If any of those is missing from the unit list, install
    SeaLifter (subscribe + its preloader) before proceeding.
 
-## Phase 2 — unsubscribe list (revised — read the KEEPs)
+## Phase 2 — unsubscribe list (done — read the KEEPs)
+
+Done: Shahed-136 (Obiwonkanblomi), the MyGo F-35C and the MyGo F/A-18E/F were unsubscribed by
+20 Sep 2026. The current set is the 190 Workshop mods in `data/load-order.tokens.txt`; with the
+pack, that set is the published collection 3812390790. Do not unsubscribe anything in it.
 
 | Mod | Action | Why |
 |---|---|---|
-| Shahed-136 Drone (Obiwonkanblomi) | **Unsubscribe** | Duplicate; Zero Two's Geran-2 version is the more complete and stays |
-| [DEPRECATED] F-35C (MyGo) | **Unsubscribe** | Superseded: US Naval Aviation carries the maintained F-35C, and SEST_F-35C_JATM builds on that |
-| F-35C Lightning II Alt. Loadouts (Prof_CH4OS) | **Unsubscribe** | It patches the MyGo standalone you're removing; SEST_F-35C_JATM replaces the role on the maintained airframe |
-| [DEPRECATED] F/A-18E/F (MyGo) | **Unsubscribe, then smoke-test** | Modern US Navy / USNA cover the Super Hornet. After removing, spawn a Murder Hornet loadout — if the jet's model is missing, resubscribe and report it (Murder Hornet's target mod is unconfirmed; I'll rebase it like the F-35C) |
-| ADO – Nimitz (2000s) | **Keep for now, decide after test** | Flight Deck Ops is the renamed continuation; ADO-Nimitz may *depend* on it rather than compete. Test a Nimitz with both enabled, then with ADO disabled — keep whichever deck behaves |
+| Shahed-136 Drone (Obiwonkanblomi) | Unsubscribed | Duplicate; Zero Two's Geran-2 version is the more complete and stays |
+| [DEPRECATED] F-35C (MyGo) | Unsubscribed 20 Sep 2026 | Superseded: US Naval Aviation carries the maintained F-35C |
+| F-35C Lightning II Alt. Loadouts (Prof_CH4OS) | ⚠️ **KEEP** | SEST_F-35C_JATM is built from it (its F-35C file and the usn_aim-9xb2+ round come from this mod), the campaigns hang its stores, and it is one of the 148 Workshop mods in the published collection 3812390790 |
+| [DEPRECATED] F/A-18E/F (MyGo) | Unsubscribed 20 Sep 2026 | Modern US Navy / USNA cover the Super Hornet. SEST_Growler_NGJ_MALICE was rebased off it, and the Growler (2020s) it alone supplied is gone. Murder Hornet's target mod was never confirmed, so smoke test 10 (Phase 5) checks its jet is still there |
+| ADO – Nimitz (2000s) | ⚠️ **KEEP** | Southern Watch places its carrier (usn_cvn_nimitz_2000s_adou, 'Flight Deck Day'), and it is in the published collection 3812390790 |
 | [DEPRECATED] E-7A Wedgetail (Pog Frog) | ⚠️ **KEEP** (changed advice) | **SEST_RAAF_Bases uses it** — Williamtown's AEW&C wing. Deprecated but functional |
 | [DEPRECATED] S-70B-2 Seahawk (Pog Frog) | ⚠️ **KEEP** (changed advice) | **SEST_RAN_Fleet and Townsville use it** — LHD air groups and RAN dets |
 
@@ -183,8 +192,8 @@ SEST Integration Pack            (every SEST pack, one entry; above everything)
 Anchor Chain                     (SeaLifter loads via its preloader)
 Anchor Chain expansions          (Euromod Anchorchain Expansion,
                                   PLA & PLAN & PLAAF AEP)
-Anchor Chain code mods           (Custom Loadout Editor, Better TacMap, Auto
-                                  Time-on-Target, Automatic SAR, Identify Expanded)
+Anchor Chain code mods           (Custom Loadout Editor, Better TacMap, Coordinated
+                                  Strike Tool, Automatic SAR, Identify Expanded)
 ── Tier 2: weapon/system databases ──────────────────────────
 SAM Pack                         (author: "top of TOE")
 PLA Land Unit Pack               (author: above any PLA-related mod)
@@ -200,7 +209,7 @@ Tu-95 With AS-15                 (its global munition edits make it a patch;
                                   SEST Intercept Model, inside the SEST pack,
                                   overrides its damage.ini)
 Flight Deck Ops
-ADO - Nimitz (2000s)             (if kept after the Phase 2 test)
+ADO - Nimitz (2000s)
 Ground Upgrade: SPAA
 ── Tier 4: core faction packs ───────────────────────────────
 Modern US Navy · United States Naval Aviation · all Euromod
@@ -290,8 +299,19 @@ it, quit, then
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing
 ```
 
-which drops it into its canonical position. That is enough for a code mod that
+which drops it into its canonical position. On this PC that is enough for a code mod that
 ships no game data of its own.
+
+The pack is published, though (Workshop item 3812461539), and subscribers' dependencies come
+from the collection *SEST - Modernised Campaign Collection* (3812390790: the Workshop mods in
+`data/load-order.tokens.txt` plus the pack). So a mod added to the load order must also be
+added to that collection, and the rebuilt pack, whose `LOAD-ORDER.txt` lists every entry, goes
+up to the same item: Mod Manager > Create Mod > Update Existing > Pick Folder
+`StreamingAssets\SEST_Integration` > Submit, then check `Player.log` for
+`m_eResult: k_EResultOK`. Keep Sea Power's Steam Cloud under 1,000 files, or the upload fails
+with `k_EResultLimitExceeded`. Never fill the pack's Required Items: the Mod Manager's
+dependency check offers to move them above the pack, which undoes every fix in it.
+`docs/campaigns/southern-watch/publishing.md` is the full procedure.
 
 Exporting it as well — `export-mod-configs.ps1`, then commit — is only worth
 doing when the mod ships files that might FIGHT other mods, because that is
@@ -329,7 +349,7 @@ oddly after a Steam sync, or before asking for work on a specific mod's files.
 7. **Place RAAF Base Tindal** → B-52H/B-2 present (B-2 also re-proves the loaders).
 8. **Spawn HMAS Hobart** → Australian ensign shows (if the flag is blank, report it — one-line fix), MH-60R on deck.
 9. **Spawn HMAS Canberra** → helicopter-only air group operates.
-10. **Murder Hornet check** from Phase 2 if you dropped the MyGo F/A-18E/F.
+10. **Murder Hornet check** → the MyGo F/A-18E/F was unsubscribed on 20 Sep 2026: spawn a Murder Hornet loadout and confirm the jet's model is there; if it is missing, report it.
 
 Anything that fails: note which step and paste what you see — every SEST pack regenerates from
 a script, so fixes are fast and versioned.

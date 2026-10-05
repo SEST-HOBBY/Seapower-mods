@@ -5,8 +5,8 @@
 .DESCRIPTION
     Reads the live [LoadOrder] out of usersettings.ini and prints it as a
     numbered list, resolving each opaque workshop id to the mod's real name
-    from mods-source\<id>\_info.ini. Without that resolution the list is 137
-    lines of digits and tells you nothing.
+    from mods-source\<id>\_info.ini. Without that resolution the list is well
+    over a hundred lines of digits and tells you nothing.
 
     It then compares against data\load-order.tokens.txt and reports the four
     things that actually go wrong:

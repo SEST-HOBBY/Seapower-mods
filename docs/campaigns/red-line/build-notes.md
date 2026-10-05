@@ -11,12 +11,12 @@ are theirs and are not repeated.
 
 | | |
 |---|---|
-| Campaign | `campaigns/sest-red-line/` — 6 missions, 4 story pages, 45 files |
+| Campaign | `campaigns/sest-red-line/` — 6 missions, 4 story pages, 46 files |
 | Browser copies | every mission again under `missions/Red Line/` (31 files) |
-| Placed units | 68; RL05 and RL06's 12 positions proved against the coastline extract, RL01–RL04's 22 stations used as authored (below) |
-| Mods reached | 43 directly; the pack union with the other two campaigns still reaches all 164 enabled mods and SEST packs |
+| Placed units | 69; RL05 and RL06's 12 positions proved against the coastline extract, RL01–RL04's 22 stations used as authored (below) |
+| Mods reached | 44 directly (`coverage.md`); the pack union with the other two campaigns reaches all 168 enabled mods and SEST packs (the 148 Workshop mods in the load order plus the 20 SEST source packs) |
 | Points | 560 across six missions; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 (1,250 on Veteran) |
-| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 668 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line, 1203 on the 0.8.3 game files, 1265 with the combat systems (60 extend files, two systems files) 1257 once the PLAN Pack's own update took over its eight hulls, and 1260 with the three campaigns' enemy rosters and their twins' copies, less the retired Rafale F5 pack |
+| The pack | `SEST_Campaign` now carries three campaigns and their Open Allocation twins, 676 files and 58 missions; the consolidated `SEST_Integration` was 766 files with Red Line (691 before), 1189 with the ported work (`../southern-reach/install-alignment.md`, §6), 1201 with The Twelve-Mile Line, 1203 on the 0.8.3 game files, 1265 with the combat systems (60 extend files, two systems files), 1257 once the PLAN Pack's own update took over its eight hulls, 1260 with the three campaigns' enemy rosters and their twins' copies, less the briefly retired Rafale F5 pack, 1264 with the Rafale F5 pack back (rebuilt on the French Air Force mod, 3758943352) and the four new mods, and 1266 with SETUP in the pack: the 4 October build, published as Workshop item 3812461539 |
 | The other campaigns | every mission file, story page and `campaign.ini` of Southern Watch and Southern Reach is byte-identical. Nine of their mission cards changed, on purpose (below) |
 
 The code is `integration/campaign/red_line/`: `__init__.py` (the spec, the
@@ -229,7 +229,8 @@ Nothing in this campaign has been run in the game. In the order to test
 - **RL04's race.** Meridian Harmony runs 15.3 NM to the edge of her denied box
   at telegraph 4: about 46 minutes if telegraph 4 is 20 knots. Her file has a
   23-knot maximum and no telegraph ladder; if she takes longer than the
-  80-minute clock the mission ends on the clock instead of the box.
+  120-minute deadline (1.5 times the 80-minute window, since 4 October) the
+  mission ends on the clock instead of the box.
 - **Chinese rank insignia.** The game ships insignia and emblems for the United
   States, Japan and Australia only, so every rank's image field is empty and no
   navy emblem is named. How the commander screen draws that is unknown.

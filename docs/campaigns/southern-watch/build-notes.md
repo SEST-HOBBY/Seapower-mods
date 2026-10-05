@@ -1191,14 +1191,14 @@ anything in the campaigns loads, so it is the pack's whole coverage.
 |---|---|
 | The campaign | `integration/campaign/SEST_Campaign/campaigns/sest-southern-watch/campaign.ini` — a `Type=Linear`, native **Task Force Mode** campaign: twelve main missions, four optional operations, two contingencies and seventeen story events - 35 entries |
 | Requisition | `player_task_force_roster.ini` (10 priced entries) and `commander_settings.ini` (Australian commander, 20% same-nation discount since 28 Sep) beside it |
-| Campaign missions | the eighteen, shipped twice: under `campaigns/…/missions/` for the campaign and under `missions/SEST Southern Watch/` so the mission browser lists them too. The builder writes one copy and `tools/check_campaign_coverage.py` fails if the two ever differ |
-| Dispatches | `missions/SEST Southern Watch - Dispatches/` — the eight optional episodes (Allied Dispatch ×3, Red Line, Range Week, Future Front, Cold Sea, plus the relief-perimeter episode) |
+| Campaign missions | the eighteen, shipped twice: under `campaigns/…/missions/` for the campaign and under `missions/Southern Watch/` so the mission browser lists them too. The builder writes one copy and `tools/check_campaign_coverage.py` fails if the two ever differ |
+| Dispatches | `missions/Southern Watch - Dispatches/` — the eight optional episodes (Allied Dispatch ×3, Red Line, Range Week, Future Front, Cold Sea, plus the relief-perimeter episode) |
 | Briefings | a `_briefing/BriefingText_en.xml` beside every mission, with SITUATION / FROM / COMMANDER'S INTENT / TASK / FORCES / TIME, and RULES OF ENGAGEMENT where protected neutrals are on the plot; one TextBlock per paragraph, the task as bullets. Mod provenance lives in REQUIRED-MODS.txt and the coverage report, not in the briefing |
 | Source | `integration/campaign/campaign_data.py` (the script) and `build_pack.py` (the machinery) |
 | Coverage report | `docs/campaign-coverage.md`, regenerated on every build |
 
 `python3 integration/campaign/build_pack.py` builds it; `tools/build_all.py`
-runs it in order with the other seventeen packs and consolidates it into
+runs it in order with the other nineteen packs and consolidates it into
 `SEST_Integration`.
 
 ## Where this departs from the bible, and why
@@ -1971,15 +1971,22 @@ is called, and the section's keys are positional - `Count`, `Header`,
 `Tip001`... - so the mod's eleven keys landed on vanilla's and the game read
 them. (The same author's PLAN Pack files its tips under `language_cn/`, where
 they belong.) The fix follows the merge rule the other way: SEST Collection
-Fixes now ships vanilla's own `language_en/loading_tips.ini` word for word,
-from the top of the order, so every key the mod overwrote has its vanilla
-value again (`build_vanilla_tips()`). The copy is written only while some
-mod other than vanilla ships a `[LoadingTips]` section under `language_en/`,
-names that mod in its header, and retires itself when the offender is fixed
-or leaves. The drift tool learnt the shape: a language section a pack carries
-verbatim - vanilla's keys, vanilla's values, not one more - is a MIRROR when
-vanilla adds a key, not a clash; a section that adds names is still a clash on
-every new key, because those builders stop on the name. The one Chinese line
+Fixes now ships vanilla's own `language_en/loading_tips.ini` text word for
+word, from the top of the order, so every key the mod overwrote has its
+vanilla value again (`build_loading_tips()`); the header names the offender
+while one exists. The same positional rule is what lets SEST have tips of its
+own, which the player asked for: eight `SEST:` tips (the Situation button,
+how to read a date-time group, what a datum is, what a SEST fit is, Open
+Allocation and the discount, side operations and losses, the survivor
+reward, the two files beside each campaign) are numbered from vanilla's
+Count upward at build time - Tip020 to Tip027 behind the game's nineteen,
+Count raised to 27 - so a vanilla update that adds tips pushes them along
+instead of colliding, and the build stops if vanilla's numbering is ever
+not 1..Count. The drift tool learnt the shape: a language section a pack
+carries in full (every vanilla key present) MIRRORS a key vanilla adds at
+vanilla's value, and reports a key vanilla adds over one of the pack's own
+as MASKED - a rebuild renumbers; a section that only adds names is still a
+clash on every new key, because those builders stop on the name. The one Chinese line
 in the mod's `ammunition_names.ini`, the H-6J's RKL-600 ESM pod, gets an
 English name from the same pack (`ENGLISH_STORE_NAMES`), and that writer too
 stops the build the day the mod names it in English itself.
@@ -2031,7 +2038,7 @@ second salvo the screen has to be ready for); The Long Perimeter (D8) has an
 Army MV-75 as the third lifter in the Osprey stream, Transport fit. The MV-75's
 squadron table declares no squadrons, which the builder already allowed for;
 its `_info.ini` puts its name under `[General]`, which is why the Mod Manager
-shows it by number with an (A) badge. 1264 files; 106 + 67 tests.
+shows it by number with an (A) badge. 1264 files; 106 + 68 tests.
 
 ## The planned window, the sea's price, and SETUP in the pack (4 October)
 
@@ -2171,12 +2178,95 @@ indifferent to a `.cmd` and a `.ps1` in a Workshop folder (mods ship
 relaunch on a real Windows desktop; and SETUP on a PC where Steam lives
 somewhere other than the registry's default. Test card H.15-H.18.
 
+## Published, and what came back (4 and 5 October)
+
+Most of this lives outside the repo - on Steam, in the game's Mod Manager
+and on the player's PC - and is written down here so the next session does
+not have to find it again.
+
+**What is published.** One Workshop item, "SEST Integration Pack -
+Modernised Campaigns" (3812461539), Public, carrying all three campaigns:
+Southern Watch, Southern Reach / Tasman Shield and Red Line. The 4 October
+build (`d4fd1668` and `fa692245`, SETUP in the pack) is the one on it, and
+`fa692245` is the head of the deploy branch the PC syncs from. Its
+dependencies come from the collection "SEST - Modernised Campaign
+Collection" (3812390790): 149 items, the 148 Workshop mods in
+`data/load-order.tokens.txt` plus the pack, under a banner reading "149
+Workshop items, 3 campaigns, 19 fix packs". The pack description, change
+log, collection description and a pinned "Read first" discussion were
+rewritten for the 4 October update (the SETUP install steps, the 1.5x
+clock, Red Line's November 2028 to February 2029 dates), and the
+collection banner and pack images were redone.
+
+**Required Items are empty on purpose.** The item's Required Workshop IDs
+are left empty, and nothing should rely on the Mod Manager's Sync for this
+pack. The Mod Manager's dependency check ("Must load above this mod")
+offers to move every required item above the pack, which undoes every fix
+in it. The collection carries the dependencies instead, and SETUP sets the
+order (test card H.15 and H.16).
+
+**The first uploads failed on Steam Cloud, not on the pack.** They ended
+`k_EResultLimitExceeded`, with 0 B on the item. Sea Power's Steam Cloud
+was at its 1,000-file cap, almost all of it
+`StreamingAssets\user\missions\NEW MISSIONS CLEAN` (804 files). That folder
+was moved to `%USERPROFILE%\Documents\SeaPower-moved-out-of-cloud`, which
+left the cloud at about 180 files, and the upload went through. Uploads
+will fail the same way if the cloud goes back over 1,000 files.
+
+**Updating the item.** Mod Manager > Create Mod > Update Existing > Pick
+Folder `StreamingAssets\SEST_Integration` > Submit, then confirm in
+`Player.log`: `m_eResult: k_EResultOK`. The Create Mod image picker only
+browses StreamingAssets, so the preview image lives at
+`StreamingAssets\SEST-preview.jpg` (124 KB), outside the pack folder.
+
+**The first public comments.** MattS and Dat Guy: the section above
+(`d4fd1668` answers Macquarie Passage and the clock). Dat Guy also found
+that the bought ASW aircraft spawns far away, and the reason Southern
+Cross cannot be won is a spotter drone and an escort boat with Harpoons
+against an unarmed landing ship. When this record was written all of that
+was held for play on the new clock; it was taken up later on 4 October, in
+*Opening ranges in White Water and Steel Highway* and *Southern Cross, and
+the opening gate* below (`9ed587e7`, `e062fb3c`). strykerpsg asked about the
+deprecated mods. Three are kept on purpose, as the only source of units
+the campaigns use: the Anzac (3440622312), the S-70B-2 Seahawk
+(3403661005) and the E-7A Wedgetail (3499239964). Replacing them is not a
+priority.
+
+**The friend's fresh-PC test.** He subscribed to the collection and opened
+the pack folder from the Mod Manager. `SETUP - double-click me.cmd` was
+not there at first; it appeared a minute or two after he quit the game,
+and then ran normally. The cause is not established: the player is sure
+the item showed as updated before his friend launched the game, and that
+the game was closed when it updated. The friend's
+`Steam\logs\workshop_log.txt` lines for 3812461539, with his launch and
+quit times, would settle it. Not yet reported (test card H.15-H.18):
+whether the UAC elevation ran, whether the pack sits first with 149
+entries, whether the campaigns are listed, and the yellow "Behind
+schedule" card in The Quiet Passenger at 45:00.
+
+**Two in-game notes that are game behaviour, not the pack.** An F-15EX
+that "can't shoot a UAV" was at Weapons Tight with the drone not
+classified hostile; it resolved once the drone was classified. A Forpost
+RCS/IR patch was offered and not requested, so the pack has none. ECM
+switching off after a second is Weapons Tight too: at Tight the game runs
+jammers defensively only.
+
+Still open after publishing: the moved openings in White Water, Steel
+Highway and Southern Cross, not yet reported from play (H.19-H.22);
+`SEA_SPEED`, calibrated on one data point
+(H.18 re-checks it); the "Behind schedule" message, not yet seen in game;
+trimming the 148-mod list; and the Task Force economy, helicopter recovery
+and replenishment, none of them proven in game.
+
 ## What has NOT been demonstrated
 
 Static resolution is not a play test. None of the following is established by
 anything in this repository:
 
-- that any mission loads in game, or that every texture and model appears;
+- that every mission loads in game (White Water, The Missing Beacon, Steel
+  Highway, After the Wake and, on a fresh force, Rig Seventeen have: 27 Sep
+  and 3 Oct above; Workshop subscribers reported others on 4 Oct), or that
+  every texture and model appears;
 - that a helicopter can recover aboard the ship it is assigned to - and,
   new with the review fixes, that a Lynx recovers on Sejong the Great (a deck
   declared by `[AirGroup]` alone), a Harrier on Charles de Gaulle, the U-2 on
@@ -2205,29 +2295,32 @@ anything in this repository:
   protected-unit failure resolves before victory in the same update, or that
   the neutral-loss handler prevents a win;
 - that any mission's unit count is comfortable on a particular PC;
-- **anything at all about the Task Force Mode layer.** That a modded RAN hull
-  can be bought, crewed, assigned aircraft and deployed; that the prices are
-  balanced; that completion points are awarded once and cannot be farmed by
-  replay; that repair and rearm offers appear only at the service windows;
-  that the anchor places the purchased force sensibly, and whether the
-  anchored scripted hull is replaced by the player's first ship the way the
-  developer guide says it is (the anchors carry no name for that reason;
-  what is untested is the substitution itself, and the one-ship `Replaced`
-  pattern Weapons Free uses); that the optional
-  window expires when it should. §16 of the bible lists the seven-step
-  acceptance run that would settle all of it, and every step needs the game
-  running. None of it has been exercised;
+- **most of the Task Force Mode layer.** Buying a force and carrying it
+  from mission to mission has been seen: the 3 Oct play test ran Southern
+  Watch four entries deep in one save (White Water, The Missing Beacon,
+  Steel Highway, After the Wake), the save reopening and continuing ("The
+  first play test" above). Still unproven: that the prices are balanced;
+  that completion points are awarded once and cannot be farmed by replay;
+  that repair and rearm offers appear only at the service windows; that the
+  anchor places the purchased force sensibly, and whether the anchored
+  scripted hull is replaced by the player's first ship the way the developer
+  guide says it is (the anchors carry no name for that reason; what is
+  untested is the substitution itself, and the one-ship `Replaced` pattern
+  Weapons Free uses); that a carried-over force loads into Rig Seventeen
+  (test card 7.3a); that the optional window expires when it should. §16 of
+  the bible lists the seven-step acceptance run that would settle the rest,
+  and every step needs the game running;
 - that the mission unit counts meet v1.1's density targets — they do not.
   Small missions here run 5–19 units against a 20–45 target, and the fleet
   missions 16–19 against 45–80. That is a deliberate first pass: the positions
   are snapped to proven points and the pools are thin in some theatres, so
   density is the thing to raise once a mission has actually been profiled on
   the user's PC;
-- that a campaign variable survives between missions. Declaration, write and
-  read are all present and statically consistent in the three chains above,
-  and `IsFalse` is the only comparison the shipped data attests. Whether the
-  campaign actually carries the flag forward — and whether an objective that
-  completes late still writes it — needs the game;
+- whether an objective that completes late still writes its campaign
+  variable. That a variable survives between missions was seen on 3 Oct:
+  `O1BeaconFound`, set in The Missing Beacon, fired Steel Highway's
+  `VariableCheck` reveal ("The first play test" above). `IsFalse` is still
+  the only comparison the shipped data attests;
 - that an air-tasking row behaves the way the stock rows imply. `check_flights()`
   proves each row is internally consistent with the roster; it cannot prove the
   engine intersects fit lists per airframe, nor what it does with the Wedgetail
@@ -2268,9 +2361,10 @@ anything in this repository:
   observed in play;
 - that `HomeBase` does what the name implies - that the aircraft will recover
   there, rather than merely being associated with it;
-- that the mod-supplied campaign is surfaced by the Mod Manager at all. The
-  missions are shipped a second time under `missions/` precisely so the
-  campaign's content is playable either way;
+- (settled since: the campaign and its Open Allocation twin are listed on
+  the campaign screen and have been played from it, per the 27 Sep and 3 Oct
+  play tests above.) The missions are still shipped a second time under
+  `missions/` so they are playable from the mission browser too;
 - that the game displays ANY of this art. `BackgroundImage`,
   `MissionImage_en` and `TileImagePath_en` are keys the vanilla campaigns set,
   and the paths they are given here resolve to files that exist in the pack.
@@ -2288,7 +2382,9 @@ anything in this repository:
   place, which makes it necessary-by-construction and complete with respect to
   the load order it was built against. It is not a proof that a subscriber
   with exactly the mods it lists and nothing else gets a working campaign — that
-  needs a clean install, which nobody has done;
+  needs a clean install with only those mods, which nobody has done (the
+  friend's fresh-PC test above took the whole collection, and its results
+  are not yet reported);
 - what a mission does when it names an absent unit. The pack said, for one
   build, that a missing mod meant "a mission that will not load" - a claim
   nothing here supports. `REQUIRED-MODS.txt` now says instead that the
@@ -2305,7 +2401,7 @@ cannot be.
 
 ```bash
 python3 tools/check_campaign_coverage.py                                # coverage + references + roster, from the BUILT files
-python3 tools/preflight.py "SEST Southern Watch 01 - White Water"       # one campaign mission, the usual way
+python3 tools/preflight.py "Southern Watch 01 - White Water"            # one campaign mission, the usual way
 python3 tools/build_all.py --from-scratch                               # the regression gate
 ```
 
