@@ -2680,6 +2680,17 @@
       "status": "active",
       "load_order": "Directly below Philippines: The Luzon Line, above RE-power. It loses 14 shared files, 11 of them to the Luzon Line by the same author (common rounds and textures) and one each to Euromod - Main Pack, PLAN Pack and MIG-29A & F-16A, so only its 50 own files load.",
       "notes": "Royal Thai Navy and Air Force from the 1950s to today, by the author of the Luzon Line: 19 hulls from the Chakri Naruebet carrier and the Naresuan frigates to the Knox, Type 053HT, patrol craft and the Sichang LST, plus the RTAF F-16C, F-5, the T-50TH, the S-70B-7 Seahawk and the AB 212. ApproximateVersion 0.8.3. Its sensors and weapons files merge."
+    },
+    {
+      "id": "real-photos-aircraft",
+      "workshop_id": "3796706214",
+      "title": "Real photos of airplanes and helicopters",
+      "author": "unknown",
+      "faction": "all",
+      "type": "ui",
+      "status": "active",
+      "load_order": "Last in the order, below every other mod. It ships nothing but encyclopedia profile pictures (ui/profiles/<unit id>.png, 463 images) and a profile picture is a whole file, so whichever mod is highest supplies it: at the bottom, every mod author's own picture still wins and this one only fills units nobody else pictures, and replaces the base game's aircraft pictures, which is its purpose.",
+      "notes": "Encyclopedia profile pictures only: real photographs for 463 aircraft and helicopter ids, no unit, round or text file (its export is the one _info.ini). Against the 5 Oct 2026 listing of the profile pictures already in the collection (integration/gallery/existing-profiles.tsv): 228 of its ids already have a picture from another mod and keep it; 76 mod units with no picture at all get one (13 the campaigns field: Atlantique 2, Sea Lynx Mk88, NH90, Z-21, B-2, B-52G, YF-23, Il-78, Mi-8, Su-30SM2, Tu-16N, Tu-95 and the Forpost); 101 base-game aircraft get a photo in place of the stock picture; 58 ids are units this collection does not have. Added 5 Oct 2026 at the user's call, as a subscription rather than copied into SEST, so its images stay its author's. ApproximateVersion=0.8.0 (minor version matches 0.8.4)."
     }
   ]
 }

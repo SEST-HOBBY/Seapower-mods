@@ -159,6 +159,9 @@ EXCUSES = {
     "nimitz-expanded": (
         "shadowed", "ships one file, `vessels/usn_cvn_nimitz_variants.ini`, "
         "which SEST Collection Fixes replaces - that patch is why it exists"),
+    "real-photos-aircraft": (
+        "library", "encyclopedia profile pictures only (ui/profiles/), no unit, round "
+        "or text file; nothing a mission can place"),
     # October 2026 subscriptions. "external": in the collection for a third-party
     # campaign or scenario, or content no SEST campaign places; still required,
     # because SETUP checks every mod in the order.

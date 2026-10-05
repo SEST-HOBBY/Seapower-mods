@@ -76,7 +76,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (152): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (153): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -176,6 +176,7 @@ shared file wins for the mods above.
   3812111085    PLAAF Aircraft Pack
   3774572038    PLAN Type 071 Amphibious Transport Dock
   3399699218    Project 2498 Zyetseth Class Assault Vessel
+  3796706214    Real photos of airplanes and helicopters
   3769142422    Rebuilt J-16 / J-16D
   3455404959    Royal Australian Defence Forces
   3378409795    Royal Navy Type 23 'Duke Class' Frigate [OLD]
