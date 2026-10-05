@@ -4,11 +4,12 @@
 was removed from the Workshop in October 2026. The pack ships the files of it that
 won the load order - the aircraft, its RAAF squadrons, animations, gun pod, AIM-120C-7,
 GBU-31(V)1, GBU-53, JSM and JSM land-attack, and the names only it defined - from the
-last export (`mods-source/_retired/3514484654`), with every model reference moved to a
-model still in the collection: US Naval Aviation's F-35C (which the RAAF mod was built
-from; every part it names exists on it), JSM and GBU-53, and the GBU-31 model a live
-round uses. The RAAF livery texture went with the mod, so the aircraft wears the
-F-35C's default grey. Stats, loadouts, squadrons and callsigns are Greene's.
+last export (`mods-source/_retired/3514484654`). The aircraft keeps its own model,
+textures and RAAF livery: `recovered/` holds them (from a copy of the mod recovered on
+5 Oct 2026, pinned by `recovered/SHA256SUMS`) and they ship at the mod's own paths. The
+mod's weapon meshes were not recovered, so JSM, GBU-53 and GBU-31(V)1 use models still in
+the collection (US Naval Aviation's JSM and GBU-53, and the GBU-31 model a live round
+uses). Stats, loadouts, squadrons and callsigns are Greene's.
 
 AIM-260 loadout options for Greene's **RAAF F-35A**, which ships with today's AIM-120C-7 and
 already has JSM anti-ship fits — this patch adds the future air-to-air arsenal, following the

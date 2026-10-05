@@ -10,5 +10,7 @@ folders at the top of `mods-source/`, so it leaves this folder alone.
 | `3514484654` | RAAF F-35A Lighting II (Greene) | found 5 Oct 2026 | `SEST_RAAF_F-35A_JATM` (`integration/raaf-f-35a-jatm`) |
 
 The model, textures and weapon meshes were binary files the export never
-copied; the pack moves each model reference to a model still in the
-collection (see `integration/raaf-f-35a-jatm/build_patch.py`).
+copied. The F-35A's own model, textures and RAAF livery were recovered later
+and live in `integration/raaf-f-35a-jatm/recovered/`; the weapon meshes were
+not, so those rounds use models still in the collection (see
+`integration/raaf-f-35a-jatm/build_patch.py`).

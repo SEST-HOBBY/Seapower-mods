@@ -257,7 +257,16 @@ def credits_text(staged):
          "pages and art. It ships no models, no textures and no audio -",
          "every one of those belongs to the Workshop mod it came from,",
          "which is why REQUIRED-MODS.txt lists them as required rather",
-         "than suggested.", ""]
+         "than suggested."]
+    carried = sorted(rel for rel in staged if rel.startswith("assets/")
+                     and rel.rsplit(".", 1)[-1].lower() in ("obj", "png", "dds", "jpg"))
+    if carried:
+        L += ["", "The one exception is a mod that was removed from the Workshop",
+              "and that the campaigns need: its own model and textures are",
+              "carried here so it still looks as its author made it.",
+              "RAAF F-35A Lighting II by Greene (workshop 3514484654):"]
+        L += [f"      {rel}" for rel in carried]
+    L += [""]
     if rows:
         by_mod = {}
         for rel, ratio, token, origin in rows:

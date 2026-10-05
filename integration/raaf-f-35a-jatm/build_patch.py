@@ -8,19 +8,24 @@ download it, and the campaigns fly it. Its text files survive in
 mods-source/_retired/3514484654; its model, textures and weapon meshes went with it.
 The pack ships every file of the mod that won the load order (the aircraft,
 its squadrons and animations, the gun pod and five rounds, and the three
-language keys only it defined), with each model reference moved to a model
-still in the collection:
+language keys only it defined).
 
-- the airframe and the gun pod onto US Naval Aviation's F-35C model, which
-  the RAAF mod was built from - every part it names (control surfaces,
-  pylons, bays, BRU-61A racks) exists on that model, and its BRU-61A
-  material comes from the same mod's gbu-39 folder;
+The airframe is the mod's own: recovered/ holds its F-35A model, the model's
+three textures and the RAAF livery, recovered from a copy of the mod on
+5 October 2026 and pinned by recovered/SHA256SUMS; they ship at the paths
+the mod used. The mod's weapon meshes were not recovered, so those model
+references move to models still in the collection:
+
 - JSM and JSM land-attack onto US Naval Aviation's JSM model;
 - GBU-53 onto US Naval Aviation's GBU-53 model;
 - the GBU-31 v1 onto the GBU-31 model a live round in the collection uses;
-- the squadron livery onto the F-35C's default grey (the RAAF texture was
-  in the mod). The AIM-120C-7 keeps its path: another mod in the
-  collection ships the same model and material.
+- the BRU-61A rack material (the rack mesh is part of the F-35A model)
+  onto the copy in the collection's gbu-39 folder.
+The AIM-120C-7 keeps its path: another mod in the collection ships the same
+model and material.
+
+Without recovered/ (or with a file that no longer matches its checksum) the
+build stops rather than ship an aircraft with no model.
 
 The stats, loadouts, squadrons and names are Greene's, unchanged.
 
@@ -36,6 +41,7 @@ USNA = ROOT / "mods-source" / "3737267013"              # US Naval Aviation (F-3
 WEAPON_PACK = ROOT / "mods-source" / "3760871384"       # Dingtools Weapon Pack
 VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
 GBU31_DONOR = ROOT / "mods-source" / "3430135740"       # a live usn_gbu-31 on the GBU-31 model
+RECOVERED = Path(__file__).resolve().parent / "recovered"   # the mod's own model, textures, livery
 OUT = Path(__file__).resolve().parent / "SEST_RAAF_F-35A_JATM"
 
 sys.path.insert(0, str(ROOT / "integration"))
@@ -119,7 +125,7 @@ LOADOUT_NAMES = {
 
 INFO_INI = """[Language_en]
 Name=SEST RAAF F-35A JATM
-Description=Carries Greene's RAAF F-35A, which was removed from the Workshop: the aircraft, its RAAF squadrons, its gun pod and rounds, on US Naval Aviation's F-35C model. Brings the RAAF F-35A's electronic-warfare suite up to F-35C standard (AN/APG-81 OECM, AN/ASQ-239A RWR and ESM, AN/ALQ-239A DECM, AAQ-40 EOTS, AAQ-37 EODAS, Link-16 and GPS receivers, replacing the F-22 legacy ALR-94/ALQ-94 pair) and adds AIM-260 JATM and AIM-424 MALICE loadout options: a 6-missile internal stealth fit, the same with wingtip AIM-9X, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (Raytheon's LRAAM, in excess of 250 nm). Requires the Dingtools Weapon Pack and US Naval Aviation (which supplies the F-35C, JSM and GBU-53 models, defines the EW sensor types, and the model the MALICE borrows as a rendering stand-in).
+Description=Carries Greene's RAAF F-35A, which was removed from the Workshop: the aircraft with its own model and RAAF paint, its RAAF squadrons, its gun pod and rounds. Brings the RAAF F-35A's electronic-warfare suite up to F-35C standard (AN/APG-81 OECM, AN/ASQ-239A RWR and ESM, AN/ALQ-239A DECM, AAQ-40 EOTS, AAQ-37 EODAS, Link-16 and GPS receivers, replacing the F-22 legacy ALR-94/ALQ-94 pair) and adds AIM-260 JATM and AIM-424 MALICE loadout options: a 6-missile internal stealth fit, the same with wingtip AIM-9X, a 10-missile beast fit, and a stealth fit with two internal AIM-424 MALICE very-long-range AAMs (Raytheon's LRAAM, in excess of 250 nm). Requires the Dingtools Weapon Pack and US Naval Aviation (which supplies the JSM and GBU-53 models, defines the EW sensor types, and the model the MALICE borrows as a rendering stand-in).
 
 [Compatibility]
 ApproximateVersion=0.8.4
@@ -175,7 +181,7 @@ def transplant_ew_suite(text):
 INTAKE = {
     "aircraft/raaf_f-35a_squadrons.ini": None,
     "animations/animations_raaf_f-35a.ini": None,
-    "ammunition/raaf_f-35_gun_pod.ini": USNA / "ammunition" / "usn_f-35_gun_pod.ini",
+    "ammunition/raaf_f-35_gun_pod.ini": None,          # its mesh is in the recovered model
     "ammunition/usaf_aim-120c7.ini": None,
     "ammunition/usaf_gbu-31_v1.ini": GBU31_DONOR / "ammunition" / "usn_gbu-31.ini",
     "ammunition/usaf_gbu-53.ini": USNA / "ammunition" / "usn_gbu-53.ini",
@@ -186,10 +192,6 @@ INTAKE = {
 INTAKE_NAMES = {"ammunition_names.ini": ["usaf_aim-120c7", "usaf_gbu-31_v1", "usaf_gbu-53"]}
 
 AIRFRAME_MOVES = [
-    ("ResourcesFolder=assets/models/vehicle/aircraft/f-35/",
-     "ResourcesFolder=assets/models/aircraft/usn_f-35c/"),
-    ("ResourcesRoot=f-35a.obj", "ResourcesRoot=f-35c.obj"),
-    ("f-35a_mat.ini", "f-35c_mat.ini"),
     ("ResourcesMaterialFolder=assets/models/weapon/ammunition/gbu-39/",
      "ResourcesMaterialFolder=assets/models/ammunition/gbu-39/"),
 ]
@@ -199,8 +201,7 @@ RES_BLOCK = re.compile(r"(?m)^(?:Resources\w*=.*\n)+")
 def move_airframe(text, label):
     for old, new in AIRFRAME_MOVES:
         text = text.replace(old, new)
-    left = [m for m in ("vehicle/aircraft/f-35/", "f-35a.obj", "f-35a_mat", "weapon/ammunition/gbu-39/")
-            if m in text]
+    left = [m for m in ("weapon/ammunition/gbu-39/",) if m in text]
     if left:
         sys.exit(f"{label}: still points at the removed mod's assets: {left}")
     return text
@@ -220,12 +221,7 @@ def write_intake():
         text = (UPSTREAM / rel).read_text(encoding="utf-8-sig")
         if donor is not None:
             text = swap_resources(text, donor, rel)
-        if rel.endswith("_squadrons.ini"):
-            text = text.replace("ResourcesLiveryFolder=assets/textures/f-35/",
-                                "ResourcesLiveryFolder=aircraft/usn_f-35c/")
-            text = text.replace("LiveryTexture=raaf_f-35a.png", "LiveryTexture=vfa-xxx.png")
-        if "assets/models/weapon/ammunition/jsm/" in text or "assets/textures/f-35/" in text \
-                or "vehicle/aircraft/f-35/" in text or "weapon/ammunition/gbu-53/" in text:
+        if "assets/models/weapon/ammunition/jsm/" in text or "weapon/ammunition/gbu-53/" in text:
             sys.exit(f"{rel}: still points at the removed mod's assets")
         out = OUT / rel
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -255,7 +251,29 @@ def write_intake():
         sys.exit("language_en/aircraft_names.ini: no [raaf_f-35a] section")
     (OUT / "language_en" / "aircraft_names.ini").write_text(
         "[General]\n\n" + sec.group(0).rstrip() + "\n", encoding="utf-8")
-    return len(INTAKE)
+    return len(INTAKE) + write_recovered()
+
+
+def write_recovered():
+    """The mod's own model, textures and livery, checked against SHA256SUMS,
+    plus the model's material file from the export."""
+    import hashlib
+    sums = RECOVERED / "SHA256SUMS"
+    if not sums.is_file():
+        sys.exit(f"{sums} missing - the F-35A's model and paint are not in this checkout")
+    n = 0
+    for line in sums.read_text(encoding="utf-8").splitlines():
+        digest, rel = line.split(None, 1)
+        src = RECOVERED / rel
+        if not src.is_file() or hashlib.sha256(src.read_bytes()).hexdigest() != digest:
+            sys.exit(f"recovered/{rel} is missing or does not match SHA256SUMS")
+        out = OUT / rel
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(src.read_bytes())
+        n += 1
+    mat = "assets/models/vehicle/aircraft/f-35/f-35a_mat.ini"
+    (OUT / mat).write_text((UPSTREAM / mat).read_text(encoding="utf-8-sig"), encoding="utf-8")
+    return n + 1
 
 
 def main():
