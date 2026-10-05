@@ -146,6 +146,8 @@ EXCUSES = {
         "is measured on, so it cannot place a unit to reach itself"),
     "SEST_TacMap_Colors": (
         "library", "recolours the tactical map (`ui/`); no unit, no round"),
+    "SEST_Name_Fixes": (
+        "library", "display-name corrections, one language key each; no unit, no round"),
     "SEST_Gallery": (
         "library", "an offline photo gallery under `Gallery/` that the player "
         "opens in a web browser; the briefings' recognition photos are read "
