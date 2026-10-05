@@ -11,17 +11,19 @@ unchanged. This file covers only what is new.
 
 | | |
 |---|---|
-| Campaign | `campaigns/sest-southern-reach/` — 26 missions, 20 story pages, 178 files |
+| Campaign | `campaigns/sest-southern-reach/` — 26 missions, 20 story pages, 179 files |
 | Chapters | Southern Reach SR01–SR12 (6 Dec 2028 – 14 Jan 2029); Tasman Shield TS01–TS12 with the optional pair TS10A/TS10B and the optional TS11A (22 Jan – 2 Mar 2029) |
 | Browser copies | every mission again under `missions/Southern Reach/` and `missions/Tasman Shield/` |
-| Placed units | 413, of which 209 stations were proved against the coastline extract |
-| Mods reached | 49 directly (`coverage.md`); the pack as a whole places or excuses every one of the 164 enabled mods and SEST packs (`tools/check_campaign_coverage.py`) |
+| Placed units | 414, of which 209 stations were proved against the coastline extract |
+| Mods reached | 50 directly (`coverage.md`); the pack as a whole places or excuses every one of the 168 enabled mods and SEST packs (the 148 Workshop mods in the load order plus the 20 SEST source packs; `tools/check_campaign_coverage.py`) |
 | Points | 2,800 across the 23 mainline missions, +180 for the three optionals; opening budget 1,000 (Supported 1,250 / Veteran 850), cap 1,500 |
 | Southern Watch | unchanged: every mission file, card, story page and `campaign.ini` under `sest-southern-watch/` is byte-identical. Three of its briefing maps (The Open Door, The First Ship Through, D8 The Long Perimeter) re-rendered because the map renderer now keeps two overlapping "REPORTED …" labels apart; nothing else on them moved |
 
-Both campaigns ship in the one `SEST_Campaign` pack (and in the consolidated
-`SEST_Integration` download). The pack `_info.ini` now names both; the pack
-`REQUIRED-MODS.txt` and `LOAD-ORDER.txt` are the union, and each campaign
+All three campaigns (Southern Watch, Southern Reach - Tasman Shield, Red
+Line) ship in the one `SEST_Campaign` pack (and in the consolidated
+`SEST_Integration` download, Workshop item 3812461539). The pack `_info.ini`
+names all three; the pack `REQUIRED-MODS.txt` is the union, `LOAD-ORDER.txt`
+is the whole 149-entry order the pack was built against, and each campaign
 carries its own closure in `campaigns/<slug>/REQUIRED-MODS.txt`.
 
 ## Four things the builder learned to do
@@ -253,9 +255,12 @@ through Williamtown.
 
 ## What has not been demonstrated
 
-Nothing in this campaign has been run in the game. Beyond everything the
-Southern Watch notes list as unproven, these are new to this build and are
-the order to test in (`test-card.md`):
+Little of this campaign has been run in the game: the first install (flags,
+airliners and story pages, above) and what Workshop players have reported -
+MattS played Macquarie Passage (SR04) twice from the Workshop item
+(4 October, below; Southern Watch test card H.18 is the re-run). Beyond
+everything the Southern Watch notes list as unproven, these are new to this
+build and are the order to test in (`test-card.md`):
 
 - **The coastline is Natural Earth's, not the game's.** A 2 NM offshore
   margin at 0.006° simplification is comfortable in open water and thin in

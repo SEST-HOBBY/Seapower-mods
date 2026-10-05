@@ -1578,5 +1578,41 @@ class ClockAndSea(unittest.TestCase):
                                     timeout="{Deadline} minutes and HULL 419 is short of the box."))
 
 
+class RecognitionPhotos(unittest.TestCase):
+    """The briefing's RECOGNITION photos: own side first, conditional units
+    left out, one photo per class, every bound stem written as a PNG."""
+
+    def setUp(self):
+        cat = bp.gallery_catalogue()
+        if not cat:
+            self.skipTest("no gallery source in this checkout")
+        self.ids = sorted(cat)[:12]
+
+    def mission(self, units):
+        return {"units": units}
+
+    def test_own_side_first_and_spawn_if_left_out(self):
+        a, b, c = self.ids[:3]
+        picked = bp.recognition(self.mission([
+            {"side": "red", "type": a},
+            {"side": "blue", "type": b},
+            {"side": "red", "type": c, "spawn_if": "x"},
+            {"side": "neutral", "type": self.ids[3]}]))
+        sides = [p[3] for p in picked]
+        self.assertEqual(sides, sorted(sides))           # blue before red
+        self.assertNotIn(c, [p[1]["unit_id"].lower() for p in picked])
+        self.assertNotIn("neutral", sides)
+
+    def test_capped_and_bound_in_the_page(self):
+        units = [{"side": "blue", "type": t} for t in self.ids]
+        picked = bp.recognition(self.mission(units))
+        self.assertLessEqual(len(picked), bp.REC_MAX)
+        self.assertEqual(len({p[2]["asset_id"] for p in picked}), len(picked))
+        xml = bp.recognition_xml(picked)
+        for stem, *_ in picked:
+            self.assertIn(f"Assets[{stem}]", xml)
+        self.assertTrue(bp.recognition_png(picked[0][2]["file"]).startswith(b"\x89PNG"))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

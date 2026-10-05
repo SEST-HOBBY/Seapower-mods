@@ -28,7 +28,7 @@ The core should feel Australian through its responsibilities, geography and forc
 | Future Front | Explicit alternate 2032–35 technology branch | YF-23 production fiction, J-36/J-50, Type 004, MALICE, speculative bomber and missile fits |
 | Cold Sea | Separate historical/exercise anthology | Cold War and retired equipment, historical nuclear-era assets with conventional mission settings |
 
-An enabled collection is not an order of battle. Do not place every aircraft, ship or SAM in the opening mission. Do not enable an unsubscribed mod to satisfy the word “all”. Appendix A assigns every one of the 139 enabled Workshop entries a role and records the five excluded catalog entries.
+An enabled collection is not an order of battle. Do not place every aircraft, ship or SAM in the opening mission. Do not enable an unsubscribed mod to satisfy the word “all”. Appendix A assigns a role to the enabled Workshop entries (148 in the canonical order, `data/load-order.tokens.txt`, the same 148 the published collection carries with the pack; as of 4 Oct 2026 seven of them are not yet listed there) and records the excluded catalog entries.
 
 ## 2. What the repository actually contains
 
@@ -50,7 +50,7 @@ The design is pinned to [`SEST-HOBBY/Seapower-mods`, commit `afed87cef9dfbcf63fa
 
 The dry-run vignette builder, load-order checker and dependency checker passed during this review. Those checks establish limited static properties. They do not establish that the missions load, that every texture appears, that an aircraft can recover aboard its assigned ship, or that a resupply or victory trigger behaves correctly in game.
 
-**Branch integration rule:** carry needed work onto a new `feature/southern-watch-campaign` branch from the agreed current baseline. Review the BMD/intercept changes and older mission builders separately, preserve newer Anzac and aircraft work, rebuild the consolidated pack, and resolve winners again. Do not replace the current deployable wholesale with one from an older branch.
+**Branch integration rule:** carry needed work onto the deploy branch, `sest-dev/loving-bell-3cnvvw` (named in `data/deploy-branch.txt`); the PC syncs from it and the published pack (Workshop 3812461539) is built from it. The campaign was built there (section 12), not on the new `feature/southern-watch-campaign` branch this brief first proposed. Review the BMD/intercept changes and older mission builders separately, preserve newer Anzac and aircraft work, rebuild the consolidated pack, and resolve winners again. Do not replace the current deployable wholesale with one from an older branch.
 
 Repository evidence: [catalog](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/data/mod-catalog.json), [load order](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/data/load-order.tokens.txt), [vignette builder](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/integration/missions/build_banda_vignettes.py), [RAN builder](https://github.com/SEST-HOBBY/Seapower-mods/blob/afed87cef9dfbcf63fa2f16cd620cde3c477a7d0/integration/ran-fleet/build_fleet.py), [separate integration branch](https://github.com/SEST-HOBBY/Seapower-mods/tree/b45ad8cb859290f6b44d62374d6eede3153a6448).
 
@@ -180,7 +180,7 @@ The player must locate Coral Pioneer, classify the armed escort and keep a relie
 
 **Win:** the designated relief/merchant group reaches the handover area and survives to the agreed time. **Fail:** the protected ship is lost or the scripted civilian-loss limit is exceeded. **Optional:** retain the patrol aircraft and complete the rescue. **Carry-over:** strong identification evidence gives an earlier warning message in SW05; poor information changes the briefing, not a magical weapon accuracy bonus.
 
-No mission should require Identify Expanded: it is unsubscribed. Use existing identification orders, authored messages and time/area conditions. If a boarding mechanism is unavailable, represent inspection by a protected rendezvous and a timed message, clearly described as an abstraction.
+No mission should require Identify Expanded: it is enabled again (re-subscribed 27 Sep 2026), but it is a library code mod that acts on every contact in every mission, and nothing it ships is something a mission can name. Use existing identification orders, authored messages and time/area conditions. If a boarding mechanism is unavailable, represent inspection by a protected rendezvous and a timed message, clearly described as an abstraction.
 
 ### SW02 — Steel Highway
 
@@ -404,7 +404,7 @@ Suggested source homes are `docs/campaigns/southern-watch/` for design/evidence 
 - Validate air groups as well as airborne units. Aircraft can have valid files and invalid squadron indices. Preserve aircraft counts when remapping an index.
 - Check helicopter support lists, aircraft capacity and recovery behaviour on the exact recipient. Do not infer compatibility from another aircraft in the same family.
 - Check that neutral merchant hulls are unarmed where the story requires that, that civilian aircraft are on the neutral side, and that scenario weapon-control settings match the opening situation. The current vignette helper uses `WeaponStatus=Free` broadly; do not inherit it blindly for identification missions.
-- Keep the five unsubscribed entries excluded. Keep source-dependent deprecated entries such as Wedgetail and the current Anzac enabled where still required.
+- Keep the unsubscribed catalog entries excluded (six as of 4 Oct 2026, including the Dassault Rafale 3504168760, whose Rafales now come from French Air Force 3758943352). Keep every deprecated entry the missions draw on enabled: the [DEPRECATED] Wedgetail, S-70B-2 Seahawk and current Anzac are the only source of units the campaigns use, and the [OLD] Type 23 and Lynx supply Western Passage.
 - Validate the ordinary victory route, an early defeat, a civilian-loss case, timeout, save/reload, and return to menu. Run the mission long enough to expose recovery and delayed-trigger behaviour.
 - For replenishment: prove transfer begins, the donor loses supply, the recipient gains the intended resource, limits are respected, and transfer ends when separation or the prescribed surfaced condition is broken. If surfacing is a house rule, say so.
 - For the BMD branch: verify the actual integrated altitude/speed/intercept behaviour before making success depend on it. Preserve the vanilla impact-table correction if included; do not assume earlier branch work survived consolidation.
@@ -692,7 +692,7 @@ These are balance targets, not validated win guarantees. The air-heavy force sti
 - **Week 5:** Japanese detachment and the earned French/Japanese air-support choice. Friendly national identities remain intact.
 - **Week 6:** commit the force already built. A final limited support window repairs eligible damage and replaces aircraft; it does not deliver a freshly built carrier or an entire new escort fleet.
 
-The 139 enabled Workshop entries and 16 SEST source packs remain mapped in Appendices A–B. Purchasable entries are deliberately a much smaller subset. Opposing forces, neutral traffic, donor assets, UI improvements and future/historical branches all count toward using the collection without turning the Australian requisition screen into the entire mod browser. Unrestricted mode is a separate sandbox choice and is outside this story's balance.
+The 148 enabled Workshop entries and 20 SEST source packs are mapped in Appendices A–B (as of 4 Oct 2026, Appendix A still lacks seven of those mods and Appendix B four of those packs). Purchasable entries are deliberately a much smaller subset. Opposing forces, neutral traffic, donor assets, UI improvements and future/historical branches all count toward using the collection without turning the Australian requisition screen into the entire mod browser. Unrestricted mode is a separate sandbox choice and is outside this story's balance.
 
 ## 15. Service windows, ammunition and consequences
 
@@ -798,7 +798,7 @@ Passing static parsers is not passing these checks. No game process has been exe
 
 ## Appendix A. Complete Workshop coverage
 
-Every enabled Workshop token is listed below in canonical load order. Position includes `SEST_Integration` at position 1, so Workshop positions begin at 2. “Role” is the proposed campaign use, not an assertion that every file in that mod wins or has been tested. Some packs are required donors, overlapping alternatives, UI tools or shared systems. Keep those enabled without forcing them to spawn an extra unit.
+As of 4 Oct 2026 the table below omits seven enabled mods (Anduril FQ-44 Fury, RC-135V/W Rivet Joint, Identify Expanded, Euromod-South Korea Navy, Automatic SAR, Coordinated Strike Tool, MV-22B Osprey), and its positions no longer match the canonical order, which is `data/load-order.tokens.txt` (the pack's LOAD-ORDER.txt: 148 Workshop mods). Position includes `SEST_Integration` at position 1, so Workshop positions begin at 2. “Role” is the proposed campaign use, not an assertion that every file in that mod wins or has been tested. Some packs are required donors, overlapping alternatives, UI tools or shared systems. Keep those enabled without forcing them to spawn an extra unit.
 
 | Order | Workshop ID | Catalog title / status | Campaign role |
 |---:|---|---|---|
@@ -844,7 +844,7 @@ Every enabled Workshop token is listed below in canonical load order. Position i
 | 41 | `3594891803` | PLAN Submarines — active | Opposition: submarine threat for SW02, SW04 and SW10. |
 | 42 | `3774859959` | PLAN Type 001 Aircraft Carrier Liaoning — active | Opposition alternate: swap the carrier group for replay, rather than adding a second major fleet. |
 | 43 | `3774572038` | PLAN Type 071 Amphibious Transport Dock — active | Opposition / Red Line: support and amphibious transport objective, including Viper Zero seed. |
-| 44 | `3663564190` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 — active | Core opposing carrier: current owner of plan_cv_type_003; SW11. |
+| 44 | `3663564190` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 — active | Opposing carrier source until 3 Oct 2026; Modern PLAN Systems (3775128499) now ships plan_cv_type_003 above it, so this mod stays for its 25 unique PLAAF/PLAN rounds; SW11. |
 | 45 | `3436170138` | Shenyang J-11 — active | Opposition: distinct Flanker variants; avoid flooding the map with every subtype. |
 | 46 | `3486502935` | Type 003 Fujian / Type 004 CVN Aircraft Carriers — active | Support / Future Front: alternative carrier content and speculative Type 004; resolve actual winners. |
 | 47 | `3417801942` | Chinese Navy (PLAN) — active | Opposition / Support: PLAN and legacy hulls; overlapping carrier files require winner resolution. |
@@ -952,7 +952,8 @@ Every enabled Workshop token is listed below in canonical load order. Position i
 | `3426791311` | [DEPRECATED] Boeing F/A-18E/F Super Hornet | Excluded: unsubscribed in this snapshot; do not re-enable for the campaign. |
 | `3674240446` | Shahed-136 Drone | Excluded: unsubscribed in this snapshot; do not re-enable for the campaign. |
 | `3654230227` | AI Doctrine Overhaul | Excluded: unsubscribed in this snapshot; do not re-enable for the campaign. |
-| `3790594162` | Identify Expanded | Excluded: unsubscribed in this snapshot; do not re-enable for the campaign. |
+| `3504168760` | Dassault Rafale | Excluded: unsubscribed and out of the collection; the French Air Force mod (3758943352) supplies the Rafale family under the same unit ids. |
+| `3789793270` | Auto Time-on-Target | Excluded: unsubscribed 3 Oct 2026; Coordinated Strike Tool is the salvo planner kept. |
 
 ## Appendix B. SEST source-pack coverage
 

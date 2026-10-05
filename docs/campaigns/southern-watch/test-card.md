@@ -1,8 +1,9 @@
 # Southern Watch — first play test
 
-Nothing in this campaign has been run in the game. Everything below is a claim
-the build makes about files it wrote; this card is the order to falsify them
-in, riskiest first, and what "wrong" looks like for each.
+Only parts of this campaign have been watched in the game (the first installs
+and play tests recorded below). Everything else below is a claim the build
+makes about files it wrote; this card is the order to falsify them in,
+riskiest first, and what "wrong" looks like for each.
 
 Report back with the step number and what you saw. A step that fails stops
 that column, not the whole card — skip to the next section.
@@ -42,10 +43,12 @@ first; the detail lives where each line points:
 
 ## Install
 
-`docs/campaigns/southern-watch/install-alignment.md` is the full procedure,
-and it is worth following once: the last install reported IN LINE against a
-commit that contained none of this campaign, because the repo was on the wrong
-branch and the guard was pointed at the wrong one.
+`docs/campaigns/southern-reach/install-alignment.md` is the current full
+procedure (it covers all three campaigns). `install-alignment.md` in this
+folder keeps the failure story and its checks, and is worth reading once: an
+earlier install reported IN LINE against a commit that contained none of this
+campaign, because the repo was on the wrong branch and the guard was pointed
+at the wrong one.
 
 The short version, game **closed** (it rewrites `usersettings.ini` on exit):
 
@@ -57,8 +60,9 @@ powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 
 Expect `1 of 1` installed plus a `purged` line per old per-pack folder.
 
-One warning is **expected** and is not a fault: the
-`component ApproximateVersion values differ` note from the consolidation. A
+The `component ApproximateVersion values differ` note is no longer expected:
+it came from a build, which this short version does not run, and every
+component pack now declares the same version. A
 `dropped stale workshop entry` line should no longer appear - Automatic SAR,
 the MV-22B and the Korean navy are all catalogued - and if one does, it names
 a new subscription. Afterwards the Mod Manager should show **Automatic SAR**
@@ -363,7 +367,7 @@ will change the model rather than patch the symptom.
 | H.6 | Campaign screen, the Situation button (bottom right) | The PLAN theatre forces by class, the Fujian, Liaoning and Type 071 as flagships, the boats, the aircraft; an Iranian and a Russian block; nothing of ours | No button or an empty panel = the game did not read `enemy_theater_roster.ini` |
 | H.7 | After The Missing Beacon (beacon found), SW02 Steel Highway at T+0 and at T+16 min | A detected contact, unclassified, on the plot at the start where the bridge record put the boat; gone by sixteen minutes unless your sensors hold it | A classified track, or one that never ages off = the bare timed reveal is not read as intended: say which |
 | H.8 | Same mission: count the submarine symbols on the plot in the first five minutes | One | Two = the revealed datum and a sonar contact on the same boat are plotted twice: say how long they stay apart and whether they merge |
-| H.9 | Any loading screen, with the PLAAF Aircraft Pack enabled | Nineteen tips, in English, headed TIP | Chinese text = SEST Collection Fixes' `language_en/loading_tips.ini` is not winning the merge: check the pack sits at the top of the order |
+| H.9 | Loading screens, with the PLAAF Aircraft Pack enabled | The game's nineteen tips and eight that begin `SEST:`, all in English, headed TIP | Chinese text = SEST Collection Fixes' `language_en/loading_tips.ini` is not winning the merge: check the pack sits at the top of the order |
 | H.10 | D3 The Relief Ship, unit list; D6 Long Reach, unit list | Rafale 11 and 12 (Rafale M) over the French group; Rafale 41 (Rafale M Late) in the escort with the fit "SEST Intercept (AIM-260)" | A missing Rafale = the French Air Force mod is not loaded; a stock fit on Rafale 41 = SEST Rafale F5 is outranked |
 | H.11 | Editor: a Rafale M Late's loadout list | Four SEST fits (Intercept, InterceptMALICE, AntiShip LRASM, Intercept Heavy), the MALICE and LRASM ones with one round on the centreline and two wing tanks; the Rafale B and C Late show six, with the two three-tank LongRange fits | A floating or pylon-less round on the centreline = the seat name changed upstream: say which fit |
 | H.12 | SW09 Southern Lifeline: the Situation button before the mission, then the plot | A Russian surface entry for the trawler on the roster; in the mission an Okean-class trawler twelve miles north-east of the support group, holding its fire | The trawler shooting at the escort = its weapons-hold did not take: say what it fired |

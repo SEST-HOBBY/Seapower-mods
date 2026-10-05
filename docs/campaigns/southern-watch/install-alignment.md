@@ -1,9 +1,9 @@
 # Aligning a Sea Power install with this branch
 
-> The current procedure, with the counts for a pack that carries both
+> The current procedure, with the counts for a pack that carries all three
 > campaigns, is `../southern-reach/install-alignment.md`. This file is kept
-> for the failure it records and the checks it explains; its counts are
-> Southern Watch's alone.
+> for the failure it records and the checks it explains; its step counts are
+> from the Southern Watch-only builds.
 
 The procedure below exists because of one specific failure. On the last run
 the install reported
@@ -174,7 +174,7 @@ expected behaviour, not a fault.
 
 The `IN LINE` line after a sync on this branch should name the short hash
 `git log --oneline -1` printed in step 1; the counts above (388 files, 38 art
-PNGs plus 44 briefing charts, 35 entries, 143 order entries) are for the art-format commit after `b30ddbe3` and later builds of this branch.
+PNGs plus 44 briefing charts, 35 entries, 143 order entries) were for the art-format commit after `b30ddbe3`. The current build installs 1266 files with 149 order entries (148 Workshop mods + SEST_Integration); `../southern-reach/install-alignment.md` has the current figures.
 
 ## 6 — then play the card
 
@@ -189,7 +189,7 @@ riskiest-claim-first. It starts where this document stops.
 |---|---|
 | campaign absent from the list | `Get-ChildItem "$sa\campaigns\sest-southern-watch"` — if the folder is missing the install did not take; if it is there, the Mod Manager is not reading mod-supplied campaigns and the browser copies are your route in |
 | a mission loads with units missing | the missing unit names its mod — check that mod is subscribed and enabled: `.\tools\show-load-order.ps1` |
-| a texture or model fails | the pack ships 24 PNGs and they are all campaign art — the mission cards, the story sheets and the backdrop. Any unit texture or model belongs to the donor mod, so that failure names the mod to check, not this pack |
+| a texture or model fails | the pack ships 207 PNGs and they are all campaign art — 99 mission cards, story sheets and backdrops across the three campaigns, and 108 briefing charts. Any unit texture or model belongs to the donor mod, so that failure names the mod to check, not this pack |
 | the order looks wrong | `.\tools\show-load-order.ps1` prints live order beside canonical; `.\tools\fix-load-order.ps1` reconciles |
 | you are not sure what the game actually has | `.\tools\capture-context.ps1 -IncludeSaves` writes a full snapshot into `data\install-snapshot` — logs, live load order, subscriptions, build number and campaign saves |
 

@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""Build SEST Total Force 2026 - a twelve-mission linear campaign whose order
-of battle is drawn from the whole collection.
+"""Build the SEST campaign pack: Southern Watch, Southern Reach, Red Line.
+
+Southern Reach carries Tasman Shield as its second chapter, and each of the
+three also ships an Open Allocation twin. Their orders of battle are drawn
+from the whole collection.
 
 WHY THIS EXISTS
 
-128 Workshop subscriptions and 16 local packs are a lot of content to own and
+190 Workshop mods and 20 local packs are a lot of content to own and
 never see. The Banda vignettes reached for the mods the sandbox left idle, one
-family per scenario; this goes the rest of the way: a single campaign in which
-EVERY active mod that can put something on the map does, and the ones that
-cannot are named, with the reason, in docs/campaign-coverage.md.
+family per scenario; this goes the rest of the way: campaigns that between them
+place something from EVERY active mod that can put something on the map, and
+name the ones that cannot, with the reason, in their coverage reports
+(docs/campaign-coverage.md and docs/campaigns/*/coverage.md).
 
 "Incorporates all mods" is a claim about the load order, not about the folder
 list, so it is computed the way the game resolves files. A mod is credited
@@ -24,7 +28,7 @@ only when the campaign places a unit that actually reads one of its files:
 
 A mod placed in a mission but whose unit file is won by something else is
 credited to the winner, never to the loser. That distinction is the whole
-point: five mods here are invisible in game precisely because something above
+point: some mods here are invisible in game precisely because something above
 them replaces their files, and the report says so instead of counting them.
 
 WHY THE POSITIONS ARE HARVESTED, NOT INVENTED
@@ -3981,6 +3985,116 @@ def event_page(event):
         '</Viewbox>\n')
 
 
+# --- recognition photos in the briefing ------------------------------------
+# The briefing screen already shows images: BriefingMap_en.xml binds the map
+# PNG in the mission's _briefing folder by its file stem
+# (Source="{Binding Assets[<stem>]}"), and the stock Sub Duel briefing puts an
+# <Image> inside BriefingText_en.xml the same way. So the real photographs in
+# the SEST gallery (integration/gallery/source) can reach the game here, and
+# only here: no unit file has an image key, and the encyclopedia is a 3D
+# model viewer.
+#
+# Each mission lists the classes it places on the player's side and the enemy
+# side, one photo per class, from the gallery's load-order-aligned catalogue.
+# Only photos the gallery maps to the class itself or its family are used
+# (not context or concept stand-ins, not the ones graded P1), and units that
+# appear only on a condition (spawn_if) are left out so a carried-over choice
+# is not given away. Neutral traffic is mostly stock hulls with no photo.
+GALLERY = ROOT / "integration" / "gallery" / "source"
+REC_STATUSES = {"exact", "family_reference", "family_or_component_reference",
+                "upgrade_base_reference"}
+REC_MAX = 8
+REC_WIDTH = 400
+
+
+@functools.lru_cache(maxsize=None)
+def gallery_catalogue():
+    """{unit id (lower case): (entry, asset)} for the copy the game loads."""
+    js = GALLERY / "catalogue.js"
+    if not js.is_file():
+        return {}
+    import json
+    cat = json.loads(re.match(r"window\.CATALOGUE=(.*);\s*$",
+                              js.read_text(encoding="utf-8"), re.S).group(1))
+    assets = {a["asset_id"]: a for a in cat["assets"]}
+    out = {}
+    for e in cat["entries"]:
+        a = assets.get(e.get("asset_id") or "")
+        if (not e.get("is_winning_copy") or not a
+                or e.get("mapping_status") not in REC_STATUSES
+                or (a.get("quality_review") or {}).get("priority") == "P1"):
+            continue
+        out[e["unit_id"].lower()] = (e, a)
+    return out
+
+
+def photo_credit(asset):
+    # photos the SEST author supplied before writing their credit
+    if asset.get("origin") == "sest_author_supplied" and asset.get("creator") == "Credit to be added":
+        return "Photo supplied by the SEST author"
+    who = re.sub(r"https?://\S+", "", asset.get("creator") or "")
+    who = re.sub(r"\s+", " ", who).strip(" ,;") or "see PHOTO_CREDITS.txt"
+    if len(who) > 70:
+        who = who[:67].rstrip() + "..."
+    lic = (asset.get("license") or "").strip()
+    return f"Photo: {who}" + (f" · {lic}" if lic and lic != "Not recorded" else "") + " · resized"
+
+
+def recognition(mission):
+    """[(stem, entry, asset)] for the briefing, the player's side first."""
+    cat = gallery_catalogue()
+    picked, seen = [], set()
+    for side in ("blue", "red"):
+        for u in mission["units"]:
+            if u["side"] != side or u.get("spawn_if"):
+                continue
+            hit = cat.get(u["type"].lower())
+            if not hit or hit[1]["asset_id"] in seen:
+                continue
+            seen.add(hit[1]["asset_id"])
+            picked.append((f"sest_rec_{hit[1]['asset_id']}", hit[0], hit[1], side))
+    return picked[:REC_MAX]
+
+
+@functools.lru_cache(maxsize=None)
+def recognition_png(asset_file):
+    """The gallery photo scaled to the briefing column, as PNG bytes."""
+    import io
+    from PIL import Image
+    im = Image.open(GALLERY / asset_file).convert("RGB")
+    h = round(im.height * REC_WIDTH / im.width)
+    im = im.resize((REC_WIDTH, h), Image.LANCZOS)
+    buf = io.BytesIO()
+    im.save(buf, "PNG", optimize=True)
+    return buf.getvalue()
+
+
+def recognition_xml(picked):
+    if not picked:
+        return ""
+    cells = []
+    for stem, entry, asset, side in picked:
+        note = "" if entry["mapping_status"] == "exact" else " (class photo)"
+        # some units carry their file id as their name; the photo's subject reads better
+        label = entry["label"]
+        if "_" in label or label.lower() == entry["unit_id"].lower():
+            label = asset["label"]
+        who = "Your forces" if side == "blue" else "Expected opposition"
+        cells.append(
+            '<StackPanel Width="420" Margin="0,0,16,16">'
+            f'<Image Source="{{Binding Assets[{stem}]}}" Width="{REC_WIDTH}" HorizontalAlignment="Left"/>'
+            f'<TextBlock FontSize="15" Margin="0,6,0,0" TextWrapping="Wrap" '
+            f'Text="{xml_escape(label + note)}"/>'
+            f'<TextBlock FontSize="12" TextWrapping="Wrap" Opacity="0.7" '
+            f'Text="{xml_escape(who + ". " + photo_credit(asset))}"/>'
+            '</StackPanel>')
+    return ('<TextBlock FontSize="20" Margin="0,14,0,6" Text="RECOGNITION"/>'
+            '<TextBlock FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" Opacity="0.8" '
+            'Text="Real photographs of the classes in this operation. Full credits: '
+            'Gallery\\PHOTO_CREDITS.txt in the SEST Integration Pack folder."/>'
+            '<WrapPanel>' + "".join(cells) + '</WrapPanel>')
+
+
 def briefing_page(mission):
     parts = []
 
@@ -4019,6 +4133,7 @@ def briefing_page(mission):
         section("RULES OF ENGAGEMENT",
                 "All designated neutral contacts are protected. A protected "
                 "neutral loss cancels the operation. Identify before you shoot.")
+    parts.append(recognition_xml(recognition(mission)))
     # Installation and provider details remain in REQUIRED-MODS.txt and the
     # coverage report; the operational briefing contains only the orders.
     return BRIEF_XML.format(body="".join(parts))
@@ -4991,8 +5106,11 @@ def report(rows, missions, worst, unused=(), coast=(), pooled=None):
     meaning["shadowed"] = ("every file it ships is outranked by something above "
                            "it; nothing it contains can load")
     meaning["campaign"] = "this pack - the campaign being measured"
+    meaning["external"] = ("in the collection for a third-party campaign or "
+                           "scenario, or as content none of these campaigns places; "
+                           "required all the same (SETUP checks every mod in the order)")
     for how in ("unit", "variant", "squadron", "roster", "store", "asset",
-                "library", "shadowed", "campaign"):
+                "library", "shadowed", "external", "campaign"):
         if counts.get(how):
             L.append(f"| `{how}` | {meaning[how]} | {counts[how]} |")
     # Only a "pool" mission snaps to proven points; a "coast" one keeps its
@@ -5043,8 +5161,9 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
 
     `rows` and `missing` are what the campaign itself plays - its missions
     and its roster; `dispatches` are the rows only its browser Dispatches
-    need (dispatch_only), listed apart so a player of the campaign alone
-    knows what they can leave out.
+    need (dispatch_only), listed apart so a player can see which mods only
+    the Dispatches use. They stay installed all the same: every one is in
+    LOAD-ORDER.txt, and SETUP stops if any mod there is missing.
 
     Computed from the same coverage rows as the pack-level file, so it cannot
     name a mod the campaign's missions do not reach; the pack-level
@@ -5054,6 +5173,7 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     packs = [r for r in rows if r[2] in NEEDED and not r[5].isdigit()]
     libs = [r for r in rows if r[2] in ("library",) and r[5].isdigit()]
     shadowed = [r for r in rows if r[2] == "shadowed"]
+    external = [r for r in rows if r[2] == "external" and r[5].isdigit()]
     promoted, elsewhere = prerequisites(
         need, [r for r in rows if r[2] not in NEEDED and r[5].isdigit()])
     key = lambda r: r[1].lower()
@@ -5076,18 +5196,28 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     if disp:
         L += ["", f"1b. ONLY FOR THE DISPATCHES ({len(disp)}): the optional browser "
               f"missions in missions/{dispatch_folder} place these; the campaign",
-              "itself never loads them. Leave them out if you only play the campaign.", ""]
+              "itself never loads them. Keep them installed anyway: SETUP checks every",
+              "mod in LOAD-ORDER.txt and stops if one is missing.", ""]
         for _mid, t, how, _d, _m, token in sorted(disp, key=key):
             L.append(f"  {token:<13} {NEEDED[how]:<32} {t}")
     L += ["", f"2. SEST INTEGRATION PACKS ({len(packs)}): this project's own patches, "
-          "inside the consolidated download.", ""]
+          "already inside this pack (SEST Integration Pack, Workshop 3812461539);",
+          "there is nothing more to subscribe to.", ""]
     for _mid, t, how, _d, _m, token in sorted(packs, key=key):
         L.append(f"  {'(local)':<13} {NEEDED[how]:<32} {t}")
     L += ["", f"3. INSTALL-WIDE LIBRARIES AND UI ({len(libs)}): ship no file a mission "
-          "names. Optional unless a mod in list 1 asks for them (Anchor Chain",
-          "is asked for; the map, salvo and rescue tools are conveniences).", ""]
+          "names. Keep them installed anyway: SETUP stops if any mod in",
+          "LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks",
+          "for; the map, salvo and rescue tools are conveniences.)", ""]
     for _mid, t, how, _d, _m, token in sorted(libs, key=key):
         L.append(f"  {token:<13} {'library':<32} {t}")
+    if external:
+        L += ["", f"3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT ({len(external)}): "
+              "in the collection for", "campaigns and scenarios this one does not "
+              "include. Keep them installed anyway: SETUP", "stops if any mod in "
+              "LOAD-ORDER.txt is missing.", ""]
+        for _mid, t, how, _d, _m, token in sorted(external, key=key):
+            L.append(f"  {token:<13} {'other campaigns':<32} {t}")
     dispatch_tokens = {r[5] for r in dispatches}
     unused = [(mid, token, t) for _w, mid, token, t in missing
               if token not in dispatch_tokens] + \
@@ -5177,6 +5307,8 @@ def requirements(rows):
     packs = [r for r in rows if not r[5].isdigit()]
     promoted, elsewhere = prerequisites(need, rest)
     rest = [r for r in rest if r not in promoted]
+    external = [r for r in rest if r[2] == "external"]
+    rest = [r for r in rest if r[2] != "external"]
     key = lambda r: r[1].lower()
     L = [f"{TITLE.upper()} - required Steam Workshop mods", "",
          "TRY SETUP FIRST. \"SETUP - double-click me.cmd\" in this folder checks",
@@ -5226,11 +5358,19 @@ def requirements(rows):
           "by something above them. The campaign does not call for them.", ""]
     for _mid, title, how, _detail, _mission, token in sorted(rest, key=key):
         L.append(f"{token:<13} {how:<32} {title}")
+    if external:
+        L += ["", "-" * 74, "",
+              f"In the collection for other campaigns and scenarios ({len(external)}):",
+              "the third-party campaigns the collection carries, the mods they",
+              "place, and content none of these three campaigns uses. They are in",
+              "LOAD-ORDER.txt, so SETUP still requires them.", ""]
+        for _mid, title, how, _detail, _mission, token in sorted(external, key=key):
+            L.append(f"{token:<13} {'other campaigns':<32} {title}")
     L += ["", "-" * 74, "",
-          "Not from the Workshop. These are this project's own packs. If you",
-          "have the consolidated download - one mod folder carrying everything",
-          "- they are already inside it and there is nothing to subscribe to;",
-          "the repository also builds each of them on its own.", ""]
+          "Not separate Workshop items. These are this project's own packs, and",
+          "every one of them is already inside this folder (the SEST Integration",
+          "Pack, Workshop item 3812461539) - there is nothing more to subscribe",
+          "to; the repository also builds each of them on its own.", ""]
     for _mid, title, how, _detail, _mission, token in sorted(packs, key=key):
         L.append(f"{'(local)':<13} {how:<32} {title}")
     L += ["", "-" * 74, "",
@@ -5247,12 +5387,19 @@ def requirements(rows):
 
 
 def required_urls(rows):
-    """Every required mod as a Workshop URL, in load-order sequence.
+    """Every mod one campaign reaches (its Dispatches included), as a Workshop
+    URL, in load-order sequence: the ones its missions reach, plus any a
+    reached mod says it cannot run without.
 
-    For setting the published item's Required Items. Steam resolves
-    dependencies itself once they are set, and the game's Mod Manager Sync
-    walks them - which is the only reason a 133-mod campaign is a reasonable
-    thing to publish at all.
+    A reference list for the publisher - NOT input for the Workshop item's
+    Required Items. The pack is published as ONE item (SEST Integration Pack -
+    Modernised Campaigns, 3812461539) whose Required Items are left EMPTY on
+    purpose: the Mod Manager's dependency check ('Must load above this mod')
+    offers to move every required item above the pack, which undoes every fix
+    in it. Players get the mods from the collection 'SEST - Modernised
+    Campaign Collection' (3812390790: every Workshop mod in
+    data/load-order.tokens.txt, plus the pack). Do not rely on the Mod
+    Manager's Sync for this pack.
     """
     need = [r for r in rows if r[2] in NEEDED and r[5].isdigit()]
     promoted, elsewhere = prerequisites(need, [r for r in rows
@@ -5261,17 +5408,22 @@ def required_urls(rows):
     rank = {t: i for i, t in enumerate(load_order())}
     both = need + list(promoted)
     both.sort(key=lambda r: rank.get(r[5], 10**6))
-    L = [f"{TITLE} - Required Items for the Workshop listing", "",
-         f"{len(both)} items, in canonical load order. Paste each into the",
-         "published item's Required Items box. Generated by build_pack.py from",
+    L = [f"{TITLE} - Workshop mods this campaign reaches (reference only)", "",
+         f"{len(both)} items, in canonical load order. NOT for the Workshop",
+         "item's Required Items box. All three campaigns ship in one item, the SEST",
+         "Integration Pack (3812461539), which keeps that box empty on purpose:",
+         "the Mod Manager's dependency check ('Must load above this mod') offers",
+         "to move required items above the pack, which undoes every fix in it.",
+         "Players get these mods from the collection 'SEST - Modernised",
+         "Campaign Collection' (3812390790). Generated by build_pack.py from",
          "the same coverage rows REQUIRED-MODS.txt uses, so it cannot name a",
          "mod the campaign does not reach.", ""]
     for row in both:
         L.append(f"https://steamcommunity.com/sharedfiles/filedetails/?id={row[5]}"
                  f"    # {row[1]}")
     if elsewhere:
-        L += ["", "NOT IN THE COLLECTION - find the id yourself before "
-                  "publishing:"]
+        L += ["", "NOT IN THE COLLECTION - players install these by hand, as the",
+              "pack-level REQUIRED-MODS.txt tells them; never add one to Required Items:"]
         for name, askers in sorted(elsewhere.items()):
             L.append(f"  {name}  (required by {', '.join(sorted(set(askers)))})")
     L.append("")
@@ -5283,7 +5435,7 @@ def load_order_text():
 
     With TITLES. The order is stored as workshop ids because that is what
     usersettings.ini stores, but the Mod Manager shows a player names - and a
-    list of 140 bare numbers is not something a human can check an install
+    list of 190 bare numbers is not something a human can check an install
     against, which is the only reason this file ships.
     """
     data = catalog()
@@ -5518,8 +5670,9 @@ def main():
 
     # The pack's coverage rule: every enabled mod is placed by SOME campaign
     # in the pack, or excused in writing. A second campaign does not have to
-    # reach all 135 mods on its own - the spec for Southern Reach says it must
-    # not - but nothing in the load order may go unaccounted for.
+    # reach every mod in the load order on its own - the spec for Southern
+    # Reach says it must not - but nothing in the load order may go
+    # unaccounted for.
     rows, missing = coverage(pack_credits, excuses)
     if missing and not (args.only or args.campaign):
         print("\nNOT INCORPORATED — every active mod must be placed or excused:")
@@ -5599,6 +5752,8 @@ def main():
                 encoding="utf-8")
         (brief / "BriefingText_en.xml").write_text(briefing_page(mission),
                                                    encoding="utf-8")
+        for stem, _entry, asset, _side in recognition(mission):
+            (brief / f"{stem}.png").write_bytes(recognition_png(asset["file"]))
 
     def info(name, desc, general="[General]\nType=Scenario\n\n", tail=""):
         """A folder's _info.ini.
@@ -5733,9 +5888,11 @@ def main():
                                        unused=c["missing"], coast=c["coast"],
                                        pooled=c["pooled"]),
                                 encoding="utf-8")
-        # Publisher-facing, so it stays in docs/ rather than in the download:
-        # the Workshop's Required Items box takes one item at a time, and 133
-        # of them typed by hand is 133 chances to fat-finger an id.
+        # A reference list for the publisher, kept in docs/ rather than the
+        # download. It is NOT for the Workshop item's Required Items, which
+        # stay empty on purpose (the Mod Manager's dependency check offers to
+        # move every required item above the pack, which undoes its fixes);
+        # players get the mods from the collection 3812390790.
         DOCS_DIR.mkdir(parents=True, exist_ok=True)
         (DOCS_DIR / "required-mods-urls.txt").write_text(required_urls(c["rows"]),
                                                          encoding="utf-8")

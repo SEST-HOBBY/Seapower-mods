@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Merge the 15 per-pack SEST outputs into one deployable pack.
+"""Merge every per-pack SEST output (integration/*/SEST_*) into one pack.
 
-Fifteen Mod Manager entries meant fifteen chances for something to jump over a
-SEST pack and silently disable it — the exact way SEST_Growler_NGJ_MALICE once
-went inert. One consolidated pack collapses that entire failure class: there
-is one SEST entry, it sits at the top, done.
+Fifteen Mod Manager entries (as there were before this) meant fifteen chances
+for something to jump over a SEST pack and silently disable it — the exact way
+SEST_Growler_NGJ_MALICE once went inert. One consolidated pack collapses that
+entire failure class: there is one SEST entry, it sits at the top, done.
 
 The per-pack folders under integration/*/SEST_* remain the build units (each
 builder stays independently runnable and the checkers compute their rules from
@@ -14,11 +14,11 @@ SEST_Integration, which is the only thing tools/install-sest-packs.ps1 deploys.
 Merge rules, in the order they are tried per colliding path:
 
   identical bytes            -> keep one copy (e.g. ammunition/sest_aim-424.ini,
-                                shipped identically by five packs)
+                                shipped identically by several packs)
   language_*/ *.ini          -> key-level merge under each [Section]. The game
                                 itself merges language files across mods, so
                                 this reproduces in one file what the game
-                                already computed from fifteen.
+                                already computed from the separate packs.
   systems/*.ini              -> section-level merge (sensor definitions).
   _info.ini                  -> regenerated for the consolidated pack.
   anything else              -> ERROR. Two packs shipping different bytes at

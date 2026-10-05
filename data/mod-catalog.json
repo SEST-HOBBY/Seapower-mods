@@ -1,11 +1,11 @@
 {
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
-    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack.",
-    "count": 154,
+    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield).",
+    "count": 196,
     "field_notes": {
-      "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, multi, civilian, utility)",
-      "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian",
+      "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, thailand, multi, civilian, utility)",
+      "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian | campaign (a third-party mission or campaign pack that ships no units of its own)",
       "status": "active | deprecated | wip | unsubscribed",
       "requires": "Dependencies from the mod description; entries marked (inferred) are this repo's inference, not an author statement",
       "load_order": "Author's explicit placement instruction only (quoted); repo recommendations live in notes",
@@ -174,6 +174,12 @@
         "SEST_Replenishment",
         "SEST_TacMap_Colors"
       ]
+    },
+    {
+      "folder": "SEST_Gallery",
+      "source": "integration/gallery",
+      "builder": "build_patch.py",
+      "title": "SEST Gallery"
     }
   ],
   "mods": [
@@ -185,7 +191,7 @@
       "faction": "australia",
       "type": "fixed-wing",
       "status": "deprecated",
-      "notes": "RAAF AEW&C, Boeing 737 NG with MESA radar. Marked deprecated by author — unsubscribe candidate."
+      "notes": "RAAF AEW&C, Boeing 737 NG with MESA radar. Marked deprecated by its author, but KEEP: it is the only source of E7A_Wedgetail, which missions in all three campaigns place (Southern Watch from Steel Highway on, Southern Reach/Tasman Shield, Red Line), the Southern Watch and Southern Reach rosters sell, and SEST RAAF Wedgetail patches. It stays in the load order and in the published collection on purpose - do not unsubscribe it."
     },
     {
       "id": "raaf-f-35a",
@@ -278,7 +284,7 @@
       "faction": "australia",
       "type": "rotary",
       "status": "deprecated",
-      "notes": "RAN ASW/ASST Seahawk. Marked deprecated by author — unsubscribe candidate. Description body still says 'currently WIP' — the text may predate the [DEPRECATED] title; confirm current state before unsubscribing."
+      "notes": "RAN ASW/ASST Seahawk. Marked deprecated by its author, but KEEP: it is the only source of S-70B-2_Seahawk, which the campaigns place (Before the Lifeline). SEST RAN Fleet's decks and air groups and SEST Collection Fixes' squadron table build on it. It stays in the load order and in the published collection on purpose - do not unsubscribe it. (Its description body still says 'currently WIP'.)"
     },
     {
       "id": "b-52g-agm-86",
@@ -1653,7 +1659,7 @@
       "overlaps": [
         "euromod-british (redundant Type 23 hulls under different unit ids — clutter, not conflict)"
       ],
-      "notes": "Tagged [OLD] by its author. VERIFIED 2026-08-24: uses its OWN unit ids (rn_type23, rn_type23_refit) and shares no asset paths with the Euromod British pack — it is additive, NOT a conflict, and no threat to the SEST RAN Anzac clone. Keep or drop purely for menu tidiness."
+      "notes": "Tagged [OLD] by its author. VERIFIED 2026-08-24: uses its OWN unit ids (rn_type23, rn_type23_refit) and shares no asset paths with the Euromod British pack — it is additive, NOT a conflict. Not optional: Western Passage places its rn_type23_refit, so keep it subscribed and in the collection."
     },
     {
       "id": "auxilliary-merchant-pack",
@@ -1760,7 +1766,7 @@
       "faction": "multi",
       "type": "weapons",
       "status": "active",
-      "notes": "Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed last so it loses all 13 and keeps only its unique content."
+      "notes": "Workshop 3413868677. Largest mod in the collection - 1062 files, 638 of them content nothing else ships (230 vessels, 192 ammunition, 142 aircraft, 74 land units). BOTTOM OF THE ORDER: it also bundles 13 files that specialist mods define better. Its usn_aim_120d is a downgrade (1600 kt / 80 nm and DragCoefficient=-1, vs Murder Hornet's 2667 kt / 97 nm), and it duplicates usn_e-2d, the F-18 drop tanks, Mk54 and Nixie from Euromod, and PLAN gun ammunition. Placed at the bottom (only RE-power, which shares none of its files, sits below it) so it loses all 13 and keeps only its unique content."
     },
     {
       "id": "euromod-anchorchain-expansion",
@@ -2052,7 +2058,600 @@
         "j-8 (3433577445) - the same J-8B/E/F and JZ-8F files, 13, kept by the specialist mod",
         "fujian-cv-18, type-003-004-maneuverwarfare, pla-plan-plaaf-aep, j-10c, j-16a, jh-7a, mig-29-family, su-25 - 27 shared PL-, LS-, KD- and tank rounds, all kept by the mods above it"
       ],
-      "notes": "An integration pack of PLAAF airframes - the H-6J, H-6K early and late, H-6N bombers, the J-10A and J-10C, the J-11 family with the J-11BG/BGH/BH, the J-16 and J-16D, the J-7E/II/IIIA and J-8B/E/F with the JZ-8F - 79 rounds, and its own sensors and weapons sections. BOTTOM OF THE ORDER (above Red Storm Arsenal only): it contests 56 files and loses every one to the specialist mods, so what loads is its 67 unique files - the H-6 family, the J-7s, the J-10A, the J-11BGH/BH, 39 rounds (the YJ-12, YJ-21, CJ-20, KD-20 class) - and its merged systems sections. TWO LANGUAGE FAULTS, both met in the first session with it (3 Oct 2026): language_en/loading_tips_plaaf.ini is a [LoadingTips] section in Chinese filed under the English folder, and because the merge is key-by-key under vanilla's own key names (Count, Header, Tip001...) it replaced every loading-screen tip in the game with Chinese text; SEST Collection Fixes now ships vanilla's English loading_tips.ini verbatim from the top of the order, which gives every key back. Its language_en/ammunition_names.ini names the H-6J's RKL-600 ESM pod in Chinese; Collection Fixes names it in English. ApproximateVersion 0.7.10, so the Mod Manager marks it for the game version. Southern Watch's Fujian's Shadow flies an H-6K Late with four YJ-12 as the enclave's land-based anti-ship shooter."
+      "notes": "An integration pack of PLAAF airframes - the H-6J, H-6K early and late, H-6N bombers, the J-10A and J-10C, the J-11 family with the J-11BG/BGH/BH, the J-16 and J-16D, the J-7E/II/IIIA and J-8B/E/F with the JZ-8F - 79 rounds, and its own sensors and weapons sections. BOTTOM OF THE ORDER (above only Red Storm Arsenal and RE-power): it contests 56 files and loses every one to the specialist mods, so what loads is its 67 unique files - the H-6 family, the J-7s, the J-10A, the J-11BGH/BH, 39 rounds (the YJ-12, YJ-21, CJ-20, KD-20 class) - and its merged systems sections. TWO LANGUAGE FAULTS, both met in the first session with it (3 Oct 2026): language_en/loading_tips_plaaf.ini is a [LoadingTips] section in Chinese filed under the English folder, and because the merge is key-by-key under vanilla's own key names (Count, Header, Tip001...) it replaced every loading-screen tip in the game with Chinese text; SEST Collection Fixes now ships vanilla's English loading_tips.ini text from the top of the order, every key back at its vanilla value, with eight SEST tips numbered behind the game's nineteen. Its language_en/ammunition_names.ini names the H-6J's RKL-600 ESM pod in Chinese; Collection Fixes names it in English. ApproximateVersion 0.7.10, so the Mod Manager marks it for the game version. Southern Watch's Fujian's Shadow flies an H-6K Late with four YJ-12 as the enclave's land-based anti-ship shooter."
+    },
+    {
+      "id": "second-northern-war",
+      "workshop_id": "3709961172",
+      "title": "The Second Northern War",
+      "author": "unknown",
+      "faction": "russia",
+      "type": "campaign",
+      "status": "active",
+      "requires": [
+        "3410473695",
+        "3412480633",
+        "3520352434",
+        "3595014060",
+        "3681748718",
+        "3413868677",
+        "3575847216",
+        "3597650470",
+        "3434072450",
+        "3587877691",
+        "3444379330",
+        "3642656500",
+        "3508275114",
+        "3437105712",
+        "3601891050",
+        "3524112296",
+        "3451166840",
+        "3558173926",
+        "3497601759",
+        "3514484654"
+      ],
+      "load_order": "Directly below NATO Ground Enhancement Series 2: Artillery, above Modern Chinese Airbase (Large); it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Third-party campaign of six missions (01 Dawn of Narva to 06 Reckoning for Moonsund): a May 2027 Russia-NATO war in the Baltic, played from the Russian side in all six (PlayerTaskforce=Taskforce2). It has English and Russian briefings and a Russian name set for the units it uses (language_ru, 2,597 keys). It ships no unit, round or systems file.\n\nIts 471 placed units resolve only with five of the 4 Oct 2026 export's new subscriptions in the order:\n- Ground Upgrade: MBT and IFV (Tallinn Gate's Leopard 2A4 and Marder 1A3 against T-72B and BMP-2)\n- JAS-39 Gripen\n- NATO E-3A Sentry\n- ISKANDER-M (THE REDFOR MOD ships the same Iskander-M files byte for byte)\n\nFour hull variants it names exist in no copy: a Polish Perry as Variant35 and three fishing boats as Variant6. Fourteen airborne aircraft name no LoadoutVariant where the winning file offers no Default. Every mission's [Environment] says Date=1985. Its briefing folder is given as missions\\Baltica1\\missions\\The Second Northern War\\SNW_briefing\\..., a path the mod does not ship. None of its missions places the two FallschimJager705 artillery packs subscribed with it."
+    },
+    {
+      "id": "ground-upgrade-mbt",
+      "workshop_id": "3410473695",
+      "title": "Ground Upgrade: MBT",
+      "author": "misaka",
+      "faction": "multi",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below Mi-8 T/TV, above Apex Predators MIG-29A & F-16A: below Ground upgrade: SPAA, Charles de Gaulle and French Army, whose shared weapon sections ([23mm_ZSU-23-4], [M2]) must keep their values.",
+      "notes": "By misaka, the Ground Upgrade: SPAA author. Seven tanks: M1A1HC Abrams, Leopard 2A4, Challenger 1 (FV4030/4), T-72B mod. 1989, T-72M1, T-55AMD-1 and 2S25 Sprut-SD, with 16 new rounds including the gun-launched 9M117 and 9M119. None of its 20 ammunition files carries AmmoPoints, so a supplier rearms them for nothing.\n\nIt also replaces three vanilla tank rounds none of its tanks fires: usn_cal_105mm (Abrams, M60, Type 74), wp_cal_100mm_d10 (T-55 family) and wp_cal_125mm (T-72A). Its copies are in an older format that drops AmmoPoints, Mass, the area keys and RequiresLOS=True, and cuts MaxRange from 4,000-4,200 m to 2,200-2,400 m. It is the only mod shipping them, so they load at any position, including in the SEST missions that place those tanks.\n\nIts [M2], [23mm_ZSU-23-4], [2A46_9M119] and [L11A5] weapon sections share names with Charles De Gaulle & Modern French Navy, French Army Vehicles, Ground Upgrade: SPAA, the PLA Land Unit Pack and The Royal Navy. Below the first four, it adds only ModuleType=OpenMount to [M2] and a muzzle effect to [2A46_9M119]. [L11A5] goes to whichever of it and The Royal Navy ranks higher. The Second Northern War's Tallinn Gate places its Leopard 2A4 (9) and T-72B (20)."
+    },
+    {
+      "id": "ground-upgrade-ifv",
+      "workshop_id": "3412480633",
+      "title": "Ground Upgrade: IFV",
+      "author": "misaka",
+      "faction": "multi",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below Pickup truck extension, above AVIC HARBIN Z-21: below KC-135 so the game's [TOW_M2] keeps applying to the Bradley and CB90, and below French Army (Milan material).",
+      "notes": "By misaka. Five infantry fighting vehicles: BMP-1, BMP-2, Warrior FV510 and FV510UA, and Marder 1A3, with Malyutka, Konkurs and Milan missiles. None of its 10 ammunition files carries AmmoPoints. It ships the collection's only animations_usa_ifv_bradley.ini, which the PLA Land Unit Pack's ZBL-08, ZTL-11, ZBD-04A and HJ-10 carrier also name.\n\nIt also replaces two vanilla rounds that none of its vehicles carries, and wins both at any position:\n- usn_cal_25mm_m2, the Mk 38 round on 40 SEST destroyer and frigate files, loses AmmoPoints=0.5 and Mass and gains an anti-air secondary role, with CEP 100 m (vanilla 40).\n- usa_bgm-71a (TOW-1) loses AmmoPoints=30 and its IOC/FOC dates, and gains MinLaunchAltitude=150 ft and Mass=90 (vanilla 0 and 20).\n\nIts edit to vanilla's [TOW_M2] launcher (ReloadTime 120 to 40 s, new attachment points) is outranked below Tu-95MS, where four mods restate vanilla's values. The Second Northern War's Tallinn Gate places its Marder 1A3 (9) and BMP-2 (16)."
+    },
+    {
+      "id": "russian-ground-artillery",
+      "workshop_id": "3603306548",
+      "title": "Russian Ground Enhancement Series 1: Artillery",
+      "author": "FallschimJager705",
+      "faction": "russia",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below Type 12 SSM-ER Anti-Ship Missile System, above NATO Ground Enhancement Series 2: Artillery; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "By FallschimJager705, author of the Type 12 SSM-ER. Two Russian self-propelled howitzers, the 2S19 Msta-S and the wheeled 2S43 Malva. Each fires an unguided 152 mm shell (27.5 km and 25 km) and a laser-homing one (GuidanceType=5; 14.8 and 13.5 NM). All four rounds are priced (AmmoPoints 43.2 and 73.2). It ships eight files nothing else ships and four weapon sections no other mod defines. Both units fly the Soviet flag. It was subscribed alongside The Second Northern War, none of whose six missions places it."
+    },
+    {
+      "id": "nato-ground-artillery",
+      "workshop_id": "3603367264",
+      "title": "NATO Ground Enhancement Series 2: Artillery",
+      "author": "FallschimJager705",
+      "faction": "multi",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below Russian Ground Enhancement Series 1: Artillery, above The Second Northern War; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "By FallschimJager705. Two self-propelled howitzers: the PzH 2000 (German, Greek, Italian and Dutch variants) and the K9 (South Korean, Polish, Norwegian and Finnish variants). Each fires an unguided 155 mm shell (38 km and 46 km) and a laser-homing one (13.5 and 14.8 NM). All four rounds are priced (AmmoPoints 43.2 and 73.2). It ships eight files nothing else ships and four weapon sections no other mod defines. It was subscribed alongside The Second Northern War, none of whose six missions places it."
+    },
+    {
+      "id": "ultimate-missile-workshop",
+      "workshop_id": "3672072359",
+      "title": "Ultimate Missile Workshop",
+      "author": "unknown",
+      "faction": "multi",
+      "type": "patch",
+      "status": "active",
+      "requires": [
+        "3380210757"
+      ],
+      "load_order": "Directly below PLAAF Aircraft Pack, above Red Storm Arsenal: its author asks for 'above all', which would take 91 rounds and break the Gripen's AIM-120C-7 and four SEST-metered SAMs; here it loses every file it shares, on the player's decision of October 2026 to keep it subscribed.",
+      "notes": "Workshop 3672072359. Missile rebalance, text only: 111 ammunition files and a systems/sensors.ini with 19 sensor sections, no units. 95 of the ammunition files replace rounds other mods ship (Euromod, Ground upgrade: SPAA, the Flanker, J-11, Kuznetsov and Russian Navy 21 mods, Dingtools, Eurofighter, French Air Force, SAM Pack and 12 more); 43 are Anchor Chain #!alias stubs that fold variants onto UMW's own bases, every AIM-120C onto ac_aim-120c and every AIM-120D onto ac_aim-120d. The author asks for the top of the list and targets game 0.7.10. BOTTOM OF THE ORDER, deliberately: placed high it would retune rounds SEST loadouts hang (dts_aim-120d-3 on the F-15EX Revamp, usaf_aim-120c7 on the RAAF F-35A, the usn_aim-174b the SEST AIM-424 is aligned to), drop SEST_LongRangeSAM metering from four Euromod-chained S-300/S-400 rounds, give the YJ-91 the Kh-31A's active seeker, alias Gripen's AIM-120C-7 LQS to a file nothing ships and drop MaxTurnG from 40 rounds. Where it sits it loads nothing in use: its 16 unique rounds are hung by no unit, and every sensor key it sets loses to a higher definition. It also ships idf_stunner.ini, which stops SEST Intercept Model's sole-provider guard until that is decided. **Requires:** Anchor Chain (inferred from its #!alias files)."
+    },
+    {
+      "id": "jas-39-gripen",
+      "workshop_id": "3520352434",
+      "title": "JAS-39 Gripen",
+      "author": "unknown",
+      "faction": "europe",
+      "type": "fixed-wing",
+      "status": "active",
+      "load_order": "Directly below F-8 Crusader, above PLAAF Aircraft Pack: below French Air Force so the French [Damoncles] pod values hold, and above Ultimate Missile Workshop so its own AIM-120C-7 (usaf_aim-120c7_LQS) loads.",
+      "notes": "Saab JAS-39 Gripen (se_jas-39, Role=Fighter,Bomber, 670 kt at sea level, Mach 2.0) with the PS-05/A Mk4 AESA (222 km), Skyward-G IRST, SPK-39 laser pod and a BK-27 with 512 rounds. One Swedish squadron and nine loadouts: AirToAir, AirToAirLongRange, Strike, StrikeHeavy, StrikePrecision, StrikeLongRangeEG (one SCALP-EG), StrikeLongRange350 (two KEPD 350), CAS and AntiShip (two RBS-15F). Also a Swedish airbase, se_airbase_JAS_39: vanilla's Akureyri airfield with 12 Gripens and a 1980s US air group. Ten rounds, all priced with AmmoPoints except the 1200 L tank. Four of them (eu_iris-t_LQS, fr_meteor_LQS, usaf_aim-120c7_LQS, usn_aim-9x_LQS) are also shipped by Ultimate Missile Workshop as #!alias stubs, and the Gripen must rank above it: UMW's usaf_aim-120c7_LQS aliases ammunition/usaf_aim-120c-7.ini, which no mod ships, so under UMW the AIM-120C-7 would not load. Placed directly below the French Air Force because its systems/sensors.ini carries an unused [Damoncles] (2.4/5.8) that would otherwise replace the French pack's (6.5/14.0) on the Mirage 2000 and early Rafale pods. Its [BK-27] loses to the Italian Navy Mod's at any position (FireRate 1700, RoundsMax 200), the same gun the Typhoon flies with. Upstream oddities: CarrierCapable=True, CruiseAltitude=????, and swe_rbs15f_LQS has no Mass. Required by The Second Northern War (37 placements in Red Sky and Reckoning for Moonsund); also flies in the Swedish air group of chapter 3 - Lithuanian Landing. Catalogued 4 Oct 2026 from the export (ApproximateVersion 0.7.0)."
+    },
+    {
+      "id": "nato-e-3a-sentry",
+      "workshop_id": "3595014060",
+      "title": "NATO E-3A Sentry",
+      "author": "unknown",
+      "faction": "europe",
+      "type": "fixed-wing",
+      "status": "active",
+      "load_order": "Directly below <<E-3G>>, above RC-135V/W Rivet Joint; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "NATO AEW&C Force E-3A (nato_e-3a): the vanilla usaf_e-3a airframe and AN/APY-1 in NATO livery, callsigns Magic and NATO. Three squadrons (NATO, Late, Early), all Nation=US, ServiceDate 1982. The file is an older vanilla fork: it lacks the vanilla E-3A's [CombatSystems] AWACS_E3 (DatalinkTier 5, CICSlots 400), its boom refuelling receiver and its FrontalArea/SideArea/BottomArea. It adds four ESM sensors on kitbashed pods (two AN/AYR-1, which nothing in the collection defines, plus AircraftELINT and AircraftRWR), and its only declared loadout, AEW, removes them again. AvailableLoadouts=AEW while the file still carries a [WeaponSystem1Default] block, the KJ-500 pattern, so a mission entry with no LoadoutVariant crashes the editor's map panel. preflight --all fails on four such entries (SULU SEA OFFENSIVE and its smaller, v2 and v3 copies) until fix_loadout_variants.py --all --write names AEW. No collision with anything; distinct from the E-3G (usaf_e-3g, AN/APY-2) and Saab GlobalEye (dts_saab_ge). Placed beside the E-3G. Required by The Second Northern War (one in each of missions 01, 04, 05 and 06). Catalogued 4 Oct 2026 from the export (ApproximateVersion 0.8.0)."
+    },
+    {
+      "id": "iskander-m",
+      "workshop_id": "3681748718",
+      "title": "ISKANDER-M",
+      "author": "SKIBIDI_RIZZLER123",
+      "faction": "russia",
+      "type": "land",
+      "status": "active",
+      "requires": [
+        "3408662804"
+      ],
+      "load_order": "Directly below Iskander TBM, above Type 12 SSM-ER Anti-Ship Missile System: above THE REDFOR MOD so its 9K720 rounds keep the ss-26 mesh (from the Iskander TBM mod).",
+      "notes": "9K720 Iskander-M TEL in three versions (wp_iskander_m, _clu, _nuke; Nation=Soviet, LandUnitSubType=SAM). The launcher is a kitbashed HEMTT holding two rounds, fired through the SA-N-9 system. The rounds fly 270 nm at 2000 kt, loft to 165,000 ft, carry their own r-500ecm jammer and are priced at AmmoPoints 4350. This is the standalone release of the Iskander in THE REDFOR MOD (same author): the six land_units files are byte-identical to REDFOR's, and the three rounds differ only in the missile mesh. This mod's rounds draw ss-26.obj from assets/models/land_units/iskander/, the folder the existing Iskander (3408662804) ships; REDFOR's use the vanilla SA-N-6. So it sits above REDFOR, directly below the existing Iskander. A different unit from 3408662804's wp_ss-26_tel, which Southern Watch D5 Range Week places; both load. Required by The Second Northern War (01 Dawn of Narva places twelve wp_iskander_m). Catalogued 4 Oct 2026 from the export (ApproximateVersion 0.7.7)."
+    },
+    {
+      "id": "the-redfor-mod",
+      "workshop_id": "3732654992",
+      "title": "THE REDFOR MOD",
+      "author": "SKIBIDI_RIZZLER123",
+      "faction": "russia",
+      "type": "land",
+      "status": "active",
+      "requires": [
+        "3597650470",
+        "3434072450"
+      ],
+      "load_order": "Directly below Modern US Airbase, above wp_sattelite_center: bottom block with Red Storm Arsenal's kind: a consolidation pack that loses every file it shares to the specialist mods it copied (S-300PMU2, ISKANDER-M, Su-27, TU-16N, P-750, Russian Navy 21, Euromod).",
+      "notes": "Workshop 3732654992, by SKIBIDI RIZZLER, marked BETA by its author. Consolidates the author's Soviet/Russian content, from Cold War hulls to 2020s systems. Of 118 contestable files, 74 are its own: 17 land units, including an S-400 battery (5P90S and 5P85TE2 TELs with 92N6E, 91N6E and 96L6E radars), an S-300PS site, Iskander-K, RS-26, Tochka, 3K60 Bal, the Krasukha-2 and R-330Zh jammers, NEWA-SC, Igla and the D-20; 10 hulls, including late Slava with P-1000, late Kara, Grisha MU, Projekt 61M/61E, three Tarantul variants and Kilo 877V; and the rounds they fire. The other 44 are copies of S-300PMU2, ISKANDER-M, wp_sattelite_center, TU-16N, P-750, Sukhoi Su-27, Russian Navy 21, Russian Submarines and Euromod files. It sits low in the order so it loses all of them except wp_sattelite_center's two, which are byte-identical. No unit references its 11 su_* rounds, and three of its variants files have no unit. Its SAM TELs fire Euromod's #!alias rounds, and wp_5p85te2 names a round (wp_48n6e2) as its ExternalGuidingSystems. The two later Tarantuls need Russian Navy 21's rfn_IROptics. Its 18-quote [LoadingTips] is overridden by SEST Collection Fixes."
+    },
+    {
+      "id": "s-500",
+      "workshop_id": "3496055699",
+      "title": "S-500",
+      "author": "SKIBIDI_RIZZLER123",
+      "faction": "russia",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below SA-21/S-400 SAM, above SAAB AEW&C PACK: below S-400 SAM, whose Flap Lid and [36H6] SEST missions place.",
+      "notes": "Workshop 3496055699, by SKIBIDI RIZZLER. An S-500 battery: 40N6 and 77N6 TELs (2 rounds each), a 91N6 search radar and a 96L6 radar, plus wp_77n6 (323 nm, 5053 kt, no AmmoPoints or Mass). It also ships a byte-identical copy of S-400 SAM's wp_sa-21_flaplid and a [36H6] sensor with TargetChannels=48 against S-400 SAM's 85. It sits DIRECTLY BELOW S-400 SAM and loses both, so the Flap Lid the SEST missions place is untouched. Its own wp_40n6 (no AmmoPoints, no kinematics) loses to Euromod's alias of wp_sa-21b. Its [96l6] radar declares Type=Direct Search, a value nothing else in vanilla or the collection uses (vanilla uses DirectedSearch or Search)."
+    },
+    {
+      "id": "s-300pmu2",
+      "workshop_id": "3652906664",
+      "title": "S-300PMU2",
+      "author": "SKIBIDI_RIZZLER123",
+      "faction": "russia",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below RQ-180 White Bat Airframe, above SA-21/S-400 SAM: above S-400, S-500 and THE REDFOR MOD, so its eight files shared with REDFOR and its [96L6] win.",
+      "notes": "Workshop 3652906664, by SKIBIDI RIZZLER (ApproximateVersion 0.6.8). An S-300PMU2 battery: 96L6E search radar, 64N6E Big Bird, 30N6E2 Tomb Stone, a 5P85TE TEL (16 x wp_48n6e2) and a composite wp_s-300pmu2_site, with Soviet, DDR, Czech, Libyan, Iraqi, Egyptian and Syrian variants. THE REDFOR MOD ships the same eight unit files. Their gameplay sections match except wp_kraz_tel's ExternalGuidingSystemSearchRadius (1 nm here, 0.5 nm there), and this mod's copies win. Its wp_48n6e2 loses to Euromod's #!alias copy, which resolves through SEST's metered wp_sa-n-20 (AmmoPoints 5400)."
+    },
+    {
+      "id": "nebo-u",
+      "workshop_id": "3551621846",
+      "title": "NEBO-U",
+      "author": "SKIBIDI_RIZZLER123",
+      "faction": "russia",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below MV-75 Cheyenne II, above 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala); it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Workshop 3551621846, by SKIBIDI RIZZLER. A single unit, wp_nebou: a VHF 3D early-warning radar (Nebo-U: 600 km, 100 target channels, floor 500 m) with an ESM fit, Soviet variant only, on the vanilla P-14 trailer mesh. It has no whole-file collisions, and the [General] sensor keys it sets match the 17 mods above it."
+    },
+    {
+      "id": "wp-sattelite-center",
+      "workshop_id": "3636213685",
+      "title": "wp_sattelite_center",
+      "author": "SKIBIDI_RIZZLER123",
+      "faction": "russia",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below THE REDFOR MOD, above French Air Force: below THE REDFOR MOD, whose byte-identical copies win; nothing it ships loads.",
+      "notes": "Workshop 3636213685, by SKIBIDI RIZZLER (ApproximateVersion 0.6.3). One installation, wp_sattelite_center. THE REDFOR MOD ships both of its files byte-identical; the only difference is the display name (the raw id here, SATCOM in REDFOR). Placed directly below REDFOR it is fully shadowed, so nothing it ships loads, and it could be unsubscribed without changing the install."
+    },
+    {
+      "id": "clemenceau-class-carrier",
+      "workshop_id": "3628201887",
+      "title": "Clemenceau-class Aircraft Carrier",
+      "author": "Berdo",
+      "faction": "france",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "3628247436",
+        "3628203171",
+        "3555361900",
+        "3591820675",
+        "3567228449"
+      ],
+      "load_order": "Directly below Charles De Gaulle & Modern French Navy Pack (WIP), above Euromod - Modern Japanese Maritime Self Defence Force: its alphabetical tier-4 slot below Charles De Gaulle; its one shared round stays Euromod's.",
+      "notes": "Clemenceau (R98) and Foch (R99) in four decades. There are eight hulls: fra_cv_clemenceau_60/70/80/90, each as _low (parked aircraft as deck props) and _deck_parkings. Each decade has its own air group: Aquilon, Alize and Etendard IVM in the 60s; F-8E(FN), Etendard IVM/IVP and Alize in the 70s; Super Etendard, Etendard IVP, F-8E(FN) and Alize ALM in the 80s; Super Etendard Modernise, Etendard IVPM, F-8P and Alize ALH in the 90s; Alouette III and Super Frelon throughout. It ships its own radars (DRBV-15A/20/23B/50, DRBI-10, DRBC-32B/C), ESM/ECM (ARBR-16, ARBB-33), the Crotale EDIR (fra_R440, unpriced) and the 100 mm mount. It requires the Aquilon, Alize, Etendard and F-8 mods and the French Helicopter Package: its air groups name their unit ids and its deck props draw their model folders. Euromod-Brazilian Armed Forces (3678767059) builds its NAe Sao Paulo on this mod's hull folder, deck animation and eight of its sensors, so it stays while that mod does. It contests one file, ammunition/fr_cal_100mm.ini, which Euromod - Main Pack keeps (area keys present, MaxRange 20000 against this copy's 12000). It sits directly below the Charles de Gaulle pack. No 2028 campaign can field it. Catalogued 4 Oct 2026 from the export (ApproximateVersion 0.7.3)."
+    },
+    {
+      "id": "alize-br1050",
+      "workshop_id": "3628203171",
+      "title": "Bréguet Br.1050 Alizé",
+      "author": "Cellinia_Texas and Berdo, with the model by Veltro2k from CombatAce",
+      "faction": "france",
+      "type": "fixed-wing",
+      "status": "active",
+      "load_order": "Directly below The Royal Navy, above Sea Venom - Aquilon: below The Royal Navy and RADF so their rounds and Sea Gannet racks hold; above Aquilon so its priced RP-3 heads win.",
+      "notes": "Breguet Br.1050 Alize: fr_br1050 and fr_br1050_ALM (ASW: SSQ-47 buoys, DTCN L4 torpedo, AS.12, depth charges), fr_br1050_ALH (AEW&C) and the Indian Navy's in_br1050 with British stores copied from The Royal Navy mod. It brings its own Iguane/DRAA-2A radars, ARAR ESM, Chlio FLIR and buoy sonars; its DRAA-10A is identical to the Italian Navy mod's. It overrides vanilla's ammunition/usn_ssq-47.ini at any position, because nothing else ships it. Its copy is a stub marked for revision (Mass 10 and AmmoPoints 5 against vanilla's 16.3 and 20.375, no FOCDate, no area keys), and it reaches every SSQ-47 user, including the P-3C's Custom Loadout Editor fit. Its other shared files lose where it sits: fr_as12 and the AS.12 material are byte-identical to the French Helicopter Package's, and the RN bombs, RP-3s and depth charge go to The Royal Navy and RADF, although its rn_rp_3_ap/sap are the only priced copies (13.75 and 30). The Clemenceau mod's air groups embark it. Catalogued 4 Oct 2026 from the export (ApproximateVersion 0.6.0)."
+    },
+    {
+      "id": "sea-venom-aquilon",
+      "workshop_id": "3628247436",
+      "title": "Sea Venom - Aquilon",
+      "author": "unknown",
+      "faction": "france",
+      "type": "fixed-wing",
+      "status": "active",
+      "load_order": "Directly below Bréguet Br.1050 Alizé, above EUROMOD-Armada de Chile: below The Royal Navy and RADF, whose Sea Gannet rack geometry must keep the shared rack ids.",
+      "notes": "SNCASE Aquilon 202, the licence-built two-seat Sea Venom, as fr_aquilon_202 with Flottilles 11F and 16F. It carries R.511 and AS.20 missiles, RP-3 rockets and 20 mm Hispano guns, with an AN/APQ-65 radar. The Clemenceau mod's 1960 hulls embark it, and RADF's own Sea Venom rocket racks (ran_rp3_*) take their mesh from this mod's model folder. Its four rocket racks reuse the ids The Royal Navy and RADF give the Sea Gannet's racks (rn_rp3_*_rack_*). Below them, theirs load, so the Aquilon's rails show the Gannet's mesh and attachment points; every gameplay value is identical. Its other shared files (RP-3 rounds, 20 mm, animation) are byte-identical to RN's or RADF's. Catalogued 4 Oct 2026 from the export (ApproximateVersion 0.6.0)."
+    },
+    {
+      "id": "etendard-family",
+      "workshop_id": "3555361900",
+      "title": "Etendard Family Jets",
+      "author": "Berdo",
+      "faction": "france",
+      "type": "fixed-wing",
+      "status": "active",
+      "load_order": "Directly below French Air Force, above F-8 Crusader: below French Air Force so FAF's fr_r550-2 Magic 2 keeps loading for the Mirage 2000 family.",
+      "notes": "Etendard IVM, IVP and IVPM, Super Etendard and Super Etendard Modernise (fr_etendard_*, fr_super_etendard*), with French, Argentine and Iraqi squadrons. It has Agave/Anemone/Aida radars, ATLIS, Barracuda and Barracuda NG jamming pods and Type BF and Sherloc warners, and carries AS-30, AS-30L, Exocet and Magic. It sits directly below the French Air Force so that mod keeps fr_r550-2 and fr_as-30l. The AS-30L is byte-identical; this Magic 2 is the French Air Force file without its duplicate MaxAttackVelocity line (1000, then 800). Above the French Air Force it would own the Magic 2 of 19 Mirage 2000 files. It also overrides vanilla's animations/animations_fr_super_etendard.ini, which no stock unit uses. rn_2inch and rn_type_155 are byte-identical to The Royal Navy's. The Clemenceau mod's air groups embark it. Catalogued 4 Oct 2026 from the export (ApproximateVersion 0.7.0)."
+    },
+    {
+      "id": "f-8-crusader",
+      "workshop_id": "3591820675",
+      "title": "F-8 Crusader",
+      "author": "Misaka and Berdo",
+      "faction": "multi",
+      "type": "fixed-wing",
+      "status": "active",
+      "load_order": "Directly below Etendard Family Jets, above JAS-39 Gripen: below French Air Force and Etendard so its outlier Magic 2 never loads.",
+      "notes": "The F-8 Crusader family, shown in the Mod Manager as 'F-8 十字军战士'. It covers the US Navy and Marine Corps F-8A, B, C, D, E, H, J, K and L and the RF-8A and RF-8G, the Philippine F-8H, and the Aeronavale F-8E(FN) (early and late) and F-8P. It adds R.530 and R.530E rounds and a LAU-33 twin Zuni pod, plus radars, warners and an ALQ-51 jammer for each variant. It sits directly below the Etendard mod. Its Magic 2 is the outlier among four copies (MaxVelocity 1984 kt, DragCoefficient 2.48, MaxFlightTime 25 against the French Air Force's 1310, -1 and 40) and loses to the French Air Force; its LAU-33 loses to the Custom Loadout Editor's. Its language file relabels vanilla's AIM-9C and AIM-9G ('SARH AAM' and 'IR AAM' become 'AAM'). Its changelog lists 'The AI cant fire the R530' as an open bug. The Clemenceau mod's 1970-1990 air groups embark it. Catalogued 4 Oct 2026 from the export (ApproximateVersion 0.7.0)."
+    },
+    {
+      "id": "royal-australian-defence-forces",
+      "workshop_id": "3455404959",
+      "title": "Royal Australian Defence Forces",
+      "author": "unknown",
+      "faction": "australia",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "3491248180",
+        "3776730617",
+        "3606134711"
+      ],
+      "load_order": "Directly below Pakistani Pack, above The Royal Navy: bottom block: loses every duplicate (Auxiliary Merchant Pack's Jeparit, S-70B-2's material, Euromod's rounds); above The Royal Navy for the ASW Ikara and the Search-class Type 277Q.",
+      "notes": "Cold War Australian and New Zealand forces with Indonesian opponents: 38 hulls (Majestic and Melbourne, Centaur and Invincible what-ifs, Daring and Battle-class destroyers, Perth DDG, three Adelaide fits up to the FFG Upgrade, River DE, Type 15, Oberon, patrol boats, Tobruk; RNZN Leanders and Rothesay; Indonesian Skory, Riga, Van Speijk, Sverdlov, Tjakra and Uda), 30 aircraft (A-4G, Sea Venom, Gannet, Sea King, Wessex, S-2, F-4E, Canberra, Winjeel, AS350 and an ran_S-70B-2_Seahawk under its own id) and 11 land units. None of its ids is one SEST builds on: ran_dd_anzac is the 1960s Battle-class HMAS Anzac, not the Anzac frigate SEST RAN Fleet patches. Its one same-id ship, ran_ms_jeparit, is a different vessel (1966-72, no Containers fit) from the Auxilliary Merchant Pack's, which the campaigns place. Placed below Red Storm Arsenal and above The Royal Navy, so it loses every duplicate: Jeparit to the Merchant Pack, the S-70B-2 material (missing its ResourcesFolder line) to the S-70B-2 Seahawk mod, an unpriced SNEB to the French Helicopter Package, and ESSM, sonobuoys and the Mk 11 depth charge to Euromod and the South Korea pack. Above Red Storm, a byte-identical material file would make the campaigns list it as required. It overrides 11 vanilla files. Nine append variants or squadrons and keep vanilla's. fr_mirage_iii.ini and wp_pt_p6_variants.ini are built on the 0.8.2 game and undo 0.8.3: the Mirage goes back to RCS=SemiSmall and the old chaff, and the P-6 file loses the PLAN Type 6602 variant and AllVariantsAreOfSameNation=False. It needs The Royal Navy for the Type 184M and Type 177 sonars and EUROMOD-Armada de Chile for STIR, and does not use Anchor Chain. Not fielded by the campaigns (excused); kept for its own 1968 showcase and period scenarios."
+    },
+    {
+      "id": "the-royal-navy",
+      "workshop_id": "3491248180",
+      "title": "The Royal Navy",
+      "author": "Royal Navy/Falklands mod team",
+      "faction": "europe",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "3455404959",
+        "3455931957",
+        "3789208859",
+        "3505420313"
+      ],
+      "load_order": "Directly below Royal Australian Defence Forces, above Bréguet Br.1050 Alizé: bottom block: below KC-135 (SEST's restored [Bofors_L/60_dual]) and Lynx HAS.3, and below RADF; its stale game files are restored by SEST Collection Fixes.",
+      "notes": "Cold War Royal Navy, 1960s to 1980s: 27 hulls (Centaur, Invincible, County, Type 42, Leander, Rothesay, Type 21, Type 22, Oberon, Valiant, Churchill, Swiftsure), 31 aircraft (Sea Harrier, Harrier GR3, Buccaneer, Sea Vixen, Gannet, Nimrod, Sea King, Wessex, Wasp, Lynx), Centurion and Chieftain tanks, and a Falklands mini-campaign whose Mission 1 and Hard and Argentine prologues name hulls the mod does not ship. Sits at the bottom below Royal Australian Defence Forces, because what it shares with the collection is older or stripped. It loses an unpriced AIM-120A to the Custom Loadout Editor, Stingray and Sea Skua to Euromod and the South Korea pack, its 4-line nl_sea_lynx materials to Sea Lynx's, and a Settings_UI_General.ini with no USA, Indonesia or Turkey flag keys to Kuznetsov. Placement cannot fix its vanilla overrides. It ships pre-0.8.3 copies of usn_cal_40mm, usn_agm-12b, knm_terne_shell, rn_cal_113mm and rn_squid_shell without Mass or AmmoPoints, and an ir_ffg_alvand_variants.ini without ServiceDate. The 40 mm round reaches SEST (Replenishment's T2, Teide and Kaiser, and RAN Fleet's HMAS Supply), so SEST Collection Fixes ships the vanilla round. Its systems/sensors.ini redefines vanilla's Type2031 towed array (passive range 90 km down to 23 km), which the Euromod Type 23s use. It is the only source of rn_sea_king, the id SEST Replenishment's Type 23 refit embarks. It needs Royal Australian Defence Forces for SeacatQuad and Cyrano IIB, and no longer requires Anchor Chain (author). Not fielded by the campaigns (excused)."
+    },
+    {
+      "id": "euromod-brazil",
+      "workshop_id": "3678767059",
+      "title": "Euromod-Brazilian Armed Forces(2000)",
+      "author": "Berdo",
+      "faction": "brazil",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "3629144864",
+        "3628201887",
+        "3491248180",
+        "3455404959",
+        "3776730617",
+        "3567228449",
+        "3737267013",
+        "3575847216",
+        "3599752717",
+        "3789208859",
+        "3505420313"
+      ],
+      "load_order": "Directly below Euromod - Modern Spanish Navy, above Euromod-India-Navy; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Brazilian Navy and naval aviation addon to Euromod: São Paulo (Clemenceau class, 2000-2018), Atlântico (Ocean class), Mattoso Maia (Newport LST), Tamandaré (variants dated 2026-2029), Niterói and Niterói 2005, Greenhalgh (Type 22 Batch 1), Pará (Garcia), Riachuelo (Scorpène), Tupi and Tikuna (Type 209). Aircraft: AF-1A Skyhawk, F-5EM, P-3AM, SH-16, SH-3D, AH-11/AH-11B Super Lynx, UH-12, UH-14, UH-15 and AH-15. Anápolis and Canoas airbases; MANSUP, Ikara, Sea Skua, Python 3/4 and Derby rounds. It borrows hulls and systems from mods that must be enabled: Clemenceau-class Aircraft Carrier (3628201887) for the São Paulo's hull, deck animation and eight radar/ECM sections; The Royal Navy (3491248180) for the Type 22 hull, Sea Wolf and rn_seawolf_westminster; Royal Australian Defence Forces (3455404959) for the A-4 model and the Type 1006 radar; EUROMOD-Armada de Chile (3776730617) for the Niterói's ZW06 radar section. It also uses Euromod Main, the French Helicopter Package and United States Naval Aviation, which are already in the order. The Niterói's ZW06 mesh comes from the unsubscribed Kortenaer Class Frigate mod. Every file it shares with another mod is byte-identical, so its position changes nothing. Three references name systems nothing defines: the Tamandaré's Sea Ceptor launcher (eu_camm_vls), the AH-11B's SAFIRE_III and the Tupi's DR-3000U. Verified 4 Oct 2026 from the export; not yet seen in the game."
+    },
+    {
+      "id": "euromod-chile",
+      "workshop_id": "3776730617",
+      "title": "EUROMOD-Armada de Chile",
+      "author": "unknown",
+      "faction": "chile",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "3629144864",
+        "3567228449"
+      ],
+      "load_order": "Directly below Sea Venom - Aquilon, above Philippines: The Luzon Line: below RADF (whose Type 277Q and fire-control sections must win) and far below <<E-3G>> (Chile's [AN/APY-2] would weaken the E-3G's radar) and Euromod.",
+      "notes": "Modern Chilean Navy addon to Euromod: Type 23 (and a PIDAA refit with CAMM and TRS-4D), Type 22 'Barak' refit, Adelaide long hull, Karel Doorman (M class), Scorpène and Type 209-1400 (unit id type_209), with E-3D Sentry, F-5E Tigre III, KC-135E and M113. It also adds a Chilean Variant9 to vanilla's nato_aaa_gdf_variants.ini (Variant1-8 byte-identical). It needs Euromod Main for 31 eu_* systems and most of its rounds, and the French Helicopter Package for its deck AS532SC. Its systems/sensors.ini redefines [AN/APY-2], the radar of the E-3G (3781062859) the SEST missions fly (Gain 53 against 100, PeakPower 1000 against 1500 kW), so it sits below the E-3G; its [Optics] equals the current owner's. Its Sea Wolf GWS.26 loses to Euromod's copy, which adds IOC/FOC dates and FrontalArea/SideArea. ch_barak and rn_seawolf_GWS25 carry no AmmoPoints. Verified 4 Oct 2026 from the export; not yet seen in the game."
+    },
+    {
+      "id": "euromod-india",
+      "workshop_id": "3807164392",
+      "title": "Euromod-India-Navy",
+      "author": "unknown",
+      "faction": "india",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "3629144864",
+        "3789208859"
+      ],
+      "load_order": "Directly below Euromod-Brazilian Armed Forces(2000), above Euromod-Philippine-Navy; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Indian Navy addon to Euromod: Kolkata (ins_d-63) and Visakhapatnam (ins_d-66) destroyers with Barak-8 (its own ins_barak_8, AmmoPoints 650) in four Mk41 cells, BrahMos-ER (Euromod's ins_brahmos-er) in two K-VLS cells, 76 mm, AK-630 and RBU-6000. It needs Euromod Main and Euromod-South Korea Navy (3789208859), whose [ko_kvls] is the only definition of the launcher that holds the BrahMos. It ships five unit and ammunition files that nothing else ships, and no systems file. On both hulls the four AK-630 mounts associate SensorSystem10/11, which neither file defines (NumberOfSensorSystems=9). Verified 4 Oct 2026 from the export; not yet seen in the game."
+    },
+    {
+      "id": "euromod-philippines",
+      "workshop_id": "3812454152",
+      "title": "Euromod-Philippine-Navy",
+      "author": "unknown",
+      "faction": "philippines",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "3629144864",
+        "3752415457",
+        "3567256221",
+        "3758943352",
+        "3437105712"
+      ],
+      "load_order": "Directly below Euromod-India-Navy, above Royal Navy Type 23 'Duke Class' Frigate [OLD]; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Philippine Navy addon to Euromod: Jose Rizal class frigates (pn_ffg-150, and pn_ffg-150_2 with Sylver A43 VLS) and Miguel Malvar (pn_ffg-06), 2020-2021, with Harpoon, twin Mistral, MICA and 76 mm. Its twin Mistral launcher, [Sinbad], is defined only by Philippines: The Luzon Line (3752415457). Its Sylver A43 section and FREMM meshes come from the Charles De Gaulle & Modern French Navy pack (3567256221). pn_ffg-150_2 hangs fr_mica-em from French Air Force (3758943352), while pn_ffg-06 hangs the mod's own PN_fr_mica_em. Each variants file declares three variants and defines two. No file or system name collides with anything. Verified 4 Oct 2026 from the export; not yet seen in the game."
+    },
+    {
+      "id": "philippines-luzon-line",
+      "workshop_id": "3752415457",
+      "title": "Philippines: The Luzon Line",
+      "author": "unknown",
+      "faction": "philippines",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "3413868677"
+      ],
+      "load_order": "Directly below EUROMOD-Armada de Chile, above RE-power: the resupply mod: below RADF and below KC-135, above which SEST Collection Fixes would stop restoring the game's [MK22].",
+      "notes": "Philippine Navy and Air Force units, 1948-2019 by service date: Cannon-class DE, Del Pilar (Hamilton) cutters, Malvar and Pohang corvettes, Tarlac LPD, Jose Andrada, Tomas Batilo, Jacinto and Kagitingan patrol craft, FA-50PH (rok_f-50_ph), T-28 and H-76. It ships 13 rounds, of which its own units hang only Mistral, depth charges and Hedgehog. It ships no mission or campaign. It replaces vanilla's usn_avp_barnegat_mod (Default/Modernised loadouts; Default has no Harpoon, chaff or noisemaker, and vanilla's [CombatSystems] ManualPlot is dropped) and usn_sh-2f_squadrons.ini (vanilla's 11 squadrons byte-identical, plus Thailand, Malaysia and Indonesia as 12-14). Identify Expanded's Ransom Waters campaign needs it: 06A Stay Hungry places phl_ff_cannon, phl_ff_hamilton and usn_sh-2f Squadron14. Euromod-Philippine-Navy needs its [Sinbad] launcher section. Its systems/weapons.ini reuses vanilla's [MK22] name for a 3-inch gun, so it sits below KC-135 STRATOTANKER (3722749887); above the four stale weapons.ini copies, SEST Collection Fixes would stop restoring vanilla's Mk 22 Tartar launcher. Verified 4 Oct 2026 from the export; not yet seen in the game."
+    },
+    {
+      "id": "pakistani-pack",
+      "workshop_id": "3812140001",
+      "title": "Pakistani Pack",
+      "author": "unknown",
+      "faction": "pakistan",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [
+        "3775128499",
+        "3812111085",
+        "3733719765",
+        "3637954857",
+        "3413868677",
+        "3470643173",
+        "3380210757"
+      ],
+      "load_order": "Directly below Red Storm Arsenal, above Royal Australian Defence Forces: below Red Storm Arsenal, whose [KLC-7] radar the SEST-fielded KJ-600 uses, and below J10C ([KLJ-7A]).",
+      "notes": "Pakistan's forces as one pack, every unit Nation=Pakistan. Aircraft: the JF-17 Block I, II and III, the J-10CE, the F-7PG, a Mirage III (an Anchor Chain #!alias of fr_mirage_iii), the ZDK-03 AEW&C, and the Z-9CE and SH-3H. Ships: the 054A/P frigate (F-261 to F-264), an O.H. Perry long hull (F-260 Alamgir), the Hangor-class S-26P submarine (S-131 to S-136) and a Hashmat. Land: HQ-9BE and HQ-16AE SAM sites and a C-602 coastal launcher. 22 rounds, among them the PL-15E, CM-302, YJ-18E, CM-400AKG and its anti-radiation variant, C-802AK, LY-80N and ET-38/39/40/80. It is built on other mods' parts: Modern PLAN Systems (the 054A/P's sensors, guns and Z-9s, and the 039 hull), the PLAAF Aircraft Pack (the J-10A and J-7E airframes and ten stores only it ships), the PLA Land Unit Pack (the sites' radars), Red Storm Arsenal (two Z-9CE sensors), the Y-8/Y-9 family (Morden_RWR) and Type 12 SSM-ER (the C-602 launcher's animation). Canonical position is below Red Storm Arsenal and above RE-power. Above Red Storm, its [KLC-7] radar section would cut the KJ-600 that the NFIII missions field from 750 to 400 km and from 900 to 170 kW; above the J-10C, its [KLJ-7A] would rewrite the J-10C that Southern Watch fields. It loses plaaf_cm-400akg to the J-16A. It loses plan_yj-18e to the PLA AEP, whose #!extend stub now has this copy to layer onto (that missing base is gone). SEST Replenishment meters its CM-302 (AmmoPoints 8000) under SEST_LandAttack, so SEST_Integration ships that file with one added line. Its pns_ss_hashmat.ini replaces vanilla's: the Late torpedo room swaps six UGM-84C for six SM39, and LoadoutDate_Late=1985 is gone. Seven loadout keys have no display name. ApproximateVersion 0.8.3."
+    },
+    {
+      "id": "f-15j-peace-eagle",
+      "workshop_id": "3434693420",
+      "title": "F-15J Peace Eagle",
+      "author": "unknown",
+      "faction": "japan",
+      "type": "fixed-wing",
+      "status": "active",
+      "load_order": "Directly below F-15E StrikeEagle, above F-16C Fighting Falcon (modern); it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "JASDF F-15J (jasdf_f-15j_peaceeagle) on vanilla's F-15C model and animation, with eight squadron entries (304th by default, then the 201st, 203rd, 204th, 303rd with its anniversary scheme, 305th and 306th TFS), all Nation=Japan and ServiceDate=1981. It is a 1980s fit: AIM-7M and AIM-9L on AirToAir and AirToAirLongRange, AIM-9M on AirToAirIntercept, and 610-gallon tanks; no AAM-3/4/5. It is a pre-0.8 copy of the vanilla F-15C (126 changed lines): there is no [AerialRefueling] boom, so it cannot tank, no Frontal/Side/BottomArea, no MaxPitchRate, and MaxRollRate is 120 against vanilla's 250. It is the only F-15J in the collection and shares no file, section or name with anything, so position is free; it sits beside the F-15E. No SEST or third-party mission places it. ApproximateVersion 0.8.0."
+    },
+    {
+      "id": "ec-2-stand-off-jammer",
+      "workshop_id": "3813033771",
+      "title": "EC-2 Stand Off Jammer",
+      "author": "RSG",
+      "faction": "japan",
+      "type": "fixed-wing",
+      "status": "active",
+      "requires": [
+        "3380210757"
+      ],
+      "load_order": "Directly below [DEPRECATED] E-7A Wedgetail, above Eurofighter Typhoon; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Kawasaki EC-2 stand-off jammer (jasdf_ec-2, Role=EW,ESM) on its own model, from RSG (maintainer AlpineStatic). Squadrons: Air Development and Test Wing, Gifu (2026), and Electronic Warfare Operations Group, Iruma (2027). The J/ALQ-5 jams every band in a 30-degree cone out to 450 km at 40 kW (5 dB); it also has wideband ESM (15 dB, 3 degrees), an RWR and chaff. One EW loadout carrying 20 t of AdditionalMass, plus a boom receptacle. Radio and data-link jamming (the CommsJam* keys on J/ALQ-5 and its [EC2CommsJam] strings) and the jammer tooltip run in its own Anchor Chain plugins (jasdf.ec2.comms, jasdf.ec2.tooltip); without Anchor Chain it is a radar jammer only. Its licence forbids overriding or copying its files, so no SEST pack forks it. No collision, so position is free; it sits in the AEW/ISR group below the E-7A. The aircraft names an animation file, animations_jasdf_ec-2, that the export does not contain. ApproximateVersion 0.8.4."
+    },
+    {
+      "id": "saronic-corsair-asv",
+      "workshop_id": "3766210676",
+      "title": "Saronic Corsair ASV",
+      "author": "RSG",
+      "faction": "usa",
+      "type": "ship",
+      "status": "active",
+      "requires": [
+        "3380210757"
+      ],
+      "load_order": "Directly below [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles, above Euromod - Cold War Spanish Navy; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Saronic Corsair 24-foot autonomous surface vessel in seven ids from RSG (maintainer AlpineStatic). All are US, capped at 46 kt and on the data link. The base boat makes one-way contact attacks. Missile carries two AGM-114L Longbow Hellfires; Torpedo, one dual-role Mk 46; Gun, a .50 RWS with 400 rounds; Scout, FLIR, nav radar and AQS-13E; MAX, all of these with 200 rounds; Decoy, RCS=Large. It brings three rounds of its own and four test scenarios (missions/Saronic Corsair Tests). It requires Anchor Chain: contact detonation is its DLL (plugin alpine.seapower.corsair) calling the game's ExplodeMine with the hull's [SeaMine] block (Power 43, the Mk 83 values). The hidden contact-charge launcher (MaxLaunchRange 0.000001 nm) only gives the AI an attack. Launchers are one-shot by design, and its licence forbids overrides, so it stays out of SEST Replenishment's MODERN_SOURCES. No collision, so position is free. No variant has a ServiceDate. ApproximateVersion 0.8.1."
+    },
+    {
+      "id": "mare-nostrum-28",
+      "workshop_id": "3759042728",
+      "title": "Mare Nostrum '28",
+      "author": "unknown",
+      "faction": "europe",
+      "type": "campaign",
+      "status": "active",
+      "requires": [
+        "3629144864",
+        "3575847216",
+        "3444379330",
+        "3455931957",
+        "3488139470",
+        "3505420313",
+        "3731208477",
+        "3630495619",
+        "3567256221",
+        "3567228449",
+        "3758943352",
+        "3736147136",
+        "3587877691",
+        "3673250557",
+        "3597650470",
+        "3438479626",
+        "3434072450",
+        "3451166840",
+        "3497601759",
+        "3390330875",
+        "3606774881",
+        "3737267013",
+        "3430135740",
+        "3607989779"
+      ],
+      "load_order": "Directly below Lockheed AC-130 Pack, above Mi-8EW; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Task Force Mode campaign, 2028: Europe's first Combined Naval Force against a Moscow-backed North African coalition, with Russia drawn in from mission 6. 11 missions (01-09, then two finals, 10A and 10B, chosen at a decision node) in 19 campaign nodes; English and Spanish text. Spain is purchasable from mission 1, France and Italy from mission 4, Germany and the Netherlands from mission 8. Ships only campaigns/mare-nostrum-28/ - no unit, round, system or language file - so it contests nothing and its position is free. Its missions and roster name 166 unit ids. 163 resolve: 55 vanilla, 35 through SEST Integration's copies and 73 from 21 Workshop mods already in the order, among them Euromod's German, Dutch and Italian navies, both Spanish Navy mods and the classic Italian Navy mod. Three do not, because their mods renamed or dropped them in the 27 Sep 2026 export: usn_ddg_burke_f2a_g1_2026 (missions 4, 6, 7; now usn_ddg_burke_f2a_079_late), usn_ddg_burke_f3 (both finals; now usn_ddg_burke_f3_125, same Variant22-25 hulls) and rnn_ss_dolfijn (roster, Act III; gone from Euromod-Dutch Navy). The finals' US carrier also flies usn_fa-18f Squadron10, which SEST Growler NGJ + MALICE retires, and usn_fa-18e Squadron37, which Murder Hornet's squadron table does not define. Author not named in its files."
+    },
+    {
+      "id": "operation-steadfast-lantern",
+      "workshop_id": "3779799226",
+      "title": "Operation STEADFAST LANTERN",
+      "author": "unknown",
+      "faction": "europe",
+      "type": "campaign",
+      "status": "active",
+      "requires": [
+        "3629144864",
+        "3575847216",
+        "3444379330",
+        "3455931957",
+        "3390330875",
+        "3567228449",
+        "3673250557"
+      ],
+      "load_order": "Directly below Identify Expanded, above SAM Pack: end of the Anchor Chain code-mod block, above every other mod that ships the nation-flag table (ui/Default/Settings_UI_General.ini), as its author asks; its table is a strict superset of the previous winner's.",
+      "notes": "Task Force Mode campaign, April 2028: TG NORTHWIND (German and Dutch hulls, a US destroyer from mission 2) against a NATO standing group whose staff has seized it and closed the Baltic approaches. 4 missions in 8 campaign nodes: the Skagerrak, the northern Kattegat, a detached Type 212A operation at night and Bornholm. Besides the campaign it ships a whole-file nation-flag table, ui/Default/Settings_UI_General.ini (172 NationFlags, 160 MastFlags, adding the renegades' nordverband flag), and a complete language section for the Saab GlobalEye that changes Squadron2's callsign from Uranus to Argus. The author asks for it to load first because only the highest copy of the flag table is read. It sits directly below the SEST Integration Pack, which ships no copy of that file; the table it replaces, 1143.5 Kuznetsov's (83/57 entries), is a subset of it. States seven requirements, all in the order. All four missions resolve. The purchasable US detachment does not: usn_ddg_burke_f2a_g4_2022 and usn_mh-60r_26 left Euromod - Modern US Navy in the 27 Sep and 2 Oct 2026 exports. Author not named in its files."
+    },
+    {
+      "id": "jmsdf-hyuga-class",
+      "workshop_id": "3802216383",
+      "title": "JMSDF Hyūga Class — Hyūga & Ise",
+      "author": "unknown",
+      "faction": "japan",
+      "type": "ship",
+      "status": "active",
+      "load_order": "Directly below Mogami-class Frigate; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "JMSDF Hyūga-class helicopter destroyers DDH-181 Hyūga and DDH-182 Ise as one class (jmsdf_ddh_hyuga, jmsdf_ddh_ise). New ids only; its systems/sensors.ini and weapons.ini merge. The folder also carries ~60 build notes and manifests (.md/.json/.txt) the game ignores. Its CREDITS file says the hull is a purchased model whose redistribution licence was not confirmed in the files; that is the author's matter, but it is why the catalog records it."
+    },
+    {
+      "id": "civilian-as350",
+      "workshop_id": "3806197116",
+      "title": "Civilian AS350 Ecureuil/AStar MOD",
+      "author": "unknown",
+      "faction": "civilian",
+      "type": "civilian",
+      "status": "active",
+      "load_order": "Directly below Civil Aircraft Mod (Airbus Family); it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Civilian AS350 Ecureuil/AStar helicopter (civ_as-350) with its squadron table; English, French, Spanish and German names. ApproximateVersion 0.8.2."
+    },
+    {
+      "id": "s-350-vityaz",
+      "workshop_id": "3524446392",
+      "title": "S-350 Vityaz",
+      "author": "unknown",
+      "faction": "russia",
+      "type": "land",
+      "status": "active",
+      "load_order": "Directly below S-500; it contests 2 files with Euromod - Main Pack and loses both, so only its own 9 load.",
+      "notes": "Kitbashed S-350 Vityaz SHORAD/MRAD: short-, medium- and long-range TELs (ru_vityaz-sr/mr/lr_tel), the 50N6 radar and the 9M96E, 9M96E2 and 9M100 rounds. Its systems files merge."
+    },
+    {
+      "id": "iran-shahed-238",
+      "workshop_id": "3686449681",
+      "title": "Iran UAV Shahed 238",
+      "author": "unknown",
+      "faction": "iran",
+      "type": "uav",
+      "status": "active",
+      "load_order": "Directly below Shahed-136 Kamikaze Drone (Geran-2); it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Jet-powered Shahed 238 one-way attack drone as a land launcher (wp_shahed238_launcher) and its round (ods_shahed238). ApproximateVersion 0.7.9."
+    },
+    {
+      "id": "emad-iran-bm",
+      "workshop_id": "3493115616",
+      "title": "EMAD",
+      "author": "unknown",
+      "faction": "iran",
+      "type": "land",
+      "status": "active",
+      "load_order": "Below Shahed 238 with the other Iranian land launchers; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Iranian Emad ballistic missile: TEL (wp_emad_tel) and round (ods_emad). Companion to SEJJIL. ApproximateVersion 0.8.0."
+    },
+    {
+      "id": "fattah-1",
+      "workshop_id": "3673703427",
+      "title": "Fattah-1",
+      "author": "unknown",
+      "faction": "iran",
+      "type": "land",
+      "status": "active",
+      "load_order": "Below EMAD with the other Iranian land launchers; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Iranian Fattah-1 hypersonic ballistic missile: TEL (wp_fattah1_tel) and round (ods_fattah_1). ApproximateVersion 0.4.0, which is behind the game; it still loads."
+    },
+    {
+      "id": "fattah-2",
+      "workshop_id": "3672497668",
+      "title": "Fattah-2",
+      "author": "unknown",
+      "faction": "iran",
+      "type": "land",
+      "status": "active",
+      "load_order": "Below Fattah-1; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Iranian Fattah-2 hypersonic glide-vehicle missile: TEL (wp_fattah2_tel) and round (ods_fattah_2). ApproximateVersion 0.4.0, as Fattah-1."
+    },
+    {
+      "id": "iran-bell-212",
+      "workshop_id": "3549377308",
+      "title": "Iran Bell-212",
+      "author": "Zero-Two",
+      "faction": "iran",
+      "type": "rotary",
+      "status": "active",
+      "load_order": "Below Fattah-2, closing the Iranian group; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "Bell 212 in three Iranian services, each with a squadron table: Army aviation (irh_bell-212), the Navy (irinavy_bell-212) and IRIAA (iriaa_bell-212). By Zero-Two. ApproximateVersion 0.8.0."
+    },
+    {
+      "id": "project-2498-zyetseth",
+      "workshop_id": "3399699218",
+      "title": "Project 2498 Zyetseth Class Assault Vessel",
+      "author": "unknown",
+      "faction": "russia",
+      "type": "ship",
+      "status": "active",
+      "load_order": "Directly below Russian Navy 21; it collides with nothing that changes hands, so the slot is a grouping choice.",
+      "notes": "A heavily converted East German Mercur-class freighter armed as a Soviet assault ship: SS-N-19, SA-N-9, SA-N-6, MG-44 decoy torpedoes, CIWS and Ka-27s, with custom animations. Two hulls: civ_fv_okean_surprise and a unit whose id is its file name with spaces, 'Project 2498 Zyetseth Class Assault Vessel'. Every weapon it carries resolves without another mod."
+    },
+    {
+      "id": "thailand-siam-shield",
+      "workshop_id": "3711297532",
+      "title": "Thailand: The Siam Shield",
+      "author": "unknown",
+      "faction": "thailand",
+      "type": "ship",
+      "status": "active",
+      "load_order": "Directly below Philippines: The Luzon Line, above RE-power. It loses 14 shared files, 11 of them to the Luzon Line by the same author (common rounds and textures) and one each to Euromod - Main Pack, PLAN Pack and MIG-29A & F-16A, so only its 50 own files load.",
+      "notes": "Royal Thai Navy and Air Force from the 1950s to today, by the author of the Luzon Line: 19 hulls from the Chakri Naruebet carrier and the Naresuan frigates to the Knox, Type 053HT, patrol craft and the Sichang LST, plus the RTAF F-16C, F-5, the T-50TH, the S-70B-7 Seahawk and the AB 212. ApproximateVersion 0.8.3. Its sensors and weapons files merge."
     }
   ]
 }
