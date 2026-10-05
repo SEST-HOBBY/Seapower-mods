@@ -15,8 +15,13 @@ pack writes only keys whose winning value is wrong:
   SquadronN and Callsigns line, not only the campaigns' units. Nothing else
   in a line is touched: stray spaces are invisible and are left alone.
 
-A key another SEST pack already writes is left to that pack. Section and key
-names are never added, only values replaced.
+- MISSING_NAMES: units that have no English name at all - the encyclopedia
+  lists them as "MISSING: <id> name or squadron", under Missing Type and
+  Missing Class. Each gets a whole name section, based on a named sister
+  unit of the same mod where there is one. A section is written only while
+  no mod defines one, so it retires itself when the author adds names.
+
+A key another SEST pack already writes is left to that pack.
 
     python3 integration/name-fixes/build_patch.py
 """
@@ -58,6 +63,77 @@ EXPLICIT = {
         ("Davids Sling Radar,Davids Sling Radar", "David's Sling Radar,David's Sling Radar"),
     ("aircraft_names.ini", "[usaf_rq-180]", "Callsigns"):
         ("Squadron1,蝙蝠,White Bat", "Squadron1,BAT,White Bat"),
+}
+SQN = lambda n, name: [f"Squadron{i}={name}" for i in range(1, n + 1)]
+VAR = lambda n, name: [f"Variant{i}={name}" for i in range(1, n + 1)]
+NOTE = "SEST: this unit ships with no English name; named by SEST Name Fixes."
+# id: (file, [lines of its section])
+MISSING_NAMES = {
+    "jmsdf_ddh_ise": ("vessel_names.ini", [
+        "Type=DDH,Helicopter Destroyer", "Default=Ise (Hyūga class),Ise",
+        "DefaultDescription=JS Ise (DDH-182), the second Hyūga-class helicopter destroyer, "
+        "commissioned in 2011. The mod builds her as her own unit with Hyūga's fit. " + NOTE,
+        "Variant1=Ise DDH-182,Ise"]),
+    "Virginia": ("vessel_names.ini", [
+        "Type=SSN,Attack Submarine", "Default=Virginia-class SSN,Virginia",
+        "DefaultDescription=Virginia-class nuclear attack submarine. " + NOTE,
+        "Variant1=Virginia SSN-774,Virginia"]),
+    "rn_oberon_class": ("vessel_names.ini", [
+        "Type=SS,Patrol Submarine", "Default=Oberon-class submarine,Oberon",
+        "DefaultDescription=Oberon-class diesel-electric patrol submarine of the Royal Navy. " + NOTE]
+        + VAR(13, "Oberon-class submarine,Oberon")),
+    "fr_sa-321G": ("aircraft_names.ini", [
+        "Type=ASW Helicopter", "Default=SA 321G Super Frelon,SA.321G",
+        "DefaultDescription=The SA 321G Super Frelon, the French Navy's anti-submarine "
+        "version of the heavy helicopter. " + NOTE,
+        "Squadron1=SA 321G France,SA.321G", "Squadron2=SA 321G France,SA.321G",
+        "Squadron3=SA 321G France,SA.321G", "Squadron4=SA 321G Iraq,SA.321G"]),
+    "wp_mi-24vp": ("aircraft_names.ini", [
+        "Type=Attack Helicopter", "Default=Mi-24VP,Mi-24VP",
+        "DefaultDescription=The Mi-24VP, a Mi-24V with a twin-barrel 23 mm gun in the nose turret. " + NOTE,
+        "Squadron1=Mi-24VP Soviet,Mi-24VP"]),
+    "fr_e2c": ("aircraft_names.ini", [
+        "Type=AEW", "Default=E-2C Hawkeye (France),E-2C",
+        "DefaultDescription=The French Navy's E-2C Hawkeye airborne early warning aircraft. " + NOTE]),
+    "S2": ("aircraft_names.ini", [
+        "Type=Maritime Patrol,MPA", "Default=Grumman S-2 Tracker,Tracker",
+        "DefaultDescription=Grumman S-2 Tracker carrier-based anti-submarine aircraft. " + NOTE,
+        "Squadron1=Tracker 816 Squadron RAN,Tracker", "Squadron2=Tracker 851 Squadron RAN,Tracker"]),
+    "usn_a-4g": ("aircraft_names.ini", [
+        "Type=Attack", "Default=Douglas A-4G Skyhawk,A-4G",
+        "DefaultDescription=The A-4G Skyhawk, flown by the Royal Australian Navy's Fleet Air Arm. " + NOTE]
+        + SQN(2, "A-4G Skyhawk RAN,A-4G")),
+    "usn_a-4c": ("aircraft_names.ini", [
+        "Type=Attack", "Default=Douglas A-4C Skyhawk,A-4C",
+        "DefaultDescription=Douglas A-4C Skyhawk light attack aircraft. " + NOTE]
+        + SQN(1, "A-4C Skyhawk,A-4C")),
+    "Mirage_III": ("aircraft_names.ini", [
+        "Type=Fighter", "Default=Dassault Mirage III,Mirage III",
+        "DefaultDescription=Dassault Mirage III fighter. " + NOTE]
+        + SQN(1, "Mirage III France,Mirage III") + ["Squadron2=Mirage III Australia,Mirage III"]),
+    "h34": ("aircraft_names.ini", [
+        "Type=ASW Helicopter", "Default=Sikorsky H-34,H-34",
+        "DefaultDescription=Sikorsky H-34 helicopter. " + NOTE]
+        + SQN(1, "H-34 Australia,H-34")),
+    "rn_nimrod": ("aircraft_names.ini", [
+        "Type=Maritime Patrol,MPA", "Default=Hawker Siddeley Nimrod (unfinished),Nimrod",
+        "DefaultDescription=An unfinished Nimrod in The Royal Navy mod: its squadrons and role "
+        "are still the airliner template it was copied from. The finished aircraft is the Nimrod MR.1. " + NOTE,
+        "Squadron1=Nimrod 42 Squadron,Nimrod", "Squadron2=Nimrod 51 Squadron,Nimrod",
+        "Squadron3=Nimrod 120/201/206 Squadron,Nimrod"]),
+    "canberra_bomber": ("aircraft_names.ini", [
+        "Type=Bomber", "Default=English Electric Canberra (unfinished),Canberra",
+        "DefaultDescription=An unfinished Canberra in The Royal Navy mod: its squadrons and role "
+        "are still the airliner template it was copied from. The finished aircraft is the RAF Canberra. " + NOTE]
+        + SQN(8, "Canberra,Canberra")),
+    "civ_car_pickup_1983_assault_wp": ("land_units_names.ini", [
+        "Type=Vehicle", "Default=Assault Technical (Warsaw Pact),Assault Technical",
+        "DefaultDescription=Pickup truck with a mounted weapon. " + NOTE,
+        "Variant1=Assault Technical,Assault Technical"]),
+    "wp_airbase_57": ("land_units_names.ini", [
+        "Type=Airbase", "Default=Su-57 Airbase,Airbase",
+        "DefaultDescription=Airbase laid out for the Su-57 mod. " + NOTE,
+        "Variant1=Su-57 Airbase,Airbase"]),
 }
 FULLWIDTH = [(" （", " ("), ("（", " ("), ("）", ")"), ("，", ","), ("“", '"'), ("”", '"')]
 
@@ -137,17 +213,24 @@ def main():
         for (fn, s, k), _ in EXPLICIT.items():
             if fn == name and (s, k) not in winners:
                 stale.append(f"{name} {s} {k}: no longer defined by any mod")
-        if out:
+        defined = {s.lower() for (s, k) in winners if k == "Default"}
+        added = [(uid, body) for uid, (fn, body) in MISSING_NAMES.items()
+                 if fn == name and f"[{uid}]".lower() not in defined]
+        if out or added:
             lines = [f"# SEST Name Fixes - {sum(len(v) for v in out.values())} corrected name(s);"
                      " each key replaces exactly one winning line (mod id in the comment)."]
             for s in sorted(out):
                 lines += ["", s]
                 for k, new, tok in out[s]:
                     lines += [f"# was {tok}", f"{k}={new}"]
+            if added:
+                lines += ["", f"# {len(added)} unit(s) with no English name anywhere in the collection"]
+                for uid, body in added:
+                    lines += ["", f"[{uid}]"] + body
             d = OUT / "language_en"
             d.mkdir(parents=True, exist_ok=True)
             (d / name).write_text("\n".join(lines) + "\n", encoding="utf-8")
-            wrote += sum(len(v) for v in out.values())
+            wrote += sum(len(v) for v in out.values()) + len(added)
     if stale:
         sys.exit("upstream changed under these corrections - review and drop or update:\n  "
                  + "\n  ".join(stale))

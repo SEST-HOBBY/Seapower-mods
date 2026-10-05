@@ -10,11 +10,14 @@ not read Gallery/.
 It also writes encyclopedia PROFILE PICTURES: the game shows
 ui/profiles/<unit id>.png as a unit's picture, found by file name (the
 convention 2,359 profile images across the collection use, and the
-real-photos mod 3796706214 relies on). Only units that have NO profile
-picture anywhere in the collection get one (existing-profiles.tsv, listed on
-the gaming PC by tools/list-profiles.ps1), and only from profiles.tsv: unit
+real-photos mod 3796706214 relies on). The SEST pack is first in the order,
+so its picture is the one shown. Pictures come only from profiles.tsv: unit
 and photo pairs two reviewers looked at and passed (same type, or same
-family - labelled "class photo" on the picture). Each is 1024x310, the
+family - labelled "class photo" on the picture). A checked SEST photo
+replaces whatever picture the unit had (the base game's, a mod's render),
+with one exception: where the unit's picture comes from the real-photos mod
+(existing-profiles.tsv, listed on the gaming PC by tools/list-profiles.ps1)
+and SEST only has a class photo, that mod's exact photo stays. Each is 1024x310, the
 3.3:1 strip the collection's aircraft and ship profiles use: the whole photo
 centred over a darkened, blurred copy of itself, with its credit.
 
@@ -93,6 +96,7 @@ def main():
 PROFILES = HERE / "profiles.tsv"
 EXISTING = HERE / "existing-profiles.tsv"
 PROFILE_SIZE = (1024, 310)
+REAL_PHOTOS = "3796706214"
 CREDIT_NAMES = {"hobart": "Japan Maritime Self-Defense Force", "type003": "China News Service"}
 
 
@@ -157,13 +161,13 @@ def write_profiles(cat):
         return 0
     order = {l.strip() for l in (HERE.parents[1] / "data" / "load-order.tokens.txt")
              .read_text().splitlines() if l.strip().isdigit()}
-    taken = set()
+    real_photo = set()       # units the real-photos mod pictures
     for line in EXISTING.read_text(encoding="utf-8").splitlines():
         if line.startswith("#") or line.startswith("id\t") or "\t" not in line:
             continue
         uid, mod, _size = line.split("\t")
-        if mod in order:
-            taken.add(uid.lower())
+        if mod == REAL_PHOTOS and mod in order:
+            real_photo.add(uid.lower())
     assets = {a["asset_id"]: a for a in cat["assets"]}
     out = OUT / "ui" / "profiles"
     n = 0
@@ -173,8 +177,8 @@ def write_profiles(cat):
         uid, aid, verdict = line.split("\t")[:3]
         if verdict not in ("same_type", "same_family"):
             continue
-        if uid.lower() in taken:
-            continue          # a mod author's own picture wins; never replaced
+        if verdict == "same_family" and uid.lower() in real_photo:
+            continue          # that mod's exact photo beats a class photo
         a = assets.get(aid)
         if not a:
             sys.exit(f"profiles.tsv: {uid} names photo {aid}, which the gallery does not have")
