@@ -1,6 +1,6 @@
 SEST GALLERY
 
-A photo gallery of the units in the SEST collection: 516 real photographs,
+A photo gallery of the units in the SEST collection: 517 real photographs,
 88 flags and 12 loading-screen backgrounds, indexed against all 190 Workshop
 mods and the SEST Integration Pack.
 
@@ -11,11 +11,14 @@ HOW TO OPEN IT
 3. Double-click gallery.html. It opens in your web browser and works offline.
 
 IN THE GAME
-The same photos appear in the game itself, in every SEST mission briefing:
-a RECOGNITION section at the end of the briefing text shows the classes of
-your own forces and the expected opposition, with credits. The game has no
-other place for photos (no unit file has an image slot, and the encyclopedia
-shows 3D models), so the full collection lives in this gallery.
+The same photos appear in the game itself, in two places:
+- the encyclopedia: 601 units show one of these photos as their picture,
+  with the credit on the picture. Where a unit has no exact photo, a photo
+  of the same class is used and the picture says "Class photo".
+- every SEST mission briefing: a RECOGNITION section at the end of the
+  briefing text shows the classes of your own forces and the expected
+  opposition, with credits.
+The full collection, with the unit index, lives in this gallery.
 
 WHAT IS IN IT
 gallery.html          Photos, unit index, collection and systems.

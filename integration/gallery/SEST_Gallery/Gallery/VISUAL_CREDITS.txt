@@ -719,3 +719,56 @@ Creator: Sgt. 1st Class Mikki Sprenkle
 Licence: Public domain https://commons.wikimedia.org/wiki/File:French_Caesar_self-propelled_howitzer_in_Iraq.jpg#Licensing
 Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
 Photographic source fitted to widescreen canvas.
+
+STEAM ARTWORK (visuals/steam/)
+Made for the SEST Steam pages from the photos below: cropped, darkened, text added. No AI imagery.
+
+Hobart class
+File:HMAS Hobart (DDG 39) participating in the International Fleet Review 2022.jpg
+Creator: Japan Maritime Self-Defense Force
+Source: https://commons.wikimedia.org/wiki/File:HMAS_Hobart_(DDG_39)_participating_in_the_International_Fleet_Review_2022.jpg
+Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0/
+Used in: Collection cover, Collection background, Southern Watch
+
+Arleigh Burke class
+File:USS Arleigh Burke (DDG 51) steams through the Mediterranean Sea.jpg
+Creator: U.S. Navy photo by Journalist 2nd Class Patrick Reilly
+Source: https://commons.wikimedia.org/wiki/File:USS_Arleigh_Burke_(DDG_51)_steams_through_the_Mediterranean_Sea.jpg
+Licence: Public domain
+Used in: Collection background, What's in the pack
+
+Collins class submarine
+File:HMAS Collins rises to the surface during exercise La Perouse in 2019.jpg
+Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Leonard Adams
+Source: https://commons.wikimedia.org/wiki/File:HMAS_Collins_rises_to_the_surface_during_exercise_La_Perouse_in_2019.jpg
+Licence: Public domain
+Used in: Collection background, Southern Reach
+
+Type 054A frigate
+File:CNS Huangshan (FFG-570) 170616-N-ZW825-722.jpg
+Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Scott Taylor
+Source: https://commons.wikimedia.org/wiki/File:CNS_Huangshan_(FFG-570)_170616-N-ZW825-722.jpg
+Licence: Public domain
+Used in: Collection background, Red Line
+
+F-35A — RAAF
+File:No 75 Squadron F-35A at RAAF Base Tindal in July 2023.jpg
+Creator: U.S. Air Force photo by Senior Airman J. Michael Peña
+Source: https://commons.wikimedia.org/wiki/File:No_75_Squadron_F-35A_at_RAAF_Base_Tindal_in_July_2023.jpg
+Licence: Public domain
+Used in: Pack cover
+
+MH-60R Seahawk
+File:MH-60R Seahawk from HSM-37 during counterdrug operations (200713-N-FA490-1857).jpg
+Creator: U.S. Navy/Mass Communication Specialist 3rd Class Andrew Langholf
+Source: https://commons.wikimedia.org/wiki/File:MH-60R_Seahawk_from_HSM-37_during_counterdrug_operations_(200713-N-FA490-1857).jpg
+Licence: Public domain
+Used in: Latest update
+
+E-7A Wedgetail — RAAF
+File:Royal Australian Air Force E-7A at Red Flag Feb 2013.jpg
+Creator: U.S. Air Force photo by Lawrence Crespo
+Source: https://commons.wikimedia.org/wiki/File:Royal_Australian_Air_Force_E-7A_at_Red_Flag_Feb_2013.jpg
+Licence: Public domain
+Used in: Installing
+
