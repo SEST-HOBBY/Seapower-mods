@@ -276,6 +276,9 @@ def write_recovered():
     return n + 1
 
 
+INTERNAL_ONLY_KITS = ("StrikeLongRangeStealth",)
+
+
 def main():
     src = UPSTREAM / "aircraft" / "raaf_f-35a.ini"
     text = src.read_text(encoding="utf-8-sig")
@@ -302,6 +305,18 @@ def main():
                       text, count=1, flags=re.S)
     if k != 1:
         sys.exit("could not inject AAM260 position keys into [WeaponSystem2]")
+
+    # 1b2. Internal-only kits fly clean. Upstream's StrikeLongRangeStealth
+    #      (two JSM in the bays, nothing outside) hides the fuselage pylons
+    #      but not the wing ones, so the "stealth" JSM kit showed four empty
+    #      wing pylons; its twin AntiShip (the same bay load) hides them.
+    for kit in INTERNAL_ONLY_KITS:
+        text, k = re.subn(rf"(\[WeaponSystem1{kit}\]\nSubmodelsToHide=)pyl_l,pyl_r,wing_rail_inner,",
+                          r"\1pyl_l,pyl_r,wing_pyl_inner,wing_pyl_outer,wing_rail_inner,", text, count=1)
+        if k != 1:
+            sys.exit(f"{kit}: upstream hide list changed - re-check the wing pylons")
+        if re.search(rf"^\[WeaponSystem2{kit}\]", text, re.M):
+            sys.exit(f"{kit}: now carries external stores - it needs its wing pylons")
 
     # 1c. Bring the EW suite up to F-35C standard
     text, sensor_count, sensor_names = transplant_ew_suite(text)
