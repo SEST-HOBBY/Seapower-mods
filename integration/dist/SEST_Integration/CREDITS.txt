@@ -257,8 +257,8 @@ listed whatever the percentage: they are still that author's.
        98%  ammunition/usn_gbu-53.ini 
 
   F/A-18 Murder Hornet with AIM-174B  (workshop 3430135740)
-       95%  aircraft/usn_ea-18g_squadrons.ini 
-       97%  aircraft/usn_fa-18f_blk3_squadrons.ini 
+       94%  aircraft/usn_ea-18g_squadrons.ini 
+       96%  aircraft/usn_fa-18f_blk3_squadrons.ini 
        95%  aircraft/usn_fa-18f_squadrons.ini 
        99%  ammunition/usn_agm-84d.ini 
 

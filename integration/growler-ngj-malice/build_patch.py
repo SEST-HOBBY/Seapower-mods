@@ -991,7 +991,7 @@ def build_raaf_squadrons() -> None:
     text = replace_once(
         text,
         "LiveryTexture=raaf_f18g.png\nNation=US",
-        "LiveryTexture=raaf_f18g.png\nNation=Australia   # 6 SQN RAAF, fwd Townsville",
+        "LiveryTexture=raaf_f18g.png\n# 6 SQN RAAF, fwd Townsville\nNation=Australia",
         "usn_ea-18g_squadrons: RAAF nation")
     (aircraft / "usn_ea-18g_squadrons.ini").write_text(text, encoding="utf-8")
 
@@ -1016,13 +1016,16 @@ def build_raaf_squadrons() -> None:
                         "usn_fa-18f_blk3_squadrons: declare Squadron8")
     if "raaf" in text.lower():
         sys.exit("usn_fa-18f_blk3_squadrons: upstream added its own RAAF squadron - re-check")
+    # (The squadron comments sit on their own lines, not after Nation=: no
+    # stock file puts a comment on a Nation= line, and the value must read
+    # exactly "Australia" for the flag and name lookups.)
     # No livery lines: raaf_f18f.png was painted for the plain F's texture
     # set and the user called the fallback - default Block III paint under
     # the Australian flag. The squadron identity comes from Nation plus the
     # language name key.
     text = text.rstrip("\n") + (
         "\n\n[Squadron8]\n"
-        "Nation=Australia   # 1 SQN RAAF, fwd Townsville\n")
+        "# 1 SQN RAAF, fwd Townsville\nNation=Australia\n")
     (aircraft / "usn_fa-18f_blk3_squadrons.ini").write_text(text, encoding="utf-8")
 
     folder = OUT / "language_en"

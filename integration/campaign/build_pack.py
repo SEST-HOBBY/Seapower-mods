@@ -4069,6 +4069,77 @@ def recognition_png(asset_file):
     return buf.getvalue()
 
 
+# The briefing's banner: one photograph across the top of the briefing text,
+# with the mission's theatre, date, side and time window under it. A campaign
+# mission uses its campaign's photo (the same one on every page of that
+# campaign, so the briefings read as one set); a Dispatch, whose side and year
+# change from one to the next, uses the first photo of its own forces from the
+# Recognition list. Pre-cropped to a fixed strip so the StackPanel never has
+# to clip it.
+CAMPAIGN_BANNER = {"sest-southern-watch": "hobart", "sest-southern-reach": "canberra",
+                   "sest-red-line": "type054a"}
+BANNER_SIZE = (900, 270)
+SERVICE = {"Australia": "Royal Australian Navy", "China": "People's Liberation Army Navy"}
+
+
+@functools.lru_cache(maxsize=None)
+def gallery_assets():
+    js = GALLERY / "catalogue.js"
+    if not js.is_file():
+        return {}
+    import json
+    cat = json.loads(re.match(r"window\.CATALOGUE=(.*);\s*$",
+                              js.read_text(encoding="utf-8"), re.S).group(1))
+    return {a["asset_id"]: a for a in cat["assets"]}
+
+
+def banner(mission):
+    """(stem, asset) for the mission's banner photo, or None."""
+    assets = gallery_assets()
+    aid = None
+    if mission.get("group") != "dispatch":
+        aid = CAMPAIGN_BANNER.get(SLUG.removesuffix("-open"))
+    if aid is None:
+        own = [p for p in recognition(mission) if p[3] == "blue"]
+        aid = own[0][2]["asset_id"] if own else None
+    a = assets.get(aid or "")
+    return (f"sest_banner_{aid}", a) if a else None
+
+
+@functools.lru_cache(maxsize=None)
+def banner_png(asset_file):
+    import io
+    from PIL import Image
+    im = Image.open(GALLERY / asset_file).convert("RGB")
+    w, h = BANNER_SIZE
+    scale = max(w / im.width, h / im.height)
+    im = im.resize((max(w, round(im.width * scale)), max(h, round(im.height * scale))), Image.LANCZOS)
+    x, y = (im.width - w) // 2, (im.height - h) // 2
+    buf = io.BytesIO()
+    im.crop((x, y, x + w, y + h)).save(buf, "PNG", optimize=True)
+    return buf.getvalue()
+
+
+def banner_xml(mission):
+    b = banner(mission)
+    facts = [("THEATRE", mission.get("place", "")),
+             ("DATE", date_words(mission["date"]) + (
+                 " · {:02d}{:02d} local".format(*mission["time"]) if mission.get("time") else "")),
+             ("SIDE", SERVICE.get(mission.get("blue_nation"), mission.get("blue_nation", ""))),
+             ("WINDOW", f"{mission['minutes']} min, closes at {deadline_minutes(mission)}")]
+    row = "".join(f'<TextBlock FontSize="14" Margin="0,0,24,4" Text="{xml_escape(k + "  " + v)}"/>'
+                  for k, v in facts if v)
+    img = credit = ""
+    if b:
+        stem, asset = b
+        img = (f'<Image Source="{{Binding Assets[{stem}]}}" Width="{BANNER_SIZE[0]}" '
+               'HorizontalAlignment="Left"/>')
+        credit = (f'<TextBlock FontSize="12" Opacity="0.7" TextWrapping="Wrap" '
+                  f'Text="{xml_escape(asset["label"] + ". " + photo_credit(asset).replace(" · resized", " · cropped"))}"/>')
+    return ('<Border BorderBrush="#3D8FC9" BorderThickness="0,0,0,2" Margin="0,0,0,12" Padding="0,0,0,8">'
+            f'<StackPanel>{img}<WrapPanel Margin="0,8,0,0">{row}</WrapPanel>{credit}</StackPanel></Border>')
+
+
 def recognition_xml(picked):
     if not picked:
         return ""
@@ -4109,6 +4180,7 @@ def briefing_page(mission):
                              f'Margin="0,0,0,{gap}" '
                              f'Text="{xml_escape(paragraph.strip())}"/>')
 
+    parts.append(banner_xml(mission))
     section("SITUATION", mission["brief"])
     # Who is speaking, and what they actually want. The bible wrote seven
     # recurring people and asked for "short radio traffic, log extracts and
@@ -5754,6 +5826,9 @@ def main():
                                                    encoding="utf-8")
         for stem, _entry, asset, _side in recognition(mission):
             (brief / f"{stem}.png").write_bytes(recognition_png(asset["file"]))
+        if banner(mission):
+            stem, asset = banner(mission)
+            (brief / f"{stem}.png").write_bytes(banner_png(asset["file"]))
 
     def info(name, desc, general="[General]\nType=Scenario\n\n", tail=""):
         """A folder's _info.ini.

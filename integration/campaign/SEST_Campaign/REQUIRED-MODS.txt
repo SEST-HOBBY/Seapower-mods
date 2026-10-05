@@ -261,6 +261,7 @@ to; the repository also builds each of them on its own.
 (local)       unit                             SEST Growler NGJ + MALICE
 (local)       store                            SEST Intercept Model
 (local)       unit                             SEST JMSDF Mogami
+(local)       library                          SEST Name Fixes
 (local)       unit                             SEST RAAF Bases
 (local)       unit                             SEST RAAF F-35A JATM
 (local)       squadron                         SEST RAAF Wedgetail
