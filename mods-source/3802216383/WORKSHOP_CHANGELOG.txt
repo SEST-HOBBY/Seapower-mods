@@ -1,6 +1,5 @@
-R10.54 — Island Hatch Proportions
+R10.55
 
-- Resized six small island personnel hatch assemblies.
-- Kept sills aligned to platforms and frames/fittings aligned to sloped walls.
-- Applied the correction to intact and damaged geometry.
-- Ship scale, crew, railings and gameplay unchanged.
+- Changed the ship category from Helicopter Destroyer to Destroyer, matching the base-game DDH convention.
+- Renamed Hyūga Class to Hyūga-class.
+- Retained Hyūga and Ise under one class, with no separate Ise unit-type entry.
