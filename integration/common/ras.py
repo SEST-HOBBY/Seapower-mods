@@ -377,6 +377,51 @@ SUPPLIERS = {
              "a ceiling: 45 points/sec against an AOE's 120, and 8 kn on a hull "
              "that makes 33. It carries anything, slowly, very nearly stopped"),
 
+    # ---- vanilla merchant hulls (Role=Merchant), October 2026 -----------------
+    # Cargo ships with no replenishment rig: the cost is the slow transfer and
+    # the near-stop, the way the Algol pays for its size, not a missing
+    # category. RE-power already makes eight Soviet merchants suppliers
+    # (Andizhan, Irkutsk, Kommunist, Metallurg Anosov, Murom, Poltava,
+    # Slavyansk, Yuniy Partizan); these are the cargo hulls it leaves out.
+    "civ_ms_c8": _supplier(
+        "vanilla", "C8 LASH barge carrier (MSC prepositioning)", "US", "MV",
+        load=35, pool=300000, rng=0.5, targets=1, own=8, target_vel=12, cap=8000,
+        cats=[("Harpoon", 24), ("AirTorpedo", 32), ("ALWT", 16), (LAND_ATTACK, 16),
+              (LONG_RANGE_SAM, 16)],
+        note="272 m LASH ship of the kind MSC chartered to preposition "
+             "ammunition in its barges; ceiling as the RAN Supply, so it passes "
+             "Tomahawk, NSM and SM-6 but not SM-3 or the heavy Soviet rounds"),
+
+    "civ_ms_seabee": _supplier(
+        "vanilla", "Seabee-class barge carrier", "US/Soviet", "MS",
+        load=35, pool=300000, rng=0.5, targets=1, own=8, target_vel=12, cap=8000,
+        cats=[("Harpoon", 24), ("AirTorpedo", 32), ("ALWT", 16), ("SovietAdvancedASM", 8),
+              (LAND_ATTACK, 16), (LONG_RANGE_SAM, 16)],
+        note="the hull carries a US and a Soviet variant, so both sides' "
+             "categories are stocked; the 8000 ceiling admits the SS-N-12 "
+             "(7740) and nothing heavier"),
+
+    "civ_ms_roro_a": _supplier(
+        "vanilla", "Ro-Ro A (stern-ramp Ro-Ro)", "US/Norway/Soviet", "MV",
+        load=30, pool=80000, rng=0.5, targets=1, own=8, target_vel=12, cap=2000,
+        cats=[("Harpoon", 8), ("AirTorpedo", 16)],
+        note="military-sealift Ro-Ro; light ordnance only"),
+
+    "civ_ms_roro_b": _supplier(
+        "vanilla", "Ro-Ro B (Soviet bow-ramp Ro-Ro)", "Soviet", "MV",
+        load=30, pool=80000, rng=0.5, targets=1, own=8, target_vel=12, cap=2000,
+        cats=[("AirTorpedo", 16)],
+        note="Soviet medium Ro-Ro of the kind Morflot kept for military "
+             "lift; no SovietAdvancedASM line, the 2000 ceiling blocks every "
+             "round in it"),
+
+    "civ_ms_mercur": _supplier(
+        "vanilla", "Mercur-class container ship", "Soviet", "MV",
+        load=25, pool=50000, rng=0.5, targets=1, own=8, target_vel=12, cap=2000,
+        cats=[("AirTorpedo", 12)],
+        note="East German-built 712 TEU container ship; the smallest pool "
+             "here - stores and light rounds from containers"),
+
     # ---- Workshop mod hull ---------------------------------------------------
     "ae_ao_teide": _supplier(
         "3630495619", "Teide-class fleet oiler (BP-11)", "Spain", "AO",
