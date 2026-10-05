@@ -266,6 +266,12 @@ def credits_text(staged):
               "carried here so it still looks as its author made it.",
               "RAAF F-35A Lighting II by Greene (workshop 3514484654):"]
         L += [f"      {rel}" for rel in carried]
+    profiles = sum(1 for rel in staged if rel.startswith("ui/profiles/"))
+    if profiles:
+        L += ["", f"The {profiles} encyclopedia pictures in ui/profiles/ are real",
+              "photographs from the SEST gallery. Each carries its photographer",
+              "and licence on the picture; the full credits, with sources, are",
+              "in Gallery/PHOTO_CREDITS.txt."]
     L += [""]
     if rows:
         by_mod = {}
