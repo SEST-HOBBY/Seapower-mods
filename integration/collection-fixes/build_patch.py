@@ -1101,35 +1101,64 @@ def build_missing_loadout_names():
 # The game's loading-screen tips. language_*/ merges key-by-key across the
 # load order, and the keys are positional (Count, Header, Tip001...), so ANY
 # mod that puts a [LoadingTips] section in language_en/ overwrites vanilla's
-# tips one for one, whatever its file is called. The PLAAF Aircraft Pack
-# (3812111085) does exactly that from language_en/loading_tips_plaaf.ini -
-# eleven tips and a header in Chinese, filed under the English folder - and
-# the player's first screen after subscribing read entirely in Chinese
-# (3 Oct 2026). Shipping vanilla's own English file verbatim from the top of
-# the order gives every key back its vanilla value. The copy is written only
-# while some mod other than vanilla ships such a section, so it retires itself
-# when the offender is fixed or leaves.
+# tips one for one, whatever its file is called. The PLAAF Aircraft Pack did
+# that first (3 Oct 2026: the player's first screen read entirely in Chinese);
+# today 3732654992 files eighteen quotations there under Header=Quotes. This
+# pack sits at the top of the order, so its copy wins every key: vanilla's
+# nineteen tips verbatim, then SEST's own, numbered on from vanilla's last
+# and counted in Count=.
+#
+# SEST_TIPS are checked against the pack before they go in: each one states
+# something the pack or its campaigns actually do (docs/replenishment-in-play.md,
+# the briefing ROE and TIME sections, SETUP). Keep them short - the panel is
+# one line or two.
+SEST_TIPS = [
+    "SEST: To reload missiles and torpedoes at sea, bring a supply ship within "
+    "about a mile and slow down. Most auxiliaries stop supplying above 13 knots.",
+    "SEST: An oiler such as the Henry J. Kaiser passes guns, ESSM, Harpoon and "
+    "torpedoes but no strike missiles. Tomahawks need a Supply-class, Sacramento "
+    "or Lewis and Clark.",
+    "SEST: Surface your submarines before you replenish them. The game will "
+    "rearm a boat underwater; the SEST campaigns treat that as off limits.",
+    "SEST: Reaching a SEST mission's planned time brings a Behind Schedule "
+    "signal, not a loss. The operation closes at one and a half times the plan.",
+    "SEST: Identify before you shoot. In the SEST campaigns, losing a protected "
+    "neutral cancels the operation.",
+    "SEST: Every SEST briefing ends with a Recognition section: real photographs "
+    "of your own forces and the expected opposition.",
+    "SEST: After Steam updates the SEST pack or a collection mod, close the game "
+    "and run SETUP again from the pack's folder.",
+    "SEST: The SEST pack's Gallery folder holds real photographs of the "
+    "collection's units. Open gallery.html in your web browser.",
+]
+
+
 def build_vanilla_tips():
     vanilla = MODS / "_vanilla/original" / "language_en" / "loading_tips.ini"
-    src = read_file(vanilla).replace("\r\n", "\n")
-    if "[LoadingTips]" not in src or not re.search(r"^Count=\d+", src, re.M):
+    src = read_file(vanilla).replace("\r\n", "\n").lstrip("\ufeff")
+    m = re.search(r"^Count=(\d+)\s*$", src, re.M)
+    if "[LoadingTips]" not in src or not m:
         sys.exit("vanilla loading_tips.ini no longer has the [LoadingTips] shape - re-check")
+    n = int(m.group(1))
+    have = re.findall(r"^Tip(\d{3})=", src, re.M)
+    if len(have) != n or int(have[-1]) != n:
+        sys.exit(f"vanilla loading_tips.ini: Count={n} but tips {have[0]}..{have[-1]} - re-check")
     offenders = []
     for f in sorted(MODS.glob("*/language_en/*.ini")):
         if f.parts[-3].startswith("_"):
             continue
         if re.search(r"^\[LoadingTips\]", read_file(f), re.M):
             offenders.append(f"{f.parts[-3]}/{f.name}")
-    if not offenders:
-        return []
-    body = ("# SEST Collection Fixes - vanilla's loading-screen tips, verbatim.\n"
-            "# Another mod files a [LoadingTips] section under language_en/ ("
-            + ", ".join(offenders) + "),\n"
-            "# and the key-by-key merge would otherwise hand the game that mod's tips\n"
-            "# under the English folder. Nothing here is SEST's own text.\n"
-            + src.lstrip("\ufeff"))
+    total = n + len(SEST_TIPS)
+    body = src.replace(m.group(0), f"Count={total}", 1).rstrip("\n") + "\n"
+    body += "".join(f"Tip{n + i:03d}={t}\n" for i, t in enumerate(SEST_TIPS, 1))
+    head = ("# SEST Collection Fixes - vanilla's loading-screen tips verbatim (Tip001-"
+            f"Tip{n:03d}),\n# then SEST's own (Tip{n + 1:03d}-Tip{total:03d}).")
+    if offenders:
+        head += ("\n# Another mod files a [LoadingTips] section under language_en/ ("
+                 + ", ".join(offenders) + ");\n# this copy, first in the order, wins every key.")
     (OUT / "language_en").mkdir(parents=True, exist_ok=True)
-    (OUT / "language_en" / "loading_tips.ini").write_text(body, encoding="utf-8")
+    (OUT / "language_en" / "loading_tips.ini").write_text(head + "\n" + body, encoding="utf-8")
     return offenders
 
 
