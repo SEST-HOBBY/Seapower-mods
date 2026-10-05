@@ -95,6 +95,7 @@
         "SEST_ADF_Persistent_ISR",
         "SEST_Collection_Fixes",
         "SEST_F-15EX_Revamp",
+        "SEST_RAAF_F-35A_JATM",
         "SEST_RAAF_Wedgetail",
         "SEST_Raptor_Squadrons"
       ]
@@ -200,11 +201,11 @@
       "author": "Greene",
       "faction": "australia",
       "type": "fixed-wing",
-      "status": "active",
+      "status": "unsubscribed",
       "overlaps": [
         "modern-us-navy (F-35C — different variant, complementary; possible shared weapon data only)"
       ],
-      "notes": "RAAF fifth-generation multirole stealth fighter."
+      "notes": "REMOVED FROM THE WORKSHOP (found 5 Oct 2026: the item page says it cannot be found; Subscribe to all no longer delivers it). Taken in by SEST_RAAF_F-35A_JATM (integration/raaf-f-35a-jatm): every file that won the load order - the aircraft, squadrons, animations, gun pod, AIM-120C-7, GBU-31(V)1, GBU-53, JSM and JSM land-attack, and the names only it defined - built from the 4 Oct export in mods-source/3514484654, with each model reference moved to a model still in the collection (US Naval Aviation's F-35C, JSM and GBU-53; the GBU-31 model a live round uses). The RAAF livery texture went with the mod. Previously: RAAF fifth-generation multirole stealth fighter."
     },
     {
       "id": "b-52h",

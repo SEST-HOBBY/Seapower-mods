@@ -5,7 +5,7 @@ variants they name, the rounds their loadouts hang and the units its
 roster sells. The pack-level REQUIRED-MODS.txt two folders up, at the
 pack's root, is the union across every campaign in the pack.
 
-1. HARD REQUIRED (82): a mission names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (79): a mission names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3781062859    a model a placed unit draws      <<E-3G>>
@@ -20,14 +20,12 @@ pack's root, is the union across every campaign in the pack.
   3481228992    a unit a mission places          ChengDu J-10C Vigorous Dragon
   3417801942    a unit a mission places          Chinese Navy (PLAN)
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
-  3760871384    a model a placed unit draws      Dingtools Weapon Pack
   3630495619    a model a placed unit draws      Euromod - Cold War Spanish Navy
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
   3599752717    a model a placed unit draws      Euromod - Modern British Navy
   3695809489    a unit a mission places          Euromod - Modern Japanese Maritime Self Defence Force
   3731208477    a model a placed unit draws      Euromod - Modern Spanish Navy
   3789208859    a unit a mission places          Euromod-South Korea Navy
-  3553116604    a model a placed unit draws      F-15E StrikeEagle
   3418252667    a unit a mission places          F-22 Raptor
   3755769170    a unit a mission places          F-2A 'Viper Zero'
   3607989779    a weapon a loadout hangs         F-35C Lightning II Alt. Loadouts
@@ -64,7 +62,6 @@ pack's root, is the union across every campaign in the pack.
   3594891803    a unit a mission places          PLAN Submarines
   3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
   3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
-  3514484654    a squadron a flight comes from   RAAF F-35A Lighting II
   3605013271    a unit a mission places          RE-power: the resupply mod
   3769142422    a unit a mission places          Rebuilt J-16 / J-16D
   3413868677    a unit a mission places          Red Storm Arsenal
@@ -91,7 +88,7 @@ pack's root, is the union across every campaign in the pack.
   3380210757    required by another mod          Anchor Chain
                                                    asked for by: MV-22B Osprey Tiltrotor / JGSDF V-22B
 
-1b. ONLY FOR THE DISPATCHES (61): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
+1b. ONLY FOR THE DISPATCHES (63): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
 itself never loads them. Keep them installed anyway: SETUP checks every
 mod in LOAD-ORDER.txt and stops if one is missing.
 
@@ -112,6 +109,7 @@ mod in LOAD-ORDER.txt and stops if one is missing.
   3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
   3606134711    a weapon a loadout hangs         Custom Loadout Editor
   3558173926    a unit a mission places          David's Sling
+  3760871384    a weapon a loadout hangs         Dingtools Weapon Pack
   3587877691    a unit a mission places          Eurofighter Typhoon
   3444379330    a hull variant in use            Euromod - Modern Dutch navy
   3575847216    a unit a mission places          Euromod - Modern German Navy
@@ -119,6 +117,7 @@ mod in LOAD-ORDER.txt and stops if one is missing.
   3642656500    a hull variant in use            Euromod - Modern Nordic Navy
   3448845252    a unit a mission places          F-117 Nighthawk
   3636386513    a weapon a loadout hangs         F-15 EX Eagle II
+  3553116604    a unit a mission places          F-15E StrikeEagle
   3758320372    a unit a mission places          F-16C Fighting Falcon (modern)
   3430135740    a unit a mission places          F/A-18 Murder Hornet with AIM-174B
   3373960386    a unit a mission places          Flight Deck Ops

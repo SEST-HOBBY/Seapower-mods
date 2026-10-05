@@ -6,16 +6,18 @@ every one of those belongs to the Workshop mod it came from,
 which is why REQUIRED-MODS.txt lists them as required rather
 than suggested.
 
-481 of the unit files here are another author's file with
+488 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 481 below
+every file of its kind in the collection, and the 488 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
+Files carried for a mod that was removed from the Workshop are
+listed whatever the percentage: they are still that author's.
 
   1143.5 Kuznetsov  (workshop 3438479626)
       100%  vessels/ru_cv_kuznetsov.ini 
@@ -363,8 +365,15 @@ file is unchanged.
   PLAN Type 071 Amphibious Transport Dock  (workshop 3774572038)
       100%  vessels/plan_lpd_type_071.ini 
 
-  RAAF F-35A Lighting II  (workshop 3514484654)
-       93%  aircraft/raaf_f-35a.ini 
+  RAAF F-35A Lighting II  (workshop 3514484654, removed from the Workshop - this pack carries it)
+       89%  aircraft/raaf_f-35a.ini 
+       78%  aircraft/raaf_f-35a_squadrons.ini 
+       95%  ammunition/raaf_f-35_gun_pod.ini 
+      100%  ammunition/usaf_aim-120c7.ini 
+       97%  ammunition/usaf_gbu-31_v1.ini 
+       99%  ammunition/usaf_gbu-53.ini 
+       99%  ammunition/usaf_jsm.ini 
+       99%  ammunition/usaf_jsm_land.ini 
 
   RE-power: the resupply mod  (workshop 3605013271)
        95%  vessels/civ_ms_sealift_pacific.ini 

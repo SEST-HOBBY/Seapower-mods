@@ -1,6 +1,6 @@
 Southern Reach - Workshop mods this campaign reaches (reference only)
 
-43 items, in canonical load order. NOT for the Workshop
+40 items, in canonical load order. NOT for the Workshop
 item's Required Items box. All three campaigns ship in one item, the SEST
 Integration Pack (3812461539), which keeps that box empty on purpose:
 the Mod Manager's dependency check ('Must load above this mod') offers
@@ -12,7 +12,6 @@ mod the campaign does not reach.
 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3789188689    # PLA & PLAN & PLAAF AEP
 https://steamcommunity.com/sharedfiles/filedetails/?id=3733719765    # PLA Land Unit Pack
-https://steamcommunity.com/sharedfiles/filedetails/?id=3760871384    # Dingtools Weapon Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3606774881    # U.S. Navy 2027 Capabilities mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=3629144864    # Euromod - Main Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3775128499    # Modern PLAN Systems
@@ -44,12 +43,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3781062859    # <<E-3G>>
 https://steamcommunity.com/sharedfiles/filedetails/?id=3595014060    # NATO E-3A Sentry
 https://steamcommunity.com/sharedfiles/filedetails/?id=3808882954    # RC-135V/W Rivet Joint
 https://steamcommunity.com/sharedfiles/filedetails/?id=3499239964    # [DEPRECATED] E-7A Wedgetail
-https://steamcommunity.com/sharedfiles/filedetails/?id=3553116604    # F-15E StrikeEagle
 https://steamcommunity.com/sharedfiles/filedetails/?id=3567228449    # French Helicopter Package
 https://steamcommunity.com/sharedfiles/filedetails/?id=3503670861    # General Atomics MQ-9 Reaper
 https://steamcommunity.com/sharedfiles/filedetails/?id=3717610332    # IL-78 TANKER
 https://steamcommunity.com/sharedfiles/filedetails/?id=3722749887    # KC-135 STRATOTANKER
-https://steamcommunity.com/sharedfiles/filedetails/?id=3514484654    # RAAF F-35A Lighting II
 https://steamcommunity.com/sharedfiles/filedetails/?id=3732654992    # THE REDFOR MOD
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod

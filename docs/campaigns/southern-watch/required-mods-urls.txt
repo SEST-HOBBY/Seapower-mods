@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches (reference only)
 
-143 items, in canonical load order. NOT for the Workshop
+142 items, in canonical load order. NOT for the Workshop
 item's Required Items box. All three campaigns ship in one item, the SEST
 Integration Pack (3812461539), which keeps that box empty on purpose:
 the Mod Manager's dependency check ('Must load above this mod') offers
@@ -116,7 +116,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3774746803    # AVIC HARB
 https://steamcommunity.com/sharedfiles/filedetails/?id=3729578404    # PLA Shenyang J-11BS
 https://steamcommunity.com/sharedfiles/filedetails/?id=3433577445    # Shenyang J-8
 https://steamcommunity.com/sharedfiles/filedetails/?id=3729579342    # PLA Sukhoi Su-27UBK
-https://steamcommunity.com/sharedfiles/filedetails/?id=3514484654    # RAAF F-35A Lighting II
 https://steamcommunity.com/sharedfiles/filedetails/?id=3796113927    # RQ-180 White Bat Airframe
 https://steamcommunity.com/sharedfiles/filedetails/?id=3392434750    # SA-21/S-400 SAM
 https://steamcommunity.com/sharedfiles/filedetails/?id=3673250557    # SAAB AEW&C PACK
