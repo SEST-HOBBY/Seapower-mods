@@ -1,6 +1,6 @@
 SOUTHERN WATCH / SOUTHERN REACH / RED LINE - the load order this was built against
 
-190 entries, top of the list first. The Mod Manager's own
+191 entries, top of the list first. The Mod Manager's own
 order is what the game uses; this is a copy to check yours against,
 not something the game reads.
 
@@ -210,4 +210,5 @@ bottom as you had them.
  188. 3752415457    Philippines: The Luzon Line
  189. 3711297532    Thailand: The Siam Shield
  190. 3605013271    RE-power: the resupply mod
+ 191. 3796706214    Real photos of airplanes and helicopters
 

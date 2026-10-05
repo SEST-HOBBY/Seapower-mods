@@ -174,7 +174,7 @@ there is nothing more to subscribe to.
   (local)       a squadron a flight comes from   SEST Raptor Squadrons
   (local)       a unit a mission places          SEST Replenishment At Sea
 
-3. INSTALL-WIDE LIBRARIES AND UI (6): ship no file a mission names. Keep them installed anyway: SETUP stops if any mod in
+3. INSTALL-WIDE LIBRARIES AND UI (7): ship no file a mission names. Keep them installed anyway: SETUP stops if any mod in
 LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
@@ -184,6 +184,7 @@ for; the map, salvo and rescue tools are conveniences.)
   3806686336    library                          Coordinated Strike Tool
   3784474738    library                          Euromod - Anchorchain Expansion Pack
   3790594162    library                          Identify Expanded
+  3796706214    library                          Real photos of airplanes and helicopters
 
 3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (38): in the collection for
 campaigns and scenarios this one does not include. Keep them installed anyway: SETUP
