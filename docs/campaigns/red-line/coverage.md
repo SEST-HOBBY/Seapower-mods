@@ -11,9 +11,9 @@ This campaign reaches 43 of the enabled mods and packs; the 169 it does not are 
 | class | meaning | mods |
 |---|---|---|
 | `unit` | places the unit; this mod wins its file | 20 |
-| `variant` | supplies the hull variant the placed unit uses | 4 |
+| `variant` | supplies the hull variant the placed unit uses | 5 |
 | `squadron` | supplies the squadron the placed airframe flies from | 1 |
-| `store` | supplies a round the placed unit's loadout hangs | 9 |
+| `store` | supplies a round the placed unit's loadout hangs | 8 |
 | `asset` | supplies a model folder the placed unit's file draws from | 9 |
 
 Sea and land positions in 4 of the 6 missions are snapped to points already used by a loading mission (the furthest any anchor had to move is 6.7 NM); the other 2 use them as authored, checked against the coastline extract.
@@ -37,7 +37,7 @@ Sea and land positions in 4 of the 6 missions are snapped to points already used
 | `kuznetsov-1143-5` | 1143.5 Kuznetsov | `store` | plan_type_001 / su_rgb-12 | The Order to Withdraw |
 | `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_type_001 | The Order to Withdraw |
 | `merchants-expanded` | Merchants Expanded | `unit` | civ_ms_mairangi_bay | The Other Picture |
-| `modern-chinese-airbase` | Modern Chinese Airbase (Large) | `unit` | pla_airbase_modern | Routes They Can See |
+| `modern-chinese-airbase` | Modern Chinese Airbase (Large) | `variant` | pla_airbase_modern | Routes They Can See |
 | `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_z-9c | Trailing Contact |
 | `modern-us-navy` | Modern US Navy | `asset` | jmsdf_ddg_maya / ships/materials/shared | The Other Picture |
 | `mogami-frigate` | Mogami-class Frigate | `variant` | js_ffg_mogami | The Other Picture |
@@ -56,7 +56,7 @@ Sea and land positions in 4 of the 6 missions are snapped to points already used
 | `us-submarines` | Virginia-, Seawolf-, and Ohio-class Submarines | `variant` | usn_ssn_virginia | Under the Convergence |
 | `SEST_ADF_Persistent_ISR` | SEST ADF Persistent ISR | `unit` | raaf_mq-4c_triton | Trailing Contact |
 | `SEST_Allied_Fixes` | SEST Allied Fixes | `unit` | usn_p8 | Trailing Contact |
-| `SEST_Collection_Fixes` | SEST Collection Fixes | `store` | ran_ms_antares / usn_cal_40mm | The Other Picture |
+| `SEST_Collection_Fixes` | SEST Collection Fixes | `unit` | pla_airbase_modern | Routes They Can See |
 | `SEST_Growler_NGJ_MALICE` | SEST Growler NGJ + MALICE | `unit` | usn_ea-18g | The Other Picture |
 | `SEST_JMSDF_Mogami` | SEST JMSDF Mogami | `unit` | js_ffg_mogami | The Other Picture |
 | `SEST_RAAF_F-35A_JATM` | SEST RAAF F-35A JATM | `unit` | raaf_f-35a | The Other Picture |
