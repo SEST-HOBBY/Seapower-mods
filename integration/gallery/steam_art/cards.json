@@ -157,5 +157,40 @@
    "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",
    "via Wikimedia Commons"
   ]
+ },
+ {
+  "out": "../source/visuals/steam/pack-3-installing.jpg",
+  "bg": "../source/images/aircraft/e7_raaf.jpg",
+  "pos": "center 30%",
+  "kicker": "INSTALLING",
+  "head": "Subscribe, run SETUP, play.",
+  "steps": [
+   [
+    "Subscribe",
+    "Press Subscribe on the SEST Integration Pack and subscribe to all its required items (about 24 GB). Let Steam finish."
+   ],
+   [
+    "Open the pack's folder",
+    "In the game: Mod Manager, SEST Integration Pack, Open Folder. Then quit Sea Power."
+   ],
+   [
+    "Double-click SETUP",
+    "It checks every mod is downloaded, installs the Anchor Chain preloader if missing, and sets the load order."
+   ],
+   [
+    "Pick a campaign",
+    "Southern Watch, Southern Reach, Red Line or Sulu Line for the story. Open Allocation sells everything up front."
+   ]
+  ],
+  "footTop": 930,
+  "foot": [
+   "Windows may ask for permission once, for the preloader.",
+   "If the Mod Manager offers to move dependencies above the pack, say no.",
+   "Run SETUP again (game closed) after the pack or a mod updates."
+  ],
+  "credit": [
+   "Photo: U.S. Air Force, Lawrence Crespo · Public domain · adapted",
+   "via Wikimedia Commons"
+  ]
  }
 ]
