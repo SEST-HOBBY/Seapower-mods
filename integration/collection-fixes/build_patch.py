@@ -16,6 +16,7 @@ alternatives cost) lives in docs/collection-interop-audit.md.
 
 Usage (repo root):  python3 integration/collection-fixes/build_patch.py
 """
+import functools
 import re
 import sys
 import textwrap
@@ -440,26 +441,17 @@ def main():
           "shell-mesh [Models] block that the override was silently dropping.")
     built.append("usn_cal_30mm")
 
-    # usn_rim-162 [audit: usn_rim-116/162 cohort]. Both shippers carry the
-    # dead legacy ECCM pair (CounterMeasuresRejection - zero occurrences in
-    # vanilla 0.8.2); only Mogami's losing copy adds the live keys. The
-    # mission's entire air-defence line fires ESSM against dedicated PLA
-    # jamming aircraft, so AntiJammerBonus is not cosmetic.
+    # usn_rim-162 [audit: usn_rim-116/162 cohort]. Until 6 Oct 2026 this pack
+    # shipped 3461044389's ESSM with the live ECCM pair added from the Mogami
+    # mod's losing copy. The Ford mod's 6 Oct update carries both keys itself
+    # (AntiCountermeasuresBonus=0.6, AntiJammerBonus=0.55) and outranks the
+    # Mogami copy, so the override is retired; this only proves the donor
+    # still has them, and stops the build the day it drops one again.
     t = read("3461044389", "ammunition/usn_rim-162.ini")
-    if "AntiCountermeasuresBonus" in t:
-        sys.exit("usn_rim-162: donor now defines AntiCountermeasuresBonus - rebase")
-    t = edit(t, r"^(NoiseRejection=60.*)$",
-             "\\1\n#ECCM\n"
-             "AntiCountermeasuresBonus=0.4          // This value substracted from "
-             "probability of spoofing by countermeasures (0...1)\n"
-             "AntiJammerBonus=0.2                   // This value substracted from "
-             "probability of being jammed  (0...1)",
-             1, "usn_rim-162")
-    write("ammunition/usn_rim-162.ini", t,
-          "SEST Collection Fixes - base: 3461044389's ESSM. One addition, from the\n"
-          "Mogami mod's copy: AntiCountermeasuresBonus=0.4 / AntiJammerBonus=0.2 -\n"
-          "the only live-schema ECCM values any mod defines for RIM-162.")
-    built.append("usn_rim-162")
+    for key in ("AntiCountermeasuresBonus", "AntiJammerBonus"):
+        if not re.search(rf"^{key}=", t, re.M):
+            sys.exit(f"usn_rim-162: 3461044389's ESSM lost {key} again - restore the "
+                     "override this pack shipped before 6 Oct 2026")
 
     # plaaf_kd-88 [audit: plaaf_kd-88 cohort]. After the load-order move the
     # CV-18 mod's KD-88 wins: LandAttackCapability=All, sea-skimming terminal,
@@ -1392,14 +1384,11 @@ CIWS_RETUNE = {
     "eu_mlg_27":      ("closed", dict(MissileInterceptChance="15", AircraftInterceptChance="50",
                                       VolleyMaxRounds="90", VolleyCooldown="3.0"),
                        "Euromod's MLG 27 (was anchor 25)"),
-    "NEXTER-NARWHAL": ("director", dict(MissileInterceptChance="5", AircraftInterceptChance="15",
-                                        ReactionTime="3.0", BurstTime="1.0",
-                                        VolleyMaxRounds="200", VolleyCooldown="3.0"),
-                       "the French pack's 20 mm Narwhal (was anchor 50, the Phalanx's level)"),
-    "20_mm_modèle_F2": ("director", dict(MissileInterceptChance="5", AircraftInterceptChance="15",
-                                         ReactionTime="3.0", BurstTime="1.0",
-                                         VolleyMaxRounds="200", VolleyCooldown="3.0"),
-                        "the French pack's 20 mm F2 (was anchor 50)"),
+    # NEXTER-NARWHAL left this table on 6 Oct 2026: the French pack now ships
+    # its Narwhal on the 0.8.3 keys itself (anchor 50, BurstTime 1.0, volleys
+    # of 200), which is the author's own retune and not this pack's to redo.
+    # 20_mm_modèle_F2 left with it: the same update makes the F2 a plain
+    # OpenMount_Light gun (anchors 1 and 35), no longer a CIWS module at all.
     # These two declare no ModuleType, so the game treats them as guns, not
     # CIWS modules: the burst keys would mean nothing, and only the anchors
     # move ("anchor" pattern).
@@ -1433,8 +1422,7 @@ EXTENDS = {
     # our eight entries. Its Fujian also outranks the Fujian mod's, so that
     # carrier is the PLAN Pack's now and declares its own.
     # the other carriers and the LPD, each its own mod
-    "plan_type_001": "SEST_PLAN_Carrier",
-    "plan_cvn_004": "SEST_PLAN_Carrier", "plan_lpd_type_071": "SEST_PLAN_Amphibious",
+    "plan_type_001": "SEST_PLAN_Carrier", "plan_lpd_type_071": "SEST_PLAN_Amphibious",
     # Chinese Navy (3417801942): vanilla-era hulls, vanilla's own profiles
     "plan_ddg_luda_typ_051d": "ZKJ-3", "plan_ddg_luda_typ_051dt": "ZKJ-3",
     "plan_em_sovremenny": "Sapfir_U",
@@ -1451,24 +1439,21 @@ EXTENDS = {
     "rfn_ddg_21956_late": "SEST_RU_AAW", "rfn_ffg_11356": "SEST_RU_Multirole",
     "rfn_cvt_20380_7-12": "SEST_RU_Compact", "rfn_cvt_20385": "SEST_RU_Compact",
     # Soviet-lineage hulls in other mods
-    "ru_cv_kuznetsov": "Lesorub_55", "ru_cv_varyag": "Lesorub_55",
-    "wp_rkr_kirov_improved": "Alleya_2M", "wp_rkr_admiral_nakhimov_refit": "SEST_RU_AAW",
+    "ru_cv_kuznetsov": "Lesorub_55", "ru_cv_varyag": "Lesorub_55", "wp_rkr_admiral_nakhimov_refit": "SEST_RU_AAW",
     "wp_rkr_slava_16": "Lesorub_1164",
     # Iran
     "ir_ptg_peykaap_3": "Titanit",
+    # 6 Oct 2026: the Ford, Fujian/Type 004, Kirov and French packs now ship
+    # systems/combatsystems.ini with their own profiles (MU_SSDS_Carrier,
+    # MU_PLAN_Carrier, MU_Sigma_1144M, SENIT8_CDG, CMS_Horizon, SETIS_FDI,
+    # SETIS_FREMM_DA/ASW, SENIT_FLF_RMV) and name them on their hulls, so
+    # eleven entries left this table; the Mogami's builder does the same.
     # blue
     "ran_ddg_hobart_alt_late": "SEST_AEGIS_BL9", "ran_ffg_adelaide_ffg_upgrade": "SEST_9LV_Compact_MLU",
     "usn_cg_ticonderoga_vls_2027": "SEST_AEGIS_BL9", "usn_cg_ticonderogaVLS": "SEST_AEGIS_BL9",
     "usn_cg_kansas_late": "SEST_AEGIS_BL9", "usn_ddg_arleigh_burke_flight3_2030": "SEST_AEGIS_BL10",
-    "usn_cvn_ford": "SEST_SSDS_Carrier", "usn_cvn_ford_jsf": "SEST_SSDS_Carrier",
     "usn_cvn_nimitz_2000s": "SEST_SSDS_Carrier", "usn_cvn_nimitz_2000s_adou": "SEST_SSDS_Carrier",
     "ko_ddg-991": "SEST_AEGIS_BL9", "ko_ffg-818": "SEST_CMS_Compact_Enhanced",
-    "fr_cvn_charles-de-gaulle": "SEST_SENIT_Carrier", "fr_ddg_horizon": "SEST_CMS_AAW_PAAMS",
-    "fr_fdi_amiral_ronarc'h": "SEST_SETIS_Integrated",
-    "fr_ffg_aquitaine_modernized_aaw": "SEST_SETIS_AAW",
-    "fr_ffg_aquitaine_modernized_asw": "SEST_SETIS_ASW_MLU",
-    "fr_ffg_lafayette_modernized": "SEST_CMS_Compact_Enhanced",
-    "fr_ffg_lafayette_version_opv_modernized": "SEST_CMS_Compact_Enhanced",
     "rn_type23_refit": "SEST_CMS_SeaCeptor",
 }
 # Mod copies of vanilla hulls that dropped vanilla's block: they get vanilla's
@@ -1762,9 +1747,10 @@ def extended_by_mods():
 #   but no hull; it is not in any SEST roster.
 STALE_OVERWRITES = {
     "usn_dd_spruance_eu_vls_CombatSystems_OVWR.ini":
-        ("vessels/usn_dd_spruance_eu_vls.ini", "vessels/usn_dd_spruance_vls_lamps3.ini",
-         "Modern US Navy v597 renamed the hull to usn_dd_spruance_vls_lamps3, which already "
-         "runs NTDS_TAS through the game's VLS Spruance"),
+        ("vessels/usn_dd_spruance_eu_vls.ini", "vessels/usn_dd_spruance_vls_lamps-3.ini",
+         "Modern US Navy v597 renamed the hull to usn_dd_spruance_vls_lamps3 and v598 (6 Oct "
+         "2026) to usn_dd_spruance_vls_lamps-3, an alias of the game's VLS Spruance, which "
+         "already runs NTDS_TAS"),
     "rnn_ss_dolfijn_CombatSystems_OVWR.ini":
         ("vessels/rnn_ss_dolfijn.ini", "vessels/rnn_ddg_zeven.ini",
          "Euromod-Dutch Navy ships no Dolfijn hull; this file now extends a Dutch hull "
@@ -1831,8 +1817,19 @@ def build_extends():
             sys.exit(f"{uid}: {mod}'s file is an alias/extend itself - extend the base instead")
         if not re.search(r"^UnitType=Vessel\s*$", text, re.M):
             sys.exit(f"{uid}: not UnitType=Vessel in {mod} - submarines take no profile here")
-        if re.search(r"^\[CombatSystems\]", text, re.M):
-            sys.exit(f"{uid}: {mod} now declares its own [CombatSystems] - drop it from EXTENDS")
+        own = re.search(r"^\[CombatSystem1\][^\n]*\n(?:(?!^\[).)*?^SystemName=([^\s/]+)",
+                        text, re.M | re.S)
+        if own and combat_profile_defined(own.group(1)):
+            sys.exit(f"{uid}: {mod} now declares its own [CombatSystems] ({own.group(1)}) - "
+                     "drop it from EXTENDS")
+        elif own:
+            # 6 Oct 2026: twelve hulls (Ford, Fujian 004, Kirov, Mogami, the French
+            # pack) took [CombatSystems] blocks naming profiles - MU_SSDS_Carrier,
+            # CMS_Horizon, SETIS_FDI and so on - that neither the game nor any mod
+            # defines. A name that resolves to nothing is no choice to respect;
+            # the extend keeps the SEST profile on the hull until the name exists.
+            print(f"  {uid}: {mod}'s own combat system {own.group(1)} is defined nowhere - "
+                  f"extended with {profile}")
         who = extended.get(f"vessels/{uid}.ini".lower())
         if who:
             sys.exit(f"{uid}: already extended by {who} - a second block would double it; "
@@ -1850,6 +1847,20 @@ def build_extends():
 
 def read_file(p):
     return Path(p).read_text(encoding="utf-8-sig", errors="replace")
+
+
+@functools.lru_cache(maxsize=None)
+def combat_profiles_defined():
+    """Every [section] name in a systems/ file of the game or any mod: the
+    names a hull's SystemName can resolve to."""
+    names = set()
+    for f in list((MODS / "_vanilla" / "original" / "systems").glob("*.ini")) + list(MODS.glob("*/systems/*.ini")):
+        names |= set(re.findall(r"^\[([^\]\n]+)\]", read_file(f), re.M))
+    return names
+
+
+def combat_profile_defined(name):
+    return name in combat_profiles_defined() or name in combat.PROFILES
 
 
 COMPOSED_CAL_30MM = """\

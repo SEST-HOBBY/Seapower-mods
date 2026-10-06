@@ -77,16 +77,6 @@ PROFILES = {
     "SEST_CMS_SeaCeptor": (EUROMOD, "CMS_SeaCeptor", {},
                            "a Sea Ceptor Type 23, which is the refit the old Duke-class "
                            "mod models."),
-    "SEST_SENIT_Carrier": (EUROMOD, "SENIT_Carrier", {},
-                           "SENIT 8 on Charles de Gaulle."),
-    "SEST_CMS_AAW_PAAMS": (EUROMOD, "CMS_AAW_PAAMS", {},
-                           "PAAMS on the Horizon."),
-    "SEST_SETIS_Integrated": (EUROMOD, "SETIS_Integrated", {},
-                              "SETIS on the FDI Amiral Ronarc'h."),
-    "SEST_SETIS_AAW": (EUROMOD, "SETIS_AAW", {},
-                       "SETIS on the air-defence Aquitaine."),
-    "SEST_SETIS_ASW_MLU": (EUROMOD, "SETIS_ASW_MLU", {},
-                           "SETIS on the modernised ASW Aquitaine."),
     "SEST_CMS_Compact_Enhanced": (EUROMOD, "CMS_Compact_Enhanced", {},
                                   "a compact modern CMS: the modernised La Fayettes, Korea's "
                                   "Daegu."),
