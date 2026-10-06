@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "prepared_date_local": "2026-10-07",
+  "timezone": "Australia/Brisbane",
+  "branch": "feature/world-campaign-draft",
+  "baseline_commit": "20b3cf89f858df948a6e985f4c76190a708ea17d",
+  "evidence_status": "supplied_unverified",
+  "raw_reports_committed": false,
+  "raw_report_location": "Original conversation attachments; also retained byte-for-byte in the companion handoff archive.",
+  "reports": [
+    {
+      "id": "R01",
+      "original_filename": "Pasted markdown(1).md",
+      "bytes": 11698,
+      "lines": 70,
+      "sha256": "ad8e826003730e31db9c3fb28661e03bfe5b370f427fe10ce0cfd3b56308931c",
+      "focus": "Combined global power projection and logistics overview"
+    },
+    {
+      "id": "R02",
+      "original_filename": "Pasted markdown (2).md",
+      "bytes": 11083,
+      "lines": 79,
+      "sha256": "293c7aaa46f27cc69f3d87fd5320e9bfc53b4ded236e017e96145bdb88bc1044",
+      "focus": "Global military logistics and support networks"
+    },
+    {
+      "id": "R03",
+      "original_filename": "Pasted markdown (3).md",
+      "bytes": 36684,
+      "lines": 172,
+      "sha256": "44bc8e0258fed3e2f039f422c629cc5340b19abbf059f73b86918a46745d027c",
+      "focus": "Expanded global force posture and strategic installations"
+    }
+  ],
+  "prototype": {
+    "status": "design_only",
+    "runtime_implemented": false,
+    "game_loaded": false,
+    "playtested": false,
+    "save_load_tested": false,
+    "intended_structure": "single_persistent_mission",
+    "core_loop": ["deploy", "engage", "withdraw", "resupply", "re_engage"]
+  }
+}
