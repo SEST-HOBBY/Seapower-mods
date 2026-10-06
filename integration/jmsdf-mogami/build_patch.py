@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[2]
 MOGAMI = ROOT / "mods-source" / "3456859157"    # Mogami-class frigate
 JMSDF = ROOT / "mods-source" / "3695809489"     # Euromod JMSDF (renamed jp_sh-60* -> jmsdf_sh-60*, 19 Sep 2026)
 OUT = Path(__file__).resolve().parent / "SEST_JMSDF_Mogami"
+MODS = ROOT / "mods-source"
 
 sys.path.insert(0, str(ROOT / "integration"))
 from common.ras import make_reloadable  # noqa: E402
@@ -68,10 +69,18 @@ def main():
     # would derive one from her service year. The FFM's OYQ-1 is modelled by
     # Euromod's OYQ_Integrated profile (VeryFast, 96 contacts, 5 worked); the
     # SEST clone of it ships in SEST Collection Fixes (common/combat.py).
-    if re.search(r"^\[CombatSystems\]", text, re.M):
-        sys.exit("the Mogami mod now declares its own [CombatSystems] - drop ours")
-    text = set_combat_system(text, "SEST_OYQ_Integrated", "js_ffg_mogami",
-                             note="SEST JMSDF Mogami: OYQ-1")
+    # The mod's 6 Oct 2026 update declares its own [CombatSystems], naming
+    # MU_OYQ_Integrated - a profile no mod in the collection defines, so the
+    # game would be handed a name it cannot resolve. While that stays true the
+    # SEST profile replaces the name (the block itself is the mod's); the day
+    # some mod defines MU_OYQ_Integrated, the mod's own choice is kept.
+    own = re.search(r"^\[CombatSystem1\][^\[]*?^SystemName=([^\s/]+)", text, re.M | re.S)
+    if own and any(re.search(rf"^\[{re.escape(own.group(1))}\]", p.read_text(encoding="utf-8-sig", errors="replace"), re.M)
+                   for p in MODS.glob("*/systems/*.ini")):
+        print(f"  Mogami keeps its own combat system {own.group(1)} (defined upstream)")
+    else:
+        text = set_combat_system(text, "SEST_OYQ_Integrated", "js_ffg_mogami",
+                                 note="SEST JMSDF Mogami: OYQ-1")
 
     (OUT / "vessels").mkdir(parents=True, exist_ok=True)
     (OUT / "vessels" / "js_ffg_mogami.ini").write_text(text, encoding="utf-8")

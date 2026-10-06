@@ -16,19 +16,19 @@ RAAF F-35A Lighting II by Greene (workshop 3514484654):
       assets/models/vehicle/aircraft/f-35/textures/f-35a_tex.png
       assets/textures/f-35/raaf_f-35a.png
 
-The 636 encyclopedia pictures in ui/profiles/ are real
+The 635 encyclopedia pictures in ui/profiles/ are real
 photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-509 of the unit files here are another author's file with
+508 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 509 below
+every file of its kind in the collection, and the 508 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -372,7 +372,6 @@ listed whatever the percentage: they are still that author's.
 
   Mogami-class Frigate  (workshop 3456859157)
       100%  ammunition/usn_rgm-84d.ini 
-       98%  ammunition/usn_rim-162.ini 
       100%  vessels/js_ffg_mogami.ini 
 
   Nimitz Expanded  (workshop 3432592449)
