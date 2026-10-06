@@ -39,7 +39,7 @@ VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
 KINDS = ("aircraft", "vessels", "submarines", "land_units", "ammunition")
 
 #   old entry id -> new unit id
-RENAMES = {"3390330875:vessels/usn_dd_spruance_eu_vls": "usn_dd_spruance_vls_lamps3"}
+RENAMES = {"3390330875:vessels/usn_dd_spruance_eu_vls": "usn_dd_spruance_vls_lamps-3"}
 
 
 def load_catalogue():
@@ -311,7 +311,7 @@ def write_csvs(cat, entries, titles, touched):
                             0, 0, 0, 0, True])
 
     def priority_row(r):
-        uid = {"usn_dd_spruance_eu_vls": "usn_dd_spruance_vls_lamps3"}.get(r["unit_id"], r["unit_id"])
+        uid = {"usn_dd_spruance_eu_vls": "usn_dd_spruance_vls_lamps-3", "usn_dd_spruance_vls_lamps3": "usn_dd_spruance_vls_lamps-3"}.get(r["unit_id"], r["unit_id"])
         r = dict(r, unit_id=uid)
         for e in entries:
             if e["unit_id"] == uid and e["kind"] == r["kind"] and e["is_winning_copy"]:
