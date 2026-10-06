@@ -4111,6 +4111,11 @@ def recognition_png(asset_file):
 # to clip it.
 CAMPAIGN_BANNER = {"sest-southern-watch": "hobart", "sest-southern-reach": "canberra",
                    "sest-red-line": "type054a", "sest-sulu-line": "tarlac"}
+# The campaign screen's backdrop, where it should not repeat the banner: the
+# Steam page shows both side by side (the banner photo large, the campaign
+# map beside it), so Southern Watch's map carries its MH-60R and Red Line's
+# the Fujian its commander sails with. Others fall back to the banner photo.
+CAMPAIGN_BACKDROP = {"sest-southern-watch": "mh60r", "sest-red-line": "type003"}
 BANNER_SIZE = (900, 270)
 SERVICE = {"Australia": "Royal Australian Navy", "China": "People's Liberation Army Navy",
            "Philippines": "Philippine Navy"}
@@ -5958,7 +5963,8 @@ def main():
                      for name, _t, m in built]
             # The campaign's photograph on its opening front page (the page
             # the campaign opens on), credited on the page.
-            ca = gallery_assets().get(CAMPAIGN_BANNER.get(SLUG.removesuffix("-open"), ""))
+            base = SLUG.removesuffix("-open")
+            ca = gallery_assets().get(CAMPAIGN_BACKDROP.get(base, CAMPAIGN_BANNER.get(base, "")))
             cover = ((GALLERY / ca["file"], f"{ca['label']}. "
                       + photo_credit(ca).replace(" · resized", " · cropped")) if ca else None)
             make_art.render_all(camp, cards, spec["EVENTS"], SLUG, TITLE, SUBTITLE,
