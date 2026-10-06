@@ -21,11 +21,12 @@ skims the description, subscribes, and starts a campaign with forty of them
 will get missions that are not the missions that were built. Say the number
 early and say it plainly — the copy below does.
 
-Do not set Required Items on the item, and do not point subscribers at
-Sync. Required Items is empty on purpose: the Mod Manager's dependency check
-("Must load above this mod") offers to move required items above the pack,
-which undoes every fix in it. Subscribers get the mods from the collection,
-and SETUP writes the order.
+The item's Required Items are the load order's Workshop mods (set in
+October 2026), so Subscribe on the item offers them all in one click; the
+collection does the same job. SETUP writes the order. The description must
+tell subscribers to answer no if the Mod Manager offers to move dependencies
+above the pack ("Must load above this mod"): that undoes every fix in it, and
+SETUP run again repairs it. `publishing.md` (*Dependencies*) has the detail.
 
 ---
 

@@ -2203,7 +2203,10 @@ are left empty, and nothing should rely on the Mod Manager's Sync for this
 pack. The Mod Manager's dependency check ("Must load above this mod")
 offers to move every required item above the pack, which undoes every fix
 in it. The collection carries the dependencies instead, and SETUP sets the
-order (test card H.15 and H.16).
+order (test card H.15 and H.16). *Changed in October 2026:* the item's
+Required Items now list the load order's Workshop mods, for the one-click
+subscribe, and SETUP still sets the order; `publishing.md` (*Dependencies*)
+has the current rule and the untested prompt.
 
 **The first uploads failed on Steam Cloud, not on the pack.** They ended
 `k_EResultLimitExceeded`, with 0 B on the item. Sea Power's Steam Cloud

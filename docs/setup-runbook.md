@@ -305,12 +305,12 @@ ships no game data of its own.
 The pack is published, though (Workshop item 3812461539), and subscribers' dependencies come
 from the collection *SEST - Modernised Campaign Collection* (3812390790: the Workshop mods in
 `data/load-order.tokens.txt` plus the pack). So a mod added to the load order must also be
-added to that collection, and the rebuilt pack, whose `LOAD-ORDER.txt` lists every entry, goes
+added to that collection and to the item's Required Items, and the rebuilt pack, whose `LOAD-ORDER.txt` lists every entry, goes
 up to the same item: Mod Manager > Create Mod > Update Existing > Pick Folder
 `StreamingAssets\SEST_Integration` > Submit, then check `Player.log` for
 `m_eResult: k_EResultOK`. Keep Sea Power's Steam Cloud under 1,000 files, or the upload fails
-with `k_EResultLimitExceeded`. Never fill the pack's Required Items: the Mod Manager's
-dependency check offers to move them above the pack, which undoes every fix in it.
+with `k_EResultLimitExceeded`. If the Mod Manager offers to move the pack's dependencies
+above it, refuse: that undoes every fix in it, and SETUP run again puts the order back.
 `docs/campaigns/southern-watch/publishing.md` is the full procedure.
 
 Exporting it as well — `export-mod-configs.ps1`, then commit — is only worth
