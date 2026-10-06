@@ -4073,15 +4073,43 @@ def photo_credit(asset):
     return f"Photo: {who}" + (f" · {lic}" if lic and lic != "Not recorded" else "") + " · resized"
 
 
+@functools.lru_cache(maxsize=None)
+def profile_pictures():
+    """{unit id (lower case): (entry, asset)} from the gallery's encyclopedia
+    profile table (integration/gallery/profiles.tsv), for units the catalogue
+    has no winning entry for: a photo two reviewers passed as the same type
+    or the same family. The briefing takes the catalogue first and this
+    second, so a unit whose profile picture is in the encyclopedia can be on
+    its briefing too."""
+    tsv = GALLERY.parent / "profiles.tsv"
+    if not tsv.is_file():
+        return {}
+    assets = gallery_assets()
+    out = {}
+    for line in tsv.read_text(encoding="utf-8").splitlines():
+        if not line or line.startswith("#"):
+            continue
+        cols = line.split("\t")
+        if len(cols) < 3 or cols[2] not in ("same_type", "same_family"):
+            continue
+        a = assets.get(cols[1])
+        if not a or (a.get("quality_review") or {}).get("priority") == "P1":
+            continue
+        out[cols[0].lower()] = ({"unit_id": cols[0], "label": a["label"],
+                                 "mapping_status": "exact" if cols[2] == "same_type"
+                                 else "family_reference"}, a)
+    return out
+
+
 def recognition(mission):
     """[(stem, entry, asset)] for the briefing, the player's side first."""
-    cat = gallery_catalogue()
+    cat, prof = gallery_catalogue(), profile_pictures()
     picked, seen = [], set()
     for side in ("blue", "red"):
         for u in mission["units"]:
             if u["side"] != side or u.get("spawn_if"):
                 continue
-            hit = cat.get(u["type"].lower())
+            hit = cat.get(u["type"].lower()) or prof.get(u["type"].lower())
             if not hit or hit[1]["asset_id"] in seen:
                 continue
             seen.add(hit[1]["asset_id"])
@@ -4103,20 +4131,42 @@ def recognition_png(asset_file):
 
 
 # The briefing's banner: one photograph across the top of the briefing text,
-# with the mission's theatre, date, side and time window under it. A campaign
-# mission uses its campaign's photo (the same one on every page of that
-# campaign, so the briefings read as one set); a Dispatch, whose side and year
-# change from one to the next, uses the first photo of its own forces from the
-# Recognition list. Pre-cropped to a fixed strip so the StackPanel never has
-# to clip it.
+# with the mission's theatre, date, side and time window under it. Until
+# 6 Oct 2026 every mission of a campaign carried the campaign's cover photo;
+# the player asked for a different photo on each briefing. So each campaign
+# mission now takes, in calendar order, the first photo of its own forces
+# (then of the opposition) that no earlier mission of the campaign has used,
+# then one from the campaign's own pool below, and only when both are spent
+# the photo used least so far (plan_banners). A Dispatch, whose side and
+# year change from one to the next, takes the first photo of its own forces.
+# The strip is cropped to the busiest part of the photo rather than its
+# centre (banner_png), so a hull or an airframe is not cut in half by a
+# fixed centre crop.
 CAMPAIGN_BANNER = {"sest-southern-watch": "hobart", "sest-southern-reach": "canberra",
                    "sest-red-line": "type054a", "sest-sulu-line": "tarlac"}
+# Photos of each campaign's own forces and theatre to draw on once the units
+# a mission places have all been used on an earlier briefing. Every id must
+# be in the gallery; the build stops on one that is not.
+BANNER_POOL = {
+    "sest-southern-watch": ["hobart", "anzac", "supply_au", "choules", "collins", "e7_raaf",
+                            "f35a_raaf", "p8a", "mq4c", "canberra", "arleigh_burke"],
+    "sest-southern-reach": ["canberra", "hobart", "anzac", "collins", "supply_au", "choules",
+                            "p8a", "mh60r", "e7_raaf", "akula", "type054a", "type056a"],
+    "sest-red-line": ["type054a", "type003", "type056a", "sovremenny", "type051", "type901",
+                      "kj500", "jh7a"],
+    "sest-sulu-line": ["miguel_malvar", "tarlac", "jacinto", "naresuan", "chakri", "rizal_old",
+                       "type056a", "type054a", "type052c", "kj500", "jh7a"],
+}
+# Photos that are fine at encyclopedia size but not as a strip across the
+# top of a briefing: a hull behind a roof, a helicopter in a museum hall.
+BANNER_SKIP = {"choules", "lynx"}
+BANNER_PLAN = {}      # mission key -> asset id, for the campaign set_campaign() chose
 # The campaign screen's backdrop, where it should not repeat the banner: the
 # Steam page shows both side by side (the banner photo large, the campaign
 # map beside it), so Southern Watch's map carries its MH-60R and Red Line's
 # the Fujian its commander sails with. Others fall back to the banner photo.
 CAMPAIGN_BACKDROP = {"sest-southern-watch": "mh60r", "sest-red-line": "type003"}
-BANNER_SIZE = (900, 270)
+BANNER_SIZE = (900, 320)
 SERVICE = {"Australia": "Royal Australian Navy", "China": "People's Liberation Army Navy",
            "Philippines": "Philippine Navy"}
 
@@ -4132,17 +4182,131 @@ def gallery_assets():
     return {a["asset_id"]: a for a in cat["assets"]}
 
 
+def plan_banners(missions):
+    """Fill BANNER_PLAN for this campaign: one photo per scheduled mission,
+    different from every earlier mission's where the gallery allows it."""
+    BANNER_PLAN.clear()
+    assets = gallery_assets()
+    if not assets:
+        return
+    slug = SLUG.removesuffix("-open")
+    pool = BANNER_POOL.get(slug, [])
+    bad = [a for a in pool if a not in assets]
+    if bad:
+        raise SystemExit(f"{slug}: BANNER_POOL names photos the gallery has not got: {bad}")
+    used = collections.Counter()
+
+    def rank(entry, asset, side):
+        """Lower is better: the player's warships, then its aircraft, the
+        opposition's warships and aircraft, the pool, and civil hulls and
+        land units only when nothing else is left."""
+        civil = (entry["unit_id"].startswith("civ_") or "civilian" in asset.get("label", "").lower()
+                 or asset["asset_id"] in ("narcosub",))
+        if asset.get("category") not in ("Ships", "Submarines", "Aircraft & helicopters"):
+            return 7
+        if civil:
+            return 6
+        flying = asset.get("category") == "Aircraft & helicopters"
+        return {("blue", False): 0, ("blue", True): 1, ("red", False): 2, ("red", True): 3}[(side, flying)]
+
+    order = sorted((m for m in missions if m.get("group") != "dispatch"),
+                   key=lambda m: m["date"])
+    owned = [[(rank(e, a, s), i, a["asset_id"]) for i, (_st, e, a, s) in enumerate(recognition(m))
+              if a["asset_id"] not in BANNER_SKIP]
+             for m in order]
+    for k, m in enumerate(order):
+        cands = list(owned[k])
+        seen = {c[2] for c in cands}
+        # A pool photo a later mission owns is kept for that mission: the
+        # later a photo is next wanted, the sooner the pool may spend it.
+        later = {}
+        for j in range(k + 1, len(order)):
+            for c in owned[j]:
+                later.setdefault(c[2], j)
+        cands += [(4, len(cands) + later.get(a, 10 ** 6) * -1 + 10 ** 6, a)
+                  for a in pool if a not in seen]
+        good = [c for c in cands if c[0] <= 4]
+        fresh = [c for c in good if c[2] not in used]
+        if fresh:
+            pick = min(fresh)[2]
+        elif good:
+            pick = min(good, key=lambda c: (used[c[2]], c[0], c[1]))[2]
+        elif cands:
+            pick = min(cands, key=lambda c: (used[c[2]], c[0], c[1]))[2]
+        else:
+            pick = CAMPAIGN_BANNER.get(slug)
+        if pick:
+            used[pick] += 1
+            BANNER_PLAN[m["key"]] = pick
+
+
 def banner(mission):
     """(stem, asset) for the mission's banner photo, or None."""
     assets = gallery_assets()
     aid = None
     if mission.get("group") != "dispatch":
-        aid = CAMPAIGN_BANNER.get(SLUG.removesuffix("-open"))
+        aid = BANNER_PLAN.get(mission["key"]) or CAMPAIGN_BANNER.get(SLUG.removesuffix("-open"))
     if aid is None:
         own = [p for p in recognition(mission) if p[3] == "blue"]
         aid = own[0][2]["asset_id"] if own else None
     a = assets.get(aid or "")
     return (f"sest_banner_{aid}", a) if a else None
+
+
+def _subject_box(im):
+    """(x0, y0, x1, y1) of the photo's subject, or None. The frame is cut to
+    eight colours; the largest clusters, taken until they cover 55% of the
+    pixels, are the background (sky, sea, tarmac), the rest is the subject,
+    with the speckle of sun on water removed by a small morphological
+    opening. None when nothing solid stands out, which means a centre crop."""
+    from PIL import Image, ImageFilter
+    W, colors = 200, 8
+    small = im.resize((W, max(8, round(im.height * W / im.width))), Image.BOX)
+    w, h = small.size
+    q = small.quantize(colors=colors, method=Image.Quantize.MEDIANCUT)
+    hist = q.histogram()[:colors]
+    bg, acc = set(), 0
+    for i in sorted(range(colors), key=lambda i: -hist[i]):
+        bg.add(i)
+        acc += hist[i]
+        if acc >= 0.55 * w * h:
+            break
+    mask = q.point(lambda v: 0 if v in bg else 255, "L")
+    mask = mask.filter(ImageFilter.MinFilter(5)).filter(ImageFilter.MaxFilter(7))
+    px = mask.load()
+    cols = [sum(1 for y in range(h) if px[x, y]) for x in range(w)]
+    rows = [sum(1 for x in range(w) if px[x, y]) for y in range(h)]
+    if sum(cols) < 0.015 * w * h:
+        return None
+
+    def span(prof):
+        """The middle 94% of the mass: a stray fleck at the frame's edge does
+        not drag the box."""
+        total = sum(prof)
+        lo, acc = 0, 0
+        while lo < len(prof) and acc + prof[lo] < 0.03 * total:
+            acc += prof[lo]; lo += 1
+        hi, acc = len(prof) - 1, 0
+        while hi > lo and acc + prof[hi] < 0.03 * total:
+            acc += prof[hi]; hi -= 1
+        return lo, hi + 1
+    x0, x1 = span(cols)
+    y0, y1 = span(rows)
+    sx, sy = im.width / w, im.height / h
+    return (x0 * sx, y0 * sy, x1 * sx, y1 * sy)
+
+
+def _window(span, length, lo, hi):
+    """Offset of a `length` window within [0, span] centred on the subject's
+    [lo, hi) where that fits, else holding the subject's edge that would
+    otherwise be cut, else centred."""
+    if length >= span:
+        return 0
+    mid = (lo + hi) / 2.0
+    at = mid - length / 2.0
+    if hi - lo > length:            # subject larger than the strip: keep its centre
+        at = mid - length / 2.0
+    return int(max(0, min(span - length, round(at))))
 
 
 @functools.lru_cache(maxsize=None)
@@ -4153,7 +4317,12 @@ def banner_png(asset_file):
     w, h = BANNER_SIZE
     scale = max(w / im.width, h / im.height)
     im = im.resize((max(w, round(im.width * scale)), max(h, round(im.height * scale))), Image.LANCZOS)
-    x, y = (im.width - w) // 2, (im.height - h) // 2
+    box = _subject_box(im)
+    if box:
+        x = _window(im.width, w, box[0], box[2])
+        y = _window(im.height, h, box[1], box[3])
+    else:
+        x, y = (im.width - w) // 2, (im.height - h) // 2
     buf = io.BytesIO()
     im.crop((x, y, x + w, y + h)).save(buf, "PNG", optimize=True)
     return buf.getvalue()
@@ -5642,6 +5811,7 @@ def main():
     excuses, pack_credits, campaigns = pack_excuses(specs), {}, []
     for spec in specs:
         set_campaign(spec)
+        plan_banners(spec["MISSIONS"])
         missions = spec["MISSIONS"]
         if args.only:
             wanted = {x.strip().upper() for x in args.only.split(",") if x.strip()}
@@ -5913,6 +6083,7 @@ def main():
     for c in campaigns:
         spec = c["spec"]
         set_campaign(spec)
+        plan_banners(spec["MISSIONS"])
         built, missions = c["built"], c["missions"]
         camp = OUT / "campaigns" / SLUG
         (camp / "missions").mkdir(parents=True)

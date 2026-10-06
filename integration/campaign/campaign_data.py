@@ -722,15 +722,20 @@ MISSIONS.append(dict(
         # slot sat about 60 NM from the boat at 30,000 ft with the Wedgetail. Now the escorts
         # sail 2 NM ahead of the merchants, the datum is 30 NM up the track
         # just north of it, at the far edge of the approach box, the boat
-        # creeping in toward the track, and the Poseidon is on the sonobuoy
-        # field at 6,000 ft, 10 NM from the datum.
+        # creeping in toward the track. The second report (6 Oct): the boat
+        # was a contact from the first minute - a submerged 039C whose
+        # RadarsActive=True had it radiating under a Wedgetail nine miles
+        # off, with the Poseidon ten. Now her radar is off, and every
+        # aircraft starts over the convoy, 25-30 NM from the datum: nothing
+        # is on top of her before the Poseidon has flown there and laid
+        # buoys, which is five minutes at best.
         "escort": S(-10.37, 144.55, "Escort group", heading=70),
         "convoy": S(-10.4, 144.5, "Priority convoy", heading=70),
         "traffic": S(-10.25, 144.75, "Gulf traffic", heading=250),
         "moresby": S(-9.5, 147.0, "Port Moresby", heading=0),
         "sub": S(-10.15, 145.0, "Submarine datum", heading=230),
-        "air": S(-10.0, 145.0, "Air support", heading=70, alt=30000),
-        "mpa": S(-10.22, 144.85, "Sonobuoy field", heading=70, alt=6000),
+        "air": S(-10.45, 144.45, "Air support", heading=70, alt=30000),
+        "mpa": S(-10.40, 144.60, "Maritime patrol", heading=70, alt=6000),
         # The ship's helicopter spawned at 30,000 ft 86 NM from the ship it
         # is homed on, in a mission the submarine can decide in twenty
         # minutes. Beside the escorts, low.
@@ -775,7 +780,7 @@ MISSIONS.append(dict(
         U("blue", "buildings-targets-missions", "Liberty", "moresby",
           name="Moresby wharf", weapons="Hold"),
         U("red", "plan-submarines", "plan_ss_type_039c", "sub",
-          name="Contact BRAVO", depth="belowlayer",
+          name="Contact BRAVO", depth="belowlayer", radars="False",
           route=[(-10.24, 144.85, "belowlayer")], telegraph=1),
         # Air-tasking placeholder: no name, no objective, no line in the
         # briefing. Its only job is to be a cockpit a purchased aircraft can

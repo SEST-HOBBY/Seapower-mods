@@ -112,6 +112,7 @@ Dispatches*. Full card: `docs/campaigns/southern-watch/test-card.md`.
 | Your ship appears **(2.4)** | Deploy into mission 1 | The ship you bought is there, on station, not drifting, with no extra authored ship beside it |
 | Roster grows **(2.5)** | Before mission 2 | Hobart and P-8 added |
 | Air tasking **(3.1–3.5)** | Open Air Tasking before missions 1, 2 and 6 | Ship's Flight; then Maritime Patrol; then Combat Air Patrol. **Never** a row with 0 slots |
+| Submarine hidden | Mission 2, Steel Highway: watch the first five minutes at normal speed | No submarine contact appears in the first two minutes. The boat starts 30 NM up the track with her radar off; the Poseidon and Wedgetail start over the convoy, 25-30 NM from her |
 | Fuel **(4.2)** | Mission 7, follow a Super Hornet to the end | It gets home to Darwin. Running dry is the most likely failure here |
 | Losing cleanly **(5.2)** | Mission 1, lose three merchants on purpose | Defeat, and the other objectives show **cancelled** |
 | Memory **(6.1–6.4)** | Lose HMAS Supply in mission 2, then reach mission 9; also save, quit and reload in between | MV Coral Provider is **missing** from mission 9. Keep Supply alive and she is there |
