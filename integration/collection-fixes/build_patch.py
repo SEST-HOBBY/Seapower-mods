@@ -1422,8 +1422,7 @@ EXTENDS = {
     # our eight entries. Its Fujian also outranks the Fujian mod's, so that
     # carrier is the PLAN Pack's now and declares its own.
     # the other carriers and the LPD, each its own mod
-    "plan_type_001": "SEST_PLAN_Carrier",
-    "plan_cvn_004": "SEST_PLAN_Carrier", "plan_lpd_type_071": "SEST_PLAN_Amphibious",
+    "plan_type_001": "SEST_PLAN_Carrier", "plan_lpd_type_071": "SEST_PLAN_Amphibious",
     # Chinese Navy (3417801942): vanilla-era hulls, vanilla's own profiles
     "plan_ddg_luda_typ_051d": "ZKJ-3", "plan_ddg_luda_typ_051dt": "ZKJ-3",
     "plan_em_sovremenny": "Sapfir_U",
@@ -1440,24 +1439,21 @@ EXTENDS = {
     "rfn_ddg_21956_late": "SEST_RU_AAW", "rfn_ffg_11356": "SEST_RU_Multirole",
     "rfn_cvt_20380_7-12": "SEST_RU_Compact", "rfn_cvt_20385": "SEST_RU_Compact",
     # Soviet-lineage hulls in other mods
-    "ru_cv_kuznetsov": "Lesorub_55", "ru_cv_varyag": "Lesorub_55",
-    "wp_rkr_kirov_improved": "Alleya_2M", "wp_rkr_admiral_nakhimov_refit": "SEST_RU_AAW",
+    "ru_cv_kuznetsov": "Lesorub_55", "ru_cv_varyag": "Lesorub_55", "wp_rkr_admiral_nakhimov_refit": "SEST_RU_AAW",
     "wp_rkr_slava_16": "Lesorub_1164",
     # Iran
     "ir_ptg_peykaap_3": "Titanit",
+    # 6 Oct 2026: the Ford, Fujian/Type 004, Kirov and French packs now ship
+    # systems/combatsystems.ini with their own profiles (MU_SSDS_Carrier,
+    # MU_PLAN_Carrier, MU_Sigma_1144M, SENIT8_CDG, CMS_Horizon, SETIS_FDI,
+    # SETIS_FREMM_DA/ASW, SENIT_FLF_RMV) and name them on their hulls, so
+    # eleven entries left this table; the Mogami's builder does the same.
     # blue
     "ran_ddg_hobart_alt_late": "SEST_AEGIS_BL9", "ran_ffg_adelaide_ffg_upgrade": "SEST_9LV_Compact_MLU",
     "usn_cg_ticonderoga_vls_2027": "SEST_AEGIS_BL9", "usn_cg_ticonderogaVLS": "SEST_AEGIS_BL9",
     "usn_cg_kansas_late": "SEST_AEGIS_BL9", "usn_ddg_arleigh_burke_flight3_2030": "SEST_AEGIS_BL10",
-    "usn_cvn_ford": "SEST_SSDS_Carrier", "usn_cvn_ford_jsf": "SEST_SSDS_Carrier",
     "usn_cvn_nimitz_2000s": "SEST_SSDS_Carrier", "usn_cvn_nimitz_2000s_adou": "SEST_SSDS_Carrier",
     "ko_ddg-991": "SEST_AEGIS_BL9", "ko_ffg-818": "SEST_CMS_Compact_Enhanced",
-    "fr_cvn_charles-de-gaulle": "SEST_SENIT_Carrier", "fr_ddg_horizon": "SEST_CMS_AAW_PAAMS",
-    "fr_fdi_amiral_ronarc'h": "SEST_SETIS_Integrated",
-    "fr_ffg_aquitaine_modernized_aaw": "SEST_SETIS_AAW",
-    "fr_ffg_aquitaine_modernized_asw": "SEST_SETIS_ASW_MLU",
-    "fr_ffg_lafayette_modernized": "SEST_CMS_Compact_Enhanced",
-    "fr_ffg_lafayette_version_opv_modernized": "SEST_CMS_Compact_Enhanced",
     "rn_type23_refit": "SEST_CMS_SeaCeptor",
 }
 # Mod copies of vanilla hulls that dropped vanilla's block: they get vanilla's
@@ -1751,10 +1747,10 @@ def extended_by_mods():
 #   but no hull; it is not in any SEST roster.
 STALE_OVERWRITES = {
     "usn_dd_spruance_eu_vls_CombatSystems_OVWR.ini":
-        ("vessels/usn_dd_spruance_eu_vls.ini", "vessels/usn_dd_spruance_vls.ini",
-         "Modern US Navy v597 renamed the hull to usn_dd_spruance_vls_lamps3 and its 6 Oct "
-         "2026 update dropped that hull too (it ships the RAM and Mk 71 Spruances only), so "
-         "the target is the game's own VLS Spruance, which already runs NTDS_TAS"),
+        ("vessels/usn_dd_spruance_eu_vls.ini", "vessels/usn_dd_spruance_vls_lamps-3.ini",
+         "Modern US Navy v597 renamed the hull to usn_dd_spruance_vls_lamps3 and v598 (6 Oct "
+         "2026) to usn_dd_spruance_vls_lamps-3, an alias of the game's VLS Spruance, which "
+         "already runs NTDS_TAS"),
     "rnn_ss_dolfijn_CombatSystems_OVWR.ini":
         ("vessels/rnn_ss_dolfijn.ini", "vessels/rnn_ddg_zeven.ini",
          "Euromod-Dutch Navy ships no Dolfijn hull; this file now extends a Dutch hull "

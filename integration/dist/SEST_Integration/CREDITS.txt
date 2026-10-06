@@ -16,7 +16,7 @@ RAAF F-35A Lighting II by Greene (workshop 3514484654):
       assets/models/vehicle/aircraft/f-35/textures/f-35a_tex.png
       assets/textures/f-35/raaf_f-35a.png
 
-The 635 encyclopedia pictures in ui/profiles/ are real
+The 636 encyclopedia pictures in ui/profiles/ are real
 photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
