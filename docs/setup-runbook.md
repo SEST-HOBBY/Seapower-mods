@@ -303,9 +303,10 @@ which drops it into its canonical position. On this PC that is enough for a code
 ships no game data of its own.
 
 The pack is published, though (Workshop item 3812461539), and subscribers' dependencies come
-from the collection *SEST - Modernised Campaign Collection* (3812390790: the Workshop mods in
-`data/load-order.tokens.txt` plus the pack). So a mod added to the load order must also be
-added to that collection and to the item's Required Items, and the rebuilt pack, whose `LOAD-ORDER.txt` lists every entry, goes
+from its Required Items or from the collection *SEST - Modernised Campaign Collection*
+(3812390790), both the Workshop mods in `data/load-order.tokens.txt` (the collection also
+holds the pack). So a mod added to the load order must also be
+added to that collection and to the item's Required Items before the upload, and the rebuilt pack, whose `LOAD-ORDER.txt` lists every entry, goes
 up to the same item: Mod Manager > Create Mod > Update Existing > Pick Folder
 `StreamingAssets\SEST_Integration` > Submit, then check `Player.log` for
 `m_eResult: k_EResultOK`. Keep Sea Power's Steam Cloud under 1,000 files, or the upload fails

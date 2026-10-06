@@ -14,17 +14,19 @@ before the patch does.
   pack. Every upload is an update to this item; there is no second item.
 - **The collection.** *SEST - Modernised Campaign Collection*, Workshop id
   **3812390790**. Published with 149 items: the 148 Workshop mods the load
-  order then held, plus the pack. This is how a subscriber gets the
-  dependencies. Its banner reads "149 Workshop items, 3 campaigns, 19 fix
-  packs". **Behind the repo since the October 2026 additions:** the load
-  order now holds 190 Workshop mods, so the collection needs the 42 new ones
-  (and its banner and counts redone) before the next upload of the pack -
+  order then held, plus the pack. It is one of the two ways a subscriber gets
+  the dependencies; the item's Required Items are the other. The October 2026
+  additions went into it with the 5 Oct update: the pinned discussion tells
+  subscribers it holds 190 Workshop mods and to press Subscribe to all again.
+  Check its banner (published as "149 Workshop items, 3 campaigns, 19 fix
+  packs") and counts were redone. It must stay in step with the load order:
   SETUP refuses to run while any mod in the pack's LOAD-ORDER.txt is missing.
 - **Required Items: the load order's Workshop mods.** Set in October 2026, so
-  that pressing Subscribe on the item offers every mod the pack needs in one
-  click (about 24 GB). They must hold the same Workshop mods as the
-  collection. The section after next says what that costs and how to keep
-  them in step.
+  that pressing Subscribe on the item offers every Workshop mod in the load
+  order in one click (about 24 GB; SeaLifter, below, still needs a manual
+  install). They and the collection must both be the Workshop mods of
+  `data/load-order.tokens.txt`. The section after next says what that costs
+  and how to keep them in step.
 - **The page text.** The pack description, its change log, the collection
   description and a pinned "Read first" discussion were rewritten for the
   4 Oct update (SETUP's install steps, the 1.5x clock, Red Line's November
@@ -127,9 +129,9 @@ from the top of the order, above every Workshop mod — the one rule in its
 out of order against its own Required Items: the Mod Manager may flag it
 ("This mod has dependency issues. Click for fixes.") and offer *Move
 dependencies above this mod*, which would move every Workshop mod above the
-pack and undo every fix in it. Nothing reverts the order by itself: SETUP
-writes it into `usersettings.ini` and it holds until something changes it,
-and running SETUP again puts it back. Sync, going by its strings, only
+pack and undo every fix in it. Nothing is known to revert the order by
+itself: SETUP writes it into `usersettings.ini` and it holds until something
+changes it, and running SETUP again puts it back. Sync, going by its strings, only
 subscribes and enables; it does not reorder.
 
 **Whether the prompt appears has not been seen.** The strings are in the
@@ -138,15 +140,21 @@ string in `ui.ini` does not prove the game shows it. The publisher has never
 seen it, and could not on the gaming PC: `sync-sest.ps1` installs the pack as
 a local folder, which has no Workshop item for the game to ask Steam about.
 No subscriber has reported it. To settle it: with the game closed, move the
-local `SEST_Integration` out of `StreamingAssets`, make sure the Workshop
-copy of 3812461539 is downloaded, run SETUP from that copy's folder, then
-start the game and look at the pack's row in the Mod Manager. Put the local
-folder back afterwards (`sync-sest.ps1` does). Record the result here and
-against test card H.16.
+local `SEST_Integration` out of `StreamingAssets`, subscribe to 3812461539 and
+let Steam finish downloading it, run SETUP from that copy's folder, then
+start the game and look at the pack's row in the Mod Manager (screenshot it;
+do not press *Move dependencies above this mod*). Start the game a second
+time and check the pack is still first. Afterwards, with the game closed,
+unsubscribe from 3812461539 and let Steam remove it, then run
+`sync-sest.ps1`, which reinstalls the local folder and resets the order: a
+Workshop copy left beside the local one is two packs fighting over the same
+files, which SETUP refuses. Record the result here and against test card
+H.16.
 
-**Until then:** the item description tells subscribers to answer no if the
-Mod Manager offers to move dependencies above the pack, and SETUP run again
-repairs the order if someone said yes. Subscribers get the mods from the
+**Until then:** the item description and SETUP's own closing message
+("If it offers to move or fix dependencies, say no") tell subscribers to
+answer no if the Mod Manager offers to move dependencies above the pack, and
+SETUP run again repairs the order if someone said yes. Subscribers get the mods from the
 item's Required Items or from the collection, then run `SETUP - double-click
 me.cmd` with the game closed. The first version of this document said to set
 every mod as a Required Item and let Sync do the rest; the second said to
@@ -156,8 +164,8 @@ SETUP.
 
 ### SETUP, in the pack
 
-The collection subscribes; it does not order, and order decides which copy of
-a shared file the game reads. `SETUP - double-click me.cmd` and
+The Required Items and the collection subscribe; neither orders, and order
+decides which copy of a shared file the game reads. `SETUP - double-click me.cmd` and
 `sest-setup.ps1` ship in the pack folder for that. A player opens the folder
 (Mod Manager → Open Folder on the pack), quits the game and double-clicks the
 `.cmd`. SETUP checks that every Workshop mod the campaigns were built against
@@ -177,10 +185,12 @@ The collection and the item's Required Items are the dependency list now,
 and both are kept by hand. When a Workshop mod enters or leaves
 `data/load-order.tokens.txt`:
 
-1. Add it to, or remove it from, the collection 3812390790 and the item's
-   Required Items (on the item page, or the Create Mod form's *Required
-   Workshop IDs*), so both stay the load order's Workshop mods; the
-   collection also holds the pack.
+1. Before the upload that ships the new `LOAD-ORDER.txt`, add it to, or
+   remove it from, the collection 3812390790 and the item's Required Items
+   (on the item page), so both stay the load order's Workshop mods; the
+   collection also holds the pack. The new build's SETUP stops while any
+   mod in its `LOAD-ORDER.txt` is missing, so subscribers need the mod
+   before the build arrives.
 2. The banner's "149 Workshop items, 3 campaigns, 19 fix packs" is then
    stale: redo it. The fix-pack figure goes stale the same way when a SEST
    pack is added or retired; the pack's `_info.ini` *Includes* list names
@@ -237,14 +247,18 @@ it is the one dependency most likely to break a subscriber's install.
 3. **A fresh-install check, when SETUP, the load order or the collection
    changed.** Everything verified on the machine that built it is verified
    where all 190 Workshop mods of the load order happen to be present. The
-   check that matters is to subscribe to the collection 3812390790 on a clean
-   profile, run SETUP, and see whether the campaigns run. One friend's PC has
+   check that matters is to subscribe to the item 3812461539 (its Required
+   Items bring the mods) or the collection 3812390790 on a clean profile, run
+   SETUP, start the game, note whether the Mod Manager flags the pack (test
+   card H.16), and see whether the campaigns run. One friend's PC has
    done part of this (see *What has been verified so far*). If a second
    machine or a second Steam account is available, that is the highest-value
    hour before such an update.
 4. **The Steam Cloud is under 1,000 files.** See below; this is what stopped
    the first uploads.
-5. **The collection matches the load order**, if a mod came or went.
+5. **The collection and the item's Required Items match the load order**,
+   if a mod came or went (*Keeping the collection and Required Items in
+   step*, above). Change both before Submit.
 6. **Leave it Public, with its Required Items as they are.** Item 3812461539
    went Public on 4-5 Oct 2026. On an update, do not change visibility. The
    Required Items should still be the load order's Workshop mods; change
@@ -294,19 +308,24 @@ Game closed for the build and the sync, game open for the upload.
    and take `Campaign`/`Missions` if a content-type tag exists. On an update,
    check the ones already set still fit.
 9. **Visibility**: leave it `Public`. The item is live.
-10. **Required Workshop IDs**: change it only when the load order changed.
-    Whether submitting an update with this field empty clears the Required
-    Items the item page already holds has not been tested, so check them
-    after Submit (step 13).
+10. **Required Workshop IDs**: leave it as the form shows it, and make
+    Required Items changes on the item page before Submit (checklist item
+    5). What this field does to the item's existing list on an update
+    (replace, add, or clear when empty) has not been tested; step 13
+    checks.
 11. **Change Log**: an entry for this update (below).
 12. **Submit Mod**.
 13. Confirm `m_eResult: k_EResultOK` in `Player.log` (in
     `%USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power\`, beside
     `usersettings.ini`), then check that the item page shows the new build
-    and not 0 B, and that its Required Items are still listed.
-    `k_EResultLimitExceeded` means the Steam Cloud is over its cap.
-14. If the load order changed, bring the collection, its banner and the
-    Required Items into line (above).
+    and not 0 B, and that its Required Items are still listed. If they are
+    gone, add them back on the item page before anything else (the numeric
+    lines of `data/load-order.tokens.txt`) and record here that the update
+    cleared them. `k_EResultLimitExceeded` means the Steam Cloud is over its
+    cap.
+14. If the load order changed, redo the collection's banner and the counts
+    (*Keeping ... in step*, steps 2-3); the collection and the Required Items
+    were changed before Submit (checklist item 5).
 
 ### The Steam Cloud's 1,000-file cap
 
@@ -351,12 +370,12 @@ steps, counts, dates, the clock), change them in the same sitting.
   `SEA_SPEED` is calibrated on one data point (H.18 re-checks it). The Task
   Force economy, helicopter recovery and replenishment are not proven in game.
   Trimming the 180-mod list is still to do; each mod it removes is a
-  collection change.
+  change to the collection and the Required Items.
 
 ## What to expect in the comments
 
 - **"Mission X won't load."** Almost always a missing or mis-ordered mod. Ask
-  whether they subscribed to the collection and ran SETUP, then for their Mod
+  whether they subscribed (to the item or the collection) and ran SETUP, then for their Mod
   Manager screenshot, and compare it against `LOAD-ORDER.txt`.
 - **"SETUP isn't in the folder."** Seen once, on the fresh PC above: it
   appeared a minute or two after the player quit. Ask for the

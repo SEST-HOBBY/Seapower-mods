@@ -312,8 +312,9 @@ PowerShell 5.1 has no `&&`. Chain with `;` or use separate lines.
 
 ## Publishing the pack
 
-Players get the SEST pack from one Workshop item and its dependencies from one
-collection:
+Players get the SEST pack from one Workshop item, and its dependencies from
+that item's Required Items or from one collection, both mirroring
+`data/load-order.tokens.txt`:
 
 - **The item**: 'SEST Integration Pack - Modernised Campaigns', Workshop id
   3812461539, Public. It is the `SEST_Integration` folder, all three
@@ -321,10 +322,11 @@ collection:
 - **The collection**: 'SEST - Modernised Campaign Collection', 3812390790,
   the Workshop mods in `data/load-order.tokens.txt` plus the pack (191 items
   once the October 2026 additions are in it; it was published with 149). A mod added to or dropped from the load order means the same change
-  to the collection.
+  to the collection and to the item's Required Items, before the upload.
 
 **Required Items are the load order's Workshop mods.** Set in October 2026
-for the one-click subscribe; they must match the collection. The cost: the
+for the one-click subscribe; like the collection, they must be the Workshop
+mods of `data/load-order.tokens.txt`. The cost: the
 Mod Manager's dependency check ('Must load above this mod') may offer to move
 the required items above the pack, which would undo every fix in it (the one
 rule under *Installing alongside other mods*). The answer is no, and SETUP
@@ -602,14 +604,16 @@ beside the repo (*Known red* above) is the other route.
    line must read `IN LINE: all 1266 installed files match this commit`, or
    the new count from step 7.
 
-10. **Then update the published item, never a new one.** With the PC IN LINE
+10. **Then update the published item, never a new one.** If the export
+    added or dropped a Workshop mod, first change the collection
+    (3812390790) and the item's Required Items to match
+    `data/load-order.tokens.txt`. Then, with the PC IN LINE
     and Sea Power's Steam Cloud under its 1,000-file cap: Mod Manager >
     Create Mod > Update Existing (item 3812461539) > Pick Folder
     `StreamingAssets\SEST_Integration` > Submit, then confirm
-    `m_eResult: k_EResultOK` in `Player.log`. Leave the Required Items as they
-    are, and check the item page still lists them after Submit. If the export
-    added or dropped a Workshop mod, change the collection (3812390790) and
-    the Required Items to match `data/load-order.tokens.txt`. *Publishing the pack* above has the
+    `m_eResult: k_EResultOK` in `Player.log`. Leave the form's Required Workshop IDs
+    as it shows them, and check the item page still lists its Required Items
+    after Submit. *Publishing the pack* above has the
     reasons and the failure to expect.
 
 ### The first run: 0.8.3, 2 October 2026

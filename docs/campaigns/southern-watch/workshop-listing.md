@@ -6,8 +6,10 @@ Campaigns (Workshop id 3812461539), were rewritten for the 4 Oct 2026
 update, along with the collection's description and a pinned 'Read first'
 discussion. That was done on Steam, outside this repository, and the live
 text is not in it. This file is the reference copy, not a record of what
-the page says. The live description also explains the 1.5x mission clock,
-which this copy does not; keep that part when pasting.
+the page says. The live description also explains the 1.5x mission clock
+and tells subscribers to say no if the Mod Manager offers to move
+dependencies above the pack, which this copy does not; keep those parts when
+pasting.
 
 Everything below is for the Steam Workshop page. The mod's own
 `_info.ini` is the Mod Manager blurb and is generated; this is the longer
@@ -25,7 +27,7 @@ The item's Required Items are the load order's Workshop mods (set in
 October 2026), so Subscribe on the item offers them all in one click; the
 collection does the same job. SETUP writes the order. The description must
 tell subscribers to answer no if the Mod Manager offers to move dependencies
-above the pack ("Must load above this mod"): that undoes every fix in it, and
+above the pack ("Move dependencies above this mod"): that undoes every fix in it, and
 SETUP run again repairs it. `publishing.md` (*Dependencies*) has the detail.
 
 ---

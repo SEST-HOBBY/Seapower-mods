@@ -148,7 +148,7 @@ section.)*
 ## How to do it safely
 
 *(4 Oct 2026: not for the list above. A mod removed from the load order also has to leave the
-published collection 3812390790, and the pack, rebuilt after step 4 so its `LOAD-ORDER.txt` no
+published collection 3812390790 and the item's Required Items, and the pack, rebuilt after step 4 so its `LOAD-ORDER.txt` no
 longer lists the removed id, has to go up to Workshop item 3812461539.)*
 
 1. Unsubscribe in Steam, a group at a time — not all at once.
