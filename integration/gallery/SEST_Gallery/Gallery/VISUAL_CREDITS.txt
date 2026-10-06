@@ -779,6 +779,13 @@ Source: https://commons.wikimedia.org/wiki/File:Chinese_aircraft_carrier_Fujian_
 Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 Used in: Red Line (the in-game campaign map inset; the campaign screen's backdrop in game)
 
+Miguel Malvar class frigate
+File:BRP Miguel Malvar in Subic.jpg
+Creator: Philippine Navy Public Affairs Office
+Source: https://commons.wikimedia.org/wiki/File:BRP_Miguel_Malvar_in_Subic.jpg
+Licence: Public domain
+Used in: Sulu Line (Steam campaign card); collection background
+
 E-7A Wedgetail — RAAF
 File:Royal Australian Air Force E-7A at Red Flag Feb 2013.jpg
 Creator: U.S. Air Force photo by Lawrence Crespo
