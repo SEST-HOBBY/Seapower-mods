@@ -26,10 +26,10 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `j-11` | Shenyang J-11 | `store` | plaaf_jh7a / plaaf_pl-8b | Balabac Strait |
 | `jh-7a` | XIAN JH-7A (歼轰-7A 飞豹) | `unit` | plaaf_jh7a | Balabac Strait |
 | `merchants-expanded` | Merchants Expanded | `variant` | civ_ms_freighter_b | Celebes Gate |
-| `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_y-8fq | Ayungin |
+| `modern-plan-systems` | Modern PLAN Systems | `unit` | plaaf_kj-500 | Ayungin |
 | `philippines-luzon-line` | Philippines: The Luzon Line | `unit` | phl_h-76 | The Island Road |
 | `pickup-truck-extension` | Pickup truck extension | `unit` | civ_car_pickup_1983_assault_civ | Fire Mission Jolo |
-| `pla-land-unit-pack` | PLA Land Unit Pack | `store` | plan_type_054a_p5 / pla_cal_apfsds_30mm | Ayungin |
+| `pla-land-unit-pack` | PLA Land Unit Pack | `store` | plan_type_052d_p3 / pla_cal_apfsds_30mm | Balabac Strait |
 | `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_type_052d_p3 / plan_hhq-9c | Balabac Strait |
 | `plan-submarines` | PLAN Submarines | `unit` | plan_ss_type_039c | Balabac Strait |
 | `re-power-resupply` | RE-power: the resupply mod | `unit` | civ_ms_freighter_a | Celebes Gate |

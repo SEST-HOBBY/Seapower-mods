@@ -3,7 +3,7 @@
 The rotation-and-resupply run to BRP Sierra Madre, the grounded landing ship
 the Marines hold on Ayungin Shoal. Two China Coast Guard cutters (converted
 Type 056 corvettes, as the real ones are) and three militia trawlers are
-between the boat and the shoal; a PLAN frigate is watching from the north.
+between the boat and the shoal; an intelligence ship is watching from the north.
 None of them will fire. Neither will the task group: the boat gets through
 by being escorted, not by shooting, and anything fired here is a provocation
 and a round the supply ships have to replace.
@@ -25,7 +25,7 @@ MISSION = dict(
     intent=((
         "The boat reaches the shoal. Escort it, put your hulls between it and the cutters, "
         "and fire on nothing: the coast guard and the militia are not shooting, and the "
-        "first shot fired here would be ours. The frigate to the north is watching for it."
+        "first shot fired here would be ours. The ship to the north is watching for it."
     )),
     date=(2028, 10, 26), time=(6, 0), sea=2, clouds="Clear", wind="NE",
     difficulty=3, minutes=100, centre=(9.75, 116.1),
@@ -37,8 +37,8 @@ MISSION = dict(
             "Shoal. BRP SIERRA MADRE has been aground in the lagoon since 1999 and her "
             "detachment has not been resupplied in five weeks.\\n\\nTwo China Coast Guard "
             "cutters and three militia trawlers are between the boat and the shoal, as "
-            "they were the last three times. A PLAN frigate is holding north of the shoal, "
-            "towards Mischief Reef, and a patrol aircraft is overhead.\\n\\nTake the boat "
+            "they were the last three times. A Chinese intelligence ship is holding north of "
+            "the shoal, towards Mischief Reef, and an early-warning aircraft is overhead.\\n\\nTake the boat "
             "into the lagoon. Your ships start at weapons Hold. Nobody here is going to "
             "shoot, and if the task group does it will have started something the Navy "
             "cannot finish this week. Use your hulls and your helicopter. Fishing boats are "
@@ -46,17 +46,17 @@ MISSION = dict(
         )),
     forces=(
         "Your task group and its helicopter. Escorted: M/L Kalayaan. Opposing, not "
-        "shooting: two China Coast Guard cutters, three militia trawlers, a PLAN Type 054A "
-        "frigate and a Y-8 patrol aircraft. Neutral: fishing boats."
+        "shooting: two China Coast Guard cutters, three militia trawlers, an intelligence "
+        "ship and a KJ-500 early-warning aircraft. Neutral: fishing boats."
     ),
     special="No shot fired: every Chinese hull and the aircraft are protected by the ROE.",
     objectives=[
         ("Resupply", "Bring M/L Kalayaan into Ayungin's lagoon", "35,-35,Fail,Main"),
         ("Boat", "Keep the supply boat afloat", "15,-30,Complete"),
-        ("Restraint", "Fire on nothing: not the cutters, the trawlers, the frigate or the "
+        ("Restraint", "Fire on nothing: not the cutters, the trawlers, the intelligence ship or the "
                       "aircraft", "20,-40,Complete"),
         ("Traffic", "Harm no fishing boat", "0,-30,Complete"),
-        ("Watchers", "Classify the PLAN frigate to the north", "10,0,None"),
+        ("Watchers", "Classify the intelligence ship to the north", "10,0,None"),
     ],
     victory=dict(kind="arrive", station="boat", min_units=1, at=(9.73, 115.87),
                  radius=3, objective="Resupply"),
@@ -81,7 +81,7 @@ MISSION = dict(
         "boat": S(9.72, 116.10, "M/L Kalayaan", heading=265),
         "ccg": S(9.76, 116.00, "Coast guard cutters", heading=90),
         "militia": S(9.66, 115.98, "Militia trawlers", heading=60),
-        "frigate": S(10.24, 115.94, "PLAN frigate", heading=180),
+        "frigate": S(10.24, 115.94, "Intelligence ship", heading=180),
         "red_air": S(10.10, 115.70, "Patrol aircraft", heading=90, alt=15000),
         "fishing": S(9.78, 116.15, "Fishing boats", heading=200),
         "home": S(9.74, 118.75, "Puerto Princesa"),
@@ -96,22 +96,31 @@ MISSION = dict(
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Puerto Princesa (Antonio Bautista Air Base)", nation="Philippines",
           weapons="Hold"),
-        # The China Coast Guard's 056s are converted PLAN corvettes; the file
-        # is the corvette, the name and the Hold are the coast guard's.
-        U("red", "modern-plan-systems", "plan_type_056a", "ccg", variant="Variant1",
-          name="CCG 6303", weapons="Hold", route=[(9.72, 116.02, 0)], telegraph=3),
-        U("red", "modern-plan-systems", "plan_type_056a", "ccg", variant="Variant2",
-          name="CCG 6304", weapons="Hold", route=[(9.70, 116.05, 0)], telegraph=3),
+        # The cutters carry machine guns and nothing else. They were Type 056A
+        # corvettes at weapons Hold until the first public report (6 Oct 2026):
+        # their YJ-83s were on the boat within fifteen seconds of the start, so
+        # Hold does not hold an AI ship back. Nothing here may depend on it:
+        # every Chinese hull and aircraft in this mission is unarmed or close
+        # to it, and the cutters shadow north of the boat's track rather than
+        # crossing it.
+        U("red", "_vanilla", "plan_ap_qiongsha", "ccg", name="CCG 3305", weapons="Hold",
+          route=[(9.765, 116.00, 0), (9.755, 115.93, 0)], telegraph=3),
+        U("red", "_vanilla", "plan_ap_qiongsha", "ccg", name="CCG 3306", weapons="Hold",
+          route=[(9.775, 116.04, 0), (9.765, 115.96, 0)], telegraph=3),
         U("red", "_vanilla", "civ_fv_sterntrawler_a", "militia", name="Qiong Sansha Yu 00213",
           weapons="Hold", route=[(9.70, 116.06, 0)], telegraph=3),
         U("red", "_vanilla", "civ_fv_sterntrawler_c", "militia", name="Qiong Sansha Yu 00219",
           weapons="Hold", route=[(9.74, 116.04, 0)], telegraph=3),
         U("red", "_vanilla", "civ_fv_sterntrawler_d", "militia", name="Yue Tai Yu 18000",
           weapons="Hold", route=[(9.68, 116.00, 0)], telegraph=3),
-        U("red", "modern-plan-systems", "plan_type_054a_p5", "frigate", variant="Variant2",
-          weapons="Hold", radars="True"),
-        U("red", "modern-plan-systems", "plan_y-8fq", "red_air", squadron="Squadron1", weapons="Hold",
-          route=[(9.60, 116.40, 15000), (10.10, 115.70, 15000)], loop=True, telegraph=3),
+        # The watcher to the north is an intelligence ship, not the 054A
+        # frigate the first build placed: 33 NM is well inside a YJ-83.
+        U("red", "_vanilla", "civ_fv_okean", "frigate", name="Intelligence ship Nan Hai 31",
+          nation="China", weapons="Hold", radars="True"),
+        # A KJ-500 carries no weapons; the Y-8FQ it replaces carried torpedoes.
+        U("red", "modern-plan-systems", "plaaf_kj-500", "red_air", squadron="Squadron1",
+          weapons="Hold",
+          route=[(9.60, 116.40, 25000), (10.10, 115.70, 25000)], loop=True, telegraph=3),
         U("neutral", "_vanilla", "civ_fv_fishingboat_c", "fishing",
           name="Fishing boat Ngoc Lan (Vietnam)", route=[(9.85, 115.95, 0)], telegraph=2),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "fishing",

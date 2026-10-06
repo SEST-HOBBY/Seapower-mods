@@ -86,7 +86,7 @@ rests on one rule: there is no free rearm.** Check that first.
 |---|---|
 | **1 The Island Road** | Convoy of two reaches the box 30 NM south-west; two Meridian fast attack craft come from the south-east. Win = both convoy ships in the box |
 | **2 Fire Mission Jolo** | Ship starts 25 NM north of Jolo. Steam in; the 76 mm reaches the ridge from about 8 NM. **Three of five** positions destroyed = victory **(3.1)**. Check the launch rails can attack your ship |
-| **3 Ayungin** | Everything Chinese stays at Hold and never fires **(5.1)**. Firing on any of them ends the mission. The boat entering the shoal's lagoon wins |
+| **3 Ayungin** | Nothing fires at the boat: the cutters carry machine guns only and shadow north of its track; the watcher is an unarmed intelligence ship **(5.1)**. Firing on any Chinese unit ends the mission. The boat entering the shoal's lagoon wins |
 | **4 Service at Sea** | Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. Sink her in a second run and check she is **missing** from mission 6 **(2.5)** |
 | **5 Celebes Gate** | Four coasters, one is the gun-runner (armed, with an escort boat and a drone nearby). Sinking a wrong one ends the mission. Sinking the right one before the Basilan Strait wins |
 | **6 The Aborlan Battery** | Two Silkworm launchers ashore fire at ships inside about 25 NM, including the convoy at anchor **(3.2)**. Both launchers destroyed wins |
@@ -112,6 +112,7 @@ Dispatches*. Full card: `docs/campaigns/southern-watch/test-card.md`.
 | Your ship appears **(2.4)** | Deploy into mission 1 | The ship you bought is there, on station, not drifting, with no extra authored ship beside it |
 | Roster grows **(2.5)** | Before mission 2 | Hobart and P-8 added |
 | Air tasking **(3.1–3.5)** | Open Air Tasking before missions 1, 2 and 6 | Ship's Flight; then Maritime Patrol; then Combat Air Patrol. **Never** a row with 0 slots |
+| Submarine hidden | Mission 2, Steel Highway: watch the first five minutes at normal speed | No submarine contact appears in the first two minutes. The boat starts 30 NM up the track with her radar off; the Poseidon and Wedgetail start over the convoy, 25-30 NM from her |
 | Fuel **(4.2)** | Mission 7, follow a Super Hornet to the end | It gets home to Darwin. Running dry is the most likely failure here |
 | Losing cleanly **(5.2)** | Mission 1, lose three merchants on purpose | Defeat, and the other objectives show **cancelled** |
 | Memory **(6.1–6.4)** | Lose HMAS Supply in mission 2, then reach mission 9; also save, quit and reload in between | MV Coral Provider is **missing** from mission 9. Keep Supply alive and she is there |

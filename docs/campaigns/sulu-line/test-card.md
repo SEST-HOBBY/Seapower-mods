@@ -78,5 +78,10 @@ still get the discount.
 
 ## 5. Ayungin
 
-5.1 Nothing fires: the coast guard cutters, the militia trawlers, the PLAN
-frigate and the Y-8 stay at Hold all mission. Firing on any of them ends it.
+5.1 Nothing fires at the boat. The first public build placed two Type 056A
+corvettes (YJ-83) and a Type 054A at weapons Hold, and a player saw YJ-83s on
+the boat within fifteen seconds: **Hold does not stop an AI ship firing.**
+Since 6 Oct the cutters carry machine guns only and shadow north of the
+boat's track, the watcher is an unarmed intelligence ship and the aircraft a
+KJ-500. Check the cutters never close the boat; firing on any Chinese unit
+still ends the mission.
