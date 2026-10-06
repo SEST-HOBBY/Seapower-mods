@@ -277,7 +277,14 @@ checked automatically.
   - Russian names written in Cyrillic now shown in English letters;
   - units that showed as MISSING (Ise, Oberon class, A-4G, S-2 Tracker, the
     Brazilian airbases and others) now have names.
-- **English loading tips:** where one mod had replaced them with Chinese.
+- **English loading tips:** where one mod had replaced them with Chinese,
+  and 26 quotations on airpower, deterrence, readiness and logistics behind
+  them, each with its speaker and source (`docs/quotes.md`).
+- **A quotation under every briefing banner**, chosen by the mission's role
+  and different in every mission of a campaign.
+- **The Briefing Room:** a mission-browser entry that plays a 73-second film
+  of the collection's forces in the right pane, the way the game's own
+  Video Tutorials do. Nothing in it is played; it is the pack's title card.
 - **Tactical map lines:** black by day, white at night, fully opaque and
   thicker, with the selected route in red.
 
@@ -315,6 +322,8 @@ how to check each.
 - **The restored intercept table.**
 - **Transfers from HMAS Supply and Stalwart.**
 - **Red Line's weapons Hold and Tight**, which some missions depend on.
+- **The Briefing Room film:** that the mission browser plays a mod's mp4 in
+  its right pane as it does the stock tutorials.
 
 ---
 

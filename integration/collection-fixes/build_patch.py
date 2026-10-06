@@ -29,6 +29,7 @@ OUT = Path(__file__).resolve().parent / "SEST_Collection_Fixes"
 sys.path.insert(0, str(ROOT / "integration"))
 from common.ras import LAND_ATTACK, LONG_RANGE_SAM, tag_ammunition  # noqa: E402
 from common import combat  # noqa: E402
+from common import quotes  # noqa: E402
 
 # SEST Replenishment At Sea meters every heavy ship-launched strike and
 # area-SAM round under a counted SEST_ supply category (the rule and its
@@ -1146,7 +1147,14 @@ SEST_TIPS = [
     "and run SETUP again from the pack's folder.",
     "SEST: The SEST pack's Gallery folder holds real photographs of the "
     "collection's units. Open gallery.html in your web browser.",
+    "SEST: The Briefing Room entry in the mission browser plays a short film of the "
+    "collection's forces. Nothing in it is playable; it is the pack's title card.",
 ]
+# Third set (6 Oct 2026): the quotation set, one tip per line, behind the
+# pack's own tips. integration/common/quotes.py holds the text and the
+# attribution of every line and docs/quotes.md its source; the same lines sit
+# under the campaign briefing banners and in the Briefing Room film.
+SEST_TIPS += [quotes.tip_line(q) for q in quotes.QUOTES]
 
 
 def build_loading_tips():

@@ -1,0 +1,70 @@
+SEST BRIEFING ROOM - photo credits for sest_briefing_room.mp4
+
+Every photograph is from the SEST Gallery (Gallery/PHOTO_CREDITS.txt in the pack);
+the quotations and their sources are listed in docs/quotes.md of the repository.
+
+F-35A — RAAF
+  Creator: U.S. Air Force photo by Senior Airman J. Michael Peña
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:No_75_Squadron_F-35A_at_RAAF_Base_Tindal_in_July_2023.jpg
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+E-7A Wedgetail — RAAF
+  Creator: U.S. Air Force photo by Lawrence Crespo
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:Royal_Australian_Air_Force_E-7A_at_Red_Flag_Feb_2013.jpg
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+Hobart class
+  Creator: https://www.mod.go.jp/msdf/index.html  海上自衛隊
+  Licence: CC BY 4.0
+  Source: https://commons.wikimedia.org/wiki/File:HMAS_Hobart_(DDG_39)_participating_in_the_International_Fleet_Review_2022.jpg
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+P-8A Poseidon
+  Creator: Julian Herzog  ( Website )
+  Licence: CC BY 4.0
+  Source: https://commons.wikimedia.org/wiki/File:Royal_Air_Force_Boeing_Poseidon_MRA1_P-8A_ZP803_Royal_International_Air_Tattoo_2025_01.jpg
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+MH-60R Seahawk
+  Creator: U.S. Navy/Mass Communication Specialist 3rd Class Andrew Langholf
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:MH-60R_Seahawk_from_HSM-37_during_counterdrug_operations_(200713-N-FA490-1857).jpg
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+EA-18G Growler
+  Creator: Mass Communication Specialist Seaman Leon Vonguyen
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:An_EA-18G_Growler,_assigned_to_the_%E2%80%9CGauntlets%E2%80%9D_of_Electronic_Attack_Squadron_(VAQ)_136,_launches_from_the_flight_deck_of_aircraft_carrier_USS_Carl_Vinson_(CVN_70),_February_8,_2022.jpg
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+Gerald R. Ford class
+  Creator: U.S. Navy photo by Mass Communication Specialist 2nd Class Ridge Leoni
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:USS_Gerald_R._Ford_(CVN-78)_underway_on_8_April_2017.JPG
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+Mogami class frigate
+  Creator: https://www.mod.go.jp/msdf/index.html  海上自衛隊
+  Licence: CC BY 4.0
+  Source: https://commons.wikimedia.org/wiki/File:JS_Mogami%EF%BC%88FFM-1%EF%BC%896.jpg
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+HTMS Naresuan
+  Creator: Kazec  ( talk )
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:HTMS_Naresuan_in_Hong_Kong.JPG
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+Type 054A frigate
+  Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Scott Taylor
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:CNS_Huangshan_(FFG-570)_170616-N-ZW825-722.jpg
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
+
+Supply class US replenishment ship
+  Creator: PH3 Joshua Kinter, U.S. Navy
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:USNS_Supply_(T-AOE-6)_underway_in_the_Atlantic_Ocean_on_7_May_2006_(6697433).jpg
+  Changes: resized and cropped to 1280x720, slow zoom, text overlaid.
