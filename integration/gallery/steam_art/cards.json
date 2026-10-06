@@ -1,0 +1,161 @@
+[
+ {
+  "out": "../source/visuals/steam/pack-1-latest-update.jpg",
+  "bg": "../source/images/update_190/tarlac_169a0b0798.jpg",
+  "pos": "center 40%",
+  "kicker": "LATEST UPDATE  ·  6 OCTOBER 2026",
+  "head": "A fourth campaign. No free rearm.",
+  "cols": [
+   {
+    "label": "NEW: SULU LINE",
+    "items": [
+     [
+      "Philippine Navy",
+      "7 missions · Oct–Nov 2028"
+     ],
+     [
+      "No free rearm",
+      "buy supply ships, rearm at sea"
+     ],
+     [
+      "Gunfire and convoys",
+      "Jolo, Aborlan, Ayungin"
+     ],
+     [
+      "Balabac Strait",
+      "the fleet action to finish"
+     ]
+    ]
+   },
+   {
+    "label": "FIXES",
+    "items": [
+     [
+      "Spruance crash fixed",
+      "after Modern US Navy v597"
+     ],
+     [
+      "9 mod updates checked",
+      "USN, PLAN, PLA AEP and more"
+     ],
+     [
+      "RAAF F-35A in the pack",
+      "old Workshop mod not needed"
+     ],
+     [
+      "Cleaner loadouts",
+      "F-35A JSM and Apache pylons"
+     ]
+    ]
+   },
+   {
+    "label": "MORE IN THE PACK",
+    "items": [
+     [
+      "636 real photos",
+      "34 more encyclopedia pictures"
+     ],
+     [
+      "Five more supply ships",
+      "C8, Seabee, Ro-Ros, Mercur"
+     ],
+     [
+      "Flags for 11 nations",
+      "Russian names in English"
+     ],
+     [
+      "Red Line Open Allocation",
+      "Type 901 and 903A on sale"
+     ]
+    ]
+   }
+  ],
+  "foot": [
+   "Earlier in October: fair openings, Behind Schedule warnings, one-click SETUP.",
+   "After updating: close the game and run SETUP again."
+  ],
+  "credit": [
+   "Photo: U.S. Navy, MC1 Daniel Barker · CC BY-SA 4.0 · adapted",
+   "via Wikimedia Commons"
+  ]
+ },
+ {
+  "out": "../source/visuals/steam/pack-2-whats-inside.jpg",
+  "bg": "../source/images/ships/arleigh_burke.jpg",
+  "kicker": "WHAT'S IN THE PACK",
+  "head": "One mod folder. One entry at the top of your Mod Manager.",
+  "cols": [
+   {
+    "label": "FOUR CAMPAIGNS",
+    "items": [
+     [
+      "Southern Watch",
+      "RAN · 18 missions · Oct–Nov 2028"
+     ],
+     [
+      "Southern Reach",
+      "RAN · 26 missions · Dec 2028 on"
+     ],
+     [
+      "Red Line",
+      "PLA Navy · 6 missions · Nov 2028 on"
+     ],
+     [
+      "Sulu Line",
+      "Philippine Navy · 7 missions · NEW"
+     ]
+    ]
+   },
+   {
+    "label": "FORCES & WEAPONS",
+    "items": [
+     [
+      "Australian forces",
+      "RAN · 15 RAAF bases · E-7A · MQ-4C"
+     ],
+     [
+      "RAAF F-35A + JATM",
+      "F-35A, F-35C and F-16CM"
+     ],
+     [
+      "Growler NGJ + MALICE",
+      "NGJ pods, AIM-424 fits"
+     ],
+     [
+      "F-15EX, Rafale F5, ARRW",
+      "plus A-10C+, Raptors, Mogami"
+     ]
+    ]
+   },
+   {
+    "label": "FIXES",
+    "items": [
+     [
+      "Replenishment at sea",
+      "1,500+ launchers can now reload"
+     ],
+     [
+      "Cross-mod fixes",
+      "where two mods clash"
+     ],
+     [
+      "Intercept table restored",
+      "the game's own values back"
+     ],
+     [
+      "Photos, flags, names",
+      "636 photos · 11 more flags"
+     ]
+    ]
+   }
+  ],
+  "foot": [
+   "Every campaign also as Open Allocation: whole roster from mission one.",
+   "Needs the 190 mods in the collection. Built for Sea Power 0.8.4."
+  ],
+  "credit": [
+   "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",
+   "via Wikimedia Commons"
+  ]
+ }
+]
