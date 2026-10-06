@@ -5,31 +5,37 @@
   "branch": "feature/world-campaign-draft",
   "baseline_commit": "20b3cf89f858df948a6e985f4c76190a708ea17d",
   "evidence_status": "supplied_unverified",
-  "raw_reports_committed": false,
-  "raw_report_location": "Original conversation attachments; also retained byte-for-byte in the companion handoff archive.",
+  "raw_reports_committed": true,
+  "raw_report_location": "docs/world-sandbox/research/R01.md through R03.md; byte-identical to the original conversation attachments and companion archive.",
   "reports": [
     {
       "id": "R01",
       "original_filename": "Pasted markdown(1).md",
+      "repository_path": "docs/world-sandbox/research/R01.md",
       "bytes": 11698,
       "lines": 70,
       "sha256": "ad8e826003730e31db9c3fb28661e03bfe5b370f427fe10ce0cfd3b56308931c",
+      "git_blob_sha": "19126f9ddd62add357cb857defd760a45df280b3",
       "focus": "Combined global power projection and logistics overview"
     },
     {
       "id": "R02",
       "original_filename": "Pasted markdown (2).md",
+      "repository_path": "docs/world-sandbox/research/R02.md",
       "bytes": 11083,
       "lines": 79,
       "sha256": "293c7aaa46f27cc69f3d87fd5320e9bfc53b4ded236e017e96145bdb88bc1044",
+      "git_blob_sha": "cf3cbbc59db9ff7fea7d15f33e4332409a2bfdf0",
       "focus": "Global military logistics and support networks"
     },
     {
       "id": "R03",
       "original_filename": "Pasted markdown (3).md",
+      "repository_path": "docs/world-sandbox/research/R03.md",
       "bytes": 36684,
       "lines": 172,
       "sha256": "44bc8e0258fed3e2f039f422c629cc5340b19abbf059f73b86918a46745d027c",
+      "git_blob_sha": "0b5f638f3731fea023670593713e7230e7823f78",
       "focus": "Expanded global force posture and strategic installations"
     }
   ],

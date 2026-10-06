@@ -17,11 +17,11 @@ The earlier gameplay-first draft overcorrected. Its proposed three-mission convo
 ## Read first
 
 1. `WORLD_POPULATION_PLAN.md` - authoritative world-building outline, population layers, source-derived regional coverage and build order.
-2. `research-seed.md` and `source-manifest.json` - source provenance, uncertainty and original attachment identities.
+2. `research-seed.md`, `source-manifest.json` and `research/R01.md` through `research/R03.md` - provenance, uncertainty and the complete original reports.
 3. `CLAUDE_BROWSER_START.md` - practical build handoff.
 4. `gameplay-and-tests.md` - supporting gameplay and validation requirements, not a replacement for the population plan.
 
-The companion handoff archive includes the original three research reports. They are not embedded in this Git branch. Read the originals as well as the outline; do not invent source details when an attachment is unavailable.
+The original three research reports are committed under `research/`. They are byte-identical to the original attachments and companion handoff archive; `research/README.md` contains the integrity check. Read the originals as well as the outline. No sandbox link or further upload is required.
 
 ## Expected first deliverable
 

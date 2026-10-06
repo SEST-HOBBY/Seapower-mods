@@ -2,7 +2,7 @@
 
 Repository: `SEST-HOBBY/Seapower-mods`
 Branch: `feature/world-campaign-draft`
-Read `docs/world-sandbox/WORLD_POPULATION_PLAN.md` first, then the other documents here and the original three uploaded reports supplied in the companion archive.
+Read `docs/world-sandbox/WORLD_POPULATION_PLAN.md` first, then the other documents here and the complete original reports at `docs/world-sandbox/research/R01.md`, `R02.md` and `R03.md`. These copies match the SHA-256 digests in `source-manifest.json`; no separate archive or sandbox access is required.
 
 ## Governing instruction
 
@@ -21,6 +21,8 @@ The world should support persistent mission gameplay, resupplying and multi-phas
 
 Proposed data/output filenames are implementation choices, not existing files: a world-node register, force-allocation register, connections register and population-gap report. Reuse suitable repository conventions before creating parallel formats.
 
+Preserve collection inventories already under way. Fetch and read the research from the updated draft ref without resetting another working branch or overwriting its results. The missing-source blocker is resolved; complete source extraction and join it to those mappings rather than repeating finished work.
+
 ## Then build the environment
 
 Use a new opt-in namespace after checking collisions. Populate bases and forces in regional passes under the same world specification. Add routine patrols, transits, escorts and supported civilian activity, then wire verified services and sustained combat behaviour.
@@ -30,6 +32,8 @@ A small test scene is allowed to prove replenishment or save/load in parallel. I
 Separate actual ship ammunition transfer, aircraft turnaround, supplier restocking, fuel and repair. Preserve finite resources and surviving-unit state; no automatic phase resets, duplicated reinforcements or invented logistics APIs. Source claims and static configuration do not establish runtime success.
 
 Measure geography, active-unit population, save size, time compression and performance. Distinguish the authored world from tested concurrently active areas; do not promise global streaming or infer impossible scope from an untested assumption.
+
+A single map centre with relative nautical-mile positions describes a coordinate representation; by itself it does not prove a maximum playable extent or require separate theatre missions. That conclusion remains unproven unless supported by an identified engine constraint or reproducible test. Distinguish limits in our conversion/build tools from limits in the game. Record placement and navigation behaviour at increasing offsets, long-distance geometry and coordinate wrapping, terrain availability, active-unit performance and save/reload behaviour. Existing mission extents are examples, not automatically the engine maximum. Keep one coherent populated world as the design target; propose a regional runtime split only against evidence and explain what happens to persistence. Do not promise that a fully active global mission is feasible either. Scope tests run alongside the global register, not instead of it.
 
 ## Boundaries and reporting
 

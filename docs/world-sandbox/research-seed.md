@@ -12,7 +12,7 @@ All three reports share the title *Global Force Posture and Strategic Installati
 
 Their principal value for this task is a starting outline of WHERE and WHAT to populate. The source-derived regional plan and population layers are in `WORLD_POPULATION_PLAN.md`.
 
-Original files are available in the conversation and the companion handoff archive; raw report text is not committed to this branch. `source-manifest.json` records their byte counts and SHA-256 digests, checked against the original mounted attachments during this revision.
+Original files are committed as `research/R01.md`, `research/R02.md` and `research/R03.md`, byte-identical to the conversation attachments and companion handoff archive. `source-manifest.json` records their repository paths, original byte counts and SHA-256 digests, and matching Git blob IDs. Existing source-line references are unchanged; see `research/README.md` for the integrity check. A separate sandbox upload is no longer required.
 
 ## Use the research without overstating it
 
