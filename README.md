@@ -5,14 +5,15 @@ Custom loadouts, upgrade variants, cross-mod fixes and missions for a
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
-Campaigns* (item 3812461539, public), carrying all four campaigns. Players subscribe to
-the collection *SEST - Modernised Campaign Collection* (3812390790: the Workshop mods
-in `data/load-order.tokens.txt` plus the pack), which is where the dependencies come from,
-then run `SETUP - double-click me.cmd` in the pack folder with the game closed. The pack's
-Required Items are empty on purpose: the Mod Manager's dependency check offers to move
-required items above the pack, which undoes every fix in it, so do not fill them and do
-not rely on the Mod Manager's Sync for this pack. Every upload is an update to the same
-item; `docs/campaigns/southern-watch/publishing.md` is the procedure.
+Campaigns* (item 3812461539, public), carrying all four campaigns. Its Required Items are
+the Workshop mods in `data/load-order.tokens.txt`, so subscribing to the item offers all of
+them in one click; the collection *SEST - Modernised Campaign Collection* (3812390790: the
+same mods plus the pack) does the same job. Both must follow the load order. Subscribers
+then run `SETUP - double-click me.cmd` in the pack folder with the game closed, which sets
+the order: the pack first, above every Workshop mod. If the Mod Manager offers to move the
+pack's dependencies above it, the answer is no (that would undo every fix in it), and SETUP
+run again puts the order back. Every upload is an update to the same item;
+`docs/campaigns/southern-watch/publishing.md` is the procedure.
 
 **[docs/FEATURES.md](docs/FEATURES.md)** is the full feature list; **[docs/play-test-guide.md](docs/play-test-guide.md)** is how to test all four campaigns in the game.
 

@@ -33,9 +33,9 @@ pair: the Workshop item 'SEST Integration Pack - Modernised Campaigns'
 the collection 'SEST - Modernised Campaign Collection' (3812390790): the Workshop mods in
 `data/load-order.tokens.txt` plus the pack (published with 149 items; 191 once the October
 2026 additions are added to it). The
-collection is where a player's dependencies come from; the item's own
-Required Items stay empty on purpose (*Publishing the pack*, below, says why
-and how an update goes up). Inside the repo, what each pack needs is a
+item's Required Items list the same Workshop mods, so subscribing to the item
+offers them all in one click; the collection does the same job (*Publishing
+the pack*, below, says what that costs and how an update goes up). Inside the repo, what each pack needs is a
 derived dependency list.
 
 ## What each pack needs
@@ -312,8 +312,9 @@ PowerShell 5.1 has no `&&`. Chain with `;` or use separate lines.
 
 ## Publishing the pack
 
-Players get the SEST pack from one Workshop item and its dependencies from one
-collection:
+Players get the SEST pack from one Workshop item, and its dependencies from
+that item's Required Items or from one collection, both mirroring
+`data/load-order.tokens.txt`:
 
 - **The item**: 'SEST Integration Pack - Modernised Campaigns', Workshop id
   3812461539, Public. It is the `SEST_Integration` folder, all three
@@ -321,14 +322,17 @@ collection:
 - **The collection**: 'SEST - Modernised Campaign Collection', 3812390790,
   the Workshop mods in `data/load-order.tokens.txt` plus the pack (191 items
   once the October 2026 additions are in it; it was published with 149). A mod added to or dropped from the load order means the same change
-  to the collection.
+  to the collection and to the item's Required Items, before the upload.
 
-**Required Items stay empty.** The item's Required Workshop IDs / Required
-Items are empty on purpose. The Mod Manager's dependency check ('Must load
-above this mod') offers to move the required items above the pack, which
-undoes every fix in it (the one rule under *Installing alongside other
-mods*). Do not set them, and do not rely on Sync for this
-pack: the dependencies come from the collection.
+**Required Items are the load order's Workshop mods.** Set in October 2026
+for the one-click subscribe; like the collection, they must be the Workshop
+mods of `data/load-order.tokens.txt`. The cost: the
+Mod Manager's dependency check ('Must load above this mod') may offer to move
+the required items above the pack, which would undo every fix in it (the one
+rule under *Installing alongside other mods*). The answer is no, and SETUP
+run again puts the order back. Whether the prompt appears is not yet seen;
+`docs/campaigns/southern-watch/publishing.md` (*Dependencies*) has the test
+that settles it. Do not rely on Sync for the order: SETUP sets it.
 
 **The update**, from the PC once the sync reads IN LINE with the commit to
 publish, since the folder it picks is the installed copy of
@@ -600,14 +604,16 @@ beside the repo (*Known red* above) is the other route.
    line must read `IN LINE: all 1266 installed files match this commit`, or
    the new count from step 7.
 
-10. **Then update the published item, never a new one.** With the PC IN LINE
+10. **Then update the published item, never a new one.** If the export
+    added or dropped a Workshop mod, first change the collection
+    (3812390790) and the item's Required Items to match
+    `data/load-order.tokens.txt`. Then, with the PC IN LINE
     and Sea Power's Steam Cloud under its 1,000-file cap: Mod Manager >
     Create Mod > Update Existing (item 3812461539) > Pick Folder
     `StreamingAssets\SEST_Integration` > Submit, then confirm
-    `m_eResult: k_EResultOK` in `Player.log`. Leave Required Workshop IDs /
-    Required Items empty and do not use Sync for this pack. If the export
-    added or dropped a Workshop mod, change the collection (3812390790) to
-    match `data/load-order.tokens.txt`. *Publishing the pack* above has the
+    `m_eResult: k_EResultOK` in `Player.log`. Leave the form's Required Workshop IDs
+    as it shows them, and check the item page still lists its Required Items
+    after Submit. *Publishing the pack* above has the
     reasons and the failure to expect.
 
 ### The first run: 0.8.3, 2 October 2026
