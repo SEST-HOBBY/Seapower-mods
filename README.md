@@ -14,6 +14,8 @@ required items above the pack, which undoes every fix in it, so do not fill them
 not rely on the Mod Manager's Sync for this pack. Every upload is an update to the same
 item; `docs/campaigns/southern-watch/publishing.md` is the procedure.
 
+**[docs/FEATURES.md](docs/FEATURES.md)** is the full feature list; **[docs/play-test-guide.md](docs/play-test-guide.md)** is how to test all four campaigns in the game.
+
 Everything here is built around interoperability: a mod is known by three names — a
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
 `mods-source/` export and its load-order token), and the display name the Mod Manager
