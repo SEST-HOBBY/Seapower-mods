@@ -1,45 +1,42 @@
-# Build handoff - persistent world sandbox
+# Browser build handoff - populate the world from the research
 
 Repository: `SEST-HOBBY/Seapower-mods`
 Branch: `feature/world-campaign-draft`
-Start with every document in `docs/world-sandbox/`.
+Read `docs/world-sandbox/WORLD_POPULATION_PLAN.md` first, then the other documents here and the original three uploaded reports supplied in the companion archive.
 
-## The request
+## Governing instruction
 
-Build toward an ongoing world sandbox with persistent mission gameplay, resupplying and multi-phased combat. Prioritise play over story. The first prototype is ONE mission in which the same forces fight, withdraw, replenish and fight again, surviving save/reload. Do not build the superseded WC01-WC03 story/convoy mission chain.
+Use the research as the outline for constructing a populated world: installations, associated forces, support assets, deployed groups, logistics connections and routine activity in appropriate regions.
 
-The user uses browser Claude, not local Claude Code. Do repository work in the available development environment. Real Sea Power tests belong on the gaming PC and must be marked pending when that runtime is unavailable.
+The world should support persistent mission gameplay, resupplying and multi-phase combat with minimal story. Do not misread that as a request to substitute a tiny combat/resupply prototype for the researched population work. The first deliverable is the WORLD POPULATION REGISTER AND PLACEMENT PLAN, not WC01-WC03, a narrative campaign or a mechanics-only demo.
 
-## Before editing runtime files
+## First work package
 
-Confirm branch, HEAD and baseline divergence. Inspect existing sandbox mission sources, native mission triggers and victory handling, save/load behaviour, campaign helpers, the current SEST/RE-power supply implementations and the winning mod definitions. No blind branch merging, rebase, force-push or default-branch changes.
+1. Confirm branch and current HEAD. Inspect the existing catalog, load-order resolver, SEST bases, sandbox mission sources, placement tools and relevant builders without changing published content.
+2. Consolidate the three reports into one deduplicated, source-linked node register. Cover their full geographic scope now; regional implementation can follow incrementally. A headquarters, distribution centre, airfield and naval base are different node roles.
+3. For each node, list source-described platform families and proposed population categories: resident, deployed, support, patrol, transit and reserve. Label proposed quantities and activity as scenario choices, not sourced current deployments.
+4. Resolve these against the winning installed unit/variant/squadron/loadout files and dependencies. Record exact matches, clearly labelled representative proxies, unsupported functions and missing assets. Do not fabricate IDs, assume all advertised mods work or hard-code a historical subscription count.
+5. Identify source and in-game location evidence. Author population packages while locations are being validated; do not stall the world outline on a single missing coordinate. Validate every actual placement and route before generating a playable object there.
+6. Produce a regional placement overview plus source, mapping and missing-content reports. Give every physical asset one identity and allocation, avoiding duplicate copies at its home base and at sea.
 
-Produce a small capability/mapping audit with exact file/line references. Separate evidence of ammunition transfer from ship fuel, supplier-restocking, aircraft-stock replenishment and repairs. A search with no results is not proof that the engine cannot do something; an undocumented key is not proof that it can.
+Proposed data/output filenames are implementation choices, not existing files: a world-node register, force-allocation register, connections register and population-gap report. Reuse suitable repository conventions before creating parallel formats.
 
-Investigate the intended single-mission route first. Native Task Force Mode is a possible tool, not a requirement. Cross-mission variables and a dynamic campaign generator must not be casually presented as a persistent scenario API.
+## Then build the environment
 
-Use the canonical catalog and load order. Resolve unit, variant, squadron, ammunition and system references through winning files, including aliases/extensions. Verify actual source ownership and pending/missing assets. Do not hard-code a historic mod count, fabricate IDs or add unverified requested aircraft/weapons merely because a research report names them.
+Use a new opt-in namespace after checking collisions. Populate bases and forces in regional passes under the same world specification. Add routine patrols, transits, escorts and supported civilian activity, then wire verified services and sustained combat behaviour.
 
-Select valid mission geography. Inspect an existing working regional sandbox as a spatial starting point where available, without changing it. Separate named real bases from actual installed game objects. Use validated water/land placement and usable aircraft recovery locations.
+A small test scene is allowed to prove replenishment or save/load in parallel. It is not a gate that prevents authoring the remaining global population plan. Avoid defaulting to native Task Force chapters: the request is a sandbox, not a story progression.
 
-## First implementation
+Separate actual ship ammunition transfer, aircraft turnaround, supplier restocking, fuel and repair. Preserve finite resources and surviving-unit state; no automatic phase resets, duplicated reinforcements or invented logistics APIs. Source claims and static configuration do not establish runtime success.
 
-Create an opt-in prototype in a new namespace, proposed `integration/missions/world_sandbox/`, after checking for collisions. Do not wire it into automatic installation, the consolidated pack or Workshop yet. Inspect all write paths before borrowing a builder so old campaign outputs cannot be overwritten.
+Measure geography, active-unit population, save size, time compression and performance. Distinguish the authored world from tested concurrently active areas; do not promise global streaming or infer impossible scope from an untested assumption.
 
-Implement a compact live mission with at least two combat opportunities and a real replenishment interval. Keep existing hull identities, damage and magazines; finite opposing forces; valid aircraft support; a finite supplier; and simple neutral activity. Do not finish the mission after the first engagement.
+## Boundaries and reporting
 
-Start with native, attested events and finite preallocated reserves. Dynamic spawning, an external director or runtime plugin is optional and requires evidence, dependency review, save/load testing and approval before it becomes mandatory. Distant or hidden units are not automatically free of performance cost.
+The user uses browser Claude, not local Claude Code. Perform repository work in the available environment; mark actual Sea Power tests pending when the gaming runtime is unavailable.
 
-Do not reset stocks at a phase boundary or replace the fleet with pristine copies. Do not inherit unlimited port supply unnoticed. Supplier exhaustion, disruption and compatibility failures must be observable. Where port restocking or another service is unproved, expose the limitation and use an honestly finite temporary model rather than a fake economy.
+Keep existing campaigns, global units, load order, deployables and installers unchanged. Audit borrowed builder write paths. Do not force-push, change the default branch, merge unrelated branches, publish to Workshop or add mandatory plugins without approval. No `claude/*` branches, AI imagery or AI attribution in commits.
 
-Test and record every relevant item in `gameplay-and-tests.md`. Static tests should cover reference resolution, output isolation, IDs, event links and forbidden automatic resets. Runtime tests must demonstrate actual transfers, continuous combat and save/load behaviour. Do not claim playtesting from generated files.
+Verify precise real-world claims when they matter to the build. Do not turn research uncertainty into a refusal to prepare the outline; unknowns belong in the register. Report separately: source described, independently checked, collection mapped, placed, runtime active and playtested.
 
-## Scope and presentation
-
-Minimal briefings: where the force is, usable support, rules of engagement, known contacts and optional tasks. No character/lore package or narrative gating. No AI imagery; reuse authorised assets or use plain functional presentation.
-
-Keep existing campaigns, global unit behaviour, load order and production outputs unchanged. A fix to a shared mechanic should be isolated and reviewed separately, not smuggled into a mission draft.
-
-Commit with professional messages, no AI attribution or co-author trailers. Use this feature branch, not a new `claude/*` branch. Do not publish or merge without approval.
-
-Deliver the audited capability table, smallest useful prototype, actual automated-test results, pending/runtime test card, known limitations, changed paths and commit ID. Then expand to two separated operating areas inside the same persistent mission before widening world coverage. Do not respond by creating dozens of story missions or only an encyclopedia.
+Return the populated-world outline and mapping first, then the actual changed files and tests as implementation progresses. Gameplay serves the world being populated; it does not replace that task.

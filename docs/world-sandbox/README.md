@@ -1,62 +1,36 @@
-# SEST World Sandbox - persistent gameplay draft
+# SEST World Sandbox - research-led population outline
 
-Status: design foundation only. No playable mission or new runtime system is claimed by this commit.
+Status: DESIGN OUTLINE. No populated game world, new mission or tested runtime system is delivered by these documents.
 
 Branch: `feature/world-campaign-draft`
-Baseline: `feature/northern-front-iii-export` at `20b3cf89f858df948a6e985f4c76190a708ea17d`.
+Original baseline: `feature/northern-front-iii-export` at `20b3cf89f858df948a6e985f4c76190a708ea17d`.
 Date: 7 October 2026, Australia/Brisbane.
 
-## Direction
+## Correct priority
 
-The user's clarification governs this draft: more persistent mission gameplay, resupplying and multi-phased combat; less story and more world sandbox.
+**Use the supplied research as the blueprint for building a populated world.** Decide which installations belong where, which forces and support assets belong with them, how those locations connect, and what those forces normally do.
 
-**Build an ongoing operational sandbox, not another sequence of story missions.** The intended experience is to deploy forces, find and engage threats, withdraw, replenish and return to combat with the same surviving units. The operation should remain live while different groups are fighting, transiting, recovering aircraft or obtaining supplies.
+The user wants persistent mission gameplay, resupplying and multi-phased combat in that world, with little emphasis on story. Those are requirements for the environment, not instructions to replace the world-population work with a small resupply demonstration.
 
-A world database supports that gameplay. It is not the product by itself. Geography and installations from the three supplied research reports provide candidate operating areas and service-node roles, not a script the player must follow.
+The earlier gameplay-first draft overcorrected. Its proposed three-mission convoy chain and its later instruction to make a compact combat/resupply prototype the first deliverable are superseded. Small test scenes remain useful validation tools, but must not postpone the research-based global population outline or become the product.
 
-This replaces the initial proposed three-mission WC01-WC03 convoy chain. Do not implement that superseded approach as the main design. The first proof is ONE persistent scenario with multiple combat and replenishment cycles.
+## Read first
 
-## First playable target
+1. `WORLD_POPULATION_PLAN.md` - authoritative world-building outline, population layers, source-derived regional coverage and build order.
+2. `research-seed.md` and `source-manifest.json` - source provenance, uncertainty and original attachment identities.
+3. `CLAUDE_BROWSER_START.md` - practical build handoff.
+4. `gameplay-and-tests.md` - supporting gameplay and validation requirements, not a replacement for the population plan.
 
-One continuous, saveable mission in a validated regional area, containing a modest player surface group, a compatible ammunition supplier, usable aviation support, finite opposing forces and a small amount of neutral traffic. Use actual installed units after resolving the current collection, rather than prescribing unverified unit IDs here.
+The companion handoff archive includes the original three research reports. They are not embedded in this Git branch. Read the originals as well as the outline; do not invent source details when an attachment is unavailable.
 
-The player must be able to:
+## Expected first deliverable
 
-1. Fight an initial engagement and spend ammunition.
-2. Break contact, choose a replenishment rendezvous and receive a measurable transfer from a real supplier.
-3. Rejoin a later engagement with the same surviving ships, remaining damage and changed inventories.
-4. Save and reload without restoring spent stores, resurrecting losses or replaying completed events.
+A world-population register and regional placement plan covering the supplied research: installation roles, source-described platform families, proposed resident/deployed/support allocations, mappings to the installed collection, unresolved assets and coverage status.
 
-A later engagement is not a new mission file, a briefing-only consequence or a fresh copy of the task force. A supply ship that is empty or sunk must matter physically in the running mission.
+Then construct the populated world in inspectable regional passes, preserving a common world identity. Add and test resupply, routine activity and multi-phase engagements within that environment. Global authoring scope does not require every distant object to be simulated simultaneously; active-world limits need measurement rather than assumption.
 
-Start small to prove the loop, not to redefine the final world scope as a regional story campaign. Expand geographical coverage after continuous play, supply behaviour and save/load survive testing.
+## Isolation and honesty
 
-## What matters most
+Keep existing campaigns, unit definitions, load order, generated packs, installers and Workshop metadata unchanged. Prototype output must be opt-in. No publication or merge without approval; no AI imagery or AI attribution in commits.
 
-| Priority | Required direction |
-|---|---|
-| Persistence | Existing units, losses, damage, magazines, aircraft and supported mission state continue through combat cycles and reloads. |
-| Resupply | Actual compatible stores transfer under the installed system's limits; no automatic rearm between phases. |
-| Multi-phase combat | Patrol, contact, engagement, withdrawal, servicing and renewed pressure occur inside the live mission. Different groups may occupy different phases simultaneously. |
-| Player freedom | The player chooses where to concentrate, when to disengage, which ships to service and which opportunities to ignore. |
-| World sandbox | Several operating areas and support networks are the destination; geographic expansion must not erase force identity or invent global simulation. |
-| Minimal story | Brief operational messages, contact reports and optional objectives, not character scenes, mandatory narrative branches or long lore pages. |
-
-Persistent does not mean an always-online server, an infinite supply economy or a promise of unlimited procedural spawning. Those are separate capabilities and are not established here.
-
-## Document guide
-
-- `gameplay-and-tests.md`: the gameplay contract, phase design, supply boundaries and acceptance tests.
-- `research-seed.md`: how the uploaded research informs the world, its gaps and the repository evidence inspected.
-- `CLAUDE_BROWSER_START.md`: the first implementation work package.
-- `source-manifest.json`: original attachment identifiers and SHA-256 digests. Raw reports are not embedded in this Git commit; the companion handoff archive retains the originals.
-
-## Isolation
-
-This commit adds documentation and source metadata only. It changes no existing campaigns, mission builders, unit definitions, load-order files, generated packs, installers or Workshop metadata.
-
-Keep Southern Watch, Southern Reach / Tasman Shield, Red Line and Sulu Line intact. Use an isolated opt-in prototype output and inspect all builder side effects before sharing helpers. Do not register the sandbox in the normal consolidated build or publish it without approval.
-
-Working identifiers, to be checked for collisions: `SEST World Sandbox` for the player-facing name, `world_sandbox` for a future source module and `WSB_` for mission-local event/state identifiers. The branch name stays as requested; it does not require the runtime to use native Task Force Mode.
-
-A 2028-era setting is a provisional collection-alignment choice, not a historical claim or a required storyline.
+Research-described does not mean independently verified, installed, placed or working. Record each of those separately. Missing figures remain unknown; proposed quantities and assignments are labelled scenario choices. No claim is made here that the reports are a complete world inventory or a precise present-day order of battle.
