@@ -793,3 +793,9 @@ Source: https://commons.wikimedia.org/wiki/File:Royal_Australian_Air_Force_E-7A_
 Licence: Public domain
 Used in: Installing
 
+visuals/flags/png/meridian.png
+Meridian Maritime Group (fictional company flag, SEST campaigns)
+Creator: SEST, drawn in Pillow for this collection (a navy field, a gold meridian, a white sea lane and a four-point star)
+Source: integration/common/flags.py
+Licence: CC0 - a SEST original with no real-world flag as its source
+Changes: None. No generative AI.

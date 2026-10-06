@@ -1014,7 +1014,8 @@ class SameNationDiscount(unittest.TestCase):
         self.assertIn("[NationalForces_PLAN]\nShowOnlyClassName=True", text)
         self.assertIn("[SurfaceMajorFlagships_PLAN]\nplan_lpd_type_071=Variant1", text)
         self.assertIn("[SurfacePersistent_PLAN]\nplan_type_054a_p5=Variant1", text)
-        self.assertIn("[SurfaceReusable_Iran]\nir_ptg_peykaap_3=Default", text)
+        # the Peykaap registers Iran; the story flies it under the Meridian flag
+        self.assertIn("[SurfaceReusable_Meridian Maritime Group]\nir_ptg_peykaap_3=Default", text)
         self.assertIn("[SubmarinesPersistent_PLAN]\nplan_ss_type_039c=Variant1", text)
         self.assertIn("[AircraftReusable_PLAN]\nplan_j-15d=Squadron1,2", text)
         self.assertIn("[HelicoptersReusable_PLAN]\nplan_z-9d=Squadron1,1", text)

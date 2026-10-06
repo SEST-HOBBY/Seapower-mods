@@ -65,6 +65,7 @@ sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from refine_civ_traffic import load_order  # noqa: E402
 sys.path.insert(0, str(ROOT / "integration"))
 from common import quotes  # noqa: E402
+from common import flags  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "SEST_Campaign"
@@ -1621,6 +1622,15 @@ def place(mission, snapper):
             keys["Heading"] = round(math.degrees(math.atan2(dx, dz)) % 360)
         if spec.get("nation"):
             keys["Nation"] = spec["nation"]
+        else:
+            # The flag the story flies it under where the unit file registers
+            # a nation this war does not have (integration/common/flags.py):
+            # Soviet-registered Russian hulls and aircraft fly the Russian
+            # Federation's, Iran-registered Meridian hulls the company's.
+            pick = next((keys[k] for k in ("VariantReference", "Squadron") if k in keys), "Default")
+            remapped = flags.flag_for(pick_nation(spec["type"], pick), spec["type"])
+            if remapped:
+                keys["Nation"] = remapped
         for k, v in spec.get("extra", {}).items():
             keys[k] = v
 
@@ -4478,6 +4488,7 @@ ROSTER_SECTION = {"Vessel": "AllowedVessels", "Submarine": "AllowedSubmarines",
 # label. Nothing is hidden: what intelligence knows is in theatre is what the
 # player sees.
 ROSTER_NATION = {"china": "PLAN", "russia": "Russia", "ussr": "Russia", "soviet": "Russia", "iran": "Iran",
+                 "meridian": "Meridian Maritime Group",
                  "australia": "RAN", "newzealand": "RNZN", "new zealand": "RNZN",
                  "usa": "USN", "us": "USN", "united states": "USN", "japan": "JMSDF",
                  "korea": "ROKN", "south korea": "ROKN", "france": "France",
@@ -4558,6 +4569,7 @@ def enemy_roster_ini(missions, placements):
                     continue                      # traffic, not order of battle
                 pick = keys.get("VariantReference") or keys.get("SquadronReference") or "Default"
                 nation = keys.get("Nation") or pick_nation(uid, pick) or m.get("red_nation") or ""
+                nation = flags.flag_for(nation, uid) or nation
                 label = ROSTER_NATION.get(nation.lower(), nation.replace(" ", "") or "Enemy")
                 if label not in order:
                     order.append(label)

@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-508 of the unit files here are another author's file with
+513 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 508 below
+every file of its kind in the collection, and the 513 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -248,19 +248,19 @@ listed whatever the percentage: they are still that author's.
        97%  land_units/airbase_raaf_butterworth.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_curtin.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_darwin.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_east_sale.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_east_sale.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_edinburgh.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_gingin.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_gingin.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_learmonth.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_pearce.ini from airfield_us_large.ini
-       98%  land_units/airbase_raaf_richmond.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_pearce.ini from airfield_us_large.ini
+       97%  land_units/airbase_raaf_richmond.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_scherger.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_tindal.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_townsville.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_williamtown.ini from airfield_us_large.ini
        97%  land_units/airbase_raaf_woomera.ini from airfield_us_large.ini
-       98%  land_units/airbase_rnzaf_auckland.ini from airfield_us_large.ini
-       98%  land_units/airbase_rnzaf_ohakea.ini from airfield_us_large.ini
+       97%  land_units/airbase_rnzaf_auckland.ini from airfield_us_large.ini
+       97%  land_units/airbase_rnzaf_ohakea.ini from airfield_us_large.ini
 
   F-35C Lightning II Alt. Loadouts  (workshop 3607989779)
        93%  aircraft/usn_f-35c.ini 
@@ -291,6 +291,9 @@ listed whatever the percentage: they are still that author's.
 
   Kirov-class (Pyotr Velikiy Upgrade)  (workshop 3406985435)
       100%  vessels/wp_rkr_kirov_improved.ini 
+
+  Modern Chinese Airbase (Large)  (workshop 3631042692)
+       99%  land_units/pla_airbase_modern.ini 
 
   Modern PLAN Systems  (workshop 3775128499)
       100%  ammunition/plan_48n6e1.ini 
@@ -325,6 +328,9 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/plan_type_055_2020.ini 
       100%  vessels/plan_type_055_2026.ini 
       100%  vessels/plan_type_056a.ini 
+
+  Modern Russian Airbase (Large)  (workshop 3629269283)
+       99%  land_units/wp_airbase_modern.ini 
 
   Modern US Navy  (workshop 3390330875)
       100%  vessels/usn_cg_ticonderoga_vls_1990.ini 
@@ -440,6 +446,8 @@ listed whatever the percentage: they are still that author's.
       100%  ammunition/usn_ugm_109e_tactical.ini 
        96%  ammunition/wp_ss-n-14b.ini from wp_ss_n_14b.ini
       100%  ammunition/wp_ss_n_14c.ini 
+       99%  land_units/china_large_airbase.ini 
+       99%  land_units/usa_airbase.ini 
       100%  vessels/ir_ffg_alvand_95.ini 
       100%  vessels/ir_ptg_peykaap_2.ini 
       100%  vessels/ir_ptg_peykaap_3.ini 
@@ -657,6 +665,9 @@ listed whatever the percentage: they are still that author's.
   Virginia-, Seawolf-, and Ohio-class Submarines  (workshop 3433957933)
       100%  vessels/usn_ssn_virginia.ini 
       100%  vessels/usn_ssn_virginia_seal.ini 
+
+  Y-20 / KJ-3000  (workshop 3782020901)
+       99%  land_units/plaaf_airlift_airbase.ini 
 
 If you are the author of one of those and would rather this pack
 did not carry a copy of your file, say so and it will be

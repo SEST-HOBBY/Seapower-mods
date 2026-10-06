@@ -252,18 +252,37 @@ def nations(rel, parsed):
 
     A unit's nation comes from its own Nation= key in the mission, else the
     squadron it flies from, else its hull variant. The game matches that
-    string against its own keys (language_en/nations.ini - NewZealand,
-    South_Korea: no spaces), case-insensitively, and shows no flag for
-    anything else. "New Zealand" with a space is how the RNZAF bases and
+    string against its keys (language_en/nations.ini and the [NationFlags]
+    table, the collection's additions included - NewZealand, South_Korea: no
+    spaces), case-insensitively, and shows no flag for anything else. "New Zealand" with a space is how the RNZAF bases and
     the P-8 mod's No. 5 Squadron shipped, and why they showed none.
     A biologic has no flag to show and is skipped, and "Unknown" (what the
     whale mod declares) is taken as a deliberate no-flag.
     """
     global _GAME_NATIONS
     if _GAME_NATIONS is None:
-        f = ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini"
-        _GAME_NATIONS = {l.split("=", 1)[0].strip().lower()
-                         for l in f.read_text(encoding="utf-8-sig").splitlines() if "=" in l}
+        # The game's own keys, plus the ones the collection adds: a mod's or a
+        # SEST pack's language_en/nations.ini merges key by key, and a key in
+        # the flag table ([NationFlags] of the Settings_UI_General.ini that
+        # loads, SEST Collection Fixes' copy) shows a flag whether or not it
+        # is named - Russia= is there from a mod, and Meridian= from SEST.
+        files = [ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini"]
+        files += sorted((ROOT / "mods-source").glob("*/language_en/nations.ini"))
+        files += sorted(p for p in (ROOT / "integration").glob("*/SEST_*/language_en/nations.ini")
+                        if "dist" not in p.parts)
+        _GAME_NATIONS = set()
+        for f in files:
+            for l in f.read_text(encoding="utf-8-sig", errors="replace").splitlines():
+                if "=" in l and not l.lstrip().startswith(("#", ";", "[")):
+                    _GAME_NATIONS.add(l.split("=", 1)[0].strip().lower())
+        table = (ROOT / "integration" / "collection-fixes" / "SEST_Collection_Fixes"
+                 / "ui" / "Default" / "Settings_UI_General.ini")
+        if table.is_file():
+            m = re.search(r"^\[NationFlags\][^\n]*\n(.*?)(?=^\[|\Z)",
+                          table.read_text(encoding="utf-8-sig", errors="replace"), re.M | re.S)
+            for l in (m.group(1).splitlines() if m else []):
+                if "=" in l and not l.lstrip().startswith(("#", ";")):
+                    _GAME_NATIONS.add(l.split("=", 1)[0].strip().lower())
     out = []
     for tag, keys in parsed.items():
         m = re.match(r"(Taskforce\d|Neutral)(Vessel|Submarine|Aircraft|Helicopter|LandUnit)\d+$", tag)
