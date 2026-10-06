@@ -63,6 +63,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from refine_civ_traffic import load_order  # noqa: E402
+sys.path.insert(0, str(ROOT / "integration"))
+from common import quotes  # noqa: E402
+from common import flags  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "SEST_Campaign"
@@ -1619,6 +1622,15 @@ def place(mission, snapper):
             keys["Heading"] = round(math.degrees(math.atan2(dx, dz)) % 360)
         if spec.get("nation"):
             keys["Nation"] = spec["nation"]
+        else:
+            # The flag the story flies it under where the unit file registers
+            # a nation this war does not have (integration/common/flags.py):
+            # Soviet-registered Russian hulls and aircraft fly the Russian
+            # Federation's, Iran-registered Meridian hulls the company's.
+            pick = next((keys[k] for k in ("VariantReference", "Squadron") if k in keys), "Default")
+            remapped = flags.flag_for(pick_nation(spec["type"], pick), spec["type"])
+            if remapped:
+                keys["Nation"] = remapped
         for k, v in spec.get("extra", {}).items():
             keys[k] = v
 
@@ -4182,9 +4194,20 @@ def gallery_assets():
     return {a["asset_id"]: a for a in cat["assets"]}
 
 
+# The line under each briefing banner: one quote per mission, chosen by the
+# mission's role (campaign_data role=) from integration/common/quotes.py and
+# different from every earlier mission's in the campaign while the set lasts.
+# Planned beside the banners so a rebuild on any machine sets the same line.
+EPIGRAPH_PLAN = {}    # mission key -> quote
+
+
 def plan_banners(missions):
     """Fill BANNER_PLAN for this campaign: one photo per scheduled mission,
-    different from every earlier mission's where the gallery allows it."""
+    different from every earlier mission's where the gallery allows it. The
+    epigraphs (EPIGRAPH_PLAN) are planned here too, by the same rule."""
+    EPIGRAPH_PLAN.clear()
+    for m, q in zip(missions, quotes.plan_epigraphs([m.get("role", "escort") for m in missions])):
+        EPIGRAPH_PLAN[m["key"]] = q
     BANNER_PLAN.clear()
     assets = gallery_assets()
     if not assets:
@@ -4348,6 +4371,21 @@ def banner_xml(mission):
             f'<StackPanel>{img}<WrapPanel Margin="0,8,0,0">{row}</WrapPanel>{credit}</StackPanel></Border>')
 
 
+def epigraph_xml(mission):
+    """The quotation under the banner, and who said it. The text is the
+    campaign's one piece of borrowed voice, so the attribution is honest:
+    a maxim is labelled a maxim (quotes.py), never dressed as a signal."""
+    q = EPIGRAPH_PLAN.get(mission["key"])
+    if not q:
+        return ""
+    return ('<StackPanel Margin="0,0,0,14">'
+            f'<TextBlock FontSize="17" FontStyle="Italic" TextWrapping="Wrap" '
+            f'Text="{xml_escape(chr(34) + q["text"] + chr(34))}"/>'
+            f'<TextBlock FontSize="13" Opacity="0.7" Margin="0,4,0,0" TextWrapping="Wrap" '
+            f'Text="{xml_escape("- " + quotes.attribution(q))}"/>'
+            '</StackPanel>')
+
+
 def recognition_xml(picked):
     if not picked:
         return ""
@@ -4392,6 +4430,7 @@ def briefing_page(mission):
                              f'Text="{xml_escape(paragraph.strip())}"/>')
 
     parts.append(banner_xml(mission))
+    parts.append(epigraph_xml(mission))
     section("SITUATION", mission["brief"])
     # Who is speaking, and what they actually want. The bible wrote seven
     # recurring people and asked for "short radio traffic, log extracts and
@@ -4449,6 +4488,7 @@ ROSTER_SECTION = {"Vessel": "AllowedVessels", "Submarine": "AllowedSubmarines",
 # label. Nothing is hidden: what intelligence knows is in theatre is what the
 # player sees.
 ROSTER_NATION = {"china": "PLAN", "russia": "Russia", "ussr": "Russia", "soviet": "Russia", "iran": "Iran",
+                 "meridian": "Meridian Maritime Group",
                  "australia": "RAN", "newzealand": "RNZN", "new zealand": "RNZN",
                  "usa": "USN", "us": "USN", "united states": "USN", "japan": "JMSDF",
                  "korea": "ROKN", "south korea": "ROKN", "france": "France",
@@ -4529,6 +4569,7 @@ def enemy_roster_ini(missions, placements):
                     continue                      # traffic, not order of battle
                 pick = keys.get("VariantReference") or keys.get("SquadronReference") or "Default"
                 nation = keys.get("Nation") or pick_nation(uid, pick) or m.get("red_nation") or ""
+                nation = flags.flag_for(nation, uid) or nation
                 label = ROSTER_NATION.get(nation.lower(), nation.replace(" ", "") or "Enemy")
                 if label not in order:
                     order.append(label)
@@ -5779,6 +5820,58 @@ def load_order_text():
 
 # --- main --------------------------------------------------------------------
 
+# --- the Briefing Room: a film in the mission browser ------------------------
+# The game's data reaches no main-menu background and no menu video: nothing
+# in config.ini or ui/ names one, and no mod in the collection replaces one.
+# What it does expose is the mission browser's right pane. The stock Video
+# Tutorials folder (missions/Video Tutorials/, Type=Tutorial) lists five
+# entries whose [General] RightPane= is an .mp4 under the folder's _data/,
+# with PlayButtonEnabled=False, and the browser plays the film where a
+# scenario would show its map. The Briefing Room is one such entry: the
+# pack's title card, a slideshow of the collection's forces with the
+# quotation set over it, built once by tools/make_briefing_video.py from the
+# gallery's photographs and committed under integration/campaign/
+# briefing_room/ (ffmpeg output is not byte-stable across versions, so the
+# regression gate keeps the committed file rather than re-encoding it). No
+# mp4 there, no folder: the pack still builds.
+BRIEFING_ROOM = HERE / "briefing_room"
+BRIEFING_ROOM_FOLDER = "SEST Briefing Room"
+
+
+def write_briefing_room(out):
+    film = BRIEFING_ROOM / "sest_briefing_room.mp4"
+    if not film.is_file():
+        print("  Briefing Room: no film committed (integration/campaign/briefing_room/"
+              "sest_briefing_room.mp4) - folder not written; run tools/make_briefing_video.py")
+        return
+    credits = BRIEFING_ROOM / "VIDEO_CREDITS.txt"
+    folder = out / "missions" / BRIEFING_ROOM_FOLDER
+    data = folder / "_data"
+    data.mkdir(parents=True, exist_ok=True)
+    (data / film.name).write_bytes(film.read_bytes())
+    if credits.is_file():
+        (data / credits.name).write_bytes(credits.read_bytes())
+    (folder / "_info.ini").write_text(
+        "[General]\nType=Tutorial\n\n[Language_en]\nName=SEST Briefing Room\n"
+        "Description=The SEST Integration Pack's title film and its quotation set. "
+        "Nothing here is played: the entry shows the film in the right pane, as the "
+        "game's own video tutorials do.\n", encoding="utf-8")
+    lines = [quotes.tip_line(q)[len("SEST: "):] for q in quotes.QUOTES]
+    desc = ("Southern Watch, Southern Reach, Red Line and Sulu Line: the collection's "
+            "forces in real photographs, with the lines the loading screen and the "
+            "briefings quote. Photo credits in _data/VIDEO_CREDITS.txt beside the film "
+            "and in the pack's Gallery folder; the quotations and their sources in "
+            "docs/quotes.md of the SEST repository."
+            "<LineBreak/><LineBreak/>" + "<LineBreak/>".join(lines))
+    (folder / "01 SEST - Briefing Room.ini").write_text(
+        "[Language_en]\nName=SEST Briefing Room - the collection on film\n"
+        f"Description={desc}\n[Mission]\nDifficulty=1\n[General]\nType=Tutorial\n"
+        f"RightPane=missions/{BRIEFING_ROOM_FOLDER}/_data/{film.name}\n"
+        "PlayButtonEnabled=False\n", encoding="utf-8")
+    print(f"  Briefing Room: {film.name} ({film.stat().st_size // 1024} KB) and "
+          f"{len(lines)} quotations")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     # Writing is the default: tools/build_all.py runs every builder with no
@@ -6257,6 +6350,7 @@ def main():
     for src in sorted((HERE / "setup").iterdir()):
         if src.is_file() and not src.name.startswith("."):
             (OUT / src.name).write_bytes(src.read_bytes())
+    write_briefing_room(OUT)
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())
     print("wrote REQUIRED-MODS.txt and LOAD-ORDER.txt into the pack")

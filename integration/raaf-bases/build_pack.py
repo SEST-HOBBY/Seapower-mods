@@ -14,6 +14,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from common import airbase  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[2]
 MODS = ROOT / "mods-source"
 TEMPLATE = MODS / "3592460366" / "land_units" / "airbase_us.ini"
@@ -293,6 +296,10 @@ def main():
         text = template[: m.start()] + airgroup + template[m.end():]
         text = re.sub(r"^DisplayClassName=.*$", f"DisplayClassName={base['name']}",
                       text, count=1, flags=re.M)
+        # The same launch-rate values the collection's large airbases get
+        # (integration/common/airbase.py): the template is the US base's text
+        # at 200 aircraft on 60 park slots and 15-knot taxiing.
+        text, _changes = airbase.retune(text)
         (OUT / "land_units" / f"{base_id}.ini").write_text(text, encoding="utf-8")
         (OUT / "land_units" / f"{base_id}_variants.ini").write_text(
             VARIANTS_INI.format(nation=base.get("nation", "Australia")), encoding="utf-8")

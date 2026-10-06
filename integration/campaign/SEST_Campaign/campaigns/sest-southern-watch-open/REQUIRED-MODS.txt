@@ -51,9 +51,9 @@ pack's root, is the union across every campaign in the pack.
   3417446309    a model a placed unit draws      MIG-29 Family
   3799742828    a unit a mission places          MiG-31 Foxhound
   3513571010    a unit a mission places          Mil Mi-24 Hind
-  3631042692    a unit a mission places          Modern Chinese Airbase (Large)
+  3631042692    a hull variant in use            Modern Chinese Airbase (Large)
   3775128499    a unit a mission places          Modern PLAN Systems
-  3629269283    a unit a mission places          Modern Russian Airbase (Large)
+  3629269283    a hull variant in use            Modern Russian Airbase (Large)
   3592460366    a unit a mission places          Modern US Airbase
   3390330875    a unit a mission places          Modern US Navy
   3456859157    a hull variant in use            Mogami-class Frigate
@@ -161,7 +161,7 @@ there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
   (local)       a unit a mission places          SEST Allied Fixes
-  (local)       a squadron a flight comes from   SEST Collection Fixes
+  (local)       a unit a mission places          SEST Collection Fixes
   (local)       a unit the player can buy        SEST F-15EX Revamp
   (local)       a unit a mission places          SEST F-35C JATM
   (local)       a unit a mission places          SEST Growler NGJ + MALICE

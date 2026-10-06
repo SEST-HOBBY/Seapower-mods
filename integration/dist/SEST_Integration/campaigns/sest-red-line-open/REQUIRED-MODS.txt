@@ -23,7 +23,7 @@ pack's root, is the union across every campaign in the pack.
   3461044389    a weapon a loadout hangs         Gerald R. Ford-class CVN Aircraft Carrier (Updated Dependencies)
   3384079999    a unit a mission places          Humpback Whale
   3430106996    a unit a mission places          Merchants Expanded
-  3631042692    a unit a mission places          Modern Chinese Airbase (Large)
+  3631042692    a hull variant in use            Modern Chinese Airbase (Large)
   3775128499    a unit a mission places          Modern PLAN Systems
   3390330875    a model a placed unit draws      Modern US Navy
   3456859157    a hull variant in use            Mogami-class Frigate
@@ -47,7 +47,7 @@ there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR
   (local)       a unit a mission places          SEST Allied Fixes
-  (local)       a weapon a loadout hangs         SEST Collection Fixes
+  (local)       a unit a mission places          SEST Collection Fixes
   (local)       a unit a mission places          SEST Growler NGJ + MALICE
   (local)       a unit a mission places          SEST JMSDF Mogami
   (local)       a unit a mission places          SEST RAAF F-35A JATM

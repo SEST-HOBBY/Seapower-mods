@@ -101,9 +101,9 @@ Workshop id   supplies                         mod
 3799742828    a unit a mission places          MiG-31 Foxhound
 3659742367    a unit a mission places          MiG-35 Fulcrum-F (米格-35 支点-F)
 3513571010    a unit a mission places          Mil Mi-24 Hind
-3631042692    a unit a mission places          Modern Chinese Airbase (Large)
+3631042692    a hull variant in use            Modern Chinese Airbase (Large)
 3775128499    a unit a mission places          Modern PLAN Systems
-3629269283    a unit a mission places          Modern Russian Airbase (Large)
+3629269283    a hull variant in use            Modern Russian Airbase (Large)
 3592460366    a unit a mission places          Modern US Airbase
 3390330875    a unit a mission places          Modern US Navy
 3456859157    a hull variant in use            Mogami-class Frigate
@@ -254,7 +254,7 @@ to; the repository also builds each of them on its own.
 (local)       unit                             SEST ADF Persistent ISR
 (local)       unit                             SEST Allied Fixes
 (local)       unit                             SEST B-52 ARRW
-(local)       variant                          SEST Collection Fixes
+(local)       unit                             SEST Collection Fixes
 (local)       unit                             SEST F-15EX Revamp
 (local)       unit                             SEST F-16CM JATM
 (local)       unit                             SEST F-35C JATM

@@ -262,6 +262,32 @@ checked automatically.
 
 ---
 
+## 5a. Airbase launch rate *(draft, October 2026)*
+
+- **Five large airbases retuned** to the game's own launch-rate values where
+  their mods dropped or lowered them: the Modern Chinese Airbase, the PLAAF
+  airlift base, the Modern Russian Airbase, Modern PLAN Systems' large base
+  and the Modern US Airbase. Spawn interval 0.4 s where the key was missing,
+  ground crews at half the aircraft capacity, park slots at the capacity,
+  taxi speed 25 knots (the game's other large base taxis at 25; the mods'
+  copies at 15). The 17 SEST RAAF and RNZAF bases get the same values.
+  Geometry is untouched. Reported cause: Chinese aircraft taking off very
+  slowly from the enclave fields.
+
+## 5b. Enemy flags *(October 2026)*
+
+- **The Russian Federation flag** on every Russian hull, aircraft and battery
+  the 2028 missions place; their unit files register *Soviet* and showed the
+  USSR flag.
+- **The Meridian Maritime Group flag**, a SEST original, on the network's
+  fast attack craft, Shahed and Sejjil launchers and auxiliary, which
+  registered *Iran*. The HY-4 coastal launcher, registered Iran by its mod,
+  flies China's.
+- Applied by the campaign builder and, for the standalone Indo-Pacific
+  missions (Northern Front, the Banda Front family, the showcase), by
+  `integration/missions/set_enemy_flags.py`. An explicit flag in the mission
+  always wins; the Baltic chapters are left alone.
+
 ## 6. Readability and presentation
 
 - **Encyclopedia photos:** real photographs for 636 units, credited on the
@@ -277,7 +303,14 @@ checked automatically.
   - Russian names written in Cyrillic now shown in English letters;
   - units that showed as MISSING (Ise, Oberon class, A-4G, S-2 Tracker, the
     Brazilian airbases and others) now have names.
-- **English loading tips:** where one mod had replaced them with Chinese.
+- **English loading tips:** where one mod had replaced them with Chinese,
+  and 26 quotations on airpower, deterrence, readiness and logistics behind
+  them, each with its speaker and source (`docs/quotes.md`).
+- **A quotation under every briefing banner**, chosen by the mission's role
+  and different in every mission of a campaign.
+- **The Briefing Room:** a mission-browser entry that plays a 73-second film
+  of the collection's forces in the right pane, the way the game's own
+  Video Tutorials do. Nothing in it is played; it is the pack's title card.
 - **Tactical map lines:** black by day, white at night, fully opaque and
   thicker, with the selected route in red.
 
@@ -315,6 +348,12 @@ how to check each.
 - **The restored intercept table.**
 - **Transfers from HMAS Supply and Stalwart.**
 - **Red Line's weapons Hold and Tight**, which some missions depend on.
+- **The Briefing Room film:** that the mission browser plays a mod's mp4 in
+  its right pane as it does the stock tutorials.
+- **The airbase launch rate:** whether the retuned values get aircraft off
+  the large bases faster, and which key mattered.
+- **The Meridian flag:** that a nation the game's own list does not name
+  shows its flag from the flag table and its name from nations.ini.
 
 ---
 

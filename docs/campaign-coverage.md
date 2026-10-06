@@ -8,8 +8,8 @@ This campaign reaches 208 of the enabled mods and packs; the 4 it does not are l
 
 | class | meaning | mods |
 |---|---|---|
-| `unit` | places the unit; this mod wins its file | 128 |
-| `variant` | supplies the hull variant the placed unit uses | 11 |
+| `unit` | places the unit; this mod wins its file | 127 |
+| `variant` | supplies the hull variant the placed unit uses | 12 |
 | `squadron` | supplies the squadron the placed airframe flies from | 6 |
 | `store` | supplies a round the placed unit's loadout hangs | 9 |
 | `asset` | supplies a model folder the placed unit's file draws from | 5 |
@@ -132,9 +132,9 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `mig-29-family` | MIG-29 Family | `unit` | wp_mig-29k | Return Passage |
 | `mig-31-foxhound` | MiG-31 Foxhound | `unit` | wp_mig-31bm | Long Way Home |
 | `mig-35` | MiG-35 Fulcrum-F (米格-35 支点-F) | `unit` | wp_mig-35 | Western Passage |
-| `modern-chinese-airbase` | Modern Chinese Airbase (Large) | `unit` | pla_airbase_modern | The Open Door |
+| `modern-chinese-airbase` | Modern Chinese Airbase (Large) | `variant` | pla_airbase_modern | The Open Door |
 | `modern-plan-systems` | Modern PLAN Systems | `unit` | plaaf_kj-500 | The Quiet Passenger |
-| `modern-russian-airbase` | Modern Russian Airbase (Large) | `unit` | wp_airbase_modern | The Open Door |
+| `modern-russian-airbase` | Modern Russian Airbase (Large) | `variant` | wp_airbase_modern | The Open Door |
 | `modern-us-airbase` | Modern US Airbase | `unit` | airbase_us | Steel Highway |
 | `modern-us-navy` | Modern US Navy | `unit` | usn_ddg_burke_f3_125 | Fujian's Shadow |
 | `mogami-frigate` | Mogami-class Frigate | `variant` | js_ffg_mogami | Common Sea |
@@ -213,7 +213,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `SEST_Allied_Fixes` | SEST Allied Fixes | `unit` | usn_p8 | White Water |
 | `SEST_B52_ARRW` | SEST B-52 ARRW | `unit` | usaf_b-52o | Long Reach |
 | `SEST_Campaign` | SEST Southern Watch Campaign | `campaign` | this pack: it ships the campaign, its missions, its requisition roster and their briefings. It is what the coverage below is measured on, so it cannot place a unit to reach itself | - |
-| `SEST_Collection_Fixes` | SEST Collection Fixes | `variant` | usn_cvn_nimitz | Flight Deck Day |
+| `SEST_Collection_Fixes` | SEST Collection Fixes | `unit` | pla_airbase_modern | The Open Door |
 | `SEST_F-15EX_Revamp` | SEST F-15EX Revamp | `unit` | usaf_f-15ex_SEII | Long Reach |
 | `SEST_F-35C_JATM` | SEST F-35C JATM | `unit` | usn_f-35c | Fujian's Shadow |
 | `SEST_F16CM_JATM` | SEST F-16CM JATM | `unit` | usaf_f-16cm-bl52d | Long Reach |
