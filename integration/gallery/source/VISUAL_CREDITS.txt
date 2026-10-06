@@ -758,12 +758,12 @@ Source: https://commons.wikimedia.org/wiki/File:No_75_Squadron_F-35A_at_RAAF_Bas
 Licence: Public domain
 Used in: Pack cover
 
-MH-60R Seahawk
-File:MH-60R Seahawk from HSM-37 during counterdrug operations (200713-N-FA490-1857).jpg
-Creator: U.S. Navy/Mass Communication Specialist 3rd Class Andrew Langholf
-Source: https://commons.wikimedia.org/wiki/File:MH-60R_Seahawk_from_HSM-37_during_counterdrug_operations_(200713-N-FA490-1857).jpg
-Licence: Public domain
-Used in: Latest update
+Tarlac class
+File:Balikatan 2019 USS WASP (LHD 1) BRP TARLAC (LD 601) AMPHIBIOUS OPERATIONS.jpg
+Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Daniel Barker
+Source: https://commons.wikimedia.org/wiki/File:Balikatan_2019_USS_WASP_(LHD_1)_BRP_TARLAC_(LD_601)_AMPHIBIOUS_OPERATIONS.jpg
+Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+Used in: Latest update (6 Oct 2026). The adapted image is shared under the same licence.
 
 E-7A Wedgetail — RAAF
 File:Royal Australian Air Force E-7A at Red Flag Feb 2013.jpg
