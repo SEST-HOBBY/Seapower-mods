@@ -1,0 +1,668 @@
+{
+ "key": "russia",
+ "markdown": "## Russian long-range aviation and northern/Pacific maritime context\n\n**Scope.** This region has four sourced nodes, all of them air bases: Olenya (Kola), Engels-2 (Saratov), Ukrainka (Amur) and Belaya (Irkutsk). Every place-specific claim comes from one R03 section (R03:64-89), plus R03:160-162. R01:41 is a one-paragraph summary that repeats R03's sentences, and repetition is not corroboration. R02 says nothing about Russia. No report names a Russian naval base. In naval terms, the Barents Sea and the Sea of Okhotsk appear only as SSBN \"bastions\" (R03:66), and Kola only as a submarine departure area (R03:115, R03:166). The Barents Sea is also the airspace of the Tu-142/Tu-95 intercepts (R03:117), and Kola is Olenya's location (R01:41, R03:70).\n\n**Approach (SCENARIO CHOICE).** Each node gets a small bomber detachment with a visible label. Quantities sit far below the report snapshots: Olenya has 6 Tu-22M3 proxies, 2 Tu-95MS and 1 Tu-160 against \"up to 35 / 10 / several\" (R03:72), and Belaya has 3 against \"historically up to 42\" (R03:80). Engels, Ukrainka and Belaya are populate_small. If the active scene is maritime, they can be held as off-map raid origins. A small naval context with no home port is proposed for the two bastions; the fleet bases go to the backlog.\n\n**Collection headline.** All ids were re-resolved with find_unit_file on this branch.\n- exact: wp_airbase_1 'Olenya Airbase' (Default variant), wp_airbase_modern Variant1 'Engels airforce base', wp_tu95ms (Tu-95MS), wp_tu-160 (Tu-160), wp_tu-142m.\n- proxy: wp_tu-22m2 for Tu-22M3; wp_tu-160 for Tu-160M; wp_il-76md for An-12 (newly resolved: Nation=Soviet, no supply system); wp_airbase_modern Default for Ukrainka and Belaya.\n- none: hardened aircraft shelters; Russian submarine-base and Pacific land units.\n- The in-game tanker wp_il-78 (probe and drogue) cannot refuel the Tu-95MS or Tu-160, because neither declares ReceiverSystems.\n- wp_tu95ms is exact for name and loadout only with LandAttack (KH-101) or Default (KH-555). Its StrikePrecision loads KH-55, the same nuclear-effect model as the excluded wp_tu-160 StrikeNuclear, and its CAS loads KH-55SM; both are excluded on every Tu-95MS row. The file declares Role=MPA,ASW on the Tu-142M mesh, so AI tasking as a bomber is untested (CHECK).\n\n**Operator keys.** Unit files use Nation=Soviet. Repo missions use Nation=russia / russia_navy and the registered flag_rus / flag_civ_rus (russia-lens verify correction). Use those mission keys rather than new textures.\n\n**Positions.** All four nodes lie within about 4,100 NM of the candidate world centre 42N 20E. That is inside the 8,781 NM range of units that have already loaded and been saved (scope report section 2.2), and none is near the date line. Distance to the nearest proven repo placement: Olenya 44 NM by air and 69 NM by land; Engels 726 NM, Ukrainka 590 NM and Belaya 1,271 NM. Inland terrain is untested. Absolute GeoPosition placement exists (MFI:436-440), but no SEST tool writes it. The coordinates below are public approximations (approx, verify), not R01-R03 data.\n\n**Single allocation.** The Russian aircraft that Evenes QRA intercepts (R03:117) are allocated here, as asset:rus:olenya_tu95ms_2 and asset:rus:olenya_tu142_1. The Kola-departing submarine that Evenes P-8As hunt (R03:115/166) is asset:rus:barents_ssgn_1. Other regions should reference these assets, not duplicate them. The two Olenya patrol aircraft are airborne at t0 and are not also listed in the Olenya CustomAirGroup. Belaya's optional tanker is asset:rus:belaya_il78_opt, a separate airframe from asset:rus:olenya_il78_1.\n\n#### Regional naval context (sea areas, not node packages) - SCENARIO CHOICE\n\n**SOURCE CLAIM:**\n- The Barents Sea and the Sea of Okhotsk are \"heavily defended coastal 'bastions'\" that protect ballistic-missile submarines (R03:66).\n- Russian submarines leave Kola for the GIUK Gap and must first evade Evenes P-8As (R03:115, R03:166).\n- The JMSDF network is aimed at Russian Pacific Fleet movements (R03:121).\n- No ship or base is named.\n\n**CHECK:** Hull-to-fleet allocation comes from general knowledge (russia lens), so use the class Default variant until a named hull's fleet is verified. Every hull below is underway with no home pier assigned.\n\n**CHECK (SSBN posture):** the wp_ssbn_borei unit file carries a live strategic-weapon system (not detailed here). Leaving out launch orders does not stop the AI from using it under weapons-free. The SSBNs stay presence or hunt objectives only. Place wp_ssbn_borei only after a test run shows it holds a verified non-engagement / weapons-hold posture and never fires that system. Until this CHECK passes, represent the R03:66 bastion presence abstractly as a sea-area marker and do not place the unit. No further weapon detail is recorded.\n\n| Asset id | Unit id (variant) | Outcome | Allocation | Qty | Role / notes |\n|---|---|---|---|---|---|\n| asset:rus:barents_ssbn_1 | wp_ssbn_borei (Default; Variants 1-8 only) | exact | patrol | 0 until the posture CHECK passes, then 1 | Bare fact of a strategic submarine force in the Barents bastion (R03:66). Presence or hunt objective only: no launch orders and no nuclear or weapons-employment detail. Until a test run verifies a weapons-hold posture (CHECK above), the bastion is an abstract sea-area marker and the unit is not placed. |\n| asset:rus:barents_ssgn_1 | wp_ssgn_yasen (Default) | exact | transit | 1 | Transit from Kola through the Norwegian Sea to the GIUK Gap (R03:115, R03:166). This is the boat Evenes hunts. |\n| asset:rus:barents_ddg_1 | wp_bpk_udaloy_98 (Default) | exact | patrol | 1 | Authored ASW screen for the bastion. No report names a ship. |\n| asset:rus:barents_aor_1 | wp_vt_boris_chilikin (Default) | exact | support | 1 | At-sea rearm in a Barents holding area. |\n| asset:rus:okhotsk_ssbn_1 | wp_ssbn_borei (Default) | exact | patrol | 0 until the posture CHECK passes, then 1 | Bare-fact presence in the Okhotsk bastion (R03:66), with the same limits as above. Abstract sea-area marker until the weapons-hold CHECK passes. |\n| asset:rus:okhotsk_ssk_1 | wp_ss_improved_kilo (Default or Pacific Variants 7-11) | exact | patrol | 1 | Authored. Variants 1-6 carry Black Sea names; avoid them (correction). |\n| asset:rus:okhotsk_cvt_1 | rfn_cvt_20380_3-6 (Default) | exact | patrol | 1 | Authored coastal patrol. The Pacific hull candidates (Sovershennyy 333, Gromkiy 335) come from general knowledge; verify. The RFN_Flag.png binary is not in the mirror. |\n| asset:rus:okhotsk_aor_1 | wp_vt_boris_chilikin (Default) | exact | reserve | 1 | A finite relief supplier, not a respawn. |\n| asset:rus:barents_civ_fishing | civ_fv_okean (Default or Variant1) x2, civ_fv_sterntrawler_a (Variant1) x1 | missing_fit | transit | 3 | Neutral fishing via the vanilla patrol_areas.ini 'Barents Fishing' area (Port Murmansk spawns). Pin the variants: civ_fv_sterntrawler_a Default is Nation=Norway / flag_nor and Variant2 is DDR, so only Variant1 is Soviet; civ_fv_okean is Soviet only on Default and Variant1 (Variants 2-8 are Cuba, DDR, UK, France, Spain, Germany, Poland). The pinned variants carry the Soviet civil flag; then set mission Nation=russia / flag_civ_rus. |\n| asset:rus:okhotsk_civ_fishing | civ_fv_okean (Default or Variant1) x2 | missing_fit | transit | 2 | Neutral fishing. Same variant pin (civ_fv_okean Default/Variant1 only) and flag fix. The stock sea network has no Pacific coverage. |\n\n**Ship ammunition supply.**\n- wp_vt_boris_chilikin [SupplySystem1]: AmmoCapacity 200000, MaxAmmoPoints 13000, SupplyRange 0.5 nm, MaxTargets 2, TargetTypes Vessel,Submarine. Categories: SovietAdvancedASM 24, AirTorpedo 40, SEST_LandAttack 16.\n- It is the only open-dated supplier for rounds of 8,000-13,000 points, such as SS-N-14 (12000) on Udaloy_98.\n- It passes wp_fizik-2 torpedoes (4695) and cannot pass SS-N-19 (21000).\n- Unpriced, uncategorised Oniks and Kalibr variants on Yasen reload free from any Vessel+Submarine supplier (verify correction).\n- port_ussr_severomorsk has no SupplySystem.\n\n**Not established:** fuel transfer, repair and supplier restocking.\n\n**Positions (approx, verify):**\n- Barents patrol area 70.5-72.5N 33-40E. A sea point 1 NM off Severomorsk is proven in 'chapter 4 - Kill Kuznetsov'.\n- Okhotsk 52-57N 145-150E. Unproven.\n\n**Connection (authored):** the Okhotsk context links to the JMSDF nodes as their Russian Pacific Fleet counterpart (R03:121).\n\n#### Backlog (not populated as sourced nodes)\n- **Northern Fleet bases.** Severomorsk: port_ussr_severomorsk exists, is hidden from the editor, has a vanilla anchor at 69.0964,33.4313 and a Kola mission precedent. Gadzhiyevo, Vidyayevo, Polyarny and Zaozersk have no land units.\n- **Pacific Fleet bases.** Vladivostok, Fokino and Vilyuchinsk / Petropavlovsk-Kamchatsky exist only as vanilla coordinate points, with no land units.\n- **Tu-142 base(s)** (R03:117, R03:134): none named.\n- **Kola naval airfields** (Severomorsk-1/-3, Kipelovo, Monchegorsk): no units.\n- **Gremikha** (wp_large_pvo_airbase Variant1): Kola air defence context, not in the reports.\n- **Kamenny Ruchey**: the language comment on wp_tu-22m2 Squadron7/8 reads 'Pacific Fleet'; airports.ini UHKG is at 49.2373,140.1915. Not in the reports.\n- **Engels-2 dispersal 'secondary airfields'** (R03:78): unnamed.\n\n---\n\n### hn_kola_olenya_airbase - Olenya Airbase\n\n**Identity.**\n- Country: Russia. Operator: Russian Long-Range Aviation (R01:41, R03:70).\n- Location: Kola Peninsula, Murmansk Oblast, \"92 kilometers south of Murmansk\" (R03:70).\n- Kind: air_base. Policy: populate.\n\n**Role (SOURCE CLAIM).**\n- \"One of the most critical installations for Russian Long-Range Aviation\" (R01:41, R03:70).\n- Table function: \"Maritime/Land Strike, Staging\" (R03:86).\n- Home of the 40th Composite Aviation Regiment, operating Tu-22M3 \"in maritime-attack and land-strike roles\" (R03:72).\n- Bombers \"routinely fly extended combat sorties southward to launch standoff cruise missiles\" from over 2,000 km away (R03:72). The register omitted this claim; it is restored here per the fidelity check.\n\n**Other SOURCE CLAIMS.**\n- R03:72: imagery from 2024 and 2025 \"confirmed the presence of dozens of aircraft\", \"including up to 35 Tu-22M3 ..., 10 Tu-95MS ..., and several Tu-160 ..., alongside An-12 transport aircraft\". The report frames this as an influx of bombers \"seeking sanctuary\".\n- R03:74: during Operation Spider's Web (June 2025), \"long-range autonomous drone swarms successfully navigated the immense distance to strike Olenya, damaging Tu-22M3 and Tu-95MS airframes\".\n- R03:70: the base is near the GIUK Gap, the North Atlantic and the Norwegian border.\n- R03:162: redeployment to Olenya brings longer flights, more fuel, wear, maintenance failures and more adversary warning time.\n- Table assets (R03:86): Tu-22M3, Tu-95MS, Tu-160, An-12.\n\n**CHECKS.**\n- The R03:72 counts are an unsourced 2024-25 imagery snapshot, not a standing order of battle, and may reflect dispersal. They are scaled down below as scenario choices.\n- Verify the 40th Composite Aviation Regiment designation.\n- The R03:74 attack mechanism is disputed. Widely reported accounts describe drones launched from trucks near the targets. Status after June 2025 is time-sensitive, and no specific losses are represented.\n- \"Sanctuary\" (R01:41, R03:72) and \"distance no longer guarantees immunity\" (R03:74) are rhetoric. Do not derive a sanctuary, invulnerability or deterministic vulnerability rule from them (seed:23).\n- The R03:70 Cold War and 1961 history is left out as a conservative choice under seed:25. The register's plan:43 citation is corrected to seed:25.\n- **Collection.** wp_airbase_1 Default and Variant1 both display 'Olenya Airbase'. Variant1 carries a vanilla usn_f-14a CustomAirGroup, so use Default with a mission CustomAirGroup. This reconciles the two lens notes.\n- **Collection.** Do not use wp_tu-22m2 Squadron2 '924th GuMRAP': its 'based in Olenya' comment would give the aircraft a Cold War regiment identity that conflicts with R03:72.\n- **Collection.** Exclude nuclear loadouts: wp_tu-160 StrikeNuclear, and its Default Kh-55SM loadout. wp_tu95ms: LandAttack/Default only. Its StrikePrecision loads KH-55, which the winning ammunition file models with nuclear effects (the same munition as the excluded Tu-160 StrikeNuclear), and its CAS loads KH-55SM; exclude both. Prefer wp_tu95ms over wp_tu-95ms, which has Standoff and AntiShip Nuclear loadouts.\n- **Collection.** wp_tu95ms declares Role=MPA,ASW. It is a Tu-142M-derived file (AssetBundleMesh wp_tu-142m, torpedo and sonobuoy stations in WeaponSystem1), so AI tasking as a bomber is untested. The outcome stays exact for name and loadout; verify behaviour in the placement or runtime test. This applies to every Tu-95MS row (Olenya, Engels, Ukrainka).\n- **Collection.** wp_tu95ms display merge: a lower-priority language block (3732654992) mislabels it 'IL-78 203rd GARP'. The higher-priority 3715323261 wins key by key, giving 'Tu-95MS' / '315 regiment'. Confirm in game.\n- **Allocation.** The Olenya CustomAirGroup holds only the at-base rows: Tu-22M2 4+2, Tu-95MS 1 (olenya_tu95ms_1), Tu-160 1, Il-76MD 1 and the optional Il-78 1. The patrol Tu-95MS (olenya_tu95ms_2) and Tu-142M (olenya_tu142_1) are placed as airborne units at t0. Alternatively they can be added to the group and launched at t0, but never both, so neither is counted twice.\n\n**Position.**\n- Approx 68.15N 33.46E (approx, verify; public knowledge, consistent with R03:70).\n- In-game evidence:\n  - wp_airbase_1, whose header says its layout is 'based on Olenegorsk/Olenya'.\n  - No repo mission has placed it at these coordinates. The nearest proven placements are 44 NM by air and 69 NM by land.\n  - One Kola positional precedent: 'chapter 4 - Kill Kuznetsov' (map centre 69.25,33.23), present in several copies, variants and backups (17 files under integration/missions and mods-source/_vanilla/user/missions). Its Russian ship ids are partly stale: 4 of its 7 surface-ship types do not resolve with find_unit_file.\n  - port_ussr_severomorsk sits about 57 NM north (69.0964,33.4313), and airports.ini XLMF Afrikanda at 67.4567,32.7867.\n- From the candidate centre 42N 20E: x about 808, z about 1,569 (about 1,630 NM). Runway and terrain fit for the heavy bombers is unvalidated.\n\n**Forces (all quantities are SCENARIO CHOICES).**\n\n| Asset id | Unit id | Outcome | Allocation | Qty | Source basis | Notes |\n|---|---|---|---|---|---|---|\n| asset:rus:olenya_base | wp_airbase_1 (Default) | exact | resident_at_base | 1 | R01:41, R03:70, R03:86 | Installation. AircraftCapacity 96. Replace the Cold War default AirGroup with a CustomAirGroup holding only the at-base rows below: Tu-22M2 4+2, Tu-95MS 1, Tu-160 1, Il-76MD 1, optional Il-78 1. The two patrol aircraft are airborne at t0 and are not also listed. |\n| asset:rus:olenya_tu22m3_ready | wp_tu-22m2 (Default squadron) | proxy | resident_at_base | 4 | R03:72, R03:86, R01:41; quantity scaled from 'up to 35' | Label 'Tu-22M2 standing in for Tu-22M3'. Loadouts: AntiShip, AntiShipLongRange, StrikeLongRange. ProbeAndDrogue receiver. |\n| asset:rus:olenya_tu22m3_svc | wp_tu-22m2 | proxy | servicing_maintenance | 2 | Scenario choice reflecting R03:74 damage and R03:82/R03:162 maintenance strain | Not a damage-state claim. |\n| asset:rus:olenya_tu95ms_1 | wp_tu95ms (Default squadron) | exact | resident_at_base | 1 | R03:72 'up to 10', R03:86 | Loadout LandAttack (KH-101) only; Default (KH-555) is also conventional. Never StrikePrecision (KH-55, the nuclear-effect model also used by the excluded Tu-160 StrikeNuclear) or CAS (KH-55SM). No AAR receiver. May be a dispersal arrival (CHECK). Role=MPA,ASW file: bomber tasking untested (CHECK). |\n| asset:rus:olenya_tu95ms_2 | wp_tu95ms | exact | patrol | 1 | Activity type from R03:117 (Tu-95 over the Barents, intercepted by Evenes; origin base not named). Basing here is a scenario choice. | Airborne at t0; placed as an airborne unit, not also listed in the base CustomAirGroup. Loadout Empty or LandAttack, never StrikePrecision or CAS. Role=MPA,ASW file: bomber tasking untested (CHECK). |\n| asset:rus:olenya_tu160_1 | wp_tu-160 | exact | resident_at_base | 1 | R03:72 'several', R03:86, R01:41 | Staging or dispersal, not permanent basing (CHECK). Loadouts StrikeLongRangeKH101 / StrikeLongRange only. Generic 'TU-160' squadron. No receiver. |\n| asset:rus:olenya_an12_1 | wp_il-76md (Default squadron) | proxy | support | 1 | R03:72, R03:86 (An-12) | No An-12 exists in the collection. Label 'Il-76MD standing in for An-12'; it is a larger jet airlifter. No supply system, so it is activity only. |\n| asset:rus:olenya_tu142_1 | wp_tu-142m | exact (Tu-142MK/MZ missing) | patrol | 1 | R03:117, R03:134 (Tu-142 over the Barents; no base named). Detachment at Olenya is a scenario choice. | Authored detachment, labelled as such. Airborne at t0 on patrol; placed as an airborne unit, not also listed in the base CustomAirGroup. Can be refuelled by the Il-78. |\n| asset:rus:olenya_il78_1 | wp_il-78 (Squadron1 '203rd GARP') | exact | support | 1 (optional) | Not in R01-R03; scenario choice | Probe-and-drogue tanker. Can refuel the Tu-22M2 proxy and the Tu-142M only. In the base CustomAirGroup only if authored. A separate airframe from asset:rus:belaya_il78_opt. |\n| asset:rus:olenya_sam_opt | wp_sam_site_sa-21 | exact | fixed_defence | 0 by default (optional 1) | No report describes Olenya's defences. R03:162 is generic guidance. | Do not fabricate present-day defences (plan:24). If authored, label it as scenario point defence. |\n\n**Allocations with nothing assigned:** underway, escort, transit and reserve. The proposed training sortie uses two of the four ready aircraft, which are at base at t0.\n\n**Support services.**\n- **Ship ammunition supply:** not applicable at this inland airbase. Regional naval rearm is ship-borne only (wp_vt_boris_chilikin, above).\n- **Aircraft turnaround and ordnance:** wp_airbase_1 declares FlightDeck_AmmoCapacity 3,000,000 with category limits AirTorpedo 96, Ovod 192 and Harpoon 192. Whether bomber stores draw on these limits is untested. Unit-file ReadyUpTime / CoolDownTime: Tu-22M2 50-60 / 240 min; Tu-95MS 30 / 240 min; Tu-160 30 / 60 min.\n- **Air-to-air refuelling:** wp_il-78 (FuelCapacity 100000, 5 nm) can refuel wp_tu-22m2 and wp_tu-142m. It cannot refuel wp_tu95ms, wp_tu-160 or wp_il-76md.\n- **Not established:** fuel (tgt_fueltanks_medium is a target object only), repair, and restocking of the base's flight-deck pool.\n- **If the optional SAM is placed:** tgt_ammo_depot_small (pool 200000, 1.5 nm, LandUnit targets) can reload it. wp_car_ural can truck its unpriced rounds (verify correction).\n\n**Connections.**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| hn_evenes_air_station | Adversary patrol and QRA intercept context | authored | R03:117 (origin base of the Tu-95/Tu-142 not named); R03:70 |\n| sea:barents_sea | Maritime-strike and patrol operating area | authored | R03:66, R03:72, R03:117 |\n| sea:giuk_gap / sea:north_atlantic | Geographic proximity | source | R03:70 |\n| rus_engels2_airbase | Bomber relocation inflow | authored | R03:72 (influx due to vulnerabilities deeper inside European Russia); R03:162 (redeployment to Olenya out of drone range; no origin named); Engels not named as origin |\n| offmap:southbound_standoff_axis | Long-range strike sortie axis | source (context only) | R03:72. Out of maritime scope; not modelled. |\n| backlog:russian_northern_fleet_bases | Regional naval context | authored | R03:66, R03:115, R03:166 |\n\n**Routine activity (PROPOSED, not implemented).**\n- The Tu-142M flies a Barents ASW patrol loop and recovers to Olenya.\n- The Tu-95MS flies a long-range Barents / Norwegian Sea patrol that draws Evenes QRA, with an Empty or LandAttack loadout. Hold/release behaviour must be tested; the aircraft is not automatically hostile.\n- A pair of the ready Tu-22M3 proxies flies a maritime-strike training sortie, with an optional Il-78 rendezvous.\n- The Il-76MD (An-12 proxy) makes arrivals and departures to an off-map interior origin.\n- Optional event: an Engels aircraft disperses to Olenya. Its allocation moves with it, so it is never counted twice.\n- **Civilian (neutral):** Barents fishing (see regional context), and civ_a320 Squadron36 (Aeroflot, Nation=RU) on Murmansk routes.\n- **Not modelled:** southward strikes (R03:72) and drone strikes on the base (R03:74). Any such event would be an optional authored disruption.\n\n**Validation.** Research: sources are R03 only, which R01 repeats; counts and units need checking. Mapping: as in the table. Placement: pending. Runtime activation and saved-state behaviour: untested.\n\n**Gaps.**\n- No Tu-22M3, An-12 or Tu-142MK/MZ in the collection.\n- No unit carries the 40th CAR identity.\n- No AAR receiver on the Tu-95MS or Tu-160.\n- wp_tu95ms is a Tu-142M-derived file declaring Role=MPA,ASW; bomber AI tasking is untested.\n- No source for local air defence.\n- Fuel, repair and restocking are not established.\n\n### rus_engels2_airbase - Engels-2 Airbase\n\n**Identity.**\n- Country: Russia, Saratov Oblast, \"14 kilometers east of Saratov\" (R03:78).\n- Operator: Russian Aerospace Forces (R03:78), per the fidelity fix. The Long-Range Aviation affiliation is editorial.\n- Kind: air_base. Policy: populate_small.\n\n**Role (SOURCE CLAIM).**\n- \"Russia's premier strategic bomber base and the heart of its European aviation deterrence\" (R01:41 and R03:78, word for word).\n- Table function: \"Strategic Bomber Hub\" (R03:87).\n- Units: the 22nd Guards Heavy Bomber Aviation Division, made up of the 121st GHBAR (Tu-160M) and the 184th HBAR (Tu-95MS) (R03:78).\n- Facilities: a 3,500-metre runway, and \"extensive munitions storage designed to support sustained strategic bombardment\" (R03:78; the register omitted the second half of that claim).\n- \"Primary launch point for standoff missile strikes into Ukraine\"; drones \"completely destroying Tu-95MS bombers\"; hardened shelters built and fleets dispersed to secondary airfields (R03:78).\n- R03:160 makes a joint statement about Engels-2 and Belaya: the strikes \"demonstrate that static infrastructure is highly vulnerable to relatively cheap, asymmetric technologies\".\n\n**CHECKS.**\n- Verify the unit and aircraft assignments.\n- The Tu-95MS losses are undated, unsourced and contested. No loss count is asserted here.\n- R01:41 and R03:80 describe relocation to Ukrainka and Belaya without naming Engels as the origin. Treat that only as context.\n- Do not turn R03:160 into a deterministic vulnerability rule (seed:23).\n- The base is inland on the Volga, 726 NM from the nearest proven placement, and terrain there is untested. It can be held as an off-map raid origin.\n- **Collection.** wp_airbase_modern resolves 51 of its 61 AirGroup ids; the 10 that fail include wp_tu-22m3_90 and wp_tu-95ms_x101. A custom AirGroup is therefore required.\n- **Collection.** wp_tu160air is a proxy, not an exact match (correction).\n- **Collection.** The game runway is the Olenya-template mesh, not Engels' 3,500 m runway.\n- **Collection.** wp_tu-160 has no Tu-160M distinction.\n- **Collection.** wp_tu95ms: LandAttack/Default only; StrikePrecision (KH-55, nuclear-effect model) and CAS (KH-55SM) are excluded. Its file declares Role=MPA,ASW (Tu-142M-derived), so AI tasking as a bomber is untested (see the Olenya CHECK).\n\n**Position.**\n- Approx 51.48N 46.21E (approx, verify).\n- In-game evidence: wp_airbase_modern Variant1 is named 'Engels airforce base'. There are no repo coordinates for it.\n- From the candidate centre: x about 1,573, z about 569 (about 1,210 NM). About 1,070 NM from Olenya.\n\n**Forces (all quantities are SCENARIO CHOICES).**\n\n| Asset id | Unit id | Outcome | Allocation | Qty | Source basis | Notes |\n|---|---|---|---|---|---|---|\n| asset:rus:engels_base | wp_airbase_modern (Variant1) | exact (name only) | resident_at_base | 1 | R01:41, R03:78, R03:87 | CustomAirGroup: wp_tu-160 and wp_tu95ms only. Capacity 234. Declares no FlightDeck_AmmoCapacity. |\n| asset:rus:engels_tu160m | wp_tu-160 | proxy | resident_at_base | 2 | R03:78 (121st GHBAR, Tu-160M), R03:87 | Label 'Tu-160 standing in for Tu-160M'. Conventional loadouts only. |\n| asset:rus:engels_tu95ms_1 | wp_tu95ms (Default squadron) | exact | resident_at_base | 1 | R03:78 (184th HBAR), R03:87 | The '315 regiment' squadron label does not match the 184th; use Default. Loadout LandAttack (KH-101) only; Default (KH-555) is also conventional. Never StrikePrecision (KH-55, the nuclear-effect model also used by the excluded Tu-160 StrikeNuclear) or CAS (KH-55SM). Role=MPA,ASW file: bomber tasking untested (CHECK). |\n| asset:rus:engels_tu95ms_2 | wp_tu95ms | exact | servicing_maintenance | 1 | Scenario choice reflecting the R03:78 strike damage | No loss figure is implied. Same loadout limits (LandAttack/Default only) and Role=MPA,ASW CHECK. |\n\n**Allocations with nothing assigned:** patrol, escort, transit, reserve and fixed defence. Hardened shelters (R03:78) have no collection unit. No tanker is placed, because the Il-78 cannot refuel these types.\n\n**Support services.**\n- **Ship supply:** not applicable.\n- **Aircraft turnaround:** wp_airbase_modern declares no FlightDeck_AmmoCapacity, so the engine default stock applies (undocumented, untested).\n- **Munitions storage (R03:78):** kept abstract; no physical representation.\n- **AAR:** none usable.\n- **Not established:** fuel, repair and restocking.\n\n**Connections.**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| hn_kola_olenya_airbase | Dispersal / relocation | authored | R03:78 (dispersal, unnamed); R03:72 (influx due to vulnerabilities deeper inside European Russia); R03:162 (redeployment to Olenya out of drone range; no origin named); Engels not named as origin |\n| rus_ukrainka_airbase | Relocation context, not Engels-specific | authored | R01:41, R03:80 |\n| rus_belaya_airbase | Relocation context, not Engels-specific; joint strike statement | authored | R01:41, R03:80, R03:160 |\n| backlog:engels_secondary_airfields | Dispersal destinations | source | R03:78 (unnamed) |\n| offmap:raid_origin | Standoff raid origin | authored | R03:78; register check note |\n\n**Routine activity (PROPOSED, not implemented).**\n- Off-map standoff departures, as scenario context.\n- One aircraft disperses to Olenya as an event, and its allocation moves with it.\n- The servicing aircraft returns to ready after CoolDownTime.\n- **Civilian (neutral):** civ_a320 Squadron24 (Ural Airlines), Squadron36 (Aeroflot) and Squadron47 (S7 / 'Siberia Airlines'), all Nation=RU, plus civ_il-76td Squadron1 'Volga Wings Freight' (Nation=Soviet).\n\n**Validation.** Research: R03 only. Mapping: as in the table. Placement: pending and inland. Runtime activation and saved-state behaviour: untested.\n\n**Gaps.**\n- Tu-160M is not distinguished in the collection.\n- No hardened aircraft shelter unit.\n- No receiver for in-game AAR.\n- wp_tu95ms is a Tu-142M-derived file declaring Role=MPA,ASW; bomber AI tasking is untested.\n- No regiment identities on the long-range aviation units.\n- The base's stock is the engine default.\n- The dispersal airfields are unnamed.\n\n### rus_ukrainka_airbase - Ukrainka Airbase\n\n**Identity.**\n- Country: Russia, Amur region, Far East (R03:80, R03:88).\n- Operator: Russia. The operating service is not stated; Long-Range Aviation is inferred from the Tu-95MS type (fidelity fix).\n- Kind: air_base. Policy: populate_small.\n\n**Role (SOURCE CLAIM).**\n- \"A major hub for Tu-95MS operations facing the Pacific\" (R03:80).\n- Table: \"Pacific Bomber Hub\", assets Tu-95MS (R03:88).\n- A relocation destination for assets moved away from the drone threat (R01:41, R03:80).\n- A Tu-95MS \"suffered a catastrophic multi-engine failure and crashed upon takeoff from Ukrainka, resulting in six fatalities\" (R03:82; repeated within R03 at R03:162).\n- R03:82 guidance: model airframe fatigue and engine failure probabilities.\n\n**CHECKS.**\n- The crash is undated and unsourced; verify its date and casualty figure. The R03:162 repetition is not corroboration.\n- R03:80's \"even these remote installations\" were struck is not tied to Ukrainka; R03:160 names only Belaya.\n- No aircraft count is given.\n- The base is inland, about 465 NM from the coastal Kamenny Ruchey point and 590 NM from the nearest proven placement. Whether the active area reaches it is open.\n- No collection evidence of a failure-probability model was found. Do not author a deterministic crash rule.\n- **Collection.** No Ukrainka unit exists. Use the Default variant of wp_airbase_modern, not the Engels-named Variant1 (correction).\n- **Collection.** wp_tu95ms: LandAttack/Default only; StrikePrecision (KH-55, nuclear-effect model) and CAS (KH-55SM) are excluded. Its file declares Role=MPA,ASW (Tu-142M-derived), so AI tasking as a bomber on the Pacific patrol is untested (see the Olenya CHECK).\n\n**Position.**\n- Approx 51.17N 128.45E (approx, verify).\n- In-game evidence: no anchor nearby. Vanilla airports.ini has UHKG Kamenny Ruchey at 49.2373,140.1915.\n- From the candidate centre: x about 6,507, z about 550 (about 4,090 NM). Within the extent that has loaded and been saved, and not near the date line.\n\n**Forces (all quantities are SCENARIO CHOICES).**\n\n| Asset id | Unit id | Outcome | Allocation | Qty | Source basis | Notes |\n|---|---|---|---|---|---|---|\n| asset:rus:ukrainka_base | wp_airbase_modern (Default; alternatives wp_tu160air, wp_airbase_4) | proxy | resident_at_base | 1 | R03:80, R03:88 | Visible label 'Ukrainka (stand-in)'. CustomAirGroup: wp_tu95ms. A future SEST named clone could follow the integration/raaf-bases pattern; no such id exists yet. wp_airbase_4 (capacity 48) has untested take-off length constraints. |\n| asset:rus:ukrainka_tu95ms_pair | wp_tu95ms (Default squadron) | exact | resident_at_base | 2 | R03:80, R03:88 | Fly the proposed Pacific patrol. No receiver. Loadout LandAttack (KH-101) only; Default (KH-555) is also conventional. Never StrikePrecision (KH-55, the nuclear-effect model also used by the excluded Tu-160 StrikeNuclear) or CAS (KH-55SM). Role=MPA,ASW file: bomber tasking untested (CHECK). |\n| asset:rus:ukrainka_tu95ms_svc | wp_tu95ms | exact | servicing_maintenance | 1 | Scenario choice reflecting the R03:82 attrition guidance | Represents strain through servicing, not random loss. Same loadout limits (LandAttack/Default only) and Role=MPA,ASW CHECK. |\n\n**Allocations with nothing assigned:** patrol at t0, escort, transit, reserve and fixed defence (no source).\n\n**Support services.**\n- **Ship supply:** not applicable.\n- **Aircraft turnaround:** wp_airbase_modern declares no FlightDeck_AmmoCapacity (engine default, untested). Tu-95MS CoolDownTime is 240 min.\n- **AAR:** none usable.\n- **Not established:** fuel, repair and restocking.\n\n**Connections.**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| sea:sea_of_okhotsk | Pacific long-range patrol area | authored | R03:80 ('facing the Pacific'), R03:66 |\n| rus_belaya_airbase | Co-listed relocation destination | source | R01:41, R03:80 |\n| rus_engels2_airbase | Relocation origin (unstated) | authored | R01:41 and R03:80 name no origin |\n| backlog:russian_pacific_fleet_bases | Regional naval context | authored | R03:66 |\n\n**Routine activity (PROPOSED, not implemented).**\n- The Tu-95MS pair flies a long-range Pacific patrol toward the Sea of Okhotsk and returns. The route must fit unrefuelled range.\n- Servicing rotation, with one airframe always in servicing.\n- **Civilian (neutral):** civ_a320 Squadron47 'Siberia Airlines' (Nation=RU).\n\n**Validation.** Research: R03 only, with weak detail. Mapping: base proxy, aircraft exact. Placement: pending and inland. Runtime activation and saved-state behaviour: untested.\n\n**Gaps.**\n- No named base unit.\n- No receiver on the Tu-95MS for in-game AAR.\n- wp_tu95ms is a Tu-142M-derived file declaring Role=MPA,ASW; bomber AI tasking is untested.\n- No Pacific port or fleet-base units for the surrounding context.\n- The inland terrain is unproven.\n\n### rus_belaya_airbase - Belaya Airbase\n\n**Identity.**\n- Country: Russia, Irkutsk Oblast, Siberia, \"roughly 4,500 kilometers from the Ukrainian border\" (R03:80).\n- Operator: Russia. The operating service is not stated (table function 'Strategic Aviation', R03:89); Long-Range Aviation is inferred.\n- Kind: air_base. Policy: populate_small.\n\n**Role (SOURCE CLAIM).**\n- \"Has historically hosted up to 42 Tu-22M3 bombers\" (R03:80).\n- Table assets: Tu-22M3, Tu-95MS (R03:89).\n- A relocation destination (R01:41, R03:80).\n- Target of successful Ukrainian drone strikes, in the joint statement with Engels-2 (R03:160).\n\n**CHECKS.**\n- Tu-95MS at Belaya appears only in the table (R03:89); the prose names only the Tu-22M3. It is not populated.\n- 42 is a historical maximum, not a current count.\n- Belaya was also reported hit in June 2025. Check its status at the scenario date.\n- No deterministic vulnerability rule (seed:23).\n- **Collection.** The squadron labels 'Tu-22M2 1225th / 1229th TBAP, based in Belaya' come from in-game language comments, not from R01-R03.\n- The base is inland, 1,271 NM from the nearest proven placement and about 1,550 NM from the central Sea of Okhotsk. Its maritime reach is limited, so an off-map raid origin is likely.\n\n**Position.**\n- Approx 52.92N 103.58E (approx, verify).\n- In-game evidence: none beyond the language comment on wp_tu-22m2 Squadron13/14.\n- From the candidate centre: x about 5,015, z about 655 (about 3,260 NM).\n\n**Forces (all quantities are SCENARIO CHOICES).**\n\n| Asset id | Unit id | Outcome | Allocation | Qty | Source basis | Notes |\n|---|---|---|---|---|---|---|\n| asset:rus:belaya_base | wp_airbase_modern (Default; alternative wp_airbase_4) | proxy | resident_at_base | 1 | R03:80, R03:89 | Visible label 'Belaya (stand-in)'. CustomAirGroup: wp_tu-22m2, plus wp_il-78 only if asset:rus:belaya_il78_opt is authored. |\n| asset:rus:belaya_tu22m3 | wp_tu-22m2 (Squadron13 '1225th TBAP') | proxy | resident_at_base | 2 | R03:80, R03:89; scaled from 'historically up to 42' | Label 'Tu-22M2 standing in for Tu-22M3'. Regiment label: CHECK. |\n| asset:rus:belaya_tu22m3_svc | wp_tu-22m2 | proxy | servicing_maintenance | 1 | Scenario choice | None. |\n| asset:rus:belaya_il78_opt | wp_il-78 (Squadron1 '203rd GARP') | exact | support | 0 by default (optional 1) | Not in R01-R03; scenario choice | Probe-and-drogue tanker for the Tu-22M2 proxies. A separate airframe from asset:rus:olenya_il78_1; never the same tanker at two bases. |\n\n**Allocations with nothing assigned:** patrol, escort, transit, reserve and fixed defence. No Tu-95MS is placed, because the claim is table-only. The Il-78 (asset:rus:belaya_il78_opt) is optional (it is Tu-22M2-compatible) and not placed by default.\n\n**Support services.**\n- **Ship supply:** not applicable.\n- **Aircraft turnaround:** engine-default stock on wp_airbase_modern. wp_airbase_4 would instead give FlightDeck_AmmoCapacity 1,000,000 with AirTorpedo 48, Ovod 96 and Harpoon 96. Both are untested.\n- **AAR:** usable only if the optional Il-78 (asset:rus:belaya_il78_opt) is authored.\n- **Not established:** fuel, repair and restocking.\n\n**Connections.**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| rus_ukrainka_airbase | Co-listed relocation destination | source | R01:41, R03:80 |\n| rus_engels2_airbase | Joint strike-vulnerability statement (status context, not logistics) | source | R03:160 |\n| sea:sea_of_okhotsk | Long-range maritime-strike reach | authored | R03:80, R03:89 |\n| offmap:raid_origin | Raid origin | authored | Register check notes |\n\n**Routine activity (PROPOSED, not implemented).**\n- Tu-22M3-proxy training sorties.\n- An optional long-range maritime-strike exercise toward the Sea of Japan / Sea of Okhotsk.\n- **Civilian (neutral):** civ_a320 Squadron47 overflights.\n\n**Validation.** Research: R03 only. Mapping: proxies. Placement: pending and remote. Runtime activation and saved-state behaviour: untested.\n\n**Gaps.**\n- No Tu-22M3 or Belaya base unit.\n- No current count.\n- Tu-95MS is held pending a check.\n- Remote inland terrain is unproven.",
+ "packages": [
+  {
+   "world_id": "hn_kola_olenya_airbase",
+   "name": "Olenya Airbase",
+   "node_kind": "air_base",
+   "operator": "Russian Long-Range Aviation (R01:41, R03:70); country Russia",
+   "populate_policy": "populate",
+   "role_source": "SOURCE: one of the most critical LRA installations (R01:41, R03:70); table 'Maritime/Land Strike, Staging' (R03:86); home of 40th Composite Aviation Regiment, Tu-22M3 maritime-attack and land-strike (R03:72); bombers routinely fly extended combat sorties southward to launch standoff cruise missiles (R03:72, restored per fidelity check); imagery 2024-25 'confirmed' up to 35 Tu-22M3, 10 Tu-95MS, several Tu-160, An-12 (R03:72); Spider's Web June 2025 drone swarms 'successfully navigated the immense distance' and damaged Tu-22M3/Tu-95MS (R03:74); proximity to GIUK Gap, North Atlantic, Norwegian border (R03:70); redeployment strain guidance (R03:162).",
+   "position": "approx 68.15N 33.46E (approx, verify; public knowledge, consistent with R03:70 '92 km south of Murmansk'). In-game evidence: wp_airbase_1 header 'layout based on Olenegorsk/Olenya'; never placed at these coordinates in a repo mission (nearest proven placement air 44 NM, land 69 NM); one Kola positional precedent, 'chapter 4 - Kill Kuznetsov' (map centre 69.25,33.23), present in several copies, variants and backups (17 files under integration/missions and mods-source/_vanilla/user/missions); its Russian ship ids are partly stale (4 of 7 surface-ship types do not resolve with find_unit_file); vanilla world data port_ussr_severomorsk 69.0964,33.4313 (~57 NM N) and airports.ini XLMF Afrikanda 67.4567,32.7867. From candidate centre 42N 20E: x~808, z~1569 (~1,630 NM), inside loaded/saved extent. Runway/terrain fit for heavy bombers unvalidated; placement pending.",
+   "forces": [
+    {
+     "asset_id": "asset:rus:olenya_base",
+     "allocation": "resident_at_base",
+     "role": "installation: airbase unit named 'Olenya Airbase'",
+     "source_basis": "Node identity R01:41, R03:70, R03:86; unit per russia and installations-placement-support lenses",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_airbase_1"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Use Default variant (Variant1 also displays 'Olenya Airbase' but carries vanilla usn_f-14a CustomAirGroup). Replace Cold War default AirGroup with a mission CustomAirGroup holding only the at-base rows: Tu-22M2 4+2, Tu-95MS 1 (olenya_tu95ms_1), Tu-160 1, Il-76MD 1, optional Il-78 1. The patrol Tu-95MS and Tu-142M are airborne at t0 and not also listed. AircraftCapacity 96; FlightDeck_AmmoCapacity 3,000,000 with AirTorpedo 96 / Ovod 192 / Harpoon 192."
+    },
+    {
+     "asset_id": "asset:rus:olenya_tu22m3_ready",
+     "allocation": "resident_at_base",
+     "role": "maritime-attack / land-strike bombers (Tu-22M3 per source), ready",
+     "source_basis": "SOURCE R03:72, R03:86, R01:41; quantity SCENARIO CHOICE scaled down from 'up to 35' (R03:72, CHECK)",
+     "outcome": "proxy",
+     "unit_ids": [
+      "wp_tu-22m2"
+     ],
+     "scenario_quantity": "4",
+     "notes": "Visible label 'Tu-22M2 standing in for Tu-22M3'. Default squadron; do not use Squadron2 '924th GuMRAP' (Cold War regiment identity conflicts with R03:72's 40th CAR). Loadouts AntiShip/AntiShipLongRange/StrikeLongRange; ReceiverSystems=ProbeAndDrogue; CoolDownTime 240 min. Two of these fly the proposed training sortie."
+    },
+    {
+     "asset_id": "asset:rus:olenya_tu22m3_svc",
+     "allocation": "servicing_maintenance",
+     "role": "Tu-22M3 (proxy) in maintenance",
+     "source_basis": "SCENARIO CHOICE reflecting R03:74 (damaged airframes) and R03:82/R03:162 maintenance-strain guidance; not a damage-state claim",
+     "outcome": "proxy",
+     "unit_ids": [
+      "wp_tu-22m2"
+     ],
+     "scenario_quantity": "2",
+     "notes": "Same label as above."
+    },
+    {
+     "asset_id": "asset:rus:olenya_tu95ms_1",
+     "allocation": "resident_at_base",
+     "role": "strategic bomber, staging",
+     "source_basis": "SOURCE R03:72 'up to 10' (CHECK), R03:86, R01:41; quantity SCENARIO CHOICE",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_tu95ms"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Default squadron. Loadout LandAttack (KH-101) only; Default (KH-555) is also conventional. Never StrikePrecision (KH-55, the nuclear-effect model also used by the excluded Tu-160 StrikeNuclear) or CAS (KH-55SM). prefer wp_tu95ms over wp_tu-95ms (nuclear loadouts). No AAR receiver. Presence may be dispersal (CHECK). wp_tu95ms declares Role=MPA,ASW (Tu-142M-derived file); AI tasking as a bomber untested (CHECK)."
+    },
+    {
+     "asset_id": "asset:rus:olenya_tu95ms_2",
+     "allocation": "patrol",
+     "role": "long-range patrol over Barents / Norwegian Sea (Evenes QRA intercept context)",
+     "source_basis": "Activity type R03:117 (Tu-95 over Barents intercepted by Evenes F-35s; origin base not named); basing at Olenya is SCENARIO CHOICE",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_tu95ms"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Airborne at t0, placed as an airborne unit and not also listed in the base CustomAirGroup (or launched from the group at t0, never both); loadout Empty or LandAttack, never StrikePrecision or CAS; not hostile by nationality; Hold/release behaviour to be tested. Evenes region should reference, not duplicate. wp_tu95ms declares Role=MPA,ASW (Tu-142M-derived file); AI tasking as a bomber untested (CHECK)."
+    },
+    {
+     "asset_id": "asset:rus:olenya_tu160_1",
+     "allocation": "resident_at_base",
+     "role": "strategic bomber, staging/dispersal",
+     "source_basis": "SOURCE R03:72 'several Tu-160' (CHECK), R03:86, R01:41; quantity SCENARIO CHOICE",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_tu-160"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Generic single 'TU-160' squadron; no ReceiverSystems. Use StrikeLongRangeKH101 or StrikeLongRange loadouts only; exclude StrikeNuclear and Default (Kh-55SM). Staging, not permanent basing (CHECK)."
+    },
+    {
+     "asset_id": "asset:rus:olenya_an12_1",
+     "allocation": "support",
+     "role": "military transport / logistics flights",
+     "source_basis": "SOURCE R03:72, R03:86 (An-12)",
+     "outcome": "proxy",
+     "unit_ids": [
+      "wp_il-76md"
+     ],
+     "scenario_quantity": "1",
+     "notes": "No An-12 in collection (wp_an-12/an-26/an-72/an-124 do not resolve). wp_il-76md (3524112296, Nation=Soviet, Squadron1 'VTA 224th Regiment') re-resolved here; larger jet airlifter; label 'Il-76MD standing in for An-12'. No supply system: activity only, delivers no in-game ammunition."
+    },
+    {
+     "asset_id": "asset:rus:olenya_tu142_1",
+     "allocation": "patrol",
+     "role": "maritime patrol / ASW over Barents (authored detachment)",
+     "source_basis": "R03:117, R03:134 (Tu-142 over Barents; no base named, backlog); detachment at Olenya is SCENARIO CHOICE, not a report claim",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_tu-142m"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Tu-142M only; Tu-142MK/MZ missing (ids referenced elsewhere do not resolve). ProbeAndDrogue receiver. Evenes region should reference, not duplicate. Airborne at t0 on patrol; placed as an airborne unit, not also listed in the base CustomAirGroup (or launched from the group at t0, never both)."
+    },
+    {
+     "asset_id": "asset:rus:olenya_il78_1",
+     "allocation": "support",
+     "role": "air-to-air refuelling tanker (optional)",
+     "source_basis": "Not in R01-R03; SCENARIO CHOICE, optional",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_il-78"
+     ],
+     "scenario_quantity": "1 (optional)",
+     "notes": "Squadron1 '203rd GARP' only named squadron. TankerSystems=ProbeAndDrogue, FuelCapacity 100000, 5 nm. Compatible here: wp_tu-22m2, wp_tu-142m. Not wp_tu95ms, wp_tu-160, wp_il-76md. In the base CustomAirGroup only if authored. A separate airframe from asset:rus:belaya_il78_opt."
+    },
+    {
+     "asset_id": "asset:rus:olenya_sam_opt",
+     "allocation": "fixed_defence",
+     "role": "optional authored point defence",
+     "source_basis": "No R01-R03 claim on Olenya defences; R03:162 is generic simulation guidance; plan:24 forbids fabricating present-day defences",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_sam_site_sa-21"
+     ],
+     "scenario_quantity": "0 by default (optional 1)",
+     "notes": "If authored, label as scenario point defence, not a real deployment. Reload via tgt_ammo_depot_small (LandUnit, 1.5 nm); rounds unpriced so wp_car_ural can also truck them (russia-lens correction)."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition supply: not applicable (inland airbase; port_ussr_severomorsk has no [SupplySystem]). Regional naval rearm is ship-borne only: wp_vt_boris_chilikin [SupplySystem1] (see regional context).",
+    "Aircraft turnaround/ordnance: wp_airbase_1 FlightDeck_AmmoCapacity 3,000,000 with AirTorpedo 96 / Ovod 192 / Harpoon 192 category limits (unit file); bomber-store draw and depletion untested. Unit-file ReadyUpTime/CoolDownTime: Tu-22M2 50-60/240 min, Tu-95MS 30/240 min, Tu-160 30/60 min.",
+    "Air-to-air refuelling: wp_il-78 (optional) refuels wp_tu-22m2 and wp_tu-142m only; Tu-95MS, Tu-160 and Il-76MD declare no ReceiverSystems.",
+    "Supplier restocking: not established (nothing restocks the airbase FlightDeck pool).",
+    "Fuel (ground): not established (tgt_fueltanks_medium is a target object only).",
+    "Repair: not established.",
+    "Land-unit resupply (only if optional SAM authored): tgt_ammo_depot_small, pool 200000, range 1.5 nm, TargetTypes LandUnit."
+   ],
+   "connections": [
+    {
+     "to": "hn_evenes_air_station",
+     "kind": "adversary patrol / QRA intercept context",
+     "basis": "authored",
+     "source_ref": "R03:117 (Evenes F-35s intercept Tu-142/Tu-95 over Barents; origin base not named); R03:70 (Norwegian border proximity)"
+    },
+    {
+     "to": "sea:barents_sea",
+     "kind": "maritime-strike and patrol operating area",
+     "basis": "authored",
+     "source_ref": "R03:66, R03:72, R03:117"
+    },
+    {
+     "to": "sea:giuk_gap / sea:north_atlantic",
+     "kind": "geographic proximity",
+     "basis": "source",
+     "source_ref": "R03:70"
+    },
+    {
+     "to": "rus_engels2_airbase",
+     "kind": "bomber relocation inflow",
+     "basis": "authored",
+     "source_ref": "R03:72 (influx due to vulnerabilities deeper inside European Russia); R03:162 (redeployment to Olenya out of drone range; no origin named); Engels not named as origin"
+    },
+    {
+     "to": "offmap:southbound_standoff_axis",
+     "kind": "long-range strike sortie axis (context only, out of maritime scope, not modelled)",
+     "basis": "source",
+     "source_ref": "R03:72"
+    },
+    {
+     "to": "backlog:russian_northern_fleet_bases",
+     "kind": "regional naval context (Severomorsk, Gadzhiyevo etc. unsourced)",
+     "basis": "authored",
+     "source_ref": "R03:66, R03:115, R03:166"
+    }
+   ],
+   "routine_activity": [
+    "PROPOSED: Tu-142M (asset:rus:olenya_tu142_1) Barents ASW patrol loop, recovery to Olenya, repeat after servicing.",
+    "PROPOSED: Tu-95MS (asset:rus:olenya_tu95ms_2) long-range Barents/Norwegian Sea patrol that draws Evenes QRA (activity type R03:117); Empty or LandAttack loadout; test Hold/release, no automatic hostility.",
+    "PROPOSED: pair of ready Tu-22M3-proxies flies a maritime-strike training sortie over the Barents with optional Il-78 rendezvous; return to base.",
+    "PROPOSED: Il-76MD (An-12 proxy) scheduled arrival/departure to an off-map interior origin (activity only).",
+    "PROPOSED: optional dispersal event - an Engels Tu-95MS or Tu-160 transfers to Olenya; its allocation moves with it (no duplicate).",
+    "PROPOSED civilian (neutral): Barents fishing (civ_fv_okean Default/Variant1, civ_fv_sterntrawler_a Variant1 - its Default is Norwegian; mission Nation=russia, flag_civ_rus) via vanilla patrol_areas.ini 'Barents Fishing'; civ_a320 Squadron36 (Aeroflot, Nation=RU) on Murmansk routes.",
+    "NOT MODELLED: southward standoff strikes (R03:72) and drone strikes on the base (R03:74); any strike event is an optional authored disruption with no sanctuary or invulnerability rule."
+   ],
+   "checks": [
+    "CHECK R03:72: counts are an unsourced 2024-25 imagery snapshot ('confirmed' per report), not a standing order of battle; may be dispersal. Scenario quantities scaled to 6 Tu-22M3-proxy, 2 Tu-95MS, 1 Tu-160, 1 transport.",
+    "CHECK R03:72: 40th Composite Aviation Regiment designation.",
+    "CHECK R03:74: report says drone swarms 'successfully navigated the immense distance'; widely reported accounts describe truck-launched drones near targets. Post-June-2025 status time-sensitive; no specific losses represented.",
+    "CHECK rhetoric: 'sanctuary' (R01:41, R03:72) and 'distance no longer guarantees immunity' (R03:74); no sanctuary, invulnerability or deterministic vulnerability rule (seed:23).",
+    "Fidelity fix: R03:70 Cold War / 1961 history omitted as a conservative choice under seed:25 (register cited plan:43 in error).",
+    "Fidelity fix: R03:72 southward standoff sortie role claim restored; R03:72 'confirmed' and R03:74 mechanism wording restored as the report states them, doubts kept here.",
+    "Collection: wp_airbase_1 Default and Variant1 both display 'Olenya Airbase'; Variant1 has usn_f-14a CustomAirGroup; use Default with a mission CustomAirGroup.",
+    "Collection: wp_tu-22m2 is a labelled proxy; avoid Squadron2 '924th GuMRAP' label.",
+    "Collection: exclude nuclear loadouts (wp_tu-160 StrikeNuclear; avoid Default Kh-55SM); wp_tu95ms LandAttack/Default only (StrikePrecision is KH-55, nuclear-effect model, same munition as Tu-160 StrikeNuclear; CAS is KH-55SM; both excluded); prefer wp_tu95ms over wp_tu-95ms.",
+    "Collection: wp_tu95ms declares Role=MPA,ASW (Tu-142M-derived file: AssetBundleMesh wp_tu-142m, torpedo and sonobuoy stations in WeaponSystem1); AI tasking as a bomber untested. Outcome stays exact for name and loadout; verify behaviour in the placement or runtime test. Applies to every Tu-95MS row (Olenya, Engels, Ukrainka).",
+    "Allocation: the Olenya CustomAirGroup holds only at-base rows (Tu-22M2 4+2, Tu-95MS 1, Tu-160 1, Il-76MD 1, optional Il-78 1); the patrol Tu-95MS and Tu-142M are placed airborne at t0, or added to the group and launched at t0, never both.",
+    "Collection: wp_tu95ms display merge - lower-priority 3732654992 language block mislabels it (Squadron1 'IL-78 203rd GARP', tanker description); higher-priority 3715323261 wins per key ('Tu-95MS', '315 regiment'); confirm in game.",
+    "Tu-142 detachment at Olenya is authored; reports name no Tu-142 base.",
+    "Placement: runway compatibility of Tu-160/Tu-95MS on wp_airbase_1 and terrain at the approx coordinates unvalidated."
+   ],
+   "gaps": [
+    "No Tu-22M3 unit (wp_tu-22m3_90 does not resolve); Tu-22M2 proxy.",
+    "No An-12 unit; Il-76MD proxy with no cargo/supply function.",
+    "Tu-142MK/MZ missing; only Tu-142M.",
+    "No AAR receiver on Tu-95MS or Tu-160.",
+    "wp_tu95ms is a Tu-142M-derived file declaring Role=MPA,ASW; bomber AI tasking untested.",
+    "No unit carries the 40th CAR identity; LRA units have generic squadrons.",
+    "No report source for Olenya air defence.",
+    "Fuel, repair and FlightDeck restocking not established; FlightDeck category behaviour untested.",
+    "Runtime activation and saved-state behaviour untested."
+   ]
+  },
+  {
+   "world_id": "rus_engels2_airbase",
+   "name": "Engels-2 Airbase",
+   "node_kind": "air_base",
+   "operator": "Russian Aerospace Forces (R03:78) per fidelity fix; Long-Range Aviation affiliation editorial; country Russia",
+   "populate_policy": "populate_small",
+   "role_source": "SOURCE: 'Russia's premier strategic bomber base and the heart of its European aviation deterrence' (R01:41 = R03:78 verbatim); table 'Strategic Bomber Hub', Tu-160M, Tu-95MS (R03:87); 22nd Guards HBAD with 121st GHBAR (Tu-160M) and 184th HBAR (Tu-95MS), 3,500 m runway, extensive munitions storage 'designed to support sustained strategic bombardment' (R03:78); primary launch point for standoff strikes into Ukraine, drones 'completely destroying Tu-95MS bombers', hardened shelters and dispersal to secondary airfields (R03:78); joint Engels/Belaya statement that strikes 'demonstrate that static infrastructure is highly vulnerable to relatively cheap, asymmetric technologies' (R03:160).",
+   "position": "approx 51.48N 46.21E (approx, verify; consistent with R03:78 '14 km east of Saratov'). In-game evidence: wp_airbase_modern Variant1 named 'Engels airforce base'; no repo coordinates; nearest proven placement 726 NM; inland (Volga), terrain untested. From candidate centre 42N 20E: x~1573, z~569 (~1,210 NM). ~1,070 NM from Olenya. May be held as an off-map raid origin; placement pending.",
+   "forces": [
+    {
+     "asset_id": "asset:rus:engels_base",
+     "allocation": "resident_at_base",
+     "role": "installation: airbase unit (variant named Engels)",
+     "source_basis": "Node identity R01:41, R03:78, R03:87",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_airbase_modern"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Variant1 'Engels airforce base' (exact by name only; Olenya-template layout). Shared AirGroup 61 types, 10 do not resolve: use mission CustomAirGroup with wp_tu-160 and wp_tu95ms only. Capacity 234; no FlightDeck_AmmoCapacity. wp_tu160air is a proxy alternative, not exact (correction)."
+    },
+    {
+     "asset_id": "asset:rus:engels_tu160m",
+     "allocation": "resident_at_base",
+     "role": "strategic bombers (Tu-160M per source)",
+     "source_basis": "SOURCE R03:78 (121st GHBAR, Tu-160M), R03:87; quantity SCENARIO CHOICE",
+     "outcome": "proxy",
+     "unit_ids": [
+      "wp_tu-160"
+     ],
+     "scenario_quantity": "2",
+     "notes": "Label 'Tu-160 standing in for Tu-160M' (no M distinction in collection). Conventional loadouts only (StrikeLongRangeKH101 / StrikeLongRange); exclude StrikeNuclear and Default Kh-55SM. No AAR receiver."
+    },
+    {
+     "asset_id": "asset:rus:engels_tu95ms_1",
+     "allocation": "resident_at_base",
+     "role": "strategic bomber",
+     "source_basis": "SOURCE R03:78 (184th HBAR, Tu-95MS), R03:87; quantity SCENARIO CHOICE",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_tu95ms"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Default squadron (in-game '315 regiment' label does not match 184th HBAR). Loadout LandAttack (KH-101) only; Default (KH-555) is also conventional. Never StrikePrecision (KH-55, the nuclear-effect model also used by the excluded Tu-160 StrikeNuclear) or CAS (KH-55SM). wp_tu95ms declares Role=MPA,ASW (Tu-142M-derived file); AI tasking as a bomber untested (CHECK)."
+    },
+    {
+     "asset_id": "asset:rus:engels_tu95ms_2",
+     "allocation": "servicing_maintenance",
+     "role": "strategic bomber in maintenance",
+     "source_basis": "SCENARIO CHOICE reflecting R03:78 reported strike damage; no loss count asserted",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_tu95ms"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Returns to ready after CoolDownTime (240 min unit-file value) as proposed activity. Same loadout limits (LandAttack/Default only) and Role=MPA,ASW CHECK."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition supply: not applicable (inland).",
+    "Aircraft turnaround/ordnance: wp_airbase_modern declares no FlightDeck_AmmoCapacity, so stock is the undocumented engine default; untested.",
+    "Munitions storage (R03:78 SOURCE CLAIM): abstract, not physically represented (tgt_ammo_depot_small serves land units only).",
+    "Air-to-air refuelling: none usable (Tu-160 and Tu-95MS lack ReceiverSystems); no Il-78 placed.",
+    "Supplier restocking: not established.",
+    "Fuel: not established.",
+    "Repair: not established."
+   ],
+   "connections": [
+    {
+     "to": "hn_kola_olenya_airbase",
+     "kind": "dispersal / relocation to Arctic staging",
+     "basis": "authored",
+     "source_ref": "R03:78 (dispersal to unnamed secondary airfields); R03:72 (influx due to vulnerabilities deeper inside European Russia); R03:162 (redeployment to Olenya out of drone range; no origin named); Engels not named as origin"
+    },
+    {
+     "to": "rus_ukrainka_airbase",
+     "kind": "relocation context, labelled not Engels-specific",
+     "basis": "authored",
+     "source_ref": "R01:41, R03:80 (no origin named; fidelity missing-claim note)"
+    },
+    {
+     "to": "rus_belaya_airbase",
+     "kind": "relocation context (not Engels-specific); joint strike-vulnerability statement",
+     "basis": "authored",
+     "source_ref": "R01:41, R03:80, R03:160"
+    },
+    {
+     "to": "backlog:engels_secondary_airfields",
+     "kind": "dispersal destinations (unnamed)",
+     "basis": "source",
+     "source_ref": "R03:78"
+    },
+    {
+     "to": "offmap:raid_origin",
+     "kind": "standoff raid origin if the base lies outside the active map",
+     "basis": "authored",
+     "source_ref": "R03:78; register check note"
+    }
+   ],
+   "routine_activity": [
+    "PROPOSED: off-map long-range standoff departures as scenario context (not modelled as strikes on Ukraine).",
+    "PROPOSED: one Tu-95MS or Tu-160 dispersal transfer to Olenya as an event; allocation moves with it.",
+    "PROPOSED: servicing rotation (asset:rus:engels_tu95ms_2 returns to ready after CoolDownTime).",
+    "PROPOSED civilian (neutral): civ_a320 Squadron24 (Ural Airlines), Squadron36 (Aeroflot), Squadron47 (S7), Nation=RU; civ_il-76td Squadron1 'Volga Wings Freight' (Nation=Soviet) over the Saratov region."
+   ],
+   "checks": [
+    "Fidelity fix: no report names Long-Range Aviation as Engels operator; R03:78 names 'Russian Aerospace Forces'.",
+    "CHECK unit and aircraft assignments (22nd GHBAD, 121st GHBAR Tu-160M, 184th HBAR Tu-95MS).",
+    "CHECK Tu-95MS losses ('completely destroying', R03:78): undated, unsourced, contested; no count asserted.",
+    "Fidelity fix: R03:160 quoted closely as a joint Engels/Belaya statement; no deterministic vulnerability or sanctuary rule (seed:23).",
+    "Fidelity missing claim added: munitions storage 'designed to support sustained strategic bombardment' (R03:78).",
+    "Fidelity missing claim: R01:41/R03:80 relocation to Ukrainka/Belaya do not name Engels as origin; context only.",
+    "Inland location, 726 NM from nearest proven placement; terrain untested; may be off-map.",
+    "Collection: wp_airbase_modern AirGroup 51/61 resolve (no Tu-22M3, no Tu-95MS-X101); custom AirGroup required. Game runway is the Olenya-template mesh, not the claimed 3,500 m runway.",
+    "Collection: Tu-160M not distinguished from Tu-160.",
+    "Collection: wp_tu95ms LandAttack/Default only. StrikePrecision loads KH-55 (nuclear-effect model in the winning ammunition file, same munition as the excluded wp_tu-160 StrikeNuclear) and CAS loads KH-55SM; both excluded.",
+    "Collection: wp_tu95ms declares Role=MPA,ASW (Tu-142M-derived file: AssetBundleMesh wp_tu-142m, torpedo and sonobuoy stations in WeaponSystem1); AI tasking as a bomber untested. Outcome stays exact for name and loadout; verify behaviour in the placement or runtime test."
+   ],
+   "gaps": [
+    "No Tu-160M variant (proxy).",
+    "No hardened aircraft shelter unit (R03:78 shelters: none).",
+    "No AAR receivers on resident bombers.",
+    "wp_tu95ms is a Tu-142M-derived file declaring Role=MPA,ASW; bomber AI tasking untested.",
+    "Engine-default aircraft stock; untested.",
+    "Dispersal airfields unnamed (backlog).",
+    "Runtime activation and saved-state behaviour untested."
+   ]
+  },
+  {
+   "world_id": "rus_ukrainka_airbase",
+   "name": "Ukrainka Airbase",
+   "node_kind": "air_base",
+   "operator": "Russia; operating service not stated (Long-Range Aviation inferred from the Tu-95MS type, CHECK, fidelity fix)",
+   "populate_policy": "populate_small",
+   "role_source": "SOURCE: 'a major hub for Tu-95MS operations facing the Pacific' in the Amur region (R03:80); table 'Pacific Bomber Hub', Tu-95MS (R03:88); relocation destination (R01:41, R03:80); Tu-95MS multi-engine failure crash on takeoff, six fatalities (R03:82, repeated R03:162); guidance to model airframe fatigue and engine-failure probability (R03:82).",
+   "position": "approx 51.17N 128.45E (approx, verify; public knowledge). In-game evidence: no named unit or anchor; vanilla airports.ini UHKG Kamenny Ruchey 49.2373,140.1915 (~465 NM); nearest proven placement 590 NM. From candidate centre 42N 20E: x~6507, z~550 (~4,090 NM), inside loaded/saved extent; not near the date line. Inland Amur, terrain untested; placement pending.",
+   "forces": [
+    {
+     "asset_id": "asset:rus:ukrainka_base",
+     "allocation": "resident_at_base",
+     "role": "installation: generic airbase as labelled stand-in",
+     "source_basis": "Node identity R03:80, R03:88",
+     "outcome": "proxy",
+     "unit_ids": [
+      "wp_airbase_modern",
+      "wp_tu160air",
+      "wp_airbase_4"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Primary wp_airbase_modern Default ('Modern Russian airforce base'), not the Engels-named Variant1 (correction). Visible label 'Ukrainka (stand-in)'. CustomAirGroup wp_tu95ms. Future option: SEST named clone following integration/raaf-bases (no such id exists). wp_airbase_4 (capacity 48) has untested MinTakeoffLength constraints."
+    },
+    {
+     "asset_id": "asset:rus:ukrainka_tu95ms_pair",
+     "allocation": "resident_at_base",
+     "role": "strategic bombers; fly proposed Pacific patrol",
+     "source_basis": "SOURCE R03:80, R03:88 (no count given); quantity SCENARIO CHOICE",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_tu95ms"
+     ],
+     "scenario_quantity": "2",
+     "notes": "Default squadron; Loadout LandAttack (KH-101) only; Default (KH-555) is also conventional. Never StrikePrecision (KH-55, the nuclear-effect model also used by the excluded Tu-160 StrikeNuclear) or CAS (KH-55SM). no AAR receiver. wp_tu95ms declares Role=MPA,ASW (Tu-142M-derived file); AI tasking as a bomber untested (CHECK)."
+    },
+    {
+     "asset_id": "asset:rus:ukrainka_tu95ms_svc",
+     "allocation": "servicing_maintenance",
+     "role": "strategic bomber in maintenance",
+     "source_basis": "SCENARIO CHOICE reflecting R03:82 attrition guidance; strain represented by servicing allocation, not a random-loss rule",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_tu95ms"
+     ],
+     "scenario_quantity": "1",
+     "notes": "CoolDownTime 240 min (unit file). Same loadout limits (LandAttack/Default only) and Role=MPA,ASW CHECK."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition supply: not applicable (inland).",
+    "Aircraft turnaround/ordnance: wp_airbase_modern declares no FlightDeck_AmmoCapacity (engine default, untested); wp_airbase_4 alternative declares 1,000,000 with AirTorpedo 48 / Ovod 96 / Harpoon 96.",
+    "Air-to-air refuelling: none usable (Tu-95MS has no ReceiverSystems).",
+    "Supplier restocking: not established.",
+    "Fuel: not established.",
+    "Repair: not established."
+   ],
+   "connections": [
+    {
+     "to": "sea:sea_of_okhotsk",
+     "kind": "Pacific long-range patrol area",
+     "basis": "authored",
+     "source_ref": "R03:80 ('facing the Pacific'); R03:66 (Okhotsk bastion)"
+    },
+    {
+     "to": "rus_belaya_airbase",
+     "kind": "co-listed relocation destination",
+     "basis": "source",
+     "source_ref": "R01:41, R03:80"
+    },
+    {
+     "to": "rus_engels2_airbase",
+     "kind": "relocation origin (unstated)",
+     "basis": "authored",
+     "source_ref": "R01:41, R03:80 name no origin"
+    },
+    {
+     "to": "backlog:russian_pacific_fleet_bases",
+     "kind": "regional naval context",
+     "basis": "authored",
+     "source_ref": "R03:66"
+    }
+   ],
+   "routine_activity": [
+    "PROPOSED: Tu-95MS pair long-range Pacific patrol toward the Sea of Okhotsk and back; route must fit unrefuelled range.",
+    "PROPOSED: servicing rotation with one airframe always in servicing (R03:82 strain without a deterministic crash rule).",
+    "PROPOSED civilian (neutral): civ_a320 Squadron47 'Siberia Airlines' (Nation=RU) overflights."
+   ],
+   "checks": [
+    "Fidelity fix: operator not stated in reports; LRA inferred from type.",
+    "CHECK R03:82 crash: undated and unsourced; verify date and casualty figure; R03:162 repetition is within-report, not corroboration.",
+    "CHECK R03:80 'even these remote installations' strike claim: not tied to Ukrainka (R03:160 names Belaya only).",
+    "No aircraft count in reports; scenario quantity 3.",
+    "Inland Amur location (fidelity fix): ~465 NM from the coastal Kamenny Ruchey point, 590 NM from nearest proven placement; whether the active area reaches it is open.",
+    "No failure-probability model evidenced in the inventories; do not author a deterministic engine-failure rule.",
+    "Collection: no Ukrainka unit; labelled proxy base required.",
+    "Collection: wp_tu95ms LandAttack/Default only. StrikePrecision loads KH-55 (nuclear-effect model in the winning ammunition file, same munition as the excluded wp_tu-160 StrikeNuclear) and CAS loads KH-55SM; both excluded.",
+    "Collection: wp_tu95ms declares Role=MPA,ASW (Tu-142M-derived file: AssetBundleMesh wp_tu-142m, torpedo and sonobuoy stations in WeaponSystem1); AI tasking as a bomber untested. Outcome stays exact for name and loadout; verify behaviour in the placement or runtime test."
+   ],
+   "gaps": [
+    "No named Ukrainka base unit (proxy).",
+    "No AAR receiver on Tu-95MS.",
+    "wp_tu95ms is a Tu-142M-derived file declaring Role=MPA,ASW; bomber AI tasking untested.",
+    "No Russian Pacific port/fleet-base units for surrounding context.",
+    "Inland terrain unproven.",
+    "Runtime activation and saved-state behaviour untested."
+   ]
+  },
+  {
+   "world_id": "rus_belaya_airbase",
+   "name": "Belaya Airbase",
+   "node_kind": "air_base",
+   "operator": "Russia; operating service not stated (table function 'Strategic Aviation', R03:89; Long-Range Aviation inferred, CHECK)",
+   "populate_policy": "populate_small",
+   "role_source": "SOURCE: Irkutsk Oblast, roughly 4,500 km from the Ukrainian border, 'has historically hosted up to 42 Tu-22M3 bombers' (R03:80); table 'Strategic Aviation', Tu-22M3, Tu-95MS (R03:89); relocation destination (R01:41, R03:80); target of successful Ukrainian drone strikes, joint statement with Engels-2 (R03:160).",
+   "position": "approx 52.92N 103.58E (approx, verify; public knowledge). In-game evidence: no base unit or anchor; only the language-file comment on wp_tu-22m2 Squadron13/14 ('Long Range Aviation, based in Belaya'); nearest proven placement 1,271 NM. From candidate centre 42N 20E: x~5015, z~655 (~3,260 NM). ~1,550 NM from central Sea of Okhotsk; likely off-map raid origin. Placement pending.",
+   "forces": [
+    {
+     "asset_id": "asset:rus:belaya_base",
+     "allocation": "resident_at_base",
+     "role": "installation: generic airbase as labelled stand-in",
+     "source_basis": "Node identity R03:80, R03:89",
+     "outcome": "proxy",
+     "unit_ids": [
+      "wp_airbase_modern",
+      "wp_airbase_4"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Primary wp_airbase_modern Default; alternative wp_airbase_4 (russia-lens recommendation, capacity 48, runway fit untested). Visible label 'Belaya (stand-in)'. CustomAirGroup wp_tu-22m2, plus wp_il-78 only if asset:rus:belaya_il78_opt is authored."
+    },
+    {
+     "asset_id": "asset:rus:belaya_tu22m3",
+     "allocation": "resident_at_base",
+     "role": "maritime-strike bombers (Tu-22M3 per source)",
+     "source_basis": "SOURCE R03:80, R03:89; quantity SCENARIO CHOICE scaled from 'historically up to 42' (historical maximum)",
+     "outcome": "proxy",
+     "unit_ids": [
+      "wp_tu-22m2"
+     ],
+     "scenario_quantity": "2",
+     "notes": "Visible label 'Tu-22M2 standing in for Tu-22M3'. Squadron13 '1225th TBAP' (in-game comment 'based in Belaya'; regiment identity not in R01-R03, CHECK). ProbeAndDrogue receiver."
+    },
+    {
+     "asset_id": "asset:rus:belaya_tu22m3_svc",
+     "allocation": "servicing_maintenance",
+     "role": "Tu-22M3 (proxy) in maintenance",
+     "source_basis": "SCENARIO CHOICE",
+     "outcome": "proxy",
+     "unit_ids": [
+      "wp_tu-22m2"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Same label."
+    },
+    {
+     "asset_id": "asset:rus:belaya_il78_opt",
+     "allocation": "support",
+     "role": "air-to-air refuelling tanker (optional)",
+     "source_basis": "Not in R01-R03; SCENARIO CHOICE, optional",
+     "outcome": "exact",
+     "unit_ids": [
+      "wp_il-78"
+     ],
+     "scenario_quantity": "0 by default (optional 1)",
+     "notes": "Squadron1 '203rd GARP'. Probe-and-drogue; refuels the wp_tu-22m2 proxies. A separate airframe from asset:rus:olenya_il78_1; never the same tanker at two bases."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition supply: not applicable (inland).",
+    "Aircraft turnaround/ordnance: engine-default stock on wp_airbase_modern; wp_airbase_4 alternative declares FlightDeck_AmmoCapacity 1,000,000 with AirTorpedo 48 / Ovod 96 / Harpoon 96; untested.",
+    "Air-to-air refuelling: only if the optional wp_il-78 (asset:rus:belaya_il78_opt) is authored (Tu-22M2 is probe-and-drogue compatible); not placed by default.",
+    "Supplier restocking: not established.",
+    "Fuel: not established.",
+    "Repair: not established."
+   ],
+   "connections": [
+    {
+     "to": "rus_ukrainka_airbase",
+     "kind": "co-listed relocation destination",
+     "basis": "source",
+     "source_ref": "R01:41, R03:80"
+    },
+    {
+     "to": "rus_engels2_airbase",
+     "kind": "joint strike-vulnerability statement (status context, not logistics)",
+     "basis": "source",
+     "source_ref": "R03:160"
+    },
+    {
+     "to": "sea:sea_of_okhotsk",
+     "kind": "long-range maritime-strike reach (Sea of Okhotsk / Sea of Japan)",
+     "basis": "authored",
+     "source_ref": "R03:80, R03:89"
+    },
+    {
+     "to": "offmap:raid_origin",
+     "kind": "raid origin if outside active map",
+     "basis": "authored",
+     "source_ref": "register check notes"
+    }
+   ],
+   "routine_activity": [
+    "PROPOSED: Tu-22M3-proxy training sorties from Belaya.",
+    "PROPOSED: optional long-range maritime-strike exercise toward the Sea of Japan / Okhotsk, with optional Il-78 (asset:rus:belaya_il78_opt, not placed by default).",
+    "PROPOSED civilian (neutral): civ_a320 Squadron47 'Siberia Airlines' (Nation=RU) overflights."
+   ],
+   "checks": [
+    "CHECK: Tu-95MS at Belaya is table-only (R03:89); prose (R03:80) names only Tu-22M3; Tu-95MS not populated.",
+    "CHECK: 'up to 42 Tu-22M3' is a historical maximum, not a current count.",
+    "CHECK: Belaya reported hit in June 2025 drone operation (register) and R03:160; status at scenario date; no deterministic vulnerability rule (seed:23).",
+    "Operator/service not stated (inferred).",
+    "Collection: Squadron13/14 'based in Belaya' are in-game language comments for Cold War regiments, not report data.",
+    "Inland, 1,271 NM from nearest proven placement; maritime relevance limited."
+   ],
+   "gaps": [
+    "No Tu-22M3 unit (proxy).",
+    "No named Belaya base unit (proxy).",
+    "No current aircraft count in reports.",
+    "Tu-95MS held pending check.",
+    "Remote inland terrain unproven.",
+    "Runtime activation and saved-state behaviour untested."
+   ]
+  }
+ ],
+ "named_assets": [
+  "asset:rus:olenya_base | wp_airbase_1 (Default, mission CustomAirGroup of at-base rows only) | resident_at_base | installation, exact",
+  "asset:rus:olenya_tu22m3_ready | wp_tu-22m2 x4 | resident_at_base | proxy for Tu-22M3",
+  "asset:rus:olenya_tu22m3_svc | wp_tu-22m2 x2 | servicing_maintenance | proxy for Tu-22M3",
+  "asset:rus:olenya_tu95ms_1 | wp_tu95ms x1 (LandAttack or Default loadout only) | resident_at_base | exact; Role=MPA,ASW tasking CHECK",
+  "asset:rus:olenya_tu95ms_2 | wp_tu95ms x1 (Empty or LandAttack loadout) | patrol (Barents), airborne at t0, not in base CustomAirGroup | exact; Evenes intercept context; Role=MPA,ASW tasking CHECK",
+  "asset:rus:olenya_tu160_1 | wp_tu-160 x1 | resident_at_base (staging) | exact",
+  "asset:rus:olenya_an12_1 | wp_il-76md x1 | support | proxy for An-12",
+  "asset:rus:olenya_tu142_1 | wp_tu-142m x1 | patrol (Barents), airborne at t0, not in base CustomAirGroup | exact; authored detachment",
+  "asset:rus:olenya_il78_1 | wp_il-78 x1 (optional) | support | exact; not report-sourced; separate from asset:rus:belaya_il78_opt",
+  "asset:rus:olenya_sam_opt | wp_sam_site_sa-21 x0 default (optional 1) | fixed_defence | exact; not report-sourced",
+  "asset:rus:engels_base | wp_airbase_modern (Variant1 'Engels airforce base') | resident_at_base | installation, exact by name",
+  "asset:rus:engels_tu160m | wp_tu-160 x2 | resident_at_base | proxy for Tu-160M",
+  "asset:rus:engels_tu95ms_1 | wp_tu95ms x1 (LandAttack or Default loadout only) | resident_at_base | exact; Role=MPA,ASW tasking CHECK",
+  "asset:rus:engels_tu95ms_2 | wp_tu95ms x1 (LandAttack or Default loadout only) | servicing_maintenance | exact; Role=MPA,ASW tasking CHECK",
+  "asset:rus:ukrainka_base | wp_airbase_modern (Default, labelled stand-in) | resident_at_base | installation, proxy",
+  "asset:rus:ukrainka_tu95ms_pair | wp_tu95ms x2 (LandAttack or Default loadout only) | resident_at_base | exact; Role=MPA,ASW tasking CHECK",
+  "asset:rus:ukrainka_tu95ms_svc | wp_tu95ms x1 (LandAttack or Default loadout only) | servicing_maintenance | exact; Role=MPA,ASW tasking CHECK",
+  "asset:rus:belaya_base | wp_airbase_modern (Default, labelled stand-in) | resident_at_base | installation, proxy",
+  "asset:rus:belaya_tu22m3 | wp_tu-22m2 (Squadron13) x2 | resident_at_base | proxy for Tu-22M3",
+  "asset:rus:belaya_tu22m3_svc | wp_tu-22m2 x1 | servicing_maintenance | proxy for Tu-22M3",
+  "asset:rus:belaya_il78_opt | wp_il-78 x0 default (optional 1) | support | exact; not report-sourced; separate from asset:rus:olenya_il78_1",
+  "asset:rus:barents_ssbn_1 | wp_ssbn_borei (Default) x0 until the weapons-hold posture CHECK passes, then x1 | patrol (Barents bastion, bare fact only; abstract sea-area marker until then) | exact; regional context",
+  "asset:rus:barents_ssgn_1 | wp_ssgn_yasen (Default) x1 | transit (Kola to GIUK) | exact; regional context, Evenes hunt target",
+  "asset:rus:barents_ddg_1 | wp_bpk_udaloy_98 (Default) x1 | patrol | exact; regional context, authored",
+  "asset:rus:barents_aor_1 | wp_vt_boris_chilikin (Default) x1 | support | exact; regional context",
+  "asset:rus:okhotsk_ssbn_1 | wp_ssbn_borei (Default) x0 until the weapons-hold posture CHECK passes, then x1 | patrol (Okhotsk bastion, bare fact only; abstract sea-area marker until then) | exact; regional context",
+  "asset:rus:okhotsk_ssk_1 | wp_ss_improved_kilo (Default or Variant7-11) x1 | patrol | exact; regional context, authored",
+  "asset:rus:okhotsk_cvt_1 | rfn_cvt_20380_3-6 (Default) x1 | patrol | exact; regional context, authored",
+  "asset:rus:okhotsk_aor_1 | wp_vt_boris_chilikin (Default) x1 | reserve | exact; regional context",
+  "asset:rus:barents_civ_fishing | civ_fv_okean (Default/Variant1) x2, civ_fv_sterntrawler_a (Variant1) x1 | transit (neutral civil) | missing_fit (Soviet variants pinned; flag via mission Nation=russia)",
+  "asset:rus:okhotsk_civ_fishing | civ_fv_okean (Default/Variant1) x2 | transit (neutral civil) | missing_fit (Soviet variants pinned; flag via mission Nation=russia)"
+ ],
+ "applied": [
+  "hn_kola_olenya_airbase (policy, Tu-95MS loadout): verified in the winning mods-source/3715323261/aircraft/wp_tu95ms.ini that StrikePrecision loads KH-55, CAS loads KH-55SM, LandAttack loads KH-101 and Default loads KH-555. Also verified that the winning mods-source/3509329205/ammunition/KH-55.ini has Power=10000, nuclear explosion emitters and a 'nuclear cruise missile' language entry, and is the same munition as wp_tu-160 StrikeNuclear; KH-101 (Power 80) and KH-555 (Power 74) have conventional effects. olenya_tu95ms_1 now reads 'LandAttack (KH-101) only; Default (KH-555) is also conventional', with StrikePrecision and CAS explicitly excluded. olenya_tu95ms_2 now reads Empty or LandAttack, never StrikePrecision or CAS. The same wording is applied to engels_tu95ms_1/_2 and ukrainka_tu95ms_pair/_svc (rows, CHECKs, package notes, named_assets). The collection headline and the Olenya collection check now say 'wp_tu95ms: LandAttack/Default only'.",
+  "asset:rus:barents_ssbn_1 / okhotsk_ssbn_1 (policy): verified that mods-source/3468260539/vessels/wp_ssbn_borei.ini has a WeaponSystem7 #SLBM with 16 containers firing wp_r-39, and that the winning ammunition file has LandAttackCapability=Installation, Power=10000 and nuclear emitters. Added a 'CHECK (SSBN posture)' to the regional naval context: wp_ssbn_borei is placed only after a test run verifies a non-engagement / weapons-hold posture under which it never fires that system. Until then the R03:66 bastion presence is an abstract sea-area marker and the unit is not placed. Both SSBN rows now read qty '0 until the posture CHECK passes, then 1', and named_assets match. The markdown names the system only generically and adds no weapon detail.",
+  "asset:rus:barents_civ_fishing / okhotsk_civ_fishing (unit_id): verified in the vanilla civ_fv_sterntrawler_a_variants.ini that Default is Nation=Norway / flag_nor, Variant1 is Soviet / flag_civ_soviet and Variant2 is DDR. In civ_fv_okean_variants.ini only Default and Variant1 are Soviet; Variants 2-8 are Cuba, DDR, UK, France, Spain, Germany and Poland. The rows now pin civ_fv_sterntrawler_a Variant1 and civ_fv_okean Default/Variant1, then apply the mission Nation=russia / flag_civ_rus fix. The Olenya package's civilian routine line and named_assets are updated to match.",
+  "hn_kola_olenya_airbase (double_allocation): confirmed that the base row's CustomAirGroup 'listing only the rows below' took in the two patrol aircraft airborne at t0, and that Belaya's optional Il-78 had no asset id. The base row, a new Allocation CHECK and the package notes now state that the CustomAirGroup holds only the at-base rows (Tu-22M2 4+2, Tu-95MS 1, Tu-160 1, Il-76MD 1, optional Il-78 1). The patrol Tu-95MS and Tu-142M are placed airborne at t0, or added to the group and launched at t0, never both. Added asset:rus:belaya_il78_opt (wp_il-78, 0 by default, optional 1) as a Belaya forces row, in the package forces and in named_assets, distinct from asset:rus:olenya_il78_1. The Belaya allocations, AAR and routine lines now reference it.",
+  "hn_kola_olenya_airbase / rus_engels2_airbase (source_fidelity, R03:162): verified that R03:72 mentions 'profound vulnerabilities deeper inside European Russia', while R03:162 mentions only 'continuous redeployment of Russian bombers to the Arctic base of Olenya', moving assets 'out of immediate drone range', with no origin. Both connection rows, in the markdown and the packages, now read 'R03:72 (influx due to vulnerabilities deeper inside European Russia); R03:162 (redeployment to Olenya out of drone range; no origin named); Engels not named as origin'. The register's source_relationships line lies outside this region file and was not edited.",
+  "region Scope paragraph (source_fidelity): verified that R03:117 places the Tu-142/Tu-95 intercepts over the Barents Sea, and that R01:41 and R03:70 put Olenya on the Kola Peninsula. The scope now reads: 'In naval terms, the Barents Sea and the Sea of Okhotsk appear only as SSBN \"bastions\" (R03:66), and Kola only as a submarine departure area (R03:115, R03:166). The Barents Sea is also the airspace of the Tu-142/Tu-95 intercepts (R03:117), and Kola is Olenya's location (R01:41, R03:70).'",
+  "hn_kola_olenya_airbase (wp_tu95ms Role): verified that the winning wp_tu95ms.ini has [AI] Role=MPA,ASW, AssetBundleMesh=wp_tu-142m, and a torpedo station and sonobuoy positions in WeaponSystem1. Added a collection CHECK ('wp_tu95ms declares Role=MPA,ASW (Tu-142M-derived file); AI tasking as a bomber untested; outcome stays exact for name and loadout; verify in the placement or runtime test'). It appears in the collection headline, the Olenya, Engels and Ukrainka CHECK lists, every Tu-95MS row, the package checks and notes, and as a gap in all three packages.",
+  "hn_kola_olenya_airbase (position precedent): verified that exactly 17 files carry MapCenterLatitude=69.25 / MapCenterLongitude=33.23. All are copies, variants or backups of 'chapter 4 - Kill Kuznetsov': 1 under integration/missions and 16 under mods-source/_vanilla/user/missions. Also verified that 4 of the 7 Taskforce2 surface-ship types in the repo copy do not resolve with find_unit_file. The position line, in the markdown and the package, now describes one Kola positional precedent present in several copies or backups, with partly stale Russian ship ids. The 44 NM air / 69 NM land distances are unchanged."
+ ],
+ "declined": [],
+ "original_verify": {
+  "ids_checked": 27,
+  "problems": [
+   {
+    "world_id": "hn_kola_olenya_airbase",
+    "kind": "policy",
+    "problem": "asset:rus:olenya_tu95ms_1 says to use 'Conventional Kh-101 loadouts (LandAttack, StrikePrecision)'. In the winning file (mods-source/3715323261/aircraft/wp_tu95ms.ini) StrikePrecision loads KH-55, not Kh-101. The winning ammunition/KH-55.ini (3509329205) has Power=10000 and nuclear_underwater_surface_part explosion emitters, and its language entry calls it a 'nuclear cruise missile'. It is the same munition the package already excludes as wp_tu-160 StrikeNuclear. For comparison, KH-101 is Power 80 and KH-555 is Power 74, both with conventional effects. CAS (KH-55SM) is also present. The package therefore recommends a nuclear-effect loadout and labels it conventional, which breaks seed:25 and the region's own exclusion. asset:rus:olenya_tu95ms_2 (patrol) names no loadout. The Engels and Ukrainka Tu-95MS rows say only 'Kh-101 conventional loadouts', which is just as open to misreading.",
+    "fix": "Olenya tu95ms_1: change the loadout to 'LandAttack (KH-101) only; Default (KH-555) is also conventional'. Explicitly exclude StrikePrecision (KH-55, nuclear-effect model, same as Tu-160 StrikeNuclear) and CAS (KH-55SM). Olenya tu95ms_2: Empty or LandAttack, never StrikePrecision. Apply the same wording to asset:rus:engels_tu95ms_1/_2 and asset:rus:ukrainka_tu95ms_pair/_svc. Correct the collection checks line to read 'wp_tu95ms: LandAttack/Default only'."
+   },
+   {
+    "world_id": "asset:rus:barents_ssbn_1 / asset:rus:okhotsk_ssbn_1 (regional naval context)",
+    "kind": "policy",
+    "problem": "The Borei rows promise 'no launch orders and no nuclear or weapons-employment detail', but the unit file carries a live strategic-missile weapon system. mods-source/3468260539/vessels/wp_ssbn_borei.ini has WeaponSystem7 #SLBM with 16 containers firing wp_r-39. Its winning ammunition file has LandAttackCapability=Installation, Power=10000 and nuclear explosion emitters. Leaving out launch orders does not stop the AI from using the weapon under weapons-free, so the 'bare fact of a strategic submarine force' guarantee is untested.",
+    "fix": "Keep the SSBNs as presence or hunt objectives only. Add a CHECK: the unit must hold a verified non-engagement / weapons-hold posture, tested in a run so that it never fires its strategic weapon system. Otherwise, represent the R03:66 bastion presence abstractly (sea-area marker) and do not place wp_ssbn_borei. Add no further weapon detail."
+   },
+   {
+    "world_id": "asset:rus:barents_civ_fishing",
+    "kind": "unit_id",
+    "problem": "civ_fv_sterntrawler_a is listed with no variant, and the row says 'The unit flag is the Soviet civil flag'. In the winning vanilla civ_fv_sterntrawler_a_variants.ini, Default is Nation=Norway / flag_nor, and only Variant1 is Nation=Soviet / flag_civ_soviet (Variant2 is DDR). civ_fv_okean is Soviet only on Default and Variant1; Variants 2-8 are Cuba, DDR, UK, France, Spain, Germany and Poland. As written, the Barents 'Russian' trawler would spawn Norwegian.",
+    "fix": "Specify civ_fv_sterntrawler_a Variant1 and civ_fv_okean Default/Variant1, then apply the mission Nation=russia / flag_civ_rus fix. Use the same variant pin for asset:rus:okhotsk_civ_fishing (civ_fv_okean Default/Variant1)."
+   },
+   {
+    "world_id": "hn_kola_olenya_airbase",
+    "kind": "double_allocation",
+    "problem": "The base row says to replace the AirGroup with 'a CustomAirGroup listing only the rows below'. Those rows include the two aircraft airborne at t0: asset:rus:olenya_tu95ms_2 (patrol) and asset:rus:olenya_tu142_1 (patrol). If a builder lists them in the base CustomAirGroup and also places them airborne, each is counted twice. Belaya's optional Il-78 has no asset id, so it could be read as the Olenya Il-78 (asset:rus:olenya_il78_1) appearing at two bases.",
+    "fix": "State that the Olenya CustomAirGroup holds only at-base rows: Tu-22M2 4+2, Tu-95MS 1, Tu-160 1, Il-76MD 1, optional Il-78 1. Place the patrol Tu-95MS and Tu-142M as airborne units, or launch them from the group at t0, but not both. Give Belaya's optional tanker its own id (e.g. asset:rus:belaya_il78_opt, 0 by default), distinct from asset:rus:olenya_il78_1."
+   },
+   {
+    "world_id": "hn_kola_olenya_airbase",
+    "kind": "source_fidelity",
+    "problem": "The Olenya connection to rus_engels2_airbase reads 'R03:72 and R03:162 say European Russia'; the JSON reads 'R03:72, R03:162 (redeployment from European Russia)'; the Engels connection cites 'R03:72 and R03:162 (Olenya inflow from European Russia)'. Only R03:72 mentions 'vulnerabilities deeper inside European Russia'. R03:162 says only that 'continuous redeployment of Russian bombers to the Arctic base of Olenya' moves assets 'out of immediate drone range'. The register's source_relationships line has the same over-citation.",
+    "fix": "Reword to 'R03:72 (influx due to vulnerabilities deeper inside European Russia); R03:162 (redeployment to Olenya out of drone range; no origin named); Engels not named as origin'. Apply this in both the Olenya and Engels connection rows."
+   },
+   {
+    "world_id": "region (Scope paragraph)",
+    "kind": "source_fidelity",
+    "problem": "The scope says 'The Barents Sea and the Sea of Okhotsk appear only as SSBN \"bastions\" (R03:66), and Kola appears only as a submarine departure area (R03:115, R03:166)'. R03:117 places Evenes intercepts of Tu-142 and Tu-95 aircraft over the Barents Sea, and the package itself uses R03:117 for its Barents patrols; the register's Barents entry cites R03:66 and R03:117. Kola is also Olenya's location (R01:41, R03:68, R03:70).",
+    "fix": "Write: 'In naval terms, the Barents Sea and Sea of Okhotsk appear only as SSBN bastions (R03:66), and Kola only as a submarine departure area (R03:115, R03:166). The Barents Sea is also the airspace of the Tu-142/Tu-95 intercepts (R03:117), and Kola is Olenya's location (R01:41, R03:70).'"
+   },
+   {
+    "world_id": "hn_kola_olenya_airbase",
+    "kind": "other",
+    "problem": "wp_tu95ms is mapped as an exact Tu-95MS strategic bomber, but its winning unit file declares Role=MPA,ASW. It is built on the Tu-142M (AssetBundleMesh=wp_tu-142m, with torpedo and sonobuoy station definitions in WeaponSystem1). How the AI tasks it when used as a bomber is untested, and the package does not mention this. It applies to every Tu-95MS row (Olenya, Engels, Ukrainka).",
+    "fix": "Add a collection CHECK to each Tu-95MS row: 'wp_tu95ms declares Role=MPA,ASW (Tu-142M-derived file); AI tasking as a bomber untested'. Keep the outcome exact for name and loadout, and verify behaviour in the placement or runtime test."
+   },
+   {
+    "world_id": "hn_kola_olenya_airbase",
+    "kind": "other",
+    "problem": "The position evidence says 'The Kola map centre 69.25,33.23 is used in 7 mission files'. Every file with MapCenterLatitude=69.25 is a copy, variant or backup of the same 'chapter 4 - Kill Kuznetsov' mission. There are 17 such files on disk, under integration/missions and mods-source/_vanilla/user/missions. That is one positional precedent, not seven independent ones.",
+    "fix": "Write: 'One Kola positional precedent (chapter 4 - Kill Kuznetsov, centre 69.25,33.23, present in several copies or backups); its Russian ship ids are partly stale'. Keep the 44 NM air / 69 NM land distances as stated."
+   }
+  ],
+  "verdict": "Mostly sound, but needs fixes before use. Every cited R01/R03 line says what the package claims, apart from two minor over-citations (R03:162 'European Russia'; the Barents/Kola 'only' wording). All register fidelity fixes and missing claims are applied: the Engels operator, the R03:160 joint statement, the munitions-storage wording, the restored Olenya R03:72/74 wording and southward-sortie claim, seed:25 in place of plan:43, and the Ukrainka operator, inland-location and R03:162 notes. All 27 unit ids used resolve with find_unit_file/winning_file. Squadron, variant, capacity, flight-deck stock, AAR receiver, Chilikin supply-block and language-merge claims checked out. The outcome labels (exact/proxy/missing_fit/none) are honest, and the lens corrections are applied: wp_airbase_modern Default for Ukrainka and Belaya, wp_tu160air as proxy, Kilo Variants 7-11, the Chilikin 8,000-13,000-point wording, and the Ural truck covering only unpriced rounds. Quantities are small and role-appropriate, the munitions storage stays abstract, there is no fleet at any base, no sanctuary or deterministic vulnerability rule, and Ban Keun does not apply. The SOURCE, CHECK and SCENARIO labels are present throughout. One high-severity defect: the recommended wp_tu95ms 'StrikePrecision' loadout is KH-55, which is modelled as a nuclear weapon (Power 10000, nuclear explosion effects) and is the same munition as the excluded Tu-160 StrikeNuclear, yet it is labelled 'conventional Kh-101'. Restrict the Tu-95MS to LandAttack (and Default). One medium policy check: wp_ssbn_borei carries a live strategic-missile weapon system, so its 'presence only' status needs a verified weapons-hold posture, or the bastion should stay abstract. Lower fixes: pin the Soviet trawler variants (the civ_fv_sterntrawler_a Default is Norwegian); keep the airborne Olenya patrol aircraft out of the base CustomAirGroup, and give Belaya's optional Il-78 its own asset id; add a Role=MPA,ASW check on wp_tu95ms; describe the Kola mission precedent as one mission, not seven."
+ }
+}

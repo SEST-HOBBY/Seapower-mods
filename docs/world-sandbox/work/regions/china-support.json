@@ -1,0 +1,615 @@
+{
+ "key": "china-support",
+ "markdown": "## Region summary: Chinese national logistics (JLSF) and the Ban Keun lead\n\n**Nodes (7):** the six JLSF nodes (Wuhan HQ, and the JLSCs at Wuxi, Guilin, Xining, Shenyang and Zhengzhou) and the Ban Keun research lead.\n\n**SOURCE CLAIM (R02:36-59, R01:33-37).**\n- R02 describes the PLA Joint Logistics Support Force as a national HQ at Wuhan (R02:42) with five theatre-aligned Joint Logistics Support Centers beneath it (R02:44, R02:52-59).\n- It names Guilin and Wuxi jointly as the logistics anchors that \"would feed fuel and munitions\" to Yulin, Longpo and Ningbo (R02:48).\n- It says the logistics centres may mobilise civilian rail, motor transport, air freight and maritime shipping (R02:50). R02:79 adds a simulation-guidance recommendation (activate civilian maritime and rail assets via the JLSCs), not a further factual claim.\n- R01 repeats the HQ and five-JLSC statements (R01:35). It adds the Ban Keun training-centre claim under the same heading (R01:33, R01:37).\n- Repetition across the reports is not corroboration.\n\n**Representation.**\n- **All six JLSF nodes stay abstract**, as recorded in the register. They are register-only abstract logistics nodes and no installation is placed, for two reasons:\n  - No PLA logistics or HQ unit exists in the collection (China lens installations: Wuhan, Wuxi, Guilin, Shenyang, Xining and Zhengzhou are all 'fit none').\n  - Every one of the six is inland, from about 187 NM (Wuxi) to about 1,100 NM (Xining) from the nearest proven mission placement.\n- **Ban Keun is do_not_populate** (plan:44).\n\n**SCENARIO CHOICE: how the JLSF reaches the sea game.**\n1. **Mobilised merchant hulls.** The only physical assets this region owns are four mobilised civilian merchant hulls, which stand for R02:50 civil-military fusion (SOURCE CLAIM: mobilisation authority) and the R02:79 surge mechanic (simulation guidance). There are two per theatre:\n   - Eastern: owned by Wuxi, running to Ningbo.\n   - Southern: owned by Guilin, running to Yulin.\n   - In each theatre one hull is underway on a coastal relief run and one is a dormant surge reserve with a single release.\n2. **No PLAN auxiliaries here.** PLAN replenishment ships (Type 903A, Type 901) belong to the PLAN, not the JLSF. Their named hulls are left to the Yulin, Ningbo and Djibouti packages, and none is allocated here.\n3. **Shore stock belongs to the base packages.** The JLSF-fed depot behind each named naval base is that base package's shore supply. It is not modelled here.\n4. **Disruption is gradual, never instant.**\n   - It comes from finite pools emptying and from relief hulls being sunk.\n   - The Wuhan rail-hub disruption (R01:68 = R02:78) becomes at most a delay on releasing the surge reserves.\n   - R01:67/R02:77's 'instantly degrade' is not implemented (seed:23).\n\n**Fidelity fixes applied (source-register fidelity checks 0 and 2):**\n- **Guilin:** lists Yulin, Longpo and Ningbo jointly under R02:48. The Guilin-to-Yulin/Longpo pairing is labelled an authored theatre-alignment inference.\n- **Wuxi:** Ningbo is removed as a sourced 'supplied base'. A Wuxi-to-Ningbo link is authored only, from theatre alignment (R02:44, R02:55; R03:105, R01:31).\n- **Zhengzhou and Wuhan:** the conflict note is reworded to 'R02 gives two Central-theatre entries (Wuhan R02:54, Zhengzhou R02:59); the division of roles is unstated.'\n- **Network-wide claims:** R02:48 (depot types), R02:50 and R02:79 are recorded once at Wuhan/network level and apply to every JLSC.\n\n### What the engine and SEST replenishment actually support (inventory evidence; nothing tested in game here)\n\n| Service | Evidence | Consequence for the JLSF chain |\n|---|---|---|\n| Ship ammunition at sea | `TruckSupplySystem` `[SupplySystem1]`:<br>- **plan_aor_type903a:** pool 220,000; MaxAmmoPoints 5,000; 80 pts/s; 0.6 nm; 2 receivers; own speed <=13 kn, receiver <=16 kn; Vessel and Submarine; categories AirTorpedo 32, SovietAdvancedASM 8, SEST_LandAttack 16, SEST_LongRangeSAM 24.<br>- **plan_aor_type901:** 400,000; 9,000; 110/s; 0.8 nm; categories AirTorpedo 40, SovietAdvancedASM 12, SEST_LandAttack 32, SEST_LongRangeSAM 32.<br>Both are SEST stand-ins on donor meshes, i.e. proxies (installations-placement-support (IPS) lens verify correction). SEST-tuned merchants also exist: civ_ms_c8, civ_ms_seabee, civ_ms_roro_a/b and civ_ms_mercur (IPS support_and_traffic). | Finite hulls are the only way JLSF effort reaches ships at sea. |\n| Ship ammunition at the shore | The only shore suppliers are RE-power's nv_pt_boats_docks (Vessel) and nv_pt_boats_docks_small (Submarine): AmmoCapacity 9,999,999,999, no ceiling, 3 nm, 6 receivers. No vanilla port carries supply (IPS gaps). | A ship alongside the Yulin or Ningbo stand-in pier draws without limit, so a depot 'running dry' (R01:67, R02:77) cannot happen there unless the base package chooses a finite representation. |\n| Supplier restocking | Not established. Pools deplete and are not refilled at sea or by any port (IPS gaps; docs/replenishment-in-play.md:113). A merchant can top up another supplier's own defensive magazine, not its supply pool (integration/replenishment/README.md). | Renewal means the next finite hull arriving, never a refill. |\n| Ship fuel | Not modelled: no vessel fuel keys, and 'oilers' pass ammunition only (IPS gaps). | POL depots, pipelines and fuel stations (R02:48) are abstract. |\n| Repair | Not established outside the Task Force Mode between-mission flags (IPS gaps). | None. |\n| Aircraft fuel | Air-to-air refuelling only, both RefuelSystem: plaaf_yy-20a (FuelCapacity 75,000) and plaaf_y-20b (75,000, Tanker loadout only: mods-source/3782020901/aircraft/plaaf_y-20b.ini [WeaponSystem1Tanker] :171-173). The IPS verify missed-asset figure of 160,000 is stale (it is usaf_kc-10's value; the Y-20B read 45,000 before the 6 Oct export, commit 25e18b9b). | These are PLAAF aircraft for the aviation nodes, not JLSF assets. |\n| Air cargo ammunition | The only such system is usaf_c-141b's PlaneCargoSupplySystem (US-flagged, untested; IPS verify missed asset). | No Chinese equivalent, so civil air freight (R02:50) cannot be represented. |\n| Land-unit rearm | nv_headquarters: unlimited, LandUnit targets, 2 nm. tgt_ammo_depot_small: finite 200,000-point pool, LandUnit targets, 1.5 nm. | An option for the coastal TEL packages to stand for a JLSF ammunition depot. It cannot reach ships or aircraft. |\n| Finite reserve release | A unit can start `Disabled=True` and be woken by a trigger with `Action_SetEnabledStatus=True`. Stock uses this, on one vessel among others (scope-and-performance 2.8). | This is the mechanism for a one-shot surge reserve. It is untested in a SEST world and across save/load. |\n| Respawning traffic | `[CivilianRouteN]` respawns units, which conflicts with finite allocation unless MaxUnits is bounded (IPS placement_and_engine). | Not used for mobilised hulls. |\n\n**PLAN receiver fit.** File-derived from AmmoPoints and SupplyCategory; untested.\n\n| Round | Carried by | Points | Category | Type 903A (ceiling 5,000) | Type 901 (ceiling 9,000) | civ_ms_c8 (ceiling 8,000) | civ_ms_roro_a (ceiling 2,000) |\n|---|---|---|---|---|---|---|---|\n| HHQ-9B | 052D / 055 | 5,250 | SEST_LongRangeSAM | refused | admitted | admitted | refused |\n| YJ-18C | 052D / 055 | 5,100 | SEST_LandAttack | refused | admitted | admitted | refused |\n| YJ-19 | 039B | 8,800 | SEST_LandAttack | refused | admitted | refused | refused |\n| Yu-8 ASROC | 052D / 054A | 2,600 | none | admitted | admitted | admitted | refused |\n| Yu-11 / Yu-15 | 056A (the proposed escort) / 055 | 2,950 | none | admitted | admitted | admitted | refused |\n| Yu-10 | 039B | 4,850 | none | admitted | admitted | admitted | refused |\n| YJ-83 / YJ-83A, HQ-10, Yu-12, guns | various | up to 1,675 | none | admitted | admitted | admitted | admitted |\n| Unrationed: HHQ-9C, YJ-17, YJ-18A, YJ-20 (052D / 055); HQ-16C (054A); Yu-7C (054A / 056A); YJ-12 ship; YJ-18, Yu-6, Yu-6A, Yu-9 (039B) | various | none declared | none | free | free | free | free |\n\n- **Unrationed rounds.** Some rounds carry neither AmmoPoints nor a category, so any supplier, including a Ro-Ro and the unlimited pier, hands them over without depleting its pool (\"no gate can ration the transfer\", integration/replenishment/README.md). \"free\" in the table above means this:\n  - plan_yj-18a, plan_yj-20 and plan_yj12_ship (integration/replenishment/README.md);\n  - plan_yu-7c_ship, pla_yu-6 and pla_yj-18 (China lens);\n  - plan_hhq-9c and plan_yj-17: integration/dist/SEST_Integration/vessels/plan_type_052d_p3.ini Ammunition at :433, :958 and :615, :840; both also on plan_type_055_2026;\n  - plan_hq-16c: plan_type_054a_p5.ini :816, :901, :986, the whole SAM load of the proposed 054A escort;\n  - plan_yj-18, plan_yu-6, plan_yu-6a and plan_yu-9 on plan_ss_type_039b.\n  - Winning ammunition files re-resolved with find_unit_file; none of these declares AmmoPoints or SupplyCategory.\n  - This is a CHECK on the finite-logistics intent, and a larger one than a footnote: much of the 052D/055 heavy load (HHQ-9C, YJ-17, YJ-18A, YJ-20) and all of the 054A's HQ-16C refill free. Finite hulls ration only the metered rounds: HHQ-9B, YJ-18C and YJ-19, plus the priced uncategorised rounds against each supplier's ceiling.\n\n### Civil-military fusion: hulls that could act as mobilised logistics (proposal)\n\n| Unit id | Hull and supply (winning file) | Variant flags | Outcome as mobilised Chinese shipping | Use here |\n|---|---|---|---|---|\n| civ_ms_roro_a | 205.8 m Ro-Ro, ServiceDate 1972. Pool 80,000; ceiling 2,000; 30/s; 0.5 nm; 1 receiver; <=8/12 kn; Harpoon 8, AirTorpedo 16. Placed in 13 SEST/stock mission files. | US, Norway, Soviet | proxy: visible label, and a per-unit Nation=china that is untested for vessels | allocated x2 |\n| civ_ms_c8 | 272 m barge carrier, ServiceDate 1968. Pool 300,000; ceiling 8,000; 35/s; 0.5 nm; 1 receiver; <=8/12 kn; Harpoon 24, AirTorpedo 32, ALWT 16, SEST_LandAttack 16, SEST_LongRangeSAM 16. Placed in 11 files. | US, Norway, Germany, Netherlands | proxy | allocated x2 |\n| civ_ms_seabee | As the C8, plus SovietAdvancedASM 8. No stock or integration/ mission placement; placed in game-written SEST user saves (mods-source/_vanilla/user/missions/user_missions/SEST/NORTHERN FRONT III FINAL NEWEST.ini:381, mods-source/_vanilla/user/missions/NORTHERN FRONT.ini:381) and one Workshop mission (mods-source/3491248180/missions/The Falklands War/Mission 1 - Baptism of Fire.ini:537). | US, Soviet | proxy | alternative to the C8 |\n| civ_ms_roro_b / civ_ms_mercur | 139.6 m Ro-Ro / 169.6 m container ship. Pools 80,000 / 50,000; ceiling 2,000; AirTorpedo 16 / 12. | Soviet | proxy | spare alternatives |\n| RE-power merchants (civ_ms_freighter_a/b/d, civ_ms_poltava, civ_ms_amra, etc.) | Live supply: pool 2.4-12 million, no ceiling, near-instant transfer, Vessel targets only. | various; no China | rejected: unlimited supply breaks the finite rule. Also avoid them as neutral traffic near PLA forces. | not used |\n| plan_ap_qiongsha | China-flagged natively (flag_prc). No supply block. ServiceDate 1980, no end date (Cold War hull). | China | missing_fit: presence only, no logistics function | fallback only if the Nation override fails |\n| plan_lst_yukan | China-flagged natively. No supply block. Every variant's ServiceDate ends in 2020 (1979, 1981 or 1982 to 2020). | China | missing_fit, and out of date for a 2026 world | not a fallback |\n| civ_fv_fishingboat_a, Variant5 'Fishing boat China' | Fishing boat, no supply. Its variant flag is US. | US | not a logistics asset | the maritime-militia gap belongs to the Chinese maritime packages |\n| Civil air freight / rail / heavy motor transport | No Chinese civil cargo aircraft: the China squadrons of civ_a330 are airliners. Rail is not modelled. Trucks rearm land units only. | - | none | abstract; backlog |\n\n**Region-wide checks.**\n- **Per-unit vessel nation is unproven.** Stock missions write `Nation=` on vessel sections. For example, 'Red Madagascar 1985.ini:300-309' places civ_fv_fishingboat_a, whose variants are all Nation=US, with Nation=india. However:\n  - the China lens states that vessel nation comes from the variant file;\n  - the IPS lens lists per-unit flag rendering as unverified;\n  - the variants carry their own FlagTexture (e.g. flag_us).\n\n  So whether a C8 or Ro-Ro becomes PLA-side and flies a Chinese flag is untested.\n- **Identity.**\n  - The four mobilised hulls appear only in this region. The Yulin and Ningbo packages must not count them, even while they are at those anchorages.\n  - All four use `VariantReference=Default` (generic 'Barge Carrier' / 'RORO A') and a unique NameOverride carrying the asset (E-1, E-2, S-1, S-2). No MSC/RRF-named or real-merchant variant is consumed here (see Wuxi labelling).\n  - Relief escorts are base-package assets, never JLSF ones. An escort that sails at t=0 needs a reciprocal slot in the Ningbo or Yulin package (proposed asset:chn:ningbo_relief_escort_1 and asset:chn:yulin_relief_escort_1; requested of the china-maritime register, not yet in it). An escort for a reserve release leaves its base count when it sails.\n  - No PLAN AOR hull is allocated here: Taihu 889, Chaohu 890, Honghu 963, Luomahu 964, Hulunhu 965 and Chaganhu 967 remain available to the naval packages.\n- **City-name collisions.** Ship hulls named after JLSF cities are ships, not these nodes:\n  - Wuxi: 104 (Type 055) and FF-512;\n  - Guilin: 164;\n  - Xining: 117 and DDG-108;\n  - Zhengzhou: 151;\n  - Wuhan: 169 (052B), plus the vanilla plan_ssg_wuhan class;\n  - Shenyang: 115 (051C).\n\n  Source: China lens placement_and_engine and verify correction.\n\n---\n\n### chn_jlsf_wuhan_base - Wuhan Joint Logistics Support Base\n\n**Identity.**\n- Aliases: Wuhan JLSF Base, JLSF HQ.\n- Operator: PLA Joint Logistics Support Force (as reported).\n- Host: China, Hubei.\n- Source section: R02:36-59, R01:33-35.\n- Policy: abstract_logistics_only.\n\n**SOURCE CLAIM.**\n- Created in a 2016 restructuring; centralises sustainment of the Army, Navy, Air Force and Rocket Force (R02:38).\n- Upgraded to a full PLA 'Arm' in 2024, centralising sustainment under a unified command structure (R02:38; R01:35).\n- HQ at the Wuhan base in Hubei (R02:42; R01:35).\n- Wuhan was chosen as China's geographic 'weight center' and a national rail, road and river hub (R02:42).\n- Five JLSCs beneath it mirror the five Theater Commands: Wuxi, Guilin, Xining, Shenyang and Zhengzhou (R02:44). R01:35 gives the count only.\n- Network-wide claims (recorded here per the fidelity checks):\n  - the JLSCs manage POL depots, oil pipeline groups, field fuel station detachments, ammunition depots, quartermaster depots and heavy equipment transport units (R02:48; shorter list at R01:35);\n  - the logistics centres may mobilise civilian rail, heavy motor transport, air freight and maritime shipping (R02:50);\n  - a player as the PLA should be able to activate civilian maritime and rail assets via the JLSCs (R02:79, simulation guidance).\n- Table row: 'Central Command / National HQ' (R02:54).\n- Bombing major rail hubs out of Wuhan should cascade into reinforcement delays for frontline bases (R01:68 = R02:78, a verbatim repeat; simulation guidance).\n\n**CHECK.**\n- 'Arm'/2024 terminology is a priority check (seed:23).\n- R02 gives two Central-theatre entries (Wuhan R02:54, Zhengzhou R02:59); the division of roles is unstated.\n- The rail hubs and frontline bases are unnamed (expansion backlog).\n- The overlapping lines in R01 and R02 are not corroboration.\n- Hull 'Wuhan (169)' (plan_type_052b_2004/_2019) and vanilla plan_ssg_wuhan are ships, not this node.\n\n**Role.** Command: national logistics HQ. It is not a tactical depot (plan:17, 'A headquarters is not automatically a tactical ammunition depot'; plan:36, Chinese national support row).\n\n**Position.**\n- Hubei Province (R02:42, R02:54). Public approximate position (city centre; the facility's site is not given): 30.6N 114.3E. Approx, verify.\n- In-game evidence: none nearby.\n  - Nearest proven placement: land about 382 NM (airfield_small_1 at 26.00N 119.31E, stock pacific-strike-task-force/missions/02 Action in the Taiwan Strait.ini:574); air about 350 NM; sea about 396 NM.\n  - Nearest stock world-data point: asia_ports.ini [Shanghai] (a city label), about 371 NM.\n  - Inland terrain is untested.\n- No placement is proposed.\n\n**Forces (SCENARIO CHOICE).**\n\n| Asset | Allocation | Role | Unit | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:chn-jlsf:wuhan-hq | abstract | National logistics HQ, register-only | - | none | 0 units | R01:35, R02:42, R02:54 |\n| asset:chn-jlsf:wuhan-rail-hubs | abstract | Unnamed rail hubs out of Wuhan; only a reinforcement-timing modifier | - | none | 0 units | R01:68, R02:78 |\n\nRepresentations considered and not placed:\n- **nv_headquarters** (RE-power 'Army Headquarters'): rearms only land units within 2 nm and renders as a Vietnamese HQ.\n- **warehouses_3** (vanilla): a target object with no supply.\n- **tgt_ammo_depot_small:** supplies land units only.\n- **plaaf_airlift_airbase** (Y-20A/B, YY-20A): the operator is the PLAAF, not the JLSF. It is a proxy only. The airlift has no ammunition-cargo supply function (no PlaneCargoSupplySystem): the Y-20B carries Transport, Tanker and Paradrop loadouts only (Paradrop stations pla_airdrop_type63 and pla_paratrooper).\n\n**Support.** Ship ammunition, aircraft turnaround, restocking, fuel and repair are all not established. The node has no physical presence.\n\n**Connections.**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| chn_jlsf_wuxi_jlsc, chn_jlsf_guilin_jlsc, chn_jlsf_xining_jlsc, chn_jlsf_shenyang_jlsc, chn_jlsf_zhengzhou_jlsc | parent HQ of the JLSCs | source | R02:44 (R01:35 count) |\n| chn_zhejiang_ningbo_naval_base, chn_hainan_yulin_naval_base | reinforcement-timing modifier (rail hubs out of Wuhan) | authored | R01:68, R02:78; the hubs and frontline bases are unnamed and the pairing is ours |\n\n**Routine activity.** Proposed, abstract, not implemented. If rail disruption is modelled at all, it only delays the release triggers of asset:chn-jlsf:wuxi-mob-cargo-2 and asset:chn-jlsf:guilin-mob-roro-2. It never disables units or depots. Because no Wuhan target exists, the delay would be driven by an authored timeline or event.\n\n**Validation.**\n- Research: abstract node, terminology check open.\n- Mapping: none.\n- Placement: none proposed.\n- Runtime, save: not applicable.\n- Missing: a PLA HQ/logistics installation, a rail network, named hubs.\n\n---\n\n### chn_jlsf_wuxi_jlsc - Wuxi Joint Logistics Support Center\n\n**Identity.**\n- Aliases: Wuxi JLSC, 'the Wuxi center'.\n- Operator: PLA JLSF (as reported).\n- Host: China, Jiangsu.\n- Policy: abstract_logistics_only. The node is not placed; its sea effect comes through two mobilised hulls (SCENARIO CHOICE).\n\n**SOURCE CLAIM.**\n- A JLSC in Wuxi, aligned to the Eastern Theater and subordinate to Wuhan (R02:44).\n- Table row: Jiangsu Province; supports Eastern Theater Command (Taiwan Strait) (R02:55).\n- With Guilin, 'the critical logistical anchors that would feed fuel and munitions to the naval bases at Yulin, Longpo, and Ningbo' (R02:48). No per-base pairing is given.\n- Depots under 'the Wuxi center'; if they run dry, effectiveness 'must instantly degrade' (R01:67 = R02:77, simulation guidance).\n- Network claims R02:48, R02:50 and R02:79 apply (recorded at Wuhan).\n\n**CHECK.**\n- A Wuxi-to-Ningbo link is an authored inference from theatre alignment (R02:44, R02:55; R03:105, R01:31), not a source claim. This is the fidelity check 2 fix.\n- 'Would feed' is conditional framing.\n- No instant-disable rule (seed:23).\n- JLSF terminology is a priority check (seed:23). The depots are unnamed.\n- R01:67/R02:77 is a repetition; only R02 gives the location.\n- Hulls 'Wuxi (104)' (plan_type_055_2020/_2026 and their RSA duplicates) and 'Wuxi FF-512' (vanilla plan_ff_jianghu1) are ships.\n\n**Role.** Regional logistics centre, abstract.\n\n**Position.**\n- Node: Jiangsu (R02:55). Public approximate city centre 31.5N 120.3E; the facility is not given. Approx, verify.\n- In-game evidence for the node:\n  - Nearest proven placement: land about 187 NM (airfield_small_1 at 28.54N 121.42E, stock pacific-strike-task-force/missions/01 Raid on Okinawa.ini:402); air about 223 NM; sea about 294 NM.\n  - Stock world-data asia_ports.ini [Shanghai] (Location 31.2304,121.4737, Nation=China; a city label loaded as BackgroundCityFile3 by 01 Raid on Okinawa.ini:467), about 62 NM away.\n- Relief run (SCENARIO CHOICE): from the Yangtze estuary approaches at about 31.0N 122.2E, south to the Ningbo/Zhoushan approaches at about 29.9N 122.2E. Approx, verify water.\n  - The nearest proven sea placement to Ningbo is about 206 NM away (civ_ms_andizhan at 26.61N 120.78E). That is beyond the builder's 60 NM snap, and the committed coast extract covers only 100-180E / 25-72S.\n  - Validate the route with the global-land-mask tools (fix_land_positions.py, sea_routes.py).\n\n**Forces (SCENARIO CHOICE).**\n\n| Asset | Allocation | Role | Unit | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:chn-jlsf:wuxi-jlsc | abstract | Eastern Theater JLSC and its unnamed depots | - | none | 0 units | R02:44, R02:48, R02:55 |\n| asset:chn-jlsf:wuxi-mob-roro-1 | transit | Mobilised Ro-Ro on a coastal relief run to Ningbo, then a slow cargo-pass supplier at the anchorage | civ_ms_roro_a | proxy | 1 hull | SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic); hull, number and route are SCENARIO CHOICE |\n| asset:chn-jlsf:wuxi-mob-cargo-2 | reserve | Dormant surge cargo ship, released once | civ_ms_c8 | proxy | 1 hull | SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic); hull, number and trigger are SCENARIO CHOICE |\n\n**Labelling and allocation for both hulls.**\n- Labels:\n  - a unique `NameOverride` per hull carrying its asset: 'Mobilised Ro-Ro E-1 (stand-in)' (wuxi-mob-roro-1) and 'Mobilised cargo ship E-2 (stand-in)' (wuxi-mob-cargo-2);\n  - per-unit Nation=china (CHECK);\n  - `VariantReference=Default` on both: the generic 'RORO A' / 'Barge Carrier' (Nation=US, flag_us, ServiceDate 1972 / 1968).\n- Named variants are not used. civ_ms_c8 Variants 23-26 are the MSC hulls Cape Fear, Cape Flattery, Cape Florida and Cape Farewell (T-AK-5061, 5070-5072). civ_ms_roro_a Variants 6-10 are the Ready Reserve hulls Cape Ducato to Cape Diamond (T-AKR-5051 to 5055). The other variants are named real merchants (language_en/vessel_names.ini). US or Indian Ocean packages may allocate those named hulls, and a named variant keeps its own FlagTexture.\n- Default is a generic class label, not a hull identity, so other regions using it is not a double allocation. Identity is the asset id plus the NameOverride.\n- Owned here; the Ningbo package does not count them.\n- Escort: a Ningbo package asset, never allocated here (see Routine activity).\n\n**Why these hulls (authored rationale).**\n- A Ro-Ro reads as heavy-equipment and vehicle lift on a short strait run (R02:48 heavy equipment transport units; R02:50 maritime shipping).\n- The C8 reserve's 8,000 ceiling and SEST_LongRangeSAM/SEST_LandAttack stocks of 16 each let it pass HHQ-9B and YJ-18C, which a Type 903A cannot.\n- That argument covers only the metered heavy rounds: HHQ-9B and YJ-18C, with YJ-19 (8,800) metered but beyond the C8 ceiling too. HHQ-9C, YJ-17, YJ-18A, YJ-20 and the 054A's HQ-16C are unrationed and refill free from any supplier (region-wide CHECK).\n\n**Support.**\n- **Ship ammunition:**\n  - civ_ms_roro_a: pool 80,000, ceiling 2,000, 30 pts/s, 0.5 nm, 1 receiver, <=8/12 kn, Vessel and Submarine; Harpoon 8, AirTorpedo 16. It passes guns, HQ-10, YJ-83/83A and Yu-12. It refuses Yu-8 (2,600), the 056A escort's Yu-11 (2,950), the 039B's Yu-10 (4,850), HHQ-9B and YJ-18C, so it cannot fully restock its own escort.\n  - civ_ms_c8: pool 300,000, ceiling 8,000, 35 pts/s; Harpoon 24, AirTorpedo 32, ALWT 16, SEST_LandAttack 16, SEST_LongRangeSAM 16. It refuses YJ-19.\n  - Unrationed rounds flow free from either hull: HHQ-9C, YJ-17, YJ-18A, YJ-20, YJ-12 ship, HQ-16C, Yu-7C, and the 039B's YJ-18, Yu-6, Yu-6A and Yu-9.\n- **Aircraft turnaround and ordnance:** not applicable.\n- **Supplier restocking:** not established. Neither hull can refill a PLAN AOR's pool.\n- **Fuel:** not established for ships.\n- **Repair:** not established.\n- **At the destination:** Ningbo's stand-in pier (nv_pt_boats_docks, owned by the Ningbo package) is effectively unlimited.\n\n**Connections.**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| chn_jlsf_wuhan_base | subordinate to HQ | source | R02:44 |\n| chn_hainan_yulin_naval_base, chn_hainan_longpo_naval_base, chn_zhejiang_ningbo_naval_base | joint fuel/munitions anchor, with Guilin; no per-base pairing | source | R02:48 |\n| chn_zhejiang_ningbo_naval_base | relief-run destination and escort source | authored | R02:44, R02:55; R03:105, R01:31 |\n| sea:Taiwan Strait | supported theatre | source | R02:55, R02:48 |\n| sea:East China Sea | relief-run operating area | authored | R03:105 (not stated for Wuxi) |\n\n**Routine activity (proposed, not implemented).**\n- **roro-1:** starts underway at the estuary approach and transits about 70 NM to the Ningbo outer anchorage. It holds there as a finite supplier until its pool is spent or it is sunk, then departs or remains empty. One run, no respawn.\n- **cargo-2:** starts `Disabled=True` at an authored holding point off the estuary. It is released once, by a trigger, when roro-1 is spent or sunk or on an authored timeline. The Wuhan rule may delay the release.\n- **Escort (cross-package, one allocation per hull):**\n  - roro-1 is underway from t=0, so its escort is too. That escort must be a named reciprocal slot in the Ningbo package with allocation 'escort' from start: proposed asset:chn:ningbo_relief_escort_1, one hull of a type that package already fields (e.g. plan_type_054a_p3) on its own pinned variant. The slot is requested of the china-maritime register and is not yet in it. Until it exists, roro-1 runs unescorted rather than borrowing a hull the Ningbo package counts at its pier.\n  - For the cargo-2 release, the escort is taken from a Ningbo hull at base at release time (e.g. asset:chn:ningbo_ffg_1, resident_at_base) and leaves the Ningbo base count when it sails. The Ningbo package records the hand-over.\n  - The earlier example types (plan_type_056a, plan_type_054a_p5) are withdrawn: the Ningbo package fields neither.\n- **Neutral surroundings:**\n  - Vanilla non-supplying merchants with neutral flags: civ_ms_bulk (Japan, Liberia, Greece), civ_ms_car_carrier_a (Japan, Panama, Liberia), civ_ms_mairangi_bay (Japan).\n  - civ_a330 China squadrons as an airliner overflight; these need airways.\n  - No China-flagged merchant exists.\n  - Bound any CivilianRoute MaxUnits.\n\n**Validation.**\n- Research: abstract node; pairing inference labelled.\n- Mapping: civ_ms_roro_a and civ_ms_c8 re-resolved to SEST_Integration; outcome proxy.\n- Placement: pending; route not validated.\n- Runtime: the Nation override, the dormant release and the transfers are untested.\n- Save: saves hold supplier CurrentAmmo (scope-and-performance 2.9); reload is untested.\n- Missing: a China-flagged merchant or Ro-Ro, named depots and port.\n\n---\n\n### chn_jlsf_guilin_jlsc - Guilin Joint Logistics Support Center\n\n**Identity.**\n- Alias: Guilin JLSC.\n- Operator: PLA JLSF (as reported).\n- Host: China, Guangxi.\n- Policy: abstract_logistics_only. The node is not placed; its sea effect comes through two mobilised hulls (SCENARIO CHOICE).\n\n**SOURCE CLAIM.**\n- A JLSC in Guilin, aligned to the Southern Theater and subordinate to Wuhan (R02:44).\n- Table row: Guangxi Region; supports Southern Theater Command (South China Sea) (R02:56).\n- With Wuxi, the anchor that 'would feed fuel and munitions' to Yulin, Longpo and Ningbo, with no per-base pairing (R02:48).\n- Network claims R02:48, R02:50 and R02:79 apply.\n- Only R02 mentions Guilin.\n\n**CHECK.**\n- Fidelity check 0 fix: all three bases are listed under R02:48. The Guilin-to-Hainan pairing is an authored inference (R02:44, R02:56; R03:97-99, which place Hainan in the Southern Theater).\n- 'Would feed' is conditional framing.\n- JLSF terminology check (seed:23).\n- Hulls 'Guilin (164)' (plan_type_052d_p1/p3, RSA plan_ddg_type_052D_rsa) and Guilin DDG-164 (plan_ddg_luda_typ_051d, RSA plan_ddg_type051m, vanilla plan_dd_luda1) are ships.\n\n**Role.** Regional logistics centre, abstract.\n\n**Position.**\n- Node: Guangxi (R02:56). Public approximate city centre 25.3N 110.3E. Approx, verify.\n- In-game evidence for the node:\n  - Nearest proven placement: air about 413 NM (pla_q-5 at 18.41N 110.0E, stock PLAN/PLAN 01 Clash in the Paracels.ini:300); land about 421 NM (wp_airbase_4 at 18.30N 109.72E, pacific-strike-task-force/missions/10 Vengeance at Luzon.ini:1100); sea about 490 NM.\n  - Nearest world-data point: Hong Kong (asia_ports.ini), about 278 NM.\n- Relief run (SCENARIO CHOICE): from the eastern approach to the Qiongzhou Strait at about 20.1N 110.9E, down Hainan's east coast to the Yulin approaches at about 18.2N 109.6E (about 150 NM). Approx, verify water.\n  - Yulin has a proven land placement 8 NM away (airfield_small_1 at 18.29N 109.43E, stock PLAN 02 Battle of the South China Sea.ini:507).\n  - The nearest proven sea placement is about 112 NM away (civ_ms_poltava, same mission line 410).\n\n**Forces (SCENARIO CHOICE).**\n\n| Asset | Allocation | Role | Unit | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:chn-jlsf:guilin-jlsc | abstract | Southern Theater JLSC and its unnamed depots | - | none | 0 units | R02:44, R02:48, R02:56 |\n| asset:chn-jlsf:guilin-mob-cargo-1 | transit | Mobilised cargo ship on a relief run to the Yulin anchorage, then a finite cargo-pass supplier | civ_ms_c8 | proxy | 1 hull | SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic); hull, number and route are SCENARIO CHOICE |\n| asset:chn-jlsf:guilin-mob-roro-2 | reserve | Dormant surge Ro-Ro, released once | civ_ms_roro_a | proxy | 1 hull | SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic); hull, number and trigger are SCENARIO CHOICE |\n\n**Labelling and allocation.**\n- Labels: unique NameOverrides 'Mobilised cargo ship S-1 (stand-in)' (guilin-mob-cargo-1) and 'Mobilised Ro-Ro S-2 (stand-in)' (guilin-mob-roro-2); per-unit Nation=china (CHECK); `VariantReference=Default` on both, for the reasons given under Wuxi (no MSC/RRF-named or real-merchant variant).\n- Owned here; the Yulin package does not count them.\n- No relief routing to Longpo is proposed; the strategic submarine base is recorded as a bare fact only.\n- Rationale: the longer haul and the 300,000-point pool make the C8 the first arrival. Its 8,000 ceiling gives finite HHQ-9B and YJ-18C relief that the Type 903A cannot pass. This covers the metered rounds only; HHQ-9C, YJ-17, YJ-18A, YJ-20 and HQ-16C refill free from any supplier, including the Yulin pier.\n\n**Support.**\n- **Ship ammunition:** as in the Wuxi package (same two hull types and figures). The Ro-Ro refuses the 056A escort's Yu-11 (2,950) and the 039B's Yu-10 (4,850); the C8 admits both.\n- **Aircraft turnaround:** not applicable.\n- **Restocking, fuel, repair:** not established.\n- **At the destination:** the Yulin pier stand-in (owned by the Yulin package) is effectively unlimited.\n\n**Connections.**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| chn_jlsf_wuhan_base | subordinate to HQ | source | R02:44 |\n| chn_hainan_yulin_naval_base, chn_hainan_longpo_naval_base, chn_zhejiang_ningbo_naval_base | joint fuel/munitions anchor, with Wuxi; no per-base pairing | source | R02:48 |\n| chn_hainan_yulin_naval_base | relief-run destination and escort source | authored | R02:44, R02:56; R03:97-99 |\n| sea:South China Sea | supported theatre | source | R02:56, R02:48 |\n\n**Routine activity (proposed, not implemented).**\n- **cargo-1:** a one-way transit to the Yulin anchorage. It holds as a supplier until spent or sunk.\n- **roro-2:** starts `Disabled=True` off north-east Hainan, at about 20.0N 111.0E (approx, verify). It is released once by a trigger or timeline, with the Wuhan rule possibly delaying it.\n- **Escort (cross-package, one allocation per hull):**\n  - cargo-1 is underway from t=0, so its escort needs a named reciprocal slot in the Yulin package with allocation 'escort' from start: proposed asset:chn:yulin_relief_escort_1 (e.g. plan_type_056a, on a variant that package's other 056A hulls do not use). The slot is requested of the china-maritime register and is not yet in it. Until it exists, cargo-1 runs unescorted.\n  - For the roro-2 release, the escort is taken from a Yulin hull at base at release time (e.g. asset:chn:yulin_corvette_2, resident_at_base) and leaves the Yulin base count when it sails. The Yulin package records the hand-over.\n- **Neutral surroundings:** vanilla non-supplying merchants (civ_ms_bulk, civ_ms_ritina, civ_ms_car_carrier_a variants with Japan, Liberia, Greece or Panama flags). Avoid RE-power supplier merchants.\n\n**Validation.** As for Wuxi. Also, terrain and water near Hainan are partly proven by stock PLAN missions.\n\n---\n\n### chn_jlsf_xining_jlsc - Xining Joint Logistics Support Center\n\n**Identity.**\n- Alias: Xining JLSC.\n- Operator: PLA JLSF (as reported).\n- Host: China, Qinghai.\n- Policy: abstract_logistics_only (context only).\n\n**SOURCE CLAIM.**\n- A JLSC in Xining, Western Theater, subordinate to Wuhan (R02:44).\n- Table row: Qinghai Province; supports Western Theater Command (R02:58).\n- Network claims R02:48, R02:50 and R02:79 apply.\n- Only R02 mentions it.\n\n**CHECK.**\n- JLSF terminology check (seed:23).\n- No maritime role is stated.\n- Hulls 'Xining (117)' (052D, MPS and RSA) and Xining DDG-108 (Luda family) are ships.\n\n**Role.** Regional logistics centre, kept for completeness of the JLSF structure.\n\n**Position.**\n- Qinghai (R02:58). Public approximate city centre 36.6N 101.8E. Approx, verify.\n- In-game evidence: nearest proven placement about 1,100 NM (land: airfield_small_1 at 26.00N 119.31E, stock 02 Action in the Taiwan Strait.ini:574). It is the most remote JLSF node; the IPS lens puts Belaya further out (1,271 NM against Xining's 1,102).\n- Not placed.\n\n**Forces.**\n\n| Asset | Allocation | Role | Unit | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:chn-jlsf:xining-jlsc | abstract | Western Theater JLSC, register-only | - | none | 0 units | R02:44, R02:58 |\n\n**Support.** All not established.\n\n**Connections.** chn_jlsf_wuhan_base: subordinate (source, R02:44). Western Theater Command: supported theatre (source, R02:58; no world node).\n\n**Routine activity.** None.\n\n**Validation.** Abstract. No mapping or placement. Missing: nothing needed for the maritime sandbox.\n\n---\n\n### chn_jlsf_shenyang_jlsc - Shenyang Joint Logistics Support Center\n\n**Identity.**\n- Alias: Shenyang JLSC.\n- Operator: PLA JLSF (as reported).\n- Host: China, Liaoning.\n- Policy: abstract_logistics_only.\n\n**SOURCE CLAIM.**\n- A JLSC in Shenyang, Northern Theater, subordinate to Wuhan (R02:44).\n- Table row: Liaoning Province; supports Northern Theater Command (Yellow Sea/Korea) (R02:57).\n- Network claims R02:48, R02:50 and R02:79 apply.\n- Only R02 mentions it.\n\n**CHECK.**\n- No Northern Theater naval base is named in R01-R03 (backlog). Any maritime link would be authored.\n- JLSF terminology check (seed:23).\n- Hull 'Shenyang (115)' (plan_type_051c) is a ship.\n\n**Role.** Regional logistics centre, abstract.\n\n**Position.**\n- Liaoning (R02:57). Public approximate city centre 41.8N 123.4E. Approx, verify.\n- In-game evidence, all from user missions in the IPS scan scope:\n  - air about 127 NM (wp_tu-22m2 at 43.81N 124.31E, mods-source/_vanilla/user/missions/user_missions/GULF ATTACK .7.7.ini:1000);\n  - sea about 257 NM (civ_ms_ritina at 39.58N 128.23E, user mission 'newest 0.7 updated mods v2 smaller.ini:211');\n  - land about 282 NM (pla_sam_site_hq-9_morden at 41.35N 129.66E, user 'NK US ATTACK .7.ini:731').\n- Nearest world-data point: Pyongyang, about 198 NM.\n- Not placed.\n\n**Forces.**\n\n| Asset | Allocation | Role | Unit | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:chn-jlsf:shenyang-jlsc | abstract | Northern Theater JLSC, register-only | - | none | 0 units | R02:44, R02:57 |\n\nSCENARIO CHOICE: no mobilised hulls until a Northern Theater naval node is researched.\n\n**Support.** All not established.\n\n**Connections.** chn_jlsf_wuhan_base: subordinate (source, R02:44). sea:Yellow Sea / Korea: supported theatre (source, R02:57).\n\n**Routine activity.** None.\n\n**Validation.** Abstract. Missing: the PLAN Northern Theater naval bases (expansion backlog).\n\n---\n\n### chn_jlsf_zhengzhou_jlsc - Zhengzhou Joint Logistics Support Center\n\n**Identity.**\n- Alias: Zhengzhou JLSC.\n- Operator: PLA JLSF (as reported).\n- Host: China, Henan.\n- Policy: abstract_logistics_only.\n\n**SOURCE CLAIM.**\n- A JLSC in Zhengzhou, Central Theater, subordinate to Wuhan (R02:44).\n- Table row: Henan Province; supports Central Theater Command (Strategic Reserve) (R02:59).\n- Network claims R02:48, R02:50 and R02:79 apply.\n- Only R02 mentions it.\n\n**CHECK.**\n- Reworded per the fidelity fix: R02 gives two Central-theatre entries (Wuhan R02:54, Zhengzhou R02:59), and the division of roles is unstated.\n- 'Strategic Reserve' does not say what is held, so no naval reserve is inferred.\n- Hull 'Zhengzhou (151)' (052C, MPS and RSA) is a ship.\n\n**Role.** Regional logistics centre (strategic reserve), abstract.\n\n**Position.**\n- Henan (R02:59). Public approximate city centre 34.8N 113.6E. Approx, verify.\n- In-game evidence: nearest proven placement about 545 NM (land: airfield_small_1 at 28.54N 121.42E, stock 01 Raid on Okinawa.ini:402).\n- Not placed.\n\n**Forces.**\n\n| Asset | Allocation | Role | Unit | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:chn-jlsf:zhengzhou-jlsc | abstract | Central Theater JLSC and strategic reserve, register-only | - | none | 0 units | R02:44, R02:59 |\n\n**Support.** All not established.\n\n**Connections.** chn_jlsf_wuhan_base: subordinate (source, R02:44). Central Theater Command, strategic reserve (source, R02:59; no world node).\n\n**Routine activity.** None.\n\n**Validation.** Abstract. No mapping or placement.\n\n---\n\n### seasia_laos_ban_keun_airport - Ban Keun Airport (joint China-Laos aviation training centre claim)\n\n**Identity.**\n- Alias: Ban Keun.\n- Operator: China and Laos (joint, as claimed).\n- Host: Laos.\n- Node kind: research_lead.\n- Policy: **do_not_populate** (plan:44).\n\n**SOURCE CLAIM.**\n- China and Laos 'have opened a joint military aviation training centre at Ban Keun Airport' (R01:37).\n- 'While designated as a training facility', it is described as a new logistical and operational foothold for Chinese air assets beyond the south-western border (R01:37).\n- It appears under the heading 'The JLSF and Southeast Asian Expansion' (R01:33).\n- Only R01 mentions it.\n\n**CHECK.**\n- Priority check on the training claim (seed:23).\n- The claim is undated, and 'foothold' is interpretive.\n- Sharing a heading with the JLSF is not a stated JLSF role or relationship.\n- No assets, units or activity are named.\n- Do not populate an operational combat base on this claim alone (plan:44).\n\n**Role.** Research lead only.\n\n**Position.**\n- Vientiane Province, Laos. The location is not given by R01; public approximate 18.4N 102.6E. Approx, verify the exact airfield.\n- In-game evidence: none.\n  - Nearest proven placement about 215 NM (air: wp_mig-17 at 17.65N 106.29E, stock NATO/Dong Hoi.ini:294); land and sea about 225 NM (Dong Hoi user copy).\n  - Nearest world-data point: Hanoi, about 241 NM.\n- Landlocked.\n\n**Forces.** None. The IPS mapping for 'Ban Keun' is outcome none ('research lead only').\n\n**Support.** None.\n\n**Connections.** None, sourced or authored.\n\n**Routine activity.** None.\n\n**Validation.**\n- Research: unresolved claim.\n- Mapping: none.\n- Placement: none.\n- Missing:\n  - no Laos nation key or flag anywhere in the collection (grep of all variant and squadron files and the flag table);\n  - claim status and date unverified.",
+ "packages": [
+  {
+   "world_id": "chn_jlsf_wuhan_base",
+   "name": "Wuhan Joint Logistics Support Base",
+   "node_kind": "headquarters_command",
+   "operator": "PLA Joint Logistics Support Force (as reported, R01:35, R02:42)",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: national JLSF HQ at the Wuhan base, Hubei (R02:42, R01:35; table row R02:54). Created in a 2016 restructuring; centralises sustainment of the Army, Navy, Air Force and Rocket Force (R02:38). Upgraded to a full PLA 'Arm' in 2024 (R02:38, R01:35). Parent of five JLSCs (R02:44; count R01:35). Wuhan chosen as the geographic 'weight center' and a rail/road/river hub (R02:42 only). Network-wide: JLSCs manage POL depots, pipeline groups, field fuel stations, ammunition/quartermaster depots and heavy transport (R02:48; shorter list R01:35). Civil-military fusion mobilisation of rail, motor transport, air freight and maritime shipping (R02:50; R02:79 simulation guidance). Role: command, not a tactical depot (plan:17; plan:36).",
+   "position": "Hubei Province (R02:42, R02:54). Public approx (city centre; facility site not given): 30.6N 114.3E - approx, verify. In-game evidence: none nearby. Nearest proven placement ~382 NM (land: airfield_small_1 at 26.00N 119.31E, mods-source/_vanilla/original/campaigns/pacific-strike-task-force/missions/02 Action in the Taiwan Strait.ini:574); air ~350 NM; sea ~396 NM. Nearest stock world-data point asia_ports.ini [Shanghai] (city label) ~371 NM. Inland terrain untested. No placement proposed.",
+   "forces": [
+    {
+     "asset_id": "asset:chn-jlsf:wuhan-hq",
+     "allocation": "abstract",
+     "role": "National logistics HQ, register-only",
+     "source_basis": "SOURCE CLAIM R01:35, R02:42, R02:54",
+     "outcome": "none",
+     "unit_ids": [],
+     "scenario_quantity": "0 units (SCENARIO CHOICE: register-only)",
+     "notes": "No PLA HQ/logistics unit exists (china lens installations: Wuhan fit none). Considered and not placed: nv_headquarters (LandUnit supply only, 2 nm, renders as a Vietnamese HQ); warehouses_3 (no supply); tgt_ammo_depot_small (LandUnit only); plaaf_airlift_airbase (operator PLAAF not JLSF; no ammunition-cargo supply function: the Y-20B has Transport, Tanker (RefuelSystem 75,000) and Paradrop loadouts only)."
+    },
+    {
+     "asset_id": "asset:chn-jlsf:wuhan-rail-hubs",
+     "allocation": "abstract",
+     "role": "Unnamed rail hubs out of Wuhan; reinforcement-timing modifier only",
+     "source_basis": "SOURCE CLAIM R01:68 = R02:78 (simulation guidance, verbatim repeat)",
+     "outcome": "none",
+     "unit_ids": [],
+     "scenario_quantity": "0 units",
+     "notes": "SCENARIO CHOICE: at most delays the release of the two JLSF surge reserves. Never an instant disable (seed:23). Rail is not modelled in game."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition: not established (no physical presence).",
+    "Aircraft turnaround/ordnance: not applicable.",
+    "Supplier restocking: not established.",
+    "Fuel: not established. POL depots and pipelines (R02:48) are abstract. Ship fuel is not modelled at all (IPS gaps).",
+    "Repair: not established."
+   ],
+   "connections": [
+    {
+     "to": "chn_jlsf_wuxi_jlsc",
+     "kind": "parent HQ of JLSC",
+     "basis": "source",
+     "source_ref": "R02:44 (count R01:35)"
+    },
+    {
+     "to": "chn_jlsf_guilin_jlsc",
+     "kind": "parent HQ of JLSC",
+     "basis": "source",
+     "source_ref": "R02:44"
+    },
+    {
+     "to": "chn_jlsf_xining_jlsc",
+     "kind": "parent HQ of JLSC",
+     "basis": "source",
+     "source_ref": "R02:44"
+    },
+    {
+     "to": "chn_jlsf_shenyang_jlsc",
+     "kind": "parent HQ of JLSC",
+     "basis": "source",
+     "source_ref": "R02:44"
+    },
+    {
+     "to": "chn_jlsf_zhengzhou_jlsc",
+     "kind": "parent HQ of JLSC",
+     "basis": "source",
+     "source_ref": "R02:44"
+    },
+    {
+     "to": "chn_zhejiang_ningbo_naval_base",
+     "kind": "reinforcement-timing modifier (rail hubs out of Wuhan)",
+     "basis": "authored",
+     "source_ref": "R01:68, R02:78 (hubs and frontline bases unnamed; pairing is ours)"
+    },
+    {
+     "to": "chn_hainan_yulin_naval_base",
+     "kind": "reinforcement-timing modifier (rail hubs out of Wuhan)",
+     "basis": "authored",
+     "source_ref": "R01:68, R02:78 (hubs and frontline bases unnamed; pairing is ours)"
+    }
+   ],
+   "routine_activity": [
+    "None in game.",
+    "SCENARIO CHOICE (abstract, not implemented): rail-hub disruption only delays the release triggers of asset:chn-jlsf:wuxi-mob-cargo-2 and asset:chn-jlsf:guilin-mob-roro-2. No Wuhan target exists, so the delay is driven by an authored timeline or event."
+   ],
+   "checks": [
+    "JLSF 'Arm'/2024 terminology is a priority check (seed:23).",
+    "Reworded per the fidelity fix: R02 gives two Central-theatre entries (Wuhan R02:54, Zhengzhou R02:59); the division of roles is unstated.",
+    "Rail hubs and frontline bases are unnamed (R01:68, R02:78).",
+    "R01:35/R02:38-44 and R01:68/R02:78 repetitions are not corroboration.",
+    "Hull 'Wuhan (169)' (plan_type_052b_2004/_2019) and vanilla plan_ssg_wuhan (Type 033G1) are ships, not this node (china verify correction).",
+    "Network-wide claims R02:48, R02:50 and R02:79 are recorded here per fidelity checks 0 and 2."
+   ],
+   "gaps": [
+    "No PLA HQ or logistics installation unit in the collection.",
+    "No rail or road network modelling; rail hubs unnamed (expansion backlog).",
+    "Frontline bases affected by disruption unnamed (expansion backlog)."
+   ]
+  },
+  {
+   "world_id": "chn_jlsf_wuxi_jlsc",
+   "name": "Wuxi Joint Logistics Support Center",
+   "node_kind": "logistics_centre",
+   "operator": "PLA Joint Logistics Support Force (as reported); mobilised civilian shipping as proposed",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Eastern Theater JLSC, subordinate to Wuhan (R02:44). Jiangsu; Eastern Theater Command (Taiwan Strait) (R02:55). With Guilin, joint fuel/munitions anchor for Yulin, Longpo and Ningbo (R02:48). Depots under it 'run dry' guidance (R01:67, R02:77). Network claims R02:48, R02:50 and R02:79 apply.",
+   "position": "Jiangsu (R02:55). Public approx city centre 31.5N 120.3E (facility not given) - approx, verify. Nearest proven placement ~187 NM (land: airfield_small_1 at 28.54N 121.42E, stock pacific-strike-task-force/missions/01 Raid on Okinawa.ini:402); air ~223 NM; sea ~294 NM. Stock world-data asia_ports.ini [Shanghai] (31.2304,121.4737, Nation=China, city label) ~62 NM. Node not placed. SCENARIO CHOICE relief route: Yangtze estuary approach ~31.0N 122.2E to Ningbo/Zhoushan approaches ~29.9N 122.2E (approx, verify water). Nearest proven sea point to Ningbo is ~206 NM, beyond the builder snap; use the global-land-mask tools.",
+   "forces": [
+    {
+     "asset_id": "asset:chn-jlsf:wuxi-jlsc",
+     "allocation": "abstract",
+     "role": "Eastern Theater JLSC and its unnamed depots, register-only",
+     "source_basis": "SOURCE CLAIM R02:44, R02:48, R02:55",
+     "outcome": "none",
+     "unit_ids": [],
+     "scenario_quantity": "0 units",
+     "notes": "China lens installations: Wuxi fit none."
+    },
+    {
+     "asset_id": "asset:chn-jlsf:wuxi-mob-roro-1",
+     "allocation": "transit",
+     "role": "Mobilised Ro-Ro on a coastal relief run to the Ningbo anchorage, then a slow finite cargo-pass supplier",
+     "source_basis": "SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic). Hull, quantity, route and timing are SCENARIO CHOICE.",
+     "outcome": "proxy",
+     "unit_ids": [
+      "civ_ms_roro_a"
+     ],
+     "scenario_quantity": "1 hull (SCENARIO CHOICE)",
+     "notes": "Winning file integration/dist/SEST_Integration/vessels/civ_ms_roro_a.ini. Label NameOverride 'Mobilised Ro-Ro E-1 (stand-in)'; per-unit Nation=china (CHECK: untested for vessels; variant flags US/Norway/Soviet with own FlagTexture); VariantReference=Default (generic, Nation=US, flag_us); no named variant (civ_ms_c8 V23-26 = MSC Cape F-class; civ_ms_roro_a V6-10 = RRF Cape D-class; others = real merchants). Default is a class label, not a hull identity. Owned here; the Ningbo package must not count it. Escort: reciprocal Ningbo slot asset:chn:ningbo_relief_escort_1 (proposed, not yet in the china-maritime register); unescorted until it exists."
+    },
+    {
+     "asset_id": "asset:chn-jlsf:wuxi-mob-cargo-2",
+     "allocation": "reserve",
+     "role": "Dormant surge mobilised cargo ship, released once (finite)",
+     "source_basis": "SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic). Hull, quantity and trigger are SCENARIO CHOICE.",
+     "outcome": "proxy",
+     "unit_ids": [
+      "civ_ms_c8"
+     ],
+     "scenario_quantity": "1 hull (SCENARIO CHOICE)",
+     "notes": "Winning file integration/dist/SEST_Integration/vessels/civ_ms_c8.ini. Label NameOverride 'Mobilised cargo ship E-2 (stand-in)'; Nation=china CHECK; VariantReference=Default (generic, Nation=US, flag_us); no named variant (civ_ms_c8 V23-26 = MSC Cape F-class; civ_ms_roro_a V6-10 = RRF Cape D-class; others = real merchants). Default is a class label, not a hull identity. Starts Disabled=True and is woken once by Action_SetEnabledStatus=True (stock precedent on one vessel; untested here). No respawn. Release escort: a Ningbo hull at base at release time (e.g. asset:chn:ningbo_ffg_1), leaving the Ningbo base count when it sails."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition: civ_ms_roro_a [SupplySystem1] TruckSupplySystem. Pool 80,000; MaxAmmoPoints 2,000; 30 pts/s; 0.5 nm; 1 receiver; own <=8 kn, receiver <=12 kn; Vessel and Submarine; categories Harpoon 8, AirTorpedo 16.",
+    "Ship ammunition: civ_ms_c8. Pool 300,000; MaxAmmoPoints 8,000; 35 pts/s; 0.5 nm; 1 receiver; <=8/12 kn; categories Harpoon 24, AirTorpedo 32, ALWT 16, SEST_LandAttack 16, SEST_LongRangeSAM 16.",
+    "PLAN receiver fit (file-derived, untested): the Ro-Ro passes guns, HQ-10 (320), YJ-83/83A (1,675) and Yu-12 (485). It refuses Yu-8 (2,600), Yu-11 (2,950, on the 056A escort), Yu-15 (2,950), Yu-10 (4,850), HHQ-9B (5,250) and YJ-18C (5,100), so it cannot fully restock its own escort. The C8 admits HHQ-9B and YJ-18C (16 each), Yu-11, Yu-15 and Yu-10, and refuses YJ-19 (8,800). Type 903A (ceiling 5,000) refuses HHQ-9B and YJ-18C; Type 901 (9,000) admits them. The C8-over-903A argument covers only these metered rounds.",
+    "Unrationed (no AmmoPoints, no SupplyCategory; free from every supplier, including the Ro-Ro and the Ningbo pier): plan_hhq-9c, plan_yj-17, plan_yj-18a, plan_yj-20, plan_yj12_ship, plan_hq-16c, plan_yu-7c_ship, plan_yj-18, plan_yu-6, plan_yu-6a, plan_yu-9 (also pla_yu-6, pla_yj-18 per the China lens).",
+    "Aircraft turnaround/ordnance: not applicable.",
+    "Supplier restocking: not established. Pools deplete and nothing refills them; these hulls cannot refill a PLAN AOR's supply pool.",
+    "Fuel: not established for ships (no vessel fuel keys).",
+    "Repair: not established.",
+    "Destination shore stock (Ningbo package): nv_pt_boats_docks is effectively unlimited, so finite base stock is that package's choice."
+   ],
+   "connections": [
+    {
+     "to": "chn_jlsf_wuhan_base",
+     "kind": "subordinate to HQ",
+     "basis": "source",
+     "source_ref": "R02:44"
+    },
+    {
+     "to": "chn_hainan_yulin_naval_base",
+     "kind": "joint fuel/munitions anchor (with Guilin, no per-base pairing)",
+     "basis": "source",
+     "source_ref": "R02:48"
+    },
+    {
+     "to": "chn_hainan_longpo_naval_base",
+     "kind": "joint fuel/munitions anchor (with Guilin, no per-base pairing)",
+     "basis": "source",
+     "source_ref": "R02:48"
+    },
+    {
+     "to": "chn_zhejiang_ningbo_naval_base",
+     "kind": "joint fuel/munitions anchor (with Guilin, no per-base pairing)",
+     "basis": "source",
+     "source_ref": "R02:48"
+    },
+    {
+     "to": "chn_zhejiang_ningbo_naval_base",
+     "kind": "relief-run destination and escort source for the mobilised hulls",
+     "basis": "authored",
+     "source_ref": "theatre-alignment inference R02:44, R02:55; R03:105, R01:31"
+    },
+    {
+     "to": "sea:Taiwan Strait",
+     "kind": "supported theatre",
+     "basis": "source",
+     "source_ref": "R02:55, R02:48"
+    },
+    {
+     "to": "sea:East China Sea",
+     "kind": "relief-run operating area",
+     "basis": "authored",
+     "source_ref": "R03:105 (not stated for Wuxi)"
+    }
+   ],
+   "routine_activity": [
+    "PROPOSED: wuxi-mob-roro-1 starts underway at the Yangtze estuary approach and transits ~70 NM to the Ningbo outer anchorage. It holds as a finite supplier until spent or sunk, then departs or stays empty. One run, no respawn.",
+    "PROPOSED: wuxi-mob-cargo-2 is Disabled=True at an authored holding point. It is released once by a trigger (roro-1 spent or sunk) or an authored timeline. The Wuhan rail rule may delay it.",
+    "PROPOSED: roro-1's escort is underway from t=0, so it must be a named reciprocal slot in the Ningbo package with allocation 'escort' from start (proposed asset:chn:ningbo_relief_escort_1, e.g. plan_type_054a_p3 on its own pinned variant; requested of the china-maritime register, not yet in it). Until it exists roro-1 runs unescorted. cargo-2's release escort is taken from a Ningbo hull at base at release time (e.g. asset:chn:ningbo_ffg_1) and leaves the Ningbo base count when it sails. The earlier example types plan_type_056a / plan_type_054a_p5 are withdrawn (the Ningbo package fields neither).",
+    "PROPOSED neutral surroundings: civ_ms_bulk (Japan/Liberia/Greece variants), civ_ms_car_carrier_a (Japan/Panama/Liberia), civ_ms_mairangi_bay (Japan). civ_a330 China squadrons as an airliner overflight on airways. Avoid RE-power supplier merchants. Bound any CivilianRoute MaxUnits."
+   ],
+   "checks": [
+    "Fidelity check 2 fix: Ningbo is removed from parent_or_colocated. The Wuxi-to-Ningbo link is authored (theatre alignment), not sourced.",
+    "R02:48 'would feed' is conditional framing.",
+    "No instant-disable rule from R01:67/R02:77 (seed:23). Degradation emerges from finite pools.",
+    "JLSF terminology priority check (seed:23); depots unnamed.",
+    "R01:67 = R02:77 repetition is not corroboration.",
+    "Hulls 'Wuxi (104)' (Type 055 MPS/RSA) and 'Wuxi FF-512' (vanilla plan_ff_jianghu1) are ships, not this node.",
+    "Per-unit Nation=china on a vessel: stock writes Nation= on vessel sections (Red Madagascar 1985.ini:300-309, civ_fv_fishingboat_a with Nation=india over all-US variants). The china lens says vessel nation comes from the variant file, and flag rendering is unverified (IPS). If it fails, outcome falls to none; plan_ap_qiongsha (China-flagged, no supply) is the presence-only fallback.",
+    "Unrationed rounds transfer without depleting any pool: plan_yj-18a, plan_yj-20, plan_yj12_ship, plan_yu-7c_ship, plus plan_hhq-9c and plan_yj-17 (plan_type_052d_p3.ini :433, :958, :615, :840; also plan_type_055_2026), plan_hq-16c (plan_type_054a_p5.ini :816, :901, :986) and plan_yj-18, plan_yu-6, plan_yu-6a, plan_yu-9 (plan_ss_type_039b). Finite relief rations only HHQ-9B, YJ-18C, YJ-19 and priced uncategorised rounds.",
+    "Dormant release and transfer behaviour are untested. Saves hold supplier CurrentAmmo (scope-and-performance 2.9), but reload is untested.",
+    "Route water validity is unproven (coast extract covers only 100-180E / 25-72S).",
+    "Hull identity: VariantReference=Default with unique NameOverrides (E-1, E-2) so no MSC/RRF-named or real-merchant variant of civ_ms_c8 / civ_ms_roro_a is consumed here.",
+    "Escort reciprocity: the at-start escort slot asset:chn:ningbo_relief_escort_1 must be added to the Ningbo package; it is not there yet."
+   ],
+   "gaps": [
+    "Subordinate depots unnamed (backlog).",
+    "Departure port for mobilised shipping unnamed in R01-R03.",
+    "No PLA logistics installation unit.",
+    "No China-flagged civilian merchant or Ro-Ro. Available hulls are 1970s designs (C8 1968, Ro-Ro A 1972).",
+    "No ship fuel, no repair, no supplier restock.",
+    "No Chinese civil cargo aircraft for R02:50 air freight."
+   ]
+  },
+  {
+   "world_id": "chn_jlsf_guilin_jlsc",
+   "name": "Guilin Joint Logistics Support Center",
+   "node_kind": "logistics_centre",
+   "operator": "PLA Joint Logistics Support Force (as reported); mobilised civilian shipping as proposed",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Southern Theater JLSC, subordinate to Wuhan (R02:44). Guangxi; Southern Theater Command (South China Sea) (R02:56). With Wuxi, joint fuel/munitions anchor for Yulin, Longpo and Ningbo (R02:48). Network claims R02:48, R02:50 and R02:79 apply. Only R02 mentions it.",
+   "position": "Guangxi (R02:56). Public approx city centre 25.3N 110.3E - approx, verify. Nearest proven placement ~413 NM (air: pla_q-5 at 18.41N 110.0E, stock PLAN/PLAN 01 Clash in the Paracels.ini:300); land ~421 NM (wp_airbase_4, pacific-strike-task-force/missions/10 Vengeance at Luzon.ini:1100); sea ~490 NM. World-data Hong Kong ~278 NM. Node not placed. SCENARIO CHOICE relief route: eastern Qiongzhou Strait approach ~20.1N 110.9E to the Yulin approaches ~18.2N 109.6E (~150 NM; approx, verify water). Yulin has a proven land placement at 8 NM (PLAN 02 Battle of the South China Sea.ini:507) and a nearest sea placement at ~112 NM.",
+   "forces": [
+    {
+     "asset_id": "asset:chn-jlsf:guilin-jlsc",
+     "allocation": "abstract",
+     "role": "Southern Theater JLSC and its unnamed depots, register-only",
+     "source_basis": "SOURCE CLAIM R02:44, R02:48, R02:56",
+     "outcome": "none",
+     "unit_ids": [],
+     "scenario_quantity": "0 units",
+     "notes": "China lens installations: Guilin fit none."
+    },
+    {
+     "asset_id": "asset:chn-jlsf:guilin-mob-cargo-1",
+     "allocation": "transit",
+     "role": "Mobilised cargo ship on a relief run to the Yulin anchorage, then a finite cargo-pass supplier",
+     "source_basis": "SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic). Hull, quantity, route and timing are SCENARIO CHOICE.",
+     "outcome": "proxy",
+     "unit_ids": [
+      "civ_ms_c8"
+     ],
+     "scenario_quantity": "1 hull (SCENARIO CHOICE)",
+     "notes": "Label NameOverride 'Mobilised cargo ship S-1 (stand-in)'; per-unit Nation=china CHECK; VariantReference=Default (generic, Nation=US, flag_us); no named variant (civ_ms_c8 V23-26 = MSC Cape F-class; civ_ms_roro_a V6-10 = RRF Cape D-class; others = real merchants). Default is a class label, not a hull identity. Its 8,000 ceiling gives finite HHQ-9B/YJ-18C relief that the Type 903A cannot pass (metered rounds only; HHQ-9C, YJ-17, YJ-18A, YJ-20, HQ-16C refill free from any supplier). Owned here; the Yulin package must not count it. Escort: reciprocal Yulin slot asset:chn:yulin_relief_escort_1 (proposed, not yet in the china-maritime register); unescorted until it exists."
+    },
+    {
+     "asset_id": "asset:chn-jlsf:guilin-mob-roro-2",
+     "allocation": "reserve",
+     "role": "Dormant surge mobilised Ro-Ro, released once (finite)",
+     "source_basis": "SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic). Hull, quantity and trigger are SCENARIO CHOICE.",
+     "outcome": "proxy",
+     "unit_ids": [
+      "civ_ms_roro_a"
+     ],
+     "scenario_quantity": "1 hull (SCENARIO CHOICE)",
+     "notes": "Label NameOverride 'Mobilised Ro-Ro S-2 (stand-in)'; Nation=china CHECK; VariantReference=Default (generic, Nation=US, flag_us); no named variant (civ_ms_c8 V23-26 = MSC Cape F-class; civ_ms_roro_a V6-10 = RRF Cape D-class; others = real merchants). Default is a class label, not a hull identity. Disabled=True off north-east Hainan (~20.0N 111.0E, approx, verify); one release via Action_SetEnabledStatus=True. No respawn. Release escort: a Yulin hull at base at release time (e.g. asset:chn:yulin_corvette_2), leaving the Yulin base count when it sails."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition: civ_ms_c8 pool 300,000, MaxAmmoPoints 8,000, 35 pts/s, 0.5 nm, 1 receiver, <=8/12 kn, Vessel+Submarine; Harpoon 24, AirTorpedo 32, ALWT 16, SEST_LandAttack 16, SEST_LongRangeSAM 16.",
+    "Ship ammunition: civ_ms_roro_a pool 80,000, MaxAmmoPoints 2,000, 30 pts/s, 0.5 nm, 1 receiver, <=8/12 kn; Harpoon 8, AirTorpedo 16.",
+    "PLAN receiver fit as in the Wuxi package (file-derived, untested): the Ro-Ro refuses the 056A escort's Yu-11 (2,950) and the 039B's Yu-10 (4,850); the C8 admits both. Unrationed rounds (HHQ-9C, YJ-17, YJ-18A, YJ-20, YJ-12 ship, HQ-16C, Yu-7C, and the 039B's YJ-18, Yu-6, Yu-6A, Yu-9) flow free from either hull and from the pier.",
+    "Aircraft turnaround/ordnance: not applicable.",
+    "Supplier restocking: not established (pools not refillable; cannot refill a PLAN AOR's pool).",
+    "Fuel: not established for ships.",
+    "Repair: not established.",
+    "Destination shore stock (Yulin package): nv_pt_boats_docks stand-in is effectively unlimited."
+   ],
+   "connections": [
+    {
+     "to": "chn_jlsf_wuhan_base",
+     "kind": "subordinate to HQ",
+     "basis": "source",
+     "source_ref": "R02:44"
+    },
+    {
+     "to": "chn_hainan_yulin_naval_base",
+     "kind": "joint fuel/munitions anchor (with Wuxi, no per-base pairing)",
+     "basis": "source",
+     "source_ref": "R02:48"
+    },
+    {
+     "to": "chn_hainan_longpo_naval_base",
+     "kind": "joint fuel/munitions anchor (with Wuxi, no per-base pairing)",
+     "basis": "source",
+     "source_ref": "R02:48"
+    },
+    {
+     "to": "chn_zhejiang_ningbo_naval_base",
+     "kind": "joint fuel/munitions anchor (with Wuxi, no per-base pairing)",
+     "basis": "source",
+     "source_ref": "R02:48"
+    },
+    {
+     "to": "chn_hainan_yulin_naval_base",
+     "kind": "relief-run destination and escort source for the mobilised hulls",
+     "basis": "authored",
+     "source_ref": "theatre-alignment inference R02:44, R02:56; R03:97-99"
+    },
+    {
+     "to": "sea:South China Sea",
+     "kind": "supported theatre",
+     "basis": "source",
+     "source_ref": "R02:56, R02:48"
+    }
+   ],
+   "routine_activity": [
+    "PROPOSED: guilin-mob-cargo-1 makes a one-way transit from the eastern Qiongzhou Strait approach to the Yulin anchorage and holds as a finite supplier until spent or sunk. No respawn.",
+    "PROPOSED: guilin-mob-roro-2 is dormant and released once by a trigger (cargo-1 spent or sunk) or a timeline; the Wuhan rule may delay it.",
+    "PROPOSED: cargo-1's escort is underway from t=0, so it must be a named reciprocal slot in the Yulin package with allocation 'escort' from start (proposed asset:chn:yulin_relief_escort_1, e.g. plan_type_056a on a variant the package's other 056A hulls do not use; requested of the china-maritime register, not yet in it). Until it exists cargo-1 runs unescorted. roro-2's release escort is taken from a Yulin hull at base at release time (e.g. asset:chn:yulin_corvette_2) and leaves the Yulin base count when it sails.",
+    "PROPOSED: no relief routing to Longpo (strategic submarine base: bare fact only).",
+    "PROPOSED neutral surroundings: civ_ms_bulk, civ_ms_ritina, civ_ms_car_carrier_a variants with Japan/Liberia/Greece/Panama flags. Avoid RE-power supplier merchants."
+   ],
+   "checks": [
+    "Fidelity check 0 fix: all three bases listed under R02:48. Guilin-to-Hainan pairing labelled an authored inference.",
+    "R02:48 'would feed' is conditional framing.",
+    "JLSF terminology priority check (seed:23).",
+    "Hulls 'Guilin (164)' (052D MPS/RSA) and Guilin DDG-164 (plan_ddg_luda_typ_051d, plan_ddg_type051m, vanilla plan_dd_luda1) are ships.",
+    "Per-unit Nation=china on vessels is untested; variant FlagTexture may still show the original flag. Fallback: plan_ap_qiongsha presence only.",
+    "Dormant release, transfers and save/load of supplier stock are untested.",
+    "Route water validity pending (global-land-mask tools).",
+    "Unrationed rounds (see Wuxi) undercut the finite-relief rationale: the C8 advantage over the 903A covers only HHQ-9B and YJ-18C.",
+    "Hull identity: VariantReference=Default with unique NameOverrides (S-1, S-2); no MSC/RRF-named or real-merchant variant consumed.",
+    "Escort reciprocity: the at-start escort slot asset:chn:yulin_relief_escort_1 must be added to the Yulin package; it is not there yet."
+   ],
+   "gaps": [
+    "Subordinate depots unnamed (backlog).",
+    "Mainland departure port unnamed in R01-R03.",
+    "No PLA logistics installation unit.",
+    "No China-flagged civilian merchant or Ro-Ro.",
+    "No ship fuel, repair or supplier restock."
+   ]
+  },
+  {
+   "world_id": "chn_jlsf_xining_jlsc",
+   "name": "Xining Joint Logistics Support Center",
+   "node_kind": "logistics_centre",
+   "operator": "PLA Joint Logistics Support Force (as reported)",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Western Theater JLSC, subordinate to Wuhan (R02:44). Qinghai; Western Theater Command (R02:58). Network claims R02:48, R02:50, R02:79. No maritime role; kept for completeness of the JLSF structure.",
+   "position": "Qinghai (R02:58). Public approx city centre 36.6N 101.8E - approx, verify. Nearest proven placement ~1,100 NM (land: airfield_small_1 at 26.00N 119.31E, stock 02 Action in the Taiwan Strait.ini:574). Not placed.",
+   "forces": [
+    {
+     "asset_id": "asset:chn-jlsf:xining-jlsc",
+     "allocation": "abstract",
+     "role": "Western Theater JLSC, register-only",
+     "source_basis": "SOURCE CLAIM R02:44, R02:58",
+     "outcome": "none",
+     "unit_ids": [],
+     "scenario_quantity": "0 units",
+     "notes": "China lens installations: Xining fit none; no maritime relevance."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition, aircraft turnaround, restocking, fuel and repair: not established (abstract node)."
+   ],
+   "connections": [
+    {
+     "to": "chn_jlsf_wuhan_base",
+     "kind": "subordinate to HQ",
+     "basis": "source",
+     "source_ref": "R02:44"
+    },
+    {
+     "to": "Western Theater Command (no world node)",
+     "kind": "supported theatre",
+     "basis": "source",
+     "source_ref": "R02:58"
+    }
+   ],
+   "routine_activity": [
+    "None."
+   ],
+   "checks": [
+    "JLSF terminology priority check (seed:23).",
+    "Only R02 mentions it.",
+    "Hulls 'Xining (117)' (052D MPS/RSA) and Xining DDG-108 (Luda family) are ships, not this node.",
+    "Most remote JLSF node (land placement ~1,100 NM), not the most remote inland node: the IPS lens puts Belaya at 1,271 NM against Xining's 1,102."
+   ],
+   "gaps": [
+    "None needed for the maritime sandbox. Inland terrain untested."
+   ]
+  },
+  {
+   "world_id": "chn_jlsf_shenyang_jlsc",
+   "name": "Shenyang Joint Logistics Support Center",
+   "node_kind": "logistics_centre",
+   "operator": "PLA Joint Logistics Support Force (as reported)",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Northern Theater JLSC, subordinate to Wuhan (R02:44). Liaoning; Northern Theater Command (Yellow Sea/Korea) (R02:57). Network claims R02:48, R02:50, R02:79.",
+   "position": "Liaoning (R02:57). Public approx city centre 41.8N 123.4E - approx, verify. Nearest proven placements, all user missions: air ~127 NM (wp_tu-22m2 at 43.81N 124.31E, mods-source/_vanilla/user/missions/user_missions/GULF ATTACK .7.7.ini:1000); sea ~257 NM (civ_ms_ritina at 39.58N 128.23E); land ~282 NM (pla_sam_site_hq-9_morden at 41.35N 129.66E, 'NK US ATTACK .7.ini:731'). World-data Pyongyang ~198 NM. Not placed.",
+   "forces": [
+    {
+     "asset_id": "asset:chn-jlsf:shenyang-jlsc",
+     "allocation": "abstract",
+     "role": "Northern Theater JLSC, register-only",
+     "source_basis": "SOURCE CLAIM R02:44, R02:57",
+     "outcome": "none",
+     "unit_ids": [],
+     "scenario_quantity": "0 units",
+     "notes": "SCENARIO CHOICE: no mobilised hulls until a Northern Theater naval node is researched."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition, aircraft turnaround, restocking, fuel and repair: not established (abstract node)."
+   ],
+   "connections": [
+    {
+     "to": "chn_jlsf_wuhan_base",
+     "kind": "subordinate to HQ",
+     "basis": "source",
+     "source_ref": "R02:44"
+    },
+    {
+     "to": "sea:Yellow Sea / Korea",
+     "kind": "supported theatre",
+     "basis": "source",
+     "source_ref": "R02:57"
+    }
+   ],
+   "routine_activity": [
+    "None."
+   ],
+   "checks": [
+    "No Northern Theater naval base is named in R01-R03 (backlog); any maritime link would be authored.",
+    "JLSF terminology priority check (seed:23).",
+    "Hull 'Shenyang (115)' (plan_type_051c) is a ship, not this node."
+   ],
+   "gaps": [
+    "PLAN Northern Theater (Yellow Sea/Korea) naval bases not named (expansion backlog).",
+    "No PLA logistics installation unit."
+   ]
+  },
+  {
+   "world_id": "chn_jlsf_zhengzhou_jlsc",
+   "name": "Zhengzhou Joint Logistics Support Center",
+   "node_kind": "logistics_centre",
+   "operator": "PLA Joint Logistics Support Force (as reported)",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Central Theater JLSC, subordinate to Wuhan (R02:44). Henan; Central Theater Command (Strategic Reserve) (R02:59). Network claims R02:48, R02:50, R02:79.",
+   "position": "Henan (R02:59). Public approx city centre 34.8N 113.6E - approx, verify. Nearest proven placement ~545 NM (land: airfield_small_1 at 28.54N 121.42E, stock 01 Raid on Okinawa.ini:402). Not placed.",
+   "forces": [
+    {
+     "asset_id": "asset:chn-jlsf:zhengzhou-jlsc",
+     "allocation": "abstract",
+     "role": "Central Theater JLSC and strategic reserve, register-only",
+     "source_basis": "SOURCE CLAIM R02:44, R02:59",
+     "outcome": "none",
+     "unit_ids": [],
+     "scenario_quantity": "0 units",
+     "notes": "'Strategic Reserve' does not say what is held; no naval reserve inferred."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition, aircraft turnaround, restocking, fuel and repair: not established (abstract node)."
+   ],
+   "connections": [
+    {
+     "to": "chn_jlsf_wuhan_base",
+     "kind": "subordinate to HQ",
+     "basis": "source",
+     "source_ref": "R02:44"
+    },
+    {
+     "to": "Central Theater Command, strategic reserve (no world node)",
+     "kind": "supported theatre",
+     "basis": "source",
+     "source_ref": "R02:59"
+    }
+   ],
+   "routine_activity": [
+    "None."
+   ],
+   "checks": [
+    "Reworded per the fidelity check 0 fix: R02 gives two Central-theatre entries (Wuhan R02:54, Zhengzhou R02:59); the division of roles is unstated.",
+    "JLSF terminology priority check (seed:23).",
+    "Hull 'Zhengzhou (151)' (052C MPS/RSA) is a ship, not this node."
+   ],
+   "gaps": [
+    "No PLA logistics installation unit. Inland terrain untested."
+   ]
+  },
+  {
+   "world_id": "seasia_laos_ban_keun_airport",
+   "name": "Ban Keun Airport (joint China-Laos aviation training centre claim)",
+   "node_kind": "research_lead",
+   "operator": "China and Laos (joint, as claimed in R01:37)",
+   "populate_policy": "do_not_populate",
+   "role_source": "SOURCE CLAIM: joint China-Laos military aviation training centre opened at Ban Keun Airport, described as a logistical/operational foothold beyond China's south-western border (R01:37). Appears under the R01:33 heading 'The JLSF and Southeast Asian Expansion'. Only R01. Research lead only (plan:44).",
+   "position": "Vientiane Province, Laos (not given by R01). Public approx 18.4N 102.6E - approx, verify the exact airfield. In-game evidence: none. Nearest proven placement ~215 NM (air: wp_mig-17 at 17.65N 106.29E, stock NATO/Dong Hoi.ini:294); land/sea ~225 NM. Nearest world-data Hanoi ~241 NM. Landlocked. No placement.",
+   "forces": [],
+   "support_services": [
+    "None (do_not_populate)."
+   ],
+   "connections": [],
+   "routine_activity": [
+    "None."
+   ],
+   "checks": [
+    "Priority check on the Ban Keun training claim (seed:23).",
+    "Undated; 'foothold' is interpretive.",
+    "Sharing the JLSF heading (R01:33) is not a stated JLSF role or relationship.",
+    "No assets, units or activity named.",
+    "Do not populate an operational combat base on this claim alone (plan:44)."
+   ],
+   "gaps": [
+    "No Laos nation key or flag in the collection (grep of variant/squadron files and the flag table found none).",
+    "IPS mapping for Ban Keun is outcome none (research lead only).",
+    "Claim status, date and exact airfield location unverified."
+   ]
+  }
+ ],
+ "named_assets": [
+  "asset:chn-jlsf:wuhan-hq - abstract (register-only, no unit)",
+  "asset:chn-jlsf:wuhan-rail-hubs - abstract (reinforcement-timing modifier only, no unit)",
+  "asset:chn-jlsf:wuxi-jlsc - abstract (register-only, no unit)",
+  "asset:chn-jlsf:wuxi-mob-roro-1 - transit - civ_ms_roro_a x1, VariantReference=Default (proxy, NameOverride 'Mobilised Ro-Ro E-1 (stand-in)', per-unit Nation=china pending check; coastal relief run to Ningbo anchorage; escort via proposed Ningbo slot asset:chn:ningbo_relief_escort_1)",
+  "asset:chn-jlsf:wuxi-mob-cargo-2 - reserve - civ_ms_c8 x1, VariantReference=Default (proxy, NameOverride 'Mobilised cargo ship E-2 (stand-in)'; dormant, single release)",
+  "asset:chn-jlsf:guilin-jlsc - abstract (register-only, no unit)",
+  "asset:chn-jlsf:guilin-mob-cargo-1 - transit - civ_ms_c8 x1, VariantReference=Default (proxy, NameOverride 'Mobilised cargo ship S-1 (stand-in)'; relief run to Yulin anchorage; escort via proposed Yulin slot asset:chn:yulin_relief_escort_1)",
+  "asset:chn-jlsf:guilin-mob-roro-2 - reserve - civ_ms_roro_a x1, VariantReference=Default (proxy, NameOverride 'Mobilised Ro-Ro S-2 (stand-in)'; dormant, single release)",
+  "asset:chn-jlsf:xining-jlsc - abstract (register-only, no unit)",
+  "asset:chn-jlsf:shenyang-jlsc - abstract (register-only, no unit)",
+  "asset:chn-jlsf:zhengzhou-jlsc - abstract (register-only, no unit)"
+ ],
+ "applied": [
+  "P1 (unrationed rounds): verified via find_unit_file that plan_hhq-9c, plan_yj-17, plan_yj-18 (3789188689), plan_hq-16c, plan_yu-6, plan_yu-6a, plan_yu-9 (3775128499) declare neither AmmoPoints nor SupplyCategory, and that they sit on plan_type_052d_p3 (:433/:958, :615/:840), plan_type_055_2026, plan_type_054a_p5 (:816/:901/:986) and plan_ss_type_039b. Extended the region CHECK, added an 'Unrationed ... free' row to the receiver-fit table, and limited the C8-over-903A rationale to the metered HHQ-9B/YJ-18C (YJ-19 metered but above the C8 ceiling) in Wuxi, Guilin and the packages.",
+  "P2 (receiver-fit gaps): verified plan_yu-11 2,950 (on plan_type_056a :297/:379/:500), plan_yu-15 2,950 (plan_type_055_2026 :2888) and plan_yu-10 4,850 (plan_ss_type_039b :682), all uncategorised. Added Yu-11/Yu-15 and Yu-10 rows (903A, 901 and C8 admit; roro_a refuses), and added Yu-11 and Yu-10 to the Wuxi and Guilin 'Ro-Ro refuses' lines.",
+  "P3 (plaaf_y-20b): verified the winning file mods-source/3782020901/aircraft/plaaf_y-20b.ini carries RefuelSystem only in [WeaponSystem1Tanker] with SupplySystem_FuelCapacity=75000 (:173), was 45000 before commit 25e18b9b, and that 160000 is usaf_kc-10's value. Corrected the Aircraft fuel row, and reworded the Wuhan airlift note to 'no ammunition-cargo supply function; Transport/Tanker/Paradrop loadouts only'.",
+  "P4 (variant identity and labels): verified civ_ms_c8 Variants 23-26 = Cape Fear/Flattery/Florida/Farewell T-AK and civ_ms_roro_a Variants 6-10 = Cape Ducato to Cape Diamond T-AKR (vessel_names.ini), and that other regions (indian-ocean-australia, w-c-pacific) use these classes. All four hulls now use VariantReference=Default with unique NameOverrides E-1, E-2, S-1, S-2.",
+  "P5 (escort reciprocity): confirmed the china-maritime Ningbo/Yulin packages have no relief-escort slot. Named proposed reciprocal slots asset:chn:ningbo_relief_escort_1 / asset:chn:yulin_relief_escort_1 in that register's id style, marked as requested and not yet present, with transits unescorted until the slots exist. Release escorts come from at-base hulls (existing ids asset:chn:ningbo_ffg_1, asset:chn:yulin_corvette_2) and leave the base count when they sail. Also withdrew the Wuxi escort example types plan_type_056a/plan_type_054a_p5, because the Ningbo package fields neither type; replaced with plan_type_054a_p3.",
+  "P6 (Wuhan citations): verified plan:33 is the US Atlantic row, plan:17 holds the 'headquarters is not automatically a tactical ammunition depot' rule and plan:36 is the Chinese national support row. Also verified that R01:35 has no 2016 date, service list or weight-centre/hub wording. Re-cited the role as plan:17/plan:36, R02:38 alone for 2016 and the four services, R02:42 alone for the weight centre/hub, and R01:35 only for the 2024 Arm, the HQ and the JLSC count (markdown and role_source).",
+  "P7 (R02:79 label): verified the source register records R02:79 as claim_type simulation_guidance. All four mobilised-hull rows (markdown tables and package source_basis) now read 'SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic)', and the region summary (SOURCE CLAIM bullet and SCENARIO CHOICE 1) does the same.",
+  "P8 (Seabee and Yukan): verified civ_ms_seabee placements in the SEST user saves (NORTHERN FRONT III FINAL NEWEST.ini:381, NORTHERN FRONT.ini:381) and in 3491248180 Falklands Mission 1:537, with none in stock or integration/ missions. Also verified every plan_lst_yukan variant ServiceDate ends 2020. Reworded the Seabee row, split Yukan out as out of date for 2026 (not a fallback), and kept plan_ap_qiongsha (1980, no end date) as the presence-only fallback.",
+  "P9 (Xining superlative): verified the collection-inventory IPS figures Belaya 1,271 NM and Xining 1,102 NM. Replaced the superlative with 'the most remote JLSF node' plus the Belaya comparison, and added a matching Xining package check."
+ ],
+ "declined": [],
+ "original_verify": {
+  "ids_checked": 76,
+  "problems": [
+   {
+    "world_id": "region-summary (also chn_jlsf_wuxi_jlsc, chn_jlsf_guilin_jlsc checks)",
+    "kind": "other",
+    "problem": "The list of unrationed rounds is incomplete. Some rounds have neither AmmoPoints nor SupplyCategory in their winning ammunition files, and the package does not list all of them:\n- plan_hhq-9c and plan_yj-17: integration/dist/SEST_Integration/vessels/plan_type_052d_p3.ini Ammunition= at lines 433, 615, 840 and 958; also on plan_type_055_2026.\n- plan_hq-16c: plan_type_054a_p5.ini:816, 901 and 986. This is the whole SAM load of the proposed 054A escort.\n- plan_yj-18, plan_yu-6, plan_yu-6a and plan_yu-9 on plan_ss_type_039b.\nThe package names only plan_yj-18a, plan_yj-20, plan_yj12_ship, plan_yu-7c_ship, pla_yu-6 and pla_yj-18. As a result, the argument that 'the C8 passes HHQ-9B/YJ-18C, which a 903A cannot' covers only the metered part of the 052D/055 heavy load. HHQ-9C, YJ-17, YJ-18A, YJ-20 and the 054A's HQ-16C refill for free from any supplier, including the Ro-Ro and the unlimited pier. That undercuts the finite-logistics intent more than the CHECK admits (gameplay-and-tests.md:15).",
+    "fix": "Add plan_hhq-9c, plan_yj-17, plan_hq-16c, plan_yj-18, plan_yu-6a and plan_yu-9 to the unrationed CHECK. Add an 'unrationed: free from every supplier' row to the PLAN receiver-fit table. Say the C8 rationale applies only to the metered HHQ-9B, YJ-18C and YJ-19."
+   },
+   {
+    "world_id": "region-summary / chn_jlsf_wuxi_jlsc support_services",
+    "kind": "other",
+    "problem": "The receiver-fit table's last row says that every other round (up to 1,675 pts) is admitted by every supplier. It leaves out uncategorised rounds between the Ro-Ro's 2,000 ceiling and 5,000 points, which the Ro-Ro refuses:\n- plan_yu-11, 2,950: on plan_type_056a, the escort proposed for both relief runs;\n- plan_yu-15, 2,950: on plan_type_055_2026;\n- plan_yu-10, 4,850: on plan_ss_type_039b.\nAs written, the table implies that the Ro-Ro can fully restock its own escort.",
+    "fix": "Add a row 'Yu-11 / Yu-15 2,950; Yu-10 4,850 | 056A / 055 / 039B | none | 903A admitted, 901 admitted, C8 admitted, roro_a refused'. Add Yu-11 to the Wuxi support line 'Ro-Ro refuses ...'."
+   },
+   {
+    "world_id": "region-summary (Aircraft fuel row; chn_jlsf_wuhan_base considered representations)",
+    "kind": "unit_id",
+    "problem": "The figure 'plaaf_y-20b (160,000)' is wrong:\n- The winning file is mods-source/3782020901/aircraft/plaaf_y-20b.ini, which carries the refuel system only in the Tanker loadout. [WeaponSystem1Tanker] lines 171-173 give SupplySystem_FuelCapacity=75000.\n- Before the 6 Oct export (commit 25e18b9b) the value was 45000.\n- 160000 is usaf_kc-10's value.\n- The IPS verify missed-asset figure is stale, and the package copied it without re-checking.\nSeparately, 'the airlift has no in-game cargo function' is overstated. The Y-20B has Transport, Tanker and Paradrop loadouts, carrying pla_paratrooper and pla_airdrop_type63. What is missing is an ammunition-cargo supply system (PlaneCargoSupplySystem).",
+    "fix": "Change the figure to 'plaaf_y-20b 75,000 (Tanker loadout only)'. Reword to 'no ammunition-cargo supply function; paradrop/transport loadouts only'."
+   },
+   {
+    "world_id": "chn_jlsf_wuxi_jlsc / chn_jlsf_guilin_jlsc",
+    "kind": "double_allocation",
+    "problem": "There is a hull identity risk because the packages say only 'a distinct VariantReference for each hull':\n- civ_ms_c8 Variants 23-26 are the MSC hulls Cape Fear / Cape Flattery / Cape Florida / Cape Farewell (T-AK-5061/5070-5072).\n- civ_ms_roro_a Variants 6-10 are the US Ready Reserve hulls Cape Ducato through Cape Diamond (T-AKR-5051 to 5055).\n- The other variants are named real merchants (3432592449 language_en/vessel_names.ini).\nUS or Diego Garcia packages may allocate these named sealift hulls. The variant's FlagTexture also stays.\nOn labels: both C8s share the NameOverride 'Mobilised cargo ship (stand-in)' and both Ro-Ros share 'Mobilised Ro-Ro (stand-in)', so the four assets are indistinguishable in game.",
+    "fix": "Use VariantReference=Default (generic 'Barge Carrier' / 'RORO A') for all four hulls, or reserve explicitly named non-MSC variants in the world hull registry so that no other region reuses them. Give each hull a unique NameOverride that carries its asset id, e.g. 'Mobilised cargo ship E-2 (stand-in)'."
+   },
+   {
+    "world_id": "chn_jlsf_wuxi_jlsc / chn_jlsf_guilin_jlsc",
+    "kind": "double_allocation",
+    "problem": "roro-1 and cargo-1 start underway at mission start, and each is escorted by a PLAN escort 'drawn from the Ningbo/Yulin allocation'. That escort is therefore underway from t=0. No reciprocal asset is named, so the Ningbo or Yulin package could also count the same hull at its pier.",
+    "fix": "Name the reciprocal escort slots in the base packages, e.g. asset:chn-ningbo:relief-escort-1 and asset:chn-yulin:relief-escort-1, with allocation 'escorting' from start. For the reserve releases, state that the escort is taken from units at base at release time and is removed from the base count then."
+   },
+   {
+    "world_id": "chn_jlsf_wuhan_base",
+    "kind": "source_fidelity",
+    "problem": "Two citation problems:\n- 'Role: command, not a tactical depot (plan:33)' is mis-cited. plan:33 is the US Atlantic row. The rule 'a headquarters is not automatically a tactical ammunition depot' is plan:17, and the Chinese national support row is plan:36.\n- The role_source and markdown co-cite R01:35 for points it does not make: the 2016 creation, the Army/Navy/Air Force/Rocket Force list, the 'weight center' and the rail/road/river hub. R01:35 supports only the 2024 'Arm', centralised sustainment, the Wuhan/Hubei HQ and the five JLSCs.",
+    "fix": "Cite plan:17 (with plan:36). Cite R02:38 alone for 2016 and the four services, and R02:42 alone for the weight centre and transport hub. Keep R01:35 only for the 2024 Arm, the HQ location and the JLSC count."
+   },
+   {
+    "world_id": "chn_jlsf_wuxi_jlsc / chn_jlsf_guilin_jlsc",
+    "kind": "label_missing",
+    "problem": "The reserve force rows (wuxi-mob-cargo-2, guilin-mob-roro-2) give source_basis 'SOURCE CLAIM R02:79'. R02:79 is simulation guidance (a design recommendation), and the register records it as claim_type simulation_guidance; the Wuhan package itself labels it that way. The factual basis for mobilised shipping is R02:50.",
+    "fix": "Write it as 'SOURCE CLAIM R02:50 (mobilisation authority); R02:79 simulation guidance (surge mechanic)'. Hull, number and trigger remain SCENARIO CHOICE."
+   },
+   {
+    "world_id": "region-summary (civil-military fusion table)",
+    "kind": "unit_id",
+    "problem": "Two errors in the alternative-hull facts:\n- civ_ms_seabee: 'no mission placement precedent' is wrong. It is placed in game-written SEST user saves (mods-source/_vanilla/user/missions/user_missions/SEST/NORTHERN FRONT III FINAL NEWEST.ini, mods-source/_vanilla/user/missions/NORTHERN FRONT.ini) and in mods-source/3491248180/missions/The Falklands War/Mission 1 - Baptism of Fire.ini. Only stock and integration/ missions lack it.\n- plan_lst_yukan: every variant has ServiceDate ending 2020, so it is not available as a present-day fallback.",
+    "fix": "Reword the Seabee entry as 'no stock or integration/ placement; placed in user saves and one Workshop mission'. Drop plan_lst_yukan from the fallback, or flag it as out of date for a 2026 world, leaving plan_ap_qiongsha (1980, no end date) as the presence-only fallback."
+   },
+   {
+    "world_id": "chn_jlsf_xining_jlsc",
+    "kind": "other",
+    "problem": "'This is the most remote node in the world register's inland set' contradicts the IPS lens, which puts Belaya at 1,271 NM from any placement against Xining's 1,102. Re-scanning by class gives the same result on land: Belaya about 1,258 NM against Xining about 1,097.",
+    "fix": "Drop the superlative, or say 'the most remote JLSF node (land placement about 1,100 NM)'."
+   }
+  ],
+  "verdict": "Mostly faithful and policy-compliant, but fixes are needed before Pass B use.\n\n**Sources and fidelity fixes.**\n- I opened every cited line in R01-R03, the plan and the seed: R02:36-59 and R02:77-79; R01:31-37 and R01:67-68; R03:97-99 and R03:105; seed:23; plan:44.\n- All say what is claimed, except two points: plan:33 should be plan:17, and the Wuhan package over-attributes to R01:35.\n- The fidelity fixes from checks 0 and 2 are applied correctly:\n  - Guilin and Wuxi list all three bases under R02:48, and the theatre pairings are labelled authored;\n  - the Zhengzhou/Wuhan wording is changed;\n  - the network-wide claims R02:48, R02:50 and R02:79 are recorded at Wuhan.\n\n**Unit ids and in-game evidence.**\n- All 55 unit ids resolve via find_unit_file/winning_file to the stated winning files.\n- The SupplySystem figures for civ_ms_roro_a, civ_ms_c8, seabee, roro_b, mercur, 903A, 901, the RE-power docks, nv_headquarters and tgt_ammo_depot_small match the files exactly, as do variant nations and flags, ServiceDates, lengths and the AOR hull names.\n- The AmmoPoints and categories for HHQ-9B (5,250), YJ-18C (5,100), YJ-19 (8,800) and Yu-8 (2,600) match.\n- The proxy and none outcome labels are honest.\n- Every cited placement line re-derives to the stated lat/lon, and every distance matches within 1-3 NM. The cited placements are the Taiwan Strait:574, Okinawa:402, Paracels:300, Luzon:1100, PLAN 02:507/410, Dong Hoi:294 and the three user missions. Two world-data points also check out: asia_ports [Shanghai] and BackgroundCityFile3.\n- The city-name hull collisions and the Laos-flag absence are confirmed.\n\n**Policy.**\n- No named PLAN AOR is allocated.\n- Each of the four mobilised hulls has one identity and one allocation (transit or reserve), with no respawn.\n- Depots and HQs are abstract, and the scale is small (two hulls per theatre).\n- Ban Keun is do_not_populate, with empty forces and connections.\n- There is no nuclear detail, no instant-degrade rule and no sanctuary rule.\n- SOURCE CLAIM, CHECK and SCENARIO CHOICE labels are present throughout.\n\n**What must be fixed:**\n- the plaaf_y-20b fuel figure (the winning file says 75,000, not 160,000);\n- an incomplete unrationed-round CHECK (HHQ-9C, YJ-17, HQ-16C and the 039B rounds), which weakens the finite-relief rationale;\n- receiver-fit table gaps: the Ro-Ro refuses the 056A escort's Yu-11;\n- unspecified VariantReference and duplicate NameOverrides, with a risk of reusing MSC-named US sealift variants;\n- escort slots that must be carried reciprocally by the Ningbo/Yulin packages;\n- minor citation, label and fact corrections: plan:17, R01:35 scope, R02:79 as simulation guidance, the Seabee placements, Yukan's 2020 end date and the Xining superlative."
+ }
+}

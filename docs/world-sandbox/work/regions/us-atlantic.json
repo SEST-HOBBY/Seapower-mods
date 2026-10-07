@@ -1,0 +1,1166 @@
+{
+ "key": "us-atlantic",
+ "markdown": "## US Atlantic, specialist support and CONUS depots\n\n**Region summary.**\n- **Policies.** 11 nodes.\n  - Populated: NS Norfolk and NAS Jacksonville.\n  - Context-only: NAS Patuxent River, and Newport News Shipbuilding, which holds one carrier that is out of service (per the region note).\n  - Abstract logistics only: NAS Whiting Field, the DLA network, DLA Susquehanna, DSC Richmond and the Anniston, Red River and Tobyhanna depots.\n- **Scenario totals at start (all SCENARIO CHOICE).**\n  - 12 hulls: 3 CVNs (one in RCOH, unavailable), 6 DDGs, 1 T-AOE stand-in, 1 T-AKE stand-in and 1 Algol T-AKR.\n  - 43 aircraft: 30 embarked on carriers, 6 at NAS Norfolk and 7 at NAS Jacksonville.\n  - Plus 8 MH-60R carried by the four Flight IIA hulls' own air groups.\n  - SOURCE CLAIM for comparison: Norfolk 'over 75 ships and 134 aircraft' (R03:19, R01:15). That is a base total, not an instruction to place them.\n- **Carrier ledger.** Each R03 table hull appears once in the world:\n  - CVN-69 Eisenhower: training, carrier qualifications (CQ) in the Virginia Capes operating area.\n  - CVN-75 Truman: underway in the western Atlantic.\n  - CVN-74 Stennis: in servicing at Newport News, flagged CHECK.\n  - No other region may allocate these three hulls.\n  - Contingency (SCENARIO CHOICE, pre-stated in the Norfolk package): if Truman is in RCOH at the scenario date, it moves to servicing at Newport News, its air wing is left unallocated, and no carrier leads the underway Atlantic group. No hull is duplicated.\n- **Engine facts that shape this region.** Collection inventory, with verify corrections applied:\n  - No Nation=US shore unit can resupply ships. The vanilla East Coast ports are hidden from the Mission Editor, carry no supply system and reach a mission only through [BackgroundData] (untested for a sandbox). [BackgroundData] references a whole port file, with no per-entry selection: us_ports_atlantic.ini carries 12 entries (see the Norfolk CHECK).\n  - Ship supply is ammunition only. No ship fuel is modelled, and supplier pools are never restocked.\n  - A carrier cannot rearm its FlightDeck_ magazine at sea.\n  - The SEST T-AO, T-AKE and T-AOE units are proxies: donor meshes with '(stand-in)' display names. Their transfers are still untested in game (integration/replenishment/README.md checklist item 5).\n- **Placement.** Every position below is approximate and must be verified; placement is pending validation.\n  - No mission has placed a unit within 60 NM of any node here. The nearest sea placement to Norfolk is about 206-211 NM away (Workshop 3766210676 Saronic Corsair tests, centre 34.0N 74.0W).\n  - The builder's pool snapping fails here, so validation needs global_land_mask or a new coast extract.\n  - Stock world data does have Atlantic nodes: KNGU, Port Norfolk, Port Jacksonville, Mayport, and the Chesapeake, Hampton Roads, Cape Hatteras and Jacksonville Fairway sea points.\n  - The map centre is only a datum. If one mission spans Norfolk and the Indo-Pacific, the separation (Norfolk-Stirling about 10,150 NM) exceeds anything played and saved (3,450 NM). That is untested, not a known limit.\n\n---\n\n### usa_norfolk_naval_station_norfolk - Naval Station Norfolk\n\n**Identity.**\n- Operator: United States Navy. Host: United States (Virginia).\n- node_kind naval_base; populate_policy **populate**.\n- Sources: R01:15; R02:17; R03:19, 28, 48, 55, 60, 61.\n\n**SOURCE CLAIM (role).**\n- Largest naval base in the world by operational concentration and fleet density; 4,000-6,000 acres; 11 miles of pier and wharf (R03:19). R01:15 repeats only the 'largest naval base ... by operational concentration and fleet density' phrase and the '75 ships / 134 aircraft / 11 hangars' phrase; it gives no acreage, pier length or Fleet Forces HQ. Repetition is not corroboration.\n- HQ of Fleet Forces Command (R03:19, R03:28).\n- Primary force-generation hub for the Atlantic, Mediterranean and Middle Eastern theatres (R03:19).\n- Hosts resident nuclear carriers and escorting destroyer squadrons; no counts given (R03:19).\n- 'Over 75 ships and 134 aircraft across 11 hangars' (R03:19, R01:15); the table says 'Up to 75 surface ships, 134 aircraft' (R03:28).\n- Eisenhower and Truman stage from Norfolk, with CQ off the Virginia Capes and in the Jacksonville operating areas (R03:48).\n- Carrier table rows:\n  - CVN 69: home port Norfolk, 'Fleet Replacement Squadron CQ' (R03:55).\n  - CVN 74: home port Norfolk, 'RCOH', inactive (R03:60).\n  - CVN 75: home port Norfolk, 'UNITAS Exercises / Workups', Atlantic / South America (R03:61).\n- R02:17 names Norfolk as one of four sites into which 'major logistical operations are integrated'. Many DLA centres are said to be co-located with such bases, but no centre is named for Norfolk.\n\n**CHECK.**\n- Carrier statuses are undated report claims (seed:23). Check each at the scenario date:\n  - Eisenhower was reported in maintenance after its 2023-24 deployment.\n  - Truman deployed in 2024-25 and was reported as next due for RCOH. The collection's own winning variants file also annotates it: mods-source/3390330875/vessels/usn_cvn_nimitz_2025_variants.ini has '[Variant8] #CVN-75 Harry S Truman CVW-1 (AB) \"Real World No CVW RCOH\"' (and the same annotation on Variant7, CVN-74). The R03:61 'UNITAS Exercises / Workups' status may therefore be stale at the scenario date. The SOURCE CLAIM above is kept as written; the doubt comes from the collection itself, not only from outside reports.\n  - Stennis's RCOH was reported extended to about 2026 or later.\n- SCENARIO CHOICE (contingency, pre-stated): if Truman is in RCOH at the scenario date:\n  - asset:usatl:cvn75_truman moves to servicing_maintenance at Newport News, under the same rules as CVN-74 (ledger entry by default, inert hull optional).\n  - asset:usatl:cvn75_airwing is left unallocated: 22 aircraft drop out of the region totals, and no other carrier takes them.\n  - No carrier leads the underway Atlantic group. CVN-69 stays in training_test (R03:55 'FRS CQ') and is not promoted; CVN-74 stays in RCOH.\n  - The two Truman escorts and the T-AKE keep their asset ids. They either sail as a carrier-less surface group on the same southbound route, or return to Norfolk as resident_at_base. Either way each is allocated once.\n  - No hull is duplicated, and no second CVN-75 appears anywhere in the world.\n- Stennis: the R03:60 table lists home port Norfolk, while R03:50 places the RCOH 'at facilities like Newport News Shipbuilding', an example rather than an assertion. Allocated to servicing at Newport News; see that package.\n- Fidelity fixes applied:\n  - Newport News is removed from parent_or_colocated; only the hedged relationship remains.\n  - The DLA wording is limited to what R02:17 says.\n  - The R02:17 closing sentence ('these CONUS hubs represent the ultimate source of replacement airframes, deep-level maintenance components and bulk munitions') is applied as context only, and only to the nodes in this region that R02:15-17 names: Norfolk, Jacksonville, Susquehanna, Richmond, Anniston, Red River and Tobyhanna (plus the DLA network itself). It does not apply to Patuxent River, Whiting Field or Newport News, which R02 does not mention.\n- Counts conflict internally: 'over 75 ships' (R03:19) against 'Up to 75 surface ships' (R03:28). Neither names classes or squadrons, and both are time-sensitive.\n- port_eastcoast_norfolk is downgraded to proxy:\n  - It is the commercial port (Role=Civil in us_ports_atlantic.ini), about 2 NM south of the naval piers.\n  - It is HideIn=MissionEditor, has no SupplySystem and is misspelt 'Norflok'.\n- Loading port_eastcoast_norfolk through [BackgroundData] means loading all of us_ports_atlantic.ini (only copy: vanilla campaigns/us_ports_atlantic.ini). That file has 12 entries, so it brings 11 others besides Port Norfolk:\n  - Five with port units: Halifax (Canada, Civil), Charleston (Civil), Port Jacksonville (Civil), Mayport (LargeMilitary) and Newport (LargeMilitary).\n  - Six location-only entries: Boston, Saint John (Canada), New York, New London (LargeMilitary), Philadelphia (LargeMilitary) and Baltimore (LargeCivil).\n  - Four are Role=LargeMilitary (New London, Philadelphia, Mayport, Newport). None of the 11 is a research node or named in R01-R03; label them scenery, not research nodes.\n  - Nine entries, Port Norfolk included, carry Movements=5 and Destinations={..., civ_} to 13 foreign ports. These may spawn engine civil traffic from the generic civ_ pool. That pool includes the RE-power freighters this package avoids (civ_ms_freighter_a/b, civ_ms_super_p: live supply blocks of 4.92-12 million points, no ceiling). Untested.\n  - Whether LoadBackgroundData creates every entry or filters by distance is still open (scope-and-performance.md:245).\n  - SCENARIO CHOICE: keep asset:usatl:port_norfolk_scenery as a ledger entry until a probe shows what the file spawns.\n- Carrier-aviation types, outcomes per the corrected inventory (none allocated here):\n  - MQ-25: proxy, usn_ka-3b labelled 'MQ-25 stand-in (KA-3B)'. Squadrons are date-gated 1956|1991. Not allocated.\n  - CMV-22B: missing_fit, usmc_mv-22b (USMC VMM/VMMT liveries only; no Navy VRM livery).\n  - C-2A: none.\n  - MH-60S: missing_fit, usn_hh-60 or usn_sh-60f as a labelled stand-in. MH-60R is used instead as a SCENARIO CHOICE.\n- Carrier air groups: no shipped variant wing on usn_cvn_nimitz_2025 is usable, so a mission CustomAirGroup is mandatory.\n  - usn_mh-60r_26 and usn_mh-60r_2027 do not resolve.\n  - An editor round-trip drops empty CustomAirGroup lines and turns Hold/Tight into Free (restore_roe.py exists).\n- E-2D squadron liveries are offset from their names: each squadron is painted as a different squadron.\n- usn_takr_algol: use only Variant1, 3, 6 or 7 (Algol, Denebola, Regulus, Capella). The other variants' ServiceDates end in 2025.\n- MH-60R model and FLIR depend on mod 3590477166.\n- Choosing a destroyer's hull variant implies a real ship. Assign each hull once in the world ledger; no real home port is asserted.\n\n**Position.** Approx, verify.\n- NS piers about 36.95N 76.33W; NAS Norfolk (Chambers Field) about 36.94N 76.29W.\n- In-game evidence:\n  - Stock world data: KNGU 'NAS Norfolk' 36.937,-76.289 (Role=LargeMilitary) and Port Norfolk 36.9226,-76.3429 (Role=Civil).\n  - Stock sea points: Hampton Roads 37.01,-76.24 (about 5 NM away), Chesapeake Fairway 1-3 and Cape Hatteras 35.15,-75.28.\n  - A stock neutral waypoint reaches 37.09N 76.12W, about 13 NM away (UnderCoverOfTheRain.ini:503).\n- Nearest unit placed by any mission: sea about 206 NM, land about 1,689 NM.\n\n**Forces.** Quantities are SCENARIO CHOICE. Source basis is shown separately.\n\n| Allocation | Asset id | Role | Unit id (outcome) | Qty | Source basis |\n|---|---|---|---|---|---|\n| training_test | asset:usatl:cvn69_eisenhower | FRS carrier qualifications in the Virginia Capes operating area, about 36.6N 74.9W | usn_cvn_nimitz_2025 Variant2 'CVN-69 Dwight D. Eisenhower' (exact hull) | 1 | R03:48, R03:55. Location and timing are scenario |\n| training_test | asset:usatl:cvn69_cq_det | Embarked CQ detachment | usn_fa_18f_rsa Squadron6 (VFA-106 FRS) x6; usn_mh-60r (HSM index set at build) x2 (exact) | 8 | R03:55 says only 'FRS CQ'. Squadron and counts are scenario. MH-60S plane-guard type is missing_fit |\n| escort | asset:usatl:ddg_vacapes_planeguard | Plane guard for CVN-69 | usn_ddg_burke_f1_054_late (exact; hull set in ledger) | 1 | R03:19 escort family only |\n| underway_deployed | asset:usatl:cvn75_truman | Workups, southbound in the western Atlantic toward South America (UNITAS); start about 33.5N 74.0W | usn_cvn_nimitz_2025 Variant8 'CVN-75 Harry S. Truman' (exact hull) | 1 | R03:48, R03:61. Status CHECK: the collection annotates CVN-75 as in RCOH; see the contingency above |\n| underway_deployed | asset:usatl:cvn75_airwing | Reduced workups air wing (CustomAirGroup) | usn_fa_18e_rsa (Sq1-17) x10, usn_fa_18f_rsa x4, usn_ea-18g_2020 x2, usn_e-2d x2, usn_mh-60r x4 (exact) | 22 | No air wing is named by R01-R03. All scenario |\n| escort | asset:usatl:ddg_truman_esc_1 | CVN-75 escort | usn_ddg_burke_f2a_099_late (exact; MH-60R x2 in hull air group) | 1 | R03:19 family |\n| escort | asset:usatl:ddg_truman_esc_2 | CVN-75 escort | usn_ddg_burke_f2a_099_late (exact) | 1 | R03:19 family |\n| support | asset:usatl:take_truman | Ammunition supplier with the CVN-75 group | usn_take_lewis_clark Default '(stand-in)' (proxy) | 1 | None (scenario) |\n| patrol | asset:usatl:ddg_vacapes_patrol | Patrol of the Chesapeake Fairway and Virginia Capes | usn_ddg_burke_f2a_099_late (exact) | 1 | R03:19 family |\n| resident_at_base | asset:usatl:ddg_norfolk_ready | Ready destroyer alongside | usn_ddg_burke_f1_054_late (exact) | 1 | R03:19 family |\n| reserve | asset:usatl:ddg_norfolk_reserve | Finite reserve; trigger-activated (Disabled=True, then Action_SetEnabledStatus) | usn_ddg_burke_f2a_099_late (exact) | 1 | R03:19 family |\n| support | asset:usatl:taoe_norfolk | Ammunition supplier at the pier for returning ships | usn_taoe_supply Default '(stand-in)' (proxy) | 1 | None (scenario) |\n| reserve | asset:usatl:takr_norfolk_relief | Finite relief and sealift with a slow ammunition pass | usn_takr_algol Variant1/3/6/7 (exact class) | 1 | None (scenario) |\n| resident_at_base | asset:usatl:nas_norfolk_field | NAS Norfolk airfield | usa_airbase Variant1 'Naval Air Station' + NameOverride (proxy). Alternative: a new SEST named clone on the raaf-bases pattern (new id, not existing) | 1 | R03:19 '134 aircraft' (no types); KNGU |\n| resident_at_base | asset:usatl:nas_norfolk_helo | Helicopter detachment ashore | usn_mh-60r (exact) | 4 | None (no Norfolk aircraft types in the reports) |\n| resident_at_base | asset:usatl:nas_norfolk_aew | AEW detachment ashore | usn_e-2d (exact) | 2 | None (scenario) |\n| abstract | asset:usatl:port_norfolk_scenery | Port scenery only; ledger entry until a probe shows what us_ports_atlantic.ini spawns | port_eastcoast_norfolk (proxy: civil, hidden, BackgroundData; the file also brings 11 other entries) | 1 (ledger entry by default) | R03:19 identity |\n| abstract | asset:usatl:usff_hq | Fleet Forces Command HQ | none (abstract command node) | - | R03:19, R03:28 |\n\nasset:usatl:cvn74_stennis is **not** at Norfolk. It is allocated once, under Newport News.\n\n**Support services.**\n- **Ship ammunition.**\n  - usn_taoe_supply (alongside): [SupplySystem1] TruckSupplySystem, pool 700,000, no ceiling, 1.0 nm, 130 pts/s, 2 targets, own speed up to 13 kn and receiver up to 16 kn, Vessel and Submarine targets. Categories: Harpoon 40, AirTorpedo 60, ALWT 32, SEST_LandAttack 40, SEST_LongRangeSAM 48.\n  - usn_take_lewis_clark (with Truman): pool 550,000, no ceiling. Categories: Harpoon 48, AirTorpedo 72, ALWT 40, SEST_LandAttack 48, SEST_LongRangeSAM 56.\n  - usn_takr_algol (reserve): pool 500,000, 0.5 nm, 45 pts/s, own speed up to 8 kn and receiver up to 12 kn. Categories: Harpoon 40, AirTorpedo 48, ALWT 24, SEST_LandAttack 32, SEST_LongRangeSAM 32.\n  - The port itself supplies nothing.\n  - The SEST clones have not been tested in game.\n- **Aircraft turnaround and ordnance.**\n  - Carriers: FlightDeck_AmmoCapacity 1,200,000 (Phoenix 84, Harpoon 48, AirTorpedo 80, AdvancedARM 64). It cannot be topped up at sea.\n  - usa_airbase: 2,000,000 (AirTorpedo 72, Ovod 144, Harpoon 144). A SEST airbase_us clone would have no FlightDeck_AmmoCapacity, so its stock would be the engine default.\n- **Supplier restocking:** not established. Pools deplete, and no port restocks a supplier. The reserve Algol is the only finite relief.\n- **Fuel:** not established. No vessel fuel is modelled and no tanker is allocated.\n- **Repair:** not established. There is no shipyard function.\n- **Command and DLA integration:** abstract.\n\n**Connections.**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| usa_newport_news_shipbuilding | RCOH example facility for a carrier with Norfolk as home port | source (hedged) | R03:50, R03:60 |\n| usg_dla_distribution_network | Major logistical operations integrated; no DLA centre asserted | source | R02:17 |\n| Virginia Capes operating area | CQ area | source | R03:48 |\n| Jacksonville operating areas | CQ area | source | R03:48 |\n| Atlantic / South America | Truman operating focus | source | R03:61 |\n| usa_dla_susquehanna | East Coast resupply origin | authored | R02:29 for the hub role only |\n| usa_jacksonville_nas_jacksonville | P-8A ASW cover for departures | authored | - |\n| med_rota_naval_station | Transit gateway for Mediterranean deployments | authored | R03:19, R03:44 (theatre roles) |\n| me_bahrain_nsa_bahrain | Middle East deployment destination | authored | R03:48 (theatre only) |\n\n**Routine activity.** Proposed, not implemented.\n- CVN-69 flies CQ racetracks in the Virginia Capes operating area with its plane guard, then returns to Norfolk.\n- The CVN-75 group transits south by Cape Hatteras toward the Windward or Mona Passage sea points, with a RAS rendezvous with the T-AKE.\n- A DDG patrols a loop between Chesapeake Fairway 1 and Cape Hatteras.\n- Arrivals and departures run Hampton Roads to Chesapeake Fairway; returning ships rearm from the T-AOE.\n- The reserve DDG and the Algol are activated by trigger only.\n- Helicopters fly local SAR and ASW sorties.\n- **Civil traffic** (scenario, no supply blocks):\n  - Ships: civ_ms_mairangi_bay (US variants), civ_ms_bulk (Liberia/Greece), civ_ms_car_carrier_a (Panama/Liberia), civ_ms_ritina (US/Liberia), civ_ms_c7s68 (US; Default ServiceDate 1968-2019, check date filtering), civ_fv_fishingboat_a and civ_fv_crabboat.\n  - civ_fv_fishingboat_a must be pinned to VariantReference=Variant3, which displays 'Fishing boat US', or given a NameOverride. Its display names come from 3432592449 language_en/vessel_names.ini (Variant1 USSR, Variant2 Iceland, Variant3 US, Variant4 Japan, Variant5 China); every variant flag is Nation=US. A random variant off the Virginia Capes could show a Soviet- or Chinese-labelled boat.\n  - Aircraft: civ_a320 (US Squadron14 etc.), civ_a330 (US Squadron25 etc.), civ_c340 and civ_h700.\n  - Avoid RE-power freighters such as civ_ms_freighter_a and civ_ms_super_p, which carry unlimited supply blocks.\n\n**Validation.**\n- Research: report claims only.\n- Mapping: hulls exact; auxiliaries, port and airfield are proxies.\n- Placement, activation and save/load: untested.\n\n---\n\n### usa_jacksonville_nas_jacksonville - Naval Air Station Jacksonville\n\n**Identity.**\n- Operator: United States Navy. Host: United States (Florida).\n- node_kind naval_air_station; populate_policy **populate**.\n- Sources: R01:17; R02:17; R03:23, 31.\n\n**SOURCE CLAIM.**\n- Premier ASW hub; 3,800 acres (R03:23). R01:17 repeats only 'premier hub for anti-submarine warfare' and the P-8A / MQ-4C pairing; it gives no acreage.\n- Over 100 aircraft, including P-8A, MH-60R, C-130T and MQ-4C (R03:23). The table lists P-8A, MH-60R and MQ-4C (R03:31).\n- Focus: tracking submarines in the Atlantic and Caribbean (R03:23).\n- Named in R02:17 among the sites with integrated 'major logistical operations'.\n\n**CHECK.**\n- Resident aircraft and squadrons are a priority check (seed:23); the reports give no squadrons or per-type counts.\n- The Triton is often reported as Jacksonville-based, flying East Coast missions from NAS Mayport.\n- Fidelity fix: no DLA centre is asserted at Jacksonville.\n- The Jacksonville operating areas (R03:48) are a sea area, not the air station.\n- usn_p_8a: use Squadron1-14 only; Squadron15-26 are foreign.\n- port_eastcoast_jacksonville is a civil port (proxy, hidden). Only port_eastcoast_mayport is Role=LargeMilitary, and Mayport is not a research node.\n\n**Position.** Approx, verify.\n- About 30.24N 81.68W.\n- Evidence: stock Port Jacksonville 30.3278,-81.6437 (about 6 NM away), stock Mayport 30.4028,-81.4263 (about 16 NM) and the Jacksonville Fairway sea point 30.39,-81.32.\n- Nearest placed sea unit: about 450 NM.\n\n**Forces.** Quantities are SCENARIO CHOICE; R03:23 gives only types and an 'over 100 aircraft' total, with no per-type counts.\n\n| Allocation | Asset id | Role | Unit id (outcome) | Qty | Source basis |\n|---|---|---|---|---|---|\n| resident_at_base | asset:usatl:nas_jax_field | Airfield | usa_airbase Variant1 + NameOverride 'NAS Jacksonville' (proxy; SEST clone optional) | 1 | R03:23 |\n| patrol | asset:usatl:p8a_jax_patrol | Airborne ASW patrol over the Atlantic approaches and Caribbean | usn_p_8a Sq1-14 (exact) | 1 | R03:23 type and focus |\n| resident_at_base | asset:usatl:p8a_jax_base | In base air group for turnaround | usn_p_8a (exact) | 2 | R03:23 type |\n| reserve | asset:usatl:p8a_jax_reserve | Finite reserve | usn_p_8a (exact) | 1 | R03:23 type |\n| resident_at_base | asset:usatl:mh60r_jax | ASW helicopters | usn_mh-60r (exact) | 3 | R03:23 type |\n| abstract (not allocated) | gap:usatl:c130t_jax | C-130T transport | missing_fit: usmc_kc-130t (squadron ServiceDates end 2002-2021); usmc_kc-130j (adds a RefuelSystem the C-130T lacks) | 0 | R03:23 |\n| abstract (not allocated) | gap:usatl:mq4c_jax | MQ-4C Triton | missing_fit: raaf_mq-4c_triton (Australian squadrons only) | 0 | R01:17, R03:23 |\n\n**Support services.**\n- **Aircraft turnaround and ordnance:** usa_airbase stores, 2,000,000 points (AirTorpedo 72, Harpoon 144, Ovod 144). P-8A torpedo and Harpoon categories are present. Sortie repeatability is untested.\n- **Ship ammunition:** none; this is an air station and the civil port has no supply.\n- **Restocking, fuel and repair:** not established.\n\n**Connections.**\n- usg_dla_distribution_network: source, R02:17.\n- Atlantic and Caribbean ASW focus: source, R03:23.\n- Jacksonville operating areas: source, R03:48.\n- usa_norfolk_naval_station_norfolk: authored, ASW cover for the CVN-75 departure.\n- usa_richmond_defense_supply_center: authored, aircraft spares.\n- usa_whiting_nas_whiting_field: authored, abstract aircrew supply.\n\n**Routine activity.** Proposed.\n- One P-8A always airborne, on a box east of Jacksonville and sorties toward the N Florida Straits sea point. It rotates with the base aircraft, which also exercises turnaround.\n- MH-60R train in the Jacksonville operating areas.\n- **Civil traffic:**\n  - Ships at the Jacksonville Fairway: civ_ms_car_carrier_a, civ_ms_bulk, civ_ms_c7s68 (date check), civ_fv_fishingboat_a (pinned to Variant3 'Fishing boat US' or given a NameOverride, as at Norfolk), civ_fv_crabboat.\n  - Aircraft: civ_a320/civ_a330 (US squadrons), civ_c340 and civ_v35.\n\n**Validation.**\n- Mapping: P-8A and MH-60R exact; C-130T and MQ-4C missing_fit.\n- Placement and turnaround: untested.\n\n---\n\n### usa_patuxent_nas_patuxent_river - Naval Air Station Patuxent River\n\n**Identity.**\n- Operator: United States Navy (Maryland). node_kind research_test; populate_policy **context_only**.\n- 'Pax River' is an editorial alias.\n\n**SOURCE CLAIM.**\n- Nerve centre for naval aviation research, development and test; 6,400 acres; over 17,000 personnel (R03:23). R01:17 repeats only 'nerve center for naval aviation research'; it gives no acreage or personnel figure.\n- Hosts NAVAIR (R03:23, R03:30) and the Naval Test Pilot School (R03:23 only).\n- Flight and weapons integration testing of the P-8A, F-35 variants and unmanned systems (R03:23). The table lists 'Test variants of F-35, P-8, Unmanned systems' (R03:30).\n\n**CHECK.**\n- Test variants are not combat-ready resident forces and are never counted as available.\n- Fidelity: R03:30 gives only 'NAVAIR HQ'. No further place-specific claims exist.\n- R02:17's 'these CONUS hubs' sentence does not apply here; R02 does not mention Patuxent River.\n\n**Position.** Approx, verify.\n- About 38.29N 76.41W.\n- Evidence: stock sea point Chesapeake Bay 2 (37.88,-76.16), about 27 NM away. Nearest placed sea unit: about 278 NM.\n\n**Forces.** Not populated by default.\n- Optional marker, asset:usatl:pax_field_marker: usa_airbase Variant1 (preferred by the verify) or nato_small_airbase (proxy; us-navy inventory installation mapping, Nation=US in its vanilla variants file). Either takes a NameOverride 'NAS Patuxent River', since both display generic names. It must be given an explicitly empty air group, because default groups spawn Cold War aircraft and the editor drops empty CustomAirGroup lines. Quantity: SCENARIO CHOICE (optional, default 0).\n- Test aircraft (gap:usatl:pax_test_aircraft): **missing_fit**. No VX-23, VX-20, HX-21, VX-1 or UX-24 livery exists. The nearest are usn_f-35c Squadron2 (VX-9 paint), usn_fa_18e_rsa Squadron18 (VX-4) and usn_p_8a labelled 'test det'. There is no unmanned test type.\n- Quantity: SCENARIO CHOICE (optional, default 0; at most 1-2 static aircraft as dressing). They never sortie and are never counted.\n\n**Support:** none (context). **Connections:** authored context with Jacksonville only (the P-8A type, R03:23); no logistics link. **Routine activity:** none; optional civil traffic in the Chesapeake Bay.\n\n---\n\n### usa_whiting_nas_whiting_field - Naval Air Station Whiting Field\n\n**Identity.**\n- Operator: United States Navy (Florida). node_kind training; populate_policy **abstract_logistics_only**.\n\n**SOURCE CLAIM.**\n- Conducts over 60 percent of primary flight training for the Navy, Marine Corps and Coast Guard, and is needed to simulate pilot pipelines (R03:23).\n- About 250 primary training aircraft, type not named (R03:23, R03:32).\n\n**CHECK.**\n- Check the location before any placement.\n- Sea Power may have no pilot-pipeline mechanic.\n- The 250 count is not a placement figure.\n- T-6B and TH-73 are lookup terms from the inventory, not from R03.\n- R02:17's 'these CONUS hubs' sentence does not apply here; R02 does not mention Whiting Field.\n\n**Position.** Approx, verify: about 30.72N 87.02W. No stock world-data node, and no mission centred within 300 NM.\n\n**Forces.**\n- asset:usatl:whiting_pipeline: abstract aircrew-replacement source.\n- Trainer proxies, used only as optional background traffic:\n  - civ_v35, labelled 'T-6B stand-in' (a civil light single, Role=Airliner).\n  - fr_as-350 Squadron2 (Nation=US), labelled 'TH-73 stand-in'.\n  - Installation proxy: nato_very_small_airbase.\n- Quantity: SCENARIO CHOICE (optional, default 0).\n\n**Support:** not applicable. **Connections:** authored abstract aircrew supply to Jacksonville and Norfolk; source role from R03:23. **Routine activity:** none unless the Gulf coast is active.\n\n---\n\n### usa_newport_news_shipbuilding - Newport News Shipbuilding\n\n**Identity.**\n- Operator not stated in the reports (commercial shipyard). Host: United States (Virginia).\n- node_kind shipyard_maintenance; populate_policy **context_only**, holding one asset that is out of service.\n\n**SOURCE CLAIM.**\n- 'Carriers like USS John C. Stennis undergo years-long Refueling and Complex Overhauls at facilities like Newport News Shipbuilding, removing them from the strategic chessboard' (R03:50).\n- R03:60 lists Stennis with home port Norfolk and status RCOH.\n\n**CHECK.**\n- 'Facilities like' makes this an example, not an assertion.\n- Check where the Stennis RCOH is held and when it completes (reported extended to about 2026 or later). If it is complete at the scenario date, reallocate the hull once, for example to Norfolk.\n- If Truman has entered RCOH instead, it moves here and is removed from the Atlantic allocation (the collection's variants file annotates CVN-75 'Real World No CVW RCOH'). It arrives without its air wing, which stays unallocated; see the Norfolk contingency.\n- Fidelity: parent_or_colocated should be empty.\n- R02:17's 'these CONUS hubs' sentence does not apply here; R02 does not mention Newport News.\n\n**Position.** Approx, verify.\n- About 36.99N 76.44W.\n- Evidence: stock Port Norfolk node about 6 NM away; Hampton Roads sea point about 10 NM.\n\n**Forces.**\n\n| Allocation | Asset id | Role | Unit id (outcome) | Qty | Source basis |\n|---|---|---|---|---|---|\n| servicing_maintenance | asset:usatl:cvn74_stennis | Carrier in RCOH; unavailable | usn_cvn_nimitz_2025 Variant7 'CVN-74 John C. Stennis' (exact hull; the 2027s_adou unit lacks CVN-74) | 1 | R03:50, R03:60 |\n\nSCENARIO CHOICE: keep it as a ledger entry until placement is validated. As an option, place it as an inert static hull with weapons on Hold and no air group. That needs a restore step, because the editor drops empty CustomAirGroup lines and the broken default wing would come back.\n\n**Support.**\n- Repair and overhaul: not modelled. There is no shipyard or drydock function. US_Los_Alamos (AFDB-7, 1961-1991 target object) is not representative.\n\n**Connections.** usa_norfolk_naval_station_norfolk: source (hedged), R03:50 and R03:60.\n\n**Routine activity.** None.\n\n---\n\n### usg_dla_distribution_network - Defense Logistics Agency distribution network (agency-wide)\n\n**Identity.**\n- Operator: US Defense Logistics Agency. No site.\n- populate_policy **abstract_logistics_only**.\n\n**SOURCE CLAIM.**\n- Supplies 86 percent of spare parts and nearly 100 percent of fuel and troop-support consumables (R02:11). R01:21 repeats only the 86 percent spares and nearly 100 percent fuel figures, without 'troop support consumables'.\n- 17 major CONUS distribution centres, the origin points of supply chains (R02:15).\n- Many centres are co-located with the largest force-generation bases. Major logistical operations are integrated into NS Norfolk, NB San Diego, NAS Jacksonville and PSNS (R02:17).\n- CONUS hubs are the ultimate source of replacement airframes, deep-maintenance components and bulk munitions (R02:17).\n- Seven OCONUS hubs plus prepositioned ships (R02:21).\n- Named centres: R02:15, R02:23 and R02:29-34. R01:23 repeats Yokosuka and Guam, which is repetition, not corroboration.\n\n**CHECK.**\n- 'Managed primarily by the DLA' likely overstates DLA's role.\n- Seven OCONUS hubs are claimed, but only six are named. R02:33 lists Diego Garcia in the same table without calling it a DLA centre.\n- 17 CONUS centres are claimed (R02:15), but only Susquehanna and San Joaquin are named.\n- R02:17 states co-location only generically ('many DLA distribution centers'). No centre at Norfolk, Jacksonville, San Diego or PSNS is asserted or named; those four are only sites into which 'major logistical operations are integrated'.\n- The same correction applies to the expansion_backlog wording wherever it says the Norfolk and Jacksonville centres are 'implied'.\n- Treating Richmond, the Army depots and the APF as members of the network is an authored grouping (fidelity).\n\n**Position.** None; agency-wide.\n\n**Forces.**\n- asset:usatl:dla_network: abstract. There is no engine distribution mechanic.\n\n**Support.**\n- 'Restock' can only be represented by finite relief hulls in the world allocation, such as asset:usatl:takr_norfolk_relief. Never as unlimited spawns.\n- usaf_c-141b PlaneCargoSupplySystem is the one candidate air-cargo ammunition mechanism. It is untested and date-gated to 1965-2006.\n\n**Connections.**\n- Source:\n  - Susquehanna and San Joaquin: R02:15.\n  - Yokosuka, Guam, Pearl Harbor, Bahrain, Sigonella and Germersheim: R02:23.\n  - Norfolk, San Diego, Jacksonville and PSNS: R02:17.\n  - APF cargo includes DLA fuels: R01:23, R02:25.\n- Authored: Richmond and the three Army depots.\n\n---\n\n### usa_dla_susquehanna - DLA Distribution Susquehanna\n\n**Identity.** Operator: DLA (Pennsylvania). populate_policy **abstract_logistics_only**.\n\n**SOURCE CLAIM.**\n- One of the massive primary hubs anchoring the CONUS network; with San Joaquin it manages the bulk of cross-country and international materiel routing (R02:15).\n- 'Primary East Coast CONUS distribution hub' (R02:29).\n\n**CHECK.**\n- DLA centre counts and scope are a priority check.\n- R02:17's 'these CONUS hubs' sentence is applied as context only.\n\n**Position.** Approx, verify: about 40.2N 76.9W (New Cumberland area; R02 says only 'Pennsylvania'). Inland; stock Baltimore node about 58 NM away.\n\n**Forces.**\n- asset:usatl:dla_susquehanna: abstract.\n- Optional marker: warehouses_1 or warehouses_3 and tgt_fueltanks_large, with Nation=usa and a NameOverride (proxy; static, no function). Quantity: SCENARIO CHOICE (optional, default 0).\n- usa_car_hemtt is left out of the marker. It is not a static target: 3605013271:land_units/usa_car_hemtt.ini has a working TruckSupplySystem (pool 13,500, MaxAmmoPoints 200, 0.5 nmi, 6 targets, LandUnit only). It would act as a mobile land-unit resupply truck and can reload unpriced Patriot rounds. It reaches nothing at sea.\n\n**Connections.**\n- usg_dla_distribution_network and usp_dla_san_joaquin: source, R02:15.\n- Norfolk and Jacksonville: authored, East Coast resupply origin.\n\n---\n\n### usa_richmond_defense_supply_center - Defense Supply Center Richmond\n\n**Identity.** Operator not stated (DLA implied). populate_policy **abstract_logistics_only**.\n\n**SOURCE CLAIM.** A dedicated supply installation specialising in aircraft parts (R02:17).\n\n**CHECK.**\n- Renamed DLA Aviation around 2010.\n- Its DLA membership is an authored grouping.\n- The engine has no aircraft-spares or airframe-replacement mechanic.\n\n**Position.** Approx, verify: about 37.4N 77.4W. Stock Hampton Roads sea point about 62 NM away.\n\n**Forces.** asset:usatl:dsc_richmond: abstract. Optional warehouses_3 marker (proxy). Quantity: SCENARIO CHOICE (optional, default 0).\n\n**Connections.**\n- usg_dla_distribution_network: authored grouping.\n- Jacksonville and Norfolk: authored, aviation spares.\n\n---\n\n### usa_army_depot_anniston - Anniston (Army depot)\n\n**Identity.** US Army; populate_policy **abstract_logistics_only**.\n\n**SOURCE CLAIM.** Listed among 'various Army depots' in the other dedicated supply installations (R02:17).\n\n**CHECK.**\n- R02 gives no state, location or function.\n- The inventory's 'maintenance/ammunition depot' label is lookup context, not R02.\n\n**Position.** Approx, verify: about 33.6N 86.0W (Alabama; public, not R02). Far inland.\n\n**Forces.**\n- asset:usatl:anniston_depot: abstract.\n- Optional static marker: tgt_industry_buildings_1, warehouses_3 and Ammo_Bunker (proxy). Quantity: SCENARIO CHOICE (optional, default 0).\n- tgt_ammo_depot_small and nv_headquarters resupply land units only and serve nothing at sea.\n\n**Connections.** Norfolk: authored, port of embarkation via RRF sealift (civ_ms_roro_c US variants as a labelled option).\n\n---\n\n### usa_army_depot_red_river - Red River (Army depot)\n\n**Identity.** US Army; populate_policy **abstract_logistics_only**.\n\n**SOURCE CLAIM.** Listed among the Army depots (R02:17).\n\n**CHECK.** R02 gives no state, location or function.\n\n**Position.** Approx, verify: about 33.4N 94.3W (Texas; public, not R02). About 800 NM from the nearest proven sea point.\n\n**Forces.** asset:usatl:red_river_depot: abstract. Optional marker as for Anniston (proxy). Quantity: SCENARIO CHOICE (optional, default 0).\n\n**Connections.** Norfolk: authored, as for Anniston.\n\n---\n\n### usa_army_depot_tobyhanna - Tobyhanna (Army depot)\n\n**Identity.** US Army; populate_policy **abstract_logistics_only**.\n\n**SOURCE CLAIM.** Listed among the Army depots (R02:17).\n\n**CHECK.**\n- R02 gives no state, location or function.\n- The inventory's 'C4ISR depot' label is lookup context, not R02.\n\n**Position.** Approx, verify: about 41.2N 75.4W (Pennsylvania; public, not R02). Stock New York node about 81 NM away.\n\n**Forces.** asset:usatl:tobyhanna_depot: abstract. Optional civ_comm_buildings marker (proxy, Nation=US). Quantity: SCENARIO CHOICE (optional, default 0).\n\n**Connections.** Norfolk: authored, as for Anniston.\n",
+ "packages": [
+  {
+   "world_id": "usa_norfolk_naval_station_norfolk",
+   "name": "Naval Station Norfolk",
+   "operator": "United States Navy",
+   "node_kind": "naval_base",
+   "populate_policy": "populate",
+   "role_source": "SOURCE CLAIM: Largest naval base in the world by operational concentration and fleet density; 4,000-6,000 acres; 11 miles of pier (R03:19). R01:15 repeats only the 'largest naval base ... by operational concentration and fleet density' and '75 ships / 134 aircraft / 11 hangars' phrases; no acreage, pier length or Fleet Forces HQ. Fleet Forces Command HQ (R03:19, R03:28). Force-generation hub for the Atlantic, Mediterranean and Middle East (R03:19). Resident nuclear carriers and escorting destroyer squadrons, no counts (R03:19). 'Over 75 ships and 134 aircraft across 11 hangars' (R03:19, R01:15); table: 'Up to 75 surface ships, 134 aircraft' (R03:28). Eisenhower and Truman stage from Norfolk, with CQ off the Virginia Capes and in the Jacksonville operating areas (R03:48). Table rows: CVN 69 'FRS CQ' (R03:55), CVN 74 RCOH (R03:60), CVN 75 'UNITAS Exercises / Workups', Atlantic / South America (R03:61), each with home port Norfolk. One of four sites into which major logistical operations are integrated (R02:17); no DLA centre named.",
+   "position": "Approx, verify. NS piers about 36.95N 76.33W; NAS Norfolk (Chambers Field) about 36.94N 76.29W. In-game evidence: stock airports.ini KNGU 'NAS Norfolk' 36.937,-76.289 (Role=LargeMilitary); us_ports_atlantic.ini Port Norfolk (port_eastcoast_norfolk) 36.9226,-76.3429 (Role=Civil, about 2 NM away); stock sea points Hampton Roads 37.01,-76.24 (about 5 NM), Chesapeake Fairway 1-3 and Cape Hatteras 35.15,-75.28; a stock neutral waypoint reaches 37.09N 76.12W (UnderCoverOfTheRain.ini:503, about 13 NM). Nearest unit placed by any mission: sea about 206 NM (Workshop 3766210676 Saronic Corsair tests, centre 34.0,-74.0), land about 1,689 NM. Builder snapping has no proven point within 60 NM. Placement pending validation.",
+   "forces": [
+    {
+     "allocation": "training_test",
+     "asset_id": "asset:usatl:cvn69_eisenhower",
+     "role": "FRS carrier qualifications in the Virginia Capes operating area (about 36.6N 74.9W, scenario)",
+     "unit_ids": [
+      "usn_cvn_nimitz_2025"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1 (VariantReference=Variant2 'CVN-69 Dwight D. Eisenhower')",
+     "source_basis": "R03:48, R03:55 (status 'Fleet Replacement Squadron CQ')",
+     "notes": "SCENARIO CHOICE: location and timing. Mission CustomAirGroup mandatory (shipped wings unusable). CHECK: reported in maintenance after its 2023-24 deployment."
+    },
+    {
+     "allocation": "training_test",
+     "asset_id": "asset:usatl:cvn69_cq_det",
+     "role": "Embarked FRS CQ detachment on CVN-69",
+     "unit_ids": [
+      "usn_fa_18f_rsa",
+      "usn_mh-60r"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "8 (usn_fa_18f_rsa Squadron6 VFA-106 FRS x6; usn_mh-60r x2)",
+     "source_basis": "R03:55 says only 'FRS CQ'; no squadron named",
+     "notes": "SCENARIO CHOICE: squadron livery and counts. The MH-60S plane-guard type is missing_fit, so MH-60R (HSM) is used."
+    },
+    {
+     "allocation": "escort",
+     "asset_id": "asset:usatl:ddg_vacapes_planeguard",
+     "role": "Plane guard and escort for CVN-69 CQ",
+     "unit_ids": [
+      "usn_ddg_burke_f1_054_late"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1",
+     "source_basis": "R03:19 'escorting destroyer squadrons' (family only)",
+     "notes": "Hull variant assigned once in the world ledger; no real home port asserted. Flight I has no hangar."
+    },
+    {
+     "allocation": "underway_deployed",
+     "asset_id": "asset:usatl:cvn75_truman",
+     "role": "Workups; southbound in the western Atlantic toward South America (UNITAS focus); start about 33.5N 74.0W",
+     "unit_ids": [
+      "usn_cvn_nimitz_2025"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1 (Variant8 'CVN-75 Harry S. Truman')",
+     "source_basis": "R03:48, R03:61",
+     "notes": "SCENARIO CHOICE: position and route. The start is about 30 NM from the proven Workshop sea point 34.0N 74.0W. CHECK: reported next due for RCOH after its 2024-25 deployment, and the collection's own winning variants file (mods-source/3390330875/vessels/usn_cvn_nimitz_2025_variants.ini) annotates [Variant8] CVN-75 'Real World No CVW RCOH'; the R03:61 status may be stale. SCENARIO CHOICE (contingency): if in RCOH, move this asset to servicing_maintenance at Newport News, leave asset:usatl:cvn75_airwing unallocated, and no carrier leads the underway Atlantic group. Never duplicate the hull."
+    },
+    {
+     "allocation": "underway_deployed",
+     "asset_id": "asset:usatl:cvn75_airwing",
+     "role": "Reduced workups air wing embarked on CVN-75",
+     "unit_ids": [
+      "usn_fa_18e_rsa",
+      "usn_fa_18f_rsa",
+      "usn_ea-18g_2020",
+      "usn_e-2d",
+      "usn_mh-60r"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "22 (F/A-18E Sq1-17 x10, F/A-18F x4, EA-18G x2, E-2D x2, MH-60R x4)",
+     "source_basis": "None: R01-R03 name no Truman air wing",
+     "notes": "SCENARIO CHOICE throughout. Set by CustomAirGroup. E-2D liveries are offset from squadron names. Do not use F/A-18E Squadron18 (VX-4). Contingency: if CVN-75 is in RCOH, this air wing is left unallocated (22 aircraft drop from the totals) and is not moved to another carrier."
+    },
+    {
+     "allocation": "escort",
+     "asset_id": "asset:usatl:ddg_truman_esc_1",
+     "role": "CVN-75 escort",
+     "unit_ids": [
+      "usn_ddg_burke_f2a_099_late"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1",
+     "source_basis": "R03:19 escort family",
+     "notes": "Embarks MH-60R x2 through the hull air group. Hull set in the ledger. Contingency (SCENARIO CHOICE): if CVN-75 is in RCOH, sails as a carrier-less surface group on the same route or returns to Norfolk as resident_at_base; allocated once either way."
+    },
+    {
+     "allocation": "escort",
+     "asset_id": "asset:usatl:ddg_truman_esc_2",
+     "role": "CVN-75 escort",
+     "unit_ids": [
+      "usn_ddg_burke_f2a_099_late"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1",
+     "source_basis": "R03:19 escort family",
+     "notes": "Hull set in the ledger, distinct from esc_1. Contingency (SCENARIO CHOICE): if CVN-75 is in RCOH, sails as a carrier-less surface group on the same route or returns to Norfolk as resident_at_base; allocated once either way."
+    },
+    {
+     "allocation": "support",
+     "asset_id": "asset:usatl:take_truman",
+     "role": "Ammunition supplier sailing with the CVN-75 group",
+     "unit_ids": [
+      "usn_take_lewis_clark"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "1 (Default variant, displays '(stand-in)')",
+     "source_basis": "None (scenario)",
+     "notes": "Kilauea donor mesh. Pool 550,000 with no ceiling. In-game transfer untested. Hull names must not repeat a T-AKE used in another region. Contingency (SCENARIO CHOICE): if CVN-75 is in RCOH, sails as a carrier-less surface group on the same route or returns to Norfolk as resident_at_base; allocated once either way."
+    },
+    {
+     "allocation": "patrol",
+     "asset_id": "asset:usatl:ddg_vacapes_patrol",
+     "role": "Patrol loop between Chesapeake Fairway 1 and Cape Hatteras",
+     "unit_ids": [
+      "usn_ddg_burke_f2a_099_late"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1",
+     "source_basis": "R03:19 family",
+     "notes": "SCENARIO CHOICE: patrol route."
+    },
+    {
+     "allocation": "resident_at_base",
+     "asset_id": "asset:usatl:ddg_norfolk_ready",
+     "role": "Ready destroyer alongside",
+     "unit_ids": [
+      "usn_ddg_burke_f1_054_late"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1",
+     "source_basis": "R03:19 family",
+     "notes": "SCENARIO CHOICE."
+    },
+    {
+     "allocation": "reserve",
+     "asset_id": "asset:usatl:ddg_norfolk_reserve",
+     "role": "Finite reserve destroyer, activated by trigger",
+     "unit_ids": [
+      "usn_ddg_burke_f2a_099_late"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1",
+     "source_basis": "R03:19 family",
+     "notes": "Disabled=True, then Action_SetEnabledStatus. No respawn."
+    },
+    {
+     "allocation": "support",
+     "asset_id": "asset:usatl:taoe_norfolk",
+     "role": "Ammunition supplier at the pier for returning ships",
+     "unit_ids": [
+      "usn_taoe_supply"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "1 (Default variant, '(stand-in)')",
+     "source_basis": "None (scenario)",
+     "notes": "Sacramento donor mesh. The port unit itself supplies nothing."
+    },
+    {
+     "allocation": "reserve",
+     "asset_id": "asset:usatl:takr_norfolk_relief",
+     "role": "Finite relief and sealift with a slow ammunition pass",
+     "unit_ids": [
+      "usn_takr_algol"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1 (Variant1, 3, 6 or 7 only)",
+     "source_basis": "None (scenario)",
+     "notes": "Other variants' ServiceDates end in 2025. Speed 8 kn; 45 pts/s."
+    },
+    {
+     "allocation": "resident_at_base",
+     "asset_id": "asset:usatl:nas_norfolk_field",
+     "role": "NAS Norfolk (Chambers Field) airfield",
+     "unit_ids": [
+      "usa_airbase"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "1 (Variant1 'Naval Air Station' + NameOverride)",
+     "source_basis": "R03:19 '134 aircraft across 11 hangars' (no types); stock KNGU point",
+     "notes": "Alternative: a new SEST named clone on the integration/raaf-bases pattern (new id, not an existing unit). CustomAirGroup mandatory."
+    },
+    {
+     "allocation": "resident_at_base",
+     "asset_id": "asset:usatl:nas_norfolk_helo",
+     "role": "Helicopter detachment ashore",
+     "unit_ids": [
+      "usn_mh-60r"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "4",
+     "source_basis": "None: no Norfolk aircraft types named",
+     "notes": "SCENARIO CHOICE."
+    },
+    {
+     "allocation": "resident_at_base",
+     "asset_id": "asset:usatl:nas_norfolk_aew",
+     "role": "AEW detachment ashore",
+     "unit_ids": [
+      "usn_e-2d"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "2",
+     "source_basis": "None (scenario)",
+     "notes": "Liveries are offset from squadron names."
+    },
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:port_norfolk_scenery",
+     "role": "Port scenery only",
+     "unit_ids": [
+      "port_eastcoast_norfolk"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "1 (SCENARIO CHOICE: ledger entry by default; via [BackgroundData] us_ports_atlantic.ini only after a probe)",
+     "source_basis": "R03:19 identity",
+     "notes": "Commercial port, Role=Civil, HideIn=MissionEditor, no SupplySystem. Loading in a sandbox is untested. [BackgroundData] loads the whole us_ports_atlantic.ini: 11 other entries (Halifax, Charleston, Port Jacksonville, Mayport and Newport with port units; Boston, Saint John, New York, New London, Philadelphia and Baltimore as location-only entries), 4 of them Role=LargeMilitary (New London, Philadelphia, Mayport, Newport) and unsourced; scenery only, not research nodes. Nine entries carry Movements=5 and civ_ Destinations, which may spawn generic civ_ traffic including RE-power supply freighters (untested). Keep as a ledger entry until a probe shows what the file spawns."
+    },
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:usff_hq",
+     "role": "Fleet Forces Command HQ",
+     "unit_ids": [],
+     "outcome": "none",
+     "scenario_quantity": "abstract",
+     "source_basis": "R03:19, R03:28",
+     "notes": "A command node, not a tactical unit."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition: usn_taoe_supply, [SupplySystem1] TruckSupplySystem. Pool 700,000, no ceiling, range 1.0 nm, 130 pts/s, 2 targets, own speed up to 13 kn and receiver up to 16 kn, Vessel and Submarine targets. Categories: Harpoon 40, AirTorpedo 60, ALWT 32, SEST_LandAttack 40, SEST_LongRangeSAM 48.",
+    "Ship ammunition at sea: usn_take_lewis_clark with CVN-75. Pool 550,000, no ceiling. Categories: Harpoon 48, AirTorpedo 72, ALWT 40, SEST_LandAttack 48, SEST_LongRangeSAM 56. Reserve usn_takr_algol: pool 500,000, 0.5 nm, 45 pts/s, own speed up to 8 kn and receiver up to 12 kn. Categories: Harpoon 40, AirTorpedo 48, ALWT 24, SEST_LandAttack 32, SEST_LongRangeSAM 32. SEST clone transfers are untested in game.",
+    "Aircraft turnaround and ordnance: carrier FlightDeck_AmmoCapacity 1,200,000 (Phoenix 84, Harpoon 48, AirTorpedo 80, AdvancedARM 64), which cannot be topped up at sea. usa_airbase 2,000,000 (AirTorpedo 72, Ovod 144, Harpoon 144). A SEST airbase_us clone would have engine-default stock.",
+    "Supplier restocking: not established. Pools deplete and no port restocks a supplier. The Algol is the only finite relief.",
+    "Fuel: not established. No vessel fuel is modelled and no tanker is allocated.",
+    "Repair: not established. There is no shipyard or drydock function.",
+    "Command (Fleet Forces Command) and DLA logistics integration: abstract."
+   ],
+   "connections": [
+    {
+     "to": "usa_newport_news_shipbuilding",
+     "kind": "RCOH example facility for a carrier with Norfolk as home port (hedged)",
+     "basis": "source",
+     "source_ref": "R03:50, R03:60"
+    },
+    {
+     "to": "usg_dla_distribution_network",
+     "kind": "Major logistical operations integrated; no DLA centre asserted at Norfolk",
+     "basis": "source",
+     "source_ref": "R02:17"
+    },
+    {
+     "to": "sea:virginia_capes_oparea",
+     "kind": "Carrier qualification area",
+     "basis": "source",
+     "source_ref": "R03:48"
+    },
+    {
+     "to": "sea:jacksonville_operating_areas",
+     "kind": "Carrier qualification area",
+     "basis": "source",
+     "source_ref": "R03:48"
+    },
+    {
+     "to": "sea:atlantic_south_america",
+     "kind": "Truman operating focus (UNITAS)",
+     "basis": "source",
+     "source_ref": "R03:61"
+    },
+    {
+     "to": "usa_dla_susquehanna",
+     "kind": "East Coast resupply origin",
+     "basis": "authored",
+     "source_ref": "R02:29 (hub role only)"
+    },
+    {
+     "to": "usa_jacksonville_nas_jacksonville",
+     "kind": "P-8A ASW cover for departures",
+     "basis": "authored"
+    },
+    {
+     "to": "med_rota_naval_station",
+     "kind": "Transit gateway for Mediterranean deployments",
+     "basis": "authored",
+     "source_ref": "R03:19, R03:44 (theatre roles only)"
+    },
+    {
+     "to": "me_bahrain_nsa_bahrain",
+     "kind": "Middle East deployment destination",
+     "basis": "authored",
+     "source_ref": "R03:48 (theatre only)"
+    }
+   ],
+   "routine_activity": [
+    "PROPOSED: CVN-69 flies CQ racetracks with its plane-guard DDG in the Virginia Capes operating area, then returns to Norfolk.",
+    "PROPOSED: the CVN-75 group transits south past the Cape Hatteras sea point toward the Windward or Mona Passage sea points, with a RAS rendezvous with the T-AKE.",
+    "PROPOSED: a DDG patrol loop (Loop=True) between Chesapeake Fairway 1-3 and Cape Hatteras.",
+    "PROPOSED: arrivals and departures between Hampton Roads and the Chesapeake Fairway; returning ships rearm from the T-AOE alongside.",
+    "PROPOSED: the reserve DDG and Algol activate by trigger only, consuming their allocation; no respawn.",
+    "PROPOSED: MH-60R and E-2D fly local training sorties from NAS Norfolk.",
+    "PROPOSED civil traffic, from hulls without supply blocks: civ_ms_mairangi_bay (US variants), civ_ms_bulk (Liberia/Greece), civ_ms_car_carrier_a (Panama/Liberia), civ_ms_ritina (US/Liberia), civ_ms_c7s68 (US; Default ServiceDate 1968-2019, check date filtering), civ_fv_fishingboat_a (pin VariantReference=Variant3 'Fishing boat US' or set a NameOverride: its names from 3432592449 language_en/vessel_names.ini read USSR, Iceland, US, Japan, China by variant), civ_fv_crabboat. Aircraft: civ_a320 (US Squadron14 etc.), civ_a330 (US Squadron25 etc.), civ_c340, civ_h700. Avoid RE-power freighters (civ_ms_freighter_a/b, civ_ms_super_p), which carry unlimited supply blocks."
+   ],
+   "checks": [
+    "Carrier statuses are undated report claims (seed:23). Eisenhower was reported in maintenance after 2023-24, Truman reported next due for RCOH after 2024-25, and Stennis's RCOH reported extended to about 2026 or later. Check all at the scenario date. The collection's own usn_cvn_nimitz_2025_variants.ini (3390330875) annotates CVN-75 (Variant8) and CVN-74 (Variant7) 'Real World No CVW RCOH', so Truman's R03:61 'UNITAS / Workups' status may be stale. Contingency (SCENARIO CHOICE): if Truman is in RCOH, asset:usatl:cvn75_truman moves to servicing at Newport News, asset:usatl:cvn75_airwing stays unallocated, CVN-69 stays on CQ (not promoted), and no carrier leads the underway Atlantic group; the escorts and T-AKE sail as a carrier-less group or return to Norfolk. Never duplicate a hull.",
+    "Stennis: home port Norfolk in the R03:60 table, while R03:50 places the RCOH 'at facilities like Newport News' (an example). Allocated once, to servicing at Newport News.",
+    "Internal inconsistency: 'over 75 ships' (R03:19) against 'Up to 75 surface ships' (R03:28). Counts are time-sensitive, name no classes and are not placement instructions. R01:15 repeats only the 'largest naval base' and '75 ships / 134 aircraft / 11 hangars' phrases of R03:19; repetition is not corroboration.",
+    "Fidelity fixes: Newport News removed from parent_or_colocated. R02:17 says only that many DLA centres are co-located with such bases, and no centre is named for Norfolk. R02:17's 'these CONUS hubs' sentence is applied as context only, and only to the nodes here that R02:15-17 names (Norfolk, Jacksonville, Susquehanna, Richmond, Anniston, Red River, Tobyhanna). It does not apply to Patuxent River, Whiting Field or Newport News, which R02 does not mention.",
+    "port_eastcoast_norfolk is a proxy: Role=Civil commercial terminal about 2 NM south of the naval piers, HideIn=MissionEditor, no supply, misspelt 'Norflok'.",
+    "Loading port_eastcoast_norfolk via [BackgroundData] loads all of vanilla campaigns/us_ports_atlantic.ini: 12 entries, so 11 others besides Port Norfolk. Five have port units (Halifax (Canada), Charleston, Port Jacksonville, Mayport, Newport) and six are location-only (Boston, Saint John (Canada), New York, New London, Philadelphia, Baltimore). Four are Role=LargeMilitary (New London, Philadelphia, Mayport, Newport), none a research node or sourced; label them scenery. Nine entries, Port Norfolk included, carry Movements=5 and Destinations={..., civ_} to 13 foreign ports; these may spawn generic civ_ traffic, including the RE-power freighters (civ_ms_freighter_a/b, civ_ms_super_p: live supply blocks of 4.92-12 million points, no ceiling). Untested; whether LoadBackgroundData creates every entry is open (scope-and-performance.md:245). Keep Port Norfolk as a ledger entry until a probe shows what the file spawns.",
+    "No shipped usn_cvn_nimitz_2025 wing is usable, so a CustomAirGroup is mandatory. usn_mh-60r_26 and usn_mh-60r_2027 do not resolve. An editor round-trip drops empty CustomAirGroup lines and flattens ROE.",
+    "E-2D liveries are offset from squadron names. MH-60R depends on mod 3590477166. Use usn_takr_algol Variant1, 3, 6 or 7 only.",
+    "Destroyer hull variants imply real ships. Assign them once in the world ledger.",
+    "No proven placement within 60 NM; builder snapping fails (989 NM). One mission spanning Norfolk and the Indo-Pacific exceeds the proven unit separation (about 10,150 NM against 3,450 NM). Untested, not a known limit."
+   ],
+   "gaps": [
+    "No named NS Norfolk naval-station unit and no NAS Norfolk airfield unit (KNGU is a world-data point only).",
+    "No Nation=US shore unit supplies ships at the pier.",
+    "No ship fuel, no repair and no supplier restocking.",
+    "Carrier aviation not allocated, with corrected-inventory outcomes: MQ-25 proxy (usn_ka-3b labelled 'MQ-25 stand-in (KA-3B)', squadrons date-gated 1956|1991, not allocated); CMV-22B missing_fit (usmc_mv-22b, USMC liveries only); C-2A none; MH-60S missing_fit (usn_hh-60 or usn_sh-60f as labelled stand-in; MH-60R used instead as SCENARIO CHOICE).",
+    "No submarine is sourced at Norfolk, so none is allocated.",
+    "The reports name no types for the 134 aircraft; all air allocations are scenario.",
+    "Fleet Forces Command HQ is not representable (abstract)."
+   ]
+  },
+  {
+   "world_id": "usa_jacksonville_nas_jacksonville",
+   "name": "Naval Air Station Jacksonville",
+   "operator": "United States Navy",
+   "node_kind": "naval_air_station",
+   "populate_policy": "populate",
+   "role_source": "SOURCE CLAIM: Premier ASW hub; 3,800 acres (R03:23). R01:17 repeats only 'premier hub for anti-submarine warfare' and the P-8A / MQ-4C pairing, with no acreage. Over 100 aircraft including P-8A, MH-60R, C-130T and MQ-4C (R03:23); table lists P-8A, MH-60R and MQ-4C (R03:31). Focus: tracking submarines in the Atlantic and Caribbean (R03:23). Listed in R02:17 among the sites with integrated 'major logistical operations'.",
+   "position": "Approx, verify: about 30.24N 81.68W. In-game evidence: stock Port Jacksonville (port_eastcoast_jacksonville) 30.3278,-81.6437 (Role=Civil, about 6 NM away); stock Mayport 30.4028,-81.4263 (Role=LargeMilitary, about 16 NM); Jacksonville Fairway sea point 30.39,-81.32. Nearest placed sea unit about 450 NM. Placement pending validation.",
+   "forces": [
+    {
+     "allocation": "resident_at_base",
+     "asset_id": "asset:usatl:nas_jax_field",
+     "role": "NAS Jacksonville airfield",
+     "unit_ids": [
+      "usa_airbase"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "1 (Variant1 'Naval Air Station' + NameOverride 'NAS Jacksonville')",
+     "source_basis": "R03:23",
+     "notes": "Optional new SEST named clone on the raaf-bases pattern (new id). CustomAirGroup mandatory."
+    },
+    {
+     "allocation": "patrol",
+     "asset_id": "asset:usatl:p8a_jax_patrol",
+     "role": "Airborne ASW patrol over the Atlantic approaches and toward the Caribbean",
+     "unit_ids": [
+      "usn_p_8a"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1 (squadron chosen from Sq1-14)",
+     "source_basis": "R03:23 type and focus",
+     "notes": "SCENARIO CHOICE: count, patrol box and squadron; no squadron is named by the reports."
+    },
+    {
+     "allocation": "resident_at_base",
+     "asset_id": "asset:usatl:p8a_jax_base",
+     "role": "P-8A in the base air group, rotating with the patrol aircraft",
+     "unit_ids": [
+      "usn_p_8a"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "2",
+     "source_basis": "R03:23 type",
+     "notes": "SCENARIO CHOICE: count. Use Sq1-14 only."
+    },
+    {
+     "allocation": "reserve",
+     "asset_id": "asset:usatl:p8a_jax_reserve",
+     "role": "Finite reserve P-8A",
+     "unit_ids": [
+      "usn_p_8a"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1",
+     "source_basis": "R03:23 type",
+     "notes": "SCENARIO CHOICE: count."
+    },
+    {
+     "allocation": "resident_at_base",
+     "asset_id": "asset:usatl:mh60r_jax",
+     "role": "ASW helicopters",
+     "unit_ids": [
+      "usn_mh-60r"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "3",
+     "source_basis": "R03:23, R03:31 type",
+     "notes": "SCENARIO CHOICE: count."
+    },
+    {
+     "allocation": "abstract",
+     "asset_id": "gap:usatl:c130t_jax",
+     "role": "C-130T tactical transport (not allocated)",
+     "unit_ids": [
+      "usmc_kc-130t",
+      "usmc_kc-130j"
+     ],
+     "outcome": "missing_fit",
+     "scenario_quantity": "0",
+     "source_basis": "R03:23",
+     "notes": "No USN C-130T exists. KC-130T squadron ServiceDates end 2002-2021. The KC-130J adds a RefuelSystem the C-130T lacks. No cargo mechanic."
+    },
+    {
+     "allocation": "abstract",
+     "asset_id": "gap:usatl:mq4c_jax",
+     "role": "MQ-4C Triton (not allocated)",
+     "unit_ids": [
+      "raaf_mq-4c_triton"
+     ],
+     "outcome": "missing_fit",
+     "scenario_quantity": "0",
+     "source_basis": "R01:17, R03:23, R03:31",
+     "notes": "Airframe has Australian squadrons only; a US squadron would need a SEST patch."
+    }
+   ],
+   "support_services": [
+    "Aircraft turnaround and ordnance: usa_airbase FlightDeck_AmmoCapacity 2,000,000 (AirTorpedo 72, Harpoon 144, Ovod 144). P-8A torpedo and Harpoon categories are present. Repeat-sortie behaviour untested.",
+    "Ship ammunition: none (air station; the civil port has no supply).",
+    "Supplier restocking: not established.",
+    "Fuel: not established (aircraft fuel at the base is the engine default; no tanker).",
+    "Repair: not established."
+   ],
+   "connections": [
+    {
+     "to": "usg_dla_distribution_network",
+     "kind": "Major logistical operations integrated; no DLA centre asserted",
+     "basis": "source",
+     "source_ref": "R02:17"
+    },
+    {
+     "to": "sea:atlantic_and_caribbean_asw",
+     "kind": "ASW focus area",
+     "basis": "source",
+     "source_ref": "R03:23"
+    },
+    {
+     "to": "sea:jacksonville_operating_areas",
+     "kind": "Adjacent sea area used for CQ by Norfolk carriers",
+     "basis": "source",
+     "source_ref": "R03:48"
+    },
+    {
+     "to": "usa_norfolk_naval_station_norfolk",
+     "kind": "P-8A cover for the CVN-75 southbound transit",
+     "basis": "authored"
+    },
+    {
+     "to": "usa_richmond_defense_supply_center",
+     "kind": "Aircraft spares (abstract)",
+     "basis": "authored"
+    },
+    {
+     "to": "usa_whiting_nas_whiting_field",
+     "kind": "Aircrew replacement (abstract)",
+     "basis": "authored",
+     "source_ref": "R03:23 (pipeline role only)"
+    }
+   ],
+   "routine_activity": [
+    "PROPOSED: one P-8A always airborne on a patrol box east of Jacksonville, with sorties toward the N Florida Straits sea point. It rotates with the base aircraft, which also exercises turnaround.",
+    "PROPOSED: MH-60R local ASW training in the Jacksonville operating areas.",
+    "PROPOSED civil traffic at the Jacksonville Fairway: civ_ms_car_carrier_a, civ_ms_bulk, civ_ms_c7s68 (date check), civ_fv_fishingboat_a (pinned to Variant3 'Fishing boat US' or with a NameOverride, as at Norfolk), civ_fv_crabboat. Aircraft: civ_a320/civ_a330 (US squadrons), civ_c340, civ_v35."
+   ],
+   "checks": [
+    "Resident aircraft and squadrons are a priority check (seed:23); the reports give no squadrons or per-type counts. 'Over 100 aircraft' is not a placement figure. All Jacksonville quantities are SCENARIO CHOICE; R03:23 gives only types and an over-100 total.",
+    "The Triton is often reported as Jacksonville-based, flying East Coast missions from NAS Mayport.",
+    "Fidelity fix: R02:17 lists Jacksonville among sites of integrated logistical operations only; no DLA centre is asserted.",
+    "The Jacksonville operating areas (R03:48) are a sea area, not the air station.",
+    "usn_p_8a Squadron15-26 are foreign; use Sq1-14.",
+    "port_eastcoast_jacksonville is a proxy civil port (hidden). Mayport is not a research node."
+   ],
+   "gaps": [
+    "No named NAS Jacksonville airfield unit.",
+    "No USN C-130T and no US MQ-4C squadron.",
+    "No fuel, repair or restock services."
+   ]
+  },
+  {
+   "world_id": "usa_patuxent_nas_patuxent_river",
+   "name": "Naval Air Station Patuxent River",
+   "operator": "United States Navy",
+   "node_kind": "research_test",
+   "populate_policy": "context_only",
+   "role_source": "SOURCE CLAIM: Nerve centre for naval aviation RDT&E; 6,400 acres; over 17,000 personnel (R03:23). R01:17 repeats only 'nerve center for naval aviation research', with no acreage or personnel figure. Hosts NAVAIR (R03:23, R03:30) and the Naval Test Pilot School (R03:23 only). Every major naval aircraft, including the P-8A, F-35 variants and unmanned systems, is flight- and weapons-tested here (R03:23). Table: 'Test variants of F-35, P-8, Unmanned systems' (R03:30).",
+   "position": "Approx, verify: about 38.29N 76.41W. In-game evidence: stock sea point Chesapeake Bay 2 (37.88,-76.16), about 27 NM away. Nearest placed sea unit about 278 NM. No world-data airfield point.",
+   "forces": [
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:pax_field_marker",
+     "role": "Optional airfield marker, not placed by default",
+     "unit_ids": [
+      "usa_airbase",
+      "nato_small_airbase"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "SCENARIO CHOICE (optional, default 0; at most 1)",
+     "source_basis": "R03:23, R03:30",
+     "notes": "Prefer usa_airbase Variant1 (inventory-preferred NAS proxy). nato_small_airbase is the us-navy inventory's Patuxent installation mapping (Nation=US in its vanilla variants file, Cold War default group). Either takes a NameOverride 'NAS Patuxent River'. Needs an explicitly empty air group: default groups spawn Cold War aircraft, and an editor round-trip drops empty CustomAirGroup lines."
+    },
+    {
+     "allocation": "abstract",
+     "asset_id": "gap:usatl:pax_test_aircraft",
+     "role": "Test variants (F-35, P-8, unmanned)",
+     "unit_ids": [
+      "usn_f-35c",
+      "usn_fa_18e_rsa",
+      "usn_p_8a"
+     ],
+     "outcome": "missing_fit",
+     "scenario_quantity": "SCENARIO CHOICE (optional, default 0; at most 1-2 static; never counted as combat-available)",
+     "source_basis": "R03:23, R03:30",
+     "notes": "No Patuxent test liveries (VX-23, VX-20, HX-21, VX-1, UX-24). Nearest: usn_f-35c Squadron2 (VX-9 paint), usn_fa_18e_rsa Squadron18 (VX-4), usn_p_8a labelled 'test det'. No unmanned test type."
+    }
+   ],
+   "support_services": [
+    "None: context-only node. No turnaround, ammunition, fuel or repair role is claimed."
+   ],
+   "connections": [
+    {
+     "to": "usa_jacksonville_nas_jacksonville",
+     "kind": "Type context only (P-8A tested here, fleet P-8A at Jacksonville); no logistics link",
+     "basis": "authored",
+     "source_ref": "R03:23"
+    }
+   ],
+   "routine_activity": [
+    "None by default. Optional Chesapeake Bay civil traffic between the Chesapeake Bay 2/3 sea points and Port Baltimore."
+   ],
+   "checks": [
+    "Test variants are not combat-ready resident forces; do not count them as available.",
+    "Fidelity: the Test Pilot School is cited to R03:23 only; R03:30 gives only 'NAVAIR HQ'. 'Pax River' is an editorial alias.",
+    "No further place-specific claims were found in R01-R03.",
+    "R02:17's 'these CONUS hubs' sentence does not apply here; R02 does not mention Patuxent River."
+   ],
+   "gaps": [
+    "No named NAS unit and no test-squadron liveries or test-instrumented loadouts."
+   ]
+  },
+  {
+   "world_id": "usa_whiting_nas_whiting_field",
+   "name": "Naval Air Station Whiting Field",
+   "operator": "United States Navy",
+   "node_kind": "training",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Conducts over 60 percent of primary flight training for the Navy, USMC and Coast Guard; must be included to simulate pilot pipelines (R03:23). About 250 primary training aircraft, type not named (R03:23, R03:32).",
+   "position": "Approx, verify: about 30.72N 87.02W. No stock world-data node; no mission centred within 300 NM.",
+   "forces": [
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:whiting_pipeline",
+     "role": "Abstract aircrew-replacement source",
+     "unit_ids": [],
+     "outcome": "none",
+     "scenario_quantity": "abstract",
+     "source_basis": "R03:23",
+     "notes": "No pilot-pipeline mechanic is known."
+    },
+    {
+     "allocation": "abstract",
+     "asset_id": "gap:usatl:whiting_trainers",
+     "role": "Primary trainers (optional background traffic only)",
+     "unit_ids": [
+      "civ_v35",
+      "fr_as-350",
+      "nato_very_small_airbase"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "SCENARIO CHOICE (optional, default 0)",
+     "source_basis": "R03:23, R03:32 (type not named)",
+     "notes": "civ_v35 labelled 'T-6B stand-in' (civil light single); fr_as-350 Squadron2 (Nation=US) labelled 'TH-73 stand-in'; installation proxy nato_very_small_airbase."
+    }
+   ],
+   "support_services": [
+    "Not applicable (abstract)."
+   ],
+   "connections": [
+    {
+     "to": "usa_jacksonville_nas_jacksonville",
+     "kind": "Aircrew replacement (abstract)",
+     "basis": "authored",
+     "source_ref": "R03:23"
+    },
+    {
+     "to": "usa_norfolk_naval_station_norfolk",
+     "kind": "Aircrew replacement (abstract)",
+     "basis": "authored",
+     "source_ref": "R03:23"
+    }
+   ],
+   "routine_activity": [
+    "None unless the Gulf coast becomes active; then optional labelled trainer circuits."
+   ],
+   "checks": [
+    "Check the location before any placement. Sea Power may have no pilot-pipeline mechanic.",
+    "The 250-aircraft count is not a placement figure. T-6B and TH-73 are inventory lookup terms, not R03.",
+    "R02:17's 'these CONUS hubs' sentence does not apply here; R02 does not mention Whiting Field."
+   ],
+   "gaps": [
+    "No military trainer units of any kind (no T-6B, TH-73, TH-57 or T-45)."
+   ]
+  },
+  {
+   "world_id": "usa_newport_news_shipbuilding",
+   "name": "Newport News Shipbuilding",
+   "operator": "not stated in the reports (commercial shipyard)",
+   "node_kind": "shipyard_maintenance",
+   "populate_policy": "context_only",
+   "role_source": "SOURCE CLAIM: 'Carriers like USS John C. Stennis undergo years-long Refueling and Complex Overhauls at facilities like Newport News Shipbuilding, removing them from the strategic chessboard for extended periods' (R03:50). R03:60 lists Stennis (CVN 74) with home port Norfolk and status RCOH.",
+   "position": "Approx, verify: about 36.99N 76.44W. In-game evidence: stock Port Norfolk node 36.9226,-76.3429 about 6 NM away; Hampton Roads sea point about 10 NM.",
+   "forces": [
+    {
+     "allocation": "servicing_maintenance",
+     "asset_id": "asset:usatl:cvn74_stennis",
+     "role": "Carrier in RCOH; unavailable",
+     "unit_ids": [
+      "usn_cvn_nimitz_2025"
+     ],
+     "outcome": "exact",
+     "scenario_quantity": "1 (Variant7 'CVN-74 John C. Stennis'; ledger entry by default)",
+     "source_basis": "R03:50, R03:60",
+     "notes": "SCENARIO CHOICE (region note): servicing here. Optional inert static hull with weapons on Hold and no air group; needs a restore step because the editor drops empty CustomAirGroup lines. The 2027s_adou unit lacks CVN-74."
+    }
+   ],
+   "support_services": [
+    "Repair and overhaul: not modelled. There is no shipyard or drydock function; US_Los_Alamos (AFDB-7, 1961-1991 target object) is not representative.",
+    "Ammunition, fuel, restock: not applicable."
+   ],
+   "connections": [
+    {
+     "to": "usa_norfolk_naval_station_norfolk",
+     "kind": "RCOH example facility for a carrier with Norfolk as home port (hedged)",
+     "basis": "source",
+     "source_ref": "R03:50, R03:60"
+    }
+   ],
+   "routine_activity": [
+    "None (inert hull)."
+   ],
+   "checks": [
+    "R03:50 says 'facilities like', so the location is an example, not an assertion. Check the Stennis RCOH location and completion (reported extended to about 2026 or later). If complete, reallocate the hull once.",
+    "If Truman is in RCOH at the scenario date (the collection's usn_cvn_nimitz_2025_variants.ini annotates CVN-75 'Real World No CVW RCOH'), move it here and remove it from the Atlantic allocation. It arrives without its air wing, which stays unallocated (see the Norfolk contingency). No hull is duplicated.",
+    "Fidelity: parent_or_colocated should be empty; keep the Norfolk link only as a source relationship.",
+    "Operator not stated in the reports.",
+    "R02:17's 'these CONUS hubs' sentence does not apply here; R02 does not mention Newport News."
+   ],
+   "gaps": [
+    "No shipyard, drydock or repair unit; no named yard scenery."
+   ]
+  },
+  {
+   "world_id": "usg_dla_distribution_network",
+   "name": "Defense Logistics Agency distribution network (agency-wide)",
+   "operator": "US Defense Logistics Agency",
+   "node_kind": "logistics_centre",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Supplies 86 percent of spare parts and nearly 100 percent of fuel and troop-support consumables (R02:11). R01:21 repeats only the 86 percent spares and nearly 100 percent fuel figures. 17 major CONUS distribution centres (R02:15). Many centres co-located with the largest force-generation bases; major logistical operations integrated into NS Norfolk, NB San Diego, NAS Jacksonville and PSNS (R02:17). CONUS hubs are the ultimate source of replacement airframes, deep-maintenance components and bulk munitions (R02:17). Seven OCONUS hubs plus prepositioned ships (R02:21). Named centres: R02:15, R02:23, R02:29-34 (R01:23 repeats Yokosuka and Guam).",
+   "position": "None (agency-wide, no site).",
+   "forces": [
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:dla_network",
+     "role": "Abstract source of replacement stock and fuel for US nodes",
+     "unit_ids": [],
+     "outcome": "none",
+     "scenario_quantity": "abstract",
+     "source_basis": "R02:11, R02:15, R02:17, R02:21",
+     "notes": "No engine distribution mechanic."
+    }
+   ],
+   "support_services": [
+    "Restock can only be represented by finite relief hulls in the world allocation (e.g. asset:usatl:takr_norfolk_relief), never as unlimited spawns.",
+    "Candidate air-cargo mechanism: usaf_c-141b PlaneCargoSupplySystem (AmmoCapacity 60000). Untested and date-gated 1965-2006.",
+    "Fuel transfer: not established (no ship fuel model)."
+   ],
+   "connections": [
+    {
+     "to": "usa_dla_susquehanna",
+     "kind": "Named primary CONUS hub",
+     "basis": "source",
+     "source_ref": "R02:15, R02:29"
+    },
+    {
+     "to": "usp_dla_san_joaquin",
+     "kind": "Named primary CONUS hub",
+     "basis": "source",
+     "source_ref": "R02:15, R02:30"
+    },
+    {
+     "to": "wpac_yokosuka_dla_distribution",
+     "kind": "OCONUS hub",
+     "basis": "source",
+     "source_ref": "R02:23, R02:31 (R01:23 repeats it)"
+    },
+    {
+     "to": "wpac_guam_dla_distribution",
+     "kind": "OCONUS hub",
+     "basis": "source",
+     "source_ref": "R02:23, R02:32 (R01:23 repeats it)"
+    },
+    {
+     "to": "cpac_pearl_harbor_dla_distribution",
+     "kind": "OCONUS hub",
+     "basis": "source",
+     "source_ref": "R02:23"
+    },
+    {
+     "to": "me_bahrain_dla_distribution",
+     "kind": "OCONUS hub",
+     "basis": "source",
+     "source_ref": "R02:23"
+    },
+    {
+     "to": "med_sigonella_dla_distribution",
+     "kind": "OCONUS hub",
+     "basis": "source",
+     "source_ref": "R02:23, R02:34"
+    },
+    {
+     "to": "eur_germersheim_dla_distribution_europe",
+     "kind": "OCONUS hub",
+     "basis": "source",
+     "source_ref": "R02:23"
+    },
+    {
+     "to": "usa_norfolk_naval_station_norfolk",
+     "kind": "Major logistical operations integrated (co-location generic only)",
+     "basis": "source",
+     "source_ref": "R02:17"
+    },
+    {
+     "to": "usa_jacksonville_nas_jacksonville",
+     "kind": "Major logistical operations integrated",
+     "basis": "source",
+     "source_ref": "R02:17"
+    },
+    {
+     "to": "usp_sandiego_naval_base_san_diego",
+     "kind": "Major logistical operations integrated",
+     "basis": "source",
+     "source_ref": "R02:17"
+    },
+    {
+     "to": "usp_kitsap_bremerton_psns",
+     "kind": "Major logistical operations integrated",
+     "basis": "source",
+     "source_ref": "R02:17"
+    },
+    {
+     "to": "glob_us_afloat_prepositioning_fleet",
+     "kind": "APF cargo includes DLA fuels (not part of the network)",
+     "basis": "source",
+     "source_ref": "R01:23, R02:25"
+    },
+    {
+     "to": "usa_richmond_defense_supply_center",
+     "kind": "Grouping (R02:17 calls it an 'other dedicated supply installation')",
+     "basis": "authored"
+    },
+    {
+     "to": "usa_army_depot_anniston",
+     "kind": "Grouping",
+     "basis": "authored"
+    },
+    {
+     "to": "usa_army_depot_red_river",
+     "kind": "Grouping",
+     "basis": "authored"
+    },
+    {
+     "to": "usa_army_depot_tobyhanna",
+     "kind": "Grouping",
+     "basis": "authored"
+    }
+   ],
+   "routine_activity": [
+    "None physical. Abstract resupply events must map to finite relief arrivals."
+   ],
+   "checks": [
+    "'Managed primarily by the DLA' (R01:21, R02:11) likely overstates DLA's role.",
+    "R02:21 claims seven OCONUS hubs but R02:23 names six. R02:33 lists Diego Garcia in the same table without calling it a DLA centre. The 17 CONUS figure (R02:15) is unverified; only Susquehanna and San Joaquin are named.",
+    "Fidelity: R02:17 states co-location only generically ('many DLA distribution centers'); no centre at Norfolk, Jacksonville, San Diego or PSNS is asserted or named. Richmond and APF links are authored groupings, not sourced membership. R02:11 'troop support consumables' added (R01:21 lacks it). Percentages are time-sensitive."
+   ],
+   "gaps": [
+    "17 CONUS centres claimed (R02:15), only Susquehanna and San Joaquin named. R02:17 states co-location only generically; no centre at Norfolk, Jacksonville, San Diego or PSNS is asserted or named. Expansion backlog: the register's expansion_backlog line must carry the same correction (no 'implied' centres)."
+   ]
+  },
+  {
+   "world_id": "usa_dla_susquehanna",
+   "name": "DLA Distribution Susquehanna",
+   "operator": "US Defense Logistics Agency",
+   "node_kind": "distribution_depot",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Located in Pennsylvania; one of the massive primary hubs anchoring the CONUS network; with San Joaquin manages the bulk of cross-country and international materiel routing (R02:15). Table: 'Primary East Coast CONUS distribution hub' (R02:29).",
+   "position": "Approx, verify: about 40.2N 76.9W (New Cumberland area; R02 says only 'Pennsylvania'). Inland; stock Baltimore city/port node about 58 NM away.",
+   "forces": [
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:dla_susquehanna",
+     "role": "Abstract East Coast resupply origin",
+     "unit_ids": [
+      "warehouses_1",
+      "warehouses_3",
+      "tgt_fueltanks_large"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "abstract (optional static marker: SCENARIO CHOICE, default 0)",
+     "source_basis": "R02:15, R02:29",
+     "notes": "Marker only, with Nation=usa and a NameOverride. Static targets with no function. usa_car_hemtt is excluded: it is a working mobile land-unit resupply truck (3605013271 TruckSupplySystem, pool 13,500, MaxAmmoPoints 200, 0.5 nmi, 6 targets, LandUnit only; reloads unpriced Patriot rounds) that reaches nothing at sea."
+    }
+   ],
+   "support_services": [
+    "None in game. Inland supply ranges (0.5-3 nm) reach nothing at sea."
+   ],
+   "connections": [
+    {
+     "to": "usg_dla_distribution_network",
+     "kind": "Parent network",
+     "basis": "source",
+     "source_ref": "R02:15"
+    },
+    {
+     "to": "usp_dla_san_joaquin",
+     "kind": "Paired primary hub for bulk routing",
+     "basis": "source",
+     "source_ref": "R02:15"
+    },
+    {
+     "to": "usa_norfolk_naval_station_norfolk",
+     "kind": "East Coast resupply origin",
+     "basis": "authored"
+    },
+    {
+     "to": "usa_jacksonville_nas_jacksonville",
+     "kind": "East Coast resupply origin",
+     "basis": "authored"
+    }
+   ],
+   "routine_activity": [
+    "None physical."
+   ],
+   "checks": [
+    "Priority check on DLA centre counts and scope (seed:23).",
+    "R02:17's 'these CONUS hubs' sentence is applied as context only (Susquehanna is one of the R02:15 CONUS hubs it can refer to)."
+   ],
+   "gaps": [
+    "No US depot or distribution installation unit."
+   ]
+  },
+  {
+   "world_id": "usa_richmond_defense_supply_center",
+   "name": "Defense Supply Center Richmond",
+   "operator": "United States (DLA implied; R02 does not state)",
+   "node_kind": "distribution_depot",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: The Defense Supply Center in Richmond, Virginia is a dedicated supply installation specialising in aircraft parts (R02:17).",
+   "position": "Approx, verify: about 37.4N 77.4W. Inland; stock Hampton Roads sea point about 62 NM away.",
+   "forces": [
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:dsc_richmond",
+     "role": "Abstract aviation spare-parts source",
+     "unit_ids": [
+      "warehouses_3"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "abstract (optional marker: SCENARIO CHOICE, default 0)",
+     "source_basis": "R02:17",
+     "notes": "No aircraft-spares mechanic in the engine."
+    }
+   ],
+   "support_services": [
+    "Aircraft spares and airframe replacement: not modelled."
+   ],
+   "connections": [
+    {
+     "to": "usg_dla_distribution_network",
+     "kind": "Grouping (R02:17 lists it as an 'other dedicated supply installation')",
+     "basis": "authored"
+    },
+    {
+     "to": "usa_jacksonville_nas_jacksonville",
+     "kind": "Aviation spares",
+     "basis": "authored"
+    },
+    {
+     "to": "usa_norfolk_naval_station_norfolk",
+     "kind": "Aviation spares",
+     "basis": "authored"
+    }
+   ],
+   "routine_activity": [
+    "None physical."
+   ],
+   "checks": [
+    "Check whether the name is current; it is commonly reported as renamed DLA Aviation around 2010.",
+    "Operator not stated; DLA membership is an authored grouping (fidelity)."
+   ],
+   "gaps": [
+    "No depot unit."
+   ]
+  },
+  {
+   "world_id": "usa_army_depot_anniston",
+   "name": "Anniston (Army depot)",
+   "operator": "US Army (R02 says 'Army depots')",
+   "node_kind": "distribution_depot",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Listed as one of various Army depots among the other dedicated supply installations (R02:17).",
+   "position": "Approx, verify: about 33.6N 86.0W (Alabama; public knowledge, not R02). Far inland; no nearby in-game evidence.",
+   "forces": [
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:anniston_depot",
+     "role": "Abstract Army depot",
+     "unit_ids": [
+      "tgt_industry_buildings_1",
+      "warehouses_3",
+      "Ammo_Bunker"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "abstract (optional static marker: SCENARIO CHOICE, default 0)",
+     "source_basis": "R02:17",
+     "notes": "Do not park combat vehicles there as a deployed force."
+    }
+   ],
+   "support_services": [
+    "None at sea. tgt_ammo_depot_small and nv_headquarters resupply land units only."
+   ],
+   "connections": [
+    {
+     "to": "usa_norfolk_naval_station_norfolk",
+     "kind": "Port of embarkation via RRF sealift (civ_ms_roro_c US variants, labelled option)",
+     "basis": "authored"
+    }
+   ],
+   "routine_activity": [
+    "None physical."
+   ],
+   "checks": [
+    "R02 gives no state, location or function. The inventory's 'maintenance/ammunition depot' label is lookup context, not R02."
+   ],
+   "gaps": [
+    "No US Army depot unit."
+   ]
+  },
+  {
+   "world_id": "usa_army_depot_red_river",
+   "name": "Red River (Army depot)",
+   "operator": "US Army (R02 says 'Army depots')",
+   "node_kind": "distribution_depot",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Listed as one of various Army depots among the other dedicated supply installations (R02:17).",
+   "position": "Approx, verify: about 33.4N 94.3W (Texas; public knowledge, not R02). About 800 NM from the nearest proven sea point.",
+   "forces": [
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:red_river_depot",
+     "role": "Abstract Army depot",
+     "unit_ids": [
+      "tgt_industry_buildings_1",
+      "warehouses_3",
+      "Ammo_Bunker"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "abstract (optional static marker: SCENARIO CHOICE, default 0)",
+     "source_basis": "R02:17",
+     "notes": "Static marker only."
+    }
+   ],
+   "support_services": [
+    "None at sea."
+   ],
+   "connections": [
+    {
+     "to": "usa_norfolk_naval_station_norfolk",
+     "kind": "Port of embarkation via RRF sealift",
+     "basis": "authored"
+    }
+   ],
+   "routine_activity": [
+    "None physical."
+   ],
+   "checks": [
+    "R02 gives no state, location or function."
+   ],
+   "gaps": [
+    "No US Army depot unit."
+   ]
+  },
+  {
+   "world_id": "usa_army_depot_tobyhanna",
+   "name": "Tobyhanna (Army depot)",
+   "operator": "US Army (R02 says 'Army depots')",
+   "node_kind": "distribution_depot",
+   "populate_policy": "abstract_logistics_only",
+   "role_source": "SOURCE CLAIM: Listed as one of various Army depots among the other dedicated supply installations (R02:17).",
+   "position": "Approx, verify: about 41.2N 75.4W (Pennsylvania; public knowledge, not R02). Inland; stock New York port node about 81 NM away.",
+   "forces": [
+    {
+     "allocation": "abstract",
+     "asset_id": "asset:usatl:tobyhanna_depot",
+     "role": "Abstract Army depot",
+     "unit_ids": [
+      "civ_comm_buildings"
+     ],
+     "outcome": "proxy",
+     "scenario_quantity": "abstract (optional marker: SCENARIO CHOICE, default 0)",
+     "source_basis": "R02:17",
+     "notes": "civ_comm_buildings (Nation=US, Radar/ESM role) is a visual marker only; label it."
+    }
+   ],
+   "support_services": [
+    "None at sea."
+   ],
+   "connections": [
+    {
+     "to": "usa_norfolk_naval_station_norfolk",
+     "kind": "Port of embarkation via RRF sealift",
+     "basis": "authored"
+    }
+   ],
+   "routine_activity": [
+    "None physical."
+   ],
+   "checks": [
+    "R02 gives no state, location or function. The inventory's 'C4ISR depot' label is lookup context, not R02."
+   ],
+   "gaps": [
+    "No US Army depot unit."
+   ]
+  }
+ ],
+ "named_assets": [
+  "asset:usatl:cvn69_eisenhower - training_test (CQ, Virginia Capes operating area)",
+  "asset:usatl:cvn69_cq_det - training_test (8 aircraft embarked on CVN-69)",
+  "asset:usatl:ddg_vacapes_planeguard - escort (CVN-69)",
+  "asset:usatl:cvn75_truman - underway_deployed (western Atlantic, southbound)",
+  "asset:usatl:cvn75_airwing - underway_deployed (22 aircraft embarked on CVN-75)",
+  "asset:usatl:ddg_truman_esc_1 - escort (CVN-75)",
+  "asset:usatl:ddg_truman_esc_2 - escort (CVN-75)",
+  "asset:usatl:take_truman - support (with CVN-75 group)",
+  "asset:usatl:ddg_vacapes_patrol - patrol (Chesapeake Fairway / Virginia Capes)",
+  "asset:usatl:ddg_norfolk_ready - resident_at_base (Norfolk)",
+  "asset:usatl:ddg_norfolk_reserve - reserve (Norfolk)",
+  "asset:usatl:taoe_norfolk - support (alongside Norfolk)",
+  "asset:usatl:takr_norfolk_relief - reserve (Norfolk, finite relief)",
+  "asset:usatl:nas_norfolk_field - resident_at_base (airfield proxy)",
+  "asset:usatl:nas_norfolk_helo - resident_at_base (4 MH-60R)",
+  "asset:usatl:nas_norfolk_aew - resident_at_base (2 E-2D)",
+  "asset:usatl:port_norfolk_scenery - abstract (scenery only; ledger entry until probed)",
+  "asset:usatl:usff_hq - abstract (command)",
+  "asset:usatl:cvn74_stennis - servicing_maintenance (Newport News)",
+  "asset:usatl:nas_jax_field - resident_at_base (airfield proxy)",
+  "asset:usatl:p8a_jax_patrol - patrol (1 P-8A airborne)",
+  "asset:usatl:p8a_jax_base - resident_at_base (2 P-8A)",
+  "asset:usatl:p8a_jax_reserve - reserve (1 P-8A)",
+  "asset:usatl:mh60r_jax - resident_at_base (3 MH-60R)",
+  "asset:usatl:pax_field_marker - abstract (optional; not placed by default)",
+  "asset:usatl:whiting_pipeline - abstract",
+  "asset:usatl:dla_network - abstract",
+  "asset:usatl:dla_susquehanna - abstract",
+  "asset:usatl:dsc_richmond - abstract",
+  "asset:usatl:anniston_depot - abstract",
+  "asset:usatl:red_river_depot - abstract",
+  "asset:usatl:tobyhanna_depot - abstract"
+ ],
+ "applied": [
+  "usg_dla_distribution_network (source_fidelity): verified against R02:15/R02:17. Package gap reworded to '17 CONUS centres claimed (R02:15), only Susquehanna and San Joaquin named; R02:17 states co-location only generically; no centre at Norfolk, Jacksonville, San Diego or PSNS is asserted or named'. The markdown CHECK and the package checks now say the same. The expansion_backlog wording is flagged for the same correction in both the gap and the CHECK. The register's backlog line is outside this region file and was not edited.",
+  "usa_norfolk_naval_station_norfolk (source_fidelity, R02:17 'these CONUS hubs'): verified that R02 never mentions Patuxent, Whiting or Newport News. The Norfolk CHECK now applies the sentence as context only, to Norfolk, Jacksonville, Susquehanna, Richmond, Anniston, Red River and Tobyhanna, plus the DLA network itself. Explicit 'does not apply' lines were added to the Patuxent, Whiting and Newport News CHECKs, in both the markdown and the packages. The Susquehanna package check no longer calls its coverage ambiguous.",
+  "usa_norfolk_naval_station_norfolk (Truman RCOH): verified that mods-source/3390330875/vessels/usn_cvn_nimitz_2025_variants.ini (the winning file) annotates [Variant8] CVN-75 and [Variant7] CVN-74 'Real World No CVW RCOH'. The R03:61 SOURCE CLAIM is kept. The CHECK now cites the annotation. A SCENARIO CHOICE contingency is pre-stated: cvn75_truman moves to servicing at Newport News and cvn75_airwing stays unallocated. No carrier leads the underway Atlantic group: CVN-69 stays on CQ and is not promoted. The escorts and T-AKE keep their ids and sail as a carrier-less group or return to Norfolk. No hull is duplicated. This is reflected in the region ledger, the Truman row, the Newport News CHECK and the package notes.",
+  "usa_norfolk_naval_station_norfolk (us_ports_atlantic.ini): verified against vanilla campaigns/us_ports_atlantic.ini, the only copy. Applied with corrected counts. The file has 12 entries, not 13, so it brings 11 others, not 12. Five have port units: Halifax (Canada), Charleston, Port Jacksonville, Mayport and Newport. Six are location-only: Boston, Saint John (Canada), New York, New London, Philadelphia and Baltimore. Four are Role=LargeMilitary (New London, Philadelphia, Mayport, Newport); none is in R01-R03, and all are labelled scenery. Nine entries carry Movements=5 and civ_ Destinations, which may draw the RE-power supply freighters. That is untested, and whether LoadBackgroundData creates every entry is open (scope-and-performance.md:245). port_norfolk_scenery is now a ledger entry until a probe, and its named_assets line is updated to match.",
+  "usa_dla_susquehanna (usa_car_hemtt): verified that 3605013271:land_units/usa_car_hemtt.ini has a TruckSupplySystem (AmmoCapacity 13500, MaxAmmoPoints 200, range 0.5, 6 targets, LandUnit). It is dropped from the static marker in the markdown and from the package unit_ids. A note records why: it is a working mobile land resupplier that reaches nothing at sea and can reload unpriced Patriot rounds.",
+  "usa_jacksonville_nas_jacksonville (label_missing): added 'Quantities are SCENARIO CHOICE; R03:23 gives only types and an over-100 total' under the Forces heading. The p8a_jax_base note is now 'SCENARIO CHOICE: count. Use Sq1-14 only.' The patrol and reserve P-8A notes and the Jacksonville check carry the same label.",
+  "usa_norfolk_naval_station_norfolk (carrier-aviation outcomes): verified against the corrected inventory. us-navy verify corrections[2] sets MQ-25 to proxy usn_ka-3b, with squadron ServiceDate 1956|1991 confirmed in the vanilla _squadrons file. mappings[9] gives CMV-22B as missing_fit (usmc_mv-22b, USMC liveries) and C-2A as none. mappings[8] and missed_assets[7] give MH-60S as missing_fit with usn_hh-60 or usn_sh-60f. The package gap is rewritten with the exact outcomes, and a matching Norfolk CHECK bullet is added.",
+  "R01 repeat overstatements (Norfolk, Jacksonville, Patuxent, DLA): verified at R01:15, R01:17 and R01:21. The text now says R01:15 repeats only the 'largest naval base' and '75 ships / 134 aircraft / 11 hangars' phrases. R01:17 repeats only 'premier hub for anti-submarine warfare' plus the P-8A/MQ-4C pairing, and 'nerve center for naval aviation research'. R01:21 repeats only 86 percent spares and nearly 100 percent fuel. Fixed in the markdown and in the package role_source and checks.",
+  "civ_fv_fishingboat_a variant labels: verified that 3432592449 language_en/vessel_names.ini gives Variant1 USSR, Variant2 Iceland, Variant3 US, Variant4 Japan and Variant5 China. It wins over the vanilla 'Shrimp Boat' keys, and every vanilla variant is Nation=US. Norfolk and Jacksonville civil traffic now pins VariantReference=Variant3 ('Fishing boat US') or a NameOverride, in the markdown and in the routine_activity of both packages. The skeptic credited this to the allies-and-hosts lens; the note actually sits in the installations-placement-support lens, missed_assets[3].",
+  "Optional marker and dressing labels: every optional quantity at Whiting, Patuxent, Susquehanna, Richmond, Anniston, Red River and Tobyhanna is now 'SCENARIO CHOICE (optional, default 0)', in the markdown and in the package scenario_quantity. Whiting's position now says 'no mission centred within 300 NM', the inventory's wording, in the markdown and the package.",
+  "usa_patuxent_nas_patuxent_river (the part that holds): the marker line now gives a NameOverride 'NAS Patuxent River' for either unit and states that nato_small_airbase is the us-navy inventory's installation mapping. The usa_airbase Variant1 preference and the explicitly empty air group were already present and are kept."
+ ],
+ "declined": [
+  {
+   "problem": "usa_patuxent_nas_patuxent_river (unit_id): the claim that nato_small_airbase is not inventory-mapped to Patuxent and declares no Nation, so it needs a per-placement Nation=usa and is a re-resolved id.",
+   "reason": "Both premises are wrong. First, collection-inventory.json us-navy lens installations[6] maps node 'Patuxent River' to nato_small_airbase (fit proxy, 'Nation=US with a Cold War AirGroup (F-15A, F-4E, P-3C)'). Second, the winning variants file mods-source/_vanilla/original/land_units/nato_small_airbase_variants.ini (via winning_file) declares Nation=US in [Default] and [Variant1]. The '(no Nation)' in installations-placement-support corrections[11] describes one placement in the Royal Navy mod's Falklands mission at Goose Green, not the unit. Adding 'Nation=usa required' and 'not an inventory mapping' would introduce false statements. The package already prefers usa_airbase Variant1 and requires an explicitly empty air group. Only the NameOverride point was applied (see applied)."
+  }
+ ],
+ "original_verify": {
+  "ids_checked": 54,
+  "problems": [
+   {
+    "world_id": "usg_dla_distribution_network",
+    "kind": "source_fidelity",
+    "problem": "The package's gaps entry says '17 CONUS centres claimed but only two named; the centres at Norfolk and Jacksonville are implied, not named (expansion backlog)'. That brings back the reading the applied fidelity fix removed. R02:17 states co-location only generically ('many DLA distribution centers'). For Norfolk and Jacksonville it says only that 'major logistical operations are integrated into' them. The Norfolk and Jacksonville packages correctly say no centre is asserted, so the DLA package contradicts them. The register backlog line carries the same wording.",
+    "fix": "Reword the gap: '17 CONUS centres claimed (R02:15), only Susquehanna and San Joaquin named. R02:17 states co-location only generically; no centre at Norfolk, Jacksonville, San Diego or PSNS is asserted or named.' Flag the expansion_backlog wording for the same correction."
+   },
+   {
+    "world_id": "usa_norfolk_naval_station_norfolk",
+    "kind": "source_fidelity",
+    "problem": "The Norfolk CHECK says the R02:17 closing sentence ('these CONUS hubs represent the ultimate source of replacement airframes, deep-level maintenance components and bulk munitions') 'is applied as context to every CONUS node in this region'. That over-applies it. 'These CONUS hubs' can refer only to the R02:15-17 sites: Susquehanna, San Joaquin, Norfolk, San Diego, Jacksonville, PSNS, Richmond and the Army depots. NAS Patuxent River, NAS Whiting Field and Newport News Shipbuilding appear nowhere in R02. The fidelity check asked only that the sentence be applied consistently to the nodes R02 names (Norfolk, Susquehanna, Anniston).",
+    "fix": "Limit it to Norfolk, Jacksonville, Susquehanna, Richmond, Anniston, Red River and Tobyhanna, as context only. State that it does not apply to Patuxent, Whiting or Newport News, which R02 does not mention."
+   },
+   {
+    "world_id": "usa_norfolk_naval_station_norfolk",
+    "kind": "other",
+    "problem": "Truman (CVN-75) is the region's only underway carrier group. Its RCOH doubt is left to an external 'reported' note, but the collection itself records it. The winning variants file mods-source/3390330875/vessels/usn_cvn_nimitz_2025_variants.ini annotates '[Variant8] #CVN-75 Harry S Truman CVW-1 (AB) \"Real World No CVW RCOH\"' (and the same for Variant7, CVN-74). The inventory treats placements as 2026+ dated, which is why Algol variants ending in 2025 are excluded. At that date the R03:61 'UNITAS / Workups' status is likely stale. The draft does not silently correct the source, which is right, but the CHECK understates the doubt and gives no ready fallback.",
+    "fix": "Keep the R03:61 SOURCE CLAIM. Add to the CHECK: 'the collection's own variant file annotates CVN-75 as in RCOH with no CVW.' Pre-state the contingency as a SCENARIO CHOICE: if Truman is in RCOH, move asset:usatl:cvn75_truman to servicing at Newport News, keep its air wing unallocated, and say which (if any) carrier leads the underway Atlantic group. Never duplicate a hull."
+   },
+   {
+    "world_id": "usa_norfolk_naval_station_norfolk",
+    "kind": "scale_or_role",
+    "problem": "asset:usatl:port_norfolk_scenery is placed 'via [BackgroundData] us_ports_atlantic.ini'. That file is all-or-nothing: it loads 13 ports. They include Port New London, Port Philadelphia, Port Newport and Mayport, all Role=LargeMilitary and none research nodes, plus the Canadian ports Halifax and Saint John. Each carries Movements=5 and Destinations={...,civ_}, which may generate engine civil traffic from the generic civ_ pool. That pool includes the RE-power supply freighters (civ_ms_freighter_a/b, civ_ms_super_p) that the package says to avoid. None of this is disclosed.",
+    "fix": "Add a CHECK: loading us_ports_atlantic.ini also adds 12 other ports, 4 of them unsourced military ports, as scenery. Its Movements and Destinations may spawn generic civ_ traffic, including unlimited-supply freighters (untested). Label those ports as scenery, not research nodes. Otherwise keep Port Norfolk as a ledger entry until a probe shows what the file spawns."
+   },
+   {
+    "world_id": "usa_dla_susquehanna",
+    "kind": "unit_id",
+    "problem": "The optional marker lists usa_car_hemtt with the note 'Static targets with no function' (copied from the us-air-and-land row). usa_car_hemtt is not static and does have a function. 3605013271:land_units/usa_car_hemtt.ini has [SupplySystem1] TruckSupplySystem: AmmoCapacity 13500, range 0.5, MaxAmmoPoints 200, TargetTypes=LandUnit, 6 targets. The verify adds that it can reload unpriced Patriot rounds. Re-nationed to usa, it would act as a working land resupplier.",
+    "fix": "Either drop usa_car_hemtt from the marker (warehouses_1/3 and tgt_fueltanks_large are true non-supplying targets), or describe it as 'mobile land-unit resupply truck (LandUnit only, 0.5 nmi); reaches nothing at sea'."
+   },
+   {
+    "world_id": "usa_jacksonville_nas_jacksonville",
+    "kind": "label_missing",
+    "problem": "The Jacksonville forces table in the markdown has no SCENARIO CHOICE label on its quantities: P-8A 1 patrol, 2 at base, 1 reserve; MH-60R 3. The Norfolk table does say 'Quantities are SCENARIO CHOICE', and the source-basis column cites R03:23 'type', which could be read as sourcing the counts. In the JSON, p8a_jax_base's note says only 'Use Sq1-14 only'. R03:23 gives 'over 100 aircraft' and no per-type counts.",
+    "fix": "Add 'Quantities are SCENARIO CHOICE; R03:23 gives only types and an over-100 total' under the Jacksonville Forces heading. Add 'SCENARIO CHOICE: count' to the p8a_jax_base note."
+   },
+   {
+    "world_id": "usa_norfolk_naval_station_norfolk",
+    "kind": "unit_id",
+    "problem": "The gaps say 'No COD aircraft (C-2A, CMV-22B), no MH-60S, and no MQ-25 (the KA-3B proxy is a tanker only)'. Against the corrected inventory, the outcome labels are blurred. MQ-25 was corrected from none to proxy: usn_ka-3b, labelled 'MQ-25 stand-in (KA-3B)', squadron ServiceDate 1956|1991. Since MQ-25 is itself a tanker, 'tanker only' is no reason to treat it as absent. CMV-22B is missing_fit (usmc_mv-22b airframe, USMC liveries only). MH-60S is missing_fit with usn_hh-60, and usn_sh-60f per the verify, as the labelled stand-in. C-2A is none.",
+    "fix": "List each with its exact outcome: MQ-25 proxy (usn_ka-3b, date-gated 1956|1991, not allocated); CMV-22B missing_fit (usmc_mv-22b); C-2A none; MH-60S missing_fit (usn_hh-60 or usn_sh-60f stand-in; MH-60R used instead as SCENARIO CHOICE)."
+   },
+   {
+    "world_id": "usa_norfolk_naval_station_norfolk",
+    "kind": "source_fidelity",
+    "problem": "'Largest naval base...; 4,000-6,000 acres; 11 miles of pier and wharf (R03:19). R01:15 repeats the sentence word for word' overstates what R01:15 repeats. R01:15 repeats only 'largest naval base in the world by operational concentration and fleet density' and 'routinely hosting over 75 ships and 134 aircraft across 11 hangars'. It has no acreage, no pier length and no Fleet Forces HQ. The same overstatement appears at Jacksonville and Patuxent: R01:17 gives neither 3,800 acres nor 6,400 acres and 17,000 personnel. It also appears in the DLA package: R01:21 says 'nearly 100 percent of its fuel', without 'troop support consumables'.",
+    "fix": "Say R01:15 repeats the 'largest naval base' and '75 ships / 134 aircraft / 11 hangars' phrases only. Do the same at Jacksonville (R01:17 repeats only 'premier hub for ASW' and the P-8A/MQ-4C pairing), Patuxent (R01:17 repeats only 'nerve center for naval aviation research') and the DLA package (R01:21 repeats 86 percent spares and nearly 100 percent fuel only)."
+   },
+   {
+    "world_id": "usa_norfolk_naval_station_norfolk",
+    "kind": "other",
+    "problem": "civ_fv_fishingboat_a is proposed as Norfolk and Jacksonville traffic without a variant. Per the allies-and-hosts missed_assets note, its variant names come from 3432592449's merged keys and display USSR, Iceland, US, Japan, China and Sweden; Variant5 shows 'Fishing boat China'. A random variant off the Virginia Capes would show a Chinese- or Soviet-labelled boat. Nationality alone does not make a unit hostile, but the label invites misreading.",
+    "fix": "Pin the US-labelled variant (check the names file) or set NameOverride when proposing civ_fv_fishingboat_a for US East Coast traffic. Note the same in the Jacksonville routine_activity."
+   },
+   {
+    "world_id": "usa_patuxent_nas_patuxent_river",
+    "kind": "unit_id",
+    "problem": "The optional marker offers 'usa_airbase Variant1 ... or nato_small_airbase (proxy)'. The id resolves (vanilla land_units/nato_small_airbase.ini), but the inventory maps usa_airbase and nato_very_small_airbase to Patuxent, not nato_small_airbase. A verify correction records that nato_small_airbase declares no Nation, so it needs a per-placement Nation=usa and a NameOverride, which the package does not state.",
+    "fix": "Prefer usa_airbase Variant1 (inventory-mapped). If nato_small_airbase is kept, note that it has no Nation, needs Nation=usa, a NameOverride and an explicitly empty air group, and is a re-resolved id rather than an inventory mapping."
+   },
+   {
+    "world_id": "usa_whiting_nas_whiting_field",
+    "kind": "label_missing",
+    "problem": "Optional dressing is offered with 'Default quantity: 0' but no SCENARIO CHOICE label. At Whiting these are the trainer stand-ins civ_v35 and fr_as-350. Patuxent ('0, or 1-2 static aircraft') and the five depot packages (static markers) have the same gap. Only Norfolk, Newport News and some JSON notes carry the label explicitly. Low impact, since every default is 0.",
+    "fix": "Mark every optional marker and dressing quantity as 'SCENARIO CHOICE (optional, default 0)' at Whiting, Patuxent, Susquehanna, Richmond, Anniston, Red River and Tobyhanna. Also say 'no mission centred within 300 NM' at Whiting, which is the inventory's wording."
+   }
+  ],
+  "verdict": "Mostly sound, with fixes needed: two medium and nine low. Every R0x citation was opened and says substantially what is claimed. The carrier table rows (R03:55/60/61), R03:48/50, R03:19/23/28/30-32 and R02:11/15/17/21/23/25/29-34 all match. The fidelity-register fixes are applied: Newport News is removed from parent_or_colocated, no DLA centre is asserted at Norfolk or Jacksonville, the Richmond and APF groupings are labelled authored, and the Test Pilot School is cited to R03:23 only.\n\nUnit ids: all 54 named in the draft were checked with find_unit_file/winning_file. Every one resolves except usn_mh-60r_26 and usn_mh-60r_2027, which the draft itself flags as unresolved. US_Los_Alamos resolves under land_units, and the draft only rules it out.\n\nSpot checks that pass:\n- Carrier variants: nimitz_2025 Variant2 = CVN-69, Variant7 = CVN-74, Variant8 = CVN-75.\n- Squadrons: usn_fa_18f_rsa Squadron6 = VFA-106; usn_fa_18e_rsa Squadron18 = VX-4; usn_p_8a Sq1-14 US and Sq15+ foreign.\n- Auxiliaries: T-AOE/T-AKE/Algol supply blocks and categories exactly as stated; Algol Variants 1/3/6/7 open-ended.\n- DDG: Flight IIA _099_late has 8 hull variants (enough for 4 distinct hulls) and an MH-60R x2 air group with SH-60B at 0.\n- Stores: usa_airbase Variant1 'Naval Air Station' with 2M stores; carrier FlightDeck 1.2M stores.\n- Date gates: KC-130T squadrons end 2002-2021; C-141B PlaneCargoSupplySystem 60000, 1965-2006.\n- Civil traffic: the proposed hulls carry no supply blocks.\n- World data: stock KNGU, Port Norfolk ('Norflok'), Mayport, Port Jacksonville and the sea-point coordinates all match; the computed distances check out.\n\nOutcome labels are honest: the T-AKE, T-AOE, port and airfields are proxies, and C-130T, MQ-4C and the test aircraft are missing_fit.\n\nAllocation: no double allocation. Each R03 carrier appears once (CVN-74 only at Newport News), nothing underway is also at base, and the region totals add up (12 hulls, 43 aircraft, 8 hull-borne MH-60R). Scale is small and role-appropriate, the depots are abstract, and Patuxent and Whiting are context or abstract. There is no nuclear detail and no sanctuary rule; Ban Keun is not in this region.\n\nFixes needed:\n- DLA gaps text reintroduces 'implied' co-located centres at Norfolk and Jacksonville.\n- The R02:17 'these CONUS hubs' sentence is over-applied to Patuxent, Whiting and Newport News, which R02 never mentions.\n- The Truman CHECK should cite the collection's own 'Real World No CVW RCOH' annotation and pre-state the fallback.\n- Loading us_ports_atlantic.ini brings in 12 more ports (4 unsourced military) plus civ_ Movements, undisclosed.\n- usa_car_hemtt is wrongly called a static target with no function.\n- Jacksonville quantities lack a SCENARIO CHOICE label.\n- The MQ-25, CMV-22B and MH-60S outcome wording in the Norfolk gaps lags the verify corrections.\n- R01 'repeats word for word' overstatements (Norfolk, Jacksonville, Patuxent, DLA).\n- civ_fv_fishingboat_a variant labels, the nato_small_airbase Nation caveat, and missing SCENARIO labels on optional markers.\n\nScratch scripts: (agent scratch, not kept) and detail.py. No repo files were modified."
+ }
+}

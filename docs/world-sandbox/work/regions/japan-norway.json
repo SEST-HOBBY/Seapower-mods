@@ -1,0 +1,829 @@
+{
+ "key": "japan-norway",
+ "markdown": "## Japanese and Norwegian maritime patrol network\n\n**Nodes (in order):** hn_evenes_air_station, jpn_kanoya_air_base, jpn_atsugi_naf, jpn_okinawa_naha. All four are `populate`, and all four are air stations. The sources describe no ships, piers or naval berths at any of them, so no ship is allocated in this region.\n\n**Sources used:** R01:61; R03:111-134, R03:162, R03:166, R03:168. Fidelity fixes applied: fidelity[0] adds R03:121 (network focus) and R03:127/R03:132 (P-1 fit) at Atsugi. R03:125 (HPS-106, MAD) is added by this package, not by fidelity[0]. fidelity[1] adds R03:115 (role descriptor and upgrade purpose), R03:117 (\"kill web\", \"international airspace\") and R03:162 (NASAMS) at Evenes, plus R03:121 at Naha. fidelity[2] adds the Kanoya-Lingshui counter-screen mirror relationship (R03:168).\n\n**Inventory corrections applied:**\n- usn_p_8a: USN use is limited to Squadron1-14.\n- UK P-8 = usn_p8 Squadron4 (missed asset).\n- RAF RC-135 = boeing-rc135 Squadron6/7 (missed asset).\n- Modded-tanker refuelling is downgraded to unverified.\n- Kanoya and Atsugi placement distances are stated per class.\n- SEST supply clones (jmsdf_aoe_mashuu) count as proxy: the data is correct but the mesh is a stand-in.\n- Installations: the airbase_us clone template's default [AirGroup] has a malformed line ('S-70B-2_Seahawk=Squadron1=5') and a usmc_vh-3d Squadron1 that the winning squadrons file does not define. Any clone or placement replaces that group via CustomAirGroup.\n\n**Asset-id prefix:** `asset:mpn:` (maritime patrol network).\n\n**How to read each package**\n- **SOURCE** = what R01-R03 say (report:line).\n- **CHECK** = a doubt or a verification still to do. Sources are never silently corrected.\n- **SCENARIO** = our proposal: quantity, allocation and activity.\n\n**Region-level picture**\n- **Norway:**\n  - The RNoAF P-8A is an exact match (usn_p8 Squadron5).\n  - The F-35A is missing_fit: the only F-35A unit has RAAF squadrons only.\n  - NASAMS III has only a labelled SL-AMRAAM proxy. There is no counter-UAS unit.\n  - There is no Norway-flag airbase: proxy for now, named SEST clone later.\n- **Japan:**\n  - There is no Kawasaki P-1 in the collection. The only correct-operator stand-in is a Japan-flagged usn_p-3c. As a proxy it needs a visible 'P-1 stand-in' label.\n  - No in-game label route for an aircraft is proven yet. Every P-1 stand-in is therefore **pending proxy** and is not placed until a label route exists. The preferred route is a SEST patch adding labelled Japan squadrons to usn_p-3c; the alternative is a mission name override proven in the editor.\n  - The JMSDF P-3C itself is exact.\n  - No named JMSDF base exists. All three use airfield_small_1 Variant5 'Airbase - small (Japan)' as a labelled proxy.\n  - The platform-to-station assignment was checked, not copied: Kanoya and Atsugi = P-1 per R03:127/R03:168 (stand-in); Naha = P-3C (R03:127 omits Naha, and the register check notes it is still reported as P-3C).\n  - In game all three look the same (P-3C mesh). They differ only in label and squadron.\n- **SCENARIO totals:**\n  - Evenes: 5 named P-8A (the sourced count: 4 in the Evenes CustomAirGroup, 1 airborne), 3 visiting aircraft authored as separate aircraft entries (1 USN P-8A counted against the Jacksonville allocation, 1 RAF P-8A, 1 RC-135), 2 F-35A pending a fit, 1 NASAMS proxy fire unit (1 radar, 2 launchers).\n  - Japan: 7 P-1 stand-ins (Kanoya 3, Atsugi 4), all pending the label route; 4 P-3C at Naha; 1 conditional P-3C at Kanoya, held out (0) until the transition check and the label route are both in place. R03:127's 34-36 is a fleet-wide count, not per base.\n- **Built-in air groups:**\n  - Every installation used here ships its own air group: nato_small_airbase 54 Cold War US aircraft, airfield_small_1 Variant5 44, usa_airbase 57 (Default) or 96 (Variant1), and the airbase_us template's USAF-heavy group.\n  - Each placement sets CustomAirGroup=True holding only that base's at-base identities, and nothing else.\n  - Each patrol airframe is a separate airborne aircraft entry with an explicit LoadoutVariant. It is never also counted in the group.\n  - An AirGroup line holds only squadron and count, so the ASW and AntiShip roles of at-base airframes are SCENARIO intent, not a placed loadout.\n- **Scope:**\n  - From a 42N 20E datum: Evenes x=-199, z=1,589; Kanoya, Atsugi and Naha x=6,459-7,167, z=-393 to -948. All are inside the proven extent (|x| 11,361 saved).\n  - No date-line crossing.\n  - Evenes-Naha is about 4,381 NM. That is beyond the 3,450 NM played-and-saved separation and inside the 4,913 NM file span. It matters only if both theatres share one mission.\n  - The stock sea network (sea_points.ini) has no Pacific coverage, so Japanese routes need sea_routes.py or the land mask.\n- **Rules carried:**\n  - No perfect-detection rule is derived from \"kill web\" (R03:117), \"impenetrable anti-submarine nets\" (R03:111) or \"dense curtain\" (R03:168). Those phrases are rhetoric.\n  - R03:166 is different. It is explicit simulation guidance to \"model shared situational awareness rather than individual unit vision cones\".\n    - **SCENARIO choice, which departs from R03:166:** no shared vision or detection is scripted beyond the engine's own datalink and contact sharing. The basis is that the register invents no engine keys (plan:63).\n    - **CHECK:** the engine's real datalink and contact sharing between allied MPAs is untested.\n  - Russian and Chinese aircraft and submarines named as opposition belong to their own region packages and are never spawned here.\n  - Every usn_p8, usn_p_8a, usn_p-3c, boeing-rc135, raaf_f-35a and civ_as-350 entry needs an explicit LoadoutVariant. None of them lists 'Default' in AvailableLoadouts (civ_as-350 lists only Transport). That is the KJ-500 map-panel crash pattern (docs/design-notes.md:495-527).\n  - tools/preflight.py checks only [TaskforceNAircraftM] and [TaskforceNHelicopterM] entries, so it would not catch a neutral civ_as-350. Set that loadout by hand.\n\n---\n\n### hn_evenes_air_station - Evenes Air Station\n\n**Identity.** Norway, Royal Norwegian Air Force, 133 Air Wing (R03:115). Host: Norway, Nordland county above the Arctic Circle (R03:115). Node kind: air_base. Policy: populate.\n\n**SOURCE claims**\n- R01:61: Norway operates Evenes \"to monitor the GIUK Gap\", hosting P-8A Poseidons and F-35A interceptors.\n- R03:115:\n  - \"a cornerstone of NATO's maritime domain awareness in the High North\";\n  - an 8 billion NOK upgrade \"to support next-generation aircraft\";\n  - 333 Squadron with five P-8A named Vingtor, Viking, Ulabrand, Hugin and Munin, delivered 2021-2022;\n  - tasked with hunting Russian submarines transiting from Kola bastions through the GIUK Gap.\n- R03:117:\n  - QRA base for Norwegian F-35A, taking over from F-16s at Bodø;\n  - scrambles \"often dozens of times a year\" against Tu-142 and Tu-95 over the Barents Sea, \"in international airspace\";\n  - US \"agreed area\": US and UK P-8A and RC-135 Rivet Joint stage from Evenes;\n  - \"unified, multinational ASW kill web\";\n  - a British P-8A staged for the first Poseidon North Pole flyover (undated);\n  - a dedicated air-defence battalion with NASAMS III and counter-UAS.\n- R03:162: \"the NASAMS III stationed at Evenes\", given as a point-defence example. This repeats R03:117 and is not corroboration.\n- R03:166: Kola submarines must first evade the Evenes P-8As; target data is handed off to UK and US aircraft.\n- R03:166 (simulation_guidance), verbatim: \"target data is handed off across allied platforms via data links, requiring the simulation to model shared situational awareness rather than individual unit vision cones.\" The SCENARIO departs from this guidance; see Rules carried and CHECKS.\n- R03:131 (type table, platform-level): P-8A operated by US, UK and Norway; APY-10, Harpoon, Mk 54.\n\n**Role.** Maritime patrol and ASW (333 Sqn), fighter QRA, staging for allied MPA and ISR, local air defence.\n\n**Position.**\n- Public location: approx 68.5N 16.7E (Evenes, north shore of Ofotfjorden). **Approx, verify.**\n- In-game evidence:\n  - stock sea point [Ofotfjorden] 68.441,16.657 (campaigns/sea_points.ini), about 3 NM away;\n  - stock [Port Narvik]/[Narvik] 68.438,17.428, about 17 NM away;\n  - nearest proven land placement 26 NM (nato_radar in 3491248180 'Lighting Strike'); nearest proven sea placement 36 NM.\n- The campaign snapper has no proof here, so placement needs the global-land-mask tools or a new Norway coast extract. Placement is pending validation.\n\n**Installation**\n- asset:mpn:evenes_base: `nato_small_airbase` (vanilla, capacity 60) with Nation=norway set per placement and the label 'Evenes Air Station (stand-in)'. **proxy**. usa_airbase is a poorer fit because its name reads 'Naval Air Station'.\n  - Its built-in [AirGroup] holds 54 Cold War US aircraft: usaf_f-15a Squadron1 x8, usaf_f-4e Squadron1/Squadron2 x24, usaf_e-3a x2, usn_ra-5c x6, usn_ea-6b x4, usn_p-3c Squadron1 x8 and usn_ch-46 x2.\n  - The placement must set CustomAirGroup=True holding only the at-base identities: `usn_p8=Squadron5,4` (Viking, Ulabrand, Hugin, Munin). Nothing else goes in the group.\n  - Vingtor (patrol) is placed only as a separate airborne aircraft entry: usn_p8 Squadron5, LoadoutVariant=ASW. It is never also in the group.\n  - The three visiting aircraft stay out of the group (see Forces and CHECKS).\n- A named Norway clone of `airbase_us` (3592460366), following integration/raaf-bases with an AirGroup of usn_p8 Squadron5, is **missing_fit**: the template exists but the clone is not built.\n  - The same rule applies: the clone's AirGroup is `usn_p8=Squadron5,4` and nothing else.\n  - None of the template's default group is kept. That group is USAF-heavy and has two broken entries: the malformed 'S-70B-2_Seahawk=Squadron1=5' and a usmc_vh-3d Squadron1 that the winning squadrons file does not define (installations verify correction).\n\n**Forces.** Allocation, quantity and squadron picks are SCENARIO unless marked SOURCE.\n\n| Asset | Allocation | Role | Unit (squadron, loadout) | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:mpn:p8a_vingtor | patrol | ASW patrol | usn_p8 Squadron5 'P-8A No.333 Squadron RNoAF' (Nation=Norway, RNoAF livery, callsign Odin), LoadoutVariant=ASW; separate airborne aircraft entry, not in the CustomAirGroup | exact | 1 | SOURCE R03:115 named airframe |\n| asset:mpn:p8a_viking | resident_at_base | ready ASW alert | usn_p8 Sq5 in the CustomAirGroup; ASW intent | exact | 1 | R03:115 |\n| asset:mpn:p8a_ulabrand | resident_at_base | anti-surface ready | usn_p8 Sq5 in the CustomAirGroup; AntiShip intent | exact | 1 | R03:115 |\n| asset:mpn:p8a_hugin | servicing_maintenance | in maintenance at start | usn_p8 Sq5 in the CustomAirGroup | exact | 1 | R03:115 |\n| asset:mpn:p8a_munin | reserve | finite reserve | usn_p8 Sq5 in the CustomAirGroup; ASW intent | exact | 1 | R03:115 |\n| asset:mpn:evenes_f35a_qra_1, _2 | resident_at_base (QRA; not placed yet) | intercept and escort | raaf_f-35a: RAAF squadrons only, wrong flag; joins the CustomAirGroup (count 2) once a Norway squadron exists | missing_fit | 2 | R01:61, R03:117; qty SCENARIO |\n| asset:mpn:evenes_usn_p8a_det | underway_deployed (staging) | visiting US MPA | usn_p_8a, USN Squadron1-14 only (Nation=US); squadron set by the Jacksonville package; separate aircraft entry, LoadoutVariant=ASW; not in the CustomAirGroup | exact | 1 | R03:117 staging; origin authored |\n| asset:mpn:evenes_raf_p8a_det | underway_deployed (staging) | visiting UK MPA | usn_p8 Squadron4 'Poseidon MRA1 No.54 Squadron RAF' (Nation=UK); alt usn_p_8a Sq15-18; separate aircraft entry, LoadoutVariant=ASW; not in the CustomAirGroup | exact | 1 | R03:117 |\n| asset:mpn:evenes_rc135_det | underway_deployed (staging) | SIGINT/ISR | boeing-rc135 Squadron2 (USAF ACC/55th Wing, generic livery, Nation=US); separate aircraft entry, LoadoutVariant=SIGINT; not in the CustomAirGroup | exact | 1 | R03:117 staging only (operator not stated; US pick SCENARIO) |\n| asset:mpn:evenes_nasams_radar_1 | fixed_defence | SAM radar | usa_SLAMRAAM_radar (AN/MPQ-64), Nation=norway, label 'NASAMS III (SL-AMRAAM stand-in)' | proxy | 1 | R03:117 |\n| asset:mpn:evenes_nasams_launcher_1, _2 | fixed_defence | SAM launcher | usa_SLAMRAAM_launcher (usn_aim_120c_ground, usn_aim_9x_ground), Nation=norway, same label | proxy | 2 | R03:117 |\n| asset:mpn:evenes_cuas | abstract | counter-UAS | none found | none | 0 | R03:117 |\n\nThe five P-8A identities appear only in this package. In game, the airframes share one squadron livery, and naming individual airframes in an AirGroup is not established.\n\n**Support services**\n- **Ship ammunition:** not applicable. The sources give Evenes no berth role, and there is no Norwegian replenishment hull (Maud: none).\n- **Aircraft turnaround and ordnance:**\n  - nato_small_airbase has FlightDeck_AmmoCapacity 1,500,000 and accountable categories AirTorpedo 60, Ovod 120 and Harpoon 120.\n  - usn_p8 loads: ASW = 5 usn_haawc_p8 plus SSQ-53F/62E/77C/101 sonobuoys; AntiShip = 4 AGM-84N.\n  - Whether those stores rearm from the base stock, and whether repeat sorties work, is **not established** (test).\n  - An airbase_us clone defines no FlightDeck_AmmoCapacity, so its turnaround stock is not established either.\n- **Air-to-air refuelling:** not established. usn_p8, boeing-rc135 and raaf_f-35a declare no ReceiverSystems. otan_a330_mrtt Squadron5 (Norway, ProbeAndDrogue) exists but is not sourced at Evenes and has no compatible receiver here, so it is not allocated.\n- **Supplier restocking, fuel, repair:** not established.\n\n**Connections**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| Barents Sea | QRA intercept area | source | R03:117 |\n| Kola Peninsula submarine bastions / departure area | ASW threat axis | source | R03:115, R03:166 |\n| GIUK Gap | stated monitoring role and transit route (CHECK geography) | source | R01:61, R03:115 |\n| hn_kola_olenya_airbase | possible source of intercept targets (Tu-95MS, R03:72); R03:117 names no base | authored | R03:117 + R03:72 |\n| usa_jacksonville_nas_jacksonville | home allocation of the visiting USN P-8A | authored | R03:117 (staging), R03:23 (ASW hub) |\n| allied UK/US MPA (data handoff) | cooperative ASW. R03:166 asks for shared situational awareness; the SCENARIO adds none beyond the engine's own datalink (CHECK). No perfect-detection rule. | source | R03:166 |\n| North Pole / Arctic | context only | source | R03:117 |\n\n**Routine activity** (SCENARIO, proposed, not implemented)\n1. One 333 Sqn P-8A flies an ASW line in the Norwegian Sea north of Andøya toward the Barents approaches, anchored on stock sea points North West Andoya (69.78,14.96), Lofoten Basin 5 (70.83,13.70) and Nordvest Banken (71.01,18.92). The ready airframe relieves it. The rotation draws only on the five named identities.\n2. The visiting USN and RAF P-8As extend the line (handoff, R03:166).\n   - The RC-135 flies a SIGINT track off the Barents.\n   - R03:117 supports only RC-135 staging from Evenes. The track, its location and the US operator are SCENARIO, and the geometry needs validation.\n3. Once a Norway F-35A squadron exists, an F-35A pair scrambles against Tu-142/Tu-95 tracks. Those aircraft come from Russia-region allocations.\n4. Civilian pool asset:mpn:evenes_civ_pool:\n   - 4 Norwegian fishing vessels (civ_fv_sidetrawler, civ_fv_fishingboat_b Default/Variant2, civ_fv_sterntrawler_a Default; all Nation=Norway) in the stock 'Loefoten Fishing' area;\n   - 1 Norway-flag car carrier (civ_ms_car_carrier_a Variant24 'MV Dyvi Skagerak') to Port Narvik via Ofotfjorden;\n   - optionally civ_as-350 Squadron12 'AS.350B Offshore' (Nation=Norway), but only together with an authored rig. It needs LoadoutVariant=Transport: that is its only loadout, and it has no 'Default'.\n   - No Norway-flag airliner exists. Avoid civ_ms_roro_a Variant1-5 and civ_ms_c8 Variant18-20 as neutral traffic, because they carry SEST supply blocks.\n\n**CHECKS**\n- Geography: Evenes is far from the GIUK Gap, so the GIUK framing in R01:61 and R03:115 needs checking. The scenario patrol is in the Norwegian Sea and Barents approaches.\n- The F-35A presence is commonly described as a forward QRA detachment. The quantity of 2 is SCENARIO.\n- Verify the NASAMS III battalion and the counter-UAS claim. The proxy fire unit is a small representative layer, not a reproduction of present-day defences (plan:24).\n- The basis for UK staging under a US agreement is not stated. The North Pole flight is undated.\n- R03:117 does not say whose RC-135 stages here; choosing the US one is SCENARIO. The tail-specific squadrons, boeing-rc135 Sq3-5 (USAF tails) and Sq6-7 (ZZ664/ZZ665), are named airframes that must be allocated once world-wide.\n- The visiting USN P-8A counts against the Jacksonville allocation.\n- usn_p-3c Squadron30 'P-3B 333 Squadron RNoAF' is historical. Do not use it.\n- Mixed-nation AirGroup behaviour at a Norway-flagged base is untested: which nation and side a UK or US squadron spawns as.\n  - SEST RAAF Bases (for example airbase_raaf_tindal, Nation=Australia, with usaf_f-15ex_SEII and usaf_b-2_spirit squadrons) and DARWIN US SUPPLY already put US squadrons in Australia-flagged air groups. The raaf-bases first-flight checks are still open, so the behaviour is not established.\n  - Until it is tested, author the three visitors as separate aircraft entries, each with its own Nation (US, UK, US) and explicit LoadoutVariant (ASW, ASW, SIGINT). Keep them out of the Evenes CustomAirGroup.\n- The engine's real datalink and contact sharing between allied MPAs (333 Sqn and the USN and RAF P-8As) is untested. R03:166 asks for shared situational awareness, and the SCENARIO adds nothing beyond what the engine does (region rule).\n- civ_as-350 needs an explicit LoadoutVariant=Transport. preflight does not scan neutral aircraft entries. Vanilla missions do set LoadoutVariant on neutral aircraft entries (for example 'Mind the Gap - Original 1988').\n\n**Gaps**\n- A Norway F-35A squadron (SEST pack).\n- A named Evenes base clone.\n- NASAMS and counter-UAS units.\n- A Norwegian helicopter or SAR unit, a Norway airliner, and a Maud replenishment ship.\n- A Norway coast extract.\n- Backlog nodes: Bodø (R03:117), Russian Tu-142 bases, Russian Northern Fleet bases, and the UK P-8 home station.\n\n**Validation**\n- Research: claims faithful.\n- Unit mapping: re-resolved 2026-10-07.\n  - usn_p8 resolves to SEST_Integration, usn_p_8a to 3413868677 and boeing-rc135 to 3808882954.\n  - raaf_f-35a resolves to SEST_Integration and nato_small_airbase to vanilla.\n  - usa_SLAMRAAM_* resolves to 3413868677.\n  - civ_as-350 resolves to 3806197116, and the airbase_us clone template to 3592460366.\n- Placement, runtime activation, turnaround and save/load are untested.\n\n---\n\n### jpn_kanoya_air_base - Kanoya Air Base\n\n**Identity.** Japan Maritime Self-Defense Force, Fleet Air Wing 1 (R03:123). Host: Japan. Node kind: naval_air_station. Policy: populate.\n\n**SOURCE claims**\n- R03:121 (network): the JMSDF network is focused on ASW and maritime surveillance against Russian Pacific Fleet movements and the Chinese submarine force.\n- R03:123: FAW1 operates out of Kanoya; the bases are transitioning from the P-3C to the P-1.\n- R03:127: P-1s flying from Atsugi and Kanoya drop dense sonobuoy networks. There are 34-36 P-1 in service fleet-wide.\n- P-1 fit, platform-level only:\n  - R03:125: HPS-106 AESA radar and MAD;\n  - R03:127: Mk.46 and Type 97 torpedoes, Harpoon, ASM-1C, 30+/70+ sonobuoys, 9,000 kg bay;\n  - R03:132: type-table row.\n- R03:168: P-1s from Kanoya and Atsugi lay sonobuoy barriers across the First Island Chain against Chinese submarines from Yulin and Longpo. Lingshui J-15s and Y-8Qs act as a counter-screen.\n\n**Role.** Maritime patrol and ASW.\n\n**Position.**\n- Public location: approx 31.4N 130.85E (Osumi Peninsula, inland). **Approx, verify.**\n- In-game evidence:\n  - nearest proven air point 31 NM (usaf_e-3a in 'GULF ATTACK .7.7');\n  - nearest proven land point about 337 NM;\n  - stock asia_ports [Kagoshima] 31.585,130.562, about 19 NM away.\n- Placement is pending validation.\n\n**Installation**\n- asset:mpn:kanoya_base: `airfield_small_1` Variant5 'Airbase - small (Japan)', labelled 'Kanoya Air Base (stand-in)'. **proxy**.\n  - Its built-in CustomAirGroup must be replaced. That group holds 44 aircraft: F-1, T-2, F-4EJ, PS-1, US-1, HSS-2 and usn_p-3c Squadron23 x4. Squadron23 is Atsugi's 3rd FAS.\n  - The placement sets CustomAirGroup=True holding only the at-base identities kanoya_p1_2 and kanoya_p1_3: `usn_p-3c=<P-1 stand-in squadron>,2`.\n  - Append `|Squadron21,1` (1 genuine P-3C) only if the conditional kanoya_p3c_1 is confirmed. Nothing else goes in the group.\n  - kanoya_p1_1 (patrol) is a separate airborne aircraft entry with LoadoutVariant=ASW. It is never also in the group.\n  - `<P-1 stand-in squadron>` is the labelled Japan squadron the SEST patch would add. Its number is assigned when the patch is built; none is invented here. Squadron21 is used for the stand-ins only if a mission name override is proven, and in that case the conditional P-3C stays out.\n- A named JMSDF base clone of airbase_us is **missing_fit**.\n\n**Forces** (SCENARIO allocation)\n\n| Asset | Allocation | Role | Unit | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:mpn:kanoya_p1_1 | patrol | ASW patrol | usn_p-3c, labelled Japan squadron (proposed name 'P-1 stand-in (P-3C) 1st FAS', reusing the livery of Squadron21 \"P-3C 1st FAS 'Jupiter'\", Nation=Japan); separate airborne aircraft entry, LoadoutVariant=ASW | proxy (pending label route; not placed until it exists) | 1 | SOURCE R03:127, R03:168 (P-1 at Kanoya) |\n| asset:mpn:kanoya_p1_2 | resident_at_base | ready ASW | same squadron, in the CustomAirGroup; ASW intent | proxy (pending label) | 1 | same |\n| asset:mpn:kanoya_p1_3 | servicing_maintenance | maintenance | same squadron, in the CustomAirGroup | proxy (pending label) | 1 | same |\n| asset:mpn:kanoya_p3c_1 | reserve (conditional; held out) | legacy MPA | usn_p-3c Squadron21 \"P-3C 1st FAS 'Jupiter'\" (Nation=Japan), in the CustomAirGroup if placed | exact | 0 now (1 only if both conditions below are met) | R03:123 (transition, general) |\n\nPairing Squadron21 (1st FAS) with Kanoya is SCENARIO: R03 names the wing, not the squadron. The P-3C is placed only if two conditions are met:\n- the per-base check shows P-3Cs still at Kanoya;\n- the P-1 stand-ins have already moved to their labelled squadron.\n\nUntil then it would carry the same Squadron21 livery and name as the stand-ins, so the two could not be told apart in game. It stays out.\n\n**Support services**\n- **Ship ammunition:** not applicable (inland air station).\n  - The JMSDF supplier jmsdf_aoe_mashuu has a TruckSupplySystem: pool 250,000, ceiling 5,000; Harpoon 24, AirTorpedo 40, ALWT 16, SEST_LandAttack 12, SEST_LongRangeSAM 24.\n  - It is proxy (correct data on a Sacramento stand-in mesh) and belongs to the Yokosuka or at-sea allocation, not here.\n- **Aircraft turnaround:**\n  - airfield_small_1 has FlightDeck_AmmoCapacity 1,000,000; AirTorpedo 48, Ovod 96, Harpoon 96.\n  - usn_p-3c loads: ASW = DateBased_Torpedo_Export x8, usn_mk54_dc and SSQ-41/53/62; AntiShip = DateBased_Harpoon x4.\n  - Rearm and repeat sorties are **not established**.\n- **Air refuelling:** not established (usn_p-3c has no ReceiverSystems).\n- **Restocking, fuel, repair:** not established.\n\n**Connections**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| First Island Chain | sonobuoy-barrier area | source | R03:168 |\n| chn_hainan_yulin_naval_base | target submarine force | source | R03:168 |\n| chn_hainan_longpo_naval_base | target submarine force | source | R03:168 |\n| chn_hainan_lingshui_airbase | opposing counter-screen (fidelity[2] mirror) | source | R03:168 |\n| jpn_atsugi_naf | JMSDF Fleet Air Force network | source | R03:123, R03:127 |\n| jpn_okinawa_naha | JMSDF Fleet Air Force network | source | R03:123 |\n| East China Sea | patrol area | authored | R03:105 (ECS as the Eastern Theater Command area, not a Kanoya link) |\n| Russian Pacific Fleet (no base named) | surveillance target | source | R03:121 (backlog) |\n\n**Routine activity** (SCENARIO, proposed)\n1. One P-1 stand-in flies a patrol line south of Kyushu across the northern Ryukyu approaches and the East China Sea edge (route via sea_routes.py or the land mask). The ready airframe relieves it.\n2. A periodic sonobuoy-barrier sortie (R03:127/R03:168 role). It is not a perfect-detection net.\n3. Civilian pool asset:mpn:kanoya_civ_pool:\n   - 3 Japanese fishing vessels (civ_fv_fishingboat_c, civ_fv_fishingboat_d, civ_fv_sterntrawler_d);\n   - 1 Japan-flag bulk carrier (civ_ms_bulk, Japan variants);\n   - an optional airliner track (civ_a330 Squadron43/44 'Japan Airlines').\n\n**CHECKS**\n- The per-base transition stage and which squadron flies at Kanoya. The fleet count is undated.\n- The P-1 stand-in is the same model as Naha's P-3C.\n- A visible label for an aircraft is not established. The label route is a precondition for placing any P-1 stand-in at Kanoya or Atsugi.\n  - Preferred route: a SEST patch adding labelled Japan squadrons to usn_p-3c (squadron sections reusing the 1fas/3fas liveries, plus names in aircraft_names.ini). This is the same approach as the proposed Norway raaf_f-35a squadron.\n  - Alternative: a mission name override proven in the editor. No mission in the repo yet sets a name on an aircraft entry.\n  - Until a route exists, the P-1s are recorded as pending proxy and are not placed.\n- Explicit LoadoutVariant on every entry.\n- Not checked: whether DateBased_Torpedo_Export resolves to a Mk 46-class weapon at the world date. The Type 97 torpedo and ASM-1C are not represented.\n- The regional total of 7 P-1 stand-ins is SCENARIO, against the fleet-wide 34-36.\n\n**Gaps**\n- No P-1 unit.\n- No named base.\n- The HPS-106 and MAD fit is missing.\n- No proven land placement within 300 NM.\n\n**Validation**\n- Research: claims faithful.\n- Unit mapping: usn_p-3c and airfield_small_1 re-resolved to vanilla.\n- Placement and runtime are untested.\n\n---\n\n### jpn_atsugi_naf - Naval Air Facility Atsugi\n\n**Identity.** JMSDF Fleet Air Wing 4 (R03:123); 3rd Squadron at Atsugi (R03:127). R03 does not say the 3rd Squadron belongs to FAW4 (CHECK). Host: Japan, Kanagawa. NAF Atsugi is a US Navy-designated facility shared with the JMSDF (register CHECK on host and access labelling). Node kind: naval_air_station. Policy: populate.\n\n**SOURCE claims**\n- R01:61: the JMSDF operates from \"nodes like Naha and Atsugi\", using the P-1 to create an anti-submarine web over the First Island Chain.\n- R03:121: network focus (fidelity[0]).\n- R03:123: FAW4 operates from Atsugi; P-3C to P-1 transition.\n- R03:127: P-1s flying from Atsugi and Kanoya. In December 2018 a South Korean destroyer \"allegedly\" locked fire-control radar onto a P-1 from Atsugi's 3rd Squadron.\n- R03:127, R03:132: P-1 fit (fidelity[0]). R03:125: HPS-106 radar and MAD (added by this package, not by fidelity[0]).\n- R03:168: sonobuoy barriers.\n\nR01 and R03 repeat each other here; that is not corroboration.\n\n**Position.**\n- Public location: approx 35.45N 139.45E (inland). **Approx, verify.**\n- In-game evidence:\n  - nearest proven land point 30 NM (thaad_tel, 'GULF ATTACK .7.7');\n  - nearest proven air point about 142 NM;\n  - stock asia_ports [Yokohama] 35.444,139.638, about 9 NM away;\n  - Yokosuka is about 14 NM away.\n- Placement is pending validation.\n\n**Installation**\n- asset:mpn:atsugi_base: `airfield_small_1` Variant5 (Japan), labelled 'NAF Atsugi (JMSDF) (stand-in)'. **proxy**.\n  - The built-in 44-aircraft group is replaced. CustomAirGroup=True holds only the at-base identities atsugi_p1_2, _3 and _4: `usn_p-3c=<3rd FAS stand-in squadron>,3`. Nothing else goes in the group.\n  - atsugi_p1_1 (patrol) is a separate airborne aircraft entry with LoadoutVariant=ASW. It is never also in the group.\n  - `<3rd FAS stand-in squadron>` is the labelled squadron from the SEST patch (see Kanoya CHECKS), or Squadron23 only if a mission name override is proven.\n- Alternative: usa_airbase (3413868677), 'Naval Air Station', capacity 72, FlightDeck_AmmoCapacity 2,000,000, with Nation=Japan set per placement.\n  - Its unit [AirGroup] (66 aircraft) and variant groups spawn large US forces. Default (57) includes usaf_f_15c_2040c x28, usaf_b-52o x14 and usn_p_8a Squadron1 x4. Variant1 (96) includes usn_f-14e x24, usn_a-6g x14, usn_p-3d Squadron1 x8 and usn_p_8a Squadron4 x4.\n  - It is usable only with the same CustomAirGroup=True holding the 3 allocated at-base airframes and nothing else.\n- A named JMSDF base clone is **missing_fit**.\n\n**Forces** (SCENARIO allocation)\n\n| Asset | Allocation | Role | Unit | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:mpn:atsugi_p1_1 | patrol | ASW patrol | usn_p-3c, labelled Japan squadron (proposed name 'P-1 stand-in (P-3C) 3rd FAS', reusing the livery of Squadron23 \"P-3C 3rd FAS 'Neptune'\", Nation=Japan); separate airborne aircraft entry, LoadoutVariant=ASW | proxy (pending label route; not placed until it exists) | 1 | SOURCE R03:127 (3rd Squadron P-1) |\n| asset:mpn:atsugi_p1_2 | resident_at_base | ready ASW | same squadron, in the CustomAirGroup; ASW intent | proxy (pending label) | 1 | same |\n| asset:mpn:atsugi_p1_3 | resident_at_base | anti-surface ready | same squadron, in the CustomAirGroup; AntiShip intent | proxy (pending label) | 1 | same |\n| asset:mpn:atsugi_p1_4 | servicing_maintenance | maintenance | same squadron, in the CustomAirGroup | proxy (pending label) | 1 | same |\n\nUS Navy tenant units are not described in R01-R03, so none are allocated.\n\n**Support services.** Same as Kanoya:\n- Ship ammunition: not applicable.\n- Turnaround: airfield_small_1 stock of 1,000,000 (AirTorpedo 48, Harpoon 96), or 2,000,000 with usa_airbase. Not established.\n- Refuelling, restocking, fuel, repair: not established.\n\n**Connections**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| First Island Chain | ASW web and sonobuoy barriers | source | R01:61, R03:168 |\n| jpn_kanoya_air_base | network | source | R03:123, R03:127 |\n| jpn_okinawa_naha | network | source | R01:61, R03:123 |\n| chn_hainan_lingshui_airbase | opposing counter-screen | source | R03:168 |\n| wpac_yokosuka_naval_base | nearby fleet base; possible ASW pairing with JMSDF escorts and the Mashuu AOE in that package | authored | none |\n| hoa_djibouti_jp_base | if the Djibouti package authors a JMSDF MPA detachment, take it from this allocation; never duplicate it | authored | R01:51 names no aircraft |\n| South Korea | incident context only; no hostility rule | source | R03:127 |\n\n**Routine activity** (SCENARIO, proposed)\n1. A patrol off the Pacific coast of Honshu (Sagami Bay and Izu Islands approaches), authored geometry.\n2. A ready alert airframe on the ground.\n3. Civilian pool asset:mpn:atsugi_civ_pool. Merge it with the Yokosuka region's Tokyo Bay pool so no traffic is placed twice:\n   - 2 Japan-flag merchants: civ_ms_car_carrier_a Japan Variant13-21 or Variant40-42, and civ_ms_bulk Japan. Variant22-23 are Panama and Variant24 is Norway's 'MV Dyvi Skagerak', which stays unique to asset:mpn:evenes_civ_pool;\n   - 2 fishing vessels (civ_fv_fishingboat_c, civ_fv_fishingboat_d);\n   - civ_a330 Squadron43/44 (JAL).\n\n**CHECKS**\n- The per-station P-1 assignment.\n- Host and access labelling at a US-designated facility.\n- The incident is \"alleged\".\n- The stand-in label, which is a precondition for placing the P-1 stand-ins (see Kanoya CHECKS), and explicit loadouts.\n- Whether the 3rd Squadron belongs to FAW4. R03:127 says only \"Atsugi's 3rd Squadron\".\n- airfield_small_1 Variant5's default group already uses Squadron23 x4. Each base replaces it with explicit at-base contents (Kanoya 2, Atsugi 3, Naha 3). Kanoya and Naha therefore do not inherit Atsugi's squadron, and no patrol airframe also appears at base. The usa_airbase alternative needs the same override.\n\n**Gaps**\n- No P-1 unit.\n- No named base.\n- SH-60K and SH-60J (3695809489) exist, but no source places helicopters at Atsugi, so they are not allocated.\n- US tenants are not modelled.\n\n**Validation.** Mapping re-resolved. Placement and runtime are untested.\n\n---\n\n### jpn_okinawa_naha - Naha (JMSDF air station, Okinawa)\n\n**Identity.** JMSDF Fleet Air Wing 5 at Naha, Okinawa (R03:123). Host: Japan. Node kind: naval_air_station. Policy: populate.\n\n**SOURCE claims**\n- R01:61: P-1 used from \"nodes like Naha and Atsugi\".\n- R03:121: network context (fidelity[1], optional).\n- R03:123: FAW5 at Naha, \"extreme proximity to the First Island Chain and the Taiwan Strait\"; transition from the P-3C.\n- R03:127 (simulation guidance): \"rapid response times enabled by bases like Naha\".\n\n**Platform CHECK.** R03:127 names only Atsugi and Kanoya as P-1 bases. Only R01:61 ties the P-1 to Naha, and only jointly with Atsugi. The register check notes Naha is generally reported as still flying the P-3C. **SCENARIO:** use the exact P-3C, and relabel as P-1 stand-ins if verification shows Naha has converted. The label-route precondition (Kanoya CHECKS) would then apply.\n\n**Position.**\n- Public location: approx 26.2N 127.65E (Naha airfield). **Approx, verify.**\n- In-game evidence:\n  - proven placements: land 12 NM, sea 16 NM, air 9 NM;\n  - stock asia_ports [Naha] 26.213,127.679, about 2 NM away;\n  - stock airports [ROTM] MCAS Futenma, about 7 NM; [RODN] Kadena AFB, about 11 NM (Nation=US, not part of this package).\n- Placement is pending validation.\n\n**Installation**\n- asset:mpn:naha_base: `airfield_small_1` Variant5 (Japan), labelled 'Naha Air Base (JMSDF) (stand-in)'. **proxy**.\n  - The built-in 44-aircraft group is replaced. CustomAirGroup=True holds only the at-base identities naha_p3c_2, _3 and _4: `usn_p-3c=Squadron25,3`. Nothing else goes in the group.\n  - naha_p3c_1 (patrol) is a separate airborne aircraft entry, usn_p-3c Squadron25, LoadoutVariant=ASW. It is never also in the group.\n- A named base clone is **missing_fit**.\n- CHECK: the airfield is shared with the JASDF and civil aviation. The reports do not say so.\n\n**Forces** (SCENARIO allocation)\n\n| Asset | Allocation | Role | Unit | Outcome | Qty | Basis |\n|---|---|---|---|---|---|---|\n| asset:mpn:naha_p3c_1 | patrol | ASW patrol | usn_p-3c Squadron25 \"P-3C 5th FAS 'Pegasus'\" (Nation=Japan); separate airborne aircraft entry, LoadoutVariant=ASW | exact | 1 | R03:123 (FAW5, transition); the P-3C choice is SCENARIO |\n| asset:mpn:naha_p3c_2 | resident_at_base | ready alert (rapid response, R03:127) | same, in the CustomAirGroup; ASW intent | exact | 1 | same |\n| asset:mpn:naha_p3c_3 | resident_at_base | anti-surface ready | same, in the CustomAirGroup; AntiShip intent | exact | 1 | same |\n| asset:mpn:naha_p3c_4 | servicing_maintenance | maintenance | same, in the CustomAirGroup | exact | 1 | same |\n\nSome installed units exist but are not described at Naha in R01-R03, so they are not allocated: jasdf_f-15j_peaceeagle, usa_pac-3_launcher Variant6 (Japan) and jp_12ssmht.\n\n**Support services.** Same as Kanoya:\n- Ship ammunition: not applicable. The sources give Naha no berth role.\n- Turnaround: airfield_small_1 stock, not established.\n- Refuelling, restocking, fuel, repair: not established.\n\n**Connections**\n\n| To | Kind | Basis | Ref |\n|---|---|---|---|\n| Taiwan Strait | proximity and patrol focus | source | R03:123 |\n| First Island Chain | ASW web | source | R01:61, R03:123 |\n| jpn_kanoya_air_base | network | source | R03:123 |\n| jpn_atsugi_naf | network | source | R01:61, R03:123 |\n| chn_zhejiang_ningbo_naval_base / East China Sea | opposing axis, about 380 NM | authored | R03:105 (ETC area; no Naha link) |\n| chn_hainan_lingshui_airbase | opposing ISR and counter-screen | authored | R03:168 names Kanoya and Atsugi, not Naha |\n\n**Routine activity** (SCENARIO, proposed)\n1. A P-3C patrol across the Miyako Strait area and the East China Sea toward the northern approaches to the Taiwan Strait (authored geometry, validate).\n2. A ready airframe for quick launch. This is not a guaranteed response time.\n3. Civilian pool asset:mpn:naha_civ_pool. A flag alone does not make a unit hostile.\n   - 3 Japanese fishing vessels (civ_fv_fishingboat_c/d, civ_fv_sterntrawler_d);\n   - 1 Japan-flag VLCC (civ_ms_ritina, Japan variants) on the Malacca-Japan lane;\n   - civ_a330 Squadron43/44 (JAL).\n\n**CHECKS**\n- P-3C or P-1 at this station.\n- The \"rapid response\" wording is guidance, not a rule.\n- Shared JASDF and civil field.\n\n**Gaps**\n- A P-1 if Naha has converted.\n- No named base.\n- No JMSDF surface or submarine forces are sourced at Okinawa.\n\n**Validation.** Mapping re-resolved. Placement and runtime are untested.",
+ "packages": [
+  {
+   "world_id": "hn_evenes_air_station",
+   "name": "Evenes Air Station",
+   "node_kind": "air_base",
+   "operator": "Norway - Royal Norwegian Air Force, 133 Air Wing (R03:115); host Norway; visiting US and UK aircraft under a US 'agreed area' (R03:117)",
+   "populate_policy": "populate",
+   "role_source": "SOURCE: maritime patrol/ASW, 333 Sqn with five P-8A named Vingtor, Viking, Ulabrand, Hugin, Munin, delivered 2021-22, hunting Kola submarines (R03:115; R01:61). 'Cornerstone of NATO's maritime domain awareness in the High North'; 8 bn NOK upgrade 'to support next-generation aircraft' (R03:115, added per fidelity[1]). F-35A QRA base that took over from Bodo F-16s; intercepts Tu-142/Tu-95 over the Barents 'in international airspace' (R03:117). Staging for US/UK P-8A and RC-135 Rivet Joint; 'ASW kill web'; UK P-8A North Pole flyover, undated (R03:117). NASAMS III air-defence battalion and counter-UAS (R03:117; repeated R03:162 - not corroboration). Kola submarines must first evade Evenes P-8As; data handoff to UK/US aircraft (R03:166). R03:166 simulation guidance, verbatim: 'target data is handed off across allied platforms via data links, requiring the simulation to model shared situational awareness rather than individual unit vision cones' (the SCENARIO departs from it; see checks). P-8A type row: APY-10, Harpoon, Mk 54 (R03:131).",
+   "position": "Public: approx 68.5N 16.7E, Evenes on the north shore of Ofotfjorden (approx, verify). In-game evidence: stock sea point [Ofotfjorden] 68.441,16.657 (campaigns/sea_points.ini) about 3 NM; stock [Port Narvik]/[Narvik] 68.438,17.428 about 17 NM; nearest proven land placement 26 NM (nato_radar, 3491248180 'Lighting Strike'), sea 36 NM (installations inventory). The campaign snapper has no proof here, so a global-land-mask check or a new Norway coast extract is needed. Datum from 42N 20E: x=-199, z=1,589. Placement pending validation.",
+   "forces": [
+    {
+     "asset_id": "asset:mpn:evenes_base",
+     "allocation": "fixed_defence",
+     "role": "airbase installation (stand-in)",
+     "source_basis": "R03:115 (air station, 133 Air Wing)",
+     "outcome": "proxy",
+     "unit_ids": [
+      "nato_small_airbase"
+     ],
+     "scenario_quantity": "1",
+     "notes": "SCENARIO: vanilla 'Small airbase' (capacity 60, FlightDeck_AmmoCapacity 1,500,000) with Nation=norway per placement and the label 'Evenes Air Station (stand-in)'. A named Norway clone of airbase_us (3592460366) per integration/raaf-bases is missing_fit (not built). usa_airbase is a poorer label fit ('Naval Air Station'). Its built-in [AirGroup] is 54 Cold War US aircraft (usaf_f-15a Sq1 x8, usaf_f-4e Sq1/Sq2 x24, usaf_e-3a x2, usn_ra-5c x6, usn_ea-6b x4, usn_p-3c Sq1 x8, usn_ch-46 x2). The placement sets CustomAirGroup=True holding only usn_p8=Squadron5,4 (Viking, Ulabrand, Hugin, Munin); nothing else. Vingtor and the three visitors are separate aircraft entries, never in the group. The same rule applies to an airbase_us clone: its AirGroup is usn_p8=Squadron5,4 only. None of the template default group is kept, since it is USAF-heavy and has the malformed 'S-70B-2_Seahawk=Squadron1=5' line and a usmc_vh-3d Squadron1 that the winning squadrons file does not define (installations verify correction)."
+    },
+    {
+     "asset_id": "asset:mpn:p8a_vingtor",
+     "allocation": "patrol",
+     "role": "ASW patrol, Norwegian Sea / Barents approach",
+     "source_basis": "R03:115 named airframe, five-aircraft count",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p8"
+     ],
+     "scenario_quantity": "1",
+     "notes": "usn_p8 Squadron5 'P-8A No.333 Squadron RNoAF' (Nation=Norway, RNoAF.png livery, callsign Odin), LoadoutVariant=ASW (5x usn_haawc_p8 + SSQ-53F/62E/77C/101). Allocation is SCENARIO and arbitrary among the five. Placed only as a separate airborne aircraft entry, never also in the Evenes CustomAirGroup."
+    },
+    {
+     "asset_id": "asset:mpn:p8a_viking",
+     "allocation": "resident_at_base",
+     "role": "ready ASW alert",
+     "source_basis": "R03:115",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p8"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Squadron5, in the Evenes CustomAirGroup (usn_p8=Squadron5,4). ASW is SCENARIO intent: an AirGroup line holds only squadron and count. SCENARIO allocation."
+    },
+    {
+     "asset_id": "asset:mpn:p8a_ulabrand",
+     "allocation": "resident_at_base",
+     "role": "anti-surface ready",
+     "source_basis": "R03:115; Harpoon in R03:131",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p8"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Squadron5, in the Evenes CustomAirGroup. AntiShip (4x AGM-84N) is SCENARIO intent: an AirGroup line holds only squadron and count. SCENARIO allocation."
+    },
+    {
+     "asset_id": "asset:mpn:p8a_hugin",
+     "allocation": "servicing_maintenance",
+     "role": "in maintenance at world start",
+     "source_basis": "R03:115",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p8"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Squadron5, in the Evenes CustomAirGroup. SCENARIO. How to represent an airframe as unavailable at start is not established."
+    },
+    {
+     "asset_id": "asset:mpn:p8a_munin",
+     "allocation": "reserve",
+     "role": "finite reserve MPA",
+     "source_basis": "R03:115",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p8"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Squadron5, in the Evenes CustomAirGroup; ASW intent. SCENARIO. The five P-8A identities appear only in this package; in game they share one squadron livery, and naming individual airframes is not established."
+    },
+    {
+     "asset_id": "asset:mpn:evenes_f35a_qra_1",
+     "allocation": "resident_at_base",
+     "role": "QRA intercept/escort (pending)",
+     "source_basis": "R01:61; R03:117",
+     "outcome": "missing_fit",
+     "unit_ids": [
+      "raaf_f-35a"
+     ],
+     "scenario_quantity": "1",
+     "notes": "raaf_f-35a is the only F-35A and has RAAF squadrons only (wrong flag). Not placed until a Norway squadron (Nation=Norway + livery) is added via a SEST pack. Quantity is SCENARIO. AvailableLoadouts lacks Default, so set LoadoutVariant explicitly. Once a Norway squadron exists, the pair joins the Evenes CustomAirGroup (count 2)."
+    },
+    {
+     "asset_id": "asset:mpn:evenes_f35a_qra_2",
+     "allocation": "resident_at_base",
+     "role": "QRA intercept/escort (pending)",
+     "source_basis": "R01:61; R03:117",
+     "outcome": "missing_fit",
+     "unit_ids": [
+      "raaf_f-35a"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Second airframe of the SCENARIO QRA pair; same fit gap."
+    },
+    {
+     "asset_id": "asset:mpn:evenes_usn_p8a_det",
+     "allocation": "underway_deployed",
+     "role": "visiting US MPA (staging)",
+     "source_basis": "R03:117 staging; origin authored",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p_8a"
+     ],
+     "scenario_quantity": "1",
+     "notes": "USN Squadron1-14 only (us-navy verify correction); the squadron is set by the usa_jacksonville_nas_jacksonville package and counted against that allocation, not added. LoadoutVariant=ASW (AvailableLoadouts lacks Default). Authored as a separate aircraft entry (Nation=US) and kept out of the Evenes CustomAirGroup until mixed-nation AirGroup behaviour is tested."
+    },
+    {
+     "asset_id": "asset:mpn:evenes_raf_p8a_det",
+     "allocation": "underway_deployed",
+     "role": "visiting UK MPA (staging)",
+     "source_basis": "R03:117",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p8"
+     ],
+     "scenario_quantity": "1",
+     "notes": "usn_p8 Squadron4 'Poseidon MRA1 No.54 Squadron RAF' (Nation=UK, RAF.png; allies verify missed asset). Second-best alternative: usn_p_8a Squadron15-18. The UK home station is not named in the reports (backlog). LoadoutVariant=ASW. Authored as a separate aircraft entry (Nation=UK) and kept out of the Evenes CustomAirGroup until mixed-nation AirGroup behaviour is tested."
+    },
+    {
+     "asset_id": "asset:mpn:evenes_rc135_det",
+     "allocation": "underway_deployed",
+     "role": "SIGINT/ISR staging",
+     "source_basis": "R03:117 staging only (operator not stated)",
+     "outcome": "exact",
+     "unit_ids": [
+      "boeing-rc135"
+     ],
+     "scenario_quantity": "1",
+     "notes": "SCENARIO: boeing-rc135 Squadron2 (USAF ACC/55th Wing, generic livery), LoadoutVariant=SIGINT. Squadron3-5 (USAF tails) and 6-7 (RAF ZZ664/ZZ665) are named airframes that must be allocated once world-wide; Akrotiri, Souda, Andersen and Muharraq also map this unit. Authored as a separate aircraft entry (Nation=US) and kept out of the Evenes CustomAirGroup."
+    },
+    {
+     "asset_id": "asset:mpn:evenes_nasams_radar_1",
+     "allocation": "fixed_defence",
+     "role": "SAM fire-control radar (NASAMS III stand-in)",
+     "source_basis": "R03:117 (R03:162 repeats it)",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usa_SLAMRAAM_radar"
+     ],
+     "scenario_quantity": "1",
+     "notes": "SL-AMRAAM radar with AN/MPQ-64 (3413868677); Nation=norway per placement; visible label 'NASAMS III (SL-AMRAAM stand-in)'. Small representative layer, not a present-day order of battle (plan:24). Alternative pair: usa_slm_tads_hmmwv + usa_slm_tel_hmmwv (3508275114)."
+    },
+    {
+     "asset_id": "asset:mpn:evenes_nasams_launcher_1",
+     "allocation": "fixed_defence",
+     "role": "SAM launcher (NASAMS III stand-in)",
+     "source_basis": "R03:117",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usa_SLAMRAAM_launcher"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Fires usn_aim_120c_ground / usn_aim_9x_ground; needs the AN/MPQ-64 radar to function (its display description). Nation=norway, labelled."
+    },
+    {
+     "asset_id": "asset:mpn:evenes_nasams_launcher_2",
+     "allocation": "fixed_defence",
+     "role": "SAM launcher (NASAMS III stand-in)",
+     "source_basis": "R03:117",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usa_SLAMRAAM_launcher"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Second launcher; positions around the base are authored and approximate."
+    },
+    {
+     "asset_id": "asset:mpn:evenes_cuas",
+     "allocation": "abstract",
+     "role": "counter-UAS",
+     "source_basis": "R03:117",
+     "outcome": "none",
+     "unit_ids": [],
+     "scenario_quantity": "0",
+     "notes": "No counter-UAS unit was found in the winning land_units (grep for nasams / counter-uas / c-uas found nothing). Kept abstract."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition supply: not applicable. The sources give Evenes no berth role, and the collection has no Norwegian replenishment hull (Maud: none).",
+    "Aircraft turnaround/ordnance: nato_small_airbase has FlightDeck_AmmoCapacity 1,500,000 and accountable AirTorpedo 60, Ovod 120, Harpoon 120. Whether usn_p8 HAAWC, sonobuoys and AGM-84N rearm from that stock, and whether repeat sorties work: not established (test). An airbase_us clone defines no FlightDeck_AmmoCapacity, so its turnaround stock is not established either.",
+    "Air-to-air refuelling: not established. usn_p8, boeing-rc135 and raaf_f-35a declare no ReceiverSystems. otan_a330_mrtt Squadron5 (Nation=Norway, ProbeAndDrogue) is not sourced at Evenes and has no compatible receiver here, so it is not allocated.",
+    "Supplier restocking: not established.",
+    "Fuel: not established.",
+    "Repair: not established."
+   ],
+   "connections": [
+    {
+     "to": "Barents Sea",
+     "kind": "QRA intercept area (Tu-142/Tu-95, international airspace)",
+     "basis": "source",
+     "source_ref": "R03:117"
+    },
+    {
+     "to": "Kola Peninsula submarine bastions / departure area",
+     "kind": "ASW threat axis",
+     "basis": "source",
+     "source_ref": "R03:115, R03:166"
+    },
+    {
+     "to": "GIUK Gap",
+     "kind": "stated monitoring role / submarine transit route (geography CHECK)",
+     "basis": "source",
+     "source_ref": "R01:61, R03:115"
+    },
+    {
+     "to": "hn_kola_olenya_airbase",
+     "kind": "possible source of intercept targets (Tu-95MS allocated there); R03:117 names no base",
+     "basis": "authored",
+     "source_ref": "R03:117 + R03:72"
+    },
+    {
+     "to": "usa_jacksonville_nas_jacksonville",
+     "kind": "home allocation of the visiting USN P-8A detachment",
+     "basis": "authored",
+     "source_ref": "R03:117 (staging), R03:23 (ASW hub)"
+    },
+    {
+     "to": "allied UK/US MPA network",
+     "kind": "cooperative ASW, data handoff. R03:166 asks for shared situational awareness; the SCENARIO adds none beyond the engine's own datalink (CHECK). No perfect-detection rule.",
+     "basis": "source",
+     "source_ref": "R03:166"
+    },
+    {
+     "to": "North Pole / Arctic",
+     "kind": "context only (undated UK P-8A flyover)",
+     "basis": "source",
+     "source_ref": "R03:117"
+    }
+   ],
+   "routine_activity": [
+    "SCENARIO (proposed, not implemented): one 333 Sqn P-8A on an ASW line in the Norwegian Sea north of Andoya toward the Barents approaches, anchored on stock sea points North West Andoya 69.78,14.96, Lofoten Basin 5 70.83,13.70 and Nordvest Banken 71.01,18.92 (geometry to validate). The ready airframe relieves it; the rotation uses only the five named identities.",
+    "SCENARIO: the visiting USN and RAF P-8As extend the patrol line (handoff, R03:166). SCENARIO: the RC-135 flies a SIGINT track off the Barents; the track, its location and the US operator are SCENARIO, with geometry to validate. R03:117 supports only RC-135 staging from Evenes.",
+    "SCENARIO: an F-35A QRA pair scrambles against Russian Tu-142/Tu-95 tracks over the Barents (R03:117), once a Norway F-35A squadron exists. The Russian aircraft come from Russia-region allocations, never spawned here.",
+    "Civilian pool asset:mpn:evenes_civ_pool (SCENARIO traffic): 4 Norwegian fishing vessels (civ_fv_sidetrawler; civ_fv_fishingboat_b Default/Variant2; civ_fv_sterntrawler_a Default; all Nation=Norway) in the stock 'Loefoten Fishing' area; 1 Norway-flag car carrier (civ_ms_car_carrier_a Variant24 'MV Dyvi Skagerak') to Port Narvik via Ofotfjorden; optional civ_as-350 Squadron12 'AS.350B Offshore' (Nation=Norway), only with an authored rig, and with LoadoutVariant=Transport (its only loadout; no 'Default'). No Norway-flag airliner exists. Avoid civ_ms_roro_a Variant1-5 and civ_ms_c8 Variant18-20 (Norway) as neutral traffic, because they carry SEST supply blocks."
+   ],
+   "checks": [
+    "Geography: Evenes (about 68.5N) is far from the GIUK Gap. R01:61 'monitor the GIUK Gap' and R03:115's transit-hunting framing need checking. The SCENARIO patrol is the Norwegian Sea / Barents approach, with GIUK as a distant handoff.",
+    "The F-35A presence is commonly described as a forward QRA detachment, not a main base. The pair is SCENARIO.",
+    "Verify the NASAMS III battalion and counter-UAS claim; do not fabricate exact present-day defences (plan:24). R03:162 repeats R03:117.",
+    "The basis for UK staging under a US agreement is not stated; the North Pole flight is undated.",
+    "R03:117 does not say whose RC-135 stages. The US pick is SCENARIO. Named-tail squadrons (boeing-rc135 Sq3-7) are allocated once world-wide.",
+    "The visiting USN P-8A must be subtracted from the Jacksonville package allocation (one identity, one allocation).",
+    "Individual P-8A names are register identities only. Per-airframe naming inside an AirGroup is not established.",
+    "Set an explicit LoadoutVariant on every usn_p8, usn_p_8a, boeing-rc135, raaf_f-35a and civ_as-350 entry: their AvailableLoadouts list no 'Default' (civ_as-350 lists only Transport), which is the map-panel crash pattern (docs/design-notes.md:495-527). preflight checks only [TaskforceNAircraftM]/[TaskforceNHelicopterM] entries, so a neutral civ_as-350 is not caught by it; vanilla missions do set LoadoutVariant on neutral aircraft entries.",
+    "'Kill web' (R03:117) and 'impenetrable nets' (R03:111) are rhetoric: no perfect-detection rule. R03:166 is explicit simulation guidance to model shared situational awareness rather than individual vision cones. The SCENARIO choice departs from it: no scripted shared vision or detection beyond the engine's own datalink and contact sharing (the register invents no engine keys, plan:63). CHECK: the engine's real datalink and contact sharing between allied MPAs is untested.",
+    "Mixed-nation AirGroup behaviour at a Norway-flagged base is untested (which nation and side a UK or US squadron spawns as). SEST RAAF Bases (for example airbase_raaf_tindal, Nation=Australia, with USAF squadrons) and DARWIN US SUPPLY already author US squadrons in Australia-flagged air groups, but the raaf-bases first-flight checks are open, so the behaviour is not established. Until tested, the three visitors are separate aircraft entries with their own Nation (US, UK, US) and LoadoutVariant (ASW, ASW, SIGINT), outside the Evenes CustomAirGroup.",
+    "AirGroup sizing: the Evenes CustomAirGroup holds only the 4 at-base P-8A (usn_p8=Squadron5,4). The patrol airframe Vingtor is airborne only, so no identity appears both airborne and at base.",
+    "usn_p-3c Squadron30 'P-3B 333 Squadron RNoAF' is historical; do not use it.",
+    "Evenes-Naha is about 4,381 NM, beyond the 3,450 NM played-and-saved separation. This matters only if both theatres share one mission.",
+    "Validation status: claims faithful; ids re-resolved 2026-10-07 (including civ_as-350 to 3806197116 and the airbase_us clone template to 3592460366); placement, runtime activation, turnaround and save/load are untested."
+   ],
+   "gaps": [
+    "Norway F-35A squadron missing (add to raaf_f-35a_squadrons.ini via a SEST pack).",
+    "No named Evenes airbase: build a Norway clone of airbase_us following integration/raaf-bases.",
+    "No NASAMS III or counter-UAS unit in the collection.",
+    "No Norwegian helicopter/SAR, no Norway-flag airliner, no Maud replenishment ship.",
+    "No Norway coast extract or proven placement within 25 NM.",
+    "Backlog: Bodo (R03:117, former QRA base), Russian Tu-142 base(s), Russian Northern Fleet bases, UK P-8 home station."
+   ]
+  },
+  {
+   "world_id": "jpn_kanoya_air_base",
+   "name": "Kanoya Air Base",
+   "node_kind": "naval_air_station",
+   "operator": "Japan Maritime Self-Defense Force - Fleet Air Wing 1 (R03:123); host Japan",
+   "populate_policy": "populate",
+   "role_source": "SOURCE: maritime patrol/ASW. FAW1 operates out of Kanoya; the bases are transitioning from P-3C to P-1 (R03:123). P-1s flying from Atsugi and Kanoya drop dense sonobuoy networks; 34-36 P-1 fleet-wide (R03:127). Sonobuoy barriers across the First Island Chain against Chinese submarines from Yulin/Longpo, with Lingshui J-15/Y-8Q as a counter-screen (R03:168; mirror relationship per fidelity[2]). Network focus on Russian Pacific Fleet and Chinese submarines (R03:121). P-1 fit, platform-level only: HPS-106 AESA, MAD, Mk.46/Type 97, Harpoon, ASM-1C, 30+/70+ sonobuoys (R03:125, R03:127, R03:132).",
+   "position": "Public: approx 31.4N 130.85E, Osumi Peninsula, Kagoshima, inland (approx, verify). In-game evidence: nearest proven air point 31 NM (usaf_e-3a in user mission 'GULF ATTACK .7.7'); nearest proven land point about 337 NM (installations verify correction); stock asia_ports.ini [Kagoshima] 31.585,130.562 about 19 NM. Datum from 42N 20E: x=6,650, z=-638. The stock sea network has no Pacific coverage, so routes need sea_routes.py or the land mask. Placement pending validation.",
+   "forces": [
+    {
+     "asset_id": "asset:mpn:kanoya_base",
+     "allocation": "fixed_defence",
+     "role": "airbase installation (stand-in)",
+     "source_basis": "R03:123",
+     "outcome": "proxy",
+     "unit_ids": [
+      "airfield_small_1"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Variant5 'Airbase - small (Japan)', labelled 'Kanoya Air Base (stand-in)'. Its built-in Cold War CustomAirGroup (44 aircraft: F-1, T-2, F-4EJ, PS-1, US-1, HSS-2, usn_p-3c Squadron23 x4; Squadron23 is Atsugi's 3rd FAS) is replaced by CustomAirGroup=True holding only the at-base identities kanoya_p1_2 and kanoya_p1_3: usn_p-3c=<P-1 stand-in squadron>,2, plus Squadron21,1 only if the conditional P-3C is confirmed. Nothing else. kanoya_p1_1 is a separate airborne entry. <P-1 stand-in squadron> is the labelled Japan squadron a SEST patch would add (number assigned when built; none invented here), or Squadron21 only if a mission name override is proven, in which case the conditional P-3C stays out. A named JMSDF base clone of airbase_us is missing_fit."
+    },
+    {
+     "asset_id": "asset:mpn:kanoya_p1_1",
+     "allocation": "patrol",
+     "role": "ASW patrol",
+     "source_basis": "R03:127, R03:168 (P-1 at Kanoya)",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Pending proxy: not placed until a visible label route exists. Planned as usn_p-3c on a labelled Japan squadron (proposed name 'P-1 stand-in (P-3C) 1st FAS', reusing Squadron21 \"P-3C 1st FAS 'Jupiter'\"'s livery, Nation=Japan) from a SEST squadron patch, or Squadron21 with a mission name override proven in the editor. Separate airborne aircraft entry, LoadoutVariant=ASW. No Kawasaki P-1 exists. The 1st FAS pairing with Kanoya is SCENARIO (R03 names the wing only)."
+    },
+    {
+     "asset_id": "asset:mpn:kanoya_p1_2",
+     "allocation": "resident_at_base",
+     "role": "ready ASW alert",
+     "source_basis": "R03:127, R03:168",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Same labelled stand-in squadron, in the Kanoya CustomAirGroup; ASW intent. Pending proxy until the label route exists. SCENARIO."
+    },
+    {
+     "asset_id": "asset:mpn:kanoya_p1_3",
+     "allocation": "servicing_maintenance",
+     "role": "maintenance",
+     "source_basis": "R03:127, R03:168",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Same labelled stand-in squadron, in the Kanoya CustomAirGroup. Pending proxy until the label route exists. SCENARIO."
+    },
+    {
+     "asset_id": "asset:mpn:kanoya_p3c_1",
+     "allocation": "reserve",
+     "role": "legacy MPA (conditional)",
+     "source_basis": "R03:123 (transition, stated generally)",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "0",
+     "notes": "Held out (0 now). Placed (1) only if both (a) the per-base transition check shows P-3Cs still at Kanoya and (b) the P-1 stand-ins have moved to their labelled squadron. Until then it would share Squadron21's livery and name with the stand-ins and be indistinguishable in game. If placed: usn_p-3c Squadron21 \"P-3C 1st FAS 'Jupiter'\" (Nation=Japan) in the Kanoya CustomAirGroup."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition supply: not applicable (inland air station, no port role in the sources). The JMSDF supplier jmsdf_aoe_mashuu (TruckSupplySystem: pool 250,000, ceiling 5,000; Harpoon 24, AirTorpedo 40, ALWT 16, SEST_LandAttack 12, SEST_LongRangeSAM 24) is proxy (correct data on a Sacramento stand-in mesh) and belongs to the Yokosuka/at-sea allocation. The installations inventory's 'Kanoya' tag for it is not adopted.",
+    "Aircraft turnaround/ordnance: airfield_small_1 has FlightDeck_AmmoCapacity 1,000,000 and accountable AirTorpedo 48, Ovod 96, Harpoon 96. usn_p-3c ASW loads DateBased_Torpedo_Export x8, usn_mk54_dc and SSQ-41/53/62; AntiShip loads DateBased_Harpoon x4. Rearm and repeat sorties: not established (test).",
+    "Air-to-air refuelling: not established (usn_p-3c declares no ReceiverSystems; JASDF KC-46A not sourced here).",
+    "Supplier restocking: not established.",
+    "Fuel: not established.",
+    "Repair: not established."
+   ],
+   "connections": [
+    {
+     "to": "First Island Chain",
+     "kind": "sonobuoy-barrier patrol area",
+     "basis": "source",
+     "source_ref": "R03:168"
+    },
+    {
+     "to": "chn_hainan_yulin_naval_base",
+     "kind": "target submarine force",
+     "basis": "source",
+     "source_ref": "R03:168"
+    },
+    {
+     "to": "chn_hainan_longpo_naval_base",
+     "kind": "target submarine force",
+     "basis": "source",
+     "source_ref": "R03:168"
+    },
+    {
+     "to": "chn_hainan_lingshui_airbase",
+     "kind": "opposing counter-screen (J-15/Y-8Q)",
+     "basis": "source",
+     "source_ref": "R03:168 (fidelity[2] mirror)"
+    },
+    {
+     "to": "jpn_atsugi_naf",
+     "kind": "JMSDF Fleet Air Force network",
+     "basis": "source",
+     "source_ref": "R03:123, R03:127"
+    },
+    {
+     "to": "jpn_okinawa_naha",
+     "kind": "JMSDF Fleet Air Force network",
+     "basis": "source",
+     "source_ref": "R03:123"
+    },
+    {
+     "to": "East China Sea",
+     "kind": "patrol area",
+     "basis": "authored",
+     "source_ref": "R03:105 gives the ECS as the Eastern Theater area, not a Kanoya link"
+    },
+    {
+     "to": "Russian Pacific Fleet (no base named)",
+     "kind": "surveillance target",
+     "basis": "source",
+     "source_ref": "R03:121 (backlog)"
+    }
+   ],
+   "routine_activity": [
+    "SCENARIO (proposed, not implemented): one P-1 stand-in on a patrol line south of Kyushu across the northern Ryukyu approaches and the East China Sea edge (authored geometry; validate with sea_routes.py / land mask). The ready airframe relieves it.",
+    "SCENARIO: a periodic sonobuoy-barrier sortie (R03:127/R03:168 role). It is not a perfect-detection net.",
+    "Civilian pool asset:mpn:kanoya_civ_pool (SCENARIO traffic): 3 Japanese fishing vessels (civ_fv_fishingboat_c, civ_fv_fishingboat_d, civ_fv_sterntrawler_d; Nation=Japan); 1 Japan-flag bulk carrier (civ_ms_bulk, Japan variants) in transit; optional airliner track civ_a330 Squadron43/44 'Japan Airlines'."
+   ],
+   "checks": [
+    "Check the per-base P-3C to P-1 transition stage and which squadron flies at Kanoya; the fleet count is undated (register check). Include the conditional P-3C only if the check supports it and the stand-ins are already relabelled.",
+    "Every P-1 is a P-3C stand-in, the same model as Naha's P-3C; the difference is only label and squadron. A visible label for an aircraft is not established, so the label route is a precondition for placing any P-1 stand-in (Kanoya, Atsugi). Preferred: a SEST patch adding labelled Japan squadrons to usn_p-3c (sections reusing the 1fas/3fas liveries plus names in aircraft_names.ini), the same approach as the proposed Norway raaf_f-35a squadron. Alternative: a mission name override proven in the editor (no mission in the repo sets a name on an aircraft entry yet). Until then the P-1s are pending proxy.",
+    "AirGroup sizing: the Kanoya CustomAirGroup holds only kanoya_p1_2 and kanoya_p1_3 (plus the P-3C only if confirmed). kanoya_p1_1 is airborne only.",
+    "Set an explicit LoadoutVariant: usn_p-3c AvailableLoadouts lists no 'Default' (crash pattern, docs/design-notes.md:495-527).",
+    "Not checked: whether DateBased_Torpedo_Export resolves to a Mk 46-class weapon at the world date. Type 97 and ASM-1C are not represented.",
+    "R03:127's 34-36 is fleet-wide, not per base. The regional total of 7 P-1 stand-ins is SCENARIO.",
+    "'Dense curtain' (R03:168) is rhetoric: no perfect-detection rule.",
+    "Validation status: ids re-resolved (usn_p-3c, airfield_small_1 vanilla); placement and runtime untested."
+   ],
+   "gaps": [
+    "No Kawasaki P-1 unit (needs new content or a labelled clone).",
+    "No named Kanoya base (airbase_us clone per raaf-bases).",
+    "P-1 sensor fit (HPS-106 AESA, MAD) and weapons (Type 97, ASM-1C) missing.",
+    "No proven land placement within about 337 NM."
+   ]
+  },
+  {
+   "world_id": "jpn_atsugi_naf",
+   "name": "Naval Air Facility Atsugi",
+   "node_kind": "naval_air_station",
+   "operator": "Japan Maritime Self-Defense Force - Fleet Air Wing 4 (R03:123); 3rd Squadron at Atsugi (R03:127), subordination to FAW4 not stated (CHECK); host Japan; US Navy-designated facility shared with the JMSDF (register check)",
+   "populate_policy": "populate",
+   "role_source": "SOURCE: maritime patrol/ASW. JMSDF operates from 'nodes like Naha and Atsugi' using the P-1 for an anti-submarine web over the First Island Chain (R01:61). FAW4 operates from Atsugi; P-3C to P-1 transition (R03:123). P-1s flying from Atsugi and Kanoya; December 2018 incident in which a South Korean destroyer 'allegedly' locked fire-control radar onto a P-1 from Atsugi's 3rd Squadron (R03:127). Sonobuoy barriers (R03:168). Network focus (R03:121) and P-1 fit (R03:127, R03:132), added per fidelity[0]; HPS-106 radar and MAD (R03:125) added by this package, not by fidelity[0]. R01 and R03 repeat each other; repetition is not corroboration.",
+   "position": "Public: approx 35.45N 139.45E, Kanagawa, inland (approx, verify). In-game evidence: nearest proven land point 30 NM (thaad_tel, user mission 'GULF ATTACK .7.7'); nearest proven air point about 142 NM (installations verify correction); stock asia_ports.ini [Yokohama] 35.444,139.638 about 9 NM, [Tokyo] about 24 NM; Yokosuka about 14 NM. Datum from 42N 20E: x=7,167, z=-393. Placement pending validation.",
+   "forces": [
+    {
+     "asset_id": "asset:mpn:atsugi_base",
+     "allocation": "fixed_defence",
+     "role": "airbase installation (stand-in)",
+     "source_basis": "R03:123",
+     "outcome": "proxy",
+     "unit_ids": [
+      "airfield_small_1",
+      "usa_airbase"
+     ],
+     "scenario_quantity": "1",
+     "notes": "SCENARIO: airfield_small_1 Variant5 (Japan), labelled 'NAF Atsugi (JMSDF) (stand-in)'. Its built-in 44-aircraft group is replaced by CustomAirGroup=True holding only atsugi_p1_2, _3 and _4: usn_p-3c=<3rd FAS stand-in squadron>,3 (the labelled SEST patch squadron, or Squadron23 only if a mission name override is proven). Nothing else; atsugi_p1_1 is a separate airborne entry. Alternative: usa_airbase (3413868677, 'Naval Air Station', capacity 72, FlightDeck_AmmoCapacity 2,000,000) with Nation=Japan per placement, usable only with the same CustomAirGroup override: its unit [AirGroup] (66) and variant groups spawn large US forces (Default 57 incl. usaf_f_15c_2040c x28, usaf_b-52o x14, usn_p_8a Sq1 x4; Variant1 96 incl. usn_f-14e x24, usn_a-6g x14, usn_p-3d Sq1 x8, usn_p_8a Sq4 x4). A named base clone is missing_fit."
+    },
+    {
+     "asset_id": "asset:mpn:atsugi_p1_1",
+     "allocation": "patrol",
+     "role": "ASW patrol",
+     "source_basis": "R03:127 (P-1 from Atsugi's 3rd Squadron), R03:168, R01:61",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Pending proxy: not placed until a visible label route exists. Planned as usn_p-3c on a labelled Japan squadron (proposed name 'P-1 stand-in (P-3C) 3rd FAS', reusing Squadron23 \"P-3C 3rd FAS 'Neptune'\"'s livery, Nation=Japan; the name matches R03:127's 3rd Squadron) from a SEST squadron patch, or Squadron23 with a proven mission name override. Separate airborne aircraft entry, LoadoutVariant=ASW."
+    },
+    {
+     "asset_id": "asset:mpn:atsugi_p1_2",
+     "allocation": "resident_at_base",
+     "role": "ready ASW alert",
+     "source_basis": "R03:127",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Same labelled stand-in squadron, in the Atsugi CustomAirGroup; ASW intent. Pending proxy. SCENARIO."
+    },
+    {
+     "asset_id": "asset:mpn:atsugi_p1_3",
+     "allocation": "resident_at_base",
+     "role": "anti-surface ready",
+     "source_basis": "R03:127 (Harpoon in P-1 fit)",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Same labelled stand-in squadron, in the Atsugi CustomAirGroup; AntiShip intent (DateBased_Harpoon x4 when launched). Pending proxy. SCENARIO."
+    },
+    {
+     "asset_id": "asset:mpn:atsugi_p1_4",
+     "allocation": "servicing_maintenance",
+     "role": "maintenance",
+     "source_basis": "R03:127",
+     "outcome": "proxy",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Same labelled stand-in squadron, in the Atsugi CustomAirGroup. Pending proxy. SCENARIO. If the Djibouti package authors a JMSDF MPA detachment, take it from this allocation; never duplicate it."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition supply: not applicable (inland air station). The nearest JMSDF supplier, jmsdf_aoe_mashuu (TruckSupplySystem, Harpoon 24, AirTorpedo 40, ALWT 16, SEST_LandAttack 12, SEST_LongRangeSAM 24; proxy stand-in mesh), belongs to the Yokosuka allocation.",
+    "Aircraft turnaround/ordnance: airfield_small_1 has FlightDeck_AmmoCapacity 1,000,000 (AirTorpedo 48, Harpoon 96); the usa_airbase alternative has 2,000,000 (AirTorpedo 72, Harpoon 144). Rearm and repeat sorties: not established (test).",
+    "Air-to-air refuelling: not established (usn_p-3c has no ReceiverSystems).",
+    "Supplier restocking: not established.",
+    "Fuel: not established.",
+    "Repair: not established."
+   ],
+   "connections": [
+    {
+     "to": "First Island Chain",
+     "kind": "ASW web / sonobuoy barriers",
+     "basis": "source",
+     "source_ref": "R01:61, R03:168"
+    },
+    {
+     "to": "jpn_kanoya_air_base",
+     "kind": "JMSDF Fleet Air Force network",
+     "basis": "source",
+     "source_ref": "R03:123, R03:127"
+    },
+    {
+     "to": "jpn_okinawa_naha",
+     "kind": "JMSDF Fleet Air Force network",
+     "basis": "source",
+     "source_ref": "R01:61, R03:123"
+    },
+    {
+     "to": "chn_hainan_lingshui_airbase",
+     "kind": "opposing counter-screen",
+     "basis": "source",
+     "source_ref": "R03:168"
+    },
+    {
+     "to": "wpac_yokosuka_naval_base",
+     "kind": "nearby fleet base (about 14 NM); possible ASW pairing with JMSDF escorts and the Mashuu AOE in that package",
+     "basis": "authored",
+     "source_ref": "none"
+    },
+    {
+     "to": "hoa_djibouti_jp_base",
+     "kind": "optional source of a JMSDF MPA detachment (subtract from this allocation)",
+     "basis": "authored",
+     "source_ref": "R01:51 (names no aircraft)"
+    },
+    {
+     "to": "South Korea",
+     "kind": "incident context only; no hostility rule",
+     "basis": "source",
+     "source_ref": "R03:127"
+    }
+   ],
+   "routine_activity": [
+    "SCENARIO (proposed, not implemented): a P-1 stand-in patrol off the Pacific coast of Honshu (Sagami Bay and Izu Islands approaches), authored geometry to validate; a ready alert airframe on the ground.",
+    "Civilian pool asset:mpn:atsugi_civ_pool (SCENARIO traffic), merged with the wpac_yokosuka_naval_base Tokyo Bay pool so nothing is placed twice: 2 Japan-flag merchants (civ_ms_car_carrier_a Japan Variant13-21 or Variant40-42 (Variant22-23 are Panama; Variant24 'MV Dyvi Skagerak' is Norway and stays unique to asset:mpn:evenes_civ_pool); civ_ms_bulk Japan variants), 2 fishing vessels (civ_fv_fishingboat_c, civ_fv_fishingboat_d), airliner civ_a330 Squadron43/44 'Japan Airlines'."
+   ],
+   "checks": [
+    "Check the per-station P-1 assignment (plan:38).",
+    "Host and access labelling: NAF Atsugi is a US Navy-designated facility shared with the JMSDF. US tenant units are not described in R01-R03 and are not allocated.",
+    "The 2018 incident is 'alleged' (R03:127); it is history, not a basis for hostile or neutral rules.",
+    "Stand-in label (a precondition for placing the P-1 stand-ins; see Kanoya checks) and explicit LoadoutVariant (usn_p-3c lacks Default).",
+    "3rd Squadron subordination: R03:127 says only \"Atsugi's 3rd Squadron\"; tying it to FAW4 is an inference to check.",
+    "airfield_small_1 Variant5's default group already uses Squadron23 x4. It is replaced everywhere by explicit at-base contents (Atsugi 3, Kanoya 2, Naha 3), so Kanoya and Naha do not inherit Atsugi's squadron and no patrol airframe also appears at base. If usa_airbase is chosen, the same override is required.",
+    "Validation status: ids re-resolved; placement and runtime untested."
+   ],
+   "gaps": [
+    "No Kawasaki P-1 unit.",
+    "No named Atsugi base.",
+    "jmsdf_sh-60k / jmsdf_sh-60j exist (3695809489), but no source places helicopters at Atsugi, so they are not allocated.",
+    "US Navy tenant presence not modelled."
+   ]
+  },
+  {
+   "world_id": "jpn_okinawa_naha",
+   "name": "Naha (JMSDF air station, Okinawa)",
+   "node_kind": "naval_air_station",
+   "operator": "Japan Maritime Self-Defense Force - Fleet Air Wing 5 (R03:123); host Japan",
+   "populate_policy": "populate",
+   "role_source": "SOURCE: forward maritime patrol/ASW. FAW5 at Naha, 'extreme proximity to the First Island Chain and the Taiwan Strait'; P-3C to P-1 transition (R03:123). JMSDF uses the P-1 from 'nodes like Naha and Atsugi' (R01:61). 'Rapid response times enabled by bases like Naha' (R03:127, simulation guidance). Network context (R03:121, fidelity[1] optional). CHECK: R03:127 names only Atsugi and Kanoya as P-1 bases.",
+   "position": "Public: approx 26.2N 127.65E, Naha airfield, Okinawa (approx, verify). In-game evidence: proven placements land 12 NM, sea 16 NM, air 9 NM (installations inventory); stock asia_ports.ini [Naha] 26.213,127.679 about 2 NM; stock airports.ini [ROTM] MCAS Futenma about 7 NM and [RODN] Kadena AFB about 11 NM (Nation=US, not in this package). Datum from 42N 20E: x=6,459, z=-948. Placement pending validation.",
+   "forces": [
+    {
+     "asset_id": "asset:mpn:naha_base",
+     "allocation": "fixed_defence",
+     "role": "airbase installation (stand-in)",
+     "source_basis": "R03:123",
+     "outcome": "proxy",
+     "unit_ids": [
+      "airfield_small_1"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Variant5 (Japan), labelled 'Naha Air Base (JMSDF) (stand-in)'. Its built-in 44-aircraft group is replaced by CustomAirGroup=True holding only naha_p3c_2, _3 and _4: usn_p-3c=Squadron25,3. Nothing else; naha_p3c_1 is a separate airborne entry. A named base clone is missing_fit."
+    },
+    {
+     "asset_id": "asset:mpn:naha_p3c_1",
+     "allocation": "patrol",
+     "role": "ASW patrol",
+     "source_basis": "R03:123 (FAW5, transition); the P-3C choice is SCENARIO",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Squadron25 \"P-3C 5th FAS 'Pegasus'\" (Nation=Japan), separate airborne aircraft entry, LoadoutVariant=ASW, never also in the CustomAirGroup. The 5th FAS pairing is SCENARIO. Relabel as a P-1 stand-in if verification shows Naha has converted (the label-route precondition then applies)."
+    },
+    {
+     "asset_id": "asset:mpn:naha_p3c_2",
+     "allocation": "resident_at_base",
+     "role": "ready alert (rapid response)",
+     "source_basis": "R03:127 guidance",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Squadron25, in the Naha CustomAirGroup; ASW intent. A quick-launch posture, not a guaranteed response time."
+    },
+    {
+     "asset_id": "asset:mpn:naha_p3c_3",
+     "allocation": "resident_at_base",
+     "role": "anti-surface ready",
+     "source_basis": "R03:123",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Squadron25, in the Naha CustomAirGroup; AntiShip intent. SCENARIO."
+    },
+    {
+     "asset_id": "asset:mpn:naha_p3c_4",
+     "allocation": "servicing_maintenance",
+     "role": "maintenance",
+     "source_basis": "R03:123",
+     "outcome": "exact",
+     "unit_ids": [
+      "usn_p-3c"
+     ],
+     "scenario_quantity": "1",
+     "notes": "Squadron25, in the Naha CustomAirGroup. SCENARIO."
+    }
+   ],
+   "support_services": [
+    "Ship ammunition supply: not applicable. The sources give Naha no berth role, and no JMSDF supplier is allocated here (jmsdf_aoe_mashuu belongs to Yokosuka/at-sea).",
+    "Aircraft turnaround/ordnance: airfield_small_1 has FlightDeck_AmmoCapacity 1,000,000 (AirTorpedo 48, Harpoon 96). Rearm and repeat sorties: not established (test).",
+    "Air-to-air refuelling: not established (usn_p-3c has no ReceiverSystems).",
+    "Supplier restocking: not established.",
+    "Fuel: not established.",
+    "Repair: not established."
+   ],
+   "connections": [
+    {
+     "to": "Taiwan Strait",
+     "kind": "proximity / patrol focus",
+     "basis": "source",
+     "source_ref": "R03:123"
+    },
+    {
+     "to": "First Island Chain",
+     "kind": "ASW web",
+     "basis": "source",
+     "source_ref": "R01:61, R03:123"
+    },
+    {
+     "to": "jpn_kanoya_air_base",
+     "kind": "JMSDF Fleet Air Force network",
+     "basis": "source",
+     "source_ref": "R03:123"
+    },
+    {
+     "to": "jpn_atsugi_naf",
+     "kind": "JMSDF Fleet Air Force network",
+     "basis": "source",
+     "source_ref": "R01:61, R03:123"
+    },
+    {
+     "to": "chn_zhejiang_ningbo_naval_base",
+     "kind": "opposing Eastern Theater navy across the East China Sea (about 380 NM)",
+     "basis": "authored",
+     "source_ref": "R03:105 (no Naha link)"
+    },
+    {
+     "to": "chn_hainan_lingshui_airbase",
+     "kind": "opposing ISR/counter-screen",
+     "basis": "authored",
+     "source_ref": "R03:168 names Kanoya/Atsugi, not Naha"
+    }
+   ],
+   "routine_activity": [
+    "SCENARIO (proposed, not implemented): a P-3C patrol across the Miyako Strait area and the East China Sea toward the northern Taiwan Strait approaches (authored geometry; validate with sea_routes.py / land mask); a ready airframe on quick-launch posture.",
+    "Civilian pool asset:mpn:naha_civ_pool (SCENARIO traffic): 3 Japanese fishing vessels (civ_fv_fishingboat_c, civ_fv_fishingboat_d, civ_fv_sterntrawler_d); 1 Japan-flag VLCC (civ_ms_ritina, Japan variants) on the Malacca-Japan lane; airliner civ_a330 Squadron43/44 'Japan Airlines'. A flag alone does not make a unit hostile."
+   ],
+   "checks": [
+    "Platform-to-station: R03:127 names only Atsugi and Kanoya as P-1 bases, and only R01:61 ties the P-1 to Naha (jointly with Atsugi). The register notes Naha is generally reported as still on P-3C. The SCENARIO P-3C choice needs verification.",
+    "'Rapid response times' (R03:127) is simulation guidance, not a rule.",
+    "The airfield is shared with the JASDF and civil aviation (not stated in the reports). jasdf_f-15j_peaceeagle, usa_pac-3_launcher Variant6 (Japan) and jp_12ssmht exist but are not described at Naha, so they are not allocated.",
+    "Explicit LoadoutVariant on every usn_p-3c entry.",
+    "AirGroup sizing: the Naha CustomAirGroup holds only naha_p3c_2, _3 and _4 (usn_p-3c=Squadron25,3); naha_p3c_1 is airborne only.",
+    "Validation status: ids re-resolved; placement and runtime untested."
+   ],
+   "gaps": [
+    "No Kawasaki P-1 unit if Naha has converted.",
+    "No named Naha base.",
+    "No JMSDF surface or submarine forces sourced at Okinawa.",
+    "US forces on Okinawa (Kadena, Futenma) are not in the reports; stock world-data entries only."
+   ]
+  }
+ ],
+ "named_assets": [
+  "asset:mpn:evenes_base - fixed installation (nato_small_airbase proxy, Nation=norway, labelled stand-in; CustomAirGroup=True with usn_p8=Squadron5,4 only)",
+  "asset:mpn:p8a_vingtor - patrol (usn_p8 Squadron5, ASW; separate airborne entry, not in the CustomAirGroup)",
+  "asset:mpn:p8a_viking - resident_at_base, ready alert (usn_p8 Squadron5, in the Evenes CustomAirGroup; ASW intent)",
+  "asset:mpn:p8a_ulabrand - resident_at_base (usn_p8 Squadron5, in the Evenes CustomAirGroup; AntiShip intent)",
+  "asset:mpn:p8a_hugin - servicing_maintenance (usn_p8 Squadron5, in the Evenes CustomAirGroup)",
+  "asset:mpn:p8a_munin - reserve (usn_p8 Squadron5, in the Evenes CustomAirGroup; ASW intent)",
+  "asset:mpn:evenes_f35a_qra_1 - resident_at_base QRA, pending missing_fit (raaf_f-35a needs a Norway squadron; not placed)",
+  "asset:mpn:evenes_f35a_qra_2 - resident_at_base QRA, pending missing_fit (not placed)",
+  "asset:mpn:evenes_usn_p8a_det - underway_deployed staging (usn_p_8a USN Sq1-14, Nation=US, separate aircraft entry, ASW; counted against the usa_jacksonville_nas_jacksonville allocation)",
+  "asset:mpn:evenes_raf_p8a_det - underway_deployed staging (usn_p8 Squadron4 RAF, Nation=UK, separate aircraft entry, ASW)",
+  "asset:mpn:evenes_rc135_det - underway_deployed staging (boeing-rc135 Squadron2 USAF, Nation=US, separate aircraft entry, SIGINT; US operator SCENARIO)",
+  "asset:mpn:evenes_nasams_radar_1 - fixed_defence (usa_SLAMRAAM_radar, NASAMS III stand-in)",
+  "asset:mpn:evenes_nasams_launcher_1 - fixed_defence (usa_SLAMRAAM_launcher, NASAMS III stand-in)",
+  "asset:mpn:evenes_nasams_launcher_2 - fixed_defence (usa_SLAMRAAM_launcher, NASAMS III stand-in)",
+  "asset:mpn:evenes_cuas - abstract (no unit)",
+  "asset:mpn:evenes_civ_pool - scenario civilian traffic: 4 Norway fishing vessels (civ_fv_sidetrawler / civ_fv_fishingboat_b / civ_fv_sterntrawler_a), 1 car carrier (civ_ms_car_carrier_a Variant24, unique to this pool), optional civ_as-350 Squadron12 with LoadoutVariant=Transport",
+  "asset:mpn:kanoya_base - fixed installation (airfield_small_1 Variant5 Japan proxy, labelled; CustomAirGroup with the 2 at-base stand-ins only, plus the P-3C only if confirmed)",
+  "asset:mpn:kanoya_p1_1 - patrol (usn_p-3c as P-1 stand-in on a labelled 1st FAS squadron, ASW, separate airborne entry; pending label route, not placed yet)",
+  "asset:mpn:kanoya_p1_2 - resident_at_base ready (usn_p-3c as P-1 stand-in, in the Kanoya CustomAirGroup; pending label route)",
+  "asset:mpn:kanoya_p1_3 - servicing_maintenance (usn_p-3c as P-1 stand-in, in the Kanoya CustomAirGroup; pending label route)",
+  "asset:mpn:kanoya_p3c_1 - reserve, held out (0) until the transition check confirms it and the stand-ins are relabelled (usn_p-3c Squadron21)",
+  "asset:mpn:kanoya_civ_pool - scenario civilian traffic: 3 Japanese fishing vessels, 1 civ_ms_bulk (Japan), optional civ_a330 Sq43/44",
+  "asset:mpn:atsugi_base - fixed installation (airfield_small_1 Variant5 Japan proxy; CustomAirGroup with the 3 at-base stand-ins only; alt usa_airbase only with the same override)",
+  "asset:mpn:atsugi_p1_1 - patrol (usn_p-3c as P-1 stand-in on a labelled 3rd FAS squadron, ASW, separate airborne entry; pending label route, not placed yet)",
+  "asset:mpn:atsugi_p1_2 - resident_at_base ready (usn_p-3c as P-1 stand-in, in the Atsugi CustomAirGroup; ASW intent; pending label route)",
+  "asset:mpn:atsugi_p1_3 - resident_at_base (usn_p-3c as P-1 stand-in, in the Atsugi CustomAirGroup; AntiShip intent; pending label route)",
+  "asset:mpn:atsugi_p1_4 - servicing_maintenance (usn_p-3c as P-1 stand-in, in the Atsugi CustomAirGroup; pending label route)",
+  "asset:mpn:atsugi_civ_pool - scenario civilian traffic, merged with the Yokosuka Tokyo Bay pool: 2 Japan-flag merchants (civ_ms_car_carrier_a Japan Variant13-21 or 40-42; civ_ms_bulk Japan), 2 fishing vessels, civ_a330 Sq43/44",
+  "asset:mpn:naha_base - fixed installation (airfield_small_1 Variant5 Japan proxy, labelled; CustomAirGroup usn_p-3c=Squadron25,3 only)",
+  "asset:mpn:naha_p3c_1 - patrol (usn_p-3c Squadron25 5th FAS, ASW, separate airborne entry)",
+  "asset:mpn:naha_p3c_2 - resident_at_base ready alert (usn_p-3c Squadron25, in the Naha CustomAirGroup; ASW intent)",
+  "asset:mpn:naha_p3c_3 - resident_at_base (usn_p-3c Squadron25, in the Naha CustomAirGroup; AntiShip intent)",
+  "asset:mpn:naha_p3c_4 - servicing_maintenance (usn_p-3c Squadron25, in the Naha CustomAirGroup)",
+  "asset:mpn:naha_civ_pool - scenario civilian traffic: 3 Japanese fishing vessels, 1 civ_ms_ritina (Japan VLCC), civ_a330 Sq43/44"
+ ],
+ "applied": [
+  "P1 hn_evenes_air_station double_allocation: confirmed. The vanilla nato_small_airbase [AirGroup] totals 54 aircraft: f-15a Sq1 x8, f-4e Sq1/Sq2 x24, e-3a x2, ra-5c x6, ea-6b x4, p-3c Sq1 x8, ch-46 x2. The Installation section now requires CustomAirGroup=True with only usn_p8=Squadron5,4 (Viking, Ulabrand, Hugin, Munin). Vingtor is placed only as a separate airborne entry with LoadoutVariant=ASW, and the visitors stay out of the group. The same rule is written for the airbase_us clone, whose template group (3592460366) really has 'S-70B-2_Seahawk=Squadron1=5'. Its usmc_vh-3d squadrons file defines no [Squadron1] (verified in 3478767194), matching the installations verify correction. A region-level 'Built-in air groups' rule was added. The forces table, package notes, checks and named_assets now say which airframes are in the group and which are airborne.",
+  "P2 hn_evenes_air_station source_fidelity (R03:166): confirmed. R03:166 does say 'requiring the simulation to model shared situational awareness rather than individual unit vision cones', and the source register files it as simulation_guidance. Changes: (a) a verbatim SOURCE claim (simulation_guidance); (b) Rules carried split so that 'kill web', 'impenetrable nets' and 'dense curtain' stay rhetoric while R03:166 is treated as explicit guidance; (c) a SCENARIO choice of no scripted shared vision beyond the engine, marked as departing from R03:166; (d) a CHECK that the engine's datalink and contact sharing between allied MPAs is untested. The same change is made in the connection row, the package role_source, connections and checks. The basis is cited as plan:63 (the register invents no engine keys), because the plan states no explicit shared-vision policy.",
+  "P3 hn_evenes_air_station source_fidelity (RC-135 track): confirmed. In R03:117, 'in international airspace' belongs only to the F-35 intercepts. For the RC-135 the line says only that Rivet Joint aircraft stage from Evenes, and it names no operator. Routine activity item 2 (markdown and package) now cites R03:117 for staging only and labels the SIGINT track, its location and the US operator as SCENARIO, with geometry to validate. The RC-135 basis cell now reads 'R03:117 staging only (operator not stated; US pick SCENARIO)'.",
+  "P4 hn_evenes_air_station LoadoutVariant (civ_as-350): confirmed. 3806197116 civ_as-350.ini has AvailableLoadouts=Transport and no Default, and Squadron12 is 'AS.350B Offshore' with Nation=Norway. civ_as-350 is added to the explicit-LoadoutVariant rule, and the optional Squadron12 entry gets LoadoutVariant=Transport (markdown, package routine_activity, checks and named_assets). Vanilla missions use LoadoutVariant on [NeutralAircraftN] entries (for example 'Mind the Gap - Original 1988'), so the key is valid there. The one wording change from the skeptic's fix is recorded under declined.",
+  "P5 hn_evenes_air_station mixed-nation visitors: confirmed. Squadron nations verified: usn_p8 Sq4 is UK, usn_p_8a Sq1-14 are US, boeing-rc135 Sq2 is US. A CHECK now says mixed-nation AirGroup behaviour at a Norway-flagged base is untested. Supporting evidence: SEST RAAF Bases (airbase_raaf_tindal, Nation=Australia, with usaf_f-15ex_SEII, dts_b-52h and usaf_b-2_spirit) and DARWIN US SUPPLY already author US squadrons in Australia-flagged groups, but the raaf-bases first-flight checks are still open. Until that is tested, the three visitors are separate aircraft entries with their own Nation and LoadoutVariant (ASW, ASW, SIGINT), outside the Evenes CustomAirGroup. Mission aircraft entries do accept a Nation key: 17 [TaskforceNAircraftM] entries in repo missions and 42 in vanilla missions set one.",
+  "P6 jpn_atsugi_naf unit_id (car carrier): confirmed. The vanilla civ_ms_car_carrier_a_variants.ini has NumberOfVariants=54. Variant13-21 are Japan, Variant22-23 Panama and Variant24 Norway ('MV Dyvi Skagerak'). Variant40-42 are Japan (MV Yokohama Maru, Suzukasan Maru, Prince Maru). The markdown, package routine_activity and named_assets now read 'Japan Variant13-21 or Variant40-42', and Variant24 stays unique to asset:mpn:evenes_civ_pool.",
+  "P7 jpn_atsugi_naf usa_airbase alternative: confirmed. In 3413868677 usa_airbase, the unit [AirGroup] holds 66 aircraft. Its variants file sets CustomAirGroup=True with Default 57 (f_15c_2040c x28, b-52o x14, p_8a Sq1 x4 and others) and Variant1 96 (f-14e x24, a-6g x14, p-3d Sq1 x8, p_8a Sq4 x4 and others). The alternative is kept, but only with CustomAirGroup=True holding the 3 allocated at-base airframes and nothing else. This is stated in the Installation section, the package notes and checks.",
+  "P8 jpn_atsugi_naf provenance: confirmed against source-register fidelity[0], which names R03:121 (network-level), R03:127 and R03:132, not R03:125. The region header now reads 'fidelity[0] adds R03:121 (network focus) and R03:127/R03:132 (P-1 fit) at Atsugi. R03:125 (HPS-106, MAD) is added by this package, not by fidelity[0].' The Atsugi SOURCE list and package role_source match. R03:127 says only \"Atsugi's 3rd Squadron\". The Identity and the package operator now read '3rd Squadron at Atsugi (R03:127); subordination to FAW4 not stated (CHECK)', and an Atsugi CHECK was added.",
+  "P9 jpn_kanoya_air_base label_missing: confirmed. No mission among 655 repo and mods-source mission files sets a name on an aircraft entry. Squadron display names live in language aircraft_names.ini, and the conditional P-3C used the same Squadron21 as the stand-ins. A label route is now a precondition for placing any P-1 stand-in. The preferred route is a SEST patch adding labelled Japan squadrons to usn_p-3c that reuse the 1fas/3fas liveries; a mission name override proven in the editor is the alternative. All 7 P-1s are recorded as 'proxy (pending label route; not placed until it exists)'. Of the two options offered for the conditional Kanoya P-3C, 'leave it out' was taken. The other usn_p-3c Japan squadrons (22, 24, 26-29) are other real FAS names, and pairing one with Kanoya would be a mislabel. The P-3C is held at 0 until the transition check supports it and the stand-ins have moved to their labelled squadron. If placed, it keeps its genuine 'P-3C 1st FAS' Squadron21 identity.",
+  "P10 Kanoya/Atsugi/Naha double_allocation: confirmed. Vanilla airfield_small_1 Variant5 sets CustomAirGroup=True with 44 aircraft, including usn_p-3c Squadron23 x4. Each Installation section now gives the replacement contents with at-base identities only: Kanoya 2 stand-ins (plus Squadron21,1 only if the P-3C is confirmed), Atsugi 3 stand-ins, Naha usn_p-3c=Squadron25,3. Each patrol airframe (kanoya_p1_1, atsugi_p1_1, naha_p3c_1) is a separate airborne entry with LoadoutVariant=ASW. The forces tables, package notes and checks, the Atsugi Squadron23 CHECK and named_assets were updated to match."
+ ],
+ "declined": [
+  {
+   "problem": "P4 (partial): 'tools/preflight.py would flag it' for the civ_as-350 Squadron12 entry",
+   "reason": "Not as written. preflight's default-loadout check (tools/preflight.py check_mission) tracks only [TaskforceNAircraftM]/[TaskforceNHelicopterM] sections. A civilian AS.350 authored as a [NeutralAircraftN] entry would not be flagged. The fix itself was applied (LoadoutVariant=Transport), and the text now says preflight would not catch a neutral entry, so the loadout must be set by hand."
+  },
+  {
+   "problem": "P10 (partial): the literal group lines 'Kanoya usn_p-3c=Squadron21,2' and 'Atsugi usn_p-3c=Squadron23,3' for the P-1 stand-ins",
+   "reason": "These lines conflict with P9, which makes a labelled squadron a precondition for placing any stand-in. The counts and the at-base-only rule were applied as given. For the stand-ins, though, the squadron is written as the labelled Japan squadron the SEST patch would add, with its number assigned when the patch is built and none invented here. Squadron21 or Squadron23 is used only if a mission name override is proven, and in that case the conditional Kanoya P-3C stays out. Naha's usn_p-3c=Squadron25,3 is adopted exactly, because those P-3Cs are exact and need no label."
+  }
+ ],
+ "original_verify": {
+  "ids_checked": 33,
+  "problems": [
+   {
+    "world_id": "hn_evenes_air_station",
+    "kind": "double_allocation",
+    "problem": "The stand-in installation nato_small_airbase (vanilla) has a built-in [AirGroup] of 54 Cold War US aircraft, and the package never says to override it: usaf_f-15a x8, usaf_f-4e x24 (Squadron1,12 and Squadron2,12), usaf_e-3a x2, usn_ra-5c x6, usn_ea-6b x4, usn_p-3c Squadron1 x8 and usn_ch-46 x2. The Japanese bases do get an override instruction. Placed with Nation=norway, Evenes would spawn 54 unallocated airframes. The package also gives no AirGroup count for the P-8As. asset:mpn:p8a_vingtor is allocated 'patrol' (airborne), so an AirGroup of usn_p8=Squadron5,5 would put Vingtor in the world twice.",
+    "fix": "State that the Evenes placement needs CustomAirGroup=True holding only the at-base identities: usn_p8=Squadron5,4 (Viking, Ulabrand, Hugin, Munin). Place Vingtor only as an airborne aircraft entry with LoadoutVariant=ASW. Apply the same rule to the airbase_us clone's AirGroup. Its template default group also has the malformed S-70B-2 entry and the missing usmc_vh-3d squadron (installations verify correction)."
+   },
+   {
+    "world_id": "hn_evenes_air_station",
+    "kind": "source_fidelity",
+    "problem": "R03:166 says target data is handed off via data links, 'requiring the simulation to model shared situational awareness rather than individual unit vision cones'. The package's SOURCE entry for R03:166 keeps only the handoff and drops that guidance. 'Rules carried' then states that no shared-vision rule applies and blames only the R03:117 'kill web' rhetoric. The result is that the source's own explicit simulation guidance is overridden without being recorded, which breaks 'never silently correct a source'.",
+    "fix": "Add the R03:166 guidance verbatim as a SOURCE claim (simulation_guidance). Add a CHECK that the engine's real datalink and contact sharing between allied MPAs is untested. Keep the SCENARIO choice of no scripted shared vision or perfect detection beyond what the engine provides (plan policy), and say explicitly that this choice departs from R03:166."
+   },
+   {
+    "world_id": "hn_evenes_air_station",
+    "kind": "source_fidelity",
+    "problem": "The routine-activity line 'the RC-135 flies a SIGINT track in international airspace off the Barents (R03:117)' attributes more to R03:117 than it says. That line uses 'in international airspace' only for the F-35 intercepts of Tu-142 and Tu-95 aircraft. For the RC-135 it says only that RC-135 Rivet Joint aircraft 'stage' from Evenes, and it names no operator.",
+    "fix": "Cite R03:117 for RC-135 staging only. Label the SIGINT track, its location and the US operator as SCENARIO, with geometry to validate."
+   },
+   {
+    "world_id": "hn_evenes_air_station",
+    "kind": "other",
+    "problem": "civ_as-350 (3806197116) has AvailableLoadouts=Transport and no 'Default'. That is the same map-panel crash pattern (docs/design-notes.md:495-527) that the package lists only for the military types. The optional civ_as-350 Squadron12 entry gives no LoadoutVariant.",
+    "fix": "Add civ_as-350 to the explicit-LoadoutVariant list, with LoadoutVariant=Transport on the Squadron12 'AS.350B Offshore' entry. tools/preflight.py would flag it."
+   },
+   {
+    "world_id": "hn_evenes_air_station",
+    "kind": "other",
+    "problem": "The visiting aircraft are UK and US: usn_p8 Squadron4 Nation=UK, usn_p_8a USN Squadron1-14 and boeing-rc135 Squadron2 Nation=US. The package lists them as staging at a Norway-flagged base, but says neither how they are represented nor whether a Norway-placed airbase AirGroup can hold squadrons of other nations. That behaviour is not established.",
+    "fix": "Add a CHECK: mixed-nation AirGroup behaviour at a Norway-flagged base is untested. Until it is tested, author the three visitors as separate aircraft entries, each with its own Nation and explicit LoadoutVariant (ASW, ASW and SIGINT), and keep them out of the Evenes CustomAirGroup."
+   },
+   {
+    "world_id": "jpn_atsugi_naf",
+    "kind": "unit_id",
+    "problem": "The civilian pool names 'civ_ms_car_carrier_a Japan Variant13-24'. In the winning vanilla civ_ms_car_carrier_a_variants.ini (NumberOfVariants=54), Variant13-21 are Nation=Japan, Variant22-23 are Panama and Variant24 is Norway. Variant24 is 'MV Dyvi Skagerak', the hull already allocated to the Evenes pool. The other Japan variants are Variant40-42 (MV Yokohama Maru, Suzukasan Maru, Prince Maru).",
+    "fix": "Change the range to 'Japan Variant13-21 or Variant40-42' in the markdown and the package routine_activity, and keep Variant24 unique to asset:mpn:evenes_civ_pool."
+   },
+   {
+    "world_id": "jpn_atsugi_naf",
+    "kind": "double_allocation",
+    "problem": "The alternative installation, usa_airbase (3413868677) with Nation=Japan, is proposed with no CustomAirGroup override. Its unit [AirGroup] and variant groups spawn large US forces. Default includes usaf_f_15c_2040c x28, usaf_b-52o x14 and usn_p_8a Squadron1 x4. Variant1 includes usn_f-14e x24, usn_a-6g x14, usn_p-3d x8 and usn_p_8a Squadron4 x4. The installations lens says to replace the group.",
+    "fix": "If usa_airbase is used, require CustomAirGroup=True holding only the allocated Squadron23 airframes. Otherwise drop the alternative and keep airfield_small_1 Variant5 with its override."
+   },
+   {
+    "world_id": "jpn_atsugi_naf",
+    "kind": "source_fidelity",
+    "problem": "Two provenance slips. (1) The region text says 'fidelity[0] adds the P-1 fit lines R03:121, R03:125, R03:127 and R03:132'. fidelity[0] actually names R03:121 (network focus, which is not a fit line), R03:127 and R03:132. R03:125 (HPS-106 radar and MAD) is the package's own addition. (2) The identity reads 'Fleet Air Wing 4 and its 3rd Squadron (R03:123, R03:127)'. R03:127 says only 'Atsugi's 3rd Squadron', so tying the squadron to FAW4 is an inference.",
+    "fix": "Reword: 'fidelity[0] adds R03:121 (network focus) and R03:127/R03:132 (P-1 fit); R03:125 (HPS-106, MAD) is added by this package.' Write '3rd Squadron at Atsugi (R03:127); subordination to FAW4 is not stated (CHECK)'."
+   },
+   {
+    "world_id": "jpn_kanoya_air_base",
+    "kind": "label_missing",
+    "problem": "Every P-1 asset (Kanoya 3, Atsugi 4) has the proxy outcome, which by definition needs a visible label. The package itself says 'a visible label for an aircraft inside an AirGroup is not established', so the labels it promises cannot yet be applied. At Kanoya it is worse: the conditional exact P-3C (asset:mpn:kanoya_p3c_1) uses the same usn_p-3c Squadron21 livery as the three P-1 stand-ins, so in game the stand-ins and the real P-3C would be indistinguishable.",
+    "fix": "Make the label route a precondition for placing any P-1 stand-in. Either add a SEST squadron-name patch to usn_p-3c with labelled Japan squadrons such as 'P-1 stand-in (P-3C) 1st FAS' (same approach as the proposed Norway raaf_f-35a squadron), or use a mission name override proven in the editor. Until then, record the P-1s as pending proxy. Give the conditional Kanoya P-3C a different Japan squadron, or leave it out until the transition check."
+   },
+   {
+    "world_id": "jpn_kanoya_air_base, jpn_atsugi_naf, jpn_okinawa_naha",
+    "kind": "double_allocation",
+    "problem": "All three Japanese bases say only that the airfield_small_1 Variant5 built-in group (44 aircraft, including usn_p-3c Squadron23 x4) is 'overridden'; none gives the replacement contents. Each base also has one airframe allocated 'patrol' (kanoya_p1_1, atsugi_p1_1, naha_p3c_1). A replacement group sized to each base's full allocation would place that patrol aircraft at base as well as airborne.",
+    "fix": "Specify each CustomAirGroup as the at-base identities only: Kanoya usn_p-3c=Squadron21,2 (plus 1 only if the conditional P-3C is confirmed), Atsugi usn_p-3c=Squadron23,3, Naha usn_p-3c=Squadron25,3. Place each patrol airframe as a separate airborne entry with LoadoutVariant=ASW, and put nothing else in the group."
+   }
+  ],
+  "verdict": "Mostly sound; ten fixes needed before Pass C (placement). Source fidelity holds: every cited R01/R03 line was opened and checked, all fidelity[0-2] items for these four nodes are applied, and repetition is not counted as corroboration. All 33 unit ids re-resolve to the stated winning sources. That includes the squadron and Nation keys (usn_p8 Sq4 UK, Sq5 Norway with callsign Odin; usn_p_8a Sq1-14 US; usn_p-3c Sq21/23/25 Japan; boeing-rc135 Sq2 US) and the absence of 'Default' in AvailableLoadouts. The outcome labels are honest (P-1 proxy, F-35A missing_fit, NASAMS proxy, counter-UAS none), and no named asset is allocated twice. Scale is small, and the Ban Keun, nuclear and sanctuary policies are respected. Problems found: (1) one confirmed id error: Atsugi's car-carrier 'Japan Variant13-24' includes Panama and Norway hulls, among them Variant24 already used at Evenes. (2) Evenes's nato_small_airbase stand-in would spawn 54 unallocated US Cold War aircraft unless its group is overridden. No AirGroup counts are given, so patrol airframes could appear both airborne and at base (all four nodes). The usa_airbase alternative at Atsugi has the same override gap. (3) R03:166's explicit shared-situational-awareness guidance is dropped from SOURCE and then overridden in 'Rules carried' without saying so. (4) The P-1 proxy label cannot yet be shown in game, by the package's own admission, and the conditional Kanoya P-3C shares the stand-ins' squadron. (5) Minor citation and provenance slips: the RC-135 track citation, the fidelity[0] line list, and the FAW4/3rd Squadron inference. (6) civ_as-350 and the visiting mixed-nation aircraft need explicit loadout and representation CHECKs."
+ }
+}
