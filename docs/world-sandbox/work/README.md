@@ -2,7 +2,7 @@
 
 Status: WORKING DATA. Produced on 6-7 October 2026 against `feature/world-campaign-draft` at `50cad91b` by review workflows (several agents, each followed by a skeptic that re-checked its output). Nothing here changes a campaign, unit, pack, load order or installer, and nothing was run in game.
 
-These files are the inputs to the world-population register (`../WORLD_POPULATION_REGISTER.md`, in progress). They are kept so the register can be rebuilt and checked, not as finished documents.
+These files are the inputs to the world-population register (`../WORLD_POPULATION_REGISTER.md`, with its regional files and review trail in `../register/`). They are kept so the register can be rebuilt and checked, not as finished documents.
 
 | File | What it is | State |
 |---|---|---|
