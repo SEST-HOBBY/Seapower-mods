@@ -1,5 +1,5 @@
 {
- "description": "Source register: line-referenced claims extracted from R01-R03, consolidated into world nodes, with source-fidelity checks (parts 1-2 of 3; part 3 pending). Claims record what a report says, not verified fact.",
+ "description": "Source register: line-referenced claims extracted from R01-R03, consolidated into world nodes, with source-fidelity checks (all three parts). Claims record what a report says, not verified fact.",
  "claims": [
   {
    "report": "R01",
@@ -7342,6 +7342,119 @@
     "jpn_okinawa_naha: R03:121 network context: the JMSDF patrol network is 'aimed squarely at countering both Russian Pacific Fleet movements and the expanding Chinese submarine force'. Optional; it applies to all JMSDF nodes."
    ],
    "verdict": "The register is faithful to the reports overall. I checked all 88 source_claims entries in the 23 nodes against the cited lines (186 claim, platform, quantity and relationship strings in total). I found no wrong line numbers, no altered numbers (12,000 acres; 4,000-6,000 acres; 75/134/11; 4,500; 250; 3,800/4,700 km; 8 billion NOK; five P-8A; six fatalities; five JLSCs) and no wrong operators or places in the claim texts. No populate_policy contradicts the plan. Ban Keun is a research lead marked do_not_populate (plan:44). Kitsap and Longpo record strategic submarine basing as a bare fact, the Kitsap nuclear-weapons-facility sentence is excluded, and the Longpo pen layout is not modelled. Whiting, the DLA centres, Anniston and the JLSF nodes are abstract only (plan:33, plan:36). Deveselu is context_only (plan:24, plan:41). The 16 problems found are low to moderate. (1) The Kitsap 'critical node' clause takes its wording from the excluded nuclear-weapons-facility sentence. (2) Kitsap treats Bremerton and PSNS as one site, which no report states. (3) Several fields add unstated detail: 'US' at Muharraq, the Deveselu operator and '(interior)', the Ukrainka operator, and 'same island' at Sigonella. (4) The Andersen overlap note credits R01:23's 'aviation hub' wording to Guam when R01 gives it to Naval Base Guam, and 'aviation half' is a plan:34 design choice, not an R03 statement. (5) The Reagan-to-Kitsap link cites R03:38 when it needs R03:62. (6) Relationships (Newport News, the Guam tandem, the APF fleet, NB San Diego) are filed under parent_or_colocated. (7) The Diego Garcia populate_reason could be read as putting every MPS hull in one anchorage. The outside-knowledge check_notes I spot-checked are reasonable. My great-circle estimates put Diego Garcia about 6,920 km from Beijing and about 3,840 km from Chabahar on Iran's south coast, which supports that note. Housekeeping: the checked-out branch is sest-dev/sweet-lovelace-3kxsve, not feature/world-campaign-draft. I computed the reports' SHA-256 values (R01 ad8e8260..., R02 293c7aaa..., R03 44bc8e02...) but could not compare them because no expected digests were supplied. R03 has 172 lines and line 172 resolves correctly. No repository files were modified."
+  },
+  {
+   "checked_claims": 161,
+   "problems": [
+    {
+     "world_id": "chn_hainan_lingshui_airbase",
+     "problem": "[Medium, misattributed line] source_platform_families cites R03:133 as evidence that Y-8Q is at Lingshui. R03:133 is the generic aircraft-type table and never mentions Lingshui. The same line lists the Y-8Q operator as 'China (PLAN)', yet the node ignores this and the check note says the operating service 'is not stated'. R03:101 also calls Lingshui a 'naval air station' that provides 'land-based air cover for the PLAN fleet'.",
+     "fix": "Remove R03:133 from the Lingshui basing evidence. Add a separate type-level claim instead: 'R03:133 type table lists Y-8Q operator as China (PLAN); this is not a base assignment.' Reword the check note: 'The base's operating service is not stated. R03:101 calls it a naval air station supporting the PLAN fleet, and R03:133 lists the Y-8Q type as PLAN-operated.'"
+    },
+    {
+     "world_id": "chn_jlsf_wuxi_jlsc",
+     "problem": "[Medium, adds a pairing the report does not make] parent_or_colocated lists only chn_zhejiang_ningbo_naval_base, as 'supplied naval base (R02:48)'. R02:48 says the Guilin AND Wuxi centres together feed Yulin, Longpo and Ningbo, with no per-base pairing. The node's own relationship string says exactly that, so the two fields contradict each other. A supplied base is also neither a parent nor colocated.",
+     "fix": "Remove Ningbo from parent_or_colocated and keep only the joint statement in source_relationships. If a Wuxi-to-Ningbo link is wanted, label it as an inference from theatre alignment: Wuxi = Eastern Theater (R02:44, R02:55) and Ningbo = Eastern Theater Command Navy HQ (R03:105, R01:31). It is not a source claim."
+    },
+    {
+     "world_id": "usp_kitsap_bremerton_psns",
+     "problem": "[Medium, merged facilities] The node treats 'former Naval Station Bremerton' and the 'Kitsap-Bremerton' carrier home port as aliases of Puget Sound Naval Shipyard. R01:17 and R03:21 name Naval Station Bremerton as one of the bases merged into Kitsap. R03:21 names PSNS separately, as the site of the drydock and maintenance facilities. No report says they are the same facility, and R03:48/54/62 give 'Kitsap-Bremerton' only as a home port.",
+     "fix": "Either split the node into a naval station / home port and a shipyard, or keep one node and mark the 'former Naval Station Bremerton' and 'Kitsap-Bremerton' aliases as 'colocation inferred, not stated by R01/R03'."
+    },
+    {
+     "world_id": "usp_kitsap_bremerton_psns",
+     "problem": "[Low, paraphrase adds detail] The R02:17 claim and the relationship 'Integrated DLA logistical operations; centre not named' go beyond what R02:17 says. R02:17 says 'many DLA distribution centers are directly co-located with the military's largest force-generation bases', then separately that 'Major logistical operations are integrated into' four sites, PSNS among them. It does not say a DLA centre or DLA operations are at PSNS, and it calls PSNS a force-generation base only by juxtaposition. 'Centre not named' implies a centre exists.",
+     "fix": "Reword: 'R02:17 lists PSNS among sites into which \"major logistical operations are integrated\", after a sentence saying \"many\" DLA centres are co-located with the largest force-generation bases. No DLA centre is named or asserted at PSNS.'"
+    },
+    {
+     "world_id": "usa_jacksonville_nas_jacksonville",
+     "problem": "[Low, paraphrase adds detail] The R02:17 problem above applies here too. The claim says Jacksonville is 'named among the largest force-generation bases' with DLA centres co-located, and the relationship string says 'Integrated DLA logistical operations; centre not named'. R02:17 only lists NAS Jacksonville among sites where 'major logistical operations are integrated'. The DLA colocation sentence says 'many' centres and names no base.",
+     "fix": "Use the same rewording as for PSNS: list it as a site of integrated 'major logistical operations' (R02:17), with no DLA centre asserted at Jacksonville."
+    },
+    {
+     "world_id": "satl_falklands_raf_mount_pleasant",
+     "problem": "[Low, paraphrase resolves an ambiguity] The R02:71 claim says 'No. 1312 Flight operates an Airbus Voyager KC2 ... and an A400M Atlas C1'. R02:71 actually reads '...operates an Airbus Voyager KC2 for air-to-air refueling to sustain fighter patrols, alongside an A400M Atlas C1 utilized for tactical transport and supply drops'. Changing 'alongside' to 'and' assigns the A400M to 1312 Flight. The check note says the ambiguity exists only in R03:144, but R02:71 has the same wording.",
+     "fix": "Restore 'alongside' in the R02:71 claim text and extend the check note: 'Whether the A400M belongs to No. 1312 Flight is ambiguous in both R02:71 and R03:144.'"
+    },
+    {
+     "world_id": "satl_falklands_raf_mount_pleasant",
+     "problem": "[Low, inaccurate overlap note] cross_report_overlap says 'Only R03 adds the Typhoons, units, runway and Sky Sabre'. R02:71 also names a unit (No. 1312 Flight) and adds the 'vital transport and logistics hub' statement with its distance rationale, neither of which is in R01:59.",
+     "fix": "Reword: 'R02:71 adds No. 1312 Flight and the transport/logistics-hub rationale. Only R03 adds 905 EAW, 1435 Flight and the Typhoons, the 7th Air Defence Group and Sky Sabre, the runway, and the airport and opening details.'"
+    },
+    {
+     "world_id": "eur_brest_ile_longue",
+     "problem": "[Low, paraphrase changes the referent] The R02:67 claim says 'Île Longue is the base for France's ballistic missile submarine force, on which France's strategic deterrence relies'. R02:67 says 'France's strategic deterrence relies on highly secure logistical handling at Île Longue, the base for its ballistic missile submarine force.' What deterrence relies on is the handling at the base, not the submarine force. No nuclear-handling detail was extracted, which is correct, and the populate_policy (context_only) matches plan:43 and seed:25.",
+     "fix": "Reword: 'R02:67 says France's strategic deterrence relies on [secure handling at Île Longue, not extracted], the base for its ballistic missile submarine force.' Keep the exclusion as it is."
+    },
+    {
+     "world_id": "usa_newport_news_shipbuilding",
+     "problem": "[Low, field misuse] parent_or_colocated lists usa_norfolk_naval_station_norfolk. No report says Newport News is a parent of Norfolk or colocated with it. The only link is that R03:60 lists Norfolk as the home port of Stennis, which R03:50 uses as an example RCOH carrier.",
+     "fix": "Leave parent_or_colocated empty. Keep the Norfolk link only in source_relationships, as it already appears ('RCOH example facility for a Norfolk-homeported carrier (R03:50, R03:60)')."
+    },
+    {
+     "world_id": "glob_us_afloat_prepositioning_fleet",
+     "problem": "[Low, field misuse] parent_or_colocated lists usg_dla_distribution_network with the note 'carries DLA fuels'. R02:21 presents the OCONUS distribution hubs and the prepositioned ships as separate pillars. No report makes the APF part of the DLA network.",
+     "fix": "Move it to source_relationships as 'cargo includes DLA fuels (R01:23, R02:25)' and remove it from parent_or_colocated."
+    },
+    {
+     "world_id": "glob_us_afloat_prepositioning_fleet",
+     "problem": "[Low, alias overreach] 'Maritime Prepositioning Squadron ships' is listed as an alias of the APF. R02:25 describes MPS ships as anchored at Diego Garcia, which it calls a premier hub for the APF capability, so they are a component, not a synonym. R03:40 mentions MPS ships at Diego Garcia and never mentions the APF.",
+     "fix": "Remove it from aliases. Keep it as a platform family: 'MPS ships anchored at Diego Garcia (R02:25, tied to the APF; R03:40 does not name the APF)'."
+    },
+    {
+     "world_id": "usp_kitsap_bremerton_psns",
+     "problem": "[Low, plan misattribution] populate_reason says 'A shipyard gives a reason to return damaged ships (plan:81)'. Plan:81 says 'Service ships and airfields give the player a reason to return or reposition' and mentions neither shipyards nor damaged ships.",
+     "fix": "Reword: 'By extension of plan:81 (service ships and airfields give a reason to return), a shipyard could serve as a return node. This is a design choice; repair must be tested separately (plan:83).'"
+    },
+    {
+     "world_id": "hn_kola_olenya_airbase",
+     "problem": "[Low, citation scope] The check note cites plan:43 as the reason the R03:70 nuclear-strike history wording is not carried forward. Plan:43 is the Ile Longue row. The general exclusion of nuclear-storage, handling and employment material is seed:25. The Cold War and Tsar Bomba history is historical, so leaving it out is a conservative choice rather than a rule.",
+     "fix": "Cite seed:25 instead of plan:43 and note that the history was left out as a conservative choice."
+    },
+    {
+     "world_id": "hn_kola_olenya_airbase",
+     "problem": "[Low, claim softens or omits what the report says] The R03:74 claim drops the report's stated mechanism ('Ukrainian long-range autonomous drone swarms successfully navigated the immense distance to strike Olenya'), yet a check note disputes that very mechanism. The R03:72 claim also changes 'confirmed the presence' to 'showed'. Claims should record what the report SAYS, with doubts kept in check_notes.",
+     "fix": "Restore R03:74's wording ('long-range autonomous drone swarms successfully navigated the immense distance') and R03:72's 'confirmed', and keep the doubts in the check notes."
+    },
+    {
+     "world_id": "me_uae_jebel_ali_port",
+     "problem": "[Low, outside fact stated as fact] populate_reason says 'It is not a US base'. node_kind 'port_commercial' and the check note ('host-nation commercial port') also treat it as commercial. R03:42 says only that NSA Bahrain is supported by 'logistics nodes in Kuwait, Oman, and the United Arab Emirates, specifically the Jebel Ali Port Facility'. It does not state ownership, commercial status or US status. populate_small itself is consistent with plan:40 and plan:22.",
+     "fix": "Reword: 'R03 does not state its operator or whether it is a US installation. Treating it as a host-nation commercial port is a design assumption to check.' Mark node_kind as assumed."
+    },
+    {
+     "world_id": "med_souda_bay_nsa",
+     "problem": "[Low, internal inconsistency] node_kind is 'naval_base', but the node's own check note says R03:44 does not say whether the role is naval (pier), aviation (airfield) or both.",
+     "fix": "Set node_kind to pending or mixed_base, labelled 'not stated in R03:44', until the facilities are checked."
+    },
+    {
+     "world_id": "hoa_djibouti_pla_support_base",
+     "problem": "[Low, uncited links] The parent_or_colocated entries for the French, Japanese and Italian facilities have no citation. Only Camp Lemonnier is tied to R01:51 ('just down the coast'), which means nearby, not colocated. The same applies to hoa_djibouti_it_base, whose four parent_or_colocated entries are all uncited.",
+     "fix": "Cite R01:49 ('host rival global powers within miles of one another') and R01:51 for each entry, and describe them as 'nearby within the Djibouti cluster' rather than colocated. Apply the same fix to hoa_djibouti_it_base."
+    },
+    {
+     "world_id": "usp_dla_san_joaquin",
+     "problem": "[Low, design wording not labelled] populate_reason uses it as the 'origin of West Coast and Pacific resupply'. R02:30 says 'Primary West Coast CONUS distribution hub' and R02:15 says 'cross-country and international materiel routing'. 'Pacific' is an authored inference.",
+     "fix": "Label 'Pacific resupply origin' as a design choice, citing R02:30 and R02:15 for what the report actually says."
+    }
+   ],
+   "missing_nodes_or_claims": [
+    "usp_dla_san_joaquin: R02:17 says 'these CONUS hubs represent the ultimate source of replacement airframes, deep-level maintenance components, and bulk munitions'. This is cited for Red River but not for San Joaquin, which R02:15 calls a primary CONUS hub.",
+    "usp_dla_san_joaquin: R02:15 says the CONUS network is '17 major DLA Distribution centers that serve as the origin points for global military supply chains'. Attach it here or at usg_dla_distribution_network.",
+    "usp_kitsap_bremerton_psns: R01:17 says Kitsap 'combines massive drydock facilities with the basing of the Pacific Fleet's ballistic-missile submarines'. This is R01's drydock statement, with PSNS unnamed, and it is not recorded.",
+    "usp_kitsap_bremerton_psns: R03:29 (Kitsap table row) gives the function 'CVN Maintenance' and the assets 'Nimitz-class CVNs (maintenance)'. It is cited only in platform families and has no source_claims entry.",
+    "glob_us_afloat_prepositioning_fleet: R02:33 table row 'NSF Diego Garcia | Afloat Prepositioning Fleet anchorage, bulk fuel/ammo' is the only line explicitly calling Diego Garcia the APF anchorage, and it is not cited.",
+    "glob_us_afloat_prepositioning_fleet: R02:7 says adversaries will target 'afloat prepositioning ships to starve forward-deployed forces of the resources necessary to fight'.",
+    "glob_us_afloat_prepositioning_fleet: R02:25 and R03:40 say the MPS ships are 'heavily stocked with equipment' (R03:40 adds 'for ground invasions'). R02:25 also says the Diego Garcia base stores 'fuel and ammunition out of range of many regional threats'. None of this is in the cargo relationship.",
+    "hn_kola_olenya_airbase: the R03:72 role claim is missing: 'Bombers from Olenya routinely fly extended combat sorties southward to launch standoff cruise missiles', using distance (over 2,000 km) to increase air-defence reaction time and protect airframes.",
+    "chn_hainan_lingshui_airbase: R03:133 lists the Y-8Q operator as 'China (PLAN)'. This is a type-level claim that bears on the 'service not stated' check note.",
+    "satl_falklands_raf_mount_pleasant: R03:144 says 'The station provides a base for air-defense and transport operations'. This overall role statement is not recorded.",
+    "usp_coronado_nab_coronado: the R03:27 Naval Base Coronado table lists 'Amphibious' among the umbrella's functions. This is optional supporting context and is umbrella-level, not specific to NAB.",
+    "wpac_yokosuka_dla_distribution / wpac_guam_dla_distribution: R02:21 says there is a 'network of seven overseas (OCONUS) distribution hubs', which places both in the parent network. It is not cited.",
+    "hoa_djibouti_pla_support_base: R01:70 also says 'without triggering unintended escalation'. R01:49 says Djibouti hosts 'rival global powers within miles of one another'. Both are relevant to ROE and neutrality.",
+    "jpn_kanoya_air_base: R03:168 also names Lingshui J-15s and Y-8Qs as a counter-screen to the P-1 effort. Add the mirror relationship to chn_hainan_lingshui_airbase.",
+    "chn_jlsf_wuxi_jlsc / chn_jlsf_shenyang_jlsc: three JLSC claims are generic rather than place-specific, so attach them at the JLSF network or Wuhan node if not already there. They are R02:48 (depot types: POL, pipeline groups, field fuel stations, ammunition, quartermaster, heavy transport), R02:50 (authority to mobilise civilian transport) and R02:79 (activating civilian maritime and rail assets via the JLSCs)."
+   ],
+   "verdict": "Mostly faithful, but fixes are needed before Pass B. I checked all 77 source_claims plus 84 platform, quantity and relationship strings against R01-R03 by line. Every source_claims line number points to the right sentence, and the numbers, operators and places match the reports. That includes 57,000 acres, 3,800 acres, over 100 aircraft, four Typhoon FGR4, 2,589 m, up to 35 Tu-22M3 and 10 Tu-95MS, up to 42 Tu-22M3, 92 km, 4,500 km, $590 million, 34-36 P-1 and four Triomphant-class. Populate policies match the plan. Ile Longue is context_only with no nuclear-storage or handling detail extracted (the Fusiliers Marins perimeter-defence point is conventional force protection). Ban Keun is not in this part. Red River, San Joaquin, the DLA centres and the APF are abstract. Mount Pleasant is small. There are no medium or high factual errors. There are two medium structural issues: the Wuxi-to-Ningbo pairing in parent_or_colocated, and the PSNS / Naval Station Bremerton merge, which the reports do not make. There is one misattributed citation (R03:133 for Lingshui), which also undercuts the 'service not stated' check note. The rest is low-severity drift: R02:17 is read as asserting DLA colocation at PSNS and Jacksonville; the R02:71 'alongside' is changed to 'and'; the R02:67 referent is changed; parent_or_colocated is misused for Newport News and the APF; and two plan citations are off (plan:81, plan:43). Several place-specific lines are uncited, notably R02:33 for the APF, R03:72 for Olenya's standoff sorties, R01:17 and R03:29 for the Kitsap drydock and CVN maintenance, and R02:17 for San Joaquin."
   }
  ]
 }

@@ -6,7 +6,7 @@ These files are the inputs to the world-population register (`../WORLD_POPULATIO
 
 | File | What it is | State |
 |---|---|---|
-| `source-register.json` | Every place-specific claim in R01-R03 with report and line (R01 97, R02 81, R03 196), consolidated into 69 world nodes, 37 named sea areas and routes, and a 26-item expansion backlog. Includes the source-fidelity checks. | Fidelity checked for two thirds of the nodes (36 problems and 32 missing claims to apply). The last third is pending. |
+| `source-register.json` | Every place-specific claim in R01-R03 with report and line (R01 97, R02 81, R03 196), consolidated into 69 world nodes, 37 named sea areas and routes, and a 26-item expansion backlog. Includes the source-fidelity checks. | Fidelity checked for all 69 nodes; the checks list the problems and missing claims the register applies. |
 | `collection-inventory.json` | Six inventories of the winning unit files: US Navy / USMC / MSC; USAF, Army and fixed land systems; China; Russia; allies and host nations; installations, placement, supply and civilian traffic. Each mapping is labelled exact, proxy, missing_fit or none and gives its winning source. | Each inventory has a skeptic's `verify` block (corrections and missed assets). Apply the corrections before using an id. |
 | `scope-and-performance.md` | Evidence on map extent, distant placement and performance. Every claim is tagged GAME (engine or stock data), BUILDER (SEST tooling) or UNMEASURED. | Complete. |
 | `scope-probes.md` | In-game probe missions to measure what the repo cannot: distant placement, a two-region mission, the date line and high latitudes, unit-count steps, idle airbases, and save/load of damage, magazines and supply stock. | Design only; not built or run. |
