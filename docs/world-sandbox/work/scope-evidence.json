@@ -1,0 +1,518 @@
+[
+ {
+  "lens": "game-data",
+  "findings": [
+   {
+    "claim": "The shipped game uses 76 distinct map centres across 81 stock mission files. These come from stock missions plus 3 stock campaigns. The stock InstantActionConfig.ini has no MapCenter at all, and Instant Action is disabled. The centres span lat -45.91 to 82.08 and lon -132.5 to 175.48. They concentrate in the Norwegian Sea/GIUK (12), the Mediterranean (9), the Norwegian coast (7), Philippines/Sulu/Borneo (7) and the Persian Gulf (5), with 4 each in Taiwan/East China Sea/Okinawa, the South China Sea and Indonesia.",
+    "class": "GAME",
+    "evidence": "Scan of [Environment] MapCenterLatitude/Longitude in mods-source/_vanilla/original/{missions,campaigns}/**/*.ini (scratch script centres.py/extent.py in scratchpad). Extremes: missions/Warsaw Pact/Northern Passage.ini:137 (82.08); campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World.ini:154 (-45.91); missions/NATO/Sub Duel Pacific Shield 1971.ini:68 (-132.5); missions/Tutorials/Officer_Training_5.ini:64 (175.48). Repeats: 25.78,55.74 x3 (NATO/Hormuz.ini:88, Hormuz_hard, Hormuz_tarawa); 54.27,-26.28 x3; 65.94,-5.98 x2 (linear-campaign-proto-1 05A/05B). Other buckets: Kola/Barents 3, S Indian Ocean 3, NW Pacific N of Midway 3, Japan/Hokkaido 2, Guam 2, Aleutians 2, Arabian Sea 2, Chagos/Laccadive 2, Red Sea 1, Gibraltar 1, Arctic 1, Caribbean 1, NE Pacific 1, NW Australia 1, Gulf of Guinea 1. InstantActionConfig.ini:1-33 holds only rosters and FormationRules. config.ini:4 InstantActionEnabled=False.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Coverage of the project regions by stock content is uneven. That reflects what the game ships, not a limit. Stock missions put units within ~60 nm of Guam, Hainan/Yulin, Kola, Petropavlovsk, Bodø, Diego Garcia, Souda and Djibouti. They come within 90-260 nm of the East China Sea, Bahrain and Darwin. No stock mission puts a unit within 500 nm of San Diego (763 nm), Norfolk (894), Pearl Harbor (1,512), Yokosuka (610), Stirling (741), Brest (658) or Mount Pleasant/Falklands (3,634). Stock world-data nodes do exist at San Diego, Norfolk, Honolulu, Yokohama, Perth, Darwin, Brest, Vladivostok, Petropavlovsk and Severomorsk. The Falklands have no stock node within 959 nm, though a Falklands terrain biome exists.",
+    "class": "GAME",
+    "evidence": "Nearest-point computation over 2,345 decoded stock unit placements (RelativePositionInNM decoded as lat=clat+z/60, lon=clon+x/60, plus GeoPosition) and 1,038 Location= nodes in mods-source/_vanilla/original/campaigns/*.ini. Nodes found: us_cities_pacific.ini San Diego and Honolulu, us_ports_atlantic.ini Port Norfolk, asia_ports.ini Yokohama, oceania_cities.ini Perth and Darwin, cities.ini 'Brest Fr' and Bodo, soviet_ports_east.ini Vladivostok and Petropavlovsk, soviet_cities_west.ini Severomorsk. Nearest Falklands node: sea_points.ini 'Rio de la Plata', 959 nm. terrain/biomes.ini:5 Biome3=Falklands.",
+    "confidence": "high"
+   },
+   {
+    "claim": "RelativePositionInNM is a flat plate-carree encoding. x = delta-longitude x 60 (minutes of longitude, with no cos(lat) correction). z = delta-latitude x 60, with positive z pointing NORTH. The stock documentation gets z the wrong way round and calls x 'miles'. At 69°N one x unit is only ~0.36 nm on the ground.",
+    "class": "GAME",
+    "evidence": "Texas twin missions: the same land unit wp_cross_slot differs by exactly dx=3669.00, dz=-1143.00. That equals 61.15° x 60 and -19.05° x 60 between missions/NATO/Don't Mess With Texas (Blue Side).ini:110-111 (centre 35.22,34.87) and missions/Warsaw Pact/Don't Mess With Texas (Red Side).ini:33-34 (centre 54.27,-26.28; unit at :72). Stock airfields decode with z positive north onto real fields: Warsaw Pact/Breakthrough.ini Taskforce2LandUnit2 (-9.7,-6.0) -> 36.160,-5.352 (Gibraltar); NATO/Caron at Grenada 1983.ini NeutralLandUnit1 -> 12.002,-61.772 (Point Salines); NATO/Showdown off Guam Blue 1985.ini Taskforce1LandUnit1 (172.5,-194.28) -> 13.592,144.935 (Andersen; z-positive-south would give 20.07N, open sea). ui/minimap.ini:15 says 'one degree is 60nm'. changelog.txt:2618 refers to 'our flat Earth'. Contradicting stock doc: missions/Demo/MissionFileInformation.ini:443 '#negative values go west for x and north for z' and :447 'offset in miles'.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Shipped, maintained stock missions show that the map centre does not bound unit placement. Three use centre 54.27,-26.28 (mid-North Atlantic) and place every unit 3,900-12,160 nm away, where the action actually happens.",
+    "class": "GAME",
+    "evidence": "missions/Warsaw Pact/Strawberries Can Kill (Red Side).ini:33-34 (centre); :73 usn_cvn_nimitz RelativePositionInNM=12117.71,0,-954.68 (~12,155 nm, NW Pacific; all 26 units 11,500-12,160 nm). missions/NATO/Better Part of Valor 1988.ini:112-113 (centre); :136 usn_phm_pegasus -3541.39,0,-1925.81 -> ~22.2N 85.3W, Yucatan Channel; all units 3,860-4,120 nm away. That mission is maintained: changelog.txt:1226 (0.7.9 #328, 11-Apr-2026) 'Added UnlimitedFuel=True to SH-2F in Better Part of Valor 1988', and :2369 re-added in 0.6.1 (28-Nov-2025). missions/Warsaw Pact/Don't Mess With Texas (Red Side).ini:72 3756.77,low,-1128.46 (~3,923 nm, East Mediterranean). Correct play there is assumed because the missions ship; we have not tested it.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Within single stock missions the real geographic span can also be large. One Norway mission routes neutral merchants to the Chesapeake approach and to Port Said. One Aegean mission spawns Yak-38s in the Barents Sea. Typical stock missions are much smaller: median spawn span 193 nm, or 330 nm including waypoints.",
+    "class": "GAME",
+    "evidence": "Warsaw Pact/UnderCoverOfTheRain.ini:495 NeutralVessel1 waypoints decode via Gibraltar (-1217.42,-1942.14 -> 35.94N 6.04W) to off Port Said (1002.17,-2038.64 -> 34.33N 30.95E). :503 NeutralVessel2 ends at -5422.27,0,-1873.06 -> 37.09N 76.12W. Great-circle span 4,913 nm. NATO/Dangerous Straits 1985.ini:536,547,557,567: four wp_yak-38 at 782.13,3000,1975.5 -> 70.37N 38.42E, with waypoint 18.11,3000,130.34 -> ~39.6N 25.7E; spawn span 2,141 nm (whether intended is unknown). pacific-strike-task-force 05 Strike on the Monster spawn span 1,456 nm.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The game's only statement about what the centre does is a performance recommendation plus a local-time reference. It is not a bound. No stock UI string mentions map edges, placement bounds, theatre or region selection, or unit-count caps.",
+    "class": "GAME",
+    "evidence": "language_en/ui.ini:1256 'CentralMapPointTooltip=Sets the coordinates of the mission's central map point - drag this to the center of the scenario for best performance - also used to calculate the Local time'. ui.ini:1255 LocalTimeTooltip ('local time at the mission center point'). MissionFileInformation.ini:148 '#Map location. Use real world coordinates for mission area central position'. A grep of ui.ini for too many / out of bounds / off map / edge / exceed / limit finds only air-ops, sea-state and fleet-points caps (ui.ini:401, 422, 2009, 3652, 4650) and RebaseTooFar (4159, aircraft range).",
+    "confidence": "high"
+   },
+   {
+    "claim": "The engine moves its Unity-space origin during play, using 'relocation events' around a 'center tile' (a floating-origin scheme). The mission's MapCenter is therefore not a permanent rendering origin. Relocation has had bugs.",
+    "class": "GAME",
+    "evidence": "changelog.txt:4380 (0.1.1.2 #123, 16-Jan-2025): 'terrain at 180° E/W where the center tile was calculated wrongly and led to a relocation loop (still WIP)'. :4793 (0.1.0.6, 30-Nov-2024): ASROC misbehaved 'in case of a relocation event'. :5099 (#74, 12-Nov-2024): 'cascade of endless further relocation events'. :4030 (0.1.1.5): 'Dead units were teleported due to malfunction in relocation handling'. :2882 (0.4.3, 16-Aug-2025): 'Autogen buildings jumping during relocation and camera jump'. :3482: 'Weapons relocation on save load'. :5647; :2236 (0.6.8): 'Ghost objects at world origin'. That relocation exists is high confidence; that it is a full floating origin is an inference (medium).",
+    "confidence": "medium"
+   },
+   {
+    "claim": "The ±180° date line is the edge of the engine's flat-Earth frame and a documented bug area. No stock mission places units across it, yet the Pacific project regions (Hawaii, Midway, Guam, Kamchatka) sit near it.",
+    "class": "GAME",
+    "evidence": "changelog.txt:2618-2619 (0.5.0 #235, 01-Oct-2025): 'Huge calculation error for units at date line \"edge\" of our flat Earth (pun intended!)' and 'Some out of bounds longitude positioning when crossing the date line \"border\"'. :4096 (0.1.1.4, 17-Feb-2025): 'Trial of fix for 180° E/W location'. :4380: relocation loop at 180° 'still WIP'. A scan of all 81 stock files found zero unit positions with decoded lon beyond ±180. campaigns/airports.ini includes PMDY Midway (-177.38) and PJON (-169.53). Behaviour in 0.8.4 has not been tested.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The mission format also supports absolute GeoPosition, and saves store geo-positions rather than Unity coordinates. Relative nautical miles are only one of two representations.",
+    "class": "GAME",
+    "evidence": "MissionFileInformation.ini:436-440 '#0) Geo position. Direct position definition <latitude, longitude, altitude>' (GeoPosition=38.0753,21.9964,3392). Used in stock: NATO/Hormuz.ini:158, Hormuz_hard.ini:193, Hormuz_tarawa.ini:193, Don't Mess With Texas (Blue Side).ini:159 and (Red Side).ini:80. changelog.txt:5348 (#68, 26-Oct-2024) 'Mission Editor: GeoPosition support on unit loading'. :2485 (0.5.3 #250, 13-Nov-2025): towed-trail positions 'were saved in Unity coordinates ... changed to Geopositions'. :4409: AimPointGeoPosition. config.ini:7-8 SaveLoadEnabled=True, SaveLoadSensorDataEnabled=True.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Terrain, clouds and autogen are streamed in camera-local chunks. No stock config defines a world or map extent. These settings say nothing about the simulation cost of distant active units.",
+    "class": "GAME",
+    "evidence": "terrain/terrain.ini:16 MaxParallelLoadingJobs=32; :20 ChunksViewDistance=4. clouds.ini:39 'CloudCullingDistance=4 // culling distance in chunks, where one chunk is about 50km wide'. config.ini [AutoGen] Level6 MaxDrawRange=1000. ui/Default/Settings_UI_Tactical.ini:105 MapSize=400,400 is the on-screen widget size, not the world. changelog.txt:3873 (0.1.1.8 #149, 18-Mar-2025) 'Major overhaul of terrain system and map'; :3870 terrain loading performance; :2200 VRAM spikes 'during eg biome crossing'.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "Terrain uses a global biome scheme, and changelog fixes refer to specific places worldwide. The heightmap data is not in the repo, so actual terrain coverage and quality at each project location are unverified. The one stated placement rule is that land units must sit at least 1 m above sea level.",
+    "class": "GAME",
+    "evidence": "terrain/biomes.ini:2-13: NumberOfBiomes=11 (Polar, USSR, Falklands, NE, CE, MED, UK, USA, Japan, SEA, Desert), each picked by BiomeSelectColor from a biome texture. changelog.txt:2486 (0.5.3) 'Faulty terrain at 18.1/118.3 lat/long'; :4805 'terrain meshes around Suez Canal and Bosphorus'. terrain/terrain.ini:28 'MinHeightForLandUnits=1.0 // ... to avoid underwater placements'. mods-source/_vanilla/original/terrain holds only terrain.ini, biomes.ini and objects/*.ini.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "Time compression is capped at 100x by a config value, and the engine also limits compression on its own during engagements and for some weapon types. At 100x, one game day takes 14.4 real minutes, and a 2,000 nm transit at 20 kt (100 game hours) takes about 60 real minutes.",
+    "class": "GAME",
+    "evidence": "config.ini:13 MaxTimeCompression=100. changelog.txt:5344 (#68, 26-Oct-2024) 'Setting max time compression to 100'; :5664 'Setting for max time compression'; :5121 (#74) 'Limited time compression for engagements'; :5104 sonobuoys limited; :5022 rebalanced limits for gun and CIWS; :4065 missile group and weapon limit; :5694 performance under time acceleration. The transit figures are plain arithmetic, not measured.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The largest stock mission has 130 units. No stock config key or string declares a unit cap. The changelog treats unit and formation count as a performance cost and ships fixes for it. The stock maximum is an example, not a limit.",
+    "class": "GAME",
+    "evidence": "Summed NumberOf* counts: NATO/Red Madagascar 1985.ini 130; pacific-strike 09 Shadows off Palawan 86; 08 Defense of North Borneo 76; NATO/Dangerous Straits 1985 71. Largest stock mission file is 63 KB. changelog.txt:2275-2278 (0.6.8 #265, 17-Dec-2025): 'Drastically improved mission loading times', 'Reworked sensor and line of sight logic to improve performance', 'Improved performance with large formations'. :65-67 (0.8.2, 28-Sep-2026) performance updates. config.ini:3 EnablePerformanceLogging=False is a built-in measurement hook (changelog.txt:5302). MissionFileInformation.ini:7-10 '//DisableTerrain=False' is a per-mission debug switch.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "Stock's only shipped way to play persistently across regions is a linear campaign of separate missions. Losses, ammunition and a tracked theatre order of battle (ORBAT) carry over between missions, with resupply and repair available. This shows what the game ships. It is not evidence that such a split is required.",
+    "class": "GAME",
+    "evidence": "campaigns/strike-group-molniya-campaign/campaign.ini:5 Type=Linear; :9 [PersistentData]; :21 'This is a persistent campaign. Ship/aircraft losses and weapon expenditures are tracked, and will carry forward across each mission. Resupply is available at certain points'. Its missions use 5 different centres, from -11.53,0.27 to 8.69,74.56. campaigns/pacific-strike-task-force/enemy_theater_roster.ini:3 'updates the campaign savefile with the theater ORBAT as ships are destroyed' and :8 persistent units tracked. changelog.txt:1805 'Linear persistent campaign Molniya'; :1807 CampaignRearm/CampaignRepair/CampaignResetAirgroup flags; :1046 rearm and repair trigger actions; :44 (0.8.x) 'Fixed campaign persistence for units sometimes not working'.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Stock ships a global node-and-link world dataset (ports, airports, sea points and links, patrol areas). It also ships a prototype theatre-wide campaign, spanning the US East Coast to Murmansk and Havana, that uses this data with no MapCenter at all. The sea network covers the Atlantic, Mediterranean and western Indian Ocean only; airports reach Hawaii, Guam, Kamchatka and Midway.",
+    "class": "GAME",
+    "evidence": "campaigns/campaign-proto-1/campaign.ini:1-15 (BackgroundTraffic=Hidden, PortsFiles, SeaPointsFiles, SeaLinksFiles, AirportsFiles, PatrolAreasFiles, CitiesFiles, LandLinksFiles); :18-19 'Campaign Prototype 1 / A test of the text parsing system'. Groups at Port Norfolk, New London, Charleston, Mayport and Holy Loch versus Port Murmansk, Severodvinsk and Havana (lines 33-196). sea_points.ini: 431 points, lat -36.05..76.54, lon -87.47..61.16. sea_links.ini: 1,062 sections. airports.ini: 48 airports, lon -177.38..167.73 (PHIK Hickam, PGUA Andersen, RODN Kadena, UHPP Elizovo, PMDY Midway). patrol_areas.ini: 51 areas. changelog.txt:3967 'City view popup in Dynamic Campaign'. config.ini:5 CampaignEnabled=True.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Background data (LoadBackgroundData) attaches world-spanning files to single stock missions. A Norway mission, for example, loads all 48 airports from Heathrow to Hickam and Midway. The data cannot show whether the engine actually creates every distant entry or filters them by distance.",
+    "class": "UNMEASURED",
+    "evidence": "LoadBackgroundData=True with airports.ini and cities.ini attached: Warsaw Pact/UnderCoverOfTheRain.ini:640 (centre 68.31,14.25), Other/Battle of Latakia.ini:72, Other/Battle of Baltim.ini:93, Demo/Attack Waypoints Test.ini:25. MissionFileInformation.ini:742-744 'Loads land units from files listed in [BackgroundData]'. ui.ini:141 'background data that is loaded on startup'. changelog.txt:3161 'Background scenery was misplaced due to wrong geo center position at time of creation'.",
+    "confidence": "high"
+   },
+   {
+    "claim": "54.27,-26.28 is very likely the in-game Mission Editor's default centre. The player's own editor-made NORTHERN FRONT.ini keeps that centre and places 288 units 9,000-12,000 nm away in the Banda/Arafura/northern Australia area. Those positions decode exactly onto the real RAAF bases.",
+    "class": "GAME",
+    "evidence": "3 stock missions and 237 of the 394 .ini files under mods-source/_vanilla/user/missions use exactly 54.27,-26.28. No stock config file contains the value (grep). mods-source/_vanilla/user/missions/NORTHERN FRONT.ini:65-66 sets the centre. Decoded: Taskforce1LandUnit1 airbase_raaf_darwin -> -12.427,130.884; LandUnit5 airbase_raaf_scherger -> -12.603,142.038; LandUnit9 airbase_raaf_townsville -> -19.253,146.765. All placements fall within lat -23.76..3.53 and lon 103.44..165.91. That it is the editor default is an inference; whether this mission played correctly is outside this lens.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "The SEST builders use the same plate-carree convention as the game, so the coordinate conversion adds no extent limit of its own. Builder snapping is a separate, builder-only constraint: build_pack.py snaps or refuses coastal stations unless an earlier mission placed a unit nearby. Regions with no stock or SEST placements (Hawaii, the US coasts, Brest, the Falklands) are therefore a builder data gap, not an engine limit.",
+    "class": "BUILDER",
+    "evidence": "integration/missions/build_land_defence.py:772 '# Geometry: x = minutes of longitude, z = minutes of latitude', with cos(lat) handling at :779-799. integration/missions/build_northern_front_ii.py:44-48 (x=(lon-MLON)*60, 'verified against Darwin/Scherger'). integration/campaign/build_pack.py:751-754 POOL_ROOTS = integration/missions, _vanilla/original/missions, _vanilla/original/campaigns, _vanilla/user/missions; :825 OFFSHORE_SNAP=8.0; :828 OPEN_SEA=25.0; :929-970 open_water() refuses any station within 25 nm of known land and more than 8 nm from proven water ('Move it, or mark the station coastal=True'). docs/campaigns/southern-watch/build-notes.md:1250-1258 (~5,300 proven points).",
+    "confidence": "high"
+   },
+   {
+    "claim": "Nothing in the stock data, UI strings or the 5,736-line changelog states a maximum playable extent, a maximum distance from the centre, a requirement for separate regional missions, or a unit cap. The quantities that would actually limit a single populated world remain unmeasured: per-unit simulation cost for hundreds of active units far from the camera, save size and reload time, how often time compression is auto-limited at scale, and date-line behaviour in 0.8.4.",
+    "class": "UNMEASURED",
+    "evidence": "Negative greps over language_en/ui.ini, config.ini, terrain/*.ini, clouds.ini, camera.ini, ui/*.ini and changelog.txt for extent, bounds, edge, unit-limit and theatre-limit wording (hits listed in the other findings). The largest stock mission has 130 units. The one SEST mission at 974 units (mods-source/_vanilla/user/missions/user_missions/SEST Indo-Pacific Land Assets.ini, centre -6,130, max offset 1,815 nm) is builder output whose runtime behaviour is not recorded in stock data.",
+    "confidence": "high"
+   }
+  ],
+  "open_questions": [
+   "Does the centre's location measurably matter (ui.ini:1256 'for best performance')? The stock Texas twins are a ready-made A/B test: the same units with centre near the action (Blue, 35.22,34.87) versus 3,900 nm away (Red, 54.27,-26.28). Compare load time, frame time, placement accuracy and AI behaviour.",
+   "Is the date-line problem (changelog.txt:2618-2619, 4096, 4380) fully fixed in 0.8.4? Test units, waypoints and camera moves crossing ±180° near Midway or the Aleutians, and a save/reload taken there.",
+   "How do frame time, load time, save size and reload time scale at 130, 300 and 1,000 concurrently active units spread over several thousand nm? Use config.ini EnablePerformanceLogging=True, and MissionFileInformation.ini DisableTerrain to separate terrain cost from simulation cost.",
+   "Does LoadBackgroundData create every global airport, city and port entry (e.g. Hickam in a Norway mission) or filter them by distance? This changes the cost of a world-wide background layer.",
+   "Does raising MaxTimeCompression above 100 in the user config take effect? How often does the engine's engagement auto-limit (changelog.txt:5121) cap compression in a busy, populated world?",
+   "What terrain heightmap coverage and quality exist at the regions with no stock content (Falklands/Mount Pleasant, Diego Garcia, Stirling, Pearl Harbor, San Diego, Norfolk, Brest)? The heightmaps are not in the repo.",
+   "Confirm 54.27,-26.28 is the Mission Editor's default centre by creating a new mission in-game.",
+   "Is there a polar clamp? The highest stock placement is 85.05°N (Northern Passage Tu-95, 407.98,30000,178.3 from 82.08,15.03), right at the Web-Mercator limit of 85.0511°. This is not relevant to the current regions (max ~71°N).",
+   "The stock doc (MissionFileInformation.ini:443) says negative z is north, but the data show positive z is north. Check that no SEST tool or handoff document has copied the stock doc's sign."
+  ]
+ },
+ {
+  "lens": "existing-missions",
+  "findings": [
+   {
+    "claim": "The map centre does not cap how far units can be from it: the engine has loaded, run and saved missions whose units are all 9,000 to 11,900 file units from the centre. NORTHERN FRONT III FINAL (centre 54.27,-26.28 in the North Atlantic; units at lat -24 to 10, lon 103 to 166) was played from 12:00 to 18:53 game time and saved mid-game.",
+    "class": "GAME",
+    "evidence": "Save: data/install-snapshot/saves/New midgame.sav, Name=NORTHERN FRONT III FINAL (line 12), Time=18,53 (line 69). Mission start: integration/missions/NORTHERN FRONT III FINAL.ini:60 Time=12,0. The save is 22.8 MB and holds 298 units (65 land, 91 vessels, 6 subs, 100 airborne aircraft, 21 helos, 15 biologics) plus 30 weapons in flight, with GeoPositions spanning lat -21.22..10.39, lon 106.07..163.07. Second save: NORTHERN FRONT MIDGAME III.sav, Name=NORTHERN FRONT II, Time=12,36 against a mission start of 12,0 (NORTHERN FRONT II.ini:34); 14.0 MB, 206 units. Editor round-trips of the same family: commits 5eabb6b9 and 6938a7a4. NORTHERN FRONT III FINAL NEWEST is the project's working mission (data/active-mission.txt).",
+    "confidence": "high"
+   },
+   {
+    "claim": "RelativePositionInNM is stored by the engine as arcminutes on both axes, not as nautical miles east-west: lat = MapCenterLatitude + z/60 and lon = MapCenterLongitude + x/60. The stock reference file calls the format '<nmi,feet,nmi>', but the game's own save shows plain arcminutes. So a file 'x' is a longitude offset, and file-plane distances are not real distances away from the equator.",
+    "class": "GAME",
+    "evidence": "Game-written save NORTHERN FRONT MIDGAME III.sav:173 has Taskforce1LandUnit1 GeoPosition=-12.426668081751,130.884157382087. The player's editor save (git show daedda0e:'mods-source/_vanilla/user/missions/NORTHERN FRONT.ini', airbase_us) has RelativePositionInNM=9429.85,low,-4001.8 with centre 54.27,-26.28. Check: 54.27 - 4001.8/60 = -12.42667 and -26.28 + 9429.85/60 = 130.88417. Across all land units with matching index and type (NF II as committed before the save, 49ddd405): 7 match to under 0.01 arcmin and 10 formation members to under 0.5 arcmin. A true-NM reading at the centre latitude would put Darwin at lon -117. Stock doc: mods-source/_vanilla/original/missions/Demo/MissionFileInformation.ini:443,448. The game changelog calls the world 'our flat Earth' (mods-source/_vanilla/changelog.txt:2618, 0.5.0). The builder uses the same convention: integration/campaign/build_pack.py:770-773 and integration/missions/build_northern_front_ii.py:47-51.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Developer-shipped stock missions also put the map centre far from all their units. Three stock missions use centre 54.27,-26.28 while their units are in the NW Pacific, the Yucatan Strait and off Syria; their Blue-side twins use local centres. The centre is an arbitrary origin in shipped content.",
+    "class": "GAME",
+    "evidence": "Script output for mods-source/_vanilla/original/missions:\n- Warsaw Pact/Strawberries Can Kill (Red Side).ini:33-34 centre 54.27/-26.28; 26 units at lat 37.36..45.04, lon 165.35..175.87; furthest 12,160.7 file units out; numeric waypoints to 12,138.6.\n- NATO/Better Part of Valor 1988.ini:112-113 same centre; units at lat 21.33..23.03, lon -86.53..-82.48; furthest 4,117.9.\n- Warsaw Pact/Don't Mess With Texas (Red Side).ini:33-34 same centre; Syrian coast; furthest 3,939.7.\nTwins: NATO/Strawberries Can Kill - Blue.ini centre 42.27,168.58 (furthest 893.3); Don't Mess With Texas (Blue Side) centre 35.22,34.87 (furthest 123.1).",
+    "confidence": "high"
+   },
+   {
+    "claim": "In practice 54.27,-26.28 is the mission editor's default origin, used by several independent authors. 173 of the 502 distinct mission files use it, and in every one of them every placed unit is more than 1,000 file units from it.",
+    "class": "GAME",
+    "evidence": "Script count over unique contents: 173 at that centre (24 SEST, 143 user, 3 Workshop, 3 stock), and 173 of 173 have every unit over 1,000 out. Independent editor output: Workshop 3491248180 shipped its editor files missions/_Custom Mission.ini:25-26 and missions/_temp/_TempMission.ini with this centre and units in the Saronic Gulf (lat 37.55..37.99); its 'Lighting Strike' missions use it with units at 69-70N. The player's own editor temp file, mods-source/_vanilla/user/missions/_temp/_TempMission.ini (Name=NORTHERN FRONT III FINAL NEWEST), has 288 units, all at lat -23.8..3.5. That it is the editor's default is an inference; that it is a non-local origin is measured.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "The engine uses a moving origin ('relocation events') and a streaming terrain loader with a centre tile. MapCenter is the file's coordinate datum, not a fixed physics origin. The changelog says nothing about what triggers a relocation or whether there is a distance limit.",
+    "class": "GAME",
+    "evidence": "mods-source/_vanilla/changelog.txt:\n- 2882 (0.4.3): 'Autogen buildings jumping during relocation and camera jump'\n- 4030 (0.1.1.5): 'Dead units were teleported due to malfunction in relocation handling'\n- 4793 (0.1.0.6): ASROC 'in case of a relocation event'\n- 5099 (Build #74): 'cascade of endless further relocation events'\n- 4380 (0.1.1.2): 'terrain at 180° E/W where the center tile was calculated wrongly and led to a relocation loop (still WIP)'\n- 3873 (0.1.1.8): 'Major overhaul of terrain system and map'\n- 3870 and 3862: new terrain loading performance and memory\n- 2485 (0.5.3): towed-cable positions 'saved in Unity coordinates that caused incorrect cable positioning ... on load ... changed to Geopositions'\n- 2236 (0.6.8): 'Ghost objects at world origin'\nInstalled build is 0.8.4 (changelog.txt:6).",
+    "confidence": "high"
+   },
+   {
+    "claim": "The date line (±180°) is the edge of the engine's flat world and has needed repeated fixes. The only repo mission that straddles it writes its western cluster about 21,500 file units east rather than about 60 west, so file coordinates do not wrap. Whether the engine joins the two clusters at runtime is not measured. This matters for any single-origin Hawaii to Guam/Japan layout.",
+    "class": "GAME",
+    "evidence": "Changelog lines 2618-2619 (0.5.0, 01-Oct-2025): 'Huge calculation error for units at date line \"edge\" of our flat Earth', 'out of bounds longitude positioning when crossing the date line \"border\"'. Also 4096 'Trial of fix for 180° E/W location' and 4380 '(still WIP)'. Workshop mods-source/3629144864/missions/EUROMOD/EUROMOD showcase german.ini:43-44 has centre 29.18,-179.92. Line 99 has RelativePositionInNM=28.42,0,-211.97 (lon -179.45); line 227 has 21549.23,0,-50.43 (lon 179.23). Twenty of its 29 units sit at x 21,505..21,549. Real spread is 454.0 NM against 21,522.6 in file units. No commit or doc records this mission being played.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "Largest real-world extent of any mission in the repo: about 3,800 NM great-circle (NORTHERN FRONT III FINAL NEWEST family). Nothing spans two of the far-apart target regions (e.g. Kola and Darwin, or Norfolk and Diego Garcia), so a populated globe in one mission is untested in either direction.",
+    "class": "UNMEASURED",
+    "evidence": "Top 15 by real spread, families collapsed (script output):\n1. NF III FINAL NEWEST: 3,796.8 NM, 269 units, +16 same-extent copies\n2. NF3 Sanctioned Convoy: 3,796.8 NM, 84 units\n3. Workshop 3455404959 Australian Bases Showcase 1968: 3,728.7 NM, 55 units\n4. SEST Indo-Pacific Land Assets: 3,243.8 NM, 974 units\n5. NF III FINAL: 3,144.9 NM, 241 units\n6. NF III FINAL backup: 3,144.9 NM, 218 units\n7. AUS DEF: 3,130.0 NM\n8. SEST Banda Front EDITED: 2,775.4 NM\n9. Banda Lean v2: 2,774.3 NM\n10. SEST Banda Front: 2,774.1 NM\n11. NEWEST NORTHERN AUS CH DEFENCE: 2,765.4 NM\n12. NF II: 2,566.8 NM\n13. NF II backup: 2,566.8 NM\n14. user Dangerous Straits: 2,273.3 NM\n15. NF3 Ballistic Shield: 2,151.6 NM\nStock maximum is Dangerous Straits 1985 at 2,142.7 NM (one Yak-38 at lat 70.37 in an Aegean mission). Of these, only the NF II and NF III FINAL families have recorded play and saves (≤3,145 NM).",
+    "confidence": "high"
+   },
+   {
+    "claim": "Largest placed-unit counts: SEST Indo-Pacific Land Assets 974, SEST Banda Front and its EDITED save 857. The EDITED save was opened and saved in the game editor; no file records it being played. The 974-unit file has no in-game load record at all. The largest in-game run with saved state is about 298 units (New midgame.sav). The stock maximum is 87.",
+    "class": "GAME",
+    "evidence": "Top 15 by placed units (only sections up to the declared NumberOf<TF><Kind>, per MissionFileInformation.ini:281; families collapsed):\n1. Indo-Pacific Land Assets: 974 (959 land, 15 vessels)\n2. Banda Front EDITED: 857 (+464 embedded airframes)\n3. Banda Front: 857\n4. Banda Lean v2: 536 (+589)\n5. NF III NEWEST: 269 (+576)\n6. NF III FINAL: 241 (+577)\n7. NF III backup: 218\n8. NF II backup: 169\n9. NF II: 168 (+521)\n10. NF II backup: 167\n11. GULF ATTACK .7.7 backup: 141 (+650)\n12. Second Northern War 02: 103\n13. Second Northern War 05: 100\n14. Second Northern War 01: 99\n15. Second Northern War 06: 88\nEDITED is 'SEST Banda Front as the user edited and saved it in the game' (integration/missions/README.md:91-93). Lean v2 was 'edited in the game on 20 September' (README.md:45-48; commit 895483a2). Living Seas is an editor re-save (commit d8588d7a). Indo-Pacific Land Assets has only builder preflight (commit a4289a66). Stock maximum: campaigns/pacific-strike-task-force/missions/09 Shadows off Palawan.ini, 87 units.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The builder's 'proven position' pool is a builder limitation, not an engine one. It holds only points that existing SEST, stock and user missions have used, and it excludes Workshop missions. It has no sea points near most target regions, and the build refuses an offshore station more than 8 NM from a proven point.",
+    "class": "BUILDER",
+    "evidence": "integration/campaign/build_pack.py:751-754 POOL_ROOTS; :825 OFFSHORE_SNAP=8.0 ('before the build refuses'); :828 OPEN_SEA=25.0. Re-implemented harvest (pool_coverage.py): 2,277 sea and 2,761 land points. Sea/land points within 100 NM:\n- San Diego 0/0, Norfolk 0/0, Pearl Harbor 0/0\n- Guam 0/3, Yokosuka 0/10, Sasebo 0/0\n- Hainan Yulin 0/2, Ningbo 0/1\n- Severomorsk 26/7, Kamchatka 0/1, Vladivostok 2/0\n- Bergen 0/0, Bodo 83/2\n- Diego Garcia 0/1, HMAS Stirling 0/0, Darwin 32/176\n- Bahrain 0/0, Djibouti 10/5\n- Souda 7/1, Toulon 10/0, Rota 5/21\n- Falklands 0/0, Brest 0/0\nAnchor coordinates are approximate, from general knowledge.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The builder's fallback geography proof (Natural Earth coastline) exists for one box only, 100E-180E by 72S-25S. Briefing-map framing takes plain min/max longitude, so it cannot frame a region across ±180. Both are tooling limits.",
+    "class": "BUILDER",
+    "evidence": "tools/make_coast_extract.py:97-98 default --box 100.0 -72.0 180.0 -25.0. integration/campaign/geo/ holds only southern_theatre_coast.json (111 rings). The fallback is described at build_pack.py:833-839. integration/missions/briefing_maps.py:171-185 extent() uses max(lons)-min(lons) with no wrap. build_pack.harvest() (build_pack.py:795-796) also does not normalise longitude.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Absolute placement is engine-supported: GeoPosition=lat,lon,alt on a unit bypasses the centre offset. The editor loads it and stock missions use it, so a world builder need not express every unit relative to one centre.",
+    "class": "GAME",
+    "evidence": "MissionFileInformation.ini:436-440 '#0) Geo position. Direct position definition <latitude, longitude, altitude>'. Changelog line 5348 (Build #68, 26-Oct-2024): 'Mission Editor: GeoPosition support on unit loading'. Stock uses: NATO/Hormuz.ini:158 GeoPosition=27.2172,56.3826,low and Don't Mess With Texas (Red Side).ini:80. Saves store every unit as GeoPosition. Position keys across all 731 files: RelativePositionInNM 48,934; GeoPosition 12; RandomSpawnCenter 17; PositionRelativeTo 8; none (defaults to 0,0,0) 5.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Terrain was sampled at the far-from-centre sites. Land units placed with 'low' (snap to ground) at Darwin and Scherger, about 9,400 to 10,100 file units from centre, were saved with non-zero heights that differ by site. This is consistent with terrain loading there, but the unit of that height value is not documented for saves.",
+    "class": "GAME",
+    "evidence": "NORTHERN FRONT MIDGAME III.sav third GeoPosition component: Darwin units 163.88, 192.62, 170.62, 185.77; Scherger units 143.46, 147.36, 137.18, 124.00; vessels about 0. MissionFileInformation.ini:439 says GeoPosition altitude is in feet. Secondary source: docs/design-notes.md:62-66 says the devs built a 1 km terrain grid from 30 arc-second elevation data (citing Dev Diary #4). Changelog 2486 'Faulty terrain at 18.1/118.3 lat/long' shows terrain away from any single centre.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "The arcminute convention stretches longitude at high latitude: one file x unit is cos(lat) NM, about 0.23 NM at 77S and 0.36 NM at Kola. Whether the engine's sensor, weapon and movement distances use real distance or file-plane distance is not established.",
+    "class": "UNMEASURED",
+    "evidence": "integration/missions/chapter 5 - Polar Pickup.ini (centre -76.54,127.45): furthest unit 1,137.8 file units out, but real great-circle spread only 355.6 NM. The only in-game evidence of the conversion is the save comparison above.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "Where existing missions are (by the midpoint of their units, not their declared centre): heavily concentrated in Banda/Timor/N Australia. Several target regions have little or no mission content: Hawaii, Guam, Diego Garcia, W Australia, Brest, Norway south of Bodo.",
+    "class": "BUILDER",
+    "evidence": "Script output over 502 distinct mission files:\n- Banda/Timor/Arafura/N Australia 172\n- Mediterranean 34\n- Barents/Kola/Norwegian Sea 28\n- Sulu/Celebes 25\n- Japan 24\n- Red Sea/Horn 22 (all but one Workshop)\n- Persian Gulf 17\n- Baltic 16\n- Coral Sea/PNG 16\n- Arabian Sea/W Indian Ocean 14\n- Arctic 12\n- South China Sea 12\n- Australia S/W 11 (10 SEST campaign build)\n- US West Coast 7 (6 Workshop)\n- Philippine Sea/Guam 5, Taiwan/East China Sea 5, Falklands 5 (Workshop), US East Coast 4 (Workshop)\n- Hawaii/Central Pacific 0\nBy declared centre instead, 173 fall in 'North Atlantic' only because of the default origin.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "No load time, frame rate, memory figure or save-reload result is recorded for any large or far-extent mission. The Player.log snapshots carry no mission names or timings, and no doc or commit records reopening the midgame saves.",
+    "class": "UNMEASURED",
+    "evidence": "data/install-snapshot/player.log (348 lines) and player-prev.log (2,704 lines) contain only asset-unload counts and mod init lines; grep for mission names, 'took', 'fps' or 'seconds' found only assembly load times. docs/ grep for stuck/load time/fps/performance found nothing mission-specific. Commit-message grep for midgame/reload found nothing relevant. Saves present but not known to reload: New midgame.sav 22.8 MB, NORTHERN FRONT MIDGAME III.sav 14.0 MB.",
+    "confidence": "high"
+   }
+  ],
+  "open_questions": [
+   "Do New midgame.sav (NF III FINAL, 22.8 MB, 298 units, 6h53m of game time) and NORTHERN FRONT MIDGAME III.sav reopen with units, aircraft in flight and weapons where they were? The files exist but no reload is recorded.",
+   "Engine behaviour across the date line in one mission: in EUROMOD showcase german.ini (two clusters about 60 arcmin apart in reality, about 21,500 file units apart), do the clusters detect and engage each other, and can a unit sail or fly across ±180? Changelog 4380 marked this 'still WIP' in Jan 2025; later fixes are 2618-2619 (0.5.0).",
+   "Do sensor, weapon and movement ranges use real great-circle distance or file-plane distance? This is testable by placing two units 100 real NM apart east-west at 0°, 45° and 70° latitude and reading detection and engagement ranges.",
+   "What triggers a relocation (camera, selected unit or proximity), and how do units thousands of NM from the current origin behave: precision, AI, physics, or being frozen or streamed out? Nothing in the repo shows two active groups more than ~3,800 NM apart.",
+   "Load time, frame rate and memory for the 974-unit SEST Indo-Pacific Land Assets and the 857-unit Banda Front. Neither has any in-game load or play record; only editor saves for Banda.",
+   "Is the third GeoPosition value in saves terrain height in feet, and does terrain exist (not a flat default) at every target region far from any one origin (e.g. Falklands, Diego Garcia, US East Coast) in the same mission?",
+   "Should the builder's position pool (build_pack.py POOL_ROOTS) include Workshop missions, or new coastline extracts per region (make_coast_extract.py --box)? Either would remove the builder's zero-coverage gaps; these are tooling decisions, not engine limits.",
+   "Scratch artefacts (all outside the repo; nothing in the repo was modified), in (agent scratch, not kept) : mission_extent.py (scanner), report.py (rankings), pool_coverage.py (builder pool by region), extent.json (731 per-file records) and report.txt (full rankings)."
+  ]
+ },
+ {
+  "lens": "builder-limits",
+  "findings": [
+   {
+    "claim": "In mission files, RelativePositionInNM is not a true nautical-mile offset east. It is plain arcminutes on both axes: lat = MapCenterLatitude + z/60 and lon = MapCenterLongitude + x/60. One x unit is cos(lat) NM east-west (0.36 NM at 69N, 0.14 NM at 82N). The map centre is only the origin of this lat/lon offset, not a local flat frame with a size.",
+    "class": "GAME",
+    "evidence": "(1) The game's own save data/install-snapshot/saves/NORTHERN FRONT MIDGAME III.sav:47-48 (centre 54.27,-26.28) and :173 GeoPosition=-12.426668,130.884157 for RAAF Darwin. The mission has x=9429.85, z=-4001.8 (integration/missions/NORTHERN FRONT II.ini:39-40,1377). The arcminute model gives -12.4267,130.8842, an error of 0.001 NM. Read as NM east, the error is 6,561 NM. Across the save, 49 of 52 land units match within 0.1 NM (/tmp scratch savecheck.py); the 3 outliers are seized rigs that were moved later. (2) Two stock missions with different centres give the same airfield: 04A Bargaining Chips (centre 52.39,170.78, line 456 x=141.64) and 04B (centre 52.32,171.21, line 536 x=115.84) both resolve to 52.840,173.141 with 0.00 NM spread. Read as NM east, the spread is 10.1 NM. Bali in PSTF 05/06: 0.00 vs 12.9 NM. Cam Ranh in PSTF 07/08/10: 2.4 vs 17.1 NM. (3) Stock NATO/Hormuz.ini:88-89 and 158-159 replaced '#RelativePositionInNM=38.47,low,86.34' with 'GeoPosition=27.2172,56.3826'. The arcminute model puts the old value 0.13 NM from the new one; the NM-east model puts it about 3.7 NM away. Note: the stock comment at MissionFileInformation.ini:443 ('north for z' negative) disagrees with every stock placement, where positive z is north.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The engine is not confined to centre-relative placement. Stock syntax includes an absolute GeoPosition=<lat,lon,alt> placement, and the game saves every unit's position as an absolute GeoPosition.",
+    "class": "GAME",
+    "evidence": "mods-source/_vanilla/original/missions/Demo/MissionFileInformation.ini:436-440 ('#0) Geo position. Direct position definition <latitude, longitude, altitude>'). It is used in stock Hormuz.ini:158, Hormuz_hard, Hormuz_tarawa and Don't Mess With Texas (Blue/Red):159. Saves store GeoPosition per unit (NORTHERN FRONT MIDGAME III.sav:173, 238, 272). changelog.txt:2485 (0.5.3, 13-Nov-2025): 'positions were saved in Unity coordinates ... changed to Geopositions'. No SEST Python tool reads or writes GeoPosition (grep: zero hits in *.py), so build_pack harvest() also ignores the stock GeoPosition airbases.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The game's own text gives the map centre two roles, performance and local time. It does not state any maximum extent: 'drag this to the center of the scenario for best performance - also used to calculate the Local time'.",
+    "class": "GAME",
+    "evidence": "mods-source/_vanilla/original/language_en/ui.ini:1256 (CentralMapPointTooltip). :1255 LocalTimeTooltip says times are 'local time at the mission center point'. :704 says the editor map centre and zoom seed the generated briefing-map view. MissionFileInformation.ini:148 says 'Use real world coordinates for mission area central position'. No stock config sets a map extent or radius: config.ini only has LOD/draw ranges at :182-219, and terrain.ini:20 has ChunksViewDistance=4. How much centre placement actually affects performance is UNMEASURED.",
+    "confidence": "high"
+   },
+   {
+    "claim": "A mission whose units sit 7,300-8,240 NM (great-circle) from its map centre, with spawn positions spread 3,794 NM apart, has loaded, been played and been saved by the game. This is an observed working case, not a measured maximum.",
+    "class": "GAME",
+    "evidence": "The NORTHERN FRONT family has centre 54.27,-26.28 (North Atlantic) and units over northern Australia and the West Pacific, at lon 103.4-165.9 and lat -23.8 to 10.4. Darwin is 8,067 NM and Scherger 8,240 NM from the centre (scratch gc calculation). The original is a user editor save (mods-source/_vanilla/user/missions/NORTHERN FRONT.ini, per build_northern_front_ii.py:2,40). Game saves exist: NORTHERN FRONT MIDGAME III.sav (14 MB, Name=NORTHERN FRONT II) and New midgame.sav (22.8 MB, NORTHERN FRONT III FINAL). The 3,794 NM spawn spread is from scratch spread_spawn.py over 524 missions. Stock examples: UnderCoverOfTheRain.ini (centre 68.31,14.25, lines 179-180) has neutral-vessel waypoints 4,913 NM apart (East Med to Chesapeake); Northern Passage.ini:137-138 has its centre at 82.08N with a unit at 85.05N. 237 user missions share centre 54.27,-26.28. That suggests it is the editor default, but this was not confirmed.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The engine uses a geo-referenced global terrain with a moving origin (a 'relocation' system). It has known defects around relocation and at 180 E/W. No mission in the repo has ever placed a unit or waypoint across the antimeridian, so behaviour there is untested.",
+    "class": "UNMEASURED",
+    "evidence": "Relocation is mentioned in changelog.txt:2882, 3482, 4030 ('Dead units were teleported due to malfunction in relocation handling', 22-Feb-2025), 4793 and 5099 (cascading relocation events). The 180 E/W entries are :4380 (16-Jan-2025, 'center tile was calculated wrongly and led to a relocation loop (still WIP)') and :4096 (17-Feb-2025, 'Trial of fix for 180° E/W location'); nothing later. Terrain: :3873 'Major overhaul of terrain system and map'; terrain.ini:20 chunk streaming; terrain/objects/objects.ini places objects by absolute Latitude/Longitude; docs/design-notes.md:62-70 (global 30 arc-second / 1 km grid). Scanning every stock, user and SEST mission (scratch) found 0 files with positions or waypoints past +-180 or spanning it.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "The campaign builder's default 'pool' geography is the main SEST limit on where things can be placed. Every land unit, port or coastal station must snap to a point some earlier loading mission used, within 60 NM, or the build exits. The pool covers almost none of the world sandbox's regions.",
+    "class": "BUILDER",
+    "evidence": "integration/campaign/build_pack.py:34-42 (docstring), :87 GEOGRAPHY='pool', :753-801 harvest(), :974-1003 Snapper.take() (SystemExit at :996-1001), :1541-1552 (land and coastal units snap per unit), and :5860 limit_nm=mission.get('snap_limit', 60.0). A read-only replica of harvest() (scratch pool.py) finds 2,496 sea and 2,761 land unique points. The docstring's 'about 33,000' is the pre-dedupe count (36,229 raw); build-notes say 5,300. Sites with no proven point within 60 NM of the needed kind: San Diego 766, Kitsap 980, Whidbey 2,378, Norfolk 989, Kings Bay 545, Langley 1,692, Pearl Harbor 1,513, Hickam 2,311, Apra Harbor 186, Yokosuka 206, Sasebo 107, Yulin 112, Zhoushan 212, Olenya 69, Vladivostok 96, Ukrainka 590, Haakonsvern 151, DG lagoon 123, HMAS Stirling 927, Bahrain 90, Al Udeid 210, Lemonnier 68, Souda 92, Naples 218, Sigonella 282, Stanley 3,609, Mount Pleasant 2,965, Brest 512, Landivisiau 521. Sites that pass: Andersen, Misawa, Kadena, Severomorsk, Yelizovo, Evenes, Bodo, DG airfield, Learmonth, Darwin, Tindal, Bandar Abbas, Djibouti port, Rota, Tartus. The build notes say this limit shaped theatre choice: docs/campaigns/southern-watch/build-notes.md:1236-1240 ('That is why the Levant, the Gulf and the Med do not appear: the collection's own missions have never sailed there, so there is no proven water to snap to').",
+    "confidence": "high"
+   },
+   {
+    "claim": "In pool mode, an offshore station more than 25 NM from every harvested land point is accepted as authored without any land/water check. Where the pool is empty (US coasts, Hawaii, Falklands, Brest), offshore positions are therefore not validated at all, only listed as 'unproven'.",
+    "class": "BUILDER",
+    "evidence": "build_pack.py:825-829 (OFFSHORE_SNAP=8.0, OPEN_SEA=25.0) and :929-971 open_water(), case 1: 'Further than OPEN_SEA from every harvested land point: the authored point is used exactly ... Recorded as unproven'. History is in docs/campaigns/southern-watch/build-notes.md:617-635: per-hull snapping moved stations up to 43 NM, so it was relaxed. In the regions above the nearest pool land point is 500-3,600 NM away (scratch pool.py), so every offshore station there falls into case 1.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The alternative 'coast' geography is limited only by a committed regional data extract (100-180E, 25-72S). Every position outside that box is reported as a placement problem. This is a builder choice that can be extended: a global extract made with the repo's own code is practical.",
+    "class": "BUILDER",
+    "evidence": "tools/make_coast_extract.py:2-21 and :97-101 (default box [100,-72,180,-25], tolerance 0.006 deg). The committed geo/southern_theatre_coast.json has box [100,-72,180,-25], 111 rings, 12,167 points and 241 KB. CoastPlacer._cover is at build_pack.py:864-869 ('outside the coastline extract's box ... extend it with tools/make_coast_extract.py'); the default path is coast.py:31. Rationale: docs/campaigns/southern-reach/build-notes.md:41-49 ('Nothing in this repo had sailed the Southern Ocean ... so there was no pool to snap to'). Measured with the repo's clip/simplify and Coast class against the cached Natural Earth data, written to scratch only: a global extract has 9,632 rings and 479,299 points, takes 8.7 MB and 3.8 s to cut, and 1.7 s to index (17,739 cells). Queries take about 6-8 ms each (48 ms at 84N); open ocean returns the 400 NM cap in 2 ms.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The builder's coastline data (Natural Earth 1:10m, outer rings only, holes dropped) is too coarse for several sandbox anchorages. These are limits of the builder's data, not proof that the game's terrain lacks the water.",
+    "class": "BUILDER",
+    "evidence": "coast.py:51 ('Holes are lakes, ignored') and make_coast_extract.py:112 (outer = poly[0] only). In Natural Earth 1:10m, Diego Garcia is a single 27-point polygon with 0 holes (scratch check), so a ship in the lagoon reads on_land=True. With the scratch global extract, test points at Kitsap/Hood Canal (47.73,-122.72) and Kola Bay near Severomorsk (69.07,33.42) also read as ashore. docs/campaigns/southern-reach/build-notes.md:265-268 says 'The coastline is Natural Earth's, not the game's'. Whether the game's 1 km terrain (design-notes.md:62) opens these waters is UNMEASURED.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "build_pack.py's main distance function, nm_between, is a flat-earth (mean-latitude) approximation with no longitude wrap. It is accurate within a theatre but wrong across the antimeridian. coast.py's index has the same no-wrap assumption.",
+    "class": "BUILDER",
+    "evidence": "build_pack.py:816-819. Similar flat formulas are at coast.py:66-77 and briefing_maps.py:233-235. Compared with great-circle distance (scratch): Severomorsk-Evenes 365 vs 364 NM, Diego Garcia-Djibouti 2,090 vs 2,083, Norfolk-Brest 3,241 vs 3,122 (+3.8%). Across the antimeridian: Guam-Pearl 17,333 vs 3,303 (+425%) and Yelizovo-Pearl 15,230 vs 2,754 (+453%). The coast.py cell keys at :40-44 and :82 are floor(lon/0.5), with no modulo, so cells either side of 180 are not neighbours.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Sixteen distance and bearing checks in build_pack.py use raw x/z values as if x were NM east. But x is arcminutes of longitude, so these checks overstate east-west distance by 1/cos(lat) and skew bearings at mid and high latitudes. They also break across the antimeridian. This is a builder defect that can be fixed by converting to lat/lon and using great-circle distance; it is not an engine limit.",
+    "class": "BUILDER",
+    "evidence": "The docstring at build_pack.py:2453-2457 (_bearing) says 'in the mission's NM frame: x east, z north', which contradicts the builder's own datum at :770-774 and :1594-1595. math.hypot over x/z is used at :1791 (airliner path length), :1891 (home-base reach), :2561/2569/2580-2581/2708-2709/2737 (protection and closure), :2864/2877/2891/2907 (victory reachability), :3719 (lift circle vs radius NM) and :4891 (sortie radius). The overstatement factor is x1.02 at 12S, x1.35 at 42S (Southern Reach), x1.49 at 48N (Brest), x2.00 at 60N (Bergen) and x2.79 at 69N (Kola). Examples: Severomorsk-Evenes measures 1,005 NM in x/z against 364 true; Norfolk-Brest 4,361 against 3,122 (scratch).",
+    "confidence": "high"
+   },
+   {
+    "claim": "The builder's civil 'airway' generator extends the route in a straight lat/lon line by a factor proportional to the mission clock, with no clamp. That works for 45-75 minute missions but sends waypoints past the poles or around the globe under a long persistent clock.",
+    "class": "BUILDER",
+    "evidence": "build_pack.py:1606-1617: stretch = max(1, AIRWAY_MARGIN * civil_reach_nm(mission) / dist), and route=(lat + (to_lat-lat)*stretch, ...). civil_reach_nm is at :813 (470 kn * minutes/60). campaign_data.py:524/662/810/936/1052 set minutes=45-75. Worked example: Darwin to Singapore under a 1,440-minute clock gives stretch about 9.3, which puts the waypoint at lat about 116 (off the globe).",
+    "confidence": "medium"
+   },
+   {
+    "claim": "The tooling already has a global land/water source: global_land_mask, a worldwide 1 km mask used by the mission-level tools. Only build_pack.py relies on the regional pool or extract. The sea-lane router builds its grid from the via points' bounding box with no wrap, so lanes across the antimeridian cannot be routed.",
+    "class": "BUILDER",
+    "evidence": "global_land_mask is used by integration/missions/fix_land_positions.py:31-45, thin_waypoints.py:41,79, build_land_defence.py:74,805, build_indo_pacific_showcase.py:483-486 and sea_routes.py:31-34. It is not installed in this container. sea_routes.py:155-160 grid_for uses box = floor(min(lon)-pad) .. ceil(max(lon)+pad), with STEP=0.025 deg (:36). For Guam to Pearl that box spans 311 degrees the wrong way round within a narrow latitude band, which ends in 'no water path' SystemExit at :172-173. build_land_defence.py:780-798 (Geo) is the one helper that correctly scales east-west offsets by cos(lat) on the arcminute datum.",
+    "confidence": "high"
+   },
+   {
+    "claim": "No SEST builder or checker enforces a maximum distance from the map centre, and the validation tools contain no spatial limits. The builder's split into short missions, each with its own centre, is a design choice, not a response to a measured engine limit.",
+    "class": "BUILDER",
+    "evidence": "build_pack.py writes MapCenter verbatim from mission['centre'] (:3211) and positions as (lon-centre)*60 (:1594-1595, :1703-1705), with no range check (grep of all 'centre' uses). campaign_data.py gives each mission a centre and a 45-75 minute clock. tools/check_scenarios.py:12-17 checks counts, formations, duplicate sections and formation counts only. tools/preflight.py:17-23 checks references only. make_scenarios.py:3-6 carves NORTHERN FRONT III because it is 'heavy for a quick fight', a design judgment, and :18-19 notes 'Positions are absolute'.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The briefing-map generator cannot usefully draw a global mission: it is a plate carrée box around every unit, with an Indo-Pacific default inset, a fixed 50/100 NM scale bar and no antimeridian handling. This is a cosmetic builder limit. The game can generate its own briefing-map start view from the editor centre and zoom.",
+    "class": "BUILDER",
+    "evidence": "integration/missions/briefing_maps.py:10 (datum), :171-190 extent() (min/max lon, no wrap), :295 (graticule step 1 or 2 degrees), :342 (default inset (93,-26,162,14)), :434-436 (scale bar 50/100 NM), and :262-283 off_chart (focus_nm). Game side: ui.ini:704.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "The campaign builder's output paths are fixed to the published SEST_Campaign pack and rewrite pack-level files on every build. Reusing build_pack.py for the world sandbox as-is would change published content.",
+    "class": "BUILDER",
+    "evidence": "build_pack.py:68 OUT = HERE / 'SEST_Campaign', which set_campaign() does not swap (:99-121 swap only the listed globals). :151 _OWN_FILES = ('DOCS_DIR', 'COVERAGE_DOC') is the only guard. :6246-6259 rewrite OUT/_info.ini, REQUIRED-MODS.txt and LOAD-ORDER.txt, and :6088-6195 write into OUT/campaigns and OUT/missions.",
+    "confidence": "high"
+   },
+   {
+    "claim": "No performance figure exists in the repo for large or far-flung missions: no load times, frame rates or unit-count ceilings. SEST unit densities were deliberately kept low pending profiling. Any statement about active-world capacity is currently unmeasured.",
+    "class": "UNMEASURED",
+    "evidence": "A grep of docs/*.md for load time, fps, frame rate, stutter, unit cap and similar found no measurements. The only recorded load failure was a flag bug, not a size issue (docs/campaigns/southern-watch/build-notes.md:1264-1275, Rig Seventeen, TaskForceModeIncludesAirwing). Build notes :2316-2320: 'Small missions here run 5-19 units against a 20-45 target ... density is the thing to raise once a mission has actually been profiled on the user's PC'. docs/world-sandbox/gameplay-and-tests.md:39 says no gameplay or save/load tests were performed. The largest mission evidence is NORTHERN FRONT III (about 260-293 units, 70-81 KB) with 14-23 MB saves; no timing was recorded.",
+    "confidence": "high"
+   }
+  ],
+  "open_questions": [
+   "Performance vs centre offset: the game's tooltip says to drag the centre to the scenario 'for best performance' (ui.ini:1256). How big is that effect? Test: load the same unit set with the centre over the action and then 2,000, 5,000 and 8,000 NM away, recording load time, frame rate at 1x and 20x, and Player.log.",
+   "Antimeridian behaviour (no repo mission has crossed it): do units at 179.9E and 179.9W spawn correctly? Does a ship given a waypoint across 180 take the short way or travel x/z the long way round? Does the 'relocation loop' from changelog:4380 recur in 0.8.4?",
+   "How does the game measure distance in an area trigger (Condition AreaRadiusNM) and in RandomSpawnRange or formation spacing 'in miles' at high latitude: true NM or x/z units? The builder's lift-circle check (build_pack.py:3719) assumes x/z units.",
+   "Waypoint pathing over long legs: does the engine follow a great-circle, a rhumb line, or a straight x/z line, for example Norfolk to Brest or Guam to Yokosuka? This decides whether builder route math must be great-circle.",
+   "Active-unit capacity: frame rate and simulation cost against the number of simultaneously active units spread across many regions, compared with NORTHERN FRONT III's ~260-293 units concentrated in one region. Does dormant or distant content cost anything (relocation events, terrain chunks under ChunksViewDistance=4)?",
+   "Save and reload at global extent: does a save with units in several hemispheres reload with positions, ammunition and Task Force Mode state intact? Saves store GeoPosition, but the multi-region case is untested.",
+   "Does the game's 1 km terrain show water where Natural Earth 1:10m shows land (Diego Garcia lagoon, Hood Canal/Kitsap, Kola Bay)? Needs a spawn test at those anchorages before trusting either the coastline extract or the global_land_mask check.",
+   "Is 54.27,-26.28 the editor's default map centre? 237 user missions use it, but the value is not found in any stock config.",
+   "Should the world builder use GeoPosition for absolute placement, which stock syntax supports (MissionFileInformation.ini:436-440)? That would avoid centre-relative arithmetic entirely; it needs one in-game confirmation that GeoPosition works for every unit class (vessels, submarines, aircraft and land units).",
+   "Builder decisions to make before a global build: replace pool snapping with the global coastline extract or global_land_mask, switch the 16 x/z hypot sites and nm_between to great-circle on lat/lon with longitude wrap, clamp airway stretch for long clocks, and give a world builder its own output root outside integration/campaign/SEST_Campaign."
+  ]
+ },
+ {
+  "lens": "observations",
+  "findings": [
+   {
+    "claim": "The engine has loaded, run and saved a mission whose units were all about 9,300 to 11,900 'NM' from its map centre. The player's NORTHERN FRONT missions set the centre in the North Atlantic (54.27N, 26.28W), while every unit is in northern Australia, Indonesia and PNG. The mid-mission save holds 298 placed units (251 moving faster than 1 kt), 634 aircraft in custom air groups, 30 weapons in flight and an airstrike in progress. The units are spread across about 1,900 NM north-south and 57 degrees of longitude (106E to 163E). Neither a distant shared origin nor this span stopped the mission from loading, running for at least about 45 minutes of sim time, or saving. This does NOT establish frame rate, load time, whether the save reloads, or behaviour on the current 0.8.4 build: the save was made on 25 Aug under a 0.8.2-era build.",
+    "class": "GAME",
+    "evidence": "integration/missions/NORTHERN FRONT III FINAL.ini:65-66 (MapCenterLatitude=54.27, MapCenterLongitude=-26.28) and :126 (RelativePositionInNM=9618.02,0,-3736.57). data/install-snapshot/saves/New midgame.sav:2-7 ([File] SaveFile=True, BaseFile=missions\\_temp\\_TempMission.ini, CreationTime=2026-08-25T15:32:08Z) and :73-74 (same centre); its [Mission] block has NumberOfTaskforce2LandUnits=56 and so on. data/install-snapshot/campaign-saves.txt lists 'missions\\New midgame.sav 22,847,208 bytes 2026-08-26'. Scratch census of the save (python over its sections): 298 unit sections, 251 with VelocityInKnots>1, 30 weapon sections, GeoPosition lat -21.22..10.39 and lon 106.07..163.07, LastLaunchTime max 2720 s. The extremes are the PLA DF-26B TELs at 114.36E 10.38N and the Type 003 group at 157E -2.8. 'NORTHERN FRONT MIDGAME III.sav' (NORTHERN FRONT II) is similar: 205 units, lon 122.5..150.4, LastLaunchTime max 3186 s.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Missions shipped by the developer also put units thousands of NM from a shared map centre. Three stock missions use the same 54.27/-26.28 centre, with units about 3,900 to 12,200 NM away. Neither the developer nor the player treats a distant common origin as a placement limit.",
+    "class": "GAME",
+    "evidence": "mods-source/_vanilla/original/missions/Warsaw Pact/Strawberries Can Kill (Red Side).ini:33-34 (centre) and :73 (RelativePositionInNM=12117.71,0,-954.68); NATO/Better Part of Valor 1988.ini:112-113 and :136 (-3541.39,0,-1925.81); Warsaw Pact/Don't Mess With Texas (Red Side).ini:33-34 and :72 (3756.77,low,-1128.46). A scratch census across all stock missions found maximum offsets of 12,161, 4,118 and 3,922 NM.",
+    "confidence": "high"
+   },
+   {
+    "claim": "RelativePositionInNM is a coordinate representation that maps linearly to degrees: lat = centre + z/60 and lon = centre + x/60, with no cos(latitude) factor. Positions the engine itself wrote reproduce this exactly at offsets of about 10,000. The x value is therefore arc-minutes of longitude rather than true nautical miles away from the equator; at 69N one x unit is about 0.36 NM. The builder uses the same formula.",
+    "class": "GAME",
+    "evidence": "NORTHERN FRONT III FINAL.ini:2087 has RelativePositionInNM=9429.85,low,-4001.8 for airbase_raaf_darwin. 54.27-4001.8/60 = -12.4267 and -26.28+9429.85/60 = 130.8842, against New midgame.sav:238 GeoPosition=-12.4266681555732,130.884157640465. Scherger checks the same way: .ini:2145 10099.11,low,-4012.38 against .sav:496 -12.60299,142.03848. The builder's formula is in docs/campaigns/southern-watch/build-notes.md:1256 ('checked against the two RAAF bases ... within a mile'). This does not show whether the simulation uses flat or spherical geometry for distances.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The developer links the position of the map centre to performance, not to validity. The editor tooltip says to drag the central point 'to the center of the scenario for best performance'. That is an unquantified performance hint, not an extent limit. No measurement in the repo shows what a distant centre costs, so 'one centre, therefore regional missions' has no support from the game data.",
+    "class": "GAME",
+    "evidence": "mods-source/_vanilla/original/language_en/ui.ini:1256: 'CentralMapPointTooltip=Sets the coordinates of the mission's central map point - drag this to the center of the scenario for best performance - also used to calculate the Local time'. A grep of docs/, the commit messages and the captured logs finds no measurement of a centre-offset cost.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The game's own changelog describes a 'flat Earth' with a date-line edge and a history of bugs there. A fix shipped in 0.5.0, and earlier relocation-loop work at 180 degrees was marked 'still WIP'. No mission in the repo (stock, the player's own or SEST) has units on both sides of 180 degrees. Behaviour of a single mission spanning Hawaii and Guam or Japan is therefore untested on the current build. This is a risk, not a demonstrated limit.",
+    "class": "GAME",
+    "evidence": "mods-source/_vanilla/changelog.txt:2618-2619 (01-Oct-2025, 0.5.0): 'Huge calculation error for units at date line \"edge\" of our flat Earth' and 'Some out of bounds longitude positioning when crossing the date line \"border\"'. :4380 (16-Jan-2025, 0.1.1.2): 'terrain at 180° E/W where the center tile was calculated wrongly and led to a relocation loop (still WIP)'. :4096 (0.1.1.4): 'Trial of fix for 180° E/W location'. A scratch scan of every mission and save .ini found none with units both east of 170E and west of 170W; the closest is Officer_Training_5 at a maximum of 179.51E.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "Keeping units west of 180 degrees in the Southern Reach work is a builder and design choice, not a recorded engine failure. The coastline extract tool's default bounding box ends at 180E, and the bible keeps the Chatham mission west of 180 without citing any game test.",
+    "class": "BUILDER",
+    "evidence": "tools/make_coast_extract.py:98 default=[100.0, -72.0, 180.0, -25.0]. docs/campaigns/southern-reach/build-notes.md:41-47 (extract clipped to 100–180°E, 25–72°S). docs/campaigns/southern-reach/campaign-bible.md:98 ('the Chatham mission stays west of 180°') and :282 ('every unit west of 180°; the Chathams are 200 NM further east and stay in the briefing').",
+    "confidence": "high"
+   },
+   {
+    "claim": "The engine manages its own runtime origin and geo positions separately from the mission's map centre, which looks like a floating-origin design. The changelog moved saved positions from Unity coordinates to geopositions, relocates a centre tile, and fixed 'ghost objects at world origin'. A runtime mod log also shows each object carrying both a Unity position and a geo position. This further suggests MapCenter is a representation and does not fix the physics origin.",
+    "class": "GAME",
+    "evidence": "changelog.txt:2485 (0.5.3): 'Towed system trail renderer segments positions were saved in Unity coordinates ... changed to Geopositions'. :4380 'center tile ... relocation loop'. :2236 (0.6.8): 'Ghost objects at world origin sometimes causing lags at low sun angle'. :5348: 'Mission Editor: GeoPosition support on unit loading'. git show f494117b:data/install-snapshot/bepinex.log has '[Info :SubAmmunition] SONO pos=(-666.47, -0.01, 13.98) geo=lat=-10.2999 lon=144.1053', with the SW02 centre at -10.3,145.0 (Southern Watch 02 - Steel Highway.ini, MapCenter lines). This reading of the mechanism is an inference.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "Unit counts on record. The largest stock mission has 87 declared units. The player's NORTHERN FRONT III FINAL has 241 placed units plus about 546 aircraft in custom air groups; FINAL NEWEST has 269 plus 545. Both were played and saved, the save holding 298 units plus 634 aircraft. SEST Banda Front EDITED (857 units, 794 of them on land, about 1,266 NM by 39 degrees of longitude) and Lean v2 (536 units) were loaded and re-saved in the game's editor. No record shows either being simulated. SEST Indo-Pacific Land Assets (974 units) has no recorded load at all.",
+    "class": "GAME",
+    "evidence": "Scratch census of mods-source/_vanilla/original/missions: '09 Shadows off Palawan.ini' has 87 declared, the stock maximum. Scratch census of integration/missions: NORTHERN FRONT III FINAL.ini 241, NEWEST 269, SEST Banda Front EDITED.ini 857, Lean v2 536, SEST Indo-Pacific Land Assets.ini 974. A scratch count of 'type=SquadronN,count' air-group lines gave 546, 545 and 634 (the save). integration/missions/README.md:91 ('as the user edited and saved it in the game'), :45 (Lean v2 'edited in the game on 20 September') and :53 (Living Seas 'as it stood in the game on 19 September').",
+    "confidence": "high"
+   },
+   {
+    "claim": "No load time, frame rate, CPU or memory figure has ever been measured for any mission. Player.log has no timestamps and never names the mission it loads. The capture script records only file modification times. The game's own EnablePerformanceLogging switch has never been turned on. The repo itself lists 'that any mission's unit count is comfortable on a particular PC' as not demonstrated.",
+    "class": "UNMEASURED",
+    "evidence": "mods-source/_vanilla/original/config.ini:3 has EnablePerformanceLogging=False; grep finds no other reference in the repo. tools/capture-context.ps1:122,162,175 records only LastWriteTime. docs/campaigns/southern-watch/build-notes.md:2264 and :2300. git show 67c65155:docs/banda-front-lean-verification.md:87-88 says 'no in-game performance or firing test was possible in this environment'. The known hardware is an RTX 2070 SUPER with 7989 MB VRAM (data/install-snapshot/player-prev.log:15-17) on Windows NT 10.0.26200 (environment.txt), at 2560x1440 (git show 6555a94f player-prev.problems.txt). CPU and RAM are not logged.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The campaign unit budgets are builder and design choices, explicitly 'not measured engine limits'. The shipped campaign missions stay deliberately small until profiling is done. They are not evidence of a game cap.",
+    "class": "BUILDER",
+    "evidence": "docs/campaigns/southern-watch/campaign-bible.md:383-385: '20–45 placed units per small mission and 45–80 for the larger fleet missions ... These are starting budgets, not measured engine limits. Profile the user's PC before expanding them.' docs/campaigns/southern-watch/build-notes.md:2316-2321: 'Small missions here run 5–19 units ... density is the thing to raise once a mission has actually been profiled on the user's PC'.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The existing size reductions are rule-based or undocumented, not performance-driven. Banda Front Lean cut land units from 794 to 396 or 414, and thin_waypoints cut 312 waypoints to 42; both commits give rules, not measurements. The player's 'SULU SEA OFFENSIVE smaller / much smaller / v2 / v3' series shrinks 64 units over about 1,305 NM to 44–68 units over about 220–550 NM, with no recorded reason. None of this shows an engine limit.",
+    "class": "BUILDER",
+    "evidence": "git show 685634af (message: 'every site trimmed to its core ... 794 land units down to 396', by rule and file order, with no performance claim). git show d8588d7a ('patrol loops cut to one lap ... 312 waypoints down to 42'). integration/missions/README.md:36-48 and :95-110. A scratch census of integration/missions/SULU SEA OFFENSIVE*.ini gave the counts and spans. A grep of docs and commit messages for the Sulu variants finds no rationale.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "The only documented mid-mission freeze was not caused by mission size. On 28 Sep Steel Highway stopped responding ('not responding, nearly 8,000 CPU seconds'). The cause was a third-party code mod, the PLA & PLAN & PLAAF AEP, logging a full stack trace on every physics tick for every sonobuoy or bomb. This is the installed runtime, not the stock engine or the SEST builder. It shows that per-object, per-tick code-mod costs grow with object count, which is a risk for a large world. The fix's full replay (test card 7.3b) has not been reported.",
+    "class": "GAME",
+    "evidence": "docs/campaigns/southern-watch/build-notes.md:1331-1352. Commit 9ea7ae00. git show f494117b:data/install-snapshot/bepinex.log holds 73 'SONO pos'/'SETGEO bomb' lines with OnFixedUpdate stacks. tools/quiet-mod-debug.ps1 is the fix, and README.md:111-115. Later snapshots 8ae4f3b9, 6555a94f, ba5241f9 and cccf0481 have 0 'SONO pos' lines in bepinex.log. docs/campaigns/southern-watch/test-card.md:331 (7.3b) is still open.",
+    "confidence": "high"
+   },
+   {
+    "claim": "A second exception flood from a code mod is captured but never analysed. During the 3 Oct play session the Liaoning (CV-16) mod's plugin threw an ArgumentException 6,398 times, each from FlightDeck.OnFixedUpdate. That session's Player-prev.log reached 130,442 lines. The game's own UI text warns that repeated exceptions 'will severely degrade performance'. The session ended with a clean shutdown, so it was not a crash, but the cost on frame time was never measured.",
+    "class": "GAME",
+    "evidence": "git show 6555a94f:data/install-snapshot/player-prev.log has header 'last 4000 of 130442 line(s)', and lines 23-35 show 'ArgumentException: Field _isInFlight defined on type SeaPower.Aircraft is not a field on the target object which is of type SeaPower.Helicopter' at meltemi.CV16.plugin.ForwardRunwayClearancePatch.PlaneTakeoffPrefix, then SeaPower.FlightDeck.OnFixedUpdate. git show 6555a94f:data/install-snapshot/player-prev.problems.txt has 6,398 such lines up to log line 129,822. mods-source/_vanilla/original/language_en/ui.ini:32 is RepeatedNullRefError. A grep of docs and commit messages for '_isInFlight' or 'CV16' finds nothing.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Every documented crash and load failure traces to a content or reference fault, or to a Task Force Mode generation detail. None is attributed to unit count, map extent or distance from the centre. The documented cases are: the KJ-500/P-8 map-panel crash (an aircraft with no resolvable default loadout), the startup 'AirGroup' KeyNotFound (a renamed alias base), Rig Seventeen's NullReference (a Taskforce1VesselN home base looked up in a small carried-over force), and the map-UI NullReference from the renamed Spruance hull. The earlier claim that duplicate unit ids crash the game was retracted.",
+    "class": "GAME",
+    "evidence": "docs/design-notes.md:495-527, with commits 63261bd8 and b3aef5ce ('verified by the user on a clean launch/quit'). design-notes.md:463-469 ('died at startup with KeyNotFoundException 'AirGroup''). docs/campaigns/southern-watch/build-notes.md:1263-1312 ('| 1 vs 3' note; direct load on a fresh force passed 27 Sep). Commit cdc4c0a1 (Spruance). design-notes.md:55-61 and commit 1ff2c30c (retraction).",
+    "confidence": "high"
+   },
+   {
+    "claim": "The 20 Sep 'stuck load' is unattributed. The mission was never named, the captured log ends mid material-loading, and the repo rolled back a pack change 'on the balance of evidence, not a diagnosis'. It cannot be cited as evidence of a size limit. The player was editing the 536-unit Banda Front Lean v2 around that time, but nothing links the two.",
+    "class": "UNMEASURED",
+    "evidence": "Commit e2003125 (2026-09-20 07:32 UTC): 'A mission that loaded fine now hangs on load ... This is a rollback on the balance of evidence, not a diagnosis - player.log settles it either way.' git show 60c8595d:data/install-snapshot/player.log is 185 lines, ending in LoadMaterialFromFile(...plan_yj_83_intake_mat.ini), with no mission name. docs/design-notes.md:536 ('withheld after a load hung, and it has not been proven in game since'). Commit 63335902 (16:09 +1000, Lean v2 import) is circumstantial only.",
+    "confidence": "medium"
+   },
+   {
+    "claim": "On save and load: large mid-mission saves exist (22.8 MB for 298 units, 14.0 MB for 205, 5.7 MB for 37). At least 95% of each file is a single [PlottingTable] Payload= line, while the unit sections are under 1 MB. Save size therefore follows the plotting-table payload rather than unit count. Nothing records whether those mission saves reload. Small Task Force Mode campaign saves (51 to 84 KB) did reopen and continue across two rebuilds on 3 Oct. The changelog shows save/load of mid-mission state is still being fixed into 0.8.2.",
+    "class": "GAME",
+    "evidence": "A scratch byte census per key gave Payload in [PlottingTable] of 21,904,831 bytes in New midgame.sav, 13,230,730 in NORTHERN FRONT MIDGAME III.sav and 5,431,922 in 'Carrier 1v1 Coby Before I sped Up 20x.sav'; decoding it failed, so its contents are unknown. docs/campaigns/southern-watch/build-notes.md:1874-1879 and docs/packaging-and-recovery.md:672-688. changelog.txt:272-279 (0.8.2 Build #364, for example 'Campaign save could be loaded only once per session' and 'Loading save with landing aircraft could get that aircraft destroyed') and :49 (0.8.2 260928b, 'AI CAP planes excluded from CAP after save/load').",
+    "confidence": "high"
+   },
+   {
+    "claim": "Time compression has stock limits tied to engagements, weapons and sonobuoys, plus a history of high-compression bugs. The repo has no measured result at any compression on a large mission: only a save file name mentioning 20x and an unreported 8x test row. Whether an engagement in one region caps compression for the whole multi-region world has never been measured. That matters for persistent transits and resupply.",
+    "class": "GAME",
+    "evidence": "mods-source/_vanilla/original/config.ini:13 MaxTimeCompression=100. changelog.txt:5121 (Build #74) '[NEW] Limited time compression for engagements', :5104 'Sonobuoys limited time compression', :5022 'Rebalanced time compression limits for gun and CIWS', :2157 (0.7.0) 'TC waypoint tolerances to prevent aircraft from being stuck on waypoint due to high Time Compression', :1512 (0.7.9) weapon aiming at high TC, :865 (0.7.10) mount rotation at high TC. data/install-snapshot/saves/'Carrier 1v1 Coby Before I sped Up 20x.sav' (name only; 37 units). docs/campaigns/southern-watch/test-card.md:359 (H.1, 8x, unreported).",
+    "confidence": "medium"
+   },
+   {
+    "claim": "Two AI movement behaviours have been seen in game, and both matter for persistent routine traffic and logistics. First, an aircraft with no waypoints orbits its spawn point, and one that reaches its last waypoint orbits there, so routes must outlast the session. Second, a Workshop player measured sea state cutting a replenishment ship's flank speed to 7 kn at state 5, so transit and resupply timing depends on weather.",
+    "class": "GAME",
+    "evidence": "Commit 1ff115b7 ('the first install watched White Water's airliner circle one spot all mission'). docs/campaigns/southern-reach/build-notes.md:184-194. integration/missions/extend_civil_airways.py:1-24 (the builder now extends routes to about 4 h). docs/campaigns/southern-watch/build-notes.md:2045-2048 ('HMAS Supply makes seven knots at flank in its sea state 5') and :2072-2075 (SEA_SPEED is calibrated on that one point). ui.ini:1250 says SeaState 'affects sonar detection and ship speed'.",
+    "confidence": "high"
+   },
+   {
+    "claim": "Land and water correctness is checked only by builder approximations, and nobody has yet observed a grounding or a land collision in game. The engine's terrain is a 1 km grid, according to the developer diary cited in the repo. Land units clamp to 1 m and float when placed on water. The builder uses a 1 km land mask and a Natural Earth extract, and the ships it once found ashore were caught by its own checks, not seen in game. The play-test question 'did any ship run aground?' has no recorded answer.",
+    "class": "BUILDER",
+    "evidence": "docs/design-notes.md:62-70 (1 km grid, Dev Diary #4) and :71-82. mods-source/_vanilla/original/terrain/terrain.ini:28 MinHeightForLandUnits=1.0. Commit 3e11eb42 (ships on the Tiwi Islands, Palawan and Biak found by the builder's mask). docs/campaigns/southern-reach/build-notes.md:41-56 and :262-268 ('The coastline is Natural Earth's, not the game's'). docs/play-test-guide.md:192 (unanswered). docs/design-notes.md:589-594.",
+    "confidence": "high"
+   },
+   {
+    "claim": "The builder's main placement mode can only place sea and land units at points that some existing mission already used, about 33,000 'proven points'. Those pools are thin or missing in theatres the repo has never sailed: Kola, Diego Garcia, the Falklands and Brest have no Southern Watch-style pool. This is a builder limitation on authoring new regions. The alternative coast mode needs a new per-theatre coastline extract. It is not an engine limit.",
+    "class": "BUILDER",
+    "evidence": "integration/campaign/build_pack.py:34-42 ('every sea and land position is SNAPPED to a position some already-loading mission put a unit of that kind on ... about 33,000 proven points') and :87 (GEOGRAPHY = \"pool\" or \"coast\"). docs/campaigns/southern-watch/build-notes.md:1247-1261 (anchors moved up to 36 NM where 'the pool is thinnest') and :2318-2320 ('the pools are thin in some theatres'). docs/campaigns/southern-reach/build-notes.md:41-47 (coast mode added because 'there was no pool to snap to').",
+    "confidence": "high"
+   },
+   {
+    "claim": "Stock settings and changelog entries indicate that terrain and visual detail stream in chunks around the view rather than loading for the whole globe. Whether units far from the camera get correct terrain height, collision and avoidance is unmeasured. Engine-written saves do give geo-altitudes for land units about 1,000 NM apart in the same mission.",
+    "class": "GAME",
+    "evidence": "mods-source/_vanilla/original/terrain/terrain.ini:16 MaxParallelLoadingJobs=32 and :20 ChunksViewDistance=4. changelog.txt:3870 ('Improve terrain loading performance & memory utilization'), :3764 ('Terrain Loader race conditions'), :1489 ('new terrain loading'). data/install-snapshot/player-prev.log:226 ('[HighAltitudeSkyFix] Cloud culling radius extended from 4 to 8 chunks'). New midgame.sav:238 (Darwin, altitude 163.88) and :496 (Scherger, 143.46). changelog.txt:861 ('submarine getting stuck after initiating terrain avoidance') shows terrain avoidance exists for submarines.",
+    "confidence": "low"
+   },
+   {
+    "claim": "Round-tripping a mission through the editor rewrites the whole file. It silently flattens Hold and Tight weapon status to Free and folds formations. Any persistent world authored or patched in the editor will lose ROE intent unless restore_roe.py runs. That is a GAME behaviour with a BUILDER mitigation.",
+    "class": "GAME",
+    "evidence": "docs/design-notes.md:103-138 (Banda Front Lean v2 save: 'All 57 Hold and all 10 Tight came back as Free'). integration/missions/README.md:46-50 and :208-231. Commits 895483a2 and 0b5994c8. integration/missions/README.md:53-56 (the editor folded single-member Air Defence formations).",
+    "confidence": "high"
+   },
+   {
+    "claim": "The developer acknowledges scaling costs in sensors and line of sight, large formations, chaff, threat tracking and mission loading, and has optimised each repeatedly. No changelog entry gives a numeric unit or map limit. Large-scale costs are real but unquantified.",
+    "class": "GAME",
+    "evidence": "changelog.txt:2275-2278 (0.6.8, 17-Dec-2025): 'Drastically improved mission loading times', 'Reworked sensor and line of sight logic to improve performance', 'Improved performance with large formations'. :65-67 (0.8.2 260928b, 'cleaned up incoming threat and weapons tracker'). :3488 ('Performance issue with Chaff leading to drastic reduced frame rates'). :472 ('Improve map and sonar performance'). A grep for unit-limit and map-size terms finds no numeric cap; the only MaxUnits is a per-air-operation concurrent cap (ui.ini:424) and TaskForceModeMaxUnits per mission (pacific-strike campaign.ini:637).",
+    "confidence": "medium"
+   },
+   {
+    "claim": "The stock game already includes a Dynamic Unit Generation mechanism for linear campaigns, and it runs on the player's install. It is a candidate engine-side route to persistent forces whose spawning depends on prior state, and it works without one giant mission. Its scale behaviour is unmeasured.",
+    "class": "GAME",
+    "evidence": "changelog.txt:344-349 (0.8.x, '[NEW] Dynamic Unit Generation ... dynamic generator rolls the enemy forces ... seeded in the save'). data/install-snapshot/player-prev.log:414 ('[DynamicUnitGeneration] debrief-kills mission=7 named-destroyed=0 reusable-destroyed=0'). docs/campaigns/southern-watch/build-notes.md:1897-1916 (the enemy_theater_roster.ini that SEST ships).",
+    "confidence": "medium"
+   }
+  ],
+  "open_questions": [
+   "How long does a mission load, and at what frame rate and sim rate does it run, on the player's PC (RTX 2070 SUPER, 8 GB VRAM; CPU and RAM unknown)? Test NORTHERN FRONT III FINAL (about 270 placed units plus about 545 based aircraft), SEST Banda Front EDITED (857) and SEST Indo-Pacific Land Assets (974). Use a stopwatch plus config.ini EnablePerformanceLogging=True, which has never been tried.",
+   "Do 'New midgame.sav' (22.8 MB, 298 units) and 'NORTHERN FRONT MIDGAME III.sav' still reload on 0.8.4 Build 261002, how long does it take, and do aircraft, airstrikes and in-flight weapons survive?",
+   "Does one mission with units on both sides of 180 degrees (for example Pearl Harbor at 158W and Guam at 145E) load, render terrain, route ships and aircraft, and save and reload correctly on 0.8.4? The changelog's date-line fixes are historical, and the repo has no test.",
+   "Does the engine cap time compression for the whole mission when an engagement, gunfire or sonobuoys are active in any one region? What compression can a mission with about 300 moving units sustain at 8x, 20x and 100x?",
+   "What does a map centre far from the action cost? The developer tooltip says centre it 'for best performance'. A test could run the same NORTHERN FRONT III with its centre at 54.27,-26.28 and at about -10,130.",
+   "Because longitude maps linearly (x/60 degrees, no cos-lat factor) on what the changelog calls a 'flat Earth', are speeds, sensor ranges and weapon ranges distorted east-west at high latitudes (Kola and Barents at about 69N, the Falklands at 52S)? A ship's measured east-west transit at 69N would settle it.",
+   "Which mission hung on load on 20 Sep 2026, and was the Nimitz (2000s) Variant3 override really the cause? It is still withheld and unproven.",
+   "How much frame and tick time do the installed code mods (CV16 Liaoning plugin exception flood, PLA AEP SubAmmunition, MissileControl and others) add per active unit? Compare the same large mission with BepInEx code mods enabled and disabled.",
+   "What does the [PlottingTable] Payload hold (it is 95% or more of every mission save and could not be decoded here)? Does it grow without bound over a long persistent session?",
+   "Are terrain height and collision, ship grounding and submarine terrain avoidance computed correctly for units far from the camera's loaded chunks (ChunksViewDistance=4)? Do AI ships find long sea routes on their own (for example Brest to the Mediterranean via Gibraltar)?",
+   "Why did the player make the 'SULU SEA OFFENSIVE smaller / much smaller / v2 / v3' variants? Was it performance, or design? Ask the player, because it is the only possible user-side size signal and it is undocumented."
+  ]
+ }
+]
