@@ -2008,7 +2008,7 @@ MISSIONS.append(dict(
         # where the player cannot watch every axis at once.
         U("red", "plan-submarines", "plan_ssn_type_093b", "red_sub",
           name="Contact ROMEO"),
-        U("red", "fujian-cv-18", "plan_j-35", "red_air", name="Falcon 11"),
+        U("red", "modern-plan-systems", "plan_j-35", "red_air", name="Falcon 11"),
         # The one anti-ship shooter in the air wing: two YJ-83, pointed at
         # the transports. Strike is scored on this aircraft, not on the AEW.
         # Its own station: as the second member of red_air's formation its

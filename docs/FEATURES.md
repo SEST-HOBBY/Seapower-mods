@@ -1,7 +1,7 @@
 # SEST Integration Pack — feature list
 
 **SEST Integration Pack - Modernised Campaigns** (Steam Workshop 3812461539) turns
-190 Workshop mods for *Sea Power: Naval Combat in the Missile Age* into one
+189 Workshop mods for *Sea Power: Naval Combat in the Missile Age* into one
 modern game, set in 2028–29. It is one mod folder, sitting at the top of the
 Mod Manager, plus a SETUP file that does the ordering. Players subscribe to the
 collection *SEST - Modernised Campaign Collection* (3812390790), which brings the

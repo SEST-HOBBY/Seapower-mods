@@ -7,7 +7,7 @@ from the whole collection.
 
 WHY THIS EXISTS
 
-190 Workshop mods and 20 local packs are a lot of content to own and
+189 Workshop mods and 20 local packs are a lot of content to own and
 never see. The Banda vignettes reached for the mods the sandbox left idle, one
 family per scenario; this goes the rest of the way: campaigns that between them
 place something from EVERY active mod that can put something on the map, and

@@ -1835,6 +1835,22 @@ STALE_OVERWRITES = {
          "Euromod-Dutch Navy ships no Dolfijn hull; this file now extends a Dutch hull "
          "with no keys, so it changes nothing"),
 }
+# Euromod - Modern US Navy (3390330875), 9 Oct 2026 export: the author folded
+# the seven usn_cg_ticonderoga_vls_<year> hulls into one new hull,
+# usn_cg_bunker_hill_vls_2024 (nine named ships), and dropped the RAM
+# Spruance. Euromod Main Pack still ships a combat-system patch for each old
+# id, which check_alias_bases reports as eight unit files the game cannot
+# load. The five SULU SEA OFFENSIVE missions that fielded the 2025 fit were
+# moved to the new hull by integration/missions/retarget_units.py.
+for _year in ("1990", "1996", "2004", "2011", "2013", "2018", "2025"):
+    STALE_OVERWRITES[f"usn_cg_ticonderoga_vls_{_year}_CombatSystems_OVWR.ini"] = (
+        f"vessels/usn_cg_ticonderoga_vls_{_year}.ini", "vessels/usn_cg_bunker_hill_vls_2024.ini",
+        "Modern US Navy folded its Ticonderoga fits into usn_cg_bunker_hill_vls_2024 on "
+        "9 Oct 2026; this file now extends that hull with no keys, so it changes nothing")
+STALE_OVERWRITES["usn_dd_spruance_ram_CombatSystems_OVWR.ini"] = (
+    "vessels/usn_dd_spruance_ram.ini", "vessels/usn_dd_spruance_vls_lamps-3.ini",
+    "Modern US Navy dropped the RAM Spruance on 9 Oct 2026; this file now extends "
+    "the VLS Spruance with no keys, so it changes nothing")
 EUROMOD_MAIN = "3629144864"
 
 
