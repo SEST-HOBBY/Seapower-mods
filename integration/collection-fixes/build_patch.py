@@ -459,36 +459,49 @@ def main():
             sys.exit(f"usn_rim-162: 3461044389's ESSM lost {key} again - restore the "
                      "override this pack shipped before 6 Oct 2026")
 
-    # plaaf_kd-88 [audit: plaaf_kd-88 cohort]. After the load-order move the
-    # CV-18 mod's KD-88 wins: LandAttackCapability=All, sea-skimming terminal,
-    # real KD-88 mesh - everything the audit wanted except the Fujian mod's
-    # 108 nm range figure. This override is that merge, pinned above future
-    # reorders.
-    t = read("3663564190", "ammunition/plaaf_kd-88.ini")
-    if "LandAttackCapability" not in t:
-        sys.exit("plaaf_kd-88: donor lost LandAttackCapability - rebase")
-    t = edit(t, r"^MaxLaunchRange=97(\s)", r"MaxLaunchRange=108\1", 1, "plaaf_kd-88")
+    # plaaf_kd-88 [audit: plaaf_kd-88 cohort]. REBASED 2026-10-09 off
+    # 3663564190, which has been DELISTED from the Workshop - a public comment
+    # reports the mod "doesn't work anymore", and the user had to recover it
+    # from an archive. A builder that reads a mod nobody can install is a
+    # build that only works on one machine, so this override moves to a donor
+    # that is still obtainable.
+    #
+    # 3486502935 is the better base on every performance key - 108 nm (which
+    # is the figure this override used to have to write by hand), 580 kt
+    # against 560, Power 42 against 39 - and it drops exactly one thing the
+    # old donor had: LandAttackCapability. Without that key the KD-88 is an
+    # anti-ship round only, which is the one capability the audit cared about,
+    # so it is restored here rather than lost in the move. 3812111085 also
+    # carries the key, which is the corroboration that All is the right value.
+    t = read("3486502935", "ammunition/plaaf_kd-88.ini")
+    if "LandAttackCapability" in t:
+        sys.exit("plaaf_kd-88: 3486502935 now declares LandAttackCapability itself - "
+                 "drop the re-add below and check its value")
+    for key, value in (("MaxLaunchRange", "108"), ("MaxVelocity", "580")):
+        if not re.search(rf"^{key}={value}(\s|$)", t, re.M):
+            sys.exit(f"plaaf_kd-88: 3486502935 no longer has {key}={value} - the reason "
+                     "this donor was chosen over the delisted one was its kinematics; "
+                     "re-check before shipping")
+    t = edit(t, r"^(TargetType=ASuW[^\n]*\n)",
+             r"\1LandAttackCapability=All               "
+             r"// can be  All, Installation, Mobile, ShoreTargetsOnly\n",
+             1, "plaaf_kd-88")
     write("ammunition/plaaf_kd-88.ini", t,
-          "SEST Collection Fixes - base: 3663564190's KD-88 (land attack, 200 ft\n"
-          "sea-skimming, real mesh, supply cost). One delta: MaxLaunchRange 97 ->\n"
-          "108 nm, the higher of the two carrier mods' figures per the audit.")
+          "SEST Collection Fixes - base: 3486502935's KD-88, which carries the 108 nm\n"
+          "range, 580 kt and Power 42 this override used to have to write by hand onto\n"
+          "the CV-18 mod's slower copy. One delta: LandAttackCapability=All restored -\n"
+          "the only key this donor drops, and without it the round cannot engage the\n"
+          "shore targets it exists for. Rebased off 3663564190, now delisted.")
     built.append("plaaf_kd-88")
 
-    # plaaf_akf-98a [audit: plaaf_akf-98a cohort]. The winning copy sets
-    # GuidanceType=4 (anti-radiation) on a stat block written for an active
-    # seeker: SeekerActiveRange=50, Ku-band, 35 kW, and a Secondary PASSIVE
-    # guidance key whose own comment says it is for active/semi-active
-    # seekers. =3 makes the file coherent and the 320 nm ASuW round able to
-    # engage non-emitting targets.
-    t = read("3663564190", "ammunition/plaaf_akf-98a.ini")
-    t = edit(t, r"^GuidanceType=4$", "GuidanceType=3", 1, "plaaf_akf-98a")
-    write("ammunition/plaaf_akf-98a.ini", t,
-          "SEST Collection Fixes - base: 3663564190's AKF-98A. One delta:\n"
-          "GuidanceType 4 -> 3 (active radar). The file's own seeker block\n"
-          "(SeekerActiveRange=50, Ku-band 35 kW, SecondaryPassiveRadarGuidanceType)\n"
-          "is written for an active seeker; as an ARM it could only ever engage\n"
-          "emitting targets.")
-    built.append("plaaf_akf-98a")
+    # plaaf_akf-98a [audit: plaaf_akf-98a cohort]. WITHDRAWN 2026-10-09.
+    # This override existed to set GuidanceType 4 -> 3 on 3663564190's copy,
+    # whose anti-radiation type contradicted its own active-seeker block
+    # (SeekerActiveRange=50, Ku-band 35 kW). That mod is delisted, and the
+    # copy that wins without it - 3506979898's - already declares
+    # GuidanceType=3. The fix is upstream now, so shipping it again would
+    # only re-assert a value the collection already has, from a donor nobody
+    # can install. Restore this block if 3506979898 ever regresses to 4.
 
     # usn_rgm_184a [NSM investigation, secondary finding]. The RAN's NSM carries
     # MinAttackAltitude=55 - "minimum altitude of a TARGET, in feet. Outside
