@@ -1,6 +1,6 @@
 Sulu Line - Workshop mods this campaign reaches (reference only)
 
-21 items, in canonical load order. NOT the Workshop item's
+20 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -20,7 +20,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3508275114    # Ground Up
 https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliary Merchant Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3430106996    # Merchants Expanded
 https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Submarines
-https://steamcommunity.com/sharedfiles/filedetails/?id=3663564190    # Type 003 Aircraft Carrier - PLANS Fujian CV-18
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
 https://steamcommunity.com/sharedfiles/filedetails/?id=3486502935    # Type 003 Fujian / Type 004 CVN Aircraft Carriers
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812454152    # Euromod-Philippine-Navy
