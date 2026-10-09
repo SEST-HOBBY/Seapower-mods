@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield).",
-    "count": 196,
+    "count": 197,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, thailand, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian | campaign (a third-party mission or campaign pack that ships no units of its own)",
@@ -1355,13 +1355,13 @@
       "author": "八一of军魂",
       "faction": "china",
       "type": "ship",
-      "status": "active",
+      "status": "unsubscribed",
       "overlaps": [
         "type-003-004-maneuverwarfare (Fujian)",
         "chinese-navy-plan (Fujian)"
       ],
-      "notes": "SUPERSEDED FOR ITS HULL 2026-10-03: Modern PLAN Systems (same author) now ships plan_cv_type_003 and the whole air wing above this mod in the order, so the game reads the PLAN Pack's Fujian; the campaigns credit the carrier to the PLAN Pack since then. Still the only source of 25 PLAAF/PLAN rounds (PL-10/12A/15/17, KD-88, LD-8A, LS-6 family, YJ-15, YJ-83KH, YJ-91...), which is what keeps it in the load order. Unsubscribe candidate once those rounds appear elsewhere. Previously: Fujian with multiple selectable loadouts. One of THREE Fujian carriers in this list — same author as Modern PLAN Systems; likely pairs with it.",
-      "load_order": "Moved above Type 003/004 CVN (collection audit): its PL-10 (AntiCountermeasuresBonus 0.95 vs 0.05, 12 nm seeker), PL-15, YJ-91 and KD-88 are the modern-schema versions; the mission's 28 fielded PL-10s were flying the flare-bait copy."
+      "notes": "DROPPED 2026-10-09. Delisted from the Workshop - a public comment reported it \"doesn't work anymore\" and it could only be recovered from an archive, so new subscribers to the collection cannot install it. By then it contributed nothing of its own: Modern PLAN Systems (3775128499, same author) outranks it on the hull plan_cv_type_003.ini, its variants file and all 16 air-wing aircraft, leaving it 20 ammunition files. Removing it orphans NOTHING - every one of those 20 falls to another mod, and 16 are identical on every performance key. The exceptions are recorded in the drop commit; plaaf_ld-8a_s is the one that regresses. SEST's two overrides that read it as a donor (plaaf_kd-88, plaaf_akf-98a) were rebased or withdrawn first.",
+      "load_order": null
     },
     {
       "id": "j-50",
@@ -2686,7 +2686,7 @@
       "workshop_id": "3796706214",
       "title": "Real photos of airplanes and helicopters",
       "author": "unknown",
-      "faction": "all",
+      "faction": "utility",
       "type": "ui",
       "status": "active",
       "load_order": "Last in the order, below every other mod. It ships nothing but encyclopedia profile pictures (ui/profiles/<unit id>.png, 463 images) and a profile picture is a whole file, so whichever mod is highest supplies it: at the bottom, every mod author's own picture still wins and this one only fills units nobody else pictures, and replaces the base game's aircraft pictures, which is its purpose.",
