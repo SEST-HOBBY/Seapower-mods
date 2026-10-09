@@ -305,13 +305,17 @@ def main():
     # 350x Large / 167x VerySmall repo-wide, zero numeric) - and drops
     # InterceptSpeedPenaltyMultiplier that vanilla carries. Everything else kept.
     #
-    # DONOR REBASED 2026-09-20. The original donor was the deprecated Super
-    # Hornet (3426791311), unsubscribed and pruned from the export. Re-measured
-    # against what is left: US Naval Aviation (3737267013, rank 54) is now the
-    # top provider and carries the IDENTICAL defect at the identical lines, so
-    # the fix still earns its place - only the donor changes.
+    # DONOR REBASED TWICE. 2026-09-20: the original donor was the deprecated
+    # Super Hornet (3426791311), unsubscribed and pruned, so it moved to US
+    # Naval Aviation (3737267013). 2026-10-09: USNA deleted its copy in the
+    # 9 Oct export, which failed this build outright - "donor missing
+    # (re-export 3737267013?)". The F-16 pack (3758320372) is now the SOLE
+    # provider and carries the IDENTICAL defect at the identical lines:
+    # ImpactSize=5, no InterceptSpeedPenaltyMultiplier, KillProbability=0.80.
+    # Vanilla has VerySmall and 0.75, so the fix still earns its place - only
+    # the donor changes. A third rebase means re-measuring again, not assuming.
     #
-    # usn_aim-9m is RETIRED from this pack: 3737267013's copy is already
+    # usn_aim-9m is RETIRED from this pack: the winning copy is already
     # ImpactSize=VerySmall with InterceptSpeedPenaltyMultiplier present, so
     # there is nothing left to correct. Shipping it would be an override that
     # changes nothing.
@@ -319,7 +323,7 @@ def main():
             "// multiplier to the severity of the speed penalty, 0.75 for good, "
             "1.0 for average, 1.25 for poor")
     for name, kp in (("usn_aim-9l", "0.80"),):
-        t = read("3737267013", f"ammunition/{name}.ini")
+        t = read("3758320372", f"ammunition/{name}.ini")
         t = edit(t, r"^ImpactSize=5(\s)", r"ImpactSize=VerySmall\1", 1, name)
         if "InterceptSpeedPenaltyMultiplier" in t:
             sys.exit(f"{name}: donor now defines InterceptSpeedPenaltyMultiplier - rebase")
@@ -519,16 +523,35 @@ def main():
     # arsenal (plan_yj18 19.5 vs 14, wp_ss_n_19a 30 vs 14) and vanilla ships the
     # same shape on the Charlie-I's SS-N-7, so it is proven not to break launch
     # or flight - and TargetMemory=True carries the round through the gap.
+    # UPSTREAM ADOPTED IT, 2026-10-09. Red Storm Arsenal's author removed
+    # MinAttackAltitude=55 from this round in the 9 Oct export - the same
+    # correction this override existed to make - and dropped MaxAttackAltitude
+    # with it. So the floor edit is conditional now: make it where the key
+    # survives, stand aside where upstream got there first, and say which.
+    #
+    # The block still ships, because ras_meter() below is what SEST
+    # Replenishment meters this round by and has nothing to do with the floor.
     t = read("3413868677", "ammunition/usn_rgm_184a.ini")
-    t = edit(t, r"^MinAttackAltitude=55[^\n]*\n", "", 1, "usn_rgm_184a")
+    had_floor = bool(re.search(r"^MinAttackAltitude=55", t, re.M))
+    if had_floor:
+        t = edit(t, r"^MinAttackAltitude=55[^\n]*\n", "", 1, "usn_rgm_184a")
+        delta = ("One delta: MinAttackAltitude=55 removed. It\n"
+                 "put every sea-level target outside the round's own engagement band, "
+                 "where\nthe engine 'greatly increases' missile deviation; no vanilla "
+                 "anti-ship\nround declares the key and no other NSM in the collection "
+                 "does either.")
+    elif re.search(r"^MinAttackAltitude=", t, re.M):
+        sys.exit("usn_rgm_184a: MinAttackAltitude is present but not 55 - upstream set "
+                 "a new floor, re-measure before deciding whether to strip it")
+    else:
+        delta = ("No delta to the floor: the author removed MinAttackAltitude\n"
+                 "himself in the 9 Oct export, which is what this override used to do. "
+                 "The\nfile is shipped only for the metering tag below.")
+        print("    usn_rgm_184a: upstream removed MinAttackAltitude - no override needed")
     t, meter_note = ras_meter(t, "usn_rgm_184a")
     write("ammunition/usn_rgm_184a.ini", t,
           "SEST Collection Fixes - base: 3413868677's NSM (RGM-184A), the round the\n"
-          "RAN Anzacs and Hobarts fire. One delta: MinAttackAltitude=55 removed. It\n"
-          "put every sea-level target outside the round's own engagement band, where\n"
-          "the engine 'greatly increases' missile deviation; no vanilla anti-ship\n"
-          "round declares the key and no other NSM in the collection does either."
-          + meter_note)
+          "RAN Anzacs and Hobarts fire. " + delta + meter_note)
     built.append("usn_rgm_184a")
 
     # usn_rim-161b/c/d, usn_rim-174a/c, usn_pac3_mse [SM-3 investigation].
@@ -1362,27 +1385,33 @@ CIWS_RETUNE = {
     "071_Type730": ("closed", dict(MissileInterceptChance="55", AircraftInterceptChance="80",
                                    VolleyMaxRounds="700", VolleyCooldown="4.0"),
                     "the Type 071's Type 730 (was anchor 75)"),
-    "eu_goalkeeper": ("closed", dict(MissileInterceptChance="55", AircraftInterceptChance="80",
-                                     VolleyMaxRounds="700", VolleyCooldown="5.0"),
-                      "Euromod's Goalkeeper (was anchor 80)"),
+    # eu_goalkeeper RETIRED 2026-10-09, the same way and for the same reason as
+    # the PLAN Pack's pair above: Euromod Main's 9 Oct update moved its
+    # Goalkeeper onto the 0.8.3 keys itself, and the guard below caught it -
+    # "3629144864 now ships it on the 0.8.3 keys - drop it from CIWS_RETUNE
+    # rather than retuning the author's retune". Restore the entry only if
+    # Euromod reverts to the old keys.
     # Phalanx Block 1A/1B as the US, Korean and Euromod packs define them.
     "MK15B":    ("closed", dict(MissileInterceptChance="50", AircraftInterceptChance="75",
                                 VolleyMaxRounds="1000", VolleyCooldown="6.0"),
                  "Phalanx Block 1A: vanilla's Block 1 figures (was anchor 85)"),
-    "eu_MK15B": ("closed", dict(MissileInterceptChance="50", AircraftInterceptChance="75",
-                                VolleyMaxRounds="1000", VolleyCooldown="6.0"),
-                 "Phalanx Block 1A, Euromod's copy (was anchor 85)"),
+    # eu_MK15B RETIRED 2026-10-09: Euromod Main's 9 Oct update moved it onto the
+    # 0.8.3 keys (FireControlMode / VolleyMaxRounds / VolleyCooldown), so the
+    # guard retired it as designed - retuning the author's own retune is not
+    # this pack's business. Restore only if it reverts to the old keys.
     "MK15C":    ("closed", dict(MissileInterceptChance="55", AircraftInterceptChance="75",
                                 VolleyMaxRounds="1000", VolleyCooldown="6.0"),
                  "Phalanx Block 1B: one step above vanilla's Block 1 (was anchor 90)"),
-    "eu_MK15C": ("closed", dict(MissileInterceptChance="55", AircraftInterceptChance="75",
-                                VolleyMaxRounds="1000", VolleyCooldown="6.0"),
-                 "Phalanx Block 1B, Euromod's copy (was anchor 90)"),
+    # eu_MK15C RETIRED 2026-10-09: Euromod Main's 9 Oct update moved it onto the
+    # 0.8.3 keys (FireControlMode / VolleyMaxRounds / VolleyCooldown), so the
+    # guard retired it as designed - retuning the author's own retune is not
+    # this pack's business. Restore only if it reverts to the old keys.
     # Kortik/Kashtan family: twin 30 mm Gatlings with an on-mount radar/EO
     # director (the missiles are separate launchers).
-    "Kashtan":      ("closed", dict(MissileInterceptChance="45", AircraftInterceptChance="90",
-                                    ReactionTime="3.5", VolleyMaxRounds="1000", VolleyCooldown="5.0"),
-                     "the Kuznetsov mod's Kashtan, which 32 fielded mounts name (was 95/120)"),
+    # Kashtan RETIRED 2026-10-09: the Kuznetsov mod's 9 Oct update moved it onto the
+    # 0.8.3 keys (FireControlMode / VolleyMaxRounds / VolleyCooldown), so the
+    # guard retired it as designed - retuning the author's own retune is not
+    # this pack's business. Restore only if it reverts to the old keys.
     "CADS-N-1":     ("closed", dict(MissileInterceptChance="45", AircraftInterceptChance="70",
                                     ReactionTime="3.5", VolleyMaxRounds="1000", VolleyCooldown="5.0"),
                      "Red Storm's Kortik gun (was anchor 60)"),
@@ -1403,10 +1432,8 @@ CIWS_RETUNE = {
                                     VolleyCooldown="5.0", VolleyRange="2000"),
                    "Russian Navy 21's AK-630M (was anchor 80; vanilla's AK-630 is 20)"),
     # 35 mm AHEAD gun, director-fed.
-    "eu_Millennium_Gun": ("director", dict(MissileInterceptChance="35", AircraftInterceptChance="70",
-                                           ReactionTime="3.0", BurstTime="1.0",
-                                           VolleyMaxRounds="100", VolleyCooldown="3.0"),
-                          "Euromod's Millennium Gun (was anchor 90 at 1000 rounds a minute)"),
+    # eu_Millennium_Gun RETIRED 2026-10-09: Euromod Main's 9 Oct update moved
+    # it onto the 0.8.3 keys, like its Goalkeeper and both Phalanx blocks.
     # Remote autocannon in CIWS slots: a 20-30 mm single barrel at 200-1700
     # rounds a minute is not a Gatling, and vanilla gives its own 20 mm
     # mounts an anchor of 2 and the ZU-23 10.
@@ -1444,6 +1471,16 @@ DROPPED_KEYS = ("MinimumMissileInterceptTime",)
 # The builder refuses an entry whose hull now declares its own system, is
 # extended by another mod, is an alias, or is a submarine.
 EXTENDS = {
+    # RED STORM ARSENAL DID THE SAME, 9 Oct 2026. Exactly as the PLAN Pack did
+    # on 3 Oct, Red Storm Arsenal's update gave its hulls their own
+    # [CombatSystems] - ZBJ-1/1A/1B, ZKJ-4A/5/5A, Sigma_22350, Lesorub_M,
+    # AEGIS_Late and AEGIS_Modern - and the guard retired FOURTEEN entries:
+    # the Type 055 pair, 045 late, the 054 trio, 051M, 956E, 1164E, 1143E,
+    # Nakhimov refit, Slava 16, Kansas late and the Burke Flight III 2030 -
+    # then five more on the same pass: the 052C and 052D, Hobart alt late,
+    # Adelaide FFG upgrade and Ticonderoga VLS. Nineteen in all.
+    # Extending a profile the author now declares himself would be retuning
+    # his own work. Restore an entry only if a hull loses its [CombatSystem1].
     # The PLAN Pack (3775128499) was here from the morning of 3 Oct to the
     # afternoon: its update that day gave every hull its own [CombatSystems]
     # (ZKJ-5A on the 054A, ZBJ-1A on the 052D, ZBJ-1B on the 055 and its new
@@ -1456,20 +1493,12 @@ EXTENDS = {
     "plan_ddg_luda_typ_051d": "ZKJ-3", "plan_ddg_luda_typ_051dt": "ZKJ-3",
     "plan_em_sovremenny": "Sapfir_U",
     # Red Storm Arsenal's PLAN
-    "plan_ddg_type_052C_rsa": "SEST_PLAN_AAW", "plan_ddg_type_052D_rsa": "SEST_PLAN_AAW",
-    "plan_ddg_type_055_rsa": "SEST_PLAN_Cruiser", "plan_ddg_type_055_late_rsa": "SEST_PLAN_Cruiser",
-    "plan_cg_type045_late": "SEST_PLAN_Cruiser",
-    "plan_ffg_type_054_rsa": "SEST_PLAN_Multirole", "plan_ffg_type_054_late_rsa": "SEST_PLAN_Multirole",
-    "plan_ffg_type_054a_late_rsa": "SEST_PLAN_Multirole", "plan_ddg_type051m": "SEST_PLAN_Multirole",
-    "plan_ddg_type956e": "Sapfir_U", "plan_cg_type1164e": "Lesorub_1164",
-    "plan_lha_type1143e": "SEST_PLAN_Carrier",
     # Russian Navy 21 (3597650470)
     "rfn_ffg_22350_1-4": "SEST_RU_AAW", "rfn_ffg_22350_5-8": "SEST_RU_AAW",
     "rfn_ddg_21956_late": "SEST_RU_AAW", "rfn_ffg_11356": "SEST_RU_Multirole",
     "rfn_cvt_20380_7-12": "SEST_RU_Compact", "rfn_cvt_20385": "SEST_RU_Compact",
     # Soviet-lineage hulls in other mods
-    "ru_cv_kuznetsov": "Lesorub_55", "ru_cv_varyag": "Lesorub_55", "wp_rkr_admiral_nakhimov_refit": "SEST_RU_AAW",
-    "wp_rkr_slava_16": "Lesorub_1164",
+    "ru_cv_kuznetsov": "Lesorub_55", "ru_cv_varyag": "Lesorub_55",
     # Iran
     "ir_ptg_peykaap_3": "Titanit",
     # 6 Oct 2026: the Ford, Fujian/Type 004, Kirov and French packs now ship
@@ -1478,9 +1507,16 @@ EXTENDS = {
     # SETIS_FREMM_DA/ASW, SENIT_FLF_RMV) and name them on their hulls, so
     # eleven entries left this table; the Mogami's builder does the same.
     # blue
-    "ran_ddg_hobart_alt_late": "SEST_AEGIS_BL9", "ran_ffg_adelaide_ffg_upgrade": "SEST_9LV_Compact_MLU",
-    "usn_cg_ticonderoga_vls_2027": "SEST_AEGIS_BL9", "usn_cg_ticonderogaVLS": "SEST_AEGIS_BL9",
-    "usn_cg_kansas_late": "SEST_AEGIS_BL9", "usn_ddg_arleigh_burke_flight3_2030": "SEST_AEGIS_BL10",
+    # usn_cg_ticonderoga_vls_2027 DROPPED 2026-10-09, and it needs a look.
+    # U.S. Navy 2027's 9 Oct update turned the hull into an alias:
+    #   usn_cg_ticonderoga_vls_2027 -> #!alias usn_cg_bunker_hill_vls_2024
+    # and THAT is an alias too, with no [CombatSystem1] of its own. An
+    # extend cannot target an extend, so SEST_AEGIS_BL9 no longer reaches
+    # this ship. Dropped rather than re-pointed: the right target is
+    # whatever concrete hull sits at the bottom of that chain, and picking
+    # it is a judgement about which ship this pack should patch, not a
+    # mechanical substitution. The 2027 Ticonderoga has no SEST combat
+    # profile until someone makes that call.
     "usn_cvn_nimitz_2000s": "SEST_SSDS_Carrier", "usn_cvn_nimitz_2000s_adou": "SEST_SSDS_Carrier",
     "ko_ddg-991": "SEST_AEGIS_BL9", "ko_ffg-818": "SEST_CMS_Compact_Enhanced",
     "rn_type23_refit": "SEST_CMS_SeaCeptor",
