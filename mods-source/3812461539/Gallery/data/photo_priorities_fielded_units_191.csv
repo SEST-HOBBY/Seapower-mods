@@ -1,0 +1,299 @@
+﻿unit_id,kind,label,missions,rosters,asset_id,mapping_status,photo_grade,photo_priority,need,winning_source,data_from,model_owner,squadrons_from
+civ_humpback,vessels,Humpback,13,,,photo_gap,,,NO PHOTO,3384079999,3384079999,,
+E7A_Wedgetail,aircraft,E-7A Wedgetail,12,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,,photo_gap,,,NO PHOTO,3499239964,3499239964,3499239964,SEST_Integration
+plan_type_001,vessels,CV-16 Liaoning,9,,,photo_gap,,,NO PHOTO,3774859959,3774859959,3774859959,
+plan_j-15,aircraft,J-15,8,sest-red-line; sest-red-line-open,j15,family_or_component_reference,CB,P2,WEAK PHOTO,3486502935,3486502935,3486502935,3486502935
+plan_j-15d,aircraft,J-15D,7,sest-red-line; sest-red-line-open,j15,family_or_component_reference,CB,P2,WEAK PHOTO,3486502935,3486502935,3486502935,3486502935
+airbase_raaf_darwin,land_units,RAAF Base Darwin,7,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,
+plan_ss_type_039c,vessels,Type 039C Yuan-class,7,,,photo_gap,,,NO PHOTO,3594891803,3594891803,3594891803,
+plan_ssn_type_093b,vessels,Type 093B Shang III-class SSN,7,,,photo_gap,,,NO PHOTO,3594891803,3594891803,3594891803,
+ran_ssg_collins,vessels,Collins-class SSG (stand-in),5,sest-southern-reach-open; sest-southern-watch-open,collins,concept_base_reference,BC,P2,WEAK PHOTO,SEST_Integration,SEST_Integration,3731208477,
+airbase_raaf_east_sale,land_units,RAAF Base East Sale,5,,east_sale,context_reference,AC,P1,WEAK PHOTO,SEST_Integration,SEST_Integration,,
+airbase_raaf_edinburgh,land_units,RAAF Base Edinburgh,5,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,
+ir_ptg_peykaap_3,vessels,Peykaap III-class,5,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,
+ran_opv_arafura,vessels,Arafura-class OPV (stand-in),4,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3731208477,
+4tentgroup,land_units,4 Tent Group,4,,fob,family_or_component_reference,AD,P1,WEAK PHOTO,3600788156,3600788156,3600788156,
+pla_airbase_modern,land_units,Modern Chinese airforce base,4,,,photo_gap,,,NO PHOTO,3631042692,3631042692,,
+airbase_raaf_scherger,land_units,RAAF Base Scherger (Bare Base),3,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,
+airbase_raaf_tindal,land_units,RAAF Base Tindal,2,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,
+mv22b_osprey,aircraft,MV-22B Osprey,2,,,photo_gap,,,NO PHOTO,3806466625,3806466625,3806466625,3806466625
+plan_cv_type_003,vessels,Type 003,2,,type003,family_or_component_reference,AC,P2,WEAK PHOTO,3775128499,3775128499,3775128499,
+plan_lpd_type_071,vessels,Type 071 Amphibious Transport Dock,2,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3774572038,
+plan_type_052d_p3,vessels,Type 052D Phase 3,2,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3775128499,
+shahed_tel_black,land_units,Shahed-136-black,2,,,photo_gap,,,NO PHOTO,3497601759,3497601759,3497601759,
+usmc_kc-130j,aircraft,KC-130J,2,,c130j,family_or_component_reference,CA,P2,WEAK PHOTO,3737267013,3737267013,3737267013,3737267013
+usn_ForpostR705,aircraft,Forpost-R UAV,2,,,photo_gap,,,NO PHOTO,3601891050,3601891050,3601891050,3601891050
+wp_airbase_modern,land_units,Modern Russian airforce base,2,,,photo_gap,,,NO PHOTO,3629269283,3629269283,,
+wp_ssgn_yasen,vessels,Yasen-class,2,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,
+ko_ffg-818,vessels,Daegu Class,1,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3789208859,
+usaf_f-15e_SE,aircraft,F-15E,1,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,3553116604,3553116604,,3553116604
+spa_av-8b_plus,aircraft,AV-8B+,1,sest-southern-watch-open,,photo_gap,,,NO PHOTO,3731208477,3731208477,3731208477,3731208477
+usaf_f-15ex_SEII,aircraft,F-15EX,1,sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,SEST_Integration
+Coal_PowerPlant,land_units,Coal Power Plant,1,,,photo_gap,,,NO PHOTO,3600788156,3600788156,3600788156,
+FOB,land_units,Forward Operating Base,1,,,photo_gap,,,NO PHOTO,3600788156,3600788156,3600788156,
+Liberty,land_units,Statue Of Liberty,1,,,photo_gap,,,NO PHOTO,3600788156,3600788156,3600788156,
+Oil_pump,land_units,Oil Pump,1,,,photo_gap,,,NO PHOTO,3600788156,3600788156,3600788156,
+S-70B-2_Seahawk,aircraft,S-70B-2,1,,,photo_gap,,,NO PHOTO,3403661005,3403661005,3403661005,SEST_Integration
+airbase_raaf_curtin,land_units,RAAF Base Curtin (Bare Base),1,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,
+airbase_rnzaf_auckland,land_units,RNZAF Base Auckland (Whenuapai),1,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,
+airbase_us,land_units,U.S. Air Force Base,1,,,photo_gap,,,NO PHOTO,3592460366,3592460366,,
+airfield_a-10,land_units,A-10 Airbase,1,,,photo_gap,,,NO PHOTO,3414146266,3414146266,,
+airfield_us,land_units,US aviation base,1,,,photo_gap,,,NO PHOTO,3416372890,3416372890,,
+civ_spar_rig_helo,land_units,Armed oil rig with helo - Iran,1,,,photo_gap,,,NO PHOTO,3403993583,3403993583,,
+fr_as_332M,aircraft,AS332M Super Puma,1,,,photo_gap,,,NO PHOTO,3567228449,3567228449,3567228449,3567228449
+idf_dsws,land_units,Davids Sling Tel,1,,davids_sling,family_or_component_reference,BC,P2,WEAK PHOTO,3558173926,3558173926,3558173926,
+idf_dsws_radar,land_units,Davids Sling Radar,1,,davids_sling,family_or_component_reference,BC,P2,WEAK PHOTO,3558173926,3558173926,3558173926,
+ir_aor_delvar,vessels,ir_aor_delvar,1,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,,
+jp_12ssmht,land_units,Type-12-SSM-ER-System-2024,1,,,photo_gap,,,NO PHOTO,3470643173,3470643173,3470643173,
+nato_large_pvo_airbase1,land_units,Barksdale Air Force Base,1,,,photo_gap,,,NO PHOTO,3502273861,3502273861,,
+pla_9k331,land_units,Tor-M1,1,,,photo_gap,,,NO PHOTO,3733719765,3733719765,3733719765,
+pla_df-21c_tel,land_units,DF-21C TEL,1,,df21,family_or_component_reference,CA,P2,WEAK PHOTO,3733719765,3733719765,3733719765,
+pla_df-26b_tel,land_units,DF-26B TEL,1,,df26,family_or_component_reference,CA,P2,WEAK PHOTO,3733719765,3733719765,3733719765,
+pla_h-200a_radar,land_units,H-200A FCR,1,,,photo_gap,,,NO PHOTO,3733719765,3733719765,3733719765,
+pla_z21,aircraft,Z-21,1,,,photo_gap,,,NO PHOTO,3774746803,3774746803,3774746803,3774746803
+plaaf_j-11bg,aircraft,J-11BG,1,,j11,family_or_component_reference,CB,P2,WEAK PHOTO,3436170138,3436170138,3436170138,3436170138
+plaaf_j-11bs,aircraft,J-11BS,1,,j11,family_or_component_reference,CB,P2,WEAK PHOTO,3729578404,3729578404,3729578404,3729578404
+plaaf_j36,aircraft,J-36 Tailless Fighter,1,,,photo_gap,,,NO PHOTO,3801549552,3801549552,3801549552,3801549552
+plan_cvn_004,vessels,Type 004 Zhejiang-class,1,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3461044389,
+plan_j-35,aircraft,J-35,1,,j35,family_or_component_reference,DC,P1,WEAK PHOTO,3775128499,3775128499,3775128499,3775128499
+plan_j-50,aircraft,J-50,1,,,photo_gap,,,NO PHOTO,3670643788,3670643788,3670643788,3670643788
+plan_ss_type_039,vessels,Type 039 Song-class,1,,,photo_gap,,,NO PHOTO,3594891803,3594891803,3594891803,
+rfn_ffg_11356,vessels,Project 11356R Admiral Grigorovich,1,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3597650470,
+rn_ddg_type45,vessels,Type 45 class,1,,type45,family_or_component_reference,CA,P2,WEAK PHOTO,SEST_Integration,SEST_Integration,3599752717,
+ru_spaa_mt-lb_sosna,land_units,MTLB Sosna,1,,,photo_gap,,,NO PHOTO,3508275114,3508275114,,
+shahed_tel_white,land_units,Shahed-136-white,1,,,photo_gap,,,NO PHOTO,3497601759,3497601759,3497601759,
+thaad_tel,land_units,THAAD,1,,thaad,family_or_component_reference,AC,P2,WEAK PHOTO,3683253079,3683253079,3683253079,
+usa_car_hemtt,land_units,usa_car_hemtt,1,,,photo_gap,,,NO PHOTO,3605013271,3605013271,,
+usaf_b-52g,aircraft,usaf_b-52g,1,,b52g,family_or_component_reference,BC,P2,WEAK PHOTO,3394781441,3394781441,3741944366,3394781441
+usaf_f-16a,aircraft,F-16A,1,,f16a,family_or_component_reference,CB,P2,WEAK PHOTO,3416372890,3416372890,3416372890,3416372890
+usaf_rq-180,aircraft,RQ-180 “White Bat”,1,,,photo_gap,,,NO PHOTO,3796113927,3796113927,3796113927,3796113927
+wp_an_tpy_2,land_units,AN/TPY-2,1,,tpy2,family_or_component_reference,CA,P2,WEAK PHOTO,3683253079,3683253079,3683253079,
+wp_rkr_kirov_improved,vessels,Kirov-class (Improved),1,,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3406985435,
+wp_scud_9k72,land_units,SCUD-B,1,,scud,family_or_component_reference,CC,P2,WEAK PHOTO,3461519690,3461519690,,
+wp_sejjil_tel,land_units,Sejjil,1,,,photo_gap,,,NO PHOTO,3551676319,3551676319,3551676319,
+wp_ss-26_tel,land_units,SS-26 TEL,1,,,photo_gap,,,NO PHOTO,3408662804,3408662804,3408662804,
+ae_ffg_bonifaz,vessels,Bonifaz-class,0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3731208477,
+ae_lpd_galicia,vessels,Galicia_L50-class L50,0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3731208477,
+ae_ssk_s80,vessels,S80-class,0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,3731208477,3731208477,3731208477,
+fr_ssn_suffren,vessels,Suffren-class,0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,3567256221,3567256221,,
+ger_ffg_f124_MLU,vessels,F124 Sachsen-class MLU,0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3575847216,
+ger_ffg_f125_MLU,vessels,F125 Baden-Wuerttemberg-class MLU,0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3575847216,
+ger_ssk_type_212a_batch1,vessels,Type 212A-class (Batch 1),0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,3575847216,3575847216,3575847216,
+ita_fs_ppx,vessels,Vivaldi Class,0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,3488139470,3488139470,3488139470,
+ita_ssk_todaro_batch1,vessels,Todaro class (Batch I),0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,3488139470,3488139470,3488139470,
+ko_ffg-811,vessels,Incheon Class,0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3789208859,
+ko_ffg-828,vessels,Chungnam Class,0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3789208859,
+mm_ddgh_durand_de_la_penne_02,vessels,Luigi Durand de la Penne-class,0,sest-southern-reach-open; sest-southern-watch-open,durand,family_or_component_reference,AC,P2,WEAK PHOTO,3505420313,3505420313,3505420313,
+rn_ddg_type45_26,vessels,Type 45 class,0,sest-southern-reach-open; sest-southern-watch-open,type45,family_or_component_reference,CA,P2,WEAK PHOTO,SEST_Integration,SEST_Integration,3599752717,
+usn_ddg_arleigh_flt2A_119_2027,vessels,Arleigh Burke `27-class Flt.2A [119~127],0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,3606774881,3390330875,3390330875,
+usn_ssn_los_angeles_flt3_2026,vessels,Los Angeles-class Flt3 (2026),0,sest-southern-reach-open; sest-southern-watch-open,,photo_gap,,,NO PHOTO,SEST_Integration,SEST_Integration,3606774881,
+mm_av-8b_plus,aircraft,AV-8B+ Harrier II,0,sest-southern-watch-open,,photo_gap,,,NO PHOTO,3505420313,3505420313,3505420313,3505420313
+usn_p8,aircraft,P-8A Poseidon,35,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,p8a,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3602046770,SEST_Integration
+usn_mh-60r,aircraft,usn_mh-60r,30,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,mh60r,family_or_component_reference,AA,P4,,3606774881,3606774881,3737267013,SEST_Integration
+ran_ffh_anzac,vessels,Anzac-class FFH,29,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,anzac,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3440622312,
+plan_type_054a_p5,vessels,Type 054A Phase 5,23,sest-red-line; sest-red-line-open,type054a,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3775128499,
+civ_ms_mairangi_bay,vessels,civ_ms_mairangi_bay,18,,container,family_or_component_reference,AA,P4,,3430106996,3430106996,,
+raaf_f-35a,aircraft,F-35A,13,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,f35a_raaf,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,SEST_Integration,SEST_Integration
+plan_type_056a,vessels,Type 056A,12,sest-red-line; sest-red-line-open,type056a,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3775128499,
+plan_z-9c,aircraft,Z-9C,12,sest-red-line; sest-red-line-open,z9,family_or_component_reference,BB,P3,,3775128499,3775128499,3775128499,3775128499
+ran_ddg_hobart,vessels,Hobart-class DDG,11,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,hobart,family_reference,AA,P4,,SEST_Integration,SEST_Integration,3731208477,
+civ_a320,aircraft,Airbus A320,9,,a320,family_or_component_reference,AA,P4,,3746453639,3746453639,3746453639,3746453639
+civ_a330,aircraft,Airbus A330,9,,a330,family_or_component_reference,AA,P4,,3746453639,3746453639,3746453639,3746453639
+civ_ms_freighter_a,vessels,civ_ms_freighter_a,9,,freighter,family_or_component_reference,BA,P3,,3605013271,3605013271,,
+civ_ms_kommunist,vessels,civ_ms_kommunist,9,,freighter,family_or_component_reference,BA,P3,,3605013271,3605013271,,
+plan_ka-31,aircraft,Ka-31,9,,ka31,family_or_component_reference,BA,P3,,3775128499,3775128499,3775128499,3775128499
+raaf_mq-4c_triton,aircraft,MQ-4C Triton,8,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,mq4c,family_reference,AA,P4,,SEST_Integration,SEST_Integration,3503670861,SEST_Integration
+anl_ms_bulk,vessels,Medium Bulk Carrier,7,,bulk_carrier,family_or_component_reference,BA,P3,,3432668460,3432668460,3413868677,
+civ_ms_freighter_d,vessels,civ_ms_freighter_d,7,,freighter,family_or_component_reference,BA,P3,,3605013271,3605013271,,
+civ_ms_sealift_pacific,vessels,civ_ms_sealift_pacific,7,,tanker,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,,
+usaf_kc-46a_boom,aircraft,KC-46 Pegasus (Boom Only),6,,kc46,family_or_component_reference,AB,P3,,3744475027,3744475027,3744475027,3744475027
+wp_ssn_akula,vessels,Akula-class,6,,akula,family_or_component_reference,BA,P3,,3468260539,3468260539,,
+airbase_rnzaf_ohakea,land_units,RNZAF Base Ohakea,5,,ohakea,context_reference,BA,P3,,SEST_Integration,SEST_Integration,,
+civ_ms_andizhan,vessels,civ_ms_andizhan,5,,freighter,family_or_component_reference,BA,P3,,3605013271,3605013271,,
+civ_ms_freighter_b,vessels,civ_ms_freighter_b,5,,freighter,family_or_component_reference,BA,P3,,3605013271,3605013271,,
+plan_ss_kilo,vessels,Yuan Zheng-class (Kilo),5,,kilo,family_or_component_reference,AA,P4,,3417801942,3417801942,3413868677,
+usn_ea-18g,aircraft,E/A-18G,4,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,ea18g,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3737267013,SEST_Integration
+airbase_raaf_williamtown,land_units,RAAF Base Williamtown,4,,williamtown,context_reference,BA,P3,,SEST_Integration,SEST_Integration,,
+plan_z-18f,aircraft,Z-18F,4,,z18,family_or_component_reference,AA,P4,,3417801942,3417801942,3628201887,3417801942
+ran_ms_super_p,vessels,Super P-class (Armed),4,,container,family_or_component_reference,AA,P4,,3432668460,3432668460,,
+usn_fa-18f_blk3,aircraft,usn_fa-18f_blk3,3,sest-southern-reach; sest-southern-reach-open; sest-southern-watch; sest-southern-watch-open,fa18f,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3737267013,SEST_Integration
+ran_aor_supply,vessels,Supply-class AOR (stand-in),3,sest-southern-reach-open; sest-southern-watch-open,supply_au,concept_base_reference,BA,P3,,SEST_Integration,SEST_Integration,3630495619,
+civ_ms_amra,vessels,civ_ms_amra,3,,freighter,family_or_component_reference,BA,P3,,3605013271,3605013271,,
+pla_apc_zbl-08,land_units,ZBL-08,3,,zbl08,family_or_component_reference,BA,P3,,3733719765,3733719765,3733719765,
+plaaf_jh7a,aircraft,JH7A,3,,jh7a,family_or_component_reference,AA,P4,,3526982088,3526982088,,3526982088
+plan_aor_type901,vessels,Type 901 Fuyu-class AOE (stand-in),3,,type901,concept_base_reference,BA,P3,,SEST_Integration,SEST_Integration,,
+ran_ms_antares,vessels,Antares-class (Armed),3,,freighter,family_or_component_reference,BA,P3,,3432668460,3432668460,,
+ran_ms_jeparit,vessels,Jeparit-class (Armed),3,,freighter,family_or_component_reference,BA,P3,,3432668460,3432668460,,
+wp_il-78,aircraft,IL-78 TANKER,3,,il78,family_or_component_reference,AA,P4,,3717610332,3717610332,3524112296,3717610332
+jmsdf_ddg_maya,vessels,Maya-class,2,sest-southern-reach-open; sest-southern-watch-open,maya,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3695809489,
+js_ffg_mogami,vessels,Mogami-class,2,sest-southern-reach-open; sest-southern-watch-open,mogami,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3456859157,
+ko_ddg-991,vessels,Sejong the Great Class,2,sest-southern-reach-open; sest-southern-watch-open,sejong,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3789208859,
+plaaf_kj-500,aircraft,KJ-500,2,sest-red-line; sest-red-line-open,kj500,family_or_component_reference,AB,P3,,3775128499,3775128499,3775128499,3775128499
+plan_ddg_luda_typ_051dt,vessels,Luda-class (Type 051DT),2,sest-red-line; sest-red-line-open,type051,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,,
+plan_em_sovremenny,vessels,Hangzhou-class (Sovremennyy),2,sest-red-line; sest-red-line-open,sovremenny,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3413868677,
+plan_y-9fq,aircraft,Y-9FQ,2,sest-red-line; sest-red-line-open,y9,family_or_component_reference,AA,P4,,3775128499,3775128499,3775128499,3775128499
+boeing-rc135,aircraft,RC-135V/W Rivet Joint (Modern),2,,rc135,family_or_component_reference,AA,P4,,3808882954,3808882954,3808882954,3808882954
+civ_car_pickup_1983,land_units,Technical,2,,technical,family_or_component_reference,AA,P4,,3681873198,3681873198,3681873198,
+fr_as-565_sa,aircraft,AS-565 SA,2,,panther,family_or_component_reference,AA,P4,,3567228449,3567228449,3567228449,3567228449
+plan_z-20f,aircraft,Z-20F,2,,z20,family_or_component_reference,AA,P4,,3775128499,3775128499,3775128499,3775128499
+ran_ms_roro_a,vessels,Strait-class RORO (Armed),2,,roro,family_or_component_reference,AA,P4,,3432668460,3432668460,,
+usaf_a-10c_plus,aircraft,A-10C+ SEST,2,,a10c,upgrade_base_reference,AB,P3,,SEST_Integration,SEST_Integration,3414146266,SEST_Integration
+usn_ssn_virginia_2027,vessels,Virginia-class (2027),2,,virginia_ssn,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3606774881,
+ae_lhd_juan_carlos,vessels,Juan Carlos I_L61-class L61,1,sest-southern-reach-open; sest-southern-watch-open,juan_carlos,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3731208477,
+fr_cvn_charles-de-gaulle,vessels,Charles de Gaulle (2018-2027),1,sest-southern-reach-open; sest-southern-watch-open,charles_de_gaulle,family_or_component_reference,AA,P4,,3567256221,3567256221,,
+fr_ddg_horizon,vessels,Horizon class,1,sest-southern-reach-open; sest-southern-watch-open,horizon,family_or_component_reference,AA,P4,,3567256221,3567256221,3567256221,
+fr_ffg_lafayette_modernized,vessels,La Fayette-class modernized,1,sest-southern-reach-open; sest-southern-watch-open,lafayette,family_or_component_reference,AA,P4,,3567256221,3567256221,3567256221,
+hdms_iver_huitfeldt,vessels,Iver Huitfeldt-class,1,sest-southern-reach-open; sest-southern-watch-open,huitfeldt,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,,
+raf_ef2000_fgr4_late,aircraft,Eurofighter Typhoon FGR.4 RAF,1,sest-southern-reach-open; sest-southern-watch-open,typhoon,family_or_component_reference,AA,P4,,3587877691,3587877691,3587877691,3587877691
+ran_lhd_canberra,vessels,Canberra-class LHD,1,sest-southern-reach-open; sest-southern-watch-open,canberra,family_reference,AB,P3,,SEST_Integration,SEST_Integration,3731208477,
+ran_lsd_choules,vessels,HMAS Choules LSD (stand-in),1,sest-southern-reach-open; sest-southern-watch-open,choules,concept_base_reference,BA,P3,,SEST_Integration,SEST_Integration,3731208477,
+rn_aor_tide,vessels,Tide-class AOR (stand-in),1,sest-southern-reach-open; sest-southern-watch-open,tide,concept_base_reference,AA,P4,,SEST_Integration,SEST_Integration,,
+usaf_f-22_s6,aircraft,F-22A(S-6),1,sest-southern-reach-open; sest-southern-watch-open,f22,family_or_component_reference,AA,P4,,3418252667,3418252667,3418252667,SEST_Integration
+usn_ddg_arleigh_flt3_2027,vessels,Arleigh Burke `27-class Flt.3,1,sest-southern-reach-open; sest-southern-watch-open,arleigh_burke,family_or_component_reference,AA,P4,,3606774881,3390330875,3390330875,
+usn_f-35c,aircraft,F-35C,1,sest-southern-reach-open; sest-southern-watch-open,f35c,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3737267013,SEST_Integration
+fr_rafale_m_l,aircraft,Rafale M Late,1,sest-southern-watch-open,rafale_m,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3758943352,3758943352
+jp_f-2a_late,aircraft,F-2A (JASDF/Late),1,sest-southern-watch-open,f2a,family_or_component_reference,AA,P4,,3755769170,3755769170,3755769170,3755769170
+_narco_narcosub_adv,vessels,Narco-Submarine-class (ADVANCED),1,,narcosub,family_or_component_reference,BA,P3,,3413868677,3413868677,,
+am_tornado_ids,aircraft,Tornado IDS,1,,tornado,family_or_component_reference,AA,P4,,3505420313,3505420313,3505420313,3505420313
+civ_car_pickup_1983_assault_civ,land_units,Assault Technical（West East）,1,,technical,family_or_component_reference,AA,P4,,3681873198,3681873198,3681873198,
+civ_fv_okean_armed,vessels,Side Trawler (AM),1,,trawler,family_or_component_reference,BA,P3,,3485917612,3485917612,,
+civ_ms_irkutsk,vessels,civ_ms_irkutsk,1,,freighter,family_or_component_reference,BA,P3,,3605013271,3605013271,,
+civ_ms_slavyansk,vessels,civ_ms_slavyansk,1,,freighter,family_or_component_reference,BA,P3,,3605013271,3605013271,,
+dts_b-52h,aircraft,B-52H,1,,b52h,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3741944366,3741944366
+dts_saab_ge,aircraft,Saab GlobalEye,1,,globaleye,family_or_component_reference,AA,P4,,3673250557,3673250557,,3673250557
+fr_afv_jaguar,land_units,EBRC Jaguar,1,,jaguar,family_or_component_reference,AA,P4,,3736147136,3736147136,,
+fr_apc_griffon,land_units,VBMR Griffon,1,,griffon,family_or_component_reference,AA,P4,,3736147136,3736147136,,
+fr_apc_vab_top,land_units,VAB TOP ,1,,vab,family_or_component_reference,BA,P3,,3736147136,3736147136,,
+fr_rafale_m,aircraft,Rafale M,1,,rafale_m,family_or_component_reference,BA,P3,,3758943352,3758943352,3758943352,3758943352
+fr_sea_lynx,aircraft,Sea Lynx MK.2,1,,lynx,family_or_component_reference,BA,P3,,3455931957,3455931957,3599752717,3455931957
+fr_vl-mica_tel,land_units,VL-MICA TEL,1,,mica,family_or_component_reference,AA,P4,,3437105712,3437105712,3437105712,
+ger_ffg_f124,vessels,F124 Sachsen-class,1,,sachsen,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3575847216,
+ger_sea_lynx_mk88,aircraft,Sea Lynx MK88A,1,,lynx,family_or_component_reference,BA,P3,,3575847216,3575847216,3599752717,3575847216
+ita_ffg_fremm_asw,vessels,Bergamini class (ASW),1,,bergamini_modern,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3488139470,
+jmsdf_sh-60j,aircraft,SH-60J,1,,sh60k,family_or_component_reference,AA,P4,,3695809489,3695809489,3737267013,3695809489
+jmsdf_sh-60k,aircraft,SH-60K,1,,sh60k,family_or_component_reference,AA,P4,,3695809489,3695809489,3737267013,3695809489
+msdvd_tu-214r,aircraft,Tu-214R,1,,tu214r,family_or_component_reference,BA,P3,,3780118683,3780118683,3780118683,3780118683
+nl_nh90,aircraft,NH-90 NL,1,,nh90,family_or_component_reference,AA,P4,,3567228449,3567228449,3567228449,3567228449
+pla_kj-600,aircraft,KJ-600,1,,kj600,family_or_component_reference,BB,P3,,3486502935,3486502935,,3486502935
+plaaf_h-6k_late,aircraft,H-6K (Late),1,,h6k,family_or_component_reference,AA,P4,,3812111085,3812111085,3812111085,3812111085
+plaaf_j-20a,aircraft,J-20A,1,,j20,family_or_component_reference,AA,P4,,3591563716,3591563716,3591563716,3591563716
+plaaf_j-8f,aircraft,J-8F,1,,j8,family_or_component_reference,AB,P3,,3433577445,3433577445,3433577445,3433577445
+plaaf_j10c,aircraft,j10,1,,j10c,family_or_component_reference,BA,P3,,3481228992,3481228992,,3481228992
+plaaf_j16,aircraft,J-16,1,,j16,family_or_component_reference,AA,P4,,3769142422,3769142422,3769142422,3769142422
+plaaf_su-27ubk,aircraft,Su-27UBK,1,,su27,family_or_component_reference,AA,P4,,3729579342,3729579342,3729579342,3729579342
+plaaf_y-20a,aircraft,Y-20A,1,,y20,family_or_component_reference,AA,P4,,3782020901,3782020901,3782020901,3782020901
+plaf_j16a,aircraft,J-16A Block 1,1,,j16,family_or_component_reference,AA,P4,,3506979898,3506979898,3506979898,3506979898
+plaf_j16d,aircraft,J-16D,1,,j16d,family_or_component_reference,BA,P3,,3506979898,3506979898,3506979898,3506979898
+plan_aor_type903a,vessels,Type 903A Fuchi-class AOR (stand-in),1,,type903,concept_base_reference,AA,P4,,SEST_Integration,SEST_Integration,,
+plan_ddg_luda_typ_051d,vessels,Luda-class (Type 051D),1,,type051,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,,
+plan_ka-28,aircraft,Ka-28,1,,ka27,family_or_component_reference,AB,P3,,3775128499,3775128499,,3775128499
+pol_f-16c-bl52plus,aircraft,F-16C Block 52+ Polish,1,,f16c,family_or_component_reference,AA,P4,,3758320372,3758320372,3758320372,3758320372
+ran_ms_bulk,vessels,Australian Prospector-class (Armed),1,,bulk_carrier,family_or_component_reference,BA,P3,,3432668460,3432668460,3413868677,
+rfn_cvt_20380_7-12,vessels,Project 20380 second batch,1,,steregushchiy,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3597650470,
+rn_merlin_hm2,aircraft,Merlin HM.2,1,,merlin,family_or_component_reference,AA,P4,,3599752717,3599752717,3599752717,3599752717
+rn_type23_refit,vessels,Type 23 Duke-class (LIFEX Refit),1,,type23,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,,
+rn_wildcat,aircraft,AW159 Wildcat HMA2,1,,wildcat,family_or_component_reference,AA,P4,,3373356293,3373356293,3413868677,3373356293
+rnn_ffg_karel_mlu,vessels,Karel Doorman Class MLU,1,,karel_doorman,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3444379330,
+rok_mk99_a,aircraft,Sea Lynx MK.99A,1,,lynx,family_or_component_reference,BA,P3,,3789208859,3789208859,3789208859,3789208859
+ru_cv_kuznetsov,vessels,1143.5 Kuznetsov,1,,kuznetsov,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3438479626,
+spa_ab212,aircraft,AB-212 ASW,1,,ab212,family_or_component_reference,AB,P3,,3630495619,3630495619,3630495619,3630495619
+usa_a-10c,aircraft,A-10C,1,,a10c,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3414146266,SEST_Integration
+usa_ah-64d,aircraft,AH-64D,1,,ah64d,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3425450153,3425450153
+usa_ah-64e,aircraft,AH-64E,1,,ah64e,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3425450153,3425450153
+usa_mv75_army,aircraft,MV-75 Cheyenne II Army,1,,v280,family_or_component_reference,BA,P3,,3810611344,3810611344,3810611344,3810611344
+usaf_ac-130j,aircraft,AC-130J,1,,ac130j,family_or_component_reference,AA,P4,,3559495372,3559495372,3559495372,3559495372
+usaf_b-1b_dts,aircraft,B-1B,1,,b1b,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3652097318,3652097318
+usaf_b-2_spirit,aircraft,B-2 Spirit,1,,b2,family_or_component_reference,AA,P4,,3480965706,3480965706,3480965706,3480965706
+usaf_b-52o,aircraft,B-52O Stratofortress,1,,b52h,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3741944366,3413868677
+usaf_e-3g,aircraft,E-3G,1,,e3,family_or_component_reference,AA,P4,,3781062859,3781062859,,3781062859
+usaf_f-117,aircraft,F-117,1,,f117,family_or_component_reference,AA,P4,,3448845252,3448845252,3448845252,3448845252
+usaf_f-16cm-bl52d,aircraft,F-16CM block 50/52,1,,f16c,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3758320372,3758320372
+usaf_kc-10a_extender,aircraft,KC-10A Extender,1,,kc10,family_or_component_reference,BA,P3,,3740293822,3740293822,3740293822,3740293822
+usaf_mq-9a,aircraft,MQ-9,1,,mq9,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3503670861,3503670861
+usaf_stratotanker,aircraft,KC-135A,1,,kc135,family_or_component_reference,BA,P3,,3722749887,3722749887,3413868677,3722749887
+usaf_u-2_1960,aircraft,U-2 (1960),1,,u2,family_or_component_reference,AA,P4,,3468959181,3468959181,3737267013,3468959181
+usaf_yf-23_black_widow_ii,aircraft,YF-23 Black Widow II,1,,yf23,family_or_component_reference,BA,P3,,3796349767,3796349767,3796349767,3796349767
+usmc_ch53_standalone,aircraft,CH-53E US Marine Corps,1,,ch53e,family_or_component_reference,AB,P3,,3801363152,3801363152,3801363152,3801363152
+usmc_vh-3d,aircraft,VH-3D Marine One,1,,vh3d,family_or_component_reference,AA,P4,,3478767194,3478767194,3413868677,3478767194
+usn_cv_kitty_hawk,vessels,usn_cv_kitty_hawk,1,,kitty_hawk,family_or_component_reference,BA,P3,,3373960386,3373960386,,
+usn_cvn_ford,vessels,Gerald Ford-class,1,,ford,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3461044389,
+usn_cvn_ford_jsf,vessels,Gerald Ford-class (F-35s),1,,ford,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3461044389,
+usn_cvn_nimitz,vessels,usn_cvn_nimitz,1,,nimitz,family_or_component_reference,AB,P3,,3373960386,3373960386,3461044389,
+usn_cvn_nimitz_2000s,vessels,usn_cvn_nimitz_2000s,1,,nimitz,family_or_component_reference,AB,P3,,3430135740,3430135740,3461044389,
+usn_cvn_nimitz_2000s_adou,vessels,Nimitz-class (2000s) ADOU,1,,nimitz,family_or_component_reference,AB,P3,,3461091581,3461091581,3461044389,
+usn_cvn_nimitz_2025,vessels,Nimitz-class (2025),1,,nimitz,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,,
+usn_ddg_burke_f3_125,vessels,Arleigh Burke-class Flight III (125),1,,arleigh_burke,family_or_component_reference,AA,P4,,3390330875,3390330875,3390330875,
+usn_e-2d,aircraft,E-2D,1,,e2d,family_or_component_reference,AA,P4,,3737267013,3737267013,3737267013,3737267013
+usn_ea-18g_2020,aircraft,EA-18G (2020),1,,ea18g,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3737267013,3737267013
+usn_fury_escort,aircraft,Fury Escort,1,,fury,family_or_component_reference,AA,P4,,3804868806,3804868806,3804868806,3804868806
+usn_fury_ew,aircraft,Fury EW,1,,fury,family_or_component_reference,AA,P4,,3804868806,3804868806,3804868806,3804868806
+usn_p_8a,aircraft,P-8A Poseidon,1,,p8a,family_or_component_reference,AA,P4,,3413868677,3413868677,3737267013,3413868677
+usn_ssn_seawolf,vessels,Seawolf-class,1,,seawolf,family_or_component_reference,AA,P4,,3433957933,3433957933,3606774881,
+usn_ssn_virginia,vessels,Virginia-class,1,,virginia_ssn,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3606774881,
+wp_a-50u,aircraft,Beriev A-50U,1,,a50,family_or_component_reference,BA,P3,,3524112296,3524112296,3524112296,3524112296
+wp_ka-27rdl,aircraft,Ka-27RLD,1,,ka27,family_or_component_reference,AB,P3,,3776340577,3776340577,3775128499,3776340577
+wp_mi-24p,aircraft,Mi-24P,1,,mi24p,family_or_component_reference,AA,P4,,3513571010,3513571010,3513571010,3513571010
+wp_mi-8ew,aircraft,Mi-8EW,1,,mi8,family_or_component_reference,BA,P3,,3458148344,3458148344,,3458148344
+wp_mi-8tv,aircraft,Mi-8TV,1,,mi8,family_or_component_reference,BA,P3,,3465256032,3465256032,3465256032,3465256032
+wp_mig-29k,aircraft,MIG-29K 931,1,,mig29k,family_or_component_reference,BA,P3,,3417446309,3417446309,3417446309,3417446309
+wp_mig-31bm,aircraft,MiG-31BM,1,,mig31,family_or_component_reference,AA,P4,,3799742828,3799742828,3799742828,3799742828
+wp_mig-35,aircraft,MiG-35D,1,,mig35,family_or_component_reference,AB,P3,,3659742367,3659742367,3659742367,3659742367
+wp_sa-21_40n6_tel,land_units,SA-21 Long-range TEL,1,,s400,family_or_component_reference,BA,P3,,3392434750,3392434750,,
+wp_sa-21_flaplid,land_units,SA-21 Flaplid,1,,s400,family_or_component_reference,BA,P3,,3392434750,3392434750,,
+wp_sam_site_sa-21,land_units,SA-21 SAM Site,1,,s400,family_or_component_reference,BA,P3,,3392434750,3392434750,,
+wp_su-24mp,aircraft,Su-24MP,1,,su24,family_or_component_reference,BA,P3,,3716049886,3716049886,,3716049886
+wp_su-25sm3,aircraft,Su-25SM3,1,,su25,family_or_component_reference,AA,P4,,3451166840,3451166840,3451166840,3451166840
+wp_su-30m,aircraft,Su-30M,1,,su30,family_or_component_reference,AA,P4,,3434072450,3434072450,3506979898,3434072450
+wp_su-30sm2,aircraft,Su-30SM2,1,,su30,family_or_component_reference,AA,P4,,3762023575,3762023575,3434072450,3762023575
+wp_su-33,aircraft,Su-33,1,,su33,family_or_component_reference,AA,P4,,3438479626,3438479626,3438479626,3438479626
+wp_su-57,aircraft,SU-57,1,,su57,family_or_component_reference,AB,P3,,3503594612,3503594612,3503594612,3503594612
+wp_tu-160,aircraft,TU-160,1,,tu160,family_or_component_reference,AB,P3,,3509329205,3509329205,3509329205,3509329205
+wp_tu-16n,aircraft,Tu-16N,1,,tu16,family_or_component_reference,BA,P3,,3673908868,3673908868,,3673908868
+wp_tu-95_bearg,aircraft,Tu-95K-22,1,,tu95,family_or_component_reference,AA,P4,,3411341227,3411341227,,3411341227
+wp_tu-95ma,aircraft,Tu-95MA,1,,tu95,family_or_component_reference,AA,P4,,3587091564,3587091564,,3587091564
+wp_tu-95ms,aircraft,Tu-95MS,1,,tu95,family_or_component_reference,AA,P4,,3395022688,3395022688,,3395022688
+wp_tu95ms,aircraft,Tu-95MS,1,,tu95,family_or_component_reference,AA,P4,,3715323261,3715323261,,3715323261
+wp_vt_boris_chilikin,vessels,wp_vt_boris_chilikin,1,,boris_chilikin,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,,
+ae_ffg_alvaro_bazan,vessels,Alvaro de Bazan-class (Early),0,sest-southern-reach-open; sest-southern-watch-open,bazan,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3731208477,
+ae_ffg_santa_maria_late,vessels,Santa Maria-class Late,0,sest-southern-reach-open; sest-southern-watch-open,perry,family_or_component_reference,BA,P3,,3630495619,vanilla,,
+ae_opv_meteoro,vessels,Meteoro-class Meteoro,0,sest-southern-reach-open; sest-southern-watch-open,meteoro,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3731208477,
+eu_ef2000_fgr4_late,aircraft,Eurofighter Typhoon FGR.4 Late,0,sest-southern-reach-open; sest-southern-watch-open,typhoon,family_or_component_reference,AA,P4,,3587877691,3587877691,3587877691,3587877691
+fr_atl2,aircraft,Breguet Atlantique 2,0,sest-southern-reach-open; sest-southern-watch-open,atl2,family_or_component_reference,AA,P4,,3567256221,3567256221,,3567256221
+fr_fdi_amiral_ronarc'h,vessels,Amiral Ronarc'h class,0,sest-southern-reach-open; sest-southern-watch-open,fdi,family_or_component_reference,AA,P4,,3567256221,3567256221,,
+fr_ffg_aquitaine_asw,vessels,Aquitaine-class (ASW),0,sest-southern-reach-open; sest-southern-watch-open,aquitaine,family_or_component_reference,AA,P4,,3567256221,3567256221,,
+fr_lhd_mistral,vessels,Mistral class,0,sest-southern-reach-open; sest-southern-watch-open,mistral,family_or_component_reference,AA,P4,,3567256221,3567256221,,
+ger_ffg_f123_2025_mlu,vessels,F123B Brandenburg-class,0,sest-southern-reach-open; sest-southern-watch-open,brandenburg,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3575847216,
+ita_ddg_orizzonte_18,vessels,Andrea Doria class,0,sest-southern-reach-open; sest-southern-watch-open,doria_modern,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3488139470,
+ita_ffg_fremm,vessels,Bergamini class (GP),0,sest-southern-reach-open; sest-southern-watch-open,bergamini_modern,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3488139470,
+ita_ffg_ppa,vessels,Thaon di Revel class,0,sest-southern-reach-open; sest-southern-watch-open,ppa,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3488139470,
+jmsdf_aoe_mashuu,vessels,Mashuu-class AOE (stand-in),0,sest-southern-reach-open; sest-southern-watch-open,mashu,concept_base_reference,BA,P3,,SEST_Integration,SEST_Integration,,
+jmsdf_dd_asahi,vessels,Asahi-class,0,sest-southern-reach-open; sest-southern-watch-open,asahi,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3695809489,
+jmsdf_ddg_atago,vessels,Atago-class,0,sest-southern-reach-open; sest-southern-watch-open,atago,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3695809489,
+knm_cor_skjold,vessels,Skjold Class,0,sest-southern-reach-open; sest-southern-watch-open,skjold,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3642656500,
+ko_ddg-995,vessels,Jeongjo the Great Class,0,sest-southern-reach-open; sest-southern-watch-open,jeongjo,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3789208859,
+ko_ddh-971,vessels,Gwanggaeto the Great Class,0,sest-southern-reach-open; sest-southern-watch-open,gwanggaeto,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3789208859,
+ko_ddh-975_kvls,vessels,Chungmugong Yi Sun-sin Class,0,sest-southern-reach-open; sest-southern-watch-open,chungmugong,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3789208859,
+rn_ff_type23,vessels,Type 23 class (LIFEX),0,sest-southern-reach-open; sest-southern-watch-open,type23,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3599752717,
+rn_opv_river_batch2,vessels,River class (Batch II),0,sest-southern-reach-open; sest-southern-watch-open,river,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3599752717,
+rnn_ddg_zeven_mlu,vessels,Zeven Provincien MLU Class,0,sest-southern-reach-open; sest-southern-watch-open,zeven,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3444379330,
+rnn_ffg_hol,vessels,Holland Class,0,sest-southern-reach-open; sest-southern-watch-open,holland,family_or_component_reference,AA,P4,,3444379330,3444379330,3444379330,
+rnn_ffg_karel_eol,vessels,Karel Doorman Class EOL,0,sest-southern-reach-open; sest-southern-watch-open,karel_doorman,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3444379330,
+usn_cvn_gerald_r_ford,vessels,Gerald R. Ford-class,0,sest-southern-reach-open; sest-southern-watch-open,ford,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3413868677,
+usn_cvn_nimitz_2027s_adou,vessels,Nimitz-class (2027s) ADOU,0,sest-southern-reach-open; sest-southern-watch-open,nimitz,family_or_component_reference,AB,P3,,3606774881,SEST_Integration,,
+usn_ddg-1000_cps,vessels,Zumwalt-class (CPS),0,sest-southern-reach-open; sest-southern-watch-open,zumwalt,family_or_component_reference,AA,P4,,3390330875,3390330875,3390330875,
+usn_ddg_arleigh_flt1_054_2027,vessels,Arleigh Burke `27-class Flt.1 [054~070],0,sest-southern-reach-open; sest-southern-watch-open,arleigh_burke,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3390330875,
+usn_ddg_arleigh_flt2_072_2027,vessels,Arleigh Burke `27-class Flt.2 [072~077],0,sest-southern-reach-open; sest-southern-watch-open,arleigh_burke,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3390330875,
+usn_fa-18e,aircraft,F/A-18E,0,sest-southern-reach-open; sest-southern-watch-open,fa18e,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3737267013,3430135740
+usn_lhd_wasp,vessels,Wasp-class,0,sest-southern-reach-open; sest-southern-watch-open,wasp,family_or_component_reference,AB,P3,,SEST_Integration,SEST_Integration,3390330875,
+usn_p8_2027,aircraft,P-8A Poseidon (2027),0,sest-southern-reach-open; sest-southern-watch-open,p8a,family_or_component_reference,AA,P4,,3606774881,3606774881,3602046770,3606774881
+usn_ssn_seawolf_2027,vessels,Seawolf SSN (2027),0,sest-southern-reach-open; sest-southern-watch-open,seawolf,family_or_component_reference,AA,P4,,3606774881,3606774881,3606774881,
+usn_ssn_virginia_block1_2026,vessels,Virginia Class (Block I) 2026,0,sest-southern-reach-open; sest-southern-watch-open,virginia_ssn,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3390330875,
+usn_ssn_virginia_block2_2026,vessels,Virginia Class (Block II) 2026,0,sest-southern-reach-open; sest-southern-watch-open,virginia_ssn,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3390330875,
+usn_ssn_virginia_block3_2026,vessels,Virginia Class (Block III) 2026,0,sest-southern-reach-open; sest-southern-watch-open,virginia_ssn,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3390330875,
+usn_ssn_virginia_block4,vessels,Virginia Class (Block IV),0,sest-southern-reach-open; sest-southern-watch-open,virginia_ssn,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3390330875,
+usn_ssn_virginia_block5,vessels,Virginia Class (Block V),0,sest-southern-reach-open; sest-southern-watch-open,virginia_ssn,family_or_component_reference,BA,P3,,SEST_Integration,SEST_Integration,3390330875,
+usn_take_lewis_clark,vessels,Lewis and Clark-class T-AKE (stand-in),0,sest-southern-reach-open; sest-southern-watch-open,lewis_clark,concept_base_reference,AB,P3,,SEST_Integration,SEST_Integration,,
+usn_tao_kaiser,vessels,Henry J. Kaiser-class T-AO (stand-in),0,sest-southern-reach-open; sest-southern-watch-open,kaiser,concept_base_reference,AA,P4,,SEST_Integration,SEST_Integration,3630495619,
+usn_taoe_supply,vessels,Supply-class T-AOE (stand-in),0,sest-southern-reach-open; sest-southern-watch-open,supply_us,concept_base_reference,AA,P4,,SEST_Integration,SEST_Integration,,
+fr_rafale_b_l,aircraft,Rafale B Late,0,sest-southern-watch-open,rafale_b,family_or_component_reference,AA,P4,,SEST_Integration,SEST_Integration,3758943352,3758943352
+spa_ef2000,aircraft,C.16 Typhoon,0,sest-southern-watch-open,typhoon,family_or_component_reference,AA,P4,,3731208477,3731208477,3731208477,3731208477

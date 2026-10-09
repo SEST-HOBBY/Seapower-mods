@@ -1,0 +1,795 @@
+SEST VISUAL OVERHAUL — SOURCES AND MODIFICATIONS
+No AI imagery is included. Each source keeps its own licence.
+
+visuals/flags/source/australia.svg
+File:Flag of Australia.svg
+Creator: Original:   Ivor Evans, Leslie John Hawkins, Egbert John Nuttall, Annie Dorrington and William Stevens   Vector:     Ian Fieggen
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Australia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Australia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/new_zealand.svg
+File:Flag of New Zealand.svg
+Creator: Original:    Albert Hastings Markham    Vector:     Zscout370 ,  Hugh Jass , s. File history
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_New_Zealand.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_New_Zealand.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/united_states.svg
+File:Flag of the United States.svg
+Creator: Uploaded by  Dbenbenn ; edited by users such as  Zscout370 ,  Jacobolus ,  Indolences , and  Technion .
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/united_kingdom.svg
+File:Flag of the United Kingdom (3-5).svg
+Creator: Original:    Acts of Union 1800    Vector:     Yaddah
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_the_United_Kingdom_(3-5).svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_the_United_Kingdom_(3-5).svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/canada.svg
+File:Flag of Canada.svg
+Creator: Created by George F. G. Stanley /   E Pluribus Anthony  /  User:Mzajac
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Canada.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Canada.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/france.svg
+File:Flag of France.svg
+Creator: Original:   Unknown   Vector:     SKopp
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_France.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_France.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/germany.svg
+File:Flag of Germany.svg
+Creator: User:SKopp ,  User:Madden , and other users
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Germany.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Germany.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/italy.svg
+File:Flag of Italy.svg
+Creator: See below.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Italy.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Italy.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/spain.svg
+File:Flag of Spain.svg
+Creator: RelShot 263 ,  Echando una mano ; earlier version was Pedro A. Gracia Fajardo, escudo de  Manual de Imagen Institucional de la Administración General del Estado
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Spain.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Spain.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/netherlands.svg
+File:Flag of the Netherlands.svg
+Creator: Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_the_Netherlands.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_the_Netherlands.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/norway.svg
+File:Flag of Norway.svg
+Creator: Original:   Fredrik Meltzer   Vector:     Gutten på Hemsen
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Norway.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Norway.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/denmark.svg
+File:Flag of Denmark.svg
+Creator: Madden  and others
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Denmark.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Denmark.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/sweden.svg
+File:Flag of Sweden.svg
+Creator: Jon Harald Søby  and others.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Sweden.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Sweden.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/finland.svg
+File:Flag of Finland.svg
+Creator: Unknown
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Finland.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Finland.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/greece.svg
+File:Flag of Greece.svg
+Creator: Unknown author Unknown author
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Greece.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Greece.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/turkey.svg
+File:Flag of Turkey.svg
+Creator: David Benbennick  (original author)
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Turkey.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Turkey.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/poland.svg
+File:Flag of Poland.svg
+Creator: See below.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Poland.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Poland.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/portugal.svg
+File:Flag of Portugal.svg
+Creator: Original:   Columbano Bordalo Pinheiro (1910; generic design)   Vector:    Vítor Luís Rodrigues; António Martins-Tuválkin (2004; this specific vector set: see sources)
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Portugal.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Portugal.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/belgium.svg
+File:Flag of Belgium.svg
+Creator: Dbenbenn  and others
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Belgium.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Belgium.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/switzerland.svg
+File:Flag of Switzerland.svg
+Creator: Original: Unknown 
+Vector:
+ User:Marc Mongenet  
+Credits:
+ 
+   User:-xfi-  
+  User:Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Switzerland.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Switzerland.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/austria.svg
+File:Flag of Austria.svg
+Creator: Bundesministerium für Landesverteidigung
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Austria.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Austria.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/ireland.svg
+File:Flag of Ireland.svg
+Creator: Éire
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Ireland.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Ireland.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/iceland.svg
+File:Flag of Iceland.svg
+Creator: Original:   Matthías Þórðarson   Vector:     Árni Dagur  and  Magasjukur2
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Iceland.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Iceland.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/luxembourg.svg
+File:Flag of Luxembourg.svg
+Creator: Drawn by  User:SKopp
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Luxembourg.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Luxembourg.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/czech_republic.svg
+File:Flag of the Czech Republic.svg
+Creator: Jaroslav Kursa
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_the_Czech_Republic.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_the_Czech_Republic.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/hungary.svg
+File:Flag of Hungary.svg
+Creator: SKopp
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Hungary.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Hungary.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/croatia.svg
+File:Flag of Croatia.svg
+Creator: Nightstallion, Elephantus, Neoneo13, Denelson83, Rainman, R-41, Minestrone, Lupo, Zscout370,   Ma         Ga   (based on  Decision of the Parliament )
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Croatia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Croatia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/serbia.svg
+File:Flag of Serbia.svg
+Creator: See   File history   below for details.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Serbia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Serbia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/lithuania.svg
+File:Flag of Lithuania.svg
+Creator: Original:   Jonas Basanavičius, Tadas Daugirdas and Antanas Žmuidzinavičius   Vector:     SKopp          The  SVG  code is   valid  .        This  flag was created with a  text editor .              Previous version  had been created with Inkscape (1930 bytes)     f    now 14.15% of previous size           Please  do not replace  the simplified code of this file with a version created with  Inkscape  or any other graphical   vector graphics editor
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Lithuania.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Lithuania.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/ukraine.svg
+File:Flag of Ukraine.svg
+Creator: Government of Ukraine
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Ukraine.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Ukraine.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/russia.svg
+File:Flag of Russia.svg
+Creator: Peter the Great
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Russia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Russia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/china.svg
+File:Flag of the People's Republic of China.svg
+Creator: Zeng Liansong
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_the_People%27s_Republic_of_China.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_the_People%27s_Republic_of_China.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/japan.svg
+File:Flag of Japan.svg
+Creator: Various
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Japan.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Japan.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/south_korea.svg
+File:Flag of South Korea.svg
+Creator: Original:   Government of the Republic of Korea   Vector:     Great Brightstar  and others
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_South_Korea.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_South_Korea.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/north_korea.svg
+File:Flag of North Korea.svg
+Creator: Original:   Unknown author   Vector:     Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_North_Korea.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_North_Korea.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/india.svg
+File:Flag of India.svg
+Creator: Government of India
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_India.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_India.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/pakistan.svg
+File:Flag of Pakistan.svg
+Creator: User:Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Pakistan.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Pakistan.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/indonesia.svg
+File:Flag of Indonesia.svg
+Creator: Jayakatwang
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Indonesia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Indonesia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/malaysia.svg
+File:Flag of Malaysia.svg
+Creator: MapGrid   (old version  SKopp ,  Zscout370    and   Ranking Update )
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Malaysia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Malaysia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/singapore.svg
+File:Flag of Singapore.svg
+Creator: Original:   Government of Singapore   Vector:     Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Singapore.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Singapore.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/philippines.svg
+File:Flag of the Philippines.svg
+Creator: See   File history   below for details.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_the_Philippines.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_the_Philippines.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/thailand.svg
+File:Flag of Thailand.svg
+Creator: Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Thailand.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Thailand.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/vietnam.svg
+File:Flag of Vietnam.svg
+Creator: See   File history   below for details.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Vietnam.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Vietnam.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/taiwan.svg
+File:Flag of the Republic of China.svg
+Creator: Sun Yat-sen
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_the_Republic_of_China.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_the_Republic_of_China.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/sri_lanka.svg
+File:Flag of Sri Lanka.svg
+Creator: Original:    Sri Lanka  
+  Vectorization:   Zscout370,  Mike Rohsopht
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Sri_Lanka.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Sri_Lanka.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/kazakhstan.svg
+File:Flag of Kazakhstan.svg
+Creator: Shaken Niyazbekop
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Kazakhstan.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Kazakhstan.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/uzbekistan.svg
+File:Flag of Uzbekistan.svg
+Creator: Farhod Yoʻldoshev
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Uzbekistan.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Uzbekistan.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/georgia.svg
+File:Flag of Georgia.svg
+Creator: Last update by  MapGrid 
+ 
+   SKopp
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Georgia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Georgia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/iran.svg
+File:Flag of Iran.svg
+Creator: SVG file:  SiBr 4   Designer:  Hamid Nadimi  Construction:  ISIRI
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Iran.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Iran.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/iraq.svg
+File:Flag of Iraq.svg
+Creator: See   File history   below for details.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Iraq.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Iraq.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/syria.svg
+File:Flag of Syria (2025-).svg
+Creator: Modification by AnonMoos of PD image  File:Flag of Syria (1930–1958, 1961–1963).svg  (previous non-vector versions were by Coup de crayon 2011)
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Syria_(2025-).svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Syria_(2025-).svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/israel.svg
+File:Flag of Israel.svg
+Creator: Israel Belkind and Fanny Abramovitch (original) 
+  “The Provisional Council of State Proclamation of the Flag of the State of Israel”  of 25 Tishrei 5709 (28 October 1948) provides the official specification for the design of the Israeli flag. 
+ The color of the Magen David and the stripes of the Israeli flag is not precisely specified by the above legislation.  The color depicted in the current version of the image is typical of flags used in Israel today, although individual flags can and do vary. 
+ The flag legislation officially specifies dimensions of 220 cm × 160 cm.  However, the sizes of actual flags vary (although the aspect ratio is usually retained).
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Israel.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Israel.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/saudi_arabia.svg
+File:Flag of Saudi Arabia.svg
+Creator: The Shura Council
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Saudi_Arabia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Saudi_Arabia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/united_arab_emirates.svg
+File:Flag of the United Arab Emirates.svg
+Creator: Abdulla Mohammed Al Maainah
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_the_United_Arab_Emirates.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_the_United_Arab_Emirates.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/qatar.svg
+File:Flag of Qatar.svg
+Creator: See   File history   below for details.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Qatar.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Qatar.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/kuwait.svg
+File:Flag of Kuwait.svg
+Creator: Derivative works of this file:
+ 
+    Standard of the Emir of Kuwait.svg :       
+  Flag of Kuwait, Saudi Arabia and United Arab Emirates.png :
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Kuwait.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Kuwait.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/bahrain.svg
+File:Flag of Bahrain.svg
+Creator: Source: Drawn by  SKopp , rewritten by  Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Bahrain.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Bahrain.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/oman.svg
+File:Flag of Oman.svg
+Creator: See   File history   below for details.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Oman.svg
+Licence: OGL-om 1.0 https://www.oman.om/en/home-footer-level/faq/open-government-licence-oman
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/lebanon.svg
+File:Flag of Lebanon.svg
+Creator: Henri Pharaon
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Lebanon.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Lebanon.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/egypt.svg
+File:Flag of Egypt.svg
+Creator: See   File history   below for details.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Egypt.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Egypt.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/algeria.svg
+File:Flag of Algeria.svg
+Creator: Original:   National Liberation Front of Algeria   Vector:     SKopp
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Algeria.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Algeria.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/morocco.svg
+File:Flag of Morocco.svg
+Creator: Denelson83 ,  Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Morocco.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Morocco.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/tunisia.svg
+File:Flag of Tunisia.svg
+Creator: Various Wikimedia Commons' contributors
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Tunisia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Tunisia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/libya.svg
+File:Flag of Libya.svg
+Creator: Various        The  SVG  code is   valid  .        This   vector image  was created with a  text editor .
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Libya.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Libya.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/brazil.svg
+File:Flag of Brazil.svg
+Creator: Raimundo Teixeira Mendes
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Brazil.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Brazil.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/argentina.svg
+File:Flag of Argentina.svg
+Creator: Manuel Belgrano
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Argentina.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Argentina.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/chile.svg
+File:Flag of Chile.svg
+Creator: See   file history   below for details.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Chile.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Chile.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/peru.png
+File:Flag of Peru.svg
+Creator: David Benbennick
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Peru.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Peru.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/ecuador.svg
+File:Flag of Ecuador.svg
+Creator: President of the Republic of Ecuador, first uploaded by Denelson83 as Flag of Ecuador.svg, modifications by Husunqu, Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Ecuador.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Ecuador.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/cuba.svg
+File:Flag of Cuba.svg
+Creator: Miguel Teurbe Tolón and Narciso López
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Cuba.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Cuba.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/panama.svg
+File:Flag of Panama.svg
+Creator: Zscout370  et al.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Panama.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Panama.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/liberia.svg
+File:Flag of Liberia.svg
+Creator: Government of  Liberia
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Liberia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Liberia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/cyprus.svg
+File:Flag of Cyprus.svg
+Creator: İsmet Güney , SVG by  User:Vzb83~commonswiki
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Cyprus.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Cyprus.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/malta.svg
+File:Flag of Malta.svg
+Creator: See   File history   below for details.
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Malta.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Malta.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/hong_kong.svg
+File:Flag of Hong Kong.svg
+Creator: Designed by   Tao Ho   
+ SVG code of 24 November 2005 version copied from  Open Clip Art  
+ SVG code of 20 August 2011 version by  Alkari  
+ SVG code of 6 September 2021 version by  Mike Rohsopht
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Hong_Kong.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Hong_Kong.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/greenland.svg
+File:Flag of Greenland.svg
+Creator: Jeffrey Connell ( IceKarma )
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_Greenland.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_Greenland.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/french_polynesia.svg
+File:Flag of French Polynesia.svg
+Creator: Nightstallion
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_French_Polynesia.svg
+Licence: CC0 http://creativecommons.org/publicdomain/zero/1.0/deed.en
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/russia_naval.png
+File:Naval ensign of Russia.svg
+Creator: Zscout370 ,  SeNeKa
+Source: https://commons.wikimedia.org/wiki/File:Naval_ensign_of_Russia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Naval_ensign_of_Russia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/australia_naval.png
+File:Naval Ensign of Australia.svg
+Creator: David Newton  (original)
+Source: https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_Australia.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_Australia.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/new_zealand_naval.png
+File:Naval Ensign of New Zealand.svg
+Creator: Denelson83  and Others
+Source: https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_New_Zealand.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_New_Zealand.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/uk_naval.svg
+File:Naval ensign of the United Kingdom.svg
+Creator: Author not specified in source metadata; see source file history (public-domain flag graphic).
+Source: https://commons.wikimedia.org/wiki/File:Naval_ensign_of_the_United_Kingdom.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Naval_ensign_of_the_United_Kingdom.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/japan_naval.svg
+File:Naval Ensign of Japan.svg
+Creator: David Newton , uploader was  Denelson83
+Source: https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_Japan.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_Japan.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/china_naval.png
+File:Naval Ensign of China.svg
+Creator: Created by  PhiLiP  / using CorelDRAW X3
+Source: https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_China.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_China.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/italy_naval.png
+File:Naval ensign of Italy.svg
+Creator: F l a n k e r
+Source: https://commons.wikimedia.org/wiki/File:Naval_ensign_of_Italy.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Naval_ensign_of_Italy.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/soviet.svg
+File:Flag of the Soviet Union.svg
+Creator: СССР
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_the_Soviet_Union.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_the_Soviet_Union.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/soviet_naval.png
+File:Naval Ensign of the Soviet Union (1950–1991).svg
+Creator: User:Zscout370
+Source: https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_the_Soviet_Union_(1950%E2%80%931991).svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Naval_Ensign_of_the_Soviet_Union_(1950%E2%80%931991).svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/east_germany.svg
+File:Flag of East Germany.svg
+Creator: Flaggenentwurf: unbekannt 
+ diese Datei:  Jwnabd
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_East_Germany.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_East_Germany.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/flags/source/south_yemen.svg
+File:Flag of South Yemen.svg
+Creator: National Front  - الجبهة القومية
+Source: https://commons.wikimedia.org/wiki/File:Flag_of_South_Yemen.svg
+Licence: Public domain https://commons.wikimedia.org/wiki/File:Flag_of_South_Yemen.svg#Licensing
+Changes: Conventional 512 px-wide PNG export from the source SVG or PNG; original aspect ratio and artwork preserved. No generative AI.
+
+visuals/loading/hobart_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:HMAS_Hobart_(DDG_39)_participating_in_the_International_Fleet_Review_2022.jpg
+Creator: https://www.mod.go.jp/msdf/index.html  海上自衛隊
+Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/arleigh_burke_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:USS_Arleigh_Burke_(DDG_51)_steams_through_the_Mediterranean_Sea.jpg
+Creator: U.S. Navy photo by Journalist 2nd Class Patrick Reilly
+Licence: Public domain https://commons.wikimedia.org/wiki/File:USS_Arleigh_Burke_(DDG_51)_steams_through_the_Mediterranean_Sea.jpg#Licensing
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/chungmugong_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:ROKS_Chungmugong_Yi_Sun-sin_(DDH-975)_sails_off_the_coast_of_Hawaii_during_RIMPAC_2024_on_22_July_2024_-_1.jpg
+Creator: Petty Officer 1st Class John Bellino
+Licence: Public domain https://commons.wikimedia.org/wiki/File:ROKS_Chungmugong_Yi_Sun-sin_(DDH-975)_sails_off_the_coast_of_Hawaii_during_RIMPAC_2024_on_22_July_2024_-_1.jpg#Licensing
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/f35a_raaf_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:No_75_Squadron_F-35A_at_RAAF_Base_Tindal_in_July_2023.jpg
+Creator: U.S. Air Force photo by Senior Airman J. Michael Peña
+Licence: Public domain 
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/p8a_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:Royal_Air_Force_Boeing_Poseidon_MRA1_P-8A_ZP803_Royal_International_Air_Tattoo_2025_01.jpg
+Creator: Julian Herzog  ( Website )
+Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/mh60r_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:MH-60R_Seahawk_from_HSM-37_during_counterdrug_operations_(200713-N-FA490-1857).jpg
+Creator: U.S. Navy/Mass Communication Specialist 3rd Class Andrew Langholf
+Licence: Public domain 
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/leclerc_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:French_Leclerc_main_battle_tank_during_Strong_Europe_Tank_Challenge_exercise,_2017.jpg
+Creator: Staff Sgt. Kathleen Polanco; 7th Army Training Command
+Licence: Public domain https://commons.wikimedia.org/wiki/File:French_Leclerc_main_battle_tank_during_Strong_Europe_Tank_Challenge_exercise,_2017.jpg#Licensing
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/patriot_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:JASDF_MIM-104_Patriot_PAC-2_M901_Launching_Station(49-3157,_launch_mode)_behind_view_at_JGSDF_Camp_Nihonbara_October_1,_2017.jpg
+Creator: Hunini
+Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/virginia_ssn_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:USS_Virginia_(SSN-774)_bravo_sea_trials.jpg
+Creator: U.S. Navy photo by Journalist 2nd Class Christina M. Shaw (RELEASED)
+Licence: Public domain https://commons.wikimedia.org/wiki/File:USS_Virginia_(SSN-774)_bravo_sea_trials.jpg#Licensing
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Source is smaller than the output canvas; resizing does not create additional photographic detail.
+
+visuals/loading/collins_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:HMAS_Collins_rises_to_the_surface_during_exercise_La_Perouse_in_2019.jpg
+Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Leonard Adams
+Licence: Public domain https://commons.wikimedia.org/wiki/File:HMAS_Collins_rises_to_the_surface_during_exercise_La_Perouse_in_2019.jpg#Licensing
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/maya_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:JS_Maya_(DDG-179).jpg
+Creator: 海上自衛隊
+Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+visuals/loading/caesar_1920x1080.jpg
+Source: https://commons.wikimedia.org/wiki/File:French_Caesar_self-propelled_howitzer_in_Iraq.jpg
+Creator: Sgt. 1st Class Mikki Sprenkle
+Licence: Public domain https://commons.wikimedia.org/wiki/File:French_Caesar_self-propelled_howitzer_in_Iraq.jpg#Licensing
+Changes: Conventional Lanczos resize and dark letterboxing. No cropping, recolouring, generative fill, AI enhancement or AI imagery.
+Photographic source fitted to widescreen canvas.
+
+STEAM ARTWORK (visuals/steam/)
+Made for the SEST Steam pages from the photos below: cropped, darkened, text added. No AI imagery.
+
+Hobart class
+File:HMAS Hobart (DDG 39) participating in the International Fleet Review 2022.jpg
+Creator: Japan Maritime Self-Defense Force
+Source: https://commons.wikimedia.org/wiki/File:HMAS_Hobart_(DDG_39)_participating_in_the_International_Fleet_Review_2022.jpg
+Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0/
+Used in: Collection cover, Collection background, Southern Watch
+
+Arleigh Burke class
+File:USS Arleigh Burke (DDG 51) steams through the Mediterranean Sea.jpg
+Creator: U.S. Navy photo by Journalist 2nd Class Patrick Reilly
+Source: https://commons.wikimedia.org/wiki/File:USS_Arleigh_Burke_(DDG_51)_steams_through_the_Mediterranean_Sea.jpg
+Licence: Public domain
+Used in: Collection background, What's in the pack
+
+Collins class submarine
+File:HMAS Collins rises to the surface during exercise La Perouse in 2019.jpg
+Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Leonard Adams
+Source: https://commons.wikimedia.org/wiki/File:HMAS_Collins_rises_to_the_surface_during_exercise_La_Perouse_in_2019.jpg
+Licence: Public domain
+Used in: Collection background, Southern Reach
+
+Type 054A frigate
+File:CNS Huangshan (FFG-570) 170616-N-ZW825-722.jpg
+Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Scott Taylor
+Source: https://commons.wikimedia.org/wiki/File:CNS_Huangshan_(FFG-570)_170616-N-ZW825-722.jpg
+Licence: Public domain
+Used in: Collection background, Red Line
+
+F-35A — RAAF
+File:No 75 Squadron F-35A at RAAF Base Tindal in July 2023.jpg
+Creator: U.S. Air Force photo by Senior Airman J. Michael Peña
+Source: https://commons.wikimedia.org/wiki/File:No_75_Squadron_F-35A_at_RAAF_Base_Tindal_in_July_2023.jpg
+Licence: Public domain
+Used in: Pack cover
+
+Tarlac class
+File:Balikatan 2019 USS WASP (LHD 1) BRP TARLAC (LD 601) AMPHIBIOUS OPERATIONS.jpg
+Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Daniel Barker
+Source: https://commons.wikimedia.org/wiki/File:Balikatan_2019_USS_WASP_(LHD_1)_BRP_TARLAC_(LD_601)_AMPHIBIOUS_OPERATIONS.jpg
+Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+Used in: Latest update (6 Oct 2026). The adapted image is shared under the same licence.
+
+MH-60R Seahawk
+File:MH-60R Seahawk from HSM-37 during counterdrug operations (200713-N-FA490-1857).jpg
+Creator: U.S. Navy/Mass Communication Specialist 3rd Class Andrew Langholf
+Source: https://commons.wikimedia.org/wiki/File:MH-60R_Seahawk_from_HSM-37_during_counterdrug_operations_(200713-N-FA490-1857).jpg
+Licence: Public domain
+Used in: Southern Watch (the in-game campaign map inset; the campaign screen's backdrop in game)
+
+Type 003 Fujian carrier
+File:Chinese aircraft carrier Fujian flight deck.jpg
+Creator: China News Service
+Source: https://commons.wikimedia.org/wiki/File:Chinese_aircraft_carrier_Fujian_flight_deck.jpg
+Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
+Used in: Red Line (the in-game campaign map inset; the campaign screen's backdrop in game)
+
+Miguel Malvar class frigate
+File:BRP Miguel Malvar in Subic.jpg
+Creator: Philippine Navy Public Affairs Office
+Source: https://commons.wikimedia.org/wiki/File:BRP_Miguel_Malvar_in_Subic.jpg
+Licence: Public domain
+Used in: Sulu Line (Steam campaign card); collection background
+
+E-7A Wedgetail — RAAF
+File:Royal Australian Air Force E-7A at Red Flag Feb 2013.jpg
+Creator: U.S. Air Force photo by Lawrence Crespo
+Source: https://commons.wikimedia.org/wiki/File:Royal_Australian_Air_Force_E-7A_at_Red_Flag_Feb_2013.jpg
+Licence: Public domain
+Used in: Installing
+

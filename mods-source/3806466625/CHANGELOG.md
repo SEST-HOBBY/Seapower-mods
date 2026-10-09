@@ -1,3 +1,17 @@
+# 1.1.31
+
+- 美版、日版鱼鹰的空载、运输、转场方案均声明原生 ProbeAndDrogue 空中受油。
+- 加油命令对应的 RefuelTask 尚未完成离队时，暂停自定义低速及终点悬停控制；清理已有悬停交接状态时保留原生速度指令，避免再次补发零速。
+- RCS 从旧类别 Large 改为数值 50，参照原版 S-3/A-6（50）与 CH-46/HH-3（30）；原版 Large 对应 10000 的大型舰艇级别。数值为游戏估算，未改动模型尺度、油量和未受油航程。
+- 两个插件版本为 1.1.31，面向 0.8.3 起的原生加油流程；当前 0.8.5 编译与静态检查通过。实际加油、离队后悬停和甲板流程待完全重启后复测。
+
+---
+
+- Enable native ProbeAndDrogue aerial receiving for Empty, Transport and Ferry on both Ospreys.
+- Yield custom low-speed and terminal hover while the refuel order's RefuelTask has not completed departure. Clear any existing hover handoff without replacing native speed commands.
+- Replace the legacy Large RCS category with numeric 50 using native S-3/A-6 (50) and CH-46/HH-3 (30) baselines. Native Large corresponds to the ship-sized value 10000. This is a gameplay estimate; model scale, fuel capacity and unrefuelled range are unchanged.
+- Both plugins are 1.1.31, targeting native refueling from 0.8.3 onward. Current 0.8.5 compilation and static checks passed. Actual receiving, hover after departure and deck operations require a full restart and in-game retest.
+
 # 1.1.30
 
 - 修复 beta 删除 GameTime.time 导致鱼鹰甲板诊断异常、中断舰船后续系统更新的问题。两个插件共用缓存的兼容时钟：优先 missionElapsedTime（double），旧版使用 time（float），内部计时统一为 double。
