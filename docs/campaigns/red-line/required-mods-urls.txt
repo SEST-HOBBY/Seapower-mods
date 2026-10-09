@@ -1,6 +1,6 @@
 Red Line - Workshop mods this campaign reaches (reference only)
 
-34 items, in canonical load order. NOT the Workshop item's
+33 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -29,7 +29,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3390330875    # Modern US
 https://steamcommunity.com/sharedfiles/filedetails/?id=3456859157    # Mogami-class Frigate
 https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3774859959    # PLAN Type 001 Aircraft Carrier Liaoning
-https://steamcommunity.com/sharedfiles/filedetails/?id=3663564190    # Type 003 Aircraft Carrier - PLANS Fujian CV-18
 https://steamcommunity.com/sharedfiles/filedetails/?id=3436170138    # Shenyang J-11
 https://steamcommunity.com/sharedfiles/filedetails/?id=3486502935    # Type 003 Fujian / Type 004 CVN Aircraft Carriers
 https://steamcommunity.com/sharedfiles/filedetails/?id=3417801942    # Chinese Navy (PLAN)
