@@ -23,6 +23,11 @@
       streaming-media.txt     every picture and film under original\ and the
                               Workshop's loading/menu pictures - the folder a
                               replacement loading screen must use
+      ui-assets.txt           the background, loading and menu picture names
+                              inside the game's own Unity data and code - what
+                              the SEST plugin must find to swap one
+                              (tools\scan-ui-assets.ps1; rescanned only when
+                              the game's data changes)
       player.log / -prev.log  the Unity log: mods loaded, missing files,
                               exceptions with stack traces. The KJ-500 crash
                               was diagnosed from a stack trace pasted by hand;
@@ -168,6 +173,18 @@ foreach ($lib in Get-SteamLibraries) {
     break
 }
 Write-Snapshot "streaming-media.txt" $lines
+
+# --- 2c. pictures built into the game's Unity data -----------------------------
+# Every file-based loading screen is replaced, yet some screens still showed
+# the game's pictures (10 Oct 2026: between menu pages, a first load, the Mod
+# Manager) - pictures inside the game's Unity data, which only the SEST plugin
+# can swap, and only by name. Read only; see the script.
+if ($StreamingAssetsDir -and (Test-Path -LiteralPath $StreamingAssetsDir)) {
+    try {
+        & (Join-Path $scriptDir "scan-ui-assets.ps1") -DataDir (Split-Path -Parent $StreamingAssetsDir) `
+            -OutFile (Join-Path $outDir "ui-assets.txt")
+    } catch { Write-Warning "ui-assets.txt not written: $($_.Exception.Message)" }
+}
 
 # --- 3. the game's own log ---------------------------------------------------
 $logDir = Split-Path -Parent $SettingsPath
