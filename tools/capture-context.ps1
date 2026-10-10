@@ -20,6 +20,9 @@
       streaming-assets.txt    what is actually installed - the question that
                               took two round trips when the per-pack folders
                               were superseded by SEST_Integration
+      streaming-media.txt     every picture and film under original\ and the
+                              Workshop's loading/menu pictures - the folder a
+                              replacement loading screen must use
       player.log / -prev.log  the Unity log: mods loaded, missing files,
                               exceptions with stack traces. The KJ-500 crash
                               was diagnosed from a stack trace pasted by hand;
@@ -126,6 +129,45 @@ if ($StreamingAssetsDir -and (Test-Path -LiteralPath $StreamingAssetsDir)) {
     $lines += "(expected: exactly one, SEST_Integration - per-pack folders are superseded)"
 } else { $lines += "StreamingAssets not found" }
 Write-Snapshot "streaming-assets.txt" $lines
+
+# --- 2b. the game's own pictures and films ------------------------------------
+# The loading screen draws its backgrounds through the game's FileManager
+# (changelog: "LoadScreen to use FileManager to get backgrounds"), the same
+# lookup that lets a mod's file stand in for one under original\ - but the
+# repo's copy of original\ is text only, so which folder and names it reads
+# was unknown (10 Oct 2026, the media pack). This lists every picture and
+# film under original\ by relative path and size, and any Workshop mod's
+# picture whose path says load, background, menu or splash, so the folder a
+# replacement must use is read off the list instead of guessed.
+$media = @(".png", ".jpg", ".jpeg", ".tga", ".dds", ".bmp", ".mp4", ".webm", ".ogv", ".mov")
+$lines = @("# Pictures and films under StreamingAssets\original, and Workshop pictures named",
+           "# for loading screens, backgrounds or menus. Relative path, size in KB.", "")
+if ($StreamingAssetsDir -and (Test-Path -LiteralPath (Join-Path $StreamingAssetsDir "original"))) {
+    $orig = Join-Path $StreamingAssetsDir "original"
+    $files = @(Get-ChildItem -LiteralPath $orig -Recurse -File -ErrorAction SilentlyContinue |
+               Where-Object { $media -contains $_.Extension.ToLower() } | Sort-Object FullName)
+    $lines += "original\: $($files.Count) picture/film file(s)"
+    $byDir = $files | Group-Object { Split-Path -Parent $_.FullName.Substring($orig.Length + 1) }
+    foreach ($g in ($byDir | Sort-Object Name)) {
+        $lines += ""; $lines += "[$(if ($g.Name) { $g.Name } else { '.' })]  $($g.Count) file(s)"
+        foreach ($f in ($g.Group | Select-Object -First 60)) {
+            $lines += ("  {0,-60} {1,8:N0}" -f $f.Name, ($f.Length / 1KB))
+        }
+        if ($g.Count -gt 60) { $lines += "  ... and $($g.Count - 60) more" }
+    }
+} else { $lines += "StreamingAssets\original not found" }
+$lines += ""; $lines += "--- Workshop pictures named for loading screens, backgrounds or menus ---"
+foreach ($lib in Get-SteamLibraries) {
+    $content = Join-Path $lib "workshop\content\1286220"
+    if (-not (Test-Path $content)) { continue }
+    Get-ChildItem -LiteralPath $content -Recurse -File -ErrorAction SilentlyContinue |
+        Where-Object { $media -contains $_.Extension.ToLower() -and
+                       $_.FullName.Substring($content.Length) -match "load|background|menu|splash" } |
+        Sort-Object FullName | Select-Object -First 200 |
+        ForEach-Object { $lines += ("  {0,-90} {1,8:N0}" -f $_.FullName.Substring($content.Length + 1), ($_.Length / 1KB)) }
+    break
+}
+Write-Snapshot "streaming-media.txt" $lines
 
 # --- 3. the game's own log ---------------------------------------------------
 $logDir = Split-Path -Parent $SettingsPath

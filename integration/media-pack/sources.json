@@ -1,0 +1,477 @@
+{
+ "_about": "The SEST media pack's sources: the 10 Oct 2026 media research report's 24 Wikimedia Commons items. tools/fetch-media-pack.ps1 downloads the stills on the PC (Commons is not reachable from the build container) and checks each file page's licence again; build_media.py crops them. focus is the crop centre as a fraction of width and height. Videos are stage two: the main menu film is inside the game's Unity data, not a file a mod can replace.",
+ "allowed_licenses": {
+  "LicenseRef-PD-USGov": "Public domain|PD-USGov|PD-US",
+  "CC0-1.0": "CC0",
+  "CC-BY-3.0": "CC BY 3\\.0"
+ },
+ "rejected": [
+  {
+   "title": "Virginia_class_submarine.jpg",
+   "reason": "File page says U.S. Navy public domain but its embedded metadata names a copyright holder (the report's own rejection)."
+  }
+ ],
+ "sources": [
+  {
+   "id": "p8a_whidbey",
+   "priority": "P1",
+   "kind": "still",
+   "category": "isr",
+   "title": "Boeing_P-8A_Poseidon_of_VP-69_at_NAS_Whidbey_Island,_Washington_(USA),_circa_in_2023.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:Boeing_P-8A_Poseidon_of_VP-69_at_NAS_Whidbey_Island,_Washington_(USA),_circa_in_2023.jpg",
+   "creator": "U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading",
+    "menu"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Near-native 16:9; the report's alternative menu still."
+  },
+  {
+   "id": "cspoc",
+   "priority": "P2",
+   "kind": "still",
+   "category": "command",
+   "title": "Combined_Space_Operations_Center_(CSpOC)_staff_monitor_workstations_(9237933).jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:Combined_Space_Operations_Center_(CSpOC)_staff_monitor_workstations_(9237933).jpg",
+   "creator": "David Dozoretz / U.S. Space Force",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "menu",
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "The report's default menu still. Commons: monitor imagery composited for operational security."
+  },
+  {
+   "id": "e2d_philippine_sea",
+   "priority": "P3",
+   "kind": "still",
+   "category": "isr",
+   "title": "An_E-2D_Advanced_Hawkeye_flies_in_formation_over_the_Philippine_Sea_during_Pacific_Steller_2025_(8872518).jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:An_E-2D_Advanced_Hawkeye_flies_in_formation_over_the_Philippine_Sea_during_Pacific_Steller_2025_(8872518).jpg",
+   "creator": "Petty Officer 2nd Class Isaiah Goessl / U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading",
+    "menu"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "lincoln_csg",
+   "priority": "P4",
+   "kind": "still",
+   "category": "naval",
+   "title": "Abraham_Lincoln_Carrier_Strike_Group_Conducts_Photo_Exercise.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_Carrier_Strike_Group_Conducts_Photo_Exercise.jpg",
+   "creator": "MC1 Jesse Monford / U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading",
+    "menu"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "triton",
+   "priority": "P6",
+   "kind": "still",
+   "category": "isr",
+   "title": "Triton_completes_first_flight._(8793150905).jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:Triton_completes_first_flight._(8793150905).jpg",
+   "creator": "Daniel Perales / U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "caoc",
+   "priority": "P8",
+   "kind": "still",
+   "category": "command",
+   "title": "Combined_Air_Operations_Center_151007-F-MS415-019.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:Combined_Air_Operations_Center_151007-F-MS415-019.jpg",
+   "creator": "Tech. Sgt. Joshua Strang / U.S. Air Force",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading",
+    "menu"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "u2_cockpit",
+   "priority": "P9",
+   "kind": "still",
+   "category": "isr",
+   "title": "U-2_Dragon_Lady_'Anytime,_Anyplace'_130108-F-JA766-009.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:U-2_Dragon_Lady_'Anytime,_Anyplace'_130108-F-JA766-009.jpg",
+   "creator": "Airman 1st Class Drew Buchanan / U.S. Air Force",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "kc46_e2d",
+   "priority": "P10",
+   "kind": "still",
+   "category": "airpower",
+   "title": "Boeing_KC-46A_Pegasus_of_the_412th_Test_Wing_conducts_tanker-receiver_aerial_refueling_compatibility_testing_with_a_Northrop_Grumman_E-2D_Hawkeye_of_VX-20_near_NAS_Patuxent_River,_Maryland_(USA),_16_April_2024.JPG",
+   "page": "https://commons.wikimedia.org/wiki/File:Boeing_KC-46A_Pegasus_of_the_412th_Test_Wing_conducts_tanker-receiver_aerial_refueling_compatibility_testing_with_a_Northrop_Grumman_E-2D_Hawkeye_of_VX-20_near_NAS_Patuxent_River,_Maryland_(USA),_16_April_2024.JPG",
+   "creator": "Erik Hildebrandt / U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "rc135",
+   "priority": "P11",
+   "kind": "still",
+   "category": "isr",
+   "title": "RC-135_Rivet_Joint.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:RC-135_Rivet_Joint.jpg",
+   "creator": "Master Sgt. Lance Cheung / U.S. Air Force",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "te_kaha",
+   "priority": "P12",
+   "kind": "still",
+   "category": "naval",
+   "title": "HMNZS_Te_Kaha_(F77)_underway_in_the_Philippine_Sea_on_2_July_2017.JPG",
+   "page": "https://commons.wikimedia.org/wiki/File:HMNZS_Te_Kaha_(F77)_underway_in_the_Philippine_Sea_on_2_July_2017.JPG",
+   "creator": "MCS2 Holly Herline / U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "cic_vinson",
+   "priority": "P16",
+   "kind": "still",
+   "category": "command",
+   "title": "CIC-USS-CarlVinson-2001.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:CIC-USS-CarlVinson-2001.jpg",
+   "creator": "Photographer's Mate Airman Inez Lawson / U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "2100x1500 master: 1080p only, never upscaled."
+  },
+  {
+   "id": "f35a_hill",
+   "priority": "P17",
+   "kind": "still",
+   "category": "airpower",
+   "title": "F-35A_Lightning_II_at_Hill_Air_Force_Base,_Utah.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:F-35A_Lightning_II_at_Hill_Air_Force_Base,_Utah.jpg",
+   "creator": "Staff Sgt. Kaitlyn Ergish / U.S. Air Force",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "kc46_b1",
+   "priority": "P19",
+   "kind": "still",
+   "category": "airpower",
+   "title": "A_KC-46A_Pegasus,_takes_off_on_a_mission_to_refuel_a_B-1B_Lancer.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:A_KC-46A_Pegasus,_takes_off_on_a_mission_to_refuel_a_B-1B_Lancer.jpg",
+   "creator": "Senior Airman Alexi Bosarge / U.S. Air Force",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "rq4",
+   "priority": "P20",
+   "kind": "still",
+   "category": "isr",
+   "title": "RQ-4_Global_Hawk.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:RQ-4_Global_Hawk.jpg",
+   "creator": "Stacey Knott / U.S. Air Force",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "b2",
+   "priority": "P21",
+   "kind": "still",
+   "category": "airpower",
+   "title": "US_Air_Force_B-2_Spirit.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:US_Air_Force_B-2_Spirit.jpg",
+   "creator": "U.S. Air Force",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": ""
+  },
+  {
+   "id": "sm3_decatur",
+   "priority": "P23",
+   "kind": "still",
+   "category": "naval",
+   "title": "SM-3_launch-USS_Decatur.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:SM-3_launch-USS_Decatur.jpg",
+   "creator": "U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Portrait: set to one side of a dark 16:9 panel, never stretched."
+  },
+  {
+   "id": "global_hawk_wide",
+   "priority": "P24",
+   "kind": "still",
+   "category": "isr",
+   "title": "16_19_133_global_hawk.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File:16_19_133_global_hawk.jpg",
+   "creator": "Dsdugan",
+   "license": "CC0-1.0",
+   "uses": [
+    "loading"
+   ],
+   "stage": "ship",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Ultrawide master: a 16:9 crop from its middle."
+  },
+  {
+   "id": "p8a_scs_video",
+   "priority": "P5",
+   "kind": "video",
+   "category": "isr",
+   "title": "U.S._Navy_P-8A_Poseidon_flies_over_new_islands_in_South_China_Sea_-2_PeKnUKeVDMo.webm",
+   "page": "https://commons.wikimedia.org/wiki/File:U.S._Navy_P-8A_Poseidon_flies_over_new_islands_in_South_China_Sea_-2_PeKnUKeVDMo.webm",
+   "creator": "U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "menu-video"
+   ],
+   "stage": "deferred",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Stage two: the report's preferred menu loop."
+  },
+  {
+   "id": "triton_video",
+   "priority": "P7",
+   "kind": "video",
+   "category": "isr",
+   "title": "Unmanned_MQ-4C_Triton_Completes_First_Flight_1080p.webm",
+   "page": "https://commons.wikimedia.org/wiki/File:Unmanned_MQ-4C_Triton_Completes_First_Flight_1080p.webm",
+   "creator": "U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "menu-video"
+   ],
+   "stage": "deferred",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Stage two."
+  },
+  {
+   "id": "nimitz_video",
+   "priority": "P13",
+   "kind": "video",
+   "category": "naval",
+   "title": "USS_Nimitz_Air_Power_Demonstration.webm",
+   "page": "https://commons.wikimedia.org/wiki/File:USS_Nimitz_Air_Power_Demonstration.webm",
+   "creator": "MCS3 Samuel Souvannason / U.S. Navy",
+   "license": "CC-BY-3.0",
+   "uses": [
+    "menu-video"
+   ],
+   "stage": "deferred",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Stage two. CC BY 3.0: attribution required."
+  },
+  {
+   "id": "x47b_video",
+   "priority": "P14",
+   "kind": "video",
+   "category": "naval",
+   "title": "X-47B_Completes_First_Carrier-based_Launch_(Short)_2.ogv",
+   "page": "https://commons.wikimedia.org/wiki/File:X-47B_Completes_First_Carrier-based_Launch_(Short)_2.ogv",
+   "creator": "U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "menu-video"
+   ],
+   "stage": "deferred",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Stage two."
+  },
+  {
+   "id": "cold_response_video",
+   "priority": "P15",
+   "kind": "video",
+   "category": "airpower",
+   "title": "100th_ARW_operates_during_Cold_Response_26_(999980).webm",
+   "page": "https://commons.wikimedia.org/wiki/File:100th_ARW_operates_during_Cold_Response_26_(999980).webm",
+   "creator": "Staff Sgt. Jason Cochran / U.S. Air Force",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "menu-video"
+   ],
+   "stage": "deferred",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Stage two. Native 4K."
+  },
+  {
+   "id": "atlantic_trident_video",
+   "priority": "P18",
+   "kind": "video",
+   "category": "airpower",
+   "title": "Atlantic_Trident_2017_-_Teaser.webm",
+   "page": "https://commons.wikimedia.org/wiki/File:Atlantic_Trident_2017_-_Teaser.webm",
+   "creator": "Enrique Barcelo, Amanda Dole, Airman Nicolas Myers / Joint Base Langley-Eustis",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "menu-video"
+   ],
+   "stage": "deferred",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Stage two."
+  },
+  {
+   "id": "f35c_landing_video",
+   "priority": "P22",
+   "kind": "video",
+   "category": "naval",
+   "title": "F-35C_First_Carrier_Landing_1.webm",
+   "page": "https://commons.wikimedia.org/wiki/File:F-35C_First_Carrier_Landing_1.webm",
+   "creator": "U.S. Navy",
+   "license": "LicenseRef-PD-USGov",
+   "uses": [
+    "menu-video"
+   ],
+   "stage": "deferred",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "note": "Stage two. 720p master."
+  }
+ ]
+}
