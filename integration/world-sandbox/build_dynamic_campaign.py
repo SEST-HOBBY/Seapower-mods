@@ -916,6 +916,12 @@ NOT_ARSENAL_ROLES = {"Merchant", "Spy", "SeaMine", "Deco"}
 NOT_ARSENAL_ID = re.compile(r"^civ_|satellite|balloon|septar|target|decoy|raft|sea_mine|sampan|"
                             r"_ms_|_fv_|fishing|trawler|\s")
 SIDE_ORDER = {n: i for i, n in enumerate(BLUE + RED)}
+# Units the game itself does not have, though the repo's export of the mods
+# still does: Dynamic Campaign Mod refused to start the campaign on them
+# ("needs units this game doesn't have", BepInEx log of the 10 Oct 2026 test).
+# All six were Identify Expanded's (3790594162), updated on the Workshop that
+# day after the 2 Oct export. The next mod export makes this list redundant.
+NOT_IN_GAME = {"rw_alouette_II", "rw_c340", "rw_qh-50d", "rw_sh-2f", "rw_sh-3h", "rw_v35"}
 
 
 def operators(kind, uid):
@@ -948,6 +954,9 @@ def arsenal():
             continue
         uid = path.stem
         if re.search(r"_(variants|squadrons|loadouts)$", uid, re.I) or uid in found:
+            continue
+        if uid in NOT_IN_GAME:
+            left["not in the game (Dynamic Campaign Mod, 10 Oct 2026)"].append(uid)
             continue
         if bp.unit_type(uid) not in ARSENAL_TYPES:
             continue

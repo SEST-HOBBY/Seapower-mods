@@ -5208,12 +5208,6 @@
     "rok_t-50_tha": 46,
     "rok_uh60": 39,
     "rs_a330_mrtt": 242,
-    "rw_alouette_II": 25,
-    "rw_c340": 25,
-    "rw_qh-50d": 39,
-    "rw_sh-2f": 39,
-    "rw_sh-3h": 39,
-    "rw_v35": 25,
     "S-70B-2_Seahawk": 39,
     "S2": 242,
     "sp_ec_665_had-e": 39,
@@ -7729,41 +7723,6 @@
       "aircraft": true
     },
     {
-      "unit": "rw_c340",
-      "side": "blue",
-      "nation": "US",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "rw_qh-50d",
-      "side": "blue",
-      "nation": "US",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "rw_sh-2f",
-      "side": "blue",
-      "nation": "US",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "rw_sh-3h",
-      "side": "blue",
-      "nation": "US",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "rw_v35",
-      "side": "blue",
-      "nation": "US",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
       "unit": "usa_a-10a",
       "side": "blue",
       "nation": "US",
@@ -10187,13 +10146,6 @@
     },
     {
       "unit": "fr_vsr700",
-      "side": "blue",
-      "nation": "France",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "rw_alouette_II",
       "side": "blue",
       "nation": "France",
       "tier": 0,

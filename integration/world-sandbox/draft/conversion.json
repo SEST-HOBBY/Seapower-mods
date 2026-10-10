@@ -7057,6 +7057,14 @@
     "wp_ms_roro_b",
     "wp_perun_satellite"
    ],
+   "not in the game (Dynamic Campaign Mod, 10 Oct 2026)": [
+    "rw_alouette_II",
+    "rw_c340",
+    "rw_qh-50d",
+    "rw_sh-2f",
+    "rw_sh-3h",
+    "rw_v35"
+   ],
    "role Merchant": [
     "hdms_tug_alsin"
    ],
@@ -7084,7 +7092,7 @@
   "catalogue_by_side_nation": {
    "blue US": {
     "ships": 244,
-    "aircraft": 171
+    "aircraft": 166
    },
    "blue Australia": {
     "ships": 39,
@@ -7096,7 +7104,7 @@
    },
    "blue France": {
     "ships": 38,
-    "aircraft": 61
+    "aircraft": 60
    },
    "blue Italy": {
     "ships": 35,
@@ -7821,12 +7829,6 @@
   "rok_t-50_tha": "Role Fighter",
   "rok_uh60": "Role ASW",
   "rs_a330_mrtt": "Role AEW",
-  "rw_alouette_II": "Role Attack",
-  "rw_c340": "Role Attack",
-  "rw_qh-50d": "Role ASW",
-  "rw_sh-2f": "Role ASW",
-  "rw_sh-3h": "Role ASW",
-  "rw_v35": "Role Attack",
   "S-70B-2_Seahawk": "Role ASW",
   "S2": "Role AEW",
   "sp_ec_665_had-e": "Role ASuW",
@@ -8784,8 +8786,8 @@
    "Air": 107
   },
   "patrols": 16,
-  "catalogue": 1522,
-  "values": 1522,
+  "catalogue": 1516,
+  "values": 1516,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34
