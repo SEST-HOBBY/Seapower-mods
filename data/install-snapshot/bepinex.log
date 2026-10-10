@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - last 416 line(s) of a 0.0 MB file, last written 2026-10-10T23:32:15. 
+# BepInEx\LogOutput.log - last 472 line(s) of a 0.0 MB file, last written 2026-10-10T23:41:17. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (24/02/2026 9:31:59 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.67.7905730
@@ -400,18 +400,74 @@
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _nation
 [Info   :Dynamic Campaign Mod] Game members: all 199 found.
 [Info   :Dynamic Campaign Mod] Patched: dynamic campaigns will appear in the Campaign menu marked [Dynamic].
-[Error  :Dynamic Campaign Mod] Skipping campaign C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\sest-world-sandbox\dynamic_campaigns/sest-world-sandbox\campaign.json: C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\sest-world-sandbox\dynamic_campaigns/sest-world-sandbox\campaign.json: base "usp_coronado_nas_north_island" has a "field" "unit": "usa_airbase", which is none of the game's airbases (airfield_small_1, nato_small_airbase, nato_very_small_airbase, wp_airbase_1, wp_airbase_2, wp_airbase_3, wp_airbase_4, wp_airbase_5, wp_large_pvo_airbase, is_airbase_akureyri, is_airbase_isafjordur, is_airbase_keflavik, is_airbase_reykjavik).
-[Info   :Coordinated Strike Tool] [t=449.49s] in mission: True, game menu open: True, HUD visible: False
-[Info   :Coordinated Strike Tool] [t=459.38s] in mission: True, game menu open: False, HUD visible: True
-[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 1ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 1ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 2ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 3ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 4ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 5ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 2ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 3ï¼‰
-[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 4ï¼‰
-[Info   :Coordinated Strike Tool] [t=745.77s] in mission: True, game menu open: True, HUD visible: False
-[Info   :Coordinated Strike Tool] [t=767.55s] in mission: False, game menu open: False, HUD visible: True
-[Error  :Dynamic Campaign Mod] Skipping campaign C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\sest-world-sandbox\dynamic_campaigns/sest-world-sandbox\campaign.json: C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\sest-world-sandbox\dynamic_campaigns/sest-world-sandbox\campaign.json: base "usp_coronado_nas_north_island" has a "field" "unit": "usa_airbase", which is none of the game's airbases (airfield_small_1, nato_small_airbase, nato_very_small_airbase, wp_airbase_1, wp_airbase_2, wp_airbase_3, wp_airbase_4, wp_airbase_5, wp_large_pvo_airbase, is_airbase_akureyri, is_airbase_isafjordur, is_airbase_keflavik, is_airbase_reykjavik).
+[Warning:Dynamic Campaign Mod] weapons.ini has no [KT-190]; assuming 1 round per container.
+[Warning:Dynamic Campaign Mod] weapons.ini has no [Mk36]; assuming 1 round per container.
+[Info   :Dynamic Campaign Mod] Weapon usn_rim-161c: fired from 50 to 486 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109e5a: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109e5: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rim-161d: fired from 50 to 1500 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_ugm-109e5a: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_ugm-109e5: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon fr__mdcn: fired from 40 to 900 nm
+[Info   :Dynamic Campaign Mod] Weapon fr__m51: fired from 500 to 5400 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109e: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon ko_Hycore: fired from 30 to 550 nm
+[Info   :Dynamic Campaign Mod] Weapon rok_hyunmoo_4_2: fired from 50 to 310 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109b1: fired from 20 to 250 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109c: fired from 40 to 675 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss-n-19: fired from 30 to 378 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss_n_27: fired from 10 to 410 nm
+[Info   :Dynamic Campaign Mod] Weapon rfn_3m14: fired from 40 to 918 nm
+[Info   :Dynamic Campaign Mod] Weapon rfn_3m54: fired from 15 to 410 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss-n-27a: fired from 20 to 573 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss_n_12b: fired from 30 to 415 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss_n_30a: fired from 10 to 410 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_r-39: fired from 100 to 5200 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_r-29rmu: fired from 100 to 4481 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_agm-158c-3: fired from 10 to 800 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_agm-158b-2: fired from 10 to 800 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_lrasm: fired from 10 to 225 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_lrasm_ER: fired from 10 to 550 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_jassm: fired from 10 to 480 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_agm_88g: fired from 25 to 175.7 nm
+[Info   :Dynamic Campaign Mod] Weapon usaf_agm-86c: fired from 40 to 680 nm
+[Info   :Dynamic Campaign Mod] Weapon dts_agm-158b-2: fired from 10 to 800 nm
+[Info   :Dynamic Campaign Mod] Weapon dts_agm-183a: fired from 50 to 865 nm
+[Info   :Dynamic Campaign Mod] Weapon dts_agm-158c-3: fired from 10 to 800 nm
+[Info   :Dynamic Campaign Mod] Weapon usaf_agm-86b: fired from 40 to 680 nm
+[Info   :Dynamic Campaign Mod] Weapon dts_agm-183a(w62): fired from 50 to 865 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_arrw: fired from 132 to 1375 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_agm-109b: fired from 40 to 243 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_agm-109c: fired from 40 to 900 nm
+[Info   :Dynamic Campaign Mod] Weapon eu_scalp-eg: fired from 25 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_as-4: fired from 100 to 250 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_as-4b: fired from 100 to 188 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-55: fired from 47 to 1350 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-101: fired from 35 to 2159 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-55SM: fired from 50 to 1450 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-555: fired from 45 to 1619 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-555S: fired from 10 to 1619 nm
+[Info   :Dynamic Campaign Mod] Weapon 3M22: fired from 60 to 550 nm
+[Info   :Dynamic Campaign Mod] Weapon fr_scalp-eg: fired from 25 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon eu_kepd_350: fired from 22 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon spa_kepd-350: fired from 22 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon scalp-eg: fired from 10 to 250 nm
+[Info   :Dynamic Campaign Mod] Weapon f16_agm-158b-2: fired from 10 to 575 nm
+[Info   :Dynamic Campaign Mod] Weapon fr_scalp-eg_LQS: fired from 25 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon se_kepd_350_LQS: fired from 22 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon uae_black_shaheen: fired from 25 to 156 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_yj-98: fired from 10 to 320 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_akf-98a: fired from 10 to 320 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_yj-21: fired from 170 to 475 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_kd-63c: fired from 13 to 135 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_cj-20: fired from 30 to 1600 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_kd-63b: fired from 13 to 130 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_kd-63: fired from 13 to 108 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_cm-400akg: fired from 25 to 129.7 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_cm-400akg_arm: fired from 25 to 129.7 nm
+[Error  :Dynamic Campaign Mod] 'SEST World Sandbox 2028 (draft)' needs units this game doesn't have: rw_alouette_II, rw_c340, rw_qh-50d, rw_sh-2f, rw_sh-3h, rw_v35.
+[Error  :Dynamic Campaign Mod] Starting the campaign: System.InvalidOperationException: this game has no rw_alouette_II, rw_c340, rw_qh-50d, rw_sh-2f, rw_sh-3h, rw_v35 (a game update or a mod missing?). See the log.
+  at DynamicCampaignMod.Game.Session.CampaignSession.RefuseUnknownUnits (DynamicCampaignMod.Core.Data.CampaignDefinition definition, DynamicCampaignMod.Core.State.CampaignState state) [0x00221] in C:\Users\kreut\source\repos\DynamicCampaignMod\src\Game\Session\CampaignSession.cs:122 
+  at DynamicCampaignMod.Game.Session.CampaignSession.Start (DynamicCampaignMod.Core.Data.CampaignDefinition definition, DynamicCampaignMod.Core.State.StartOptions options) [0x0003d] in C:\Users\kreut\source\repos\DynamicCampaignMod\src\Game\Session\CampaignSession.cs:85 
+  at DynamicCampaignMod.UI.Start.StartScreen+<>c__DisplayClass0_0.<Show>b__0 (DynamicCampaignMod.Core.State.StartOptions options) [0x00000] in C:\Users\kreut\source\repos\DynamicCampaignMod\src\UI\Start\StartScreen.cs:25 
+  at DynamicCampaignMod.UI.Start.StartScreenViewModel.Start () [0x00000] in C:\Users\kreut\source\repos\DynamicCampaignMod\src\UI\Start\StartScreenViewModel.cs:190 
