@@ -1490,7 +1490,7 @@ MISSIONS.append(dict(
         # in the fiction Prasetyo's to lend. It is placed whether or not
         # any optional operation was flown: SW08 must launch on its own.
         "cvn": S(-4.3133, 135.8867, "Carrier group"),
-        "strip": S(-5.2953, 132.9232, "Langgur forward strip"),
+        "strip": S(-5.6614, 132.7314, "Langgur forward strip"),
     },
     units=[
         # No home field: the nearest Australian base is Scherger, 707 NM
@@ -1827,7 +1827,7 @@ MISSIONS.append(dict(
         # F-2As were homed on Darwin 428 NM away - against 900 NM of
         # total range, which is 856 NM of transit with nothing left for
         # the orbit they are there to fly.
-        "strip": S(-5.2953, 132.9232, "Forward strip, Kai group"),
+        "strip": S(-5.6614, 132.7314, "Forward strip, Kai group"),
     },
     units=[
         U("blue", "SEST_JMSDF_Mogami", "js_ffg_mogami", "jmsdf",
@@ -1947,7 +1947,7 @@ MISSIONS.append(dict(
         # later: the only field inside a purchased F-35A's radius of the
         # carrier's air wing, and where a land-based aircraft in a CAP or
         # Attack slot recovers.
-        "strip": S(-5.2953, 132.9232, "Langgur forward strip"),
+        "strip": S(-5.6614, 132.7314, "Langgur forward strip"),
     },
     units=[
         U("blue", "ford-cvn", "usn_cvn_ford", "carrier",
@@ -2433,11 +2433,13 @@ MISSIONS.append(dict(
         "escort": S(-6.15, 132.7, "Detachment", heading=30),
         "fuel": S(-6.1, 132.6, "Fuel coasters", heading=30),
         "raiders": S(-5.7, 133.1, "Meridian pair", heading=210),
-        "site": S(-5.3643, 133.516, "Kai Besar launcher site", heading=240),
-        # The one proven ground at Langgur: the town takes it, and the strip
-        # the fuel is for is the same place in the story - it needs no unit
-        # here, nothing in this mission flies from it.
-        "town": S(-5.2953, 132.9232, "Langgur", heading=0),
+        "site": S(-5.3643, 133.116, "Kai Besar launcher site", heading=240),
+        # Langgur town on Kai Kecil; the strip the fuel is for is the same
+        # place in the story - it needs no unit here, nothing in this mission
+        # flies from it. Until 10 Oct 2026 this and the strip stood on a
+        # "proven" point 22 NM north of Langgur, in the sea, and the launcher
+        # site 22 NM east of Kai Besar (133.516 for 133.116).
+        "town": S(-5.640, 132.745, "Langgur", heading=0),
         "fishing": S(-5.9, 132.5, "Kai fishing", heading=60),
     },
     units=[
@@ -3148,7 +3150,7 @@ MISSIONS.append(dict(
         "home": S(-12.5212, 131.0, "RAAF Base Darwin"),
         # Darwin is 500 NM from the escort station - outside an F-16CM's 360
         # NM radius and an F-15EX's 480. The Kai strip is 164 NM.
-        "strip": S(-5.2953, 132.9232, "Langgur forward strip"),
+        "strip": S(-5.6614, 132.7314, "Langgur forward strip"),
         "red_field": S(-1.1, 136.2, "Enclave field", heading=90),
     },
     units=[

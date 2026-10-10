@@ -21,9 +21,6 @@
             </Border.RenderTransform>
             <StackPanel Orientation="Vertical">
                 <Image Stretch="Uniform" Source="{Binding Assets[07a_slava]}" Width="250"/>
-                <Border.Effect>
-                    <DropShadowEffect Opacity="0.25"/>
-                </Border.Effect>
                 <TextBlock Foreground="Black" TextAlignment="Left" VerticalAlignment="Center" Margin="5" FontFamily="Courier New" FontWeight="Bold">
                     <Run Text="ENCL(1)2-111-445/スラヴァ級ミサイル巡洋艦"/><LineBreak/>
                     <Run Text="1984年11月11日 - 米海軍情報局（ONI）撮影写真/機密"/>

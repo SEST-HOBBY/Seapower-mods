@@ -28,7 +28,7 @@
             <TextBlock Text="・修理：特定のミッション前に利用可能。損害の修理にはポイントが必要。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="・損害、喪失、修理、航空機、そしてアップグレードされた兵装（ロードアウト）は、展開していくキャンペーンの戦況に大きな影響を与える。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
 
-            <TextBlock Text="開始前により詳細な情報を確認したい場合は、他のタブを参照せよ。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
+            <TextBlock Text="こまめにセーブせよ。開始前に詳しい情報を確認したい場合は、他のタブを参照せよ。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
           </StackPanel>
         </ScrollViewer>
       </TabItem>
@@ -143,6 +143,7 @@
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
             <TextBlock Text="任務部隊の編成と管理" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock Text="・キャンペーンマップ上部のタスクフォースバーから部隊を管理せよ。ここには現在のポイント、部隊のステータス、およびミッション間に利用可能なアクションが表示される。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="・上部のバーにあるユニットを右クリックすると、修理、航空機の管理、除籍、退役などの操作を選択できる。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="・タスクフォースバーから "/><Hyperlink Command="{Binding OpenTaskForceBuilderCommand}">タスクフォースビルダー</Hyperlink><Run Text=" を開き、艦艇、潜水艦、ヘリコプター、航空機を貴官の任務部隊に追加せよ。"/>
             </TextBlock>
@@ -162,7 +163,6 @@
 
             <TextBlock Text="キャンペーンポイント" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock Text="・消費したポイントは確定となり、払い戻すことはできない。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- 新たなユニットはタスクフォースビルダーが利用可能な時のみ追加できる。部隊が友軍基地に到達するまでキャンペーンを続行せよ。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="{Binding PurchaseLoadoutsRuleText}" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="・タスクフォースマネージャーからユニットを解隊すると、そのポイント価値の "/><Run Text="{Binding DismissRefundPercentText}"/><Run Text="％が返還される。"/>
@@ -312,6 +312,8 @@
             <TextBlock Text="・ヘリコプターはキャンペーン開始直後から利用可能。各艦艇が対応している航空機は、タスクフォースビルダー内に表示される。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="・固定翼機はキャンペーン開始時には購入できないが、進行に伴い利用可能となる。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="・購入した固定翼機は、対応するミッションにおいて飛行場から出撃する。利用可能な飛行場がない場合、固定翼機は出撃せず、予備兵力として保持される。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="・一部のミッションには、開始時から飛行中の航空機を配置できる「航空タスク割当」枠がある。選択したミッションから「航空基地の出撃準備」を開き、出撃前に「航空タスク割当」タブで条件を満たす未配備の航空機を割り当てよ。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="・「航空タスク割当」の各行は、1組の出撃編隊を表す。複数機の編隊は同じ機種で構成する必要があるが、機体が不足する場合は定数に満たなくても出撃できる。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="・潜水艦は任務部隊とは独立して行動する。これらはメインキャンペーンを進行させない独立した（ただし連動する）任意のサイドミッションに登場し、クリアすると様々な恩恵が得られる。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
@@ -323,7 +325,6 @@
 
             <TextBlock Text="捜索救難" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock Text="・艦艇の撃沈や航空機の撃墜時、救命いかだが出現することがある。ヘリコプターや艦艇をいかだに接近させることで、生存者を救助できる。" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <Border Grid.Row="1" Grid.Column="0" Padding="8,6" BorderBrush="{StaticResource Brush.Glyph.Normal}" BorderThickness="0,0,1,1"/>
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14">
               <Run Text="・1つのミッション内で生存者を "/><Run Text="{Binding CSARPointModifierText}"/><Run Text=" 人救助するごとに、ミッション終了時に1キャンペーンポイントが与えられる。端数はポイントに換算されない。"/>
             </TextBlock>

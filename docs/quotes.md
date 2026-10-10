@@ -1,25 +1,18 @@
 # The SEST quotation set
 
-The lines the loading screen, the mission briefings and the Briefing Room
-film share. One list drives all three: `integration/common/quotes.py`.
+The lines the loading screen and the mission briefings share. One list
+drives both: `integration/common/quotes.py`.
 
-- **Loading screen.** SEST Collection Fixes numbers every quote behind the
-  game's nineteen tips and the pack's own (`language_en/loading_tips.ini`).
+- **Loading screen.** SEST Collection Fixes makes the quotations the loading
+  screen's whole text, under the header QUOTATION, in place of the game's
+  gameplay tips (`language_en/loading_tips.ini`).
 - **Briefings.** Each campaign mission carries one quote under its photo
   banner, chosen by the mission's role (escort, patrol, recon, strike, fleet,
   logistics, opening) and different from every other mission's in the
   campaign while the set lasts.
-- **Briefing Room.** A mission-browser entry (`missions/SEST Briefing Room/`)
-  that plays a 73-second film in the right pane, the way the game's own
-  Video Tutorials do: the collection's forces in real photographs with eleven
-  of the lines over them. `tools/make_briefing_video.py` builds it from the
-  gallery; the mp4 is committed under `integration/campaign/briefing_room/`
-  and never re-encoded by the build.
-
-What the game's data does **not** reach: the main-menu background and any
-menu video. Nothing in `config.ini` or `ui/` names either, and no mod in
-the collection replaces them. A code mod (Anchor Chain / BepInEx) would be
-the only route, and the pack does not ship one.
+The Briefing Room, a mission-browser entry that played eleven of the lines
+over a film of the collection's photographs, was retired on 10 Oct 2026; the
+main menu's film (`docs/media-pack.md`) carries no text.
 
 ## The rule on attribution
 

@@ -11,13 +11,13 @@
             </Grid>
         </Border>
 
-        <TextBlock Foreground="SteelBlue" Text="スル海" HorizontalAlignment="Center" FontStyle="Italic" FontSize="16" FontWeight="Bold" Canvas.Left="800" Canvas.Top="300"/>
+        <TextBlock Foreground="SteelBlue" Text="スールー海" HorizontalAlignment="Center" FontStyle="Italic" FontSize="16" FontWeight="Bold" Canvas.Left="800" Canvas.Top="300"/>
         <TextBlock Foreground="Black" Text="プエルト・プリンセサ市" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="275" Canvas.Top="75"/>
         <TextBlock Foreground="Black" Text="パラワン島" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="75" Canvas.Top="300"/>
         
         <StackPanel Orientation="Vertical" Canvas.Left="600" Canvas.Top="410">
             <TextBlock Foreground="Blue" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="HMAS Orion S61"/>
+                <Run Text="HMASオリオン S61"/>
             </TextBlock>
             <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
                 <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.FriendColour}" Data="{StaticResource NTDS.Allied.Submarine}"/>
@@ -27,7 +27,7 @@
         
         <StackPanel Orientation="Vertical" Canvas.Left="350" Canvas.Top="250">
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="PLAN沿岸部隊"/>
+                <Run Text="中国海軍沿岸部隊"/>
             </TextBlock>
             <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
                 <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Surface}"/>

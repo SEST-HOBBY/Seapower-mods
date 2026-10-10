@@ -3,6 +3,27 @@ Change log
 
 ===============================================================================
 
+08-Oct-2026: 0.8.5 Build 261008
+-------------------------------
+[UPD] New patch release, see below for changes
+
+===============================================================================
+
+07-Oct-2026: 0.8.4 Build 261007
+-------------------------------
+[FIX] Null refs and exceptions
+[FIX] Camera shaking could go wild
+[FIX] Aircraft could be stuck in altitude climb in LevelAttack instead of attacking
+[FIX] Bomb drop inaccuracy being a lot higher than intendedand and fix bombs sometimes not being dropped
+[FIX] Destroyed units reappearing in campaign
+[FIX] MOSS locking torpedo tube from working
+
+[UPD] Translations
+[UPD] Updated Sentry to 4.10.3
+[UPD] Added proper native crash diagnostics
+
+===============================================================================
+
 02-Oct-2026: 0.8.4 Build 261002 Public Release
 ----------------------------------------------
 [FIX] Mod menu folder picker not selecting directory

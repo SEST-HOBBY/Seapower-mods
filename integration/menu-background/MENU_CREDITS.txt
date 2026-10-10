@@ -1,6 +1,6 @@
 SEST MENU FILM - photo credits for sest_menu.mp4
 
-The film behind the main menu: the SEST Briefing Room's photographs, recut with
+The film behind the main menu: eleven SEST Gallery photographs, cut with
 no text, darkened, as a loop. Every photograph is from the SEST Gallery
 (Gallery/PHOTO_CREDITS.txt in the pack). Use does not imply endorsement by the
 photographers or any armed service.

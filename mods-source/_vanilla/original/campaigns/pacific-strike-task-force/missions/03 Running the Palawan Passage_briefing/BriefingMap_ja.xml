@@ -12,9 +12,9 @@
         </Border>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Canvas.Left="560" Canvas.Top="170" >
             <Ellipse Width="100" Height="100" Opacity="0.25" Fill="{StaticResource NTDS.HostileColour}"/>
-            <TextBlock Foreground="{StaticResource NTDS.HostileColour}" Text="機雷敷設予想海域" HorizontalAlignment="Center"/>
+            <TextBlock Foreground="{StaticResource NTDS.HostileColour}" Text="機雷原の疑い" HorizontalAlignment="Center"/>
         </StackPanel>
-        
+
         <Border Canvas.Right="10" Canvas.Bottom="10" BorderThickness="3" BorderBrush="{StaticResource NTDS.FriendColour}" Background="#90a3b6" Width="250">
             <TextBlock Foreground="Blue" TextAlignment="Left" VerticalAlignment="Center" Margin="5">
                 <Run Text="{TaskForceName}:" TextDecorations="Underline"/><LineBreak/><LineBreak/>
@@ -28,7 +28,7 @@
         <TextBlock Foreground="Black" Text="バランバンガン島" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold" Canvas.Left="490" Canvas.Top="480"/>
         <TextBlock Foreground="Black" Text="パラワン島" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Canvas.Left="660" Canvas.Top="50"/>
         <TextBlock Foreground="Black" Text="ボルネオ島" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Canvas.Left="575" Canvas.Top="600"/>
-        
+
         <StackPanel Orientation="Vertical" Canvas.Left="525" Canvas.Top="115">
             <TextBlock Foreground="Blue" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                 <Run Text="{TaskForceName}"/>
@@ -38,7 +38,7 @@
                 <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.FriendColour}"/>
             </Canvas>
         </StackPanel>
-                
+
         <StackPanel Orientation="Vertical" Canvas.Left="550" Canvas.Top="330">
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                 <Run Text="?"/>
@@ -48,7 +48,7 @@
                 <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
             </Canvas>
         </StackPanel>
-        
+
         <StackPanel Orientation="Vertical" Canvas.Left="750" Canvas.Top="450">
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                 <Run Text="?"/>
@@ -58,7 +58,7 @@
                 <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
             </Canvas>
         </StackPanel>
-        
+
         <StackPanel Orientation="Vertical" Canvas.Left="450" Canvas.Top="425">
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                 <Run Text="?"/>
@@ -68,7 +68,7 @@
                 <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.HostileColour}"/>
             </Canvas>
         </StackPanel>
-        
+
         <StackPanel Orientation="Vertical" Canvas.Left="450" Canvas.Top="225">
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                 <Run Text="?"/>

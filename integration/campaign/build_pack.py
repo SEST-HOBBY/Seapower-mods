@@ -63,10 +63,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from refine_civ_traffic import load_order  # noqa: E402
+import fix_land_positions  # noqa: E402  (firm ground for land units; needs global-land-mask)
 sys.path.insert(0, str(ROOT / "integration"))
 from common import quotes  # noqa: E402
 from common import flags  # noqa: E402
-from common import field_notes  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "SEST_Campaign"
@@ -1495,6 +1495,7 @@ def place(mission, snapper):
     seats = collections.Counter()              # per-station air spacing
     berths = collections.Counter()             # per-station sea spacing
     station_snap = {}                          # station -> ((lat, lon), drift)
+    ashore = []                                # land units put on firm ground so far
     worst = 0.0
     alone = set()                              # independent=True, by tag
     contact = set()                            # contact="why", by tag
@@ -1551,6 +1552,29 @@ def place(mission, snapper):
             want = spec.get("snap") or ("land" if kind == "land" else "sea")
             (lat, lon), dist = snapper.take(want, st["at"],
                                             where=f"{mission['key']} {spec['station']}")
+            sub = fix_land_positions.land_unit(spec["type"])[0] if want == "land" else ""
+            if want == "land" and sub not in ("OilRig", "Port"):
+                # A proven point is where some mission put a land unit, not
+                # proof of ground: the game floats a land unit wherever its
+                # 1 km grid has none (fix_land_positions.py), and the game's
+                # own mission copies from before 10 Oct 2026 still hold such
+                # spots. A unit needs land all round it - an airbase, which
+                # brings its own ground, only under its anchor - and one that
+                # has none takes the station's own coordinate if that is firm
+                # ground, else the nearest firm ground to where it snapped.
+                g = fix_land_positions.ground(lat, lon)
+                if g < (0 if sub == "Airbase" else fix_land_positions.FIRM_KM):
+                    firm = fix_land_positions.firm_ground(*st["at"], avoid=ashore)
+                    if firm is None or nm_between(firm, st["at"]) > 1.0:
+                        firm = fix_land_positions.firm_ground(lat, lon, avoid=ashore)
+                    if firm is None:
+                        PLACEMENT_PROBLEMS.append(
+                            f"{mission['key']} {spec['station']}: {spec['type']} at {(lat, lon)} "
+                            f"has no firm ground within {fix_land_positions.SEARCH_NM:.0f} NM")
+                    else:
+                        lat, lon = firm
+                        dist = nm_between(firm, st["at"])
+                ashore.append((lat, lon))
             worst = max(worst, dist)
             alt = "low" if kind == "land" else (spec.get("depth", 0)
                                                 if kind == "sub" else 0)
@@ -5821,66 +5845,11 @@ def load_order_text():
 
 # --- main --------------------------------------------------------------------
 
-# --- the Briefing Room: a film in the mission browser ------------------------
-# The game's data reaches no main-menu background and no menu video: nothing
-# in config.ini or ui/ names one, and no mod in the collection replaces one.
-# What it does expose is the mission browser's right pane. The stock Video
-# Tutorials folder (missions/Video Tutorials/, Type=Tutorial) lists five
-# entries whose [General] RightPane= is an .mp4 under the folder's _data/,
-# with PlayButtonEnabled=False, and the browser plays the film where a
-# scenario would show its map. The Briefing Room is one such entry: the
-# pack's title card, a slideshow of the collection's forces with the
-# quotation set over it, built once by tools/make_briefing_video.py from the
-# gallery's photographs and committed under integration/campaign/
-# briefing_room/ (ffmpeg output is not byte-stable across versions, so the
-# regression gate keeps the committed file rather than re-encoding it). No
-# mp4 there, no folder: the pack still builds.
-BRIEFING_ROOM = HERE / "briefing_room"
-BRIEFING_ROOM_FOLDER = "SEST Briefing Room"
-
-
-def write_briefing_room(out):
-    film = BRIEFING_ROOM / "sest_briefing_room.mp4"
-    if not film.is_file():
-        print("  Briefing Room: no film committed (integration/campaign/briefing_room/"
-              "sest_briefing_room.mp4) - folder not written; run tools/make_briefing_video.py")
-        return
-    credits = BRIEFING_ROOM / "VIDEO_CREDITS.txt"
-    folder = out / "missions" / BRIEFING_ROOM_FOLDER
-    data = folder / "_data"
-    data.mkdir(parents=True, exist_ok=True)
-    (data / film.name).write_bytes(film.read_bytes())
-    if credits.is_file():
-        (data / credits.name).write_bytes(credits.read_bytes())
-    (folder / "_info.ini").write_text(
-        "[General]\nType=Tutorial\n\n[Language_en]\nName=SEST Briefing Room\n"
-        "Description=The SEST Integration Pack's title film, its field notes and its quotation set. "
-        "Nothing here is played: the entry shows the film in the right pane, as the "
-        "game's own video tutorials do.\n", encoding="utf-8")
-    lines = [quotes.quote_line(q) for q in quotes.QUOTES]
-    field_notes.check()
-    desc = ("Southern Watch, Southern Reach, Red Line and Sulu Line: the collection's "
-            "forces in real photographs, with the lines the loading screen and the "
-            "briefings quote. Photo credits in _data/VIDEO_CREDITS.txt beside the film "
-            "and in the pack's Gallery folder; the quotations and their sources in "
-            "docs/quotes.md of the SEST repository."
-            "<LineBreak/><LineBreak/>FIELD NOTES<LineBreak/>"
-            + "<LineBreak/>".join("- " + n for n in field_notes.NOTES)
-            + "<LineBreak/><LineBreak/>THE QUOTATIONS<LineBreak/>" + "<LineBreak/>".join(lines))
-    (folder / "01 SEST - Briefing Room.ini").write_text(
-        "[Language_en]\nName=SEST Briefing Room - the collection on film\n"
-        f"Description={desc}\n[Mission]\nDifficulty=1\n[General]\nType=Tutorial\n"
-        f"RightPane=missions/{BRIEFING_ROOM_FOLDER}/_data/{film.name}\n"
-        "PlayButtonEnabled=False\n", encoding="utf-8")
-    print(f"  Briefing Room: {film.name} ({film.stat().st_size // 1024} KB), "
-          f"{len(field_notes.NOTES)} field notes and {len(lines)} quotations")
-
-
 # The SEST film behind the game's main menu. The menu's own film is a clip in
 # the game's Unity data, not a file a mod can stand in for, so the pack ships
 # a small Anchor Chain plugin (integration/menu-background/, built by its
 # build_plugin.py) that points the menu's looping VideoPlayer at
-# plugins/sest_menu.mp4 - cut from the Briefing Room's photographs by
+# plugins/sest_menu.mp4 - cut from eleven SEST Gallery photographs by
 # tools/make_menu_film.py. Anchor Chain, which SETUP installs, loads every DLL
 # in a mod folder it knows, so the folder's name is free; a player without it
 # simply keeps the stock menu. The DLL and the film are committed (compiler
@@ -5907,7 +5876,7 @@ in place of the game's own. Nothing else in the game changes.
 
   SEST.MenuBackground.dll  the plugin. Anchor Chain (installed by SETUP)
                            starts it when the game starts.
-  sest_menu.mp4            the film: the SEST Briefing Room's photographs,
+  sest_menu.mp4            the film: eleven SEST Gallery photographs,
                            no text, darkened, looping, no sound.
   sest_menu.ini            Enabled=0 turns it off.
   MENU_CREDITS.txt         who took each photograph, and the licence.
@@ -6443,7 +6412,6 @@ def main():
     for src in sorted((HERE / "setup").iterdir()):
         if src.is_file() and not src.name.startswith("."):
             (OUT / src.name).write_bytes(src.read_bytes())
-    write_briefing_room(OUT)
     write_menu_background(OUT)
     write_loading_screens(OUT)
 

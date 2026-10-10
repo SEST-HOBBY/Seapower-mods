@@ -16,8 +16,8 @@
 //     itself, so a looping-only rule never matched it). Without a name, only
 //     a player already set to loop is taken, so a one-shot film the game may
 //     wait on to finish (an intro) is never touched;
-//   - the mission browser's films (the video tutorials, the SEST Briefing
-//     Room) play from a file and are always skipped;
+//   - the mission browser's films (the video tutorials) play from a file
+//     and are always skipped;
 //   - the menu clip plays its sound straight from the film (audio=Direct),
 //     so the menu music may be its sound track: that keeps playing from the
 //     game's clip on a second player with no picture;

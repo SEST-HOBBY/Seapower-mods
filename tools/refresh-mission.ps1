@@ -15,7 +15,9 @@
       4. names    - replace editor placeholder group labels ("Group Name 7")
                     with names describing the group (name_formations.py)
       5. water    - move any vessel or sea life that sits on land into the
-                    water (fix_land_positions.py)
+                    water, and any land unit standing in the sea (or within
+                    600 m of it, where the game's 1 km coast can put it in
+                    the water) onto firm ground (fix_land_positions.py)
       6. squadrons- repair squadron references the editor left unresolved, and
                     re-split groups that an earlier repair collapsed
                     (fix_squadron_refs.py --spread)
@@ -145,7 +147,7 @@ Write-Host "`n[4/7] naming placeholder formations..." -ForegroundColor Cyan
 Invoke-Py "name_formations.py" @("--mission", $Mission, "--write")
 
 # --- 5. Keep everything in the water -----------------------------------------
-Write-Host "`n[5/7] checking nothing sits on land..." -ForegroundColor Cyan
+Write-Host "`n[5/7] checking ships are afloat and land units ashore..." -ForegroundColor Cyan
 if ($InstallDeps) {
     Write-Host "  fetching the land-mask package..."
     $pipArgs = @($py.Pre) + @("-m", "pip", "install", "--quiet", "global-land-mask", "numpy")

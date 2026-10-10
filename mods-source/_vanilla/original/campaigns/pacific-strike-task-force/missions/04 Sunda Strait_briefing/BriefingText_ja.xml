@@ -23,7 +23,7 @@
     <TextBlock Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" FontSize="{StaticResource Font.Size.Header}">
     最優先（FLASH）
     <LineBreak/>
-    Z 150130Z JUN 85
+    Z 150130Z JUL 85
     </TextBlock>
     <TextBlock Grid.Row="3" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="発"/>
     <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="第77任務部隊指揮官（CTF 77）"/>
@@ -32,7 +32,7 @@
     <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="報"/>
     <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
         太平洋艦隊司令長官（パールハーバー、ハワイ州）<LineBreak/>
-        オーストラリア王立空軍航空軍司令部（グレンブルック、豪州）
+        オーストラリア王立空軍航空軍司令部（グレンブルック、ニューサウスウェールズ州、豪州）
     </TextBlock>
     <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="件名"/>
     <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="任務変更――ダーウィンへの移動命令"/>
@@ -40,13 +40,13 @@
       機密（SECRET）
       <LineBreak/>
       <LineBreak/>
-      1. (S) 6月25日から7月14日にかけての敵の激しい攻撃により、シンガポールおよびインドネシアは事実上制圧され、その状況は不透明である。東南アジアに展開するすべての米軍部隊に対し、オーストラリアのダーウィンを新たな後退配備先とする移動命令が下った。
+      1. (S) 6月25日から7月14日にかけての敵の激しい攻撃により、シンガポールおよびインドネシアは事実上無力化され、その状況は不透明である。東南アジアに展開するすべての米軍部隊に対し、オーストラリアのダーウィンを新たな後退配備先とする移動命令が下った。
       <LineBreak/>
       <LineBreak/>
       2. (S) {TaskForceName}の全艦艇は最高速でダーウィンへ進出せよ。ジャワ海からの離脱はスンダ海峡を経由すること。
       <LineBreak/>
       <LineBreak/>
-      3. (S) 補給艦「シーリフト・カリビアン・シー（SEALIFT CARIBBEAN SEA）」がジャカルタにて貴部隊と合流する。
+      3. (S) タンカー「シーリフト・カリビアン・シー（M/V SEALIFT CARIBBEAN SEA）」がジャカルタにて貴部隊と合流する。
       <LineBreak/>
       <LineBreak/>
       4. (S) 敵水上部隊が最大戦速（FLANK SPEED）で南下中との報告あり。同盟軍の通航を阻止すべくスンダ海峡の封鎖を企図している模様。

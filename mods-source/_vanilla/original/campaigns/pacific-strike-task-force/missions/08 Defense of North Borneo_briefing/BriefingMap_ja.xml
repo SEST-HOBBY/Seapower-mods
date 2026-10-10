@@ -36,7 +36,7 @@
            </TextBlock>
         </Border>
 
-        <TextBlock Foreground="SteelBlue" Text="スールー海" HorizontalAlignment="Center" FontStyle="Italic" FontSize="16" FontWeight="Bold" Canvas.Left="800" Canvas.Top="75"/>
+        <TextBlock Foreground="SteelBlue" Text="スールー海" HorizontalAlignment="Center" FontStyle="Italic" FontSize="16" FontWeight="Bold" Canvas.Left="700" Canvas.Top="75"/>
         <TextBlock Foreground="Black" Text="サンダカン" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="325" Canvas.Top="490"/>
         <TextBlock Foreground="Black" Text="マレーシア" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="550" Canvas.Top="575"/>
         
@@ -60,16 +60,6 @@
             </Canvas>
         </StackPanel> -->
 
-        <StackPanel Orientation="Vertical" Canvas.Left="500" Canvas.Top="250">
-            <TextBlock Foreground="Blue" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="AV-8C x 2 第542海兵攻撃飛行隊「タイガーズ」"/>
-            </TextBlock>
-            <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
-                <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.FriendColour}" Data="{StaticResource NTDS.Allied.Air}"/>
-                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="3" Height="3" StrokeThickness="1.325" Stroke="{StaticResource NTDS.FriendColour}"/>
-            </Canvas>
-        </StackPanel>
-        
         <StackPanel Orientation="Vertical" Canvas.Left="275" Canvas.Top="425">
             <TextBlock Foreground="Blue" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                 <Run Text="サンダカン飛行場"/>
@@ -110,7 +100,7 @@
             </Canvas>
         </StackPanel>
         
-        <StackPanel Orientation="Vertical" Canvas.Left="200" Canvas.Top="75">
+        <StackPanel Orientation="Vertical" Canvas.Left="200" Canvas.Top="90">
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                 <Run Text="？"/>
             </TextBlock>

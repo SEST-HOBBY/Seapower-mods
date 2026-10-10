@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Cut the SEST main-menu film from the Briefing Room's footage.
+"""Cut the SEST main-menu film from the gallery photographs.
 
     python3 tools/make_menu_film.py            # writes the mp4 + credits
     python3 tools/make_menu_film.py --preview  # a contact sheet instead
 
-The same photographs as the Briefing Room film (tools/make_briefing_video.py
+The photographs of the retired Briefing Room film (tools/make_briefing_video.py
 SLIDES, in the same order), recut to sit behind the game's menu buttons, as
 the 10 Oct 2026 media report advises for a menu background:
   - no text at all: no title card, no quotation band, no credit line - the
@@ -21,8 +21,8 @@ the 10 Oct 2026 media report advises for a menu background:
 Output: integration/menu-background/sest_menu.mp4 and MENU_CREDITS.txt. The
 film is committed, not rebuilt by build_all: ffmpeg's bytes differ between
 versions and the regression gate wants the pack byte-identical. Encoded
-H.264 High in an mp4 with the moov atom in front, as the Briefing Room film
-is (the game's own menu clip is High profile too).
+H.264 High in an mp4 with the moov atom in front, the shape Unity's video
+player on Windows reads (the game's own menu clip is High profile too).
 """
 import argparse
 import importlib.util
@@ -113,7 +113,7 @@ def main():
     OUT.mkdir(exist_ok=True)
     (OUT / "MENU_CREDITS.txt").write_text(
         "SEST MENU FILM - photo credits for sest_menu.mp4\n\n"
-        "The film behind the main menu: the SEST Briefing Room's photographs, recut with\n"
+        "The film behind the main menu: eleven SEST Gallery photographs, cut with\n"
         "no text, darkened, as a loop. Every photograph is from the SEST Gallery\n"
         "(Gallery/PHOTO_CREDITS.txt in the pack). Use does not imply endorsement by the\n"
         "photographers or any armed service.\n\n" + "\n".join(credits), encoding="utf-8")

@@ -14,7 +14,7 @@
             <TextBlock Foreground="Blue" TextAlignment="Left" VerticalAlignment="Center" Margin="5">
                 <Run Text="{TaskForceName}:" TextDecorations="Underline"/><LineBreak/><LineBreak/>
                 {TaskForceVesselSummaryRuns}<LineBreak/>
-                <Run Text="シーリフト・カリビアン・シー T-AOT-174"/>
+                <Run Text="M/Vシーリフト・カリビアン・シー T-AOT-174"/>
            </TextBlock>
         </Border>
 

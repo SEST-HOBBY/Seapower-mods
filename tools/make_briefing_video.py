@@ -3,15 +3,18 @@
 browser, a slideshow of the collection's forces with the quotation set over
 it.
 
+Retired 10 Oct 2026: the player found the mission-browser entry unnecessary,
+so the pack no longer ships it and the committed film was removed. The tool
+stays because SLIDES, its photographs in order, is what tools/make_menu_film.py
+cuts the main-menu film from; running it still writes the film below.
+
     python3 tools/make_briefing_video.py            # writes the mp4 + credits
     python3 tools/make_briefing_video.py --preview  # one PNG per slide instead
 
 Output goes to integration/campaign/briefing_room/ (sest_briefing_room.mp4
-and VIDEO_CREDITS.txt), which integration/campaign/build_pack.py copies into
-missions/SEST Briefing Room/_data/ and points a Type=Tutorial entry's
-RightPane= at - the hook the game's own Video Tutorials use. The film is
-committed, not rebuilt by build_all: ffmpeg's bytes differ between versions
-and the regression gate wants the pack byte-identical on every machine.
+and VIDEO_CREDITS.txt). Until 10 Oct 2026 build_pack.py copied it into
+missions/SEST Briefing Room/_data/ and pointed a Type=Tutorial entry's
+RightPane= at it - the hook the game's own Video Tutorials use.
 
 Frames are drawn with Pillow (slow zoom on each photograph, a dark band with
 the quotation, the photo credit in the corner, cross-fades between slides)

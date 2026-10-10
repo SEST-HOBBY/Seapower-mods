@@ -32,13 +32,14 @@
         <TextBlock Grid.Row="5" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="報"/>
     <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}">
         HMASプラティパス<LineBreak/>
+        オーストラリア艦隊司令官（COMAUSFLT）<LineBreak/>
         太平洋艦隊司令長官<LineBreak/>
         太平洋艦隊潜水艦部隊司令官
         </TextBlock>
         <TextBlock Grid.Row="7" Grid.Column="0" FontSize="{StaticResource Font.Size.Header}" Text="件名"/>
         <TextBlock Grid.Row="7" Grid.Column="2" FontSize="{StaticResource Font.Size.Header}" Text="接敵報告――南シナ海"/>
         <TextBlock Grid.Row="9" Grid.ColumnSpan="4" FontSize="{StaticResource Font.Size.Header}" TextWrapping="Wrap">
-        機密――米国開示可（SECRET - REL: US）
+        機密――米国・日本開示可（SECRET - REL: US, JAPAN）
         <LineBreak/>
         <LineBreak/>
         1. (S) 衛星偵察により、カムラン湾を出港し、針路140、速力18ノットで南東へ航行中のスラヴァ（SLAVA）級巡洋艦を中心とする敵水上部隊が特定された。
@@ -56,6 +57,6 @@
         5. (S) 撃沈位置を報告し、次命を待て。
         <LineBreak/>
         <LineBreak/>
-        機密――米国開示可（SECRET - REL: US）
+        機密――米国・日本開示可（SECRET - REL: US, JAPAN）
     </TextBlock>
 </Grid>
