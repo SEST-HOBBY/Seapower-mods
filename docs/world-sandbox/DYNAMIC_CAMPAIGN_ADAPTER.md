@@ -97,8 +97,8 @@ application here.
 | Listed as civil traffic | 12 |
 | Listed as ground air defence | 4 |
 | Skipped (abstract, embarked, scenery, missing fit, quantity 0) | 117 |
-| Bases | 103 (42 naval, 61 air): 39 from the register, 64 home bases added (below); 36 depots |
-| Forces | 162 (69 surface, 93 air), 764 units, 273 of them ships |
+| Bases | 129 (59 naval, 70 air): 39 from the register, 90 home bases added (below); 41 depots |
+| Forces | 193 (86 surface, 107 air), 973 units, 370 of them ships |
 | Patrol routes | 16 |
 | Sea lanes | 11, all on water |
 | Catalogue (buy list) entries and unit values | 1522: blue 1056, red 466 (below) |
@@ -163,7 +163,7 @@ ship, submarine and aircraft the collection gives that side's nations, not only 
   assault vessel), which a campaign cannot name.
 - **Not on either side:** units only nations left out operate - a few each, mostly
   historical (DDR, South Vietnam) or fictional (`conversion.json` "arsenal"). Adding a nation to a side brings its arsenal in.
-- **Shipyards:** every nation with a home naval base has one (below), 26 in all; air-only nations order aircraft, delivered to their air bases.
+- **Shipyards:** every nation with a home naval base has one (below), 27 in all; air-only nations order aircraft, delivered to their air bases.
 - **Untested:** how the engine's buy screen copes with about 1,056 blue entries and 466 red.
 
 ### Home bases (scenario additions, `integration/world-sandbox/home_bases.py`)
@@ -174,15 +174,21 @@ naval base - with a shipyard and a supply depot - and its main air base, each wi
 force from the units the collection gives that nation. These are **scenario additions, not
 register rows**: public base locations, rounded; main-runway headings rounded to 10 degrees;
 illustrative peacetime quantities. A harbour anchor the land mask puts ashore is moved to the
-nearest water within 3 NM (15 moved, 0.5-1 NM). Brest and Punta Arenas are second naval bases
-without a yard.
+nearest water within 3 NM (24 moved, 0.5-2.5 NM). Second naval bases (Brest, Punta Arenas, Gadzhiyevo, Vilyuchinsk, the reefs, Bushehr, Jask,
+Sinpo) carry no yard, and most no depot.
 
 | Nations | Added |
 |---|---|
 | Already in the register | Severomorsk, Vladivostok; Kure; Haakonsvern; Portsmouth and RAF Lossiemouth; Toulon, Brest, Saint-Dizier and Lann-Bihoue; Taranto and Gioia del Colle |
 | Blue, naval and air | Spain (Ferrol, Torrejon), Germany (Wilhelmshaven, Wittmund), Netherlands (Den Helder, Eindhoven), Sweden (Karlskrona, Ronneby), Denmark (Frederikshavn, Karup), South Korea (Jinhae, Gimhae, Pohang), Philippines (Subic Bay, Basa), Thailand (Sattahip, Korat), Israel (Haifa, Ramat David), Brazil (Rio de Janeiro, Santa Cruz, Salvador), India (Mumbai, Ambala, INS Rajali), Egypt (Alexandria, Cairo West), Chile (Talcahuano, Punta Arenas, Chabunco, Santiago) |
 | Blue, air only (no plausible ships in the collection) | Greece (Tanagra), Poland (Lask), Turkey (Konya), Belgium (Melsbroek), Canada (Bagotville), New Zealand (Ohakea), Taiwan (Hsinchu), UAE (Al Dhafra), Qatar (Al Udeid), Kuwait (Ali Al Salem), Saudi Arabia (Dhahran) |
-| Red | Iran (Bandar Abbas, Isfahan, Bushehr), North Korea (Sunchon, air only), Vietnam (Cam Ranh, naval only: the collection has its Tarantul and Petya hulls, not its Su-30MK2s, Kilos or Gepards), Indonesia (Surabaya, Pekanbaru: the Ahmad Yani frigates and Rafale - the rest of its collection fleet is 1960s), Pakistan (Karachi, Minhas, Masroor) |
+| Red, to align with reality | China: Qingdao and Zhanjiang (theatre fleets), the Dalian, Jiangnan and Bohai (Huludao) yards, Fiery Cross (harbour and airfield), Subi and Mischief reefs, Woody Island, Ream (Cambodia, PLA support), Longtian (J-16, J-10C), Wuhu (J-20A), Wugong (H-6K). Russia: Baltiysk (Baltic Fleet), Novorossiysk (Black Sea Fleet), Gadzhiyevo and Vilyuchinsk (missile submarines), Severomorsk-3 (Su-33, MiG-29K), Chkalovsk (Su-30SM), Yelizovo (MiG-31BM). Iran: Bushehr and Jask naval bases, three Kilos at Bandar Abbas. North Korea: Nampo and Sinpo, Romeo and Huangfeng hulls as Chinese-colour stand-ins |
+| Red | Iran (Bandar Abbas, Isfahan, Bushehr), North Korea (Sunchon, air only), Vietnam (Cam Ranh, naval only: the collection has its Tarantul and Petya hulls, not its Su-30MK2s, Kilos or Gepards), Indonesia (Surabaya, Pekanbaru, Natuna: armed by China - 054A, 056A and 039B beside the Ahmad Yani, J-10CE beside the Rafale, in Chinese colours), Pakistan (Karachi, Minhas, Masroor) |
+
+The reef airfields use the PLA airbase units SEST Indo-Pacific Land Assets places there; a reef is too
+small for the land mask and may be missing from the game's terrain, where a land unit floats at one
+metre (`docs/design-notes.md`). Balance after the red additions: blue 82 bases, 199 ships and
+397 aircraft; red 47 bases, 171 ships and 206 aircraft.
 
 Sides follow 2028 alignments a two-sided engine can hold: NATO members and US treaty allies and
 close partners on blue; Iran and North Korea with China and Russia on red. At the author's
@@ -253,6 +259,7 @@ All are recorded per row in `conversion.json`. None is a research claim.
    alignment, neutrals left out (above).
 8. **Vietnam red, Brazil blue.**
 9. **India and Egypt blue, Indonesia and Pakistan red, Chile to fit the story** (blue). 38 nations in all.
+10. **Chinese units for Indonesia; red bases aligned with reality** (above).
 
 ## Testing on the PC (isolated, when ready)
 
@@ -267,6 +274,6 @@ Use a backed-up install, not the published pack.
 Then, in order: menu discovery; the validator's verdict in the BepInEx log; one battle each side,
 playing blue and then red; whether Sigonella's airlifts reach Rota and Souda Bay;
 the review's 20/10/10 ammunition test with a SEST supply ship; save, reload, and reload after a
-battle; a transit across the antimeridian (Roosevelt's group); performance with all 162 forces;
+battle; a transit across the antimeridian (Roosevelt's group); performance with all 193 forces;
 the buy screen with about 1,056 blue entries, a ship order by a nation with a home yard (Spain)
 and one air-only nation's aircraft order (Greece).

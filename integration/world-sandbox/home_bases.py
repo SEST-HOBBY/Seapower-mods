@@ -41,9 +41,16 @@ def naval(nation, bid, name, lat, lon, units, yard=True, depot=True):
             "lon": lon, "yard": yard, "depot": depot, "units": units}
 
 
-def air(nation, bid, name, lat, lon, heading, units):
+def air(nation, bid, name, lat, lon, heading, units, port=None, field=None):
+    """port: the naval base this airfield belongs to (an island base with a
+    harbour and a runway), so the two are one installation to the engine.
+    field: the airfield unit, where the generic airfield_small_1 is wrong - the
+    reef bases use the PLA airbases SEST Indo-Pacific Land Assets places there
+    (integration/missions/build_indo_pacific_showcase.py). A reef is too small
+    for the land mask and may be missing from the game's terrain; a land unit
+    there floats at one metre (docs/design-notes.md), as in that mission."""
     return {"nation": nation, "id": bid, "name": name, "kind": "AirBase", "lat": lat,
-            "lon": lon, "heading": heading, "units": units}
+            "lon": lon, "heading": heading, "units": units, "port": port, "field": field}
 
 
 HOME_BASES = [
@@ -175,23 +182,96 @@ HOME_BASES = [
 
     # --- red nations added ---------------------------------------------------------
     naval("Iran", "home_irn_bandar_abbas", "Bandar Abbas Naval Base", 27.14, 56.21, [
-        ("ir_ffg_alvand_95", 2), ("ir_ptg_combattante_II", 2), ("ir_ptg_peykaap_3", 4)]),
+        ("ir_ffg_alvand_95", 2), ("ir_ptg_combattante_II", 2), ("ir_ptg_peykaap_3", 4),
+        ("wp_ss_kilo", 3)]),   # Iran's three Tareq-class Kilos; Soviet-colour stand-ins
     air("Iran", "home_irn_isfahan", "Isfahan (8th Tactical Air Base)", 32.751, 51.861, 260, [
         ("iriaf_f-14a", 8)]),
     air("Iran", "home_irn_bushehr", "Bushehr (6th Tactical Air Base)", 28.945, 50.835, 310, [
         ("iriaf_f-4e", 12)]),
     air("North_Korea", "home_prk_sunchon", "Sunchon Air Base", 39.413, 125.89, 360, [
         ("wp_mig-29a", 12, "MiG-29")]),
+
+    # --- red, to align with reality (asked for by the author, 10 Oct 2026) ------
+    # The register places China at three home ports, Djibouti and one air base.
+    # The real PLA Navy has three theatre fleets, the shipyards that build its
+    # carriers, destroyers and nuclear boats, and garrisoned bases on the
+    # Paracel and Spratly reefs; since 2025 its ships use Ream in Cambodia.
+    naval("China", "home_chn_qingdao", "Qingdao (Northern Theater Navy)", 36.07, 120.35, [
+        ("plan_type_001", 1), ("plan_type_055_2020", 2), ("plan_type_052d_p2_1", 2),
+        ("plan_type_054a_p4", 2), ("plan_ssn_type_093a", 2), ("plan_aor_type901", 1)], yard=False),
+    naval("China", "home_chn_zhanjiang", "Zhanjiang (Southern Theater Navy)", 21.2, 110.42, [
+        ("plan_type_052d_p3", 2), ("plan_type_054a_p5", 2), ("plan_type_056a", 3),
+        ("plan_lpd_type_071", 2), ("plan_ss_type_039c", 2)], yard=False),
+    naval("China", "home_chn_dalian", "Dalian Shipyard", 38.93, 121.66, [
+        ("plan_type_055_2026", 1), ("plan_type_052d_p4", 1)], depot=False),
+    naval("China", "home_chn_jiangnan", "Jiangnan Shipyard (Changxing Island)", 31.36, 121.74, [
+        ("plan_type_052d_p4", 1), ("plan_type_055_2026", 1)], depot=False),
+    naval("China", "home_chn_huludao", "Bohai Shipyard (Huludao)", 40.71, 120.98, [
+        ("plan_ssn_type_093b", 1)], depot=False),
+    naval("China", "home_chn_fiery_cross", "Fiery Cross Reef", 9.549, 112.889, [
+        ("plan_type_054a_p3", 1), ("plan_type_056a", 1)], yard=False, depot=False),
+    air("China", "home_chn_fiery_cross_air", "Fiery Cross Reef airfield", 9.549, 112.889, 40, [
+        ("plaaf_j-11b", 4), ("plan_y-9fq", 2)], port="home_chn_fiery_cross", field="pla_airbase_modern"),
+    naval("China", "home_chn_subi", "Subi Reef", 10.923, 114.084, [
+        ("plan_type_056a", 1), ("plan_ptg_type037IIE", 2)], yard=False, depot=False),
+    naval("China", "home_chn_mischief", "Mischief Reef", 9.9, 115.535, [
+        ("plan_type_056a", 1), ("plan_ptg_type037IIE", 2)], yard=False, depot=False),
+    air("China", "home_chn_woody_island", "Woody Island (Paracels)", 16.835, 112.34, 100, [
+        ("plaaf_j-11b", 6)], field="china_large_airbase"),
+    naval("China", "home_chn_ream", "Ream Naval Base (Cambodia, PLA support)", 10.507, 103.613, [
+        ("plan_type_056a", 2)], yard=False, depot=False),
+    air("China", "home_chn_longtian", "Longtian Air Base (Fujian)", 25.7, 119.45, 30, [
+        ("plaaf_j-16", 12), ("plaaf_j-10c", 12)]),
+    air("China", "home_chn_wuhu", "Wuhu Air Base", 31.39, 118.408, 30, [("plaaf_j-20a", 12)]),
+    air("China", "home_chn_wugong", "Wugong Air Base", 34.27, 108.25, 80, [
+        ("plaaf_h-6k_late", 8), ("plaaf_y-20a", 2)]),
+    # Russia: the Baltic and Black Sea Fleets, the ballistic-missile boats'
+    # own bases, and the fighter fields beside the fleets.
+    naval("Russia", "home_rus_baltiysk", "Baltiysk (Baltic Fleet)", 54.645, 19.89, [
+        ("wp_em_sovremenny_98", 1), ("rfn_cvt_20380_3-6", 4), ("rfn_cvt_21631", 2),
+        ("wp_ss_improved_kilo", 1), ("wp_bdk_ropucha", 2)]),
+    naval("Russia", "home_rus_novorossiysk", "Novorossiysk (Black Sea Fleet)", 44.715, 37.79, [
+        ("rfn_ffg_11356", 2), ("wp_ss_improved_kilo", 4), ("rfn_cvt_21631", 3)], yard=False),
+    naval("Russia", "home_rus_gadzhiyevo", "Gadzhiyevo (Northern Fleet submarines)", 69.25, 33.33, [
+        ("wp_ssbn_borei", 2), ("wp_ssbn_delta4", 3)], yard=False, depot=False),
+    naval("Russia", "home_rus_vilyuchinsk", "Vilyuchinsk (Pacific Fleet submarines)", 52.92, 158.42, [
+        ("wp_ssbn_borei", 2), ("wp_ssgn_oscar2", 2), ("wp_ssgn_yasen", 1)], yard=False, depot=False),
+    air("Russia", "home_rus_severomorsk3", "Severomorsk-3 (naval aviation)", 69.017, 33.42, 10, [
+        ("wp_su-33", 8), ("wp_mig-29k_941", 6, "MiG-29K")]),
+    air("Russia", "home_rus_chkalovsk", "Chkalovsk (Kaliningrad)", 54.766, 20.397, 70, [
+        ("wp_su-30sm", 12)]),
+    air("Russia", "home_rus_yelizovo", "Yelizovo (Kamchatka)", 53.168, 158.454, 160, [
+        ("wp_mig-31bm", 8)]),
+    # Iran: the navy's second district at Bushehr and the Gulf of Oman base at
+    # Jask beside Bandar Abbas.
+    naval("Iran", "home_irn_bushehr_naval", "Bushehr Naval Base", 28.98, 50.82, [
+        ("ir_ptg_combattante_II", 2), ("ir_ptg_peykaap_2", 4)], yard=False, depot=False),
+    naval("Iran", "home_irn_jask", "Jask Naval Base", 25.64, 57.77, [
+        ("ir_ffg_alvand", 1), ("ir_ptg_peykaap_3", 4)], yard=False, depot=False),
+    # North Korea's navy is Romeo submarines and Osa-type boats; the collection
+    # has them only in Chinese colours, so these hulls are stand-ins.
+    naval("North_Korea", "home_prk_nampo", "Nampo (West Sea Fleet)", 38.72, 125.38, [
+        ("plan_ss_romeo", 4), ("plan_ptg_type_021", 4)]),
+    naval("North_Korea", "home_prk_sinpo", "Sinpo (East Sea Fleet submarines)", 40.03, 128.19, [
+        ("plan_ss_romeo", 4)], yard=False, depot=False),
     # Vietnam: the collection carries its Tarantul (Molniya) and Petya hulls,
     # not its Su-30MK2s, Kilos or Gepards, so a naval base only.
     naval("Vietnam", "home_vnm_cam_ranh", "Cam Ranh Naval Base", 11.92, 109.17, [
         ("wp_ptg_tarantul_re", 4), ("wp_skr_petya3", 2)]),
     # Indonesia: the collection's TNI-AL is the 1960s Soviet fleet; the Ahmad
     # Yani frigates and the Rafale are what is current.
+    # Indonesia on red is armed by China (asked for by the author): Chinese-built
+    # 054A frigates, 056A corvettes and 039B submarines beside the Ahmad Yani,
+    # and J-10Cs - Indonesia studied the J-10 in 2025 - beside the Rafale. The
+    # hulls fly their Chinese variants' flags: the collection has no
+    # Indonesian livery for them.
     naval("Indonesia", "home_idn_surabaya", "Surabaya (Koarmada II)", -7.2, 112.73, [
-        ("idn_ff_vanspeijk", 2)]),
+        ("idn_ff_vanspeijk", 2), ("plan_type_054a_p5", 2), ("plan_type_056a", 2),
+        ("plan_ss_type_039b", 2)]),
     air("Indonesia", "home_idn_pekanbaru", "Roesmin Nurjadin Air Base (Pekanbaru)", 0.461, 101.445, 360, [
-        ("exp_rafale_c_l", 6, "Rafale")]),
+        ("exp_rafale_c_l", 6, "Rafale"), ("plaaf_j-10c", 12, "J-10CE")]),
+    air("Indonesia", "home_idn_natuna", "Raden Sadjad Air Base (Natuna)", 3.92, 108.37, 180, [
+        ("plaaf_j-10c", 8, "J-10CE")]),
     naval("Pakistan", "home_pak_karachi", "Karachi Naval Dockyard", 24.84, 66.98, [
         ("pns_type_054a_p", 4), ("pns_ffg_oliver_hazard_perry_longhull", 1), ("pns_ss_s-26p", 2),
         ("pns_ss_hashmat", 2)]),

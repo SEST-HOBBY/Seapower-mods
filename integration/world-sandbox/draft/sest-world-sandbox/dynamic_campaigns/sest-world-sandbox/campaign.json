@@ -553,7 +553,7 @@
         "lat": 51.48,
         "lon": 46.21
       },
-      "supplyFrom": "hn_kola_olenya_airbase"
+      "supplyFrom": "home_rus_novorossiysk"
     },
     {
       "id": "rus_ukrainka_airbase",
@@ -1662,7 +1662,371 @@
         "lat": 39.413,
         "lon": 125.89
       },
+      "supplyFrom": "home_prk_nampo"
+    },
+    {
+      "id": "home_chn_qingdao",
+      "name": "Qingdao (Northern Theater Navy)",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 36.058,
+      "lon": 120.377,
+      "income": 6,
+      "homeland": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_chn_zhanjiang",
+      "name": "Zhanjiang (Southern Theater Navy)",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 21.2,
+      "lon": 110.42,
+      "income": 6,
+      "homeland": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_chn_dalian",
+      "name": "Dalian Shipyard",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 38.93,
+      "lon": 121.66,
+      "income": 3,
+      "homeland": true,
+      "shipyard": true,
+      "supplyFrom": "home_chn_qingdao"
+    },
+    {
+      "id": "home_chn_jiangnan",
+      "name": "Jiangnan Shipyard (Changxing Island)",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 31.356,
+      "lon": 121.732,
+      "income": 3,
+      "homeland": true,
+      "shipyard": true,
+      "supplyFrom": "chn_zhejiang_ningbo_naval_base"
+    },
+    {
+      "id": "home_chn_huludao",
+      "name": "Bohai Shipyard (Huludao)",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 40.706,
+      "lon": 120.99,
+      "income": 3,
+      "homeland": true,
+      "shipyard": true,
+      "supplyFrom": "home_chn_qingdao"
+    },
+    {
+      "id": "home_chn_fiery_cross",
+      "name": "Fiery Cross Reef",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 9.549,
+      "lon": 112.889,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "chn_hainan_yulin_naval_base"
+    },
+    {
+      "id": "home_chn_fiery_cross_air",
+      "name": "Fiery Cross Reef airfield",
+      "side": "red",
+      "nation": "China",
+      "kind": "AirBase",
+      "lat": 9.549,
+      "lon": 112.889,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "pla_airbase_modern",
+        "heading": 40,
+        "lat": 9.549,
+        "lon": 112.889
+      },
+      "port": "home_chn_fiery_cross",
+      "colocated": true
+    },
+    {
+      "id": "home_chn_subi",
+      "name": "Subi Reef",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 10.923,
+      "lon": 114.084,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "chn_hainan_yulin_naval_base"
+    },
+    {
+      "id": "home_chn_mischief",
+      "name": "Mischief Reef",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 9.9,
+      "lon": 115.535,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "chn_hainan_yulin_naval_base"
+    },
+    {
+      "id": "home_chn_woody_island",
+      "name": "Woody Island (Paracels)",
+      "side": "red",
+      "nation": "China",
+      "kind": "AirBase",
+      "lat": 16.835,
+      "lon": 112.34,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "china_large_airbase",
+        "heading": 100,
+        "lat": 16.835,
+        "lon": 112.34
+      },
+      "supplyFrom": "chn_hainan_yulin_naval_base"
+    },
+    {
+      "id": "home_chn_ream",
+      "name": "Ream Naval Base (Cambodia, PLA support)",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 10.507,
+      "lon": 103.613,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "chn_hainan_yulin_naval_base"
+    },
+    {
+      "id": "home_chn_longtian",
+      "name": "Longtian Air Base (Fujian)",
+      "side": "red",
+      "nation": "China",
+      "kind": "AirBase",
+      "lat": 25.7,
+      "lon": 119.45,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 30,
+        "lat": 25.7,
+        "lon": 119.45
+      },
+      "supplyFrom": "chn_zhejiang_ningbo_naval_base"
+    },
+    {
+      "id": "home_chn_wuhu",
+      "name": "Wuhu Air Base",
+      "side": "red",
+      "nation": "China",
+      "kind": "AirBase",
+      "lat": 31.39,
+      "lon": 118.408,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 30,
+        "lat": 31.39,
+        "lon": 118.408
+      },
+      "supplyFrom": "chn_zhejiang_ningbo_naval_base"
+    },
+    {
+      "id": "home_chn_wugong",
+      "name": "Wugong Air Base",
+      "side": "red",
+      "nation": "China",
+      "kind": "AirBase",
+      "lat": 34.27,
+      "lon": 108.25,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 80,
+        "lat": 34.27,
+        "lon": 108.25
+      },
+      "supplyFrom": "home_chn_qingdao"
+    },
+    {
+      "id": "home_rus_baltiysk",
+      "name": "Baltiysk (Baltic Fleet)",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "NavalBase",
+      "lat": 54.645,
+      "lon": 19.89,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_rus_novorossiysk",
+      "name": "Novorossiysk (Black Sea Fleet)",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "NavalBase",
+      "lat": 44.723,
+      "lon": 37.79,
+      "income": 6,
+      "homeland": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_rus_gadzhiyevo",
+      "name": "Gadzhiyevo (Northern Fleet submarines)",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "NavalBase",
+      "lat": 69.267,
+      "lon": 33.33,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "home_rus_severomorsk"
+    },
+    {
+      "id": "home_rus_vilyuchinsk",
+      "name": "Vilyuchinsk (Pacific Fleet submarines)",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "NavalBase",
+      "lat": 52.928,
+      "lon": 158.42,
+      "income": 3,
+      "homeland": true,
       "supplyFrom": "home_rus_vladivostok"
+    },
+    {
+      "id": "home_rus_severomorsk3",
+      "name": "Severomorsk-3 (naval aviation)",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "AirBase",
+      "lat": 69.017,
+      "lon": 33.42,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 10,
+        "lat": 69.017,
+        "lon": 33.42
+      },
+      "supplyFrom": "home_rus_severomorsk"
+    },
+    {
+      "id": "home_rus_chkalovsk",
+      "name": "Chkalovsk (Kaliningrad)",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "AirBase",
+      "lat": 54.766,
+      "lon": 20.397,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 70,
+        "lat": 54.766,
+        "lon": 20.397
+      },
+      "supplyFrom": "home_rus_baltiysk"
+    },
+    {
+      "id": "home_rus_yelizovo",
+      "name": "Yelizovo (Kamchatka)",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "AirBase",
+      "lat": 53.168,
+      "lon": 158.454,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 160,
+        "lat": 53.168,
+        "lon": 158.454
+      },
+      "supplyFrom": "home_rus_vladivostok"
+    },
+    {
+      "id": "home_irn_bushehr_naval",
+      "name": "Bushehr Naval Base",
+      "side": "red",
+      "nation": "Iran",
+      "kind": "NavalBase",
+      "lat": 28.98,
+      "lon": 50.82,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "home_irn_bandar_abbas"
+    },
+    {
+      "id": "home_irn_jask",
+      "name": "Jask Naval Base",
+      "side": "red",
+      "nation": "Iran",
+      "kind": "NavalBase",
+      "lat": 25.647,
+      "lon": 57.775,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "home_irn_bandar_abbas"
+    },
+    {
+      "id": "home_prk_nampo",
+      "name": "Nampo (West Sea Fleet)",
+      "side": "red",
+      "nation": "North_Korea",
+      "kind": "NavalBase",
+      "lat": 38.716,
+      "lon": 125.389,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_prk_sinpo",
+      "name": "Sinpo (East Sea Fleet submarines)",
+      "side": "red",
+      "nation": "North_Korea",
+      "kind": "NavalBase",
+      "lat": 39.994,
+      "lon": 128.163,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "home_prk_nampo"
     },
     {
       "id": "home_vnm_cam_ranh",
@@ -1709,6 +2073,24 @@
         "heading": 360,
         "lat": 0.461,
         "lon": 101.445
+      },
+      "supplyFrom": "home_idn_surabaya"
+    },
+    {
+      "id": "home_idn_natuna",
+      "name": "Raden Sadjad Air Base (Natuna)",
+      "side": "red",
+      "nation": "Indonesia",
+      "kind": "AirBase",
+      "lat": 3.92,
+      "lon": 108.37,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 180,
+        "lat": 3.92,
+        "lon": 108.37
       },
       "supplyFrom": "home_idn_surabaya"
     },
@@ -3358,7 +3740,8 @@
       "units": [
         "ir_ffg_alvand_95 x2",
         "ir_ptg_combattante_II x2",
-        "ir_ptg_peykaap_3 x4"
+        "ir_ptg_peykaap_3 x4",
+        "wp_ss_kilo x3"
       ]
     },
     {
@@ -3389,6 +3772,293 @@
       ]
     },
     {
+      "name": "Qingdao (Northern Theater Navy) harbour",
+      "side": "red",
+      "base": "home_chn_qingdao",
+      "type": "Surface",
+      "units": [
+        "plan_type_001",
+        "plan_type_055_2020 x2",
+        "plan_type_052d_p2_1 x2",
+        "plan_type_054a_p4 x2",
+        "plan_ssn_type_093a x2",
+        "plan_aor_type901"
+      ]
+    },
+    {
+      "name": "Zhanjiang (Southern Theater Navy) harbour",
+      "side": "red",
+      "base": "home_chn_zhanjiang",
+      "type": "Surface",
+      "units": [
+        "plan_type_052d_p3 x2",
+        "plan_type_054a_p5 x2",
+        "plan_type_056a x3",
+        "plan_lpd_type_071 x2",
+        "plan_ss_type_039c x2"
+      ]
+    },
+    {
+      "name": "Dalian Shipyard harbour",
+      "side": "red",
+      "base": "home_chn_dalian",
+      "type": "Surface",
+      "units": [
+        "plan_type_055_2026",
+        "plan_type_052d_p4"
+      ]
+    },
+    {
+      "name": "Jiangnan Shipyard (Changxing Island) harbour",
+      "side": "red",
+      "base": "home_chn_jiangnan",
+      "type": "Surface",
+      "units": [
+        "plan_type_052d_p4",
+        "plan_type_055_2026"
+      ]
+    },
+    {
+      "name": "Bohai Shipyard (Huludao) harbour",
+      "side": "red",
+      "base": "home_chn_huludao",
+      "type": "Surface",
+      "units": [
+        "plan_ssn_type_093b"
+      ]
+    },
+    {
+      "name": "Fiery Cross Reef harbour",
+      "side": "red",
+      "base": "home_chn_fiery_cross",
+      "type": "Surface",
+      "units": [
+        "plan_type_054a_p3",
+        "plan_type_056a"
+      ]
+    },
+    {
+      "name": "Fiery Cross Reef airfield J-11B",
+      "side": "red",
+      "base": "home_chn_fiery_cross_air",
+      "type": "Air",
+      "units": [
+        "plaaf_j-11b x4"
+      ]
+    },
+    {
+      "name": "Fiery Cross Reef airfield Y-9FQ",
+      "side": "red",
+      "base": "home_chn_fiery_cross_air",
+      "type": "Air",
+      "units": [
+        "plan_y-9fq x2"
+      ]
+    },
+    {
+      "name": "Subi Reef harbour",
+      "side": "red",
+      "base": "home_chn_subi",
+      "type": "Surface",
+      "units": [
+        "plan_type_056a",
+        "plan_ptg_type037IIE x2"
+      ]
+    },
+    {
+      "name": "Mischief Reef harbour",
+      "side": "red",
+      "base": "home_chn_mischief",
+      "type": "Surface",
+      "units": [
+        "plan_type_056a",
+        "plan_ptg_type037IIE x2"
+      ]
+    },
+    {
+      "name": "Woody Island (Paracels) J-11B",
+      "side": "red",
+      "base": "home_chn_woody_island",
+      "type": "Air",
+      "units": [
+        "plaaf_j-11b x6"
+      ]
+    },
+    {
+      "name": "Ream Naval Base (Cambodia, PLA support) harbour",
+      "side": "red",
+      "base": "home_chn_ream",
+      "type": "Surface",
+      "units": [
+        "plan_type_056a x2"
+      ]
+    },
+    {
+      "name": "Longtian Air Base (Fujian) J-16",
+      "side": "red",
+      "base": "home_chn_longtian",
+      "type": "Air",
+      "units": [
+        "plaaf_j-16 x12"
+      ]
+    },
+    {
+      "name": "Longtian Air Base (Fujian) J-10C",
+      "side": "red",
+      "base": "home_chn_longtian",
+      "type": "Air",
+      "units": [
+        "plaaf_j-10c x12"
+      ]
+    },
+    {
+      "name": "Wuhu Air Base J-20A",
+      "side": "red",
+      "base": "home_chn_wuhu",
+      "type": "Air",
+      "units": [
+        "plaaf_j-20a x12"
+      ]
+    },
+    {
+      "name": "Wugong Air Base H-6K (Late)",
+      "side": "red",
+      "base": "home_chn_wugong",
+      "type": "Air",
+      "units": [
+        "plaaf_h-6k_late x8"
+      ]
+    },
+    {
+      "name": "Wugong Air Base Y-20A",
+      "side": "red",
+      "base": "home_chn_wugong",
+      "type": "Air",
+      "units": [
+        "plaaf_y-20a x2"
+      ]
+    },
+    {
+      "name": "Baltiysk (Baltic Fleet) harbour",
+      "side": "red",
+      "base": "home_rus_baltiysk",
+      "type": "Surface",
+      "units": [
+        "wp_em_sovremenny_98",
+        "rfn_cvt_20380_3-6 x4",
+        "rfn_cvt_21631 x2",
+        "wp_ss_improved_kilo",
+        "wp_bdk_ropucha x2"
+      ]
+    },
+    {
+      "name": "Novorossiysk (Black Sea Fleet) harbour",
+      "side": "red",
+      "base": "home_rus_novorossiysk",
+      "type": "Surface",
+      "units": [
+        "rfn_ffg_11356 x2",
+        "wp_ss_improved_kilo x4",
+        "rfn_cvt_21631 x3"
+      ]
+    },
+    {
+      "name": "Gadzhiyevo (Northern Fleet submarines) harbour",
+      "side": "red",
+      "base": "home_rus_gadzhiyevo",
+      "type": "Surface",
+      "units": [
+        "wp_ssbn_borei x2",
+        "wp_ssbn_delta4 x3"
+      ]
+    },
+    {
+      "name": "Vilyuchinsk (Pacific Fleet submarines) harbour",
+      "side": "red",
+      "base": "home_rus_vilyuchinsk",
+      "type": "Surface",
+      "units": [
+        "wp_ssbn_borei x2",
+        "wp_ssgn_oscar2 x2",
+        "wp_ssgn_yasen"
+      ]
+    },
+    {
+      "name": "Severomorsk-3 (naval aviation) Su-33",
+      "side": "red",
+      "base": "home_rus_severomorsk3",
+      "type": "Air",
+      "units": [
+        "wp_su-33 x8"
+      ]
+    },
+    {
+      "name": "Severomorsk-3 (naval aviation) MiG-29K",
+      "side": "red",
+      "base": "home_rus_severomorsk3",
+      "type": "Air",
+      "units": [
+        "wp_mig-29k_941 x6"
+      ]
+    },
+    {
+      "name": "Chkalovsk (Kaliningrad) Su-30SM",
+      "side": "red",
+      "base": "home_rus_chkalovsk",
+      "type": "Air",
+      "units": [
+        "wp_su-30sm x12"
+      ]
+    },
+    {
+      "name": "Yelizovo (Kamchatka) MiG-31BM",
+      "side": "red",
+      "base": "home_rus_yelizovo",
+      "type": "Air",
+      "units": [
+        "wp_mig-31bm x8"
+      ]
+    },
+    {
+      "name": "Bushehr Naval Base harbour",
+      "side": "red",
+      "base": "home_irn_bushehr_naval",
+      "type": "Surface",
+      "units": [
+        "ir_ptg_combattante_II x2",
+        "ir_ptg_peykaap_2 x4"
+      ]
+    },
+    {
+      "name": "Jask Naval Base harbour",
+      "side": "red",
+      "base": "home_irn_jask",
+      "type": "Surface",
+      "units": [
+        "ir_ffg_alvand",
+        "ir_ptg_peykaap_3 x4"
+      ]
+    },
+    {
+      "name": "Nampo (West Sea Fleet) harbour",
+      "side": "red",
+      "base": "home_prk_nampo",
+      "type": "Surface",
+      "units": [
+        "plan_ss_romeo x4",
+        "plan_ptg_type_021 x4"
+      ]
+    },
+    {
+      "name": "Sinpo (East Sea Fleet submarines) harbour",
+      "side": "red",
+      "base": "home_prk_sinpo",
+      "type": "Surface",
+      "units": [
+        "plan_ss_romeo x4"
+      ]
+    },
+    {
       "name": "Cam Ranh Naval Base harbour",
       "side": "red",
       "base": "home_vnm_cam_ranh",
@@ -3404,7 +4074,10 @@
       "base": "home_idn_surabaya",
       "type": "Surface",
       "units": [
-        "idn_ff_vanspeijk x2"
+        "idn_ff_vanspeijk x2",
+        "plan_type_054a_p5 x2",
+        "plan_type_056a x2",
+        "plan_ss_type_039b x2"
       ]
     },
     {
@@ -3414,6 +4087,24 @@
       "type": "Air",
       "units": [
         "exp_rafale_c_l x6"
+      ]
+    },
+    {
+      "name": "Roesmin Nurjadin Air Base (Pekanbaru) J-10CE",
+      "side": "red",
+      "base": "home_idn_pekanbaru",
+      "type": "Air",
+      "units": [
+        "plaaf_j-10c x12"
+      ]
+    },
+    {
+      "name": "Raden Sadjad Air Base (Natuna) J-10CE",
+      "side": "red",
+      "base": "home_idn_natuna",
+      "type": "Air",
+      "units": [
+        "plaaf_j-10c x8"
       ]
     },
     {
@@ -3862,8 +4553,8 @@
   "yards": {
     "US": "usp_kitsap_bremerton_psns, usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base",
     "Australia": "aus_stirling_hmas_stirling",
-    "China": "chn_zhejiang_ningbo_naval_base",
-    "Russia": "home_rus_severomorsk, home_rus_vladivostok",
+    "China": "chn_zhejiang_ningbo_naval_base, home_chn_dalian, home_chn_jiangnan, home_chn_huludao",
+    "Russia": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk",
     "Japan": "home_jpn_kure",
     "Norway": "home_nor_haakonsvern",
     "UK": "home_uk_portsmouth",
@@ -3883,6 +4574,7 @@
     "Egypt": "home_egy_alexandria",
     "Chile": "home_chl_talcahuano",
     "Iran": "home_irn_bandar_abbas",
+    "North_Korea": "home_prk_nampo",
     "Vietnam": "home_vnm_cam_ranh",
     "Indonesia": "home_idn_surabaya",
     "Pakistan": "home_pak_karachi"
@@ -3992,8 +4684,10 @@
     "ins_d-63": 204,
     "ins_d-66": 204,
     "ins_ptg_hetz": 33,
+    "ir_ffg_alvand": 70,
     "ir_ffg_alvand_95": 70,
     "ir_ptg_combattante_II": 22,
+    "ir_ptg_peykaap_2": 5,
     "ir_ptg_peykaap_3": 5,
     "iriaf_f-14a": 46,
     "iriaf_f-4e": 46,
@@ -4024,26 +4718,43 @@
     "phl_ff_hamilton": 117,
     "phl_fs_pohang": 60,
     "phl_lpd_tarlac": 276,
+    "plaaf_h-6k_late": 172,
+    "plaaf_j-10c": 46,
+    "plaaf_j-11b": 46,
+    "plaaf_j-16": 46,
+    "plaaf_j-20a": 46,
     "plaaf_kj-500": 242,
+    "plaaf_y-20a": 23,
     "plan_aor_type901": 247,
     "plan_aor_type903a": 146,
     "plan_cv_type_003": 1064,
     "plan_ddg_type956e_early": 214,
     "plan_j-15": 46,
+    "plan_lpd_type_071": 426,
     "plan_ptg_type037IIE": 22,
+    "plan_ptg_type_021": 18,
     "plan_ss_kilo": 112,
+    "plan_ss_romeo": 76,
     "plan_ss_type_039": 91,
     "plan_ss_type_039a": 125,
     "plan_ss_type_039b": 125,
+    "plan_ss_type_039c": 123,
+    "plan_ssn_type_093a": 190,
+    "plan_ssn_type_093b": 190,
+    "plan_type_001": 840,
     "plan_type_052d_p1": 206,
+    "plan_type_052d_p2_1": 206,
     "plan_type_052d_p3": 206,
     "plan_type_052d_p4": 206,
     "plan_type_054_p2": 132,
     "plan_type_054a_p3": 139,
+    "plan_type_054a_p4": 139,
     "plan_type_054a_p5": 139,
+    "plan_type_055_2020": 266,
     "plan_type_055_2026": 266,
     "plan_type_056a": 95,
     "plan_y-8fq": 89,
+    "plan_y-9fq": 89,
     "pn_ffg-06": 115,
     "pn_ffg-150_2": 107,
     "pns_ffg_oliver_hazard_perry_longhull": 137,
@@ -4059,8 +4770,11 @@
     "ran_opv_arafura": 103,
     "ran_ssg_collins": 110,
     "rfn_aor_pashin": 111,
+    "rfn_cvt_20380_3-6": 91,
     "rfn_cvt_20380_7-12": 91,
     "rfn_cvt_20385": 96,
+    "rfn_cvt_21631": 51,
+    "rfn_ffg_11356": 135,
     "rfn_ffg_22350_1-4": 165,
     "rn_aor_tide": 247,
     "rn_ddg_type45_26": 224,
@@ -4124,17 +4838,25 @@
     "usn_taoe_supply": 247,
     "wp_bdk_ropucha": 136,
     "wp_bpk_udaloy_98": 207,
+    "wp_em_sovremenny_98": 214,
     "wp_il-76md": 2,
     "wp_il-78": 2,
     "wp_mig-29a": 46,
+    "wp_mig-29k_941": 46,
+    "wp_mig-31bm": 46,
     "wp_ptg_tarantul_re": 31,
     "wp_rkr_admiral_nakhimov_refit": 501,
     "wp_rkr_slava_16": 274,
     "wp_skr_petya3": 57,
     "wp_ss_improved_kilo": 112,
     "wp_ss_kilo": 112,
+    "wp_ssbn_borei": 452,
+    "wp_ssbn_delta4": 343,
+    "wp_ssgn_oscar2": 432,
     "wp_ssgn_yasen": 311,
     "wp_ssn_akula": 311,
+    "wp_su-30sm": 46,
+    "wp_su-33": 46,
     "wp_tu-142m": 89,
     "wp_tu-160": 172,
     "wp_tu-22m2": 172,
@@ -4331,21 +5053,16 @@
     "pla_z21": 25,
     "plaaf_h-6j": 172,
     "plaaf_h-6k_early": 172,
-    "plaaf_h-6k_late": 172,
     "plaaf_h-6n": 172,
     "plaaf_h6k": 172,
     "plaaf_j-10a": 46,
-    "plaaf_j-10c": 46,
     "plaaf_j-11": 46,
     "plaaf_j-11a": 46,
-    "plaaf_j-11b": 46,
     "plaaf_j-11bg": 46,
     "plaaf_j-11bgh": 46,
     "plaaf_j-11bh": 46,
     "plaaf_j-11bs": 46,
-    "plaaf_j-16": 46,
     "plaaf_j-16d": 46,
-    "plaaf_j-20a": 46,
     "plaaf_j-7e": 46,
     "plaaf_j-7ii": 46,
     "plaaf_j-7iiia": 46,
@@ -4371,7 +5088,6 @@
     "plaaf_kj100b": 242,
     "plaaf_kj2000": 242,
     "plaaf_su-27ubk": 46,
-    "plaaf_y-20a": 23,
     "plaaf_y-20b": 23,
     "plaaf_y-20b_albm": 78,
     "plaaf_y-9dz": 242,
@@ -4402,7 +5118,6 @@
     "plan_kq100": 89,
     "plan_sh-5": 89,
     "plan_sh_6": 89,
-    "plan_y-9fq": 89,
     "plan_y10d": 118,
     "plan_z-18f": 39,
     "plan_z-18fa": 39,
@@ -4724,14 +5439,12 @@
     "wp_mig-27": 78,
     "wp_mig-28": 46,
     "wp_mig-29k": 46,
-    "wp_mig-29k_941": 46,
     "wp_mig-29k_947": 46,
     "wp_mig-29m2_967": 46,
     "wp_mig-29m_915": 46,
     "wp_mig-29m_961": 46,
     "wp_mig-29smt_918": 46,
     "wp_mig-31": 46,
-    "wp_mig-31bm": 46,
     "wp_mig-31k": 78,
     "wp_mig-35": 46,
     "wp_mig_23am_98": 46,
@@ -4751,9 +5464,7 @@
     "wp_su-27sm": 46,
     "wp_su-30m": 46,
     "wp_su-30mkk": 46,
-    "wp_su-30sm": 46,
     "wp_su-30sm2": 46,
-    "wp_su-33": 46,
     "wp_su-35s": 46,
     "wp_su-57": 46,
     "wp_su_27p": 46,
@@ -4877,12 +5588,10 @@
     "ins_ss_gal": 33,
     "ir_aor_delvar": 16,
     "ir_fab_boghammar": 5,
-    "ir_ffg_alvand": 70,
     "ir_pf_bayandor": 57,
     "ir_pt_kaivan": 15,
     "ir_pt_parvin": 15,
     "ir_ptg_kaivan": 15,
-    "ir_ptg_peykaap_2": 5,
     "ir_ptg_peykaap_3_export": 5,
     "ita_ddg_ddx": 329,
     "ita_ddg_orizzonte": 197,
@@ -4982,16 +5691,12 @@
     "plan_ffg_type_054b": 133,
     "plan_k_type_037": 30,
     "plan_lha_type1143e": 653,
-    "plan_lpd_type_071": 426,
     "plan_lst_yukan": 138,
     "plan_msc_type_010": 37,
     "plan_pt_shanghai2": 14,
     "plan_pt_shanghai2b": 14,
-    "plan_ptg_type_021": 18,
     "plan_ptg_type_024": 10,
     "plan_ss_ming": 76,
-    "plan_ss_romeo": 76,
-    "plan_ss_type_039c": 123,
     "plan_ssbn_jin": 281,
     "plan_ssbn_type_094": 266,
     "plan_ssbn_type_094a": 266,
@@ -5002,15 +5707,12 @@
     "plan_ssn_han_rsa": 156,
     "plan_ssn_type_093": 190,
     "plan_ssn_type_093_rsa": 190,
-    "plan_ssn_type_093a": 190,
     "plan_ssn_type_093a_rsa": 190,
-    "plan_ssn_type_093b": 190,
     "plan_ssn_type_093b_rsa": 190,
     "plan_ssn_type_095": 234,
     "plan_ssn_type_095_rsa": 234,
     "plan_ssn_type_09x": 234,
     "plan_ssnh_type83": 343,
-    "plan_type_001": 840,
     "plan_type_051b_1997": 189,
     "plan_type_051b_2017": 189,
     "plan_type_051c": 187,
@@ -5019,15 +5721,12 @@
     "plan_type_052b_2004": 174,
     "plan_type_052b_2019": 174,
     "plan_type_052c": 197,
-    "plan_type_052d_p2_1": 206,
     "plan_type_052d_p2_2": 206,
     "plan_type_053h3_p1": 95,
     "plan_type_053h3_p2": 95,
     "plan_type_054_p1": 132,
     "plan_type_054a_p1": 139,
     "plan_type_054a_p2": 139,
-    "plan_type_054a_p4": 139,
-    "plan_type_055_2020": 266,
     "pn_ffg-150": 107,
     "pns_ss_hangor": 54,
     "ran_cv_centaur_84": 516,
@@ -5066,14 +5765,11 @@
     "ran_ss_oberon": 95,
     "ran_ss_oberon1968": 85,
     "rcn_ss_oberon": 95,
-    "rfn_cvt_20380_3-6": 91,
     "rfn_cvt_20380_531": 91,
     "rfn_cvt_20380_550": 91,
-    "rfn_cvt_21631": 51,
     "rfn_ddg_21956_early": 233,
     "rfn_ddg_21956_late": 233,
     "rfn_ddg_21956m": 233,
-    "rfn_ffg_11356": 135,
     "rfn_ffg_22350_5-8": 165,
     "rfn_lha_11780": 514,
     "rn_churchill_class_ssn": 123,
@@ -5382,7 +6078,6 @@
     "wp_cv_orel": 1021,
     "wp_cv_orel_1991": 1021,
     "wp_em_sovremenny": 214,
-    "wp_em_sovremenny_98": 214,
     "wp_em_sovremenny_vls": 214,
     "wp_kr_sverdlov": 353,
     "wp_mpk_grisha3": 52,
@@ -5434,9 +6129,7 @@
     "wp_ss_kilo_877v": 112,
     "wp_ss_romeo": 76,
     "wp_ss_tango": 125,
-    "wp_ssbn_borei": 452,
     "wp_ssbn_delta3": 343,
-    "wp_ssbn_delta4": 343,
     "wp_ssbn_redoctober": 722,
     "wp_ssbn_typhoon": 722,
     "wp_ssbn_yankee": 281,
@@ -5445,7 +6138,6 @@
     "wp_ssgn_charlie2": 167,
     "wp_ssgn_echo2": 172,
     "wp_ssgn_oscar1": 432,
-    "wp_ssgn_oscar2": 432,
     "wp_ssn_alfa": 115,
     "wp_ssn_november": 151,
     "wp_ssn_sierra1": 220,

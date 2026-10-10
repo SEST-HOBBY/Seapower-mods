@@ -706,8 +706,10 @@ def build():
         if h.get("depot"):
             base.update({"depot": True, "production": 1, "convoys": 10})
         if h["kind"] == "AirBase":
-            base["field"] = {"unit": "airfield_small_1", "heading": h["heading"],
+            base["field"] = {"unit": h.get("field") or "airfield_small_1", "heading": h["heading"],
                              "lat": round(lat, 4), "lon": round(lon, 4)}
+            if h.get("port"):
+                base.update({"port": h["port"], "colocated": True})
         bases.append(base)
         base_ids.add(hid)
         specs, labels = [], []
