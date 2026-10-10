@@ -129,6 +129,11 @@ EXCUSES = {
         "stop, surrender) run through Anchor Chain; its data is five IFF sensor "
         "sections and its own strings - nothing a mission can name. It acts on "
         "every contact in every mission and no mission may depend on it"),
+    "dynamic-campaign-mod": (
+        "library", "a strategic campaign layer run through Anchor Chain; its "
+        "data is its own Pacific 1985 campaign, read from dynamic_campaigns/ - "
+        "nothing a Task Force Mode mission can name, and no SEST mission may "
+        "depend on it"),
     "automatic-sar": (
         "library", "rescue behaviour (a DLL the export skips, plus its "
         "language strings); no unit or round a mission can name. The campaign "

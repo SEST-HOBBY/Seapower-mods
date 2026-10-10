@@ -2,7 +2,7 @@
 
 Generated from `data/mod-catalog.json` by `tools/generate_load_order.py` — 189 active subscriptions plus the SEST Integration Pack (22 packs consolidated). Top of the Mod Manager = highest priority: the higher-listed mod wins file conflicts.
 
-This is a tier grouping, NOT the load order. The canonical Mod Manager order is `data/load-order.tokens.txt` (190 entries: SEST_Integration plus the 189 Workshop mods); the pack ships it as LOAD-ORDER.txt and SETUP writes it. Where the numbering below differs, the canonical order wins (for example, its last four are **Philippines: The Luzon Line**, **Thailand: The Siam Shield**, **RE-power: the resupply mod** and **Real photos of airplanes and helicopters**).
+This is a tier grouping, NOT the load order. The canonical Mod Manager order is `data/load-order.tokens.txt` (191 entries: SEST_Integration plus the 190 Workshop mods); the pack ships it as LOAD-ORDER.txt and SETUP writes it. Where the numbering below differs, the canonical order wins (for example, its last four are **Philippines: The Luzon Line**, **Thailand: The Siam Shield**, **RE-power: the resupply mod** and **Real photos of airplanes and helicopters**).
 
 Tier 0 is the SEST block and must stay unbroken at the top. Tiers 1–3 are ordered deliberately (position changes behavior). Tiers 4–6 are listed alphabetically here — within them, order only matters between mods flagged in the conflict watchlist (`docs/conflicts-and-load-order.md`).
 

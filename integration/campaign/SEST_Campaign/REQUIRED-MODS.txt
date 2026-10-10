@@ -184,7 +184,7 @@ NOT IN THIS LIST AND STILL REQUIRED:
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (9), and left in the order
+Also enabled while this was built (10), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
@@ -192,6 +192,7 @@ by something above them. The campaign does not call for them.
 3774105087    library                          Automatic SAR
 3768036424    library                          Better TacMap
 3806686336    library                          Coordinated Strike Tool
+3813157776    library                          Dynamic Campaign Mod
 3784474738    library                          Euromod - Anchorchain Expansion Pack
 3790594162    library                          Identify Expanded
 3432592449    shadowed                         Nimitz Expanded
