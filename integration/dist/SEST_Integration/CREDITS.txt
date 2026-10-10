@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-507 of the unit files here are another author's file with
+508 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 507 below
+every file of its kind in the collection, and the 508 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -221,6 +221,7 @@ listed whatever the percentage: they are still that author's.
       100%  ammunition/ko_Antiship_2.ini 
       100%  ammunition/ko_Antiship_2_ship.ini 
       100%  ammunition/ko_Hycore.ini 
+      100%  ammunition/rok_hgv.ini 
       100%  ammunition/rok_hyunmoo_4_2.ini 
        97%  ammunition/rok_k-sam-II.ini 
       100%  vessels/ko_ddg-991.ini 

@@ -38,7 +38,6 @@
 
         <TextBlock Foreground="SteelBlue" Text="ジャワ海" HorizontalAlignment="Center" FontStyle="Italic" FontSize="16" FontWeight="Bold" Canvas.Left="550" Canvas.Top="150"/>
         <TextBlock Foreground="Black" Text="ジャワ島" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="550" Canvas.Top="450"/>
-        <TextBlock Foreground="Black" Text="バリ島" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="1015" Canvas.Top="625"/>
         <TextBlock Foreground="Black" Text="インドネシア" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Canvas.Left="450" Canvas.Top="500"/>
         
         <StackPanel Orientation="Vertical" Canvas.Left="500" Canvas.Top="250">
@@ -64,7 +63,7 @@
         
         <StackPanel Orientation="Vertical" Canvas.Left="390" Canvas.Top="175">
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="フォックストロット型通常型潜水艦"/>
+                <Run Text="フォックストロット級通常動力型潜水艦"/>
             </TextBlock>
             <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
                 <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Submarine}"/>

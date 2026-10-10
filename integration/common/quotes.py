@@ -1,12 +1,11 @@
-"""The SEST quotation set: the lines the loading screen, the briefing pages
-and the Briefing Room video share.
+"""The SEST quotation set: the lines the loading screen and the briefing
+pages share.
 
-One list, three readers. SEST Collection Fixes makes the set the game's
+One list, two readers. SEST Collection Fixes makes the set the game's
 loading-screen text in place of its gameplay tips (build_loading_tips); the
 campaign pack sets one under the banner of every mission briefing
-(epigraph_xml), chosen by the mission's role; tools/make_briefing_video.py
-burns a handful into the Briefing Room slideshow. Changing a line here
-changes it everywhere.
+(epigraph_xml), chosen by the mission's role. Changing a line here changes
+it everywhere.
 
 Every entry is one of three kinds, and the label says which, so a modern
 internet aphorism never borrows the authority of a Fleet Admiral:
@@ -166,11 +165,6 @@ def attribution(q):
     """`Gen. Kenneth S. Wilsbach, Chief of Staff, US Air Force, 2025`, or the
     maxim's honest label with no year."""
     return q["who"] + (f", {q['year']}" if q.get("year") else "")
-
-
-def quote_line(q):
-    """The quote in running text: `"<text>" - <attribution>`."""
-    return f'"{q["text"]}" - {attribution(q)}'
 
 
 def tip_line(q):

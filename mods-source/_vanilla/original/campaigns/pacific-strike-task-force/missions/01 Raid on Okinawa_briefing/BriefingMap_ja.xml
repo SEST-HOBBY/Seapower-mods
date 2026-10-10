@@ -53,7 +53,7 @@
             <Ellipse Width="100" Height="100" Opacity="0.25" Fill="{StaticResource NTDS.HostileColour}"/>
             <!-- 作戦海域テキスト -->
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" Text="久米島" HorizontalAlignment="Center"/>
-            <TextBlock Foreground="{StaticResource NTDS.HostileColour}" Text="上陸予想地域" HorizontalAlignment="Center" />
+            <TextBlock Foreground="{StaticResource NTDS.HostileColour}" Text="推定上陸地点" HorizontalAlignment="Center" />
         </StackPanel>   
         
         <!-- 地図ラベル -->
@@ -82,7 +82,7 @@
         <!-- P-3C グループアイコンおよびテキスト -->
         <StackPanel Orientation="Vertical" Canvas.Left="450" Canvas.Top="550">
             <TextBlock Foreground="Blue" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="海上自衛隊P-3C第9航空隊「シースター」"/>
+                <Run Text="海上自衛隊 第9航空隊 P-3C「シースター」"/>
             </TextBlock>
             <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
                 <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.FriendColour}" Data="{StaticResource NTDS.Allied.Air}"/>
@@ -92,7 +92,7 @@
         <!-- E-3A グループアイコンおよびテキスト -->
         <StackPanel Orientation="Vertical" Canvas.Left="850" Canvas.Top="450">
             <TextBlock Foreground="Blue" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="米空軍E-3A第961空中警戒管制飛行隊「ダークスター」"/>
+                <Run Text="米空軍 第961空中警戒管制飛行隊 E-3A「ダークスター」"/>
             </TextBlock>
             <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
                 <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.FriendColour}" Data="{StaticResource NTDS.Allied.Air}"/>
@@ -112,7 +112,7 @@
         <!-- 不明部隊 グループアイコンおよびテキスト -->
         <StackPanel Orientation="Vertical" Canvas.Left="50" Canvas.Top="425">
             <TextBlock Foreground="{StaticResource NTDS.UnknownColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="ソ連軍工作部隊（?）"/>
+                <Run Text="ソ連軍特殊部隊（？）"/>
             </TextBlock>
             <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
                 <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.UnknownColour}" Data="{StaticResource NTDS.Unknown.Surface}"/>

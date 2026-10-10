@@ -1154,9 +1154,8 @@ def build_missing_loadout_names():
 # so a vanilla tip numbered beyond it is never drawn. The section is written
 # whole and its first line declares the replacement, which is how
 # tools/check_vanilla_drift.py tells a vanilla tip this masks on purpose from
-# one a builder shadowed by mistake. The pack's own field notes, which used to
-# follow vanilla's tips here, are in common/field_notes.py and the Briefing
-# Room entry. The other languages' tips are the game's, untouched.
+# one a builder shadowed by mistake. The other languages' tips are the
+# game's, untouched.
 LOADING_HEADER = "QUOTATION"
 
 

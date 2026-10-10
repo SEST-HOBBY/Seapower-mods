@@ -5,7 +5,7 @@
 
 Writes integration/menu-background/SEST.MenuBackground.dll, which
 integration/campaign/build_pack.py copies into the pack's plugins/ folder.
-The DLL is committed, like the Briefing Room film: the regression gate wants
+The DLL is committed, like the menu film: the regression gate wants
 the pack byte-identical on every machine, and a compiler's output is not
 (mcs stamps a fresh module id on every build). Rebuild it only when
 SestMenuBackground.cs changes.

@@ -28,7 +28,7 @@
         </StackPanel>
 
         <!-- Map Labels -->
-        <TextBlock Foreground="SteelBlue" Text="スル海" HorizontalAlignment="Center" FontStyle="Italic" FontSize="16" FontWeight="Bold" Canvas.Left="800" Canvas.Top="300"/>
+        <TextBlock Foreground="SteelBlue" Text="スールー海" HorizontalAlignment="Center" FontStyle="Italic" FontSize="16" FontWeight="Bold" Canvas.Left="800" Canvas.Top="300"/>
         <TextBlock Foreground="Black" Text="プエルト・プリンセサ市" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="275" Canvas.Top="75"/>
         <TextBlock Foreground="Black" Text="パラワン島" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Canvas.Left="75" Canvas.Top="300"/>
         
@@ -68,7 +68,7 @@
         <!-- Surface CAP Flight -->
         <StackPanel Orientation="Vertical" Canvas.Left="500" Canvas.Top="500">
             <TextBlock Foreground="Blue" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="水上CAP隊"/>
+                <Run Text="水上部隊上空哨戒"/>
             </TextBlock>
             <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
                 <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.FriendColour}" Data="{StaticResource NTDS.Allied.Air}"/>
@@ -79,7 +79,7 @@
         <!-- PLAN Coastal Forces -->
         <StackPanel Orientation="Vertical" Canvas.Left="250" Canvas.Top="400">
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="PLAN沿岸部隊"/>
+                <Run Text="中国海軍沿岸部隊"/>
             </TextBlock>
             <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
                 <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Surface}"/>
@@ -90,7 +90,7 @@
         <!-- PLAN SAG -->
         <StackPanel Orientation="Vertical" Canvas.Left="575" Canvas.Top="25">
             <TextBlock Foreground="{StaticResource NTDS.HostileColour}" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                <Run Text="PLAN水上戦闘群"/>
+                <Run Text="中国海軍水上戦闘群"/>
             </TextBlock>
             <Canvas Width="22.5" Height="22.5" HorizontalAlignment="Center">
                 <Path StrokeThickness="{DynamicResource ContactIconThickness}" Stroke="{StaticResource NTDS.HostileColour}" Data="{StaticResource NTDS.Enemy.Surface}"/>

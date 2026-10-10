@@ -1,7 +1,7 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-10-10T23:12:06.
+# The [LoadOrder] Sea Power is actually using, captured 2026-10-10T23:41:56.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
-NumberOfModFiles=190   entries parsed: 190
+NumberOfModFiles=192   entries parsed: 192
 
    1. SEST_Integration on     
    2. 3380210757   on     Anchor Chain
@@ -193,9 +193,11 @@ NumberOfModFiles=190   entries parsed: 190
  188. 3711297532   on     Thailand: The Siam Shield [v0.8.3.03.10]
  189. 3605013271   on     RE-power: the resupply mod
  190. 3796706214   on     飞机与直升机的真实照片
+ 191. ACConfigs    OFF    
+ 192. sest-world-sandbox on     
 
 --- drift against the canonical order ---
 canonical but not live (0): 
-live but not canonical (0): 
+live but not canonical (2): ACConfigs, sest-world-sandbox
 order of shared entries matches: YES
-disabled in game (0): 
+disabled in game (1): ACConfigs
