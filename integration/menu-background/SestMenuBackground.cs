@@ -1,11 +1,13 @@
 // SEST Menu Background - plays the SEST film behind Sea Power's main menu.
 //
 // The main menu's film is a VideoClip inside the game's Unity data
-// (sharedassets1.resource), not a file a mod can stand in for. This plugin,
-// loaded by Anchor Chain from the SEST pack's plugins folder, finds the Unity
-// VideoPlayer that loops that clip and points it at plugins/sest_menu.mp4
-// instead. Nothing else is touched: no game code is patched and no game type
-// is referenced, only Unity's own VideoPlayer.
+// (sharedassets1.resource), not a file a mod can stand in for. Anchor Chain
+// (Workshop 3380210757, which SEST's SETUP installs) loads every DLL in every
+// mod folder the game knows and starts each class marked [ACPlugin] that
+// implements IAnchorChainMod - the SEST pack's plugins/ folder included. This
+// one finds the Unity VideoPlayer that loops the menu's clip and points it at
+// plugins/sest_menu.mp4 instead. No game code is patched and no game type is
+// referenced, only Unity's own VideoPlayer.
 //
 // What it will and will not swap:
 //   - only a player already set to loop and playing a clip from the game's
@@ -19,20 +21,34 @@
 // Every player it sees is written to Player.log with "[SEST Menu]", which
 // tools/capture-context.ps1 brings into the repo.
 //
-// Built by build_plugin.py against Unity's and BepInEx's public API only.
+// Built by build_plugin.py against Unity's public API and Anchor Chain's
+// two public types (stubs/AnchorChain.cs).
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using BepInEx;
+using AnchorChain;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
 namespace Sest.MenuBackground
 {
-    [BepInPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.0.0")]
-    public class MenuBackgroundPlugin : BaseUnityPlugin
+    // Anchor Chain creates this with Activator.CreateInstance, which a Unity
+    // component cannot be, so the entry point builds the component itself on
+    // a GameObject that survives scene changes.
+    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.0.0")]
+    public class MenuBackgroundMod : IAnchorChainMod
+    {
+        public void TriggerEntryPoint()
+        {
+            var host = new GameObject("SEST Menu Background");
+            UnityEngine.Object.DontDestroyOnLoad(host);
+            host.AddComponent<MenuFilmSwapper>();
+        }
+    }
+
+    public class MenuFilmSwapper : MonoBehaviour
     {
         const string Tag = "[SEST Menu] ";
         const string IniName = "sest_menu.ini";
