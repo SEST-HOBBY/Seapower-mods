@@ -10,6 +10,7 @@ the patrol line, fire on nothing. What is named here is on the plot at the
 Chatham rendezvous.
 """
 from campaign_data import U, F, S, HELO, RECON
+from .fields import FIELDS, RAAF_P8, RNZAF_P8, detachment
 
 MISSION = dict(
     code="TS01", series="Tasman Shield", seq="TASMAN SHIELD  ·  MISSION 1",
@@ -107,7 +108,7 @@ MISSION = dict(
         "cray3": S(-46.40, 166.00, "Longliner", heading=60),
         "fnz": S(-46.05, 166.15, "Fisheries patrol", heading=200),
         "airliner": S(-45.95, 166.45, "Invercargill-Queenstown", heading=40, alt=14000),
-        "home": S(-46.412, 168.313, "Invercargill Airport"),
+        "home": FIELDS["invercargill"],
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7",
@@ -145,7 +146,7 @@ MISSION = dict(
           name="Invercargill-Queenstown 612 (Fiordland scenic routing)", airway=(-45.02, 168.74)),  # Queenstown
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Invercargill Airport (RNZAF detachment)", nation="NewZealand",
-          weapons="Hold"),
+          weapons="Hold", extra=detachment(usn_p8=f"{RNZAF_P8},2")),
     ],
     resolve={"Tender": "victory", "Traffic": "neutral",
              "Boat": ("classify", "red_sub", 1),

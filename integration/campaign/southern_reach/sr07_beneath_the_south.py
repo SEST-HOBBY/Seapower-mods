@@ -7,6 +7,7 @@ and sinking it is the incident Canberra will not own. What Collins put a
 name to on the ninth is on the plot from the first minute.
 """
 from campaign_data import U, F, S, HELO, RECON
+from .fields import FIELDS, RAAF_P8, RNZAF_P8, detachment
 
 MISSION = dict(
     code="SR07", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 7",
@@ -83,7 +84,7 @@ MISSION = dict(
         "tanker": S(-61.42, 147.23, "Midas tanker", heading=120, alt=28000),
         "fleet": S(-57.20, 152.50, "Factory trawler", heading=250),
         "whale": S(-57.55, 152.15, "Biologic", heading=180),
-        "home": S(-42.836, 147.510, "Hobart Airport"),
+        "home": FIELDS["hobart"],
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7"),
@@ -113,7 +114,8 @@ MISSION = dict(
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic JULIET",
           depth="shallow"),
         U("blue", "_vanilla", "airfield_small_1", "home",
-          name="Hobart Airport (RAAF detachment)", nation="australia", weapons="Hold"),
+          name="Hobart Airport (RAAF detachment)", nation="australia", weapons="Hold",
+          extra=detachment(usn_p8=f"{RAAF_P8},2")),
     ],
     resolve={"Boat": "victory", "Neutrals": "neutral",
              "Tender": ("spare", "tender"),
