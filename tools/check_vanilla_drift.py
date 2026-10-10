@@ -33,11 +33,16 @@ dependants:
                    Collection Fixes restores the game's weapons.ini sections
                    over stale mod copies, and must agree with the game. In
                    language_*/ files only a section the pack carries IN FULL
-                   (every key vanilla's has) mirrors: Collection Fixes ships
-                   the game's loading_tips.ini that way over a mod's Chinese
-                   copy, with SEST's own tips numbered behind vanilla's. A
-                   new vanilla key landing on one of those own keys is MASKED
-                   - a finding, cleared by the rebuild that renumbers them.
+                   (every key vanilla's has) mirrors, and a new vanilla key
+                   landing on one of that section's own keys is MASKED - a
+                   finding, cleared by the rebuild that renumbers them
+                   (Collection Fixes shipped the game's loading tips that
+                   way, with SEST's own numbered behind, until 10 Oct 2026).
+                   A section the pack's file declares it replaces ('#
+                   replaces: [Section]' at its top - the loading-screen
+                   text, the SEST quotations in place of the game's tips) is
+                   REPLACED instead: vanilla's new keys are masked on
+                   purpose, listed, not a finding.
   3. PLACED        unit files whose id a mission fields (Type=<id>), a flight
                    deck readies (FlightDeck_ReadyUpTaskN=<id>,...) or a
                    campaign roster sells (TaskForceModeAllowedRosterUnits= in
@@ -493,14 +498,18 @@ def shared_keys(rel, pack_text, old_text, new_text):
     whole systems/ section vanilla now supplies stays a clash whatever its
     values. A language_*/ key mirrors only when the pack carries the section
     IN FULL - every key vanilla's new copy has is present - and at vanilla's
-    value; that is build_loading_tips() carrying loading_tips.ini with SEST's
-    own tips numbered behind vanilla's. In such a section a new vanilla key
-    the pack carries at ANOTHER value is MASKED: vanilla's tip landed on one
-    of the pack's own, and the rebuild renumbers. A section that only adds
-    names stays a clash on every new key, because build_missing_sensors() and
+    value. In such a section a new vanilla key the pack carries at ANOTHER
+    value is MASKED: vanilla's key landed on one of the pack's own, and the
+    rebuild renumbers. A section the pack's file names in a '# replaces:
+    [Section]' line is the pack's on purpose - build_loading_tips() writes
+    the loading-screen text whole, the SEST quotations in place of the
+    game's tips - so a new vanilla key the pack carries at another value is
+    REPLACED: listed, not a finding. A section that only adds names stays a
+    clash on every new key, because build_missing_sensors() and
     build_missing_loadout_names() stop on the NAME, so the next build does."""
     pack_ini, old_ini, new_ini = parse_ini(pack_text), parse_ini(old_text), parse_ini(new_text)
-    clashes, changed, unchanged, mirrored, masked = [], [], 0, [], []
+    replaces = set(re.findall(r"^#\s*replaces:\s*\[([^\]]+)\]", pack_text, re.M))
+    clashes, changed, unchanged, mirrored, masked, replaced = [], [], 0, [], [], []
     for section, keys in pack_ini.items():
         was = old_ini.get(section)
         if rel.startswith("systems/") and section and section in new_ini and was is None:
@@ -515,6 +524,8 @@ def shared_keys(rel, pack_text, old_text, new_text):
                 same = visible(keys[key]) == visible(new_ini[section][key])
                 if (rel.startswith("systems/") and same) or (carries and same):
                     mirrored.append((section, key))
+                elif section in replaces:
+                    replaced.append((section, key))
                 elif carries:
                     masked.append((section, key))
                 else:
@@ -523,7 +534,7 @@ def shared_keys(rel, pack_text, old_text, new_text):
                 changed.append((section, key, visible(was[key]), visible(new_ini[section][key])))
             else:
                 unchanged += 1
-    return clashes, changed, unchanged, mirrored, masked
+    return clashes, changed, unchanged, mirrored, masked, replaced
 
 
 def classify(root, drift):
@@ -539,12 +550,12 @@ def classify(root, drift):
             entries = []
             for name, pack, own_file in owners:
                 if change == "removed":
-                    entries.append((name, [], [], 0, [], []))
+                    entries.append((name, [], [], 0, [], [], []))
                     continue
-                clashes, changed, unchanged, mirrored, masked = shared_keys(
+                clashes, changed, unchanged, mirrored, masked, replaced = shared_keys(
                     rel, own_file.read_text(encoding="utf-8-sig", errors="replace"),
                     decode(drift.old.get(rel, b"")), decode(drift.new[rel]))
-                entries.append((name, clashes, changed, unchanged, mirrored, masked))
+                entries.append((name, clashes, changed, unchanged, mirrored, masked, replaced))
                 for section, key in clashes:
                     what = f"[{section}]" if key is None else f"[{section}] {key}"
                     report.findings.append(f"{rel}: vanilla now defines {what}, which {name} also defines")
@@ -636,8 +647,8 @@ def render(root, since, since_rev, drift, report, old_version, new_version, defa
     for rel, change, entries in report.merged:
         print(f"   {rel}  {change}  (also shipped by {len(entries)} pack(s))")
         quiet = []
-        for name, clashes, changed, unchanged, mirrored, masked in entries:
-            if not (clashes or changed or unchanged or mirrored or masked):
+        for name, clashes, changed, unchanged, mirrored, masked, replaced in entries:
+            if not (clashes or changed or unchanged or mirrored or masked or replaced):
                 quiet.append(name)
                 continue
             print(f"      {name}:")
@@ -647,6 +658,9 @@ def render(root, since, since_rev, drift, report, old_version, new_version, defa
             for section, key in masked:
                 print(f"         MASKED [{section}] {key} is new in vanilla and the pack's copy carries "
                       "another value; rebuild - the builder renumbers its own keys behind vanilla's")
+            for section, key in replaced:
+                print(f"         REPLACED [{section}] {key} is new in vanilla; the pack replaces "
+                      f"[{section}] whole, so its own value stands")
             if mirrored:
                 shown = ", ".join(f"[{s}]" if k is None else f"[{s}] {k}" for s, k in mirrored[:6])
                 more = f" and {len(mirrored) - 6} more" if len(mirrored) > 6 else ""

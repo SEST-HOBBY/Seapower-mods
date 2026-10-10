@@ -66,6 +66,7 @@ from refine_civ_traffic import load_order  # noqa: E402
 sys.path.insert(0, str(ROOT / "integration"))
 from common import quotes  # noqa: E402
 from common import flags  # noqa: E402
+from common import field_notes  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "SEST_Campaign"
@@ -5853,23 +5854,26 @@ def write_briefing_room(out):
         (data / credits.name).write_bytes(credits.read_bytes())
     (folder / "_info.ini").write_text(
         "[General]\nType=Tutorial\n\n[Language_en]\nName=SEST Briefing Room\n"
-        "Description=The SEST Integration Pack's title film and its quotation set. "
+        "Description=The SEST Integration Pack's title film, its field notes and its quotation set. "
         "Nothing here is played: the entry shows the film in the right pane, as the "
         "game's own video tutorials do.\n", encoding="utf-8")
-    lines = [quotes.tip_line(q)[len("SEST: "):] for q in quotes.QUOTES]
+    lines = [quotes.quote_line(q) for q in quotes.QUOTES]
+    field_notes.check()
     desc = ("Southern Watch, Southern Reach, Red Line and Sulu Line: the collection's "
             "forces in real photographs, with the lines the loading screen and the "
             "briefings quote. Photo credits in _data/VIDEO_CREDITS.txt beside the film "
             "and in the pack's Gallery folder; the quotations and their sources in "
             "docs/quotes.md of the SEST repository."
-            "<LineBreak/><LineBreak/>" + "<LineBreak/>".join(lines))
+            "<LineBreak/><LineBreak/>FIELD NOTES<LineBreak/>"
+            + "<LineBreak/>".join("- " + n for n in field_notes.NOTES)
+            + "<LineBreak/><LineBreak/>THE QUOTATIONS<LineBreak/>" + "<LineBreak/>".join(lines))
     (folder / "01 SEST - Briefing Room.ini").write_text(
         "[Language_en]\nName=SEST Briefing Room - the collection on film\n"
         f"Description={desc}\n[Mission]\nDifficulty=1\n[General]\nType=Tutorial\n"
         f"RightPane=missions/{BRIEFING_ROOM_FOLDER}/_data/{film.name}\n"
         "PlayButtonEnabled=False\n", encoding="utf-8")
-    print(f"  Briefing Room: {film.name} ({film.stat().st_size // 1024} KB) and "
-          f"{len(lines)} quotations")
+    print(f"  Briefing Room: {film.name} ({film.stat().st_size // 1024} KB), "
+          f"{len(field_notes.NOTES)} field notes and {len(lines)} quotations")
 
 
 def main():
