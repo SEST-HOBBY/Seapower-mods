@@ -80,7 +80,7 @@ the engine states. What it cannot carry, by the engine's own design:
 - **Allocation detail.** The register's resident, maintenance, reserve and support states all
   become "in harbour". Training and deployed groups become forces at sea.
 - **Abstract logistics.** The 21 inland depots and agencies stay abstract. Supply originates
-  at 10 depot bases chosen as SCENARIO CHOICE (below).
+  at 11 depot bases chosen as SCENARIO CHOICE (below).
 - **Embarked flights.** Ship flights and carrier wings are not separate forces; the engine flies
   each hull's own air group.
 
@@ -97,15 +97,15 @@ application here.
 | Listed as civil traffic | 12 |
 | Listed as ground air defence | 4 |
 | Skipped (abstract, embarked, scenery, missing fit, quantity 0) | 117 |
-| Bases | 39 (16 naval, 23 air, of which 3 are a naval base's own airfield) |
+| Bases | 39 (16 naval, 23 air, of which 3 are a naval base's own airfield); 11 depots |
 | Forces | 92 (43 surface, 49 air), 203 units, 85 of them ships |
 | Patrol routes | 16 |
 | Sea lanes | 11, all on water |
 | Catalogue entries and unit values | 78 |
 | Register nodes not converted | 34 (30 abstract or context only by the register's own policy, 1 reserve-only, 1 do-not-populate, Jebel Ali, NAB Coronado with nothing placeable) |
 
-Sides: **blue** US, Australia, Japan, France, Italy, UK, Norway; **red** China and Russia,
-marked `comingSoon` as in the sample, so blue is the playable side.
+Sides: **blue** US, Australia, Japan, France, Italy, UK, Norway; **red** China and Russia. Both
+are playable (decided 10 October; the sample keeps red `comingSoon`, so playing red is untested).
 
 ### Mapping rules
 
@@ -129,9 +129,15 @@ All are recorded per row in `conversion.json`. None is a research claim.
   Lincoln and George Washington in the Philippine Sea, Roosevelt west of Hawaii, Truman in the
   western Atlantic, Fujian in the South China Sea. Other groups start 25 to 60 NM off their base.
 - **Patrol routes.** 35 NM rings centred up to 60 NM offshore, every leg on water.
-- **Depots.** San Diego, Norfolk, Yokosuka, Guam, Bahrain, Stirling, Yulin, Ningbo, Mare Harbour
-  and Olenya. Each base draws from its own nation's nearest depot within 4,000 NM, else its side's.
-  The Mediterranean and Norway draw from Bahrain because no European node is a populated depot.
+- **Depots.** San Diego, Norfolk, Yokosuka, Guam, Bahrain, Sigonella, Stirling, Yulin, Ningbo,
+  Mare Harbour and Olenya. Each base draws from its own nation's nearest depot within 4,000 NM,
+  else its side's. Rota, Souda Bay, Akrotiri and Evenes draw from Sigonella.
+- **Sigonella** (decided 10 October, "yes if realistic"). The research names DLA Distribution
+  Sigonella the "Mediterranean/European logistical gateway" (R02:23, R02:34), the same pairing that
+  makes Yokosuka, Guam and Bahrain depots. Rota appears only as an operational gateway for
+  destroyers (R03:44). NAS Sigonella is an air station, so its depot supplies by airlift; the
+  engine's validator allows a depot to carry airlifts. **An air-station depot is untested**; if it
+  cannot feed ships, Rota with sea convoys is the fallback.
 - **Unit values.** Ships: fitted on the sample's 102 priced hulls against each hull's own
   Displacement (R² 0.72), supply and cargo ships at 0.32 of that. Aircraft: the sample's median
   value for the aircraft's own Role. Carriers come out at about 1,190, a Burke Flight III at 245.
@@ -146,14 +152,14 @@ All are recorded per row in `conversion.json`. None is a research claim.
   Modern US Navy retired in the 9 Oct export. The register now names `usn_cg_bunker_hill_vls_2024`,
   Variant5 CG-64 Gettysburg, the same retarget main applies to the Sulu Sea Offensive missions.
 
-## Decisions needed
+## Decisions (10 October 2026)
 
-1. **Is a strategic map with generated battles what you want?** It is persistent, with supply and
-   multi-phase fighting, but each fight is a local battle, not one living world.
-2. **A European depot.** Rota or Sigonella as a depot would stop the Mediterranean drawing from Bahrain.
-3. **Red playable?** The sample keeps red `comingSoon`. Turning it on is one flag, untested.
-4. **The Panama seam**, or a different seam.
-5. **Permission.** Ask Bungalow before publishing a pack built for their engine.
+1. **Strategic map with generated battles: yes.** This engine is the runtime candidate.
+2. **European depot: yes, if realistic.** Sigonella, supplied by airlift (above).
+3. **Red playable: yes.** `comingSoon` removed; red has its own two-paragraph opening.
+4. **The Panama seam: accepted.**
+5. **Permission: granted.** The user reports Bungalow's permission for a SEST pack built on the
+   Dynamic Campaign engine. Publication itself still waits for a load test.
 
 ## Testing on the PC (isolated, when ready)
 
@@ -165,6 +171,7 @@ Use a backed-up install, not the published pack.
    `Sea Power_Data\StreamingAssets` folder, beside the SEST pack, and enable it in the Mod Manager.
 3. Campaign menu: look for "SEST World Sandbox 2028 (draft)" beside Bungalow's campaign.
 
-Then, in order: menu discovery; the validator's verdict in the BepInEx log; one battle each side;
+Then, in order: menu discovery; the validator's verdict in the BepInEx log; one battle each side,
+playing blue and then red; whether Sigonella's airlifts reach Rota and Souda Bay;
 the review's 20/10/10 ammunition test with a SEST supply ship; save, reload, and reload after a
 battle; a transit across the antimeridian (Roosevelt's group); performance with all 92 forces.

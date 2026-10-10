@@ -105,6 +105,14 @@ DEPOTS = {
     "chn_zhejiang_ningbo_naval_base": "Eastern Theater; JLSF Wuxi behind it",
     "chn_hainan_yulin_naval_base": "Southern Theater; JLSF Guilin behind it",
     "satl_falklands_mare_harbour": "the only UK naval node",
+    # Decided 10 Oct 2026 ("yes if realistic"): the research names DLA
+    # Distribution Sigonella the "Mediterranean/European logistical gateway"
+    # (R02:23, R02:34); Rota is described only as an operational gateway for
+    # destroyers (R03:44). Sigonella is an air station, so its depot supplies by
+    # airlift, which the validator allows a depot to carry. An air-station
+    # depot is untested; if it cannot feed ships, Rota is the fallback.
+    "med_sigonella_nas_sigonella": "register pairs it with DLA Distribution Sigonella, the research's "
+                                   "Mediterranean/European logistical gateway",
     "hn_kola_olenya_airbase": "Russia has no naval node in the register; its air bases draw here",
 }
 SHIPYARDS = {"usp_kitsap_bremerton_psns", "usa_norfolk_naval_station_norfolk",
@@ -191,19 +199,26 @@ def continuous(lon):
 def nation_of(pkg):
     if pkg["world_id"] in NATION_OVERRIDE:
         return NATION_OVERRIDE[pkg["world_id"]], "SCENARIO CHOICE (operator not stated)"
-    text = re.split(r"\bhost\b", pkg["operator"], 1)[0]
+    text = re.split(r"(?i)\bhost\b", pkg["operator"], 1)[0]
     for pat, nation in NATION_WORDS:
         if re.search(pat, text):
             return nation, "operator"
     return None, "operator not recognised"
 
 
+HOME_WORDS = {"US": "United States", "Australia": "Australia", "Japan": "Japan", "Norway": "Norway",
+              "China": "China", "Russia": "Russia", "France": "France", "Italy": "Italy",
+              "UK": "United Kingdom"}
+
+
 def homeland(pkg, nation):
-    host = re.search(r"\bhost[^;)]*", pkg["operator"])
+    """True where the operator is in its own country: no host is named, or the
+    host the register names is the operator's own (Guam, Japan, Norway).
+    Overseas territories (Falklands, Diego Garcia) are not homeland."""
+    host = re.search(r"(?i)\bhost[^;)]*", pkg["operator"])
     if not host:
-        return nation in ("US", "China", "Russia", "Japan", "Australia", "Norway")
-    h = host.group(0)
-    return (nation == "US" and "United States" in h) or (nation == "Australia" and "Australia" in h)
+        return True
+    return HOME_WORDS.get(nation, "\0") in host.group(0) and "Falkland" not in host.group(0)
 
 
 def gc_nm(a, b):
@@ -547,7 +562,8 @@ def build():
         if wid in SHIPYARDS:
             base["shipyard"] = True
         if wid in DEPOTS:
-            base.update({"depot": True, "production": 1, "convoys": 10})
+            base.update({"depot": True, "production": 1})
+            base["airlifts" if kind == "AirBase" else "convoys"] = 10
         if homeland(pkg, nation):
             base["homeland"] = True
         field_uid = next((r["_uid"] for r in fields), None)
@@ -886,9 +902,11 @@ def main():
             {"id": "blue", "name": "United States and partners", "nations": [n for n in BLUE if n in nations],
              "hq": "SEST WORLD - BLUE", "command": "SEST WORLD - BLUE COMMAND",
              "color": "#4A90E2", "startingPoints": 400},
+            # Playable, decided 10 Oct 2026. The sample keeps red "comingSoon";
+            # playing red with blue as the AI is untested.
             {"id": "red", "name": "China and Russia", "nations": [n for n in RED if n in nations],
              "hq": "SEST WORLD - RED", "command": "SEST WORLD - RED COMMAND",
-             "color": "#E24A4A", "startingPoints": 400, "comingSoon": True},
+             "color": "#E24A4A", "startingPoints": 400},
         ],
         "bases": bases,
         "labels": [{"text": t, "lat": la, "lon": continuous(lo)} for t, la, lo in (
@@ -907,7 +925,14 @@ def main():
             "on the map are the ones the SEST research places around the world, as they would "
             "normally be - in harbour, on patrol, working up or deployed.",
             "What happens next is decided by the campaign engine and by you. Ships use what "
-            "they carry until a supply ship or a depot refills them."]}}},
+            "they carry until a supply ship or a depot refills them."]},
+            "red": {"situation": [
+                "October 2028. This is a sandbox, not a story: the Chinese and Russian bases, "
+                "fleets and air groups on the map are the ones the SEST research places, as they "
+                "would normally be - in harbour, on patrol or deployed, from Hainan to the Kola "
+                "Peninsula and Djibouti.",
+                "What happens next is decided by the campaign engine and by you. Ships use what "
+                "they carry until a supply ship or a depot refills them."]}}},
         "patrols": patrols,
         "ranks": {
             "blue": [{"name": n, "renown": r} for n, r in (

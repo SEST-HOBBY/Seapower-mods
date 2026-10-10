@@ -4038,7 +4038,7 @@
    "node": "med_sigonella_nas_sigonella",
    "base": "med_sigonella_nas_sigonella",
    "kind": "AirBase",
-   "nation": "Italy",
+   "nation": "US",
    "nation_from": "operator",
    "position": [
     37.4,
