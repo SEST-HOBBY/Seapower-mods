@@ -56,6 +56,28 @@ MODS = ROOT / "mods-source"
 # retired id -> replacement id
 RETARGET = {
     "usn_ea-18g_2020s": "usn_ea-18g_2020",
+    # Euromod - Modern US Navy (3390330875), 9 Oct 2026 export: the author
+    # folded the seven usn_cg_ticonderoga_vls_<year> hulls into one new hull,
+    # usn_cg_bunker_hill_vls_2024 - same display class ("Ticonderoga-class
+    # (eu-VLS)"), nine named ships. Only the 2025 fit is placed by a live
+    # mission (the five SULU SEA OFFENSIVE files); REVARIANT keeps each one
+    # the same ship.
+    "usn_cg_ticonderoga_vls_2025": "usn_cg_bunker_hill_vls_2024",
+}
+
+# (retired unit id, its variant) -> the variant of the RETARGET replacement
+# that is the same ship. Applied before the id is rewritten, inside the entry
+# that names the retired id only, so a mission that already fields the
+# replacement keeps its own variant choices.
+#   2025 Variant1 CG-62 Robert Smalls -> 2024 Variant4 CG-62 Robert Smalls
+#   2025 Variant2 CG-64 Gettysburg    -> 2024 Variant5 CG-64 Gettysburg
+#   2025 Variant3 CG-65 Chosin        -> 2024 Variant6 CG-65 Chosin
+#   2025 Variant4 CG-71 Cape St George-> 2024 Variant9 CG-71 Cape St. George
+REVARIANT = {
+    ("usn_cg_ticonderoga_vls_2025", "Variant1"): "Variant4",
+    ("usn_cg_ticonderoga_vls_2025", "Variant2"): "Variant5",
+    ("usn_cg_ticonderoga_vls_2025", "Variant3"): "Variant6",
+    ("usn_cg_ticonderoga_vls_2025", "Variant4"): "Variant9",
 }
 
 # (unit id, loadout the mission asks for) -> loadout it should ask for.
@@ -87,6 +109,27 @@ def defined_ids():
 def live_missions():
     return sorted(p for p in MISSIONS.glob("*.ini")
                   if not re.search(r"backup-\d{8}-\d{6}", p.name))
+
+
+def revariant(text):
+    """Repoint VariantReference= for a unit RETARGET is about to rename, entry
+    by entry, so the replacement fields the same named ship (REVARIANT)."""
+    counts, out, unit = {}, [], None
+    for line in text.splitlines(keepends=True):
+        s = line.strip()
+        m = re.match(r"Type=(\S+)$", s)
+        if m:
+            unit = m.group(1)
+        elif s.startswith("["):
+            unit = None
+        v = re.match(r"VariantReference=(\S+)$", s)
+        if v and unit and (unit, v.group(1)) in REVARIANT:
+            new = REVARIANT[(unit, v.group(1))]
+            key = f"{unit} {v.group(1)} -> {new}"
+            counts[key] = counts.get(key, 0) + 1
+            line = line.replace(f"VariantReference={v.group(1)}", f"VariantReference={new}")
+        out.append(line)
+    return "".join(out), counts
 
 
 def reloadout(text):
@@ -142,6 +185,7 @@ def main():
     for m in live_missions():
         text = original = m.read_text(encoding="utf-8", errors="replace")
         counts = {}
+        text, counts = revariant(text)
         for old, new in RETARGET.items():
             # Whole-token only: usn_ea-18g_2020s must not match inside a
             # longer id, and the replacement must not be re-replaced.

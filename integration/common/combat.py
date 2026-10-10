@@ -56,12 +56,22 @@ RU_DATALINK = {"DatalinkTier": "4"}
 
 # SEST profile -> (donor mod folder, donor section, {key: value overrides}, why)
 PROFILES = {
+    # RETIRED 2026-10-09. SEST_PLAN_Cruiser and SEST_PLAN_Multirole covered
+    # Red Storm Arsenal's PLAN hulls, and SEST_AEGIS_BL10 its late Ticonderoga
+    # and Burke Flight III. Its 9 Oct update gave all of them their own
+    # [CombatSystems] - ZBJ/ZKJ profiles and AEGIS_Late/AEGIS_Modern - so the
+    # fourteen EXTENDS entries that took these went with it and no hull takes
+    # them any more. 9LV and OYQ are NOT retired: ran-fleet and jmsdf-mogami
+    # still assign those.
+    #
+    # Same pass, five more EXTENDS entries went (052C, 052D, Hobart alt late,
+    # Adelaide FFG upgrade, Ticonderoga VLS), taking SEST_9LV_Compact_MLU and
+    # SEST_PLAN_AAW with them. Nothing in any pack assigns those two now.
+
     # --- blue ----------------------------------------------------------
     "SEST_AEGIS_BL9": (EUROMOD, "AEGIS_BL9", {},
                        "Aegis Baseline 9: the Hobart (the RAN's Aegis refresh), the 2027 "
                        "Ticonderogas, Korea's KDX-III."),
-    "SEST_AEGIS_BL10": (EUROMOD, "AEGIS_BL10", {},
-                        "Aegis Baseline 10 with SPY-6: the 2030 Flight III Burke."),
     "SEST_SSDS_Carrier": (EUROMOD, "SSDS_Carrier", {},
                           "Ship Self-Defense System on a US carrier: Ford, Ford (JSF), the "
                           "2000s Nimitz."),
@@ -70,8 +80,6 @@ PROFILES = {
     "SEST_9LV_Compact": (EUROMOD, "9LV_Compact", {},
                          "Saab 9LV on a non-combatant or patrol hull: Canberra, Arafura, "
                          "Supply."),
-    "SEST_9LV_Compact_MLU": (EUROMOD, "9LV_Compact_MLU", {},
-                             "the FFG Upgrade Adelaide's ADACS."),
     "SEST_OYQ_Integrated": (EUROMOD, "OYQ_Integrated", {},
                             "JMSDF OYQ-1: the Mogami."),
     "SEST_CMS_SeaCeptor": (EUROMOD, "CMS_SeaCeptor", {},
@@ -81,15 +89,6 @@ PROFILES = {
                                   "a compact modern CMS: the modernised La Fayettes, Korea's "
                                   "Daegu."),
     # --- PLAN ----------------------------------------------------------
-    "SEST_PLAN_AAW": (EUROMOD, "CMS_AAW_APAR", {},
-                      "ZKJ-5 behind a four-face phased array: Red Storm's Type 052C and 052D."),
-    "SEST_PLAN_Cruiser": (EUROMOD, "CMS_AAW_APAR_MLU", {},
-                          "the Type 055's integrated combat system on Red Storm's two and its "
-                          "Type 045; the Euromod MLU APAR profile is the nearest shape "
-                          "(VeryFast, 144 contacts, 6 worked)."),
-    "SEST_PLAN_Multirole": (EUROMOD, "CMS_Multirole_MLU", {},
-                            "ZKJ-5 on a frigate: Red Storm's Type 054 and 054A, its Type 051M. "
-                            "(The PLAN Pack's own hulls declare their own since 3 Oct.)"),
     "SEST_PLAN_Carrier": (EUROMOD, "SSDS_Carrier", {},
                           "Liaoning, the Type 004, Red Storm's export 1143 (the PLAN Pack's "
                           "Fujian declares its own)."),

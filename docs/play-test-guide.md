@@ -44,6 +44,11 @@ depend on it.
 | Mission browser (single missions) | Folders: Southern Watch, Southern Watch - Dispatches, Southern Reach, Tasman Shield, Red Line, Sulu Line | A missing folder |
 | Load one mission from each folder from the browser: **Southern Watch 01 - White Water**, **Southern Reach 04 - Macquarie Passage**, **Red Line 01 - Trailing Contact**, **Sulu Line 01 - The Island Road** | Every ship and aircraft appears, flags shown, no ship on land | A missing or grounded unit: its name and the mission |
 | Open a briefing in each | Photo banner at the top, a chart in the right-hand pane, photos of your forces and the opposition at the end | Blank pane or no photos |
+| Read the line under the banner | A quotation in italics with its speaker; a different one in each mission of the campaign | Missing, or the same line twice in one campaign |
+| Mission browser → **SEST Briefing Room** (listed with the tutorials) → the one entry | The right pane plays a 73-second film: title card, eleven photographs with quotations, end card. The Play button is greyed out | No film, a black pane, or the game stalls: say which, and whether the stock Video Tutorials play |
+| Watch the loading screen a few times | Tips beginning "SEST:" include quotations with a speaker's name | Only the stock tips, or tips in Chinese |
+| Load **SEST Banda - Tigers over Papua** or **NORTHERN FRONT III FINAL NEWEST**, find the Russian S-400 battery, Shahed launchers and any Russian ship | Russian Federation flag (white-blue-red) on the Russian units; the Meridian flag (navy, gold line, white band, star) on the Shahed and Sejjil launchers and the Peykaap boats, named "Meridian Maritime Group" | USSR or Iranian flags still showing, or a blank/missing flag icon: say which unit |
+| **Airbase launch rate.** In the mission editor, put the Modern Chinese Airbase (Large) and the PLAAF airlift base on red with their default air groups, order a 12-aircraft launch from each, and time it; do the same on an unmodified install if you can | Aircraft spawn, taxi and roll at a steady rate; a dozen fighters airborne within a few minutes | Still one aircraft every minute or worse: note which base, which aircraft type (fighter or Y-20/KJ-500 class) and where they wait (in the hangar, on the taxiway, at the runway) |
 
 ---
 

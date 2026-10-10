@@ -166,7 +166,21 @@ if ($CheckUpdates) {
 }
 
 # --- Export each subscribed mod ---------------------------------------------
-$modDirs = Get-ChildItem -LiteralPath $WorkshopContentDir -Directory
+# SEST's own published Workshop items are NOT upstream mods and must never be
+# exported into mods-source. The 9 Oct 2026 export pulled 3812461539 - the
+# published SEST Integration Pack - back into the repo as if it were a third
+# party's mod: 1172 files of this project's own build output, which every
+# tool here then treated as a competing provider. check_dependencies started
+# reporting that SEST packs "need SEST Integration Pack", a dependency on
+# themselves, and every who-wins calculation silently counted the pack twice.
+# Re-exporting output into the input is circular; the folder is skipped here
+# so it cannot come back on the next run.
+$SestOwnWorkshopIds = @('3812461539')
+$modDirs = Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |
+    Where-Object { $SestOwnWorkshopIds -notcontains $_.Name }
+$skipped = (Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |
+    Where-Object { $SestOwnWorkshopIds -contains $_.Name }).Count
+if ($skipped) { Write-Host "Skipping $skipped SEST-published item(s) - this project's own output." }
 Write-Host "Exporting text configs from $($modDirs.Count) workshop items..."
 foreach ($mod in $modDirs) {
     $files = Get-ChildItem -LiteralPath $mod.FullName -Recurse -File |

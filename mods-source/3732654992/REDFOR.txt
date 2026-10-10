@@ -4,6 +4,7 @@
 [b]Big thanks to @ManeuverWarfare for allowing me to use some of his assets![/b]
 [b]Big thanks to @NuclearStonk for allowing me to use some of her assets![/b]
 [b]Big thanks to RU NAVY21 team @Veronica Anatolia and @Pointinthevoid  for allowing me to use some of their assets![/b]
+[b]Big thanks to @Cellinia_Texas for allowing me to use Flanker Family![/b]
 [b]Unit list:[/b]
 [list]
     [*]Tu-16N air tanker
@@ -31,7 +32,8 @@
     [*]R-71 Tarantul missile boat variant 
     [*]3K60 BAL coastal defense missile system
     [*]Projekt 1241.1M missile boat
-    [*]Projekt 1124MU Albatros anti-submarine corvette 
+    [*]Projekt 1124MU Albatros anti-submarine corvette
+    [*]Flanker family (Su-27P,Su-27SM,Su-30,Su-30SM/2,Su-35) 
 [/list] 
 [h3]S-400[/h3]
 [img]https://i.imgur.com/ALjyWzq.jpeg[/img]
@@ -50,4 +52,4 @@
 
 [b]UPDATE 0.1 "TOP PLATING"[/b]
 [b]UPDATE 0.2 "COASTLINE SENTINEL"[/b]
-[b]!!!!!BETA ONLY!!!!![/b] 
+[b]UPDATE 0.3 "APEX PREDATOR"[/b]

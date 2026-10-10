@@ -7,6 +7,11 @@ are overwritten, nothing is deleted and no backup copies are made (git is the hi
 `* backup-*.ini` files still in this folder are leftovers of the old backup scheme and are not
 deployed; `install-sest-packs.ps1 -PurgeBackups` removes the ones already in the game.
 
+`set_enemy_flags.py --write` sets the enemy flags of the Indo-Pacific missions here (Russian
+Federation on Soviet-registered units, the Meridian flag on the network's Iranian-registered
+hulls and launchers; `integration/common/flags.py`). Run it again after re-importing or
+regenerating a mission.
+
 - **SEST ANL Convoy - Coral Sea** — escort six ANL/RAN merchantmen (Auxilliary Merchant Pack)
   from the reef passage toward Port Moresby with HMAS Hobart, two Anzacs and HMAS Supply
   (SEST RAN Fleet) against a PLAN diesel patrol line (Kilo + two Type 039 variants).
