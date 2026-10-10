@@ -5151,6 +5151,177 @@
   },
   {
    "node": null,
+   "base": "home_ind_mumbai",
+   "kind": "NavalBase",
+   "nation": "India",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    18.916,
+    72.843
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Mumbai (Western Naval Command) harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_ind_ambala",
+   "kind": "AirBase",
+   "nation": "India",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    30.368,
+    76.817
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Ambala Air Force Station Rafale EH"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 300
+  },
+  {
+   "node": null,
+   "base": "home_ind_rajali",
+   "kind": "AirBase",
+   "nation": "India",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    13.071,
+    79.691
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "INS Rajali (Arakkonam) P-8I Neptune"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 240
+  },
+  {
+   "node": null,
+   "base": "home_egy_alexandria",
+   "kind": "NavalBase",
+   "nation": "Egypt",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    31.188,
+    29.875
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Alexandria Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_egy_cairo_west",
+   "kind": "AirBase",
+   "nation": "Egypt",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    30.116,
+    30.915
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Cairo West Air Base Rafale EM"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 340
+  },
+  {
+   "node": null,
+   "base": "home_chl_talcahuano",
+   "kind": "NavalBase",
+   "nation": "Chile",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    -36.7,
+    -73.1
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Talcahuano Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_chl_punta_arenas",
+   "kind": "NavalBase",
+   "nation": "Chile",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    -53.16,
+    -70.905
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Punta Arenas (Third Naval Zone) harbour"
+   ],
+   "shipyard": false,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_chl_chabunco",
+   "kind": "AirBase",
+   "nation": "Chile",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    -53.003,
+    -70.855
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Chabunco Air Base (Punta Arenas) F-5E Tigre III"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 70
+  },
+  {
+   "node": null,
+   "base": "home_chl_santiago",
+   "kind": "AirBase",
+   "nation": "Chile",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    -33.393,
+    -70.786
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Santiago Air Brigade (Pudahuel) E-3D Sentry"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 170
+  },
+  {
+   "node": null,
    "base": "home_irn_bandar_abbas",
    "kind": "NavalBase",
    "nation": "Iran",
@@ -5243,6 +5414,102 @@
    "shipyard": true,
    "depot": true,
    "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_idn_surabaya",
+   "kind": "NavalBase",
+   "nation": "Indonesia",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    -7.2,
+    112.73
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Surabaya (Koarmada II) harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_idn_pekanbaru",
+   "kind": "AirBase",
+   "nation": "Indonesia",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    0.461,
+    101.445
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Roesmin Nurjadin Air Base (Pekanbaru) Rafale"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 360
+  },
+  {
+   "node": null,
+   "base": "home_pak_karachi",
+   "kind": "NavalBase",
+   "nation": "Pakistan",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    24.832,
+    66.964
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 1,
+   "forces": [
+    "Karachi Naval Dockyard harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_pak_minhas",
+   "kind": "AirBase",
+   "nation": "Pakistan",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    33.869,
+    72.401
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "PAF Base Minhas (Kamra) J-10CE"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 300
+  },
+  {
+   "node": null,
+   "base": "home_pak_masroor",
+   "kind": "AirBase",
+   "nation": "Pakistan",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    24.894,
+    66.939
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "PAF Base Masroor (Karachi) JF-17 Block III Thunder",
+    "PAF Base Masroor (Karachi) ZDK-03"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 280
   }
  ],
  "skipped_nodes": [
@@ -6302,12 +6569,7 @@
    ]
   },
   "other_nations": {
-   "Pakistan": 15,
-   "Chile": 10,
-   "India": 10,
-   "Indonesia": 10,
    "Unknown": 5,
-   "Egypt": 4,
    "DDR": 4,
    "Peru": 2,
    "Kazakhstan": 2,
@@ -6318,9 +6580,7 @@
    "Finland": 1,
    "Singapore": 1,
    "Ukraine": 1,
-   "Libya": 1,
-   "South_Africa": 1,
-   "Portugal": 1
+   "Libya": 1
   },
   "catalogue_by_side_nation": {
    "blue US": {
@@ -6344,7 +6604,7 @@
     "aircraft": 17
    },
    "blue UK": {
-    "ships": 44,
+    "ships": 43,
     "aircraft": 39
    },
    "blue Norway": {
@@ -6365,7 +6625,7 @@
    },
    "blue Greece": {
     "ships": 0,
-    "aircraft": 13
+    "aircraft": 9
    },
    "blue Poland": {
     "ships": 1,
@@ -6431,13 +6691,25 @@
     "ships": 11,
     "aircraft": 14
    },
+   "blue India": {
+    "ships": 4,
+    "aircraft": 11
+   },
+   "blue Egypt": {
+    "ships": 2,
+    "aircraft": 2
+   },
+   "blue Chile": {
+    "ships": 7,
+    "aircraft": 3
+   },
    "red China": {
     "ships": 95,
     "aircraft": 106
    },
    "red Russia": {
-    "ships": 114,
-    "aircraft": 102
+    "ships": 111,
+    "aircraft": 101
    },
    "red Iran": {
     "ships": 12,
@@ -6446,6 +6718,14 @@
    "red Vietnam": {
     "ships": 2,
     "aircraft": 1
+   },
+   "red Indonesia": {
+    "ships": 8,
+    "aircraft": 5
+   },
+   "red Pakistan": {
+    "ships": 7,
+    "aircraft": 9
    }
   }
  },
@@ -6453,6 +6733,7 @@
   "E7A_Wedgetail": "Role AEW",
   "ae_ffg_alvaro_bazan": "Displacement 5853 t",
   "ae_ffg_cristobal_colon": "Displacement 6391 t",
+  "ae_ffg_descubierta": "Displacement 1479 t",
   "ae_lhd_juan_carlos": "Displacement 26800 t",
   "ae_lpd_galicia": "Displacement 13815 t",
   "ae_opv_meteoro": "Displacement 2700 t",
@@ -6467,6 +6748,12 @@
   "bra_ss_riachuelo": "Displacement 1900 t",
   "bra_ss_tikuna": "Displacement 1207 t",
   "bra_type22b12": "Displacement 4800 t",
+  "ch_e3d": "Role AEW",
+  "ch_f-5e": "Role Fighter",
+  "ch_ff_type23_pida": "Displacement 4900 t",
+  "ch_ffg_adelaide_longhull": "Displacement 4100 t",
+  "ch_ffg_karel": "Displacement 3320 t",
+  "ch_ss_scorpene": "Displacement 1668 t",
   "dk_mh-60r": "Role ASW",
   "dts_b-52h": "Role HeavyBomber",
   "dts_saab_ge": "Role AEW",
@@ -6494,6 +6781,9 @@
   "haf_f-16c-bl52plus": "Role Fighter",
   "hdms_iver_huitfeldt": "Displacement 6645 t",
   "iaf_f-16c-barakII": "Role Fighter",
+  "idn_ff_vanspeijk": "Displacement 2850 t",
+  "ins_d-63": "Displacement 7400 t",
+  "ins_d-66": "Displacement 7400 t",
   "ins_ptg_hetz": "Displacement 498 t",
   "ir_ffg_alvand_95": "Displacement 1540 t",
   "ir_ptg_combattante_II": "Displacement 275 t",
@@ -6521,6 +6811,9 @@
   "ko_ffg-828": "Displacement 4300 t",
   "ko_lph-6111": "Displacement 18800 t",
   "otan_a330_mrtt": "Role AEW",
+  "paf_j-10ce": "Role Fighter",
+  "paf_jf-17_blk_iii": "Role Fighter",
+  "paf_zdk-03": "Role AEW",
   "phl_ff_hamilton": "Displacement 3250 t",
   "phl_fs_pohang": "Displacement 1220 t",
   "phl_lpd_tarlac": "Displacement 11583 t",
@@ -6546,6 +6839,10 @@
   "plan_y-8fq": "Role MPA",
   "pn_ffg-06": "Displacement 3200 t",
   "pn_ffg-150_2": "Displacement 2870 t",
+  "pns_ffg_oliver_hazard_perry_longhull": "Displacement 4100 t",
+  "pns_ss_hashmat": "Displacement 1760 t",
+  "pns_ss_s-26p": "Displacement 3600 t",
+  "pns_type_054a_p": "Displacement 4200 t",
   "pol_f-16c-bl52plus": "Role Fighter",
   "raaf_f-35a": "Role Fighter",
   "raaf_mq-4c_triton": "Role MaritimePatrol",
@@ -6581,6 +6878,7 @@
   "tha_pt_hua_hin": "Displacement 645 t",
   "tuaf_f-16c": "Role Fighter",
   "tw_m2k-5ei": "Role Fighter",
+  "type_209": "Displacement 1440 t",
   "uae_m2k-9": "Role Fighter",
   "uk_a330_mrtt": "Role AEW",
   "uk_a400m_airdroop-para": "Role AEW",
@@ -6627,6 +6925,7 @@
   "wp_rkr_slava_16": "Displacement 11490 t",
   "wp_skr_petya3": "Displacement 1140 t",
   "wp_ss_improved_kilo": "Displacement 3040 t",
+  "wp_ss_kilo": "Displacement 3040 t",
   "wp_ssgn_yasen": "Displacement 13800 t",
   "wp_ssn_akula": "Displacement 13800 t",
   "wp_tu-142m": "Role MPA",
@@ -6662,13 +6961,18 @@
   "bw_ec_665_had-e": "Role ASuW",
   "ca_a330_mrtt": "Role AEW",
   "canberra_bomber": "Role Airliner",
+  "ch_kc135": "Role Airliner",
   "co_a330_mrtt": "Role AEW",
   "de_nh90": "Role ASW",
   "de_sea_lynx_mk88": "Role ASW",
+  "eaf_m2kbm": "Role Fighter",
+  "eaf_m2kem": "Role Fighter",
   "eu_ef2000_fgr4": "Role Fighter",
   "exp_rafale_b": "Role Fighter",
   "exp_rafale_b_l": "Role Fighter",
   "exp_rafale_c": "Role Fighter",
+  "exp_rafale_m": "Role Fighter",
+  "exp_rafale_m_l": "Role Fighter",
   "fr_a330_mrtt": "Role EW",
   "fr_a400m_airdroop-para": "Role AEW",
   "fr_a400m_sf": "Role AEW",
@@ -6741,9 +7045,18 @@
   "h34": "Role ASW",
   "haf_f-16c-bl50": "Role Fighter",
   "iaf_f-4e_kurnass": "Role Fighter",
+  "iaf_m2kh": "Role Fighter",
+  "iaf_m2ki": "Role Fighter",
+  "iaf_m2kth": "Role Fighter",
+  "iaf_m2kti": "Role Fighter",
   "iaf_md500": "Role Attack",
   "iaf_netz": "Role Fighter",
+  "idn_mig-21": "Role Fighter",
   "idn_tu-16ks1": "Role HeavyBomber",
+  "idn_wasp": "Role ASW",
+  "in_br1050": "Role MPA",
+  "ind_a400m_airdroop-para": "Role AEW",
+  "ind_a400m_tankers": "Role AEW",
   "iqaf_md500": "Role Attack",
   "ir_il-76md": "Role Airliner",
   "irh_bell-212": "Role ASuW",
@@ -6791,6 +7104,10 @@
   "nl_nh90_tth": "Role ASW",
   "nl_sea_lynx": "Role ASW",
   "nl_sea_lynx_D": "Role ASW",
+  "paf_j-7PG": "Role Fighter",
+  "paf_jf-17_blk_i": "Role Fighter",
+  "paf_jf-17_blk_ii": "Role Fighter",
+  "paf_mirage_iii": "Role Fighter",
   "ph_f-8h": "Role Fighter",
   "phl_h-76": "Role ASuW",
   "phl_t28": "Role Airliner",
@@ -6888,10 +7205,12 @@
   "plan_z-20f": "Role ASW",
   "plan_z-8j": "Role Transport",
   "plan_z-9c": "Role ASW",
+  "plan_z-9ce": "Role ASW",
   "plan_z-9d": "Role ASW",
   "plan_z-9f": "Role ASW",
   "plan_z-9f_(2020)": "Role ASW",
   "planaf_z-20j": "Role ASW",
+  "pns_sh-3h": "Role ASW",
   "pol_a330_mrtt": "Role AEW",
   "profile_": "Role Fighter",
   "qeaf_m2k-5dda": "Role Fighter",
@@ -7261,7 +7580,6 @@
   "ae_ffg_baleares": "Displacement 4130 t",
   "ae_ffg_baleares_late": "Displacement 4177 t",
   "ae_ffg_bonifaz": "Displacement 6300 t",
-  "ae_ffg_descubierta": "Displacement 1479 t",
   "ae_ffg_descubierta_late": "Displacement 1479 t",
   "ae_ffg_santa_maria": "Displacement 4100 t",
   "ae_ffg_santa_maria_late": "Displacement 4100 t",
@@ -7284,6 +7602,8 @@
   "bra_ffg_niteroi": "Displacement 33550 t",
   "bra_lst_newport": "Displacement 8470 t",
   "bra_ss_tupi": "Displacement 1207 t",
+  "ch_ff_type23": "Displacement 4900 t",
+  "ch_type22b2_barak": "Displacement 4800 t",
   "es_ffg_baleares": "Displacement 4130 t",
   "es_ss_galerna": "Displacement 1760 t",
   "es_ssk_delfin": "Displacement 1038 t",
@@ -7336,6 +7656,12 @@
   "ger_fsg_k130_batch2_late": "Displacement 1840 t",
   "ger_ssk_type_212a_batch1_upgraded": "Displacement 1830 t",
   "hdms_iver_huitfeldt_mlu": "Displacement 6645 t",
+  "idn_dd_skory": "Displacement 3115 t",
+  "idn_ff_riga": "Displacement 1416 t",
+  "idn_kr_sverdlov": "Displacement 16640 t",
+  "idn_ss_tjakra_71": "Displacement 1342 t",
+  "idn_vt_uda": "Displacement 16250 t",
+  "ins_ff_blackwood": "Displacement 1456 t",
   "ins_pt_saar": "Displacement 206 t",
   "ins_ptg_aliya": "Displacement 498 t",
   "ins_ptg_saar_2": "Displacement 250 t",
@@ -7410,6 +7736,7 @@
   "mm_ssbn_archimede": "Displacement 6900 t",
   "mm_ssn_marconi": "Displacement 3400 t",
   "mm_ssn_marconi_78": "Displacement 3400 t",
+  "nrp_ssk_albacora": "Displacement 1038 t",
   "phl_ff_cannon": "Displacement 1620 t",
   "phl_fs_malvar": "Displacement 914 t",
   "phl_pb_jose_andrada": "Displacement 56 t",
@@ -7495,6 +7822,7 @@
   "plan_type_054a_p4": "Displacement 4200 t",
   "plan_type_055_2020": "Displacement 11000 t",
   "pn_ffg-150": "Displacement 2870 t",
+  "pns_ss_hangor": "Displacement 1038 t",
   "ran_cv_centaur_84": "Displacement 29200 t",
   "ran_cv_centaur_catobar": "Displacement 29200 t",
   "ran_cv_invincible": "Displacement 22000 t",
@@ -7864,6 +8192,8 @@
   "wp_provorny": "Displacement 4300 t",
   "wp_pt_p4": "Displacement 23 t",
   "wp_pt_p6": "Displacement 77 t",
+  "wp_pt_shershen-e": "Displacement 161 t",
+  "wp_pt_shershen-er": "Displacement 161 t",
   "wp_pt_shershen": "Displacement 161 t",
   "wp_pt_stenka": "Displacement 245 t",
   "wp_pt_turya": "Displacement 250 t",
@@ -7894,7 +8224,6 @@
   "wp_skr_krivak2": "Displacement 3305 t",
   "wp_skr_petya2": "Displacement 1110 t",
   "wp_ss_foxtrot": "Displacement 2475 t",
-  "wp_ss_kilo": "Displacement 3040 t",
   "wp_ss_kilo_877v": "Displacement 3040 t",
   "wp_ss_romeo": "Displacement 1730 t",
   "wp_ss_tango": "Displacement 3600 t",
@@ -7932,19 +8261,19 @@
    "traffic": 12,
    "ground": 4
   },
-  "bases": 89,
+  "bases": 103,
   "bases_by_kind": {
-   "AirBase": 53,
-   "NavalBase": 36
+   "AirBase": 61,
+   "NavalBase": 42
   },
-  "forces": 147,
+  "forces": 162,
   "forces_by_type": {
-   "Surface": 63,
-   "Air": 84
+   "Surface": 69,
+   "Air": 93
   },
   "patrols": 16,
-  "catalogue": 1473,
-  "values": 1473,
+  "catalogue": 1522,
+  "values": 1522,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

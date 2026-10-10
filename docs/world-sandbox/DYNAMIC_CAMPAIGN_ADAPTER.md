@@ -97,14 +97,14 @@ application here.
 | Listed as civil traffic | 12 |
 | Listed as ground air defence | 4 |
 | Skipped (abstract, embarked, scenery, missing fit, quantity 0) | 117 |
-| Bases | 89 (36 naval, 53 air): 39 from the register, 50 home bases added (below); 30 depots |
-| Forces | 147 (63 surface, 84 air), 667 units, 245 of them ships |
+| Bases | 103 (42 naval, 61 air): 39 from the register, 64 home bases added (below); 36 depots |
+| Forces | 162 (69 surface, 93 air), 764 units, 273 of them ships |
 | Patrol routes | 16 |
 | Sea lanes | 11, all on water |
-| Catalogue (buy list) entries and unit values | 1473: blue 1032, red 441 (below) |
+| Catalogue (buy list) entries and unit values | 1522: blue 1056, red 466 (below) |
 | Register nodes not converted | 34 (30 abstract or context only by the register's own policy, 1 reserve-only, 1 do-not-populate, Jebel Ali, NAB Coronado with nothing placeable) |
 
-Sides: **blue** US, Australia, Japan, France, Italy, UK, Norway, Spain, Germany, Netherlands, Greece, Poland, Turkey, Sweden, Belgium, Denmark, Canada, South Korea, Philippines, Thailand, New Zealand, Taiwan (RoC), Israel, UAE, Qatar, Kuwait, Saudi, Brazil; **red** China, Russia, Iran, North Korea, Vietnam. Both are playable (decided 10 October; the sample keeps red `comingSoon`, so playing red is untested).
+Sides: **blue** US, Australia, Japan, France, Italy, UK, Norway, Spain, Germany, Netherlands, Greece, Poland, Turkey, Sweden, Belgium, Denmark, Canada, South Korea, Philippines, Thailand, New Zealand, Taiwan (RoC), Israel, UAE, Qatar, Kuwait, Saudi, Brazil, India, Egypt, Chile; **red** China, Russia, Iran, North Korea, Vietnam, Indonesia, Pakistan. Both are playable (decided 10 October; the sample keeps red `comingSoon`, so playing red is untested).
 
 ### The buy list: both sides' full arsenals
 
@@ -119,12 +119,12 @@ ship, submarine and aircraft the collection gives that side's nations, not only 
 | blue | Japan | 23 | 19 |
 | blue | France | 38 | 61 |
 | blue | Italy | 35 | 17 |
-| blue | UK | 44 | 39 |
+| blue | UK | 43 | 39 |
 | blue | Norway | 8 | 0 |
 | blue | Spain | 36 | 29 |
 | blue | Germany | 23 | 10 |
 | blue | Netherlands | 9 | 5 |
-| blue | Greece | 0 | 13 |
+| blue | Greece | 0 | 9 |
 | blue | Poland | 1 | 3 |
 | blue | Turkey | 0 | 3 |
 | blue | Sweden | 2 | 2 |
@@ -141,10 +141,15 @@ ship, submarine and aircraft the collection gives that side's nations, not only 
 | blue | Qatar | 0 | 4 |
 | blue | Saudi | 0 | 1 |
 | blue | Brazil | 11 | 14 |
+| blue | India | 4 | 11 |
+| blue | Egypt | 2 | 2 |
+| blue | Chile | 7 | 3 |
 | red | China | 95 | 106 |
-| red | Russia | 114 | 102 |
+| red | Russia | 111 | 101 |
 | red | Iran | 12 | 9 |
 | red | Vietnam | 2 | 1 |
+| red | Indonesia | 8 | 5 |
+| red | Pakistan | 7 | 9 |
 
 - **Operator** is the `Nation=` of the winning variants or squadrons file (Soviet is
   Russia). A type several nations fly is listed once, under the side's nation with the
@@ -156,11 +161,10 @@ ship, submarine and aircraft the collection gives that side's nations, not only 
   included), intelligence ships, target drones, satellites, a balloon, decoys, rafts,
   a sea mine, and two ids with a space in them (`plaf_j16a block3`, the Project 2498
   assault vessel), which a campaign cannot name.
-- **Not on either side:** units only nations left out operate - Pakistan 15, Chile 10,
-  India 10, Indonesia 10, Egypt 4 and a few others, historical (DDR, South Vietnam) or
-  fictional (`conversion.json` "arsenal"). Adding a nation to a side brings its arsenal in.
-- **Shipyards:** every nation with a home naval base has one (below), 21 in all; air-only nations order aircraft, delivered to their air bases.
-- **Untested:** how the engine's buy screen copes with about 1,000 blue entries and 440 red.
+- **Not on either side:** units only nations left out operate - a few each, mostly
+  historical (DDR, South Vietnam) or fictional (`conversion.json` "arsenal"). Adding a nation to a side brings its arsenal in.
+- **Shipyards:** every nation with a home naval base has one (below), 26 in all; air-only nations order aircraft, delivered to their air bases.
+- **Untested:** how the engine's buy screen copes with about 1,056 blue entries and 466 red.
 
 ### Home bases (scenario additions, `integration/world-sandbox/home_bases.py`)
 
@@ -170,20 +174,23 @@ naval base - with a shipyard and a supply depot - and its main air base, each wi
 force from the units the collection gives that nation. These are **scenario additions, not
 register rows**: public base locations, rounded; main-runway headings rounded to 10 degrees;
 illustrative peacetime quantities. A harbour anchor the land mask puts ashore is moved to the
-nearest water within 3 NM (twelve moved, 0.5 NM each). Brest is a second French naval base
+nearest water within 3 NM (15 moved, 0.5-1 NM). Brest and Punta Arenas are second naval bases
 without a yard.
 
 | Nations | Added |
 |---|---|
 | Already in the register | Severomorsk, Vladivostok; Kure; Haakonsvern; Portsmouth and RAF Lossiemouth; Toulon, Brest, Saint-Dizier and Lann-Bihoue; Taranto and Gioia del Colle |
-| Blue, naval and air | Spain (Ferrol, Torrejon), Germany (Wilhelmshaven, Wittmund), Netherlands (Den Helder, Eindhoven), Sweden (Karlskrona, Ronneby), Denmark (Frederikshavn, Karup), South Korea (Jinhae, Gimhae, Pohang), Philippines (Subic Bay, Basa), Thailand (Sattahip, Korat), Israel (Haifa, Ramat David), Brazil (Rio de Janeiro, Santa Cruz, Salvador) |
+| Blue, naval and air | Spain (Ferrol, Torrejon), Germany (Wilhelmshaven, Wittmund), Netherlands (Den Helder, Eindhoven), Sweden (Karlskrona, Ronneby), Denmark (Frederikshavn, Karup), South Korea (Jinhae, Gimhae, Pohang), Philippines (Subic Bay, Basa), Thailand (Sattahip, Korat), Israel (Haifa, Ramat David), Brazil (Rio de Janeiro, Santa Cruz, Salvador), India (Mumbai, Ambala, INS Rajali), Egypt (Alexandria, Cairo West), Chile (Talcahuano, Punta Arenas, Chabunco, Santiago) |
 | Blue, air only (no plausible ships in the collection) | Greece (Tanagra), Poland (Lask), Turkey (Konya), Belgium (Melsbroek), Canada (Bagotville), New Zealand (Ohakea), Taiwan (Hsinchu), UAE (Al Dhafra), Qatar (Al Udeid), Kuwait (Ali Al Salem), Saudi Arabia (Dhahran) |
-| Red | Iran (Bandar Abbas, Isfahan, Bushehr), North Korea (Sunchon, air only), Vietnam (Cam Ranh, naval only: the collection has its Tarantul and Petya hulls, not its Su-30MK2s, Kilos or Gepards) |
+| Red | Iran (Bandar Abbas, Isfahan, Bushehr), North Korea (Sunchon, air only), Vietnam (Cam Ranh, naval only: the collection has its Tarantul and Petya hulls, not its Su-30MK2s, Kilos or Gepards), Indonesia (Surabaya, Pekanbaru: the Ahmad Yani frigates and Rafale - the rest of its collection fleet is 1960s), Pakistan (Karachi, Minhas, Masroor) |
 
 Sides follow 2028 alignments a two-sided engine can hold: NATO members and US treaty allies and
-close partners on blue; Iran and North Korea with China and Russia on red; Brazil blue and
-Vietnam red at the author's direction. Nations unlikely to fight for either side (India,
-Indonesia, Pakistan, Egypt and others) are left out: the engine has no neutral side. Portugal and Ukraine are left out for want of current units
+close partners on blue; Iran and North Korea with China and Russia on red. At the author's
+direction Brazil, India and Egypt are blue and Vietnam, Indonesia and Pakistan red. Chile is
+blue to fit the SEST story: in Southern Reach the coercion network moves into the Southern Ocean
+in the Antarctic season, and Chile holds an Antarctic claim and the gateway port - so its
+frigate on the Antarctic station and its F-5 group are at Punta Arenas. Nations with nothing
+current in the collection, or no part in the story, are left out: the engine has no neutral side. Portugal and Ukraine are left out for want of current units
 in the collection. Added nations without ground units of their own in `nation_units()` borrow
 their side's lead nation's (US or China) garrisons, escorts and convoys.
 
@@ -244,7 +251,8 @@ All are recorded per row in `conversion.json`. None is a research claim.
    nations, no era cut (above).
 7. **As many nations built out as possible.** Home naval and air bases, sides by 2028
    alignment, neutrals left out (above).
-8. **Vietnam red, Brazil blue.** 33 nations in all.
+8. **Vietnam red, Brazil blue.**
+9. **India and Egypt blue, Indonesia and Pakistan red, Chile to fit the story** (blue). 38 nations in all.
 
 ## Testing on the PC (isolated, when ready)
 
@@ -259,6 +267,6 @@ Use a backed-up install, not the published pack.
 Then, in order: menu discovery; the validator's verdict in the BepInEx log; one battle each side,
 playing blue and then red; whether Sigonella's airlifts reach Rota and Souda Bay;
 the review's 20/10/10 ammunition test with a SEST supply ship; save, reload, and reload after a
-battle; a transit across the antimeridian (Roosevelt's group); performance with all 147 forces;
-the buy screen with about 1,000 blue entries, a ship order by a nation with a home yard (Spain)
+battle; a transit across the antimeridian (Roosevelt's group); performance with all 162 forces;
+the buy screen with about 1,056 blue entries, a ship order by a nation with a home yard (Spain)
 and one air-only nation's aircraft order (Greece).

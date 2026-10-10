@@ -46,7 +46,10 @@
         "Qatar",
         "Kuwait",
         "Saudi",
-        "Brazil"
+        "Brazil",
+        "India",
+        "Egypt",
+        "Chile"
       ],
       "hq": "SEST WORLD - BLUE",
       "command": "SEST WORLD - BLUE COMMAND",
@@ -61,7 +64,9 @@
         "Russia",
         "Iran",
         "North_Korea",
-        "Vietnam"
+        "Vietnam",
+        "Indonesia",
+        "Pakistan"
       ],
       "hq": "SEST WORLD - RED",
       "command": "SEST WORLD - RED COMMAND",
@@ -1442,6 +1447,155 @@
       "supplyFrom": "home_bra_rio"
     },
     {
+      "id": "home_ind_mumbai",
+      "name": "Mumbai (Western Naval Command)",
+      "side": "blue",
+      "nation": "India",
+      "kind": "NavalBase",
+      "lat": 18.916,
+      "lon": 72.843,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_ind_ambala",
+      "name": "Ambala Air Force Station",
+      "side": "blue",
+      "nation": "India",
+      "kind": "AirBase",
+      "lat": 30.368,
+      "lon": 76.817,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 300,
+        "lat": 30.368,
+        "lon": 76.817
+      },
+      "supplyFrom": "home_ind_mumbai"
+    },
+    {
+      "id": "home_ind_rajali",
+      "name": "INS Rajali (Arakkonam)",
+      "side": "blue",
+      "nation": "India",
+      "kind": "AirBase",
+      "lat": 13.071,
+      "lon": 79.691,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 240,
+        "lat": 13.071,
+        "lon": 79.691
+      },
+      "supplyFrom": "home_ind_mumbai"
+    },
+    {
+      "id": "home_egy_alexandria",
+      "name": "Alexandria Naval Base",
+      "side": "blue",
+      "nation": "Egypt",
+      "kind": "NavalBase",
+      "lat": 31.188,
+      "lon": 29.875,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_egy_cairo_west",
+      "name": "Cairo West Air Base",
+      "side": "blue",
+      "nation": "Egypt",
+      "kind": "AirBase",
+      "lat": 30.116,
+      "lon": 30.915,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 340,
+        "lat": 30.116,
+        "lon": 30.915
+      },
+      "supplyFrom": "home_egy_alexandria"
+    },
+    {
+      "id": "home_chl_talcahuano",
+      "name": "Talcahuano Naval Base",
+      "side": "blue",
+      "nation": "Chile",
+      "kind": "NavalBase",
+      "lat": -36.7,
+      "lon": -73.1,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_chl_punta_arenas",
+      "name": "Punta Arenas (Third Naval Zone)",
+      "side": "blue",
+      "nation": "Chile",
+      "kind": "NavalBase",
+      "lat": -53.16,
+      "lon": -70.905,
+      "income": 6,
+      "homeland": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_chl_chabunco",
+      "name": "Chabunco Air Base (Punta Arenas)",
+      "side": "blue",
+      "nation": "Chile",
+      "kind": "AirBase",
+      "lat": -53.003,
+      "lon": -70.855,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 70,
+        "lat": -53.003,
+        "lon": -70.855
+      },
+      "supplyFrom": "home_chl_punta_arenas"
+    },
+    {
+      "id": "home_chl_santiago",
+      "name": "Santiago Air Brigade (Pudahuel)",
+      "side": "blue",
+      "nation": "Chile",
+      "kind": "AirBase",
+      "lat": -33.393,
+      "lon": -70.786,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 170,
+        "lat": -33.393,
+        "lon": -70.786
+      },
+      "supplyFrom": "home_chl_talcahuano"
+    },
+    {
       "id": "home_irn_bandar_abbas",
       "name": "Bandar Abbas Naval Base",
       "side": "red",
@@ -1524,6 +1678,90 @@
       "depot": true,
       "production": 1,
       "convoys": 10
+    },
+    {
+      "id": "home_idn_surabaya",
+      "name": "Surabaya (Koarmada II)",
+      "side": "red",
+      "nation": "Indonesia",
+      "kind": "NavalBase",
+      "lat": -7.2,
+      "lon": 112.73,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_idn_pekanbaru",
+      "name": "Roesmin Nurjadin Air Base (Pekanbaru)",
+      "side": "red",
+      "nation": "Indonesia",
+      "kind": "AirBase",
+      "lat": 0.461,
+      "lon": 101.445,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 360,
+        "lat": 0.461,
+        "lon": 101.445
+      },
+      "supplyFrom": "home_idn_surabaya"
+    },
+    {
+      "id": "home_pak_karachi",
+      "name": "Karachi Naval Dockyard",
+      "side": "red",
+      "nation": "Pakistan",
+      "kind": "NavalBase",
+      "lat": 24.832,
+      "lon": 66.964,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_pak_minhas",
+      "name": "PAF Base Minhas (Kamra)",
+      "side": "red",
+      "nation": "Pakistan",
+      "kind": "AirBase",
+      "lat": 33.869,
+      "lon": 72.401,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 300,
+        "lat": 33.869,
+        "lon": 72.401
+      },
+      "supplyFrom": "home_pak_karachi"
+    },
+    {
+      "id": "home_pak_masroor",
+      "name": "PAF Base Masroor (Karachi)",
+      "side": "red",
+      "nation": "Pakistan",
+      "kind": "AirBase",
+      "lat": 24.894,
+      "lon": 66.939,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 280,
+        "lat": 24.894,
+        "lon": 66.939
+      },
+      "supplyFrom": "home_pak_karachi"
     }
   ],
   "labels": [
@@ -3027,6 +3265,92 @@
       ]
     },
     {
+      "name": "Mumbai (Western Naval Command) harbour",
+      "side": "blue",
+      "base": "home_ind_mumbai",
+      "type": "Surface",
+      "units": [
+        "ins_d-66 x2",
+        "ins_d-63 x2",
+        "wp_ss_kilo x2"
+      ]
+    },
+    {
+      "name": "Ambala Air Force Station Rafale EH",
+      "side": "blue",
+      "base": "home_ind_ambala",
+      "type": "Air",
+      "units": [
+        "exp_rafale_c_l x12"
+      ]
+    },
+    {
+      "name": "INS Rajali (Arakkonam) P-8I Neptune",
+      "side": "blue",
+      "base": "home_ind_rajali",
+      "type": "Air",
+      "units": [
+        "usn_p8 x4"
+      ]
+    },
+    {
+      "name": "Alexandria Naval Base harbour",
+      "side": "blue",
+      "base": "home_egy_alexandria",
+      "type": "Surface",
+      "units": [
+        "ae_ffg_descubierta x2"
+      ]
+    },
+    {
+      "name": "Cairo West Air Base Rafale EM",
+      "side": "blue",
+      "base": "home_egy_cairo_west",
+      "type": "Air",
+      "units": [
+        "exp_rafale_c_l x12"
+      ]
+    },
+    {
+      "name": "Talcahuano Naval Base harbour",
+      "side": "blue",
+      "base": "home_chl_talcahuano",
+      "type": "Surface",
+      "units": [
+        "ch_ff_type23_pida x2",
+        "ch_ffg_adelaide_longhull x2",
+        "ch_ss_scorpene x2",
+        "type_209 x2"
+      ]
+    },
+    {
+      "name": "Punta Arenas (Third Naval Zone) harbour",
+      "side": "blue",
+      "base": "home_chl_punta_arenas",
+      "type": "Surface",
+      "units": [
+        "ch_ffg_karel"
+      ]
+    },
+    {
+      "name": "Chabunco Air Base (Punta Arenas) F-5E Tigre III",
+      "side": "blue",
+      "base": "home_chl_chabunco",
+      "type": "Air",
+      "units": [
+        "ch_f-5e x8"
+      ]
+    },
+    {
+      "name": "Santiago Air Brigade (Pudahuel) E-3D Sentry",
+      "side": "blue",
+      "base": "home_chl_santiago",
+      "type": "Air",
+      "units": [
+        "ch_e3d"
+      ]
+    },
+    {
       "name": "Bandar Abbas Naval Base harbour",
       "side": "red",
       "base": "home_irn_bandar_abbas",
@@ -3072,6 +3396,63 @@
       "units": [
         "wp_ptg_tarantul_re x4",
         "wp_skr_petya3 x2"
+      ]
+    },
+    {
+      "name": "Surabaya (Koarmada II) harbour",
+      "side": "red",
+      "base": "home_idn_surabaya",
+      "type": "Surface",
+      "units": [
+        "idn_ff_vanspeijk x2"
+      ]
+    },
+    {
+      "name": "Roesmin Nurjadin Air Base (Pekanbaru) Rafale",
+      "side": "red",
+      "base": "home_idn_pekanbaru",
+      "type": "Air",
+      "units": [
+        "exp_rafale_c_l x6"
+      ]
+    },
+    {
+      "name": "Karachi Naval Dockyard harbour",
+      "side": "red",
+      "base": "home_pak_karachi",
+      "type": "Surface",
+      "units": [
+        "pns_type_054a_p x4",
+        "pns_ffg_oliver_hazard_perry_longhull",
+        "pns_ss_s-26p x2",
+        "pns_ss_hashmat x2"
+      ]
+    },
+    {
+      "name": "PAF Base Minhas (Kamra) J-10CE",
+      "side": "red",
+      "base": "home_pak_minhas",
+      "type": "Air",
+      "units": [
+        "paf_j-10ce x12"
+      ]
+    },
+    {
+      "name": "PAF Base Masroor (Karachi) JF-17 Block III Thunder",
+      "side": "red",
+      "base": "home_pak_masroor",
+      "type": "Air",
+      "units": [
+        "paf_jf-17_blk_iii x12"
+      ]
+    },
+    {
+      "name": "PAF Base Masroor (Karachi) ZDK-03",
+      "side": "red",
+      "base": "home_pak_masroor",
+      "type": "Air",
+      "units": [
+        "paf_zdk-03 x2"
       ]
     }
   ],
@@ -3498,8 +3879,13 @@
     "Thailand": "home_tha_sattahip",
     "Israel": "home_isr_haifa",
     "Brazil": "home_bra_rio",
+    "India": "home_ind_mumbai",
+    "Egypt": "home_egy_alexandria",
+    "Chile": "home_chl_talcahuano",
     "Iran": "home_irn_bandar_abbas",
-    "Vietnam": "home_vnm_cam_ranh"
+    "Vietnam": "home_vnm_cam_ranh",
+    "Indonesia": "home_idn_surabaya",
+    "Pakistan": "home_pak_karachi"
   },
   "airWings": {},
   "replenishment": {
@@ -3554,6 +3940,7 @@
     "E7A_Wedgetail": 242,
     "ae_ffg_alvaro_bazan": 174,
     "ae_ffg_cristobal_colon": 184,
+    "ae_ffg_descubierta": 68,
     "ae_lhd_juan_carlos": 487,
     "ae_lpd_galicia": 311,
     "ae_opv_meteoro": 103,
@@ -3568,6 +3955,12 @@
     "bra_ss_riachuelo": 81,
     "bra_ss_tikuna": 60,
     "bra_type22b12": 152,
+    "ch_e3d": 242,
+    "ch_f-5e": 46,
+    "ch_ff_type23_pida": 154,
+    "ch_ffg_adelaide_longhull": 137,
+    "ch_ffg_karel": 118,
+    "ch_ss_scorpene": 74,
     "dk_mh-60r": 39,
     "dts_b-52h": 172,
     "dts_saab_ge": 242,
@@ -3595,6 +3988,9 @@
     "haf_f-16c-bl52plus": 46,
     "hdms_iver_huitfeldt": 189,
     "iaf_f-16c-barakII": 46,
+    "idn_ff_vanspeijk": 107,
+    "ins_d-63": 204,
+    "ins_d-66": 204,
     "ins_ptg_hetz": 33,
     "ir_ffg_alvand_95": 70,
     "ir_ptg_combattante_II": 22,
@@ -3622,6 +4018,9 @@
     "ko_ffg-828": 141,
     "ko_lph-6111": 383,
     "otan_a330_mrtt": 242,
+    "paf_j-10ce": 46,
+    "paf_jf-17_blk_iii": 46,
+    "paf_zdk-03": 242,
     "phl_ff_hamilton": 117,
     "phl_fs_pohang": 60,
     "phl_lpd_tarlac": 276,
@@ -3647,6 +4046,10 @@
     "plan_y-8fq": 89,
     "pn_ffg-06": 115,
     "pn_ffg-150_2": 107,
+    "pns_ffg_oliver_hazard_perry_longhull": 137,
+    "pns_ss_hashmat": 77,
+    "pns_ss_s-26p": 125,
+    "pns_type_054a_p": 139,
     "pol_f-16c-bl52plus": 46,
     "raaf_f-35a": 46,
     "raaf_mq-4c_triton": 89,
@@ -3682,6 +4085,7 @@
     "tha_pt_hua_hin": 39,
     "tuaf_f-16c": 46,
     "tw_m2k-5ei": 46,
+    "type_209": 67,
     "uae_m2k-9": 46,
     "uk_a330_mrtt": 242,
     "uk_a400m_airdroop-para": 242,
@@ -3728,6 +4132,7 @@
     "wp_rkr_slava_16": 274,
     "wp_skr_petya3": 57,
     "wp_ss_improved_kilo": 112,
+    "wp_ss_kilo": 112,
     "wp_ssgn_yasen": 311,
     "wp_ssn_akula": 311,
     "wp_tu-142m": 89,
@@ -3763,13 +4168,18 @@
     "bw_ec_665_had-e": 39,
     "ca_a330_mrtt": 242,
     "canberra_bomber": 2,
+    "ch_kc135": 2,
     "co_a330_mrtt": 242,
     "de_nh90": 39,
     "de_sea_lynx_mk88": 39,
+    "eaf_m2kbm": 46,
+    "eaf_m2kem": 46,
     "eu_ef2000_fgr4": 46,
     "exp_rafale_b": 46,
     "exp_rafale_b_l": 46,
     "exp_rafale_c": 46,
+    "exp_rafale_m": 46,
+    "exp_rafale_m_l": 46,
     "fr_a330_mrtt": 118,
     "fr_a400m_airdroop-para": 242,
     "fr_a400m_sf": 242,
@@ -3842,9 +4252,18 @@
     "h34": 39,
     "haf_f-16c-bl50": 46,
     "iaf_f-4e_kurnass": 46,
+    "iaf_m2kh": 46,
+    "iaf_m2ki": 46,
+    "iaf_m2kth": 46,
+    "iaf_m2kti": 46,
     "iaf_md500": 25,
     "iaf_netz": 46,
+    "idn_mig-21": 46,
     "idn_tu-16ks1": 172,
+    "idn_wasp": 39,
+    "in_br1050": 89,
+    "ind_a400m_airdroop-para": 242,
+    "ind_a400m_tankers": 242,
     "iqaf_md500": 25,
     "ir_il-76md": 2,
     "irh_bell-212": 39,
@@ -3892,6 +4311,10 @@
     "nl_nh90_tth": 39,
     "nl_sea_lynx": 39,
     "nl_sea_lynx_D": 39,
+    "paf_j-7PG": 46,
+    "paf_jf-17_blk_i": 46,
+    "paf_jf-17_blk_ii": 46,
+    "paf_mirage_iii": 46,
     "ph_f-8h": 46,
     "phl_h-76": 39,
     "phl_t28": 2,
@@ -3989,10 +4412,12 @@
     "plan_z-20f": 39,
     "plan_z-8j": 23,
     "plan_z-9c": 39,
+    "plan_z-9ce": 39,
     "plan_z-9d": 39,
     "plan_z-9f": 39,
     "plan_z-9f_(2020)": 39,
     "planaf_z-20j": 39,
+    "pns_sh-3h": 39,
     "pol_a330_mrtt": 242,
     "profile_": 46,
     "qeaf_m2k-5dda": 46,
@@ -4362,7 +4787,6 @@
     "ae_ffg_baleares": 137,
     "ae_ffg_baleares_late": 138,
     "ae_ffg_bonifaz": 183,
-    "ae_ffg_descubierta": 68,
     "ae_ffg_descubierta_late": 68,
     "ae_ffg_santa_maria": 137,
     "ae_ffg_santa_maria_late": 137,
@@ -4385,6 +4809,8 @@
     "bra_ffg_niteroi": 567,
     "bra_lst_newport": 223,
     "bra_ss_tupi": 60,
+    "ch_ff_type23": 154,
+    "ch_type22b2_barak": 152,
     "es_ffg_baleares": 137,
     "es_ss_galerna": 77,
     "es_ssk_delfin": 54,
@@ -4437,6 +4863,12 @@
     "ger_fsg_k130_batch2_late": 79,
     "ger_ssk_type_212a_batch1_upgraded": 79,
     "hdms_iver_huitfeldt_mlu": 189,
+    "idn_dd_skory": 113,
+    "idn_ff_riga": 66,
+    "idn_kr_sverdlov": 353,
+    "idn_ss_tjakra_71": 64,
+    "idn_vt_uda": 347,
+    "ins_ff_blackwood": 68,
     "ins_pt_saar": 18,
     "ins_ptg_aliya": 33,
     "ins_ptg_saar_2": 21,
@@ -4511,6 +4943,7 @@
     "mm_ssbn_archimede": 194,
     "mm_ssn_marconi": 120,
     "mm_ssn_marconi_78": 120,
+    "nrp_ssk_albacora": 54,
     "phl_ff_cannon": 73,
     "phl_fs_malvar": 49,
     "phl_pb_jose_andrada": 8,
@@ -4596,6 +5029,7 @@
     "plan_type_054a_p4": 139,
     "plan_type_055_2020": 266,
     "pn_ffg-150": 107,
+    "pns_ss_hangor": 54,
     "ran_cv_centaur_84": 516,
     "ran_cv_centaur_catobar": 516,
     "ran_cv_invincible": 426,
@@ -4965,6 +5399,8 @@
     "wp_provorny": 141,
     "wp_pt_p4": 5,
     "wp_pt_p6": 9,
+    "wp_pt_shershen-e": 15,
+    "wp_pt_shershen-er": 15,
     "wp_pt_shershen": 15,
     "wp_pt_stenka": 20,
     "wp_pt_turya": 21,
@@ -4995,7 +5431,6 @@
     "wp_skr_krivak2": 118,
     "wp_skr_petya2": 56,
     "wp_ss_foxtrot": 97,
-    "wp_ss_kilo": 112,
     "wp_ss_kilo_877v": 112,
     "wp_ss_romeo": 76,
     "wp_ss_tango": 125,
@@ -9443,12 +9878,6 @@
       "tier": 0
     },
     {
-      "unit": "rn_dd_c-class",
-      "side": "blue",
-      "nation": "UK",
-      "tier": 0
-    },
-    {
       "unit": "rn_dd_z-class",
       "side": "blue",
       "nation": "UK",
@@ -10738,34 +11167,6 @@
       "aircraft": true
     },
     {
-      "unit": "exp_rafale_b",
-      "side": "blue",
-      "nation": "Greece",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "exp_rafale_b_l",
-      "side": "blue",
-      "nation": "Greece",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "exp_rafale_c",
-      "side": "blue",
-      "nation": "Greece",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "exp_rafale_c_l",
-      "side": "blue",
-      "nation": "Greece",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
       "unit": "gre_m2k-5_bg",
       "side": "blue",
       "nation": "Greece",
@@ -11696,6 +12097,196 @@
       "unit": "br_a330_mrtt",
       "side": "blue",
       "nation": "Brazil",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "ins_ff_blackwood",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ss_kilo",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0
+    },
+    {
+      "unit": "ins_d-63",
+      "side": "blue",
+      "nation": "India",
+      "tier": 1
+    },
+    {
+      "unit": "ins_d-66",
+      "side": "blue",
+      "nation": "India",
+      "tier": 1
+    },
+    {
+      "unit": "exp_rafale_b",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "exp_rafale_b_l",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "exp_rafale_c",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "exp_rafale_c_l",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "exp_rafale_m",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "exp_rafale_m_l",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "iaf_m2kh",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "iaf_m2ki",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "iaf_m2kth",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "iaf_m2kti",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "in_br1050",
+      "side": "blue",
+      "nation": "India",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_pt_shershen-e",
+      "side": "blue",
+      "nation": "Egypt",
+      "tier": 0
+    },
+    {
+      "unit": "wp_pt_shershen-er",
+      "side": "blue",
+      "nation": "Egypt",
+      "tier": 0
+    },
+    {
+      "unit": "eaf_m2kbm",
+      "side": "blue",
+      "nation": "Egypt",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "eaf_m2kem",
+      "side": "blue",
+      "nation": "Egypt",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ch_ffg_karel",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 0
+    },
+    {
+      "unit": "ch_ss_scorpene",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 0
+    },
+    {
+      "unit": "type_209",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 0
+    },
+    {
+      "unit": "ch_ff_type23",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 1
+    },
+    {
+      "unit": "ch_ff_type23_pida",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 1
+    },
+    {
+      "unit": "ch_ffg_adelaide_longhull",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 1
+    },
+    {
+      "unit": "ch_type22b2_barak",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 1
+    },
+    {
+      "unit": "ch_f-5e",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ch_kc135",
+      "side": "blue",
+      "nation": "Chile",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ch_e3d",
+      "side": "blue",
+      "nation": "Chile",
       "tier": 1,
       "aircraft": true
     },
@@ -13085,12 +13676,6 @@
       "tier": 0
     },
     {
-      "unit": "wp_msc_T43",
-      "side": "red",
-      "nation": "Russia",
-      "tier": 0
-    },
-    {
       "unit": "wp_msc_T43K",
       "side": "red",
       "nation": "Russia",
@@ -13134,12 +13719,6 @@
     },
     {
       "unit": "wp_pt_turya",
-      "side": "red",
-      "nation": "Russia",
-      "tier": 0
-    },
-    {
-      "unit": "wp_ptg_komar",
       "side": "red",
       "nation": "Russia",
       "tier": 0
@@ -13212,12 +13791,6 @@
     },
     {
       "unit": "wp_ss_improved_kilo",
-      "side": "red",
-      "nation": "Russia",
-      "tier": 0
-    },
-    {
-      "unit": "wp_ss_kilo",
       "side": "red",
       "nation": "Russia",
       "tier": 0
@@ -14269,13 +14842,6 @@
       "aircraft": true
     },
     {
-      "unit": "idn_tu-16ks1",
-      "side": "red",
-      "nation": "Russia",
-      "tier": 1,
-      "aircraft": true
-    },
-    {
       "unit": "msdvd_tu-214_AEW",
       "side": "red",
       "nation": "Russia",
@@ -14575,6 +15141,194 @@
       "nation": "Vietnam",
       "tier": 0,
       "aircraft": true
+    },
+    {
+      "unit": "idn_dd_skory",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 0
+    },
+    {
+      "unit": "idn_ff_riga",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 0
+    },
+    {
+      "unit": "idn_ff_vanspeijk",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 0
+    },
+    {
+      "unit": "idn_ss_tjakra_71",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_msc_T43",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ptg_komar",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 0
+    },
+    {
+      "unit": "idn_kr_sverdlov",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 2
+    },
+    {
+      "unit": "idn_vt_uda",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 2
+    },
+    {
+      "unit": "idn_mig-21",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "idn_wasp",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "idn_tu-16ks1",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "ind_a400m_airdroop-para",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "ind_a400m_tankers",
+      "side": "red",
+      "nation": "Indonesia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "nrp_ssk_albacora",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0
+    },
+    {
+      "unit": "pns_ss_hangor",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0
+    },
+    {
+      "unit": "pns_ss_hashmat",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0
+    },
+    {
+      "unit": "rn_dd_c-class",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0
+    },
+    {
+      "unit": "pns_ffg_oliver_hazard_perry_longhull",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 1
+    },
+    {
+      "unit": "pns_ss_s-26p",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 1
+    },
+    {
+      "unit": "pns_type_054a_p",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 1
+    },
+    {
+      "unit": "paf_j-10ce",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "paf_j-7PG",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "paf_jf-17_blk_i",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "paf_jf-17_blk_ii",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "paf_jf-17_blk_iii",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "paf_mirage_iii",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-9ce",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "pns_sh-3h",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "paf_zdk-03",
+      "side": "red",
+      "nation": "Pakistan",
+      "tier": 1,
+      "aircraft": true
     }
   ],
   "ground": {
@@ -14592,7 +15346,13 @@
       "Canada": [
         "usa_spa_m109a2"
       ],
+      "Chile": [
+        "usa_spa_m109a2"
+      ],
       "Denmark": [
+        "usa_spa_m109a2"
+      ],
+      "Egypt": [
         "usa_spa_m109a2"
       ],
       "France": [
@@ -14602,6 +15362,9 @@
         "usa_spa_m109a2"
       ],
       "Greece": [
+        "usa_spa_m109a2"
+      ],
+      "India": [
         "usa_spa_m109a2"
       ],
       "Israel": [
@@ -14667,10 +15430,16 @@
       "China": [
         "pla_spa_plz-83"
       ],
+      "Indonesia": [
+        "pla_spa_plz-83"
+      ],
       "Iran": [
         "pla_spa_plz-83"
       ],
       "North_Korea": [
+        "pla_spa_plz-83"
+      ],
+      "Pakistan": [
         "pla_spa_plz-83"
       ],
       "Russia": [
@@ -14693,7 +15462,13 @@
       "Canada": [
         "usa_sam_site_pac-3_small"
       ],
+      "Chile": [
+        "usa_sam_site_pac-3_small"
+      ],
       "Denmark": [
+        "usa_sam_site_pac-3_small"
+      ],
+      "Egypt": [
         "usa_sam_site_pac-3_small"
       ],
       "France": [
@@ -14703,6 +15478,9 @@
         "usa_sam_site_pac-3_small"
       ],
       "Greece": [
+        "usa_sam_site_pac-3_small"
+      ],
+      "India": [
         "usa_sam_site_pac-3_small"
       ],
       "Israel": [
@@ -14769,10 +15547,16 @@
       "China": [
         "pla_sam_site_hq-9"
       ],
+      "Indonesia": [
+        "pla_sam_site_hq-9"
+      ],
       "Iran": [
         "pla_sam_site_hq-9"
       ],
       "North_Korea": [
+        "pla_sam_site_hq-9"
+      ],
+      "Pakistan": [
         "pla_sam_site_hq-9"
       ],
       "Russia": [
@@ -14803,7 +15587,17 @@
         "usa_ifv_bradley",
         "usa_aaa_vulcan"
       ],
+      "Chile": [
+        "usa_mbt_abrams",
+        "usa_ifv_bradley",
+        "usa_aaa_vulcan"
+      ],
       "Denmark": [
+        "usa_mbt_abrams",
+        "usa_ifv_bradley",
+        "usa_aaa_vulcan"
+      ],
+      "Egypt": [
         "usa_mbt_abrams",
         "usa_ifv_bradley",
         "usa_aaa_vulcan"
@@ -14818,6 +15612,11 @@
         "usa_aaa_vulcan"
       ],
       "Greece": [
+        "usa_mbt_abrams",
+        "usa_ifv_bradley",
+        "usa_aaa_vulcan"
+      ],
+      "India": [
         "usa_mbt_abrams",
         "usa_ifv_bradley",
         "usa_aaa_vulcan"
@@ -14925,12 +15724,22 @@
         "pla_ifv_zbd-04a",
         "pla_spaa_pgz-09"
       ],
+      "Indonesia": [
+        "pla_mbt_ztz-99a",
+        "pla_ifv_zbd-04a",
+        "pla_spaa_pgz-09"
+      ],
       "Iran": [
         "pla_mbt_ztz-99a",
         "pla_ifv_zbd-04a",
         "pla_spaa_pgz-09"
       ],
       "North_Korea": [
+        "pla_mbt_ztz-99a",
+        "pla_ifv_zbd-04a",
+        "pla_spaa_pgz-09"
+      ],
+      "Pakistan": [
         "pla_mbt_ztz-99a",
         "pla_ifv_zbd-04a",
         "pla_spaa_pgz-09"
@@ -14990,7 +15799,17 @@
         "civ_ms_c8",
         "civ_ms_roro_a"
       ],
+      "Chile": [
+        "civ_ms_sealift_pacific",
+        "civ_ms_c8",
+        "civ_ms_roro_a"
+      ],
       "Denmark": [
+        "civ_ms_sealift_pacific",
+        "civ_ms_c8",
+        "civ_ms_roro_a"
+      ],
+      "Egypt": [
         "civ_ms_sealift_pacific",
         "civ_ms_c8",
         "civ_ms_roro_a"
@@ -15006,6 +15825,11 @@
         "civ_ms_roro_a"
       ],
       "Greece": [
+        "civ_ms_sealift_pacific",
+        "civ_ms_c8",
+        "civ_ms_roro_a"
+      ],
+      "India": [
         "civ_ms_sealift_pacific",
         "civ_ms_c8",
         "civ_ms_roro_a"
@@ -15113,11 +15937,19 @@
         "civ_ms_bulk",
         "civ_ms_freighter_a"
       ],
+      "Indonesia": [
+        "civ_ms_bulk",
+        "civ_ms_freighter_a"
+      ],
       "Iran": [
         "civ_ms_bulk",
         "civ_ms_freighter_a"
       ],
       "North_Korea": [
+        "civ_ms_bulk",
+        "civ_ms_freighter_a"
+      ],
+      "Pakistan": [
         "civ_ms_bulk",
         "civ_ms_freighter_a"
       ],
@@ -15135,10 +15967,13 @@
       "Belgium": "usn_lcs_freedom_suw_late",
       "Brazil": "usn_lcs_freedom_suw_late",
       "Canada": "usn_lcs_freedom_suw_late",
+      "Chile": "usn_lcs_freedom_suw_late",
       "Denmark": "usn_lcs_freedom_suw_late",
+      "Egypt": "usn_lcs_freedom_suw_late",
       "France": "fr_ffg_lafayette_modernized",
       "Germany": "usn_lcs_freedom_suw_late",
       "Greece": "usn_lcs_freedom_suw_late",
+      "India": "usn_lcs_freedom_suw_late",
       "Israel": "usn_lcs_freedom_suw_late",
       "Italy": "ita_ffg_ppa",
       "Japan": "usn_lcs_freedom_suw_late",
@@ -15160,8 +15995,10 @@
       "UK": "rn_opv_river_batch2",
       "US": "usn_lcs_freedom_suw_late",
       "China": "plan_type_054a_p5",
+      "Indonesia": "plan_type_054a_p5",
       "Iran": "plan_type_054a_p5",
       "North_Korea": "plan_type_054a_p5",
+      "Pakistan": "plan_type_054a_p5",
       "Russia": "rfn_ffg_22350_1-4",
       "Vietnam": "plan_type_054a_p5"
     },
@@ -15170,10 +16007,13 @@
       "Belgium": "usmc_kc-130j",
       "Brazil": "usmc_kc-130j",
       "Canada": "usmc_kc-130j",
+      "Chile": "usmc_kc-130j",
       "Denmark": "usmc_kc-130j",
+      "Egypt": "usmc_kc-130j",
       "France": "usmc_kc-130j",
       "Germany": "usmc_kc-130j",
       "Greece": "usmc_kc-130j",
+      "India": "usmc_kc-130j",
       "Israel": "usmc_kc-130j",
       "Italy": "usmc_kc-130j",
       "Japan": "usmc_kc-130j",
@@ -15195,8 +16035,10 @@
       "UK": "uk_a400m_airdroop-para",
       "US": "usmc_kc-130j",
       "China": "plaaf_y-20a",
+      "Indonesia": "plaaf_y-20a",
       "Iran": "plaaf_y-20a",
       "North_Korea": "plaaf_y-20a",
+      "Pakistan": "plaaf_y-20a",
       "Russia": "wp_il-76md",
       "Vietnam": "plaaf_y-20a"
     }

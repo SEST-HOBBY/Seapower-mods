@@ -20,16 +20,20 @@ air force exactly as it does a register node.
 
 Sides for the added nations follow 2028 alignments a two-sided engine can
 hold: NATO members and the United States' treaty allies and close partners
-on blue; Iran and North Korea with China and Russia on red. Brazil is blue
-and Vietnam red at the author's direction (10 Oct 2026). Nations unlikely to
-fight for either (India, Indonesia, Pakistan, Egypt and others) are left
+on blue; Iran and North Korea with China and Russia on red. At the author's
+direction (10 Oct 2026) Brazil, India and Egypt are blue and Vietnam,
+Indonesia and Pakistan red; Chile is blue to fit the SEST story - in
+Southern Reach the coercion network moves into the Southern Ocean in the
+Antarctic season, and Chile holds an Antarctic claim and the gateway port,
+so its frigate on the Antarctic station sails from Punta Arenas. Nations
+with nothing current in the collection, or no part in the story, are left
 out, because the engine has no neutral side.
 """
 
 BLUE_ADDED = ["Spain", "Germany", "Netherlands", "Greece", "Poland", "Turkey", "Sweden",
               "Belgium", "Denmark", "Canada", "South_Korea", "Philippines", "Thailand",
-              "NewZealand", "RoC", "Israel", "UAE", "Qatar", "Kuwait", "Saudi", "Brazil"]
-RED_ADDED = ["Iran", "North_Korea", "Vietnam"]
+              "NewZealand", "RoC", "Israel", "UAE", "Qatar", "Kuwait", "Saudi", "Brazil", "India", "Egypt", "Chile"]
+RED_ADDED = ["Iran", "North_Korea", "Vietnam", "Indonesia", "Pakistan"]
 
 
 def naval(nation, bid, name, lat, lon, units, yard=True, depot=True):
@@ -146,6 +150,28 @@ HOME_BASES = [
         ("bra_f-5em", 12)]),
     air("Brazil", "home_bra_salvador", "Salvador Air Base", -12.911, -38.331, 280, [
         ("bra_p-3am", 3)]),
+    naval("India", "home_ind_mumbai", "Mumbai (Western Naval Command)", 18.92, 72.835, [
+        ("ins_d-66", 2), ("ins_d-63", 2), ("wp_ss_kilo", 2, "Sindhughosh-class")]),
+    air("India", "home_ind_ambala", "Ambala Air Force Station", 30.368, 76.817, 300, [
+        ("exp_rafale_c_l", 12, "Rafale EH")]),
+    air("India", "home_ind_rajali", "INS Rajali (Arakkonam)", 13.071, 79.691, 240, [
+        ("usn_p8", 4, "P-8I Neptune")]),
+    naval("Egypt", "home_egy_alexandria", "Alexandria Naval Base", 31.18, 29.875, [
+        ("ae_ffg_descubierta", 2, "El Suez-class")]),
+    air("Egypt", "home_egy_cairo_west", "Cairo West Air Base", 30.116, 30.915, 340, [
+        ("exp_rafale_c_l", 12, "Rafale EM")]),
+    # Chile, fitted to the SEST story: the main fleet and yard at Talcahuano,
+    # a frigate on the Antarctic station at Punta Arenas, the F-5 group at
+    # Chabunco beside it, the E-3D at Santiago.
+    naval("Chile", "home_chl_talcahuano", "Talcahuano Naval Base", -36.7, -73.1, [
+        ("ch_ff_type23_pida", 2), ("ch_ffg_adelaide_longhull", 2), ("ch_ss_scorpene", 2),
+        ("type_209", 2)]),
+    naval("Chile", "home_chl_punta_arenas", "Punta Arenas (Third Naval Zone)", -53.16, -70.905, [
+        ("ch_ffg_karel", 1, "Antarctic station frigate")], yard=False),
+    air("Chile", "home_chl_chabunco", "Chabunco Air Base (Punta Arenas)", -53.003, -70.855, 70, [
+        ("ch_f-5e", 8, "F-5E Tigre III")]),
+    air("Chile", "home_chl_santiago", "Santiago Air Brigade (Pudahuel)", -33.393, -70.786, 170, [
+        ("ch_e3d", 1, "E-3D Sentry")]),
 
     # --- red nations added ---------------------------------------------------------
     naval("Iran", "home_irn_bandar_abbas", "Bandar Abbas Naval Base", 27.14, 56.21, [
@@ -160,4 +186,17 @@ HOME_BASES = [
     # not its Su-30MK2s, Kilos or Gepards, so a naval base only.
     naval("Vietnam", "home_vnm_cam_ranh", "Cam Ranh Naval Base", 11.92, 109.17, [
         ("wp_ptg_tarantul_re", 4), ("wp_skr_petya3", 2)]),
+    # Indonesia: the collection's TNI-AL is the 1960s Soviet fleet; the Ahmad
+    # Yani frigates and the Rafale are what is current.
+    naval("Indonesia", "home_idn_surabaya", "Surabaya (Koarmada II)", -7.2, 112.73, [
+        ("idn_ff_vanspeijk", 2)]),
+    air("Indonesia", "home_idn_pekanbaru", "Roesmin Nurjadin Air Base (Pekanbaru)", 0.461, 101.445, 360, [
+        ("exp_rafale_c_l", 6, "Rafale")]),
+    naval("Pakistan", "home_pak_karachi", "Karachi Naval Dockyard", 24.84, 66.98, [
+        ("pns_type_054a_p", 4), ("pns_ffg_oliver_hazard_perry_longhull", 1), ("pns_ss_s-26p", 2),
+        ("pns_ss_hashmat", 2)]),
+    air("Pakistan", "home_pak_minhas", "PAF Base Minhas (Kamra)", 33.869, 72.401, 300, [
+        ("paf_j-10ce", 12)]),
+    air("Pakistan", "home_pak_masroor", "PAF Base Masroor (Karachi)", 24.894, 66.939, 280, [
+        ("paf_jf-17_blk_iii", 12), ("paf_zdk-03", 2)]),
 ]
