@@ -7228,6 +7228,19 @@
    }
   }
  },
+ "fields": {
+  "usp_coronado_nas_north_island": "usa_airbase reuses is_airbase_reykjavik's scenery (scenery/is_airbase_reykjavik/)",
+  "usa_norfolk_naval_station_norfolk_air": "usa_airbase reuses is_airbase_reykjavik's scenery (scenery/is_airbase_reykjavik/)",
+  "usa_jacksonville_nas_jacksonville": "usa_airbase reuses is_airbase_reykjavik's scenery (scenery/is_airbase_reykjavik/)",
+  "aus_tindal_raaf": "airbase_raaf_tindal reuses is_airbase_reykjavik's scenery (scenery/is_airbase_reykjavik/)",
+  "med_sigonella_nas_sigonella": "usa_airbase reuses is_airbase_reykjavik's scenery (scenery/is_airbase_reykjavik/)",
+  "chn_hainan_lingshui_airbase": "china_large_airbase reuses wp_airbase_2's scenery (scenery/wp_airbase_2/)",
+  "rus_engels2_airbase": "wp_airbase_modern reuses wp_airbase_1's scenery (scenery/wp_airbase_1/)",
+  "rus_ukrainka_airbase": "wp_airbase_modern reuses wp_airbase_1's scenery (scenery/wp_airbase_1/)",
+  "rus_belaya_airbase": "wp_airbase_modern reuses wp_airbase_1's scenery (scenery/wp_airbase_1/)",
+  "home_chn_fiery_cross_air": "pla_airbase_modern reuses wp_airbase_1's scenery (scenery/wp_airbase_1/)",
+  "home_chn_woody_island": "china_large_airbase reuses wp_airbase_2's scenery (scenery/wp_airbase_2/)"
+ },
  "values_basis": {
   "E7A_Wedgetail": "Role AEW",
   "ae_ffg_alvaro_bazan": "Displacement 5853 t",

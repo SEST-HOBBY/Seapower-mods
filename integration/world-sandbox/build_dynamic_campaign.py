@@ -162,6 +162,32 @@ TANKERS = {"usaf_stratotanker": {"fuelT": 70}, "uk_a330_mrtt": {"fuelT": 100},
            "wp_il-78": {"fuelT": 60}, "usmc_kc-130j": {"fuelT": 25}}
 
 SUPPLY_REACH_NM = 4000
+
+# The airfield a base's battles are fought on must be one of the game's own:
+# Dynamic Campaign Mod 0.24.2 skips the whole campaign otherwise ("base X has
+# a "field" "unit": usa_airbase, which is none of the game's airbases (...)",
+# BepInEx log of the 10 Oct 2026 test). A mod airbase that reuses a stock
+# airbase's scenery stands in as that one (usa_airbase and the RAAF clones are
+# Reykjavik's, pla_ and wp_airbase_modern wp_airbase_1's, Red Storm's
+# china_large_airbase wp_airbase_2's); any other becomes airfield_small_1.
+STOCK_FIELDS = ("airfield_small_1", "nato_small_airbase", "nato_very_small_airbase",
+                "wp_airbase_1", "wp_airbase_2", "wp_airbase_3", "wp_airbase_4", "wp_airbase_5",
+                "wp_large_pvo_airbase", "is_airbase_akureyri", "is_airbase_isafjordur",
+                "is_airbase_keflavik", "is_airbase_reykjavik")
+
+
+def stock_field(uid):
+    """(stock airfield, how) for a field unit."""
+    if uid in STOCK_FIELDS:
+        return uid, "stock"
+    scenery = lambda u: (re.search(r"^ResourcesFolder\s*=\s*(\S+)", text_of(u), re.M) or [None, None])[1]   # noqa: E731
+    mine = scenery(uid)
+    for s in STOCK_FIELDS:
+        if mine and scenery(s) == mine:
+            return s, f"{uid} reuses {s}'s scenery ({mine})"
+    return "airfield_small_1", f"{uid} has no stock scenery; generic small airfield"
+
+
 AT_SEA = {"escort", "underway_deployed", "transit", "training_test"}
 IN_PORT = {"resident_at_base", "servicing_maintenance", "reserve", "support"}
 GENERIC_TOKENS = {"ddg", "cg", "ffg", "take", "tao", "taoe", "flt", "esc", "csg", "cvg",
@@ -1026,6 +1052,14 @@ def main():
              + list(units["airlifts"].values()) + ["wp_agi_okean", "bio_humpback_whale",
                                                     "bio_fin_whale", "bio_blue_whale"])
     check_ids(every, "world sections")
+
+    report["fields"] = {}
+    for b in bases:
+        if "field" in b:
+            unit, how = stock_field(b["field"]["unit"])
+            if unit != b["field"]["unit"]:
+                report["fields"][b["id"]] = how
+            b["field"]["unit"] = unit
 
     yards = collections.defaultdict(list)
     for b in bases:

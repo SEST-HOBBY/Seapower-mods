@@ -86,7 +86,7 @@
       "income": 1,
       "homeland": true,
       "field": {
-        "unit": "usa_airbase",
+        "unit": "is_airbase_reykjavik",
         "heading": 0,
         "lat": 32.7,
         "lon": 242.8
@@ -147,7 +147,7 @@
       "port": "usa_norfolk_naval_station_norfolk",
       "colocated": true,
       "field": {
-        "unit": "usa_airbase",
+        "unit": "is_airbase_reykjavik",
         "heading": 0,
         "lat": 36.95,
         "lon": -76.33
@@ -164,7 +164,7 @@
       "income": 1,
       "homeland": true,
       "field": {
-        "unit": "usa_airbase",
+        "unit": "is_airbase_reykjavik",
         "heading": 0,
         "lat": 30.24,
         "lon": -81.68
@@ -260,7 +260,7 @@
       "income": 1,
       "homeland": true,
       "field": {
-        "unit": "airbase_raaf_tindal",
+        "unit": "is_airbase_reykjavik",
         "heading": 0,
         "lat": -14.5,
         "lon": 132.4
@@ -406,7 +406,7 @@
       "production": 1,
       "airlifts": 10,
       "field": {
-        "unit": "usa_airbase",
+        "unit": "is_airbase_reykjavik",
         "heading": 0,
         "lat": 37.4,
         "lon": 14.9
@@ -495,7 +495,7 @@
       "income": 1,
       "homeland": true,
       "field": {
-        "unit": "china_large_airbase",
+        "unit": "wp_airbase_2",
         "heading": 0,
         "lat": 18.5,
         "lon": 110.0
@@ -548,7 +548,7 @@
       "income": 1,
       "homeland": true,
       "field": {
-        "unit": "wp_airbase_modern",
+        "unit": "wp_airbase_1",
         "heading": 0,
         "lat": 51.48,
         "lon": 46.21
@@ -566,7 +566,7 @@
       "income": 1,
       "homeland": true,
       "field": {
-        "unit": "wp_airbase_modern",
+        "unit": "wp_airbase_1",
         "heading": 0,
         "lat": 51.17,
         "lon": 128.45
@@ -584,7 +584,7 @@
       "income": 1,
       "homeland": true,
       "field": {
-        "unit": "wp_airbase_modern",
+        "unit": "wp_airbase_1",
         "heading": 0,
         "lat": 52.92,
         "lon": 103.58
@@ -1754,7 +1754,7 @@
       "income": 1,
       "homeland": true,
       "field": {
-        "unit": "pla_airbase_modern",
+        "unit": "wp_airbase_1",
         "heading": 40,
         "lat": 9.549,
         "lon": 112.889
@@ -1797,7 +1797,7 @@
       "income": 1,
       "homeland": true,
       "field": {
-        "unit": "china_large_airbase",
+        "unit": "wp_airbase_2",
         "heading": 100,
         "lat": 16.835,
         "lon": 112.34

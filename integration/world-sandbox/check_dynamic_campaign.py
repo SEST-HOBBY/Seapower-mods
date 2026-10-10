@@ -220,6 +220,9 @@ def main():
             sest.append(f'force "{f["name"]}" starts at {f["at"]}, which is land')
     for x in bases.values():
         fld = x.get("field")
+        if fld and fld.get("unit") not in adapter.STOCK_FIELDS:
+            engine.append(f'base "{x["id"]}" has a "field" "unit": {fld.get("unit")}, which is none of '
+                          "the game's airbases (Dynamic Campaign Mod 0.24.2)")
         if fld:
             if not resolves(fld["unit"]) or adapter.category(fld["unit"]) != "airfield":
                 sest.append(f'base "{x["id"]}": field unit {fld["unit"]} is not an airbase land unit')
