@@ -1,7 +1,9 @@
 # Browser build handoff - populate the world from the research
 
 Repository: `SEST-HOBBY/Seapower-mods`
-Branch: `feature/world-campaign-draft`
+Branch: `sest-dev/inspiring-wozniak-8vuckh` (register plus main at `7dbc3b95`, 10 October 2026). Earlier: `feature/world-campaign-draft`, then `sest-dev/sweet-lovelace-3kxsve`.
+
+Since 10 October: the register is done as a first pass, and `DYNAMIC_CAMPAIGN_ADAPTER.md` covers the first runtime candidate - a data pack for Bungalow's Dynamic Campaign Mod, generated from `register/packages.json` by `integration/world-sandbox/build_dynamic_campaign.py` and checked by `check_dynamic_campaign.py`. Read it before proposing another engine.
 Read `docs/world-sandbox/WORLD_POPULATION_PLAN.md` first, then the other documents here and the complete original reports at `docs/world-sandbox/research/R01.md`, `R02.md` and `R03.md`. These copies match the SHA-256 digests in `source-manifest.json`; no separate archive or sandbox access is required.
 
 ## Governing instruction

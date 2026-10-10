@@ -1,0 +1,3496 @@
+{
+  "id": "sest.world_sandbox_2028",
+  "name": "SEST World Sandbox 2028 (draft)",
+  "description": "DRAFT generated from the SEST world-population register. A persistent 2028 world built from the SEST research: real bases, their resident and deployed forces, supply ships and routine patrols, mapped to the SEST collection. Minimal story. Not tested in game.",
+  "start": "2028-10-01T00:00:00Z",
+  "bounds": {
+    "latMin": -62.0,
+    "latMax": 74.0,
+    "lonMin": -100.0,
+    "lonMax": 258.0
+  },
+  "view": {
+    "lat": 25.0,
+    "lon": 80.0,
+    "pixelsPerDegree": 6.0
+  },
+  "sides": [
+    {
+      "id": "blue",
+      "name": "United States and partners",
+      "nations": [
+        "US",
+        "Australia",
+        "Japan",
+        "France",
+        "Italy",
+        "UK",
+        "Norway"
+      ],
+      "hq": "SEST WORLD - BLUE",
+      "command": "SEST WORLD - BLUE COMMAND",
+      "color": "#4A90E2",
+      "startingPoints": 400
+    },
+    {
+      "id": "red",
+      "name": "China and Russia",
+      "nations": [
+        "China",
+        "Russia"
+      ],
+      "hq": "SEST WORLD - RED",
+      "command": "SEST WORLD - RED COMMAND",
+      "color": "#E24A4A",
+      "startingPoints": 400,
+      "comingSoon": true
+    }
+  ],
+  "bases": [
+    {
+      "id": "usp_coronado_nas_north_island",
+      "name": "Naval Air Station North Island",
+      "side": "blue",
+      "nation": "US",
+      "kind": "AirBase",
+      "lat": 32.7,
+      "lon": 242.8,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "usa_airbase",
+        "heading": 0,
+        "lat": 32.7,
+        "lon": 242.8
+      },
+      "supplyFrom": "usp_sandiego_naval_base_san_diego"
+    },
+    {
+      "id": "usp_sandiego_naval_base_san_diego",
+      "name": "Naval Base San Diego",
+      "side": "blue",
+      "nation": "US",
+      "kind": "NavalBase",
+      "lat": 32.7,
+      "lon": 242.9,
+      "income": 6,
+      "depot": true,
+      "production": 1,
+      "convoys": 10,
+      "homeland": true
+    },
+    {
+      "id": "usp_kitsap_bremerton_psns",
+      "name": "Puget Sound Naval Shipyard (Naval Base Kitsap - Bremerton)",
+      "side": "blue",
+      "nation": "US",
+      "kind": "NavalBase",
+      "lat": 47.6,
+      "lon": 237.4,
+      "income": 3,
+      "shipyard": true,
+      "homeland": true,
+      "supplyFrom": "usp_sandiego_naval_base_san_diego"
+    },
+    {
+      "id": "usa_norfolk_naval_station_norfolk",
+      "name": "Naval Station Norfolk",
+      "side": "blue",
+      "nation": "US",
+      "kind": "NavalBase",
+      "lat": 36.95,
+      "lon": -76.33,
+      "income": 6,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10,
+      "homeland": true
+    },
+    {
+      "id": "usa_norfolk_naval_station_norfolk_air",
+      "name": "Naval Station Norfolk airfield",
+      "side": "blue",
+      "nation": "US",
+      "kind": "AirBase",
+      "lat": 36.95,
+      "lon": -76.33,
+      "income": 1,
+      "port": "usa_norfolk_naval_station_norfolk",
+      "colocated": true,
+      "field": {
+        "unit": "usa_airbase",
+        "heading": 0,
+        "lat": 36.95,
+        "lon": -76.33
+      }
+    },
+    {
+      "id": "usa_jacksonville_nas_jacksonville",
+      "name": "Naval Air Station Jacksonville",
+      "side": "blue",
+      "nation": "US",
+      "kind": "AirBase",
+      "lat": 30.24,
+      "lon": -81.68,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "usa_airbase",
+        "heading": 0,
+        "lat": 30.24,
+        "lon": -81.68
+      },
+      "supplyFrom": "usa_norfolk_naval_station_norfolk"
+    },
+    {
+      "id": "wpac_yokosuka_naval_base",
+      "name": "Yokosuka Naval Base",
+      "side": "blue",
+      "nation": "US",
+      "kind": "NavalBase",
+      "lat": 35.29,
+      "lon": 139.67,
+      "income": 6,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "wpac_guam_naval_base_apra_harbor",
+      "name": "Naval Base Guam (Apra Harbor)",
+      "side": "blue",
+      "nation": "US",
+      "kind": "NavalBase",
+      "lat": 13.44,
+      "lon": 144.65,
+      "income": 6,
+      "depot": true,
+      "production": 1,
+      "convoys": 10,
+      "homeland": true
+    },
+    {
+      "id": "wpac_guam_andersen_afb",
+      "name": "Andersen Air Force Base",
+      "side": "blue",
+      "nation": "US",
+      "kind": "AirBase",
+      "lat": 13.58,
+      "lon": 144.93,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 0,
+        "lat": 13.58,
+        "lon": 144.93
+      },
+      "supplyFrom": "wpac_guam_naval_base_apra_harbor"
+    },
+    {
+      "id": "io_diego_garcia_nsf",
+      "name": "Naval Support Facility Diego Garcia",
+      "side": "blue",
+      "nation": "US",
+      "kind": "AirBase",
+      "lat": -7.3,
+      "lon": 72.4,
+      "income": 1,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 0,
+        "lat": -7.3,
+        "lon": 72.4
+      },
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "aus_stirling_hmas_stirling",
+      "name": "HMAS Stirling",
+      "side": "blue",
+      "nation": "Australia",
+      "kind": "NavalBase",
+      "lat": -32.2,
+      "lon": 115.7,
+      "income": 6,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10,
+      "homeland": true
+    },
+    {
+      "id": "aus_tindal_raaf",
+      "name": "RAAF Base Tindal",
+      "side": "blue",
+      "nation": "Australia",
+      "kind": "AirBase",
+      "lat": -14.5,
+      "lon": 132.4,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airbase_raaf_tindal",
+        "heading": 0,
+        "lat": -14.5,
+        "lon": 132.4
+      },
+      "supplyFrom": "aus_stirling_hmas_stirling"
+    },
+    {
+      "id": "me_bahrain_nsa_bahrain",
+      "name": "Naval Support Activity Bahrain",
+      "side": "blue",
+      "nation": "US",
+      "kind": "NavalBase",
+      "lat": 26.2,
+      "lon": 50.6,
+      "income": 6,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "me_bahrain_muharraq_airfield",
+      "name": "Muharraq Airfield",
+      "side": "blue",
+      "nation": "US",
+      "kind": "AirBase",
+      "lat": 26.3,
+      "lon": 50.6,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "nato_small_airbase",
+        "heading": 0,
+        "lat": 26.3,
+        "lon": 50.6
+      },
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "hoa_djibouti_camp_lemonnier",
+      "name": "Camp Lemonnier",
+      "side": "blue",
+      "nation": "US",
+      "kind": "AirBase",
+      "lat": 11.55,
+      "lon": 43.15,
+      "income": 1,
+      "field": {
+        "unit": "nato_small_airbase",
+        "heading": 0,
+        "lat": 11.55,
+        "lon": 43.15
+      },
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "hoa_djibouti_pla_support_base",
+      "name": "PLA Support Base (Djibouti)",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 11.6,
+      "lon": 43.05,
+      "income": 3,
+      "supplyFrom": "chn_hainan_yulin_naval_base"
+    },
+    {
+      "id": "hoa_djibouti_fr_ba188_heron",
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming",
+      "side": "blue",
+      "nation": "France",
+      "kind": "NavalBase",
+      "lat": 11.55,
+      "lon": 43.16,
+      "income": 3,
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "hoa_djibouti_fr_ba188_heron_air",
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming airfield",
+      "side": "blue",
+      "nation": "France",
+      "kind": "AirBase",
+      "lat": 11.55,
+      "lon": 43.16,
+      "income": 1,
+      "port": "hoa_djibouti_fr_ba188_heron",
+      "colocated": true,
+      "field": {
+        "unit": "nato_small_airbase",
+        "heading": 0,
+        "lat": 11.55,
+        "lon": 43.16
+      }
+    },
+    {
+      "id": "hoa_djibouti_jp_base",
+      "name": "Japanese defense force base, Djibouti (unnamed in R01)",
+      "side": "blue",
+      "nation": "Japan",
+      "kind": "AirBase",
+      "lat": 11.55,
+      "lon": 43.14,
+      "income": 1,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 0,
+        "lat": 11.55,
+        "lon": 43.14
+      },
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "hoa_djibouti_it_base",
+      "name": "Italian defense force base, Djibouti (unnamed in R01)",
+      "side": "blue",
+      "nation": "Italy",
+      "kind": "NavalBase",
+      "lat": 11.5,
+      "lon": 43.2,
+      "income": 3,
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "med_rota_naval_station",
+      "name": "Naval Station Rota",
+      "side": "blue",
+      "nation": "US",
+      "kind": "NavalBase",
+      "lat": 36.6,
+      "lon": -6.3,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "med_sigonella_nas_sigonella",
+      "name": "Naval Air Station Sigonella",
+      "side": "blue",
+      "nation": "Italy",
+      "kind": "AirBase",
+      "lat": 37.4,
+      "lon": 14.9,
+      "income": 1,
+      "field": {
+        "unit": "usa_airbase",
+        "heading": 0,
+        "lat": 37.4,
+        "lon": 14.9
+      },
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "med_souda_bay_nsa",
+      "name": "Naval Support Activity Souda Bay",
+      "side": "blue",
+      "nation": "US",
+      "kind": "NavalBase",
+      "lat": 35.5,
+      "lon": 24.1,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "med_souda_bay_nsa_air",
+      "name": "Naval Support Activity Souda Bay airfield",
+      "side": "blue",
+      "nation": "US",
+      "kind": "AirBase",
+      "lat": 35.5,
+      "lon": 24.1,
+      "income": 1,
+      "port": "med_souda_bay_nsa",
+      "colocated": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 0,
+        "lat": 35.5,
+        "lon": 24.1
+      }
+    },
+    {
+      "id": "med_akrotiri_raf",
+      "name": "RAF Akrotiri",
+      "side": "blue",
+      "nation": "UK",
+      "kind": "AirBase",
+      "lat": 34.6,
+      "lon": 33.0,
+      "income": 1,
+      "field": {
+        "unit": "nato_small_airbase",
+        "heading": 0,
+        "lat": 34.6,
+        "lon": 33.0
+      },
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "chn_hainan_yulin_naval_base",
+      "name": "Yulin Naval Base",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 18.2,
+      "lon": 109.6,
+      "income": 6,
+      "depot": true,
+      "production": 1,
+      "convoys": 10,
+      "homeland": true
+    },
+    {
+      "id": "chn_hainan_longpo_naval_base",
+      "name": "Longpo Naval Base",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 18.2,
+      "lon": 109.7,
+      "income": 3,
+      "homeland": true,
+      "supplyFrom": "chn_hainan_yulin_naval_base"
+    },
+    {
+      "id": "chn_hainan_lingshui_airbase",
+      "name": "Lingshui Airbase",
+      "side": "red",
+      "nation": "China",
+      "kind": "AirBase",
+      "lat": 18.5,
+      "lon": 110.0,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "china_large_airbase",
+        "heading": 0,
+        "lat": 18.5,
+        "lon": 110.0
+      },
+      "supplyFrom": "chn_hainan_yulin_naval_base"
+    },
+    {
+      "id": "chn_zhejiang_ningbo_naval_base",
+      "name": "Ningbo Naval Base",
+      "side": "red",
+      "nation": "China",
+      "kind": "NavalBase",
+      "lat": 29.9,
+      "lon": 121.7,
+      "income": 6,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10,
+      "homeland": true
+    },
+    {
+      "id": "hn_kola_olenya_airbase",
+      "name": "Olenya Airbase",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "AirBase",
+      "lat": 68.15,
+      "lon": 33.46,
+      "income": 6,
+      "depot": true,
+      "production": 1,
+      "convoys": 10,
+      "homeland": true,
+      "field": {
+        "unit": "wp_airbase_1",
+        "heading": 0,
+        "lat": 68.15,
+        "lon": 33.46
+      }
+    },
+    {
+      "id": "rus_engels2_airbase",
+      "name": "Engels-2 Airbase",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "AirBase",
+      "lat": 51.48,
+      "lon": 46.21,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "wp_airbase_modern",
+        "heading": 0,
+        "lat": 51.48,
+        "lon": 46.21
+      },
+      "supplyFrom": "hn_kola_olenya_airbase"
+    },
+    {
+      "id": "rus_ukrainka_airbase",
+      "name": "Ukrainka Airbase",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "AirBase",
+      "lat": 51.17,
+      "lon": 128.45,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "wp_airbase_modern",
+        "heading": 0,
+        "lat": 51.17,
+        "lon": 128.45
+      },
+      "supplyFrom": "hn_kola_olenya_airbase"
+    },
+    {
+      "id": "rus_belaya_airbase",
+      "name": "Belaya Airbase",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "AirBase",
+      "lat": 52.92,
+      "lon": 103.58,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "wp_airbase_modern",
+        "heading": 0,
+        "lat": 52.92,
+        "lon": 103.58
+      },
+      "supplyFrom": "hn_kola_olenya_airbase"
+    },
+    {
+      "id": "hn_evenes_air_station",
+      "name": "Evenes Air Station",
+      "side": "blue",
+      "nation": "Norway",
+      "kind": "AirBase",
+      "lat": 68.5,
+      "lon": 16.7,
+      "income": 1,
+      "field": {
+        "unit": "nato_small_airbase",
+        "heading": 0,
+        "lat": 68.5,
+        "lon": 16.7
+      },
+      "supplyFrom": "me_bahrain_nsa_bahrain"
+    },
+    {
+      "id": "jpn_kanoya_air_base",
+      "name": "Kanoya Air Base",
+      "side": "blue",
+      "nation": "Japan",
+      "kind": "AirBase",
+      "lat": 31.4,
+      "lon": 130.85,
+      "income": 1,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 0,
+        "lat": 31.4,
+        "lon": 130.85
+      },
+      "supplyFrom": "wpac_yokosuka_naval_base"
+    },
+    {
+      "id": "jpn_atsugi_naf",
+      "name": "Naval Air Facility Atsugi",
+      "side": "blue",
+      "nation": "Japan",
+      "kind": "AirBase",
+      "lat": 35.45,
+      "lon": 139.45,
+      "income": 1,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 0,
+        "lat": 35.45,
+        "lon": 139.45
+      },
+      "supplyFrom": "wpac_yokosuka_naval_base"
+    },
+    {
+      "id": "jpn_okinawa_naha",
+      "name": "Naha (JMSDF air station, Okinawa)",
+      "side": "blue",
+      "nation": "Japan",
+      "kind": "AirBase",
+      "lat": 26.2,
+      "lon": 127.65,
+      "income": 1,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 0,
+        "lat": 26.2,
+        "lon": 127.65
+      },
+      "supplyFrom": "wpac_yokosuka_naval_base"
+    },
+    {
+      "id": "satl_falklands_raf_mount_pleasant",
+      "name": "RAF Mount Pleasant",
+      "side": "blue",
+      "nation": "UK",
+      "kind": "AirBase",
+      "lat": -51.8,
+      "lon": -58.4,
+      "income": 1,
+      "field": {
+        "unit": "is_airbase_akureyri",
+        "heading": 0,
+        "lat": -51.8,
+        "lon": -58.4
+      },
+      "supplyFrom": "satl_falklands_mare_harbour"
+    },
+    {
+      "id": "satl_falklands_mare_harbour",
+      "name": "Mare Harbour",
+      "side": "blue",
+      "nation": "UK",
+      "kind": "NavalBase",
+      "lat": -51.9,
+      "lon": -58.5,
+      "income": 6,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    }
+  ],
+  "labels": [
+    {
+      "text": "North Pacific",
+      "lat": 40.0,
+      "lon": 175.0
+    },
+    {
+      "text": "Philippine Sea",
+      "lat": 20.0,
+      "lon": 130.0
+    },
+    {
+      "text": "South China Sea",
+      "lat": 13.0,
+      "lon": 113.0
+    },
+    {
+      "text": "Indian Ocean",
+      "lat": -10.0,
+      "lon": 80.0
+    },
+    {
+      "text": "Arabian Sea",
+      "lat": 15.0,
+      "lon": 64.0
+    },
+    {
+      "text": "Mediterranean Sea",
+      "lat": 35.0,
+      "lon": 18.0
+    },
+    {
+      "text": "North Atlantic",
+      "lat": 40.0,
+      "lon": -40.0
+    },
+    {
+      "text": "South Atlantic",
+      "lat": -35.0,
+      "lon": -20.0
+    },
+    {
+      "text": "Norwegian Sea",
+      "lat": 68.0,
+      "lon": 5.0
+    },
+    {
+      "text": "Tasman Sea",
+      "lat": -38.0,
+      "lon": 160.0
+    }
+  ],
+  "forces": [
+    {
+      "name": "CVN-70 Carl Vinson group",
+      "side": "blue",
+      "base": "usp_sandiego_naval_base_san_diego",
+      "type": "Surface",
+      "at": [
+        32.284,
+        242.9
+      ],
+      "units": [
+        "usn_cvn_nimitz_2025 named CVN-70 Carl Vinson",
+        "usn_ddg_burke_f2a_099_late named DDG-102 Sampson",
+        "usn_ddg_burke_f3_125 named DDG-125 Jack H. Lucas"
+      ]
+    },
+    {
+      "name": "CVN-71 Theodore Roosevelt group",
+      "side": "blue",
+      "base": "usp_sandiego_naval_base_san_diego",
+      "type": "Surface",
+      "at": [
+        18.0,
+        168.0
+      ],
+      "units": [
+        "usn_cvn_nimitz_2025 named CVN-71 Theodore Roosevelt",
+        "usn_ddg_burke_f2a_108_late named DDG-108 Wayne E. Meyer",
+        "usn_ddg_burke_f2a_108_late named DDG-109 Jason Dunham"
+      ]
+    },
+    {
+      "name": "CVN-72 Abraham Lincoln group",
+      "side": "blue",
+      "base": "usp_sandiego_naval_base_san_diego",
+      "type": "Surface",
+      "at": [
+        20.0,
+        133.0
+      ],
+      "units": [
+        "usn_cvn_nimitz_2025 named CVN-72 Abraham Lincoln",
+        "usn_ddg_burke_f2a_099_late named DDG-103 Truxtun",
+        "usn_ddg_burke_f2a_099_late named DDG-104 Sterett"
+      ]
+    },
+    {
+      "name": "Naval Base San Diego patrol",
+      "side": "blue",
+      "base": "usp_sandiego_naval_base_san_diego",
+      "type": "Surface",
+      "units": [
+        "usn_ddg_burke_f2a_099_late named DDG-99 Farragut"
+      ]
+    },
+    {
+      "name": "Naval Base San Diego harbour",
+      "side": "blue",
+      "base": "usp_sandiego_naval_base_san_diego",
+      "type": "Surface",
+      "units": [
+        "usn_ddg_burke_f2a_099_late named DDG-101 Gridley",
+        "usn_lhd_wasp",
+        "usn_tao_kaiser named T-AO 187 USNS Henry J. Kaiser",
+        "usn_take_lewis_clark named T-AKE 1 USNS Lewis and Clark"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Puget Sound Naval Shipyard (Naval Base Kitsap - Bremerton) harbour",
+      "side": "blue",
+      "base": "usp_kitsap_bremerton_psns",
+      "type": "Surface",
+      "units": [
+        "usn_cvn_nimitz_2025 named CVN-68 Nimitz",
+        "usn_cvn_nimitz named Ronald Reagan CVN-76"
+      ]
+    },
+    {
+      "name": "CVN-69 Dwight D. Eisenhower group",
+      "side": "blue",
+      "base": "usa_norfolk_naval_station_norfolk",
+      "type": "Surface",
+      "at": [
+        37.36,
+        -76.239
+      ],
+      "units": [
+        "usn_cvn_nimitz_2025 named CVN-69 Dwight D. Eisenhower",
+        "usn_ddg_burke_f1_054_late"
+      ]
+    },
+    {
+      "name": "CVN-75 Harry S. Truman group",
+      "side": "blue",
+      "base": "usa_norfolk_naval_station_norfolk",
+      "type": "Surface",
+      "at": [
+        28.0,
+        -70.0
+      ],
+      "units": [
+        "usn_cvn_nimitz_2025 named CVN-75 Harry S. Truman",
+        "usn_ddg_burke_f2a_099_late",
+        "usn_ddg_burke_f2a_099_late",
+        "usn_take_lewis_clark"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Naval Station Norfolk patrol",
+      "side": "blue",
+      "base": "usa_norfolk_naval_station_norfolk",
+      "type": "Surface",
+      "units": [
+        "usn_ddg_burke_f2a_099_late"
+      ]
+    },
+    {
+      "name": "Naval Station Norfolk harbour",
+      "side": "blue",
+      "base": "usa_norfolk_naval_station_norfolk",
+      "type": "Surface",
+      "units": [
+        "usn_ddg_burke_f1_054_late",
+        "usn_ddg_burke_f2a_099_late",
+        "usn_taoe_supply",
+        "usn_takr_algol"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "CVN-73 George Washington group",
+      "side": "blue",
+      "base": "wpac_yokosuka_naval_base",
+      "type": "Surface",
+      "at": [
+        22.0,
+        128.0
+      ],
+      "units": [
+        "usn_cvn_nimitz_2025 named CVN-73 George Washington",
+        "usn_cg_bunker_hill_vls_2024 named CG-64 Gettysburg",
+        "usn_ddg_burke_f2a_099_late",
+        "usn_ddg_burke_f2a_089_late",
+        "usn_take_lewis_clark"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Yokosuka Naval Base patrol",
+      "side": "blue",
+      "base": "wpac_yokosuka_naval_base",
+      "type": "Surface",
+      "units": [
+        "usn_ddg_burke_f2a_091_late"
+      ]
+    },
+    {
+      "name": "Yokosuka Naval Base harbour",
+      "side": "blue",
+      "base": "wpac_yokosuka_naval_base",
+      "type": "Surface",
+      "units": [
+        "usn_ddg_burke_f1_054_late",
+        "usn_tao_kaiser"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Naval Base Guam (Apra Harbor) task group",
+      "side": "blue",
+      "base": "wpac_guam_naval_base_apra_harbor",
+      "type": "Surface",
+      "at": [
+        13.856,
+        144.65
+      ],
+      "units": [
+        "usn_lcs_freedom_suw_late",
+        "usn_takr_algol"
+      ]
+    },
+    {
+      "name": "Naval Base Guam (Apra Harbor) submarine patrol",
+      "side": "blue",
+      "base": "wpac_guam_naval_base_apra_harbor",
+      "type": "Surface",
+      "units": [
+        "usn_ssn_los_angeles_flt3_2026"
+      ]
+    },
+    {
+      "name": "Naval Base Guam (Apra Harbor) harbour",
+      "side": "blue",
+      "base": "wpac_guam_naval_base_apra_harbor",
+      "type": "Surface",
+      "units": [
+        "usn_take_lewis_clark",
+        "usn_ssn_virginia_block2_2026"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "HMAS Stirling patrol",
+      "side": "blue",
+      "base": "aus_stirling_hmas_stirling",
+      "type": "Surface",
+      "units": [
+        "ran_ffh_anzac named Warramunga FFH-152",
+        "ran_opv_arafura named OPV 204 HMAS Eyre"
+      ]
+    },
+    {
+      "name": "HMAS Stirling submarine patrol",
+      "side": "blue",
+      "base": "aus_stirling_hmas_stirling",
+      "type": "Surface",
+      "units": [
+        "ran_ssg_collins named SSG 78 HMAS Rankin"
+      ]
+    },
+    {
+      "name": "HMAS Stirling harbour",
+      "side": "blue",
+      "base": "aus_stirling_hmas_stirling",
+      "type": "Surface",
+      "units": [
+        "ran_ssg_collins named SSG 75 HMAS Waller",
+        "ran_ssg_collins named SSG 74 HMAS Farncomb",
+        "ran_ssg_collins named SSG 77 HMAS Sheean",
+        "ran_ffh_anzac named Toowoomba FFH-156",
+        "ran_aor_supply named A304 HMAS Stalwart"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Naval Support Activity Bahrain task group",
+      "side": "blue",
+      "base": "me_bahrain_nsa_bahrain",
+      "type": "Surface",
+      "at": [
+        26.616,
+        50.6
+      ],
+      "units": [
+        "usn_lcs_freedom_suw_late"
+      ]
+    },
+    {
+      "name": "Naval Support Activity Bahrain patrol",
+      "side": "blue",
+      "base": "me_bahrain_nsa_bahrain",
+      "type": "Surface",
+      "units": [
+        "usn_ddg_burke_f2a_099_late"
+      ]
+    },
+    {
+      "name": "Naval Support Activity Bahrain harbour",
+      "side": "blue",
+      "base": "me_bahrain_nsa_bahrain",
+      "type": "Surface",
+      "units": [
+        "usn_take_lewis_clark"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "PLA Support Base (Djibouti) task group",
+      "side": "red",
+      "base": "hoa_djibouti_pla_support_base",
+      "type": "Surface",
+      "at": [
+        11.919,
+        43.324
+      ],
+      "units": [
+        "plan_type_052d_p3"
+      ]
+    },
+    {
+      "name": "PLA Support Base (Djibouti) patrol",
+      "side": "red",
+      "base": "hoa_djibouti_pla_support_base",
+      "type": "Surface",
+      "units": [
+        "plan_type_054a_p5"
+      ]
+    },
+    {
+      "name": "PLA Support Base (Djibouti) harbour",
+      "side": "red",
+      "base": "hoa_djibouti_pla_support_base",
+      "type": "Surface",
+      "units": [
+        "plan_aor_type903a"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming patrol",
+      "side": "blue",
+      "base": "hoa_djibouti_fr_ba188_heron",
+      "type": "Surface",
+      "units": [
+        "fr_ffg_lafayette_modernized"
+      ]
+    },
+    {
+      "name": "Italian defense force base, Djibouti (unnamed in R01) patrol",
+      "side": "blue",
+      "base": "hoa_djibouti_it_base",
+      "type": "Surface",
+      "units": [
+        "ita_ffg_ppa"
+      ]
+    },
+    {
+      "name": "Naval Station Rota task group",
+      "side": "blue",
+      "base": "med_rota_naval_station",
+      "type": "Surface",
+      "at": [
+        36.209,
+        -6.124
+      ],
+      "units": [
+        "usn_ddg_burke_f2a_084_late"
+      ]
+    },
+    {
+      "name": "Naval Station Rota patrol",
+      "side": "blue",
+      "base": "med_rota_naval_station",
+      "type": "Surface",
+      "units": [
+        "usn_ddg_burke_f2a_117"
+      ]
+    },
+    {
+      "name": "Naval Station Rota harbour",
+      "side": "blue",
+      "base": "med_rota_naval_station",
+      "type": "Surface",
+      "units": [
+        "usn_ddg_burke_f2a_080_late",
+        "usn_ddg_burke_f2a_079_late"
+      ]
+    },
+    {
+      "name": "Naval Support Activity Souda Bay harbour",
+      "side": "blue",
+      "base": "med_souda_bay_nsa",
+      "type": "Surface",
+      "units": [
+        "usn_take_lewis_clark named T-AKE 11 USNS Washington Chambers"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Yulin Naval Base task group",
+      "side": "red",
+      "base": "chn_hainan_yulin_naval_base",
+      "type": "Surface",
+      "at": [
+        18.342,
+        110.012
+      ],
+      "units": [
+        "plan_type_056a named Qinhuangdao (505)",
+        "plan_type_054a_p5 named Ziyang (522)"
+      ]
+    },
+    {
+      "name": "Yulin Naval Base patrol",
+      "side": "red",
+      "base": "chn_hainan_yulin_naval_base",
+      "type": "Surface",
+      "units": [
+        "plan_type_056a named Huangshi (502)"
+      ]
+    },
+    {
+      "name": "Yulin Naval Base submarine patrol",
+      "side": "red",
+      "base": "chn_hainan_yulin_naval_base",
+      "type": "Surface",
+      "units": [
+        "plan_ss_type_039b named Changcheng335"
+      ]
+    },
+    {
+      "name": "Yulin Naval Base harbour",
+      "side": "red",
+      "base": "chn_hainan_yulin_naval_base",
+      "type": "Surface",
+      "units": [
+        "plan_ss_type_039b named Changcheng334",
+        "plan_ss_type_039a named Changcheng330",
+        "plan_aor_type903a named 889 CNS Taihu"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "PLANS Fujian CV18 group",
+      "side": "red",
+      "base": "chn_hainan_longpo_naval_base",
+      "type": "Surface",
+      "at": [
+        16.0,
+        114.0
+      ],
+      "units": [
+        "plan_cv_type_003 named PLANS Fujian CV18",
+        "plan_type_055_2026 named Nanchang (101)",
+        "plan_type_052d_p3 named Zibo (156)"
+      ]
+    },
+    {
+      "name": "Longpo Naval Base harbour",
+      "side": "red",
+      "base": "chn_hainan_longpo_naval_base",
+      "type": "Surface",
+      "units": [
+        "plan_aor_type901 named 965 CNS Hulunhu"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Ningbo Naval Base task group",
+      "side": "red",
+      "base": "chn_zhejiang_ningbo_naval_base",
+      "type": "Surface",
+      "at": [
+        30.316,
+        121.7
+      ],
+      "units": [
+        "plan_type_054a_p3 named Daqin (576)",
+        "plan_type_054_p2 named Maanshan (525)"
+      ]
+    },
+    {
+      "name": "Ningbo Naval Base patrol",
+      "side": "red",
+      "base": "chn_zhejiang_ningbo_naval_base",
+      "type": "Surface",
+      "units": [
+        "plan_type_052d_p4 named Dazhou (135)",
+        "plan_ptg_type037IIE x2 named Yangjiang PTG-770; Shunde PTG-771"
+      ]
+    },
+    {
+      "name": "Ningbo Naval Base submarine patrol",
+      "side": "red",
+      "base": "chn_zhejiang_ningbo_naval_base",
+      "type": "Surface",
+      "units": [
+        "plan_ss_type_039b named Changcheng336"
+      ]
+    },
+    {
+      "name": "Ningbo Naval Base harbour",
+      "side": "red",
+      "base": "chn_zhejiang_ningbo_naval_base",
+      "type": "Surface",
+      "units": [
+        "plan_ddg_type956e_early named Hangzhou DDG-136",
+        "plan_type_052d_p1 named Kunming (172)",
+        "plan_ss_type_039 named PLAN Changcheng 320",
+        "plan_ss_kilo named Yuan Zheng 64 Hao (364)",
+        "plan_aor_type903a named 890 CNS Chaohu"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Mare Harbour patrol",
+      "side": "blue",
+      "base": "satl_falklands_mare_harbour",
+      "type": "Surface",
+      "units": [
+        "rn_opv_river_batch2"
+      ]
+    },
+    {
+      "name": "Mare Harbour harbour",
+      "side": "blue",
+      "base": "satl_falklands_mare_harbour",
+      "type": "Surface",
+      "units": [
+        "rn_aor_tide"
+      ],
+      "cargo": "full"
+    },
+    {
+      "name": "Naval Air Station North Island MH-60R",
+      "side": "blue",
+      "base": "usp_coronado_nas_north_island",
+      "type": "Air",
+      "units": [
+        "usn_mh-60r x6"
+      ]
+    },
+    {
+      "name": "Naval Air Station North Island HH-60H",
+      "side": "blue",
+      "base": "usp_coronado_nas_north_island",
+      "type": "Air",
+      "units": [
+        "usn_hh-60 x4"
+      ]
+    },
+    {
+      "name": "Naval Station Norfolk MH-60R",
+      "side": "blue",
+      "base": "usa_norfolk_naval_station_norfolk_air",
+      "type": "Air",
+      "units": [
+        "usn_mh-60r x4"
+      ]
+    },
+    {
+      "name": "Naval Station Norfolk E-2D",
+      "side": "blue",
+      "base": "usa_norfolk_naval_station_norfolk_air",
+      "type": "Air",
+      "units": [
+        "usn_e-2d x2"
+      ]
+    },
+    {
+      "name": "Naval Air Station Jacksonville P-8A Poseidon",
+      "side": "blue",
+      "base": "usa_jacksonville_nas_jacksonville",
+      "type": "Air",
+      "units": [
+        "usn_p_8a x4"
+      ]
+    },
+    {
+      "name": "Naval Air Station Jacksonville MH-60R",
+      "side": "blue",
+      "base": "usa_jacksonville_nas_jacksonville",
+      "type": "Air",
+      "units": [
+        "usn_mh-60r x3"
+      ]
+    },
+    {
+      "name": "Andersen Air Force Base B-52H",
+      "side": "blue",
+      "base": "wpac_guam_andersen_afb",
+      "type": "Air",
+      "units": [
+        "dts_b-52h x4"
+      ]
+    },
+    {
+      "name": "Andersen Air Force Base KC-135A",
+      "side": "blue",
+      "base": "wpac_guam_andersen_afb",
+      "type": "Air",
+      "units": [
+        "usaf_stratotanker x2"
+      ]
+    },
+    {
+      "name": "Naval Support Facility Diego Garcia B-52H",
+      "side": "blue",
+      "base": "io_diego_garcia_nsf",
+      "type": "Air",
+      "units": [
+        "dts_b-52h x2"
+      ]
+    },
+    {
+      "name": "Naval Support Facility Diego Garcia B-1B",
+      "side": "blue",
+      "base": "io_diego_garcia_nsf",
+      "type": "Air",
+      "units": [
+        "usaf_b-1b_dts x2"
+      ]
+    },
+    {
+      "name": "Naval Support Facility Diego Garcia B-2 Spirit",
+      "side": "blue",
+      "base": "io_diego_garcia_nsf",
+      "type": "Air",
+      "units": [
+        "usaf_b-2_spirit x2"
+      ]
+    },
+    {
+      "name": "RAAF Base Tindal F-35A",
+      "side": "blue",
+      "base": "aus_tindal_raaf",
+      "type": "Air",
+      "units": [
+        "raaf_f-35a x4"
+      ]
+    },
+    {
+      "name": "RAAF Base Tindal MQ-4C Triton",
+      "side": "blue",
+      "base": "aus_tindal_raaf",
+      "type": "Air",
+      "units": [
+        "raaf_mq-4c_triton"
+      ]
+    },
+    {
+      "name": "RAAF Base Tindal B-52H",
+      "side": "blue",
+      "base": "aus_tindal_raaf",
+      "type": "Air",
+      "units": [
+        "dts_b-52h x2"
+      ]
+    },
+    {
+      "name": "Muharraq Airfield P-8A Poseidon",
+      "side": "blue",
+      "base": "me_bahrain_muharraq_airfield",
+      "type": "Air",
+      "units": [
+        "usn_p_8a x2"
+      ]
+    },
+    {
+      "name": "Camp Lemonnier MQ-9",
+      "side": "blue",
+      "base": "hoa_djibouti_camp_lemonnier",
+      "type": "Air",
+      "units": [
+        "usaf_mq-9a x2"
+      ]
+    },
+    {
+      "name": "Camp Lemonnier P-8A Poseidon",
+      "side": "blue",
+      "base": "hoa_djibouti_camp_lemonnier",
+      "type": "Air",
+      "units": [
+        "usn_p_8a"
+      ]
+    },
+    {
+      "name": "Camp Lemonnier KC-130J",
+      "side": "blue",
+      "base": "hoa_djibouti_camp_lemonnier",
+      "type": "Air",
+      "units": [
+        "usmc_kc-130j"
+      ]
+    },
+    {
+      "name": "Camp Lemonnier HH-60H",
+      "side": "blue",
+      "base": "hoa_djibouti_camp_lemonnier",
+      "type": "Air",
+      "units": [
+        "usn_hh-60 x2"
+      ]
+    },
+    {
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming Mirage 2000-5F",
+      "side": "blue",
+      "base": "hoa_djibouti_fr_ba188_heron_air",
+      "type": "Air",
+      "units": [
+        "fr_m2k-5f x2"
+      ]
+    },
+    {
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming AS332M Super Puma",
+      "side": "blue",
+      "base": "hoa_djibouti_fr_ba188_heron_air",
+      "type": "Air",
+      "units": [
+        "fr_as_332M"
+      ]
+    },
+    {
+      "name": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming SA-342 Gazelle",
+      "side": "blue",
+      "base": "hoa_djibouti_fr_ba188_heron_air",
+      "type": "Air",
+      "units": [
+        "fr_sa_342_gazelle"
+      ]
+    },
+    {
+      "name": "Japanese defense force base, Djibouti (unnamed in R01) P-3C",
+      "side": "blue",
+      "base": "hoa_djibouti_jp_base",
+      "type": "Air",
+      "units": [
+        "usn_p-3c x2"
+      ]
+    },
+    {
+      "name": "Naval Air Station Sigonella P-8A Poseidon",
+      "side": "blue",
+      "base": "med_sigonella_nas_sigonella",
+      "type": "Air",
+      "units": [
+        "usn_p_8a x3"
+      ]
+    },
+    {
+      "name": "Naval Support Activity Souda Bay P-8A Poseidon",
+      "side": "blue",
+      "base": "med_souda_bay_nsa_air",
+      "type": "Air",
+      "units": [
+        "usn_p_8a"
+      ]
+    },
+    {
+      "name": "RAF Akrotiri Eurofighter Typhoon FGR.4 RAF",
+      "side": "blue",
+      "base": "med_akrotiri_raf",
+      "type": "Air",
+      "units": [
+        "raf_ef2000_fgr4_late x2"
+      ]
+    },
+    {
+      "name": "RAF Akrotiri A330 MRTT Voyager",
+      "side": "blue",
+      "base": "med_akrotiri_raf",
+      "type": "Air",
+      "units": [
+        "uk_a330_mrtt"
+      ]
+    },
+    {
+      "name": "RAF Akrotiri A400M Atlas",
+      "side": "blue",
+      "base": "med_akrotiri_raf",
+      "type": "Air",
+      "units": [
+        "uk_a400m_airdroop-para"
+      ]
+    },
+    {
+      "name": "RAF Akrotiri Merlin HM.2",
+      "side": "blue",
+      "base": "med_akrotiri_raf",
+      "type": "Air",
+      "units": [
+        "rn_merlin_hm2"
+      ]
+    },
+    {
+      "name": "Lingshui Airbase J-15",
+      "side": "red",
+      "base": "chn_hainan_lingshui_airbase",
+      "type": "Air",
+      "units": [
+        "plan_j-15 x4"
+      ]
+    },
+    {
+      "name": "Lingshui Airbase KJ-500",
+      "side": "red",
+      "base": "chn_hainan_lingshui_airbase",
+      "type": "Air",
+      "units": [
+        "plaaf_kj-500 x2"
+      ]
+    },
+    {
+      "name": "Lingshui Airbase Y-8FQ",
+      "side": "red",
+      "base": "chn_hainan_lingshui_airbase",
+      "type": "Air",
+      "units": [
+        "plan_y-8fq x2"
+      ]
+    },
+    {
+      "name": "Olenya Airbase TU-22M2",
+      "side": "red",
+      "base": "hn_kola_olenya_airbase",
+      "type": "Air",
+      "units": [
+        "wp_tu-22m2 x6"
+      ]
+    },
+    {
+      "name": "Olenya Airbase TU-95MS",
+      "side": "red",
+      "base": "hn_kola_olenya_airbase",
+      "type": "Air",
+      "units": [
+        "wp_tu95ms x2"
+      ]
+    },
+    {
+      "name": "Olenya Airbase TU-160",
+      "side": "red",
+      "base": "hn_kola_olenya_airbase",
+      "type": "Air",
+      "units": [
+        "wp_tu-160"
+      ]
+    },
+    {
+      "name": "Olenya Airbase Il-76MD",
+      "side": "red",
+      "base": "hn_kola_olenya_airbase",
+      "type": "Air",
+      "units": [
+        "wp_il-76md"
+      ]
+    },
+    {
+      "name": "Olenya Airbase Tu-142M",
+      "side": "red",
+      "base": "hn_kola_olenya_airbase",
+      "type": "Air",
+      "units": [
+        "wp_tu-142m"
+      ]
+    },
+    {
+      "name": "Olenya Airbase IL-78 TANKER",
+      "side": "red",
+      "base": "hn_kola_olenya_airbase",
+      "type": "Air",
+      "units": [
+        "wp_il-78"
+      ]
+    },
+    {
+      "name": "Engels-2 Airbase TU-160",
+      "side": "red",
+      "base": "rus_engels2_airbase",
+      "type": "Air",
+      "units": [
+        "wp_tu-160 x2"
+      ]
+    },
+    {
+      "name": "Engels-2 Airbase TU-95MS",
+      "side": "red",
+      "base": "rus_engels2_airbase",
+      "type": "Air",
+      "units": [
+        "wp_tu95ms x2"
+      ]
+    },
+    {
+      "name": "Ukrainka Airbase TU-95MS",
+      "side": "red",
+      "base": "rus_ukrainka_airbase",
+      "type": "Air",
+      "units": [
+        "wp_tu95ms x3"
+      ]
+    },
+    {
+      "name": "Belaya Airbase TU-22M2",
+      "side": "red",
+      "base": "rus_belaya_airbase",
+      "type": "Air",
+      "units": [
+        "wp_tu-22m2 x3"
+      ]
+    },
+    {
+      "name": "Evenes Air Station P-8A Poseidon",
+      "side": "blue",
+      "base": "hn_evenes_air_station",
+      "type": "Air",
+      "units": [
+        "usn_p8 x6"
+      ]
+    },
+    {
+      "name": "Evenes Air Station P-8A Poseidon 2",
+      "side": "blue",
+      "base": "hn_evenes_air_station",
+      "type": "Air",
+      "units": [
+        "usn_p_8a"
+      ]
+    },
+    {
+      "name": "Evenes Air Station RC-135V/W Rivet Joint (Modern)",
+      "side": "blue",
+      "base": "hn_evenes_air_station",
+      "type": "Air",
+      "units": [
+        "boeing-rc135"
+      ]
+    },
+    {
+      "name": "Kanoya Air Base P-3C",
+      "side": "blue",
+      "base": "jpn_kanoya_air_base",
+      "type": "Air",
+      "units": [
+        "usn_p-3c x3"
+      ]
+    },
+    {
+      "name": "Naval Air Facility Atsugi P-3C",
+      "side": "blue",
+      "base": "jpn_atsugi_naf",
+      "type": "Air",
+      "units": [
+        "usn_p-3c x4"
+      ]
+    },
+    {
+      "name": "Naha (JMSDF air station, Okinawa) P-3C",
+      "side": "blue",
+      "base": "jpn_okinawa_naha",
+      "type": "Air",
+      "units": [
+        "usn_p-3c x4"
+      ]
+    },
+    {
+      "name": "RAF Mount Pleasant Eurofighter Typhoon FGR.4 RAF",
+      "side": "blue",
+      "base": "satl_falklands_raf_mount_pleasant",
+      "type": "Air",
+      "units": [
+        "raf_ef2000_fgr4_late x4"
+      ]
+    }
+  ],
+  "fogOfWar": true,
+  "enemyAirlifts": false,
+  "ai": {
+    "startTier": 5,
+    "daysPerTier": 30
+  },
+  "invasions": [],
+  "story": {
+    "opening": {
+      "blue": {
+        "situation": [
+          "October 2028. This is a sandbox, not a story: the bases, fleets and air groups on the map are the ones the SEST research places around the world, as they would normally be - in harbour, on patrol, working up or deployed.",
+          "What happens next is decided by the campaign engine and by you. Ships use what they carry until a supply ship or a depot refills them."
+        ]
+      }
+    }
+  },
+  "patrols": [
+    {
+      "force": "Naval Base San Diego patrol",
+      "points": [
+        [
+          32.811,
+          242.343
+        ],
+        [
+          32.226,
+          243.032
+        ],
+        [
+          31.645,
+          242.343
+        ],
+        [
+          32.226,
+          241.654
+        ]
+      ]
+    },
+    {
+      "force": "Naval Station Norfolk patrol",
+      "points": [
+        [
+          37.492,
+          -74.482
+        ],
+        [
+          36.697,
+          -74.754
+        ],
+        [
+          36.909,
+          -75.749
+        ],
+        [
+          37.706,
+          -75.486
+        ]
+      ]
+    },
+    {
+      "force": "Yokosuka Naval Base patrol",
+      "points": [
+        [
+          35.369,
+          140.724
+        ],
+        [
+          34.784,
+          141.434
+        ],
+        [
+          34.203,
+          140.724
+        ],
+        [
+          34.784,
+          140.014
+        ]
+      ]
+    },
+    {
+      "force": "Naval Base Guam (Apra Harbor) submarine patrol",
+      "points": [
+        [
+          14.023,
+          144.65
+        ],
+        [
+          13.439,
+          145.249
+        ],
+        [
+          12.857,
+          144.65
+        ],
+        [
+          13.439,
+          144.051
+        ]
+      ]
+    },
+    {
+      "force": "HMAS Stirling patrol",
+      "points": [
+        [
+          -32.026,
+          115.36
+        ],
+        [
+          -32.821,
+          115.617
+        ],
+        [
+          -33.035,
+          114.668
+        ],
+        [
+          -32.238,
+          114.419
+        ]
+      ]
+    },
+    {
+      "force": "HMAS Stirling submarine patrol",
+      "points": [
+        [
+          -32.026,
+          115.36
+        ],
+        [
+          -32.821,
+          115.617
+        ],
+        [
+          -33.035,
+          114.668
+        ],
+        [
+          -32.238,
+          114.419
+        ]
+      ]
+    },
+    {
+      "force": "Naval Support Activity Bahrain patrol",
+      "points": [
+        [
+          27.429,
+          50.77
+        ],
+        [
+          26.714,
+          51.23
+        ],
+        [
+          26.303,
+          50.432
+        ],
+        [
+          27.015,
+          49.968
+        ]
+      ]
+    },
+    {
+      "force": "PLA Support Base (Djibouti) patrol",
+      "points": [
+        [
+          12.603,
+          44.234
+        ],
+        [
+          11.806,
+          44.451
+        ],
+        [
+          11.593,
+          43.637
+        ],
+        [
+          12.389,
+          43.418
+        ]
+      ]
+    },
+    {
+      "force": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming patrol",
+      "points": [
+        [
+          12.305,
+          43.817
+        ],
+        [
+          11.721,
+          44.412
+        ],
+        [
+          11.139,
+          43.817
+        ],
+        [
+          11.721,
+          43.222
+        ]
+      ]
+    },
+    {
+      "force": "Italian defense force base, Djibouti (unnamed in R01) patrol",
+      "points": [
+        [
+          12.124,
+          44.305
+        ],
+        [
+          11.328,
+          44.086
+        ],
+        [
+          11.541,
+          43.274
+        ],
+        [
+          12.338,
+          43.491
+        ]
+      ]
+    },
+    {
+      "force": "Naval Station Rota patrol",
+      "points": [
+        [
+          36.539,
+          -6.513
+        ],
+        [
+          35.954,
+          -5.793
+        ],
+        [
+          35.373,
+          -6.513
+        ],
+        [
+          35.954,
+          -7.233
+        ]
+      ]
+    },
+    {
+      "force": "Yulin Naval Base patrol",
+      "points": [
+        [
+          18.449,
+          110.206
+        ],
+        [
+          17.865,
+          110.818
+        ],
+        [
+          17.283,
+          110.206
+        ],
+        [
+          17.865,
+          109.594
+        ]
+      ]
+    },
+    {
+      "force": "Yulin Naval Base submarine patrol",
+      "points": [
+        [
+          18.449,
+          110.206
+        ],
+        [
+          17.865,
+          110.818
+        ],
+        [
+          17.283,
+          110.206
+        ],
+        [
+          17.865,
+          109.594
+        ]
+      ]
+    },
+    {
+      "force": "Ningbo Naval Base patrol",
+      "points": [
+        [
+          29.98,
+          122.693
+        ],
+        [
+          29.395,
+          123.362
+        ],
+        [
+          28.814,
+          122.693
+        ],
+        [
+          29.395,
+          122.024
+        ]
+      ]
+    },
+    {
+      "force": "Ningbo Naval Base submarine patrol",
+      "points": [
+        [
+          29.98,
+          122.693
+        ],
+        [
+          29.395,
+          123.362
+        ],
+        [
+          28.814,
+          122.693
+        ],
+        [
+          29.395,
+          122.024
+        ]
+      ]
+    },
+    {
+      "force": "Mare Harbour patrol",
+      "points": [
+        [
+          -51.505,
+          -57.211
+        ],
+        [
+          -52.215,
+          -56.534
+        ],
+        [
+          -52.631,
+          -57.702
+        ],
+        [
+          -51.914,
+          -58.366
+        ]
+      ]
+    }
+  ],
+  "ranks": {
+    "blue": [
+      {
+        "name": "Captain",
+        "renown": 0
+      },
+      {
+        "name": "Commodore",
+        "renown": 1500
+      },
+      {
+        "name": "Rear Admiral",
+        "renown": 4000
+      },
+      {
+        "name": "Vice Admiral",
+        "renown": 8000
+      },
+      {
+        "name": "Admiral",
+        "renown": 14000
+      }
+    ],
+    "red": [
+      {
+        "name": "Captain",
+        "renown": 0
+      },
+      {
+        "name": "Rear Admiral",
+        "renown": 3000
+      },
+      {
+        "name": "Vice Admiral",
+        "renown": 7000
+      },
+      {
+        "name": "Admiral",
+        "renown": 12000
+      }
+    ]
+  },
+  "yards": {
+    "US": "usp_kitsap_bremerton_psns, usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base",
+    "Australia": "aus_stirling_hmas_stirling",
+    "China": "chn_zhejiang_ningbo_naval_base"
+  },
+  "airWings": {},
+  "replenishment": {
+    "usn_tao_kaiser": {
+      "fuelT": 24000,
+      "ammoT": 0
+    },
+    "usn_take_lewis_clark": {
+      "fuelT": 2400,
+      "ammoT": 5000
+    },
+    "usn_taoe_supply": {
+      "fuelT": 21000,
+      "ammoT": 1800
+    },
+    "ran_aor_supply": {
+      "fuelT": 8000,
+      "ammoT": 300
+    },
+    "plan_aor_type903a": {
+      "fuelT": 10500,
+      "ammoT": 250
+    },
+    "plan_aor_type901": {
+      "fuelT": 25000,
+      "ammoT": 1500
+    },
+    "rn_aor_tide": {
+      "fuelT": 16000,
+      "ammoT": 0
+    }
+  },
+  "tankers": {
+    "usaf_stratotanker": {
+      "fuelT": 70
+    },
+    "uk_a330_mrtt": {
+      "fuelT": 100
+    },
+    "wp_il-78": {
+      "fuelT": 60
+    },
+    "usmc_kc-130j": {
+      "fuelT": 25
+    }
+  },
+  "territories": {
+    "blue": [],
+    "red": []
+  },
+  "values": {
+    "boeing-rc135": 118,
+    "dts_b-52h": 172,
+    "fr_as_332M": 39,
+    "fr_ffg_lafayette_modernized": 130,
+    "fr_m2k-5f": 46,
+    "fr_sa_342_gazelle": 39,
+    "ita_ffg_ppa": 182,
+    "plaaf_kj-500": 242,
+    "plan_aor_type901": 247,
+    "plan_aor_type903a": 146,
+    "plan_cv_type_003": 1064,
+    "plan_ddg_type956e_early": 214,
+    "plan_j-15": 46,
+    "plan_ptg_type037IIE": 22,
+    "plan_ss_kilo": 112,
+    "plan_ss_type_039": 91,
+    "plan_ss_type_039a": 125,
+    "plan_ss_type_039b": 125,
+    "plan_type_052d_p1": 206,
+    "plan_type_052d_p3": 206,
+    "plan_type_052d_p4": 206,
+    "plan_type_054_p2": 132,
+    "plan_type_054a_p3": 139,
+    "plan_type_054a_p5": 139,
+    "plan_type_055_2026": 266,
+    "plan_type_056a": 95,
+    "plan_y-8fq": 89,
+    "raaf_f-35a": 46,
+    "raaf_mq-4c_triton": 89,
+    "raf_ef2000_fgr4_late": 46,
+    "ran_aor_supply": 70,
+    "ran_ffh_anzac": 125,
+    "ran_opv_arafura": 103,
+    "ran_ssg_collins": 110,
+    "rfn_ffg_22350_1-4": 165,
+    "rn_aor_tide": 247,
+    "rn_merlin_hm2": 39,
+    "rn_opv_river_batch2": 84,
+    "uk_a330_mrtt": 242,
+    "uk_a400m_airdroop-para": 242,
+    "usaf_b-1b_dts": 172,
+    "usaf_b-2_spirit": 172,
+    "usaf_mq-9a": 242,
+    "usaf_stratotanker": 2,
+    "usmc_kc-130j": 2,
+    "usn_cg_bunker_hill_vls_2024": 243,
+    "usn_cvn_nimitz": 1187,
+    "usn_cvn_nimitz_2025": 1187,
+    "usn_ddg_burke_f1_054_late": 233,
+    "usn_ddg_burke_f2a_079_late": 241,
+    "usn_ddg_burke_f2a_080_late": 241,
+    "usn_ddg_burke_f2a_084_late": 241,
+    "usn_ddg_burke_f2a_089_late": 241,
+    "usn_ddg_burke_f2a_091_late": 241,
+    "usn_ddg_burke_f2a_099_late": 241,
+    "usn_ddg_burke_f2a_108_late": 241,
+    "usn_ddg_burke_f2a_117": 241,
+    "usn_ddg_burke_f3_125": 245,
+    "usn_e-2d": 242,
+    "usn_hh-60": 39,
+    "usn_lcs_freedom_suw_late": 123,
+    "usn_lhd_wasp": 644,
+    "usn_mh-60r": 39,
+    "usn_p-3c": 89,
+    "usn_p8": 89,
+    "usn_p_8a": 89,
+    "usn_ssn_los_angeles_flt3_2026": 195,
+    "usn_ssn_virginia_block2_2026": 213,
+    "usn_take_lewis_clark": 130,
+    "usn_takr_algol": 253,
+    "usn_tao_kaiser": 70,
+    "usn_taoe_supply": 247,
+    "wp_il-76md": 2,
+    "wp_il-78": 2,
+    "wp_tu-142m": 89,
+    "wp_tu-160": 172,
+    "wp_tu-22m2": 172,
+    "wp_tu95ms": 89
+  },
+  "catalogue": [
+    {
+      "unit": "boeing-rc135",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "dts_b-52h",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_as_332M",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_ffg_lafayette_modernized",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_m2k-5f",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_sa_342_gazelle",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ita_ffg_ppa",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "plaaf_kj-500",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_aor_type901",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_aor_type903a",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_cv_type_003",
+      "side": "red",
+      "nation": "China",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "plan_ddg_type956e_early",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_j-15",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_ptg_type037IIE",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ss_kilo",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ss_type_039",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ss_type_039a",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ss_type_039b",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052d_p1",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052d_p3",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052d_p4",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054_p2",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054a_p3",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054a_p5",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_055_2026",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_type_056a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_y-8fq",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_f-35a",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_mq-4c_triton",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raf_ef2000_fgr4_late",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_aor_supply",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_ffh_anzac",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_opv_arafura",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_ssg_collins",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "rfn_ffg_22350_1-4",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "rn_aor_tide",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_merlin_hm2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_opv_river_batch2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "uk_a330_mrtt",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "uk_a400m_airdroop-para",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_b-1b_dts",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_b-2_spirit",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_mq-9a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_stratotanker",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_kc-130j",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_cg_bunker_hill_vls_2024",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cvn_nimitz",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_nimitz_2025",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_ddg_burke_f1_054_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_079_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_080_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_084_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_089_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_091_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_099_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_108_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_117",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f3_125",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_e-2d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_hh-60",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_lcs_freedom_suw_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_lhd_wasp",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_mh-60r",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p-3c",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p8",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p_8a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ssn_los_angeles_flt3_2026",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block2_2026",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_take_lewis_clark",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_takr_algol",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_tao_kaiser",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_taoe_supply",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "wp_il-76md",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_il-78",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu-142m",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu-160",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu-22m2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu95ms",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    }
+  ],
+  "ground": {
+    "units": [],
+    "garrisons": {
+      "Australia": [
+        "usa_spa_m109a2"
+      ],
+      "France": [
+        "fr_apc_vab_top"
+      ],
+      "Italy": [
+        "it_spaa_sidam_25"
+      ],
+      "Japan": [
+        "jsdf_mbt_type74"
+      ],
+      "Norway": [
+        "usa_spa_m109a2"
+      ],
+      "UK": [
+        "uk_ifv_fv510"
+      ],
+      "US": [
+        "usa_spa_m109a2"
+      ],
+      "China": [
+        "pla_spa_plz-83"
+      ],
+      "Russia": [
+        "wp_mbt_t-72a"
+      ]
+    },
+    "airDefence": {
+      "Australia": [
+        "usa_sam_site_pac-3_small"
+      ],
+      "France": [
+        "fr_sam_site_samp-t_small"
+      ],
+      "Italy": [
+        "usa_sam_site_pac-3_small"
+      ],
+      "Japan": [
+        "jsdf_sam_type81"
+      ],
+      "Norway": [
+        "usa_SLAMRAAM_launcher",
+        "usa_SLAMRAAM_radar"
+      ],
+      "UK": [
+        "raf_rapier_launcher"
+      ],
+      "US": [
+        "usa_sam_site_pac-3_small"
+      ],
+      "China": [
+        "pla_sam_site_hq-9"
+      ],
+      "Russia": [
+        "wp_sam_site_sa-21"
+      ]
+    },
+    "troops": {
+      "Australia": [
+        "usa_mbt_abrams",
+        "usa_ifv_bradley",
+        "usa_aaa_vulcan"
+      ],
+      "France": [
+        "fr_mbt_leclerc",
+        "fr_ifv_vbci"
+      ],
+      "Italy": [
+        "usa_mbt_abrams",
+        "usa_ifv_bradley",
+        "usa_aaa_vulcan"
+      ],
+      "Japan": [
+        "jsdf_mbt_type74",
+        "jsdf_apc_type73"
+      ],
+      "Norway": [
+        "usa_mbt_abrams",
+        "usa_ifv_bradley",
+        "usa_aaa_vulcan"
+      ],
+      "UK": [
+        "uk_mbt_fv4030_4",
+        "uk_ifv_fv510"
+      ],
+      "US": [
+        "usa_mbt_abrams",
+        "usa_ifv_bradley",
+        "usa_aaa_vulcan"
+      ],
+      "China": [
+        "pla_mbt_ztz-99a",
+        "pla_ifv_zbd-04a",
+        "pla_spaa_pgz-09"
+      ],
+      "Russia": [
+        "wp_mbt_t-72a",
+        "ru_spaa_mt-lb_sosna"
+      ]
+    },
+    "garrisonSize": {
+      "NavalBase": {
+        "airDefence": 2,
+        "troops": 2
+      },
+      "Port": {
+        "airDefence": 1,
+        "troops": 1
+      },
+      "AirBase": {
+        "airDefence": 2,
+        "troops": 1
+      }
+    },
+    "garrisonStrength": {
+      "NavalBase": 0,
+      "Port": 0,
+      "AirBase": 0
+    },
+    "lift": {
+      "usn_lhd_wasp": 3,
+      "plan_lpd_type_071": 2
+    }
+  },
+  "convoys": {
+    "merchants": {
+      "Australia": [
+        "civ_ms_freighter_a",
+        "civ_ms_bulk"
+      ],
+      "France": [
+        "civ_ms_sealift_pacific",
+        "civ_ms_c8",
+        "civ_ms_roro_a"
+      ],
+      "Italy": [
+        "civ_ms_sealift_pacific",
+        "civ_ms_c8",
+        "civ_ms_roro_a"
+      ],
+      "Japan": [
+        "civ_ms_car_carrier_a",
+        "civ_ms_ritina"
+      ],
+      "Norway": [
+        "civ_ms_sealift_pacific",
+        "civ_ms_c8",
+        "civ_ms_roro_a"
+      ],
+      "UK": [
+        "civ_ms_sealift_pacific",
+        "civ_ms_c8",
+        "civ_ms_roro_a"
+      ],
+      "US": [
+        "civ_ms_sealift_pacific",
+        "civ_ms_c8",
+        "civ_ms_roro_a"
+      ],
+      "China": [
+        "civ_ms_bulk",
+        "civ_ms_freighter_a"
+      ],
+      "Russia": [
+        "civ_ms_amra",
+        "civ_ms_freighter_a"
+      ]
+    },
+    "escorts": {
+      "Australia": "ran_ffh_anzac",
+      "France": "fr_ffg_lafayette_modernized",
+      "Italy": "ita_ffg_ppa",
+      "Japan": "usn_lcs_freedom_suw_late",
+      "Norway": "usn_lcs_freedom_suw_late",
+      "UK": "rn_opv_river_batch2",
+      "US": "usn_lcs_freedom_suw_late",
+      "China": "plan_type_054a_p5",
+      "Russia": "rfn_ffg_22350_1-4"
+    },
+    "airlifts": {
+      "Australia": "usmc_kc-130j",
+      "France": "usmc_kc-130j",
+      "Italy": "usmc_kc-130j",
+      "Japan": "usmc_kc-130j",
+      "Norway": "usmc_kc-130j",
+      "UK": "uk_a400m_airdroop-para",
+      "US": "usmc_kc-130j",
+      "China": "plaaf_y-20a",
+      "Russia": "wp_il-76md"
+    }
+  },
+  "spyShips": {
+    "units": [
+      "wp_agi_okean"
+    ],
+    "side": "red",
+    "nation": "Russia",
+    "chance": 0.15,
+    "laneNm": 60,
+    "minNm": 10,
+    "maxNm": 25
+  },
+  "traffic": {
+    "lanes": [
+      {
+        "name": "Malacca and Singapore Straits",
+        "weight": 4,
+        "points": [
+          [
+            6.2,
+            94.8
+          ],
+          [
+            5.5,
+            97.5
+          ],
+          [
+            3.6,
+            100.0
+          ],
+          [
+            2.3,
+            101.6
+          ],
+          [
+            1.25,
+            103.3
+          ],
+          [
+            1.142,
+            103.745
+          ],
+          [
+            1.254,
+            103.962
+          ],
+          [
+            1.2,
+            104.2
+          ]
+        ]
+      },
+      {
+        "name": "South China Sea",
+        "weight": 4,
+        "points": [
+          [
+            1.4,
+            104.6
+          ],
+          [
+            2.228,
+            105.302
+          ],
+          [
+            2.648,
+            105.657
+          ],
+          [
+            2.869,
+            105.84
+          ],
+          [
+            3.154,
+            105.869
+          ],
+          [
+            5.0,
+            107.0
+          ],
+          [
+            10.0,
+            111.5
+          ],
+          [
+            16.0,
+            115.5
+          ],
+          [
+            21.0,
+            117.5
+          ]
+        ]
+      },
+      {
+        "name": "Taiwan Strait to the East China Sea",
+        "weight": 3,
+        "points": [
+          [
+            21.8,
+            118.2
+          ],
+          [
+            23.6,
+            119.0
+          ],
+          [
+            25.5,
+            120.6
+          ],
+          [
+            28.0,
+            122.6
+          ],
+          [
+            31.0,
+            123.4
+          ]
+        ]
+      },
+      {
+        "name": "East China Sea to Tokyo Bay",
+        "weight": 3,
+        "points": [
+          [
+            31.0,
+            123.6
+          ],
+          [
+            30.5,
+            128.0
+          ],
+          [
+            30.627,
+            129.275
+          ],
+          [
+            30.918,
+            130.519
+          ],
+          [
+            31.5,
+            133.0
+          ],
+          [
+            33.6,
+            137.5
+          ],
+          [
+            34.177,
+            138.7
+          ],
+          [
+            34.9,
+            139.8
+          ]
+        ]
+      },
+      {
+        "name": "Trans-Pacific",
+        "weight": 2,
+        "points": [
+          [
+            34.6,
+            140.3
+          ],
+          [
+            30.0,
+            160.0
+          ],
+          [
+            24.0,
+            190.0
+          ],
+          [
+            21.0,
+            202.2
+          ],
+          [
+            21.63,
+            203.57
+          ],
+          [
+            21.609,
+            205.088
+          ],
+          [
+            22.379,
+            207.934
+          ],
+          [
+            23.919,
+            213.623
+          ],
+          [
+            27.0,
+            225.0
+          ],
+          [
+            32.6,
+            242.6
+          ]
+        ]
+      },
+      {
+        "name": "Gulf of Aden and the Red Sea",
+        "weight": 4,
+        "points": [
+          [
+            12.0,
+            52.0
+          ],
+          [
+            12.3,
+            46.0
+          ],
+          [
+            12.55,
+            43.45
+          ],
+          [
+            13.57,
+            42.897
+          ],
+          [
+            14.085,
+            42.617
+          ],
+          [
+            14.5,
+            42.2
+          ],
+          [
+            20.0,
+            38.6
+          ],
+          [
+            24.0,
+            36.0
+          ],
+          [
+            27.0,
+            34.2
+          ],
+          [
+            27.9,
+            33.7
+          ],
+          [
+            28.5,
+            33.1
+          ],
+          [
+            29.7,
+            32.6
+          ]
+        ]
+      },
+      {
+        "name": "Strait of Hormuz to Bahrain",
+        "weight": 3,
+        "points": [
+          [
+            23.5,
+            59.5
+          ],
+          [
+            25.6,
+            57.4
+          ],
+          [
+            26.5,
+            56.4
+          ],
+          [
+            26.381,
+            55.431
+          ],
+          [
+            26.1,
+            54.5
+          ],
+          [
+            26.4,
+            51.5
+          ],
+          [
+            26.3,
+            50.75
+          ]
+        ]
+      },
+      {
+        "name": "Mediterranean",
+        "weight": 3,
+        "points": [
+          [
+            31.4,
+            32.3
+          ],
+          [
+            33.3,
+            28.5
+          ],
+          [
+            34.226,
+            26.59
+          ],
+          [
+            34.691,
+            25.632
+          ],
+          [
+            34.925,
+            25.145
+          ],
+          [
+            34.88,
+            24.859
+          ],
+          [
+            35.0,
+            24.6
+          ],
+          [
+            35.145,
+            24.01
+          ],
+          [
+            35.006,
+            23.548
+          ],
+          [
+            35.444,
+            23.495
+          ],
+          [
+            35.73,
+            22.328
+          ],
+          [
+            36.3,
+            20.0
+          ],
+          [
+            37.0,
+            15.5
+          ],
+          [
+            36.725,
+            15.321
+          ],
+          [
+            36.577,
+            15.006
+          ],
+          [
+            36.811,
+            14.375
+          ],
+          [
+            37.283,
+            13.36
+          ],
+          [
+            37.4,
+            11.2
+          ],
+          [
+            37.5,
+            6.0
+          ],
+          [
+            36.4,
+            -1.0
+          ],
+          [
+            35.95,
+            -5.4
+          ],
+          [
+            36.3,
+            -7.5
+          ]
+        ]
+      },
+      {
+        "name": "North Atlantic",
+        "weight": 2,
+        "points": [
+          [
+            36.3,
+            -7.8
+          ],
+          [
+            38.0,
+            -20.0
+          ],
+          [
+            38.624,
+            -24.983
+          ],
+          [
+            39.083,
+            -29.989
+          ],
+          [
+            40.0,
+            -40.0
+          ],
+          [
+            38.5,
+            -60.0
+          ],
+          [
+            36.9,
+            -75.8
+          ]
+        ]
+      },
+      {
+        "name": "Indian Ocean",
+        "weight": 2,
+        "points": [
+          [
+            5.8,
+            95.0
+          ],
+          [
+            2.0,
+            85.0
+          ],
+          [
+            -7.0,
+            72.6
+          ],
+          [
+            5.0,
+            66.0
+          ],
+          [
+            12.0,
+            55.0
+          ]
+        ]
+      },
+      {
+        "name": "Cape Leeuwin to the Sunda Strait",
+        "weight": 1,
+        "points": [
+          [
+            -32.3,
+            115.4
+          ],
+          [
+            -25.0,
+            108.0
+          ],
+          [
+            -15.0,
+            104.0
+          ],
+          [
+            -6.9,
+            104.8
+          ]
+        ]
+      }
+    ],
+    "merchants": [
+      "civ_ms_amra",
+      "civ_ms_bulk",
+      "civ_ms_c8",
+      "civ_ms_car_carrier_a",
+      "civ_ms_freighter_a",
+      "civ_ms_ritina",
+      "civ_ms_roro_a",
+      "civ_ms_seabee",
+      "civ_ms_sealift_pacific"
+    ],
+    "fishing": {
+      "China": [
+        "civ_fv_sampan",
+        "civ_fv_fishingboat_c",
+        "civ_fv_sterntrawler_a"
+      ],
+      "Russia": [
+        "civ_fv_okean",
+        "civ_fv_sterntrawler_b"
+      ],
+      "Japan": [
+        "civ_fv_fishingboat_a",
+        "civ_fv_sterntrawler_b"
+      ],
+      "default": [
+        "civ_fv_fishingboat_a",
+        "civ_fv_dhow",
+        "civ_fv_sterntrawler_a"
+      ]
+    },
+    "marineLife": [
+      "bio_humpback_whale",
+      "bio_fin_whale",
+      "bio_blue_whale"
+    ],
+    "airliners": [
+      "civ_a320/Squadron3",
+      "civ_a320/Squadron4",
+      "civ_a320/Squadron6",
+      "civ_a330/Squadron1",
+      "civ_a330/Squadron2",
+      "civ_a330/Squadron3",
+      "civ_a330/Squadron5",
+      "civ_a380/Squadron2",
+      "civ_dc-10/Squadron2"
+    ],
+    "airways": [
+      {
+        "name": "Gulf to Singapore",
+        "weight": 2,
+        "suspended": false,
+        "points": [
+          [
+            26.27,
+            50.63
+          ],
+          [
+            6.9,
+            79.9
+          ],
+          [
+            1.35,
+            103.99
+          ]
+        ],
+        "airliners": [
+          "civ_a330/Squadron1",
+          "civ_a380/Squadron2",
+          "civ_a320/Squadron3"
+        ]
+      },
+      {
+        "name": "Mediterranean corridor",
+        "weight": 2,
+        "suspended": false,
+        "points": [
+          [
+            36.65,
+            -6.35
+          ],
+          [
+            37.47,
+            15.07
+          ],
+          [
+            35.53,
+            24.15
+          ],
+          [
+            34.59,
+            32.99
+          ]
+        ],
+        "airliners": [
+          "civ_a320/Squadron4",
+          "civ_a330/Squadron5"
+        ]
+      },
+      {
+        "name": "Tokyo to Guam",
+        "weight": 1,
+        "suspended": false,
+        "points": [
+          [
+            35.55,
+            139.78
+          ],
+          [
+            26.2,
+            127.65
+          ],
+          [
+            13.48,
+            144.8
+          ]
+        ],
+        "airliners": [
+          "civ_a320/Squadron6",
+          "civ_a330/Squadron2"
+        ]
+      },
+      {
+        "name": "Honolulu to San Diego",
+        "weight": 1,
+        "suspended": false,
+        "points": [
+          [
+            21.32,
+            202.08
+          ],
+          [
+            32.73,
+            242.81
+          ]
+        ],
+        "airliners": [
+          "civ_a330/Squadron3",
+          "civ_dc-10/Squadron2"
+        ]
+      }
+    ]
+  }
+}

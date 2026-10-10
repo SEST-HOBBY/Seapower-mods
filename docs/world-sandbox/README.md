@@ -1,10 +1,10 @@
 # SEST World Sandbox - research-led population outline
 
-Status: DESIGN OUTLINE. No populated game world, new mission or tested runtime system is delivered by these documents.
+Status: DESIGN OUTLINE plus a DRAFT RUNTIME BUILD. The population register is complete as a first pass. A candidate data pack for the Dynamic Campaign engine is generated and statically checked (`DYNAMIC_CAMPAIGN_ADAPTER.md`); it has not been loaded or played.
 
-Branch: `feature/world-campaign-draft`
+Branch: `sest-dev/inspiring-wozniak-8vuckh` (the register from `sest-dev/sweet-lovelace-3kxsve`, with main merged at `7dbc3b95` on 10 October 2026).
 Original baseline: `feature/northern-front-iii-export` at `20b3cf89f858df948a6e985f4c76190a708ea17d`.
-Date: 7 October 2026, Australia/Brisbane.
+Date: 7 October 2026, Australia/Brisbane; draft runtime 10 October 2026.
 
 ## Correct priority
 
@@ -20,6 +20,8 @@ The earlier gameplay-first draft overcorrected. Its proposed three-mission convo
 2. `research-seed.md`, `source-manifest.json` and `research/R01.md` through `research/R03.md` - provenance, uncertainty and the complete original reports.
 3. `CLAUDE_BROWSER_START.md` - practical build handoff.
 4. `gameplay-and-tests.md` - supporting gameplay and validation requirements, not a replacement for the population plan.
+5. `WORLD_POPULATION_REGISTER.md` and `register/` - the population register, first complete pass.
+6. `engine-review/` and `DYNAMIC_CAMPAIGN_ADAPTER.md` - the static review of Bungalow's Dynamic Campaign Mod, the engine capability matrix, and the draft data pack generated from the register.
 
 The original three research reports are committed under `research/`. They are byte-identical to the original attachments and companion handoff archive; `research/README.md` contains the integrity check. Read the originals as well as the outline. No sandbox link or further upload is required.
 

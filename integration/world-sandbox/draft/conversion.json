@@ -1,0 +1,5346 @@
+{
+ "register": "docs/world-sandbox/register/packages.json",
+ "rows": [
+  {
+   "node": "usp_coronado_naval_base_coronado",
+   "asset_id": "asset:usp:coronado_nsw_context",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usp_coronado_nas_north_island",
+   "asset_id": "asset:usp:ni_airfield",
+   "allocation": "resident_at_base",
+   "units": [
+    "usa_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "usp_coronado_nas_north_island"
+  },
+  {
+   "node": "usp_coronado_nas_north_island",
+   "asset_id": "asset:usp:ni_hsm_det",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_mh-60r",
+   "resolved": "as registered",
+   "base": "usp_coronado_nas_north_island"
+  },
+  {
+   "node": "usp_coronado_nas_north_island",
+   "asset_id": "asset:usp:ni_hsc_det",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_hh-60",
+    "usn_sh-60f"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_hh-60",
+   "resolved": "as registered",
+   "base": "usp_coronado_nas_north_island"
+  },
+  {
+   "node": "usp_coronado_nab_coronado",
+   "asset_id": "asset:usp:nab_marker",
+   "allocation": "resident_at_base",
+   "units": [
+    "FOB"
+   ],
+   "outcome": "skipped",
+   "why": "scenario quantity 0 / optional / abstract"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:sd_pier_scenery",
+   "allocation": "resident_at_base",
+   "units": [
+    "warehouses_1",
+    "tgt_fueltanks_large"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "warehouses_1"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:sd_ddg_1_flt",
+   "allocation": "patrol (embarked)",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:sd_ddg_2_flt",
+   "allocation": "reserve (embarked)",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:sd_lhd_1_ace",
+   "allocation": "resident_at_base",
+   "units": [
+    "usmc_f-35b",
+    "usmc_mv-22b",
+    "usmc_ah-1w_late",
+    "usmc_uh-1y"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:sd_relief_cargo_1",
+   "allocation": "reserve",
+   "units": [
+    "civ_ms_seabee"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_ms_seabee"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:cvw_vinson",
+   "allocation": "training_test",
+   "units": [
+    "usn_fa_18e_rsa",
+    "usn_fa_18f_rsa",
+    "usn_f-35c",
+    "usn_ea-18g_2020",
+    "usn_e-2d",
+    "usn_mh-60r",
+    "usn_hh-60"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:vinson_ddg_1_flt",
+   "allocation": "escort (embarked)",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:vinson_ddg_2_flt",
+   "allocation": "escort (embarked)",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:cvw_roosevelt",
+   "allocation": "transit",
+   "units": [
+    "usn_fa_18e_rsa",
+    "usn_fa_18f_rsa",
+    "usn_f-35c",
+    "usn_ea-18g_2020",
+    "usn_e-2d",
+    "usn_mh-60r",
+    "usn_hh-60"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:tr_ddg_1_flt",
+   "allocation": "escort (embarked on tr_ddg_1; hand-off)",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:tr_ddg_2_flt",
+   "allocation": "escort (embarked on tr_ddg_2; hand-off)",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:cvw_lincoln",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_fa_18e_rsa",
+    "usn_fa_18f_rsa",
+    "usn_f-35c",
+    "usn_ea-18g_2020",
+    "usn_e-2d",
+    "usn_mh-60r",
+    "usn_hh-60"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:abe_ddg_1_flt",
+   "allocation": "escort (embarked on abe_ddg_1; hand-off)",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:abe_ddg_2_flt",
+   "allocation": "escort (embarked on abe_ddg_2; hand-off)",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:cvn70_carl_vinson",
+   "allocation": "training_test",
+   "units": [
+    "usn_cvn_nimitz_2025"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-70 Carl Vinson group",
+   "unit": "usn_cvn_nimitz_2025",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:vinson_ddg_1",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-70 Carl Vinson group",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:vinson_ddg_2",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f3_125"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-70 Carl Vinson group",
+   "unit": "usn_ddg_burke_f3_125",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:cvn71_theodore_roosevelt",
+   "allocation": "transit",
+   "units": [
+    "usn_cvn_nimitz_2025"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-71 Theodore Roosevelt group",
+   "unit": "usn_cvn_nimitz_2025",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:tr_ddg_1",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f2a_108_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-71 Theodore Roosevelt group",
+   "unit": "usn_ddg_burke_f2a_108_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:tr_ddg_2",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f2a_108_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-71 Theodore Roosevelt group",
+   "unit": "usn_ddg_burke_f2a_108_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:cvn72_abraham_lincoln",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_cvn_nimitz_2025"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-72 Abraham Lincoln group",
+   "unit": "usn_cvn_nimitz_2025",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:abe_ddg_1",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-72 Abraham Lincoln group",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:abe_ddg_2",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-72 Abraham Lincoln group",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:sd_ddg_1",
+   "allocation": "patrol",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Naval Base San Diego patrol",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:sd_ddg_2",
+   "allocation": "reserve",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Base San Diego harbour",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:sd_lhd_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_lhd_wasp"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Base San Diego harbour",
+   "unit": "usn_lhd_wasp",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:sd_tao_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_tao_kaiser"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Base San Diego harbour",
+   "unit": "usn_tao_kaiser",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "asset_id": "asset:usp:vinson_take_1",
+   "allocation": "support",
+   "units": [
+    "usn_take_lewis_clark"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Base San Diego harbour",
+   "unit": "usn_take_lewis_clark",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_kitsap_naval_base_kitsap",
+   "asset_id": "asset:usp:kitsap_ssbn_context",
+   "allocation": "abstract",
+   "units": [
+    "usn_ssbn_ohio"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usp_kitsap_bremerton_psns",
+   "asset_id": "asset:usp:psns_yard_scenery",
+   "allocation": "resident_at_base",
+   "units": [
+    "US_Los_Alamos",
+    "warehouses_2"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "US_Los_Alamos"
+  },
+  {
+   "node": "usp_kitsap_bremerton_psns",
+   "asset_id": "asset:usp:cvn68_nimitz",
+   "allocation": "reserve",
+   "units": [
+    "usn_cvn_nimitz_2025"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Puget Sound Naval Shipyard (Naval Base Kitsap - Bremerton) harbour",
+   "unit": "usn_cvn_nimitz_2025",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_kitsap_bremerton_psns",
+   "asset_id": "asset:usp:cvn76_ronald_reagan",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_cvn_nimitz"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Puget Sound Naval Shipyard (Naval Base Kitsap - Bremerton) harbour",
+   "unit": "usn_cvn_nimitz",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usp_dla_san_joaquin",
+   "asset_id": "asset:usp:dla_san_joaquin_abstract",
+   "allocation": "abstract",
+   "units": [
+    "warehouses_1",
+    "warehouses_3",
+    "tgt_fueltanks_large"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:cvn69_cq_det",
+   "allocation": "training_test",
+   "units": [
+    "usn_fa_18f_rsa",
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:cvn75_airwing",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_fa_18e_rsa",
+    "usn_fa_18f_rsa",
+    "usn_ea-18g_2020",
+    "usn_e-2d",
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:port_norfolk_scenery",
+   "allocation": "abstract",
+   "units": [
+    "port_eastcoast_norfolk"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "port_eastcoast_norfolk"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:usff_hq",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "register outcome none"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:nas_norfolk_field",
+   "allocation": "resident_at_base",
+   "units": [
+    "usa_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "usa_norfolk_naval_station_norfolk_air"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:cvn69_eisenhower",
+   "allocation": "training_test",
+   "units": [
+    "usn_cvn_nimitz_2025"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-69 Dwight D. Eisenhower group",
+   "unit": "usn_cvn_nimitz_2025",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:ddg_vacapes_planeguard",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f1_054_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-69 Dwight D. Eisenhower group",
+   "unit": "usn_ddg_burke_f1_054_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:cvn75_truman",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_cvn_nimitz_2025"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-75 Harry S. Truman group",
+   "unit": "usn_cvn_nimitz_2025",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:ddg_truman_esc_1",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-75 Harry S. Truman group",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:ddg_truman_esc_2",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-75 Harry S. Truman group",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:take_truman",
+   "allocation": "support",
+   "units": [
+    "usn_take_lewis_clark"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-75 Harry S. Truman group",
+   "unit": "usn_take_lewis_clark",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:ddg_vacapes_patrol",
+   "allocation": "patrol",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Naval Station Norfolk patrol",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:ddg_norfolk_ready",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_ddg_burke_f1_054_late"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Station Norfolk harbour",
+   "unit": "usn_ddg_burke_f1_054_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:ddg_norfolk_reserve",
+   "allocation": "reserve",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Station Norfolk harbour",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:taoe_norfolk",
+   "allocation": "support",
+   "units": [
+    "usn_taoe_supply"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Station Norfolk harbour",
+   "unit": "usn_taoe_supply",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:takr_norfolk_relief",
+   "allocation": "reserve",
+   "units": [
+    "usn_takr_algol"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Station Norfolk harbour",
+   "unit": "usn_takr_algol",
+   "resolved": "as registered"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:nas_norfolk_helo",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_mh-60r",
+   "resolved": "as registered",
+   "base": "usa_norfolk_naval_station_norfolk_air"
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "asset_id": "asset:usatl:nas_norfolk_aew",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_e-2d"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_e-2d",
+   "resolved": "as registered",
+   "base": "usa_norfolk_naval_station_norfolk_air"
+  },
+  {
+   "node": "usa_jacksonville_nas_jacksonville",
+   "asset_id": "gap:usatl:c130t_jax",
+   "allocation": "abstract",
+   "units": [
+    "usmc_kc-130t",
+    "usmc_kc-130j"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "usa_jacksonville_nas_jacksonville",
+   "asset_id": "gap:usatl:mq4c_jax",
+   "allocation": "abstract",
+   "units": [
+    "raaf_mq-4c_triton"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "usa_jacksonville_nas_jacksonville",
+   "asset_id": "asset:usatl:nas_jax_field",
+   "allocation": "resident_at_base",
+   "units": [
+    "usa_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "usa_jacksonville_nas_jacksonville"
+  },
+  {
+   "node": "usa_jacksonville_nas_jacksonville",
+   "asset_id": "asset:usatl:p8a_jax_patrol",
+   "allocation": "patrol",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "usa_jacksonville_nas_jacksonville"
+  },
+  {
+   "node": "usa_jacksonville_nas_jacksonville",
+   "asset_id": "asset:usatl:p8a_jax_base",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "usa_jacksonville_nas_jacksonville"
+  },
+  {
+   "node": "usa_jacksonville_nas_jacksonville",
+   "asset_id": "asset:usatl:p8a_jax_reserve",
+   "allocation": "reserve",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "usa_jacksonville_nas_jacksonville"
+  },
+  {
+   "node": "usa_jacksonville_nas_jacksonville",
+   "asset_id": "asset:usatl:mh60r_jax",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_mh-60r",
+   "resolved": "as registered",
+   "base": "usa_jacksonville_nas_jacksonville"
+  },
+  {
+   "node": "usa_patuxent_nas_patuxent_river",
+   "asset_id": "asset:usatl:pax_field_marker",
+   "allocation": "abstract",
+   "units": [
+    "usa_airbase",
+    "nato_small_airbase"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_patuxent_nas_patuxent_river",
+   "asset_id": "gap:usatl:pax_test_aircraft",
+   "allocation": "abstract",
+   "units": [
+    "usn_f-35c",
+    "usn_fa_18e_rsa",
+    "usn_p_8a"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_whiting_nas_whiting_field",
+   "asset_id": "asset:usatl:whiting_pipeline",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_whiting_nas_whiting_field",
+   "asset_id": "gap:usatl:whiting_trainers",
+   "allocation": "abstract",
+   "units": [
+    "civ_v35",
+    "fr_as-350",
+    "nato_very_small_airbase"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_newport_news_shipbuilding",
+   "asset_id": "asset:usatl:cvn74_stennis",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_cvn_nimitz_2025"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usg_dla_distribution_network",
+   "asset_id": "asset:usatl:dla_network",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_dla_susquehanna",
+   "asset_id": "asset:usatl:dla_susquehanna",
+   "allocation": "abstract",
+   "units": [
+    "warehouses_1",
+    "warehouses_3",
+    "tgt_fueltanks_large"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_richmond_defense_supply_center",
+   "asset_id": "asset:usatl:dsc_richmond",
+   "allocation": "abstract",
+   "units": [
+    "warehouses_3"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_army_depot_anniston",
+   "asset_id": "asset:usatl:anniston_depot",
+   "allocation": "abstract",
+   "units": [
+    "tgt_industry_buildings_1",
+    "warehouses_3",
+    "Ammo_Bunker"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_army_depot_red_river",
+   "asset_id": "asset:usatl:red_river_depot",
+   "allocation": "abstract",
+   "units": [
+    "tgt_industry_buildings_1",
+    "warehouses_3",
+    "Ammo_Bunker"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "usa_army_depot_tobyhanna",
+   "asset_id": "asset:usatl:tobyhanna_depot",
+   "allocation": "abstract",
+   "units": [
+    "civ_comm_buildings"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:gw_airwing_core",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_fa_18e_rsa",
+    "usn_fa_18f_rsa",
+    "usn_ea-18g_2020",
+    "usn_e-2d",
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:gw_airwing_hsc",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_hh-60"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:yoko_scenery",
+   "allocation": "support",
+   "units": [
+    "warehouses_2",
+    "tgt_fueltanks_medium"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "warehouses_2"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:c7f_hq",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "register outcome none"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:cvn73_george_washington",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_cvn_nimitz_2025"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-73 George Washington group",
+   "unit": "usn_cvn_nimitz_2025",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:gw_csg_cg1",
+   "allocation": "escort",
+   "units": [
+    "usn_cg_bunker_hill_vls_2024"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-73 George Washington group",
+   "unit": "usn_cg_bunker_hill_vls_2024",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:gw_csg_ddg1",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f2a_099_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-73 George Washington group",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:gw_csg_ddg2",
+   "allocation": "escort",
+   "units": [
+    "usn_ddg_burke_f2a_089_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-73 George Washington group",
+   "unit": "usn_ddg_burke_f2a_089_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:gw_csg_take",
+   "allocation": "support",
+   "units": [
+    "usn_take_lewis_clark"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "CVN-73 George Washington group",
+   "unit": "usn_take_lewis_clark",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:yoko_ddg_patrol",
+   "allocation": "patrol",
+   "units": [
+    "usn_ddg_burke_f2a_091_late"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Yokosuka Naval Base patrol",
+   "unit": "usn_ddg_burke_f2a_091_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:yoko_ddg_maint",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_ddg_burke_f1_054_late"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Yokosuka Naval Base harbour",
+   "unit": "usn_ddg_burke_f1_054_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "asset_id": "asset:wpac:yoko_tao",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_tao_kaiser"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Yokosuka Naval Base harbour",
+   "unit": "usn_tao_kaiser",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_yokosuka_dla_distribution",
+   "asset_id": "asset:wpac:dla_yokosuka",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "asset_id": "asset:wpac:guam_taot_arrival",
+   "allocation": "transit",
+   "units": [
+    "civ_ms_sealift_pacific"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_ms_sealift_pacific"
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "asset_id": "asset:wpac:apra_scenery",
+   "allocation": "support",
+   "units": [
+    "warehouses_2",
+    "tgt_fueltanks_medium"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "warehouses_2"
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "asset_id": "asset:wpac:guam_marine_exped",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "register outcome none"
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "asset_id": "asset:wpac:guam_lcs1",
+   "allocation": "escort",
+   "units": [
+    "usn_lcs_freedom_suw_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "Naval Base Guam (Apra Harbor) task group",
+   "unit": "usn_lcs_freedom_suw_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "asset_id": "asset:wpac:sealift_algol1",
+   "allocation": "transit",
+   "units": [
+    "usn_takr_algol"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "Naval Base Guam (Apra Harbor) task group",
+   "unit": "usn_takr_algol",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "asset_id": "asset:wpac:guam_ssn2",
+   "allocation": "patrol",
+   "units": [
+    "usn_ssn_los_angeles_flt3_2026"
+   ],
+   "outcome": "converted",
+   "why": "submarine patrol force",
+   "force": "Naval Base Guam (Apra Harbor) submarine patrol",
+   "unit": "usn_ssn_los_angeles_flt3_2026",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "asset_id": "asset:wpac:guam_take",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_take_lewis_clark"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Base Guam (Apra Harbor) harbour",
+   "unit": "usn_take_lewis_clark",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "asset_id": "asset:wpac:guam_ssn1",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_ssn_virginia_block2_2026"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Base Guam (Apra Harbor) harbour",
+   "unit": "usn_ssn_virginia_block2_2026",
+   "resolved": "as registered"
+  },
+  {
+   "node": "wpac_guam_andersen_afb",
+   "asset_id": "asset:wpac:andersen_airfield",
+   "allocation": "support",
+   "units": [
+    "airfield_small_1",
+    "airfield_us_large",
+    "airbase_us"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "wpac_guam_andersen_afb"
+  },
+  {
+   "node": "wpac_guam_andersen_afb",
+   "asset_id": "asset:wpac:andersen_b52",
+   "allocation": "resident_at_base",
+   "units": [
+    "dts_b-52h"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "dts_b-52h",
+   "resolved": "as registered",
+   "base": "wpac_guam_andersen_afb"
+  },
+  {
+   "node": "wpac_guam_andersen_afb",
+   "asset_id": "asset:wpac:andersen_kc135",
+   "allocation": "support",
+   "units": [
+    "usaf_stratotanker"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usaf_stratotanker",
+   "resolved": "as registered",
+   "base": "wpac_guam_andersen_afb"
+  },
+  {
+   "node": "wpac_guam_dla_distribution",
+   "asset_id": "asset:wpac:dla_guam",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "cpac_pearl_harbor_dla_distribution",
+   "asset_id": "asset:cpac:dla_pearl",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "asset_id": "asset:ausio:dg_fuel_store",
+   "allocation": "resident_at_base",
+   "units": [
+    "tgt_fueltanks_large"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "tgt_fueltanks_large"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "asset_id": "asset:ausio:dg_ammo_store",
+   "allocation": "resident_at_base",
+   "units": [
+    "warehouses_1"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "warehouses_1"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "asset_id": "asset:ausio:dg_mps_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "civ_ms_c8"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_ms_c8"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "asset_id": "asset:ausio:dg_mps_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "civ_ms_roro_a"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_ms_roro_a"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "asset_id": "asset:ausio:dg_resupply_tanker",
+   "allocation": "transit",
+   "units": [
+    "civ_ms_sealift_pacific"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_ms_sealift_pacific"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "asset_id": "asset:ausio:dg_airfield",
+   "allocation": "resident_at_base",
+   "units": [
+    "airfield_small_1"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "io_diego_garcia_nsf"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "asset_id": "asset:ausio:dg_b52_det",
+   "allocation": "resident_at_base",
+   "units": [
+    "dts_b-52h"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "dts_b-52h",
+   "resolved": "as registered",
+   "base": "io_diego_garcia_nsf"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "asset_id": "asset:ausio:dg_b1b_det",
+   "allocation": "resident_at_base",
+   "units": [
+    "usaf_b-1b_dts"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usaf_b-1b_dts",
+   "resolved": "as registered",
+   "base": "io_diego_garcia_nsf"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "asset_id": "asset:ausio:dg_b2_det",
+   "allocation": "reserve",
+   "units": [
+    "usaf_b-2_spirit"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usaf_b-2_spirit",
+   "resolved": "as registered",
+   "base": "io_diego_garcia_nsf"
+  },
+  {
+   "node": "glob_us_afloat_prepositioning_fleet",
+   "asset_id": "abstract:ausio:apf_capability",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "glob_us_afloat_prepositioning_fleet",
+   "asset_id": "asset:ausio:apf_loiter_1",
+   "allocation": "underway_deployed",
+   "units": [
+    "civ_ms_seabee"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "glob_us_afloat_prepositioning_fleet",
+   "asset_id": "asset:ausio:apf_reserve_1",
+   "allocation": "reserve",
+   "units": [
+    "civ_ms_c8"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:stirling_port",
+   "allocation": "resident_at_base",
+   "units": [
+    "ran_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:ffh_warramunga_helo",
+   "allocation": "patrol",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:ffh_toowoomba_helo",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:ffh_warramunga",
+   "allocation": "patrol",
+   "units": [
+    "ran_ffh_anzac"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "HMAS Stirling patrol",
+   "unit": "ran_ffh_anzac",
+   "resolved": "as registered"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:opv_eyre",
+   "allocation": "patrol",
+   "units": [
+    "ran_opv_arafura"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "HMAS Stirling patrol",
+   "unit": "ran_opv_arafura",
+   "resolved": "as registered"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:ssg_rankin",
+   "allocation": "patrol",
+   "units": [
+    "ran_ssg_collins"
+   ],
+   "outcome": "converted",
+   "why": "submarine patrol force",
+   "force": "HMAS Stirling submarine patrol",
+   "unit": "ran_ssg_collins",
+   "resolved": "as registered"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:ssg_waller",
+   "allocation": "resident_at_base",
+   "units": [
+    "ran_ssg_collins"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "HMAS Stirling harbour",
+   "unit": "ran_ssg_collins",
+   "resolved": "as registered"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:ssg_farncomb",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "ran_ssg_collins"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "HMAS Stirling harbour",
+   "unit": "ran_ssg_collins",
+   "resolved": "as registered"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:ssg_sheean",
+   "allocation": "reserve",
+   "units": [
+    "ran_ssg_collins"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "HMAS Stirling harbour",
+   "unit": "ran_ssg_collins",
+   "resolved": "as registered"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:ffh_toowoomba",
+   "allocation": "resident_at_base",
+   "units": [
+    "ran_ffh_anzac"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "HMAS Stirling harbour",
+   "unit": "ran_ffh_anzac",
+   "resolved": "as registered"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "asset_id": "asset:ausio:aor_stalwart",
+   "allocation": "support",
+   "units": [
+    "ran_aor_supply"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "HMAS Stirling harbour",
+   "unit": "ran_aor_supply",
+   "resolved": "as registered"
+  },
+  {
+   "node": "aus_tindal_raaf",
+   "asset_id": "asset:ausio:tindal_base",
+   "allocation": "resident_at_base",
+   "units": [
+    "airbase_raaf_tindal"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "aus_tindal_raaf"
+  },
+  {
+   "node": "aus_tindal_raaf",
+   "asset_id": "asset:ausio:tindal_f35a",
+   "allocation": "resident_at_base",
+   "units": [
+    "raaf_f-35a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "raaf_f-35a",
+   "resolved": "as registered",
+   "base": "aus_tindal_raaf"
+  },
+  {
+   "node": "aus_tindal_raaf",
+   "asset_id": "asset:ausio:tindal_mq4c",
+   "allocation": "patrol",
+   "units": [
+    "raaf_mq-4c_triton"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "raaf_mq-4c_triton",
+   "resolved": "as registered",
+   "base": "aus_tindal_raaf"
+  },
+  {
+   "node": "aus_tindal_raaf",
+   "asset_id": "asset:ausio:tindal_bomber_det",
+   "allocation": "reserve",
+   "units": [
+    "dts_b-52h"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "dts_b-52h",
+   "resolved": "as registered",
+   "base": "aus_tindal_raaf"
+  },
+  {
+   "node": "me_bahrain_nsa_bahrain",
+   "asset_id": "asset:me:inst_nsa_hq",
+   "allocation": "resident_at_base",
+   "units": [
+    "FOB"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "FOB"
+  },
+  {
+   "node": "me_bahrain_nsa_bahrain",
+   "asset_id": "asset:me:inst_nsa_pier",
+   "allocation": "resident_at_base",
+   "units": [
+    "ran_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "ran_pt_boats_docks"
+  },
+  {
+   "node": "me_bahrain_nsa_bahrain",
+   "asset_id": "asset:me:lcs_1",
+   "allocation": "escort",
+   "units": [
+    "usn_lcs_freedom_suw_late",
+    "usn_mh-60r"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "Naval Support Activity Bahrain task group",
+   "unit": "usn_lcs_freedom_suw_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "me_bahrain_nsa_bahrain",
+   "asset_id": "asset:me:ddg_1",
+   "allocation": "patrol",
+   "units": [
+    "usn_ddg_burke_f2a_099_late",
+    "usn_mh-60r"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Naval Support Activity Bahrain patrol",
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "me_bahrain_nsa_bahrain",
+   "asset_id": "asset:me:take_1",
+   "allocation": "support",
+   "units": [
+    "usn_take_lewis_clark"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Support Activity Bahrain harbour",
+   "unit": "usn_take_lewis_clark",
+   "resolved": "as registered"
+  },
+  {
+   "node": "me_bahrain_muharraq_airfield",
+   "asset_id": "asset:me:civair_obbi_1",
+   "allocation": "transit",
+   "units": [
+    "civ_a320"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_a320"
+  },
+  {
+   "node": "me_bahrain_muharraq_airfield",
+   "asset_id": "asset:me:civair_obbi_2",
+   "allocation": "transit",
+   "units": [
+    "civ_a330"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_a330"
+  },
+  {
+   "node": "me_bahrain_muharraq_airfield",
+   "asset_id": "asset:me:civair_obbi_3",
+   "allocation": "transit",
+   "units": [
+    "civ_a380"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_a380"
+  },
+  {
+   "node": "me_bahrain_muharraq_airfield",
+   "asset_id": "asset:me:civair_obbi_4",
+   "allocation": "transit",
+   "units": [
+    "civ_a320"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_a320"
+  },
+  {
+   "node": "me_bahrain_muharraq_airfield",
+   "asset_id": "asset:me:inst_muharraq",
+   "allocation": "resident_at_base",
+   "units": [
+    "nato_small_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "me_bahrain_muharraq_airfield"
+  },
+  {
+   "node": "me_bahrain_muharraq_airfield",
+   "asset_id": "asset:me:p8a_1",
+   "allocation": "patrol",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "me_bahrain_muharraq_airfield"
+  },
+  {
+   "node": "me_bahrain_muharraq_airfield",
+   "asset_id": "asset:me:p8a_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "me_bahrain_muharraq_airfield"
+  },
+  {
+   "node": "me_uae_jebel_ali_port",
+   "asset_id": "asset:me:inst_jebel_ali",
+   "allocation": "resident_at_base",
+   "units": [
+    "ran_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "me_uae_jebel_ali_port",
+   "asset_id": "asset:me:tao_1",
+   "allocation": "transit",
+   "units": [
+    "usn_tao_kaiser"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "me_uae_jebel_ali_port",
+   "asset_id": "asset:me:civ_vlcc_1",
+   "allocation": "transit",
+   "units": [
+    "civ_ms_ritina"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "me_uae_jebel_ali_port",
+   "asset_id": "asset:me:civ_vlcc_2",
+   "allocation": "transit",
+   "units": [
+    "civ_ms_ritina"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "me_uae_jebel_ali_port",
+   "asset_id": "asset:me:civ_carcarrier_1",
+   "allocation": "transit",
+   "units": [
+    "civ_ms_car_carrier_a"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "me_uae_jebel_ali_port",
+   "asset_id": "asset:me:civ_dhows_gulf",
+   "allocation": "transit",
+   "units": [
+    "civ_fv_dhow"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "me_bahrain_dla_distribution",
+   "asset_id": "asset:me:dla_bahrain_stock",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "hoa_djibouti_camp_lemonnier",
+   "asset_id": "asset:hoa:inst_lemonnier",
+   "allocation": "resident_at_base",
+   "units": [
+    "nato_small_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "hoa_djibouti_camp_lemonnier"
+  },
+  {
+   "node": "hoa_djibouti_camp_lemonnier",
+   "asset_id": "asset:hoa:mq9_1",
+   "allocation": "patrol",
+   "units": [
+    "usaf_mq-9a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usaf_mq-9a",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_camp_lemonnier"
+  },
+  {
+   "node": "hoa_djibouti_camp_lemonnier",
+   "asset_id": "asset:hoa:mq9_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "usaf_mq-9a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usaf_mq-9a",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_camp_lemonnier"
+  },
+  {
+   "node": "hoa_djibouti_camp_lemonnier",
+   "asset_id": "asset:hoa:p8a_1",
+   "allocation": "patrol",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_camp_lemonnier"
+  },
+  {
+   "node": "hoa_djibouti_camp_lemonnier",
+   "asset_id": "asset:hoa:kc130j_1",
+   "allocation": "support",
+   "units": [
+    "usmc_kc-130j"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usmc_kc-130j",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_camp_lemonnier"
+  },
+  {
+   "node": "hoa_djibouti_camp_lemonnier",
+   "asset_id": "asset:hoa:hh60_1",
+   "allocation": "reserve",
+   "units": [
+    "usn_hh-60"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_hh-60",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_camp_lemonnier"
+  },
+  {
+   "node": "hoa_djibouti_camp_lemonnier",
+   "asset_id": "asset:hoa:hh60_2",
+   "allocation": "reserve",
+   "units": [
+    "usn_hh-60"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_hh-60",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_camp_lemonnier"
+  },
+  {
+   "node": "hoa_djibouti_pla_support_base",
+   "asset_id": "asset:hoa:inst_pla_hq",
+   "allocation": "resident_at_base",
+   "units": [
+    "FOB"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "FOB"
+  },
+  {
+   "node": "hoa_djibouti_pla_support_base",
+   "asset_id": "asset:hoa:inst_pla_stores",
+   "allocation": "resident_at_base",
+   "units": [
+    "warehouses_1",
+    "tgt_fueltanks_medium"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "warehouses_1"
+  },
+  {
+   "node": "hoa_djibouti_pla_support_base",
+   "asset_id": "asset:hoa:inst_pla_pier",
+   "allocation": "resident_at_base",
+   "units": [
+    "ran_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "ran_pt_boats_docks"
+  },
+  {
+   "node": "hoa_djibouti_pla_support_base",
+   "asset_id": "asset:hoa:plan_ddg_1",
+   "allocation": "escort",
+   "units": [
+    "plan_type_052d_p3",
+    "plan_z-20f"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "PLA Support Base (Djibouti) task group",
+   "unit": "plan_type_052d_p3",
+   "resolved": "as registered"
+  },
+  {
+   "node": "hoa_djibouti_pla_support_base",
+   "asset_id": "asset:hoa:plan_ffg_1",
+   "allocation": "patrol",
+   "units": [
+    "plan_type_054a_p5",
+    "plan_z-9f"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "PLA Support Base (Djibouti) patrol",
+   "unit": "plan_type_054a_p5",
+   "resolved": "as registered"
+  },
+  {
+   "node": "hoa_djibouti_pla_support_base",
+   "asset_id": "asset:hoa:plan_aor_1",
+   "allocation": "support",
+   "units": [
+    "plan_aor_type903a"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "PLA Support Base (Djibouti) harbour",
+   "unit": "plan_aor_type903a",
+   "resolved": "as registered"
+  },
+  {
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "asset_id": "asset:hoa:inst_heron",
+   "allocation": "resident_at_base",
+   "units": [
+    "ran_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "ran_pt_boats_docks"
+  },
+  {
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "asset_id": "asset:hoa:inst_ba188",
+   "allocation": "resident_at_base",
+   "units": [
+    "nato_small_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "hoa_djibouti_fr_ba188_heron_air"
+  },
+  {
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "asset_id": "asset:hoa:fr_ffg_1",
+   "allocation": "patrol",
+   "units": [
+    "fr_ffg_lafayette_modernized",
+    "fr_as-565_sa"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming patrol",
+   "unit": "fr_ffg_lafayette_modernized",
+   "resolved": "as registered"
+  },
+  {
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "asset_id": "asset:hoa:fr_m2k_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "fr_m2k-5f"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "fr_m2k-5f",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_fr_ba188_heron_air"
+  },
+  {
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "asset_id": "asset:hoa:fr_m2k_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "fr_m2k-5f"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "fr_m2k-5f",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_fr_ba188_heron_air"
+  },
+  {
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "asset_id": "asset:hoa:fr_puma_1",
+   "allocation": "support",
+   "units": [
+    "fr_as_332M"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "fr_as_332M",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_fr_ba188_heron_air"
+  },
+  {
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "asset_id": "asset:hoa:fr_gazelle_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "fr_sa_342_gazelle"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "fr_sa_342_gazelle",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_fr_ba188_heron_air"
+  },
+  {
+   "node": "hoa_djibouti_jp_base",
+   "asset_id": "asset:hoa:inst_jp",
+   "allocation": "resident_at_base",
+   "units": [
+    "airfield_small_1"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "hoa_djibouti_jp_base"
+  },
+  {
+   "node": "hoa_djibouti_jp_base",
+   "asset_id": "asset:hoa:jp_p3c_1",
+   "allocation": "patrol",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_jp_base"
+  },
+  {
+   "node": "hoa_djibouti_jp_base",
+   "asset_id": "asset:hoa:jp_p3c_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "hoa_djibouti_jp_base"
+  },
+  {
+   "node": "hoa_djibouti_it_base",
+   "asset_id": "asset:hoa:inst_it",
+   "allocation": "resident_at_base",
+   "units": [
+    "warehouses_3"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "warehouses_3"
+  },
+  {
+   "node": "hoa_djibouti_it_base",
+   "asset_id": "asset:hoa:it_ppa_1",
+   "allocation": "patrol",
+   "units": [
+    "ita_ffg_ppa",
+    "ita_sh-101a"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Italian defense force base, Djibouti (unnamed in R01) patrol",
+   "unit": "ita_ffg_ppa",
+   "resolved": "as registered"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "asset:med:rota_ddg84_helos",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "asset:med:rota_ddg117_helos",
+   "allocation": "patrol",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "asset:med:rota_ddg80_helos",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "asset:med:rota_ddg79_helos",
+   "allocation": "reserve",
+   "units": [
+    "usn_mh-60r"
+   ],
+   "outcome": "skipped",
+   "why": "embarked flight or carrier wing: the engine flies a hull's own air group; ship flights are not separate forces"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "option:med:rota_pier",
+   "allocation": "abstract",
+   "units": [
+    "nv_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "scenario quantity 0 / optional / abstract"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "option:med:rota_berth_marker",
+   "allocation": "abstract",
+   "units": [
+    "ran_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "scenario quantity 0 / optional / abstract"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "asset:med:rota_ddg84",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_ddg_burke_f2a_084_late"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "Naval Station Rota task group",
+   "unit": "usn_ddg_burke_f2a_084_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "asset:med:rota_ddg117",
+   "allocation": "patrol",
+   "units": [
+    "usn_ddg_burke_f2a_117"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Naval Station Rota patrol",
+   "unit": "usn_ddg_burke_f2a_117",
+   "resolved": "as registered"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "asset:med:rota_ddg80",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_ddg_burke_f2a_080_late"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Station Rota harbour",
+   "unit": "usn_ddg_burke_f2a_080_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "med_rota_naval_station",
+   "asset_id": "asset:med:rota_ddg79",
+   "allocation": "reserve",
+   "units": [
+    "usn_ddg_burke_f2a_079_late"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Station Rota harbour",
+   "unit": "usn_ddg_burke_f2a_079_late",
+   "resolved": "as registered"
+  },
+  {
+   "node": "med_naples_nsa_naples",
+   "asset_id": "abstract:med:naples_c2",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "med_sigonella_nas_sigonella",
+   "asset_id": "option:med:sig_isr_uav",
+   "allocation": "abstract",
+   "units": [
+    "raaf_mq-4c_triton"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "med_sigonella_nas_sigonella",
+   "asset_id": "asset:med:sig_nas",
+   "allocation": "support",
+   "units": [
+    "usa_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "med_sigonella_nas_sigonella"
+  },
+  {
+   "node": "med_sigonella_nas_sigonella",
+   "asset_id": "asset:med:sig_p8_1",
+   "allocation": "patrol",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "med_sigonella_nas_sigonella"
+  },
+  {
+   "node": "med_sigonella_nas_sigonella",
+   "asset_id": "asset:med:sig_p8_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "med_sigonella_nas_sigonella"
+  },
+  {
+   "node": "med_sigonella_nas_sigonella",
+   "asset_id": "asset:med:sig_p8_3",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "med_sigonella_nas_sigonella"
+  },
+  {
+   "node": "med_souda_bay_nsa",
+   "asset_id": "option:med:souda_pier",
+   "allocation": "abstract",
+   "units": [
+    "nv_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "scenario quantity 0 / optional / abstract"
+  },
+  {
+   "node": "med_souda_bay_nsa",
+   "asset_id": "asset:med:souda_airfield",
+   "allocation": "support",
+   "units": [
+    "airfield_small_1"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "med_souda_bay_nsa_air"
+  },
+  {
+   "node": "med_souda_bay_nsa",
+   "asset_id": "asset:med:take_1",
+   "allocation": "support",
+   "units": [
+    "usn_take_lewis_clark"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Naval Support Activity Souda Bay harbour",
+   "unit": "usn_take_lewis_clark",
+   "resolved": "as registered"
+  },
+  {
+   "node": "med_souda_bay_nsa",
+   "asset_id": "asset:med:souda_p8_det",
+   "allocation": "patrol",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "med_souda_bay_nsa_air"
+  },
+  {
+   "node": "med_akrotiri_raf",
+   "asset_id": "asset:med:akr_airfield",
+   "allocation": "support",
+   "units": [
+    "nato_small_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "med_akrotiri_raf"
+  },
+  {
+   "node": "med_akrotiri_raf",
+   "asset_id": "asset:med:akr_typhoon_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "raf_ef2000_fgr4_late"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "raf_ef2000_fgr4_late",
+   "resolved": "as registered",
+   "base": "med_akrotiri_raf"
+  },
+  {
+   "node": "med_akrotiri_raf",
+   "asset_id": "asset:med:akr_typhoon_2",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "raf_ef2000_fgr4_late"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "raf_ef2000_fgr4_late",
+   "resolved": "as registered",
+   "base": "med_akrotiri_raf"
+  },
+  {
+   "node": "med_akrotiri_raf",
+   "asset_id": "asset:med:akr_voyager",
+   "allocation": "support",
+   "units": [
+    "uk_a330_mrtt"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "uk_a330_mrtt",
+   "resolved": "as registered",
+   "base": "med_akrotiri_raf"
+  },
+  {
+   "node": "med_akrotiri_raf",
+   "asset_id": "asset:med:akr_a400m",
+   "allocation": "support",
+   "units": [
+    "uk_a400m_airdroop-para"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "uk_a400m_airdroop-para",
+   "resolved": "as registered",
+   "base": "med_akrotiri_raf"
+  },
+  {
+   "node": "med_akrotiri_raf",
+   "asset_id": "asset:med:akr_sar",
+   "allocation": "resident_at_base",
+   "units": [
+    "rn_merlin_hm2"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "rn_merlin_hm2",
+   "resolved": "as registered",
+   "base": "med_akrotiri_raf"
+  },
+  {
+   "node": "eur_deveselu_nsf_aegis_ashore",
+   "asset_id": "abstract:eur:deveselu_aegis_ashore",
+   "allocation": "fixed_defence",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_deveselu_nsf_aegis_ashore",
+   "asset_id": "option:eur:deveselu_marker",
+   "allocation": "abstract",
+   "units": [
+    "us_cobra_dane_ewr",
+    "nato_large_ewr_station"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_redzikowo_nsf_aegis_ashore",
+   "asset_id": "abstract:eur:redzikowo_aegis_ashore",
+   "allocation": "fixed_defence",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_redzikowo_nsf_aegis_ashore",
+   "asset_id": "option:eur:redzikowo_marker",
+   "allocation": "abstract",
+   "units": [
+    "us_cobra_dane_ewr",
+    "nato_large_ewr_station"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_germersheim_dla_distribution_europe",
+   "asset_id": "abstract:eur:germersheim_depot",
+   "allocation": "abstract",
+   "units": [
+    "warehouses_3",
+    "warehouses_1",
+    "tgt_fueltanks_large"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "reserve:us_sealift",
+   "asset_id": "asset:med:relief_sealift_1",
+   "allocation": "reserve",
+   "units": [
+    "usn_takr_algol"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_pier",
+   "allocation": "support",
+   "units": [
+    "nv_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "nv_pt_boats_docks"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_sub_pier",
+   "allocation": "support",
+   "units": [
+    "nv_pt_boats_docks_small"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "nv_pt_boats_docks_small"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_marine_sof",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "register outcome none"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_corvette_2",
+   "allocation": "escort",
+   "units": [
+    "plan_type_056a"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "Yulin Naval Base task group",
+   "unit": "plan_type_056a",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_ffg_1",
+   "allocation": "escort",
+   "units": [
+    "plan_type_054a_p5"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "Yulin Naval Base task group",
+   "unit": "plan_type_054a_p5",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_corvette_1",
+   "allocation": "patrol",
+   "units": [
+    "plan_type_056a"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Yulin Naval Base patrol",
+   "unit": "plan_type_056a",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_ssk_2",
+   "allocation": "patrol",
+   "units": [
+    "plan_ss_type_039b"
+   ],
+   "outcome": "converted",
+   "why": "submarine patrol force",
+   "force": "Yulin Naval Base submarine patrol",
+   "unit": "plan_ss_type_039b",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_ssk_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "plan_ss_type_039b"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Yulin Naval Base harbour",
+   "unit": "plan_ss_type_039b",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_ssk_3",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "plan_ss_type_039a"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Yulin Naval Base harbour",
+   "unit": "plan_ss_type_039a",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "asset_id": "asset:chn:yulin_aor_1",
+   "allocation": "support",
+   "units": [
+    "plan_aor_type903a"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Yulin Naval Base harbour",
+   "unit": "plan_aor_type903a",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_longpo_naval_base",
+   "asset_id": "asset:chn:longpo_pier",
+   "allocation": "support",
+   "units": [
+    "nv_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "nv_pt_boats_docks"
+  },
+  {
+   "node": "chn_hainan_longpo_naval_base",
+   "asset_id": "asset:chn:longpo_ssbn_force",
+   "allocation": "abstract",
+   "units": [
+    "plan_ssbn_type_094a"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "chn_hainan_longpo_naval_base",
+   "asset_id": "asset:chn:scs_cv_1",
+   "allocation": "underway_deployed",
+   "units": [
+    "plan_cv_type_003"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "PLANS Fujian CV18 group",
+   "unit": "plan_cv_type_003",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_longpo_naval_base",
+   "asset_id": "asset:chn:scs_cvg_ddg_1",
+   "allocation": "escort",
+   "units": [
+    "plan_type_055_2026"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "PLANS Fujian CV18 group",
+   "unit": "plan_type_055_2026",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_longpo_naval_base",
+   "asset_id": "asset:chn:scs_cvg_ddg_2",
+   "allocation": "escort",
+   "units": [
+    "plan_type_052d_p3"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "PLANS Fujian CV18 group",
+   "unit": "plan_type_052d_p3",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_longpo_naval_base",
+   "asset_id": "asset:chn:scs_cvg_aoe_1",
+   "allocation": "support",
+   "units": [
+    "plan_aor_type901"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Longpo Naval Base harbour",
+   "unit": "plan_aor_type901",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_hainan_lingshui_airbase",
+   "asset_id": "asset:chn:lingshui_airbase",
+   "allocation": "support",
+   "units": [
+    "china_large_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "chn_hainan_lingshui_airbase"
+  },
+  {
+   "node": "chn_hainan_lingshui_airbase",
+   "asset_id": "asset:chn:lingshui_j15_x4",
+   "allocation": "resident_at_base",
+   "units": [
+    "plan_j-15"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "plan_j-15",
+   "resolved": "as registered",
+   "base": "chn_hainan_lingshui_airbase"
+  },
+  {
+   "node": "chn_hainan_lingshui_airbase",
+   "asset_id": "asset:chn:lingshui_kj500_x2",
+   "allocation": "resident_at_base",
+   "units": [
+    "plaaf_kj-500"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "plaaf_kj-500",
+   "resolved": "as registered",
+   "base": "chn_hainan_lingshui_airbase"
+  },
+  {
+   "node": "chn_hainan_lingshui_airbase",
+   "asset_id": "asset:chn:lingshui_y8q_x2",
+   "allocation": "resident_at_base",
+   "units": [
+    "plan_y-8fq"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "plan_y-8fq",
+   "resolved": "as registered",
+   "base": "chn_hainan_lingshui_airbase"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_pier",
+   "allocation": "support",
+   "units": [
+    "nv_pt_boats_docks"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "nv_pt_boats_docks"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_sub_pier",
+   "allocation": "support",
+   "units": [
+    "nv_pt_boats_docks_small"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "nv_pt_boats_docks_small"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:etc_naval_aviation",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "register outcome none"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:etc_radar_brigades",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "register outcome none"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_ffg_1",
+   "allocation": "escort",
+   "units": [
+    "plan_type_054a_p3"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "Ningbo Naval Base task group",
+   "unit": "plan_type_054a_p3",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_ffg_2",
+   "allocation": "escort",
+   "units": [
+    "plan_type_054_p2"
+   ],
+   "outcome": "converted",
+   "why": "surface force at sea",
+   "force": "Ningbo Naval Base task group",
+   "unit": "plan_type_054_p2",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_ddg_2",
+   "allocation": "patrol",
+   "units": [
+    "plan_type_052d_p4"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Ningbo Naval Base patrol",
+   "unit": "plan_type_052d_p4",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_fac_x2",
+   "allocation": "patrol",
+   "units": [
+    "plan_ptg_type037IIE"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Ningbo Naval Base patrol",
+   "unit": "plan_ptg_type037IIE",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_ssk_2",
+   "allocation": "patrol",
+   "units": [
+    "plan_ss_type_039b"
+   ],
+   "outcome": "converted",
+   "why": "submarine patrol force",
+   "force": "Ningbo Naval Base submarine patrol",
+   "unit": "plan_ss_type_039b",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_ddg_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "plan_ddg_type956e_early"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Ningbo Naval Base harbour",
+   "unit": "plan_ddg_type956e_early",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_ddg_3",
+   "allocation": "reserve",
+   "units": [
+    "plan_type_052d_p1"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Ningbo Naval Base harbour",
+   "unit": "plan_type_052d_p1",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_ssk_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "plan_ss_type_039"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Ningbo Naval Base harbour",
+   "unit": "plan_ss_type_039",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_ssk_3",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "plan_ss_kilo"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Ningbo Naval Base harbour",
+   "unit": "plan_ss_kilo",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "asset_id": "asset:chn:ningbo_aor_1",
+   "allocation": "support",
+   "units": [
+    "plan_aor_type903a"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Ningbo Naval Base harbour",
+   "unit": "plan_aor_type903a",
+   "resolved": "as registered"
+  },
+  {
+   "node": "chn_jlsf_wuhan_base",
+   "asset_id": "asset:chn-jlsf:wuhan-hq",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_wuhan_base",
+   "asset_id": "asset:chn-jlsf:wuhan-rail-hubs",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_wuxi_jlsc",
+   "asset_id": "asset:chn-jlsf:wuxi-jlsc",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_wuxi_jlsc",
+   "asset_id": "asset:chn-jlsf:wuxi-mob-roro-1",
+   "allocation": "transit",
+   "units": [
+    "civ_ms_roro_a"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_wuxi_jlsc",
+   "asset_id": "asset:chn-jlsf:wuxi-mob-cargo-2",
+   "allocation": "reserve",
+   "units": [
+    "civ_ms_c8"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_guilin_jlsc",
+   "asset_id": "asset:chn-jlsf:guilin-jlsc",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_guilin_jlsc",
+   "asset_id": "asset:chn-jlsf:guilin-mob-cargo-1",
+   "allocation": "transit",
+   "units": [
+    "civ_ms_c8"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_guilin_jlsc",
+   "asset_id": "asset:chn-jlsf:guilin-mob-roro-2",
+   "allocation": "reserve",
+   "units": [
+    "civ_ms_roro_a"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_xining_jlsc",
+   "asset_id": "asset:chn-jlsf:xining-jlsc",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_shenyang_jlsc",
+   "asset_id": "asset:chn-jlsf:shenyang-jlsc",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "chn_jlsf_zhengzhou_jlsc",
+   "asset_id": "asset:chn-jlsf:zhengzhou-jlsc",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_sam_opt",
+   "allocation": "fixed_defence",
+   "units": [
+    "wp_sam_site_sa-21"
+   ],
+   "outcome": "skipped",
+   "why": "scenario quantity 0 / optional / abstract"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_base",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_airbase_1"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "hn_kola_olenya_airbase"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_tu22m3_ready",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_tu-22m2"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu-22m2",
+   "resolved": "as registered",
+   "base": "hn_kola_olenya_airbase"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_tu22m3_svc",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "wp_tu-22m2"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu-22m2",
+   "resolved": "as registered",
+   "base": "hn_kola_olenya_airbase"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_tu95ms_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_tu95ms"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu95ms",
+   "resolved": "as registered",
+   "base": "hn_kola_olenya_airbase"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_tu95ms_2",
+   "allocation": "patrol",
+   "units": [
+    "wp_tu95ms"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu95ms",
+   "resolved": "as registered",
+   "base": "hn_kola_olenya_airbase"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_tu160_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_tu-160"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu-160",
+   "resolved": "as registered",
+   "base": "hn_kola_olenya_airbase"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_an12_1",
+   "allocation": "support",
+   "units": [
+    "wp_il-76md"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_il-76md",
+   "resolved": "as registered",
+   "base": "hn_kola_olenya_airbase"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_tu142_1",
+   "allocation": "patrol",
+   "units": [
+    "wp_tu-142m"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu-142m",
+   "resolved": "as registered",
+   "base": "hn_kola_olenya_airbase"
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "asset_id": "asset:rus:olenya_il78_1",
+   "allocation": "support",
+   "units": [
+    "wp_il-78"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_il-78",
+   "resolved": "as registered",
+   "base": "hn_kola_olenya_airbase"
+  },
+  {
+   "node": "rus_engels2_airbase",
+   "asset_id": "asset:rus:engels_base",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_airbase_modern"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "rus_engels2_airbase"
+  },
+  {
+   "node": "rus_engels2_airbase",
+   "asset_id": "asset:rus:engels_tu160m",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_tu-160"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu-160",
+   "resolved": "as registered",
+   "base": "rus_engels2_airbase"
+  },
+  {
+   "node": "rus_engels2_airbase",
+   "asset_id": "asset:rus:engels_tu95ms_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_tu95ms"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu95ms",
+   "resolved": "as registered",
+   "base": "rus_engels2_airbase"
+  },
+  {
+   "node": "rus_engels2_airbase",
+   "asset_id": "asset:rus:engels_tu95ms_2",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "wp_tu95ms"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu95ms",
+   "resolved": "as registered",
+   "base": "rus_engels2_airbase"
+  },
+  {
+   "node": "rus_ukrainka_airbase",
+   "asset_id": "asset:rus:ukrainka_base",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_airbase_modern",
+    "wp_tu160air",
+    "wp_airbase_4"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "rus_ukrainka_airbase"
+  },
+  {
+   "node": "rus_ukrainka_airbase",
+   "asset_id": "asset:rus:ukrainka_tu95ms_pair",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_tu95ms"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu95ms",
+   "resolved": "as registered",
+   "base": "rus_ukrainka_airbase"
+  },
+  {
+   "node": "rus_ukrainka_airbase",
+   "asset_id": "asset:rus:ukrainka_tu95ms_svc",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "wp_tu95ms"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu95ms",
+   "resolved": "as registered",
+   "base": "rus_ukrainka_airbase"
+  },
+  {
+   "node": "rus_belaya_airbase",
+   "asset_id": "asset:rus:belaya_il78_opt",
+   "allocation": "support",
+   "units": [
+    "wp_il-78"
+   ],
+   "outcome": "skipped",
+   "why": "scenario quantity 0 / optional / abstract"
+  },
+  {
+   "node": "rus_belaya_airbase",
+   "asset_id": "asset:rus:belaya_base",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_airbase_modern",
+    "wp_airbase_4"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "rus_belaya_airbase"
+  },
+  {
+   "node": "rus_belaya_airbase",
+   "asset_id": "asset:rus:belaya_tu22m3",
+   "allocation": "resident_at_base",
+   "units": [
+    "wp_tu-22m2"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu-22m2",
+   "resolved": "as registered",
+   "base": "rus_belaya_airbase"
+  },
+  {
+   "node": "rus_belaya_airbase",
+   "asset_id": "asset:rus:belaya_tu22m3_svc",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "wp_tu-22m2"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "wp_tu-22m2",
+   "resolved": "as registered",
+   "base": "rus_belaya_airbase"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_f35a_qra_1",
+   "allocation": "resident_at_base",
+   "units": [
+    "raaf_f-35a"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_f35a_qra_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "raaf_f-35a"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_cuas",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "register outcome none"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_base",
+   "allocation": "fixed_defence",
+   "units": [
+    "nato_small_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "hn_evenes_air_station"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_nasams_radar_1",
+   "allocation": "fixed_defence",
+   "units": [
+    "usa_SLAMRAAM_radar"
+   ],
+   "outcome": "ground",
+   "why": "fixed defence: listed under ground.airDefence for Norway",
+   "unit": "usa_SLAMRAAM_radar"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_nasams_launcher_1",
+   "allocation": "fixed_defence",
+   "units": [
+    "usa_SLAMRAAM_launcher"
+   ],
+   "outcome": "ground",
+   "why": "fixed defence: listed under ground.airDefence for Norway",
+   "unit": "usa_SLAMRAAM_launcher"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_nasams_launcher_2",
+   "allocation": "fixed_defence",
+   "units": [
+    "usa_SLAMRAAM_launcher"
+   ],
+   "outcome": "ground",
+   "why": "fixed defence: listed under ground.airDefence for Norway",
+   "unit": "usa_SLAMRAAM_launcher"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:p8a_vingtor",
+   "allocation": "patrol",
+   "units": [
+    "usn_p8"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p8",
+   "resolved": "as registered",
+   "base": "hn_evenes_air_station"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:p8a_viking",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p8"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p8",
+   "resolved": "as registered",
+   "base": "hn_evenes_air_station"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:p8a_ulabrand",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p8"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p8",
+   "resolved": "as registered",
+   "base": "hn_evenes_air_station"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:p8a_hugin",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_p8"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p8",
+   "resolved": "as registered",
+   "base": "hn_evenes_air_station"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:p8a_munin",
+   "allocation": "reserve",
+   "units": [
+    "usn_p8"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p8",
+   "resolved": "as registered",
+   "base": "hn_evenes_air_station"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_usn_p8a_det",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_p_8a"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p_8a",
+   "resolved": "as registered",
+   "base": "hn_evenes_air_station"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_raf_p8a_det",
+   "allocation": "underway_deployed",
+   "units": [
+    "usn_p8"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p8",
+   "resolved": "as registered",
+   "base": "hn_evenes_air_station"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "asset_id": "asset:mpn:evenes_rc135_det",
+   "allocation": "underway_deployed",
+   "units": [
+    "boeing-rc135"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "boeing-rc135",
+   "resolved": "as registered",
+   "base": "hn_evenes_air_station"
+  },
+  {
+   "node": "jpn_kanoya_air_base",
+   "asset_id": "asset:mpn:kanoya_p3c_1",
+   "allocation": "reserve",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "skipped",
+   "why": "scenario quantity 0 / optional / abstract"
+  },
+  {
+   "node": "jpn_kanoya_air_base",
+   "asset_id": "asset:mpn:kanoya_base",
+   "allocation": "fixed_defence",
+   "units": [
+    "airfield_small_1"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "jpn_kanoya_air_base"
+  },
+  {
+   "node": "jpn_kanoya_air_base",
+   "asset_id": "asset:mpn:kanoya_p1_1",
+   "allocation": "patrol",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_kanoya_air_base"
+  },
+  {
+   "node": "jpn_kanoya_air_base",
+   "asset_id": "asset:mpn:kanoya_p1_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_kanoya_air_base"
+  },
+  {
+   "node": "jpn_kanoya_air_base",
+   "asset_id": "asset:mpn:kanoya_p1_3",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_kanoya_air_base"
+  },
+  {
+   "node": "jpn_atsugi_naf",
+   "asset_id": "asset:mpn:atsugi_base",
+   "allocation": "fixed_defence",
+   "units": [
+    "airfield_small_1",
+    "usa_airbase"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "jpn_atsugi_naf"
+  },
+  {
+   "node": "jpn_atsugi_naf",
+   "asset_id": "asset:mpn:atsugi_p1_1",
+   "allocation": "patrol",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_atsugi_naf"
+  },
+  {
+   "node": "jpn_atsugi_naf",
+   "asset_id": "asset:mpn:atsugi_p1_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_atsugi_naf"
+  },
+  {
+   "node": "jpn_atsugi_naf",
+   "asset_id": "asset:mpn:atsugi_p1_3",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_atsugi_naf"
+  },
+  {
+   "node": "jpn_atsugi_naf",
+   "asset_id": "asset:mpn:atsugi_p1_4",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_atsugi_naf"
+  },
+  {
+   "node": "jpn_okinawa_naha",
+   "asset_id": "asset:mpn:naha_base",
+   "allocation": "fixed_defence",
+   "units": [
+    "airfield_small_1"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "jpn_okinawa_naha"
+  },
+  {
+   "node": "jpn_okinawa_naha",
+   "asset_id": "asset:mpn:naha_p3c_1",
+   "allocation": "patrol",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_okinawa_naha"
+  },
+  {
+   "node": "jpn_okinawa_naha",
+   "asset_id": "asset:mpn:naha_p3c_2",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_okinawa_naha"
+  },
+  {
+   "node": "jpn_okinawa_naha",
+   "asset_id": "asset:mpn:naha_p3c_3",
+   "allocation": "resident_at_base",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_okinawa_naha"
+  },
+  {
+   "node": "jpn_okinawa_naha",
+   "asset_id": "asset:mpn:naha_p3c_4",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_p-3c"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "usn_p-3c",
+   "resolved": "as registered",
+   "base": "jpn_okinawa_naha"
+  },
+  {
+   "node": "satl_falklands_raf_mount_pleasant",
+   "asset_id": "asset:satl:voyager",
+   "allocation": "support",
+   "units": [
+    "uk_a330_mrtt"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "satl_falklands_raf_mount_pleasant",
+   "asset_id": "asset:satl:a400m",
+   "allocation": "resident_at_base",
+   "units": [
+    "uk_a400m_airdroop-para"
+   ],
+   "outcome": "skipped",
+   "why": "register outcome missing_fit"
+  },
+  {
+   "node": "satl_falklands_raf_mount_pleasant",
+   "asset_id": "asset:satl:civ_airliner",
+   "allocation": "transit",
+   "units": [
+    "civ_a330"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_a330"
+  },
+  {
+   "node": "satl_falklands_raf_mount_pleasant",
+   "asset_id": "asset:satl:mpa_airbase",
+   "allocation": "support",
+   "units": [
+    "is_airbase_akureyri",
+    "nato_small_airbase",
+    "airbase_us"
+   ],
+   "outcome": "converted",
+   "why": "airfield unit of the base",
+   "base": "satl_falklands_raf_mount_pleasant"
+  },
+  {
+   "node": "satl_falklands_raf_mount_pleasant",
+   "asset_id": "asset:satl:sky_sabre_det",
+   "allocation": "fixed_defence",
+   "units": [
+    "raf_rapier_launcher"
+   ],
+   "outcome": "ground",
+   "why": "fixed defence: listed under ground.airDefence for UK",
+   "unit": "raf_rapier_launcher"
+  },
+  {
+   "node": "satl_falklands_raf_mount_pleasant",
+   "asset_id": "asset:satl:typhoon_qra",
+   "allocation": "resident_at_base",
+   "units": [
+    "raf_ef2000_fgr4_late"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "raf_ef2000_fgr4_late",
+   "resolved": "as registered",
+   "base": "satl_falklands_raf_mount_pleasant"
+  },
+  {
+   "node": "satl_falklands_raf_mount_pleasant",
+   "asset_id": "asset:satl:typhoon_cap",
+   "allocation": "patrol",
+   "units": [
+    "raf_ef2000_fgr4_late"
+   ],
+   "outcome": "converted",
+   "why": "air force at the node's air base",
+   "unit": "raf_ef2000_fgr4_late",
+   "resolved": "as registered",
+   "base": "satl_falklands_raf_mount_pleasant"
+  },
+  {
+   "node": "satl_falklands_mare_harbour",
+   "asset_id": "asset:satl:mare_harbour_jetty",
+   "allocation": "support",
+   "units": [
+    "nv_pt_boats_docks",
+    "ran_pt_boats_docks_small"
+   ],
+   "outcome": "skipped",
+   "why": "installation scenery or land unit: the engine places its own garrisons (ground section)",
+   "unit": "nv_pt_boats_docks"
+  },
+  {
+   "node": "satl_falklands_mare_harbour",
+   "asset_id": "asset:satl:sealift_charter",
+   "allocation": "transit",
+   "units": [
+    "civ_ms_amra"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_ms_amra"
+  },
+  {
+   "node": "satl_falklands_mare_harbour",
+   "asset_id": "asset:satl:civ_fishing",
+   "allocation": "underway_deployed",
+   "units": [
+    "civ_fv_sterntrawler_b",
+    "civ_fv_okean"
+   ],
+   "outcome": "traffic",
+   "why": "civil unit: listed in traffic, not a force",
+   "unit": "civ_fv_sterntrawler_b"
+  },
+  {
+   "node": "satl_falklands_mare_harbour",
+   "asset_id": "asset:satl:hms_forth",
+   "allocation": "patrol",
+   "units": [
+    "rn_opv_river_batch2"
+   ],
+   "outcome": "converted",
+   "why": "patrol force",
+   "force": "Mare Harbour patrol",
+   "unit": "rn_opv_river_batch2",
+   "resolved": "as registered"
+  },
+  {
+   "node": "satl_falklands_mare_harbour",
+   "asset_id": "asset:satl:rfa_tide_relief",
+   "allocation": "reserve",
+   "units": [
+    "rn_aor_tide"
+   ],
+   "outcome": "converted",
+   "why": "in harbour (resident, maintenance, reserve, support)",
+   "force": "Mare Harbour harbour",
+   "unit": "rn_aor_tide",
+   "resolved": "as registered"
+  },
+  {
+   "node": "eur_brest_ile_longue",
+   "asset_id": "asset:eur:ile_longue_ssbn_force",
+   "allocation": "abstract",
+   "units": [
+    "fr_ssbn_triomphant"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_brest_ile_longue",
+   "asset_id": "asset:eur:ile_longue_site",
+   "allocation": "abstract",
+   "units": [],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_brest_ile_longue",
+   "asset_id": "asset:eur:brest_fremm_asw",
+   "allocation": "patrol",
+   "units": [
+    "fr_ffg_aquitaine_asw",
+    "fr_ffg_aquitaine_modernized_asw"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_brest_ile_longue",
+   "asset_id": "asset:eur:brest_fremm_nh90",
+   "allocation": "patrol",
+   "units": [
+    "fr_nh90"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_brest_ile_longue",
+   "asset_id": "asset:eur:brest_atl2",
+   "allocation": "patrol",
+   "units": [
+    "fr_atl2"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_brest_ile_longue",
+   "asset_id": "asset:eur:brest_civ_fishing",
+   "allocation": "underway_deployed",
+   "units": [
+    "civ_fv_sterntrawler_c",
+    "civ_fv_okean"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  },
+  {
+   "node": "eur_brest_ile_longue",
+   "asset_id": "asset:eur:ushant_civ_merchants",
+   "allocation": "transit",
+   "units": [
+    "civ_ms_ritina",
+    "civ_ms_car_carrier_a"
+   ],
+   "outcome": "skipped",
+   "why": "node not converted"
+  }
+ ],
+ "bases": [
+  {
+   "node": "usp_coronado_nas_north_island",
+   "base": "usp_coronado_nas_north_island",
+   "kind": "AirBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    32.7,
+    242.8
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "usa_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "usp_sandiego_naval_base_san_diego",
+   "base": "usp_sandiego_naval_base_san_diego",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    32.7,
+    242.9
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "usp_kitsap_bremerton_psns",
+   "base": "usp_kitsap_bremerton_psns",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    47.6,
+    237.4
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "usa_norfolk_naval_station_norfolk",
+   "base": "usa_norfolk_naval_station_norfolk",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    36.95,
+    -76.33
+   ],
+   "anchor_on_water": true,
+   "companion_airbase": "usa_norfolk_naval_station_norfolk_air",
+   "field_unit": "usa_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "usa_jacksonville_nas_jacksonville",
+   "base": "usa_jacksonville_nas_jacksonville",
+   "kind": "AirBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    30.24,
+    -81.68
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "usa_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "wpac_yokosuka_naval_base",
+   "base": "wpac_yokosuka_naval_base",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    35.29,
+    139.67
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "base": "wpac_guam_naval_base_apra_harbor",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    13.44,
+    144.65
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "wpac_guam_andersen_afb",
+   "base": "wpac_guam_andersen_afb",
+   "kind": "AirBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    13.58,
+    144.93
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "airfield_small_1",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "io_diego_garcia_nsf",
+   "base": "io_diego_garcia_nsf",
+   "kind": "AirBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    -7.3,
+    72.4
+   ],
+   "anchor_on_water": true,
+   "companion_airbase": null,
+   "field_unit": "airfield_small_1",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "aus_stirling_hmas_stirling",
+   "base": "aus_stirling_hmas_stirling",
+   "kind": "NavalBase",
+   "nation": "Australia",
+   "nation_from": "operator",
+   "position": [
+    -32.2,
+    115.7
+   ],
+   "anchor_on_water": true,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "aus_tindal_raaf",
+   "base": "aus_tindal_raaf",
+   "kind": "AirBase",
+   "nation": "Australia",
+   "nation_from": "operator",
+   "position": [
+    -14.5,
+    132.4
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "airbase_raaf_tindal",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "me_bahrain_nsa_bahrain",
+   "base": "me_bahrain_nsa_bahrain",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    26.2,
+    50.6
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "me_bahrain_muharraq_airfield",
+   "base": "me_bahrain_muharraq_airfield",
+   "kind": "AirBase",
+   "nation": "US",
+   "nation_from": "SCENARIO CHOICE (operator not stated)",
+   "position": [
+    26.3,
+    50.6
+   ],
+   "anchor_on_water": true,
+   "companion_airbase": null,
+   "field_unit": "nato_small_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "hoa_djibouti_camp_lemonnier",
+   "base": "hoa_djibouti_camp_lemonnier",
+   "kind": "AirBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    11.55,
+    43.15
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "nato_small_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "hoa_djibouti_pla_support_base",
+   "base": "hoa_djibouti_pla_support_base",
+   "kind": "NavalBase",
+   "nation": "China",
+   "nation_from": "operator",
+   "position": [
+    11.6,
+    43.05
+   ],
+   "anchor_on_water": true,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "base": "hoa_djibouti_fr_ba188_heron",
+   "kind": "NavalBase",
+   "nation": "France",
+   "nation_from": "operator",
+   "position": [
+    11.55,
+    43.16
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": "hoa_djibouti_fr_ba188_heron_air",
+   "field_unit": "nato_small_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "hoa_djibouti_jp_base",
+   "base": "hoa_djibouti_jp_base",
+   "kind": "AirBase",
+   "nation": "Japan",
+   "nation_from": "operator",
+   "position": [
+    11.55,
+    43.14
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "airfield_small_1",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "hoa_djibouti_it_base",
+   "base": "hoa_djibouti_it_base",
+   "kind": "NavalBase",
+   "nation": "Italy",
+   "nation_from": "operator",
+   "position": [
+    11.5,
+    43.2
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "med_rota_naval_station",
+   "base": "med_rota_naval_station",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    36.6,
+    -6.3
+   ],
+   "anchor_on_water": true,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "med_sigonella_nas_sigonella",
+   "base": "med_sigonella_nas_sigonella",
+   "kind": "AirBase",
+   "nation": "Italy",
+   "nation_from": "operator",
+   "position": [
+    37.4,
+    14.9
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "usa_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "med_souda_bay_nsa",
+   "base": "med_souda_bay_nsa",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "operator",
+   "position": [
+    35.5,
+    24.1
+   ],
+   "anchor_on_water": true,
+   "companion_airbase": "med_souda_bay_nsa_air",
+   "field_unit": "airfield_small_1",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "med_akrotiri_raf",
+   "base": "med_akrotiri_raf",
+   "kind": "AirBase",
+   "nation": "UK",
+   "nation_from": "operator",
+   "position": [
+    34.6,
+    33.0
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "nato_small_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "chn_hainan_yulin_naval_base",
+   "base": "chn_hainan_yulin_naval_base",
+   "kind": "NavalBase",
+   "nation": "China",
+   "nation_from": "operator",
+   "position": [
+    18.2,
+    109.6
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "chn_hainan_longpo_naval_base",
+   "base": "chn_hainan_longpo_naval_base",
+   "kind": "NavalBase",
+   "nation": "China",
+   "nation_from": "operator",
+   "position": [
+    18.2,
+    109.7
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "chn_hainan_lingshui_airbase",
+   "base": "chn_hainan_lingshui_airbase",
+   "kind": "AirBase",
+   "nation": "China",
+   "nation_from": "operator",
+   "position": [
+    18.5,
+    110.0
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "china_large_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "base": "chn_zhejiang_ningbo_naval_base",
+   "kind": "NavalBase",
+   "nation": "China",
+   "nation_from": "operator",
+   "position": [
+    29.9,
+    121.7
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  },
+  {
+   "node": "hn_kola_olenya_airbase",
+   "base": "hn_kola_olenya_airbase",
+   "kind": "AirBase",
+   "nation": "Russia",
+   "nation_from": "operator",
+   "position": [
+    68.15,
+    33.46
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "wp_airbase_1",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "rus_engels2_airbase",
+   "base": "rus_engels2_airbase",
+   "kind": "AirBase",
+   "nation": "Russia",
+   "nation_from": "operator",
+   "position": [
+    51.48,
+    46.21
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "wp_airbase_modern",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "rus_ukrainka_airbase",
+   "base": "rus_ukrainka_airbase",
+   "kind": "AirBase",
+   "nation": "Russia",
+   "nation_from": "operator",
+   "position": [
+    51.17,
+    128.45
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "wp_airbase_modern",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "rus_belaya_airbase",
+   "base": "rus_belaya_airbase",
+   "kind": "AirBase",
+   "nation": "Russia",
+   "nation_from": "operator",
+   "position": [
+    52.92,
+    103.58
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "wp_airbase_modern",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "hn_evenes_air_station",
+   "base": "hn_evenes_air_station",
+   "kind": "AirBase",
+   "nation": "Norway",
+   "nation_from": "operator",
+   "position": [
+    68.5,
+    16.7
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "nato_small_airbase",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "jpn_kanoya_air_base",
+   "base": "jpn_kanoya_air_base",
+   "kind": "AirBase",
+   "nation": "Japan",
+   "nation_from": "operator",
+   "position": [
+    31.4,
+    130.85
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "airfield_small_1",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "jpn_atsugi_naf",
+   "base": "jpn_atsugi_naf",
+   "kind": "AirBase",
+   "nation": "Japan",
+   "nation_from": "operator",
+   "position": [
+    35.45,
+    139.45
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "airfield_small_1",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "jpn_okinawa_naha",
+   "base": "jpn_okinawa_naha",
+   "kind": "AirBase",
+   "nation": "Japan",
+   "nation_from": "operator",
+   "position": [
+    26.2,
+    127.65
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "airfield_small_1",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "satl_falklands_raf_mount_pleasant",
+   "base": "satl_falklands_raf_mount_pleasant",
+   "kind": "AirBase",
+   "nation": "UK",
+   "nation_from": "operator",
+   "position": [
+    -51.8,
+    -58.4
+   ],
+   "anchor_on_water": false,
+   "companion_airbase": null,
+   "field_unit": "is_airbase_akureyri",
+   "field_heading": "0 - SCENARIO CHOICE, runway heading not in the register"
+  },
+  {
+   "node": "satl_falklands_mare_harbour",
+   "base": "satl_falklands_mare_harbour",
+   "kind": "NavalBase",
+   "nation": "UK",
+   "nation_from": "operator",
+   "position": [
+    -51.9,
+    -58.5
+   ],
+   "anchor_on_water": true,
+   "companion_airbase": null,
+   "field_unit": null,
+   "field_heading": null
+  }
+ ],
+ "skipped_nodes": [
+  {
+   "node": "usp_coronado_naval_base_coronado",
+   "why": "populate_policy context_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usp_coronado_nab_coronado",
+   "why": "nothing convertible"
+  },
+  {
+   "node": "usp_kitsap_naval_base_kitsap",
+   "why": "populate_policy context_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usp_kitsap_bangor",
+   "why": "populate_policy context_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usp_dla_san_joaquin",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usa_patuxent_nas_patuxent_river",
+   "why": "populate_policy context_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usa_whiting_nas_whiting_field",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usa_newport_news_shipbuilding",
+   "why": "populate_policy context_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usg_dla_distribution_network",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usa_dla_susquehanna",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usa_richmond_defense_supply_center",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usa_army_depot_anniston",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usa_army_depot_red_river",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "usa_army_depot_tobyhanna",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "wpac_yokosuka_dla_distribution",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "wpac_guam_dla_distribution",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "cpac_pearl_harbor_dla_distribution",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "glob_us_afloat_prepositioning_fleet",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "me_uae_jebel_ali_port",
+   "why": "neutral host-nation commercial port; the engine has no neutral bases"
+  },
+  {
+   "node": "me_bahrain_dla_distribution",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "med_naples_nsa_naples",
+   "why": "populate_policy context_only: kept abstract, as the register says"
+  },
+  {
+   "node": "med_sigonella_dla_distribution",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "eur_deveselu_nsf_aegis_ashore",
+   "why": "populate_policy context_only: kept abstract, as the register says"
+  },
+  {
+   "node": "eur_redzikowo_nsf_aegis_ashore",
+   "why": "populate_policy context_only: kept abstract, as the register says"
+  },
+  {
+   "node": "eur_germersheim_dla_distribution_europe",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "reserve:us_sealift",
+   "why": "populate_policy reserve_only: kept abstract, as the register says"
+  },
+  {
+   "node": "chn_jlsf_wuhan_base",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "chn_jlsf_wuxi_jlsc",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "chn_jlsf_guilin_jlsc",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "chn_jlsf_xining_jlsc",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "chn_jlsf_shenyang_jlsc",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "chn_jlsf_zhengzhou_jlsc",
+   "why": "populate_policy abstract_logistics_only: kept abstract, as the register says"
+  },
+  {
+   "node": "seasia_laos_ban_keun_airport",
+   "why": "populate_policy do_not_populate: kept abstract, as the register says"
+  },
+  {
+   "node": "eur_brest_ile_longue",
+   "why": "populate_policy context_only: kept abstract, as the register says"
+  }
+ ],
+ "forces": [
+  {
+   "force": "CVN-70 Carl Vinson group",
+   "node": "usp_sandiego_naval_base_san_diego",
+   "rows": [
+    "asset:usp:cvn70_carl_vinson",
+    "asset:usp:vinson_ddg_1",
+    "asset:usp:vinson_ddg_2"
+   ],
+   "at": [
+    32.284,
+    242.9
+   ],
+   "at_why": "near the home base - SCENARIO CHOICE"
+  },
+  {
+   "force": "CVN-71 Theodore Roosevelt group",
+   "node": "usp_sandiego_naval_base_san_diego",
+   "rows": [
+    "asset:usp:cvn71_theodore_roosevelt",
+    "asset:usp:tr_ddg_1",
+    "asset:usp:tr_ddg_2"
+   ],
+   "at": [
+    18.0,
+    168.0
+   ],
+   "at_why": "'underway toward the CENTCOM AOR' - west of Hawaii"
+  },
+  {
+   "force": "CVN-72 Abraham Lincoln group",
+   "node": "usp_sandiego_naval_base_san_diego",
+   "rows": [
+    "asset:usp:cvn72_abraham_lincoln",
+    "asset:usp:abe_ddg_1",
+    "asset:usp:abe_ddg_2"
+   ],
+   "at": [
+    20.0,
+    133.0
+   ],
+   "at_why": "'Western Pacific deployment' - Philippine Sea"
+  },
+  {
+   "force": "Naval Base San Diego patrol",
+   "node": "usp_sandiego_naval_base_san_diego",
+   "rows": [
+    "asset:usp:sd_ddg_1"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Naval Base San Diego harbour",
+   "node": "usp_sandiego_naval_base_san_diego",
+   "rows": [
+    "asset:usp:sd_ddg_2",
+    "asset:usp:sd_lhd_1",
+    "asset:usp:sd_tao_1",
+    "asset:usp:vinson_take_1"
+   ]
+  },
+  {
+   "force": "Puget Sound Naval Shipyard (Naval Base Kitsap - Bremerton) harbour",
+   "node": "usp_kitsap_bremerton_psns",
+   "rows": [
+    "asset:usp:cvn68_nimitz",
+    "asset:usp:cvn76_ronald_reagan"
+   ]
+  },
+  {
+   "force": "CVN-69 Dwight D. Eisenhower group",
+   "node": "usa_norfolk_naval_station_norfolk",
+   "rows": [
+    "asset:usatl:cvn69_eisenhower",
+    "asset:usatl:ddg_vacapes_planeguard"
+   ],
+   "at": [
+    37.36,
+    -76.239
+   ],
+   "at_why": "near the home base - SCENARIO CHOICE"
+  },
+  {
+   "force": "CVN-75 Harry S. Truman group",
+   "node": "usa_norfolk_naval_station_norfolk",
+   "rows": [
+    "asset:usatl:cvn75_truman",
+    "asset:usatl:ddg_truman_esc_1",
+    "asset:usatl:ddg_truman_esc_2",
+    "asset:usatl:take_truman"
+   ],
+   "at": [
+    28.0,
+    -70.0
+   ],
+   "at_why": "'southbound in the western Atlantic'"
+  },
+  {
+   "force": "Naval Station Norfolk patrol",
+   "node": "usa_norfolk_naval_station_norfolk",
+   "rows": [
+    "asset:usatl:ddg_vacapes_patrol"
+   ],
+   "patrol": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Naval Station Norfolk harbour",
+   "node": "usa_norfolk_naval_station_norfolk",
+   "rows": [
+    "asset:usatl:ddg_norfolk_ready",
+    "asset:usatl:ddg_norfolk_reserve",
+    "asset:usatl:taoe_norfolk",
+    "asset:usatl:takr_norfolk_relief"
+   ]
+  },
+  {
+   "force": "CVN-73 George Washington group",
+   "node": "wpac_yokosuka_naval_base",
+   "rows": [
+    "asset:wpac:cvn73_george_washington",
+    "asset:wpac:gw_csg_cg1",
+    "asset:wpac:gw_csg_ddg1",
+    "asset:wpac:gw_csg_ddg2",
+    "asset:wpac:gw_csg_take"
+   ],
+   "at": [
+    22.0,
+    128.0
+   ],
+   "at_why": "'Indo-Pacific patrol' - Philippine Sea"
+  },
+  {
+   "force": "Yokosuka Naval Base patrol",
+   "node": "wpac_yokosuka_naval_base",
+   "rows": [
+    "asset:wpac:yoko_ddg_patrol"
+   ],
+   "patrol": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Yokosuka Naval Base harbour",
+   "node": "wpac_yokosuka_naval_base",
+   "rows": [
+    "asset:wpac:yoko_ddg_maint",
+    "asset:wpac:yoko_tao"
+   ]
+  },
+  {
+   "force": "Naval Base Guam (Apra Harbor) task group",
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "rows": [
+    "asset:wpac:guam_lcs1",
+    "asset:wpac:sealift_algol1"
+   ],
+   "at": [
+    13.856,
+    144.65
+   ],
+   "at_why": "near the home base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Naval Base Guam (Apra Harbor) submarine patrol",
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "rows": [
+    "asset:wpac:guam_ssn2"
+   ],
+   "patrol": "35 NM ring centred 0 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Naval Base Guam (Apra Harbor) harbour",
+   "node": "wpac_guam_naval_base_apra_harbor",
+   "rows": [
+    "asset:wpac:guam_take",
+    "asset:wpac:guam_ssn1"
+   ]
+  },
+  {
+   "force": "HMAS Stirling patrol",
+   "node": "aus_stirling_hmas_stirling",
+   "rows": [
+    "asset:ausio:ffh_warramunga",
+    "asset:ausio:opv_eyre"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "HMAS Stirling submarine patrol",
+   "node": "aus_stirling_hmas_stirling",
+   "rows": [
+    "asset:ausio:ssg_rankin"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "HMAS Stirling harbour",
+   "node": "aus_stirling_hmas_stirling",
+   "rows": [
+    "asset:ausio:ssg_waller",
+    "asset:ausio:ssg_farncomb",
+    "asset:ausio:ssg_sheean",
+    "asset:ausio:ffh_toowoomba",
+    "asset:ausio:aor_stalwart"
+   ]
+  },
+  {
+   "force": "Naval Support Activity Bahrain task group",
+   "node": "me_bahrain_nsa_bahrain",
+   "rows": [
+    "asset:me:lcs_1"
+   ],
+   "at": [
+    26.616,
+    50.6
+   ],
+   "at_why": "near the home base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Naval Support Activity Bahrain patrol",
+   "node": "me_bahrain_nsa_bahrain",
+   "rows": [
+    "asset:me:ddg_1"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Naval Support Activity Bahrain harbour",
+   "node": "me_bahrain_nsa_bahrain",
+   "rows": [
+    "asset:me:take_1"
+   ]
+  },
+  {
+   "force": "PLA Support Base (Djibouti) task group",
+   "node": "hoa_djibouti_pla_support_base",
+   "rows": [
+    "asset:hoa:plan_ddg_1"
+   ],
+   "at": [
+    11.919,
+    43.324
+   ],
+   "at_why": "near the home base - SCENARIO CHOICE"
+  },
+  {
+   "force": "PLA Support Base (Djibouti) patrol",
+   "node": "hoa_djibouti_pla_support_base",
+   "rows": [
+    "asset:hoa:plan_ffg_1"
+   ],
+   "patrol": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "PLA Support Base (Djibouti) harbour",
+   "node": "hoa_djibouti_pla_support_base",
+   "rows": [
+    "asset:hoa:plan_aor_1"
+   ]
+  },
+  {
+   "force": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming patrol",
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "rows": [
+    "asset:hoa:fr_ffg_1"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Italian defense force base, Djibouti (unnamed in R01) patrol",
+   "node": "hoa_djibouti_it_base",
+   "rows": [
+    "asset:hoa:it_ppa_1"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Naval Station Rota task group",
+   "node": "med_rota_naval_station",
+   "rows": [
+    "asset:med:rota_ddg84"
+   ],
+   "at": [
+    36.209,
+    -6.124
+   ],
+   "at_why": "near the home base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Naval Station Rota patrol",
+   "node": "med_rota_naval_station",
+   "rows": [
+    "asset:med:rota_ddg117"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Naval Station Rota harbour",
+   "node": "med_rota_naval_station",
+   "rows": [
+    "asset:med:rota_ddg80",
+    "asset:med:rota_ddg79"
+   ]
+  },
+  {
+   "force": "Naval Support Activity Souda Bay harbour",
+   "node": "med_souda_bay_nsa",
+   "rows": [
+    "asset:med:take_1"
+   ]
+  },
+  {
+   "force": "Yulin Naval Base task group",
+   "node": "chn_hainan_yulin_naval_base",
+   "rows": [
+    "asset:chn:yulin_corvette_2",
+    "asset:chn:yulin_ffg_1"
+   ],
+   "at": [
+    18.342,
+    110.012
+   ],
+   "at_why": "near the home base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Yulin Naval Base patrol",
+   "node": "chn_hainan_yulin_naval_base",
+   "rows": [
+    "asset:chn:yulin_corvette_1"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Yulin Naval Base submarine patrol",
+   "node": "chn_hainan_yulin_naval_base",
+   "rows": [
+    "asset:chn:yulin_ssk_2"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Yulin Naval Base harbour",
+   "node": "chn_hainan_yulin_naval_base",
+   "rows": [
+    "asset:chn:yulin_ssk_1",
+    "asset:chn:yulin_ssk_3",
+    "asset:chn:yulin_aor_1"
+   ]
+  },
+  {
+   "force": "PLANS Fujian CV18 group",
+   "node": "chn_hainan_longpo_naval_base",
+   "rows": [
+    "asset:chn:scs_cv_1",
+    "asset:chn:scs_cvg_ddg_1",
+    "asset:chn:scs_cvg_ddg_2"
+   ],
+   "at": [
+    16.0,
+    114.0
+   ],
+   "at_why": "'South China Sea carrier group'"
+  },
+  {
+   "force": "Longpo Naval Base harbour",
+   "node": "chn_hainan_longpo_naval_base",
+   "rows": [
+    "asset:chn:scs_cvg_aoe_1"
+   ]
+  },
+  {
+   "force": "Ningbo Naval Base task group",
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "rows": [
+    "asset:chn:ningbo_ffg_1",
+    "asset:chn:ningbo_ffg_2"
+   ],
+   "at": [
+    30.316,
+    121.7
+   ],
+   "at_why": "near the home base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Ningbo Naval Base patrol",
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "rows": [
+    "asset:chn:ningbo_ddg_2",
+    "asset:chn:ningbo_fac_x2"
+   ],
+   "patrol": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Ningbo Naval Base submarine patrol",
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "rows": [
+    "asset:chn:ningbo_ssk_2"
+   ],
+   "patrol": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Ningbo Naval Base harbour",
+   "node": "chn_zhejiang_ningbo_naval_base",
+   "rows": [
+    "asset:chn:ningbo_ddg_1",
+    "asset:chn:ningbo_ddg_3",
+    "asset:chn:ningbo_ssk_1",
+    "asset:chn:ningbo_ssk_3",
+    "asset:chn:ningbo_aor_1"
+   ]
+  },
+  {
+   "force": "Mare Harbour patrol",
+   "node": "satl_falklands_mare_harbour",
+   "rows": [
+    "asset:satl:hms_forth"
+   ],
+   "patrol": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+  },
+  {
+   "force": "Mare Harbour harbour",
+   "node": "satl_falklands_mare_harbour",
+   "rows": [
+    "asset:satl:rfa_tide_relief"
+   ]
+  },
+  {
+   "force": "Naval Air Station North Island MH-60R",
+   "node": "usp_coronado_nas_north_island",
+   "aircraft": "usn_mh-60r",
+   "count": 6
+  },
+  {
+   "force": "Naval Air Station North Island HH-60H",
+   "node": "usp_coronado_nas_north_island",
+   "aircraft": "usn_hh-60",
+   "count": 4
+  },
+  {
+   "force": "Naval Station Norfolk MH-60R",
+   "node": "usa_norfolk_naval_station_norfolk",
+   "aircraft": "usn_mh-60r",
+   "count": 4
+  },
+  {
+   "force": "Naval Station Norfolk E-2D",
+   "node": "usa_norfolk_naval_station_norfolk",
+   "aircraft": "usn_e-2d",
+   "count": 2
+  },
+  {
+   "force": "Naval Air Station Jacksonville P-8A Poseidon",
+   "node": "usa_jacksonville_nas_jacksonville",
+   "aircraft": "usn_p_8a",
+   "count": 4
+  },
+  {
+   "force": "Naval Air Station Jacksonville MH-60R",
+   "node": "usa_jacksonville_nas_jacksonville",
+   "aircraft": "usn_mh-60r",
+   "count": 3
+  },
+  {
+   "force": "Andersen Air Force Base B-52H",
+   "node": "wpac_guam_andersen_afb",
+   "aircraft": "dts_b-52h",
+   "count": 4
+  },
+  {
+   "force": "Andersen Air Force Base KC-135A",
+   "node": "wpac_guam_andersen_afb",
+   "aircraft": "usaf_stratotanker",
+   "count": 2
+  },
+  {
+   "force": "Naval Support Facility Diego Garcia B-52H",
+   "node": "io_diego_garcia_nsf",
+   "aircraft": "dts_b-52h",
+   "count": 2
+  },
+  {
+   "force": "Naval Support Facility Diego Garcia B-1B",
+   "node": "io_diego_garcia_nsf",
+   "aircraft": "usaf_b-1b_dts",
+   "count": 2
+  },
+  {
+   "force": "Naval Support Facility Diego Garcia B-2 Spirit",
+   "node": "io_diego_garcia_nsf",
+   "aircraft": "usaf_b-2_spirit",
+   "count": 2
+  },
+  {
+   "force": "RAAF Base Tindal F-35A",
+   "node": "aus_tindal_raaf",
+   "aircraft": "raaf_f-35a",
+   "count": 4
+  },
+  {
+   "force": "RAAF Base Tindal MQ-4C Triton",
+   "node": "aus_tindal_raaf",
+   "aircraft": "raaf_mq-4c_triton",
+   "count": 1
+  },
+  {
+   "force": "RAAF Base Tindal B-52H",
+   "node": "aus_tindal_raaf",
+   "aircraft": "dts_b-52h",
+   "count": 2
+  },
+  {
+   "force": "Muharraq Airfield P-8A Poseidon",
+   "node": "me_bahrain_muharraq_airfield",
+   "aircraft": "usn_p_8a",
+   "count": 2
+  },
+  {
+   "force": "Camp Lemonnier MQ-9",
+   "node": "hoa_djibouti_camp_lemonnier",
+   "aircraft": "usaf_mq-9a",
+   "count": 2
+  },
+  {
+   "force": "Camp Lemonnier P-8A Poseidon",
+   "node": "hoa_djibouti_camp_lemonnier",
+   "aircraft": "usn_p_8a",
+   "count": 1
+  },
+  {
+   "force": "Camp Lemonnier KC-130J",
+   "node": "hoa_djibouti_camp_lemonnier",
+   "aircraft": "usmc_kc-130j",
+   "count": 1
+  },
+  {
+   "force": "Camp Lemonnier HH-60H",
+   "node": "hoa_djibouti_camp_lemonnier",
+   "aircraft": "usn_hh-60",
+   "count": 2
+  },
+  {
+   "force": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming Mirage 2000-5F",
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "aircraft": "fr_m2k-5f",
+   "count": 2
+  },
+  {
+   "force": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming AS332M Super Puma",
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "aircraft": "fr_as_332M",
+   "count": 1
+  },
+  {
+   "force": "Base A\u00e9rienne 188 / H\u00e9ron naval base (Djibouti) - report naming SA-342 Gazelle",
+   "node": "hoa_djibouti_fr_ba188_heron",
+   "aircraft": "fr_sa_342_gazelle",
+   "count": 1
+  },
+  {
+   "force": "Japanese defense force base, Djibouti (unnamed in R01) P-3C",
+   "node": "hoa_djibouti_jp_base",
+   "aircraft": "usn_p-3c",
+   "count": 2
+  },
+  {
+   "force": "Naval Air Station Sigonella P-8A Poseidon",
+   "node": "med_sigonella_nas_sigonella",
+   "aircraft": "usn_p_8a",
+   "count": 3
+  },
+  {
+   "force": "Naval Support Activity Souda Bay P-8A Poseidon",
+   "node": "med_souda_bay_nsa",
+   "aircraft": "usn_p_8a",
+   "count": 1
+  },
+  {
+   "force": "RAF Akrotiri Eurofighter Typhoon FGR.4 RAF",
+   "node": "med_akrotiri_raf",
+   "aircraft": "raf_ef2000_fgr4_late",
+   "count": 2
+  },
+  {
+   "force": "RAF Akrotiri A330 MRTT Voyager",
+   "node": "med_akrotiri_raf",
+   "aircraft": "uk_a330_mrtt",
+   "count": 1
+  },
+  {
+   "force": "RAF Akrotiri A400M Atlas",
+   "node": "med_akrotiri_raf",
+   "aircraft": "uk_a400m_airdroop-para",
+   "count": 1
+  },
+  {
+   "force": "RAF Akrotiri Merlin HM.2",
+   "node": "med_akrotiri_raf",
+   "aircraft": "rn_merlin_hm2",
+   "count": 1
+  },
+  {
+   "force": "Lingshui Airbase J-15",
+   "node": "chn_hainan_lingshui_airbase",
+   "aircraft": "plan_j-15",
+   "count": 4
+  },
+  {
+   "force": "Lingshui Airbase KJ-500",
+   "node": "chn_hainan_lingshui_airbase",
+   "aircraft": "plaaf_kj-500",
+   "count": 2
+  },
+  {
+   "force": "Lingshui Airbase Y-8FQ",
+   "node": "chn_hainan_lingshui_airbase",
+   "aircraft": "plan_y-8fq",
+   "count": 2
+  },
+  {
+   "force": "Olenya Airbase TU-22M2",
+   "node": "hn_kola_olenya_airbase",
+   "aircraft": "wp_tu-22m2",
+   "count": 6
+  },
+  {
+   "force": "Olenya Airbase TU-95MS",
+   "node": "hn_kola_olenya_airbase",
+   "aircraft": "wp_tu95ms",
+   "count": 2
+  },
+  {
+   "force": "Olenya Airbase TU-160",
+   "node": "hn_kola_olenya_airbase",
+   "aircraft": "wp_tu-160",
+   "count": 1
+  },
+  {
+   "force": "Olenya Airbase Il-76MD",
+   "node": "hn_kola_olenya_airbase",
+   "aircraft": "wp_il-76md",
+   "count": 1
+  },
+  {
+   "force": "Olenya Airbase Tu-142M",
+   "node": "hn_kola_olenya_airbase",
+   "aircraft": "wp_tu-142m",
+   "count": 1
+  },
+  {
+   "force": "Olenya Airbase IL-78 TANKER",
+   "node": "hn_kola_olenya_airbase",
+   "aircraft": "wp_il-78",
+   "count": 1
+  },
+  {
+   "force": "Engels-2 Airbase TU-160",
+   "node": "rus_engels2_airbase",
+   "aircraft": "wp_tu-160",
+   "count": 2
+  },
+  {
+   "force": "Engels-2 Airbase TU-95MS",
+   "node": "rus_engels2_airbase",
+   "aircraft": "wp_tu95ms",
+   "count": 2
+  },
+  {
+   "force": "Ukrainka Airbase TU-95MS",
+   "node": "rus_ukrainka_airbase",
+   "aircraft": "wp_tu95ms",
+   "count": 3
+  },
+  {
+   "force": "Belaya Airbase TU-22M2",
+   "node": "rus_belaya_airbase",
+   "aircraft": "wp_tu-22m2",
+   "count": 3
+  },
+  {
+   "force": "Evenes Air Station P-8A Poseidon",
+   "node": "hn_evenes_air_station",
+   "aircraft": "usn_p8",
+   "count": 6
+  },
+  {
+   "force": "Evenes Air Station P-8A Poseidon 2",
+   "node": "hn_evenes_air_station",
+   "aircraft": "usn_p_8a",
+   "count": 1
+  },
+  {
+   "force": "Evenes Air Station RC-135V/W Rivet Joint (Modern)",
+   "node": "hn_evenes_air_station",
+   "aircraft": "boeing-rc135",
+   "count": 1
+  },
+  {
+   "force": "Kanoya Air Base P-3C",
+   "node": "jpn_kanoya_air_base",
+   "aircraft": "usn_p-3c",
+   "count": 3
+  },
+  {
+   "force": "Naval Air Facility Atsugi P-3C",
+   "node": "jpn_atsugi_naf",
+   "aircraft": "usn_p-3c",
+   "count": 4
+  },
+  {
+   "force": "Naha (JMSDF air station, Okinawa) P-3C",
+   "node": "jpn_okinawa_naha",
+   "aircraft": "usn_p-3c",
+   "count": 4
+  },
+  {
+   "force": "RAF Mount Pleasant Eurofighter Typhoon FGR.4 RAF",
+   "node": "satl_falklands_raf_mount_pleasant",
+   "aircraft": "raf_ef2000_fgr4_late",
+   "count": 4
+  }
+ ],
+ "notes": [],
+ "lanes": [
+  {
+   "lane": "Malacca and Singapore Straits",
+   "authored_points": 6,
+   "points": 8,
+   "detour_points_added": 2,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "South China Sea",
+   "authored_points": 5,
+   "points": 9,
+   "detour_points_added": 4,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "Taiwan Strait to the East China Sea",
+   "authored_points": 5,
+   "points": 5,
+   "detour_points_added": 0,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "East China Sea to Tokyo Bay",
+   "authored_points": 5,
+   "points": 8,
+   "detour_points_added": 3,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "Trans-Pacific",
+   "authored_points": 6,
+   "points": 10,
+   "detour_points_added": 4,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "Gulf of Aden and the Red Sea",
+   "authored_points": 10,
+   "points": 12,
+   "detour_points_added": 2,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "Strait of Hormuz to Bahrain",
+   "authored_points": 6,
+   "points": 7,
+   "detour_points_added": 1,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "Mediterranean",
+   "authored_points": 10,
+   "points": 22,
+   "detour_points_added": 12,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "North Atlantic",
+   "authored_points": 5,
+   "points": 7,
+   "detour_points_added": 2,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "Indian Ocean",
+   "authored_points": 5,
+   "points": 5,
+   "detour_points_added": 0,
+   "legs_on_land": [],
+   "kept": true
+  },
+  {
+   "lane": "Cape Leeuwin to the Sunda Strait",
+   "authored_points": 4,
+   "points": 4,
+   "detour_points_added": 0,
+   "legs_on_land": [],
+   "kept": true
+  }
+ ],
+ "values_basis": {
+  "boeing-rc135": "Role EW",
+  "dts_b-52h": "Role HeavyBomber",
+  "fr_as_332M": "Role ASW",
+  "fr_ffg_lafayette_modernized": "Displacement 3800 t",
+  "fr_m2k-5f": "Role Fighter",
+  "fr_sa_342_gazelle": "Role ASuW",
+  "ita_ffg_ppa": "Displacement 6270 t",
+  "plaaf_kj-500": "Role AEW",
+  "plan_aor_type901": "Displacement 53000 t, auxiliary x0.32",
+  "plan_aor_type903a": "Displacement 24460 t, auxiliary x0.32",
+  "plan_cv_type_003": "Displacement 85000 t",
+  "plan_ddg_type956e_early": "Displacement 7940 t",
+  "plan_j-15": "Role Fighter",
+  "plan_ptg_type037IIE": "Displacement 275 t",
+  "plan_ss_kilo": "Displacement 3040 t",
+  "plan_ss_type_039": "Displacement 2250 t",
+  "plan_ss_type_039a": "Displacement 3600 t",
+  "plan_ss_type_039b": "Displacement 3600 t",
+  "plan_type_052d_p1": "Displacement 7500 t",
+  "plan_type_052d_p3": "Displacement 7500 t",
+  "plan_type_052d_p4": "Displacement 7500 t",
+  "plan_type_054_p2": "Displacement 3900 t",
+  "plan_type_054a_p3": "Displacement 4200 t",
+  "plan_type_054a_p5": "Displacement 4200 t",
+  "plan_type_055_2026": "Displacement 11000 t",
+  "plan_type_056a": "Displacement 2400 t",
+  "plan_y-8fq": "Role MPA",
+  "raaf_f-35a": "Role Fighter",
+  "raaf_mq-4c_triton": "Role MaritimePatrol",
+  "raf_ef2000_fgr4_late": "Role Fighter",
+  "ran_aor_supply": "Displacement 8190 t, auxiliary x0.32",
+  "ran_ffh_anzac": "Displacement 3600 t",
+  "ran_opv_arafura": "Displacement 2700 t",
+  "ran_ssg_collins": "Displacement 2965 t",
+  "rfn_ffg_22350_1-4": "Displacement 5400 t",
+  "rn_aor_tide": "Displacement 53000 t, auxiliary x0.32",
+  "rn_merlin_hm2": "Role ASW",
+  "rn_opv_river_batch2": "Displacement 2000 t",
+  "uk_a330_mrtt": "Role AEW",
+  "uk_a400m_airdroop-para": "Role AEW",
+  "usaf_b-1b_dts": "Role HeavyBomber",
+  "usaf_b-2_spirit": "Role StrategicBomber",
+  "usaf_mq-9a": "Role AEW",
+  "usaf_stratotanker": "Role Airliner",
+  "usmc_kc-130j": "Role Airliner",
+  "usn_cg_bunker_hill_vls_2024": "Displacement 9600 t",
+  "usn_cvn_nimitz": "Displacement 100000 t",
+  "usn_cvn_nimitz_2025": "Displacement 100000 t",
+  "usn_ddg_burke_f1_054_late": "Displacement 9000 t",
+  "usn_ddg_burke_f2a_079_late": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_080_late": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_084_late": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_089_late": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_091_late": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_099_late": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_108_late": "Displacement 9500 t",
+  "usn_ddg_burke_f2a_117": "Displacement 9500 t",
+  "usn_ddg_burke_f3_125": "Displacement 9700 t",
+  "usn_e-2d": "Role AEW",
+  "usn_hh-60": "Role ASW",
+  "usn_lcs_freedom_suw_late": "Displacement 3500 t",
+  "usn_lhd_wasp": "Displacement 40500 t",
+  "usn_mh-60r": "Role ASW",
+  "usn_p-3c": "Role MPA",
+  "usn_p8": "Role MPA",
+  "usn_p_8a": "Role MPA",
+  "usn_ssn_los_angeles_flt3_2026": "Displacement 6920 t",
+  "usn_ssn_virginia_block2_2026": "Displacement 7900 t",
+  "usn_take_lewis_clark": "Displacement 20500 t, auxiliary x0.32",
+  "usn_takr_algol": "Displacement 55000 t, auxiliary x0.32",
+  "usn_tao_kaiser": "Displacement 8190 t, auxiliary x0.32",
+  "usn_taoe_supply": "Displacement 53000 t, auxiliary x0.32",
+  "wp_il-76md": "Role Airliner",
+  "wp_il-78": "Role Airliner",
+  "wp_tu-142m": "Role MPA",
+  "wp_tu-160": "Role HeavyBomber",
+  "wp_tu-22m2": "Role HeavyBomber",
+  "wp_tu95ms": "Role MPA"
+ },
+ "counts": {
+  "register_rows": 318,
+  "rows_by_outcome": {
+   "skipped": 117,
+   "converted": 185,
+   "traffic": 12,
+   "ground": 4
+  },
+  "bases": 39,
+  "bases_by_kind": {
+   "AirBase": 23,
+   "NavalBase": 16
+  },
+  "forces": 92,
+  "forces_by_type": {
+   "Surface": 43,
+   "Air": 49
+  },
+  "patrols": 16,
+  "catalogue": 78,
+  "values": 78,
+  "lanes_kept": 11,
+  "lanes_authored": 11,
+  "skipped_nodes": 34
+ }
+}
