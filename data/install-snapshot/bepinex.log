@@ -1,6 +1,6 @@
-# BepInEx\LogOutput.log - last 407 line(s) of a 0.0 MB file, last written 2026-10-03T17:12:23. 
+# BepInEx\LogOutput.log - last 450 line(s) of a 0.0 MB file, last written 2026-10-10T23:10:43. 
 [Error  :   BepInEx] Unable to start Unity log writer
-[Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (24/02/2026 10:31:59 PM)
+[Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (24/02/2026 9:31:59 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.67.7905730
 [Info   :   BepInEx] CLR runtime version: 4.0.30319.42000
 [Info   :   BepInEx] Supports SRE: True
@@ -16,22 +16,25 @@
 [Info   :   BepInEx] Loading [AnchorChain Preloader 1.0.0]
 [Info   :AnchorChain Preloader] AnchorChain Preloader started!
 [Info   :AnchorChain Preloader] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SEST.MenuBackground, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly CustomAudioLoader, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EnhancedDecoyMod, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EnhancedUIMod, Version=0.1.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Euromod-Welldeck, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly HighAltitudeSkyFix, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MeshCutOut, Version=0.5.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MissileControlMod, Version=0.1.15.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MissileControlSurfaces, Version=1.1.2.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.4.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OptimalTargetDist, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ProfileImage1024, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly SATCOM, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SmokeParticleLOD, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly SubModelStabilization, Version=1.1.2.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly V22Tiltrotor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly WeaponLauncherEffects, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly SecondThrustMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SecondThrustMod, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly SubAmmunitionMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly SubAmmunitionMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Warning:AnchorChain] Attempted to load a duplicate plugin: Sub Ammunition (io.github.yourname.sub-ammunition)
@@ -42,18 +45,25 @@
 [Info   :AnchorChain] Loaded assembly IdentifyExpanded, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly ACC.CV16.SkiJumpFix, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Z20RotorVisualSync, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.2.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.4.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly SaronicCorsairStrikeUSV, Version=4.12.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryFormation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2CommsJamming, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Tooltip, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly J16Systems, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly J36AfterburnerNozzle, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OspreyDeckOps, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly OspreyMechanics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly BellSystemsFixtureTilt, Version=0.5.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly MV75Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly Z21GunMoveFire, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponSystem and name _containerBaseObject
-[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.2.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null
 [Warning:AnchorChain] Attempted to load a duplicate plugin: Sea Power scoped runtime fixes (alpine.seapower.runtime)
-[Info   :AnchorChain] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly BellSystemsFixtureTilt, Version=0.4.11.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly YF23Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded plugin SEST Menu Background (io.github.sest-hobby.menu-background)
 [Info   :AnchorChain] Loaded plugin Sonar Audio Loader (io.github.euromod.sonar-audio-loader)
 [Info   :AnchorChain] Loaded plugin EnhancedDecoyMod (io.github.euromod.enhanceddecoymod)
 [Info   :AnchorChain] Loaded plugin EnhancedUIMod (local.seapower.enhanceduimod)
@@ -63,12 +73,14 @@
 [Info   :AnchorChain] Loaded plugin Euromod Well Deck (euromod.welldeck)
 [Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.DynamicSky and name UpdateSky and parameters 
 [Info   :AnchorChain] Loaded plugin High Altitude Sky Fix (io.github.euromod.high-altitude-sky-fix)
+[Info   :AnchorChain] Loaded plugin Mesh CutOut (euromod.mesh-cutout)
 [Info   :AnchorChain] Loaded plugin MissileControlMod (io.github.euromod.missilecontrol)
 [Info   :AnchorChain] Loaded plugin Missile Control Surfaces (io.github.euromod.missile-control-surfaces)
 [Info   :AnchorChain] Loaded plugin Multi-Stage Missiles, Glow and Submunitions (io.github.euromod.multistagemissiles)
 [Info   :AnchorChain] Loaded plugin Optimal Target Distance (io.github.euromod.optimal-target-distance)
 [Info   :AnchorChain] Loaded plugin Profile Image 1024 (io.github.euromod.profile-image-1024)
 [Info   :AnchorChain] Loaded plugin SATCOM Mid-Course Correction (io.github.euromod.satcom)
+[Info   :AnchorChain] Loaded plugin Smoke Particle LOD (euromod.smoke-particle-lod)
 [Info   :AnchorChain] Loaded plugin Vessel SubModel Stabilization (io.github.euromod.submodel-stabilization)
 [Info   :Euromod V-22 Tiltrotor + Pivot BFWS] V-22 time compatibility: using SeaPower.GameTime.deltaTime for BFWS/nacelle animation timing.
 [Info   :Euromod V-22 Tiltrotor + Pivot BFWS] Euromod V-22 Tiltrotor + Pivot BFWS 2.8.13 loaded. Aircraft name detection: v-22 (case-insensitive). Navigation lights resolved by INI submodel keys; night-only rotor lights. 2 rotor-index pivots + 6 pitch pivots + 6 hinge pivots; MirrorObjX=False, PreventStartupRefold=True, HoldStaticBladesOffAfterShutdown=True. TimeSource=SeaPower.GameTime.deltaTime. CFG=C:\Program Files (x86)\Steam\steamapps\common\Sea Power\BepInEx\config\euromod.v22tiltrotor.cfg
@@ -79,9 +91,17 @@
 [Info   :AnchorChain] Loaded plugin Second Thrust (io.github.yourname.second-thrust)
 [Info   :SubAmmunition] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
 [Info   :SubAmmunition] SubAmmunitionPatches applied
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šå·²æŒ‚ PoolManager.freeObjectï¼ˆå›žæ”¶å‰å…ˆ removeObjectï¼‰
+[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå·²æŒ‚ SensorSystemsLink.OnUpdate
+[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveRadarlLOS
+[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveVisualLOS
+[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveDirectlLOS
+[Info   :SubAmmunition] ESM æ­»å¯¹è±¡æ¸…ç†ï¼šå·²æŒ‚ createListOfPotentialContactsï¼ˆ_homeObject=okï¼‰
 [Info   :SubAmmunition] PatchAll + Apply done
 [Info   :SubAmmunition] Driver GameObject created
 [Info   :AnchorChain] Loaded plugin Sub Ammunition (io.github.yourname.sub-ammunition)
+[Warning:  HarmonyX] AccessTools.Method: name is null
+[Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
@@ -350,9 +370,14 @@
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PendingLaunchTask and name _vehicleType
 [Info   :AnchorChain] Loaded plugin ACC CV16 Ski-Jump Fix (meltemi.acc.cv16.skijumpfix)
 [Info   :AnchorChain] Loaded plugin Z-20 Rotor Visual Sync (meltemi.seapower.z20.rotor-visual-sync)
+[Info   :AnchorChain] Loaded plugin Saronic Corsair contact strike (alpine.seapower.corsair)
 [Info   :AnchorChain] Loaded plugin Sea Power scoped runtime fixes (alpine.seapower.runtime)
+[Info   :AnchorChain] Loaded plugin FuryFormation spacing (alpine.formation.fury)
 [Info   :AnchorChain] Loaded plugin Fury voice routing (alpine.seapower.furyvoice)
 [Info   :AnchorChain] Loaded plugin Fury Friendly Loss Voice (fury.voice.friendlyloss)
+[Info   :AnchorChain] Loaded plugin EC-2 Communications Jamming (jasdf.ec2.comms)
+[Info   :AnchorChain] Loaded plugin EC2Formation spacing (alpine.formation.ec2)
+[Info   :AnchorChain] Loaded plugin EC-2 Tooltip (jasdf.ec2.tooltip)
 [Info   :J-16 Systems] features from J16Systems.ini: lights=True afterburner=True chute=True
 [Info   :J-16 Systems] J-16 Systems 1.1.0 patched (afterburner + landing/formation/navigation lights + brake parachute).
 [Info   :AnchorChain] Loaded plugin J-16 Systems (meltemi.seapower.j16.systems)
@@ -360,49 +385,67 @@
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.FixedWingFlightPhysics and name _aircraftParameters
 [Info   :AnchorChain] Loaded plugin J-36 Systems (meltemi.seapower.j36.afterburner-nozzle)
 [Info   :OspreyMechanics] Compatible game clock: missionElapsedTime (double)
-[Info   :OspreyMechanics] V-22 rig 1.1.30 ready; 20-ft minimum, 10-kt rescue and hover, terminal hover handoff and deck audio gates active.
+[Info   :OspreyMechanics] V-22 rig 1.1.31 ready; native aerial refueling handoff, 20-ft minimum, 10-kt rescue and hover, terminal hover and deck audio gates active.
 [Info   :AnchorChain] Loaded plugin MV-22 Source Mechanics (local.mv22.source.mechanics)
-[Info   :AnchorChain] Loaded plugin Z-21 Gun and EOTS Synchronization (meltemi.seapower.z21.gun-move-fire)
 [Info   :AnchorChain] Loaded plugin MV-75 Cheyenne II (local.bell.systems.fixture)
+[Info   :AnchorChain] Loaded plugin MV75Formation spacing (alpine.formation.mv75)
+[Info   :AnchorChain] Loaded plugin Z-21 Gun and EOTS Synchronization (meltemi.seapower.z21.gun-move-fire)
+[Info   :AnchorChain] Loaded plugin YF23Formation spacing (alpine.formation.yf23)
 [Info   :AnchorChain] Loaded plugin MV-22 Deck Operations (local.mv22.deckops)
-[Info   :AnchorChain] Loaded AnchorChain V1.1.0!
-[Info   :AnchorChain Preloader] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly CustomAudioLoader, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly EnhancedDecoyMod, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly EnhancedUIMod, Version=0.1.1.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly Euromod-Welldeck, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly HighAltitudeSkyFix, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly MissileControlMod, Version=0.1.15.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly MissileControlSurfaces, Version=1.1.2.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly MultiStageMissiles, Version=1.7.4.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly OptimalTargetDist, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly ProfileImage1024, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly SATCOM, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly SubModelStabilization, Version=1.1.2.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly V22Tiltrotor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly WeaponLauncherEffects, Version=1.0.17.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly SecondThrustMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly SubAmmunitionMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly SubAmmunitionMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly LoadoutManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly BetterTacMap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly CoordinatedStrikeTool, Version=1.3.1.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly AutomaticSAR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly IdentifyExpanded, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly ACC.CV16.SkiJumpFix, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly Z20RotorVisualSync, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.2.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.4.1.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly J16Systems, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly J36AfterburnerNozzle, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly OspreyDeckOps, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly OspreyMechanics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly Z21GunMoveFire, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.2.2.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly AnchorChain, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly BellSystemsFixtureTilt, Version=0.4.11.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded AnchorChain V1.1.0!
 [Message:   BepInEx] Chainloader startup complete
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.ObjectBase and name _nation
-[Info   :SubAmmunition] CONFIG CACHE invalidated (game ini cache reload)
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-179.1382, 0.0895, -8914.9070)), container='AmmunitionParent' (world (-179.1432, 0.0395, -8914.8990)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1842, 0.0895, -8914.9070)), container='AmmunitionParent' (world (-179.1792, 0.0395, -8914.9150)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1382, 0.0895, -8914.9380)), container='AmmunitionParent' (world (-179.1432, 0.0395, -8914.9300)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1842, 0.0895, -8914.9380)), container='AmmunitionParent' (world (-179.1792, 0.0395, -8914.9450)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1382, 0.0895, -8914.9670)), container='AmmunitionParent' (world (-179.1432, 0.0395, -8914.9590)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1842, 0.0895, -8914.9670)), container='AmmunitionParent' (world (-179.1792, 0.0395, -8914.9750)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-18203.0400, 0.1127, 27298.2500)), container='AmmunitionParent' (world (-18203.0400, 0.0627, 27298.2600)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1127, 27298.2500)), container='AmmunitionParent' (world (-18203.0800, 0.0627, 27298.2500)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1127, 27298.2200)), container='AmmunitionParent' (world (-18203.0400, 0.0627, 27298.2300)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1127, 27298.2200)), container='AmmunitionParent' (world (-18203.0800, 0.0627, 27298.2200)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1413, 27297.1500)), container='AmmunitionParent' (world (-18203.0400, 0.0913, 27297.1600)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1413, 27297.1500)), container='AmmunitionParent' (world (-18203.0800, 0.0913, 27297.1400)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1413, 27297.1200)), container='AmmunitionParent' (world (-18203.0400, 0.0913, 27297.1300)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1413, 27297.1200)), container='AmmunitionParent' (world (-18203.0800, 0.0913, 27297.1100)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1413, 27297.0900)), container='AmmunitionParent' (world (-18203.0400, 0.0913, 27297.1000)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1413, 27297.0900)), container='AmmunitionParent' (world (-18203.0800, 0.0913, 27297.0800)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1413, 27297.0600)), container='AmmunitionParent' (world (-18203.0400, 0.0913, 27297.0700)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1413, 27297.0600)), container='AmmunitionParent' (world (-18203.0800, 0.0913, 27297.0500)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-18451.0600, 0.1127, 27132.9000)), container='AmmunitionParent' (world (-18451.0700, 0.0627, 27132.9100)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1127, 27132.9000)), container='AmmunitionParent' (world (-18451.1100, 0.0627, 27132.8900)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1127, 27132.8700)), container='AmmunitionParent' (world (-18451.0700, 0.0627, 27132.8800)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1127, 27132.8700)), container='AmmunitionParent' (world (-18451.1100, 0.0627, 27132.8600)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1413, 27131.7900)), container='AmmunitionParent' (world (-18451.0700, 0.0913, 27131.8000)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1413, 27131.7900)), container='AmmunitionParent' (world (-18451.1100, 0.0913, 27131.7900)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1413, 27131.7600)), container='AmmunitionParent' (world (-18451.0700, 0.0913, 27131.7700)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1413, 27131.7600)), container='AmmunitionParent' (world (-18451.1100, 0.0913, 27131.7600)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1413, 27131.7300)), container='AmmunitionParent' (world (-18451.0700, 0.0913, 27131.7400)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1413, 27131.7300)), container='AmmunitionParent' (world (-18451.1100, 0.0913, 27131.7300)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1413, 27131.7100)), container='AmmunitionParent' (world (-18451.0700, 0.0913, 27131.7100)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1413, 27131.7100)), container='AmmunitionParent' (world (-18451.1100, 0.0913, 27131.7000)), shipRoot='5-usn_ddg_burke_f3_125'.
+[Info   :Coordinated Strike Tool] [t=224.00s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=247.72s] in mission: True, game menu open: False, HUD visible: True
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 1ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 2ï¼‰
+[Info   :Coordinated Strike Tool] [t=501.18s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=518.74s] in mission: False, game menu open: False, HUD visible: True

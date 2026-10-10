@@ -10,9 +10,9 @@ records which parts the game lets a mod change and where each part stands.
 | Part | Hook | Status |
 |---|---|---|
 | Loading-screen text | `language_en/loading_tips.ini`, `[LoadingTips]` Count/Header/Tip001.. - merges key by key, the SEST pack loads first | **Live.** The 26 quotations replace the game's 19 tips; Header reads QUOTATION |
-| Loading-screen pictures | The loading screen fetches its backgrounds through the game's FileManager (changelog: "LoadScreen to use FileManager to get backgrounds"), so a mod file can stand in for one | **Folder not yet known.** The repo's copy of the game's files is text only. `tools/capture-context.ps1` now writes `data/install-snapshot/streaming-media.txt`, the game's own pictures by folder |
+| Loading-screen pictures | `ui/backgrounds/loading_screen_1.png` .. `_80.png`, fetched through the FileManager (`streaming-media.txt`, 10 Oct 2026); mod 3491248180 already overrides 30 that way | **Wired, awaiting the in-game test.** 29 photographs (the 17 report photographs, all licences confirmed on their Commons pages, and the 12 gallery backgrounds) fill all 80 slots in turn: `tools/make_loading_screens.py`, `write_loading_screens` in the campaign builder. JPEG data under the game's .png names |
 | Campaign backgrounds | `campaign.ini` `BackgroundImage=` (vanilla's linear campaign uses it; the SEST campaigns already set their own) | Available: candidates once the photographs are in |
-| Main menu background | A film inside the game's Unity data (`sharedassets1.resource`, per the Player.log video warning) - not a file a mod can replace | **Plugin, awaiting the first in-game test.** `plugins/` in the pack: an Anchor Chain plugin swaps the menu's looping film for `sest_menu.mp4` (approved by the author 10 Oct 2026). See below |
+| Main menu background | A film inside the game's Unity data - the clip `main_menu` on 'MediaPlayer' in the 'background' scene, loop off, sound played from the film (Player.log, 10 Oct 2026) | **Plugin loaded but swapped nothing in the first test**: it only took looping films and this one is not. Fixed: `ClipName=main_menu` pins the clip, and the clip's sound track keeps playing on a second player |
 | Mission browser film | `RightPane=` on a `Type=Tutorial` entry | Used by the SEST Briefing Room |
 
 The pack's own field notes, which used to follow the game's tips on the
@@ -41,7 +41,7 @@ reached from the build container, so:
 3. `media_manifest.csv` and `ATTRIBUTION.md` beside it are committed: one
    row per source with its status, and the credits for what ships.
 
-Wiring `game_ready/loading/` into the pack waits on `streaming-media.txt`.
+The loading screens are in the pack (above); the report's 17 photographs all came down with the licence their Commons page states.
 
 ## The menu film and its plugin
 
@@ -65,6 +65,10 @@ are never touched; if Unity cannot play the SEST film the game's clip is put
 back; `sest_menu.ini` can name the clip or turn the plugin off. Every
 VideoPlayer it sees is logged to Player.log as `[SEST Menu]`.
 
-Not yet known, and read from the first test's Player.log: which clip the
-menu loops, and whether the menu's music is part of that film (if it is,
-the swap silences it and the plugin needs to leave the audio alone).
+The first test (10 Oct 2026, game 0.8.5) answered the open questions from
+Player.log: Anchor Chain loaded and started the plugin, which found the menu
+player - clip `main_menu`, loop off, playing its sound itself - and, under
+its looping-only rule, left it alone. The plugin now swaps the clip
+`sest_menu.ini` names (`ClipName=main_menu`, shipped), keeps the clip's
+sound track playing on a second player without a picture when it has one,
+and puts the SEST film back if the game sets its clip again.

@@ -1,0 +1,180 @@
+SEST LOADING SCREENS - photo credits
+
+The game's 80 loading-screen backgrounds (ui/backgrounds/loading_screen_N.png) are
+replaced in turn by these 29 photographs: slot N shows photograph
+((N - 1) mod 29) + 1. Real photographs only; no AI imagery. Use does not imply
+endorsement by the photographers or any armed service.
+
+sest_loading_01  Combined Space Operations Center (CSpOC) staff monitor workstations (9237933)
+  Creator: U.S. Space Force S4S by David Dozoretz
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:Combined_Space_Operations_Center_(CSpOC)_staff_monitor_workstations_(9237933).jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_02  Hobart class
+  Creator: https://www.mod.go.jp/msdf/index.html  海上自衛隊
+  Licence: CC BY 4.0
+  Source: https://commons.wikimedia.org/wiki/File:HMAS_Hobart_(DDG_39)_participating_in_the_International_Fleet_Review_2022.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_03  Boeing P-8A Poseidon of VP-69 at NAS Whidbey Island, Washington (USA), circa in 2023
+  Creator: U.S. Navy
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:Boeing_P-8A_Poseidon_of_VP-69_at_NAS_Whidbey_Island,_Washington_(USA),_circa_in_2023.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_04  F-35A — RAAF
+  Creator: U.S. Air Force photo by Senior Airman J. Michael Peña
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:No_75_Squadron_F-35A_at_RAAF_Base_Tindal_in_July_2023.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_05  Abraham Lincoln Carrier Strike Group Conducts Photo Exercise
+  Creator: Mass Communication Specialist 1st Class Jesse Monford, U.S. Navy
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_Carrier_Strike_Group_Conducts_Photo_Exercise.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_06  Collins class submarine
+  Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Leonard Adams
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:HMAS_Collins_rises_to_the_surface_during_exercise_La_Perouse_in_2019.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_07  An E-2D Advanced Hawkeye flies in formation over the Philippine Sea during Pacific Steller 2025 (8872518)
+  Creator: U.S. Navy photo by Petty Officer 2nd Class Isaiah Goessl
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:An_E-2D_Advanced_Hawkeye_flies_in_formation_over_the_Philippine_Sea_during_Pacific_Steller_2025_(8872518).jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_08  Arleigh Burke class
+  Creator: U.S. Navy photo by Journalist 2nd Class Patrick Reilly
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:USS_Arleigh_Burke_(DDG_51)_steams_through_the_Mediterranean_Sea.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_09  Triton completes first flight. (8793150905)
+  Creator: Official U.S. Navy Page from United States of America
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:Triton_completes_first_flight._(8793150905).jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_10  Chungmugong Yi Sun-sin class
+  Creator: Petty Officer 1st Class John Bellino
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:ROKS_Chungmugong_Yi_Sun-sin_(DDH-975)_sails_off_the_coast_of_Hawaii_during_RIMPAC_2024_on_22_July_2024_-_1.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_11  Combined Air Operations Center 151007-F-MS415-019
+  Creator: Tech. Sgt. Joshua Strang
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:Combined_Air_Operations_Center_151007-F-MS415-019.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_12  Maya class destroyer
+  Creator: 海上自衛隊
+  Licence: CC BY 4.0
+  Source: https://commons.wikimedia.org/wiki/File:JS_Maya_(DDG-179).jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_13  Boeing KC-46A Pegasus of the 412th Test Wing conducts tanker-receiver aerial refueling compatibility testing with a Northrop Grumman E-2D Hawkeye of VX-20 near NAS Patuxent River, Maryland (USA), 16 April 2024
+  Creator: U.S. Navy photo by Erik Hildebrandt
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:Boeing_KC-46A_Pegasus_of_the_412th_Test_Wing_conducts_tanker-receiver_aerial_refueling_compatibility_testing_with_a_Northrop_Grumman_E-2D_Hawkeye_of_VX-20_near_NAS_Patuxent_River,_Maryland_(USA),_16_April_2024.JPG
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_14  MH-60R Seahawk
+  Creator: U.S. Navy/Mass Communication Specialist 3rd Class Andrew Langholf
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:MH-60R_Seahawk_from_HSM-37_during_counterdrug_operations_(200713-N-FA490-1857).jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_15  RC-135 Rivet Joint
+  Creator: U.S. Air Force photo by Master Sgt. Lance Cheung
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:RC-135_Rivet_Joint.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_16  Virginia class submarine
+  Creator: U.S. Navy photo by Journalist 2nd Class Christina M. Shaw (RELEASED)
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:USS_Virginia_(SSN-774)_bravo_sea_trials.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_17  HMNZS Te Kaha (F77) underway in the Philippine Sea on 2 July 2017
+  Creator: U.S. Navy photo by Mass Communication Specialist 2nd Class Holly Herline
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:HMNZS_Te_Kaha_(F77)_underway_in_the_Philippine_Sea_on_2_July_2017.JPG
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_18  P-8A Poseidon
+  Creator: Julian Herzog  ( Website )
+  Licence: CC BY 4.0
+  Source: https://commons.wikimedia.org/wiki/File:Royal_Air_Force_Boeing_Poseidon_MRA1_P-8A_ZP803_Royal_International_Air_Tattoo_2025_01.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_19  U-2 Dragon Lady 'Anytime, Anyplace' 130108-F-JA766-009
+  Creator: Airman 1st Class Andrew Buchanan
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:U-2_Dragon_Lady_%27Anytime,_Anyplace%27_130108-F-JA766-009.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_20  Patriot missile launcher
+  Creator: Hunini
+  Licence: CC BY-SA 4.0
+  Source: https://commons.wikimedia.org/wiki/File:JASDF_MIM-104_Patriot_PAC-2_M901_Launching_Station(49-3157,_launch_mode)_behind_view_at_JGSDF_Camp_Nihonbara_October_1,_2017.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_21  F-35A Lightning II at Hill Air Force Base, Utah
+  Creator: Staff Sgt. Kaitlyn Ergish
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:F-35A_Lightning_II_at_Hill_Air_Force_Base,_Utah.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_22  Leclerc tank
+  Creator: Staff Sgt. Kathleen Polanco; 7th Army Training Command
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:French_Leclerc_main_battle_tank_during_Strong_Europe_Tank_Challenge_exercise,_2017.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_23  A KC-46A Pegasus, takes off on a mission to refuel a B-1B Lancer
+  Creator: Senior Airman Alexi Bosarge
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:A_KC-46A_Pegasus,_takes_off_on_a_mission_to_refuel_a_B-1B_Lancer.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_24  CAESAR self-propelled howitzer
+  Creator: Sgt. 1st Class Mikki Sprenkle
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:French_Caesar_self-propelled_howitzer_in_Iraq.jpg
+  Changes: fitted to 1920x1080 with dark letterboxing (SEST Gallery); JPEG.
+
+sest_loading_25  RQ-4 Global Hawk
+  Creator: Stacey Knott
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:RQ-4_Global_Hawk.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_26  US Air Force B-2 Spirit
+  Creator: USGov Military-Air Force
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:US_Air_Force_B-2_Spirit.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_27  SM-3 launch-USS Decatur
+  Creator: United States Navy photo
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:SM-3_launch-USS_Decatur.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_28  16 19 133 global hawk
+  Creator: Dsdugan
+  Licence: CC0
+  Source: https://commons.wikimedia.org/wiki/File:16_19_133_global_hawk.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.
+
+sest_loading_29  CIC-USS-CarlVinson-2001
+  Creator: U.S. Navy Photo by Photographer's Mate Airman Inez Lawson. (RELEASED)
+  Licence: Public domain
+  Source: https://commons.wikimedia.org/wiki/File:CIC-USS-CarlVinson-2001.jpg
+  Changes: 16:9 crop and resize to 1920x1080 (integration/media-pack/build_media.py); JPEG.

@@ -1681,5 +1681,28 @@ class MenuBackground(unittest.TestCase):
         self.assertFalse((self.tmp / "plugins").exists())
 
 
+class LoadingScreens(unittest.TestCase):
+    """Every one of the game's 80 loading-screen slots gets a SEST photograph,
+    in turn, under the game's own file name."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="sest-loading-test-"))
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_all_slots_filled_in_turn(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            bp.write_loading_screens(self.tmp)
+        slots = sorted((self.tmp / "ui" / "backgrounds").iterdir(), key=lambda f: int(f.stem.split("_")[-1]))
+        self.assertEqual([f.name for f in slots], [f"loading_screen_{n}.png" for n in range(1, 81)])
+        photos = sorted(bp.LOADING.glob("sest_loading_*.jpg"))
+        self.assertGreater(len(photos), 1)
+        self.assertEqual(slots[0].read_bytes(), photos[0].read_bytes())
+        self.assertEqual(slots[len(photos)].read_bytes(), photos[0].read_bytes())
+        self.assertEqual(slots[0].read_bytes()[:2], b"\xff\xd8")    # JPEG data
+        self.assertTrue((self.tmp / "LOADING-SCREEN-CREDITS.txt").is_file())
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
