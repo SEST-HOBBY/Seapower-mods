@@ -1,0 +1,337 @@
+STATIC CIL EXCERPTS - NOT EXECUTED
+Sample SHA256: 0047b9e6429a1dcf6ae3a393725c8f928ad1b22014d7dbe05f019949715cd4a3
+Partial instruction windows. Consult original control flow/source before changing code.
+Tokens and offsets are specific to the uploaded 0.24.0 build.
+
+// DynamicCampaignMod.Game.Patches.CampaignMenuPatch::Postfix token=0x06000949
+// excerpt offsets 0x0000..0x0072
+IL_0000: call TypeSpec[151284c90112832d]::get_Instance
+IL_0005: stloc.0
+IL_0006: ldloc.0
+IL_0007: ldstr 'dynamic_campaigns'
+IL_000c: callvirt SeaPower.FileManager::GetDirectories
+IL_0011: callvirt TypeSpec[151265010e]::GetEnumerator
+IL_0016: stloc.1
+IL_0017: br IL_0153
+IL_001c: ldloca.s 1
+IL_001e: call TypeSpec[151180f9010e]::get_Current
+IL_0023: stloc.2
+IL_0024: newobj DynamicCampaignMod.Game.Patches.CampaignMenuPatch+<>c__DisplayClass1_0::.ctor
+IL_0029: stloc.3
+IL_002a: ldloc.3
+IL_002b: ldloc.0
+IL_002c: ldloc.2
+IL_002d: callvirt SeaPower.FileManager::GetFiles
+IL_0032: ldsfld DynamicCampaignMod.Game.Patches.CampaignMenuPatch+<>c::<>9__1_0
+IL_0037: dup
+IL_0038: brtrue.s IL_0051
+IL_003a: pop
+IL_003b: ldsfld DynamicCampaignMod.Game.Patches.CampaignMenuPatch+<>c::<>9
+IL_0040: ldftn DynamicCampaignMod.Game.Patches.CampaignMenuPatch+<>c::<Postfix>b__1_0
+IL_0046: newobj TypeSpec[15126d020e02]::.ctor
+IL_004b: dup
+IL_004c: stsfld DynamicCampaignMod.Game.Patches.CampaignMenuPatch+<>c::<>9__1_0
+IL_0051: call System.Linq.Enumerable::FirstOrDefault<0a010e>
+IL_0056: stfld DynamicCampaignMod.Game.Patches.CampaignMenuPatch+<>c__DisplayClass1_0::path
+IL_005b: ldloc.3
+IL_005c: ldfld DynamicCampaignMod.Game.Patches.CampaignMenuPatch+<>c__DisplayClass1_0::path
+IL_0061: brfalse IL_0153
+IL_0066: nop
+IL_0067: ldloc.3
+IL_0068: ldfld DynamicCampaignMod.Game.Patches.CampaignMenuPatch+<>c__DisplayClass1_0::path
+IL_006d: call DynamicCampaignMod.Core.Data.CampaignDefinition::Load
+IL_0072: stloc.s 4
+
+// DynamicCampaignMod.Game.Patches.CampaignMenuPatch+<>c::<Postfix>b__1_0 token=0x0600165c
+// excerpt offsets 0x0000..0xffff
+IL_0000: ldarg.1
+IL_0001: ldstr 'campaign.json'
+IL_0006: callvirt System.String::EndsWith
+IL_000b: ret
+
+// DynamicCampaignMod.Core.Sim.Logistics::ReplenishAtSea token=0x06000e35
+// excerpt offsets 0x0000..0x0068
+IL_0000: ldarg.0
+IL_0001: ldfld DynamicCampaignMod.Core.Sim.Logistics::_state
+IL_0006: ldarg.1
+IL_0007: ldfld DynamicCampaignMod.Core.State.Mover::Mission
+IL_000c: ldfld DynamicCampaignMod.Core.State.GroupMission::TargetId
+IL_0011: callvirt DynamicCampaignMod.Core.State.CampaignState::Mover
+IL_0016: isinst DynamicCampaignMod.Core.State.TaskForce
+IL_001b: stloc.0
+IL_001c: ldloc.0
+IL_001d: brfalse.s IL_0056
+IL_001f: ldloc.0
+IL_0020: callvirt DynamicCampaignMod.Core.State.TaskForce::get_AtSea
+IL_0025: brfalse.s IL_0056
+IL_0027: ldarg.0
+IL_0028: ldfld DynamicCampaignMod.Core.Sim.Logistics::_state
+IL_002d: ldfld DynamicCampaignMod.Core.State.CampaignState::TaskForces
+IL_0032: ldloc.0
+IL_0033: callvirt TypeSpec[151265011282fc]::Contains
+IL_0038: brfalse.s IL_0056
+IL_003a: ldarg.1
+IL_003b: ldfld DynamicCampaignMod.Core.State.Mover::Position
+IL_0040: ldloc.0
+IL_0041: ldfld DynamicCampaignMod.Core.State.Mover::Position
+IL_0046: call DynamicCampaignMod.Core.Geo.GeoPoint::DistanceNm
+IL_004b: ldc.r8 5.0
+IL_0054: ble.un.s IL_0057
+IL_0056: ret
+IL_0057: ldarg.0
+IL_0058: ldfld DynamicCampaignMod.Core.Sim.Logistics::_state
+IL_005d: ldfld DynamicCampaignMod.Core.State.CampaignState::Definition
+IL_0062: ldarg.1
+IL_0063: call DynamicCampaignMod.Core.Sim.Replenishment::ShipsOf
+IL_0068: ldsfld DynamicCampaignMod.Core.Sim.Logistics+<>c::<>9__61_0
+
+// DynamicCampaignMod.Game.Battle.BattleSession::Fired token=0x06000a23
+// excerpt offsets 0x0040..0x00dd
+IL_0040: call System.String::IsNullOrEmpty
+IL_0045: brtrue IL_01b4
+IL_004a: ldsfld DynamicCampaignMod.Game.Battle.BattleSession::StartCounts
+IL_004f: ldloc.2
+IL_0050: ldfld SeaPower.ObjectBase::_campaignTag
+IL_0055: ldloca.s 3
+IL_0057: callvirt TypeSpec[15128101020e15128101020e08]::TryGetValue
+IL_005c: brfalse IL_01b4
+IL_0061: nop
+IL_0062: ldloc.2
+IL_0063: call DynamicCampaignMod.Game.Battle.BattleSession::Count
+IL_0068: stloc.s 4
+IL_006a: newobj TypeSpec[15128101020e08]::.ctor
+IL_006f: stloc.s 5
+IL_0071: ldloc.3
+IL_0072: callvirt TypeSpec[15128101020e08]::GetEnumerator
+IL_0077: stloc.s 7
+IL_0079: br.s IL_00ba
+IL_007b: ldloca.s 7
+IL_007d: call TypeSpec[15118109020e08]::get_Current
+IL_0082: stloc.s 8
+IL_0084: ldloca.s 8
+IL_0086: call TypeSpec[1511810d020e08]::get_Value
+IL_008b: ldloc.s 4
+IL_008d: ldloca.s 8
+IL_008f: call TypeSpec[1511810d020e08]::get_Key
+IL_0094: ldloca.s 10
+IL_0096: callvirt TypeSpec[15128101020e08]::TryGetValue
+IL_009b: brtrue.s IL_00a0
+IL_009d: ldc.i4.0
+IL_009e: br.s IL_00a2
+IL_00a0: ldloc.s 10
+IL_00a2: sub
+IL_00a3: stloc.s 9
+IL_00a5: ldloc.s 9
+IL_00a7: ldc.i4.0
+IL_00a8: ble.s IL_00ba
+IL_00aa: ldloc.s 5
+IL_00ac: ldloca.s 8
+IL_00ae: call TypeSpec[1511810d020e08]::get_Key
+IL_00b3: ldloc.s 9
+IL_00b5: callvirt TypeSpec[15128101020e08]::set_Item
+IL_00ba: ldloca.s 7
+IL_00bc: call TypeSpec[15118109020e08]::MoveNext
+IL_00c1: brtrue.s IL_007b
+IL_00c3: leave.s IL_00d3
+IL_00c5: ldloca.s 7
+IL_00c7: constrained. TypeSpec[15118109020e08]
+IL_00cd: callvirt System.IDisposable::Dispose
+IL_00d2: endfinally
+IL_00d3: ldsfld DynamicCampaignMod.Game.Battle.BattleSession::FiredBefore
+IL_00d8: ldloc.2
+IL_00d9: ldfld SeaPower.ObjectBase::_campaignTag
+
+// DynamicCampaignMod.Core.Intel.SensorProfile::.ctor token=0x0600101b
+// excerpt offsets 0x0000..0xffff
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld DynamicCampaignMod.Core.Intel.SensorProfile::SurfaceNm
+IL_0007: ldarg.0
+IL_0008: ldarg.2
+IL_0009: stfld DynamicCampaignMod.Core.Intel.SensorProfile::AirNm
+IL_000e: ldarg.0
+IL_000f: ldarg.3
+IL_0010: stfld DynamicCampaignMod.Core.Intel.SensorProfile::SubsurfaceNm
+IL_0015: ret
+
+// DynamicCampaignMod.Core.Intel.SensorProfile::.cctor token=0x0600101e
+// excerpt offsets 0x0000..0xffff
+IL_0000: ldc.r8 100.0
+IL_0009: ldc.r8 200.0
+IL_0012: ldc.r8 0.0
+IL_001b: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_0020: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::Base
+IL_0025: ldc.r8 70.0
+IL_002e: ldc.r8 150.0
+IL_0037: ldc.r8 20.0
+IL_0040: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_0045: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::Ship
+IL_004a: ldc.r8 70.0
+IL_0053: ldc.r8 150.0
+IL_005c: ldc.r8 50.0
+IL_0065: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_006a: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::AswShip
+IL_006f: ldc.r8 70.0
+IL_0078: ldc.r8 150.0
+IL_0081: ldc.r8 0.0
+IL_008a: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_008f: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::Convoy
+IL_0094: ldc.r8 50.0
+IL_009d: ldc.r8 20.0
+IL_00a6: ldc.r8 20.0
+IL_00af: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_00b4: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::Submarine
+IL_00b9: ldc.r8 50.0
+IL_00c2: ldc.r8 50.0
+IL_00cb: ldc.r8 0.0
+IL_00d4: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_00d9: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::Aircraft
+IL_00de: ldc.r8 200.0
+IL_00e7: ldc.r8 200.0
+IL_00f0: ldc.r8 0.0
+IL_00f9: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_00fe: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::AewAircraft
+IL_0103: ldc.r8 100.0
+IL_010c: ldc.r8 100.0
+IL_0115: ldc.r8 50.0
+IL_011e: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_0123: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::AswAircraft
+IL_0128: ldc.r8 200.0
+IL_0131: ldc.r8 200.0
+IL_013a: ldc.r8 0.0
+IL_0143: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_0148: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::ReconAircraft
+IL_014d: ldc.r8 200.0
+IL_0156: ldc.r8 200.0
+IL_015f: ldc.r8 50.0
+IL_0168: newobj DynamicCampaignMod.Core.Intel.SensorProfile::.ctor
+IL_016d: stsfld DynamicCampaignMod.Core.Intel.SensorProfile::Carrier
+IL_0172: ret
+
+// DynamicCampaignMod.Game.Battle.MissionWriter::WriteUnit token=0x06000a41
+// excerpt offsets 0x03f0..0x045f
+IL_03f1: callvirt System.Text.StringBuilder::AppendLine
+IL_03f6: pop
+IL_03f7: ldloc.s 14
+IL_03f9: callvirt System.Collections.IEnumerator::MoveNext
+IL_03fe: brtrue.s IL_03cc
+IL_0400: leave.s IL_040e
+IL_0402: ldloc.s 14
+IL_0404: brfalse.s IL_040d
+IL_0406: ldloc.s 14
+IL_0408: callvirt System.IDisposable::Dispose
+IL_040d: endfinally
+IL_040e: ldarg.0
+IL_040f: ldstr 'CampaignTag='
+IL_0414: ldarg.2
+IL_0415: ldfld DynamicCampaignMod.Core.State.BattleUnit::Tag
+IL_041a: call System.String::Concat
+IL_041f: callvirt System.Text.StringBuilder::AppendLine
+IL_0424: pop
+IL_0425: ldarg.0
+IL_0426: ldstr 'CrewSkill=Trained'
+IL_042b: callvirt System.Text.StringBuilder::AppendLine
+IL_0430: pop
+IL_0431: ldarg.2
+IL_0432: ldfld DynamicCampaignMod.Core.State.BattleUnit::Kind
+IL_0437: ldc.i4.3
+IL_0438: beq.s IL_0445
+IL_043a: ldarg.3
+IL_043b: brtrue.s IL_0453
+IL_043d: ldarg.2
+IL_043e: ldfld DynamicCampaignMod.Core.State.BattleUnit::Radars
+IL_0443: brfalse.s IL_0453
+IL_0445: ldarg.0
+IL_0446: ldstr 'RadarsActive=True'
+IL_044b: callvirt System.Text.StringBuilder::AppendLine
+IL_0450: pop
+IL_0451: br.s IL_046b
+IL_0453: ldarg.3
+IL_0454: brfalse.s IL_046b
+IL_0456: ldarg.2
+IL_0457: ldfld DynamicCampaignMod.Core.State.BattleUnit::Kind
+IL_045c: ldc.i4.4
+IL_045d: beq.s IL_046b
+IL_045f: ldarg.0
+
+// DynamicCampaignMod.Core.Data.GeoBounds::Continuous token=0x060010ce
+// excerpt offsets 0x0000..0xffff
+IL_0000: ldarg.0
+IL_0001: ldfld DynamicCampaignMod.Core.Data.GeoBounds::lonMin
+IL_0006: ldarg.0
+IL_0007: ldfld DynamicCampaignMod.Core.Data.GeoBounds::lonMax
+IL_000c: add
+IL_000d: ldc.r8 2.0
+IL_0016: div
+IL_0017: stloc.0
+IL_0018: ldarg.1
+IL_0019: stloc.1
+IL_001a: ldc.i4.2
+IL_001b: newarr System.Double
+IL_0020: dup
+IL_0021: ldc.i4.0
+IL_0022: ldarg.1
+IL_0023: ldc.r8 360.0
+IL_002c: sub
+IL_002d: stelem.r8
+IL_002e: dup
+IL_002f: ldc.i4.1
+IL_0030: ldarg.1
+IL_0031: ldc.r8 360.0
+IL_003a: add
+IL_003b: stelem.r8
+IL_003c: stloc.2
+IL_003d: ldc.i4.0
+IL_003e: stloc.3
+IL_003f: br.s IL_0060
+IL_0041: ldloc.2
+IL_0042: ldloc.3
+IL_0043: ldelem.r8
+IL_0044: stloc.s 4
+IL_0046: ldloc.s 4
+IL_0048: ldloc.0
+IL_0049: sub
+IL_004a: call System.Math::Abs
+IL_004f: ldloc.1
+IL_0050: ldloc.0
+IL_0051: sub
+IL_0052: call System.Math::Abs
+IL_0057: bge.un.s IL_005c
+IL_0059: ldloc.s 4
+IL_005b: stloc.1
+IL_005c: ldloc.3
+IL_005d: ldc.i4.1
+IL_005e: add
+IL_005f: stloc.3
+IL_0060: ldloc.3
+IL_0061: ldloc.2
+IL_0062: ldlen
+IL_0063: conv.i4
+IL_0064: blt.s IL_0041
+IL_0066: ldloc.1
+IL_0067: ret
+
+// DynamicCampaignMod.Game.Session.Files::WriteSafely token=0x0600091c
+// excerpt offsets 0x0000..0xffff
+IL_0000: ldarg.0
+IL_0001: ldstr '.tmp'
+IL_0006: call System.String::Concat
+IL_000b: stloc.0
+IL_000c: ldloc.0
+IL_000d: ldarg.1
+IL_000e: ldc.i4.0
+IL_000f: newobj System.Text.UTF8Encoding::.ctor
+IL_0014: call System.IO.File::WriteAllText
+IL_0019: ldarg.0
+IL_001a: call System.IO.File::Exists
+IL_001f: brfalse.s IL_002a
+IL_0021: ldloc.0
+IL_0022: ldarg.0
+IL_0023: ldnull
+IL_0024: call System.IO.File::Replace
+IL_0029: ret
+IL_002a: ldloc.0
+IL_002b: ldarg.0
+IL_002c: call System.IO.File::Move
+IL_0031: ret
+

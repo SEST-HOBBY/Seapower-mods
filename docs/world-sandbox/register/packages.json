@@ -2099,10 +2099,10 @@
      "source_basis": "SCENARIO CHOICE. R03:38 names the CSG but not its escorts (register populate_reason).",
      "outcome": "exact",
      "unit_ids": [
-      "usn_cg_ticonderoga_vls_2025"
+      "usn_cg_bunker_hill_vls_2024"
      ],
-     "scenario_quantity": "1 (hull chosen at build; world dedup; ServiceDate windows run 2022-2032 and differ per hull)",
-     "notes": "Embarks MH-60R x2 (unit default). No supply system. No real-world Yokosuka assignment of any named hull is asserted."
+     "scenario_quantity": "1 (Variant5 'CG-64 Gettysburg'; hull chosen at build; world dedup)",
+     "notes": "Embarks MH-60R x2 (unit default). No supply system. No real-world Yokosuka assignment of any named hull is asserted. REVISED 10 Oct 2026: Euromod - Modern US Navy (3390330875) retired usn_cg_ticonderoga_vls_2025 in the 9 Oct export and folded its fits into usn_cg_bunker_hill_vls_2024 (nine named ships; CG-64 Gettysburg is Variant5). Same retarget as integration/missions/retarget_units.py."
     },
     {
      "asset_id": "asset:wpac:gw_csg_ddg1",

@@ -152,7 +152,7 @@
 | | Rota: DDG-84 (`_084_late` V1), DDG-117 (`_117` V1), DDG-80 (`_080_late` V1), DDG-79 (`_079_late` V1) | Applied | DDG-51 held, unallocated. |
 | Burke Flight I, `_054_late` (all 2025 onward) | usatl:ddg_vacapes_planeguard → DDG-54 V1; usatl:ddg_norfolk_ready → DDG-56 V2; wpac:yoko_ddg_maint → DDG-58 V3 | To apply (US Atlantic, W/C Pacific) | V4–V13 (DDG-59 to 70) free. |
 | Burke Flight III, `f3_125` | usp:vinson_ddg_2 → DDG-125 V1 (2023 onward) | Applied | V3 DDG-128 is 2026 onward; V2 2027; V4 onward 2028–2037. |
-| CG, `usn_cg_ticonderoga_vls_2025` | wpac:gw_csg_cg1 → CG-64 Gettysburg V2 (2023–2030) | To apply (W/C Pacific) | V1 CG-62 ends 2027; V3 CG-65 (2024–2031) and V4 CG-71 (2025–2032) free. |
+| CG, `usn_cg_bunker_hill_vls_2024` (was `usn_cg_ticonderoga_vls_2025`, retired by Modern US Navy on 9 Oct 2026) | wpac:gw_csg_cg1 → CG-64 Gettysburg V5 | To apply (W/C Pacific) | Revised 10 Oct 2026: the author folded the Ticonderoga fits into one hull with nine named ships (V1 CG-58 to V9 CG-71). Check V5's ServiceDate window at build. |
 | LCS, `usn_lcs_freedom_suw_late` | wpac:guam_lcs1 → LCS-27 V6 (2024 onward); me:lcs_1 → LCS-29 V7 (2024 onward) | To apply (W/C Pacific, Gulf) | V8 LCS-31 is 2026 onward. |
 | SSN (2026 units, both 2026 onward) | wpac:guam_ssn1 → SSN-778 New Hampshire (`virginia_block2_2026` V1); wpac:guam_ssn2 → SSN-753 Albany (`los_angeles_flt3_2026` V1) | To apply (W/C Pacific) | |
 | LHD | usp:sd_lhd_1 → any `usn_lhd_wasp` variant except V6 (2015–2021) | Single user; pick at build | |

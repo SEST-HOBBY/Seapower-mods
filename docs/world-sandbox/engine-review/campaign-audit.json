@@ -1,0 +1,72 @@
+{
+  "scope": "Static JSON structural/reference checks only; not the plugin validator or game asset resolver.",
+  "files": {
+    "DynamicCampaignMod.dll": {
+      "bytes": 2717184,
+      "sha256": "0047b9e6429a1dcf6ae3a393725c8f928ad1b22014d7dbe05f019949715cd4a3"
+    },
+    "campaign.json": {
+      "bytes": 69218,
+      "sha256": "62fa57aba5ffd67f5c25776de940cf337bd295acc69beb06d93e7e6d853f192e"
+    },
+    "_info.ini": {
+      "bytes": 548,
+      "sha256": "983ec6f371e1aed62d87b230181a5cb25516aaff9e843abfbbac869b0563fe0a"
+    }
+  },
+  "campaign_id": "bungalow.east_asia_1985",
+  "bounds": {
+    "latMin": -47.0,
+    "latMax": 62.0,
+    "lonMin": 90.0,
+    "lonMax": 210.0
+  },
+  "statistics": {
+    "bases": 61,
+    "base_kinds": {
+      "NavalBase": 27,
+      "AirBase": 27,
+      "Port": 7
+    },
+    "initial_forces": 83,
+    "force_types": {
+      "Surface": 55,
+      "Air": 28
+    },
+    "initial_forces_by_side": {
+      "blue": 34,
+      "red": 49
+    },
+    "initial_unit_count_expanded_xN": 346,
+    "unit_count_exclusions": "Does not include generated carrier air wings, garrisons, traffic, reinforcements or spawns.",
+    "catalogue_entries": 130,
+    "unit_values": 157,
+    "patrols": 13,
+    "invasions": 2,
+    "shipping_lanes": 31,
+    "airways": 19,
+    "active_airways": 10,
+    "suspended_airways": 9
+  },
+  "checks": {
+    "duplicate_base_ids": [],
+    "duplicate_force_names": [],
+    "duplicate_catalogue_units": [],
+    "initial_unit_ids_missing_values": [],
+    "catalogue_ids_missing_values": [],
+    "base_anchors_outside_authored_bounds": []
+  },
+  "issues": [],
+  "not_checked": [
+    "Winning installed unit/variant/squadron/loadout resolution",
+    "Every schema constraint enforced by the DLL",
+    "Real-world accuracy or suitability for a modern setting",
+    "Water/land/depth/path validity",
+    "Game load, performance, save/reload or interoperability"
+  ],
+  "schema_notes": [
+    "Surface is used for sea forces including submarines.",
+    "The missing explicit China merchant list has fallback code in Supply.MerchantsFor; it is not a missing-reference error.",
+    "A named proxy does not become the named real-world class: Midway uses usn_cv_kitty_hawk."
+  ]
+}

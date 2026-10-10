@@ -2,7 +2,7 @@
 
 Status: **DESIGN REGISTER, first complete pass.** Every node in R01-R03 has a population package, and every package is joined to the installed collection. Nothing has been placed, built or run in game. No campaign, unit, pack, load order, installer or Workshop item is changed.
 
-Branch `sest-dev/sweet-lovelace-3kxsve`, built on `feature/world-campaign-draft` (`50cad91b`). Date 7 October 2026.
+Branch `sest-dev/sweet-lovelace-3kxsve`, built on `feature/world-campaign-draft` (`50cad91b`). Date 7 October 2026. Revised 10 October 2026 on `sest-dev/inspiring-wozniak-8vuckh` after main's 9 October mod export: one retired cruiser id (`usn_cg_ticonderoga_vls_2025` -> `usn_cg_bunker_hill_vls_2024`, CG-64 Gettysburg V5). First runtime candidate: `DYNAMIC_CAMPAIGN_ADAPTER.md`.
 
 ## What this is
 
