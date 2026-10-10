@@ -57,7 +57,7 @@ def unity_refs():
 
 
 def mcs(args):
-    run = subprocess.run(["mcs", "-nologo", "-langversion:7", "-sdk:4.5", "-optimize+",
+    run = subprocess.run(["mcs", "-nologo", "-langversion:7", "-optimize+",
                           "-warnaserror+", *args], capture_output=True, text=True)
     if run.returncode != 0:
         sys.exit("mcs failed:\n" + run.stdout + run.stderr)

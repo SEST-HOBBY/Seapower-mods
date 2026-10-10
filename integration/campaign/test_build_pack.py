@@ -1646,5 +1646,40 @@ class RecognitionPhotos(unittest.TestCase):
         self.assertTrue(bp.recognition_png(picked[0][2]["file"]).startswith(b"\x89PNG"))
 
 
+class MenuBackground(unittest.TestCase):
+    """The plugins/ folder: the plugin, its film and the files a player reads,
+    and never a second AnchorChain.dll - Anchor Chain loads every DLL it
+    finds in a mod folder, and the compile-time stub would be one."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="sest-menu-test-"))
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_the_folder_holds_the_plugin_film_settings_and_credits(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            bp.write_menu_background(self.tmp)
+        folder = self.tmp / "plugins"
+        self.assertEqual(sorted(f.name for f in folder.iterdir()),
+                         ["MENU_CREDITS.txt", "README.txt", "SEST.MenuBackground.dll",
+                          "sest_menu.ini", "sest_menu.mp4"])
+        self.assertEqual([f.name for f in self.tmp.rglob("*.dll")], ["SEST.MenuBackground.dll"])
+        ini = (folder / "sest_menu.ini").read_text(encoding="utf-8")
+        self.assertIn("\nEnabled=1\n", ini)
+        self.assertIn("\nFilm=sest_menu.mp4\n", ini)
+        self.assertEqual((folder / "sest_menu.mp4").read_bytes()[4:8], b"ftyp")
+
+    def test_no_plugin_no_folder(self):
+        saved = bp.MENU_BACKGROUND
+        bp.MENU_BACKGROUND = self.tmp / "nothing-here"
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                bp.write_menu_background(self.tmp)
+        finally:
+            bp.MENU_BACKGROUND = saved
+        self.assertFalse((self.tmp / "plugins").exists())
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
