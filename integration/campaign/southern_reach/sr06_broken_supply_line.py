@@ -7,6 +7,7 @@ the last miles toward Bluff on what it has left - the rearm before this
 mission is Macquarie Passage's window, held or not.
 """
 from campaign_data import U, F, S, HELO, RECON
+from .fields import FIELDS, RAAF_P8, RNZAF_P8, detachment
 
 MISSION = dict(
     code="SR06", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 6",
@@ -92,7 +93,7 @@ MISSION = dict(
         "expedition": S(-51.00, 165.90, "Expedition ship", heading=350),
         "longliner": S(-51.80, 165.40, "Longliner", heading=120),
         "whale": S(-51.40, 165.20, "Biologic", heading=60),
-        "home": S(-46.412, 168.313, "Invercargill Airport"),
+        "home": FIELDS["invercargill"],
     },
     units=[
         # Telegraph 1 on her route is the six knots; the rest is the Chief.
@@ -129,7 +130,7 @@ MISSION = dict(
           depth="shallow"),
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Invercargill Airport (RNZAF/RAAF detachment)", nation="NewZealand",
-          weapons="Hold"),
+          weapons="Hold", extra=detachment(usn_p8=f"{RNZAF_P8},1|{RAAF_P8},1")),
     ],
     resolve={"Coaster": "victory", "Neutrals": "neutral",
              "Cargo": ("protect", "coaster#2"),

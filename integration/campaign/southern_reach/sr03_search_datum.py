@@ -8,6 +8,7 @@ she is, classify her, and put the escort alongside. Sinking her is a fatal:
 the people are aboard.
 """
 from campaign_data import U, F, S, HELO, RECON
+from .fields import FIELDS, RAAF_P8, RNZAF_P8, detachment
 
 MISSION = dict(
     code="SR03", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 3",
@@ -101,7 +102,7 @@ MISSION = dict(
         "side": S(-51.70, 139.50, "Longliner", heading=320),
         "cruise": S(-51.60, 140.60, "Polar Horizon", heading=190),
         "whale": S(-52.30, 139.70, "Biologic", heading=90),
-        "home": S(-42.836, 147.510, "Hobart Airport"),
+        "home": FIELDS["hobart"],
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant7",
@@ -135,7 +136,8 @@ MISSION = dict(
         # in by the game's small airfield. Edinburgh is outside a Poseidon's
         # radius from here.
         U("blue", "_vanilla", "airfield_small_1", "home",
-          name="Hobart Airport (RAAF detachment)", nation="australia", weapons="Hold"),
+          name="Hobart Airport (RAAF detachment)", nation="australia", weapons="Hold",
+          extra=detachment(usn_p8=f"{RAAF_P8},2")),
     ],
     resolve={"Datum": "victory", "Neutrals": "neutral",
              "Flagship": ("protect", "escort"),
