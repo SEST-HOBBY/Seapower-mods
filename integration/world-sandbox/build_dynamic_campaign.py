@@ -46,6 +46,8 @@ sys.path.insert(0, str(ROOT / "integration" / "campaign"))
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
 import build_pack as bp                      # noqa: E402  winning-file resolver
 from retarget_units import RETARGET           # noqa: E402  ids the collection retired
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from home_bases import BLUE_ADDED, HOME_BASES, RED_ADDED   # noqa: E402  scenario additions
 
 try:
     from global_land_mask import globe       # same optional dependency as the showcase builder
@@ -64,8 +66,8 @@ START = "2028-10-01T00:00:00Z"
 BOUNDS = {"latMin": -62.0, "latMax": 74.0, "lonMin": -100.0, "lonMax": 258.0}
 VIEW = {"lat": 25.0, "lon": 80.0, "pixelsPerDegree": 6.0}
 
-BLUE = ["US", "Australia", "Japan", "France", "Italy", "UK", "Norway"]
-RED = ["China", "Russia"]
+BLUE = ["US", "Australia", "Japan", "France", "Italy", "UK", "Norway"] + BLUE_ADDED
+RED = ["China", "Russia"] + RED_ADDED
 SIDE_OF = {n: "blue" for n in BLUE} | {n: "red" for n in RED}
 
 # Operator text -> game nation key (nations.ini; Russia is the key SEST
@@ -682,6 +684,49 @@ def build():
             used[uid] += qty
             report["forces"].append({"force": f["name"], "node": wid, "aircraft": uid, "count": qty})
 
+    # home bases: the scenario additions of home_bases.py, built like a node
+    for h in HOME_BASES:
+        nation, hid = h["nation"], h["id"]
+        side = SIDE_OF[nation]
+        lat, lon = h["lat"], continuous(h["lon"])
+        moved = None
+        if h["kind"] == "NavalBase" and not is_water(lat, lon):
+            # a harbour anchor the land mask puts ashore moves to the nearest
+            # water within 3 NM, so the harbour force starts afloat
+            near = next(((r, offset(lat, lon, b, r)) for r in (0.5, 1, 1.5, 2, 2.5, 3)
+                         for b in range(0, 360, 30) if is_water(*offset(lat, lon, b, r))), None)
+            if near:
+                moved, (lat, lon) = near[0], near[1]
+        base = {"id": hid, "name": h["name"], "side": side, "nation": nation, "kind": h["kind"],
+                "lat": round(lat, 3), "lon": round(lon, 3),
+                "income": 6 if h.get("depot") else 3 if h["kind"] == "NavalBase" else 1,
+                "homeland": True}
+        if h.get("yard"):
+            base["shipyard"] = True
+        if h.get("depot"):
+            base.update({"depot": True, "production": 1, "convoys": 10})
+        if h["kind"] == "AirBase":
+            base["field"] = {"unit": "airfield_small_1", "heading": h["heading"],
+                             "lat": round(lat, 4), "lon": round(lon, 4)}
+        bases.append(base)
+        base_ids.add(hid)
+        specs, labels = [], []
+        for uid, qty, *label in h["units"]:
+            specs.append(uid + (f" x{qty}" if qty > 1 else ""))
+            labels.append(label[0] if label else display(uid))
+            used[uid] += qty
+        if h["kind"] == "NavalBase":
+            made = [add_force(f"{h['name']} harbour", side, hid, "Surface", specs)["name"]]
+        else:
+            made = [add_force(f"{h['name']} {lab}", side, hid, "Air", [s])["name"]
+                    for s, lab in zip(specs, labels)]
+        report["bases"].append({"node": None, "base": hid, "kind": h["kind"], "nation": nation,
+                                "nation_from": "home_bases.py - SCENARIO ADDITION",
+                                "position": [lat, lon], "anchor_on_water": is_water(lat, lon),
+                                "anchor_moved_nm": moved, "forces": made, "shipyard": bool(h.get("yard")),
+                                "depot": bool(h.get("depot")),
+                                "field_heading": h.get("heading")})
+
     # supply lines: every base draws from its own nation's nearest depot within
     # reach, else its side's nearest. SCENARIO CHOICE - the register keeps the
     # real logistics network abstract.
@@ -834,7 +879,11 @@ def nation_units(nations):
 # space, which a campaign cannot name.
 ARSENAL_DIRS = ("vessels", "submarines", "aircraft")
 ARSENAL_TYPES = {"Vessel", "Submarine", "Aircraft", "Helicopter", "VTOL"}
-NATION_KEY = {n: n for n in BLUE + RED} | {"Soviet": "Russia", "RU": "Russia"}
+# Unit files spell some nations several ways (usn_p_8a's squadrons say "uk" and
+# "germany"; the Eurofighter's Saudi squadron says KSA). Matched without case.
+NATION_KEY = {n.lower(): n for n in BLUE + RED} | {"soviet": "Russia", "ru": "Russia",
+                                                    "ksa": "Saudi", "grecee": "Greece",
+                                                    "taiwan": "RoC"}
 NOT_ARSENAL_ROLES = {"Merchant", "Spy", "SeaMine", "Deco"}
 NOT_ARSENAL_ID = re.compile(r"^civ_|satellite|balloon|septar|target|decoy|raft|sea_mine|sampan|"
                             r"_ms_|_fv_|fishing|trawler|\s")
@@ -874,7 +923,7 @@ def arsenal():
             continue
         if bp.unit_type(uid) not in ARSENAL_TYPES:
             continue
-        nations = [NATION_KEY[n] for n in operators(kind, uid) if n in NATION_KEY]
+        nations = [NATION_KEY[n.lower()] for n in operators(kind, uid) if n.lower() in NATION_KEY]
         if not nations:
             for n in set(operators(kind, uid)):
                 other[n] += 1
@@ -987,7 +1036,8 @@ def main():
         "description": ("DRAFT generated from the SEST world-population register. A persistent "
                         "2028 world built from the SEST research: real bases, their resident and "
                         "deployed forces, supply ships and routine patrols, mapped to the SEST "
-                        "collection. Minimal story. Not tested in game."),
+                        "collection, with the home bases of the allied and opposing nations "
+                        "added. Minimal story. Not tested in game."),
         "start": START,
         "bounds": BOUNDS,
         "view": VIEW,
@@ -997,7 +1047,8 @@ def main():
              "color": "#4A90E2", "startingPoints": 400},
             # Playable, decided 10 Oct 2026. The sample keeps red "comingSoon";
             # playing red with blue as the AI is untested.
-            {"id": "red", "name": "China and Russia", "nations": [n for n in RED if n in nations],
+            {"id": "red", "name": "China, Russia and their partners",
+             "nations": [n for n in RED if n in nations],
              "hq": "SEST WORLD - RED", "command": "SEST WORLD - RED COMMAND",
              "color": "#E24A4A", "startingPoints": 400},
         ],
@@ -1020,10 +1071,10 @@ def main():
             "What happens next is decided by the campaign engine and by you. Ships use what "
             "they carry until a supply ship or a depot refills them."]},
             "red": {"situation": [
-                "October 2028. This is a sandbox, not a story: the Chinese and Russian bases, "
-                "fleets and air groups on the map are the ones the SEST research places, as they "
-                "would normally be - in harbour, on patrol or deployed, from Hainan to the Kola "
-                "Peninsula and Djibouti.",
+                "October 2028. This is a sandbox, not a story: the Chinese, Russian, Iranian "
+                "and North Korean bases, fleets and air groups on the map are where they would "
+                "normally be - in harbour, on patrol or deployed, from Hainan to the Kola "
+                "Peninsula, Bandar Abbas and Djibouti.",
                 "What happens next is decided by the campaign engine and by you. Ships use what "
                 "they carry until a supply ship or a depot refills them."]}}},
         "patrols": patrols,

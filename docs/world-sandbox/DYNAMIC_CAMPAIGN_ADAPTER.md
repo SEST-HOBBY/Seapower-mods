@@ -97,33 +97,52 @@ application here.
 | Listed as civil traffic | 12 |
 | Listed as ground air defence | 4 |
 | Skipped (abstract, embarked, scenery, missing fit, quantity 0) | 117 |
-| Bases | 39 (16 naval, 23 air, of which 3 are a naval base's own airfield); 11 depots |
-| Forces | 92 (43 surface, 49 air), 203 units, 85 of them ships |
+| Bases | 85 (34 naval, 51 air): 39 from the register, 46 home bases added (below); 28 depots |
+| Forces | 143 (61 surface, 82 air), 637 units, 230 of them ships |
 | Patrol routes | 16 |
 | Sea lanes | 11, all on water |
-| Catalogue (buy list) entries and unit values | 1,197: blue 778, red 419 (below) |
+| Catalogue (buy list) entries and unit values | 1447: blue 1007, red 440 (below) |
 | Register nodes not converted | 34 (30 abstract or context only by the register's own policy, 1 reserve-only, 1 do-not-populate, Jebel Ali, NAB Coronado with nothing placeable) |
 
-Sides: **blue** US, Australia, Japan, France, Italy, UK, Norway; **red** China and Russia. Both
-are playable (decided 10 October; the sample keeps red `comingSoon`, so playing red is untested).
+Sides: **blue** US, Australia, Japan, France, Italy, UK, Norway, Spain, Germany, Netherlands, Greece, Poland, Turkey, Sweden, Belgium, Denmark, Canada, South Korea, Philippines, Thailand, NewZealand, Taiwan (RoC), Israel, UAE, Qatar, Kuwait, Saudi; **red** China, Russia, Iran, North Korea. Both are playable (decided 10 October; the sample keeps red `comingSoon`, so playing red is untested).
 
 ### The buy list: both sides' full arsenals
 
 Asked for on 10 October: the engine's catalogue, what a side can order, holds every
 ship, submarine and aircraft the collection gives that side's nations, not only the
-78 types in the opening forces.
+78 types in the opening forces. North Korea and Kuwait have no entries of their own: every type they fly is listed under a nation with more of it (a unit is listed once).
 
 | Side | Nation | Ships and submarines | Aircraft |
 |---|---|---:|---:|
-| blue | US | 244 | 173 |
+| blue | US | 244 | 171 |
 | blue | Australia | 39 | 34 |
 | blue | Japan | 23 | 19 |
-| blue | France | 38 | 62 |
-| blue | Italy | 35 | 19 |
+| blue | France | 38 | 61 |
+| blue | Italy | 35 | 17 |
 | blue | UK | 44 | 39 |
-| blue | Norway | 8 | 1 |
+| blue | Norway | 8 | 0 |
+| blue | Spain | 36 | 29 |
+| blue | Germany | 23 | 10 |
+| blue | Netherlands | 9 | 5 |
+| blue | Greece | 0 | 13 |
+| blue | Poland | 1 | 3 |
+| blue | Turkey | 0 | 3 |
+| blue | Sweden | 2 | 2 |
+| blue | Belgium | 0 | 3 |
+| blue | Denmark | 2 | 1 |
+| blue | Canada | 1 | 1 |
+| blue | South Korea | 13 | 4 |
+| blue | Philippines | 13 | 4 |
+| blue | Thailand | 19 | 5 |
+| blue | NewZealand | 5 | 3 |
+| blue | Taiwan (RoC) | 0 | 3 |
+| blue | Israel | 7 | 4 |
+| blue | UAE | 0 | 6 |
+| blue | Qatar | 0 | 4 |
+| blue | Saudi | 0 | 1 |
 | red | China | 95 | 106 |
 | red | Russia | 115 | 103 |
+| red | Iran | 12 | 9 |
 
 - **Operator** is the `Nation=` of the winning variants or squadrons file (Soviet is
   Russia). A type several nations fly is listed once, under the side's nation with the
@@ -138,15 +157,33 @@ ship, submarine and aircraft the collection gives that side's nations, not only 
 - **Not on either side:** units only other nations operate - Spain 64, Germany 31,
   Brazil 25, Thailand 24, Iran 21, South Korea 17, Philippines 17 and more
   (`conversion.json` "arsenal"). Adding a nation to a side brings its arsenal in.
-- **Shipyards: only US, Australia and China have one** (Bremerton, Norfolk, Yokosuka;
-  Stirling; Ningbo). Russia, Japan and Norway have no naval base in the register at all,
-  and France, Italy and the UK only overseas outposts (Djibouti, Mare Harbour). Where the
-  engine builds a ship for a nation without a yard is unknown - it may use a side yard
-  (Ningbo for Russia), or the order may never arrive. Open decision: add one home dockyard
-  per nation (Severomorsk, Kure, Portsmouth, Toulon, Taranto, Haakonsvern - a scenario
-  addition to the register), or keep those nations to aircraft until a test shows how
-  the engine behaves. Aircraft are delivered to air bases, which every nation has.
-- **Untested:** how the engine's buy screen copes with ~800 entries a side.
+- **Shipyards:** every nation with a home naval base has one (below), 19 in all; air-only nations order aircraft, delivered to their air bases.
+- **Untested:** how the engine's buy screen copes with about 1,000 blue entries and 440 red.
+
+### Home bases (scenario additions, `integration/world-sandbox/home_bases.py`)
+
+Asked for on 10 October: as many nations built out as possible. The register is research-led
+and placed most non-US forces at overseas outposts only. Each nation now has its main home
+naval base - with a shipyard and a supply depot - and its main air base, each with a home
+force from the units the collection gives that nation. These are **scenario additions, not
+register rows**: public base locations, rounded; main-runway headings rounded to 10 degrees;
+illustrative peacetime quantities. A harbour anchor the land mask puts ashore is moved to the
+nearest water within 3 NM (ten moved, 0.5 NM each). Brest is a second French naval base
+without a yard.
+
+| Nations | Added |
+|---|---|
+| Already in the register | Severomorsk, Vladivostok; Kure; Haakonsvern; Portsmouth and RAF Lossiemouth; Toulon, Brest, Saint-Dizier and Lann-Bihoue; Taranto and Gioia del Colle |
+| Blue, naval and air | Spain (Ferrol, Torrejon), Germany (Wilhelmshaven, Wittmund), Netherlands (Den Helder, Eindhoven), Sweden (Karlskrona, Ronneby), Denmark (Frederikshavn, Karup), South Korea (Jinhae, Gimhae, Pohang), Philippines (Subic Bay, Basa), Thailand (Sattahip, Korat), Israel (Haifa, Ramat David) |
+| Blue, air only (no plausible ships in the collection) | Greece (Tanagra), Poland (Lask), Turkey (Konya), Belgium (Melsbroek), Canada (Bagotville), New Zealand (Ohakea), Taiwan (Hsinchu), UAE (Al Dhafra), Qatar (Al Udeid), Kuwait (Ali Al Salem), Saudi Arabia (Dhahran) |
+| Red | Iran (Bandar Abbas, Isfahan, Bushehr), North Korea (Sunchon, air only) |
+
+Sides follow 2028 alignments a two-sided engine can hold: NATO members and US treaty allies and
+close partners on blue; Iran and North Korea with China and Russia on red. Nations unlikely to
+fight for either side (India, Indonesia, Brazil, Pakistan, Egypt, Vietnam and others) are left
+out: the engine has no neutral side. Portugal and Ukraine are left out for want of current units
+in the collection. Added nations without ground units of their own in `nation_units()` borrow
+their side's lead nation's (US or China) garrisons, escorts and convoys.
 
 ### Mapping rules
 
@@ -201,6 +238,10 @@ All are recorded per row in `conversion.json`. None is a research claim.
 4. **The Panama seam: accepted.**
 5. **Permission: granted.** The user reports Bungalow's permission for a SEST pack built on the
    Dynamic Campaign engine. Publication itself still waits for a load test.
+6. **Buy list: both sides' full arsenals.** Every fighting unit the collection gives a side's
+   nations, no era cut (above).
+7. **As many nations built out as possible.** Home naval and air bases for 31 nations, sides by
+   2028 alignment, neutrals left out (above).
 
 ## Testing on the PC (isolated, when ready)
 
@@ -215,6 +256,6 @@ Use a backed-up install, not the published pack.
 Then, in order: menu discovery; the validator's verdict in the BepInEx log; one battle each side,
 playing blue and then red; whether Sigonella's airlifts reach Rota and Souda Bay;
 the review's 20/10/10 ammunition test with a SEST supply ship; save, reload, and reload after a
-battle; a transit across the antimeridian (Roosevelt's group); performance with all 92 forces;
-the buy screen with ~800 entries a side, and one order each by a nation with a shipyard (US)
-and one without (Norway).
+battle; a transit across the antimeridian (Roosevelt's group); performance with all 143 forces;
+the buy screen with about 1,000 blue entries, a ship order by a nation with a home yard (Spain)
+and one air-only nation's aircraft order (Greece).

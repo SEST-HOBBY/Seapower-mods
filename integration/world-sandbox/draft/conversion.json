@@ -4288,6 +4288,885 @@
    "companion_airbase": null,
    "field_unit": null,
    "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_rus_severomorsk",
+   "kind": "NavalBase",
+   "nation": "Russia",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    69.075,
+    33.39
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Severomorsk (Northern Fleet) harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_rus_vladivostok",
+   "kind": "NavalBase",
+   "nation": "Russia",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    43.105,
+    131.9
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Vladivostok (Pacific Fleet) harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_jpn_kure",
+   "kind": "NavalBase",
+   "nation": "Japan",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    34.228,
+    132.555
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "JMSDF Kure District harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_nor_haakonsvern",
+   "kind": "NavalBase",
+   "nation": "Norway",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    60.334,
+    5.236
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Haakonsvern Naval Base (Bergen) harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_uk_portsmouth",
+   "kind": "NavalBase",
+   "nation": "UK",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    50.8,
+    -1.11
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "HMNB Portsmouth harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_uk_lossiemouth",
+   "kind": "AirBase",
+   "nation": "UK",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    57.705,
+    -3.339
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "RAF Lossiemouth Typhoon FGR.4",
+    "RAF Lossiemouth Poseidon MRA1"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 230
+  },
+  {
+   "node": null,
+   "base": "home_fra_toulon",
+   "kind": "NavalBase",
+   "nation": "France",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    43.105,
+    5.925
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Toulon Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_fra_brest",
+   "kind": "NavalBase",
+   "nation": "France",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    48.38,
+    -4.482
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Brest Naval Base harbour"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_fra_saint_dizier",
+   "kind": "AirBase",
+   "nation": "France",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    48.636,
+    4.899
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "BA 113 Saint-Dizier Rafale B Late"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 290
+  },
+  {
+   "node": null,
+   "base": "home_fra_lann_bihoue",
+   "kind": "AirBase",
+   "nation": "France",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    47.76,
+    -3.44
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "BAN Lann-Bihoue Breguet Atlantique 2"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 250
+  },
+  {
+   "node": null,
+   "base": "home_ita_taranto",
+   "kind": "NavalBase",
+   "nation": "Italy",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    40.47,
+    17.215
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Taranto Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_ita_gioia_del_colle",
+   "kind": "AirBase",
+   "nation": "Italy",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    40.767,
+    16.933
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Gioia del Colle Air Base Eurofighter Typhoon FGR.4 Late"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 320
+  },
+  {
+   "node": null,
+   "base": "home_esp_ferrol",
+   "kind": "NavalBase",
+   "nation": "Spain",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    43.473,
+    -8.234
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Ferrol Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_esp_torrejon",
+   "kind": "AirBase",
+   "nation": "Spain",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    40.497,
+    -3.446
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Torrejon Air Base C.16 Typhoon",
+    "Torrejon Air Base A330 MRTT"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 230
+  },
+  {
+   "node": null,
+   "base": "home_deu_wilhelmshaven",
+   "kind": "NavalBase",
+   "nation": "Germany",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    53.515,
+    8.135
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Wilhelmshaven Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_deu_wittmund",
+   "kind": "AirBase",
+   "nation": "Germany",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    53.548,
+    7.667
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Wittmund Air Base Eurofighter Typhoon FGR.4 Late"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 260
+  },
+  {
+   "node": null,
+   "base": "home_nld_den_helder",
+   "kind": "NavalBase",
+   "nation": "Netherlands",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    52.965,
+    4.79
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Den Helder Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_nld_eindhoven",
+   "kind": "AirBase",
+   "nation": "Netherlands",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    51.45,
+    5.375
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Eindhoven Air Base A330 MRTT (NATO fleet)"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 220
+  },
+  {
+   "node": null,
+   "base": "home_grc_tanagra",
+   "kind": "AirBase",
+   "nation": "Greece",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    38.34,
+    23.565
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Tanagra Air Base Mirage 2000-5 MK2 late",
+    "Tanagra Air Base F-16C Block 52+ Greek"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 270
+  },
+  {
+   "node": null,
+   "base": "home_pol_lask",
+   "kind": "AirBase",
+   "nation": "Poland",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    51.552,
+    19.179
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Lask Air Base F-16C Block 52+ Polish"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 240
+  },
+  {
+   "node": null,
+   "base": "home_tur_konya",
+   "kind": "AirBase",
+   "nation": "Turkey",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    37.979,
+    32.562
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Konya Air Base F-16C Turkish",
+    "Konya Air Base E-7T Peace Eagle"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 190
+  },
+  {
+   "node": null,
+   "base": "home_swe_karlskrona",
+   "kind": "NavalBase",
+   "nation": "Sweden",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    56.16,
+    15.61
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Karlskrona Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_swe_ronneby",
+   "kind": "AirBase",
+   "nation": "Sweden",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    56.267,
+    15.265
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "F 17 Ronneby JAS-39 Gripen",
+    "F 17 Ronneby Saab GlobalEye"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 190
+  },
+  {
+   "node": null,
+   "base": "home_bel_melsbroek",
+   "kind": "AirBase",
+   "nation": "Belgium",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    50.9,
+    4.484
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Melsbroek Air Base A-400M Atlas"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 250
+  },
+  {
+   "node": null,
+   "base": "home_dnk_frederikshavn",
+   "kind": "NavalBase",
+   "nation": "Denmark",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    57.444,
+    10.561
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Frederikshavn Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_dnk_karup",
+   "kind": "AirBase",
+   "nation": "Denmark",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    56.297,
+    9.124
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Karup Air Base MH-60R Seahawk (Denmark)"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 270
+  },
+  {
+   "node": null,
+   "base": "home_can_bagotville",
+   "kind": "AirBase",
+   "nation": "Canada",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    48.331,
+    -70.996
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "CFB Bagotville CF-188 Hornet"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 290
+  },
+  {
+   "node": null,
+   "base": "home_kor_jinhae",
+   "kind": "NavalBase",
+   "nation": "South_Korea",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    35.128,
+    128.655
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Jinhae Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_kor_gimhae",
+   "kind": "AirBase",
+   "nation": "South_Korea",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    35.18,
+    128.938
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Gimhae Air Base E-737 Peace Eye"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 360
+  },
+  {
+   "node": null,
+   "base": "home_kor_pohang",
+   "kind": "AirBase",
+   "nation": "South_Korea",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    35.988,
+    129.42
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Pohang Naval Air Base P-8A Poseidon"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 360
+  },
+  {
+   "node": null,
+   "base": "home_phl_subic",
+   "kind": "NavalBase",
+   "nation": "Philippines",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    14.813,
+    120.27
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Subic Bay Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_phl_basa",
+   "kind": "AirBase",
+   "nation": "Philippines",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    14.987,
+    120.493
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Basa Air Base FA-50PH"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 220
+  },
+  {
+   "node": null,
+   "base": "home_tha_sattahip",
+   "kind": "NavalBase",
+   "nation": "Thailand",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    12.656,
+    100.907
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Sattahip Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_tha_korat",
+   "kind": "AirBase",
+   "nation": "Thailand",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    14.934,
+    102.079
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Wing 1 Korat F-16AM"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 240
+  },
+  {
+   "node": null,
+   "base": "home_nzl_ohakea",
+   "kind": "AirBase",
+   "nation": "NewZealand",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    -40.206,
+    175.388
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "RNZAF Base Ohakea P-8A Poseidon"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 270
+  },
+  {
+   "node": null,
+   "base": "home_twn_hsinchu",
+   "kind": "AirBase",
+   "nation": "RoC",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    24.818,
+    120.939
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Hsinchu Air Base Mirage 2000-5EI"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 230
+  },
+  {
+   "node": null,
+   "base": "home_isr_haifa",
+   "kind": "NavalBase",
+   "nation": "Israel",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    32.828,
+    35.01
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [
+    "Haifa Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_isr_ramat_david",
+   "kind": "AirBase",
+   "nation": "Israel",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    32.665,
+    35.18
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Ramat David Air Base F-16C Barak II"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 270
+  },
+  {
+   "node": null,
+   "base": "home_are_al_dhafra",
+   "kind": "AirBase",
+   "nation": "UAE",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    24.248,
+    54.547
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Al Dhafra Air Base Mirage 2000-9"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 310
+  },
+  {
+   "node": null,
+   "base": "home_qat_al_udeid",
+   "kind": "AirBase",
+   "nation": "Qatar",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    25.117,
+    51.315
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Al Udeid Air Base Rafale C Late"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 340
+  },
+  {
+   "node": null,
+   "base": "home_kwt_ali_al_salem",
+   "kind": "AirBase",
+   "nation": "Kuwait",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    29.347,
+    47.521
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Ali Al Salem Air Base Eurofighter Typhoon FGR.4 Late"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 330
+  },
+  {
+   "node": null,
+   "base": "home_sau_dhahran",
+   "kind": "AirBase",
+   "nation": "Saudi",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    26.265,
+    50.152
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "King Abdulaziz Air Base (Dhahran) Eurofighter Typhoon FGR.4 Late"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 340
+  },
+  {
+   "node": null,
+   "base": "home_irn_bandar_abbas",
+   "kind": "NavalBase",
+   "nation": "Iran",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    27.14,
+    56.21
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Bandar Abbas Naval Base harbour"
+   ],
+   "shipyard": true,
+   "depot": true,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_irn_isfahan",
+   "kind": "AirBase",
+   "nation": "Iran",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    32.751,
+    51.861
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Isfahan (8th Tactical Air Base) F-14A IRIAF"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 260
+  },
+  {
+   "node": null,
+   "base": "home_irn_bushehr",
+   "kind": "AirBase",
+   "nation": "Iran",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    28.945,
+    50.835
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Bushehr (6th Tactical Air Base) F-4E"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 310
+  },
+  {
+   "node": null,
+   "base": "home_prk_sunchon",
+   "kind": "AirBase",
+   "nation": "North_Korea",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    39.413,
+    125.89
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [
+    "Sunchon Air Base MiG-29"
+   ],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": 360
   }
  ],
  "skipped_nodes": [
@@ -5254,6 +6133,7 @@
     "civ_dc-10",
     "civ_fv_aswtrawler",
     "civ_fv_crabboat",
+    "civ_fv_dhow",
     "civ_fv_fishingboat_a",
     "civ_fv_fishingboat_b",
     "civ_fv_fishingboat_b_armed",
@@ -5334,6 +6214,9 @@
     "wp_ms_roro_b",
     "wp_perun_satellite"
    ],
+   "role Merchant": [
+    "hdms_tug_alsin"
+   ],
    "role Spy": [
     "ran_msa_act_1",
     "wp_agi_okean",
@@ -5342,50 +6225,24 @@
    ]
   },
   "other_nations": {
-   "Spain": 64,
-   "Germany": 31,
    "Brazil": 25,
-   "Thailand": 24,
-   "Iran": 21,
-   "South_Korea": 17,
-   "Philippines": 17,
    "Pakistan": 15,
-   "India": 14,
-   "Indonesia": 14,
-   "Greece": 14,
-   "Netherlands": 13,
-   "UAE": 11,
    "Chile": 10,
-   "Egypt": 10,
-   "Israel": 10,
-   "Qatar": 8,
-   "NewZealand": 8,
-   "Denmark": 5,
-   "DDR": 5,
+   "India": 10,
+   "Indonesia": 10,
    "Unknown": 5,
-   "Sweden": 4,
-   "Serbia": 4,
-   "Croatia": 4,
-   "Poland": 4,
-   "Belgium": 3,
-   "Turkey": 3,
-   "Luxemburg": 2,
-   "Canada": 2,
+   "Egypt": 4,
+   "DDR": 4,
    "Peru": 2,
    "Kazakhstan": 2,
    "Malaysia": 2,
-   "RoC": 2,
    "Yuktobanian": 2,
    "pirates": 2,
    "Vietnam": 2,
    "South_Vietnam": 2,
    "Finland": 1,
-   "Saudi": 1,
    "Singapore": 1,
    "Ukraine": 1,
-   "Morocco": 1,
-   "Iraq": 1,
-   "Cyprus": 1,
    "Libya": 1,
    "Portugal": 1,
    "South_Africa": 1
@@ -5393,7 +6250,7 @@
   "catalogue_by_side_nation": {
    "blue US": {
     "ships": 244,
-    "aircraft": 173
+    "aircraft": 171
    },
    "blue Australia": {
     "ships": 39,
@@ -5405,11 +6262,11 @@
    },
    "blue France": {
     "ships": 38,
-    "aircraft": 62
+    "aircraft": 61
    },
    "blue Italy": {
     "ships": 35,
-    "aircraft": 19
+    "aircraft": 17
    },
    "blue UK": {
     "ships": 44,
@@ -5417,6 +6274,82 @@
    },
    "blue Norway": {
     "ships": 8,
+    "aircraft": 0
+   },
+   "blue Spain": {
+    "ships": 36,
+    "aircraft": 29
+   },
+   "blue Germany": {
+    "ships": 23,
+    "aircraft": 10
+   },
+   "blue Netherlands": {
+    "ships": 9,
+    "aircraft": 5
+   },
+   "blue Greece": {
+    "ships": 0,
+    "aircraft": 13
+   },
+   "blue Poland": {
+    "ships": 1,
+    "aircraft": 3
+   },
+   "blue Turkey": {
+    "ships": 0,
+    "aircraft": 3
+   },
+   "blue Sweden": {
+    "ships": 2,
+    "aircraft": 2
+   },
+   "blue Belgium": {
+    "ships": 0,
+    "aircraft": 3
+   },
+   "blue Denmark": {
+    "ships": 2,
+    "aircraft": 1
+   },
+   "blue Canada": {
+    "ships": 1,
+    "aircraft": 1
+   },
+   "blue South_Korea": {
+    "ships": 13,
+    "aircraft": 4
+   },
+   "blue Philippines": {
+    "ships": 13,
+    "aircraft": 4
+   },
+   "blue Thailand": {
+    "ships": 19,
+    "aircraft": 5
+   },
+   "blue NewZealand": {
+    "ships": 5,
+    "aircraft": 3
+   },
+   "blue RoC": {
+    "ships": 0,
+    "aircraft": 3
+   },
+   "blue Israel": {
+    "ships": 7,
+    "aircraft": 4
+   },
+   "blue UAE": {
+    "ships": 0,
+    "aircraft": 6
+   },
+   "blue Qatar": {
+    "ships": 0,
+    "aircraft": 4
+   },
+   "blue Saudi": {
+    "ships": 0,
     "aircraft": 1
    },
    "red China": {
@@ -5426,17 +6359,80 @@
    "red Russia": {
     "ships": 115,
     "aircraft": 103
+   },
+   "red Iran": {
+    "ships": 12,
+    "aircraft": 9
    }
   }
  },
  "values_basis": {
+  "E7A_Wedgetail": "Role AEW",
+  "ae_ffg_alvaro_bazan": "Displacement 5853 t",
+  "ae_ffg_cristobal_colon": "Displacement 6391 t",
+  "ae_lhd_juan_carlos": "Displacement 26800 t",
+  "ae_lpd_galicia": "Displacement 13815 t",
+  "ae_opv_meteoro": "Displacement 2700 t",
+  "ae_ssk_s80": "Displacement 2965 t",
+  "bel_a400m_tankers": "Role AEW",
   "boeing-rc135": "Role EW",
+  "dk_mh-60r": "Role ASW",
   "dts_b-52h": "Role HeavyBomber",
+  "dts_saab_ge": "Role AEW",
+  "eu_ef2000_fgr4_late": "Role Fighter",
+  "exp_rafale_c_l": "Role Fighter",
   "fr_as_332M": "Role ASW",
+  "fr_atl2": "Role MPA",
+  "fr_cvn_charles-de-gaulle_late": "Displacement 42500 t",
+  "fr_ddg_horizon": "Displacement 7050 t",
+  "fr_ffg_aquitaine_asw": "Displacement 6172 t",
+  "fr_ffg_aquitaine_modernized_aaw": "Displacement 6172 t",
   "fr_ffg_lafayette_modernized": "Displacement 3800 t",
+  "fr_lhd_mistral": "Displacement 21300 t",
   "fr_m2k-5f": "Role Fighter",
+  "fr_rafale_b_l": "Role Fighter",
   "fr_sa_342_gazelle": "Role ASuW",
+  "fr_ssbn_triomphant": "Displacement 14300 t",
+  "fr_ssn_suffren": "Displacement 5300 t",
+  "ger_ffg_f123_2025_mlu": "Displacement 4900 t",
+  "ger_ffg_f124_MLU": "Displacement 5800 t",
+  "ger_ffg_f125_MLU": "Displacement 5800 t",
+  "ger_fsg_k130_batch2": "Displacement 1840 t",
+  "ger_ssk_type_212a_batch1": "Displacement 1830 t",
+  "gre_m2k-5_mk2_late": "Role Fighter",
+  "haf_f-16c-bl52plus": "Role Fighter",
+  "hdms_iver_huitfeldt": "Displacement 6645 t",
+  "iaf_f-16c-barakII": "Role Fighter",
+  "ins_ptg_hetz": "Displacement 498 t",
+  "ir_ffg_alvand_95": "Displacement 1540 t",
+  "ir_ptg_combattante_II": "Displacement 275 t",
+  "ir_ptg_peykaap_3": "Displacement 14 t",
+  "iriaf_f-14a": "Role Fighter",
+  "iriaf_f-4e": "Role Fighter",
+  "ita_ddg_orizzonte_18": "Displacement 7050 t",
+  "ita_ffg_fremm": "Displacement 6700 t",
+  "ita_ffg_fremm_asw": "Displacement 6700 t",
   "ita_ffg_ppa": "Displacement 6270 t",
+  "ita_ssk_todaro_batch1": "Displacement 1830 t",
+  "jmsdf_aoe_mashuu": "Displacement 53000 t, auxiliary x0.32",
+  "jmsdf_dd_asahi": "Displacement 6800 t",
+  "jmsdf_ddg_atago": "Displacement 9500 t",
+  "jmsdf_ddg_maya": "Displacement 10250 t",
+  "jmsdf_ddh_hyuga": "Displacement 13950 t",
+  "jmsdf_ddh_ise": "Displacement 13950 t",
+  "js_ffg_mogami": "Displacement 5500 t",
+  "knm_cb90": "Displacement 14 t",
+  "knm_cor_skjold": "Displacement 274 t",
+  "ko_ddg-991": "Displacement 10600 t",
+  "ko_ddg-995": "Displacement 12000 t",
+  "ko_ddh-975_kvls": "Displacement 5500 t",
+  "ko_ffg-818": "Displacement 3600 t",
+  "ko_ffg-828": "Displacement 4300 t",
+  "ko_lph-6111": "Displacement 18800 t",
+  "otan_a330_mrtt": "Role AEW",
+  "phl_ff_hamilton": "Displacement 3250 t",
+  "phl_fs_pohang": "Displacement 1220 t",
+  "phl_lpd_tarlac": "Displacement 11583 t",
   "plaaf_kj-500": "Role AEW",
   "plan_aor_type901": "Displacement 53000 t, auxiliary x0.32",
   "plan_aor_type903a": "Displacement 24460 t, auxiliary x0.32",
@@ -5457,6 +6453,9 @@
   "plan_type_055_2026": "Displacement 11000 t",
   "plan_type_056a": "Displacement 2400 t",
   "plan_y-8fq": "Role MPA",
+  "pn_ffg-06": "Displacement 3200 t",
+  "pn_ffg-150_2": "Displacement 2870 t",
+  "pol_f-16c-bl52plus": "Role Fighter",
   "raaf_f-35a": "Role Fighter",
   "raaf_mq-4c_triton": "Role MaritimePatrol",
   "raf_ef2000_fgr4_late": "Role Fighter",
@@ -5464,10 +6463,34 @@
   "ran_ffh_anzac": "Displacement 3600 t",
   "ran_opv_arafura": "Displacement 2700 t",
   "ran_ssg_collins": "Displacement 2965 t",
+  "rfn_aor_pashin": "Displacement 16250 t, auxiliary x0.32",
+  "rfn_cvt_20380_7-12": "Displacement 2250 t",
+  "rfn_cvt_20385": "Displacement 2430 t",
   "rfn_ffg_22350_1-4": "Displacement 5400 t",
   "rn_aor_tide": "Displacement 53000 t, auxiliary x0.32",
+  "rn_ddg_type45_26": "Displacement 8500 t",
+  "rn_ff_type23": "Displacement 4900 t",
   "rn_merlin_hm2": "Role ASW",
   "rn_opv_river_batch2": "Displacement 2000 t",
+  "rnn_ddg_zeven": "Displacement 6050 t",
+  "rnn_ddg_zeven_mlu": "Displacement 6050 t",
+  "rnn_ffg_hol": "Displacement 3750 t",
+  "rnn_ffg_karel_eol": "Displacement 3320 t",
+  "rnn_mcm_city": "Displacement 2800 t",
+  "rok_f-50_ph": "Role Fighter",
+  "ru_cv_kuznetsov": "Displacement 67500 t",
+  "se_jas-39": "Role Fighter",
+  "sp_a330_mrtt": "Role AEW",
+  "spa_ef2000": "Role Fighter",
+  "swe_fsg_visby_v6": "Displacement 640 t",
+  "tha_cvl_chakri_naruebet": "Displacement 11670 t",
+  "tha_f-16c": "Role Fighter",
+  "tha_ff_053HT": "Displacement 1960 t",
+  "tha_ffg_naresuan": "Displacement 2985 t",
+  "tha_pt_hua_hin": "Displacement 645 t",
+  "tuaf_f-16c": "Role Fighter",
+  "tw_m2k-5ei": "Role Fighter",
+  "uae_m2k-9": "Role Fighter",
   "uk_a330_mrtt": "Role AEW",
   "uk_a400m_airdroop-para": "Role AEW",
   "usaf_b-1b_dts": "Role HeavyBomber",
@@ -5489,6 +6512,7 @@
   "usn_ddg_burke_f2a_117": "Displacement 9500 t",
   "usn_ddg_burke_f3_125": "Displacement 9700 t",
   "usn_e-2d": "Role AEW",
+  "usn_fa-18a": "Role Fighter",
   "usn_hh-60": "Role ASW",
   "usn_lcs_freedom_suw_late": "Displacement 3500 t",
   "usn_lhd_wasp": "Displacement 40500 t",
@@ -5502,8 +6526,16 @@
   "usn_takr_algol": "Displacement 55000 t, auxiliary x0.32",
   "usn_tao_kaiser": "Displacement 8190 t, auxiliary x0.32",
   "usn_taoe_supply": "Displacement 53000 t, auxiliary x0.32",
+  "wp_bdk_ropucha": "Displacement 4080 t",
+  "wp_bpk_udaloy_98": "Displacement 7570 t",
   "wp_il-76md": "Role Airliner",
   "wp_il-78": "Role Airliner",
+  "wp_mig-29a": "Role Fighter",
+  "wp_rkr_admiral_nakhimov_refit": "Displacement 28000 t",
+  "wp_rkr_slava_16": "Displacement 11490 t",
+  "wp_ss_improved_kilo": "Displacement 3040 t",
+  "wp_ssgn_yasen": "Displacement 13800 t",
+  "wp_ssn_akula": "Displacement 13800 t",
   "wp_tu-142m": "Role MPA",
   "wp_tu-160": "Role HeavyBomber",
   "wp_tu-22m2": "Role HeavyBomber",
@@ -5519,11 +6551,19 @@
   "am_tornado_ids_95": "Role Recon",
   "aus_a330_mrtt": "Role AEW",
   "aus_ec_665_had-e": "Role ASuW",
+  "be_nh90": "Role ASW",
+  "bel_a400m_airdroop-para": "Role AEW",
   "boeing-rc135_early": "Role EW",
+  "bw_ec_665_had-e": "Role ASuW",
+  "ca_a330_mrtt": "Role AEW",
   "canberra_bomber": "Role Airliner",
-  "E7A_Wedgetail": "Role AEW",
+  "co_a330_mrtt": "Role AEW",
+  "de_nh90": "Role ASW",
+  "de_sea_lynx_mk88": "Role ASW",
   "eu_ef2000_fgr4": "Role Fighter",
-  "eu_ef2000_fgr4_late": "Role Fighter",
+  "exp_rafale_b": "Role Fighter",
+  "exp_rafale_b_l": "Role Fighter",
+  "exp_rafale_c": "Role Fighter",
   "fr_a330_mrtt": "Role EW",
   "fr_a400m_airdroop-para": "Role AEW",
   "fr_a400m_sf": "Role AEW",
@@ -5534,10 +6574,10 @@
   "fr_as-565_sa": "Role ASW",
   "fr_as_332B": "Role ASW",
   "fr_as_332F": "Role ASW",
+  "fr_as_532C": "Role ASW",
   "fr_as_532L": "Role ASW",
   "fr_as_532L2": "Role ASW",
   "fr_as_532SC": "Role ASW",
-  "fr_atl2": "Role MPA",
   "fr_br1050": "Role MPA",
   "fr_br1050_ALH": "Role MPA",
   "fr_br1050_ALM": "Role MPA",
@@ -5566,7 +6606,6 @@
   "fr_nh90_tth": "Role ASW",
   "fr_nh90_tth_special_forces": "Role ASW",
   "fr_rafale_b": "Role Fighter",
-  "fr_rafale_b_l": "Role Fighter",
   "fr_rafale_b_l_nuclear": "Role Fighter",
   "fr_rafale_c": "Role Fighter",
   "fr_rafale_c_l": "Role Fighter",
@@ -5584,10 +6623,30 @@
   "fr_super_etendard": "Role Fighter",
   "fr_super_etendard_modernise": "Role Fighter",
   "fr_vsr700": "Role ASuW",
+  "ger_a400m_airdroop-para": "Role AEW",
+  "ger_a400m_tankers": "Role AEW",
+  "ger_nh90": "Role ASW",
+  "ger_nh90_tth": "Role ASW",
+  "ger_sea_lynx_mk88": "Role ASW",
+  "gre_m2k-5_bg": "Role Fighter",
+  "gre_m2k-5_mk2": "Role Fighter",
+  "gre_m2kbg": "Role Fighter",
+  "gre_m2keg": "Role Fighter",
+  "gre_nh90_tth": "Role ASW",
   "h34": "Role ASW",
+  "haf_f-16c-bl50": "Role Fighter",
+  "iaf_f-4e_kurnass": "Role Fighter",
   "iaf_md500": "Role Attack",
+  "iaf_netz": "Role Fighter",
   "idn_tu-16ks1": "Role HeavyBomber",
   "iqaf_md500": "Role Attack",
+  "ir_il-76md": "Role Airliner",
+  "irh_bell-212": "Role ASuW",
+  "iriaa_bell-212": "Role ASuW",
+  "iriaf_ah-1j": "Role ASuW",
+  "iriaf_f-4d": "Role Fighter",
+  "irina_sh-3d": "Role ASW",
+  "irinavy_bell-212": "Role ASuW",
   "it_nh90_tth": "Role ASW",
   "ita_sh-101a": "Role ASW",
   "ita_sh90": "Role ASW",
@@ -5623,7 +6682,13 @@
   "msdvd_tu-214r_F": "Role ASW",
   "mv22b_osprey": "Role Transport",
   "nato_e-3a": "Role AEW",
-  "otan_a330_mrtt": "Role AEW",
+  "nl_nh90": "Role ASW",
+  "nl_nh90_tth": "Role ASW",
+  "nl_sea_lynx": "Role ASW",
+  "nl_sea_lynx_D": "Role ASW",
+  "ph_f-8h": "Role Fighter",
+  "phl_h-76": "Role ASuW",
+  "phl_t28": "Role Airliner",
   "pla_f-5": "Role Fighter",
   "pla_h-6a": "Role HeavyBomber",
   "pla_h-6d": "Role HeavyBomber",
@@ -5722,7 +6787,12 @@
   "plan_z-9f": "Role ASW",
   "plan_z-9f_(2020)": "Role ASW",
   "planaf_z-20j": "Role ASW",
+  "pol_a330_mrtt": "Role AEW",
   "profile_": "Role Fighter",
+  "qeaf_m2k-5dda": "Role Fighter",
+  "qeaf_m2k-5dda_late": "Role Fighter",
+  "qeaf_m2k-5eda": "Role Fighter",
+  "qeaf_m2k-5eda_late": "Role Fighter",
   "raac_lynx_ah7": "Role Attack",
   "raaf_canberra_bomber": "Role HeavyBomber",
   "raaf_f-111c": "Role Bomber",
@@ -5784,6 +6854,14 @@
   "rn_wasp": "Role ASW",
   "rn_wessex": "Role ASW",
   "rn_wildcat": "Role ASW",
+  "rnzaf_a-4k": "Role Bomber",
+  "rnzn_sh-2gi": "Role ASW",
+  "rnzn_wasp": "Role ASW",
+  "rok_mk99": "Role ASW",
+  "rok_mk99_a": "Role ASW",
+  "rok_t-50_tha": "Role Fighter",
+  "rok_uh60": "Role ASW",
+  "rs_a330_mrtt": "Role AEW",
   "rw_alouette_II": "Role Attack",
   "rw_c340": "Role Attack",
   "rw_qh-50d": "Role ASW",
@@ -5792,6 +6870,42 @@
   "rw_v35": "Role Attack",
   "S-70B-2_Seahawk": "Role ASW",
   "S2": "Role AEW",
+  "sp_ec_665_had-e": "Role ASuW",
+  "sp_nh90_mspt": "Role ASW",
+  "sp_nh90_tth": "Role ASW",
+  "spa_a400m_airdroop-para": "Role AEW",
+  "spa_a400m_tankers": "Role AEW",
+  "spa_ab212": "Role ASW",
+  "spa_ah-1g": "Role Attack",
+  "spa_av-8a": "Role Fighter",
+  "spa_av-8b": "Role Fighter",
+  "spa_av-8b_plus": "Role Fighter",
+  "spa_f-18a": "Role Fighter",
+  "spa_f-18m": "Role Fighter",
+  "spa_f-4c": "Role Fighter",
+  "spa_f104g": "Role Fighter",
+  "spa_f1c": "Role Fighter",
+  "spa_f1e": "Role Fighter",
+  "spa_md500": "Role ASW",
+  "spa_mirage_iii": "Role Fighter",
+  "spa_p-3a": "Role MPA",
+  "spa_sh-3d": "Role ASW",
+  "spa_sh-3d_AEW": "Role AEW",
+  "spa_sh-60b": "Role ASW",
+  "spa_sh-60b_block1": "Role ASW",
+  "spa_sh-60bv1": "Role ASW",
+  "spa_sh-60bv1_block1": "Role ASW",
+  "tha_ab212": "Role ASW",
+  "tha_S-70B-7_Seahawk": "Role ASW",
+  "thai_a330_mrtt": "Role AEW",
+  "tur_a400m_airdroop-para": "Role AEW",
+  "tur_a400m_tankers": "Role AEW",
+  "tw_m2k-5di": "Role Fighter",
+  "uae_a330_mrtt": "Role AEW",
+  "uae_m2k-9_dad": "Role Fighter",
+  "uae_m2k_dad": "Role Fighter",
+  "uae_m2k_ead": "Role Fighter",
+  "uae_m2k_rad": "Role Fighter",
   "uk_a400m_tankers": "Role AEW",
   "uk_ah_mk_1": "Role ASuW",
   "usa_a-10a": "Role Fighter",
@@ -5860,6 +6974,7 @@
   "usmc_uh-1y": "Role ASuW",
   "usmc_vh-3d": "Role Transport",
   "usn_a-3b": "Role Bomber",
+  "usn_a-4c": "Role Fighter",
   "usn_a-4g": "Role Fighter",
   "usn_a-6e": "Role Bomber",
   "usn_a-6g": "Role Bomber",
@@ -5897,7 +7012,6 @@
   "usn_f_14d": "Role Fighter",
   "usn_f_35c": "Role Fighter",
   "usn_fa-18a+": "Role Fighter",
-  "usn_fa-18a": "Role Fighter",
   "usn_fa-18c(n)": "Role Fighter",
   "usn_fa-18d": "Role Fighter",
   "usn_fa-18e": "Role Fighter",
@@ -5958,6 +7072,7 @@
   "wp_ka-29": "Role Attack",
   "wp_ka_25e": "Role EW",
   "wp_ka_27PL": "Role ASW",
+  "wp_lim-6": "Role Fighter",
   "wp_mi-14": "Role ASW",
   "wp_mi-24p": "Role ASuW",
   "wp_mi-24v": "Role ASuW",
@@ -5977,7 +7092,6 @@
   "wp_mig-25rb": "Role Recon",
   "wp_mig-27": "Role Bomber",
   "wp_mig-28": "Role Fighter",
-  "wp_mig-29a": "Role Fighter",
   "wp_mig-29k": "Role Fighter",
   "wp_mig-29k_941": "Role Fighter",
   "wp_mig-29k_947": "Role Fighter",
@@ -6033,9 +7147,41 @@
   "wp_tu-95rt": "Role MPA",
   "wp_yak-38": "Role Bomber",
   "wp_yak_44": "Role AEW",
+  "ae_ao_teide": "Displacement 8190 t, auxiliary x0.32",
+  "ae_cvl_dedalo": "Displacement 16416 t",
+  "ae_cvl_dedalo_late": "Displacement 16416 t",
+  "ae_cvl_principe_asturias": "Displacement 17188 t",
+  "ae_dd_churruca_fram_i": "Displacement 3550 t",
+  "ae_dd_churruca_fram_ib": "Displacement 3550 t",
+  "ae_ffg_baleares": "Displacement 4130 t",
+  "ae_ffg_baleares_late": "Displacement 4177 t",
+  "ae_ffg_bonifaz": "Displacement 6300 t",
+  "ae_ffg_descubierta": "Displacement 1479 t",
+  "ae_ffg_descubierta_late": "Displacement 1479 t",
+  "ae_ffg_santa_maria": "Displacement 4100 t",
+  "ae_ffg_santa_maria_late": "Displacement 4100 t",
+  "ae_lpa_castilla": "Displacement 16300 t",
+  "ae_lsd_galicia": "Displacement 9375 t",
+  "ae_lst_hernan_cortes": "Displacement 8470 t",
+  "ae_msc_jucar": "Displacement 400 t",
+  "ae_mso_guadalete": "Displacement 850 t",
+  "ae_ptg_lazaga": "Displacement 275 t",
+  "ae_ptm_lazaga": "Displacement 285 t",
+  "ae_sa_tiburon": "Displacement 79 t",
+  "ae_ss_s31": "Displacement 2415 t",
+  "ae_ss_s32": "Displacement 2435 t",
+  "ae_ss_s33": "Displacement 2435 t",
+  "ae_ssk_galerna": "Displacement 1790 t",
+  "ae_ssk_galerna_mod": "Displacement 1790 t",
+  "ae_ssk_s80_plus": "Displacement 2965 t",
+  "es_ffg_baleares": "Displacement 4130 t",
+  "es_ss_galerna": "Displacement 1760 t",
+  "es_ssk_delfin": "Displacement 1038 t",
+  "fgs_ddg_lutjens": "Displacement 4526 t",
+  "fgs_ptg_tiger": "Displacement 265 t",
+  "fgs_ss_type_205": "Displacement 455 t",
+  "fgs_ss_type_206": "Displacement 500 t",
   "fr_cvn_charles-de-gaulle": "Displacement 42500 t",
-  "fr_cvn_charles-de-gaulle_late": "Displacement 42500 t",
-  "fr_ddg_horizon": "Displacement 7050 t",
   "fr_edar_afv-ifv": "Displacement 200 t",
   "fr_edar_apc": "Displacement 200 t",
   "fr_edar_artillery": "Displacement 200 t",
@@ -6049,18 +7195,13 @@
   "fr_edas_tank": "Displacement 120 t",
   "fr_edas_vl": "Displacement 120 t",
   "fr_fdi_amiral_ronarc'h": "Displacement 4460 t",
-  "fr_ffg_aquitaine_asw": "Displacement 6172 t",
-  "fr_ffg_aquitaine_modernized_aaw": "Displacement 6172 t",
   "fr_ffg_aquitaine_modernized_asw": "Displacement 6172 t",
   "fr_ffg_lafayette_version_opv": "Displacement 3800 t",
   "fr_ffg_lafayette_version_opv_modernized": "Displacement 3800 t",
-  "fr_lhd_mistral": "Displacement 21300 t",
   "fr_ss_agosta": "Displacement 1760 t",
   "fr_ss_daphne": "Displacement 1038 t",
   "fr_ss_psm3g": "Displacement 17 t",
-  "fr_ssbn_triomphant": "Displacement 14300 t",
   "fr_ssn_rubis": "Displacement 6920 t",
-  "fr_ssn_suffren": "Displacement 5300 t",
   "fr_ssn_suffren_dds": "Displacement 5300 t",
   "fra_cv_clemenceau_60_deck_parkings": "Displacement 32780 t",
   "fra_cv_clemenceau_60_low": "Displacement 32780 t",
@@ -6070,45 +7211,69 @@
   "fra_cv_clemenceau_80_low": "Displacement 32780 t",
   "fra_cv_clemenceau_90_deck_parkings": "Displacement 32780 t",
   "fra_cv_clemenceau_90_low": "Displacement 32780 t",
+  "ger_ffg_f123_1994": "Displacement 4900 t",
+  "ger_ffg_f123_2007": "Displacement 4900 t",
+  "ger_ffg_f123_2012_MVP": "Displacement 4900 t",
+  "ger_ffg_f123_2015_essm": "Displacement 4900 t",
+  "ger_ffg_f123_2030_mlu_high": "Displacement 5000 t",
+  "ger_ffg_f124": "Displacement 5800 t",
+  "ger_ffg_f124_ASMD": "Displacement 5800 t",
+  "ger_ffg_f125": "Displacement 5800 t",
+  "ger_ffg_f127": "Displacement 13000 t",
+  "ger_ffg_f127_batch2": "Displacement 13000 t",
+  "ger_fsg_k130_batch1_early": "Displacement 1840 t",
+  "ger_fsg_k130_batch1_late": "Displacement 1840 t",
+  "ger_fsg_k130_batch2_late": "Displacement 1840 t",
+  "ger_ssk_type_212a_batch1_upgraded": "Displacement 1830 t",
+  "hdms_iver_huitfeldt_mlu": "Displacement 6645 t",
+  "ins_pt_saar": "Displacement 206 t",
+  "ins_ptg_aliya": "Displacement 498 t",
+  "ins_ptg_saar_2": "Displacement 250 t",
+  "ins_ptg_saar_3": "Displacement 250 t",
+  "ins_ptg_saar_4": "Displacement 450 t",
+  "ins_ss_gal": "Displacement 500 t",
+  "ir_aor_delvar": "Displacement 904 t, auxiliary x0.32",
+  "ir_fab_boghammar": "Displacement 7 t",
+  "ir_ffg_alvand": "Displacement 1540 t",
+  "ir_pf_bayandor": "Displacement 1135 t",
+  "ir_pt_kaivan": "Displacement 150 t",
+  "ir_pt_parvin": "Displacement 150 t",
+  "ir_ptg_kaivan": "Displacement 150 t",
+  "ir_ptg_peykaap_2": "Displacement 14 t",
+  "ir_ptg_peykaap_3_export": "Displacement 14 t",
   "ita_ddg_ddx": "Displacement 15000 t",
   "ita_ddg_orizzonte": "Displacement 7050 t",
-  "ita_ddg_orizzonte_18": "Displacement 7050 t",
-  "ita_ffg_fremm": "Displacement 6700 t",
-  "ita_ffg_fremm_asw": "Displacement 6700 t",
   "ita_ffg_ppa_evo": "Displacement 6270 t",
   "ita_fs_ppx": "Displacement 2400 t",
-  "ita_ssk_todaro_batch1": "Displacement 1830 t",
-  "jmsdf_aoe_mashuu": "Displacement 53000 t, auxiliary x0.32",
   "jmsdf_cv_shokaku_late": "Displacement 83000 t",
   "jmsdf_cvn_yamato": "Displacement 100000 t",
-  "jmsdf_dd_asahi": "Displacement 6800 t",
   "jmsdf_dd_hatsuyuki": "Displacement 3050 t",
   "jmsdf_dd_minegumo": "Displacement 2750 t",
   "jmsdf_dd_takatsuki": "Displacement 4500 t",
   "jmsdf_dd_takatsuki_84": "Displacement 4500 t",
   "jmsdf_dd_yamagumo": "Displacement 2750 t",
-  "jmsdf_ddg_atago": "Displacement 9500 t",
-  "jmsdf_ddg_maya": "Displacement 10250 t",
   "jmsdf_ddg_tachikaze": "Displacement 4800 t",
   "jmsdf_ddg_tachikaze_84": "Displacement 4800 t",
   "jmsdf_ddh_fuso": "Displacement 39000 t",
   "jmsdf_ddh_haruna": "Displacement 6900 t",
-  "jmsdf_ddh_hyuga": "Displacement 13950 t",
-  "jmsdf_ddh_ise": "Displacement 13950 t",
   "jmsdf_ss_asashio": "Displacement 2150 t",
   "jmsdf_ss_uzushio": "Displacement 3600 t",
   "jmsdf_ss_yushio": "Displacement 2900 t",
   "jmsdf_ssn_unryu": "Displacement 4640 t",
   "jmsdf_ssn_zuiho": "Displacement 3500 t",
-  "js_ffg_mogami": "Displacement 5500 t",
-  "knm_cb90": "Displacement 14 t",
-  "knm_cor_skjold": "Displacement 274 t",
   "knm_ffg_oslo": "Displacement 2100 t",
   "knm_fs_sleipner": "Displacement 800 t",
   "knm_msc_sauda": "Displacement 360 t",
   "knm_ptg_hauk": "Displacement 160 t",
   "knm_ptg_snogg": "Displacement 140 t",
   "knm_ss_kobben": "Displacement 485 t",
+  "ko_ddh-971": "Displacement 3900 t",
+  "ko_ff-951": "Displacement 1220 t",
+  "ko_ffg-811": "Displacement 3200 t",
+  "ko_pcc-756": "Displacement 1220 t",
+  "ko_pkg-711": "Displacement 570 t",
+  "ko_pkm-329": "Displacement 170 t",
+  "ko_pkmr-211": "Displacement 250 t",
   "mm_cg_garibaldi": "Displacement 11350 t",
   "mm_cgh_andrea_doria": "Displacement 6500 t",
   "mm_cgh_vittorio_veneto": "Displacement 9550 t",
@@ -6135,6 +7300,12 @@
   "mm_ssbn_archimede": "Displacement 6900 t",
   "mm_ssn_marconi": "Displacement 3400 t",
   "mm_ssn_marconi_78": "Displacement 3400 t",
+  "phl_ff_cannon": "Displacement 1620 t",
+  "phl_fs_malvar": "Displacement 914 t",
+  "phl_pb_jose_andrada": "Displacement 56 t",
+  "phl_pb_tomas_batilo": "Displacement 148 t",
+  "phl_pt_jacinto": "Displacement 645 t",
+  "phl_pt_kagitingan": "Displacement 148 t",
   "plan_ap_qiongsha": "Displacement 2150 t",
   "plan_cg_type045_early": "Displacement 5500 t",
   "plan_cg_type045_late": "Displacement 5500 t",
@@ -6213,6 +7384,7 @@
   "plan_type_054a_p2": "Displacement 4200 t",
   "plan_type_054a_p4": "Displacement 4200 t",
   "plan_type_055_2020": "Displacement 11000 t",
+  "pn_ffg-150": "Displacement 2870 t",
   "ran_cv_centaur_84": "Displacement 29200 t",
   "ran_cv_centaur_catobar": "Displacement 29200 t",
   "ran_cv_invincible": "Displacement 22000 t",
@@ -6248,12 +7420,10 @@
   "ran_river_mid": "Displacement 2560 t",
   "ran_ss_oberon": "Displacement 2410 t",
   "ran_ss_oberon1968": "Displacement 2032 t",
-  "rfn_aor_pashin": "Displacement 16250 t, auxiliary x0.32",
+  "rcn_ss_oberon": "Displacement 2410 t",
   "rfn_cvt_20380_3-6": "Displacement 2250 t",
   "rfn_cvt_20380_531": "Displacement 2250 t",
   "rfn_cvt_20380_550": "Displacement 2250 t",
-  "rfn_cvt_20380_7-12": "Displacement 2250 t",
-  "rfn_cvt_20385": "Displacement 2430 t",
   "rfn_cvt_21631": "Displacement 949 t",
   "rfn_ddg_21956_early": "Displacement 9000 t",
   "rfn_ddg_21956_late": "Displacement 9000 t",
@@ -6280,14 +7450,12 @@
   "rn_ddg_county-class_batch_2_82": "Displacement 6200 t",
   "rn_ddg_type45": "Displacement 8500 t",
   "rn_ddg_type45_22": "Displacement 8500 t",
-  "rn_ddg_type45_26": "Displacement 8500 t",
   "rn_ff_leander_1963": "Displacement 2500 t",
   "rn_ff_leander_1963_noVDS": "Displacement 2500 t",
   "rn_ff_leander_batch1": "Displacement 2500 t",
   "rn_ff_leander_batch2": "Displacement 2500 t",
   "rn_ff_leander_batch3": "Displacement 2790 t",
   "rn_ff_rothesay": "Displacement 2150 t",
-  "rn_ff_type23": "Displacement 4900 t",
   "rn_ff_type23_early": "Displacement 4900 t",
   "rn_ff_type23_mlu": "Displacement 4900 t",
   "rn_ff_type42": "Displacement 3500 t",
@@ -6302,8 +7470,32 @@
   "rn_type23": "Displacement 4130 t",
   "rn_type23_refit": "Displacement 4900 t",
   "rn_valiant_class_ssn": "Displacement 3500 t",
-  "ru_cv_kuznetsov": "Displacement 67500 t",
+  "rnn_ffg_karel": "Displacement 3320 t",
+  "rnn_ffg_karel_mlu": "Displacement 3320 t",
+  "rnn_ffg_Van_Galen": "Displacement 6650 t",
+  "rnn_usv_12m": "Displacement 16 t",
+  "rnzn_ff_leander_batch1": "Displacement 2990 t",
+  "rnzn_ff_leander_batch2": "Displacement 3200 t",
+  "rnzn_ff_leander_batch3": "Displacement 3245 t",
+  "rnzn_ff_leander_batch3refit": "Displacement 3245 t",
+  "rnzn_ff_rothesay": "Displacement 2560 t",
   "ru_cv_varyag": "Displacement 67500 t",
+  "swe_fsg_visby_v5": "Displacement 640 t",
+  "tha_aor_chula": "Displacement 1200 t, auxiliary x0.32",
+  "tha_ff_053HT_H": "Displacement 1960 t",
+  "tha_ff_cannon": "Displacement 1620 t",
+  "tha_ff_knox_84": "Displacement 4130 t",
+  "tha_ff_makut_rajakumarn": "Displacement 1900 t",
+  "tha_ff_makut_rajakumarn_88": "Displacement 1900 t",
+  "tha_fs_khamronsin": "Displacement 630 t",
+  "tha_fs_ratanakosin": "Displacement 940 t",
+  "tha_fs_tapi": "Displacement 1191 t",
+  "tha_lst_sichang": "Displacement 4520 t",
+  "tha_pb_m21": "Displacement 39 t",
+  "tha_pt_chonburi": "Displacement 450 t",
+  "tha_pt_sattahip": "Displacement 300 t",
+  "tha_ptg_prabrarapak": "Displacement 260 t",
+  "tha_ptg_ratcharit": "Displacement 270 t",
   "type_21+ACSL_lynx": "Displacement 1540 t",
   "usn_ae_kilauea": "Displacement 20500 t, auxiliary x0.32",
   "usn_aem_james_madison": "Displacement 20000 t",
@@ -6316,6 +7508,7 @@
   "usn_asv_saronic_corsair_missile": "Displacement 7 t",
   "usn_asv_saronic_corsair_scout": "Displacement 7 t",
   "usn_asv_saronic_corsair_torpedo": "Displacement 7 t",
+  "usn_avp_barnegat_mod": "Displacement 2300 t",
   "usn_bb_iowa": "Displacement 58000 t",
   "usn_bb_iowa_vls_refit": "Displacement 58000 t",
   "usn_bbg_trump": "Displacement 35000 t",
@@ -6531,7 +7724,6 @@
   "wp_bdk_alligator": "Displacement 4950 t",
   "wp_bdk_ivan_rogov": "Displacement 11730 t",
   "wp_bdk_ivan_rogov_90": "Displacement 11730 t",
-  "wp_bdk_ropucha": "Displacement 4080 t",
   "wp_bpk_kanin": "Displacement 4500 t",
   "wp_bpk_kara": "Displacement 8530 t",
   "wp_bpk_karaL": "Displacement 8530 t",
@@ -6541,7 +7733,6 @@
   "wp_bpk_udaloy": "Displacement 7570 t",
   "wp_bpk_udaloy2": "Displacement 7570 t",
   "wp_bpk_udaloy3": "Displacement 7570 t",
-  "wp_bpk_udaloy_98": "Displacement 7570 t",
   "wp_cv_orel": "Displacement 80000 t",
   "wp_cv_orel_1991": "Displacement 80000 t",
   "wp_em_sovremenny": "Displacement 7940 t",
@@ -6565,6 +7756,7 @@
   "wp_pt_shershen": "Displacement 161 t",
   "wp_pt_stenka": "Displacement 245 t",
   "wp_pt_turya": "Displacement 250 t",
+  "wp_pt_wisla": "Displacement 128 t",
   "wp_ptg_komar": "Displacement 81 t",
   "wp_ptg_osa1": "Displacement 209 t",
   "wp_ptg_osa2": "Displacement 235 t",
@@ -6573,13 +7765,11 @@
   "wp_ptg_tarantul_r60": "Displacement 469 t",
   "wp_ptg_tarantul_r71": "Displacement 469 t",
   "wp_ptg_tarantul_re": "Displacement 455 t",
-  "wp_rkr_admiral_nakhimov_refit": "Displacement 28000 t",
   "wp_rkr_kirov": "Displacement 25860 t",
   "wp_rkr_kirov_improved": "Displacement 25860 t",
   "wp_rkr_kresta1": "Displacement 7170 t",
   "wp_rkr_kynda": "Displacement 5500 t",
   "wp_rkr_slava": "Displacement 11490 t",
-  "wp_rkr_slava_16": "Displacement 11490 t",
   "wp_rkr_slava_98": "Displacement 11490 t",
   "wp_rkr_slavaLU": "Displacement 11490 t",
   "wp_rkr_slavaLV": "Displacement 11490 t",
@@ -6595,7 +7785,6 @@
   "wp_skr_petya2": "Displacement 1110 t",
   "wp_skr_petya3": "Displacement 1140 t",
   "wp_ss_foxtrot": "Displacement 2475 t",
-  "wp_ss_improved_kilo": "Displacement 3040 t",
   "wp_ss_kilo": "Displacement 3040 t",
   "wp_ss_kilo_877v": "Displacement 3040 t",
   "wp_ss_romeo": "Displacement 1730 t",
@@ -6612,8 +7801,6 @@
   "wp_ssgn_echo2": "Displacement 5760 t",
   "wp_ssgn_oscar1": "Displacement 22500 t",
   "wp_ssgn_oscar2": "Displacement 22500 t",
-  "wp_ssgn_yasen": "Displacement 13800 t",
-  "wp_ssn_akula": "Displacement 13800 t",
   "wp_ssn_alfa": "Displacement 3180 t",
   "wp_ssn_november": "Displacement 4750 t",
   "wp_ssn_sierra1": "Displacement 8300 t",
@@ -6636,19 +7823,19 @@
    "traffic": 12,
    "ground": 4
   },
-  "bases": 39,
+  "bases": 85,
   "bases_by_kind": {
-   "AirBase": 23,
-   "NavalBase": 16
+   "AirBase": 51,
+   "NavalBase": 34
   },
-  "forces": 92,
+  "forces": 143,
   "forces_by_type": {
-   "Surface": 43,
-   "Air": 49
+   "Surface": 61,
+   "Air": 82
   },
   "patrols": 16,
-  "catalogue": 1197,
-  "values": 1197,
+  "catalogue": 1447,
+  "values": 1447,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34
