@@ -8,6 +8,7 @@ missiles are the reason the Triton cannot simply overfly, and the briefing
 says so.
 """
 from campaign_data import U, F, S
+from .fields import FIELDS, RAAF_P8, RNZAF_P8, detachment
 
 MISSION = dict(
     code="SR05", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 5",
@@ -100,7 +101,7 @@ MISSION = dict(
         "fleet": S(-57.00, 149.20, "Factory trawlers", heading=270),
         "cruise": S(-56.60, 147.00, "Polar Horizon", heading=20),
         "whale": S(-56.80, 148.20, "Biologic", heading=90),
-        "home": S(-42.836, 147.510, "Hobart Airport"),
+        "home": FIELDS["hobart"],
     },
     units=[
         U("blue", "SEST_ADF_Persistent_ISR", "raaf_mq-4c_triton", "high",
@@ -140,7 +141,8 @@ MISSION = dict(
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic HOTEL",
           depth="shallow"),
         U("blue", "_vanilla", "airfield_small_1", "home",
-          name="Hobart Airport (RAAF detachment)", nation="australia", weapons="Hold"),
+          name="Hobart Airport (RAAF detachment)", nation="australia", weapons="Hold",
+          extra=detachment(usn_p8=f"{RAAF_P8},2")),
     ],
     resolve={"Recover": "victory", "Neutrals": "neutral",
              "Picture": ("classify", "group", 2, "SR05GroupClassified"),

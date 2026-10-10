@@ -12,6 +12,7 @@ comes to look. Holding the window is what Broken Supply Line's rearm is
 paid with.
 """
 from campaign_data import U, F, S, HELO, RECON
+from .fields import FIELDS, RAAF_P8, RNZAF_P8, detachment
 
 MISSION = dict(
     code="SR04", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 4",
@@ -133,7 +134,7 @@ MISSION = dict(
         "tanker": S(-56.22, 155.52, "Midas tanker", heading=140, alt=28000),
         "longliner": S(-54.70, 159.40, "Longliner", heading=30),
         "whale": S(-54.20, 158.90, "Biologic", heading=180),
-        "home": S(-42.836, 147.510, "Hobart Airport"),
+        "home": FIELDS["hobart"],
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_aor_supply", "support", variant="Variant1",
@@ -174,7 +175,8 @@ MISSION = dict(
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic GOLF",
           depth="shallow"),
         U("blue", "_vanilla", "airfield_small_1", "home",
-          name="Hobart Airport (RAAF detachment)", nation="australia", weapons="Hold"),
+          name="Hobart Airport (RAAF detachment)", nation="australia", weapons="Hold",
+          extra=detachment(usn_p8=f"{RAAF_P8},2")),
     ],
     resolve={"Service": "victory", "Neutrals": "neutral",
              "Supply": ("protect", "support#1"),

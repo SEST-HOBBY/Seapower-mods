@@ -7,6 +7,7 @@ placed - Commander Brand's signal says where they are - and the New Zealand
 contribution is the aircraft, the field and the port.
 """
 from campaign_data import U, F, S, HELO, RECON
+from .fields import FIELDS, RAAF_P8, RNZAF_P8, detachment
 
 MISSION = dict(
     code="SR08", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 8",
@@ -96,7 +97,7 @@ MISSION = dict(
         # 19 NM south of Christchurch International, climbing out on the
         # McMurdo track (185), 25 NM from the approach box.
         "deepfreeze": S(-43.80, 172.45, "Deep Freeze LC-130", heading=185, alt=9000),
-        "field": S(-43.489, 172.532, "Christchurch International"),
+        "field": FIELDS["christchurch"],
         "home": S(-40.206, 175.388, "RNZAF Base Ohakea"),
     },
     units=[
@@ -138,7 +139,8 @@ MISSION = dict(
           airway=(-77.85, 166.67)),  # McMurdo
         U("blue", "_vanilla", "airfield_small_1", "field",
           name="Christchurch International (Antarctic gateway, RNZAF/RAAF detachment)",
-          nation="NewZealand", weapons="Hold"),
+          nation="NewZealand", weapons="Hold",
+          extra=detachment(usn_p8=f"{RNZAF_P8},1|{RAAF_P8},1")),
         U("blue", "SEST_RAAF_Bases", "airbase_rnzaf_ohakea", "home",
           name="RNZAF Base Ohakea", nation="NewZealand", weapons="Hold"),
     ],

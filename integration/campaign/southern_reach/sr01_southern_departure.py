@@ -7,6 +7,7 @@ paperwork. No combat is required to win, and a shot at the wrong trawler
 ends the operation.
 """
 from campaign_data import U, F, S, HELO
+from .fields import FIELDS, RAAF_P8, RNZAF_P8, detachment
 
 MISSION = dict(
     code="SR01", series="Southern Reach", seq="SOUTHERN REACH  ·  MISSION 1",
@@ -103,7 +104,7 @@ MISSION = dict(
         # will be at the handover line about when the convoy is.
         "patrol": S(-43.90, 148.60, "Fisheries protection frigate", heading=320),
         "home": S(-34.703, 138.622, "RAAF Base Edinburgh"),
-        "airport": S(-42.836, 147.510, "Hobart Airport"),
+        "airport": FIELDS["hobart"],
     },
     units=[
         U("blue", "SEST_RAN_Fleet", "ran_ffh_anzac", "escort", variant="Variant6",
@@ -149,7 +150,7 @@ MISSION = dict(
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_edinburgh", "home",
           name="RAAF Base Edinburgh", nation="australia", weapons="Hold"),
         U("neutral", "_vanilla", "airfield_small_1", "airport",
-          name="Hobart Airport", weapons="Hold"),
+          name="Hobart Airport", weapons="Hold", extra=detachment()),
     ],
     resolve={"Convoy": "victory", "Neutrals": "neutral",
              "Flagship": ("protect", "escort"),
