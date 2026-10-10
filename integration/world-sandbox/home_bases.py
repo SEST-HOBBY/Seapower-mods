@@ -20,15 +20,16 @@ air force exactly as it does a register node.
 
 Sides for the added nations follow 2028 alignments a two-sided engine can
 hold: NATO members and the United States' treaty allies and close partners
-on blue; Iran and North Korea with China and Russia on red. Nations unlikely
-to fight for either (India, Indonesia, Brazil, Pakistan, Egypt, Vietnam and
-others) are left out, because the engine has no neutral side.
+on blue; Iran and North Korea with China and Russia on red. Brazil is blue
+and Vietnam red at the author's direction (10 Oct 2026). Nations unlikely to
+fight for either (India, Indonesia, Pakistan, Egypt and others) are left
+out, because the engine has no neutral side.
 """
 
 BLUE_ADDED = ["Spain", "Germany", "Netherlands", "Greece", "Poland", "Turkey", "Sweden",
               "Belgium", "Denmark", "Canada", "South_Korea", "Philippines", "Thailand",
-              "NewZealand", "RoC", "Israel", "UAE", "Qatar", "Kuwait", "Saudi"]
-RED_ADDED = ["Iran", "North_Korea"]
+              "NewZealand", "RoC", "Israel", "UAE", "Qatar", "Kuwait", "Saudi", "Brazil"]
+RED_ADDED = ["Iran", "North_Korea", "Vietnam"]
 
 
 def naval(nation, bid, name, lat, lon, units, yard=True, depot=True):
@@ -138,6 +139,13 @@ HOME_BASES = [
         ("eu_ef2000_fgr4_late", 12)]),
     air("Saudi", "home_sau_dhahran", "King Abdulaziz Air Base (Dhahran)", 26.265, 50.152, 340, [
         ("eu_ef2000_fgr4_late", 12)]),
+    naval("Brazil", "home_bra_rio", "Rio de Janeiro Naval Base", -22.877, -43.133, [
+        ("bra_lph_Atlantico", 1), ("bra_ffg_tamandare", 1), ("bra_ffg_niteroi_2005", 2),
+        ("bra_type22b12", 1), ("bra_ss_riachuelo", 3), ("bra_ss_tikuna", 1)]),
+    air("Brazil", "home_bra_santa_cruz", "Santa Cruz Air Base", -22.932, -43.719, 230, [
+        ("bra_f-5em", 12)]),
+    air("Brazil", "home_bra_salvador", "Salvador Air Base", -12.911, -38.331, 280, [
+        ("bra_p-3am", 3)]),
 
     # --- red nations added ---------------------------------------------------------
     naval("Iran", "home_irn_bandar_abbas", "Bandar Abbas Naval Base", 27.14, 56.21, [
@@ -148,4 +156,8 @@ HOME_BASES = [
         ("iriaf_f-4e", 12)]),
     air("North_Korea", "home_prk_sunchon", "Sunchon Air Base", 39.413, 125.89, 360, [
         ("wp_mig-29a", 12, "MiG-29")]),
+    # Vietnam: the collection carries its Tarantul (Molniya) and Petya hulls,
+    # not its Su-30MK2s, Kilos or Gepards, so a naval base only.
+    naval("Vietnam", "home_vnm_cam_ranh", "Cam Ranh Naval Base", 11.92, 109.17, [
+        ("wp_ptg_tarantul_re", 4), ("wp_skr_petya3", 2)]),
 ]

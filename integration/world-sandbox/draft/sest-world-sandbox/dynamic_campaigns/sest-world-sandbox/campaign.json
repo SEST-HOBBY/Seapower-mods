@@ -45,7 +45,8 @@
         "UAE",
         "Qatar",
         "Kuwait",
-        "Saudi"
+        "Saudi",
+        "Brazil"
       ],
       "hq": "SEST WORLD - BLUE",
       "command": "SEST WORLD - BLUE COMMAND",
@@ -59,7 +60,8 @@
         "China",
         "Russia",
         "Iran",
-        "North_Korea"
+        "North_Korea",
+        "Vietnam"
       ],
       "hq": "SEST WORLD - RED",
       "command": "SEST WORLD - RED COMMAND",
@@ -1389,6 +1391,57 @@
       "supplyFrom": "me_bahrain_nsa_bahrain"
     },
     {
+      "id": "home_bra_rio",
+      "name": "Rio de Janeiro Naval Base",
+      "side": "blue",
+      "nation": "Brazil",
+      "kind": "NavalBase",
+      "lat": -22.877,
+      "lon": -43.142,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_bra_santa_cruz",
+      "name": "Santa Cruz Air Base",
+      "side": "blue",
+      "nation": "Brazil",
+      "kind": "AirBase",
+      "lat": -22.932,
+      "lon": -43.719,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 230,
+        "lat": -22.932,
+        "lon": -43.719
+      },
+      "supplyFrom": "home_bra_rio"
+    },
+    {
+      "id": "home_bra_salvador",
+      "name": "Salvador Air Base",
+      "side": "blue",
+      "nation": "Brazil",
+      "kind": "AirBase",
+      "lat": -12.911,
+      "lon": -38.331,
+      "income": 1,
+      "homeland": true,
+      "field": {
+        "unit": "airfield_small_1",
+        "heading": 280,
+        "lat": -12.911,
+        "lon": -38.331
+      },
+      "supplyFrom": "home_bra_rio"
+    },
+    {
       "id": "home_irn_bandar_abbas",
       "name": "Bandar Abbas Naval Base",
       "side": "red",
@@ -1456,6 +1509,21 @@
         "lon": 125.89
       },
       "supplyFrom": "home_rus_vladivostok"
+    },
+    {
+      "id": "home_vnm_cam_ranh",
+      "name": "Cam Ranh Naval Base",
+      "side": "red",
+      "nation": "Vietnam",
+      "kind": "NavalBase",
+      "lat": 11.924,
+      "lon": 109.177,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
     }
   ],
   "labels": [
@@ -2927,6 +2995,38 @@
       ]
     },
     {
+      "name": "Rio de Janeiro Naval Base harbour",
+      "side": "blue",
+      "base": "home_bra_rio",
+      "type": "Surface",
+      "units": [
+        "bra_lph_Atlantico",
+        "bra_ffg_tamandare",
+        "bra_ffg_niteroi_2005 x2",
+        "bra_type22b12",
+        "bra_ss_riachuelo x3",
+        "bra_ss_tikuna"
+      ]
+    },
+    {
+      "name": "Santa Cruz Air Base F-5EM",
+      "side": "blue",
+      "base": "home_bra_santa_cruz",
+      "type": "Air",
+      "units": [
+        "bra_f-5em x12"
+      ]
+    },
+    {
+      "name": "Salvador Air Base P-3AM",
+      "side": "blue",
+      "base": "home_bra_salvador",
+      "type": "Air",
+      "units": [
+        "bra_p-3am x3"
+      ]
+    },
+    {
       "name": "Bandar Abbas Naval Base harbour",
       "side": "red",
       "base": "home_irn_bandar_abbas",
@@ -2962,6 +3062,16 @@
       "type": "Air",
       "units": [
         "wp_mig-29a x12"
+      ]
+    },
+    {
+      "name": "Cam Ranh Naval Base harbour",
+      "side": "red",
+      "base": "home_vnm_cam_ranh",
+      "type": "Surface",
+      "units": [
+        "wp_ptg_tarantul_re x4",
+        "wp_skr_petya3 x2"
       ]
     }
   ],
@@ -3387,7 +3497,9 @@
     "Philippines": "home_phl_subic",
     "Thailand": "home_tha_sattahip",
     "Israel": "home_isr_haifa",
-    "Iran": "home_irn_bandar_abbas"
+    "Brazil": "home_bra_rio",
+    "Iran": "home_irn_bandar_abbas",
+    "Vietnam": "home_vnm_cam_ranh"
   },
   "airWings": {},
   "replenishment": {
@@ -3448,6 +3560,14 @@
     "ae_ssk_s80": 110,
     "bel_a400m_tankers": 242,
     "boeing-rc135": 118,
+    "bra_f-5em": 46,
+    "bra_ffg_niteroi_2005": 567,
+    "bra_ffg_tamandare": 123,
+    "bra_lph_Atlantico": 419,
+    "bra_p-3am": 89,
+    "bra_ss_riachuelo": 81,
+    "bra_ss_tikuna": 60,
+    "bra_type22b12": 152,
     "dk_mh-60r": 39,
     "dts_b-52h": 172,
     "dts_saab_ge": 242,
@@ -3603,8 +3723,10 @@
     "wp_il-76md": 2,
     "wp_il-78": 2,
     "wp_mig-29a": 46,
+    "wp_ptg_tarantul_re": 31,
     "wp_rkr_admiral_nakhimov_refit": 501,
     "wp_rkr_slava_16": 274,
+    "wp_skr_petya3": 57,
     "wp_ss_improved_kilo": 112,
     "wp_ssgn_yasen": 311,
     "wp_ssn_akula": 311,
@@ -3626,6 +3748,18 @@
     "be_nh90": 39,
     "bel_a400m_airdroop-para": 242,
     "boeing-rc135_early": 118,
+    "br_a330_mrtt": 242,
+    "bra_a4m": 46,
+    "bra_ah11": 39,
+    "bra_ah11b": 39,
+    "bra_ah15": 39,
+    "bra_sh-16": 39,
+    "bra_sh-3d": 39,
+    "bra_uh-12": 23,
+    "bra_uh14": 39,
+    "bra_uh15": 39,
+    "bre_m2kb": 46,
+    "bre_m2kc_rdi": 46,
     "bw_ec_665_had-e": 39,
     "ca_a330_mrtt": 242,
     "canberra_bomber": 2,
@@ -4246,6 +4380,11 @@
     "ae_ssk_galerna": 78,
     "ae_ssk_galerna_mod": 78,
     "ae_ssk_s80_plus": 110,
+    "bra_cv_Sao_Paulo": 558,
+    "bra_ff_garcia": 120,
+    "bra_ffg_niteroi": 567,
+    "bra_lst_newport": 223,
+    "bra_ss_tupi": 60,
     "es_ffg_baleares": 137,
     "es_ss_galerna": 77,
     "es_ssk_delfin": 54,
@@ -4623,6 +4762,7 @@
     "usn_cvn_united_states_late": 1187,
     "usn_dd_gearing": 124,
     "usn_dd_gearing_fram2": 124,
+    "usn_dd_gearing_fram2_mod": 124,
     "usn_dd_spruance": 215,
     "usn_dd_spruance_1994": 215,
     "usn_dd_spruance_2003": 215,
@@ -4836,7 +4976,6 @@
     "wp_ptg_tarantul_mr": 31,
     "wp_ptg_tarantul_r60": 31,
     "wp_ptg_tarantul_r71": 31,
-    "wp_ptg_tarantul_re": 31,
     "wp_rkr_kirov": 475,
     "wp_rkr_kirov_improved": 475,
     "wp_rkr_kresta1": 199,
@@ -4855,7 +4994,6 @@
     "wp_skr_krivak1": 115,
     "wp_skr_krivak2": 118,
     "wp_skr_petya2": 56,
-    "wp_skr_petya3": 57,
     "wp_ss_foxtrot": 97,
     "wp_ss_kilo": 112,
     "wp_ss_kilo_877v": 112,
@@ -11398,6 +11536,170 @@
       "aircraft": true
     },
     {
+      "unit": "bra_ff_garcia",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0
+    },
+    {
+      "unit": "bra_ss_riachuelo",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0
+    },
+    {
+      "unit": "bra_ss_tikuna",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0
+    },
+    {
+      "unit": "bra_ss_tupi",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0
+    },
+    {
+      "unit": "bra_ffg_tamandare",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 1
+    },
+    {
+      "unit": "bra_lst_newport",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 1
+    },
+    {
+      "unit": "bra_type22b12",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 1
+    },
+    {
+      "unit": "bra_lph_Atlantico",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 2
+    },
+    {
+      "unit": "bra_cv_Sao_Paulo",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 3
+    },
+    {
+      "unit": "bra_ffg_niteroi",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 3
+    },
+    {
+      "unit": "bra_ffg_niteroi_2005",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 3
+    },
+    {
+      "unit": "bra_a4m",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_ah11",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_ah11b",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_ah15",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_f-5em",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_p-3am",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_sh-16",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_sh-3d",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_uh-12",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_uh14",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bra_uh15",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bre_m2kb",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "bre_m2kc_rdi",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "br_a330_mrtt",
+      "side": "blue",
+      "nation": "Brazil",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
       "unit": "plan_ap_qiongsha",
       "side": "red",
       "nation": "China",
@@ -12903,12 +13205,6 @@
       "tier": 0
     },
     {
-      "unit": "wp_skr_petya3",
-      "side": "red",
-      "nation": "Russia",
-      "tier": 0
-    },
-    {
       "unit": "wp_ss_foxtrot",
       "side": "red",
       "nation": "Russia",
@@ -13554,13 +13850,6 @@
     },
     {
       "unit": "wp_mi-8tv",
-      "side": "red",
-      "nation": "Russia",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "wp_mig-17",
       "side": "red",
       "nation": "Russia",
       "tier": 0,
@@ -14267,6 +14556,25 @@
       "nation": "Iran",
       "tier": 0,
       "aircraft": true
+    },
+    {
+      "unit": "wp_skr_petya3",
+      "side": "red",
+      "nation": "Vietnam",
+      "tier": 0
+    },
+    {
+      "unit": "usn_dd_gearing_fram2_mod",
+      "side": "red",
+      "nation": "Vietnam",
+      "tier": 1
+    },
+    {
+      "unit": "wp_mig-17",
+      "side": "red",
+      "nation": "Vietnam",
+      "tier": 0,
+      "aircraft": true
     }
   ],
   "ground": {
@@ -14276,6 +14584,9 @@
         "usa_spa_m109a2"
       ],
       "Belgium": [
+        "usa_spa_m109a2"
+      ],
+      "Brazil": [
         "usa_spa_m109a2"
       ],
       "Canada": [
@@ -14364,6 +14675,9 @@
       ],
       "Russia": [
         "wp_mbt_t-72a"
+      ],
+      "Vietnam": [
+        "pla_spa_plz-83"
       ]
     },
     "airDefence": {
@@ -14371,6 +14685,9 @@
         "usa_sam_site_pac-3_small"
       ],
       "Belgium": [
+        "usa_sam_site_pac-3_small"
+      ],
+      "Brazil": [
         "usa_sam_site_pac-3_small"
       ],
       "Canada": [
@@ -14460,6 +14777,9 @@
       ],
       "Russia": [
         "wp_sam_site_sa-21"
+      ],
+      "Vietnam": [
+        "pla_sam_site_hq-9"
       ]
     },
     "troops": {
@@ -14469,6 +14789,11 @@
         "usa_aaa_vulcan"
       ],
       "Belgium": [
+        "usa_mbt_abrams",
+        "usa_ifv_bradley",
+        "usa_aaa_vulcan"
+      ],
+      "Brazil": [
         "usa_mbt_abrams",
         "usa_ifv_bradley",
         "usa_aaa_vulcan"
@@ -14613,6 +14938,11 @@
       "Russia": [
         "wp_mbt_t-72a",
         "ru_spaa_mt-lb_sosna"
+      ],
+      "Vietnam": [
+        "pla_mbt_ztz-99a",
+        "pla_ifv_zbd-04a",
+        "pla_spaa_pgz-09"
       ]
     },
     "garrisonSize": {
@@ -14646,6 +14976,11 @@
         "civ_ms_bulk"
       ],
       "Belgium": [
+        "civ_ms_sealift_pacific",
+        "civ_ms_c8",
+        "civ_ms_roro_a"
+      ],
+      "Brazil": [
         "civ_ms_sealift_pacific",
         "civ_ms_c8",
         "civ_ms_roro_a"
@@ -14789,11 +15124,16 @@
       "Russia": [
         "civ_ms_amra",
         "civ_ms_freighter_a"
+      ],
+      "Vietnam": [
+        "civ_ms_bulk",
+        "civ_ms_freighter_a"
       ]
     },
     "escorts": {
       "Australia": "ran_ffh_anzac",
       "Belgium": "usn_lcs_freedom_suw_late",
+      "Brazil": "usn_lcs_freedom_suw_late",
       "Canada": "usn_lcs_freedom_suw_late",
       "Denmark": "usn_lcs_freedom_suw_late",
       "France": "fr_ffg_lafayette_modernized",
@@ -14822,11 +15162,13 @@
       "China": "plan_type_054a_p5",
       "Iran": "plan_type_054a_p5",
       "North_Korea": "plan_type_054a_p5",
-      "Russia": "rfn_ffg_22350_1-4"
+      "Russia": "rfn_ffg_22350_1-4",
+      "Vietnam": "plan_type_054a_p5"
     },
     "airlifts": {
       "Australia": "usmc_kc-130j",
       "Belgium": "usmc_kc-130j",
+      "Brazil": "usmc_kc-130j",
       "Canada": "usmc_kc-130j",
       "Denmark": "usmc_kc-130j",
       "France": "usmc_kc-130j",
@@ -14855,7 +15197,8 @@
       "China": "plaaf_y-20a",
       "Iran": "plaaf_y-20a",
       "North_Korea": "plaaf_y-20a",
-      "Russia": "wp_il-76md"
+      "Russia": "wp_il-76md",
+      "Vietnam": "plaaf_y-20a"
     }
   },
   "spyShips": {
