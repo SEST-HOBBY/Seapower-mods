@@ -818,6 +818,80 @@ def nation_units(nations):
     return out
 
 
+# --- the buy list: each side's whole arsenal in the collection ----------------
+# The engine's catalogue is what a side can order (Validate: an entry needs a
+# unit, a known side and a nation; the audit lists a unit once). The author
+# asked on 10 Oct 2026 for the combined arsenals: every ship, submarine and
+# aircraft the collection gives a side's nations, not only the types in the
+# opening forces. The operator is the Nation= of the winning *_variants.ini or
+# *_squadrons.ini sections (Default's where a section has none); a type several
+# nations fly is listed under the side's nation with the most sections, ties in
+# side order. No era cut: most of the collection's units carry no ServiceDate,
+# so a 2028 filter would drop the J-10C and the KJ-500 as readily as the Knox;
+# the tier (the price band) orders the list instead. Left out: what is not a
+# fighting unit - civil and fishing hulls, merchant and intelligence roles,
+# target drones, satellites, balloons, decoys, rafts and mines - and ids with a
+# space, which a campaign cannot name.
+ARSENAL_DIRS = ("vessels", "submarines", "aircraft")
+ARSENAL_TYPES = {"Vessel", "Submarine", "Aircraft", "Helicopter", "VTOL"}
+NATION_KEY = {n: n for n in BLUE + RED} | {"Soviet": "Russia", "RU": "Russia"}
+NOT_ARSENAL_ROLES = {"Merchant", "Spy", "SeaMine", "Deco"}
+NOT_ARSENAL_ID = re.compile(r"^civ_|satellite|balloon|septar|target|decoy|raft|sea_mine|sampan|"
+                            r"_ms_|_fv_|fishing|trawler|\s")
+SIDE_ORDER = {n: i for i, n in enumerate(BLUE + RED)}
+
+
+def operators(kind, uid):
+    """The Nation= of every variant or squadron section of the winning file."""
+    f = bp.winning(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
+    if f is None:
+        return []
+    sections, default = [], None
+    for line in bp.read(f).splitlines():
+        head = re.match(r"\s*\[([^\]]+)\]", line)
+        if head:
+            sections.append([head.group(1).strip(), None])
+            continue
+        nat = re.match(r"\s*Nation\s*=\s*([^\s/]+)", line)
+        if nat and sections and sections[-1][1] is None:
+            sections[-1][1] = nat.group(1)
+    for name, nat in sections:
+        if name == "Default":
+            default = nat
+    return [nat or default for name, nat in sections if name != "General" and (nat or default)]
+
+
+def arsenal():
+    """uid -> (side, nation) for every fighting unit a side's nations operate,
+    and a report of what was left out and why."""
+    found, left, other = {}, collections.defaultdict(list), collections.Counter()
+    for rel, (_token, path) in sorted(bp.index().items()):
+        kind, _, name = rel.partition("/")
+        if kind not in ARSENAL_DIRS or "/" in name or not name.endswith(".ini"):
+            continue
+        uid = path.stem
+        if re.search(r"_(variants|squadrons|loadouts)$", uid, re.I) or uid in found:
+            continue
+        if bp.unit_type(uid) not in ARSENAL_TYPES:
+            continue
+        nations = [NATION_KEY[n] for n in operators(kind, uid) if n in NATION_KEY]
+        if not nations:
+            for n in set(operators(kind, uid)):
+                other[n] += 1
+            continue
+        if NOT_ARSENAL_ID.search(uid.lower()):
+            left["not a fighting unit (id)"].append(uid)
+            continue
+        if role(uid) in NOT_ARSENAL_ROLES:
+            left[f"role {role(uid)}"].append(uid)
+            continue
+        per = collections.Counter(nations)
+        best = max(per, key=lambda n: (per[n], -SIDE_ORDER[n]))
+        found[uid] = (SIDE_OF[best], best)
+    return found, {"left_out": {k: sorted(v) for k, v in sorted(left.items())},
+                   "other_nations": dict(other.most_common())}
+
+
 def check_ids(ids, where):
     missing = sorted({u for u in ids if bp.unit_file(u.split("/")[0])[1] is None})
     if missing:
@@ -848,15 +922,34 @@ def main():
             nation_of_unit.setdefault(spec.split(" ")[0], (f["side"], nat))
     for n, u in units["escorts"].items():
         nation_of_unit.setdefault(u, (SIDE_OF[n], n))
-    catalogue = []
+
+    # The buy list: both sides' whole arsenals, and every type in the opening
+    # forces. A type a force fields stays on that force's side; its nation is
+    # the operator's where the operator is on that side, else the base's.
+    armoury, arsenal_report = arsenal()
+    buyable = {u: sn for u, sn in armoury.items() if sn[1] in nations}
     for u in military:
         side, nat = nation_of_unit[u]
+        if buyable.get(u, ("", ""))[0] != side:
+            buyable[u] = (side, nat)
+    for u in buyable:
+        if u not in values:
+            values[u], value_basis[u] = value_of(u)
+    is_air = lambda u: bp.unit_type(u) in ("Aircraft", "Helicopter", "VTOL")   # noqa: E731
+    catalogue = []
+    for u in sorted(buyable, key=lambda u: (buyable[u][0] != "blue", SIDE_ORDER[buyable[u][1]],
+                                            is_air(u), tier(values[u]), u)):
+        side, nat = buyable[u]
         e = {"unit": u, "side": side, "nation": nat, "tier": tier(values[u])}
-        if bp.unit_type(u) in ("Aircraft", "Helicopter", "VTOL"):
+        if is_air(u):
             e["aircraft"] = True
         elif values[u] > 800:
             e["days"] = 20
         catalogue.append(e)
+    report["arsenal"] = dict(arsenal_report, catalogue_by_side_nation={
+        f"{s} {n}": {"ships": sum(1 for u, sn in buyable.items() if sn == (s, n) and not is_air(u)),
+                     "aircraft": sum(1 for u, sn in buyable.items() if sn == (s, n) and is_air(u))}
+        for s, n in sorted(set(buyable.values()), key=lambda sn: SIDE_ORDER[sn[1]])})
 
     present = lambda table: {k: v for k, v in table.items() if k in used}   # noqa: E731
     defence = collections.defaultdict(list)

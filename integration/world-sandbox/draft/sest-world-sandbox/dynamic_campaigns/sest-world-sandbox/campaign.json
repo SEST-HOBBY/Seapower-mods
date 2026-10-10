@@ -2189,13 +2189,3708 @@
     "wp_tu-142m": 89,
     "wp_tu-160": 172,
     "wp_tu-22m2": 172,
-    "wp_tu95ms": 89
+    "wp_tu95ms": 89,
+    "ace_f-2a": 46,
+    "adf_ah-1g": 39,
+    "am_f104g": 46,
+    "am_f104s": 46,
+    "am_f104sasa": 46,
+    "am_tornado_adv": 46,
+    "am_tornado_ecr": 78,
+    "am_tornado_ids": 28,
+    "am_tornado_ids_95": 28,
+    "aus_a330_mrtt": 242,
+    "aus_ec_665_had-e": 39,
+    "boeing-rc135_early": 118,
+    "canberra_bomber": 2,
+    "E7A_Wedgetail": 242,
+    "eu_ef2000_fgr4": 46,
+    "eu_ef2000_fgr4_late": 46,
+    "fr_a330_mrtt": 118,
+    "fr_a400m_airdroop-para": 242,
+    "fr_a400m_sf": 242,
+    "fr_a400m_tankers": 118,
+    "fr_alouette_II": 25,
+    "fr_aquilon_202": 46,
+    "fr_as-350": 23,
+    "fr_as-565_sa": 39,
+    "fr_as_332B": 39,
+    "fr_as_332F": 39,
+    "fr_as_532L": 39,
+    "fr_as_532L2": 39,
+    "fr_as_532SC": 39,
+    "fr_atl2": 89,
+    "fr_br1050": 89,
+    "fr_br1050_ALH": 89,
+    "fr_br1050_ALM": 89,
+    "fr_camcopters": 39,
+    "fr_e2c": 242,
+    "fr_e2d": 242,
+    "fr_ec_665_had-e": 39,
+    "fr_ec_725": 39,
+    "fr_etendard_IVM": 46,
+    "fr_etendard_IVP": 28,
+    "fr_etendard_IVPM": 28,
+    "fr_f-8efn": 46,
+    "fr_f-8efn_early": 46,
+    "fr_f-8p": 46,
+    "fr_f1a": 46,
+    "fr_f1c": 46,
+    "fr_f1e": 46,
+    "fr_h700": 78,
+    "fr_m2kc_rdi": 46,
+    "fr_m2kc_rdm": 46,
+    "fr_m2kd": 46,
+    "fr_m2kd_rmv": 46,
+    "fr_mirage_iii": 46,
+    "fr_mq-9a": 242,
+    "fr_nh90": 39,
+    "fr_nh90_tth": 39,
+    "fr_nh90_tth_special_forces": 39,
+    "fr_rafale_b": 46,
+    "fr_rafale_b_l": 46,
+    "fr_rafale_b_l_nuclear": 46,
+    "fr_rafale_c": 46,
+    "fr_rafale_c_l": 46,
+    "fr_rafale_m": 46,
+    "fr_rafale_m_l": 46,
+    "fr_rafale_m_l_nuclear": 46,
+    "fr_rafale_m_tanker": 118,
+    "fr_sa-319": 39,
+    "fr_sa-321": 39,
+    "fr_sa-321G": 39,
+    "fr_sa-321GA": 23,
+    "fr_sa_342_gazelle_special_forces": 39,
+    "fr_sea_lynx": 39,
+    "fr_sea_lynx_4": 39,
+    "fr_super_etendard": 46,
+    "fr_super_etendard_modernise": 46,
+    "fr_vsr700": 39,
+    "h34": 39,
+    "iaf_md500": 25,
+    "idn_tu-16ks1": 172,
+    "iqaf_md500": 25,
+    "it_nh90_tth": 39,
+    "ita_sh-101a": 39,
+    "ita_sh90": 39,
+    "jasdf_ec-2": 118,
+    "jasdf_f-1": 46,
+    "jasdf_f-15j_peaceeagle": 46,
+    "jasdf_f-35b": 46,
+    "jasdf_f-4ej": 46,
+    "jasdf_t-2": 46,
+    "jgsdf_mv-22b": 39,
+    "jgsdf_mv22b_osprey": 23,
+    "jmsdf_ch53_standalone": 39,
+    "jmsdf_f_4ej2": 46,
+    "jmsdf_hss-2": 39,
+    "jmsdf_kv_107II_4": 23,
+    "jmsdf_kv_107IIA_3": 23,
+    "jmsdf_ps-1": 89,
+    "jmsdf_sh-60j": 39,
+    "jmsdf_sh-60k": 39,
+    "jmsdf_us-1": 89,
+    "jp_f-2a": 46,
+    "jp_f-2a_late": 46,
+    "Mirage_III": 46,
+    "mm_ab212": 39,
+    "mm_ab212_91": 39,
+    "mm_ab47j": 39,
+    "mm_av-8b_plus": 46,
+    "mm_br1150": 89,
+    "mm_sh-3": 39,
+    "mm_sh-3_91": 39,
+    "msdvd_tu-214_AEW": 242,
+    "msdvd_tu-214r": 242,
+    "msdvd_tu-214r_F": 39,
+    "mv22b_osprey": 23,
+    "nato_e-3a": 242,
+    "otan_a330_mrtt": 242,
+    "pla_f-5": 46,
+    "pla_h-6a": 172,
+    "pla_h-6d": 172,
+    "pla_j-5": 46,
+    "pla_j-7c": 46,
+    "pla_ka-28": 39,
+    "pla_kj-600": 242,
+    "pla_q-5": 28,
+    "pla_q-5a": 28,
+    "pla_z-8": 39,
+    "pla_z21": 25,
+    "plaaf_h-6j": 172,
+    "plaaf_h-6k_early": 172,
+    "plaaf_h-6k_late": 172,
+    "plaaf_h-6n": 172,
+    "plaaf_h6k": 172,
+    "plaaf_j-10a": 46,
+    "plaaf_j-10c": 46,
+    "plaaf_j-11": 46,
+    "plaaf_j-11a": 46,
+    "plaaf_j-11b": 46,
+    "plaaf_j-11bg": 46,
+    "plaaf_j-11bgh": 46,
+    "plaaf_j-11bh": 46,
+    "plaaf_j-11bs": 46,
+    "plaaf_j-16": 46,
+    "plaaf_j-16d": 46,
+    "plaaf_j-20a": 46,
+    "plaaf_j-7e": 46,
+    "plaaf_j-7ii": 46,
+    "plaaf_j-7iiia": 46,
+    "plaaf_j-8b": 46,
+    "plaaf_j-8e": 46,
+    "plaaf_j-8f": 46,
+    "plaaf_j10c": 46,
+    "plaaf_j16": 46,
+    "plaaf_j16d": 46,
+    "plaaf_j1f": 46,
+    "plaaf_j36": 46,
+    "plaaf_j5": 46,
+    "plaaf_j7": 46,
+    "plaaf_j8j": 46,
+    "plaaf_j_36": 46,
+    "plaaf_jh2m": 46,
+    "plaaf_jh7a": 46,
+    "plaaf_jh_6": 46,
+    "plaaf_jh_6a": 46,
+    "plaaf_jz-8f": 46,
+    "plaaf_kj-3000": 242,
+    "plaaf_kj100a": 242,
+    "plaaf_kj100b": 242,
+    "plaaf_kj2000": 242,
+    "plaaf_su-27ubk": 46,
+    "plaaf_y-20a": 23,
+    "plaaf_y-20b": 23,
+    "plaaf_y-20b_albm": 78,
+    "plaaf_y-9dz": 242,
+    "plaaf_y-9jz": 242,
+    "plaaf_y-9lg": 242,
+    "plaaf_yy-20a": 23,
+    "plaf_j16a": 46,
+    "plaf_j16d": 46,
+    "plan_j-15a": 46,
+    "plan_j-15d": 46,
+    "plan_j-15dt": 46,
+    "plan_j-15t": 46,
+    "plan_j-35": 46,
+    "plan_j-50": 46,
+    "plan_j7k": 46,
+    "plan_j9": 46,
+    "plan_j_15": 46,
+    "plan_j_15t": 46,
+    "plan_ka-28": 39,
+    "plan_ka-31": 242,
+    "plan_ka_28": 39,
+    "plan_ka_28_mod": 39,
+    "plan_kj-600": 242,
+    "plan_kj-600a": 242,
+    "plan_kj1000": 242,
+    "plan_kj500a": 242,
+    "plan_kj600": 242,
+    "plan_kq100": 89,
+    "plan_sh-5": 89,
+    "plan_sh_6": 89,
+    "plan_y-9fq": 89,
+    "plan_y10d": 118,
+    "plan_z-18f": 39,
+    "plan_z-18fa": 39,
+    "plan_z-18j": 39,
+    "plan_z-18ja": 242,
+    "plan_z-18y": 23,
+    "plan_z-20f": 39,
+    "plan_z-8j": 23,
+    "plan_z-9c": 39,
+    "plan_z-9d": 39,
+    "plan_z-9f": 39,
+    "plan_z-9f_(2020)": 39,
+    "planaf_z-20j": 39,
+    "profile_": 46,
+    "raac_lynx_ah7": 25,
+    "raaf_canberra_bomber": 172,
+    "raaf_f-111c": 78,
+    "raaf_f-4e": 46,
+    "raaf_f-4e_79": 46,
+    "raaf_n22": 2,
+    "raaf_queenair": 2,
+    "raaf_searchmaster_b": 2,
+    "raaf_searchmaster_l": 2,
+    "raaf_winjeel": 2,
+    "raf_canberra_bomber": 2,
+    "raf_ef2000_fgr4": 46,
+    "ran_a-4g": 78,
+    "ran_a-4g_early": 46,
+    "ran_as350": 28,
+    "ran_as350_recon": 28,
+    "ran_C1A": 23,
+    "ran_h34": 39,
+    "ran_h34_sar": 40,
+    "ran_S-70B-2_Seahawk": 39,
+    "ran_S-70B-2_Seahawk_late": 39,
+    "ran_S2": 89,
+    "ran_S2_late": 89,
+    "ran_scout": 25,
+    "ran_sea_gannet": 89,
+    "ran_sea_gannet_aew": 242,
+    "ran_sea_harrier84": 46,
+    "ran_sea_king_aew2": 242,
+    "ran_sea_venom": 46,
+    "ran_westlandseaking": 39,
+    "rn_buccaneer_s1": 46,
+    "rn_buccaneer_s2": 46,
+    "rn_buccaneer_s2b": 46,
+    "rn_harrier_gr3": 46,
+    "rn_lynx": 39,
+    "rn_lynx_has2": 39,
+    "rn_lynx_has3": 39,
+    "rn_merlin_hm1": 39,
+    "rn_nimrod": 2,
+    "rn_nimrod_aew3": 2,
+    "rn_nimrod_mr1": 2,
+    "rn_nimrod_mr2": 2,
+    "rn_nimrod_r1": 2,
+    "rn_sea_gannet": 46,
+    "rn_sea_gannet_aew": 46,
+    "rn_sea_gannet_aew_7": 46,
+    "rn_sea_gannet_ecm": 46,
+    "rn_sea_harrier": 46,
+    "rn_sea_harrier_early": 46,
+    "rn_sea_king": 39,
+    "rn_sea_king_aew": 39,
+    "rn_sea_king_has6": 39,
+    "rn_sea_king_hc4": 23,
+    "rn_sea_lynx": 39,
+    "rn_sea_lynx_3": 39,
+    "rn_sea_lynx_has3": 39,
+    "rn_sea_lynx_mk8": 39,
+    "rn_sea_vixen": 46,
+    "rn_wasp": 39,
+    "rn_wessex": 39,
+    "rn_wildcat": 39,
+    "rw_alouette_II": 25,
+    "rw_c340": 25,
+    "rw_qh-50d": 39,
+    "rw_sh-2f": 39,
+    "rw_sh-3h": 39,
+    "rw_v35": 25,
+    "S-70B-2_Seahawk": 39,
+    "S2": 242,
+    "uk_a400m_tankers": 242,
+    "uk_ah_mk_1": 39,
+    "usa_a-10a": 46,
+    "usa_a-10c": 46,
+    "usa_ah-64a": 39,
+    "usa_ah-64d": 39,
+    "usa_ah-64e": 39,
+    "usa_dj01705": 28,
+    "usa_mv75_army": 25,
+    "usa_v280_systems_fixture": 25,
+    "usaf_a-10c_plus": 46,
+    "usaf_ac-130a": 25,
+    "usaf_ac-130a_83": 25,
+    "usaf_ac-130h": 25,
+    "usaf_ac-130j": 25,
+    "usaf_b-52d": 172,
+    "usaf_b-52g": 172,
+    "usaf_b-52h_419_flts": 172,
+    "usaf_b-52o": 172,
+    "usaf_c-141b": 23,
+    "usaf_e-3a": 242,
+    "usaf_e-3g": 242,
+    "usaf_f-117": 78,
+    "usaf_f-15a": 46,
+    "usaf_f-15c": 46,
+    "usaf_f-15e_SE": 46,
+    "usaf_f-15ex_SEII": 46,
+    "usaf_f-16a": 46,
+    "usaf_f-16cm-bl52d": 46,
+    "usaf_f-22": 46,
+    "usaf_f-22_s5": 46,
+    "usaf_f-22_s6": 46,
+    "usaf_f-2a": 46,
+    "usaf_f-2a_late": 46,
+    "usaf_f-4d": 46,
+    "usaf_f-4e": 46,
+    "usaf_f-5a": 46,
+    "usaf_f-5e": 46,
+    "usaf_f_15c_2040c": 46,
+    "usaf_f_47": 46,
+    "usaf_hh-3": 23,
+    "usaf_kc-10": 2,
+    "usaf_kc-10a_extender": 2,
+    "usaf_kc-46a_boom": 2,
+    "usaf_kc-46a_warp": 2,
+    "usaf_mq-9_er": 242,
+    "usaf_rc_135": 242,
+    "usaf_rq-180": 40,
+    "usaf_u-2": 78,
+    "usaf_u-2_1960": 78,
+    "usaf_vc-137c": 2,
+    "usaf_yf-23_black_widow_ii": 46,
+    "usmc_ah-1t": 25,
+    "usmc_ah-1w": 39,
+    "usmc_ah-1w_late": 39,
+    "usmc_ah_1w": 39,
+    "usmc_av-8a": 46,
+    "usmc_av-8b+": 46,
+    "usmc_av_8b": 78,
+    "usmc_av_8b_plus": 78,
+    "usmc_ch-46e": 23,
+    "usmc_ch53_standalone": 39,
+    "usmc_f-35b": 46,
+    "usmc_kc-130t": 2,
+    "usmc_mv-22b": 39,
+    "usmc_uh-1y": 39,
+    "usmc_vh-3d": 23,
+    "usn_a-3b": 78,
+    "usn_a-4g": 46,
+    "usn_a-6e": 78,
+    "usn_a-6g": 78,
+    "usn_a-7e": 78,
+    "usn_a_6f": 78,
+    "usn_ah-64na": 39,
+    "usn_ch-46": 23,
+    "usn_ch-46d": 23,
+    "usn_e-2c": 242,
+    "usn_e_2c_group2_plus": 242,
+    "usn_ea-18g": 46,
+    "usn_ea-18g_2020": 46,
+    "usn_ea-6b": 118,
+    "usn_ea-6b_late": 118,
+    "usn_ea_18g_rsa": 46,
+    "usn_ea_6b_96": 118,
+    "usn_eka-3b": 118,
+    "usn_ep-3e": 89,
+    "usn_ep-3e_late": 89,
+    "usn_es-3a": 89,
+    "usn_f-14a": 46,
+    "usn_f-14b": 46,
+    "usn_f-14e": 46,
+    "usn_f-35c": 46,
+    "usn_f-4j": 46,
+    "usn_f-8a": 46,
+    "usn_f-8b": 46,
+    "usn_f-8c": 46,
+    "usn_f-8d": 46,
+    "usn_f-8e": 46,
+    "usn_f-8h": 46,
+    "usn_f-8j": 46,
+    "usn_f-8k": 46,
+    "usn_f-8l": 46,
+    "usn_f_14d": 46,
+    "usn_f_35c": 46,
+    "usn_fa-18a+": 46,
+    "usn_fa-18a": 46,
+    "usn_fa-18c(n)": 46,
+    "usn_fa-18d": 46,
+    "usn_fa-18e": 46,
+    "usn_fa-18f": 46,
+    "usn_fa-18f_blk3": 46,
+    "usn_fa_18c_rsa": 46,
+    "usn_fa_18d_rsa": 46,
+    "usn_fa_18e_rsa": 46,
+    "usn_fa_18f_rsa": 46,
+    "usn_fa_xx": 46,
+    "usn_ForpostR705": 28,
+    "usn_fury_escort": 46,
+    "usn_fury_ew": 118,
+    "usn_fury_interceptor": 46,
+    "usn_fury_recon": 28,
+    "usn_fury_sead": 40,
+    "usn_fury_strike": 78,
+    "usn_ka-3b": 118,
+    "usn_Mugin5705": 28,
+    "usn_orlan10705": 28,
+    "usn_p-2h": 89,
+    "usn_p-3d": 89,
+    "usn_p-8a": 89,
+    "usn_p8_2027": 89,
+    "usn_qh-50c": 39,
+    "usn_qh-50d": 39,
+    "usn_qh_50e": 39,
+    "usn_ra-3b": 28,
+    "usn_ra-5c": 28,
+    "usn_rf-8a": 28,
+    "usn_rf-8g": 28,
+    "usn_rq7705": 28,
+    "usn_s-3a": 89,
+    "usn_s-3b": 89,
+    "usn_sh-2f": 39,
+    "usn_sh-2g": 39,
+    "usn_sh-3h": 39,
+    "usn_sh-3j": 39,
+    "usn_sh-60b": 39,
+    "usn_sh-60f": 39,
+    "usn_sh_3h": 39,
+    "usn_v-19a": 39,
+    "wp_a-50": 242,
+    "wp_a-50b": 242,
+    "wp_a-50g": 242,
+    "wp_a-50u": 242,
+    "wp_a-50ub": 242,
+    "wp_a-50ubr": 242,
+    "wp_a_50": 242,
+    "wp_a_50u": 242,
+    "wp_il-38": 89,
+    "wp_il-76mdg": 2,
+    "wp_il_76md": 23,
+    "wp_ka-25": 39,
+    "wp_ka-25ts": 25,
+    "wp_ka-27": 39,
+    "wp_ka-27rdl": 242,
+    "wp_ka-29": 25,
+    "wp_ka_25e": 118,
+    "wp_ka_27PL": 39,
+    "wp_mi-14": 39,
+    "wp_mi-24p": 39,
+    "wp_mi-24v": 39,
+    "wp_mi-24vp": 39,
+    "wp_mi-8ew": 118,
+    "wp_mi-8t": 39,
+    "wp_mi-8tv": 39,
+    "wp_mig-17": 46,
+    "wp_mig-21": 46,
+    "wp_mig-23a": 46,
+    "wp_mig-23mld": 46,
+    "wp_mig-23ms": 46,
+    "wp_mig-25bm": 46,
+    "wp_mig-25p": 46,
+    "wp_mig-25pd": 46,
+    "wp_mig-25pu": 46,
+    "wp_mig-25rb": 28,
+    "wp_mig-27": 78,
+    "wp_mig-28": 46,
+    "wp_mig-29a": 46,
+    "wp_mig-29k": 46,
+    "wp_mig-29k_941": 46,
+    "wp_mig-29k_947": 46,
+    "wp_mig-29m2_967": 46,
+    "wp_mig-29m_915": 46,
+    "wp_mig-29m_961": 46,
+    "wp_mig-29smt_918": 46,
+    "wp_mig-31": 46,
+    "wp_mig-31bm": 46,
+    "wp_mig-31k": 78,
+    "wp_mig-35": 46,
+    "wp_mig_23am_98": 46,
+    "wp_p-42": 89,
+    "wp_p-42_rldn": 242,
+    "wp_p_42_98": 89,
+    "wp_p_42_rldn_98": 242,
+    "wp_su-15": 46,
+    "wp_su-24a": 78,
+    "wp_su-24m": 78,
+    "wp_su-24m2": 78,
+    "wp_su-24mp": 78,
+    "wp_su-24sm3": 78,
+    "wp_su-25": 46,
+    "wp_su-25sm3": 46,
+    "wp_su-27": 46,
+    "wp_su-27sm": 46,
+    "wp_su-30m": 46,
+    "wp_su-30mkk": 46,
+    "wp_su-30sm": 46,
+    "wp_su-30sm2": 46,
+    "wp_su-33": 46,
+    "wp_su-35s": 46,
+    "wp_su-57": 46,
+    "wp_su_27p": 46,
+    "wp_su_27sm": 46,
+    "wp_su_30m": 46,
+    "wp_su_30mkk": 46,
+    "wp_su_30sm": 46,
+    "wp_su_33": 46,
+    "wp_su_35s": 46,
+    "wp_su_47": 46,
+    "wp_taifun": 78,
+    "wp_taifun_98": 78,
+    "wp_taifun_ew": 118,
+    "wp_taifun_ew_98": 118,
+    "wp_tu-16": 172,
+    "wp_tu-16k": 172,
+    "wp_tu-16n": 172,
+    "wp_tu-16p": 118,
+    "wp_tu-95_bearg": 172,
+    "wp_tu-95ma": 172,
+    "wp_tu-95ms": 89,
+    "wp_tu-95rt": 89,
+    "wp_yak-38": 78,
+    "wp_yak_44": 242,
+    "fr_cvn_charles-de-gaulle": 665,
+    "fr_cvn_charles-de-gaulle_late": 665,
+    "fr_ddg_horizon": 197,
+    "fr_edar_afv-ifv": 18,
+    "fr_edar_apc": 18,
+    "fr_edar_artillery": 18,
+    "fr_edar_empty": 18,
+    "fr_edar_tank": 18,
+    "fr_edar_vl": 18,
+    "fr_edas_afv-ifv": 13,
+    "fr_edas_apc": 13,
+    "fr_edas_artillery": 13,
+    "fr_edas_empty": 13,
+    "fr_edas_tank": 13,
+    "fr_edas_vl": 13,
+    "fr_fdi_amiral_ronarc'h": 145,
+    "fr_ffg_aquitaine_asw": 180,
+    "fr_ffg_aquitaine_modernized_aaw": 180,
+    "fr_ffg_aquitaine_modernized_asw": 180,
+    "fr_ffg_lafayette_version_opv": 130,
+    "fr_ffg_lafayette_version_opv_modernized": 130,
+    "fr_lhd_mistral": 417,
+    "fr_ss_agosta": 77,
+    "fr_ss_daphne": 54,
+    "fr_ss_psm3g": 5,
+    "fr_ssbn_triomphant": 318,
+    "fr_ssn_rubis": 195,
+    "fr_ssn_suffren": 163,
+    "fr_ssn_suffren_dds": 163,
+    "fra_cv_clemenceau_60_deck_parkings": 558,
+    "fra_cv_clemenceau_60_low": 558,
+    "fra_cv_clemenceau_70_deck_parkings": 558,
+    "fra_cv_clemenceau_70_low": 558,
+    "fra_cv_clemenceau_80_deck_parkings": 558,
+    "fra_cv_clemenceau_80_low": 558,
+    "fra_cv_clemenceau_90_deck_parkings": 558,
+    "fra_cv_clemenceau_90_low": 558,
+    "ita_ddg_ddx": 329,
+    "ita_ddg_orizzonte": 197,
+    "ita_ddg_orizzonte_18": 197,
+    "ita_ffg_fremm": 190,
+    "ita_ffg_fremm_asw": 190,
+    "ita_ffg_ppa_evo": 182,
+    "ita_fs_ppx": 95,
+    "ita_ssk_todaro_batch1": 79,
+    "jmsdf_aoe_mashuu": 247,
+    "jmsdf_cv_shokaku_late": 1047,
+    "jmsdf_cvn_yamato": 1187,
+    "jmsdf_dd_asahi": 192,
+    "jmsdf_dd_hatsuyuki": 112,
+    "jmsdf_dd_minegumo": 104,
+    "jmsdf_dd_takatsuki": 145,
+    "jmsdf_dd_takatsuki_84": 145,
+    "jmsdf_dd_yamagumo": 104,
+    "jmsdf_ddg_atago": 241,
+    "jmsdf_ddg_maya": 254,
+    "jmsdf_ddg_tachikaze": 152,
+    "jmsdf_ddg_tachikaze_84": 152,
+    "jmsdf_ddh_fuso": 628,
+    "jmsdf_ddh_haruna": 194,
+    "jmsdf_ddh_hyuga": 313,
+    "jmsdf_ddh_ise": 313,
+    "jmsdf_ss_asashio": 88,
+    "jmsdf_ss_uzushio": 125,
+    "jmsdf_ss_yushio": 108,
+    "jmsdf_ssn_unryu": 149,
+    "jmsdf_ssn_zuiho": 123,
+    "js_ffg_mogami": 167,
+    "knm_cb90": 5,
+    "knm_cor_skjold": 22,
+    "knm_ffg_oslo": 87,
+    "knm_fs_sleipner": 45,
+    "knm_msc_sauda": 26,
+    "knm_ptg_hauk": 15,
+    "knm_ptg_snogg": 14,
+    "knm_ss_kobben": 32,
+    "mm_cg_garibaldi": 272,
+    "mm_cgh_andrea_doria": 187,
+    "mm_cgh_vittorio_veneto": 242,
+    "mm_cgh_vittorio_veneto_69": 242,
+    "mm_cgh_vittorio_veneto_91": 242,
+    "mm_ddg_audace": 147,
+    "mm_ddg_audace_88": 147,
+    "mm_ddgh_durand_de_la_penne": 168,
+    "mm_ddgh_durand_de_la_penne_02": 168,
+    "mm_ff_alpino": 104,
+    "mm_ff_alpino_85": 104,
+    "mm_ff_bergamini_60": 74,
+    "mm_ff_canopo_50": 87,
+    "mm_ffg_lupo": 98,
+    "mm_ffg_maestrale": 112,
+    "mm_lha_garibaldi": 311,
+    "mm_lha_garibaldi_91": 311,
+    "mm_lha_garibaldi_94": 311,
+    "mm_phm_sparviero": 8,
+    "mm_ss_longobardo": 96,
+    "mm_ss_lwt_23": 14,
+    "mm_ss_sauro": 73,
+    "mm_ss_toti": 36,
+    "mm_ssbn_archimede": 194,
+    "mm_ssn_marconi": 120,
+    "mm_ssn_marconi_78": 120,
+    "plan_ap_qiongsha": 88,
+    "plan_cg_type045_early": 167,
+    "plan_cg_type045_late": 167,
+    "plan_cg_type1164e": 291,
+    "plan_cv_fujian": 1064,
+    "plan_cv_fujian_rsa": 1064,
+    "plan_cv_liaoning": 1021,
+    "plan_cvn_004": 1187,
+    "plan_dd_luda1": 127,
+    "plan_ddg_luda_typ_051": 146,
+    "plan_ddg_luda_typ_051d": 146,
+    "plan_ddg_luda_typ_051dt": 146,
+    "plan_ddg_type051m": 127,
+    "plan_ddg_type956e": 214,
+    "plan_ddg_type_052C_rsa": 206,
+    "plan_ddg_type_052D_rsa": 206,
+    "plan_ddg_type_055_late_rsa": 266,
+    "plan_ddg_type_055_rsa": 266,
+    "plan_em_sovremenny": 214,
+    "plan_ff_chengdu": 66,
+    "plan_ff_jianghu1": 75,
+    "plan_ff_jianghu2": 75,
+    "plan_ff_jianghu3": 83,
+    "plan_ffg_jiangdong": 82,
+    "plan_ffg_krivak2": 118,
+    "plan_ffg_type_054_late_rsa": 133,
+    "plan_ffg_type_054_rsa": 133,
+    "plan_ffg_type_054a_late_rsa": 133,
+    "plan_ffg_type_054a_rsa": 133,
+    "plan_ffg_type_054b": 133,
+    "plan_k_type_037": 30,
+    "plan_lha_type1143e": 653,
+    "plan_lpd_type_071": 426,
+    "plan_lst_yukan": 138,
+    "plan_msc_type_010": 37,
+    "plan_pt_shanghai2": 14,
+    "plan_pt_shanghai2b": 14,
+    "plan_ptg_type_021": 18,
+    "plan_ptg_type_024": 10,
+    "plan_ss_ming": 76,
+    "plan_ss_romeo": 76,
+    "plan_ss_type_039c": 123,
+    "plan_ssbn_jin": 281,
+    "plan_ssbn_type_094": 266,
+    "plan_ssbn_type_094a": 266,
+    "plan_ssbn_type_096": 386,
+    "plan_ssg_wuhan": 87,
+    "plan_sshn_type_100": 914,
+    "plan_ssn_han": 158,
+    "plan_ssn_han_rsa": 156,
+    "plan_ssn_type_093": 190,
+    "plan_ssn_type_093_rsa": 190,
+    "plan_ssn_type_093a": 190,
+    "plan_ssn_type_093a_rsa": 190,
+    "plan_ssn_type_093b": 190,
+    "plan_ssn_type_093b_rsa": 190,
+    "plan_ssn_type_095": 234,
+    "plan_ssn_type_095_rsa": 234,
+    "plan_ssn_type_09x": 234,
+    "plan_ssnh_type83": 343,
+    "plan_type_001": 840,
+    "plan_type_051b_1997": 189,
+    "plan_type_051b_2017": 189,
+    "plan_type_051c": 187,
+    "plan_type_052_2004": 152,
+    "plan_type_052_2011": 152,
+    "plan_type_052b_2004": 174,
+    "plan_type_052b_2019": 174,
+    "plan_type_052c": 197,
+    "plan_type_052d_p2_1": 206,
+    "plan_type_052d_p2_2": 206,
+    "plan_type_053h3_p1": 95,
+    "plan_type_053h3_p2": 95,
+    "plan_type_054_p1": 132,
+    "plan_type_054a_p1": 139,
+    "plan_type_054a_p2": 139,
+    "plan_type_054a_p4": 139,
+    "plan_type_055_2020": 266,
+    "ran_cv_centaur_84": 516,
+    "ran_cv_centaur_catobar": 516,
+    "ran_cv_invincible": 426,
+    "ran_dd_anzac": 118,
+    "ran_dd_anzac1968": 118,
+    "ran_dd_daring": 124,
+    "ran_dd_daring1968": 124,
+    "ran_ddg_hobart": 174,
+    "ran_ddg_hobart_alt_early": 245,
+    "ran_ddg_hobart_alt_late": 245,
+    "ran_ddg_perth": 146,
+    "ran_ddg_perth_91": 146,
+    "ran_ddg_perth_early": 146,
+    "ran_de_type15": 92,
+    "ran_ffg_adelaide": 137,
+    "ran_ffg_adelaide_93": 137,
+    "ran_ffg_adelaide_ffg_upgrade": 137,
+    "ran_ffg_adelaide_late": 137,
+    "ran_ffg_adelaide_shorthull": 137,
+    "ran_lhd_canberra": 487,
+    "ran_lsd_choules": 311,
+    "ran_lsh_tobruk": 173,
+    "ran_lsm_lsm1": 35,
+    "ran_majestic": 399,
+    "ran_majestic_59": 399,
+    "ran_melbourne": 399,
+    "ran_msc_ton": 30,
+    "ran_oa_supply": 476,
+    "ran_pb_attack": 14,
+    "ran_pb_fremantle": 19,
+    "ran_river": 99,
+    "ran_river_early": 99,
+    "ran_river_mid": 99,
+    "ran_ss_oberon": 95,
+    "ran_ss_oberon1968": 85,
+    "rfn_aor_pashin": 111,
+    "rfn_cvt_20380_3-6": 91,
+    "rfn_cvt_20380_531": 91,
+    "rfn_cvt_20380_550": 91,
+    "rfn_cvt_20380_7-12": 91,
+    "rfn_cvt_20385": 96,
+    "rfn_cvt_21631": 51,
+    "rfn_ddg_21956_early": 233,
+    "rfn_ddg_21956_late": 233,
+    "rfn_ddg_21956m": 233,
+    "rfn_ffg_11356": 135,
+    "rfn_ffg_22350_5-8": 165,
+    "rfn_lha_11780": 514,
+    "rn_churchill_class_ssn": 123,
+    "rn_cv_centaur": 516,
+    "rn_cv_centaur_catobar": 516,
+    "rn_cv_centaur_catobar_73": 516,
+    "rn_cv_centaur_commando": 516,
+    "rn_cv_invincible": 426,
+    "rn_cv_invincible_deckparks": 426,
+    "rn_cv_invincible_refit": 426,
+    "rn_cv_invincible_refit_deckparks": 426,
+    "rn_dd_battle": 118,
+    "rn_dd_c-class": 100,
+    "rn_dd_type42_batch2": 123,
+    "rn_dd_type42_refit": 123,
+    "rn_dd_z-class": 100,
+    "rn_ddg_county-class_batch_1_75": 181,
+    "rn_ddg_county-class_batch_2_75": 181,
+    "rn_ddg_county-class_batch_2_82": 181,
+    "rn_ddg_type45": 224,
+    "rn_ddg_type45_22": 224,
+    "rn_ddg_type45_26": 224,
+    "rn_ff_leander_1963": 98,
+    "rn_ff_leander_1963_noVDS": 98,
+    "rn_ff_leander_batch1": 98,
+    "rn_ff_leander_batch2": 98,
+    "rn_ff_leander_batch3": 105,
+    "rn_ff_rothesay": 88,
+    "rn_ff_type23": 154,
+    "rn_ff_type23_early": 154,
+    "rn_ff_type23_mlu": 154,
+    "rn_ff_type42": 123,
+    "rn_lph_ocean": 419,
+    "rn_lph_ocean_asw": 419,
+    "rn_lph_ocean_asw_00": 419,
+    "rn_lph_ocean_asw_13": 419,
+    "rn_oberon_class": 95,
+    "rn_swiftsure_class_ssn": 154,
+    "rn_type22b12": 152,
+    "rn_type22b2": 152,
+    "rn_type23": 137,
+    "rn_type23_refit": 154,
+    "rn_valiant_class_ssn": 123,
+    "ru_cv_kuznetsov": 910,
+    "ru_cv_varyag": 910,
+    "type_21+ACSL_lynx": 70,
+    "usn_ae_kilauea": 130,
+    "usn_aem_james_madison": 399,
+    "usn_aem_nathan_hale": 1491,
+    "usn_ao_t2": 111,
+    "usn_aoe_sacramento": 247,
+    "usn_asv_saronic_corsair": 5,
+    "usn_asv_saronic_corsair_gun": 5,
+    "usn_asv_saronic_corsair_max": 5,
+    "usn_asv_saronic_corsair_missile": 5,
+    "usn_asv_saronic_corsair_scout": 5,
+    "usn_asv_saronic_corsair_torpedo": 5,
+    "usn_bb_iowa": 821,
+    "usn_bb_iowa_vls_refit": 821,
+    "usn_bbg_trump": 583,
+    "usn_cg_belknap": 232,
+    "usn_cg_belknap_72": 232,
+    "usn_cg_bunker_hill": 243,
+    "usn_cg_bunker_hill_vls_2004": 243,
+    "usn_cg_bunker_hill_vls_2014": 243,
+    "usn_cg_kansas_late": 306,
+    "usn_cg_leahy": 218,
+    "usn_cg_leahy_68": 218,
+    "usn_cg_ticonderoga": 243,
+    "usn_cg_ticonderoga_vls_2027": 243,
+    "usn_cg_ticonderogaABL": 243,
+    "usn_cg_ticonderogaVLS": 243,
+    "usn_cg_ticonderogaVLS_early": 243,
+    "usn_cgn_alaska": 365,
+    "usn_cgn_alaska_vls": 365,
+    "usn_cgn_california": 263,
+    "usn_cgn_california_alt": 263,
+    "usn_cgn_long_beach_73": 352,
+    "usn_cgn_long_beach_83": 352,
+    "usn_cgn_virginia": 277,
+    "usn_cgn_virginia_vls_refit": 277,
+    "usn_clg_oklahoma_city": 332,
+    "usn_cv_america_79": 1064,
+    "usn_cv_forrestal_75": 1029,
+    "usn_cv_kitty_hawk": 1047,
+    "usn_cvn_enterprise": 1139,
+    "usn_cvn_ford": 1187,
+    "usn_cvn_ford_jsf": 1187,
+    "usn_cvn_ford_legacy": 1187,
+    "usn_cvn_gerald_r_ford": 1187,
+    "usn_cvn_nimitz_2000s": 1187,
+    "usn_cvn_nimitz_2000s_adou": 1187,
+    "usn_cvn_nimitz_2027s_adou": 1187,
+    "usn_cvn_nimitz_alt": 1187,
+    "usn_cvn_united_states": 1187,
+    "usn_cvn_united_states_early": 1187,
+    "usn_cvn_united_states_late": 1187,
+    "usn_dd_gearing": 124,
+    "usn_dd_gearing_fram2": 124,
+    "usn_dd_spruance": 215,
+    "usn_dd_spruance_1994": 215,
+    "usn_dd_spruance_2003": 215,
+    "usn_dd_spruance_abl": 215,
+    "usn_dd_spruance_mk71": 215,
+    "usn_dd_spruance_ram_lamps-3": 215,
+    "usn_dd_spruance_vls": 215,
+    "usn_dd_spruance_vls_lamps-3": 215,
+    "usn_ddg-1000": 343,
+    "usn_ddg-1000_cps": 343,
+    "usn_ddg_adams_early": 146,
+    "usn_ddg_adams_early_68": 146,
+    "usn_ddg_adams_late": 146,
+    "usn_ddg_adams_late_68": 146,
+    "usn_ddg_arleigh_burke_flight1_1991": 233,
+    "usn_ddg_arleigh_burke_flight1_1997": 233,
+    "usn_ddg_arleigh_burke_flight1_2003": 233,
+    "usn_ddg_arleigh_burke_flight1_2013": 233,
+    "usn_ddg_arleigh_burke_flight1_2016": 233,
+    "usn_ddg_arleigh_burke_flight1_2025": 233,
+    "usn_ddg_arleigh_burke_flight2_1998": 233,
+    "usn_ddg_arleigh_burke_flight2_2003": 233,
+    "usn_ddg_arleigh_burke_flight2_2013": 233,
+    "usn_ddg_arleigh_burke_flight2_2016": 233,
+    "usn_ddg_arleigh_burke_flight2_2025": 233,
+    "usn_ddg_arleigh_burke_flight2a_2000": 241,
+    "usn_ddg_arleigh_burke_flight2a_2003": 241,
+    "usn_ddg_arleigh_burke_flight2a_2013": 241,
+    "usn_ddg_arleigh_burke_flight2a_2019": 241,
+    "usn_ddg_arleigh_burke_flight2a_2026": 241,
+    "usn_ddg_arleigh_burke_flight2a_2030": 241,
+    "usn_ddg_arleigh_burke_flight2a_HELIOS": 241,
+    "usn_ddg_arleigh_burke_flight3_2023": 245,
+    "usn_ddg_arleigh_burke_flight3_2027": 245,
+    "usn_ddg_arleigh_burke_flight3_2030": 245,
+    "usn_ddg_arleigh_burke_flight3_HELIOS": 245,
+    "usn_ddg_arleigh_concept": 233,
+    "usn_ddg_arleigh_flt1_051_2027": 233,
+    "usn_ddg_arleigh_flt1_052_2027": 233,
+    "usn_ddg_arleigh_flt1_054_2027": 233,
+    "usn_ddg_arleigh_flt1_062_2027": 233,
+    "usn_ddg_arleigh_flt1_064_2027": 233,
+    "usn_ddg_arleigh_flt2_072_2027": 233,
+    "usn_ddg_arleigh_flt2_075_2027": 233,
+    "usn_ddg_arleigh_flt2A_079_2027": 241,
+    "usn_ddg_arleigh_flt2A_080_2027": 241,
+    "usn_ddg_arleigh_flt2A_081_2027": 241,
+    "usn_ddg_arleigh_flt2A_084_2027": 241,
+    "usn_ddg_arleigh_flt2A_085_2027": 241,
+    "usn_ddg_arleigh_flt2A_088_2027": 241,
+    "usn_ddg_arleigh_flt2A_089_2027": 241,
+    "usn_ddg_arleigh_flt2A_091_2027": 241,
+    "usn_ddg_arleigh_flt2A_092_2027": 241,
+    "usn_ddg_arleigh_flt2A_097_2027": 241,
+    "usn_ddg_arleigh_flt2A_098_2027": 241,
+    "usn_ddg_arleigh_flt2A_099_2027": 241,
+    "usn_ddg_arleigh_flt2A_100_2027": 241,
+    "usn_ddg_arleigh_flt2A_108_2027": 241,
+    "usn_ddg_arleigh_flt2A_113_2027": 241,
+    "usn_ddg_arleigh_flt2A_117_2027": 241,
+    "usn_ddg_arleigh_flt2A_119_2027": 241,
+    "usn_ddg_arleigh_flt3_2027": 245,
+    "usn_ddg_burke_f1_051": 233,
+    "usn_ddg_burke_f1_051_early": 233,
+    "usn_ddg_burke_f1_051_late": 233,
+    "usn_ddg_burke_f1_052": 233,
+    "usn_ddg_burke_f1_052_early": 233,
+    "usn_ddg_burke_f1_052_late": 233,
+    "usn_ddg_burke_f1_054": 233,
+    "usn_ddg_burke_f1_054_early": 233,
+    "usn_ddg_burke_f1_062_late": 233,
+    "usn_ddg_burke_f1_064_late": 233,
+    "usn_ddg_burke_f2_072": 233,
+    "usn_ddg_burke_f2_072_early": 233,
+    "usn_ddg_burke_f2_072_late": 233,
+    "usn_ddg_burke_f2_075_late": 233,
+    "usn_ddg_burke_f2a_079": 241,
+    "usn_ddg_burke_f2a_080": 241,
+    "usn_ddg_burke_f2a_081": 241,
+    "usn_ddg_burke_f2a_081_late": 241,
+    "usn_ddg_burke_f2a_085": 241,
+    "usn_ddg_burke_f2a_085_late": 241,
+    "usn_ddg_burke_f2a_088_laser": 241,
+    "usn_ddg_burke_f2a_089": 241,
+    "usn_ddg_burke_f2a_091": 241,
+    "usn_ddg_burke_f2a_091_sewip": 241,
+    "usn_ddg_burke_f2a_097": 241,
+    "usn_ddg_burke_f2a_097_late": 241,
+    "usn_ddg_burke_f2a_097_sewip": 241,
+    "usn_ddg_burke_f2a_099": 241,
+    "usn_ddg_burke_f2a_100_late": 241,
+    "usn_ddg_burke_f2a_108": 241,
+    "usn_ddg_burke_f2a_113": 241,
+    "usn_ddg_burke_f2a_119": 241,
+    "usn_ddg_burke_f3_concept": 245,
+    "usn_ddg_coontz": 179,
+    "usn_ddg_coontz_68": 179,
+    "usn_ddg_ddgx": 306,
+    "usn_ddg_kidd": 243,
+    "usn_ddg_mahan": 179,
+    "usn_ddg_oldendorf": 215,
+    "usn_ddg_richard_morris": 248,
+    "usn_ff_garcia": 120,
+    "usn_ff_knox": 137,
+    "usn_ff_knox_72": 137,
+    "usn_ff_knox_84": 137,
+    "usn_ffg_brooke": 120,
+    "usn_ffg_constellation": 177,
+    "usn_ffg_oliver_hazard_perry": 137,
+    "usn_ffg_oliver_hazard_perry_longhull": 137,
+    "usn_ffg_oliver_hazard_perry_longhull_lamps-3": 137,
+    "usn_ffg_oliver_hazard_perry_mlu": 145,
+    "usn_ffg_oliver_hazard_perry_vls_refit": 137,
+    "usn_lcs_freedom_suw_early": 123,
+    "usn_lha_tarawa": 628,
+    "usn_lha_tarawa_refit": 628,
+    "usn_lha_tripoli": 628,
+    "usn_lhd_wasp_early": 644,
+    "usn_lka_charleston": 379,
+    "usn_lpd_austin": 356,
+    "usn_lsm_lsm1": 35,
+    "usn_lst_newport": 223,
+    "usn_msc_adjutant": 28,
+    "usn_mso_aggressive": 47,
+    "usn_phm_pegasus": 20,
+    "usn_phm_pegasus_rsa": 20,
+    "usn_phm_pegasus_rsa_early": 20,
+    "usn_ssbn_columbia": 415,
+    "usn_ssbn_franklin": 219,
+    "usn_ssbn_franklin_late": 219,
+    "usn_ssbn_george_washington": 190,
+    "usn_ssbn_james_madison": 219,
+    "usn_ssbn_james_madison_late": 219,
+    "usn_ssbn_lafayette": 219,
+    "usn_ssbn_ohio": 382,
+    "usn_ssgn_ohio": 382,
+    "usn_ssgn_ohio_2027": 382,
+    "usn_ssgn_virginia_blk5_vpm": 253,
+    "usn_ssn_los_angeles": 195,
+    "usn_ssn_los_angeles_76": 195,
+    "usn_ssn_los_angeles_flight2": 180,
+    "usn_ssn_los_angeles_flight3": 180,
+    "usn_ssn_los_angeles_flt2_90": 180,
+    "usn_ssn_los_angeles_flt3_2027": 180,
+    "usn_ssn_los_angeles_flt3_90": 180,
+    "usn_ssn_permit": 141,
+    "usn_ssn_permit_68": 141,
+    "usn_ssn_seawolf": 234,
+    "usn_ssn_seawolf_2027": 234,
+    "usn_ssn_seawolf_carter": 298,
+    "usn_ssn_seawolf_carter_rsa": 284,
+    "usn_ssn_seawolf_late_rsa": 235,
+    "usn_ssn_seawolf_rsa": 234,
+    "usn_ssn_skipjack": 123,
+    "usn_ssn_skipjack_68": 123,
+    "usn_ssn_sturgeon": 149,
+    "usn_ssn_sturgeon_72": 149,
+    "usn_ssn_virginia": 213,
+    "usn_ssn_virginia_2027": 213,
+    "usn_ssn_virginia_block1": 213,
+    "usn_ssn_virginia_block1_2015": 213,
+    "usn_ssn_virginia_block1_2026": 213,
+    "usn_ssn_virginia_block2": 213,
+    "usn_ssn_virginia_block2_2015": 213,
+    "usn_ssn_virginia_block3": 213,
+    "usn_ssn_virginia_block3_2026": 213,
+    "usn_ssn_virginia_block4": 213,
+    "usn_ssn_virginia_block5": 213,
+    "usn_ssn_virginia_seal": 213,
+    "usn_ssn_virginia_seal_2027": 213,
+    "wp_bdk_alligator": 155,
+    "wp_bdk_ivan_rogov": 278,
+    "wp_bdk_ivan_rogov_90": 278,
+    "wp_bdk_ropucha": 136,
+    "wp_bpk_kanin": 145,
+    "wp_bpk_kara": 224,
+    "wp_bpk_karaL": 224,
+    "wp_bpk_kashin": 141,
+    "wp_bpk_kashin_mod": 141,
+    "wp_bpk_kresta2": 206,
+    "wp_bpk_udaloy": 207,
+    "wp_bpk_udaloy2": 207,
+    "wp_bpk_udaloy3": 207,
+    "wp_bpk_udaloy_98": 207,
+    "wp_cv_orel": 1021,
+    "wp_cv_orel_1991": 1021,
+    "wp_em_sovremenny": 214,
+    "wp_em_sovremenny_98": 214,
+    "wp_em_sovremenny_vls": 214,
+    "wp_kr_sverdlov": 353,
+    "wp_mpk_grisha3": 52,
+    "wp_mpk_grisha_mu": 52,
+    "wp_mrk_nanuchka": 41,
+    "wp_mrk_nanuchka3_rsa": 41,
+    "wp_msc_T43": 37,
+    "wp_msc_T43K": 37,
+    "wp_pb_don": 158,
+    "wp_pb_zhuk": 6,
+    "wp_pb_zhuk_ME": 6,
+    "wp_pkr_moskva": 333,
+    "wp_projekt61m": 141,
+    "wp_provorny": 141,
+    "wp_pt_p4": 5,
+    "wp_pt_p6": 9,
+    "wp_pt_shershen": 15,
+    "wp_pt_stenka": 20,
+    "wp_pt_turya": 21,
+    "wp_ptg_komar": 10,
+    "wp_ptg_osa1": 18,
+    "wp_ptg_osa2": 20,
+    "wp_ptg_tarantul": 31,
+    "wp_ptg_tarantul_mr": 31,
+    "wp_ptg_tarantul_r60": 31,
+    "wp_ptg_tarantul_r71": 31,
+    "wp_ptg_tarantul_re": 31,
+    "wp_rkr_admiral_nakhimov_refit": 501,
+    "wp_rkr_kirov": 475,
+    "wp_rkr_kirov_improved": 475,
+    "wp_rkr_kresta1": 199,
+    "wp_rkr_kynda": 167,
+    "wp_rkr_slava": 274,
+    "wp_rkr_slava_16": 274,
+    "wp_rkr_slava_98": 274,
+    "wp_rkr_slavaLU": 274,
+    "wp_rkr_slavaLV": 274,
+    "wp_rkr_varyag_08": 501,
+    "wp_rkr_varyag_12": 501,
+    "wp_rkr_varyag_95": 501,
+    "wp_skr_admiral_gorshkov_alt_rsa": 165,
+    "wp_skr_admiral_gorshkov_m_rsa": 165,
+    "wp_skr_admiral_gorshkov_rsa": 165,
+    "wp_skr_admiral_grigorovich_rsa": 130,
+    "wp_skr_krivak1": 115,
+    "wp_skr_krivak2": 118,
+    "wp_skr_petya2": 56,
+    "wp_skr_petya3": 57,
+    "wp_ss_foxtrot": 97,
+    "wp_ss_improved_kilo": 112,
+    "wp_ss_kilo": 112,
+    "wp_ss_kilo_877v": 112,
+    "wp_ss_romeo": 76,
+    "wp_ss_tango": 125,
+    "wp_ssbn_borei": 452,
+    "wp_ssbn_delta3": 343,
+    "wp_ssbn_delta4": 343,
+    "wp_ssbn_redoctober": 722,
+    "wp_ssbn_typhoon": 722,
+    "wp_ssbn_yankee": 281,
+    "wp_ssgn_belgorod": 525,
+    "wp_ssgn_charlie1": 156,
+    "wp_ssgn_charlie2": 167,
+    "wp_ssgn_echo2": 172,
+    "wp_ssgn_oscar1": 432,
+    "wp_ssgn_oscar2": 432,
+    "wp_ssgn_yasen": 311,
+    "wp_ssn_akula": 311,
+    "wp_ssn_alfa": 115,
+    "wp_ssn_november": 151,
+    "wp_ssn_sierra1": 220,
+    "wp_ssn_sierra2": 234,
+    "wp_ssn_victor1": 150,
+    "wp_ssn_victor2": 167,
+    "wp_ssn_victor3": 175,
+    "wp_ssn_victor3_imp": 175,
+    "wp_takr_kiev": 209,
+    "wp_tavkr_leningrad_98": 1021,
+    "wp_tavkr_ulyanovsk": 977,
+    "wp_vt_boris_chilikin": 458,
+    "wp_vt_kazbek": 347
   },
   "catalogue": [
     {
+      "unit": "usn_ao_t2",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_asv_saronic_corsair",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_asv_saronic_corsair_gun",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_asv_saronic_corsair_max",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_asv_saronic_corsair_missile",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_asv_saronic_corsair_scout",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_asv_saronic_corsair_torpedo",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_ff_garcia",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_ffg_brooke",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_lsm_lsm1",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_msc_adjutant",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_mso_aggressive",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_phm_pegasus",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_phm_pegasus_rsa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_phm_pegasus_rsa_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_tao_kaiser",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_ae_kilauea",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_aoe_sacramento",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_belknap",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_belknap_72",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_bunker_hill",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_bunker_hill_vls_2004",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_bunker_hill_vls_2014",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_bunker_hill_vls_2024",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_leahy",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_leahy_68",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_ticonderoga",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_ticonderogaABL",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_ticonderogaVLS",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_ticonderogaVLS_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_ticonderoga_vls_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_gearing",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_gearing_fram2",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_spruance",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_spruance_1994",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_spruance_2003",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_spruance_abl",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_spruance_mk71",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_spruance_ram_lamps-3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_spruance_vls",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_dd_spruance_vls_lamps-3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_adams_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_adams_early_68",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_adams_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_adams_late_68",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight1_1991",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight1_1997",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight1_2003",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight1_2013",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight1_2016",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight1_2025",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2_1998",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2_2003",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2_2013",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2_2016",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2_2025",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2a_2000",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2a_2003",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2a_2013",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2a_2019",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2a_2026",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2a_2030",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight2a_HELIOS",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight3_2023",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight3_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight3_2030",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_burke_flight3_HELIOS",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_concept",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt1_051_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt1_052_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt1_054_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt1_062_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt1_064_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_079_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_080_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_081_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_084_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_085_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_088_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_089_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_091_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_092_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_097_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_098_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_099_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_100_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_108_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_113_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_117_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2A_119_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2_072_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt2_075_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_arleigh_flt3_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_051",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_051_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_051_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_052",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_052_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_052_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_054",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_054_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_054_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_062_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f1_064_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2_072",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2_072_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2_072_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2_075_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_079",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_079_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_080",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_080_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_081",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_081_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_084_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_085",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_085_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_088_laser",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_089",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_089_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_091",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_091_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_091_sewip",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_097",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_097_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_097_sewip",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_099",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_099_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_100_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_108",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_108_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_113",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_117",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f2a_119",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f3_125",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_burke_f3_concept",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_coontz",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_coontz_68",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_kidd",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_mahan",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_oldendorf",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ddg_richard_morris",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ff_knox",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ff_knox_72",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ff_knox_84",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ffg_constellation",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ffg_oliver_hazard_perry",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ffg_oliver_hazard_perry_longhull",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ffg_oliver_hazard_perry_longhull_lamps-3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ffg_oliver_hazard_perry_mlu",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ffg_oliver_hazard_perry_vls_refit",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_lcs_freedom_suw_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_lcs_freedom_suw_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_lst_newport",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssbn_franklin",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssbn_franklin_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssbn_george_washington",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssbn_james_madison",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssbn_james_madison_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssbn_lafayette",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_los_angeles",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_los_angeles_76",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_los_angeles_flight2",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_los_angeles_flight3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_los_angeles_flt2_90",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_los_angeles_flt3_2026",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_los_angeles_flt3_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_los_angeles_flt3_90",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_permit",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_permit_68",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_seawolf",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_seawolf_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_seawolf_late_rsa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_seawolf_rsa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_skipjack",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_skipjack_68",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_sturgeon",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_sturgeon_72",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block1",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block1_2015",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block1_2026",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block2",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block2_2015",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block2_2026",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block3_2026",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block4",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_block5",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_seal",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_seal_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_take_lewis_clark",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_taoe_supply",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_aem_james_madison",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_cg_kansas_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_cgn_alaska",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_cgn_alaska_vls",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_cgn_california",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_cgn_california_alt",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_cgn_long_beach_73",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_cgn_long_beach_83",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_cgn_virginia",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_cgn_virginia_vls_refit",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_clg_oklahoma_city",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ddg-1000",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ddg-1000_cps",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ddg_ddgx",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_lka_charleston",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_lpd_austin",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ssbn_columbia",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ssbn_ohio",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ssgn_ohio",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ssgn_ohio_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ssgn_virginia_blk5_vpm",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ssn_seawolf_carter",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_ssn_seawolf_carter_rsa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_takr_algol",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
+      "unit": "usn_bbg_trump",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_lha_tarawa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_lha_tarawa_refit",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_lha_tripoli",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_lhd_wasp",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_lhd_wasp_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_bb_iowa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_bb_iowa_vls_refit",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cv_america_79",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cv_forrestal_75",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cv_kitty_hawk",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_enterprise",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_ford",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_ford_jsf",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_ford_legacy",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_gerald_r_ford",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_nimitz",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_nimitz_2000s",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_nimitz_2000s_adou",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_nimitz_2025",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_nimitz_2027s_adou",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_nimitz_alt",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_united_states",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_united_states_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_cvn_united_states_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "usn_aem_nathan_hale",
+      "side": "blue",
+      "nation": "US",
+      "tier": 5,
+      "days": 20
+    },
+    {
+      "unit": "ace_f-2a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "boeing-rc135",
       "side": "blue",
-      "nation": "Norway",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "boeing-rc135_early",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "canberra_bomber",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_as-350",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_h700",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "iaf_md500",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "iqaf_md500",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "mv22b_osprey",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_n22",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_searchmaster_b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_searchmaster_l",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raf_canberra_bomber",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_a-4g",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rw_c340",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rw_qh-50d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rw_sh-2f",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rw_sh-3h",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rw_v35",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usa_a-10a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usa_a-10c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usa_ah-64a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usa_ah-64d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usa_ah-64e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usa_mv75_army",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usa_v280_systems_fixture",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_a-10c_plus",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_ac-130a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_ac-130a_83",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_ac-130h",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_ac-130j",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_c-141b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-117",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-15a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-15c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-15e_SE",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-15ex_SEII",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-16a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-16cm-bl52d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-22",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-22_s5",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-22_s6",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-2a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-2a_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-4d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-4e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-5a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f-5e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f_15c_2040c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_f_47",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_hh-3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_kc-10",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_kc-10a_extender",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_kc-46a_boom",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_kc-46a_warp",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_rq-180",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_stratotanker",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_u-2",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_u-2_1960",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_vc-137c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_yf-23_black_widow_ii",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_ah-1t",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_ah-1w",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_ah-1w_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_ah_1w",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_av-8a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_av-8b+",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_av_8b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_av_8b_plus",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_ch-46e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_ch53_standalone",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_f-35b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_kc-130j",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_kc-130t",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_mv-22b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_uh-1y",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usmc_vh-3d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_a-3b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_a-6e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_a-6g",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_a-7e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_a_6f",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ah-64na",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ch-46",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ch-46d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ea-18g",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ea-18g_2020",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ea-6b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ea-6b_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ea_18g_rsa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ea_6b_96",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_eka-3b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ep-3e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ep-3e_late",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_es-3a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-14a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-14b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-14e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-35c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-4j",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-8a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-8b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-8c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-8d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-8e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-8h",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-8j",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-8k",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-8l",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f_14d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f_35c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa-18a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa-18a+",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa-18c(n)",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa-18d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa-18e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa-18f",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa-18f_blk3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa_18c_rsa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa_18d_rsa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa_18e_rsa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa_18f_rsa",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa_xx",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fury_escort",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fury_ew",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fury_interceptor",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fury_recon",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fury_sead",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fury_strike",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_hh-60",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ka-3b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_mh-60r",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p-2h",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p-3c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p-3d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p-8a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p8",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p8_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_p_8a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_qh-50c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_qh-50d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_qh_50e",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ra-3b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ra-5c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_rf-8a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_rf-8g",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_rq7705",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_s-3a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_s-3b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_sh-2f",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_sh-2g",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_sh-3h",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_sh-3j",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_sh-60b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_sh-60f",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_sh_3h",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_v-19a",
+      "side": "blue",
+      "nation": "US",
       "tier": 0,
       "aircraft": true
     },
@@ -2207,243 +5902,9 @@
       "aircraft": true
     },
     {
-      "unit": "fr_as_332M",
+      "unit": "nato_e-3a",
       "side": "blue",
-      "nation": "France",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "fr_ffg_lafayette_modernized",
-      "side": "blue",
-      "nation": "France",
-      "tier": 1
-    },
-    {
-      "unit": "fr_m2k-5f",
-      "side": "blue",
-      "nation": "France",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "fr_sa_342_gazelle",
-      "side": "blue",
-      "nation": "France",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "ita_ffg_ppa",
-      "side": "blue",
-      "nation": "Italy",
-      "tier": 1
-    },
-    {
-      "unit": "plaaf_kj-500",
-      "side": "red",
-      "nation": "China",
-      "tier": 1,
-      "aircraft": true
-    },
-    {
-      "unit": "plan_aor_type901",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_aor_type903a",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_cv_type_003",
-      "side": "red",
-      "nation": "China",
-      "tier": 4,
-      "days": 20
-    },
-    {
-      "unit": "plan_ddg_type956e_early",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_j-15",
-      "side": "red",
-      "nation": "China",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "plan_ptg_type037IIE",
-      "side": "red",
-      "nation": "China",
-      "tier": 0
-    },
-    {
-      "unit": "plan_ss_kilo",
-      "side": "red",
-      "nation": "China",
-      "tier": 0
-    },
-    {
-      "unit": "plan_ss_type_039",
-      "side": "red",
-      "nation": "China",
-      "tier": 0
-    },
-    {
-      "unit": "plan_ss_type_039a",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_ss_type_039b",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_type_052d_p1",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_type_052d_p3",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_type_052d_p4",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_type_054_p2",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_type_054a_p3",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_type_054a_p5",
-      "side": "red",
-      "nation": "China",
-      "tier": 1
-    },
-    {
-      "unit": "plan_type_055_2026",
-      "side": "red",
-      "nation": "China",
-      "tier": 2
-    },
-    {
-      "unit": "plan_type_056a",
-      "side": "red",
-      "nation": "China",
-      "tier": 0
-    },
-    {
-      "unit": "plan_y-8fq",
-      "side": "red",
-      "nation": "China",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "raaf_f-35a",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "raaf_mq-4c_triton",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "raf_ef2000_fgr4_late",
-      "side": "blue",
-      "nation": "UK",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "ran_aor_supply",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 0
-    },
-    {
-      "unit": "ran_ffh_anzac",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 1
-    },
-    {
-      "unit": "ran_opv_arafura",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 0
-    },
-    {
-      "unit": "ran_ssg_collins",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 0
-    },
-    {
-      "unit": "rfn_ffg_22350_1-4",
-      "side": "red",
-      "nation": "Russia",
-      "tier": 1
-    },
-    {
-      "unit": "rn_aor_tide",
-      "side": "blue",
-      "nation": "UK",
-      "tier": 1
-    },
-    {
-      "unit": "rn_merlin_hm2",
-      "side": "blue",
-      "nation": "UK",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "rn_opv_river_batch2",
-      "side": "blue",
-      "nation": "UK",
-      "tier": 0
-    },
-    {
-      "unit": "uk_a330_mrtt",
-      "side": "blue",
-      "nation": "UK",
-      "tier": 1,
-      "aircraft": true
-    },
-    {
-      "unit": "uk_a400m_airdroop-para",
-      "side": "blue",
-      "nation": "UK",
+      "nation": "US",
       "tier": 1,
       "aircraft": true
     },
@@ -2462,6 +5923,55 @@
       "aircraft": true
     },
     {
+      "unit": "usaf_b-52d",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_b-52g",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_b-52h_419_flts",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_b-52o",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_e-3a",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_e-3g",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "usaf_mq-9_er",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
       "unit": "usaf_mq-9a",
       "side": "blue",
       "nation": "US",
@@ -2469,98 +5979,18 @@
       "aircraft": true
     },
     {
-      "unit": "usaf_stratotanker",
+      "unit": "usaf_rc_135",
       "side": "blue",
       "nation": "US",
-      "tier": 0,
+      "tier": 1,
       "aircraft": true
     },
     {
-      "unit": "usmc_kc-130j",
+      "unit": "usn_e-2c",
       "side": "blue",
       "nation": "US",
-      "tier": 0,
+      "tier": 1,
       "aircraft": true
-    },
-    {
-      "unit": "usn_cg_bunker_hill_vls_2024",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_cvn_nimitz",
-      "side": "blue",
-      "nation": "US",
-      "tier": 4,
-      "days": 20
-    },
-    {
-      "unit": "usn_cvn_nimitz_2025",
-      "side": "blue",
-      "nation": "US",
-      "tier": 4,
-      "days": 20
-    },
-    {
-      "unit": "usn_ddg_burke_f1_054_late",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ddg_burke_f2a_079_late",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ddg_burke_f2a_080_late",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ddg_burke_f2a_084_late",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ddg_burke_f2a_089_late",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ddg_burke_f2a_091_late",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ddg_burke_f2a_099_late",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ddg_burke_f2a_108_late",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ddg_burke_f2a_117",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ddg_burke_f3_125",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
     },
     {
       "unit": "usn_e-2d",
@@ -2570,90 +6000,4406 @@
       "aircraft": true
     },
     {
-      "unit": "usn_hh-60",
+      "unit": "usn_e_2c_group2_plus",
       "side": "blue",
       "nation": "US",
-      "tier": 0,
+      "tier": 1,
       "aircraft": true
     },
     {
-      "unit": "usn_lcs_freedom_suw_late",
+      "unit": "ran_aor_supply",
       "side": "blue",
-      "nation": "US",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_dd_anzac",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_dd_anzac1968",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_de_type15",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_lsm_lsm1",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_msc_ton",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_opv_arafura",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_pb_attack",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_pb_fremantle",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_river",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_river_early",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_river_mid",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_ss_oberon",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_ss_oberon1968",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_ssg_collins",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_dd_daring",
+      "side": "blue",
+      "nation": "Australia",
       "tier": 1
     },
     {
-      "unit": "usn_lhd_wasp",
+      "unit": "ran_dd_daring1968",
       "side": "blue",
-      "nation": "US",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ddg_hobart",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ddg_hobart_alt_early",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ddg_hobart_alt_late",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ddg_perth",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ddg_perth_91",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ddg_perth_early",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ffg_adelaide",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ffg_adelaide_93",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ffg_adelaide_ffg_upgrade",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ffg_adelaide_late",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ffg_adelaide_shorthull",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_ffh_anzac",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_lsh_tobruk",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1
+    },
+    {
+      "unit": "ran_cv_invincible",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 2
+    },
+    {
+      "unit": "ran_lsd_choules",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 2
+    },
+    {
+      "unit": "ran_majestic",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 2
+    },
+    {
+      "unit": "ran_majestic_59",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 2
+    },
+    {
+      "unit": "ran_melbourne",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 2
+    },
+    {
+      "unit": "ran_cv_centaur_84",
+      "side": "blue",
+      "nation": "Australia",
       "tier": 3
     },
     {
-      "unit": "usn_mh-60r",
+      "unit": "ran_cv_centaur_catobar",
       "side": "blue",
-      "nation": "US",
+      "nation": "Australia",
+      "tier": 3
+    },
+    {
+      "unit": "ran_lhd_canberra",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 3
+    },
+    {
+      "unit": "ran_oa_supply",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 3
+    },
+    {
+      "unit": "S-70B-2_Seahawk",
+      "side": "blue",
+      "nation": "Australia",
       "tier": 0,
       "aircraft": true
     },
     {
-      "unit": "usn_p-3c",
+      "unit": "adf_ah-1g",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "aus_ec_665_had-e",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_mirage_iii",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "h34",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_f-111c",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_f-35a",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_f-4e",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_f-4e_79",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_mq-4c_triton",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_queenair",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_winjeel",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_C1A",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_S-70B-2_Seahawk",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_S-70B-2_Seahawk_late",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_S2",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_S2_late",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_a-4g_early",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_as350",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_as350_recon",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_h34",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_h34_sar",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_scout",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_sea_gannet",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_sea_harrier84",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_sea_venom",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_westlandseaking",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_a-4g",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "E7A_Wedgetail",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "S2",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "aus_a330_mrtt",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "raaf_canberra_bomber",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_sea_gannet_aew",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_sea_king_aew2",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_dd_hatsuyuki",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0
+    },
+    {
+      "unit": "jmsdf_dd_minegumo",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0
+    },
+    {
+      "unit": "jmsdf_dd_yamagumo",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0
+    },
+    {
+      "unit": "jmsdf_ss_asashio",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0
+    },
+    {
+      "unit": "jmsdf_ss_yushio",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0
+    },
+    {
+      "unit": "jmsdf_aoe_mashuu",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_dd_asahi",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_dd_takatsuki",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_dd_takatsuki_84",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_ddg_atago",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_ddg_tachikaze",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_ddg_tachikaze_84",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_ddh_haruna",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_ss_uzushio",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_ssn_unryu",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_ssn_zuiho",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "js_ffg_mogami",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 1
+    },
+    {
+      "unit": "jmsdf_ddg_maya",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 2
+    },
+    {
+      "unit": "jmsdf_ddh_hyuga",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 2
+    },
+    {
+      "unit": "jmsdf_ddh_ise",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 2
+    },
+    {
+      "unit": "jmsdf_ddh_fuso",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 3
+    },
+    {
+      "unit": "jmsdf_cv_shokaku_late",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "jmsdf_cvn_yamato",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "jasdf_ec-2",
       "side": "blue",
       "nation": "Japan",
       "tier": 0,
       "aircraft": true
     },
     {
-      "unit": "usn_p8",
+      "unit": "jasdf_f-1",
       "side": "blue",
-      "nation": "Norway",
+      "nation": "Japan",
       "tier": 0,
       "aircraft": true
     },
     {
-      "unit": "usn_p_8a",
+      "unit": "jasdf_f-15j_peaceeagle",
       "side": "blue",
-      "nation": "US",
+      "nation": "Japan",
       "tier": 0,
       "aircraft": true
     },
     {
-      "unit": "usn_ssn_los_angeles_flt3_2026",
+      "unit": "jasdf_f-35b",
       "side": "blue",
-      "nation": "US",
-      "tier": 1
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
     },
     {
-      "unit": "usn_ssn_virginia_block2_2026",
+      "unit": "jasdf_f-4ej",
       "side": "blue",
-      "nation": "US",
-      "tier": 1
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
     },
     {
-      "unit": "usn_take_lewis_clark",
+      "unit": "jasdf_t-2",
       "side": "blue",
-      "nation": "US",
-      "tier": 1
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
     },
     {
-      "unit": "usn_takr_algol",
+      "unit": "jgsdf_mv-22b",
       "side": "blue",
-      "nation": "US",
-      "tier": 2
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
     },
     {
-      "unit": "usn_tao_kaiser",
+      "unit": "jgsdf_mv22b_osprey",
       "side": "blue",
-      "nation": "US",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_ch53_standalone",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_f_4ej2",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_hss-2",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_kv_107IIA_3",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_kv_107II_4",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_ps-1",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_sh-60j",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_sh-60k",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jmsdf_us-1",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jp_f-2a",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "jp_f-2a_late",
+      "side": "blue",
+      "nation": "Japan",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_edar_afv-ifv",
+      "side": "blue",
+      "nation": "France",
       "tier": 0
     },
     {
-      "unit": "usn_taoe_supply",
+      "unit": "fr_edar_apc",
       "side": "blue",
-      "nation": "US",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edar_artillery",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edar_empty",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edar_tank",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edar_vl",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edas_afv-ifv",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edas_apc",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edas_artillery",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edas_empty",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edas_tank",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_edas_vl",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_ss_agosta",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_ss_daphne",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_ss_psm3g",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0
+    },
+    {
+      "unit": "fr_ddg_horizon",
+      "side": "blue",
+      "nation": "France",
       "tier": 1
     },
     {
+      "unit": "fr_fdi_amiral_ronarc'h",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_ffg_aquitaine_asw",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_ffg_aquitaine_modernized_aaw",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_ffg_aquitaine_modernized_asw",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_ffg_lafayette_modernized",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_ffg_lafayette_version_opv",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_ffg_lafayette_version_opv_modernized",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_ssn_rubis",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_ssn_suffren",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_ssn_suffren_dds",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1
+    },
+    {
+      "unit": "fr_lhd_mistral",
+      "side": "blue",
+      "nation": "France",
+      "tier": 2
+    },
+    {
+      "unit": "fr_ssbn_triomphant",
+      "side": "blue",
+      "nation": "France",
+      "tier": 2
+    },
+    {
+      "unit": "fr_cvn_charles-de-gaulle",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "fr_cvn_charles-de-gaulle_late",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "fra_cv_clemenceau_60_deck_parkings",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "fra_cv_clemenceau_60_low",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "fra_cv_clemenceau_70_deck_parkings",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "fra_cv_clemenceau_70_low",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "fra_cv_clemenceau_80_deck_parkings",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "fra_cv_clemenceau_80_low",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "fra_cv_clemenceau_90_deck_parkings",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "fra_cv_clemenceau_90_low",
+      "side": "blue",
+      "nation": "France",
+      "tier": 3
+    },
+    {
+      "unit": "Mirage_III",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_a330_mrtt",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_a400m_tankers",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_alouette_II",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_aquilon_202",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_as-565_sa",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_as_332B",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_as_332F",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_as_332M",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_as_532L",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_as_532L2",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_as_532SC",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_atl2",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_br1050",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_br1050_ALH",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_br1050_ALM",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_camcopters",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_ec_665_had-e",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_ec_725",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_etendard_IVM",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_etendard_IVP",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_etendard_IVPM",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_f-8efn",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_f-8efn_early",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_f-8p",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_f1a",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_f1c",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_f1e",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_m2k-5f",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_m2kc_rdi",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_m2kc_rdm",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_m2kd",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_m2kd_rmv",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_nh90",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_nh90_tth",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_nh90_tth_special_forces",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_rafale_b",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_rafale_b_l",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_rafale_b_l_nuclear",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_rafale_c",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_rafale_c_l",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_rafale_m",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_rafale_m_l",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_rafale_m_l_nuclear",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_rafale_m_tanker",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_sa-319",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_sa-321",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_sa-321G",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_sa-321GA",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_sa_342_gazelle",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_sa_342_gazelle_special_forces",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_sea_lynx",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_sea_lynx_4",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_super_etendard",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_super_etendard_modernise",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_vsr700",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rw_alouette_II",
+      "side": "blue",
+      "nation": "France",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_a400m_airdroop-para",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_a400m_sf",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_e2c",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_e2d",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "fr_mq-9a",
+      "side": "blue",
+      "nation": "France",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "ita_fs_ppx",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "ita_ssk_todaro_batch1",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ff_alpino",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ff_alpino_85",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ff_bergamini_60",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ff_canopo_50",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ffg_lupo",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ffg_maestrale",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_phm_sparviero",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ss_longobardo",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ss_lwt_23",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ss_sauro",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ss_toti",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ssn_marconi",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "mm_ssn_marconi_78",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0
+    },
+    {
+      "unit": "ita_ddg_orizzonte",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "ita_ddg_orizzonte_18",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "ita_ffg_fremm",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "ita_ffg_fremm_asw",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "ita_ffg_ppa",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "ita_ffg_ppa_evo",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "mm_cgh_andrea_doria",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "mm_cgh_vittorio_veneto",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "mm_cgh_vittorio_veneto_69",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "mm_cgh_vittorio_veneto_91",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "mm_ddg_audace",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "mm_ddg_audace_88",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "mm_ddgh_durand_de_la_penne",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "mm_ddgh_durand_de_la_penne_02",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "mm_ssbn_archimede",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 1
+    },
+    {
+      "unit": "ita_ddg_ddx",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 2
+    },
+    {
+      "unit": "mm_cg_garibaldi",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 2
+    },
+    {
+      "unit": "mm_lha_garibaldi",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 2
+    },
+    {
+      "unit": "mm_lha_garibaldi_91",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 2
+    },
+    {
+      "unit": "mm_lha_garibaldi_94",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 2
+    },
+    {
+      "unit": "am_f104g",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "am_f104s",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "am_f104sasa",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "am_tornado_adv",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "am_tornado_ecr",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "am_tornado_ids",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "am_tornado_ids_95",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "eu_ef2000_fgr4",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "eu_ef2000_fgr4_late",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "it_nh90_tth",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ita_sh-101a",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "ita_sh90",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "mm_ab212",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "mm_ab212_91",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "mm_ab47j",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "mm_av-8b_plus",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "mm_br1150",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "mm_sh-3",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "mm_sh-3_91",
+      "side": "blue",
+      "nation": "Italy",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_dd_battle",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_dd_c-class",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_dd_z-class",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_ff_leander_1963",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_ff_leander_1963_noVDS",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_ff_leander_batch1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_ff_leander_batch2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_ff_leander_batch3",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_ff_rothesay",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_oberon_class",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_opv_river_batch2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "type_21+ACSL_lynx",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0
+    },
+    {
+      "unit": "rn_aor_tide",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_churchill_class_ssn",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_dd_type42_batch2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_dd_type42_refit",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_county-class_batch_1_75",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_county-class_batch_2_75",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_county-class_batch_2_82",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_type45",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_type45_22",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ddg_type45_26",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ff_type23",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ff_type23_early",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ff_type23_mlu",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_ff_type42",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_swiftsure_class_ssn",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_type22b12",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_type22b2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_type23",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_type23_refit",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_valiant_class_ssn",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1
+    },
+    {
+      "unit": "rn_cv_invincible",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_cv_invincible_deckparks",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_cv_invincible_refit",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_cv_invincible_refit_deckparks",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_lph_ocean",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_lph_ocean_asw",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_lph_ocean_asw_00",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_lph_ocean_asw_13",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
+      "unit": "rn_cv_centaur",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 3
+    },
+    {
+      "unit": "rn_cv_centaur_catobar",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 3
+    },
+    {
+      "unit": "rn_cv_centaur_catobar_73",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 3
+    },
+    {
+      "unit": "rn_cv_centaur_commando",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 3
+    },
+    {
+      "unit": "raac_lynx_ah7",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raf_ef2000_fgr4",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "raf_ef2000_fgr4_late",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_buccaneer_s1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_buccaneer_s2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_buccaneer_s2b",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_harrier_gr3",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_lynx",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_lynx_has2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_lynx_has3",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_merlin_hm1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_merlin_hm2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_nimrod",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_nimrod_aew3",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_nimrod_mr1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_nimrod_mr2",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_nimrod_r1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_gannet",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_gannet_aew",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_gannet_aew_7",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_gannet_ecm",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_harrier",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_harrier_early",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_king",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_king_aew",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_king_has6",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_king_hc4",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_lynx",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_lynx_3",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_lynx_has3",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_lynx_mk8",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_sea_vixen",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_wasp",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_wessex",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rn_wildcat",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "uk_ah_mk_1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "uk_a330_mrtt",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "uk_a400m_airdroop-para",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "uk_a400m_tankers",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "knm_cb90",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0
+    },
+    {
+      "unit": "knm_cor_skjold",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0
+    },
+    {
+      "unit": "knm_ffg_oslo",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0
+    },
+    {
+      "unit": "knm_fs_sleipner",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0
+    },
+    {
+      "unit": "knm_msc_sauda",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0
+    },
+    {
+      "unit": "knm_ptg_hauk",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0
+    },
+    {
+      "unit": "knm_ptg_snogg",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0
+    },
+    {
+      "unit": "knm_ss_kobben",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 0
+    },
+    {
+      "unit": "otan_a330_mrtt",
+      "side": "blue",
+      "nation": "Norway",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_ap_qiongsha",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ff_chengdu",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ff_jianghu1",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ff_jianghu2",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ff_jianghu3",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ffg_jiangdong",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ffg_krivak2",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_k_type_037",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_msc_type_010",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_pt_shanghai2",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_pt_shanghai2b",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ptg_type037IIE",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ptg_type_021",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ptg_type_024",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ss_kilo",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ss_ming",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ss_romeo",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ss_type_039",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_ssg_wuhan",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_type_053h3_p1",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_type_053h3_p2",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_type_056a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0
+    },
+    {
+      "unit": "plan_aor_type901",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_aor_type903a",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_cg_type045_early",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_cg_type045_late",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_dd_luda1",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ddg_luda_typ_051",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ddg_luda_typ_051d",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ddg_luda_typ_051dt",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ddg_type051m",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ddg_type956e",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ddg_type956e_early",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ddg_type_052C_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ddg_type_052D_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_em_sovremenny",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ffg_type_054_late_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ffg_type_054_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ffg_type_054a_late_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ffg_type_054a_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ffg_type_054b",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_lst_yukan",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ss_type_039a",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ss_type_039b",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ss_type_039c",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_han",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_han_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_type_093",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_type_093_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_type_093a",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_type_093a_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_type_093b",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_type_093b_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_type_095",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_type_095_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_ssn_type_09x",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_051b_1997",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_051b_2017",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_051c",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052_2004",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052_2011",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052b_2004",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052b_2019",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052c",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052d_p1",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052d_p2_1",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052d_p2_2",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052d_p3",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_052d_p4",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054_p1",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054_p2",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054a_p1",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054a_p2",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054a_p3",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054a_p4",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_type_054a_p5",
+      "side": "red",
+      "nation": "China",
+      "tier": 1
+    },
+    {
+      "unit": "plan_cg_type1164e",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_ddg_type_055_late_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_ddg_type_055_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_lpd_type_071",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_ssbn_jin",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_ssbn_type_094",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_ssbn_type_094a",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_ssbn_type_096",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_ssnh_type83",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_type_055_2020",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_type_055_2026",
+      "side": "red",
+      "nation": "China",
+      "tier": 2
+    },
+    {
+      "unit": "plan_lha_type1143e",
+      "side": "red",
+      "nation": "China",
+      "tier": 3
+    },
+    {
+      "unit": "plan_cv_fujian",
+      "side": "red",
+      "nation": "China",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "plan_cv_fujian_rsa",
+      "side": "red",
+      "nation": "China",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "plan_cv_liaoning",
+      "side": "red",
+      "nation": "China",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "plan_cv_type_003",
+      "side": "red",
+      "nation": "China",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "plan_cvn_004",
+      "side": "red",
+      "nation": "China",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "plan_sshn_type_100",
+      "side": "red",
+      "nation": "China",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "plan_type_001",
+      "side": "red",
+      "nation": "China",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "pla_f-5",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_j-5",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_j-7c",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_ka-28",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_q-5",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_q-5a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_z-8",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_z21",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-10a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-10c",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-11",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-11a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-11b",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-11bg",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-11bgh",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-11bh",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-11bs",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-16",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-16d",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-20a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-7e",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-7ii",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-7iiia",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-8b",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-8e",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j-8f",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j10c",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j16",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j16d",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j1f",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j36",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j5",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j7",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j8j",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_j_36",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_jh2m",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_jh7a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_jh_6",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_jh_6a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_jz-8f",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_su-27ubk",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_y-20a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_y-20b",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_y-20b_albm",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_yy-20a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaf_j16a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaf_j16d",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j-15",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j-15a",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j-15d",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j-15dt",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j-15t",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j-35",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j-50",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j7k",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j9",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j_15",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_j_15t",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_ka-28",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_ka_28",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_ka_28_mod",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_kq100",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_sh-5",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_sh_6",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_y-8fq",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_y-9fq",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_y10d",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-18f",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-18fa",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-18j",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-18y",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-20f",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-8j",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-9c",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-9d",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-9f",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-9f_(2020)",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "planaf_z-20j",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "profile_",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usa_dj01705",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_Mugin5705",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-30mkk",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su_30mkk",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_h-6a",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_h-6d",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "pla_kj-600",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_h-6j",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_h-6k_early",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_h-6k_late",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_h-6n",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_h6k",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_kj-3000",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_kj-500",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_kj100a",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_kj100b",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_kj2000",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_y-9dz",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_y-9jz",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_y-9lg",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_ka-31",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_kj-600",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_kj-600a",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_kj1000",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_kj500a",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_kj600",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "plan_z-18ja",
+      "side": "red",
+      "nation": "China",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "rfn_aor_pashin",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "rfn_cvt_20380_3-6",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "rfn_cvt_20380_531",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "rfn_cvt_20380_550",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "rfn_cvt_20380_7-12",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "rfn_cvt_20385",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "rfn_cvt_21631",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_mpk_grisha3",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_mpk_grisha_mu",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_mrk_nanuchka",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_mrk_nanuchka3_rsa",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_msc_T43",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_msc_T43K",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_pb_zhuk",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_pb_zhuk_ME",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_pt_p4",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_pt_p6",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_pt_shershen",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_pt_stenka",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_pt_turya",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ptg_komar",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ptg_osa1",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ptg_osa2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ptg_tarantul",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ptg_tarantul_mr",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ptg_tarantul_r60",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ptg_tarantul_r71",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ptg_tarantul_re",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_skr_krivak1",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_skr_krivak2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_skr_petya2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_skr_petya3",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ss_foxtrot",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ss_improved_kilo",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ss_kilo",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ss_kilo_877v",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ss_romeo",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "wp_ssn_alfa",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0
+    },
+    {
+      "unit": "rfn_ddg_21956_early",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "rfn_ddg_21956_late",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "rfn_ddg_21956m",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "rfn_ffg_11356",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "rfn_ffg_22350_1-4",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "rfn_ffg_22350_5-8",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bdk_alligator",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bdk_ropucha",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_kanin",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_kara",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_karaL",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_kashin",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_kashin_mod",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_kresta2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_udaloy",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_udaloy2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_udaloy3",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bpk_udaloy_98",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_em_sovremenny",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_em_sovremenny_98",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_em_sovremenny_vls",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_pb_don",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_projekt61m",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_provorny",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_rkr_kresta1",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_rkr_kynda",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_skr_admiral_gorshkov_alt_rsa",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_skr_admiral_gorshkov_m_rsa",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_skr_admiral_gorshkov_rsa",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_skr_admiral_grigorovich_rsa",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ss_tango",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssgn_charlie1",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssgn_charlie2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssgn_echo2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssn_november",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssn_sierra1",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssn_sierra2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssn_victor1",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssn_victor2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssn_victor3",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssn_victor3_imp",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_takr_kiev",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_bdk_ivan_rogov",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_bdk_ivan_rogov_90",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_kr_sverdlov",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_pkr_moskva",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_rkr_slava",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_rkr_slavaLU",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_rkr_slavaLV",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_rkr_slava_16",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_rkr_slava_98",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_ssbn_delta3",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_ssbn_delta4",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_ssbn_yankee",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_ssgn_oscar1",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_ssgn_oscar2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_ssgn_yasen",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_ssn_akula",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "wp_vt_kazbek",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 2
+    },
+    {
+      "unit": "rfn_lha_11780",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_rkr_admiral_nakhimov_refit",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_rkr_kirov",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_rkr_kirov_improved",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_rkr_varyag_08",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_rkr_varyag_12",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_rkr_varyag_95",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_ssbn_borei",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_ssbn_redoctober",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_ssbn_typhoon",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_ssgn_belgorod",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_vt_boris_chilikin",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "ru_cv_kuznetsov",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "ru_cv_varyag",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "wp_cv_orel",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "wp_cv_orel_1991",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "wp_tavkr_leningrad_98",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "wp_tavkr_ulyanovsk",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 4,
+      "days": 20
+    },
+    {
+      "unit": "msdvd_tu-214r_F",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_ForpostR705",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_orlan10705",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_il-38",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "wp_il-76md",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_il-76mdg",
       "side": "red",
       "nation": "Russia",
       "tier": 0,
@@ -2667,6 +10413,482 @@
       "aircraft": true
     },
     {
+      "unit": "wp_il_76md",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_ka-25",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_ka-25ts",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_ka-27",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_ka-29",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_ka_25e",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_ka_27PL",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mi-14",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mi-24p",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mi-24v",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mi-24vp",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mi-8ew",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mi-8t",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mi-8tv",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-17",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-21",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-23a",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-23mld",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-23ms",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-25bm",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-25p",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-25pd",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-25pu",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-25rb",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-27",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-28",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-29a",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-29k",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-29k_941",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-29k_947",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-29m2_967",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-29m_915",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-29m_961",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-29smt_918",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-31",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-31bm",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-31k",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig-35",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_mig_23am_98",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_p-42",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_p_42_98",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-15",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-24a",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-24m",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-24m2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-24mp",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-24sm3",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-25",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-25sm3",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-27",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-27sm",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-30m",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-30sm",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-30sm2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-33",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-35s",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su-57",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su_27p",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su_27sm",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su_30m",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su_30sm",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su_33",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su_35s",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_su_47",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_taifun",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_taifun_98",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_taifun_ew",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_taifun_ew_98",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "wp_tu-142m",
       "side": "red",
       "nation": "Russia",
@@ -2674,7 +10896,161 @@
       "aircraft": true
     },
     {
+      "unit": "wp_tu-16p",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu-95ms",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu-95rt",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu95ms",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_yak-38",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "idn_tu-16ks1",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "msdvd_tu-214_AEW",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "msdvd_tu-214r",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_a-50",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_a-50b",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_a-50g",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_a-50u",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_a-50ub",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_a-50ubr",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_a_50",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_a_50u",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_ka-27rdl",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_p-42_rldn",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_p_42_rldn_98",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu-16",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
       "unit": "wp_tu-160",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu-16k",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu-16n",
       "side": "red",
       "nation": "Russia",
       "tier": 1,
@@ -2688,10 +11064,24 @@
       "aircraft": true
     },
     {
-      "unit": "wp_tu95ms",
+      "unit": "wp_tu-95_bearg",
       "side": "red",
       "nation": "Russia",
-      "tier": 0,
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu-95ma",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_yak_44",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1,
       "aircraft": true
     }
   ],

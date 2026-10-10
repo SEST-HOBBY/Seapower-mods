@@ -101,11 +101,52 @@ application here.
 | Forces | 92 (43 surface, 49 air), 203 units, 85 of them ships |
 | Patrol routes | 16 |
 | Sea lanes | 11, all on water |
-| Catalogue entries and unit values | 78 |
+| Catalogue (buy list) entries and unit values | 1,197: blue 778, red 419 (below) |
 | Register nodes not converted | 34 (30 abstract or context only by the register's own policy, 1 reserve-only, 1 do-not-populate, Jebel Ali, NAB Coronado with nothing placeable) |
 
 Sides: **blue** US, Australia, Japan, France, Italy, UK, Norway; **red** China and Russia. Both
 are playable (decided 10 October; the sample keeps red `comingSoon`, so playing red is untested).
+
+### The buy list: both sides' full arsenals
+
+Asked for on 10 October: the engine's catalogue, what a side can order, holds every
+ship, submarine and aircraft the collection gives that side's nations, not only the
+78 types in the opening forces.
+
+| Side | Nation | Ships and submarines | Aircraft |
+|---|---|---:|---:|
+| blue | US | 244 | 173 |
+| blue | Australia | 39 | 34 |
+| blue | Japan | 23 | 19 |
+| blue | France | 38 | 62 |
+| blue | Italy | 35 | 19 |
+| blue | UK | 44 | 39 |
+| blue | Norway | 8 | 1 |
+| red | China | 95 | 106 |
+| red | Russia | 115 | 103 |
+
+- **Operator** is the `Nation=` of the winning variants or squadrons file (Soviet is
+  Russia). A type several nations fly is listed once, under the side's nation with the
+  most variants. A type in an opening force stays on that force's side.
+- **No era cut.** Most of the collection's units carry no `ServiceDate`, so a 2028
+  filter would drop the J-10C and the KJ-500 as readily as the Knox. Cold War types
+  stay buyable; the tier (price band from the unit value) separates them.
+- **Left out (96):** civil, merchant and fishing hulls (armed militia variants
+  included), intelligence ships, target drones, satellites, a balloon, decoys, rafts,
+  a sea mine, and two ids with a space in them (`plaf_j16a block3`, the Project 2498
+  assault vessel), which a campaign cannot name.
+- **Not on either side:** units only other nations operate - Spain 64, Germany 31,
+  Brazil 25, Thailand 24, Iran 21, South Korea 17, Philippines 17 and more
+  (`conversion.json` "arsenal"). Adding a nation to a side brings its arsenal in.
+- **Shipyards: only US, Australia and China have one** (Bremerton, Norfolk, Yokosuka;
+  Stirling; Ningbo). Russia, Japan and Norway have no naval base in the register at all,
+  and France, Italy and the UK only overseas outposts (Djibouti, Mare Harbour). Where the
+  engine builds a ship for a nation without a yard is unknown - it may use a side yard
+  (Ningbo for Russia), or the order may never arrive. Open decision: add one home dockyard
+  per nation (Severomorsk, Kure, Portsmouth, Toulon, Taranto, Haakonsvern - a scenario
+  addition to the register), or keep those nations to aircraft until a test shows how
+  the engine behaves. Aircraft are delivered to air bases, which every nation has.
+- **Untested:** how the engine's buy screen copes with ~800 entries a side.
 
 ### Mapping rules
 
@@ -174,4 +215,6 @@ Use a backed-up install, not the published pack.
 Then, in order: menu discovery; the validator's verdict in the BepInEx log; one battle each side,
 playing blue and then red; whether Sigonella's airlifts reach Rota and Souda Bay;
 the review's 20/10/10 ammunition test with a SEST supply ship; save, reload, and reload after a
-battle; a transit across the antimeridian (Roosevelt's group); performance with all 92 forces.
+battle; a transit across the antimeridian (Roosevelt's group); performance with all 92 forces;
+the buy screen with ~800 entries a side, and one order each by a nation with a shipyard (US)
+and one without (Norway).
