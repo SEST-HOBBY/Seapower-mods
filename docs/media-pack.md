@@ -12,7 +12,7 @@ records which parts the game lets a mod change and where each part stands.
 | Loading-screen text | `language_en/loading_tips.ini`, `[LoadingTips]` Count/Header/Tip001.. - merges key by key, the SEST pack loads first | **Live.** The 26 quotations replace the game's 19 tips; Header reads QUOTATION |
 | Loading-screen pictures | The loading screen fetches its backgrounds through the game's FileManager (changelog: "LoadScreen to use FileManager to get backgrounds"), so a mod file can stand in for one | **Folder not yet known.** The repo's copy of the game's files is text only. `tools/capture-context.ps1` now writes `data/install-snapshot/streaming-media.txt`, the game's own pictures by folder |
 | Campaign backgrounds | `campaign.ini` `BackgroundImage=` (vanilla's linear campaign uses it; the SEST campaigns already set their own) | Available: candidates once the photographs are in |
-| Main menu background | A film inside the game's Unity data (`sharedassets1.resource`, per the Player.log video warning) | **Not a file.** Replacing it needs a BepInEx plugin, which would be a new mandatory plugin and needs the author's approval. Stage two, as the report advises |
+| Main menu background | A film inside the game's Unity data (`sharedassets1.resource`, per the Player.log video warning) - not a file a mod can replace | **Plugin, awaiting the first in-game test.** `plugins/` in the pack: an Anchor Chain plugin swaps the menu's looping film for `sest_menu.mp4` (approved by the author 10 Oct 2026). See below |
 | Mission browser film | `RightPane=` on a `Type=Tutorial` entry | Used by the SEST Briefing Room |
 
 The pack's own field notes, which used to follow the game's tips on the
@@ -42,3 +42,29 @@ reached from the build container, so:
    row per source with its status, and the credits for what ships.
 
 Wiring `game_ready/loading/` into the pack waits on `streaming-media.txt`.
+
+## The menu film and its plugin
+
+`tools/make_menu_film.py` recuts the Briefing Room's eleven gallery
+photographs as a menu background: no text, darkened 30%, a slow drift on
+each shot, 1.5 s cross-fades, the last shot fading into the first so the
+49.5 s loop has no join, no sound, 1280x720 (the photographs' own width).
+A sharper 1080p cut can follow from the report's photographs once they are
+fetched.
+
+`integration/menu-background/` holds the plugin. Anchor Chain 1.1.0 (Workshop
+3380210757, installed by SETUP) does not start BepInEx plugins: it loads every
+DLL in every mod folder the game's FileManager knows - a pack in StreamingAssets
+as well as on the Workshop - and starts each class marked `[ACPlugin]` that
+implements `IAnchorChainMod`. The SEST class builds a component on a
+GameObject kept across scenes; that component looks for Unity VideoPlayers
+for ten minutes after start and half a minute after each scene load, and
+swaps the first one that loops a clip from the game's data. A one-shot film
+(an intro the game may wait on) and the mission browser's file-based films
+are never touched; if Unity cannot play the SEST film the game's clip is put
+back; `sest_menu.ini` can name the clip or turn the plugin off. Every
+VideoPlayer it sees is logged to Player.log as `[SEST Menu]`.
+
+Not yet known, and read from the first test's Player.log: which clip the
+menu loops, and whether the menu's music is part of that film (if it is,
+the swap silences it and the plugin needs to leave the audio alone).
