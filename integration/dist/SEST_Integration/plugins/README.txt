@@ -5,7 +5,7 @@ in place of the game's own. Nothing else in the game changes.
 
   SEST.MenuBackground.dll  the plugin. Anchor Chain (installed by SETUP)
                            starts it when the game starts.
-  sest_menu.mp4            the film: the SEST Briefing Room's photographs,
+  sest_menu.mp4            the film: eleven SEST Gallery photographs,
                            no text, darkened, looping, no sound.
   sest_menu.ini            Enabled=0 turns it off.
   MENU_CREDITS.txt         who took each photograph, and the licence.

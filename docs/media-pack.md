@@ -10,14 +10,10 @@ records which parts the game lets a mod change and where each part stands.
 | Part | Hook | Status |
 |---|---|---|
 | Loading-screen text | `language_en/loading_tips.ini`, `[LoadingTips]` Count/Header/Tip001.. - merges key by key, the SEST pack loads first | **Live.** The 26 quotations replace the game's 19 tips; Header reads QUOTATION |
-| Loading-screen pictures | `ui/backgrounds/loading_screen_1.png` .. `_80.png`, fetched through the FileManager (`streaming-media.txt`, 10 Oct 2026); mod 3491248180 already overrides 30 that way | **Wired, awaiting the in-game test.** 29 photographs (the 17 report photographs, all licences confirmed on their Commons pages, and the 12 gallery backgrounds) fill all 80 slots in turn: `tools/make_loading_screens.py`, `write_loading_screens` in the campaign builder. JPEG data under the game's .png names |
+| Loading-screen pictures | `ui/backgrounds/loading_screen_1.png` .. `_80.png`, fetched through the FileManager (`streaming-media.txt`, 10 Oct 2026); mod 3491248180 already overrides 30 that way | **Live** (seen in game, 10 Oct 2026). 29 photographs (the 17 report photographs, all licences confirmed on their Commons pages, and the 12 gallery backgrounds) fill all 80 slots in turn: `tools/make_loading_screens.py`, `write_loading_screens` in the campaign builder. JPEG data under the game's .png names |
 | Campaign backgrounds | `campaign.ini` `BackgroundImage=` (vanilla's linear campaign uses it; the SEST campaigns already set their own) | Available: candidates once the photographs are in |
-| Main menu background | A film inside the game's Unity data - the clip `main_menu` on 'MediaPlayer' in the 'background' scene, loop off, sound played from the film (Player.log, 10 Oct 2026) | **Plugin loaded but swapped nothing in the first test**: it only took looping films and this one is not. Fixed: `ClipName=main_menu` pins the clip, and the clip's sound track keeps playing on a second player |
-| Mission browser film | `RightPane=` on a `Type=Tutorial` entry | Used by the SEST Briefing Room |
-
-The pack's own field notes, which used to follow the game's tips on the
-loading screen, are now in the Briefing Room entry's description
-(`integration/common/field_notes.py`).
+| Main menu background | A film inside the game's Unity data - the clip `main_menu` on 'MediaPlayer' in the 'background' scene, loop off, sound played from the film (Player.log, 10 Oct 2026) | **Live** (seen in game, 10 Oct 2026). The first test swapped nothing - the plugin only took looping films and this one is not; `ClipName=main_menu` now pins the clip. The clip has no sound track (`tracks=0`), so the menu music plays on, separately |
+| Mission browser film | `RightPane=` on a `Type=Tutorial` entry | Not used. The SEST Briefing Room entry played a film there until 10 Oct 2026, when the player found it unnecessary; it and the pack's field notes, which had followed the game's tips on the loading screen, are gone |
 
 ## The photographs
 
@@ -45,7 +41,7 @@ The loading screens are in the pack (above); the report's 17 photographs all cam
 
 ## The menu film and its plugin
 
-`tools/make_menu_film.py` recuts the Briefing Room's eleven gallery
+`tools/make_menu_film.py` cuts the retired Briefing Room's eleven gallery
 photographs as a menu background: no text, darkened 30%, a slow drift on
 each shot, 1.5 s cross-fades, the last shot fading into the first so the
 49.5 s loop has no join, no sound, 1280x720 (the photographs' own width).
