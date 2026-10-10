@@ -1,4 +1,15 @@
 # Lines from Player.log matching Exception/Error/not found/missing/failed.
-# 1 hit(s) - the first place to look when something did not load.
+# 12 hit(s) - the first place to look when something did not load.
 
     123: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
+    225: ArgumentException: Requested value 'Timor Gap_briefing\sest_rafale_timor_gap_map.png' was not found.
+    230:   at SeaPower.ResourceLoader.getNoesisTextureSourceResource (System.String resourceName, System.Boolean suppressError, System.Boolean preMultipliedAlpha, System.Boolean useWWW) [0x00029] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
+    236: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+    237: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+    238: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+    239: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+    240: UnityEngine.Logger:LogException(Exception, Object)
+    241: UnityEngine.Debug:LogException(Exception)
+    242: NoesisUnity:OnUnhandledException(Exception)
+    243: Noesis.Error:UnhandledException(Exception)
+    251: System.Reflection.RuntimeMethodInfo:InternalInvoke(RuntimeMethodInfo, Object, Object[], Exception&)
