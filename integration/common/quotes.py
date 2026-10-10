@@ -1,11 +1,12 @@
 """The SEST quotation set: the lines the loading screen, the briefing pages
 and the Briefing Room video share.
 
-One list, three readers. SEST Collection Fixes numbers each quote behind the
-game's own loading-screen tips (build_loading_tips); the campaign pack sets
-one under the banner of every mission briefing (epigraph_xml), chosen by the
-mission's role; tools/make_briefing_video.py burns a handful into the
-Briefing Room slideshow. Changing a line here changes it everywhere.
+One list, three readers. SEST Collection Fixes makes the set the game's
+loading-screen text in place of its gameplay tips (build_loading_tips); the
+campaign pack sets one under the banner of every mission briefing
+(epigraph_xml), chosen by the mission's role; tools/make_briefing_video.py
+burns a handful into the Briefing Room slideshow. Changing a line here
+changes it everywhere.
 
 Every entry is one of three kinds, and the label says which, so a modern
 internet aphorism never borrows the authority of a Fleet Admiral:
@@ -167,10 +168,20 @@ def attribution(q):
     return q["who"] + (f", {q['year']}" if q.get("year") else "")
 
 
+def quote_line(q):
+    """The quote in running text: `"<text>" - <attribution>`."""
+    return f'"{q["text"]}" - {attribution(q)}'
+
+
 def tip_line(q):
-    """The quote as one loading-screen tip value: one line, no '='."""
-    line = f'SEST: "{q["text"]}" - {attribution(q)}'
-    if "=" in line or "\n" in line:
+    """The quote as one loading-screen tip value: `<text> - <attribution>`,
+    one line, no '=', and no quotation mark at either end. The game's ini
+    reader takes quotes at a value's ends as delimiters (vanilla writes
+    Key="text " to keep a trailing space), so a value opening on one could
+    lose everything after its closing quote - the attribution. The panel's
+    QUOTATION header does the quotation marks' work."""
+    line = f'{q["text"]} - {attribution(q)}'
+    if "=" in line or "\n" in line or line[0] == '"' or line[-1] == '"':
         raise ValueError(f"quote cannot be a tip value: {line[:60]}")
     return line
 

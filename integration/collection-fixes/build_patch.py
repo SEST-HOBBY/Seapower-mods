@@ -841,8 +841,8 @@ def main():
     print(f"  + {len(added)} sensor definitions no mod supplied: {', '.join(added)}")
     print(f"  + {len(named)} loadout display names: {', '.join(named)}")
     print(f"  + {len(carried)} vessel name section(s) carried: {', '.join(carried)}")
-    print(f"  + loading tips: vanilla's English set restored" + (f" over {', '.join(tips)}" if tips else "")
-          + f", {own} SEST tips numbered behind it")
+    print(f"  + loading text: {own} quotations in place of the game's tips"
+          + (f", over {', '.join(tips)}" if tips else ""))
     print(f"  + {len(renamed)} store name(s) given in English: {', '.join(renamed)}")
     print(f"  + {len(profiles)} combat-system profiles cloned under SEST names")
     print(f"  + weapons.ini: {len(restored)} vanilla 0.8.3 sections restored over the stale "
@@ -1140,65 +1140,24 @@ def build_missing_loadout_names():
     return list(MISSING_LOADOUT_NAMES)
 
 
-# The game's loading-screen tips, with SEST's own appended. language_*/ merges
-# key-by-key across the load order, and the keys are positional (Count,
-# Header, Tip001...), so ANY mod that puts a [LoadingTips] section in
-# language_en/ overwrites vanilla's tips one for one, whatever its file is
-# called. The PLAAF Aircraft Pack (3812111085) does exactly that from
-# language_en/loading_tips_plaaf.ini - eleven tips and a header in Chinese,
-# filed under the English folder - and the player's first screen after
-# subscribing read entirely in Chinese (3 Oct 2026). Shipping vanilla's own
-# English keys from the top of the order gives every one of them back its
-# vanilla value. The same positional rule is what lets SEST add tips of its
-# own: they are numbered from vanilla's Count upward at build time, so a
-# vanilla update that adds tips pushes them along rather than colliding, and
-# the build stops if vanilla's numbering is ever not 1..Count.
-SEST_TIPS = [
-    "SEST: the Situation button at the bottom right of the campaign screen lists the "
-    "enemy forces the campaign's missions place, nation by nation.",
-    "SEST: a date-time group on a signal reads day, time Zulu, month, year. 210600Z OCT 28 "
-    "is 21 October 2028 at 0600 Zulu.",
-    "SEST: a contact handed to you as a datum ages off the plot in minutes unless your own "
-    "sensors hold it. Classification is yours.",
-    "SEST: loadouts whose names begin SEST are this collection's own fits - AIM-260 JATM, "
-    "AIM-424 MALICE and LRASM on allied airframes. Their figures follow public sources and "
-    "are fiction where the sources stop.",
-    "SEST: in an Open Allocation campaign every buy window sells the whole roster, and a unit "
-    "of your own nation costs a fifth less.",
-    "SEST: the side operations - the Dispatches, the optional and contingency missions - sail "
-    "your own ships, and what you lose there stays lost.",
-    "SEST: survivors your helicopters and ships pick up are paid for at the debrief. A "
-    "liferaft beacon is worth the detour.",
-    "SEST: REQUIRED-MODS.txt beside each campaign lists every mod its missions reach, and "
-    "LOAD-ORDER.txt the order they were built against. A unit that spawns with a stock fit "
-    "is a mod that has moved.",
-    # Second set (inspiring-wozniak): what the pack itself does, checked against
-    # docs/replenishment-in-play.md, the briefing ROE and TIME sections and SETUP.
-    "SEST: To reload missiles and torpedoes at sea, bring a supply ship within "
-    "about a mile and slow down. Most auxiliaries stop supplying above 13 knots.",
-    "SEST: An oiler such as the Henry J. Kaiser passes guns, ESSM, Harpoon and "
-    "torpedoes but no strike missiles. Tomahawks need a Supply-class, Sacramento "
-    "or Lewis and Clark.",
-    "SEST: Surface your submarines before you replenish them. The game will "
-    "rearm a boat underwater; the SEST campaigns treat that as off limits.",
-    "SEST: Reaching a SEST mission's planned time brings a Behind Schedule "
-    "signal, not a loss. The operation closes at one and a half times the plan.",
-    "SEST: Identify before you shoot. In the SEST campaigns, losing a protected "
-    "neutral cancels the operation.",
-    "SEST: Every SEST briefing ends with a Recognition section: real photographs "
-    "of your own forces and the expected opposition.",
-    "SEST: After Steam updates the SEST pack or a collection mod, close the game "
-    "and run SETUP again from the pack's folder.",
-    "SEST: The SEST pack's Gallery folder holds real photographs of the "
-    "collection's units. Open gallery.html in your web browser.",
-    "SEST: The Briefing Room entry in the mission browser plays a short film of the "
-    "collection's forces. Nothing in it is playable; it is the pack's title card.",
-]
-# Third set (6 Oct 2026): the quotation set, one tip per line, behind the
-# pack's own tips. integration/common/quotes.py holds the text and the
-# attribution of every line and docs/quotes.md its source; the same lines sit
-# under the campaign briefing banners and in the Briefing Room film.
-SEST_TIPS += [quotes.tip_line(q) for q in quotes.QUOTES]
+# The game's loading-screen text: the SEST quotation set in place of the
+# game's gameplay tips (10 Oct 2026, the media pack report's "no original-game
+# tips under the new imagery"). language_*/ merges key-by-key across the load
+# order, and the keys are positional (Count, Header, Tip001...), so ANY mod
+# that puts a [LoadingTips] section in language_en/ overwrites vanilla's tips
+# one for one, whatever its file is called. The PLAAF Aircraft Pack
+# (3812111085) does exactly that from language_en/loading_tips_plaaf.ini -
+# eleven tips and a header in Chinese, filed under the English folder - and
+# the player's first screen after subscribing read entirely in Chinese (3 Oct
+# 2026). The pack ships from the top of the order, so its Count, Header and
+# Tip001..TipNNN win over both; Count stops the panel at the last quotation,
+# so a vanilla tip numbered beyond it is never drawn. The section is written
+# whole and its first line declares the replacement, which is how
+# tools/check_vanilla_drift.py tells a vanilla tip this masks on purpose from
+# one a builder shadowed by mistake. The pack's own field notes, which used to
+# follow vanilla's tips here, are in common/field_notes.py and the Briefing
+# Room entry. The other languages' tips are the game's, untouched.
+LOADING_HEADER = "QUOTATION"
 
 
 def build_loading_tips():
@@ -1211,29 +1170,29 @@ def build_loading_tips():
     n = int(count.group(1))
     if tips != list(range(1, n + 1)):
         sys.exit(f"vanilla loading_tips.ini: Count={n} but the tips run {tips[:3]}..{tips[-3:]} - "
-                 "re-check before numbering SEST's behind them")
-    for t in SEST_TIPS:
-        if "=" in t or "\n" in t or not t.startswith("SEST: "):
-            sys.exit(f"SEST tip must be one line, no '=', and begin 'SEST: ': {t[:50]}")
+                 "re-check: the panel is assumed to draw Tip001..Count")
+    lines = [quotes.tip_line(q) for q in quotes.QUOTES]
     offenders = []
     for f in sorted(MODS.glob("*/language_en/*.ini")):
         if f.parts[-3].startswith("_"):
             continue
         if re.search(r"^\[LoadingTips\]", read_file(f), re.M):
             offenders.append(f"{f.parts[-3]}/{f.name}")
-    body = src.replace(count.group(0), f"Count={n + len(SEST_TIPS)}", 1).rstrip("\n") + "\n"
-    body += "".join(f"Tip{n + i:03d}={t}\n" for i, t in enumerate(SEST_TIPS, 1))
-    head = ("# SEST Collection Fixes - the game's loading-screen tips, vanilla's text word for\n"
-            f"# word, with {len(SEST_TIPS)} SEST tips numbered behind them (Count raised to match).\n"
-            "# language_en/ merges key-by-key, so vanilla's keys win back their values from here")
+    head = ("# replaces: [LoadingTips]\n"
+            "# SEST Collection Fixes - the loading-screen text: the SEST quotation set\n"
+            f"# ({len(lines)} lines, integration/common/quotes.py) in place of the game's {n} tips.\n"
+            "# language_en/ merges key-by-key and this pack loads first, so Count, Header and\n"
+            "# every Tip below win; Count ends the panel at the last quotation")
     if offenders:
-        head += ("\n# over the [LoadingTips] section another mod files under language_en/ ("
-                 + ", ".join(offenders) + ").\n")
+        head += (",\n# over vanilla's tips and the [LoadingTips] section another mod files under\n"
+                 "# language_en/ (" + ", ".join(offenders) + ").\n")
     else:
         head += ".\n"
+    body = (f"[LoadingTips]\nCount={len(lines)}\nHeader={LOADING_HEADER}\n"
+            + "".join(f"Tip{i:03d}={t}\n" for i, t in enumerate(lines, 1)))
     (OUT / "language_en").mkdir(parents=True, exist_ok=True)
     (OUT / "language_en" / "loading_tips.ini").write_text(head + body, encoding="utf-8")
-    return offenders, len(SEST_TIPS)
+    return offenders, len(lines)
 
 
 # English display names for rounds whose only provider names them in another

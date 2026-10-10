@@ -279,6 +279,27 @@ class VanillaDriftTests(unittest.TestCase):
                       "         1 other shared key(s) unchanged in vanilla", self.section(out, 2))
         self.assertNotIn("NEEDS A HUMAN", out)
 
+    def test_a_section_the_pack_replaces_masks_new_vanilla_keys_on_purpose(self):
+        # Collection Fixes writes the loading-screen text whole - the SEST
+        # quotations in place of the game's tips - and says so on its first
+        # line. A tip vanilla adds lands under one of the quotations by design.
+        self.write(f"{VANILLA}/language_en/loading_tips.ini", "[LoadingTips]\nCount=1\nTip001=Press Tab.\n")
+        self.git("add", "-A")
+        self.git("commit", "-q", "-m", "tips baseline")
+        since = self.git("rev-parse", "HEAD").strip()
+        self.write(f"{VANILLA}/language_en/loading_tips.ini",
+                   "[LoadingTips]\nCount=2\nTip001=Press Tab.\nTip002=Press Z.\n")
+        self.write(f"{FIXES}/language_en/loading_tips.ini",
+                   "# replaces: [LoadingTips]\n"
+                   "[LoadingTips]\nCount=2\nTip001=\"Plans are worthless.\" - maxim\n"
+                   "Tip002=\"Combat is unforgiving.\" - maxim\n")
+        code, out = self.run_tool("--since", since)
+        self.assertEqual(code, 0)
+        self.assertIn("REPLACED [LoadingTips] Tip002 is new in vanilla; the pack replaces "
+                      "[LoadingTips] whole, so its own value stands", self.section(out, 2))
+        self.assertNotIn("NEEDS A HUMAN", out)
+        self.assertNotIn("MASKED", out)
+
     def test_a_vanilla_key_landing_on_the_pack_s_own_key_is_masked(self):
         # Vanilla added Tip002 where the committed pack file has SEST's own tip:
         # a rebuild renumbers SEST's behind it, and until then the pack masks it.
