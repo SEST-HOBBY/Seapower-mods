@@ -5876,6 +5876,65 @@ def write_briefing_room(out):
           f"{len(field_notes.NOTES)} field notes and {len(lines)} quotations")
 
 
+# The SEST film behind the game's main menu. The menu's own film is a clip in
+# the game's Unity data, not a file a mod can stand in for, so the pack ships
+# a small Anchor Chain plugin (integration/menu-background/, built by its
+# build_plugin.py) that points the menu's looping VideoPlayer at
+# plugins/sest_menu.mp4 - cut from the Briefing Room's photographs by
+# tools/make_menu_film.py. Anchor Chain, which SETUP installs, loads every DLL
+# in a mod folder it knows, so the folder's name is free; a player without it
+# simply keeps the stock menu. The DLL and the film are committed (compiler
+# and ffmpeg output are not byte-stable); no DLL committed, no folder. Only
+# the plugin itself ships: stubs/ is compile-time only, and a second
+# AnchorChain.dll in a mod folder would be loaded beside the real one.
+MENU_BACKGROUND = ROOT / "integration" / "menu-background"
+MENU_INI = """; SEST Menu Background - the film behind Sea Power's main menu.
+; Anchor Chain starts SEST.MenuBackground.dll from this folder; it finds the
+; menu's looping background film and plays the file named below instead.
+; Enabled=0 turns it off and the game's own menu film plays.
+[Menu]
+Enabled=1
+Film=sest_menu.mp4
+; The menu clip's name, should the plugin ever take the wrong film. Empty:
+; the first looping clip the game plays is taken as the menu's. Player.log
+; lists every film the plugin saw, on lines starting [SEST Menu].
+ClipName=
+"""
+MENU_README = """SEST MENU BACKGROUND
+
+What this folder does: it plays the SEST film behind Sea Power's main menu
+in place of the game's own. Nothing else in the game changes.
+
+  SEST.MenuBackground.dll  the plugin. Anchor Chain (installed by SETUP)
+                           starts it when the game starts.
+  sest_menu.mp4            the film: the SEST Briefing Room's photographs,
+                           no text, darkened, looping, no sound.
+  sest_menu.ini            Enabled=0 turns it off.
+  MENU_CREDITS.txt         who took each photograph, and the licence.
+
+Without Anchor Chain the plugin never runs and the menu is the game's own.
+If the film cannot be played, the plugin puts the game's own film back.
+Source: integration/menu-background/ in github.com/SEST-HOBBY/Seapower-mods
+"""
+
+
+def write_menu_background(out):
+    dll = MENU_BACKGROUND / "SEST.MenuBackground.dll"
+    film = MENU_BACKGROUND / "sest_menu.mp4"
+    if not (dll.is_file() and film.is_file()):
+        print("  menu background: no plugin or film committed under integration/menu-background/ "
+              "- folder not written; run build_plugin.py and tools/make_menu_film.py")
+        return
+    folder = out / "plugins"
+    folder.mkdir(parents=True, exist_ok=True)
+    for src in (dll, film, MENU_BACKGROUND / "MENU_CREDITS.txt"):
+        (folder / src.name).write_bytes(src.read_bytes())
+    (folder / "sest_menu.ini").write_text(MENU_INI, encoding="utf-8")
+    (folder / "README.txt").write_text(MENU_README, encoding="utf-8")
+    print(f"  menu background: {dll.name} ({dll.stat().st_size // 1024} KB) and "
+          f"{film.name} ({film.stat().st_size // 1024} KB) in plugins/")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     # Writing is the default: tools/build_all.py runs every builder with no
@@ -6355,6 +6414,7 @@ def main():
         if src.is_file() and not src.name.startswith("."):
             (OUT / src.name).write_bytes(src.read_bytes())
     write_briefing_room(OUT)
+    write_menu_background(OUT)
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())
     print("wrote REQUIRED-MODS.txt and LOAD-ORDER.txt into the pack")
