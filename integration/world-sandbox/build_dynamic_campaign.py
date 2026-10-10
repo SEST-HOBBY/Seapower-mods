@@ -1112,16 +1112,12 @@ def main():
         "story": {"opening": {"blue": {"situation": [
             "October 2028. This is a sandbox, not a story: the bases, fleets and air groups "
             "on the map are the ones the SEST research places around the world, as they would "
-            "normally be - in harbour, on patrol, working up or deployed.",
-            "What happens next is decided by the campaign engine and by you. Ships use what "
-            "they carry until a supply ship or a depot refills them."]},
+            "normally be - in harbour, on patrol, working up or deployed."]},
             "red": {"situation": [
-                "October 2028. This is a sandbox, not a story: the Chinese, Russian, Iranian "
-                "and North Korean bases, fleets and air groups on the map are where they would "
-                "normally be - in harbour, on patrol or deployed, from Hainan to the Kola "
-                "Peninsula, Bandar Abbas and Djibouti.",
-                "What happens next is decided by the campaign engine and by you. Ships use what "
-                "they carry until a supply ship or a depot refills them."]}}},
+                "October 2028. This is a sandbox, not a story: the bases, fleets and air groups "
+                "of China, Russia, Iran, North Korea, Pakistan, Vietnam and Indonesia are on the "
+                "map where they would normally be - in harbour, on patrol or deployed, from "
+                "Hainan to the Kola Peninsula, Bandar Abbas and Djibouti."]}}},
         "patrols": patrols,
         "ranks": {
             "blue": [{"name": n, "renown": r} for n, r in (
