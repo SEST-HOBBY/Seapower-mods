@@ -63,6 +63,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from refine_civ_traffic import load_order  # noqa: E402
+import fix_land_positions  # noqa: E402  (firm ground for land units; needs global-land-mask)
 sys.path.insert(0, str(ROOT / "integration"))
 from common import quotes  # noqa: E402
 from common import flags  # noqa: E402
@@ -1494,6 +1495,7 @@ def place(mission, snapper):
     seats = collections.Counter()              # per-station air spacing
     berths = collections.Counter()             # per-station sea spacing
     station_snap = {}                          # station -> ((lat, lon), drift)
+    ashore = []                                # land units put on firm ground so far
     worst = 0.0
     alone = set()                              # independent=True, by tag
     contact = set()                            # contact="why", by tag
@@ -1550,6 +1552,29 @@ def place(mission, snapper):
             want = spec.get("snap") or ("land" if kind == "land" else "sea")
             (lat, lon), dist = snapper.take(want, st["at"],
                                             where=f"{mission['key']} {spec['station']}")
+            sub = fix_land_positions.land_unit(spec["type"])[0] if want == "land" else ""
+            if want == "land" and sub not in ("OilRig", "Port"):
+                # A proven point is where some mission put a land unit, not
+                # proof of ground: the game floats a land unit wherever its
+                # 1 km grid has none (fix_land_positions.py), and the game's
+                # own mission copies from before 10 Oct 2026 still hold such
+                # spots. A unit needs land all round it - an airbase, which
+                # brings its own ground, only under its anchor - and one that
+                # has none takes the station's own coordinate if that is firm
+                # ground, else the nearest firm ground to where it snapped.
+                g = fix_land_positions.ground(lat, lon)
+                if g < (0 if sub == "Airbase" else fix_land_positions.FIRM_KM):
+                    firm = fix_land_positions.firm_ground(*st["at"], avoid=ashore)
+                    if firm is None or nm_between(firm, st["at"]) > 1.0:
+                        firm = fix_land_positions.firm_ground(lat, lon, avoid=ashore)
+                    if firm is None:
+                        PLACEMENT_PROBLEMS.append(
+                            f"{mission['key']} {spec['station']}: {spec['type']} at {(lat, lon)} "
+                            f"has no firm ground within {fix_land_positions.SEARCH_NM:.0f} NM")
+                    else:
+                        lat, lon = firm
+                        dist = nm_between(firm, st["at"])
+                ashore.append((lat, lon))
             worst = max(worst, dist)
             alt = "low" if kind == "land" else (spec.get("depth", 0)
                                                 if kind == "sub" else 0)

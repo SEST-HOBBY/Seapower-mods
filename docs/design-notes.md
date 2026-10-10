@@ -79,6 +79,20 @@ and the rule gets a new revision — that has happened three times already.
   to a visible artificial island is a Port-type unit assembled from the
   modular port meshes with a scaled concrete slab, built like the RAAF bases
   from existing geometry; that is untested in game.
+- **So a land unit needs land all round it, not just under it.** The player
+  saw radars, bunkers and launchers standing in the water along coasts and
+  islands (10 Oct 2026): the land mask is a 1 km grid like the game's, and a
+  unit the mask put a few hundred metres inside the coast could be in the
+  sea in game. `integration/missions/fix_land_positions.py` now moves every
+  land unit with less than 600 m of land all round onto firm ground (about 600
+  units across 19 missions, most by under half a mile), and the campaign
+  builder does the same for every land unit it places. Ports, rigs and
+  airbases stay put. On the reef bases there is no ground to move to, and
+  the player saw the base models carry their own (runways, fuel): vehicles
+  and radars there now stand on the base's taxiways and aprons, read from
+  the base file's taxi paths at 100 m to a unit (its BottomArea agrees),
+  off the runway and the parking stands. SAM sites and fuel farms, which
+  bring their own ground, stay beside the base.
 
 ## Three different mod counts, and only one of them is ours
 
