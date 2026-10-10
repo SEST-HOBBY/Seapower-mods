@@ -6,15 +6,18 @@
 3378409795   Type 23 Frigate                                      updated 2026-08-24
 3380210757   Anchor Chain                                         updated 2026-08-22
 3384079999   Humpback Whale                                       updated 2026-08-24
-3390330875   Euromod - Modern US Navy                             updated 2026-10-03
+3390330875   Euromod - Modern US Navy                             updated 2026-10-10
 3392434750   S-400 SAM                                            updated 2026-08-24
 3394781441   B-52G with AGM-86 ALCM(more realistic nuke)          updated 2026-08-16
 3395022688   Tu-95MS with AS-15 ALCM(more realistic nuke)         updated 2026-08-16
+3399699218   Project 2498 Zyetseth Class Assault Vessel           updated 2026-10-05
 3403661005   S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles     updated 2026-08-16
 3403993583   Armed Oil Rig with helo                              updated 2026-08-24
-3406985435   Kirov-class (Pyotr Velikiy Upgrade)                  updated 2026-08-24
+3406985435   Kirov-class (Pyotr Velikiy Upgrade)                  updated 2026-10-06
 3408662804   伊斯坎德尔                                                updated 2026-08-24
+3410473695   Ground upgrade: MBT                                  updated 2026-10-04
 3411341227   Tu-95K-22                                            updated 2026-09-01
+3412480633   Ground upgrade: IFV                                  updated 2026-10-04
 3413868677   Red Storm Arsenal                                    updated 2026-08-25
 3414146266   A-10                                                 updated 2026-08-16
 3416372890   MIG-29A & F-16A                                      updated 2026-08-16
@@ -29,13 +32,15 @@
 3433577445   PLAAF J-8                                            updated 2026-08-16
 3433957933   Virginia, Seawolf, and Ohio-class submarines         updated 2026-08-15
 3434072450   Sukhoi Su-27                                         updated 2026-08-15
+3434693420   F-15J Peace Eagle                                    updated 2026-10-04
 3436170138   PLAAF J-11                                           updated 2026-08-15
 3437105712   SAM Pack                                             updated 2026-09-06
-3438479626   1143.5 Kuznetsov                                     updated 2026-08-15
+3438479626   1143.5 Kuznetsov                                     updated 2026-10-10
 3440622312   Anzac Class Frigate                                  updated 2026-09-20
 3444379330   Euromod-Dutch Navy                                   updated 2026-08-16
 3448845252   F-117                                                updated 2026-08-16
 3451166840   SU-25 Frogfoot                                       updated 2026-08-16
+3455404959   Royal Australian Defence Forces [v0.7.5.0.2]         updated 2026-10-04
 3455931957   Sea Lynx                                             updated 2026-08-16
 3456859157   Mogami-class frigate                                 updated 2026-08-24
 3458148344   Mi-8EW                                               updated 2026-08-16
@@ -44,66 +49,89 @@
 3461091581   Air Deck Operations Upgrade - Nimitz (2000s)         updated 2026-08-16
 3461519690   SCUD-B                                               updated 2026-08-24
 3465256032   Mi-8T/TV                                             updated 2026-08-16
-3468260539   Russian Submarines                                   updated 2026-08-15
+3468260539   Russian Submarines                                   updated 2026-10-06
 3468959181   U-2 Dragon Lady                                      updated 2026-08-16
 3470643173   日本陆上自卫队12式岸舰导弹系统                                     updated 2026-08-16
 3478767194   VH-3D Marine One Mod                                 updated 2026-08-16
 3480965706   B-2 Spirit                                           updated 2026-08-15
 3481228992   J10C                                                 updated 2026-08-16
 3485917612   Moloti's Armed Merchantmen                           updated 2026-10-03
-3486502935   Type 003 CV / future Type 004 CVN aircraft carriers  updated 2026-08-16
-3488139470   Modern Italian Navy - Euromod                        updated 2026-10-03
+3486502935   Type 003 CV / future Type 004 CVN aircraft carriers  updated 2026-10-06
+3488139470   Modern Italian Navy - Euromod                        updated 2026-10-06
+3491248180   The Royal Navy                                       updated 2026-10-04
+3493115616   EMAD                                                 updated 2026-10-05
+3496055699   S-500                                                updated 2026-10-04
 3497601759   Shahed 136                                           updated 2026-08-17
 3499239964   E-7A Wedgetail                                       updated 2026-08-19
 3502273861   arrw                                                 updated 2026-08-25
 3503594612   SU-57                                                updated 2026-08-15
 3503670861   General Atomics MQ-9 Reaper                          updated 2026-08-15
-3505420313   Italian Navy mod                                     updated 2026-10-03
+3505420313   Italian Navy mod                                     updated 2026-10-07
 3506979898   J-16                                                 updated 2026-08-16
 3508275114   Ground upgrade: SPAA                                 updated 2026-08-16
 3509329205   TU-160                                               updated 2026-08-15
 3513571010   Mil Mi-24 Hind                                       updated 2026-08-15
-3514484654   RAAF F-35A Lighting II                               updated 2026-08-19
+3520352434   JAS-39 Gripen                                        updated 2026-10-04
 3524112296   Beriev a-50 series AEW&C AND Il-76 Airliner          updated 2026-08-16
+3524446392   S-350 Vityaz                                         updated 2026-10-05
 3526982088   JH7A                                                 updated 2026-08-16
+3549377308   Iran Bell-212                                        updated 2026-10-05
+3551621846   NEBO-U                                               updated 2026-10-04
 3551676319   SEJJIL (Ballistic Missiles)                          updated 2026-08-24
 3553116604   F-15E StrikeEagle                                    updated 2026-09-13
+3555361900   Etendard Family Jets                                 updated 2026-10-04
 3558173926   David's Sling                                        updated 2026-08-25
 3559495372   Lockheed AC-130                                      updated 2026-08-15
 3567228449   French Helicopter Package                            updated 2026-08-16
 3567256221   Charles De Gaulle & Modern French Navy               updated 2026-08-16
-3575847216   Euromod-Addon Modern German Navy                     updated 2026-08-16
+3575847216   Euromod-Addon Modern German Navy                     updated 2026-10-10
 3587091564   P-750 Meteorit-A                                     updated 2026-08-16
 3587877691   Eurofighter Typhoon                                  updated 2026-08-16
 3590477166   MH-60R                                               updated 2026-08-16
 3591563716   J-20A                                                updated 2026-08-15
+3591820675   F-8 十字军战士                                            updated 2026-10-04
 3592460366   Modern US Airbase                                    updated 2026-08-16
-3594891803   PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A) updated 2026-08-15
+3594891803   PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A) updated 2026-10-06
+3595014060   NATO E-3A Sentry                                     updated 2026-10-04
 3597650470   Russian Navy 21                                      updated 2026-08-31
-3599752717   Modern British Navy - Euromod                        updated 2026-10-03
+3599752717   Modern British Navy - Euromod                        updated 2026-10-06
 3600788156   Buildings and Objectives                             updated 2026-10-03
 3601891050   中小型无人机系列                                             updated 2026-08-15
 3602046770                                                        updated 2026-08-16
+3603306548   俄国地面增强系列1：火炮                                         updated 2026-10-04
+3603367264   北约地面增强系列2：火炮                                         updated 2026-10-04
 3605013271   RE-power: the resupply mod                           updated 2026-08-26
 3606134711   Custom Loadout Editor                                updated 2026-09-08
-3606774881   U.S. Navy 2027 Capabilities                          updated 2026-08-16
-3607989779   F-35C Lightning II Alt. Loadouts                     updated 2026-08-16
-3629144864   Euromod - Main Pack                                  updated 2026-10-03
+3606774881   U.S. Navy 2027 Capabilities                          updated 2026-10-10
+3607989779   F-35C Lightning II Alt. Loadouts                     updated 2026-10-10
+3628201887   Clemenceau -class Aircraft Carrier                   updated 2026-10-04
+3628203171   Bréguet Br.1050 Alizé                                updated 2026-10-04
+3628247436   Sea Venom - Aquilon                                  updated 2026-10-04
+3629144864   Euromod - Main Pack                                  updated 2026-10-10
 3629269283   Modern Russian Airbase                               updated 2026-08-16
 3630495619   Spanish Navy Mod (Cold War)                          updated 2026-09-29
 3631042692   Modern Chinese Airbase                               updated 2026-08-16
-3636386513   F-15EX                                               updated 2026-09-06
+3636213685   wp_sattelite_center                                  updated 2026-10-04
+3636386513   F-15EX                                               updated 2026-10-03
 3637954857   KJ-500                                               updated 2026-08-26
 3642656500   Euromod-Scandinavian Navy                            updated 2026-08-16
 3652097318   B-1B Lancer                                          updated 2026-10-03
+3652906664   S-300PMU2                                            updated 2026-10-04
 3659742367   Mig-35                                               updated 2026-08-16
-3663564190   Type003.CV-18.fujian.v0.02                           updated 2026-09-13
 3670643788   J-50                                                 updated 2026-08-15
+3672072359   Ultimate Missile Workshop                            updated 2026-10-04
+3672497668   Fattah-2                                             updated 2026-10-05
 3673250557   Saab Global Eye                                      updated 2026-09-13
+3673703427   Fattah-1                                             updated 2026-10-05
 3673908868   TU-16N AIR TANKER                                    updated 2026-08-16
+3678767059   Euromod-Brazilian Armed Forces(2000)                 updated 2026-10-04
+3681748718   ISKANDER-M                                           updated 2026-10-04
 3681873198   Pickup                                               updated 2026-08-24
 3683253079   THAAD & AN/TPY-2                                     updated 2026-08-15
+3686449681   Iran UAV Shahed 238                                  updated 2026-10-05
 3695809489   Euromod-(Japan)JMSDF Modern navy                     updated 2026-10-03
+3709961172   The Second Northern War                              updated 2026-10-04
+3711297532   Thailand: The Siam Shield [v0.8.3.03.10]             updated 2026-10-05
 3715323261   Tu-95MS                                              updated 2026-09-25
 3716049886   MORE SU24M VARIANTS                                  updated 2026-08-16
 3717610332   IL-78 TANKER                                         updated 2026-08-16
@@ -111,52 +139,66 @@
 3729578404   PLAAF J-11BS                                         updated 2026-08-15
 3729579342   PLAAF Su-27UBK                                       updated 2026-08-16
 3731208477   Spanish Navy Mod (Modern)                            updated 2026-09-29
+3732654992   THE REDFOR MOD                                       updated 2026-10-10
 3733719765   中国地面单位包                                              updated 2026-10-03
 3736147136   French army vehicule                                 updated 2026-09-19
-3737267013   US Naval Aviation                                    updated 2026-10-03
+3737267013   US Naval Aviation                                    updated 2026-10-10
 3740293822   KC-10A Extender by ZeroTwo                           updated 2026-08-15
 3741944366   B-52H                                                updated 2026-09-13
 3744475027   Boeing KC-46 Pegasus by ZeroTwo                      updated 2026-08-15
 3746453639   Civil Aircraft Mod                                   updated 2026-08-15
+3752415457   Philippines: The Luzon Line [v0.8.3.03.10]           updated 2026-10-04
 3755769170   F-2A 'Viper Zero'                                    updated 2026-09-16
 3758320372   F-16C Fighting Falcon (by ZeroTwo)                   updated 2026-08-15
 3758943352   French Air Force                                     updated 2026-10-03
+3759042728   Mare Nostrum '28                                     updated 2026-10-04
 3760871384   Dingtools Weapon Pack                                updated 2026-08-15
 3762023575   Su-30SM2                                             updated 2026-08-16
-3768036424   BetterTacMap                                         updated 2026-08-24
+3766210676   Saronic Corsair ASV                                  updated 2026-10-07
+3768036424   BetterTacMap                                         updated 2026-10-04
 3769142422   Rebuilt J-16 / J-16D                                 updated 2026-10-03
-3774105087   Automatic SAR                                        updated 2026-09-21
+3774105087   Automatic SAR                                        updated 2026-10-10
 3774572038   PLAN Type 071 LPD                                    updated 2026-08-15
 3774746803   PLA Z-21                                             updated 2026-08-15
 3774859959   PLAN Type 001 Aircraft Carrier Liaoning              updated 2026-08-16
 3775128499   PLAN Pack                                            updated 2026-10-03
 3776340577   Ka-27RLD - Ka-31 AEW Helicopter                      updated 2026-08-16
-3780118683   Tu-214R Family Pack                                  updated 2026-08-16
+3776730617   EUROMOD-Armada de Chile                              updated 2026-10-04
+3779799226   Operation STEADFAST LANTERN                          updated 2026-10-04
+3780118683   Tu-214R Family Pack                                  updated 2026-10-04
 3781062859   E-3G AWAC                                            updated 2026-08-17
-3782020901   Y-20 / KJ-3000                                       updated 2026-08-15
-3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-10-02
-3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-10-02
+3782020901   Y-20 / KJ-3000                                       updated 2026-10-06
+3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-10-10
+3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-10-08
 3789208859   Euromod-South Korea Navy                             updated 2026-09-21
-3790594162   Identify Expanded                                    updated 2026-10-02
+3790594162   Identify Expanded                                    updated 2026-10-10
 3796113927   RQ-180 White Bat Airframe                            updated 2026-09-16
-3796349767   YF-23 Black Widow II                                 updated 2026-10-03
+3796349767   YF-23 Black Widow II                                 updated 2026-10-07
+3796706214   飞机与直升机的真实照片                                          updated 2026-10-05
 3799742828   MiG-31 Foxhound                                      updated 2026-09-16
 3801363152   CH-53E Standalone v0.1.0                             updated 2026-09-16
 3801549552   J-36 Tailless Fighter                                updated 2026-09-16
-3804868806   Anduril FQ-44 Fury US Navy Carrier Wingmen           updated 2026-10-03
-3806466625   MV-22B Osprey Tiltrotor / JGSDF V-22B                updated 2026-09-26
+3802216383   JMSDF Hyūga-class — Hyūga & Ise                      updated 2026-10-10
+3804868806   Anduril FQ-44 US Navy Carrier Wingmen                updated 2026-10-10
+3806197116   Civilian AS350 Ecureuil/AStar MOD                    updated 2026-10-05
+3806466625   MV-22B Osprey Tiltrotor / JGSDF V-22B                updated 2026-10-10
 3806686336   Coordinated Strike Tool                              updated 2026-09-30
+3807164392   Euromod-India-Navy                                   updated 2026-10-04
 3808882954   RC-135V/W Rivet Joint                                updated 2026-09-30
-3810611344   MV-75 Cheyenne II                                    updated 2026-10-03
+3810611344   MV-75 Cheyenne II                                    updated 2026-10-10
 3812111085   PLAAF Aircraft Pack                                  updated 2026-10-03
+3812140001   Pakistani Pack                                       updated 2026-10-04
+3812454152   Euromod-Philippine-Navy                              updated 2026-10-04
+3813033771   EC-2 Stand Off Jammer                                updated 2026-10-07
+3813157776   Dynamic Campaign Mod                                 updated 2026-10-10
 
-subscribed but UNPLACED (4): 3485917612, 3758943352, 3810611344, 3812111085
+subscribed but UNPLACED (1): 3813157776
 placed but NOT SUBSCRIBED (0): 
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
-folders on disk          : 148
-ids Steam tracks locally : 148
+folders on disk          : 190
+ids Steam tracks locally : 190
 NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
 on disk but NOT tracked (0): 

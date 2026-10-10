@@ -2,11 +2,11 @@
 
 StreamingAssets: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets
 
-ACConfigs                               0 file(s)   modified 2026-09-26 18:55
-EntityScenes                            1 file(s)   modified 2026-02-09 02:18
-original                             7641 file(s)   modified 2026-10-02 19:44
-SEST_Integration                     1260 file(s)   modified 2026-10-03 17:15
-user                                 1000 file(s)   modified 2026-08-08 21:10
+ACConfigs                               0 file(s)   modified 2026-10-05 20:49
+EntityScenes                            1 file(s)   modified 2026-02-09 01:18
+original                             7643 file(s)   modified 2026-10-10 07:47
+SEST_Integration                     3497 file(s)   modified 2026-10-10 22:25
+user                                  351 file(s)   modified 2026-08-08 21:10
 
 SEST folders present: 1 -> SEST_Integration
 (expected: exactly one, SEST_Integration - per-pack folders are superseded)

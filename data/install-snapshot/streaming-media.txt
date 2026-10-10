@@ -1,0 +1,836 @@
+# Pictures and films under StreamingAssets\original, and Workshop pictures named
+# for loading screens, backgrounds or menus. Relative path, size in KB.
+
+original\: 558 picture/film file(s)
+
+[campaigns\linear-campaign-proto-1\art]  48 file(s)
+  00_campaign_background.png                                      2,448
+  01_bear_intercept.png                                             127
+  01_ussr_missile_parade.png                                        277
+  02_yorktown_collision.jpg                                         184
+  04_operation_shadow_title.png                                     615
+  04_operation_shadow_title_de.png                                  851
+  04_operation_shadow_title_ko.png                                  763
+  05_Seals.png                                                      885
+  06_operation_revenge_title.png                                    900
+  06_operation_revenge_title_de.png                               1,153
+  06_operation_revenge_title_ko.png                               1,197
+  07_delta_3_surface_launch_2.jpg                                    89
+  07_ru_newspaper_header.png                                         56
+  07_ticonderoga.png                                              1,760
+  09_mind_the_gap_title.png                                         588
+  09_mind_the_gap_title_de.png                                      721
+  09_mind_the_gap_title_ko.png                                      755
+  11a_bargaining_chips_nato_title.png                               225
+  11a_bargaining_chips_nato_title_de.png                            372
+  11a_bargaining_chips_nato_title_ko.png                            351
+  11b_bargaining_chips_soviet_title.png                             613
+  11b_bargaining_chips_soviet_title_de.png                          697
+  11b_bargaining_chips_soviet_title_ko.png                          684
+  14_operation_blockbuster_title.png                                405
+  14_operation_blockbuster_title_de.png                             653
+  14_operation_blockbuster_title_ko.png                             648
+  15_northern_hammer_title.png                                      641
+  15_northern_hammer_title_de.png                                   881
+  15_northern_hammer_title_ko.png                                   882
+  15_reagan_gorbachev.png                                           936
+  17_reagan_gorbachev.png                                           195
+  17_tu-22m.jpg                                                      38
+  Exzess.png                                                         53
+  Navy_Cross.png                                                    343
+  Navy_Cross_ribbon.png                                               2
+  Navy_Distinguished_Service_Medal_ribbon.png                         2
+  NavyDSM.png                                                       121
+  NDB_Logo.png                                                      782
+  Order_of_Red_Banner_of_Labor.png                                  113
+  Seal_of_the_President_of_the_United_States.png                    406
+  Seal_of_the_United_States_Department_of_Defense.png               241
+  Seal_of_the_United_States_Department_of_the_Navy.png              473
+  shipping_forecast.png                                             727
+  United_States_Navy_Presidential_Unit_Citation_ribbon.png            2
+  WAS.png                                                            33
+  washington_times_herald_logo.png                                   97
+  WDP_logo.png                                                       30
+  world_news_logo.png                                                11
+
+[campaigns\linear-campaign-proto-1\missions\01 Operation Shadow_briefing]  4 file(s)
+  Arctic_KirkenesNorth_Close.png                                     93
+  Arctic_KirkenesNorth_Close_ko.png                                 107
+  EuropeNorthFar.png                                                899
+  screenshot_cape_girardeau.png                                      99
+
+[campaigns\linear-campaign-proto-1\missions\02 Operation Revenge_briefing]  2 file(s)
+  Kuriles_NorthEastPacific_Close.png                                 27
+  PacificFar.png                                                    469
+
+[campaigns\linear-campaign-proto-1\missions\03 Mind the Gap_briefing]  2 file(s)
+  AtlanticFar.png                                                   722
+  FaroeIslands_Close.png                                            151
+
+[campaigns\linear-campaign-proto-1\missions\04A Bargaining Chips - Blue_briefing]  2 file(s)
+  BargainingChips_Attu_Close.png                                     50
+  PacificFar.png                                                    469
+
+[campaigns\linear-campaign-proto-1\missions\04B Bargaining Chips - Red_briefing]  2 file(s)
+  BargainingChips_Attu_Close.png                                     50
+  PacificFar.png                                                    469
+
+[campaigns\linear-campaign-proto-1\missions\05A Operation Blockbuster - Blue_briefing]  2 file(s)
+  AtlanticFar.png                                                   722
+  NorwegianSeaSouth_Close.png                                        75
+
+[campaigns\linear-campaign-proto-1\missions\05B Northern Hammer - Red_briefing]  2 file(s)
+  AtlanticFar.png                                                   722
+  NorwegianSeaSouth_Close.png                                        75
+
+[campaigns\pacific-strike-task-force\art]  45 file(s)
+  19850626_breakingnews_image.png                                 1,024
+  19850626_breakingnews_image_de.png                              1,182
+  19850626_newspaper_event_stockmarket.png                          119
+  19850626_newspaper_event_tanks.png                                142
+  19850708_breakingnews_image.png                                 1,044
+  19850708_breakingnews_image_de.png                              1,207
+  19850812_breakingnews_image.png                                 1,003
+  19850812_breakingnews_image_de.png                              1,214
+  19850930_breakingnews_event_de.png                              1,155
+  19850930_breakingnews_image.png                                   993
+  19851012_breakingnews_image.png                                   972
+  19851012_breakingnews_image_de.png                              1,142
+  bkg_newsprint.png                                                 592
+  bkg_paper.png                                                  11,857
+  bkg_tile_message.png                                               21
+  bkg_tile_newspaper.png                                             34
+  pacific_strike_01_sheet.png                                       845
+  pacific_strike_02_sheet.png                                       638
+  pacific_strike_03_sheet.png                                       588
+  pacific_strike_03a_sheet.png                                      372
+  pacific_strike_03b_sheet.png                                      944
+  pacific_strike_04_sheet.png                                       690
+  pacific_strike_05_sheet.png                                       367
+  pacific_strike_06_sheet.png                                       759
+  pacific_strike_07_sheet.png                                       643
+  pacific_strike_07a_sheet.png                                      298
+  pacific_strike_08_sheet.png                                       629
+  pacific_strike_08a_sheet.png                                      297
+  pacific_strike_09_sheet.png                                       649
+  pacific_strike_10_sheet.png                                       656
+  s01_gorbachev_deng.png                                            855
+  s01_kitty_hawk_drydock.png                                        556
+  s01_map_pacific_offensive.png                                     684
+  s01_map_pacific_offensive_de.png                                  771
+  s01_map_pacific_offensive_ru.png                                  733
+  s01_map_political.png                                             684
+  s01_map_political_de.png                                          765
+  s01_map_political_ru.png                                          145
+  s01_pacific_strike.png                                            507
+  s01_pacific_strike_title.png                                       37
+  s01_soviet_tanks.png                                              661
+  s01_ussr_pacific_fleet.png                                        782
+  tg773_scoreboard_header.png                                        64
+  tg773_scoreboard_results.png                                       12
+  USN_BattleStar.png                                                  4
+
+[campaigns\pacific-strike-task-force\art\medals]  16 file(s)
+  australian_distinguished_service_cross_medal.png                  276
+  bronze_star_medal_citation.png                                     42
+  combat_action_ribbon_citation.png                                  73
+  defense_distinguished_service_medal_citation.png                   86
+  dept_of_the_navy_seal_embossed.png                                 30
+  kmt_order_yun_hui_medal.png                                       256
+  meritorious_unit_commendation_citation.png                         11
+  navy_achievement_medal_citation.png                                81
+  navy_commendation_medal_citation.png                               43
+  navy_cross_medal.png                                              343
+  navy_distinguished_service_medal_citation.png                      52
+  navy_expeditionary_medal_citation.png                              18
+  navy_meritorious_service_medal_citation.png                        52
+  navy_unit_commendation_citation.png                                12
+  presidential_unit_citation.png                                     21
+  silver_star_medal_citation.png                                     90
+
+[campaigns\pacific-strike-task-force\art\ribbons]  18 file(s)
+  australian_distinguished_service_cross_ribbon.png                   1
+  bronze_star_medal_ribbon.png                                        3
+  combat_action_ribbon.png                                            3
+  jmsdf_defense_memorial_cordon_ribbon.png                            3
+  kmt_order_yun_hui_with_ribbon.png                                   1
+  mentioned_in_dispatches_insignia.png                               69
+  meritorious_unit_commendation_ribbon.png                            3
+  navy_achievement_medal_ribbon.png                                   3
+  navy_commendation_medal_ribbon.png                                  3
+  navy_cross_ribbon.png                                               3
+  navy_distinguished_service_medal_ribbon.png                         3
+  navy_expeditionary_medal_ribbon.png                                 3
+  navy_unit_commendation_ribbon.png                                   3
+  presidential_unit_citation_ribbon.png                               3
+  silver_star_medal_ribbon.png                                        3
+  task_group_commendation_ribbon.png                                  3
+  western_pacific_campaign_ribbon.png                                 3
+  western_pacific_expeditionary_ribbon.png                            3
+
+[campaigns\pacific-strike-task-force\art\ru]  2 file(s)
+  tg773_scoreboard_header.png                                        66
+  tg773_scoreboard_results.png                                       18
+
+[campaigns\pacific-strike-task-force\missions\01 Raid on Okinawa_briefing]  4 file(s)
+  01_Okinawa_Close.png                                              133
+  01_tropic.png                                                     176
+  01_tropic_ru.png                                                  211
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\02 Action in the Taiwan Strait_briefing]  3 file(s)
+  02_invasionfleet.png                                               58
+  02_TaiwanStrait_Close.png                                         229
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\03 Running the Palawan Passage_briefing]  2 file(s)
+  03_PalawanPassage_Close.png                                       133
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\03A Run Silent Run Deep_briefing]  2 file(s)
+  Sub01_Spratlys_Close.png                                           65
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\03B Holding the Lombok Strait_briefing]  2 file(s)
+  Ship01_BaliLombokStrait_Close.png                                 244
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\04 Sunda Strait_briefing]  2 file(s)
+  04_SundaStrait_Close.png                                          223
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\05 Strike on the Monster_briefing]  3 file(s)
+  05_DarwinTimorSea_Close.png                                       288
+  05_kirov.png                                                       78
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\06 Raid on Lombok_briefing]  3 file(s)
+  06_BaliLombok_Close.png                                           245
+  06_kanin.png                                                      178
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\07 Action in the Java Sea_briefing]  3 file(s)
+  07_JavaSea_Close.png                                              242
+  07_senyavin.png                                                    49
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\07A Hunt for the Cruiser_briefing]  3 file(s)
+  07a_slava.png                                                      90
+  07A_SouthChinaSea_Close.png                                         5
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\08 Defense of North Borneo_briefing]  3 file(s)
+  08_luda.png                                                       219
+  08_Sandakan_Close.png                                             118
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\08A Pathfinders_briefing]  2 file(s)
+  08A_PuertoPrincesa_Close.png                                      105
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\09 Shadows off Palawan_briefing]  3 file(s)
+  09_Palawan_Close.png                                              108
+  09_silkworm.png                                                   226
+  WesternPacificFar.png                                             574
+
+[campaigns\pacific-strike-task-force\missions\10 Vengeance at Luzon_briefing]  3 file(s)
+  10_kiev.png                                                       217
+  10_WestLuzon_Close.png                                            132
+  WesternPacificFar.png                                             574
+
+[campaigns\strike-group-molniya-campaign\art]  29 file(s)
+  00_campaign_background.png                                      2,448
+  01_container_ship_photo.jpg                                        81
+  01_nato_tanks.png                                                 144
+  07_ru_newspaper_header.png                                         56
+  12_p-3c.png                                                       317
+  12_petropavlovsk.png                                              196
+  bkg_paper.png                                                  11,857
+  Exzess.png                                                         53
+  m01_wolves_of_the_south_atlantic_title.png                        736
+  m01_wolves_of_the_south_atlantic_title_de.png                   1,026
+  m01_wolves_of_the_south_atlantic_title_ko.png                   1,039
+  m01_wolves_of_the_south_atlantic_title_ru.png                     914
+  m02_guns_of_port_louis_title.png                                  694
+  m02_guns_of_port_louis_title_de.png                             1,006
+  m02_guns_of_port_louis_title_ko.png                               994
+  m02_guns_of_port_louis_title_ru.png                               872
+  m03_lifeline_at_the_edge_of_the_world_title.png                   733
+  m03_lifeline_at_the_edge_of_the_world_title_de.png              1,065
+  m03_lifeline_at_the_edge_of_the_world_title_ko.png              1,073
+  m03_lifeline_at_the_edge_of_the_world_title_ru.png                950
+  m04_chagos_gambit_title.png                                       751
+  m04_chagos_gambit_title_de.png                                    982
+  m04_chagos_gambit_title_ko.png                                    999
+  m04_chagos_gambit_title_ru.png                                    858
+  m05_shadow_of_the_enterprise_title.png                            772
+  m05_shadow_of_the_enterprise_title_de.png                       1,008
+  m05_shadow_of_the_enterprise_title_ko.png                       1,005
+  m05_shadow_of_the_enterprise_title_ru.png                         869
+  WAS.png                                                            33
+
+[campaigns\strike-group-molniya-campaign\missions\01 Wolves of the South Atlantic_briefing]  4 file(s)
+  01_edson_new_orleans.png                                          138
+  01_president_monroe.png                                           210
+  01_SaintHelena_SouthAtlantic_Close.png                            118
+  SouthAtlanticFar.png                                              573
+
+[campaigns\strike-group-molniya-campaign\missions\02 Guns of Port Louis_briefing]  5 file(s)
+  02_convoy.png                                                     122
+  02_Mauritius_Close.png                                            117
+  02_mirage.png                                                     262
+  02_mirage_old.png                                                 721
+  IndianOceanFar.png                                                457
+
+[campaigns\strike-group-molniya-campaign\missions\03 Lifeline at the Edge of the World_briefing]  3 file(s)
+  03_CrozetIslands_Close.png                                         68
+  03_san_ssk.png                                                     68
+  IndianOceanFar.png                                                457
+
+[campaigns\strike-group-molniya-campaign\missions\04 Chagos Gambit_briefing]  4 file(s)
+  04_Diego_Garcia.png                                                95
+  04_DiegoGarciaWest_Close.png                                       31
+  04_Sacramento_AOE.png                                             150
+  IndianOceanFar.png                                                457
+
+[campaigns\strike-group-molniya-campaign\missions\05 Shadow of the Enterprise_briefing]  3 file(s)
+  05_enterprise.png                                                 700
+  05_LaccadiveSea_Close.png                                          65
+  IndianOceanFar.png                                                457
+
+[missions\Campaign Scenarios\Pacific Strike\01A Senkaku Run_briefing]  2 file(s)
+  01A_Senkakus_Close.png                                             69
+  WesternPacificFar.png                                             574
+
+[missions\Intro\01 Red Sea Breakout 1988_briefing]  3 file(s)
+  Bab_al_Mandab_Close.png                                           280
+  IndianOceanFar.png                                                457
+  photo_yorktown.png                                                215
+
+[missions\Intro\02 Narvik Counterattack 1985_briefing]  3 file(s)
+  AtlanticFar.png                                                   722
+  NarvikSeaArea_Close.png                                           215
+  photo_sovremenny.png                                              175
+
+[missions\JMSDF\Sub Duel JMSDF 1985_briefing]  2 file(s)
+  JapanKoreaFar.png                                                 524
+  LaPerouseStrait_Close.png                                         156
+
+[missions\NATO\Action in the Gulf of Sidra 1986_briefing]  3 file(s)
+  EuropeMedFar.png                                                  884
+  GulfOfSidra_Close.png                                             351
+  square_pair_fcr.png                                                67
+
+[missions\NATO\Arctic Intercept 1985_briefing]  2 file(s)
+  AtlanticFar.png                                                   722
+  JanMayen_Close.png                                                 28
+
+[missions\NATO\Better Part of Valor 1988_briefing]  2 file(s)
+  CaribbeanGulfOfMexicoFar.png                                      622
+  YucatanStrait_Close.png                                           141
+
+[missions\NATO\Caron at Grenada 1983_briefing]  2 file(s)
+  AtlanticFar.png                                                   722
+  Grenada_Close.png                                                  87
+
+[missions\NATO\Dangerous Straits 1985_briefing]  2 file(s)
+  AegeanSea_Close.png                                               328
+  EuropeMedFar.png                                                  884
+
+[missions\NATO\Dong Hoi_briefing]  2 file(s)
+  DongHoiClose.jpg                                                  187
+  DongHoiFar.jpg                                                    492
+
+[missions\NATO\Hormuz_briefing]  2 file(s)
+  HormuzClose.jpg                                                   438
+  HormuzFar.jpg                                                     649
+
+[missions\NATO\Mind the Gap - Original 1988_briefing]  2 file(s)
+  AtlanticFar.png                                                   722
+  FaroeIslands_Close.png                                            151
+
+[missions\NATO\Red Madagascar 1985_briefing]  2 file(s)
+  IndianOceanFar.png                                                457
+  MadagascarEast_Close.png                                          386
+
+[missions\NATO\Showdown off Guam Blue 1985_briefing]  3 file(s)
+  PhilippineSea_Guam_IwoJima_Close.png                               11
+  photo_minsk.png                                                   216
+  WesternPacificFar.png                                             574
+
+[missions\NATO\Strawberries Can Kill - Blue_briefing]  4 file(s)
+  NorthPacific_Close.png                                             60
+  PacificFar.png                                                    469
+  photo_strawberry_5.png                                          1,098
+  photo_strawberry_5_ko.png                                       1,251
+
+[missions\NATO\Sub Duel Denmark Strait 1985_briefing]  2 file(s)
+  AtlanticFar.png                                                   722
+  DenmarkStrait_Close.png                                            93
+
+[missions\NATO\Sub Duel Pacific Shield 1971_briefing]  2 file(s)
+  EasternPacificCalifornia_Close.png                                 89
+  EasternPacificFar.png                                             472
+
+[missions\NATO\The High North 1968_briefing]  2 file(s)
+  AtlanticFar.png                                                   722
+  FaroesIceland_Close.png                                           132
+
+[missions\NATO\Trollfjorden_briefing]  2 file(s)
+  Trollfjorden_map.jpg                                              651
+  Trollfjorden_map_de.jpg                                           614
+
+[missions\NATO\Volga Exercise_briefing]  3 file(s)
+  AtlanticFar.png                                                   722
+  GIGapWest_Close.png                                               255
+  GIGapWest_Close_ko.png                                            280
+
+[missions\Other\Battle of Baltim_briefing]  3 file(s)
+  EasternMedFar.png                                                 802
+  IDFMissileBoatsAfterLatakia.png                                   124
+  NileDelta_Close.png                                                93
+
+[missions\Other\Battle of Latakia_briefing]  3 file(s)
+  EasternMedFar.png                                                 802
+  IDF3rdFlotillaBoats.png                                           208
+  Latakia_Close.png                                                  87
+
+[missions\Other\Encounter off Diu_briefing]  3 file(s)
+  Diu_Close.png                                                      93
+  IndiaPakistanFar.png                                              625
+  PNSHangor.jpg                                                      15
+
+[missions\Other\Operation Morvarid_briefing]  2 file(s)
+  NorthPersianGulf_Close.png                                        218
+  PersianGulf_Far.png                                               962
+
+[missions\Other\Operation Trident_briefing]  3 file(s)
+  IndiaPakistanFar.png                                              625
+  Karachi_Close.png                                                 203
+  photo_indian_navy_osa.jpg                                          53
+
+[missions\PLAN\PLAN 01 Clash in the Paracels_briefing]  2 file(s)
+  ParacelsCrescentGroup_Close.png                                    42
+  WesternPacificFar.png                                             574
+
+[missions\PLAN\PLAN 02 Battle of the South China Sea_briefing]  2 file(s)
+  ParacelsWesternSouthChinaSea_Close.png                            256
+  WesternPacificFar.png                                             574
+
+[missions\PLAN\PLAN 03 Operation Silent Spear_briefing]  2 file(s)
+  JapanKoreaFar.png                                                 524
+  Okinawa_Close.png                                                 133
+
+[missions\PLAN\PLAN 04 Escape from the Sulu Sea_briefing]  2 file(s)
+  BalabacStrait_Close.png                                            80
+  WesternPacificFar.png                                             574
+
+[missions\Video Tutorials\_data]  5 file(s)
+  Tutorial 1 - Basics.mp4                                       191,879
+  Tutorial 2 - Battlegroups.mp4                                 508,738
+  Tutorial 3 - Detection and Stealth.mp4                        737,692
+  Tutorial 4 - Weapon Types.mp4                                 473,651
+  Tutorial 5 - Electronic Warfare-001.mp4                       556,503
+
+[missions\Warsaw Pact\Breakthrough_briefing]  5 file(s)
+  GibraltarPassageScheme.jpg                                        171
+  GibStraitClose.jpg                                                108
+  GibStraitFar.jpg                                                  141
+  ts_banner.png                                                     185
+  ts_banner_de.png                                                  146
+
+[missions\Warsaw Pact\HuntersOrHunted_briefing]  2 file(s)
+  BarentsEast_Close.png                                             127
+  EuropeNorthFar.png                                                899
+
+[missions\Warsaw Pact\Northern Passage_briefing]  1 file(s)
+  Northern_Passage_map.png                                        1,244
+
+[missions\Warsaw Pact\Operation Polar Fury 1985_briefing]  3 file(s)
+  AtlanticFar.png                                                   722
+  NarvikSeaArea_Close.png                                           215
+  photo_iowa.png                                                     56
+
+[missions\Warsaw Pact\Sub Duel Running the Denmark Strait 1985_briefing]  2 file(s)
+  AtlanticFar.png                                                   722
+  DenmarkStrait_Close.png                                            93
+
+[missions\Warsaw Pact\UnderCoverOfTheRain_briefing]  2 file(s)
+  MapClose.png                                                      673
+  MapFar.png                                                        765
+
+[reference]  2 file(s)
+  Earnest_Will_map.png                                               81
+  praying_mantis.jpg                                                594
+
+[scripts\script_infrastructure~\packages\cbor-x\assets]  1 file(s)
+  performance.png                                                    89
+
+[terrain\stamps]  15 file(s)
+  stamp_32x16.png                                                    18
+  stamp_32x32.png                                                    21
+  stamp_64x32.png                                                    24
+  stamp_all.png                                                       0
+  stamp_bergen_49.png                                                 7
+  stamp_circular_hard.png                                             2
+  stamp_circular_small.png                                            2
+  stamp_circular_small_soft.png                                       2
+  stamp_harbour_1.png                                                28
+  stamp_harbour_large.png                                            18
+  stamp_rota_2.png                                                   17
+  stamp_rota_trees.png                                               42
+  stamp_rota_water.png                                               17
+  test_32.png                                                         0
+  test_32_2.png                                                       0
+
+[ui\artwork]  22 file(s)
+  68_pact_air_1.jpg                                                 664
+  cropped mobilization soviet night.png                           3,424
+  cropped new revolution.png                                      3,424
+  cropped revolution 1.png                                        3,424
+  cropped soviet convoy 2.png                                     3,424
+  cropped_MiG-25s top cover.png                                   3,424
+  cropped_rangers fail.png                                        3,424
+  cropped_scene 1 russians.png                                    3,380
+  cropped_scene patrol.png                                        3,424
+  cropped_scene road.png                                          3,424
+  cropped_soviet convoy.png                                       3,424
+  mobilization soviet night.png                                   6,086
+  nato_carrier_loss.jpg                                           1,055
+  pact_air_1.jpg                                                  1,084
+  pact_landing_sunk.jpg                                             903
+  pact_naval_2.jpg                                                1,102
+  pact_surface_raiders_2.jpg                                        975
+  pact_surface_raiders_3.jpg                                      1,165
+  pact_warship_tender_1.jpg                                       1,099
+  preview 1.png                                                   3,424
+  sea_rescue_2.jpg                                                1,051
+  soviet convoy 2.png                                             6,086
+
+[ui\backgrounds]  80 file(s)
+  loading_screen_1.png                                            1,057
+  loading_screen_10.png                                           2,341
+  loading_screen_11.png                                           1,038
+  loading_screen_12.png                                             739
+  loading_screen_13.png                                             642
+  loading_screen_14.png                                           1,742
+  loading_screen_15.png                                           1,930
+  loading_screen_16.png                                             471
+  loading_screen_17.png                                           1,497
+  loading_screen_18.png                                           1,379
+  loading_screen_19.png                                           1,010
+  loading_screen_2.png                                              890
+  loading_screen_20.png                                             845
+  loading_screen_21.png                                           1,283
+  loading_screen_22.png                                           1,356
+  loading_screen_23.png                                           1,079
+  loading_screen_24.png                                           1,575
+  loading_screen_25.png                                           1,700
+  loading_screen_26.png                                           1,429
+  loading_screen_27.png                                           2,825
+  loading_screen_28.png                                           1,005
+  loading_screen_29.png                                             575
+  loading_screen_3.png                                            1,847
+  loading_screen_30.png                                           1,649
+  loading_screen_31.png                                           1,520
+  loading_screen_32.png                                           1,019
+  loading_screen_33.png                                             850
+  loading_screen_34.png                                           1,423
+  loading_screen_35.png                                             629
+  loading_screen_36.png                                             781
+  loading_screen_37.png                                             768
+  loading_screen_38.png                                             418
+  loading_screen_39.png                                             987
+  loading_screen_4.png                                            1,895
+  loading_screen_40.png                                             810
+  loading_screen_41.png                                           1,236
+  loading_screen_42.png                                           1,391
+  loading_screen_43.png                                             102
+  loading_screen_44.png                                           1,363
+  loading_screen_45.png                                           1,339
+  loading_screen_46.png                                             937
+  loading_screen_47.png                                           1,456
+  loading_screen_48.png                                           1,855
+  loading_screen_49.png                                             824
+  loading_screen_5.png                                            1,132
+  loading_screen_50.png                                             801
+  loading_screen_51.png                                             484
+  loading_screen_52.png                                           1,202
+  loading_screen_53.png                                             950
+  loading_screen_54.png                                           1,277
+  loading_screen_55.png                                           1,295
+  loading_screen_56.png                                             806
+  loading_screen_57.png                                           1,210
+  loading_screen_58.png                                           1,267
+  loading_screen_59.png                                             857
+  loading_screen_6.png                                            1,110
+  loading_screen_60.png                                           1,608
+  loading_screen_61.png                                           1,725
+  loading_screen_62.png                                           1,575
+  loading_screen_63.png                                           1,489
+  ... and 20 more
+
+[ui\photos]  118 file(s)
+  air nato 1.jpg                                                    228
+  air nato 2.jpg                                                    139
+  air nato 3.jpg                                                    228
+  air nato 4.jpg                                                    286
+  air nato 5.jpg                                                    167
+  air nato 6.jpg                                                    146
+  air nato drop 1.jpg                                               141
+  air nato drop 2.jpg                                               186
+  air pact 1.jpg                                                    149
+  air pact drop 1.jpg                                               151
+  air pact drop 2.jpg                                               219
+  air pact helicopters 1.jpg                                        165
+  air plan 1.jpg                                                    118
+  air plan 2.jpg                                                    149
+  air plan 3.jpg                                                    210
+  air plan 4.jpg                                                    152
+  air plan 5.jpg                                                    117
+  air plan 6.jpg                                                    172
+  air us drop 1.jpg                                                 158
+  air us drop 2.jpg                                                 160
+  air us drop 3.jpg                                                 154
+  air us drop 4.jpg                                                 128
+  armor nato 1.jpg                                                  124
+  armor nato 2.jpg                                                  182
+  armor nato 3.jpg                                                  171
+  armor nato 4.jpg                                                  161
+  armor nato 5.jpg                                                  182
+  armor nato 6.jpg                                                  260
+  armor pact 1.jpg                                                  200
+  armor plan 1.jpg                                                  203
+  armor plan 2.jpg                                                  101
+  armor plan 3.jpg                                                  161
+  armor plan 4.jpg                                                  118
+  armor plan 5.jpg                                                  182
+  armor plan 6.jpg                                                  233
+  armor plan 7.jpg                                                  180
+  armor us 1.jpg                                                    193
+  base 1.jpg                                                        277
+  cargo 1.jpg                                                       181
+  cargo 2.jpg                                                       169
+  convoy plan 1.jpg                                                 216
+  convoy plan 2.jpg                                                 193
+  convoy plan 3.jpg                                                 188
+  explosions 1.jpg                                                  211
+  explosions 2.jpg                                                  197
+  explosions 3.jpg                                                  170
+  fire 1.jpg                                                        110
+  ground pla 1.jpg                                                  160
+  ground pla 2.jpg                                                  218
+  infantry nato 1.jpg                                               183
+  infantry nato 2.jpg                                               168
+  infantry nato 3.jpg                                               174
+  infantry nato 4.jpg                                               168
+  infantry nato 5.jpg                                               177
+  infantry nato 6.jpg                                               213
+  infantry pact 1.jpg                                               159
+  infantry pact 2.jpg                                               208
+  infantry pact 3.jpg                                               194
+  infantry pact 4.jpg                                               179
+  infantry pact 5.jpg                                               172
+  ... and 58 more
+
+--- Workshop pictures named for loading screens, backgrounds or menus ---
+  3491248180\ui\backgrounds\loading_screen_1.png                                                1,057
+  3491248180\ui\backgrounds\loading_screen_10.png                                               2,341
+  3491248180\ui\backgrounds\loading_screen_11.png                                               1,038
+  3491248180\ui\backgrounds\loading_screen_12.png                                                 739
+  3491248180\ui\backgrounds\loading_screen_13.png                                                 642
+  3491248180\ui\backgrounds\loading_screen_14.png                                               1,742
+  3491248180\ui\backgrounds\loading_screen_15.png                                               1,930
+  3491248180\ui\backgrounds\loading_screen_16.png                                                 471
+  3491248180\ui\backgrounds\loading_screen_17.png                                               1,497
+  3491248180\ui\backgrounds\loading_screen_18.png                                               1,379
+  3491248180\ui\backgrounds\loading_screen_19.png                                               1,010
+  3491248180\ui\backgrounds\loading_screen_2.png                                                  890
+  3491248180\ui\backgrounds\loading_screen_20.png                                                 845
+  3491248180\ui\backgrounds\loading_screen_21.png                                               1,283
+  3491248180\ui\backgrounds\loading_screen_22.png                                               1,356
+  3491248180\ui\backgrounds\loading_screen_23.png                                               1,079
+  3491248180\ui\backgrounds\loading_screen_24.png                                               1,575
+  3491248180\ui\backgrounds\loading_screen_25.png                                               1,700
+  3491248180\ui\backgrounds\loading_screen_26.png                                               1,429
+  3491248180\ui\backgrounds\loading_screen_27.png                                               2,825
+  3491248180\ui\backgrounds\loading_screen_28.png                                               1,005
+  3491248180\ui\backgrounds\loading_screen_29.png                                                 575
+  3491248180\ui\backgrounds\loading_screen_3.png                                                1,847
+  3491248180\ui\backgrounds\loading_screen_30.png                                               1,649
+  3491248180\ui\backgrounds\loading_screen_4.png                                                1,895
+  3491248180\ui\backgrounds\loading_screen_5.png                                                1,132
+  3491248180\ui\backgrounds\loading_screen_6.png                                                1,110
+  3491248180\ui\backgrounds\loading_screen_7.png                                                  515
+  3491248180\ui\backgrounds\loading_screen_8.png                                                  913
+  3491248180\ui\backgrounds\loading_screen_9.png                                                  694
+  3567256221\ui\profiles\EDAR_Armoured_Personnel_Carrier_Loadout.png                              230
+  3606134711\ui\loadout_aircraft\usn_a-6e.png                                                      21
+  3606134711\ui\loadout_icons\large_aam_ir_1.png                                                    6
+  3606134711\ui\loadout_icons\large_aam_ir_2.png                                                    6
+  3606134711\ui\loadout_icons\large_aam_ir_3.png                                                    6
+  3606134711\ui\loadout_icons\large_aam_radar_1.png                                                 6
+  3606134711\ui\loadout_icons\large_aam_radar_2.png                                                 6
+  3606134711\ui\loadout_icons\large_aam_radar_3.png                                                 6
+  3606134711\ui\loadout_icons\large_agm_laser_1.png                                                 6
+  3606134711\ui\loadout_icons\large_agm_laser_2.png                                                 6
+  3606134711\ui\loadout_icons\large_agm_laser_3.png                                                 6
+  3606134711\ui\loadout_icons\large_agm_optical_1.png                                               7
+  3606134711\ui\loadout_icons\large_agm_optical_2.png                                               7
+  3606134711\ui\loadout_icons\large_agm_optical_3.png                                               7
+  3606134711\ui\loadout_icons\large_agm_radar_1.png                                                 7
+  3606134711\ui\loadout_icons\large_agm_radar_2.png                                                 7
+  3606134711\ui\loadout_icons\large_agm_radar_3.png                                                 7
+  3606134711\ui\loadout_icons\large_agm_unguided_1.png                                              5
+  3606134711\ui\loadout_icons\large_agm_unguided_2.png                                              6
+  3606134711\ui\loadout_icons\large_agm_unguided_3.png                                              6
+  3606134711\ui\loadout_icons\large_arm_1.png                                                       6
+  3606134711\ui\loadout_icons\large_arm_2.png                                                       6
+  3606134711\ui\loadout_icons\large_arm_3.png                                                       6
+  3606134711\ui\loadout_icons\large_bomb_1.png                                                      4
+  3606134711\ui\loadout_icons\large_bomb_2.png                                                      4
+  3606134711\ui\loadout_icons\large_bomb_3.png                                                      4
+  3606134711\ui\loadout_icons\large_bomb_laser_1.png                                                5
+  3606134711\ui\loadout_icons\large_bomb_laser_2.png                                                5
+  3606134711\ui\loadout_icons\large_bomb_laser_3.png                                                5
+  3606134711\ui\loadout_icons\large_bomb_optical_1.png                                              5
+  3606134711\ui\loadout_icons\large_bomb_optical_2.png                                              5
+  3606134711\ui\loadout_icons\large_bomb_optical_3.png                                              5
+  3606134711\ui\loadout_icons\large_cluster_1.png                                                   4
+  3606134711\ui\loadout_icons\large_cluster_2.png                                                   4
+  3606134711\ui\loadout_icons\large_cluster_3.png                                                   5
+  3606134711\ui\loadout_icons\large_depth_bomb_1.png                                                6
+  3606134711\ui\loadout_icons\large_depth_bomb_2.png                                                6
+  3606134711\ui\loadout_icons\large_depth_bomb_3.png                                                6
+  3606134711\ui\loadout_icons\large_fueltank_0fin_1.png                                             5
+  3606134711\ui\loadout_icons\large_fueltank_0fin_2.png                                             5
+  3606134711\ui\loadout_icons\large_fueltank_0fin_3.png                                             5
+  3606134711\ui\loadout_icons\large_fueltank_2fin_1.png                                             5
+  3606134711\ui\loadout_icons\large_fueltank_2fin_2.png                                             5
+  3606134711\ui\loadout_icons\large_fueltank_2fin_3.png                                             5
+  3606134711\ui\loadout_icons\large_fueltank_4fin_1.png                                             5
+  3606134711\ui\loadout_icons\large_fueltank_4fin_2.png                                             5
+  3606134711\ui\loadout_icons\large_fueltank_4fin_3.png                                             5
+  3606134711\ui\loadout_icons\launcher_bru_2.png                                                    1
+  3606134711\ui\loadout_icons\launcher_mer_6.png                                                    1
+  3606134711\ui\loadout_icons\launcher_ter_3.png                                                    1
+  3606134711\ui\loadout_icons\launcher_ter_3_adapter.png                                            3
+  3606134711\ui\loadout_icons\medium_aam_ir_1.png                                                   5
+  3606134711\ui\loadout_icons\medium_aam_ir_2.png                                                   5
+  3606134711\ui\loadout_icons\medium_aam_ir_3.png                                                   5
+  3606134711\ui\loadout_icons\medium_aam_radar_1.png                                                5
+  3606134711\ui\loadout_icons\medium_aam_radar_2.png                                                5
+  3606134711\ui\loadout_icons\medium_aam_radar_3.png                                                5
+  3606134711\ui\loadout_icons\medium_aam_radar_4.png                                                5
+  3606134711\ui\loadout_icons\medium_agm_laser_1.png                                                5
+  3606134711\ui\loadout_icons\medium_agm_laser_2.png                                                5
+  3606134711\ui\loadout_icons\medium_agm_laser_3.png                                                5
+  3606134711\ui\loadout_icons\medium_agm_optical_1.png                                              6
+  3606134711\ui\loadout_icons\medium_agm_optical_2.png                                              6
+  3606134711\ui\loadout_icons\medium_agm_optical_3.png                                              6
+  3606134711\ui\loadout_icons\medium_agm_radar_1.png                                                6
+  3606134711\ui\loadout_icons\medium_agm_radar_2.png                                                5
+  3606134711\ui\loadout_icons\medium_agm_radar_3.png                                                6
+  3606134711\ui\loadout_icons\medium_agm_unguided_1.png                                             4
+  3606134711\ui\loadout_icons\medium_agm_unguided_2.png                                             5
+  3606134711\ui\loadout_icons\medium_agm_unguided_3.png                                             5
+  3606134711\ui\loadout_icons\medium_arm_1.png                                                      5
+  3606134711\ui\loadout_icons\medium_arm_1_c-band.png                                              14
+  3606134711\ui\loadout_icons\medium_arm_1_s-band.png                                              14
+  3606134711\ui\loadout_icons\medium_arm_1_vhf-band.png                                            15
+  3606134711\ui\loadout_icons\medium_arm_1_x-band.png                                              14
+  3606134711\ui\loadout_icons\medium_arm_2.png                                                      5
+  3606134711\ui\loadout_icons\medium_arm_3.png                                                      5
+  3606134711\ui\loadout_icons\medium_bomb_1.png                                                     3
+  3606134711\ui\loadout_icons\medium_bomb_2.png                                                     3
+  3606134711\ui\loadout_icons\medium_bomb_3.png                                                     4
+  3606134711\ui\loadout_icons\medium_bomb_laser_1.png                                               4
+  3606134711\ui\loadout_icons\medium_bomb_laser_2.png                                               4
+  3606134711\ui\loadout_icons\medium_bomb_laser_3.png                                               4
+  3606134711\ui\loadout_icons\medium_bomb_optical_1.png                                             4
+  3606134711\ui\loadout_icons\medium_bomb_optical_2.png                                             4
+  3606134711\ui\loadout_icons\medium_bomb_optical_3.png                                             4
+  3606134711\ui\loadout_icons\medium_cluster_1.png                                                  3
+  3606134711\ui\loadout_icons\medium_cluster_2.png                                                  3
+  3606134711\ui\loadout_icons\medium_cluster_3.png                                                  4
+  3606134711\ui\loadout_icons\medium_depth_bomb_1.png                                               5
+  3606134711\ui\loadout_icons\medium_depth_bomb_2.png                                               5
+  3606134711\ui\loadout_icons\medium_depth_bomb_3.png                                               5
+  3606134711\ui\loadout_icons\medium_fueltank_0fin_1.png                                            4
+  3606134711\ui\loadout_icons\medium_fueltank_0fin_2.png                                            4
+  3606134711\ui\loadout_icons\medium_fueltank_0fin_3.png                                            4
+  3606134711\ui\loadout_icons\medium_fueltank_2fin_1.png                                            4
+  3606134711\ui\loadout_icons\medium_fueltank_2fin_2.png                                            4
+  3606134711\ui\loadout_icons\medium_fueltank_2fin_3.png                                            4
+  3606134711\ui\loadout_icons\medium_fueltank_4fin_1.png                                            4
+  3606134711\ui\loadout_icons\medium_fueltank_4fin_2.png                                            4
+  3606134711\ui\loadout_icons\medium_fueltank_4fin_3.png                                            4
+  3606134711\ui\loadout_icons\medium_gunpod_sextuple_1.png                                          5
+  3606134711\ui\loadout_icons\medium_gunpod_sextuple_2.png                                          6
+  3606134711\ui\loadout_icons\medium_gunpod_sextuple_3.png                                          6
+  3606134711\ui\loadout_icons\medium_gunpod_twin_horizontal_1.png                                   4
+  3606134711\ui\loadout_icons\medium_gunpod_twin_horizontal_2.png                                   4
+  3606134711\ui\loadout_icons\medium_gunpod_twin_horizontal_3.png                                   4
+  3606134711\ui\loadout_icons\medium_gunpod_twin_vertical_1.png                                     4
+  3606134711\ui\loadout_icons\medium_gunpod_twin_vertical_2.png                                     4
+  3606134711\ui\loadout_icons\medium_gunpod_twin_vertical_3.png                                     4
+  3606134711\ui\loadout_icons\medium_rocket_launcher_19x_1.png                                      7
+  3606134711\ui\loadout_icons\medium_rocket_launcher_19x_2.png                                      7
+  3606134711\ui\loadout_icons\medium_rocket_launcher_19x_3.png                                      7
+  3606134711\ui\loadout_icons\medium_torpedo_1.png                                                  5
+  3606134711\ui\loadout_icons\medium_torpedo_2.png                                                  5
+  3606134711\ui\loadout_icons\medium_torpedo_3.png                                                  5
+  3606134711\ui\loadout_icons\pod_datalink_1.png                                                    5
+  3606134711\ui\loadout_icons\pod_datalink_2.png                                                    5
+  3606134711\ui\loadout_icons\pod_datalink_3.png                                                    5
+  3606134711\ui\loadout_icons\pod_jamming_1.png                                                     5
+  3606134711\ui\loadout_icons\pod_jamming_2.png                                                     5
+  3606134711\ui\loadout_icons\pod_jamming_3.png                                                     5
+  3606134711\ui\loadout_icons\pod_refueling_1.png                                                   5
+  3606134711\ui\loadout_icons\pod_refueling_2.png                                                   4
+  3606134711\ui\loadout_icons\pod_refueling_3.png                                                   5
+  3606134711\ui\loadout_icons\pod_targeting_advanced_1.png                                          4
+  3606134711\ui\loadout_icons\pod_targeting_advanced_2.png                                          4
+  3606134711\ui\loadout_icons\pod_targeting_advanced_3.png                                          4
+  3606134711\ui\loadout_icons\pod_targeting_basic_1.png                                             4
+  3606134711\ui\loadout_icons\pod_targeting_basic_2.png                                             4
+  3606134711\ui\loadout_icons\pod_targeting_basic_3.png                                             4
+  3606134711\ui\loadout_icons\small_aam_ir_1.png                                                    4
+  3606134711\ui\loadout_icons\small_aam_ir_2.png                                                    4
+  3606134711\ui\loadout_icons\small_aam_ir_3.png                                                    4
+  3606134711\ui\loadout_icons\small_aam_ir_4.png                                                    4
+  3606134711\ui\loadout_icons\small_aam_radar_1.png                                                 4
+  3606134711\ui\loadout_icons\small_aam_radar_2.png                                                 4
+  3606134711\ui\loadout_icons\small_aam_radar_3.png                                                 4
+  3606134711\ui\loadout_icons\small_agm_laser_1.png                                                 4
+  3606134711\ui\loadout_icons\small_agm_laser_2.png                                                 4
+  3606134711\ui\loadout_icons\small_agm_laser_3.png                                                 4
+  3606134711\ui\loadout_icons\small_agm_optical_1.png                                               4
+  3606134711\ui\loadout_icons\small_agm_optical_2.png                                               4
+  3606134711\ui\loadout_icons\small_agm_optical_3.png                                               4
+  3606134711\ui\loadout_icons\small_agm_radar_1.png                                                 4
+  3606134711\ui\loadout_icons\small_agm_radar_2.png                                                 4
+  3606134711\ui\loadout_icons\small_agm_radar_3.png                                                 4
+  3606134711\ui\loadout_icons\small_agm_unguided_1.png                                              3
+  3606134711\ui\loadout_icons\small_agm_unguided_2.png                                              3
+  3606134711\ui\loadout_icons\small_agm_unguided_3.png                                              3
+  3606134711\ui\loadout_icons\small_arm_1.png                                                       4
+  3606134711\ui\loadout_icons\small_arm_2.png                                                       4
+  3606134711\ui\loadout_icons\small_arm_3.png                                                       4
+  3606134711\ui\loadout_icons\small_bomb_1.png                                                      2
+  3606134711\ui\loadout_icons\small_bomb_2.png                                                      3
+  3606134711\ui\loadout_icons\small_bomb_3.png                                                      3
+  3606134711\ui\loadout_icons\small_bomb_laser_1.png                                                3
+  3606134711\ui\loadout_icons\small_bomb_laser_2.png                                                3
+  3606134711\ui\loadout_icons\small_bomb_laser_3.png                                                3
+  3606134711\ui\loadout_icons\small_bomb_optical_1.png                                              3
+  3606134711\ui\loadout_icons\small_bomb_optical_2.png                                              3
+  3606134711\ui\loadout_icons\small_bomb_optical_3.png                                              3
+  3606134711\ui\loadout_icons\small_bomb_retarded_1.png                                             3
+  3606134711\ui\loadout_icons\small_bomb_retarded_2.png                                             3
+  3606134711\ui\loadout_icons\small_bomb_retarded_3.png                                             3
+  3606134711\ui\loadout_icons\small_cluster_1.png                                                   3
+  3606134711\ui\loadout_icons\small_cluster_2.png                                                   3
+  3606134711\ui\loadout_icons\small_cluster_3.png                                                   3
+  3606134711\ui\loadout_icons\small_depth_bomb_1.png                                                3
+  3606134711\ui\loadout_icons\small_depth_bomb_2.png                                                3

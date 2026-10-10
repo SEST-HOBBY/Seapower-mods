@@ -1,4 +1,4 @@
-# Player.log - last 345 of 345 line(s), captured 2026-10-03T17:15:47.
+# Player.log - last 1068 of 1068 line(s), captured 2026-10-10T23:12:12.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,7 +17,7 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1074
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.196 seconds
+- Loaded All Assemblies, in  0.197 seconds
 - Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -27,11 +27,17 @@ Begin MonoManager ReloadAssembly
 [Physics::Module] Threading Mode: Multi-Threaded
 FileManager.Directories contains Mods
 FileManager.Directories contains Mods
+[SEST Menu] ready: C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\plugins\sest_menu.mp4
+[ACModActivation 1.0] CustomAudioLoader: enabled; 3784474738 selected in Mod Manager
 [SonarAudioLoader] Harmony patches applied. Global sonar mappings: 108, torpedo mappings: 42, noisemaker/decoy mappings: 21, weapon-system mappings: 6.
+[ACModActivation 1.0] EnhancedDecoyMod: enabled; 3784474738 selected in Mod Manager
 [EnhancedDecoyMod] API selected: ammo=constructor+Create; clock=missionElapsedTime:Double; launch=Double; cooldown=Double; name=property; plot=Double
 [EnhancedDecoyMod] Inventory selected: beta pending rounds (create on request); validated patches=33
 [EnhancedDecoyMod] Enabled v0.5.2. Ammunition factory clones retain AirDecoy configuration; optional ECM.JamChance applies once per missile/deployment. Release/global and beta ship-container AirDecoy activation selected by available INI capabilities. Decoy visuals deferred until script runtime is ready and a round is requested. Surface Chaff salvos use all ready launchers of the same ammunition type; ReactionRange selects the automatic band; manual ammo selection enabled. One live AirDecoy deployment per ship; optional timed swarm with one shared radar target. Native missile assets/effects and own-side map tracks. ARH AirDecoy prototype; active deployments are NOT restored by save/load.
+[ACModActivation 1.0] EnhancedUIMod: enabled; 3784474738 selected in Mod Manager
 [EnhancedUIMod] Loaded v0.1.1; waiting for the game's Noesis initialization.
+[ACModActivation 1.0] Euromod-Welldeck: enabled; 3784474738 selected in Mod Manager
+[ACModActivation 1.0] HighAltitudeSkyFix: enabled; 3784474738 selected in Mod Manager
 [HighAltitudeSkyFix] Patched SeaPower.RenderPosition.updateCameraAndSkyPosition; _skyBox field type=UnityEngine.GameObject.
 [HighAltitudeSkyFix] Patched SeaPower.CloudsManager.init for extended cloud coverage.
 [HighAltitudeSkyFix] Diagnostic patch attached: SeaPower.DynamicSky.OnLateUpdate.
@@ -41,31 +47,56 @@ FileManager.Directories contains Mods
 [HighAltitudeSkyFix] DynamicSky.UpdateSky is absent in this game build; DynamicSky.OnLateUpdate/updateGraphics are the actual update path.
 [HighAltitudeSkyFix] Independent diagnostic controller started.
 [HighAltitudeSkyFix] Loaded. Above the game's atmosphere boundary, the finite Skybox mesh will follow the active camera at a geometry-derived safe vertical offset. Transition starts at 400.000 Unity units / 88189 ft; fallback offset=95000 ft; high-altitude far clip=10000 Unity units; cloud radius=8 chunks.
+[MeshCutOut] Ctrl+F10 reload enabled: vessel INIs, material INIs and OBJ/cutout resources.
+[MeshCutOut] 0.5.0 loaded; ResourcesMesh, submodel and LOD cutouts enabled on explicit INI keys.
+[ACModActivation 1.0] MissileControlMod: enabled; 3784474738 selected in Mod Manager
 [MissileControlMod] MultiStageMissiles v1.7.4.0 adapter enabled
 [MissileControlMod] Enabled v0.1.15; optional powered ejection; validated beta steering API including legacy fallback; clock=missionElapsedTime:Double; launch=Double; booster=Double
+[ACModActivation 1.0] MissileControlSurfaces: enabled; 3784474738 selected in Mod Manager
 [MissileControlSurfaces] v1.1.2 loaded; automatic local fore/aft fin mixing and optional MultiStage support are ready.
+[ACModActivation 1.0] MultiStageMissiles: enabled; 3784474738 selected in Mod Manager
 [MultiStageMissiles] Independent INI effect spawning is ready (opt-in per ammunition).
 [MultiStageMissiles] Native chaff and torpedo daughter release adapters are ready.
 [MultiStageMissiles] INI effect audio enabled: [Audio] and [Audio1]..[Audio8].
 [MultiStageMissiles] Harmony patches applied; generic visual staging is available for 1-16 stages. Time API: GameTime.missionElapsedTime (Double), WeaponBase._launchTime (Double).; altitude route=BuildAltitudeNodes/6
+[ACModActivation 1.0] OptimalTargetDist: enabled; 3784474738 selected in Mod Manager
 [OptimalTargetDist] Harmony patches applied.
+[ACModActivation 1.0] ProfileImage1024: enabled; 3784474738 selected in Mod Manager
 [ProfileImage1024] Harmony patch applied. Profile and plan images now use a 1024 px width without variant suffixes.
+[ACModActivation 1.0] SATCOM: enabled; 3784474738 selected in Mod Manager
 [SATCOM] Harmony patches applied. MidCourseCorrection=4 is SATCOM.
+[ACModActivation 1.0] SmokeParticleLOD: enabled; 3784474738 selected in Mod Manager
+[SmokeParticleLOD] Config revision 1 loaded
+[SmokeParticleLOD] 0.2.0 loaded; INI + native resource hooks + scene discovery; enabled=True
+[ACModActivation 1.0] SubModelStabilization: enabled; 3784474738 selected in Mod Manager
 [SubModelStabilization] Loaded; configured vessel SubModels will be stabilized in LateUpdate.
+[ACModActivation 1.0] V22Tiltrotor: enabled; 3784474738 selected in Mod Manager
+[ACModActivation 1.0] WeaponLauncherEffects: enabled; 3784474738 selected in Mod Manager
 [WeaponLauncherEffects] Loaded; mapped launcher effects are active.
 Harmony.Loadoutmanager active
-[AutomaticSAR] Loaded. Time source: GameTime.missionSessionTime (field).
+[AutomaticSAR] Loaded.
 [IDX][Patches_CampaignPrize.cs:94 Resolve] [IDX-Prize] vanilla API resolved: True (write=True merge=True itemCtor=14 snapCtor=True)
 [IDX][Patches_CampaignPrize.cs:46 Apply] [IDX-Prize] hooked WriteCurrentTaskForceSnapshot for prize injection
 [IDX][Plugin.cs:57 TriggerEntryPoint] [IDX] Sections Patched and Methods Initialized: 13 patched, 13 methods
-[IDX][Plugin.cs:64 TriggerEntryPoint] [IDX] build stamp: 2026-10-02 22:43:07 (IdentifyExpanded.dll)
+[IDX][Plugin.cs:64 TriggerEntryPoint] [IDX] build stamp: 2026-10-10 07:47:56 (IdentifyExpanded.dll)
 [ACC CV16 Ski-Jump Fix] v1.7.0 mass-aware ski-jump pitch/contact patch applied; runway wait=True.
 [ACC CV16 Ski-Jump Fix] Fixed-wing deflector binding patch applied.
+[SaronicCorsairStrikeUSV] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[SaronicCorsair] Harmony lifecycle hooks installed: 8; owner alpine.seapower.corsair.orders.
+[AlpineFormation] Formation repair on.
+[SaronicCorsair] Contact controller 4.12.0 loaded; Classic strike variant only.
+[FuryFormation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[FuryVoice.Harmony] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [FuryLoss] Native loss observer loaded.
+[EC2 Comms] off: verdict HookChanged (changed hooked method System.Boolean SeaPower.WeaponSystemHardpoint::UpdateEngageInterruptors()). The game is unchanged.
+[EC2Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [J36 Config] lights=True afterburner=True vectorFlight=True highSpeedDrag=True centralNozzle=True
 [J36 Systems] initializing modular patches
-[BellSystemsFixtureTilt] 0.4.11 initialized; scope Navy and Army Cheyenne II.
-[MV-22 Deck Operations] 1.1.30 loaded; carrier elevator engine-stop repair, Wasp recovery repair and deck diagnostics active.
+[BellSystemsFixtureTilt] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[BellSystemsFixtureTilt] 0.5.0 initialized; scope Navy and Army Cheyenne II.
+[MV75Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[YF23Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[MV-22 Deck Operations] 1.1.31 loaded; carrier elevator engine-stop repair, Wasp recovery repair and deck diagnostics active.
 Sentry: Mapped native library to 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\sentry.dll'.
 <RI> Initializing input.
 
@@ -73,34 +104,32 @@ Using Windows.Gaming.Input
 <RI> Input initialized.
 
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 3.511300 ms
+UnloadTime: 3.344600 ms
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.67f1
 Development build: False
-OS version: Windows 11  (10.0.26200)
+OS version: Windows 11  (10.0.26300)
 Device model: MS-7D91 (Micro-Star International Co., Ltd.)
 Graphics API: Direct3D11
 Rendering threading mode: LegacyJobified
 Render pipeline: default
 SRP Batcher: False
-0.8.4-261002 (C) Triassic Games 2024-2026
+0.8.5-261008 (C) Triassic Games 2024-2026
 Global logging level set to: <b>Info</b>
 Noesis logging level set to: <b>Trace</b>
-launchangles installed
-salute installed
-deckstate installed
-Fury voice routing 1.4.1 installed through the 0.8.3 speaker voice path; optional-content marker respected.
-FileManager.OnStart(Game) Subscribed Items = [(3485917612, k_EItemStateSubscribed, k_EItemStateInstalled), (3758943352, k_EItemStateSubscribed, k_EItemStateInstalled), (3810611344, k_EItemStateSubscribed, k_EItemStateInstalled), (3812111085, k_EItemStateSubscribed, k_EItemStateInstalled), (3806686336, k_EItemStateSubscribed, k_EItemStateInstalled), (3808882954, k_EItemStateSubscribed, k_EItemStateInstalled), (3804868806, k_EItemStateSubscribed, k_EItemStateInstalled), (3790594162, k_EItemStateSubscribed, k_EItemStateInstalled), (3806466625, k_EItemStateSubscribed, k_EItemStateInstalled), (3789208859, k_EItemStateSubscribed, k_EItemStateInstalled), (3774105087, k_EItemStateSubscribed, k_EItemStateInstalled), (3440622312, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3514484654, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3663564190, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled)]
+[AlpineSeaPower] The game update changed something these fixes hook; patches off until a mod update (changed hooked method System.Boolean SeaPower.WeaponSystemHardpoint::CheckFiringConstraints(UnityEngine.Vector3&)).
+Fury voice routing 1.5.0 installed through the speaker voice path; optional-content marker respected.
+FileManager.OnStart(Game) Subscribed Items = [(3485917612, k_EItemStateSubscribed, k_EItemStateInstalled), (3758943352, k_EItemStateSubscribed, k_EItemStateInstalled), (3810611344, k_EItemStateSubscribed, k_EItemStateInstalled), (3812111085, k_EItemStateSubscribed, k_EItemStateInstalled), (3806686336, k_EItemStateSubscribed, k_EItemStateInstalled), (3808882954, k_EItemStateSubscribed, k_EItemStateInstalled), (3804868806, k_EItemStateSubscribed, k_EItemStateInstalled), (3790594162, k_EItemStateSubscribed, k_EItemStateInstalled), (3806466625, k_EItemStateSubscribed, k_EItemStateInstalled), (3789208859, k_EItemStateSubscribed, k_EItemStateInstalled), (3774105087, k_EItemStateSubscribed, k_EItemStateInstalled), (3440622312, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled), (3603367264, k_EItemStateSubscribed, k_EItemStateInstalled), (3603306548, k_EItemStateSubscribed, k_EItemStateInstalled), (3551621846, k_EItemStateSubscribed, k_EItemStateInstalled), (3652906664, k_EItemStateSubscribed, k_EItemStateInstalled), (3493115616, k_EItemStateSubscribed, k_EItemStateInstalled), (3555361900, k_EItemStateSubscribed, k_EItemStateInstalled), (3496055699, k_EItemStateSubscribed, k_EItemStateInstalled), (3681748718, k_EItemStateSubscribed, k_EItemStateInstalled), (3628203171, k_EItemStateSubscribed, k_EItemStateInstalled), (3628201887, k_EItemStateSubscribed, k_EItemStateInstalled), (3678767059, k_EItemStateSubscribed, k_EItemStateInstalled), (3776730617, k_EItemStateSubscribed, k_EItemStateInstalled), (3807164392, k_EItemStateSubscribed, k_EItemStateInstalled), (3812454152, k_EItemStateSubscribed, k_EItemStateInstalled), (3591820675, k_EItemStateSubscribed, k_EItemStateInstalled), (3672497668, k_EItemStateSubscribed, k_EItemStateInstalled), (3412480633, k_EItemStateSubscribed, k_EItemStateInstalled), (3410473695, k_EItemStateSubscribed, k_EItemStateInstalled), (3549377308, k_EItemStateSubscribed, k_EItemStateInstalled), (3673703427, k_EItemStateSubscribed, k_EItemStateInstalled), (3686449681, k_EItemStateSubscribed, k_EItemStateInstalled), (3520352434, k_EItemStateSubscribed, k_EItemStateInstalled), (3802216383, k_EItemStateSubscribed, k_EItemStateInstalled), (3813033771, k_EItemStateSubscribed, k_EItemStateInstalled), (3759042728, k_EItemStateSubscribed, k_EItemStateInstalled), (3434693420, k_EItemStateSubscribed, k_EItemStateInstalled), (3806197116, k_EItemStateSubscribed, k_EItemStateInstalled), (3812140001, k_EItemStateSubscribed, k_EItemStateInstalled), (3595014060, k_EItemStateSubscribed, k_EItemStateInstalled), (3752415457, k_EItemStateSubscribed, k_EItemStateInstalled), (3399699218, k_EItemStateSubscribed, k_EItemStateInstalled), (3455404959, k_EItemStateSubscribed, k_EItemStateInstalled), (3766210676, k_EItemStateSubscribed, k_EItemStateInstalled), (3636213685, k_EItemStateSubscribed, k_EItemStateInstalled), (3628247436, k_EItemStateSubscribed, k_EItemStateInstalled), (3779799226, k_EItemStateSubscribed, k_EItemStateInstalled), (3711297532, k_EItemStateSubscribed, k_EItemStateInstalled), (3732654992, k_EItemStateSubscribed, k_EItemStateInstalled), (3524446392, k_EItemStateSubscribed, k_EItemStateInstalled), (3491248180, k_EItemStateSubscribed, k_EItemStateInstalled), (3709961172, k_EItemStateSubscribed, k_EItemStateInstalled), (3672072359, k_EItemStateSubscribed, k_EItemStateInstalled), (3796706214, k_EItemStateSubscribed, k_EItemStateInstalled)]
 FileManager.Directories contains Mods
 [EnhancedUIMod] Noesis is initialized; automatic weapon rows activated.
+[SmokeParticleLOD] Config revision 2 loaded
 [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
 [IDX][TensionConfig.cs:62 SetRaw] [IDX-Tension] set to TENSE -> Tense (DEFCON 3)
 [IDX][TensionConfig.cs:283 Load] [IDX-Tension] no config found, defaulting to TENSE DEFCON 3 (neutral)
-[BellSystemsFixture] MV-75 mod folder is not active; audio not loaded.
 FileManager.CheckFileValidity(): Game passed file validity checks!
 FileManager.CheckForUpdates(): The following files require update []
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
@@ -114,65 +143,15 @@ LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-1040
-[MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
-[MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_Threshold, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_Min, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_AdditivePass, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_ColorLit, {*}B9B5AE80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_ColorUnlit, {*}62615E80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_minBright, 0.13)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_Multiplier, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_C1, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_C2, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_alpha.ini): SetColor(_TintColor, {*}FFFFFF80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_alpha.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetColor(_TintColor, {*}FFFFFF80)
-LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetColor(_TintColor, {*}FFDBD0FF)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_BumpAmt, 18)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetColor(_TintColor, {*}80808080)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Threshold, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Min, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_AdditivePass, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorLit, {*}BEBEBE80)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorUnlit, {*}80808080)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_minBright, 0.25)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Multiplier, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_TintColor, {*}FFFFFF00)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_IsUnderwater, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C1, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C2, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_FogFadeFactor, -0.5)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Cutoff, 0.5)
-[EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka_adap
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Threshold, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Min, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_AdditivePass, 1)
@@ -203,143 +182,887 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_addit
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetColor(_TintColor, {*}FFFFFF80)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetFloat(_InvFade, 1)
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-2646
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-3006
 [MultiStageMissiles] usn_w76_mk4: independent spawning enabled for 7 direct INI effect prefab(s).
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-3146
 [MultiStageMissiles] usn_w88_mk5: independent spawning enabled for 7 direct INI effect prefab(s).
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-2728
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-3254
 [MultiStageMissiles] wp_ss-n-12_350kt: independent spawning enabled for 8 direct INI effect prefab(s).
 [MultiStageMissiles] wp_ss-n-19_500kt: independent spawning enabled for 9 direct INI effect prefab(s).
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
 [EnhancedDecoyMod] Configuration accepted: ger_3DDS
+LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetColor(_TintColor, {*}FFFFFF80)
+LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_BumpAmt, 18)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_InvFade, 0)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetColor(_TintColor, {*}80808080)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Cutoff, 0.5)
 [EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka
+[EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka_adap
+[MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
+[MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
 [MultiStageMissiles] usn_w76_mk4: independent spawning enabled for 7 direct INI effect prefab(s).
 [MultiStageMissiles] usn_w88_mk5: independent spawning enabled for 7 direct INI effect prefab(s).
 [MultiStageMissiles] wp_ss-n-12_350kt: independent spawning enabled for 8 direct INI effect prefab(s).
 [MultiStageMissiles] wp_ss-n-19_500kt: independent spawning enabled for 9 direct INI effect prefab(s).
 [MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
 [MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-[2101 - HTTPRequestCompleted] - 13 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3894
-FileManager.Directories contains Mods
-Unloading 5 Unused Serialized files (Serialized files now loaded: 7)
-UnloadTime: 5.662700 ms
-0.8.4-261002 (C) Triassic Games 2024-2026
+[2101 - HTTPRequestCompleted] - 7 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3797
 Global logging level set to: <b>Info</b>
 Noesis logging level set to: <b>Trace</b>
-Unloading 64 unused Assets to reduce memory usage. Loaded Objects now: 8792.
-Total: 198.350200 ms (FindLiveObjects: 0.288100 ms CreateObjectMapping: 0.271700 ms MarkObjects: 197.686200 ms  DeleteObjects: 0.103900 ms)
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[SkyDebug] RenderPosition.updateCameraAndSkyPosition hit.
+[HighAltitudeSkyFix] Cloud culling radius extended from 4 to 8 chunks (maximum pool 289 chunks). Mission cloud type and density are unchanged.
+[SkyDebug] Active DynamicSky found independently; runtime type=SeaPower.DynamicSky, name=Environment.
+[SkyDebug] Skybox found independently: runtime type=UnityEngine.GameObject, name=Skybox, activeSelf=True, position=(0.00, 0.00, 0.00), localPosition=(0.00, 0.00, 0.00), localScale=(2.00, 2.00, 2.00), rendererType=UnityEngine.MeshRenderer, rendererEnabled=True, rendererBounds=Center: (0.00, 239.73, 0.00), Extents: (1085.17, 239.73, 1085.17), material=skysphere_mat (Instance), shader=Nils/Environment/Sky_Animated, mesh=SkySpereGeo, meshBounds=Center: (0.00, 119.86, 0.00), Extents: (542.58, 119.86, 542.58), vertices=1427, star/celestial children=<none>.
+[SkyDebug] Altitude snapshot (sea/normal altitude): camera=Main Camera, cameraPosition=(0.01, 0.87, -4.93), altitude=191 ft, cameraClearFlags=SolidColor, skyboxPosition=(0.00, 0.00, 0.00), cameraToSkyboxTransform=5.003, cameraAboveSkybox=191 ft, rendererBounds=Center: (0.00, 239.73, 0.00), Extents: (1085.17, 239.73, 1085.17), cameraInsideAabb=True, cameraToBoundsCenter=238.910, RenderSettings.skybox=<null>.
+[IDX][BottomBarInjector.cs:399 DumpVanillaButtons] [IDX-BottomBar][dump] tb_FormationManagerWindow: type=ToggleButton Content='Noesis.StackPanel' Parent=Grid (Noesis.Grid) Margin=0 Padding=0 Style=Noesis.Style FontSize=12
+[IDX][BottomBarInjector.cs:405 DumpVanillaButtons] [IDX-BottomBar][dump]  Background= BorderBrush= Foreground=#FF000000
+[IDX][BottomBarInjector.cs:399 DumpVanillaButtons] [IDX-BottomBar][dump] tb_EventLogWindow: type=ToggleButton Content='Noesis.StackPanel' Parent=Grid (Noesis.Grid) Margin=0 Padding=0 Style=Noesis.Style FontSize=12
+[IDX][BottomBarInjector.cs:405 DumpVanillaButtons] [IDX-BottomBar][dump]  Background= BorderBrush= Foreground=#FF000000
+[IDX][BottomBarInjector.cs:399 DumpVanillaButtons] [IDX-BottomBar][dump] tb_CameraControlsWindow: type=ToggleButton Content='Noesis.StackPanel' Parent=Grid (Noesis.Grid) Margin=0 Padding=0 Style=Noesis.Style FontSize=12
+[IDX][BottomBarInjector.cs:405 DumpVanillaButtons] [IDX-BottomBar][dump]  Background= BorderBrush= Foreground=#FF000000
+[IDX][BottomBarInjector.cs:389 DumpVanillaButtons] [IDX-BottomBar][dump] rb_MessageLog=null
+[IDX][BottomBarInjector.cs:389 DumpVanillaButtons] [IDX-BottomBar][dump] rb_Tasking=null
+[IDX][BottomBarInjector.cs:389 DumpVanillaButtons] [IDX-BottomBar][dump] rb_Intel=null
+[IDX][BottomBarInjector.cs:414 DumpVanillaButtons] [IDX-BottomBar][dump] parent Grid children=12 type=Noesis.Grid
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[0] Grid Name='OverlayCanvasNew' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[1] Canvas Name='ContextMenuCanvas' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[2] ItemsControl Name='' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[3] ContentControl Name='' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[4] Canvas Name='' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[5] Rectangle Name='BackgroundRectangle' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[6] ContentControl Name='' Content=''
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[7] ToggleButton Name='FormationManagerWindow' Content='Noesis.StackPanel'
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[8] ToggleButton Name='EventLogWindow' Content='Noesis.StackPanel'
+[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[9] ToggleButton Name='MapWindow' Content='Noesis.Image'
+[IDX][BottomBarInjector.cs:430 DumpVanillaButtons] [IDX-BottomBar][dump] MainGameViewModel.uiSprites count=11
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_messagelog 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_messagelog_lit 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_damage_control 32x33 format=RGB24
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_damage_control_p 32x33 format=RGB24
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_airops 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_airops_lit 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite pointer_select 32x32 format=RGBA32
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_maximize_map 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_maximize_map_lit 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_formationmanager 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_formationmanager_lit 32x32 format=DXT1
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Border Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Canvas Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=T Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Image Source=Noesis.BitmapImage 24x24 Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Grid Size=30x30 Parent=ToolBar
+[IDX][BottomBarInjector.cs:91 TryInject] [IDX-BottomBar] AlliedCommand detected â€” compat mode on (allied side respected)
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_Interval, 0.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_Lightness, 0.2)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_MinSize, 0.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_MaxSize, 0.75)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_TransitionDist, 1000.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_Falloff, 1.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_CameraFOV, 0.2)
+LoadMaterialFromFile(assets/lights/Lights_helipad_mat.ini): SetFloat(_CutOff, 0.9)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_ddg_burke/usn_ddg_burke_parts_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_Interval, 0.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_Lightness, 0.2)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_MinSize, 0.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_MaxSize, 0.75)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_TransitionDist, 1000.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_Falloff, 1.0)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_CameraFOV, 0.2)
+LoadMaterialFromFile(assets/lights/Lights_helipad_deck_mat.ini): SetFloat(_CutOff, 0.9)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_cg_ticonderoga/usn_ticonderoga_new_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Ammo_bunker/ammobunker_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Oil_pump\oilpump_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Two_slit_bunker/twoslitbunker_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Two_slit_bunker/twoslitbunker_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Two_slit_bunker/twoslitbunker_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Two_slit_bunker/twoslitbunker_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Two_slit_bunker/twoslitbunker_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Forward_base\Foward_base_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_spq9b_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_spq9b_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_spq9b_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_spq9b_mat.ini): SetFloat(_Shininess, 2.5)
+LoadMaterialFromFile(ships/materials/shared/usn_spq9b_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/all_tires_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/all_tires_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/all_tires_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/all_tires_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/all_tires_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Trenches/Omega/omega_trench_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Trenches/Omega/omega_trench_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Trenches/Omega/omega_trench_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Trenches/Omega/omega_trench_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Trenches/Omega/omega_trench_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/T_Bunker_trench/tbunkertrench_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/T_Bunker_trench/tbunkertrench_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/T_Bunker_trench/tbunkertrench_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/T_Bunker_trench/tbunkertrench_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/T_Bunker_trench/tbunkertrench_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ground objects/usa_hmmwv/usa_hmmwv_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetFloat(_Shininess, 0.05)
+LoadMaterialFromFile(ground objects/usa_hmmwv/green_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetFloat(_Shininess, 0.05)
+LoadMaterialFromFile(ground objects/usa_hmmwv/gray_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ships/22350/22350-1_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/22350/22350-1_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/22350/22350-1_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ships/22350/22350-1_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ships/22350/22350-1_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ships/22350/22350-2_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/22350/22350-2_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/22350/22350-2_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ships/22350/22350-2_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ships/22350/22350-2_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ships/22350/22350r_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/22350/22350r_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/22350/22350r_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ships/22350/22350r_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ships/22350/22350r_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ships/11356/11356-2_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/11356/11356-2_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/11356/11356-2_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ships/11356/11356-2_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ships/11356/11356-2_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ships/20380/parts_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/20380/parts_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/20380/parts_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ships/20380/parts_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ships/20380/parts_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ships/21631/21631_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/21631/21631_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/21631/21631_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ships/21631/21631_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ships/21631/21631_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ships/20380/ship2_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/20380/ship2_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/20380/ship2_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ships/20380/ship2_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ships/20380/ship2_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ships/20380/railings_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/20380/railings_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/20380/railings_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ships/20380/railings_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ships/20380/railings_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Oil_refinery\Buildings_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Oil_refinery/pipes_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Oil_refinery/tanks_mat.ini): SetFloat(_Fresnel, 0.75)
+[HighAltitudeSkyFix] Skybox vertical geometry measured: top=105707 ft, atmosphere boundary=88189 ft, retained camera-above-skybox offset=96948 ft.
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_prsm/usn_PrSM_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/wp_aa-7c/usa_mim_104f_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/wp_aa-7c/usa_mim_104f_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/wp_aa-7c/usa_mim_104f_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/wp_aa-7c/usa_mim_104f_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/wp_aa-7c/usa_mim_104f_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104c_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104c_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104c_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104c_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104c_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104b_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104b_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104b_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104b_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104b_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104a_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104a_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104a_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104a_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/wp_as-11/usa_mim_104a_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_aim-7/usn_aim-120c7_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_aim-9/usn_aim-9x_mat.ini): SetFloat(_Fresnel, 0.75)
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_intake_mat.ini): SetFloat(_Fresnel, 0.75)
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/wp_sa-n-6/wp_sa_n_20_mat.ini): SetFloat(_Fresnel, 0.75)
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetFloat(_Shininess, 3.5)
+LoadMaterialFromFile(weapons/usn_rim-8/wp_ss_n_26a_mat.ini): SetFloat(_Fresnel, 0.75)
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_rgm-84/wp_ss_n_25_mat.ini): SetFloat(_Fresnel, 0.75)
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "MachineNoise1_short" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Small" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+Ran out of virtual channels. Audio clip "Ship-Turbine-Medium" will not be played.
+[WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-179.1382, 0.0895, -8914.9070)), container='AmmunitionParent' (world (-179.1432, 0.0395, -8914.8990)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1842, 0.0895, -8914.9070)), container='AmmunitionParent' (world (-179.1792, 0.0395, -8914.9150)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1382, 0.0895, -8914.9380)), container='AmmunitionParent' (world (-179.1432, 0.0395, -8914.9300)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1842, 0.0895, -8914.9380)), container='AmmunitionParent' (world (-179.1792, 0.0395, -8914.9450)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1382, 0.0895, -8914.9670)), container='AmmunitionParent' (world (-179.1432, 0.0395, -8914.9590)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-179.1842, 0.0895, -8914.9670)), container='AmmunitionParent' (world (-179.1792, 0.0395, -8914.9750)), shipRoot='1-ran_ddg_hobart'.
+[EnhancedDecoyMod] AirDecoy launcher enabled: WeaponSystem27 (global switch)
+[EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka_adap
+[EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka_adap
+[EnhancedDecoyMod] AirDecoy launcher enabled: WeaponSystem28 (global switch)
+[EnhancedDecoyMod] AirDecoy launcher enabled: WeaponSystem29 (global switch)
+[EnhancedDecoyMod] AirDecoy launcher enabled: WeaponSystem30 (global switch)
+[WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-18203.0400, 0.1127, 27298.2500)), container='AmmunitionParent' (world (-18203.0400, 0.0627, 27298.2600)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1127, 27298.2500)), container='AmmunitionParent' (world (-18203.0800, 0.0627, 27298.2500)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1127, 27298.2200)), container='AmmunitionParent' (world (-18203.0400, 0.0627, 27298.2300)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1127, 27298.2200)), container='AmmunitionParent' (world (-18203.0800, 0.0627, 27298.2200)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1413, 27297.1500)), container='AmmunitionParent' (world (-18203.0400, 0.0913, 27297.1600)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1413, 27297.1500)), container='AmmunitionParent' (world (-18203.0800, 0.0913, 27297.1400)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1413, 27297.1200)), container='AmmunitionParent' (world (-18203.0400, 0.0913, 27297.1300)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1413, 27297.1200)), container='AmmunitionParent' (world (-18203.0800, 0.0913, 27297.1100)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1413, 27297.0900)), container='AmmunitionParent' (world (-18203.0400, 0.0913, 27297.1000)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1413, 27297.0900)), container='AmmunitionParent' (world (-18203.0800, 0.0913, 27297.0800)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0400, 0.1413, 27297.0600)), container='AmmunitionParent' (world (-18203.0400, 0.0913, 27297.0700)), shipRoot='4-usn_ddg_burke_f2a_113'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18203.0900, 0.1413, 27297.0600)), container='AmmunitionParent' (world (-18203.0800, 0.0913, 27297.0500)), shipRoot='4-usn_ddg_burke_f2a_113'.
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedDecoyMod] AirDecoy launcher enabled: WeaponSystem27 (global switch)
+[EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka_adap
+[EnhancedDecoyMod] AirDecoy launcher enabled: WeaponSystem28 (global switch)
+[EnhancedDecoyMod] AirDecoy launcher enabled: WeaponSystem29 (global switch)
+[EnhancedDecoyMod] AirDecoy launcher enabled: WeaponSystem30 (global switch)
+[WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-18451.0600, 0.1127, 27132.9000)), container='AmmunitionParent' (world (-18451.0700, 0.0627, 27132.9100)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1127, 27132.9000)), container='AmmunitionParent' (world (-18451.1100, 0.0627, 27132.8900)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1127, 27132.8700)), container='AmmunitionParent' (world (-18451.0700, 0.0627, 27132.8800)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1127, 27132.8700)), container='AmmunitionParent' (world (-18451.1100, 0.0627, 27132.8600)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1413, 27131.7900)), container='AmmunitionParent' (world (-18451.0700, 0.0913, 27131.8000)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1413, 27131.7900)), container='AmmunitionParent' (world (-18451.1100, 0.0913, 27131.7900)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1413, 27131.7600)), container='AmmunitionParent' (world (-18451.0700, 0.0913, 27131.7700)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1413, 27131.7600)), container='AmmunitionParent' (world (-18451.1100, 0.0913, 27131.7600)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1413, 27131.7300)), container='AmmunitionParent' (world (-18451.0700, 0.0913, 27131.7400)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1413, 27131.7300)), container='AmmunitionParent' (world (-18451.1100, 0.0913, 27131.7300)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.0600, 0.1413, 27131.7100)), container='AmmunitionParent' (world (-18451.0700, 0.0913, 27131.7100)), shipRoot='5-usn_ddg_burke_f3_125'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-18451.1100, 0.1413, 27131.7100)), container='AmmunitionParent' (world (-18451.1100, 0.0913, 27131.7000)), shipRoot='5-usn_ddg_burke_f3_125'.
+LoadMaterialFromFile(assets/ammunition/mtt/mtt_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ammunition/mtt/mtt_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ammunition/mtt/mtt_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ammunition/mtt/mtt_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ammunition/mtt/mtt_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ammunition/3m14/3m14_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ammunition/3m14/3m14_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ammunition/3m14/3m14_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ammunition/3m14/3m14_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ammunition/3m14/3m14_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ammunition/3m54/3m54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ammunition/3m54/3m54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ammunition/3m54/3m54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ammunition/3m54/3m54_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ammunition/3m54/3m54_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ammunition/9m100/9m100_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ammunition/9m100/9m100_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ammunition/9m100/9m100_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ammunition/9m100/9m100_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ammunition/9m100/9m100_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ammunition/91r1/91r1_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ammunition/91r1/91r1_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ammunition/91r1/91r1_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ammunition/91r1/91r1_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ammunition/91r1/91r1_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/ammunition/9m337/9m337_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ammunition/9m337/9m337_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ammunition/9m337/9m337_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/ammunition/9m337/9m337_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/ammunition/9m337/9m337_mat.ini): SetFloat(_Fresnel, 0.75)
+[SkyDebug] DynamicSky.updateSkyParameters hit; runtime type=SeaPower.DynamicSky.
+[SkyDebug] DynamicSky.updateLightParameters hit; runtime type=SeaPower.DynamicSky.
+[SkyDebug] DynamicSky.updateGraphics hit; runtime type=SeaPower.DynamicSky.
+[SkyDebug] DynamicSky.OnLateUpdate hit; runtime type=SeaPower.DynamicSky.
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 7 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 1208 unused Assets to reduce memory usage. Loaded Objects now: 293983.
+Total: 299.776300 ms (FindLiveObjects: 21.070900 ms CreateObjectMapping: 3.938700 ms MarkObjects: 273.405200 ms  DeleteObjects: 1.361000 ms)
 
-FileManager.OnStart(Game) Subscribed Items = [(3485917612, k_EItemStateSubscribed, k_EItemStateInstalled), (3758943352, k_EItemStateSubscribed, k_EItemStateInstalled), (3810611344, k_EItemStateSubscribed, k_EItemStateInstalled), (3812111085, k_EItemStateSubscribed, k_EItemStateInstalled), (3806686336, k_EItemStateSubscribed, k_EItemStateInstalled), (3808882954, k_EItemStateSubscribed, k_EItemStateInstalled), (3804868806, k_EItemStateSubscribed, k_EItemStateInstalled), (3790594162, k_EItemStateSubscribed, k_EItemStateInstalled), (3806466625, k_EItemStateSubscribed, k_EItemStateInstalled), (3789208859, k_EItemStateSubscribed, k_EItemStateInstalled), (3774105087, k_EItemStateSubscribed, k_EItemStateInstalled), (3440622312, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3514484654, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3663564190, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled)]
-FileManager.Directories contains Mods
-FileManager.CheckFileValidity(): Game passed file validity checks!
-FileManager.CheckForUpdates(): The following files require update []
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorUnlit, {*}80808080)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_minBright, 0.25)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Multiplier, 1)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C1, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
-LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Threshold, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Min, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_AdditivePass, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetColor(_ColorUnlit, {*}64646480)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_minBright, 0.12)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Multiplier, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetColor(_C1, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetColor(_C2, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetFloat(_Threshold, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetFloat(_Min, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetFloat(_AdditivePass, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetColor(_ColorLit, {*}BEBEBE80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetColor(_ColorUnlit, {*}585A5C80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetFloat(_minBright, 0.10)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetFloat(_Multiplier, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetColor(_TintColor, {*}FFFFFF00)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetFloat(_IsUnderwater, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetColor(_C1, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetColor(_C2, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetFloat(_FogFadeFactor, -0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/launch_cloud_material.ini): SetFloat(_Cutoff, 0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetColor(_TintColor, {*}FFFFFF80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_Threshold, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_Min, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_AdditivePass, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_ColorLit, {*}B9B5AE80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_ColorUnlit, {*}62615E80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_minBright, 0.13)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_Multiplier, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_C1, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetColor(_C2, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
-[MultiStageMissiles] usn_w76_mk4: independent spawning enabled for 7 direct INI effect prefab(s).
-[MultiStageMissiles] usn_w88_mk5: independent spawning enabled for 7 direct INI effect prefab(s).
-[MultiStageMissiles] wp_ss-n-12_350kt: independent spawning enabled for 8 direct INI effect prefab(s).
-[MultiStageMissiles] wp_ss-n-19_500kt: independent spawning enabled for 9 direct INI effect prefab(s).
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_alpha.ini): SetColor(_TintColor, {*}FFFFFF80)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_smoke_alpha.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetColor(_TintColor, {*}FFFFFF80)
-LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetColor(_TintColor, {*}FFDBD0FF)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_BumpAmt, 18)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetColor(_TintColor, {*}80808080)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Threshold, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Min, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_AdditivePass, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorLit, {*}BEBEBE80)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorUnlit, {*}80808080)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_minBright, 0.25)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Multiplier, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_TintColor, {*}FFFFFF00)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_IsUnderwater, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C1, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C2, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_FogFadeFactor, -0.5)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Cutoff, 0.5)
-[MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
-[MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
-Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-[2101 - HTTPRequestCompleted] - 14 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3894
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 294241.
+Total: 327.134400 ms (FindLiveObjects: 24.684500 ms CreateObjectMapping: 3.153300 ms MarkObjects: 299.081500 ms  DeleteObjects: 0.214600 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 294502.
+Total: 294.952400 ms (FindLiveObjects: 20.685100 ms CreateObjectMapping: 3.318200 ms MarkObjects: 270.743800 ms  DeleteObjects: 0.204800 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 294746.
+Total: 354.098900 ms (FindLiveObjects: 17.124300 ms CreateObjectMapping: 2.940100 ms MarkObjects: 333.834700 ms  DeleteObjects: 0.199500 ms)
+
+LoadMaterialFromFile(assets/ships/materials/nose_mods_mat.ini): SetColor(_Color, {}808080ff)
+LoadMaterialFromFile(assets/ships/materials/nose_mods_mat.ini): SetColor(_SpecColor, {}ffffffff)
+LoadMaterialFromFile(assets/ships/materials/nose_mods_mat.ini): SetFloat(_SpecInt, 0)
+LoadMaterialFromFile(assets/ships/materials/nose_mods_mat.ini): SetFloat(_Shininess, 0)
+LoadMaterialFromFile(assets/ships/materials/nose_mods_mat.ini): SetFloat(_Fresnel, 0)
+LoadMaterialFromFile(assets/ships/materials/white1_mat.ini): SetColor(_Color, {}808080ff)
+LoadMaterialFromFile(assets/ships/materials/white1_mat.ini): SetColor(_SpecColor, {}ffffffff)
+LoadMaterialFromFile(assets/ships/materials/white1_mat.ini): SetFloat(_SpecInt, 0.001)
+LoadMaterialFromFile(assets/ships/materials/white1_mat.ini): SetFloat(_Shininess, 0.001)
+LoadMaterialFromFile(assets/ships/materials/white1_mat.ini): SetFloat(_Fresnel, 0.001)
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+[IDX][TaskforceUtil.cs:31 Resolve] [IDX] taskforce access: property=True field=False inner=True
+[EnhancedUIMod] Weapon entries=16, rows=3, columns=6.
+LoadMaterialFromFile(weapons/usn_aim-7/pla_pl_15_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_aim-7/pla_pl_15_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_aim-7/pla_pl_15_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_aim-7/pla_pl_15_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_aim-7/pla_pl_15_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl9_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl9_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl9_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl9_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl9_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(aircraft/jasdf_t-2/jh6_nose_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(aircraft/jasdf_t-2/jh6_nose_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(aircraft/jasdf_t-2/jh6_nose_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(aircraft/jasdf_t-2/jh6_nose_mat.ini): SetFloat(_Shininess, 0.5)
+LoadMaterialFromFile(aircraft/jasdf_t-2/jh6_nose_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl_8b_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl_8b_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl_8b_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl_8b_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/fr_r550/pla_pl_8b_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(weapons/usn_mk46/plan_yu_7_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_mk46/plan_yu_7_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_mk46/plan_yu_7_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_mk46/plan_yu_7_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(weapons/usn_mk46/plan_yu_7_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedUIMod] Weapon entries=1, rows=2, columns=6.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Weapon entries=14, rows=3, columns=6.
+[EnhancedUIMod] Weapon entries=0, rows=2, columns=6.
+SeaPower.LinearCampaign.InstanceExists() = False
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 11925 unused Assets to reduce memory usage. Loaded Objects now: 32983.
+Total: 452.759800 ms (FindLiveObjects: 3.297300 ms CreateObjectMapping: 1.916600 ms MarkObjects: 360.442900 ms  DeleteObjects: 87.102600 ms)
+
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=True audio=Direct
 [3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05

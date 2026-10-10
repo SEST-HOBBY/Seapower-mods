@@ -5890,15 +5890,15 @@ def write_briefing_room(out):
 MENU_BACKGROUND = ROOT / "integration" / "menu-background"
 MENU_INI = """; SEST Menu Background - the film behind Sea Power's main menu.
 ; Anchor Chain starts SEST.MenuBackground.dll from this folder; it finds the
-; menu's looping background film and plays the file named below instead.
+; menu's background film (ClipName below) and plays the file named below instead.
 ; Enabled=0 turns it off and the game's own menu film plays.
 [Menu]
 Enabled=1
 Film=sest_menu.mp4
-; The menu clip's name, should the plugin ever take the wrong film. Empty:
+; The game's menu clip: main_menu (Player.log, 10 Oct 2026, game 0.8.5). Empty:
 ; the first looping clip the game plays is taken as the menu's. Player.log
 ; lists every film the plugin saw, on lines starting [SEST Menu].
-ClipName=
+ClipName=main_menu
 """
 MENU_README = """SEST MENU BACKGROUND
 
@@ -5933,6 +5933,36 @@ def write_menu_background(out):
     (folder / "README.txt").write_text(MENU_README, encoding="utf-8")
     print(f"  menu background: {dll.name} ({dll.stat().st_size // 1024} KB) and "
           f"{film.name} ({film.stat().st_size // 1024} KB) in plugins/")
+
+
+# The game's loading-screen backgrounds: ui/backgrounds/loading_screen_1.png ..
+# _80.png (data/install-snapshot/streaming-media.txt, 10 Oct 2026, game
+# 0.8.5), looked up through the FileManager, so the pack's file of the same
+# name - first in the load order - is the one drawn. The SEST set
+# (tools/make_loading_screens.py: the media report's photographs and the
+# gallery's loading backgrounds, credits beside them) fills every slot in
+# turn, so no original loading screen is left. The files are JPEG data under
+# the game's .png names; the game loads both formats, and 80 PNG photographs
+# would add 176 MB. A game update that adds slots shows its own there until
+# LOADING_SLOTS is raised.
+LOADING = ROOT / "integration" / "media-pack" / "loading"
+LOADING_SLOTS = 80
+
+
+def write_loading_screens(out):
+    photos = sorted(LOADING.glob("sest_loading_*.jpg"))
+    if not photos:
+        print("  loading screens: none committed under integration/media-pack/loading/ "
+              "- run tools/make_loading_screens.py")
+        return
+    folder = out / "ui" / "backgrounds"
+    folder.mkdir(parents=True, exist_ok=True)
+    for n in range(1, LOADING_SLOTS + 1):
+        (folder / f"loading_screen_{n}.png").write_bytes(photos[(n - 1) % len(photos)].read_bytes())
+    credits = LOADING / "LOADING_CREDITS.txt"
+    if credits.is_file():
+        (out / "LOADING-SCREEN-CREDITS.txt").write_bytes(credits.read_bytes())
+    print(f"  loading screens: {len(photos)} photographs in the game's {LOADING_SLOTS} slots")
 
 
 def main():
@@ -6415,6 +6445,7 @@ def main():
             (OUT / src.name).write_bytes(src.read_bytes())
     write_briefing_room(OUT)
     write_menu_background(OUT)
+    write_loading_screens(OUT)
 
     files = sum(1 for f in OUT.rglob("*") if f.is_file())
     print("wrote REQUIRED-MODS.txt and LOAD-ORDER.txt into the pack")

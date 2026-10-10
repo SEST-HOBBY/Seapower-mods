@@ -7,10 +7,10 @@ changelog copied to changelog.live.txt; head:
     
     ===============================================================================
     
-    02-Oct-2026: 0.8.4 Build 261002 Public Release
-    ----------------------------------------------
-    [FIX] Mod menu folder picker not selecting directory
-    [FIX] Null refs and exceptions
+    08-Oct-2026: 0.8.5 Build 261008
+    -------------------------------
+    [UPD] New patch release, see below for changes
     
     ===============================================================================
     
+    07-Oct-2026: 0.8.4 Build 261007

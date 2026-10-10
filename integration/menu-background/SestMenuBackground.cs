@@ -10,14 +10,19 @@
 // referenced, only Unity's own VideoPlayer.
 //
 // What it will and will not swap:
-//   - only a player already set to loop and playing a clip from the game's
-//     data. A one-shot film the game may wait on to finish (an intro) is
-//     never looped and never touched; the mission browser's films (the video
-//     tutorials, the SEST Briefing Room) play from a file and are skipped;
-//   - the first such clip seen is taken as the menu's, and after that only
-//     that clip is swapped (the menu is rebuilt after every mission).
-//     sest_menu.ini can name the clip instead, or turn the plugin off;
-//   - if Unity cannot play the SEST film, the game's own clip is put back.
+//   - the clip sest_menu.ini names (ClipName=main_menu: the 10 Oct 2026 test
+//     showed the menu's player, 'MediaPlayer' in the 'background' scene,
+//     playing the clip main_menu with loop off - the game restarts it
+//     itself, so a looping-only rule never matched it). Without a name, only
+//     a player already set to loop is taken, so a one-shot film the game may
+//     wait on to finish (an intro) is never touched;
+//   - the mission browser's films (the video tutorials, the SEST Briefing
+//     Room) play from a file and are always skipped;
+//   - the menu clip plays its sound straight from the film (audio=Direct),
+//     so the menu music may be its sound track: that keeps playing from the
+//     game's clip on a second player with no picture;
+//   - if the game sets its clip again, the SEST film goes back on; if Unity
+//     cannot play the SEST film, the game's own clip is put back.
 // Every player it sees is written to Player.log with "[SEST Menu]", which
 // tools/capture-context.ps1 brings into the repo.
 //
@@ -54,10 +59,19 @@ namespace Sest.MenuBackground
         const string IniName = "sest_menu.ini";
         const string SestWorkshopId = "3812461539";
 
+        class Swapped
+        {
+            public VideoPlayer Player, Sound;
+            public VideoClip Clip;
+            public bool Loop;
+            public VideoAudioOutputMode Audio;
+        }
+
         readonly HashSet<int> seen = new HashSet<int>();
-        readonly Dictionary<int, VideoClip> original = new Dictionary<int, VideoClip>();
-        string film;          // the SEST film's full path; null when off or missing
-        string menuClip;      // the menu's clip name, from the ini or the first looping clip seen
+        readonly List<Swapped> swapped = new List<Swapped>();
+        string film;          // the SEST film's full path; null when off, missing or failed
+        string pinned;        // ClipName= in the ini: this clip is swapped whether or not it loops
+        string menuClip;      // without a pin, the first looping clip seen
         float scanUntil, nextScan;
 
         void Awake()
@@ -78,9 +92,13 @@ namespace Sest.MenuBackground
         void Update()
         {
             float now = Time.realtimeSinceStartup;
-            if (film == null || now > scanUntil || now < nextScan) return;
+            if (film == null || now < nextScan) return;
             nextScan = now + 0.5f;
-            try { Scan(); }
+            try
+            {
+                Keep();
+                if (now <= scanUntil) Scan();
+            }
             catch (Exception e) { film = null; Debug.LogWarning(Tag + "stopped: " + e.Message); }
         }
 
@@ -95,8 +113,15 @@ namespace Sest.MenuBackground
                 Debug.Log(Tag + "video player '" + PathOf(vp.transform) + "' in scene '" + vp.gameObject.scene.name
                           + "': source=" + vp.source + " clip='" + clip + "' url='" + vp.url + "' render="
                           + vp.renderMode + " loop=" + vp.isLooping + " playing=" + vp.isPlaying
-                          + " audio=" + vp.audioOutputMode);
-                if (vp.source != VideoSource.VideoClip || vp.clip == null || !vp.isLooping) continue;
+                          + " audio=" + vp.audioOutputMode
+                          + " tracks=" + (vp.clip != null ? vp.clip.audioTrackCount : 0));
+                if (vp.source != VideoSource.VideoClip || vp.clip == null) continue;
+                if (!string.IsNullOrEmpty(pinned))
+                {
+                    if (clip == pinned) Swap(vp);
+                    continue;
+                }
+                if (!vp.isLooping) continue;
                 if (string.IsNullOrEmpty(menuClip))
                 {
                     menuClip = clip;
@@ -108,27 +133,88 @@ namespace Sest.MenuBackground
 
         void Swap(VideoPlayer vp)
         {
+            var s = new Swapped { Player = vp, Clip = vp.clip, Loop = vp.isLooping, Audio = vp.audioOutputMode };
+            if (vp.audioOutputMode == VideoAudioOutputMode.Direct && vp.clip.audioTrackCount > 0)
+            {
+                // The menu's music may be the clip's own sound track: it goes on
+                // playing from the game's clip on a second player with no picture.
+                var go = new GameObject("SEST Menu sound");
+                go.transform.SetParent(vp.transform, false);
+                VideoPlayer snd = go.AddComponent<VideoPlayer>();
+                snd.playOnAwake = false;
+                snd.source = VideoSource.VideoClip;
+                snd.clip = vp.clip;
+                snd.renderMode = VideoRenderMode.APIOnly;
+                snd.audioOutputMode = VideoAudioOutputMode.Direct;
+                snd.isLooping = true;
+                for (ushort i = 0; i < vp.clip.audioTrackCount; i++)
+                    snd.SetDirectAudioVolume(i, vp.GetDirectAudioVolume(i));
+                s.Sound = snd;
+            }
+            swapped.Add(s);
+            Point(vp);
+            Debug.Log(Tag + "menu film now " + film + (s.Sound != null ? "; the game's sound track kept" : ""));
+        }
+
+        void Point(VideoPlayer vp)
+        {
             bool play = vp.isPlaying || vp.playOnAwake;
-            original[vp.GetInstanceID()] = vp.clip;
             vp.Stop();
             vp.source = VideoSource.Url;
             vp.url = film;
             vp.isLooping = true;
+            vp.audioOutputMode = VideoAudioOutputMode.None;
+            vp.errorReceived -= OnError;
             vp.errorReceived += OnError;
             if (play) vp.Play();
-            Debug.Log(Tag + "menu film now " + film);
         }
 
+        // After the swap: a player gone with its scene is forgotten, one the
+        // game has pointed back at its clip gets the SEST film again, and the
+        // kept sound track plays and pauses with the picture.
+        void Keep()
+        {
+            for (int i = swapped.Count - 1; i >= 0; i--)
+            {
+                Swapped s = swapped[i];
+                if (s.Player == null)
+                {
+                    if (s.Sound != null) Destroy(s.Sound.gameObject);
+                    swapped.RemoveAt(i);
+                    continue;
+                }
+                if (s.Player.source != VideoSource.Url || s.Player.url != film)
+                {
+                    Debug.Log(Tag + "the game set its clip again; back to the SEST film");
+                    Point(s.Player);
+                }
+                if (s.Sound != null)
+                {
+                    if (s.Player.isPlaying && !s.Sound.isPlaying) s.Sound.Play();
+                    else if (!s.Player.isPlaying && s.Sound.isPlaying) s.Sound.Pause();
+                }
+            }
+        }
+
+        // Unity could not play the SEST film: every swapped player gets the
+        // game's clip back as it was, and the plugin stands down.
         void OnError(VideoPlayer vp, string message)
         {
-            vp.errorReceived -= OnError;
-            VideoClip clip;
-            if (!original.TryGetValue(vp.GetInstanceID(), out clip)) return;
             Debug.LogWarning(Tag + "the SEST film did not play (" + message + "); the game's own film is back");
-            vp.Stop();
-            vp.source = VideoSource.VideoClip;
-            vp.clip = clip;
-            vp.Play();
+            film = null;
+            foreach (Swapped s in swapped)
+            {
+                if (s.Sound != null) Destroy(s.Sound.gameObject);
+                if (s.Player == null) continue;
+                s.Player.errorReceived -= OnError;
+                s.Player.Stop();
+                s.Player.source = VideoSource.VideoClip;
+                s.Player.clip = s.Clip;
+                s.Player.isLooping = s.Loop;
+                s.Player.audioOutputMode = s.Audio;
+                s.Player.Play();
+            }
+            swapped.Clear();
         }
 
         void Configure()
@@ -145,9 +231,9 @@ namespace Sest.MenuBackground
             string name = ini.TryGetValue("Film", out v) && v.Trim().Length > 0 ? v.Trim() : "sest_menu.mp4";
             string path = Path.Combine(dir, name);
             if (!File.Exists(path)) throw new Exception("film not found: " + path);
-            if (ini.TryGetValue("ClipName", out v) && v.Trim().Length > 0) menuClip = v.Trim();
+            if (ini.TryGetValue("ClipName", out v) && v.Trim().Length > 0) pinned = v.Trim();
             film = path;
-            Debug.Log(Tag + "ready: " + film + (menuClip != null ? " for clip '" + menuClip + "'" : ""));
+            Debug.Log(Tag + "ready: " + film + (pinned != null ? " for clip '" + pinned + "'" : ""));
         }
 
         // The folder holding sest_menu.ini: beside this DLL when the loader
