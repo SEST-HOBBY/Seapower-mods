@@ -1,197 +1,4 @@
-# BepInEx\LogOutput.log - last 600 line(s) of a 0.1 MB file, last written 2026-10-13T15:45:02. 
-[Info   :AnchorChain] Loaded assembly FuryFormation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly FuryLights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly EC2CommsJamming, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly EC2Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly EC2Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly EC2Tooltip, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly J16Systems, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly J36AfterburnerNozzle, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly OspreyDeckOps, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly OspreyMechanics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly BellSystemsFixtureTilt, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly MV75Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly Z21GunMoveFire, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.WeaponSystem and name _containerBaseObject
-[Info   :AnchorChain] Loaded assembly AlpineSeaPower, Version=0.3.1.0, Culture=neutral, PublicKeyToken=null
-[Warning:AnchorChain] Attempted to load a duplicate plugin: Sea Power scoped runtime fixes (alpine.seapower.runtime)
-[Info   :AnchorChain] Loaded assembly YF23Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly YF23Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded assembly DynamicCampaignMod, Version=0.24.3.0, Culture=neutral, PublicKeyToken=null
-[Info   :AnchorChain] Loaded plugin SEST Menu Background (io.github.sest-hobby.menu-background)
-[Info   :AnchorChain] Loaded plugin Sonar Audio Loader (io.github.euromod.sonar-audio-loader)
-[Info   :AnchorChain] Loaded plugin EnhancedDecoyMod (io.github.euromod.enhanceddecoymod)
-[Info   :AnchorChain] Loaded plugin EnhancedUIMod (local.seapower.enhanceduimod)
-[Info   :Euromod Well Deck] Euromod Well Deck 1.0.2 loaded through AnchorChain.
-[Info   :Euromod Well Deck] Well Deck: patched ObjectBaseViewModel.GetContextMenuItems().
-[Info   :Euromod Well Deck] Well Deck: MENU ONLY -- no keyboard controls.
-[Info   :AnchorChain] Loaded plugin Euromod Well Deck (euromod.welldeck)
-[Warning:  HarmonyX] AccessTools.Method: Could not find method for type SeaPower.DynamicSky and name UpdateSky and parameters 
-[Info   :AnchorChain] Loaded plugin High Altitude Sky Fix (io.github.euromod.high-altitude-sky-fix)
-[Info   :AnchorChain] Loaded plugin Mesh CutOut (euromod.mesh-cutout)
-[Info   :AnchorChain] Loaded plugin MissileControlMod (io.github.euromod.missilecontrol)
-[Info   :AnchorChain] Loaded plugin Missile Control Surfaces (io.github.euromod.missile-control-surfaces)
-[Info   :AnchorChain] Loaded plugin Multi-Stage Missiles, Glow and Submunitions (io.github.euromod.multistagemissiles)
-[Info   :AnchorChain] Loaded plugin Optimal Target Distance (io.github.euromod.optimal-target-distance)
-[Info   :AnchorChain] Loaded plugin Profile Image 1024 (io.github.euromod.profile-image-1024)
-[Info   :AnchorChain] Loaded plugin SATCOM Mid-Course Correction (io.github.euromod.satcom)
-[Info   :AnchorChain] Loaded plugin Smoke Particle LOD (euromod.smoke-particle-lod)
-[Info   :AnchorChain] Loaded plugin Vessel SubModel Stabilization (io.github.euromod.submodel-stabilization)
-[Info   :Euromod V-22 Tiltrotor + Pivot BFWS] V-22 time compatibility: using SeaPower.GameTime.deltaTime for BFWS/nacelle animation timing.
-[Info   :Euromod V-22 Tiltrotor + Pivot BFWS] Euromod V-22 Tiltrotor + Pivot BFWS 2.8.13 loaded. Aircraft name detection: v-22 (case-insensitive). Navigation lights resolved by INI submodel keys; night-only rotor lights. 2 rotor-index pivots + 6 pitch pivots + 6 hinge pivots; MirrorObjX=False, PreventStartupRefold=True, HoldStaticBladesOffAfterShutdown=True. TimeSource=SeaPower.GameTime.deltaTime. CFG=C:\Program Files (x86)\Steam\steamapps\common\Sea Power\BepInEx\config\euromod.v22tiltrotor.cfg
-[Info   :AnchorChain] Loaded plugin Euromod V-22 Tiltrotor + Pivot BFWS (euromod.v22tiltrotor)
-[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] Loaded; mapped launcher effects are active.
-[Info   :AnchorChain] Loaded plugin Weapon Launcher Effects (io.github.euromod.weaponlaunchereffects)
-[Info   :SecondThrust] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
-[Info   :AnchorChain] Loaded plugin Second Thrust (io.github.yourname.second-thrust)
-[Info   :SubAmmunition] Debug logging OFF (create C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3789188689\debug.ini with 'Enabled=1' to enable)
-[Info   :SubAmmunition] SubAmmunitionPatches applied
-[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šå·²æŒ‚ PoolManager.freeObjectï¼ˆå›žæ”¶å‰å…ˆ removeObjectï¼‰
-[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå·²æŒ‚ SensorSystemsLink.OnUpdate
-[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveRadarlLOS
-[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveVisualLOS
-[Info   :SubAmmunition] LoS é˜²æŠ–ï¼šå·²æŒ‚ UnitsHaveDirectlLOS
-[Info   :SubAmmunition] ESM æ­»å¯¹è±¡æ¸…ç†ï¼šå·²æŒ‚ createListOfPotentialContactsï¼ˆ_homeObject=okï¼‰
-[Info   :SubAmmunition] PatchAll + Apply done
-[Info   :SubAmmunition] Driver GameObject created
-[Info   :AnchorChain] Loaded plugin Sub Ammunition (io.github.yourname.sub-ammunition)
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
-[Warning:  HarmonyX] AccessTools.Method: name is null
+# BepInEx\LogOutput.log - last 600 line(s) of a 0.1 MB file, last written 2026-10-13T20:42:23. 
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
 [Warning:  HarmonyX] AccessTools.Method: name is null
@@ -322,6 +129,8 @@
 [Info   :AnchorChain] Loaded plugin Coordinated Strike Tool (coordinatedstriketool)
 [Info   :AnchorChain] Loaded plugin Automatic SAR (local.automatic-sar)
 [Info   :AnchorChain] Loaded plugin IdentifyExpanded (com.fmsv.identifyexpanded)
+[Info   :Dynamic Campaign Mod] Dynamic Campaign Mod 0.24.3 loaded. Patches are applied once the main menu is up.
+[Info   :AnchorChain] Loaded plugin Dynamic Campaign Mod (dynamiccampaignmod)
 [Warning:  HarmonyX] meltemi.acc.cv16.skijumpfix: You should only patch implemented methods/constructors to avoid issues. Patch the declared method void SeaPower.FlightDeckPoint::Release(SeaPower.ObjectBase occupyingObject) instead of void SeaPower.FlightDeckPoint::Release(SeaPower.ObjectBase occupyingObject).
 [Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.PendingLaunchTask and name _vehicleType
 [Info   :AnchorChain] Loaded plugin ACC CV16 Ski-Jump Fix (meltemi.acc.cv16.skijumpfix)
@@ -350,8 +159,6 @@
 [Info   :AnchorChain] Loaded plugin Z-21 Gun and EOTS Synchronization (meltemi.seapower.z21.gun-move-fire)
 [Info   :AnchorChain] Loaded plugin YF23Formation spacing (alpine.formation.yf23)
 [Info   :AnchorChain] Loaded plugin YF-23 Lights (alpine.yf23.lights)
-[Info   :Dynamic Campaign Mod] Dynamic Campaign Mod 0.24.3 loaded. Patches are applied once the main menu is up.
-[Info   :AnchorChain] Loaded plugin Dynamic Campaign Mod (dynamiccampaignmod)
 [Info   :AnchorChain] Loaded plugin MV-22 Deck Operations (local.mv22.deckops)
 [Info   :AnchorChain] Loaded AnchorChain V1.1.0!
 [Message:   BepInEx] Chainloader startup complete
@@ -599,3 +406,196 @@ OK      ObjectBase.CurrentOrder (the AI's bombers inside their missiles' minimum
 OK      ObjectBase.StateMachine (the AI's bombers inside their missiles' minimum range sent out of it in battle)
 OK      StateMachine.CurrentStateName (the AI's bombers inside their missiles' minimum range sent out of it in battle)
 [Info   :Dynamic Campaign Mod] Patched: dynamic campaigns will appear in the Campaign menu marked [Dynamic].
+[Warning:Dynamic Campaign Mod] weapons.ini has no [KT-190]; assuming 1 round per container.
+[Warning:Dynamic Campaign Mod] weapons.ini has no [Mk36]; assuming 1 round per container.
+[Info   :Dynamic Campaign Mod] Weapon usn_rim-161c: fired from 50 to 486 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109e5a: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109e5: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rim-161d: fired from 50 to 1500 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_ugm-109e5a: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon fr__mdcn: fired from 40 to 900 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109e: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon ko_Hycore: fired from 30 to 550 nm
+[Info   :Dynamic Campaign Mod] Weapon rok_hgv: fired from 30 to 450 nm
+[Info   :Dynamic Campaign Mod] Weapon rok_hyunmoo_4_2: fired from 50 to 310 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109b1: fired from 20 to 250 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109c: fired from 40 to 675 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_ugm-109e5: fired from 15 to 950 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_ugm-109j: fired from 13 to 1000 nm
+[Info   :Dynamic Campaign Mod] Weapon fr__m51: fired from 500 to 5400 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_trident: fired from 300 to 4100 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_rgm-109b: fired from 20 to 250 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss-n-19: fired from 30 to 378 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss_n_27: fired from 10 to 410 nm
+[Info   :Dynamic Campaign Mod] Weapon rfn_3m14: fired from 40 to 918 nm
+[Info   :Dynamic Campaign Mod] Weapon rfn_3m54: fired from 15 to 410 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss_n_12b: fired from 30 to 415 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss_n_30a: fired from 10 to 410 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_r-39: fired from 100 to 5200 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_r-29rmu: fired from 100 to 4481 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_ss-n-27a: fired from 20 to 573 nm
+[Info   :Dynamic Campaign Mod] Weapon pla_jl-3: fired from 100 to 8100 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_agm-158c-3: fired from 10 to 800 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_agm-158b-2: fired from 10 to 800 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_lrasm: fired from 10 to 225 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_lrasm_ER: fired from 10 to 550 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_jassm: fired from 10 to 480 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_agm_88g: fired from 25 to 175.7 nm
+[Info   :Dynamic Campaign Mod] Weapon usaf_agm-86c: fired from 40 to 680 nm
+[Info   :Dynamic Campaign Mod] Weapon dts_agm-158b-2: fired from 10 to 800 nm
+[Info   :Dynamic Campaign Mod] Weapon dts_agm-183a: fired from 50 to 865 nm
+[Info   :Dynamic Campaign Mod] Weapon dts_agm-158c-3: fired from 10 to 800 nm
+[Info   :Dynamic Campaign Mod] Weapon usaf_agm-86b: fired from 40 to 680 nm
+[Info   :Dynamic Campaign Mod] Weapon dts_agm-183a(w62): fired from 50 to 865 nm
+[Info   :Dynamic Campaign Mod] Weapon usn_arrw: fired from 132 to 1375 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_agm-109b: fired from 40 to 243 nm
+[Info   :Dynamic Campaign Mod] Weapon b-2_agm-109c: fired from 40 to 900 nm
+[Info   :Dynamic Campaign Mod] Weapon eu_scalp-eg: fired from 25 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_as-4: fired from 100 to 250 nm
+[Info   :Dynamic Campaign Mod] Weapon wp_as-4b: fired from 100 to 188 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-55: fired from 47 to 1350 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-101: fired from 35 to 2159 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-55SM: fired from 50 to 1450 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-555: fired from 45 to 1619 nm
+[Info   :Dynamic Campaign Mod] Weapon KH-555S: fired from 10 to 1619 nm
+[Info   :Dynamic Campaign Mod] Weapon 3M22: fired from 60 to 550 nm
+[Info   :Dynamic Campaign Mod] Weapon fr_scalp-eg: fired from 25 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon eu_kepd_350: fired from 22 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon spa_kepd-350: fired from 22 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon scalp-eg: fired from 10 to 250 nm
+[Info   :Dynamic Campaign Mod] Weapon f16_agm-158b-2: fired from 10 to 575 nm
+[Info   :Dynamic Campaign Mod] Weapon fr_scalp-eg_LQS: fired from 25 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon se_kepd_350_LQS: fired from 22 to 270 nm
+[Info   :Dynamic Campaign Mod] Weapon uae_black_shaheen: fired from 25 to 156 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_yj-98: fired from 10 to 320 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_akf-98a: fired from 10 to 320 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_yj-21: fired from 170 to 475 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_kd-63c: fired from 13 to 135 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_cj-20: fired from 30 to 1600 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_kd-63b: fired from 13 to 130 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_kd-63: fired from 13 to 108 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_cm-400akg: fired from 25 to 129.7 nm
+[Info   :Dynamic Campaign Mod] Weapon plaaf_cm-400akg_arm: fired from 25 to 129.7 nm
+[Warning:Dynamic Campaign Mod] campaign.json names "CVN-68 Nimitz" (usn_cvn_nimitz_2025): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "CG-64 Gettysburg" (usn_cg_bunker_hill_vls_2024): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "Shunde PTG-771" (plan_ptg_type037IIE): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "Yuan Zheng 64 Hao (364)" (plan_ss_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "INS Kalvari" (ch_ss_scorpene): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "INS Khanderi" (ch_ss_scorpene): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "INS Karanj" (ch_ss_scorpene): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "INS Vela" (ch_ss_scorpene): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HMS Astute" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HMS Ambush" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HMS Artful" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HMS Audacious" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HMS Anson" (rn_swiftsure_class_ssn): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "ROKS Lee Sunsin SS-068" (type_209): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "ROKS Na Daeyong SS-069" (type_209): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "ROKS Lee Eokgi SS-071" (type_209): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "INS Dolphin" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "INS Tanin" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "INS Rahav" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "KNM Ula" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "KNM Utstein" (ger_ssk_type_212a_batch1): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HQ-182 Ha Noi" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HQ-183 Ho Chi Minh City" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HQ-184 Hai Phong" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HQ-185 Khanh Hoa" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HQ-186 Da Nang" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
+[Warning:Dynamic Campaign Mod] campaign.json names "HQ-187 Ba Ria-Vung Tau" (wp_ss_improved_kilo): the game has no hull of that name; it sails as its class's default hull under that name.
+[Info   :Dynamic Campaign Mod] Starting 'SEST World Sandbox 2028 (draft)' (sest.world_sandbox_2028) as blue (Normal): nav grid 3580x1360, game files in C:/Users/<USER>/AppData/LocalLow/Triassic Games/Sea Power\DynamicCampaignMod\campaigns\sest.world_sandbox_2028 (3609 ms).
+[Info   :Dynamic Campaign Mod] Drawing tools: the game's drawing templates merged (Assets/Scripts/UI/Game/Views/DrawingToolsView.xaml, 30 resources; layer template found).
+[Info   :Dynamic Campaign Mod] Campaign map tiles: 16 terrain files read ahead, 26 kept.
+[Info   :Dynamic Campaign Mod] Campaign started.
+[Info   :Dynamic Campaign Mod] Message (Other, Notice): SITREP 001 from SEST WORLD - BLUE, the situation at the outbreak, is in the Messages panel (Admiralty).
+[Info   :Dynamic Campaign Mod] Window host 2560x1410 (computed 1745x952: screen 2560x1440, UI scale 1.1).
+[Warning:Dynamic Campaign Mod] weapons.ini has no [MM-38 Exocet]; assuming 1 round per container.
+[Info   :Dynamic Campaign Mod] Campaign map tiles: the terrain layer builds 3 coarser levels.
+[Info   :Dynamic Campaign Mod] Campaign map tiles: our loading active (10 tiles to draw, 31 already drawn or coming).
+[Warning:Dynamic Campaign Mod] weapons.ini has no [GJB_5860-2006]; assuming 1 round per container.
+[Warning:Dynamic Campaign Mod] weapons.ini has no [YJ-12]; assuming 1 round per container.
+[Warning:Dynamic Campaign Mod] weapons.ini has no [eu_NSM_dual_launcher]; assuming 1 round per container.
+[Error  :Dynamic Campaign Mod] Watchdog: stuck in Simulation for 5 s (simulation step AI), campaign time 2028-10-01 00:00Z.
+[Warning:Dynamic Campaign Mod] Watchdog: Simulation came back after 7.8 s.
+[Info   :Dynamic Campaign Mod] Message (Supply, Notice): T-AKE 1 USNS Lewis and Clark can't load at Naval Base San Diego: the port keeps half its stock in reserve (weapons 100 % of target). It loads once production and convoys bring it above half.
+[Info   :Dynamic Campaign Mod] Message (Supply, Notice): T-AOE 6 USNS Supply can't load at Naval Station Norfolk: the port keeps half its stock in reserve (weapons 100 % of target). It loads once production and convoys bring it above half.
+[Info   :Dynamic Campaign Mod] Message (Supply, Notice): Lewis and Clark-class T-AKE (stand-in) can't load at Naval Base Guam (Apra Harbor): the port keeps half its stock in reserve (weapons 100 % of target). It loads once production and convoys bring it above half.
+[Info   :Dynamic Campaign Mod] Message (Supply, Notice): Lewis and Clark-class T-AKE (stand-in) 2 can't load at Naval Support Activity Bahrain: the port keeps half its stock in reserve (weapons 100 % of target). It loads once production and convoys bring it above half.
+[Info   :Dynamic Campaign Mod] Message (Supply, Notice): T-AKE 11 USNS Washington Chambers can't load at Naval Support Activity Souda Bay: the port keeps half its stock in reserve (weapons 55 % of target). It loads once convoys bring it above half, or at a depot.
+[Info   :Dynamic Campaign Mod] Message (Air, Alert): Raid inbound: 4 J-10C heading for Hsinchu Air Base, 79 nm off, over it about 01:36Z. Send fighters to meet them on the way: over it only its 2 SAM sites fire (each a 4 % chance at each raider).
+[Info   :Dynamic Campaign Mod] Message (Air, Notice): Air strike on Hsinchu Air Base: Hsinchu Air Base's runway out for 48 h, 1 aircraft destroyed on the ground; none of the 4 aircraft was stopped (2 SAM sites fired).
+[Info   :Dynamic Campaign Mod] Message (Air, Notice): Hsinchu Air Base: Eagle 1 (4 Mirage 2000-5EI (1998-2026), AirToAirLongRange) armed, waiting to launch (AIR OPS).
+[Info   :Dynamic Campaign Mod] Message (Admiralty, Notice): The Admiralty proposes: Cover Convoy 227 to Gimhae Air Base. Accept or decline (Admiralty panel).
+[Info   :Dynamic Campaign Mod] Message (Admiralty, Notice): The Admiralty proposes: Intercept the force sent against Eckernfoerde Naval Base submarines patrol. Accept or decline (Admiralty panel).
+[Info   :Dynamic Campaign Mod] Another window host (PauseMenuView) is now the game's current one; our windows stay in the campaign view's.
+[Info   :Dynamic Campaign Mod] Campaign closed.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (482.3301, 0.0895, -150.9804)), container='AmmunitionParent' (world (482.3251, 0.0395, -150.9726)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.2841, 0.0895, -150.9804)), container='AmmunitionParent' (world (482.2891, 0.0395, -150.9882)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.3301, 0.0895, -151.0099)), container='AmmunitionParent' (world (482.3251, 0.0395, -151.0022)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.2841, 0.0895, -151.0099)), container='AmmunitionParent' (world (482.2891, 0.0395, -151.0178)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.3301, 0.0895, -151.0395)), container='AmmunitionParent' (world (482.3251, 0.0395, -151.0317)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (482.2841, 0.0895, -151.0395)), container='AmmunitionParent' (world (482.2891, 0.0395, -151.0473)), shipRoot='1-ran_ddg_hobart'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (469.6134, 0.1127, -161.7480)), container='AmmunitionParent' (world (469.6084, 0.0627, -161.7402)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1127, -161.7480)), container='AmmunitionParent' (world (469.5724, 0.0627, -161.7558)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1127, -161.7775)), container='AmmunitionParent' (world (469.6084, 0.0627, -161.7697)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1127, -161.7775)), container='AmmunitionParent' (world (469.5724, 0.0627, -161.7853)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1413, -162.8530)), container='AmmunitionParent' (world (469.6084, 0.0913, -162.8452)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1413, -162.8530)), container='AmmunitionParent' (world (469.5724, 0.0913, -162.8608)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1413, -162.8826)), container='AmmunitionParent' (world (469.6084, 0.0913, -162.8748)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1413, -162.8826)), container='AmmunitionParent' (world (469.5724, 0.0913, -162.8904)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1413, -162.9121)), container='AmmunitionParent' (world (469.6084, 0.0913, -162.9043)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1413, -162.9121)), container='AmmunitionParent' (world (469.5724, 0.0913, -162.9200)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.6134, 0.1413, -162.9417)), container='AmmunitionParent' (world (469.6084, 0.0913, -162.9339)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (469.5674, 0.1413, -162.9417)), container='AmmunitionParent' (world (469.5724, 0.0913, -162.9495)), shipRoot='3-usn_ddg_burke_f3_125'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (494.9963, 0.1127, -140.2507)), container='AmmunitionParent' (world (494.9913, 0.0627, -140.2430)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1127, -140.2507)), container='AmmunitionParent' (world (494.9553, 0.0627, -140.2585)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1127, -140.2803)), container='AmmunitionParent' (world (494.9913, 0.0627, -140.2725)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1127, -140.2803)), container='AmmunitionParent' (world (494.9553, 0.0627, -140.2881)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1413, -141.3558)), container='AmmunitionParent' (world (494.9913, 0.0913, -141.3480)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1413, -141.3558)), container='AmmunitionParent' (world (494.9553, 0.0913, -141.3636)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1413, -141.3853)), container='AmmunitionParent' (world (494.9913, 0.0913, -141.3775)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1413, -141.3853)), container='AmmunitionParent' (world (494.9553, 0.0913, -141.3931)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1413, -141.4149)), container='AmmunitionParent' (world (494.9913, 0.0913, -141.4071)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1413, -141.4149)), container='AmmunitionParent' (world (494.9553, 0.0913, -141.4227)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9963, 0.1413, -141.4445)), container='AmmunitionParent' (world (494.9913, 0.0913, -141.4367)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (494.9503, 0.1413, -141.4445)), container='AmmunitionParent' (world (494.9553, 0.0913, -141.4523)), shipRoot='4-usn_ddg_arleigh_flt3_2027'.
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Info   :Coordinated Strike Tool] [t=466.01s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=477.96s] in mission: True, game menu open: False, HUD visible: True
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 1ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 2ï¼‰
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 3ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 1ï¼‰
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ ChaffCloudï¼ˆç´¯è®¡ 4ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ ChaffCloudï¼ˆç´¯è®¡ 5ï¼‰
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Missileï¼ˆç´¯è®¡ 20ï¼‰
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Aircraft and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Field: Could not find field for type SeaPower.Helicopter and name AircraftAnimation
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.Helicopter and name AircraftAnimation
+[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 2ï¼‰
+[Info   :Coordinated Strike Tool] [t=632.51s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=633.27s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=633.70s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=637.63s] in mission: False, game menu open: False, HUD visible: True
