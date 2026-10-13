@@ -1,0 +1,34 @@
+{
+  "REVERSE_ENGINEERING_REVIEW.md": {
+    "bytes": 21293,
+    "sha256": "112890cad51a31240dca18d56b67183735fd01373023d0808ceda3f533e8336a"
+  },
+  "README.md": {
+    "bytes": 897,
+    "sha256": "4c52a61fca150f8c6ad220ab91aa0375c41a267915451cedb8936072523bd441"
+  },
+  "selected-evidence.il.txt": {
+    "bytes": 11055,
+    "sha256": "e099b710c632ba5ef3404b8d09d1cc68c0750ccf5575b30331a03f7287f3bab1"
+  },
+  "campaign-audit.json": {
+    "bytes": 2208,
+    "sha256": "af0b7039120f59a2f74ee8db62a896f396505eccc27fbf2b493980740b0a6598"
+  },
+  "CLAUDE_REVIEW_HANDOFF.md": {
+    "bytes": 6676,
+    "sha256": "de6a611a7d355715aae92f39aa8392755844cbec48da9a737cd2ff5e660ad6f4"
+  },
+  "dll-evidence.json": {
+    "bytes": 92390,
+    "sha256": "93dbca439f16c5fbde7d5bdbb84cf229c6010295e280c43c27c6d0cbf8669378"
+  },
+  "reference-inputs/campaign.json": {
+    "bytes": 69218,
+    "sha256": "62fa57aba5ffd67f5c25776de940cf337bd295acc69beb06d93e7e6d853f192e"
+  },
+  "reference-inputs/_info.ini": {
+    "bytes": 548,
+    "sha256": "983ec6f371e1aed62d87b230181a5cb25516aaff9e843abfbbac869b0563fe0a"
+  }
+}
