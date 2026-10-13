@@ -63,7 +63,15 @@ the mission as a victory.
 
 3.2 **Aborlan.** The two Silkworm launchers fire at ships inside about
 twenty-five miles, including the convoy at the Narra anchorage. Both
-destroyed ends the mission.
+destroyed ends the mission. Since 13 October the battery (both launchers,
+the radar and the guns) is not on the map for the first five minutes and
+comes up at about minute 5; nothing fires at the convoy before then.
+*Wrong:* rounds at the convoy before minute 5, or the battery never
+appears. `Disabled=True` on a land unit has no stock precedent (only a
+Workshop campaign uses it); if the battery never comes up, report it
+first, because the mission cannot be won, and the fallback is weapons
+Tight on the battery. Southern Watch's S-400 battery (its card, 6C.9) has
+the same dependency.
 
 ## 4. The commander and the coalition roster
 
@@ -85,3 +93,19 @@ Since 6 Oct the cutters carry machine guns only and shadow north of the
 boat's track, the watcher is an unarmed intelligence ship and the aircraft a
 KJ-500. Check the cutters never close the boat; firing on any Chinese unit
 still ends the mission.
+
+## 6. The spotter drones (13 October)
+
+Both drones are held back so the boats have no track in the first five
+minutes (`Disabled=True`, switched on by a timed trigger, stock's own
+pattern); the briefs say so.
+
+6.1 **Service at Sea.** The Meridian spotter drone appears at about minute
+5, not before, 27 NM from Sulu Provider, and the three boats (43 NM out)
+do not fire on her before then. *Wrong:* missiles at the charter before
+minute 5, or the drone never appears.
+
+6.2 **Celebes Gate.** The spotter drone appears at about minute 5, 28 NM
+from the frigate; Meridian Escort 18 (36 NM out) does not fire before
+then. *Wrong:* rounds at the frigate before minute 5, or the drone never
+appears.

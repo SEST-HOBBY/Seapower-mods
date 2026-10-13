@@ -88,6 +88,9 @@ is itself the answer to step 1.
 Load one mission from each theatre before going further — **01 White Water**,
 **08 The Open Door**, **11 Fujian's Shadow**. They use the most different
 content. A texture or model that fails shows up here, not in the rules.
+In 08 The Open Door the S-400 battery (site, Flap Lid, 40N6 TEL) is held
+back and appears at 5:00, so run the clock past 5:00 before judging its
+models.
 
 ## 1A — the art (new, and entirely unverified)
 
@@ -172,6 +175,7 @@ lowering — tell me the airframe and roughly when it went.
 | 5.1 | SW01, win it | Victory, convoy objective complete, mission ends cleanly |
 | 5.2 | SW01, deliberately lose 3 merchants | Defeat, and every other objective shows **cancelled**, not complete |
 | 5.3 | SW06, classify the northern surface group | Intel message, then ~2 min later a **new objective appears** naming the shuttle |
+| 5.3b | SW06, push the Triton north at once and classify the group before 5:00 | The J-16s join at 5:00 and come up **identified**, as the intel line says. Unidentified J-16s = a reveal fired on a held-back unit does not hold: say when the classification came |
 | 5.4 | SW06, ignore the recon entirely and just run the convoy | Win. The Airlift task never appears and scores nothing |
 | 5.5 | Any mission, win near the deadline | One outcome only — no double ending, no defeat after a victory |
 
@@ -240,13 +244,19 @@ SW09 and SW12.
 | # | Do | Expect |
 |---|---|---|
 | 6C.1 | SW05, sit still | The JH-7A pair goes **west first**, then comes down the corridor; no YJ-91 before about 14 minutes |
-| 6C.2 | SW07, send the tanker home at once | The Foxhounds come south towards TEXACO's station and **turn back north** at about 13 minutes; the tanker is never in R-33 reach. The returning package is, for about the first 13 minutes, and so is a Wedgetail that holds its orbit from about 11 to 15 |
-| 6C.3 | SW09 | The Tu-214R comes to about 33 NM west of the service box at about 20 minutes and leaves; the Flanker pair swings round the outside and is in Kh-31A range of the ships at about 30-34 minutes, near the end of the window |
+| 6C.2 | SW07, send the tanker home at once | The Foxhounds appear at 5:00 (held back), come south towards TEXACO's station and **turn back north** at about 18 minutes; the tanker is never in R-33 reach. The returning package is in reach from about 5 to about 18 minutes, and so is a Wedgetail that holds its orbit from about 16 to 20 |
+| 6C.3 | SW09 | The Tu-214R joins at 5:00, comes to about 33 NM west of the service box at about 25 minutes and leaves; the Flanker pair swings round the outside and is in Kh-31A range of the ships at about 30-34 minutes, near the end of the window. The Akula joins at 5:00 too, 40 NM out: no SS-N-27 before then |
 | 6C.4 | SW11 | Nothing Chinese flies for the first 5 minutes (option b, 13 Oct). The J-35 and J-20A appear at minute 5, the KJ-600 at 8, and Flying Shark 21 with Badger 31 at 10, about 180 NM north-north-west of Ford. Flying Shark 21 heads for the transports on its own and has about 25 NM to fly before it can launch; shooting it down before then completes **Strike** (not the KJ-600) |
 | 6C.5 | SW12, Fujian alive in SW11 | The spoiler JH-7A opens east, is inside YJ-91 range of the convoy at about 21 minutes (expect a launch then), passes over it at about 35-38, and goes home |
 | 6C.6 | D7, leave the Bear alone | It reaches the marked release line at about 19 minutes and the serial **fails** with the umpires' message; the Badger stays north, out of play |
 | 6C.7 | Banda Foxhound Sweep | The MiG-31s run at the Wedgetail fast. Lose the Wedgetail or the tanker: **defeat**, HVA failed - shooting the MiGs down afterwards does not win it back |
 | 6C.8 | Banda Triton's Picture | The J-16s come down to the Triton's station |
+| 6C.9 | SW08, hold the package where it starts and watch the field | No battery on the plot and nothing radiating before 5:00; at 5:00 the S-400 site, its Flap Lid and the 40N6 TEL are there and engage. No battery after 5:00 = `Action_SetEnabledStatus` does not switch on a land unit: Battery cannot be met yet still pays at the end (`StatusAtMissionEnd=Complete`); SL06's Aborlan battery has the same dependency, and the fallback is weapons Tight on the battery |
+| 6C.10 | SW10 | Nothing flies off the enclave for the first 5 minutes; the four fighters (Flanker 31-33, Dragon 41) appear at 5:00 about 116-121 NM from the convoy and arrive over it at about 20 minutes. The 039C is there from the start |
+| 6C.11 | D1 Western Passage, T+0 | The MiG-35 pair and the Su-24MP are on the plot from the first second (the brief says ARGUS 70 holds them), about 111 NM north of the escort flights; no air-to-air missile at a helicopter before you have had time to cue the Typhoons |
+| 6C.12 | D4 Return Passage | No P-8 or F-35A for the first 10 minutes; both appear at 10:00 about 123-126 NM from the auxiliary, as the brief says. HMAS Hobart is weapons Tight - self-defence only - so no SAM at the J-16D unprovoked; Perth is free and may fire once the P-8 gives her a track. A Hobart launch at an aircraft that has not fired = note the state of H.3's "Ships on Weapons Tight engage hostile aircraft" |
+| 6C.13 | D6 Long Reach | Nothing Chinese flies for the first 5 minutes; the J-36 and J-50 appear at 5:00 and run the stream's line, the Tu-95MA at 10:00, 242 NM from Enterprise. The picket, the launcher and the radar are there from the start |
+| 6C.14 | D8 The Long Perimeter | No J-16 for the first 10 minutes; it appears at 10:00 about 54-59 NM from the column and the ridge, as the brief's "within about ten minutes" says - pull the gunship when its radar comes up. The ridge SAM, the road detachment and the Z-21 are there from the start |
 
 ## 6D — the A-10C+ (new)
 
@@ -337,6 +347,20 @@ it bought.
 | I.5 | Southern Watch - Open Allocation and Southern Reach - Open Allocation, first window | No submarine on sale (no Seawolf, Virginia, Los Angeles, Suffren, Type 212A, Todaro, S-80, Kilo or Collins); the rules page says "Submarines cannot be bought in this campaign" | A submarine on sale = the old twin roster is still installed: run SETUP again |
 | I.6 | SW09 Southern Lifeline | The mission's own Collins sails with Stalwart inside the box and can be moved with the force | |
 | I.7 | Red Line 05, Southern Reach 02, Tasman Shield 05 (submarine operations) | The boat sits in a blue Submarine-only box she can be moved within | |
+
+## 6J — allied decks, allied aircraft (13 October)
+
+SEST Cross-Deck (integration/cross-deck) extends 122 allied flight decks
+with the allied members of the airframe families they already list, through
+an Anchor Chain `#!extend` stub per hull. Whether the engine reads a deck
+list set that way is not demonstrated; the CombatSystems stubs set other
+sections the same way and are live.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| J.1 | Southern Watch - Open Allocation: buy a Type 45 (United Kingdom) and an MH-60R, assign the Seahawk to the Type 45 in the Task Force Manager | The assignment is accepted and the Seahawk launches from and recovers to the Type 45 in the next mission | Refused = the game ignores AircraftSupported set through #!extend: bring back Player.log and the CROSS-DECK.txt line for rn_ddg_type45_26 |
+| J.2 | Mission editor: place a Maya (jmsdf_ddg_maya) and give it an Australian S-70B-2 Seahawk; a Horizon (fr_ddg_horizon) with a German NH90; a Nimitz (usn_cvn_nimitz_2027s_adou) with a Rafale M | Each embarks, launches and recovers | Note which pairing fails |
+| J.3 | Mission editor: a Type 23 with an MH-60R | Refused: the Type 23 lists no Seahawk family, so it gains none (Lynx/Wildcat, Merlin, Cougar only) | Accepted = the deck takes everything, not the families: report it |
 
 ## 7 — the review's engine tests
 

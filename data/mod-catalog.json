@@ -150,6 +150,19 @@
       "title": "SEST TacMap Colors"
     },
     {
+      "folder": "SEST_Cross_Deck",
+      "source": "integration/cross-deck",
+      "builder": "build_pack.py",
+      "title": "SEST Cross-Deck",
+      "build_after": [
+        "SEST_Allied_Fixes",
+        "SEST_Collection_Fixes",
+        "SEST_JMSDF_Mogami",
+        "SEST_RAN_Fleet",
+        "SEST_Replenishment"
+      ]
+    },
+    {
       "folder": "SEST_Campaign",
       "source": "integration/campaign",
       "builder": "build_pack.py",
@@ -160,6 +173,7 @@
         "SEST_Allied_Fixes",
         "SEST_B52_ARRW",
         "SEST_Collection_Fixes",
+        "SEST_Cross_Deck",
         "SEST_F-15EX_Revamp",
         "SEST_F-35C_JATM",
         "SEST_F16CM_JATM",
@@ -193,6 +207,7 @@
         "SEST_Allied_Fixes",
         "SEST_B52_ARRW",
         "SEST_Collection_Fixes",
+        "SEST_Cross_Deck",
         "SEST_F-15EX_Revamp",
         "SEST_F-35C_JATM",
         "SEST_F16CM_JATM",
@@ -220,6 +235,7 @@
         "SEST_Allied_Fixes",
         "SEST_B52_ARRW",
         "SEST_Collection_Fixes",
+        "SEST_Cross_Deck",
         "SEST_F-15EX_Revamp",
         "SEST_F-35C_JATM",
         "SEST_F16CM_JATM",

@@ -42,9 +42,11 @@ MISSION = dict(
         "Sydney at thirty-one thousand feet with every radar in the group on its screens; "
         "it carries nothing and stays well outside the destroyer's missiles.\\n\\n"
         "The group is eighty miles south-east: LIAONING, the Type 052D "
-        "that has commanded it since October, a frigate, three J-15s "
-        "with anti-ship missiles and a J-15D, a Ka-31, a Z-18F and the "
-        "destroyer's Z-20 up. If "
+        "that has commanded it since October, a frigate, a Z-18F and the "
+        "destroyer's Z-20 up. Liaoning's deck is still spotting the rest: "
+        "expect her Ka-31 up within about five minutes, and three J-15s "
+        "with anti-ship missiles and a J-15D forming up beyond her within "
+        "about ten. If "
         "Auckland's approaches were not held, the Type 056A and NAN HAI "
         "27 from the Hauraki Gulf have joined it; if Adelaide's were not, "
         "the Type 054A from Gulf St Vincent has too.\\n\\n"
@@ -108,7 +110,9 @@ MISSION = dict(
         "red_cv": S(-40.40, 152.30, "Protection group", heading=300),
         # Forming up beyond its carrier, 125 NM from the escorts: it started
         # 75-81 NM out, inside its own launch range within a minute or two
-        # (first public report, Oct 2026).
+        # (first public report, Oct 2026). It joins there at minute 10 (13
+        # Oct, option b): at 125 NM the J-15D's YJ-83s (156 NM) still
+        # reached the escorts from the first second.
         "red_air": S(-40.61, 152.67, "Strike flight", heading=300, alt=25000),
         "red_helo": S(-40.30, 152.20, "Ka-31 orbit", heading=300, alt=9000),
         "red_dip": S(-40.00, 151.60, "Z-18F dip", heading=300, alt=1500),
@@ -168,21 +172,28 @@ MISSION = dict(
           name="Type 052D (the flagship)", route=[(-39.90, 151.30, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "red_cv",
           name="Type 054A frigate", route=[(-39.90, 151.30, 0)], telegraph=3),
+        # Liaoning's deck is still spotting the strike at the start (13 Oct,
+        # option b): the Ka-31 joins at minute 5 and the strike at 10, one
+        # formation at one minute - stock's pattern, Pacific Strike 02.
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",
           name="Flying Shark 61", loadout="AntiShip",
-          route=[(-39.70, 150.70, 20000)], telegraph=3),
+          route=[(-39.70, 150.70, 20000)], telegraph=3, enter=10),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",
           name="Flying Shark 62", loadout="AntiShip",
-          route=[(-39.70, 150.70, 20000)], telegraph=3),
+          route=[(-39.70, 150.70, 20000)], telegraph=3, enter=10),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",
           name="Flying Shark 63", loadout="AntiShip",
-          route=[(-39.70, 150.70, 20000)], telegraph=3),
+          route=[(-39.70, 150.70, 20000)], telegraph=3, enter=10),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
           name="Flying Shark 64", loadout="AntiShip",
-          route=[(-39.70, 150.70, 20000)], telegraph=3),
+          route=[(-39.70, 150.70, 20000)], telegraph=3, enter=10),
+        # The group's eye joins at minute 5: up from the first second, its
+        # radar on the escorts from 91 NM gave the 052D (1,050 NM of
+        # anti-ship reach) and the southern 054A a track before the player
+        # had read the plot.
         U("red", "modern-plan-systems", "plan_ka-31", "red_helo", name="Ka-31 eye",
           alt=9000, weapons="Hold", loadout="AEW",
-          route=[(-40.00, 151.70, 9000)], telegraph=2),
+          route=[(-40.00, 151.70, 9000)], telegraph=2, enter=5),
         U("red", "chinese-navy-plan", "plan_z-18f", "red_dip", name="Z-18F dip",
           alt=1500, loadout="ASW"),
         # The Type 052D's embarked Z-20, sweeping 5-20 NM ahead of the group

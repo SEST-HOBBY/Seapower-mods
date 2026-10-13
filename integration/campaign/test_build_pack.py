@@ -629,6 +629,49 @@ class JoiningTrigger(unittest.TestCase):
             bp.render(small_mission(_enter={"Taskforce2Aircraft1": 7}), placed, members)
 
 
+class DeckLists(unittest.TestCase):
+    """deck_fit reads the deck the way the game does: the `Helicopters`
+    wildcard takes every helicopter (29 vanilla hulls, the Burkes among
+    them - refused here until 13 Oct), and SEST Cross-Deck's extended list
+    replaces the winning file's where a stub is built."""
+
+    def test_the_helicopters_wildcard_takes_a_helicopter_and_not_a_jet(self):
+        self.assertEqual(bp.unit_value("usn_ddg_burke_f3_125", "AircraftSupported"),
+                         "Helicopters")
+        self.assertEqual(bp.deck_fit("usn_mh-60r", "Helicopter", "usn_ddg_burke_f3_125", True), 0)
+        self.assertIsNone(bp.deck_fit("usn_f-35c", "Aircraft", "usn_ddg_burke_f3_125", True))
+
+    def test_a_cross_deck_stub_extends_the_deck(self):
+        tmp = Path(tempfile.mkdtemp())
+        saved = bp.CROSS_DECK
+        bp.CROSS_DECK = tmp
+        try:
+            self.assertIsNone(bp.deck_fit("usn_mh-60r", "Helicopter", "rn_ddg_type45_26", True))
+            (tmp / "rn_ddg_type45_26_CrossDeck_SEST.ini").write_text(
+                "#!extend vessels/rn_ddg_type45_26.ini\n\n[FlightDeck]\n"
+                "AircraftSupported=rn_sea_lynx_mk8,rn_merlin_hm2,rn_aw159,usn_mh-60r\n",
+                encoding="utf-8")
+            self.assertEqual(bp.deck_fit("usn_mh-60r", "Helicopter", "rn_ddg_type45_26", True), 0)
+            self.assertIsNone(bp.deck_fit("fr_nh90", "Helicopter", "rn_ddg_type45_26", True))
+        finally:
+            bp.CROSS_DECK = saved
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_the_built_pack_keeps_every_type_the_hull_listed(self):
+        stubs = sorted(bp.CROSS_DECK.glob("*_CrossDeck_SEST.ini"))
+        if not stubs:
+            self.skipTest("SEST Cross-Deck not built")
+        for stub in stubs:
+            uid = stub.name[:-len("_CrossDeck_SEST.ini")]
+            text = stub.read_text(encoding="utf-8")
+            self.assertTrue(text.startswith(f"#!extend vessels/{uid}.ini\n"), stub.name)
+            own = bp.unit_value(uid, "AircraftSupported")
+            self.assertTrue(own and "Helicopters" not in own, uid)
+            new = bp.deck_types(uid).split(",")
+            self.assertEqual(new[:len(own.split(","))], own.split(","), uid)
+            self.assertEqual(len(new), len(set(new)), uid)
+
+
 class RacetrackLoop(unittest.TestCase):
     """loop=True flies a patrol aircraft's route until the clock runs out,
     in stock's own form; nothing else may loop."""

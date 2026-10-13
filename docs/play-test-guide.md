@@ -92,8 +92,8 @@ rests on one rule: there is no free rearm.** Check that first.
 | **2 Fire Mission Jolo** | Ship starts 25 NM north of Jolo. Steam in; the 76 mm reaches the ridge from about 8 NM. **Three of five** positions destroyed = victory **(3.1)**. Check the launch rails can attack your ship |
 | **3 Ayungin** | Nothing fires at the boat: the cutters carry machine guns only and shadow north of its track; the watcher is an unarmed intelligence ship **(5.1)**. Firing on any Chinese unit ends the mission. The boat entering the shoal's lagoon wins |
 | **4 Service at Sea** | Keep your lead ship within 3 miles of *Sulu Provider* for 30 minutes: a "Thirty minutes" message appears, then she steers north to the box. Use her to rearm: go alongside at 8 kn or less. Sink her in a second run and check she is **missing** from mission 6 **(2.5)** |
-| **5 Celebes Gate** | Four coasters, one is the gun-runner (armed, with an escort boat and a drone nearby). Sinking a wrong one ends the mission. Sinking the right one before the Basilan Strait wins |
-| **6 The Aborlan Battery** | Two Silkworm launchers ashore fire at ships inside about 25 NM, including the convoy at anchor **(3.2)**. Both launchers destroyed wins |
+| **5 Celebes Gate** | Four coasters, one is the gun-runner (armed, with an escort boat and, from about minute 5, a drone nearby). Sinking a wrong one ends the mission. Sinking the right one before the Basilan Strait wins |
+| **6 The Aborlan Battery** | Two Silkworm launchers ashore fire at ships inside about 25 NM, including the convoy at anchor, from about minute 5 (the battery is under cover and not on the map until then) **(3.2)**. Both launchers destroyed wins |
 | **7 Balabac Strait** | Chinese surface group of five from the west, two JH-7A strike aircraft, maybe a submarine. **Three of five** ships sunk wins. Note how much ammunition you had left |
 
 ### 2E. Bring back

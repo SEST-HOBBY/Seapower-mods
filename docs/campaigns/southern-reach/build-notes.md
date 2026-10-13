@@ -561,3 +561,54 @@ Z-9 from 27 NM to 30, TS08's Yasen from 22 NM off Collins to 28 (the same
 distance from the rendezvous), and the J-15 strike flights in TS09 and TS11
 from 58-81 NM to a form-up point beyond their carriers, 125 NM out. No
 Southern Reach mission tripped it.
+
+**The stricter gate (13 October).** After the in-game check of Fujian's
+Shadow the gate was tightened for every campaign: five quiet minutes in
+which nothing red can fire, an aircraft measured against its whole reach,
+a red radar aircraft's line of sight counting as a track for ships and
+boats, air-to-air and SAM reach against the player's aircraft (the rules
+and the full table are in the Southern Watch build notes, same date). A red
+unit may now join later with `enter=<minute>` - `Disabled=True` plus
+stock's timed `Action_SetEnabledStatus` trigger - and that is how six
+missions here were settled, three of them Southern Reach after all; a
+seventh took a waypoint order instead:
+
+- **SR06** - the Bear-D (Hold) was up from the first second 64 NM from the
+  Anzac, and its radar gave VICTOR (free, 573 NM) a track on Coral Pioneer
+  from 49 NM. It joins at minute 10, 64-71 NM south-west, and is overhead
+  about ten minutes later; the brief says "coming up from the south-west
+  and will be overhead inside the half hour". Until then the boat has her
+  own sonar and nothing else.
+- **SR09** - the J-15D was airborne 128 NM from Hobart with 156 NM of
+  reach. The strike flight of three joins at minute 10 at a form-up point
+  beyond Liaoning, 181-183 NM from Hobart, outside the J-15D's reach, so it
+  has to fly in and the Wedgetail sees it come (a first cut left it at
+  128 NM, joining inside its reach; the review moved it, as Fujian's
+  Shadow was). The brief has the strike still on Liaoning's deck, up
+  within about ten minutes.
+- **SR11** - the Ka-31 (Hold) at 104 NM gave the 054A and the 056A (85 NM
+  of reach, 75 NM out) and ROMEO (44 NM) their track. It joins at minute
+  8, as Fujian's Shadow's KJ-600; the J-15 pair stays up. The brief says
+  it is on the way, on station within about eight minutes.
+- **TS04** - the J-15D was 124 NM from group A inside its 156 NM. The
+  strike flight joins at minute 10, 119-124 NM out (a first cut said
+  minute 5 and "launching now", which an 80 NM run from the deck cannot
+  cover; the review made it 10). The intent and brief now say it is
+  launching and will be on the plot within about ten minutes.
+- **TS09** and **TS11** - the Ka-31 (Hold) had given the 052D, and TS09's
+  two boats and TS11's southern 054A, a track from the first second, and
+  the J-15D at 125 NM was inside its 156 NM. The Ka-31 joins at minute 5
+  and the strike at 10, at the same 125 NM form-up point, which the raid
+  rule accepts (120 NM); the strike still joins inside its reach, and the
+  brief's "deck is still spotting the rest" is the warning. Test card 4.11
+  still works.
+- **TS12** - the spoiler 054A was weapons free with the player's Poseidon
+  17 NM off, inside her HQ-16. She now starts Tight, as the bible's
+  "Tight-then-Free" always had her, and goes Free at her first waypoint,
+  about 3 NM along her track: 6-17 minutes in, depending on her speed and
+  the sea. The waypoint order is stock's own `SetWeaponStatus,Free`.
+
+Every brief says when to expect what is held back; the briefing chart does
+not draw it. Whether a unit the game switches on at its minute then flies
+its route, and whether this AI's Tight holds against an identified
+aircraft, are for the test card (4.13 to 4.16).

@@ -146,9 +146,16 @@ MISSION = dict(
         U("neutral", "SEST_Replenishment", "plan_aor_type901", "withdrawing",
           variant="Variant1", name="Replenishment ship Hulunhu (withdrawing)",
           weapons="Hold", route=[(-39.50, 156.40, 0)], telegraph=3),
+        # Tight-then-Free, as the bible has her: she closes under the
+        # ceasefire for the first 3 NM of her track and turns weapons free
+        # there, about twelve minutes in at fifteen knots - stock's own
+        # SetWeaponStatus waypoint (Dong Hoi, PLAN 03). That is the brief's
+        # "a target when she fires". Free from the first second, she held
+        # the Poseidon 17 NM off inside her HQ-16 (13 Oct opening gate).
         U("red", "modern-plan-systems", "plan_type_054a_p5", "spoiler",
-          name="Type 054A frigate (the spoiler)",
-          route=[(-40.55, 155.60, 0)], telegraph=3),
+          name="Type 054A frigate (the spoiler)", weapons="Tight",
+          route=[(-40.97, 155.04, 0, [("SetWeaponStatus", "Free")]),
+                 (-40.55, 155.60, 0)], telegraph=3),
         U("red", "_vanilla", "wp_agi_okean", "agi", name="Research trawler Nan Hai 27",
           weapons="Hold", route=[(-40.45, 156.30, 0)], telegraph=2),
         U("red", "plan-submarines", "plan_ssn_type_093b", "red_sub", name="Contact ROMEO",

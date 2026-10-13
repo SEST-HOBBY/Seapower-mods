@@ -684,8 +684,8 @@ moved. What they found, and what changed:
 | Mission | The finding that mattered | What ships now |
 |---|---|---|
 | SW07 Long Way Home | The package was a tripwire, not a win condition; a lost Raptor paid out in full; two USAF F-22s joined the player's roster for good; red's AEW and tanker sat 145 NM west of the interceptors they were "behind" | Two of three package aircraft home is part of the win; the Raptors are `protect`, so a loss fails the objective; no join; the support orbit sits on the Foxhounds' back-bearing |
-| SW08 The Open Door | The win box was 230 NM *behind* the transports, so the door was not between them and anything; blue spawned inside the S-400 envelope; the brief promised ninety minutes on a seventy-minute clock | Relief comes from the north-west with a hold leg, the box is on the far side of the battery, the strike starts 129 NM out with JSM on the F-35s, the brief says seventy minutes, and the entry is `detached` like the stock detached operations |
-| SW09 Southern Lifeline | The Akula was 204 NM away, pointed elsewhere, with no route; nothing red could touch a ship; the "surfaced alongside for thirty-five minutes" premise was never asked of the player, so diving at t=0 and steaming 5.9 NM won at 35:00 exactly; HMAS Supply was the centrepiece unconditionally, seven missions after the campaign can sink her; the timeout text described the wrong clock; "comes home on Thursday" on a Thursday; a "Tu-214R that did not come back" airborne on the plot | The service ship is HMAS **Stalwart**; the window is a stage — both ships still inside five miles of the rendezvous *when* the clock reaches 35:00 (`UnitsInTheArea AND Time`, the shape of `03 Lifeline` Trigger8 on units that start inside the area) — and only then does the withdrawal line eighteen miles south open, on an 85-minute clock; the Akula starts 50 NM out and closes at 20 kn across the withdrawal track; one Flanker carries Kh-31A; the P-8 slot and Coral Provider each have their own station; the text says what is scored |
+| SW08 The Open Door | The win box was 230 NM *behind* the transports, so the door was not between them and anything; blue spawned inside the S-400 envelope; the brief promised ninety minutes on a seventy-minute clock | Relief comes from the north-west with a hold leg, the box is on the far side of the battery, the strike starts 123 NM out with JSM on the F-35s - still inside the 40N6's 250 NM and the 48N6E3's 156 NM, so the battery joins at minute 5 (13 Oct) - the brief says seventy minutes, and the entry is `detached` like the stock detached operations |
+| SW09 Southern Lifeline | The Akula was 204 NM away, pointed elsewhere, with no route; nothing red could touch a ship; the "surfaced alongside for thirty-five minutes" premise was never asked of the player, so diving at t=0 and steaming 5.9 NM won at 35:00 exactly; HMAS Supply was the centrepiece unconditionally, seven missions after the campaign can sink her; the timeout text described the wrong clock; "comes home on Thursday" on a Thursday; a "Tu-214R that did not come back" airborne on the plot | The service ship is HMAS **Stalwart**; the window is a stage — both ships still inside five miles of the rendezvous *when* the clock reaches 35:00 (`UnitsInTheArea AND Time`, the shape of `03 Lifeline` Trigger8 on units that start inside the area) — and only then does the withdrawal line eighteen miles south open, on an 85-minute clock; the Akula starts 50 NM out and closes at 20 kn across the withdrawal track (she joins at minute 5, 13 Oct, 40 NM from the escort as now placed); one Flanker carries Kh-31A; the P-8 slot and Coral Provider each have their own station; the text says what is scored |
 | SW10 Common Sea | The submarine "that ends the mission" was 144 NM away, heading away, with no route — six miles from a handover point the solver had long since moved; the brief promised a surface group and an F-2A anti-ship sortie, the file had neither, and the F-2As were a CAP slot spawned 17 NM in front of four Flankers; no red weapon could reach a merchant; "locate and break off the submarine" was scored as a kill and paid out at mission end regardless; the two-of-three cargo rule was never stated; the win re-completed the Allies objective after a Japanese ship was sunk | The boat sits across the solved track 38 NM from the convoy; a Type 054A comes in from the east; the F-2As carry ASM-3 and are not a slot; the J-10C carries YJ-91; the fighters start a hundred miles out with routes; the submarine objective is `UnitClassified` and fails if never done; the brief states two-of-three; the win line no longer re-completes a protect objective whose loss the mission survives |
 | SW03 Rig Seventeen | Victory text said "both airframes" for a one-helicopter win; "bring both amphibious ships home" had no home | The text says what is scored: one lifter with the crew, both ships afloat |
 
@@ -2489,15 +2489,24 @@ What it found, and what moved:
 | O2 Southern Cross | as above | as above |
 | O3 Borrowed Shield | Kilo 16 NM from the Anzac | 27-28 NM from both groups, working onto the Korean track |
 | C1 After the Wake | 039C 14 NM from the Anzac | 26 NM, north of the box, still in torpedo range of the search |
-| C2 Broken Wake | Kilo 19 NM; J-15D pair 79 NM | Kilo 33-34 NM ahead of Stuart's track; pair 124 NM |
-| D1 Western Passage | MiG-35 pair 84 NM | 95 NM |
-| D4 Return Passage | F-35A and P-8 110-113 NM | 120+ NM |
+| C2 Broken Wake | Kilo 19 NM; J-15D pair 79 NM | Kilo 33-34 NM ahead of Stuart's track; pair 124 NM, joins there at minute 5 (13 Oct) |
+| D1 Western Passage | MiG-35 pair 84 NM | 95 NM; 13 Oct: 111 NM from the escort flights (the pair's air-to-air reach of the helicopters) |
+| D4 Return Passage | F-35A and P-8 110-113 NM | 120+ NM; 13 Oct: both join at minute 10 (the P-8's radar was the ships' track), Hobart Tight, self-defence only (her SAMs held the lent J-16D from 147 NM) |
 | TS05 Under the Tasman | Z-9 11 NM from Farncomb, ROMEO 22 | Z-9 31, ROMEO 26 (the furthest the destroy gate lets Collins still reach), frigate 42 |
 | TS06 Bass Strait | Z-9 27 NM from the tanker | 30 NM |
 | TS08 Great Australian Bight | Yasen 22 NM from Collins | 28 NM west, the same 26 NM from the rendezvous |
-| TS09 The Southern Convoy | J-15 strike 58-64 NM from the convoy | forming up beyond its carrier, 125 NM |
-| TS11 Approaches | J-15 strike 75-81 NM from the escorts | forming up beyond its carrier, 125 NM |
+| TS09 The Southern Convoy | J-15 strike 58-64 NM from the convoy | forming up beyond its carrier, 125 NM; from 13 Oct it joins there at minute 10, after the Ka-31 at 5 |
+| TS11 Approaches | J-15 strike 75-81 NM from the escorts | forming up beyond its carrier, 125 NM; from 13 Oct it joins there at minute 10, after the Ka-31 at 5 |
 | RL02 Routes They Can See (Red Line) | Virginia 21 NM from the escort, Mk 48s free | 28 NM east, closing across the track (found later, below) |
+| D6 Long Reach (13 Oct) | J-36 and J-50 113 and 110 NM from the RQ-180 (228 and 108 NM of air-to-air reach); Tu-95MA 242 NM from Enterprise with a 2,700 NM Meteorit | the pair joins at minute 5, the Tu-95MA at 10 |
+| D8 The Long Perimeter (13 Oct) | J-16 105 NM from the MV-75 lift (PL-15 108 NM) | joins at minute 10; the brief says so |
+| SR06 Broken Supply Line (13 Oct) | Bear-D (Hold) up from the first second, giving VICTOR (free, 573 NM) a track on Coral Pioneer from 49 NM | the Bear joins at minute 10, 64-71 NM south-west, overhead about ten minutes later |
+| SR09 Cold Route (13 Oct) | J-15D airborne 128 NM from Hobart, inside its 156 NM reach | the strike joins at minute 10, forming up beyond Liaoning, about 180 NM out |
+| SR11 Last Ship South (13 Oct) | Ka-31 up from the first second, giving the 054A and 056A (85 NM, 75 NM out) and ROMEO (350 NM, 44 NM out) a track on Derwent Spirit | the Ka-31 joins at minute 8 |
+
+The 13 October rows are the stricter gate's (the section of that date,
+below, has the full record of all 21 missions it moved); test card H.22
+sends testers to this table, so they are repeated here.
 
 Not changed, on purpose: warships with long-range anti-ship missiles that
 start 30-100 NM away (an over-the-horizon shot is the realistic one, and they
@@ -2522,9 +2531,18 @@ mission). A test pins the torpedo-room case.
 
 Also corrected here: the Steel Highway P-8 slot started about 60 NM from
 the boat, not 48 as first written (48 was its distance from the escorts).
-And the air rule's standoff cap means a bomber whose missile reaches past
-120 NM can still start inside its own launch range, 120-130 NM out; the
-Steam text says so rather than claiming no strike starts in range.
+And the air rule's standoff cap meant a bomber whose missile reached past
+120 NM could still start inside its own launch range, 120-130 NM out; the
+Steam text said so rather than claiming no strike started in range. Since
+13 October (below) nothing may START inside its launch range: a flight on
+the plot at the first second needs 20 NM of flying before its whole reach,
+and only a flight that JOINS at minute 5 or later may appear inside it, on
+the old 120 NM line. Four do - Broken Wake's J-15D pair (124 NM, minute 5),
+Tasman Crossing's strike (119-124 NM, minute 10), The Southern Convoy's
+(121-127 NM, minute 10) and Approaches' (125-130 NM, minute 10) - and two
+form up beyond their reach instead: Fujian's Shadow's J-15D, about 180 NM
+from Ford against its 156 (the H-6K beside it still joins inside its 270 NM
+YJ-12), and Cold Route's, 181-183 NM from Hobart.
 
 
 ## Deployment zones, and no submarines on sale (13 October)
@@ -2611,7 +2629,7 @@ force does not handle, and nothing in a campaign file can change its
 formation editor or its dismiss button. So the allied fleet now carries no
 submarine; `roster_ini()` refuses one on any roster, and the rules page
 refuses a roster that has one. Southern Watch's Open Allocation version now
-sells 70 allied units and Southern Reach's 63. A save made before
+sells 72 allied units and Southern Reach's 65 (70 and 63 before SEST Cross-Deck gave the JMSDF Seahawks a deck to recover on, the same day). A save made before
 this build keeps a submarine it already bought: start a new campaign.
 
 The missions' own boats are unchanged: SW09's Collins alongside Stalwart,
@@ -2619,3 +2637,173 @@ and the detached submarine operations (Red Line 05, Southern Reach 02,
 Tasman Shield 05), which now have a submarine box.
 
 Not demonstrated: everything in this section. Test card 6I.
+
+## The quiet opening: Fujian's Shadow, and a stricter gate (13 October)
+
+**Fujian's Shadow opened with the fight under way.** The first in-game check
+of the 13 October build said SW11 "was very quick to engagement", and the
+file agreed - unchanged since 11 October, and passed by `check_opening`.
+At the first second the H-6K's YJ-12s (270 NM) reached Ford at 126 NM and
+the J-15D's YJ-83s (156 NM) reached her at 127; the 093B's YJ-18s (350 NM)
+reached everything from 54 NM, with the KJ-600 giving the track; the J-35
+and J-20A were half a minute from PL-15 range of the F-35Cs. Nearly
+everything on both sides was weapons free. The gate let it through four
+ways: an aircraft's reach was counted to 100 NM at most, so a standoff
+bomber 120 NM out passed while inside its own launch range; a boat was
+measured only against the 25 NM ring, never against her missiles; a radar
+aircraft gave a track only within 25 NM of the target; and nothing measured
+air against air.
+
+The user chose two of the four remedies offered: hold the enemy strike
+aircraft back a few minutes (b), and tighten the check for every mission
+(d). Not chosen: starting the player's units weapons tight (a), or moving
+the Chinese group further out (c).
+
+**Holding back: `enter=`.** A red unit may now carry `enter=<minute>`. It is
+written `Disabled=True` and a timed trigger switches it on - stock's own
+pattern, key for key (Pacific Strike 02's H-6Ds and 01A Senkaku Run's
+"15min timer to enable bombers": `Condition_Condition1_Type=Time`,
+`Condition_Condition1_Time=900`, `Action_SetEnabledStatus=True`,
+`Action_Units=`). Until its minute the unit is not in the mission: it
+neither shoots nor sees. One formation joins at one minute or the build
+stops, and the pack checker (`check_campaign_coverage.py`) refuses a unit
+placed `Disabled=True` that no trigger switches on.
+
+**Fujian's Shadow now.** Fujian's air wing is still on deck at the start:
+the J-35 and J-20A join at minute 5, the KJ-600 at 8, and the J-15D and
+H-6K at 10. The strike forms up beyond its carrier, about 180 NM from Ford
+on the carrier's bearing (it was 127), so the J-15D joins outside its own
+YJ-83 reach of every player hull and has about 25 NM to fly before it can
+launch: "shoot it down before it launches" is now something the player can
+do. Until the KJ-600 is up nothing red has a track on the player's hulls
+beyond its own radar, the 093B's YJ-18s included. The briefing says so:
+"Her deck is still spotting it: expect her fighters up within about five
+minutes and the strike within about ten." With the deployment zone (above)
+the player can also open the range by up to about 28 NM before the start.
+Test card 6C.4 and H.13 carry the new timings.
+
+**The stricter gate.** `check_opening` now gives every mission
+`OPENING_QUIET_MIN` (5) minutes in which nothing red can fire. A red unit in
+the mission then - from the start, or joining before minute 5 - whose
+weapons are free is refused when it is:
+
+- a surface ship or a boat inside 25 NM of the player's nearest hull (as
+  before);
+- an armed aircraft with less than 20 NM of flying before its own anti-ship
+  launch range - the whole range now, however long;
+- a ship, boat or battery holding a player hull in anti-ship reach with a
+  track on her: its own radar inside 25 NM (a ship's or a battery's, not a
+  boat's), any red aircraft within 25 NM of her, or a red radar aircraft
+  (the game's own AEW, MaritimePatrol, Recon and ESM roles) whose radar
+  line of sight - 1.23 x (sqrt of its altitude in feet + sqrt 60), 220 NM
+  at most - reaches her;
+- an aircraft with less than 20 NM of flying before its air-to-air reach of
+  a player aircraft already in the air (`air_reach`, the AAW rounds, read
+  the way `ship_reach` reads anti-ship ones, magazines included); or
+- a ship or battery holding a player aircraft inside its SAM reach and its
+  radar's line of sight (the radar taken at 100 ft, a destroyer's mast or
+  a battery's tower).
+
+A unit that joins at minute 5 or later is a raid the player has had the
+quiet minutes to prepare for, and is held to the rule a raid always was,
+where it joins: an armed aircraft with 20 NM of flying before its launch
+range counted to 100 NM at most, so 120 NM for anything that reaches past
+100; a ship or boat outside the 25 NM rings. Tight and Hold units do not
+fire first and are not measured, nor are the player's own: the player sets
+their weapons before the clock starts. Tests pin each rule
+(`QuietOpening`, `JoiningTrigger`).
+
+**What it found, and what moved.** The gate flagged twenty more missions
+after Fujian's Shadow. Each fix was reviewed by a second reader against the
+built files, and where the reviewer corrected the fixer the reviewed state
+is what the data holds. Distances are at the first second, as the gate
+measures them (to the nearest player hull, or to the nearest player
+aircraft for the air-to-air and SAM rules); every mission passes every
+gate.
+
+| Mission | Was | Now |
+|---|---|---|
+| SW06 Blind Horizon | Two J-16s free at the enclave-fighters station, 114-115 NM from the unarmed Triton at 50,000 ft with 108 NM PL-15s: 6-7 NM of flying from a shot (the gate wants 128) | Both join at minute 5 (one formation, one minute) at the same spawn, on the same patrol box. The brief keeps them airborne but unseen - "a pair of J-16s has come south off the enclave field. Nobody holds them yet: expect them within about five minutes" - because Biak is about 450 NM from where they appear, so "getting airborne" was not true. The Picture-classified reveal that names them is unchanged |
+| SW07 Long Way Home | Two MiG-31BMs at 52,000 ft free 68-70 NM from the Growler and the returning package, inside their 86 NM R-33s (the gate wants 106) | Both join at minute 5 on the same sweep, which turns back at about 18 minutes instead of 13; a tanker that leaves at once is still never in reach. Brief: "has put two MiG-31s up out of the enclave field. Wedgetail does not hold them yet: expect them within about five minutes, above fifty thousand feet and close" - already up, as Ward's memo's "coverage is not a guarantee of detection at takeoff" allows, not just launching from Biak 330 NM away. Test card 6C.2 |
+| SW08 The Open Door | The S-400 site (48N6E3 156 NM, 40N6 250 NM) and the 40N6 TEL free with the package 123 NM away at 30,000 ft, inside both envelopes and the radar's line of sight; the data's own comment had claimed the package started outside a 130 NM 48N6 | The whole battery - site, Flap Lid, TEL - joins at minute 5 (one land formation). Five minutes for jamming and HARMs, then the mission as hard as it was. Brief: "The battery went dark when the window was agreed; nobody expects it to stay dark, and its radars should be back up within about five minutes." Weapons Tight was rejected: at Tight the AI engages only what it has classified hostile, and might never fire on the F-35s. Test card 6C.9 |
+| SW09 Southern Lifeline | The Akula (SS-N-27, 573 NM) free 40 NM from the escort, with the Tu-214R (Hold, 34,000 ft) 161 NM out giving her the track; and the trawler ZVEZDA (Hold) with the group on radar 15 NM from Stalwart, a spotter the gate does not count | The Tu-214R joins at minute 5 and looks at about 25 minutes instead of 20, still ahead of the Kh-31A window at 30-34. The Akula joins at minute 5 too, 40 NM out and outside the ring, because the trawler's picture would otherwise have put the SS-N-27s on the group from the first second. No text changes. Test card 6C.3 |
+| SW10 Common Sea | J-11BG (PL-15 108 NM) free 105 NM from an F-2A at 24,000 ft (the gate wants 128); three more fighters on the same station 116-121 NM from the convoy | All four join at minute 5 (one formation) and arrive over the convoy at about 20 minutes instead of 15; the J-10C's YJ-91 (59 NM) is clear at 116 NM. The 039C (32 NM) and the 054A are unchanged. No text changes |
+| SW11 Fujian's Shadow | H-6K (YJ-12, 270 NM) 126 NM from Ford and J-15D (YJ-83, 156 NM) 127 NM, both inside their reach; the 093B (YJ-18, 350 NM) 54 NM out with the KJ-600's track; J-35 and J-20A half a minute from PL-15 range of the F-35Cs | CAP at minute 5, KJ-600 at 8, J-15D and H-6K at 10 from a form-up point about 180 NM from Ford, beyond their carrier (above). Test card 6C.4 and H.13 |
+| C2 Broken Wake | J-15D pair (YJ-83, 156 NM) free 124 NM from Stuart, 32 NM inside its own reach (the gate wants 176); the station comment had said it started outside | Both join at minute 5 at the same 124 NM station, which the raid rule accepts (120 NM); they still join inside their reach, and the quiet minutes are the warning. The Kilo (33.5 NM) is unchanged |
+| D1 Western Passage | MiG-35 pair (86 NM air-to-air) free 95 NM north of the escort flights' Merlin and Wildcat at 3,000 ft: 9 NM of flying from a shot (the gate wants 106) | The shadowers' station moved 16 NM north on the same bearing: 111 NM from the escort flights, 109-110 from the tanker, about two minutes more to the group; the routes onto it are unchanged. Nothing held back - the brief has the GlobalEye reporting the pair and the Su-24MP at the start, and it still does |
+| D4 Return Passage | P-8 (Harpoon, 150 NM) free 123 NM from the damaged auxiliary and F-35A (JSM, 120 NM) 126 NM (the gate wants 140); the P-8's radar gave Hobart (950 NM) and Perth (166 NM) a track on her from 119-120 NM; Hobart's SAMs (260 NM) held the lent J-16D at 36,000 ft from 147 NM | Both aircraft join at minute 10 (one station), 123-126 NM out; until then neither ship has a track. Hobart is weapons Tight - self-defence only, by the game's tooltip; whether a Tight ship also engages hostile aircraft is the Standing Orders toggle, off since 0.8.3 (test card H.3) - because the patrol "will not start a fight today unless you give it a reason". Perth stays free. Brief and forces line: the P-8A and F-35A "are expected over them within about ten minutes" |
+| D6 Long Reach | J-36 (228 NM air-to-air) free 113 NM from the RQ-180 at 60,000 ft and the J-50 (PL-15 108 NM) 110 NM, 2 NM short (the gate wants 248 and 128); Tu-95MA (3M25 Meteorit, 2,700 NM) 242 NM from Enterprise | The pair joins at minute 5 on the same hunt route, the Tu-95MA at 10, 242 NM out (120 needed where it joins). No move could fix it: 248 NM from the RQ-180, 2,720 from Enterprise. Brief: "expect the fighters up within about five minutes and the Tu-95MA within about ten." The picket, the TEL and the radar are there from the start |
+| D8 The Long Perimeter | J-16 (PL-15 108 NM) free at 30,000 ft with the MV-75 lift 105 NM away (the gate wants 128); the gunship, which the brief says is usable "only while no fighter radar is watching", had no window | The J-16 joins at minute 10; the ridge SAM, the road detachment and the Z-21 keep the first ten minutes busy. Brief: "the enclave can have the J-16 up within about ten minutes, and when it comes up, pull the gunship the moment its radar does" - a cue the gunship needs, since the J-16 appears 54-59 NM from the column and the ridge |
+| SR06 Broken Supply Line | Bear-D (Hold, 20,000 ft, line of sight about 183 NM) 64 NM from the Anzac, giving VICTOR (free, 573 NM) a track on Coral Pioneer from 49 NM | The Bear joins at minute 10, 64-71 NM south-west, and is overhead at about minute 20; until then VICTOR has her own sonar and nothing else. Brief: "A Bear is coming up from the south-west and will be overhead inside the half hour"; forces line "a Bear-D on its way overhead". VICTOR keeps weapons free: the story has her firing again |
+| SR09 Cold Route | J-15D (156 NM) free 128 NM from Hobart at a form-up point 24 NM ahead of Liaoning, inside its own reach (the gate wants 176) | The three join at minute 10 at a form-up point beyond the carrier, 181-183 NM from Hobart, as Fujian's Shadow: the J-15D joins outside its reach and has to fly in, so "Wedgetail sees them come" stays true. (The first cut left the point at 128 NM; the reviewer refused it for the reason SW11 was moved.) Brief: "the strike is still on LIAONING's deck and should be up within about ten minutes"; forces line "a J-15 strike flight of three still on deck" |
+| SR11 Last Ship South | Ka-31 (Hold, 9,000 ft, line of sight about 126 NM) 104 NM from the Anzac and 114 from Derwent Spirit, giving the 054A and 056A (free, 85 NM, 75 NM out) and ROMEO (350 NM, 44 NM out) a track | The Ka-31 joins at minute 8, as SW11's KJ-600; by then the escorts have closed about 3 NM and the surface fight starts as designed. The J-15 pair (129-132 NM, not a radar aircraft) stays up. Brief: "its Ka-31 is on the way and should be on station within about eight minutes" |
+| TS04 Tasman Crossing | J-15D (156 NM) free 124 NM from group A's Wairau Trader (the gate wants 176), with two J-15s beside it | The three join at minute 10, 119-124 NM out. (The first cut said minute 5 with "launching now"; the point is about 80 NM ahead of Liaoning, which a launch cannot cover in five minutes, so the reviewer moved it to 10.) Intent: "It is launching now: Wedgetail will have it within about ten minutes, a hundred and twenty miles out"; brief: "expect them on the plot within about ten minutes, a hundred and thirty miles from group B and closing". The route low onto group B is unchanged |
+| TS09 The Southern Convoy | Ka-31 (Hold) 83-84 NM from the convoy, giving the 052D (free, 1,050 NM, 91 NM out), ROMEO (28 NM) and SIERRA-TWO (37 NM) a track; J-15D 127 NM out, inside its 156 NM | The Ka-31 joins at minute 5, the four strike aircraft at 10, 121-127 NM out. Brief: only the Z-18F and the Z-20 are up at the start; "Liaoning's deck is still spotting the rest: expect her Ka-31 up within about five minutes, and three J-15s with anti-ship missiles and a J-15D with them forming up beyond her within about ten." The station comment no longer claims the Wedgetail seeing the form-up is the warning; the brief and the quiet minutes are. Test card 4.11 still works |
+| TS11 Approaches | Ka-31 (Hold) 91 NM from Hobart, giving the 052D (99 NM out) and the southern 054A (85 NM, 83 NM out; present only if TS10B was not held) a track; J-15D 126 NM out, inside its 156 NM | The Ka-31 joins at minute 5, the strike at 10, 125-130 NM out. Brief as TS09's. The northern and southern elements keep their spawn conditions; test card 7.1's ten watched minutes now contain both joins |
+| TS12 Southern Cross | The spoiler 054A free from the first second with the player's Poseidon 17 NM off, inside her 46 NM HQ-16 and her radar's line of sight | She starts weapons Tight and goes Free at a new first waypoint 3 NM along her track (`SetWeaponStatus,Free`, as Dong Hoi, Silent Spear and Polar Fury write it): about 12 minutes in at 15 kn, 6 at her 30 kn best, about 17 with the builder's sea-state factor. The bible already had her "Tight-then-Free"; the file did not. ROMEO, the J-15 pair and Nan Hai 27 are unchanged |
+| SL04 Service at Sea | Three Peykaaps (free, Nasir 49 NM) 43-44 NM from Sulu Provider with the Forpost drone (Recon/ESM, 9,000 ft) 27 NM from her giving them the track | The drone joins at minute 5 on the same loop; the boats are unchanged, and can fire on her from about 40 NM once it is up. Brief: "the drone that found her at first light is due back on station within about five minutes" |
+| SL05 Celebes Gate | Meridian Escort 18 (free, 49 NM) 36 NM from the frigate with the drone 28 NM from her giving the track | The drone joins at minute 5. Brief: "The drone is not up yet: expect it within about five minutes." The runner, escort, coasters, ferry and airliner are unchanged |
+| SL06 The Aborlan Battery | Two Silkworm launchers (free, four SY-1A each, 24 NM) 19 NM from the convoy at the Narra anchorage, their own radar the track; the frigate 38 NM away | The whole battery - both launchers, the SON-9 and both AA guns, one land formation - joins at minute 5; the convoy is then inside the launchers' reach again, which is the mission. Brief: "The battery has kept under cover with its radar off since it fired yesterday; expect it up within about five minutes, and then it will fire at what its radar finds, the convoy included." Weapons Tight has no story basis ("fire at what its radar finds"), and moving the battery would remove its purpose |
+
+**Not demonstrated.**
+
+- `Action_SetEnabledStatus` on a LAND unit has no stock precedent. Stock
+  switches on aircraft, helicopters, a vessel and a submarine; the only
+  land use anywhere in the collection is a Workshop campaign
+  (mare-nostrum-28's 09 Contragolpe, T-72s on a 300-second timer). SW08's
+  S-400 battery and SL06's Aborlan battery both depend on it, and a
+  failure would be silent: no battery appears, SW08's Battery objective
+  pays anyway (`StatusAtMissionEnd=Complete`) and SL06 cannot be won. If
+  land units do not re-enable, the fallback is weapons Tight on the
+  battery units, with the classification caveat in SW08's row. Test card
+  6C.9 and the Sulu card's 3.2.
+- A reveal (`Action_UnitRevealToTaskforce`) fired on a disabled unit before
+  it joins. SW06's Picture-classified trigger reveals the J-16s with the
+  surface group at Identify level, and the Triton's ESM can classify the
+  group, 46 NM from its spawn, before 5:00. Whether the reveal holds once
+  they join is unknown; at worst they come up unidentified. Test card 5.3b.
+- The briefing chart no longer draws held-back units
+  (`integration/missions/briefing_maps.py` skips `Disabled=True`), so the
+  brief's "expect ... within about N minutes" is the only warning. D8 is
+  where that matters most: the J-16 appears inside PL-15 reach of the
+  gunship's whole working area, and losing the gunship ends the operation.
+- A track the gate does not count: a red fighter's own radar beyond 25 NM
+  (SR11's J-15 pair, 129-132 NM out, before the Ka-31 joins) and a Hold
+  ship's (SW09's trawler, which is why the Akula is held back too; TS12's
+  Nan Hai 27, 23 NM from the escort, covered by the spoiler's Tight
+  start). Whether this AI shares such a picture with its shooters is for
+  test card H.22.
+
+## Allied decks, allied aircraft: SEST Cross-Deck (13 October)
+
+The user asked for "cross compatibility for ships and other similar allied
+aircraft". A hull's `[FlightDeck] AircraftSupported` is written by its mod
+for its own navy, so a bought Type 45 took only the Royal Navy's Lynx,
+Merlin and Wildcat and refused the campaign's own MH-60R; a FREMM took the
+French NH90 and no other; the Maya listed the US MH-60R but not the
+Australian S-70B-2. The new pack (`integration/cross-deck`) adds, to every
+deck registered to an allied navy, the allied members of each airframe
+family the deck already lists one of - Seahawk, NH90 NFH, Lynx/Wildcat,
+Merlin, Sea King, AB 212, Panther, Seasprite, Cougar, Wasp, Alouette, CH-53,
+Osprey, first-generation Harrier, AV-8B/F-35B, catapult types - through one
+Anchor Chain `#!extend` stub per hull (the mechanism Euromod assigns combat
+systems with and SEST Collection Fixes already uses on 21 hulls, 16 of them
+hulls SEST itself ships). The hull's own list is kept, ghosts included; a
+deck with no list or the game's `Helicopters` wildcard takes everything
+already and is left alone; only aircraft the enabled collection ships are
+added, and never to a Chinese, Russian or Iranian deck. 122 decks of 13
+navies, listed in the pack's `CROSS-DECK.txt`. Canberra, which listed the
+Spanish AV-8B+ already, now lists the F-35B as well; the real ship cannot
+operate one, and the donor's AV-8B+ was the same liberty.
+
+The campaign builder reads the same stubs (`deck_types`), and in reading
+them found an older gap: `deck_fit` treated the game's own `Helicopters`
+token as a list with no helicopter in it, so a Seahawk on any Burke or
+Ticonderoga was refused by the build (no mission had tried). It now takes
+every helicopter, as the game does. The widened decks also put the JMSDF
+SH-60J/K within recovery of an allied deck in the two RAN campaigns, so the
+Open Allocation twins sell them: 72 allied units in Southern Watch's, 65 in
+Southern Reach's (70 and 63 before).
+
+Not demonstrated: that the engine honours an `AircraftSupported` set
+through `#!extend`. Test card 6J.

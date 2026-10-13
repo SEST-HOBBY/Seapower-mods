@@ -705,10 +705,31 @@ def unit_spot(keys):
         return None
 
 
+# SEST Cross-Deck (integration/cross-deck) extends allied decks with the
+# allied members of the airframe families they already fly, through an
+# Anchor Chain #!extend stub per hull. The game reads the stub on top of the
+# winning file, so the deck list the campaign measures has to be the same
+# union, or a Seahawk the game lands on a Type 45 would be refused here.
+CROSS_DECK = ROOT / "integration" / "cross-deck" / "SEST_Cross_Deck" / "vessels_overwrite"
+
+
+def deck_types(deck_type):
+    """The deck's AircraftSupported as the game reads it: the winning file's
+    list, replaced by SEST Cross-Deck's extended list where one is built.
+    None when the hull declares no list at all."""
+    stub = CROSS_DECK / f"{deck_type}_CrossDeck_SEST.ini"
+    if stub.is_file():
+        m = re.search(r"^AircraftSupported=([^\n/]*)", read(stub), re.M)
+        if m:
+            return m.group(1).strip()
+    return unit_value(deck_type, "AircraftSupported")
+
+
 def deck_fit(atype, kind, deck_type, is_ship):
     """Can this airframe recover on that deck, by the two files' own words.
 
-    0 = compatible: a field; a ship whose AircraftSupported names the type;
+    0 = compatible: a field; a ship whose AircraftSupported names the type
+        (or names the game's own `Helicopters` token and the type is one);
         or a ship with no list and an airframe that says CarrierCapable=True.
     1 = undeclared: a ship with no list and a fixed-wing airframe with no
         CarrierCapable line. Allowed, reported, and listed on the test card.
@@ -721,10 +742,14 @@ def deck_fit(atype, kind, deck_type, is_ship):
     cc = unit_value(atype, "CarrierCapable")
     if cc == "False":
         return None
-    listed = unit_value(deck_type, "AircraftSupported")
+    listed = deck_types(deck_type)
     if listed:
         names = {x.strip() for x in listed.split(",") if x.strip()}
-        return 0 if atype in names else None
+        if atype in names:
+            return 0
+        # Vanilla's own wildcard (29 hulls, the Ticonderogas and Burkes
+        # among them): every helicopter, whatever its name.
+        return 0 if ("Helicopters" in names and kind == "Helicopter") else None
     if cc == "True" or kind == "Helicopter":
         return 0
     return 1

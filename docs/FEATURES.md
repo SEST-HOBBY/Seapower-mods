@@ -17,7 +17,7 @@ repository and checked by automated gates before each upload.
 | | |
 |---|---|
 | Workshop mods integrated | 195 (the download size has not been re-measured since 190) |
-| SEST source packs | 20, merged into one deployable folder |
+| SEST source packs | 24, merged into one deployable folder |
 | Campaigns | 4, each also as an Open Allocation version, plus a world campaign (draft) for the Dynamic Campaign Mod |
 | Campaign missions | 57, plus 8 single missions (Southern Watch - Dispatches) |
 | Story pages | Press pages, signals, ship's logs and intelligence summaries between missions |
@@ -112,8 +112,12 @@ experience carry forward from mission to mission.
   and to the sides, and only 3 NM towards the enemy or the objective.
 - **Fair openings:**
   - no enemy ship or submarine with weapons free starts within 25 NM of you;
-  - strike aircraft start at least 20 NM outside their launch range (or at
-    least 120 NM out for missiles that reach further than 100 NM).
+  - nothing on the enemy side can fire in the first 5 minutes;
+  - strike aircraft present at the start begin 20 NM outside their whole
+    launch range; a raid that joins at minute 5 or later begins at least
+    120 NM out;
+  - a red radar aircraft's picture counts as a track for enemy ships and
+    submarines, so none holds you in reach with one up at the start.
 - **Time you can use:**
   - every mission has a planned time, and reaching it shows a *Behind
     Schedule* message;
@@ -234,6 +238,16 @@ experience carry forward from mission to mission.
 
 When two mods change the same unit, weapon or text, the result is usually
 broken. These are the fixes.
+
+**Allied decks for allied aircraft** *(SEST Cross-Deck, 13 October 2026)*
+- 122 flight decks of 13 allied navies operate the similar allied aircraft
+  their mod did not list: a deck that already flies one Seahawk, NH90, Lynx
+  or Wildcat, Merlin, Sea King, AB 212, Panther, Seasprite, Cougar, Harrier,
+  AV-8B/F-35B or catapult type takes the allied members of that family too.
+  An Australian MH-60R lands on a Type 45, an Iver Huitfeldt or a Maya; a
+  Royal Navy Merlin on a FREMM; a Rafale M on the Nimitz. Each hull's own
+  list is kept, a deck that already accepts everything is left alone, and
+  only aircraft in this collection are added. Not yet confirmed in game.
 
 **Air-to-ground weapons**
 - HARM back to its stock values.

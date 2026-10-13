@@ -260,7 +260,7 @@ disabled trigger's `Condition_Time` is absolute or restarts on enable.
 | D5 | pad-strike vs interception | **fixed** (brief tells the truth); the loss of both aircraft no longer ends the trial (`force_loss=False`) |
 | D6 | recovery vs mod properties, escort threshold | **fixed**: win is the launcher complex destroyed; YF-23s fly the intercept fit; headings match the run; Escort fails on the first loss |
 | D7 | two aggressors need not stop the Bear | **fixed**: win is the Bear destroyed; Umpire is the tanker; strike detachment homes on the field |
-| D8 | escort-only arrival; J-16D vs `plaf_j16a` | **fixed**: HEMTT alone wins; the brief says J-16; ridge detachment sits on the road; the J-16 starts outside PL-15 reach |
+| D8 | escort-only arrival; J-16D vs `plaf_j16a` | **fixed**: HEMTT alone wins; the brief says J-16; ridge detachment sits on the road; the J-16 joins at minute 10 (13 Oct: from the start the MV-75 lift was inside its PL-15 reach, 105 NM against 108) |
 
 ### Money and customisation
 
@@ -370,7 +370,7 @@ row above, the row is referenced rather than repeated.
 | D3 title ship carries munitions and does nothing | **fixed** (Containers; the Juan Carlos carries the lift) |
 | D3 scored objective is the helicopters | **fixed** |
 | D4 Restraint scored as fighter survival | **fixed** |
-| D4 nothing red can reach the auxiliary | **fixed**: P-8 `AntiShip` and F-35A strike fit; Hobart and Anzac within Harpoon reach of the lane |
+| D4 nothing red can reach the auxiliary | **fixed**: P-8 `AntiShip` and F-35A strike fit; Hobart and Anzac within Harpoon reach of the lane. 13 Oct: the P-8 and F-35A join at minute 10; Hobart Tight (self-defence only), so red's reply is Perth plus the aircraft from minute 10 |
 | D4 no neutral shipping | **fixed** (three merchants on the lane) |
 | D4 force description vs file | **fixed** (Kuznetsov named, dispersal field placed, bombers "already airborne") |
 | D4 first watch at 03:10; daylight at 04:25 | **fixed** (middle watch; timeout reworded) |
@@ -381,7 +381,7 @@ row above, the row is referenced rather than repeated.
 | D5 airliner in a formation with a trawler | **fixed** (own "airway" station) |
 | D5 "score the intercepts", ARRW that does not exist | **fixed** (text) |
 | D5 geography wording | **fixed** ("all four defence units"; the A-10 is named as the counter-launcher shot) |
-| D6 red opens inside PL-17 range with no answer; one bomber hit ends it | **fixed**: YF-23 intercept fit; fatal on two bombers, matching the win |
+| D6 red opens inside PL-17 range with no answer; one bomber hit ends it | **fixed**: YF-23 intercept fit; fatal on two bombers, matching the win. 13 Oct: red still opened in range (the J-36 on the RQ-180 from 113 NM, Meteorit on Enterprise from 242); the J-36/J-50 pair now joins at minute 5, the Tu-95MA at 10 |
 | D6 stream pointed at the fighters, text says north-west | **fixed** (headings 28) |
 | D6 complex cannot be scored | **fixed** (win = complex destroyed) |
 | D6 survival-only secondaries | **partly fixed**: Escort fails on the first loss; Sensor is still "RQ-180 not lost" — accepted as the honest minimum |

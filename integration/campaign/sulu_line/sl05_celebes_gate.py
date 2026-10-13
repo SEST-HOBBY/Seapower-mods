@@ -38,7 +38,8 @@ MISSION = dict(
             "with the Bitung-Zamboanga ferry and the Sandakan service in the same water.\\n"
             "\\nThe source does not know which coaster. Classify them. The one with an armed "
             "escort and a spotter drone over her is the one, but the escort will try to stay"
-            " clear of her. Stop her before she reaches the strait.\\n\\nYour ships are "
+            " clear of her. The drone is not up yet: expect it within about five minutes."
+            " Stop her before she reaches the strait.\\n\\nYour ships are "
             "weapons Free. A neutral sunk by mistake ends the mission and gives Meridian the "
             "story it wants. The group has had one rearm in a month; spend accordingly."
         )),
@@ -103,9 +104,13 @@ MISSION = dict(
           route=[(6.50, 121.90, 0)], telegraph=4),
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "escort", name="Meridian Escort 18",
           nation="Panama", route=[(5.90, 122.50, 0)], telegraph=3),
+        # Up at minute 5 (13 Oct, option b). Up from the first second, its
+        # radar on the patrol from 28 NM was the track that let the escort
+        # (49 NM of anti-ship reach, 36 NM out) fire before the player had
+        # classified anything.
         U("red", "small-medium-uav-series", "usn_ForpostR705", "drone",
           name="Spotter drone", nation="Panama", weapons="Hold",
-          route=[(5.70, 122.70, 9000), (5.40, 122.60, 9000)], loop=True),
+          route=[(5.70, 122.70, 9000), (5.40, 122.60, 9000)], loop=True, enter=5),
         U("neutral", "_vanilla", "civ_ms_freighter_a", "coasters",
           name="KM Sinar Bitung", route=[(6.60, 122.00, 0)], telegraph=3),
         U("neutral", "re-power-resupply", "civ_ms_freighter_b", "coasters",

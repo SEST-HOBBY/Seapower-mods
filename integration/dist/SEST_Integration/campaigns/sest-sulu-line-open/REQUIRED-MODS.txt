@@ -40,7 +40,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (195): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (196): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -193,6 +193,7 @@ shared file wins for the mods above.
   (local)       SEST ADF Persistent ISR
   (local)       SEST Allied Fixes
   (local)       SEST B-52 ARRW
+  (local)       SEST Cross-Deck
   (local)       SEST F-15EX Revamp
   (local)       SEST F-16CM JATM
   (local)       SEST F-35C JATM

@@ -583,7 +583,7 @@ read by the next pass.
 4. **Rebuild everything.**
 
    ```bash
-   python3 tools/build_all.py --from-scratch           # about 90 s; 20 packs, then the consolidated dist
+   python3 tools/build_all.py --from-scratch           # about 25 min; 24 packs, then the consolidated dist
    ```
 
 5. **Every gate.** Known red on this branch: `check_inventory.py` on the

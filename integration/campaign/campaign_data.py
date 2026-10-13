@@ -158,6 +158,12 @@ EXCUSES = {
         "the Task Force Mode campaigns place nothing from it, and its own units are "
         "checked against this load order by integration/world-sandbox/"
         "check_dynamic_campaign.py on every build"),
+    "SEST_Cross_Deck": (
+        "library", "one Anchor Chain `#!extend` stub per allied flight deck, "
+        "widening `AircraftSupported` to the allied members of the airframe "
+        "families the deck already lists; it ships no unit, and the campaign "
+        "reaches it through the decks it places (build_pack's deck_types reads "
+        "the same stubs)"),
     "SEST_Gallery": (
         "library", "an offline photo gallery under `Gallery/` that the player "
         "opens in a web browser; the briefings' recognition photos are read "
@@ -1202,7 +1208,8 @@ MISSIONS.append(dict(
             "Triton, launched from Tindal, and it is the assigned aircraft for updating the "
             "northern surface search. Earlier satellite detections and merchant reports give a "
             "search area; they do not fix the group's current position. It is unarmed, it is "
-            "slow, and a pair of J-16s has come south off the enclave field on a vector that "
+            "slow, and a pair of J-16s has come south off the enclave field. Nobody holds "
+            "them yet: expect them within about five minutes, on a vector that "
             "only makes sense if they know where the orbit is.\\n\\nClassify that surface group "
             "and it stays on your plot for the rest of the morning. To do it the Triton has to "
             "go north, into the part of the sky the J-16s own. Holding "
@@ -1308,11 +1315,14 @@ MISSIONS.append(dict(
         U("blue", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer"),
         # A patrol box south of their field: they hold it, and the orbit that
-        # crosses into it is the orbit that gets shot at.
+        # crosses into it is the orbit that gets shot at. Off the field at
+        # minute 5 (13 Oct, option b): at spawn they are 114 NM from the
+        # Triton's orbit with a 108 NM PL-15, half a minute from a shot the
+        # player had no time to decide about.
         U("red", "j-16-multirole", "plaaf_j16", "red_air", name="Enclave 11",
-          route=[(-8.4, 133.3, 34000), (-8.2, 132.7, 34000)]),
+          route=[(-8.4, 133.3, 34000), (-8.2, 132.7, 34000)], enter=5),
         U("red", "j-16-multirole", "plaaf_j16", "red_air", name="Enclave 12",
-          route=[(-8.2, 132.7, 34000), (-8.4, 133.3, 34000)]),
+          route=[(-8.2, 132.7, 34000), (-8.4, 133.3, 34000)], enter=5),
         U("red", "y-20-kj-3000", "plaaf_y-20a", "red_lift", name="Shuttle 40",
           alt=28000, weapons="Hold", route=[(-6.2, 133.9, 28000)]),
         # Named by class - which is what an Identify-level reveal shows - not
@@ -1342,7 +1352,8 @@ MISSIONS.append(dict(
             " minutes long and everybody is coming home on somebody else's fuel. TEXACO 41 is "
             "the only tanker in the corridor and three different flights are booked on "
             "it.\\n\\nThe Russian expeditionary detachment supporting the enclave has put two "
-            "MiG-31s up out of the enclave field, already above fifty thousand feet, on a "
+            "MiG-31s up out of the enclave field. Wedgetail does not hold them yet: expect "
+            "them within about five minutes, above fifty thousand feet and close, on a "
             "vector toward the tanker track. Their AEW aircraft is behind them and their own "
             "tanker is behind that, which tells you this was planned.\\n\\nYou have a USAF Raptor"
             " pair and a Growler with the returning Super Hornets. The MiG-31s have an altitude"
@@ -1416,10 +1427,12 @@ MISSIONS.append(dict(
         # to TEXACO's station (the R-33 reaches 86 NM; the orbit was 99 NM
         # out and never threatened her) and home to their own AEW and tanker.
         # A tanker that leaves at once is never in reach; one that lingers is.
+        # Up at minute 5 (13 Oct, option b): at spawn the package is 68-70 NM
+        # away, inside the R-33's 86 NM from the first second.
         U("red", "mig-31-foxhound", "wp_mig-31bm", "red_air", name="Foxhound 51",
-          route=_SW07_SWEEP, telegraph=3),
+          route=_SW07_SWEEP, telegraph=3, enter=5),
         U("red", "mig-31-foxhound", "wp_mig-31bm", "red_air", name="Foxhound 52",
-          route=_SW07_SWEEP, telegraph=3),
+          route=_SW07_SWEEP, telegraph=3, enter=5),
         U("red", "a-50-il-76", "wp_a-50u", "red_support", name="Mainstay 20",
           weapons="Hold"),
         U("red", "il-78", "wp_il-78", "red_support", name="Midas 30",
@@ -1452,7 +1465,9 @@ MISSIONS.append(dict(
             "seventy-minute window to move civilians and emergency supplies out of the port. "
             "The battery covering the approach is an S-400 the first reports called "
             "man-portable. Its crews are from the Russian detachment, not Meridian's hard-line "
-            "faction, which seized the airfield.\\n\\nGRIZZLY, the Growler, has the jamming and "
+            "faction, which seized the airfield. The battery went dark when the window was "
+            "agreed; nobody expects it to stay dark, and its radars should be back up "
+            "within about five minutes.\\n\\nGRIZZLY, the Growler, has the jamming and "
             "the anti-radiation shots, off the US carrier THEODORE ROOSEVELT. The F-35 pair "
             "carries the follow-up strike, out of Langgur on the Kai group - Captain Prasetyo "
             "has lent the strip for this one operation and not an hour longer, and the pair "
@@ -1494,9 +1509,10 @@ MISSIONS.append(dict(
         # longest missile, hold a leg for seventeen minutes, then turn in
         # for a box south-west of the field: 55 minutes of flying in a
         # 70-minute window, with the battery between them and it. The
-        # package starts 129 NM out - inside the Growler's 140 NM HARM,
-        # outside the 130 NM 48N6 - instead of inside the envelope with its
-        # radars on.
+        # package starts 123 NM out - inside the Growler's 140 NM HARM - and
+        # the battery comes up at minute 5 (the 48N6E3 reaches 156 NM and the
+        # 40N6 250, so a battery there from the start had the package in its
+        # envelope with its radars on).
         "strike": S(-3.15, 136.1, "Strike package", heading=10, alt=30000),
         "relief": S(-0.4, 132.5, "Relief flight", heading=170, alt=14000),
         "box": S(-2.9, 135.2, "Safe box", heading=0),
@@ -1539,12 +1555,16 @@ MISSIONS.append(dict(
         U("blue", "us-naval-aviation", "usmc_kc-130j", "relief",
           name="Relief 62", alt=12000, weapons="Hold",
           route=[(-1.6, 132.85, 14000), (-2.9, 135.25, 14000)]),
+        # The battery comes up at minute 5 (13 Oct): its 40N6 reaches 250 NM,
+        # so the package, 123 NM out at 30,000 ft, was inside the envelope
+        # and the radar's line of sight from the first second. One formation,
+        # so the radar comes up with the launchers.
         U("red", "sa-21-s400", "wp_sam_site_sa-21", "battery",
-          name="Enclave battery"),
+          name="Enclave battery", enter=5),
         U("red", "sa-21-s400", "wp_sa-21_flaplid", "battery",
-          name="Battery radar"),
+          name="Battery radar", enter=5),
         U("red", "sa-21-s400", "wp_sa-21_40n6_tel", "battery",
-          name="Battery launcher"),
+          name="Battery launcher", enter=5),
         U("red", "pla-land-unit-pack", "pla_df-21c_tel", "field",
           name="Transporter-erector"),
         U("red", "pla-land-unit-pack", "pla_apc_zbl-08", "field",
@@ -1694,8 +1714,9 @@ MISSIONS.append(dict(
         "cape": S(-12.5, 142.0, "Cape York strip", heading=0),
         # Fifty miles east-south-east and closing at twenty knots: across the
         # withdrawal track about when the window closes, and inside the
-        # Seahawk's reach from the first minute. She used to be 204 NM away,
-        # pointed elsewhere, with no route - set dressing with torpedoes.
+        # Seahawk's reach from minute 5, when she joins. She used to be 204
+        # NM away, pointed elsewhere, with no route - set dressing with
+        # torpedoes.
         "red_sub": S(-14.0, 149.1, "Akula datum", heading=290),
         # Twelve miles north-east of the support group and keeping station on
         # it: the trawler that has been "fishing" beside the RAS box all week.
@@ -1725,9 +1746,12 @@ MISSIONS.append(dict(
           alt=2500),
         U("blue", "buildings-targets-missions", "FOB", "cape",
           name="Cape York forward strip", weapons="Hold"),
+        # Joins at minute 5 too (13 Oct): the trawler 15 NM off Stalwart
+        # holds the group on radar from the first second, and that picture
+        # puts the SS-N-27s on it from 40 NM.
         U("red", "russian-submarines", "wp_ssn_akula", "red_sub",
           name="Contact VICTOR", depth="belowlayer",
-          route=[(-13.75, 148.5, "belowlayer")], telegraph=5),
+          route=[(-13.75, 148.5, "belowlayer")], telegraph=5, enter=5),
         # An Okean-class intelligence trawler with a ZU-23 and a Bofors
         # (Moloti's Armed Merchantmen), holding its distance and its fire:
         # the eyes the scout and the Flankers are working from. It is armed,
@@ -1737,10 +1761,13 @@ MISSIONS.append(dict(
         # "A scout is coming to look at it and a raid may follow it." The
         # scout looks from 33 NM west of the box, then leaves (the stage
         # intel speaks of where it WAS looking). Its own station, so it no
-        # longer leads the Flankers' formation while orbiting.
+        # longer leads the Flankers' formation while orbiting. It comes back
+        # at minute 5 (13 Oct, option b): its radar on Perth from 161 NM was
+        # the Akula's track from the first second. It looks at about 25.
         U("red", "tu-214r-family", "msdvd_tu-214r", "red_scout",
           name="Coot-A 90", alt=34000, weapons="Hold",
-          route=[(-13.5, 147.85, 34000), (-11.0, 148.0, 34000)], telegraph=3),
+          route=[(-13.5, 147.85, 34000), (-11.0, 148.0, 34000)], telegraph=3,
+          enter=5),
         # One of the pair carries Kh-31A, so the "Flanker pair within range
         # of here" is a threat to the ships and not only to the helicopter.
         # The raid comes down the outside of the box and its Kh-31A window
@@ -1835,7 +1862,9 @@ MISSIONS.append(dict(
         # 15 NM from the Anzac with YJ-18 and torpedoes free.
         "red_sub": S(-7.35, 133.4, "Submarine datum", heading=320),
         # A hundred miles out, so the fighters arrive over a quarter of an
-        # hour instead of at spawn.
+        # hour instead of at spawn - and off the field at minute 5 (13 Oct,
+        # option b): from here the J-11BG's PL-15 (108 NM) had the F-2As at
+        # 105 NM from the first second. Over the convoy at about twenty.
         "red_air": S(-4.7, 133.4, "Enclave fighters", heading=180, alt=32000),
         # The surface half of "where the submarine and surface threats
         # overlap": a hundred miles east of the handover and closing, inside
@@ -1876,15 +1905,16 @@ MISSIONS.append(dict(
           name="Contact SIERRA", depth="belowlayer",
           route=[(-6.75, 132.95, "belowlayer")], telegraph=3),
         U("red", "j-11", "plaaf_j-11bg", "red_air", name="Flanker 31",
-          route=[(-6.7, 132.9, 30000)], telegraph=3),
+          route=[(-6.7, 132.9, 30000)], telegraph=3, enter=5),
         U("red", "j-11bs", "plaaf_j-11bs", "red_air", name="Flanker 32",
-          route=[(-6.7, 132.9, 30000)], telegraph=3),
+          route=[(-6.7, 132.9, 30000)], telegraph=3, enter=5),
         U("red", "su-27ubk", "plaaf_su-27ubk", "red_air", name="Flanker 33",
-          route=[(-6.7, 132.9, 30000)], telegraph=3),
+          route=[(-6.7, 132.9, 30000)], telegraph=3, enter=5),
         # YJ-91 under the J-10C: the one red aircraft that can reach a
         # merchant, so Maya's SM-2 has something to do.
         U("red", "j-10c", "plaaf_j10c", "red_air", name="Dragon 41",
-          loadout="AntiShip", route=[(-6.7, 132.9, 30000)], telegraph=3),
+          loadout="AntiShip", route=[(-6.7, 132.9, 30000)], telegraph=3,
+          enter=5),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "red_sag",
           name="Type 054A frigate", route=[(-7.0, 133.2, 0)], telegraph=4),
         # Air-tasking placeholder: no name, no objective, no line in the
@@ -2555,8 +2585,11 @@ MISSIONS.append(dict(
         # Ahead of Stuart's track, 33-34 NM out; it started 19 NM from the
         # escort, inside its own torpedo reach (first public report).
         "red_sub": S(-6.45, 129.95, "Kilo datum", heading=40),
-        # 125 NM out, so the pair is a raid the screen sees coming, not one
-        # already inside its own standoff range at the start.
+        # 124 NM out, held back to minute 5 (13 Oct, option b). Its YJ-83
+        # reaches 156 NM, so a pair here from the first second was already
+        # inside its own launch range. Joining at minute 5 it is a raid the
+        # player has had five quiet minutes to prepare for (the raid rule:
+        # 20 NM of flying before 100), though it still joins inside its reach.
         "red_air": S(-3.85, 129.78, "Strike pair", heading=160, alt=30000),
     },
     units=[
@@ -2577,10 +2610,10 @@ MISSIONS.append(dict(
           depth="belowlayer", route=[(-6.2, 130.15, "belowlayer")], telegraph=2),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
           name="Flying Shark 31", loadout="AntiShip",
-          route=[(-5.9, 130.1, 20000)], telegraph=3),
+          route=[(-5.9, 130.1, 20000)], telegraph=3, enter=5),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
           name="Flying Shark 32", loadout="AntiShip",
-          route=[(-5.9, 130.1, 20000)], telegraph=3),
+          route=[(-5.9, 130.1, 20000)], telegraph=3, enter=5),
     ],
 ))
 
@@ -2641,7 +2674,12 @@ MISSIONS.append(dict(
         "helo": S(-12.1, 125.1, "Escort flights", heading=80, alt=3000),
         "cap": S(-12.6, 125.4, "Typhoon pair", heading=20, alt=33000),
         "aew": S(-13.0, 125.2, "AEW orbit", heading=90, alt=30000),
-        "red_air": S(-10.52, 125.12, "Shadowers", heading=200, alt=28000),
+        # Still the northern edge, now 111 NM north of the escort flights:
+        # from 95 NM the MiG-35s were nine miles of flying short of their
+        # 86 NM air-to-air reach of the Merlin and the Wildcat at the first
+        # second (13 Oct opening check). Same bearing, still in the
+        # GlobalEye's picture from the start; about two minutes more to fly.
+        "red_air": S(-10.25, 125.12, "Shadowers", heading=200, alt=28000),
         "home": S(-17.5813, 123.8283, "RAAF Base Curtin"),
     },
     units=[
@@ -2912,8 +2950,9 @@ MISSIONS.append(dict(
             "raid. If you start a fleet action to protect a workshop ship you will lose "
             "both.\\n\\nDETACHMENT INTELLIGENCE: Earlier surface-search reporting places an "
             "Australian Hobart-class destroyer and Anzac-class frigate about a hundred and "
-            "twenty miles west-south-west of the auxiliary, closing north-east, with a P-8A and"
-            " an assessed F-35A patrol. The escorts' and fighters' sensors must update that "
+            "twenty miles west-south-west of the auxiliary, closing north-east. A P-8A and an "
+            "assessed F-35A patrol are expected over them within about ten minutes. The "
+            "escorts' and fighters' sensors must update that "
             "report as contact permits. Avoid widening the fight while the auxiliary clears "
             "south-east."
         )),
@@ -2921,7 +2960,8 @@ MISSIONS.append(dict(
            "group; a Felon, a Su-30SM2, a MiG-29K, a Su-33 and a lent J-16D; a "
            "Tu-160 and two Tu-95MS already airborne. One damaged auxiliary, and "
            "three neutral merchants on the same track. Opposing: an Australian "
-           "patrol - a Hobart and an Anzac with an F-35A and a P-8A over them.",
+           "patrol - a Hobart and an Anzac, with an F-35A and a P-8A due over "
+           "them in about ten minutes.",
     objectives=[
         ("Auxiliary", "Bring the auxiliary through to the south-east",
          "40,-40,Fail,Main"),
@@ -2981,17 +3021,30 @@ MISSIONS.append(dict(
         U("blue", "modern-russian-airbase", "wp_airbase_modern", "field",
           name="Enclave dispersal field", weapons="Hold"),
         U("blue", "kuznetsov-1143-5", "wp_su-33", "cap", name="Flanker-D 14"),
+        # Tight: the patrol "will not start a fight today unless you give it
+        # a reason" (intent), and the destroyer is the ship that would start
+        # it - her SAMs held the detachment's CAP (the lent J-16D) from 147 NM
+        # at the first second (13 Oct opening check). At Tight she defends
+        # herself only (the game's tooltip; whether a Tight ship also engages
+        # hostile aircraft is the player's Standing Orders toggle, off by
+        # default since 0.8.3 - test card H.3). Perth stays free.
         U("red", "SEST_RAN_Fleet", "ran_ddg_hobart", "red_sag",
-          name="HMAS Hobart"),
+          name="HMAS Hobart", weapons="Tight"),
         U("red", "SEST_RAN_Fleet", "ran_ffh_anzac", "red_sag", variant="Variant8",
           name="HMAS Perth"),
         # Red can reply: JSM under the F-35A, Harpoon under the P-8. The
         # reviewed build's only way to lose was the clock.
+        # Both come on station at minute 10 (13 Oct, option b): the P-8's
+        # radar was the track that let Hobart and Perth fire at the
+        # auxiliary from the first second, the P-8 started 123 NM from her
+        # with 150 NM of anti-ship reach, and the F-35A 6 NM outside its
+        # 120. Joining at minute 10 they are the raid the brief warns
+        # of; the surface pair has no track on her until then.
         U("red", "SEST_RAAF_F-35A_JATM", "raaf_f-35a", "red_air",
           squadron="Squadron3", name="Vigilant 41",
-          loadout="StrikeLongRangeStealth"),
+          loadout="StrikeLongRangeStealth", enter=10),
         U("red", "p-8-poseidon", "usn_p8", "red_air", squadron="Squadron3",
-          name="Bluefin 29", loadout="AntiShip"),
+          name="Bluefin 29", loadout="AntiShip", enter=10),
         U("neutral", "_vanilla", "civ_ms_ritina", "lane", name="MT Seram Spirit",
           route=[(-7.0, 132.5, 0)], telegraph=3),
         U("neutral", "_vanilla", "civ_ms_roro_b", "lane", name="MV Ambon Ferry",
@@ -3141,7 +3194,8 @@ MISSIONS.append(dict(
             "BANDA SEA, MARCH 2034. A mobile launcher complex threatens the north-eastern "
             "passage. An RQ-180 is ahead of the bomber package; the escort includes YF-23s, two "
             "Fury wingmen off Enterprise and aircraft carrying long-range missile fits.\\n\\nOpposing J-36 and J-50 fighters "
-            "cover the complex, with a Tu-95MA contributing a further missile threat. Earlier "
+            "cover the complex, with a Tu-95MA contributing a further missile threat: expect "
+            "the fighters up within about five minutes and the Tu-95MA within about ten. Earlier "
             "imagery narrows the launcher search area, but mobile equipment must be located and"
             " identified before attack.\\n\\nStrike the launcher complex and preserve a recovery "
             "route for the package. Darwin is beyond the escorts' reach on this task: they "
@@ -3227,12 +3281,16 @@ MISSIONS.append(dict(
         # Onto the stream's line and back down it to where it launched: the
         # orbit was 134 NM north-north-west of the stream and 96 NM off its
         # track, and the J-50's PL-15s never reached it.
+        # Held back (13 Oct, option b): the pair joins at minute 5, the
+        # Tu-95MA at 10. At the first second the J-36's 228 NM round held
+        # the RQ-180 from 113 NM, the J-50's PL-15s (108 NM) were 2 NM short
+        # of her, and Meteorit's 2,700 NM held Enterprise from 242 NM.
         U("red", "j-36-tailless", "plaaf_j36", "red_air", name="Tailless 51",
-          route=_D6_HUNT, telegraph=3),
+          route=_D6_HUNT, telegraph=3, enter=5),
         U("red", "j-50", "plan_j-50", "red_air", name="Silent 52",
-          route=_D6_HUNT, telegraph=3),
+          route=_D6_HUNT, telegraph=3, enter=5),
         U("red", "3m25-meteorit", "wp_tu-95ma", "red_bomber", name="Meteorit 90",
-          loadout="AntiShip"),
+          loadout="AntiShip", enter=10),
         U("red", "pla-land-unit-pack", "pla_df-26b_tel", "complex",
           name="Relocatable launcher"),
         U("red", "pla-land-unit-pack", "pla_h-200a_radar", "complex",
@@ -3411,8 +3469,9 @@ MISSIONS.append(dict(
         "covers the road.\\n\\n"
         "Get the column - the relief truck is the column - to the airstrip. "
         "The gunship is usable only while no fighter radar is watching this "
-        "sector: if the J-16 comes up, pull the gunship the moment its radar "
-        "does. Losing the gunship ends the operation."),
+        "sector: the enclave can have the J-16 up within about ten minutes, and "
+        "when it comes up, pull the gunship the moment its radar does. Losing "
+        "the gunship ends the operation."),
     forces="An AH-64E and an AH-64D, two A-10Cs, an AC-130J, an F-15E, a "
            "Polish F-16C, a "
            "B-2 on a single allocated pass, two MV-22B and an Army MV-75 with the airhead's "
@@ -3482,7 +3541,10 @@ MISSIONS.append(dict(
           name="Mobile SAM, ridge"),
         U("red", "pla-land-unit-pack", "pla_apc_zbl-08", "ridge",
           name="Road detachment"),
-        U("red", "j-16a", "plaf_j16a", "red_air", name="Enclave 61"),
+        # "If the J-16 comes up": it does, at minute 10 (13 Oct, option b).
+        # From the first second the lift (Valor 73) was 105 NM from it,
+        # inside its PL-15s' 108, and the gunship had no window to work in.
+        U("red", "j-16a", "plaf_j16a", "red_air", name="Enclave 61", enter=10),
         # The attack helicopter's own file says CarrierCapable=False; it was
         # homed on a Type 071 that does not list it. It belongs over a road.
         U("red", "z-21", "pla_z21", "ridge_air", name="Ridge flight", alt=1500),
