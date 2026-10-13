@@ -65,7 +65,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (164): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (169): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -88,6 +88,7 @@ shared file wins for the mods above.
   3768036424    Better TacMap
   3628203171    Bréguet Br.1050 Alizé
   3600788156    Buildings and Targets for Missions
+  3564792549    BUK-M3
   3801363152    CH-53E Standalone v0.1.0
   3481228992    ChengDu J-10C Vigorous Dragon
   3806197116    Civilian AS350 Ecureuil/AStar MOD
@@ -131,10 +132,12 @@ shared file wins for the mods above.
   3412480633    Ground Upgrade: IFV
   3410473695    Ground Upgrade: MBT
   3508275114    Ground Upgrade: SPAA
+  3556629790    ICBM silos
   3790594162    Identify Expanded
   3549377308    Iran Bell-212
   3686449681    Iran UAV Shahed 238
   3408662804    Iskander TBM
+  3569219326    ISKANDER-K
   3681748718    ISKANDER-M
   3505420313    Italian Navy Mod
   3591563716    J-20 (歼-20 威龙)
@@ -160,7 +163,6 @@ shared file wins for the mods above.
   3456859157    Mogami-class Frigate
   3485917612    Moloti's Armed Merchantmen
   3716049886    MORE SU-24M VARIANTS
-  3806466625    MV-22B Osprey Tiltrotor / JGSDF V-22B
   3810611344    MV-75 Cheyenne II
   3603367264    NATO Ground Enhancement Series 2: Artillery
   3551621846    NEBO-U
@@ -173,9 +175,11 @@ shared file wins for the mods above.
   3729579342    PLA Sukhoi Su-27UBK
   3812111085    PLAAF Aircraft Pack
   3774572038    PLAN Type 071 Amphibious Transport Dock
+  3731931836    Prithvi TBM (大地弹道导弹)
   3399699218    Project 2498 Zyetseth Class Assault Vessel
   3796706214    Real photos of airplanes and helicopters
   3769142422    Rebuilt J-16 / J-16D
+  3571718093    Road Mobile ICBMs (Topol-M, DF-41)
   3455404959    Royal Australian Defence Forces
   3378409795    Royal Navy Type 23 'Duke Class' Frigate [OLD]
   3373356293    Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
@@ -225,6 +229,7 @@ shared file wins for the mods above.
   3470643173    Type 12 SSM-ER Anti-Ship Missile System
   3468959181    U-2 "Dragon Lady"
   3672072359    Ultimate Missile Workshop
+  3806466625    V-22 Osprey / SV-22 2024 ASW prototype
   3478767194    VH-3D Marine One MOD
   3433957933    Virginia-, Seawolf-, and Ohio-class Submarines
   3636213685    wp_sattelite_center

@@ -291,6 +291,20 @@ EXCUSES = {
         "external", "Fattah-1 TELs kept for scenarios; no SEST mission places them"),
     "fattah-2": (
         "external", "Fattah-2 TELs kept for scenarios; no SEST mission places them"),
+    "prithvi-tbm": (
+        "external", "Indian Prithvi II/III TELs kept for scenarios; no SEST mission "
+        "places them, and the world campaign has no India nation"),
+    "buk-m3": (
+        "external", "Buk-M3 battery kept for scenarios until an in-game check; the "
+        "land-defence sites still field the 1980s SA-11 battery"),
+    "iskander-k": (
+        "shadowed", "every file it ships loses to THE REDFOR MOD directly above it "
+        "(fuller wp_iskander and wp_r-500) or is an identical copy, so nothing it "
+        "contains loads"),
+    "icbm-silos": (
+        "external", "US and Soviet ICBM silo fields kept for the mission editor; "
+        "their rounds are nuclear-scale (Power 10000) and no SEST campaign puts "
+        "nuclear weapons in a magazine"),
     "iran-bell-212": (
         "external", "Iranian Army, Navy and IRIAA Bell 212s; no SEST mission is set "
         "in Iranian waters"),

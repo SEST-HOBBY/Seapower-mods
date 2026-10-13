@@ -80,6 +80,7 @@ TIER6_EXTRA = []   # SEST RAAF Bases moved to TIER0
 TIER7 = [
     ("the-redfor-mod", "consolidation pack below the specialists it copied (S-300PMU2, "
      "ISKANDER-M, Su-27, TU-16N, P-750, Russian Navy 21, Euromod): loses every shared file"),
+    ("iskander-k", "below THE REDFOR MOD, whose fuller wp_iskander and wp_r-500 win"),
     ("wp-sattelite-center", "below THE REDFOR MOD, whose byte-identical copies win"),
     ("ultimate-missile-workshop", "below everything it duplicates, on the player's call: "
      "its author's 'above all' would take 91 rounds and break the Gripen's AIM-120C-7"),

@@ -1,7 +1,7 @@
 # Packaging, dependencies and recovery
 
-Two questions this answers: how the SEST packs coexist with 190 workshop mods
-(191 Mod Manager entries with `SEST_Integration`), and what you actually need
+Two questions this answers: how the SEST packs coexist with 195 workshop mods
+(196 Mod Manager entries with `SEST_Integration`), and what you actually need
 to be able to recover if the game install goes bad.
 
 ## A SEST pack is a patch, not a mod
@@ -320,8 +320,8 @@ that item's Required Items or from one collection, both mirroring
   3812461539, Public. It is the `SEST_Integration` folder, all three
   campaigns included. Every upload is an update to it, never a new item.
 - **The collection**: 'SEST - Modernised Campaign Collection', 3812390790,
-  the Workshop mods in `data/load-order.tokens.txt` plus the pack (191 items
-  once the October 2026 additions are in it; it was published with 149). A mod added to or dropped from the load order means the same change
+  the Workshop mods in `data/load-order.tokens.txt` plus the pack (196 items
+  once the 13 October 2026 additions are in it; it was published with 149). A mod added to or dropped from the load order means the same change
   to the collection and to the item's Required Items, before the upload.
 
 **Required Items are the load order's Workshop mods.** Set in October 2026
@@ -360,7 +360,9 @@ in `docs/campaigns/southern-watch/publishing.md`; the listing text is in
 
 A game update moves the one thing every pack and mission here is built on
 and nobody exports on purpose: the game's own files. Three things in this
-repo track them. `mods-source/_vanilla/original` is the vanilla export: on 3
+repo track them. `mods-source/_vanilla/original` is the vanilla export: since
+11 Oct 2026 (7739076c) 4,049 text files under 0.8.5 Build 261008 of 8 Oct 2026,
+whose drift needed no SEST change (the packs moved to 0.8.5 on 13 Oct); on 3
 Oct 2026, 4,047 text files under 0.8.4 Build 261002 of 2 Oct 2026 (the 2 Oct
 export's 4,051, taken under 0.8.3, less the KC-135A and Tu-16N stubs the game
 no longer ships, deleted by hand on 3 Oct; the 3 Oct export changed none of
