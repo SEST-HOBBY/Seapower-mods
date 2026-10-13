@@ -1,6 +1,6 @@
-captured        : 2026-10-13T15:34:06
+captured        : 2026-10-13T15:45:52
 host os         : Microsoft Windows NT 10.0.26300.0
 powershell      : 5.1.26100.9444
-repo commit     : 67937462
+repo commit     : 0b0d137b
 repo branch     : chore/workshop-refresh-20261013
 redacted        : True

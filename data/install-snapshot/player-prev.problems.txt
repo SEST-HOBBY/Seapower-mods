@@ -1,31 +1,4 @@
 # Lines from Player-prev.log matching Exception/Error/not found/missing/failed.
-# 28 hit(s) - the first place to look when something did not load.
+# 1 hit(s) - the first place to look when something did not load.
 
     131: [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
-    497: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
-    498: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
-    499: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
-    500: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
-    576: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
-    578: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
-    579: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
-    588: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
-    590: SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
-    938: SpawnPool Effects: wp_ss-n-12_booster(Clone) not found in SpawnPool
-    939: SpawnPool Effects: wp_ss-n-12_booster(Clone) not found in SpawnPool
-   1006: NullReferenceException: Object reference not set to an instance of an object | 1 vs 3
-   1007: NullReferenceException: Object reference not set to an instance of an object
-   1013: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
-   1014: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
-   1015: UnityEngine.DebugLogHandler:LogException(Exception, Object)
-   1016: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
-   1017: UnityEngine.Logger:LogException(Exception, Object)
-   1018: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
-   1020: NullReferenceException: Object reference not set to an instance of an object | 2 vs 3
-   1021: NullReferenceException: Object reference not set to an instance of an object
-   1027: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
-   1028: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
-   1029: UnityEngine.DebugLogHandler:LogException(Exception, Object)
-   1030: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
-   1031: UnityEngine.Logger:LogException(Exception, Object)
-   1032: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)

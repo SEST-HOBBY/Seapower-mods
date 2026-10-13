@@ -1,4 +1,10 @@
-# BepInEx\LogOutput.log - last 600 line(s) of a 0.1 MB file, last written 2026-10-13T15:29:40. 
+# BepInEx\LogOutput.log - last 600 line(s) of a 0.1 MB file, last written 2026-10-13T15:45:02. 
+[Info   :AnchorChain] Loaded assembly FuryFormation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryLights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly FuryVoice.Harmony, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2CommsJamming, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Formation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Info   :AnchorChain] Loaded assembly EC2Lights, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly EC2Tooltip, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly J16Systems, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [Info   :AnchorChain] Loaded assembly J36AfterburnerNozzle, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -593,9 +599,3 @@ OK      ObjectBase.CurrentOrder (the AI's bombers inside their missiles' minimum
 OK      ObjectBase.StateMachine (the AI's bombers inside their missiles' minimum range sent out of it in battle)
 OK      StateMachine.CurrentStateName (the AI's bombers inside their missiles' minimum range sent out of it in battle)
 [Info   :Dynamic Campaign Mod] Patched: dynamic campaigns will appear in the Campaign menu marked [Dynamic].
-[Info   :Coordinated Strike Tool] [t=150.11s] in mission: True, game menu open: False, HUD visible: True
-[Warning:  HarmonyX] AccessTools.TypeByName: Could not find type named IFFTransponder.IFFUtil
-[Info   :Coordinated Strike Tool] [t=160.75s] in mission: True, game menu open: True, HUD visible: False
-[Info   :Coordinated Strike Tool] [t=161.35s] in mission: True, game menu open: False, HUD visible: True
-[Info   :Coordinated Strike Tool] [t=161.70s] in mission: True, game menu open: True, HUD visible: False
-[Info   :Coordinated Strike Tool] [t=163.59s] in mission: False, game menu open: False, HUD visible: True

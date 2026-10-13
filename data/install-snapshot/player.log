@@ -1,4 +1,4 @@
-# Player.log - last 337 of 337 line(s), captured 2026-10-13T15:34:05.
+# Player.log - last 243 of 243 line(s), captured 2026-10-13T15:45:52.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,7 +17,7 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1074
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.221 seconds
+- Loaded All Assemblies, in  0.203 seconds
 - Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -108,7 +108,7 @@ Using Windows.Gaming.Input
 <RI> Input initialized.
 
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 3.040000 ms
+UnloadTime: 2.628900 ms
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.67f1
 Development build: False
@@ -138,8 +138,8 @@ FileManager.Directories contains Mods
 [IDX][CampaignCapture.cs:232 AnnouncePrizes] [IDX-Prize] Roster for mission:unknown: 1/3 boarded
 FileManager.CheckFileValidity(): Game passed file validity checks!
 FileManager.CheckForUpdates(): The following files require update []
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
@@ -153,13 +153,8 @@ LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
@@ -167,8 +162,6 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Threshold, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Min, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_AdditivePass, 1)
@@ -199,13 +192,20 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_addit
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetColor(_TintColor, {*}FFFFFF80)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetFloat(_InvFade, 1)
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-3216
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-2928
 [MultiStageMissiles] usn_w76_mk4: independent spawning enabled for 7 direct INI effect prefab(s).
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-3356
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-3068
 [MultiStageMissiles] usn_w88_mk5: independent spawning enabled for 7 direct INI effect prefab(s).
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-3464
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-3176
 [MultiStageMissiles] wp_ss-n-12_350kt: independent spawning enabled for 8 direct INI effect prefab(s).
 [MultiStageMissiles] wp_ss-n-19_500kt: independent spawning enabled for 9 direct INI effect prefab(s).
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
 LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetColor(_TintColor, {*}FFFFFF80)
 LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetColor(_TintColor, {*}FFDBD0FF)
@@ -232,107 +232,13 @@ LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Cutoff, 0.5)
 [MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
 [MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
-[2101 - HTTPRequestCompleted] - 5 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3797
+[2101 - HTTPRequestCompleted] - 3 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3797
 [SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
 [SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
-Color primaries 0 is unknown or unsupported by WindowsMediaFoundation. Falling back to default may result in color shift. C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-[IDX][TensionConfig.cs:80 SetLevel] [IDX-Tension] level set to Tense (TENSE) DEFCON 3
-[IDX][EditorTensionDropdown.cs:338 StoreSelection] [IDX-Tension] MissionEditor set TENSE DEFCON 3 via dropdown
-[IDX][EditorTensionDropdown.cs:260 TryInjectInternal] [IDX-Tension] Mission Editor DEFCON dropdown injected next to StackPanel (baseSettings) val=TENSE DEFCON 3
-[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
-[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
-Global logging level set to: <b>Info</b>
-Noesis logging level set to: <b>Trace</b>
-Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
-Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
-Added pool 'Effects'
-DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
-Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
-[SkyDebug] RenderPosition.updateCameraAndSkyPosition hit.
-[HighAltitudeSkyFix] Cloud culling radius extended from 4 to 8 chunks (maximum pool 289 chunks). Mission cloud type and density are unchanged.
-[IDX][BottomBarInjector.cs:399 DumpVanillaButtons] [IDX-BottomBar][dump] tb_FormationManagerWindow: type=ToggleButton Content='Noesis.StackPanel' Parent=Grid (Noesis.Grid) Margin=0 Padding=0 Style=Noesis.Style FontSize=12
-[IDX][BottomBarInjector.cs:405 DumpVanillaButtons] [IDX-BottomBar][dump]  Background= BorderBrush= Foreground=#FF000000
-[IDX][BottomBarInjector.cs:399 DumpVanillaButtons] [IDX-BottomBar][dump] tb_EventLogWindow: type=ToggleButton Content='Noesis.StackPanel' Parent=Grid (Noesis.Grid) Margin=0 Padding=0 Style=Noesis.Style FontSize=12
-[IDX][BottomBarInjector.cs:405 DumpVanillaButtons] [IDX-BottomBar][dump]  Background= BorderBrush= Foreground=#FF000000
-[IDX][BottomBarInjector.cs:399 DumpVanillaButtons] [IDX-BottomBar][dump] tb_CameraControlsWindow: type=ToggleButton Content='Noesis.StackPanel' Parent=Grid (Noesis.Grid) Margin=0 Padding=0 Style=Noesis.Style FontSize=12
-[IDX][BottomBarInjector.cs:405 DumpVanillaButtons] [IDX-BottomBar][dump]  Background= BorderBrush= Foreground=#FF000000
-[IDX][BottomBarInjector.cs:389 DumpVanillaButtons] [IDX-BottomBar][dump] rb_MessageLog=null
-[IDX][BottomBarInjector.cs:389 DumpVanillaButtons] [IDX-BottomBar][dump] rb_Tasking=null
-[IDX][BottomBarInjector.cs:389 DumpVanillaButtons] [IDX-BottomBar][dump] rb_Intel=null
-[IDX][BottomBarInjector.cs:414 DumpVanillaButtons] [IDX-BottomBar][dump] parent Grid children=12 type=Noesis.Grid
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[0] Grid Name='OverlayCanvasNew' Content=''
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[1] Canvas Name='ContextMenuCanvas' Content=''
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[2] ItemsControl Name='' Content=''
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[3] ContentControl Name='' Content=''
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[4] Canvas Name='' Content=''
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[5] Rectangle Name='BackgroundRectangle' Content=''
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[6] ContentControl Name='' Content=''
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[7] ToggleButton Name='FormationManagerWindow' Content='Noesis.StackPanel'
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[8] ToggleButton Name='EventLogWindow' Content='Noesis.StackPanel'
-[IDX][BottomBarInjector.cs:421 DumpVanillaButtons] [IDX-BottomBar][dump]  child[9] ToggleButton Name='MapWindow' Content='Noesis.Image'
-[IDX][BottomBarInjector.cs:430 DumpVanillaButtons] [IDX-BottomBar][dump] MainGameViewModel.uiSprites count=11
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_messagelog 32x32 format=DXT1
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_messagelog_lit 32x32 format=DXT1
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_damage_control 32x33 format=RGB24
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_damage_control_p 32x33 format=RGB24
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_airops 32x32 format=DXT1
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_airops_lit 32x32 format=DXT1
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite pointer_select 32x32 format=RGBA32
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_maximize_map 32x32 format=DXT1
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_maximize_map_lit 32x32 format=DXT1
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_formationmanager 32x32 format=DXT1
-[IDX][BottomBarInjector.cs:431 DumpVanillaButtons] [IDX-BottomBar][dump] uiSprite button_formationmanager_lit 32x32 format=DXT1
-[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Border Size=30x30 Parent=ToolBar
-[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Canvas Size=30x30 Parent=ToolBar
-[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
-[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
-[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
-[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Path Size=30x30 Parent=ToolBar
-[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=T Size=30x30 Parent=ToolBar
-[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Image Source=Noesis.BitmapImage 24x24 Size=30x30 Parent=ToolBar
-[IDX][BottomBarInjector.cs:455 DumpVanillaButtons] [IDX-BottomBar][dump] Button Name='' Content=Noesis.Grid Size=30x30 Parent=ToolBar
-[IDX][BottomBarInjector.cs:91 TryInject] [IDX-BottomBar] AlliedCommand detected â€” compat mode on (allied side respected)
-[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
-[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
-[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
-[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
-[HighAltitudeSkyFix] Skybox vertical geometry measured: top=105707 ft, atmosphere boundary=88189 ft, retained camera-above-skybox offset=96948 ft.
-[SkyDebug] Active DynamicSky found independently; runtime type=SeaPower.DynamicSky, name=Environment.
-[SkyDebug] Skybox found independently: runtime type=UnityEngine.GameObject, name=Skybox, activeSelf=True, position=(52.35, 0.00, 60.09), localPosition=(52.35, 0.00, 60.09), localScale=(2.00, 2.00, 2.00), rendererType=UnityEngine.MeshRenderer, rendererEnabled=True, rendererBounds=Center: (52.35, 239.73, 60.09), Extents: (1085.17, 239.73, 1085.17), material=skysphere_mat (Instance), shader=Nils/Environment/Sky_Animated, mesh=SkySpereGeo, meshBounds=Center: (0.00, 119.86, 0.00), Extents: (542.58, 119.86, 542.58), vertices=1427, star/celestial children=<none>.
-[SkyDebug] Altitude snapshot (sea/normal altitude): camera=Main Camera, cameraPosition=(52.35, 1.36, 60.09), altitude=300 ft, cameraClearFlags=SolidColor, skyboxPosition=(52.35, 0.00, 60.09), cameraToSkyboxTransform=1.361, cameraAboveSkybox=300 ft, gameBaseSkyboxPosition=(52.35, 0.00, 60.09), correctedSkyboxPosition=(52.35, 0.00, 60.09), rendererBounds=Center: (52.35, 239.73, 60.09), Extents: (1085.17, 239.73, 1085.17), cameraInsideAabb=True, cameraToBoundsCenter=238.367, RenderSettings.skybox=<null>.
-[SkyDebug] DynamicSky.updateSkyParameters hit; runtime type=SeaPower.DynamicSky.
-[SkyDebug] DynamicSky.updateLightParameters hit; runtime type=SeaPower.DynamicSky.
-[SkyDebug] DynamicSky.updateGraphics hit; runtime type=SeaPower.DynamicSky.
-[SkyDebug] DynamicSky.OnLateUpdate hit; runtime type=SeaPower.DynamicSky.
-[EnhancedUIMod] Attached to main HUD weapon list.
-[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
-Unloading 7 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 187 unused Assets to reduce memory usage. Loaded Objects now: 18827.
-Total: 185.106500 ms (FindLiveObjects: 1.635500 ms CreateObjectMapping: 1.003500 ms MarkObjects: 181.732000 ms  DeleteObjects: 0.734900 ms)
-
-Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 18850.
-Total: 163.069700 ms (FindLiveObjects: 1.086800 ms CreateObjectMapping: 1.394700 ms MarkObjects: 160.561400 ms  DeleteObjects: 0.026500 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 18864.
-Total: 175.956600 ms (FindLiveObjects: 0.976600 ms CreateObjectMapping: 0.761500 ms MarkObjects: 174.190600 ms  DeleteObjects: 0.027300 ms)
-
-Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 18873.
-Total: 168.756000 ms (FindLiveObjects: 0.949100 ms CreateObjectMapping: 0.483600 ms MarkObjects: 167.296300 ms  DeleteObjects: 0.026600 ms)
-
+Color primaries 0 is unknown or unsupported by WindowsMediaFoundation. Falling back to default may result in color shift. C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 [3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
-Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
-[SEST Menu] video player 'MediaPlayer' in scene 'main-menu': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
-[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
-Unloading 643 unused Assets to reduce memory usage. Loaded Objects now: 13828.
-Total: 209.596100 ms (FindLiveObjects: 0.724700 ms CreateObjectMapping: 0.690000 ms MarkObjects: 195.325800 ms  DeleteObjects: 12.855200 ms)
-
-[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
-[Singleton<SeaPower.InputHandler>] Instance will not be returned because the application is quitting.
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05
 Input System module state changed to: ShutdownInProgress.
