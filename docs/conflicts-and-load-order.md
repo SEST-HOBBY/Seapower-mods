@@ -138,3 +138,30 @@ Nothing is changed for this note. Options, for the player to choose:
    the last change to that model block made the missile fall back to a RIM-7.
 The APKWS Redback draft cites the AIM-424 as a precedent; it should name
 which of these it means.
+
+**Decision (13 Oct 2026, the player): option 1.** The YF-23 keeps its
+author's round.
+
+**Which plays, and which is closest to the real missile.** U.S. Navy 2027
+(load order 21) outranks US Naval Aviation (73), so the `usn_aim-424` in game
+is U.S. Navy 2027's flight figures on US Naval Aviation's `aim-424.obj` model
+(U.S. Navy 2027 points at that asset). Against what the Navy published (680
+kg, 4.11 m, 34.3 cm, "in excess of 250" NM, a solid motor read as two-stage,
+blast-fragmentation) - speed and seeker are not public, so the rest is
+estimate:
+- US Naval Aviation's own figures are the least plausible: 1,600 knots
+  (the same-diameter AIM-174B is 2,650 in the collection), a 15-degree loft,
+  exactly 250 NM. Its model is the best: the real shape.
+- U.S. Navy 2027's are the most plausible of the mods': 2,650 knots, a
+  45-degree loft to about 148,000 ft, datalink and retargeting; 350 NM is
+  above the published floor - optimistic, not contradicted.
+- The YF-23's are approximations by its author's own description: one 58 s
+  burn, a 20 NM seeker.
+- SEST's follows the fact file and is aligned key for key with U.S. Navy
+  2027's AIM-174B, so it sits with U.S. Navy 2027's; its weakness is the
+  AGM-88G model (option 3 above).
+Maintenance, from the repo's exports: US Naval Aviation is a team mod (Sea
+Power China Test Group and Euromod), the largest (264 exported files) and the
+most often changed (15 exports); U.S. Navy 2027 is one author, changed its
+AIM-424 most recently (10 Oct 2026), and is fragile by construction (alias
+patches over Modern US Navy hulls); the YF-23 is the smallest (4 exports).
