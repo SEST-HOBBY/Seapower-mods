@@ -286,7 +286,10 @@ Campaign Mod's own sample keeps them), adds the missing submarine bases
 (Pearl Harbor, Groton, Kings Bay, Bangor, Faslane, JMSDF Yokosuka,
 Visakhapatnam, Eckernfoerde, Cartagena, Salamis, Golcuk, Zaozersk), and sends
 one boat from each squadron of three or more to sea, starting on its patrol
-ring (`at`), an SSBN with `"hold": true` as the sample's Okhotsk patrol.
+ring (`at`), an SSBN's patrol entry with `"hold": true` as the sample's
+Okhotsk patrol. (Until 13 Oct the flag sat on the SSBN's force, where the
+sample never puts it; `check_dynamic_campaign.py` now fails any force or
+patrol key the sample does not use.)
 Result: 45 submarine forces, 110 blue and 103 red boats, 33 patrols out plus
 the register's 4.
 

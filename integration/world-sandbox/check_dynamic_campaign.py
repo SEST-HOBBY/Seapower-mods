@@ -62,6 +62,17 @@ def game_hull_names():
     return out
 
 
+def sample_keys():
+    """{"force": keys, "patrol": keys} the plugin's own sample campaign uses,
+    or None when the Dynamic Campaign Mod is not exported."""
+    found = sorted(adapter.ROOT.glob("mods-source/3813157776/dynamic_campaigns/*/campaign.json"))
+    if not found:
+        return None
+    d = json.loads(found[0].read_text(encoding="utf-8-sig"))
+    return {"force": set().union(*(set(f) for f in d.get("forces", []))),
+            "patrol": set().union(*(set(p) for p in d.get("patrols", [])))}
+
+
 def main():
     path = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT
     d = json.loads(path.read_text(encoding="utf-8"))
@@ -168,6 +179,19 @@ def main():
                              not any(SPEC.match(s).group("uid") in replenishers for s in f["units"])):
             engine.append(f'force "{n}" has "cargo": only "full", for a surface force with '
                           "replenishment ships")
+
+    # A key the sample never puts on a force or a patrol is a key the engine
+    # may never read there ("hold" on a force did nothing; the sample puts it
+    # on the patrol entry). INFERRED: the sample is the only schema there is.
+    sample = sample_keys()
+    if sample:
+        for what, items in (("force", d.get("forces", [])), ("patrol", d.get("patrols", []))):
+            for x in items:
+                for k in sorted(set(x) - sample[what]):
+                    engine.append(f'{what} "{x.get("name") or x.get("force")}" has "{k}", which the '
+                                  f"sample campaign never puts on a {what} (INFERRED)")
+    else:
+        info.append("no sample campaign in mods-source/3813157776 - force and patrol keys unchecked")
 
     for lane in d.get("traffic", {}).get("lanes", []):
         if len(lane.get("points", [])) < 2:

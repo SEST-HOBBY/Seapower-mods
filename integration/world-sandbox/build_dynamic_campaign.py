@@ -836,13 +836,15 @@ def build():
                 ring, how = water_ring(b["lat"], b["lon"])
             if ring:                       # no ring: the boat stays with its squadron
                 specs, boat = take_one(specs)
-                extra = {"hold": True} if "ssbn" in parse_spec(boat)[0] else None
-                pf = add_force(f"{name} patrol", b["side"], bid, "Surface", [boat], at=ring[0],
-                               extra=extra)
-                patrols.append({"force": pf["name"], "points": [list(p) for p in ring]})
+                hold = "ssbn" in parse_spec(boat)[0]
+                pf = add_force(f"{name} patrol", b["side"], bid, "Surface", [boat], at=ring[0])
+                # "hold" belongs on the patrol entry, where the sample's Okhotsk
+                # SSBN Patrol carries it - not on the force.
+                patrols.append({"force": pf["name"], **({"hold": True} if hold else {}),
+                                "points": [list(p) for p in ring]})
                 entry["patrol"] = {"force": pf["name"], "boat": boat, "ring": f"{how} - SCENARIO CHOICE",
                                    "hold": "an SSBN's deterrent patrol, as the sample's Okhotsk SSBN "
-                                           "Patrol (effect not documented)" if extra else None}
+                                           "Patrol (effect not documented)" if hold else None}
                 made.append(pf["name"])
         entry["force"] = add_force(name, b["side"], bid, "Surface", specs)["name"]
         made.append(entry["force"])

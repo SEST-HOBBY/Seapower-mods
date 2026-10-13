@@ -4345,8 +4345,7 @@
       ],
       "units": [
         "fr_ssbn_triomphant"
-      ],
-      "hold": true
+      ]
     },
     {
       "name": "Force oceanique strategique",
@@ -4566,8 +4565,7 @@
       ],
       "units": [
         "wp_ssbn_borei"
-      ],
-      "hold": true
+      ]
     },
     {
       "name": "Gadzhiyevo (Northern Fleet submarines)",
@@ -4592,8 +4590,7 @@
       ],
       "units": [
         "wp_ssbn_borei"
-      ],
-      "hold": true
+      ]
     },
     {
       "name": "Vilyuchinsk (Pacific Fleet submarines)",
@@ -4888,8 +4885,7 @@
       ],
       "units": [
         "usn_ssbn_ohio named Tennessee SSBN-734"
-      ],
-      "hold": true
+      ]
     },
     {
       "name": "Submarine Group 10",
@@ -4911,8 +4907,7 @@
       ],
       "units": [
         "usn_ssbn_ohio named Henry M. Jackson SSBN-730"
-      ],
-      "hold": true
+      ]
     },
     {
       "name": "Submarine Group 9",
@@ -5065,8 +5060,7 @@
       ],
       "units": [
         "plan_ssbn_type_094a"
-      ],
-      "hold": true
+      ]
     },
     {
       "name": "Longpo Naval Base submarines",
@@ -5528,6 +5522,7 @@
     },
     {
       "force": "Force oceanique strategique patrol",
+      "hold": true,
       "points": [
         [
           48.787,
@@ -5696,6 +5691,7 @@
     },
     {
       "force": "Gadzhiyevo (Northern Fleet submarines) patrol",
+      "hold": true,
       "points": [
         [
           70.249,
@@ -5717,6 +5713,7 @@
     },
     {
       "force": "Vilyuchinsk (Pacific Fleet submarines) patrol",
+      "hold": true,
       "points": [
         [
           53.163,
@@ -5969,6 +5966,7 @@
     },
     {
       "force": "Submarine Group 10 patrol",
+      "hold": true,
       "points": [
         [
           31.583,
@@ -5990,6 +5988,7 @@
     },
     {
       "force": "Submarine Group 9 patrol",
+      "hold": true,
       "points": [
         [
           47.883,
@@ -6116,6 +6115,7 @@
     },
     {
       "force": "Longpo Naval Base submarines patrol",
+      "hold": true,
       "points": [
         [
           18.609,
