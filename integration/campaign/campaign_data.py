@@ -304,7 +304,7 @@ EXCUSES = {
         "external", "Fattah-2 TELs kept for scenarios; no SEST mission places them"),
     "prithvi-tbm": (
         "external", "Indian Prithvi II/III TELs kept for scenarios; no SEST mission "
-        "places them, and the world campaign has no India nation"),
+        "places them, and the world campaign's India does not field them"),
     "buk-m3": (
         "external", "Buk-M3 battery kept for scenarios until an in-game check; the "
         "land-defence sites still field the 1980s SA-11 battery"),

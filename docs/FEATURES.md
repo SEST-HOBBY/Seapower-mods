@@ -108,8 +108,9 @@ experience carry forward from mission to mission.
   Japanese and Korean fleets: ships and aircraft, not submarines (the game's
   task force cannot take a bought one).
 - **Position your force before each mission:** a blue Deployment Zone round
-  your ships, with Formation or Dispersed. It reaches up to about 25 NM back
-  and to the sides, and only 3 NM towards the enemy or the objective.
+  your ships, with Formation or Dispersed. It reaches up to 28 NM back and to
+  the sides (a 3 NM margin round the ships, then up to 25 NM more), and only
+  the 3 NM margin towards the enemy or the objective.
 - **Fair openings:**
   - no enemy ship or submarine with weapons free starts within 25 NM of you;
   - nothing on the enemy side can fire in the first 5 minutes;
@@ -242,10 +243,11 @@ broken. These are the fixes.
 **Allied decks for allied aircraft** *(SEST Cross-Deck, 13 October 2026)*
 - 122 flight decks of 13 allied navies operate the similar allied aircraft
   their mod did not list: a deck that already flies one Seahawk, NH90, Lynx
-  or Wildcat, Merlin, Sea King, AB 212, Panther, Seasprite, Cougar, Harrier,
-  AV-8B/F-35B or catapult type takes the allied members of that family too.
-  An Australian MH-60R lands on a Type 45, an Iver Huitfeldt or a Maya; a
-  Royal Navy Merlin on a FREMM; a Rafale M on the Nimitz. Each hull's own
+  or Wildcat, Merlin, Sea King, AB 212, Panther, Seasprite, Cougar, Wasp,
+  Alouette, CH-53, Osprey, Harrier, AV-8B/F-35B or catapult type takes the
+  allied members of that family too. An MH-60R lands on an Iver Huitfeldt; a
+  Royal Navy Merlin on an Italian FREMM; a German Sea Lynx on a Type 45; an
+  Australian S-70B-2 on a Maya; a Rafale M on the Nimitz. Each hull's own
   list is kept, a deck that already accepts everything is left alone, and
   only aircraft in this collection are added. Not yet confirmed in game.
 

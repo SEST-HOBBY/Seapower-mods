@@ -2778,10 +2778,12 @@ gate.
 
 The user asked for "cross compatibility for ships and other similar allied
 aircraft". A hull's `[FlightDeck] AircraftSupported` is written by its mod
-for its own navy, so a bought Type 45 took only the Royal Navy's Lynx,
-Merlin and Wildcat and refused the campaign's own MH-60R; a FREMM took the
-French NH90 and no other; the Maya listed the US MH-60R but not the
-Australian S-70B-2. The new pack (`integration/cross-deck`) adds, to every
+for its own navy, so a bought Iver Huitfeldt took only the Danish MH-60R
+and refused the campaign's own; a Type 45 took only the Royal Navy's Lynx,
+Merlin and Wildcat and refused a German or Dutch Sea Lynx (it lists no
+Seahawk, so it still gains none); an Italian FREMM took its own SH-101A, AB
+212 and SH-90 and no Royal Navy Merlin; the Maya listed the US MH-60R but
+not the Australian S-70B-2. The new pack (`integration/cross-deck`) adds, to every
 deck registered to an allied navy, the allied members of each airframe
 family the deck already lists one of - Seahawk, NH90 NFH, Lynx/Wildcat,
 Merlin, Sea King, AB 212, Panther, Seasprite, Cougar, Wasp, Alouette, CH-53,
