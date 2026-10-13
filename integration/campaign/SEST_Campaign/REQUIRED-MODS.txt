@@ -277,6 +277,7 @@ to; the repository also builds each of them on its own.
 (local)       unit                             SEST Replenishment At Sea
 (local)       campaign                         SEST Southern Watch Campaign
 (local)       library                          SEST TacMap Colors
+(local)       library                          SEST World Campaign (Dynamic Campaign Mod)
 
 --------------------------------------------------------------------------
 

@@ -8396,7 +8396,7 @@
    },
    "blue South_Korea": {
     "ships": 13,
-    "aircraft": 4
+    "aircraft": 14
    },
    "blue Philippines": {
     "ships": 13,
@@ -8447,7 +8447,7 @@
     "aircraft": 3
    },
    "red China": {
-    "ships": 95,
+    "ships": 94,
     "aircraft": 106
    },
    "red Russia": {
@@ -9074,8 +9074,18 @@
   "rnzaf_a-4k": "Role Bomber",
   "rnzn_sh-2gi": "Role ASW",
   "rnzn_wasp": "Role ASW",
+  "rok_f15k": "Role Fighter",
+  "rok_f35a": "Role Fighter",
+  "rok_f4e": "Role Fighter",
+  "rok_f5e": "Role Fighter",
+  "rok_fa50": "Role Fighter",
+  "rok_kf16": "Role Fighter",
+  "rok_kf21": "Role Fighter",
+  "rok_kuh1": "Role ASW",
+  "rok_mh60": "Role ASW",
   "rok_mk99": "Role ASW",
   "rok_mk99_a": "Role ASW",
+  "rok_p-3c": "Role MPA",
   "rok_t-50_tha": "Role Fighter",
   "rok_uh60": "Role ASW",
   "rs_a330_mrtt": "Role AEW",
@@ -9106,6 +9116,7 @@
   "spa_sh-60b_block1": "Role ASW",
   "spa_sh-60bv1": "Role ASW",
   "spa_sh-60bv1_block1": "Role ASW",
+  "sv22_2024_osprey": "Role ASW",
   "tha_ab212": "Role ASW",
   "tha_S-70B-7_Seahawk": "Role ASW",
   "thai_a330_mrtt": "Role AEW",
@@ -9249,7 +9260,6 @@
   "usn_p8_2027": "Role MPA",
   "usn_qh-50c": "Role ASW",
   "usn_qh-50d": "Role ASW",
-  "usn_qh_50e": "Role ASW",
   "usn_ra-3b": "Role Recon",
   "usn_ra-5c": "Role Recon",
   "usn_rf-8a": "Role Recon",
@@ -9547,7 +9557,6 @@
   "plan_ff_jianghu2": "Displacement 1702 t",
   "plan_ff_jianghu3": "Displacement 1960 t",
   "plan_ffg_jiangdong": "Displacement 1940 t",
-  "plan_ffg_krivak2": "Displacement 3305 t",
   "plan_ffg_type_054_late_rsa": "Displacement 3963 t",
   "plan_ffg_type_054_rsa": "Displacement 3963 t",
   "plan_ffg_type_054a_late_rsa": "Displacement 3963 t",
@@ -9860,7 +9869,7 @@
   "usn_ff_knox_72": "Displacement 4130 t",
   "usn_ff_knox_84": "Displacement 4130 t",
   "usn_ffg_brooke": "Displacement 3400 t",
-  "usn_ffg_constellation": "Displacement 6000 t",
+  "usn_ffg_constellation": "Displacement 7291 t",
   "usn_ffg_oliver_hazard_perry": "Displacement 4100 t",
   "usn_ffg_oliver_hazard_perry_longhull": "Displacement 4100 t",
   "usn_ffg_oliver_hazard_perry_longhull_lamps-3": "Displacement 4100 t",
@@ -10023,8 +10032,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1517,
-  "values": 1517,
+  "catalogue": 1526,
+  "values": 1526,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

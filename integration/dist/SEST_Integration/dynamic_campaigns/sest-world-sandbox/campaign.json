@@ -6888,8 +6888,18 @@
     "rnzaf_a-4k": 78,
     "rnzn_sh-2gi": 39,
     "rnzn_wasp": 39,
+    "rok_f15k": 46,
+    "rok_f35a": 46,
+    "rok_f4e": 46,
+    "rok_f5e": 46,
+    "rok_fa50": 46,
+    "rok_kf16": 46,
+    "rok_kf21": 46,
+    "rok_kuh1": 39,
+    "rok_mh60": 39,
     "rok_mk99": 39,
     "rok_mk99_a": 39,
+    "rok_p-3c": 89,
     "rok_t-50_tha": 46,
     "rok_uh60": 39,
     "rs_a330_mrtt": 242,
@@ -6920,6 +6930,7 @@
     "spa_sh-60b_block1": 39,
     "spa_sh-60bv1": 39,
     "spa_sh-60bv1_block1": 39,
+    "sv22_2024_osprey": 39,
     "tha_ab212": 39,
     "tha_S-70B-7_Seahawk": 39,
     "thai_a330_mrtt": 242,
@@ -7063,7 +7074,6 @@
     "usn_p8_2027": 89,
     "usn_qh-50c": 39,
     "usn_qh-50d": 39,
-    "usn_qh_50e": 39,
     "usn_ra-3b": 28,
     "usn_ra-5c": 28,
     "usn_rf-8a": 28,
@@ -7361,7 +7371,6 @@
     "plan_ff_jianghu2": 75,
     "plan_ff_jianghu3": 83,
     "plan_ffg_jiangdong": 82,
-    "plan_ffg_krivak2": 118,
     "plan_ffg_type_054_late_rsa": 133,
     "plan_ffg_type_054_rsa": 133,
     "plan_ffg_type_054a_late_rsa": 133,
@@ -7674,7 +7683,7 @@
     "usn_ff_knox_72": 137,
     "usn_ff_knox_84": 137,
     "usn_ffg_brooke": 120,
-    "usn_ffg_constellation": 177,
+    "usn_ffg_constellation": 202,
     "usn_ffg_oliver_hazard_perry": 137,
     "usn_ffg_oliver_hazard_perry_longhull": 137,
     "usn_ffg_oliver_hazard_perry_longhull_lamps-3": 137,
@@ -9395,6 +9404,13 @@
       "aircraft": true
     },
     {
+      "unit": "sv22_2024_osprey",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "usa_a-10a",
       "side": "blue",
       "nation": "US",
@@ -10236,13 +10252,6 @@
     },
     {
       "unit": "usn_qh-50d",
-      "side": "blue",
-      "nation": "US",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "usn_qh_50e",
       "side": "blue",
       "nation": "US",
       "tier": 0,
@@ -13758,6 +13767,69 @@
       "tier": 2
     },
     {
+      "unit": "rok_f15k",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rok_f35a",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rok_f4e",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rok_f5e",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rok_fa50",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rok_kf16",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rok_kf21",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rok_kuh1",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rok_mh60",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "rok_mk99",
       "side": "blue",
       "nation": "South_Korea",
@@ -13766,6 +13838,13 @@
     },
     {
       "unit": "rok_mk99_a",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rok_p-3c",
       "side": "blue",
       "nation": "South_Korea",
       "tier": 0,
@@ -14645,12 +14724,6 @@
     },
     {
       "unit": "plan_ffg_jiangdong",
-      "side": "red",
-      "nation": "China",
-      "tier": 0
-    },
-    {
-      "unit": "plan_ffg_krivak2",
       "side": "red",
       "nation": "China",
       "tier": 0

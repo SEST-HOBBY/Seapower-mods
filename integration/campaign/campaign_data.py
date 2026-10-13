@@ -153,6 +153,11 @@ EXCUSES = {
         "library", "recolours the tactical map (`ui/`); no unit, no round"),
     "SEST_Name_Fixes": (
         "library", "display-name corrections, one language key each; no unit, no round"),
+    "SEST_World_Campaign": (
+        "library", "a campaign for the Dynamic Campaign Mod, under `dynamic_campaigns/`; "
+        "the Task Force Mode campaigns place nothing from it, and its own units are "
+        "checked against this load order by integration/world-sandbox/"
+        "check_dynamic_campaign.py on every build"),
     "SEST_Gallery": (
         "library", "an offline photo gallery under `Gallery/` that the player "
         "opens in a web browser; the briefings' recognition photos are read "

@@ -15,13 +15,18 @@ examined.
 |---|---|
 | `integration/world-sandbox/build_dynamic_campaign.py` | Adapter: register -> `campaign.json` |
 | `integration/world-sandbox/check_dynamic_campaign.py` | Validator: the engine's own rules, the review's audit, SEST collection and water checks |
-| `integration/world-sandbox/draft/sest-world-sandbox/` | The candidate data pack: `_info.ini` and `dynamic_campaigns/sest-world-sandbox/campaign.json` |
+| `integration/world-sandbox/SEST_World_Campaign/` | The pack `tools/build_all.py` builds and the SEST Integration Pack ships (since 13 Oct 2026): `_info.ini` and `dynamic_campaigns/sest-world-sandbox/campaign.json` |
 | `integration/world-sandbox/draft/conversion.json` | Every register row, converted or skipped, and why; every SCENARIO CHOICE the adapter made |
 | `docs/world-sandbox/engine-review/` | The review bundle as supplied (hashes match its manifest). Bungalow's `campaign.json` and `_info.ini` are not copied: they are the author's files |
 
-Nothing here is built by `tools/build_all.py`, installed by SETUP or `sync-sest.ps1`, or
-published in the SEST Integration Pack. The folder name has no `SEST_` prefix so no pack tool
-picks it up.
+Since 13 Oct 2026, on the player's decision, `tools/build_all.py` builds the campaign as the
+`SEST_World_Campaign` pack (catalog `local_packs`), after every unit pack it resolves against,
+and `tools/consolidate_packs.py` puts its `dynamic_campaigns/` folder in the SEST Integration
+Pack. The Dynamic Campaign Mod lists it in the Campaign menu wherever that pack is loaded. The
+builder runs `check_dynamic_campaign.py` and stops the build on any ENGINE, AUDIT or SEST
+problem, so a campaign naming a unit the load order lacks cannot ship. (Until 13 Oct the draft
+lived in `draft/sest-world-sandbox/`, outside every pack tool, and was copied by hand.) It is
+still a draft: nothing has run in the game.
 
 Run:
 
@@ -267,8 +272,9 @@ Use a backed-up install, not the published pack.
 
 1. Subscribe to Dynamic Campaign Mod (3813157776). It needs BepInEx and Anchor Chain. SEST's SETUP
    installs the Anchor Chain preloader; check the mod's page for what else it needs.
-2. Copy `integration/world-sandbox/draft/sest-world-sandbox` into the game's
-   `Sea Power_Data\StreamingAssets` folder, beside the SEST pack, and enable it in the Mod Manager.
+2. Install the SEST Integration Pack as usual (it carries the campaign). Delete any older
+   hand-copied `Sea Power_Data\StreamingAssets\sest-world-sandbox` folder first: two copies
+   would list the same campaign id twice.
 3. Campaign menu: look for "SEST World Sandbox 2028 (draft)" beside Bungalow's campaign.
 
 Then, in order: menu discovery; the validator's verdict in the BepInEx log; one battle each side,

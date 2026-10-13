@@ -6,10 +6,10 @@
 
 Reads the world-population register (docs/world-sandbox/register/
 packages.json) and writes a candidate data pack for Bungalow's Dynamic
-Campaign Mod (Workshop 3813157776, plugin 0.24.0):
+Campaign Mod (Workshop 3813157776, plugin 0.24.0; 0.24.3 on the PC on 13 Oct):
 
-    integration/world-sandbox/draft/sest-world-sandbox/
-        _info.ini
+    integration/world-sandbox/SEST_World_Campaign/      the pack tools/build_all.py
+        _info.ini                                       builds and consolidates
         dynamic_campaigns/sest-world-sandbox/campaign.json
     integration/world-sandbox/draft/conversion.json   every register row,
                                                        converted or skipped
@@ -23,8 +23,11 @@ the one the sample campaign and the validator's own error messages define;
 check_dynamic_campaign.py re-applies those messages as rules.
 
 What it is NOT: the register is the source of truth and stays engine-neutral.
-Nothing here is installed by SETUP, built by tools/build_all.py or published
-in the SEST Integration Pack. Nothing has run in the game. Every number this
+Since 13 Oct 2026, on the player's decision, tools/build_all.py builds it as
+the SEST_World_Campaign pack and the SEST Integration Pack ships its
+dynamic_campaigns/ folder, so the campaign appears wherever the Dynamic
+Campaign Mod is loaded. The build stops if check_dynamic_campaign.py finds a
+problem. It is still a draft: nothing has run in the game. Every number this
 adapter invents (unit values, depot choices, patrol rings, deployment areas,
 replenishment tonnages, ranks, tiers) is a SCENARIO CHOICE and is labelled so
 in the report; the register's own SOURCE CLAIMs are not changed by it.
@@ -33,13 +36,14 @@ import collections
 import json
 import math
 import re
+import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 REGISTER = ROOT / "docs" / "world-sandbox" / "register" / "packages.json"
 OUT = Path(__file__).resolve().parent / "draft"
-PACK = OUT / "sest-world-sandbox"
+PACK = Path(__file__).resolve().parent / "SEST_World_Campaign"
 CAMPAIGN_DIR = PACK / "dynamic_campaigns" / "sest-world-sandbox"
 
 sys.path.insert(0, str(ROOT / "integration" / "campaign"))
@@ -1268,12 +1272,12 @@ def main():
                                                 encoding="utf-8")
     (PACK / "_info.ini").write_text(
         "[Language_en]\n"
-        "Name=SEST World Sandbox (Dynamic Campaign draft)\n"
-        "Description=DRAFT, not tested in game. A data pack for Bungalow's Dynamic Campaign Mod "
+        "Name=SEST World Campaign\n"
+        "Description=DRAFT, not tested in game. A campaign for Bungalow's Dynamic Campaign Mod "
         "(Workshop 3813157776): the SEST 2028 world - bases, fleets, air groups, supply ships and "
-        "patrols from the SEST research - as a persistent campaign. Requires the Dynamic Campaign "
-        "Mod, BepInEx and Anchor Chain, and the SEST Integration Pack with its collection.\n\n"
-        "[Compatibility]\nGreaterThanEqualToVersion=0.8.3\nLessThanVersion=0.9.0\n",
+        "patrols from the SEST research - as a persistent campaign, listed in the Campaign menu "
+        "marked [Dynamic]. Ships inside the SEST Integration Pack.\n\n"
+        "[Compatibility]\nApproximateVersion=0.8.5\n",
         encoding="utf-8")
     report["values_basis"] = value_basis
     report["counts"] = {
@@ -1292,6 +1296,15 @@ def main():
           f"{c['patrols']} patrols, {c['catalogue']} catalogue entries, "
           f"{c['lanes_kept']}/{c['lanes_authored']} lanes on water")
     print(f"  register rows: {c['rows_by_outcome']}; {c['skipped_nodes']} nodes not converted")
+    # The pack ships, so a campaign the validator rejects must stop the build,
+    # not reach the game: Dynamic Campaign Mod refuses a campaign that names a
+    # unit the game does not have, one error per launch (10 Oct 2026).
+    check = subprocess.run([sys.executable, str(Path(__file__).resolve().parent /
+                                                 "check_dynamic_campaign.py")],
+                           capture_output=True, text=True)
+    if check.returncode:
+        sys.exit(check.stdout + check.stderr + "\ncheck_dynamic_campaign.py failed - the world "
+                 "campaign is not shipped like this")
     if globe is None:
         print("  WARNING: global_land_mask not installed - water checks skipped "
               "(pip install global-land-mask numpy)")
