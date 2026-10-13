@@ -38,7 +38,8 @@ MISSION = dict(
             "them.\\n\\nThe frigate and the corvette that screened the carrier on the second are "
             "coming north-east to meet the voyage; ROMEO, the Type 093B that was ahead of the "
             "January convoy, is across this track too. The carrier is two hundred miles east "
-            "and has a pair loaded for ships with its Ka-31 up. Hobart is eleven hundred miles "
+            "and has a pair loaded for ships; its Ka-31 is on the way and should be on "
+            "station within about eight minutes. Hobart is eleven hundred miles "
             "behind you - no land-based fixed-wing support is allocated to this passage. The "
             "Seahawk is your aviation.\\n\\nBring Southern Endeavour to the handover line. Bring "
             "the tanker if she is with you. The trawler and the whale are in the same water."
@@ -107,8 +108,13 @@ MISSION = dict(
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",
           name="Flying Shark 22", loadout="AntiShip",
           route=[(-55.30, 128.40, 20000)], telegraph=3),
+        # The Ka-31 joins at minute 8 (13 Oct, option b). It is the only red
+        # radar that reaches the voyage at the start: up from the first
+        # second, it gave the 054A and 056A (75 NM out, 85 NM of anti-ship
+        # reach) and ROMEO (44 NM) a track on the convoy before the player
+        # could act.
         U("red", "modern-plan-systems", "plan_ka-31", "red_helo", name="Ka-31 eye",
-          alt=9000, weapons="Hold", loadout="AEW"),
+          alt=9000, weapons="Hold", loadout="AEW", enter=8),
         U("neutral", "_vanilla", "civ_fv_okean", "fleet", name="Factory trawler Nan Hai 24",
           route=[(-55.90, 128.40, 0)], telegraph=2),
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic LIMA",

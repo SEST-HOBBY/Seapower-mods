@@ -35,6 +35,11 @@ made it safe rather than being a blind rename:
       mods-source still defines. Add the pair to RETARGET once an export with
       the deletion mirror has removed the jp_ files.
 
+  usn_qh_50e -> usn_qh-50d
+      Red Storm Arsenal deleted its QH-50E in the 13 Oct 2026 export. The
+      game's QH-50D is the same drone ASW helicopter; its ASW loadout and
+      [Default] squadron cover the one mission line (SULU SEA OFFENSIVE).
+
 Scope: live missions only. The timestamped *backup-*.ini files are snapshots
 of a mission at a moment, and rewriting them would destroy the only thing
 they are for.
@@ -63,6 +68,12 @@ RETARGET = {
     # mission (the five SULU SEA OFFENSIVE files); REVARIANT keeps each one
     # the same ship.
     "usn_cg_ticonderoga_vls_2025": "usn_cg_bunker_hill_vls_2024",
+    # Red Storm Arsenal (3413868677), 13 Oct 2026 export: the author deleted
+    # usn_qh_50e and its squadrons. The game's own QH-50D DASH is the same
+    # drone ASW helicopter (Role=ASW; it offers ASW, the E's only loadout,
+    # plus ASWKiller) and its squadrons file has [Default], so SULU SEA
+    # OFFENSIVE's `usn_qh_50e=Default,2` on the Nimitz resolves unchanged.
+    "usn_qh_50e": "usn_qh-50d",
 }
 
 # (retired unit id, its variant) -> the variant of the RETARGET replacement

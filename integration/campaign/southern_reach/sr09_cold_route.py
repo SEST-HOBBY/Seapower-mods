@@ -35,7 +35,8 @@ MISSION = dict(
             "Twelve knots, south-west, and the whole force with them.\\n\\nThe protection group's"
             " carrier, LIAONING, is a hundred and fifty miles south-east with two frigates and "
             "a corvette, and its air wing flew over the fishing fleet for the cameras on New "
-            "Year's Eve. Today it flies for the convoy. ROMEO, a Type 093B nuclear boat the "
+            "Year's Eve. Today it flies for the convoy; the strike is still on LIAONING's "
+            "deck and should be up within about ten minutes. ROMEO, a Type 093B nuclear boat the "
             "group calls a fisheries survey asset, is somewhere ahead of the track. WEDGETAIL "
             "05 and KIWI 05 are up out of Edinburgh; no fighter cover is allocated to this "
             "operation, and the destroyer's magazine is the air defence.\\n\\nFour of five into "
@@ -45,8 +46,8 @@ MISSION = dict(
     forces="Your whole task group with its Seahawk and Poseidon, Wedgetail "
            "05 and Kiwi 05 out of Edinburgh. Five convoy hulls. Neutral: two "
            "factory trawlers, a bulker. Opposing: Liaoning with two Type 054A "
-           "and a Type 056A, a J-15 strike flight of three, a Ka-31 and a "
-           "Z-18F up, and a Type 093B ahead of the track.",
+           "and a Type 056A, a J-15 strike flight of three still on deck, a "
+           "Ka-31 and a Z-18F up, and a Type 093B ahead of the track.",
     objectives=[
         ("Convoy", "Four of five convoy hulls, Southern Endeavour among them, "
                    "into the handover box", "40,-40,Fail,Main"),
@@ -82,7 +83,11 @@ MISSION = dict(
         "aew": S(-48.00, 137.80, "Wedgetail 05", heading=270, alt=32000),
         "kiwi": S(-48.20, 136.30, "Kiwi 05", heading=200, alt=10000),
         "red_cv": S(-50.60, 138.60, "Carrier group", heading=300),
-        "red_air": S(-50.20, 138.40, "Strike flight", heading=300, alt=25000),
+        # The strike forms up beyond its carrier, about 180 NM from Hobart
+        # on the carrier's bearing (13 Oct, as Fujian's Shadow): the J-15D
+        # joins at minute 10 outside its own 156 NM anti-ship reach and has
+        # to fly in. At 128 NM it could fire the moment it appeared.
+        "red_air": S(-51.03, 138.82, "Strike flight", heading=300, alt=25000),
         "red_helo": S(-50.40, 138.50, "Ka-31 orbit", heading=300, alt=9000),
         "red_dip": S(-49.60, 138.00, "Z-18F dip", heading=300, alt=1500),
         "red_sub": S(-48.70, 136.50, "Contact ROMEO", heading=60),
@@ -118,15 +123,22 @@ MISSION = dict(
           name="Type 054A frigate", route=[(-49.80, 137.80, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_056a", "red_cv",
           name="Type 056A corvette", route=[(-49.80, 137.80, 0)], telegraph=3),
+        # The strike is still on Liaoning's deck at the start (13 Oct, option
+        # b): the three join together at minute 10 at the form-up point
+        # beyond the carrier, 180-183 NM out. Up from the first second the
+        # J-15D (156 NM of anti-ship reach) could fire on the destroyer the
+        # moment the mission opened; now the player has ten minutes to set
+        # the screen and the Wedgetail sees the strike come in. One
+        # formation, one minute.
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",
           name="Flying Shark 11", loadout="AntiShip",
-          route=[(-48.30, 137.30, 20000)], telegraph=3),
+          route=[(-48.30, 137.30, 20000)], telegraph=3, enter=10),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",
           name="Flying Shark 12", loadout="AntiShip",
-          route=[(-48.30, 137.30, 20000)], telegraph=3),
+          route=[(-48.30, 137.30, 20000)], telegraph=3, enter=10),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
           name="Flying Shark 13", loadout="AntiShip",
-          route=[(-48.30, 137.30, 20000)], telegraph=3),
+          route=[(-48.30, 137.30, 20000)], telegraph=3, enter=10),
         U("red", "modern-plan-systems", "plan_ka-31", "red_helo", name="Ka-31 eye",
           alt=9000, weapons="Hold", loadout="AEW"),
         U("red", "chinese-navy-plan", "plan_z-18f", "red_dip", name="Z-18F dip",

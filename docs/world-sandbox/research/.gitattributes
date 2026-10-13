@@ -1,0 +1,4 @@
+# Preserve original report bytes for the recorded SHA-256 checks.
+R01.md -text
+R02.md -text
+R03.md -text

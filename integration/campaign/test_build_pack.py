@@ -534,6 +534,144 @@ class OpeningRanges(StandoffAndClosure):
         self.assertLess(bp.ship_reach("plan_ka-28", fit), 10)
 
 
+class QuietOpening(OpeningRanges):
+    """The stricter gate of 13 October (Fujian's Shadow): nothing red can fire
+    in the first OPENING_QUIET_MIN minutes. A standoff bomber may not start
+    inside its own launch range however long it is; a radar aircraft's
+    picture is a track for every ship and boat; air-to-air reach counts; a
+    unit that joins later (enter=) is held to the raid rule where it joins."""
+
+    STATIONS = dict(OpeningRanges.STATIONS,
+                    bomber=S(-47.50, 143.80, "Bomber", alt=30000),   # 198 NM east
+                    aew=S(-47.50, 142.20, "AEW", alt=26000),         # 102 NM east
+                    cap=S(-47.50, 142.10, "CAP", alt=30000),         # 96 NM east
+                    patrol=S(-47.50, 140.40, "Patrol", alt=20000))   # over the tender
+    BOMBER = dict(side="red", mod="plaaf-aircraft-pack", type="plaaf_h-6k_late",
+                  station="bomber", loadout="AntiShip")
+    AEW = dict(side="red", mod="type-003-004-maneuverwarfare", type="pla_kj-600",
+               station="aew", weapons="Hold")
+    RED_BOAT = dict(side="red", mod="plan-submarines", type="plan_ssn_type_093b",
+                station="far_boat", depth="belowlayer")
+    J16 = dict(side="red", mod="j-16-multirole", type="plaaf_j16", station="cap")
+    # A player aircraft in the air, with the blue 054A (DECOY) as its deck.
+    HELO = dict(side="blue", mod="modern-plan-systems", type="plan_z-9c",
+                station="patrol", weapons="Hold")
+
+    def opening(self, units):
+        del bp.OPENING_PROBLEMS[:]
+        return super().opening(units)
+
+    def test_a_standoff_bomber_in_its_own_reach_is_refused(self):
+        problems = self.opening([self.BOMBER])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("so the raid is seen coming", problems[0])
+
+    def test_the_same_bomber_joining_after_the_quiet_minutes_is_a_raid(self):
+        self.assertEqual(self.opening([dict(self.BOMBER, enter=10)]), [])
+
+    def test_joining_inside_the_quiet_minutes_is_the_start(self):
+        self.assertEqual(len(self.opening([dict(self.BOMBER, enter=3)])), 1)
+
+    def test_a_radar_aircraft_gives_a_boat_her_track(self):
+        self.assertEqual(self.opening([self.RED_BOAT]), [])
+        problems = self.opening([self.RED_BOAT, self.AEW])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("radar on her", problems[0])
+        self.assertEqual(self.opening([self.RED_BOAT, dict(self.AEW, enter=8)]), [])
+
+    def test_a_fighter_in_air_to_air_reach_of_a_player_aircraft_is_refused(self):
+        problems = self.opening([self.DECOY, self.HELO, self.J16])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("air-to-air reach", problems[0])
+        self.assertEqual(self.opening([self.DECOY, self.HELO, dict(self.J16, enter=5)]), [])
+
+    def test_enter_switches_the_unit_off_until_its_minute(self):
+        m, placed, _members = self.placed([self.TENDER, dict(self.BOMBER, enter=7.5)])
+        (tag, keys, _n, _x), = placed["Taskforce2Aircraft"]
+        self.assertEqual(keys["Disabled"], "True")
+        self.assertEqual(m["_enter"], {tag: 7.5})
+
+    def test_enter_is_a_red_minute_inside_the_plan(self):
+        for bad in (dict(self.TENDER, enter=5), dict(self.BOMBER, enter=0),
+                    dict(self.BOMBER, enter=80), dict(self.BOMBER, enter=True)):
+            with self.assertRaises(SystemExit, msg=repr(bad)):
+                self.placed([self.TENDER, bad] if bad["side"] == "red" else [bad])
+
+
+class JoiningTrigger(unittest.TestCase):
+    """enter= on the page: Disabled=True on the unit and stock's own timed
+    Action_SetEnabledStatus trigger (01A Senkaku Run Trigger4), checked by
+    the pack checker; and one formation joins together."""
+
+    def test_the_trigger_is_stocks_and_the_checker_reads_it(self):
+        placed, members = small_placement()
+        placed["Taskforce2Aircraft"][0][1]["Disabled"] = "True"
+        m = small_mission(_enter={"Taskforce2Aircraft1": 7})
+        triggers = rendered(m, placed, members)
+        self.assertEqual(triggers["Joins at minute 7"],
+                         ["Condition_Condition1_Type=Time",
+                          "Condition_Condition1_Time=420",
+                          "ConditionsCompleted=<Condition1>",
+                          "Action_SetEnabledStatus=True",
+                          "Action_Units=Taskforce2Aircraft1"])
+        _name, text = bp.render(small_mission(), placed, members)
+        problems = coverage_check.trigger_integrity(HERE / "t.ini", text,
+                                                    coverage_check.blocks(text))
+        self.assertTrue(any("Disabled=True and no trigger switches it on" in p
+                            for p in problems), problems)
+
+    def test_one_formation_joins_at_one_minute(self):
+        placed, members = small_placement()
+        placed["Taskforce2Aircraft"].append(
+            ("Taskforce2Aircraft2", _keys("usn_p8", 30.5, 36), None, False))
+        members["red_air"].append("Taskforce2Aircraft2")
+        with self.assertRaisesRegex(SystemExit, "join at different minutes"):
+            bp.render(small_mission(_enter={"Taskforce2Aircraft1": 7}), placed, members)
+
+
+class DeckLists(unittest.TestCase):
+    """deck_fit reads the deck the way the game does: the `Helicopters`
+    wildcard takes every helicopter (29 vanilla hulls, the Burkes among
+    them - refused here until 13 Oct), and SEST Cross-Deck's extended list
+    replaces the winning file's where a stub is built."""
+
+    def test_the_helicopters_wildcard_takes_a_helicopter_and_not_a_jet(self):
+        self.assertEqual(bp.unit_value("usn_ddg_burke_f3_125", "AircraftSupported"),
+                         "Helicopters")
+        self.assertEqual(bp.deck_fit("usn_mh-60r", "Helicopter", "usn_ddg_burke_f3_125", True), 0)
+        self.assertIsNone(bp.deck_fit("usn_f-35c", "Aircraft", "usn_ddg_burke_f3_125", True))
+
+    def test_a_cross_deck_stub_extends_the_deck(self):
+        tmp = Path(tempfile.mkdtemp())
+        saved = bp.CROSS_DECK
+        bp.CROSS_DECK = tmp
+        try:
+            self.assertIsNone(bp.deck_fit("usn_mh-60r", "Helicopter", "rn_ddg_type45_26", True))
+            (tmp / "rn_ddg_type45_26_CrossDeck_SEST.ini").write_text(
+                "#!extend vessels/rn_ddg_type45_26.ini\n\n[FlightDeck]\n"
+                "AircraftSupported=rn_sea_lynx_mk8,rn_merlin_hm2,rn_aw159,usn_mh-60r\n",
+                encoding="utf-8")
+            self.assertEqual(bp.deck_fit("usn_mh-60r", "Helicopter", "rn_ddg_type45_26", True), 0)
+            self.assertIsNone(bp.deck_fit("fr_nh90", "Helicopter", "rn_ddg_type45_26", True))
+        finally:
+            bp.CROSS_DECK = saved
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_the_built_pack_keeps_every_type_the_hull_listed(self):
+        stubs = sorted(bp.CROSS_DECK.glob("*_CrossDeck_SEST.ini"))
+        if not stubs:
+            self.skipTest("SEST Cross-Deck not built")
+        for stub in stubs:
+            uid = stub.name[:-len("_CrossDeck_SEST.ini")]
+            text = stub.read_text(encoding="utf-8")
+            self.assertTrue(text.startswith(f"#!extend vessels/{uid}.ini\n"), stub.name)
+            own = bp.unit_value(uid, "AircraftSupported")
+            self.assertTrue(own and "Helicopters" not in own, uid)
+            new = bp.deck_types(uid).split(",")
+            self.assertEqual(new[:len(own.split(","))], own.split(","), uid)
+            self.assertEqual(len(new), len(set(new)), uid)
+
+
 class RacetrackLoop(unittest.TestCase):
     """loop=True flies a patrol aircraft's route until the clock runs out,
     in stock's own form; nothing else may loop."""
@@ -1222,23 +1360,91 @@ class AlliedFleet(unittest.TestCase):
             self.assertTrue(all(isinstance(e["points"], int) and e["points"] > 0
                                 for e in fleet))
 
-    def test_the_twin_rules_page_names_the_submarine_missions(self):
+    def test_no_roster_sells_a_submarine(self):
+        # In-game check, 13 Oct: a bought boat never showed in the formation
+        # editor and a dismissed one still sailed. The roster and the rules
+        # page both refuse one, and the allied fleet carries none.
+        import allied_fleet
+        for fleet in allied_fleet.FOR_NATION.values():
+            self.assertEqual([e["unit"] for e in fleet
+                              if bp.unit_type(e["unit"]) == "Submarine"], [])
+        boat = dict(unit="plan_ss_type_039c", picks=["Variant1"], points=200)
+        bp.set_campaign(bp.campaign_specs()[0])
+        with self.assertRaisesRegex(SystemExit, "plan_ss_type_039c is a submarine"):
+            bp.roster_ini([boat])
         spec = dict(bp.campaign_specs()[0])
-        spec["ROSTER"] = spec["ROSTER"] + [
-            dict(unit="plan_type_054a_p5", picks=["Variant1"], points=280)]
-        saved = bp.unit_type
-        bp.unit_type = lambda uid, depth=0: ("Submarine" if uid == "plan_type_054a_p5"
-                                             else saved(uid, depth))
-        try:
-            page = bp.campaign_rules(spec, open_allocation=True,
-                                     submarine_missions=["Southern Lifeline"], allied=1)
-            self.assertIn("A submarine sails only in a mission that includes one - "
-                          "Southern Lifeline - and waits in reserve", page)
-            self.assertIn("the allied fleet included", page)
-            with self.assertRaises(SystemExit):
-                bp.campaign_rules(spec, open_allocation=True, submarine_missions=[])
-        finally:
-            bp.unit_type = saved
+        spec["ROSTER"] = spec["ROSTER"] + [boat]
+        with self.assertRaisesRegex(SystemExit, "sells submarines"):
+            bp.campaign_rules(spec, open_allocation=True, allied=1)
+        page = bp.campaign_rules(bp.campaign_specs()[0], open_allocation=True, allied=1)
+        self.assertIn("Submarines cannot be bought in this campaign", page)
+        self.assertIn("the allied fleet included", page)
+
+
+class DeploymentZones(unittest.TestCase):
+    """deployment_zones: the blue box the player may place the force in before
+    a mission (user report, 13 Oct: "i cant move my task force around at
+    all"). It holds the hulls, opens away from the enemy and the mission's
+    goals, never toward them, and a boat on her own gets a box of her own.
+    Open Southern Ocean, so no edge meets land."""
+
+    CENTRE = (-50.0, 150.0)
+
+    def zones(self, blue, red=(), **mission):
+        placed = {"Taskforce1Vessel": [], "Taskforce1Submarine": [],
+                  "Taskforce2Vessel": []}
+        for i, (uid, x, z) in enumerate(blue, 1):
+            family = "Taskforce1Submarine" if "_ss" in uid else "Taskforce1Vessel"
+            n = len(placed[family]) + 1
+            placed[family].append((f"{family}{n}", _keys(uid, x, z), None, False))
+        for i, (uid, x, z) in enumerate(red, 1):
+            placed["Taskforce2Vessel"].append((f"Taskforce2Vessel{i}", _keys(uid, x, z), None, False))
+        m = dict(key="Test Zones", centre=self.CENTRE, victory=dict(kind="survive"),
+                 resolve={}, _anchor_section="Taskforce1Vessel1", **mission)
+        return bp.deployment_zones(m, placed, {"goal": ["Taskforce2Vessel1"]})
+
+    def box(self, z):
+        """(west, east, south, north) edges in the mission's NM frame."""
+        cx = (z["at"][1] - self.CENTRE[1]) * 60
+        cz = (z["at"][0] - self.CENTRE[0]) * 60
+        return (round(cx - z["width"] / 2, 1), round(cx + z["width"] / 2, 1),
+                round(cz - z["height"] / 2, 1), round(cz + z["height"] / 2, 1))
+
+    def test_the_box_opens_away_from_the_enemy_and_not_toward_it(self):
+        (z,) = self.zones([("plan_type_054a_p5", 0, 0)],
+                          red=[("plan_type_054a_p5", 0, 60)])
+        self.assertEqual(z["types"], bp.DEPLOY_ALL)
+        west, east, south, north = self.box(z)
+        self.assertEqual(north, bp.DEPLOY_PAD_NM)            # the pad, no more
+        self.assertEqual(south, -bp.DEPLOY_PAD_NM - bp.DEPLOY_OPEN_NM)
+        self.assertEqual((west, east), (-28.0, 28.0))         # abeam is free
+
+    def test_a_goal_holds_the_box_back_too(self):
+        (z,) = self.zones([("plan_type_054a_p5", 0, 0)],
+                          red=[("plan_type_054a_p5", 0, 60)],
+                          lift=[dict(at=(self.CENTRE[0] - 40 / 60.0, self.CENTRE[1]))])
+        _w, _e, south, north = self.box(z)
+        self.assertEqual((south, north), (-3.0, 3.0))
+
+    def test_every_hull_in_the_group_is_inside(self):
+        (z,) = self.zones([("plan_type_054a_p5", 0, 0), ("plan_type_054a_p5", 10, -12)])
+        west, east, south, north = self.box(z)
+        self.assertTrue(west <= -3 and east >= 13 and south <= -15 and north >= 3)
+
+    def test_a_boat_on_her_own_gets_a_submarine_box(self):
+        main, boat = self.zones([("plan_type_054a_p5", 0, 0), ("plan_ss_type_039c", 80, 0)])
+        self.assertEqual(main["types"], bp.DEPLOY_ALL)
+        self.assertEqual(boat["types"], "Submarine")
+        self.assertEqual(boat["tags"], ["Taskforce1Submarine1"])
+
+    def test_no_hull_no_zone(self):
+        self.assertEqual(self.zones([]), [])
+
+    def test_the_mission_file_carries_the_zone_and_its_label(self):
+        _name, text = bp.render(small_mission(), *small_placement())
+        self.assertIn("Zone1Label_en=Deployment Zone", text)
+        self.assertIn("[Zones]\nNumberOfZones=1\nZone1=Zone1\n[Zone1]\nType=Deployment", text)
+        self.assertIn("Side=Blue", text)
 
 
 class AlliedFleetReview(unittest.TestCase):

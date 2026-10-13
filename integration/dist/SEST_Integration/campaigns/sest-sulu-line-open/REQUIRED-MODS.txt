@@ -40,7 +40,7 @@ LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks
 for; the map, salvo and rescue tools are conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (188): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (196): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -69,6 +69,7 @@ shared file wins for the mods above.
   3602046770    Boeing P-8 Poseidon
   3628203171    Bréguet Br.1050 Alizé
   3600788156    Buildings and Targets for Missions
+  3564792549    BUK-M3
   3801363152    CH-53E Standalone v0.1.0
   3567256221    Charles De Gaulle & Modern French Navy Pack (WIP)
   3481228992    ChengDu J-10C Vigorous Dragon
@@ -79,6 +80,7 @@ shared file wins for the mods above.
   3606134711    Custom Loadout Editor
   3558173926    David's Sling
   3760871384    Dingtools Weapon Pack
+  3813157776    Dynamic Campaign Mod
   3813033771    EC-2 Stand Off Jammer
   3493115616    EMAD
   3555361900    Etendard Family Jets
@@ -117,11 +119,13 @@ shared file wins for the mods above.
   3412480633    Ground Upgrade: IFV
   3410473695    Ground Upgrade: MBT
   3384079999    Humpback Whale
+  3556629790    ICBM silos
   3790594162    Identify Expanded
   3717610332    IL-78 TANKER
   3549377308    Iran Bell-212
   3686449681    Iran UAV Shahed 238
   3408662804    Iskander TBM
+  3569219326    ISKANDER-K
   3681748718    ISKANDER-M
   3505420313    Italian Navy Mod
   3591563716    J-20 (歼-20 威龙)
@@ -149,7 +153,6 @@ shared file wins for the mods above.
   3456859157    Mogami-class Frigate
   3485917612    Moloti's Armed Merchantmen
   3716049886    MORE SU-24M VARIANTS
-  3806466625    MV-22B Osprey Tiltrotor / JGSDF V-22B
   3810611344    MV-75 Cheyenne II
   3595014060    NATO E-3A Sentry
   3603367264    NATO Ground Enhancement Series 2: Artillery
@@ -162,10 +165,12 @@ shared file wins for the mods above.
   3812111085    PLAAF Aircraft Pack
   3774859959    PLAN Type 001 Aircraft Carrier Liaoning
   3774572038    PLAN Type 071 Amphibious Transport Dock
+  3731931836    Prithvi TBM (大地弹道导弹)
   3399699218    Project 2498 Zyetseth Class Assault Vessel
   3808882954    RC-135V/W Rivet Joint
   3796706214    Real photos of airplanes and helicopters
   3769142422    Rebuilt J-16 / J-16D
+  3571718093    Road Mobile ICBMs (Topol-M, DF-41)
   3455404959    Royal Australian Defence Forces
   3378409795    Royal Navy Type 23 'Duke Class' Frigate [OLD]
   3373356293    Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
@@ -188,6 +193,7 @@ shared file wins for the mods above.
   (local)       SEST ADF Persistent ISR
   (local)       SEST Allied Fixes
   (local)       SEST B-52 ARRW
+  (local)       SEST Cross-Deck
   (local)       SEST F-15EX Revamp
   (local)       SEST F-16CM JATM
   (local)       SEST F-35C JATM
@@ -203,6 +209,7 @@ shared file wins for the mods above.
   (local)       SEST Raptor Squadrons
   (local)       SEST Southern Watch Campaign
   (local)       SEST TacMap Colors
+  (local)       SEST World Campaign (Dynamic Campaign Mod)
   3506979898    Shenyang J-16A (歼-16A 潜龙)
   3670643788    Shenyang J-50 (沈阳航空工业 歼-50)
   3433577445    Shenyang J-8
@@ -225,6 +232,7 @@ shared file wins for the mods above.
   3606774881    U.S. Navy 2027 Capabilities mod
   3672072359    Ultimate Missile Workshop
   3737267013    United States Naval Aviation
+  3806466625    V-22 Osprey / SV-22 2024 ASW prototype
   3478767194    VH-3D Marine One MOD
   3433957933    Virginia-, Seawolf-, and Ohio-class Submarines
   3636213685    wp_sattelite_center

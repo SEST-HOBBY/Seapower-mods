@@ -102,3 +102,77 @@ SM-6 is slower and shorter-legged than Euromod's (2650 kts / 230 nm against 3600
 ESSM is slower but slightly longer-ranged. What you gain is the modern flight model on RAM and both
 SM-2s, and a fleet whose missiles agree with each other. To reverse it, move `3606774881` back below
 `3629144864` in `data/load-order.tokens.txt` and re-run `set-mod-order.ps1`.
+
+## Four AIM-424s, two flight models (13 Oct 2026)
+
+The player noted that the YF-23 mod's AIM-424 is a different model and flies
+a different profile from SEST's. Both are true, and neither file overrides
+the other: they have different ids, so the game loads both and a player
+sees two rounds named AIM-424 that do not behave alike.
+
+| | YF-23 Black Widow II (3796349767) `yf23_aim424_internal` | SEST `sest_aim-424` (`integration/common/aim424.py`) |
+|---|---|---|
+| Model | the mod's own mesh, `assets/models/ammunition/yf23_aim424/`, and its own motor effect | the AGM-88G mesh, a rendering stand-in kept because it is proven to load |
+| Motor | one long burn: 58 s at 2.9 g, no sustainer | 4 s boost at 20 g, then a 20 s sustainer at 4.5 g |
+| Loft | 30 degrees to 85,000 ft | 30 degrees to 150,000 ft, terminal loft on |
+| Terminal phase | local terminal only; seeker 20 NM active, 12 NM passive; approach from 17 NM | datalink to terminal; seeker 40 NM active, 80 NM passive; approach from 36 NM |
+| Agility | 16 degrees/s, 25 g | 28 degrees/s, 25 g |
+| Envelope | 3-255 NM, 600 s flight, targets to 105,000 ft | 2-290 NM, 400 s flight, targets to 150,000 ft |
+| Warhead | type 0, Power 23, Pk 0.85 | fragmentation, Power 48, Pk 0.98 |
+| Carried by | the YF-23 only (stations 15-16, internal) | F-35A (RAAF), F-35C, F-16CM, F-15EX, EA-18G, the Super Hornets, Rafale F5 |
+
+The other two AIM-424 files share one id, `usn_aim-424`: US Naval Aviation
+(3737267013, which ships the `aim-424.obj` mesh) and U.S. Navy 2027
+(3606774881, which points at that mesh). Whichever ranks higher in the load
+order wins that id; they differ again (1,600 against 2,650 knots top speed,
+250 against 350 NM). All four are 680 kg, as the Navy's fact file says.
+
+Nothing is changed for this note. Options, for the player to choose:
+1. leave the YF-23 its author's own round (the current state, and the
+   catalog's position since the YF-23 gained it upstream);
+2. give the YF-23 SEST's round, so every AIM-424 in the collection flies
+   alike - a whole-file override of `usaf_yf-23_black_widow_ii.ini`, stations
+   15-16 only, which then has to follow every YF-23 update;
+3. give SEST's round a real AIM-424 mesh (`aim-424.obj` or the YF-23's
+   `yf23_aim424`) in place of the AGM-88G - wants an in-game look first, since
+   the last change to that model block made the missile fall back to a RIM-7.
+The APKWS Redback draft cites the AIM-424 as a precedent; it should name
+which of these it means.
+
+**Decision (13 Oct 2026, the player): option 1.** The YF-23 keeps its
+author's round.
+
+**Then (13 Oct 2026, the player): U.S. Navy 2027's flight model for every
+AIM-424, no 3D model changes yet.** On `feature/aim424-usn2027-flight-model`:
+SEST's round takes U.S. Navy 2027's `[Guidance]` key for key (`FLIGHT` in
+`integration/common/aim424.py`), and SEST Collection Fixes lays the same keys
+over the YF-23's round with an `#!extend`
+(`ammunition_overwrite/yf23_aim424_internal_FlightModel_SEST.ini`, read by the
+Anchor Chain preloader). The table above shows the figures before that change.
+Each round keeps its own model, warhead and effects, so the YF-23 still fires
+its author's round on its own mesh; option 3 (a real mesh for SEST's round) is
+still open.
+
+**Which plays, and which is closest to the real missile.** U.S. Navy 2027
+(load order 21) outranks US Naval Aviation (73), so the `usn_aim-424` in game
+is U.S. Navy 2027's flight figures on US Naval Aviation's `aim-424.obj` model
+(U.S. Navy 2027 points at that asset). Against what the Navy published (680
+kg, 4.11 m, 34.3 cm, "in excess of 250" NM, a solid motor read as two-stage,
+blast-fragmentation) - speed and seeker are not public, so the rest is
+estimate:
+- US Naval Aviation's own figures are the least plausible: 1,600 knots
+  (the same-diameter AIM-174B is 2,650 in the collection), a 15-degree loft,
+  exactly 250 NM. Its model is the best: the real shape.
+- U.S. Navy 2027's are the most plausible of the mods': 2,650 knots, a
+  45-degree loft to about 148,000 ft, datalink and retargeting; 350 NM is
+  above the published floor - optimistic, not contradicted.
+- The YF-23's are approximations by its author's own description: one 58 s
+  burn, a 20 NM seeker.
+- SEST's follows the fact file and is aligned key for key with U.S. Navy
+  2027's AIM-174B, so it sits with U.S. Navy 2027's; its weakness is the
+  AGM-88G model (option 3 above).
+Maintenance, from the repo's exports: US Naval Aviation is a team mod (Sea
+Power China Test Group and Euromod), the largest (264 exported files) and the
+most often changed (15 exports); U.S. Navy 2027 is one author, changed its
+AIM-424 most recently (10 Oct 2026), and is fragile by construction (alias
+patches over Modern US Navy hulls); the YF-23 is the smallest (4 exports).

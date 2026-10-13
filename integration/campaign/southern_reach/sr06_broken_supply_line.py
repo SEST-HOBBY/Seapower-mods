@@ -47,7 +47,8 @@ MISSION = dict(
             " establish the present contact before acting. A Type 054A flying the "
             "fisheries-protection flag is fifty miles east with its helicopter up and has been "
             "keeping station on the coaster since first light, which is not something a "
-            "fisheries patrol does. A Bear is overhead.\\n\\nYou have the force already allocated"
+            "fisheries patrol does. A Bear is coming up from the south-west and will be "
+            "overhead inside the half hour.\\n\\nYou have the force already allocated"
             " and what Macquarie left in the magazines. Bring the coaster to the handover line."
             " The expedition ship out of the islands, the longliner and the whale are in the "
             "same water; nobody in New Zealand's region will forgive a dead tourist. Weapons "
@@ -58,7 +59,8 @@ MISSION = dict(
            "Invercargill. MT Derwent Spirit at six knots and MV Coral "
            "Pioneer in company. Neutral: an expedition ship out of the "
            "islands, a Bluff longliner, a whale. Opposing: one Akula ahead of "
-           "the track, a Type 054A shadowing with a Z-9 up, a Bear-D overhead.",
+           "the track, a Type 054A shadowing with a Z-9 up, a Bear-D on its way "
+           "overhead.",
     objectives=[
         ("Coaster", "Bring DERWENT SPIRIT to the handover line", "35,-35,Fail,Main"),
         ("Cargo", "MV Coral Pioneer must survive", "15,-25,Complete"),
@@ -118,9 +120,16 @@ MISSION = dict(
           route=[(-51.25, 165.60, 0)], telegraph=2),
         U("red", "modern-plan-systems", "plan_z-9c", "red_helo", name="Z-9 shadow",
           alt=1500, weapons="Tight", loadout="ASWKiller"),
+        # The Bear joins at minute 10 (13 Oct, option b), 64-71 NM south-west
+        # of the group, about ten minutes' flying from overhead. It is
+        # VICTOR's eyes: up from the first second, it gave the boat a track
+        # on Coral Pioneer from 49 NM before the player could find her.
+        # Until it joins the boat has her own sonar and nothing else - the
+        # window the brief's "establish the present contact before acting"
+        # is about.
         U("red", "_vanilla", "wp_tu-95rt", "bear", name="Bear-D 31", alt=20000,
           weapons="Hold", route=[(-51.30, 165.40, 20000), (-50.50, 166.00, 20000)],
-          telegraph=3),
+          telegraph=3, enter=10),
         U("neutral", "_vanilla", "civ_ms_encounter", "expedition",
           name="MV Enderby Expedition (Auckland Islands charter)",
           route=[(-50.50, 165.60, 0)], telegraph=2),

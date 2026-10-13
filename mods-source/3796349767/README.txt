@@ -7,7 +7,7 @@ SEAD: two AGM-88A HARMs and two AIM-9X Block IIs.
 Strike Precision: two GBU-12s and two AIM-9X Block IIs.
 Anti Ship: two AGM-84D Harpoons.
 
-The 20 mm cannon and countermeasures remain available with every loadout.
+The 20 mm cannon and countermeasures remain available with every combat loadout and Ferry.
 The anti-ship loadout uses the full bay and carries no air-to-air missiles.
 Empty and Ferry are also available. Select the loadout in the mission editor
 or when preparing aircraft for launch.

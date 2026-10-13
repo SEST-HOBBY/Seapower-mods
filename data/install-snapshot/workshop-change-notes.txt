@@ -1,0 +1,17 @@
+# Authors' change notes for this refresh, copied by the player from each
+# Workshop item's Steam "Change Notes" page. Steam shows times in the
+# viewer's time zone; each time below is as Steam showed it. The export
+# (mods-source/) holds only text files, so a note about models, textures
+# or code may have nothing to show there.
+#
+# <id>  <title>
+#   <date as shown>, by <author>: "<note, verbatim>"
+#   in the export: <what changed in mods-source, from git>
+
+3413868677  Red Storm Arsenal
+  13 Oct 2026 @ 4:29pm, by cent: "small missile fix"
+  in the export: the second capture (e7e918e2) changes one file,
+  vessels/usn_ffg_constellation.ini: NumberOfAnimationReferences 1 -> 3,
+  so the frigate now reads the NSM launcher and Mk 41 VLS animation files
+  it already lists (animations/animations_NSM_launcher.ini arrived in the
+  first capture, 0b0d137b).

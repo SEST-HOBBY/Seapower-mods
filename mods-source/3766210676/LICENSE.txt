@@ -35,8 +35,9 @@ You may not create or distribute retextures, replacement assets, modified builds
 ports, forks, or derivative works that copy, modify, override, or replace
 Original Project Material.
 
-Do not use the plugin ID "alpine.seapower.corsair", the mod's name, or its
-branding to present an unofficial release as official, approved, or a
+Do not use the plugin IDs "alpine.seapower.corsair",
+"alpine.seapower.corsair.orders" or "alpine.units.formation", the mod's name,
+or its branding to present an unofficial release as official, approved, or a
 successor.
 
 These restrictions apply to the maximum extent permitted by law. They do not

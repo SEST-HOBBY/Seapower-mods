@@ -7,7 +7,7 @@ from the whole collection.
 
 WHY THIS EXISTS
 
-189 Workshop mods and 20 local packs are a lot of content to own and
+190 Workshop mods and 20 local packs are a lot of content to own and
 never see. The Banda vignettes reached for the mods the sandbox left idle, one
 family per scenario; this goes the rest of the way: campaigns that between them
 place something from EVERY active mod that can put something on the map, and
@@ -191,14 +191,13 @@ def _xml_text(s):
              .replace("<", "&lt;").replace(">", "&gt;"))
 
 
-def campaign_rules(spec, open_allocation=False, submarine_missions=None, allied=0):
+def campaign_rules(spec, open_allocation=False, allied=0):
     """This campaign's campaign_rules_en.xml, built from the stock page.
 
     `open_allocation` is the Open Allocation twin's page: the same rules, with
     the availability lines saying the whole roster - its allied fleet included
-    - is on sale from the first force allocation. `submarine_missions` names
-    the missions a bought submarine sails in, for a roster that sells one;
-    `allied` is how many allied-fleet units the roster adds."""
+    - is on sale from the first force allocation. `allied` is how many
+    allied-fleet units the roster adds."""
     t = RULES_TEMPLATE.read_text(encoding="utf-8")
     navy = re.search(r"^NavyName\w+=(.+)$", spec["COMMANDER"], re.M).group(1).strip()
 
@@ -310,20 +309,19 @@ def campaign_rules(spec, open_allocation=False, submarine_missions=None, allied=
              'before any mission can use them.'
              + (' Allied aircraft are sold only where some mission here can launch and '
                 'recover them.' if allied else '') + '"', "fixed-wing line")
-    # The standard rosters sell no submarine, and there are no submarine side
-    # missions; an Open Allocation roster with the allied fleet does sell them,
-    # and a bought one sails only where a mission includes the owned submarine.
+    # No roster sells a submarine: the game's task force cannot take a bought
+    # one (in-game check, 13 Oct - allied_fleet.py), and roster_ini() refuses
+    # it. The Open Allocation twins sold thirteen until then, and this line
+    # said where they sailed.
     subs = [e["unit"] for e in spec["ROSTER"] if unit_type(e["unit"]) == "Submarine"]
-    if subs and not submarine_missions:
-        raise SystemExit(f"{spec['TITLE']}: the roster sells submarines and no mission "
-                         "here includes one - the purchase could never sail")
+    if subs:
+        raise SystemExit(f"{spec['TITLE']}: the roster sells submarines "
+                         f"({', '.join(subs)}) - a bought boat cannot join the task force")
     swap('Text="- Submarines operate independently of your task force. They appear in '
          'separate (but connected) optional side missions, which offer benefits to '
          'complete, but do not advance the main campaign."',
-         (f'Text="{_xml_text("- Submarines can be bought here. A submarine sails only in a mission that includes one - " + ", ".join(submarine_missions) + " - and waits in reserve for the rest.")}"'
-          if subs else
-          'Text="- Submarines cannot be bought in this campaign. A mission that gives you '
-          'one provides it with the mission; it does not join your task force."'),
+         'Text="- Submarines cannot be bought in this campaign. A mission that gives you '
+         'one provides it with the mission; it does not join your task force."',
          "submarine line")
     # The table's Survived Missions column is the game's own since 0.8.3
     # (28 Sep 2026 build): each cell binds <Level>CrewSkillSurvivalRequirement,
@@ -707,10 +705,31 @@ def unit_spot(keys):
         return None
 
 
+# SEST Cross-Deck (integration/cross-deck) extends allied decks with the
+# allied members of the airframe families they already fly, through an
+# Anchor Chain #!extend stub per hull. The game reads the stub on top of the
+# winning file, so the deck list the campaign measures has to be the same
+# union, or a Seahawk the game lands on a Type 45 would be refused here.
+CROSS_DECK = ROOT / "integration" / "cross-deck" / "SEST_Cross_Deck" / "vessels_overwrite"
+
+
+def deck_types(deck_type):
+    """The deck's AircraftSupported as the game reads it: the winning file's
+    list, replaced by SEST Cross-Deck's extended list where one is built.
+    None when the hull declares no list at all."""
+    stub = CROSS_DECK / f"{deck_type}_CrossDeck_SEST.ini"
+    if stub.is_file():
+        m = re.search(r"^AircraftSupported=([^\n/]*)", read(stub), re.M)
+        if m:
+            return m.group(1).strip()
+    return unit_value(deck_type, "AircraftSupported")
+
+
 def deck_fit(atype, kind, deck_type, is_ship):
     """Can this airframe recover on that deck, by the two files' own words.
 
-    0 = compatible: a field; a ship whose AircraftSupported names the type;
+    0 = compatible: a field; a ship whose AircraftSupported names the type
+        (or names the game's own `Helicopters` token and the type is one);
         or a ship with no list and an airframe that says CarrierCapable=True.
     1 = undeclared: a ship with no list and a fixed-wing airframe with no
         CarrierCapable line. Allowed, reported, and listed on the test card.
@@ -723,10 +742,14 @@ def deck_fit(atype, kind, deck_type, is_ship):
     cc = unit_value(atype, "CarrierCapable")
     if cc == "False":
         return None
-    listed = unit_value(deck_type, "AircraftSupported")
+    listed = deck_types(deck_type)
     if listed:
         names = {x.strip() for x in listed.split(",") if x.strip()}
-        return 0 if atype in names else None
+        if atype in names:
+            return 0
+        # Vanilla's own wildcard (29 hulls, the Ticonderogas and Burkes
+        # among them): every helicopter, whatever its name.
+        return 0 if ("Helicopters" in names and kind == "Helicopter") else None
     if cc == "True" or kind == "Helicopter":
         return 0
     return 1
@@ -1110,18 +1133,6 @@ def nation_name(key):
 _NATION_NAMES = None
 
 
-def submarine_missions(missions, placements):
-    """The missions a bought submarine sails in: those that include the owned
-    submarine, by the same test as campaign_ini's IncludesSubmarine."""
-    out = []
-    for m in missions:
-        placed = placements.get(m["key"])
-        detached = not m.get("generation") or m.get("detached")
-        if placed and placed.get("Taskforce1Submarine") and not detached:
-            out.append(m["key"])
-    return out
-
-
 def same_nation_discount(commander):
     """SameNationUnitDiscount from a commander_settings text, as a fraction.
 
@@ -1321,7 +1332,7 @@ def resolve(spec):
 # --- rendering ---------------------------------------------------------------
 
 BLOCK_ORDER = ("Type", "VariantReference", "SpawnByVariableAND",
-               "SquadronReference", "JoinTaskForce", "LoadoutVariant",
+               "SquadronReference", "Disabled", "JoinTaskForce", "LoadoutVariant",
                "TaskForceModeAnchor", "TaskForceModeReplacedUnitIndex",
                "Nation", "UnlimitedFuel", "WeaponStatus",
                "RadarsActive", "CrewSkill", "Morale", "CampaignTag",
@@ -1501,6 +1512,7 @@ def place(mission, snapper):
     contact = set()                            # contact="why", by tag
     pending = []                               # AttackAtWaypoint targets
     disabled = []                              # (tag, systems) off at start
+    entering = []                              # (tag, minute) held back
 
     # The generated force forms on Taskforce1Vessel1: every stock Task Force
     # Mode mission puts TaskForceModeAnchor on the FIRST unit of its kind, and
@@ -1804,6 +1816,23 @@ def place(mission, snapper):
                 sys.exit(f"{mission['key']}: {spec['type']} fills an air-tasking "
                          "slot; disable= cannot apply to a placeholder")
             disabled.append((tag, systems))
+        # A red unit held back: it is in the file from the start but switched
+        # off, and a timed trigger switches it on - stock's own way of
+        # launching a raid later (Pacific Strike 02's H-6Ds and 01A's
+        # bombers: Disabled=True on the unit, then "15min timer to enable
+        # bombers", Action_SetEnabledStatus=True). Until then it is not in
+        # the mission: it neither shoots nor sees, and check_opening() counts
+        # it only from the minute it enters.
+        if spec.get("enter") is not None:
+            minute = spec["enter"]
+            if spec["side"] != "red" or isinstance(minute, bool) \
+                    or not isinstance(minute, (int, float)) \
+                    or not 0 < minute < mission["minutes"]:
+                sys.exit(f"{mission['key']}: enter= is the minute a red unit joins, "
+                         f"inside the {mission['minutes']}-minute plan; {spec['type']} "
+                         f"({spec['side']}) has {minute!r}")
+            keys["Disabled"] = "True"
+            entering.append((tag, minute))
         for token, why in credit.items():
             best = credits.get(token)
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
@@ -1859,6 +1888,7 @@ def place(mission, snapper):
     mission["_independent"] = alone
     mission["_contact"] = contact
     mission["_disabled"] = disabled
+    mission["_enter"] = dict(entering)
     return placed, members, credits, worst
 
 
@@ -2656,6 +2686,18 @@ OPENING_AIR_LEAD_NM = 20.0
 OPENING_AIR_STANDOFF_NM = 100.0
 # A spotter this close to a ship already has her track.
 OPENING_SPOTTER_NM = 25.0
+# A red radar aircraft gives every red shooter a track as far as its line of
+# sight reaches, to this many miles at most (a KJ-600 at 26,000 ft sees about
+# 200 NM): the role tokens are the game's own [AI] Role= values.
+OPENING_RADAR_ROLES = frozenset({"AEW", "MaritimePatrol", "Recon", "ESM"})
+OPENING_RADAR_NM = 220.0
+# The height a SAM's radar is taken to sit at, for its line of sight to a
+# player aircraft: about a destroyer's mast or a battery's tower.
+OPENING_SAM_MAST_FT = 100.0
+# The quiet opening: no red unit can fire in these first minutes. A raid
+# that joins at this minute or later (enter=) is held to the raid rule
+# instead (13 October, Fujian's Shadow).
+OPENING_QUIET_MIN = 5
 OPENING_PROBLEMS = []
 
 _SHIP_REACH = {}
@@ -2695,6 +2737,44 @@ def ship_reach(uid, fit):
     return best
 
 
+def air_reach(uid, fit):
+    """How far this unit can hit an AIRCRAFT, in NM: its missiles whose
+    TargetType is AAW - a fighter's air-to-air rounds, a ship's or a
+    battery's SAMs - read the way ship_reach() reads anti-ship rounds,
+    magazines included."""
+    key = (uid, fit)
+    if key in _AIR_REACH:
+        return _AIR_REACH[key]
+    kind_dir, path = unit_file(uid)
+    best = 0.0
+    if path is not None:
+        if fit is None:
+            fit, _why = pick_loadout(uid, path, None)
+        held = set(stores(uid, kind_dir, path, fit))
+        body = read(path)
+        for mag in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
+            sec = re.search(r"^\[" + re.escape(mag) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+            if sec:
+                held |= set(re.findall(r"^Ammunition\d*=([^\s#/|]+)", sec.group(1), re.M))
+        for store in sorted(held):
+            text = "".join(read(f) for f in all_copies(f"ammunition/{store}.ini"))
+            kind = re.search(r"^Type=(\w+)", text, re.M)
+            aim = re.search(r"^TargetType=(\w+)", text, re.M)
+            if kind and kind.group(1) == "Missile" and aim and aim.group(1) == "AAW":
+                best = max(best, ammo_range(store))
+    _AIR_REACH[key] = best
+    return best
+
+
+_AIR_REACH = {}
+
+
+def radar_horizon(alt_ft, mast_ft=60.0):
+    """Radar line of sight in NM between two heights: 1.23 x (sqrt h1 +
+    sqrt h2), the standard 4/3-earth figure."""
+    return 1.23 * (math.sqrt(max(alt_ft, 0.0)) + math.sqrt(max(mast_ft, 0.0)))
+
+
 def check_opening(mission, placed):
     """Does the mission open with a fight already in progress?
 
@@ -2705,77 +2785,154 @@ def check_opening(mission, placed):
     reach of her from the first second. A player cannot classify, position
     or decide anything in a mission whose opening is the attack.
 
-    Three questions, about every red unit whose weapons are FREE at the
-    start (Tight and Hold do not fire first):
-      - a surface ship or a boat inside OPENING_SURFACE_NM / OPENING_SUB_NM
-        of the nearest player hull;
-      - an armed aircraft with less than OPENING_AIR_LEAD_NM of flying
-        between it and its own anti-ship launch range (that range counted
-        to OPENING_AIR_STANDOFF_NM at most);
-      - a ship already holding a player hull in anti-ship reach while a red
-        aircraft is within OPENING_SPOTTER_NM of that hull, giving her the
-        track.
+    The in-game check of 13 October said it again of Fujian's Shadow, which
+    this gate had passed: the H-6K's YJ-12s (270 NM) reached Ford at 126 NM
+    because an aircraft's reach was counted to 100 NM at most; the 093B's
+    YJ-18s reached everything from 54 NM with the KJ-600 giving the track,
+    and neither a boat's missiles nor a radar aircraft's picture was
+    counted; the J-35 and J-20A were half a minute from PL-15 range of the
+    F-35Cs and nothing measured air against air.
+
+    So the opening is now OPENING_QUIET_MIN minutes in which nothing red can
+    fire. A red unit in the mission then - from the start, or joining
+    before that minute (enter=) - whose weapons are FREE (Tight and Hold do
+    not fire first) is refused when:
+
+      - it is a surface ship inside OPENING_SURFACE_NM, or a boat inside
+        OPENING_SUB_NM, of the player's nearest hull;
+      - it is an armed aircraft with less than OPENING_AIR_LEAD_NM of flying
+        before its own anti-ship launch range - the whole range, however
+        long: a standoff bomber that can fire at the first second is the
+        fight in progress;
+      - it is a ship, a boat or a battery holding a player hull inside its
+        anti-ship reach with a track on her: its own radar inside
+        OPENING_SURFACE_NM, a red aircraft within OPENING_SPOTTER_NM of her,
+        or a red radar aircraft (AEW, maritime patrol, reconnaissance) whose
+        line of sight reaches her;
+      - it is an aircraft with less than OPENING_AIR_LEAD_NM of flying before
+        its air-to-air reach of a player aircraft in the air; or
+      - it is a ship or a battery holding a player aircraft inside its SAM
+        reach and its radar's line of sight.
+
+    A unit that joins at OPENING_QUIET_MIN or later is a raid the player has
+    had the quiet minutes to prepare for: it is held to the rule a raid was
+    always held to - an armed aircraft with OPENING_AIR_LEAD_NM of flying
+    before its launch range, that range counted to OPENING_AIR_STANDOFF_NM
+    at most, and a ship or boat outside the 25 NM rings - measured from
+    where it joins.
+
     A unit the story puts in contact on purpose says so with contact="why".
+    The player's own units are not measured: the player sets their weapons
+    before the clock starts.
     """
+    joins = mission.get("_enter", {})
+
     def rows(prefix):
         out = []
         for family, entries in placed.items():
-            if not family.startswith(prefix) or family.endswith("LandUnit"):
+            if not family.startswith(prefix):
                 continue
             kind = ("air" if family.endswith(("Aircraft", "Helicopter")) else
-                    "sub" if family.endswith("Submarine") else "sea")
+                    "sub" if family.endswith("Submarine") else
+                    "land" if family.endswith("LandUnit") else "sea")
             for tag, keys, name, _x in entries:
                 bits = keys.get("RelativePositionInNM", "").split(",")
                 try:
                     x, z = float(bits[0]), float(bits[2])
                 except (ValueError, IndexError):
                     continue
+                try:
+                    alt = float(bits[1])
+                except ValueError:
+                    alt = 0.0
                 out.append(dict(tag=tag, uid=keys["Type"], x=x, z=z, kind=kind,
-                                name=name, free=keys.get("WeaponStatus") == "Free",
-                                fit=keys.get("LoadoutVariant")))
+                                alt=alt, name=name,
+                                free=keys.get("WeaponStatus") == "Free",
+                                fit=keys.get("LoadoutVariant"),
+                                joins=joins.get(tag)))
         return out
 
     player, red = rows("Taskforce1"), rows("Taskforce2")
     hulls = [b for b in player if b["kind"] in ("sea", "sub")]
-    if not hulls:
-        return
+    flying = [b for b in player if b["kind"] == "air" and b["alt"] > 0]
     excused = mission.get("_contact", set())
 
-    def nearest(u):
-        h = min(hulls, key=lambda b: math.hypot(b["x"] - u["x"], b["z"] - u["z"]))
-        return h, math.hypot(h["x"] - u["x"], h["z"] - u["z"])
+    def gap(a, b):
+        return math.hypot(a["x"] - b["x"], a["z"] - b["z"])
+
+    def nearest(u, among):
+        h = min(among, key=lambda b: gap(b, u))
+        return h, gap(h, u)
 
     def who(u):
         return f"{u['tag']} ({u['uid']}{', ' + u['name'] if u['name'] else ''})"
 
-    spotters = [r for r in red if r["kind"] == "air"]
+    def opening(u):
+        return u["joins"] is None or u["joins"] < OPENING_QUIET_MIN
+
+    def flag(u, text):
+        when = ("starts" if u["joins"] is None
+                else f"joins at minute {u['joins']:g} and")
+        OPENING_PROBLEMS.append(f"{mission['key']}: {who(u)} {when} weapons free {text}")
+
+    # Who gives a red shooter its track at the start: anything red flying
+    # within OPENING_SPOTTER_NM of the target, or a red radar aircraft whose
+    # line of sight reaches it.
+    eyes = [r for r in red if r["kind"] == "air" and opening(r)]
+
+    def track(hull):
+        for s in eyes:
+            d = gap(s, hull)
+            if d < OPENING_SPOTTER_NM:
+                return f"{who(s)} {d:.0f} NM from her"
+            if (ai_roles(s["uid"]) & OPENING_RADAR_ROLES
+                    and d <= min(radar_horizon(s["alt"]), OPENING_RADAR_NM)):
+                return f"{who(s)}'s radar on her from {d:.0f} NM"
+        return None
+
     for r in red:
         if not r["free"] or r["tag"] in excused:
             continue
         hits = ship_reach(r["uid"], r["fit"])
-        if not hits:
+        start = opening(r)
+        if hulls and hits:
+            hull, d = nearest(r, hulls)
+            to = f"{d:.0f} NM from {hull['tag']} ({hull['uid']})"
+            if r["kind"] == "sea" and d < OPENING_SURFACE_NM:
+                flag(r, f"{to} - inside {OPENING_SURFACE_NM:.0f} NM, each on the "
+                        "other's radar from the first second")
+            elif r["kind"] == "sub" and d < OPENING_SUB_NM:
+                flag(r, f"{to} - inside {OPENING_SUB_NM:.0f} NM, with {hits:.0f} NM "
+                        "of torpedo or missile")
+            elif r["kind"] == "air":
+                need = (hits if start else min(hits, OPENING_AIR_STANDOFF_NM)) \
+                    + OPENING_AIR_LEAD_NM
+                if d < need:
+                    flag(r, f"{to} - its anti-ship reach is {hits:.0f} NM; it needs "
+                            f"{need:.0f} NM so the raid is seen coming"
+                            + ("" if not start else
+                               f" (or enter= at minute {OPENING_QUIET_MIN} or later)"))
+            elif start and d <= hits:
+                eye = ("its own radar" if r["kind"] != "sub" and d < OPENING_SURFACE_NM
+                       else track(hull))
+                if eye:
+                    flag(r, f"{to} - inside its {hits:.0f} NM anti-ship reach, with "
+                            f"{eye} giving the track from the first second")
+        if not (start and flying):
             continue
-        hull, d = nearest(r)
-        where = f"{mission['key']}: {who(r)} starts weapons free {d:.0f} NM from {hull['tag']} ({hull['uid']})"
-        if r["kind"] == "sea" and d < OPENING_SURFACE_NM:
-            OPENING_PROBLEMS.append(f"{where} - inside {OPENING_SURFACE_NM:.0f} NM, "
-                                    "each on the other's radar from the first second")
-        elif r["kind"] == "sub" and d < OPENING_SUB_NM:
-            OPENING_PROBLEMS.append(f"{where} - inside {OPENING_SUB_NM:.0f} NM, with "
-                                    f"{hits:.0f} NM of torpedo or missile")
-        elif (r["kind"] == "air"
-              and d < min(hits, OPENING_AIR_STANDOFF_NM) + OPENING_AIR_LEAD_NM):
-            OPENING_PROBLEMS.append(
-                f"{where} - its anti-ship reach is {hits:.0f} NM; it needs "
-                f"{min(hits, OPENING_AIR_STANDOFF_NM) + OPENING_AIR_LEAD_NM:.0f} NM "
-                "so the raid is seen coming")
-        elif r["kind"] == "sea" and hull["kind"] == "sea" and d <= hits:
-            eyes = [s for s in spotters
-                    if math.hypot(s["x"] - hull["x"], s["z"] - hull["z"]) < OPENING_SPOTTER_NM]
-            if eyes:
-                OPENING_PROBLEMS.append(
-                    f"{where} - inside its {hits:.0f} NM anti-ship reach, with "
-                    f"{who(eyes[0])} over her giving the track from the first second")
+        aa = air_reach(r["uid"], r["fit"])
+        if not aa:
+            continue
+        plane, d = nearest(r, flying)
+        to = f"{d:.0f} NM from {plane['tag']} ({plane['uid']})"
+        if r["kind"] == "air" and d < aa + OPENING_AIR_LEAD_NM:
+            flag(r, f"{to} - its air-to-air reach is {aa:.0f} NM; it needs "
+                    f"{aa + OPENING_AIR_LEAD_NM:.0f} NM (or enter= at minute "
+                    f"{OPENING_QUIET_MIN} or later)")
+        elif (r["kind"] in ("sea", "land")
+              and d <= min(aa, radar_horizon(plane["alt"], OPENING_SAM_MAST_FT))):
+            flag(r, f"{to} - inside its {aa:.0f} NM SAM reach and its radar's "
+                    "line of sight from the first second")
 
 
 def deck_size(uid):
@@ -3179,6 +3336,195 @@ def check_message_texts(mission):
                 "sender as 'SENDER: text'.")
 
 
+# --- deployment zones: where the player may place the force ------------------
+# The game lets a player move units before a mission only inside a [Zones]
+# entry of Type=Deployment for their side (ui.ini: "Defines a gameplay
+# deployment area where eligible units for the selected side can be placed").
+# No SEST mission wrote one, so every force started exactly where the file put
+# it and could not be moved (user report, 13 Oct: "when starting campaign, i
+# cant move my task force around at all"). Stock Pacific Strike draws a blue
+# rectangle round its anchor (02, 06, 07, 10: 20 x 30 to 90 x 215 NM) that
+# opens away from the enemy - 06's anchor sits 3.4 NM inside the edge facing
+# Lombok - and a submarine-only box ("Sub Patrol Box", 09 and 10) for a boat
+# that starts away from the surface force.
+#
+# The same shapes here, with the rule the stock boxes keep by eye written
+# down: a zone opens away from the enemy, never toward it. The box starts as
+# the hulls' own extent plus DEPLOY_PAD_NM all round - room for the formation
+# - and each side then opens up to DEPLOY_OPEN_NM further, a mile at a time.
+# A side stops where the next mile would bring an enemy in play nearer than
+# the padded box already is (by more than DEPLOY_SLACK_NM), or would put the
+# edge on land. "In play" is an enemy whose anti-ship reach - DEPLOY_SEEN_NM
+# for one with none - comes within DEPLOY_OPEN_NM of the padded box. The
+# mission's goals hold the box back the same way, wherever they are: an
+# arrival or lift point, a stage area, and any contact an objective names
+# (the merchant to classify, the ship to sink). So the player can pull back
+# and spread out, and no opening - or transit - gets shorter than the
+# mission's own by more than the pad.
+#
+# Positions are plain arcminutes on both axes (lat = centre + z/60, lon =
+# centre + x/60), as the game reads RelativePositionInNM: stock 10's map
+# symbols sit 0.05-0.4 NM from their units that way and 13-28 NM off with a
+# cos(lat) correction. GeoPoint is the rectangle's centre - every stock
+# anchor is inside its box only on that reading - and WidthNm (east-west)
+# and HeightNm (north-south) are in the same units.
+DEPLOY_PAD_NM = 3.0
+DEPLOY_OPEN_NM = 25.0
+DEPLOY_SLACK_NM = 0.5
+DEPLOY_SEEN_NM = 50.0
+DEPLOY_CLUSTER_NM = 25.0
+DEPLOY_LAND_DEG = 0.03          # about 2 NM of sea beyond the edge
+DEPLOY_ALL = "Vessel,Submarine,Helicopter,Aircraft,Land"
+
+
+def rect_nm(rect, x, z):
+    """Distance from (x, z) to the rectangle (x0, x1, z0, z1), 0 inside."""
+    x0, x1, z0, z1 = rect
+    return math.hypot(max(x0 - x, 0.0, x - x1), max(z0 - z, 0.0, z - z1))
+
+
+def deployment_goals(mission, members):
+    """(lat, lon) points and unit tags the player is sent to reach.
+
+    Read before the triggers are built, so a malformed term is left for the
+    trigger builder to refuse with its own message rather than tripped on.
+    """
+    points, tags = [], set()
+    v = mission.get("victory", {})
+    if v.get("kind") == "arrive" and v.get("at"):
+        points.append(v["at"])
+    points += [extra["at"] for extra in v.get("also", [])
+               if isinstance(extra, dict) and extra.get("at")]
+    if isinstance(v.get("after"), dict) and v["after"].get("at"):
+        points.append(v["after"]["at"])
+    points += [lift["at"] for lift in mission.get("lift", [])
+               if isinstance(lift, dict) and lift.get("at")]
+    for how in mission.get("resolve", {}).values():
+        if not isinstance(how, tuple) or len(how) < 2:
+            continue
+        if how[0] == "arrive" and len(how) > 2:
+            points.append(how[2])
+        if how[0] in ("classify", "destroy"):
+            for r in ([how[1]] if isinstance(how[1], str) else how[1]):
+                tags.update(refs(members, r))
+    if v.get("kind") == "destroy":
+        for r in v.get("stations", [v.get("station")]):
+            if r:
+                tags.update(refs(members, r))
+    return points, tags
+
+
+def deployment_zones(mission, placed, members):
+    """The blue Deployment zones for one mission, as dicts.
+
+    One zone for the group of hulls the force forms on (the anchor's, else
+    the first ship's), taking every unit type as stock's do, and one
+    submarine-only box for each group that is nothing but boats. A group is
+    hulls chained within DEPLOY_CLUSTER_NM of each other. Hulls in any other
+    group (an escorted merchant far off, a second surface group) stay where
+    the story puts them: a second all-types zone would let the player's
+    formation jump to them, and no stock mission has two.
+    """
+    centre = mission["centre"]
+
+    def spots(prefix, families=None):
+        out = []
+        for family, entries in placed.items():
+            if not family.startswith(prefix):
+                continue
+            if families and not family.endswith(families):
+                continue
+            for tag, keys, _n, _x in entries:
+                xz = unit_spot(keys)
+                if xz:
+                    out.append((tag, keys, xz[0], xz[1]))
+        return out
+
+    hulls = spots("Taskforce1", ("Vessel", "Submarine"))
+    if not hulls:
+        return []
+    # single-linkage groups
+    groups = []
+    for h in hulls:
+        joined = [g for g in groups
+                  if any(math.hypot(h[2] - o[2], h[3] - o[3]) <= DEPLOY_CLUSTER_NM for o in g)]
+        merged = [h] + [o for g in joined for o in g]
+        groups = [g for g in groups if g not in joined] + [merged]
+    anchor = mission.get("_anchor_section")
+    first_ship = next((h[0] for h in hulls if "Vessel" in h[0]), hulls[0][0])
+    lead = anchor if any(h[0] == anchor for h in hulls) else first_ship
+    main = next(g for g in groups if any(h[0] == lead for h in g))
+    boats = [g for g in groups if g is not main and all("Submarine" in h[0] for h in g)]
+
+    red = []
+    for tag, keys, x, z in spots("Taskforce2"):
+        reach = 0.0 if "LandUnit" in tag else ship_reach(keys["Type"], keys.get("LoadoutVariant"))
+        red.append((tag, x, z, max(reach, DEPLOY_SEEN_NM)))
+    points, targets = deployment_goals(mission, members)
+    goals = [((lon - centre[1]) * 60.0, (lat - centre[0]) * 60.0)
+             for lat, lon in points]
+    goals += [(x, z) for tag, _k, x, z in spots("") if tag in targets]
+
+    def water(x, z):
+        return fix_land_positions.water(centre[0] + z / 60.0, centre[1] + x / 60.0,
+                                        clearance=DEPLOY_LAND_DEG)
+
+    def open_box(group):
+        xs, zs = [h[2] for h in group], [h[3] for h in group]
+        box = [min(xs) - DEPLOY_PAD_NM, max(xs) + DEPLOY_PAD_NM,
+               min(zs) - DEPLOY_PAD_NM, max(zs) + DEPLOY_PAD_NM]
+        base = tuple(box)
+        in_play = [(x, z, rect_nm(base, x, z)) for _t, x, z, reach in red
+                   if rect_nm(base, x, z) <= reach + DEPLOY_OPEN_NM]
+        in_play += [(x, z, rect_nm(base, x, z)) for x, z in goals]
+        # (index into box, outward sign, edge runs along x?)
+        for i, sign, along_x in ((0, -1, False), (1, 1, False),
+                                 (2, -1, True), (3, 1, True)):
+            for _mile in range(int(DEPLOY_OPEN_NM)):
+                trial = list(box)
+                trial[i] += sign
+                if any(rect_nm(trial, x, z) < d - DEPLOY_SLACK_NM for x, z, d in in_play):
+                    break
+                lo, hi = (trial[0], trial[1]) if along_x else (trial[2], trial[3])
+                n = max(2, int((hi - lo) / 2.0) + 1)
+                edge = [lo + (hi - lo) * k / (n - 1) for k in range(n)]
+                if not all(water(v, trial[i]) if along_x else water(trial[i], v)
+                           for v in edge):
+                    break
+                box = trial
+        return box
+
+    def zone(group, types, label):
+        x0, x1, z0, z1 = open_box(group)
+        return dict(label=label, types=types,
+                    at=(round(centre[0] + (z0 + z1) / 120.0, 6),
+                        round(centre[1] + (x0 + x1) / 120.0, 6)),
+                    width=round(x1 - x0, 1), height=round(z1 - z0, 1),
+                    tags=sorted(h[0] for h in group))
+
+    out = [zone(main, DEPLOY_ALL if any("Vessel" in h[0] for h in main) else "Submarine",
+                "Deployment Zone")]
+    out += [zone(g, "Submarine", "Submarine Patrol Box") for g in boats]
+    return out
+
+
+def zones_ini(zones):
+    """The [Zones] block, in the stock campaign's own key order (06 Raid on
+    Lombok, Zone1)."""
+    L = ["[Zones]", f"NumberOfZones={len(zones)}"]
+    L += [f"Zone{i}=Zone{i}" for i in range(1, len(zones) + 1)]
+    for i, z in enumerate(zones, 1):
+        L += [f"[Zone{i}]", "Type=Deployment", "Shape=Rectangle",
+              f"LabelKey=Zone{i}Label", "Side=Blue", "Color=Blue",
+              f"GeoPoint={z['at'][0]},{z['at'][1]}",
+              f"WidthNm={z['width']:g}", f"HeightNm={z['height']:g}", "Bearing=0",
+              "BorderColor=Blue", "BorderWidth=1.5", "FillOpacity=0.16",
+              "BorderOpacity=0.5", "FillStyle=Fill",
+              f"AllowedUnitTypes={z['types']}",
+              "VisibleIn=CampaignMap,BriefingMap", "LockPosition=False"]
+    return L
+
+
 def render(mission, placed, members):
     check_message_texts(mission)
     name = mission_name(mission)
@@ -3239,6 +3585,9 @@ def render(mission, placed, members):
         for tag, _keys, unit_name, _x in placed.get(family, []):
             if unit_name and tag != mission.get("_anchor_tag"):
                 L.append(f"{tag}NameOverride={unit_name}")
+    zones = mission["_zones"] = deployment_zones(mission, placed, members)
+    for i, z in enumerate(zones, 1):
+        L.append(f"Zone{i}Label_en={z['label']}")
     L.append("")
 
     d, t = mission["date"], mission["time"]
@@ -3275,6 +3624,16 @@ def render(mission, placed, members):
             if len(group) > 1:
                 forms[side].append((mission["stations"][station].get("label", station),
                                     group))
+    # A formation is one group in the game: half of it switched off would
+    # leave the other half flying a formation with no one in it.
+    joins = mission.get("_enter", {})
+    for side, groups in forms.items():
+        for label, group in groups:
+            minutes = {joins.get(tag) for tag in group}
+            if len(minutes) > 1:
+                raise SystemExit(f"{mission['key']}: {label} is one formation "
+                                 f"({', '.join(group)}) but its units join at "
+                                 "different minutes - give them one enter=")
     for side, groups in sorted(forms.items()):
         L.append(f"{side}_NumberOfFormations={len(groups)}")
         for i, (label, group) in enumerate(groups, 1):
@@ -3375,6 +3734,18 @@ def render(mission, placed, members):
             "ConditionsCompleted=<Condition1>",
             f"Action_Units={','.join(tags)}"]
             + [f"Action_EnableDisable{DISABLE_ACTIONS[s]}=Disable" for s in systems])
+    # enter=: a held-back unit joins at its minute - 01A Senkaku Run Trigger4,
+    # key for key.
+    joining = collections.defaultdict(list)
+    for tag, minute in mission.get("_enter", {}).items():
+        joining[minute].append(tag)
+    for minute, tags in sorted(joining.items()):
+        trigger(f"Joins at minute {minute:g}", [
+            "Condition_Condition1_Type=Time",
+            f"Condition_Condition1_Time={round(minute * 60)}",
+            "ConditionsCompleted=<Condition1>",
+            "Action_SetEnabledStatus=True",
+            f"Action_Units={','.join(tags)}"])
 
     if victory["kind"] == "arrive":
         win_units = ([tag for r in victory["units"] for tag in refs(members, r)]
@@ -3951,6 +4322,8 @@ def render(mission, placed, members):
         for tag, keys, _n, _x in placed.get(family, []):
             L.append(block(tag, keys))
             L.append("")
+    if zones:
+        L += zones_ini(zones) + [""]
 
     # An objective may end Fail if something can COMPLETE it before the end:
     # the victory trigger, or its own classify/arrive/destroy resolver. Then
@@ -4658,8 +5031,8 @@ def roster_ini(roster, heading=None):
     Every pick is checked against the file that WINS the load order first: a
     price on a variant the hull no longer offers is a purchase the builder
     would be advertising and the game would refuse. Aircraft go in by squadron,
-    ships by variant, and a submarine goes in AllowedSubmarines because its
-    UnitType says so - not because of what its filename looks like.
+    ships by variant. A submarine - known by its UnitType, not by what its
+    filename looks like - is refused: the game's task force cannot take one.
     """
     by_section, problems, credits = collections.defaultdict(list), [], {}
     for entry in roster:
@@ -4679,6 +5052,15 @@ def roster_ini(roster, heading=None):
         if section is None:
             problems.append(f"roster: {uid} is a {utype}, which is not a "
                             "purchasable category")
+            continue
+        if section == "AllowedSubmarines":
+            # In-game check, 13 Oct: a bought boat never showed in the
+            # formation editor, and dismissing it did not take it out of the
+            # force - it sailed in the next mission and stayed. Stock sells
+            # none ("subs are currently not available for purchase in Pacific
+            # Strike campaign"); a boat belongs in a mission, authored.
+            problems.append(f"roster: {uid} is a submarine - the game's task "
+                            "force cannot take a bought one (allied_fleet.py)")
             continue
         pool = (squadrons(uid) if section in ("AllowedAircraft", "AllowedHelicopters")
                 else variants(uid, kind_dir))
@@ -4990,8 +5372,8 @@ def check_purchased_recovery(mission, placed, roster_types):
 def usable_allied(entries, missions, placements, rows=(), roster=(), authored=()):
     """(kept, dropped) - the allied entries an Open Allocation twin may sell.
 
-    Ships and submarines are always kept: a ship sails in every mission that
-    includes the task force, a submarine in every mission that includes one.
+    Ships are always kept: a ship sails in every mission that includes the
+    task force. (No submarine is on the list: see allied_fleet.py.)
     An aircraft is kept only if at least one row in the campaign would take
     it and it recovers in every row that would: the builder will not sell a
     sortie it cannot fly, and would refuse the build if it did (see
@@ -5263,13 +5645,28 @@ def campaign_ini(missions, events, placements):
             # detachment. Both keys are stock (pacific-strike campaign.ini);
             # neither is documented in ui.ini, so the pairing is inferred from
             # how the stock campaign uses them and is untested here.
+            # Wherever the owned force sails it also gets the deployment
+            # panel and the mission's Deployment zone (deployment_zones):
+            # stock pairs DeploymentOptions with a default disposition every
+            # time (06, 07, 09, 10 Formation on Generated; 05 Dispersed on
+            # Replaced), and its ui.ini carries "All Task Force ships must
+            # deploy for this mission!" for the panel when the whole force is
+            # required, so the panel is not only for detachments.
+            sails = not detached and bool(placed.get("Taskforce1Vessel"))
+            if sails and not mission.get("_zones"):
+                raise SystemExit(f"{mission['key']}: the task force sails into a "
+                                 "mission with no Deployment zone - the player "
+                                 "could not move it")
             if blank:
                 pass        # nothing of the player's sails: no deployment keys
-            elif window.get("detachment"):
-                L += ["TaskForceModeDeploymentOptions=True",
-                      "TaskForceModeRequireEntireTaskForce=False"]
             else:
-                L.append("TaskForceModeRequireEntireTaskForce=True")
+                if sails or window.get("detachment"):
+                    L += ["TaskForceModeDeploymentOptions=True",
+                          "TaskForceModeDefaultDisposition="
+                          + ("Dispersed" if mission["generation"] == "Replaced"
+                             else "Formation")]
+                L.append("TaskForceModeRequireEntireTaskForce="
+                         + ("False" if window.get("detachment") else "True"))
             # A one-ship (or n-ship) restricted mission: the guide's own
             # pattern, Replaced generation plus a unit limit.
             if window.get("max_units"):
@@ -6096,12 +6493,11 @@ def main():
         check_flights(flight_rows, twin_roster, authored=authored)
         # Everything that can stop the build is decided here, before the dry
         # run returns and before the pack folder is cleared: the rules pages
-        # (roster nations, the submarine missions) and the twin's spine.
-        subs = submarine_missions([m for _n, _t, m in built], placements)
+        # (roster nations, no submarine on sale) and the twin's spine.
         foreign = allied_line(twin_roster, spec["COMMANDER"])
-        rules_text = campaign_rules(spec, submarine_missions=subs)
+        rules_text = campaign_rules(spec)
         twin_rules_text = campaign_rules(dict(spec, ROSTER=twin_roster), open_allocation=True,
-                                         submarine_missions=subs, allied=bool(foreign))
+                                         allied=bool(foreign))
         twin_campaign_text = open_allocation_ini(campaign_text, SLUG, twin_roster, foreign)
         twin_roster_text, twin_roster_credits = roster_ini(
             twin_roster, heading=f"; SEST {TITLE} - Open Allocation requisition roster: "
@@ -6400,7 +6796,7 @@ def main():
                "Chain preloader and sets the whole order for you.")
     (OUT / "_info.ini").write_text(
         info(" - ".join(titles), blurb, general="",
-             tail="\n[Compatibility]\nApproximateVersion=0.8.4\n"),
+             tail="\n[Compatibility]\nApproximateVersion=0.8.5\n"),
         encoding="utf-8")
     # The pack-level lists, from the union of what every campaign reaches.
     set_campaign(dict(campaigns[0]["spec"], TITLE=" / ".join(titles)))

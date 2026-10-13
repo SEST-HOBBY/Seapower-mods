@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches (reference only)
 
-141 items, in canonical load order. NOT the Workshop item's
+142 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -109,7 +109,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3799742828    # MiG-31 Fo
 https://steamcommunity.com/sharedfiles/filedetails/?id=3659742367    # MiG-35 Fulcrum-F (米格-35 支点-F)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3513571010    # Mil Mi-24 Hind
 https://steamcommunity.com/sharedfiles/filedetails/?id=3716049886    # MORE SU-24M VARIANTS
-https://steamcommunity.com/sharedfiles/filedetails/?id=3806466625    # MV-22B Osprey Tiltrotor / JGSDF V-22B
+https://steamcommunity.com/sharedfiles/filedetails/?id=3806466625    # V-22 Osprey / SV-22 2024 ASW prototype
 https://steamcommunity.com/sharedfiles/filedetails/?id=3810611344    # MV-75 Cheyenne II
 https://steamcommunity.com/sharedfiles/filedetails/?id=3587091564    # 3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3681873198    # Pickup truck extension
@@ -144,6 +144,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3796349767    # YF-23 Bla
 https://steamcommunity.com/sharedfiles/filedetails/?id=3601891050    # Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3408662804    # Iskander TBM
 https://steamcommunity.com/sharedfiles/filedetails/?id=3470643173    # Type 12 SSM-ER Anti-Ship Missile System
+https://steamcommunity.com/sharedfiles/filedetails/?id=3571718093    # Road Mobile ICBMs (Topol-M, DF-41)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3631042692    # Modern Chinese Airbase (Large)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3629269283    # Modern Russian Airbase (Large)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3592460366    # Modern US Airbase

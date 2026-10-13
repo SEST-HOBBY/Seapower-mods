@@ -110,6 +110,12 @@ def parse(path):
         pos = re.search(r"^RelativePositionInNM=([-\d.]+),[^,\n]*,([-\d.]+)", chunk, re.M)
         if not pos:
             continue
+        # A unit held back (Disabled=True, switched on by a timed trigger -
+        # the campaign's enter=) is not on the plot when the mission opens,
+        # so the chart does not report it: the briefing says when to expect
+        # it instead.
+        if re.search(r"^Disabled=True\s*$", chunk, re.M):
+            continue
         x, z = float(pos.group(1)), float(pos.group(2))
         side = ("neutral" if m.group(1) == "Neutral"
                 else "friend" if m.group(2) == player else "hostile")

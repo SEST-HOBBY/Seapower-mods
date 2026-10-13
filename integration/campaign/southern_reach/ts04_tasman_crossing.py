@@ -19,7 +19,8 @@ MISSION = dict(
             "charterers would not wait for each other, and you cannot be "
             "with both. LIAONING is two hundred miles south-east and "
             "her strike flight will come for whichever group she thinks "
-            "you are not covering. Wedgetail already has them, a hundred and twenty miles out; "
+            "you are not covering. It is launching now: Wedgetail will have it within about "
+            "ten minutes, a hundred and twenty miles out; "
             "Williamtown's F-35As can cover you this far out for the first "
             "time, and from today the Super Hornets are ours too. Three of "
             "four into the box. Coral Pioneer is in group A and her master, "
@@ -35,8 +36,9 @@ MISSION = dict(
             "making for the same turning point north-east. Neither group would wait for the "
             "other and both want the same escort.\\n\\nLIAONING is two hundred miles south-east "
             "with a frigate, and the J-15s that flew over the Southern Ocean fishing fleet for "
-            "the cameras on New Year's Eve are already up with anti-ship missiles, a hundred "
-            "and thirty miles from group B and closing. WEDGETAIL 05 is up out of Williamtown "
+            "the cameras on New Year's Eve are launching with anti-ship missiles: expect them "
+            "on the plot within about ten minutes, a hundred and thirty miles from group B "
+            "and closing. WEDGETAIL 05 is up out of Williamtown "
             "and, for the first time this far out, so are fighters that can reach you: "
             "Williamtown's F-35As are available for fighter cover, and the Super Hornets and "
             "Growlers were released to the task group at Sydney.\\n\\nThree of four hulls into "
@@ -124,15 +126,19 @@ MISSION = dict(
           route=[(-40.20, 160.40, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "red_cv",
           name="Type 054A frigate", route=[(-40.20, 160.40, 0)], telegraph=3),
+        # The strike flight joins at minute 10 (13 Oct, option b: hold the
+        # strike back). Placed from the first second, the J-15D's YJ-83s
+        # (156 NM) reached group A 124 NM off before the player had read the
+        # plot. One formation, one minute; stock's pattern, Pacific Strike 02.
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",
           name="Flying Shark 31", loadout="AntiShip",
-          route=[(-38.28, 158.34, 500)], telegraph=3),
+          route=[(-38.28, 158.34, 500)], telegraph=3, enter=10),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15", "red_air",
           name="Flying Shark 32", loadout="AntiShip",
-          route=[(-38.28, 158.34, 500)], telegraph=3),
+          route=[(-38.28, 158.34, 500)], telegraph=3, enter=10),
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_air",
           name="Flying Shark 33", loadout="AntiShip",
-          route=[(-38.28, 158.34, 500)], telegraph=3),
+          route=[(-38.28, 158.34, 500)], telegraph=3, enter=10),
         U("red", "modern-plan-systems", "plan_ka-31", "red_helo", name="Ka-31 eye",
           alt=9000, weapons="Hold", loadout="AEW"),
         U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner",

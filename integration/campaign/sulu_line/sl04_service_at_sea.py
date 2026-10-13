@@ -44,8 +44,9 @@ MISSION = dict(
             "takes stores across, one ship at a time. Keep your lead ship within three miles "
             "of her for thirty minutes while the others go alongside, then bring her north "
             "to the withdrawal box, twenty miles up.\\n\\nMeridian has her movement. Three "
-            "fast attack craft sailed from Cagayancillo at 0500 and a drone has been "
-            "overhead since first light. A ship alongside and slowed down is the easiest "
+            "fast attack craft sailed from Cagayancillo at 0500, and the drone that found "
+            "her at first light is due back on station within about five minutes. A ship "
+            "alongside and slowed down is the easiest "
             "target in the Sulu Sea; keep a screen out while the others replenish."
         )),
     forces=(
@@ -130,9 +131,13 @@ MISSION = dict(
           nation="Panama", route=[(8.70, 119.30, 0)], telegraph=4),
         U("red", "red-storm-arsenal", "ir_ptg_peykaap_3", "raiders", name="Meridian Escort 17",
           nation="Panama", route=[(8.65, 119.25, 0)], telegraph=4),
+        # Back on station at minute 5 (13 Oct, option b). Up from the first
+        # second, its radar on Sulu Provider from 27 NM was the track that let
+        # the three boats (49 NM of anti-ship reach, 43 NM out) fire on her
+        # before the player could put a screen out.
         U("red", "small-medium-uav-series", "usn_ForpostR705", "drone",
           name="Spotter drone", nation="Panama", weapons="Hold",
-          route=[(8.80, 119.20, 9000), (8.90, 119.60, 9000)], loop=True),
+          route=[(8.80, 119.20, 9000), (8.90, 119.60, 9000)], loop=True, enter=5),
         U("neutral", "_vanilla", "civ_ms_roro_c", "freighter",
           name="MV Lorenzo Hope (Iloilo-Cotabato)", route=[(8.40, 120.60, 0)], telegraph=3),
     ],

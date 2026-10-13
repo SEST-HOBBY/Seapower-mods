@@ -48,7 +48,6 @@ RAS_METERED = {
     "usn_rim-161c": LONG_RANGE_SAM,
     "usn_rim-161d": LONG_RANGE_SAM,
     "usn_rim-174a": LONG_RANGE_SAM,
-    "usn_rim-174c": LONG_RANGE_SAM,
 }
 
 
@@ -94,7 +93,7 @@ crews, park slots, taxi speed - where the mods dropped or lowered them. Generate
 integration/collection-fixes/build_patch.py; must load above every workshop mod.
 
 [Compatibility]
-ApproximateVersion=0.8.4
+ApproximateVersion=0.8.5
 """
 
 
@@ -554,12 +553,12 @@ def main():
           "RAN Anzacs and Hobarts fire. " + delta + meter_note)
     built.append("usn_rgm_184a")
 
-    # usn_rim-161b/c/d, usn_rim-174a/c, usn_pac3_mse [SM-3 investigation].
+    # usn_rim-161b/c/d, usn_rim-174a, usn_pac3_mse [SM-3 investigation].
     # Reported in game: the SM-3 flies strangely and shows ~5% intercept
     # against everything (7% against supersonic-high).
     #
-    # All six of these rounds declare MaxLoftAlt with their MaxLoftAngle
-    # COMMENTED OUT - the author wrote the value, then disabled the line.
+    # All six rounds investigated (the SM-6 IB among them, retired from the
+    # table below) declare MaxLoftAlt with their MaxLoftAngle COMMENTED OUT - the author wrote the value, then disabled the line.
     # 527 missiles across the collection pair the two keys; 14 do not, and
     # every one of the 14 is either one of these six or lofts to 300 ft or
     # less, where a climb angle means nothing. So a missile told to reach
@@ -641,9 +640,17 @@ def main():
     # 300 s for 486 nm and get 600; the D needs 617 s for 1500 nm and gets
     # 900. Real SM-3 engagements at these ranges run ten minutes and up.
     SM3 = {"usn_rim-161b": 600, "usn_rim-161c": 600, "usn_rim-161d": 900}
+    # usn_rim-174c (SM-6 Block IB) left this table on 13 Oct 2026: Euromod
+    # Main Pack deleted its copy, and the round the game reads now is U.S.
+    # Navy 2027's, which already flies MaxLoftAngle=80.0 - the value this fix
+    # un-commented. The player chose that round over keeping Euromod's.
     LOFT_ANGLE = {"usn_rim-161b": "85.0", "usn_rim-161c": "85.0",
                   "usn_rim-161d": "85.0", "usn_rim-174a": "80.0",
-                  "usn_rim-174c": "80.0", "usn_pac3_mse": "65.0"}
+                  "usn_pac3_mse": "65.0"}
+    usn2027_sm6 = read("3606774881", "ammunition/usn_rim-174c.ini")
+    if not re.search(r"^MaxLoftAngle=80\.0\b", usn2027_sm6, re.M):
+        sys.exit("usn_rim-174c: U.S. Navy 2027's SM-6 IB no longer flies MaxLoftAngle=80.0 - "
+                 "decide whether SEST should fix it again")
     for name, angle in LOFT_ANGLE.items():
         t = read("3629144864", f"ammunition/{name}.ini")
         if re.search(r"^MaxLoftAngle=", t, re.M):

@@ -88,6 +88,9 @@ is itself the answer to step 1.
 Load one mission from each theatre before going further — **01 White Water**,
 **08 The Open Door**, **11 Fujian's Shadow**. They use the most different
 content. A texture or model that fails shows up here, not in the rules.
+In 08 The Open Door the S-400 battery (site, Flap Lid, 40N6 TEL) is held
+back and appears at 5:00, so run the clock past 5:00 before judging its
+models.
 
 ## 1A — the art (new, and entirely unverified)
 
@@ -124,7 +127,7 @@ Pacific Strike campaign and has never been run.
 | 2.4 | Deploy into SW01 | The purchased ship is **Taskforce1Vessel1**, on station, not adrift |
 | 2.5 | Finish SW01, open the builder before SW02 | The list has **grown** to 5 — Hobart and the P-8 added. No Supply, no Collins, no KC-46: the roster sells nothing a mission cannot deploy |
 | 2.6 | Before SW05 | The builder says one ship sails it; the deployment screen accepts **exactly one vessel** (`Replaced`, `MaxUnits=1`). Send an Arafura and the magazine objective must still read her NSM cells |
-| 2.7 | Before SW07, SW08, O2 | **No deployment screen at all.** The note says nothing of your force sails; the mission launches as authored |
+| 2.7 | Before SW07, SW08, O2 | **No task force deployment panel.** The note says nothing of your force sails; the mission launches with its own units, which sit in a blue Deployment Zone you may move them within (6I) |
 | 2.7a | Before O1 and C1 | A **deployment screen** (a detachment of your choosing) and a Ship's Flight row; no builder, no repair |
 | 2.7b | Before SW03, then before SW05, then before SW11 | SW03's list is SW02's: **no F-35A** until the window before SW05, where the strike row can take it. Before SW11 there is **no Seahawk, Wedgetail or Triton** (no row in the carrier action); the P-8 is offered and fits the Attack row |
 | 2.8 | Before SW12 | Aircraft plus **Arafura and Anzac** as replacement hulls; no Hobart. Buy an F-35A and assign it to Combat Air Patrol: it must appear, fly and recover at Darwin |
@@ -172,6 +175,7 @@ lowering — tell me the airframe and roughly when it went.
 | 5.1 | SW01, win it | Victory, convoy objective complete, mission ends cleanly |
 | 5.2 | SW01, deliberately lose 3 merchants | Defeat, and every other objective shows **cancelled**, not complete |
 | 5.3 | SW06, classify the northern surface group | Intel message, then ~2 min later a **new objective appears** naming the shuttle |
+| 5.3b | SW06, push the Triton north at once and classify the group before 5:00 | The J-16s join at 5:00 and come up **identified**, as the intel line says. Unidentified J-16s = a reveal fired on a held-back unit does not hold: say when the classification came |
 | 5.4 | SW06, ignore the recon entirely and just run the convoy | Win. The Airlift task never appears and scores nothing |
 | 5.5 | Any mission, win near the deadline | One outcome only — no double ending, no defeat after a victory |
 
@@ -240,13 +244,19 @@ SW09 and SW12.
 | # | Do | Expect |
 |---|---|---|
 | 6C.1 | SW05, sit still | The JH-7A pair goes **west first**, then comes down the corridor; no YJ-91 before about 14 minutes |
-| 6C.2 | SW07, send the tanker home at once | The Foxhounds come south towards TEXACO's station and **turn back north** at about 13 minutes; the tanker is never in R-33 reach. The returning package is, for about the first 13 minutes, and so is a Wedgetail that holds its orbit from about 11 to 15 |
-| 6C.3 | SW09 | The Tu-214R comes to about 33 NM west of the service box at about 20 minutes and leaves; the Flanker pair swings round the outside and is in Kh-31A range of the ships at about 30-34 minutes, near the end of the window |
-| 6C.4 | SW11 | Flying Shark 21 heads for the transports on its own; shooting it down completes **Strike** (not the KJ-600) |
+| 6C.2 | SW07, send the tanker home at once | The Foxhounds appear at 5:00 (held back), come south towards TEXACO's station and **turn back north** at about 18 minutes; the tanker is never in R-33 reach. The returning package is in reach from about 5 to about 18 minutes, and so is a Wedgetail that holds its orbit from about 16 to 20 |
+| 6C.3 | SW09 | The Tu-214R joins at 5:00, comes to about 33 NM west of the service box at about 25 minutes and leaves; the Flanker pair swings round the outside and is in Kh-31A range of the ships at about 30-34 minutes, near the end of the window. The Akula joins at 5:00 too, 40 NM out: no SS-N-27 before then |
+| 6C.4 | SW11 | Nothing Chinese flies for the first 5 minutes (option b, 13 Oct). The J-35 and J-20A appear at minute 5, the KJ-600 at 8, and Flying Shark 21 with Badger 31 at 10, about 180 NM north-north-west of Ford. Flying Shark 21 heads for the transports on its own and has about 25 NM to fly before it can launch; shooting it down before then completes **Strike** (not the KJ-600) |
 | 6C.5 | SW12, Fujian alive in SW11 | The spoiler JH-7A opens east, is inside YJ-91 range of the convoy at about 21 minutes (expect a launch then), passes over it at about 35-38, and goes home |
 | 6C.6 | D7, leave the Bear alone | It reaches the marked release line at about 19 minutes and the serial **fails** with the umpires' message; the Badger stays north, out of play |
 | 6C.7 | Banda Foxhound Sweep | The MiG-31s run at the Wedgetail fast. Lose the Wedgetail or the tanker: **defeat**, HVA failed - shooting the MiGs down afterwards does not win it back |
 | 6C.8 | Banda Triton's Picture | The J-16s come down to the Triton's station |
+| 6C.9 | SW08, hold the package where it starts and watch the field | No battery on the plot and nothing radiating before 5:00; at 5:00 the S-400 site, its Flap Lid and the 40N6 TEL are there and engage. No battery after 5:00 = `Action_SetEnabledStatus` does not switch on a land unit: Battery cannot be met yet still pays at the end (`StatusAtMissionEnd=Complete`); SL06's Aborlan battery has the same dependency, and the fallback is weapons Tight on the battery |
+| 6C.10 | SW10 | Nothing flies off the enclave for the first 5 minutes; the four fighters (Flanker 31-33, Dragon 41) appear at 5:00 about 116-121 NM from the convoy and arrive over it at about 20 minutes. The 039C is there from the start |
+| 6C.11 | D1 Western Passage, T+0 | The MiG-35 pair and the Su-24MP are on the plot from the first second (the brief says ARGUS 70 holds them), about 111 NM north of the escort flights; no air-to-air missile at a helicopter before you have had time to cue the Typhoons |
+| 6C.12 | D4 Return Passage | No P-8 or F-35A for the first 10 minutes; both appear at 10:00 about 123-126 NM from the auxiliary, as the brief says. HMAS Hobart is weapons Tight - self-defence only - so no SAM at the J-16D unprovoked; Perth is free and may fire once the P-8 gives her a track. A Hobart launch at an aircraft that has not fired = note the state of H.3's "Ships on Weapons Tight engage hostile aircraft" |
+| 6C.13 | D6 Long Reach | Nothing Chinese flies for the first 5 minutes; the J-36 and J-50 appear at 5:00 and run the stream's line, the Tu-95MA at 10:00, 242 NM from Enterprise. The picket, the launcher and the radar are there from the start |
+| 6C.14 | D8 The Long Perimeter | No J-16 for the first 10 minutes; it appears at 10:00 about 54-59 NM from the column and the ridge, as the brief's "within about ten minutes" says - pull the gunship when its radar comes up. The ridge SAM, the road detachment and the Z-21 are there from the start |
 
 ## 6D — the A-10C+ (new)
 
@@ -312,10 +322,45 @@ roster from the first window. Build notes, "Open Allocation".
 | G.3 | Buy an F-35A there, then fly White Water | White Water loads and plays as in the standard campaign; the F-35A does not appear (no row for it) and is still in the force afterwards | A load failure = missions are not loaded from another campaign's folder: capture with `-IncludeSaves` and push |
 | G.4 | Continue the standard Southern Watch save | Unchanged: its own windows, its own progress | The twin sharing the standard save = the campaigns are keyed by something other than their folder |
 | G.5 | Red Line - Open Allocation, first window | Every Red Line roster entry on sale, the J-15, J-15D, KJ-500 and Y-9 among them | As G.2 |
-| G.6 | Any campaign, standard or Open Allocation: open the Service Record, then Campaign Rules > Unit Catalog, then Task Force Builder; later, damage a Hobart to Moderate before a repair window | The Service Record reads "Same-nation discount: 20%". In the Unit Catalog the campaign's own units show the commander's nation: Australia in Southern Watch and Southern Reach, the Super Hornet, Growler, P-8 and MH-60R included; China in Red Line. In the standard campaigns and both Red Line versions that is every row; in the Southern Watch and Southern Reach Open Allocation versions Canberra, Choules, Supply and Collins show Australia too, and every allied class shows its own nation at list price (see G.7). Builder prices a fifth under the roster's: Anzac 240 to 192, Hobart 480 to 384, MH-60R 20 to 16; 054A 280 to 224, Z-9C 20 to 16. Record the Moderate repair: 120 = charged on the listed price, 96 = on the discounted one. Note whether your Rig Seventeen save shows the discount or only a new campaign does | One of the campaign's own US-built airframes (the Super Hornet, Growler, P-8 or MH-60R) at full price = the game takes the discount nation from the unit file, not the squadron: say which, and it goes back to a per-unit decision. The allied US aircraft at full price in those two Open Allocation versions (F-22, F-35C, F-15E, F/A-18E, the US Navy's P-8, and in Southern Watch the F-15EX) are correct |
-| G.7 | Southern Watch - Open Allocation: Campaign Rules > Unit Catalog | The allied classes are listed with their nations and prices - e.g. Arleigh Burke Flt III 520 (USA), Type 45 460 (United Kingdom), Maya 500 (Japan), E-2D 70 (France) - beside the campaign's own at their discounted prices; the Commander tab says the discount covers 14 Australian classes and 79 of other nations pay full price | A short catalogue = the game did not read the long roster; bring back which entries appear |
+| G.6 | Any campaign, standard or Open Allocation: open the Service Record, then Campaign Rules > Unit Catalog, then Task Force Builder; later, damage a Hobart to Moderate before a repair window | The Service Record reads "Same-nation discount: 20%". In the Unit Catalog the campaign's own units show the commander's nation: Australia in Southern Watch and Southern Reach, the Super Hornet, Growler, P-8 and MH-60R included; China in Red Line. In the standard campaigns and both Red Line versions that is every row; in the Southern Watch and Southern Reach Open Allocation versions Canberra, Choules and Supply show Australia too, and every allied class shows its own nation at list price (see G.7). Builder prices a fifth under the roster's: Anzac 240 to 192, Hobart 480 to 384, MH-60R 20 to 16; 054A 280 to 224, Z-9C 20 to 16. Record the Moderate repair: 120 = charged on the listed price, 96 = on the discounted one. Note whether your Rig Seventeen save shows the discount or only a new campaign does | One of the campaign's own US-built airframes (the Super Hornet, Growler, P-8 or MH-60R) at full price = the game takes the discount nation from the unit file, not the squadron: say which, and it goes back to a per-unit decision. The allied US aircraft at full price in those two Open Allocation versions (F-22, F-35C, F-15E, F/A-18E, the US Navy's P-8, and in Southern Watch the F-15EX) are correct |
+| G.7 | Southern Watch - Open Allocation: Campaign Rules > Unit Catalog | The allied classes are listed with their nations and prices - e.g. Arleigh Burke Flt III 520 (USA), Type 45 460 (United Kingdom), Maya 500 (Japan), E-2D 70 (France) - beside the campaign's own at their discounted prices; the Commander tab says the discount covers 13 Australian classes and 67 of other nations pay full price; no submarine is listed | A short catalogue = the game did not read the long roster; bring back which entries appear |
 | G.8 | Same campaign, first force allocation: buy a Burke Flight III and fly White Water | The builder offers the allied fleet at the first window and the Burke sails with the escort; nothing else in White Water changes | The Burke missing from the builder = the long allowlist line was not read |
-| G.9 | Buy a Typhoon (United Kingdom) and a Collins; fly Steel Highway, Blind Horizon, then Southern Lifeline | Steel Highway and Southern Lifeline offer the Typhoon no row: their Ship's Flight (SAR) and Maritime Patrol (MPA/ASW/ESM/AEW) rows do not take its Fighter and Bomber roles. Blind Horizon offers it in Combat Air Patrol. The Collins waits in reserve until Southern Lifeline, where it sails | A Typhoon offered in a Ship's Flight or Maritime Patrol row, a Typhoon missing from Blind Horizon's Combat Air Patrol, or a Collins that never sails: note the mission and the row |
+| G.9 | Buy a Typhoon (United Kingdom); fly Steel Highway, Blind Horizon, then Southern Lifeline | Steel Highway and Southern Lifeline offer the Typhoon no row: their Ship's Flight (SAR) and Maritime Patrol (MPA/ASW/ESM/AEW) rows do not take its Fighter and Bomber roles. Blind Horizon offers it in Combat Air Patrol | A Typhoon offered in a Ship's Flight or Maritime Patrol row, or missing from Blind Horizon's Combat Air Patrol: note the mission and the row. (This row also bought a Collins until 13 October; submarines are no longer sold - 6I) |
+
+## 6I — moving the force before a mission, and no submarines on sale (13 October)
+
+The in-game check of 13 October: the task force could not be moved at the
+start of any mission, a bought submarine never showed in the formation
+editor, and one dismissed from the force still sailed and stayed. Every
+mission now has a blue **Deployment Zone** round the force (the stock
+campaign's own key; build notes, *Deployment zones, and no submarines on
+sale*), and the Open Allocation versions sell no submarine. Start a **new**
+campaign for these rows: a save made before this build keeps the submarine
+it bought.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| I.1 | Southern Watch, first window: buy two ships, then start White Water | Before launch, the briefing map shows a blue box labelled Deployment Zone round the force, with a Formation/Dispersed choice and a deploy tick-box per ship that cannot be unticked ("All Task Force ships must deploy") | No box = the game ignores a zone in a mission without stock's map symbols: bring back Player.log. No panel = DeploymentOptions needs RequireEntireTaskForce=False, as every stock use has it |
+| I.2 | Drag the force round the box, then launch | It moves anywhere inside the box and not past its edge; it starts where you left it | The force snaps back = say whether it moved in the briefing and lost it at launch |
+| I.3 | In White Water, look at the box against the enemy | The box reaches about 31 NM west and south of where the force starts, and about 3 NM east and north (towards the threat): you can pull back, not close in | A box that reaches towards the enemy: note the mission and the direction |
+| I.4 | Before SW05 Weapons Free | The panel says Dispersed (the one-ship Replaced mission), and the box still holds the ship | |
+| I.5 | Southern Watch - Open Allocation and Southern Reach - Open Allocation, first window | No submarine on sale (no Seawolf, Virginia, Los Angeles, Suffren, Type 212A, Todaro, S-80, Kilo or Collins); the rules page says "Submarines cannot be bought in this campaign" | A submarine on sale = the old twin roster is still installed: run SETUP again |
+| I.6 | SW09 Southern Lifeline | The mission's own Collins sails with Stalwart inside the box and can be moved with the force | |
+| I.7 | Red Line 05, Southern Reach 02, Tasman Shield 05 (submarine operations) | The boat sits in a blue Submarine-only box she can be moved within | |
+
+## 6J — allied decks, allied aircraft (13 October)
+
+SEST Cross-Deck (integration/cross-deck) extends 122 allied flight decks
+with the allied members of the airframe families they already list, through
+an Anchor Chain `#!extend` stub per hull. Whether the engine reads a deck
+list set that way is not demonstrated; the CombatSystems stubs set other
+sections the same way and are live.
+
+| # | Do | Expect | If not |
+|---|---|---|---|
+| J.1 | Southern Watch - Open Allocation: buy a Type 45 (United Kingdom) and an MH-60R, assign the Seahawk to the Type 45 in the Task Force Manager | The assignment is accepted and the Seahawk launches from and recovers to the Type 45 in the next mission | Refused = the game ignores AircraftSupported set through #!extend: bring back Player.log and the CROSS-DECK.txt line for rn_ddg_type45_26 |
+| J.2 | Mission editor: place a Maya (jmsdf_ddg_maya) and give it an Australian S-70B-2 Seahawk; a Horizon (fr_ddg_horizon) with a German NH90; a Nimitz (usn_cvn_nimitz_2027s_adou) with a Rafale M | Each embarks, launches and recovers | Note which pairing fails |
+| J.3 | Mission editor: a Type 23 with an MH-60R | Refused: the Type 23 lists no Seahawk family, so it gains none (Lynx/Wildcat, Merlin, Cougar only) | Accepted = the deck takes everything, not the families: report it |
 
 ## 7 — the review's engine tests
 
@@ -326,7 +371,7 @@ can replace. Each is a counterexample to try, not a feature to admire.
 |---|---|---|---|
 | 7.1 | SW03: send lifter A to the platform and park lifter B in the withdrawal box | Nothing. B's arrival scores nothing until **B** has visited the platform; A entering the box wins | If B's arrival wins, `Action_EnableTriggers` is not reaching the per-unit triggers |
 | 7.2 | SW03: A makes the pickup, then lose A | Defeat, with the "lost after the pickup" message | If the mission continues, the per-unit lost trigger was not enabled |
-| 7.3 | SW08 from the campaign map | No deployment screen; the authored Growler, F-35As and KC-130Js are present with their authored stores; the F-35As recover to **Langgur** | A deployment screen means blank generation does not do what the guide says |
+| 7.3 | SW08 from the campaign map | No task force deployment panel (only the small blue zone round the mission's own ship, 6I); the authored Growler, F-35As and KC-130Js are present with their authored stores; the F-35As recover to **Langgur** | A panel offering your own ships means blank generation does not do what the guide says |
 | 7.3a | SW03 Rig Seventeen from the campaign map **on a force carried through 01 and 02**, and O3 Borrowed Shield when it opens. The direct load on a fresh force passed 27 Sep; the carried-over load died the same day and is what this row tests | The mission loads; the Osprey and the CH-53 are over HMAS Canberra with no home base named; none of your own aircraft appear (neither mission has an air-tasking slot) | A load that dies again: run `tools\\capture-context.ps1 -Redact -IncludeSaves` with the game closed and push it - the log names the step and the save shows the force |
 | 7.3b | After a sync (which switches the PLA AEP's debug logging off), fly SW02 Steel Highway through its submarine hunt with the P-8 and the Seahawks laying sonobuoys, to the end | The game stays responsive; BepInEx\\LogOutput.log stays small, with no `SubAmmunition] SONO pos` flood | Another freeze: close it with the capture block (it now takes the BepInEx log) and push; say what was happening on screen when it stopped |
 | 7.4 | SW09: leave the box at 30:00 and return at 34:00; then at 36:00 | Tells us whether `Time=2100` is absolute and whether re-entry counts. Record what completed and when | Either answer is a design answer: the brief says the rule is the box at the moment the window closes |
@@ -371,7 +416,7 @@ will change the model rather than patch the symptom.
 | H.10 | D3 The Relief Ship, unit list; D6 Long Reach, unit list | Rafale 11 and 12 (Rafale M) over the French group; Rafale 41 (Rafale M Late) in the escort with the fit "SEST Intercept (AIM-260)" | A missing Rafale = the French Air Force mod is not loaded; a stock fit on Rafale 41 = SEST Rafale F5 is outranked |
 | H.11 | Editor: a Rafale M Late's loadout list | Four SEST fits (Intercept, InterceptMALICE, AntiShip LRASM, Intercept Heavy), the MALICE and LRASM ones with one round on the centreline and two wing tanks; the Rafale B and C Late show six, with the two three-tank LongRange fits | A floating or pylon-less round on the centreline = the seat name changed upstream: say which fit |
 | H.12 | SW09 Southern Lifeline: the Situation button before the mission, then the plot | A Russian surface entry for the trawler on the roster; in the mission an Okean-class trawler twelve miles north-east of the support group, holding its fire | The trawler shooting at the escort = its weapons-hold did not take: say what it fired |
-| H.13 | SW11 Fujian's Shadow: the second anti-ship raid | An H-6K (Badger 31) a minute behind the J-15D on the same run, four YJ-12 if it launches | A Badger with no missiles = the YJ-12 did not resolve from the PLAAF Aircraft Pack at the bottom of the order |
+| H.13 | SW11 Fujian's Shadow: the second anti-ship raid | An H-6K (Badger 31) joining with the J-15D at minute 10 on the same run, four YJ-12 if it launches | A Badger with no missiles = the YJ-12 did not resolve from the PLAAF Aircraft Pack at the bottom of the order |
 | H.14 | D8 The Long Perimeter: the lift stream | Three lifters - Dragon 71, Dragon 72 and an MV-75 (Valor 73), the tiltrotor with its cabin occupied | A missing Valor 73 = the MV-75 mod did not load (it needs Anchor Chain, like the Osprey) |
 | H.15 | Mod Manager > Open Folder on the SEST pack (a Workshop copy), quit the game, double-click "SETUP - double-click me.cmd" | A console window: the game and workshop paths, "built against 148 mods", "all 148 mods are downloaded", [ok]/[done] lines for the preloader, the debug switch and the order, "All done", "Press Enter to close this window". A UAC prompt only if neither winhttp.dll nor BepInEx was in the game folder | The window flashes and closes = PowerShell refused the script: run the .cmd from an open console and bring back the error. "STOPPED" = read the line; each names its own fix |
 | H.16 | After H.15, the Mod Manager, and the mod list | The SEST pack first and ticked, the 148 in LOAD-ORDER.txt order, your other mods at the bottom as they were; nothing in the list or the log mentions the .cmd or the .ps1 | A "dependency issues" prompt on the pack: possible since the item's Required Items were set (Oct 2026), not yet seen. Screenshot it, do not press Move dependencies (if pressed, run SETUP again), and note it here. A mod the game lists that SETUP dropped = it was not under workshop/content: say which |

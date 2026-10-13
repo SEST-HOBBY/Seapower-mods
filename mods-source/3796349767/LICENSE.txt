@@ -35,7 +35,8 @@ You may not create or distribute retextures, replacement assets, modified builds
 ports, forks, or derivative works that copy, modify, override, or replace
 Original Project Material.
 
-Do not use the plugin ID "alpine.seapower.runtime", the mod's name, or its
+Do not use the plugin IDs "alpine.seapower.runtime", "alpine.formation.yf23",
+"alpine.yf23.lights" or "alpine.units.formation", the mod's name, or its
 branding to present an unofficial release as official, approved, or a
 successor.
 

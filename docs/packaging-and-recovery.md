@@ -1,7 +1,7 @@
 # Packaging, dependencies and recovery
 
-Two questions this answers: how the SEST packs coexist with 190 workshop mods
-(191 Mod Manager entries with `SEST_Integration`), and what you actually need
+Two questions this answers: how the SEST packs coexist with 195 workshop mods
+(196 Mod Manager entries with `SEST_Integration`), and what you actually need
 to be able to recover if the game install goes bad.
 
 ## A SEST pack is a patch, not a mod
@@ -320,8 +320,8 @@ that item's Required Items or from one collection, both mirroring
   3812461539, Public. It is the `SEST_Integration` folder, all three
   campaigns included. Every upload is an update to it, never a new item.
 - **The collection**: 'SEST - Modernised Campaign Collection', 3812390790,
-  the Workshop mods in `data/load-order.tokens.txt` plus the pack (191 items
-  once the October 2026 additions are in it; it was published with 149). A mod added to or dropped from the load order means the same change
+  the Workshop mods in `data/load-order.tokens.txt` plus the pack (196 items
+  once the 13 October 2026 additions are in it; it was published with 149). A mod added to or dropped from the load order means the same change
   to the collection and to the item's Required Items, before the upload.
 
 **Required Items are the load order's Workshop mods.** Set in October 2026
@@ -360,7 +360,9 @@ in `docs/campaigns/southern-watch/publishing.md`; the listing text is in
 
 A game update moves the one thing every pack and mission here is built on
 and nobody exports on purpose: the game's own files. Three things in this
-repo track them. `mods-source/_vanilla/original` is the vanilla export: on 3
+repo track them. `mods-source/_vanilla/original` is the vanilla export: since
+11 Oct 2026 (7739076c) 4,049 text files under 0.8.5 Build 261008 of 8 Oct 2026,
+whose drift needed no SEST change (the packs moved to 0.8.5 on 13 Oct); on 3
 Oct 2026, 4,047 text files under 0.8.4 Build 261002 of 2 Oct 2026 (the 2 Oct
 export's 4,051, taken under 0.8.3, less the KC-135A and Tu-16N stubs the game
 no longer ships, deleted by hand on 3 Oct; the 3 Oct export changed none of
@@ -471,6 +473,49 @@ removed with what here forks or fields it, which is what its exit code is
 for. The exporter's `-DestDir` applies to vanilla too, so a clean export
 beside the repo (*Known red* above) is the other route.
 
+### A Workshop refresh for review
+
+When the next development pass needs the collection as it is now - after
+Steam has updated mods, or before a large piece of work - the capture goes on
+its own branch, `chore/workshop-refresh-YYYYMMDD`, made from the deploy
+branch, so it can be reviewed against the SEST integration before anything is
+changed to follow it. Let Steam finish every Sea Power download, start the game
+to the main menu once (so Player.log and the BepInEx log record what loaded),
+quit it, then:
+
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
+  $b = 'chore/workshop-refresh-YYYYMMDD'                  # the branch Claude made
+  git fetch origin $b
+  if ($LASTEXITCODE) { throw 'fetch failed - is the branch name right?' }
+  git checkout -B $b "origin/$b"
+  powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates |
+      Out-File -Encoding utf8 data\install-snapshot\workshop-updates.txt
+  powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla
+  if ($LASTEXITCODE) { throw 'export failed - read its last lines; nothing has been committed' }
+  powershell -ExecutionPolicy Bypass -File .\tools\capture-context.ps1 -Redact
+  if ($LASTEXITCODE) { throw 'capture failed - read its last lines' }
+  git add -A mods-source data\install-snapshot
+  git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
+  git push -u origin $b
+  if ($LASTEXITCODE) { throw 'push failed' }
+  git checkout sest-dev/loving-bell-3cnvvw                 # back to the deploy branch for play
+}
+```
+
+`workshop-updates.txt` is the exporter's read-only update check, taken before
+the export overwrites the evidence; `plugin-dlls.txt` (written by the capture)
+records every code DLL's hash and version, since a plugin update changes
+behaviour with no .ini changing. `python3 tools/workshop_refresh_summary.py`
+then writes `data/install-snapshot/workshop-refresh-summary.txt`: the four
+inventories (Steam's record, folders on disk, the canonical order, the
+catalog) side by side, and what changed since the previous capture - facts
+only, for the review to judge. Nothing on the refresh branch is merged; it is
+read by the next pass.
+
 ### In the repo: read the drift, bump the version, rebuild, gate, document, push
 
 1. **Note the baseline, then merge the deploy branch.** The drift tool's
@@ -538,7 +583,7 @@ beside the repo (*Known red* above) is the other route.
 4. **Rebuild everything.**
 
    ```bash
-   python3 tools/build_all.py --from-scratch           # about 90 s; 20 packs, then the consolidated dist
+   python3 tools/build_all.py --from-scratch           # about 25 min; 24 packs, then the consolidated dist
    ```
 
 5. **Every gate.** Known red on this branch: `check_inventory.py` on the

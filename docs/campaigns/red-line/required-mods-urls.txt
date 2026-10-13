@@ -1,6 +1,6 @@
 Red Line - Workshop mods this campaign reaches (reference only)
 
-33 items, in canonical load order. NOT the Workshop item's
+34 items, in canonical load order. NOT the Workshop item's
 Required Items list. All four campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -42,6 +42,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3595014060    # NATO E-3A
 https://steamcommunity.com/sharedfiles/filedetails/?id=3808882954    # RC-135V/W Rivet Joint
 https://steamcommunity.com/sharedfiles/filedetails/?id=3499239964    # [DEPRECATED] E-7A Wedgetail
 https://steamcommunity.com/sharedfiles/filedetails/?id=3503670861    # General Atomics MQ-9 Reaper
+https://steamcommunity.com/sharedfiles/filedetails/?id=3571718093    # Road Mobile ICBMs (Topol-M, DF-41)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3631042692    # Modern Chinese Airbase (Large)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod

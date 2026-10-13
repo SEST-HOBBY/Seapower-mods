@@ -2,7 +2,7 @@ MV-75 Cheyenne II
 
 Select Bell Systems Test in the mission menu for eight flight and systems trials.
 Navy and Army liveries include green flight uniforms, black goggles and occupied cockpits.
-The aircraft has a 280-knot cruise target, 305-knot maximum speed, 2,100-nm ferry range and a 20,000-ft ceiling. Loaded range varies with carried stores and flight profile.
+The aircraft has a 305-knot maximum speed, 2,100-nm ferry range and a 20,000-ft ceiling. Loaded range varies with carried stores and flight profile.
 
 01 Torpedo and Sonobuoys: two Mk46 torpedoes, dipping sonar and twelve buoys.
 02 Hellfire Surface Strike: eight missiles and a surface target.

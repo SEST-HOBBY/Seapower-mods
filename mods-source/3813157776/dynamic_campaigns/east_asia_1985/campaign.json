@@ -332,6 +332,12 @@
 
   "yards": { "US": "pearl_harbor", "Japan": "yokosuka", "Australia": "sydney", "Soviet": "vladivostok, cam_ranh", "China": "shanghai, cam_ranh" },
 
+  "yardChoices": {
+    "usn_phm_pegasus": "pearl_harbor, yokosuka, sydney", "usn_ff_knox_84": "pearl_harbor, yokosuka, sydney",
+    "usn_ffg_oliver_hazard_perry": "pearl_harbor, yokosuka, sydney", "usn_ffg_oliver_hazard_perry_longhull": "pearl_harbor, yokosuka, sydney",
+    "usn_ff_garcia": "pearl_harbor, yokosuka, sydney", "usn_ffg_brooke": "pearl_harbor, yokosuka, sydney"
+  },
+
   "airWings": {
     "usn_cvn_nimitz": { "usn_f-14a": "", "usn_a-7e": "", "usn_fa-18a": "Squadron1,21|Squadron2,21" },
     "usn_cv_kitty_hawk named Midway CV-41": { "usn_f-14a": "", "usn_f-4j": "Squadron4,11|Squadron14,10" }

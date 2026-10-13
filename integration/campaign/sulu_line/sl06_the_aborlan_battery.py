@@ -41,8 +41,10 @@ MISSION = dict(
             "Your ships are thirty-eight miles south of them, outside that range, and the "
             "Balabac convoy is held at the Narra anchorage, twenty miles from them and "
             "inside their reach.\\n\\nDestroy both launchers. A 76 mm gun reaches them from eight miles; "
-            "a helicopter or an FA-50 from wherever the guns let it. The battery will "
-            "fire at what its radar finds. Every round you fire comes back only from a "
+            "a helicopter or an FA-50 from wherever the guns let it. The battery has kept "
+            "under cover with its radar off since it fired yesterday; expect it up within "
+            "about five minutes, and then it will fire at what its radar finds, the convoy "
+            "included. Every round you fire comes back only from a "
             "supply ship, and this is the last window that sells them."
         )),
     forces=(
@@ -105,16 +107,20 @@ MISSION = dict(
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Puerto Princesa (Antonio Bautista Air Base)", nation="Philippines",
           weapons="Hold"),
+        # The battery comes up at minute 5 (13 Oct, option b): from the first
+        # second the launchers (four SY-1As each, 24 NM) held the convoy at the
+        # anchorage, 19 NM off, with their own radar. One formation, so the
+        # radar and the guns come up with the launchers.
         U("red", "_vanilla", "wp_silkworm_launcher", "battery", name="Launcher ONE",
-          nation="Panama"),
+          nation="Panama", enter=5),
         U("red", "_vanilla", "wp_silkworm_launcher", "battery", name="Launcher TWO",
-          nation="Panama"),
+          nation="Panama", enter=5),
         U("red", "_vanilla", "wp_son-9", "battery", name="Fire-control radar",
-          nation="Panama"),
+          nation="Panama", enter=5),
         U("red", "_vanilla", "pla_aaa_type55", "battery", name="AA gun north",
-          nation="Panama"),
+          nation="Panama", enter=5),
         U("red", "_vanilla", "pla_spaag_type63", "battery", name="AA gun south",
-          nation="Panama"),
+          nation="Panama", enter=5),
         U("neutral", "_vanilla", "civ_fv_fishingboat_a", "bancas",
           name="Banca Lady Narra", route=[(9.00, 118.80, 0)], telegraph=2),
     ],

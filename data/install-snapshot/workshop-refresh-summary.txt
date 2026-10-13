@@ -1,0 +1,391 @@
+WORKSHOP REFRESH SUMMARY
+
+Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
+canonical lists. Facts only; compatibility is judged in a later review.
+
+capture date           : 2026-10-13T15:45:52
+repo commit captured at: 0b0d137b (chore/workshop-refresh-20261013)
+previous capture       : af56cf74b5ea
+previous export        : 33cb8a8883d8
+Sea Power              : 08-Oct-2026: 0.8.5 Build 261008
+  Steam build id       : 25806545
+  engine               : Unity 6000.0.67f1 (78a1c2bbeb6a)
+
+COUNTS
+  A Steam-tracked subscriptions : 196
+  B Workshop folders on disk    : 196
+  C canonical Workshop ids      : 190
+  D catalog installed entries   : 190
+  SEST entries in the order     : 1 (SEST_Integration)
+  SEST in the live order        : 3812461539 at 1 (on, Workshop copy)
+  local SEST folders (StreamingAssets): 0
+  canonical Mod Manager entries : 191
+  live Mod Manager entries      : 192
+  pending (NeedsDownload / NeedsUpdate): 0 / 0
+
+SINCE THE PREVIOUS CAPTURE
+  new folders:
+  3556629790  ICBM silos
+  3564792549  BUK-M3
+  3569219326  ISKANDER-K
+  3571718093  Road Mobile ICBMs (Topol-M, DF-41)
+  3731931836  大地弹道导弹
+  3812461539  SEST Integration Pack [SEST's own Workshop item]
+  removed folders:
+  (none)
+  updated on the Workshop (folder date changed - the folder's last-write time, which
+  an update that only rewrites files inside existing subfolders does not move; the
+  exported files below are the full record):
+  3373960386  Flight Deck Ops  2026-10-02 -> 2026-10-11
+  3390330875  Euromod - Modern US Navy  2026-10-10 -> 2026-10-13
+  3505420313  Italian Navy mod  2026-10-07 -> 2026-10-11
+  3600788156  Buildings and Objectives  2026-10-03 -> 2026-10-12
+  3629144864  Euromod - Main Pack  2026-10-10 -> 2026-10-12
+  3737267013  US Naval Aviation  2026-10-10 -> 2026-10-13
+  3766210676  Saronic Corsair ASV  2026-10-07 -> 2026-10-12
+  3789208859  Euromod-South Korea Navy  2026-09-21 -> 2026-10-11
+  3796349767  YF-23 Black Widow II  2026-10-07 -> 2026-10-12
+  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen  2026-10-10 -> 2026-10-12
+  3806466625  V-22 Osprey / SV-22 2024 ASW prototype  2026-10-10 -> 2026-10-12
+  3810611344  MV-75 Cheyenne II  2026-10-10 -> 2026-10-12
+  3813033771  EC-2 Stand Off Jammer  2026-10-07 -> 2026-10-12
+  3813157776  Dynamic Campaign Mod  2026-10-10 -> 2026-10-11
+  exported files changed since the previous export (33cb8a8883d8; A added, D removed, M modified, R renamed):
+  3373960386  Flight Deck Ops  files 45 -> 47  (A 2, D 0, M 15, R 0)
+      A aircraft/usaf_hh-3.ini
+      A ships/materials/wp_kiev_stol_lines.ini
+      M _info.ini
+      M animations/animations_usn_cv_america_fdo.ini
+      M animations/animations_usn_cv_forrestal_fdo.ini
+      M animations/animations_usn_cv_kitty_hawk_fdo.ini
+      M animations/animations_usn_cvn_enterprise_fdo.ini
+      M animations/animations_usn_cvn_nimitz_fdo.ini
+      M animations/animations_usn_lha_tarawa_fdo.ini
+      M animations/animations_wp_takr_kiev_fdo.ini
+      M vessels/usn_cv_america_79.ini
+      M vessels/usn_cv_forrestal_75.ini
+      ... and 5 more
+  3390330875  Euromod - Modern US Navy  files 270 -> 270  (A 0, D 0, M 73, R 1)
+      R version_counter_611.txt
+      M ships/usn_ddg-1000/alt/usn_ddg-1000 - Kopie.ini
+      M ships/usn_ddg-1000/alt/usn_ddg-1000_cps - Kopie (2).ini
+      M ships/usn_ddg-1000/alt/usn_ddg-1000_cps - Kopie - Kopie.ini
+      M systems/weapons.ini
+      M vessels/usn_cg_bunker_hill_vls_2004.ini
+      M vessels/usn_cvn_nimitz_2025.ini
+      M vessels/usn_dd_spruance_ram_lamps-3.ini
+      M vessels/usn_ddg-1000.ini
+      M vessels/usn_ddg-1000_cps.ini
+      M vessels/usn_ddg_arleigh_concept.ini
+      M vessels/usn_ddg_burke_f1_051.ini
+      ... and 62 more
+  3413868677  Red Storm Arsenal  files 1111 -> 1108  (A 1, D 4, M 195, R 0)
+      D aircraft/usn_qh_50e.ini
+      D aircraft/usn_qh_50e_squadrons.ini
+      D vessels/plan_ffg_krivak2.ini
+      D vessels/plan_ffg_krivak2_variants.ini
+      A animations/animations_NSM_launcher.ini
+      M aircraft/china_tianlong_satellite_squadrons.ini
+      M aircraft/jmsdf_f_4ej2_squadrons.ini
+      M aircraft/plaaf_h6k_squadrons.ini
+      M aircraft/plaaf_j1f_squadrons.ini
+      M aircraft/plaaf_j5_squadrons.ini
+      M aircraft/plaaf_j7_squadrons.ini
+      M aircraft/plaaf_j8j_squadrons.ini
+      ... and 188 more
+  3505420313  Italian Navy mod  files 267 -> 267  (A 0, D 0, M 3, R 1)
+      R version_counter_98.txt
+      M aircraft/mm_ab212.ini
+      M aircraft/mm_ab212_91.ini
+      M aircraft/mm_sh-3.ini
+  3556629790  ICBM silos  files - -> 11  (A 11, D 0, M 0, R 0)
+      A _info.ini
+      A ammunition/usaf_lgm-30g.ini
+      A ammunition/wp_rt-23.ini
+      A animations/animations_icbm_silo.ini
+      A land_units/usaf_icbm_silo.ini
+      A land_units/usaf_icbm_silo_variants.ini
+      A land_units/wp_icbm_silo.ini
+      A land_units/wp_icbm_silo_variants.ini
+      A language_en/ammunition_names.ini
+      A language_en/land_units_names.ini
+      A systems/weapons.ini
+  3564792549  BUK-M3  files - -> 24  (A 24, D 0, M 0, R 0)
+      A Nowy Dokument tekstowy.txt
+      A _info.ini
+      A ammunition/wp_9m317ma.ini
+      A land_units/wp_buk-m3.ini
+      A land_units/wp_buk-m3_variants.ini
+      A land_units/wp_bukslave.ini
+      A land_units/wp_bukslave_variants.ini
+      A land_units/wp_m3-radar.ini
+      A land_units/wp_m3-radar_variants.ini
+      A language_en/ammunition_names.ini
+      A language_en/land_units_names.ini
+      A materials/ships/all_tires_mat.ini
+      ... and 12 more
+  3567256221  Charles De Gaulle & Modern French Navy  files 297 -> 297  (A 0, D 0, M 4, R 0)
+      M aircraft/fr_e2c.ini
+      M aircraft/fr_e2d.ini
+      M vessels/fr_cvn_charles-de-gaulle_late.ini
+      M vessels/fr_ffg_lafayette_modernized.ini
+  3569219326  ISKANDER-K  files - -> 18  (A 18, D 0, M 0, R 0)
+      A _info.ini
+      A ammunition/wp_r-500.ini
+      A land_units/wp_iskander.ini
+      A land_units/wp_iskander_variants.ini
+      A language_en/ammunition_names.ini
+      A language_en/land_units_names.ini
+      A materials/ships/all_tires_mat.ini
+      A materials/ships/army_green_mat.ini
+      A materials/ships/big_bird_mat.ini
+      A materials/ships/bottom_panel_mat.ini
+      A materials/ships/kraz_tel_mat.ini
+      A materials/ships/soviet_gray1_mat.ini
+      ... and 6 more
+  3571718093  Road Mobile ICBMs (Topol-M, DF-41)  files - -> 14  (A 14, D 0, M 0, R 0)
+      A _info.ini
+      A ammunition/pla_df-41.ini
+      A ammunition/wp_ss-27.ini
+      A animations/animations_pla_df-41.ini
+      A animations/animations_topol.ini
+      A land_units/pla_df-41_tel.ini
+      A land_units/pla_df-41_tel_variants.ini
+      A land_units/wp_ss-27_tel.ini
+      A land_units/wp_ss-27_tel_variants.ini
+      A language_en/ammunition_names.ini
+      A language_en/land_units_names.ini
+      A ships/materials/shared/all_tires_mat.ini
+      ... and 2 more
+  3600788156  Buildings and Objectives  files 50 -> 53  (A 3, D 0, M 2, R 0)
+      A Buildings/Gouverment_u/Govu_mat.ini
+      A land_units/govu.ini
+      A land_units/govu_variants.ini
+      M _info.ini
+      M language_en/land_units_names.ini
+  3629144864  Euromod - Main Pack  files 744 -> 745  (A 3, D 2, M 49, R 1)
+      D ammunition/rn_mark8_mod4.ini
+      D ammunition/usn_rim-174c.ini
+      A vessels_overwrite/usn_cg_bunker_hill_vls_2004_LaunchGroups_OVWR.ini
+      A vessels_overwrite/usn_cg_bunker_hill_vls_2014_LaunchGroups_OVWR.ini
+      A vessels_overwrite/usn_cg_bunker_hill_vls_2024_LaunchGroups_OVWR.ini
+      R version_counter_473.txt
+      M language_en/systemgroups.ini
+      M systems/combatsystems.ini
+      M systems/sensors.ini
+      M systems/weapons.ini
+      M vessels_overwrite/usn_ddg_arleigh_concept_CombatSystems_OVWR.ini
+      M vessels_overwrite/usn_ddg_burke_f1_051_CombatSystems_OVWR.ini
+      ... and 43 more
+  3731931836  大地弹道导弹  files - -> 15  (A 15, D 0, M 0, R 0)
+      A _info.ini
+      A ammunition/ina_prithvi_ii.ini
+      A ammunition/ina_prithvi_iii.ini
+      A animations/animations_ina_prithvi_tel.ini
+      A assets/models/ammunition/prithvi/prithvi_mat.ini
+      A assets/models/land_units/prithvi_tel/prithvi_tel_mat.ini
+      A land_units/ina_prithvi_tel.ini
+      A land_units/ina_prithvi_tel_variants.ini
+      A language_cn/ammunition_names.ini
+      A language_cn/land_units_names.ini
+      A language_cn/loadout_names.ini
+      A language_en/ammunition_names.ini
+      ... and 3 more
+  3737267013  US Naval Aviation  files 264 -> 264  (A 0, D 0, M 9, R 1)
+      R version_counter_91.txt
+      M aircraft/usmc_f-35b.ini
+      M aircraft/usmc_f-35b_squadrons.ini
+      M aircraft/usn_f-14b_squadrons.ini
+      M aircraft/usn_f-35c_squadrons.ini
+      M aircraft/usn_fa-18c(n)_squadrons.ini
+      M aircraft/usn_fa-18d_squadrons.ini
+      M ammunition/usn_gbu-12d.ini
+      M language_cn/aircraft_names.ini
+      M language_en/aircraft_names.ini
+  3758943352  French Air Force  files 354 -> 354  (A 0, D 0, M 25, R 0)
+      M aircraft/aus_a330_mrtt.ini
+      M aircraft/bel_a400m_tankers.ini
+      M aircraft/br_a330_mrtt.ini
+      M aircraft/ca_a330_mrtt.ini
+      M aircraft/co_a330_mrtt.ini
+      M aircraft/fr_a330_mrtt.ini
+      M aircraft/fr_a400m_tankers.ini
+      M aircraft/ger_a400m_tankers.ini
+      M aircraft/ind_a400m_tankers.ini
+      M aircraft/kaz_a400m_tankers.ini
+      M aircraft/mal_a400m_tankers.ini
+      M aircraft/otan_a330_mrtt.ini
+      ... and 13 more
+  3766210676  Saronic Corsair ASV  files 40 -> 43  (A 3, D 0, M 17, R 0)
+      A ships/usn_asv_saronic_corsair/corsair_light_green_mat.ini
+      A ships/usn_asv_saronic_corsair/corsair_light_red_mat.ini
+      A ships/usn_asv_saronic_corsair/corsair_light_white_mat.ini
+      M CHANGELOG.txt
+      M LICENSE.txt
+      M ammunition/usn_corsair_agm-114l.ini
+      M language_en/vessel_names.ini
+      M missions/Saronic Corsair Tests/Saronic Corsair All Variants Fleet Trial.ini
+      M missions/Saronic Corsair Tests/Saronic Corsair Handling Test.ini
+      M missions/Saronic Corsair Tests/Saronic Corsair Strike Test.ini
+      M missions/Saronic Corsair Tests/Saronic Corsair Surface Torpedo Trial.ini
+      M systems/sensors.ini
+      ... and 8 more
+  3789208859  Euromod-South Korea Navy  files 135 -> 159  (A 24, D 0, M 3, R 0)
+      A aircraft/rok_f15k.ini
+      A aircraft/rok_f15k_squadrons.ini
+      A aircraft/rok_f35a.ini
+      A aircraft/rok_f35a_squadrons.ini
+      A aircraft/rok_f4e.ini
+      A aircraft/rok_f4e_squadrons.ini
+      A aircraft/rok_f5e.ini
+      A aircraft/rok_f5e_squadrons.ini
+      A aircraft/rok_fa50.ini
+      A aircraft/rok_fa50/fa50_mat.ini
+      A aircraft/rok_fa50_squadrons.ini
+      A aircraft/rok_kf16.ini
+      ... and 15 more
+  3796349767  YF-23 Black Widow II  files 69 -> 73  (A 5, D 1, M 23, R 0)
+      D language_en/vessel_names.ini
+      A assets/models/aircraft/yf-23_black_widow_ii/yf23_light_beacon_mat.ini
+      A assets/models/aircraft/yf-23_black_widow_ii/yf23_light_green_mat.ini
+      A assets/models/aircraft/yf-23_black_widow_ii/yf23_light_landing_mat.ini
+      A assets/models/aircraft/yf-23_black_widow_ii/yf23_light_red_mat.ini
+      A assets/models/aircraft/yf-23_black_widow_ii/yf23_light_white_mat.ini
+      M LICENSE.txt
+      M README.txt
+      M aircraft/usaf_yf-23_black_widow_ii.ini
+      M aircraft/usaf_yf-23_black_widow_ii_squadrons.ini
+      M assets/models/aircraft/yf-23_black_widow_ii/yf23_dark_mat.ini
+      M assets/models/aircraft/yf-23_black_widow_ii/yf23_gear_strut_mat.ini
+      ... and 17 more
+  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen  files 70 -> 75  (A 5, D 0, M 30, R 0)
+      A assets/models/aircraft/fury_carrier/fury_light_beacon_mat.ini
+      A assets/models/aircraft/fury_carrier/fury_light_green_mat.ini
+      A assets/models/aircraft/fury_carrier/fury_light_landing_mat.ini
+      A assets/models/aircraft/fury_carrier/fury_light_red_mat.ini
+      A assets/models/aircraft/fury_carrier/fury_light_white_mat.ini
+      M LICENSE.txt
+      M _info.ini
+      M aircraft/usn_fury_escort.ini
+      M aircraft/usn_fury_ew.ini
+      M aircraft/usn_fury_interceptor.ini
+      M aircraft/usn_fury_recon.ini
+      M aircraft/usn_fury_sead.ini
+      ... and 23 more
+  3806466625  V-22 Osprey / SV-22 2024 ASW prototype  files 26 -> 36  (A 10, D 0, M 11, R 0)
+      A SV22_PROTOTYPE.txt
+      A aircraft/sv22_2024_osprey.ini
+      A aircraft/sv22_2024_osprey_squadrons.ini
+      A ammunition/sv22_2024_mk54_mod1_air.ini
+      A ammunition/sv22_2024_ssq53g.ini
+      A ammunition/sv22_2024_ssq62f.ini
+      A animations/animations_sv22_2024_asw.ini
+      A language_cn/ammunition_names.ini
+      A language_en/ammunition_names.ini
+      A systems/weapons.ini
+      M CHANGELOG.md
+      M README.md
+      ... and 9 more
+  3807164392  Euromod-India-Navy  files 15 -> 15  (A 0, D 0, M 1, R 0)
+      M vessels/ins_d-66.ini
+  3810611344  MV-75 Cheyenne II  files 244 -> 249  (A 5, D 0, M 10, R 0)
+      A ammunition/usa_v280_copperhead_100m.ini
+      A language_en/loadout_names.ini
+      A weapons/usa_v280_copperhead_100m/copperhead_mat.ini
+      A weapons/usa_v280_copperhead_100m/copperhead_metal_mat.ini
+      A weapons/usa_v280_copperhead_100m/copperhead_recess_mat.ini
+      M LICENSE.txt
+      M README.txt
+      M _info.ini
+      M aircraft/usa_mv75_army.ini
+      M aircraft/usa_v280_systems_fixture.ini
+      M ammunition/usa_v280_agm-114l.ini
+      M language_en/aircraft_names.ini
+      ... and 3 more
+  3813033771  EC-2 Stand Off Jammer  files 51 -> 52  (A 1, D 0, M 4, R 0)
+      A assets/models/aircraft/jasdf_ec-2/ec2_light_landing_mat.ini
+      M LICENSE.txt
+      M aircraft/jasdf_ec-2.ini
+      M assets/models/aircraft/jasdf_ec-2/ec2_interior_04_mat.ini
+      M assets/models/aircraft/jasdf_ec-2/ec2_interior_09_mat.ini
+  3813157776  Dynamic Campaign Mod  files 2 -> 2  (A 0, D 0, M 1, R 0)
+      M dynamic_campaigns/east_asia_1985/campaign.json
+  plugin DLLs changed:
+  (no earlier plugin-dlls.txt to compare with)
+  plugin DLLs new:
+  (first capture)
+
+INVENTORY
+  subscribed + downloaded + canonical + catalogued: 190
+  subscribed but unplaced (B not C):
+  3556629790  ICBM silos
+  3564792549  BUK-M3
+  3569219326  ISKANDER-K
+  3571718093  Road Mobile ICBMs (Topol-M, DF-41)
+  3731931836  大地弹道导弹
+  3812461539  SEST Integration Pack [SEST's own Workshop item]
+  canonical but not downloaded (C not B):
+  (none)
+  canonical but not catalogued (C not D):
+  (none)
+  catalogued installed but not on disk (D not B):
+  (none)
+  new uncatalogued subscriptions (B not in any catalog entry):
+  3556629790  ICBM silos
+  3564792549  BUK-M3
+  3569219326  ISKANDER-K
+  3571718093  Road Mobile ICBMs (Topol-M, DF-41)
+  3731931836  大地弹道导弹
+  3812461539  SEST Integration Pack [SEST's own Workshop item]
+  historical catalog entries (status not installed): 8
+  Steam-tracked but not on disk: (none)
+  on disk but not Steam-tracked: (none)
+
+AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
+  3413868677  Red Storm Arsenal
+    13 Oct 2026 @ 4:29pm, by cent: "small missile fix"
+    in the export: the second capture (e7e918e2) changes one file,
+    vessels/usn_ffg_constellation.ini: NumberOfAnimationReferences 1 -> 3,
+    so the frigate now reads the NSM launcher and Mk 41 VLS animation files
+    it already lists (animations/animations_NSM_launcher.ini arrived in the
+    first capture, 0b0d137b).
+
+EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
+  Found Sea Power (app 1286220)
+    game dir : c:\program files (x86)\steam\steamapps\common\Sea Power
+    workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
+  unchanged since the last export : 165
+  UPDATED by their authors (re-export to pick the changes up):
+    3373960386  Flight Deck Ops
+    3390330875  Euromod - Modern US Navy
+    3413868677  Red Storm Arsenal
+    3505420313  Italian Navy mod
+    3567228449  French Helicopter Package
+    3567256221  Charles De Gaulle & Modern French Navy
+    3600788156  Buildings and Objectives
+    3629144864  Euromod - Main Pack
+    3737267013  US Naval Aviation
+    3758943352  French Air Force
+    3766210676  Saronic Corsair ASV
+    3775128499  PLAN Pack
+    3776340577  Ka-27RLD - Ka-31 AEW Helicopter
+    3780118683  Tu-214R Family Pack
+    3781062859  E-3G AWAC
+    3789208859  Euromod-South Korea Navy
+    3790594162  Identify Expanded
+    3796349767  YF-23 Black Widow II
+    3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
+    3806466625  V-22 Osprey / SV-22 2024 ASW prototype
+    3807164392  Euromod-India-Navy
+    3810611344  MV-75 Cheyenne II
+    3812454152  Euromod-Philippine-Navy
+    3813033771  EC-2 Stand Off Jammer
+  NEW subscriptions (not exported yet):
+    3556629790  ICBM silos
+    3564792549  BUK-M3
+    3569219326  ISKANDER-K
+    3571718093  Road Mobile ICBMs (Topol-M, DF-41)
+    3731931836  ??????
+    3812461539  SEST Integration Pack
+    3813157776  Dynamic Campaign Mod
+  To capture: re-run this script without -CheckUpdates, then commit and push.

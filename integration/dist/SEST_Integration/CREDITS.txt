@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-508 of the unit files here are another author's file with
+506 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 508 below
+every file of its kind in the collection, and the 506 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -127,7 +127,6 @@ listed whatever the percentage: they are still that author's.
        91%  ammunition/usn_rim-161b.ini 
        91%  ammunition/usn_rim-161c.ini 
        98%  ammunition/usn_rim-174a.ini 
-       98%  ammunition/usn_rim-174c.ini 
        95%  ammunition/usn_trident.ini 
        98%  ammunition/usn_ugm-109b1.ini 
        98%  ammunition/usn_ugm-109c3.ini 
@@ -220,7 +219,6 @@ listed whatever the percentage: they are still that author's.
   Euromod-South Korea Navy  (workshop 3789208859)
       100%  ammunition/ko_Antiship_2.ini 
       100%  ammunition/ko_Antiship_2_ship.ini 
-      100%  ammunition/ko_Hycore.ini 
       100%  ammunition/rok_hgv.ini 
       100%  ammunition/rok_hyunmoo_4_2.ini 
        97%  ammunition/rok_k-sam-II.ini 
@@ -464,7 +462,6 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/plan_ddg_type_052D_rsa.ini 
       100%  vessels/plan_ddg_type_055_late_rsa.ini 
       100%  vessels/plan_ddg_type_055_rsa.ini 
-      100%  vessels/plan_ffg_krivak2.ini 
       100%  vessels/plan_ffg_type_054_late_rsa.ini 
       100%  vessels/plan_ffg_type_054_rsa.ini 
       100%  vessels/plan_ffg_type_054a_late_rsa.ini 
@@ -632,6 +629,7 @@ listed whatever the percentage: they are still that author's.
        99%  ammunition/usn_aim-9x.ini 
       100%  ammunition/usn_rgm-109j.ini 
        96%  ammunition/usn_rim-174b.ini 
+      100%  ammunition/usn_rim-174c.ini 
       100%  ammunition/usn_rim-66p.ini 
        96%  ammunition/usn_ugm-109j.ini 
       100%  vessels/usn_cg_ticonderoga_vls_2027.ini 

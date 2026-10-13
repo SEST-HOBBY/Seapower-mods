@@ -1,39 +1,68 @@
-# MV-22B Osprey — 1.1.31 local test build
+# V-22 Osprey / SV-22 2024 — 1.1.45
 
-Version 1.1.31 enables native probe-and-drogue aerial receiving for both variants. Native refueling owns speed and position while its task runs, preventing terminal hover from overriding refuel commands. RCS is now a numeric gameplay estimate of 50 using native aircraft baselines. Compilation and static checks against the current 0.8.5 assemblies passed; aerial refueling, hover after refueling and flight/deck operations still require a full restart and in-game testing.
+Includes the US MV-22B, Japanese V-22B and fictional SV-22 2024 ASW variant under the Naval tiltrotor category. On 2026-10-12, the user confirmed that continuous SV-22 dipping-sonar tasks work in game.
 
-An unarmed transport tiltrotor for Sea Power, with US Marine Corps and JGSDF variants.
+## Installation and updates
 
-## Installation
+1. Install and enable Anchor Chain (Workshop ID 3380210757) and its required loader.
+2. Place the `V-22` folder in `Sea Power_Data/StreamingAssets/`, with `_info.ini` at the mod root.
+3. Enable the mod. After updating plugins, fully exit and restart the game. Avoid enabling another Osprey copy at the same time.
 
-1. Install and enable Anchor Chain (Workshop ID: 3380210757) and its required loader.
-2. Place the archive's `V-22` folder in `Sea Power_Data/StreamingAssets/`. Keep `_info.ini` directly inside `V-22`.
-3. Enable the mod and fully restart the game. Move the previous version out before updating and avoid loading a local and Workshop copy together.
+Current plugins: mechanics 1.1.45 and deck operations 1.1.36, for the installed Sea Power 0.8.5 Build 261008. This cleanup retains the working plugin binaries and resources.
 
-## Variants and squadrons
+## Aircraft and functions
 
-The two Osprey units are the US Marine Corps MV-22B and the JGSDF V-22B. The USMC unit offers VMM-263 and VMM-162; the JGSDF unit offers the Transport Aviation Group's 107th and 108th Squadrons. Each unit's Default entry uses its own variant settings. Both share the Naval transport tiltrotor category.
+| Aircraft | Nation / scenario availability | Functions |
+| --- | --- | --- |
+| MV-22B | US Marine Corps / 2007 | Transport, SAR, manual hover and terminal auto-hover |
+| V-22B | Japan Ground Self-Defense Force / 2020 | Same transport functions; independent grey-blue paint and Japanese markings |
+| SV-22 | Fictional US ASW variant / 2024 | Sonobuoy search, torpedo attack, continuous dipping-sonar tasks and manual hover; zero passenger capacity |
 
-## JGSDF variant
+US units retain VMM-263 and VMM-162; Japanese units retain the 107th and 108th Squadrons. SV-22's 2024 date is fictional scenario availability. Campaign unit-date filtering requires the corresponding year.
 
-Select “V-22B Osprey, Japan Ground Self-Defense Force” to use the separate jgsdf_mv22b_osprey unit. Its grey-blue livery, roundels and Japanese service markings follow JGSDF aircraft 91707. It shares the original Osprey's model, flight animation, logistics profiles and deck operations. The real aircraft belongs to the JGSDF and has operated from JMSDF decks.
+Transports offer Empty, Transport and Ferry profiles. Default, Transport and rescue configurations carry 32 people; base preparation time is 20 minutes. Slow SAR selects 10 kt and a 20 ft altitude target; native rescue also checks actual height, speed and remaining capacity. Hover selects zero speed while retaining the altitude command.
 
-## Features and use
+The final point of a player's non-loop transport route can trigger braking, hover and position hold. Requested and actual altitude must be at or below 5000 ft to enter; 5500 ft is the exit threshold. New route, course or speed commands release automatic control.
 
-- Empty, Transport and Ferry profiles. Default, transport and rescue configurations have capacity for 32 personnel. Ferry uses internal fuel without external tanks.
-- All three profiles have a base 20-minute ready-up time; the game's flight-deck timing mode affects actual progress. On ships with a reachable helicopter launch spot, the Osprey takes off vertically from that spot.
-- Retains the Wasp recovery-route fallback and deck timing logs. Version 1.1.21 requests native engine shutdown when an Osprey is stationary and aligned at a carrier elevator with folding pending after recovery. Three consecutive Enterprise landings completed hangar stow in game. Fully restart the game after updating. Version 1.1.16 removed the empty exhaust resource that delayed the first deck spawn.
-- Configured maximum sea-level speed: 275 knots, approximately 509.3 km/h. The cruise setting is slower.
-- Configured maximum total range: 2200 km. Return rescue missions need fuel allowances for takeoff, landing, hover and reserves.
-- Aerial receiving: Empty, Transport and Ferry profiles support ProbeAndDrogue tankers. Use the native refuel command; low-fuel tanker selection follows native game rules. Custom low-speed and terminal hover controls yield during queueing, contact and departure, then become available again when the task completes or is cancelled.
-- Radar cross section: RCS=50 is a gameplay estimate using the native S-3/A-6 (50) and CH-46/HH-3 (30) baselines. It is not a measured Osprey RCS. The former Large category maps to the native ship-sized value of 10000.
-- For rescue, select Transport and choose Low-speed rescue (10 kt, also commands 20 ft), then Hover (0 kt, retaining the current altitude order) when in position. These are the only two lowest speed menu entries. Native wave clearance can raise actual sea altitude. Native rescue requires altitude above surface at or below 55 ft, speed at or below 12 kt and spare transport capacity. Fully restart and retest in game.
-- Terminal waypoint auto-hover engages only when both requested and current altitude are at or below 5,000 ft. It slows before the final point of a non-looping player route, then commands a stationary hover and holds its position once stopped. Above the limit, the native cruise order remains in effect. Once braking starts, it disengages when either requested or current altitude exceeds 5,500 ft, preventing repeated switching near the boundary. Loop waypoints are excluded; a new route, speed or course order releases automatic control. Manual hover commands are unchanged. The 1.1.26 game log confirmed arrival, zero speed, position lock and release on a new route twice; 1.1.27 removes a misleading speed replacement log and tightens handoff exit conditions.
-- Upgraded search radar, EO/IR, wideband radar warning and defensive jamming, with data sharing. Radar range limit: 220 km. Optical parameters follow the installed F/A-18F Block III mod. Actual detection depends on the target, weather and line of sight.
-- Nacelles follow measured airspeed during recovery and remain vertical during landing and deck operations. The lower forward wing fairing stays on the fixed fuselage while the rest stows with the wing; the stow axis follows the roof slope. Looping engine audio stops after deck shutdown and rotor spin-down. On relaunch, it stays silent during transfer and unfolding, then resumes once the wing and blades are fully extended and the rotor starts turning.
-- Exterior geometry, crew and spatial anchors use 1.6x visual scaling; flight performance values retain their original units.
-- Separate Chinese and English localization selected by the game language.
+## SV-22 stores and release
 
-## Assets
+| Loadout | Torpedoes | Passive buoys | Active buoys |
+| --- | ---: | ---: | ---: |
+| ASW | 4 | 32 | 16 |
+| ASWKiller | 6 | 12 | 4 |
+| ASWHunter | 0 | 48 | 16 |
+| Empty / Ferry | 0 | 0 | 0 |
 
-The exterior model and base textures come from the user-provided Bell Boeing V-22 Osprey asset archive. The JGSDF profile uses a JMSDF photo cropped and resized from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:JGSDF_V-22_Osprey_landing_on_the_JS_Ise%EF%BC%88DDH-182%EF%BC%89-02_(cropped).jpg), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); attribution: Japan Maritime Self-Defense Force. Crew and substitute engine audio use Sea Power game resources. Search and defensive avionics are gameplay configurations, not a complete representation of real aircraft equipment.
+Independent Mk 54 Mod 1, SSQ-53G and SSQ-62F configurations use stock visual assets. Stores occupy separate cabin slots; only the selected weapon moves to the aft-ramp release point, followed by native parachute, water-entry and guidance behavior.
+
+SV-22 retains manual Hover. Ordinary waypoints do not trigger automatic hover, Slow SAR is absent and passenger capacity is zero. Equipment data, mass estimates, release limits and sources are in [SV22_PROTOTYPE.txt](SV22_PROTOTYPE.txt). Non-public modern performance is estimated for gameplay.
+
+## Continuous dipping sonar
+
+Create dipping-sonar waypoints from the ALFS sensor menu and place successive task points. For the executing task, SV-22 approaches, descends to approximately 35 ft and slows to hover. Vertical nacelles, steady actual attitude and native speed, water-depth and operability conditions are required before the belly hatch opens and the probe deploys. Actual deployment height must be 20–45 ft; sea state affects the safe altitude.
+
+Listening starts after the probe enters water. New native tasks default to 120 seconds; the chosen duration is retained, with 0 meaning indefinite listening until cancellation. After listening, the cable and probe retract and the hatch closes before the next point starts. Normal completion restores the prior speed and altitude commands.
+
+Actual player speed/altitude changes, task deletion or another executing task cancel special control and request retrieval. Native landing, refueling, shutdown and loss of control take priority. Internal speed and altitude refreshes continue without being treated as player cancellation.
+
+The independent sensor is `SV22_2024_ALFS`. Stock AQS-13 probe, material and cable visuals use separate modern-system gameplay data. SV-22 has a dedicated belly aperture, two hatch doors and an interior sonar well.
+
+## Flight, refueling and deck operations
+
+- Configured maximum speed is 275 kt. Total configured range is 2200 km for transports and 1850 km for SV-22.
+- All three support manual hover, nacelle tilt, landing gear, wing/blade folding and shutdown audio. Ships need suitable VTOL launch and recovery facilities.
+- The sea altitude floor is 20 ft plus native wave allowance. Low-speed gameplay limits are +12/-6 m/s with 3 m/s² vertical acceleration and braking near the target. Forward low-speed pitch is limited to 15 degrees; zero-speed hover stays level.
+- Out-of-combat/combat altitude response thresholds are 500/500 ft. Normal non-combat cruise ascent uses the native 30-second energy trade with actual/demanded speed at least 130 kt and an upward height error above 5 m. Native power and climb-rate limits remain in effect; actual speed may fall during ascent.
+- Native probe-and-drogue refueling, landing, deck and crash handling retain control. Search radar, electro-optics, radar warning, defensive jamming and data sharing are provided.
+
+## Validation record
+
+Existing records cover current-game compilation, configuration/resources and offline mechanics, audio, loadout, cache, release, hover and deck regressions. The user's 2026-10-12 feedback confirms continuous SV-22 dipping tasks work; it does not separately confirm underwater detection performance or every platform behavior. This file cleanup verifies runtime files by SHA-256 and retains their original bytes.
+
+## Assets and licensing
+
+The exterior model and base textures come from the user-supplied Bell Boeing V-22 Osprey asset pack. Crew, replacement engine audio and ASW visuals use Sea Power resources. The Japanese aircraft is operated by the JGSDF; its livery is based on aircraft 91707.
+
+The Japanese profile photo was taken by the Japan Maritime Self-Defense Force, sourced from a Wikimedia Commons crop and cropped/resized for this mod. Credit under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [Original image and license](https://commons.wikimedia.org/wiki/File:JGSDF_V-22_Osprey_landing_on_the_JS_Ise%EF%BC%88DDH-182%EF%BC%89-02_(cropped).jpg).
+
+See [CHANGELOG.md](CHANGELOG.md) for changes. 中文：[README.md](README.md)。

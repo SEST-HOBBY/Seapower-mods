@@ -175,6 +175,20 @@ def trigger_integrity(path, text, blocks):
                 and tag not in enabled):
             problems.append(f"{rel}: [{tag}] ships Disabled=True and no "
                             "trigger enables it, so it can never fire")
+
+    # The same for a unit held back (enter=): Disabled=True on the unit and
+    # nothing that switches it on (Action_SetEnabledStatus=True naming it, the
+    # stock pattern) is a unit the mission places and never fields.
+    switched_on = set()
+    for tag, keys in blocks.items():
+        if tag.startswith("Trigger") and keys.get("Action_SetEnabledStatus") == "True":
+            switched_on |= {u.strip() for u in keys.get("Action_Units", "").split(",")
+                            if u.strip()}
+    for tag, keys in blocks.items():
+        if (not tag.startswith("Trigger") and keys.get("Disabled") == "True"
+                and tag not in switched_on):
+            problems.append(f"{rel}: [{tag}] is placed Disabled=True and no "
+                            "trigger switches it on, so it never takes part")
     return problems
 
 

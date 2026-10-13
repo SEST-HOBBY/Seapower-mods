@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-144 mods. Each supplies a file a mission names directly - by
+145 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -109,7 +109,6 @@ Workshop id   supplies                         mod
 3456859157    a hull variant in use            Mogami-class Frigate
 3485917612    a unit a mission places          Moloti's Armed Merchantmen
 3716049886    a unit a mission places          MORE SU-24M VARIANTS
-3806466625    a unit a mission places          MV-22B Osprey Tiltrotor / JGSDF V-22B
 3810611344    a unit a mission places          MV-75 Cheyenne II
 3595014060    a model a placed unit draws      NATO E-3A Sentry
 3812140001    a model a placed unit draws      Pakistani Pack
@@ -127,6 +126,7 @@ Workshop id   supplies                         mod
 3605013271    a unit a mission places          RE-power: the resupply mod
 3769142422    a unit a mission places          Rebuilt J-16 / J-16D
 3413868677    a unit a mission places          Red Storm Arsenal
+3571718093    a model a placed unit draws      Road Mobile ICBMs (Topol-M, DF-41)
 3378409795    a hull variant in use            Royal Navy Type 23 'Duke Class' Frigate [OLD]
 3373356293    a unit a mission places          Royal Navy Westland Lynx HAS.3 Kitbash [OLD]
 3796113927    a unit a mission places          RQ-180 White Bat Airframe
@@ -162,6 +162,7 @@ Workshop id   supplies                         mod
 3468959181    a unit a mission places          U-2 "Dragon Lady"
 3606774881    a unit a mission places          U.S. Navy 2027 Capabilities mod
 3737267013    a unit a mission places          United States Naval Aviation
+3806466625    a unit a mission places          V-22 Osprey / SV-22 2024 ASW prototype
 3478767194    a unit a mission places          VH-3D Marine One MOD
 3433957933    a unit a mission places          Virginia-, Seawolf-, and Ohio-class Submarines
 3526982088    a unit a mission places          XIAN JH-7A (歼轰-7A 飞豹)
@@ -173,7 +174,7 @@ above does, in its own description. Skipping one breaks the mod
 that asked for it.
 
 3380210757    required by another mod          Anchor Chain
-                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, B-2 Spirit, MV-22B Osprey Tiltrotor / JGSDF V-22B, YF-23 Black Widow II
+                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, B-2 Spirit, V-22 Osprey / SV-22 2024 ASW prototype, YF-23 Black Widow II
 
 NOT IN THIS LIST AND STILL REQUIRED:
 
@@ -184,7 +185,7 @@ NOT IN THIS LIST AND STILL REQUIRED:
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (9), and left in the order
+Also enabled while this was built (11), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
@@ -192,8 +193,10 @@ by something above them. The campaign does not call for them.
 3774105087    library                          Automatic SAR
 3768036424    library                          Better TacMap
 3806686336    library                          Coordinated Strike Tool
+3813157776    library                          Dynamic Campaign Mod
 3784474738    library                          Euromod - Anchorchain Expansion Pack
 3790594162    library                          Identify Expanded
+3569219326    shadowed                         ISKANDER-K
 3432592449    shadowed                         Nimitz Expanded
 3796706214    library                          Real photos of airplanes and helicopters
 3636213685    shadowed                         wp_sattelite_center
@@ -201,12 +204,13 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (35):
+In the collection for other campaigns and scenarios (38):
 the third-party campaigns the collection carries, the mods they
 place, and content none of these four campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
 
 3628203171    other campaigns                  Bréguet Br.1050 Alizé
+3564792549    other campaigns                  BUK-M3
 3806197116    other campaigns                  Civilian AS350 Ecureuil/AStar MOD
 3628201887    other campaigns                  Clemenceau-class Aircraft Carrier
 3813033771    other campaigns                  EC-2 Stand Off Jammer
@@ -221,6 +225,7 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3672497668    other campaigns                  Fattah-2
 3412480633    other campaigns                  Ground Upgrade: IFV
 3410473695    other campaigns                  Ground Upgrade: MBT
+3556629790    other campaigns                  ICBM silos
 3549377308    other campaigns                  Iran Bell-212
 3686449681    other campaigns                  Iran UAV Shahed 238
 3681748718    other campaigns                  ISKANDER-M
@@ -230,6 +235,7 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3603367264    other campaigns                  NATO Ground Enhancement Series 2: Artillery
 3551621846    other campaigns                  NEBO-U
 3779799226    other campaigns                  Operation STEADFAST LANTERN
+3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
 3399699218    other campaigns                  Project 2498 Zyetseth Class Assault Vessel
 3455404959    other campaigns                  Royal Australian Defence Forces
 3603306548    other campaigns                  Russian Ground Enhancement Series 1: Artillery
@@ -254,6 +260,7 @@ to; the repository also builds each of them on its own.
 (local)       unit                             SEST Allied Fixes
 (local)       unit                             SEST B-52 ARRW
 (local)       unit                             SEST Collection Fixes
+(local)       library                          SEST Cross-Deck
 (local)       unit                             SEST F-15EX Revamp
 (local)       unit                             SEST F-16CM JATM
 (local)       unit                             SEST F-35C JATM
@@ -271,6 +278,7 @@ to; the repository also builds each of them on its own.
 (local)       unit                             SEST Replenishment At Sea
 (local)       campaign                         SEST Southern Watch Campaign
 (local)       library                          SEST TacMap Colors
+(local)       library                          SEST World Campaign (Dynamic Campaign Mod)
 
 --------------------------------------------------------------------------
 

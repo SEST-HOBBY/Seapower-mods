@@ -21,6 +21,15 @@ every pick against the winning file (roster_ini), keeps an aircraft only if
 some air-tasking row in the campaign launches and recovers it
 (usable_allied), and stops on a unit whose picks are not one nation
 (roster_nations). Southern Watch build notes, "The allied fleet".
+
+No submarines (in-game check, 13 Oct). The thirteen boats this list sold -
+Seawolf, five Virginias, the Los Angeles Flt3, Suffren, Type 212A, Todaro,
+S-80, Kilo and Collins - could be bought into the task force but never
+appeared in the formation editor, and one dismissed from the force still
+sailed in the next mission and stayed with it after. Stock Pacific Strike
+sells none either: its roster's [AllowedSubmarines] is a list it says "subs
+are currently not available for purchase" against, and its boats are only
+ever authored into a mission. roster_ini() now refuses a submarine on sale.
 """
 
 
@@ -52,20 +61,6 @@ ALLIED = [
        'USA - Lewis and Clark-class T-AKE (stand-in)'),
     _e('usn_tao_kaiser', ['Variant1', 'Variant2', 'Variant3', 'Variant4'], 140,
        'USA - Henry J. Kaiser-class T-AO (stand-in)'),
-    _e('usn_ssn_seawolf_2027', ['Variant1', 'Variant2'], 520,
-       'USA - Seawolf SSN (2027)'),
-    _e('usn_ssn_virginia_block5', ['Variant1'], 500,
-       'USA - Virginia Class (Block V)'),
-    _e('usn_ssn_virginia_block4', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6', 'Variant7', 'Variant8', 'Variant9', 'Variant10'], 490,
-       'USA - Virginia Class (Block IV)'),
-    _e('usn_ssn_virginia_block3_2026', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6', 'Variant7', 'Variant8'], 480,
-       'USA - Virginia Class (Block III) 2026'),
-    _e('usn_ssn_virginia_block2_2026', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6'], 470,
-       'USA - Virginia Class (Block II) 2026'),
-    _e('usn_ssn_virginia_block1_2026', ['Variant1', 'Variant2', 'Variant3', 'Variant4'], 460,
-       'USA - Virginia Class (Block I) 2026'),
-    _e('usn_ssn_los_angeles_flt3_2026', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6', 'Variant7', 'Variant8', 'Variant9', 'Variant10', 'Variant11', 'Variant12', 'Variant13', 'Variant14', 'Variant15', 'Variant16', 'Variant17'], 380,
-       'USA - Los Angeles-class Flt3 (2026)'),
     _e('usaf_b-2_spirit', ['Squadron1', 'Squadron2', 'Squadron3'], 150,
        'USA - B-2 Spirit'),
     _e('usaf_b-1b_dts', ['Squadron1', 'Squadron2'], 130,
@@ -126,8 +121,6 @@ ALLIED = [
        "France - Amiral Ronarc'h class"),
     _e('fr_ffg_lafayette_modernized', ['Variant2', 'Variant3'], 200,
        'France - La Fayette-class modernized'),
-    _e('fr_ssn_suffren', ['Variant1', 'Variant2', 'Variant3'], 440,
-       'France - Suffren-class'),
     _e('fr_e2d', ['Squadron1'], 70,
        'France - E-2D'),
     _e('fr_atl2', ['Squadron1', 'Squadron2'], 50,
@@ -149,8 +142,6 @@ ALLIED = [
        'Germany - F123B Brandenburg-class'),
     _e('ger_ffg_f125_MLU', ['Variant1', 'Variant2', 'Variant3', 'Variant4'], 300,
        'Germany - F125 Baden-Wuerttemberg-class MLU'),
-    _e('ger_ssk_type_212a_batch1', ['Variant1', 'Variant2', 'Variant3', 'Variant4'], 280,
-       'Germany - Type 212A-class (Batch 1)'),
     _e('eu_ef2000_fgr4_late', ['Squadron1'], 45,
        'Germany - Eurofighter Typhoon FGR.4 Late'),
     _e('ger_nh90', ['Squadron1'], 20,
@@ -166,8 +157,6 @@ ALLIED = [
        'Italy - Luigi Durand de la Penne-class'),
     _e('ita_fs_ppx', ['Variant1', 'Variant2'], 100,
        'Italy - Vivaldi Class'),
-    _e('ita_ssk_todaro_batch1', ['Variant1', 'Variant2'], 280,
-       'Italy - Todaro class (Batch I)'),
     _e('mm_av-8b_plus', ['Squadron1'], 28,
        'Italy - AV-8B+ Harrier II'),
     _e('ita_sh-101a', ['Squadron1', 'Squadron2'], 25,
@@ -187,8 +176,6 @@ ALLIED = [
        'Spain - Santa Maria-class Late'),
     _e('ae_opv_meteoro', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6'], 100,
        'Spain - Meteoro-class Meteoro'),
-    _e('ae_ssk_s80', ['Variant1', 'Variant2'], 270,
-       'Spain - S80-class'),
     _e('spa_ef2000', ['Squadron2', 'Squadron3', 'Squadron4'], 45,
        'Spain - C.16 Typhoon'),
     _e('spa_av-8b_plus', ['Squadron1'], 28,
@@ -209,8 +196,6 @@ ALLIED = [
     _e('hdms_iver_huitfeldt', ['Variant2', 'Variant3'], 400,
        'Denmark - Iver Huitfeldt-class'),
     # --- Poland ------------------------------------------------------
-    _e('wp_ss_kilo', ['Variant12'], 200,
-       'Poland - Kilo-class'),
     # --- Japan -------------------------------------------------------
     _e('jmsdf_ddg_maya', ['Variant1', 'Variant2'], 500,
        'Japan - Maya-class'),
@@ -250,8 +235,6 @@ ALLIED = [
        'Australia - HMAS Choules LSD (stand-in)'),
     _e('ran_aor_supply', ['Variant1', 'Variant2'], 160,
        'Australia - Supply-class AOR (stand-in)'),
-    _e('ran_ssg_collins', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant6'], 280,
-       'Australia - Collins-class SSG (stand-in)'),
     _e('usa_ah-64e', ['Squadron4'], 22,
        'Australia - AH-64E'),
 ]

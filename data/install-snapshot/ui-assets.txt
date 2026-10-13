@@ -1,0 +1,1385 @@
+# Names in Sea Power's Unity data and code that read like background, loading, splash
+# or menu pictures (tools\scan-ui-assets.ps1) - what a plugin must find to swap one.
+# files: globalgamemanagers=11186404;globalgamemanagers.assets=1236780;level0=3388;level1=1736;level2=77624;level3=3360;level4=1608;level5=1640;level6=1828;resources.assets=2521634816;sharedassets0.assets=55184;sharedassets1.assets=2623108;sharedassets2.assets=1532172;sharedassets3.assets=793;sharedassets4.assets=7896;sharedassets5.assets=158640;sharedassets6.assets=755260;AmplifyBloom.dll=3584;AmplifyColor.dll=3584;andywiecko.BurstTriangulator.dll=69632;Assets.dll=932352;AstarPathfindingProject.dll=1251840;Clipper2Lib.dll=87040;com.bartofzo.nativetrees.dll=37888;com.bartofzo.nativetrees.samples.dll=21504;com.rlabrecque.steamworks.net.dll=424448;CommunityToolkit.Mvvm.dll=113960;Drawing.dll=129024;GUPS.EasyPerformanceMonitor.Demo.dll=23552;GUPS.EasyPerformanceMonitor.dll=67072;Humanizer.dll=718000;io.sentry.unity.runtime.dll=9216;Libraries.dll=747008;MathNet.Numerics.dll=1590272;MessagePack.Annotations.dll=11776;MessagePack.dll=338432;Nerdbank.Streams.dll=218808;Nito.AsyncEx.Context.dll=13824;Nito.AsyncEx.Tasks.dll=35840;Nito.Disposables.dll=22528;Noesis.NoesisGUI.dll=1575936;PackageTools.dll=8704;ParadoxNotion.dll=517120;Pathfinding.ClipperLib.dll=58880;Pathfinding.Ionic.Zip.Reduced.dll=240640;Pathfinding.Poly2Tri.dll=36352;Plugins.dll=474624;Seapower-Scripts.dll=8661504;Sentry.dll=796160;Sentry.Microsoft.Bcl.AsyncInterfaces.dll=16384;Sentry.System.Collections.Immutable.dll=178688;Sentry.System.Reflection.Metadata.dll=451584;Sentry.System.Runtime.CompilerServices.Unsafe.dll=8704;Sentry.System.Text.Encodings.Web.dll=68608;Sentry.System.Text.Json.dll=595456;Sentry.Unity.dll=165888;Sentry.Unity.Native.dll=28160;ShapesRuntime.dll=379392;ShapesSamples.dll=25088;SingularityGroup.HotReload.Runtime.Public.dll=6656;SQLitePCLRaw.batteries_v2.dll=11776;SQLitePCLRaw.core.dll=51200;SQLitePCLRaw.provider.dynamic_cdecl.dll=68096;StreamJsonRpc.dll=355880;StreamJsonShim.dll=5120;UniRx.dll=467456;Vectrosity.dll=122368;Vuplex.WebView.dll=860672;Vuplex.WebViewDemos.dll=45056;websocket-sharp.dll=250368
+
+Data folder: C:\program files (x86)\steam\steamapps\common\Sea Power\Sea Power_Data
+
+== globalgamemanagers  (11 MB)  62 name(s)
+  Assets/Scenes/background.unity
+  audio/splashes/splash_large
+  audio/splashes/splash_medium
+  audio/splashes/splash_small
+  audio/splashes/splash_very_large
+  audio/splashes/splash_very_small
+  audio/splashes/torpedo_surface_splash
+  audio/voiceover/mike/splashtrack
+  CameraFilterPack/Retro_Loading
+  camerafilterpack_retro_loading
+  effects/explosions/emitters/rbu_splash
+  effects/explosions/materials/fx_water_splash_color
+  effects/explosions/materials/fx_water_splash_timelinefx
+  effects/particle emitters/flak plane_splash
+  effects/particle emitters/splash_large
+  effects/particle emitters/splash_massive
+  effects/particle emitters/splash_medium
+  effects/particle emitters/splash_tiny
+  effects/particle materials/hd_splash1_add
+  effects/splashes/emitters/splash_bomb
+  effects/splashes/emitters/splash_bomb_2
+  effects/splashes/emitters/splash_bomb_small
+  effects/splashes/emitters/splash_debris
+  effects/splashes/emitters/splash_large
+  effects/splashes/emitters/splash_medium
+  effects/splashes/emitters/splash_missile
+  effects/splashes/emitters/splash_shrapnel
+  effects/splashes/emitters/splash_small
+  effects/splashes/emitters/splash_tiny
+  effects/splashes/emitters/splash_torpedo
+  effects/splashes/emitters/splash_torpedo good
+  effects/splashes/emitters/splash_torpedo old 1
+  effects/splashes/emitters/splash_torpedo_old
+  effects/splashes/emitters/splash_verysmall
+  effects/splashes/materials/seasplashes
+  effects/splashes/materials/watercloud
+  effects/splashes/materials/watercloudshaded
+  effects/splashes/materials/waterjet
+  effects/splashes/materials/waterspike_animated_1
+  effects/splashes/materials/waterspike_animated_2
+  effects/splashes/materials/watersplash
+  effects/splashes/materials/watersplashshaded
+  effects/splashes/textures/blast_alpha_ceto
+  effects/splashes/textures/blast_alpha_ceto_nm
+  effects/splashes/textures/hd_splash1_9x9
+  effects/splashes/textures/helihover
+  effects/splashes/textures/impactjetwater
+  effects/splashes/textures/impactwatercloud
+  effects/splashes/textures/impactwatersplash
+  effects/splashes/textures/splash_ceto
+  effects/splashes/textures/splash_wipe
+  effects/splashes/textures/water_spike_1
+  effects/splashes/textures/water_spike_1_old
+  effects/splashes/textures/water_spike_2
+  effects/splashes/textures/water_spike_2_old
+  effects/splashes/textures/watercircle_ceto
+  effects/splashes/textures/watercircle_ceto_nm
+  effects/splashes/textures/wipe_alpha_ceto
+  Hidden/Internal-Loading
+  hot_reload_icon_loading_star_light_mode_96
+  ui/debugpanel/background
+  ui/loading/background1
+
+== globalgamemanagers.assets  (1 MB)  185 name(s)
+  :Key="Brush.TabControl.Normal" Color="{StaticResource Color.BackgroundGrey}" />
+  :Key="Brush.Window.Background" Color="{StaticResource Color.BackgroundGrey}" />
+  {TemplateBinding Background}" BorderBrush="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+  </Border.Background>
+  <Border Background="{DynamicResource Brush.Window.Background}" BorderBrush="{D
+  <Border Background="{DynamicResource Brush.Window.Background}" BorderBrush="{DynamicResource Brush.Border.Popup}" Border
+  <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickne
+  <Border Background="{TemplateBinding Background}" CornerRadius="{DynamicResour
+  <Border Background="{TemplateBinding Background}" CornerRadius="{DynamicResource Corner.Border2}"/>
+  <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Pa
+  <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+  <Border Background="{TemplateBinding Background}"/>
+  <Border Background="{TemplateBinding Background}">
+  <Border Background="Transparent" Margin="-12,0">
+  <Border Background="Transparent" Padding="{TemplateBinding Padding}">
+  <Border Background="Transparent"/>
+  <Border Grid.ColumnSpan="2" Background="{TemplateBinding Background}"/>
+  <Border Grid.ColumnSpan="4" Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Border Grid.Row="1" Grid.Column="2" Background="{TemplateBinding BorderBrush}" Height="{DynamicResource Si
+  <Border x:Name="ArrowBorder" Grid.Column="1" Background="{DynamicResource Brush.ComboBox.ButtonNormal}"/>
+  <Border x:Name="ArrowBorder" Grid.Column="1" Background="{DynamicResource Brush.ComboBox.Normal}" BorderBrush="{Dyn
+  <Border x:Name="Background" Grid.Column="1" Width="2" Background="{TemplateBinding Bac
+  <Border x:Name="Background" Grid.ColumnSpan="3" Background="{DynamicResource Brush.Tra
+  <Border x:Name="Background" Grid.ColumnSpan="3" Background="{DynamicResource Brush.Track.Normal}" Opacity="0"/>
+  <Border x:Name="Background" Grid.Row="1" Height="2" Background="{TemplateBinding Backg
+  <Border x:Name="Background" Grid.RowSpan="3" Background="{DynamicResource Brush.Track.
+  <Border x:Name="Background" Grid.RowSpan="3" Background="{DynamicResource Brush.Track.Normal}" Opacity="0"/>
+  <Border x:Name="Base" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" CornerRadius="{DynamicResour
+  <Border x:Name="Base" Grid.ColumnSpan="2" Background="{TemplateBinding Background}"/>
+  <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Border x:Name="Border" Background="{TemplateBinding Background}" Padding="{TemplateBinding Pa
+  <Border x:Name="Border" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+  <Border x:Name="Border" Background="{TemplateBinding Background}"/>
+  <Border x:Name="Border" Background="Transparent">
+  <Border x:Name="Border" Grid.Column="0" Background="{DynamicResource Brush.Background.Normal}" BorderBrush="{D
+  <Border x:Name="Border" Grid.Row="0" Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Border x:Name="Border" Grid.Row="0" Background="{TemplateBinding Background}">
+  <Border x:Name="ContentBg" Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Border x:Name="DropDownBorder" Background="{DynamicResource Brush.Window.Background}" BorderBrush="{D
+  <Border x:Name="DropDownBorder" Background="{TemplateBinding Background}" MinWidth="{TemplateBinding A
+  <Border x:Name="Header" Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Border x:Name="HeaderBg" Background="{DynamicResource Brush.Header.Normal}" CornerRadius="{Dyna
+  <Border x:Name="HeaderBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Border x:Name="PART_Indicator" Background="{TemplateBinding Foreground}" HorizontalAlignment="Left"/>
+  <Border x:Name="PART_Track" Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Border x:Name="SelectedContentBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Border x:Name="Thumb" Background="{DynamicResource Brush.Thumb.Normal}"/>
+  <Border.Background>
+  <Color x:Key="Color.BackgroundGrey">#2b2d31</Color>
+  <DoubleAnimation Storyboard.TargetName="Background" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0
+  <DoubleAnimation Storyboard.TargetName="Background" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0
+  <DoubleAnimation Storyboard.TargetProperty="Background.RelativeTransform.X" Storyboard.TargetName="IndicatorIndete
+  <Ellipse x:Name="Thumb" Fill="{TemplateBinding Background}" Width="20" Height="20" Margin="-8"/>
+  <GradientStop Color="{Binding Background.Color, RelativeSource={RelativeSource TemplatedParent}}" Of
+  <Grid Background="Transparent">
+  <Grid x:Name="Root" Background="Transparent" Tag="0">
+  <Grid x:Name="TemplateRoot" Background="Transparent">
+  <local:BoolToBackgroundBrushConverter x:Key="BoolToBackgroundBrushConverter"/>
+  <ScrollViewer Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <ScrollViewer Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickne
+  <Setter Property="Background" Value="#33383B3F" />
+  <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource
+  <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource AncestorType={x:Type TabCon
+  <Setter Property="Background" Value="{DynamicResource Brush.Background.Checked}" TargetN
+  <Setter Property="Background" Value="{DynamicResource Brush.Background.Checked}" TargetName="Border"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Background.Normal}" TargetNa
+  <Setter Property="Background" Value="{DynamicResource Brush.Background.Normal}" TargetName="Border"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Background.Normal}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Background.Pressed}" TargetN
+  <Setter Property="Background" Value="{DynamicResource Brush.Background.Pressed}" TargetName="Border"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Border.DisabledChecked}" Tar
+  <Setter Property="Background" Value="{DynamicResource Brush.Border.Pressed}" TargetName=
+  <Setter Property="Background" Value="{DynamicResource Brush.Button.Background}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Button.BackgroundDisabled}"
+  <Setter Property="Background" Value="{DynamicResource Brush.Button.BackgroundOver}" Targ
+  <Setter Property="Background" Value="{DynamicResource Brush.Button.Checked}" TargetName=
+  <Setter Property="Background" Value="{DynamicResource Brush.ComboBox.Background}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.ComboBox.BackgroundOver}" Ta
+  <Setter Property="Background" Value="{DynamicResource Brush.ComboBox.ButtonOver}" Target
+  <Setter Property="Background" Value="{DynamicResource Brush.ComboBox.Edit}" TargetName="
+  <Setter Property="Background" Value="{DynamicResource Brush.ComboBox.Focused}" TargetNam
+  <Setter Property="Background" Value="{DynamicResource Brush.ComboBox.Normal}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.ComboBox.Over}" TargetName="
+  <Setter Property="Background" Value="{DynamicResource Brush.ComboBox.Pressed}" TargetNam
+  <Setter Property="Background" Value="{DynamicResource Brush.Header.Checked}" TargetName=
+  <Setter Property="Background" Value="{DynamicResource Brush.Header.CheckedOver}" TargetN
+  <Setter Property="Background" Value="{DynamicResource Brush.Header.CheckedPressed}" Targ
+  <Setter Property="Background" Value="{DynamicResource Brush.Header.Normal}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Header.Over}" TargetName="He
+  <Setter Property="Background" Value="{DynamicResource Brush.Header.Pressed}" TargetName=
+  <Setter Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}" Target
+  <Setter Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Item.BackgroundSelected}" Ta
+  <Setter Property="Background" Value="{DynamicResource Brush.Item.BackgroundSelectedOver}
+  <Setter Property="Background" Value="{DynamicResource Brush.Item.ForegroundOver}" Target
+  <Setter Property="Background" Value="{DynamicResource Brush.ListBox.Background}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.ProgressBar.Background}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.TabControl.Normal}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.TabControl.Over}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.TextBox.Background}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.TextBox.BackgroundFocus}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.TextBox.Focused}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.TextBox.Normal}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Thumb.Disabled}" TargetName=
+  <Setter Property="Background" Value="{DynamicResource Brush.Thumb.Over}" TargetName="Thu
+  <Setter Property="Background" Value="{DynamicResource Brush.Thumb.Pressed}" TargetName="
+  <Setter Property="Background" Value="{DynamicResource Brush.ToolBar.Normal}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.ToolBar.Over}" TargetName="B
+  <Setter Property="Background" Value="{DynamicResource Brush.ToolBar.Over}" TargetName="T
+  <Setter Property="Background" Value="{DynamicResource Brush.ToolBar.Pressed}" TargetName
+  <Setter Property="Background" Value="{DynamicResource Brush.Window.Background}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Window.BackgroundDark}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Item.BackgroundOver}"/>
+  <Setter Property="Background" Value="Transparent"/>
+  <Setter Property="Foreground" Value="{DynamicResource Brush.Background.Checked}"/>
+  <Setter Property="IsMainMenu" Value="False"/>
+  <SolidColorBrush x:Key="Brush.Background.Checked" Color="{StaticResource Color.SeaPowerRed}" />
+  <SolidColorBrush x:Key="Brush.Background.DropOver" Color="{StaticResource Color.SeaPowerBlue}" />
+  <SolidColorBrush x:Key="Brush.Background.Normal" Color="{StaticResource Color.ButtonGrey}" />
+  <SolidColorBrush x:Key="Brush.Background.Popup" Color="{StaticResource Color.BackgroundGrey}" />
+  <SolidColorBrush x:Key="Brush.Background.Pressed" Color="{StaticResource Color.LinesGrey}" />
+  <SolidColorBrush x:Key="Brush.Button.Background" Color="{StaticResource Color.ButtonGrey}" />
+  <SolidColorBrush x:Key="Brush.Button.BackgroundDisabled" Color="{StaticResource Color.ContrastGrey}" />
+  <SolidColorBrush x:Key="Brush.Button.BackgroundOver" Color="{StaticResource Color.SeaPowerRed}" />
+  <SolidColorBrush x:Key="Brush.ComboBox.Background" Color="{StaticResource Color.ContrastGrey}" />
+  <SolidColorBrush x:Key="Brush.ComboBox.BackgroundOver" Color="{StaticResource Color.ContrastGrey}" />
+  <SolidColorBrush x:Key="Brush.Item.BackgroundOver" Color="{StaticResource Color.ButtonGrey}" />
+  <SolidColorBrush x:Key="Brush.Item.BackgroundSelected" Color="{StaticResource Color.SeaPowerRed}" />
+  <SolidColorBrush x:Key="Brush.Item.BackgroundSelectedOver" Color="{StaticResource Color.SeaPowerRed}" />
+  <SolidColorBrush x:Key="Brush.ListBox.Background" Color="{StaticResource Color.ContrastGrey}" />
+  <SolidColorBrush x:Key="Brush.ProgressBar.Background" Color="{StaticResource Color.ContrastGrey}" />
+  <SolidColorBrush x:Key="Brush.TextBox.Background" Color="{StaticResource Color.ContrastGrey}" />
+  <SolidColorBrush x:Key="Brush.TextBox.BackgroundFocus" Color="{StaticResource Color.ContrastGrey}" />
+  <SolidColorBrush x:Key="Brush.TextBox.BackgroundSelected" Color="{StaticResource Color.BackgroundGrey}" />
+  <SolidColorBrush x:Key="Brush.Window.Background" Color="{StaticResource Color.BackgroundGrey}" />
+  <SolidColorBrush x:Key="Brush.Window.BackgroundDark" Color="{StaticResource Color.ContrastGrey}" />
+  <sys:Double x:Key="Font.Size.Loadscreen">12</sys:Double>
+  <TabPanel x:Name="HeaderPanel" Panel.ZIndex="1" Background="Transparent" IsItemsHost="True" KeyboardNavigation.TabInde
+  <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Style="{StaticResource Style
+  <TickBar x:Name="TopTicks" Fill="{TemplateBinding Background}" Placement="Top" VerticalAlignment="Top" Height="4" Visibi
+  ="Brush.Glyph.DisabledChecked" Color="{StaticResource Color.BackgroundGrey}" />
+  AddSplashOverlay
+  ame="Base" Grid.ColumnSpan="2" Background="{TemplateBinding Background}"/>
+  BackgroundEffectBehavior
+  BackgroundSceneController
+  Brush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
+  CameraFilterPack_Retro_Loading
+  d.ColumnSpan="3" Grid.RowSpan="7" Content="{TemplateBinding BackgroundPane}"/>
+  er Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}" TargetName="Border"/>
+  er Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}" TargetName="Header"/>
+  er Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}"/>
+  er Property="Background" Value="{DynamicResource Brush.Item.BackgroundSelected}" TargetName="Border"/>
+  er Property="Background" Value="{DynamicResource Brush.Item.BackgroundSelectedOver}" TargetName="Border"/>
+  erty="Background" Value="{DynamicResource Brush.ProgressBar.Background}"/>
+  erty="SelectionBrush" Value="{DynamicResource Brush.TextBox.BackgroundSelected}"/>
+  h x:Key="Brush.ToolBar.Normal" Color="{StaticResource Color.BackgroundGrey}" />
+  LoadScreen
+  LoadScreenView
+  LoadScreenView.xaml
+  MainMenuView
+  MainMenuView.xaml
+  MainMenuViewModel
+  plateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
+  Property="Background" Value="{DynamicResource Brush.Button.Background}"/>
+  Property="Background" Value="{DynamicResource Brush.Button.BackgroundDisabled}" TargetName="Border"/>
+  Property="Background" Value="{DynamicResource Brush.Button.BackgroundOver}" TargetName="Border"/>
+  Property="Background" Value="{DynamicResource Brush.ListBox.Background}"/>
+  Property="Background" Value="{DynamicResource Brush.TextBox.Background}"/>
+  Property="Background" Value="{DynamicResource Brush.TextBox.BackgroundFocus}"/>
+  Property="Background" Value="{DynamicResource Brush.Window.Background}"/>
+  Property="Background" Value="{DynamicResource Brush.Window.BackgroundDark}"/>
+  Property="Foreground" Value="{DynamicResource Brush.Button.Background}"/>
+  QueryCanRunInBackground
+  r x:Name="Border" Grid.Row="0" Background="{TemplateBinding Background}">
+  rdNavigation.DirectionalNavigation="Cycle" Margin="5,0,0,0" Background="Transparent"/>
+  roperty="Background" Value="{DynamicResource Brush.ComboBox.Background}"/>
+  roperty="Background" Value="{DynamicResource Brush.ComboBox.BackgroundOver}" TargetName="Base"/>
+  ScriptLoadingContext
+  sh.TextBox.BackgroundSelected" Color="{StaticResource Color.BackgroundGrey}" />
+  ter Property="Background" Value="{StaticResource Brush.Item.BackgroundOver}"/>
+  ter Property="SelectionBrush" Value="{DynamicResource Brush.Background.Checked}"/>
+  WeakAssetReferenceLoadingSystem
+  x:Key="Brush.Background.Popup" Color="{StaticResource Color.BackgroundGrey}" />
+  x:Key="Brush.TabControl.Over" Color="{StaticResource Color.BackgroundGrey}" />
+
+== level0  (0 MB)  2 name(s)
+  Background Manager
+  Loading
+
+== level2  (0 MB)  1 name(s)
+  Background - Image
+
+== resources.assets  (2,405 MB)  108 name(s)
+  background
+  background1
+  CameraFilterPack/Retro_Loading
+  dc_surface_SurfaceSplashInstant
+  DebrisSplash_WaterSpikeAnimated
+  DebrisSplash_WaterSpikeAnimated_outer
+  Extra_LargeSplash_WaterCircle2
+  Extra_LargeSplash_WaterCircle3
+  Extra_LargeSplash_WaterCircleUnderwater
+  Extra_MediumSplash_WaterCircle2
+  Extra_MediumSplash_WaterCircle3
+  Extra_MediumSplash_WaterCircleUnderwater
+  far_splashes
+  far_splashes (1)
+  FLAK plane_splash
+  fx_water_splash_color
+  fx_water_splash_timelinefx
+  have rail launchers there to just spawn new missiles when reloading you may have it like this in animations file
+  HD_Splash1_9x9
+  HD_Splash1_ADD
+  ImpactWaterSplash
+  inner_splashes
+  LargeSplash_WaterBaseMist
+  LargeSplash_WaterSpike1
+  LargeSplash_WaterSpikeFalling
+  LargeSplash_WaterSpikeMist
+  MagazineSplashes1
+  MagazineSplashes2
+  MagazineSplashes3
+  MediumSplash_WaterBaseMist
+  MediumSplash_WaterSpike1
+  MediumSplash_WaterSpikeFalling
+  MediumSplash_WaterSpikeMist
+  middle_splashes
+  middle_splashes (1)
+  Missilesplash_impactWater
+  Missilesplash_impactWater2
+  MissileSplash_WaterSpikeAnimated (1)
+  outer_splashes
+  Planesplash_SurfaceSplashInstant
+  Planesplash_WaterCloudEmitter
+  Planesplash_WaterSpike1
+  Planesplash_WaterSpike2
+  Planesplash_WaterSpikeMist
+  rbu_splash
+  SeaSplashes
+  Smallsplash_impactWaterSplash
+  Smallsplash_impactWaterSplash (1)
+  Smallsplash_impactWaterSplash 2
+  SmallSplash_WaterSpikeAnimated
+  SmallSplash_WaterSpikeFalling
+  Splash track <numbers>!
+  splash_bomb
+  splash_bomb_2
+  splash_bomb_small
+  splash_CETO
+  splash_debris
+  splash_large
+  splash_Massive
+  splash_medium
+  splash_missile
+  splash_rbu_limbo
+  splash_shrapnel
+  splash_small
+  Splash_Tiny
+  splash_tiny_impactWaterSplash
+  splash_tiny_impactWaterSplash (1)
+  splash_tiny_WaterSpikeAnimated
+  splash_torpedo
+  splash_torpedo good
+  splash_torpedo old 1
+  splash_torpedo_old
+  splash_very_large
+  splash_very_small
+  splash_verysmall
+  splash_wipe
+  SplashedTrack
+  Splashes
+  Splashes_Inner
+  Splashes_Instant
+  Splashes_Medium
+  Splashes_Outer
+  SplashTrack
+  SurfaceSplash
+  SurfaceSplash2
+  torpedo_surface_splash
+  Torpedo_SurfaceSplashInstant
+  Torpedo_UnderwaterSplashInstant
+  Torpedo2_SurfaceSplashInstant
+  Torpedo2_UnderwaterSplashInstant
+  TorpedoInWater_SurfaceSplashExpanding
+  Torpedosplash_impactWater
+  Torpedosplash_impactWater2
+  Torpedosplash_MainWaterSpikeAnimated
+  Torpedosplash_MainWaterSpikeAnimated2
+  Torpedosplash_Spike2Emitter
+  Torpedosplash_Spike2Emitter (1)
+  Torpedosplash_Spike3Emitter
+  Torpedosplash_SpikeEmitter
+  Torpedosplash_WaterColumn
+  Torpedosplash_WaterMist
+  Torpedosplash_WaterMistShaded
+  Torpedosplash_WaterMistTop
+  Torpedosplash_WaterSubemitters1
+  Torpedosplash_WaterSubemitters2
+  WaterSplash
+  WaterSplashShaded
+  xxxTorpedo2_UnderwaterSplashInstant
+
+== sharedassets0.assets  (0 MB)  21 name(s)
+  <!-- Let the loading tip measure to its content while keeping a clear gap above
+  </Border.Background>
+  </Grid.Background>
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}" Grid.RowSpan
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}" Grid.RowSpan="3" Grid.ColumnSpan="3"
+  <Border Background="{TemplateBinding Background}"/>
+  <Border Grid.Column="0" Background="{DynamicResource Brush.Window.Header}" IsHitTestVisible="F
+  <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="{DynamicResource Brush.Window.Background}">
+  <Border.Background>
+  <Grid.Background>
+  <ImageBrush ImageSource="{Binding BackgroundImage}" Stretch="UniformToFill"/>
+  <ScaleTransform x:Name="LoadScreen_ScaleTransform"
+  <UserControl x:Class="SeapowerUI.LoadScreenView"
+  Assets/Scripts/UI/Loading/Views/LoadScreenView.xaml
+  Background
+  backgroundSettings
+  FallbackValue=Loading}" FontSize="{StaticResource Font.Size.Loadscreen}" Foreground="White"/>
+  id.ColumnSpan="2" Background="{DynamicResource Brush.Window.Background}">
+  LoadScreenView
+  Text="{Binding LoadingTip}"
+  Visibility="{Binding HasLoadingTip, Converter={StaticResource CollapsedConverter}}">
+
+== sharedassets1.assets  (3 MB)  225 name(s)
+  " Command="{Binding RemoveBackgroundAirportCommand}" CommandParameter="{Binding ElementName=List
+  " Command="{Binding RemoveBackgroundCityCommand}" CommandParameter="{Binding ElementName=ListBox
+  " Command="{Binding RemoveBackgroundInstallationCommand}" CommandParameter="{Binding ElementName
+  " Command="{Binding RemoveBackgroundPortCommand}" CommandParameter="{Binding ElementName=ListBox
+  " Command="{Binding RemoveBackgroundSceneryCommand}" CommandParameter="{Binding ElementName=List
+  "{DynamicResource Brush.Border.Normal}" BorderThickness="1" Background="{DynamicResource Brush.Item.Normal}">
+  "6,0,0,0" Width="14" Height="13" VerticalAlignment="Center" Background="Transparent"
+  .FlightDeckTasks}" Background="{StaticResource Brush.Window.BackgroundDark}">
+  </Border.Background>
+  </local:MenuPage.BackgroundPane>
+  <Binding ElementName="MainMenuBackgroundVideo_MediaElement" Path="ActualHeight" FallbackVa
+  <Binding ElementName="MainMenuBackgroundVideo_MediaElement" Path="ActualHeight" FallbackValue="0"/>
+  <Binding ElementName="MainMenuBackgroundVideo_MediaElement" Path="ActualWidth" FallbackVal
+  <Binding ElementName="MainMenuBackgroundVideo_MediaElement" Path="ActualWidth" FallbackValue="0"/>
+  <Border Background="#30363A">
+  <Border Background="#33cccccc"/>
+  <Border Background="{Binding RelativeSource={RelativeSource AncestorType={x:Ty
+  <Border Background="{StaticResource Brush.TextBox.Background}">
+  <Border Background="{StaticResource Brush.Window.Background}" Padding="5">
+  <Border Background="{StaticResource Brush.Window.Background}" VerticalAlignmen
+  <Border Background="{StaticResource Brush.Window.Background}" VerticalAlignment="Stretch">
+  <Border Background="{StaticResource Brush.Window.Background}" VerticalAlignment="Top">
+  <Border Background="{StaticResource Brush.Window.Background}">
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}"
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}" HorizontalAl
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}" HorizontalAlignment="Left" VerticalAlignment="Top" Ma
+  <Border Background="{TemplateBinding Background}">
+  <Border Background="Black" Opacity="0.75"/>
+  <Border Background="Transparent" BorderBrush="#1A1A1A" BorderThickness="1">
+  <Border Background="Transparent" BorderBrush="{StaticResource Brush.Glyph.SeaP
+  <Border Background="Transparent" BorderThickness="0" Padding="0,2,16,2">
+  <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignmen
+  <Border Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignme
+  <Border Background="Transparent" mapControl:MapPanel.Position="{Binding Locati
+  <Border Background="Transparent" mapControl:MapPanel.Position="{Binding MouseP
+  <Border Background="Transparent" Margin="0,0,0,4">
+  <Border Background="Transparent" Width="16" Height="16"
+  <Border Background="Transparent" Width="18" Height="18"
+  <Border BorderThickness="1" Grid.Column="2" Width="35" Background="{StaticResource Brush.Background.Normal}">
+  <Border Grid.Column="0" Background="{StaticResource Brush.Button.Background}" BorderBrush="{St
+  <Border Grid.Column="0" Background="Transparent" Cursor="SizeAll" local:ModListReorderBehavior
+  <Border Grid.Column="1" Height="30" BorderThickness="1" Background="{StaticResource Brush.Background.Normal}">
+  <Border Grid.Column="2" BorderThickness="1" Width="35" Background="{StaticResource Brush.Background.Normal}">
+  <Border Grid.Column="2" Padding="10" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Nor
+  <Border Grid.Column="4" Padding="10" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Nor
+  <Border Grid.Column="6" Padding="10" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Nor
+  <Border Grid.Row="0" Background="#343B40" Padding="10,6">
+  <Border Grid.Row="0" Background="{StaticResource Brush.Window.Background}"/>
+  <Border Grid.Row="1" Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" B
+  <Border Padding="10" Background="Transparent" BorderBrush="{StaticResource Brush.Border.Nor
+  <Border Width="{Binding BarTotalWidth}" Height="16" Background="#22FFFFFF">
+  <Border Width="1920" Height="1080" Background="Black">
+  <Border x:Name="Border" Background="Green">
+  <Border x:Name="WaypointHandle" Width="15" Height="15" Background="BlueViolet" HorizontalAlignment="Left">
+  <Border.Background>
+  <Button Grid.Column="1" Content="+" Command="{Binding AddBackgroundAirportCommand}">
+  <Button Grid.Column="1" Content="+" Command="{Binding AddBackgroundCityCommand}">
+  <Button Grid.Column="1" Content="+" Command="{Binding AddBackgroundInstallationCommand}">
+  <Button Grid.Column="1" Content="+" Command="{Binding AddBackgroundPortCommand}">
+  <Button Grid.Column="1" Content="+" Command="{Binding AddBackgroundSceneryCommand}">
+  <Button Style="{StaticResource MenuButton}" Click="ButtonModManager_Click"
+  <Button Width="125" Command="{Binding SelectCommand}" Background="Transparent" BorderThickness="0"
+  <Button Width="250" Command="{Binding SelectCommand}" Background="Transparent" BorderThickness="0"
+  <CheckBox IsChecked="{Binding UseBackgroundData}" Content="{Binding Source={StaticResource LanguageReso
+  <DataTemplate DataType="{x:Type viewModels:BackgroundDataItem}">
+  <Grid Background="{StaticResource Brush.Window.BackgroundDark}" Grid.Column=
+  <Grid Background="{StaticResource Brush.Window.BackgroundDark}" Grid.Column="0">
+  <Grid Background="{StaticResource Brush.Window.BackgroundDark}" Margin="0,20
+  <Grid Background="{StaticResource Brush.Window.BackgroundDark}" Margin="0,20">
+  <Grid Background="{StaticResource Brush.Window.BackgroundDark}">
+  <Grid Background="Transparent" Margin="0,0,0,3">
+  <Grid Grid.Column="0" Background="{StaticResource Brush.Window.BackgroundDark}">
+  <Grid Grid.Column="1" Background="{StaticResource Brush.Window.BackgroundDark}"
+  <Grid Grid.Column="1" Background="{StaticResource Brush.Window.BackgroundDark}">
+  <Grid Margin="0,1,0,1" Background="Transparent" ToolTip="{Binding CarriersTooltip}">
+  <Image Source="{Binding BackgroundImage}" Stretch="UniformToFill" Visibility="{Binding Backgro
+  <ItemsControl ItemsSource="{Binding BackgroundElements}">
+  <ItemsControl ItemsSource="{Binding CustomVehiclesOnBoard}" Background="Transparent">
+  <local:MenuPage Background="Transparent">
+  <local:MenuPage.BackgroundPane>
+  <noesis:Dependency Source="MainMenuView.xaml"/>
+  <Path Fill="{StaticResource Brush.Button.BackgroundOver}" Canvas.Left="0" Canvas.Top="0">
+  <Rectangle Fill="{StaticResource Brush.Window.BackgroundDark}" Opacity="0.1"/>
+  <Rectangle Fill="{StaticResource Brush.Window.BackgroundDark}"/>
+  <ScrollViewer Background="Transparent" VerticalScrollBarVisibility="Visible" Padding
+  <ScrollViewer Background="Transparent" VerticalScrollBarVisibility="Visible">
+  <ScrollViewer Background="Transparent" x:Name="scrollViewerGroups" VerticalScrollBar
+  <ScrollViewer Background="Transparent" x:Name="scrollViewerScenario" VerticalScrollB
+  <ScrollViewer Grid.Row="0" Background="Transparent" VerticalScrollBarVisibility="Visible" Padding
+  <ScrollViewer Grid.Row="0" Background="Transparent" x:Name="scrollViewerTriggers" VerticalScrollB
+  <ScrollViewer Grid.Row="2" Background="Transparent" x:Name="scrollViewerDescription">
+  <ScrollViewer Grid.Row="4" Background="Transparent" >
+  <ScrollViewer Grid.Row="4" MaxHeight="720" Background="Transparent">
+  <ScrollViewer Margin="30,0,0,0" Background="Transparent" >
+  <ScrollViewer x:Name="scrollViewer" Background="Transparent" VerticalScrollBarVisibility="Visible">
+  <Setter Property="Background" Value="{Binding UnitColorBrush}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.Background.Normal}" />
+  <Setter Property="Background" Value="{DynamicResource Brush.Button.Background}"/>
+  <Setter Property="Background" Value="{DynamicResource Brush.TextBox.BackgroundSelected}"
+  <Setter Property="Background" Value="{DynamicResource Map_HandleSelected}" TargetName="B
+  <Setter Property="Background" Value="{DynamicResource Map_HandleUnselected}" TargetName=
+  <Setter Property="Background" Value="{StaticResource Brush.Background.Checked}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Foreground.Highlight}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Window.Background}" />
+  <Setter Property="Background" Value="{StaticResource Brush.Window.Background}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Window.BackgroundDark}" />
+  <Setter Property="Background" Value="{StaticResource CurrentWaypointLineColor}" TargetNa
+  <Setter Property="Background" Value="{StaticResource SetWaypointsLineColor}" TargetName=
+  <Setter Property="Background" Value="Blue" TargetName="Border"/>
+  <Setter Property="Background" Value="Blue" TargetName="WaypointHandle"/>
+  <Setter Property="Background" Value="Pink" TargetName="WaypointHandle"/>
+  <Setter Property="Background" Value="Red" TargetName="Border"/>
+  <Setter Property="Background" Value="Transparent" />
+  <Setter Property="Background" Value="Transparent"/>
+  <Setter Property="Fill" Value="{StaticResource Brush.Background.Checked}"/>
+  <SolidColorBrush x:Key="Map_DrawingTextEditBackground" Color="#18000000"/>
+  <SolidColorBrush x:Key="Map_DrawingTextEditBackground" Color="#18FFFFFF"/>
+  <StackPanel Background="Transparent" PreviewMouseWheel="ListBox_PreviewMouseWheel"
+  <StackPanel Orientation="Horizontal" Background="Transparent" Margin="0,0,5,0">
+  <TabItem x:Name="backgroundDataTab"
+  <TextBox Background="{StaticResource Brush.Button.Background}" Padding="4,3" Te
+  <TextBox Background="{StaticResource Brush.Button.Background}" Padding="4,3" Text="{Binding ProfileName, Mode=TwoWay, Up
+  <Thumb Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignme
+  <TreeView Grid.Row="0" Margin="30,0,30,0" Background="Transparent"
+  <TreeView Grid.Row="0" Margin="30,0,30,0" Background="Transparent" ItemsSource="{Binding Missions}" BorderThickn
+  <UserControl x:Class="SeapowerUI.MainMenuView"
+  <viewModels:MainMenuViewModel/>
+  ="2" Grid.ColumnSpan="7" Fill="{StaticResource Brush.Window.BackgroundDark}"/>
+  ="30" BorderThickness="1" Background="{StaticResource Brush.Background.Normal}">
+  aderPanel" Grid.Row="0" IsItemsHost="True" Panel.ZIndex="1" Background="Transparent"/>
+  ageResourceInterface}, Path=LanguageDictionary[missioneditorbackgrounddatafilepath], FallbackValue='File Path:'} "/>
+  ageResourceInterface}, Path=LanguageDictionary[missioneditorbackgrounddatapresstoset], FallbackValue='Press to Set'}"/>
+  ageResourceInterface}, Path=LanguageDictionary[missioneditorbackgrounddatatab], FallbackValue='Background Data'}"
+  ageResourceInterface}, Path=LanguageDictionary[missioneditorbackgrounddatatab]}">
+  apsedConverter}}" Background="{StaticResource Brush.ListBox.Background}">
+  Assets/Scripts/UI/Main Menu/Images/main_menu.mp4
+  Assets/Scripts/UI/Main Menu/Views/MainMenuView.xaml
+  Background="#66000000" Padding="4,2" CornerRadius="2" IsHitTestVisible
+  Background="#AA262A2D"
+  Background="#CC101820" BorderBrush="#60FFFFFF" BorderThickness="1" Pad
+  Background="#D8D0BE"
+  Background="#F5121A24" BorderBrush="#70FFFFFF" BorderThickness="1" Min
+  Background="#FF0B1016">
+  Background="{DynamicResource Brush.Background.Normal}"
+  Background="{DynamicResource Brush.Button.Background}"
+  Background="{DynamicResource Brush.Window.Background}" Opacity="0.9" P
+  Background="{DynamicResource Brush.Window.Background}" Opacity="0.9" Padding="3,2"
+  Background="{DynamicResource Map_DrawingTextEditBackground}">
+  Background="{StaticResource Brush.Border.Normal}"
+  Background="{StaticResource Brush.Button.Background}">
+  Background="{StaticResource Brush.Foreground.Highlight}"
+  Background="{StaticResource Brush.Window.Background}"
+  Background="{StaticResource Brush.Window.Background}" x:Name="scrollVi
+  Background="{StaticResource Brush.Window.Background}" x:Name="scrollViewer" VerticalScrollBarVisibility="Visibl
+  Background="{StaticResource Brush.Window.BackgroundDark}"
+  Background="{StaticResource Brush.Window.BackgroundDark}">
+  Background="{StaticResource Brush.Window.Header}"
+  Background="Transparent"
+  Background="Transparent" BorderThickness="0" MinWidth="40"
+  Background="Transparent" BorderThickness="0"/>
+  Background="Transparent" BorderThickness="1" CornerRadius="9" Visibili
+  Background="Transparent" HorizontalAlignment="Center" VerticalAlignmen
+  Background="Transparent">
+  BorderBrush="{StaticResource Brush.Window.BackgroundDark}"
+  Canvas.Top="-10" Canvas.Right="3" IsHitTestVisible="False" Background="#33000000" Padding="4,2" CornerRadius="2">
+  Command="{Binding NextLoadingTipCommand}">
+  Command="{Binding PreviousLoadingTipCommand}">
+  Content="{Binding LanguageDictionary[mainmenuinstantaction], Source={StaticResource LanguageResourceInter
+  Content="{Binding LanguageDictionary[mainmenuscenarios], Source={StaticResource LanguageResourceInterface
+  d}" Text="{Binding CapacityMax, Mode=TwoWay}" MinWidth="50" Background="{StaticResource Brush.TextBox.Background}"/>
+  eDictionary[missioneditorbackgrounddatatab], FallbackValue='Background Data'}"
+  ement" Volume="0" Stretch="UniformToFill" Source="..\Images\main_menu.mp4" LoadedBehavior="Manual">
+  FallbackValue='Restore Default'}" Command="{Binding RestoreBackgroundCommand}"/>
+  Foreground="{StaticResource Brush.Window.BackgroundDark}" FontSize="7" FontWeight="Bold"/>
+  gin="20,20,45,95" BorderBrush="#4B555C" BorderThickness="1" Background="#252B30">
+  h="{TemplateBinding Thumb.BorderBrush}" BorderThickness="1" Background="{TemplateBinding Thumb.Background}"/>
+  icResource CollapsedConverter}}" Command="{Binding OverwriteBackgroundCommand}"/>
+  id Grid.Column="0" Background="{StaticResource Brush.Window.BackgroundDark}">
+  id Grid.Column="1" Background="{StaticResource Brush.Window.BackgroundDark}"
+  id Grid.Column="1" Background="{StaticResource Brush.Window.BackgroundDark}">
+  iewer" Grid.Column="0" MaxHeight="430" Margin="34,34,34,34" Background="Transparent">
+  IsEnabled="{Binding ElementName=backgroundDataTab, Path=IsEnabled}"
+  IsEnabled="{Binding UseBackgroundData}" Header="{Binding Source={StaticResource LanguageResou
+  ItemsSource="{Binding SelectedLanguage.IntelligenceItems}" Background="{StaticResource Brush.Window.BackgroundDark}">
+  L 32 3 M 36 0 L 36 6" Stroke="{StaticResource Brush.Window.Background}" StrokeThickness="1.2"/>
+  layed, Converter={StaticResource InverseBooleanConverter}}" Background="{StaticResource Brush.Window.Background}">
+  le="{StaticResource SeaPowerListBox}" ItemsSource="{Binding BackgroundAirportItems}">
+  le="{StaticResource SeaPowerListBox}" ItemsSource="{Binding BackgroundCityItems}"/>
+  le="{StaticResource SeaPowerListBox}" ItemsSource="{Binding BackgroundInstallationItems}">
+  le="{StaticResource SeaPowerListBox}" ItemsSource="{Binding BackgroundPortItems}">
+  le="{StaticResource SeaPowerListBox}" ItemsSource="{Binding BackgroundSceneryItems}"/>
+  main_menu
+  MainMenuView3
+  n="0,33,0,33" Height="1" Fill="{StaticResource Brush.Button.BackgroundOver}"/>
+  nobuoyDrop, Converter={StaticResource CollapsedConverter}}" Background="Transparent">
+  ntelligenceItems}" Background="{StaticResource Brush.Window.BackgroundDark}">
+  nverter={StaticResource UppercaseConverter}, FallbackValue='MOD MANAGER'}" FontSize="25"/>
+  omAirGroup, Converter={StaticResource CollapsedConverter}}" Background="{StaticResource Brush.ListBox.Background}">
+  ooleanConverter}}" Background="{StaticResource Brush.Window.Background}">
+  order Grid.Row="0" Background="{StaticResource Brush.Window.Background}"/>
+  pan="3" Grid.RowSpan="2" Fill="{StaticResource Brush.Window.BackgroundDark}" /-->
+  pan="4" Grid.RowSpan="3" Fill="{StaticResource Brush.Window.BackgroundDark}"/>
+  Property="Background" Value="{DynamicResource Brush.Button.Background}"/>
+  Property="Background" Value="{DynamicResource Brush.TextBox.BackgroundSelected}"/>
+  r Property="Background" Value="{StaticResource Brush.Window.Background}" />
+  r Property="Background" Value="{StaticResource Brush.Window.Background}"/>
+  r Property="Background" Value="{StaticResource Brush.Window.BackgroundDark}" />
+  ResourceInterface}, Path=LanguageDictionary[missioneditorusebackgrounddatatooltip]}"/>
+  rid.Column="2" Width="35" Background="{StaticResource Brush.Background.Normal}">
+  rollViewer Grid.Row="2" MaxHeight="280" Margin="12,10,12,0" Background="Transparent">
+  rollViewer Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Background="Transparent" >
+  Row="0" Grid.RowSpan="2" Fill="{StaticResource Brush.Window.BackgroundDark}" Opacity="0.75"/>
+  Row="3" Grid.RowSpan="3" Fill="{StaticResource Brush.Window.Background}"/>
+  rThickness="1" Width="35" Background="{StaticResource Brush.Background.Normal}">
+  sh}" BorderThickness="1" Background="{TemplateBinding Thumb.Background}"/>
+  Span="5" ItemsSource="{Binding FlightDeck.FlightDeckTasks}" Background="{StaticResource Brush.Window.BackgroundDark}">
+  t="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenuchangelog], FallbackValue='Change Log'}"/>
+  t="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenumoddescription], FallbackValue='Mod Description'}"/>
+  t="{Binding Path=LanguageResourceHandler.LanguageDictionary[mainmenumodname], FallbackValue='Mod Name'}"/>
+  Text="{Binding CapacityCurrent, Mode=TwoWay}" MinWidth="50" Background="{StaticResource Brush.TextBox.Background}"/>
+  Text="{Binding LoadingTipText}"
+  umn="0" Grid.ColumnSpan="3" Margin="33,0,33,0" Grid.Row="2" Background="Transparent">
+  Visibility="{Binding HasLoadingTips, Converter={StaticResource CollapsedConverter}}">
+  Width="500" Height="200" Background="{DynamicResource Brush.Background.Normal}" Opacity="0.9" >
+  y}" MinWidth="50" Background="{StaticResource Brush.TextBox.Background}"/>
+
+== sharedassets2.assets  (1 MB)  89 name(s)
+  " Canvas.Right="0" Background="{StaticResource Brush.Window.Background}" Opacity="0.95">
+  <!--  The Background Rectangle that spans the bottom bar  -->
+  <!--local:ZoomBorder x:Name="border" ClipToBounds="True" Background="Gray">
+  <Border Background="{Binding RelativeSource={RelativeSource AncestorType={x:Ty
+  <Border Background="{StaticResource Brush.Foreground.DisabledPlaceholder}" Hei
+  <Border Background="{StaticResource Brush.Window.Background}" Margin="0,0,3,0"
+  <Border Background="{StaticResource Brush.Window.Background}" Margin="0,0,3,0">
+  <Border Background="{StaticResource Brush.Window.Background}" Padding="4">
+  <Border Background="{StaticResource Brush.Window.Background}" Padding="4,0,4,0
+  <Border Background="{StaticResource Brush.Window.Background}" Padding="4,0,4,0">
+  <Border Background="{StaticResource Brush.Window.Background}" Visibility="{Bin
+  <Border Background="{StaticResource Brush.Window.Background}" Visibility="{Binding CeaseFireItems.Count, Converter={Sta
+  <Border Background="{StaticResource Brush.Window.Background}" Visibility="{Binding Items.Count, FallbackValue=Collapsed
+  <Border Background="{StaticResource Brush.Window.Background}">
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}" Margin="0,0,
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}" Margin="0,0,0,3">
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}" Padding="5">
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}" Padding="5,0
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}" Padding="5,0">
+  <Border Background="Transparent" BorderThickness="0" Padding="12,10">
+  <Border Background="Transparent">
+  <Border Grid.Column="0" Width="20" Height="20" Background="#33AA3333" BorderBrush="#33AA3333" BorderThickness="1" Too
+  <Border Grid.Column="0" Width="20" Height="20" Background="{StaticResource Brush.Button.BackgroundOver}" BorderBrush=
+  <Border Grid.Column="2" Background="{StaticResource Brush.Window.BackgroundDark}" BorderBrush=
+  <Border Grid.Row="2" Margin="0,0,0,6" Background="{StaticResource Brush.TextBox.Background}" BorderBrush="{S
+  <Border Grid.Row="3" Padding="6,4" Background="{StaticResource Brush.TextBox.Background}" BorderBrush="{S
+  <Border x:Name="Header" Background="{TemplateBinding Background}" BorderBrush="{TemplateBindin
+  <Grid Background="{DynamicResource Brush.Background.Normal}" Visibility="{Bi
+  <Grid Background="{DynamicResource Brush.Background.Normal}" Visibility="{Binding ShowSecondMonitorMap, Convert
+  <Grid Background="Transparent" Height="22" Width="22">
+  <Grid Background="Transparent">
+  <Grid Canvas.Top="0" Canvas.Right="0" Background="{StaticResource Brush.Window.Background}" Opacity="0.95">
+  <ItemsControl ItemsSource="{Binding BackgroundElements}">
+  <Menu Width="20" Padding="0" Margin="0" Background="{DynamicResource Brush.Button.Background}"
+  <ScrollViewer Grid.Row="1" Background="Transparent" x:Name="scrollViewerDescription">
+  <Setter Property="Background" TargetName="TabBorder" Value="{StaticResource Brush.Window
+  <Setter Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}" />
+  <Setter Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}" Target
+  <Setter Property="Background" Value="{DynamicResource Brush.Window.Background}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Background.Checked}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Foreground.DisabledPlaceholde
+  <Setter Property="Background" Value="{StaticResource Brush.Foreground.Emphasis}" />
+  <Setter Property="Background" Value="{StaticResource Brush.Glyph.SeaPowerBlue}" />
+  <Setter Property="Background" Value="{StaticResource Brush.Glyph.SeaPowerRed}" />
+  <Setter Property="Background" Value="{StaticResource Brush.TextBox.Background}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Window.Background}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Window.Header}"/>
+  <Setter Property="Background" Value="Transparent" />
+  <Setter Property="Background" Value="Transparent"/>
+  <Setter Property="Fill" Value="{StaticResource Brush.Background.Checked}"/>
+  <SolidColorBrush x:Key="Brush.Item.BackgroundOver" Color="{StaticResource Color.SeaPowerRed}" />
+  <StackPanel Orientation="Horizontal" Background="{StaticResource Brush.Window.Background}">
+  <Thumb Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignme
+  Alignment="Center" VerticalAlignment="Center" Padding="2.5" Background="{StaticResource Brush.TextBox.Background}">
+  ation="Horizontal" Background="{StaticResource Brush.Window.Background}">
+  Background
+  Background="#33383B3F"
+  Background="#50000000"
+  Background="#66000000"
+  Background="#CC101820" BorderBrush="#60FFFFFF" BorderThickness="1" Pad
+  Background="{StaticResource Brush.Foreground.DisabledPlaceholder}"
+  Background="{StaticResource Brush.Foreground.Emphasis}"
+  Background="{StaticResource Brush.Foreground.Normal}"
+  Background="{StaticResource Brush.TextBox.Background}"
+  Background="{StaticResource Brush.Window.Background}"
+  Background="{StaticResource Brush.Window.BackgroundDark}"
+  Background="{StaticResource Brush.Window.Header}"
+  Background="Transparent"
+  ding ToggleTime}" Background="{StaticResource Brush.TextBox.Background}"/-->
+  ding ToggleTime}" Background="{StaticResource Brush.TextBox.Background}">
+  er Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}" />
+  er Property="Background" Value="{DynamicResource Brush.Item.BackgroundOver}" TargetName="Header"/>
+  er" Padding="2.5" Background="{StaticResource Brush.TextBox.Background}">
+  Fill="{DynamicResource Brush.Window.Background}"
+  h="{TemplateBinding Thumb.BorderBrush}" BorderThickness="1" Background="{TemplateBinding Thumb.Background}"/>
+  hickness="1,1,0,1" Background="{StaticResource Brush.Window.Background}">
+  IsEnabled="False" Background="{StaticResource Brush.TextBox.Background}" Padding="5,0">
+  L 32 3 M 36 0 L 36 6" Stroke="{StaticResource Brush.Window.Background}" StrokeThickness="1.2"/>
+  nding DetectedBy}" Background="{StaticResource Brush.Window.BackgroundDark}" Padding="5">
+  ng="0" Margin="0" Background="{DynamicResource Brush.Button.Background}"
+  nment="Center" Padding="2.5" Command="{Binding ToggleTime}" Background="{StaticResource Brush.TextBox.Background}">
+  onmentInstance.DisplayTime}" Command="{Binding ToggleTime}" Background="{StaticResource Brush.TextBox.Background}"/-->
+  Property="Background" Value="{DynamicResource Brush.Window.Background}"/>
+  Property="Background" Value="{StaticResource Brush.TextBox.Background}"/>
+  r Property="Background" Value="{StaticResource Brush.Window.Background}"/>
+  sh}" BorderThickness="1" Background="{TemplateBinding Thumb.Background}"/>
+  TargetName="TabBorder" Value="{StaticResource Brush.Window.Background}" />
+  tyle="{StaticResource RowBorder}" BorderThickness="1,1,0,1" Background="{StaticResource Brush.Window.Background}">
+  x:Name="BackgroundRectangle" />
+
+== sharedassets4.assets  (0 MB)  1 name(s)
+  <Grid Background="DimGray">
+
+== sharedassets5.assets  (0 MB)  18 name(s)
+  " Grid.RowSpan="2" Background="{StaticResource Brush.Window.BackgroundDark}">
+  "1" Grid.ColumnSpan="2" Fill="{DynamicResource Brush.Window.Background}"/>
+  <!-- The Background Rectangle that spans the bottom bar -->
+  <Border Grid.Column="2" Grid.RowSpan="2" Background="{StaticResource Brush.Window.BackgroundDark}">
+  <Border x:Name="WaypointHandle" Width="2.5" Height="2.5" Background="Red" IsHitTestVisible="False"/>
+  <Grid Background="{StaticResource Brush.Window.BackgroundDark}">
+  <ListBox Grid.Row="0" Grid.ColumnSpan="4" Background="{StaticResource Brush.ListBox.Background}" ItemsSource="{B
+  <Rectangle Fill="{StaticResource Brush.Window.BackgroundDark}"/>
+  <Rectangle Grid.Row="6" Fill="{StaticResource Brush.Window.BackgroundDark}"/>
+  <Setter Property="Background" Value="#dee7f0"/>
+  <Setter Property="Background" Value="{Binding UnitColorBrush}"/>
+  <TreeView Background="{StaticResource Brush.ListBox.Background}">
+  ="6" Grid.ColumnSpan="3" Fill="{StaticResource Brush.Window.BackgroundDark}"/>
+  Grid.RowSpan="5" Background="{StaticResource Brush.ListBox.Background}">
+  id.ColumnSpan="4" Background="{StaticResource Brush.ListBox.Background}" ItemsSource="{Binding SpawnTemplates}">
+  ow="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="5" Background="{StaticResource Brush.ListBox.Background}">
+  tentScroll="True" Background="{StaticResource Brush.ListBox.Background}" ItemsSource="{Binding Aircraft}">
+  tentScroll="True" Background="{StaticResource Brush.ListBox.Background}" ItemsSource="{Binding LandUnits}">
+
+== sharedassets6.assets  (1 MB)  69 name(s)
+  <!-- F10-only authoring affordance for reloading edited FreeEvent XML without reopening the campaign. -->
+  </Border.Background>
+  <Border Background="#50000000"
+  <Border Background="#D9D9D9"
+  <Border Background="#FF1E1F22"/>
+  <Border Background="{Binding CrewSkill, Converter={StaticResource CrewSkillToB
+  <Border Background="{Binding RelativeSource={RelativeSource AncestorType={x:Ty
+  <Border Background="{StaticResource Brush.Border.Normal}"
+  <Border Background="{StaticResource Brush.Button.Background}"
+  <Border Background="{StaticResource Brush.Button.Background}" BorderBrush="{St
+  <Border Background="{StaticResource Brush.Button.Background}" BorderBrush="{StaticResource Brush.Border.Normal}" Border
+  <Border Background="{StaticResource Brush.Damage.Undamaged}"
+  <Border Background="{StaticResource Brush.Window.Background}"
+  <Border Background="{StaticResource Brush.Window.BackgroundDark}"
+  <Border Background="{StaticResource Brush.Window.Header}"/>
+  <Border Background="{StaticResource LinearCampaign.Brush.HeaderOverlay}"/>
+  <Border Background="{StaticResource TaskForceStatus.Brush.LogisticsReady}"
+  <Border Background="{TemplateBinding Background}"
+  <Border Background="White"
+  <Border BorderBrush="Transparent" BorderThickness="0" Background="{TemplateBinding Background}">
+  <Border Grid.Column="1" Background="{StaticResource Brush.Border.Normal}" Opacity="0.8"/>
+  <Border.Background>
+  <Grid Grid.Row="0" Background="{StaticResource Brush.Window.BackgroundDark}">
+  <ImageBrush ImageSource="{Binding PaperBackgroundImage}"
+  <Path Fill="{StaticResource Brush.Button.BackgroundOver}" Canvas.Left="0" Canvas.Top="0">
+  <Rectangle Grid.Row="3" Fill="{StaticResource Brush.Window.BackgroundDark}"/>
+  <Setter Property="Background" Value="#01000000"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Button.Background}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Button.BackgroundDisabled}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Button.BackgroundOver}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Damage.Heavy}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Damage.Light}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Damage.Lost}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Damage.Moderate}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Damage.Undamaged}"/>
+  <Setter Property="Background" Value="{StaticResource Brush.Window.BackgroundDark}"/>
+  <Setter Property="Background" Value="{StaticResource LinearCampaign.Brush.HeaderOverlayS
+  <Setter Property="Background" Value="Transparent" />
+  <Setter Property="Background" Value="Transparent"/>
+  <Setter TargetName="TimelineRowButton" Property="Background" Value="{StaticResource Brush.Item.BackgroundSelected}"/>
+  ansparent" BorderThickness="0" Background="{TemplateBinding Background}">
+  Background="#2C3133"
+  Background="#C81619"
+  Background="#C9C3B5"
+  Background="#D8D0BE"
+  Background="{Binding CrewSkill, Converter={StaticResource CrewSkillToB
+  Background="{Binding PreviewMissionNode.MissionSpecialNoteHighlightBru
+  Background="{DynamicResource Brush.Window.Background}"
+  Background="{DynamicResource Map_WaypointSelected}">
+  Background="{StaticResource Brush.Button.Background}"
+  Background="{StaticResource Brush.Button.Background}">
+  Background="{StaticResource Brush.Window.Background}"
+  Background="{StaticResource Brush.Window.Background}">
+  Background="{StaticResource Brush.Window.BackgroundDark}"
+  Background="{StaticResource Brush.Window.BackgroundDark}">
+  Background="{StaticResource LinearCampaign.Brush.HeaderOverlayStrong}"
+  Background="Transparent"
+  Background="Transparent"/>
+  Background="Transparent">
+  Fill="{StaticResource Brush.Background.Checked}"
+  Fill="{StaticResource Brush.Window.BackgroundDark}"/>
+  loading them back through the stores editor costs. Ships/subs with
+  on" Property="Background" Value="{StaticResource Brush.Item.BackgroundSelected}"/>
+  r Property="Background" Value="{StaticResource Brush.Button.Background}"/>
+  r Property="Background" Value="{StaticResource Brush.Button.BackgroundDisabled}"/>
+  r Property="Background" Value="{StaticResource Brush.Button.BackgroundOver}"/>
+  r Property="Background" Value="{StaticResource Brush.Window.BackgroundDark}"/>
+  reference action without inheriting Button hover/selection backgrounds. -->
+  Stroke="{StaticResource Brush.Window.Background}"
+
+== Managed\Assets.dll  (code)  12 name(s)
+  |CameraFilterPack_Retro_Loading
+  AddSplashOverlay
+  B\Assets\AssetStore\Ceto\Scripts\Ocean\Overlays\AddSplashOverlay.cs
+  Camera Filter Pack/Retro/Loading
+  CameraFilterPack/Retro_Loading
+  CameraFilterPack_Retro_Loading
+  Ceto/Overlays/AddSplashOverlay
+  Ceto|AddSplashOverlay
+  LightBackGround
+  set_backgroundColor
+  ssetStore\Camera Filter Pack\Scripts\CameraFilterPack_Retro_Loading.cs
+  UI/Soft Mask
+
+== Managed\AstarPathfindingProject.dll  (code)  6 name(s)
+  allowLoadingNodes
+  BackgroundTraversability
+  Caught exception when loading from zip
+  get_Loading
+  set_IsBackground
+  SetWalkableBackground
+
+== Managed\com.rlabrecque.steamworks.net.dll  (code)  10 name(s)
+  bBackgroundMode
+  k_ECommunityProfileItemType_MiniProfileBackground
+  k_ECommunityProfileItemType_ProfileBackground
+  k_EItemStateDownloading
+  k_EItemUpdateStatusUploadingContent
+  k_EItemUpdateStatusUploadingPreviewFile
+  k_ETimelineGameMode_LoadingScreen
+  m_bHasMiniProfileBackground
+  m_bHasProfileBackground
+  SteamAPI_ISteamHTMLSurface_SetBackgroundMode
+
+== Managed\GUPS.EasyPerformanceMonitor.dll  (code)  1 name(s)
+  get_Loading
+
+== Managed\Libraries.dll  (code)  4 name(s)
+  get_IsBackground
+  get_ThreadIsBackground
+  set_IsBackground
+  set_ThreadIsBackground
+
+== Managed\Noesis.NoesisGUI.dll  (code)  38 name(s)
+  ,NoesisGUIExtensions|BackgroundEffectBehavior
+  :NoesisGUIExtensions.BackgroundEffectBehavior|EffectAdorner
+  1Enables hot-reloading of XAMLs while in Play mode
+  background
+  BackgroundEffectBehavior
+  Border_Background_get
+  Border_Background_set
+  Border_BackgroundProperty_get
+  BulletDecorator_Background_get
+  BulletDecorator_Background_set
+  BulletDecorator_BackgroundProperty_get
+  Control_Background_get
+  Control_Background_set
+  Control_BackgroundProperty_get
+  get_Background
+  get_BackgroundProperty
+  get_IsMainMenu
+  get_IsMainMenuProperty
+  I\Packages\NoesisGUI\Runtime\API\Interactivity\BackgroundEffectBehavior.cs
+  Menu_IsMainMenu_get
+  Menu_IsMainMenu_set
+  Menu_IsMainMenuProperty_get
+  OnBeforeSplashScreen
+  Panel_Background_get
+  Panel_Background_set
+  Panel_BackgroundProperty_get
+  set_Background
+  set_IsMainMenu
+  TextBlock_Background_get
+  TextBlock_Background_set
+  TextBlock_BackgroundProperty_get
+  TextElement_Background_get
+  TextElement_Background_set
+  TextElement_BackgroundProperty_get
+  ToolBarTray_Background_get
+  ToolBarTray_Background_set
+  ToolBarTray_BackgroundProperty_get
+  UI/Default
+
+== Managed\ParadoxNotion.dll  (code)  4 name(s)
+  background
+  get_background
+  set_background
+  zed in Awake along with the root graph, but this may have a loading performance cost
+
+== Managed\Plugins.dll  (code)  12 name(s)
+  <LoadingContext>k__BackingField
+  4MoonSharp.Interpreter.Execution|ScriptLoadingContext
+  BackgroundOptimized
+  CreateLoadingContext
+  G\Assets\Plugins\MoonSharp\Interpreter\Execution\ScriptLoadingContext.cs
+  get_LoadingContext
+  Loading scripts from files is not automatically supported on {0}.
+  ScriptLoadingContext
+  set_IsBackground
+  set_LoadingContext
+  SpawnPool {0} ({1}): Preloading over-time is on but the frame duration is greater than the
+  SpawnPool {0}: Preloading {1} {2}
+
+== Managed\Seapower-Scripts.dll  (code)  796 name(s)
+  ---------- Loading
+  ' Loading default airwing and ammunition from unit file
+  ' Loading default airwing from vessel file
+  "SeaPower|BackgroundSceneController
+  #\Assets\Scripts\UI\Game\EventLog.cs
+  #\Assets\Scripts\UI\UI_Parameters.cs
+  #UI/Extensions/Primitives/UI Polygon
+  &\Assets\Scripts\UI\ConsoleView.xaml.cs
+  (\Assets\Scripts\UI\Loading\LoadScreen.cs
+  (SeapowerUI.ViewModels|BackgroundDataItem
+  )\Assets\Scripts\UI\AttachInputBindings.cs
+  )\Assets\Scripts\UI\Campaign\PatrolArea.cs
+  )\Assets\Scripts\UI\Museum\MuseumObject.cs
+  )SeapowerUI|BoolToBackgroundBrushConverter
+  *\Assets\Scripts\UI\Campaign\AutoResolve.cs
+  ,\Assets\Scripts\UI\ModListReorderBehavior.cs
+  ,\Assets\Scripts\UI\Museum\ClassesDropdown.cs
+  ,\Assets\Scripts\UI\Museum\NationsDropdown.cs
+  ,\Assets\Scripts\UI\Museum\ObjectsDropdown.cs
+  ,SeaPower.LoadScreen+<ExecuteLoadScreen>d__69
+  . Skipping unit loading.
+  . Skipping weapon loading.
+  .\Assets\Scripts\UI\Campaign\AStarPathfinder.cs
+  .\Assets\Scripts\UI\Campaign\CampaignMission.cs
+  .\Assets\Scripts\UI\Campaign\CampaignUpdater.cs
+  .\Assets\Scripts\UI\Converters\UnitConverter.cs
+  .\Assets\Scripts\UI\TreeViewDragDropBehavior.cs
+  /\Assets\Scripts\UI\Campaign\PathInterpolator.cs
+  /\Assets\Scripts\UI\Converters\AssetConverter.cs
+  /\Assets\Scripts\UI\Converters\YesNoConverter.cs
+  /\Assets\Scripts\UI\Game\Views\UnitStatusView.cs
+  /Assets/Resources/ui/fonts/#Noto Serif
+  /Assets/Resources/ui/fonts/#Permanent Marker
+  /Assets/Resources/ui/fonts/#Roboto
+  /Assets/Resources/ui/fonts/#Special Elite
+  /original/audio/music/original/0_mainmenu
+  /original/ui/backgrounds
+  /SeaPower.SceneCreator+<LoadBackgroundData>d__82
+  /SeaPower.SceneCreator+<WaitForLoadingDone>d__67
+  /ui/
+  :\Assets\Scripts\UI\Background\BackgroundSceneController.cs
+  :\Assets\Scripts\UI\Campaign\Views\CampaignCityView.xaml.cs
+  :\Assets\Scripts\UI\Campaign\Views\CampaignPoolView.xaml.cs
+  :\Assets\Scripts\UI\Game\ViewModels\ContactBaseViewModel.cs
+  :\Assets\Scripts\UI\Game\ViewModels\ISelectableViewModel.cs
+  :\Assets\Scripts\UI\Game\ViewModels\ObjectDepthViewModel.cs
+  :\Assets\Scripts\UI\Game\ViewModels\VehicleInfoViewModel.cs
+  :\Assets\Scripts\UI\Game\Views\FormationManagerView.xaml.cs
+  :\Assets\Scripts\UI\Main Menu\Views\CreditsMenuView.xaml.cs
+  :\Assets\Scripts\UI\Main Menu\Views\OptionsMenuView.xaml.cs
+  :E:\projects\seapower\Assets\Scripts\UI\ConsoleView.xaml.cs
+  ;\Assets\Scripts\UI\Campaign\ViewModels\CampaignViewModel.cs
+  ;\Assets\Scripts\UI\Campaign\Views\CampaignEventView.xaml.cs
+  ;\Assets\Scripts\UI\Converters\SelectedItemMatchConverter.cs
+  ;\Assets\Scripts\UI\Game\ViewModels\ObjectSensorViewModel.cs
+  ;\Assets\Scripts\UI\Game\ViewModels\SeekerStatusViewModel.cs
+  ;\Assets\Scripts\UI\Game\ViewModels\TimeOnTargetViewModel.cs
+  ;\Assets\Scripts\UI\Game\Views\FlightDeckContentView.xaml.cs
+  ;\Assets\Scripts\UI\Game\Views\SensorInfoContentView.xaml.cs
+  ;\Assets\Scripts\UI\Main Menu\ViewModels\ModMenuViewModel.cs
+  ;\Assets\Scripts\UI\Main Menu\Views\CampaignMenuView.xaml.cs
+  ;\Assets\Scripts\UI\Main Menu\Views\MissionBriefView.xaml.cs
+  ;\Assets\Scripts\UI\Main Menu\Views\ModdingToolsView.xaml.cs
+  ;\Assets\Scripts\UI\Main Menu\Views\ScenarioMenuView.xaml.cs
+  ;\Assets\Scripts\UI\Main Menu\Views\SecondScreenView.xaml.cs
+  ;\Assets\Scripts\UI\Main Menu\Views\TutorialMenuView.xaml.cs
+  ;SeaPower.SceneCreator+<ProcessLandUnitsFromBackground>d__85
+  ?\Assets\Scripts\UI\Campaign\ViewModels\CampaignCityViewModel.cs
+  ?\Assets\Scripts\UI\Campaign\ViewModels\CampaignPoolViewModel.cs
+  ?\Assets\Scripts\UI\Converters\ComboboxOptionTooltipConverter.cs
+  ?\Assets\Scripts\UI\Converters\GeoPositionToLocationConverter.cs
+  ?\Assets\Scripts\UI\FormationManagerWindowWheelScrollBehavior.cs
+  ?\Assets\Scripts\UI\Game\ViewModels\FormationManagerViewModel.cs
+  ?\Assets\Scripts\UI\Game\ViewModels\TacticalDoctrineViewModel.cs
+  ?\Assets\Scripts\UI\Main Menu\ViewModels\CreditsMenuViewModel.cs
+  ?\Assets\Scripts\UI\Main Menu\ViewModels\OptionsMenuViewModel.cs
+  ?\Assets\Scripts\UI\Main Menu\Views\InstantActionMapView.xaml.cs
+  ?\Assets\Scripts\UI\Main Menu\Views\MissionEditorMapView.xaml.cs
+  @\Assets\Scripts\UI\Game\ViewModels\FreeContentWindowViewModel.cs
+  @\Assets\Scripts\UI\Main Menu\ViewModels\CampaignMenuViewModel.cs
+  @\Assets\Scripts\UI\Main Menu\ViewModels\MissionBriefViewModel.cs
+  @\Assets\Scripts\UI\Main Menu\ViewModels\ModdingToolsViewModel.cs
+  @\Assets\Scripts\UI\Main Menu\ViewModels\ScenarioMenuViewModel.cs
+  @\Assets\Scripts\UI\Main Menu\ViewModels\TutorialMenuViewModel.cs
+  @\Assets\Scripts\UI\Main Menu\ViewModels\WeaponReportViewModel.cs
+  @\Assets\Scripts\UI\Main Menu\Views\MissileRangeChartView.xaml.cs
+  @\Assets\Scripts\UI\Main Menu\Views\ObjectInformationView.xaml.cs
+  \\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceAirbasePre
+  \\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceFleetStore
+  -\Assets\Scripts\UI\Museum\UnitTreeGrouping.cs
+  \Assets\Scripts\UI\UIPolygon.cs
+  \Assets\Scripts\UI\UIResource.cs
+  ]: failed to spawn debris splash effect
+  ]\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignEnemyTheaterSituati
+  ^\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceCampaignSe
+  ^\Assets\Scripts\UI\Linear Campaign\ViewModels\LinearCampaignTaskForceServiceRec
+  _\Assets\Scripts\UI\Main Menu\ViewModels\MissionEditorClasses\MissionEditorSyste
+  _backgroundImagePath
+  _createSplash
+  _debrisSplashEffect
+  _demStartLoadingTime
+  _gunSplashSpotMinLight
+  _hitWaterSplashEffect
+  _isLoadingAirTasking
+  _isLoadingFromIni
+  _isReloading
+  _loadingParams
+  _loadingStarted
+  _loadingState
+  _loadingStep
+  _loadingType
+  _maxParallelLoadingJobs
+  _nbBackgroundImmunity
+  _paperBackgroundImage
+  _pendingSplashes
+  _savingLoadingEnabled
+  _splashed
+  _torpedoSplashClass
+  _torpedoSurfaceSplashEffect
+  _useBackgroundData
+  _waterEntrySplashEffect
+  {0}: _createSplash = {1}
+  +\Assets\Scripts\UI\Campaign\CampaignCity.cs
+  +\Assets\Scripts\UI\Campaign\CampaignMain.cs
+  +\Assets\Scripts\UI\Campaign\CampaignUnit.cs
+  +\Assets\Scripts\UI\Game\VersionWatermark.cs
+  <\Assets\Scripts\UI\Game\ViewModels\DamageControlViewModel.cs
+  <\Assets\Scripts\UI\Game\ViewModels\InteractionStateBroker.cs
+  <\Assets\Scripts\UI\Game\ViewModels\ObjectHeadingViewModel.cs
+  <\Assets\Scripts\UI\Main Menu\ViewModels\DateTimeViewModel.cs
+  <\Assets\Scripts\UI\Main Menu\ViewModels\InputBoxViewModel.cs
+  <\Assets\Scripts\UI\Main Menu\ViewModels\MainMenuViewModel.cs
+  <\Assets\Scripts\UI\Main Menu\Views\CreateModMenuView.xaml.cs
+  <\Assets\Scripts\UI\Main Menu\Views\InstantActionView.xaml.cs
+  <\Assets\Scripts\UI\Main Menu\Views\MissionEditorView.xaml.cs
+  <AddBackgroundAirportCommand>k__BackingField
+  <AddBackgroundCityCommand>k__BackingField
+  <AddBackgroundInstallationCommand>k__BackingField
+  <AddBackgroundPortCommand>k__BackingField
+  <AddBackgroundSceneryCommand>k__BackingField
+  <BackgroundCityItems_CollectionChanged>b__720_0
+  <BackgroundElements>k__BackingField
+  <ChangeBackground>b__0
+  <color=red>Voiceover loading...</color>
+  <DefaultPropertiesCollection LoadingOrder="0.5">
+  <ExecuteLoadScreen>b__2
+  <ExecuteLoadScreen>b__69_0
+  <ExecuteLoadScreen>b__69_1
+  <ExecuteLoadScreen>d__69
+  <InitialiseBackgroundTraffic>b__116_0
+  <InitialiseBackgroundTraffic>b__116_1
+  <IsBackgroundTrafficGroup>k__BackingField
+  <IsDEMLoadingDone>k__BackingField
+  <IsInitialLoadingDone>k__BackingField
+  <IsLoading>k__BackingField
+  <IsLoadingDone>k__BackingField
+  <IsPoolLoading>k__BackingField
+  <LoadBackgroundData>d__82
+  <LoadBackgroundDataPart>d__83
+  <LoadBackgroundLandUnit>d__86
+  <NextLoadingTipCommand>k__BackingField
+  <OverwriteBackgroundCommand>k__BackingField
+  <PreviousLoadingTipCommand>k__BackingField
+  <ProcessCityMarkersFromBackground>d__84
+  <ProcessLandUnitsFromBackground>d__85
+  <ProcessSceneryItemsFromBackground>d__87
+  <PurgeLoadingBackgroundCaches>b__76_0
+  <RemoveBackgroundAirportCommand>k__BackingField
+  <RemoveBackgroundCityCommand>k__BackingField
+  <RemoveBackgroundInstallationCommand>k__BackingField
+  <RemoveBackgroundPortCommand>k__BackingField
+  <RemoveBackgroundSceneryCommand>k__BackingField
+  <RestoreBackgroundCommand>k__BackingField
+  <WaitForLoadingDone>d__67
+  =\Assets\Scripts\UI\Campaign\ViewModels\PatrolAreaViewModel.cs
+  =\Assets\Scripts\UI\Game\ViewModels\CameraControlsViewModel.cs
+  =\Assets\Scripts\UI\Game\ViewModels\DefaultInteractionState.cs
+  =\Assets\Scripts\UI\Game\ViewModels\IWeaponControlViewModel.cs
+  =\Assets\Scripts\UI\Game\ViewModels\ObjectAltitudeViewModel.cs
+  =\Assets\Scripts\UI\Game\ViewModels\ObjectVelocityViewModel.cs
+  =\Assets\Scripts\UI\Main Menu\Utilities\ScalableUserControl.cs
+  =\Assets\Scripts\UI\Main Menu\ViewModels\BlankMenuViewModel.cs
+  =\Assets\Scripts\UI\Main Menu\ViewModels\PauseMenuViewModel.cs
+  =\Assets\Scripts\UI\Main Menu\ViewModels\SonarTestViewModel.cs
+  =\Assets\Scripts\UI\Main Menu\Views\MissionDebriefView.xaml.cs
+  =\Assets\Scripts\UI\Main Menu\Views\PrivacyMessageView.xaml.cs
+  =SeaPower.SceneCreator+<ProcessCityMarkersFromBackground>d__84
+  >\Assets\Scripts\UI\Campaign\ViewModels\CampaignMapViewModel.cs
+  >\Assets\Scripts\UI\Converters\AmmoStoresPerLoadoutConverter.cs
+  >\Assets\Scripts\UI\Game\ViewModels\EngagementBoardViewModel.cs
+  >\Assets\Scripts\UI\Game\ViewModels\ObjectAirVehicleVelocity.cs
+  >\Assets\Scripts\UI\Game\ViewModels\ObjectEffectorsViewModel.cs
+  >\Assets\Scripts\UI\Game\ViewModels\PreciseWaypointViewModel.cs
+  >\Assets\Scripts\UI\Game\ViewModels\TimeCompressionViewModel.cs
+  >\Assets\Scripts\UI\Game\ViewModels\WorldViewWindowViewModel.cs
+  >\Assets\Scripts\UI\Main Menu\ViewModels\FilePickerViewModel.cs
+  >\Assets\Scripts\UI\Main Menu\ViewModels\MenuSystemViewModel.cs
+  >\Assets\Scripts\UI\Main Menu\ViewModels\MessageBoxViewModel.cs
+  >\Assets\Scripts\UI\Main Menu\ViewModels\NewsWindowViewModel.cs
+  >\Assets\Scripts\UI\Main Menu\Views\UnitTreeBrowserView.xaml.cs
+  >SeaPower.SceneCreator+<ProcessSceneryItemsFromBackground>d__87
+  0\Assets\Scripts\UI\Converters\CenterConverter.cs
+  0\Assets\Scripts\UI\Game\SelectionGroupManager.cs
+  0_mainmenu
+  0Assets/Scripts/UI/Game/Views/UnitStatusView.xamlCE:\projects\seapower\Assets\S
+  1\Assets\Scripts\UI\FlightDeck\FlightDeckTestUI.cs
+  1\Assets\Scripts\UI\Game\ViewModels\MapDrawings.cs
+  1\Assets\Scripts\UI\Museum\EnvironmentsDropdown.cs
+  2\Assets\Scripts\UI\Campaign\CampaignLateUpdater.cs
+  2\Assets\Scripts\UI\Converters\AutoSaveConverter.cs
+  2\Assets\Scripts\UI\Converters\DataTypeConverter.cs
+  2\Assets\Scripts\UI\Converters\UnitInfoConverter.cs
+  2\Assets\Scripts\UI\Game\SecondDisplayMapHandler.cs
+  2\Assets\Scripts\UI\Game\Views\GlossaryView.xaml.cs
+  2\Assets\Scripts\UI\Game\Views\MainGameView.xaml.cs
+  2Assets/Scripts/UI/Game/Views/SeekerStatusView.xamlJE:\projects\seapower\Assets
+  3\Assets\Scripts\UI\Campaign\CampaignFixedUpdater.cs
+  3\Assets\Scripts\UI\Converters\TimespanConverters.cs
+  3\Assets\Scripts\UI\Game\Views\FormationView.xaml.cs
+  3\Assets\Scripts\UI\Game\Views\MapScreenView.xaml.cs
+  3SeaPower.SceneCreator+<LoadBackgroundDataPart>d__83
+  3SeaPower.SceneCreator+<LoadBackgroundLandUnit>d__86
+  4\Assets\Scripts\UI\Converters\CrewSkillConverters.cs
+  4\Assets\Scripts\UI\Converters\FormationConverters.cs
+  4\Assets\Scripts\UI\Converters\ResolutionConverter.cs
+  4\Assets\Scripts\UI\Converters\SensorInfoConverter.cs
+  4\Assets\Scripts\UI\Converters\SteamworksConverter.cs
+  4\Assets\Scripts\UI\Converters\WeaponInfoConverter.cs
+  4\Assets\Scripts\UI\FlightDeck\DamageControlTestUI.cs
+  4\Assets\Scripts\UI\Game\ViewModels\MapPatrolZones.cs
+  4\Assets\Scripts\UI\Game\ViewModels\OneWayCheckbox.cs
+  4\Assets\Scripts\UI\Linear Campaign\LinearCampaign.cs
+  4\Assets\Scripts\UI\Museum\EncyclopedicDataManager.cs
+  5\Assets\Scripts\UI\Converters\EnvironmentConverter.cs
+  5\Assets\Scripts\UI\Converters\GreaterThanConverter.cs
+  5\Assets\Scripts\UI\Converters\LoadoutInfoConverter.cs
+  5\Assets\Scripts\UI\Game\UniformGridWithOrientation.cs
+  5\Assets\Scripts\UI\Main Menu\Views\FilePicker.xaml.cs
+  5SeaPower.BackgroundSceneController+<WaitWarning>d__14
+  6\Assets\Scripts\UI\Campaign\Views\CampaignView.xaml.cs
+  6\Assets\Scripts\UI\Converters\CanvasCenterConverter.cs
+  6\Assets\Scripts\UI\Game\ViewModels\AIDebugViewModel.cs
+  6\Assets\Scripts\UI\Game\ViewModels\MapTextRendering.cs
+  6\Assets\Scripts\UI\Game\Views\SeekerStatusView.xaml.cs
+  6\Assets\Scripts\UI\Game\Views\TimeOnTargetView.xaml.cs
+  6\Assets\Scripts\UI\Main Menu\Views\ModMenuView.xaml.cs
+  6SeaPower.BackgroundSceneController+<CheckWarning>d__15
+  7\Assets\Scripts\UI\Converters\FormationInfoConverter.cs
+  7\Assets\Scripts\UI\Converters\MissionResultConverter.cs
+  7\Assets\Scripts\UI\Game\ViewModels\EventLogViewModel.cs
+  7\Assets\Scripts\UI\Game\ViewModels\GlossaryViewModel.cs
+  7\Assets\Scripts\UI\Game\ViewModels\IInteractionState.cs
+  7\Assets\Scripts\UI\Game\ViewModels\ISelectableObject.cs
+  7\Assets\Scripts\UI\Game\ViewModels\ISliderValueEntry.cs
+  7\Assets\Scripts\UI\Game\ViewModels\MainGameViewModel.cs
+  7\Assets\Scripts\UI\Game\ViewModels\SceneMapViewModel.cs
+  7\Assets\Scripts\UI\Game\Views\DamageControlView.xaml.cs
+  7\Assets\Scripts\UI\Loading\Views\LoadScreenView.xaml.cs
+  7\Assets\Scripts\UI\Main Menu\Views\InputBoxView.xaml.cs
+  7\Assets\Scripts\UI\Main Menu\Views\MainMenuView.xaml.cs
+  8\Assets\Scripts\UI\Campaign\Views\CampaignClimatology.cs
+  8\Assets\Scripts\UI\Campaign\Views\PatrolAreaView.xaml.cs
+  8\Assets\Scripts\UI\Converters\DamageControlConverters.cs
+  8\Assets\Scripts\UI\Converters\FullScreenModeConverter.cs
+  8\Assets\Scripts\UI\FormationManagerRowReorderBehavior.cs
+  8\Assets\Scripts\UI\Game\ViewModels\FormationViewModel.cs
+  8\Assets\Scripts\UI\Game\ViewModels\IContextMenuObject.cs
+  8\Assets\Scripts\UI\Game\Views\CameraControlsView.xaml.cs
+  8\Assets\Scripts\UI\Game\Views\MapDrawToolbarView.xaml.cs
+  8\Assets\Scripts\UI\Game\Views\OpticalOverlayView.xaml.cs
+  8\Assets\Scripts\UI\Main Menu\Views\BlankMenuView.xaml.cs
+  8\Assets\Scripts\UI\Main Menu\Views\PauseMenuView.xaml.cs
+  8SeaPower.BackgroundSceneController+<ShowPseWarning>d__13
+  9\Assets\Scripts\UI\Campaign\Views\CampaignMapView.xaml.cs
+  9\Assets\Scripts\UI\Game\ViewModels\FlightDeckViewModel.cs
+  9\Assets\Scripts\UI\Game\ViewModels\IYPositionViewModel.cs
+  9\Assets\Scripts\UI\Game\ViewModels\IYRotationViewModel.cs
+  9\Assets\Scripts\UI\Game\ViewModels\IZVelocityViewModel.cs
+  9\Assets\Scripts\UI\Game\ViewModels\ObjectBaseViewModel.cs
+  9\Assets\Scripts\UI\Game\ViewModels\SensorInfoViewModel.cs
+  9\Assets\Scripts\UI\Game\ViewModels\UnitStatusViewModel.cs
+  9\Assets\Scripts\UI\Game\ViewModels\WakebubbleViewModel.cs
+  9\Assets\Scripts\UI\Game\ViewModels\WeaponBaseViewModel.cs
+  9\Assets\Scripts\UI\Game\Views\EngagementBoardView.xaml.cs
+  9\Assets\Scripts\UI\Main Menu\Utilities\IMenuSystemPage.cs
+  9\Assets\Scripts\UI\Main Menu\Utilities\NoSizeDecorator.cs
+  9\Assets\Scripts\UI\Main Menu\Views\MenuSystemView.xaml.cs
+  9\Assets\Scripts\UI\Main Menu\Views\MessageBoxView.xaml.cs
+  A\Assets\Scripts\UI\Game\Views\TacticalDoctrineContentView.xaml.cs
+  A\Assets\Scripts\UI\Main Menu\Utilities\ColorPickerControl.xaml.cs
+  A\Assets\Scripts\UI\Main Menu\ViewModels\CreateModMenuViewModel.cs
+  A\Assets\Scripts\UI\Main Menu\ViewModels\FileConverterViewModel.cs
+  A\Assets\Scripts\UI\Main Menu\ViewModels\InstantActionViewModel.cs
+  A\Assets\Scripts\UI\Main Menu\ViewModels\MissileTuningViewModel.cs
+  A\Assets\Scripts\UI\Main Menu\ViewModels\MissionEditorViewModel.cs
+  AddSplashOverlay
+  aiting for the download of {0}; Steam will finish it in the background.
+  Are you sure you want to Overwrite Default Background Data?
+  Are you sure you want to Revert Background Data to Default?
+  AssetLoadingSubsystem
+  Assets/Scripts/UI/Campaign/Views/CampaignCityView.xaml
+  Assets/Scripts/UI/Campaign/Views/CampaignEventView.xaml
+  Assets/Scripts/UI/Campaign/Views/CampaignMapView.xaml
+  Assets/Scripts/UI/Campaign/Views/CampaignPoolView.xaml
+  Assets/Scripts/UI/Campaign/Views/CampaignTransferDialogView.xaml
+  Assets/Scripts/UI/Campaign/Views/CampaignView.xaml
+  Assets/Scripts/UI/Campaign/Views/PatrolAreaView.xaml
+  Assets/Scripts/UI/ConsoleView.xaml
+  Assets/Scripts/UI/Game/Views/CameraControlsView.xaml
+  Assets/Scripts/UI/Game/Views/DamageControlView.xaml
+  Assets/Scripts/UI/Game/Views/EngagementBoardView.xaml
+  Assets/Scripts/UI/Game/Views/FlightDeckContentView.xaml
+  Assets/Scripts/UI/Game/Views/FormationManagerView.xaml
+  Assets/Scripts/UI/Game/Views/FormationView.xaml
+  Assets/Scripts/UI/Game/Views/GlossaryView.xaml
+  Assets/Scripts/UI/Game/Views/MainGameView.xaml
+  Assets/Scripts/UI/Game/Views/MapDrawToolbarView.xaml
+  Assets/Scripts/UI/Game/Views/MapScreenView.xaml
+  Assets/Scripts/UI/Game/Views/OpticalOverlayView.xaml
+  Assets/Scripts/UI/Game/Views/SeekerStatusView.xaml
+  Assets/Scripts/UI/Game/Views/SensorInfoContentView.xaml
+  Assets/Scripts/UI/Game/Views/TacticalDoctrineContentView.xaml
+  Assets/Scripts/UI/Game/Views/TimeOnTargetView.xaml
+  Assets/Scripts/UI/Game/Views/UnitStatusView.xaml
+  Assets/Scripts/UI/Linear Campaign/Views/LinearCampaignTaskForceFormationView.x
+  Assets/Scripts/UI/Linear Campaign/Views/LinearCampaignTimelineLegacy.xaml
+  Assets/Scripts/UI/Linear Campaign/Views/LinearCampaignView.xaml
+  Assets/Scripts/UI/Loading/Views/LoadScreenView.xaml
+  Assets/Scripts/UI/Main Menu/Views/BlankMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/CampaignMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/CreateModMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/CreditsMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/FilePicker.xaml
+  Assets/Scripts/UI/Main Menu/Views/InputBoxView.xaml
+  Assets/Scripts/UI/Main Menu/Views/InstantActionMapView.xaml
+  Assets/Scripts/UI/Main Menu/Views/InstantActionView.xaml
+  Assets/Scripts/UI/Main Menu/Views/MainMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/MenuSystemView.xaml
+  Assets/Scripts/UI/Main Menu/Views/MessageBoxView.xaml
+  Assets/Scripts/UI/Main Menu/Views/MissileFlightPathChartView.xaml
+  Assets/Scripts/UI/Main Menu/Views/MissileRangeChartView.xaml
+  Assets/Scripts/UI/Main Menu/Views/MissionBriefView.xaml
+  Assets/Scripts/UI/Main Menu/Views/MissionDebriefView.xaml
+  Assets/Scripts/UI/Main Menu/Views/MissionEditorMapView.xaml
+  Assets/Scripts/UI/Main Menu/Views/MissionEditorView.xaml
+  Assets/Scripts/UI/Main Menu/Views/ModdingToolsView.xaml
+  Assets/Scripts/UI/Main Menu/Views/ModMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/ObjectInformationView.xaml
+  Assets/Scripts/UI/Main Menu/Views/OptionsMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/PauseMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/PrivacyMessageView.xaml
+  Assets/Scripts/UI/Main Menu/Views/ScenarioMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/SecondScreenView.xaml
+  Assets/Scripts/UI/Main Menu/Views/TutorialMenuView.xaml
+  Assets/Scripts/UI/Main Menu/Views/UnitTreeBrowserView.xaml
+  B\Assets\Scripts\UI\Main Menu\ViewModels\MissionDebriefViewModel.cs
+  BACKGROUND_DATA_LABELS
+  BackgroundAirportFile
+  BackgroundAirportFile{0}_DefaultGroupFile
+  BackgroundAirportFile{0}_Path
+  BackgroundCityFile
+  BackgroundCityFile{0}_Path
+  BackgroundCityItems_CollectionChanged
+  BackgroundData
+  BackgroundDataItem
+  BackgroundDataTab
+  backgroundImage
+  BackgroundImagePath
+  backgroundImageResourceKey
+  backgroundImageVisible
+  BackgroundInstallationFile
+  BackgroundInstallationFile{0}_DefaultGroupFile
+  BackgroundInstallationFile{0}_Path
+  backgroundItems
+  BackgroundPane
+  BackgroundPaneProperty
+  BackgroundPortFile
+  BackgroundPortFile{0}_DefaultGroupFile
+  BackgroundPortFile{0}_Path
+  BackgroundScene
+  BackgroundSceneController
+  BackgroundSceneryFile
+  BackgroundSceneryFile{0}_Path
+  BackgroundThreadAsync
+  BackgroundThreadAwaitable
+  BackgroundTraffic
+  BackgroundVoiceVolume
+  backgroundWasOn
+  BoolToBackgroundBrushConverter
+  Brush.Background.DropOver
+  Brush.Window.Background
+  Brush.Window.BackgroundDark
+  ButtonModManager_Click
+  C\Assets\Scripts\UI\Game\ViewModels\ObjectDepthBelowKeelViewModel.cs
+  C\Assets\Scripts\UI\Game\ViewModels\ObjectSubmarineDepthViewModel.cs
+  C\Assets\Scripts\UI\Game\ViewModels\ObjectTorpedoControlViewModel.cs
+  C\Assets\Scripts\UI\Game\ViewModels\ObjectVesselVelocityViewModel.cs
+  C\Assets\Scripts\UI\Linear Campaign\Views\LinearCampaignView.xaml.cs
+  C\Assets\Scripts\UI\Main Menu\ViewModels\SilhouetteBakerViewModel.cs
+  C\Assets\Scripts\UI\Main Menu\ViewModels\UnitTreeBrowserViewModel.cs
+  ... and 396 more
+
+== Managed\Sentry.dll  (code)  23 name(s)
+  <BackgroundWorker>k__BackingField
+  <CachedTransportBackgroundTaskAsync>d__21
+  2Sentry.Internal.BackgroundWorker+<FlushAsync>d__22
+  3Sentry.Internal.BackgroundWorker+<DoWorkAsync>d__21
+  4Sentry.Internal.BackgroundWorker+<DoFlushAsync>d__23
+  Already disposed BackgroundWorker.
+  BackgroundWorker
+  BackgroundWorker Started.
+  BSentry.Internal.BackgroundWorker+<SendFinalClientReportAsync>d__24
+  CachedTransportBackgroundTaskAsync
+  CreateBackgroundWorker
+  Disposing BackgroundWorker.
+  esuming initialization. Cache will continue flushing in the background.
+  Exception in the background worker.
+  get_BackgroundWorker
+  IBackgroundWorker
+  ManagedBackgroundThread
+  OSentry.Internal.Http.CachingTransport+<CachedTransportBackgroundTaskAsync>d__21
+  set_BackgroundWorker
+  Starting BackgroundWorker.
+  Stopping the background worker due to a cancellation.
+  Stopping the background worker threw an exception.
+  Using IBackgroundWorker set through options: {0}.
+
+== Managed\Sentry.System.Text.Json.dll  (code)  5 name(s)
+  Creating and unloading AppDomains is not supported and throws an exception.
+  d AssemblyName.EscapedCodeBase are obsolete. Using them for loading an assembly is not supported.
+  ReflectionOnly loading is not supported and throws PlatformNotSupportedException.
+  ReflectionOnlyLoadingDiagId
+  ReflectionOnlyLoadingMessage
+
+== Managed\Sentry.Unity.dll  (code)  16 name(s)
+  3Sentry.Unity.WebBackgroundWorker+<SendAndTrack>d__5
+  background
+  BackgroundData
+  BeforeSplashScreen
+  get_BackgroundWorker
+  IBackgroundWorker
+  Platform support for background thread execution is unknown: using WebBackgroundWorker.
+  runtime.init.splashscreen
+  scene.loading
+  set_BackgroundWorker
+  set_IsBackground
+  splashscreen
+  SplashScreenSpan
+  SplashScreenSpanOperation
+  upport for background thread execution is unknown: using WebBackgroundWorker.
+  WebBackgroundWorker
+
+== Managed\Sentry.Unity.Native.dll  (code)  1 name(s)
+  Error loading the list of debug images: {0}
+
+== Managed\Vuplex.WebView.dll  (code)  5 name(s)
+  NotifyWithoutLoading
+  PrintBackground
+  SetDefaultBackgroundEnabled
+  SetDefaultBackgroundEnabled({0})
+  WebView_setDefaultBackgroundEnabled
+
+== Managed\Vuplex.WebViewDemos.dll  (code)  5 name(s)
+  /* For Gecko only, set the background color
+  background: none;
+  background-color: #283237;
+  background-color: black;
+  Loading AP News login as an example because it uses popups for thir
+
+== Managed\websocket-sharp.dll  (code)  1 name(s)
+  set_IsBackground
+
