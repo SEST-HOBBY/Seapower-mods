@@ -142,6 +142,17 @@ which of these it means.
 **Decision (13 Oct 2026, the player): option 1.** The YF-23 keeps its
 author's round.
 
+**Then (13 Oct 2026, the player): U.S. Navy 2027's flight model for every
+AIM-424, no 3D model changes yet.** On `feature/aim424-usn2027-flight-model`:
+SEST's round takes U.S. Navy 2027's `[Guidance]` key for key (`FLIGHT` in
+`integration/common/aim424.py`), and SEST Collection Fixes lays the same keys
+over the YF-23's round with an `#!extend`
+(`ammunition_overwrite/yf23_aim424_internal_FlightModel_SEST.ini`, read by the
+Anchor Chain preloader). The table above shows the figures before that change.
+Each round keeps its own model, warhead and effects, so the YF-23 still fires
+its author's round on its own mesh; option 3 (a real mesh for SEST's round) is
+still open.
+
 **Which plays, and which is closest to the real missile.** U.S. Navy 2027
 (load order 21) outranks US Naval Aviation (73), so the `usn_aim-424` in game
 is U.S. Navy 2027's flight figures on US Naval Aviation's `aim-424.obj` model
