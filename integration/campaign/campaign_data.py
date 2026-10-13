@@ -1917,7 +1917,9 @@ MISSIONS.append(dict(
             "has been told to make the corridor unusable before they do. FUJIAN is a hundred "
             "and thirty miles north-north-west with LIAONING astern of her, screened by a Luda,"
             " a Sovremenny and a Type 054A, and the strike she is building is aimed at the "
-            "transports, at FORD and at you.\\n\\nFORD arrived on Tuesday on Washington's terms: "
+            "transports, at FORD and at you. Her deck is still spotting it: expect her "
+            "fighters up within about five minutes and the strike within about ten."
+            "\\n\\nFORD arrived on Tuesday on Washington's terms: "
             "one strike group, a fixed window in theatre, and a departure date that does not "
             "move. You have her air wing, two Burkes and the last of the Australian "
             "escorts.\\n\\nThe protected transports and FORD herself have to come out of this "
@@ -1963,7 +1965,12 @@ MISSIONS.append(dict(
         "cvw": S(-4.2, 130.4, "Carrier air wing", heading=320, alt=28000),
         "red_cv": S(-2.5, 129.0, "Opposing carrier group", heading=140),
         "red_air": S(-2.7, 129.2, "Opposing air wing", heading=205, alt=30000),
-        "red_strike": S(-2.54, 129.19, "Anti-ship shooter", heading=205, alt=30000),
+        # The strike forms up beyond its carrier, 180 NM from Ford on the
+        # carrier's bearing: the J-15D joins outside its own YJ-83 reach
+        # (156 NM) of every player hull and has to fly in, so "shoot it down
+        # before it launches" is a thing the player can do (13 Oct: at
+        # 127 NM it could fire the moment it appeared).
+        "red_strike": S(-1.815, 128.657, "Anti-ship shooter", heading=160, alt=30000),
         "red_aew": S(-2.7, 129.3, "KJ-600", heading=205, alt=30000),
         "red_j20": S(-2.75, 129.2, "J-20A", heading=205, alt=30000),
         "red_sub": S(-4.9, 129.2, "Submarine screen", heading=140),
@@ -2032,7 +2039,15 @@ MISSIONS.append(dict(
         # where the player cannot watch every axis at once.
         U("red", "plan-submarines", "plan_ssn_type_093b", "red_sub",
           name="Contact ROMEO"),
-        U("red", "modern-plan-systems", "plan_j-35", "red_air", name="Falcon 11"),
+        # Fujian's air wing is still on deck at the start (13 Oct, option b:
+        # the in-game check found the fight under way in the first minute).
+        # Stock's own pattern - Pacific Strike 02's H-6Ds and 01A's bombers
+        # - holds a raid back and switches it on by the clock: the CAP joins
+        # at minute 5, the KJ-600 at 8 and the strike at 10. Until the KJ-600
+        # is up, nothing red has a track on the player's hulls from beyond
+        # its own radar - the 093B's YJ-18s included.
+        U("red", "modern-plan-systems", "plan_j-35", "red_air", name="Falcon 11",
+          enter=5),
         # The one anti-ship shooter in the air wing: two YJ-83, pointed at
         # the transports. Strike is scored on this aircraft, not on the AEW.
         # Its own station: as the second member of red_air's formation its
@@ -2041,20 +2056,20 @@ MISSIONS.append(dict(
         # index would have been the KJ-600.
         U("red", "type-003-004-maneuverwarfare", "plan_j-15d", "red_strike",
           name="Flying Shark 21", loadout="AntiShip",
-          route=[(-5.0, 128.2, 20000)], telegraph=3),
+          route=[(-5.0, 128.2, 20000)], telegraph=3, enter=10),
         # The enclave's land-based shooter (PLAAF Aircraft Pack, 3 Oct): an
         # H-6K Late with four YJ-12 on the same run at the transports, a
         # minute behind the J-15D. The Strike objective still names the
         # J-15D; the Badger is the second salvo the screen has to be ready for.
         U("red", "plaaf-aircraft-pack", "plaaf_h-6k_late", "red_strike",
           name="Badger 31", loadout="AntiShip",
-          route=[(-5.0, 128.2, 20000)], telegraph=3),
+          route=[(-5.0, 128.2, 20000)], telegraph=3, enter=10),
         # Their own stations, on the seats they held before the J-15D left
         # red_air: re-seated, the KJ-600 moved 3 NM and the J-20A 6.7 NM,
         # which tipped its nearest deck from Liaoning to Fujian.
         U("red", "type-003-004-maneuverwarfare", "pla_kj-600", "red_aew",
-          name="KJ-600 Eye", alt=26000, weapons="Hold"),
-        U("red", "j-20", "plaaf_j-20a", "red_j20", name="Dragon 51"),
+          name="KJ-600 Eye", alt=26000, weapons="Hold", enter=8),
+        U("red", "j-20", "plaaf_j-20a", "red_j20", name="Dragon 51", enter=5),
     ],
 ))
 

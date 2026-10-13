@@ -534,6 +534,101 @@ class OpeningRanges(StandoffAndClosure):
         self.assertLess(bp.ship_reach("plan_ka-28", fit), 10)
 
 
+class QuietOpening(OpeningRanges):
+    """The stricter gate of 13 October (Fujian's Shadow): nothing red can fire
+    in the first OPENING_QUIET_MIN minutes. A standoff bomber may not start
+    inside its own launch range however long it is; a radar aircraft's
+    picture is a track for every ship and boat; air-to-air reach counts; a
+    unit that joins later (enter=) is held to the raid rule where it joins."""
+
+    STATIONS = dict(OpeningRanges.STATIONS,
+                    bomber=S(-47.50, 143.80, "Bomber", alt=30000),   # 198 NM east
+                    aew=S(-47.50, 142.20, "AEW", alt=26000),         # 102 NM east
+                    cap=S(-47.50, 142.10, "CAP", alt=30000),         # 96 NM east
+                    patrol=S(-47.50, 140.40, "Patrol", alt=20000))   # over the tender
+    BOMBER = dict(side="red", mod="plaaf-aircraft-pack", type="plaaf_h-6k_late",
+                  station="bomber", loadout="AntiShip")
+    AEW = dict(side="red", mod="type-003-004-maneuverwarfare", type="pla_kj-600",
+               station="aew", weapons="Hold")
+    RED_BOAT = dict(side="red", mod="plan-submarines", type="plan_ssn_type_093b",
+                station="far_boat", depth="belowlayer")
+    J16 = dict(side="red", mod="j-16-multirole", type="plaaf_j16", station="cap")
+    # A player aircraft in the air, with the blue 054A (DECOY) as its deck.
+    HELO = dict(side="blue", mod="modern-plan-systems", type="plan_z-9c",
+                station="patrol", weapons="Hold")
+
+    def opening(self, units):
+        del bp.OPENING_PROBLEMS[:]
+        return super().opening(units)
+
+    def test_a_standoff_bomber_in_its_own_reach_is_refused(self):
+        problems = self.opening([self.BOMBER])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("so the raid is seen coming", problems[0])
+
+    def test_the_same_bomber_joining_after_the_quiet_minutes_is_a_raid(self):
+        self.assertEqual(self.opening([dict(self.BOMBER, enter=10)]), [])
+
+    def test_joining_inside_the_quiet_minutes_is_the_start(self):
+        self.assertEqual(len(self.opening([dict(self.BOMBER, enter=3)])), 1)
+
+    def test_a_radar_aircraft_gives_a_boat_her_track(self):
+        self.assertEqual(self.opening([self.RED_BOAT]), [])
+        problems = self.opening([self.RED_BOAT, self.AEW])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("radar on her", problems[0])
+        self.assertEqual(self.opening([self.RED_BOAT, dict(self.AEW, enter=8)]), [])
+
+    def test_a_fighter_in_air_to_air_reach_of_a_player_aircraft_is_refused(self):
+        problems = self.opening([self.DECOY, self.HELO, self.J16])
+        self.assertEqual(len(problems), 1)
+        self.assertIn("air-to-air reach", problems[0])
+        self.assertEqual(self.opening([self.DECOY, self.HELO, dict(self.J16, enter=5)]), [])
+
+    def test_enter_switches_the_unit_off_until_its_minute(self):
+        m, placed, _members = self.placed([self.TENDER, dict(self.BOMBER, enter=7.5)])
+        (tag, keys, _n, _x), = placed["Taskforce2Aircraft"]
+        self.assertEqual(keys["Disabled"], "True")
+        self.assertEqual(m["_enter"], {tag: 7.5})
+
+    def test_enter_is_a_red_minute_inside_the_plan(self):
+        for bad in (dict(self.TENDER, enter=5), dict(self.BOMBER, enter=0),
+                    dict(self.BOMBER, enter=80), dict(self.BOMBER, enter=True)):
+            with self.assertRaises(SystemExit, msg=repr(bad)):
+                self.placed([self.TENDER, bad] if bad["side"] == "red" else [bad])
+
+
+class JoiningTrigger(unittest.TestCase):
+    """enter= on the page: Disabled=True on the unit and stock's own timed
+    Action_SetEnabledStatus trigger (01A Senkaku Run Trigger4), checked by
+    the pack checker; and one formation joins together."""
+
+    def test_the_trigger_is_stocks_and_the_checker_reads_it(self):
+        placed, members = small_placement()
+        placed["Taskforce2Aircraft"][0][1]["Disabled"] = "True"
+        m = small_mission(_enter={"Taskforce2Aircraft1": 7})
+        triggers = rendered(m, placed, members)
+        self.assertEqual(triggers["Joins at minute 7"],
+                         ["Condition_Condition1_Type=Time",
+                          "Condition_Condition1_Time=420",
+                          "ConditionsCompleted=<Condition1>",
+                          "Action_SetEnabledStatus=True",
+                          "Action_Units=Taskforce2Aircraft1"])
+        _name, text = bp.render(small_mission(), placed, members)
+        problems = coverage_check.trigger_integrity(HERE / "t.ini", text,
+                                                    coverage_check.blocks(text))
+        self.assertTrue(any("Disabled=True and no trigger switches it on" in p
+                            for p in problems), problems)
+
+    def test_one_formation_joins_at_one_minute(self):
+        placed, members = small_placement()
+        placed["Taskforce2Aircraft"].append(
+            ("Taskforce2Aircraft2", _keys("usn_p8", 30.5, 36), None, False))
+        members["red_air"].append("Taskforce2Aircraft2")
+        with self.assertRaisesRegex(SystemExit, "join at different minutes"):
+            bp.render(small_mission(_enter={"Taskforce2Aircraft1": 7}), placed, members)
+
+
 class RacetrackLoop(unittest.TestCase):
     """loop=True flies a patrol aircraft's route until the clock runs out,
     in stock's own form; nothing else may loop."""

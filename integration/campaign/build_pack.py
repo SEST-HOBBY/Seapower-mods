@@ -1307,7 +1307,7 @@ def resolve(spec):
 # --- rendering ---------------------------------------------------------------
 
 BLOCK_ORDER = ("Type", "VariantReference", "SpawnByVariableAND",
-               "SquadronReference", "JoinTaskForce", "LoadoutVariant",
+               "SquadronReference", "Disabled", "JoinTaskForce", "LoadoutVariant",
                "TaskForceModeAnchor", "TaskForceModeReplacedUnitIndex",
                "Nation", "UnlimitedFuel", "WeaponStatus",
                "RadarsActive", "CrewSkill", "Morale", "CampaignTag",
@@ -1487,6 +1487,7 @@ def place(mission, snapper):
     contact = set()                            # contact="why", by tag
     pending = []                               # AttackAtWaypoint targets
     disabled = []                              # (tag, systems) off at start
+    entering = []                              # (tag, minute) held back
 
     # The generated force forms on Taskforce1Vessel1: every stock Task Force
     # Mode mission puts TaskForceModeAnchor on the FIRST unit of its kind, and
@@ -1790,6 +1791,23 @@ def place(mission, snapper):
                 sys.exit(f"{mission['key']}: {spec['type']} fills an air-tasking "
                          "slot; disable= cannot apply to a placeholder")
             disabled.append((tag, systems))
+        # A red unit held back: it is in the file from the start but switched
+        # off, and a timed trigger switches it on - stock's own way of
+        # launching a raid later (Pacific Strike 02's H-6Ds and 01A's
+        # bombers: Disabled=True on the unit, then "15min timer to enable
+        # bombers", Action_SetEnabledStatus=True). Until then it is not in
+        # the mission: it neither shoots nor sees, and check_opening() counts
+        # it only from the minute it enters.
+        if spec.get("enter") is not None:
+            minute = spec["enter"]
+            if spec["side"] != "red" or isinstance(minute, bool) \
+                    or not isinstance(minute, (int, float)) \
+                    or not 0 < minute < mission["minutes"]:
+                sys.exit(f"{mission['key']}: enter= is the minute a red unit joins, "
+                         f"inside the {mission['minutes']}-minute plan; {spec['type']} "
+                         f"({spec['side']}) has {minute!r}")
+            keys["Disabled"] = "True"
+            entering.append((tag, minute))
         for token, why in credit.items():
             best = credits.get(token)
             if best is None or STRENGTH[why[0]] < STRENGTH[best[0]]:
@@ -1845,6 +1863,7 @@ def place(mission, snapper):
     mission["_independent"] = alone
     mission["_contact"] = contact
     mission["_disabled"] = disabled
+    mission["_enter"] = dict(entering)
     return placed, members, credits, worst
 
 
@@ -2642,6 +2661,18 @@ OPENING_AIR_LEAD_NM = 20.0
 OPENING_AIR_STANDOFF_NM = 100.0
 # A spotter this close to a ship already has her track.
 OPENING_SPOTTER_NM = 25.0
+# A red radar aircraft gives every red shooter a track as far as its line of
+# sight reaches, to this many miles at most (a KJ-600 at 26,000 ft sees about
+# 200 NM): the role tokens are the game's own [AI] Role= values.
+OPENING_RADAR_ROLES = frozenset({"AEW", "MaritimePatrol", "Recon", "ESM"})
+OPENING_RADAR_NM = 220.0
+# The height a SAM's radar is taken to sit at, for its line of sight to a
+# player aircraft: about a destroyer's mast or a battery's tower.
+OPENING_SAM_MAST_FT = 100.0
+# The quiet opening: no red unit can fire in these first minutes. A raid
+# that joins at this minute or later (enter=) is held to the raid rule
+# instead (13 October, Fujian's Shadow).
+OPENING_QUIET_MIN = 5
 OPENING_PROBLEMS = []
 
 _SHIP_REACH = {}
@@ -2681,6 +2712,44 @@ def ship_reach(uid, fit):
     return best
 
 
+def air_reach(uid, fit):
+    """How far this unit can hit an AIRCRAFT, in NM: its missiles whose
+    TargetType is AAW - a fighter's air-to-air rounds, a ship's or a
+    battery's SAMs - read the way ship_reach() reads anti-ship rounds,
+    magazines included."""
+    key = (uid, fit)
+    if key in _AIR_REACH:
+        return _AIR_REACH[key]
+    kind_dir, path = unit_file(uid)
+    best = 0.0
+    if path is not None:
+        if fit is None:
+            fit, _why = pick_loadout(uid, path, None)
+        held = set(stores(uid, kind_dir, path, fit))
+        body = read(path)
+        for mag in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
+            sec = re.search(r"^\[" + re.escape(mag) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+            if sec:
+                held |= set(re.findall(r"^Ammunition\d*=([^\s#/|]+)", sec.group(1), re.M))
+        for store in sorted(held):
+            text = "".join(read(f) for f in all_copies(f"ammunition/{store}.ini"))
+            kind = re.search(r"^Type=(\w+)", text, re.M)
+            aim = re.search(r"^TargetType=(\w+)", text, re.M)
+            if kind and kind.group(1) == "Missile" and aim and aim.group(1) == "AAW":
+                best = max(best, ammo_range(store))
+    _AIR_REACH[key] = best
+    return best
+
+
+_AIR_REACH = {}
+
+
+def radar_horizon(alt_ft, mast_ft=60.0):
+    """Radar line of sight in NM between two heights: 1.23 x (sqrt h1 +
+    sqrt h2), the standard 4/3-earth figure."""
+    return 1.23 * (math.sqrt(max(alt_ft, 0.0)) + math.sqrt(max(mast_ft, 0.0)))
+
+
 def check_opening(mission, placed):
     """Does the mission open with a fight already in progress?
 
@@ -2691,77 +2760,154 @@ def check_opening(mission, placed):
     reach of her from the first second. A player cannot classify, position
     or decide anything in a mission whose opening is the attack.
 
-    Three questions, about every red unit whose weapons are FREE at the
-    start (Tight and Hold do not fire first):
-      - a surface ship or a boat inside OPENING_SURFACE_NM / OPENING_SUB_NM
-        of the nearest player hull;
-      - an armed aircraft with less than OPENING_AIR_LEAD_NM of flying
-        between it and its own anti-ship launch range (that range counted
-        to OPENING_AIR_STANDOFF_NM at most);
-      - a ship already holding a player hull in anti-ship reach while a red
-        aircraft is within OPENING_SPOTTER_NM of that hull, giving her the
-        track.
+    The in-game check of 13 October said it again of Fujian's Shadow, which
+    this gate had passed: the H-6K's YJ-12s (270 NM) reached Ford at 126 NM
+    because an aircraft's reach was counted to 100 NM at most; the 093B's
+    YJ-18s reached everything from 54 NM with the KJ-600 giving the track,
+    and neither a boat's missiles nor a radar aircraft's picture was
+    counted; the J-35 and J-20A were half a minute from PL-15 range of the
+    F-35Cs and nothing measured air against air.
+
+    So the opening is now OPENING_QUIET_MIN minutes in which nothing red can
+    fire. A red unit in the mission then - from the start, or joining
+    before that minute (enter=) - whose weapons are FREE (Tight and Hold do
+    not fire first) is refused when:
+
+      - it is a surface ship inside OPENING_SURFACE_NM, or a boat inside
+        OPENING_SUB_NM, of the player's nearest hull;
+      - it is an armed aircraft with less than OPENING_AIR_LEAD_NM of flying
+        before its own anti-ship launch range - the whole range, however
+        long: a standoff bomber that can fire at the first second is the
+        fight in progress;
+      - it is a ship, a boat or a battery holding a player hull inside its
+        anti-ship reach with a track on her: its own radar inside
+        OPENING_SURFACE_NM, a red aircraft within OPENING_SPOTTER_NM of her,
+        or a red radar aircraft (AEW, maritime patrol, reconnaissance) whose
+        line of sight reaches her;
+      - it is an aircraft with less than OPENING_AIR_LEAD_NM of flying before
+        its air-to-air reach of a player aircraft in the air; or
+      - it is a ship or a battery holding a player aircraft inside its SAM
+        reach and its radar's line of sight.
+
+    A unit that joins at OPENING_QUIET_MIN or later is a raid the player has
+    had the quiet minutes to prepare for: it is held to the rule a raid was
+    always held to - an armed aircraft with OPENING_AIR_LEAD_NM of flying
+    before its launch range, that range counted to OPENING_AIR_STANDOFF_NM
+    at most, and a ship or boat outside the 25 NM rings - measured from
+    where it joins.
+
     A unit the story puts in contact on purpose says so with contact="why".
+    The player's own units are not measured: the player sets their weapons
+    before the clock starts.
     """
+    joins = mission.get("_enter", {})
+
     def rows(prefix):
         out = []
         for family, entries in placed.items():
-            if not family.startswith(prefix) or family.endswith("LandUnit"):
+            if not family.startswith(prefix):
                 continue
             kind = ("air" if family.endswith(("Aircraft", "Helicopter")) else
-                    "sub" if family.endswith("Submarine") else "sea")
+                    "sub" if family.endswith("Submarine") else
+                    "land" if family.endswith("LandUnit") else "sea")
             for tag, keys, name, _x in entries:
                 bits = keys.get("RelativePositionInNM", "").split(",")
                 try:
                     x, z = float(bits[0]), float(bits[2])
                 except (ValueError, IndexError):
                     continue
+                try:
+                    alt = float(bits[1])
+                except ValueError:
+                    alt = 0.0
                 out.append(dict(tag=tag, uid=keys["Type"], x=x, z=z, kind=kind,
-                                name=name, free=keys.get("WeaponStatus") == "Free",
-                                fit=keys.get("LoadoutVariant")))
+                                alt=alt, name=name,
+                                free=keys.get("WeaponStatus") == "Free",
+                                fit=keys.get("LoadoutVariant"),
+                                joins=joins.get(tag)))
         return out
 
     player, red = rows("Taskforce1"), rows("Taskforce2")
     hulls = [b for b in player if b["kind"] in ("sea", "sub")]
-    if not hulls:
-        return
+    flying = [b for b in player if b["kind"] == "air" and b["alt"] > 0]
     excused = mission.get("_contact", set())
 
-    def nearest(u):
-        h = min(hulls, key=lambda b: math.hypot(b["x"] - u["x"], b["z"] - u["z"]))
-        return h, math.hypot(h["x"] - u["x"], h["z"] - u["z"])
+    def gap(a, b):
+        return math.hypot(a["x"] - b["x"], a["z"] - b["z"])
+
+    def nearest(u, among):
+        h = min(among, key=lambda b: gap(b, u))
+        return h, gap(h, u)
 
     def who(u):
         return f"{u['tag']} ({u['uid']}{', ' + u['name'] if u['name'] else ''})"
 
-    spotters = [r for r in red if r["kind"] == "air"]
+    def opening(u):
+        return u["joins"] is None or u["joins"] < OPENING_QUIET_MIN
+
+    def flag(u, text):
+        when = ("starts" if u["joins"] is None
+                else f"joins at minute {u['joins']:g} and")
+        OPENING_PROBLEMS.append(f"{mission['key']}: {who(u)} {when} weapons free {text}")
+
+    # Who gives a red shooter its track at the start: anything red flying
+    # within OPENING_SPOTTER_NM of the target, or a red radar aircraft whose
+    # line of sight reaches it.
+    eyes = [r for r in red if r["kind"] == "air" and opening(r)]
+
+    def track(hull):
+        for s in eyes:
+            d = gap(s, hull)
+            if d < OPENING_SPOTTER_NM:
+                return f"{who(s)} {d:.0f} NM from her"
+            if (ai_roles(s["uid"]) & OPENING_RADAR_ROLES
+                    and d <= min(radar_horizon(s["alt"]), OPENING_RADAR_NM)):
+                return f"{who(s)}'s radar on her from {d:.0f} NM"
+        return None
+
     for r in red:
         if not r["free"] or r["tag"] in excused:
             continue
         hits = ship_reach(r["uid"], r["fit"])
-        if not hits:
+        start = opening(r)
+        if hulls and hits:
+            hull, d = nearest(r, hulls)
+            to = f"{d:.0f} NM from {hull['tag']} ({hull['uid']})"
+            if r["kind"] == "sea" and d < OPENING_SURFACE_NM:
+                flag(r, f"{to} - inside {OPENING_SURFACE_NM:.0f} NM, each on the "
+                        "other's radar from the first second")
+            elif r["kind"] == "sub" and d < OPENING_SUB_NM:
+                flag(r, f"{to} - inside {OPENING_SUB_NM:.0f} NM, with {hits:.0f} NM "
+                        "of torpedo or missile")
+            elif r["kind"] == "air":
+                need = (hits if start else min(hits, OPENING_AIR_STANDOFF_NM)) \
+                    + OPENING_AIR_LEAD_NM
+                if d < need:
+                    flag(r, f"{to} - its anti-ship reach is {hits:.0f} NM; it needs "
+                            f"{need:.0f} NM so the raid is seen coming"
+                            + ("" if not start else
+                               f" (or enter= at minute {OPENING_QUIET_MIN} or later)"))
+            elif start and d <= hits:
+                eye = ("its own radar" if r["kind"] != "sub" and d < OPENING_SURFACE_NM
+                       else track(hull))
+                if eye:
+                    flag(r, f"{to} - inside its {hits:.0f} NM anti-ship reach, with "
+                            f"{eye} giving the track from the first second")
+        if not (start and flying):
             continue
-        hull, d = nearest(r)
-        where = f"{mission['key']}: {who(r)} starts weapons free {d:.0f} NM from {hull['tag']} ({hull['uid']})"
-        if r["kind"] == "sea" and d < OPENING_SURFACE_NM:
-            OPENING_PROBLEMS.append(f"{where} - inside {OPENING_SURFACE_NM:.0f} NM, "
-                                    "each on the other's radar from the first second")
-        elif r["kind"] == "sub" and d < OPENING_SUB_NM:
-            OPENING_PROBLEMS.append(f"{where} - inside {OPENING_SUB_NM:.0f} NM, with "
-                                    f"{hits:.0f} NM of torpedo or missile")
-        elif (r["kind"] == "air"
-              and d < min(hits, OPENING_AIR_STANDOFF_NM) + OPENING_AIR_LEAD_NM):
-            OPENING_PROBLEMS.append(
-                f"{where} - its anti-ship reach is {hits:.0f} NM; it needs "
-                f"{min(hits, OPENING_AIR_STANDOFF_NM) + OPENING_AIR_LEAD_NM:.0f} NM "
-                "so the raid is seen coming")
-        elif r["kind"] == "sea" and hull["kind"] == "sea" and d <= hits:
-            eyes = [s for s in spotters
-                    if math.hypot(s["x"] - hull["x"], s["z"] - hull["z"]) < OPENING_SPOTTER_NM]
-            if eyes:
-                OPENING_PROBLEMS.append(
-                    f"{where} - inside its {hits:.0f} NM anti-ship reach, with "
-                    f"{who(eyes[0])} over her giving the track from the first second")
+        aa = air_reach(r["uid"], r["fit"])
+        if not aa:
+            continue
+        plane, d = nearest(r, flying)
+        to = f"{d:.0f} NM from {plane['tag']} ({plane['uid']})"
+        if r["kind"] == "air" and d < aa + OPENING_AIR_LEAD_NM:
+            flag(r, f"{to} - its air-to-air reach is {aa:.0f} NM; it needs "
+                    f"{aa + OPENING_AIR_LEAD_NM:.0f} NM (or enter= at minute "
+                    f"{OPENING_QUIET_MIN} or later)")
+        elif (r["kind"] in ("sea", "land")
+              and d <= min(aa, radar_horizon(plane["alt"], OPENING_SAM_MAST_FT))):
+            flag(r, f"{to} - inside its {aa:.0f} NM SAM reach and its radar's "
+                    "line of sight from the first second")
 
 
 def deck_size(uid):
@@ -3453,6 +3599,16 @@ def render(mission, placed, members):
             if len(group) > 1:
                 forms[side].append((mission["stations"][station].get("label", station),
                                     group))
+    # A formation is one group in the game: half of it switched off would
+    # leave the other half flying a formation with no one in it.
+    joins = mission.get("_enter", {})
+    for side, groups in forms.items():
+        for label, group in groups:
+            minutes = {joins.get(tag) for tag in group}
+            if len(minutes) > 1:
+                raise SystemExit(f"{mission['key']}: {label} is one formation "
+                                 f"({', '.join(group)}) but its units join at "
+                                 "different minutes - give them one enter=")
     for side, groups in sorted(forms.items()):
         L.append(f"{side}_NumberOfFormations={len(groups)}")
         for i, (label, group) in enumerate(groups, 1):
@@ -3553,6 +3709,18 @@ def render(mission, placed, members):
             "ConditionsCompleted=<Condition1>",
             f"Action_Units={','.join(tags)}"]
             + [f"Action_EnableDisable{DISABLE_ACTIONS[s]}=Disable" for s in systems])
+    # enter=: a held-back unit joins at its minute - 01A Senkaku Run Trigger4,
+    # key for key.
+    joining = collections.defaultdict(list)
+    for tag, minute in mission.get("_enter", {}).items():
+        joining[minute].append(tag)
+    for minute, tags in sorted(joining.items()):
+        trigger(f"Joins at minute {minute:g}", [
+            "Condition_Condition1_Type=Time",
+            f"Condition_Condition1_Time={round(minute * 60)}",
+            "ConditionsCompleted=<Condition1>",
+            "Action_SetEnabledStatus=True",
+            f"Action_Units={','.join(tags)}"])
 
     if victory["kind"] == "arrive":
         win_units = ([tag for r in victory["units"] for tag in refs(members, r)]
