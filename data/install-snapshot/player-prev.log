@@ -1,4 +1,4 @@
-# Player-prev.log - last 406 of 406 line(s), captured 2026-10-10T23:42:01.
+# Player-prev.log - last 1332 of 1332 line(s), captured 2026-10-13T15:34:05.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -17,7 +17,7 @@ Direct3D:
     VRAM:     7989 MB
     Driver:   32.0.16.1074
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.186 seconds
+- Loaded All Assemblies, in  0.167 seconds
 - Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -27,7 +27,7 @@ Begin MonoManager ReloadAssembly
 [Physics::Module] Threading Mode: Multi-Threaded
 FileManager.Directories contains Mods
 FileManager.Directories contains Mods
-[SEST Menu] ready: C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\StreamingAssets\SEST_Integration\plugins\sest_menu.mp4
+[SEST Menu] ready: C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4 for clip 'main_menu'
 [ACModActivation 1.0] CustomAudioLoader: enabled; 3784474738 selected in Mod Manager
 [SonarAudioLoader] Harmony patches applied. Global sonar mappings: 108, torpedo mappings: 42, noisemaker/decoy mappings: 21, weapon-system mappings: 6.
 [ACModActivation 1.0] EnhancedDecoyMod: enabled; 3784474738 selected in Mod Manager
@@ -84,19 +84,23 @@ Harmony.Loadoutmanager active
 [SaronicCorsairStrikeUSV] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [SaronicCorsair] Harmony lifecycle hooks installed: 8; owner alpine.seapower.corsair.orders.
 [AlpineFormation] Formation repair on.
-[SaronicCorsair] Contact controller 4.12.0 loaded; Classic strike variant only.
+[SaronicCorsair] Contact controller 4.12.1 loaded; Classic strike variant only.
 [FuryFormation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[Fury Lights] on: build check ExactBuild.
 [FuryVoice.Harmony] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [FuryLoss] Native loss observer loaded.
-[EC2 Comms] off: verdict HookChanged (changed hooked method System.Boolean SeaPower.WeaponSystemHardpoint::UpdateEngageInterruptors()). The game is unchanged.
+[EC2CommsJamming] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[EC2 Comms] on: verdict UnchangedContract, 37 of 37 patches installed.
 [EC2Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+[EC-2 Lights] on: build check ExactBuild.
 [J36 Config] lights=True afterburner=True vectorFlight=True highSpeedDrag=True centralNozzle=True
 [J36 Systems] initializing modular patches
 [BellSystemsFixtureTilt] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
-[BellSystemsFixtureTilt] 0.5.0 initialized; scope Navy and Army Cheyenne II.
+[BellSystemsFixtureTilt] 0.5.1 initialized; scope Navy and Army Cheyenne II.
 [MV75Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
 [YF23Formation] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
-[MV-22 Deck Operations] 1.1.31 loaded; carrier elevator engine-stop repair, Wasp recovery repair and deck diagnostics active.
+[YF-23 Lights] on: build check ExactBuild.
+[MV-22 Deck Operations] 1.1.36 loaded; shared cached identity lookup; deck routing and native armed loadouts preserved.
 Sentry: Mapped native library to 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power\sentry.dll'.
 <RI> Initializing input.
 
@@ -104,7 +108,7 @@ Using Windows.Gaming.Input
 <RI> Input initialized.
 
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 2.591700 ms
+UnloadTime: 2.882900 ms
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.67f1
 Development build: False
@@ -117,15 +121,21 @@ SRP Batcher: False
 0.8.5-261008 (C) Triassic Games 2024-2026
 Global logging level set to: <b>Info</b>
 Noesis logging level set to: <b>Trace</b>
-[AlpineSeaPower] The game update changed something these fixes hook; patches off until a mod update (changed hooked method System.Boolean SeaPower.WeaponSystemHardpoint::CheckFiringConstraints(UnityEngine.Vector3&)).
+[AlpineSeaPower] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
+launchangles installed
+salute installed
+deckstate installed
 Fury voice routing 1.5.0 installed through the speaker voice path; optional-content marker respected.
-FileManager.OnStart(Game) Subscribed Items = [(3813157776, k_EItemStateSubscribed, k_EItemStateInstalled), (3485917612, k_EItemStateSubscribed, k_EItemStateInstalled), (3758943352, k_EItemStateSubscribed, k_EItemStateInstalled), (3810611344, k_EItemStateSubscribed, k_EItemStateInstalled), (3812111085, k_EItemStateSubscribed, k_EItemStateInstalled), (3806686336, k_EItemStateSubscribed, k_EItemStateInstalled), (3808882954, k_EItemStateSubscribed, k_EItemStateInstalled), (3804868806, k_EItemStateSubscribed, k_EItemStateInstalled), (3790594162, k_EItemStateSubscribed, k_EItemStateInstalled), (3806466625, k_EItemStateSubscribed, k_EItemStateInstalled), (3789208859, k_EItemStateSubscribed, k_EItemStateInstalled), (3774105087, k_EItemStateSubscribed, k_EItemStateInstalled), (3440622312, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled), (3603367264, k_EItemStateSubscribed, k_EItemStateInstalled), (3603306548, k_EItemStateSubscribed, k_EItemStateInstalled), (3551621846, k_EItemStateSubscribed, k_EItemStateInstalled), (3652906664, k_EItemStateSubscribed, k_EItemStateInstalled), (3493115616, k_EItemStateSubscribed, k_EItemStateInstalled), (3555361900, k_EItemStateSubscribed, k_EItemStateInstalled), (3496055699, k_EItemStateSubscribed, k_EItemStateInstalled), (3681748718, k_EItemStateSubscribed, k_EItemStateInstalled), (3628203171, k_EItemStateSubscribed, k_EItemStateInstalled), (3628201887, k_EItemStateSubscribed, k_EItemStateInstalled), (3678767059, k_EItemStateSubscribed, k_EItemStateInstalled), (3776730617, k_EItemStateSubscribed, k_EItemStateInstalled), (3807164392, k_EItemStateSubscribed, k_EItemStateInstalled), (3812454152, k_EItemStateSubscribed, k_EItemStateInstalled), (3591820675, k_EItemStateSubscribed, k_EItemStateInstalled), (3672497668, k_EItemStateSubscribed, k_EItemStateInstalled), (3412480633, k_EItemStateSubscribed, k_EItemStateInstalled), (3410473695, k_EItemStateSubscribed, k_EItemStateInstalled), (3549377308, k_EItemStateSubscribed, k_EItemStateInstalled), (3673703427, k_EItemStateSubscribed, k_EItemStateInstalled), (3686449681, k_EItemStateSubscribed, k_EItemStateInstalled), (3520352434, k_EItemStateSubscribed, k_EItemStateInstalled), (3802216383, k_EItemStateSubscribed, k_EItemStateInstalled), (3813033771, k_EItemStateSubscribed, k_EItemStateInstalled), (3759042728, k_EItemStateSubscribed, k_EItemStateInstalled), (3434693420, k_EItemStateSubscribed, k_EItemStateInstalled), (3806197116, k_EItemStateSubscribed, k_EItemStateInstalled), (3812140001, k_EItemStateSubscribed, k_EItemStateInstalled), (3595014060, k_EItemStateSubscribed, k_EItemStateInstalled), (3752415457, k_EItemStateSubscribed, k_EItemStateInstalled), (3399699218, k_EItemStateSubscribed, k_EItemStateInstalled), (3455404959, k_EItemStateSubscribed, k_EItemStateInstalled), (3766210676, k_EItemStateSubscribed, k_EItemStateInstalled), (3636213685, k_EItemStateSubscribed, k_EItemStateInstalled), (3628247436, k_EItemStateSubscribed, k_EItemStateInstalled), (3779799226, k_EItemStateSubscribed, k_EItemStateInstalled), (3711297532, k_EItemStateSubscribed, k_EItemStateInstalled), (3732654992, k_EItemStateSubscribed, k_EItemStateInstalled), (3524446392, k_EItemStateSubscribed, k_EItemStateInstalled), (3491248180, k_EItemStateSubscribed, k_EItemStateInstalled), (3709961172, k_EItemStateSubscribed, k_EItemStateInstalled), (3672072359, k_EItemStateSubscribed, k_EItemStateInstalled), (3796706214, k_EItemStateSubscribed, k_EItemStateInstalled)]
+FileManager.OnStart(Game) Subscribed Items = [(3812461539, k_EItemStateSubscribed, k_EItemStateInstalled), (3813157776, k_EItemStateSubscribed, k_EItemStateInstalled), (3485917612, k_EItemStateSubscribed, k_EItemStateInstalled), (3758943352, k_EItemStateSubscribed, k_EItemStateInstalled), (3810611344, k_EItemStateSubscribed, k_EItemStateInstalled), (3812111085, k_EItemStateSubscribed, k_EItemStateInstalled), (3806686336, k_EItemStateSubscribed, k_EItemStateInstalled), (3808882954, k_EItemStateSubscribed, k_EItemStateInstalled), (3804868806, k_EItemStateSubscribed, k_EItemStateInstalled), (3790594162, k_EItemStateSubscribed, k_EItemStateInstalled), (3806466625, k_EItemStateSubscribed, k_EItemStateInstalled), (3789208859, k_EItemStateSubscribed, k_EItemStateInstalled), (3774105087, k_EItemStateSubscribed, k_EItemStateInstalled), (3440622312, k_EItemStateSubscribed, k_EItemStateInstalled), (3796113927, k_EItemStateSubscribed, k_EItemStateInstalled), (3769142422, k_EItemStateSubscribed, k_EItemStateInstalled), (3755769170, k_EItemStateSubscribed, k_EItemStateInstalled), (3801363152, k_EItemStateSubscribed, k_EItemStateInstalled), (3799742828, k_EItemStateSubscribed, k_EItemStateInstalled), (3789188689, k_EItemStateSubscribed, k_EItemStateInstalled), (3801549552, k_EItemStateSubscribed, k_EItemStateInstalled), (3796349767, k_EItemStateSubscribed, k_EItemStateInstalled), (3637954857, k_EItemStateSubscribed, k_EItemStateInstalled), (3784474738, k_EItemStateSubscribed, k_EItemStateInstalled), (3553116604, k_EItemStateSubscribed, k_EItemStateInstalled), (3605013271, k_EItemStateSubscribed, k_EItemStateInstalled), (3413868677, k_EItemStateSubscribed, k_EItemStateInstalled), (3502273861, k_EItemStateSubscribed, k_EItemStateInstalled), (3558173926, k_EItemStateSubscribed, k_EItemStateInstalled), (3406985435, k_EItemStateSubscribed, k_EItemStateInstalled), (3600788156, k_EItemStateSubscribed, k_EItemStateInstalled), (3408662804, k_EItemStateSubscribed, k_EItemStateInstalled), (3456859157, k_EItemStateSubscribed, k_EItemStateInstalled), (3461519690, k_EItemStateSubscribed, k_EItemStateInstalled), (3384079999, k_EItemStateSubscribed, k_EItemStateInstalled), (3392434750, k_EItemStateSubscribed, k_EItemStateInstalled), (3681873198, k_EItemStateSubscribed, k_EItemStateInstalled), (3606134711, k_EItemStateSubscribed, k_EItemStateInstalled), (3551676319, k_EItemStateSubscribed, k_EItemStateInstalled), (3378409795, k_EItemStateSubscribed, k_EItemStateInstalled), (3432668460, k_EItemStateSubscribed, k_EItemStateInstalled), (3373356293, k_EItemStateSubscribed, k_EItemStateInstalled), (3411341227, k_EItemStateSubscribed, k_EItemStateInstalled), (3417446309, k_EItemStateSubscribed, k_EItemStateInstalled), (3403993583, k_EItemStateSubscribed, k_EItemStateInstalled), (3430106996, k_EItemStateSubscribed, k_EItemStateInstalled), (3768036424, k_EItemStateSubscribed, k_EItemStateInstalled), (3499239964, k_EItemStateSubscribed, k_EItemStateInstalled), (3741944366, k_EItemStateSubscribed, k_EItemStateInstalled), (3497601759, k_EItemStateSubscribed, k_EItemStateInstalled), (3488139470, k_EItemStateSubscribed, k_EItemStateInstalled), (3781062859, k_EItemStateSubscribed, k_EItemStateInstalled), (3448845252, k_EItemStateSubscribed, k_EItemStateInstalled), (3478767194, k_EItemStateSubscribed, k_EItemStateInstalled), (3403661005, k_EItemStateSubscribed, k_EItemStateInstalled), (3394781441, k_EItemStateSubscribed, k_EItemStateInstalled), (3592460366, k_EItemStateSubscribed, k_EItemStateInstalled), (3459682829, k_EItemStateSubscribed, k_EItemStateInstalled), (3414146266, k_EItemStateSubscribed, k_EItemStateInstalled), (3470643173, k_EItemStateSubscribed, k_EItemStateInstalled), (3695809489, k_EItemStateSubscribed, k_EItemStateInstalled), (3505420313, k_EItemStateSubscribed, k_EItemStateInstalled), (3780118683, k_EItemStateSubscribed, k_EItemStateInstalled), (3395022688, k_EItemStateSubscribed, k_EItemStateInstalled), (3716049886, k_EItemStateSubscribed, k_EItemStateInstalled), (3659742367, k_EItemStateSubscribed, k_EItemStateInstalled), (3451166840, k_EItemStateSubscribed, k_EItemStateInstalled), (3416372890, k_EItemStateSubscribed, k_EItemStateInstalled), (3587091564, k_EItemStateSubscribed, k_EItemStateInstalled), (3629269283, k_EItemStateSubscribed, k_EItemStateInstalled), (3715323261, k_EItemStateSubscribed, k_EItemStateInstalled), (3597650470, k_EItemStateSubscribed, k_EItemStateInstalled), (3776340577, k_EItemStateSubscribed, k_EItemStateInstalled), (3465256032, k_EItemStateSubscribed, k_EItemStateInstalled), (3458148344, k_EItemStateSubscribed, k_EItemStateInstalled), (3673908868, k_EItemStateSubscribed, k_EItemStateInstalled), (3481228992, k_EItemStateSubscribed, k_EItemStateInstalled), (3729579342, k_EItemStateSubscribed, k_EItemStateInstalled), (3486502935, k_EItemStateSubscribed, k_EItemStateInstalled), (3433577445, k_EItemStateSubscribed, k_EItemStateInstalled), (3526982088, k_EItemStateSubscribed, k_EItemStateInstalled), (3468959181, k_EItemStateSubscribed, k_EItemStateInstalled), (3506979898, k_EItemStateSubscribed, k_EItemStateInstalled), (3417801942, k_EItemStateSubscribed, k_EItemStateInstalled), (3631042692, k_EItemStateSubscribed, k_EItemStateInstalled), (3587877691, k_EItemStateSubscribed, k_EItemStateInstalled), (3508275114, k_EItemStateSubscribed, k_EItemStateInstalled), (3642656500, k_EItemStateSubscribed, k_EItemStateInstalled), (3444379330, k_EItemStateSubscribed, k_EItemStateInstalled), (3455931957, k_EItemStateSubscribed, k_EItemStateInstalled), (3575847216, k_EItemStateSubscribed, k_EItemStateInstalled), (3736147136, k_EItemStateSubscribed, k_EItemStateInstalled), (3567228449, k_EItemStateSubscribed, k_EItemStateInstalled), (3567256221, k_EItemStateSubscribed, k_EItemStateInstalled), (3717610332, k_EItemStateSubscribed, k_EItemStateInstalled), (3524112296, k_EItemStateSubscribed, k_EItemStateInstalled), (3762023575, k_EItemStateSubscribed, k_EItemStateInstalled), (3774859959, k_EItemStateSubscribed, k_EItemStateInstalled), (3630495619, k_EItemStateSubscribed, k_EItemStateInstalled), (3731208477, k_EItemStateSubscribed, k_EItemStateInstalled), (3461044389, k_EItemStateSubscribed, k_EItemStateInstalled), (3606774881, k_EItemStateSubscribed, k_EItemStateInstalled), (3607989779, k_EItemStateSubscribed, k_EItemStateInstalled), (3590477166, k_EItemStateSubscribed, k_EItemStateInstalled), (3432592449, k_EItemStateSubscribed, k_EItemStateInstalled), (3461091581, k_EItemStateSubscribed, k_EItemStateInstalled), (3373960386, k_EItemStateSubscribed, k_EItemStateInstalled), (3430135740, k_EItemStateSubscribed, k_EItemStateInstalled), (3602046770, k_EItemStateSubscribed, k_EItemStateInstalled), (3782020901, k_EItemStateSubscribed, k_EItemStateInstalled), (3438479626, k_EItemStateSubscribed, k_EItemStateInstalled), (3599752717, k_EItemStateSubscribed, k_EItemStateInstalled), (3513571010, k_EItemStateSubscribed, k_EItemStateInstalled), (3437105712, k_EItemStateSubscribed, k_EItemStateInstalled), (3636386513, k_EItemStateSubscribed, k_EItemStateInstalled), (3425450153, k_EItemStateSubscribed, k_EItemStateInstalled), (3559495372, k_EItemStateSubscribed, k_EItemStateInstalled), (3434072450, k_EItemStateSubscribed, k_EItemStateInstalled), (3601891050, k_EItemStateSubscribed, k_EItemStateInstalled), (3503670861, k_EItemStateSubscribed, k_EItemStateInstalled), (3737267013, k_EItemStateSubscribed, k_EItemStateInstalled), (3629144864, k_EItemStateSubscribed, k_EItemStateInstalled), (3390330875, k_EItemStateSubscribed, k_EItemStateInstalled), (3594891803, k_EItemStateSubscribed, k_EItemStateInstalled), (3468260539, k_EItemStateSubscribed, k_EItemStateInstalled), (3433957933, k_EItemStateSubscribed, k_EItemStateInstalled), (3480965706, k_EItemStateSubscribed, k_EItemStateInstalled), (3509329205, k_EItemStateSubscribed, k_EItemStateInstalled), (3760871384, k_EItemStateSubscribed, k_EItemStateInstalled), (3652097318, k_EItemStateSubscribed, k_EItemStateInstalled), (3503594612, k_EItemStateSubscribed, k_EItemStateInstalled), (3591563716, k_EItemStateSubscribed, k_EItemStateInstalled), (3673250557, k_EItemStateSubscribed, k_EItemStateInstalled), (3670643788, k_EItemStateSubscribed, k_EItemStateInstalled), (3683253079, k_EItemStateSubscribed, k_EItemStateInstalled), (3746453639, k_EItemStateSubscribed, k_EItemStateInstalled), (3436170138, k_EItemStateSubscribed, k_EItemStateInstalled), (3729578404, k_EItemStateSubscribed, k_EItemStateInstalled), (3722749887, k_EItemStateSubscribed, k_EItemStateInstalled), (3744475027, k_EItemStateSubscribed, k_EItemStateInstalled), (3774572038, k_EItemStateSubscribed, k_EItemStateInstalled), (3380210757, k_EItemStateSubscribed, k_EItemStateInstalled), (3733719765, k_EItemStateSubscribed, k_EItemStateInstalled), (3774746803, k_EItemStateSubscribed, k_EItemStateInstalled), (3758320372, k_EItemStateSubscribed, k_EItemStateInstalled), (3775128499, k_EItemStateSubscribed, k_EItemStateInstalled), (3740293822, k_EItemStateSubscribed, k_EItemStateInstalled), (3418252667, k_EItemStateSubscribed, k_EItemStateInstalled), (3603367264, k_EItemStateSubscribed, k_EItemStateInstalled), (3603306548, k_EItemStateSubscribed, k_EItemStateInstalled), (3551621846, k_EItemStateSubscribed, k_EItemStateInstalled), (3652906664, k_EItemStateSubscribed, k_EItemStateInstalled), (3493115616, k_EItemStateSubscribed, k_EItemStateInstalled), (3555361900, k_EItemStateSubscribed, k_EItemStateInstalled), (3496055699, k_EItemStateSubscribed, k_EItemStateInstalled), (3681748718, k_EItemStateSubscribed, k_EItemStateInstalled), (3628203171, k_EItemStateSubscribed, k_EItemStateInstalled), (3628201887, k_EItemStateSubscribed, k_EItemStateInstalled), (3678767059, k_EItemStateSubscribed, k_EItemStateInstalled), (3776730617, k_EItemStateSubscribed, k_EItemStateInstalled), (3807164392, k_EItemStateSubscribed, k_EItemStateInstalled), (3812454152, k_EItemStateSubscribed, k_EItemStateInstalled), (3591820675, k_EItemStateSubscribed, k_EItemStateInstalled), (3672497668, k_EItemStateSubscribed, k_EItemStateInstalled), (3412480633, k_EItemStateSubscribed, k_EItemStateInstalled), (3410473695, k_EItemStateSubscribed, k_EItemStateInstalled), (3549377308, k_EItemStateSubscribed, k_EItemStateInstalled), (3673703427, k_EItemStateSubscribed, k_EItemStateInstalled), (3686449681, k_EItemStateSubscribed, k_EItemStateInstalled), (3520352434, k_EItemStateSubscribed, k_EItemStateInstalled), (3802216383, k_EItemStateSubscribed, k_EItemStateInstalled), (3813033771, k_EItemStateSubscribed, k_EItemStateInstalled), (3759042728, k_EItemStateSubscribed, k_EItemStateInstalled), (3434693420, k_EItemStateSubscribed, k_EItemStateInstalled), (3806197116, k_EItemStateSubscribed, k_EItemStateInstalled), (3812140001, k_EItemStateSubscribed, k_EItemStateInstalled), (3595014060, k_EItemStateSubscribed, k_EItemStateInstalled), (3752415457, k_EItemStateSubscribed, k_EItemStateInstalled), (3399699218, k_EItemStateSubscribed, k_EItemStateInstalled), (3455404959, k_EItemStateSubscribed, k_EItemStateInstalled), (3766210676, k_EItemStateSubscribed, k_EItemStateInstalled), (3636213685, k_EItemStateSubscribed, k_EItemStateInstalled), (3628247436, k_EItemStateSubscribed, k_EItemStateInstalled), (3779799226, k_EItemStateSubscribed, k_EItemStateInstalled), (3711297532, k_EItemStateSubscribed, k_EItemStateInstalled), (3732654992, k_EItemStateSubscribed, k_EItemStateInstalled), (3524446392, k_EItemStateSubscribed, k_EItemStateInstalled), (3491248180, k_EItemStateSubscribed, k_EItemStateInstalled), (3709961172, k_EItemStateSubscribed, k_EItemStateInstalled), (3672072359, k_EItemStateSubscribed, k_EItemStateInstalled), (3796706214, k_EItemStateSubscribed, k_EItemStateInstalled)]
 FileManager.Directories contains Mods
 [EnhancedUIMod] Noesis is initialized; automatic weapon rows activated.
 [SmokeParticleLOD] Config revision 2 loaded
+[IDX][CampaignCapture.cs:74 Load] [IDX-Prize] Loaded prize roster: 3 prize(s)
 [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
 [IDX][TensionConfig.cs:62 SetRaw] [IDX-Tension] set to TENSE -> Tense (DEFCON 3)
 [IDX][TensionConfig.cs:283 Load] [IDX-Tension] no config found, defaulting to TENSE DEFCON 3 (neutral)
+[IDX][BroadcastService.cs:2426 WriteLog] [IDX] _mainGameViewModel is null
+[IDX][CampaignCapture.cs:232 AnnouncePrizes] [IDX-Prize] Roster for mission:unknown: 1/3 boarded
 FileManager.CheckFileValidity(): Game passed file validity checks!
 FileManager.CheckForUpdates(): The following files require update []
 LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
@@ -182,11 +192,11 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_addit
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetColor(_TintColor, {*}FFFFFF80)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetFloat(_InvFade, 1)
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-2896
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-3066
 [MultiStageMissiles] usn_w76_mk4: independent spawning enabled for 7 direct INI effect prefab(s).
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-3036
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-3206
 [MultiStageMissiles] usn_w88_mk5: independent spawning enabled for 7 direct INI effect prefab(s).
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-3144
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-3314
 [MultiStageMissiles] wp_ss-n-12_350kt: independent spawning enabled for 8 direct INI effect prefab(s).
 [MultiStageMissiles] wp_ss-n-19_500kt: independent spawning enabled for 9 direct INI effect prefab(s).
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
@@ -196,6 +206,7 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_hea
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
+[EnhancedDecoyMod] Configuration accepted: ger_3DDS
 LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetColor(_TintColor, {*}FFFFFF80)
 LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetColor(_TintColor, {*}FFDBD0FF)
@@ -220,58 +231,24 @@ LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C2, {*}808080FF)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_FogFadeFactor, -0.5)
 LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Cutoff, 0.5)
+[EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka
+[EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka_adap
 [MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
 [MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
-[2101 - HTTPRequestCompleted] - 14 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3797
-[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct
+[MultiStageMissiles] usn_w76_mk4: independent spawning enabled for 7 direct INI effect prefab(s).
+[MultiStageMissiles] usn_w88_mk5: independent spawning enabled for 7 direct INI effect prefab(s).
+[MultiStageMissiles] wp_ss-n-12_350kt: independent spawning enabled for 8 direct INI effect prefab(s).
+[MultiStageMissiles] wp_ss-n-19_500kt: independent spawning enabled for 9 direct INI effect prefab(s).
+[MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
+[MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
+[2101 - HTTPRequestCompleted] - 9 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3797
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+Color primaries 0 is unknown or unsupported by WindowsMediaFoundation. Falling back to default may result in color shift. C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
-ArgumentException: Requested value 'Timor Gap_briefing\sest_rafale_timor_gap_map.png' was not found.
-  at System.Enum+EnumResult.SetFailure (System.Enum+ParseFailureKind failure, System.String failureMessageID, System.Object failureMessageFormatArgument) [0x00023] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
-  at System.Enum.TryParseEnum (System.Type enumType, System.String value, System.Boolean ignoreCase, System.Enum+EnumResult& parseResult) [0x0017a] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
-  at System.Enum.Parse[TEnum] (System.String value, System.Boolean ignoreCase) [0x00012] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
-  at System.Enum.Parse[TEnum] (System.String value) [0x00000] in <932fbe8ac5a946808aa5d7b95844e18c>:0 
-  at SeaPower.ResourceLoader.getNoesisTextureSourceResource (System.String resourceName, System.Boolean suppressError, System.Boolean preMultipliedAlpha, System.Boolean useWWW) [0x00029] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
-  at SeapowerUI.ViewModels.LinearCampaignTaskForceGeneratedMissionBriefViewModel.LoadAssets (System.Collections.Generic.Dictionary`2[TKey,TValue] assetsDict, System.String assetsFolder, System.Collections.Generic.IEnumerable`1[T] briefingAssetsSearchPatterns, System.Boolean relativePath) [0x0015e] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
-  at SeapowerUI.ViewModels.MissionBriefViewModel.LoadAssets (System.Collections.Generic.Dictionary`2[TKey,TValue] assetsDict, System.String assetsFolder, System.Collections.Generic.IEnumerable`1[T] briefingAssetsSearchPatterns, System.Boolean relativePath) [0x00000] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
-  at SeapowerUI.ViewModels.MissionBriefViewModel..ctor () [0x0011b] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
-  at (wrapper dynamic-method) System.Object.lambda_method(System.Runtime.CompilerServices.Closure)
-  at Noesis.Extend.CreateInstance (System.IntPtr nativeType, System.IntPtr cPtr) [0x00068] in <522166a89e534c4f9898ea83387de5e5>:0 
-UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
-UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
-UnityEngine.DebugLogHandler:LogException(Exception, Object)
-Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
-UnityEngine.Logger:LogException(Exception, Object)
-UnityEngine.Debug:LogException(Exception)
-NoesisUnity:OnUnhandledException(Exception)
-Noesis.Error:UnhandledException(Exception)
-Noesis.Extend:CreateInstance(IntPtr, IntPtr)
-Noesis.GUI:Noesis_LoadComponent(HandleRef, String)
-Noesis.GUI:LoadComponent(Object, String)
-SeapowerUI.MissionBriefView:InitializeComponent()
-SeapowerUI.MissionBriefView:.ctor()
-SeapowerUI.ViewModels.ScenarioMenuViewModel:TryLoadBriefing(Mission)
-SeapowerUI.ViewModels.ScenarioMenuViewModel:set_SelectedMission(IMissionTreeViewItem)
-System.Reflection.RuntimeMethodInfo:InternalInvoke(RuntimeMethodInfo, Object, Object[], Exception&)
-System.Reflection.RuntimeMethodInfo:Invoke(Object, BindingFlags, Binder, Object[], CultureInfo)
-System.Reflection.RuntimePropertyInfo:SetValue(Object, Object, BindingFlags, Binder, Object[], CultureInfo)
-System.Reflection.PropertyInfo:SetValue(Object, Object, Object[])
-Noesis.<>c__DisplayClass2_0:<.ctor>b__1(Object, Object)
-Noesis.PropertyAccessorPropRW`1:Set(Object, Object)
-Noesis.Extend:SetPropertyValue(PropertyAccessor, Object, Object)
-Noesis.Extend:SetPropertyValue_BaseComponent(IntPtr, Int32, IntPtr, IntPtr, IntPtr)
-Noesis.DependencyObject:Noesis_DependencySet_BaseComponent(IntPtr, IntPtr, IntPtr)
-Noesis.DependencyObject:SetValue(DependencyProperty, Object)
-SeapowerUI.BindableSelectedItemBehavior:set_SelectedItem(Object)
-SeapowerUI.BindableSelectedItemBehavior:OnTreeViewSelectedItemChanged(Object, RoutedPropertyChangedEventArgs`1)
-Noesis.RoutedPropertyChangedEventArgs`1:InvokeHandler(Delegate, IntPtr, IntPtr)
-Noesis.EventManager:InvokeHandler(IntPtr, Delegate, IntPtr, IntPtr)
-Noesis.EventHandlerStore:RaiseRoutedEvent(IntPtr, IntPtr, IntPtr, IntPtr, IntPtr)
-Noesis.View:Noesis_View_MouseButtonUp(HandleRef, Int32, Int32, Int32)
-Noesis.View:MouseButtonUp(Int32, Int32, MouseButton)
-NoesisView:ProcessEvent(Event, Boolean, Boolean)
-NoesisView:OnGUI()
-
-[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 Global logging level set to: <b>Info</b>
 Noesis logging level set to: <b>Trace</b>
 Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
@@ -330,77 +307,1026 @@ Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched 
 [IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
 [IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
 [IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
-LoadMaterialFromFile(ships/PN_FFG-150/PN_FFG-150.ini): SetColor(_Color, {*}808080ff)
-LoadMaterialFromFile(ships/PN_FFG-150/PN_FFG-150.ini): SetColor(_SpecColor, {*}ffffffff)
-LoadMaterialFromFile(ships/PN_FFG-150/PN_FFG-150.ini): SetFloat(_SpecInt, 1.0)
-LoadMaterialFromFile(ships/PN_FFG-150/PN_FFG-150.ini): SetFloat(_Shininess, 6.5)
-LoadMaterialFromFile(ships/PN_FFG-150/PN_FFG-150.ini): SetFloat(_Fresnel, 0.75)
-LoadMaterialFromFile(ships/PN_FFG-06/PN_FFG-06.ini): SetColor(_Color, {*}808080ff)
-LoadMaterialFromFile(ships/PN_FFG-06/PN_FFG-06.ini): SetColor(_SpecColor, {*}ffffffff)
-LoadMaterialFromFile(ships/PN_FFG-06/PN_FFG-06.ini): SetFloat(_SpecInt, 1.0)
-LoadMaterialFromFile(ships/PN_FFG-06/PN_FFG-06.ini): SetFloat(_Shininess, 6.5)
-LoadMaterialFromFile(ships/PN_FFG-06/PN_FFG-06.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_deck_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_deck_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_deck_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_deck_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_deck_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material/usn_cvn_nimitz_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_deck_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_deck_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_deck_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_deck_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_deck_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_hangar_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_hangar_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_hangar_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_hangar_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/Material\usn_cvn_nimitz_hangar_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_truss_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_ciws_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_irst_camera_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(ships/materials/shared/usn_lltv_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Roads_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Coal_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Buildings_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Coolingtowers_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Powerplant\Exhausttowers_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(Buildings/Tentgroup/4tents_mat.ini): SetFloat(_Fresnel, 0.75)
 [HighAltitudeSkyFix] Skybox vertical geometry measured: top=105707 ft, atmosphere boundary=88189 ft, retained camera-above-skybox offset=96948 ft.
-LoadMaterialFromFile(ships/pn_FFG-150/PN_FFG-150.ini): SetColor(_Color, {*}808080ff)
-LoadMaterialFromFile(ships/pn_FFG-150/PN_FFG-150.ini): SetColor(_SpecColor, {*}ffffffff)
-LoadMaterialFromFile(ships/pn_FFG-150/PN_FFG-150.ini): SetFloat(_SpecInt, 1.0)
-LoadMaterialFromFile(ships/pn_FFG-150/PN_FFG-150.ini): SetFloat(_Shininess, 6.5)
-LoadMaterialFromFile(ships/pn_FFG-150/PN_FFG-150.ini): SetFloat(_Fresnel, 0.75)
-LoadMaterialFromFile(assets/europack/materials/usn_rgm-84/usn_rgm-84d.ini): SetColor(_Color, {*}808080ff)
-LoadMaterialFromFile(assets/europack/materials/usn_rgm-84/usn_rgm-84d.ini): SetColor(_SpecColor, {*}ffffffff)
-LoadMaterialFromFile(assets/europack/materials/usn_rgm-84/usn_rgm-84d.ini): SetFloat(_SpecInt, 0.75)
-LoadMaterialFromFile(assets/europack/materials/usn_rgm-84/usn_rgm-84d.ini): SetFloat(_Shininess, 4.0)
-LoadMaterialFromFile(assets/europack/materials/usn_rgm-84/usn_rgm-84d.ini): SetFloat(_Fresnel, 0.75)
-LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk46_5_mat.ini): SetColor(_Color, {*}808080ff)
-LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk46_5_mat.ini): SetColor(_SpecColor, {*}ffffffff)
-LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk46_5_mat.ini): SetFloat(_SpecInt, 1.0)
-LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk46_5_mat.ini): SetFloat(_Shininess, 8.5)
-LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk46_5_mat.ini): SetFloat(_Fresnel, 0.75)
-LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetColor(_Color, {*}808080ff)
-LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetColor(_SpecColor, {*}ffffffff)
-LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetFloat(_SpecInt, 1.0)
-LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetFloat(_Shininess, 6.5)
-LoadMaterialFromFile(weapons/usn_agm-84/plan_yj83_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetFloat(_Fresnel, 0.75)
 [SkyDebug] DynamicSky.updateSkyParameters hit; runtime type=SeaPower.DynamicSky.
 [SkyDebug] DynamicSky.updateLightParameters hit; runtime type=SeaPower.DynamicSky.
 [SkyDebug] DynamicSky.updateGraphics hit; runtime type=SeaPower.DynamicSky.
 [SkyDebug] DynamicSky.OnLateUpdate hit; runtime type=SeaPower.DynamicSky.
 [EnhancedUIMod] Attached to main HUD weapon list.
-Unloading 8 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 161 unused Assets to reduce memory usage. Loaded Objects now: 61556.
-Total: 252.259100 ms (FindLiveObjects: 4.459400 ms CreateObjectMapping: 1.553600 ms MarkObjects: 245.515200 ms  DeleteObjects: 0.730200 ms)
+Unloading 7 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 175 unused Assets to reduce memory usage. Loaded Objects now: 70736.
+Total: 175.853600 ms (FindLiveObjects: 4.091600 ms CreateObjectMapping: 1.236600 ms MarkObjects: 170.132800 ms  DeleteObjects: 0.392300 ms)
 
 Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 61594.
-Total: 205.871900 ms (FindLiveObjects: 2.881400 ms CreateObjectMapping: 0.858100 ms MarkObjects: 202.071400 ms  DeleteObjects: 0.060600 ms)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 70865.
+Total: 167.285700 ms (FindLiveObjects: 3.188800 ms CreateObjectMapping: 1.214500 ms MarkObjects: 162.812900 ms  DeleteObjects: 0.069200 ms)
 
 Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 61608.
-Total: 202.641900 ms (FindLiveObjects: 2.842000 ms CreateObjectMapping: 0.881800 ms MarkObjects: 198.859900 ms  DeleteObjects: 0.057800 ms)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 70878.
+Total: 160.305900 ms (FindLiveObjects: 3.231100 ms CreateObjectMapping: 1.111400 ms MarkObjects: 155.885700 ms  DeleteObjects: 0.077300 ms)
 
 Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 61616.
-Total: 184.355400 ms (FindLiveObjects: 3.347100 ms CreateObjectMapping: 0.989800 ms MarkObjects: 179.955500 ms  DeleteObjects: 0.062700 ms)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 70889.
+Total: 159.787800 ms (FindLiveObjects: 3.147900 ms CreateObjectMapping: 1.018100 ms MarkObjects: 155.525000 ms  DeleteObjects: 0.096400 ms)
 
 [IDX][TaskforceUtil.cs:31 Resolve] [IDX] taskforce access: property=True field=False inner=True
-[EnhancedUIMod] Attached to main HUD weapon list.
-[EnhancedDecoyMod] Chaff ammunition group launched: usn_rr144_chaff, range(nm)=2.7
-[EnhancedDecoyMod] Chaff ammunition group launched: usn_rr144_chaff, range(nm)=2.7
-[EnhancedUIMod] Attached to main HUD weapon list.
-[EnhancedUIMod] Attached to main HUD weapon list.
-[MissileControlMod] Configuration: usn_rim-162h; launch=True; TVC=False; effect definitions=1
-[EnhancedUIMod] Attached to main HUD weapon list.
-SeaPower.LinearCampaign.InstanceExists() = True
-[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
 Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 2918 unused Assets to reduce memory usage. Loaded Objects now: 17977.
-Total: 255.705900 ms (FindLiveObjects: 1.610900 ms CreateObjectMapping: 0.801300 ms MarkObjects: 215.733500 ms  DeleteObjects: 37.559600 ms)
+Unloading 82 unused Assets to reduce memory usage. Loaded Objects now: 71909.
+Total: 193.217400 ms (FindLiveObjects: 4.799300 ms CreateObjectMapping: 1.410100 ms MarkObjects: 186.714600 ms  DeleteObjects: 0.292900 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 71912.
+Total: 193.329300 ms (FindLiveObjects: 5.438700 ms CreateObjectMapping: 2.158700 ms MarkObjects: 185.642700 ms  DeleteObjects: 0.088700 ms)
 
 Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
-Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 17876.
-Total: 190.844900 ms (FindLiveObjects: 1.284300 ms CreateObjectMapping: 1.387800 ms MarkObjects: 188.056500 ms  DeleteObjects: 0.115900 ms)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 71913.
+Total: 178.107600 ms (FindLiveObjects: 4.187900 ms CreateObjectMapping: 1.292200 ms MarkObjects: 172.551000 ms  DeleteObjects: 0.076100 ms)
 
-First video frame not zero: 1 (0.016667s). Result may be out of sync. Please make sure tracks all start at 0 in C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 71918.
+Total: 177.823500 ms (FindLiveObjects: 3.393200 ms CreateObjectMapping: 1.247000 ms MarkObjects: 173.076500 ms  DeleteObjects: 0.106400 ms)
+
+SeaPower.LinearCampaign.InstanceExists() = False
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+[3D WebView] Unable to deliver a message from the native plugin to a webview GameObject because there is no longer a GameObject named 'WebView-3a587e40-f12c-40d3-9a79-63f32ba96224'. This can sometimes happen directly after destroying a webview. In that case, it is benign and this message can be ignored.
+Unloading 4162 unused Assets to reduce memory usage. Loaded Objects now: 18823.
+Total: 237.755700 ms (FindLiveObjects: 1.395800 ms CreateObjectMapping: 0.839400 ms MarkObjects: 174.999600 ms  DeleteObjects: 60.520500 ms)
+
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[IDX][BottomBarInjector.cs:82 TryInject] [IDX-BottomBar] host changed (mission reload?) â€” re-injecting IDX button
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(materials/ships/soviet_gray1_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(materials/ships/soviet_gray1_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(materials/ships/soviet_gray1_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(materials/ships/soviet_gray1_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(materials/ships/soviet_gray1_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 6 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 200 unused Assets to reduce memory usage. Loaded Objects now: 45976.
+Total: 212.442400 ms (FindLiveObjects: 4.623600 ms CreateObjectMapping: 2.200300 ms MarkObjects: 205.269700 ms  DeleteObjects: 0.348500 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 46128.
+Total: 184.319100 ms (FindLiveObjects: 3.642900 ms CreateObjectMapping: 1.627700 ms MarkObjects: 178.986300 ms  DeleteObjects: 0.061800 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 46185.
+Total: 176.085200 ms (FindLiveObjects: 2.086000 ms CreateObjectMapping: 0.926700 ms MarkObjects: 173.019200 ms  DeleteObjects: 0.052900 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 46201.
+Total: 178.249200 ms (FindLiveObjects: 2.266300 ms CreateObjectMapping: 0.977300 ms MarkObjects: 174.950800 ms  DeleteObjects: 0.054500 ms)
+
+AllowLaunchFunc!
+LoadMaterialFromFile(weapons/usn_rgm-109/wp_ss-n-21_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(weapons/usn_rgm-109/wp_ss-n-21_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(weapons/usn_rgm-109/wp_ss-n-21_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(weapons/usn_rgm-109/wp_ss-n-21_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(weapons/usn_rgm-109/wp_ss-n-21_mat.ini): SetFloat(_Fresnel, 0.75)
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[MissileControlMod] Configuration: usn_rim-162h; launch=True; TVC=False; effect definitions=1
+[SATCOM] Stored a calculated intercept coordinate.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=RV Akademik Fersman (research vessel, tender), phrase=redirect, tone=aggressive
+[IDX][BroadcastService.cs:2328 FindSender] [IDX] selected sender unusable: RV Akademik Fersman (research vessel, tender) player=False
+[IDX][ContactRegistry.cs:65 Register] [IDX-Panel] Registered contact 23 RV Akademik Fersman (research vessel, tender) kind=Surface
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] P-8A No.12 Squadron RAAF -> RV Akademik Fersman (research vessel, tender) 'redirect' 26.9 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission redirect [aggressive] -> IdentRedirect (Australia)
+[IDX][BroadcastService.cs:2476 SetWaypointViaReflection] [IDX] setWaypointTask invoked on RV Akademik Fersman (research vessel, tender)
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply redirect|Partial -> RespRedirectPartial
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=Factory trawler Nan Hai 29, phrase=hail, tone=neutral
+[IDX][ContactRegistry.cs:65 Register] [IDX-Panel] Registered contact 24 Factory trawler Nan Hai 29 kind=Surface
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] Toowoomba FFH-156 -> Factory trawler Nan Hai 29 'hail' 42.8 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission hail [neutral] -> IdentHail (Australia)
+[IDX][BroadcastService.cs:2374 TryVanillaRequestIdentify] [IDX] vanilla identify: no response (LOS/submerged/wrong selection)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply hail|Refuse -> RespHailRefuse
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=Factory trawler Nan Hai 29, phrase=hail, tone=neutral
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] Tiger 1 -> Factory trawler Nan Hai 29 'hail' 36.5 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission hail [neutral] -> IdentHail (Australia)
+[IDX][BroadcastService.cs:2374 TryVanillaRequestIdentify] [IDX] vanilla identify: no response (LOS/submerged/wrong selection)
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply hail|Partial -> RespHailComplyNameFlag
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=Factory trawler Nan Hai 29, phrase=surrender, tone=aggressive
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] P-8A No.12 Squadron RAAF -> Factory trawler Nan Hai 29 'surrender' 60.5 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission surrender [aggressive] -> ChallengesSurrender (Australia)
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply surrender|Refuse -> RespSurrenderRefuseFight
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=Factory trawler Nan Hai 29, phrase=hail, tone=neutral
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] P-8A No.12 Squadron RAAF -> Factory trawler Nan Hai 29 'hail' 59.2 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission hail [neutral] -> IdentHail (Australia)
+[IDX][BroadcastService.cs:2374 TryVanillaRequestIdentify] [IDX] vanilla identify: no response (LOS/submerged/wrong selection)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply hail|Refuse -> RespHailRefuse
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=Factory trawler Nan Hai 29, phrase=warning, tone=aggressive
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] P-8A No.12 Squadron RAAF -> Factory trawler Nan Hai 29 'warning' 58.5 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission warning [aggressive] -> IdentWarning (Australia)
+[IDX][BroadcastService.cs:2476 SetWaypointViaReflection] [IDX] setWaypointTask invoked on Factory trawler Nan Hai 29
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply warning|Comply -> RespWarnComplyStandOff
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[AutomaticSAR] [1004] MH-60R 816 Squadron RAN: Automatic SAR started.
+[AutomaticSAR] 1-usn_mh-60r assigned to life raft 31-all_life_raft_single.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=Factory trawler Nan Hai 29, phrase=destination, tone=aggressive
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] Tiger 1 -> Factory trawler Nan Hai 29 'destination' 23.2 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission destination [aggressive] -> IdentDestination (Australia)
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply destination|Evasive -> RespDestinationEvasiveWhy
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 4 IFF)
+[IDX][BroadcastService.cs:329 Send] [IDX] Send called: target=Factory trawler Nan Hai 29, phrase=cargo, tone=aggressive
+[IDX][BroadcastService.cs:477 SendInternal] [IDX] Tiger 1 -> Factory trawler Nan Hai 29 'cargo' 23.1 nmi TEXT-ONLY via RADIO (no audio)
+[IDX][VoiceService.cs:214 PlayTransmission] [IDX-Voice] transmission cargo [aggressive] -> IdentCargo (Australia)
+[IDX][VoiceService.cs:264 PlayResponse] [IDX-Voice] reply cargo|Comply -> RespCargoFull
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+Can not play a disabled audio source
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+Can not play a disabled audio source
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[AutomaticSAR] Automatic SAR cancelled for 1-usn_mh-60r.
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+[AutomaticSAR] [1004] MH-60R 816 Squadron RAN: Automatic SAR started.
+[AutomaticSAR] 1-usn_mh-60r assigned to life raft 30-all_life_raft_single.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[EnhancedUIMod] Attached to main HUD weapon list.
+SpawnPool Effects: aswtorpedo_cavitation_particle(Clone) not found in SpawnPool
+[EnhancedUIMod] Attached to main HUD weapon list.
+SeaPower.LinearCampaign.InstanceExists() = False
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+[3D WebView] Unable to deliver a message from the native plugin to a webview GameObject because there is no longer a GameObject named 'WebView-20c24597-48e9-4cf6-8762-b6435335cfa5'. This can sometimes happen directly after destroying a webview. In that case, it is benign and this message can be ignored.
+Unloading 3736 unused Assets to reduce memory usage. Loaded Objects now: 22747.
+Total: 278.343800 ms (FindLiveObjects: 1.589400 ms CreateObjectMapping: 1.363400 ms MarkObjects: 235.175500 ms  DeleteObjects: 40.215100 ms)
+
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[IDX][BottomBarInjector.cs:82 TryInject] [IDX-BottomBar] host changed (mission reload?) â€” re-injecting IDX button
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/hull_red_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_ford_hull_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/light_gray_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/dark_gray_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/usn_deck_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/sensor_white_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetFloat(_Shininess, 2.5)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/yellow_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_cv_hull_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_cv_hull_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_cv_hull_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_cv_hull_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_cv_hull_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_gray_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_gray_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_gray_mat.ini): SetFloat(_SpecInt, 0.5)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_gray_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/plan_gray_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/soviet_deck_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/soviet_deck_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/soviet_deck_mat.ini): SetFloat(_SpecInt, 1)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/soviet_deck_mat.ini): SetFloat(_Shininess, 0.2)
+LoadMaterialFromFile(ships/usn_cvn_nimitz/soviet_deck_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v70_detailed_skin_mat.ini): SetColor(_Color, {*}b8b8b8ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v70_detailed_skin_mat.ini): SetColor(_SpecColor, {*}404048ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v70_detailed_skin_mat.ini): SetFloat(_SpecInt, 0.1)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v70_detailed_skin_mat.ini): SetFloat(_Shininess, 0.8)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v70_detailed_skin_mat.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v68_canopy_mat.ini): SetColor(_Color, {*}8a806448)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v68_canopy_mat.ini): SetColor(_SpecColor, {*}707078ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v68_canopy_mat.ini): SetFloat(_SpecInt, 0.12)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v68_canopy_mat.ini): SetFloat(_Shininess, 1.0)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v68_canopy_mat.ini): SetFloat(_Fresnel, 0.06)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_dark_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_dark_mat.ini): SetColor(_SpecColor, {*}404048ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_dark_mat.ini): SetFloat(_SpecInt, 0.12)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_dark_mat.ini): SetFloat(_Shininess, 1)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_dark_mat.ini): SetFloat(_Fresnel, 0.025)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v69_cockpit_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v69_cockpit_mat.ini): SetColor(_SpecColor, {*}606068ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v69_cockpit_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v69_cockpit_mat.ini): SetFloat(_Shininess, 0.5)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v69_cockpit_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_red_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_red_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_red_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_red_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_red_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_red_mat.ini): SetColor(_GlowColor, {*}ff1007ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_red_mat.ini): SetFloat(_GlowStrength, 2.5)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_red_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_green_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_green_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_green_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_green_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_green_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_green_mat.ini): SetColor(_GlowColor, {*}16ff38ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_green_mat.ini): SetFloat(_GlowStrength, 2.5)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_green_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v73_closure_skin_mat.ini): SetColor(_Color, {*}b8b8b8ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v73_closure_skin_mat.ini): SetColor(_SpecColor, {*}404048ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v73_closure_skin_mat.ini): SetFloat(_SpecInt, 0.1)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v73_closure_skin_mat.ini): SetFloat(_Shininess, 0.8)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v73_closure_skin_mat.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v60_hook_steel_mat.ini): SetColor(_Color, {*}4d5457ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v60_hook_steel_mat.ini): SetColor(_SpecColor, {*}707880ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v60_hook_steel_mat.ini): SetFloat(_SpecInt, 0.12)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v60_hook_steel_mat.ini): SetFloat(_Shininess, 2)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_v60_hook_steel_mat.ini): SetFloat(_Fresnel, 0.05)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_paint_mat.ini): SetColor(_Color, {*}999999ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_paint_mat.ini): SetColor(_SpecColor, {*}505058ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_paint_mat.ini): SetFloat(_SpecInt, 0.1)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_paint_mat.ini): SetFloat(_Shininess, 2)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_paint_mat.ini): SetFloat(_Fresnel, 0.025)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_gear_tire_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_gear_tire_mat.ini): SetColor(_SpecColor, {*}404048ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_gear_tire_mat.ini): SetFloat(_SpecInt, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_gear_tire_mat.ini): SetFloat(_Shininess, 0.5)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_gear_tire_mat.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_metal_mat.ini): SetColor(_Color, {*}aaaaaaff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_metal_mat.ini): SetColor(_SpecColor, {*}707880ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_metal_mat.ini): SetFloat(_SpecInt, 0.26)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_metal_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_naval_gear_metal_mat.ini): SetFloat(_Fresnel, 0.06)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_white_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_white_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_white_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_white_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_white_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_white_mat.ini): SetColor(_GlowColor, {*}fff4e6ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_white_mat.ini): SetFloat(_GlowStrength, 2.5)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_white_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_beacon_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_beacon_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_beacon_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_beacon_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_beacon_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_beacon_mat.ini): SetColor(_GlowColor, {*}ff160dff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_beacon_mat.ini): SetFloat(_GlowStrength, 4.0)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_beacon_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_landing_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_landing_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_landing_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_landing_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_landing_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_landing_mat.ini): SetColor(_GlowColor, {*}fff6e7ff)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_landing_mat.ini): SetFloat(_GlowStrength, 3.5)
+LoadMaterialFromFile(assets/models/aircraft/yf-23_black_widow_ii/yf23_light_landing_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_body_mat.ini): SetColor(_Color, {*}707070ff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_body_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_body_mat.ini): SetFloat(_SpecInt, 0.22)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_body_mat.ini): SetFloat(_Shininess, 1.5)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_body_mat.ini): SetFloat(_Fresnel, 0.08)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_metal_mat.ini): SetColor(_Color, {*}6f7888ff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_metal_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_metal_mat.ini): SetFloat(_SpecInt, 0.75)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_metal_mat.ini): SetFloat(_Shininess, 1.5)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_metal_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_matte_mat.ini): SetColor(_Color, {*}121212ff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_matte_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_matte_mat.ini): SetFloat(_SpecInt, 0.25)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_matte_mat.ini): SetFloat(_Shininess, 0.4)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_matte_mat.ini): SetFloat(_Fresnel, 0.15)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_mat.ini): SetColor(_Color, {*}030303ff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_mat.ini): SetFloat(_SpecInt, 0.2)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_mat.ini): SetFloat(_Shininess, 0.3)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_black_mat.ini): SetFloat(_Fresnel, 0.1)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_silver_mat.ini): SetColor(_Color, {*}b8b8b8ff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_silver_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_silver_mat.ini): SetFloat(_SpecInt, 0.5)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_silver_mat.ini): SetFloat(_Shininess, 1.0)
+LoadMaterialFromFile(assets/models/vechicle/aircraft/RQ-180/rq180_silver_mat.ini): SetFloat(_Fresnel, 0.2)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_3.ini): SetColor(_Color, {*}808891ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_3.ini): SetColor(_SpecColor, {*}303036ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_3.ini): SetFloat(_SpecInt, 0.04)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_3.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_3.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_0.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_0.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_0.ini): SetFloat(_SpecInt, 0.25)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_0.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_0.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_gear_legs_mat.ini): SetColor(_Color, {*}34383eff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_gear_legs_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_gear_legs_mat.ini): SetFloat(_SpecInt, 0.25)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_gear_legs_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_gear_legs_mat.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_2.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_2.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_2.ini): SetFloat(_SpecInt, 0.25)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_2.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_2.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_1.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_1.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_1.ini): SetFloat(_SpecInt, 0.25)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_1.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_1.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_7.ini): SetColor(_Color, {*}808891ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_7.ini): SetColor(_SpecColor, {*}303036ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_7.ini): SetFloat(_SpecInt, 0.04)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_7.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_7.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_intake_dark.ini): SetColor(_Color, {*}010101FF)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_intake_dark.ini): SetColor(_SpecColor, {*}010101FF)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_intake_dark.ini): SetFloat(_SpecInt, 0.0)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_intake_dark.ini): SetFloat(_Shininess, 1)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_intake_dark.ini): SetFloat(_Fresnel, 0.0)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_5.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_5.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_5.ini): SetFloat(_SpecInt, 0.25)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_5.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_5.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_6.ini): SetColor(_Color, {*}808891ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_6.ini): SetColor(_SpecColor, {*}303036ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_6.ini): SetFloat(_SpecInt, 0.04)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_6.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_6.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_4.ini): SetColor(_Color, {*}10161dff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_4.ini): SetColor(_SpecColor, {*}171b20ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_4.ini): SetFloat(_SpecInt, 0.04)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_4.ini): SetFloat(_Shininess, 2.0)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_material_4.ini): SetFloat(_Fresnel, 0.05)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_deep_interior.ini): SetColor(_Color, {*}050607FF)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_deep_interior.ini): SetColor(_SpecColor, {*}080808FF)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_deep_interior.ini): SetFloat(_SpecInt, 0.01)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_deep_interior.ini): SetFloat(_Shininess, 1)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_deep_interior.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_formation_strip.ini): SetColor(_Color, {*}454738ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_formation_strip.ini): SetColor(_SpecColor, {*}303036ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_formation_strip.ini): SetFloat(_SpecInt, 0.04)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_formation_strip.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_formation_strip.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_paint_stencil.ini): SetColor(_Color, {*}0b0d0eff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_paint_stencil.ini): SetColor(_SpecColor, {*}303036ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_paint_stencil.ini): SetFloat(_SpecInt, 0.04)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_paint_stencil.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_paint_stencil.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_panel_seam.ini): SetColor(_Color, {*}202326ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_panel_seam.ini): SetColor(_SpecColor, {*}303036ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_panel_seam.ini): SetFloat(_SpecInt, 0.04)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_panel_seam.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_panel_seam.ini): SetFloat(_Fresnel, 0.02)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_red_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_red_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_red_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_red_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_red_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_red_mat.ini): SetColor(_GlowColor, {*}ff1007ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_red_mat.ini): SetFloat(_GlowStrength, 2.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_red_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_green_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_green_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_green_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_green_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_green_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_green_mat.ini): SetColor(_GlowColor, {*}16ff38ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_green_mat.ini): SetFloat(_GlowStrength, 2.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_green_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_white_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_white_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_white_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_white_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_white_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_white_mat.ini): SetColor(_GlowColor, {*}fff4e6ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_white_mat.ini): SetFloat(_GlowStrength, 2.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_white_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_beacon_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_beacon_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_beacon_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_beacon_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_beacon_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_beacon_mat.ini): SetColor(_GlowColor, {*}ff160dff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_beacon_mat.ini): SetFloat(_GlowStrength, 4.0)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_beacon_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_landing_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_landing_mat.ini): SetColor(_SpecColor, {*}404040ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_landing_mat.ini): SetFloat(_SpecInt, 0.10)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_landing_mat.ini): SetFloat(_Shininess, 4)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_landing_mat.ini): SetFloat(_Fresnel, 0.03)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_landing_mat.ini): SetColor(_GlowColor, {*}fff6e7ff)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_landing_mat.ini): SetFloat(_GlowStrength, 3.5)
+LoadMaterialFromFile(assets/models/aircraft/fury_carrier/fury_light_landing_mat.ini): SetFloat(_EmissionLM, 0)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_cockpit_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_cockpit_mat.ini): SetColor(_SpecColor, {*}8090a0ff)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_cockpit_mat.ini): SetFloat(_SpecInt, 0.20)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_cockpit_mat.ini): SetFloat(_Shininess, 8.0)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_cockpit_mat.ini): SetFloat(_Fresnel, 0.20)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_canopy_mat.ini): SetColor(_Color, {*}a0a0a0a0)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_canopy_mat.ini): SetColor(_SpecColor, {*}707070ff)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_canopy_mat.ini): SetFloat(_SpecInt, 0.12)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_canopy_mat.ini): SetFloat(_Shininess, 6.0)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_canopy_mat.ini): SetFloat(_Fresnel, 0.12)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_steady_lights.mat.ini): SetColor(_Color, {*}476b52ff)
+LoadMaterialFromFile(assets/models/aircraft/j36/j36_steady_lights.mat.ini): SetColor(_EmissionColor, {*}57b885ff)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+[YF-23 Lights] glow shader Particles/Additive No Fog
+[YF-23 Lights] 1-usaf_yf-23_black_widow_ii: 6 light parts
+[YF-23 Lights] 2-usaf_yf-23_black_widow_ii: 6 light parts
+[Fury Lights] glow shader Particles/Additive No Fog
+[Fury Lights] 7-usn_fury_escort: 6 light parts
+[Fury Lights] 8-usn_fury_ew: 6 light parts
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 6 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 225 unused Assets to reduce memory usage. Loaded Objects now: 111598.
+Total: 232.263700 ms (FindLiveObjects: 8.306700 ms CreateObjectMapping: 2.070400 ms MarkObjects: 221.520600 ms  DeleteObjects: 0.365500 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 111835.
+Total: 206.802600 ms (FindLiveObjects: 7.414400 ms CreateObjectMapping: 2.507800 ms MarkObjects: 196.772100 ms  DeleteObjects: 0.107600 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 111859.
+Total: 196.590200 ms (FindLiveObjects: 5.698200 ms CreateObjectMapping: 1.722200 ms MarkObjects: 189.030100 ms  DeleteObjects: 0.139200 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 111873.
+Total: 196.277800 ms (FindLiveObjects: 5.252400 ms CreateObjectMapping: 1.774500 ms MarkObjects: 189.128300 ms  DeleteObjects: 0.122100 ms)
+
+SpawnPool Effects: wp_ss-n-12_booster(Clone) not found in SpawnPool
+SpawnPool Effects: wp_ss-n-12_booster(Clone) not found in SpawnPool
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[MissileControlMod] Configuration: usn_aim-9x; launch=False; TVC=True; effect definitions=1
+Look rotation viewing vector is zero
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[FuryLoss] Combat loss=192; queued speaker=215
+[FuryLoss] Played FriendlyAircraftLost; speaker=215
+[EnhancedUIMod] Attached to main HUD weapon list.
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "2-plan_j-15t/Colliders/systemcolliders/coll_engl"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "2-plan_j-15t/Colliders/systemcolliders/coll_engr"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "5-plan_j-15t/Colliders/systemcolliders/coll_engl"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "5-plan_j-15t/Colliders/systemcolliders/coll_engr"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "4-plan_j-15t/Colliders/systemcolliders/coll_engl"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "4-plan_j-15t/Colliders/systemcolliders/coll_engr"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "6-plan_j-15t/Colliders/systemcolliders/coll_engl"
+BoxCollider does not support negative scale or size.
+The effective box size has been forced positive and is likely to give unexpected collision geometry.
+If you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path "6-plan_j-15t/Colliders/systemcolliders/coll_engr"
+[FuryLoss] Combat loss=525; queued speaker=215
+[EnhancedDecoyMod] Chaff ammunition group launched: all_ship_chaff_late, range(nm)=2.7
+[EnhancedDecoyMod] Chaff ammunition group launched: all_ship_chaff_late, range(nm)=2.7
+[FuryLoss] Played FriendlyAircraftLost; speaker=215
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+Look rotation viewing vector is zero
+NullReferenceException: Object reference not set to an instance of an object | 1 vs 3
+NullReferenceException: Object reference not set to an instance of an object
+  at SeaPower.ObjectBase.SpawnPilot (System.String pilotIniName, UnityEngine.Vector3 offset, UnityEngine.Vector3 rotation) [0x00021] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
+  at (wrapper dynamic-method) SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate>(SeaPower.ObjectBase)
+  at (wrapper dynamic-method) SeaPower.Aircraft.DMD<SeaPower.Aircraft::OnFixedUpdate>(SeaPower.Aircraft)
+  at SeaPower.GameMain.PerformFixedUpdate () [0x0004f] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00012] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
+UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+
+NullReferenceException: Object reference not set to an instance of an object | 2 vs 3
+NullReferenceException: Object reference not set to an instance of an object
+  at SeaPower.ObjectBase.SpawnPilot (System.String pilotIniName, UnityEngine.Vector3 offset, UnityEngine.Vector3 rotation) [0x00021] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
+  at (wrapper dynamic-method) SeaPower.ObjectBase.DMD<SeaPower.ObjectBase::OnFixedUpdate>(SeaPower.ObjectBase)
+  at (wrapper dynamic-method) SeaPower.Aircraft.DMD<SeaPower.Aircraft::OnFixedUpdate>(SeaPower.Aircraft)
+  at SeaPower.GameMain.PerformFixedUpdate () [0x0004f] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
+  at SeaPower.GameMain.FixedUpdate () [0x00012] in <9387b5eeb1ff4496b801d320f0e4cabf>:0 
+UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+
+ObjectBase.CheckAircraftOrHelicopterTerrainHit called
+[EnhancedUIMod] Attached to main HUD weapon list.
+ObjectBase.CheckAircraftOrHelicopterTerrainHit called
+ObjectBase.CheckAircraftOrHelicopterTerrainHit called
+ObjectBase.CheckAircraftOrHelicopterTerrainHit called
+ObjectBase.CheckAircraftOrHelicopterTerrainHit called
+SeaPower.LinearCampaign.InstanceExists() = False
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+[3D WebView] Unable to deliver a message from the native plugin to a webview GameObject because there is no longer a GameObject named 'WebView-b57b0b48-2386-49ed-9b48-4984cc6edbf0'. This can sometimes happen directly after destroying a webview. In that case, it is benign and this message can be ignored.
+Unloading 5824 unused Assets to reduce memory usage. Loaded Objects now: 32381.
+Total: 372.589000 ms (FindLiveObjects: 2.300200 ms CreateObjectMapping: 1.519900 ms MarkObjects: 285.686600 ms  DeleteObjects: 83.082000 ms)
+
+Global logging level set to: <b>Info</b>
+Noesis logging level set to: <b>Trace</b>
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Initialization Warning: Pool 'Effects' contains a PrefabPool with no prefab reference. Skipping.
+Added pool 'Effects'
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+Clearing persistant loadout data, 0 elements removed, 0 of which are unlaunched loadouts
+[IDX][BottomBarInjector.cs:82 TryInject] [IDX-BottomBar] host changed (mission reload?) â€” re-injecting IDX button
+[IDX][BottomBarInjector.cs:374 TryCreateLogoContent] [IDX-BottomBar] logo loaded 64x64 from C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3790594162\assets\logo_64.png as 30x30 Image (vanilla 32x32 DXT1 in 32dp button)
+[IDX][BottomBarInjector.cs:214 TryInject] [IDX-BottomBar] anchor FormationManagerWindow at Row=2 Col=1 grid 3x6
+[IDX][BottomBarInjector.cs:246 TryInject] [IDX-BottomBar] nested IDX button with FormationManagerWindow at Row=2 Col=1 â€” grid untouched
+[IDX][BottomBarInjector.cs:264 TryInject] [IDX-BottomBar] injected IDX ToggleButton into Grid â€” native overlay window
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hull_equipment.mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hull_equipment.mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hull_equipment.mat.ini): SetFloat(_SpecInt, 0.7)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hull_equipment.mat.ini): SetFloat(_Shininess, 4.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hull_equipment.mat.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_mount_pivot.mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_mount_pivot.mat.ini): SetColor(_SpecColor, {*}b8c0c8ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_mount_pivot.mat.ini): SetFloat(_SpecInt, 0.35)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_mount_pivot.mat.ini): SetFloat(_Shininess, 2.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_mount_pivot.mat.ini): SetFloat(_Fresnel, 0.45)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_railings.mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_railings.mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_railings.mat.ini): SetFloat(_SpecInt, 0.7)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_railings.mat.ini): SetFloat(_Shininess, 4.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_railings.mat.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_superstructure.mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_superstructure.mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_superstructure.mat.ini): SetFloat(_SpecInt, 0.7)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_superstructure.mat.ini): SetFloat(_Shininess, 4.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_superstructure.mat.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_platform.mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_platform.mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_platform.mat.ini): SetFloat(_SpecInt, 0.7)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_platform.mat.ini): SetFloat(_Shininess, 4.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_platform.mat.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_railings.mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_railings.mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_railings.mat.ini): SetFloat(_SpecInt, 0.7)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_railings.mat.ini): SetFloat(_Shininess, 4.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_elevator_railings.mat.ini): SetFloat(_Fresnel, 0.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_structure.mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_structure.mat.ini): SetColor(_SpecColor, {*}9aa0a6ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_structure.mat.ini): SetFloat(_SpecInt, 0.24)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_structure.mat.ini): SetFloat(_Shininess, 2.2)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_structure.mat.ini): SetFloat(_Fresnel, 0.22)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_interior.mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_interior.mat.ini): SetColor(_SpecColor, {*}9aa2a7ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_interior.mat.ini): SetFloat(_SpecInt, 0.32)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_interior.mat.ini): SetFloat(_Shininess, 2.4)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_interior.mat.ini): SetFloat(_Fresnel, 0.18)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_floor.mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_floor.mat.ini): SetColor(_SpecColor, {*}9aa2a7ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_floor.mat.ini): SetFloat(_SpecInt, 0.22)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_floor.mat.ini): SetFloat(_Shininess, 1.5)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_hangar_floor.mat.ini): SetFloat(_Fresnel, 0.18)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_silver.mat.ini): SetColor(_Color, {*}969a9dff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_silver.mat.ini): SetColor(_SpecColor, {*}d8dde2ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_silver.mat.ini): SetFloat(_SpecInt, 0.48)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_silver.mat.ini): SetFloat(_Shininess, 5.2)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_silver.mat.ini): SetFloat(_Fresnel, 0.34)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_glass.mat.ini): SetColor(_Color, {*}929a70ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_glass.mat.ini): SetColor(_SpecColor, {*}e2e6cfff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_glass.mat.ini): SetFloat(_SpecInt, 0.42)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_glass.mat.ini): SetFloat(_Shininess, 4.8)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_lens_glass.mat.ini): SetFloat(_Fresnel, 0.32)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_backboard.mat.ini): SetColor(_Color, {*}11161aff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_backboard.mat.ini): SetColor(_SpecColor, {*}5e6870ff)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_backboard.mat.ini): SetFloat(_SpecInt, 0.18)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_backboard.mat.ini): SetFloat(_Shininess, 1.8)
+LoadMaterialFromFile(assets/ships/plan_cv16_liaoning/type001_ols_backboard.mat.ini): SetFloat(_Fresnel, 0.22)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin1_mat.ini): SetColor(_Color, {*}686e74ff)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin1_mat.ini): SetColor(_SpecColor, {*}14181cff)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin1_mat.ini): SetFloat(_SpecInt, 0.08)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin1_mat.ini): SetFloat(_Shininess, 0.25)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin1_mat.ini): SetFloat(_Fresnel, 0.08)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin2_mat.ini): SetColor(_Color, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin2_mat.ini): SetColor(_SpecColor, {*}14181cff)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin2_mat.ini): SetFloat(_SpecInt, 0.08)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin2_mat.ini): SetFloat(_Shininess, 0.25)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_skin2_mat.ini): SetFloat(_Fresnel, 0.08)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_glass_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_glass_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_glass_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_glass_mat.ini): SetFloat(_Shininess, 2.5)
+LoadMaterialFromFile(assets/models/aircraft/boeing-rc135/rc135_glass_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
+[WeaponLauncherEffects] [eu_mk41_quad] anchor ready: ContainerBase='eu_8-cell_mk41_base_quad_v4' (vessel ContainerBase, world (-96.4299, 0.0895, -150.9921)), container='AmmunitionParent' (world (-96.4349, 0.0395, -150.9843)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-96.4759, 0.0895, -150.9921)), container='AmmunitionParent' (world (-96.4709, 0.0395, -150.9999)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-96.4299, 0.0895, -151.0217)), container='AmmunitionParent' (world (-96.4349, 0.0395, -151.0139)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-96.4759, 0.0895, -151.0217)), container='AmmunitionParent' (world (-96.4709, 0.0395, -151.0295)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-96.4299, 0.0895, -151.0513)), container='AmmunitionParent' (world (-96.4349, 0.0395, -151.0435)), shipRoot='1-ran_ddg_hobart'.
+[WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-96.4759, 0.0895, -151.0513)), container='AmmunitionParent' (world (-96.4709, 0.0395, -151.0591)), shipRoot='1-ran_ddg_hobart'.
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Shininess, 8.5)
+LoadMaterialFromFile(assets/europack/materials/usn_mk46/usn_mk54_mat.ini): SetFloat(_Fresnel, 0.75)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/models/ammunition/agm-88/usn_agm-88g_mat.ini): SetFloat(_Fresnel, 0.75)
+[EnhancedUIMod] Attached to main HUD weapon list.
+Unloading 6 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 237 unused Assets to reduce memory usage. Loaded Objects now: 123610.
+Total: 291.150200 ms (FindLiveObjects: 13.098900 ms CreateObjectMapping: 6.117700 ms MarkObjects: 271.556600 ms  DeleteObjects: 0.376600 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 123869.
+Total: 262.703700 ms (FindLiveObjects: 8.620700 ms CreateObjectMapping: 3.482100 ms MarkObjects: 250.479700 ms  DeleteObjects: 0.120600 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 123919.
+Total: 253.866500 ms (FindLiveObjects: 6.196100 ms CreateObjectMapping: 1.942300 ms MarkObjects: 245.611400 ms  DeleteObjects: 0.116100 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 7)
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 123935.
+Total: 254.483900 ms (FindLiveObjects: 5.941500 ms CreateObjectMapping: 2.168500 ms MarkObjects: 246.239100 ms  DeleteObjects: 0.134400 ms)
+
+[IDX][Patches.cs:597 AddCommsSubmenu] [IDX] comms submenu added (10 ID orders, 7 hostile challenges, 5 advisories, 5 IFF)
+Can not play a disabled audio source
+[SATCOM] Stored a calculated intercept coordinate.
+Can not play a disabled audio source
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_4_chaff, range(nm)=5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_4_chaff, range(nm)=5
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+[EnhancedUIMod] Attached to main HUD weapon list.
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+[EnhancedUIMod] Attached to main HUD weapon list.
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetColor(_Color, {*}808080ff)
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetColor(_SpecColor, {*}ffffffff)
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetFloat(_SpecInt, 1.0)
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetFloat(_Shininess, 6.5)
+LoadMaterialFromFile(assets/europack/materials/usn_rgm-109/usn_rgm-109m_mat.ini): SetFloat(_Fresnel, 0.75)
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[EnhancedUIMod] Attached to main HUD weapon list.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_4_chaff, range(nm)=5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_4_chaff, range(nm)=5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+[EnhancedUIMod] Attached to main HUD weapon list.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_4_chaff, range(nm)=5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_4_chaff, range(nm)=5
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[SATCOM] Stored a calculated intercept coordinate.
+[SATCOM] Retargeted to a moving object and froze a new intercept coordinate.
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_chaff, range(nm)=3.5
+[EnhancedDecoyMod] Chaff ammunition group launched: plan_726_4_chaff, range(nm)=5
+[EnhancedUIMod] Attached to main HUD weapon list.
+[MissileControlMod] Configuration: usn_rim-162a; launch=True; TVC=False; effect definitions=1
+[MissileControlMod] Configuration: usn_rim-174a; launch=True; TVC=False; effect definitions=1
+[EnhancedUIMod] Attached to main HUD weapon list.
+[MissileControlMod] Optional stage mesh binding skipped: Value cannot be null.
+Parameter name: parent
+Can not play a disabled audio source
+Can not play a disabled audio source
+[MissileControlMod] Optional stage mesh binding skipped: Value cannot be null.
+Parameter name: parent
+[MissileControlMod] Optional stage mesh binding skipped: Value cannot be null.
+Parameter name: parent
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+Can not play a disabled audio source
+[MissileControlMod] Optional stage mesh binding skipped: Value cannot be null.
+Parameter name: parent
+[MissileControlMod] Optional stage mesh binding skipped: Value cannot be null.
+Parameter name: parent
+[EnhancedUIMod] Attached to main HUD weapon list.
+SeaPower.LinearCampaign.InstanceExists() = False
+[3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 7)
+[3D WebView] Unable to deliver a message from the native plugin to a webview GameObject because there is no longer a GameObject named 'WebView-05f515cf-157f-4e54-b58b-23c7b26bbb6f'. This can sometimes happen directly after destroying a webview. In that case, it is benign and this message can be ignored.
+Unloading 8625 unused Assets to reduce memory usage. Loaded Objects now: 36209.
+Total: 452.608000 ms (FindLiveObjects: 3.499100 ms CreateObjectMapping: 2.944800 ms MarkObjects: 308.598900 ms  DeleteObjects: 137.564800 ms)
+
 [3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05

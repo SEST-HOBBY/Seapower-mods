@@ -35,9 +35,10 @@ You may not create or distribute retextures, replacement assets, modified builds
 ports, forks, or derivative works that copy, modify, override, or replace
 Original Project Material.
 
-Do not use the plugin IDs "jasdf.ec2.comms" or "jasdf.ec2.tooltip", the mod's
-name, or its branding to present an unofficial release as official, approved,
-or a successor.
+Do not use the plugin IDs "jasdf.ec2.comms", "jasdf.ec2.tooltip",
+"alpine.formation.ec2", "alpine.ec2.lights" or "alpine.units.formation", the
+mod's name, or its branding to present an unofficial release as official,
+approved, or a successor.
 
 These restrictions apply to the maximum extent permitted by law. They do not
 limit rights that applicable law expressly grants and does not allow waived.
@@ -46,8 +47,8 @@ DISCLAIMER
 
 Sea Power is developed by Triassic Games and published by MicroProse. This mod
 is an unofficial project and is not affiliated with or endorsed by Triassic
-Games, MicroProse, Kawasaki Heavy Industries, the Japan Air Self-Defense Force,
-or any third-party rights holder whose material it references.
+Games, MicroProse, the makers or operators of the real equipment it depicts, or
+any third-party rights holder whose material it references.
 
 The mod is provided "as is," without warranty of any kind. To the maximum extent
 permitted by law, the authors and maintainers are not liable for claims,

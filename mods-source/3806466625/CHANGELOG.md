@@ -1,331 +1,131 @@
-# 1.1.31
+# 1.1.45
 
-- 美版、日版鱼鹰的空载、运输、转场方案均声明原生 ProbeAndDrogue 空中受油。
-- 加油命令对应的 RefuelTask 尚未完成离队时，暂停自定义低速及终点悬停控制；清理已有悬停交接状态时保留原生速度指令，避免再次补发零速。
-- RCS 从旧类别 Large 改为数值 50，参照原版 S-3/A-6（50）与 CH-46/HH-3（30）；原版 Large 对应 10000 的大型舰艇级别。数值为游戏估算，未改动模型尺度、油量和未受油航程。
-- 两个插件版本为 1.1.31，面向 0.8.3 起的原生加油流程；当前 0.8.5 编译与静态检查通过。实际加油、离队后悬停和甲板流程待完全重启后复测。
+2026-10-12 文件整理 / documentation cleanup：用户确认 SV-22 连续吊放可以运行。合并当前中英文说明和原型参数说明，归档可重新生成的源码测试产物；插件、源码、模型、动画、贴图及运行配置保持原字节。完整整理前文件与逐文件 SHA-256 已保留在开发回退包中。
 
----
+The user confirmed continuous SV-22 dipping tasks work on 2026-10-12. Consolidate current documentation and archive regenerable test products while retaining runtime and source bytes. Older entries below preserve their original validation scope.
 
-- Enable native ProbeAndDrogue aerial receiving for Empty, Transport and Ferry on both Ospreys.
-- Yield custom low-speed and terminal hover while the refuel order's RefuelTask has not completed departure. Clear any existing hover handoff without replacing native speed commands.
-- Replace the legacy Large RCS category with numeric 50 using native S-3/A-6 (50) and CH-46/HH-3 (30) baselines. Native Large corresponds to the ship-sized value 10000. This is a gameplay estimate; model scale, fuel capacity and unrefuelled range are unchanged.
-- Both plugins are 1.1.31, targeting native refueling from 0.8.3 onward. Current 0.8.5 compilation and static checks passed. Actual receiving, hover after departure and deck operations require a full restart and in-game retest.
+- 修复低速悬停后仍被旧固定翼俯仰缓存阻挡自动下放：用实际机体姿态判定稳态，保留35英尺目标、实际20–45英尺部署高度及原生速度/水深/设备条件。
+- 对照海况安全高度目标，接受小于0.25 m/s的微小垂直修正；新增有频率和条数限制的等待日志，说明实际未满足的条件。
+- 收纳盒两端及两侧上部按机腹实际轮廓补围板，修复斜向亮缝，保留底部通道及全部原有机身、门、探头、挂载和动画。
+- 机构1.1.45、甲板1.1.36；回归复现旧缓存阻挡并验证持续旧缓存下的三点连续任务。普通SV-22到点自动悬停仍关闭；2026-10-12用户确认连续吊放可运行，外观与探测效果未在该反馈中分别确认。
 
-# 1.1.30
+# 1.1.44
 
-- 修复 beta 删除 GameTime.time 导致鱼鹰甲板诊断异常、中断舰船后续系统更新的问题。两个插件共用缓存的兼容时钟：优先 missionElapsedTime（double），旧版使用 time（float），内部计时统一为 double。
-- 出库诊断改为读取实际 _startTime 字段类型，兼容 float／double；诊断回调与停机日志均隔离异常，故障后停用对应诊断并只提示一次。
-- 同步修复航路终点悬停的 15 秒交接计时；保留 20 英尺最低高度、10 节低速搜救与零速悬停菜单。
-- 两个插件均升级为 1.1.30；构建甲板插件时引用同轮生成的机构插件。默认版／beta 接口模拟、3015 项回收停机检查、机构回归及 beta 直接成员解析通过。默认版实际程序集当前不可用，两个版本的游戏内复测仍待完成。
+- 修复内部速度/高度刷新误取消SV-22连续吊放任务；实际玩家滑条、预设菜单、手动悬停仍可取消。专用速度需求即时进入飞行控制，近点按方向及距离减速，收回完成后继续下一点。
+- 添加独立SV22_2024_SonarWell五面收纳盒，遮住开舱空白，底部留空；沿用原贴图内壁区域，保持原有舱门、探头、武器挂载和性能。
+- 机构1.1.44、甲板1.1.36；保留原生45英尺部署上限、速度/水深/状态条件及全部既有爬升策略。仅执行吊放任务自动悬停，普通SV-22航路不自动悬停。
+- 离线三点连续任务覆盖四个机头朝向、两种更新间隔和内部命令刷新；静态探头/门/库存间隙及开口遮挡检查通过。需要完全重启后新任务验证真实下放、监听、回收与后续路径点。
 
----
+# 1.1.43
 
-- Fix beta removing GameTime.time, which caused deck diagnostics to throw and interrupt later ship system updates. Both plugins share a cached clock adapter: missionElapsedTime (double) where available, otherwise time (float), using double internally.
-- Read Spawn._startTime with its actual float/double field type. Contain diagnostic callback and shutdown-log failures, disable the affected diagnostics and report once.
-- Adapt the terminal hover 15-second handoff timer. Keep the 20 ft minimum, 10 kt low-speed rescue and zero-speed hover menu.
-- Both plugins are version 1.1.30; deck builds reference the mechanics DLL from the same build. Default/beta API fixtures, 3,015 carrier shutdown checks, mechanics regression and beta direct-member resolution passed. The actual default assembly is not currently available; in-game tests on both branches remain pending.
+- 修复SV-22在真实20英尺也被拒绝吊放：原生高度函数对Aircraft类别一律失败。补丁仅匹配该机所属SV22_2024_ALFS声纳与固定翼宿主，恢复按真实高度及配置上限判断。
+- 通过共用判定同时修复声纳启用提示和原生缆线部署阻断；45英尺上限、独立速度/水深/可操作条件保留，其他飞机、直升机与舰艇声纳规则保持。
+- 确认原生Enable接受后才进入下放，拒绝时退出专用控制并记录原因；部署日志附实际高度与航速。普通SV-22到点行为和所有飞行策略保持。
+- 机构1.1.43、甲板1.1.36；原生字段/分支/调用链与15571项离线任务/飞行/投放检查通过。上一版修正后的舱门网格、声纳参数、武器、运输模型与贴图原字节保留；完整游戏流程需重启、新任务验证。
 
-# 1.1.29
+# 1.1.42
 
-- 将速度菜单最低两档整理为“低速搜救”（10 节，目标高度 20 英尺）和“悬停”（0 节，保持当前高度指令），按速度从高到低排列。
-- 移除重复的“搜救悬停”，合并原“慢速接近”，同步中英文菜单及使用说明；美版、日版共用。
-- 编译和静态校验通过；需完全重启后检查菜单与实际指令效果。
+- 修复尚未吊放声纳时出现的机腹宽带：原生 OBJ 读取器把舱门顶点的 -2e-05 错读为 -2。71个科学计数法顶点/法线数值改为完全等值小数；网格面、材料和动作不改。
+- 修正 GoToWaypointTask.OnStop(bool) 钩子，保留声纳任务完成与取消边界；原生 Harmony 实际解析验证通过。
+- 使用安装游戏的 CharWordReader 对27489条记录逐条核对；同时复现旧模型错误并检查运输模型。任务、飞行和武器离线回归通过。Unity实际显示仍需重启、新任务复测。
+- 机构1.1.42；甲板1.1.36、声纳/武器数据、机体参数、全部贴图与运输模型原字节保持。
 
----
+# 1.1.41
 
-- Consolidate the two lowest speed menu entries into Low-speed rescue (10 kt, commands 20 ft) and Hover (0 kt, retains the current altitude order), in descending speed order.
-- Remove the duplicate SAR hover entry and merge Slow approach into Low-speed rescue. Update both localizations and instructions for the shared USMC/JGSDF plugin.
-- Compilation and static checks passed. Fully restart and verify the menu and commanded behavior in game.
-
-# 1.1.28
-
-- 将美版、日版鱼鹰 Physics 和 Performance 的最低高度档从 50 降到 20 英尺，同步将插件搜救悬停目标及低速海上最低间距降到 20 英尺。
-- 保留原生海浪和地形安全高度计算，以及游戏原有 55 英尺救援门槛。与用户实测约 56 英尺相同的海况下，新最低目标预计实际约 26 英尺。
-- 已编译并核对配置、源码和 DLL；静态校验通过。需完全重启游戏后复测百科高度和任务救援。
+- SV-22新增独立2024 ALFS／FLASH级吊放声呐；原版探头、材料与缆线仅用作外观，传感器数据使用SV22_2024_ALFS，不覆盖原版AQS-13E。
+- 只在执行原生吊放声呐航路点时降至约35英尺并悬停，入水后监听、收回并关门后结束任务。保留监听时长，0为无限任务；手动命令、任务取消及原生受油/着陆会退出专用控制。
+- 新增SV-22专用机腹模型、左右舱门与3秒收放动画；声呐按后移约40厘米的位置横卧收纳，舱口后缘额外留约5厘米旋转余量。两种运输型及普通SV-22到点行为不变。
+- 主被动范围上限30/25公里、4.1kHz、217dB、处理等级5、520米缆线与500米建模深度；未公开参数明确为游戏估算，并在既有850公斤任务设备预算内分配。
+- 机构1.1.41针对当前游戏编译；甲板1.1.36原字节保留。配置、接口、85个开口射线、121个收放姿态及离线回归核对；实际显示、缆线与探测需重启后复测。
 
 ---
 
-- Lower the minimum altitude from 50 to 20 ft in both Physics and Performance for USMC and JGSDF Ospreys. Match the plugin SAR hover target and low-speed sea clearance to 20 ft.
-- Retain native wave/terrain safety calculations and the game's 55 ft rescue limit. The same wave conditions that produced about 56 ft should now produce about 26 ft at the new minimum setting.
-- Compiled and checked configuration, source and DLL; static validation passed. Fully restart and retest encyclopedia altitude and mission rescue.
+- Add independent SV-22 dipping-sonar data and a dedicated belly hatch using native AQS-13 visuals.
+- Hover is scoped to an executing sonar waypoint through listening and retrieval. Ordinary SV-22 terminal hover and SAR remain disabled.
+- Preserve weapon loads, aircraft performance, transport geometry and deck1.1.36 binary. Unpublished contemporary parameters are gameplay estimates; Unity/cable/detection checks remain pending.
 
-# 1.1.27
+# 1.1.40
 
-- 核对 1.1.26 游戏日志：两次 3000 英尺非循环航路均完成抵达、补发零速及位置锁定；之后的新航路正常退出悬停。此前 6000 英尺巡航和循环航路已由用户复测正常。
-- 清理退出悬停时由插件自身恢复速度造成的误导性覆盖日志；交接期仅在旧航点尚未移除且飞机仍符合悬停条件时等待，避免延迟退出。终点减速和悬停主流程保持不变。
-- 已编译并做静态检查；1.1.27 清理版尚未单独进行游戏内复测。
-
----
-
-- The 1.1.26 game log confirms two 3,000 ft non-looping routes reached the final waypoint, restored zero speed and locked position; a subsequent new route released hover. The user had already confirmed 6,000 ft cruise and looping routes.
-- Removed a misleading replacement log generated by the plugin's own speed restoration. During handoff, wait only while the completed waypoint remains and hover conditions still hold. The main braking and hover flow is unchanged.
-- Compiled and statically checked; the 1.1.27 cleanup build has not been retested in game.
-
-# 1.1.26
-
-- 1.1.25 复测显示终点零速命令仍在稍后被约 144 节巡航命令覆盖；上一版在航点数量变为零的首帧就关闭补发窗口，早于实际覆盖时刻。
-- 将交接窗口保留到第一次覆盖发生，最多持续 15 游戏秒；仅在已抵达、航点清空、高度仍允许悬停且没有新航向命令时补发零速。改进覆盖来源日志，跳过 Harmony 的 SetSpeedCommand 包装帧。
-- 已编译并做静态检查；3000 英尺抵达后持续悬停仍需游戏内复测。
+- 2026-10-11 游戏日志确认 1.1.39 的 SV-22 大幅巡航爬升已产生约14–16°抬头、约31 m/s航迹爬升；此前型号条件排除了美方和日方运输型。
+- 共享原生30秒巡航爬升策略，三种确切鱼鹰型号均生效；诊断前缀统一为 V-22 cruise climb。保留原生性能上限、用户速度命令和受油/着陆/低速边界。
+- 美方与日方运输配置各增加两项500英尺高度响应参数，与 SV-22 一致。运输型搜救/到点自动悬停，以及 SV-22 手动悬停范围沿用。
+- 独立声呐布置草案向后移约40厘米，更靠近机身中心；重新核对静态空间和储架/起落架间隙。运行包未新增声呐，鱼雷、浮标、储架、模型、贴图与甲板1.1.36二进制保持。
+- 机构1.1.40针对当前游戏编译，完成离线回归和文件哈希核对；美方/日方新修正需完全重启后实机复测。
 
 ---
 
-- The 1.1.25 retest still showed a roughly 144 kt cruise order replacing zero speed after arrival. Its handoff window closed as soon as the waypoint count reached zero, before that replacement occurred.
-- Keep the handoff window until the first replacement, for up to 15 game seconds. Reissue zero only after arrival with no remaining waypoint, within the hover altitude limit, and with no new course order. Skip the Harmony speed-command wrapper when logging the replacement source.
-- Compiled and statically checked; sustained hover after arrival at 3,000 ft still needs an in-game retest.
+- Extend the previously SV-22-only native cruise-climb fix to both transport variants, retaining native dynamics and command boundaries.
+- Add the same two 500 ft response thresholds to both transport configurations and use unit-specific bounded V-22 diagnostics.
+- Move the separate sonar-layout proposal aft by approximately 0.40 m. Mechanics 1.1.40; deck 1.1.36 binary and existing assets/stores retained. New transport gameplay checks remain pending.
 
-# 1.1.25
+# 1.1.39
 
-- 3000 英尺复测日志确认：已下达抵达后零速，但航路点移除后游戏又覆盖了速度命令。仅在该终点清理交接期间，任务移除后补发一次零速悬停命令；后续玩家速度命令仍可退出自动悬停。
-- 新增被覆盖速度命令的来源及速度日志，以核对游戏内实际触发路径。6000 英尺与循环航路在 1.1.24 复测正常；3000 英尺持续悬停仍需完整重启游戏复测。
-
----
-
-- The 3,000 ft retest log confirms that the arrival hover command was issued, then replaced after the waypoint was removed. Reissue zero speed once after native task cleanup; later player speed orders still release auto-hover.
-- Log the source and demand of a replacement speed command. The 6,000 ft and looping-route cases passed the 1.1.24 in-game retest; sustained hover at 3,000 ft still needs a full-restart retest.
-
-# 1.1.24
-
-- 修正终点航路点完成后短暂留在任务列表中时，自动悬停误判为新航路、恢复巡航的问题；完成中的同一个航路点不再重新下达接近速度。
-- 终点前已开始的减速状态会延续到航路点完成回调；新增减速、到达、取消原因和位置锁定日志，便于游戏内复测。高度门槛与循环航路点规则保持不变。
-- 已编译并做静态检查；3000 英尺终点悬停及循环航路仍需完整重启后在游戏内复测。
+- 排查 SV-22 最大航速下 20→1500 英尺爬升缓慢：原生非战斗爬升按 180 秒交换超额航速能量，高速余推力不足时爬升角很小；本机原生方法离线样本复现约 2.17° / 5.35 米/秒。
+- 正常巡航的 SV-22 上升改用原生已有的 30 秒策略，保留原生最大爬升率、动力、阻力、俯仰边界及选定航速。实际爬升期间允许航速下降，不改写速度命令。
+- 增加每个高度目标最多四条巡航爬升诊断。运输机、低速/悬停、下降、着陆及受油边界保持。
+- 机构插件为 1.1.39，甲板仍为 1.1.36 原字节；运行 INI 的键值、武器/传感器数据、储架、动画和模型全部保持。吊放声呐仅完成位置考察与图示，尚未安装。
+- 对安装游戏的原生算术、补丁分派和既有离线回归进行了核对；实际飞行动作需完全重启后复测。
 
 ---
 
-- Fixed a handoff that could treat the just-finished waypoint as a new route and resume cruise; that waypoint no longer issues another approach speed after completion.
-- The active braking state carries into the completion callback. Transition logs now record braking, arrival, cancellation reasons, and position lock. Altitude and loop-route rules are unchanged.
-- Compiled and statically checked; hover at a 3,000 ft terminal waypoint and looped routes still need an in-game retest after a full restart.
+- Use the existing native 30-second energy trade for eligible SV-22 non-combat cruise climbs instead of 180 seconds, keeping native dynamics/rate limits and the selected speed command.
+- Add bounded diagnostic samples. Native arithmetic and dispatch checks cover the reported maximum-speed altitude change; Unity/gameplay retest remains pending.
+- Mechanics 1.1.39; deck 1.1.36 binary and all running configuration values/assets remain unchanged. Dipping-sonar layout is a separate proposal only.
 
-# 1.1.23
+# 1.1.38
 
-- 航路终点自动悬停仅在目标高度与当前高度均不超过 5000 英尺时启动。已开始自动减速后，目标或当前高度超过 5500 英尺才退出，避免门槛附近反复切换；高空终点保留游戏原有巡航命令。
-- Bell 公布的特定条件无地效悬停升限为约 5700 英尺；5000 英尺是模组采用的保守近似，并未模拟重量、温度和气压对悬停能力的影响。手动悬停与甲板流程不受此门槛限制。
-- 已编译并做静态验证；普通、循环航路和高度切换仍需完整重启后进行游戏内验证。
-
----
-
-- Terminal auto-hover starts only when both requested and current altitude are no higher than 5,000 ft. Once braking starts, it disengages when either exceeds 5,500 ft to avoid repeated switching near the threshold. High-altitude terminal routes keep the game's native cruise order.
-- Bell publishes an out-of-ground-effect hover ceiling near 5,700 ft under its stated conditions. The 5,000 ft limit is a conservative gameplay approximation; weight, temperature and pressure effects are not modeled. Manual hover and deck operations are unchanged.
-- Compilation and static checks passed. Normal and looping routes and altitude transitions still need in-game testing after a full restart.
-
-# 1.1.22
-
-- 对玩家指挥的两版鱼鹰增加非循环航路终点自动悬停：在最后航路点前按剩余距离逐步减速，抵达后保持零速，并在停稳处锁定位置。
-- 识别游戏的循环航路点标记，避免每圈终点都触发悬停；玩家新航路、速度或航向命令退出自动控制。航路超时且未接近终点时不触发。
-- 插件已编译并核对目标方法；完全重启游戏后的实际飞行、循环航路和再次下令仍待验证。
+- 增加海面实际位置保护，覆盖低速及原生巡航，最低为 20 英尺加原生波浪间距；保持原生着陆/甲板/坠毁/受油边界。
+- 低速爬升上限从 5 提高到 12 米/秒、下降 6 米/秒；按制动距离收平，增加有界前飞俯仰，零速悬停保持水平，并记录垂直运动供模式交接使用。
+- SV-22 明确填写非战斗/战斗高度响应参数 500/500 英尺，改善原生 2500/10000 英尺默认值造成的小幅爬升过缓。
+- 机构插件为 1.1.38，甲板保持 1.1.36 原字节。鱼雷卧放、储架、释放点、武器性能、载弹量、运输机配置与机型功能保持。
+- 编译及离线高度/交接检查通过；实际下降与爬升仍需完全重启后复测。
 
 ---
 
-- Added terminal waypoint auto-hover for both player-commanded Ospreys on non-looping routes. It progressively slows before the final point, commands zero speed on arrival, and anchors the position after stopping.
-- Loop waypoints are excluded. A new route, speed or course order releases automatic control. A timed-out waypoint away from its target does not trigger hover.
-- The plugin compiles and its game method targets were checked. Flight behavior after a full restart still needs in-game testing.
+- Enforce a sea-state-dependent 20-ft position floor after low-speed and native cruise updates; preserve native landing, deck, crash and active refueling.
+- Improve low-speed vertical response, braking, forward-flight pitch and native handoff. Set SV-22 altitude response thresholds to 500/500 ft.
+- Mechanics is 1.1.38; the 1.1.36 deck binary and torpedo storage/release data are preserved. Offline checks pass; gameplay retest remains pending.
 
-# 1.1.21
+# 1.1.37
 
-- 第二次航母回收的实测日志显示：在升降机上等待 385 游戏秒期间，偏航误差为 0°、机体静止，但停机请求始终为假、旋翼保持 397 RPM、收纳进度为 0。
-- 仅对已对准且静止、正在请求折叠的两版鱼鹰，补发原生升降机对准阶段的发动机停机请求；实际停机和入库仍由游戏及原有机构逻辑处理。
-- 企业号连续三次降落均完成折叠、升降机下降和入库；其中第二、第三次触发了补发停机请求。离线重复状态检查扩展至 3015 项，航线回归检查 579 项通过。其他航母和更长循环尚未逐一实测。
-
----
-
-- The second carrier recovery remained stationary and aligned for 385 game seconds while the engine-stop request stayed false, the rotor held 397 RPM, and folding stayed at zero.
-- For either Osprey only, request the game's native engine shutdown when it is stationary and aligned at the carrier elevator with folding pending. Native shutdown and existing fold and elevator gates remain in charge.
-- Three consecutive Enterprise recoveries completed folding, elevator descent and stow; the second and third used the added shutdown request. The offline state checks now total 3,015 and 579 route checks pass. Other carriers and longer runs have not each been tested in game.
-
-# 1.1.20
-
-- 复测日志确认两次航母降落均正常完成 Rollout，并进入 AlignAtElevator；1.1.19 的滑跑近静止推测不成立，因此撤销该补丁。
-- 对两版鱼鹰增加升降机对准阶段的持续诊断：偏航误差、目标角、转向速率，以及机构的折叠请求、旋翼转速和收纳进度。日志最多记录 24 次等待状态，便于判断第二次是否真正停滞。
-- 此版本只修正诊断和撤销无依据的滑跑改动；第二次回收是否完成仍需完全重启游戏后复测。
+- 修正库存鱼雷竖放并穿过舱顶/舱底：原版 usn_mk46_mod2 长轴沿 Z，去掉额外 90° 俯仰，使用 0,180,0 纵向卧放。
+- 鱼雷储架原点 Y 从 0.027 降为 0.023，层间距从 0.005 改为 0.0053；两列及 4/6 枚数量保持。直接读取完整原版预制体子网格包围盒，并与当前机体内舱底/顶三角面核查。
+- 仅修改五个鱼雷库存配置值与说明。两枚插件沿用 1.1.36 原字节，浮标储架、武器数据、后舱门实际释放位置、释放姿态、悬停和甲板行为保持。
+- 旧竖放布局可被几何检查检出；新布局的完整弹体边界及弹体间距检查通过。修正后画面需完全重启并重新放置 SV-22 复测。
 
 ---
 
-- The repeat test showed both carrier landings completed Rollout and entered AlignAtElevator, so the unsupported 1.1.19 rollout tolerance has been removed.
-- Extended Osprey elevator-alignment diagnostics record yaw error, target heading, yaw rate, and rig fold and rotor state for up to 24 waiting reports.
-- This version updates diagnostics and removes the ineffective change. Repeated recovery still needs an in-game test after a full restart.
+- Remove the incorrect 90-degree torpedo storage pitch. The native long axis is Z; use longitudinal storage at 0,180,0.
+- Lower the torpedo rack and increase row spacing using complete native mesh bounds and actual inner cabin surfaces. Four/six torpedo counts and all release behavior are preserved.
+- Data-only fix; both 1.1.36 plugin binaries remain byte-identical. Geometry checks pass; in-game appearance awaits recheck.
 
-# 1.1.19
+# 1.1.36
 
-- 针对航母第二次回收停在升降机平台、未开始折叠的报告：航母固定翼回收走原生 Rollout，其结束条件要求速度几乎精确归零；两栖攻击舰的 VTOL 回收走不同阶段。
-- 仅对两版鱼鹰在固定翼回收点的滑跑，持续 2 游戏秒低于 0.10 米/秒时允许进入原生后续阶段；其他飞机及回收流程不变。增加 Rollout、ClearRunway 和 AlignAtElevator 的限量诊断日志。
-- 编译与离线作用域测试通过；完全重启游戏后仍需验证第二次降落、机翼折叠与升降机下降。
-
----
-
-- Carrier fixed-wing recovery uses native Rollout, whose completion threshold is nearly exact zero speed. Amphibious VTOL recovery follows a different state path.
-- For both Ospreys only, allow native recovery to continue after rollout speed stays below 0.10 m/s for two game seconds at a fixed-wing recovery point. Add limited Rollout, ClearRunway and AlignAtElevator diagnostics.
-- Compilation and offline scope checks passed. A full restart and repeated carrier recovery test remain required.
-
-# 1.1.18
-
-- 修正起飞时尚在转运、机翼和桨叶未展开就出现循环发动机声音的问题：仅对两版鱼鹰拦截提前播放，待展开完成且旋翼开始转动后恢复。
-- 保留原生发动机启动标志和甲板移动流程；兼容暂停、切换观察对象、取消启动、再次出库及落舰停转。
-- 1.6 倍视觉尺寸、两版分类和已修复的黄蜂出库逻辑保持原值。
-- 编译与离线回归检查通过，实际声音时机仍需完全重启游戏后验证。
+- 梳理三型机、原生资源引用、独立武器/声呐名称和两个插件的加载边界。保留按名称加载的资料图和材质文件，运行目录只保留资源及用户说明。
+- 高频读取缓存反射成员元数据及未找到的成员；不缓存对象或字段值。统一机型识别，避免同一标识反复做路径解析，并移除重复判断。
+- 源码目录中的旧/重复 DLL 归档；正式构建输出统一到 out。发布校验的 --clean 模式更新为包含反潜文件的当前结构。
+- 中英文说明按当前功能重写，移除互相矛盾的旧分类与版本段落；完整旧发布历史和源码笔记保留在开发归档。兼容版本提示对齐本机 0.8.5。
+- 两枚插件升级为 1.1.36。机体几何、贴图、动画、各装载数量、武器/声呐性能、舱内储架、后舱门释放点与飞行参数保持。
+- 当前游戏程序集编译、资源/配置检查及七组离线回归通过。读取基准属于离线代码比较，不代表游戏内帧率；更新后需完全重启复测。
 
 ---
 
-- Gate premature looping engine audio for both Ospreys during deck transfer and wing/blade unfolding. Resume after the rig is fully unfolded and the rotor starts turning.
-- Retain native engine state and deck motion, with handling for pause, unit selection, cancelled starts, repeated launches and recovery spin-down.
-- Keep 1.6x visuals, the shared category and the previous Wasp relaunch fixes.
-- Compilation and offline regressions passed. Actual audio timing still requires a full game restart and in-game verification.
+- Cache reflection metadata and share identity normalization while reading live values on every call.
+- Consolidate build outputs and current documentation; archive old source artifacts and history. Update the clean-release audit and compatibility hint for 0.8.5.
+- Both plugins are 1.1.36. All model/texture bytes, weapon data, loadouts, storage/release layout and flight behavior are preserved. Compilation and offline audits pass; in-game recheck remains pending.
 
-# 1.1.17
+# 1.1.35
 
-- 两版鱼鹰的视觉尺寸从原模型的 1.45 倍调整至 1.6 倍（本次增量为 32/29，约 10.34%），同步机组、日方标识、转轴、连杆、舱门位移、旋翼桨盘和选取盒；飞行性能与动画控制值保持原值。
-- 中英文分类统一沿用美方：舰载倾转旋翼运输机 / Naval transport tiltrotor。
-- 无损精简 OBJ 数值与 PNG 压缩；原始日方参考照片移至工程参考目录，保留游戏资料图。整理当前构建源码、发布校验与历史文件。
-- 用户已确认 1.1.16 出库恢复正常；保留空排烟资源修复及黄蜂甲板补丁。本次 1.6 倍尺寸的游戏内贴合与动画仍需复测。
-
----
-
-- Increased both variants from 1.45x to 1.6x original visual size (an incremental 32/29, about 10.34%). Scaled crew, markings, pivots, links, door travel, rotor discs and picking boxes. Flight performance and animation control values are retained.
-- Unified both localized categories as Naval transport tiltrotor / 舰载倾转旋翼运输机.
-- Compacted OBJ numbers and PNG compression without changing intended game-read values or pixels. Moved the original JGSDF reference photo to the project reference folder, retaining its in-game profile. Consolidated build sources, release validation and historical files.
-- The user confirmed normal spawning with 1.1.16. Retained its empty-exhaust-resource fix and the Wasp deck patches. In-game clearance and animation at 1.6x still need verification.
-
-# 1.1.16
-
-- 移除美海军陆战队与陆上自卫队鱼鹰 [Particles] 中的空 ExhaustSmoke 配置。游戏异步加载器只检查键是否存在，会把空值传给 Resources.LoadAsync；飞机在该资源批次完成前保持隐藏。
-- 此空路径可触发大量资源加载，与首次再次出库时模型延迟、严重掉帧、内存占用激增，后续因缓存恢复顺畅的现象吻合。
-- 保留 1.1.15 的黄蜂回收路线修正、可达性缓存和诊断日志；两个插件 DLL 未改动。
-- 已核对两版配置仅移除此资源键，其他运行文件保持一致。完全退出并重启游戏后，首次降落再起飞的显示、帧率和内存改善仍需游戏内验证。
+- 库存弹药改用机舱内不同储架槽位，鱼雷卧放；挂载位置与后舱门释放点分开。只在 SV-22 独立投放系统发射三种独立弹药时移动被选中的一枚，随后沿用原生发射、降落伞、入水及制导流程。
+- 三种鱼鹰统一归类为舰载倾转旋翼机（Naval tiltrotor），保留国别与型号名称。
+- SV-22 移除低速搜救菜单及全部航路终点自动悬停处理，保留手动悬停。原两种运输型的搜救、终点自动悬停、空中受油及甲板功能保持。
+- 两枚插件升级至 1.1.35；装载数量、装备性能、释放点、舱门动画、航程、燃油及机体几何保持。编译与离线核查通过；新增画面与飞行行为仍需完全重启后实测。
 
 ---
 
-- Removed the empty ExhaustSmoke entry from [Particles] in both the USMC and JGSDF aircraft. The native asynchronous loader checks only for the key's presence and passes its empty value to Resources.LoadAsync, keeping the aircraft hidden until that resource batch completes.
-- This empty path can trigger bulk resource loading, consistent with delayed visibility, frame drops and a memory spike on the first relaunch, followed by smooth cached launches.
-- Retained the 1.1.15 Wasp recovery-route fix, reachability cache and diagnostics. Both plugin DLLs are unchanged.
-- Verified that the only aircraft setting change is removal of this resource key, with all other runtime files unchanged. Visibility, frame rate and memory improvement on the first landing/relaunch after a full game restart still require in-game verification.
+- Use distinct internal storage slots and independent rear-ramp release points. A scoped prefix moves only the selected SV-22 weapon before native launch.
+- Unify all aircraft under Naval tiltrotor. Keep manual SV-22 hover while removing terminal auto-hover and the slow SAR shortcut; preserve transport functionality.
+- Both plugins are 1.1.35. Payload counts, weapon/sensor performance, release geometry and aircraft assets are preserved. In-game recheck remains pending.
 
-# 1.1.15
-
-- 针对黄蜂模组的回收配置矛盾：回收点 3 指定 1 号升降机，但配置路线通向 2 号。仅在鱼鹰缺少有效回收路线时，复用同位置回收点 2 至 1 号升降机的既有倒车路线，保留升降机预约，不修改舰船文件。
-- 起飞选点的可达性检查改为按甲板缓存，避免反复枚举全部滑行路线；实际滑行仍使用游戏原有选路。
-- 增加鱼鹰模型创建、甲板阶段和慢速甲板更新的限量计时日志，便于区分出库延迟与帧率问题。
-- 已通过本地编译与离线路线检查；黄蜂回收后再次起飞的显示延迟和掉帧改善尚未经过游戏内验证。
-
----
-
-- Handle the Wasp mod's mismatched recovery definition for Ospreys: RecoveryPoint3 reserves Elevator1, while its configured route leads to Elevator2. If no valid recovery route exists, reuse the co-located RecoveryPoint2's existing backwards route to the reserved elevator. Ship files and reservations are preserved.
-- Cache launch-point reachability per deck instead of repeatedly enumerating every taxi route. Actual taxi routing remains native.
-- Add limited Osprey construction, deck-phase and slow deck-update timings to diagnose launch delays and frame drops.
-- Compilation and offline route checks passed. The reported Wasp relaunch visibility delay and frame-rate improvement still require in-game verification.
-
-# 1.1.14
-
-- 鱼鹰单位收敛为美国海军陆战队 MV-22B 与日本陆上自卫队 V-22B 两种机型，每种各保留两支航空队。
-- 美方保留 VMM-263、VMM-162；日方新增输送航空队第107、第108飞行队。同步更新中英文名称。
-
----
-
-- Kept two Osprey units: USMC MV-22B and JGSDF V-22B, with two squadron choices each.
-- Kept VMM-263 and VMM-162 for the USMC and added the JGSDF Transport Aviation Group's 107th and 108th Squadrons. Updated Chinese and English names.
-
-# 1.1.13
-
-- 新增独立的陆上自卫队 V-22B（91707）机型、灰蓝色双贴图、日之丸、机身文字与资料图；原美军机型保留。
-- 旋翼、悬停、运输方案、20 分钟整备和直升机起飞点补丁同时识别日方机型。
-- 日方资料图注明海上自卫队原图及 CC BY 4.0 许可。
-
----
-
-- Added a separate JGSDF V-22B (91707) with two grey-blue texture atlases, roundels, service markings and profile image; the USMC unit remains available.
-- Extended rig, hover, logistics, 20-minute ready-up and helicopter launch-point handling to the JGSDF unit.
-- Credited the JMSDF reference photo and its CC BY 4.0 license.
-
-# 1.1.12
-
-- 舰船有可达直升机起飞点时，鱼鹰改从该点按 VTOL 流程垂直起飞；陆上基地和没有可达直升机点的舰船保留原有选点。
-- 空载、运输和转场方案的基础整备时间设为 20 分钟，修正无武器系统造成的立即整备；游戏甲板计时模式仍会影响实际进度。
-- 展翼动画等待由 90 秒缩至 60 秒，与可见展翼过程匹配。
-- 无损精简机体与机组 OBJ 数值，并压缩飞机资料图；模型网格、游戏读取的数值和图片像素保持一致。
-
----
-
-- Launch the Osprey vertically from a reachable helicopter spot on ships, while retaining its VTOL flight model and existing selection elsewhere.
-- Set a base 20-minute ready-up time for Empty, Transport and Ferry; the game's flight-deck timing mode still affects progress.
-- Match the wing-extension animation wait to the visible motion by reducing it from 90 to 60 seconds.
-- Reduce the aircraft and crew OBJ files without changing game-read geometry, and losslessly compress the aircraft profile image.
-
-# 1.1.11
-
-- 按游戏截图将机翼整流罩前下段归还固定机身，保留上段随翼旋转和现有机背倾轴。
-- 修正甲板停机后循环发动机音效持续播放的问题；旋翼停稳后停止发动机音效。
-
----
-
-- Kept the lower forward wing fairing fixed to the fuselage while preserving the rotating upper fairing and roof-aligned stow axis.
-- Stopped looping engine audio after deck shutdown and rotor spin-down.
-
-# 1.1.10
-
-- 将机翼前方整流罩并入旋转组件，使可见接缝移至机头侧；收纳轴按机背坡度倾斜。
-- 着舰与甲板流程保持短舱垂直，消除滑行指令造成的短暂水平倾转；空中回收仍按空速倾转。
-
----
-
-- Moved the forward wing fairing into the rotating assembly and aligned the stow spindle with the roof slope.
-- Held nacelles vertical through landing and deck taxi while preserving airspeed-based conversion during airborne recovery.
-
-# 1.1.9
-
-- 将外观模型、机组、转轴、挂点与选取盒统一放大 1.45 倍；不改飞行性能。
-- 回收航线按实际空速控制短舱角度，避免高速时提前转为垂直。
-
----
-
-- Scaled visible geometry, crew, pivots, mounts and selection boxes by 1.45 without changing flight performance.
-- Kept nacelles tied to measured airspeed during high-speed recovery.
-
-# 1.1.8
-
-- 将高速旋转桨盘贴图的不透明度由 6.5% 提高到 20%，增强天空与海面背景下的可见度，保留柔边及平滑启停过渡。
-
----
-
-- Increased spinning rotor-disc texture opacity from 6.5% to 20% for stronger contrast against sky and sea, retaining soft edges and smooth startup/shutdown transitions.
-
-# 1.1.7
-
-- 将最大总航程提高至 2200 公里，固定翼航程单位明确设为公里，并同步旧物理字段的海里等价值。
-
----
-
-- Increased the nominal maximum total range to 2200 km, explicitly using kilometres for fixed-wing range and matching the legacy physics field in nautical miles.
-
-# 1.1.6
-
-- 默认、运输及救援任务的载员容量提高至 32 人。
-- 核对海平面最高速度配置为 275 节（509.3 公里／小时），航速参数未改动。
-
----
-
-- Increased default, transport and rescue capacity to 32 personnel.
-- Verified the configured maximum sea-level speed of 275 knots (509.3 km/h); speed parameters are unchanged.
-
-# 1.1.5
-
-- 升级海面／地面搜索雷达：上限 220 公里，距离分辨率 15 米，扩大搜索扇区。
-- 参照 F/A-18F Block III 模组的先进光电参数，将探测倍率提高至 5.5、识别倍率提高至 3.0，支持昼夜下视搜索。
-- 修正红外传感器被配置为普通目视的问题。
-- 雷达告警与防御干扰覆盖五个频段，提升告警方位精度和干扰参数。
-
----
-
-- Upgraded surface/ground radar: 220 km range limit, 15 m range resolution and a wider search sector.
-- Matched the F/A-18F Block III mod's advanced optical parameters: 5.5 detection multiplier, 3.0 identification multiplier and day/night downward search.
-- Corrected the thermal sensor's native type from Visual to Infrared.
-- Expanded radar warning and defensive jamming to five bands, with improved bearing accuracy and jamming parameters.
-
-# 1.1.4
-
-- 修复三个碰撞箱尺寸为零的问题，按模型重建机身、机翼／短舱和尾部选取盒，恢复右键选取所需的碰撞体。
-- 清理开发文件、历史备份与未引用的低可视度贴图。
-- 保留 1.1.3 的旋翼轴线、平滑模糊过渡及现有无武装运输／搜救功能。
-
----
-
-- Rebuilt the three zero-sized selection colliders around the fuselage, wing/nacelle envelope and tail.
-- Removed development files, historical backups and unused low-visibility textures from the package.
-- Preserved the 1.1.3 rotor axes, smooth blur transition and unarmed transport/SAR features.
+完整 1.1.35 及以前历史已归档到源码 docs/history_before_1.1.36.md，并包含在 1.1.35 回退包中。
+Full earlier history is retained in the development archive and 1.1.35 rollback package.

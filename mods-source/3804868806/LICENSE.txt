@@ -37,9 +37,10 @@ ports, forks, or derivative works that copy, modify, override, or replace
 Original Project Material.
 
 Do not use the plugin IDs "alpine.seapower.runtime",
-"alpine.seapower.furyvoice" or "fury.voice.friendlyloss", the mod's name, or
-its branding to present an unofficial release as official, approved, or a
-successor.
+"alpine.seapower.furyvoice", "fury.voice.friendlyloss",
+"alpine.formation.fury", "alpine.fury.lights" or "alpine.units.formation", the
+mod's name, or its branding to present an unofficial release as official,
+approved, or a successor.
 
 These restrictions apply to the maximum extent permitted by law. They do not
 limit rights that applicable law expressly grants and does not allow waived.

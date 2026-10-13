@@ -15,10 +15,9 @@ Sea Power and all third-party software, dependencies, trademarks, artwork, and
 other third-party material remain the property of their respective rights
 holders. Their licenses and notices remain in effect. This license does not
 grant ownership of or change the terms for any third-party material. Anchor
-Chain and Harmony are separate works with their own licenses. The copy of
-Anchor Chain included with this mod (AnchorChain.dll) and the notices in the
-ThirdPartyLicenses folder remain under their own terms and are not Original
-Project Material. Harmony is not included in this mod.
+Chain and Harmony are separate works with their own licenses and are not
+included in this mod. The notices in the ThirdPartyLicenses folder remain under
+their own terms and are not Original Project Material.
 
 PERMISSIONS
 
@@ -38,9 +37,10 @@ You may not create or distribute retextures, replacement assets, modified builds
 ports, forks, or derivative works that copy, modify, override, or replace
 Original Project Material.
 
-Do not use the plugin ID "local.bell.systems.fixture", the mod's name, or its
-branding to present an unofficial release as official, approved, or a
-successor.
+Do not use the plugin IDs "local.bell.systems.fixture",
+"alpine.seapower.bell.systems.fixture", "alpine.formation.mv75" or
+"alpine.units.formation", the mod's name, or its branding to present an
+unofficial release as official, approved, or a successor.
 
 These restrictions apply to the maximum extent permitted by law. They do not
 limit rights that applicable law expressly grants and does not allow waived.

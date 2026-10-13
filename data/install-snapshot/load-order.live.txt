@@ -1,9 +1,9 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-10-10T23:41:56.
+# The [LoadOrder] Sea Power is actually using, captured 2026-10-13T15:32:24.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=192   entries parsed: 192
 
-   1. SEST_Integration on     
+   1. 3812461539   on     SEST Integration Pack
    2. 3380210757   on     Anchor Chain
    3. 3784474738   on     Euromod - Anchorchain Expansion Pack
    4. 3789188689   on     PLA & PLAN & PLAAF AEP
@@ -74,7 +74,7 @@ NumberOfModFiles=192   entries parsed: 192
   69. 3414146266   on     A-10
   70. 3459682829   on     A-10C
   71. 3425450153   on     AH-64  Apache
-  72. 3804868806   on     Anduril FQ-44 US Navy Carrier Wingmen
+  72. 3804868806   on     Anduril FQ-44 Fury US Navy Carrier Wingmen
   73. 3403993583   on     Armed Oil Rig with helo
   74. 3652097318   on     B-1B Lancer
   75. 3480965706   on     B-2 Spirit
@@ -122,7 +122,7 @@ NumberOfModFiles=192   entries parsed: 192
  117. 3659742367   on     Mig-35
  118. 3513571010   on     Mil Mi-24 Hind
  119. 3716049886   on     MORE SU24M VARIANTS
- 120. 3806466625   on     MV-22B Osprey Tiltrotor / JGSDF V-22B
+ 120. 3806466625   on     V-22 Osprey / SV-22 2024 ASW prototype
  121. 3810611344   on     MV-75 Cheyenne II
  122. 3551621846   on     NEBO-U
  123. 3587091564   on     P-750 Meteorit-A
@@ -197,7 +197,7 @@ NumberOfModFiles=192   entries parsed: 192
  192. sest-world-sandbox on     
 
 --- drift against the canonical order ---
-canonical but not live (0): 
-live but not canonical (2): ACConfigs, sest-world-sandbox
+canonical but not live (2): SEST_Integration, 3813157776
+live but not canonical (3): 3812461539, ACConfigs, sest-world-sandbox
 order of shared entries matches: YES
 disabled in game (1): ACConfigs
