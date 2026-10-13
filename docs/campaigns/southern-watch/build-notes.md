@@ -1434,10 +1434,10 @@ version and 8 in Southern Reach's; the rest - bombers, AEW,
 tankers and gunships (no row asks for them), the allied helicopters (the RAN
 decks in the missions list only the MH-60R), and several fighters in the
 Tasman (no field in reach of the CAP slots) - are listed by the build with
-the reason. Submarines are sold; one sails only in a mission that includes
-the owned submarine (Southern Lifeline; Great Australian Bight), and the
-rules page says so. Southern Watch's version sells 83 allied units, Southern
-Reach's 76.
+the reason. Submarines were sold too, until the in-game check of 13 October
+showed a bought boat cannot join the task force (*Deployment zones, and no
+submarines on sale*, below); Southern Watch's version sold 83 allied units
+and Southern Reach's 76 before they went.
 
 Two independent reviews of the first cut changed it. Code: the F-16CM had
 passed the recovery test while matching the Weapons Free strike row, which
@@ -1471,8 +1471,9 @@ squadrons inside `usn_p_8a` say `Nation=uk` in lower case.
 Not demonstrated: that the game reads a roster and allowlist of this length
 (about a hundred entries; allowlist lines of about 5,000 characters, where
 stock's run to about 1,000), that a bought carrier or LHD sails without an
-air group as expected, and that a bought submarine waits in reserve outside
-its one mission. Test card 6G, G.7-G.9.
+air group as expected. Test card 6G, G.7-G.9. (The third question - that a
+bought submarine waits in reserve outside its one mission - was answered on
+13 October: it does not. See below.)
 
 ## Same-nation discount (28 September)
 
@@ -2525,3 +2526,96 @@ And the air rule's standoff cap means a bomber whose missile reaches past
 120 NM can still start inside its own launch range, 120-130 NM out; the
 Steam text says so rather than claiming no strike starts in range.
 
+
+## Deployment zones, and no submarines on sale (13 October)
+
+Two reports from the first in-game check of the 13 October build, both
+about every campaign, not only Southern Watch.
+
+**"When starting campaign, I can't move my task force around at all."** No
+SEST mission wrote a deployment zone, and the game lets a player place units
+before a mission only inside one: a `[Zones]` entry of `Type=Deployment` for
+their side (ui.ini: *"Defines a gameplay deployment area where eligible
+units for the selected side can be placed"*). Stock Pacific Strike draws a
+blue rectangle round its anchor in 02, 06, 07 and 10 (from 20 x 30 to
+90 x 215 NM), places it so the box opens away from the enemy - 06's anchor
+sits 3.4 NM inside the edge facing Lombok - and gives a boat that starts
+away from the surface force a submarine-only box of its own (09 and 10,
+"Sub Patrol Box"). Its zone labels are `Zone1Label_en=Deployment Zone`.
+
+`deployment_zones()` now writes the same thing into every mission with a
+player hull. The box starts as the hulls' own extent plus 3 NM all round,
+room for the formation; each side then opens up to 25 NM further, a mile
+at a time, and stops where the next mile would:
+
+- bring an enemy in play nearer than the padded box already is (by more
+  than half a mile) - "in play" being one whose anti-ship reach, or 50 NM
+  for one with none, comes within 25 NM of the box;
+- bring the box nearer a goal of the mission: an arrival, lift or stage
+  point, or a contact an objective names (the merchant to classify, the
+  ship to sink); or
+- put the edge on land (the 1 km land mask `fix_land_positions` uses, with
+  about 2 NM of sea beyond the edge).
+
+So the player can pull back and spread out, and no opening or transit gets
+shorter than the mission's own by more than the pad: the opening gate's
+ranges (above) still hold within 3 NM. Hulls chained within 25 NM of the
+anchor share its box, which takes every unit type as stock's do; a group
+of nothing but boats elsewhere gets a submarine-only box; any other group
+(an escorted merchant far off) stays where the story puts it, because a
+second all-types box would let the formation jump to it and no stock
+mission has two. Positions are plain arcminutes on both axes, as the game
+reads `RelativePositionInNM`: stock 10's map symbols sit 0.05-0.4 NM from
+their units that way, and 13-28 NM off with a cos(latitude) correction.
+
+campaign.ini: wherever the owned force sails it now gets
+`TaskForceModeDeploymentOptions=True` with a default disposition -
+Formation on a Generated mission, Dispersed on a Replaced one, as stock
+pairs them (06, 07, 09 and 10; 05) - beside the existing
+`TaskForceModeRequireEntireTaskForce`. Stock only ever shows the panel with
+that key False, but its ui.ini carries the panel's own hint for the True
+case ("All Task Force ships must deploy for this mission!"); test card
+6I.1 checks it. The build stops if the force sails into a mission with no
+zone.
+
+What it made, across the four campaigns' 57 campaign missions:
+
+- **50 where the force sails** get a zone and the panel. The median box is
+  about 32 NM on its long side and 12 on its short one; the largest is Rig
+  Seventeen's, 63 x 62. Three keep only
+  the 3 NM pad - Red Line 03, Southern Reach 10 and Tasman Shield 07 - as
+  transits with the objective on one side and the enemy on the other, so
+  every direction is nearer one of them. White Water's reaches 31 NM west
+  and south and 3 NM east and north; Fujian's Shadow's 28 NM east, 15 west,
+  9 north and 4 south.
+- **Six detached operations** get a zone round their own units and no
+  panel: the three submarine operations a submarine-only box, and SW07,
+  SW08 and O2 one round the mission's own ship (SW08's is the pad alone).
+- **Southern Reach 05** places no player hull and has none.
+- Three boxes leave a far group outside: Red Line 06 (2 of 3 hulls), O3
+  Borrowed Shield (3 of 4) and Fujian's Shadow (3 of 7).
+
+The browser copies of the campaign missions carry the same zones; whether
+the game offers placement in a single mission is not known.
+
+**"Submarines can't be seen in the formation editor once added to the task
+force. A submarine I dismissed didn't leave: it spawned in the mission and
+carried on with me."** Only the Open Allocation versions of Southern Watch
+and Southern Reach sold submarines: thirteen boats from the allied fleet
+(Seawolf, five Virginias, the Los Angeles Flt3, Suffren, Type 212A, Todaro,
+S-80, Kilo and Collins). Stock Pacific Strike sells none - its roster's
+`[AllowedSubmarines]` list sits under a note that "subs are currently not
+available for purchase in Pacific Strike campaign" - and its boats are only
+ever authored into a mission. A bought boat is something the game's task
+force does not handle, and nothing in a campaign file can change its
+formation editor or its dismiss button. So the allied fleet now carries no
+submarine; `roster_ini()` refuses one on any roster, and the rules page
+refuses a roster that has one. Southern Watch's Open Allocation version now
+sells 70 allied units and Southern Reach's 63. A save made before
+this build keeps a submarine it already bought: start a new campaign.
+
+The missions' own boats are unchanged: SW09's Collins alongside Stalwart,
+and the detached submarine operations (Red Line 05, Southern Reach 02,
+Tasman Shield 05), which now have a submarine box.
+
+Not demonstrated: everything in this section. Test card 6I.

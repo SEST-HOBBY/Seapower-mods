@@ -105,7 +105,11 @@ experience carry forward from mission to mission.
 ### In every campaign
 - **Open Allocation versions:** the whole roster on sale from the first
   mission. The two Australian campaigns also sell the US, UK, European,
-  Japanese and Korean fleets.
+  Japanese and Korean fleets: ships and aircraft, not submarines (the game's
+  task force cannot take a bought one).
+- **Position your force before each mission:** a blue Deployment Zone round
+  your ships, with Formation or Dispersed. It reaches up to about 25 NM back
+  and to the sides, and only 3 NM towards the enemy or the objective.
 - **Fair openings:**
   - no enemy ship or submarine with weapons free starts within 25 NM of you;
   - strike aircraft start at least 20 NM outside their launch range (or at

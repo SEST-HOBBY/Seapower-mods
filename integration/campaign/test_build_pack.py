@@ -1222,23 +1222,91 @@ class AlliedFleet(unittest.TestCase):
             self.assertTrue(all(isinstance(e["points"], int) and e["points"] > 0
                                 for e in fleet))
 
-    def test_the_twin_rules_page_names_the_submarine_missions(self):
+    def test_no_roster_sells_a_submarine(self):
+        # In-game check, 13 Oct: a bought boat never showed in the formation
+        # editor and a dismissed one still sailed. The roster and the rules
+        # page both refuse one, and the allied fleet carries none.
+        import allied_fleet
+        for fleet in allied_fleet.FOR_NATION.values():
+            self.assertEqual([e["unit"] for e in fleet
+                              if bp.unit_type(e["unit"]) == "Submarine"], [])
+        boat = dict(unit="plan_ss_type_039c", picks=["Variant1"], points=200)
+        bp.set_campaign(bp.campaign_specs()[0])
+        with self.assertRaisesRegex(SystemExit, "plan_ss_type_039c is a submarine"):
+            bp.roster_ini([boat])
         spec = dict(bp.campaign_specs()[0])
-        spec["ROSTER"] = spec["ROSTER"] + [
-            dict(unit="plan_type_054a_p5", picks=["Variant1"], points=280)]
-        saved = bp.unit_type
-        bp.unit_type = lambda uid, depth=0: ("Submarine" if uid == "plan_type_054a_p5"
-                                             else saved(uid, depth))
-        try:
-            page = bp.campaign_rules(spec, open_allocation=True,
-                                     submarine_missions=["Southern Lifeline"], allied=1)
-            self.assertIn("A submarine sails only in a mission that includes one - "
-                          "Southern Lifeline - and waits in reserve", page)
-            self.assertIn("the allied fleet included", page)
-            with self.assertRaises(SystemExit):
-                bp.campaign_rules(spec, open_allocation=True, submarine_missions=[])
-        finally:
-            bp.unit_type = saved
+        spec["ROSTER"] = spec["ROSTER"] + [boat]
+        with self.assertRaisesRegex(SystemExit, "sells submarines"):
+            bp.campaign_rules(spec, open_allocation=True, allied=1)
+        page = bp.campaign_rules(bp.campaign_specs()[0], open_allocation=True, allied=1)
+        self.assertIn("Submarines cannot be bought in this campaign", page)
+        self.assertIn("the allied fleet included", page)
+
+
+class DeploymentZones(unittest.TestCase):
+    """deployment_zones: the blue box the player may place the force in before
+    a mission (user report, 13 Oct: "i cant move my task force around at
+    all"). It holds the hulls, opens away from the enemy and the mission's
+    goals, never toward them, and a boat on her own gets a box of her own.
+    Open Southern Ocean, so no edge meets land."""
+
+    CENTRE = (-50.0, 150.0)
+
+    def zones(self, blue, red=(), **mission):
+        placed = {"Taskforce1Vessel": [], "Taskforce1Submarine": [],
+                  "Taskforce2Vessel": []}
+        for i, (uid, x, z) in enumerate(blue, 1):
+            family = "Taskforce1Submarine" if "_ss" in uid else "Taskforce1Vessel"
+            n = len(placed[family]) + 1
+            placed[family].append((f"{family}{n}", _keys(uid, x, z), None, False))
+        for i, (uid, x, z) in enumerate(red, 1):
+            placed["Taskforce2Vessel"].append((f"Taskforce2Vessel{i}", _keys(uid, x, z), None, False))
+        m = dict(key="Test Zones", centre=self.CENTRE, victory=dict(kind="survive"),
+                 resolve={}, _anchor_section="Taskforce1Vessel1", **mission)
+        return bp.deployment_zones(m, placed, {"goal": ["Taskforce2Vessel1"]})
+
+    def box(self, z):
+        """(west, east, south, north) edges in the mission's NM frame."""
+        cx = (z["at"][1] - self.CENTRE[1]) * 60
+        cz = (z["at"][0] - self.CENTRE[0]) * 60
+        return (round(cx - z["width"] / 2, 1), round(cx + z["width"] / 2, 1),
+                round(cz - z["height"] / 2, 1), round(cz + z["height"] / 2, 1))
+
+    def test_the_box_opens_away_from_the_enemy_and_not_toward_it(self):
+        (z,) = self.zones([("plan_type_054a_p5", 0, 0)],
+                          red=[("plan_type_054a_p5", 0, 60)])
+        self.assertEqual(z["types"], bp.DEPLOY_ALL)
+        west, east, south, north = self.box(z)
+        self.assertEqual(north, bp.DEPLOY_PAD_NM)            # the pad, no more
+        self.assertEqual(south, -bp.DEPLOY_PAD_NM - bp.DEPLOY_OPEN_NM)
+        self.assertEqual((west, east), (-28.0, 28.0))         # abeam is free
+
+    def test_a_goal_holds_the_box_back_too(self):
+        (z,) = self.zones([("plan_type_054a_p5", 0, 0)],
+                          red=[("plan_type_054a_p5", 0, 60)],
+                          lift=[dict(at=(self.CENTRE[0] - 40 / 60.0, self.CENTRE[1]))])
+        _w, _e, south, north = self.box(z)
+        self.assertEqual((south, north), (-3.0, 3.0))
+
+    def test_every_hull_in_the_group_is_inside(self):
+        (z,) = self.zones([("plan_type_054a_p5", 0, 0), ("plan_type_054a_p5", 10, -12)])
+        west, east, south, north = self.box(z)
+        self.assertTrue(west <= -3 and east >= 13 and south <= -15 and north >= 3)
+
+    def test_a_boat_on_her_own_gets_a_submarine_box(self):
+        main, boat = self.zones([("plan_type_054a_p5", 0, 0), ("plan_ss_type_039c", 80, 0)])
+        self.assertEqual(main["types"], bp.DEPLOY_ALL)
+        self.assertEqual(boat["types"], "Submarine")
+        self.assertEqual(boat["tags"], ["Taskforce1Submarine1"])
+
+    def test_no_hull_no_zone(self):
+        self.assertEqual(self.zones([]), [])
+
+    def test_the_mission_file_carries_the_zone_and_its_label(self):
+        _name, text = bp.render(small_mission(), *small_placement())
+        self.assertIn("Zone1Label_en=Deployment Zone", text)
+        self.assertIn("[Zones]\nNumberOfZones=1\nZone1=Zone1\n[Zone1]\nType=Deployment", text)
+        self.assertIn("Side=Blue", text)
 
 
 class AlliedFleetReview(unittest.TestCase):
