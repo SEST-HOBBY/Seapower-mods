@@ -1968,7 +1968,7 @@
       "faction": "usa",
       "type": "fixed-wing",
       "status": "active",
-      "notes": "What-if production YF-23. Ships its own missions/ folder as well as the airframe. Zero whole-file collisions. Upstream now carries its own AIM-424 fit (AirToAirIntercept: 2x yf23_aim424_internal on its own mesh), so no SEST YF-23 MALICE pack is needed; the one built for the older six-airframe layout targeted yf23_f23a_block40_2025.ini, which upstream has removed."
+      "notes": "What-if production YF-23. Ships its own missions/ folder as well as the airframe. Zero whole-file collisions. Upstream now carries its own AIM-424 fit (AirToAirIntercept: 2x yf23_aim424_internal on its own mesh), so no SEST YF-23 MALICE pack is needed; the one built for the older six-airframe layout targeted yf23_f23a_block40_2025.ini, which upstream has removed. Its yf23_aim424_internal is not SEST's sest_aim-424: its own mesh and motor effect, one 58 s burn against SEST's boost and sustainer, loft to 85,000 ft against 150,000, a 20 NM active seeker with local terminal guidance against 40 NM with datalink, 255 NM against 290 (13 Oct 2026, player-noted; docs/conflicts-and-load-order.md, 'Four AIM-424s, two flight models')."
     },
     {
       "id": "mig-31-foxhound",

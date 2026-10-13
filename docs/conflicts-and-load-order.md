@@ -102,3 +102,39 @@ SM-6 is slower and shorter-legged than Euromod's (2650 kts / 230 nm against 3600
 ESSM is slower but slightly longer-ranged. What you gain is the modern flight model on RAM and both
 SM-2s, and a fleet whose missiles agree with each other. To reverse it, move `3606774881` back below
 `3629144864` in `data/load-order.tokens.txt` and re-run `set-mod-order.ps1`.
+
+## Four AIM-424s, two flight models (13 Oct 2026)
+
+The player noted that the YF-23 mod's AIM-424 is a different model and flies
+a different profile from SEST's. Both are true, and neither file overrides
+the other: they have different ids, so the game loads both and a player
+sees two rounds named AIM-424 that do not behave alike.
+
+| | YF-23 Black Widow II (3796349767) `yf23_aim424_internal` | SEST `sest_aim-424` (`integration/common/aim424.py`) |
+|---|---|---|
+| Model | the mod's own mesh, `assets/models/ammunition/yf23_aim424/`, and its own motor effect | the AGM-88G mesh, a rendering stand-in kept because it is proven to load |
+| Motor | one long burn: 58 s at 2.9 g, no sustainer | 4 s boost at 20 g, then a 20 s sustainer at 4.5 g |
+| Loft | 30 degrees to 85,000 ft | 30 degrees to 150,000 ft, terminal loft on |
+| Terminal phase | local terminal only; seeker 20 NM active, 12 NM passive; approach from 17 NM | datalink to terminal; seeker 40 NM active, 80 NM passive; approach from 36 NM |
+| Agility | 16 degrees/s, 25 g | 28 degrees/s, 25 g |
+| Envelope | 3-255 NM, 600 s flight, targets to 105,000 ft | 2-290 NM, 400 s flight, targets to 150,000 ft |
+| Warhead | type 0, Power 23, Pk 0.85 | fragmentation, Power 48, Pk 0.98 |
+| Carried by | the YF-23 only (stations 15-16, internal) | F-35A (RAAF), F-35C, F-16CM, F-15EX, EA-18G, the Super Hornets, Rafale F5 |
+
+The other two AIM-424 files share one id, `usn_aim-424`: US Naval Aviation
+(3737267013, which ships the `aim-424.obj` mesh) and U.S. Navy 2027
+(3606774881, which points at that mesh). Whichever ranks higher in the load
+order wins that id; they differ again (1,600 against 2,650 knots top speed,
+250 against 350 NM). All four are 680 kg, as the Navy's fact file says.
+
+Nothing is changed for this note. Options, for the player to choose:
+1. leave the YF-23 its author's own round (the current state, and the
+   catalog's position since the YF-23 gained it upstream);
+2. give the YF-23 SEST's round, so every AIM-424 in the collection flies
+   alike - a whole-file override of `usaf_yf-23_black_widow_ii.ini`, stations
+   15-16 only, which then has to follow every YF-23 update;
+3. give SEST's round a real AIM-424 mesh (`aim-424.obj` or the YF-23's
+   `yf23_aim424`) in place of the AGM-88G - wants an in-game look first, since
+   the last change to that model block made the missile fall back to a RIM-7.
+The APKWS Redback draft cites the AIM-424 as a precedent; it should name
+which of these it means.
