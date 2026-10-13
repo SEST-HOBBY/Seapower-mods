@@ -471,6 +471,49 @@ removed with what here forks or fields it, which is what its exit code is
 for. The exporter's `-DestDir` applies to vanilla too, so a clean export
 beside the repo (*Known red* above) is the other route.
 
+### A Workshop refresh for review
+
+When the next development pass needs the collection as it is now - after
+Steam has updated mods, or before a large piece of work - the capture goes on
+its own branch, `chore/workshop-refresh-YYYYMMDD`, made from the deploy
+branch, so it can be reviewed against the SEST integration before anything is
+changed to follow it. Let Steam finish every Sea Power download, start the game
+to the main menu once (so Player.log and the BepInEx log record what loaded),
+quit it, then:
+
+```powershell
+& { $ErrorActionPreference = 'Stop'
+  if (Get-Process -Name 'Sea Power', 'SeaPower' -ErrorAction SilentlyContinue) { throw 'Sea Power is running - exit it first' }
+  Set-Location -LiteralPath 'C:\Users\rolyl\Seapower-mods'
+  if (git status --short) { throw 'The clone has uncommitted changes - stop and report them' }
+  $b = 'chore/workshop-refresh-YYYYMMDD'                  # the branch Claude made
+  git fetch origin $b
+  if ($LASTEXITCODE) { throw 'fetch failed - is the branch name right?' }
+  git checkout -B $b "origin/$b"
+  powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates |
+      Out-File -Encoding utf8 data\install-snapshot\workshop-updates.txt
+  powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla
+  if ($LASTEXITCODE) { throw 'export failed - read its last lines; nothing has been committed' }
+  powershell -ExecutionPolicy Bypass -File .\tools\capture-context.ps1 -Redact
+  if ($LASTEXITCODE) { throw 'capture failed - read its last lines' }
+  git add -A mods-source data\install-snapshot
+  git commit -m "chore: capture workshop refresh $(Get-Date -Format yyyy-MM-dd)"
+  git push -u origin $b
+  if ($LASTEXITCODE) { throw 'push failed' }
+  git checkout sest-dev/loving-bell-3cnvvw                 # back to the deploy branch for play
+}
+```
+
+`workshop-updates.txt` is the exporter's read-only update check, taken before
+the export overwrites the evidence; `plugin-dlls.txt` (written by the capture)
+records every code DLL's hash and version, since a plugin update changes
+behaviour with no .ini changing. `python3 tools/workshop_refresh_summary.py`
+then writes `data/install-snapshot/workshop-refresh-summary.txt`: the four
+inventories (Steam's record, folders on disk, the canonical order, the
+catalog) side by side, and what changed since the previous capture - facts
+only, for the review to judge. Nothing on the refresh branch is merged; it is
+read by the next pass.
+
 ### In the repo: read the drift, bump the version, rebuild, gate, document, push
 
 1. **Note the baseline, then merge the deploy branch.** The drift tool's

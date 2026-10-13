@@ -23,6 +23,10 @@
       streaming-media.txt     every picture and film under original\ and the
                               Workshop's loading/menu pictures - the folder a
                               replacement loading screen must use
+      plugin-dlls.txt         every code DLL the game can load - Workshop mods,
+                              BepInEx, the Anchor Chain preloader, SEST plugins -
+                              with size, SHA-256 and version: a plugin update
+                              changes behaviour with no .ini changing
       ui-assets.txt           the background, loading and menu picture names
                               inside the game's own Unity data and code - what
                               the SEST plugin must find to swap one
@@ -185,6 +189,45 @@ if ($StreamingAssetsDir -and (Test-Path -LiteralPath $StreamingAssetsDir)) {
             -OutFile (Join-Path $outDir "ui-assets.txt")
     } catch { Write-Warning "ui-assets.txt not written: $($_.Exception.Message)" }
 }
+
+# --- 2d. plugin DLLs -------------------------------------------------------------
+# The export copies text only, so a code mod's update (Dynamic Campaign Mod,
+# Identify Expanded, Anchor Chain, decoy and resupply plugins) left no trace in
+# the repo though it can change what the game does. Name, size, SHA-256 and the
+# file's own version for every DLL the game can load. Read only.
+$lines = @("# Code DLLs the game can load: Workshop mods, the game folder (BepInEx, the",
+           "# Anchor Chain preloader) and the SEST pack's plugins. Size in bytes, SHA-256,",
+           "# file version / product version, last write time.", "")
+$dllRoots = @()
+foreach ($lib in Get-SteamLibraries) {
+    $content = Join-Path $lib "workshop\content\1286220"
+    if (Test-Path -LiteralPath $content) { $dllRoots += ,@("workshop", $content); break }
+}
+if ($StreamingAssetsDir -and (Test-Path -LiteralPath $StreamingAssetsDir)) {
+    $gameDir = Split-Path -Parent (Split-Path -Parent $StreamingAssetsDir)
+    foreach ($sub in @("BepInEx", "")) {
+        $d = if ($sub) { Join-Path $gameDir $sub } else { $gameDir }
+        if (Test-Path -LiteralPath $d) { $dllRoots += ,@("game\$sub".TrimEnd("\"), $d) }
+    }
+    $sestPlugins = Join-Path $StreamingAssetsDir "SEST_Integration\plugins"
+    if (Test-Path -LiteralPath $sestPlugins) { $dllRoots += ,@("SEST_Integration\plugins", $sestPlugins) }
+}
+foreach ($root in $dllRoots) {
+    $label, $dir = $root[0], $root[1]
+    # the game folder itself: only the loose DLLs beside Sea Power.exe (winhttp.dll and friends)
+    $files = if ($label -eq "game") { @(Get-ChildItem -LiteralPath $dir -File -Filter *.dll -ErrorAction SilentlyContinue) }
+             else { @(Get-ChildItem -LiteralPath $dir -Recurse -File -Filter *.dll -ErrorAction SilentlyContinue) }
+    $lines += "[$label]  $($files.Count) DLL(s)"
+    foreach ($f in ($files | Sort-Object FullName)) {
+        $rel = $f.FullName.Substring($dir.Length).TrimStart("\", "/")
+        $hash = try { (Get-FileHash -LiteralPath $f.FullName -Algorithm SHA256).Hash.ToLower() } catch { "unreadable" }
+        $vi = try { [System.Diagnostics.FileVersionInfo]::GetVersionInfo($f.FullName) } catch { $null }
+        $ver = if ($vi) { "$($vi.FileVersion) / $($vi.ProductVersion)" } else { "-" }
+        $lines += ("  {0}  {1,10}  {2}  {3}  {4:yyyy-MM-dd HH:mm}" -f $rel, $f.Length, $hash, $ver, $f.LastWriteTime)
+    }
+    $lines += ""
+}
+Write-Snapshot "plugin-dlls.txt" $lines
 
 # --- 3. the game's own log ---------------------------------------------------
 $logDir = Split-Path -Parent $SettingsPath
