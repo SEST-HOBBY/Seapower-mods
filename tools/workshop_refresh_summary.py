@@ -3,13 +3,19 @@
 
     python3 tools/workshop_refresh_summary.py               # write the summary
     python3 tools/workshop_refresh_summary.py --since <ref> # compare with that commit
+    python3 tools/workshop_refresh_summary.py --since-export <ref>
 
 Reads what tools/capture-context.ps1 and tools/export-mod-configs.ps1 wrote
 (data/install-snapshot/, mods-source/) and the canonical lists
-(data/load-order.tokens.txt, data/mod-catalog.json), and writes
-data/install-snapshot/workshop-refresh-summary.txt. The previous capture is
+(data/load-order.tokens.txt, data/mod-catalog.json), plus the authors' change
+notes the player copies from Steam (data/install-snapshot/workshop-change-notes.txt,
+optional), and writes data/install-snapshot/workshop-refresh-summary.txt. The previous capture is
 the last commit that changed workshop-subscriptions.txt before the one being
-summarised, unless --since names another.
+summarised, unless --since names another. Exported files are compared with
+the previous EXPORT instead - the last commit that changed
+mods-source/_export-manifest.csv before this capture - since an export can
+be committed between two captures (11 Oct 2026) and would otherwise be
+counted again; --since-export names another.
 
 The four inventories, as the refresh procedure names them:
   A  Steam's own record of the subscriptions on this PC (appworkshop_1286220.acf)
@@ -30,8 +36,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SNAP = ROOT / "data" / "install-snapshot"
 SUBS = "data/install-snapshot/workshop-subscriptions.txt"
+MANIFEST = "mods-source/_export-manifest.csv"
+SEST_OWN = {"3812461539"}   # SEST's own Workshop item (export-mod-configs.ps1 $SestOwnWorkshopIds)
 OUT = SNAP / "workshop-refresh-summary.txt"
+NOTES = SNAP / "workshop-change-notes.txt"   # authors' Steam change notes, pasted by the player
 INSTALLED = {"active", "deprecated", "wip"}
+DETAIL = 12          # changed files listed per mod; the rest are counted
 
 
 def git(*args):
@@ -50,6 +60,24 @@ def previous_capture():
         return None
     changed = git("status", "--porcelain", "--", SUBS).strip()
     return hist[0] if changed else (hist[1] if len(hist) > 1 else None)
+
+
+def previous_export():
+    """The last commit that changed the export manifest before this capture began."""
+    start = None if git("status", "--porcelain", "--", SUBS).strip() else \
+        (git("log", "--format=%H", "-n", "1", "--", SUBS).split() or [None])[0]
+    ref = f"{start}^" if start else "HEAD"
+    hist = git("log", "--format=%H", "-n", "1", ref, "--", MANIFEST).split()
+    return hist[0] if hist else None
+
+
+def live_sest(live, assets):
+    """Where the live Mod Manager list takes SEST from, and how many local SEST folders exist."""
+    rows = re.findall(r"^\s*(\d+)\.\s+(\S+)\s+(on|off)\b", live, re.M)
+    hits = [f"{tok} at {pos} ({state}{', Workshop copy' if tok in SEST_OWN else ''})"
+            for pos, tok, state in rows if tok in SEST_OWN or tok.startswith("SEST_")]
+    m = re.search(r"^SEST folders present:\s*(\d+)", assets, re.M)
+    return ", ".join(hits) or "none", (m.group(1) if m else "not captured")
 
 
 def folders(text):
@@ -104,6 +132,17 @@ def dlls(text):
     return out
 
 
+def file_changes(since):
+    """{id: [(A/D/M/R, path inside the mod)]} for mods-source/<id> since a commit."""
+    out = {}
+    for line in git("diff", "--name-status", "-M", since, "--", "mods-source").splitlines():
+        cols = line.split("\t")
+        parts = cols[-1].split("/")
+        if len(parts) > 2 and parts[1].isdigit():
+            out.setdefault(parts[1], []).append((cols[0][0], "/".join(parts[2:])))
+    return out
+
+
 def listing(ids, names):
     return [f"  {i}  {names.get(i, '')}".rstrip() for i in sorted(ids)] or ["  (none)"]
 
@@ -111,13 +150,17 @@ def listing(ids, names):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--since", help="the commit holding the previous capture")
+    ap.add_argument("--since-export", help="the commit holding the previous export")
     args = ap.parse_args()
     since = args.since or previous_capture()
+    since_export = args.since_export or previous_export()
 
     subs_now = (ROOT / SUBS).read_text(encoding="utf-8", errors="replace")
     subs_then = at(since, SUBS) if since else None
     b_now, b_then = folders(subs_now), folders(subs_then)
     names = {i: n for i, (n, _) in {**b_then, **b_now}.items()}
+    for i in SEST_OWN:
+        names[i] = f"{names.get(i, 'SEST')} [SEST's own Workshop item]"
     catalog = json.loads((ROOT / "data" / "mod-catalog.json").read_text(encoding="utf-8-sig"))
     for m in catalog["mods"]:
         names.setdefault(m["workshop_id"], m.get("title", ""))
@@ -132,19 +175,17 @@ def main():
     live = (SNAP / "load-order.live.txt").read_text(encoding="utf-8", errors="replace") \
         if (SNAP / "load-order.live.txt").is_file() else ""
     live_entries = re.search(r"entries parsed: (\d+)", live)
+    assets = (SNAP / "streaming-assets.txt").read_text(encoding="utf-8", errors="replace") \
+        if (SNAP / "streaming-assets.txt").is_file() else ""
+    sest_live, sest_local = live_sest(live, assets)
     env = (SNAP / "environment.txt").read_text(encoding="utf-8", errors="replace") \
         if (SNAP / "environment.txt").is_file() else ""
     changelog_line, buildid, unity = game_version()
 
     updated = sorted(i for i in b & set(b_then) if b_now[i][1] != b_then[i][1])
-    exported = set()
-    if since:
-        for path in git("diff", "--name-only", since, "--", "mods-source").splitlines():
-            parts = path.split("/")
-            if len(parts) > 2 and parts[1].isdigit():
-                exported.add(parts[1])
+    exported = file_changes(since_export) if since_export else {}
     man_now = manifest((ROOT / "mods-source" / "_export-manifest.csv").read_text(encoding="utf-8-sig"))
-    man_then = manifest(at(since, "mods-source/_export-manifest.csv")) if since else {}
+    man_then = manifest(at(since_export, MANIFEST)) if since_export else {}
     dll_now = dlls((SNAP / "plugin-dlls.txt").read_text(encoding="utf-8", errors="replace")
                    if (SNAP / "plugin-dlls.txt").is_file() else "")
     dll_then = dlls(at(since, "data/install-snapshot/plugin-dlls.txt") if since else "")
@@ -161,6 +202,7 @@ def main():
          f"capture date           : {field(env, 'captured')}",
          f"repo commit captured at: {field(env, 'repo commit')} ({field(env, 'repo branch')})",
          f"previous capture       : {since[:12] if since else 'none found'}",
+         f"previous export        : {since_export[:12] if since_export else 'none found'}",
          f"Sea Power              : {changelog_line}",
          f"  Steam build id       : {buildid}",
          f"  engine               : Unity {unity}", "",
@@ -170,18 +212,30 @@ def main():
          f"  C canonical Workshop ids      : {len(c)}",
          f"  D catalog installed entries   : {len(d)}",
          f"  SEST entries in the order     : {len(sest)} ({', '.join(sest)})",
+         f"  SEST in the live order        : {sest_live}",
+         f"  local SEST folders (StreamingAssets): {sest_local}",
          f"  canonical Mod Manager entries : {len(order)}",
          f"  live Mod Manager entries      : {live_entries.group(1) if live_entries else 'not captured'}",
          f"  pending (NeedsDownload / NeedsUpdate): {pending}", ""]
     L += ["SINCE THE PREVIOUS CAPTURE", "  new folders:"] + listing(b - set(b_then), names)
     L += ["  removed folders:"] + listing(set(b_then) - b, names)
-    L += ["  updated on the Workshop (date changed):"] + [
+    L += ["  updated on the Workshop (folder date changed - the folder's last-write time, which",
+          "  an update that only rewrites files inside existing subfolders does not move; the",
+          "  exported files below are the full record):"] + [
         f"  {i}  {names.get(i, '')}  {b_then[i][1]} -> {b_now[i][1]}" for i in updated]
     if not updated:
         L.append("  (none)")
-    L += ["  exported files changed (mods-source/<id>):"] + [
-        f"  {i}  {names.get(i, '')}  files {man_then.get(i, {}).get('FilesCopied', '-')} -> "
-        f"{man_now.get(i, {}).get('FilesCopied', '-')}" for i in sorted(exported)]
+    L += [f"  exported files changed since the previous export "
+          f"({since_export[:12] if since_export else 'none'}; A added, D removed, M modified, R renamed):"]
+    for i in sorted(exported):
+        rows = sorted(exported[i], key=lambda r: ("DARM".index(r[0]) if r[0] in "DARM" else 4, r[1]))
+        count = {k: sum(1 for s, _ in rows if s == k) for k in "ADMR"}
+        L.append(f"  {i}  {names.get(i, '')}  files {man_then.get(i, {}).get('FilesCopied', '-')} -> "
+                 f"{man_now.get(i, {}).get('FilesCopied', '-')}  "
+                 f"(A {count['A']}, D {count['D']}, M {count['M']}, R {count['R']})")
+        L += [f"      {s} {path}" for s, path in rows[:DETAIL]]
+        if len(rows) > DETAIL:
+            L.append(f"      ... and {len(rows) - DETAIL} more")
     if not exported:
         L.append("  (none)")
     changed_dlls = sorted(k for k in dll_now if dll_then.get(k) not in (None, dll_now[k]))
@@ -200,7 +254,14 @@ def main():
     L += [f"  historical catalog entries (status not installed): {len(historical)}",
           f"  Steam-tracked but not on disk: {' '.join(tracked_not_disk) or '(none)'}",
           f"  on disk but not Steam-tracked: {' '.join(disk_not_tracked) or '(none)'}", ""]
-    L += ["EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)"]
+    notes = [l for l in NOTES.read_text(encoding="utf-8-sig").splitlines()
+             if not l.startswith("#")] if NOTES.is_file() else []
+    while notes and not notes[0].strip():
+        notes.pop(0)
+    L += ["AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)"]
+    L += [f"  {l}" if l.strip() else "" for l in notes] or [
+        "  none recorded (copy them from each item's Steam Change Notes page)"]
+    L += ["", "EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)"]
     L += ["  " + l for l in updates.read_text(encoding="utf-8-sig", errors="replace").splitlines() if l.strip()] \
         if updates.is_file() else ["  not captured (data/install-snapshot/workshop-updates.txt absent)"]
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
