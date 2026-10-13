@@ -198,6 +198,9 @@ experience carry forward from mission to mission.
 - **AIM-260 JATM and AIM-424 MALICE fits:**
   - F-35A (RAAF), F-35C, F-16CM Block 52, F-15EX;
   - EA-18G Growler, the Super Hornets, late Rafales.
+- **One AIM-424 flight model:** every AIM-424 in the collection flies U.S. Navy
+  2027's figures (350 nm, 2,650 knots, a 45° loft), the YF-23's own round
+  included. Each round keeps its own model and warhead.
 - **EA-18G Growler:** working AN/ALQ-249 Next Generation Jammer, and a
   conventional SEAD fit for the U.S. Navy 2027 Growler.
 - **F-15EX:** seven extra loadouts — LRASM surge, GBU-31 Quicksink, a MALICE

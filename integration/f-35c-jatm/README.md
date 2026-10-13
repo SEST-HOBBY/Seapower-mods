@@ -19,15 +19,15 @@ external, matching dingtools' own internal/external carriage convention on the F
 `ammunition/sest_aim-424.ini` is the Raytheon AIM-424 LRAAM, revealed by the US Navy on
 22 August 2026 and already in flight test. Per the Navy fact file: a solid-propellant round
 4.11 m long on the same 34.3 cm diameter as the SM-6, 680 kg (1,500 lb), blast-fragmentation
-warhead, and a range **in excess of 250 nm** — modelled here at **290 nm**, just under the
-AIM-174B's 316. Active-radar terminal homing with datalink midcourse plus a passive
-anti-emitter mode, which is what makes it an AEW- and tanker-killer rather than just a long
-AMRAAM. Bay-sized: Navy imagery shows it in the F-35C internal bay, and here it rides the same
+warhead, and a range **in excess of 250 nm**. It flies U.S. Navy 2027's AIM-424 flight model
+key for key, as every AIM-424 in the collection does since 13 October 2026: **350 nm**, active-radar
+terminal homing with datalink midcourse plus a passive mode that homes on radars and jammers,
+which is what makes it an AEW- and tanker-killer rather than just a long AMRAAM. Bay-sized: Navy imagery shows it in the F-35C internal bay, and here it rides the same
 internal stations JSM does.
 
 The 3D model is a stand-in on US Naval Aviation's AGM-88G assets, the block proven to load;
-that mod's own AIM-424 mesh is untested in this round. The seeker figures are this repo's
-estimates; the Navy disclosed none. See `integration/common/aim424.py` for the source or the
+that mod's own AIM-424 mesh is untested in this round. Speed and seeker figures are U.S.
+Navy 2027's estimates; the Navy disclosed none. See `integration/common/aim424.py` for the source or the
 reasoning behind each key.
 
 ## Why the base is F-35C Alt. Loadouts' F-35C

@@ -27,8 +27,9 @@ mod's own Stealth / non-Stealth loadout convention.
 The AIM-260 comes from the **Dingtools Weapon Pack** (`dts_aim-260` internal, `dts_aim-260_w`
 external); the AIM-9X is bundled with the RAAF mod itself. The AIM-424 MALICE ships inside
 this pack (`ammunition/sest_aim-424.ini`, identical copy in the F-35C pack): the Raytheon
-LRAAM the US Navy revealed on 22 August 2026 — 680 kg on the SM-6's 34.3 cm diameter, 290 nm
-here against the Navy's stated "in excess of 250", with a passive anti-emitter mode. Keep
+LRAAM the US Navy revealed on 22 August 2026 — 680 kg on the SM-6's 34.3 cm diameter, flying
+U.S. Navy 2027's AIM-424 flight model (350 nm against the Navy's stated "in excess of 250"),
+with a passive anti-emitter mode. Keep
 **US Naval Aviation** enabled: the missile renders on its AGM-88G model, the stand-in proven
 to load.
 

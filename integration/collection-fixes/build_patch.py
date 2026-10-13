@@ -32,6 +32,7 @@ from common import combat  # noqa: E402
 from common import quotes  # noqa: E402
 from common import airbase  # noqa: E402
 from common import flags  # noqa: E402
+from common import aim424  # noqa: E402
 
 # SEST Replenishment At Sea meters every heavy ship-launched strike and
 # area-SAM round under a counted SEST_ supply category (the rule and its
@@ -831,6 +832,7 @@ def main():
     restored, tuned, skipped = build_ciws()
     extended = build_extends()
     retargeted = build_stale_overwrites()
+    aim424_keys = build_aim424_flight()
     flags = build_nation_flags()
     returned = build_stale_vanilla_files()
     fields = build_airbases()
@@ -852,6 +854,8 @@ def main():
     print(f"  + nation flags: {', '.join(flags)}")
     print(f"  + {len(retargeted)} stale Euromod overwrite(s) pointed off a unit no mod ships: "
           f"{', '.join(retargeted)}")
+    print(f"  + the YF-23's AIM-424 given U.S. Navy 2027's flight model by #!extend "
+          f"({aim424_keys} of {len(aim424.FLIGHT)} keys differ from its own)")
     print(f"  + {len(returned)} game file(s)/section(s) restored over stale mod copies: "
           f"{', '.join(returned)}")
     print(f"  + {len(fields)} large airbase(s) retuned to the game's launch-rate values: "
@@ -1881,6 +1885,64 @@ def build_stale_overwrites():
             f"# No keys are set here.\n", encoding="utf-8")
         done.append(old_id)
     return done
+
+
+# ------------------------------------------------ AIM-424 flight model
+# The YF-23 mod (3796349767) arms its jet with an AIM-424 of its own,
+# yf23_aim424_internal, on its own mesh and motor effect. On the player's
+# decision of 13 Oct 2026 every AIM-424 flies U.S. Navy 2027's figures
+# (FLIGHT in integration/common/aim424.py), so this lays them over the
+# round's [Guidance] with an #!extend. Nothing else of the round changes:
+# its warhead (type 0, Power 23), mass, cost, model and effects stay its
+# author's, and so does its motor plume, timed for its own 58 s burn. An
+# extend, not a copy, so none of the author's file is shipped and a YF-23
+# update still reaches the game except for these keys. The extend is read
+# by the Anchor Chain preloader (SETUP installs it); without it the round
+# flies its author's figures.
+YF23_AIM424 = ("3796349767", "ammunition/yf23_aim424_internal.ini")
+# Keys the YF-23's [Guidance] sets and U.S. Navy 2027's does not, so they
+# stay the author's - each with why that is harmless.
+YF23_AIM424_KEPT = {
+    "SelfDestructDelay": "only read when SelfDestructAfterTargetGone is True; FLIGHT sets False",
+}
+
+
+def build_aim424_flight():
+    """ammunition_overwrite/yf23_aim424_internal_FlightModel_SEST.ini.
+    Returns how many of FLIGHT's keys it changes on the round."""
+    aim424.check_flight()
+    mod, rel = YF23_AIM424
+    uid = Path(rel).stem
+    out_dir = OUT / "ammunition_overwrite"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for stale in out_dir.glob("*_FlightModel_SEST.ini"):
+        stale.unlink()
+    shippers = sorted(q.parts[-3] for q in MODS.glob(f"*/{rel}"))
+    if shippers != [mod]:
+        sys.exit(f"{uid}: shipped by {', '.join(shippers) or 'no mod'}, not {mod} alone - "
+                 "re-check which round the extend lands on")
+    text = read_file(MODS / mod / rel)
+    if text.lstrip().startswith("#!"):
+        sys.exit(f"{uid}: the YF-23's file is an alias/extend itself - extend its base instead")
+    who = extended_by_mods().get(rel.lower())
+    if who:
+        sys.exit(f"{uid}: already extended by {', '.join(who)} - decide which keys win first")
+    own = aim424.section(text, "Guidance")
+    if not own:
+        sys.exit(f"{uid}: no [Guidance] in the YF-23's round - rebase this fix")
+    flight = dict(aim424.FLIGHT)
+    new = sorted(k for k in own if k not in flight and k not in YF23_AIM424_KEPT)
+    if new:
+        sys.exit(f"{uid}: the YF-23's round now also sets {', '.join(new)}, which U.S. Navy "
+                 "2027's does not - decide each and record it in YF23_AIM424_KEPT")
+    changed = [k for k in flight if own.get(k) != flight[k]]
+    (out_dir / f"{uid}_FlightModel_SEST.ini").write_text(
+        f"#!extend {rel}\n\n"
+        f"# SEST Collection Fixes: the YF-23 mod's AIM-424 flies U.S. Navy 2027's\n"
+        f"# usn_aim-424 figures, key for key, like every AIM-424 in the collection.\n"
+        f"# Only [Guidance]: its warhead, mass, cost, model and effects stay its own.\n"
+        + aim424.guidance_block(), encoding="utf-8")
+    return len(changed)
 
 
 def build_extends():

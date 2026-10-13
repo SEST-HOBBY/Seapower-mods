@@ -27,15 +27,13 @@ flight test. The Navy fact file gives 4.11 m long, the **same 34.3 cm diameter a
 **680 kg (1,500 lb)**, a solid-propellant rocket motor, a blast-fragmentation warhead and a range
 **"in excess of 250 nm"**.
 
-It is aligned key-for-key against U.S. Navy 2027's AIM-174B so the two encyclopedia cards compare
-directly — same explicit-drag flight model, same 150,000 ft loft, same fragmentation warhead class,
-same datalink midcourse, same chart basis. That alignment is now more than convenience: the two
-share a diameter, a mission and a service. It reaches **290 nm** against the 174B's 316 — over
-the Navy's stated floor, just under its stablemate — and carries a far better seeker: 40 nm active
-and 80 nm passive against 15/15, plus a full passive anti-emitter mode that homes on radars as well
-as jammers, which is what makes it an AEW- and tanker-killer.
+It flies U.S. Navy 2027's AIM-424 flight model key for key, as every AIM-424 in the collection
+does since 13 October 2026: 2,650 knots, one 31 s burn, a 45-degree loft to about 148,000 ft,
+datalink midcourse with retargeting, **350 nm** (over the Navy's stated floor), and a 15 nm
+active seeker with a passive mode that homes on radars as well as jammers. The warhead (Power 48,
+fragmentation) is still this pack's own.
 
-The seeker figures are estimates; the Navy disclosed none. The 3D model is a stand-in on US Naval
+Speed and seeker figures are the mod author's estimates; the Navy disclosed none. The 3D model is a stand-in on US Naval
 Aviation's AGM-88G assets. That mod also ships an AIM-424 mesh for its own `usn_aim-424`, but the
 AGM-88G block is the one proven to load here, so switching waits for an in-game look.
 `integration/common/aim424.py` shows the source or the reasoning behind every key.

@@ -60,6 +60,10 @@ STALE = [
      "mod ships yf23_aim424; the AGM-88G stand-in is kept by choice"),
     (r"what-if[^.\n]*(AIM-424|MALICE)", AIM424_SOURCES + AIM424_OUTPUT,
      f"the AIM-424 is a real weapon now ({REVEAL})"),
+    (r"290 ?nm|40 nm active|80 nm passive",
+     ["integration/*/build_*.py", "integration/*/README.md"] + AIM424_OUTPUT,
+     "SEST's own AIM-424 figures, retired 13 Oct 2026: every AIM-424 flies U.S. Navy "
+     "2027's flight model (350 nm, a 15 nm seeker) - integration/common/aim424.py"),
     (r"dual-pulse|2030s seeker|Mass[^.\n]*NOT disclosed", AIM424_ROUND,
      "pre-reveal guesses: the motor is reported two-stage and the weight is "
      "published (1,500 lb / 680 kg, U.S. Navy fact file)"),

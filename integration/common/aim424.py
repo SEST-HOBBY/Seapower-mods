@@ -26,13 +26,20 @@ the collection ship carry the same weight: usn_aim-424 in US Naval Aviation
 (3737267013) and U.S. Navy 2027 (3606774881) at Mass=680, the YF-23 mod's
 yf23_aim424_internal (3796349767) at 680.4.
 
-Seeker and guidance were NOT disclosed and remain this file's estimates;
-each one is justified at its key below. Everything that was disclosed is now
-used instead of the old AARGM-ER reasoning.
+Everything that was disclosed is used instead of the old AARGM-ER reasoning.
+Seeker, speed and guidance were NOT disclosed.
 
-The flight model stays aligned key-for-key with U.S. Navy 2027's usn_aim-174b,
-which is now a stronger choice than it was: the two missiles share a diameter,
-a mission and a Navy, so the encyclopedia cards genuinely do compare.
+THE FLIGHT MODEL IS U.S. NAVY 2027'S. On the player's decision of 13 Oct
+2026 every AIM-424 in the collection flies one set of figures: U.S. Navy
+2027's usn_aim-424 [Guidance], key for key (FLIGHT below). It is the round
+usn_aim-424 resolves to in game, and of the mods' figures the most plausible
+against the fact file (docs/conflicts-and-load-order.md, "Four AIM-424s").
+This file's own [Guidance] is FLIGHT, and SEST Collection Fixes lays FLIGHT
+over the YF-23 mod's yf23_aim424_internal with an #!extend. Until then this
+round was aligned to U.S. Navy 2027's AIM-174B with deltas of its own (290
+nm, a 4 s boost and 20 s sustainer, a 40 nm active / 80 nm passive seeker);
+those are retired with it. The warhead, mass, signature and cost are not
+flight and stay as they were.
 
 THE 3D MODEL IS STILL AN AGM-88G, by choice. AIM-424 meshes do exist in the
 collection: US Naval Aviation (3737267013) ships aim-424.obj for its own
@@ -51,6 +58,12 @@ language_en/ammunition_names.ini - identical same-path files are a safe
 overlap whichever pack sits higher in the Mod Manager.
 """
 
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+
 AIM424_ID = "sest_aim-424"
 
 # REMOVED: ResourcesMeshScale. Shrinking the mesh by 0.9 was cosmetic, and the
@@ -60,35 +73,115 @@ AIM424_ID = "sest_aim-424"
 # to US Naval Aviation's own usn_agm-88g, which is proven to load. Do not add
 # keys to it that the source mod does not use.
 
-# Aligned to usn_aim-174b as shipped by U.S. Navy 2027 Capabilities
-# (3606774881) - the version that actually wins the load order in this
-# collection, and the card the MALICE gets compared against in game. Same
-# explicit-drag flight model, same 150,000 ft loft ceiling, same fragmentation
-# warhead class, same datalink midcourse, same chart basis (36,000 ft / 260 kt),
-# same modern ECCM keys.
-#
-# What stays different, on purpose:
-#   MaxLaunchRange 290 vs 316 nm - the Navy states "in excess of 250"; 290
-#     clears that floor and sits just under the 174B, a peer of it rather
-#     than a round penalised for bay fit.
-#     The old note here blamed F-35 bay fit for the shortfall, as if fitting
-#     the bay cost it reach. It does fit the bay, and it makes 250+ anyway.
-#   DragCoefficient 3.6 vs 3.41 - same 34.3 cm diameter on a shorter missile,
-#     so slightly blunter for its length.
-#     THIS KEY MUST STAY EXPLICIT: at -1 the engine back-solves 8.14 from the
-#     airframe and the missile loses roughly a third of its reach.
-#   a two-stage motor, ~170 G.s against the 174B's ~144, paying for that drag.
-#     The Navy lists a solid-propellant rocket motor; two stages are what the
-#     reveal coverage reads from the imagery. The split between them is ours.
-#   Power 48 vs 52 and CEP 10 m vs 6 - slightly less lethal endgame
-#   SeekerActiveRange 40 nm vs 15, passive 80 nm vs 15, and a Full passive
-#     anti-emitter mode against HomeOnJam - ESTIMATED, not disclosed. Justified
-#     by the job: a 250 nm shot is a shot at a high-value emitter (AEW,
-#     tanker, standoff jammer), and that needs terminal reach and a passive
-#     mode, or the target simply turns away inside the 174B's 15 nm seeker
-#     window.
-#   MaxTurnRate 28 vs 30 deg/s, MaxTurnG 25 - still not an AIM-260 (40 deg/s)
-AIM424_INI = """\
+# THE FLIGHT MODEL: U.S. Navy 2027's (3606774881) ammunition/usn_aim-424.ini,
+# its [Guidance] key for key and in its order - guidance, flight profile,
+# kinematics, launch envelope, seeker and ECCM. Its headline figures: 2,650
+# knots; one 31 s burn at 4.7 g; a 45-degree loft to 147,638 ft; datalink
+# midcourse with retargeting; 4-350 nm, 500 s flight; a 15 nm active and
+# passive seeker that also homes on radars and jammers. 350 nm is above the
+# Navy's "in excess of 250" - optimistic, not contradicted.
+# check_flight() stops the build when that file stops reading exactly so:
+# copy its new values here, and every AIM-424 follows.
+USN2027 = ("3606774881", "ammunition/usn_aim-424.ini")
+FLIGHT = (
+    ("GuidanceType", "3"),
+    ("MidCourseCorrection", "3"),
+    ("DropDuration", "1.0"),
+    ("InitialFlightPhaseDuration", "2.2"),
+    ("Retargetable", "True"),
+    ("MaxLoftAngle", "45.0"),
+    ("MaxLoftAlt", "147638.0"),
+    ("TerminalApproachDist", "14"),
+    ("LocalTerminalOnly", "False"),
+    ("IgnoreHeightDifferenceForTargetDist", "True"),
+    ("ApplyKinematics", "True"),
+    ("MaxVelocity", "2650.0"),
+    ("MaxTurnRate", "30.0"),
+    ("MaxTurnG", "35"),
+    ("AccelerationTime", "31.0"),
+    ("Acceleration", "4.711"),
+    ("SustainerAccelerationTime", "65"),
+    ("SustainerAcceleration", "0"),
+    ("TypicalTargetAlt", "36000"),
+    ("TypicalTargetSpeed", "0"),
+    ("TypicalFiringAlt", "36000"),
+    ("TypicalLaunchVelocity", "260"),
+    ("DragCoefficient", "2.10"),
+    ("VelocityBleed", "0.3"),
+    ("MaxFlightTime", "500"),
+    ("TerminalLoft", "False"),
+    ("TimeLimited", "True"),
+    ("LiftFactor", "0.005"),
+    ("MinLaunchRange", "4"),
+    ("MaxLaunchRange", "350"),
+    ("MinAttackAltitude", "20"),
+    ("MaxAttackAltitude", "147638"),
+    ("MaxAttackVelocity", "4500"),
+    ("MinLaunchAltitude", "200"),
+    ("MaxLaunchAltitude", "65000"),
+    ("LaunchReliability", "99"),
+    ("CircularErrorRadius", "6.0"),
+    ("CircularErrorRadiusLarge", "12.0"),
+    ("MinAltMalusFactor", "0.7"),
+    ("SeekerGain", "60.0"),
+    ("SeekerFOV", "135.0"),
+    ("SecondaryPassiveRadarGuidanceType", "Full"),
+    ("PassiveRadarGuidanceFrequencies", "All"),
+    ("SeekerActiveRange", "15"),
+    ("SeekerPassiveRange", "15"),
+    ("Frequency", "X-Band"),
+    ("PeakPower", "15"),
+    ("TargetMemory", "True"),
+    ("RangeGate", "2"),
+    ("SizeGate", "1.1"),
+    ("CounterMeasuresRejection", "98"),
+    ("NoiseRejection", "98"),
+    ("AntiCountermeasuresBonus", "0.98"),
+    ("AntiJammerBonus", "0.98"),
+    ("SelfDestructAfterTargetGone", "False"),
+)
+
+
+def section(text, name):
+    """{key: value} for the live lines of one [section] of an .ini text."""
+    m = re.search(rf"^\[{re.escape(name)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
+    out = {}
+    for line in (m.group(1) if m else "").splitlines():
+        body = line.split("//", 1)[0].strip()
+        if "=" in body and body[0] not in "#;":
+            key, value = body.split("=", 1)
+            out[key.strip()] = value.strip()
+    return out
+
+
+def guidance_block():
+    """[Guidance], FLIGHT's keys and nothing else."""
+    return "[Guidance]\n" + "".join(f"{k}={v}\n" for k, v in FLIGHT)
+
+
+def usn2027_drift():
+    """Where U.S. Navy 2027's [Guidance] no longer reads as FLIGHT; [] if it does."""
+    mod, rel = USN2027
+    path = ROOT / "mods-source" / mod / rel
+    if not path.is_file():
+        return [f"mods-source/{mod}/{rel} is gone"]
+    have = section(path.read_text(encoding="utf-8-sig", errors="replace"), "Guidance")
+    want = dict(FLIGHT)
+    return ([f"{k}={have.get(k, '(not set)')} there, {v} here" for k, v in FLIGHT
+             if have.get(k) != v]
+            + [f"{k}={v} there, not set here" for k, v in have.items() if k not in want])
+
+
+def check_flight():
+    drift = usn2027_drift()
+    if drift:
+        sys.exit("AIM-424: U.S. Navy 2027's usn_aim-424 [Guidance] no longer reads as FLIGHT "
+                 "in integration/common/aim424.py - copy its values there so every AIM-424 "
+                 "flies them again:\n  " + "\n  ".join(drift))
+
+
+AIM424_INI = (
+    """\
 [General]
 # Raytheon AIM-424 LRAAM "Malice" - revealed 22 Aug 2026, in flight test.
 # 4.11 m long, 34.3 cm diameter (as the SM-6), 66.5 cm span, 680 kg, solid
@@ -139,74 +232,11 @@ KillProbability=0.98                    // cf. AIM-174B 1.02
 InterceptOutOfAltitudePenalty=0.15
 InterceptSpeedPenaltyMultiplier=0.4
 
-[Guidance]
-GuidanceType=3
-MidCourseCorrection=3                  // 3 = Datalink, as the AIM-174B
-Retargetable=True
-DropDuration=1.0                       // bay ejection: unpropelled fall time in seconds
-InitialFlightPhaseDuration=2.2         // seconds of unguided straight flight
-MaxLoftAngle=30.0                      // Climb angle for initial loft
-MaxLoftAlt=150000                      // Maximum altitude for lofting, in feet
-TerminalLoft=True
-TerminalApproachDist=36                // in N. miles - just under seeker range
-LocalTerminalOnly=False
-IgnoreHeightDifferenceForTargetDist=True
-# Aligned to the U.S. Navy 2027 AIM-174B (usn_aim-174b): same explicit drag
-# model, same loft ceiling, same chart basis, so the two encyclopedia cards
-# are read on the same assumptions. The deliberate deltas that remain are
-# the MALICE identity, not accidents:
-#   MaxLaunchRange 290 vs 316 - over the Navy's stated "in excess of 250",
-#     just under the 174B
-#   DragCoefficient 3.6 vs 3.41 - same 34.3 cm diameter on a shorter missile
-#   a two-stage motor (~170 G.s vs the 174B's ~144) offsetting that drag
-#   SeekerActiveRange 40 nm vs 15, passive 80 nm vs 15, and a Full passive
-#     anti-emitter mode vs HomeOnJam - ESTIMATED, the Navy disclosed neither
-#   MaxTurnRate 28 vs 30 and CEP 10 m vs 6 - marginally less precise endgame
-ApplyKinematics=True
-MaxVelocity=3000                       // Maximum speed in knots (AIM-174B 2650)
-VelocityBleed=1                        // let the kinematics model decide, as the 174B
-AccelerationTime=4                     // initial booster burn, seconds
-Acceleration=20                        // booster acceleration, Gs
-SustainerAccelerationTime=20           // sustainer burn, seconds
-SustainerAcceleration=4.5
-DragCoefficient=3.6                    // explicit - a -1 here back-solves to 8.14 and kills the reach
-TypicalLaunchVelocity=260              // chart basis matched to usn_aim-174b
-TypicalFiringAlt=36000
-TypicalTargetAlt=36000
-TypicalTargetSpeed=0
-LiftFactor=0.001                       // matches the AIM-174B
-MaxFlightTime=400                      // hard cutoff, seconds
-TimeLimited=True
-MaxTurnRate=28.0                       // Maximum turnrate in degrees per second
-MaxTurnG=25                            // matches AIM-54A / AIM-120D-3 / AIM-260
-MinLaunchRange=2                       // Minimum launch range in nautical miles
-MaxLaunchRange=290.0                   // Maximum launch range in nautical miles
-MinAttackAltitude=20                   // Minimum altitude of a target, in feet
-MaxAttackAltitude=150000               // Maximum altitude of target, in feet
-MaxAttackVelocity=7000
-MinLaunchAltitude=200                  // Minimum launch altitude in feet
-MaxLaunchAltitude=60000                // Maximum launch altitude in feet
-LaunchReliability=99
-CircularErrorRadius=10.0               // cf. AIM-174B 6.0
-CircularErrorRadiusLarge=14.0
-MinAltMalusFactor=0.7
-SeekerGain=62.0                        // Seeker gain in dB
-SeekerFOV=120.0                        // Seeker field-of-view in degrees
-SecondaryPassiveRadarGuidanceType=Full // ESTIMATED. Homes on radars AND jammers,
-                                       // not jammers alone - an AEW radar is the
-                                       // emitter a 250 nm shot is most often for
-PassiveRadarGuidanceFrequencies=All
-SeekerPassiveRange=80                  // Seeker passive range in nautical miles
-SeekerActiveRange=40.0                 // Seeker active range in nautical miles
-Frequency=X-Band
-PeakPower=40.0
-TargetMemory=True
-CounterMeasuresRejection=96
-NoiseRejection=96
-AntiCountermeasuresBonus=0.95
-AntiJammerBonus=0.95
-SelfDestructAfterTargetGone=False
-SelfDestructDelay=5.0
+# Guidance, flight profile, kinematics, envelope, seeker and ECCM: U.S.
+# Navy 2027's usn_aim-424, key for key (FLIGHT in integration/common/aim424.py).
+"""
+    + guidance_block()
+    + """\
 
 [---------- Mesh definitions----------]
 [Models]
@@ -253,6 +283,7 @@ Rotation=0,0,0
 # Keep the collider matched to usn_agm-88g's, whose visual this shares.
 Scale=0.005,0.005,0.04291637
 """
+)
 
 # language_en/ammunition_names.ini format: stem=DisplayName,Nickname,Category,Description
 # (the description must not contain commas — they are field separators).
@@ -265,6 +296,7 @@ sest_aim-424=AIM-424,MALICE,AAM,The Raytheon AIM-424 LRAAM is a very-long-range 
 
 def write_aim424(out_dir):
     """Write the ammunition ini + name entries into a pack folder (Path)."""
+    check_flight()
     ammo = out_dir / "ammunition"
     ammo.mkdir(parents=True, exist_ok=True)
     (ammo / f"{AIM424_ID}.ini").write_text(AIM424_INI, encoding="utf-8")
