@@ -5484,9 +5484,7 @@
    ],
    "anchor_on_water": true,
    "anchor_moved_nm": 0.5,
-   "forces": [
-    "Bohai Shipyard (Huludao) harbour"
-   ],
+   "forces": [],
    "shipyard": true,
    "depot": false,
    "field_heading": null
@@ -5715,9 +5713,7 @@
    ],
    "anchor_on_water": true,
    "anchor_moved_nm": 1,
-   "forces": [
-    "Gadzhiyevo (Northern Fleet submarines) harbour"
-   ],
+   "forces": [],
    "shipyard": false,
    "depot": false,
    "field_heading": null
@@ -5734,9 +5730,7 @@
    ],
    "anchor_on_water": true,
    "anchor_moved_nm": 0.5,
-   "forces": [
-    "Vilyuchinsk (Pacific Fleet submarines) harbour"
-   ],
+   "forces": [],
    "shipyard": false,
    "depot": false,
    "field_heading": null
@@ -5868,9 +5862,7 @@
    ],
    "anchor_on_water": true,
    "anchor_moved_nm": 2.5,
-   "forces": [
-    "Sinpo (East Sea Fleet submarines) harbour"
-   ],
+   "forces": [],
    "shipyard": false,
    "depot": false,
    "field_heading": null
@@ -6009,6 +6001,193 @@
    "shipyard": false,
    "depot": false,
    "field_heading": 280
+  },
+  {
+   "node": null,
+   "base": "home_usa_pearl",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    21.372,
+    202.055
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 1,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_usa_groton",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    41.357,
+    -72.09
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 2,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_usa_kings_bay",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    30.8,
+    -81.52
+   ],
+   "anchor_on_water": false,
+   "anchor_moved_nm": null,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_usa_bangor",
+   "kind": "NavalBase",
+   "nation": "US",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    47.73,
+    237.255
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 1,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_uk_faslane",
+   "kind": "NavalBase",
+   "nation": "UK",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    56.063,
+    -4.827
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_jpn_yokosuka",
+   "kind": "NavalBase",
+   "nation": "Japan",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    35.307,
+    139.65
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 0.5,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_ind_vizag",
+   "kind": "NavalBase",
+   "nation": "India",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    17.69,
+    83.306
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 1.5,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_deu_eckernfoerde",
+   "kind": "NavalBase",
+   "nation": "Germany",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    54.47,
+    9.85
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_esp_cartagena",
+   "kind": "NavalBase",
+   "nation": "Spain",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    37.59,
+    -0.98
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": null,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_grc_salamis",
+   "kind": "NavalBase",
+   "nation": "Greece",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    37.94,
+    23.479
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 1,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
+  },
+  {
+   "node": null,
+   "base": "home_tur_golcuk",
+   "kind": "NavalBase",
+   "nation": "Turkey",
+   "nation_from": "home_bases.py - SCENARIO ADDITION",
+   "position": [
+    40.734,
+    29.821
+   ],
+   "anchor_on_water": true,
+   "anchor_moved_nm": 1,
+   "forces": [],
+   "shipyard": false,
+   "depot": false,
+   "field_heading": null
   }
  ],
  "skipped_nodes": [
@@ -6869,6 +7048,454 @@
   }
  ],
  "notes": [],
+ "submarines": [
+  {
+   "force": "Submarine Squadron 15",
+   "base": "wpac_guam_naval_base_apra_harbor",
+   "submarines": 3,
+   "named": "submarines.py"
+  },
+  {
+   "force": "HMAS Stirling submarines",
+   "base": "aus_stirling_hmas_stirling",
+   "submarines": 5,
+   "named": "base name"
+  },
+  {
+   "force": "Yulin Naval Base submarines",
+   "base": "chn_hainan_yulin_naval_base",
+   "submarines": 6,
+   "named": "base name"
+  },
+  {
+   "force": "Ningbo Naval Base submarines",
+   "base": "chn_zhejiang_ningbo_naval_base",
+   "submarines": 9,
+   "named": "base name"
+  },
+  {
+   "force": "Severomorsk (Northern Fleet) submarines",
+   "base": "home_rus_severomorsk",
+   "submarines": 8,
+   "named": "base name",
+   "patrol": {
+    "force": "Severomorsk (Northern Fleet) submarines patrol",
+    "boat": "wp_ssgn_yasen",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Vladivostok (Pacific Fleet) submarines",
+   "base": "home_rus_vladivostok",
+   "submarines": 6,
+   "named": "base name",
+   "patrol": {
+    "force": "Vladivostok (Pacific Fleet) submarines patrol",
+    "boat": "wp_ss_improved_kilo",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Toulon Naval Base submarines",
+   "base": "home_fra_toulon",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Toulon Naval Base submarines patrol",
+    "boat": "fr_ssn_suffren",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Force oceanique strategique",
+   "base": "home_fra_brest",
+   "submarines": 4,
+   "named": "submarines.py",
+   "patrol": {
+    "force": "Force oceanique strategique patrol",
+    "boat": "fr_ssbn_triomphant",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Taranto Naval Base submarines",
+   "base": "home_ita_taranto",
+   "submarines": 2,
+   "named": "base name"
+  },
+  {
+   "force": "Ferrol Naval Base submarines",
+   "base": "home_esp_ferrol",
+   "submarines": 1,
+   "named": "base name"
+  },
+  {
+   "force": "Wilhelmshaven Naval Base submarines",
+   "base": "home_deu_wilhelmshaven",
+   "submarines": 2,
+   "named": "base name"
+  },
+  {
+   "force": "Rio de Janeiro Naval Base submarines",
+   "base": "home_bra_rio",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Rio de Janeiro Naval Base submarines patrol",
+    "boat": "bra_ss_riachuelo",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Mumbai (Western Naval Command) submarines",
+   "base": "home_ind_mumbai",
+   "submarines": 6,
+   "named": "base name",
+   "patrol": {
+    "force": "Mumbai (Western Naval Command) submarines patrol",
+    "boat": "wp_ss_kilo",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Talcahuano Naval Base submarines",
+   "base": "home_chl_talcahuano",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Talcahuano Naval Base submarines patrol",
+    "boat": "ch_ss_scorpene",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Bandar Abbas Naval Base submarines",
+   "base": "home_irn_bandar_abbas",
+   "submarines": 3,
+   "named": "base name",
+   "patrol": {
+    "force": "Bandar Abbas Naval Base submarines patrol",
+    "boat": "wp_ss_kilo",
+    "ring": "25 NM ring centred 80 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Qingdao (Northern Theater Navy) submarines",
+   "base": "home_chn_qingdao",
+   "submarines": 7,
+   "named": "base name",
+   "patrol": {
+    "force": "Qingdao (Northern Theater Navy) submarines patrol",
+    "boat": "plan_ssn_type_093a",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Zhanjiang (Southern Theater Navy) submarines",
+   "base": "home_chn_zhanjiang",
+   "submarines": 7,
+   "named": "base name",
+   "patrol": {
+    "force": "Zhanjiang (Southern Theater Navy) submarines patrol",
+    "boat": "plan_ss_type_039c",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Bohai Shipyard (Huludao) submarines",
+   "base": "home_chn_huludao",
+   "submarines": 1,
+   "named": "base name"
+  },
+  {
+   "force": "Baltiysk (Baltic Fleet) submarines",
+   "base": "home_rus_baltiysk",
+   "submarines": 1,
+   "named": "base name"
+  },
+  {
+   "force": "Novorossiysk (Black Sea Fleet) submarines",
+   "base": "home_rus_novorossiysk",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Novorossiysk (Black Sea Fleet) submarines patrol",
+    "boat": "wp_ss_improved_kilo",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Gadzhiyevo (Northern Fleet submarines) submarines",
+   "base": "home_rus_gadzhiyevo",
+   "submarines": 8,
+   "named": "base name",
+   "patrol": {
+    "force": "Gadzhiyevo (Northern Fleet submarines) submarines patrol",
+    "boat": "wp_ssbn_borei",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Vilyuchinsk (Pacific Fleet submarines) submarines",
+   "base": "home_rus_vilyuchinsk",
+   "submarines": 10,
+   "named": "base name",
+   "patrol": {
+    "force": "Vilyuchinsk (Pacific Fleet submarines) submarines patrol",
+    "boat": "wp_ssbn_borei",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Nampo (West Sea Fleet) submarines",
+   "base": "home_prk_nampo",
+   "submarines": 8,
+   "named": "base name",
+   "patrol": {
+    "force": "Nampo (West Sea Fleet) submarines patrol",
+    "boat": "plan_ss_romeo",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Sinpo (East Sea Fleet submarines) submarines",
+   "base": "home_prk_sinpo",
+   "submarines": 8,
+   "named": "base name",
+   "patrol": {
+    "force": "Sinpo (East Sea Fleet submarines) submarines patrol",
+    "boat": "plan_ss_romeo",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Surabaya (Koarmada II) submarines",
+   "base": "home_idn_surabaya",
+   "submarines": 5,
+   "named": "base name",
+   "patrol": {
+    "force": "Surabaya (Koarmada II) submarines patrol",
+    "boat": "plan_ss_type_039b",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Karachi Naval Dockyard submarines",
+   "base": "home_pak_karachi",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Karachi Naval Dockyard submarines patrol",
+    "boat": "pns_ss_s-26p",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Submarine Squadrons 1 and 7",
+   "base": "home_usa_pearl",
+   "submarines": 8,
+   "named": "submarines.py",
+   "patrol": {
+    "force": "Submarine Squadrons 1 and 7 patrol",
+    "boat": "usn_ssn_virginia_block3_2026",
+    "ring": "35 NM ring centred 0 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Submarine Squadrons 4 and 12",
+   "base": "home_usa_groton",
+   "submarines": 6,
+   "named": "submarines.py",
+   "patrol": {
+    "force": "Submarine Squadrons 4 and 12 patrol",
+    "boat": "usn_ssn_virginia_block4",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Submarine Group 10",
+   "base": "home_usa_kings_bay",
+   "submarines": 6,
+   "named": "submarines.py",
+   "patrol": {
+    "force": "Submarine Group 10 patrol",
+    "boat": "usn_ssbn_ohio",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Submarine Group 9",
+   "base": "home_usa_bangor",
+   "submarines": 11,
+   "named": "submarines.py",
+   "patrol": {
+    "force": "Submarine Group 9 patrol",
+    "boat": "usn_ssbn_ohio",
+    "ring": "18 NM ring centred 80 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "2nd Submarine Flotilla",
+   "base": "home_jpn_yokosuka",
+   "submarines": 5,
+   "named": "submarines.py",
+   "patrol": {
+    "force": "2nd Submarine Flotilla patrol",
+    "boat": "jmsdf_ssn_unryu",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Visakhapatnam (Eastern Naval Command) submarines",
+   "base": "home_ind_vizag",
+   "submarines": 2,
+   "named": "base name"
+  },
+  {
+   "force": "Eckernfoerde Naval Base submarines",
+   "base": "home_deu_eckernfoerde",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Eckernfoerde Naval Base submarines patrol",
+    "boat": "ger_ssk_type_212a_batch1",
+    "ring": "35 NM ring centred 80 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Salamis Naval Base submarines",
+   "base": "home_grc_salamis",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Salamis Naval Base submarines patrol",
+    "boat": "type_209",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Golcuk Naval Base submarines",
+   "base": "home_tur_golcuk",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Golcuk Naval Base submarines patrol",
+    "boat": "type_209",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Submarine Squadron 11",
+   "base": "usp_sandiego_naval_base_san_diego",
+   "submarines": 3,
+   "named": "submarines.py",
+   "patrol": {
+    "force": "Submarine Squadron 11 patrol",
+    "boat": "usn_ssn_los_angeles_flt3_2027",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Submarine Squadron 6",
+   "base": "usa_norfolk_naval_station_norfolk",
+   "submarines": 4,
+   "named": "submarines.py",
+   "patrol": {
+    "force": "Submarine Squadron 6 patrol",
+    "boat": "usn_ssn_virginia_block3_2026",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "HMNB Clyde (Faslane) submarines",
+   "base": "home_uk_faslane",
+   "submarines": 5,
+   "named": "base name",
+   "patrol": {
+    "force": "HMNB Clyde (Faslane) submarines patrol",
+    "boat": "rn_swiftsure_class_ssn named HMS Astute",
+    "ring": "35 NM ring centred 80 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "1st Submarine Flotilla",
+   "base": "home_jpn_kure",
+   "submarines": 4,
+   "named": "submarines.py",
+   "patrol": {
+    "force": "1st Submarine Flotilla patrol",
+    "boat": "jmsdf_ssn_unryu",
+    "ring": "35 NM ring centred 80 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Jinhae Naval Base submarines",
+   "base": "home_kor_jinhae",
+   "submarines": 3,
+   "named": "base name",
+   "patrol": {
+    "force": "Jinhae Naval Base submarines patrol",
+    "boat": "type_209 named ROKS Chang Bogo",
+    "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Haifa Naval Base submarines",
+   "base": "home_isr_haifa",
+   "submarines": 3,
+   "named": "base name",
+   "patrol": {
+    "force": "Haifa Naval Base submarines patrol",
+    "boat": "ger_ssk_type_212a_batch1 named INS Dolphin",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Haakonsvern Naval Base (Bergen) submarines",
+   "base": "home_nor_haakonsvern",
+   "submarines": 2,
+   "named": "base name"
+  },
+  {
+   "force": "Cartagena Naval Base submarines",
+   "base": "home_esp_cartagena",
+   "submarines": 2,
+   "named": "base name"
+  },
+  {
+   "force": "Alexandria Naval Base submarines",
+   "base": "home_egy_alexandria",
+   "submarines": 4,
+   "named": "base name",
+   "patrol": {
+    "force": "Alexandria Naval Base submarines patrol",
+    "boat": "type_209",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Longpo Naval Base submarines",
+   "base": "chn_hainan_longpo_naval_base",
+   "submarines": 6,
+   "named": "base name",
+   "patrol": {
+    "force": "Longpo Naval Base submarines patrol",
+    "boat": "plan_ssbn_type_094a",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  },
+  {
+   "force": "Cam Ranh Naval Base submarines",
+   "base": "home_vnm_cam_ranh",
+   "submarines": 6,
+   "named": "base name",
+   "patrol": {
+    "force": "Cam Ranh Naval Base submarines patrol",
+    "boat": "wp_ss_improved_kilo named HQ-182 Ha Noi",
+    "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE"
+   }
+  }
+ ],
  "lanes": [
   {
    "lane": "Malacca and Singapore Straits",
@@ -7057,14 +7684,6 @@
     "wp_ms_roro_b",
     "wp_perun_satellite"
    ],
-   "not in the game (Dynamic Campaign Mod, 10 Oct 2026)": [
-    "rw_alouette_II",
-    "rw_c340",
-    "rw_qh-50d",
-    "rw_sh-2f",
-    "rw_sh-3h",
-    "rw_v35"
-   ],
    "role Merchant": [
     "hdms_tug_alsin"
    ],
@@ -7096,7 +7715,7 @@
    },
    "blue Australia": {
     "ships": 39,
-    "aircraft": 34
+    "aircraft": 35
    },
    "blue Japan": {
     "ships": 23,
@@ -7258,6 +7877,7 @@
   "ae_lpd_galicia": "Displacement 13815 t",
   "ae_opv_meteoro": "Displacement 2700 t",
   "ae_ssk_s80": "Displacement 2965 t",
+  "ae_ssk_s80_plus": "Displacement 2965 t",
   "bel_a400m_tankers": "Role AEW",
   "boeing-rc135": "Role EW",
   "bra_f-5em": "Role Fighter",
@@ -7323,6 +7943,7 @@
   "jmsdf_ddg_maya": "Displacement 10250 t",
   "jmsdf_ddh_hyuga": "Displacement 13950 t",
   "jmsdf_ddh_ise": "Displacement 13950 t",
+  "jmsdf_ssn_unryu": "Displacement 4640 t",
   "js_ffg_mogami": "Displacement 5500 t",
   "knm_cb90": "Displacement 14 t",
   "knm_cor_skjold": "Displacement 274 t",
@@ -7360,6 +7981,9 @@
   "plan_ss_type_039a": "Displacement 3600 t",
   "plan_ss_type_039b": "Displacement 3600 t",
   "plan_ss_type_039c": "Displacement 3500 t",
+  "plan_ssbn_type_094": "Displacement 11000 t",
+  "plan_ssbn_type_094a": "Displacement 11000 t",
+  "plan_ssn_type_093": "Displacement 6675 t",
   "plan_ssn_type_093a": "Displacement 6675 t",
   "plan_ssn_type_093b": "Displacement 6700 t",
   "plan_type_001": "Displacement 60000 t",
@@ -7402,6 +8026,7 @@
   "rn_ff_type23": "Displacement 4900 t",
   "rn_merlin_hm2": "Role ASW",
   "rn_opv_river_batch2": "Displacement 2000 t",
+  "rn_swiftsure_class_ssn": "Displacement 4900 t",
   "rnn_ddg_zeven": "Displacement 6050 t",
   "rnn_ddg_zeven_mlu": "Displacement 6050 t",
   "rnn_ffg_hol": "Displacement 3750 t",
@@ -7451,8 +8076,15 @@
   "usn_p-3c": "Role MPA",
   "usn_p8": "Role MPA",
   "usn_p_8a": "Role MPA",
+  "usn_ssbn_ohio": "Displacement 18750 t",
+  "usn_ssgn_ohio_2027": "Displacement 18750 t",
   "usn_ssn_los_angeles_flt3_2026": "Displacement 6920 t",
+  "usn_ssn_los_angeles_flt3_2027": "Displacement 6180 t",
+  "usn_ssn_seawolf_2027": "Displacement 9100 t",
+  "usn_ssn_seawolf_carter": "Displacement 13000 t",
   "usn_ssn_virginia_block2_2026": "Displacement 7900 t",
+  "usn_ssn_virginia_block3_2026": "Displacement 7900 t",
+  "usn_ssn_virginia_block4": "Displacement 7900 t",
   "usn_take_lewis_clark": "Displacement 20500 t, auxiliary x0.32",
   "usn_takr_algol": "Displacement 55000 t, auxiliary x0.32",
   "usn_tao_kaiser": "Displacement 8190 t, auxiliary x0.32",
@@ -7476,6 +8108,8 @@
   "wp_ssgn_oscar2": "Displacement 22500 t",
   "wp_ssgn_yasen": "Displacement 13800 t",
   "wp_ssn_akula": "Displacement 13800 t",
+  "wp_ssn_sierra2": "Displacement 9100 t",
+  "wp_ssn_victor3": "Displacement 5900 t",
   "wp_su-30sm": "Role Fighter",
   "wp_su-33": "Role Fighter",
   "wp_tu-142m": "Role MPA",
@@ -7493,6 +8127,7 @@
   "am_tornado_ids_95": "Role Recon",
   "aus_a330_mrtt": "Role AEW",
   "aus_ec_665_had-e": "Role ASuW",
+  "aus_mrh90_tth": "Role Transport",
   "be_nh90": "Role ASW",
   "bel_a400m_airdroop-para": "Role AEW",
   "boeing-rc135_early": "Role EW",
@@ -8129,7 +8764,6 @@
   "ae_ss_s33": "Displacement 2435 t",
   "ae_ssk_galerna": "Displacement 1790 t",
   "ae_ssk_galerna_mod": "Displacement 1790 t",
-  "ae_ssk_s80_plus": "Displacement 2965 t",
   "bra_cv_Sao_Paulo": "Displacement 32780 t",
   "bra_ff_garcia": "Displacement 3400 t",
   "bra_ffg_niteroi": "Displacement 33550 t",
@@ -8226,7 +8860,6 @@
   "jmsdf_ss_asashio": "Displacement 2150 t",
   "jmsdf_ss_uzushio": "Displacement 3600 t",
   "jmsdf_ss_yushio": "Displacement 2900 t",
-  "jmsdf_ssn_unryu": "Displacement 4640 t",
   "jmsdf_ssn_zuiho": "Displacement 3500 t",
   "knm_ffg_oslo": "Displacement 2100 t",
   "knm_fs_sleipner": "Displacement 800 t",
@@ -8313,14 +8946,11 @@
   "plan_ptg_type_024": "Displacement 81 t",
   "plan_ss_ming": "Displacement 1730 t",
   "plan_ssbn_jin": "Displacement 11900 t",
-  "plan_ssbn_type_094": "Displacement 11000 t",
-  "plan_ssbn_type_094a": "Displacement 11000 t",
   "plan_ssbn_type_096": "Displacement 19000 t",
   "plan_ssg_wuhan": "Displacement 2100 t",
   "plan_sshn_type_100": "Displacement 68000 t",
   "plan_ssn_han": "Displacement 5100 t",
   "plan_ssn_han_rsa": "Displacement 5000 t",
-  "plan_ssn_type_093": "Displacement 6675 t",
   "plan_ssn_type_093_rsa": "Displacement 6675 t",
   "plan_ssn_type_093a_rsa": "Displacement 6675 t",
   "plan_ssn_type_093b_rsa": "Displacement 6700 t",
@@ -8420,7 +9050,6 @@
   "rn_lph_ocean_asw_00": "Displacement 21500 t",
   "rn_lph_ocean_asw_13": "Displacement 21500 t",
   "rn_oberon_class": "Displacement 2410 t",
-  "rn_swiftsure_class_ssn": "Displacement 4900 t",
   "rn_type22b12": "Displacement 4800 t",
   "rn_type22b2": "Displacement 4800 t",
   "rn_type23": "Displacement 4130 t",
@@ -8642,22 +9271,17 @@
   "usn_ssbn_james_madison": "Displacement 8250 t",
   "usn_ssbn_james_madison_late": "Displacement 8250 t",
   "usn_ssbn_lafayette": "Displacement 8250 t",
-  "usn_ssbn_ohio": "Displacement 18750 t",
   "usn_ssgn_ohio": "Displacement 18750 t",
-  "usn_ssgn_ohio_2027": "Displacement 18750 t",
   "usn_ssgn_virginia_blk5_vpm": "Displacement 10200 t",
   "usn_ssn_los_angeles": "Displacement 6920 t",
   "usn_ssn_los_angeles_76": "Displacement 6920 t",
   "usn_ssn_los_angeles_flight2": "Displacement 6150 t",
   "usn_ssn_los_angeles_flight3": "Displacement 6180 t",
   "usn_ssn_los_angeles_flt2_90": "Displacement 6150 t",
-  "usn_ssn_los_angeles_flt3_2027": "Displacement 6180 t",
   "usn_ssn_los_angeles_flt3_90": "Displacement 6180 t",
   "usn_ssn_permit": "Displacement 4300 t",
   "usn_ssn_permit_68": "Displacement 4300 t",
   "usn_ssn_seawolf": "Displacement 9100 t",
-  "usn_ssn_seawolf_2027": "Displacement 9100 t",
-  "usn_ssn_seawolf_carter": "Displacement 13000 t",
   "usn_ssn_seawolf_carter_rsa": "Displacement 12100 t",
   "usn_ssn_seawolf_late_rsa": "Displacement 9153 t",
   "usn_ssn_seawolf_rsa": "Displacement 9100 t",
@@ -8673,8 +9297,6 @@
   "usn_ssn_virginia_block2": "Displacement 7900 t",
   "usn_ssn_virginia_block2_2015": "Displacement 7900 t",
   "usn_ssn_virginia_block3": "Displacement 7900 t",
-  "usn_ssn_virginia_block3_2026": "Displacement 7900 t",
-  "usn_ssn_virginia_block4": "Displacement 7900 t",
   "usn_ssn_virginia_block5": "Displacement 7900 t",
   "usn_ssn_virginia_seal": "Displacement 7900 t",
   "usn_ssn_virginia_seal_2027": "Displacement 7900 t",
@@ -8756,10 +9378,8 @@
   "wp_ssn_alfa": "Displacement 3180 t",
   "wp_ssn_november": "Displacement 4750 t",
   "wp_ssn_sierra1": "Displacement 8300 t",
-  "wp_ssn_sierra2": "Displacement 9100 t",
   "wp_ssn_victor1": "Displacement 4700 t",
   "wp_ssn_victor2": "Displacement 5500 t",
-  "wp_ssn_victor3": "Displacement 5900 t",
   "wp_ssn_victor3_imp": "Displacement 5900 t",
   "wp_takr_kiev": "Displacement 41370 t, auxiliary x0.32",
   "wp_tavkr_leningrad_98": "Displacement 80000 t",
@@ -8775,19 +9395,19 @@
    "traffic": 12,
    "ground": 4
   },
-  "bases": 129,
+  "bases": 140,
   "bases_by_kind": {
    "AirBase": 70,
-   "NavalBase": 59
+   "NavalBase": 70
   },
-  "forces": 193,
+  "forces": 269,
   "forces_by_type": {
-   "Surface": 86,
+   "Surface": 162,
    "Air": 107
   },
-  "patrols": 16,
-  "catalogue": 1516,
-  "values": 1516,
+  "patrols": 50,
+  "catalogue": 1517,
+  "values": 1517,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

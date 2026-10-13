@@ -48,6 +48,7 @@ import build_pack as bp                      # noqa: E402  winning-file resolver
 from retarget_units import RETARGET           # noqa: E402  ids the collection retired
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from home_bases import BLUE_ADDED, HOME_BASES, RED_ADDED   # noqa: E402  scenario additions
+from submarines import PATROL_FROM, SQUADRON_NAME, SUB_ADD, SUB_BASES   # noqa: E402  scenario additions
 
 try:
     from global_land_mask import globe       # same optional dependency as the showcase builder
@@ -486,6 +487,28 @@ def unit_spec(uid, qty, names):
     return spec
 
 
+SPEC = re.compile(r"^(\S+)(?: x(\d+))?(?: named (.+))?$")
+
+
+def parse_spec(spec):
+    """unit_spec back to (uid, qty, names)."""
+    m = SPEC.match(spec)
+    return m.group(1), int(m.group(2) or 1), (m.group(3).split("; ") if m.group(3) else [])
+
+
+def is_submarine(spec):
+    return bp.unit_type(parse_spec(spec)[0]) == "Submarine"
+
+
+def take_one(specs):
+    """One boat out of a squadron's specs for a patrol - an SSBN where there
+    is one, else the first boat: (the rest, the boat)."""
+    i = min(range(len(specs)), key=lambda k: ("ssbn" not in parse_spec(specs[k])[0].lower(), k))
+    uid, qty, names = parse_spec(specs[i])
+    rest = specs[:i] + ([unit_spec(uid, qty - 1, names[1:])] if qty > 1 else []) + specs[i + 1:]
+    return rest, unit_spec(uid, 1, names[:1])
+
+
 def build():
     reg = json.loads(REGISTER.read_text(encoding="utf-8"))
     report = {"register": str(REGISTER.relative_to(ROOT)), "rows": [], "bases": [],
@@ -711,7 +734,7 @@ def build():
             report["forces"].append({"force": f["name"], "node": wid, "aircraft": uid, "count": qty})
 
     # home bases: the scenario additions of home_bases.py, built like a node
-    for h in HOME_BASES:
+    for h in HOME_BASES + SUB_BASES:
         nation, hid = h["nation"], h["id"]
         side = SIDE_OF[nation]
         lat, lon = h["lat"], continuous(h["lon"])
@@ -744,7 +767,9 @@ def build():
             labels.append(label[0] if label else display(uid))
             used[uid] += qty
         if h["kind"] == "NavalBase":
-            made = [add_force(f"{h['name']} harbour", side, hid, "Surface", specs)["name"]]
+            # a submarine base whose boats are all submarines.py additions has
+            # no harbour force of its own
+            made = [add_force(f"{h['name']} harbour", side, hid, "Surface", specs)["name"]] if specs else []
         else:
             made = [add_force(f"{h['name']} {lab}", side, hid, "Air", [s])["name"]
                     for s, lab in zip(specs, labels)]
@@ -754,6 +779,55 @@ def build():
                                 "anchor_moved_nm": moved, "forces": made, "shipyard": bool(h.get("yard")),
                                 "depot": bool(h.get("depot")),
                                 "field_heading": h.get("heading")})
+
+    # submarines (submarines.py): a base's boats leave its harbour force for a
+    # submarine force of their own, the scenario's additions join them, and a
+    # squadron of PATROL_FROM or more boats sends one to sea - unless the base
+    # already has a submarine on patrol from the register.
+    by_id = {b["id"]: b for b in bases}
+    boats = collections.defaultdict(list)
+    for f in list(forces):
+        if f["type"] != "Surface" or f.get("at") or not f["name"].endswith(" harbour"):
+            continue
+        subs = [u for u in f["units"] if is_submarine(u)]
+        if not subs:
+            continue
+        boats[f["base"]] += subs
+        f["units"] = [u for u in f["units"] if u not in subs]
+        if not f["units"]:
+            forces.remove(f)
+            force_names.discard(f["name"])
+            for entry in report["bases"]:
+                if f["name"] in entry.get("forces", []):
+                    entry["forces"].remove(f["name"])
+            for entry in report["forces"]:
+                if entry.get("force") == f["name"]:
+                    entry["now"] = "submarines only: the base's submarine force holds them"
+    for bid, adds in SUB_ADD.items():
+        if bid not in by_id:
+            raise SystemExit(f"submarines.py: no base {bid!r}")
+        for uid, qty, names in adds:
+            if names and len(names) != qty:
+                raise SystemExit(f"submarines.py: {bid} {uid}: {qty} boats, {len(names)} names")
+            boats[bid].append(unit_spec(uid, qty, names))
+            used[uid] += qty
+    at_sea = {f["base"] for f in forces if f["name"].endswith("patrol")
+              and any(is_submarine(u) for u in f["units"])}
+    for bid, specs in boats.items():
+        b = by_id[bid]
+        name = SQUADRON_NAME.get(bid) or f"{b['name']} submarines"
+        entry = {"force": None, "base": bid, "submarines": sum(parse_spec(u)[1] for u in specs),
+                 "named": "submarines.py" if bid in SQUADRON_NAME else "base name"}
+        if bid not in at_sea and entry["submarines"] >= PATROL_FROM:
+            specs, boat = take_one(specs)
+            pf = add_force(f"{name} patrol", b["side"], bid, "Surface", [boat])
+            ring, how = water_ring(b["lat"], b["lon"])
+            if ring:
+                patrols.append({"force": pf["name"], "points": [list(p) for p in ring]})
+            entry["patrol"] = {"force": pf["name"], "boat": boat,
+                               "ring": f"{how} - SCENARIO CHOICE" if ring else "no water ring: in harbour"}
+        entry["force"] = add_force(name, b["side"], bid, "Surface", specs)["name"]
+        report.setdefault("submarines", []).append(entry)
 
     # supply lines: every base draws from its own nation's nearest depot within
     # reach, else its side's nearest. SCENARIO CHOICE - the register keeps the
@@ -916,12 +990,6 @@ NOT_ARSENAL_ROLES = {"Merchant", "Spy", "SeaMine", "Deco"}
 NOT_ARSENAL_ID = re.compile(r"^civ_|satellite|balloon|septar|target|decoy|raft|sea_mine|sampan|"
                             r"_ms_|_fv_|fishing|trawler|\s")
 SIDE_ORDER = {n: i for i, n in enumerate(BLUE + RED)}
-# Units the game itself does not have, though the repo's export of the mods
-# still does: Dynamic Campaign Mod refused to start the campaign on them
-# ("needs units this game doesn't have", BepInEx log of the 10 Oct 2026 test).
-# All six were Identify Expanded's (3790594162), updated on the Workshop that
-# day after the 2 Oct export. The next mod export makes this list redundant.
-NOT_IN_GAME = {"rw_alouette_II", "rw_c340", "rw_qh-50d", "rw_sh-2f", "rw_sh-3h", "rw_v35"}
 
 
 def operators(kind, uid):
@@ -954,9 +1022,6 @@ def arsenal():
             continue
         uid = path.stem
         if re.search(r"_(variants|squadrons|loadouts)$", uid, re.I) or uid in found:
-            continue
-        if uid in NOT_IN_GAME:
-            left["not in the game (Dynamic Campaign Mod, 10 Oct 2026)"].append(uid)
             continue
         if bp.unit_type(uid) not in ARSENAL_TYPES:
             continue
