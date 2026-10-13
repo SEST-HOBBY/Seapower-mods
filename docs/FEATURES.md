@@ -16,9 +16,9 @@ repository and checked by automated gates before each upload.
 
 | | |
 |---|---|
-| Workshop mods integrated | 190 (about 24 GB with the pack) |
+| Workshop mods integrated | 195 (the download size has not been re-measured since 190) |
 | SEST source packs | 20, merged into one deployable folder |
-| Campaigns | 4, each also as an Open Allocation version |
+| Campaigns | 4, each also as an Open Allocation version, plus a world campaign (draft) for the Dynamic Campaign Mod |
 | Campaign missions | 57, plus 8 single missions (Southern Watch - Dispatches) |
 | Story pages | Press pages, signals, ship's logs and intelligence summaries between missions |
 | Units with a real encyclopedia photo | 636 |
@@ -130,6 +130,18 @@ experience carry forward from mission to mission.
   units cost their listed price, and the rules page says which is which.
 - **Checks on every unit:** each unit a mission uses, with its loadout and
   weapon, is checked against the mod that actually wins the load order.
+
+### The world campaign *(draft, 13 October 2026)*
+
+- **SEST World Sandbox 2028:** a persistent 2028 world for the Dynamic
+  Campaign Mod (Workshop 3813157776, an alpha by Bungalow), listed in the
+  Campaign menu marked [Dynamic]. Two sides, 38 nations, 141 bases, 267
+  fleets and air groups, supply ships and patrols, built from the SEST
+  research; submarines at their real bases, with a boat from each squadron
+  at sea.
+- **Built and checked with the pack:** every unit it names is checked against
+  this load order on every build, and the build stops if one is missing.
+- **Not yet played:** see section 8.
 
 ---
 
@@ -349,6 +361,8 @@ how to check each.
   the large bases faster, and which key mattered.
 - **The Meridian flag:** that a nation the game's own list does not name
   shows its flag from the flag table and its name from nations.ini.
+- **The world campaign:** that the Dynamic Campaign Mod lists and starts it,
+  and how it plays (battles, supply, submarine patrols, save and reload).
 
 ---
 
