@@ -397,7 +397,7 @@
       "faction": "multi",
       "type": "land",
       "status": "active",
-      "load_order": "Directly below ICBM silos, above Russian Ground Enhancement Series 1: Artillery. Nothing changes in game: [ICBM_Launchers] is byte-identical to ICBM silos', and its ships/materials/shared/all_tires_mat.ini, which wins over Red Storm Arsenal's below it, matches RSA's in content (blank lines and line endings aside). That is how the campaigns reach this mod: RSA's Patriot launchers, which SEST missions place, read that tyre material.",
+      "load_order": "Directly below ICBM silos, above Russian Ground Enhancement Series 1: Artillery. Nothing changes in game: [ICBM_Launchers] is byte-identical to ICBM silos', and its two ships/materials/shared/ files (all_tires_mat.ini, army_green.ini) win over Red Storm Arsenal's below it while matching RSA's tyre file in content (blank lines and line endings aside). The campaign coverage check credits it only at folder level: placed hulls (the Nimitz 2025 in Southern Watch, the Maya in Red Line) read other files in that folder, not these two, so it cannot be excused. RSA's Patriot launchers, which two loose SEST missions place (SEST Indo-Pacific Land Assets, AUS INDO-PAC ESCAv2), do read its tyre file.",
       "overlaps": [
         "icbm-silos (identical [ICBM_Launchers])",
         "red-storm-arsenal (content-identical ships/materials/shared/all_tires_mat.ini)"

@@ -1,81 +1,81 @@
 [
  {
   "out": "../source/visuals/steam/pack-1-latest-update.jpg",
-  "bg": "../source/images/update_190/tarlac_169a0b0798.jpg",
-  "pos": "center 40%",
-  "kicker": "LATEST UPDATE  ·  6 OCTOBER 2026",
-  "head": "A fourth campaign. No free rearm.",
+  "bg": "../../media-pack/source/images/naval/sm3_decatur.jpg",
+  "pos": "center 60%",
+  "kicker": "LATEST UPDATE  ·  13 OCTOBER 2026",
+  "head": "Six new mods to subscribe to. 37 hulls up to date.",
   "cols": [
    {
-    "label": "NEW: SULU LINE",
+    "label": "SIX MODS JOIN",
     "items": [
      [
-      "Philippine Navy",
-      "7 missions · Oct–Nov 2028"
+      "Dynamic Campaign Mod",
+      "alpha; its own 1985 campaign"
      ],
      [
-      "No free rearm",
-      "buy supply ships, rearm at sea"
+      "BUK-M3",
+      "SA-27 battery on SA-11 models"
      ],
      [
-      "Gunfire and convoys",
-      "Jolo, Aborlan, Ayungin"
+      "Prithvi TBM",
+      "Indian road-mobile missile"
      ],
      [
-      "Balabac Strait",
-      "the fleet action to finish"
+      "ICBMs and ISKANDER-K",
+      "no SEST mission places them"
      ]
     ]
    },
    {
-    "label": "FIXES",
+    "label": "SHIPS AND WEAPONS",
     "items": [
      [
-      "Spruance crash fixed",
-      "after Modern US Navy v597"
+      "SM-6 Block IB",
+      "now from the U.S. Navy 2027 mod"
      ],
      [
-      "9 mod updates checked",
-      "USN, PLAN, PLA AEP and more"
+      "37 hulls up to date",
+      "Modern US Navy, RSA, South Korea"
      ],
      [
-      "RAAF F-35A in the pack",
-      "old Workshop mod not needed"
+      "Mk 41 launches 1 s apart",
+      "Euromod; not yet confirmed in game"
      ],
      [
-      "Cleaner loadouts",
-      "F-35A JSM and Apache pylons"
+      "GBU-12D seeker",
+      "view widened from 10° to 90°"
      ]
     ]
    },
    {
-    "label": "MORE IN THE PACK",
+    "label": "ALSO IN THIS UPDATE",
     "items": [
      [
-      "636 real photos",
-      "34 more encyclopedia pictures"
+      "DDG-995 gets an MH-60",
+      "not yet confirmed in game"
      ],
      [
-      "Five more supply ships",
-      "C8, Seabee, Ro-Ros, Mercur"
+      "No missing systems",
+      "Constellation, concept Burke"
      ],
      [
-      "Flags for 11 nations",
-      "Russian names in English"
+      "Old Krivak II dropped",
+      "Red Storm Arsenal removed it"
      ],
      [
-      "Red Line Open Allocation",
-      "Type 901 and 903A on sale"
+      "SETUP checks 195 mods",
+      "and places the six new ones"
      ]
     ]
    }
   ],
   "foot": [
-   "Earlier in October: fair openings, Behind Schedule warnings, one-click SETUP.",
+   "Six mods joined; no SEST mission places their units. Subscribe to all again.",
    "After updating: close the game and run SETUP again."
   ],
   "credit": [
-   "Photo: U.S. Navy, MC1 Daniel Barker · CC BY-SA 4.0 · adapted",
+   "Photo: U.S. Navy · Public domain · adapted",
    "via Wikimedia Commons"
   ]
  },
@@ -102,7 +102,7 @@
      ],
      [
       "Sulu Line",
-      "Philippine Navy · 7 missions · NEW"
+      "Philippine Navy · 7 missions"
      ]
     ]
    },
@@ -132,7 +132,7 @@
     "items": [
      [
       "Replenishment at sea",
-      "1,500+ launchers can now reload"
+      "2,200 launchers made reloadable"
      ],
      [
       "Cross-mod fixes",
@@ -151,7 +151,7 @@
   ],
   "foot": [
    "Every campaign also as Open Allocation: whole roster from mission one.",
-   "Needs the 190 mods in the collection. Built for Sea Power 0.8.4."
+   "Needs the 195 mods in the collection. Built for Sea Power 0.8.5."
   ],
   "credit": [
    "Photo: U.S. Navy, JO2 Patrick Reilly · Public domain · adapted",
