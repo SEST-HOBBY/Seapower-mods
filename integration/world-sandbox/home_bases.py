@@ -57,7 +57,7 @@ HOME_BASES = [
     # --- nations already in the register, given a home port or air base -------
     naval("Russia", "home_rus_severomorsk", "Severomorsk (Northern Fleet)", 69.075, 33.39, [
         ("ru_cv_kuznetsov", 1), ("wp_rkr_admiral_nakhimov_refit", 1), ("rfn_ffg_22350_1-4", 2),
-        ("wp_bpk_udaloy_98", 2), ("wp_ssgn_yasen", 2), ("wp_ssn_akula", 2), ("rfn_aor_pashin", 1)]),
+        ("wp_bpk_udaloy_98", 2), ("rfn_aor_pashin", 1)]),   # its submarines: submarines.py, Zaozersk
     naval("Russia", "home_rus_vladivostok", "Vladivostok (Pacific Fleet)", 43.105, 131.9, [
         ("wp_rkr_slava_16", 1), ("wp_bpk_udaloy_98", 3), ("rfn_cvt_20380_7-12", 3),
         ("rfn_cvt_20385", 1), ("wp_ss_improved_kilo", 3), ("wp_bdk_ropucha", 2)]),
@@ -89,7 +89,7 @@ HOME_BASES = [
     # --- blue nations added ------------------------------------------------------
     naval("Spain", "home_esp_ferrol", "Ferrol Naval Base", 43.48, -8.24, [
         ("ae_lhd_juan_carlos", 1), ("ae_lpd_galicia", 1), ("ae_ffg_alvaro_bazan", 3),
-        ("ae_ffg_cristobal_colon", 1), ("ae_ssk_s80", 1), ("ae_opv_meteoro", 2)]),
+        ("ae_ffg_cristobal_colon", 1), ("ae_opv_meteoro", 2)]),   # the S-80s: submarines.py, Cartagena
     air("Spain", "home_esp_torrejon", "Torrejon Air Base", 40.497, -3.446, 230, [
         ("spa_ef2000", 12), ("sp_a330_mrtt", 1)]),
     naval("Germany", "home_deu_wilhelmshaven", "Wilhelmshaven Naval Base", 53.515, 8.135, [

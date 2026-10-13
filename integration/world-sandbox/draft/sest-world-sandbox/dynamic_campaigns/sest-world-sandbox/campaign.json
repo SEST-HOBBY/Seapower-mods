@@ -997,7 +997,7 @@
         "lat": 38.34,
         "lon": 23.565
       },
-      "supplyFrom": "home_ita_taranto"
+      "supplyFrom": "home_grc_salamis"
     },
     {
       "id": "home_pol_lask",
@@ -1033,7 +1033,7 @@
         "lat": 37.979,
         "lon": 32.562
       },
-      "supplyFrom": "home_isr_haifa"
+      "supplyFrom": "home_tur_golcuk"
     },
     {
       "id": "home_swe_karlskrona",
@@ -2259,11 +2259,13 @@
       "side": "blue",
       "nation": "Greece",
       "kind": "NavalBase",
-      "lat": 37.94,
-      "lon": 23.479,
-      "income": 3,
+      "lat": 37.97,
+      "lon": 23.545,
+      "income": 6,
       "homeland": true,
-      "supplyFrom": "home_ita_taranto"
+      "depot": true,
+      "production": 1,
+      "convoys": 10
     },
     {
       "id": "home_tur_golcuk",
@@ -2273,9 +2275,24 @@
       "kind": "NavalBase",
       "lat": 40.734,
       "lon": 29.821,
+      "income": 6,
+      "homeland": true,
+      "shipyard": true,
+      "depot": true,
+      "production": 1,
+      "convoys": 10
+    },
+    {
+      "id": "home_rus_zaozersk",
+      "name": "Zaozersk (Zapadnaya Litsa)",
+      "side": "red",
+      "nation": "Russia",
+      "kind": "NavalBase",
+      "lat": 69.438,
+      "lon": 32.38,
       "income": 3,
       "homeland": true,
-      "supplyFrom": "home_isr_haifa"
+      "supplyFrom": "home_rus_severomorsk"
     }
   ],
   "labels": [
@@ -2518,6 +2535,10 @@
       "side": "blue",
       "base": "wpac_guam_naval_base_apra_harbor",
       "type": "Surface",
+      "at": [
+        14.023,
+        144.65
+      ],
       "units": [
         "usn_ssn_los_angeles_flt3_2026"
       ]
@@ -2547,6 +2568,10 @@
       "side": "blue",
       "base": "aus_stirling_hmas_stirling",
       "type": "Surface",
+      "at": [
+        -32.026,
+        115.36
+      ],
       "units": [
         "ran_ssg_collins named SSG 78 HMAS Rankin"
       ]
@@ -2714,6 +2739,10 @@
       "side": "red",
       "base": "chn_hainan_yulin_naval_base",
       "type": "Surface",
+      "at": [
+        18.449,
+        110.206
+      ],
       "units": [
         "plan_ss_type_039b named Changcheng335"
       ]
@@ -2782,6 +2811,10 @@
       "side": "red",
       "base": "chn_zhejiang_ningbo_naval_base",
       "type": "Surface",
+      "at": [
+        29.98,
+        122.693
+      ],
       "units": [
         "plan_ss_type_039b named Changcheng336"
       ]
@@ -4228,7 +4261,7 @@
         "ran_ssg_collins named SSG 75 HMAS Waller",
         "ran_ssg_collins named SSG 74 HMAS Farncomb",
         "ran_ssg_collins named SSG 77 HMAS Sheean",
-        "ran_ssg_collins x2 named SSG 73 HMAS Collins; SSG 76 HMAS Dechaineux"
+        "ran_ssg_collins named SSG 76 HMAS Dechaineux"
       ]
     },
     {
@@ -4256,32 +4289,14 @@
       ]
     },
     {
-      "name": "Severomorsk (Northern Fleet) submarines patrol",
-      "side": "red",
-      "base": "home_rus_severomorsk",
-      "type": "Surface",
-      "units": [
-        "wp_ssgn_yasen"
-      ]
-    },
-    {
-      "name": "Severomorsk (Northern Fleet) submarines",
-      "side": "red",
-      "base": "home_rus_severomorsk",
-      "type": "Surface",
-      "units": [
-        "wp_ssgn_yasen",
-        "wp_ssn_akula x2",
-        "wp_ssgn_oscar2 x2",
-        "wp_ssn_sierra2",
-        "wp_ssn_victor3"
-      ]
-    },
-    {
       "name": "Vladivostok (Pacific Fleet) submarines patrol",
       "side": "red",
       "base": "home_rus_vladivostok",
       "type": "Surface",
+      "at": [
+        42.821,
+        132.575
+      ],
       "units": [
         "wp_ss_improved_kilo"
       ]
@@ -4301,6 +4316,10 @@
       "side": "blue",
       "base": "home_fra_toulon",
       "type": "Surface",
+      "at": [
+        43.11,
+        6.377
+      ],
       "units": [
         "fr_ssn_suffren"
       ]
@@ -4320,9 +4339,14 @@
       "side": "blue",
       "base": "home_fra_brest",
       "type": "Surface",
+      "at": [
+        48.787,
+        -5.448
+      ],
       "units": [
         "fr_ssbn_triomphant"
-      ]
+      ],
+      "hold": true
     },
     {
       "name": "Force oceanique strategique",
@@ -4343,15 +4367,6 @@
       ]
     },
     {
-      "name": "Ferrol Naval Base submarines",
-      "side": "blue",
-      "base": "home_esp_ferrol",
-      "type": "Surface",
-      "units": [
-        "ae_ssk_s80"
-      ]
-    },
-    {
       "name": "Wilhelmshaven Naval Base submarines",
       "side": "blue",
       "base": "home_deu_wilhelmshaven",
@@ -4365,6 +4380,10 @@
       "side": "blue",
       "base": "home_bra_rio",
       "type": "Surface",
+      "at": [
+        -22.949,
+        -42.462
+      ],
       "units": [
         "bra_ss_riachuelo"
       ]
@@ -4384,6 +4403,10 @@
       "side": "blue",
       "base": "home_ind_mumbai",
       "type": "Surface",
+      "at": [
+        19.007,
+        72.506
+      ],
       "units": [
         "wp_ss_kilo"
       ]
@@ -4403,6 +4426,10 @@
       "side": "blue",
       "base": "home_chl_talcahuano",
       "type": "Surface",
+      "at": [
+        -36.114,
+        -73.931
+      ],
       "units": [
         "ch_ss_scorpene"
       ]
@@ -4422,6 +4449,10 @@
       "side": "red",
       "base": "home_irn_bandar_abbas",
       "type": "Surface",
+      "at": [
+        26.344,
+        55.701
+      ],
       "units": [
         "wp_ss_kilo"
       ]
@@ -4440,6 +4471,10 @@
       "side": "red",
       "base": "home_chn_qingdao",
       "type": "Surface",
+      "at": [
+        36.466,
+        121.171
+      ],
       "units": [
         "plan_ssn_type_093a"
       ]
@@ -4461,6 +4496,10 @@
       "side": "red",
       "base": "home_chn_zhanjiang",
       "type": "Surface",
+      "at": [
+        21.521,
+        111.454
+      ],
       "units": [
         "plan_ss_type_039c"
       ]
@@ -4499,6 +4538,10 @@
       "side": "red",
       "base": "home_rus_novorossiysk",
       "type": "Surface",
+      "at": [
+        44.64,
+        37.79
+      ],
       "units": [
         "wp_ss_improved_kilo"
       ]
@@ -4513,16 +4556,21 @@
       ]
     },
     {
-      "name": "Gadzhiyevo (Northern Fleet submarines) submarines patrol",
+      "name": "Gadzhiyevo (Northern Fleet submarines) patrol",
       "side": "red",
       "base": "home_rus_gadzhiyevo",
       "type": "Surface",
+      "at": [
+        70.249,
+        35.517
+      ],
       "units": [
         "wp_ssbn_borei"
-      ]
+      ],
+      "hold": true
     },
     {
-      "name": "Gadzhiyevo (Northern Fleet submarines) submarines",
+      "name": "Gadzhiyevo (Northern Fleet submarines)",
       "side": "red",
       "base": "home_rus_gadzhiyevo",
       "type": "Surface",
@@ -4534,16 +4582,21 @@
       ]
     },
     {
-      "name": "Vilyuchinsk (Pacific Fleet submarines) submarines patrol",
+      "name": "Vilyuchinsk (Pacific Fleet submarines) patrol",
       "side": "red",
       "base": "home_rus_vilyuchinsk",
       "type": "Surface",
+      "at": [
+        53.163,
+        160.498
+      ],
       "units": [
         "wp_ssbn_borei"
-      ]
+      ],
+      "hold": true
     },
     {
-      "name": "Vilyuchinsk (Pacific Fleet submarines) submarines",
+      "name": "Vilyuchinsk (Pacific Fleet submarines)",
       "side": "red",
       "base": "home_rus_vilyuchinsk",
       "type": "Surface",
@@ -4561,6 +4614,10 @@
       "side": "red",
       "base": "home_prk_nampo",
       "type": "Surface",
+      "at": [
+        39.014,
+        124.35
+      ],
       "units": [
         "plan_ss_romeo"
       ]
@@ -4576,16 +4633,20 @@
       ]
     },
     {
-      "name": "Sinpo (East Sea Fleet submarines) submarines patrol",
+      "name": "Sinpo (East Sea Fleet submarines) patrol",
       "side": "red",
       "base": "home_prk_sinpo",
       "type": "Surface",
+      "at": [
+        40.402,
+        129.001
+      ],
       "units": [
         "plan_ss_romeo"
       ]
     },
     {
-      "name": "Sinpo (East Sea Fleet submarines) submarines",
+      "name": "Sinpo (East Sea Fleet submarines)",
       "side": "red",
       "base": "home_prk_sinpo",
       "type": "Surface",
@@ -4595,22 +4656,12 @@
       ]
     },
     {
-      "name": "Surabaya (Koarmada II) submarines patrol",
-      "side": "red",
-      "base": "home_idn_surabaya",
-      "type": "Surface",
-      "units": [
-        "plan_ss_type_039b"
-      ]
-    },
-    {
       "name": "Surabaya (Koarmada II) submarines",
       "side": "red",
       "base": "home_idn_surabaya",
       "type": "Surface",
       "units": [
-        "plan_ss_type_039b",
-        "type_209 x3 named KRI Nagapasa; KRI Ardadedali; KRI Alugoro"
+        "plan_ss_type_039b x2"
       ]
     },
     {
@@ -4618,6 +4669,10 @@
       "side": "red",
       "base": "home_pak_karachi",
       "type": "Surface",
+      "at": [
+        24.751,
+        66.941
+      ],
       "units": [
         "pns_ss_s-26p"
       ]
@@ -4637,6 +4692,10 @@
       "side": "blue",
       "base": "home_usa_pearl",
       "type": "Surface",
+      "at": [
+        21.955,
+        202.055
+      ],
       "units": [
         "usn_ssn_virginia_block3_2026"
       ]
@@ -4657,6 +4716,10 @@
       "side": "blue",
       "base": "home_usa_groton",
       "type": "Surface",
+      "at": [
+        41.0,
+        -70.2
+      ],
       "units": [
         "usn_ssn_virginia_block4"
       ]
@@ -4673,50 +4736,14 @@
       ]
     },
     {
-      "name": "Submarine Group 10 patrol",
-      "side": "blue",
-      "base": "home_usa_kings_bay",
-      "type": "Surface",
-      "units": [
-        "usn_ssbn_ohio"
-      ]
-    },
-    {
-      "name": "Submarine Group 10",
-      "side": "blue",
-      "base": "home_usa_kings_bay",
-      "type": "Surface",
-      "units": [
-        "usn_ssbn_ohio x3",
-        "usn_ssgn_ohio_2027 x2 named USS Florida; USS Georgia"
-      ]
-    },
-    {
-      "name": "Submarine Group 9 patrol",
-      "side": "blue",
-      "base": "home_usa_bangor",
-      "type": "Surface",
-      "units": [
-        "usn_ssbn_ohio"
-      ]
-    },
-    {
-      "name": "Submarine Group 9",
-      "side": "blue",
-      "base": "home_usa_bangor",
-      "type": "Surface",
-      "units": [
-        "usn_ssbn_ohio x5",
-        "usn_ssgn_ohio_2027 x2 named USS Ohio; USS Michigan",
-        "usn_ssn_seawolf_2027 x2 named USS Seawolf; USS Connecticut",
-        "usn_ssn_seawolf_carter named USS Jimmy Carter"
-      ]
-    },
-    {
       "name": "2nd Submarine Flotilla patrol",
       "side": "blue",
       "base": "home_jpn_yokosuka",
       "type": "Surface",
+      "at": [
+        35.386,
+        140.704
+      ],
       "units": [
         "jmsdf_ssn_unryu"
       ]
@@ -4744,6 +4771,10 @@
       "side": "blue",
       "base": "home_deu_eckernfoerde",
       "type": "Surface",
+      "at": [
+        55.588,
+        15.893
+      ],
       "units": [
         "ger_ssk_type_212a_batch1"
       ]
@@ -4762,6 +4793,10 @@
       "side": "blue",
       "base": "home_grc_salamis",
       "type": "Surface",
+      "at": [
+        37.587,
+        23.869
+      ],
       "units": [
         "type_209"
       ]
@@ -4780,6 +4815,10 @@
       "side": "blue",
       "base": "home_tur_golcuk",
       "type": "Surface",
+      "at": [
+        42.599,
+        28.969
+      ],
       "units": [
         "type_209"
       ]
@@ -4798,6 +4837,10 @@
       "side": "blue",
       "base": "usp_sandiego_naval_base_san_diego",
       "type": "Surface",
+      "at": [
+        32.811,
+        242.343
+      ],
       "units": [
         "usn_ssn_los_angeles_flt3_2027"
       ]
@@ -4812,16 +4855,20 @@
       ]
     },
     {
-      "name": "Submarine Squadron 6 patrol",
+      "name": "Submarine Squadrons 6 and 8 patrol",
       "side": "blue",
       "base": "usa_norfolk_naval_station_norfolk",
       "type": "Surface",
+      "at": [
+        37.492,
+        -74.482
+      ],
       "units": [
         "usn_ssn_virginia_block3_2026"
       ]
     },
     {
-      "name": "Submarine Squadron 6",
+      "name": "Submarine Squadrons 6 and 8",
       "side": "blue",
       "base": "usa_norfolk_naval_station_norfolk",
       "type": "Surface",
@@ -4831,10 +4878,63 @@
       ]
     },
     {
+      "name": "Submarine Group 10 patrol",
+      "side": "blue",
+      "base": "home_usa_kings_bay",
+      "type": "Surface",
+      "at": [
+        31.583,
+        -78.8
+      ],
+      "units": [
+        "usn_ssbn_ohio named Tennessee SSBN-734"
+      ],
+      "hold": true
+    },
+    {
+      "name": "Submarine Group 10",
+      "side": "blue",
+      "base": "home_usa_kings_bay",
+      "type": "Surface",
+      "units": [
+        "usn_ssbn_ohio x3 named West Virginia SSBN-736; Maryland SSBN-738; Rhode Island SSBN-740"
+      ]
+    },
+    {
+      "name": "Submarine Group 9 patrol",
+      "side": "blue",
+      "base": "home_usa_bangor",
+      "type": "Surface",
+      "at": [
+        47.883,
+        233.5
+      ],
+      "units": [
+        "usn_ssbn_ohio named Henry M. Jackson SSBN-730"
+      ],
+      "hold": true
+    },
+    {
+      "name": "Submarine Group 9",
+      "side": "blue",
+      "base": "home_usa_bangor",
+      "type": "Surface",
+      "units": [
+        "usn_ssbn_ohio x5 named Alabama SSBN-731; Nevada SSBN-733; Pennsylvania SSBN-735; Kentucky SSBN-737; Nebraska SSBN-739",
+        "usn_ssgn_ohio_2027 named Michigan SSGN-727",
+        "usn_ssn_seawolf_2027 x2 named Seawolf SSN-21; Connecticut SSN-22",
+        "usn_ssn_seawolf_carter named Jimmy Carter SSN-23"
+      ]
+    },
+    {
       "name": "HMNB Clyde (Faslane) submarines patrol",
       "side": "blue",
       "base": "home_uk_faslane",
       "type": "Surface",
+      "at": [
+        56.187,
+        -6.201
+      ],
       "units": [
         "rn_swiftsure_class_ssn named HMS Astute"
       ]
@@ -4853,6 +4953,10 @@
       "side": "blue",
       "base": "home_jpn_kure",
       "type": "Surface",
+      "at": [
+        32.533,
+        133.116
+      ],
       "units": [
         "jmsdf_ssn_unryu"
       ]
@@ -4871,8 +4975,12 @@
       "side": "blue",
       "base": "home_kor_jinhae",
       "type": "Surface",
+      "at": [
+        35.705,
+        129.877
+      ],
       "units": [
-        "type_209 named ROKS Chang Bogo"
+        "type_209 named ROKS Lee Sunsin SS-068"
       ]
     },
     {
@@ -4881,7 +4989,7 @@
       "base": "home_kor_jinhae",
       "type": "Surface",
       "units": [
-        "type_209 x2 named ROKS Lee Chun; ROKS Choi Museon"
+        "type_209 x2 named ROKS Na Daeyong SS-069; ROKS Lee Eokgi SS-071"
       ]
     },
     {
@@ -4889,6 +4997,10 @@
       "side": "blue",
       "base": "home_isr_haifa",
       "type": "Surface",
+      "at": [
+        32.783,
+        34.926
+      ],
       "units": [
         "ger_ssk_type_212a_batch1 named INS Dolphin"
       ]
@@ -4917,7 +5029,7 @@
       "base": "home_esp_cartagena",
       "type": "Surface",
       "units": [
-        "ae_ssk_s80_plus x2 named S-81 Isaac Peral; S-82 Narciso Monturiol"
+        "ae_ssk_s80 x2 named S81 Isaac Peral (Early); S82 Narciso Monturiol (Early)"
       ]
     },
     {
@@ -4925,6 +5037,10 @@
       "side": "blue",
       "base": "home_egy_alexandria",
       "type": "Surface",
+      "at": [
+        32.437,
+        29.875
+      ],
       "units": [
         "type_209"
       ]
@@ -4943,9 +5059,14 @@
       "side": "red",
       "base": "chn_hainan_longpo_naval_base",
       "type": "Surface",
+      "at": [
+        18.609,
+        110.377
+      ],
       "units": [
         "plan_ssbn_type_094a"
-      ]
+      ],
+      "hold": true
     },
     {
       "name": "Longpo Naval Base submarines",
@@ -4958,10 +5079,39 @@
       ]
     },
     {
+      "name": "Zaozersk (Zapadnaya Litsa) submarines patrol",
+      "side": "red",
+      "base": "home_rus_zaozersk",
+      "type": "Surface",
+      "at": [
+        70.94,
+        33.273
+      ],
+      "units": [
+        "wp_ssgn_yasen named K-560 Severodvinsk"
+      ]
+    },
+    {
+      "name": "Zaozersk (Zapadnaya Litsa) submarines",
+      "side": "red",
+      "base": "home_rus_zaozersk",
+      "type": "Surface",
+      "units": [
+        "wp_ssgn_yasen named K-561 Kazan",
+        "wp_ssgn_oscar2 x2 named K-119 Voronezh; K-266 Orel",
+        "wp_ssn_akula x2",
+        "wp_ssn_sierra2"
+      ]
+    },
+    {
       "name": "Cam Ranh Naval Base submarines patrol",
       "side": "red",
       "base": "home_vnm_cam_ranh",
       "type": "Surface",
+      "at": [
+        12.679,
+        109.835
+      ],
       "units": [
         "wp_ss_improved_kilo named HQ-182 Ha Noi"
       ]
@@ -5335,27 +5485,6 @@
       ]
     },
     {
-      "force": "Severomorsk (Northern Fleet) submarines patrol",
-      "points": [
-        [
-          70.622,
-          34.148
-        ],
-        [
-          70.031,
-          35.855
-        ],
-        [
-          69.456,
-          34.148
-        ],
-        [
-          70.031,
-          32.441
-        ]
-      ]
-    },
-    {
       "force": "Vladivostok (Pacific Fleet) submarines patrol",
       "points": [
         [
@@ -5566,7 +5695,7 @@
       ]
     },
     {
-      "force": "Gadzhiyevo (Northern Fleet submarines) submarines patrol",
+      "force": "Gadzhiyevo (Northern Fleet submarines) patrol",
       "points": [
         [
           70.249,
@@ -5587,7 +5716,7 @@
       ]
     },
     {
-      "force": "Vilyuchinsk (Pacific Fleet submarines) submarines patrol",
+      "force": "Vilyuchinsk (Pacific Fleet submarines) patrol",
       "points": [
         [
           53.163,
@@ -5629,7 +5758,7 @@
       ]
     },
     {
-      "force": "Sinpo (East Sea Fleet submarines) submarines patrol",
+      "force": "Sinpo (East Sea Fleet submarines) patrol",
       "points": [
         [
           40.402,
@@ -5646,27 +5775,6 @@
         [
           39.817,
           128.242
-        ]
-      ]
-    },
-    {
-      "force": "Surabaya (Koarmada II) submarines patrol",
-      "points": [
-        [
-          -5.618,
-          112.73
-        ],
-        [
-          -6.201,
-          113.316
-        ],
-        [
-          -6.784,
-          112.73
-        ],
-        [
-          -6.201,
-          112.144
         ]
       ]
     },
@@ -5734,48 +5842,6 @@
       ]
     },
     {
-      "force": "Submarine Group 10 patrol",
-      "points": [
-        [
-          31.381,
-          -80.286
-        ],
-        [
-          30.557,
-          -80.29
-        ],
-        [
-          30.557,
-          -81.248
-        ],
-        [
-          31.381,
-          -81.252
-        ]
-      ]
-    },
-    {
-      "force": "Submarine Group 9 patrol",
-      "points": [
-        [
-          47.628,
-          235.576
-        ],
-        [
-          47.218,
-          235.736
-        ],
-        [
-          47.109,
-          235.134
-        ],
-        [
-          47.518,
-          234.97
-        ]
-      ]
-    },
-    {
       "force": "2nd Submarine Flotilla patrol",
       "points": [
         [
@@ -5800,20 +5866,20 @@
       "force": "Eckernfoerde Naval Base submarines patrol",
       "points": [
         [
-          55.031,
-          7.558
+          55.588,
+          15.893
         ],
         [
-          54.444,
-          8.561
+          54.794,
+          15.506
         ],
         [
-          53.865,
-          7.558
+          55.005,
+          14.12
         ],
         [
-          54.444,
-          6.555
+          55.804,
+          14.481
         ]
       ]
     },
@@ -5821,20 +5887,20 @@
       "force": "Salamis Naval Base submarines patrol",
       "points": [
         [
-          37.385,
-          24.322
+          37.587,
+          23.869
         ],
         [
-          36.561,
-          24.316
+          37.002,
+          24.599
         ],
         [
-          36.561,
-          23.29
+          36.421,
+          23.869
         ],
         [
-          37.385,
-          23.284
+          37.002,
+          23.139
         ]
       ]
     },
@@ -5842,20 +5908,20 @@
       "force": "Golcuk Naval Base submarines patrol",
       "points": [
         [
-          42.316,
-          29.821
+          42.599,
+          28.969
         ],
         [
-          41.73,
-          30.602
+          41.883,
+          29.52
         ],
         [
-          41.15,
-          29.821
+          41.473,
+          28.563
         ],
         [
-          41.73,
-          29.04
+          42.184,
+          28.004
         ]
       ]
     },
@@ -5881,7 +5947,7 @@
       ]
     },
     {
-      "force": "Submarine Squadron 6 patrol",
+      "force": "Submarine Squadrons 6 and 8 patrol",
       "points": [
         [
           37.492,
@@ -5898,6 +5964,48 @@
         [
           37.706,
           -75.486
+        ]
+      ]
+    },
+    {
+      "force": "Submarine Group 10 patrol",
+      "points": [
+        [
+          31.583,
+          -78.8
+        ],
+        [
+          30.998,
+          -78.12
+        ],
+        [
+          30.417,
+          -78.8
+        ],
+        [
+          30.998,
+          -79.48
+        ]
+      ]
+    },
+    {
+      "force": "Submarine Group 9 patrol",
+      "points": [
+        [
+          47.883,
+          233.5
+        ],
+        [
+          47.297,
+          234.36
+        ],
+        [
+          46.717,
+          233.5
+        ],
+        [
+          47.297,
+          232.64
         ]
       ]
     },
@@ -5926,20 +6034,20 @@
       "force": "1st Submarine Flotilla patrol",
       "points": [
         [
-          35.748,
-          131.403
+          32.533,
+          133.116
         ],
         [
-          35.163,
-          132.116
+          31.821,
+          132.626
         ],
         [
-          34.582,
-          131.403
+          32.231,
+          131.782
         ],
         [
-          35.163,
-          130.69
+          32.947,
+          132.268
         ]
       ]
     },
@@ -6024,6 +6132,27 @@
         [
           18.025,
           109.764
+        ]
+      ]
+    },
+    {
+      "force": "Zaozersk (Zapadnaya Litsa) submarines patrol",
+      "points": [
+        [
+          70.94,
+          33.273
+        ],
+        [
+          70.139,
+          33.866
+        ],
+        [
+          69.93,
+          31.531
+        ],
+        [
+          70.722,
+          30.851
         ]
       ]
     },
@@ -6118,7 +6247,8 @@
     "North_Korea": "home_prk_nampo",
     "Vietnam": "home_vnm_cam_ranh",
     "Indonesia": "home_idn_surabaya",
-    "Pakistan": "home_pak_karachi"
+    "Pakistan": "home_pak_karachi",
+    "Turkey": "home_tur_golcuk"
   },
   "airWings": {},
   "replenishment": {
@@ -6178,7 +6308,6 @@
     "ae_lpd_galicia": 311,
     "ae_opv_meteoro": 103,
     "ae_ssk_s80": 110,
-    "ae_ssk_s80_plus": 110,
     "bel_a400m_tankers": 242,
     "boeing-rc135": 118,
     "bra_f-5em": 46,
@@ -6410,7 +6539,6 @@
     "wp_ssgn_yasen": 311,
     "wp_ssn_akula": 311,
     "wp_ssn_sierra2": 234,
-    "wp_ssn_victor3": 175,
     "wp_su-30sm": 46,
     "wp_su-33": 46,
     "wp_tu-142m": 89,
@@ -7065,6 +7193,7 @@
     "ae_ss_s33": 96,
     "ae_ssk_galerna": 78,
     "ae_ssk_galerna_mod": 78,
+    "ae_ssk_s80_plus": 110,
     "bra_cv_Sao_Paulo": 558,
     "bra_ff_garcia": 120,
     "bra_ffg_niteroi": 567,
@@ -7681,6 +7810,7 @@
     "wp_ssn_sierra1": 220,
     "wp_ssn_victor1": 150,
     "wp_ssn_victor2": 167,
+    "wp_ssn_victor3": 175,
     "wp_ssn_victor3_imp": 175,
     "wp_takr_kiev": 209,
     "wp_tavkr_leningrad_98": 1021,

@@ -21,6 +21,7 @@ Three layers, reported separately:
 Passing all three is NOT a load test. The game, BepInEx, Anchor Chain and the
 plugin decide; this only removes the faults a file can show.
 """
+import collections
 import json
 import re
 import sys
@@ -38,6 +39,27 @@ SUPPLY_CLASSES = {"AirToAir", "SurfaceToAir", "AntiShip", "LandAttack", "AirToGr
 BAD_NAME = re.compile(r"[;#\[\]]|//")
 WING = re.compile(r"^(Squadron\d+,\d+)(\|Squadron\d+,\d+)*$")
 SPEC = re.compile(r"^(?P<uid>\S+)(?: x(?P<n>\d+))?(?: named (?P<names>.+))?$")
+
+
+def game_hull_names():
+    """{unit id: hull names} from every vessel_names.ini the repo has - the
+    names Dynamic Campaign Mod matches a force's "named" boats against."""
+    out = collections.defaultdict(set)
+    root = adapter.ROOT
+    files = sorted(root.glob("mods-source/*/language_en/vessel_names.ini")) + \
+        sorted(root.glob("mods-source/_vanilla/original/language_en/vessel_names.ini")) + \
+        sorted(root.glob("integration/*/SEST_*/language_en/vessel_names.ini"))
+    for f in files:
+        sec = None
+        for line in f.read_text(encoding="utf-8", errors="replace").splitlines():
+            m = re.match(r"^\[([^\]]+)\]", line.strip())
+            if m:
+                sec = m.group(1).strip()
+                continue
+            m = re.match(r"^Variant\d+\s*=\s*([^,/]+)", line.strip())
+            if sec and m:
+                out[sec].add(m.group(1).strip())
+    return out
 
 
 def main():
@@ -267,6 +289,41 @@ def main():
             for section in ("garrisons", "airDefence", "troops"):
                 if nation not in g.get(section, {}):
                     info.append(f"ground.{section} has no entry for {nation} (INFERRED risk)")
+
+    # One physical boat, one place: a named hull may appear once across all
+    # forces (a boat at home and on patrol at once would be two boats).
+    named = collections.Counter()
+    for f in forces.values():
+        for u in f.get("units", []):
+            m = SPEC.match(u)
+            if m and m.group("names"):
+                named.update(f"{m.group('uid')}: {n}" for n in m.group("names").split("; "))
+    for boat, k in sorted(named.items()):
+        if k > 1:
+            sest.append(f"{boat} is placed {k} times - one physical boat, one force")
+    # Submarines added by submarines.py: every (nation, unit) says how well it
+    # stands for the real class, and a boat named on an "exact" mapping must be
+    # a hull the game has, or Dynamic Campaign Mod sails the class default.
+    from submarines import MAPPINGS, SUB_ADD, SUB_BASES
+    nation_of = {k: b.get("nation") for k, b in bases.items()}
+    hulls = game_hull_names()
+    for bid, adds in SUB_ADD.items():
+        for uid, _qty, names in adds:
+            m = MAPPINGS.get((nation_of.get(bid), uid))
+            if m is None:
+                sest.append(f"submarines.py: {bid} {uid} ({nation_of.get(bid)}) has no MAPPINGS entry")
+            elif m[0] == "exact":
+                for n in names or []:
+                    if n not in hulls.get(uid, set()):
+                        sest.append(f"submarines.py: {uid} '{n}' is an exact mapping but the game "
+                                    "has no hull of that name")
+            elif names:
+                info.append(f"submarines.py: {uid} at {bid} is a {m[0]} stand-in; its names sail "
+                            "as the class's default hull (Dynamic Campaign Mod logs each)")
+    for h in SUB_BASES:
+        for uid, _qty, *_ in h["units"]:
+            if (h["nation"], uid) not in MAPPINGS:
+                sest.append(f"submarines.py: {h['id']} {uid} ({h['nation']}) has no MAPPINGS entry")
 
     def show(title, items):
         print(f"{title}: {'PASS' if not items else f'{len(items)} problem(s)'}")

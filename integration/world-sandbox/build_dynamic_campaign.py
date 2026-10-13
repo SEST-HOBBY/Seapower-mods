@@ -48,7 +48,8 @@ import build_pack as bp                      # noqa: E402  winning-file resolver
 from retarget_units import RETARGET           # noqa: E402  ids the collection retired
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from home_bases import BLUE_ADDED, HOME_BASES, RED_ADDED   # noqa: E402  scenario additions
-from submarines import PATROL_FROM, SQUADRON_NAME, SUB_ADD, SUB_BASES   # noqa: E402  scenario additions
+from submarines import (MAPPINGS, MISSING, PATROL_CENTRE, PATROL_FROM, SQUADRON_NAME,   # noqa: E402
+                        SUB_ADD, SUB_BASES, UNUSABLE)                                  # scenario additions
 
 try:
     from global_land_mask import globe       # same optional dependency as the showcase builder
@@ -700,8 +701,11 @@ def build():
                              ("submarine patrol", subs)):
             if not prows:
                 continue
-            f = add_force(f"{short} {label}", side, bid, "Surface", specs(prows))
             ring, how = water_ring(lat, lon)
+            # a submarine patrol starts on its ring, as the sample's do; a
+            # surface patrol keeps the register's in-port start
+            at = ring[0] if ring and label == "submarine patrol" else None
+            f = add_force(f"{short} {label}", side, bid, "Surface", specs(prows), at=at)
             if ring:
                 patrols.append({"force": f["name"], "points": [list(p) for p in ring]})
             report["forces"].append({"force": f["name"], "node": wid,
@@ -774,7 +778,7 @@ def build():
             made = [add_force(f"{h['name']} {lab}", side, hid, "Air", [s])["name"]
                     for s, lab in zip(specs, labels)]
         report["bases"].append({"node": None, "base": hid, "kind": h["kind"], "nation": nation,
-                                "nation_from": "home_bases.py - SCENARIO ADDITION",
+                                "nation_from": ("submarines.py" if h in SUB_BASES else "home_bases.py") + " - SCENARIO ADDITION",
                                 "position": [lat, lon], "anchor_on_water": is_water(lat, lon),
                                 "anchor_moved_nm": moved, "forces": made, "shipyard": bool(h.get("yard")),
                                 "depot": bool(h.get("depot")),
@@ -786,6 +790,7 @@ def build():
     # already has a submarine on patrol from the register.
     by_id = {b["id"]: b for b in bases}
     boats = collections.defaultdict(list)
+    moved_from = collections.defaultdict(set)
     for f in list(forces):
         if f["type"] != "Surface" or f.get("at") or not f["name"].endswith(" harbour"):
             continue
@@ -793,6 +798,7 @@ def build():
         if not subs:
             continue
         boats[f["base"]] += subs
+        moved_from[f["base"]].add(f["name"])
         f["units"] = [u for u in f["units"] if u not in subs]
         if not f["units"]:
             forces.remove(f)
@@ -813,21 +819,56 @@ def build():
             used[uid] += qty
     at_sea = {f["base"] for f in forces if f["name"].endswith("patrol")
               and any(is_submarine(u) for u in f["units"])}
+    rep_base = {e["base"]: e for e in report["bases"] if "forces" in e}
     for bid, specs in boats.items():
         b = by_id[bid]
-        name = SQUADRON_NAME.get(bid) or f"{b['name']} submarines"
+        name = SQUADRON_NAME.get(bid) or (b["name"] if "submarine" in b["name"].lower()
+                                          else f"{b['name']} submarines")
         entry = {"force": None, "base": bid, "submarines": sum(parse_spec(u)[1] for u in specs),
                  "named": "submarines.py" if bid in SQUADRON_NAME else "base name"}
+        made = []
         if bid not in at_sea and entry["submarines"] >= PATROL_FROM:
-            specs, boat = take_one(specs)
-            pf = add_force(f"{name} patrol", b["side"], bid, "Surface", [boat])
-            ring, how = water_ring(b["lat"], b["lon"])
-            if ring:
+            if bid in PATROL_CENTRE:
+                clat, clon, why = PATROL_CENTRE[bid]
+                ring, how = water_ring(clat, continuous(clon))
+                how = how and how.replace("off the base", f"off {why} (submarines.py PATROL_CENTRE)")
+            else:
+                ring, how = water_ring(b["lat"], b["lon"])
+            if ring:                       # no ring: the boat stays with its squadron
+                specs, boat = take_one(specs)
+                extra = {"hold": True} if "ssbn" in parse_spec(boat)[0] else None
+                pf = add_force(f"{name} patrol", b["side"], bid, "Surface", [boat], at=ring[0],
+                               extra=extra)
                 patrols.append({"force": pf["name"], "points": [list(p) for p in ring]})
-            entry["patrol"] = {"force": pf["name"], "boat": boat,
-                               "ring": f"{how} - SCENARIO CHOICE" if ring else "no water ring: in harbour"}
+                entry["patrol"] = {"force": pf["name"], "boat": boat, "ring": f"{how} - SCENARIO CHOICE",
+                                   "hold": "an SSBN's deterrent patrol, as the sample's Okhotsk SSBN "
+                                           "Patrol (effect not documented)" if extra else None}
+                made.append(pf["name"])
         entry["force"] = add_force(name, b["side"], bid, "Surface", specs)["name"]
+        made.append(entry["force"])
+        for row in report["rows"]:
+            if row.get("force") in moved_from[bid] and row.get("unit") and \
+                    bp.unit_type(row["unit"]) == "Submarine":
+                row["force"] = entry["force"]
+        if bid in rep_base:
+            rep_base[bid]["forces"] += made
         report.setdefault("submarines", []).append(entry)
+
+    # how well each submarine stands for the real class (submarines.py MAPPINGS)
+    nation_of_base = {b["id"]: b["nation"] for b in bases}
+    seen = collections.Counter()
+    for f in forces:
+        for u in f["units"]:
+            if is_submarine(u):
+                uid, qty, _ = parse_spec(u)
+                seen[(nation_of_base[f["base"]], uid)] += qty
+    report["submarine_mappings"] = [
+        {"nation": n, "unit": u, "boats": q,
+         **(dict(zip(("quality", "stands_for", "flag", "note"), MAPPINGS[(n, u)]))
+            if (n, u) in MAPPINGS else {"quality": "register", "stands_for": "as the register names it"})}
+        for (n, u), q in sorted(seen.items())]
+    report["submarines_unusable"] = [dict(zip(("nation", "classes", "mod", "why"), x)) for x in UNUSABLE]
+    report["submarines_missing"] = [dict(zip(("nation", "classes"), x)) for x in MISSING]
 
     # supply lines: every base draws from its own nation's nearest depot within
     # reach, else its side's nearest. SCENARIO CHOICE - the register keeps the

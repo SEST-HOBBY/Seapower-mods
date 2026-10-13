@@ -277,3 +277,33 @@ the review's 20/10/10 ammunition test with a SEST supply ship; save, reload, and
 battle; a transit across the antimeridian (Roosevelt's group); performance with all 193 forces;
 the buy screen with about 1,056 blue entries, a ship order by a nation with a home yard (Spain)
 and one air-only nation's aircraft order (Greece).
+
+## Submarines (11-13 Oct 2026)
+
+`integration/world-sandbox/submarines.py` gives every navy's boats a submarine
+force of their own at the bases they sail from (a Surface force, as Dynamic
+Campaign Mod's own sample keeps them), adds the missing submarine bases
+(Pearl Harbor, Groton, Kings Bay, Bangor, Faslane, JMSDF Yokosuka,
+Visakhapatnam, Eckernfoerde, Cartagena, Salamis, Golcuk, Zaozersk), and sends
+one boat from each squadron of three or more to sea, starting on its patrol
+ring (`at`), an SSBN with `"hold": true` as the sample's Okhotsk patrol.
+Result: 45 submarine forces, 110 blue and 103 red boats, 33 patrols out plus
+the register's 4.
+
+Its `MAPPINGS` table says, for each nation and unit, whether the hull is the
+exact class, the same class or family, a representative modern boat or a
+proxy, and which flag it flies (the engine takes the flag from the hull's own
+variant: the Type 209s fly Chile's, the 212As Germany's, the wp_ Kilos the
+Soviet flag). `UNUSABLE` records South Korea's KSS boats (present in
+Euromod-South Korea Navy, but in `vessels/non/`, which the game does not
+load); `MISSING` the classes nothing models. Both are written to
+`draft/conversion.json` with the per-force mappings.
+
+`check_dynamic_campaign.py` now fails a named boat placed twice and a boat on
+an exact mapping whose name is not a game hull (Dynamic Campaign Mod would
+sail the class default), and notes every stand-in name. An adversarial
+review (facts, code, engine; 13 Oct) found and fixed: retired Ohio SSGNs,
+decommissioned ROKS Jang Bogo and Lee Chun, the Northern Fleet's attack boats
+at Severomorsk, a third Spanish S-80, patrol rings across land from enclosed
+bases, patrols starting in harbour, and hull names the engine could not match.
+Not run in game yet.
