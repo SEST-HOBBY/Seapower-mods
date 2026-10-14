@@ -1,4 +1,4 @@
-# Player-prev.log - last 243 of 243 line(s), captured 2026-10-13T20:43:18.
+# Player-prev.log - last 260 of 260 line(s), captured 2026-10-14T16:58:18.
 # Unity writes this fresh each launch; -prev is the session before.
 
 Mono path[0] = 'C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/Managed'
@@ -15,9 +15,9 @@ Direct3D:
     Renderer: NVIDIA GeForce RTX 2070 SUPER (ID=0x1e84)
     Vendor:   NVIDIA
     VRAM:     7989 MB
-    Driver:   32.0.16.1074
+    Driver:   32.0.16.1088
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.203 seconds
+- Loaded All Assemblies, in  0.192 seconds
 - Finished resetting the current domain, in  0.002 seconds
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -78,7 +78,7 @@ Harmony.Loadoutmanager active
 [IDX][Patches_CampaignPrize.cs:94 Resolve] [IDX-Prize] vanilla API resolved: True (write=True merge=True itemCtor=14 snapCtor=True)
 [IDX][Patches_CampaignPrize.cs:46 Apply] [IDX-Prize] hooked WriteCurrentTaskForceSnapshot for prize injection
 [IDX][Plugin.cs:57 TriggerEntryPoint] [IDX] Sections Patched and Methods Initialized: 13 patched, 13 methods
-[IDX][Plugin.cs:64 TriggerEntryPoint] [IDX] build stamp: 2026-10-10 07:47:56 (IdentifyExpanded.dll)
+[IDX][Plugin.cs:64 TriggerEntryPoint] [IDX] build stamp: 2026-10-14 15:52:26 (IdentifyExpanded.dll)
 [ACC CV16 Ski-Jump Fix] v1.7.0 mass-aware ski-jump pitch/contact patch applied; runway wait=True.
 [ACC CV16 Ski-Jump Fix] Fixed-wing deflector binding patch applied.
 [SaronicCorsairStrikeUSV] The game version differs from the tested one, but everything this mod uses in the game is unchanged, so it stays on.
@@ -108,7 +108,7 @@ Using Windows.Gaming.Input
 <RI> Input initialized.
 
 [3D WebView] Using Vuplex 3D WebView for Windows v4.15.2 
-UnloadTime: 2.628900 ms
+UnloadTime: 2.525100 ms
 [3D WebView] System info (used by Vuplex support):
 Unity version: 6000.0.67f1
 Development build: False
@@ -134,12 +134,12 @@ FileManager.Directories contains Mods
 [IDX][Localization.cs:24 Load] [IDX] localization ini not found: C:/Program Files (x86)/Steam/steamapps/common/Sea Power/Sea Power_Data/StreamingAssets\IdentifyExpanded\language_en\identify_expanded.ini
 [IDX][TensionConfig.cs:62 SetRaw] [IDX-Tension] set to TENSE -> Tense (DEFCON 3)
 [IDX][TensionConfig.cs:283 Load] [IDX-Tension] no config found, defaulting to TENSE DEFCON 3 (neutral)
-[IDX][BroadcastService.cs:2426 WriteLog] [IDX] _mainGameViewModel is null
+[IDX][BroadcastService.cs:2691 WriteLog] [IDX] _mainGameViewModel is null
 [IDX][CampaignCapture.cs:232 AnnouncePrizes] [IDX-Prize] Roster for mission:unknown: 1/3 boarded
 FileManager.CheckFileValidity(): Game passed file validity checks!
 FileManager.CheckForUpdates(): The following files require update []
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
-LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Threshold, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Min, 1)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_AdditivePass, 1)
@@ -153,15 +153,50 @@ LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetColor(_C2, {*}808080FF)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_FogFadeFactor, -0.5)
 LoadMaterialFromFile(effects/weapons/materials/missile_smoke_lit.ini): SetFloat(_Cutoff, 0.5)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_small/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/materials/solidrocket_white.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-2150
+[MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
+[MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
+LoadMaterialFromFile(effects/weapons/emitters/solidrocket_large/large_hot_smoke_additive.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetColor(_TintColor, {*}FFFFFF80)
+LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetColor(_TintColor, {*}FFDBD0FF)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_BumpAmt, 18)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseMainAlpha, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_Cutoff, 0)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_InvFade, 0)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetColor(_TintColor, {*}80808080)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetFloat(_InvFade, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Threshold, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Min, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_AdditivePass, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorLit, {*}BEBEBE80)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorUnlit, {*}80808080)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_minBright, 0.25)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Multiplier, 1)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_TintColor, {*}FFFFFF00)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_IsUnderwater, 0)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C1, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C2, {*}808080FF)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_FogFadeFactor, -0.5)
+LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Cutoff, 0.5)
+[EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka_adap
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Threshold, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_Min, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_verylarge/large_smoke_lit.ini): SetFloat(_AdditivePass, 1)
@@ -192,53 +227,35 @@ LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_addit
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/plume_additive.ini): SetFloat(_InvFade, 1)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetColor(_TintColor, {*}FFFFFF80)
 LoadMaterialFromFile(effects/weapons/emitters/solidrocket_upperstage/residual_alpha.ini): SetFloat(_InvFade, 1)
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-2928
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_100kt_surface\nuclear_100kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-4870
 [MultiStageMissiles] usn_w76_mk4: independent spawning enabled for 7 direct INI effect prefab(s).
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_500kt_surface\nuclear_500kt_surface.ini: layers=1; first clip=/audio/environment/NuclearExplosion_20s.wav; prefab=-3068
 [MultiStageMissiles] usn_w88_mk5: independent spawning enabled for 7 direct INI effect prefab(s).
-[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-3176
+[IniEffectAudio] Configured ..\..\..\..\workshop\content\1286220\3784474738\effects\explosions\emitters\nuclear_350kt_surface\nuclear_350kt_surface.ini: layers=1; first clip=audio/environment/NuclearExplosion_20s.wav; prefab=-4978
 [MultiStageMissiles] wp_ss-n-12_350kt: independent spawning enabled for 8 direct INI effect prefab(s).
 [MultiStageMissiles] wp_ss-n-19_500kt: independent spawning enabled for 9 direct INI effect prefab(s).
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetColor(_TintColor, {*}FFFFFFFF)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_additive.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_BumpAmt, 120)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/solidrocket_aam_medium/exhaust_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetColor(_TintColor, {*}FFFFFF80)
-LoadMaterialFromFile(effects/weapons/materials/control_thruster_large_smoke.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetColor(_TintColor, {*}FFDBD0FF)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_flame_material.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_BumpAmt, 18)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseMainAlpha, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_UseSeparateCutOut, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_Cutoff, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_heat_material.ini): SetFloat(_InvFade, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetColor(_TintColor, {*}80808080)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_haze_material.ini): SetFloat(_InvFade, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Threshold, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Min, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_AdditivePass, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorLit, {*}BEBEBE80)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_ColorUnlit, {*}80808080)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_minBright, 0.25)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Multiplier, 1)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_TintColor, {*}FFFFFF00)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_IsUnderwater, 0)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C1, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetColor(_C2, {*}808080FF)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_FogFadeFactor, -0.5)
-LoadMaterialFromFile(effects/weapons/emitters/ramjet_large/ramjet_trail_material.ini): SetFloat(_Cutoff, 0.5)
+[EnhancedDecoyMod] Configuration accepted: ger_3DDS
+[EnhancedDecoyMod] Configuration accepted: usn_mk234_nulka
+[MultiStageMissiles] usn_w76_mk4: independent spawning enabled for 7 direct INI effect prefab(s).
+[MultiStageMissiles] usn_w88_mk5: independent spawning enabled for 7 direct INI effect prefab(s).
+[MultiStageMissiles] wp_ss-n-12_350kt: independent spawning enabled for 8 direct INI effect prefab(s).
+[MultiStageMissiles] wp_ss-n-19_500kt: independent spawning enabled for 9 direct INI effect prefab(s).
 [MultiStageMissiles] KH-55: independent spawning enabled for 9 direct INI effect prefab(s).
 [MultiStageMissiles] KH-55SM: independent spawning enabled for 8 direct INI effect prefab(s).
-[2101 - HTTPRequestCompleted] - 3 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3797
+[2101 - HTTPRequestCompleted] - 9 -- 1 -- True -- k_EHTTPStatusCode200OK -- 3797
 [SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=False audio=Direct tracks=0
 [SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
-Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\common\Sea Power\Sea Power_Data\sharedassets1.resource
+Unexpected timestamp values detected. This can occur in H.264 videos not encoded with the baseline profile. Timestamps will be skewed to correct the playback for C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 Color primaries 0 is unknown or unsupported by WindowsMediaFoundation. Falling back to default may result in color shift. C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[IDX][TensionConfig.cs:80 SetLevel] [IDX-Tension] level set to Tense (TENSE) DEFCON 3
+[IDX][EditorTensionDropdown.cs:338 StoreSelection] [IDX-Tension] MissionEditor set TENSE DEFCON 3 via dropdown
+[IDX][EditorTensionDropdown.cs:260 TryInjectInternal] [IDX-Tension] Mission Editor DEFCON dropdown injected next to StackPanel (baseSettings) val=TENSE DEFCON 3
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=True audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
+[SEST Menu] video player 'MediaPlayer' in scene 'background': source=VideoClip clip='main_menu' url='' render=APIOnly loop=False playing=True audio=Direct tracks=0
+[SEST Menu] menu film now C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539\plugins\sest_menu.mp4
 [3D WebView] [StandaloneWebView.TerminateBrowserProcess] Terminating the browser process.
+[Singleton<SeaPower.InputHandler>] Instance will not be returned because the application is quitting.
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05
 Input System module state changed to: ShutdownInProgress.

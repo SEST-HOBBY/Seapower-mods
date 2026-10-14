@@ -33,7 +33,8 @@
     [*]3K60 BAL coastal defense missile system
     [*]Projekt 1241.1M missile boat
     [*]Projekt 1124MU Albatros anti-submarine corvette
-    [*]Flanker family (Su-27P,Su-27SM,Su-30,Su-30SM/2,Su-35) 
+    [*]Flanker family (Su-27P,Su-27SM,Su-30,Su-30SM/2,Su-35)
+    [*]Tu-95K-22  
 [/list] 
 [h3]S-400[/h3]
 [img]https://i.imgur.com/ALjyWzq.jpeg[/img]
