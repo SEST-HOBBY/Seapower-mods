@@ -33,7 +33,9 @@
                               (tools\scan-ui-assets.ps1; rescanned only when
                               the game's data changes)
       player.log / -prev.log  the Unity log: mods loaded, missing files,
-                              exceptions with stack traces. The KJ-500 crash
+                              exceptions with stack traces, the SEST menu
+                              plugin's [SEST Menu] and [SEST Pictures] lines.
+                              The KJ-500 crash
                               was diagnosed from a stack trace pasted by hand;
                               this makes that a file in the repo.
       game-build.txt          install build/version, so the packs'
@@ -59,7 +61,9 @@ param(
     [string]$StreamingAssetsDir,
     [switch]$Redact,
     [switch]$IncludeSaves,
-    [int]$LogTailLines = 4000
+    # 20,000 since 14 Oct 2026: the SEST menu plugin's [SEST Pictures] passes can
+    # add several thousand lines, and the tail must still hold the whole log.
+    [int]$LogTailLines = 20000
 )
 
 $ErrorActionPreference = "Stop"

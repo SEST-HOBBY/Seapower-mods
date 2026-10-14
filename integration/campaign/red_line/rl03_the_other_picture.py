@@ -192,7 +192,7 @@ MISSION = dict(
         # with it - the second aircraft that never fires. SIGINT is its one
         # fit, an empty hardpoint; the mod ships no name string for it, so
         # SEST Collection Fixes supplies one (build_missing_loadout_names).
-        U("red", "rc-135-rivet-joint", "boeing-rc135", "rivet", squadron="Squadron2",
+        U("red", "rc-135-rivet-joint", "boeing_rc135", "rivet", squadron="Squadron2",
           loadout="SIGINT", weapons="Hold",
           route=[(-7.10, 130.90, 31000), (-7.10, 131.70, 31000)], loop=True,
           telegraph=3),

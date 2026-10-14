@@ -189,7 +189,7 @@
 | Voyager (`uk_a330_mrtt`) / A400M | Akrotiri 1/1; Mount Pleasant 1/1. At Mount Pleasant, AAR to the Typhoons and the A400M's supply-drop, SAR and maritime-patrol roles are missing_fit. | 2 / 2 |
 | F-35A (`raaf_f-35a` Sq3) | Tindal 4 (cut from 8). Evenes QRA 2 are missing_fit and not placed. | 4 placed (+2 pending a Norway squadron) |
 | MQ-9A / MQ-4C / KC-130J | Lemonnier 2 / Tindal 1 optional (SEST-authored "Det Tindal" squadron) / Lemonnier 1 | 2 / 0–1 / 1 |
-| RC-135 (`boeing-rc135`) | Evenes Sq2 ×1. R03:117 states no operator; the US operator is SCENARIO. The named tails Sq3–7 are unallocated (allocate once if used). | 1 |
+| RC-135 (`boeing_rc135`) | Evenes Sq2 ×1. R03:117 states no operator; the US operator is SCENARIO. The named tails Sq3–7 are unallocated (allocate once if used). | 1 |
 | Russian LRA | Tu-22M2 (proxy for M3): Olenya 6, Belaya 3. Tu-95MS: Olenya 2, Engels 2, Ukrainka 3. Tu-160 (Tu-160M proxy at Engels): Olenya 1, Engels 2. Tu-142M 1, Il-76MD (An-12 proxy) 1 and Il-78 1 (optional), all at Olenya. Belaya Il-78 0 (optional 1). A dispersal event moves an allocation; it never copies it. | 9 / 7 / 3 / 1 / 1 / 1 (+1 optional) |
 | US carrier-embarked wings | Vinson 25, Roosevelt 25, Lincoln 25, GW 31, Truman 22 (unallocated in the RCOH contingency), Ike CQ det 8; LHD ACE 14 (12 without the AH-1W pair) | 150 |
 | Escort-embarked helicopters | Counted: US Pacific 16, Rota 8, Gulf 3 (MH-60R); RAN 2 (MH-60R Sq20); PLAN Djibouti 2; French AS565 1; Italian SH-101A 1; Brest NH90 1. Not yet counted (C7): US Atlantic 8, W/C Pacific 9, China maritime 9, Russian context 3. | 34 counted (+29 pending) |

@@ -180,6 +180,9 @@ Full card: `docs/campaigns/red-line/test-card.md`.
 | Merchant supply ships | Any mission with a C8, Seabee, Ro-Ro A/B or Mercur on your side | Ships take stores alongside at 8 kn or less |
 | Map lines | Tactical map with several routes | Black lines by day, white at night, selected route red |
 | Gallery | Mod Manager → SEST Integration Pack → Open Folder → Gallery → gallery.html | Opens in a browser with photos and credits |
+| Richard Morris (editor) | Place Red Storm Arsenal's USS Richard Morris; deploy the variable-depth sonar; fire an NSM | The VDS cable pays out (it named a sonar that did not exist); the NSM hatches open before launch (14 Oct) |
+| Buk-M3 (editor) | Place a Buk-M3 battery against a few aircraft | A launcher that has fired takes about two minutes to reload, not seconds (14 Oct) |
+| Topol-M and DF-41 (editor) | Place a Road Mobile ICBMs truck with a land target 100 NM or more away | It fires; before 14 Oct its launcher name matched nothing |
 
 ---
 

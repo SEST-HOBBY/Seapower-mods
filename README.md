@@ -67,6 +67,7 @@ python3 tools/preflight.py --all            # every deployed mission: fails on t
 python3 integration/missions/fix_loadout_variants.py --all --write   # sweep that crash out of them
 python3 integration/missions/restore_roe.py --mission "<name>" --write  # put back the Hold/Tight an editor save turned Free
 python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the mission and inventory tools' regression tests
+pwsh -File tools/tests/test_scan_ui_assets.ps1  # the UI-asset scan's name extraction, on synthetic files (Windows PowerShell runs it too)
 python3 tools/check_inventory.py            # mods-source agrees with its export manifest (red on four line-ending mods until renormalised)
 python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
 python3 tools/check_vanilla_drift.py        # what changed in the game's own files since the last export, and what here depends on it

@@ -26,6 +26,16 @@
 // Every player it sees is written to Player.log with "[SEST Menu]", which
 // tools/capture-context.ps1 brings into the repo.
 //
+// Since 14 Oct 2026 it also keeps the stock-pictures log (Pictures=1 in the
+// ini, on unless set to 0): a bounded record, on lines starting
+// "[SEST Pictures]", of every picture the game has loaded and every UI
+// element showing one, so a Player.log from the PC can say which texture the
+// startup screen, the still between menu pages and the Mod Manager draw and
+// what the UI binds each to (docs/workshop-refresh-20261013-review.md,
+// section 9). It only reads; PictureLog below says what and when. The film
+// swap runs as before with the log on or off. The log has not yet been run
+// in the game.
+//
 // Built by build_plugin.py against Unity's public API and Anchor Chain's
 // two public types (stubs/AnchorChain.cs).
 using System;
@@ -42,7 +52,7 @@ namespace Sest.MenuBackground
     // Anchor Chain creates this with Activator.CreateInstance, which a Unity
     // component cannot be, so the entry point builds the component itself on
     // a GameObject that survives scene changes.
-    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.0.0")]
+    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.1.0")]
     public class MenuBackgroundMod : IAnchorChainMod
     {
         public void TriggerEntryPoint()
@@ -73,6 +83,8 @@ namespace Sest.MenuBackground
         string pinned;        // ClipName= in the ini: this clip is swapped whether or not it loops
         string menuClip;      // without a pin, the first looping clip seen
         float scanUntil, nextScan;
+        bool picturesOn;      // Pictures= in the ini, read with the rest
+        PictureLog pictures;  // the stock-pictures log; null when off or stopped
 
         void Awake()
         {
@@ -82,24 +94,39 @@ namespace Sest.MenuBackground
             // The game can take minutes to load a large collection before the
             // menu shows; look for ten, then for half a minute after each scene.
             scanUntil = Time.realtimeSinceStartup + 600f;
+            if (picturesOn) pictures = new PictureLog(scanUntil);
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            scanUntil = Mathf.Max(scanUntil, Time.realtimeSinceStartup + 30f);
+            float now = Time.realtimeSinceStartup;
+            scanUntil = Mathf.Max(scanUntil, now + 30f);
+            if (pictures != null)
+            {
+                pictures.Schedule(now + 2f, "scene '" + scene.name + "' +2s");
+                pictures.Schedule(now + 20f, "scene '" + scene.name + "' +20s");
+            }
         }
 
         void Update()
         {
             float now = Time.realtimeSinceStartup;
-            if (film == null || now < nextScan) return;
+            if (now < nextScan) return;
             nextScan = now + 0.5f;
-            try
+            if (film != null)
             {
-                Keep();
-                if (now <= scanUntil) Scan();
+                try
+                {
+                    Keep();
+                    if (now <= scanUntil) Scan();
+                }
+                catch (Exception e) { film = null; Debug.LogWarning(Tag + "stopped: " + e.Message); }
             }
-            catch (Exception e) { film = null; Debug.LogWarning(Tag + "stopped: " + e.Message); }
+            if (pictures != null)
+            {
+                try { pictures.Tick(now); }
+                catch (Exception e) { pictures = null; Debug.LogWarning(PictureLog.Tag + "stopped: " + e.Message); }
+            }
         }
 
         void Scan()
@@ -228,6 +255,10 @@ namespace Sest.MenuBackground
                 Debug.Log(Tag + "off (Enabled=0 in " + IniName + ")");
                 return;
             }
+            // The pictures log is on unless Pictures=0; a missing film below
+            // stops the swap, not the log.
+            picturesOn = !(ini.TryGetValue("Pictures", out v) && v.Trim() == "0");
+            if (!picturesOn) Debug.Log(Tag + "pictures log off (Pictures=0 in " + IniName + ")");
             string name = ini.TryGetValue("Film", out v) && v.Trim().Length > 0 ? v.Trim() : "sest_menu.mp4";
             string path = Path.Combine(dir, name);
             if (!File.Exists(path)) throw new Exception("film not found: " + path);
@@ -276,11 +307,500 @@ namespace Sest.MenuBackground
             return d;
         }
 
-        static string PathOf(Transform t)
+        internal static string PathOf(Transform t)
         {
             string p = t.name;
             for (Transform u = t.parent; u != null; u = u.parent) p = u.name + "/" + p;
             return p;
+        }
+    }
+
+    // The stock-pictures log. One pass writes, each line starting
+    // "[SEST Pictures]":
+    //   (a) every loaded Texture2D, RenderTexture and Sprite at least 256
+    //       pixels each way (Resources.FindObjectsOfTypeAll), largest first:
+    //       name, size, format;
+    //   (b) every UnityEngine.UI Image or RawImage showing a texture. Those
+    //       types are not in the reference package build_plugin.py compiles
+    //       against (UnityEngine.Modules has no UnityEngine.UI), so they are
+    //       found by name at run time;
+    //   (c) NoesisGUI, the game's UI: from each NoesisView component's content
+    //       down through Noesis' VisualTreeHelper, every Image or MediaElement
+    //       and every element whose Background or Fill is an ImageBrush - the
+    //       element's type and Name, the view it belongs to (the nearest
+    //       ancestor that is a game class, say LoadScreenView), the Source
+    //       (a BitmapImage's UriSource, a TextureSource's Unity texture), the
+    //       property's binding path where BindingOperations.GetBinding has one
+    //       (the review expects "BackgroundImage"), whether it is visible, its
+    //       Opacity and its DataContext's type. Noesis is not referenced at
+    //       compile time: all of it goes by reflection, and a member the
+    //       game's build lacks is logged once ("skipped: ...") and passed over.
+    // When: the first Update after start, 15 s later, every two minutes while
+    // the ten-minute start window is open, 2 s and 20 s after each scene load
+    // (scenes loading together share one pass), and once each time the Mod
+    // Manager comes on screen - a Noesis element whose type or Name says
+    // ModMenu or ModManager, looked for every 3 s while a scene named like
+    // the menu's is loaded ('background', player.log 10 Oct 2026); at most
+    // five such passes. Each part of a pass
+    // writes at most 300 lines, then one "... N more" line; a pass walks at
+    // most 20,000 Noesis elements. One part failing writes one line and the
+    // others still run. Nothing is changed.
+    public class PictureLog
+    {
+        public const string Tag = "[SEST Pictures] ";
+        const int MinSize = 256;
+        const int MaxLines = 300;
+        const int MaxElements = 20000;
+        const int ProbeElements = 3000;
+        const int MaxModManagerPasses = 5;
+        static readonly string[] BrushProps = { "Background", "Fill" };
+        const BindingFlags Any = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+
+        class Due { public float At; public string Why; }
+        struct Node { public object Element; public string Owner; }
+
+        readonly List<Due> due = new List<Due>();
+        readonly HashSet<string> skipped = new HashSet<string>();
+        readonly Dictionary<string, Type> types = new Dictionary<string, Type>();
+        readonly HashSet<string> absent = new HashSet<string>();   // component types not found; looked for again each pass
+        readonly float periodicUntil;
+        float nextPeriodic, nextProbe;
+        bool started, modManagerUp;
+        int passes, modManagerPasses, lines, dropped;
+
+        public PictureLog(float startWindowEnd) { periodicUntil = startWindowEnd; }
+
+        // A pass at the given time; scenes loading together share one.
+        public void Schedule(float at, string why)
+        {
+            foreach (Due d in due) if (Mathf.Abs(d.At - at) < 1f) return;
+            due.Add(new Due { At = at, Why = why });
+        }
+
+        // Called every half second by the swapper's Update: at most one pass
+        // per call, else the Mod Manager probe.
+        public void Tick(float now)
+        {
+            if (!started)
+            {
+                started = true;
+                Schedule(now + 15f, "start +15s");
+                nextPeriodic = now + 120f;
+                Run("start", now);
+                return;
+            }
+            for (int i = 0; i < due.Count; i++)
+            {
+                if (now < due[i].At) continue;
+                string why = due[i].Why;
+                due.RemoveAt(i);
+                Run(why, now);
+                return;
+            }
+            if (now <= periodicUntil && now >= nextPeriodic)
+            {
+                nextPeriodic = now + 120f;
+                Run("periodic", now);
+                return;
+            }
+            if (now >= nextProbe)
+            {
+                nextProbe = now + 3f;
+                Probe(now);
+            }
+        }
+
+        void Run(string why, float now)
+        {
+            passes++;
+            absent.Clear();
+            string head = "pass " + passes + " (" + why + ", " + now.ToString("F0") + " s after start)";
+            Debug.Log(Tag + head + ":");
+            int textures = 0, images = 0, views = 0, elements = 0, pictures = 0;
+            string modManager = null;
+            try { textures = LogTextures(); }
+            catch (Exception e) { Debug.LogWarning(Tag + "textures not listed: " + e.Message); }
+            try { images = LogUiImages(); }
+            catch (Exception e) { Debug.LogWarning(Tag + "UI images not listed: " + e.Message); }
+            try { views = LogNoesis(out elements, out pictures, out modManager); }
+            catch (Exception e) { Debug.LogWarning(Tag + "Noesis views not listed: " + e.Message); }
+            Debug.Log(Tag + head + " done: " + textures + " texture(s) of " + MinSize + " px or more, " + images + " UI image(s), "
+                      + views + " Noesis view(s), " + elements + " element(s) walked, " + pictures + " picture element(s); Mod Manager "
+                      + (modManager != null ? "on screen (" + modManager + ")" : "not seen"));
+        }
+
+        // (a) loaded textures, largest first.
+        int LogTextures()
+        {
+            var items = new List<KeyValuePair<long, string>>();
+            foreach (Texture2D t in Resources.FindObjectsOfTypeAll<Texture2D>())
+                if (t != null && t.width >= MinSize && t.height >= MinSize)
+                    items.Add(Item(t.width, t.height, "texture2d '" + t.name + "' " + t.width + "x" + t.height + " " + t.format));
+            foreach (RenderTexture t in Resources.FindObjectsOfTypeAll<RenderTexture>())
+                if (t != null && t.width >= MinSize && t.height >= MinSize)
+                    items.Add(Item(t.width, t.height, "rendertexture '" + t.name + "' " + t.width + "x" + t.height + " " + t.format));
+            foreach (Sprite s in Resources.FindObjectsOfTypeAll<Sprite>())
+            {
+                if (s == null) continue;
+                int w = (int)s.rect.width, h = (int)s.rect.height;
+                if (w >= MinSize && h >= MinSize)
+                    items.Add(Item(w, h, "sprite '" + s.name + "' " + w + "x" + h + " of texture '" + (s.texture != null ? s.texture.name : "") + "'"));
+            }
+            items.Sort((a, b) => b.Key.CompareTo(a.Key));
+            Begin();
+            foreach (KeyValuePair<long, string> kv in items) Line(kv.Value);
+            End("textures");
+            return items.Count;
+        }
+
+        static KeyValuePair<long, string> Item(int w, int h, string line)
+        {
+            return new KeyValuePair<long, string>((long)w * h, line);
+        }
+
+        // (b) UnityEngine.UI images, by type name.
+        int LogUiImages()
+        {
+            int n = 0;
+            Begin();
+            foreach (string typeName in new[] { "UnityEngine.UI.Image", "UnityEngine.UI.RawImage" })
+            {
+                Type t = FindType(typeName);
+                if (t == null) { Skip(typeName + " (no such type is loaded)"); continue; }
+                foreach (UnityEngine.Object o in UnityEngine.Object.FindObjectsByType(t, FindObjectsInactive.Include, FindObjectsSortMode.None))
+                {
+                    var c = o as Component;
+                    var tex = Get(o, "mainTexture") as Texture;
+                    if (c == null || tex == null) continue;
+                    var sprite = Get(o, "sprite") as Sprite;
+                    n++;
+                    Line("ui " + t.Name + " '" + MenuFilmSwapper.PathOf(c.transform) + "' in scene '" + c.gameObject.scene.name
+                         + "': texture '" + tex.name + "' " + tex.width + "x" + tex.height
+                         + (sprite != null ? " sprite '" + sprite.name + "'" : "") + " active=" + c.gameObject.activeInHierarchy);
+                }
+            }
+            End("UI images");
+            return n;
+        }
+
+        // (c) the Noesis visual trees.
+        int LogNoesis(out int elements, out int pictures, out string modManager)
+        {
+            elements = 0; pictures = 0; modManager = null;
+            Type viewType; MethodInfo count, child;
+            if (!NoesisApi(out viewType, out count, out child)) return 0;
+            int views = 0;
+            Begin();
+            foreach (UnityEngine.Object o in UnityEngine.Object.FindObjectsByType(viewType, FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                var c = o as Component;
+                object root = Root(o);
+                views++;
+                Line("noesis view '" + (c != null ? MenuFilmSwapper.PathOf(c.transform) : o.name) + "' in scene '"
+                     + (c != null ? c.gameObject.scene.name : "") + "': content "
+                     + (root != null ? root.GetType().Name + " '" + Name(root) + "' DataContext=" + TypeName(Get(root, "DataContext")) : "null"));
+                if (root == null) continue;
+                var stack = new Stack<Node>();
+                stack.Push(new Node { Element = root, Owner = root.GetType().Name });
+                while (stack.Count > 0 && elements < MaxElements)
+                {
+                    Node n = stack.Pop();
+                    elements++;
+                    string type = n.Element.GetType().Name;
+                    string owner = IsGameType(n.Element) ? type : n.Owner;
+                    if (modManager == null && LooksLikeModManager(n.Element, type)) modManager = type + " '" + Name(n.Element) + "'";
+                    if (Inspect(n.Element, type, owner)) pictures++;
+                    foreach (object ch in Children(n.Element, count, child)) stack.Push(new Node { Element = ch, Owner = owner });
+                }
+                if (elements >= MaxElements) Debug.Log(Tag + "walk stopped at " + MaxElements + " elements");
+            }
+            End("Noesis elements");
+            return views;
+        }
+
+        // Writes the element when it shows a picture: an Image or MediaElement,
+        // or a Background or Fill that is an ImageBrush.
+        bool Inspect(object el, string type, string owner)
+        {
+            bool hit = false;
+            if (Derives(el, "Image") || Derives(el, "MediaElement"))
+            {
+                Line("noesis " + type + " '" + Name(el) + "' in " + owner + ": Source=" + Describe(Need(el, "Source"))
+                     + Binding(el, "Source") + State(el));
+                hit = true;
+            }
+            foreach (string prop in BrushProps)
+            {
+                object brush = Get(el, prop);
+                if (brush == null || brush.GetType().Name != "ImageBrush") continue;
+                Line("noesis " + type + " '" + Name(el) + "' in " + owner + ": " + prop + "=ImageBrush ImageSource="
+                     + Describe(Need(brush, "ImageSource")) + Binding(brush, "ImageSource") + Binding(el, prop) + State(el));
+                hit = true;
+            }
+            return hit;
+        }
+
+        // An ImageSource: a BitmapImage by its UriSource, a TextureSource by
+        // its Unity texture, anything else by its ToString and size.
+        string Describe(object src)
+        {
+            if (src == null) return "null";
+            string t = src.GetType().Name;
+            object uri = Get(src, "UriSource");
+            if (uri != null) return t + " '" + uri + "'";
+            var tex = Get(src, "Texture") as Texture;
+            if (tex != null) return t + " texture '" + tex.name + "' " + tex.width + "x" + tex.height;
+            object w = Get(src, "Width"), h = Get(src, "Height");
+            return t + " '" + src + "'" + (w != null && h != null ? " " + w + "x" + h : "");
+        }
+
+        // " <prop> bound to '<path>'" when the dependency property has a
+        // binding, "" when it has none or Noesis cannot be asked.
+        string Binding(object target, string prop)
+        {
+            try
+            {
+                object dp = DependencyProperty(target.GetType(), prop + "Property");
+                if (dp == null) { Skip(target.GetType().Name + "." + prop + "Property (no such dependency property)"); return ""; }
+                Type ops = FindType("Noesis.BindingOperations");
+                MethodInfo get = ops != null ? Method(ops, "GetBinding", 2) : null;
+                if (get == null) { Skip("Noesis.BindingOperations.GetBinding (no such method)"); return ""; }
+                object b = get.Invoke(null, new object[] { target, dp });
+                if (b == null) return "";
+                object path = Get(b, "Path");
+                object text = path != null ? Get(path, "Path") : null;
+                return " " + prop + " bound to '" + (text ?? path ?? b) + "'";
+            }
+            catch (Exception e) { Skip("GetBinding " + target.GetType().Name + "." + prop + ": " + Inner(e)); return ""; }
+        }
+
+        string State(object el)
+        {
+            return " visible=" + Str(Get(el, "IsVisible")) + " opacity=" + Str(Get(el, "Opacity"))
+                   + " DataContext=" + TypeName(Get(el, "DataContext"));
+        }
+
+        // The element's visual children through VisualTreeHelper, last first
+        // so a stack walks them in order.
+        List<object> Children(object el, MethodInfo count, MethodInfo child)
+        {
+            var list = new List<object>();
+            int k;
+            try { k = (int)count.Invoke(null, new object[] { el }); }
+            catch (Exception e) { Skip("VisualTreeHelper.GetChildrenCount on " + el.GetType().Name + ": " + Inner(e)); return list; }
+            for (int i = k - 1; i >= 0; i--)
+            {
+                try
+                {
+                    object ch = child.Invoke(null, new object[] { el, i });
+                    if (ch != null) list.Add(ch);
+                }
+                catch (Exception e) { Skip("VisualTreeHelper.GetChild on " + el.GetType().Name + ": " + Inner(e)); break; }
+            }
+            return list;
+        }
+
+        // A NoesisView's content: its Content, else its View's Content.
+        object Root(object view)
+        {
+            object root = Get(view, "Content");
+            if (root == null)
+            {
+                object v = Get(view, "View");
+                if (v != null) root = Get(v, "Content");
+            }
+            if (root == null && Prop(view.GetType(), "Content") == null && Prop(view.GetType(), "View") == null)
+                Skip(view.GetType().Name + ".Content and .View (no such members)");
+            return root;
+        }
+
+        bool NoesisApi(out Type viewType, out MethodInfo count, out MethodInfo child)
+        {
+            count = null; child = null;
+            viewType = FindComponentType("NoesisView");
+            Type helper = FindType("Noesis.VisualTreeHelper");
+            if (viewType == null) Skip("NoesisView (no such component type is loaded)");
+            if (helper == null) Skip("Noesis.VisualTreeHelper (no such type is loaded)");
+            if (viewType == null || helper == null) return false;
+            count = Method(helper, "GetChildrenCount", 1);
+            child = Method(helper, "GetChild", 2);
+            if (count == null) Skip("Noesis.VisualTreeHelper.GetChildrenCount (no such method)");
+            if (child == null) Skip("Noesis.VisualTreeHelper.GetChild (no such method)");
+            return count != null && child != null;
+        }
+
+        // Every 3 s while a scene named like the menu's is loaded: a
+        // breadth-first look through the Noesis views for a Mod Manager
+        // element, and one pass when it has just appeared.
+        void Probe(float now)
+        {
+            if (!MenuSceneLoaded()) { modManagerUp = false; return; }
+            Type viewType; MethodInfo count, child;
+            if (!NoesisApi(out viewType, out count, out child)) return;
+            string found = null;
+            int seen = 0;
+            foreach (UnityEngine.Object o in UnityEngine.Object.FindObjectsByType(viewType, FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                object root = Root(o);
+                if (root == null) continue;
+                var queue = new Queue<object>();
+                queue.Enqueue(root);
+                while (queue.Count > 0 && found == null && seen < ProbeElements)
+                {
+                    object el = queue.Dequeue();
+                    seen++;
+                    string type = el.GetType().Name;
+                    if (LooksLikeModManager(el, type)) { found = type + " '" + Name(el) + "'"; break; }
+                    foreach (object ch in Children(el, count, child)) queue.Enqueue(ch);
+                }
+                if (found != null) break;
+            }
+            if (found == null) { modManagerUp = false; return; }
+            if (modManagerUp) return;
+            modManagerUp = true;
+            if (modManagerPasses < MaxModManagerPasses) { modManagerPasses++; Run("Mod Manager on screen: " + found, now); }
+            else Skip("further Mod Manager passes (" + MaxModManagerPasses + " written)");
+        }
+
+        static bool MenuSceneLoaded()
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                string n = SceneManager.GetSceneAt(i).name;
+                if (n == null) continue;
+                n = n.ToLowerInvariant();
+                if (n.Contains("background") || n.Contains("menu")) return true;
+            }
+            return false;
+        }
+
+        // The Mod Manager's own view, by type or Name; the main menu's button
+        // to it (ButtonModManager_Click in the XAML) does not count.
+        static bool LooksLikeModManager(object el, string type)
+        {
+            string t = type.ToLowerInvariant();
+            if (t.Contains("modmenu") || t.Contains("modmanager")) return true;
+            if (t.Contains("button") || t.Contains("text") || t == "run") return false;
+            string n = Name(el).ToLowerInvariant();
+            return n.Contains("modmenu") || n.Contains("modmanager");
+        }
+
+        // --- line budget and the once-per-run notes ---------------------------
+        void Begin() { lines = 0; dropped = 0; }
+        void Line(string s) { if (++lines <= MaxLines) Debug.Log(Tag + s); else dropped++; }
+        void End(string what) { if (dropped > 0) Debug.Log(Tag + "... " + dropped + " more " + what); }
+        void Skip(string what) { if (skipped.Add(what)) Debug.Log(Tag + "skipped: " + what); }
+
+        // --- reflection, every call guarded -----------------------------------
+        static string Name(object el) { return (Get(el, "Name") as string) ?? ""; }
+        static string TypeName(object o) { return o == null ? "null" : o.GetType().Name; }
+        static string Str(object o) { return o == null ? "?" : o.ToString(); }
+
+        static string Inner(Exception e)
+        {
+            return e is TargetInvocationException && e.InnerException != null ? e.InnerException.Message : e.Message;
+        }
+
+        // A game class, as against one of Noesis' own: the view a picture
+        // belongs to.
+        static bool IsGameType(object el)
+        {
+            string ns = el.GetType().Namespace;
+            return ns == null || !ns.StartsWith("Noesis");
+        }
+
+        static bool Derives(object el, string noesisType)
+        {
+            for (Type t = el.GetType(); t != null; t = t.BaseType)
+                if (t.Name == noesisType && t.Namespace == "Noesis") return true;
+            return false;
+        }
+
+        // A property by name; the most derived one when a type hides another's.
+        static PropertyInfo Prop(Type t, string name)
+        {
+            try { return t.GetProperty(name, Any); }
+            catch (AmbiguousMatchException)
+            {
+                foreach (PropertyInfo p in t.GetProperties(Any)) if (p.Name == name) return p;
+                return null;
+            }
+        }
+
+        // A property's value, null when the object has no such property or
+        // reading it throws.
+        static object Get(object o, string prop)
+        {
+            if (o == null) return null;
+            try
+            {
+                PropertyInfo p = Prop(o.GetType(), prop);
+                return p != null && p.CanRead ? p.GetValue(o, null) : null;
+            }
+            catch (Exception) { return null; }
+        }
+
+        // The same, for a member the pass counts on: missing or failing, it is
+        // noted once.
+        object Need(object o, string prop)
+        {
+            if (o == null) return null;
+            PropertyInfo p = Prop(o.GetType(), prop);
+            if (p == null || !p.CanRead) { Skip(o.GetType().Name + "." + prop + " (no such member)"); return null; }
+            try { return p.GetValue(o, null); }
+            catch (Exception e) { Skip(o.GetType().Name + "." + prop + ": " + Inner(e)); return null; }
+        }
+
+        static object DependencyProperty(Type t, string name)
+        {
+            const BindingFlags f = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.FlattenHierarchy;
+            PropertyInfo p = t.GetProperty(name, f);
+            if (p != null) return p.GetValue(null, null);
+            FieldInfo fi = t.GetField(name, f);
+            return fi != null ? fi.GetValue(null) : null;
+        }
+
+        static MethodInfo Method(Type t, string name, int args)
+        {
+            foreach (MethodInfo m in t.GetMethods(Any))
+                if (m.Name == name && m.GetParameters().Length == args) return m;
+            return null;
+        }
+
+        Type FindType(string fullName)
+        {
+            Type t;
+            if (types.TryGetValue(fullName, out t)) return t;
+            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                try { t = a.GetType(fullName, false); }
+                catch (Exception) { t = null; }
+                if (t != null) { types[fullName] = t; return t; }
+            }
+            return null;
+        }
+
+        // A MonoBehaviour by its bare name, any namespace, any assembly but
+        // the runtime's own. Reading every assembly's types is the one costly
+        // lookup here, so a miss is remembered until the next pass.
+        Type FindComponentType(string name)
+        {
+            Type t;
+            if (types.TryGetValue(name, out t)) return t;
+            if (absent.Contains(name)) return null;
+            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                string an = a.GetName().Name ?? "";
+                if (an.StartsWith("System") || an.StartsWith("mscorlib") || an.StartsWith("UnityEngine") || an.StartsWith("Unity.")) continue;
+                Type[] all;
+                try { all = a.GetTypes(); }
+                catch (ReflectionTypeLoadException e) { all = e.Types; }
+                catch (Exception) { continue; }
+                foreach (Type c in all)
+                    if (c != null && c.Name == name && typeof(MonoBehaviour).IsAssignableFrom(c)) { types[name] = c; return c; }
+            }
+            absent.Add(name);
+            return null;
         }
     }
 }

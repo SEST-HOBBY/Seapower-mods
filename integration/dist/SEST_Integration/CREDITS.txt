@@ -21,14 +21,14 @@ photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are
 in Gallery/PHOTO_CREDITS.txt.
 
-506 of the unit files here are another author's file with
+510 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 506 below
+every file of its kind in the collection, and the 510 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -77,6 +77,10 @@ listed whatever the percentage: they are still that author's.
 
   Bréguet Br.1050 Alizé  (workshop 3628203171)
        93%  ammunition/usn_ssq-47.ini 
+
+  BUK-M3  (workshop 3564792549)
+       99%  land_units/wp_buk-m3.ini 
+       99%  land_units/wp_bukslave.ini 
 
   Charles De Gaulle & Modern French Navy Pack (WIP)  (workshop 3567256221)
       100%  ammunition/fr__mdcn_sub.ini 
@@ -545,6 +549,10 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/wp_skr_admiral_grigorovich_rsa.ini 
       100%  vessels/wp_tavkr_leningrad_98.ini 
       100%  vessels/wp_tavkr_ulyanovsk.ini 
+
+  Road Mobile ICBMs (Topol-M, DF-41)  (workshop 3571718093)
+      100%  land_units/pla_df-41_tel.ini 
+      100%  land_units/wp_ss-27_tel.ini 
 
   Royal Australian Defence Forces  (workshop 3455404959)
        90%  land_units/airbase_raaf_amberley_variants.ini from raaf_small_base_late_variants.ini

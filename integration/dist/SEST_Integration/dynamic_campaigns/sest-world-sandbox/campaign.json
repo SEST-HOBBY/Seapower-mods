@@ -3247,12 +3247,12 @@
       ]
     },
     {
-      "name": "Evenes Air Station RC-135V/W Rivet Joint (Modern)",
+      "name": "Evenes Air Station RC-135V/W Rivet Joint",
       "side": "blue",
       "base": "hn_evenes_air_station",
       "type": "Air",
       "units": [
-        "boeing-rc135"
+        "boeing_rc135"
       ]
     },
     {
@@ -6309,7 +6309,7 @@
     "ae_opv_meteoro": 103,
     "ae_ssk_s80": 110,
     "bel_a400m_tankers": 242,
-    "boeing-rc135": 118,
+    "boeing_rc135": 118,
     "bra_f-5em": 46,
     "bra_ffg_niteroi_2005": 567,
     "bra_ffg_tamandare": 123,
@@ -6559,7 +6559,7 @@
     "aus_mrh90_tth": 23,
     "be_nh90": 39,
     "bel_a400m_airdroop-para": 242,
-    "boeing-rc135_early": 118,
+    "boeing_rc135_early": 118,
     "br_a330_mrtt": 242,
     "bra_a4m": 46,
     "bra_ah11": 39,
@@ -7066,6 +7066,7 @@
     "usn_fury_sead": 40,
     "usn_fury_strike": 78,
     "usn_ka-3b": 118,
+    "usn_mh-60r_p2": 39,
     "usn_Mugin5705": 28,
     "usn_orlan10705": 28,
     "usn_p-2h": 89,
@@ -7152,7 +7153,6 @@
     "wp_su-27": 46,
     "wp_su-27sm": 46,
     "wp_su-30m": 46,
-    "wp_su-30mkk": 46,
     "wp_su-30sm2": 46,
     "wp_su-35s": 46,
     "wp_su-57": 46,
@@ -7176,6 +7176,7 @@
     "wp_tu-95ma": 172,
     "wp_tu-95ms": 89,
     "wp_tu-95rt": 89,
+    "wp_tu95k": 89,
     "wp_yak-38": 78,
     "wp_yak_44": 242,
     "ae_ao_teide": 70,
@@ -7729,7 +7730,6 @@
     "usn_ssn_sturgeon": 149,
     "usn_ssn_sturgeon_72": 149,
     "usn_ssn_virginia": 213,
-    "usn_ssn_virginia_2027": 213,
     "usn_ssn_virginia_block1": 213,
     "usn_ssn_virginia_block1_2015": 213,
     "usn_ssn_virginia_block1_2026": 213,
@@ -7738,7 +7738,11 @@
     "usn_ssn_virginia_block3": 213,
     "usn_ssn_virginia_block5": 213,
     "usn_ssn_virginia_seal": 213,
-    "usn_ssn_virginia_seal_2027": 213,
+    "usn_usv_k5_kraken": 5,
+    "usn_uuv_copperhead_100": 5,
+    "usn_uuv_copperhead_500": 5,
+    "usn_uuv_dive_ld": 5,
+    "usn_uuv_dive_xl": 5,
     "wp_bdk_alligator": 155,
     "wp_bdk_ivan_rogov": 278,
     "wp_bdk_ivan_rogov_90": 278,
@@ -7749,7 +7753,6 @@
     "wp_bpk_kashin_mod": 141,
     "wp_bpk_kresta2": 206,
     "wp_bpk_udaloy": 207,
-    "wp_bpk_udaloy2": 207,
     "wp_bpk_udaloy3": 207,
     "wp_cv_orel": 1021,
     "wp_cv_orel_1991": 1021,
@@ -7920,6 +7923,36 @@
     },
     {
       "unit": "usn_tao_kaiser",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_usv_k5_kraken",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_uuv_copperhead_100",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_uuv_copperhead_500",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_uuv_dive_ld",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0
+    },
+    {
+      "unit": "usn_uuv_dive_xl",
       "side": "blue",
       "nation": "US",
       "tier": 0
@@ -8903,12 +8936,6 @@
       "tier": 1
     },
     {
-      "unit": "usn_ssn_virginia_2027",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
       "unit": "usn_ssn_virginia_block1",
       "side": "blue",
       "nation": "US",
@@ -8970,12 +8997,6 @@
     },
     {
       "unit": "usn_ssn_virginia_seal",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
-      "unit": "usn_ssn_virginia_seal_2027",
       "side": "blue",
       "nation": "US",
       "tier": 1
@@ -9320,14 +9341,14 @@
       "aircraft": true
     },
     {
-      "unit": "boeing-rc135",
+      "unit": "boeing_rc135",
       "side": "blue",
       "nation": "US",
       "tier": 0,
       "aircraft": true
     },
     {
-      "unit": "boeing-rc135_early",
+      "unit": "boeing_rc135_early",
       "side": "blue",
       "nation": "US",
       "tier": 0,
@@ -10189,6 +10210,13 @@
     },
     {
       "unit": "usn_mh-60r",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_mh-60r_p2",
       "side": "blue",
       "nation": "US",
       "tier": 0,
@@ -15831,13 +15859,6 @@
       "aircraft": true
     },
     {
-      "unit": "wp_su-30mkk",
-      "side": "red",
-      "nation": "China",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
       "unit": "wp_su_30mkk",
       "side": "red",
       "nation": "China",
@@ -16295,12 +16316,6 @@
     },
     {
       "unit": "wp_bpk_udaloy",
-      "side": "red",
-      "nation": "Russia",
-      "tier": 1
-    },
-    {
-      "unit": "wp_bpk_udaloy2",
       "side": "red",
       "nation": "Russia",
       "tier": 1
@@ -17218,6 +17233,13 @@
     },
     {
       "unit": "wp_tu-95rt",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "wp_tu95k",
       "side": "red",
       "nation": "Russia",
       "tier": 0,

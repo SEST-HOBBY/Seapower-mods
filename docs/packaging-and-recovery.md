@@ -611,6 +611,7 @@ read by the next pass.
    ```bash
    python3 -m unittest discover -s tools/tests -p 'test_*.py'
    python3 -m unittest integration/campaign/test_build_pack.py
+   pwsh -File tools/tests/test_scan_ui_assets.ps1   # the UI-asset scan, on synthetic files
    ```
 
 7. **Regenerate the derived docs, then update the hand-written ones.**

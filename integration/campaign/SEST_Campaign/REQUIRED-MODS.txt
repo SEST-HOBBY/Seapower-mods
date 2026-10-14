@@ -204,11 +204,12 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (38):
+In the collection for other campaigns and scenarios (39):
 the third-party campaigns the collection carries, the mods they
 place, and content none of these four campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
 
+3819522350    other campaigns                  Anduril Maritime Drones
 3628203171    other campaigns                  Bréguet Br.1050 Alizé
 3564792549    other campaigns                  BUK-M3
 3806197116    other campaigns                  Civilian AS350 Ecureuil/AStar MOD

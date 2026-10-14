@@ -9,7 +9,7 @@
 **Inventory corrections applied:**
 - usn_p_8a: USN use is limited to Squadron1-14.
 - UK P-8 = usn_p8 Squadron4 (missed asset).
-- RAF RC-135 = boeing-rc135 Squadron6/7 (missed asset).
+- RAF RC-135 = boeing_rc135 Squadron6/7 (missed asset).
 - Modded-tanker refuelling is downgraded to unverified.
 - Kanoya and Atsugi placement distances are stated per class.
 - SEST supply clones (jmsdf_aoe_mashuu) count as proxy: the data is correct but the mesh is a stand-in.
@@ -54,7 +54,7 @@
     - **SCENARIO choice, which departs from R03:166:** no shared vision or detection is scripted beyond the engine's own datalink and contact sharing. The basis is that the register invents no engine keys (plan:63).
     - **CHECK:** the engine's real datalink and contact sharing between allied MPAs is untested.
   - Russian and Chinese aircraft and submarines named as opposition belong to their own region packages and are never spawned here.
-  - Every usn_p8, usn_p_8a, usn_p-3c, boeing-rc135, raaf_f-35a and civ_as-350 entry needs an explicit LoadoutVariant. None of them lists 'Default' in AvailableLoadouts (civ_as-350 lists only Transport). That is the KJ-500 map-panel crash pattern (docs/design-notes.md:495-527).
+  - Every usn_p8, usn_p_8a, usn_p-3c, boeing_rc135, raaf_f-35a and civ_as-350 entry needs an explicit LoadoutVariant. None of them lists 'Default' in AvailableLoadouts (civ_as-350 lists only Transport). That is the KJ-500 map-panel crash pattern (docs/design-notes.md:495-527).
   - tools/preflight.py checks only [TaskforceNAircraftM] and [TaskforceNHelicopterM] entries, so it would not catch a neutral civ_as-350. Set that loadout by hand.
 
 ---
@@ -114,7 +114,7 @@
 | asset:mpn:evenes_f35a_qra_1, _2 | resident_at_base (QRA; not placed yet) | intercept and escort | raaf_f-35a: RAAF squadrons only, wrong flag; joins the CustomAirGroup (count 2) once a Norway squadron exists | missing_fit | 2 | R01:61, R03:117; qty SCENARIO |
 | asset:mpn:evenes_usn_p8a_det | underway_deployed (staging) | visiting US MPA | usn_p_8a, USN Squadron1-14 only (Nation=US); squadron set by the Jacksonville package; separate aircraft entry, LoadoutVariant=ASW; not in the CustomAirGroup | exact | 1 | R03:117 staging; origin authored |
 | asset:mpn:evenes_raf_p8a_det | underway_deployed (staging) | visiting UK MPA | usn_p8 Squadron4 'Poseidon MRA1 No.54 Squadron RAF' (Nation=UK); alt usn_p_8a Sq15-18; separate aircraft entry, LoadoutVariant=ASW; not in the CustomAirGroup | exact | 1 | R03:117 |
-| asset:mpn:evenes_rc135_det | underway_deployed (staging) | SIGINT/ISR | boeing-rc135 Squadron2 (USAF ACC/55th Wing, generic livery, Nation=US); separate aircraft entry, LoadoutVariant=SIGINT; not in the CustomAirGroup | exact | 1 | R03:117 staging only (operator not stated; US pick SCENARIO) |
+| asset:mpn:evenes_rc135_det | underway_deployed (staging) | SIGINT/ISR | boeing_rc135 Squadron2 (USAF ACC/55th Wing, generic livery, Nation=US); separate aircraft entry, LoadoutVariant=SIGINT; not in the CustomAirGroup | exact | 1 | R03:117 staging only (operator not stated; US pick SCENARIO) |
 | asset:mpn:evenes_nasams_radar_1 | fixed_defence | SAM radar | usa_SLAMRAAM_radar (AN/MPQ-64), Nation=norway, label 'NASAMS III (SL-AMRAAM stand-in)' | proxy | 1 | R03:117 |
 | asset:mpn:evenes_nasams_launcher_1, _2 | fixed_defence | SAM launcher | usa_SLAMRAAM_launcher (usn_aim_120c_ground, usn_aim_9x_ground), Nation=norway, same label | proxy | 2 | R03:117 |
 | asset:mpn:evenes_cuas | abstract | counter-UAS | none found | none | 0 | R03:117 |
@@ -128,7 +128,7 @@ The five P-8A identities appear only in this package. In game, the airframes sha
   - usn_p8 loads: ASW = 5 usn_haawc_p8 plus SSQ-53F/62E/77C/101 sonobuoys; AntiShip = 4 AGM-84N.
   - Whether those stores rearm from the base stock, and whether repeat sorties work, is **not established** (test).
   - An airbase_us clone defines no FlightDeck_AmmoCapacity, so its turnaround stock is not established either.
-- **Air-to-air refuelling:** not established. usn_p8, boeing-rc135 and raaf_f-35a declare no ReceiverSystems. otan_a330_mrtt Squadron5 (Norway, ProbeAndDrogue) exists but is not sourced at Evenes and has no compatible receiver here, so it is not allocated.
+- **Air-to-air refuelling:** not established. usn_p8, boeing_rc135 and raaf_f-35a declare no ReceiverSystems. otan_a330_mrtt Squadron5 (Norway, ProbeAndDrogue) exists but is not sourced at Evenes and has no compatible receiver here, so it is not allocated.
 - **Supplier restocking, fuel, repair:** not established.
 
 **Connections**
@@ -160,7 +160,7 @@ The five P-8A identities appear only in this package. In game, the airframes sha
 - The F-35A presence is commonly described as a forward QRA detachment. The quantity of 2 is SCENARIO.
 - Verify the NASAMS III battalion and the counter-UAS claim. The proxy fire unit is a small representative layer, not a reproduction of present-day defences (plan:24).
 - The basis for UK staging under a US agreement is not stated. The North Pole flight is undated.
-- R03:117 does not say whose RC-135 stages here; choosing the US one is SCENARIO. The tail-specific squadrons, boeing-rc135 Sq3-5 (USAF tails) and Sq6-7 (ZZ664/ZZ665), are named airframes that must be allocated once world-wide.
+- R03:117 does not say whose RC-135 stages here; choosing the US one is SCENARIO. The tail-specific squadrons, boeing_rc135 Sq3-5 (USAF tails) and Sq6-7 (ZZ664/ZZ665), are named airframes that must be allocated once world-wide.
 - The visiting USN P-8A counts against the Jacksonville allocation.
 - usn_p-3c Squadron30 'P-3B 333 Squadron RNoAF' is historical. Do not use it.
 - Mixed-nation AirGroup behaviour at a Norway-flagged base is untested: which nation and side a UK or US squadron spawns as.
@@ -180,7 +180,7 @@ The five P-8A identities appear only in this package. In game, the airframes sha
 **Validation**
 - Research: claims faithful.
 - Unit mapping: re-resolved 2026-10-07.
-  - usn_p8 resolves to SEST_Integration, usn_p_8a to 3413868677 and boeing-rc135 to 3808882954.
+  - usn_p8 resolves to SEST_Integration, usn_p_8a to 3413868677 and boeing_rc135 to 3808882954.
   - raaf_f-35a resolves to SEST_Integration and nato_small_airbase to vanilla.
   - usa_SLAMRAAM_* resolves to 3413868677.
   - civ_as-350 resolves to 3806197116, and the airbase_us clone template to 3592460366.

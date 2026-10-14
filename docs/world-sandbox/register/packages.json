@@ -5343,7 +5343,7 @@
    "checks": [
     "No resident aircraft are named in R01. Check the current detachments. All types are SCENARIO CHOICES.",
     "Host status: UK Sovereign Base Area. Label the host carefully (register).",
-    "The us-air-and-land lens hints of US rotations at Akrotiri (U-2, RC-135, F-15E, F-16) are not research and are not populated. RAF RC-135 (boeing-rc135 Squadron6/7, Nation=UK) and RAF P-8 (usn_p8 Squadron4) exist if later research supports them.",
+    "The us-air-and-land lens hints of US rotations at Akrotiri (U-2, RC-135, F-15E, F-16) are not research and are not populated. RAF RC-135 (boeing_rc135 Squadron6/7, Nation=UK) and RAF P-8 (usn_p8 Squadron4) exist if later research supports them.",
     "Build no sanctuary or invulnerability rule from the word 'crucial'."
    ],
    "gaps": [
@@ -7685,10 +7685,10 @@
      "source_basis": "R03:117 staging only (operator not stated)",
      "outcome": "exact",
      "unit_ids": [
-      "boeing-rc135"
+      "boeing_rc135"
      ],
      "scenario_quantity": "1",
-     "notes": "SCENARIO: boeing-rc135 Squadron2 (USAF ACC/55th Wing, generic livery), LoadoutVariant=SIGINT. Squadron3-5 (USAF tails) and 6-7 (RAF ZZ664/ZZ665) are named airframes that must be allocated once world-wide; Akrotiri, Souda, Andersen and Muharraq also map this unit. Authored as a separate aircraft entry (Nation=US) and kept out of the Evenes CustomAirGroup."
+     "notes": "SCENARIO: boeing_rc135 Squadron2 (USAF ACC/55th Wing, generic livery), LoadoutVariant=SIGINT. Squadron3-5 (USAF tails) and 6-7 (RAF ZZ664/ZZ665) are named airframes that must be allocated once world-wide; Akrotiri, Souda, Andersen and Muharraq also map this unit. Authored as a separate aircraft entry (Nation=US) and kept out of the Evenes CustomAirGroup."
     },
     {
      "asset_id": "asset:mpn:evenes_nasams_radar_1",
@@ -7740,7 +7740,7 @@
    "support_services": [
     "Ship ammunition supply: not applicable. The sources give Evenes no berth role, and the collection has no Norwegian replenishment hull (Maud: none).",
     "Aircraft turnaround/ordnance: nato_small_airbase has FlightDeck_AmmoCapacity 1,500,000 and accountable AirTorpedo 60, Ovod 120, Harpoon 120. Whether usn_p8 HAAWC, sonobuoys and AGM-84N rearm from that stock, and whether repeat sorties work: not established (test). An airbase_us clone defines no FlightDeck_AmmoCapacity, so its turnaround stock is not established either.",
-    "Air-to-air refuelling: not established. usn_p8, boeing-rc135 and raaf_f-35a declare no ReceiverSystems. otan_a330_mrtt Squadron5 (Nation=Norway, ProbeAndDrogue) is not sourced at Evenes and has no compatible receiver here, so it is not allocated.",
+    "Air-to-air refuelling: not established. usn_p8, boeing_rc135 and raaf_f-35a declare no ReceiverSystems. otan_a330_mrtt Squadron5 (Nation=Norway, ProbeAndDrogue) is not sourced at Evenes and has no compatible receiver here, so it is not allocated.",
     "Supplier restocking: not established.",
     "Fuel: not established.",
     "Repair: not established."
@@ -7800,10 +7800,10 @@
     "The F-35A presence is commonly described as a forward QRA detachment, not a main base. The pair is SCENARIO.",
     "Verify the NASAMS III battalion and counter-UAS claim; do not fabricate exact present-day defences (plan:24). R03:162 repeats R03:117.",
     "The basis for UK staging under a US agreement is not stated; the North Pole flight is undated.",
-    "R03:117 does not say whose RC-135 stages. The US pick is SCENARIO. Named-tail squadrons (boeing-rc135 Sq3-7) are allocated once world-wide.",
+    "R03:117 does not say whose RC-135 stages. The US pick is SCENARIO. Named-tail squadrons (boeing_rc135 Sq3-7) are allocated once world-wide.",
     "The visiting USN P-8A must be subtracted from the Jacksonville package allocation (one identity, one allocation).",
     "Individual P-8A names are register identities only. Per-airframe naming inside an AirGroup is not established.",
-    "Set an explicit LoadoutVariant on every usn_p8, usn_p_8a, boeing-rc135, raaf_f-35a and civ_as-350 entry: their AvailableLoadouts list no 'Default' (civ_as-350 lists only Transport), which is the map-panel crash pattern (docs/design-notes.md:495-527). preflight checks only [TaskforceNAircraftM]/[TaskforceNHelicopterM] entries, so a neutral civ_as-350 is not caught by it; vanilla missions do set LoadoutVariant on neutral aircraft entries.",
+    "Set an explicit LoadoutVariant on every usn_p8, usn_p_8a, boeing_rc135, raaf_f-35a and civ_as-350 entry: their AvailableLoadouts list no 'Default' (civ_as-350 lists only Transport), which is the map-panel crash pattern (docs/design-notes.md:495-527). preflight checks only [TaskforceNAircraftM]/[TaskforceNHelicopterM] entries, so a neutral civ_as-350 is not caught by it; vanilla missions do set LoadoutVariant on neutral aircraft entries.",
     "'Kill web' (R03:117) and 'impenetrable nets' (R03:111) are rhetoric: no perfect-detection rule. R03:166 is explicit simulation guidance to model shared situational awareness rather than individual vision cones. The SCENARIO choice departs from it: no scripted shared vision or detection beyond the engine's own datalink and contact sharing (the register invents no engine keys, plan:63). CHECK: the engine's real datalink and contact sharing between allied MPAs is untested.",
     "Mixed-nation AirGroup behaviour at a Norway-flagged base is untested (which nation and side a UK or US squadron spawns as). SEST RAAF Bases (for example airbase_raaf_tindal, Nation=Australia, with USAF squadrons) and DARWIN US SUPPLY already author US squadrons in Australia-flagged air groups, but the raaf-bases first-flight checks are open, so the behaviour is not established. Until tested, the three visitors are separate aircraft entries with their own Nation (US, UK, US) and LoadoutVariant (ASW, ASW, SIGINT), outside the Evenes CustomAirGroup.",
     "AirGroup sizing: the Evenes CustomAirGroup holds only the 4 at-base P-8A (usn_p8=Squadron5,4). The patrol airframe Vingtor is airborne only, so no identity appears both airborne and at base.",

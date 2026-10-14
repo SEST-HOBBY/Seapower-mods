@@ -110,7 +110,12 @@ experience carry forward from mission to mission.
 - **Position your force before each mission:** a blue Deployment Zone round
   your ships, with Formation or Dispersed. It reaches up to 28 NM back and to
   the sides (a 3 NM margin round the ships, then up to 25 NM more), and only
-  the 3 NM margin towards the enemy or the objective.
+  the 3 NM margin towards the enemy or the objective. Every other unit of
+  the mission's own that you can move sits in a box of its own by the same
+  rules: an *Air Station* round a patrol aircraft, a fighter pair or a
+  helicopter on station, a *Submarine Patrol Box* round a boat on her own, a
+  *Detachment Zone* round a convoy or a boat and her tender far from the
+  force. Airbases, ports and other fixed installations have none.
 - **Fair openings:**
   - no enemy ship or submarine with weapons free starts within 25 NM of you;
   - nothing on the enemy side can fire in the first 5 minutes;
@@ -284,6 +289,18 @@ game's own values back. *Not yet confirmed in game.*
 - Apache AH Mk 1 default loadout no longer draws rocket pods over the
   Brimstones.
 
+**14 October fixes** *(not yet confirmed in game)*
+- Red Storm Arsenal's USS Richard Morris: its variable-depth sonar named a
+  system no mod defines (UMS-4249); it now names the mod's own CAPTAS-4. Its
+  NSM hatches named animations from a file the hull did not list; the file is
+  listed now, as the Constellation lists it.
+- BUK-M3: the battery reloaded at once, because two aircraft mods above it
+  set the shared launcher section to 0 s. Its TELAR and launchers now use a
+  launcher section of their own, a copy of the author's, with his 120 s.
+- Road Mobile ICBMs: the Topol-M and DF-41 trucks named a launcher section
+  their mod does not define (singular for plural); they now name the one it
+  does, so they can fire. Mission editor only.
+
 **Smaller allied fixes**
 - P-8 anti-ship fit pointed at a Harpoon nobody defines.
 - HMS Ocean can now operate the Apache.
@@ -381,6 +398,10 @@ how to check each.
   the large bases faster, and which key mattered.
 - **The Meridian flag:** that a nation the game's own list does not name
   shows its flag from the flag table and its name from nations.ini.
+- **Deployment zones:** that the game lets a unit be moved inside its box
+  before a mission - the force's Deployment Zone, and the Air Station,
+  Submarine Patrol Box and Detachment Zone boxes round the mission's other
+  units - and what it does with a second box that admits ships.
 - **The world campaign:** that the Dynamic Campaign Mod lists and starts it,
   and how it plays (battles, supply, submarine patrols, save and reload).
 

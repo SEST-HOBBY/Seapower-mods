@@ -280,6 +280,10 @@ EXCUSES = {
         "external", "a USN autonomous-boat family with its own four test scenarios; its "
         "contact detonation runs in its Anchor Chain DLL, and no 2028 SEST "
         "mission has an unmanned-boat role"),
+    "anduril-maritime-drones": (
+        "external", "USN uncrewed undersea and surface vehicles with four scenarios of "
+        "their own (14 Oct 2026); no 2028 SEST mission has an uncrewed-vehicle "
+        "role yet"),
     # The ten further October subscriptions (4 Oct export). In the collection
     # and the order; no SEST mission places them yet.
     "jmsdf-hyuga-class": (
@@ -1645,8 +1649,10 @@ MISSIONS.append(dict(
             "hose.\\n\\nSTALWART has the duty. MV Coral Provider was pencilled in with the dry "
             "stores; she sails only if SUPPLY survived the Gulf of Papua passage in "
             "October.\\n\\nA Russian Tu-214R came down the outside of the box last night and "
-            "did not go home, which usually means somebody now knows where to look. There is an"
-            " Akula unaccounted for to the south-east, and a Flanker pair within range of here "
+            "did not go home, which usually means somebody now knows where to look. She is off "
+            "the scope for now: expect her back over the box about five minutes in, with the "
+            "Akula that is unaccounted for to the south-east closing behind her. There is also a"
+            " Flanker pair within range of here "
             "with a Helix spotting for them off a tender that has been loitering north of the "
             "box since Tuesday. Assume one of those Flankers is carrying something for a ship. "
             "Keep the window open and get everybody out of it."
@@ -1818,8 +1824,10 @@ MISSIONS.append(dict(
         "corridor is closed. The Type 039C is the real danger - she carries "
         "YJ-18 as well as torpedoes, and the four fighters coming down from "
         "the Biak enclave are her eyes as much as they are the reason you "
-        "spend the day looking up instead of down. One of them is "
-        "carrying something for a ship."),
+        "spend the day looking up instead of down. They are still on the "
+        "enclave field: expect them off at about five minutes and over the "
+        "convoy at about twenty. One of them is carrying something for a "
+        "ship."),
     forces="JS Mogami and JS Maya with an SH-60K and an SH-60J, one F-2A pair "
            "from Langgur, your escort group and the convoy. Opposing: a Type "
            "039C, a Type 054A frigate from the east, a J-11BG, a J-11BS, a "
@@ -2557,7 +2565,8 @@ MISSIONS.append(dict(
             " hospital that is a day and a half away at the speed she can make.\\n\\nFord's group"
             " went north-west without her. A Kilo has been working the southern approaches "
             "since the fleet action, and the enclave still has a strike pair that comes south "
-            "to look. The ceasefire is two days off and nobody has told either of "
+            "to look; it is not up yet, so expect it from the north about five minutes in. "
+            "The ceasefire is two days off and nobody has told either of "
             "them.\\n\\nBring her south-south-east to the line where the tug from Darwin meets "
             "her. The Chief Engineer requests six knots to protect the damaged shaft. Match the"
             " escort plan to that speed and keep the route ahead clear."

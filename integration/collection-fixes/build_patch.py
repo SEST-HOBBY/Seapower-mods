@@ -67,6 +67,9 @@ INFO_INI = """\
 [Language_en]
 Name=SEST Collection Fixes
 Description=Value-level corrections from the collection-wide override audit: \
+gives the Buk-M3 battery its author's 120 s reload under a launcher name of \
+its own, points the Topol-M and DF-41 trucks at the launcher section their mod \
+defines so they can fire, \
 restores the vanilla-fidelity AGM-88 HARM the F-16 fleet was authored against, \
 opens the GBU-53/B StormBreaker's 200-ft release window to 500-45000 ft, \
 returns the GBU-12D and GBU-24 to conventional Paveway behaviour, gives the \
@@ -835,12 +838,13 @@ def main():
     tips, own = build_loading_tips()
     renamed = build_english_store_names()
     profiles = build_combat_systems()
-    restored, tuned, skipped = build_ciws()
+    restored, tuned, skipped, added_launchers = build_ciws()
     extended = build_extends()
     retargeted = build_stale_overwrites()
     flags = build_nation_flags()
     returned = build_stale_vanilla_files()
     fields = build_airbases()
+    repaired_land = build_land_repairs()
     returned += restore_vanilla_sensor_sections()
 
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
@@ -853,7 +857,8 @@ def main():
     print(f"  + {len(renamed)} store name(s) given in English: {', '.join(renamed)}")
     print(f"  + {len(profiles)} combat-system profiles cloned under SEST names")
     print(f"  + weapons.ini: {len(restored)} vanilla 0.8.3 sections restored over the stale "
-          f"copies, {len(tuned)} mod CIWS retuned"
+          f"copies, {len(tuned)} mod CIWS retuned, {len(added_launchers)} launcher "
+          f"section(s) added under SEST names ({', '.join(added_launchers)})"
           + (f"; left to their winner: {', '.join(skipped)}" if skipped else ""))
     print(f"  + {len(extended)} hulls given a combat system by #!extend")
     print(f"  + nation flags: {', '.join(flags)}")
@@ -863,6 +868,8 @@ def main():
           f"{', '.join(returned)}")
     print(f"  + {len(fields)} large airbase(s) retuned to the game's launch-rate values: "
           f"{', '.join(fields)}")
+    print(f"  + {len(repaired_land)} land unit(s) with a mistyped system name corrected: "
+          f"{', '.join(repaired_land)}")
 
 
 # Game files that a mod overrides with a stale copy of its own, where the game's
@@ -1091,9 +1098,9 @@ MISSING_LOADOUT_NAMES = {
     # _2 the reverse.
     "CASLight_1": "Close Air Support Light (20 mm)",
     "CASLight_2": "Close Air Support Light (.50 cal)",
-    # RC-135V/W Rivet Joint (3808882954): its one fit, an empty hardpoint
-    # with three ESM suites, named nowhere in the mod (30 Sep 2026).
-    "SIGINT": "SIGINT (Rivet Joint)",
+    # RC-135V/W Rivet Joint (3808882954): its SIGINT fit was named nowhere in
+    # the mod (30 Sep 2026) and is since the author's 14 Oct 2026 update
+    # ("SIGINT / ELINT Reconnaissance"), so the entry went that day.
     # Tu-95MA: an upstream typo for Default with no weapon section behind
     # it, so the fit carries nothing. Named for what it is rather than
     # disguised as the real Default.
@@ -1729,19 +1736,22 @@ def build_ciws():
                  "restored, not retuned")
     restored, rblocks, skipped = restore_vanilla_sections(defs)
     tuned, tblocks = retune_ciws(defs)
+    added, ablocks = add_launcher_sections(defs)
     text = ("# SEST Collection Fixes - systems/weapons.ini. systems/ files merge section\n"
             "# by section across the load order, and the SEST pack sits on top, so each\n"
-            "# section here is the one the game reads. Two kinds:\n"
+            "# section here is the one the game reads. Three kinds:\n"
             "#   restored  the game's own 0.8.3 text for a section that four aircraft\n"
             "#             mods' stale copies of the whole file otherwise shadow\n"
             "#             (STALE_VANILLA_COPIES in build_patch.py);\n"
             "#   retuned   a mod's CIWS moved onto the 0.8.3 burst model\n"
             "#             (CIWS_RETUNE in build_patch.py), its own values kept\n"
-            "#             wherever the model did not change them.\n\n"
-            + "\n".join(rblocks) + "\n" + "\n".join(tblocks))
+            "#             wherever the model did not change them;\n"
+            "#   added     a mod's own launcher section copied under a SEST name\n"
+            "#             (ADDED_LAUNCHERS), for units LAND_UNIT_REPAIRS repoints.\n\n"
+            + "\n".join(rblocks) + "\n" + "\n".join(tblocks) + "\n" + "\n".join(ablocks))
     (OUT / "systems").mkdir(parents=True, exist_ok=True)
     (OUT / "systems" / "weapons.ini").write_text(text, encoding="utf-8")
-    return restored, tuned, skipped
+    return restored, tuned, skipped, added
 
 
 def hull_index():
@@ -1855,6 +1865,107 @@ def build_airbases():
         (OUT / "land_units" / f"{unit_id}.ini").write_text(
             airbase.header(unit_id, mod, changes) + text, encoding="utf-8")
         done.append(f"{unit_id} ({len(changes)})")
+    return done
+
+# Land units whose author mistyped a system name, repaired in a full-file copy
+# under land_units/ (the AIRBASE_RETUNE shape): the named mod must win the
+# file, each old line must occur exactly `count` times and the new line must
+# not already be there, so the copy goes the day the author fixes it. Player's
+# calls of 14 Oct 2026.
+#   unit id -> (mod, [(old line, new line, count, why)])
+BUK_LAUNCHER = "SA-26_BukM3"
+LAND_UNIT_REPAIRS = {
+    # BUK-M3 (3564792549): its TELAR and its 9A316M launcher name the shared
+    # [SA-26], which KC-135 Stratotanker and MORE SU-24M VARIANTS define above
+    # it with ReloadTime=0 (stale copies of the game's weapons.ini), so the
+    # battery reloaded at once. Under its own name it keeps the author's 120 s
+    # (ADDED_LAUNCHERS); REDFOR's 3K60 Bal keeps the shared section as it was.
+    "wp_buk-m3": ("3564792549", [
+        ("SystemName=SA-26", f"SystemName={BUK_LAUNCHER}", 1,
+         "the TELAR's launcher under the Buk-M3's own name (author's 120 s reload)")]),
+    "wp_bukslave": ("3564792549", [
+        ("SystemName=SA-26", f"SystemName={BUK_LAUNCHER}", 2,
+         "both 9A316M launchers under the Buk-M3's own name (author's 120 s reload)")]),
+    # Road Mobile ICBMs (3571718093): both trucks name ICBM_Launcher while the
+    # mod's systems/weapons.ini defines [ICBM_Launchers] (ICBM silos,
+    # 3556629790, the same), so the launcher resolved to nothing.
+    "wp_ss-27_tel": ("3571718093", [
+        ("SystemName=ICBM_Launcher", "SystemName=ICBM_Launchers", 1,
+         "the launcher section the mod defines ([ICBM_Launchers], not the singular)")]),
+    "pla_df-41_tel": ("3571718093", [
+        ("SystemName=ICBM_Launcher", "SystemName=ICBM_Launchers", 1,
+         "the launcher section the mod defines ([ICBM_Launchers], not the singular)")]),
+}
+
+# Launcher sections this pack adds to systems/weapons.ini under SEST names,
+# each a verbatim copy of one mod's own section, so a unit LAND_UNIT_REPAIRS
+# repoints keeps its author's values where a shared section name would hand
+# it somebody else's copy. The build stops if the source section is gone.
+#   new section -> (mod, its section, why)
+ADDED_LAUNCHERS = {
+    BUK_LAUNCHER: ("3564792549", "SA-26",
+                   "the Buk-M3's own [SA-26], ReloadTime=120, which the shared name "
+                   "loses to the 0 s copies in two aircraft mods above it"),
+}
+
+
+def add_launcher_sections(defs):
+    """(c): ADDED_LAUNCHERS, copied verbatim under their SEST names."""
+    added, blocks = [], []
+    for name, (mod, source, why) in ADDED_LAUNCHERS.items():
+        cands = [c for c in defs.get(source, []) if c[1] == mod]
+        if not cands:
+            sys.exit(f"ADDED_LAUNCHERS [{name}]: {mod} no longer defines [{source}] - "
+                     "re-check before shipping a copy of it")
+        if name in defs:
+            sys.exit(f"ADDED_LAUNCHERS [{name}]: {sorted(c[1] for c in defs[name])} "
+                     "already define that name - pick another")
+        body = cands[0][3]
+        if not re.search(r"^ReloadTime\s*=", body, re.M):
+            sys.exit(f"ADDED_LAUNCHERS [{name}]: {mod}'s [{source}] has no ReloadTime - "
+                     "the copy would not do what it is for")
+        blocks.append(f"# [{name}]: {why} (LAND_UNIT_REPAIRS in build_patch.py points the "
+                      f"units at it).\n[{name}]\n{body_key(body)}\n")
+        added.append(name)
+    return added, blocks
+
+
+def repair_header(unit_id, mod, changes):
+    lines = "\n".join(f"#   {c}" for c in changes)
+    return (f"# SEST Collection Fixes - {unit_id}.ini: the {mod} file with a mistyped system\n"
+            "# name corrected (LAND_UNIT_REPAIRS in build_patch.py says why). Changed lines:\n"
+            f"{lines}\n# Everything else is the author's text, byte for byte.\n")
+
+
+def build_land_repairs():
+    rank = load_rank()
+    (OUT / "land_units").mkdir(parents=True, exist_ok=True)
+    done = []
+    for unit_id, (mod, repairs) in LAND_UNIT_REPAIRS.items():
+        owners = sorted((rank.get(p.parts[-3], 10**5), p.parts[-3], p)
+                        for p in MODS.glob(f"*/land_units/{unit_id}.ini")
+                        if not p.parts[-3].startswith("_"))
+        if not owners:
+            sys.exit(f"LAND_UNIT_REPAIRS: no mod ships land_units/{unit_id}.ini any more")
+        if owners[0][1] != mod:
+            sys.exit(f"LAND_UNIT_REPAIRS: {unit_id} is won by {owners[0][1]}, not {mod} - "
+                     "re-check which copy the game loads before repairing it")
+        text = read_file(owners[0][2]).replace("\r\n", "\n")
+        changes = []
+        for old, new, count, why in repairs:
+            pattern = re.compile(rf"^{re.escape(old)}[ \t]*$", re.M)
+            found = len(pattern.findall(text))
+            if found != count:
+                if found == 0 and re.search(rf"^{re.escape(new)}", text, re.M):
+                    sys.exit(f"LAND_UNIT_REPAIRS: {unit_id} already carries '{new}' - "
+                             "the author fixed it; drop the repair")
+                sys.exit(f"LAND_UNIT_REPAIRS: {unit_id}: '{old}' found {found} time(s), "
+                         f"expected {count} - the file changed; re-check the repair")
+            text = pattern.sub(lambda m: new, text)
+            changes.append(f"{old} -> {new} ({count}x): {why}")
+        (OUT / "land_units" / f"{unit_id}.ini").write_text(
+            repair_header(unit_id, mod, changes) + text, encoding="utf-8")
+        done.append(f"{unit_id} ({mod})")
     return done
 
 

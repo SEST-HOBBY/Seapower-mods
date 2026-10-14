@@ -353,6 +353,11 @@ def num(uid, key):
     return float(m.group(1)) if m else None
 
 
+def hidden_from_editor(uid):
+    m = re.search(r"^\s*HideIn\s*=\s*([^\n/]+)", text_of(uid), re.M)
+    return bool(m) and "missioneditor" in m.group(1).replace(" ", "").lower()
+
+
 def role(uid):
     m = re.search(r"^\s*Role\s*=\s*([^\n/]+)", text_of(uid), re.M)
     return m.group(1).split(",")[0].strip() if m else ""
@@ -1082,6 +1087,11 @@ def arsenal():
             continue
         if role(uid) in NOT_ARSENAL_ROLES:
             left[f"role {role(uid)}"].append(uid)
+            continue
+        if hidden_from_editor(uid):
+            # The author hid it from the mission editor (REDFOR's kitbash
+            # Grisha IV, 14 Oct 2026): not for sale either.
+            left["hidden by its author (HideIn=MissionEditor)"].append(uid)
             continue
         per = collections.Counter(nations)
         best = max(per, key=lambda n: (per[n], -SIDE_ORDER[n]))

@@ -3339,11 +3339,11 @@
    "asset_id": "asset:mpn:evenes_rc135_det",
    "allocation": "underway_deployed",
    "units": [
-    "boeing-rc135"
+    "boeing_rc135"
    ],
    "outcome": "converted",
    "why": "air force at the node's air base",
-   "unit": "boeing-rc135",
+   "unit": "boeing_rc135",
    "resolved": "as registered",
    "base": "hn_evenes_air_station"
   },
@@ -7118,9 +7118,9 @@
    "count": 1
   },
   {
-   "force": "Evenes Air Station RC-135V/W Rivet Joint (Modern)",
+   "force": "Evenes Air Station RC-135V/W Rivet Joint",
    "node": "hn_evenes_air_station",
-   "aircraft": "boeing-rc135",
+   "aircraft": "boeing_rc135",
    "count": 1
   },
   {
@@ -8205,6 +8205,13 @@
  ],
  "arsenal": {
   "left_out": {
+   "hidden by its author (HideIn=MissionEditor)": [
+    "usn_ssn_virginia_2027",
+    "usn_ssn_virginia_seal_2027",
+    "wp_bpk_udaloy2",
+    "wp_mpk_grisha4",
+    "wp_su-30mkk"
+   ],
    "not a fighting unit (id)": [
     "Project 2498 Zyetseth Class Assault Vessel",
     "all_assault_raft",
@@ -8327,8 +8334,8 @@
   },
   "catalogue_by_side_nation": {
    "blue US": {
-    "ships": 244,
-    "aircraft": 166
+    "ships": 247,
+    "aircraft": 167
    },
    "blue Australia": {
     "ships": 39,
@@ -8448,11 +8455,11 @@
    },
    "red China": {
     "ships": 94,
-    "aircraft": 106
+    "aircraft": 105
    },
    "red Russia": {
-    "ships": 111,
-    "aircraft": 101
+    "ships": 110,
+    "aircraft": 102
    },
    "red Iran": {
     "ships": 12,
@@ -8495,7 +8502,7 @@
   "ae_opv_meteoro": "Displacement 2700 t",
   "ae_ssk_s80": "Displacement 2965 t",
   "bel_a400m_tankers": "Role AEW",
-  "boeing-rc135": "Role EW",
+  "boeing_rc135": "Role EW",
   "bra_f-5em": "Role Fighter",
   "bra_ffg_niteroi_2005": "Displacement 33550 t",
   "bra_ffg_tamandare": "Displacement 3500 t",
@@ -8745,7 +8752,7 @@
   "aus_mrh90_tth": "Role Transport",
   "be_nh90": "Role ASW",
   "bel_a400m_airdroop-para": "Role AEW",
-  "boeing-rc135_early": "Role EW",
+  "boeing_rc135_early": "Role EW",
   "br_a330_mrtt": "Role AEW",
   "bra_a4m": "Role Fighter",
   "bra_ah11": "Role ASW",
@@ -9252,6 +9259,7 @@
   "usn_fury_sead": "Role SEAD",
   "usn_fury_strike": "Role Bomber",
   "usn_ka-3b": "Role EW",
+  "usn_mh-60r_p2": "Role ASW",
   "usn_Mugin5705": "Role Recon",
   "usn_orlan10705": "Role Recon",
   "usn_p-2h": "Role MPA",
@@ -9338,7 +9346,6 @@
   "wp_su-27": "Role Fighter",
   "wp_su-27sm": "Role Fighter",
   "wp_su-30m": "Role Fighter",
-  "wp_su-30mkk": "Role Fighter",
   "wp_su-30sm2": "Role Fighter",
   "wp_su-35s": "Role Fighter",
   "wp_su-57": "Role Fighter",
@@ -9362,6 +9369,7 @@
   "wp_tu-95ma": "Role HeavyBomber",
   "wp_tu-95ms": "Role MPA",
   "wp_tu-95rt": "Role MPA",
+  "wp_tu95k": "Role MPA",
   "wp_yak-38": "Role Bomber",
   "wp_yak_44": "Role AEW",
   "ae_ao_teide": "Displacement 8190 t, auxiliary x0.32",
@@ -9915,7 +9923,6 @@
   "usn_ssn_sturgeon": "Displacement 4640 t",
   "usn_ssn_sturgeon_72": "Displacement 4640 t",
   "usn_ssn_virginia": "Displacement 7900 t",
-  "usn_ssn_virginia_2027": "Displacement 7900 t",
   "usn_ssn_virginia_block1": "Displacement 7900 t",
   "usn_ssn_virginia_block1_2015": "Displacement 7900 t",
   "usn_ssn_virginia_block1_2026": "Displacement 7900 t",
@@ -9924,7 +9931,11 @@
   "usn_ssn_virginia_block3": "Displacement 7900 t",
   "usn_ssn_virginia_block5": "Displacement 7900 t",
   "usn_ssn_virginia_seal": "Displacement 7900 t",
-  "usn_ssn_virginia_seal_2027": "Displacement 7900 t",
+  "usn_usv_k5_kraken": "Displacement 6 t",
+  "usn_uuv_copperhead_100": "Displacement 0 t",
+  "usn_uuv_copperhead_500": "Displacement 1 t",
+  "usn_uuv_dive_ld": "Displacement 3 t",
+  "usn_uuv_dive_xl": "Displacement 20 t",
   "wp_bdk_alligator": "Displacement 4950 t",
   "wp_bdk_ivan_rogov": "Displacement 11730 t",
   "wp_bdk_ivan_rogov_90": "Displacement 11730 t",
@@ -9935,7 +9946,6 @@
   "wp_bpk_kashin_mod": "Displacement 4300 t",
   "wp_bpk_kresta2": "Displacement 7535 t",
   "wp_bpk_udaloy": "Displacement 7570 t",
-  "wp_bpk_udaloy2": "Displacement 7570 t",
   "wp_bpk_udaloy3": "Displacement 7570 t",
   "wp_cv_orel": "Displacement 80000 t",
   "wp_cv_orel_1991": "Displacement 80000 t",
@@ -10032,8 +10042,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1526,
-  "values": 1526,
+  "catalogue": 1529,
+  "values": 1529,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

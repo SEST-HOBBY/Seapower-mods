@@ -1035,6 +1035,60 @@ def apply_airgroup_fix(text, unit_id):
     return text[:m.start(1)] + body + text[m.end(1):], applied
 
 
+# Upstream lines that are simply wrong, repaired in the fork this pack writes
+# anyway - the STORE_FIXES rule again: fix the reference, never invent an id.
+# Each entry is matched as a whole line, exactly `count` times, and the builder
+# stops when the count is off or the new line is already there, so a repair
+# cannot outlive the author's own fix.
+#   unit id -> [(old line, new line, count, why)]
+HULL_REPAIRS = {
+    "usn_ddg_richard_morris": [
+        # Red Storm Arsenal renamed its variable-depth sonar CAPTAS-4 (its
+        # sensors.ini: "[CAPTAS-4] #VDS", users usn_ffg_constellation) and
+        # this hull, under "[SensorSystem12] #CAPTAS-4", still names
+        # UMS-4249, which no mod's sensors.ini defines: the VDS did nothing
+        # (14 Oct 2026, the player's call).
+        ("SystemName=UMS-4249",
+         "SystemName=CAPTAS-4  // SEST RAS: UMS-4249 is defined nowhere; Red Storm Arsenal's VDS is CAPTAS-4",
+         1, "VDS sensor named after its definition"),
+        # Its NSM containers name NSM_1_R1_Open and the rest, which live in
+        # animations_NSM_launcher.ini; the hull's [Animations] block lists
+        # only its own file and the Mk 41's (the Constellation lists all
+        # three), so the hatches never animated.
+        ("NumberOfAnimationReferences=2", "NumberOfAnimationReferences=3",
+         1, "NSM launcher animations listed"),
+        ("AnimationFile_2=animations_usn_mk_41_vls",
+         "AnimationFile_2=animations_usn_mk_41_vls\n"
+         "AnimationFile_3=animations_NSM_launcher  // SEST RAS: the hatch animations the NSM containers name",
+         1, "NSM launcher animations listed"),
+    ],
+}
+
+
+def apply_hull_repair(text, unit_id):
+    """Apply HULL_REPAIRS to one hull's text. Returns (text, [why...]).
+
+    Whole-line matches (trailing blanks tolerated), each exactly `count`
+    times; anything else means the author changed the file and the entry has
+    to be looked at, so it stops the build rather than guessing.
+    """
+    applied = []
+    for old, new, count, why in HULL_REPAIRS.get(unit_id, []):
+        pattern = re.compile(rf"^{re.escape(old)}[ \t]*$", re.M)
+        found = len(pattern.findall(text))
+        first_new = new.split("\n")[0].split("//")[0].strip()
+        if found != count:
+            if found == 0 and re.search(rf"^{re.escape(first_new)}", text, re.M):
+                raise SystemExit(f"HULL_REPAIRS {unit_id}: the author now ships "
+                                 f"'{first_new}' - drop this repair")
+            raise SystemExit(f"HULL_REPAIRS {unit_id}: '{old}' found {found} time(s), "
+                             f"expected {count} - the file changed; re-check the repair")
+        text = pattern.sub(lambda m: new, text)
+        if why not in applied:
+            applied.append(why)
+    return text, applied
+
+
 _STORE_LINE = re.compile(r"^(Ammunition\d*|Station\d+)=([^\n]*)$", re.M)
 
 

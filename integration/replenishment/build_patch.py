@@ -82,7 +82,7 @@ sys.path.insert(0, str(ROOT / "integration" / "missions"))
 from common.ras import (                                          # noqa: E402
     CLONES, METER_CATEGORIES, METER_EXEMPT, METER_THRESHOLD,
     FREE_ROUND_ACCEPTED, RELOAD_LINE, RESTORE_ROUNDS, STORE_FIXES, SUPPLIERS,
-    _WEAPON_BLOCK, apply_airgroup_fix, apply_refit, apply_store_fix, insert_supply_block,
+    _WEAPON_BLOCK, apply_airgroup_fix, apply_hull_repair, apply_refit, apply_store_fix, insert_supply_block,
     make_reloadable, tag_ammunition)
 from refine_civ_traffic import winning_file                       # noqa: E402
 
@@ -1020,6 +1020,11 @@ def stage_launchers(owned, already_written):
         text, re_embarked = apply_airgroup_fix(text, Path(rel).stem)
         if re_embarked:
             fixed.append((rel, title, re_embarked))
+        # ... and the lines HULL_REPAIRS names (a sonar defined nowhere, an
+        # animation file the hull forgot to list).
+        text, repaired_lines = apply_hull_repair(text, Path(rel).stem)
+        if repaired_lines:
+            fixed.append((rel, title, {'repaired': ', '.join(repaired_lines)}))
         broken = dangling_stores(text)
         if broken:
             unfixable.append((rel, title, broken))

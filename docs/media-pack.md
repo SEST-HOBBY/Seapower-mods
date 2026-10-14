@@ -68,3 +68,39 @@ its looping-only rule, left it alone. The plugin now swaps the clip
 `sest_menu.ini` names (`ClipName=main_menu`, shipped), keeps the clip's
 sound track playing on a second player without a picture when it has one,
 and puts the SEST film back if the game sets its clip again.
+
+### The pictures log (14 Oct 2026, not yet run in the game)
+
+Three pictures are still the game's own: the startup screen, the still
+between menu pages and the Mod Manager's background
+(`docs/workshop-refresh-20261013-review.md`, section 9). Before one can be
+swapped the plugin has to say which texture it is and what the UI binds it
+to, so since 14 Oct the plugin also writes a stock-pictures log when
+`sest_menu.ini` has `Pictures=1` (on unless set to 0; the film swap is the
+same either way). Every line starts `[SEST Pictures]`. A pass writes (a)
+every loaded Texture2D, RenderTexture and Sprite of 256 px or more each way,
+largest first, with size and format; (b) every UnityEngine.UI Image or
+RawImage showing a texture; (c) from every NoesisGUI view, each Image or
+MediaElement and each element whose Background or Fill is an ImageBrush -
+the view it sits in, its Source (a BitmapImage's URI, or a TextureSource's
+Unity texture), the property's binding path where it has one, whether it is
+visible, and its DataContext's type. Passes run at the first Update, 15 s
+later, every two minutes for ten, 2 s and 20 s after each scene load, and
+once each time the Mod Manager appears (a Noesis element whose type or Name
+says ModMenu or ModManager, looked for every 3 s while the menu's scene,
+`background`, is loaded; five such passes at most). Each part of a pass
+stops at 300 lines and says `... N more`; a pass walks at most 20,000 Noesis
+elements; a Noesis or UI member the game's build lacks is noted once as
+`skipped:` and passed over. The Noesis and uGUI types are found by name at
+run time - nothing beyond Unity's CoreModule and VideoModule is referenced -
+so the log is the first test of those names in the game.
+
+Reading it, after `tools\capture-context.ps1` (which now keeps the last
+20,000 lines of Player.log): the startup picture is the `noesis ... in
+LoadScreenView` line of the first passes, matched to the `texture2d` line
+of the same name in part (a) - the review expects `background1`, bound to
+`BackgroundImage`; the still between pages is the Image or ImageBrush in
+the main menu's own view whose Source is not the film's TextureSource, in
+the passes while the menu is up; the Mod Manager's background is in the
+pass headed `Mod Manager on screen`. Those names are the review's
+expectation: no pass has been run in the game yet.
