@@ -158,7 +158,7 @@ Sea and land positions are snapped to points already used by a loading mission; 
 | `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | pla_df-21c_tel / pla_df-21c | The Open Door |
 | `plaaf-aircraft-pack` | PLAAF Aircraft Pack | `unit` | plaaf_h-6k_late | Fujian's Shadow |
 | `plan-submarines` | PLAN Submarines | `unit` | plan_ss_type_039c | Steel Highway |
-| `prithvi-tbm` | Prithvi TBM (大地弹道导弹) | `external` | Indian Prithvi II/III TELs kept for scenarios; no SEST mission places them, and the world campaign has no India nation | - |
+| `prithvi-tbm` | Prithvi TBM (大地弹道导弹) | `external` | Indian Prithvi II/III TELs kept for scenarios; no SEST mission places them, and the world campaign's India does not field them | - |
 | `project-2498-zyetseth` | Project 2498 Zyetseth Class Assault Vessel | `external` | a Cold War Soviet converted assault freighter for scenarios; no 2028 SEST mission fields it | - |
 | `re-power-resupply` | RE-power: the resupply mod | `unit` | civ_ms_freighter_a | White Water |
 | `real-photos-aircraft` | Real photos of airplanes and helicopters | `library` | encyclopedia profile pictures only (ui/profiles/), no unit, round or text file; nothing a mission can place | - |

@@ -1,9 +1,9 @@
 # SEST Cross-Deck
 
 Allied flight decks operate the similar allied aircraft. A hull's
-`[FlightDeck] AircraftSupported` is written by its mod for its own navy, so a
-Type 45 took only the Royal Navy's Lynx, Merlin and Wildcat, a FREMM only the
-French NH90, and an Australian MH-60R could land on neither. This pack adds, to
+`[FlightDeck] AircraftSupported` is written by its mod for its own navy, so an
+Iver Huitfeldt took only the Danish MH-60R, an Italian FREMM no Royal Navy
+Merlin and a Type 45 no German or Dutch Sea Lynx. This pack adds, to
 every deck registered to an allied navy, the allied members of each airframe
 family the deck already lists one of: Seahawk, NH90 NFH, Lynx/Wildcat, Merlin,
 Sea King, AB 212, Panther, Seasprite, Cougar, Wasp, Alouette, CH-53, Osprey,

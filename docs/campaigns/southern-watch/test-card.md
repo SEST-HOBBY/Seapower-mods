@@ -358,7 +358,7 @@ sections the same way and are live.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
-| J.1 | Southern Watch - Open Allocation: buy a Type 45 (United Kingdom) and an MH-60R, assign the Seahawk to the Type 45 in the Task Force Manager | The assignment is accepted and the Seahawk launches from and recovers to the Type 45 in the next mission | Refused = the game ignores AircraftSupported set through #!extend: bring back Player.log and the CROSS-DECK.txt line for rn_ddg_type45_26 |
+| J.1 | Southern Watch - Open Allocation: buy an Iver Huitfeldt (Denmark) and an MH-60R, assign the Seahawk to the Iver Huitfeldt in the Task Force Manager | The assignment is accepted and the Seahawk launches from and recovers to the Iver Huitfeldt in the next mission | Refused = the game ignores AircraftSupported set through #!extend: bring back Player.log and the CROSS-DECK.txt line for hdms_iver_huitfeldt |
 | J.2 | Mission editor: place a Maya (jmsdf_ddg_maya) and give it an Australian S-70B-2 Seahawk; a Horizon (fr_ddg_horizon) with a German NH90; a Nimitz (usn_cvn_nimitz_2027s_adou) with a Rafale M | Each embarks, launches and recovers | Note which pairing fails |
 | J.3 | Mission editor: a Type 23 with an MH-60R | Refused: the Type 23 lists no Seahawk family, so it gains none (Lynx/Wildcat, Merlin, Cougar only) | Accepted = the deck takes everything, not the families: report it |
 

@@ -709,7 +709,7 @@ def unit_spot(keys):
 # allied members of the airframe families they already fly, through an
 # Anchor Chain #!extend stub per hull. The game reads the stub on top of the
 # winning file, so the deck list the campaign measures has to be the same
-# union, or a Seahawk the game lands on a Type 45 would be refused here.
+# union, or an MH-60R the game lands on an Iver Huitfeldt would be refused here.
 CROSS_DECK = ROOT / "integration" / "cross-deck" / "SEST_Cross_Deck" / "vessels_overwrite"
 
 

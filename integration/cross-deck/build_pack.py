@@ -7,11 +7,13 @@ names the aircraft its deck will launch and recover; a hull with no list takes
 anything carrier-capable (and any helicopter), a hull listing the game's own
 `Helicopters` token takes every helicopter, and a hull with an explicit list
 takes those types and nothing else. The mods write those lists for their own
-navy: a Type 45 names the Royal Navy's Lynx, Merlin and Wildcat, a FREMM the
-French NH90, a Maya the JMSDF's SH-60J/K and, as it happens, the US MH-60R.
-So an Australian MH-60R could not land on a bought Type 45 or Iver Huitfeldt,
-and a Royal Navy Merlin could not use the Italian Horizon's deck, although the
-real ships cross-deck exactly these types.
+navy: a Type 45 names the Royal Navy's Lynx, Merlin and Wildcat, an Iver
+Huitfeldt the Danish MH-60R, an Italian FREMM its own SH-101A, AB 212 and
+SH-90, a Maya the JMSDF's SH-60J/K and, as it happens, the US MH-60R. So the
+campaigns' MH-60R could not land on a bought Iver Huitfeldt, a Royal Navy
+Merlin on an Italian FREMM, a German Sea Lynx on a Type 45 or an Australian
+S-70B-2 on a Maya, although allied navies cross-deck helicopters of one
+family.
 
 The rule here is the one the real navies use: a deck that already operates one
 member of a family operates the allied members of that family. The families
@@ -58,9 +60,10 @@ INFO_INI = """\
 Name=SEST Cross-Deck
 Description=Allied flight decks operate the similar allied aircraft: a deck \
 that already flies one Seahawk, NH90, Lynx or Wildcat, Merlin, Sea King, \
-AB 212, Panther, Seasprite, Cougar, CH-53, Osprey, Harrier, AV-8B/F-35B or \
-catapult type takes the allied members of that family too, so an Australian \
-MH-60R lands on a Type 45 or a Maya and a Royal Navy Merlin on a FREMM. One \
+AB 212, Panther, Seasprite, Cougar, Wasp, Alouette, CH-53, Osprey, Harrier, \
+AV-8B/F-35B or catapult type takes the allied members of that family too, so \
+an MH-60R lands on an Iver Huitfeldt, a Royal Navy Merlin on an Italian FREMM \
+and a Rafale M on the Nimitz. One \
 Anchor Chain extend per deck; the hull's own list is kept and only existing \
 allied aircraft are added.
 
