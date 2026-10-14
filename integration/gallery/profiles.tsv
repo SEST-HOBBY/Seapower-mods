@@ -22,8 +22,8 @@ aus_ec_665_had-e	tiger	same_type	Australian Army Tiger ARH (A38-018) on static d
 be_nh90	nh90	same_type	Dutch NH90 NFH (325) parked; same naval NH90 airframe, Dutch markings. / Dutch NH90 NFH naval helicopter; same type as Belgian naval NH90.
 bel_a400m_airdroop-para	a400m	same_type	Head-on view of a grey Airbus A400M Atlas on the ramp. / Airbus A400M Atlas head-on on the apron (Airbus-grey test aircraft).
 bel_a400m_tankers	a400m	same_type	Head-on view of an A400M Atlas; same airframe as the tanker role. / Airbus A400M Atlas airframe head-on; the tanker role is a fit difference only.
-boeing-rc135	rc135	same_family	RC-135V Rivet Joint with original TF33 engines, not the modern re-engined CFM56 configuration. / Legacy TF33-engined RC-135V, not the modern re-engined RC-135V/W with larger CFM56 nacelles.
-boeing-rc135_early	rc135	same_type	RC-135V Rivet Joint with original TF33 engines and cheek fairings: the legacy configuration. / Legacy TF33-engined RC-135V Rivet Joint with hog nose and cheek fairings.
+boeing_rc135	rc135	same_family	RC-135V Rivet Joint with original TF33 engines, not the modern re-engined CFM56 configuration. / Legacy TF33-engined RC-135V, not the modern re-engined RC-135V/W with larger CFM56 nacelles.
+boeing_rc135_early	rc135	same_type	RC-135V Rivet Joint with original TF33 engines and cheek fairings: the legacy configuration. / Legacy TF33-engined RC-135V Rivet Joint with hog nose and cheek fairings.
 br_a330_mrtt	a330_mrtt	same_type	Grey A330 MRTT tanker head-on (RAAF KC-30A); same airframe, different operator. / A330 MRTT tanker seen head-on; the operator differs but the airframe is the same.
 bra_cv_sao_paulo	sao_paulo	same_type	NAe Sao Paulo (A12) broadside in the foreground, with USS Ronald Reagan behind. / NAe São Paulo (A12), ex-Clemenceau-class carrier, in full side view in the foreground, with USS Ronald Reagan in the background.
 bra_ss_riachuelo	riachuelo	same_type	Brazilian submarine Riachuelo (S40) surfaced off Rio de Janeiro. / Brazilian submarine Riachuelo (S40) surfaced off Rio de Janeiro.

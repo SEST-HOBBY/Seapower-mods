@@ -6,6 +6,20 @@
     Everything here is detection only - nothing writes.
 #>
 
+# SEST's own published Workshop item: 'SEST Integration Pack - Modernised
+# Campaigns', the consolidated SEST_Integration folder as a subscriber gets it.
+# It is this project's output, not an upstream mod: never exported into
+# mods-source, never counted as a rival in a who-wins calculation, and never
+# loaded beside the local SEST_Integration folder - the game must not load
+# both copies (two packs fighting over the same files). Since the morning of
+# 14 Oct 2026 the gaming PC runs this copy, under
+# steamapps\workshop\content\1286220\3812461539, next to the other mods.
+$SestOwnWorkshopIds = @('3812461539')
+# The local folder's Mod Manager token: position 1 of data\load-order.tokens.txt.
+$SestDistToken = 'SEST_Integration'
+# Sea Power's Steam app id; the Workshop content folder is workshop\content\<id>.
+$SeaPowerAppId = '1286220'
+
 function Get-SteamLibraries {
     <# Every steamapps folder Steam knows about, from the registry and the
        library manifest. No hardcoded drive letters. #>
@@ -141,4 +155,81 @@ function Get-ActiveMission {
         if ($line) { return $line.Trim() }
     }
     return "NORTHERN FRONT III FINAL"
+}
+
+function Find-WorkshopContent {
+    <# Sea Power's Workshop content folder, steamapps\workshop\content\1286220,
+       in whichever Steam library holds it; $null when no library has one. #>
+    foreach ($lib in Get-SteamLibraries) {
+        $d = Join-Path $lib "workshop\content\$SeaPowerAppId"
+        if (Test-Path -LiteralPath $d) { return $d }
+    }
+    return $null
+}
+
+function Find-SestWorkshopCopy {
+    <# The folder of SEST's own Workshop item (3812461539) when Steam has it
+       on disk, or $null. -WorkshopContentDir names the content folder when
+       auto-detection is not wanted (tests, a second library). #>
+    param([string]$WorkshopContentDir)
+    if (-not $WorkshopContentDir) { $WorkshopContentDir = Find-WorkshopContent }
+    if (-not $WorkshopContentDir) { return $null }
+    foreach ($id in $SestOwnWorkshopIds) {
+        $d = Join-Path $WorkshopContentDir $id
+        if (Test-Path -LiteralPath $d) { return $d }
+    }
+    return $null
+}
+
+function Read-WorkshopAcf {
+    <# Steam's own record of one app's Workshop items, appworkshop_<appid>.acf.
+
+       Returns @{ Ids = <hashtable id -> $true>; Updated = <hashtable id ->
+       DateTime, local time>; Size = <hashtable id -> bytes>; NeedsDownload;
+       NeedsUpdate }. Updated is Steam's own "timeupdated" for the item - the
+       Workshop upload time of the version installed, in Unix seconds - taken
+       from the first block that carries it for each id (WorkshopItemsInstalled
+       comes before WorkshopItemDetails in the file). The folder's last-write
+       time, which the capture used until 14 Oct 2026, is not that: an update
+       that only rewrites files inside existing subfolders does not move it,
+       and so missed updates. An id with no timeupdated is in Ids only. #>
+    param([Parameter(Mandatory)][string]$Path)
+    $raw = Get-Content -LiteralPath $Path -Raw
+    $ids = @{}; $updated = @{}; $size = @{}
+    foreach ($m in [regex]::Matches($raw, '(?s)"(\d{9,10})"\s*\{([^{}]*)\}')) {
+        $id = $m.Groups[1].Value
+        $ids[$id] = $true
+        $t = [regex]::Match($m.Groups[2].Value, '"timeupdated"\s*"(\d+)"')
+        if ($t.Success -and -not $updated.ContainsKey($id)) {
+            $updated[$id] = [DateTimeOffset]::FromUnixTimeSeconds([long]$t.Groups[1].Value).ToLocalTime().DateTime
+        }
+        $s = [regex]::Match($m.Groups[2].Value, '"size"\s*"(\d+)"')
+        if ($s.Success -and -not $size.ContainsKey($id)) { $size[$id] = [long]$s.Groups[1].Value }
+    }
+    $md = [regex]::Match($raw, '"NeedsDownload"\s*"(\d+)"')
+    $mu = [regex]::Match($raw, '"NeedsUpdate"\s*"(\d+)"')
+    return @{
+        Ids = $ids; Updated = $updated; Size = $size
+        NeedsDownload = $(if ($md.Success) { $md.Groups[1].Value } else { $null })
+        NeedsUpdate   = $(if ($mu.Success) { $mu.Groups[1].Value } else { $null })
+    }
+}
+
+function Get-LogExcerpt {
+    <# A log file's lines for the snapshot: the whole file while it is within
+       -CapBytes, otherwise its first -HeadLines and last -TailLines with one
+       marker line between them saying how many lines were left out. Returns
+       @{ Lines = <string[]>; Total = <line count>; Whole = <bool> }. #>
+    param([Parameter(Mandatory)][string]$Path,
+          [long]$CapBytes = 50MB, [int]$HeadLines = 20000, [int]$TailLines = 20000)
+    $all = @(Get-Content -LiteralPath $Path -ErrorAction SilentlyContinue)
+    $length = (Get-Item -LiteralPath $Path).Length
+    if ($length -le $CapBytes -or $all.Count -le $HeadLines + $TailLines) {
+        return @{ Lines = $all; Total = $all.Count; Whole = $true }
+    }
+    $left = $all.Count - $HeadLines - $TailLines
+    $lines = @($all[0..($HeadLines - 1)]) +
+             @("# ... $left line(s) left out here: the file is {0:N1} MB, over the {1:N0} MB cap; first $HeadLines and last $TailLines lines kept ..." -f ($length / 1MB), ($CapBytes / 1MB)) +
+             @($all[-$TailLines..-1])
+    return @{ Lines = $lines; Total = $all.Count; Whole = $false }
 }

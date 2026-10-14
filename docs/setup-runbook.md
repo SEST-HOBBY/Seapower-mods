@@ -119,6 +119,13 @@ Then, with the game **closed**, run `set-mod-order.ps1 -AddMissing` — it inser
 freshly installed pack into `usersettings.ini` at its canonical position (the very top),
 already enabled. No Mod Manager visit is needed; that step predates the `-AddMissing` flag.
 
+If the PC runs SEST from the Workshop instead - subscribed to item 3812461539, no local
+`SEST_Integration` folder, the state since the morning of 14 Oct 2026 - the script keeps
+that id at position 1 in place of `SEST_Integration` (until 14 Oct it dropped the id as a
+stale Workshop entry and left no SEST entry at all). With the local folder present it keeps
+`SEST_Integration` at 1 and drops the id, warning you to unsubscribe. It never lists both:
+the game must never load both copies.
+
 Expect no warnings. `canonical pack not installed in StreamingAssets` means the install
 step did not take; `in canonical order but not in your settings (skipped)` on a `SEST_*`
 entry means you left off `-AddMissing`. If a pack still does not appear in game, stop and
@@ -160,7 +167,8 @@ It rewrites `[LoadOrder]` from `data\load-order.tokens.txt`, keeps every mod's e
 appends anything it doesn't recognise rather than dropping it, backs the file up first, and
 warns loudly if a SEST pack is present but disabled (the usual reason "the patch did nothing").
 `-AddMissing` adds installed SEST packs the game hasn't seen yet, enabled. Workshop ids are
-never invented — Steam owns those.
+never invented — Steam owns those. SEST's own Workshop item, 3812461539, is the one id it
+treats as SEST's (Phase 3 above).
 
 The rules below are what that canonical order encodes; read them if you ever need to reorder
 by hand in the Mod Manager (top of the list wins when two mods ship the same file).
@@ -232,11 +240,11 @@ Offline checks. Run them after any subscribe, unsubscribe or reorder —
 together they cover the ways this collection breaks silently.
 
 ```powershell
-python tools\check_load_order.py             # no mod outranks a SEST pack
+python tools\check_load_order.py             # no mod outranks a SEST pack - canonical order, and the captured live order
 python tools\check_dependencies.py           # every pack's upstream mod is present
 python tools\preflight.py                    # every reference the mission makes resolves
 python tools\check_weapon_employment.py      # every weapon can actually be fired
-python tools\check_mod_conflicts.py <id>     # what a NEW mod would take over
+python tools\check_mod_conflicts.py <id>     # what a NEW mod would take over: whole files, and merged sections
 ```
 
 `check_weapon_employment` is the newest and asks a different question from
@@ -254,6 +262,12 @@ dependency, install/uninstall and backup story.
 
 `check_load_order` catches a pack gone inert — the failure that hid for several
 sessions when U.S. Navy 2027 moved up a tier and jumped over the Growler pack.
+Since 14 Oct 2026 it also reads the captured live order
+(`data/install-snapshot/load-order.live.txt`, when present): it reports where
+that differs from the canonical order and fails when the live order loses a
+SEST override - an enabled mod above SEST, or no enabled SEST entry, where
+SEST's own Workshop item 3812461539 counts as SEST's entry. Drift alone is
+reported, not failed.
 `preflight` catches the other half: the load order decides which *file* loads,
 never whether the thing you asked for is inside it. A mission can name a unit no
 enabled mod defines, or a `LoadoutVariant` the winning file does not list, and
@@ -280,6 +294,17 @@ another branch, `git pull` prints "Already up to date", changes nothing, and
 the install then deploys that other branch's build. A fix provably correct in
 git was simply absent from the game, and nothing downstream could see it. The
 deploy branch is named in `data/deploy-branch.txt`.
+
+It also stops while the Workshop copy of SEST (item 3812461539, under
+`steamapps\workshop\content\1286220`) is on disk, before pulling anything:
+the install would put a second copy beside it, and the game must never load
+both. The message gives the two ways out - unsubscribe, wait until the folder
+is gone, run again; or keep the Workshop copy and run with `-SkipInstall`,
+which pulls and sets the order only (the order step keeps 3812461539 at
+position 1). With both copies on disk it refuses outright, whatever the
+switches. The PC has run the Workshop copy since the morning of 14 Oct 2026;
+the stop has not been seen there yet, only on stand-in folders
+(`tools/tests/test_sync_sest_guard.ps1`).
 
 Two things it deliberately does not do: it will not subscribe you to a workshop
 mod (Steam owns that), and a mod the game has never seen cannot be placed in the
@@ -325,6 +350,11 @@ python tools\check_mod_conflicts.py <id>   # what it would take over, from whom
 A mod that ships only new unit files can sit anywhere below the SEST block; a
 mod that ships a file some other mod also ships is a whole-file override fight
 and its position decides who wins. That case wants a measurement, not a guess.
+A `systems/` or `language_*/` file is merged rather than replaced - section by
+section, or key by key - so sharing one costs nothing; since 14 Oct 2026 the
+check lists the sections or keys both sides define with different content and
+which copy wins at the current positions (that merge rule is the
+collection-fixes builder's reading of the game, not something seen in game).
 
 ### If Steam updates something under you anyway
 
@@ -336,7 +366,8 @@ read-only command names what moved, if you ever want to know:
 powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates
 ```
 
-Not part of the routine — worth running only if something starts behaving
+(`-ReportPath <file>` writes the same report as UTF-8; SEST's own item
+3812461539 is skipped.) Not part of the routine — worth running only if something starts behaving
 oddly after a Steam sync, or before asking for work on a specific mod's files.
 
 ## Phase 5 — ten-minute smoke test

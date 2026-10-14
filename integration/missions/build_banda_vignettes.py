@@ -474,7 +474,9 @@ V.append(dict(
         "do it with. A nuclear boat in shallow water is quieter than the "
         "sea around it and faster than you, so this is a problem of patience "
         "and geometry rather than speed - and every contact has to be "
-        "resolved before it is attacked, because two of them are trawlers."),
+        "resolved before it is attacked, because two of them are trawlers. "
+        "A boat that has gone quiet does not shoot first: she holds her fire "
+        "until she is found."),
     objectives=[
         ("Boat", "Find and kill the submarine", "25,-20,Fail,Main"),
         ("Fishing", "Leave the fishing fleet alone", "0,-25,Complete"),
@@ -490,7 +492,10 @@ V.append(dict(
     red=[],
     red_names=[],
     red_sub=[
-        ("plan_ssn_type_093b", "30,shallow,96", 270, {}),
+        # Tight, not Free: 13 NM from each frigate with YJ-18s, a free boat
+        # would open the mission by firing (the fair-opening rule of 13 Oct).
+        # Gone quiet, she shoots when found - Tight fires in self-defence.
+        ("plan_ssn_type_093b", "30,shallow,96", 270, {"WeaponStatus": "Tight"}),
     ],
     red_sub_names=["Type 093B"],
     neutral=[
@@ -511,10 +516,12 @@ V.append(dict(
     blue_nation="Australia", red_nation="China",
     brief=(
         "ARAFURA SEA. HOBART has the missiles and no idea where to put them. "
-        "The Triton has the picture and nothing to shoot with. Between them "
-        "that is a working kill chain, and it holds exactly as long as the "
-        "drone does.\n\n"
-        "Two J-16s are already up and looking for it. An MQ-4C is a "
+        "The Triton can get the picture and has nothing to shoot with. Between "
+        "them that is a working kill chain, and it holds exactly as long as "
+        "the drone does.\n\n"
+        "Two J-16s will be up and looking for it about five minutes in. The "
+        "Triton starts well south of the group, outside the destroyer's "
+        "missile reach; closing to radar range is your call. An MQ-4C is a "
         "high-altitude sailplane with a radar: it cannot turn, it cannot run "
         "and it cannot hide, so keeping it alive is a matter of where you "
         "fly it, not how. Get the targeting solution, pass it, and do not "
@@ -528,7 +535,10 @@ V.append(dict(
     ],
     blue_names=["HMAS Brisbane"],
     blue_air=[
-        ("raaf_mq-4c_triton", "186,55000,-150", 315, {}),
+        # 274 NM south of the 052D: her HHQ-9B reaches 260 NM as the mod
+        # ships it, and at 55,000 ft the drone is in her radar's sight from
+        # the first second. The old station, 81 NM out, was inside it.
+        ("raaf_mq-4c_triton", "140,55000,-345", 350, {}),
     ],
     blue_air_names=["Triton 01"],
     red=[
@@ -537,12 +547,15 @@ V.append(dict(
     ],
     red_names=["Type 052D", "Type 054A"],
     red_air=[
-        # "Already up and looking for it": a search down to the Triton's
-        # station, not a CAP over the Aru Islands.
+        # A search down to the Triton's station, not a CAP over the Aru
+        # Islands. They join at minute 5: 145 NM from the drone with 228 NM of
+        # PL-15, a pair that is "already up" fires before the player can act.
         ("plaaf_j16", "270,30000,-30", 200, {"LoadoutVariant": "AirToAirLongRange",
-                                             "Waypoints": "186,30000,-150", "Telegraph": 3}),
+                                             "Waypoints": "140,30000,-345", "Telegraph": 3,
+                                             "_enter": 5}),
         ("plaaf_j16", "276,30000,-36", 200, {"LoadoutVariant": "AirToAirLongRange",
-                                             "Waypoints": "192,30000,-156", "Telegraph": 3}),
+                                             "Waypoints": "146,30000,-351", "Telegraph": 3,
+                                             "_enter": 5}),
     ],
     red_air_names=["Red Fighter 21", "Red Fighter 22"],
     neutral=[],
@@ -563,7 +576,8 @@ V.append(dict(
         "two days, and every red intercept in this half of the archipelago "
         "has been run off its picture. It flies with a pair of J-36s tucked "
         "in behind it, which is the whole problem: the tailless jet sees far "
-        "and is hard to see.\n\n"
+        "and is hard to see. The pair is off station as you arrive and "
+        "rejoins the controller about five minutes in.\n\n"
         "Two YF-23s, the only pair in theatre. This is the matchup nobody has "
         "data on - both sides are stealthy, both shoot long, and whoever gets "
         "the first uncued track probably wins. The controller is the target. "
@@ -589,8 +603,9 @@ V.append(dict(
         # no Default, so an entry with no LoadoutVariant has nothing to fall
         # back on - preflight catches exactly that.
         ("plaaf_kj-500", "12,30000,90", 270, {"LoadoutVariant": "AEW"}),
-        ("plaaf_j36", "24,36000,78", 200, {"LoadoutVariant": "AirToAirLongRange"}),
-        ("plaaf_j36", "30,36000,72", 200, {"LoadoutVariant": "AirToAirLongRange"}),
+        # 140 NM from the YF-23s with 228 NM of missile: held to minute 5.
+        ("plaaf_j36", "24,36000,78", 200, {"LoadoutVariant": "AirToAirLongRange", "_enter": 5}),
+        ("plaaf_j36", "30,36000,72", 200, {"LoadoutVariant": "AirToAirLongRange", "_enter": 5}),
     ],
     red_air_names=["KJ-500 Controller", "J-36 Escort One", "J-36 Escort Two"],
     neutral=[],
@@ -659,9 +674,10 @@ V.append(dict(
     sea=3, clouds="Scattered_1",
     blue_nation="USA", red_nation="China",
     brief=(
-        "BANDA SEA, mid-morning. A PLAAF J-16 pair has held a combat air "
-        "patrol over the northern Banda since dawn, and the strike waiting "
-        "behind it cannot launch until the patrol is gone.\n\n"
+        "BANDA SEA, mid-morning. A PLAAF J-16 pair holds the combat air "
+        "patrol over the northern Banda; the relief pair comes on station "
+        "about five minutes in, and the strike waiting behind it cannot "
+        "launch until the patrol is gone.\n\n"
         "One Super Hornet from the carrier and three FQ-44 Fury wingmen: two "
         "escorts with AMRAAM and Sidewinder, and an EW Fury carrying the "
         "jammer. Nobody has flown the naval Fury in anger. Keep the wingmen "
@@ -684,8 +700,9 @@ V.append(dict(
     red=[],
     red_names=[],
     red_air=[
-        ("plaaf_j16", "18,30000,60", 200, {"LoadoutVariant": "AirToAirLongRange"}),
-        ("plaaf_j16", "24,30000,54", 200, {"LoadoutVariant": "AirToAirLongRange"}),
+        # 100 NM from the Super Hornet with 228 NM of missile: held to minute 5.
+        ("plaaf_j16", "18,30000,60", 200, {"LoadoutVariant": "AirToAirLongRange", "_enter": 5}),
+        ("plaaf_j16", "24,30000,54", 200, {"LoadoutVariant": "AirToAirLongRange", "_enter": 5}),
     ],
     red_air_names=["Red Fighter 31", "Red Fighter 32"],
     neutral=[],
@@ -697,16 +714,23 @@ V.append(dict(
 ))
 
 def block(tag, unit, extra_order=("VariantReference",)):
+    """One unit section. A red unit's extra may carry WeaponStatus (Free
+    unless the story says Tight or Hold) and _enter=<minute>: the unit is
+    written Disabled and a "Joins at minute N" trigger enables it, the way
+    the campaign holds a raid back (Southern Watch 11). The fair-opening
+    rule those serve: nothing red fires in the first five minutes."""
     ty, pos, hdg, extra = unit
     out = [f"[{tag}]", f"Type={ty}"]
     for k in extra_order:
         if k in extra:
             out.append(f"{k}={extra[k]}")
-    out += ["UnlimitedFuel=False", "WeaponStatus=Free", "RadarsActive=True",
-            "CrewSkill=Trained", "Morale=3",
+    out += ["UnlimitedFuel=False", f"WeaponStatus={extra.get('WeaponStatus', 'Free')}",
+            "RadarsActive=True", "CrewSkill=Trained", "Morale=3",
             f"RelativePositionInNM={pos}", f"Heading={hdg}"]
+    if extra.get("_enter"):
+        out.append("Disabled=True")
     for k, v in extra.items():
-        if k in extra_order or k.startswith("_"):
+        if k in extra_order or k.startswith("_") or k == "WeaponStatus":
             continue
         out.append(f"{k}={v}")
     for line in extra.get("_air", []):
@@ -758,8 +782,20 @@ def render(v):
           f"NumberOfTaskforce2Aircraft={len(red_air)}",
           f"NumberOfTaskforce2Submarines={len(red_sub)}",
           f"NumberOfTaskforce2LandUnits={len(red_land)}"]
+    # Held-back red units, by the minute they join (block() writes them Disabled).
+    joins = {}
+    for prefix, units in (("Taskforce2Vessel", v["red"]), ("Taskforce2Aircraft", red_air),
+                          ("Taskforce2Submarine", red_sub), ("Taskforce2LandUnit", red_land)):
+        for i, u in enumerate(units, 1):
+            minute = u[3].get("_enter")
+            if minute:
+                if minute < 5:
+                    sys.exit(f"{v['key']}: {prefix}{i} joins at minute {minute}; the opening "
+                             "is quiet for five minutes, so hold it to 5 or later")
+                joins.setdefault(minute, []).append(f"{prefix}{i}")
     n_trig = (3 + (1 if v.get("protect") else 0)
-              + (1 if v["blue"] or blue_air else 0) + (1 if v["neutral"] else 0))
+              + (1 if v["blue"] or blue_air else 0) + (1 if v["neutral"] else 0)
+              + len(joins))
     L.append(f"NumberOfTriggers={n_trig}")
     L.append("")
 
@@ -843,6 +879,12 @@ def render(v):
               "Action_ObjectivesFailed=Neutrals" if any(
                   o[0] == "Neutrals" for o in v["objectives"]) else
               "Action_ObjectivesFailed=Fishing", ""]
+    for minute in sorted(joins):
+        n += 1
+        L += [f"[Trigger{n}]  #Joins at minute {minute}", f"Name=Joins at minute {minute}",
+              "Condition_Condition1_Type=Time", f"Condition_Condition1_Time={minute * 60}",
+              "ConditionsCompleted=<Condition1>", "Action_SetEnabledStatus=True",
+              f"Action_Units={','.join(joins[minute])}", ""]
     assert n == n_trig, f"{v['key']}: wrote {n} triggers, declared {n_trig}"
     return name, "\n".join(L) + "\n"
 

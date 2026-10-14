@@ -33,6 +33,14 @@
     # and what have I subscribed to that is not exported yet?
     .\tools\export-mod-configs.ps1 -CheckUpdates
 
+    # The same, with the report written by the script as UTF-8 (the refresh
+    # procedure's workshop-updates.txt). Piping the console output through
+    # Out-File instead sends every name through the console code page: the
+    # 13 Oct 2026 report shows 3731931836 as "??????" (its name is Chinese)
+    # and starts with a byte-order mark, which Out-File -Encoding utf8 adds
+    # under Windows PowerShell 5.1.
+    .\tools\export-mod-configs.ps1 -CheckUpdates -ReportPath data\install-snapshot\workshop-updates.txt
+
     Then commit and push (PowerShell has no && - use semicolons):
       git add -A mods-source; git commit -m "Export mod configs"; git push
 #>
@@ -43,6 +51,9 @@ param(
     [switch]$IncludeVanilla,
     [switch]$NoPrune,
     [switch]$CheckUpdates,
+    # With -CheckUpdates: write the report here, UTF-8 without a byte-order
+    # mark, exactly the lines shown on the console.
+    [string]$ReportPath,
     [string[]]$TextExtensions = @(".ini", ".txt", ".json", ".cfg", ".xml", ".md", ".yaml", ".yml", ".csv"),
     [long]$MaxFileBytes = 2MB
 )
@@ -103,7 +114,10 @@ $manifest = @()
 # based: hash each live mod's text files exactly the way tools/fingerprint_mods.py
 # hashed the exported copies, and compare. A mod whose hash moved has been
 # updated on the Workshop since our export; a mod with no baseline is a fresh
-# subscription. Nothing is copied or written in this mode.
+# subscription. Nothing under mods-source is touched in this mode; the only
+# file written is the report, and only with -ReportPath. SEST's own Workshop
+# item is skipped: it is this project's output, never in the baseline, and
+# was listed as a NEW subscription on 14 Oct 2026.
 if ($CheckUpdates) {
     $baselinePath = Join-Path $scriptDir "..\data\mod-fingerprints.json"
     if (-not (Test-Path -LiteralPath $baselinePath)) {
@@ -111,6 +125,19 @@ if ($CheckUpdates) {
     }
     $baseline = (Get-Content -LiteralPath $baselinePath -Raw | ConvertFrom-Json).mods
     $sha = [System.Security.Cryptography.SHA256]::Create()
+    # The report: shown on the console line by line, and written whole with
+    # -ReportPath. Built as a list so the file and the console cannot differ.
+    $report = New-Object System.Collections.Generic.List[string]
+    function Say([string]$line, [string]$color = $null) {
+        $script:report.Add($line)
+        if ($color) { Write-Host $line -ForegroundColor $color } else { Write-Host $line }
+    }
+    # The locate lines above went to the console already; the report gets them too.
+    if ($game) {
+        $report.Add("Found Sea Power (app $($game.AppId))")
+        $report.Add("  game dir : $($game.GameDir)")
+    }
+    $report.Add("  workshop : $WorkshopContentDir")
 
     function Get-ModFingerprint([string]$dir) {
         $parts = New-Object System.Collections.Generic.List[string]
@@ -131,8 +158,9 @@ if ($CheckUpdates) {
         return [BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($joined))).Replace('-', '').ToLower()
     }
 
-    $updated = @(); $fresh = @(); $same = 0
+    $updated = @(); $fresh = @(); $same = 0; $own = @()
     foreach ($mod in (Get-ChildItem -LiteralPath $WorkshopContentDir -Directory | Sort-Object Name)) {
+        if ($SestOwnWorkshopIds -contains $mod.Name) { $own += $mod.Name; continue }
         $fp = Get-ModFingerprint $mod.FullName
         if (-not $fp) { continue }
         $name = Get-ModDisplayName -ModDir $mod.FullName
@@ -146,22 +174,30 @@ if ($CheckUpdates) {
     $live = (Get-ChildItem -LiteralPath $WorkshopContentDir -Directory).Name
     $gone = @($baseline.PSObject.Properties.Name | Where-Object { $live -notcontains $_ })
 
-    Write-Host ""
-    Write-Host ("unchanged since the last export : {0}" -f $same)
+    Say ""
+    Say ("unchanged since the last export : {0}" -f $same)
+    if ($own) { Say ("skipped, SEST's own Workshop item: {0}" -f ($own -join ', ')) }
     if ($updated) {
-        Write-Host "`nUPDATED by their authors (re-export to pick the changes up):" -ForegroundColor Yellow
-        $updated | ForEach-Object { Write-Host ("  {0}  {1}" -f $_.Id, $_.Name) }
+        Say ""; Say "UPDATED by their authors (re-export to pick the changes up):" Yellow
+        $updated | ForEach-Object { Say ("  {0}  {1}" -f $_.Id, $_.Name) }
     }
     if ($fresh) {
-        Write-Host "`nNEW subscriptions (not exported yet):" -ForegroundColor Green
-        $fresh | ForEach-Object { Write-Host ("  {0}  {1}" -f $_.Id, $_.Name) }
+        Say ""; Say "NEW subscriptions (not exported yet):" Green
+        $fresh | ForEach-Object { Say ("  {0}  {1}" -f $_.Id, $_.Name) }
     }
     if ($gone) {
-        Write-Host "`nEXPORTED but no longer subscribed:" -ForegroundColor DarkGray
-        $gone | ForEach-Object { Write-Host ("  {0}" -f $_) }
+        Say ""; Say "EXPORTED but no longer subscribed:" DarkGray
+        $gone | ForEach-Object { Say ("  {0}" -f $_) }
     }
-    if (-not ($updated -or $fresh -or $gone)) { Write-Host "`nNothing has changed upstream." }
-    else { Write-Host "`nTo capture: re-run this script without -CheckUpdates, then commit and push." }
+    if (-not ($updated -or $fresh -or $gone)) { Say ""; Say "Nothing has changed upstream." }
+    else { Say ""; Say "To capture: re-run this script without -CheckUpdates, then commit and push." }
+    if ($ReportPath) {
+        # Relative to where the user stands, not to the process working
+        # directory, which .NET keeps separately from PowerShell's location.
+        if (-not [IO.Path]::IsPathRooted($ReportPath)) { $ReportPath = Join-Path (Get-Location).ProviderPath $ReportPath }
+        [IO.File]::WriteAllText($ReportPath, (($report -join "`r`n") + "`r`n"), (New-Object Text.UTF8Encoding($false)))
+        Write-Host "report written: $ReportPath (UTF-8, no byte-order mark)"
+    }
     exit 0
 }
 
@@ -174,8 +210,8 @@ if ($CheckUpdates) {
 # reporting that SEST packs "need SEST Integration Pack", a dependency on
 # themselves, and every who-wins calculation silently counted the pack twice.
 # Re-exporting output into the input is circular; the folder is skipped here
-# so it cannot come back on the next run.
-$SestOwnWorkshopIds = @('3812461539')
+# so it cannot come back on the next run. The ids are $SestOwnWorkshopIds in
+# lib\common.ps1, shared with sync-sest.ps1 and set-mod-order.ps1.
 $modDirs = Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |
     Where-Object { $SestOwnWorkshopIds -notcontains $_.Name }
 $skipped = (Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |

@@ -146,11 +146,32 @@ arsenal takes the variants the register's nations operate on rebuild.
   Topol-M and DF-41 trucks pointed at `[ICBM_Launchers]`.
 - The world campaign no longer sells a unit its author hides from the editor
   (REDFOR's Grisha IV).
+- The player's decisions of 14 Oct, in this pass as well: every AIM-424 in
+  the collection on SEST's flight model and model block (SEST Collection
+  Fixes' `ammunition_overwrite/` stubs, `build_aim424`, one per id:
+  `usn_aim-424`, `yf23_aim424_internal`, `fury_aim424`; needs the Anchor
+  Chain preloader; `docs/conflicts-and-load-order.md`, "Four AIM-424s");
+  the Rivet Joint's briefing photo back under its new ids
+  (`integration/gallery/profiles.tsv`); a box for every playable unit; the
+  three briefs; the deployment boxes kept 5 NM clear of every arrival circle
+  (section 9 of `docs/campaigns/southern-watch/build-notes.md`'s zones
+  entry, "No box into an objective"); the local scenarios cleaned (section
+  9 below); the tooling list (section 8); and three author reports drafted
+  under `docs/author-reports/`, not posted.
 - Catalog: dated sentences for every updated mod, the new entry, the verified
   JMSDF and inferred Modern US Navy dependencies, Red Storm Arsenal's author
   name; `data/mod-fingerprints.json` regenerated.
 
 ## 6. Decisions for the player
+
+Taken on 14 Oct and done in this pass: (1) SEST's AIM-424 flight model and
+model on every AIM-424; (2) the stock-pictures logging pass (menu plugin
+1.1.0); (3) the PC runs the Workshop copy, so the tooling follows it; (4)
+the Buk-M3 reload, (5) the Richard Morris sonar and hatches, (6) the
+Topol-M/DF-41 launcher name; (7) a box for every playable unit, and then no
+box into an objective - the 22 escorts waiting within 5 NM of their convoy's
+circle excepted, since the game lets any ship into any box that admits
+ships; (8) the local scenarios cleaned. Still open:
 
 1. The uncrewed vehicles in the world campaign's US arsenal: kept (the rule
    excludes only units their author hides); say if they should go.
@@ -158,13 +179,18 @@ arsenal takes the variants the register's nations operate on rebuild.
    JMSDF's author, or leave (no SEST mission selects that loadout).
 3. Modern US Navy's undeclared dependency on US Naval Aviation for the Phase
    II's rounds: worth a line to its author.
+4. The three author reports under `docs/author-reports/`: post them, or not.
+5. `integration/missions/newest 0.7 updated mods v2.ini`: delete, or name the
+   mod it needs (section 9).
 
 ## 7. PC steps, in this order (game closed)
 
 1. After the push and the fast-forward: `git checkout sest-dev/loving-bell-3cnvvw`
-   and `tools\sync-sest.ps1` (once it carries the Workshop-copy guard, it will
-   stop while 3812461539 is on disk and say the two ways out; until then do
-   not run it with the Workshop copy present).
+   and `tools\sync-sest.ps1`. It now carries the Workshop-copy guard: while
+   3812461539 is on disk it stops before pulling and says the two ways out
+   (unsubscribe and re-run, or `-SkipInstall` to pull and set the order
+   without installing, the Workshop copy kept at position 1). To upload this
+   build, take the first way.
 2. Upload the new build to the Workshop item with the change notes, from the
    local `StreamingAssets\SEST_Integration` the sync recreates (unsubscribe
    first, or the upload picks nothing).
@@ -184,3 +210,81 @@ arsenal takes the variants the register's nations operate on rebuild.
 - SEST's dependency checkers glob `systems/*.ini` only; the Anduril mod puts
   its sections in `systems/weapons/` and `systems/sensors/`. Widen the glob
   once the game is seen to read subfolders.
+
+The 13 Oct review's tooling list (its section 14, item 6) was done in this
+pass: the sync script's Workshop-copy guard (`-SkipInstall` is the second
+way out; both copies on disk is refused whatever the switches);
+`set-mod-order.ps1` treating 3812461539 and the local `SEST_Integration`
+folder as one entry, never both; the capture's "updated" column read from
+Steam's `timeupdated` in `appworkshop_1286220.acf` with the folder time
+beside it, and `workshop_refresh_summary.py` reading both formats;
+`-CheckUpdates` skipping SEST's own item and writing `workshop-updates.txt`
+itself as UTF-8 without a byte-order mark; the whole BepInEx log, head and
+tail past 50 MB; the Workshop picture cap raised to 2,000 with a per-mod
+count, loadout icons no longer matched; `check_mod_conflicts.py` naming
+merged sections and keys two mods both define, with who wins;
+`check_load_order.py` reading the captured live order too (a live-order
+problem is reported and fails the check only with `--strict-live`, so a
+stale capture cannot block a build). Nine tests cover them
+(`tools/tests/test_*.ps1` through `test_powershell_scripts.py`, and three
+Python tests); every PowerShell run was pwsh 7 on Linux against stand-in
+folders, and nothing has run on the PC or under Windows PowerShell 5.1 yet.
+
+## 9. The local scenarios (`integration/missions`): cleanup and tweaks
+
+The player's own editor missions and the pack's products that live beside
+them (the Banda vignettes, the NF3 carves) are installed into the game's
+`user_missions` by the installer and were never gated. Done in this pass,
+every change recorded in `scratchpad/scenario_fix_log.json` while it existed
+and summarised here:
+
+- **Deleted**: `SULU SEA OFFENSIVE much smaller`, `smaller` and `smaller v2`,
+  the three middle cuts; the full `SULU SEA OFFENSIVE ` and `smaller v3` stay.
+  The installer never deletes a mission from the game, so the three stay in
+  `user_missions` on the PC until removed by hand.
+- **Units no mod ships any more** (the 1986-94 fleet ids of an unsubscribed
+  mod, `cn_`-prefixed PLAN hulls their mod renamed, four dated USN ids):
+  27 `Type=` swaps to the undated or renamed unit of the same class across
+  AUS DEF, AUS INDO-PAC ESCAv2, DARWIN US SUPPLY, NEWEST NORTHERN AUS CH
+  DEFENCE, SULU SEA OFFENSIVE (both), 0 Prologue, chapters 2-5; carrier and
+  destroyer air groups `usn_mh-60r_26` -> `usn_mh-60r_p2`, `usn_mh-60r_2027`
+  -> `usn_mh-60r`, `usn_sh-3j_89` -> `usn_sh-3j`. Each swap is a one-line
+  change and is listed in the fix log; a swapped hull keeps its name, so
+  these are stand-ins of the same class, not the retired id.
+- **Loadouts the winning file does not offer**: the 039B's `Silent` ->
+  `Late`, the Block III Super Hornets' `AntishipLongRange` -> `MH_LRASM`
+  (SEST's own), the Burkes' `MST`/`AA`/`MSTBF` -> the `≥125_`/`≥119_` names
+  U.S. Navy 2027 uses, the P-3C's `ASuW` -> `AntiShip`, two `Empty` fits ->
+  `Strike`/`Default`; variants outside the winning file clamped (OHP
+  Variant44 -> 25, the (2000s) Nimitz 3 -> 2, the fishing boat 6 -> 5).
+- **The fair opening** (the campaign's `check_opening`, run over every file):
+  the Tu-95 flight in the three NORTHERN FRONT files held back to minute 5
+  (Disabled, one join trigger each; the files had no triggers before); the
+  player's Virginia nudged 5 NM off the Gorshkov's 25 NM ring; the Seawolf
+  in SULU SEA OFFENSIVE and the 039B in `smaller v3` likewise; and the
+  player's ISR and support aircraft that started inside an enemy SAM
+  umbrella (Tritons, the E-3G, the AC-130J, F-22 and tanker formations, the
+  MQ-9s) moved to the nearest point outside every umbrella, 10 to 260 NM.
+  `NORTHERN FRONT III FINAL NEWEST` moved five Tritons; the mod's HHQ-9B
+  (260 NM) and 40N6 (250 NM) reach as written is what decides it.
+- **The Banda vignettes**: the builder (`build_banda_vignettes.py`) now takes
+  a red unit's `WeaponStatus` and `_enter=<minute>` (written Disabled with a
+  "Joins at minute N" trigger, the campaign's own pattern). Fury Wingmen's
+  and Black Widow Debut's fighter pairs and Triton's Picture's J-16s join at
+  minute 5; Triton's Picture's drone starts 274 NM south of the 052D, outside
+  her 260 NM reach, instead of 81 NM; Mogami's Corner's 093B is Tight (a
+  boat gone quiet does not shoot first; she fires when found). The Biak
+  Regiment's Growlers start 49 NM from the S-400 by design (the brief says
+  the HARM shot comes from inside its envelope): the one opening the survey
+  still lists, on purpose.
+- **The NF3 carves** (`make_scenarios.py`): a carve now carries the parent's
+  join triggers for the held-back units it takes, renumbered, and writes a
+  carried unit enabled when its trigger did not come along. All 11
+  regenerated; `check_scenarios.py` passes.
+- **Left for the player**: `newest 0.7 updated mods v2.ini`, a 0.7-era test
+  with 22 units and air groups no mod ships (`preflight --all` lists them);
+  delete it or say which mod it needs. The five Banda Front variants
+  (`EDITED`, `Lean`, `Lean v2`, `Living Seas`, `Front`) are kept as they are.
+
+After the pass: `preflight --all` lists nothing but that file; `check_scenarios`
+passes; the opening survey over all 50 files lists only the Biak Regiment.

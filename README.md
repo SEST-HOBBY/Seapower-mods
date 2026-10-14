@@ -66,13 +66,17 @@ python3 tools/preflight.py                  # resolve every reference the active
 python3 tools/preflight.py --all            # every deployed mission: fails on the editor crash, lists the rest
 python3 integration/missions/fix_loadout_variants.py --all --write   # sweep that crash out of them
 python3 integration/missions/restore_roe.py --mission "<name>" --write  # put back the Hold/Tight an editor save turned Free
-python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the mission and inventory tools' regression tests
+python3 -m unittest discover -s tools/tests -p 'test_*.py'             # the tools' regression tests; runs the PowerShell ones below too when pwsh is installed
 pwsh -File tools/tests/test_scan_ui_assets.ps1  # the UI-asset scan's name extraction, on synthetic files (Windows PowerShell runs it too)
+pwsh -File tools/tests/test_set_mod_order.ps1   # SEST's Workshop item against the local folder in the mod order, on a stand-in settings file
+pwsh -File tools/tests/test_sync_sest_guard.ps1 # the sync stops while the Workshop copy of SEST is on disk, and goes on with -SkipInstall
+pwsh -File tools/tests/test_common_helpers.ps1  # Steam's acf record read, a log kept whole or head-and-tail, the Workshop copy found
+pwsh -File tools/tests/test_export_check_updates.ps1  # -CheckUpdates skips SEST's item and writes its report as UTF-8
 python3 tools/check_inventory.py            # mods-source agrees with its export manifest (red on four line-ending mods until renormalised)
 python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
 python3 tools/check_vanilla_drift.py        # what changed in the game's own files since the last export, and what here depends on it
 python3 tools/check_game_version.py         # every SEST pack declares the installed game's version; which mods' ranges exclude it
-python3 tools/check_load_order.py           # every SEST override still outranks its target
+python3 tools/check_load_order.py           # every SEST override still outranks its target, in the canonical order and the captured live one
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered (stores, rosters, system names)
 python3 tools/check_scenarios.py            # the carved NF3 scenarios' counts, formations and section numbers
 python3 tools/check_stale_phrases.py        # retired claims (the pre-reveal AIM-424) stay out of builders and packs
@@ -114,8 +118,8 @@ been resolving only through a leftover file.
 `tools\quiet-mod-debug.ps1` turns off debug switches that Workshop mods ship switched on -
 so far the PLA & PLAN & PLAAF AEP's `debug.ini`, whose logging on every physics tick froze
 Steel Highway once BepInEx was installed. A mod update puts the author's file back, so
-`sync-sest.ps1` runs it on every sync. `capture-context.ps1` now also takes the tail of
-BepInEx's own `LogOutput.log`, where the code mods write.
+`sync-sest.ps1` runs it on every sync. `capture-context.ps1` also copies BepInEx's own
+`LogOutput.log`, where the code mods write, whole (head and tail with a marker line over 50 MB).
 
 `docs/setup-runbook.md` is the full walkthrough.
 

@@ -43,7 +43,18 @@
       workshop-subscriptions.txt  every subscribed id with its _info.ini name,
                               which is how new mods get catalogued, checked
                               both ways against Steam's own record
-                              (appworkshop_1286220.acf)
+                              (appworkshop_1286220.acf). "updated" is Steam's
+                              timeupdated for the item from that record; the
+                              folder's last-write time follows as a second
+                              column, "folder". Until 14 Oct 2026 the folder
+                              time was the only date, and it misses an update
+                              that only rewrites files inside existing
+                              subfolders
+      bepinex.log             BepInEx\LogOutput.log, where the code mods write,
+                              whole (a file over -BepInExCapBytes, 50 MB, is
+                              kept as its first and last 20,000 lines with a
+                              marker line between). Until 14 Oct 2026 only
+                              the last 600 lines were kept
       environment.txt         when, on what, and by which tool version
 
     Logs can carry the local user name in paths; -Redact rewrites the profile
@@ -63,7 +74,10 @@ param(
     [switch]$IncludeSaves,
     # 20,000 since 14 Oct 2026: the SEST menu plugin's [SEST Pictures] passes can
     # add several thousand lines, and the tail must still hold the whole log.
-    [int]$LogTailLines = 20000
+    [int]$LogTailLines = 20000,
+    # BepInEx\LogOutput.log is copied whole up to this size; a larger one is
+    # kept as its first and last $LogTailLines lines with a marker between.
+    [long]$BepInExCapBytes = 50MB
 )
 
 $ErrorActionPreference = "Stop"
@@ -170,16 +184,26 @@ if ($StreamingAssetsDir -and (Test-Path -LiteralPath (Join-Path $StreamingAssets
     }
 } else { $lines += "StreamingAssets\original not found" }
 $lines += ""; $lines += "--- Workshop pictures named for loading screens, backgrounds or menus ---"
-foreach ($lib in Get-SteamLibraries) {
-    $content = Join-Path $lib "workshop\content\1286220"
-    if (-not (Test-Path $content)) { continue }
-    Get-ChildItem -LiteralPath $content -Recurse -File -ErrorAction SilentlyContinue |
-        Where-Object { $media -contains $_.Extension.ToLower() -and
-                       $_.FullName.Substring($content.Length) -match "load|background|menu|splash" } |
-        Sort-Object FullName | Select-Object -First 200 |
-        ForEach-Object { $lines += ("  {0,-90} {1,8:N0}" -f $_.FullName.Substring($content.Length + 1), ($_.Length / 1KB)) }
-    break
-}
+# Every match is listed, up to $maxPictureLines in all; the rest are counted.
+# Until 14 Oct 2026 the list stopped at 200 entries, and 169 of those were
+# the Custom Loadout Editor's ui\loadout_icons ("load" matched "loadout"), so
+# SEST's own 80 loading screens never made the list. Loadout icons are no
+# longer matched.
+$maxPictureLines = 2000
+$content = Find-WorkshopContent
+if ($content) {
+    $pics = @(Get-ChildItem -LiteralPath $content -Recurse -File -ErrorAction SilentlyContinue |
+              Where-Object { $media -contains $_.Extension.ToLower() -and
+                             $_.FullName.Substring($content.Length) -match "load(?!out)|background|menu|splash" } |
+              Sort-Object FullName)
+    $byMod = @($pics | Group-Object { ($_.FullName.Substring($content.Length).TrimStart('\', '/') -split '[\\/]')[0] })
+    $lines += ("{0} file(s) in {1} mod(s): {2}" -f $pics.Count, $byMod.Count,
+               (($byMod | Sort-Object Name | ForEach-Object { "$($_.Name) ($($_.Count))" }) -join ", "))
+    foreach ($f in ($pics | Select-Object -First $maxPictureLines)) {
+        $lines += ("  {0,-90} {1,8:N0}" -f $f.FullName.Substring($content.Length + 1), ($f.Length / 1KB))
+    }
+    if ($pics.Count -gt $maxPictureLines) { $lines += "  ... and $($pics.Count - $maxPictureLines) more (listing stops at $maxPictureLines entries)" }
+} else { $lines += "no Workshop content folder found" }
 Write-Snapshot "streaming-media.txt" $lines
 
 # --- 2c. pictures built into the game's Unity data -----------------------------
@@ -257,15 +281,20 @@ foreach ($pair in @(@("Player.log", "player.log"), @("Player-prev.log", "player-
 # BepInEx writes what the code mods say (Identify Expanded, Anchor Chain and the
 # mods it loads) to its own LogOutput.log beside the game, not to Player.log.
 # A mod logging on every physics tick froze Steel Highway on 28 Sep and showed
-# nowhere else. Only the tail is read: that file can grow without limit.
+# nowhere else. The whole file is kept: BepInEx starts it fresh each launch,
+# so it holds one session, and the 600-line tail kept until 14 Oct 2026 lost
+# the plugin load order and the first errors of a session. The cap guards
+# against a mod logging every tick (the Steel Highway case): over
+# -BepInExCapBytes the head and the tail are kept with a marker line.
 if ($StreamingAssetsDir) {
     $bep = Join-Path (Split-Path -Parent (Split-Path -Parent $StreamingAssetsDir)) "BepInEx\LogOutput.log"
     if (Test-Path -LiteralPath $bep) {
         $item = Get-Item -LiteralPath $bep
-        $tail = @(Get-Content -LiteralPath $bep -Tail 600 -ErrorAction SilentlyContinue)
-        Write-Snapshot "bepinex.log" (@("# BepInEx\LogOutput.log - last $($tail.Count) line(s) of a " +
+        $x = Get-LogExcerpt -Path $bep -CapBytes $BepInExCapBytes -HeadLines $LogTailLines -TailLines $LogTailLines
+        $what = if ($x.Whole) { "whole file, $($x.Total) line(s)" } else { "first $LogTailLines and last $LogTailLines of $($x.Total) line(s)" }
+        Write-Snapshot "bepinex.log" (@("# BepInEx\LogOutput.log - $what, " +
                                         ("{0:N1} MB" -f ($item.Length / 1MB)) +
-                                        " file, last written $($item.LastWriteTime.ToString('s')).", "") + $tail)
+                                        ", last written $($item.LastWriteTime.ToString('s')).", "") + $x.Lines)
     } else { Write-Host "  skipped bepinex.log                   no BepInEx\LogOutput.log (BepInEx not installed?)" }
 }
 
@@ -294,16 +323,43 @@ foreach ($lib in Get-SteamLibraries) {
 Write-Snapshot "game-build.txt" $lines
 
 # --- 5. subscriptions ---------------------------------------------------------
+# Steam's own record first (appworkshop_1286220.acf), because the per-item
+# "updated" date comes from it: Steam's timeupdated for the installed version,
+# shown in local time. The folder's last-write time follows as "folder"; until
+# 14 Oct 2026 it was the only date, and an update that only rewrites files
+# inside existing subfolders does not move it, so updates were missed. An id
+# Steam has no time for shows "updated unknown".
+$acfIds = @{}
+$acfUpdated = @{}
+$acfPaths = @()
+$needsDownload = $null
+$needsUpdate = $null
+foreach ($lib in Get-SteamLibraries) {
+    $acf = Join-Path $lib "workshop\appworkshop_$SeaPowerAppId.acf"
+    # Get-SteamLibraries can return one library twice in different letter
+    # case (registry vs Program Files); -contains compares case-insensitively.
+    if (-not (Test-Path $acf) -or $acfPaths -contains $acf) { continue }
+    $acfPaths += $acf
+    $rec = Read-WorkshopAcf -Path $acf
+    foreach ($id in $rec.Ids.Keys) { $acfIds[$id] = $true }
+    foreach ($id in $rec.Updated.Keys) { if (-not $acfUpdated.ContainsKey($id)) { $acfUpdated[$id] = $rec.Updated[$id] } }
+    if ($null -ne $rec.NeedsDownload -and $null -eq $needsDownload) { $needsDownload = $rec.NeedsDownload }
+    if ($null -ne $rec.NeedsUpdate   -and $null -eq $needsUpdate)   { $needsUpdate   = $rec.NeedsUpdate }
+}
+
 $lines = @("# Every subscribed Workshop item on disk, with its in-game name.",
-           "# New ids here that are absent from data\load-order.tokens.txt need a position.", "")
+           "# New ids here that are absent from data\load-order.tokens.txt need a position.",
+           "# updated = Steam's timeupdated for the installed version (appworkshop_$SeaPowerAppId.acf, local time);",
+           "# folder = the folder's last-write time, which an update inside existing subfolders does not move.", "")
 $seen = @{}
 foreach ($lib in Get-SteamLibraries) {
-    $content = Join-Path $lib "workshop\content\1286220"
+    $content = Join-Path $lib "workshop\content\$SeaPowerAppId"
     if (-not (Test-Path $content)) { continue }
     foreach ($d in Get-ChildItem -LiteralPath $content -Directory | Sort-Object Name) {
         if ($seen.ContainsKey($d.Name)) { continue }
         $seen[$d.Name] = $true
-        $lines += ("{0,-12} {1,-52} updated {2:yyyy-MM-dd}" -f $d.Name, (Get-ModDisplayName $d.FullName), $d.LastWriteTime)
+        $when = if ($acfUpdated.ContainsKey($d.Name)) { $acfUpdated[$d.Name].ToString("yyyy-MM-dd HH:mm") } else { "unknown" }
+        $lines += ("{0,-12} {1,-52} updated {2}  folder {3:yyyy-MM-dd HH:mm}" -f $d.Name, (Get-ModDisplayName $d.FullName), $when, $d.LastWriteTime)
     }
 }
 $canonPath = Join-Path $repoRoot "data\load-order.tokens.txt"
@@ -321,26 +377,10 @@ if (Test-Path $canonPath) {
 # number that lives on Valve's servers. They can all disagree, and when they do
 # the repo has no way to know unless it says so here. Two questions this answers:
 # an id Steam tracks with no folder is a download that never landed, and a folder
-# Steam does not track is left over from an unsubscribe.
-$acfIds = @{}
-$acfPaths = @()
-$needsDownload = $null
-$needsUpdate = $null
-foreach ($lib in Get-SteamLibraries) {
-    $acf = Join-Path $lib "workshop\appworkshop_1286220.acf"
-    # Get-SteamLibraries can return one library twice in different letter
-    # case (registry vs Program Files); -contains compares case-insensitively.
-    if (-not (Test-Path $acf) -or $acfPaths -contains $acf) { continue }
-    $acfPaths += $acf
-    $raw = Get-Content -LiteralPath $acf -Raw
-    foreach ($m in [regex]::Matches($raw, '"(\d{9,10})"\s*\{')) { $acfIds[$m.Groups[1].Value] = $true }
-    $md = [regex]::Match($raw, '"NeedsDownload"\s*"(\d+)"')
-    $mu = [regex]::Match($raw, '"NeedsUpdate"\s*"(\d+)"')
-    if ($md.Success -and -not $needsDownload) { $needsDownload = $md.Groups[1].Value }
-    if ($mu.Success -and -not $needsUpdate)   { $needsUpdate   = $mu.Groups[1].Value }
-}
+# Steam does not track is left over from an unsubscribe. The record was read
+# above, where the per-item dates come from.
 $lines += ""
-$lines += "--- Steam client record (appworkshop_1286220.acf) ---"
+$lines += "--- Steam client record (appworkshop_$SeaPowerAppId.acf) ---"
 if ($acfPaths.Count -eq 0) {
     $lines += "acf not found in any Steam library - cross-check skipped."
 } else {

@@ -114,8 +114,9 @@ experience carry forward from mission to mission.
   the mission's own that you can move sits in a box of its own by the same
   rules: an *Air Station* round a patrol aircraft, a fighter pair or a
   helicopter on station, a *Submarine Patrol Box* round a boat on her own, a
-  *Detachment Zone* round a convoy or a boat and her tender far from the
-  force. Airbases, ports and other fixed installations have none.
+  *Detachment Zone* round a convoy, a boat and her tender far from the
+  force, or a battery ashore. Airbases, ports and other fixed installations
+  have none.
 - **Fair openings:**
   - no enemy ship or submarine with weapons free starts within 25 NM of you;
   - nothing on the enemy side can fire in the first 5 minutes;
@@ -224,6 +225,9 @@ experience carry forward from mission to mission.
 - **AIM-260 JATM and AIM-424 MALICE fits:**
   - F-35A (RAAF), F-35C, F-16CM Block 52, F-15EX;
   - EA-18G Growler, the Super Hornets, late Rafales.
+- **One AIM-424:** the YF-23's, the FQ-44 Fury's and `usn_aim-424` (Super
+  Hornets, F-35C, ROK F-35A) fly SEST's MALICE flight model and show its
+  model; each keeps its own warhead. Needs the Anchor Chain preloader.
 - **EA-18G Growler:** working AN/ALQ-249 Next Generation Jammer, and a
   conventional SEAD fit for the U.S. Navy 2027 Growler.
 - **F-15EX:** seven extra loadouts — LRASM surge, GBU-31 Quicksink, a MALICE
@@ -300,6 +304,28 @@ game's own values back. *Not yet confirmed in game.*
 - Road Mobile ICBMs: the Topol-M and DF-41 trucks named a launcher section
   their mod does not define (singular for plural); they now name the one it
   does, so they can fire. Mission editor only.
+- Deployment zones and objectives: no box that admits a kind of unit a
+  circle counts now reaches within 5 NM of the circle while that circle
+  still has a unit to receive. With the boxes opened 25 NM, twelve missions'
+  boxes overlapped their own arrival circle (Southern Watch 10 and D1 had
+  the circle's centre inside the box), so a force moved forward could be
+  placed into its objective and win before the clock started. The stock
+  files show the game lets a unit be placed in any box that admits its type
+  (10 Vengeance at Luzon's second, empty patrol box), so the rule is on
+  what a box admits, not on what it holds: an escort of the convoy's kind
+  waiting within 5 NM of the convoy's circle gets no box and stays where
+  the mission puts it (22 ships in 14 missions, listed in the Southern
+  Watch build notes); where a counted unit itself starts nearer, boxes of
+  its kind may reach her own distance less 1 NM; a circle every counted
+  unit starts inside (Southern Watch 09's service window) is left alone.
+  The build stops on any box that breaks the rule, read back from the
+  written file.
+- The Rivet Joint's briefing pictures: the author's rename of the aircraft
+  had dropped its photo from Red Line 03 and Tasman Shield 11 (another banner
+  stood in); the gallery's profile table follows the new ids.
+- The local scenarios in `integration/missions` cleaned and tuned (the review
+  of 14 Oct, section 9): three SULU cuts removed, retired unit ids replaced,
+  the Tu-95 raid held back, player aircraft started outside enemy SAM reach.
 
 **Smaller allied fixes**
 - P-8 anti-ship fit pointed at a Harpoon nobody defines.
@@ -392,6 +418,9 @@ how to check each.
   - that the game keeps a ship's spent ammunition between missions;
   - that a supply ship's own stock stays used up between missions.
 - **The restored intercept table.**
+- **One AIM-424:** that the preloader lays SEST's flight model and model on
+  the other AIM-424s, and that they show the AGM-88G stand-in, not a Sea
+  Sparrow.
 - **Transfers from HMAS Supply and Stalwart.**
 - **Red Line's weapons Hold and Tight**, which some missions depend on.
 - **The airbase launch rate:** whether the retuned values get aircraft off
@@ -401,7 +430,8 @@ how to check each.
 - **Deployment zones:** that the game lets a unit be moved inside its box
   before a mission - the force's Deployment Zone, and the Air Station,
   Submarine Patrol Box and Detachment Zone boxes round the mission's other
-  units - and what it does with a second box that admits ships.
+  units - and that a ship may be dragged into a second box that admits
+  ships, which stock's empty boxes imply and the objective rule assumes.
 - **The world campaign:** that the Dynamic Campaign Mod lists and starts it,
   and how it plays (battles, supply, submarine patrols, save and reload).
 

@@ -374,6 +374,27 @@ def build(source_text, scenario):
             section=section, type=extra["type"],
             variant=extra.get("variant", "Variant1"), x=x, z=z, heading=heading))
 
+    # --- carry the join triggers of held-back units --------------------------
+    # A unit the source writes Disabled and enables with a "Joins at minute N"
+    # trigger (the fair-opening hold of 14 Oct 2026: the Tu-95 flight) must
+    # bring that trigger along, with its Action_Units renumbered, or it would
+    # sit disabled for the whole scenario. A chosen unit whose trigger names
+    # units this scenario does not carry still comes along on the units it
+    # does; a Disabled unit no carried trigger enables is written enabled.
+    carried, enabled_by_trigger = [], set()
+    for header, sec_body in sections:
+        if not (header and re.fullmatch(r"\[Trigger\d+\]", header)):
+            continue
+        if not re.search(r"^Action_SetEnabledStatus=True", sec_body, re.M):
+            continue
+        m = re.search(r"^Action_Units=(.+)$", sec_body, re.M)
+        mine = [u.strip() for u in (m.group(1).split(",") if m else []) if u.strip() in renamed]
+        if not mine:
+            continue
+        enabled_by_trigger.update(mine)
+        carried.append(re.sub(r"^Action_Units=.+$", "Action_Units=" + ",".join(renamed[u] for u in mine),
+                              sec_body, count=1, flags=re.M))
+
     # --- rebuild [Mission] ---------------------------------------------------
     out_mission = []
     for line in mission_body.splitlines():
@@ -381,7 +402,7 @@ def build(source_text, scenario):
         if re.match(r"^NumberOf\w+=", s) or re.match(r"^(Taskforce[12]|Neutral)_(Number|Formation)", s):
             continue
         out_mission.append(line)
-    counts = []
+    counts = [f"NumberOfTriggers={len(carried)}"] if carried else []
     for side in SIDES:
         for cls in UNIT_CLASSES:
             key = f"{side}{cls}"
@@ -433,12 +454,19 @@ def build(source_text, scenario):
             out.append(header + "\n" + "\n".join(lines).rstrip("\n") + "\n\n")
         elif re.fullmatch(r"(?:Taskforce[12]|Neutral)(?:" + "|".join(UNIT_CLASSES) + r")\d+", name):
             if name in renamed:
+                if name not in enabled_by_trigger:
+                    sec_body = re.sub(r"^Disabled=True\n", "", sec_body, flags=re.M)
                 out.append(f"[{renamed[name]}]\n" + sec_body)
+        elif re.fullmatch(r"Trigger\d+", name):
+            continue                                # written below, renumbered
         else:
             out.append(header + "\n" + sec_body)
     body_text = "".join(out)
     if extra_sections:
         body_text = body_text.rstrip("\n") + "\n" + "".join(extra_sections)
+    if carried:
+        body_text = body_text.rstrip("\n") + "\n\n" + "".join(
+            f"[Trigger{i}]\n" + b.rstrip("\n") + "\n\n" for i, b in enumerate(carried, 1))
     return body_text, counters, injected, skipped
 
 

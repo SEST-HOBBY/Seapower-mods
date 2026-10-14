@@ -177,6 +177,7 @@ Full card: `docs/campaigns/red-line/test-card.md`.
 | Spruance | Encyclopedia → Spruance class (VLS, LAMPS III) | Named, no "Missing Class"; places on the map without an error |
 | Apache AH Mk 1 | Default loadout on the ground and in flight | Rocket pods no longer drawn over the Brimstones |
 | RAAF F-35A | Strike Long Range Stealth (internal JSM) | No empty wing pylons |
+| One AIM-424 | Southern Watch D6 Long Reach (YF-23s on AirToAirIntercept); Encyclopedia → the AIM-424 of the YF-23, the FQ-44 Fury and the Super Hornets | The AGM-88G stand-in under the jet, not a short fat Sea Sparrow; each card gives SEST's MALICE range, 290 nm. A Sea Sparrow: bring back Player.log |
 | Merchant supply ships | Any mission with a C8, Seabee, Ro-Ro A/B or Mercur on your side | Ships take stores alongside at 8 kn or less |
 | Map lines | Tactical map with several routes | Black lines by day, white at night, selected route red |
 | Gallery | Mod Manager → SEST Integration Pack → Open Folder → Gallery → gallery.html | Opens in a browser with photos and credits |

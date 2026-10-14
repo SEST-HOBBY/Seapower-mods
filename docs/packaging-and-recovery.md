@@ -92,6 +92,15 @@ powershell -ExecutionPolicy Bypass -File .\tools\install-sest-packs.ps1         
 powershell -ExecutionPolicy Bypass -File .\tools\set-mod-order.ps1 -AddMissing
 ```
 
+`set-mod-order.ps1` knows SEST's own Workshop item, 3812461539, as SEST's
+(`$SestOwnWorkshopIds` in `tools/lib/common.ps1`): with the local
+`SEST_Integration` folder absent it keeps that id at position 1 instead of
+dropping it as a stale Workshop entry, which it did until 14 Oct 2026; with
+the folder present it keeps `SEST_Integration` at 1 and drops the id with a
+warning to unsubscribe (the game lists it again at its next scan while the
+subscription stands). It never lists both. `tools/tests/test_set_mod_order.ps1`
+runs the cases on a stand-in settings file.
+
 The consolidation **discovers** packs under `integration\` rather than working
 from a list, so every `SEST_*` source folder there goes into `SEST_Integration`.
 Only `tools/build_all.py`, which runs each pack's builder, needs a new pack
@@ -205,6 +214,17 @@ powershell -ExecutionPolicy Bypass -File .\tools\sync-sest.ps1
 ```
 It refuses to run from any other branch, pulls, installs, sets the order with
 `-AddMissing`, and ends with `IN LINE: all N installed files match this commit`.
+Since 14 Oct 2026 it first looks for the Workshop copy of SEST, item
+3812461539 under `steamapps\workshop\content\1286220` (the PC runs that copy
+as a subscriber since the morning of 14 Oct): with that folder on disk it
+stops before the pull, because the install would put a second copy beside it
+and the game must never load both, and it names the two ways out -
+unsubscribe from 3812461539, wait until the folder is gone and run again; or
+keep the Workshop copy and run with `-SkipInstall`, which pulls and sets the
+order only, `set-mod-order.ps1` keeping 3812461539 at position 1 in place of
+`SEST_Integration`. Both copies on disk at once it refuses whatever the
+switches (`tools/tests/test_sync_sest_guard.ps1` runs the three cases on
+stand-in folders; the stop has not been seen on the PC yet).
 The standard update block (*Already aligned once?* in
 `docs/campaigns/southern-reach/install-alignment.md`) is this script behind two
 checks: it checks out the deploy branch and runs it. A session's work reaches
@@ -492,8 +512,7 @@ quit it, then:
   git fetch origin $b
   if ($LASTEXITCODE) { throw 'fetch failed - is the branch name right?' }
   git checkout -B $b "origin/$b"
-  powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates |
-      Out-File -Encoding utf8 data\install-snapshot\workshop-updates.txt
+  powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -CheckUpdates -ReportPath data\install-snapshot\workshop-updates.txt
   powershell -ExecutionPolicy Bypass -File .\tools\export-mod-configs.ps1 -IncludeVanilla
   if ($LASTEXITCODE) { throw 'export failed - read its last lines; nothing has been committed' }
   powershell -ExecutionPolicy Bypass -File .\tools\capture-context.ps1 -Redact
@@ -507,9 +526,22 @@ quit it, then:
 ```
 
 `workshop-updates.txt` is the exporter's read-only update check, taken before
-the export overwrites the evidence; `plugin-dlls.txt` (written by the capture)
+the export overwrites the evidence. The script writes it itself with
+`-ReportPath`, UTF-8 without a byte-order mark; until 14 Oct 2026 the console
+output was piped through `Out-File -Encoding utf8`, which added a byte-order
+mark and sent every name through the console code page - the 13 Oct report
+shows 3731931836 as `??????` - and the check listed SEST's own item
+3812461539 as a new subscription, which it now skips. `plugin-dlls.txt`
+(written by the capture)
 records every code DLL's hash and version, since a plugin update changes
-behaviour with no .ini changing. `python3 tools/workshop_refresh_summary.py`
+behaviour with no .ini changing. In `workshop-subscriptions.txt` each item's
+`updated` is Steam's own `timeupdated` from `appworkshop_1286220.acf` since
+14 Oct 2026, with the folder's last-write time beside it as `folder`; the
+folder time alone, the only date until then, does not move for an update
+that only rewrites files inside existing subfolders, so it missed updates.
+`bepinex.log` is the whole `BepInEx\LogOutput.log` (a file over 50 MB is kept
+as its first and last 20,000 lines with a marker line), not the last 600
+lines as before. `python3 tools/workshop_refresh_summary.py`
 then writes `data/install-snapshot/workshop-refresh-summary.txt`: the four
 inventories (Steam's record, folders on disk, the canonical order, the
 catalog) side by side, and what changed since the previous capture - facts
@@ -787,7 +819,7 @@ subscribe, unsubscribe or reorder, and after the export's `check_inventory.py`
 above:
 
 ```powershell
-python tools\check_load_order.py       # no mod outranks a SEST pack
+python tools\check_load_order.py       # no mod outranks a SEST pack, in the canonical order and in the captured live one
 python tools\check_dependencies.py     # every pack's upstream is present
 python tools\preflight.py              # every reference the mission makes resolves
 python tools\check_scenarios.py        # carved NF3 scenarios: counts, formations, section numbers

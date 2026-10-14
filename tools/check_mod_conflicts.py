@@ -20,6 +20,16 @@ It reports, in order of how much they matter:
   3. Everything else it collides with, summarised by the mod it would fight.
   4. Files it alone ships - the actual new content.
 
+Between 3 and 4 it lists the MERGED files it shares - systems/*.ini and
+language_*/*.ini, which the game merges rather than replaces - and, since
+14 Oct 2026, what both sides define with different content in them: a
+systems/ section (merged section by section) or a language_*/ key (merged
+key by key), and which copy wins by load order. Sharing such a file costs
+nothing; a contested section is a real change for every unit that uses it.
+The merge rules are the collection-fixes builder's reading of the game
+(integration/collection-fixes/build_patch.py cites its evidence); they are
+not demonstrated in game here.
+
 Nothing is changed. This only reads.
 """
 import argparse
@@ -50,7 +60,101 @@ UNIT_DIRS = {"aircraft", "vessels", "submarines", "land_units", "ammunition",
 # badly: a small SAM mod looks like it is fighting the Custom Loadout Editor
 # when all it does is add its own sensor entry.
 def merges(rel):
-    return rel.startswith(("language_", "language\\", "systems/", "systems\\"))
+    return merge_unit(rel) is not None
+
+
+# A SEST source pack deploys inside the consolidated SEST_Integration, whose
+# token holds position 1 of the canonical order (check_load_order.py does the
+# same). Vanilla's own files are at the bottom of everything.
+DIST_TOKEN = "SEST_Integration"
+VANILLA = ROOT / "mods-source" / "_vanilla" / "original"
+
+
+def merge_unit(rel):
+    """How a merging file merges: 'section' for systems/, 'key' for language_*/.
+
+    None for a whole-file override. The granularity is the collection-fixes
+    builder's: "systems/ merges section by section", "language_*/ merges
+    key-by-key" (integration/collection-fixes/build_patch.py); the game has
+    not been seen doing either here beyond the evidence cited there.
+    """
+    r = rel.replace("\\", "/")
+    if r.startswith("systems/"):
+        return "section"
+    if r.startswith("language_"):
+        return "key"
+    return None
+
+
+def parse_sections(path):
+    """{section: {key: value}} of one ini file.
+
+    Comment lines (#, ;, //) and inline // notes are dropped and keys and
+    values trimmed, the way check_load_order.single_section_values reads a
+    registry. A key repeated in a section keeps its last value. A section
+    with no keys - the decorative [***** All nations *****] headers some
+    language files carry - is dropped.
+    """
+    sections, current = {}, {}
+    for line in path.read_text(encoding="utf-8-sig", errors="replace").splitlines():
+        s = line.strip()
+        if not s or s.startswith(("#", ";", "//")):
+            continue
+        if s.startswith("[") and "]" in s:
+            current = sections.setdefault(s[1:s.index("]")].strip(), {})
+            continue
+        if "=" in s:
+            key, _, value = s.partition("=")
+            current[key.strip()] = value.split("//")[0].strip()
+    return {name: keys for name, keys in sections.items() if keys}
+
+
+def contested(mine, theirs, unit):
+    """What two parsed copies of a merging file both define differently.
+
+    unit 'section': one entry per section both define whose keys differ, as
+    {"section", "key": None, "differ": [keys with other values],
+    "only_mine": [...], "only_theirs": [...]}. unit 'key': one entry per key
+    both define with different values, as {"section", "key", "mine",
+    "theirs"}. A section or key only one side defines is not contested: the
+    merge keeps both.
+    """
+    out = []
+    for name in mine:
+        if name not in theirs:
+            continue
+        a, b = mine[name], theirs[name]
+        if unit == "key":
+            out += [{"section": name, "key": k, "mine": a[k], "theirs": b[k]}
+                    for k in a if k in b and a[k] != b[k]]
+        elif a != b:
+            out.append({"section": name, "key": None,
+                        "differ": sorted(k for k in a if k in b and a[k] != b[k]),
+                        "only_mine": sorted(k for k in a if k not in b),
+                        "only_theirs": sorted(k for k in b if k not in a)})
+    return out
+
+
+def position(token, order):
+    """A source's Mod Manager position, 1-based, in the canonical order; None when unplaced."""
+    if token.startswith("SEST_") and token not in order:
+        token = DIST_TOKEN
+    return order.index(token) + 1 if token in order else None
+
+
+def describe(item, unit):
+    """One contested section or key, as the report prints it."""
+    if unit == "key":
+        return f"[{item['section']}] {item['key']}: here {item['mine']!r}, there {item['theirs']!r}"
+    parts = []
+    if item["differ"]:
+        shown = ", ".join(item["differ"][:4]) + (" ..." if len(item["differ"]) > 4 else "")
+        parts.append(f"{len(item['differ'])} key(s) differ ({shown})")
+    if item["only_mine"]:
+        parts.append(f"{len(item['only_mine'])} only here")
+    if item["only_theirs"]:
+        parts.append(f"{len(item['only_theirs'])} only there")
+    return f"[{item['section']}]: " + "; ".join(parts)
 
 
 def mod_name(token):
@@ -97,17 +201,25 @@ def other_owners(rel, me):
             if d.is_dir() and d.name[0].isdigit():
                 for f in d.rglob("*.ini"):
                     _OWNERS[f.relative_to(d).as_posix().lower()].append(d.name)
+                    _FILES[(d.name, f.relative_to(d).as_posix().lower())] = f
         for pack in (ROOT / "integration").glob("*/SEST_*"):
             if pack.parent.name == "dist":
                 continue
             for f in pack.rglob("*.ini"):
                 _OWNERS[f.relative_to(pack).as_posix().lower()].append(pack.name)
+                _FILES[(pack.name, f.relative_to(pack).as_posix().lower())] = f
     rank = {t: i for i, t in enumerate(load_order())}
     owners = [t for t in _OWNERS.get(rel.lower(), []) if t != me]
     return sorted(owners, key=lambda t: rank.get(t, 10**6))
 
 
+def owner_file(token, rel):
+    """The copy of <rel> that source <token> ships (other_owners() indexed it)."""
+    return _FILES.get((token, rel.lower()))
+
+
 _OWNERS = None
+_FILES = {}
 
 
 def main():
@@ -131,15 +243,29 @@ def main():
 
     sest_hits, mission_hits, other = [], [], collections.defaultdict(list)
     merging, solo, outranked, sest_beaten = [], [], [], []
+    clashes, vanilla_hits = [], {}   # merged files: (rel, rival, unit, items); rel -> count over the game's own file
+    my_pos = position(args.mod, order)
     used = units_in_play()
     for rel in sorted(ships):
         rivals = other_owners(rel, args.mod)
+        unit = merge_unit(rel)
+        if unit:
+            mine_sections = parse_sections(ships[rel])
+            base = VANILLA / rel
+            if base.is_file():
+                n = len(contested(mine_sections, parse_sections(base), unit))
+                if n:
+                    vanilla_hits[rel] = n
+            for rival in rivals:
+                items = contested(mine_sections, parse_sections(owner_file(rival, rel)), unit)
+                if items:
+                    clashes.append((rel, rival, unit, items))
         if not rivals:
             solo.append(rel)
             continue
         owner = rivals[0]
         stem = Path(rel).stem
-        if merges(rel):
+        if unit:
             merging.append((rel, owner))
             continue
         w = winning_file(rel)
@@ -197,16 +323,53 @@ def main():
         print("   none")
 
     print("\n" + "=" * 70)
-    print(f"   MERGING files shared ({len(merging)}) - NOT a conflict")
+    n_items = sum(len(items) for _, _, _, items in clashes)
+    print(f"   MERGED files shared ({len(merging)}) - {n_items} contested section(s)/key(s)")
     print("=" * 70)
     if merging:
         for rel, owner in sorted(merging)[:8]:
             print(f"   {rel:<40} also in {mod_name(owner)[:26]}")
         if len(merging) > 8:
             print(f"   ... and {len(merging)-8} more")
-        print("\n   Language and systems files merge key-by-key, so both mods coexist.")
+        print("\n   systems/ merges section by section and language_*/ key by key, so")
+        print("   sharing one costs nothing. Contested is what both define with different")
+        print("   content; the higher-listed copy is the one the game reads.")
     else:
         print("   none")
+    # Who wins each contested item: the higher-listed copy. A SEST rival
+    # sits at position 1 (the SEST_Integration token), so it holds the item
+    # unless this mod has somehow been placed above it, which breaks the
+    # pack; an unplaced side leaves it to the game until it is placed.
+    WHO = {"won": "this mod wins", "lost": "they win", "sest": "SEST wins (held by the pack)",
+           "beats_sest": "THIS MOD wins over SEST - BREAKS the pack", "unplaced": "unplaced - no position decides it yet"}
+    outcome = collections.defaultdict(list)   # kind -> [(rel, rival, items)]
+    if clashes:
+        print()
+        for n, (rel, rival, unit, items) in enumerate(clashes):
+            their_pos = position(rival, order)
+            if my_pos is None or their_pos is None:
+                kind = "unplaced"
+            elif rival.startswith("SEST_"):
+                kind = "sest" if their_pos < my_pos else "beats_sest"
+            else:
+                kind = "won" if my_pos < their_pos else "lost"
+            outcome[kind].append((rel, rival, len(items)))
+            if n == 25:
+                print(f"   ... and {len(clashes)-25} more file/rival pair(s)")
+            if n >= 25:
+                continue
+            place = f"#{their_pos}" if their_pos else "unplaced"
+            print(f"   {rel}  vs {mod_name(rival)[:30]} ({place}): {WHO[kind]}")
+            for item in items[:6]:
+                print(f"        {describe(item, unit)}")
+            if len(items) > 6:
+                print(f"        ... and {len(items)-6} more")
+    won, lost, sest_lost, unplaced = outcome["won"], outcome["lost"], outcome["sest"], outcome["unplaced"]
+    beats_sest = outcome["beats_sest"]
+    if vanilla_hits:
+        print("\n   Also redefines, over the game's own files (a mod always outranks vanilla):")
+        for rel, n in sorted(vanilla_hits.items()):
+            print(f"        {rel:<40} {n} section(s)/key(s)")
 
     print("\n" + "=" * 70)
     print(f"4. SHIPPED BUT OUTRANKED ({len(outranked)}) - it loses these, no action")
@@ -246,7 +409,23 @@ def main():
         print(f"   Contests {len(outranked)} file(s) and loses every one at its current")
         print(f"   position. Nothing changes hands; only its {len(solo)} unique file(s) load.")
     if not (sest_hits or mission_hits or n_other or outranked):
-        print("   No whole-file collision with anything. Position is forgiving.")
+        print("   No whole-file collision with anything. Position is forgiving"
+              + (" for whole files." if clashes else "."))
+    if beats_sest:
+        print(f"   BREAKS {sum(n for _, _, n in beats_sest)} merged section(s)/key(s) a SEST pack defines "
+              f"({', '.join(sorted({r for _, r, _ in beats_sest}))}): it is placed above the pack. Move it BELOW.")
+    if won:
+        print(f"   Wins {sum(n for _, _, n in won)} contested merged section(s)/key(s) from "
+              f"{', '.join(sorted({mod_name(r) for _, r, _ in won}))}: every unit using them takes this mod's values.")
+    if lost:
+        print(f"   Loses {sum(n for _, _, n in lost)} contested merged section(s)/key(s) to "
+              f"{', '.join(sorted({mod_name(r) for _, r, _ in lost}))} - shadowed at its position, no action.")
+    if sest_lost:
+        print(f"   {sum(n for _, _, n in sest_lost)} contested merged section(s)/key(s) are held by a SEST pack "
+              f"({', '.join(sorted({r for _, r, _ in sest_lost}))}), which outranks it.")
+    if unplaced:
+        print(f"   {sum(n for _, _, n in unplaced)} contested merged section(s)/key(s) wait on a position "
+              f"({', '.join(sorted({mod_name(r) for _, r, _ in unplaced}))}).")
     if listed:
         print(f"\n   Already at position {order.index(args.mod)+1} of {len(order)}. To change it, edit")
         print("   data/load-order.tokens.txt then run tools\\set-mod-order.ps1 -AddMissing.")

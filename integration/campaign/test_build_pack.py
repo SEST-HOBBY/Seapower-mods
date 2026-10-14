@@ -11,6 +11,7 @@ builder emits. Nothing is written into the tree.
 
     python3 integration/campaign/test_build_pack.py
 """
+import collections
 import contextlib
 import importlib.abc
 import io
@@ -1382,26 +1383,41 @@ class AlliedFleet(unittest.TestCase):
 
 
 class DeploymentZones(unittest.TestCase):
-    """deployment_zones: the blue box the player may place the force in before
+    """deployment_zones: the blue boxes the player may place units in before
     a mission (user report, 13 Oct: "i cant move my task force around at
-    all"). It holds the hulls, opens away from the enemy and the mission's
-    goals, never toward them, and a boat on her own gets a box of her own.
-    Open Southern Ocean, so no edge meets land."""
+    all"; decision of 14 Oct: every playable unit gets one). The first holds
+    the hulls, opens away from the enemy and the mission's goals, never
+    toward them; every other unit of the player's - a boat on her own, an
+    aircraft on station, a battery ashore - is in a box of its own cluster's
+    types, and a base gets none. Open Southern Ocean, so no edge meets land
+    unless a test says otherwise."""
 
     CENTRE = (-50.0, 150.0)
 
-    def zones(self, blue, red=(), **mission):
-        placed = {"Taskforce1Vessel": [], "Taskforce1Submarine": [],
-                  "Taskforce2Vessel": []}
-        for i, (uid, x, z) in enumerate(blue, 1):
-            family = "Taskforce1Submarine" if "_ss" in uid else "Taskforce1Vessel"
+    def placement(self, blue, red=()):
+        """blue entries are (uid, x, z) hulls - a boat where the uid has
+        "_ss" - or (uid, x, z, family) for any Taskforce1 family."""
+        placed = collections.defaultdict(list)
+        for entry in blue:
+            uid, x, z = entry[:3]
+            family = (entry[3] if len(entry) > 3
+                      else "Submarine" if "_ss" in uid else "Vessel")
+            family = "Taskforce1" + family
             n = len(placed[family]) + 1
             placed[family].append((f"{family}{n}", _keys(uid, x, z), None, False))
         for i, (uid, x, z) in enumerate(red, 1):
             placed["Taskforce2Vessel"].append((f"Taskforce2Vessel{i}", _keys(uid, x, z), None, False))
+        return dict(placed)
+
+    def mission(self, **over):
         m = dict(key="Test Zones", centre=self.CENTRE, victory=dict(kind="survive"),
-                 resolve={}, _anchor_section="Taskforce1Vessel1", **mission)
-        return bp.deployment_zones(m, placed, {"goal": ["Taskforce2Vessel1"]})
+                 resolve={}, _anchor_section="Taskforce1Vessel1")
+        m.update(over)
+        return m
+
+    def zones(self, blue, red=(), **mission):
+        return bp.deployment_zones(self.mission(**mission), self.placement(blue, red),
+                                   {"goal": ["Taskforce2Vessel1"]})
 
     def box(self, z):
         """(west, east, south, north) edges in the mission's NM frame."""
@@ -1409,6 +1425,10 @@ class DeploymentZones(unittest.TestCase):
         cz = (z["at"][0] - self.CENTRE[0]) * 60
         return (round(cx - z["width"] / 2, 1), round(cx + z["width"] / 2, 1),
                 round(cz - z["height"] / 2, 1), round(cz + z["height"] / 2, 1))
+
+    def holds(self, z, x, zz):
+        west, east, south, north = self.box(z)
+        return west <= x <= east and south <= zz <= north
 
     def test_the_box_opens_away_from_the_enemy_and_not_toward_it(self):
         (z,) = self.zones([("plan_type_054a_p5", 0, 0)],
@@ -1434,17 +1454,276 @@ class DeploymentZones(unittest.TestCase):
     def test_a_boat_on_her_own_gets_a_submarine_box(self):
         main, boat = self.zones([("plan_type_054a_p5", 0, 0), ("plan_ss_type_039c", 80, 0)])
         self.assertEqual(main["types"], bp.DEPLOY_ALL)
-        self.assertEqual(boat["types"], "Submarine")
+        self.assertEqual((boat["types"], boat["label"]), ("Submarine", "Submarine Patrol Box"))
         self.assertEqual(boat["tags"], ["Taskforce1Submarine1"])
 
-    def test_no_hull_no_zone(self):
+    def test_no_unit_no_zone(self):
         self.assertEqual(self.zones([]), [])
 
     def test_the_mission_file_carries_the_zone_and_its_label(self):
+        # the Liaoning, which the arrival circle counts, starts 1.4 NM off
+        # it: her box ends at her, apart from the frigate's (14 October)
         _name, text = bp.render(small_mission(), *small_placement())
-        self.assertIn("Zone1Label_en=Deployment Zone", text)
-        self.assertIn("[Zones]\nNumberOfZones=1\nZone1=Zone1\n[Zone1]\nType=Deployment", text)
+        self.assertIn("Zone1Label_en=Deployment Zone\nZone2Label_en=Detachment Zone", text)
+        self.assertIn("[Zones]\nNumberOfZones=2\nZone1=Zone1\nZone2=Zone2\n[Zone1]\nType=Deployment", text)
         self.assertIn("Side=Blue", text)
+
+    # --- every playable unit (14 October) ---------------------------------
+
+    def test_an_airborne_aircraft_away_from_the_force_gets_an_air_station(self):
+        main, air = self.zones([("plan_type_054a_p5", 0, 0), ("plan_y-9fq", 0, 60, "Aircraft")],
+                               red=[("plan_type_054a_p5", 0, 120)])
+        self.assertEqual(main["label"], "Deployment Zone")
+        self.assertEqual((air["types"], air["label"], air["tags"]),
+                         ("Aircraft", "Air Station", ["Taskforce1Aircraft1"]))
+        self.assertTrue(self.holds(air, 0, 60))
+        west, east, south, north = self.box(air)
+        # the same rules as the first box: the pad towards the enemy, open behind
+        self.assertEqual(north, 60 + bp.DEPLOY_PAD_NM)
+        self.assertEqual(south, 60 - bp.DEPLOY_PAD_NM - bp.DEPLOY_OPEN_NM)
+
+    def test_an_aircraft_the_first_box_already_holds_gets_no_second(self):
+        zones = self.zones([("plan_type_054a_p5", 0, 0), ("plan_z-9c", 1, -1, "Helicopter")])
+        self.assertEqual([z["label"] for z in zones], ["Deployment Zone"])
+        self.assertTrue(self.holds(zones[0], 1, -1))
+
+    def test_a_flight_and_its_helicopter_share_one_air_station(self):
+        zones = self.zones([("plan_type_054a_p5", 0, 0), ("plan_j-15", 60, 0, "Aircraft"),
+                            ("plan_j-15", 63, 0, "Aircraft"), ("plan_z-9c", 70, 10, "Helicopter")])
+        self.assertEqual(len(zones), 2)
+        self.assertEqual((zones[1]["types"], zones[1]["label"]), ("Helicopter,Aircraft", "Air Station"))
+        self.assertEqual(zones[1]["tags"],
+                         ["Taskforce1Aircraft1", "Taskforce1Aircraft2", "Taskforce1Helicopter1"])
+
+    def test_a_mission_of_aircraft_alone_has_air_stations_and_no_deployment_zone(self):
+        zones = self.zones([("raaf_mq-4c_triton", 18, 36, "Aircraft"), ("usn_p8", -24, 24, "Aircraft")],
+                           _anchor_section=None)
+        self.assertEqual([z["label"] for z in zones], ["Air Station 1", "Air Station 2"])
+        self.assertEqual([z["types"] for z in zones], ["Aircraft", "Aircraft"])
+
+    def test_a_mobile_land_unit_is_boxed_and_a_base_is_not(self):
+        # pla_hy-2_launcher is LandUnitSubType=MissileSite; airfield_small_1 an Airbase
+        zones = self.zones([("plan_type_054a_p5", 0, 0), ("pla_hy-2_launcher", 0, 60, "LandUnit"),
+                            ("airfield_small_1", 0, -60, "LandUnit")])
+        self.assertEqual([(z["types"], z["label"]) for z in zones],
+                         [(bp.DEPLOY_ALL, "Deployment Zone"), ("Land", "Detachment Zone")])
+        self.assertEqual(zones[1]["tags"], ["Taskforce1LandUnit1"])
+        self.assertFalse(any("Taskforce1LandUnit2" in z["tags"] for z in zones))
+        self.assertIsNone(bp.deploy_type("Taskforce1LandUnit2", {"Type": "airfield_small_1"}))
+        self.assertIsNone(bp.deploy_type("Taskforce1LandUnit3", {"Type": "FOB"}))
+        self.assertEqual(bp.deploy_type("Taskforce1LandUnit4", {"Type": "china_hq15_launcher"}), "Land")
+
+    def test_a_far_boat_and_her_tender_share_a_detachment_box(self):
+        # Red Line 06's shape: the escort here, the tender and the boat 80 NM off
+        main, far = self.zones([("plan_type_054a_p5", 0, 0), ("civ_ms_kommunist", -80, 0),
+                                ("plan_ss_type_039c", -75, 4)])
+        self.assertEqual((far["types"], far["label"]), ("Vessel,Submarine", "Detachment Zone"))
+        self.assertEqual(far["tags"], ["Taskforce1Submarine1", "Taskforce1Vessel2"])
+        self.assertTrue(self.holds(far, -80, 0) and self.holds(far, -75, 4))
+
+    def test_duplicate_labels_are_numbered_as_stock_numbers_its_patrol_boxes(self):
+        zones = self.zones([("plan_type_054a_p5", 0, 0), ("plan_ss_type_039c", 80, 0),
+                            ("plan_ss_type_039c", -80, 0)])
+        self.assertEqual([z["label"] for z in zones],
+                         ["Deployment Zone", "Submarine Patrol Box 1", "Submarine Patrol Box 2"])
+
+    # --- no box into an objective (14 October) ----------------------------
+
+    HULL = {"hull": ["Taskforce1Vessel1"]}        # the circle counts the player's own hull
+
+    def arrive(self, x, z, radius):
+        return dict(kind="arrive", units=["hull"], min_units=1, radius=radius,
+                    at=(self.CENTRE[0] + z / 60.0, self.CENTRE[1] + x / 60.0))
+
+    def hull_zones(self, blue, **mission):
+        return bp.deployment_zones(self.mission(**mission), self.placement(blue), self.HULL)
+
+    def test_a_box_never_opens_towards_the_arrival_circle(self):
+        # the circle's edge 18 NM north of the hull: the pad alone that way
+        # (a goal is never approached), the other sides open as before
+        (main,) = self.hull_zones([("plan_type_054a_p5", 0, 0)], victory=self.arrive(0, 30, 12))
+        west, east, south, north = self.box(main)
+        self.assertEqual(north, bp.DEPLOY_PAD_NM)
+        self.assertEqual(south, -bp.DEPLOY_PAD_NM - bp.DEPLOY_OPEN_NM)
+        self.assertEqual(east, bp.DEPLOY_PAD_NM + bp.DEPLOY_OPEN_NM)
+
+    def test_a_box_that_would_reach_within_the_clearance_loses_its_pad_that_way(self):
+        # the edge 5.5 NM north of the hull: 3 NM of pad would leave 2.5
+        (main,) = self.hull_zones([("plan_type_054a_p5", 0, 0)], victory=self.arrive(0, 17.5, 12))
+        west, east, south, north = self.box(main)
+        self.assertEqual(north, bp.DEPLOY_NEAR_PAD_NM)
+        self.assertEqual(south, -bp.DEPLOY_PAD_NM - bp.DEPLOY_OPEN_NM)
+
+    def test_a_force_starting_near_the_circle_keeps_its_start_and_no_pad_towards_it(self):
+        # the edge 2 NM off the hull: no pad north, the other sides open as before
+        (main,) = self.hull_zones([("plan_type_054a_p5", 0, 0)], victory=self.arrive(0, 14, 12))
+        west, east, south, north = self.box(main)
+        self.assertEqual(north, bp.DEPLOY_NEAR_PAD_NM)
+        self.assertEqual((west, east), (-bp.DEPLOY_PAD_NM - bp.DEPLOY_OPEN_NM,
+                                        bp.DEPLOY_PAD_NM + bp.DEPLOY_OPEN_NM))
+
+    def test_a_force_starting_inside_a_service_circle_is_left_alone(self):
+        stage = dict(kind="area", units="hull", radius=5, after_minutes=30, at=self.CENTRE)
+        (main,) = self.hull_zones([("plan_type_054a_p5", 0, 0)],
+                                  victory=dict(kind="survive", after=stage))
+        west, east, south, north = self.box(main)
+        self.assertEqual(north, bp.DEPLOY_PAD_NM + bp.DEPLOY_OPEN_NM)
+
+    def test_an_escort_waiting_inside_the_convoys_circle_has_no_box(self):
+        # the freighter must reach the circle 26 NM east; the frigate waits
+        # inside it. A box round the frigate would let the freighter in.
+        mission = self.mission(victory=dict(kind="arrive", units=["convoy"], min_units=1, radius=12,
+                                            at=(self.CENTRE[0], self.CENTRE[1] + 26 / 60.0)))
+        placed = self.placement([("civ_ms_freighter_a", 0, 0), ("plan_type_054a_p5", 20, 0)])
+        zones = bp.deployment_zones(mission, placed, {"convoy": ["Taskforce1Vessel1"]})
+        self.assertEqual([z["tags"] for z in zones], [["Taskforce1Vessel1"]])
+        self.assertEqual(list(mission["_parked"]), ["Taskforce1Vessel2"])
+        self.assertIn("6.0 NM inside the 12 NM circle", mission["_parked"]["Taskforce1Vessel2"])
+        self.assertEqual(self.box(zones[0])[1], bp.DEPLOY_PAD_NM)          # east: no nearer
+        bp.check_deployment_cover(mission, placed, zones)                   # the parked one is excused
+
+    def test_a_circle_for_helicopters_is_kept_out_of_the_ships_box(self):
+        # the helicopter must reach a circle 10 NM north of the ships, whose
+        # box reaches to 7 NM of it: the box no longer admits helicopters
+        mission = self.mission(victory=dict(kind="arrive", units=["heli"], min_units=1, radius=5,
+                                            at=(self.CENTRE[0] + 10 / 60.0, self.CENTRE[1])))
+        placed = self.placement([("plan_type_054a_p5", 0, 0), ("plan_z-9c", 60, 0, "Helicopter")])
+        main, air = bp.deployment_zones(mission, placed, {"heli": ["Taskforce1Helicopter1"]})
+        self.assertEqual(main["types"], "Vessel,Submarine,Aircraft,Land")
+        self.assertEqual((air["types"], air["tags"]), ("Helicopter", ["Taskforce1Helicopter1"]))
+        self.assertEqual(mission["_parked"], {})
+
+    def test_a_helicopter_nearer_the_circle_than_its_ships_gets_its_own_box(self):
+        # Borrowed Shield's shape: the circle counts the two ships; their
+        # helicopter rides 8 NM east, inside the clearance. The ships' box
+        # is pulled to the ships, and the helicopter is boxed on its own.
+        # The force's own ship (the anchor) is 60 NM east, so the Korean
+        # group is a detachment: ships and helicopter chained into one box.
+        mission = self.mission(victory=dict(kind="arrive", units=["ships"], min_units=2, radius=12,
+                                            at=(self.CENTRE[0], self.CENTRE[1] + 24 / 60.0)))
+        placed = self.placement([("ran_ffh_anzac", 60, 0), ("plan_type_054a_p5", 0, 0),
+                                 ("plan_type_054a_p5", 0, -1), ("plan_z-9c", 8, 2, "Helicopter")])
+        zones = bp.deployment_zones(mission, placed, {"ships": ["Taskforce1Vessel2", "Taskforce1Vessel3"]})
+        self.assertEqual([z["label"] for z in zones], ["Deployment Zone", "Detachment Zone", "Air Station"])
+        self.assertEqual(zones[1]["tags"], ["Taskforce1Vessel2", "Taskforce1Vessel3"])
+        self.assertEqual(self.box(zones[1])[1], bp.DEPLOY_NEAR_PAD_NM)        # east: the ships, no nearer
+        self.assertEqual(zones[2]["tags"], ["Taskforce1Helicopter1"])
+        self.assertTrue(self.holds(zones[2], 8, 2))
+        bp.check_deployment_cover(mission, placed, zones)
+
+    def test_escorts_waiting_near_the_convoys_circle_have_no_box(self):
+        # Western Passage's shape: two escorts 1 and 2 NM outside the circle
+        # the convoy must reach, the convoy 18 NM beyond it. The game lets a
+        # ship be placed in any box that admits ships, so a box round the
+        # escorts would let the convoy start 1 NM off its objective: the
+        # escorts keep their starts and no box, the convoy's keeps 5 NM.
+        mission = self.mission(victory=dict(kind="arrive", units=["convoy"], min_units=2, radius=12,
+                                            at=self.CENTRE))
+        placed = self.placement([("ran_ffh_anzac", 0, 13), ("ran_ffh_anzac", 0, 14),
+                                 ("civ_ms_freighter_a", 0, 30), ("civ_ms_freighter_a", 1, 31)])
+        members = {"convoy": ["Taskforce1Vessel3", "Taskforce1Vessel4"]}
+        zones = bp.deployment_zones(mission, placed, members)
+        self.assertEqual(list(mission["_parked"]), ["Taskforce1Vessel1", "Taskforce1Vessel2"])
+        self.assertIn("1.0 NM off the edge of the 12 NM circle", mission["_parked"]["Taskforce1Vessel1"])
+        self.assertIn("let them be placed there", mission["_parked"]["Taskforce1Vessel2"])
+        self.assertEqual([(z["label"], z["tags"]) for z in zones],
+                         [("Deployment Zone", ["Taskforce1Vessel3", "Taskforce1Vessel4"])])
+        self.assertGreaterEqual(self.box(zones[0])[2], 12 + bp.DEPLOY_CLEAR_NM)  # the convoy's south edge
+        text = ("[Trigger1]\nName=Objective met\nCondition_Condition1_Type=UnitsInTheArea\n"
+                "Condition_Condition1_PositionNM=0.00,0,0.00\nCondition_Condition1_AreaRadiusNM=12\n"
+                "Condition_Condition1_Units=Taskforce1Vessel3,Taskforce1Vessel4\n")
+        bp.check_zone_areas(mission, placed, zones, text)
+        bp.check_deployment_cover(mission, placed, zones)
+
+    def test_a_counted_unit_near_the_circle_sets_how_near_boxes_of_its_kind_may_come(self):
+        # the designer's start, no nearer: the freighter the circle counts
+        # starts 2 NM off it, so her box ends at her less the near pad, and
+        # the gate allows every ship box her distance less 1 NM (the pad and
+        # a corner) - the other freighter's, 20 NM back, no nearer either
+        mission = self.mission(victory=dict(kind="arrive", units=["convoy"], min_units=2, radius=12,
+                                            at=self.CENTRE), _anchor_section="Taskforce1Vessel1")
+        placed = self.placement([("civ_ms_freighter_a", 0, 14), ("civ_ms_freighter_a", 30, 34)])
+        members = {"convoy": ["Taskforce1Vessel1", "Taskforce1Vessel2"]}
+        zones = bp.deployment_zones(mission, placed, members)
+        self.assertEqual(mission["_parked"], {})
+        self.assertEqual([z["tags"] for z in zones], [["Taskforce1Vessel1"], ["Taskforce1Vessel2"]])
+        self.assertEqual(self.box(zones[0])[2], 14 - bp.DEPLOY_NEAR_PAD_NM)
+        text = ("[Trigger1]\nName=Objective met\nCondition_Condition1_Type=UnitsInTheArea\n"
+                "Condition_Condition1_PositionNM=0.00,0,0.00\nCondition_Condition1_AreaRadiusNM=12\n"
+                "Condition_Condition1_Units=Taskforce1Vessel1,Taskforce1Vessel2\n")
+        bp.check_zone_areas(mission, placed, zones, text)
+        zones[1]["at"] = (self.CENTRE[0] + 14.0 / 60.0, self.CENTRE[1])   # the far box moved to 2 NM off too
+        zones[1]["width"] = zones[1]["height"] = 1.0
+        bp.check_zone_areas(mission, placed, zones, text)                 # the counted start: allowed
+        zones[1]["at"] = (self.CENTRE[0] + 12.5 / 60.0, self.CENTRE[1])   # to the circle's edge: not
+        with self.assertRaisesRegex(SystemExit, "must keep 1.0"):
+            bp.check_zone_areas(mission, placed, zones, text)
+
+    def test_an_escort_at_the_circles_edge_is_parked_and_the_straggler_boxed_on_her_own(self):
+        # Broken Wake's shape: the straggler, which the circle counts, 4 NM
+        # off it; her escort, uncounted, 0.2 NM off its edge. The escort can
+        # have no box that stays out of the circle; the straggler's box ends
+        # at her.
+        mission = self.mission(victory=dict(kind="arrive", units=["straggler"], min_units=1, radius=10,
+                                            at=self.CENTRE))
+        placed = self.placement([("ran_ffh_anzac", 0, 10.2), ("ran_ffh_anzac", -6, 14)])
+        zones = bp.deployment_zones(mission, placed, {"straggler": ["Taskforce1Vessel2"]})
+        self.assertEqual(list(mission["_parked"]), ["Taskforce1Vessel1"])
+        self.assertIn("0.2 NM off the edge of the 10 NM circle", mission["_parked"]["Taskforce1Vessel1"])
+        self.assertEqual([z["tags"] for z in zones], [["Taskforce1Vessel2"]])
+        self.assertGreaterEqual(self.box(zones[0])[2], 14 - bp.DEPLOY_NEAR_PAD_NM)
+        bp.check_deployment_cover(mission, placed, zones)
+
+    def test_the_gate_refuses_a_box_that_reaches_into_an_arrival_circle(self):
+        mission = self.mission(victory=self.arrive(0, 30, 12))
+        placed = self.placement([("plan_type_054a_p5", 0, 0)])
+        zones = bp.deployment_zones(mission, placed, self.HULL)
+        text = ("[Trigger1]\nName=Objective met\nCondition_Condition1_Type=UnitsInTheArea\n"
+                "Condition_Condition1_PositionNM=0.00,0,30.00\nCondition_Condition1_AreaRadiusNM=12\n"
+                "Condition_Condition1_Units=Taskforce1Vessel1\n")
+        bp.check_zone_areas(mission, placed, zones, text)          # north edge at 13: clear
+        zones[0]["height"] += 20                                   # north edge to 33: 15 NM inside
+        zones[0]["at"] = (zones[0]["at"][0] + 10 / 60.0, zones[0]["at"][1])
+        with self.assertRaises(SystemExit) as cm:
+            bp.check_zone_areas(mission, placed, zones, text)
+        self.assertIn("placed into an objective", str(cm.exception))
+        self.assertIn("Zone1 (Deployment Zone)", str(cm.exception))
+
+    def test_only_a_box_a_hull_can_be_moved_in_is_held_off_land(self):
+        saved = bp.fix_land_positions.water
+        bp.fix_land_positions.water = lambda *a, **k: False       # land everywhere
+        try:
+            main, air = self.zones([("plan_type_054a_p5", 0, 0), ("usn_p8", 0, 60, "Aircraft")])
+        finally:
+            bp.fix_land_positions.water = saved
+        self.assertEqual((main["width"], main["height"]), (6.0, 6.0))   # the pad alone
+        self.assertEqual((air["width"], air["height"]), (56.0, 56.0))   # fully open
+
+    def test_the_build_stops_when_a_unit_is_outside_every_box_of_its_type(self):
+        m = self.mission()
+        placed = self.placement([("plan_type_054a_p5", 0, 0), ("usn_p8", 0, 60, "Aircraft")])
+        zones = bp.deployment_zones(m, placed, {})
+        bp.check_deployment_cover(m, placed, zones)                 # as built: fine
+        with self.assertRaises(SystemExit) as stop:
+            bp.check_deployment_cover(m, placed, zones[:1])         # the aircraft's box dropped
+        self.assertIn("usn_p8 at Taskforce1Aircraft1 (Aircraft", str(stop.exception))
+        # a box of the wrong type over the unit does not count
+        wrong = [dict(zones[1], types="Submarine")]
+        with self.assertRaises(SystemExit):
+            bp.check_deployment_cover(m, placed, zones[:1] + wrong)
+        # a base outside every box is not a reason to stop
+        bases = self.placement([("plan_type_054a_p5", 0, 0), ("airfield_small_1", 300, 300, "LandUnit")])
+        bp.check_deployment_cover(m, bases, bp.deployment_zones(m, bases, {}))
+
+    def test_the_mission_file_carries_every_box_in_order(self):
+        placed, members = small_placement()
+        placed["Taskforce1Aircraft"] = [("Taskforce1Aircraft1", _keys("usn_p8", 0, 70), None, False)]
+        _name, text = bp.render(small_mission(), placed, members)
+        self.assertIn("Zone1Label_en=Deployment Zone\nZone2Label_en=Detachment Zone\n"
+                      "Zone3Label_en=Air Station", text)
+        self.assertIn("NumberOfZones=3\nZone1=Zone1\nZone2=Zone2\nZone3=Zone3\n", text)
+        self.assertIn("[Zone3]\nType=Deployment", text)
+        self.assertIn("AllowedUnitTypes=Aircraft\n", text)
 
 
 class AlliedFleetReview(unittest.TestCase):

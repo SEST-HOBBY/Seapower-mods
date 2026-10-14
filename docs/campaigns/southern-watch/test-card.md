@@ -334,9 +334,13 @@ start of any mission, a bought submarine never showed in the formation
 editor, and one dismissed from the force still sailed and stayed. Every
 mission now has a blue **Deployment Zone** round the force (the stock
 campaign's own key; build notes, *Deployment zones, and no submarines on
-sale*), and the Open Allocation versions sell no submarine. Start a **new**
-campaign for these rows: a save made before this build keeps the submarine
-it bought.
+sale*), and the Open Allocation versions sell no submarine. Since 14 October
+every other unit of the mission's own that can be moved has a box of its
+own as well - an **Air Station** round aircraft and helicopters on station,
+a **Submarine Patrol Box** round a boat on her own, a **Detachment Zone**
+round anything else (build notes, *A box for every playable unit*); an
+airbase, a port or a FOB has none. Start a **new** campaign for these rows:
+a save made before this build keeps the submarine it bought.
 
 | # | Do | Expect | If not |
 |---|---|---|---|
@@ -346,7 +350,14 @@ it bought.
 | I.4 | Before SW05 Weapons Free | The panel says Dispersed (the one-ship Replaced mission), and the box still holds the ship | |
 | I.5 | Southern Watch - Open Allocation and Southern Reach - Open Allocation, first window | No submarine on sale (no Seawolf, Virginia, Los Angeles, Suffren, Type 212A, Todaro, S-80, Kilo or Collins); the rules page says "Submarines cannot be bought in this campaign" | A submarine on sale = the old twin roster is still installed: run SETUP again |
 | I.6 | SW09 Southern Lifeline | The mission's own Collins sails with Stalwart inside the box and can be moved with the force | |
-| I.7 | Red Line 05, Southern Reach 02, Tasman Shield 05 (submarine operations) | The boat sits in a blue Submarine-only box she can be moved within | |
+| I.7 | Red Line 05, Southern Reach 02, Tasman Shield 05 (submarine operations) | The boat sits in a blue Submarine-only box labelled Deployment Zone and can be moved within it. In Southern Reach 02 the P-8 to the south-east sits in a second box labelled Air Station | |
+| I.8 | Before Tasman Shield 07 Southern Air Bridge, then Southern Reach 05 Empty Horizon | Tasman Shield 07: besides Hobart's small Deployment Zone, four blue boxes labelled Air Station 1 to 4 - round the P-8, the F-35A pair, the Wedgetail with the Triton and the A330, and the KC-46 far to the north; each aircraft can be dragged within its box and starts where you left it; Williamtown has no box. Southern Reach 05 (no ship): two boxes, Air Station 1 round the Triton and Air Station 2 round the P-8 | An aircraft that cannot be picked up = the game does not place aircraft in a Deployment zone: note whether the box is drawn at all. An aircraft that snaps back at launch = say whether it moved in the briefing |
+| I.9 | Before Red Line 06 The Quiet Side, then Fujian's Shadow | Red Line 06: the 039C and her tender share a box labelled Detachment Zone to the west (the tender some 50 NM from the escort; the two boxes 34 NM apart), and both can be moved within it. Fujian's Shadow: the three convoy ships share a Detachment Zone far to the west; the F-35Cs, Growler and Hawkeye an Air Station north-east of the carrier. Then try to drag the carrier group into the convoy's box and a convoy ship into the carrier's: both boxes admit ships, and what the game allows is not known (build notes, *A far box that admits Vessel can take the formation*) | Record what moved where. A formation that jumps 100 NM to the convoy's box is the case the 13 October note avoided and the 14 October decision accepted: say so, and whether it should stay |
+| I.10 | Before Southern Watch 09 Southern Lifeline | Scherger and the FOB (fixed land units) have no box and cannot be picked up; the P-8 to the east sits in Air Station 1 (9 x 31 NM) and the Seahawk south of it in Air Station 2, a 6 x 6 NM box that is the margin alone (the trawler, the Akula and the pickup point hold it on every side) | A base that can be picked up = say whether the game let it move with no box |
+| I.11 | Single missions: Southern Watch D5 Range Week, then D3 The Relief Ship | Range Week (no ship): the THAAD launcher, the AN/TPY-2, the two DSWS pieces and the Type 12 launcher share a box labelled Detachment Zone (10.5 x 11.5 NM, all of it land) and each can be dragged within it; the A-10 and the F-16 share an Air Station; the two airbases have no box. The Relief Ship: the two APCs share a Detachment Zone (31 x 31 NM) that reaches over the sea west, south and north; try to drop an APC on the water | A vehicle that cannot be picked up = the game does not place land units in a Deployment zone: note whether the box is drawn. An APC the game accepts on the water = say so: the box is not held onto land (build notes, *What is a base*) |
+| I.12 | Before SW10 Common Sea, from the campaign map | The convoy's box stops about 5 NM short of the arrival circle drawn on the map, and Anzac, Mogami and Maya have no box and cannot be dragged: they wait where the convoy must arrive. The same for the escorts in Southern Watch 09, 12, C2, D1 and D4, Southern Reach 01 and 04, Tasman Shield 09, 11 and 12, Red Line 01 and 04 and Sulu Line 04 (the build notes list the 22 ships) | A convoy ship that can be dragged into the circle = note the mission; an escort with no box that the game lets you drag anyway = say where it let you put it; the rule is in the build notes ("No box into an objective") |
+| I.13 | Any mission with an arrival circle: drag the force to the box edge nearest the circle, launch | No Objective met in the first minutes; the force has at least 15 minutes' steaming at 20 knots to reach the circle | An Objective met inside five minutes = name the mission and where you put the force |
+| I.14 | Before Southern Watch D4 Return Passage | The Kommunist's box ends about 3 NM short of her arrival circle (she starts 4 NM off it); the escorts' Detachment Zone keeps 5 NM. Try to drag the Kommunist into the escorts' box, and an escort into hers | Either drag refused = say which: the rule assumes any box that admits ships takes any ship (stock's empty boxes), and a stricter game would let the escorts have boxes again |
 
 ## 6J — allied decks, allied aircraft (13 October)
 

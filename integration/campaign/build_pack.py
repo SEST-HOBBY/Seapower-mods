@@ -3362,6 +3362,33 @@ def check_message_texts(mission):
 # and spread out, and no opening - or transit - gets shorter than the
 # mission's own by more than the pad.
 #
+# Every playable unit gets a box (the player's decision of 14 Oct 2026: "for
+# all missions give every playable unit a movable zone, i.e. the Global Hawk
+# or Seahawks flying included in the mission plan etc"). The main group - the
+# hulls chained within DEPLOY_CLUSTER_NM of the anchor - keeps its all-types
+# box as above. Every other player unit with a position that this box does
+# not already cover is clustered the same way, aircraft, helicopters and
+# mobile land units included, and each cluster gets a box admitting only the
+# types in it: a boat alone a submarine box, a flight an aircraft box, a
+# convoy a vessel box, a battery a land box. A base - an airbase, a port, a
+# rig, an installation, a bridge (DEPLOY_FIXED_LAND, by LandUnitSubType) - is
+# a place, not a unit the player moves, and gets none. The far boxes open by
+# the same rules as the first; the land test applies only to a box a hull
+# could be dragged ashore from, so an aircraft box may lie over land. A far
+# box that admits Vessel can take the formation as the first box can; the
+# player accepted that with the decision.
+#
+# What an aircraft is at the start: a Taskforce1Aircraft or
+# Taskforce1Helicopter section with RelativePositionInNM and an altitude,
+# airborne. Stock writes no other kind: the 182 player aircraft and
+# helicopter sections in the 153 shipped mission and campaign files all
+# carry RelativePositionInNM with an altitude (one P-3C at 0, in the
+# prototype campaign's 04B), and no key among the 25 they use parks one at
+# a field. The campaign's owned aircraft enter a mission only through an
+# air-tasking slot, which is such a section with the player's airframe in
+# it. So every such section is a candidate, slot placeholders included; an
+# owned aircraft with no slot is not in the mission at all.
+#
 # Positions are plain arcminutes on both axes (lat = centre + z/60, lon =
 # centre + x/60), as the game reads RelativePositionInNM: stock 10's map
 # symbols sit 0.05-0.4 NM from their units that way and 13-28 NM off with a
@@ -3375,6 +3402,45 @@ DEPLOY_SEEN_NM = 50.0
 DEPLOY_CLUSTER_NM = 25.0
 DEPLOY_LAND_DEG = 0.03          # about 2 NM of sea beyond the edge
 DEPLOY_ALL = "Vessel,Submarine,Helicopter,Aircraft,Land"
+# The AllowedUnitTypes word for each player section family.
+DEPLOY_TYPE = {"Vessel": "Vessel", "Submarine": "Submarine", "Aircraft": "Aircraft",
+               "Helicopter": "Helicopter", "LandUnit": "Land"}
+# Land units that are places, not units, by LandUnitSubType
+# (fix_land_positions.land_unit): the builder's own STAYS set - an airbase,
+# a port or a rig brings its own ground and is never moved to find it - plus
+# the structures, Installation (a FOB, a bunker, a plant) and Bridge. The
+# other subtypes in the collection (SAM, MissileSite, Radar, AAA, MobileUnit)
+# are batteries, launchers, radars, guns and vehicles: mobile, and boxed. A
+# subtype the builder cannot read is treated as mobile, so it gets a box.
+DEPLOY_FIXED_LAND = frozenset(fix_land_positions.STAYS) | {"Installation", "Bridge"}
+# A unit is held by a box when it is this far inside the edge or more. The
+# pad keeps every unit DEPLOY_PAD_NM in; this only absorbs the rounding of
+# the written GeoPoint (six decimals) and WidthNm/HeightNm (one).
+DEPLOY_HOLD_NM = 0.1
+# No box that admits a kind of unit a circle counts reaches within this of
+# the circle while units it counts have still to arrive (14 Oct 2026: with
+# the boxes opened 25 NM, a force moved forward in Southern Watch 10 or
+# Tasman Shield 04 could be placed inside its own arrival circle and win
+# before the clock started; twelve missions' boxes overlapped one). The
+# game lets a unit be placed in ANY box that admits its type - stock's 10
+# Vengeance at Luzon gives its one submarine a second, empty patrol box -
+# so the rule is on what a box admits, not on what it holds: an escort of
+# the convoy's kind waiting within the clearance gets no box at all. Where
+# a counted unit itself starts nearer, boxes of its kind may reach its own
+# distance less DEPLOY_START_ALLOW_NM - the designer's start, no nearer. A
+# circle every counted unit starts inside (a service window the force
+# keeps, Southern Watch 09's) is a station, not a limit.
+DEPLOY_CLEAR_NM = 5.0
+# The pad a side keeps when it is pulled in to face a circle: enough to hold
+# the unit on that edge (DEPLOY_HOLD_NM in), no more; the smaller pads are
+# tried when that one still comes too near (a box's corner lies a pad's
+# diagonal beyond the unit, and a cluster's corner nearer than any ship).
+DEPLOY_NEAR_PAD_NM = 0.5
+DEPLOY_PULL_PADS = (DEPLOY_NEAR_PAD_NM, 0.3, 0.15)
+# How much nearer a circle than the nearest unit it counts starts a box of
+# that unit's kind may reach: the pad and the corner beyond it.
+DEPLOY_START_ALLOW_NM = 1.0
+DEPLOY_EDGE_NM = 0.5            # a counted unit this near a circle's edge gets no box
 
 
 def rect_nm(rect, x, z):
@@ -3414,47 +3480,212 @@ def deployment_goals(mission, members):
     return points, tags
 
 
+def deployment_areas(mission, placed, members):
+    """Every circle a player unit's presence completes a stage or the
+    mission in, or lifts a restraint in: dicts of x, z, r in the mission's
+    NM frame and counted, the tags the condition names, read from the spec
+    with the keys and defaults the trigger builder uses. check_zone_areas()
+    reads the written file back, so a circle this misses stops the build
+    there rather than shipping."""
+    centre = mission["centre"]
+
+    def nm(at):
+        return (at[1] - centre[1]) * 60.0, (at[0] - centre[0]) * 60.0
+
+    def tags(ref_or_list):
+        wanted = [ref_or_list] if isinstance(ref_or_list, str) else list(ref_or_list or [])
+        return {tag for r in wanted for tag in refs(members, r)}
+
+    def area(at, r, counted):
+        x, z = nm(at)
+        return dict(x=x, z=z, r=float(r), counted=set(counted))
+
+    out = []
+    v = mission.get("victory", {})
+    stage = v.get("after")
+    if v.get("kind") == "arrive" and v.get("at"):
+        if isinstance(stage, dict) and stage.get("per_unit"):
+            counted = tags(stage.get("units"))      # one chain per unit of the stage's
+        else:
+            counted = tags(v["units"]) if v.get("units") else tags(v.get("station"))
+        out.append(area(v["at"], v.get("radius", 20), counted))
+    for extra in v.get("also", []):
+        if not isinstance(extra, dict):
+            continue
+        kind = extra.get("kind") or ("time" if "after_minutes" in extra else "area")
+        at = extra.get("at") or v.get("at")
+        if kind == "area" and at:
+            out.append(area(at, extra.get("radius", v.get("radius", 20)), tags(extra.get("units"))))
+    if isinstance(stage, dict) and stage.get("kind") == "area":
+        at = stage.get("at")
+        if stage.get("at_unit"):
+            ref = refs(members, stage["at_unit"])[0]
+            for _fam, entries in placed.items():
+                for tag, keys, _n, _x in entries:
+                    if tag == ref and unit_spot(keys):
+                        x, z = unit_spot(keys)
+                        at = (centre[0] + z / 60.0, centre[1] + x / 60.0)
+        if at:
+            out.append(area(at, stage.get("radius", 3), tags(stage.get("units"))))
+    for how in mission.get("resolve", {}).values():
+        if isinstance(how, tuple) and len(how) > 3 and how[0] == "arrive":
+            out.append(area(how[2], how[3], tags(how[1])))
+    for lift in mission.get("lift", []):
+        if isinstance(lift, dict) and lift.get("at") and lift.get("radius") is not None:
+            out.append(area(lift["at"], lift["radius"], tags(lift.get("units"))))
+    # one circle, however many conditions name it: the units any of them counts
+    merged = {}
+    for a in out:
+        key = (round(a["x"], 3), round(a["z"], 3), a["r"])
+        merged.setdefault(key, a)["counted"] |= a["counted"]
+    return list(merged.values())
+
+
+PARKED_NOTES = []
+
+
+def deploy_type(tag, keys):
+    """The AllowedUnitTypes word a box must carry to hold this player
+    section, or None for one the player does not move: a base
+    (DEPLOY_FIXED_LAND), or a section of no boxed family."""
+    m = re.match(r"Taskforce1(Vessel|Submarine|Aircraft|Helicopter|LandUnit)\d+$", tag)
+    if not m:
+        return None
+    if m.group(1) == "LandUnit":
+        sub = fix_land_positions.land_unit(keys["Type"])[0]
+        return None if sub in DEPLOY_FIXED_LAND else "Land"
+    return DEPLOY_TYPE[m.group(1)]
+
+
+def deploy_units(placed):
+    """(tag, keys, x, z, type word) for every player unit a box must hold,
+    in the file's own order."""
+    out = []
+    for family in FAMILY_ORDER:
+        if not family.startswith("Taskforce1"):
+            continue
+        for tag, keys, _n, _x in placed.get(family, []):
+            ty = deploy_type(tag, keys)
+            xz = unit_spot(keys)
+            if ty and xz:
+                out.append((tag, keys, xz[0], xz[1], ty))
+    return out
+
+
+def zone_box(zone, centre):
+    """A zone dict's (x0, x1, z0, z1) in the mission's NM frame, read back
+    from the GeoPoint, WidthNm and HeightNm the file will carry."""
+    cx = (zone["at"][1] - centre[1]) * 60.0
+    cz = (zone["at"][0] - centre[0]) * 60.0
+    return (cx - zone["width"] / 2.0, cx + zone["width"] / 2.0,
+            cz - zone["height"] / 2.0, cz + zone["height"] / 2.0)
+
+
+def zone_holds(zone, centre, x, z, ty):
+    """Does this zone admit the type and hold the point, DEPLOY_HOLD_NM in?"""
+    if ty not in zone["types"].split(","):
+        return False
+    x0, x1, z0, z1 = zone_box(zone, centre)
+    return (x0 + DEPLOY_HOLD_NM <= x <= x1 - DEPLOY_HOLD_NM
+            and z0 + DEPLOY_HOLD_NM <= z <= z1 - DEPLOY_HOLD_NM)
+
+
+def zone_label(types):
+    """The label for a box past the first: stock's own kind of name for a
+    boat's box, and the two this pack adds."""
+    kinds = set(types.split(","))
+    if kinds == {"Submarine"}:
+        return "Submarine Patrol Box"
+    if kinds <= {"Aircraft", "Helicopter"}:
+        return "Air Station"
+    return "Detachment Zone"
+
+
 def deployment_zones(mission, placed, members):
     """The blue Deployment zones for one mission, as dicts.
 
     One zone for the group of hulls the force forms on (the anchor's, else
-    the first ship's), taking every unit type as stock's do, and one
-    submarine-only box for each group that is nothing but boats. A group is
-    hulls chained within DEPLOY_CLUSTER_NM of each other. Hulls in any other
-    group (an escorted merchant far off, a second surface group) stay where
-    the story puts them: a second all-types zone would let the player's
-    formation jump to them, and no stock mission has two.
+    the first ship's), taking every unit type as stock's do; then one for
+    each cluster of the player's other units that this box does not already
+    hold - a boat on her own, a flight on station, a convoy far off, a
+    battery ashore - admitting only the types in the cluster. A cluster is
+    units chained within DEPLOY_CLUSTER_NM of each other. Bases get none
+    (deploy_type). Labels past the first are numbered where one repeats, as
+    stock numbers its "Sub Patrol Box 1" and "2" (10 Vengeance at Luzon).
     """
     centre = mission["centre"]
+    units = deploy_units(placed)
+    areas = deployment_areas(mission, placed, members)
+    keys_of = {tag: keys for entries in placed.values() for tag, keys, _n, _x in entries}
+    spot = {tag: unit_spot(keys) for tag, keys in keys_of.items() if unit_spot(keys)}
 
-    def spots(prefix, families=None):
+    def counted_types(a):
+        return {deploy_type(t, keys_of[t]) for t in a["counted"] if t in keys_of} - {None}
+
+    def clearance(tag, a):
+        x, z = spot[tag]
+        return math.hypot(x - a["x"], z - a["z"]) - a["r"]
+
+    # The game lets a unit be placed in ANY box that admits its type (stock's
+    # 10 Vengeance at Luzon offers its one submarine a second, empty patrol
+    # box), so what a box holds at the start does not limit what can be put
+    # in it. A circle is LIVE while a unit it counts has still to arrive;
+    # one that every counted unit starts inside (a service window)
+    # constrains nothing.
+    live = [a for a in areas
+            if any(t in spot and clearance(t, a) >= 0 for t in a["counted"])]
+
+    # No box: a unit of a kind a live circle counts, not counted by it,
+    # within the clearance - an escort waiting near where its convoy must
+    # arrive: any box round it admits the convoy's kind, and the convoy
+    # could be placed there. Nor a counted unit inside the circle or at its
+    # edge, where no box round it stays out. Each stays where the mission
+    # puts it.
+    parked = {}
+    for u in units:
+        for a in live:
+            if u[4] not in counted_types(a):
+                continue
+            c = clearance(u[0], a)
+            where = f"{-c:.1f} NM inside" if c < 0 else f"{c:.1f} NM off the edge of"
+            circle = f"the {a['r']:g} NM circle at {a['x']:.1f},{a['z']:.1f} NM"
+            if u[0] in a["counted"]:
+                if c < DEPLOY_EDGE_NM:
+                    parked[u[0]] = (f"starts {where} {circle} it must reach, which others "
+                                    "have still to reach - no box round it stays out of it")
+                    break
+            elif c < DEPLOY_CLEAR_NM:
+                parked[u[0]] = (f"starts {where} {circle} that counts other units of its "
+                                "kind - a box round it would let them be placed there")
+                break
+    mission["_parked"] = parked
+    PARKED_NOTES.extend(f"{mission['key']}: {keys_of[tag]['Type']} at {tag} has no box - {why}"
+                        for tag, why in parked.items())
+    units = [u for u in units if u[0] not in parked]
+    if not units:
+        return []
+    order = {u[0]: i for i, u in enumerate(units)}
+
+    def chain(items):
+        """Single-linkage groups, each in file order, in order of first member."""
+        groups = []
+        for h in items:
+            joined = [g for g in groups
+                      if any(math.hypot(h[2] - o[2], h[3] - o[3]) <= DEPLOY_CLUSTER_NM for o in g)]
+            merged = [h] + [o for g in joined for o in g]
+            groups = [g for g in groups if g not in joined] + [merged]
+        return sorted((sorted(g, key=lambda u: order[u[0]]) for g in groups),
+                      key=lambda g: order[g[0][0]])
+
+    def spots(prefix):
         out = []
         for family, entries in placed.items():
-            if not family.startswith(prefix):
-                continue
-            if families and not family.endswith(families):
-                continue
-            for tag, keys, _n, _x in entries:
-                xz = unit_spot(keys)
-                if xz:
-                    out.append((tag, keys, xz[0], xz[1]))
+            if family.startswith(prefix):
+                for tag, keys, _n, _x in entries:
+                    xz = unit_spot(keys)
+                    if xz:
+                        out.append((tag, keys, xz[0], xz[1]))
         return out
-
-    hulls = spots("Taskforce1", ("Vessel", "Submarine"))
-    if not hulls:
-        return []
-    # single-linkage groups
-    groups = []
-    for h in hulls:
-        joined = [g for g in groups
-                  if any(math.hypot(h[2] - o[2], h[3] - o[3]) <= DEPLOY_CLUSTER_NM for o in g)]
-        merged = [h] + [o for g in joined for o in g]
-        groups = [g for g in groups if g not in joined] + [merged]
-    anchor = mission.get("_anchor_section")
-    first_ship = next((h[0] for h in hulls if "Vessel" in h[0]), hulls[0][0])
-    lead = anchor if any(h[0] == anchor for h in hulls) else first_ship
-    main = next(g for g in groups if any(h[0] == lead for h in g))
-    boats = [g for g in groups if g is not main and all("Submarine" in h[0] for h in g)]
 
     red = []
     for tag, keys, x, z in spots("Taskforce2"):
@@ -3469,10 +3700,65 @@ def deployment_zones(mission, placed, members):
         return fix_land_positions.water(centre[0] + z / 60.0, centre[1] + x / 60.0,
                                         clearance=DEPLOY_LAND_DEG)
 
-    def open_box(group):
+    def need(a, kind):
+        """How far outside live circle a a box admitting kind must stay:
+        the clearance, or - where a unit of that kind the circle counts
+        already starts nearer - that unit's own distance less the start
+        allowance (the designer's start, no nearer), never inside."""
+        own = [clearance(tag, a) for tag in a["counted"]
+               if tag in spot and tag not in parked and deploy_type(tag, keys_of[tag]) == kind]
+        return min(DEPLOY_CLEAR_NM, max(0.0, min(own) - DEPLOY_START_ALLOW_NM) if own
+                   else DEPLOY_CLEAR_NM)
+
+    def pulled(box, ext, a, pad):
+        """box with each side that faces circle a pulled in to the extent
+        ext of the units it is kept for, plus pad."""
+        b = list(box)
+        if a["x"] < ext[0]:
+            b[0] = max(b[0], ext[0] - pad)
+        if a["x"] > ext[1]:
+            b[1] = min(b[1], ext[1] + pad)
+        if a["z"] < ext[2]:
+            b[2] = max(b[2], ext[2] - pad)
+        if a["z"] > ext[3]:
+            b[3] = min(b[3], ext[3] + pad)
+        return b
+
+    def keeps(box, a, want):
+        """Does box stay want outside circle a, and out of it by a hold?"""
+        return rect_nm(box, a["x"], a["z"]) - a["r"] >= max(want, DEPLOY_HOLD_NM)
+
+    def open_box(group, afloat, types):
+        """The padded box, each side opened as far as the enemy, the goals,
+        the live circles and - for a box a hull can be moved in (afloat) -
+        the land allow. Returns the box and the type words the box must not
+        admit: the kinds a live circle counts that the group has none of,
+        where the box reaches within that kind's need of the circle."""
         xs, zs = [h[2] for h in group], [h[3] for h in group]
-        box = [min(xs) - DEPLOY_PAD_NM, max(xs) + DEPLOY_PAD_NM,
-               min(zs) - DEPLOY_PAD_NM, max(zs) + DEPLOY_PAD_NM]
+        extent = [min(xs), max(xs), min(zs), max(zs)]
+        box = [extent[0] - DEPLOY_PAD_NM, extent[1] + DEPLOY_PAD_NM,
+               extent[2] - DEPLOY_PAD_NM, extent[3] + DEPLOY_PAD_NM]
+        # For each live circle and each kind it counts that the group has,
+        # the box keeps the need: its sides that face the circle are pulled
+        # in to the group's units OF THAT KIND, with a shrinking pad. A
+        # helicopter 7 NM nearer the circle than the ships it rides with
+        # (Borrowed Shield) must not hold the ships' box open that far; a
+        # unit a pull leaves outside gets its own box.
+        own_types = {h[4] for h in group}
+        limits = []
+        for a in live:
+            for kind in counted_types(a) & own_types:
+                want = need(a, kind)
+                limits.append((a["x"], a["z"], a["r"] + want))
+                if keeps(box, a, want):
+                    continue
+                cx_ = [h[2] for h in group if h[4] == kind]
+                cz_ = [h[3] for h in group if h[4] == kind]
+                ext = [min(cx_), max(cx_), min(cz_), max(cz_)]
+                for pad in DEPLOY_PULL_PADS:
+                    box = pulled(box, ext, a, pad)
+                    if keeps(box, a, want):
+                        break
         base = tuple(box)
         in_play = [(x, z, rect_nm(base, x, z)) for _t, x, z, reach in red
                    if rect_nm(base, x, z) <= reach + DEPLOY_OPEN_NM]
@@ -3485,27 +3771,196 @@ def deployment_zones(mission, placed, members):
                 trial[i] += sign
                 if any(rect_nm(trial, x, z) < d - DEPLOY_SLACK_NM for x, z, d in in_play):
                     break
-                lo, hi = (trial[0], trial[1]) if along_x else (trial[2], trial[3])
-                n = max(2, int((hi - lo) / 2.0) + 1)
-                edge = [lo + (hi - lo) * k / (n - 1) for k in range(n)]
-                if not all(water(v, trial[i]) if along_x else water(trial[i], v)
-                           for v in edge):
+                # no nearer to a circle than its need, or than the box
+                # already is where the start itself is nearer
+                if any(rect_nm(trial, ax, az) < min(limit, rect_nm(box, ax, az))
+                       for ax, az, limit in limits):
                     break
+                if afloat:
+                    lo, hi = (trial[0], trial[1]) if along_x else (trial[2], trial[3])
+                    n = max(2, int((hi - lo) / 2.0) + 1)
+                    edge = [lo + (hi - lo) * k / (n - 1) for k in range(n)]
+                    if not all(water(v, trial[i]) if along_x else water(trial[i], v)
+                               for v in edge):
+                        break
                 box = trial
-        return box
+        drop = set()
+        for a in live:
+            for kind in counted_types(a) - own_types:
+                if rect_nm(box, a["x"], a["z"]) - a["r"] < need(a, kind):
+                    drop.add(kind)
+        return box, drop
+
+    def split(group):
+        """The pieces of a group whose box could not keep a live circle's
+        need even pulled in to its units: two ships 14 NM from a circle on
+        different bearings have a bounding box that passes 10 NM from it
+        (Western Passage's convoy and the escorts round the circle it must
+        reach). Such a group is halved along its wider axis, and the halves
+        again, until each piece's tightest box keeps the need."""
+        pieces, todo = [], [list(group)]
+        while todo:
+            g = todo.pop()
+            halve = None
+            for a in live:
+                for kind in counted_types(a) & {h[4] for h in g}:
+                    mem = [h for h in g if h[4] == kind]
+                    if len(mem) < 2:
+                        continue
+                    ext = (min(h[2] for h in mem), max(h[2] for h in mem),
+                           min(h[3] for h in mem), max(h[3] for h in mem))
+                    tight = pulled([ext[0] - DEPLOY_PAD_NM, ext[1] + DEPLOY_PAD_NM,
+                                    ext[2] - DEPLOY_PAD_NM, ext[3] + DEPLOY_PAD_NM],
+                                   ext, a, DEPLOY_PULL_PADS[-1])
+                    if not keeps(tight, a, need(a, kind)):
+                        halve = 2 if ext[1] - ext[0] >= ext[3] - ext[2] else 3
+                        break
+                if halve:
+                    break
+            if halve:
+                ranked = sorted(g, key=lambda h: h[halve])
+                todo += [ranked[:len(ranked) // 2], ranked[len(ranked) // 2:]]
+            else:
+                pieces.append(g)
+        return sorted((sorted(g, key=lambda u: order[u[0]]) for g in pieces),
+                      key=lambda g: order[g[0][0]])
 
     def zone(group, types, label):
-        x0, x1, z0, z1 = open_box(group)
-        return dict(label=label, types=types,
-                    at=(round(centre[0] + (z0 + z1) / 120.0, 6),
-                        round(centre[1] + (x0 + x1) / 120.0, 6)),
-                    width=round(x1 - x0, 1), height=round(z1 - z0, 1),
-                    tags=sorted(h[0] for h in group))
+        kinds = set(types.split(","))
+        (x0, x1, z0, z1), drop = open_box(group, afloat=bool(kinds & {"Vessel", "Submarine"}),
+                                          types=types)
+        types = ",".join(ty for ty in types.split(",") if ty not in drop)
+        z = dict(label=label, types=types,
+                 at=(round(centre[0] + (z0 + z1) / 120.0, 6),
+                     round(centre[1] + (x0 + x1) / 120.0, 6)),
+                 width=round(x1 - x0, 1), height=round(z1 - z0, 1))
+        # the units the written box holds: one a circle pulled the box off
+        # is boxed again on its own below
+        z["tags"] = sorted(h[0] for h in group if zone_holds(z, centre, h[2], h[3], h[4]))
+        return z
 
-    out = [zone(main, DEPLOY_ALL if any("Vessel" in h[0] for h in main) else "Submarine",
-                "Deployment Zone")]
-    out += [zone(g, "Submarine", "Submarine Patrol Box") for g in boats]
+    out, main_tags = [], set()
+    hulls = [u for u in units if u[4] in ("Vessel", "Submarine")]
+    if hulls:
+        groups = chain(hulls)
+        anchor = mission.get("_anchor_section")
+        first_ship = next((h[0] for h in hulls if h[4] == "Vessel"), hulls[0][0])
+        lead = anchor if any(h[0] == anchor for h in hulls) else first_ship
+        main = next(g for g in groups if any(h[0] == lead for h in g))
+        pieces = split(main)
+        main = next(g for g in pieces if any(h[0] == lead for h in g))
+        main_tags = {h[0] for h in main}
+        out.append(zone(main, DEPLOY_ALL if any(h[4] == "Vessel" for h in main)
+                        else "Submarine", "Deployment Zone"))
+        for group in pieces:
+            if group is not main:
+                types = ",".join(t for t in DEPLOY_ALL.split(",") if any(u[4] == t for u in group))
+                out.append(zone(group, types, zone_label(types)))
+    rest = [u for u in units if u[0] not in main_tags
+            and not any(zone_holds(z, centre, u[2], u[3], u[4]) for z in out)]
+    for group in chain(rest):
+        for piece in split(group):
+            types = ",".join(t for t in DEPLOY_ALL.split(",") if any(u[4] == t for u in piece))
+            out.append(zone(piece, types, zone_label(types)))
+    # A unit a box was pulled off (the helicopter beside the circle its
+    # ships must keep clear of) is boxed on its own, until every unit is
+    # held or a box cannot be made (check_deployment_cover says which).
+    for _round in range(4):
+        unheld = [u for u in units
+                  if not any(zone_holds(z, centre, u[2], u[3], u[4]) for z in out)]
+        if not unheld:
+            break
+        before = len(out)
+        for group in chain(unheld):
+            for piece in split(group):
+                types = ",".join(t for t in DEPLOY_ALL.split(",") if any(u[4] == t for u in piece))
+                out.append(zone(piece, types, zone_label(types)))
+        if len(out) == before:
+            break
+    counts = collections.Counter(z["label"] for z in out)
+    seen = collections.Counter()
+    for z in out:
+        base = z["label"]
+        if counts[base] > 1:
+            seen[base] += 1
+            z["label"] = f"{base} {seen[base]}"
     return out
+
+
+def check_deployment_cover(mission, placed, zones):
+    """The build stops if any player unit a box should hold is outside every
+    zone that admits its type. Read from the zone dicts as the file will
+    carry them, not from the grouping that made them."""
+    centre = mission["centre"]
+    parked = mission.get("_parked", {})
+    out = [f"{keys['Type']} at {tag} ({ty}, {x:.1f},{z:.1f} NM)"
+           for tag, keys, x, z, ty in deploy_units(placed)
+           if tag not in parked and not any(zone_holds(z_, centre, x, z, ty) for z_ in zones)]
+    if out:
+        raise SystemExit(f"{mission['key']}: outside every Deployment zone that "
+                         "admits it - the player could not move it: " + "; ".join(out))
+
+
+def check_zone_areas(mission, placed, zones, text):
+    """The build stops if a Deployment zone that admits a kind of unit a
+    live circle counts reaches nearer the circle than that kind's need:
+    DEPLOY_CLEAR_NM, or the start of the nearest unit of the kind the circle
+    counts (less DEPLOY_START_ALLOW_NM) where that is nearer, never inside. Read
+    back from the triggers and zones the file carries, not from the spec,
+    so a circle deployment_areas() does not know cannot ship. A circle is
+    live while fewer of the units it counts start inside it than it needs;
+    one its counted units all start inside (a service window) is skipped.
+    The game lets a unit be placed in any box that admits its type, so what
+    a box holds at the start does not matter: only how near it reaches."""
+    centre = mission["centre"]
+    parked = mission.get("_parked", {})
+    spots, family = {}, {}
+    for entries in placed.values():
+        for tag, keys, _n, _x in entries:
+            m = re.match(r"Taskforce1(Vessel|Submarine|Aircraft|Helicopter|LandUnit)\d+$", tag)
+            if m and unit_spot(keys):
+                spots[tag], family[tag] = unit_spot(keys), DEPLOY_TYPE[m.group(1)]
+    # one circle, whichever conditions and triggers name it (the per-unit
+    # chain writes one "Objective met by" trigger per unit on one circle):
+    # the units any of them counts
+    circles = {}
+    for block in re.findall(r"^\[Trigger\d+\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.S | re.M):
+        name = re.search(r"^Name=(.*)$", block, re.M)
+        for n in re.findall(r"^Condition_Condition(\d)_Type=UnitsInTheArea", block, re.M):
+            pos = re.search(rf"^Condition_Condition{n}_PositionNM=([-\d.]+),[-\d.]+,([-\d.]+)", block, re.M)
+            rad = re.search(rf"^Condition_Condition{n}_AreaRadiusNM=([\d.]+)", block, re.M)
+            units = re.search(rf"^Condition_Condition{n}_Units=(.*)$", block, re.M)
+            if not (pos and rad and units):
+                continue
+            tags = [u.strip() for u in units.group(1).split(",") if u.strip() in family]
+            if not tags:
+                continue
+            key = (float(pos.group(1)), float(pos.group(2)), float(rad.group(1)))
+            circles.setdefault(key, [set(), []])[0].update(tags)
+            if name and name.group(1) not in circles[key][1]:
+                circles[key][1].append(name.group(1))
+    problems = []
+    for (ax, az, r), (tags, names) in circles.items():
+        clear = {u: math.hypot(spots[u][0] - ax, spots[u][1] - az) - r for u in tags}
+        if all(c < 0 for c in clear.values()):
+            continue                    # complete, or a dwell, as the clock starts
+        for kind in sorted({family[u] for u in tags}):
+            own = [clear[u] for u in tags if family[u] == kind and u not in parked and clear[u] >= 0]
+            allowed = min(DEPLOY_CLEAR_NM, max(0.0, min(own) - DEPLOY_START_ALLOW_NM) if own
+                          else DEPLOY_CLEAR_NM)
+            for i, zone in enumerate(zones, 1):
+                if kind not in zone["types"].split(","):
+                    continue
+                have = rect_nm(zone_box(zone, centre), ax, az) - r
+                # 0.1: the written box is rounded to 0.1 NM a side
+                if have < max(allowed - DEPLOY_HOLD_NM, -DEPLOY_HOLD_NM):
+                    problems.append(f"Zone{i} ({zone['label']}) admits {kind} and comes "
+                                    f"{have:.1f} NM from the {r:g} NM circle of "
+                                    f"'{', '.join(names)}' at {ax:.1f},{az:.1f} NM "
+                                    f"- it must keep {allowed:.1f}")
+    if problems:
+        raise SystemExit(f"{mission['key']}: a player could be placed into an objective before "
+                         "the clock starts - " + "; ".join(problems))
 
 
 def zones_ini(zones):
@@ -3586,6 +4041,7 @@ def render(mission, placed, members):
             if unit_name and tag != mission.get("_anchor_tag"):
                 L.append(f"{tag}NameOverride={unit_name}")
     zones = mission["_zones"] = deployment_zones(mission, placed, members)
+    check_deployment_cover(mission, placed, zones)
     for i, z in enumerate(zones, 1):
         L.append(f"Zone{i}Label_en={z['label']}")
     L.append("")
@@ -4360,6 +4816,7 @@ def render(mission, placed, members):
         L.append(f"Name={comment}")
         L += lines
         L.append("")
+    check_zone_areas(mission, placed, zones, "\n".join(L))
     return name, "\n".join(L) + "\n"
 
 
@@ -5646,17 +6103,16 @@ def campaign_ini(missions, events, placements):
             # neither is documented in ui.ini, so the pairing is inferred from
             # how the stock campaign uses them and is untested here.
             # Wherever the owned force sails it also gets the deployment
-            # panel and the mission's Deployment zone (deployment_zones):
-            # stock pairs DeploymentOptions with a default disposition every
-            # time (06, 07, 09, 10 Formation on Generated; 05 Dispersed on
-            # Replaced), and its ui.ini carries "All Task Force ships must
+            # panel: stock pairs DeploymentOptions with a default disposition
+            # every time (06, 07, 09, 10 Formation on Generated; 05 Dispersed
+            # on Replaced), and its ui.ini carries "All Task Force ships must
             # deploy for this mission!" for the panel when the whole force is
-            # required, so the panel is not only for detachments.
+            # required, so the panel is not only for detachments. The
+            # mission's Deployment zones (deployment_zones) hold every unit of
+            # the mission's own, sailing or not; render() stops the build
+            # where one is outside every box that admits it, which covers
+            # the force sailing into a mission with no zone.
             sails = not detached and bool(placed.get("Taskforce1Vessel"))
-            if sails and not mission.get("_zones"):
-                raise SystemExit(f"{mission['key']}: the task force sails into a "
-                                 "mission with no Deployment zone - the player "
-                                 "could not move it")
             if blank:
                 pass        # nothing of the player's sails: no deployment keys
             else:
@@ -6384,7 +6840,7 @@ def main():
                             if broken else ""))
         for lst in (UNPROVEN, RECOVERY_NOTES, CLOSURE_NOTES, REACH_PROBLEMS,
                     CLOSURE_PROBLEMS, PLACEMENT_PROBLEMS, COAST_CHECKED,
-                    OPENING_PROBLEMS):
+                    OPENING_PROBLEMS, PARKED_NOTES):
             del lst[:]
         print(f"\n== {TITLE}")
 
@@ -6465,6 +6921,12 @@ def main():
         if CLOSURE_NOTES:
             print(f"\n{len(CLOSURE_NOTES)} unit(s) placed where they cannot take part:")
             for note in CLOSURE_NOTES:
+                print(f"  {note}")
+        if PARKED_NOTES:
+            print(f"\n{len(PARKED_NOTES)} unit(s) with no Deployment box - each starts within "
+                  f"{DEPLOY_CLEAR_NM:g} NM of a circle that other units of its kind have still to "
+                  "reach, and the game lets any unit of a kind a box admits be placed in it:")
+            for note in PARKED_NOTES:
                 print(f"  {note}")
         if REACH_PROBLEMS or CLOSURE_PROBLEMS or PLACEMENT_PROBLEMS or OPENING_PROBLEMS:
             sys.exit("geometry failed:\n  " + "\n  ".join(

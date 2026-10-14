@@ -2917,13 +2917,22 @@ own STAYS set - Airbase, Port, OilRig, the units that bring their own
 ground - plus Installation (a FOB, a bunker, a plant) and Bridge are places
 and get no box (`DEPLOY_FIXED_LAND`). The other subtypes in the collection
 (SAM, MissileSite, Radar, AAA, MobileUnit) are batteries, launchers,
-radars, guns and vehicles, and would be boxed with Land; a subtype the
-builder cannot read is treated as mobile. No campaign mission places a
-mobile land unit on the player's side, so that path is exercised by the
-unit tests only (`DeploymentZones`, a HY-2 launcher boxed beside an
-airfield that is not). The 51 player land units the missions do place are
-49 airbases and two installations (Steel Highway's Liberty, Southern
-Lifeline's FOB), and none has a box.
+radars, guns and vehicles, and are boxed with Land; a subtype the builder
+cannot read is treated as mobile. No campaign mission places a mobile land
+unit on the player's side: the 51 player land units the 57 missions place
+are 49 airbases and two installations (Steel Highway's Liberty, Southern
+Lifeline's FOB), and none has a box. The eight Dispatches, single missions
+the same `render()` writes, do place them (two APCs in The Relief Ship, a
+THAAD launcher, an AN/TPY-2, two DSWS pieces and a Type 12 launcher in
+Range Week, a Jaguar and a HEMTT in The Long Perimeter), and each cluster
+got a Land box labelled Detachment Zone; the unit test (`DeploymentZones`,
+a HY-2 launcher boxed beside an airfield that is not) covers the same
+path. A Land box is not held onto land: the land test is for a box a hull
+can be dragged ashore from, and the decision did not ask for its mirror.
+Range Week's box (10.5 x 11.5 NM) is land at every edge and corner; The
+Relief Ship's (31.2 x 31.4) and The Long Perimeter's (6.1 x 32.1) reach
+over the sea on three sides, so a vehicle could be dragged into the water
+there. What the game does with that is not known.
 
 The build-stop is stricter than before. It used to stop only when the
 owned force sailed into a mission with no zone; `check_deployment_cover()`
@@ -2963,7 +2972,7 @@ What it made, across the 57 campaign missions (counts from the build):
   the 51 bases have none.
 - **Four new boxes are the pad alone** (6 x 6, or 9 x 6 for a pair), each
   held on every side by an enemy in play or a goal, as the first boxes of
-  Red Line 03 and Tasman Shield 07 are: Cold Route's Air Station 1 (the
+  Red Line 03 and The Open Door are: Cold Route's Air Station 1 (the
   P-8: the 093B 27 NM west, the arrival point 18 NM north, the J-15D and a
   Z-18F in reach east and south); Southern Cross's Air Station 1 (the P-8
   between the 054A and 093B 13-15 NM south-west and the AGI 38 NM
@@ -2977,8 +2986,105 @@ What it made, across the 57 campaign missions (counts from the build):
   edge of the first box, so it counts as outside and has an Air Station of
   its own (31 x 31) that overlaps the first box. Boxes overlap elsewhere
   too, wherever one opens over another's units (Long Way Home's tanker box
-  opens over the F-22s); nothing in the stock files says what the game does
-  with two boxes that both admit a unit.
+  opens over the F-22s); the stock files' empty boxes (10 Vengeance at
+  Luzon, below) say a unit may be placed in any box that admits its type.
+- **The eight Dispatches** (not in the 57): six had a zone and Range Week
+  and The Long Perimeter, with no ship, had none; 61 of their 90 movable
+  units were outside. Now 27 zones, 2 to 6 a mission, 21 of them new: 18
+  Air Stations and the three Land Detachment Zones above; 0 of the 90
+  outside. Where there is no ship the first box is an Air Station, as
+  Southern Reach 05's is.
+
+**No box into an objective (14 October, later the same day).** The
+player's report: moving the ships forward inside the zone can put the force
+very close to the objective. Measured on the built files it was worse than
+close. A box never opens towards a goal point (that rule dates from the first
+box), but the padded start box itself, 3 NM round the force, could already
+lie across the arrival circle, and nothing read the circle's radius: twelve
+missions' first boxes overlapped their own arrival circle - Southern Watch 10
+and D1 had the circle's centre inside the box (12 NM inside its edge),
+Tasman Shield 04 and 09 and Southern Watch 09 and 12 were 4 to 6 NM inside
+- so a force placed forward won `Objective met` before the clock started.
+Now (`DEPLOY_CLEAR_NM`, `deployment_areas`, `check_zone_areas`):
+
+- Every circle a player unit's presence completes a stage or the mission
+  in, or lifts a restraint in - the arrival circle, an also-term's, a stage
+  area, a resolve arrival, a lift area - is read from the spec with the
+  trigger builder's own keys and defaults (one circle, however many
+  conditions name it). A circle is *live* while a unit it counts has still
+  to arrive; one that every counted unit starts inside - Southern Watch
+  09's and Southern Reach 04's service windows, Red Line 06's, Cook
+  Strait's, where the force is meant to be there and a Time condition does
+  the rest - constrains nothing.
+- **The game lets a unit be placed in any box that admits its type.** The
+  stock files say so: `10 Vengeance at Luzon` gives its one Oberon a second
+  Sub Patrol Box, empty, 125 NM from the first, and an unlabelled 400 x 100
+  NM Vessel box 200 NM from the Kidd's; `06 Raid on Lombok` has two empty
+  polygons that admit everything. So the rule is on what a box *admits*,
+  not on what it holds at the start: a box that admits a kind a live
+  circle counts keeps 5 NM outside it - 15 minutes' steaming at 20 knots
+  before anything can complete - whichever units start in it.
+- Where a unit the circle counts itself starts nearer than that, boxes of
+  its kind may reach her own distance less 1 NM: the half-mile pad on the
+  pulled side and the box's corner a pad's diagonal beyond her (a
+  cluster's corner lies nearer the circle than any of its ships). The
+  designer's start, no nearer; Return Passage's Kommunist, 4 NM from her
+  circle, keeps 3 NM. A counted unit within half a mile of a live circle's
+  edge, or inside it, gets no box (none is, today).
+- **A unit of a kind a live circle counts, not counted by it, within 5 NM
+  of the circle gets no box at all** - an escort waiting near where its
+  convoy must arrive: any box round it admits the convoy's kind, and the
+  convoy could be placed in it. 22 ships in 14 missions, listed below;
+  each stays where the mission puts it, and the build prints them. The
+  earlier rule of the same day boxed them with the pad pulled off, which
+  the stock evidence above makes unsafe: Western Passage's six escorts had
+  a box 0.3 NM off the convoy's circle, and the convoy could have started
+  there. Move the start in the spec if one should be placeable.
+- A box too near a live circle has the sides that face it pulled in to its
+  units of the counted kind, with a pad of 0.5, 0.3 or 0.15 NM, the first
+  that keeps the need. A group whose box cannot keep it even so - two
+  ships on different bearings round a circle, so that their bounding box
+  passes nearer than either - is halved along its wider axis until each
+  piece's can. A unit a pull leaves outside (Borrowed Shield's Lynx, 7 NM
+  nearer the circle than its ships) is boxed again on its own. The band
+  split of the earlier rule, which cut The First Ship Through's convoy
+  into three overlapping boxes and Return Passage's escorts into two, is
+  gone; the two ship boxes that still overlap (Blind Horizon's, The Quiet
+  Side's) are boxes opened over each other's units, as before.
+- A box that holds only ships no longer admits the helicopter or aircraft
+  kinds a live circle counts where it reaches that kind's need: Rig
+  Seventeen's force box, with the rig's 12 NM circle for the lifters inside
+  it, admits no helicopter or aircraft; Flight Deck Day's carrier box
+  likewise.
+- The build stops if any written box that admits a kind a live circle
+  counts comes nearer than the rule allows, read back from the file's own
+  `[Zones]` and `UnitsInTheArea` triggers (one circle's conditions pooled,
+  whichever triggers carry them, so the per-unit chain's "Objective met
+  by" triggers read as one), so a circle the spec reader does not know
+  cannot ship. Ten tests cover the rule.
+
+The 22 ships with no box (`has no box` in the build's output; the distance
+is to the circle's edge):
+
+| Mission | Ship | Starts | Circle |
+| --- | --- | --- | --- |
+| Southern Watch 09 Southern Lifeline | Anzac | 3.4 NM off | the convoy's 12 NM arrival |
+| Southern Watch 10 Common Sea | Anzac, Mogami, Maya | 1.8, 5.0 and 4.5 NM inside | the convoy's 12 NM arrival |
+| Southern Watch 12 The First Ship Through | Anzac, Arafura | 0.5 and 0.2 NM off | the convoy's 12 NM arrival |
+| Southern Watch C2 Broken Wake | Anzac | 0.2 NM off | the straggler's 10 NM arrival |
+| Southern Watch D1 Western Passage | Type 45, F124, Karel Doorman, Iver Huitfeldt, FREMM, Type 23 | 0.5 to 3.4 NM off | the convoy's 12 NM arrival |
+| Southern Watch D4 Return Passage | Admiral Grigorovich (11356) | 4.9 NM off | the Kommunist's 12 NM arrival |
+| Southern Reach 01 Southern Departure | Anzac | 1.1 NM off | the convoy's 12 NM arrival |
+| Southern Reach 04 Macquarie Passage | Anzac | 1.3 NM off | the convoy's 12 NM arrival |
+| Tasman Shield 09 The Southern Convoy | Hobart | 1.3 NM inside | the convoy's 15 NM arrival |
+| Tasman Shield 11 Approaches | Hobart | 0.9 NM off | the convoy's 15 NM arrival |
+| Tasman Shield 12 Southern Cross | Anzac | 3.1 NM off | the convoy's 15 NM arrival |
+| Red Line 01 Trailing Contact | the 054A | 2.6 NM off | the shadowed ship's 10 NM arrival |
+| Red Line 04 The Order to Withdraw | Ritina | 0.9 NM off | the withdrawing pair's 12 NM arrival |
+| Sulu Line 04 Service at Sea | the C8 | at the centre | the 3 NM service circle round her, which the tanker must reach |
+
+Measured on the built files after the rule (`scratchpad/zone_measure.py`,
+the campaign and the Dispatches): 65 missions and single missions carry 170 boxes (141 in the 57 campaign missions: 56 Deployment Zones, 77 Air Stations, 7 Detachment Zones, 1 Submarine Patrol Box; 29 in the 8 Dispatches); 109 box-and-circle pairs where the box admits a kind the circle counts, none inside a circle still waiting for a unit, 13 under 5 NM, every one of those at a counted unit's own start less 1 NM at most.
 
 The briefing charts (`integration/missions/briefing_maps.py`) do not draw
 zones - they draw the player's units, reported enemy areas and shipping -
@@ -2986,6 +3092,8 @@ and nothing there changed; the game draws the zones itself on the briefing
 map and the campaign map (`VisibleIn=CampaignMap,BriefingMap`).
 
 Not demonstrated: everything in this section - that the game offers an
-aircraft, a helicopter or a far ship for placement inside its box, how it
-labels the boxes, and what it does with a second box that admits ships.
-Test card 6I, rows I.7 to I.10.
+aircraft, a helicopter, a far ship or a vehicle for placement inside its
+box, how it labels the boxes, that a ship may indeed be dragged into
+another box that admits ships (inferred from stock's empty boxes, not
+seen), and what it does with a vehicle dragged over the sea. Test card
+6I, rows I.7 to I.13.
