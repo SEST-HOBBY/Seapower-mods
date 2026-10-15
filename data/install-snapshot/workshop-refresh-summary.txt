@@ -7,7 +7,7 @@ capture date           : 2026-10-15T17:57:43
 repo commit captured at: ac15c0b3 (chore/workshop-refresh-20261015)
 previous capture       : 73515fc696ac
 previous export        : 73515fc696ac
-Sea Power              : 08-Oct-2026: 0.8.5 Build 261008
+Sea Power              : 12-Oct-2026: 0.8.6 Build 261014 Public Release
   Steam build id       : 25936448
   engine               : Unity 6000.0.84f1 (78ab6fc243d5)
 
