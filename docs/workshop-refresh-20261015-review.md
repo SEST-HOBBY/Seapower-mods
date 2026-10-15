@@ -89,3 +89,13 @@ reason):
   the wrong subject (a childcare centre for Whenuapai, a house for
   Barksdale, a meeting for the ROK MH-60), a render or drawing (Bonifaz,
   Chungnam, Suffren), or the subject too small to see.
+
+## 6. Uploaded
+
+The user uploaded the build at c948bc9a to the Workshop item 3812461539 on
+15 October 2026, with the 15 October change notes: the mission fix
+(supplied ships, aircraft and helicopters flagged `TaskForceModeIgnoreUnit`
+in 42 missions), game 0.8.6, one AIM-424, the Buk-M3, Topol-M, DF-41 and
+Richard Morris fixes, the loading screens and menus, 38 Commons photos and
+the briefing times. The PC plays the local `StreamingAssets\SEST_Integration`
+copy, not the Workshop one. None of it has been seen working in game yet.
