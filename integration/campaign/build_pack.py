@@ -6727,18 +6727,34 @@ ClipName=main_menu
 ; Manager is on screen. Pictures=0 turns the log off. Nothing on screen
 ; changes either way; the film plays the same.
 Pictures=1
+; Backdrops=1 (on unless 0) puts SEST photographs in place of every other
+; backdrop the game draws: the loading screens, the picture behind the
+; scenario, campaign and Mod Manager pages, from the base game or another
+; mod. The game mixes every mod's backdrops into one pool, so a file cannot
+; replace them; the plugin paints a SEST photograph into each as it loads.
+; Lines starting [SEST Backdrops] in Player.log say which. Backdrops=0 puts
+; the game's own pictures back.
+Backdrops=1
+; CampaignArt=1 (on unless 0) does the same for campaign and mission title
+; pictures that are not SEST's (the base game's campaigns, other mods'
+; scenarios). Unit photos, flags, maps and the game's logos are never touched.
+CampaignArt=1
 """
 MENU_README = """SEST MENU BACKGROUND
 
 What this folder does: it plays the SEST film behind Sea Power's main menu
-in place of the game's own. Nothing else in the game changes.
+in place of the game's own, and shows SEST photographs in place of every
+other backdrop picture: loading screens, the scenario, campaign and Mod
+Manager pages, and campaign and mission title pictures.
 
   SEST.MenuBackground.dll  the plugin. Anchor Chain (installed by SETUP)
                            starts it when the game starts.
   sest_menu.mp4            the film: eleven SEST Gallery photographs,
                            no text, darkened, looping, no sound.
-  sest_menu.ini            Enabled=0 turns it off; Pictures=0 turns off the
-                           [SEST Pictures] lines it writes to Player.log.
+  sest_menu.ini            Enabled=0 turns it all off; Backdrops=0 and
+                           CampaignArt=0 put the game's pictures back;
+                           Pictures=0 turns off the [SEST Pictures] lines
+                           it writes to Player.log.
   MENU_CREDITS.txt         who took each photograph, and the licence.
 
 Without Anchor Chain the plugin never runs and the menu is the game's own.
@@ -6766,8 +6782,10 @@ def write_menu_background(out):
 
 # The game's loading-screen backgrounds: ui/backgrounds/loading_screen_1.png ..
 # _80.png (data/install-snapshot/streaming-media.txt, 10 Oct 2026, game
-# 0.8.5), looked up through the FileManager, so the pack's file of the same
-# name - first in the load order - is the one drawn. The SEST set
+# 0.8.5). The 15 Oct 2026 log showed the game pools every mod's and its own
+# backdrops rather than letting the first in the load order stand in, so
+# these only join the pool; the menu plugin's backdrop swap
+# (SestMenuBackground.cs, PictureSwap) paints them over the others. The SEST set
 # (tools/make_loading_screens.py: the media report's photographs and the
 # gallery's loading backgrounds, credits beside them) fills every slot in
 # turn, so no original loading screen is left. The files are JPEG data under

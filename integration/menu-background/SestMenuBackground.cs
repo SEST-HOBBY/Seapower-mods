@@ -36,6 +36,20 @@
 // swap runs as before with the log on or off. The log has not yet been run
 // in the game.
 //
+// Since 15 Oct 2026 it also puts SEST photographs in place of every other
+// picture the game draws as a backdrop (PictureSwap, Backdrops=1 in the ini,
+// on unless set to 0). The 15 Oct log showed why a file cannot do it: the
+// game pools every ui/backgrounds picture of the base game and of every mod
+// and does not let a same-named file stand in for another (it showed the
+// stock loading_screen_63 and The Royal Navy's loading_screen_17 though the
+// pack ships both names). So the plugin finds each such picture once the game
+// has loaded it - a Unity texture named by its file's path - and paints a
+// SEST photograph into it, the same texture, so the loading screen, the menu
+// backdrop behind the scenario and campaign pages and the Mod Manager show
+// SEST's. Campaign and mission title pictures from outside the pack
+// (CampaignArt=1) are treated the same way. Unit photos, flags, maps and the
+// game's logos are not touched.
+//
 // Built by build_plugin.py against Unity's public API and Anchor Chain's
 // two public types (stubs/AnchorChain.cs).
 using System;
@@ -52,7 +66,7 @@ namespace Sest.MenuBackground
     // Anchor Chain creates this with Activator.CreateInstance, which a Unity
     // component cannot be, so the entry point builds the component itself on
     // a GameObject that survives scene changes.
-    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.1.0")]
+    [ACPlugin("io.github.sest-hobby.menu-background", "SEST Menu Background", "1.2.0")]
     public class MenuBackgroundMod : IAnchorChainMod
     {
         public void TriggerEntryPoint()
@@ -85,6 +99,7 @@ namespace Sest.MenuBackground
         float scanUntil, nextScan;
         bool picturesOn;      // Pictures= in the ini, read with the rest
         PictureLog pictures;  // the stock-pictures log; null when off or stopped
+        PictureSwap backdrops; // SEST photos in place of other backdrops; null when off or stopped
 
         void Awake()
         {
@@ -126,6 +141,11 @@ namespace Sest.MenuBackground
             {
                 try { pictures.Tick(now); }
                 catch (Exception e) { pictures = null; Debug.LogWarning(PictureLog.Tag + "stopped: " + e.Message); }
+            }
+            if (backdrops != null)
+            {
+                try { backdrops.Tick(now); }
+                catch (Exception e) { backdrops = null; Debug.LogWarning(PictureSwap.Tag + "stopped: " + e.Message); }
             }
         }
 
@@ -259,6 +279,15 @@ namespace Sest.MenuBackground
             // stops the swap, not the log.
             picturesOn = !(ini.TryGetValue("Pictures", out v) && v.Trim() == "0");
             if (!picturesOn) Debug.Log(Tag + "pictures log off (Pictures=0 in " + IniName + ")");
+            // The backdrop swap is on unless Backdrops=0; it needs the pack's
+            // own photographs, not the film.
+            if (!(ini.TryGetValue("Backdrops", out v) && v.Trim() == "0"))
+            {
+                bool art = !(ini.TryGetValue("CampaignArt", out v) && v.Trim() == "0");
+                try { backdrops = PictureSwap.Create(dir, art); }
+                catch (Exception e) { backdrops = null; Debug.LogWarning(PictureSwap.Tag + "not started: " + e.Message); }
+            }
+            else Debug.Log(PictureSwap.Tag + "off (Backdrops=0 in " + IniName + ")");
             string name = ini.TryGetValue("Film", out v) && v.Trim().Length > 0 ? v.Trim() : "sest_menu.mp4";
             string path = Path.Combine(dir, name);
             if (!File.Exists(path)) throw new Exception("film not found: " + path);
@@ -801,6 +830,137 @@ namespace Sest.MenuBackground
             }
             absent.Add(name);
             return null;
+        }
+    }
+
+    // SEST photographs in place of every other backdrop picture. The game
+    // names a texture it loads from a file by the file's full path; one whose
+    // path runs through a ui/backgrounds folder (or, with CampaignArt, a
+    // campaigns or missions folder) and not through the SEST pack is a
+    // backdrop from the base game or another mod. Each is painted over once
+    // with one of the pack's own photographs (its ui/backgrounds pictures),
+    // picked by the texture's name so the same picture always gets the same
+    // photo, cropped to its shape and scaled to its size, and written back
+    // into the same texture: whatever the game's UI shows it in shows the
+    // photo. A texture that cannot be written (not readable, compressed) is
+    // left as it is and named once in the log. Looked for every second for
+    // the whole session: the game loads a backdrop when it first shows it.
+    public class PictureSwap
+    {
+        public const string Tag = "[SEST Backdrops] ";
+        const int MaxLogged = 200;
+
+        readonly List<string> photos = new List<string>();
+        readonly HashSet<int> done = new HashSet<int>();
+        readonly bool campaignArt;
+        float next;
+        int swappedCount, logged;
+
+        PictureSwap(List<string> files, bool art) { photos = files; campaignArt = art; }
+
+        // The pack's photographs: ui/backgrounds beside the plugins folder.
+        public static PictureSwap Create(string pluginDir, bool art)
+        {
+            string pack = Directory.GetParent(pluginDir).FullName;
+            string dir = Path.Combine(Path.Combine(pack, "ui"), "backgrounds");
+            var files = new List<string>();
+            if (Directory.Exists(dir))
+                foreach (string f in Directory.GetFiles(dir))
+                {
+                    string e = Path.GetExtension(f).ToLowerInvariant();
+                    if (e == ".png" || e == ".jpg" || e == ".jpeg") files.Add(f);
+                }
+            files.Sort(StringComparer.OrdinalIgnoreCase);
+            if (files.Count == 0) throw new Exception("no SEST photographs in " + dir);
+            Debug.Log(Tag + "ready: " + files.Count + " SEST photographs from " + dir
+                      + (art ? "; campaign and mission pictures included" : "; campaign and mission pictures left alone"));
+            return new PictureSwap(files, art);
+        }
+
+        public void Tick(float now)
+        {
+            if (now < next) return;
+            next = now + 1f;
+            foreach (Texture2D t in Resources.FindObjectsOfTypeAll<Texture2D>())
+            {
+                if (t == null || !done.Add(t.GetInstanceID())) continue;
+                if (!Wanted(t.name)) continue;
+                Paint(t);
+            }
+        }
+
+        // A file path through a backdrop folder, not the SEST pack's.
+        bool Wanted(string name)
+        {
+            if (string.IsNullOrEmpty(name) || name.Length < 8) return false;
+            string n = name.Replace('\\', '/').ToLowerInvariant();
+            if (n.IndexOf(":/", StringComparison.Ordinal) < 0 && !n.StartsWith("/")) return false;   // not a file
+            if (!(n.EndsWith(".png") || n.EndsWith(".jpg") || n.EndsWith(".jpeg"))) return false;
+            if (n.Contains("/sest_integration/") || n.Contains("/3812461539/")) return false;
+            if (n.Contains("/ui/backgrounds/")) return true;
+            if (!campaignArt || n.Contains("/user/")) return false;
+            return n.Contains("/campaigns/") || n.Contains("/missions/");
+        }
+
+        void Paint(Texture2D target)
+        {
+            string photo = photos[(int)((uint)StableHash(target.name) % (uint)photos.Count)];
+            try
+            {
+                if (!target.isReadable) { Note("left as it is (not readable): " + target.name); return; }
+                var src = new Texture2D(2, 2, TextureFormat.RGB24, false);
+                try
+                {
+                    if (!ImageConversion.LoadImage(src, File.ReadAllBytes(photo), false))
+                    { Note("photo not read: " + photo); return; }
+                    Color32[] pixels = Fit(src.GetPixels32(), src.width, src.height, target.width, target.height);
+                    target.SetPixels32(pixels);
+                    target.Apply(false);
+                }
+                finally { UnityEngine.Object.Destroy(src); }
+                swappedCount++;
+                Note("SEST photo " + Path.GetFileName(photo) + " in place of " + target.name
+                     + " (" + target.width + "x" + target.height + "); " + swappedCount + " so far");
+            }
+            catch (Exception e) { Note("left as it is (" + e.Message + "): " + target.name); }
+        }
+
+        // The photo cropped to the target's shape around its centre, then
+        // scaled to its size (nearest pixel; rows bottom-up, as Unity's are).
+        static Color32[] Fit(Color32[] src, int sw, int sh, int tw, int th)
+        {
+            double want = (double)tw / th, have = (double)sw / sh;
+            int cw = sw, ch = sh, cx = 0, cy = 0;
+            if (have > want) { cw = Math.Max(1, (int)Math.Round(sh * want)); cx = (sw - cw) / 2; }
+            else if (have < want) { ch = Math.Max(1, (int)Math.Round(sw / want)); cy = (sh - ch) / 2; }
+            var dst = new Color32[tw * th];
+            for (int y = 0; y < th; y++)
+            {
+                int sy = cy + (int)((long)y * ch / th);
+                int row = sy * sw, drow = y * tw;
+                for (int x = 0; x < tw; x++)
+                    dst[drow + x] = src[row + cx + (int)((long)x * cw / tw)];
+            }
+            return dst;
+        }
+
+        // FNV-1a of the lower-case name: the same picture gets the same photo
+        // in every session.
+        static int StableHash(string s)
+        {
+            unchecked
+            {
+                uint h = 2166136261;
+                foreach (char c in s.ToLowerInvariant()) { h ^= c; h *= 16777619; }
+                return (int)h;
+            }
+        }
+
+        void Note(string s)
+        {
+            if (logged < MaxLogged) Debug.Log(Tag + s);
+            else if (logged == MaxLogged) Debug.Log(Tag + "further lines not written");
+            logged++;
         }
     }
 }

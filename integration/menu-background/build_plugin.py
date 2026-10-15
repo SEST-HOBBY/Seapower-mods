@@ -11,7 +11,7 @@ the pack byte-identical on every machine, and a compiler's output is not
 SestMenuBackground.cs changes.
 
 Needs Mono's C# compiler (apt-get install mono-mcs). References:
-  - UnityEngine.CoreModule and UnityEngine.VideoModule from the
+  - UnityEngine.CoreModule, VideoModule and ImageConversionModule from the
     UnityEngine.Modules 2021.3.33 package on nuget.org (reference copies of
     Unity's public API, the .NET 4.5 build so mcs can read them; every member
     the plugin calls exists unchanged in the game's Unity 6000.0), fetched
@@ -35,7 +35,8 @@ OUT = HERE / "SEST.MenuBackground.dll"
 UNITY_PKG = ("https://api.nuget.org/v3-flatcontainer/unityengine.modules/2021.3.33/"
              "unityengine.modules.2021.3.33.nupkg")
 UNITY_SHA256 = "d32d34526d89958c63220d3a5ce26c5c44c11bfd411a2e1fbc3200088ef160c4"
-UNITY_DLLS = ("UnityEngine.CoreModule.dll", "UnityEngine.VideoModule.dll")
+UNITY_DLLS = ("UnityEngine.CoreModule.dll", "UnityEngine.VideoModule.dll",
+              "UnityEngine.ImageConversionModule.dll")
 CACHE = Path.home() / ".cache" / "sest"
 
 
@@ -66,11 +67,11 @@ def mcs(args):
 def main():
     if not shutil.which("mcs"):
         sys.exit("mcs not found - apt-get install mono-mcs")
-    core, video = unity_refs()
+    core, video, imaging = unity_refs()
     with tempfile.TemporaryDirectory() as tmp:
         stub = Path(tmp) / "AnchorChain.dll"
         mcs(["-target:library", f"-out:{stub}", str(HERE / "stubs" / "AnchorChain.cs")])
-        mcs(["-target:library", f"-out:{OUT}", f"-r:{core}", f"-r:{video}", f"-r:{stub}",
+        mcs(["-target:library", f"-out:{OUT}", f"-r:{core}", f"-r:{video}", f"-r:{imaging}", f"-r:{stub}",
              str(HERE / "SestMenuBackground.cs")])
     print(f"{OUT.relative_to(HERE.parent.parent)}: {OUT.stat().st_size} bytes")
 
