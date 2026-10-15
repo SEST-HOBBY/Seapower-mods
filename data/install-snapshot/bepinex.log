@@ -1,4 +1,4 @@
-# BepInEx\LogOutput.log - whole file, 648 line(s), 0.1 MB, last written 2026-10-15T17:56:26. 
+# BepInEx\LogOutput.log - whole file, 700 line(s), 0.1 MB, last written 2026-10-15T23:18:19. 
 [Error  :   BepInEx] Unable to start Unity log writer
 [Message:   BepInEx] BepInEx 5.4.23.2 - Sea Power (15/10/2026 4:59:12 PM)
 [Info   :   BepInEx] Running under Unity v6000.0.84.7908207
@@ -647,3 +647,55 @@ OK      ObjectBase.CurrentOrder (the AI's bombers inside their missiles' minimum
 OK      ObjectBase.StateMachine (the AI's bombers inside their missiles' minimum range sent out of it in battle)
 OK      StateMachine.CurrentStateName (the AI's bombers inside their missiles' minimum range sent out of it in battle)
 [Info   :Dynamic Campaign Mod] Patched: dynamic campaigns will appear in the Campaign menu marked [Dynamic].
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4259, 0.1125, 685.6668)), container='AmmunitionParent' (world (-125.4181, 0.0625, 685.6619)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4259, 0.1125, 685.6208)), container='AmmunitionParent' (world (-125.4181, 0.0625, 685.6258)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4555, 0.1125, 685.6208)), container='AmmunitionParent' (world (-125.4633, 0.0625, 685.6158)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4555, 0.1125, 685.6668)), container='AmmunitionParent' (world (-125.4633, 0.0625, 685.6619)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4417, 0.1328, 684.5139)), container='AmmunitionParent' (world (-125.4467, 0.0828, 684.5216)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.3957, 0.1328, 684.5139)), container='AmmunitionParent' (world (-125.4007, 0.0828, 684.5216)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4348, 0.1323, 684.4539)), container='AmmunitionParent' (world (-125.4422, 0.0623, 684.4333)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4025, 0.1323, 684.4539)), container='AmmunitionParent' (world (-125.4099, 0.0623, 684.4333)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4348, 0.1323, 684.4088)), container='AmmunitionParent' (world (-125.4422, 0.0623, 684.3883)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4025, 0.1323, 684.4088)), container='AmmunitionParent' (world (-125.4099, 0.0623, 684.3883)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4348, 0.1323, 684.3638)), container='AmmunitionParent' (world (-125.4422, 0.0623, 684.3433)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4025, 0.1323, 684.3638)), container='AmmunitionParent' (world (-125.4099, 0.0623, 684.3433)), shipRoot='3-ko_ddg-995'.
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Warning:  HarmonyX] AccessTools.Property: Could not find property for type SeaPower.GameTime and name time
+[Info   :Coordinated Strike Tool] [t=288.49s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=298.60s] in mission: True, game menu open: False, HUD visible: True
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Torpedoï¼ˆç´¯è®¡ 1ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡æ± ä¿®å¤ï¼šfreeObject å‰æ‘˜è¡¨ Torpedoï¼ˆç´¯è®¡ 2ï¼‰
+[Info   :SubAmmunition] å¯¹è±¡è¡¨æ¸…ç†ï¼šå‰”é™¤å·²é”€æ¯å¯¹è±¡ 1 ä¸ªï¼ˆç´¯è®¡ 1ï¼‰
+[Info   :Coordinated Strike Tool] [t=389.72s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=398.36s] in mission: False, game menu open: False, HUD visible: True
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4259, 0.1125, 685.6668)), container='AmmunitionParent' (world (-125.4181, 0.0625, 685.6619)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4259, 0.1125, 685.6208)), container='AmmunitionParent' (world (-125.4181, 0.0625, 685.6258)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4555, 0.1125, 685.6208)), container='AmmunitionParent' (world (-125.4633, 0.0625, 685.6158)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4555, 0.1125, 685.6668)), container='AmmunitionParent' (world (-125.4633, 0.0625, 685.6619)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.4417, 0.1328, 684.5139)), container='AmmunitionParent' (world (-125.4467, 0.0828, 684.5216)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='eu_8-cell_mk41_base_v4' (vessel ContainerBase, world (-125.3957, 0.1328, 684.5139)), container='AmmunitionParent' (world (-125.4007, 0.0828, 684.5216)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4348, 0.1323, 684.4539)), container='AmmunitionParent' (world (-125.4422, 0.0623, 684.4333)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4025, 0.1323, 684.4539)), container='AmmunitionParent' (world (-125.4099, 0.0623, 684.4333)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4348, 0.1323, 684.4088)), container='AmmunitionParent' (world (-125.4422, 0.0623, 684.3883)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4025, 0.1323, 684.4088)), container='AmmunitionParent' (world (-125.4099, 0.0623, 684.3883)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4348, 0.1323, 684.3638)), container='AmmunitionParent' (world (-125.4422, 0.0623, 684.3433)), shipRoot='3-ko_ddg-995'.
+[Info   :WeaponLauncherEffects] [WeaponLauncherEffects] [eu_mk41] anchor ready: ContainerBase='ko_4-cell_kvls_base' (vessel ContainerBase, world (-125.4025, 0.1323, 684.3638)), container='AmmunitionParent' (world (-125.4099, 0.0623, 684.3433)), shipRoot='3-ko_ddg-995'.
+[Info   :Coordinated Strike Tool] [t=471.86s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=480.29s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=490.05s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=494.05s] in mission: False, game menu open: False, HUD visible: True
+[Info   :SubAmmunition] CONFIG host=plan_yu-7_air count=2 delay=0 triggerDist=0 triggerMinTime=5 triggerTime=12 triggerHeight=0 inherit=False mesh= disappear=False displayOnParent=True spread=2000 spreadAngle=120 cep=0 ejectVel=3-8 ejectVec=2 parachuteSpeed=150 ignoreHeight=False forceLevelFlight=False
+[Info   :Coordinated Strike Tool] [t=544.45s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=553.56s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=560.59s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=564.64s] in mission: False, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=662.26s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=668.51s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=710.79s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=716.92s] in mission: False, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=838.99s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=848.01s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=861.74s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=862.22s] in mission: True, game menu open: False, HUD visible: True
+[Info   :Coordinated Strike Tool] [t=862.52s] in mission: True, game menu open: True, HUD visible: False
+[Info   :Coordinated Strike Tool] [t=865.31s] in mission: False, game menu open: False, HUD visible: True
