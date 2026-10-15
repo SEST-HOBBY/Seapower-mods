@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-10-15T17:57:36.
+# The [LoadOrder] Sea Power is actually using, captured 2026-10-16T07:10:03.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=198   entries parsed: 198
@@ -45,7 +45,7 @@ NumberOfModFiles=198   entries parsed: 198
   40. 3430106996   on     Merchants Expanded
   41. 3485917612   on     Moloti's Armed Merchantmen
   42. 3417446309   on     MIG-29 Family
-  43. 3599752717   on     Modern British Navy - Euromod
+  43. 3599752717   on     Euromod - Modern British Navy
   44. 3488139470   on     Modern Italian Navy - Euromod
   45. 3390330875   on     Euromod - Modern US Navy
   46. 3456859157   on     Mogami-class frigate
