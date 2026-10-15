@@ -1720,6 +1720,39 @@ class DeploymentZones(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "Taskforce1Vessel2 in Zone1"):
             bp.check_deployment_cover(mission, placed, zones)
 
+    def test_a_panel_mission_flags_every_unit_it_supplies_as_stock_09_does(self):
+        mission, placed = self.generated()
+        placed["Taskforce1Vessel"][0][1]["TaskForceModeAnchor"] = "True"
+        placed["Taskforce1Helicopter"] = [
+            ("Taskforce1Helicopter1", _keys("usn_mh-60r", 0, 1), None, False)]
+        placed["Taskforce1Submarine"] = [
+            ("Taskforce1Submarine1", _keys("ran_ss_collins", 0, 8), None, False)]
+        self.assertTrue(bp.deployment_panel(mission, placed))
+        self.assertEqual(bp.mark_supplied(mission, placed),
+                         ["Taskforce1Vessel2", "Taskforce1Vessel3",
+                          "Taskforce1Aircraft2", "Taskforce1Helicopter1"])
+        flagged = {tag for entries in placed.values() for tag, keys, _n, _x in entries
+                   if keys.get("TaskForceModeIgnoreUnit") == "True"}
+        self.assertNotIn("Taskforce1Vessel1", flagged)        # the anchor
+        self.assertNotIn("Taskforce1Aircraft1", flagged)      # the slot
+        self.assertNotIn("Taskforce1Submarine1", flagged)     # stock 10 leaves its sub
+        text = bp.block("Taskforce1Vessel3", placed["Taskforce1Vessel"][2][1])
+        self.assertIn("TaskForceModeIgnoreUnit=True", text)
+
+    def test_no_panel_no_flag(self):
+        mission, placed = self.generated()
+        mission.pop("generation")                             # blank: launches as authored
+        self.assertFalse(bp.deployment_panel(mission, placed))
+        self.assertEqual(bp.mark_supplied(mission, placed), [])
+        mission, placed = self.generated()
+        mission["detached"] = True                            # the force does not sail
+        self.assertEqual(bp.mark_supplied(mission, placed), [])
+
+    def test_a_granted_unit_joins_and_is_never_ignored(self):
+        mission, placed = self.generated()
+        placed["Taskforce1Aircraft"][1][1]["JoinTaskForce"] = "True"
+        self.assertNotIn("Taskforce1Aircraft2", bp.mark_supplied(mission, placed))
+
     def test_only_a_box_a_hull_can_be_moved_in_is_held_off_land(self):
         saved = bp.fix_land_positions.water
         bp.fix_land_positions.water = lambda *a, **k: False       # land everywhere

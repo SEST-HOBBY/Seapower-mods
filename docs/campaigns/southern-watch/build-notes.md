@@ -3138,3 +3138,36 @@ boxes of the 14 October rule. "A box for every playable unit" (the 14
 October decision) no longer holds in generated missions: the convoys, escorts
 and supplied aircraft start where the mission puts them, as before 13
 October. Two tests cover the rule.
+
+## The supplied units are flagged TaskForceModeIgnoreUnit (15 October, later)
+
+The box layout above did not bring the convoys back: the player's campaign
+save still launched `Southern Departure` without its three merchantmen. The
+reasoning above is wrong on its evidence. Stock's `09 Shadows off Palawan`
+puts its supplied Charleston, Newport and two LSMs inside its box, and they
+appear. What those four carry, and no SEST unit did, is
+`TaskForceModeIgnoreUnit=True`.
+
+The key goes with the deployment panel. Across the stock pacific-strike
+missions, the five that set `TaskForceModeDeploymentOptions=True` (05, 06,
+07, 09, 10) have no Taskforce1 ship or aircraft that is not the anchor, a
+numbered Replaced slot, an air-tasking slot or flagged IgnoreUnit. The
+missions without the panel (01, 02, 04) supply a sealift ship, an E-3A,
+P-3Cs and F-15Cs unflagged. The 13 October build turned the panel on
+wherever the player's force sails (50 missions plus the six detachments),
+the same build after which the convoys and the authored recon aircraft went
+missing, and wrote the flag on nothing.
+
+`mark_supplied()` now flags, in every mission where `deployment_panel()`
+turns the panel on, each Taskforce1 ship, aircraft and helicopter that is
+not the anchor, a Replaced slot, an air-tasking slot or a granted
+(`JoinTaskForce`) unit. Submarines and land units stay unflagged, as stock
+10 leaves its Oberon and its radars and airfield. The built files carry the
+flag on 136 units in 42 missions; nothing else in them changed. Southern
+Departure flags its freighter, Mairangi Bay, sealift ship, P-8 and Triton.
+Three tests cover the rule.
+
+The rule is read from stock, not from the game's code, and is not yet seen
+in game. The box layout of the section above stays: it does no harm, and
+the supplied units outside the boxes begin where the mission puts them. Its
+claim that a box drops a supplied unit is withdrawn.

@@ -1334,7 +1334,7 @@ def resolve(spec):
 BLOCK_ORDER = ("Type", "VariantReference", "SpawnByVariableAND",
                "SquadronReference", "Disabled", "JoinTaskForce", "LoadoutVariant",
                "TaskForceModeAnchor", "TaskForceModeReplacedUnitIndex",
-               "Nation", "UnlimitedFuel", "WeaponStatus",
+               "TaskForceModeIgnoreUnit", "Nation", "UnlimitedFuel", "WeaponStatus",
                "RadarsActive", "CrewSkill", "Morale", "CampaignTag",
                "RelativePositionInNM", "Heading", "Telegraph",
                # last, after Waypoints, where the native blocks put it
@@ -4067,6 +4067,49 @@ def zones_ini(zones):
     return L
 
 
+def deployment_panel(mission, placed):
+    """Whether campaign.ini turns the deployment panel on for this mission
+    (TaskForceModeDeploymentOptions=True): wherever the owned force sails,
+    and for a detachment. Blank generation sails nothing of the player's."""
+    if not mission.get("generation"):
+        return False
+    sails = not mission.get("detached") and bool(placed.get("Taskforce1Vessel"))
+    return bool(sails or mission.get("window", {}).get("detachment"))
+
+
+# The families a deployment-panel mission flags when the mission supplies them.
+SUPPLIED_FAMILIES = ("Taskforce1Vessel", "Taskforce1Aircraft", "Taskforce1Helicopter")
+
+
+def mark_supplied(mission, placed):
+    """Flag every unit the mission supplies to the player TaskForceModeIgnoreUnit.
+
+    With the deployment panel on, the game seats the player's own force and
+    drops the other Taskforce1 units it does not recognise: the 13 Oct build
+    turned the panel on wherever the force sails, and the escorted convoys and
+    the authored recon aircraft stopped appearing (Southern Departure's three
+    merchantmen, its P-8 and Triton). Stock shows the rule. In the five
+    pacific-strike missions with the panel, every Taskforce1 ship and aircraft
+    is the anchor, a numbered Replaced slot, an air-tasking slot, or carries
+    TaskForceModeIgnoreUnit=True. 09 Shadows off Palawan supplies a Charleston,
+    a Newport and two LSMs, and flags all four. The missions without the panel
+    (01, 02, 04) supply a sealift ship, an E-3A, P-3Cs and F-15Cs unflagged.
+    Stock 10 leaves a Taskforce1 submarine and its land units unflagged beside
+    the panel, so those families are left as they are. A granted unit
+    (JoinTaskForce) joins the force and is never ignored."""
+    if not deployment_panel(mission, placed):
+        return []
+    marked = []
+    for family in SUPPLIED_FAMILIES:
+        for tag, keys, _n, _x in placed.get(family, []):
+            if any(k in keys for k in ("TaskForceModeAnchor", "TaskForceModeReplacedUnitIndex",
+                                       "TaskForceModeAirTaskingSlot", "JoinTaskForce")):
+                continue
+            keys["TaskForceModeIgnoreUnit"] = "True"
+            marked.append(tag)
+    return marked
+
+
 def render(mission, placed, members):
     check_message_texts(mission)
     name = mission_name(mission)
@@ -4861,6 +4904,7 @@ def render(mission, placed, members):
     L.append(f"NumberOfTriggers={len(T)}")
     L.append("")
 
+    mark_supplied(mission, placed)
     for family in FAMILY_ORDER:
         for tag, keys, _n, _x in placed.get(family, []):
             L.append(block(tag, keys))
@@ -6199,11 +6243,12 @@ def campaign_ini(missions, events, placements):
             # the mission's own, sailing or not; render() stops the build
             # where one is outside every box that admits it, which covers
             # the force sailing into a mission with no zone.
-            sails = not detached and bool(placed.get("Taskforce1Vessel"))
+            # deployment_panel() is the one rule: render() flagged the
+            # mission's supplied units TaskForceModeIgnoreUnit by it.
             if blank:
                 pass        # nothing of the player's sails: no deployment keys
             else:
-                if sails or window.get("detachment"):
+                if deployment_panel(mission, placed):
                     L += ["TaskForceModeDeploymentOptions=True",
                           "TaskForceModeDefaultDisposition="
                           + ("Dispersed" if mission["generation"] == "Replaced"
