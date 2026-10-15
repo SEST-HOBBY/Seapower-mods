@@ -8335,7 +8335,7 @@
   },
   "catalogue_by_side_nation": {
    "blue US": {
-    "ships": 247,
+    "ships": 248,
     "aircraft": 167
    },
    "blue Australia": {
@@ -8355,8 +8355,8 @@
     "aircraft": 17
    },
    "blue UK": {
-    "ships": 43,
-    "aircraft": 39
+    "ships": 44,
+    "aircraft": 40
    },
    "blue Norway": {
     "ships": 8,
@@ -8403,7 +8403,7 @@
     "aircraft": 1
    },
    "blue South_Korea": {
-    "ships": 13,
+    "ships": 14,
     "aircraft": 14
    },
    "blue Philippines": {
@@ -9018,6 +9018,7 @@
   "qeaf_m2k-5dda_late": "Role Fighter",
   "qeaf_m2k-5eda": "Role Fighter",
   "qeaf_m2k-5eda_late": "Role Fighter",
+  "raac_ah_mk_1": "Role ASuW",
   "raac_lynx_ah7": "Role Attack",
   "raaf_canberra_bomber": "Role HeavyBomber",
   "raaf_f-111c": "Role Bomber",
@@ -9505,6 +9506,7 @@
   "ko_ddh-971": "Displacement 3900 t",
   "ko_ff-951": "Displacement 1220 t",
   "ko_ffg-811": "Displacement 3200 t",
+  "ko_kddx": "Displacement 9000 t",
   "ko_pcc-756": "Displacement 1220 t",
   "ko_pkg-711": "Displacement 570 t",
   "ko_pkm-329": "Displacement 170 t",
@@ -9680,6 +9682,7 @@
   "rn_ff_type23_mlu": "Displacement 4900 t",
   "rn_ff_type42": "Displacement 3500 t",
   "rn_lph_ocean": "Displacement 21500 t",
+  "rn_lph_ocean_09": "Displacement 21500 t",
   "rn_lph_ocean_asw": "Displacement 21500 t",
   "rn_lph_ocean_asw_00": "Displacement 21500 t",
   "rn_lph_ocean_asw_13": "Displacement 21500 t",
@@ -9736,6 +9739,7 @@
   "usn_cg_bunker_hill": "Displacement 9600 t",
   "usn_cg_bunker_hill_vls_2004": "Displacement 9600 t",
   "usn_cg_bunker_hill_vls_2014": "Displacement 9600 t",
+  "usn_cg_bunker_hill_vls_2024_late": "Displacement 9600 t",
   "usn_cg_kansas_late": "Displacement 13500 t",
   "usn_cg_leahy": "Displacement 8200 t",
   "usn_cg_leahy_68": "Displacement 8200 t",
@@ -10043,8 +10047,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1529,
-  "values": 1529,
+  "catalogue": 1533,
+  "values": 1533,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

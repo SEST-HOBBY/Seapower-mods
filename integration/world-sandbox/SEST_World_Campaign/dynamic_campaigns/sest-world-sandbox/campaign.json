@@ -6824,6 +6824,7 @@
     "qeaf_m2k-5dda_late": 46,
     "qeaf_m2k-5eda": 46,
     "qeaf_m2k-5eda_late": 46,
+    "raac_ah_mk_1": 39,
     "raac_lynx_ah7": 25,
     "raaf_canberra_bomber": 172,
     "raaf_f-111c": 78,
@@ -7311,6 +7312,7 @@
     "ko_ddh-971": 132,
     "ko_ff-951": 60,
     "ko_ffg-811": 115,
+    "ko_kddx": 233,
     "ko_pcc-756": 60,
     "ko_pkg-711": 36,
     "ko_pkm-329": 16,
@@ -7486,6 +7488,7 @@
     "rn_ff_type23_mlu": 154,
     "rn_ff_type42": 123,
     "rn_lph_ocean": 419,
+    "rn_lph_ocean_09": 419,
     "rn_lph_ocean_asw": 419,
     "rn_lph_ocean_asw_00": 419,
     "rn_lph_ocean_asw_13": 419,
@@ -7542,6 +7545,7 @@
     "usn_cg_bunker_hill": 243,
     "usn_cg_bunker_hill_vls_2004": 243,
     "usn_cg_bunker_hill_vls_2014": 243,
+    "usn_cg_bunker_hill_vls_2024_late": 243,
     "usn_cg_kansas_late": 306,
     "usn_cg_leahy": 218,
     "usn_cg_leahy_68": 218,
@@ -8001,6 +8005,12 @@
     },
     {
       "unit": "usn_cg_bunker_hill_vls_2024",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_cg_bunker_hill_vls_2024_late",
       "side": "blue",
       "nation": "US",
       "tier": 1
@@ -12448,6 +12458,12 @@
       "tier": 2
     },
     {
+      "unit": "rn_lph_ocean_09",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 2
+    },
+    {
       "unit": "rn_lph_ocean_asw",
       "side": "blue",
       "nation": "UK",
@@ -12488,6 +12504,13 @@
       "side": "blue",
       "nation": "UK",
       "tier": 3
+    },
+    {
+      "unit": "raac_ah_mk_1",
+      "side": "blue",
+      "nation": "UK",
+      "tier": 0,
+      "aircraft": true
     },
     {
       "unit": "raac_lynx_ah7",
@@ -13772,6 +13795,12 @@
     },
     {
       "unit": "ko_ffg-828",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 1
+    },
+    {
+      "unit": "ko_kddx",
       "side": "blue",
       "nation": "South_Korea",
       "tier": 1

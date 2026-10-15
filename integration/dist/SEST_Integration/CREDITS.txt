@@ -101,12 +101,9 @@ listed whatever the percentage: they are still that author's.
        98%  vessels/ae_ao_teide.ini 
       100%  vessels/ae_cvl_dedalo.ini 
       100%  vessels/ae_cvl_principe_asturias.ini 
-      100%  vessels/ae_ffg_baleares.ini 
       100%  vessels/ae_ffg_baleares_late.ini 
       100%  vessels/ae_ffg_descubierta.ini 
        98%  vessels/ae_ffg_descubierta_late.ini 
-      100%  vessels/ae_ffg_santa_maria.ini 
-      100%  vessels/ae_ffg_santa_maria_late.ini 
       100%  vessels/ae_ptm_lazaga.ini 
       100%  vessels/mor_ptm_lazaga.ini 
        98%  vessels/ran_aor_supply.ini from ae_ao_teide.ini
@@ -152,6 +149,7 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/rn_ff_type23_early.ini 
       100%  vessels/rn_ff_type23_mlu.ini 
       100%  vessels/rn_lph_ocean.ini 
+      100%  vessels/rn_lph_ocean_09.ini 
       100%  vessels/rn_lph_ocean_asw.ini 
       100%  vessels/rn_lph_ocean_asw_00.ini 
       100%  vessels/rn_lph_ocean_asw_13.ini 
@@ -227,6 +225,7 @@ listed whatever the percentage: they are still that author's.
   Euromod-South Korea Navy  (workshop 3789208859)
       100%  ammunition/ko_Antiship_2.ini 
       100%  ammunition/ko_Antiship_2_ship.ini 
+      100%  ammunition/rok_L-sam.ini 
       100%  ammunition/rok_hgv.ini 
       100%  ammunition/rok_hyunmoo_4_2.ini 
        97%  ammunition/rok_k-sam-II.ini 
@@ -238,6 +237,7 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/ko_ffg-811.ini 
       100%  vessels/ko_ffg-818.ini 
       100%  vessels/ko_ffg-828.ini 
+      100%  vessels/ko_kddx.ini 
       100%  vessels/ko_lph-6111.ini 
       100%  vessels/ko_pcc-756.ini 
       100%  vessels/ko_pkg-711.ini 

@@ -20,12 +20,12 @@ ae_ffg_bonifaz (spain, SEST_Replenishment): +19
 ae_ffg_cristobal_colon (spain, SEST_Replenishment): +18
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, ran_S-70B-2_Seahawk_late, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
     AB 212 / Bell 212: mm_ab212, mm_ab212_91, tha_ab212
-ae_ffg_santa_maria (spain, SEST_Replenishment): +23
+ae_ffg_santa_maria (spain, 3630495619): +23
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, ran_S-70B-2_Seahawk_late, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
     AB 212 / Bell 212: mm_ab212, mm_ab212_91, tha_ab212
     Seasprite: usn_sh-2g, rnzn_sh-2gi
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
-ae_ffg_santa_maria_late (spain, SEST_Replenishment): +23
+ae_ffg_santa_maria_late (spain, 3630495619): +23
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, ran_S-70B-2_Seahawk_late, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
     AB 212 / Bell 212: mm_ab212, mm_ab212_91, tha_ab212
     Seasprite: usn_sh-2g, rnzn_sh-2gi
@@ -149,6 +149,8 @@ js_ffg_mogami (japan, SEST_JMSDF_Mogami): +17
     Seasprite: usn_sh-2g, rnzn_sh-2gi
 ko_ddg-995 (south_korea, SEST_Replenishment): +16
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, ran_S-70B-2_Seahawk_late, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk
+ko_kddx (south_korea, SEST_Replenishment): +16
+    Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, ran_S-70B-2_Seahawk_late, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk
 mm_cgh_andrea_doria (italy, 3505420313): +3
     AB 212 / Bell 212: spa_ab212, mm_ab212_91, tha_ab212
 mm_cgh_vittorio_veneto (italy, 3505420313): +17
@@ -267,6 +269,8 @@ rn_ff_type23_mlu (uk, SEST_Replenishment): +21
 rn_ff_type42 (uk, 3491248180): +13
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
 rn_lph_ocean (uk, SEST_Allied_Fixes): +14
+    Sea King / SH-3: rn_sea_king, rn_sea_king_aew, rn_sea_king_has6, usn_sh-3h, usn_sh-3j, usn_sh_3h, spa_sh-3d, spa_sh-3d_AEW, mm_sh-3, mm_sh-3_91, ran_westlandseaking, ran_sea_king_aew2, jmsdf_hss-2, usmc_vh-3d
+rn_lph_ocean_09 (uk, SEST_Replenishment): +14
     Sea King / SH-3: rn_sea_king, rn_sea_king_aew, rn_sea_king_has6, usn_sh-3h, usn_sh-3j, usn_sh_3h, spa_sh-3d, spa_sh-3d_AEW, mm_sh-3, mm_sh-3_91, ran_westlandseaking, ran_sea_king_aew2, jmsdf_hss-2, usmc_vh-3d
 rn_lph_ocean_asw (uk, SEST_Replenishment): +26
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
